@@ -26,7 +26,7 @@ weight: 10
 
 指定したPodから指定したコンテナのチェックポイントを作成するようにkubeletに指示します。
 
-kubeletチェックポイントインターフェイスへのアクセスの制御方法についての詳細な情報は、[Kubelet authentication/authorization reference](/docs/reference/access-authn-authz/kubelet-authn-authz)を参照してください。
+kubeletチェックポイントインターフェースへのアクセスの制御方法についての詳細な情報は、[Kubelet authentication/authorization reference](/docs/reference/access-authn-authz/kubelet-authn-authz)を参照してください。
 
 kubeletは基礎となる{{<glossary_tooltip term_id="cri" text="CRI">}}実装にチェックポイントをリクエストします。
 チェックポイントリクエストでは、kubeletが`checkpoint-<podFullName>-<containerName>-<timestamp>.tar`のようなチェックポイントアーカイブの名前を指定します。

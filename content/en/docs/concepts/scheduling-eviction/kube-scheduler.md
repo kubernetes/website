@@ -62,7 +62,7 @@ kube-scheduler selects a node for the pod in a 2-step operation:
 
 The _filtering_ step finds the set of Nodes where it's feasible to
 schedule the Pod. For example, the PodFitsResources filter checks whether a
-candidate Node has enough available resource to meet a Pod's specific
+candidate Node has enough available resources to meet a Pod's specific
 resource requests. After this step, the node list contains any suitable
 Nodes; often, there will be more than one. If the list is empty, that
 Pod isn't (yet) schedulable.

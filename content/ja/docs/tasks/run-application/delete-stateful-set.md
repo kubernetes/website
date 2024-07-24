@@ -6,16 +6,11 @@ weight: 60
 
 <!-- overview -->
 
-このタスクでは、StatefulSetを削除する方法を説明します。
-
-
+このタスクでは、{{< glossary_tooltip term_id="StatefulSet" >}}を削除する方法を説明します。
 
 ## {{% heading "prerequisites" %}}
 
-
 * このタスクは、クラスター上で、StatefulSetで表現されるアプリケーションが実行されていることを前提としています。
-
-
 
 <!-- steps -->
 
@@ -43,10 +38,10 @@ kubectlを使ってStatefulSetを削除すると0にスケールダウンされ�
 kubectl delete -f <file.yaml> --cascade=orphan
 ```
 
-`--cascade=orphan`を`kubectl delete`に渡すことで、StatefulSetオブジェクト自身が削除された後でも、StatefulSetによって管理されていたPodは残ります。Podに`app=myapp`というラベルが付いている場合は、次のようにして削除できます:
+`--cascade=orphan`を`kubectl delete`に渡すことで、StatefulSetオブジェクト自身が削除された後でも、StatefulSetによって管理されていたPodは残ります。Podに`app.kubernetes.io/name=MyApp`というラベルが付いている場合は、次のようにして削除できます:
 
 ```shell
-kubectl delete pods -l app=myapp
+kubectl delete pods -l app.kubernetes.io/name=MyApp
 ```
 
 ### 永続ボリューム
@@ -63,25 +58,17 @@ StatefulSet内のPodを削除しても、関連付けられているボリュー
 
 ```shell
 grace=$(kubectl get pods <stateful-set-pod> --template '{{.spec.terminationGracePeriodSeconds}}')
-kubectl delete statefulset -l app=myapp
+kubectl delete statefulset -l app.kubernetes.io/name=MyApp
 sleep $grace
-kubectl delete pvc -l app=myapp
-
+kubectl delete pvc -l app.kubernetes.io/name=MyApp
 ```
 
-上の例では、Podは`app=myapp`というラベルを持っています。必要に応じてご利用のラベルに置き換えてください。
+上の例では、Podは`app.kubernetes.io/name=MyApp`というラベルを持っています。必要に応じてご利用のラベルに置き換えてください。
 
 ### StatefulSet Podの強制削除
 
 StatefulSet内の一部のPodが長期間`Terminating`または`Unknown`状態のままになっていることが判明した場合は、手動でapiserverからPodを強制的に削除する必要があります。これは潜在的に危険な作業です。詳細は[StatefulSet Podの強制削除](/ja/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
 
-
-
 ## {{% heading "whatsnext" %}}
 
-
-[StatefulSet Podの強制削除](/ja/docs/tasks/run-application/force-delete-stateful-set-pod/)の詳細
-
-
-
-
+[StatefulSet Podの強制削除](/ja/docs/tasks/run-application/force-delete-stateful-set-pod/)の詳細。

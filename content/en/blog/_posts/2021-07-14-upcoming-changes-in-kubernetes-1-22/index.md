@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes API and Feature Removals In 1.22: Here’s What You Need To Know"
 date: 2021-07-14
 slug: upcoming-changes-in-kubernetes-1-22
+author: >
+  Krishna Kilari (Amazon Web Services),
+  Tim Bannister (The Scale Factory)
 ---
-
-**Authors**: Krishna Kilari (Amazon Web Services), Tim Bannister (The Scale Factory)
 
 As the Kubernetes API evolves, APIs are periodically reorganized or upgraded.
 When APIs evolve, the old APIs they replace are deprecated, and eventually removed.

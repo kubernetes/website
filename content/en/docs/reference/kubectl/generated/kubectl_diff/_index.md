@@ -110,7 +110,7 @@ kubectl diff -f FILENAME
 <td colspan="2">--prune-allowlist strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Overwrite the default whitelist with &lt;group/version/kind&gt; for --prune</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Overwrite the default allowlist with &lt;group/version/kind&gt; for --prune</p></td>
 </tr>
 
 <tr>
@@ -174,13 +174,6 @@ kubectl diff -f FILENAME
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>UID to impersonate for the operation.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--azure-container-registry-config string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the file containing Azure container registry configuration information.</p></td>
 </tr>
 
 <tr>

@@ -2,9 +2,9 @@
 layout: blog
 title: "Introducing Hierarchical Namespaces"
 date: 2020-08-14
+author: >
+  Adrian Ludwin (Google)
 ---
-
-**Author**: Adrian Ludwin (Google)
 
 Safely hosting large numbers of users on a single Kubernetes cluster has always
 been a troublesome task. One key reason for this is that different organizations

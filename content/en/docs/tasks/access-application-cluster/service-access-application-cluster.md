@@ -87,7 +87,7 @@ Here is the configuration file for the application Deployment:
    Events:                 <none>
    ```
 
-   Make a note of the NodePort value for the service. For example,
+   Make a note of the NodePort value for the Service. For example,
    in the preceding output, the NodePort value is 31496.
 
 1. List the pods that are running the Hello World application:

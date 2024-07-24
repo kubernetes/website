@@ -3,10 +3,9 @@ layout: blog
 title: 'Kubernetes v1.26: CPUManager goes GA'
 date: 2022-12-27
 slug: cpumanager-ga
+author: >
+  Francesco Romani (Red Hat)
 ---
-
-**Author:**
-Francesco Romani (Red Hat)
 
 The CPU Manager is a part of the kubelet, the Kubernetes node agent, which enables the user to allocate exclusive CPUs to containers.
 Since Kubernetes v1.10, where it [graduated to Beta](/blog/2018/07/24/feature-highlight-cpu-manager/), the CPU Manager proved itself reliable and

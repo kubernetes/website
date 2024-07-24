@@ -497,19 +497,19 @@ pod usage is still within acceptable limits.
 -->
 ### 容器资源指标   {#container-resource-metrics}
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state feature_gate_name="HPAContainerMetrics" >}}
 
 <!--
 The HorizontalPodAutoscaler API also supports a container metric source where the HPA can track the
 resource usage of individual containers across a set of Pods, in order to scale the target resource.
 This lets you configure scaling thresholds for the containers that matter most in a particular Pod.
-For example, if you have a web application and a logging sidecar, you can scale based on the resource
+For example, if you have a web application and a sidecar container that provides logging, you can scale based on the resource
 use of the web application, ignoring the sidecar container and its resource use.
 -->
 HorizontalPodAutoscaler API 也支持容器指标源，这时 HPA 可以跟踪记录一组 Pod
 中各个容器的资源用量，进而触发扩缩目标对象的操作。
 容器资源指标的支持使得你可以为特定 Pod 中最重要的容器配置规模扩缩阈值。
-例如，如果你有一个 Web 应用和一个执行日志操作的边车容器，你可以基于 Web
+例如，如果你有一个 Web 应用和一个提供记录日志功能的边车容器，你可以基于 Web
 应用的资源用量来执行扩缩，忽略边车容器的存在及其资源用量。
 
 <!--
@@ -1044,13 +1044,14 @@ guidelines, which cover this exact use case.
 ## {{% heading "whatsnext" %}}
 
 <!--
-If you configure autoscaling in your cluster, you may also want to consider running a
-cluster-level autoscaler such as [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler).
+If you configure autoscaling in your cluster, you may also want to consider using
+[cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
+to ensure you are running the right number of nodes.
 
 For more information on HorizontalPodAutoscaler:
 -->
-如果你在集群中配置自动扩缩，你可能还需要考虑运行集群级别的自动扩缩器，
-例如 [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)。
+如果你在集群中配置自动扩缩，
+你可能还需要考虑使用[集群自动扩缩](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/)来确保所运行的节点数目合适。
 
 有关 HorizontalPodAutoscaler 的更多信息：
 

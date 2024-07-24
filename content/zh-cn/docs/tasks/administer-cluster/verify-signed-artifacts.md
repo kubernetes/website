@@ -77,16 +77,16 @@ cosign verify-blob "$BINARY" \
 <!-- 
 Cosign 2.0 requires the `--certificate-identity` and `--certificate-oidc-issuer` options.
 
-To learn more about keyless signing, please refer to [Keyless Signatures](https://docs.sigstore.dev/cosign/keyless).
+To learn more about keyless signing, please refer to [Keyless Signatures](https://docs.sigstore.dev/signing/overview/).
 
 Previous versions of Cosign required that you set `COSIGN_EXPERIMENTAL=1`.
 
-For additional information, plase refer to the [sigstore Blog](https://blog.sigstore.dev/cosign-2-0-released/)
+For additional information, please refer to the [sigstore Blog](https://blog.sigstore.dev/cosign-2-0-released/)
 -->
 Cosign 2.0 需要指定 `--certificate-identity` 和 `--certificate-oidc-issuer` 选项。
 
 想要进一步了解无密钥签名，请参考
-[Keyless Signatures](https://github.com/sigstore/cosign/blob/main/KEYLESS.md#keyless-signatures)。
+[Keyless Signatures](https://docs.sigstore.dev/signing/overview/)。
 
 Cosign 的早期版本还需要设置 `COSIGN_EXPERIMENTAL=1`。
 

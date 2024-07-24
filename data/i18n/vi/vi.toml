@@ -1,10 +1,16 @@
-# i18n strings for the Vietnamese (main) site.
+# Chuỗi i18n cho trang chủ tiếng Việt.
+
+[auto_generated_edit_notice]
+other = "(trang tự động tạo)"
+
+[auto_generated_pageinfo]
+other = """<p>Trang này được tạo tự động.</p><p>Nếu bạn có ý định báo cáo một vấn đề với trang này, hãy đề cập rằng trang này được tạo tự động trong mô tả vấn đề của bạn. Sửa lỗi có thể cần phải xảy ra ở một nơi khác trong dự án Kubernetes.</p>"""
 
 [caution]
 other = "Chú ý:"
 
 [cleanup_heading]
-other = "Cleaning up"
+other = "Dọn dẹp"
 
 [community_events_calendar]
 other = "Lịch sự kiện"
@@ -27,23 +33,126 @@ other = "Twitter"
 [community_youtube_name]
 other = "YouTube"
 
+# Tránh sử dụng conjunction_1.
+# Phải phù hợp với ngữ cảnh trong layouts/shortcodes/release-data.html
+# Xuất hiện trên https://kubernetes.io/releases/
+# Ví dụ như "and" trong "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "và"
+
+[cve_id]
+other = "ID CVE"
+
+[cve_issue_url]
+other = "URL Vấn đề GitHub CVE"
+
+[cve_summary]
+other = "Tóm tắt Vấn đề"
+
+[cve_table]
+other = "Danh sách CVE chính thức của Kubernetes"
+
+[cve_table_date_format]
+other = "02 Th01 2006 15:04:05 MST"
+
+[cve_table_date_format_string]
+other = "(cập nhật lần cuối: %s)"
+
+[deprecation_title]
+other = "Bạn đang xem tài liệu cho phiên bản Kubernetes:"
+
 [deprecation_warning]
-other = " tài liệu này không còn được duy trì. Phiên bản đang xem hiện tại là một snapshot tĩnh. Để rõ hơn về tài liệu bản cập nhật, xem "
+other = " tài liệu này không còn được duy trì tích cực. Phiên bản bạn đang xem hiện là một bản chụp tĩnh. Để biết thông tin cập nhật, hãy xem "
 
 [deprecation_file_warning]
-other = "Không dùng nữa"
+other = "Đã lỗi thời"
+
+[outdated_content_title]
+other = "Thông tin trong tài liệu này có thể đã lỗi thời"
+
+[outdated_content_message]
+other = "Tài liệu này có ngày cập nhật cũ hơn so với bản gốc, vì vậy thông tin mà nó chứa có thể đã lỗi thời. Nếu bạn có thể đọc tiếng Anh, hãy xem phiên bản tiếng Anh để có thông tin mới nhất: "
+
+[dockershim_message]
+other = """Dockershim đã được loại bỏ khỏi dự án Kubernetes kể từ phiên bản 1.24. Đọc <a href="/dockershim">Dockershim Removal FAQ</a> để biết thêm chi tiết."""
 
 [docs_label_browse]
-other = "Duyệt tài liệu"
+other = "Duyệt Tài liệu"
 
 [docs_label_contributors]
-other = "Người đóng góp"
+other = "Những Người đóng góp"
 
 [docs_label_i_am]
 other = "TÔI LÀ..."
 
 [docs_label_users]
-other = "Users"
+other = "Người dùng"
+
+[docs_page_versions]
+other = "Trang %s này dành cho Kubernetes %s. Nếu bạn muốn sử dụng phiên bản Kubernetes khác, vui lòng tham khảo các trang sau đây thay vì:"
+
+[docs_version_current]
+other = "(tài liệu này)"
+
+[docs_version_latest_heading]
+other = "Phiên bản mới nhất"
+
+[docs_version_other_heading]
+other = "Phiên bản cũ"
+
+[end_of_life]
+other = "Kết thúc vòng đời:"
+
+[envvars_heading]
+other = "Biến môi trường"
+
+[error_404_were_you_looking_for]
+other = "Bạn có đang tìm kiếm:"
+
+[examples_heading]
+other = "Ví dụ"
+
+[feature_gate_stage_alpha]
+other = "Alpha"
+
+[feature_gate_stage_beta]
+other = "Beta"
+
+[feature_gate_stage_stable]
+other = "GA"
+
+[feature_gate_stage_deprecated]
+other = "Đã lỗi thời"
+
+[feature_gate_table_header_default]
+other = "Mặc định"
+
+[feature_gate_table_header_feature]
+other = "Tính năng"
+
+[feature_gate_table_header_from]
+other = "Từ"
+
+[feature_gate_table_header_since]
+other = "Từ"
+
+[feature_gate_table_header_stage]
+other = "Giai đoạn"
+
+[feature_gate_table_header_to]
+other = "Đến"
+
+[feature_gate_table_header_until]
+other = "Đến"
+
+[feature_state]
+other = "TRẠNG THÁI TÍNH NĂNG:"
+
+[feature_state_kubernetes_label]
+other = "Kubernetes"
+
+[feature_state_feature_gate_tooltip]
+other = "Feature Gate:"
 
 [feedback_heading]
 other = "Phản hồi"
@@ -52,52 +161,146 @@ other = "Phản hồi"
 other = "Không"
 
 [feedback_question]
-other = "Trang này có hữu ích?"
+other = "Trang này có hữu ích không?"
 
 [feedback_yes]
 other = "Có"
 
+[final_patch_release]
+other = "Bản phát hành Patch cuối cùng"
+
+[inline_list_separator]
+other = ","
+
 [input_placeholder_email_address]
 other = "địa chỉ email"
+
+[javascript_required]
+other = "Cần [kích hoạt](https://www.enable-javascript.com/) JavaScript để xem nội dung này"
+
+[katacoda_message]
+other = """<h4>Tắt các bài hướng dẫn tương tác</h4>
+<p>Các bài hướng dẫn tương tác trên trang web này đang bị tắt. Dự án Kubernetes
+hy vọng sẽ tái thiết lập một tùy chọn học tương tác tương tự trong dài hạn.</p>
+<p>Quyết định tắt đó là kết quả của cuộc [sáp nhập](https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/)
+của O'Reilly Media với Katacoda vào năm 2019.</p>
+<p>Kubernetes rất biết ơn O'Reilly và Katacoda đã giúp đỡ nhiều người bắt đầu học Kubernetes.</p>
+<p>Các bài hướng dẫn sẽ ngừng hoạt động sau ngày <b>31<sup>th</sup> tháng 3,
+2023</b>. Để biết thêm thông tin, xem "<a href="/blog/2023/02/14/kubernetes-katacoda-tutorials-stop-from-2023-03-31/">Bài hướng dẫn Kubernetes miễn phí trên Katacoda sẽ dừng lại từ ngày 31/03/2023</a>."</p>"""
+
+[latest_release]
+other = "Bản phát hành mới nhất:"
 
 [latest_version]
 other = "phiên bản mới nhất."
 
+[layouts_blog_pager_next]
+other = "Tiếp theo >>"
+
 [layouts_blog_pager_prev]
 other = "<< Trước"
-
-[layouts_blog_pager_next]
-other = "Sau >>"
 
 [layouts_case_studies_list_tell]
 other = "Kể câu chuyện của bạn"
 
 [layouts_docs_glossary_aka]
-other = "Cũng được biết đến như là"
+other = "Còn được biết đến là"
+
+[layout_docs_glossary_architecture_description]
+other = "Các thành phần bên trong của Kubernetes."
+
+[layout_docs_glossary_architecture_name]
+other = "Kiến trúc"
+
+[layouts_docs_glossary_click_details_after]
+other = "dưới đây để có một giải thích chi tiết hơn cho bất kỳ thuật ngữ cụ thể nào."
+
+[layouts_docs_glossary_click_details_before]
+other = "Nhấp vào"
+
+[layout_docs_glossary_community_description]
+other = "Liên quan đến sự phát triển mã nguồn mở của Kubernetes."
+
+[layout_docs_glossary_community_name]
+other = "Cộng đồng"
+
+[layout_docs_glossary_core-object_description]
+other = "Loại nguồn lực mà Kubernetes hỗ trợ theo mặc định."
+
+[layout_docs_glossary_core-object_name]
+other = "Đối tượng Core"
 
 [layouts_docs_glossary_description]
-other = "Bảng chú giải này được kì vọng là một danh sách hoàn thiện, được chuẩn hóa về thuật ngữ Kubernetes. Nó bao gồm các thuật ngữ kỹ thuật dành riêng cho Kubernetes, cũng như các thuật ngữ chung hơn cung cấp ngữ cảnh hữu ích"
+other = "Bảng từ vựng này được thiết kế để là một danh sách toàn diện, chuẩn hóa các thuật ngữ của Kubernetes. Nó bao gồm các thuật ngữ kỹ thuật cụ thể cho Kubernetes, cũng như các thuật ngữ tổng quát mang lại ngữ cảnh hữu ích."
 
 [layouts_docs_glossary_deselect_all]
 other = "Bỏ chọn tất cả"
 
-[layouts_docs_glossary_click_details_after]
-other = "danh mục dưới đây để giải thích rõ hơn cho các thuật ngữ cụ thể"
+[layout_docs_glossary_extension_description]
+other = "Các tùy chỉnh được hỗ trợ của Kubernetes."
 
-[layouts_docs_glossary_click_details_before]
-other = "Click vào"
+[layout_docs_glossary_extension_name]
+other = "Phần mở rộng"
 
 [layouts_docs_glossary_filter]
-other = "Lọc các thuật ngữ theo tags"
+other = "Lọc các thuật ngữ theo các thẻ của chúng"
+
+[layout_docs_glossary_fundamental_description]
+other = "Quan trọng đối với người dùng Kubernetes lần đầu tiên."
+
+[layout_docs_glossary_fundamental_name]
+other = "Cơ bản"
+
+[layout_docs_glossary_networking_description]
+other = "Cách các thành phần Kubernetes trò chuyện với nhau (và với các chương trình bên ngoài cụm)."
+
+[layout_docs_glossary_networking_name]
+other = "Mạng"
+
+[layout_docs_glossary_operation_description]
+other = "Bắt đầu và duy trì Kubernetes."
+
+[layout_docs_glossary_operation_name]
+other = "Hoạt động"
+
+[layout_docs_glossary_security_description]
+other = "Giữ cho các ứng dụng Kubernetes an toàn và bảo mật."
+
+[layout_docs_glossary_security_name]
+other = "Bảo mật"
 
 [layouts_docs_glossary_select_all]
 other = "Chọn tất cả"
 
+[layout_docs_glossary_storage_description]
+other = "Cách các ứng dụng Kubernetes xử lý dữ liệu lâu dài."
+
+[layout_docs_glossary_storage_name]
+other = "Lưu trữ"
+
+[layout_docs_glossary_tool_description]
+other = "Phần mềm giúp làm cho Kubernetes dễ sử dụng hoặc tốt hơn."
+
+[layout_docs_glossary_tool_name]
+other = "Công cụ"
+
+[layout_docs_glossary_user-type_description]
+other = "Đại diện cho một loại người dùng Kubernetes phổ biến."
+
+[layout_docs_glossary_user-type_name]
+other = "Loại Người dùng"
+
+[layout_docs_glossary_workload_description]
+other = "Các ứng dụng đang chạy trên Kubernetes."
+
+[layout_docs_glossary_workload_name]
+other = "Khối công việc"
+
 [layouts_docs_partials_feedback_improvement]
-other = "đề xuất cải tiến"
+other = "đề xuất một cải tiến"
 
 [layouts_docs_partials_feedback_issue]
-other = "Tạo một issue trên Github repo nến bạn muốn "
+other = """Mở một vấn đề trong [Kho GitHub](https://www.github.com/kubernetes/website/) nếu bạn muốn """
 
 [layouts_docs_partials_feedback_or]
 other = "hoặc"
@@ -106,16 +309,24 @@ other = "hoặc"
 other = "báo cáo một vấn đề"
 
 [layouts_docs_partials_feedback_thanks]
-other = "Cảm ơn vì đã phản hồi. Nếu bạn có một câu hỏi cụ thể, có thể trả lời về cách sử dụng Kubernetes, hãy hỏi nó trên"
+other = "Cảm ơn bạn đã phản hồi. Nếu bạn có một câu hỏi cụ thể và có thể trả lời về cách sử dụng Kubernetes, hãy đặt nó trên"
 
 [layouts_docs_search_fetching]
-other = "Đang lấy kết quả..."
+other = "Đang tìm kết quả..."
+
+[legacy_repos_message]
+other = """Các kho lưu trữ gói cũ (`apt.kubernetes.io` và `yum.kubernetes.io`) đã bị
+[lỗi thời và đóng băng từ ngày 13 tháng 9, 2023](/blog/2023/08/31/legacy-package-repository-deprecation/).
+**Sử dụng [các kho lưu trữ mới được đặt tại `pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/)
+được khuyến nghị mạnh mẽ và yêu cầu để cài đặt các phiên bản Kubernetes phát hành sau ngày 13 tháng 9, 2023.**
+Các kho cũ đã lỗi thời, và nội dung của chúng, có thể bị xóa bất kỳ lúc nào trong tương lai và mà không có
+thêm thông báo. Các kho lưu trữ mới cung cấp tải về cho các phiên bản Kubernetes bắt đầu từ v1.24.0."""
 
 [main_by]
 other = "bởi"
 
 [main_cncf_project]
-other = """Chúng tôi là một dự án <a href="https://cncf.io/">CNCF</a></p>"""
+other = """Chúng tôi là một dự án tốt nghiệp từ <a href="https://cncf.io/">CNCF</a></p>"""
 
 [main_community_explore]
 other = "Khám phá cộng đồng"
@@ -124,40 +335,34 @@ other = "Khám phá cộng đồng"
 other = "Đóng góp"
 
 [main_copyright_notice]
-other = """The Linux Foundation &reg;. Đã đăng ký Bản quyền. The Linux Foundation đã đăng ký và sử dụng nhãn hiệu. Để biết danh sách các nhãn hiệu của The Linux Foundation, xem <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+other = """The Linux Foundation &reg;. Tất cả các quyền được bảo lưu. The Linux Foundation đã đăng ký thương hiệu và sử dụng thương hiệu. Để xem danh sách các thương hiệu của The Linux Foundation, vui lòng xem trang <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Sử dụng Thương hiệu của chúng tôi</a>"""
 
 [main_documentation_license]
-other = """Các tác giả Kubernetes | Tài liệu được phân phối theo <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
-
-[main_edit_this_page]
-other = "Sửa trang này"
-
-[main_github_create_an_issue]
-other = "Tạo một Issue"
+other = """Tác giả Kubernetes | Tài liệu phân phối dưới <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
 
 [main_github_invite]
-other = "Quan tâm đến việc hacking mã nguồn Kubernetes?"
+other = "Có quan tâm đến việc đóng góp vào mã nguồn chính của Kubernetes?"
 
 [main_github_view_on]
 other = "Xem trên GitHub"
 
 [main_kubernetes_features]
-other = "Các tính năng của Kubernetes"
+other = "Tính năng Kubernetes"
 
 [main_kubeweekly_baseline]
-other = "Muốn nhận những tin tức Kubernetes mới nhất? Đăng kí KubeWeekly."
+other = "Muốn nhận tin tức Kubernetes mới nhất không? Đăng ký KubeWeekly."
 
 [main_kubernetes_past_link]
-other = "Xem các bản tin trước đây"
+other = "Xem những bản tin trước đó"
 
 [main_kubeweekly_signup]
-other = "Đăng kí"
+other = "Đăng ký"
 
 [main_page_history]
-other ="Lịch sử trang"
+other ="Lịch sử Trang"
 
 [main_page_last_modified_on]
-other = "Trang được sửa lần cuồi vào"
+other = "Trang được chỉnh sửa lần cuối vào"
 
 [main_read_about]
 other = "Đọc về"
@@ -165,33 +370,202 @@ other = "Đọc về"
 [main_read_more]
 other = "Đọc thêm"
 
+[not_applicable]
+# Đội dịch thuật: Có thể sử dụng một đoạn văn bản dài hơn ở đây
+other = "n/a"
+
 [note]
-other = "Ghi chú:"
+other = "Lưu ý:"
 
 [objectives_heading]
 other = "Mục tiêu"
 
+[options_heading]
+other = "Tùy chọn"
+
+[outdated_blog__message]
+other = "Bài viết này đã có hơn một năm. Các bài viết cũ có thể chứa thông tin lỗi thời. Hãy kiểm tra xem thông tin trong trang có không chính xác so với thời điểm xuất bản."
+
+[patch_release]
+other = "Bản Phát hành Patch"
+
+[post_create_issue]
+other = "Tạo một vấn đề"
+
 [prerequisites_heading]
-other = "Trước khi bắt đầu"
+other = "Trước khi bạn bắt đầu"
+
+[previous_patches]
+other = "Bản Phát hành Patch:"
+
+# Đoạn văn bản sau đây được hiển thị khi JavaScript không khả dụng.
+[release_binary_alternate_links]
+other  = """Bạn có thể tìm liên kết để tải các thành phần Kubernetes (và checksum của chúng) trong các tệp [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG).
+Hoặc sử dụng [downloadkubernetes.com](https://www.downloadkubernetes.com/) để lọc theo phiên bản và kiến trúc."""
+
+[release_binary_arch]
+other  = "Kiến trúc"
+
+[release_binary_arch_option]
+other = "Kiến trúc"
+
+[release_binary_copy_link]
+other = "Sao chép Liên kết"
+
+[release_binary_copy_link_certifcate]
+other = "cert"
+
+[release_binary_copy_link_checksum]
+other = "checksum"
+
+[release_binary_copy_link_signature]
+other = "signature"
+
+[release_binary_copy_link_tooltip]
+other = "sao chép vào bảng tạm"
+
+[release_binary_download]
+other  = "Tải về Tệp Nhị phân"
+
+[release_binary_download_tooltip]
+other = "tải về tệp nhị phân"
+
+[release_binary_options]
+other  = "Tùy chọn Tải về"
+
+[release_binary_os]
+other = "Hệ điều hành"
+
+[release_binary_os_option]
+other = "Hệ điều hành"
+
+[release_binary_os_darwin]
+other = "darwin"
+
+[release_binary_os_linux]
+other = "linux"
+
+[release_binary_os_windows]
+other = "windows"
+
+[release_binary_table_caption]
+other = "Tải về các tệp nhị phân của thành phần Kubernetes"
+
+# NOTE: <current-version> là một chỗ giữ chỗ cho số phiên bản thực tế được đặt bởi shortcode 'release-binaries'.
+# Vui lòng không dịch hoặc sửa đổi chỗ giữ chỗ <current-version>.
+
+[release_binary_section]
+other = """Bạn có thể tìm các liên kết để tải về các thành phần Kubernetes <current-version> (kèm theo checksum của chúng) dưới đây.
+Để truy cập các phiên bản cũ được hỗ trợ, hãy truy cập liên kết tài liệu tương ứng
+đối với [các phiên bản cũ](https://kubernetes.io/docs/home/supported-doc-versions/#versions-older) hoặc sử dụng [downloadkubernetes.com](https://www.downloadkubernetes.com/)."""
+
+# NOTE: <current-version> và <current-changelog-url> là chỗ giữ chỗ được đặt bởi shortcode 'release-binaries'.
+# Vui lòng không dịch hoặc sửa đổi chỗ giữ chỗ <current-version> và <current-changelog-url>.
+
+[release_binary_section_note]
+other = """Để tải các phiên bản path cũ của các thành phần Kubernetes <current-version> (và checksum của chúng),
+vui lòng tham khảo tệp [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md)."""
+
+[release_binary_version]
+other  = "Phiên bản"
+
+[release_binary_version_option]
+other = "Phiên bản Mới Nhất"
+
+[release_date_after]
+other = ")"
+
+[release_date_before]
+other = "(phát hành ngày: "
+
+# Xem https://gohugo.io/functions/format/#gos-layout-string
+# Sử dụng định dạng phù hợp với khu vực của bạn
+[release_date_format]
+other = "2006-01-02"
+
+[release_cherry_pick_deadline]
+other = "Thời Hạn Chọn Cherries"
+
+[release_end_of_life_date]
+other = "Ngày Kết Thúc Vòng Đời"
+
+[release_full_details_initial_text]
+other = "Đầy Đủ"
+
+[release_information_navbar]
+other = "Thông Tin Phát Hành"
+
+[release_minor_version]
+other = "Phiên Bản Nhỏ"
+
+[release_info_next_patch]
+other = "Bản phát hành patch tiếp theo là **%s**."
+
+# Ghi chú về phiên dịch: Bạn có thể sử dụng Markdown ở đây.
+# Ba chỗ giữ chỗ (theo thứ tự) là:
+#   Phiên bản nhỏ của Kubernetes
+#   Ngày chế độ bảo trì
+#   Ngày kết thúc vòng đời
+#
+# Giữ thứ tự này. Có thể sử dụng nhiều hơn một câu, và cũng có thể thay đổi
+# thì của văn bản miễn là ý nghĩa là rõ ràng.
+[release_info_eol]
+other = "**%s** bắt đầu chế độ bảo trì vào ngày **%s** và Kết thúc Vòng đời vào ngày **%s**."
+
+[release_note]
+other = "Ghi chú"
+
+[release_schedule]
+other = "Lịch Trình"
+
+[release_target_date]
+other = "Ngày Đích"
+
+[release_changelog]
+other = "Changelog"
+
+[seealso_heading]
+other = "Xem Thêm"
 
 [subscribe_button]
-other = "Đăng ký"
+other = "Đăng Ký"
+
+[synopsis_heading]
+other = "Tóm Tắt"
+
+[thirdparty_message]
+other = """Phần này liên kết đến các dự án bên thứ ba cung cấp chức năng được yêu cầu bởi Kubernetes. Tác giả dự án Kubernetes không chịu trách nhiệm về những dự án này, được liệt kê theo thứ tự chữ cái. Để thêm một dự án vào danh sách này, đọc <a href="/docs/contribute/style/content-guide/#third-party-content">hướng dẫn nội dung</a> trước khi gửi thay đổi. <a href="#third-party-content-disclaimer">Thêm thông tin.</a>"""
+
+[thirdparty_message_edit_disclaimer]
+other="""Lời khuyên về nội dung của bên thứ ba"""
+
+
+[thirdparty_message_single_item]
+other = """&#128711; Mục này liên kết đến một dự án hoặc sản phẩm bên thứ ba không phải là một phần của Kubernetes chính. <a class="alert-more-info" href="#third-party-content-disclaimer">Thông tin thêm</a>"""
+[thirdparty_message_disclaimer]
+other = """<p>Các mục trên trang này đề cập đến các sản phẩm hoặc dự án bên thứ ba cung cấp chức năng được yêu cầu bởi Kubernetes. Tác giả dự án Kubernetes không chịu trách nhiệm đối với những sản phẩm hoặc dự án của bên thứ ba đó. Xem <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">hướng dẫn trang web CNCF</a> để biết thêm chi tiết.</p><p>Bạn nên đọc <a href="/docs/contribute/style/content-guide/#third-party-content">hướng dẫn nội dung</a> trước khi đề xuất một thay đổi thêm một liên kết bên thứ ba nữa.</p>"""
+
+[thirdparty_message_vendor]
+other = """Các mục trên trang này đề cập đến các nhà cung cấp bên ngoài Kubernetes. Tác giả dự án Kubernetes không chịu trách nhiệm đối với những sản phẩm hoặc dự án của bên thứ ba đó. Để thêm một nhà cung cấp, sản phẩm hoặc dự án vào danh sách này, đọc <a href="/docs/contribute/style/content-guide/#third-party-content">hướng dẫn nội dung</a> trước khi gửi thay đổi. <a href="#third-party-content-disclaimer">Thông tin thêm.</a>"""
+
 
 [ui_search_placeholder]
-other = "Tìm kiếm"
+other = "Tìm kiếm trên trang này"
 
 [version_check_mustbe]
-other = "Server Kubernetes của bạn phải ở phiên bản "
+other = "Máy chủ Kubernetes của bạn phải là phiên bản "
 
 [version_check_mustbeorlater]
-other = "Server Kubernetes của bạn ở phiên bản mới hơn hoặc tại phiên bản "
+other = "Máy chủ Kubernetes của bạn phải là phiên bản từ hoặc sau phiên bản "
 
 [version_check_tocheck]
 other = "Để kiểm tra phiên bản, nhập "
+
+[version_menu]
+other = "Phiên bản"
 
 [warning]
 other = "Cảnh báo:"
 
 [whatsnext_heading]
-other = "Có gì tiếp theo"
-
+other = "Tiếp theo là gì"

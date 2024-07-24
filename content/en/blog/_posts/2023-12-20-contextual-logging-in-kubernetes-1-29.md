@@ -4,9 +4,10 @@ title: "Contextual logging in Kubernetes 1.29: Better troubleshooting and enhanc
 slug: contextual-logging-in-kubernetes-1-29
 date: 2023-12-20T09:30:00-08:00
 canonicalUrl: https://www.kubernetes.dev/blog/2023/12/20/contextual-logging/
+author: >
+  [Mengjiao Liu](https://github.com/mengjiao-liu/) (DaoCloud), 
+  [Patrick Ohly](https://github.com/pohly) (Intel)
 ---
-
-**Authors**: [Mengjiao Liu](https://github.com/mengjiao-liu/) (DaoCloud), [Patrick Ohly](https://github.com/pohly) (Intel)
 
 On behalf of the [Structured Logging Working Group](https://github.com/kubernetes/community/blob/master/wg-structured-logging/README.md) 
 and [SIG Instrumentation](https://github.com/kubernetes/community/tree/master/sig-instrumentation#readme), 

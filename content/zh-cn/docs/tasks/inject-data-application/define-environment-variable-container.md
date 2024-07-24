@@ -173,6 +173,16 @@ as a CLI argument passed to the `env-print-demo` container.
 环境变量 `MESSAGE` 将所有这些环境变量的集合组合起来，
 然后再传递给容器 `env-print-demo` 的 CLI 参数中使用。
 
+<!--
+Environment variable names consist of letters, numbers, underscores,
+dots, or hyphens, but the first character cannot be a digit.
+If the `RelaxedEnvironmentVariableValidation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
+all [printable ASCII characters](https://www.ascii-code.com/characters/printable-characters) except "=" may be used for environment variable names.
+-->
+环境变量名由字母、数字、下划线、点或连字符组成，但第一个字符不能是数字。
+如果启用了 `RelaxedEnvironmentVariableValidation` 特性门控，
+则所有可打印的 ASCII 字符（"=" 除外）都可以用于环境变量名。
+
 ```yaml
 apiVersion: v1
 kind: Pod

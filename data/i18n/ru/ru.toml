@@ -1,10 +1,38 @@
 # i18n strings for the Russian (main) site.
 # NOTE: Please keep the entries in alphabetical order when editing
+
+# For "and", see [conjunction_1]
+
+[api_reference_title]
+other = "Справка API"
+
+[auto_generated_edit_notice]
+other = "(автоматически сгенерированная страница)"
+
+[auto_generated_pageinfo]
+other = """<p>Эта страница сгенерирована автоматически.</p><p>Если вы планируете сообщить о проблеме на этой странице, в описании своего issue укажите, что она автоматически сгенерирована. Возможно, исправление потребуется сделать в других репозиториях проекта Kubernetes.</p>"""
+
+[blog_post_show_more]
+other = "Показать больше публикаций..."
+
+[banner_acknowledgement]
+other = "Скрыть это уведомление"
+
+[case_study_prefix]
+other = "Кейс:"
+
 [caution]
 other = "Внимание:"
 
 [cleanup_heading]
 other = "Очистка"
+
+# Localization note (no need to translate this note)
+# This is always followed by Chinese text, as required by the Kubernetes
+# project's ICP license, issued by the government of the People's Republic
+# of China.
+[china_icp_license]
+other = "ICP license:"
 
 [community_events_calendar]
 other = "Календарь событий"
@@ -15,6 +43,9 @@ other = "Форум"
 [community_github_name]
 other = "GitHub"
 
+[community_server_fault_name]
+other = "Server Fault"
+
 [community_slack_name]
 other = "Slack"
 
@@ -22,10 +53,38 @@ other = "Slack"
 other = "Stack Overflow"
 
 [community_twitter_name]
-other = "Twitter"
+other = "X (ранее Twitter)"
+
+[community_x_name]
+other = "X (ранее Twitter)"
 
 [community_youtube_name]
 other = "YouTube"
+
+# Avoid using conjunction_1.
+# Must match the context in layouts/shortcodes/release-data.html
+# Appears on https://kubernetes.io/releases/
+# For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "и"
+
+[cve_id]
+other = "CVE ID"
+
+[cve_issue_url]
+other = "CVE GitHub Issue URL"
+
+[cve_summary]
+other = "Описание проблемы"
+
+[cve_table]
+other = "Официальный список Kubernetes CVE"
+
+[cve_table_date_format]
+other = "02 Jan 2006 15:04:05 MST"
+
+[cve_table_date_format_string]
+other = "(последнее обновление: %s)"
 
 [deprecation_title]
 other = "Вы просматриваете документацию для Kubernetes версии:"
@@ -35,6 +94,12 @@ other = " документация больше не поддерживаетс�
 
 [deprecation_file_warning]
 other = "Устаревшая"
+
+[outdated_content_title]
+other = "Информация этой страницы может быть устаревшей"
+
+[outdated_content_message]
+other = "Оригинальная (английская) версия этого документа обновлялась с момента последнего перевода, поэтому информация может быть устаревшей. Если вы читаете на английском, посмотрите на оригинальную версию с наиболее актуальной информацией: "
 
 [dockershim_message]
 other = """Dockershim удалён из проекта Kubernetes в релизе 1.24. См. подробности в <a href="/dockershim">Dockershim Removal FAQ</a>."""
@@ -51,6 +116,9 @@ other = "Я ..."
 [docs_label_users]
 other = "Пользователи"
 
+[docs_page_versions]
+other = "Это %s для Kubernetes %s. Если вам нужна другая версия Kubernetes, используйте следующие страницы:"
+
 [docs_version_current]
 other = "(эта документация)"
 
@@ -58,7 +126,7 @@ other = "(эта документация)"
 other = "Последняя версия"
 
 [docs_version_other_heading]
-other = "Старые версии"
+other = "Предыдущие версии"
 
 [end_of_life]
 other = "Конец жизни:"
@@ -72,8 +140,47 @@ other = "Возможно, вы искали:"
 [examples_heading]
 other = "Примеры"
 
+[feature_gate_stage_alpha]
+other = "Alpha"
+
+[feature_gate_stage_beta]
+other = "Beta"
+
+[feature_gate_stage_stable]
+other = "GA"
+
+[feature_gate_stage_deprecated]
+other = "Deprecated"
+
+[feature_gate_table_header_default]
+other = "По умолчанию"
+
+[feature_gate_table_header_feature]
+other = "Фича"
+
+[feature_gate_table_header_from]
+other = "С"
+
+[feature_gate_table_header_since]
+other = "Начиная с"
+
+[feature_gate_table_header_stage]
+other = "Статус"
+
+[feature_gate_table_header_to]
+other = "До"
+
+[feature_gate_table_header_until]
+other = "До"
+
 [feature_state]
 other = "СТАТУС ФИЧИ:"
+
+[feature_state_kubernetes_label]
+other = "Kubernetes"
+
+[feature_state_feature_gate_tooltip]
+other = "Feature Gate:"
 
 [feedback_heading]
 other = "Обратная связь"
@@ -86,6 +193,9 @@ other = "Эта страница была полезна?"
 
 [feedback_yes]
 other = "Да"
+
+[final_patch_release]
+other = "Последний патч-релиз"
 
 [inline_list_separator]
 other = ","
@@ -128,23 +238,95 @@ other = "Расскажите свою историю"
 [layouts_docs_glossary_aka]
 other = "Также известный как"
 
+[layout_docs_glossary_architecture_description]
+other = "Внутренние компоненты Kubernetes."
+
+[layout_docs_glossary_architecture_name]
+other = "Архитектура"
+
+[layouts_docs_glossary_click_details_after]
+other = "ниже, чтобы получить более подробное описание нужного термина."
+
+[layouts_docs_glossary_click_details_before]
+other = "Нажмите на значок"
+
+[layout_docs_glossary_community_description]
+other = "Относится к Open Source-разработке Kubernetes."
+
+[layout_docs_glossary_community_name]
+other = "Сообщество"
+
+[layout_docs_glossary_core-object_description]
+other = "Тип ресурса, поддерживаемый Kubernetes по умолчанию."
+
+[layout_docs_glossary_core-object_name]
+other = "Базовый объект"
+
 [layouts_docs_glossary_description]
 other = "Данный глоссарий должен стать исчерпывающим стандартизированным списком терминологии в Kubernetes. Он включает технические термины, специфичные для Kubernetes, а также более общие термины, которые полезно знать."
 
 [layouts_docs_glossary_deselect_all]
 other = "Отменить выбор всех тегов"
 
-[layouts_docs_glossary_click_details_after]
-other = "для получения более подробного объяснения по интересующему термину."
+[layout_docs_glossary_extension_description]
+other = "Поддерживаемые кастомизации для Kubernetes."
 
-[layouts_docs_glossary_click_details_before]
-other = "Нажмите на значок"
+[layout_docs_glossary_extension_name]
+other = "Расширение"
 
 [layouts_docs_glossary_filter]
 other = "Фильтрация терминов по тегам"
 
+[layout_docs_glossary_fundamental_description]
+other = "Актуальное для совсем нового пользователя Kubernetes."
+
+[layout_docs_glossary_fundamental_name]
+other = "Фундаментальное"
+
+[layout_docs_glossary_networking_description]
+other = "Как компоненты Kubernetes взаимодействуют между собой (и с программами вне кластера)."
+
+[layout_docs_glossary_networking_name]
+other = "Сеть"
+
+[layout_docs_glossary_operation_description]
+other = "Запуск и поддержка Kubernetes."
+
+[layout_docs_glossary_operation_name]
+other = "Эксплуатация"
+
+[layout_docs_glossary_security_description]
+other = "Обеспечение безопасности для приложений в Kubernetes."
+
+[layout_docs_glossary_security_name]
+other = "Безопасность"
+
 [layouts_docs_glossary_select_all]
 other = "Выбрать всё"
+
+[layout_docs_glossary_storage_description]
+other = "Как приложения в Kubernetes хранят постоянные данные."
+
+[layout_docs_glossary_storage_name]
+other = "Хранилище"
+
+[layout_docs_glossary_tool_description]
+other = "Приложения, которые упрощают или улучшают работу с Kubernetes."
+
+[layout_docs_glossary_tool_name]
+other = "Инструменты"
+
+[layout_docs_glossary_user-type_description]
+other = "Примеры типичных пользователей Kubernetes."
+
+[layout_docs_glossary_user-type_name]
+other = "Тип пользователей"
+
+[layout_docs_glossary_workload_description]
+other = "Приложения, которые запускаются в Kubernetes."
+
+[layout_docs_glossary_workload_name]
+other = "Рабочие нагрузки"
 
 [layouts_docs_partials_feedback_improvement]
 other = "предложить улучшение"
@@ -163,6 +345,14 @@ other = "Спасибо за обратную связь! Если у вас е�
 
 [layouts_docs_search_fetching]
 other = "Получение результатов..."
+
+[legacy_repos_message]
+other = """Репозитории `apt.kubernetes.io` и `yum.kubernetes.io` с пакетами Kubernetes объявлены
+[устаревшими и необновляемыми с 13 сентября 2023](/blog/2023/08/31/legacy-package-repository-deprecation/).
+**Чтобы устанавливать релизы Kubernetes, выпущенные после 13 сентября 2023, строго необходимо
+использовать [новые репозитории с пакетами `pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/).**
+Устаревшие legacy-репозитории и их содержимое могут быть удалены в любой момент и без предварительного
+уведомления. В новых репозиториях можно найти версии Kubernetes начиная с v1.24.0."""
 
 [main_by]
 other = "от"
@@ -212,6 +402,9 @@ other = "Прочитать о"
 [main_read_more]
 other = "Узнать больше"
 
+[monthly_patch_release]
+other = "Ежемесячный патч-релиз"
+
 [not_applicable]
 # Localization teams: it's OK to use a longer text here
 other = "н/д"
@@ -228,6 +421,9 @@ other = "Опции"
 [outdated_blog__message]
 other = "Это статье больше одного года. Такие статьи могут содержать устаревшую информацию. Перепроверяйте информацию на странице, поскольку она могла стать некорректной с момента её публикации."
 
+[patch_release]
+other = "Патч-релиз"
+
 [post_create_issue]
 other = "Создать issue"
 
@@ -236,6 +432,78 @@ other = "Подготовка к работе"
 
 [previous_patches]
 other = "Патч-релизы:"
+
+# The following text is displayed when JavaScript isn't available.
+[release_binary_alternate_links]
+other  = """Ссылки для загрузки компонентов Kubernetes (и их контрольные суммы) можно найти в файлах [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG).
+Кроме того, можно воспользоваться [downloadkubernetes.com](https://www.downloadkubernetes.com/) для фильтрации по версии и архитектуре."""
+
+[release_binary_arch]
+other  = "Архитектура"
+
+[release_binary_arch_option]
+other = "Архитектуры"
+
+[release_binary_copy_link]
+other = "Ссылка для копирования"
+
+[release_binary_copy_link_certifcate]
+other = "сертификат"
+
+[release_binary_copy_link_checksum]
+other = "checksum"
+
+[release_binary_copy_link_signature]
+other = "подпись"
+
+[release_binary_copy_link_tooltip]
+other = "скопировать в буфер обмена"
+
+[release_binary_download]
+other  = "Скачать бинарник"
+
+[release_binary_download_tooltip]
+other = "скачать бинарный файл"
+
+[release_binary_options]
+other  = "Опции для загрузки"
+
+[release_binary_os]
+other = "Операционная система"
+
+[release_binary_os_option]
+other = "Операционные системы"
+
+[release_binary_os_darwin]
+other = "darwin"
+
+[release_binary_os_linux]
+other = "linux"
+
+[release_binary_os_windows]
+other = "windows"
+
+[release_binary_table_caption]
+other = "Скачать бинарники компонентов Kubernetes"
+
+# NOTE: <current-version> is a placeholder for the actual version number set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> placeholder.
+[release_binary_section]
+other = """Ниже представлены ссылки для загрузки компонентов Kubernetes <current-version> (и их контрольные суммы).
+Чтобы скачать более старые поддерживаемые версии, перейдите на соответствующую страницу документации
+для [предыдущих версий](https://kubernetes.io/ru/docs/home/supported-doc-versions/#versions-older) или используйте [downloadkubernetes.com](https://www.downloadkubernetes.com/).""" 
+
+# NOTE: <current-version> and <current-changelog-url> are placeholders set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> and <current-changelog-url>  placeholders.
+[release_binary_section_note]
+other = """Чтобы скачать более ранние патч-версии компонентов Kubernetes <current-version> (и их контрольные суммы),
+смотрите файл [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md).""" 
+
+[release_binary_version]
+other  = "Версия"
+
+[release_binary_version_option]
+other = "Последняя версия"
 
 [release_date_after]
 other = ")"
@@ -247,6 +515,50 @@ other = "(дата релиза: "
 # Use a suitable format for your locale
 [release_date_format]
 other = "2006-01-02"
+
+[release_date_format_month]
+other = "January 2006"
+
+[release_cherry_pick_deadline]
+other = "Дедлайн для Cherry Pick"
+
+[release_end_of_life_date]
+other = "Дата конца жизни (EOL)"
+
+[release_full_details_initial_text]
+other = "Полностью"
+
+[release_information_navbar]
+other = "Информация о релизе"
+
+[release_minor_version]
+other = "Минорная версия"
+
+[release_info_next_patch]
+other = "Следующий патч-релиз — **%s**."
+
+# Localization note: You can use Markdown here.
+# The three placeholders (in order) are:
+#   Kubernetes minor version
+#   maintenance mode date
+#   end of life date
+#
+# Keep this order. It is OK to use more than one sentence, and it's also OK to change the
+# tense of the text so long as the meaning is clear.
+[release_info_eol]
+other = "**%s** переходит в режим поддержки (maintenance) **%s**, а конец жизни (EOL) — **%s**."
+
+[release_note]
+other = "Примечание"
+
+[release_schedule]
+other = "График"
+
+[release_target_date]
+other = "Планируемая дата"
+
+[release_changelog]
+other = "Changelog"
 
 [seealso_heading]
 other = "См. также"
@@ -268,6 +580,9 @@ other = """&#128711; Здесь дана ссылка на сторонний п
 
 [thirdparty_message_disclaimer]
 other = """<p>Объекты этой страницы ссылаются на сторонние продукты или проекты, реализующие функциональность, которая требуется Kubernetes. Авторы Kubernetes не несут ответственность за эти сторонние продукты или проекты. Подробнее читайте в <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">инструкциях по сайту CNCF</a>.</p><p>Перед тем, как предлагать изменения, которые добавят новую стороннюю ссылку, необходимо прочитать <a href="/docs/contribute/style/content-guide/#third-party-content">руководство по контенту</a>.</p>"""
+
+[thirdparty_message_vendor]
+other = """Объекты этой страницы ссылаются на внешних (по отношению к Kubernetes) поставщиков. Авторы проекта Kubernetes не несут ответственность за эти сторонние продукты и проекты. Чтобы добавить вендора, продукт или проект в этот список, ознакомьтесь с <a href="/docs/contribute/style/content-guide/#third-party-content">руководством по контенту</a> перед тем, как предлагать изменение. <a href="#third-party-content-disclaimer">Больше информации.</a>"""
 
 [ui_search_placeholder]
 other = "Поиск"

@@ -2,9 +2,9 @@
 layout: blog
 title: 'Introducing Volume Cloning Alpha for Kubernetes'
 date: 2019-06-21
+author: >
+  John Griffith (Red Hat)
 ---
-
-**Author**: John Griffith (Red Hat)
 
 Kubernetes v1.15 introduces alpha support for volume cloning. This feature allows you to create new volumes using the contents of existing volumes in the user's namespace using the Kubernetes API.
 

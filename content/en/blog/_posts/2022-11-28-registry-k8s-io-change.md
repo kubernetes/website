@@ -3,9 +3,10 @@ layout: blog
 title: "registry.k8s.io: faster, cheaper and Generally Available (GA)"
 date: 2022-11-28
 slug: registry-k8s-io-faster-cheaper-ga
+author: >
+   Adolfo García Veytia (Chainguard),
+   Bob Killen (Google)
 ---
-
-**Authors**: Adolfo García Veytia (Chainguard), Bob Killen (Google)
 
 Starting with Kubernetes 1.25, our container image registry has changed from k8s.gcr.io to [registry.k8s.io](https://registry.k8s.io). This new registry spreads the load across multiple Cloud Providers & Regions, functioning as a sort of content delivery network (CDN) for Kubernetes container images. This change reduces the project’s reliance on a single entity and provides a faster download experience for a large number of users.
 

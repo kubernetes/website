@@ -105,6 +105,20 @@ kubelet-start 操作的帮助命令
 </tr>
 
 <tr>
+<td colspan="2">--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:--> 默认值："registry.k8s.io"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Choose a container registry to pull control plane images from
+-->
+选择一个容器镜像仓库来从中拉取控制平面组件的镜像
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--node-name string</td>
 </tr>
 <tr>

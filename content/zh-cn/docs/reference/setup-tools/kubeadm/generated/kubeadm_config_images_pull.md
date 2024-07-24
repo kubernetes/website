@@ -63,13 +63,19 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>EtcdLearnerMode=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>
+EtcdLearnerMode=true|false (BETA - default=true)<br/>
+PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
+RootlessControlPlane=true|false (ALPHA - default=false)<br/>
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)<br/>
+WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
 -->
 一系列键值对（key=value），用于描述各种特性。可选项是：<br/>
-EtcdLearnerMode=true|false (ALPHA - 默认值=false)<br/>
-PublicKeysECDSA=true|false (ALPHA - 默认值=false)<br/>
+EtcdLearnerMode=true|false (BETA - 默认值=true)<br/>
+PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)<br/>
+WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
 </td>
 </tr>
 

@@ -3,9 +3,11 @@ layout: blog
 title: "Confidential Kubernetes: Use Confidential Virtual Machines and Enclaves to improve your cluster security"
 date: 2023-07-06
 slug: "confidential-kubernetes"
+author: >
+  Fabian Kammel (Edgeless Systems),
+  Mikko Ylinen (Intel),
+  Tobin Feldman-Fitzthum (IBM)
 ---
-
-**Authors:** Fabian Kammel (Edgeless Systems), Mikko Ylinen (Intel), Tobin Feldman-Fitzthum (IBM)
 
 In this blog post, we will introduce the concept of Confidential Computing (CC) to improve any computing environment's security and privacy properties. Further, we will show how
 the Cloud-Native ecosystem, particularly Kubernetes, can benefit from the new compute paradigm.

@@ -219,7 +219,7 @@ Example: `validation.policy.admission.k8s.io/validation_failure: '[{"message": "
 <!--
 Used by Kubernetes version v1.27 and later.
 
-This annotation indicates that a admission policy validation evaluted to false
+This annotation indicates that a admission policy validation evaluated to false
 for an API request, or that the validation resulted in an error while the policy
 was configured with `failurePolicy: Fail`.
 -->

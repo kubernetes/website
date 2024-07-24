@@ -2,14 +2,14 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-main-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
-このリポジトリには、[KubernetesのWebサイトとドキュメント](https://kubernetes.io/)をビルドするために必要な全アセットが格納されています。貢献に興味を持っていただきありがとうございます！
+このリポジトリには、[KubernetesのWebサイトとドキュメント](https://kubernetes.io/)をビルドするために必要な全アセットが格納されています。あなたの貢献をお待ちしています！
 
 - [ドキュメントに貢献する](#contributing-to-the-docs)
 - [翻訳された`README.md`一覧](#localization-readmemds)
 
-# リポジトリの使い方
+## リポジトリの使い方
 
-Hugo(Extended version)を使用してWebサイトをローカルで実行することも、コンテナランタイムで実行することもできます。コンテナランタイムを使用することを強くお勧めします。これにより、本番Webサイトとのデプロイメントの一貫性が得られます。
+Hugo(Extended version)を使用してWebサイトをローカルで実行することも、コンテナランタイムで実行することもできます。コンテナランタイムを使用することを強くお勧めします。これにより、本番Webサイトとのデプロイの一貫性が得られます。
 
 ## 前提条件
 
@@ -17,75 +17,92 @@ Hugo(Extended version)を使用してWebサイトをローカルで実行する�
 
 - [npm](https://www.npmjs.com/)
 - [Go](https://go.dev/)
-- [Hugo(Extended version)](https://gohugo.io/)
+- [Hugo (Extended version)](https://gohugo.io/)
 - [Docker](https://www.docker.com/)などのコンテナランタイム
 
-開始する前に、依存関係をインストールしてください。リポジトリのクローンを作成し、ディレクトリに移動します。
+> [!NOTE]
+[`netlify.toml`](netlify.toml#L11)の`HUGO_VERSION`環境変数で指定されたHugo extended versionをインストールしてください。
 
-```
+始める前に、依存関係をインストールしてください。リポジトリをクローンし、ディレクトリに移動します。
+
+```bash
 git clone https://github.com/kubernetes/website.git
 cd website
 ```
 
-KubernetesのWebサイトではDocsyというHugoテーマを使用しています。コンテナでWebサイトを実行する場合でも、以下を実行して、サブモジュールおよびその他の開発依存関係をプルすることを強くお勧めします。
+KubernetesのWebサイトでは[DocsyというHugoテーマ](https://github.com/google/docsy#readme)を使用しています。コンテナでWebサイトを実行する場合でも、以下を実行して、サブモジュールおよびその他の依存関係を取得することを強くお勧めします。
 
-```
-# pull in the Docsy submodule
+### Windows
+
+```powershell
+# サブモジュールの依存関係を取得
 git submodule update --init --recursive --depth 1
+```
+
+### Linux / other Unix
+
+```bash
+# サブモジュールの依存関係を取得
+make module-init
 ```
 
 ## コンテナを使ってウェブサイトを動かす
 
 コンテナ内でサイトを構築するには、以下を実行してコンテナイメージを構築し、実行します。
 
-```
-make container-image
+```bash
+# 環境変数$CONTAINER_ENGINEを設定することで、Docker以外のコンテナランタイムを使用することもできます
 make container-serve
 ```
 
-お使いのブラウザにて http://localhost:1313 にアクセスしてください。リポジトリ内のソースファイルに変更を加えると、HugoがWebサイトの内容を更新してブラウザに反映します。
+エラーが発生した場合はhugoコンテナの計算リソースが不足しています。これを解決するには、使用しているマシン([MacOS](https://docs.docker.com/desktop/settings/mac/)と[Windows](https://docs.docker.com/desktop/settings/windows/))でDockerが使用できるCPUとメモリを増やしてください。
+
+ブラウザで<http://localhost:1313>にアクセスしてください。リポジトリ内のソースファイルに変更を加えると、HugoがWebサイトの内容を更新してブラウザに反映します。
 
 ## Hugoを使ってローカル環境でWebサイトを動かす
 
-[`netlify.toml`](netlify.toml#L10)ファイルに記述されている`HUGO_VERSION`と同じExtended versionのHugoをインストールするようにしてください。
+ローカルで依存関係をインストールし、サイトを構築してテストするには、次のコマンドを実行します。
 
-ローカルでサイトを構築してテストするには、次のコマンドを実行します。
+- For macOS and Linux
+  ```bash
+  npm ci
+  make serve
+  ```
+- For Windows (PowerShell)
+  ```powershell
+  npm ci
+  hugo.exe server --buildFuture --environment development
+  ```
 
-```bash
-# install dependencies
-npm ci
-make serve
-```
-
-これで、Hugoのサーバーが1313番ポートを使って開始します。お使いのブラウザにて http://localhost:1313 にアクセスしてください。リポジトリ内のソースファイルに変更を加えると、HugoがWebサイトの内容を更新してブラウザに反映します。
+これで、Hugoのサーバーが1313番ポートを使って起動します。使用しているブラウザで<http://localhost:1313>にアクセスしてください。リポジトリ内のソースファイルに変更を加えると、HugoがWebサイトの内容を更新してブラウザに反映します。
 
 ## API reference pagesをビルドする
 
-`content/en/docs/reference/kubernetes-api`に配置されているAPIリファレンスページは<https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>を使ってSwagger仕様書からビルドされています。
+`content/ja/docs/reference/kubernetes-api`に配置されているAPIリファレンスページは<https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>を使ってSwagger Specification (OpenAPI Specification)からビルドされています。
 
 新しいKubernetesリリースのためにリファレンスページをアップデートするには、次の手順を実行します:
 
-1. `api-ref-generator`サブモジュールをプルする:
+1. `api-ref-generator`サブモジュールを取得します:
 
    ```bash
    git submodule update --init --recursive --depth 1
    ```
 
-2. Swagger仕様書を更新する:
+2. Swagger Specificationを更新します:
 
    ```bash
    curl 'https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json' > api-ref-assets/api/swagger.json
    ```
 
-3. 新しいリリースの変更を反映するため、`api-ref-assets/config/`で`toc.yaml`と`fields.yaml`を適用する。
+3. `api-ref-assets/config/`内の`toc.yaml`と`fields.yaml`を新しいリリースの変更に合わせます。
 
-4. 次に、ページをビルドする:
+4. 次に、ページをビルドします:
 
    ```bash
    make api-reference
    ```
 
-   コンテナイメージからサイトを作成・サーブする事でローカルで結果をテストすることができます:
+   コンテナイメージからサイトを作成、サーブする事でローカルで結果をテストすることができます:
 
    ```bash
    make container-image
@@ -94,19 +111,19 @@ make serve
 
    APIリファレンスを見るために、ブラウザで<http://localhost:1313/docs/reference/kubernetes-api/>を開いてください。
 
-5. 新しいコントラクトのすべての変更が設定ファイル`toc.yaml`と`fields.yaml`に反映されたら、新しく生成されたAPIリファレンスページとともにPull Requestを作成します。
+5. 新しいコントラクトのすべての変更が設定ファイル`toc.yaml`と`fields.yaml`に反映されたら、新しく生成されたAPIリファレンスのページとともにPull Requestを作成します。
 
 ## トラブルシューティング
 
 ### error: failed to transform resource: TOCSS: failed to transform "scss/main.scss" (text/x-scss): this feature is not available in your current Hugo version
 
-Hugoは、技術的な理由から2種類のバイナリがリリースされています。現在のウェブサイトは**Hugo Extended**バージョンのみに基づいて運営されています。[リリースページ](https://github.com/gohugoio/hugo/releases)で名前に「extended」が含まれるアーカイブを探します。確認するには、`hugo version`を実行し、「extended」という単語を探します。
+Hugoは、技術的な理由から2種類のバイナリがリリースされています。現在のウェブサイトは**Hugo Extended**バージョンのみに基づいて運営されています。[リリースページ](https://github.com/gohugoio/hugo/releases)で名前に`extended`が含まれるアーカイブを探します。確認するには、`hugo version`を実行し、`extended`という単語を探します。
 
 ### macOSにてtoo many open filesというエラーが表示される
 
 macOS上で`make serve`を実行した際に以下のエラーが表示される場合
 
-```
+```bash
 ERROR 2020/08/01 19:09:18 Error: listen tcp 127.0.0.1:1313: socket: too many open files
 make: *** [serve] Error 1
 ```
@@ -115,9 +132,9 @@ OS上で同時に開けるファイルの上限を確認してください。
 
 `launchctl limit maxfiles`
 
-続いて、以下のコマンドを実行します(https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c より引用)。
+続いて、以下のコマンドを実行します(<https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c>より引用)。
 
-```
+```shell
 #!/bin/sh
 
 # These are the original gist links, linking to my gists now.
@@ -140,31 +157,40 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 
 ## SIG Docsに参加する
 
-[コミュニティのページ](https://github.com/kubernetes/community/tree/master/sig-docs#meetings)をご覧になることで、SIG Docs Kubernetesコミュニティとの関わり方を学ぶことができます。
+[コミュニティのページ](https://github.com/kubernetes/community/tree/master/sig-docs#meetings)を確認することで、SIG Docs Kubernetesコミュニティとの関わり方を学ぶことができます。
 
 本プロジェクトのメンテナーには以下の方法で連絡することができます:
 
-- [Slack](https://kubernetes.slack.com/messages/kubernetes-docs-ja)
+- [Slack #kubernetes-docs-ja チャンネル](https://kubernetes.slack.com/messages/kubernetes-docs-ja)
 - [メーリングリスト](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
 ## ドキュメントに貢献する {#contributing-to-the-docs}
 
-GitHubの画面右上にある**Fork**ボタンをクリックすると、お使いのGitHubアカウントに紐付いた本リポジトリのコピーが作成され、このコピーのことを*フォーク*と呼びます。フォークリポジトリの中ではお好きなように変更を加えていただいて構いません。加えた変更をこのリポジトリに追加したい任意のタイミングにて、フォークリポジトリからPull Reqeustを作成してください。
+GitHubの画面右上にある**Fork**ボタンをクリックすると、GitHubアカウントに紐付いた本リポジトリのコピーが作成されます。このコピーのことを*フォーク*と呼びます。フォークリポジトリの中では好きなように変更を加えることができます。加えた変更をこのリポジトリに反映したい好きなタイミングで、フォークリポジトリからPull Reqeustを作成してください。
 
-Pull Requestが作成されると、レビュー担当者が責任を持って明確かつ実用的なフィードバックを返します。Pull Requestの所有者は作成者であるため、**ご自身で作成したPull Requestを編集し、フィードバックに対応するのはご自身の役目です。**
+Pull Requestが作成されると、レビュー担当者が責任を持って明確かつ実用的なフィードバックを返します。Pull Requestの所有者は作成者であるため、**自分自身で作成したPull Requestを編集し、フィードバックに対応するのはあなたの責任です。**
 
-また、状況によっては2人以上のレビュアーからフィードバックが返されたり、アサインされていないレビュー担当者からのフィードバックが来ることがある点もご注意ください。
+また、状況によっては2人以上のレビュアーからフィードバックが返されたり、アサインされていないレビュアーからのフィードバックが来ることがある点も留意してください。
 
-さらに、特定のケースにおいては、レビュー担当者がKubernetesの技術的なレビュアーに対してレビューを依頼することもあります。レビュー担当者はタイムリーにフィードバックを提供するために最善を尽くしますが、応答時間は状況に応じて異なる場合があります。
+さらに、特定のケースにおいては、レビュアーがKubernetesの技術的なレビュアーに対してレビューを依頼することもあります。レビュー担当者はタイムリーにフィードバックを提供するために最善を尽くしますが、応答時間は状況に応じて異なる場合があります。
 
-Kubernetesのドキュメントへの貢献に関する詳細については以下のページをご覧ください:
+> [!NOTE]
+ローカライゼーションにおいては、技術的なレビューを行うことはありません。技術的なレビューは英語版のドキュメントに対してのみ行われます。
+
+Kubernetesのドキュメントへの貢献に関する詳細については以下のページを確認してください:
+
+> [!NOTE]
+日本語のローカライゼーションを行う際は、[Kubernetesのドキュメントを翻訳する](https://kubernetes.io/ja/docs/contribute/localization/)が参照すべきガイドとなります。
 
 * [Kubernetesのドキュメントへの貢献](https://kubernetes.io/ja/docs/contribute/)
 * [ページコンテントタイプ](https://kubernetes.io/docs/contribute/style/page-content-types/)
 * [ドキュメントのスタイルガイド](https://kubernetes.io/docs/contribute/style/style-guide/)
 * [Kubernetesドキュメントの翻訳方法](https://kubernetes.io/docs/contribute/localization/)
 
-### New Contributor Ambassadors
+### 新たなコントリビューターのためのアンバサダー
+
+> [!NOTE]
+日本語のローカライゼーションに関する質問は、[Slack #kubernetes-docs-ja チャンネル](https://kubernetes.slack.com/messages/kubernetes-docs-ja)にてお気軽にお尋ねください。
 
 コントリビュートする時に何か助けが必要なら、[New Contributor Ambassadors](https://kubernetes.io/docs/contribute/advanced/#serve-as-a-new-contributor-ambassador)に聞いてみると良いでしょう。彼らはSIG Docsのapproverで、最初の数回のPull Requestを通して新しいコントリビューターを指導し助けることを責務としています。New Contributors Ambassadorsにコンタクトするには、[Kubernetes Slack](https://slack.k8s.io)が最適な場所です。現在のSIG DocsのNew Contributor Ambassadorは次の通りです:
 
@@ -186,7 +212,7 @@ Kubernetesのドキュメントへの貢献に関する詳細については以�
 
 ### 行動規範
 
-Kubernetesコミュニティへの参加については、[CNCFの行動規範](https://github.com/cncf/foundation/blob/master/code-of-conduct.md)によって管理されています。
+Kubernetesコミュニティへの参加については、[CNCFの行動規範](https://github.com/cncf/foundation/blob/main/code-of-conduct-languages/ja.md)によって管理されています。
 
 ## ありがとうございます！
 

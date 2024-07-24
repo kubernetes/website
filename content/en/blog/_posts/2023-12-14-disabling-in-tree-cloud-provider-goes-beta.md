@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes 1.29: Cloud Provider Integrations Are Now Separate Components"
 date: 2023-12-14T09:30:00-08:00
 slug: cloud-provider-integration-changes
+author: >
+  Michael McCune (Red Hat),
+  Andrew Sy Kim (Google)
 ---
-
-**Authors:** Michael McCune (Red Hat), Andrew Sy Kim (Google)
 
 For Kubernetes v1.29, you need to use additional components to integrate your
 Kubernetes cluster with a cloud infrastructure provider. By default, Kubernetes

@@ -2,10 +2,10 @@
 title: Developing on Kubernetes
 date: 2018-05-01
 slug: developing-on-kubernetes
+author: >
+  [Michael Hausenblas](https://twitter.com/mhausenblas) (Red Hat),
+  [Ilya Dmitrichenko](https://twitter.com/errordeveloper) (Weaveworks)
 ---
-
-**Authors**: [Michael Hausenblas](https://twitter.com/mhausenblas) (Red Hat), [Ilya Dmitrichenko](https://twitter.com/errordeveloper) (Weaveworks)
-
 
 How do you develop a Kubernetes app? That is, how do you write and test an app that is supposed to run on Kubernetes? This article focuses on the challenges, tools and methods you might want to be aware of to successfully write Kubernetes apps alone or in a team setting.
 

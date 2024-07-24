@@ -3,9 +3,9 @@ layout: blog
 title: "Grokkin' the Docs"
 date: 2019-11-05
 slug: Grokkin-the-Docs
+author: >
+  [Aimee Ukasick](https://www.linkedin.com/in/aimee-ukasick/) (independent contributor)
 ---
-
-**Author:** [Aimee Ukasick](https://www.linkedin.com/in/aimee-ukasick/), Independent Contributor
 
 {{< figure
     src="/images/blog/grokkin-the-docs/grok-definition.png"

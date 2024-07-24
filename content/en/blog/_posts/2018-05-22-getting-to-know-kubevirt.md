@@ -1,9 +1,10 @@
 ---
 title: 'Getting to Know Kubevirt'
 date: 2018-05-22
-author: kbarnard
+author: >
+  [Jason Brooks](mailto:jbrooks@redhat.com) (Red Hat),
+  [Kaitlyn Barnard](https://github.com/kbarnard10)
 ---
-**Author**: [Jason Brooks](mailto:jbrooks@redhat.com ) (Red Hat)
 
 Once you've become accustomed to running Linux container workloads on Kubernetes, you may find yourself wishing that you could run other sorts of workloads on your Kubernetes cluster. Maybe you need to run an application that isn't architected for containers, or that requires a different version of the Linux kernel -- or an all together different operating system -- than what's available on your container host.
 

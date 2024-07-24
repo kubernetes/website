@@ -9,10 +9,12 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.24"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.30"
 ---
 <!--
-When you enable this feature gate, Kubernetes components that support
- contextual logging add extra detail to log output.
+Enables extra details in log output of Kubernetes components that support
+contextual logging.
 -->
-当你启用这个特性门控，支持日志上下文记录的 Kubernetes
-组件会为日志输出添加额外的详细内容。
+在支持上下文日志记录的 Kubernetes 组件的日志输出中启用额外的详细信息。

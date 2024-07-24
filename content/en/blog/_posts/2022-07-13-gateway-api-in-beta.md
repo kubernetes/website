@@ -4,9 +4,12 @@ title: Kubernetes Gateway API Graduates to Beta
 date: 2022-07-13
 slug: gateway-api-graduates-to-beta
 canonicalUrl: https://gateway-api.sigs.k8s.io/blog/2022/graduating-to-beta/
+author: >
+  Shane Utt (Kong),
+  Rob Scott (Google),
+  Nick Young (VMware),
+  Jeff Apple (HashiCorp)
 ---
-
-**Authors:** Shane Utt (Kong), Rob Scott (Google), Nick Young (VMware), Jeff Apple (HashiCorp)
 
 We are excited to announce the v0.5.0 release of Gateway API. For the first
 time, several of our most important Gateway API resources are graduating to

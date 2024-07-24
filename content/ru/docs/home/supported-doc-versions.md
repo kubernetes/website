@@ -1,29 +1,10 @@
 ---
 title: Версии Kubernetes с поддержкой документации 
-content_type: concept
-card:
-  name: about
-  weight: 10
-  title: Версии с поддержкой документации
+content_type: custom
+layout: supported-versions
+weight: 10
 ---
 
 <!-- overview -->
 
 На сайте можно найти документацию для текущей и четырёх прошлых версий Kubernetes.
-
-
-
-<!-- body -->
-
-## Текущая версия
-
-Текущая версия:
-[{{< param "version" >}}](/).
-
-## Предыдущие версии
-
-{{< versions-other >}}
-
-
-
-

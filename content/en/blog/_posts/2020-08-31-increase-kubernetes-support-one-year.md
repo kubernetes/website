@@ -3,9 +3,10 @@ layout: blog
 title: 'Increasing the Kubernetes Support Window to One Year'
 date: 2020-08-31 
 slug: kubernetes-1-19-feature-one-year-support
+author: >
+  Tim Pepper (VMware),
+  Nick Young (VMware)
 ---
-
-**Authors:** Tim Pepper (VMware), Nick Young (VMware)
 
 Starting with Kubernetes 1.19, the support window for Kubernetes versions [will increase from 9 months to one year](https://github.com/kubernetes/enhancements/issues/1498). The longer support window is intended to allow organizations to perform major upgrades at a time of the year that works the best for them.
 

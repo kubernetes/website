@@ -1,0 +1,83 @@
+---
+title: Zalando Case Study
+case_study_styles: true
+cid: caseStudies
+
+new_case_study_styles: true
+heading_background: /images/case-studies/zalando/banner1.jpg
+heading_title_logo: /images/zalando_logo.png
+subheading: >
+  Europe's Leading Online Fashion Platform Gets Radical with Cloud Native
+case_study_details:
+  - Company: Zalando
+  - Location: Berlin, Germany
+  - Industry: Online Fashion
+---
+
+<h2>Challenge</h2>
+
+<p>Zalando, Europe's leading online fashion platform, has experienced exponential growth since it was founded in 2008. In 2015, with plans to further expand its original e-commerce site to include new services and products, Zalando embarked on a <a href="https://jobs.zalando.com/tech/blog/radical-agility-study-notes/">radical transformation</a> resulting in autonomous self-organizing teams. This change requires an infrastructure that could scale with the growth of the engineering organization. Zalando's technology department began rewriting its applications to be cloud-ready and started moving its infrastructure from on-premise data centers to the cloud. While orchestration wasn't immediately considered, as teams migrated to <a href="https://aws.amazon.com/">Amazon Web Services</a> (AWS): "We saw the pain teams were having with infrastructure and Cloud Formation on AWS," says Henning Jacobs, Head of Developer Productivity. "There's still too much operational overhead for the teams and compliance. " To provide better support, cluster management was brought into play.</p>
+
+<h2>Solution</h2>
+
+<p>The company now runs its Docker containers on AWS using Kubernetes orchestration.</p>
+
+<h2>Impact</h2>
+
+<p>With the old infrastructure "it was difficult to properly embrace new technologies, and DevOps teams were considered to be a bottleneck," says Jacobs. "Now, with this cloud infrastructure, they have this packaging format, which can contain anything that runs on the Linux kernel. This makes a lot of people pretty happy. The engineers love autonomy."</p>
+
+{{< case-studies/quote author="Henning Jacobs, Head of Developer Productivity at Zalando" >}}
+"We envision all Zalando delivery teams running their containerized applications on a state-of-the-art, reliable and scalable cluster infrastructure provided by Kubernetes."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+When Henning Jacobs arrived at Zalando in 2010, the company was just two years old with 180 employees running an online store for European shoppers to buy fashion items.
+{{< /case-studies/lead >}}
+
+<p>"It started as a PHP e-commerce site which was easy to get started with, but was not scaling with the business' needs" says Jacobs, Head of Developer Productivity at Zalando.</p>
+
+<p>At that time, the company began expanding beyond its German origins into other European markets. Fast-forward to today and Zalando now has more than 14,000 employees, 3.6 billion Euro in revenue for 2016 and operates across 15 countries. "With growth in all dimensions, and constant scaling, it has been a once-in-a-lifetime experience," he says.</p>
+
+<p>Not to mention a unique opportunity for an infrastructure specialist like Jacobs. Just after he joined, the company began rewriting all their applications in-house. "That was generally our strategy," he says. "For example, we started with our own logistics warehouses but at first you don't know how to do logistics software, so you have some vendor software. And then we replaced it with our own because with off-the-shelf software you're not competitive. You need to optimize these processes based on your specific business needs."</p>
+
+<p>In parallel to rewriting their applications, Zalando had set a goal of expanding beyond basic e-commerce to a platform offering multi-tenancy, a dramatic increase in assortments and styles, same-day delivery and even <a href="https://www.zalon.de">your own personal online stylist</a>.</p>
+
+<p>The need to scale ultimately led the company on a cloud-native journey. As did its embrace of a microservices-based software architecture that gives engineering teams more autonomy and ownership of projects. "This move to the cloud was necessary because in the data center you couldn't have autonomous teams. You have the same infrastructure and it was very homogeneous, so you could only run your Java or Python app," Jacobs says.</p>
+
+{{< case-studies/quote image="/images/case-studies/zalando/banner3.jpg" >}}
+"This move to the cloud was necessary because in the data center you couldn't have autonomous teams. You have the same infrastructure and it was very homogeneous, so you could only run your Java or Python app."
+{{< /case-studies/quote >}}
+
+<p>Zalando began moving its infrastructure from two on-premise data centers to the cloud, requiring the migration of older applications for cloud-readiness. "We decided to have a clean break," says Jacobs. "Our <a href="https://aws.amazon.com/">Amazon Web Services</a> infrastructure was set up like so: Every team has its own AWS account, which is completely isolated, meaning there's no 'lift and shift.' You basically have to rewrite your application to make it cloud-ready even down to the persistence layer. We bravely went back to the drawing board and redid everything, first choosing Docker as a common containerization, then building the infrastructure from there."</p>
+
+<p>The company decided to hold off on orchestration at the beginning, but as teams were migrated to AWS, "we saw the pain teams were having with infrastructure and cloud formation on AWS," says Jacobs.</p>
+
+<p>Zalandos 200+ autonomous engineering teams decide what technologies to use and could operate their own applications using their own AWS accounts. This setup proved to be a compliance challenge. Even with strict rules-of-play and automated compliance checks in place, engineering teams and IT-compliance were overburdened addressing compliance issues. "Violations appear for non-compliant behavior, which we detect when scanning the cloud infrastructure," says Jacobs. "Everything is possible and nothing enforced, so you have to live with violations (and resolve them) instead of preventing the error in the first place. This means overhead for teams—and overhead for compliance and operations. It also takes time to spin up new EC2 instances on AWS, which affects our deployment velocity."</p>
+
+<p>The team realized they needed to "leverage the value you get from cluster management," says Jacobs. When they first looked at Platform as a Service (PaaS) options in 2015, the market was fragmented; but "now there seems to be a clear winner. It seemed like a good bet to go with Kubernetes."</p>
+
+<p>The transition to Kubernetes started in 2016 during Zalando's <a href="https://jobs.zalando.com/tech/blog/hack-week-5-is-live/?gh_src=4n3gxh1">Hack Week</a> where participants deployed their projects to a Kubernetes cluster. From there 60 members of the tech infrastructure department were on-boarded - and then engineering teams were brought on one at a time. "We always start by talking with them and make sure everyone's expectations are clear," says Jacobs. "Then we conduct some Kubernetes training, which is mostly training for our CI/CD setup, because the user interface for our users is primarily through the CI/CD system. But they have to know fundamental Kubernetes concepts and the API. This is followed by a weekly sync with each team to check their progress. Once they have something in production, we want to see if everything is fine on top of what we can improve."</p>
+
+{{< case-studies/quote image="/images/case-studies/zalando/banner4.jpg" >}}
+Once Zalando began migrating applications to Kubernetes, the results were immediate. "Kubernetes is a cornerstone for our seamless end-to-end developer experience. We are able to ship ideas to production using a single consistent and declarative API," says Jacobs.
+{{< /case-studies/quote >}}
+
+<p>At the moment, Zalando is running an initial 40 Kubernetes clusters with plans to scale for the foreseeable future. Once Zalando began migrating applications to Kubernetes, the results were immediate. "Kubernetes is a cornerstone for our seamless end-to-end developer experience. We are able to ship ideas to production using a single consistent and declarative API," says Jacobs. "The self-healing infrastructure provides a frictionless experience with higher-level abstractions built upon low-level best practices. We envision all Zalando delivery teams will run their containerized applications on a state-of-the-art reliable and scalable cluster infrastructure provided by Kubernetes."</p>
+
+<p>With the old on-premise infrastructure "it was difficult to properly embrace new technologies, and DevOps teams were considered to be a bottleneck," says Jacobs. "Now, with this cloud infrastructure, they have this packaging format, which can contain anything that runs in the Linux kernel. This makes a lot of people pretty happy. The engineers love the autonomy."</p>
+
+<p>There were a few challenges in Zalando's Kubernetes implementation. "We are a team of seven people providing clusters to different engineering teams, and our goal is to provide a rock-solid experience for all of them," says Jacobs. "We don't want pet clusters. We don't want to have to understand what workload they have; it should just work out of the box. With that in mind, cluster autoscaling is important. There are many different ways of doing cluster management, and this is not part of the core. So we created two components to provision clusters, have a registry for clusters, and to manage the whole cluster life cycle."</p>
+
+<p>Jacobs's team also worked to improve the Kubernetes-AWS integration. "Thus you're very restricted. You need infrastructure to scale each autonomous team's idea." Plus, "there are still a lot of best practices missing," says Jacobs. The team, for example, recently solved a pod security policy issue. "There was already a concept in Kubernetes but it wasn't documented, so it was kind of tricky," he says. The large Kubernetes community was a big help to resolve the issue. To help other companies start down the same path, Jacobs compiled his team's learnings in a document called <a href="http://kubernetes-on-aws.readthedocs.io/en/latest/admin-guide/kubernetes-in-production.html">Running Kubernetes in Production</a>.</p>
+
+{{< case-studies/quote >}}
+"The Kubernetes API allows us to run applications in a cloud provider-agnostic way, which gives us the freedom to revisit IaaS providers in the coming years... We expect the Kubernetes API to be the global standard for PaaS infrastructure and are excited about the continued journey."
+{{< /case-studies/quote >}}
+
+<p>In the end, Kubernetes made it possible for Zalando to introduce and maintain the new products the company envisioned to grow its platform. "<a href="https://www.zalon.de/">The fashion advice</a> product used Scala, and there were struggles to make this possible with our former infrastructure," says Jacobs. "It was a workaround, and that team needed more and more support from the platform team, just because they used different technologies. Now with Kubernetes, it's autonomous. Whatever the workload is, that team can just go their way, and Kubernetes prevents other bottlenecks."</p>
+
+<p>Looking ahead, Jacobs sees Zalando's new infrastructure as a great enabler for other things the company has in the works, from its new logistics software, to a platform feature connecting brands, to products dreamed up by data scientists. "One vision is if you watch the next James Bond movie and see the suit he's wearing, you should be able to automatically order it, and have it delivered to you within an hour," says Jacobs. "It's about connecting the full fashion sphere. This is definitely not possible if you have a bottleneck with everyone running in the same data center and thus very restricted. You need infrastructure to scale each autonomous team's idea."</p>
+
+<p>For other companies considering this technology, Jacobs says he wouldn't necessarily advise doing it exactly the same way Zalando did. "It's okay to do so if you're ready to fail at some things," he says. "You need to set the right expectations. Not everything will work. Rewriting apps and this type of organizational change can be disruptive. The first product we moved was critical. There were a lot of dependencies, and it took longer than expected. Maybe we should have started with something less complicated, less business critical, just to get our toes wet."</p>
+
+<p>But once they got to the other side "it was clear for everyone that there's no big alternative," Jacobs adds. "The Kubernetes API allows us to run applications in a cloud provider-agnostic way, which gives us the freedom to revisit IaaS providers in the coming years. Zalando Technology benefits from migrating to Kubernetes as we are able to leverage our existing knowledge to create an engineering platform offering flexibility and speed to our engineers while significantly reducing the operational overhead. We expect the Kubernetes API to be the global standard for PaaS infrastructure and are excited about the continued journey."</p>

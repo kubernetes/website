@@ -20,8 +20,7 @@ This page shows how to generate the `kubectl` command reference.
 
 <!--
 This topic shows how to generate reference documentation for
-[kubectl commands](/docs/reference/generated/kubectl/kubectl-commands)
-like
+[kubectl commands](/docs/reference/generated/kubectl/kubectl-commands) like
 [kubectl apply](/docs/reference/generated/kubectl/kubectl-commands#apply) and
 [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint).
 This topic does not show how to generate the
@@ -46,20 +45,22 @@ reference page, see
 <!-- steps -->
 
 <!--
-## Setting up the local repositories
+## Set up the local repositories
 
-Create a local workspace and set your `GOPATH`. 
+Create a local workspace and set your `GOPATH`:
 -->
 ## 配置本地仓库
 
-创建本地工作区并设置你的 `GOPATH`。
+创建本地工作区并设置你的 `GOPATH`：
 
 ```shell
 mkdir -p $HOME/<workspace>
 export GOPATH=$HOME/<workspace>
 ```
 
-<!-- Get a local clone of the following repositories: -->
+<!--
+Get a local clone of the following repositories:
+-->
 获取以下仓库的本地克隆：
 
 ```shell
@@ -78,7 +79,9 @@ If you don't already have the kubernetes/website repository, get it now:
 git clone https://github.com/<your-username>/website $GOPATH/src/github.com/<your-username>/website
 ```
 
-<!-- Get a clone of the kubernetes/kubernetes repository as k8s.io/kubernetes: -->
+<!--
+Get a clone of the kubernetes/kubernetes repository as k8s.io/kubernetes:
+-->
 克隆 kubernetes/kubernetes 仓库作为 k8s.io/kubernetes：
 
 ```shell
@@ -86,23 +89,25 @@ git clone https://github.com/kubernetes/kubernetes $GOPATH/src/k8s.io/kubernetes
 ```
 
 <!-- 
-Remove the spf13 package from `$GOPATH/src/k8s.io/kubernetes/vendor/github.com`. 
+Remove the spf13 package from `$GOPATH/src/k8s.io/kubernetes/vendor/github.com`:
 -->
-从 `$GOPATH/src/k8s.io/kubernetes/vendor/github.com` 中移除 spf13 软件包。
+从 `$GOPATH/src/k8s.io/kubernetes/vendor/github.com` 中移除 spf13 软件包：
 
 ```shell
 rm -rf $GOPATH/src/k8s.io/kubernetes/vendor/github.com/spf13
 ```
 
-<!-- The kubernetes/kubernetes repository provides access to the kubectl and kustomize source code.  -->
+<!--
+The kubernetes/kubernetes repository provides access to the kubectl and kustomize source code.
+-->
 kubernetes/kubernetes 仓库提供对 kubectl 和 kustomize 源代码的访问。
 
 <!-- 
 * Determine the base directory of your clone of the
-[kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository.
-For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/k8s.io/kubernetes.`
-The remaining steps refer to your base directory as `<k8s-base>`. 
+  [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository.
+  For example, if you followed the preceding step to get the repository, your
+  base directory is `$GOPATH/src/k8s.io/kubernetes.`
+  The remaining steps refer to your base directory as `<k8s-base>`. 
 -->
 * 确定 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) 仓库的本地主目录。
   例如，如果按照前面的步骤来获取该仓库，则主目录是 `$GOPATH/src/k8s.io/kubernetes.`。
@@ -110,10 +115,10 @@ The remaining steps refer to your base directory as `<k8s-base>`.
 
 <!-- 
 * Determine the base directory of your clone of the
-[kubernetes/website](https://github.com/kubernetes/website) repository.
-For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/github.com/<your-username>/website.`
-The remaining steps refer to your base directory as `<web-base>`. 
+  [kubernetes/website](https://github.com/kubernetes/website) repository.
+  For example, if you followed the preceding step to get the repository, your
+  base directory is `$GOPATH/src/github.com/<your-username>/website.`
+  The remaining steps refer to your base directory as `<web-base>`.
 -->
 * 确定 [kubernetes/website](https://github.com/kubernetes/website) 仓库的本地主目录。
   例如，如果按照前面的步骤来获取该仓库，则主目录是 `$GOPATH/src/github.com/<your-username>/website`。
@@ -121,10 +126,11 @@ The remaining steps refer to your base directory as `<web-base>`.
 
 <!-- 
 * Determine the base directory of your clone of the
-[kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs) repository.
-For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/github.com/kubernetes-sigs/reference-docs.`
-The remaining steps refer to your base directory as `<rdocs-base>`. -->
+  [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs) repository.
+  For example, if you followed the preceding step to get the repository, your
+  base directory is `$GOPATH/src/github.com/kubernetes-sigs/reference-docs.`
+  The remaining steps refer to your base directory as `<rdocs-base>`.
+-->
 * 确定 [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs)
   仓库的本地主目录。例如，如果按照前面的步骤来获取该仓库，则主目录是
   `$GOPATH/src/github.com/kubernetes-sigs/reference-docs`。
@@ -152,7 +158,7 @@ If you do not need to edit the kubectl source code, follow the instructions to
 源码，请按照说明[配置构建变量](#setting-build-variables)。
 
 <!--
-## Editing the kubectl source code
+## Edit the kubectl source code
 
 The kubectl command reference documentation is automatically generated from
 the kubectl source code. If you want to change the reference documentation, the first step
@@ -178,10 +184,11 @@ pull request until it is merged into the target branch of the kubernetes/kuberne
 [PR 56673](https://github.com/kubernetes/kubernetes/pull/56673/files) 是一个对 kubectl
 源码中的笔误进行修复的 PR 示例。
 
-跟踪你的 PR，并回应评审人的评论。继续跟踪你的 PR，直到它合入到 kubernetes/kubernetes 仓库的目标分支中。
+跟踪你的 PR，并回应评审人的评论。继续跟踪你的 PR，直到它合入到
+kubernetes/kubernetes 仓库的目标分支中。
 
 <!--
-## Cherry picking your change into a release branch
+## Cherry pick your change into a release branch
 
 Your change is now in the master branch, which is used for development of the next
 Kubernetes release. If you want your change to appear in the docs for a Kubernetes
@@ -195,8 +202,7 @@ cherry picked into the release branch.
 cherry-pick 方式合入已发布分支。
 
 <!--
-For example, suppose the master branch is being used to develop Kubernetes
-{{< skew currentVersion >}}
+For example, suppose the master branch is being used to develop Kubernetes {{< skew currentVersion >}}
 and you want to backport your change to the release-{{< skew prevMinorVersion >}} branch. For instructions
 on how to do this, see
 [Propose a Cherry Pick](https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md).
@@ -223,7 +229,7 @@ need to work with someone who can set the label and milestone for you.
 {{< /note >}}
 
 <!--
-## Setting build variables
+## Set build variables
 
 Go to `<rdocs-base>`, and open the `Makefile` for editing:
 -->
@@ -235,7 +241,8 @@ Go to `<rdocs-base>`, and open the `Makefile` for editing:
 * Set `K8S_ROOT` to `<k8s-base>`.
 * Set `K8S_WEBROOT` to `<web-base>`.
 * Set `K8S_RELEASE` to the version of the docs you want to build.
-  For example, if you want to build docs for Kubernetes {{< skew prevMinorVersion >}}, set `K8S_RELEASE` to {{< skew prevMinorVersion >}}.
+  For example, if you want to build docs for Kubernetes {{< skew prevMinorVersion >}},
+  set `K8S_RELEASE` to {{< skew prevMinorVersion >}}.
 
 For example, update the following variables: 
 -->
@@ -280,12 +287,12 @@ make createversiondirs
 ```
 
 <!--
-## Checking out a branch in k8s.io/kubernetes
+## Check out a branch in k8s.io/kubernetes
 
-In your local <k8s-base> repository, checkout the branch that has
+In your local <k8s-base> repository, check out the branch that has
 the version of Kubernetes that you want to document. For example, if you want
-to generate docs for Kubernetes {{< skew prevMinorVersion >}}.0, checkout the `v{{< skew prevMinorVersion >}}` tag. Make sure
-you local branch is up to date.
+to generate docs for Kubernetes {{< skew prevMinorVersion >}}.0, checkout the
+`v{{< skew prevMinorVersion >}}` tag. Make sure you local branch is up to date.
 -->
 ## 从 kubernetes/kubernetes 检出一个分支
 
@@ -301,7 +308,7 @@ git pull https://github.com/kubernetes/kubernetes v{{< skew prevMinorVersion >}}
 ```
 
 <!--
-## Running the doc generation code
+## Run the doc generation code
 
 In your local kubernetes-incubator/reference-docs repository, build and run the
 kubectl command reference generation code. You might need to run the command as root:
@@ -319,8 +326,8 @@ make copycli
 The `copycli` command will clean the staging directories, generate the kubectl command files,
 and copy the collated kubectl reference HTML page and assets to `<web-base>`. 
 -->
-`copycli` 命令将清理暂存目录，生成 kubectl 命令文件，并将整理后的 kubectl 参考 HTML 页面和
-文件复制到 `<web-base>`。
+`copycli` 命令将清理暂存目录，生成 kubectl 命令文件，并将整理后的 kubectl
+参考 HTML 页面和文件复制到 `<web-base>`。
 
 <!--
 ## Locate the generated files
@@ -350,7 +357,9 @@ cd <web-base>
 git status
 ```
 
-<!-- The output should include the modified files: -->
+<!--
+The output should include the modified files:
+-->
 输出应包括修改后的文件：
 
 ```
@@ -358,8 +367,9 @@ static/docs/reference/generated/kubectl/kubectl-commands.html
 static/docs/reference/generated/kubectl/navData.js
 ```
 
-<!-- Additionally, the output might show the modified files: -->
-
+<!--
+Additionally, the output might show the modified files:
+-->
 此外，输出可能还包含：
 
 ```
@@ -382,17 +392,22 @@ Build the Kubernetes documentation in your local `<web-base>`.
 
 在本地 `<web-base>` 中构建 Kubernetes 文档。
 
+<!--
+# if not already done
+-->
 ```shell
 cd <web-base>
-git submodule update --init --recursive --depth 1 # if not already done
+git submodule update --init --recursive --depth 1 # 如果还没完成
 make container-serve
 ```
 
-<!-- View the [local preview](https://localhost:1313/docs/reference/generated/kubectl/kubectl-commands/).  -->
+<!--
+View the [local preview](https://localhost:1313/docs/reference/generated/kubectl/kubectl-commands/).
+-->
 查看[本地预览](https://localhost:1313/docs/reference/generated/kubectl/kubectl-commands/)。
 
 <!-- 
-## Adding and committing changes in kubernetes/website
+## Add and commit changes in kubernetes/website
 
 Run `git add` and `git commit` to commit the files.
 -->
@@ -401,15 +416,14 @@ Run `git add` and `git commit` to commit the files.
 运行 `git add` 和 `git commit` 提交修改文件。
 
 <!--
-## Creating a pull request
+## Create a pull request
 
 Create a pull request to the `kubernetes/website` repository. Monitor your
 pull request, and respond to review comments as needed. Continue to monitor
 your pull request until it is merged.
 
 A few minutes after your pull request is merged, your updated reference
-topics will be visible in the
-[published documentation](/docs/home).
+topics will be visible in the [published documentation](/docs/home).
 -->
 ## 创建 PR
 
@@ -428,4 +442,3 @@ topics will be visible in the
 * [生成参考文档快速入门](/zh-cn/docs/contribute/generate-ref-docs/quickstart/)
 * [为 Kubernetes 组件和工具生成参考文档](/zh-cn/docs/contribute/generate-ref-docs/kubernetes-components/)
 * [为 Kubernetes API 生成参考文档](/zh-cn/docs/contribute/generate-ref-docs/kubernetes-api/)
-

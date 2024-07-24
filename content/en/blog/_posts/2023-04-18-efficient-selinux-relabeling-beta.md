@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.27: Efficient SELinux volume relabeling (Beta)"
 date: 2023-04-18T10:00:00-08:00
 slug: kubernetes-1-27-efficient-selinux-relabeling-beta
+author: >
+   Jan Šafránek (Red Hat)
 ---
-
-**Author:** Jan Šafránek (Red Hat)
 
 ## The problem
 

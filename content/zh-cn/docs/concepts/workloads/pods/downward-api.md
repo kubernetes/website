@@ -155,11 +155,9 @@ The following information is available through environment variables
 <!--
 `status.hostIPs`
 : the IP addresses is a dual-stack version of `status.hostIP`, the first is always the same as `status.hostIP`.
-  The field is available if you enable the `PodHostIPs` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
 `status.hostIPs`
 : 这组 IP 地址是 `status.hostIP` 的双协议栈版本，第一个 IP 始终与 `status.hostIP` 相同。
-  该字段在启用了 `PodHostIPs` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)后可用。
 
 <!--
 `status.podIP`

@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.29: Single Pod Access Mode for PersistentVolumes Graduates to Stable"
 date: 2023-12-18
 slug: read-write-once-pod-access-mode-ga
+author: >
+  Chris Henzie (Google)
 ---
-
-**Author:** Chris Henzie (Google)
 
 With the release of Kubernetes v1.29, the `ReadWriteOncePod` volume access mode
 has graduated to general availability: it's part of Kubernetes' stable API. In

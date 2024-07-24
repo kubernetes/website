@@ -61,7 +61,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/conte
 Redis 파드 매니페스트의 내용을 검토하고 다음의 사항을 염두에 둔다.
 
 * `config` 라는 이름의 볼륨은 `spec.volumes[1]` 에 의해서 생성된다.
-* `spec.volumes[1].items[0]` 내부의 `key` 와 `path` 는 `config` 볼륨에 `redis.conf` 라는 파일명으로 지정된
+* `spec.volumes[1].configMap.items[0]` 내부의 `key` 와 `path` 는 `config` 볼륨에 `redis.conf` 라는 파일명으로 지정된
   `example-redis-config` 컨피그맵의 `redis-config` 키를 노출시킨다.
 * 그리고 `config` 볼륨은 `spec.containers[0].volumeMounts[1]` 에 의해서 `/redis-master` 에 마운트된다.
 

@@ -11,7 +11,7 @@ weight: 25
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.22" state="stable" >}}
+{{< feature-state feature_gate_name="ServerSideApply" >}}
 
 Kubernetes supports multiple appliers collaborating to manage the fields
 of a single [object](/docs/concepts/overview/working-with-objects/).
@@ -196,7 +196,9 @@ as [YAML](https://yaml.org/), with the media type `application/apply-patch+yaml`
 Whether you are submitting JSON data or YAML data, use
 `application/apply-patch+yaml` as the `Content-Type` header value.
 
-All JSON documents are valid YAML.
+All JSON documents are valid YAML. However, Kubernetes has a bug where it uses a YAML
+parser that does not fully implement the YAML specification. Some JSON escapes may
+not be recognized.
 {{< /note >}}
 
 The serialization is the same as for Kubernetes objects, with the exception that

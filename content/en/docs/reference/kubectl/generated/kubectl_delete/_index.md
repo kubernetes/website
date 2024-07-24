@@ -152,7 +152,7 @@ kubectl delete ([-f FILENAME] | [-k DIRECTORY] | TYPE [(NAME | -l label | --all)
 <td colspan="2">-i, --interactive</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, delete resource only when user confirms. This flag is in Alpha.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, delete resource only when user confirms.</p></td>
 </tr>
 
 <tr>
@@ -244,13 +244,6 @@ kubectl delete ([-f FILENAME] | [-k DIRECTORY] | TYPE [(NAME | -l label | --all)
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>UID to impersonate for the operation.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--azure-container-registry-config string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the file containing Azure container registry configuration information.</p></td>
 </tr>
 
 <tr>

@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes Memory Manager moves to beta"
 date: 2021-08-11
 slug: kubernetes-1-22-feature-memory-manager-moves-to-beta
+author: >
+  Artyom Lukianov (Red Hat),
+  Cezary Zukowski (Samsung) 
 ---
-
-**Authors:** Artyom Lukianov (Red Hat), Cezary Zukowski (Samsung)
 
 The blog post explains some of the internals of the _Memory manager_, a beta feature
 of Kubernetes 1.22. In Kubernetes, the Memory Manager is a

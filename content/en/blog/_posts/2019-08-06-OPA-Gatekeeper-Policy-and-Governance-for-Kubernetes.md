@@ -4,9 +4,14 @@ layout: blog
 title: "OPA Gatekeeper: Policy and Governance for Kubernetes"
 date: 2019-08-06
 slug: OPA-Gatekeeper-Policy-and-Governance-for-Kubernetes 
+author: >
+  Rita Zhang (Microsoft),
+  Max Smythe (Google),
+  Craig Hooper (Commonwealth Bank AU),
+  Tim Hinrichs (Styra),
+  Lachie Evenson (Microsoft),
+  Torin Sandall (Styra)
 ---
-
-**Authors:** Rita Zhang (Microsoft), Max Smythe (Google), Craig Hooper (Commonwealth Bank AU), Tim Hinrichs (Styra), Lachie Evenson (Microsoft), Torin Sandall (Styra)
 
 The [Open Policy Agent Gatekeeper](https://github.com/open-policy-agent/gatekeeper) project can be leveraged to help enforce policies and strengthen governance in your Kubernetes environment. In this post, we will walk through the goals, history, and current state of the project.
 

@@ -3,9 +3,9 @@ layout: blog
 title: "KubeInvaders - Gamified Chaos Engineering Tool for Kubernetes"
 date: 2020-01-22
 slug: kubeinvaders-gamified-chaos-engineering-tool-for-kubernetes
+author: >
+  Eugenio Marzo (Sourcesense)
 ---
-
-**Authors** Eugenio Marzo, Sourcesense
 
 Some months ago, I released my latest project called KubeInvaders. The
 first time I shared it with the community was during an Openshift

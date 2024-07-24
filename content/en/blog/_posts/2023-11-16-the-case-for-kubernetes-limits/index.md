@@ -3,9 +3,9 @@ layout: blog
 title: "The Case for Kubernetes Resource Limits: Predictability vs. Efficiency"
 date: 2023-11-16
 slug: the-case-for-kubernetes-resource-limits
+author: >
+  Milan Plžík (Grafana Labs)
 ---
-
-**Author:** Milan Plžík (Grafana Labs)
 
 There’s been quite a lot of posts suggesting that not using Kubernetes resource limits might be a fairly useful thing (for example, [For the Love of God, Stop Using CPU Limits on Kubernetes](https://home.robusta.dev/blog/stop-using-cpu-limits/) or [Kubernetes: Make your services faster by removing CPU limits](https://erickhun.com/posts/kubernetes-faster-services-no-cpu-limits/) ). The points made there are totally valid – it doesn’t make much sense to pay for compute power that will not be used due to limits, nor to artificially increase latency. This post strives to argue that limits have their legitimate use as well.
 

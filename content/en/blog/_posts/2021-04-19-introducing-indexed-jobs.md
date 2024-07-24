@@ -2,9 +2,9 @@
 title: "Introducing Indexed Jobs"
 date: 2021-04-19
 slug: introducing-indexed-jobs
+author: >
+  Aldo Culquicondor (Google)
 ---
-
-**Author:** Aldo Culquicondor (Google)
 
 Once you have containerized a non-parallel [Job](/docs/concepts/workloads/controllers/job/),
 it is quite easy to get it up and running on Kubernetes without modifications to

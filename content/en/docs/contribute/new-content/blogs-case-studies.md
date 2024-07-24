@@ -124,6 +124,10 @@ Submissions need to be in Markdown format to be used by the [Hugo](https://gohug
 for the blog. There are [many resources available](https://gohugo.io/documentation/) on how to use
 this technology stack.
 
+For illustrations, diagrams or charts, the [figure shortcode](https://gohugo.io/content-management/shortcodes/#figure)
+can be used. For other images, we strongly encourage use of alt attributes; if an image doesn't
+need any alt attrribute, maybe it's not needed in the article at all.
+
 We recognize that this requirement makes the process more difficult for less-familiar folks to
 submit, and we're constantly looking at solutions to lower this bar. If you have ideas on how to
 lower the barrier, please volunteer to help out. 
@@ -184,6 +188,17 @@ To submit a blog post follow these directions:
     - Examples of content that should not be marked evergreen:
       - **Tutorials** that only apply to specific releases or versions and not all future versions
       - References to pre-GA APIs or features
+
+### Mirroring from the Kubernetes Contributor Blog
+
+To mirror a blog post from the [Kubernetes contributor blog](https://www.kubernetes.dev/blog/), follow these guidelines:
+
+- Keep the blog content the same. If there are changes, they should be made to the original article first, and then to the mirrored article.
+- The mirrored blog should have a `canonicalUrl`, that is, essentially the url of the original blog after it has been published.
+- [Kubernetes contributor blogs](https://kubernetes.dev/blog) have their authors mentioned in the YAML header, while the Kubernetes blog posts mention authors in the blog content itself. This should be changed when mirroring the content.
+- Publication dates stay the same as the original blog.
+
+All of the other guidelines and expectations detailed above apply as well.
 
 ## Submit a case study
 

@@ -3,9 +3,10 @@ layout: blog
 title: 'Kubernetes v1.26: GA Support for Kubelet Credential Providers'
 date: 2022-12-22
 slug: kubelet-credential-providers
+author: >
+  Andrew Sy Kim (Google),
+  Dixita Narang (Google)
 ---
-
-**Authors:** Andrew Sy Kim (Google), Dixita Narang (Google)
 
 Kubernetes v1.26 introduced generally available (GA) support for [_kubelet credential
 provider plugins_]( /docs/tasks/kubelet-credential-provider/kubelet-credential-provider/),

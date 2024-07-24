@@ -3,9 +3,10 @@ layout: blog
 title: 'Kubernetes 1.21: CronJob Reaches GA'
 date: 2021-04-09
 slug: kubernetes-release-1.21-cronjob-ga
+author: >
+   Alay Patel (Red Hat),
+   Maciej Szulik (Red Hat)
 ---
-
- **Authors:** Alay Patel (Red Hat), and Maciej Szulik (Red Hat)
 
 In Kubernetes v1.21, the 
 [CronJob](/docs/concepts/workloads/controllers/cron-jobs/) resource

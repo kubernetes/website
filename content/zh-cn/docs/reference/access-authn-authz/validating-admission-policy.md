@@ -13,7 +13,7 @@ content_type: concept
 
 <!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="v1.28" >}}
+{{< feature-state state="stable" for_k8s_version="v1.30" >}}
 
 <!--
 This page provides an overview of Validating Admission Policy.
@@ -708,7 +708,7 @@ When an API request is validated with this admission policy, the resulting audit
 
 <!--
 In this example the annotation will only be included if the `spec.replicas` of the Deployment is more than
-50, otherwise the CEL expression evalutes to null and the annotation will not be included.
+50, otherwise the CEL expression evaluates to null and the annotation will not be included.
 
 Note that audit annotation keys are prefixed by the name of the `ValidatingAdmissionWebhook` and a `/`. If
 another admission controller, such as an admission webhook, uses the exact same audit annotation key, the 

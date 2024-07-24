@@ -16,6 +16,7 @@ stages:
 ---
 
 <!--
-Allow fine-tuning of topology manager policies,
+Enable [fine-tuning](/docs/tasks/administer-cluster/topology-manager/#topology-manager-policy-options)
+of topology manager policies.
 -->
-允许对拓扑管理器策略进行微调。
+启用拓扑管理器策略的[微调](/zh-cn/docs/tasks/administer-cluster/topology-manager/#topology-manager-policy-options)。

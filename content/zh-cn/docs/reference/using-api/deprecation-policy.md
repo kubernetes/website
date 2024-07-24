@@ -146,9 +146,9 @@ v1 对象完全相同。v2 中的表现形式可能与 v1 不同，但系统知�
 -->
 **规则 #3：给定类别的 API 版本不可被弃用以支持稳定性更差的 API 版本。**
 
-  * 一个正式发布的（GA）API 版本可替换 Beta 或 Alpha API 版本。
-  * Beta API 版本可以替换早期的 Beta 和 Alpha API 版本，但 **不可以** 替换正式的 API 版本。
-  * Alpha API 版本可以替换早期的 Alpha API 版本，但 **不可以** 替换 Beta 或正式的 API 版本。
+* 一个正式发布的（GA）API 版本可替换 Beta 或 Alpha API 版本。
+* Beta API 版本可以替换早期的 Beta 和 Alpha API 版本，但 **不可以** 替换正式的 API 版本。
+* Alpha API 版本可以替换早期的 Alpha API 版本，但 **不可以** 替换 Beta 或正式的 API 版本。
 
 <!--
 **Rule #4a: API lifetime is determined by the API stability level**
@@ -163,10 +163,10 @@ and that APIs don't stagnate on unstable beta versions, accumulating production 
 -->
 **规则 #4a：API 生命周期由 API 稳定性级别决定**
 
-   * GA API 版本可以被标记为已弃用，但不得在 Kubernetes 的主要版本中删除
-   * Beta API 版本在引入后不超过 9 个月或 3 个次要版本（以较长者为准）将被弃用，
-     并且在弃用后 9 个月或 3 个次要版本（以较长者为准）不再提供服务
-   * Alpha API 版本可能会在任何版本中被删除，不另行通知
+* GA API 版本可以被标记为已弃用，但不得在 Kubernetes 的主要版本中删除
+* Beta API 版本在引入后不超过 9 个月或 3 个次要版本（以较长者为准）将被弃用，
+  并且在弃用后 9 个月或 3 个次要版本（以较长者为准）不再提供服务
+* Alpha API 版本可能会在任何版本中被删除，不另行通知
 
 这确保了 Beta API 支持涵盖了[最多 2 个版本的支持版本偏差](/zh-cn/releases/version-skew-policy/)，
 并且这些 API 不会在不稳定的 Beta 版本上停滞不前，积累的生产使用数据将在对 Beta API 的支持结束时中断。
@@ -545,9 +545,9 @@ after their announced deprecation for no less than:**
 -->
 **规则 #5a：面向用户的命令行元素（例如，kubectl）必须在其宣布被弃用其在以下时长内仍能使用：**
 
-   * **GA：12 个月或者 2 个发布版本（取其较长者）**
-   * **Beta：3 个月或者 1 个发布版本（取其较长者）**
-   * **Alpha：0 发布版本**
+* **GA：12 个月或者 2 个发布版本（取其较长者）**
+* **Beta：3 个月或者 1 个发布版本（取其较长者）**
+* **Alpha：0 发布版本**
 
 <!--
 **Rule #5b: CLI elements of admin-facing components (e.g. kubelet) must function
@@ -559,9 +559,25 @@ after their announced deprecation for no less than:**
 -->
 **规则 #5b：面向管理员的命令行元素（例如，kubelet）必须在其被宣布弃用之后以下时长内保持可用：**
 
-   * **GA：6 个月或 1 个发行版本（取其较长者）**
-   * **Beta: 3 个月或 1 个发行版本（取其较长者）**
-   * **Alpha: 0 个发布版本**
+* **GA：6 个月或 1 个发行版本（取其较长者）**
+* **Beta: 3 个月或 1 个发行版本（取其较长者）**
+* **Alpha: 0 个发布版本**
+
+<!--
+**Rule #5c: Command line interface (CLI) elements cannot be deprecated in favor of
+less stable CLI elements**
+
+Similar to the Rule #3 for APIs, if an element of a command line interface is being replaced with an
+alternative implementation, such as by renaming an existing element, or by switching to
+use configuration sourced from a file 
+instead of a command line argument, that recommended alternative must be of
+the same or higher stability level.
+-->
+**规则 #5c：不可以为了支持稳定性更差的 CLI 元素而弃用现有命令行（CLI）元素**
+
+类似于 API 的规则 #3，如果命令行的某个元素被替换为另一种实现方式，
+例如通过重命名现有元素或者通过使用来自文件的配置替代命令行参数，
+那么推荐的替代方式的稳定性必须相同或更高。
 
 <!--
 **Rule #6: Deprecated CLI elements must emit warnings (optionally disable)
@@ -588,15 +604,54 @@ announced deprecation.**
 **规则 #7：被弃用的行为必须在被宣布弃用之后至少 1 年时间内必须保持能用。**
 
 <!--
-This does not imply that all changes to the system are governed by this policy.
-This applies only to significant, user-visible behaviors which impact the
+If the feature or behavior is being replaced with an alternative implementation
+that requires work to adopt the change, there should be an effort to simplify
+the transition whenever possible. If an alternative implementation is under
+Kubernetes organization control, the following rules apply:
+-->
+如果特性或行为正在替换为需要处理才能适应变更的替代实现，你应尽可能简化过渡。
+如果替代实现在 Kubernetes 组织的控制下，则适用以下规则：
+
+<!--
+**Rule #8: The feature of behavior must not be deprecated in favor of an alternative
+implementation that is less stable**
+
+For example, a generally available feature cannot be deprecated in favor of a Beta
+replacement.
+The Kubernetes project does, however, encourage users to adopt and transitions to alternative
+implementations even before they reach the same maturity level. This is particularly important
+for exploring new use cases of a feature or getting an early feedback on the replacement.
+-->
+规则 #8：不得因为偏好稳定性更差的替代实现而弃用现有特性或行为。
+
+例如，不可以因为偏好某 Beta 阶段的替代方式而弃用对应的已正式发布（GA）的特性。
+然而，Kubernetes 项目鼓励用户在替代实现达到相同成熟水平之前就采用并过渡到替代实现。
+这对于探索某特性的全新用例或对替代实现提供早期反馈尤为重要。
+
+<!--
+Alternative implementations may sometimes be external tools or products,
+for example a feature may move from the kubelet to container runtime
+that is not under Kubernetes project control. In such cases, the rule cannot be
+applied, but there must be an effort to ensure that there is a transition path
+that does not compromise on components' maturity levels. In the example with
+container runtimes, the effort may involve trying to ensure that popular container runtimes
+have versions that offer the same level of stability while implementing that replacement behavior.
+-->
+替代实现有时可能是外部工具或产品，例如某特性可能从 kubelet 迁移到不受 Kubernetes 项目控制的容器运行时。
+在这种情况下，此规则不再适用，但你必须努力确保存在一种过渡途径能够不影响组件的成熟水平。
+以容器运行时为例，这个努力可能包括尝试确保流行的容器运行时在实现对应的替代行为时，能够提供相同稳定性水平的版本。
+
+<!--
+Deprecation rules for features and behaviors do not imply that all changes
+to the system are governed by this policy.
+These rules applies only to significant, user-visible behaviors which impact the
 correctness of applications running on Kubernetes or that impact the
 administration of Kubernetes clusters, and which are being removed entirely.
 -->
-这并不意味着对系统的所有更改都受此策略约束。
-此规则仅适用于重大的、用户可见的行为；这些行为会影响到在 Kubernetes
+特性和行为的弃用规则并不意味着对系统的所有更改都受此策略约束。
+这些规则仅适用于重大的、用户可见的行为；这些行为会影响到在 Kubernetes
 中运行的应用的正确性，或者影响到 Kubernetes 集群的管理。
-此规则也适用于那些被整个移除的功能特性或行为。
+这些规则也适用于那些被整个移除的功能特性或行为。
 
 <!--
 An exception to the above rule is _feature gates_. Feature gates are key=value
@@ -674,26 +729,26 @@ therefore the rules for deprecation are as follows:
 特性门控的版本管理与之前讨论的组件版本管理不同，因此其对应的弃用策略如下：
 
 <!--
-**Rule #8: Feature gates must be deprecated when the corresponding feature they control
+**Rule #9: Feature gates must be deprecated when the corresponding feature they control
 transitions a lifecycle stage as follows. Feature gates must function for no less than:**
 
    * **Beta feature to GA: 6 months or 2 releases (whichever is longer)**
    * **Beta feature to EOL: 3 months or 1 release (whichever is longer)**
    * **Alpha feature to EOL: 0 releases**
 -->
-**规则 #8：特性门控所对应的功能特性经历下面所列的成熟性阶段转换时，特性门控必须被弃用。
+**规则 #9：特性门控所对应的功能特性经历下面所列的成熟性阶段转换时，特性门控必须被弃用。
 特性门控弃用时必须在以下时长内保持其功能可用：**
 
-   * **Beta 特性转为 GA：6 个月或者 2 个发布版本（取其较长者）**
-   * **Beta 特性转为丢弃：3 个月或者 1 个发布版本（取其较长者）**
-   * **Alpha 特性转为丢弃：0 个发布版本**
+* **Beta 特性转为 GA：6 个月或者 2 个发布版本（取其较长者）**
+* **Beta 特性转为丢弃：3 个月或者 1 个发布版本（取其较长者）**
+* **Alpha 特性转为丢弃：0 个发布版本**
 
 <!--
-**Rule #9: Deprecated feature gates must respond with a warning when used. When a feature gate
+**Rule #10: Deprecated feature gates must respond with a warning when used. When a feature gate
 is deprecated it must be documented in both in the release notes and the corresponding CLI help.
 Both warnings and documentation must indicate whether a feature gate is non-operational.**
 -->
-**规则 #9：已弃用的特色门控再被使用时必须给出警告回应。当特性门控被弃用时，
+**规则 #10：已弃用的特色门控再被使用时必须给出警告回应。当特性门控被弃用时，
 必须在发布说明和对应的 CLI 帮助信息中通过文档宣布。
 警告信息和文档都要标明是否某特性门控不再起作用。**
 
@@ -724,25 +779,25 @@ Kubernetes 控制平面的每个组件都公开度量值（通常是 `/metrics` 
 弃用和移除度量值的规则如下：
 
 <!--
-**Rule #9a: Metrics, for the corresponding stability class, must function for no less than:**
+**Rule #11a: Metrics, for the corresponding stability class, must function for no less than:**
 
    * **STABLE: 4 releases or 12 months (whichever is longer)**
    * **BETA: 2 releases or 8 months (whichever is longer)**
    * **ALPHA: 0 releases**
 
-**Rule #9b: Metrics, after their _announced deprecation_, must function for no less than:**
+**Rule #11b: Metrics, after their _announced deprecation_, must function for no less than:**
 
    * **STABLE: 3 releases or 9 months (whichever is longer)**
    * **BETA: 1 releases or 4 months (whichever is longer)**
    * **ALPHA: 0 releases**
 -->
-**规则 #9a: 对于相应的稳定性类别，度量值起作用的周期必须不小于：**
+**规则 #11a: 对于相应的稳定性类别，度量值起作用的周期必须不小于：**
 
 * **STABLE: 4 个发布版本或者 12 个月 (取其较长者)**
 * **BETA: 2 个发布版本或者 8 个月 (取其较长者)**
 * **ALPHA: 0 个发布版本**
 
-**规则 #9b: 在度量值被宣布启用之后，它起作用的周期必须不小于：**
+**规则 #11b: 在度量值被宣布启用之后，它起作用的周期必须不小于：**
 
 * **STABLE: 3 个发布版本或者 9 个月 (取其较长者)**
 * **BETA: 1 个发布版本或者 4 个月 (取其较长者)**
@@ -796,4 +851,3 @@ relevant release notes.
 或者这里的策略变成了很严重的羁绊。这类情形要与 SIG 和项目领导讨论，
 寻求对应场景的最佳解决方案。请一直铭记，Kubernetes 承诺要成为一个稳定的系统，
 至少会尽力做到不会影响到其用户。此弃用策略的任何例外情况都会在所有相关的发布说明中公布。
-

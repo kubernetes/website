@@ -2,9 +2,9 @@
 layout: blog
 title:  'KubeVirt: Extending Kubernetes with CRDs for Virtualized Workloads'
 date:   2018-07-27
+author: >
+  David Vossel (Red Hat)
 ---
-
-**Author**: David Vossel (Red Hat)
 
 ## What is KubeVirt?
 

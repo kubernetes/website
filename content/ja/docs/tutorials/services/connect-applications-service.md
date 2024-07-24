@@ -129,7 +129,7 @@ NAME             ADDRESSTYPE   PORTS   ENDPOINTS               AGE
 my-nginx-7vzhx   IPv4          80      10.244.2.5,10.244.3.4   21s
 ```
 
-今や、あなたのクラスター内のどのノードからもnginx Serviceに`<CLUSTER-IP>:<PORT>`でcurlを使用してアクセスできるはずです。Service IPは完全に仮想であり、物理的なケーブルで接続されるものではありません。どのように動作しているのか興味があれば、さらなる詳細について[サービスプロキシー](/ja/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)を読んでください。
+今や、あなたのクラスター内のどのノードからもnginx Serviceに`<CLUSTER-IP>:<PORT>`でcurlを使用してアクセスできるはずです。Service IPは完全に仮想であり、物理的なケーブルで接続されるものではありません。どのように動作しているのか興味があれば、さらなる詳細について[サービスプロキシ](/ja/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)を読んでください。
 
 ## Serviceへのアクセス
 

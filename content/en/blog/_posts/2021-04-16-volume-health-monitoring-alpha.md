@@ -3,9 +3,9 @@ layout: blog
 title: "Volume Health Monitoring Alpha Update"
 date: 2021-04-16
 slug: volume-health-monitoring-alpha-update
+author: >
+  Xing Yang (VMware) 
 ---
-
-**Author:** Xing Yang (VMware)
 
 The CSI Volume Health Monitoring feature, originally introduced in 1.19 has undergone a large update for the 1.21 release.
 

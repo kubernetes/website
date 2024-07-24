@@ -76,9 +76,9 @@ Path to a kubeadm configuration file.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for admin.conf
+help for super-admin.conf
 -->
-<p>admin.conf 的帮助信息。</p></td>
+<p>super-admin.conf 的帮助信息。</p></td>
 </tr>
 
 <tr>

@@ -111,16 +111,18 @@ Don't apply any changes; just output what would be done.
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-EtcdLearnerMode=true|false (ALPHA - default=false)<br/>
-PublicKeysECDSA=true|false (ALPHA - default=false)<br/>
+EtcdLearnerMode=true|false (BETA - default=true)<br/>
+PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)<br/>
+WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
 -->
 一组键值对（key=value），描述了各种特征。选项包括：<br/>
-EtcdLearnerMode=true|false (ALPHA - 默认值=false)<br/>
-PublicKeysECDSA=true|false (ALPHA - 默认值=false)<br/>
+EtcdLearnerMode=true|false (BETA - 默认值=true)<br/>
+PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)<br/>
+WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
 </td>
 </tr>
 

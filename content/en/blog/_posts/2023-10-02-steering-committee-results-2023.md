@@ -4,9 +4,9 @@ title: "Announcing the 2023 Steering Committee Election Results"
 date: 2023-10-02
 slug: steering-committee-results-2023
 canonicalUrl: https://www.kubernetes.dev/blog/2023/10/02/steering-committee-results-2023/
+author: >
+  Kaslin Fields
 ---
-
-**Author**: Kaslin Fields
 
 The [2023 Steering Committee Election](https://github.com/kubernetes/community/tree/master/elections/steering/2023) is now complete. The Kubernetes Steering Committee consists of 7 seats, 4 of which were up for election in 2023. Incoming committee members serve a term of 2 years, and all members are elected by the Kubernetes Community.
 

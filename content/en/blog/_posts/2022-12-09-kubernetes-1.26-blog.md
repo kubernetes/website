@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes v1.26: Electrifying"
 date: 2022-12-09
 slug: kubernetes-v1-26-release
+author: >
+  [Kubernetes 1.26 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.26/release-team.md)
 ---
-
-**Authors**: [Kubernetes 1.26 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.26/release-team.md)
 
 It's with immense joy that we announce the release of Kubernetes v1.26!
 

@@ -291,7 +291,7 @@ sandboxing implementations are available:
 
 * [gVisor](https://gvisor.dev/) intercepts syscalls from containers and runs them through a
   userspace kernel, written in Go, with limited access to the underlying host.
-* [Kata Containers](https://katacontainers.io/) is an OCI compliant runtime that allows you to run
+* [Kata Containers](https://katacontainers.io/) provide a secure container runtime that allows you to run
   containers in a VM. The hardware virtualization available in Kata offers an added layer of
   security for containers running untrusted code.
 

@@ -1,7 +1,7 @@
 ---
 title: 动态准入控制
 content_type: concept
-weight: 40
+weight: 45
 ---
 <!--
 reviewers:
@@ -13,7 +13,7 @@ reviewers:
 - jpbetz
 title: Dynamic Admission Control
 content_type: concept
-weight: 40
+weight: 45
 -->
 
 <!-- overview -->
@@ -93,8 +93,8 @@ In the following, we describe how to quickly experiment with admission webhooks.
 ### 先决条件 {#prerequisites}
 
 * 确保启用 MutatingAdmissionWebhook 和 ValidatingAdmissionWebhook 控制器。
-  [这里](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#is-there-a-recommended-set-of-admission-controllers-to-use)
-  是一组推荐的 admission 控制器，通常可以启用。
+  [这里](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#is-there-a-recommended-set-of-admission-controllers-to-use)是一组推荐的准入控制器，
+  通常可以启用。
 
 * 确保启用了 `admissionregistration.k8s.io/v1` API。
 
@@ -110,8 +110,8 @@ that is validated in a Kubernetes e2e test. The webhook handles the
 as an `AdmissionReview` object in the same version it received.
 -->
 请参阅 Kubernetes e2e 测试中的
-[Admission Webhook 服务器](https://github.com/kubernetes/kubernetes/blob/release-1.21/test/images/agnhost/webhook/main.go)
-的实现。Webhook 处理由 API 服务器发送的 `AdmissionReview` 请求，并且将其决定作为
+[Admission Webhook 服务器](https://github.com/kubernetes/kubernetes/blob/release-1.21/test/images/agnhost/webhook/main.go)的实现。
+Webhook 处理由 API 服务器发送的 `AdmissionReview` 请求，并且将其决定作为
 `AdmissionReview` 对象以相同版本发送回去。
 
 <!--
@@ -284,8 +284,8 @@ Webhook 提供身份证明。完成此配置需要三个步骤。
 * 启动 API 服务器时，通过 `--admission-control-config-file` 参数指定准入控制配置文件的位置。
 
 * 在准入控制配置文件中，指定 MutatingAdmissionWebhook 控制器和 ValidatingAdmissionWebhook 控制器应该读取凭据的位置。
-凭证存储在 kubeConfig 文件中（是​​的，与 kubectl 使用的模式相同），因此字段名称为 `kubeConfigFile`。
-以下是一个准入控制配置文件示例：
+  凭证存储在 kubeConfig 文件中（是​​的，与 kubectl 使用的模式相同），因此字段名称为 `kubeConfigFile`。
+  以下是一个准入控制配置文件示例：
 
 {{< tabs name="admissionconfiguration_example1" >}}
 {{% tab name="apiserver.config.k8s.io/v1" %}}
@@ -1161,7 +1161,7 @@ The `matchPolicy` for an admission webhooks defaults to `Equivalent`.
 -->
 ### 匹配请求：`matchConditions`  {#matching-requests-matchConditions}
 
-{{< feature-state state="beta" for_k8s_version="v1.28" >}}
+{{< feature-state feature_gate_name="AdmissionWebhookMatchConditions" >}}
 
 <!--
 You can define _match conditions_ for webhooks if you need fine-grained request filtering. These

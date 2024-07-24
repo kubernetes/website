@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.27: In-place Resource Resize for Kubernetes Pods (alpha)"
 date: 2023-05-12
 slug: in-place-pod-resize-alpha
+author: >
+  Vinay Kulkarni (Kubescaler Labs)
 ---
-
-**Author:** Vinay Kulkarni (Kubescaler Labs)
 
 If you have deployed Kubernetes pods with CPU and/or memory resources
 specified, you may have noticed that changing the resource values involves

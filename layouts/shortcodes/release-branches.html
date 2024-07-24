@@ -1,6 +1,6 @@
 {{ range $releaseInfo := .Site.Data.releases.schedule.schedules }}
-{{- $version := printf "%.2f" $releaseInfo.release -}}
-{{- $dataIdVersion := replace ( printf "%.2f" $releaseInfo.release ) "." "-" | anchorize -}}
+{{- $version := printf "%s" $releaseInfo.release -}}
+{{- $dataIdVersion := replace ( printf "%s" $releaseInfo.release ) "." "-" | anchorize -}}
 
 <h3 id="{{ $dataIdVersion }}">{{ $version }}</h3>
 <p>

@@ -45,7 +45,7 @@ Każdy może otworzyć zgłoszenie dotyczące dokumentacji lub zaproponować zmi
 Aby móc sprawnie funkcjonować w społeczności Kubernetes,
 wymagana jest pewna biegłość w korzystaniu z
 [git-a](https://git-scm.com/) i
-[GitHub-a](https://lab.github.com/).
+[GitHub-a](https://skills.github.com/).
 
 Aby zaangażować się w prace nad dokumentacją należy:
 

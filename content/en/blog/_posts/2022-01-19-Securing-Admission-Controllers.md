@@ -3,9 +3,9 @@ layout: blog
 title: "Securing Admission Controllers"
 date: 2022-01-19
 slug: secure-your-admission-controllers-and-webhooks
+author: >
+   Rory McCune (Aqua Security)
 ---
-
-**Author:** Rory McCune (Aqua Security)
 
 [Admission control](/docs/reference/access-authn-authz/admission-controllers/) is a key part of Kubernetes security, alongside authentication and authorization. Webhook admission controllers are extensively used to help improve the security of Kubernetes clusters in a variety of ways including restricting the privileges of workloads and ensuring that images deployed to the cluster meet organization’s security requirements.
 

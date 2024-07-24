@@ -2,9 +2,9 @@
 layout: blog
 title: 'Kubernetes Docs Updates, International Edition'
 date: 2018-11-08
+author: >
+  Zach Corleissen (Linux Foundation) 
 ---
-
-**Author**: Zach Corleissen (Linux Foundation)
 
 As a co-chair of SIG Docs, I'm excited to share that Kubernetes docs have a fully mature workflow for localization (l10n). 
 

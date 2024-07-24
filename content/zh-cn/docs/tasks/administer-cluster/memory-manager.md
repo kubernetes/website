@@ -19,7 +19,7 @@ weight: 410
 
 <!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="v1.22" >}}
+{{< feature-state feature_gate_name="MemoryManager" >}}
 
 <!--
 The Kubernetes *Memory Manager* enables the feature of guaranteed memory (and hugepages)

@@ -3,9 +3,10 @@ layout: blog
 title: 'Introducing Structured Logs'
 date: 2020-09-04
 slug: kubernetes-1-19-Introducing-Structured-Logs
+author: >
+  Marek Siarkowicz (Google),
+  Nathan Beach (Google) 
 ---
-
-**Authors:** Marek Siarkowicz (Google), Nathan Beach (Google)
 
 Logs are an essential aspect of observability and a critical tool for debugging. But Kubernetes logs have traditionally been unstructured strings, making any automated parsing difficult and any downstream processing, analysis, or querying challenging to do reliably.
 

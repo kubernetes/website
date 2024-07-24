@@ -45,10 +45,12 @@ echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc 
 
 ### FISH
 
-Require kubectl version 1.23 or above.
+{{< note >}}
+Requires kubectl version 1.23 or above.
+{{< /note >}}
 
 ```bash
-echo 'kubectl completion fish | source' >> ~/.config/fish/config.fish  # add kubectl autocompletion permanently to your fish shell 
+echo 'kubectl completion fish | source' > ~/.config/fish/completions/kubectl.fish && source ~/.config/fish/completions/kubectl.fish
 ```
 
 ### A note on `--all-namespaces`
@@ -71,12 +73,19 @@ KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
 
 kubectl config view
 
+# Show merged kubeconfig settings and raw certificate data and exposed secrets
+kubectl config view --raw 
+
 # get the password for the e2e user
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
+
+# get the certificate for the e2e user
+kubectl config view --raw -o jsonpath='{.users[?(.name == "e2e")].user.client-certificate-data}' | base64 -d
 
 kubectl config view -o jsonpath='{.users[].name}'    # display the first user
 kubectl config view -o jsonpath='{.users[*].name}'   # get a list of users
 kubectl config get-contexts                          # display list of contexts
+kubectl config get-contexts -o name                  # get all context names
 kubectl config current-context                       # display the current-context
 kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
@@ -112,11 +121,11 @@ Kubernetes manifests can be defined in YAML or JSON. The file extension `.yaml`,
 `.yml`, and `.json` can be used.
 
 ```bash
-kubectl apply -f ./my-manifest.yaml            # create resource(s)
-kubectl apply -f ./my1.yaml -f ./my2.yaml      # create from multiple files
-kubectl apply -f ./dir                         # create resource(s) in all manifest files in dir
-kubectl apply -f https://git.io/vPieo          # create resource(s) from url
-kubectl create deployment nginx --image=nginx  # start a single instance of nginx
+kubectl apply -f ./my-manifest.yaml                 # create resource(s)
+kubectl apply -f ./my1.yaml -f ./my2.yaml           # create from multiple files
+kubectl apply -f ./dir                              # create resource(s) in all manifest files in dir
+kubectl apply -f https://example.com/manifest.yaml  # create resource(s) from url (Note: this is an example domain and does not contain a valid manifest)
+kubectl create deployment nginx --image=nginx       # start a single instance of nginx
 
 # create a Job which prints "Hello World"
 kubectl create job hello --image=busybox:1.28 -- echo "Hello World"
@@ -287,7 +296,7 @@ kubectl label pods my-pod new-label=awesome                      # Add a Label
 kubectl label pods my-pod new-label-                             # Remove a label
 kubectl label pods my-pod new-label=new-value --overwrite        # Overwrite an existing value
 kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # Add an annotation
-kubectl annotate pods my-pod icon-                               # Remove annotation
+kubectl annotate pods my-pod icon-url-                           # Remove annotation
 kubectl autoscale deployment foo --min=2 --max=10                # Auto scale a deployment "foo"
 ```
 
@@ -364,6 +373,9 @@ kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the
 kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
 kubectl exec --stdin --tty my-pod -- /bin/sh        # Interactive shell access to a running pod (1 container case)
 kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)
+kubectl debug my-pod -it --image=busybox:1.28       # Create an interactive debugging session witin existing pod and immediately attach to it
+kubectl debug node/my-node -it --image=busybox:1.28 # Create an interactive debugging session on a node and immediately attach to it
+kubectl top pod                                     # Show metrics for all pods in the default namespace
 kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
 kubectl top pod POD_NAME --sort-by=cpu              # Show metrics for a given pod and sort it by 'cpu' or 'memory'
 ```
@@ -404,6 +416,7 @@ kubectl exec deploy/my-deployment -- ls                   # run command in first
 kubectl cordon my-node                                                # Mark my-node as unschedulable
 kubectl drain my-node                                                 # Drain my-node in preparation for maintenance
 kubectl uncordon my-node                                              # Mark my-node as schedulable
+kubectl top node                                                      # Show metrics for all nodes
 kubectl top node my-node                                              # Show metrics for a given node
 kubectl cluster-info                                                  # Display addresses of the master and services
 kubectl cluster-info dump                                             # Dump current cluster state to stdout

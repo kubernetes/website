@@ -65,6 +65,9 @@ kubectl config set-credentials NAME [--client-certificate=path/to/certfile] [--c
   # Enable new exec auth plugin for the "cluster-admin" entry
   kubectl config set-credentials cluster-admin --exec-command=/path/to/the/executable --exec-api-version=client.authentication.k8s.io/v1beta1
   
+  # Enable new exec auth plugin for the "cluster-admin" entry with interactive mode
+  kubectl config set-credentials cluster-admin --exec-command=/path/to/the/executable --exec-api-version=client.authentication.k8s.io/v1beta1 --exec-interactive-mode=Never
+  
   # Define new exec auth plugin arguments for the "cluster-admin" entry
   kubectl config set-credentials cluster-admin --exec-arg=arg1 --exec-arg=arg2
   
@@ -148,6 +151,20 @@ kubectl config set-credentials NAME [--client-certificate=path/to/certfile] [--c
 </tr>
 
 <tr>
+<td colspan="2">--exec-interactive-mode string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>InteractiveMode of the exec credentials plugin for the user entry in kubeconfig</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--exec-provide-cluster-info tristate[=true]</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>ProvideClusterInfo of the exec credentials plugin for the user entry in kubeconfig</p></td>
+</tr>
+
+<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
@@ -208,13 +225,6 @@ kubectl config set-credentials NAME [--client-certificate=path/to/certfile] [--c
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>UID to impersonate for the operation.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--azure-container-registry-config string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the file containing Azure container registry configuration information.</p></td>
 </tr>
 
 <tr>

@@ -4,9 +4,9 @@ title: 'Kubernetes 1.20: The Raddest Release'
 date: 2020-12-08
 slug: kubernetes-1-20-release-announcement
 evergreen: true
+author: >
+  [Kubernetes 1.20 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.20/release_team.md)
 ---
-
-**Authors:** [Kubernetes 1.20 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.20/release_team.md)
 
 We’re pleased to announce the release of Kubernetes 1.20, our third and final release of 2020! This release consists of 42 enhancements: 11 enhancements have graduated to stable, 15 enhancements are moving to beta, and 16 enhancements are entering alpha.
 

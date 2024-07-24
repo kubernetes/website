@@ -2,9 +2,10 @@
 layout: blog
 title:  'The Machines Can Do the Work, a Story of Kubernetes Testing, CI, and Automating the Contributor Experience'
 date:   2018-08-29
+author: >
+  Aaron Crickenberger (Google),
+  Benjamin Elder (Google)
 ---
-
-**Author**: Aaron Crickenberger (Google) and Benjamin Elder (Google)
 
 _“Large projects have a lot of less exciting, yet, hard work. We value time spent automating repetitive work more highly than toil. Where that work cannot be automated, it is our culture to recognize and reward all types of contributions. However, heroism is not sustainable.”_ - [Kubernetes Community Values](https://git.k8s.io/community/values.md#automation-over-process)
 

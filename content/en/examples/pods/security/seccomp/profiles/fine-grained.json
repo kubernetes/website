@@ -57,7 +57,11 @@
                 "sendto",
                 "set_tid_address",
                 "setitimer",
-                "writev"
+                "writev",
+                "fstatfs",
+                "getdents64",
+                "pipe2",
+                "getrlimit"
             ],
             "action": "SCMP_ACT_ALLOW"
         }

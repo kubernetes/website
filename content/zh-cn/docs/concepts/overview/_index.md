@@ -53,7 +53,7 @@ Kubernetes project in 2014. Kubernetes combines
 [over 15 years of Google's experience](/blog/2015/04/borg-predecessor-to-kubernetes/) running
 production workloads at scale with best-of-breed ideas and practices from the community.
 -->
-**Kubernetes** 这个名字源于希腊语，意为“舵手”或“飞行员”。k8s 这个缩写是因为 k 和 s 之间有八个字符的关系。
+**Kubernetes** 这个名字源于希腊语，意为“舵手”或“飞行员”。K8s 这个缩写是因为 K 和 s 之间有 8 个字符的关系。
 Google 在 2014 年开源了 Kubernetes 项目。
 Kubernetes 建立在 [Google 大规模运行生产工作负载十几年经验](https://research.google/pubs/pub43438)的基础上，
 结合了社区中最优秀的想法和实践。

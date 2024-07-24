@@ -77,7 +77,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * [Emissary-Ingress](https://www.getambassador.io/products/api-gateway) API Gateway is an [Envoy](https://www.envoyproxy.io)-based ingress
   controller.
 * [EnRoute](https://getenroute.io/) is an [Envoy](https://www.envoyproxy.io) based API gateway that can run as an ingress controller.
-* [Easegress IngressController](https://github.com/megaease/easegress/blob/main/doc/reference/ingresscontroller.md) is an [Easegress](https://megaease.com/easegress/) based API gateway that can run as an ingress controller.
+* [Easegress IngressController](https://megaease.com/docs/easegress/04.cloud-native/4.1.kubernetes-ingress-controller/) is an [Easegress](https://megaease.com/easegress/) based API gateway that can run as an ingress controller.
 -->
 * [BFE Ingress 控制器](https://github.com/bfenetworks/ingress-bfe)是一个基于
   [BFE](https://www.bfe-networks.net) 的 Ingress 控制器。
@@ -91,7 +91,7 @@ Kubernetes 作为一个项目，目前支持和维护
   [Envoy](https://www.envoyproxy.io/) 的入口控制器。
 * [EnRoute](https://getenroute.io/) 是一个基于 [Envoy](https://www.envoyproxy.io)
   的 API 网关，可以用作 Ingress 控制器。
-* [Easegress IngressController](https://github.com/megaease/easegress/blob/main/doc/reference/ingresscontroller.md)
+* [Easegress IngressController](https://megaease.com/docs/easegress/04.cloud-native/4.1.kubernetes-ingress-controller/)
   是一个基于 [Easegress](https://megaease.com/easegress/) 的 API 网关，可以用作 Ingress 控制器。
 <!--
 * F5 BIG-IP [Container Ingress Services for Kubernetes](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)
@@ -154,7 +154,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * The [Traefik Kubernetes Ingress provider](https://doc.traefik.io/traefik/providers/kubernetes-ingress/) is an
   ingress controller for the [Traefik](https://traefik.io/traefik/) proxy.
 * [Tyk Operator](https://github.com/TykTechnologies/tyk-operator) extends Ingress with Custom Resources to bring API Management capabilities to Ingress. Tyk Operator works with the Open Source Tyk Gateway & Tyk Cloud control plane.
-* [Voyager](https://appscode.com/products/voyager) is an ingress controller for
+* [Voyager](https://voyagermesh.com) is an ingress controller for
   [HAProxy](https://www.haproxy.org/#desc).
 * [Wallarm Ingress Controller](https://www.wallarm.com/solutions/waf-for-kubernetes) is an Ingress Controller that provides WAAP (WAF) and API Security capabilities.
 -->
@@ -163,7 +163,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * [Tyk Operator](https://github.com/TykTechnologies/tyk-operator)
   使用自定义资源扩展 Ingress，为之带来 API 管理能力。Tyk Operator
   使用开源的 Tyk Gateway & Tyk Cloud 控制面。
-* [Voyager](https://appscode.com/products/voyager) 是一个针对
+* [Voyager](https://voyagermesh.com) 是一个针对
   [HAProxy](https://www.haproxy.org/#desc) 的 Ingress 控制器。
 * [Wallarm Ingress Controller](https://www.wallarm.com/solutions/waf-for-kubernetes) 是提供 WAAP（WAF）
   和 API 安全功能的 Ingress Controller。

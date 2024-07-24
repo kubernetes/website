@@ -3,9 +3,9 @@ layout: blog
 title: "Forensic container checkpointing in Kubernetes"
 date: 2022-12-05
 slug: forensic-container-checkpointing-alpha
+author: >
+  Adrian Reber (Red Hat)
 ---
-
-**Authors:** Adrian Reber (Red Hat)
 
 Forensic container checkpointing is based on [Checkpoint/Restore In
 Userspace](https://criu.org/) (CRIU) and allows the creation of stateful copies

@@ -1,4 +1,5 @@
 ---
+# Removed from Kubernetes
 title: APISelfSubjectReview
 content_type: feature_gate
 _build:
@@ -16,7 +17,7 @@ stages:
     toVersion: "1.27" 
   - stage: stable
     defaultValue: true
-    fromVersion: "1.28" 
+    fromVersion: "1.28"  
 ---
 
 <!--

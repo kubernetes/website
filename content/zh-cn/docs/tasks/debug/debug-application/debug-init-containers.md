@@ -37,11 +37,11 @@ Init Containers. The example command lines below refer to the Pod as
 <!--
 * You should be familiar with the basics of
   [Init Containers](/docs/concepts/workloads/pods/init-containers/).
-* You should have [Configured an Init Container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/).
+* You should have [Configured an Init Container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container).
 -->
 
 * 你应该熟悉 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)的基础知识。
-* 你应该已经[配置好一个 Init 容器](/zh-cn/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/)。
+* 你应该已经[配置好一个 Init 容器](/zh-cn/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)。
 
 <!-- steps -->
 

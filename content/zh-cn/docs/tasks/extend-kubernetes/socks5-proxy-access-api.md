@@ -64,7 +64,7 @@ Figure 1 represents what you're going to achieve in this task.
 graph LR;
 
   subgraph local[Local client machine]
-  client([client])-- local <br> traffic .->  local_ssh[Local SSH <br> SOCKS5 proxy];
+  client([client])-. local <br> traffic .->  local_ssh[Local SSH <br> SOCKS5 proxy];
   end
   local_ssh[SSH <br>SOCKS5 <br> proxy]-- SSH Tunnel --\>sshd
 
@@ -86,9 +86,9 @@ graph LR;
 graph LR;
 
   subgraph local[本地客户端机器]
-  client([客户端])-- 本地 <br> 流量.->  local_ssh[本地 SSH <br> SOCKS5 代理];
+  client([客户端])-. 本地 <br> 流量.->  local_ssh[本地 SSH <br> SOCKS5 代理];
   end
-  ocal_ssh[SSH <br>SOCKS5 <br> 代理]-- SSH 隧道 -->sshd
+  local_ssh[SSH <br>SOCKS5 <br> 代理]-- SSH 隧道 -->sshd
   
   subgraph remote[远程服务器]
   sshd[SSH <br> 服务器]-- 本地流量 -->service1;
@@ -165,8 +165,8 @@ clusters:
 - cluster:
     certificate-authority-data: LRMEMMW2 # 简化以便阅读
     # “Kubernetes API”服务器，换言之，kubernetes-remote-server.example 的 IP 地址
-    server: https://<API_SERVER_IP_ADRESS>:6443
-    # 上图中的“SSH SOCKS5代理”（内置 DNS 解析）
+    server: https://<API_SERVER_IP_ADDRESS>:6443
+    # 上图中的 “SSH SOCKS5代理”（内置 DNS 解析）
     proxy-url: socks5://localhost:1080
   name: default
 contexts:

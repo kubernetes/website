@@ -347,5 +347,12 @@ Kubernetes 的部署方式有很多种，没有一种按区域分配端点的启
 
 <!--
 * Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
+* Learn about the
+  [trafficDistribution](/docs/concepts/services-networking/service/#trafic-distribution)
+  field, which is closely related to the `service.kubernetes.io/topology-mode`
+  annotation and provides flexible options for traffic routing within
+  Kubernetes.
 -->
-* 参阅[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)教程
+* 参阅[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)教程。
+* 进一步了解 [trafficDistribution](/zh-cn/docs/concepts/services-networking/service/#trafic-distribution)字段，
+  该字段与 `service.kubernetes.io/topology-mode` 注解密切相关，并为 Kubernetes 中的流量路由提供灵活的配置选项。

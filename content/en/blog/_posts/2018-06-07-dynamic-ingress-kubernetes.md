@@ -2,9 +2,9 @@
 layout: blog
 title: Dynamic Ingress in Kubernetes
 date:  2018-06-07
+author: >
+  Richard Li (Datawire)
 ---
-
-**Author**: Richard Li (Datawire)
 
 Kubernetes makes it easy to deploy applications that consist of many microservices, but one of the key challenges with this type of architecture is dynamically routing ingress traffic to each of these services.  One approach is [Ambassador](https://www.getambassador.io), a Kubernetes-native open source API Gateway built on the [Envoy Proxy](https://www.envoyproxy.io). Ambassador is designed for dynamic environment where services may come and go frequently.
 

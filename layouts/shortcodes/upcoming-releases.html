@@ -1,0 +1,27 @@
+<div>
+  <table class="table table-striped col-md-9">
+    <thead class="thead">
+      <tr>
+        <th>{{ T "monthly_patch_release" }}</th>
+        <th>{{ T "release_cherry_pick_deadline" }}</th>
+        <th>{{ T "release_target_date" }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range $patchReleaseInfo :=
+      .Site.Data.releases.schedule.upcoming_releases }}
+      <tr>
+        <td>
+          {{ time.Format ( T "release_date_format_month") $patchReleaseInfo.targetDate }}
+        </td>
+        <td>
+          {{ time.Format ( T "release_date_format") $patchReleaseInfo.cherryPickDeadline }}
+        </td>
+        <td>
+          {{ time.Format ( T "release_date_format") $patchReleaseInfo.targetDate }}
+        </td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
+</div>

@@ -4,9 +4,9 @@ title: "Working with Terraform and Kubernetes"
 date: 2020-06-29
 slug: working-with-terraform-and-kubernetes
 url: /blog/2020/06/working-with-terraform-and-kubernetes
+author: >
+  [Philipp Strube](https://twitter.com/pst418) (Kubestack) 
 ---
-
-**Author:** [Philipp Strube](https://twitter.com/pst418), Kubestack
 
 Maintaining Kubestack, an open-source [Terraform GitOps Framework](https://www.kubestack.com/lp/terraform-gitops-framework) for Kubernetes, I unsurprisingly spend a lot of time working with Terraform and Kubernetes. Kubestack provisions managed Kubernetes services like AKS, EKS and GKE using Terraform but also integrates cluster services from Kustomize bases into the GitOps workflow. Think of cluster services as everything that's required on your Kubernetes cluster, before you can deploy application workloads.
 

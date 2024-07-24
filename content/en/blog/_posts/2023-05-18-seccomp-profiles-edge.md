@@ -3,9 +3,9 @@ layout: blog
 title: "Having fun with seccomp profiles on the edge"
 date: 2023-05-18
 slug: seccomp-profiles-edge
+author: >
+  Sascha Grunert
 ---
-
-**Author**: Sascha Grunert
 
 The [Security Profiles Operator (SPO)][spo] is a feature-rich
 [operator][operator] for Kubernetes to make managing seccomp, SELinux and

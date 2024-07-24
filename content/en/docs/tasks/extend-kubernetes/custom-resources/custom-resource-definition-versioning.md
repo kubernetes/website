@@ -493,7 +493,7 @@ spec:
           port:
             type: string
   conversion:
-    # a Webhook strategy instruct API server to call an external webhook for any conversion between custom resources.
+    # the Webhook strategy instructs the API server to call an external webhook for any conversion between custom resources.
     strategy: Webhook
     # webhook is required when strategy is `Webhook` and it configures the webhook endpoint to be called by API server.
     webhook:
@@ -561,7 +561,7 @@ spec:
           port:
             type: string
   conversion:
-    # a Webhook strategy instruct API server to call an external webhook for any conversion between custom resources.
+    # the Webhook strategy instructs the API server to call an external webhook for any conversion between custom resources.
     strategy: Webhook
     # webhookClientConfig is required when strategy is `Webhook` and it configures the webhook endpoint to be called by API server.
     webhookClientConfig:

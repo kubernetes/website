@@ -2,9 +2,9 @@
 layout: blog
 title: 'Kyma - extend and build on Kubernetes with ease'
 date: 2019-05-23
+author: >
+  Lukasz Gornicki (SAP) 
 ---
-
-**Authors:** Lukasz Gornicki (SAP)
 
 According to this recently completed [CNCF Survey](https://www.cncf.io/blog/2018/08/29/cncf-survey-use-of-cloud-native-technologies-in-production-has-grown-over-200-percent/), the adoption rate of Cloud Native technologies in production is growing rapidly. Kubernetes is at the heart of this technological revolution. Naturally, the growth of cloud native technologies has been accompanied by the growth of the ecosystem that surrounds it. Of course, the complexity of cloud native technologies have increased as well. Just google for the phrase “Kubernetes is hard”, and you’ll get plenty of articles that explain this complexity problem. The best thing about the CNCF community is that problems like this can be solved by smart people building new tools to enable Kubernetes users: Projects like Knative and its [Build resource](https://github.com/knative/build) extension, for example, serve to reduce complexity across a range of scenarios. Even though increasing complexity might seem like the most important issue to tackle, it is not the only challenge you face when transitioning to Cloud Native.
 

@@ -38,7 +38,7 @@ flowchart LR
 subgraph m[Mermaid.js]
 direction TB
 S[ ]-.-
-C[使用 markdown 来<br>构造图表] -->
+C[使用 Markdown 来<br>构造图表] -->
 D[在线<br>编辑器]
 end
 A[为什么图表<br>很有用] --> m
@@ -120,11 +120,11 @@ The user benefits include:
 * __Better retention__. For some, it is easier to recall pictures rather than text.
 -->
 用户获得的好处有：
-* __较为友好的初次体验__：非常详尽的、只包含文本的欢迎页面对用户而言是蛮恐怖的，
+* **较为友好的初次体验**：非常详尽的、只包含文本的欢迎页面对用户而言是蛮恐怖的，
   尤其是初次接触 Kubernetes 的用户。
-* __快速理解概念__：图表可以帮助用户理解复杂主题下的要点。
+* **快速理解概念**：图表可以帮助用户理解复杂主题下的要点。
   你的图表可以作为一种可视化的学习指南，将用户带入主题的细节。
-* __便于记忆__：对某些人而言，图形（图像）要比文字更容易记忆。
+* **便于记忆**：对某些人而言，图形（图像）要比文字更容易记忆。
 
 <!--
 The contributor benefits include:
@@ -138,9 +138,9 @@ The contributor benefits include:
 -->
 对贡献者而言的好处有：
 
-* __帮助确立所贡献文档的结构和内容__。例如，
+* **帮助确立所贡献文档的结构和内容**。例如，
   你可以先提供一个覆盖所有顶层要点的图表，然后再逐步展开细节。
-* __培养用户社区并提升其能力__。容易理解的文档，附以图表，能够吸引新的用户，
+* **培养用户社区并提升其能力**。容易理解的文档，附以图表，能够吸引新的用户，
   尤其是那些因为预见到复杂性而不愿参与的用户。
 
 <!--
@@ -212,7 +212,7 @@ in your environment. This method is called __Mermaid+SVG__ and is explained
 below.
 -->
 即使你的工作环境中不支持，你仍然可以使用 Mermaid 来创建、编辑图表。
-这种方法称作 __Mermaid+SVG__，在后文详细解释。
+这种方法称作 **Mermaid+SVG**，在后文详细解释。
 {{< /note >}}
 
 <!--
@@ -585,7 +585,7 @@ method for adding `.svg` image files.
 图 5 给出使用外部工具来添加图表时所遵循的步骤。
 
 首先，要使用你的外部工具来创建图表，并将其保存为一个 `.svg` 文件或 `.png` 图片文件。
-之后，使用 __Mermaid+SVG__ 方法中相同的步骤添加 `.svg`（`.png`）文件。
+之后，使用 **Mermaid+SVG** 方法中相同的步骤添加 `.svg`（`.png`）文件。
 
 {{< mermaid >}}
 flowchart LR
@@ -622,7 +622,7 @@ click E "https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiZmxv
 <!--
 Figure 5. External Tool method steps
 -->
-图 5. 外部工具方法步骤.
+图 5. 外部工具方法步骤
 
 <!--
 The following lists the steps you should follow for adding a diagram using the External Tool method:
@@ -639,11 +639,11 @@ The following lists the steps you should follow for adding a diagram using the E
 使用外部工具方法来添加图表时，你要遵从的步骤如下：
 
 1. 使用你的外部工具来创建图表。
-1. 将图表的位置保存起来供其他贡献者访问。例如，你的工具可能提供一个指向图表的链接，
+2. 将图表的位置保存起来供其他贡献者访问。例如，你的工具可能提供一个指向图表的链接，
    或者你可以将源码文件（例如一个 `.xml` 文件）放置到一个公开的仓库，
    以便其他贡献者访问。
-1. 生成图表并将其下载为 `.svg` 或 `.png` 图片文件，保存到合适的 `../images/` 目录下。
-1. 使用 `{{</* figure */>}}` 短代码从 `.md` 文件中引用该图表。
+3. 生成图表并将其下载为 `.svg` 或 `.png` 图片文件，保存到合适的 `../images/` 目录下。
+4. 使用 `{{</* figure */>}}` 短代码从 `.md` 文件中引用该图表。
 5. 使用 `{{</* figure */>}}` 短代码的 `caption` 参数为图表设置标题。
 
 <!--
@@ -686,7 +686,7 @@ For more information on K8s and CNCF logos and images, check out
 关于 K8s 和 CNCF 商标与图片的详细信息，可参阅 [CNCF Artwork](https://github.com/cncf/artwork)。
 
 <!--
-The following lists advantages of the External Tool method: 
+The following lists advantages of the External Tool method:
 
 * Contributor familiarity with external tool.
 * Diagrams require more detail than what Mermaid can offer.
@@ -699,8 +699,8 @@ Don't forget to check that your diagram renders correctly using the
 * 贡献者对外部工具更为熟悉
 * 图表可能需要 Mermaid 所无法提供的细节
 
-不要忘记使用[本地](/zh-cn/docs/contribute/new-content/open-a-pr/#preview-locally)
-和 Netlify 预览来检查你的图表可以正常渲染。
+不要忘记使用[本地](/zh-cn/docs/contribute/new-content/open-a-pr/#preview-locally)和
+Netlify 预览来检查你的图表可以正常渲染。
 
 <!--
 ## Examples
@@ -865,7 +865,6 @@ K8s components to start a container.
 图 8 给出的是一个 Mermaid 时序图，展示启动容器时 K8s 组件间的控制流。
 
 {{< figure src="/zh-cn/docs/images/diagram-guide-example-3.svg" alt="K8s system flow diagram" class="diagram-large" caption="图 8. K8s 系统流程图" link="https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiJSV7aW5pdDp7XCJ0aGVtZVwiOlwibmV1dHJhbFwifX0lJVxuc2VxdWVuY2VEaWFncmFtXG4gICAgYWN0b3IgbWVcbiAgICBwYXJ0aWNpcGFudCBhcGlTcnYgYXMgY29udHJvbCBwbGFuZTxicj48YnI-YXBpLXNlcnZlclxuICAgIHBhcnRpY2lwYW50IGV0Y2QgYXMgY29udHJvbCBwbGFuZTxicj48YnI-ZXRjZCBkYXRhc3RvcmVcbiAgICBwYXJ0aWNpcGFudCBjbnRybE1nciBhcyBjb250cm9sIHBsYW5lPGJyPjxicj5jb250cm9sbGVyPGJyPm1hbmFnZXJcbiAgICBwYXJ0aWNpcGFudCBzY2hlZCBhcyBjb250cm9sIHBsYW5lPGJyPjxicj5zY2hlZHVsZXJcbiAgICBwYXJ0aWNpcGFudCBrdWJlbGV0IGFzIG5vZGU8YnI-PGJyPmt1YmVsZXRcbiAgICBwYXJ0aWNpcGFudCBjb250YWluZXIgYXMgbm9kZTxicj48YnI-Y29udGFpbmVyPGJyPnJ1bnRpbWVcbiAgICBtZS0-PmFwaVNydjogMS4ga3ViZWN0bCBjcmVhdGUgLWYgcG9kLnlhbWxcbiAgICBhcGlTcnYtLT4-ZXRjZDogMi4gc2F2ZSBuZXcgc3RhdGVcbiAgICBjbnRybE1nci0-PmFwaVNydjogMy4gY2hlY2sgZm9yIGNoYW5nZXNcbiAgICBzY2hlZC0-PmFwaVNydjogNC4gd2F0Y2ggZm9yIHVuYXNzaWduZWQgcG9kcyhzKVxuICAgIGFwaVNydi0-PnNjaGVkOiA1LiBub3RpZnkgYWJvdXQgcG9kIHcgbm9kZW5hbWU9XCIgXCJcbiAgICBzY2hlZC0-PmFwaVNydjogNi4gYXNzaWduIHBvZCB0byBub2RlXG4gICAgYXBpU3J2LS0-PmV0Y2Q6IDcuIHNhdmUgbmV3IHN0YXRlXG4gICAga3ViZWxldC0-PmFwaVNydjogOC4gbG9vayBmb3IgbmV3bHkgYXNzaWduZWQgcG9kKHMpXG4gICAgYXBpU3J2LT4-a3ViZWxldDogOS4gYmluZCBwb2QgdG8gbm9kZVxuICAgIGt1YmVsZXQtPj5jb250YWluZXI6IDEwLiBzdGFydCBjb250YWluZXJcbiAgICBrdWJlbGV0LT4-YXBpU3J2OiAxMS4gdXBkYXRlIHBvZCBzdGF0dXNcbiAgICBhcGlTcnYtLT4-ZXRjZDogMTIuIHNhdmUgbmV3IHN0YXRlIiwibWVybWFpZCI6IntcbiAgXCJ0aGVtZVwiOiBcImRlZmF1bHRcIlxufSIsInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjp0cnVlfQ" >}}
-
 
 <!--
 Code block:
@@ -1108,12 +1107,12 @@ The following lists several items to consider when adding diagram captions:
 
 * 使用 `{{</* figure */>}}` 短代码来为 Mermaid+SVG 和外部工具方法制作的图表添加标题。
 * 对于内嵌方法制作的图表，使用简单的 Markdown 文本来为其添加标题。
-* 在你的图表标题前面添加 `图 <编号>.`. 你必须使用 `图` 字样，
+* 在你的图表标题前面添加 `图 <编号>.`。你必须使用 `图` 字样，
   并且编号必须对于文档页面中所有图表而言唯一。
   在编号之后添加一个英文句号。
 * 将图表标题添加到 `图 <编号>.` 之后，并且在同一行。
   你必须为图表标题添加英文句点作为其结束标志。尽量保持标题文字简短。
-* 图表标题要放在图表 __之后__。
+* 图表标题要放在图表**之后**。
 
 <!--
 **Diagram Referral**
@@ -1248,7 +1247,7 @@ Here is the `{{</* figure */>}}` shortcode for this diagram:
 
 * Hugo Mermaid 短代码在在线编辑器中无法显示。
 
-* 如果你想要在在线编辑器中更改图表，你 __必须__ 保存它以便为图表生成新的 URL。
+* 如果想要在在线编辑器中更改图表，你**必须**保存它以便为图表生成新的 URL。
 
 * 点击本节中的图表，你可以查看其源代码及其在在线编辑器中的渲染效果。
 <!--
@@ -1259,13 +1258,12 @@ Here is the `{{</* figure */>}}` shortcode for this diagram:
 -->
 * 查看本页的源代码，`diagram-guide.md` 文件，可以将其作为示例。
 
-* 查阅 [Mermaid docs](https://mermaid-js.github.io/mermaid/#/) 以获得更多的解释和示例。
+* 查阅 [Mermaid 文档](https://mermaid-js.github.io/mermaid/#/)以获得更多的解释和示例。
 
 <!--
 Most important, __Keep Diagrams Simple__.
 This will save time for you and fellow contributors, and allow for easier reading
 by new and experienced users.
 -->
-最重要的一点，__保持图表简单__。
+最重要的一点，**保持图表简单**。
 这样做会节省你和其他贡献者的时间，同时也会方便新的以及有经验的用户阅读。
-

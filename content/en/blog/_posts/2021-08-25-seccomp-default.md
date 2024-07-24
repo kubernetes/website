@@ -3,9 +3,9 @@ layout: blog
 title: "Enable seccomp for all workloads with a new v1.22 alpha feature"
 date: 2021-08-25
 slug: seccomp-default
+author: >
+  Sascha Grunert (Red Hat)
 ---
-
-**Author:** Sascha Grunert, Red Hat
 
 This blog post is about a new Kubernetes feature introduced in v1.22, which adds
 an additional security layer on top of the existing seccomp support. Seccomp is

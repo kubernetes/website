@@ -293,8 +293,8 @@ When Pod priority is enabled, the scheduler orders pending Pods by
 their priority and a pending Pod is placed ahead of other pending Pods
 with lower priority in the scheduling queue. As a result, the higher
 priority Pod may be scheduled sooner than Pods with lower priority if
-its scheduling requirements are met. If such Pod cannot be scheduled,
-scheduler will continue and tries to schedule other lower priority Pods.
+its scheduling requirements are met. If such Pod cannot be scheduled, the
+scheduler will continue and try to schedule other lower priority Pods.
 -->
 ### Pod 优先级对调度顺序的影响 {#effect-of-pod-priority-on-scheduling-order}
 
@@ -329,7 +329,7 @@ Pod 被创建后会进入队列等待调度。
 ### User exposed information
 
 When Pod P preempts one or more Pods on Node N, `nominatedNodeName` field of Pod
-P's status is set to the name of Node N. This field helps scheduler track
+P's status is set to the name of Node N. This field helps the scheduler track
 resources reserved for Pod P and also gives users information about preemptions
 in their clusters.
 
@@ -339,8 +339,8 @@ After victim Pods are preempted, they get their graceful termination period. If
 another node becomes available while scheduler is waiting for the victim Pods to
 terminate, scheduler may use the other node to schedule Pod P. As a result
 `nominatedNodeName` and `nodeName` of Pod spec are not always the same. Also, if
-scheduler preempts Pods on Node N, but then a higher priority Pod than Pod P
-arrives, scheduler may give Node N to the new higher priority Pod. In such a
+the scheduler preempts Pods on Node N, but then a higher priority Pod than Pod P
+arrives, the scheduler may give Node N to the new higher priority Pod. In such a
 case, scheduler clears `nominatedNodeName` of Pod P. By doing this, scheduler
 makes Pod P eligible to preempt Pods on another Node.
 -->
@@ -502,7 +502,7 @@ enough demand and if we find an algorithm with reasonable performance.
 <!--
 ## Troubleshooting
 
-Pod priority and pre-emption can have unwanted side effects. Here are some
+Pod priority and preemption can have unwanted side effects. Here are some
 examples of potential problems and ways to deal with them.
 -->
 ## 故障排除 {#troubleshooting}

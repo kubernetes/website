@@ -2,9 +2,10 @@
 layout: blog
 title:  'Introducing Kubebuilder: an SDK for building Kubernetes APIs using CRDs'
 date:   2018-08-10
+author: >
+  Phillip Wittrock (Google),
+  Sunil Arora (Google)
 ---
-
-**Author**: Phillip Wittrock (Google), Sunil Arora (Google)
 
 [kubebuilder-repo]: https://github.com/kubernetes-sigs/kubebuilder
 [controller-runtime]: https://github.com/kubernetes-sigs/controller-runtime

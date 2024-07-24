@@ -2,6 +2,9 @@
 reviewers:
 - janetkuo
 title: Deployments
+api_metadata:
+- apiVersion: "apps/v1"
+  kind: "Deployment"
 feature:
   title: Automated rollouts and rollbacks
   description: >

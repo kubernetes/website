@@ -3,9 +3,9 @@ layout: blog
 title: 'Ephemeral volumes with storage capacity tracking: EmptyDir on steroids'
 date: 2020-09-01
 slug: ephemeral-volumes-with-storage-capacity-tracking
+author: >
+  Patrick Ohly (Intel)
 ---
-
-**Author:** Patrick Ohly (Intel)
 
 Some applications need additional storage but don't care whether that
 data is stored persistently across restarts. For example, caching

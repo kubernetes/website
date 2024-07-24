@@ -33,7 +33,7 @@ kubectl create secret tls NAME --cert=path/to/cert/file --key=path/to/key/file [
 
 ```
   # Create a new TLS secret named tls-secret with the given key pair
-  kubectl create secret tls tls-secret --cert=path/to/tls.cert --key=path/to/tls.key
+  kubectl create secret tls tls-secret --cert=path/to/tls.crt --key=path/to/tls.key
 ```
 
 ## {{% heading "options" %}}
@@ -162,13 +162,6 @@ kubectl create secret tls NAME --cert=path/to/cert/file --key=path/to/key/file [
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>UID to impersonate for the operation.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--azure-container-registry-config string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the file containing Azure container registry configuration information.</p></td>
 </tr>
 
 <tr>

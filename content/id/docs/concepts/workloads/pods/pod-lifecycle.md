@@ -267,8 +267,8 @@ metadata:
 spec:
   containers:
   - args:
-    - /server
-    image: registry.k8s.io/liveness
+    - liveness
+    image: registry.k8s.io/e2e-test-images/agnhost:2.40
     livenessProbe:
       httpGet:
         # ketika "host" tidak ditentukan, "PodIP" akan digunakan

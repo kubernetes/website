@@ -3,9 +3,10 @@ layout: blog
 title: 'Updating NGINX-Ingress to use the stable Ingress API'
 date: 2021-07-26
 slug: update-with-ingress-nginx
+author: >
+  James Strong,
+  Ricardo Katz
 ---
-
-**Authors:** James Strong, Ricardo Katz
 
 With all Kubernetes APIs, there is a process to creating, maintaining, and
 ultimately deprecating them once they become GA. The networking.k8s.io API group is no

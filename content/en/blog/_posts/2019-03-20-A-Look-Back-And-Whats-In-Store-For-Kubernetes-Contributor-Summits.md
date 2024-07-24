@@ -3,10 +3,10 @@ title: A Look Back and What's in Store for Kubernetes Contributor Summits
 date: 2019-03-20
 layout: blog
 evergreen: true
+author: >
+  Paris Pittman (Google),
+  Jonas Rosland (VMware) 
 ---
-
-**Authors:**
-Paris Pittman (Google), Jonas Rosland (VMware)
 
 {{<figure width="600" src="/images/blog/2019-03-14-A-Look-Back-And-Whats-In-Store-For-Kubernetes-Contributor-Summits/celebrationsig.jpg" caption="Seattle Contributor Summit">}}
 

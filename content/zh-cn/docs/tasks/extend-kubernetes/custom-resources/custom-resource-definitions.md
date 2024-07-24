@@ -1130,15 +1130,16 @@ crontab "my-new-cron-object" created
 -->
 ### 验证逐步升级   {#validation-ratcheting}
 
-{{< feature-state state="alpha" for_k8s_version="v1.28" >}}
+{{< feature-state feature_gate_name="CRDValidationRatcheting" >}}
 
 <!--
-You need to enable the `CRDValidationRatcheting`
+If you are using a version of Kubernetes older than v1.30, you need to explicitly
+enable the `CRDValidationRatcheting`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
 use this behavior, which then applies to all CustomResourceDefinitions in your
 cluster.
 -->
-你需要启用 `CRDValidationRatcheting`
+如果你使用的 Kubernetes 版本早于 v1.30，则需要显式启用 `CRDValidationRatcheting`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 才能使用这种行为，并将其应用到集群中的所有 CustomResourceDefinition。
 
@@ -1193,18 +1194,22 @@ Kubernetes {{< skew currentVersion >}} 下实现的验证逐步升级不支持�
 - `x-kubernetes-validations`
   For Kubernetes 1.28, CRD validation rules](#validation-rules) are ignored by
   ratcheting. Starting with Alpha 2 in Kubernetes 1.29, `x-kubernetes-validations`
-  are ratcheted.
+  are ratcheted only if they do not refer to `oldSelf`.
 
   Transition Rules are never ratcheted: only errors raised by rules that do not 
-  use `oldSelf` will be automatically ratcheted if  their values are unchanged.
+  use `oldSelf` will be automatically ratcheted if their values are unchanged.
+
+  To write custom ratcheting logic for CEL expressions, check out [optionalOldSelf](#field-optional-oldself).
 -->
 - `x-kubernetes-validations`
 
   在 Kubernetes 1.28 中，CRD [验证规则](#validation-rules)被逐步升级所忽略。
-  从 Kubernetes 1.29 的 Alpha 2 开始，`x-kubernetes-validations` 的检查也用逐步升级机制处理。
+  从 Kubernetes 1.29 中 Alpha 2 开始，`x-kubernetes-validations` 仅在不引用 `oldSelf` 时才会进行调整。
 
   转换规则（Transition Rules）永远不会被逐步升级机制处理：只有那些不使用
   `oldSelf` 的规则引发的错误会在其值未更改时自动按逐步升级机制处理。
+
+  要为 CEL 表达式编写自定义棘轮逻辑，请查看 [optionalOldSelf](#field-optional-oldself)。
 
 <!--
 - `x-kubernetes-list-type`
@@ -1246,8 +1251,10 @@ Kubernetes {{< skew currentVersion >}} 下实现的验证逐步升级不支持�
   To remove a previously specified `additionalProperties` validation will not be
   ratcheted.
 - `metadata`
-  Errors arising from changes to fields within an object's `metadata` are not
-  ratcheted.
+  Errors that come from Kubernetes' built-in validation of an object's `metadata` 
+  are not ratcheted (such as object name, or characters in a label value). 
+  If you specify your own additional rules for the metadata of a custom resource, 
+  that additional validation will be ratcheted.
 -->
 - `additionalProperties`
 
@@ -1255,7 +1262,8 @@ Kubernetes {{< skew currentVersion >}} 下实现的验证逐步升级不支持�
 
 - `metadata`
 
-  因更改对象的 `metadata` 中的字段而引起的错误不会被逐步升级机制处理。
+  来自 Kubernetes 对对象 `metadata` 的内置验证的错误不会被逐步调整（例如对象名称或标签值中的字符）。
+  如果你为自定义资源的元数据指定自己的附加规则，则附加验证将逐步加强。
 
 <!--
 ### Validation rules
@@ -1918,17 +1926,19 @@ Setting `fieldPath` is optional.
 
 #### `optionalOldSelf` 字段   {#field-optional-oldself}
 
-{{< feature-state state="alpha" for_k8s_version="v1.29" >}}
+{{< feature-state feature_gate_name="CRDValidationRatcheting" >}}
 
 <!--
-The feature [CRDValidationRatcheting](#validation-ratcheting) must be enabled in order to 
-make use of this field.
+If your cluster does not have [CRD validation ratcheting](#validation-ratcheting) enabled, 
+the CustomResourceDefinition API doesn't include this field, and trying to set it may result
+in an error.
 
 The `optionalOldSelf` field is a boolean field that alters the behavior of [Transition Rules](#transition-rules) described
 below. Normally, a transition rule will not evaluate if `oldSelf` cannot be determined:
 during object creation or when a new value is introduced in an update.
 -->
-要使用此字段，必须启用特性 [CRDValidationRatcheting](#validation-ratcheting)。
+如果你的集群未启用 [CRDValidationRatcheting](#validation-ratcheting)，则
+CustomResourceDefinition API 不包含此字段，尝试设置它可能会导致错误。
 
 `optionalOldSelf` 字段是一个布尔字段，它会改变下文所述的[转换规则](#transition-rules)的行为。
 通常，在对象创建期间或在更新中引入新值时，如果无法确定 `oldSelf`，则不会处理转换规则。
@@ -2619,6 +2629,149 @@ The `NAME` column is implicit and does not need to be defined in the CustomResou
 -->
 `NAME` 列是隐含的，不需要在 CustomResourceDefinition 中定义。
 {{< /note >}}
+
+<!--
+### Field selectors
+
+[Field Selectors](/docs/concepts/overview/working-with-objects/field-selectors/)
+let clients select custom resources based on the value of one or more resource
+fields.
+
+All custom resources support the `metadata.name` and `metadata.namespace` field
+selectors.
+-->
+### 字段选择算符  {#field-selectors}
+
+[字段选择算符](/zh-cn/docs/concepts/overview/working-with-objects/field-selectors/)允许客户端根据一个或多个资源字段的值选择自定义资源。
+
+所有自定义资源都支持 `metadata.name` 和 `metadata.namespace` 字段选择器。
+
+<!--
+Fields declared in a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+may also be used with field selectors when included in the `spec.versions[*].selectableFields` field of the
+{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}.
+-->
+当 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+中声明的字段包含在 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+的 `spec.versions[*].selectableFields` 字段中时，也可以与字段选择器一起使用。
+
+<!--
+#### Selectable fields for custom resources {#crd-selectable-fields}
+-->
+#### 自定义资源的可选字段    {#crd-selectable-fields}
+
+{{< feature-state state="alpha" for_k8s_version="v1.30" >}}
+{{< feature-state feature_gate_name="CustomResourceFieldSelectors" >}}
+
+<!--
+You need to enable the `CustomResourceFieldSelectors`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+use this behavior, which then applies to all CustomResourceDefinitions in your
+cluster.
+
+The `spec.versions[*].selectableFields` field of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be used to
+declare which other fields in a custom resource may be used in field selectors.
+The following example adds the `.spec.color` and `.spec.size` fields as
+selectable fields.
+
+Save the CustomResourceDefinition to `shirt-resource-definition.yaml`:
+-->
+你需要启用 `CustomResourceFieldSelectors`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+才能使用此行为，然后该行为将应用于集群中的所有 CustomResourceDefinition。
+
+CustomResourceDefinition 的 `spec.versions[*].selectableFields`
+字段可用于声明自定义资源中的哪些其他字段可在字段选择器中使用。
+以下示例将 `.spec.color` 和 `.spec.size` 字段添加为可选字段。
+
+将 CustomResourceDefinition 保存到 `shirt-resource-definition.yaml`：
+
+{{% code_sample file="customresourcedefinition/shirt-resource-definition.yaml" %}}
+
+<!--
+Create the CustomResourceDefinition:
+-->
+创建 CustomResourceDefinition：
+
+```shell
+kubectl apply -f https://k8s.io/examples/customresourcedefinition/shirt-resource-definition.yaml
+```
+
+<!--
+Define some Shirts by editing `shirt-resources.yaml`; for example:
+-->
+通过编辑 `shirt-resources.yaml` 定义一些 Shirt，例如：
+
+{{% code_sample file="customresourcedefinition/shirt-resources.yaml" %}}
+
+<!--
+Create the custom resources:
+-->
+创建自定义资源：
+
+```shell
+kubectl apply -f https://k8s.io/examples/customresourcedefinition/shirt-resources.yaml
+```
+
+<!--
+Get all the resources:
+-->
+获取所有资源：
+
+```shell
+kubectl get shirts.stable.example.com
+```
+
+<!--
+The output is:
+-->
+输出为：
+
+```
+NAME       COLOR  SIZE
+example1   blue   S
+example2   blue   M
+example3   green  M
+```
+
+<!--
+Fetch blue shirts (retrieve Shirts with a `color` of `blue`):
+-->
+获取蓝色 shirt（检索 `color` 为 `blue` shirt）：
+
+```shell
+kubectl get shirts.stable.example.com --field-selector spec.color=blue
+```
+
+<!--
+Should output:
+-->
+应当输出：
+
+```
+NAME       COLOR  SIZE
+example1   blue   S
+example2   blue   M
+```
+
+<!--
+Get only resources with a `color` of `green` and a `size` of `M`:
+-->
+仅获取 `color` 为 `green`、`size` 为 `M` 的资源：
+
+```shell
+kubectl get shirts.stable.example.com --field-selector spec.color=green,spec.size=M
+```
+
+<!--
+Should output:
+-->
+应当输出：
+
+```
+NAME       COLOR  SIZE
+example2   blue   M
+```
 
 <!--
 #### Priority

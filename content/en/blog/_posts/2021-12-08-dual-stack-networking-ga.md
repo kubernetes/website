@@ -3,9 +3,9 @@ layout: blog
 title: 'Kubernetes 1.23: Dual-stack IPv4/IPv6 Networking Reaches GA'
 date: 2021-12-08
 slug: dual-stack-networking-ga
+author: >
+   Bridget Kromhout (Microsoft)
 ---
-
-**Author:** Bridget Kromhout (Microsoft)
 
 "When will Kubernetes have IPv6?" This question has been asked with increasing frequency ever since alpha support for IPv6 was first added in k8s v1.9. While Kubernetes has supported IPv6-only clusters since v1.18, migration from IPv4 to IPv6 was not yet possible at that point. At long last, [dual-stack IPv4/IPv6 networking](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/563-dual-stack/) has reached general availability (GA) in Kubernetes v1.23.
 

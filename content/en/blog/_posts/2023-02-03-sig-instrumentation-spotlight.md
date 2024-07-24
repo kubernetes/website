@@ -4,9 +4,9 @@ title: "Spotlight on SIG Instrumentation"
 slug: sig-instrumentation-spotlight-2023
 date: 2023-02-03
 canonicalUrl: https://www.kubernetes.dev/blog/2023/02/03/sig-instrumentation-spotlight-2023/
+author: >
+  Imran Noor Mohamed (Delivery Hero)
 ---
-
-**Author:** Imran Noor Mohamed (Delivery Hero)
 
 Observability requires the right data at the right time for the right consumer
 (human or piece of software) to make the right decision. In the context of Kubernetes,

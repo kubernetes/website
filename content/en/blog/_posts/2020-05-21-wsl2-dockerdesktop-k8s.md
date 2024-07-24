@@ -3,9 +3,10 @@ layout: blog
 title: "WSL+Docker: Kubernetes on the Windows Desktop"
 date: 2020-05-21
 slug: wsl-docker-kubernetes-on-the-windows-desktop
+author: >
+  [Nuno do Carmo](https://twitter.com/nunixtech) (Docker Captain and WSL Corsair),
+  [Ihor Dvoretskyi](https://twitter.com/idvoretskyi) (Developer Advocate, Cloud Native Computing Foundation)
 ---
-
-**Authors**: [Nuno do Carmo](https://twitter.com/nunixtech) Docker Captain and WSL Corsair; [Ihor Dvoretskyi](https://twitter.com/idvoretskyi), Developer Advocate, Cloud Native Computing Foundation
 
 # Introduction
 

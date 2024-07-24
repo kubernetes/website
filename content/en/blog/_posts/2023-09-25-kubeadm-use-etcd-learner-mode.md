@@ -3,9 +3,9 @@ layout: blog
 title: 'kubeadm: Use etcd Learner to Join a Control Plane Node Safely'
 date: 2023-09-25
 slug: kubeadm-use-etcd-learner-mode
+author: >
+  Paco Xu (DaoCloud)
 ---
-
-**Author:** Paco Xu (DaoCloud)
 
 The [`kubeadm`](/docs/reference/setup-tools/kubeadm/) tool now supports etcd learner mode, which
 allows you to enhance the resilience and stability

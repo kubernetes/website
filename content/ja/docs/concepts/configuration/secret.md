@@ -143,7 +143,7 @@ apiVersion: v1
 kind: Secret
   name: secret-dockercfg
 type: kubernetes.io/dockercfg
- data:
+data:
   .dockercfg: |
     "<base64 encoded ~/.dockercfg file>"
 ```

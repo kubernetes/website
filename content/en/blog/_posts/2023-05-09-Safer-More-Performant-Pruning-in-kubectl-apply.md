@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes 1.27: Safer, More Performant Pruning in kubectl apply"
 date: 2023-05-09
 slug: introducing-kubectl-applyset-pruning
+author: >
+   Katrina Verey (independent),
+   Justin Santa Barbara (Google)
 ---
-
-**Authors:** Katrina Verey (independent) and Justin Santa Barbara (Google)
 
 Declarative configuration management with the `kubectl apply` command is the gold standard approach
 to creating or modifying Kubernetes resources. However, one challenge it presents is the deletion

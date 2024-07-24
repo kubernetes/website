@@ -1,5 +1,8 @@
 # i18n strings for the Ukrainian (main) site.
 
+[blog_post_show_more]
+other = "Показати більше…"
+
 [caution]
 # other = "Caution:"
 other = "Увага:"

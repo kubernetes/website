@@ -3,10 +3,8 @@ title: kubeadm init
 content_type: concept
 weight: 20
 ---
+
 <!--
-reviewers:
-- luxas
-- jbeda
 title: kubeadm init
 content_type: concept
 weight: 20
@@ -306,6 +304,7 @@ Feature | Default | Alpha | Beta | GA
 `EtcdLearnerMode` | `true` | 1.27 | 1.29 | -
 `PublicKeysECDSA` | `false` | 1.19 | - | -
 `RootlessControlPlane` | `false` | 1.22 | - | -
+`WaitForAllControlPlaneComponents` | `false` | 1.30 | - | -
 {{< /table >}}
 -->
 {{< table caption="kubeadm 特性门控" >}}
@@ -314,6 +313,7 @@ Feature | Default | Alpha | Beta | GA
 `EtcdLearnerMode` | `true` | 1.27 | 1.29 | -
 `PublicKeysECDSA` | `false` | 1.19 | - | -
 `RootlessControlPlane` | `false` | 1.22 | - | -
+`WaitForAllControlPlaneComponents` | `false` | 1.30 | - | -
 {{< /table >}}
 
 {{< note >}}
@@ -360,6 +360,26 @@ you upgrade to a newer version of Kubernetes.
   `kube-apiserver`、`kube-controller-manager`、`kube-scheduler` 和 `etcd`
   以非 root 用户身份运行。如果未设置该标志，则这些组件以 root 身份运行。
   你可以在升级到更新版本的 Kubernetes 之前更改此特性门控的值。
+
+<!--
+`WaitForAllControlPlaneComponents`
+: With this feature gate enabled kubeadm will wait for all control plane components (kube-apiserver,
+kube-controller-manager, kube-scheduler) on a control plane node to report status 200 on their `/healthz`
+endpoints. These checks are performed on `https://127.0.0.1:PORT/healthz`, where `PORT` is taken from
+`--secure-port` of a component. If you specify custom `--secure-port` values in the kubeadm configuration
+they will be respected. Without the feature gate enabled, kubeadm will only wait for the kube-apiserver
+on a control plane node to become ready. The wait process starts right after the kubelet on the host
+is started by kubeadm. You are advised to enable this feature gate in case you wish to observe a ready
+state from all control plane components during the `kubeadm init` or `kubeadm join` command execution.
+-->
+`WaitForAllControlPlaneComponents`
+: 启用此特性门控后，kubeadm 将等待控制平面节点上的所有控制平面组件
+  （kube-apiserver、kube-controller-manager、kube-scheduler）在其 `/healthz`
+  端点上报告 200 状态码。这些检测在 `https://127.0.0.1:PORT/healthz` 上执行，其中
+  `PORT` 取自组件的 `--secure-port` 标志。
+  如果没有启用此特性门控，kubeadm 将仅等待控制平面节点上的 kube-apiserver 准备就绪。
+  等待过程在 kubeadm 启动主机上的 kubelet 后立即开始。如果你希望在 `kubeadm init`
+  或 `kubeadm join` 命令执行期间观察所有控制平面组件的就绪状态，建议你启用此特性门控。
 
 <!--
 List of deprecated feature gates:
