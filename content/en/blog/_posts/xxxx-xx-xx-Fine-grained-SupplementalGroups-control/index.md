@@ -38,7 +38,7 @@ Then, output should be similar to this:
 uid=1000 gid=3000 groups=3000,4000,50000
 ```
 
-Where does group ID `50000` in supplementary groups (`groups` field) come from even though `50000` is not defined in the Pod's manifest at all? The answer is `/etc/group` file in the container image.
+Where does group ID `50000` in supplementary groups (`groups` field) come from, even though `50000` is not defined in the Pod's manifest at all? The answer is `/etc/group` file in the container image.
 
 Checking the contents of `/etc/group` in the container image should show below:
 
