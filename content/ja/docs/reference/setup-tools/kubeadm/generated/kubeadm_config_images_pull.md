@@ -38,7 +38,7 @@ kubeadm config images pull [flags]
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>様々な機能に対するフィーチャーゲートを記述するkey=valueペアのセット。オプション:<br/>EtcdLearnerMode=true|false (BETA - 既定値=true)<br/>PublicKeysECDSA=true|false (DEPRECATED - 既定値=false)<br/>RootlessControlPlane=true|false (ALPHA - 既定値=false)<br/>UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 既定値=false)<br/>WaitForAllControlPlaneComponents=true|false (ALPHA - 既定値=false)</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>様々な機能に対するフィーチャーゲートを記述するkey=valueペアのセット。オプション:<br/>EtcdLearnerMode=true|false (BETA - デフォルト値=true)<br/>PublicKeysECDSA=true|false (DEPRECATED - デフォルト値=false)<br/>RootlessControlPlane=true|false (ALPHA - デフォルト値=false)<br/>UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - デフォルト値=false)<br/>WaitForAllControlPlaneComponents=true|false (ALPHA - デフォルト値=false)</p></td>
 </tr>
 
 <tr>
@@ -49,14 +49,14 @@ kubeadm config images pull [flags]
 </tr>
 
 <tr>
-<td colspan="2">--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;既定値: "registry.k8s.io"</td>
+<td colspan="2">--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;デフォルト値: "registry.k8s.io"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>コントロールプレーンのイメージをプルするコンテナレジストリを選択します。</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;既定値: "stable-1"</td>
+<td colspan="2">--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;デフォルト値: "stable-1"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>コントロールプレーンの特定のKubernetesバージョンを選択します。</p></td>
@@ -77,10 +77,10 @@ kubeadm config images pull [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;既定値: "/etc/kubernetes/admin.conf"</td>
+<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;デフォルト値: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>クラスターと対話する時に使用するkubeconfigファイル。フラグが設定されていない場合は、標準的な場所の中から既存のkubeconfigファイルが検索されます。</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>クラスターと通信する時に使用するkubeconfigファイル。フラグが設定されていない場合は、標準的な場所の中から既存のkubeconfigファイルが検索されます。</p></td>
 </tr>
 
 <tr>

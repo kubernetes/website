@@ -1,14 +1,14 @@
 
 
-`kubeadm init`で使用可能な既定の初期設定を出力します。
+`kubeadm init`で使用できるデフォルトのInitConfigurationを出力します。
 
 ### 概要
 
 
 
-このコマンドは、'kubeadm init'で使用される既定の初期設定のオブジェクトを出力します。
+このコマンドは、'kubeadm init'で使用されるデフォルトのInitConfigurationオブジェクトを出力します。
 
-Bootstrap Tokenフィールドのような機密性が高い値は、検証をパスしますが、実際にトークンを生成する計算は実行されないように、"abcdef.0123456789abcdef"のようなプレースホルダーの値に置き換えられることに注意してください。
+Bootstrap Tokenフィールドのような機密性が高い値は、実際にトークンを生成する計算は実行しませんが、検証をパスするために"abcdef.0123456789abcdef"のようなプレースホルダーの値に置き換えられることに注意してください。
 
 
 ```
@@ -28,7 +28,7 @@ kubeadm config print init-defaults [flags]
 <td colspan="2">--component-configs strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>既定値を出力するコンポーネントの設定APIオブジェクトのカンマ区切りのリスト。利用可能な値: [KubeProxyConfiguration KubeletConfiguration]。このフラグが設定されない場合は、どのコンポーネントの設定も出力されません。</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>デフォルト値を出力するコンポーネントの設定APIオブジェクトのカンマ区切りのリスト。利用可能な値: [KubeProxyConfiguration KubeletConfiguration]。このフラグが設定されていない場合は、どのコンポーネントの設定も出力されません。</p></td>
 </tr>
 
 <tr>
@@ -53,10 +53,10 @@ kubeadm config print init-defaults [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;既定値: "/etc/kubernetes/admin.conf"</td>
+<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;デフォルト値: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>クラスターと対話する時に使用するkubeconfigファイル。フラグが設定されていない場合は、標準的な場所の中から既存のkubeconfigファイルが検索されます。</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>クラスターと通信する時に使用するkubeconfigファイル。フラグが設定されていない場合は、標準的な場所の中から既存のkubeconfigファイルが検索されます。</p></td>
 </tr>
 
 <tr>
