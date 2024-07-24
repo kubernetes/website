@@ -31,7 +31,7 @@ Kubernetes provides Containers with lifecycle hooks.
 The hooks enable Containers to be aware of events in their management lifecycle
 and run code implemented in a handler when the corresponding lifecycle hook is executed.
 -->
-## 概述
+## 概述   {#overview}
 
 类似于许多具有生命周期回调组件的编程语言框架，例如 Angular、Kubernetes 为容器提供了生命周期回调。
 回调使容器能够了解其管理生命周期中的事件，并在执行相应的生命周期回调时运行在处理程序中实现的代码。
@@ -79,8 +79,8 @@ Pod 的终止宽限周期在 `PreStop` 回调被执行之前即开始计数，
 A more detailed description of the termination behavior can be found in
 [Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 -->
-有关终止行为的更详细描述，请参见
-[终止 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
+有关终止行为的更详细描述，
+请参见[终止 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
 
 <!--
 ### Hook handler implementations
@@ -88,7 +88,7 @@ A more detailed description of the termination behavior can be found in
 Containers can access a hook by implementing and registering a handler for that hook.
 There are three types of hook handlers that can be implemented for Containers:
 -->
-### 回调处理程序的实现
+### 回调处理程序的实现   {#hook-handler-implementations}
 
 容器可以通过实现和注册该回调的处理程序来访问该回调。
 针对容器，有三种类型的回调处理程序可供实现：
@@ -115,7 +115,7 @@ When a Container lifecycle management hook is called,
 the Kubernetes management system executes the handler according to the hook action,
 `httpGet` , `tcpSocket` and `sleep` are executed by the kubelet process, and `exec` is executed in the container.
 -->
-### 回调处理程序执行
+### 回调处理程序执行   {#hook-handler-execution}
 
 当调用容器生命周期管理回调时，Kubernetes 管理系统根据回调动作执行其处理程序，
 `httpGet`、`tcpSocket` 和 `sleep` 由 kubelet 进程执行，而 `exec` 在容器中执行。
@@ -175,7 +175,7 @@ which means that a hook may be called multiple times for any given event,
 such as for `PostStart` or `PreStop`.
 It is up to the hook implementation to handle this correctly.
 -->
-### 回调递送保证
+### 回调递送保证   {#hook-delivery-guarantees}
 
 回调的递送应该是**至少一次**，这意味着对于任何给定的事件，
 例如 `PostStart` 或 `PreStop`，回调可以被调用多次。
@@ -204,7 +204,7 @@ and for `PreStop`, this is the `FailedPreStopHook` event.
 To generate a failed `FailedPostStartHook` event yourself, modify the [lifecycle-events.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/lifecycle-events.yaml) file to change the postStart command to "badcommand" and apply it.
 Here is some example output of the resulting events you see from running `kubectl describe pod lifecycle-demo`:
 -->
-### 调试回调处理程序
+### 调试回调处理程序   {#debugging-hook-handlers}
 
 回调处理程序的日志不会在 Pod 事件中公开。
 如果处理程序由于某种原因失败，它将播放一个事件。
@@ -236,7 +236,5 @@ Events:
 * Get hands-on experience
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 -->
-
 * 进一步了解[容器环境](/zh-cn/docs/concepts/containers/container-environment/)。
 * 动手[为容器的生命周期事件设置处理函数](/zh-cn/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)。
-
