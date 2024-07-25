@@ -424,7 +424,7 @@ IP addresses that are no longer used by any Services.
 
 #### IP address allocation tracking using the Kubernetes API {#ip-address-objects}
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state feature_gate_name="MultiCIDRServiceAllocator" >}}
 
 If you enable the `MultiCIDRServiceAllocator`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
@@ -483,7 +483,7 @@ Users can create or delete new ServiceCIDR objects to manage the available IP ra
 
 ```shell
 cat <<'EOF' | kubectl apply -f -
-apiVersion: networking.k8s.io/v1alpha1
+apiVersion: networking.k8s.io/v1beta1
 kind: ServiceCIDR
 metadata:
   name: newservicecidr
