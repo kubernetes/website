@@ -3,7 +3,8 @@ layout: blog
 title: 'Uniform API server access using clientcmd'
 date: 2024-07-24
 slug: clientcmd-tutorial
-author: Stephen Kitt (Red Hat)
+author: >
+  [Stephen Kitt](https://github.com/skitt) (Red Hat)
 ---
 
 If you've ever wanted to develop a command-line client for a Kubernetes API,
@@ -32,8 +33,10 @@ It follows `kubectl` semantics:
 * files can be specified using the `KUBECONFIG` environment variable;
 * all the above can be further overridden using command-line arguments.
 
-One major missing piece for full `kubectl`-style argument handling is support
-for `--kubeconfig`, but that’s easily fixed.
+It doesn’t set up a `--kubeconfig` flag,
+which you might want to do to align with `kubectl`;
+you’ll see how to do this
+[in the “Bind the flags” section](#bind-the-flags).
 
 ## Available features
 
@@ -123,7 +126,7 @@ Three sets of flags are available:
 * cluster flags (API server, certificate authority, TLS configuration, proxy, compression)
 * context flags (cluster name, `kubeconfig` user name, namespace)
 
-The recommended selection includes all three of the above, plus a named context selection flag and a timeout flag.
+The recommended selection includes all three with a named context selection flag and a timeout flag.
 
 These are all available using the `Recommended…Flags` functions.
 The functions take a prefix, which is prepended to all the flags.
@@ -137,7 +140,7 @@ Adding a prefix, _e.g._ `"from-"`, results in flags such as
 `--from-context`, `--from-namespace`, etc.
 This might not seem particularly useful on commands involving a single API server,
 but they come in handy when multiple API servers are involved,
-*e.g.* in multi-cluster scenarios.
+such as in multi-cluster scenarios.
 
 There’s a potential gotcha here: prefixes don’t modify the short flag,
 so `--namespace` needs some care with prefixes.
@@ -201,7 +204,7 @@ and no configuration is given using command-line flags),
 the default setup will return an obscure error referring to `KUBERNETES_MASTER`.
 This is legacy behaviour;
 several attempts have been made to get rid of it,
-but it is preserved for `kubectl`’s `--local` and `--dry-run` flags.
+but it is preserved for the `--local` and `--dry-run` flags in `--kubectl`.
 You should check for “empty configuration” errors by calling `clientcmd.IsEmptyConfig()`
 and provide a more explicit error message.
 
