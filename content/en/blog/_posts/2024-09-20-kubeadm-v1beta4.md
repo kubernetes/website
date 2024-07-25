@@ -1,10 +1,10 @@
 ---
 layout: blog
 title: 'Kubernetes v1.31: kubeadm v1beta4'
-date: 2024-09-20
+date: 2024-08-23
 slug: kubernetes-1-31-kubeadm-v1beta4
 author: >
-   Paco Xu (DaoCloud),
+   Paco Xu (DaoCloud)
 ---
 
 The [`kubeadm`](/docs/reference/setup-tools/kubeadm/) configuration
@@ -30,57 +30,58 @@ format by fixing some minor issues and adding a few new fields.
 To put it simply,
 
 - Two new API types: ResetConfiguration and UpgradeConfiguration
-- For InitConfiguration and JoinConfiguration, `dryRun` mode and `NodeRegistration.ImagePullSerial` are supported
-- For ClusterConfiguration, we add field including `CertificateValidityPeriod`,
-`CACertificateValidityPeriod`, `EncryptionAlgorithm`, `DNS.Disabled` and `Proxy.Disabled`.
-- Support `ExtraEnvs` for all control plan components
-- `ExtraArgs` changed from a map to structured extra arguments for duplicates
-- Add a `Timeouts` structure for init, join, upgrade and reset.
+- For InitConfiguration and JoinConfiguration, `dryRun` mode and `nodeRegistration.imagePullSerial` are supported
+- For ClusterConfiguration, we add field including `certificateValidityPeriod`,
+`caCertificateValidityPeriod`, `encryptionAlgorithm`, `dns.disabled` and `proxy.disabled`.
+- Support `extraEnvs` for all control plan components
+- `extraArgs` changed from a map to structured extra arguments for duplicates
+- Add a `timeouts` structure for init, join, upgrade and reset.
 
 For details, you can see the official document below:
 
 - Support custom environment variables in control plane components under `ClusterConfiguration`.
-Use `APIServer.ExtraEnvs`, `ControllerManager.ExtraEnvs`, `Scheduler.ExtraEnvs`, `Etcd.Local.ExtraEnvs`.
+Use `apiServer.extraEnvs`, `controllerManager.extraEnvs`, `scheduler.extraEnvs`, `etcd.local.extraEnvs`.
 - The ResetConfiguration API type is now supported in v1beta4. Users are able to reset a node by passing
 a `--config` file to "kubeadm reset".
-- `dryRun` mode in is now configurable in InitConfiguration and JoinConfiguration.
+- `dryRun` mode is now configurable in InitConfiguration and JoinConfiguration.
 - Replace the existing string/string extra argument maps with structured extra arguments that support duplicates.
-The change applies to `ClusterConfiguration` - `APIServer.ExtraArgs`, `ControllerManager.ExtraArgs`,
-`Scheduler.ExtraArgs`, `Etcd.Local.ExtraArgs`. Also to `NodeRegistrationOptions.KubeletExtraArgs`.
-- Add `ClusterConfiguration.EncryptionAlgorithm` that can be used to set the asymmetric encryption algorithm
+ The change applies to `ClusterConfiguration` - `apiServer.extraArgs`, `controllerManager.extraArgs`,
+ `scheduler.extraArgs`, `etcd.local.extraArgs`. Also to `nodeRegistrationOptions.kubeletExtraArgs`.
+- Add `ClusterConfiguration.encryptionAlgorithm` that can be used to set the asymmetric encryption algorithm
 used for this cluster's keys and certificates. Can be one of "RSA-2048" (default), "RSA-3072", "RSA-4096" or "ECDSA-P256".
-- Add `ClusterConfiguration.DNS.Disabled` and `ClusterConfiguration.Proxy.Disabled` that can be used to disable
+- Add `ClusterConfiguration.dns.disabled` and `ClusterConfiguration.proxy.disabled` that can be used to disable
 the CoreDNS and kube-proxy addons during cluster initialization. Skipping the related addons phases,
-during cluster creation will set the same fields to `false`.
-- Add the `NodeRegistration.ImagePullSerial` field in `InitConfiguration` and `JoinConfiguration`, which
+during cluster creation will set the same fields to `true`.
+- Add the `nodeRegistration.imagePullSerial` field in `InitConfiguration` and `JoinConfiguration`, which
 can be used to control if kubeadm pulls images serially or in parallel.
-- The UpgradeConfiguration kubeadm API is now supported in v1beta4 when passing --config to "kubeadm upgrade" subcommands.
-Usage of component configuration for kubelet and kube-proxy, InitConfiguration and ClusterConfiguration is deprecated
-and will be ignored when passing `--config` to upgrade subcommands.
-- Add a `Timeouts` structure to `InitConfiguration`, `JoinConfiguration`, `ResetConfiguration` and `UpgradeConfiguration`
-that can be used to configure various timeouts. The `ClusterConfiguration.TimeoutForControlPlane` field is replaced
-by `Timeouts.ControlPlaneComponentHealthCheck`. The `JoinConfiguration.Discovery.Timeout` is replaced by
-`Timeouts.Discovery`.
-- Add a `CertificateValidityPeriod` and `CACertificateValidityPeriod` fields to `ClusterConfiguration`. These fields
+- The UpgradeConfiguration kubeadm API is now supported in v1beta4 when passing `--config` to "kubeadm upgrade" subcommands.
+For upgrade subcommands, the usage of component configuration for kubelet and kube-proxy, as well as InitConfiguration and
+ClusterConfiguration, is deprecated and will be ignored when passing `--config`.
+- Add a `timeouts` structure to `InitConfiguration`, `JoinConfiguration`, `ResetConfiguration` and `UpgradeConfiguration`
+that can be used to configure various timeouts. The `ClusterConfiguration.timeoutForControlPlane` field is replaced
+by `timeouts.controlPlaneComponentHealthCheck`. The `JoinConfiguration.discovery.timeout` is replaced by
+`timeouts.discovery`.
+- Add a `certificateValidityPeriod` and `caCertificateValidityPeriod` fields to `ClusterConfiguration`. These fields
 can be used to control the validity period of certificates generated by kubeadm during sub-commands such as `init`,
 `join`, `upgrade` and `certs`. Default values continue to be 1 year for non-CA certificates and 10 years for CA
 certificates. Only non-CA certificates continue to be renewable by `kubeadm certs renew`.
 
-The aim of those changes can be summarized as making tools that use kubeadm easier to configure
-and make kubeadm easier to extend.
+These changes simplify the configuration of tools that use kubeadm
+and improve the extensibility of kubeadm itself.
 
 ### How to migrate v1beta3 configuration to v1beta4?
 
-If your configuration is not using the latest version it is **recommended** that you migrate using
+If your configuration is not using the latest version, it is recommended that you migrate using
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-migrate) command.
 
-Read an older version of the kubeadm configuration API types from a file, and output the similar config object for the newer version
+This command reads an older version of the kubeadm configuration API types from a file,
+and writes a newer version of the configuration objects into a new file.
 
 Using kubeadm v1.31, run `kubeadm config migrate --old-config old-v1beta3.yaml --new-config new-v1beta4.yaml`
 
 ## How do I get involved?
 
-Huge thank you to all the contributors who helped with the design, implementation,
+Huge thanks to all the contributors who helped with the design, implementation,
 and review of this feature:
 
 - Lubomir I. Ivanov ([neolit123](https://github.com/neolit123))
