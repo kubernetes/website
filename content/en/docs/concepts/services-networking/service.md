@@ -583,7 +583,7 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 9376
-  clusterIP: 10.0.171.239
+  loadBalancerIP: 10.0.171.239
   type: LoadBalancer
 status:
   loadBalancer:
