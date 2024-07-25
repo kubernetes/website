@@ -22,14 +22,14 @@ The annotations apply to audit events. Audit events are different from objects i
 
 ## k8s.io/deprecated
 
-Example: `k8s.io/deprecated: true`
+Example: `k8s.io/deprecated: "true"`
 
-Value **must** be boolean. It is set to "true" indicating the request used a deprecated API version.
-If a target removal release is identified, the audit event includes the `k8s.io/removed-release` annotation.
+Value **must** be "true" or "false". The value "true" indicates that the
+request used a deprecated API version.
 
 ## k8s.io/removed-release
 
-Example: `k8s.io/removed-release: 1.22`
+Example: `k8s.io/removed-release: "1.22"`
 
 Value **must** be in the format "<major>.<minor>". It is set to target the removal release
 on requests made to deprecated API versions with a target removal release.
