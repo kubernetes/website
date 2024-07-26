@@ -388,7 +388,7 @@ Ingress 中的每个路径都需要有对应的路径类型（Path Type）。未
 | Prefix | `/aaa/bbb/`                     | `/aaa/bbb`                  | Yes, ignores trailing slash        |
 | Prefix | `/aaa/bbb`                      | `/aaa/bbb/`                 | Yes,  matches trailing slash       |
 | Prefix | `/aaa/bbb`                      | `/aaa/bbb/ccc`              | Yes, matches subpath               |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbbxyz`               | yes, matches string prefix   |
+| Prefix | `/aaa/bbb`                      | `/aaa/bbbxyz`               | No, does not match string prefix   |
 | Prefix | `/`, `/aaa`                     | `/aaa/ccc`                  | Yes, matches `/aaa` prefix         |
 | Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/aaa/bbb`                  | Yes, matches `/aaa/bbb` prefix     |
 | Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/ccc`                      | Yes, matches `/` prefix            |
@@ -411,7 +411,7 @@ Ingress 中的每个路径都需要有对应的路径类型（Path Type）。未
 | Prefix | `/aaa/bbb/`                     | `/aaa/bbb`      | 是，忽略尾部斜线         |
 | Prefix | `/aaa/bbb`                      | `/aaa/bbb/`     | 是，匹配尾部斜线         |
 | Prefix | `/aaa/bbb`                      | `/aaa/bbb/ccc`  | 是，匹配子路径           |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbbxyz`   | 是的，匹配字符串前缀    |
+| Prefix | `/aaa/bbb`                      | `/aaa/bbbxyz`   | 否，字符串前缀不匹配     |
 | Prefix | `/`, `/aaa`                     | `/aaa/ccc`      | 是，匹配 `/aaa` 前缀     |
 | Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/aaa/bbb`      | 是，匹配 `/aaa/bbb` 前缀 |
 | Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/ccc`          | 是，匹配 `/` 前缀        |

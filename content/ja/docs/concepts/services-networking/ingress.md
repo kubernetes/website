@@ -134,7 +134,7 @@ Ingressのそれぞれのパスは対応するパスのタイプを持ちます�
 | Prefix | `/aaa/bbb/`                     | `/aaa/bbb`                    | はい、末尾のスラッシュは無視         |
 | Prefix | `/aaa/bbb`                      | `/aaa/bbb/`                   | はい、末尾のスラッシュと一致         |
 | Prefix | `/aaa/bbb`                      | `/aaa/bbb/ccc`                | はい、パスの一部と一致               |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbbxyz`                 | はい、文字列の接頭辞と一致します          |
+| Prefix | `/aaa/bbb`                      | `/aaa/bbbxyz`                 | いいえ、接頭辞と一致しない           |
 | Prefix | `/`, `/aaa`                     | `/aaa/ccc`                    | はい、接頭辞`/aaa`と一致             |
 | Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/aaa/bbb`                    | はい、接頭辞`/aaa/bbb`と一致         |
 | Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/ccc`                        | はい、接頭辞`/`と一致                |

@@ -260,7 +260,7 @@ coincide con `/foo/bar/baz`, pero no coincide con `/foo/barbaz`).
 | Prefijo  | `/aaa/bbb/`                       | `/aaa/bbb`                 | Si, ignora la barra diagonal           |
 | Prefijo  | `/aaa/bbb`                        | `/aaa/bbb/`                | Si, coincide con barra diagonal       |
 | Prefijo  | `/aaa/bbb`                        | `/aaa/bbb/ccc`             | Si, coincide con la subruta           |
-| Prefijo  | `/aaa/bbb`                        | `/aaa/bbbxyz`              | sí, coincide con el prefijo de cadena     |
+| Prefijo  | `/aaa/bbb`                        | `/aaa/bbbxyz`              | No, no coincide con el prefijo de cadena      |
 | Prefijo  | `/`, `/aaa`                       | `/aaa/ccc`                 | Si, coincide con el prefijo  `/aaa`   |
 | Prefijo  | `/`, `/aaa`, `/aaa/bbb`           | `/aaa/bbb`                 | Si, coincide con el prefijo `/aaa/bbb` |
 | Prefijo  | `/`, `/aaa`, `/aaa/bbb`           | `/ccc`                     | Si, coincide con el prefijo`/`         |
