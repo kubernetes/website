@@ -188,7 +188,7 @@ Events:       <none>
 | Prefix | `/aaa/bbb/`                     | `/aaa/bbb`                    | 예, 마지막 슬래시 무시함                 |
 | Prefix | `/aaa/bbb`                      | `/aaa/bbb/`                   | 예, 마지막 슬래시 일치함                 |
 | Prefix | `/aaa/bbb`                      | `/aaa/bbb/ccc`                | 예, 하위 경로 일치함                    |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbbxyz`                 | 아니오, 문자열 접두사 일치하지 않음         |
+| Prefix | `/aaa/bbb`                      | `/aaa/bbbxyz`                 |예, 문자열 접두사와 일치합니다  |
 | Prefix | `/`, `/aaa`                     | `/aaa/ccc`                    | 예, `/aaa` 접두사 일치함                |
 | Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/aaa/bbb`                    | 예, `/aaa/bbb` 접두사 일치함            |
 | Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/ccc`                        | 예, `/` 접두사 일치함                   |

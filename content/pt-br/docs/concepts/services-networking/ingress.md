@@ -155,7 +155,7 @@ Existem três tipos de caminho suportados:
 | Prefix | `/aaa/bbb/`                      | `/aaa/bbb`                    | Sim, ignora a barra final          |
 | Prefix | `/aaa/bbb`                       | `/aaa/bbb/`                   | Sim, combina com a barra final     |
 | Prefix | `/aaa/bbb`                       | `/aaa/bbb/ccc`                | Sim, corresponde ao subcaminho     |
-| Prefix | `/aaa/bbb`                       | `/aaa/bbbxyz`                 | Não, não corresponde ao prefixo da string   |
+| Prefix | `/aaa/bbb`                       | `/aaa/bbbxyz`                 | sim, corresponde ao prefixo da string  |
 | Prefix | `/`, `/aaa`                      | `/aaa/ccc`                    | Sim, corresponde ao prefixo `/aaa` |
 | Prefix | `/`, `/aaa`, `/aaa/bbb`          | `/aaa/bbb`                    | Sim, corresponde ao prefixo `/aaa/bbb` |
 | Prefix | `/`, `/aaa`, `/aaa/bbb`          | `/ccc`                        | Sim, corresponde ao prefixo `/`    |
