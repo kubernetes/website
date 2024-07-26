@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Kubernetes 1.31: MatchLabelKeys in PodAffinity graduates to beta'
-date: 2024-XX-XX
+date: 2024-08-16
 slug: matchlabelkeys-podaffinity
 author: >
   Kensei Nakada (Tetrate)
@@ -11,18 +11,17 @@ Kubernetes 1.29 introduced new fields `MatchLabelKeys` and `MismatchLabelKeys` i
 
 In Kubernetes 1.31, this feature moves to beta and the corresponding feature gate (`MatchLabelKeysInPodAffinity`) gets enabled by default.
 
-## `MatchLabelKeys` - accurate scheduling during rolling upgrades
+## `MatchLabelKeys` - Enabling version-aware scheduling for rolling upgrades
 
-During rolling upgrades, a cluster may have Pods from multiple versions of a Deployment. 
-This makes it challenging for the scheduler to distinguish between them based on the `LabelSelector` specified in PodAffinity or PodAntiAffinity. 
+During a workload's (e.g., Deployment) rolling upgrade, a cluster may have Pods from multiple versions at the same time. 
+However, the scheduler cannot distinguish between old and new versions based on the `LabelSelector` specified in PodAffinity or PodAntiAffinity. As a result, it will co-locate or disperse Pods regardless of their versions.
 
-This can lead to suboptimal scheduling, for example:
-- New version Pods are placed near old version Pods (PodAffinity), which will eventually be removed after rolling upgrades.
-- Old version Pods are spread out, and new version Pods cannot find nodes due to PodAntiAffinity.
+This can lead to sub-optimal scheduling outcome, for example:
+- New version Pods are co-located with old version Pods (PodAffinity), which will eventually be removed after rolling upgrades.
+- Old version Pods are distributed across all available topologies, preventing new version Pods from finding nodes due to PodAntiAffinity.
 
-`MatchLabelKeys` addresses this problem.
-`MatchLabelKeys` is a set of Pod label keys, 
-and the scheduler looks up the values of these keys from the new Pod's labels and combines them with `LabelSelector` 
+`MatchLabelKeys` is a set of Pod label keys and addresses this problem.
+The scheduler looks up the values of these keys from the new Pod's labels and combines them with `LabelSelector`
 so that PodAffinity matches Pods that have the same key-value in labels.
 
 By using label [pod-template-hash](/docs/concepts/workloads/controllers/deployment/#pod-template-hash-label) in `MatchLabelKeys`, 
@@ -75,7 +74,7 @@ metadata:
         - pod-template-hash
 ```
 
-## `MismatchLabelKeys` - service isolation
+## `MismatchLabelKeys` - Service isolation
 
 `MismatchLabelKeys` is a set of Pod label keys, like `MatchLabelKeys`,
 which looks up the values of these keys from the new Pod's labels, and merge them with `LabelSelector` as `key notin (value)`
