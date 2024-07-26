@@ -24,7 +24,7 @@ The connection to the server <server-name:port> was refused - did you specify th
 
 Por ejemplo, si tiene la intención de ejecutar un clúster de Kubernetes en su computadora portátil (localmente), primero necesitará instalar una herramienta como Minikube y luego volver a ejecutar los comandos indicados anteriormente.
 
-Si kubectl cluster-info devuelve la respuesta de la URL pero no puede acceder a su clúster, para verificar si está configurado correctamente, use:
+Si `kubectl cluster-info` devuelve la respuesta de la URL pero no puede acceder a su clúster, para verificar si está configurado correctamente, use:
 
 ```shell
 kubectl cluster-info dump

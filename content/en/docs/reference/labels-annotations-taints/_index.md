@@ -54,7 +54,7 @@ Type: Label
 
 Example: `app.kubernetes.io/created-by: "controller-manager"`
 
-Used on: All Objects (typically used on[workload resources](/docs/reference/kubernetes-api/workload-resources/)).
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
 The controller/user who created this resource.
 
@@ -66,7 +66,7 @@ Starting from v1.9, this label is deprecated.
 
 Type: Label
 
-Example: `app.kubernetes.io/instance: "mysql-abcxzy"`
+Example: `app.kubernetes.io/instance: "mysql-abcxyz"`
 
 Used on: All Objects (typically used on
 [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
@@ -155,11 +155,11 @@ the ApplySet beyond the parent object's own namespace (if any).
 The value is a comma-separated list of the names of namespaces other than the parent's namespace
 in which objects are found.
 
-### applyset.kubernetes.io/contains-group-resources (alpha) {#applyset-kubernetes-io-contains-group-resources}
+### applyset.kubernetes.io/contains-group-kinds (alpha) {#applyset-kubernetes-io-contains-group-kinds}
 
 Type: Annotation
 
-Example: `applyset.kubernetes.io/contains-group-resources: "certificates.cert-manager.io,configmaps,deployments.apps,secrets,services"`
+Example: `applyset.kubernetes.io/contains-group-kinds: "certificates.cert-manager.io,configmaps,deployments.apps,secrets,services"`
 
 Used on: Objects being used as ApplySet parents.
 
@@ -175,6 +175,31 @@ ApplySet member objects. It is optional in the ApplySet specification, as tools 
 or use a different optimization. However, as of Kubernetes version {{< skew currentVersion >}},
 it is required by kubectl. When present, the value of this annotation must be a comma separated list
 of the group-kinds, in the fully-qualified name format, i.e. `<resource>.<group>`.
+
+### applyset.kubernetes.io/contains-group-resources (deprecated) {#applyset-kubernetes-io-contains-group-resources}
+
+Type: Annotation
+
+Example: `applyset.kubernetes.io/contains-group-resources: "certificates.cert-manager.io,configmaps,deployments.apps,secrets,services"`
+
+Used on: Objects being used as ApplySet parents.
+
+For Kubernetes version {{< skew currentVersion >}}, you can use this annotation on Secrets, ConfigMaps,
+or custom resources if the CustomResourceDefinition
+defining them has the `applyset.kubernetes.io/is-parent-type` label.
+
+Part of the specification used to implement
+[ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune).
+This annotation is applied to the parent object used to track an ApplySet to optimize listing of
+ApplySet member objects. It is optional in the ApplySet specification, as tools can perform discovery
+or use a different optimization. However, in Kubernetes version {{< skew currentVersion >}},
+it is required by kubectl. When present, the value of this annotation must be a comma separated list
+of the group-kinds, in the fully-qualified name format, i.e. `<resource>.<group>`.
+
+{{< note >}}
+This annotation is currently deprecated and replaced by [`applyset.kubernetes.io/contains-group-kinds`](#applyset-kubernetes-io-contains-group-kinds),
+support for this will be removed in applyset beta or GA.
+{{< /note >}}
 
 ### applyset.kubernetes.io/id (alpha) {#applyset-kubernetes-io-id}
 
@@ -300,7 +325,7 @@ which is used by Kustomize and similar third-party tools.
 For example, Kustomize removes objects with this annotation from its final build output.
 
 
-### container.apparmor.security.beta.kubernetes.io/* (beta) {#container-apparmor-security-beta-kubernetes-io}
+### container.apparmor.security.beta.kubernetes.io/* (deprecated) {#container-apparmor-security-beta-kubernetes-io}
 
 Type: Annotation
 
@@ -309,7 +334,7 @@ Example: `container.apparmor.security.beta.kubernetes.io/my-container: my-custom
 Used on: Pods
 
 This annotation allows you to specify the AppArmor security profile for a container within a
-Kubernetes pod. 
+Kubernetes pod. As of Kubernetes v1.30, this should be set with the `appArmorProfile` field instead.
 To learn more, see the [AppArmor](/docs/tutorials/security/apparmor/) tutorial.
 The tutorial illustrates using AppArmor to restrict a container's abilities and access.
 
@@ -627,9 +652,7 @@ Example: `node.kubernetes.io/exclude-from-external-load-balancers`
 
 Used on: Node
 
-Kubernetes automatically enables the `ServiceNodeExclusion` feature gate on
-the clusters it creates. With this feature gate enabled on a cluster,
-you can add labels to particular worker nodes to exclude them from the list of backend servers.
+You can add labels to particular worker nodes to exclude them from the list of backend servers used by external load balancers.
 The following command can be used to exclude a worker node from the list of backend servers in a
 backend set:
 
@@ -995,15 +1018,31 @@ to record the version of Windows Server in use.
 
 The label's value is in the format "MajorVersion.MinorVersion.BuildNumber".
 
+### storage.alpha.kubernetes.io/migrated-plugins {#storagealphakubernetesiomigrated-plugins}
+
+Type: Annotation
+
+Example:`storage.alpha.kubernetes.io/migrated-plugins: "kubernetes.io/cinder"`
+
+Used on: CSINode (an extension API)
+
+This annotation is automatically added for the CSINode object that maps to a node that
+installs CSIDriver. This annotation shows the in-tree plugin name of the migrated plugin. Its
+value depends on your cluster's in-tree cloud provider storage type.
+
+For example, if the in-tree cloud provider storage type is `CSIMigrationvSphere`, the CSINodes instance for the node should be updated with:
+`storage.alpha.kubernetes.io/migrated-plugins: "kubernetes.io/vsphere-volume"`
+
 ### service.kubernetes.io/headless {#servicekubernetesioheadless}
 
 Type: Label
 
 Example: `service.kubernetes.io/headless: ""`
 
-Used on: Service
+Used on: Endpoints
 
 The control plane adds this label to an Endpoints object when the owning Service is headless.
+To learn more, read [Headless Services](/docs/concepts/services-networking/service/#headless-services).
 
 ### service.kubernetes.io/topology-aware-hints (deprecated) {#servicekubernetesiotopology-aware-hints}
 
@@ -1105,19 +1144,17 @@ Example: `kubernetes.io/legacy-token-invalid-since: 2023-10-27`
 Used on: Secret
 
 The control plane automatically adds this label to auto-generated Secrets that
-have the type `kubernetes.io/service-account-token`, provided that you have the
-`LegacyServiceAccountTokenCleanUp` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled. Kubernetes {{< skew currentVersion >}} enables that behavior by default.
-This label marks the Secret-based token as invalid for authentication. The value
-of this label records the date (ISO 8601 format, UTC time zone) when the control
-plane detects that the auto-generated Secret has not been used for a specified
-duration (defaults to one year).
+have the type `kubernetes.io/service-account-token`. This label marks the
+Secret-based token as invalid for authentication. The value of this label
+records the date (ISO 8601 format, UTC time zone) when the control plane detects
+that the auto-generated Secret has not been used for a specified duration
+(defaults to one year).
 
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
 Type: Label
 
-Example: `endpointslice.kubernetes.io/managed-by: "controller"`
+Example: `endpointslice.kubernetes.io/managed-by: endpointslice-controller.k8s.io`
 
 Used on: EndpointSlices
 
@@ -1278,6 +1315,25 @@ The kubectl command line tool uses this annotation as a legacy mechanism
 to track changes. That mechanism has been superseded by
 [Server-side apply](/docs/reference/using-api/server-side-apply/).
 
+### kubectl.kubernetes.io/restartedAt {#kubectl-k8s-io-restart-at}
+
+Type: Annotation
+
+Example: `kubectl.kubernetes.io/restartedAt: "2024-06-21T17:27:41Z"`
+
+Used on: Deployment, ReplicaSet, StatefulSet, DaemonSet, Pod
+
+This annotation contains the latest restart time of a resource (Deployment, ReplicaSet, StatefulSet or DaemonSet),
+where kubectl triggered a rollout in order to force creation of new Pods.
+The command `kubectl rollout restart <RESOURCE>` triggers a restart by patching the template
+metadata of all the pods of resource with this annotation. In above example the latest restart time is shown as 21st June 2024 at 17:27:41 UTC.
+
+You should not assume that this annotation represents the date / time of the most recent update;
+a separate change could have been made since the last manually triggered rollout.
+
+If you manually set this annotation on a Pod, nothing happens. The restarting side effect comes from
+how workload management and Pod templating works.
+
 ### endpoints.kubernetes.io/over-capacity
 
 Type: Annotation
@@ -1293,6 +1349,18 @@ The annotation indicates that the Endpoints object is over capacity and the numb
 has been truncated to 1000.
 
 If the number of backend endpoints falls below 1000, the control plane removes this annotation.
+
+### endpoints.kubernetes.io/last-change-trigger-time
+
+Type: Annotation
+
+Example: `endpoints.kubernetes.io/last-change-trigger-time: "2023-07-20T04:45:21Z"`
+
+Used on: Endpoints
+
+This annotation set to an [Endpoints](/docs/concepts/services-networking/service/#endpoints) object that
+represents the timestamp (The timestamp is stored in RFC 3339 date-time string format. For example, '2018-10-22T19:32:52.1Z'). This is timestamp
+of the last change in some Pod or Service object, that triggered the change to the Endpoints object.
 
 ### control-plane.alpha.kubernetes.io/leader (deprecated) {#control-plane-alpha-kubernetes-io-leader}
 
@@ -2059,6 +2127,25 @@ Do not modify or add the `service.beta.kubernetes.io/aws-load-balancer-type` ann
 on an existing Service object. See the AWS documentation on this topic for more
 details.
 {{< /caution >}}
+
+### service.beta.kubernetes.io/azure-load-balancer-disable-tcp-reset (deprecated) {#service-beta-kubernetes-azure-load-balancer-disble-tcp-reset}
+
+Example: `service.beta.kubernetes.io/azure-load-balancer-disable-tcp-reset: "false"`
+
+Used on: Service
+
+This annotation only works for Azure standard load balancer backed service.
+This annotation is used on the Service to specify whether the load balancer
+should disable or enable TCP reset on idle timeout. If enabled, it helps
+applications to behave more predictably, to detect the termination of a connection,
+remove expired connections and initiate new connections. 
+You can set the value to be either true or false.
+
+See [Load Balancer TCP Reset](https://learn.microsoft.com/en-gb/azure/load-balancer/load-balancer-tcp-reset) for more information.
+
+{{< note >}} 
+This annotation is deprecated.
+{{< /note >}}
 
 ### pod-security.kubernetes.io/enforce
 

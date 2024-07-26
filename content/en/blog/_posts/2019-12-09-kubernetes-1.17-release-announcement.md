@@ -4,9 +4,9 @@ title: "Kubernetes 1.17: Stability"
 date: 2019-12-09T13:00:00-08:00
 slug: kubernetes-1-17-release-announcement
 evergreen: true
+author: >
+  [Kubernetes 1.17 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.17/release_team.md)
 ---
-
-**Authors:** [Kubernetes 1.17 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.17/release_team.md)
 
 We’re pleased to announce the delivery of Kubernetes 1.17, our fourth and final release of 2019! Kubernetes v1.17 consists of 22 enhancements: 14 enhancements have graduated to stable, 4 enhancements are moving to beta, and 4 enhancements are entering alpha.
 

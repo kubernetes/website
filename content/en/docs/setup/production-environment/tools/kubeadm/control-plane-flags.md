@@ -170,12 +170,12 @@ For example, `kube-apiserver0+merge.yaml` or just `etcd.json`.
 
 - `target` can be one of `kube-apiserver`, `kube-controller-manager`, `kube-scheduler`, `etcd`
 and `kubeletconfiguration`.
+- `suffix` is an optional string that can be used to determine which patches are applied first
+alpha-numerically.
 - `patchtype` can be one of `strategic`, `merge` or `json` and these must match the patching formats
 [supported by kubectl](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch).
 The default `patchtype` is `strategic`.
 - `extension` must be either `json` or `yaml`.
-- `suffix` is an optional string that can be used to determine which patches are applied first
-alpha-numerically.
 
 {{< note >}}
 If you are using `kubeadm upgrade` to upgrade your kubeadm nodes you must again provide the same

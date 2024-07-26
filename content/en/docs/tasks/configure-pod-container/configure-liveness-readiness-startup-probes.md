@@ -8,6 +8,8 @@ weight: 140
 
 This page shows how to configure liveness, readiness and startup probes for containers.
 
+For more information about probes, see [Liveness, Readiness and Startup Probes](/docs/concepts/configuration/liveness-readiness-startup-probes)
+
 The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) uses
 liveness probes to know when to restart a container. For example, liveness
 probes could catch a deadlock, where an application is running, but unable to
@@ -140,7 +142,7 @@ liveness-exec   1/1       Running   1          1m
 ## Define a liveness HTTP request
 
 Another kind of liveness probe uses an HTTP GET request. Here is the configuration
-file for a Pod that runs a container based on the `registry.k8s.io/liveness` image.
+file for a Pod that runs a container based on the `registry.k8s.io/e2e-test-images/agnhost` image.
 
 {{% code_sample file="pods/probe/http-liveness.yaml" %}}
 
@@ -403,6 +405,7 @@ liveness and readiness checks:
   Minimum value is 1.
 * `failureThreshold`: After a probe fails `failureThreshold` times in a row, Kubernetes
   considers that the overall check has failed: the container is _not_ ready/healthy/live.
+  Defaults to 3. Minimum value is 1.
   For the case of a startup or liveness probe, if at least `failureThreshold` probes have
   failed, Kubernetes treats the container as unhealthy and triggers a restart for that
   specific container. The kubelet honors the setting of `terminationGracePeriodSeconds`

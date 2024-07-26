@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: hello-world
-          image: gcr.io/google-samples/node-hello:1.0
+          image: us-docker.pkg.dev/google-samples/containers/gke/hello-app:2.0
           ports:
             - containerPort: 8080
               protocol: TCP

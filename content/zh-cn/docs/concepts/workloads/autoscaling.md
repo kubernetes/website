@@ -266,20 +266,14 @@ If scaling workloads isn't enough to meet your needs, you can also scale your cl
 
 <!--
 Scaling the cluster infrastructure normally means adding or removing {{< glossary_tooltip text="nodes" term_id="node" >}}.
-This can be done using one of two available autoscalers:
 -->
 扩缩集群基础设施通常是指增加或移除{{< glossary_tooltip text="节点" term_id="node" >}}。
-这可以通过以下两种自动扩缩器中的任意一种实现：
-
-- [**Cluster Autoscaler**](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
-- [**Karpenter**](https://github.com/kubernetes-sigs/karpenter?tab=readme-ov-file)
 
 <!--
-Both scalers work by watching for pods marked as _unschedulable_ or _underutilized_ nodes and then adding or
-removing nodes as needed.
+Read [cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
+for more information.
 -->
-这两种扩缩器的工作原理都是通过监测节点上被标记为 **unschedulable** 或 **underutilized** 的 Pod 数量，
-然后根据需要增加或移除节点。
+阅读[集群自动扩缩](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/)了解更多信息。
 
 ## {{% heading "whatsnext" %}}
 
@@ -289,9 +283,11 @@ removing nodes as needed.
   - [HorizontalPodAutoscaler Walkthrough](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 - [Resize Container Resources In-Place](/docs/tasks/configure-pod-container/resize-container-resources/)
 - [Autoscale the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
+- Learn about [cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
 -->
 - 了解有关横向扩缩的更多信息
   - [扩缩 StatefulSet](/zh-cn/docs/tasks/run-application/scale-stateful-set/)
   - [HorizontalPodAutoscaler 演练](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 - [调整分配给容器的 CPU 和内存资源](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)
 - [自动扩缩集群 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
+- 了解[集群自动扩缩]((/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/))

@@ -710,7 +710,27 @@ To assign SELinux labels, the SELinux security module must be loaded on the host
 -->
 ### 高效重打 SELinux 卷标签
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state feature_gate_name="SELinuxMountReadWriteOncePod" >}}
+
+{{< note >}}
+<!--
+Kubernetes v1.27 introduced an early limited form of this behavior that was only applicable
+to volumes (and PersistentVolumeClaims) using the `ReadWriteOncePod` access mode.
+-->
+Kubernetes v1.27 引入了此行为的早期受限形式，仅适用于使用 `ReadWriteOncePod`
+访问模式的卷（和 PersistentVolumeClaim）。
+
+<!--
+As an alpha feature, you can enable the `SELinuxMount`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to widen that
+performance improvement to other kinds of PersistentVolumeClaims, as explained in detail
+below.
+-->
+作为一项 Alpha 特性，你可以启用 `SELinuxMount`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+将性能改进扩展到其他类型的 PersistentVolumeClaim，如下文详细解释。
+{{< /note >}}
+
 
 <!--
 By default, the container runtime recursively assigns SELinux label to all
@@ -734,9 +754,14 @@ To benefit from this speedup, all these conditions must be met:
   [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
 <!--
-* Pod must use PersistentVolumeClaim with `accessModes: ["ReadWriteOncePod"]`.
+* Pod must use PersistentVolumeClaim with applicable `accessModes` and [feature gates](/docs/reference/command-line-tools-reference/feature-gates/):
+  * Either the volume has `accessModes: ["ReadWriteOncePod"]`, and feature gate `SELinuxMountReadWriteOncePod` is enabled.
+  * Or the volume can use any other access modes and both feature gates `SELinuxMountReadWriteOncePod` and `SELinuxMount` must be enabled.
 -->
-* Pod 必须以 `accessModes: ["ReadWriteOncePod"]` 模式使用 PersistentVolumeClaim。
+* Pod 必须使用带有对应的 `accessModes` 和[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+  的 PersistentVolumeClaim。
+  * 卷具有 `accessModes: ["ReadWriteOncePod"]`，并且 `SELinuxMountReadWriteOncePod` 特性门控已启用。
+  * 或者卷可以使用任何其他访问模式，并且必须启用 `SELinuxMountReadWriteOncePod` 和 `SELinuxMount` 特性门控。
 
 <!--
 * Pod (or all its Containers that use the PersistentVolumeClaim) must
@@ -774,19 +799,86 @@ The more files and directories in the volume, the longer that relabelling takes.
 容器运行时为卷中的所有节点（文件和目录）递归地修改 SELinux 标签。
 卷中的文件和目录越多，重打标签需要耗费的时间就越长。
 
-{{< note >}}
-<!-- remove after Kubernetes v1.30 is released -->
 <!--
-If you are running Kubernetes v1.25, refer to the v1.25 version of this task page:
-[Configure a Security Context for a Pod or Container](https://v1-25.docs.kubernetes.io/docs/tasks/configure-pod-container/security-context/) (v1.25).  
-There is an important note in that documentation about a situation where the kubelet
-can lose track of volume labels after restart. This deficiency has been fixed
-in Kubernetes 1.26.
+## Managing access to the `/proc` filesystem {#proc-access}
 -->
-如果你的 Kubernetes 版本是 v1.25，请参阅此任务页面的 v1.25 版本：
-[为 Pod 或 Container 配置安全上下文](https://v1-25.docs.kubernetes.io/docs/tasks/configure-pod-container/security-context/)（v1.25）。
-该文档中有一个重要的说明：kubelet 在重启后会丢失对卷标签的追踪记录。
-这个缺陷已经在 Kubernetes 1.26 中修复。
+## 管理对 `/proc` 文件系统的访问   {#proc-access}
+
+{{< feature-state feature_gate_name="ProcMountType" >}}
+
+<!--
+For runtimes that follow the OCI runtime specification, containers default to running in a mode where
+there are multiple paths that are both masked and read-only.
+The result of this is the container has these paths present inside the container's mount namespace, and they can function similarly to if
+the container was an isolated host, but the container process cannot write to
+them. The list of masked and read-only paths are as follows:
+-->
+对于遵循 OCI 运行时规范的运行时，容器默认运行模式下，存在多个被屏蔽且只读的路径。
+这样做的结果是在容器的 mount 命名空间内会存在这些路径，并且这些路径的工作方式与容器是隔离主机时类似，
+但容器进程无法写入它们。
+被屏蔽的和只读的路径列表如下：
+
+<!--
+- Masked Paths:
+-->
+- 被屏蔽的路径：
+
+  - `/proc/asound`
+  - `/proc/acpi`
+  - `/proc/kcore`
+  - `/proc/keys`
+  - `/proc/latency_stats`
+  - `/proc/timer_list`
+  - `/proc/timer_stats`
+  - `/proc/sched_debug`
+  - `/proc/scsi`
+  - `/sys/firmware`
+
+<!--
+- Read-Only Paths:
+-->
+- 只读的路径：
+
+  - `/proc/bus`
+  - `/proc/fs`
+  - `/proc/irq`
+  - `/proc/sys`
+  - `/proc/sysrq-trigger`
+
+<!--
+For some Pods, you might want to bypass that default masking of paths.
+The most common context for wanting this is if you are trying to run containers within
+a Kubernetes container (within a pod).
+-->
+对于某些 Pod，你可能希望绕过默认的路径屏蔽。
+最常见的情况是你尝试在 Kubernetes 容器内（在 Pod 内）运行容器。
+
+<!--
+The `securityContext` field `procMount` allows a user to request a container's `/proc`
+be `Unmasked`, or be mounted as read-write by the container process. This also
+applies to `/sys/firmware` which is not in `/proc`.
+-->
+`securityContext` 字段 `procMount` 允许用户请求容器的 `/proc` 为 `Unmasked`，
+或者由容器进程以读写方式挂载。这一设置也适用于不在 `/proc` 内的 `/sys/firmware` 路径。
+
+```yaml
+...
+securityContext:
+  procMount: Unmasked
+```
+
+{{< note >}}
+<!--
+Setting `procMount` to Unmasked requires the `spec.hostUsers` value in the pod
+spec to be `false`. In other words: a container that wishes to have an Unmasked
+`/proc` or unmasked `/sys` must also be in a
+[user namespace](/docs/concepts/workloads/pods/user-namespaces/).
+Kubernetes v1.12 to v1.29 did not enforce that requirement.
+-->
+将 `procMount` 设置为 Unmasked 需要将 Pod 规约中的 `spec.hostUsers`
+的值设置为 `false`。换句话说：希望使用未被屏蔽的 `/proc` 或 `/sys`
+路径的容器也必须位于 [user 命名空间](/zh-cn/docs/concepts/workloads/pods/user-namespaces/)中。
+Kubernetes v1.12 到 v1.29 没有强制执行该要求。
 {{< /note >}}
 
 <!--
@@ -862,6 +954,10 @@ kubectl delete pod security-context-demo-4
 * For more information about security mechanisms in Linux, see
   [Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
   (Note: Some information is out of date)
+* Read about [User Namespaces](/docs/concepts/workloads/pods/user-namespaces/)
+  for Linux pods.
+* [Masked Paths in the OCI Runtime
+  Specification](https://github.com/opencontainers/runtime-spec/blob/f66aad47309/config-linux.md#masked-paths)
 -->
 * [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core) API 定义
 * [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core) API 定义
@@ -872,3 +968,5 @@ kubectl delete pod security-context-demo-4
 * [AllowPrivilegeEscalation 的设计文档（英文）](https://github.com/kubernetes/design-proposals-archive/blob/main/auth/no-new-privs.md)
 * 关于在 Linux 系统中的安全机制的更多信息，可参阅
   [Linux 内核安全性能力概述](https://www.linux.com/learn/overview-linux-kernel-security-features)（注意：部分信息已过时）。
+* 了解 Linux Pod 的 [user 命名空间](/zh-cn/docs/concepts/workloads/pods/user-namespaces/)。
+* [OCI 运行时规范中的被屏蔽的路径](https://github.com/opencontainers/runtime-spec/blob/f66aad47309/config-linux.md#masked-paths)

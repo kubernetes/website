@@ -3,9 +3,9 @@ layout: blog
 title: "GSoD 2020: Improving the API Reference Experience"
 date: 2020-12-04
 slug: gsod-2020-improving-api-reference-experience
+author: >
+  [Philippe Martin](https://github.com/feloy)
 ---
-
-**Author**: [Philippe Martin](https://github.com/feloy)
 
 _Editor's note: Better API references have been my goal since I joined Kubernetes docs three and a half years ago. Philippe has succeeded fantastically. More than a better API reference, though, Philippe embodied the best of the Kubernetes community in this project: excellence through collaboration, and a process that made the community itself better. Thanks, Google Season of Docs, for making Philippe's work possible. —Zach Corleissen_
 

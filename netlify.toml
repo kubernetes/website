@@ -4,7 +4,7 @@
 # DO NOT REMOVE THIS (contact @kubernetes/sig-docs-leads)
 publish = "public"
 functions = "functions"
-command = "git submodule update --init --recursive --depth 1 && make non-production-build"
+command = "git submodule update --init --recursive --depth 1 && make non-production-build && npx -y pagefind --site public"
 
 [build.environment]
 NODE_VERSION = "20.11.0"
@@ -16,13 +16,13 @@ HUGO_ENV = "production"
 HUGO_ENABLEGITINFO = "true"
 
 [context.deploy-preview]
-command = "git submodule update --init --recursive --depth 1 && make deploy-preview"
+command = "git submodule update --init --recursive --depth 1 && make deploy-preview && npx -y pagefind --site public"
 
 [context.branch-deploy]
-command = "git submodule update --init --recursive --depth 1 && make non-production-build"
+command = "git submodule update --init --recursive --depth 1 && make non-production-build && npx -y pagefind --site public"
 
 [context.main]
 # This context is triggered by the `main` branch and allows search indexing
 # DO NOT REMOVE THIS (contact @kubernetes/sig-docs-leads)
 publish = "public"
-command = "git submodule update --init --recursive --depth 1 && make production-build"
+command = "git submodule update --init --recursive --depth 1 && make production-build && npx -y pagefind --site public"

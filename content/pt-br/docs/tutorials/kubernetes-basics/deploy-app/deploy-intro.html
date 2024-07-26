@@ -275,7 +275,7 @@ description: |-
           <b><code>echo Nome do Pod: $POD_NAME</code></b></p>
         <p>Você pode acessar o Pod através da API encaminhada, rodando o comando:</p>
         <p><b><code>curl
-          http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/</code></b>
+          http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME:8080/proxy/</code></b>
         </p>
         <p>
           Para que o novo Deployment esteja acessível sem utilizar o proxy, um

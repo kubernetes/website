@@ -19,9 +19,6 @@ see [Reviewing changes](/docs/contribute/review/).
 
 Each day in a week-long shift as PR Wrangler:
 
-- Triage and tag incoming issues daily. See
-  [Triage and categorize issues](/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
-  for guidelines on how SIG Docs uses metadata.
 - Review [open pull requests](https://github.com/kubernetes/website/pulls) for quality
   and adherence to the [Style](/docs/contribute/style/style-guide/) and
   [Content](/docs/contribute/style/content-guide/) guides.
@@ -44,6 +41,11 @@ Each day in a week-long shift as PR Wrangler:
       issues as [good first issues](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue).
     - Using style fixups as good first issues is a good way to ensure a supply of easier tasks
       to help onboard new contributors.
+- Also check for pull requests against the [reference docs generator](https://github.com/kubernetes-sigs/reference-docs) code, and review those (or bring in help).
+- Support the [issue wrangler](/docs/contribute/participate/issue-wrangler/) to
+  triage and tag incoming issues daily.
+  See [Triage and categorize issues](/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
+  for guidelines on how SIG Docs uses metadata.
 
 {{< note >}}
 PR wrangler duties do not apply to localization PRs (non-English PRs). 

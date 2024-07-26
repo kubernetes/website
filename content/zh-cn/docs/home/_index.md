@@ -12,18 +12,16 @@ hide_feedback: true
 menu:
   main:
     title: "文档"
-    weight: 20
-    post: >
-      <p>通过概念、教程和参考文档了解如何使用 Kubernetes。你甚至可以<a href="/editdocs/" data-auto-burger-exclude data-proofer-ignore>帮助贡献文档</a>！</p>
+    weight: 10
 # description: >
 #   Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation.
 description: >
-  Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行自动部署、 扩缩和管理。此开源项目由云原生计算基金会（CNCF）托管。
+  Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行自动部署、扩缩和管理。此开源项目由云原生计算基金会（CNCF）托管。
 
 # overview:
 #  Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
 overview:
-  Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行自动化部署、 扩缩和管理。该项目托管在 <a href="https://www.cncf.io/about">CNCF</a>。
+  Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行自动化部署、扩缩和管理。该项目托管在 <a href="https://www.cncf.io/about">CNCF</a>。
 
 cards:
 # - name: concepts
@@ -104,7 +102,11 @@ cards:
 # - name: about
 #   title: About the documentation
 #   description: This website contains documentation for the current and previous 4 versions of Kubernetes.
+#   button: "See available versions"
+#   button_path: "/docs/home/supported-doc-versions"
 - name: about
   title: 关于文档
   description: 本网站包含了当前及前 4 个版本的 Kubernetes 文档。
+  button: "查看可用版本"
+  button_path: "/zh-cn/docs/home/supported-doc-versions"
 ---

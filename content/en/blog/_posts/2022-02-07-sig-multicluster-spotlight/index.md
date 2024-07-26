@@ -4,9 +4,10 @@ title: "Spotlight on SIG Multicluster"
 date: 2022-02-07
 slug: sig-multicluster-spotlight-2022
 canonicalUrl: https://www.kubernetes.dev/blog/2022/02/04/sig-multicluster-spotlight-2022/
+author: >
+   Dewan Ahmed (Aiven),
+   Chris Short (AWS)
 ---
-
-**Authors:** Dewan Ahmed (Aiven) and Chris Short (AWS)
 
 ## Introduction
 

@@ -5,8 +5,8 @@ cluster, you can create one by using
 [minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/)
 or you can use one of these Kubernetes playgrounds:
 -->
-你必须拥有一个 Kubernetes 的集群，同时你必须配置 kubectl 命令行工具与你的集群通信。
-建议在至少有两个不作为控制平面主机的节点的集群上运行本教程。
+你必须拥有一个 Kubernetes 的集群，且必须配置 kubectl 命令行工具让其与你的集群通信。
+建议运行本教程的集群至少有两个节点，且这两个节点不能作为控制平面主机。
 如果你还没有集群，你可以通过 [Minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/)
 构建一个你自己的集群，或者你可以使用下面的 Kubernetes 练习环境之一：
 

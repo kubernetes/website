@@ -13,6 +13,8 @@ weight: 140
 <!--
 This page shows how to configure liveness, readiness and startup probes for containers.
 
+For more information about probes, see [Liveness, Readiness and Startup Probes](/docs/concepts/configuration/liveness-readiness-startup-probes)
+
 The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) uses
 liveness probes to know when to restart a container. For example, liveness
 probes could catch a deadlock, where an application is running, but unable to
@@ -20,6 +22,9 @@ make progress. Restarting a container in such a state can help to make the
 application more available despite bugs.
 -->
 这篇文章介绍如何给容器配置存活（Liveness）、就绪（Readiness）和启动（Startup）探针。
+
+有关探针的更多信息，请参阅
+[Liveness、Readiness 和 Startup 探针](/zh-cn/docs/concepts/configuration/liveness-readiness-startup-probes)。
 
 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
 使用存活探针来确定什么时候要重启容器。
@@ -222,12 +227,12 @@ liveness-exec   1/1       Running   1          1m
 ## Define a liveness HTTP request
 
 Another kind of liveness probe uses an HTTP GET request. Here is the configuration
-file for a Pod that runs a container based on the `registry.k8s.io/liveness` image.
+file for a Pod that runs a container based on the `registry.k8s.io/e2e-test-images/agnhost` image.
 -->
 ## 定义一个存活态 HTTP 请求接口 {#define-a-liveness-HTTP-request}
 
 另外一种类型的存活探测方式是使用 HTTP GET 请求。
-下面是一个 Pod 的配置文件，其中运行一个基于 `registry.k8s.io/liveness` 镜像的容器。
+下面是一个 Pod 的配置文件，其中运行一个基于 `registry.k8s.io/e2e-test-images/agnhost` 镜像的容器。
 
 {{% code_sample file="pods/probe/http-liveness.yaml" %}}
 
@@ -655,6 +660,7 @@ liveness and readiness checks:
 <!--
 * `failureThreshold`: After a probe fails `failureThreshold` times in a row, Kubernetes
   considers that the overall check has failed: the container is _not_ ready/healthy/live.
+  Defaults to 3. Minimum value is 1.
   For the case of a startup or liveness probe, if at least `failureThreshold` probes have
   failed, Kubernetes treats the container as unhealthy and triggers a restart for that
   specific container. The kubelet honors the setting of `terminationGracePeriodSeconds`
@@ -666,6 +672,7 @@ liveness and readiness checks:
 -->
 * `failureThreshold`：探针连续失败了 `failureThreshold` 次之后，
   Kubernetes 认为总体上检查已失败：容器状态未就绪、不健康、不活跃。
+  默认值为 3，最小值为 1。
   对于启动探针或存活探针而言，如果至少有 `failureThreshold` 个探针已失败，
   Kubernetes 会将容器视为不健康并为这个特定的容器触发重启操作。
   kubelet 遵循该容器的 `terminationGracePeriodSeconds` 设置。

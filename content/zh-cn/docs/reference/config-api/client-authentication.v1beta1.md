@@ -32,8 +32,8 @@ ExecCredential 由基于 exec 的插件使用，与 HTTP 传输组件沟通凭�
 <tr><td><code>apiVersion</code><br/>string</td><td><code>client.authentication.k8s.io/v1beta1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>ExecCredential</code></td></tr>
 
-
-<tr><td><code>spec</code> <B><!--[Required]-->[必需]</B><br/>
+<tr>
+<td><code>spec</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#client-authentication-k8s-io-v1beta1-ExecCredentialSpec"><code>ExecCredentialSpec</code></a>
 </td>
 <td>
@@ -41,9 +41,9 @@ ExecCredential 由基于 exec 的插件使用，与 HTTP 传输组件沟通凭�
    字段 spec 包含由 HTTP 传输组件传递给插件的信息。
 </td>
 </tr>
-    
   
-<tr><td><code>status</code><br/>
+<tr>
+<td><code>status</code><br/>
 <a href="#client-authentication-k8s-io-v1beta1-ExecCredentialStatus"><code>ExecCredentialStatus</code></a>
 </td>
 <td>
@@ -52,23 +52,16 @@ ExecCredential 由基于 exec 的插件使用，与 HTTP 传输组件沟通凭�
    字段 status 由插件填充，包含传输组件与 API 服务器连接时需要提供的凭据。
 </td>
 </tr>
-    
-  
+
 </tbody>
 </table>
-    
-
 
 ## `Cluster`     {#client-authentication-k8s-io-v1beta1-Cluster}
-    
-
-
 
 <!--**Appears in:**-->
 **出现在：**
 
 - [ExecCredentialSpec](#client-authentication-k8s-io-v1beta1-ExecCredentialSpec)
-
 
 <!--
 Cluster contains information to allow an exec plugin to communicate
@@ -89,10 +82,9 @@ Cluster 中包含允许 exec 插件与 Kubernetes 集群进行通信身份认证
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
 
-  
-<tr><td><code>server</code> <B><!--[Required]-->[必需]</B><br/>
+<tr>
+<td><code>server</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
 <td>
@@ -100,9 +92,9 @@ Cluster 中包含允许 exec 插件与 Kubernetes 集群进行通信身份认证
    字段 server 是 Kubernetes 集群的地址（https://hostname:port）。
 </td>
 </tr>
-    
-  
-<tr><td><code>tls-server-name</code><br/>
+
+<tr>
+<td><code>tls-server-name</code><br/>
 <code>string</code>
 </td>
 <td>
@@ -115,9 +107,9 @@ used to contact the server is used.
    如此字段为空，则使用链接服务器时使用的主机名。
 </td>
 </tr>
-    
-  
-<tr><td><code>insecure-skip-tls-verify</code><br/>
+
+<tr>
+<td><code>insecure-skip-tls-verify</code><br/>
 <code>bool</code>
 </td>
 <td>
@@ -129,9 +121,9 @@ This will make your HTTPS connections insecure.
    这会使得你的 HTTPS 链接不再安全。
 </td>
 </tr>
-    
-  
-<tr><td><code>certificate-authority-data</code><br/>
+
+<tr>
+<td><code>certificate-authority-data</code><br/>
 <code>[]byte</code>
 </td>
 <td>
@@ -143,9 +135,9 @@ If empty, system roots should be used.
    如果为空，则使用系统的根证书。
 </td>
 </tr>
-    
-  
-<tr><td><code>proxy-url</code><br/>
+
+<tr>
+<td><code>proxy-url</code><br/>
 <code>string</code>
 </td>
 <td>
@@ -154,7 +146,8 @@ If empty, system roots should be used.
 </td>
 </tr>
 
-<tr><td><code>disable-compression</code><br/>
+<tr>
+<td><code>disable-compression</code><br/>
 <code>bool</code>
 </td>
 <td>
@@ -169,7 +162,8 @@ If empty, system roots should be used.
 </td>
 </tr>
 
-<tr><td><code>config</code><br/>
+<tr>
+<td><code>config</code><br/>
 <a href="https://godoc.org/k8s.io/apimachinery/pkg/runtime/#RawExtension"><code>k8s.io/apimachinery/pkg/runtime.RawExtension</code></a>
 </td>
 <td>
@@ -208,23 +202,16 @@ to be stored directly in the kubeconfig.
 kubeconfig 中保存 Secret 数据。</p>
 </td>
 </tr>
-    
   
 </tbody>
 </table>
-    
-
 
 ## `ExecCredentialSpec`     {#client-authentication-k8s-io-v1beta1-ExecCredentialSpec}
-    
-
-
 
 <!-- **Appears in:** -->
 **出现在：**
 
 - [ExecCredential](#client-authentication-k8s-io-v1beta1-ExecCredential)
-
 
 <!-- 
 ExecCredentialSpec holds request and runtime specific information provided by
@@ -235,9 +222,7 @@ ExecCredentialSpec 保存传输组件所提供的特定于请求和运行时的�
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
 
-  
 <tr><td><code>cluster</code><br/>
 <a href="#client-authentication-k8s-io-v1beta1-Cluster"><code>Cluster</code></a>
 </td>
@@ -253,44 +238,41 @@ ExecConfig.ProvideClusterInfo).
   （即：ExecConfig.ProvideClusterInfo）被设置为 true 时才不能为空。
 </td>
 </tr>
-    
-  
+
 </tbody>
 </table>
-    
-
 
 ## `ExecCredentialStatus`     {#client-authentication-k8s-io-v1beta1-ExecCredentialStatus}
-    
-
-
 
 <!-- **Appears in:** -->
 **出现在：**
 
 - [ExecCredential](#client-authentication-k8s-io-v1beta1-ExecCredential)
 
-
-<!-- 
+<p>
+<!--
 ExecCredentialStatus holds credentials for the transport to use.
+-->
+ExecCredentialStatus 中包含传输组件要使用的凭据。
+</p>
 
+<p>
+<!--
 Token and ClientKeyData are sensitive fields. This data should only be
 transmitted in-memory between client and exec plugin process. Exec plugin
 itself should at least be protected via file permissions.
 -->
-<p>ExecCredentialStatus 中包含传输组件要使用的凭据。</p>
-
-<p>字段 token 和 clientKeyData 都是敏感字段。
+字段 token 和 clientKeyData 都是敏感字段。
 此数据只能在客户端与 exec 插件进程之间使用内存来传递。
-exec 插件本身至少应通过文件访问许可来实施保护。</p>
+exec 插件本身至少应通过文件访问许可来实施保护。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-    
 
-  
-<tr><td><code>expirationTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#time-v1-meta"><code>meta/v1.Time</code></a>
+<tr>
+<td><code>expirationTimestamp</code><br/>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <!-- ExpirationTimestamp indicates a time when the provided credentials expire. -->
@@ -298,8 +280,8 @@ exec 插件本身至少应通过文件访问许可来实施保护。</p>
 </td>
 </tr>
 
-
-<tr><td><code>token</code> <B><!--[Required]-->[必需]</B><br/>
+<tr>
+<td><code>token</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
 <td>
@@ -307,9 +289,9 @@ exec 插件本身至少应通过文件访问许可来实施保护。</p>
    客户端用做请求身份认证的持有者令牌。
 </td>
 </tr>
-    
-  
-<tr><td><code>clientCertificateData</code> <B><!--[Required]-->[必需]</B><br/>
+
+<tr>
+<td><code>clientCertificateData</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
 <td>
@@ -317,9 +299,9 @@ exec 插件本身至少应通过文件访问许可来实施保护。</p>
    PEM 编码的客户端 TLS 证书（如果有临时证书，也会包含）。
 </td>
 </tr>
-    
-  
-<tr><td><code>clientKeyData</code> <B><!--[Required]-->[必需]</B><br/>
+
+<tr>
+<td><code>clientKeyData</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
 <td>
@@ -327,7 +309,6 @@ exec 插件本身至少应通过文件访问许可来实施保护。</p>
    与上述证书对应的、PEM 编码的私钥。
 </td>
 </tr>
-    
-  
+
 </tbody>
 </table>

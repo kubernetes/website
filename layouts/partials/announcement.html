@@ -15,7 +15,7 @@
     {{- if or (eq .endTime nil ) (gt ( time .endTime ) now ) -}}
       {{- if not $announcementShown -}}
       {{- $announcementShown = true -}}
-  <div lang="en" id="announcement" style="background-color: #3371e3; color: #fff; {{ .style | safeCSS }}">
+  <div lang="en" id="announcement" data-announcement-name="{{ .name }}" style="background-color: #3371e3; color: #fff; {{ .style | safeCSS }}">
     <aside>
       <div class="announcement-main" data-nosnippet>
         {{ if .title }}
@@ -24,6 +24,9 @@
         </h4>
         {{ end }}
         <p>{{ .message | markdownify }}</p>
+        {{- if eq .dismissParameters.dismissible true -}}
+        <button  id="banner-dismiss" class="button" style="display: none;" data-ttl={{ .dismiss_params.showDismissedAnnouncementAfterDays }}>{{ T "banner_acknowledgement" }}</button> <!-- Only JS enabled users will see this button -->
+        {{- end -}}      
       </div>
     </aside>
   </div>

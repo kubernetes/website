@@ -3,9 +3,9 @@ title: " Kubernetes the Easy Way "
 date: 2017-11-01
 slug: kubernetes-easy-way
 url: /blog/2017/11/Kubernetes-Easy-Way
+author: >
+  Dan Garfield (Codefresh)
 ---
- **_Editor's note: Today's post is by Dan Garfield, VP of Marketing at Codefresh, on how to set up and easily deploy a Kubernetes cluster._**  
-
 
 Kelsey Hightower wrote an invaluable guide for Kubernetes called [Kubernetes the Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way). It’s an awesome resource for those looking to understand the ins and outs of Kubernetes—but what if you want to put Kubernetes on easy mode? That’s something we’ve been working on together with Google Cloud. In this guide, we’ll show you how to get a cluster up and running, as well as how to actually deploy your code to that cluster and run it.   
 

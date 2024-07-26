@@ -8,24 +8,12 @@ weight: 30
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.4" state="beta" >}}
+{{< feature-state feature_gate_name="AppArmor" >}}
 
-
-[AppArmor](https://apparmor.net/) is a Linux kernel security module that supplements the standard Linux user and group based
-permissions to confine programs to a limited set of resources. AppArmor can be configured for any
-application to reduce its potential attack surface and provide greater in-depth defense. It is
-configured through profiles tuned to allow the access needed by a specific program or container,
-such as Linux capabilities, network access, file permissions, etc. Each profile can be run in either
-*enforcing* mode, which blocks access to disallowed resources, or *complain* mode, which only reports
-violations.
-
-On Kubernetes, AppArmor can help you to run a more secure deployment by restricting what containers are allowed to
-do, and/or provide better auditing through system logs. However, it is important to keep in mind
-that AppArmor is not a silver bullet and can only do so much to protect against exploits in your
-application code. It is important to provide good, restrictive profiles, and harden your
-applications and cluster from other angles as well.
-
-
+This page shows you how to load AppArmor profiles on your nodes and enforce
+those profiles in Pods. To learn more about how Kubernetes can confine Pods using
+AppArmor, see
+[Linux kernel security constraints for Pods and containers](/docs/concepts/security/linux-kernel-security-constraints/#apparmor).
 
 ## {{% heading "objectives" %}}
 
@@ -54,17 +42,17 @@ Nodes before proceeding:
    Y
    ```
 
-   The Kubelet verifies that AppArmor is enabled on the host before admitting a pod with AppArmor
+   The kubelet verifies that AppArmor is enabled on the host before admitting a pod with AppArmor
    explicitly configured.
 
-3. Container runtime supports AppArmor -- All common Kubernetes-supported container
+1. Container runtime supports AppArmor -- All common Kubernetes-supported container
    runtimes should support AppArmor, including {{< glossary_tooltip term_id="containerd" >}} and
    {{< glossary_tooltip term_id="cri-o" >}}. Please refer to the corresponding runtime
    documentation and verify that the cluster fulfills the requirements to use AppArmor.
 
-4. Profile is loaded -- AppArmor is applied to a Pod by specifying an AppArmor profile that each
+1. Profile is loaded -- AppArmor is applied to a Pod by specifying an AppArmor profile that each
    container should be run with. If any of the specified profiles are not loaded in the
-   kernel, the Kubelet will reject the Pod. You can view which profiles are loaded on a
+   kernel, the kubelet will reject the Pod. You can view which profiles are loaded on a
    node by checking the `/sys/kernel/security/apparmor/profiles` file. For example:
 
    ```shell
@@ -85,25 +73,26 @@ Nodes before proceeding:
 ## Securing a Pod
 
 {{< note >}}
-AppArmor is currently in beta, so options are specified as annotations. Once support graduates to
-general availability, the annotations will be replaced with first-class fields.
+Prior to Kubernetes v1.30, AppArmor was specified through annotations. Use the documentation version
+selector to view the documentation with this deprecated API.
 {{< /note >}}
 
-AppArmor profiles are specified *per-container*. To specify the AppArmor profile to run a Pod
-container with, add an annotation to the Pod's metadata:
+AppArmor profiles can be specified at the pod level or container level. The container AppArmor
+profile takes precedence over the pod profile.
 
 ```yaml
-container.apparmor.security.beta.kubernetes.io/<container_name>: <profile_ref>
+securityContext:
+  appArmorProfile:
+    type: <profile_type>
 ```
 
-Where `<container_name>` is the name of the container to apply the profile to, and `<profile_ref>`
-specifies the profile to apply. The `<profile_ref>` can be one of:
+Where `<profile_type>` is one of:
 
-* `runtime/default` to apply the runtime's default profile
-* `localhost/<profile_name>` to apply the profile loaded on the host with the name `<profile_name>`
-* `unconfined` to indicate that no profiles will be loaded
+* `RuntimeDefault` to use the runtime's default profile
+* `Localhost` to use a profile loaded on the host (see below)
+* `Unconfined` to run without AppArmor
 
-See the [API Reference](#api-reference) for the full details on the annotation and profile name formats.
+See [Specifying AppArmor Confinement](#specifying-apparmor-confinement) for full details on the AppArmor profile API.
 
 To verify that the profile was applied, you can check that the container's root process is
 running with the correct profile by examining its proc attr:
@@ -115,14 +104,14 @@ kubectl exec <pod_name> -- cat /proc/1/attr/current
 The output should look something like this:
 
 ```
-k8s-apparmor-example-deny-write (enforce)
+cri-containerd.apparmor.d (enforce)
 ```
 
 ## Example
 
 *This example assumes you have already set up a cluster with AppArmor support.*
 
-First, load the profile you want to use onto your Nodes. This profile denies all file writes:
+First, load the profile you want to use onto your Nodes. This profile blocks all file write operations:
 
 ```
 #include <tunables/global>
@@ -197,9 +186,11 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: hello-apparmor-2
-  annotations:
-    container.apparmor.security.beta.kubernetes.io/hello: localhost/k8s-apparmor-example-allow-write
 spec:
+  securityContext:
+    appArmorProfile:
+      type: Localhost
+      localhostProfile: k8s-apparmor-example-allow-write
   containers:
   - name: hello
     image: busybox:1.28
@@ -243,7 +234,7 @@ An Event provides the error message with the reason, the specific wording is run
 
 ### Setting up Nodes with profiles
 
-Kubernetes does not currently provide any built-in mechanisms for loading AppArmor profiles onto
+Kubernetes {{< skew currentVersion >}} does not provide any built-in mechanisms for loading AppArmor profiles onto
 Nodes. Profiles can be loaded through custom infrastructure or tools like the
 [Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator).
 
@@ -270,29 +261,37 @@ logs or through `journalctl`. More information is provided in
 [AppArmor failures](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Failures).
 
 
-## API Reference
+## Specifying AppArmor confinement
 
-### Pod Annotation
+{{< caution >}}
+Prior to Kubernetes v1.30, AppArmor was specified through annotations. Use the documentation version
+selector to view the documentation with this deprecated API.
+{{< /caution >}}
 
-Specifying the profile a container will run with:
+### AppArmor profile within security context {#appArmorProfile}
 
-- **key**: `container.apparmor.security.beta.kubernetes.io/<container_name>`
-  Where `<container_name>` matches the name of a container in the Pod.
-  A separate profile can be specified for each container in the Pod.
-- **value**: a profile reference, described below
+You can specify the `appArmorProfile` on either a container's `securityContext` or on a Pod's
+`securityContext`. If the profile is set at the pod level, it will be used as the default profile
+for all containers in the pod (including init, sidecar, and ephemeral containers). If both a pod & container
+AppArmor profile are set, the container's profile will be used.
 
-### Profile Reference
+An AppArmor profile has 2 fields:
 
-- `runtime/default`: Refers to the default runtime profile.
-  - Equivalent to not specifying a profile, except it still requires AppArmor to be enabled.
-  - In practice, many container runtimes use the same OCI default profile, defined here:
-    https://github.com/containers/common/blob/main/pkg/apparmor/apparmor_linux_template.go
-- `localhost/<profile_name>`: Refers to a profile loaded on the node (localhost) by name.
-  - The possible profile names are detailed in the
-    [core policy reference](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Core_Policy_Reference#profile-names-and-attachment-specifications).
-- `unconfined`: This effectively disables AppArmor on the container.
+`type` _(required)_ - indicates which kind of AppArmor profile will be applied. Valid options are:
 
-Any other profile reference format is invalid.
+`Localhost`
+: a profile pre-loaded on the node (specified by `localhostProfile`).
+
+`RuntimeDefault`
+: the container runtime's default profile.
+
+`Unconfined`
+: no AppArmor enforcement.
+
+`localhostProfile` - The name of a profile loaded on the node that should be used.
+The profile must be preconfigured on the node to work.
+This option must be provided if and only if the `type` is `Localhost`.
+
 
 ## {{% heading "whatsnext" %}}
 

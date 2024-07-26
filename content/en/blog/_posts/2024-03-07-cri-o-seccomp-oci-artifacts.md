@@ -3,9 +3,9 @@ layout: blog
 title: "CRI-O: Applying seccomp profiles from OCI registries"
 date: 2024-03-07
 slug: cri-o-seccomp-oci-artifacts
+author: >
+  Sascha Grunert
 ---
-
-**Author:** Sascha Grunert
 
 Seccomp stands for secure computing mode and has been a feature of the Linux
 kernel since version 2.6.12. It can be used to sandbox the privileges of a

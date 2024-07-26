@@ -205,7 +205,7 @@ itself should at least be protected via file permissions.</p>
     
   
 <tr><td><code>expirationTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <p>ExpirationTimestamp indicates a time when the provided credentials expire.</p>

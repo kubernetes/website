@@ -3,9 +3,10 @@ layout: blog
 title: 'Kong Ingress Controller and Service Mesh: Setting up Ingress to Istio on Kubernetes'
 date: 2020-03-18
 slug: kong-ingress-controller-and-istio-service-mesh
+author: >
+  Kevin Chen,
+  Kong
 ---
-
-**Author:** Kevin Chen, Kong
 
 Kubernetes has become the de facto way to orchestrate containers and the services within services. But how do we give services outside our cluster access to what is within? Kubernetes comes with the Ingress API object that manages external access to services within a cluster.
 

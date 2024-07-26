@@ -30,9 +30,6 @@ SIG Docs 的[批准人（Approver）](/zh-cn/docs/contribute/participate/roles-a
 
 Each day in a week-long shift as PR Wrangler:
 
-- Triage and tag incoming issues daily. See
-  [Triage and categorize issues](/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
-  for guidelines on how SIG Docs uses metadata.
 - Review [open pull requests](https://github.com/kubernetes/website/pulls) for quality
   and adherence to the [Style](/docs/contribute/style/style-guide/) and
   [Content](/docs/contribute/style/content-guide/) guides.
@@ -42,9 +39,6 @@ Each day in a week-long shift as PR Wrangler:
 
 在为期一周的轮值期内，PR 管理者要：
 
-- 每天对新增的 Issue 判定和打标签。参见
-  [对 Issue 进行判定和分类](/zh-cn/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
-  以了解 SIG Docs 如何使用元数据的详细信息。
 - 检查[悬决的 PR](https://github.com/kubernetes/website/pulls)
   的质量并确保它们符合[样式指南](/zh-cn/docs/contribute/style/style-guide/)和
   [内容指南](/zh-cn/docs/contribute/style/content-guide/)要求。
@@ -91,6 +85,19 @@ Each day in a week-long shift as PR Wrangler:
     你通常可以将这些风格修复问题标记为 `good first issue`。
   - 将风格修复事项标记为 `good first issue` 可以很好地确保向新加入的贡献者分派一些比较简单的任务，
     这有助于接纳新的贡献者。
+
+<!--
+- Also check for pull requests against the [reference docs generator](https://github.com/kubernetes-sigs/reference-docs) code, and review those (or bring in help).
+- Support the [issue wrangler](/docs/contribute/participate/issue-wrangler/) to
+  triage and tag incoming issues daily.
+  See [Triage and categorize issues](/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
+  for guidelines on how SIG Docs uses metadata.
+-->
+- 同时检查针对[参考文档生成器](https://github.com/kubernetes-sigs/reference-docs)的代码拉取请求，
+  并对其进行审查（或寻求帮助）。
+- 支持[问题管理者](/zh-cn/docs/contribute/participate/issue-wrangler/)每日对新问题进行分类和标记。
+  参见[分类和组织问题](/zh-cn/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
+  了解 SIG Docs 如何使用元数据。
 
 {{< note >}}
 <!--

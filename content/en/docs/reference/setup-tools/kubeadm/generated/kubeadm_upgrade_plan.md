@@ -10,12 +10,12 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Check which versions are available to upgrade to and validate whether your current cluster is upgradeable. To skip the internet check, pass in the optional [version] parameter
+Check which versions are available to upgrade to and validate whether your current cluster is upgradeable.
 
 ### Synopsis
 
 
-Check which versions are available to upgrade to and validate whether your current cluster is upgradeable. To skip the internet check, pass in the optional [version] parameter
+Check which versions are available to upgrade to and validate whether your current cluster is upgradeable. This command can only run on the control plane nodes where the kubeconfig file "admin.conf" exists. To skip the internet check, pass in the optional [version] parameter.
 
 ```
 kubeadm upgrade plan [version] [flags]
@@ -38,6 +38,13 @@ kubeadm upgrade plan [version] [flags]
 </tr>
 
 <tr>
+<td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--allow-release-candidate-upgrades</td>
 </tr>
 <tr>
@@ -52,10 +59,17 @@ kubeadm upgrade plan [version] [flags]
 </tr>
 
 <tr>
+<td colspan="2">-o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "text"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Output format. One of: text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of key=value pairs that describe feature gates for various features. Options are:<br/>EtcdLearnerMode=true|false (BETA - default=true)<br/>PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of key=value pairs that describe feature gates for various features. Options are:<br/>EtcdLearnerMode=true|false (BETA - default=true)<br/>PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)<br/>WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)</p></td>
 </tr>
 
 <tr>
@@ -77,13 +91,6 @@ kubeadm upgrade plan [version] [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">-o, --output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "text"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>EXPERIMENTAL: Output format. One of: text|json|yaml.</p></td>
 </tr>
 
 <tr>

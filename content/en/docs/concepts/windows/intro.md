@@ -408,6 +408,17 @@ reported previously and comment with your experience on the issue and add additi
 logs. SIG Windows channel on the Kubernetes Slack is also a great avenue to get some initial support and
 troubleshooting ideas prior to creating a ticket.
 
+### Validating the Windows cluster operability
+
+The Kubernetes project provides a _Windows Operational Readiness_ specification,
+accompanied by a structured test suite. This suite is split into two sets of tests,
+core and extended, each containing categories aimed at testing specific areas.
+It can be used to validate all the functionalities of a Windows and hybrid system
+(mixed with Linux nodes) with full coverage.
+
+To set up the project on a newly created cluster, refer to the instructions in the
+[project guide](https://github.com/kubernetes-sigs/windows-operational-readiness/blob/main/README.md).
+
 ## Deployment tools
 
 The kubeadm tool helps you to deploy a Kubernetes cluster, providing the control
