@@ -66,8 +66,8 @@ all processes within any containers of the Pod. If this field is omitted, the pr
 will be root(0). Any files created will also be owned by user 1000 and group 3000 when `runAsGroup` is specified.
 Since `fsGroup` field is specified, all processes of the container are also part of the supplementary group ID 2000.
 The owner for volume `/data/demo` and any files created in that volume will be Group ID 2000.
-Additionally, since `supplementalGroups` field is specified, all processes of the container are also part of the
-specified group IDs. If this field is omitted, it means empty.
+Additionally, when the `supplementalGroups` field is specified, all processes of the container are also part of the
+specified groups. If this field is omitted, it means empty.
 
 Create the Pod:
 
@@ -150,9 +150,9 @@ uid=1000 gid=3000 groups=2000,3000,4000
 From the output, you can see that `gid` is 3000 which is same as the `runAsGroup` field.
 If the `runAsGroup` was omitted, the `gid` would remain as 0 (root) and the process will
 be able to interact with files that are owned by the root(0) group and groups that have
-the required group permissions for the root (0) group. You can also see `groups`
-contains the group IDs which are specified by `fsGroup` and `supplementalGroups` other
-than `gid`.
+the required group permissions for the root (0) group. You can also see that `groups`
+contains the group IDs which are specified by `fsGroup` and `supplementalGroups`,
+in addition to `gid`.
 
 Exit your shell:
 
@@ -166,7 +166,7 @@ By default, kubernetes merges group information from the Pod with information de
 
 {{% code_sample file="pods/security/security-context-5.yaml" %}}
 
-In this configuration, it just specifies `runAsUser`, `runAsGroup` and `supplementalGroups`.
+This Pod security context contains `runAsUser`, `runAsGroup` and `supplementalGroups`.
 However, you can see that the actual supplementary groups attached to the container process
 will include group IDs which come from `/etc/group` in the container image.
 
@@ -200,7 +200,9 @@ The output is similar to this:
 uid=1000 gid=3000 groups=3000,4000,50000
 ```
 
-You can see `groups` includes group ID `50000`. This is because the user (`uid=1000`), which is defined in the image, belongs to the group (`gid=50000`), which is defined in `/etc/group` inside the container image.
+You can see that `groups` includes group ID `50000`. This is because the user (`uid=1000`),
+which is defined in the image, belongs to the group (`gid=50000`), which is defined in `/etc/group`
+inside the container image.
 
 Check the `/etc/group` in the container image:
 
@@ -223,7 +225,7 @@ exit
 ```
 
 {{<note>}}
-Implicitly _merged_ supplementary groups may cause security concerns particularly in accessing
+_Implicitly merged_ supplementary groups may cause security problems particularly when accessing
 the volumes (see [kubernetes/kubernetes#112879](https://issue.k8s.io/112879) for details).
 If you want to avoid this. Please see the below section.
 {{</note>}}
@@ -236,19 +238,25 @@ This feature can be enabled by setting the `SupplementalGroupsPolicy`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for kubelet and
 kube-apiserver, and setting the `.spec.securityContext.supplementalGroupsPolicy` field for a pod.
 
-**supplementalGroupsPolicy** - `supplementalGroupsPolicy` defines behavior for calculating
-supplementary groups for the container processes in a pod.
+The `supplementalGroupsPolicy` field defines the policy for calculating the
+supplementary groups for the container processes in a pod. There are two valid
+values for this field:
 
-* _Merge_: The group membership defined in `/etc/group` for the container's primary user will be merged. If not specified, this policy will be applied.
+* `Merge`: The group membership defined in `/etc/group` for the container's primary user will be merged.
+  This is the default policy if not specified.
 
-* _Strict_: it only attaches group IDs in `fsGroup`, `supplementalGroups`, or `runAsGroup` fields as the supplementary groups of the container processess. This means no group membership defined in `/etc/group` for the container's primary user will be merged.
+* `Strict`: Only group IDs in `fsGroup`, `supplementalGroups`, or `runAsGroup` fields 
+  are attached as the supplementary groups of the container processes.
+  This means no group membership from `/etc/group` for the container's primary user will be merged.
 
-When the feature is enabled, it also exposes the process identity attached to the first container process of the container
-in `.status.containerStatuses[].user.linux` field. It would be helpful to detect if implicit group ID's are attached.
+When the feature is enabled, it also exposes the process identity attached to the first container process
+in `.status.containerStatuses[].user.linux` field. It would be useful for detecting if
+implicit group ID's are attached.
 
 {{% code_sample file="pods/security/security-context-6.yaml" %}}
 
-This pod manifest defines `supplementalGroupsPolicy=Strict`. You can see no group membership defined in `/etc/group` will be merged to the supplementary groups for container processes.
+This pod manifest defines `supplementalGroupsPolicy=Strict`. You can see that no group memberships
+defined in `/etc/group` are merged to the supplementary groups for container processes.
 
 Create the Pod:
 
@@ -280,7 +288,7 @@ See the Pod's status:
 kubectl get pod security-context-demo -o yaml
 ```
 
-You can see `status.containerStatuses[].user.linux` field exposes the process identitiy
+You can see that the `status.containerStatuses[].user.linux` field exposes the process identitiy
 attached to the first container process.
 
 ```none
@@ -299,9 +307,12 @@ status:
 ```
 
 {{<note>}}
-Please note that the values in `status.containerStatuses[].user.linux` field is _the firstly attached_
+Please note that the values in the `status.containerStatuses[].user.linux` field is _the first attached_
 process identity to the first container process in the container. If the container has sufficient privilege
-to call system calls related to process identity (e.g. [`setuid(2)`](https://man7.org/linux/man-pages/man2/setuid.2.html), [`setgid(2)`](https://man7.org/linux/man-pages/man2/setgid.2.html) or [`setgroups(2)`](https://man7.org/linux/man-pages/man2/setgroups.2.html), etc.),
+to make system calls related to process identity
+(e.g. [`setuid(2)`](https://man7.org/linux/man-pages/man2/setuid.2.html),
+[`setgid(2)`](https://man7.org/linux/man-pages/man2/setgid.2.html) or
+[`setgroups(2)`](https://man7.org/linux/man-pages/man2/setgroups.2.html), etc.),
 the container process can change its identity. Thus, the _actual_ process identity will be dynamic.
 {{</note>}}
 
@@ -315,7 +326,7 @@ CRI-level:
 - [containerd](https://containerd.io/), since v2.0
 - [CRI-O](https://cri-o.io/), since v1.31
 
-You can see if the feature is supported in the node status.
+You can see if the feature is supported in the Node status.
 
 ```yaml
 apiVersion: v1
