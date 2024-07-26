@@ -43,8 +43,8 @@ This visibility helps users understand the scheduler’s workings and define app
 Inside the simulator, instead of the vanilla scheduler, 
 it runs the debuggable scheduler, which outputs each scheduler plugin’s result from every extension point to Pod’s annotations. 
 Inside the simulator, a debuggable scheduler runs instead of the vanilla scheduler. 
-This debuggable scheduler outputs the results of each scheduler plugin at every extension point to the Pod’s annotations. 
-Actually, the web frontend just shows the results reading from the annotations.
+This debuggable scheduler outputs the results of each scheduler plugin at every extension point to the Pod’s annotations 
+and the web front end shows the results fetched from the annotations.
 
 ```yaml
 kind: Pod
@@ -103,7 +103,7 @@ Visit [Kube-scheduler-simulator repository](sigs.k8s.io/kube-scheduler-simulator
 The Kube-scheduler-simulator is developed by Kubernetes SIG Scheduling. Your feedback and contributions are welcome!
 
 Open issues or PRs at [Kube-scheduler-simulator repository](sigs.k8s.io/kube-scheduler-simulator)
-Join the conversation on the #sig-scheduling slack channel.
+Join the conversation on the [#sig-scheduling](https://kubernetes.slack.com/messages/sig-scheduling) slack channel.
 
 ## Acknowledgments
 
