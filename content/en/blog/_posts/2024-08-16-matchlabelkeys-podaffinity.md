@@ -11,7 +11,7 @@ Kubernetes 1.29 introduced new fields `MatchLabelKeys` and `MismatchLabelKeys` i
 
 In Kubernetes 1.31, this feature moves to beta and the corresponding feature gate (`MatchLabelKeysInPodAffinity`) gets enabled by default.
 
-## `MatchLabelKeys` - Enabling version-aware scheduling for rolling upgrades
+## `MatchLabelKeys` - Enhanced scheduling for versatile rolling upgrades
 
 During a workload's (e.g., Deployment) rolling upgrade, a cluster may have Pods from multiple versions at the same time. 
 However, the scheduler cannot distinguish between old and new versions based on the `LabelSelector` specified in PodAffinity or PodAntiAffinity. As a result, it will co-locate or disperse Pods regardless of their versions.
