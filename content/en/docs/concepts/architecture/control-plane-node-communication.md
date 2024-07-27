@@ -23,7 +23,7 @@ provider).
 
 Kubernetes has a "hub-and-spoke" API pattern. All API usage from nodes (or the pods they run)
 terminates at the API server. None of the other control plane components are designed to expose
-remote services. The API server is configured to listen for remote connections on a secure HTTPS
+remote services. The API server is to listen for remote connections on a secure HTTPS
 port (typically 443) with one or more forms of client
 [authentication](/docs/reference/access-authn-authz/authentication/) enabled.
 One or more forms of [authorization](/docs/reference/access-authn-authz/authorization/) should be
