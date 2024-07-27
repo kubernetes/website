@@ -5,9 +5,11 @@ date: 2024-03-07
 slug: cri-o-seccomp-oci-artifacts
 author: >
   Sascha Grunert
+translator: >
+  Taisuke Okamoto (IDCフロンティア),
+  atoato88 (NEC),
+  [Junya Okabe](https://github.com/Okabe-Junya) (筑波大学)
 ---
-
-**翻訳者:** Taisuke Okamoto (IDC Frontier Inc), atoato88 (NEC Corporation), Junya Okabe (University of Tsukuba)
 
 seccompはセキュアなコンピューティングモードを意味し、Linuxカーネルのバージョン2.6.12以降の機能として提供されました。
 これは、プロセスの特権をサンドボックス化し、ユーザースペースからカーネルへの呼び出しを制限するために使用できます。
