@@ -5,9 +5,11 @@ date: 2024-01-23
 slug: kubernetes-separate-image-filesystem
 author: >
   Kevin Hannon (Red Hat)
+translator: >
+  Taisuke Okamoto (IDCフロンティア),
+  [Junya Okabe](https://github.com/Okabe-Junya) (筑波大学),
+  nasa9084 (LINEヤフー)
 ---
-
-**翻訳者:** Taisuke Okamoto (IDC Frontier Inc), Junya Okabe (University of Tsukuba), nasa9084 (LY Corporation)
 
 Kubernetesクラスターの稼働、運用する上でよくある問題は、ディスク容量が不足することです。
 ノードがプロビジョニングされる際には、コンテナイメージと実行中のコンテナのために十分なストレージスペースを確保することが重要です。
