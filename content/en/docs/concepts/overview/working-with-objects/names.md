@@ -67,6 +67,13 @@ This means the name must:
 - start with an alphabetic character
 - end with an alphanumeric character
 
+{{< note >}}
+The only difference between the RFC 1035 and RFC 1123
+label standards is that RFC 1123 labels are allowed to
+start with a digit, whereas RFC 1035 labels can start
+with a lowercase alphabetic character only.
+{{< /note >}}
+
 ### Path Segment Names
 
 Some resource types require their names to be able to be safely encoded as a

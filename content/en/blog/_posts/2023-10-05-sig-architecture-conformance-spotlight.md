@@ -4,10 +4,9 @@ title: "Spotlight on SIG Architecture: Conformance"
 slug: sig-architecture-conformance-spotlight-2023
 date: 2023-10-05
 canonicalUrl: https://www.k8s.dev/blog/2023/10/05/sig-architecture-conformance-spotlight-2023/
+author: >
+  Frederico Muñoz (SAS Institute)
 ---
-
-
-**Author**: Frederico Muñoz (SAS Institute)
 
 _This is the first interview of a SIG Architecture Spotlight series
 that will cover the different subprojects. We start with the SIG
@@ -16,7 +15,7 @@ Architecture: Conformance subproject_
 In this [SIG
 Architecture](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md)
 spotlight, we talked with [Riaan
-Kleinhans](https://github.com/Riaankl) (ii-Team), Lead for the
+Kleinhans](https://github.com/Riaankl) (ii.nz), Lead for the
 [Conformance
 sub-project](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md#conformance-definition-1).
 
@@ -26,7 +25,7 @@ sub-project](https://github.com/kubernetes/community/blob/master/sig-architectur
 bit about yourself, your role and how you got involved in Kubernetes.
 
 **Riaan Kleinhans (RK)**: Hi! My name is Riaan Kleinhans and I live in
-South Africa. I am the Project manager for the [ii-Team](ii.nz) in New
+South Africa. I am the Project manager for the [ii.nz](https://ii.nz) team in New
 Zealand. When I joined ii the plan was to move to New Zealand in April
 2020 and then Covid happened. Fortunately, being a flexible and
 dynamic team we were able to make it work remotely and in very

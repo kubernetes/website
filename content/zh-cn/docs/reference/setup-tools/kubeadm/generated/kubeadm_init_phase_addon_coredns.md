@@ -11,7 +11,8 @@ Install the CoreDNS addon to a Kubernetes cluster
 <!--
 Install the CoreDNS addon components via the API server. Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
 -->
-通过 API 服务器安装 CoreDNS 附加组件。请注意，即使 DNS 服务器已部署，在安装 CNI 之前 DNS 服务器不会被调度执行。
+通过 API 服务器安装 CoreDNS 附加组件。请注意，即使 DNS 服务器已部署，在安装 CNI
+之前 DNS 服务器不会被调度执行。
 
 ```
 kubeadm init phase addon coredns [flags]
@@ -34,10 +35,10 @@ kubeadm init phase addon coredns [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a kubeadm configuration file.
 -->
-<p>
 kubeadm 配置文件的路径。
 </p>
 </td>
@@ -62,19 +63,21 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-EtcdLearnerMode=true|false (ALPHA - default=false)<br/>
-PublicKeysECDSA=true|false (ALPHA - default=false)<br/>
+EtcdLearnerMode=true|false (BETA - default=true)<br/>
+PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)<br/>
+WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
 -->
-<p>
-一组用来描述各种特性门控的键值（key=value）对。选项是：<br/>
-EtcdLearnerMode=true|false (ALPHA - 默认值=false)<br/>
-PublicKeysECDSA=true|false (ALPHA - 默认值=false)<br/>
+一组用来描述各种特性门控的键值对（key=value）。选项是：<br/>
+EtcdLearnerMode=true|false (BETA - 默认值=true)<br/>
+PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)<br/>
+WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
 </p>
 </td>
 </tr>
@@ -126,7 +129,8 @@ Choose a container registry to pull control plane images from
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
 <p>
-与集群通信时使用的 kubeconfig 文件。如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。
+与集群通信时使用的 kubeconfig 文件。如果未设置该参数，则可以在一组标准位置中搜索现有的
+kubeconfig 文件。
 </p>
 </td>
 </tr>

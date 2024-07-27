@@ -3,9 +3,11 @@ layout: blog
 title: "Kubernetes 1.25: Two Features for Apps Rollouts Graduate to Stable"
 date: 2022-09-15
 slug: "app-rollout-features-reach-stable"
+author: >
+  Ravi Gudimetla (Apple),
+  Filip Křepinský (Red Hat),
+  Maciej Szulik (Red Hat)
 ---
-
-**Authors:** Ravi Gudimetla (Apple), Filip Křepinský (Red Hat), Maciej Szulik (Red Hat)
 
 This blog describes the two features namely `minReadySeconds` for StatefulSets and `maxSurge` for DaemonSets that SIG Apps is happy to graduate to stable in Kubernetes 1.25.
 

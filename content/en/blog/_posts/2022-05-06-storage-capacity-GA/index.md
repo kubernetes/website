@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.24: Storage Capacity Tracking Now Generally Available"
 date: 2022-05-06
 slug: storage-capacity-ga
+author: >
+   Patrick Ohly (Intel)
 ---
-
- **Authors:** Patrick Ohly (Intel)
 
 The v1.24 release of Kubernetes brings [storage capacity](/docs/concepts/storage/storage-capacity/)
 tracking as a generally available feature.

@@ -3,8 +3,9 @@ title: " ShareThis: Kubernetes In Production "
 date: 2016-02-11
 slug: sharethis-kubernetes-in-production
 url: /blog/2016/02/Sharethis-Kubernetes-In-Production
+author: >
+   Juan Valencia (ShareThis)
 ---
-Today’s guest blog post is by Juan Valencia, Technical Lead at ShareThis, a service that helps website publishers drive engagement and consumer sharing behavior across social networks.
 
 ShareThis has grown tremendously since its first days as a tiny widget that allowed you to share to your favorite social services. It now serves over 4.5 million domains per month, helping publishers create a more authentic digital experience.
 

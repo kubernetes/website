@@ -3,9 +3,9 @@ layout: blog
 title: "Deprecated APIs Removed In 1.16: Here’s What You Need To Know"
 date: 2019-07-18
 slug: api-deprecations-in-1-16
+author: >
+  Vallery Lancey (Lyft) 
 ---
-
-**Author**: Vallery Lancey (Lyft)
 
 As the Kubernetes API evolves, APIs are periodically reorganized or upgraded.
 When APIs evolve, the old API is deprecated and eventually removed.

@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes 1.26: Support for Passing Pod fsGroup to CSI Drivers At Mount Time"
 date: 2022-12-23
 slug: kubernetes-12-06-fsgroup-on-mount
+author: >
+  Fabio Bertinatto (Red Hat),
+  Hemant Kumar (Red Hat)
 ---
-
-**Authors:** Fabio Bertinatto (Red Hat), Hemant Kumar (Red Hat)
 
 Delegation of `fsGroup` to CSI drivers was first introduced as alpha in Kubernetes 1.22,
 and graduated to beta in Kubernetes 1.25.

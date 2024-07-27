@@ -40,6 +40,10 @@ You must use single quotes `''` to escape special characters such as `$`, `\`,
 `*`, `=`, and `!` in your strings. If you don't, your shell will interpret these
 characters.
 
+{{< note >}}
+The `stringData` field for a Secret does not work well with server-side apply.
+{{< /note >}}
+
 ### Use source files
 
 1. Store the credentials in files:

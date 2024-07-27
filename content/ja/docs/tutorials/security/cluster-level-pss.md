@@ -20,7 +20,7 @@ v{{< skew currentVersion >}}以外のKubernetesバージョンを実行してい
 
 ワークステーションに以下をインストールしてください:
 
-- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/ja/docs/tasks/tools/)
 
 このチュートリアルでは、完全な制御下にあるKubernetesクラスターの何を設定できるかをデモンストレーションします。
@@ -157,7 +157,7 @@ v{{< skew currentVersion >}}以外のKubernetesバージョンを実行してい
 環境にPodセキュリティアドミッションを実装する際には、以下の点を考慮してください:
 
 1. クラスターに適用されるリスク状況に基づくと、`restricted`のようにより厳格なPodセキュリティの標準のほうが、より良い選択肢かもしれません。
-1. `kube-ssytem`名前空間の免除は、Podがその名前空間で`privileged`として実行するのを許容することになります。
+1. `kube-system`名前空間の免除は、Podがその名前空間で`privileged`として実行するのを許容することになります。
    実世界で使うにあたっては、以下の最小権限の原則に従って`kube-system`へのアクセスを制限する厳格なRBACポリシーを適用することを、Kubernetesプロジェクトは強く推奨します。
    上記の標準を実装するには、次のようにします:
 1. 目的のPodセキュリティの標準を実装するために、Podセキュリティアドミッションコントローラーで利用可能な設定ファイルを作成します:
@@ -230,7 +230,7 @@ v{{< skew currentVersion >}}以外のKubernetesバージョンを実行してい
    ```
 
    {{<note>}}
-   macOSでDocker DesktopとKinDを利用している場合は、**Preferences > Resources > File Sharing**のメニュー項目からShared Directoryとして`/tmp`を追加できます。
+   macOSでDocker Desktopと*kind*を利用している場合は、**Preferences > Resources > File Sharing**のメニュー項目からShared Directoryとして`/tmp`を追加できます。
    {{</note>}}
 
 1. 目的のPodセキュリティの標準を適用するために、Podセキュリティアドミッションを使うクラスターを作成します:

@@ -3,8 +3,10 @@ title: " SIG-UI: the place for building awesome user interfaces for Kubernetes "
 date: 2016-04-20
 slug: building-awesome-user-interfaces-for-kubernetes
 url: /blog/2016/04/Building-Awesome-User-Interfaces-For-Kubernetes
+author: >
+  Piotr Bryk (Google) 
 ---
-_Editor’s note: This week we’re featuring [Kubernetes Special Interest Groups](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs)); Today’s post is by the SIG-UI team describing their mission and showing the cool projects they work on._  
+_**Editor's note:** This week we’re featuring [Kubernetes Special Interest Groups](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs)); Today’s post is by the SIG-UI team describing their mission and showing the cool projects they work on._  
 
 Kubernetes has been handling production workloads for a long time now (see [case studies](http://kubernetes.io/#talkToUs)). It runs on public, private and hybrid clouds as well as bare metal. It can handle all types of workloads (web serving, batch and mixed) and enable [zero-downtime rolling updates](https://www.youtube.com/watch?v=9C6YeyyUUmI). It abstracts service discovery, load balancing and storage so that applications running on Kubernetes aren’t restricted to a specific cloud provider or environment.  
 
@@ -27,6 +29,4 @@ We believe that collaboration is the key to SIG UI success, so we invite everyon
 
 - Email us at the [sig-ui mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-ui)
 - Chat with us on the [Kubernetes Slack](http://slack.k8s.io/): #[sig-ui channel](https://kubernetes.slack.com/messages/sig-ui/)
-- Join our meetings: biweekly on Wednesdays 9AM PT (US friendly) and weekly 10AM CET (Europe friendly). See the [SIG-UI calendar](https://calendar.google.com/calendar/embed?src=google.com_52lm43hc2kur57dgkibltqc6kc%40group.calendar.google.com&ctz=Europe/Warsaw) for details.&nbsp;
-
-_-- Piotr Bryk, Software Engineer, Google_  
+- Join our meetings: biweekly on Wednesdays 9AM PT (US friendly) and weekly 10AM CET (Europe friendly). See the [SIG-UI calendar](https://calendar.google.com/calendar/embed?src=google.com_52lm43hc2kur57dgkibltqc6kc%40group.calendar.google.com&ctz=Europe/Warsaw) for details.

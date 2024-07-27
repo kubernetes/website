@@ -7,6 +7,9 @@ weight: 20
 card:
   name: concepts
   weight: 10
+  anchors:
+  - anchor: "#why-you-need-kubernetes-and-what-can-it-do"
+    title: 为什么选择 Kubernetes?
 no_list: true
 ---
 <!--
@@ -21,6 +24,9 @@ weight: 20
 card:
   name: concepts
   weight: 10
+  anchors:
+  - anchor: "#why-you-need-kubernetes-and-what-can-it-do"
+    title: Why Kubernetes?
 no_list: true
 -->
 
@@ -47,7 +53,7 @@ Kubernetes project in 2014. Kubernetes combines
 [over 15 years of Google's experience](/blog/2015/04/borg-predecessor-to-kubernetes/) running
 production workloads at scale with best-of-breed ideas and practices from the community.
 -->
-**Kubernetes** 这个名字源于希腊语，意为“舵手”或“飞行员”。k8s 这个缩写是因为 k 和 s 之间有八个字符的关系。
+**Kubernetes** 这个名字源于希腊语，意为“舵手”或“飞行员”。K8s 这个缩写是因为 K 和 s 之间有 8 个字符的关系。
 Google 在 2014 年开源了 Kubernetes 项目。
 Kubernetes 建立在 [Google 大规模运行生产工作负载十几年经验](https://research.google/pubs/pub43438)的基础上，
 结合了社区中最优秀的想法和实践。
@@ -270,6 +276,25 @@ Kubernetes 为你提供：
 
   Kubernetes 允许你存储和管理敏感信息，例如密码、OAuth 令牌和 SSH 密钥。
   你可以在不重建容器镜像的情况下部署和更新密钥和应用程序配置，也无需在堆栈配置中暴露密钥。
+
+<!--
+* **Batch execution**
+  In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.
+* **Horizontal scaling**
+  Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.
+* **IPv4/IPv6 dual-stack**
+  Allocation of IPv4 and IPv6 addresses to Pods and Services
+* **Designed for extensibility**
+  Add features to your Kubernetes cluster without changing upstream source code.
+-->
+* **批处理执行**
+  除了服务外，Kubernetes 还可以管理你的批处理和 CI（持续集成）工作负载，如有需要，可以替换失败的容器。
+* **水平扩缩**
+  使用简单的命令、用户界面或根据 CPU 使用率自动对你的应用进行扩缩。
+* **IPv4/IPv6 双栈**
+  为 Pod（容器组）和 Service（服务）分配 IPv4 和 IPv6 地址。
+* **为可扩展性设计**
+  在不改变上游源代码的情况下为你的 Kubernetes 集群添加功能。
 
 <!--
 ## What Kubernetes is not

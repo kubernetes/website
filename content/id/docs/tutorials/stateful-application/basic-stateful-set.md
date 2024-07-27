@@ -59,7 +59,7 @@ Contoh ini menciptakan sebuah
 [Service _headless_](/id/docs/concepts/services-networking/service/#service-headless), 
 `nginx`, untuk mempublikasikan alamat IP Pod di dalam StatefulSet, `web`.
 
-{{< codenew file="application/web/web.yaml" >}}
+{{% codenew file="application/web/web.yaml" %}}
 
 Unduh contoh di atas, dan simpan ke dalam berkas dengan nama `web.yaml`.
 
@@ -1075,7 +1075,7 @@ menjalankan atau mengakhiri semua Pod secara bersamaan (paralel), dan tidak menu
 suatu Pod menjadi Running dan Ready atau benar-benar berakhir sebelum menjalankan atau 
 mengakhiri Pod yang lain.
 
-{{< codenew file="application/web/web-parallel.yaml" >}}
+{{% codenew file="application/web/web-parallel.yaml" %}}
 
 Unduh contoh di atas, dan simpan ke sebuah berkas dengan nama `web-parallel.yaml`.
 

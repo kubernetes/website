@@ -183,15 +183,9 @@ simply as *nodes*).
   to help determine how many nodes you need, based on the number of pods and
   containers you need to run. If you are managing nodes yourself, this can mean
   purchasing and installing your own physical equipment.
-- *Autoscale nodes*: Most cloud providers support
-  [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
-  to replace unhealthy nodes or grow and shrink the number of nodes as demand requires. See the
-  [Frequently Asked Questions](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)
-  for how the autoscaler works and
-  [Deployment](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#deployment)
-  for how it is implemented by different cloud providers. For on-premises, there
-  are some virtualization platforms that can be scripted to spin up new nodes
-  based on demand.
+- *Autoscale nodes*: Read [Cluster Autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling) to learn about the
+  tools available to automatically manage your nodes and the capacity they
+  provide.
 - *Set up node health checks*: For important workloads, you want to make sure
   that the nodes and pods running on those nodes are healthy. Using the
   [Node Problem Detector](/docs/tasks/debug/debug-cluster/monitor-node-health/)
@@ -296,9 +290,8 @@ needs of your cluster's workloads:
   and the
   [API server](/docs/setup/production-environment/tools/kubeadm/ha-topology/).
 - Choose from [kubeadm](/docs/setup/production-environment/tools/kubeadm/),
-  [kops](/docs/setup/production-environment/tools/kops/) or
-  [Kubespray](/docs/setup/production-environment/tools/kubespray/)
-  deployment methods.
+  [kops](https://kops.sigs.k8s.io/) or
+  [Kubespray](https://kubespray.io/) deployment methods.
 - Configure user management by determining your
   [Authentication](/docs/reference/access-authn-authz/authentication/) and
   [Authorization](/docs/reference/access-authn-authz/authorization/) methods.

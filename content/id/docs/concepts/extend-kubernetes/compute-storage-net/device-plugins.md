@@ -212,7 +212,7 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 
 Berikut beberapa contoh implementasi _plugin_ perangkat:
 
-* [Plugin perangkat AMD GPU](https://github.com/RadeonOpenCompute/k8s-device-plugin)
+* [Plugin perangkat AMD GPU](https://github.com/ROCm/k8s-device-plugin)
 * [Plugin perangkat Intel](https://github.com/intel/intel-device-plugins-for-kubernetes) untuk perangkat GPU, FPGA, dan QuickAssist Intel
 * [Plugin perangkat KubeVirt](https://github.com/kubevirt/kubernetes-device-plugins) untuk virtualisasi hardware-assisted 
 * [Plugin perangkat NVIDIA GPU](https://github.com/NVIDIA/k8s-device-plugin)

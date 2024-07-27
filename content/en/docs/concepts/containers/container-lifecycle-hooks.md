@@ -50,23 +50,24 @@ A more detailed description of the termination behavior can be found in
 ### Hook handler implementations
 
 Containers can access a hook by implementing and registering a handler for that hook.
-There are two types of hook handlers that can be implemented for Containers:
+There are three types of hook handlers that can be implemented for Containers:
 
 * Exec - Executes a specific command, such as `pre-stop.sh`, inside the cgroups and namespaces of the Container.
 Resources consumed by the command are counted against the Container.
 * HTTP - Executes an HTTP request against a specific endpoint on the Container.
+* Sleep - Pauses the container for a specified duration. 
+  This is a beta-level feature default enabled by the `PodLifecycleSleepAction` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). 
 
 ### Hook handler execution
 
 When a Container lifecycle management hook is called,
 the Kubernetes management system executes the handler according to the hook action,
-`httpGet` and `tcpSocket` are executed by the kubelet process, and `exec` is executed in the container.
+`httpGet` , `tcpSocket` and `sleep` are executed by the kubelet process, and `exec` is executed in the container.
 
-Hook handler calls are synchronous within the context of the Pod containing the Container.
-This means that for a `PostStart` hook,
-the Container ENTRYPOINT and hook fire asynchronously.
-However, if the hook takes too long to run or hangs,
-the Container cannot reach a `running` state.
+The `PostStart` hook handler call is initiated when a container is created,
+meaning the container ENTRYPOINT and the `PostStart` hook are triggered simultaneously. 
+However, if the `PostStart` hook takes too long to execute or if it hangs,
+it can prevent the container from transitioning to a `running` state.
 
 `PreStop` hooks are not executed asynchronously from the signal to stop the Container; the hook must
 complete its execution before the TERM signal can be sent. If a `PreStop` hook hangs during

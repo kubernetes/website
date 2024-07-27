@@ -3,9 +3,9 @@ layout: blog
 title: "Introducing kube-iptables-tailer: Better Networking Visibility in Kubernetes Clusters"
 date: 2019-04-19
 slug: introducing-kube-iptables-tailer
+author: >
+  Saifuding Diliyaer (Box)
 ---
-
-**Authors:** Saifuding Diliyaer, Software Engineer, Box
 
 At Box, we use Kubernetes to empower our engineers to own the whole lifecycle of their microservices. When it comes to networking, our engineers use Tigera’s [Project Calico](https://www.tigera.io/tigera-calico/) to declaratively manage network policies for their apps running in our Kubernetes clusters. App owners define a Calico policy in order to enable their Pods to send/receive network traffic, which is instantiated as iptables rules.
 

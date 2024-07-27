@@ -2,9 +2,9 @@
 layout: blog
 title: 'Join us at the Contributor Summit in Shanghai'
 date: 2019-06-12
+author: >
+  Josh Berkus (Red Hat)
 ---
-
-**Author**: Josh Berkus (Red Hat)
 
 ![Picture of contributor panel at 2018 Shanghai contributor summit.  Photo by Josh Berkus, licensed CC-BY 4.0](/images/blog/2019-
 06-11-contributor-summit-shanghai/panel.png)

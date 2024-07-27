@@ -86,8 +86,8 @@ keys must be reflected in the associated files in the manifests directory on a c
 
 Such changes may include:
 - `extraArgs` - requires updating the list of flags passed to a component container
-- `extraMounts` - requires updated the volume mounts for a component container
-- `*SANs` - requires writing new certificates with updated Subject Alternative Names.
+- `extraVolumes` - requires updating the volume mounts for a component container
+- `*SANs` - requires writing new certificates with updated Subject Alternative Names
 
 Before proceeding with these changes, make sure you have backed up the directory `/etc/kubernetes/`.
 
@@ -99,11 +99,14 @@ kubeadm init phase certs <component-name> --config <config-file>
 To write new manifest files in `/etc/kubernetes/manifests` you can use:
 
 ```shell
+# For Kubernetes control plane components
 kubeadm init phase control-plane <component-name> --config <config-file>
+# For local etcd
+kubeadm init phase etcd local --config <config-file>
 ```
 
 The `<config-file>` contents must match the updated `ClusterConfiguration`.
-The `<component-name>` value must be the name of the component.
+The `<component-name>` value must be a name of a Kubernetes control plane component (`apiserver`, `controller-manager` or `scheduler`).
 
 {{< note >}}
 Updating a file in `/etc/kubernetes/manifests` will tell the kubelet to restart the static Pod for the corresponding component.

@@ -2,9 +2,9 @@
 layout: blog
 title: 'Recap of Kubernetes Contributor Summit Barcelona 2019'
 date: 2019-06-25
+author: >
+  Jonas Rosland (VMware)
 ---
-
-**Author**: Jonas Rosland (VMware)
 
 First of all, **THANK YOU** to everyone who made the Kubernetes Contributor Summit in Barcelona possible. We had an amazing team of volunteers tasked with planning and executing the event, and it was so much fun meeting and talking to all new and current contributors during the main event and the pre-event celebration.
 

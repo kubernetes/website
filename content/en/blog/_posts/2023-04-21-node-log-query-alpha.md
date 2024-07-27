@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.27: Query Node Logs Using The Kubelet API"
 date: 2023-04-21
 slug: node-log-query-alpha
+author: >
+   Aravindh Puthiyaparambil (Red Hat)
 ---
-
-**Author:** Aravindh Puthiyaparambil (Red Hat)
 
 Kubernetes 1.27 introduced a new feature called _Node log query_ that allows
 viewing logs of services running on the node.

@@ -3,9 +3,10 @@ layout: blog
 title: Improvements to the Ingress API in Kubernetes 1.18
 date: 2020-04-02
 slug: Improvements-to-the-Ingress-API-in-Kubernetes-1.18
+author: >
+  Rob Scott (Google),
+  Christopher M Luciano (IBM) 
 ---
-
-**Authors:** Rob Scott (Google), Christopher M Luciano (IBM)
 
 The Ingress API in Kubernetes has enabled a large number of controllers to provide simple and powerful ways to manage inbound network traffic to Kubernetes workloads. In Kubernetes 1.18, we've made 3 significant additions to this API:
 

@@ -326,7 +326,7 @@ please join us in the #sig-network-gateway-api channel on Kubernetes Slack or ou
 请通过 Kubernetes Slack 的 #sig-network-gateway-api 频道或我们每周的
 [社区电话会议](https://gateway-api.sigs.k8s.io/contributing/community/#meetings)加入我们。
 
-[gep1016]:https://github.com/kubernetes-sigs/gateway-api/blob/master/site-src/geps/gep-1016.md
+[gep1016]:https://github.com/kubernetes-sigs/gateway-api/blob/main/geps/gep-1016.md
 [grpc]:https://grpc.io/
 [pr1085]:https://github.com/kubernetes-sigs/gateway-api/pull/1085
 [tcpr]:https://github.com/kubernetes-sigs/gateway-api/blob/main/apis/v1alpha2/tcproute_types.go

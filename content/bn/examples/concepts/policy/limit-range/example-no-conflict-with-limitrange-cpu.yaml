@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-no-conflict-with-limitrange-cpu
+spec:
+  containers:
+  - name: demo
+    image: registry.k8s.io/pause:2.0
+    resources:
+      requests:
+        cpu: 700m
+      limits:
+        cpu: 700m

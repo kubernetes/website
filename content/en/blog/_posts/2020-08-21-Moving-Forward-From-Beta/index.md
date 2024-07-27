@@ -10,9 +10,9 @@ slug: moving-forward-from-beta
 # the localized version.
 # If unsure: omit this next field.
 evergreen: true
+author: >
+   Tim Bannister (The Scale Factory)
 ---
-
-**Author**: Tim Bannister, The Scale Factory
 
 In Kubernetes, features follow a defined
 [lifecycle](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages).

@@ -4,8 +4,9 @@ date: 2016-03-17
 slug: kubernetes-1.2-even-more-performance-upgrades-plus-easier-application-deployment-and-management
 url: /blog/2016/03/Kubernetes-1-2-Even-More-Performance-Upgrades-Plus-Easier-Application-Deployment-And-Management
 evergreen: true
+author: >
+  David Aronchick (Google)
 ---
-**Author:** David Aronchick (Google)
 
 Today the Kubernetes project released Kubernetes 1.2. This release represents significant improvements for large organizations building distributed systems. Now with over 680 unique contributors to the project, this release represents our largest yet.  
 

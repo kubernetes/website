@@ -2,9 +2,9 @@
 layout: blog
 title: 'Kubernetes Docs Updates, International Edition'
 date: 2018-11-08
+author: >
+  Zach Corleissen (Linux Foundation) 
 ---
-
-**Author**: Zach Corleissen (Linux Foundation)
 
 As a co-chair of SIG Docs, I'm excited to share that Kubernetes docs have a fully mature workflow for localization (l10n). 
 
@@ -37,7 +37,7 @@ Prow automatically applies language labels based on file path. Thanks to SIG Doc
 /language ko
 ```
  
-These repo labels let reviewers filter for PRs and issues by language. For example, you can now filter the k/website dashboard for [PRs with Chinese content](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+label%3Alanguage%2Fzh).  
+These repo labels let reviewers filter for PRs and issues by language. For example, you can now filter the kubernetes/website dashboard for [PRs with Chinese content](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+label%3Alanguage%2Fzh).  
 
 ### Team review 
 

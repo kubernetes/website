@@ -4,9 +4,9 @@ title: "Remembering Dan Kohn"
 date: 2020-11-02
 slug: remembering-dan-kohn
 evergreen: true
+author: >
+  Kubernetes Steering Committee
 ---
-
-**Author**: The Kubernetes Steering Committee
 
 Dan Kohn was instrumental in getting Kubernetes and CNCF community to where it is today. He shared our values, motivations, enthusiasm, community spirit, and helped the Kubernetes community to become the best that it could be. Dan loved getting people together to solve problems big and small. He enabled people to grow their individual scope in the community which often helped launch their career in open source software.
 

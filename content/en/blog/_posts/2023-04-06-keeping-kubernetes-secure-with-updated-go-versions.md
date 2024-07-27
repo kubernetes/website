@@ -3,9 +3,9 @@ layout: blog
 title: "Keeping Kubernetes Secure with Updated Go Versions"
 date: 2023-04-06
 slug: keeping-kubernetes-secure-with-updated-go-versions
+author: >
+   [Jordan Liggitt](https://github.com/liggitt) (Google)
 ---
-
-**Author**: [Jordan Liggitt](https://github.com/liggitt) (Google)
 
 ### The problem
 

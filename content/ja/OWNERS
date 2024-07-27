@@ -10,4 +10,5 @@ approvers:
 - sig-docs-ja-owners
 
 labels:
+- area/localization
 - language/ja

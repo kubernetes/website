@@ -3,6 +3,8 @@ title: " Why OpenStack's embrace of Kubernetes is great for both communities "
 date: 2016-07-26
 slug: openstack-kubernetes-communities
 url: /blog/2016/07/openstack-kubernetes-communities
+author: >
+  Martin Buhr (Google)
 ---
 Today, [Mirantis](https://www.mirantis.com/), the leading&nbsp;contributor&nbsp;to [OpenStack](http://stackalytics.com/?release=mitaka), [announced](https://techcrunch.com/2016/07/25/openstack-will-soon-be-able-to-run-on-top-of-kubernetes/) that it will re-write its private cloud platform to use Kubernetes as its underlying orchestration engine. We think this is a great step forward for both the OpenStack and Kubernetes communities. With Kubernetes under the hood, OpenStack users will benefit from the tremendous efficiency, manageability and resiliency that Kubernetes brings to the table, while positioning their applications to use more cloud-native patterns. The Kubernetes community, meanwhile, can feel confident in their choice of orchestration framework, while gaining the ability to manage both container- and VM-based applications from a single platform.  
 
@@ -27,6 +29,5 @@ Conversely, incorporating Kubernetes into OpenStack will give Kubernetes users a
 We are excited by the ever increasing momentum of the cloud-native movement as embodied by Kubernetes and related projects, and look forward to working with Mirantis, its partner Intel, and others within the OpenStack community to brings the benefits of cloud-native to their applications and infrastructure.  
 
 
-_--Martin Buhr, Product Manager, Strategic Initiatives, Google_  
 
 [1] Check out the announcement of Kubernetes-OpenStack Special Interest Group [here](https://kubernetes.io/blog/2016/04/introducing-kubernetes-openstack-sig), and a great talk about OpenStack on Kubernetes by CoreOS CEO Alex Polvi at the most recent OpenStack summit [here](https://www.youtube.com/watch?v=e-j9FOO-i84).  

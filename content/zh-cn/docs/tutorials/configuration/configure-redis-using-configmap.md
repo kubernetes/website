@@ -1,6 +1,7 @@
 ---
 title: 使用 ConfigMap 来配置 Redis
 content_type: tutorial
+weight: 30
 ---
 <!--
 reviewers:
@@ -8,37 +9,30 @@ reviewers:
 - pmorie
 title: Configuring Redis using a ConfigMap
 content_type: tutorial
+weight: 30
 -->
 
 <!-- overview -->
 
 <!--
-This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task.
+This page provides a real world example of how to configure Redis using a ConfigMap and
+builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task.
 -->
 这篇文档基于[配置 Pod 以使用 ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)
 这个任务，提供了一个使用 ConfigMap 来配置 Redis 的真实案例。
 
-
-
 ## {{% heading "objectives" %}}
-
 
 <!--
 * Create a ConfigMap with Redis configuration values
 * Create a Redis Pod that mounts and uses the created ConfigMap
 * Verify that the configuration was correctly applied.
 -->
-
 * 使用 Redis 配置的值创建一个 ConfigMap
 * 创建一个 Redis Pod，挂载并使用创建的 ConfigMap
 * 验证配置已经被正确应用
 
-
-
-
-
 ## {{% heading "prerequisites" %}}
-
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -49,10 +43,7 @@ This page provides a real world example of how to configure Redis using a Config
 * 此页面上显示的示例适用于 `kubectl` 1.14 及以上的版本。
 * 理解[配置 Pod 以使用 ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 
-
-
 <!-- lessoncontent -->
-
 
 <!--
 ## Real World Example: Configuring Redis using a ConfigMap
@@ -81,7 +72,7 @@ EOF
 <!--
 Apply the ConfigMap created above, along with a Redis pod manifest:
 -->
-应用上面创建的 ConfigMap 以及 Redis pod 清单：
+应用上面创建的 ConfigMap 以及 Redis Pod 清单：
 
 ```shell
 kubectl apply -f example-redis-config.yaml
@@ -92,7 +83,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/conte
 Examine the contents of the Redis pod manifest and note the following:
 
 * A volume named `config` is created by `spec.volumes[1]`
-* The `key` and `path` under `spec.volumes[1].items[0]` exposes the `redis-config` key from the 
+* The `key` and `path` under `spec.volumes[1].configMap.items[0]` exposes the `redis-config` key from the
   `example-redis-config` ConfigMap as a file named `redis.conf` on the `config` volume.
 * The `config` volume is then mounted at `/redis-master` by `spec.containers[0].volumeMounts[1]`.
 
@@ -102,14 +93,14 @@ ConfigMap above as `/redis-master/redis.conf` inside the Pod.
 检查 Redis pod 清单的内容，并注意以下几点：
 
 * 由 `spec.volumes[1]` 创建一个名为 `config` 的卷。
-* `spec.volumes[1].items[0]` 下的 `key` 和 `path` 会将来自 `example-redis-config`
-  ConfigMap 中的 `redis-config` 密钥公开在 `config` 卷上一个名为 `redis.conf` 的文件中。
+* `spec.volumes[1].configMap.items[0]` 下的 `key` 和 `path` 会将来自 `example-redis-config`
+  ConfigMap 中的 `redis-config` 键公开在 `config` 卷上一个名为 `redis.conf` 的文件中。
 * 然后 `config` 卷被 `spec.containers[0].volumeMounts[1]` 挂载在 `/redis-master`。
 
 这样做的最终效果是将上面 `example-redis-config` 配置中 `data.redis-config`
 的数据作为 Pod 中的 `/redis-master/redis.conf` 公开。
 
-{{< codenew file="pods/config/redis-pod.yaml" >}}
+{{% code_sample file="pods/config/redis-pod.yaml" %}}
 
 <!--
 Examine the created objects:
@@ -210,12 +201,12 @@ Now let's add some configuration values to the `example-redis-config` ConfigMap:
 -->
 现在，向 `example-redis-config` ConfigMap 添加一些配置：
 
-{{< codenew file="pods/config/example-redis-config.yaml" >}}
+{{% code_sample file="pods/config/example-redis-config.yaml" %}}
 
 <!--
 Apply the updated ConfigMap:
 -->
-应用更新的 ConfigMap:
+应用更新的 ConfigMap：
 
 ```shell
 kubectl apply -f example-redis-config.yaml
@@ -366,11 +357,9 @@ kubectl delete pod/redis configmap/example-redis-config
 
 ## {{% heading "whatsnext" %}}
 
-
 <!--
 * Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+* Follow an example of [Updating configuration via a ConfigMap](/docs/tutorials/configuration/updating-configuration-via-a-configmap/).
 -->
-* 了解有关 [ConfigMaps](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/) 的更多信息。
-
-
-
+* 了解有关 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/) 的更多信息。
+* 学习[通过 ConfigMap 更新配置](/zh-cn/docs/tutorials/configuration/updating-configuration-via-a-configmap/)的示例。

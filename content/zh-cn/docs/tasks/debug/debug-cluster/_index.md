@@ -25,6 +25,13 @@ You may also visit the [troubleshooting overview document](/docs/tasks/debug/) f
 对于应用的调试，请参阅[应用故障排查指南](/zh-cn/docs/tasks/debug/debug-application/)。
 你也可以访问[故障排查](/zh-cn/docs/tasks/debug/)来获取更多的信息。
 
+<!--
+For troubleshooting {{<glossary_tooltip text="kubectl" term_id="kubectl">}}, refer to
+[Troubleshooting kubectl](/docs/tasks/debug/debug-cluster/troubleshoot-kubectl/).
+-->
+有关 {{<glossary_tooltip text="kubectl" term_id="kubectl">}} 的故障排查，
+请参阅 [kubectl 故障排查](/zh-cn/docs/tasks/debug/debug-cluster/troubleshoot-kubectl/)。
+
 <!-- body -->
 
 <!--
@@ -232,7 +239,7 @@ status:
     type: PIDPressure
   - lastHeartbeatTime: "2022-02-17T22:20:15Z"
     lastTransitionTime: "2022-02-17T22:15:15Z"
-    message: kubelet is posting ready status. AppArmor enabled
+    message: kubelet is posting ready status.
     reason: KubeletReady
     status: "True"
     type: Ready
@@ -306,7 +313,7 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 - Network partition within cluster, or between cluster and users
 - Crashes in Kubernetes software
 - Data loss or unavailability of persistent storage (e.g. GCE PD or AWS EBS volume)
-- Operator error, for example misconfigured Kubernetes software or application software
+- Operator error, for example, misconfigured Kubernetes software or application software
 -->
 ### 故障原因 {#contributing-causes}
 
@@ -322,7 +329,7 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 - API server VM shutdown or apiserver crashing
   - Results
     - unable to stop, update, or start new pods, services, replication controller
-    - existing pods and services should continue to work normally, unless they depend on the Kubernetes API
+    - existing pods and services should continue to work normally unless they depend on the Kubernetes API
 - API server backing storage lost
   - Results
     - the kube-apiserver component fails to start successfully and become healthy
@@ -394,7 +401,7 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 <!--
 ### Mitigations
 
-- Action: Use IaaS provider's automatic VM restarting feature for IaaS VMs
+- Action: Use the IaaS provider's automatic VM restarting feature for IaaS VMs
   - Mitigates: Apiserver VM shutdown or apiserver crashing
   - Mitigates: Supporting services VM shutdown or crashes
 

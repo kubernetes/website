@@ -3,9 +3,9 @@ title: " Scaling Kubernetes deployments with Policy-Based Networking "
 date: 2017-01-19
 slug: scaling-kubernetes-deployments-with-policy-base-networking
 url: /blog/2017/01/Scaling-Kubernetes-Deployments-With-Policy-Base-Networking
+author: >
+  Harmeet Sahni (Nuage Networks)
 ---
-_Editor's note: Today’s post is by Harmeet Sahni, Director of Product Management, at Nuage Networks, writing about their contributions to Kubernetes and insights on policy-based networking. &nbsp;_  
-
 Although it’s just been eighteen-months since Kubernetes 1.0 was released, we’ve seen Kubernetes emerge as the leading container orchestration platform for deploying distributed applications. One of the biggest reasons for this is the vibrant open source community that has developed around it. The large number of Kubernetes contributors come from diverse backgrounds means we, and the community of users, are assured that we are investing in an open platform. Companies like Google (Container Engine), Red Hat (OpenShift), and CoreOS (Tectonic) are developing their own commercial offerings based on Kubernetes. This is a good thing since it will lead to more standardization and offer choice to the users.&nbsp;  
 
 **Networking requirements for Kubernetes applications**  
@@ -54,5 +54,3 @@ Being able to monitor the traffic flowing between Kubernetes Pods is very useful
 
 Even though we started working on our integration with Kubernetes over a year ago, it feels we are just getting started. We have always felt that this is a truly open community and we want to be an integral part of it. You can find out more about our Kubernetes integration on our [GitHub page](https://github.com/nuagenetworks/nuage-kubernetes).  
 
-
-_--Harmeet Sahni, Director of Product Management, Nuage Networks_  

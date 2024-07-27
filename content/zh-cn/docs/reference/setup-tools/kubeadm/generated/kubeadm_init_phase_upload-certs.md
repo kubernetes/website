@@ -1,18 +1,7 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-<!--
 Upload certificates to kubeadm-certs
 -->
-将证书上传到 kubeadm-certs
+将证书上传到 kubeadm-certs。
 
 <!-- 
 ### Synopsis
@@ -22,7 +11,7 @@ Upload certificates to kubeadm-certs
 <!--
 Upload control plane certificates to the kubeadm-certs Secret
 -->
-将控制平面证书上传到 kubeadm-certs Secret
+将控制平面证书上传到 kubeadm-certs Secret。
 
 ```
 kubeadm init phase upload-certs [flags]
@@ -47,9 +36,11 @@ kubeadm init phase upload-certs [flags]
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 Key used to encrypt the control-plane certificates in the kubeadm-certs Secret.
+The certificate key is a hex encoded string that is an AES key of size 32 bytes.
 -->
 <p>
 用于加密 kubeadm-certs Secret 中的控制平面证书的密钥。
+证书密钥是十六进制编码的字符串，是大小为 32 字节的 AES 密钥。
 </p>
 </td>
 </tr>
@@ -91,7 +82,7 @@ Don't apply any changes; just output what would be done.
 help for upload-certs
 -->
 <p>
-upload-certs 操作的帮助命令
+upload-certs 操作的帮助命令。
 </p>
 </td>
 </tr>

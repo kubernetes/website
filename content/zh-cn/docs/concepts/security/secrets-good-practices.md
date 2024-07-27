@@ -24,8 +24,8 @@ application developers. Use these guidelines to improve the security of your
 sensitive information in Secret objects, as well as to more effectively manage
 your Secrets.
 -->
-以下良好实践适用于集群管理员和应用开发者。遵从这些指导方针有助于提高 Secret 对象中敏感信息的安全性，
-还可以更有效地管理你的 Secret。
+以下良好实践适用于集群管理员和应用开发者。遵从这些指导方针有助于提高 Secret
+对象中敏感信息的安全性，还可以更有效地管理你的 Secret。
 
 <!-- body -->
 
@@ -111,6 +111,20 @@ recommendations include:
 -->
 * 使用生命期短暂的 Secret
 * 实现对特定事件发出警报的审计规则，例如同一用户并发读取多个 Secret 时发出警报
+
+<!--
+#### Additional ServiceAccount annotations for Secret management
+
+You can also use the `kubernetes.io/enforce-mountable-secrets` annotation on
+a ServiceAccount to enforce specific rules on how Secrets are used in a Pod.
+For more details, see the [documentation on this annotation](/docs/reference/labels-annotations-taints/#enforce-mountable-secrets).
+-->
+#### 用于 Secret 管理的附加 ServiceAccount 注解
+
+你还可以在 ServiceAccount 上使用 `kubernetes.io/enforce-mountable-secrets`
+注解来强制执行有关如何在 Pod 中使用 Secret 的特定规则。
+
+更多详细信息，请参阅[有关此注解的文档](/zh-cn/docs/reference/labels-annotations-taints/#enforce-mountable-secrets)。
 
 <!--
 ### Improve etcd management policies

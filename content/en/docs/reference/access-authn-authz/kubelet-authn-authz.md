@@ -27,7 +27,7 @@ To enable X509 client certificate authentication to the kubelet's HTTPS endpoint
 
 * start the kubelet with the `--client-ca-file` flag, providing a CA bundle to verify client certificates with
 * start the apiserver with `--kubelet-client-certificate` and `--kubelet-client-key` flags
-* see the [apiserver authentication documentation](/docs/reference/access-authn-authz/authentication/#x509-client-certs) for more details
+* see the [apiserver authentication documentation](/docs/reference/access-authn-authz/authentication/#x509-client-certificates) for more details
 
 To enable API bearer tokens (including service account tokens) to be used to authenticate to the kubelet's HTTPS endpoint:
 

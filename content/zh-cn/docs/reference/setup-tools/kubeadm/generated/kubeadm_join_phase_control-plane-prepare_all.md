@@ -69,9 +69,11 @@ If the node should host a new control plane instance, the port for the API Serve
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 Use this key to decrypt the certificate secrets uploaded by init.
+The certificate key is a hex encoded string that is an AES key of size 32 bytes.
 -->
 <p>
 使用此密钥解密由 init 上传的证书 Secret。
+证书密钥是十六进制编码的字符串，是大小为 32 字节的 AES 密钥。
 </p>
 </td>
 </tr>

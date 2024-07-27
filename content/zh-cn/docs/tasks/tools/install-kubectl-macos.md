@@ -195,12 +195,12 @@ The following methods exist for installing kubectl on macOS:
    ```
 
 <!--
-1. After installing the plugin, clean up the installation files:
+1. After installing and validating kubectl, delete the checksum file:
 -->
-1. 安装插件后，清理安装文件：
+1. 安装并验证 kubectl 后，删除校验和文件：
 
    ```bash
-   rm kubectl kubectl.sha256
+   rm kubectl.sha256
    ```
 <!-- 
 ### Install with Homebrew on macOS

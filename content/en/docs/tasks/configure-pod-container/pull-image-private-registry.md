@@ -6,8 +6,8 @@ weight: 130
 <!-- overview -->
 
 This page shows how to create a Pod that uses a
-{{< glossary_tooltip text="Secret" term_id="secret" >}} to pull an image 
-from a private container image registry or repository. There are many private 
+{{< glossary_tooltip text="Secret" term_id="secret" >}} to pull an image
+from a private container image registry or repository. There are many private
 registries in use. This task uses [Docker Hub](https://www.docker.com/products/docker-hub)
 as an example registry.
 
@@ -19,8 +19,8 @@ as an example registry.
 
 * To do this exercise, you need the `docker` command line tool, and a
   [Docker ID](https://docs.docker.com/docker-id/) for which you know the password.
-* If you are using a different private container registry, you need the command 
-  line tool for that registry and any login information for the registry. 
+* If you are using a different private container registry, you need the command
+  line tool for that registry and any login information for the registry.
 
 <!-- steps -->
 
@@ -39,7 +39,7 @@ When prompted, enter your Docker ID, and then the credential you want to use (ac
 or the password for your Docker ID).
 
 The login process creates or updates a `config.json` file that holds an authorization token.
-Review [how Kubernetes interprets this file](/docs/concepts/containers/images#config-json). 
+Review [how Kubernetes interprets this file](/docs/concepts/containers/images#config-json).
 
 View the `config.json` file:
 

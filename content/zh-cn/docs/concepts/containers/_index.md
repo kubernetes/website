@@ -3,7 +3,22 @@ title: "容器"
 weight: 40
 description: 打包应用及其运行依赖环境的技术。
 content_type: concept
+card:
+  name: concepts
+  weight: 50
 ---
+<!--
+title: Containers
+weight: 40
+description: Technology for packaging an application along with its runtime dependencies.
+reviewers:
+- erictune
+- thockin
+content_type: concept
+card:
+  name: concepts
+  weight: 50
+-->
 
 <!-- overview -->
 <!--

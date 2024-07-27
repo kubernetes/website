@@ -44,7 +44,7 @@ Merujuk pada [catatan](#catatan) di bawah.
 Pada latihan ini, kamu akan membuat sebuah Pod baru yang menjalankan sebuah Container. Berkas konfigurasi
 untuk Pod mendefinisikan sebuah perintah dan dua argumen:
 
-{{< codenew file="pods/commands.yaml" >}}
+{{% codenew file="pods/commands.yaml" %}}
 
 1. Buat sebuah Pod dengan berkas konfigurasi YAML:
 

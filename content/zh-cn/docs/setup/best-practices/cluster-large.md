@@ -224,16 +224,13 @@ Learn more about [Vertical Pod Autoscaler](https://github.com/kubernetes/autosca
 and how you can use it to scale cluster
 components, including cluster-critical addons.
 
-* The [cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
-integrates with a number of cloud providers to help you run the right number of
-nodes for the level of resource demand in your cluster.
+* Read about [cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
 -->
 * `VerticalPodAutoscaler` 是一种自定义资源，你可以将其部署到集群中，帮助你管理 Pod 的资源请求和资源限制。
   了解有关 [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)
   的更多信息，了解如何用它扩展集群组件（包括对集群至关重要的插件）的信息。
 
-* [集群自动扩缩器](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
-  与许多云供应商集成在一起，帮助你在你的集群中，按照资源需求级别运行正确数量的节点。
+* 阅读关于[集群自动扩缩容](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/)的信息。
 
 <!-- 
 * The [addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)

@@ -438,7 +438,7 @@ which caused the conversion. All other changes are ignored.
 ### Deploy the conversion webhook service
 
 Documentation for deploying the conversion webhook is the same as for the
-[admission webhook example service](/docs/reference/access-authn-authz/extensible-admission-controllers/#deploy_the_admission_webhook_service).
+[admission webhook example service](/docs/reference/access-authn-authz/extensible-admission-controllers/#deploy-the-admission-webhook-service).
 The assumption for next sections is that the conversion webhook server is deployed to a service
 named `example-conversion-webhook-server` in `default` namespace and serving traffic on path `/crdconvert`.
 
@@ -493,7 +493,7 @@ spec:
           port:
             type: string
   conversion:
-    # a Webhook strategy instruct API server to call an external webhook for any conversion between custom resources.
+    # the Webhook strategy instructs the API server to call an external webhook for any conversion between custom resources.
     strategy: Webhook
     # webhook is required when strategy is `Webhook` and it configures the webhook endpoint to be called by API server.
     webhook:
@@ -561,7 +561,7 @@ spec:
           port:
             type: string
   conversion:
-    # a Webhook strategy instruct API server to call an external webhook for any conversion between custom resources.
+    # the Webhook strategy instructs the API server to call an external webhook for any conversion between custom resources.
     strategy: Webhook
     # webhookClientConfig is required when strategy is `Webhook` and it configures the webhook endpoint to be called by API server.
     webhookClientConfig:
@@ -873,7 +873,7 @@ with the `response` stanza populated, serialized to JSON.
 If conversion succeeds, a webhook should return a `response` stanza containing the following fields:
 * `uid`, copied from the `request.uid` sent to the webhook
 * `result`, set to `{"status":"Success"}`
-* `convertedObjects`, containing all of the objects from `request.objects`, converted to `request.desiredVersion`
+* `convertedObjects`, containing all of the objects from `request.objects`, converted to `request.desiredAPIVersion`
 
 Example of a minimal successful response from a webhook:
 

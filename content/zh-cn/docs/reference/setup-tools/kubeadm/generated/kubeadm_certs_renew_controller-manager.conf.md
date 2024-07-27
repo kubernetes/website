@@ -30,7 +30,7 @@ After renewal, in order to make changes effective, is is required to restart con
 续订后，为了使更改生效，需要重新启动控制平面组件，并最终重新分发更新的证书，以防文件在其他地方使用。
 
 ```
-kubeadm alpha renew controller-manager.conf [flags]
+kubeadm certs renew controller-manager.conf [flags]
 ```
 
 <!--

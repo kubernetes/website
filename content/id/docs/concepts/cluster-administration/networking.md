@@ -105,7 +105,7 @@ Plugin ini dirancang untuk secara langsung mengkonfigurasi dan _deploy_ dalam VP
 
 ### Contiv
 
-[Contiv](https://github.com/contiv/netplugin) menyediakan jaringan yang dapat dikonfigurasi (_native_ l3 menggunakan BGP, _overlay_ menggunakan vxlan, classic l2, atau Cisco-SDN / ACI) untuk berbagai kasus penggunaan. [Contiv](http://contiv.io) semuanya open sourced.
+[Contiv](https://github.com/contiv/netplugin) menyediakan jaringan yang dapat dikonfigurasi (_native_ l3 menggunakan BGP, _overlay_ menggunakan vxlan, classic l2, atau Cisco-SDN / ACI) untuk berbagai kasus penggunaan. [Contiv](https://contivpp.io) semuanya open sourced.
 
 ### Contrail / Tungsten Fabric
 

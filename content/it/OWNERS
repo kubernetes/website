@@ -8,4 +8,5 @@ approvers:
 - sig-docs-it-owners
 
 labels:
+- area/localization
 - language/it

@@ -103,7 +103,7 @@ and eventually the work is done.
 Job 是一种 Kubernetes 资源，它运行一个或者多个 {{< glossary_tooltip term_id="pod" >}}，
 来执行一个任务然后停止。
 （一旦[被调度了](/zh-cn/docs/concepts/scheduling-eviction/)，对 `kubelet` 来说 Pod
-对象就会变成了期望状态的一部分）。
+对象就会变成期望状态的一部分）。
 
 在集群中，当 Job 控制器拿到新任务时，它会保证一组 Node 节点上的 `kubelet`
 可以运行正确数量的 Pod 来完成工作。
@@ -290,12 +290,13 @@ Kubernetes 允许你运行一个稳定的控制平面，这样即使某些内置
 * Discover some of the basic [Kubernetes objects](/docs/concepts/overview/working-with-objects/)
 * Learn more about the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
 * If you want to write your own controller, see
-  [Extension Patterns](/docs/concepts/extend-kubernetes/#extension-patterns)
-  in Extending Kubernetes.
+  [Kubernetes extension patterns](/docs/concepts/extend-kubernetes/#extension-patterns)
+  and the [sample-controller](https://github.com/kubernetes/sample-controller) repository.
 -->
 * 阅读 [Kubernetes 控制平面组件](/zh-cn/docs/concepts/overview/components/#control-plane-components)
 * 了解 [Kubernetes 对象](/zh-cn/docs/concepts/overview/working-with-objects/)
   的一些基本知识
 * 进一步学习 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/)
-* 如果你想编写自己的控制器，请看 Kubernetes 的
-  [扩展模式](/zh-cn/docs/concepts/extend-kubernetes/#extension-patterns)。
+* 如果你想编写自己的控制器，请查看
+  [Kubernetes 扩展模式](/zh-cn/docs/concepts/extend-kubernetes/#extension-patterns)
+  以及[控制器样例](https://github.com/kubernetes/sample-controller)。

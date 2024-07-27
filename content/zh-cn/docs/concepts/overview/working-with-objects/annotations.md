@@ -29,7 +29,8 @@ objects. Labels can be used to select objects and to find
 collections of objects that satisfy certain conditions. In contrast, annotations
 are not used to identify and select objects. The metadata
 in an annotation can be small or large, structured or unstructured, and can
-include characters not permitted by labels.
+include characters not permitted by labels. It is possible to use labels as 
+well as annotations in the metadata of the same object.
 
 Annotations, like labels, are key/value maps:
 -->
@@ -38,6 +39,7 @@ Annotations, like labels, are key/value maps:
 你可以使用标签或注解将元数据附加到 Kubernetes 对象。
 标签可以用来选择对象和查找满足某些条件的对象集合。 相反，注解不用于标识和选择对象。
 注解中的元数据，可以很小，也可以很大，可以是结构化的，也可以是非结构化的，能够包含标签不允许的字符。
+可以在同一对象的元数据中同时使用标签和注解。
 
 注解和标签一样，是键/值对：
 

@@ -101,9 +101,23 @@ tolerations:
 ```
 
 <!--
-Here's an example of a pod that uses tolerations:
+The default Kubernetes scheduler takes taints and tolerations into account when
+selecting a node to run a particular Pod. However, if you manually specify the
+`.spec.nodeName` for a Pod, that action bypasses the scheduler; the Pod is then
+bound onto the node where you assigned it, even if there are `NoSchedule`
+taints on that node that you selected.
+If this happens and the node also has a `NoExecute` taint set, the kubelet will
+eject the Pod unless there is an appropriate tolerance set.
 -->
-这里是一个使用了容忍度的 Pod：
+默认的 Kubernetes 调度器在选择一个节点来运行特定的 Pod 时会考虑污点和容忍度。
+然而，如果你手动为一个 Pod 指定了 `.spec.nodeName`，那么选节点操作会绕过调度器；
+这个 Pod 将会绑定到你指定的节点上，即使你选择的节点上有 `NoSchedule` 的污点。
+如果这种情况发生，且节点上还设置了 `NoExecute` 的污点，kubelet 会将 Pod 驱逐出去，除非有适当的容忍度设置。
+
+<!--
+Here's an example of a pod that has some tolerations defined:
+-->
+下面是一个定义了一些容忍度的 Pod 的例子：
 
 {{% code_sample file="pods/pod-with-toleration.yaml" %}}
 
@@ -116,12 +130,12 @@ The default value for `operator` is `Equal`.
 A toleration "matches" a taint if the keys are the same and the effects are the same, and:
 
 * the `operator` is `Exists` (in which case no `value` should be specified), or
-* the `operator` is `Equal` and the `value`s are equal.
+* the `operator` is `Equal` and the values should be equal.
 -->
 一个容忍度和一个污点相“匹配”是指它们有一样的键名和效果，并且：
 
 * 如果 `operator` 是 `Exists`（此时容忍度不能指定 `value`），或者
-* 如果 `operator` 是 `Equal`，则它们的 `value` 应该相等。
+* 如果 `operator` 是 `Equal`，则它们的值应该相等。
 
 {{< note >}}
 <!--
@@ -141,7 +155,7 @@ An empty `effect` matches all effects with key `key1`.
 {{< /note >}}
 
 <!--
-The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
+The above example used the `effect` of `NoSchedule`. Alternatively, you can use the `effect` of `PreferNoSchedule`.
 -->
 上述例子中 `effect` 使用的值为 `NoSchedule`，你也可以使用另外一个值 `PreferNoSchedule`。
 
@@ -212,7 +226,7 @@ scheduled onto the node (if it is not yet running on the node).
   则 Kubernetes 不会将 Pod 调度到该节点。
 * 如果未被忽略的污点中不存在 effect 值为 `NoSchedule` 的污点，
   但是存在至少一个 effect 值为 `PreferNoSchedule` 的污点，
-  则 Kubernetes 会 **尝试** 不将 Pod 调度到该节点。
+  则 Kubernetes 会**尝试**不将 Pod 调度到该节点。
 * 如果未被忽略的污点中存在至少一个 effect 值为 `NoExecute` 的污点，
   则 Kubernetes 不会将 Pod 调度到该节点（如果 Pod 还未在节点上运行），
   并且会将 Pod 从该节点驱逐（如果 Pod 已经在节点上运行）。
@@ -389,7 +403,7 @@ are true. The following taints are built in:
  * `node.kubernetes.io/network-unavailable`: Node's network is unavailable.
  * `node.kubernetes.io/unschedulable`: Node is unschedulable.
  * `node.cloudprovider.kubernetes.io/uninitialized`: When the kubelet is started
-    with "external" cloud provider, this taint is set on a node to mark it
+    with an "external" cloud provider, this taint is set on a node to mark it
     as unusable. After a controller from the cloud-controller-manager initializes
     this node, the kubelet removes this taint.
 -->

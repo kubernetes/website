@@ -26,7 +26,7 @@ mendapatkan _shell_ untuk masuk ke dalam Container yang sedang berjalan.
 Dalam latihan ini, kamu perlu membuat Pod yang hanya memiliki satu Container saja. Container
 tersebut menjalankan _image_ nginx. Berikut ini adalah berkas konfigurasi untuk Pod tersebut:
 
-{{< codenew file="application/shell-demo.yaml" >}}
+{{% codenew file="application/shell-demo.yaml" %}}
 
 Buatlah Pod tersebut:
 
@@ -108,7 +108,7 @@ Pada jendela (_window_) perintah biasa, bukan pada _shell_ kamu di dalam Contain
 lihatlah daftar variabel lingkungan (_environment variable_) pada Container yang sedang berjalan:
 
 ```shell
-kubectl exec shell-demo env
+kubectl exec shell-demo -- env
 ```
 
 Cobalah dengan menjalankan perintah lainnya. Berikut beberapa contohnya:

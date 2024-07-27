@@ -3,9 +3,10 @@ layout: blog
 title: Production-Ready Kubernetes Cluster Creation with kubeadm
 date: 2018-12-04
 evergreen: true
+author: >
+   Lucas Käldström (CNCF),
+   Luc Perkins (CNCF) 
 ---
-
-**Authors**: Lucas Käldström (CNCF Ambassador) and Luc Perkins (CNCF Developer Advocate)
 
 [kubeadm](/docs/setup/independent/create-cluster-kubeadm/) is a tool that enables Kubernetes administrators to quickly and easily bootstrap minimum viable clusters that are fully compliant with [Certified Kubernetes](https://github.com/cncf/k8s-conformance/blob/master/terms-conditions/Certified_Kubernetes_Terms.md) guidelines. It's been under active development by [SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle) since 2016 and we're excited to announce that it has now graduated from beta to stable and generally available (GA)!
 

@@ -3,6 +3,10 @@ title: " RBAC Support in Kubernetes "
 date: 2017-04-06
 slug: rbac-support-in-kubernetes
 url: /blog/2017/04/Rbac-Support-In-Kubernetes
+author: >
+  Jacob Simpson (Google),
+  Greg Castle (Google),
+  CJ Cullen (Google)
 ---
 _Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1-6) on what's new in Kubernetes 1.6_
 
@@ -113,14 +117,6 @@ If you’d like to contribute or simply help provide feedback and drive the road
 - Join the biweekly [SIG-Auth meetings](https://github.com/kubernetes/community/blob/master/sig-auth/README.md) on Wednesday at 11:00 AM PT
 
 Thanks for your support and contributions. Read more in-depth posts on what's new in Kubernetes 1.6 [here](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1-6).
-
-
-
-
-
-_-- Jacob Simpson, Greg Castle & CJ Cullen, Software Engineers at Google_
-
-
 
 
 

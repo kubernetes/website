@@ -3,8 +3,11 @@ layout: blog
 title: "Introducing Windows CSI support alpha for Kubernetes"
 date: 2020-04-03
 slug: kubernetes-1-18-feature-windows-csi-support-alpha
+author: >
+  Deep Debroy [Docker],
+  Jing Xu [Google],
+  Krishnakumar R (KK) [Microsoft]
 ---
-**Authors:** Authors: Deep Debroy [Docker], Jing Xu [Google], Krishnakumar R (KK) [Microsoft]
 
 <em>The alpha version of [CSI Proxy][csi-proxy] for Windows is being released with Kubernetes 1.18. CSI proxy enables CSI Drivers on Windows by allowing containers in Windows to perform privileged storage operations.</em>
 

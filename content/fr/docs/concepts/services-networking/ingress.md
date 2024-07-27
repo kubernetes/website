@@ -447,8 +447,8 @@ Suivez [SIG network](https://github.com/kubernetes/community/tree/master/sig-net
 
 Vous pouvez exposer un service de plusieurs manières sans impliquer directement la ressource Ingress :
 
-* Utilisez [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
-* Utilisez [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
+* Utilisez [Service.Type=LoadBalancer](/fr/docs/concepts/services-networking/service/#loadbalancer)
+* Utilisez [Service.Type=NodePort](/fr/docs/concepts/services-networking/service/#type-nodeport)
 * Utilisez un [Proxy du port](https://git.k8s.io/contrib/for-demos/proxy-to-service)
 
 

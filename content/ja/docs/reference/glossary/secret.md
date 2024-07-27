@@ -15,4 +15,6 @@ tags:
 
 <!--more--> 
 
-機密情報の取り扱い方法を細かく制御することができ、保存時には[暗号化](/ja/docs/tasks/administer-cluster/encrypt-data/#ensure-all-secrets-are-encrypted)するなど、誤って公開してしまうリスクを減らすことができます。{{< glossary_tooltip text="Pod" term_id="pod" >}}は、ボリュームマウントされたファイルとして、またはPodのイメージをPullするkubeletによって、Secretを参照します。Secretは機密情報を扱うのに最適で、機密でない情報には[ConfigMap](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)が適しています。
+Secretは、機密情報の使用方法をより管理しやすくし、偶発的な漏洩のリスクを減らすことができます。Secretの値はbase64文字列としてエンコードされ、デフォルトでは暗号化されずに保存されますが、[保存時に暗号化](/docs/tasks/administer-cluster/encrypt-data/#ensure-all-secrets-are-encrypted)するように設定することもできます。
+
+{{< glossary_tooltip text="Pod" term_id="pod" >}}は、ボリュームマウントや環境変数など、さまざまな方法でSecretを参照できます。Secretは機密データ用に設計されており、[ConfigMap](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)は非機密データ用に設計されています。

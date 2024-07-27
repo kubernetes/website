@@ -3,6 +3,8 @@ title: " Security Best Practices for Kubernetes Deployment "
 date: 2016-08-31
 slug: security-best-practices-kubernetes-deployment
 url: /blog/2016/08/Security-Best-Practices-Kubernetes-Deployment
+author: >
+  Michael Cherny (Aqua Security)
 ---
 _Note: some of the recommendations in this post are no longer current. Current cluster hardening options are described in this [documentation](/docs/tasks/administer-cluster/securing-a-cluster/)._
 
@@ -228,7 +230,6 @@ We recommend implementing the best practices that were highlighted in this blog,
 
 
 
-_--Michael Cherny, Head of Security Research, and Amir Jerbi, CTO and co-founder [Aqua Security](https://www.aquasec.com/)_
 
 
 

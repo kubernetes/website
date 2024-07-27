@@ -53,10 +53,10 @@ Container images are usually given a name such as `pause`, `example/mycontainer`
 Images can also include a registry hostname; for example: `fictional.registry.example/imagename`,
 and possibly a port number as well; for example: `fictional.registry.example:10443/imagename`.
 
-If you don't specify a registry hostname, Kubernetes assumes that you mean the Docker public registry.
+If you don't specify a registry hostname, Kubernetes assumes that you mean the [Docker public registry](https://hub.docker.com/).
 
-After the image name part you can add a _tag_ (in the same way you would when using with commands
-like `docker` or `podman`).  Tags let you identify different versions of the same series of images.
+You can change this behaviour by setting default image registry in 
+[container runtime](/docs/setup/production-environment/container-runtimes/) configuration.
 -->
 ## 镜像名称    {#image-names}
 
@@ -64,21 +64,69 @@ like `docker` or `podman`).  Tags let you identify different versions of the sam
 镜像名称也可以包含所在仓库的主机名。例如：`fictional.registry.example/imagename`。
 还可以包含仓库的端口号，例如：`fictional.registry.example:10443/imagename`。
 
-如果你不指定仓库的主机名，Kubernetes 认为你在使用 Docker 公共仓库。
+如果你不指定仓库的主机名，Kubernetes 认为你在使用 [Docker 公共仓库](https://hub.docker.com/)。
 
-在镜像名称之后，你可以添加一个**标签（Tag）**（与使用 `docker` 或 `podman` 等命令时的方式相同）。
+你可以通过在[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)
+配置中设置默认镜像仓库来更改此行为。
+
+<!--
+After the image name part you can add a _tag_ or _digest_ (in the same way you would when using with commands
+like `docker` or `podman`). Tags let you identify different versions of the same series of images.
+Digests are a unique identifier for a specific version of an image. Digests are hashes of the image's content,
+and are immutable. Tags can be moved to point to different images, but digests are fixed.
+-->
+
+在镜像名称之后，你可以添加一个**标签（Tag）** 或 **摘要（digest）**
+（与使用 `docker` 或 `podman` 等命令时的方式相同）。
 使用标签能让你辨识同一镜像序列中的不同版本。
+摘要是特定版本镜像的唯一标识符，是镜像内容的哈希值，不可变。
 
 <!--
 Image tags consist of lowercase and uppercase letters, digits, underscores (`_`),
-periods (`.`), and dashes (`-`).
-There are additional rules about where you can place the separator
-characters (`_`, `-`, and `.`) inside an image tag.
+periods (`.`), and dashes (`-`). It can be up to 128 characters long. And must follow the
+next regex pattern: `[a-zA-Z0-9_][a-zA-Z0-9._-]{0,127}`
+You can read more about and find validation regex in the
+[OCI Distribution Specification](https://github.com/opencontainers/distribution-spec/blob/master/spec.md#workflow-categories).
 If you don't specify a tag, Kubernetes assumes you mean the tag `latest`.
 -->
 镜像标签可以包含小写字母、大写字母、数字、下划线（`_`）、句点（`.`）和连字符（`-`）。
-关于在镜像标签中何处可以使用分隔字符（`_`、`-` 和 `.`）还有一些额外的规则。
+它的长度最多为 128 个字符，并且必须遵循正则表达式模式：`[a-zA-Z0-9_][a-zA-Z0-9._-]{0,127}`。
+你可以在 [OCI 分发规范](https://github.com/opencontainers/distribution-spec/blob/master/spec.md#workflow-categories)
+中阅读有关并找到验证正则表达式的更多信息。
 如果你不指定标签，Kubernetes 认为你想使用标签 `latest`。
+
+<!--
+Image digests consists of a hash algorithm (such as `sha256`) and a hash value. For example:
+`sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07`
+You can find more information about digests format in the 
+[OCI Image Specification](https://github.com/opencontainers/image-spec/blob/master/descriptor.md#digests).
+-->
+图像摘要由哈希算法（例如 `sha256`）和哈希值组成，例如：
+`sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07`。
+你可以在 [OCI 镜像规范](https://github.com/opencontainers/image-spec/blob/master/descriptor.md#digests)
+中找到有关摘要格式的更多信息。
+
+<!--
+Some image name examples that Kubernetes can use are:
+-->
+Kubernetes 可以使用的一些镜像名称示例包括：
+
+<!--
+- `busybox` - Image name only, no tag or digest. Kubernetes will use Docker public registry and latest tag. (Same as `docker.io/library/busybox:latest`)
+- `busybox:1.32.0` - Image name with tag. Kubernetes will use Docker public registry. (Same as `docker.io/library/busybox:1.32.0`)
+- `registry.k8s.io/pause:latest` - Image name with a custom registry and latest tag.
+- `registry.k8s.io/pause:3.5` - Image name with a custom registry and non-latest tag.
+- `registry.k8s.io/pause@sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07` - Image name with digest.
+- `registry.k8s.io/pause:3.5@sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07` - Image name with tag and digest. Only digest will be used for pulling.
+-->
+- `busybox` - 仅包含镜像名称，没有标签或摘要，Kubernetes 将使用 Docker 公共镜像仓库和 `latest` 标签。
+  （例如 `docker.io/library/busybox:latest`）
+- `busybox:1.32.0` - 带标签的镜像名称，Kubernetes 将使用 Docker 公共镜像仓库。
+  （例如 `docker.io/library/busybox:1.32.0`）
+- `registry.k8s.io/pause:latest` - 带有自定义镜像仓库和 `latest` 标签的镜像名称。
+- `registry.k8s.io/pause:3.5` - 带有自定义镜像仓库和非 `latest` 标签的镜像名称。
+- `registry.k8s.io/pause@sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07` - 带摘要的镜像名称。
+- `registry.k8s.io/pause:3.5@sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07` - 带有标签和摘要的镜像名称，镜像拉取仅参考摘要。
 
 <!--
 ## Updating images
@@ -143,7 +191,7 @@ these values have:
   否则，kubelet 就会使用解析后的摘要拉取镜像，并使用该镜像来启动容器。
 
 `Never`
-: Kubelet 不会尝试获取镜像。如果镜像已经以某种方式存在本地，
+: kubelet 不会尝试获取镜像。如果镜像已经以某种方式存在本地，
   kubelet 会尝试启动容器；否则，会启动失败。
   更多细节见[提前拉取镜像](#pre-pulled-images)。
 
@@ -176,7 +224,8 @@ replace `<image-name>:<tag>` with `<image-name>@<digest>`
 (for example, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`).
 -->
 为了确保 Pod 总是使用相同版本的容器镜像，你可以指定镜像的摘要；
-将 `<image-name>:<tag>` 替换为 `<image-name>@<digest>`，例如 `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`。
+将 `<image-name>:<tag>` 替换为 `<image-name>@<digest>`，例如
+`image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`。
 
 <!--
 When using image tags, if the image registry were to change the code that the tag on that image
@@ -241,11 +290,11 @@ For example, if you create a Deployment with an image whose tag is _not_
 `imagePullPolicy` field will _not_ change to `Always`. You must manually change
 the pull policy of any object after its initial creation.
 -->
-容器的 `imagePullPolicy` 的值总是在对象初次 _创建_ 时设置的，
+容器的 `imagePullPolicy` 的值总是在对象初次**创建**时设置的，
 如果后来镜像的标签或摘要发生变化，则不会更新。
 
-例如，如果你用一个 **非** `:latest` 的镜像标签创建一个 Deployment，
-并在随后更新该 Deployment 的镜像标签为 `:latest`，则 `imagePullPolicy` 字段 **不会** 变成 `Always`。
+例如，如果你用一个**非** `:latest` 的镜像标签创建一个 Deployment，
+并在随后更新该 Deployment 的镜像标签为 `:latest`，则 `imagePullPolicy` 字段**不会**变成 `Always`。
 你必须手动更改已经创建的资源的拉取策略。
 {{< /note >}}
 
@@ -299,6 +348,31 @@ which is 300 seconds (5 minutes).
 `BackOff` 部分表示 Kubernetes 将继续尝试拉取镜像，并增加回退延迟。
 
 Kubernetes 会增加每次尝试之间的延迟，直到达到编译限制，即 300 秒（5 分钟）。
+
+<!--
+### Image pull per runtime class
+-->
+### 基于运行时类的镜像拉取  {#image-pull-per-runtime-class}
+
+{{< feature-state feature_gate_name="RuntimeClassInImageCriApi" >}}
+
+<!--
+Kubernetes includes alpha support for performing image pulls based on the RuntimeClass of a Pod.
+-->
+Kubernetes 包含了根据 Pod 的 RuntimeClass 来执行镜像拉取的 Alpha 支持。
+
+<!--
+If you enable the `RuntimeClassInImageCriApi` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
+the kubelet references container images by a tuple of (image name, runtime handler) rather than just the
+image name or digest. Your {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
+may adapt its behavior based on the selected runtime handler.
+Pulling images based on runtime class will be helpful for VM based containers like windows hyperV containers.
+-->
+如果你启用了 `RuntimeClassInImageCriApi` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+kubelet 会通过一个元组（镜像名称，运行时处理程序）而不仅仅是镜像名称或镜像摘要来引用容器镜像。
+你的{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}
+可能会根据选定的运行时处理程序调整其行为。
+基于运行时类来拉取镜像对于基于 VM 的容器（如 Windows Hyper-V 容器）会有帮助。
 
 <!--
 ## Serial and parallel image pulls
@@ -366,8 +440,8 @@ until at least one ongoing image pull is complete.
 -->
 当 `serializeImagePulls` 被设置为 false 时，kubelet 默认对同时拉取的最大镜像数量没有限制。
 如果你想限制并行镜像拉取的数量，可以在 kubelet 配置中设置字段 `maxParallelImagePulls`。
-当 `maxParallelImagePulls` 设置为 _n_ 时，只能同时拉取 _n_ 个镜像，
-超过 _n_ 的任何镜像都必须等到至少一个正在进行拉取的镜像拉取完成后，才能拉取。
+当 `maxParallelImagePulls` 设置为 **n** 时，只能同时拉取 **n** 个镜像，
+超过 **n** 的任何镜像都必须等到至少一个正在进行拉取的镜像拉取完成后，才能拉取。
 
 <!--
 Limiting the number parallel image pulls would prevent image pulling from consuming
@@ -516,61 +590,38 @@ See [Configure a kubelet image credential provider](/docs/tasks/administer-clust
 The interpretation of `config.json` varies between the original Docker
 implementation and the Kubernetes interpretation. In Docker, the `auths` keys
 can only specify root URLs, whereas Kubernetes allows glob URLs as well as
-prefix-matched paths. This means that a `config.json` like this is valid:
+prefix-matched paths. The only limitation is that glob patterns (`*`) have to
+include the dot (`.`) for each subdomain. The amount of matched subdomains has
+to be equal to the amount of glob patterns (`*.`), for example:
 -->
 对于 `config.json` 的解释在原始 Docker 实现和 Kubernetes 的解释之间有所不同。
-在 Docker 中，`auths` 键只能指定根 URL，而 Kubernetes 允许 glob URLs 以及前缀匹配的路径。
+在 Docker 中，`auths` 键只能指定根 URL，而 Kubernetes 允许 glob URL 以及前缀匹配的路径。
+唯一的限制是 glob 模式（`*`）必须为每个子域名包括点（`.`）。
+匹配的子域名数量必须等于 glob 模式（`*.`）的数量，例如：
+
+<!--
+- `*.kubernetes.io` will *not* match `kubernetes.io`, but `abc.kubernetes.io`
+- `*.*.kubernetes.io` will *not* match `abc.kubernetes.io`, but `abc.def.kubernetes.io`
+- `prefix.*.io` will match `prefix.kubernetes.io`
+- `*-good.kubernetes.io` will match `prefix-good.kubernetes.io`
+-->
+- `*.kubernetes.io` **不**会匹配 `kubernetes.io`，但会匹配 `abc.kubernetes.io`
+- `*.*.kubernetes.io` **不**会匹配 `abc.kubernetes.io`，但会匹配 `abc.def.kubernetes.io`
+- `prefix.*.io` 将匹配 `prefix.kubernetes.io`
+- `*-good.kubernetes.io` 将匹配 `prefix-good.kubernetes.io`
+
+<!--
+This means that a `config.json` like this is valid:
+-->
 这意味着，像这样的 `config.json` 是有效的：
 
 ```json
 {
     "auths": {
-        "*my-registry.io/images": {
-            "auth": "…"
-        }
+        "my-registry.io/images": { "auth": "…" },
+        "*.my-registry.io/images": { "auth": "…" }
     }
 }
-```
-
-<!--
-The root URL (`*my-registry.io`) is matched by using the following syntax:
-
-```
-pattern:
-    { term }
-
-term:
-    '*'         matches any sequence of non-Separator characters
-    '?'         matches any single non-Separator character
-    '[' [ '^' ] { character-range } ']'
-                character class (must be non-empty)
-    c           matches character c (c != '*', '?', '\\', '[')
-    '\\' c      matches character c
-
-character-range:
-    c           matches character c (c != '\\', '-', ']')
-    '\\' c      matches character c
-    lo '-' hi   matches character c for lo <= c <= hi
-```
--->
-使用以下语法匹配根 URL （`*my-registry.io`）：
-
-```
-pattern:
-    { term }
-
-term:
-    '*'         匹配任何无分隔符字符序列
-    '?'         匹配任意单个非分隔符
-    '[' [ '^' ] 字符范围
-                  字符集（必须非空）
-    c           匹配字符 c （c 不为 '*', '?', '\\', '['）
-    '\\' c      匹配字符 c
-
-字符范围:
-    c           匹配字符 c （c 不为 '\\', '?', '-', ']'）
-    '\\' c      匹配字符 c
-    lo '-' hi   匹配字符范围在 lo 到 hi 之间字符
 ```
 
 <!--
@@ -584,13 +635,20 @@ would match successfully:
 - `my-registry.io/images/my-image`
 - `my-registry.io/images/another-image`
 - `sub.my-registry.io/images/my-image`
+
+<!--
+But not:
+-->
+但这些不会匹配成功：
+
 - `a.sub.my-registry.io/images/my-image`
+- `a.b.sub.my-registry.io/images/my-image`
 
 <!--
 The kubelet performs image pulls sequentially for every found credential. This
-means, that multiple entries in `config.json` are possible, too:
+means, that multiple entries in `config.json` for different paths are possible, too:
 -->
-kubelet 为每个找到的凭据的镜像按顺序拉取。这意味着在 `config.json` 中可能有多项：
+kubelet 为每个找到的凭据的镜像按顺序拉取。这意味着对于不同的路径在 `config.json` 中也可能有多项：
 
 ```json
 {
@@ -697,7 +755,7 @@ kubectl create secret docker-registry <name> \
 <!--
 If you already have a Docker credentials file then, rather than using the above
 command, you can import the credentials file as a Kubernetes
-{{< glossary_tooltip text="Secrets" term_id="secret" >}}.
+{{< glossary_tooltip text="Secrets" term_id="secret" >}}.  
 [Create a Secret based on existing Docker credentials](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials)
 explains how to set this up.
 -->
@@ -774,8 +832,7 @@ will be merged.
 -->
 你需要对使用私有仓库的每个 Pod 执行以上操作。不过，
 设置该字段的过程也可以通过为[服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)资源设置
-`imagePullSecrets` 来自动完成。
-有关详细指令，
+`imagePullSecrets` 来自动完成。有关详细指令，
 可参见[将 ImagePullSecrets 添加到服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)。
 
 你也可以将此方法与节点级别的 `.docker/config.json` 配置结合使用。
@@ -830,8 +887,9 @@ common use cases and suggested solutions.
    - Move sensitive data into a "Secret" resource, instead of packaging it in an image.
 -->
 3. 集群使用专有镜像，且有些镜像需要更严格的访问控制
-   - 确保 [AlwaysPullImages 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)被启用。否则，所有 Pod 都可以使用所有镜像。
-   - 确保将敏感数据存储在 Secret 资源中，而不是将其打包在镜像里
+   - 确保 [AlwaysPullImages 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)被启用。
+     否则，所有 Pod 都可以使用所有镜像。
+   - 确保将敏感数据存储在 Secret 资源中，而不是将其打包在镜像里。
 
 <!--
 1. A multi-tenant cluster where each tenant needs own private registry.
@@ -843,10 +901,11 @@ common use cases and suggested solutions.
    - The tenant adds that secret to imagePullSecrets of each namespace.
 -->
 4. 集群是多租户的并且每个租户需要自己的私有仓库
-   - 确保 [AlwaysPullImages 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)。否则，所有租户的所有的 Pod 都可以使用所有镜像。
-   - 为私有仓库启用鉴权
+   - 确保 [AlwaysPullImages 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)。
+     否则，所有租户的所有的 Pod 都可以使用所有镜像。
+   - 为私有仓库启用鉴权。
    - 为每个租户生成访问仓库的凭据，放置在 Secret 中，并将 Secret 发布到各租户的名字空间下。
-   - 租户将 Secret 添加到每个名字空间中的 imagePullSecrets
+   - 租户将 Secret 添加到每个名字空间中的 imagePullSecrets。
 
 <!--
 If you need access to multiple registries, you can create one secret for each registry.
@@ -859,7 +918,7 @@ If you need access to multiple registries, you can create one secret for each re
 In older versions of Kubernetes, the kubelet had a direct integration with cloud provider credentials.
 This gave it the ability to dynamically fetch credentials for image registries.
 -->
-## 旧版的内置 kubelet 凭据提供程序
+## 旧版的内置 kubelet 凭据提供程序    {#legacy-built-in-kubelet-credentials-provider}
 
 在旧版本的 Kubernetes 中，kubelet 与云提供商凭据直接集成。
 这使它能够动态获取镜像仓库的凭据。
@@ -869,7 +928,7 @@ There were three built-in implementations of the kubelet credential provider int
 ACR (Azure Container Registry), ECR (Elastic Container Registry), and GCR (Google Container Registry).
 -->
 kubelet 凭据提供程序集成存在三个内置实现：
-ACR（Azure 容器仓库）、ECR（Elastic 容器仓库）和 GCR（Google 容器仓库）
+ACR（Azure 容器仓库）、ECR（Elastic 容器仓库）和 GCR（Google 容器仓库）。
 
 <!--
 For more information on the legacy mechanism, read the documentation for the version of Kubernetes that you

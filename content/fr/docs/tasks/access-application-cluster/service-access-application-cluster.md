@@ -129,7 +129,9 @@ Voici le fichier de configuration pour le déploiement de l'application :
    réponse à une requête réussie est un message de bienvenue :
 
    ```none
-   Hello Kubernetes!
+   Hello, world!
+   Version: 2.0.0
+   Hostname: hello-world-2895499144-bsbk5
    ```
 
 ## Utilisation d'un fichier de configuration de service

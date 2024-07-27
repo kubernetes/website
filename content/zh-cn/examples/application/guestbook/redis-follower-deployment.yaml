@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: follower
-        image: gcr.io/google_samples/gb-redis-follower:v2
+        image: us-docker.pkg.dev/google-samples/containers/gke/gb-redis-follower:v2
         resources:
           requests:
             cpu: 100m

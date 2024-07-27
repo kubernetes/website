@@ -1,10 +1,9 @@
 ---
 title: Automate Operations on your Cluster with OperatorHub.io
 date: 2019-02-28
+author: >
+  Diane Mueller (Red Hat)
 ---
-
-**Author:**
-Diane Mueller, Director of Community Development, Cloud Platforms, Red Hat
 
 One of the important challenges facing developers and Kubernetes administrators has been a lack of ability to quickly find common services that are operationally ready for Kubernetes. Typically, the presence of an Operator for a specific service - a pattern that was introduced in 2016 and has gained momentum - is a good signal for the operational readiness of the service on Kubernetes. However, there has to date not existed a registry of Operators to simplify the discovery of such services.   
 

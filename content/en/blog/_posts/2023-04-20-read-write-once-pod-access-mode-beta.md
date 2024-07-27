@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.27: Single Pod Access Mode for PersistentVolumes Graduates to Beta"
 date: 2023-04-20
 slug: read-write-once-pod-access-mode-beta
+author: >
+   Chris Henzie (Google)
 ---
-
-**Author:** Chris Henzie (Google)
 
 With the release of Kubernetes v1.27 the ReadWriteOncePod feature has graduated
 to beta. In this blog post, we'll take a closer look at this feature, what it

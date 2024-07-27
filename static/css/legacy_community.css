@@ -9,7 +9,7 @@ div.community_main {
   padding: 50px 100px;
 }
 
-div.community_main ul, 
+div.community_main ul,
 div.community_main li {
   list-style: disc;
   list-style-position: inside;
@@ -44,10 +44,10 @@ html {
 }
 
 .twittercol1 {
-  width: 60%;
-  margin-left: 20%;
-  float: left;
-  padding: 2%
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 code {
@@ -441,13 +441,10 @@ h2:after {
 
 
 .news {
-  float: left;
-  width: 80%;
-  padding-top: 3%;
-  padding-bottom: 3%;
-  margin-left: 10%;
-  text-align: center;
-
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .newscol {
@@ -504,7 +501,7 @@ h2:after {
     font-weight: bold;
 
   }
-  
+
 }
 
 @media (max-width:1000px) {
@@ -588,14 +585,6 @@ h2:after {
 }
 
 @media (max-width:750px) {
-
-
-  .twittercol1 {
-    width: 95%;
-    float: left;
-    padding: 2%
-  }
-
   .conducttextnobutton {
     margin-bottom: 4%;
   }

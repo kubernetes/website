@@ -2,9 +2,9 @@
 layout: blog
 title: 'gRPC Load Balancing on Kubernetes without Tears'
 date: 2018-11-07
+author: >
+  William Morgan (Buoyant)
 ---
-
-**Author**: William Morgan (Buoyant)
 
 Many new gRPC users are surprised to find that Kubernetes's default load
 balancing often doesn't work out of the box with gRPC. For example, here's what

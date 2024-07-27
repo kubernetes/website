@@ -2,9 +2,10 @@
 layout: blog
 title:  'Out of the Clouds onto the Ground: How to Make Kubernetes Production Grade Anywhere'
 date:   2018-08-03
+author: >
+  Steven Wong (VMware),
+  Michael Gasch (VMware)
 ---
-
-**Authors**: Steven Wong (VMware), Michael Gasch (VMware)
 
 This blog offers some guidelines for running a production grade Kubernetes cluster in an environment like an on-premise data center or edge location.
 

@@ -95,9 +95,9 @@ AWS EBS volumes have a 1Gi minimum requirement.
 例如，AWS EBS volumes 的最低要求为 1Gi。
 
 <!--
-## StorageQuota to limit PVC count and cumulative storage capacity
+## ResourceQuota to limit PVC count and cumulative storage capacity
 -->
-## 使用 StorageQuota 限制 PVC 数目和累计存储容量
+## 使用 ResourceQuota 限制 PVC 数目和累计存储容量
 
 <!--
 Admins can limit the number of PVCs in a namespace as well as the cumulative capacity of those PVCs. New PVCs that exceed

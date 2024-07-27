@@ -292,10 +292,10 @@ spec:
 ```
 
 <!--
-This pod runs in the `BestEffort` QoS class because no resource `requests` or
+The pod above runs in the `BestEffort` QoS class because no resource `requests` or
 `limits` are specified. It runs in the shared pool.
 -->
-该 Pod 属于 `BestEffort` QoS 类型，因为其未指定 `requests` 或 `limits` 值。
+上例的 Pod 属于 `BestEffort` QoS 类，因为其未指定 `requests` 或 `limits` 值。
 所以该容器运行在共享 CPU 池中。
 
 ```yaml
@@ -311,11 +311,11 @@ spec:
 ```
 
 <!--
-This pod runs in the `Burstable` QoS class because resource `requests` do not
+The pod above runs in the `Burstable` QoS class because resource `requests` do not
 equal `limits` and the `cpu` quantity is not specified. It runs in the shared
 pool.
 -->
-该 Pod 属于 `Burstable` QoS 类型，因为其资源 `requests` 不等于 `limits`，且未指定 `cpu` 数量。
+上例的 Pod 属于 `Burstable` QoS 类，因为其资源 `requests` 不等于 `limits`，且未指定 `cpu` 数量。
 所以该容器运行在共享 CPU 池中。
 
 ```yaml
@@ -333,10 +333,10 @@ spec:
 ```
 
 <!--
-This pod runs in the `Burstable` QoS class because resource `requests` do not
+The pod above runs in the `Burstable` QoS class because resource `requests` do not
 equal `limits`. It runs in the shared pool.
 -->
-该 Pod 属于 `Burstable` QoS 类型，因为其资源 `requests` 不等于 `limits`。
+上例的 Pod 属于 `Burstable` QoS 类，因为其资源 `requests` 不等于 `limits`。
 所以该容器运行在共享 CPU 池中。
 
 ```yaml
@@ -354,11 +354,11 @@ spec:
 ```
 
 <!--
-This pod runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
+The pod above runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
 And the container's resource limit for the CPU resource is an integer greater than
 or equal to one. The `nginx` container is granted 2 exclusive CPUs.
 -->
-该 Pod 属于 `Guaranteed` QoS 类型，因为其 `requests` 值与 `limits`相等。
+上例的 Pod 属于 `Guaranteed` QoS 类，因为其 `requests` 值与 `limits` 相等。
 同时，容器对 CPU 资源的限制值是一个大于或等于 1 的整数值。
 所以，该 `nginx` 容器被赋予 2 个独占 CPU。
 
@@ -377,11 +377,11 @@ spec:
 ```
 
 <!--
-This pod runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
+The pod above runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
 But the container's resource limit for the CPU resource is a fraction. It runs in
 the shared pool.
 -->
-该 Pod 属于 `Guaranteed` QoS 类型，因为其 `requests` 值与 `limits`相等。
+上例的 Pod 属于 `Guaranteed` QoS 类，因为其 `requests` 值与 `limits` 相等。
 但是容器对 CPU 资源的限制值是一个小数。所以该容器运行在共享 CPU 池中。
 
 ```yaml
@@ -396,12 +396,12 @@ spec:
 ```
 
 <!--
-This pod runs in the `Guaranteed` QoS class because only `limits` are specified
+The pod above runs in the `Guaranteed` QoS class because only `limits` are specified
 and `requests` are set equal to `limits` when not explicitly specified. And the
 container's resource limit for the CPU resource is an integer greater than or
 equal to one. The `nginx` container is granted 2 exclusive CPUs.
 -->
-该 Pod 属于 `Guaranteed` QoS 类型，因其指定了 `limits` 值，同时当未显式指定时，
+上例的 Pod 属于 `Guaranteed` QoS 类，因其指定了 `limits` 值，同时当未显式指定时，
 `requests` 值被设置为与 `limits` 值相等。
 同时，容器对 CPU 资源的限制值是一个大于或等于 1 的整数值。
 所以，该 `nginx` 容器被赋予 2 个独占 CPU。
@@ -495,7 +495,7 @@ than number of NUMA nodes.
 -->
 如果指定了 `align-by-socket` 策略选项，那么在决定如何分配 CPU 给容器时，CPU 将被视为在 CPU 的插槽边界对齐。
 默认情况下，`CPUManager` 在 NUMA 边界对齐 CPU 分配，如果需要从多个 NUMA 节点提取出 CPU 以满足分配，将可能会导致系统性能下降。
-尽管 `align-by-socket` 策略试图确保从 NUMA 节点的**最小**数量分配所有 CPU，但不能保证这些 NUMA 节点将位于同一个 CPU 的插槽上。
+尽管该默认策略试图确保从 NUMA 节点的**最小**数量分配所有 CPU，但不能保证这些 NUMA 节点将位于同一个 CPU 的插槽上。
 通过指示 `CPUManager` 在 CPU 的插槽边界而不是 NUMA 边界显式对齐 CPU，我们能够避免此类问题。
 注意，此策略选项不兼容 `TopologyManager` 与 `single-numa-node` 策略，并且不适用于 CPU 的插槽数量大于 NUMA 节点数量的硬件。
 

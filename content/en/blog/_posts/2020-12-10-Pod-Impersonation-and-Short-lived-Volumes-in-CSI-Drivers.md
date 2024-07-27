@@ -3,9 +3,9 @@ layout: blog
 title: 'Kubernetes 1.20: Pod Impersonation and Short-lived Volumes in CSI Drivers'
 date: 2020-12-18
 slug: kubernetes-1.20-pod-impersonation-short-lived-volumes-in-csi
+author: >
+  Shihang Zhang (Google)
 ---
-
-**Author**: Shihang Zhang (Google)
 
 Typically when a [CSI](https://github.com/container-storage-interface/spec/blob/baa71a34651e5ee6cb983b39c03097d7aa384278/spec.md) driver mounts credentials such as secrets and certificates, it has to authenticate against storage providers to access the credentials. However, the access to those credentials are controlled on the basis of the pods' identities rather than the CSI driver's identity. CSI drivers, therefore, need some way to retrieve pod's service account token. 
 

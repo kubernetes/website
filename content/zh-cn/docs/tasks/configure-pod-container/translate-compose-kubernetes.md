@@ -16,7 +16,7 @@ weight: 230
 <!--
 What's Kompose? It's a conversion tool for all things compose (namely Docker Compose) to container orchestrators (Kubernetes or OpenShift).
 -->
-Kompose 是什么？它是一个转换工具，可将 compose
+Kompose 是什么？它是一个转换工具，可将 Compose
 （即 Docker Compose）所组装的所有内容转换成容器编排器（Kubernetes 或 OpenShift）可识别的形式。
 
 <!--
@@ -50,13 +50,13 @@ Kompose 通过 GitHub 发布，发布周期为三星期。
 
 ```shell
 # Linux
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.26.0/kompose-linux-amd64 -o kompose
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.34.0/kompose-linux-amd64 -o kompose
 
 # macOS
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.26.0/kompose-darwin-amd64 -o kompose
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.34.0/kompose-darwin-amd64 -o kompose
 
 # Windows
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.26.0/kompose-windows-amd64.exe -o kompose.exe
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.34.0/kompose-windows-amd64.exe -o kompose.exe
 
 chmod +x kompose
 sudo mv ./kompose /usr/local/bin/kompose
@@ -145,26 +145,26 @@ you need is an existing `docker-compose.yml` file.
 1. 进入 `docker-compose.yml` 文件所在的目录。如果没有，请使用下面这个进行测试。
 
    ```yaml
-   version: "2"
-
    services:
 
-     redis-master:
-       image: registry.k8s.io/redis:e2e
+     redis-leader:
+       container_name: redis-leader
+       image: redis
        ports:
          - "6379"
 
-     redis-slave:
-       image: gcr.io/google_samples/gb-redisslave:v3
+     redis-replica:
+       container_name: redis-replica
+       image: redis
        ports:
          - "6379"
-       environment:
-         - GET_HOSTS_FROM=dns
+       command: redis-server --replicaof redis-leader 6379 --dir /tmp
 
-     frontend:
-       image: gcr.io/google-samples/gb-frontend:v4
+     web:
+       container_name: web
+       image: quay.io/kompose/web
        ports:
-         - "80:80"
+         - "8080:8080"
        environment:
          - GET_HOSTS_FROM=dns
        labels:
@@ -188,16 +188,16 @@ you need is an existing `docker-compose.yml` file.
    输出类似于：
 
    ```none
-   INFO Kubernetes file "frontend-tcp-service.yaml" created 
-   INFO Kubernetes file "redis-master-service.yaml" created 
-   INFO Kubernetes file "redis-slave-service.yaml" created 
-   INFO Kubernetes file "frontend-deployment.yaml" created 
-   INFO Kubernetes file "redis-master-deployment.yaml" created 
-   INFO Kubernetes file "redis-slave-deployment.yaml" created
+   INFO Kubernetes file "redis-leader-service.yaml" created
+   INFO Kubernetes file "redis-replica-service.yaml" created
+   INFO Kubernetes file "web-tcp-service.yaml" created
+   INFO Kubernetes file "redis-leader-deployment.yaml" created
+   INFO Kubernetes file "redis-replica-deployment.yaml" created
+   INFO Kubernetes file "web-deployment.yaml" created
    ```
 
    ```bash
-   kubectl apply -f frontend-tcp-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
+   kubectl apply -f web-tcp-service.yaml,redis-leader-service.yaml,redis-replica-service.yaml,web-deployment.yaml,redis-leader-deployment.yaml,redis-replica-deployment.yaml
    ```
 
    <!--
@@ -206,12 +206,12 @@ you need is an existing `docker-compose.yml` file.
    输出类似于：
 
    ```none
-   service/frontend-tcp created
-   service/redis-master created
-   service/redis-slave created
-   deployment.apps/frontend created
-   deployment.apps/redis-master created
-   deployment.apps/redis-slave created
+   deployment.apps/redis-leader created
+   deployment.apps/redis-replica created
+   deployment.apps/web created
+   service/redis-leader created
+   service/redis-replica created
+   service/web-tcp created
    ```
 
    <!--
@@ -231,7 +231,7 @@ you need is an existing `docker-compose.yml` file.
    如果你在开发过程中使用 `minikube`，请执行：
 
    ```bash
-   minikube service frontend
+   minikube service web-tcp
    ```
 
    <!--
@@ -240,33 +240,29 @@ you need is an existing `docker-compose.yml` file.
    否则，我们要查看一下你的服务使用了什么 IP！
 
    ```sh
-   kubectl describe svc frontend
+   kubectl describe svc web-tcp
    ```
 
    ```none
-   Name:                     frontend-tcp
+   Name:                     web-tcp
    Namespace:                default
-   Labels:                   io.kompose.service=frontend-tcp
+   Labels:                   io.kompose.service=web-tcp
    Annotations:              kompose.cmd: kompose convert
                              kompose.service.type: LoadBalancer
-                             kompose.version: 1.26.0 (40646f47)
-   Selector:                 io.kompose.service=frontend
+                             kompose.version: 1.33.0 (3ce457399)
+   Selector:                 io.kompose.service=web
    Type:                     LoadBalancer
    IP Family Policy:         SingleStack
    IP Families:              IPv4
-   IP:                       10.43.67.174
-   IPs:                      10.43.67.174
-   Port:                     80  80/TCP
-   TargetPort:               80/TCP
-   NodePort:                 80  31254/TCP
-   Endpoints:                10.42.0.25:80
+   IP:                       10.102.30.3
+   IPs:                      10.102.30.3
+   Port:                     8080  8080/TCP
+   TargetPort:               8080/TCP
+   NodePort:                 8080  31624/TCP
+   Endpoints:                10.244.0.5:8080
    Session Affinity:         None
    External Traffic Policy:  Cluster
-   Events:
-     Type    Reason                Age   From                Message
-     ----    ------                ----  ----                -------
-     Normal  EnsuringLoadBalancer  62s   service-controller  Ensuring load balancer
-     Normal  AppliedDaemonSet      62s   service-controller  Applied LoadBalancer DaemonSet kube-system/svclb-frontend-tcp-9362d276
+   Events:                   <none>
    ```
 
    <!--
@@ -290,7 +286,7 @@ you need is an existing `docker-compose.yml` file.
    你完成示例应用 Deployment 的测试之后，只需在 Shell 中运行以下命令，就能删除用过的资源。
 
    ```sh
-   kubectl delete -f frontend-tcp-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
+   kubectl delete -f web-tcp-service.yaml,redis-leader-service.yaml,redis-replica-service.yaml,web-deployment.yaml,redis-leader-deployment.yaml,redis-replica-deployment.yaml
    ```
 
 <!-- discussion -->
@@ -435,7 +431,7 @@ INFO OpenShift file "result-imagestream.yaml" created
 <!--
 It also supports creating buildconfig for build directive in a service. By default, it uses the remote repo for the current git branch as the source repo, and the current branch as the source branch for the build. You can specify a different source repo and branch using ``--build-repo`` and ``--build-branch`` options respectively.
 -->
-kompose 还支持为服务中的构建指令创建 buildconfig。
+Kompose 还支持为服务中的构建指令创建 buildconfig。
 默认情况下，它使用当前 git 分支的 remote 仓库作为源仓库，使用当前分支作为构建的源分支。
 你可以分别使用 ``--build-repo`` 和 ``--build-branch`` 选项指定不同的源仓库和分支。
 
@@ -470,7 +466,7 @@ The default `kompose` transformation will generate Kubernetes [Deployments](/doc
 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/) 和
 [Service](/zh-cn/docs/concepts/services-networking/service/) 对象。
 你可以选择通过 `-j` 参数生成 json 格式的对象。
-你也可以替换生成 [Replication Controllers](/zh-cn/docs/concepts/workloads/controllers/replicationcontroller/) 对象、
+你也可以替换生成 [ReplicationController](/zh-cn/docs/concepts/workloads/controllers/replicationcontroller/) 对象、
 [DaemonSet](/zh-cn/docs/concepts/workloads/controllers/daemonset/) 或
 [Helm](https://github.com/helm/helm) Chart。
 
@@ -504,7 +500,7 @@ INFO Kubernetes file "web-replicationcontroller.yaml" created
 <!--
 The `*-replicationcontroller.yaml` files contain the Replication Controller objects. If you want to specify replicas (default is 1), use `--replicas` flag: `kompose convert --replication-controller --replicas 3`.
 -->
-`*-replicationcontroller.yaml` 文件包含 Replication Controller 对象。
+`*-replicationcontroller.yaml` 文件包含 ReplicationController 对象。
 如果你想指定副本数（默认为 1），可以使用 `--replicas` 参数：
 `kompose convert --replication-controller --replicas 3`
 
@@ -559,7 +555,7 @@ docker-compose
 <!--
 The chart structure is aimed at providing a skeleton for building your Helm charts.
 -->
-这个 Chart 结构旨在为构建 Helm Chart 提供框架。
+这个 Chart 结构旨在为构建 Helm Chart 时提供框架。
 
 <!--
 ## Labels
@@ -604,7 +600,7 @@ For example:
   如果在 Service 中定义了多个端口，则选择第一个端口作为公开端口。
 
   - 如果使用 Kubernetes 驱动，会有一个 Ingress 资源被创建，并且假定已经配置了相应的 Ingress 控制器。
-  - 如果使用 OpenShift 驱动，则会有一个 route 被创建。
+  - 如果使用 OpenShift 驱动，则会有一个 Route 被创建。
 
   例如：
 
@@ -633,7 +629,7 @@ The currently supported options are:
 | kompose.service.type | nodeport / clusterip / loadbalancer |
 | kompose.service.expose| true / hostname |
 -->
-当前支持的选项有:
+当前支持的选项有：
 
 | 键                     | 值                                  |
 |------------------------|-------------------------------------|
@@ -665,7 +661,6 @@ If you want to create normal pods without controllers you can use `restart` cons
 | `on-failure`               | Pod               | `OnFailure`         |
 | `no`                       | Pod               | `Never`             |
 -->
-
 | `docker-compose` `restart` | 创建的对象        | Pod `restartPolicy` |
 |----------------------------|-------------------|---------------------|
 | `""`                       | 控制器对象        | `Always`            |

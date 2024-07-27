@@ -155,7 +155,7 @@ description: |-
                 <p><code><b>export POD_NAME="$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')"</b></code><br />
                 <code><b>echo Name of the Pod: $POD_NAME</b></code></p>
                 <p>Чтобы увидеть вывод приложения, выполним запрос через <code>curl</code>:</p>
-                <p><code><b>curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/proxy/</b></code></p>
+                <p><code><b>curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME:8080/proxy/</b></code></p>
                 <p>Здесь URL указывает на маршрут к API пода.</p>
            </div>
         </div>

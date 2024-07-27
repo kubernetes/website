@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes v1.25: Combiner"
 date: 2022-08-23
 slug: kubernetes-v1-25-release
+author: >
+  [Kubernetes 1.25 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.25/release-team.md)
 ---
-
-**Authors**: [Kubernetes 1.25 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.25/release-team.md)
 
 Announcing the release of Kubernetes v1.25!
 

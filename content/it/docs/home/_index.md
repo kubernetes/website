@@ -6,7 +6,7 @@ noedit: true
 cid: docsHome
 layout: docsportal_home
 class: gridPage
-linkTitle: "Home"
+linkTitle: "Documentazione"
 main_menu: true
 weight: 10
 hide_feedback: true

@@ -64,7 +64,7 @@ Afinitas Node di dalam klaster Kubernetes.
 Konfigurasi ini menunjukkan sebuah Pod yang memiliki afinitas node `requiredDuringSchedulingIgnoredDuringExecution`, `disktype: ssd`.
 Dengan kata lain, Pod hanya akan dijadwalkan hanya pada Node yang memiliki label `disktype=ssd`.
 
-{{< codenew file="pods/pod-nginx-required-affinity.yaml" >}}
+{{% codenew file="pods/pod-nginx-required-affinity.yaml" %}}
 
 1. Terapkan konfigurasi berikut untuk membuat sebuah Pod yang akan dijadwalkan pada Node yang kamu pilih:
 
@@ -90,7 +90,7 @@ Dengan kata lain, Pod hanya akan dijadwalkan hanya pada Node yang memiliki label
 Konfigurasi ini memberikan deskripsi sebuah Pod yang memiliki afinitas Node `preferredDuringSchedulingIgnoredDuringExecution`,`disktype: ssd`.
 Artinya Pod akan diutamakan dijalankan pada Node yang memiliki label `disktype=ssd`.
 
-{{< codenew file="pods/pod-nginx-preferred-affinity.yaml" >}}
+{{% codenew file="pods/pod-nginx-preferred-affinity.yaml" %}}
 
 1. Terapkan konfigurasi berikut untuk membuat sebuah Pod yang akan dijadwalkan pada Node yang kamu pilih:
 

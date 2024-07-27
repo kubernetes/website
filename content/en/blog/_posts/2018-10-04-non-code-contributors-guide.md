@@ -2,9 +2,11 @@
 layout: blog
 title: 'Introducing the Non-Code Contributor’s Guide'
 date: 2018-10-04
+author: >
+  [Noah Abrahams](https://twitter.com/noah_abrahams) (InfoSiftr),
+  [Jonas Rosland](https://twitter.com/jonasrosland) (VMware),
+  [Ihor Dvoretskyi](https://twitter.com/idvoretskyi) (CNCF)
 ---
-
-**Author**: [Noah Abrahams](https://twitter.com/noah_abrahams) (InfoSiftr), [Jonas Rosland](https://twitter.com/jonasrosland) (VMware), [Ihor Dvoretskyi](https://twitter.com/idvoretskyi) (CNCF)
 
 It was May 2018 in Copenhagen, and the Kubernetes community was enjoying the contributor summit at KubeCon/CloudNativeCon, complete with the first run of the New Contributor Workshop. As a time of tremendous collaboration between contributors, the topics covered ranged from signing the CLA to deep technical conversations. Along with the vast exchange of information and ideas, however, came continued scrutiny of the topics at hand to ensure that the community was being as inclusive and accommodating as possible. Over that spring week, some of the pieces under the microscope included the many themes being covered, and how they were being presented, but also the overarching characteristics of the people contributing and the skill sets involved. From the discussions and analysis that followed grew the idea that the community was not benefiting as much as it could from the many people who wanted to contribute, but whose strengths were in areas other than writing code.
 

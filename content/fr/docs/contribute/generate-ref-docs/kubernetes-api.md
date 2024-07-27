@@ -16,7 +16,7 @@ Cette page montre comment mettre à jour les documents de référence générés
 Vous devez avoir ces outils installés:
 
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-* [Golang](https://golang.org/doc/install) version 1.9.1 ou ultérieur
+* [Golang](https://go.dev/doc/install) version 1.9.1 ou ultérieur
 * [Docker](https://docs.docker.com/engine/installation/)
 * [etcd](https://github.com/coreos/etcd/)
 

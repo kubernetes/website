@@ -10,7 +10,7 @@ weight: 20
 <!-- overview -->
 이 페이지는 어떻게 네트워크 폴리시(NetworkPolicy)로 실리움(Cilium)를 사용하는지 살펴본다.
 
-실리움의 배경에 대해서는 [실리움 소개](https://docs.cilium.io/en/stable/intro)를 읽어보자.
+실리움의 배경에 대해서는 [실리움 소개](https://docs.cilium.io/en/stable/overview/intro)를 읽어보자.
 
 
 ## {{% heading "prerequisites" %}}

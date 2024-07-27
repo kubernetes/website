@@ -3,9 +3,9 @@ layout: blog
 title: 'Quality-of-Service for Memory Resources'
 date: 2021-11-26
 slug: qos-memory-resources
+author: >
+   Tim Xu (Tencent Cloud)
 ---
-
-**Authors:** Tim Xu (Tencent Cloud)
 
 Kubernetes v1.22, released in August 2021, introduced a new alpha feature that improves how Linux nodes implement memory resource requests and limits.
 

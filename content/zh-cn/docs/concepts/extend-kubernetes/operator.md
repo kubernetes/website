@@ -213,12 +213,11 @@ operator.
 
 <!--
 * [Charmed Operator Framework](https://juju.is/)
-* [Java Operator SDK](https://github.com/java-operator-sdk/java-operator-sdk)
+* [Java Operator SDK](https://github.com/operator-framework/java-operator-sdk)
 * [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
 * [kube-rs](https://kube.rs/) (Rust)
 * [kubebuilder](https://book.kubebuilder.io/)
 * [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET operator SDK)
-* [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
 * [Mast](https://docs.ansi.services/mast/user_guide/operator/)
 * [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) along with WebHooks that
   you implement yourself
@@ -227,12 +226,11 @@ operator.
 -->
 
 * [Charmed Operator Framework](https://juju.is/)
-* [Java Operator SDK](https://github.com/java-operator-sdk/java-operator-sdk)
+* [Java Operator SDK](https://github.com/operator-framework/java-operator-sdk)
 * [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
 * [kube-rs](https://kube.rs/) (Rust)
 * [kubebuilder](https://book.kubebuilder.io/)
 * [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET operator SDK)
-* [KUDO](https://kudo.dev/)（Kubernetes 通用声明式 Operator）
 * [Mast](https://docs.ansi.services/mast/user_guide/operator/)
 * [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html)，可与 Webhook 结合使用，以实现自己的功能。
 * [Operator Framework](https://operatorframework.io)
@@ -242,7 +240,7 @@ operator.
 
 <!--
 * Read the {{< glossary_tooltip text="CNCF" term_id="cncf" >}}
-  [Operator White Paper](https://github.com/cncf/tag-app-delivery/blob/eece8f7307f2970f46f100f51932db106db46968/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md).
+  [Operator White Paper](https://github.com/cncf/tag-app-delivery/blob/163962c4b1cd70d085107fc579e3e04c2e14d59c/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md).
 * Learn more about [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * Find ready-made operators on [OperatorHub.io](https://operatorhub.io/) to suit your use case
 * [Publish](https://operatorhub.io/) your operator for other people to use
@@ -252,7 +250,7 @@ operator.
   from Google Cloud about best practices for building operators
 -->
 
-* 阅读 {{< glossary_tooltip text="CNCF" term_id="cncf" >}} [Operator 白皮书](https://github.com/cncf/tag-app-delivery/blob/eece8f7307f2970f46f100f51932db106db46968/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md)。
+* 阅读 {{< glossary_tooltip text="CNCF" term_id="cncf" >}} [Operator 白皮书](https://github.com/cncf/tag-app-delivery/blob/163962c4b1cd70d085107fc579e3e04c2e14d59c/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md)。
 * 详细了解[定制资源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * 在 [OperatorHub.io](https://operatorhub.io/) 上找到现成的、适合你的 Operator
 * [发布](https://operatorhub.io/)你的 Operator，让别人也可以使用

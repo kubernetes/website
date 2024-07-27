@@ -3,8 +3,9 @@ title: " Creating a PostgreSQL Cluster using Helm "
 date: 2016-09-09
 slug: creating-postgresql-cluster-using-helm
 url: /blog/2016/09/Creating-Postgresql-Cluster-Using-Helm
+author: >
+  Jeff McCormick (Crunchy Data)
 ---
-_Editor’s note: Today’s guest post is by Jeff McCormick, a developer at Crunchy Data, showing how to deploy a PostgreSQL cluster using Helm, a Kubernetes package manager._  
 
 [Crunchy Data](http://www.crunchydata.com/) supplies a set of open source PostgreSQL and PostgreSQL related containers. The Crunchy PostgreSQL Container Suite includes containers that deploy, monitor, and administer the open source PostgreSQL database, for more details view this GitHub [repository](https://github.com/crunchydata/crunchy-containers).   
 
@@ -135,7 +136,6 @@ The Kubernetes Helm and Charts projects provide a streamlined way to package up 
 
 
 
-_--Jeff McCormick, Developer, Crunchy Data_
 
 
 

@@ -56,7 +56,7 @@ Here is the manifest for the Pod:
 在这部分的练习中，你将创建一个包含一个容器的 Pod，并将 Pod 级别的字段作为文件投射到正在运行的容器中。
 Pod 的清单如下：
 
-{{< codenew file="pods/inject/dapi-volume.yaml" >}}
+{{% code_sample file="pods/inject/dapi-volume.yaml" %}}
 
 <!--
 In the manifest, you can see that the Pod has a `downwardAPI` Volume,
@@ -148,7 +148,7 @@ In your shell, view the `labels` file:
 The output shows that all of the Pod's labels have been written
 to the `labels` file:
 -->
-输出显示 Pod 的所有标签都已写入 `labels` 文件。
+输出显示 Pod 的所有标签都已写入 `labels` 文件：
 
 ```
 cluster="test-cluster1"
@@ -245,7 +245,7 @@ just one container:
 但这些字段取自特定[容器](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)而不是整个 Pod。
 下面是一个同样只有一个容器的 Pod 的清单：
 
-{{< codenew file="pods/inject/dapi-volume-resources.yaml" >}}
+{{% code_sample file="pods/inject/dapi-volume-resources.yaml" %}}
 
 <!--
 In the manifest, you can see that the Pod has a
@@ -355,4 +355,3 @@ Read about volumes in the legacy API reference:
 * 参阅
   [`ResourceFieldSelector`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcefieldselector-v1-core)
   API 定义，该 API 指定容器资源及其输出格式。
-

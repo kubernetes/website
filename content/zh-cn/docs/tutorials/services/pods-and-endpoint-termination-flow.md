@@ -61,9 +61,9 @@ Let's say you have a Deployment containing of a single `nginx` replica
 
 假设你有包含单个 nginx 副本（仅用于演示目的）的一个 Deployment 和一个 Service：
 
-{{% code file="service/pod-with-graceful-termination.yaml" %}}
+{{% code_sample file="service/pod-with-graceful-termination.yaml" %}}
 
-{{% code file="service/explore-graceful-termination-nginx.yaml" %}}
+{{% code_sample file="service/explore-graceful-termination-nginx.yaml" %}}
 
 <!--
 Now create the Deployment Pod and Service using the above files:

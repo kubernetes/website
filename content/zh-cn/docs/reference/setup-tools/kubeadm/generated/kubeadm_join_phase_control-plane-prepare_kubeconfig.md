@@ -35,10 +35,13 @@ kubeadm join phase control-plane-prepare kubeconfig [api-server-endpoint] [flags
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>Use this key to decrypt the certificate secrets uploaded by init.</p>
+Use this key to decrypt the certificate secrets uploaded by init. The certificate key is a hex encoded string that is an AES key of size 32 bytes.
 -->
-<p>使用此密钥可以解密由 init 上传的证书 Secret。</p>
+使用此密钥可以解密由 init 上传的证书 Secret。
+证书密钥为一个十六进制编码的字符串，它是大小为 32 字节的 AES 密钥。
+</p>
 </td>
 </tr>
 

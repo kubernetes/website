@@ -62,7 +62,15 @@ tolerations:
   effect: "NoSchedule"
 ```
 
-Here's an example of a pod that uses tolerations:
+The default Kubernetes scheduler takes taints and tolerations into account when
+selecting a node to run a particular Pod. However, if you manually specify the
+`.spec.nodeName` for a Pod, that action bypasses the scheduler; the Pod is then
+bound onto the node where you assigned it, even if there are `NoSchedule`
+taints on that node that you selected.
+If this happens and the node also has a `NoExecute` taint set, the kubelet will
+eject the Pod unless there is an appropriate tolerance set.
+
+Here's an example of a pod that has some tolerations defined:
 
 {{% code_sample file="pods/pod-with-toleration.yaml" %}}
 
@@ -71,7 +79,7 @@ The default value for `operator` is `Equal`.
 A toleration "matches" a taint if the keys are the same and the effects are the same, and:
 
 * the `operator` is `Exists` (in which case no `value` should be specified), or
-* the `operator` is `Equal` and the `value`s are equal.
+* the `operator` is `Equal` and the values should be equal.
 
 {{< note >}}
 
@@ -84,7 +92,7 @@ An empty `effect` matches all effects with key `key1`.
 
 {{< /note >}}
 
-The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
+The above example used the `effect` of `NoSchedule`. Alternatively, you can use the `effect` of `PreferNoSchedule`.
 
 
 The allowed values for the `effect` field are:
@@ -97,7 +105,7 @@ The allowed values for the `effect` field are:
   * Pods that tolerate the taint with a specified `tolerationSeconds` remain
     bound for the specified amount of time. After that time elapses, the node
     lifecycle controller evicts the Pods from the node.
-   
+
 `NoSchedule`
 : No new Pods will be scheduled on the tainted node unless they have a matching
   toleration. Pods currently running on the node are **not** evicted.
@@ -105,7 +113,7 @@ The allowed values for the `effect` field are:
 `PreferNoSchedule`
 : `PreferNoSchedule` is a "preference" or "soft" version of `NoSchedule`.
   The control plane will *try* to avoid placing a Pod that does not tolerate
-  the taint on the node, but it is not guaranteed. 
+  the taint on the node, but it is not guaranteed.
 
 You can put multiple taints on the same node and multiple tolerations on the same pod.
 The way Kubernetes processes multiple taints and tolerations is like a filter: start
@@ -227,7 +235,7 @@ are true. The following taints are built in:
  * `node.kubernetes.io/network-unavailable`: Node's network is unavailable.
  * `node.kubernetes.io/unschedulable`: Node is unschedulable.
  * `node.cloudprovider.kubernetes.io/uninitialized`: When the kubelet is started
-    with "external" cloud provider, this taint is set on a node to mark it
+    with an "external" cloud provider, this taint is set on a node to mark it
     as unusable. After a controller from the cloud-controller-manager initializes
     this node, the kubelet removes this taint.
 
@@ -293,15 +301,15 @@ decisions. This ensures that node conditions don't directly affect scheduling.
 For example, if the `DiskPressure` node condition is active, the control plane
 adds the `node.kubernetes.io/disk-pressure` taint and does not schedule new pods
 onto the affected node. If the `MemoryPressure` node condition is active, the
-control plane adds the `node.kubernetes.io/memory-pressure` taint. 
+control plane adds the `node.kubernetes.io/memory-pressure` taint.
 
 You can ignore node conditions for newly created pods by adding the corresponding
-Pod tolerations. The control plane also adds the `node.kubernetes.io/memory-pressure` 
-toleration on pods that have a {{< glossary_tooltip text="QoS class" term_id="qos-class" >}} 
-other than `BestEffort`. This is because Kubernetes treats pods in the `Guaranteed` 
+Pod tolerations. The control plane also adds the `node.kubernetes.io/memory-pressure`
+toleration on pods that have a {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}
+other than `BestEffort`. This is because Kubernetes treats pods in the `Guaranteed`
 or `Burstable` QoS classes (even pods with no memory request set) as if they are
 able to cope with memory pressure, while new `BestEffort` pods are not scheduled
-onto the affected node. 
+onto the affected node.
 
 The DaemonSet controller automatically adds the following `NoSchedule`
 tolerations to all daemons, to prevent DaemonSets from breaking.

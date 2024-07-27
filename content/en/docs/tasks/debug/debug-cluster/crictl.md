@@ -274,7 +274,7 @@ deleted by the Kubelet.
 ### Create a container
 
 Using `crictl` to create a container is useful for debugging container runtimes.
-On a running Kubernetes cluster, the sandbox will eventually be stopped and
+On a running Kubernetes cluster, the container will eventually be stopped and
 deleted by the Kubelet.
 
 1. Pull a busybox image

@@ -123,10 +123,10 @@ The following methods exist for installing kubectl on macOS:
    kubectl version --client --output=yaml
    ```
 
-1. After installing the plugin, clean up the installation files:
+1. After installing and validating kubectl, delete the checksum file:
 
    ```bash
-   rm kubectl kubectl.sha256
+   rm kubectl.sha256
    ```
 
 ### Install with Homebrew on macOS

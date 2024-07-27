@@ -20,7 +20,6 @@ The "reset" command executes the following phases:
 
 ```
 preflight              Run reset pre-flight checks
-update-cluster-status  Remove this node from the ClusterStatus object.
 remove-etcd-member     Remove a local etcd member.
 cleanup-node           Run cleanup node.
 ```

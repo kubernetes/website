@@ -3,10 +3,12 @@ layout: blog
 title: "2019 Steering Committee Election Results"
 date: 2019-10-03
 slug: 2019-steering-committee-election-results
+author: >
+  Bob Killen (University of Michigan),
+  Jorge Castro (VMware),
+  Brian Grant (Google),
+  Ihor Dvoretskyi (CNCF) 
 ---
-
-**Authors**: Bob Killen (University of Michigan), Jorge Castro (VMware),
-Brian Grant (Google), and Ihor Dvoretskyi (CNCF)
 
 The [2019 Steering Committee Election] is a landmark milestone for the
 Kubernetes project. The initial bootstrap committee is graduating to emeritus

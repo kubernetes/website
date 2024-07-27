@@ -3,10 +3,10 @@ title: " Dancing at the Lip of a Volcano: The Kubernetes Security Process - Expl
 date: 2017-05-18
 slug: kubernetes-security-process-explained
 url: /blog/2017/05/Kubernetes-Security-Process-Explained
+author: >
+  Brandon Philips (CoreOS),
+  Jess Frazelle (Google)
 ---
-_Editor's note: Today’s post is by&nbsp; __Jess Frazelle of Google and Brandon Philips of CoreOS about the Kubernetes security disclosures and response policy.__ &nbsp;_  
-
-
 Software running on servers underpins ever growing amounts of the world's commerce, communications, and physical infrastructure. And nearly all of these systems are connected to the internet; which means vital security updates must be applied rapidly. As software developers and IT professionals, we often find ourselves dancing on the edge of a volcano: we may either fall into magma induced oblivion from a security vulnerability exploited before we can fix it, or we may slide off the side of the mountain because of an inadequate process to address security vulnerabilities.&nbsp;  
 
 The Kubernetes community believes that we can help teams restore their footing on this volcano with a foundation built on Kubernetes. And the bedrock of this foundation requires a process for quickly acknowledging, patching, and releasing security updates to an ever growing community of Kubernetes users.&nbsp;  
@@ -26,10 +26,7 @@ As we [continue to harden Kubernetes](https://lwn.net/Articles/720215/), the sec
 
 As a thank you to the Kubernetes community, a special 25 percent discount to CoreOS Fest is available using k8s25code&nbsp;or via this special [25 percent off link](https://coreosfest17.eventbrite.com/?discount=k8s25code) to register today for CoreOS Fest 2017.&nbsp;  
 
-_--Brandon Philips of CoreOS and Jess Frazelle of Google_  
-
-
-
+  
 - Post questions (or answer questions) on [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)
 - Join the community portal for advocates on [K8sPort](http://k8sport.org/)
 - Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates

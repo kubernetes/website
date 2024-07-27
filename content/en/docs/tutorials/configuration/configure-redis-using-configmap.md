@@ -4,6 +4,7 @@ reviewers:
 - pmorie
 title: Configuring Redis using a ConfigMap
 content_type: tutorial
+weight: 30
 ---
 
 <!-- overview -->
@@ -61,7 +62,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/conte
 Examine the contents of the Redis pod manifest and note the following:
 
 * A volume named `config` is created by `spec.volumes[1]`
-* The `key` and `path` under `spec.volumes[1].items[0]` exposes the `redis-config` key from the 
+* The `key` and `path` under `spec.volumes[1].configMap.items[0]` exposes the `redis-config` key from the 
   `example-redis-config` ConfigMap as a file named `redis.conf` on the `config` volume.
 * The `config` volume is then mounted at `/redis-master` by `spec.containers[0].volumeMounts[1]`.
 
@@ -251,3 +252,4 @@ kubectl delete pod/redis configmap/example-redis-config
 
 
 * Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+* Follow an example of [Updating configuration via a ConfigMap](/docs/tutorials/configuration/updating-configuration-via-a-configmap/).

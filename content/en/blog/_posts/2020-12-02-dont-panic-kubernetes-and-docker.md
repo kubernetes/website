@@ -4,6 +4,17 @@ title: "Don't Panic: Kubernetes and Docker"
 date: 2020-12-02
 slug: dont-panic-kubernetes-and-docker
 evergreen: true
+author: >
+  Jorge Castro,
+  Duffie Cooley,
+  Kat Cosgrove,
+  Justin Garrison,
+  Noah Kantrowitz,
+  Bob Killen,
+  Rey Lejano,
+  Dan “POP” Papandrea,
+  Jeffrey Sica,
+  Davanum “Dims” Srinivas
 ---
 
 **Update:** _Kubernetes support for Docker via `dockershim` is now removed.
@@ -11,9 +22,6 @@ For more information, read the [removal FAQ](/dockershim).
 You can also discuss the deprecation via a dedicated [GitHub issue](https://github.com/kubernetes/kubernetes/issues/106917)._
 
 ---
-
-**Authors:** Jorge Castro, Duffie Cooley, Kat Cosgrove, Justin Garrison, Noah Kantrowitz, Bob Killen, Rey Lejano, Dan “POP” Papandrea, Jeffrey Sica, Davanum “Dims” Srinivas
-
 
 Kubernetes is [deprecating
 Docker](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.20.md#deprecation)

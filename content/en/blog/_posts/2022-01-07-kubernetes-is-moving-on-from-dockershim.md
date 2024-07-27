@@ -3,9 +3,14 @@ layout: blog
 title: "Kubernetes is Moving on From Dockershim: Commitments and Next Steps"
 date: 2022-01-07
 slug: kubernetes-is-moving-on-from-dockershim
+author: >
+  Sergey Kanzhelev (Google),
+  Jim Angel (Google),
+  Davanum Srinivas (VMware),
+  Shannon Kularathna (Google),
+  Chris Short (AWS),
+  Dawn Chen (Google)
 ---
-
-**Authors:** Sergey Kanzhelev (Google), Jim Angel (Google), Davanum Srinivas (VMware), Shannon Kularathna (Google), Chris Short (AWS), Dawn Chen (Google)
 
 Kubernetes is removing dockershim in the upcoming v1.24 release. We're excited
 to reaffirm our community values by supporting open source container runtimes,

@@ -3,6 +3,9 @@ title: " High Performance Networking with EC2 Virtual Private Clouds "
 date: 2017-08-11
 slug: high-performance-networking-with-ec2
 url: /blog/2017/08/High-Performance-Networking-With-Ec2
+author: >
+  Juergen Brendel (Pani Networks)
+  Chris Marino (Pani Networks)
 ---
 
 
@@ -71,7 +74,3 @@ When using Romana v2.0, native VPC networking is now available for clusters of a
 
 
 ![](https://archive.org/download/hpc-ec2-vpc-2/hpc-ec2-vpc-2.png)
-
-
-
--- _Juergen Brendel and Chris Marino, co-founders of Pani Networks, sponsor of the Romana project_

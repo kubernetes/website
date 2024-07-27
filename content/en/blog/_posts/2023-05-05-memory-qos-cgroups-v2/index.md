@@ -3,9 +3,9 @@ layout: blog
 title: 'Kubernetes 1.27: Quality-of-Service for Memory Resources (alpha)'
 date: 2023-05-05
 slug: qos-memory-resources
+author: >
+  Dixita Narang (Google)
 ---
-
-**Authors:** Dixita Narang (Google)
 
 Kubernetes v1.27, released in April 2023, introduced changes to
 Memory QoS (alpha) to improve memory management capabilites in Linux nodes.  

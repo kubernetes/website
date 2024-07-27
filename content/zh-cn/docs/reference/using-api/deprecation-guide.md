@@ -33,12 +33,42 @@ deprecated API versions to newer and more stable API versions.
 -->
 ## 各发行版本中移除的 API  {#removed-apis-by-release}
 
+### v1.32
+
+<!--
+The **v1.32** release will stop serving the following deprecated API versions:
+-->
+**v1.32** 发行版本将停止提供以下已弃用的 API 版本：
+
+<!--
+#### Flow control resources {#flowcontrol-resources-v132}
+
+The **flowcontrol.apiserver.k8s.io/v1beta3** API version of FlowSchema and PriorityLevelConfiguration will no longer be served in v1.32.
+-->
+#### 流控制资源   {#flowcontrol-resources-v132}
+
+FlowSchema 和 PriorityLevelConfiguration 的
+**flowcontrol.apiserver.k8s.io/v1beta3** API 版本将不再在 v1.32 中提供。
+
+<!--
+* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1** API version, available since v1.29.
+* All existing persisted objects are accessible via the new API
+* Notable changes in **flowcontrol.apiserver.k8s.io/v1**:
+  * The PriorityLevelConfiguration `spec.limited.nominalConcurrencyShares` field
+    only defaults to 30 when unspecified, and an explicit value of 0 is not changed to 30.
+-->
+* 迁移清单和 API 客户端以使用 **flowcontrol.apiserver.k8s.io/v1** API 版本（自 v1.29 起可用）。
+* 所有现有的持久对象都可以通过新的 API 访问。
+* **flowcontrol.apiserver.k8s.io/v1** 中的显着变化：
+  * PriorityLevelConfiguration 的 `spec.limited.nominalConcurrencyShares`
+    字段仅在未指定时默认为 30，并且显式值 0 时不会更改为 30。
+
 ### v1.29
 
 <!--
-The **v1.29** release will stop serving the following deprecated API versions:
+The **v1.29** release stopped serving the following deprecated API versions:
 -->
-**v1.29** 发行版本将停止提供以下已弃用的 API 版本：
+**v1.29** 发行版本停止支持以下已弃用的 API 版本：
 
 <!--
 #### Flow control resources {#flowcontrol-resources-v129}
@@ -46,40 +76,48 @@ The **v1.29** release will stop serving the following deprecated API versions:
 #### 流控制资源 {#flowcontrol-resources-v129}
 
 <!--
-The **flowcontrol.apiserver.k8s.io/v1beta2** API version of FlowSchema and PriorityLevelConfiguration will no longer be served in v1.29.
+The **flowcontrol.apiserver.k8s.io/v1beta2** API version of FlowSchema and PriorityLevelConfiguration is no longer be served in v1.29.
 
-* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1beta3** API version, available since v1.26.
+* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1** API version, available since v1.29, or the **flowcontrol.apiserver.k8s.io/v1beta3** API version, available since v1.26.
 * All existing persisted objects are accessible via the new API
+* Notable changes in **flowcontrol.apiserver.k8s.io/v1**:
+  * The PriorityLevelConfiguration `spec.limited.assuredConcurrencyShares` field
+    is renamed to `spec.limited.nominalConcurrencyShares` and only defaults to 30 when unspecified,
+    and an explicit value of 0 is not changed to 30.
 * Notable changes in **flowcontrol.apiserver.k8s.io/v1beta3**:
   * The PriorityLevelConfiguration `spec.limited.assuredConcurrencyShares` field is renamed to `spec.limited.nominalConcurrencyShares`
 -->
-**flowcontrol.apiserver.k8s.io/v1beta2** API 版本的 FlowSchema
-和 PriorityLevelConfiguration 将不会在 v1.29 中提供。
+从 v1.29 版本开始不再提供 **flowcontrol.apiserver.k8s.io/v1beta2** API 版本的
+FlowSchema 和 PriorityLevelConfiguration。
 
-* 迁移清单和 API 客户端使用 **flowcontrol.apiserver.k8s.io/v1beta3** API 版本，
-  此 API 从 v1.26 版本开始可用；
+* 迁移清单和 API 客户端使用 **flowcontrol.apiserver.k8s.io/v1** API 版本（自 v1.29 版本开始可用），
+  或 **flowcontrol.apiserver.k8s.io/v1beta3** API 版本（自 v1.26 起可用）；
 * 所有的已保存的对象都可以通过新的 API 来访问；
+* **flowcontrol.apiserver.k8s.io/v1** 中的显着变化：
+  * PriorityLevelConfiguration 的 `spec.limited.assuredConcurrencyShares`
+    字段已被重命名为 `spec.limited.nominalConcurrencyShares`，仅在未指定时默认为 30，
+    并且显式值 0 不会更改为 30。
 * **flowcontrol.apiserver.k8s.io/v1beta3** 中需要额外注意的变更：
   * PriorityLevelConfiguration 的 `spec.limited.assuredConcurrencyShares`
-    字段已被更名为 `spec.limited.nominalConcurrencyShares`
+    字段已被更名为 `spec.limited.nominalConcurrencyShares`。
 
 ### v1.27
 
 <!--
-The **v1.27** release will stop serving the following deprecated API versions:
+The **v1.27** release stopped serving the following deprecated API versions:
 -->
-**v1.27** 发行版本中将去除以下已弃用的 API 版本：
+**v1.27** 发行版本停止支持以下已弃用的 API 版本：
 
 #### CSIStorageCapacity {#csistoragecapacity-v127}
 
 <!--
-The **storage.k8s.io/v1beta1** API version of CSIStorageCapacity will no longer be served in v1.27.
+The **storage.k8s.io/v1beta1** API version of CSIStorageCapacity is no longer be served in v1.27.
 
 * Migrate manifests and API clients to use the **storage.k8s.io/v1** API version, available since v1.24.
 * All existing persisted objects are accessible via the new API
 * No notable changes
 -->
-**storage.k8s.io/v1beta1** API 版本的 CSIStorageCapacity 将不会在 v1.27 提供。
+从 v1.27 版本开始不再提供 **storage.k8s.io/v1beta1** API 版本的 CSIStorageCapacity。
 
 * 自 v1.24 版本起，迁移清单和 API 客户端使用 **storage.k8s.io/v1** API 版本
 * 所有现有的持久化对象都可以通过新的 API 访问
@@ -100,15 +138,14 @@ The **v1.26** release stopped serving the following deprecated API versions:
 <!--
 The **flowcontrol.apiserver.k8s.io/v1beta1** API version of FlowSchema and PriorityLevelConfiguration is no longer served as of v1.26.
 
-* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1beta3** API version, available since v1.26.
+* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1beta2** API version.
 * All existing persisted objects are accessible via the new API
 * No notable changes
 -->
 从 v1.26 版本开始不再提供 **flowcontrol.apiserver.k8s.io/v1beta1** API 版本的
 FlowSchema 和 PriorityLevelConfiguration。
 
-* 迁移清单和 API 客户端使用 **flowcontrol.apiserver.k8s.io/v1beta3** API 版本，
-  此 API 从 v1.26 版本开始可用；
+* 迁移清单和 API 客户端使用 **flowcontrol.apiserver.k8s.io/v1beta2** API 版本；
 * 所有的已保存的对象都可以通过新的 API 来访问；
 * 没有需要额外注意的变更。
 
@@ -119,6 +156,8 @@ The **autoscaling/v2beta2** API version of HorizontalPodAutoscaler is no longer 
 
 * Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
 * All existing persisted objects are accessible via the new API
+* Notable changes:
+  * `targetAverageUtilization` is replaced with `target.averageUtilization` and `target.type: Utilization`. See [Autoscaling on multiple metrics and custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics).
 -->
 从 v1.26 版本开始不再提供 **autoscaling/v2beta2** API 版本的
 HorizontalPodAutoscaler。
@@ -126,6 +165,9 @@ HorizontalPodAutoscaler。
 * 迁移清单和 API 客户端使用 **autoscaling/v2** API 版本，
   此 API 从 v1.23 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问。
+* 值得注意的变更：
+  * `targetAverageUtilization` 被替换为 `target.averageUtilization` 和 `target.type: Utilization`。
+  请参阅[基于多项度量指标和自定义度量指标自动扩缩](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)。
 
 ### v1.25
 
@@ -225,12 +267,17 @@ The **autoscaling/v2beta1** API version of HorizontalPodAutoscaler is no longer 
 
 * Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
 * All existing persisted objects are accessible via the new API
+* Notable changes:
+  * `targetAverageUtilization` is replaced with `target.averageUtilization` and `target.type: Utilization`. See [Autoscaling on multiple metrics and custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics).
 -->
 从 v1.25 版本开始不再提供 **autoscaling/v2beta1** API 版本的
 HorizontalPodAutoscaler。
 
 * 迁移清单和 API 客户端使用 **autoscaling/v2** API 版本，此 API 从 v1.23 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问。
+* 值得注意的变更：
+  * `targetAverageUtilization` 被替换为 `target.averageUtilization` 和 `target.type: Utilization`。
+  请参阅[基于多项度量指标和自定义度量指标自动扩缩](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)。
 
 #### PodDisruptionBudget {#poddisruptionbudget-v125}
 

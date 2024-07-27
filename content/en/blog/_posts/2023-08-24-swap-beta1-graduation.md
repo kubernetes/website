@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.28: Beta support for using swap on Linux"
 date: 2023-08-24T10:00:00-08:00
 slug: swap-linux-beta
+author: >
+ Itamar Holder (Red Hat)
 ---
-
-**Author:** Itamar Holder (Red Hat)
 
 The 1.22 release [introduced Alpha support](/blog/2021/08/09/run-nodes-with-swap-alpha/)
 for configuring swap memory usage for Kubernetes workloads running on Linux on a per-node basis.

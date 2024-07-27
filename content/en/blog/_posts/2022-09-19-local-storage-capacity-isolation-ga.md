@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.25: Local Storage Capacity Isolation Reaches GA"
 date: 2022-09-19
 slug: local-storage-capacity-isolation-ga
+author: >
+  Jing Xu (Google)
 ---
-
-**Author:** Jing Xu (Google)
 
 Local ephemeral storage capacity isolation was introduced as a alpha feature in Kubernetes 1.7 and it went beta in 1.9. With Kubernetes 1.25 we are excited to announce general availability(GA) of this feature.
 

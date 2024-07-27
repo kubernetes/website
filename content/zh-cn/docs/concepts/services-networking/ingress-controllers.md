@@ -53,12 +53,16 @@ Kubernetes 作为一个项目，目前支持和维护
 
 <!--
 * [AKS Application Gateway Ingress Controller](https://docs.microsoft.com/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json) is an ingress controller that configures the [Azure Application Gateway](https://docs.microsoft.com/azure/application-gateway/overview).
+* [Alibaba Cloud MSE Ingress](https://www.alibabacloud.com/help/en/mse/user-guide/overview-of-mse-ingress-gateways) is an ingress controller that configures the [Alibaba Cloud Native Gateway](https://www.alibabacloud.com/help/en/mse/product-overview/cloud-native-gateway-overview?spm=a2c63.p38356.0.0.20563003HJK9is), which is also the commercial version of [Higress](https://github.com/alibaba/higress).
 * [Apache APISIX ingress controller](https://github.com/apache/apisix-ingress-controller) is an [Apache APISIX](https://github.com/apache/apisix)-based ingress controller.
 * [Avi Kubernetes Operator](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes) provides L4-L7 load-balancing using [VMware NSX Advanced Load Balancer](https://avinetworks.com/).
 -->
 * [AKS 应用程序网关 Ingress 控制器](https://docs.microsoft.com/zh-cn/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json)
   是一个配置 [Azure 应用程序网关](https://docs.microsoft.com/zh-cn/azure/application-gateway/overview)
   的 Ingress 控制器。
+* [阿里云 MSE Ingress](https://www.alibabacloud.com/help/zh/mse/user-guide/overview-of-mse-ingress-gateways)
+  是一个 Ingress 控制器，它负责配置[阿里云原生网关](https://www.alibabacloud.com/help/en/mse/product-overview/cloud-native-gateway-overview?spm=a2c63.p38356.0.0.20563003HJK9is)，
+  也是 [Higress](https://github.com/alibaba/higress) 的商业版本。
 * [Apache APISIX Ingress 控制器](https://github.com/apache/apisix-ingress-controller)
   是一个基于 [Apache APISIX 网关](https://github.com/apache/apisix) 的 Ingress 控制器。
 * [Avi Kubernetes Operator](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes)
@@ -73,7 +77,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * [Emissary-Ingress](https://www.getambassador.io/products/api-gateway) API Gateway is an [Envoy](https://www.envoyproxy.io)-based ingress
   controller.
 * [EnRoute](https://getenroute.io/) is an [Envoy](https://www.envoyproxy.io) based API gateway that can run as an ingress controller.
-* [Easegress IngressController](https://github.com/megaease/easegress/blob/main/doc/reference/ingresscontroller.md) is an [Easegress](https://megaease.com/easegress/) based API gateway that can run as an ingress controller.
+* [Easegress IngressController](https://megaease.com/docs/easegress/04.cloud-native/4.1.kubernetes-ingress-controller/) is an [Easegress](https://megaease.com/easegress/) based API gateway that can run as an ingress controller.
 -->
 * [BFE Ingress 控制器](https://github.com/bfenetworks/ingress-bfe)是一个基于
   [BFE](https://www.bfe-networks.net) 的 Ingress 控制器。
@@ -87,7 +91,7 @@ Kubernetes 作为一个项目，目前支持和维护
   [Envoy](https://www.envoyproxy.io/) 的入口控制器。
 * [EnRoute](https://getenroute.io/) 是一个基于 [Envoy](https://www.envoyproxy.io)
   的 API 网关，可以用作 Ingress 控制器。
-* [Easegress IngressController](https://github.com/megaease/easegress/blob/main/doc/reference/ingresscontroller.md)
+* [Easegress IngressController](https://megaease.com/docs/easegress/04.cloud-native/4.1.kubernetes-ingress-controller/)
   是一个基于 [Easegress](https://megaease.com/easegress/) 的 API 网关，可以用作 Ingress 控制器。
 <!--
 * F5 BIG-IP [Container Ingress Services for Kubernetes](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)
@@ -97,6 +101,7 @@ Kubernetes 作为一个项目，目前支持和维护
   which offers API gateway functionality.
 * [HAProxy Ingress](https://haproxy-ingress.github.io/) is an ingress controller for
   [HAProxy](https://www.haproxy.org/#desc).
+* [Higress](https://github.com/alibaba/higress) is an [Envoy](https://www.envoyproxy.io) based API gateway that can run as an ingress controller.
 * The [HAProxy Ingress Controller for Kubernetes](https://github.com/haproxytech/kubernetes-ingress#readme)
   is also an ingress controller for [HAProxy](https://www.haproxy.org/#desc).
 * [Istio Ingress](https://istio.io/latest/docs/tasks/traffic-management/ingress/kubernetes-ingress/)
@@ -111,6 +116,8 @@ Kubernetes 作为一个项目，目前支持和维护
   Ingress 控制器，能够提供 API 网关功能。
 * [HAProxy Ingress](https://haproxy-ingress.github.io/) 是一个针对
   [HAProxy](https://www.haproxy.org/#desc) 的 Ingress 控制器。
+* [Higress](https://github.com/alibaba/higress) 是一个基于 [Envoy](https://www.envoyproxy.io) 的 API 网关，
+  可以作为一个 Ingress 控制器运行。
 * [用于 Kubernetes 的 HAProxy Ingress 控制器](https://github.com/haproxytech/kubernetes-ingress#readme)
   也是一个针对 [HAProxy](https://www.haproxy.org/#desc) 的 Ingress 控制器。
 * [Istio Ingress](https://istio.io/latest/zh/docs/tasks/traffic-management/ingress/kubernetes-ingress/)
@@ -123,6 +130,7 @@ Kubernetes 作为一个项目，目前支持和维护
   works with the [NGINX](https://www.nginx.com/resources/glossary/nginx/) webserver (as a proxy).
 * The [ngrok Kubernetes Ingress Controller](https://github.com/ngrok/kubernetes-ingress-controller) is an open source controller for adding secure public access to your K8s services using the [ngrok platform](https://ngrok.com).
 * The [OCI Native Ingress Controller](https://github.com/oracle/oci-native-ingress-controller#readme) is an Ingress controller for Oracle Cloud Infrastructure which allows you to manage the [OCI Load Balancer](https://docs.oracle.com/en-us/iaas/Content/Balance/home.htm).
+* [OpenNJet Ingress Controller](https://gitee.com/njet-rd/open-njet-kic) is a [OpenNJet](https://njet.org.cn/)-based ingress controller.
 * The [Pomerium Ingress Controller](https://www.pomerium.com/docs/k8s/ingress.html) is based on [Pomerium](https://pomerium.com/), which offers context-aware access policy.
 * [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/) HTTP router and reverse proxy for service composition, including use cases like Kubernetes Ingress, designed as a library to build your custom proxy.
 -->
@@ -138,6 +146,8 @@ Kubernetes 作为一个项目，目前支持和维护
 * [OCI Native Ingress Controller](https://github.com/oracle/oci-native-ingress-controller#readme)
   是一个适用于 Oracle Cloud Infrastructure 的 Ingress 控制器，可帮助你管理
   [OCI 负载均衡](https://docs.oracle.com/en-us/iaas/Content/Balance/home.htm)。
+* [OpenNJet Ingress Controller](https://gitee.com/njet-rd/open-njet-kic) 是一个基于 
+  [OpenNJet](https://njet.org.cn/) 的 Ingress 控制器。
 * [Pomerium Ingress 控制器](https://www.pomerium.com/docs/k8s/ingress.html)
   基于 [Pomerium](https://pomerium.com/)，能提供上下文感知的准入策略。
 * [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/) HTTP
@@ -147,7 +157,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * The [Traefik Kubernetes Ingress provider](https://doc.traefik.io/traefik/providers/kubernetes-ingress/) is an
   ingress controller for the [Traefik](https://traefik.io/traefik/) proxy.
 * [Tyk Operator](https://github.com/TykTechnologies/tyk-operator) extends Ingress with Custom Resources to bring API Management capabilities to Ingress. Tyk Operator works with the Open Source Tyk Gateway & Tyk Cloud control plane.
-* [Voyager](https://appscode.com/products/voyager) is an ingress controller for
+* [Voyager](https://voyagermesh.com) is an ingress controller for
   [HAProxy](https://www.haproxy.org/#desc).
 * [Wallarm Ingress Controller](https://www.wallarm.com/solutions/waf-for-kubernetes) is an Ingress Controller that provides WAAP (WAF) and API Security capabilities.
 -->
@@ -156,7 +166,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * [Tyk Operator](https://github.com/TykTechnologies/tyk-operator)
   使用自定义资源扩展 Ingress，为之带来 API 管理能力。Tyk Operator
   使用开源的 Tyk Gateway & Tyk Cloud 控制面。
-* [Voyager](https://appscode.com/products/voyager) 是一个针对
+* [Voyager](https://voyagermesh.com) 是一个针对
   [HAProxy](https://www.haproxy.org/#desc) 的 Ingress 控制器。
 * [Wallarm Ingress Controller](https://www.wallarm.com/solutions/waf-for-kubernetes) 是提供 WAAP（WAF）
   和 API 安全功能的 Ingress Controller。

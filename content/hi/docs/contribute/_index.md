@@ -39,7 +39,7 @@ card:
 [`kubernetes/website` GitHub रिपॉजिटरी](https://github.com/kubernetes/website) 
 मे बदलाव पुल अनुरोध (PR) द्वारा कर सकता है। 
 आपको [Git](https://git-scm.com/) और 
-[Github](https://lab.github.com/) 
+[Github](https://skills.github.com/) 
 की जानकारी होनी चाहिए ताकि आप कुबेरनेटेस समुदाय मे प्रभावी रूप से काम कर सकें। 
 
 प्रलेखन मे सहयोग करने के लिए:

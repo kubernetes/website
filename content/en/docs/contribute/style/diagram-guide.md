@@ -260,7 +260,8 @@ You should use the [local](/docs/contribute/new-content/open-a-pr/#preview-local
 and Netlify previews to verify the diagram is properly rendered. 
 
 {{< caution >}}
-The Mermaid live editor feature set may not support the K8s/website Mermaid feature set. 
+The Mermaid live editor feature set may not support the [kubernetes/website](https://github.com/kubernetes/website) Mermaid feature set.  
+And please, note that contributors can mention `kubernetes/website` as `k/website`.
 You might see a syntax error or a blank screen after the Hugo build.
 If that is the case, consider using the Mermaid+SVG method. 
 {{< /caution >}}
@@ -342,7 +343,7 @@ The following lists advantages of the Mermaid+SVG method:
 
 * Live editor tool.
 * Live editor tool supports the most current Mermaid feature set.  
-* Employ existing K8s/website methods for handling `.svg` image files.
+* Employ existing [kubernetes/website](https://github.com/kubernetes/website) methods for handling `.svg` image files.
 * Environment doesn't require Mermaid support.
 
 Be sure to check that your diagram renders properly using the
@@ -623,7 +624,7 @@ caption and the diagram referral.
 flowchart
 A[Diagram<br><br>Inline Mermaid or<br>SVG image files]
 B[Diagram Caption<br><br>Add Figure Number. and<br>Caption Text]
-C[Diagram Referral<br><br>Referenence Figure Number<br>in text]
+C[Diagram Referral<br><br>Reference Figure Number<br>in text]
 
     classDef box fill:#fff,stroke:#000,stroke-width:1px,color:#000;
     class A,B,C box

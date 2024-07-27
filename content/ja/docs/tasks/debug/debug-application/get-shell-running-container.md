@@ -111,7 +111,7 @@ exit # コンテナ内のシェルを終了する
 シェルではない通常のコマンドウインドウ内で、実行中のコンテナの環境変数の一覧を表示します:
 
 ```shell
-kubectl exec shell-demo env
+kubectl exec shell-demo -- env
 ```
 
 他のコマンドを試します。以下がいくつかの例です:

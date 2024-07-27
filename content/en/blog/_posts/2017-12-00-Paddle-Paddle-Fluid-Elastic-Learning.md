@@ -3,8 +3,16 @@ title: " PaddlePaddle Fluid: Elastic Deep Learning on Kubernetes "
 date: 2017-12-06
 slug: paddle-paddle-fluid-elastic-learning
 url: /blog/2017/12/Paddle-Paddle-Fluid-Elastic-Learning
+author: >
+  Xu Yan (Baidu Research),
+  Helin Wang (Baidu Research),
+  Yi Wu (Baidu Research),
+  Xi Chen (Baidu Research),
+  Weibao Gong (Baidu Research),
+  Xiang Li (CoreOS),
+  Yi Wang (Baidu Research) 
 ---
-_Editor's note: Today's post is a joint post from the deep learning team at Baidu and the etcd team at CoreOS._
+_**Editor's note:** Today's post is a joint post from the deep learning team at Baidu and the etcd team at CoreOS_
 
 
 
@@ -39,11 +47,4 @@ In the second test, each experiment ran 400 Nginx pods, which has higher priorit
 
 We continue to work on FluidEDL and welcome comments and contributions. Visit the [PaddlePaddle repo](https://github.com/PaddlePaddle/cloud), where you can find the [design doc](https://github.com/PaddlePaddle/cloud/tree/develop/doc/design), a [simple tutorial](https://github.com/PaddlePaddle/cloud/blob/develop/doc/autoscale/example/autoscale.md), and [experiment details](https://github.com/PaddlePaddle/cloud/tree/develop/doc/edl/experiment).  
 
-- Xu Yan (Baidu Research)
-- Helin Wang (Baidu Research)
-- Yi Wu (Baidu Research)
-- Xi Chen (Baidu Research)
-- Weibao Gong (Baidu Research)
-- Xiang Li (CoreOS)
 
-- Yi Wang (Baidu Research)

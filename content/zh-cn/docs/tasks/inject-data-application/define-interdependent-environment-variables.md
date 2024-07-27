@@ -24,7 +24,9 @@ in a Kubernetes Pod.
 <!-- 
 ## Define an environment dependent variable for a container
 
-When you create a Pod, you can set dependent environment variables for the containers that run in the Pod. To set dependent environment variables, you can use $(VAR_NAME) in the `value` of `env` in the configuration file.
+When you create a Pod, you can set dependent environment variables for the containers
+that run in the Pod. To set dependent environment variables, you can use $(VAR_NAME)
+in the `value` of `env` in the configuration file.
 
 In this exercise, you create a Pod that runs one container. The configuration
 file for the Pod defines a dependent environment variable with common usage defined. Here is the configuration manifest for the
@@ -39,7 +41,7 @@ Pod:
 此 Pod 的配置文件定义了一个已定义常用用法的相互依赖的环境变量。
 下面是此 Pod 的配置清单：
 
-{{< codenew file="pods/inject/dependent-envars.yaml" >}}
+{{% code_sample file="pods/inject/dependent-envars.yaml" %}}
 
 <!--
 1. Create a Pod based on that manifest:
@@ -82,7 +84,8 @@ Pod:
    ```
 
 <!-- 
-As shown above, you have defined the correct dependency reference of `SERVICE_ADDRESS`, bad dependency reference of `UNCHANGED_REFERENCE` and skip dependent references of `ESCAPED_REFERENCE`.
+As shown above, you have defined the correct dependency reference of `SERVICE_ADDRESS`,
+bad dependency reference of `UNCHANGED_REFERENCE` and skip dependent references of `ESCAPED_REFERENCE`.
 
 When an environment variable is already defined when being referenced,
 the reference can be correctly resolved, such as in the `SERVICE_ADDRESS` case.
@@ -104,7 +107,10 @@ fails to resolve `$(PROTOCOL)` in the example above.
 这就是为什么 `UNCHANGED_REFERENCE` 在上面的示例中解析 `$(PROTOCOL)` 失败的原因。
 
 <!-- 
-When the environment variable is undefined or only includes some variables, the undefined environment variable is treated as a normal string, such as `UNCHANGED_REFERENCE`. Note that incorrectly parsed environment variables, in general, will not block the container from starting.
+When the environment variable is undefined or only includes some variables,
+the undefined environment variable is treated as a normal string, such as
+`UNCHANGED_REFERENCE`. Note that incorrectly parsed environment variables,
+in general, will not block the container from starting.
 
 The `$(VAR_NAME)` syntax can be escaped with a double `$`, ie: `$$(VAR_NAME)`.
 Escaped references are never expanded, regardless of whether the referenced variable
@@ -126,4 +132,3 @@ is defined or not. This can be seen from the `ESCAPED_REFERENCE` case above.
 -->
 * 进一步了解[环境变量](/zh-cn/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)。
 * 参阅 [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core)。
-

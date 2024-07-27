@@ -4,9 +4,9 @@ title: "Spotlight on SIG Docs"
 date: 2022-08-02
 slug: sig-docs-spotlight-2022
 canonicalUrl: https://kubernetes.dev/blog/2022/08/02/sig-docs-spotlight-2022/
+author: >
+   Purneswar Prasad
 ---
-
-**Author:** Purneswar Prasad
 
 ## Introduction
 

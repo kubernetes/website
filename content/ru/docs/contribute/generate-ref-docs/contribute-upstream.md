@@ -22,7 +22,7 @@ weight: 20
 - Установленные инструменты:
 
   - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-  - [Golang](https://golang.org/doc/install) версии 1.13+
+  - [Golang](https://go.dev/doc/install) версии 1.13+
   - [Docker](https://docs.docker.com/engine/installation/)
   - [etcd](https://github.com/coreos/etcd/)
   - [make](https://www.gnu.org/software/make/)

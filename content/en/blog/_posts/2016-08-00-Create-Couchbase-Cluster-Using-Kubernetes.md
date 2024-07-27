@@ -3,8 +3,9 @@ title: " Create a Couchbase cluster using Kubernetes "
 date: 2016-08-15
 slug: create-couchbase-cluster-using-kubernetes
 url: /blog/2016/08/Create-Couchbase-Cluster-Using-Kubernetes
+author: >
+  Arun Gupta (Couchbase)
 ---
-_Editor’s note: today’s guest post is by Arun Gupta, Vice President Developer Relations at Couchbase, showing how to setup a Couchbase cluster with Kubernetes._  
 
 [Couchbase Server](http://www.couchbase.com/nosql-databases/couchbase-server) is an open source, distributed NoSQL document-oriented database. It exposes a fast key-value store with managed cache for submillisecond data operations, purpose-built indexers for fast queries and a query engine for executing SQL queries. For mobile and Internet of Things (IoT) environments, [Couchbase Lite](http://developer.couchbase.com/mobile) runs native on-device and manages sync to Couchbase Server.  
 
@@ -412,7 +413,6 @@ For further information check out the Couchbase [Developer Portal](http://develo
 
 
 
-_--Arun Gupta, Vice President Developer Relations at Couchbase_
 
 
 

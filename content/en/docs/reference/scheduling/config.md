@@ -33,8 +33,7 @@ clientConnection:
 ```
 
 {{< note >}}
-KubeSchedulerConfiguration [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
-is deprecated in v1.26 and will be removed in v1.29.
+KubeSchedulerConfiguration v1beta3 is deprecated in v1.26 and is removed in v1.29.
 Please migrate KubeSchedulerConfiguration to [v1](/docs/reference/config-api/kube-scheduler-config.v1/).
 {{< /note >}}
 
@@ -218,9 +217,11 @@ If a Pod doesn't specify a scheduler name, kube-apiserver will set it to
 to get those pods scheduled.
 
 {{< note >}}
-Pod's scheduling events have `.spec.schedulerName` as the ReportingController.
-Events for leader election use the scheduler name of the first profile in the
-list.
+Pod's scheduling events have `.spec.schedulerName` as their `reportingController`.
+Events for leader election use the scheduler name of the first profile in the list.
+
+For more information, please refer to the `reportingController` section under
+[Event API Reference](/docs/reference/kubernetes-api/cluster-resources/event-v1/).
 {{< /note >}}
 
 {{< note >}}
@@ -375,6 +376,7 @@ Besides keeping most of the config in one spot, this sample does a few things:
 * Reorders `DefaultPlugin2` to run first in `score` (even before the custom plugins)
 
 In versions of the config before `v1beta3`, without `multiPoint`, the above snippet would equate to this:
+
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1beta2
 kind: KubeSchedulerConfiguration
@@ -463,6 +465,4 @@ to achieve similar behavior.
 
 * Read the [kube-scheduler reference](/docs/reference/command-line-tools-reference/kube-scheduler/)
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
-* Read the [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) reference
-* Read the [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) reference
 * Read the [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/) reference

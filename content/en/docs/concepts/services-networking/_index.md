@@ -7,7 +7,8 @@ description: >
 
 ## The Kubernetes network model
 
-Every [`Pod`](/docs/concepts/workloads/pods/) in a cluster gets its own unique cluster-wide IP address. 
+Every [`Pod`](/docs/concepts/workloads/pods/) in a cluster gets its own unique cluster-wide IP address
+(one address per IP address family). 
 This means you do not need to explicitly create links between `Pods` and you 
 almost never need to deal with mapping container ports to host ports.  
 This creates a clean, backwards-compatible model where `Pods` can be treated 
@@ -23,9 +24,9 @@ implementation (barring any intentional network segmentation policies):
    * agents on a node (e.g. system daemons, kubelet) can communicate with all
      pods on that node
 
-Note: For those platforms that support `Pods` running in the host network (e.g.
-Linux), when pods are attached to the host network of a node they can still communicate 
-with all pods on all nodes without NAT.
+{{< note >}}
+For those platforms that support `Pods` running in the host network (such as Linux), when pods are attached to the host network of a node they can still communicate with all pods on all nodes without NAT.
+{{< /note >}}
 
 This model is not only less complex overall, but it is principally compatible
 with the desire for Kubernetes to enable low-friction porting of apps from VMs
@@ -54,6 +55,8 @@ Kubernetes networking addresses four concerns:
   to be reachable from outside your cluster.
   - [Ingress](/docs/concepts/services-networking/ingress/) provides extra functionality
     specifically for exposing HTTP applications, websites and APIs.
+  - [Gateway API](/docs/concepts/services-networking/gateway/) is an {{<glossary_tooltip text="add-on" term_id="addons">}}
+    that provides an expressive, extensible, and role-oriented family of API kinds for modeling service networking.
 - You can also use Services to
   [publish services only for consumption inside your cluster](/docs/concepts/services-networking/service-traffic-policy/).
 

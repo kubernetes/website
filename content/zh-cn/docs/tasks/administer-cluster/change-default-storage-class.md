@@ -58,14 +58,17 @@ for details about addon manager and how to disable individual addons.
 ## 改变默认 StorageClass
 
 <!--
-1. List the StorageClasses in your cluster: 
+1. List the StorageClasses in your cluster:
 -->
-1. 列出你的集群中的 StorageClasses：
+1. 列出你的集群中的 StorageClass：
 
    ```shell
    kubectl get storageclass
    ```
 
+   <!--
+   The output is similar to this:
+   -->
    输出类似这样：
 
    ```bash
@@ -74,6 +77,9 @@ for details about addon manager and how to disable individual addons.
    gold                 kubernetes.io/gce-pd      1d
    ```
 
+   <!--
+   The default StorageClass is marked by `(default)`.
+   -->
    默认 StorageClass 以 `(default)` 标记。
 
 <!--
@@ -151,5 +157,4 @@ for details about addon manager and how to disable individual addons.
 <!--
 * Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
 -->
-* 进一步了解 [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/)
-
+* 进一步了解 [PersistentVolume](/zh-cn/docs/concepts/storage/persistent-volumes/)。

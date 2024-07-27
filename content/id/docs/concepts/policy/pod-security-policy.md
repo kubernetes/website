@@ -146,7 +146,7 @@ alias kubectl-user='kubectl --as=system:serviceaccount:psp-example:fake-user -n 
 
 Beri definisi objek contoh PodSecurityPolicy dalam sebuah berkas. Ini adalah kebijakan yang mencegah pembuatan Pod-Pod yang _privileged_.
 
-{{< codenew file="policy/example-psp.yaml" >}}
+{{% codenew file="policy/example-psp.yaml" %}}
 
 Dan buatlah PodSecurityPolicy tersebut dengan `kubectl`:
 
@@ -297,11 +297,11 @@ podsecuritypolicy "example" deleted
 
 Berikut adalah kebijakan dengan batasan paling sedikit yang dapat kamu buat, ekuivalen dengan tidak menggunakan _admission controller_ Pod Security Policy:
 
-{{< codenew file="policy/privileged-psp.yaml" >}}
+{{% codenew file="policy/privileged-psp.yaml" %}}
 
 Berikut adalah sebuah contoh kebijakan yang restriktif yang mengharuskan pengguna-pengguna untuk berjalan sebagai pengguna yang _unprivileged_, memblokir kemungkinan eskalasi menjadi _root_, dan mengharuskan penggunaan beberapa mekanisme keamanan.
 
-{{< codenew file="policy/restricted-psp.yaml" >}}
+{{% codenew file="policy/restricted-psp.yaml" %}}
 
 ## Referensi Kebijakan
 

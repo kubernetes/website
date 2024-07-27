@@ -64,7 +64,7 @@ akan mengubah informasi yang kamu berikan ke dalam format JSON ketika melakukan 
 
 Berikut merupakan contoh _file_ `.yaml` yang menunjukkan _field_ dan _spec_ objek untuk _Deployment_:
 
-{{< codenew file="application/deployment.yaml" >}}
+{{% codenew file="application/deployment.yaml" %}}
 
 Salah satu cara untuk membuat _Deployment_ menggunakan _file_ `.yaml`
 seperti yang dijabarkan di atas adalah dengan menggunakan perintah

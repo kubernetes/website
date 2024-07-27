@@ -1,30 +1,17 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-<!--
 Run pre-flight checks
 -->
-运行启动检查
+运行预检。
 
 <!-- 
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Run pre-flight checks for kubeadm init.
 -->
-
-运行 kubeadm init 前的启动检查。
+运行 kubeadm init 前的预检。
 
 ```
 kubeadm init phase preflight [flags]
@@ -33,22 +20,22 @@ kubeadm init phase preflight [flags]
 <!--
 ### Examples
 -->
-
-### 案例
+### 示例
 
 <!--
-# Run pre-flight checks for kubeadm init using a config file.
--->
-
 ```
-# 使用配置文件对 kubeadm init 进行启动检查。
+  # Run pre-flight checks for kubeadm init using a config file.
+  kubeadm init phase preflight --config kubeadm-config.yaml
+```
+-->
+```
+# 使用配置文件对 kubeadm init 进行预检
 kubeadm init phase preflight --config kubeadm-config.yaml
 ```
 
 <!-- 
 ### Options 
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -110,7 +97,7 @@ Don't apply any changes; just output what would be done.
 help for preflight
 -->
 <p>
-preflight 操作的帮助命令
+preflight 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -124,7 +111,26 @@ preflight 操作的帮助命令
 A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
 -->
 <p>
-错误将显示为警告的检查列表：例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。
+错误将显示为警告的检查列表。例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "registry.k8s.io"
+-->
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："registry.k8s.io"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Choose a container registry to pull control plane images from
+-->
+选择拉取控制平面镜像的容器仓库。
 </p>
 </td>
 </tr>
@@ -135,7 +141,6 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 继承于父命令的选项
 
    <table style="width: 100%; table-layout: fixed;">

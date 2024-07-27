@@ -95,6 +95,7 @@ The "join [api-server-endpoint]" command executes the following phases:
 -->
 "join [api-server-endpoint]" 命令执行下列阶段：
 
+<!--
 ```
 preflight              Run join pre-flight checks
 control-plane-prepare  Prepare the machine for serving a control plane
@@ -107,7 +108,21 @@ control-plane-join     Join a machine as a control plane instance
   /etcd                  Add a new local etcd member
   /update-status         Register the new control-plane node into the ClusterStatus maintained in the kubeadm-config ConfigMap (DEPRECATED)
   /mark-control-plane    Mark a node as a control-plane
+wait-control-plane     EXPERIMENTAL: Wait for the control plane to start
 ```
+-->
+1. preflight：运行接入前检查
+2. control-plane-prepare：准备用作控制平面的机器
+   1. download-certs：[实验] 从 kubeadm-certs Secret 下载控制平面节点之间共享的证书
+   2. certs：为新的控制平面组件生成证书
+   3. kubeconfig：为新的控制平面组件生成 kubeconfig
+   4. control-plane：生成新控制平面组件的清单
+3. kubelet-start：写入 kubelet 设置、证书并（重新）启动 kubelet
+4. control-plane-join：将机器加入为控制平面实例
+   1. etcd：添加新的本地 etcd 成员
+   2. update-status：将新的控制平面节点注册到 kubeadm-config ConfigMap 中维护的 ClusterStatus 中（已弃用）
+   3. mark-control-plane：将节点标记为控制平面
+5. wait-control-plane：[实验] 等待控制平面启动
 
 ```
 kubeadm join [api-server-endpoint] [flags]
@@ -159,10 +174,13 @@ If not set the default network interface will be used.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>Use this key to decrypt the certificate secrets uploaded by init.</p>
+Use this key to decrypt the certificate secrets uploaded by init. The certificate key is a hex encoded string that is an AES key of size 32 bytes.
 -->
-<p>使用此密钥可以解密由 init 上传的证书 Secret。</p>
+使用此密钥可以解密由 init 上传的证书 Secret。
+证书密钥为一个十六进制编码的字符串，它是大小为 32 字节的 AES 密钥。
+</p>
 </td>
 </tr>
 

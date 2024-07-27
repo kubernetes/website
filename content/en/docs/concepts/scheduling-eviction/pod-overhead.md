@@ -36,9 +36,12 @@ You need to make sure a `RuntimeClass` is utilized which defines the `overhead` 
 
 To work with Pod overhead, you need a RuntimeClass that defines the `overhead` field. As
 an example, you could use the following RuntimeClass definition with a virtualization container
-runtime that uses around 120MiB per Pod for the virtual machine and the guest OS:
+runtime (in this example, Kata Containers combined with the Firecracker virtual machine monitor)
+that uses around 120MiB per Pod for the virtual machine and the guest OS:
 
 ```yaml
+# You need to change this example to match the actual runtime name, and per-Pod
+# resource overhead, that the container runtime is adding in your cluster.
 apiVersion: node.k8s.io/v1
 kind: RuntimeClass
 metadata:
@@ -78,6 +81,10 @@ spec:
         cpu: 1500m
         memory: 100Mi
 ```
+
+{{< note >}}
+If only `limits` are specified in the pod definition, kubelet will deduce `requests` from those limits and set them to be the same as the defined `limits`.
+{{< /note >}}
 
 At admission time the RuntimeClass [admission controller](/docs/reference/access-authn-authz/admission-controllers/)
 updates the workload's PodSpec to include the `overhead` as described in the RuntimeClass. If the PodSpec already has this field defined,

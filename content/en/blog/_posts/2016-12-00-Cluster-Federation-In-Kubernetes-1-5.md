@@ -3,8 +3,11 @@ title: " Cluster Federation in Kubernetes 1.5 "
 date: 2016-12-22
 slug: cluster-federation-in-kubernetes-1.5
 url: /blog/2016/12/Cluster-Federation-In-Kubernetes-1-5
+author: >
+  Lukasz Guminski (Container Solutions),
+  Allan Naim (Google)
 ---
-_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/12/five-days-of-kubernetes-1-5/) on what's new in Kubernetes 1.5_
+_**Editor's note:** this post is part of a [series of in-depth articles](/blog/2016/12/five-days-of-kubernetes-1-5/) on what's new in Kubernetes 1.5_
 
 In the latest [Kubernetes 1.5 release](https://kubernetes.io/blog/2016/12/kubernetes-1-5-supporting-production-workloads/), you’ll notice that support for Cluster Federation is maturing. That functionality was introduced in Kubernetes 1.3, and the 1.5 release includes a number of new features, including an easier setup experience and a step closer to supporting all Kubernetes API objects.
 
@@ -314,7 +317,3 @@ PS. When done, remember to destroy your clusters:
 $ . 5-destroy.sh
  ```
 
-
-
-
-_-__-Lukasz Guminski, Software Engineer at Container Solutions. Allan Naim, Product Manager, Google_

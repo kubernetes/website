@@ -5,10 +5,8 @@ weight: 50
 ---
 <!--
 reviewers:
-  - bprashanth
-  - davidopp
-  - lavalamp
   - liggitt
+  - enj
 title: Managing Service Accounts
 content_type: concept
 weight: 50
@@ -109,11 +107,163 @@ Kubernetes 区分用户账号和服务账号的概念，主要基于以下原因
   因为服务账号的创建约束不多并且有名字空间域的名称，所以这种配置通常是轻量的。
 
 <!--
+## Bound service account tokens
+-->
+## 绑定的服务账户令牌  {#bound-service-account-tokens}
+
+<!--
+ServiceAccount tokens can be bound to API objects that exist in the kube-apiserver.
+This can be used to tie the validity of a token to the existence of another API object.
+Supported object types are as follows:
+
+* Pod (used for projected volume mounts, see below)
+* Secret (can be used to allow revoking a token by deleting the Secret)
+* Node (in v1.30, creating new node-bound tokens is alpha, using existing node-bound tokens is beta)
+-->
+ServiceAccount 令牌可以被绑定到 kube-apiserver 中存在的 API 对象。
+这可用于将令牌的有效性与另一个 API 对象的存在与否关联起来。
+支持的对象类型如下：
+
+* Pod（用于投射卷的挂载，见下文）
+* Secret（可用于允许通过删除 Secret 来撤销令牌）
+* 节点（在 v1.30 中，创建新的节点绑定令牌是 Alpha 特性，使用现有的节点绑定特性是 Beta 特性）
+
+<!--
+When a token is bound to an object, the object's `metadata.name` and `metadata.uid` are
+stored as extra 'private claims' in the issued JWT.
+
+When a bound token is presented to the kube-apiserver, the service account authenticator
+will extract and verify these claims.
+If the referenced object no longer exists (or its `metadata.uid` does not match),
+the request will not be authenticated.
+-->
+当将令牌绑定到某对象时，该对象的 `metadata.name` 和 `metadata.uid`
+将作为额外的“私有声明”存储在所发布的 JWT 中。
+
+当将被绑定的令牌提供给 kube-apiserver 时，服务帐户身份认证组件将提取并验证这些声明。
+如果所引用的对象不再存在（或其 `metadata.uid` 不匹配），则请求将无法通过认证。
+
+<!--
+### Additional metadata in Pod bound tokens
+-->
+### Pod 绑定令牌中的附加元数据    {#additional-metadata-in-pod-bound-tokens}
+
+{{< feature-state feature_gate_name="ServiceAccountTokenPodNodeInfo" >}}
+
+<!--
+When a service account token is bound to a Pod object, additional metadata is also
+embedded into the token that indicates the value of the bound pod's `spec.nodeName` field,
+and the uid of that Node, if available.
+
+This node information is **not** verified by the kube-apiserver when the token is used for authentication.
+It is included so integrators do not have to fetch Pod or Node API objects to check the associated Node name
+and uid when inspecting a JWT.
+-->
+当服务帐户令牌被绑定到某 Pod 对象时，一些额外的元数据也会被嵌入到令牌中，
+包括所绑定 Pod 的 `spec.nodeName` 字段的值以及该节点的 uid（如果可用）。
+
+当使用令牌进行身份认证时，kube-apiserver **不会**检查此节点信息的合法性。
+由于节点信息被包含在令牌内，所以集成商在检查 JWT 时不必获取 Pod 或 Node API 对象来检查所关联的 Node 名称和 uid。
+
+<!--
+### Verifying and inspecting private claims
+
+The `TokenReview` API can be used to verify and extract private claims from a token:
+-->
+### 查验和检视私有声明   {#verifying-and-inspecting-private-claims}
+
+`TokenReview` API 可用于校验并从令牌中提取私有声明：
+
+<!--
+1. First, assume you have a pod named `test-pod` and a service account named `my-sa`.
+2. Create a token that is bound to this Pod:
+-->
+1. 首先，假设你有一个名为 `test-pod` 的 Pod 和一个名为 `my-sa` 的服务帐户。
+2. 创建绑定到此 Pod 的令牌：
+
+```shell
+kubectl create token my-sa --bound-object-kind="Pod" --bound-object-name="test-pod"
+```
+
+<!--
+3. Copy this token into a new file named `tokenreview.yaml`:
+-->
+3. 将此令牌复制到名为 `tokenreview.yaml` 的新文件中：
+
+```yaml
+apiVersion: authentication.k8s.io/v1
+kind: TokenReview
+spec:
+  token: <来自第二步的令牌内容>
+```
+
+<!--
+4. Submit this resource to the apiserver for review:
+-->
+4. 将此资源提交给 API 服务器进行审核：
+
+<!--
+# we use '-o yaml' so we can inspect the output
+-->
+```shell
+kubectl create -o yaml -f tokenreview.yaml # 我们使用 '-o yaml' 以便检视命令输出
+```
+
+<!--
+You should see an output like below:
+-->
+你应该看到如下所示的输出：
+
+```yaml
+apiVersion: authentication.k8s.io/v1
+kind: TokenReview
+metadata:
+  creationTimestamp: null
+spec:
+  token: <token>
+status:
+  audiences:
+  - https://kubernetes.default.svc.cluster.local
+  authenticated: true
+  user:
+    extra:
+      authentication.kubernetes.io/credential-id:
+      - JTI=7ee52be0-9045-4653-aa5e-0da57b8dccdc
+      authentication.kubernetes.io/node-name:
+      - kind-control-plane
+      authentication.kubernetes.io/node-uid:
+      - 497e9d9a-47aa-4930-b0f6-9f2fb574c8c6
+      authentication.kubernetes.io/pod-name:
+      - test-pod
+      authentication.kubernetes.io/pod-uid:
+      - e87dbbd6-3d7e-45db-aafb-72b24627dff5
+    groups:
+    - system:serviceaccounts
+    - system:serviceaccounts:default
+    - system:authenticated
+    uid: f8b4161b-2e2b-11e9-86b7-2afc33b31a7e
+    username: system:serviceaccount:default:my-sa
+```
+
+{{< note >}}
+<!--
+Despite using `kubectl create -f` to create this resource, and defining it similar to
+other resource types in Kubernetes, TokenReview is a special type and the kube-apiserver
+does not actually persist the TokenReview object into etcd.
+Hence `kubectl get tokenreview` is not a valid command.
+-->
+尽管你使用了 `kubectl create -f` 来创建此资源，并与 Kubernetes
+中的其他资源类型类似的方式定义它，但 TokenReview 是一种特殊类别，
+kube-apiserver 实际上并不将 TokenReview 对象持久保存到 etcd 中。
+因此 `kubectl get tokenreview` 不是一个有效的命令。
+{{< /note >}}
+
+<!--
 ## Bound service account token volume mechanism {#bound-service-account-token-volume}
 -->
 ## 绑定的服务账号令牌卷机制  {#bound-service-account-token-volume}
 
-{{< feature-state for_k8s_version="v1.22" state="stable" >}}
+{{< feature-state feature_gate_name="BoundServiceAccountTokenVolume" >}}
 
 <!--
 By default, the Kubernetes control plane (specifically, the
@@ -242,6 +392,102 @@ to obtain short-lived API access tokens is recommended instead.
 {{< /note >}}
 
 <!--
+## Auto-generated legacy ServiceAccount token clean up {#auto-generated-legacy-serviceaccount-token-clean-up}
+
+Before version 1.24, Kubernetes automatically generated Secret-based tokens for
+ServiceAccounts. To distinguish between automatically generated tokens and
+manually created ones, Kubernetes checks for a reference from the
+ServiceAccount's secrets field. If the Secret is referenced in the `secrets`
+field, it is considered an auto-generated legacy token. Otherwise, it is
+considered a manually created legacy token. For example:
+-->
+## 清理自动生成的传统 ServiceAccount 令牌   {#auto-generated-legacy-serviceaccount-token-clean-up}
+
+在 1.24 版本之前，Kubernetes 自动为 ServiceAccount 生成基于 Secret 的令牌。
+为了区分自动生成的令牌和手动创建的令牌，Kubernetes 会检查 ServiceAccount 的
+Secret 字段是否有引用。如果该 Secret 被 `secrets` 字段引用，
+它被视为自动生成的传统令牌。否则，它被视为手动创建的传统令牌。例如：
+
+<!--
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: build-robot
+  namespace: default
+secrets:
+  - name: build-robot-secret # usually NOT present for a manually generated token
+```
+-->
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: build-robot
+  namespace: default
+secrets:
+  - name: build-robot-secret # 对于手动生成的令牌通常不会存在此字段
+```
+
+<!--
+Beginning from version 1.29, legacy ServiceAccount tokens that were generated
+automatically will be marked as invalid if they remain unused for a certain
+period of time (set to default at one year). Tokens that continue to be unused
+for this defined period (again, by default, one year) will subsequently be
+purged by the control plane.
+-->
+从 1.29 版本开始，如果传统 ServiceAccount
+令牌在一定时间段（默认设置为一年）内未被使用，则会被标记为无效。
+在定义的时间段（同样默认为一年）持续未被使用的令牌将由控制平面自动清除。
+
+<!--
+If users use an invalidated auto-generated token, the token validator will
+
+1. add an audit annotation for the key-value pair
+  `authentication.k8s.io/legacy-token-invalidated: <secret name>/<namespace>`,
+1. increment the `invalid_legacy_auto_token_uses_total` metric count,
+1. update the Secret label `kubernetes.io/legacy-token-last-used` with the new
+   date,
+1. return an error indicating that the token has been invalidated.
+-->
+如果用户使用一个无效的自动生成的令牌，令牌验证器将执行以下操作：
+
+1. 为键值对 `authentication.k8s.io/legacy-token-invalidated: <secret name>/<namespace>`
+  添加审计注解，
+1. `invalid_legacy_auto_token_uses_total` 指标计数加一，
+1. 更新 Secret 标签 `kubernetes.io/legacy-token-last-used` 为新日期，
+1. 返回一个提示令牌已经无效的报错。
+
+<!--
+When receiving this validation error, users can update the Secret to remove the
+`kubernetes.io/legacy-token-invalid-since` label to temporarily allow use of
+this token.
+
+Here's an example of an auto-generated legacy token that has been marked with the
+`kubernetes.io/legacy-token-last-used` and `kubernetes.io/legacy-token-invalid-since`
+labels:
+-->
+当收到这个校验报错时，用户可以通过移除 `kubernetes.io/legacy-token-invalid-since`
+标签更新 Secret，以临时允许使用此令牌。
+
+以下是一个自动生成的传统令牌示例，它被标记了 `kubernetes.io/legacy-token-last-used`
+和 `kubernetes.io/legacy-token-invalid-since` 标签：
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: build-robot-secret
+  namespace: default
+  labels:
+    kubernetes.io/legacy-token-last-used: 2022-10-24
+    kubernetes.io/legacy-token-invalid-since: 2023-10-25
+  annotations:
+    kubernetes.io/service-account.name: build-robot
+type: kubernetes.io/service-account-token
+```
+
+<!--
 ## Control plane details
 
 ### ServiceAccount controller
@@ -345,6 +591,88 @@ it does the following when a Pod is created:
      在 Windows 节点上，此卷挂载在等价的路径上。
 4. 如果新来 Pod 的规约不包含任何 `imagePullSecrets`，则准入控制器添加 `imagePullSecrets`，
    并从 `ServiceAccount` 进行复制。
+
+<!--
+### Legacy ServiceAccount token tracking controller
+-->
+### 传统 ServiceAccount 令牌追踪控制器
+
+{{< feature-state feature_gate_name="LegacyServiceAccountTokenTracking" >}}
+
+<!--
+This controller generates a ConfigMap called
+`kube-system/kube-apiserver-legacy-service-account-token-tracking` in the
+`kube-system` namespace. The ConfigMap records the timestamp when legacy service
+account tokens began to be monitored by the system.
+-->
+此控制器在 `kube-system` 命名空间中生成名为
+`kube-apiserver-legacy-service-account-token-tracking` 的 ConfigMap。
+这个 ConfigMap 记录了系统开始监视传统服务账户令牌的时间戳。
+
+<!--
+### Legacy ServiceAccount token cleaner
+-->
+### 传统 ServiceAccount 令牌清理器
+
+{{< feature-state feature_gate_name="LegacyServiceAccountTokenCleanUp" >}}
+
+<!--
+The legacy ServiceAccount token cleaner runs as part of the
+`kube-controller-manager` and checks every 24 hours to see if any auto-generated
+legacy ServiceAccount token has not been used in a *specified amount of time*.
+If so, the cleaner marks those tokens as invalid.
+
+The cleaner works by first checking the ConfigMap created by the control plane
+(provided that `LegacyServiceAccountTokenTracking` is enabled). If the current
+time is a *specified amount of time* after the date in the ConfigMap, the
+cleaner then loops through the list of Secrets in the cluster and evaluates each
+Secret that has the type `kubernetes.io/service-account-token`.
+-->
+传统 ServiceAccount 令牌清理器作为 `kube-controller-manager` 的一部分运行，
+每 24 小时检查一次，查看是否有任何自动生成的传统 ServiceAccount
+令牌在**特定时间段**内未被使用。如果有的话，清理器会将这些令牌标记为无效。
+
+清理器的工作方式是首先检查控制平面创建的 ConfigMap（前提是启用了
+`LegacyServiceAccountTokenTracking`）。如果当前时间是 ConfigMap
+所包含日期之后的**特定时间段**，清理器会遍历集群中的 Secret 列表，
+并评估每个类型为 `kubernetes.io/service-account-token` 的 Secret。
+
+<!--
+If a Secret meets all of the following conditions, the cleaner marks it as
+invalid:
+
+- The Secret is auto-generated, meaning that it is bi-directionally referenced
+  by a ServiceAccount.
+- The Secret is not currently mounted by any pods.
+- The Secret has not been used in a *specified amount of time* since it was
+  created or since it was last used.
+-->
+如果一个 Secret 满足以下所有条件，清理器会将其标记为无效：
+
+- Secret 是自动生成的，意味着它被 ServiceAccount 双向引用。
+- Secret 当前没有被任何 Pod 挂载。
+- Secret 自从创建或上次使用以来的**特定时间段**未被使用过。
+
+<!--
+The cleaner marks a Secret invalid by adding a label called
+`kubernetes.io/legacy-token-invalid-since` to the Secret, with the current date
+as the value. If an invalid Secret is not used in a *specified amount of time*,
+the cleaner will delete it.
+-->
+清理器通过向 Secret 添加名为 `kubernetes.io/legacy-token-invalid-since` 的标签，
+并将此值设置为当前日期，来标记 Secret 为无效。
+如果一个无效的 Secret 在**特定时间段**内未被使用，清理器将会删除它。
+
+{{< note >}}
+<!--
+All the *specified amount of time* above defaults to one year. The cluster
+administrator can configure this value through the
+`--legacy-service-account-token-clean-up-period` command line argument for the
+`kube-controller-manager` component.
+-->
+上述所有的**特定时间段**都默认为一年。集群管理员可以通过 `kube-controller-manager`
+组件的 `--legacy-service-account-token-clean-up-period` 命令行参数来配置此值。
+{{< /note >}}
 
 ### TokenRequest API
 
@@ -514,6 +842,17 @@ service-account-token Secret that you just created.
 如果你在 `examplens` 名字空间中启动一个新的 Pod，它可以使用你刚刚创建的
 `myserviceaccount` service-account-token Secret。
 
+{{< caution >}}
+<!--
+Do not reference manually created Secrets in the `secrets` field of a
+ServiceAccount. Or the manually created Secrets will be cleaned if it is not used for a long
+time. Please refer to [auto-generated legacy ServiceAccount token clean up](#auto-generated-legacy-serviceaccount-token-clean-up).
+-->
+不要在 ServiceAccount 的 `secrets` 字段中引用手动创建的 Secret。
+否则，如果这些手动创建的 Secret 长时间未被使用将会被清理掉。
+请参考[清理自动生成的传统 ServiceAccount 令牌](#auto-generated-legacy-serviceaccount-token-clean-up)。
+{{< /caution >}}
+
 <!--
 ## Delete/invalidate a ServiceAccount token {#delete-token}
 
@@ -566,33 +905,6 @@ Then, delete the Secret you now know the name of:
 
 ```shell
 kubectl -n examplens delete secret/example-automated-thing-token-zyxwv
-```
-
-<!--
-The control plane spots that the ServiceAccount is missing its Secret,
-and creates a replacement:
--->
-控制平面发现 ServiceAccount 缺少其 Secret，并创建一个替代项：
-
-```shell
-kubectl -n examplens get serviceaccount/example-automated-thing -o yaml
-```
-
-```yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"v1","kind":"ServiceAccount","metadata":{"annotations":{},"name":"example-automated-thing","namespace":"examplens"}}
-  creationTimestamp: "2019-07-21T07:07:07Z"
-  name: example-automated-thing
-  namespace: examplens
-  resourceVersion: "1026"
-  selfLink: /api/v1/namespaces/examplens/serviceaccounts/example-automated-thing
-  uid: f23fd170-66f2-4697-b049-e1e266b7f835
-secrets:
-  - name: example-automated-thing-token-4rdrh
 ```
 
 <!--

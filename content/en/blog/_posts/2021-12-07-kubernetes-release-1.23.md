@@ -4,9 +4,9 @@ title: 'Kubernetes 1.23: The Next Frontier'
 date: 2021-12-07
 slug: kubernetes-1-23-release-announcement
 evergreen: true
+author: >
+  [Kubernetes 1.23 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.23/release-team.md)
 ---
-
-**Authors:** [Kubernetes 1.23 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.23/release-team.md)
 
 We’re pleased to announce the release of Kubernetes 1.23, the last release of 2021!
 

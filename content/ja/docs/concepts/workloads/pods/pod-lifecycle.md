@@ -92,7 +92,7 @@ Podの`spec`には、Always、OnFailure、またはNeverのいずれかの値を
 PodにはPodStatusがあります。それにはPodが成功したかどうかの情報を持つ[PodCondition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core)の配列が含まれています。kubeletは、下記のPodConditionを管理します:
 
 * `PodScheduled`: PodがNodeにスケジュールされました。
-* `PodHasNetwork`: (アルファ版機能; [明示的に有効](#pod-has-network)にしなければならない) Podサンドボックスが正常に成功され、ネットワークの設定が完了しました。
+* `PodHasNetwork`: (アルファ版機能; [明示的に有効](#pod-has-network)にしなければならない) Podサンドボックスが正常に作成され、ネットワークの設定が完了しました。
 * `ContainersReady`: Pod内のすべてのコンテナが準備できた状態です。
 * `Initialized`: すべての[Initコンテナ](/ja/docs/concepts/workloads/pods/init-containers)が正常に終了しました。
 * `Ready`: Podはリクエストを処理でき、一致するすべてのサービスの負荷分散プールに追加されます。
@@ -206,7 +206,7 @@ probeを使ってコンテナをチェックする4つの異なる方法があ�
 : コンテナの診断が失敗しました。
 
 `Unknown`
-: コンテナの診断が失敗しました(何も実行する必要はなく、kubeletはさらにチェックを行います)。
+: コンテナの診断自体が失敗しました(何も実行する必要はなく、kubeletはさらにチェックを行います)。
 
 ### Probeの種類 {#types-of-probe}
 
@@ -286,7 +286,7 @@ Podは、クラスター内のNodeで実行中のプロセスを表すため、�
    {{< note >}}
    Pod内のすべてのコンテナが同時にTERMシグナルを受信するわけではなく、シャットダウンの順序が問題になる場合はそれぞれに`preStop`フックを使用して同期することを検討する。
    {{< /note >}}
-1. kubeletが正常な終了を開始すると同時に、コントロールプレーンは、終了中のPodをEndpointSlice(およびEndpoints)オブジェクトから削除します。これらのオブジェクトは、{{< glossary_tooltip text="selector" term_id="selector" >}}が設定された{{< glossary_tooltip term_id="service" text="Service" >}}を表します。{{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}}とその他のワークロードリソースは、終了中のPodを有効なサービス中のReplicaSetとして扱いません。ゆっくりと終了するPodは、(サービスプロキシーのような)ロードバランサーが終了猶予期間が*始まる*とエンドポイントからそれらのPodを削除するので、トラフィックを継続して処理できません。
+1. kubeletが正常な終了を開始すると同時に、コントロールプレーンは、終了中のPodをEndpointSlice(およびEndpoints)オブジェクトから削除します。これらのオブジェクトは、{{< glossary_tooltip text="selector" term_id="selector" >}}が設定された{{< glossary_tooltip term_id="service" text="Service" >}}を表します。{{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}}とその他のワークロードリソースは、終了中のPodを有効なサービス中のReplicaSetとして扱いません。ゆっくりと終了するPodは、(サービスプロキシのような)ロードバランサーが終了猶予期間が*始まる*とエンドポイントからそれらのPodを削除するので、トラフィックを継続して処理できません。
 1. 猶予期間が終了すると、kubeletは強制削除を開始する。コンテナランタイムは、Pod内でまだ実行中のプロセスに`SIGKILL`を送信する。kubeletは、コンテナランタイムが非表示の`pause`コンテナを使用している場合、そのコンテナをクリーンアップします。
 1. kubeletは猶予期間を0(即時削除)に設定することでAPI server上のPodの削除を終了する。
 1. API serverはPodのAPIオブジェクトを削除し、クライアントからは見えなくなります。

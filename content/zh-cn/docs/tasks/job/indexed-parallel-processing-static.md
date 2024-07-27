@@ -89,8 +89,7 @@ To access the work item from the worker program, you have a few options:
 要从工作程序访问工作项，你有几个选项：
 
 1. 读取 `JOB_COMPLETION_INDEX` 环境变量。Job
-   {{< glossary_tooltip text="控制器" term_id="controller" >}}
-   自动将此变量链接到包含完成索引的注解。
+   {{< glossary_tooltip text="控制器" term_id="controller" >}}自动将此变量链接到包含完成索引的注解。
 2. 读取包含完整索引的文件。
 3. 假设你无法修改程序，你可以使用脚本包装它，
    该脚本使用上述任意方法读取索引并将其转换为程序可以用作输入的内容。
@@ -138,7 +137,7 @@ Here is a sample Job manifest that uses `Indexed` completion mode:
 
 这是一个使用 `Indexed` 完成模式的示例 Job 清单：
 
-{{% code language="yaml" file="application/job/indexed-job.yaml" %}}
+{{% code_sample language="yaml" file="application/job/indexed-job.yaml" %}}
 
 <!-- 
 In the example above, you use the builtin `JOB_COMPLETION_INDEX` environment
@@ -169,7 +168,7 @@ like shown in the following example:
 [使用 Downward API 将注解值作为卷文件传递](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#store-pod-fields)，
 如下例所示：
 
-{{% code language="yaml" file="application/job/indexed-job-vol.yaml" %}}
+{{% code_sample language="yaml" file="application/job/indexed-job-vol.yaml" %}}
 
 <!-- 
 ## Running the Job
@@ -186,9 +185,12 @@ kubectl apply -f https://kubernetes.io/examples/application/job/indexed-job.yaml
 ```
 
 <!-- 
-When you create this Job, the control plane creates a series of Pods, one for each index you specified. The value of `.spec.parallelism` determines how many can run at once whereas `.spec.completions` determines how many Pods the Job creates in total.
+When you create this Job, the control plane creates a series of Pods, one for each index you specified.
+The value of `.spec.parallelism` determines how many can run at once whereas `.spec.completions`
+determines how many Pods the Job creates in total.
 
-Because `.spec.parallelism` is less than `.spec.completions`, the control plane waits for some of the first Pods to complete before starting more of them.
+Because `.spec.parallelism` is less than `.spec.completions`, the control plane waits for some
+of the first Pods to complete before starting more of them.
 -->
 当你创建此 Job 时，控制平面会创建一系列 Pod，你指定的每个索引都会运行一个 Pod。
 `.spec.parallelism` 的值决定了一次可以运行多少个 Pod，

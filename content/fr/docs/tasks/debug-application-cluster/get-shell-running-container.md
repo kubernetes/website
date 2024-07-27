@@ -105,7 +105,7 @@ Lorsque vous avez terminé avec votre shell, entrez `exit`.
 Dans une fenêtre de commande ordinaire, pas votre shell, répertoriez les variables d'environnement dans le conteneur en cours d'exécution:
 
 ```shell
-kubectl exec shell-demo env
+kubectl exec shell-demo -- env
 ```
 
 Essayez d'exécuter d'autres commandes.

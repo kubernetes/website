@@ -1,8 +1,8 @@
 ---
 api_metadata:
-apiVersion: "batch/v1"
-import: "k8s.io/api/batch/v1"
-kind: "Job"
+  apiVersion: "batch/v1"
+  import: "k8s.io/api/batch/v1"
+  kind: "Job"
 content_type: "api_reference"
 description: "Job 表示单个任务的配置。"
 title: "Job"

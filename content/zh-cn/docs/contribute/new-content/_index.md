@@ -146,7 +146,7 @@ Scenario | Branch
 :---------|:------------
 Existing or new English language content for the current release | `main`
 Content for a feature change release | The branch which corresponds to the major and minor version the feature change is in, using the pattern `dev-<version>`. For example, if a feature changes in the `v{{< skew nextMinorVersion >}}` release, then add documentation changes to the ``dev-{{< skew nextMinorVersion >}}`` branch.
-Content in other languages (localizations) | Use the localization's convention. See the [Localization branching strategy](/docs/contribute/localization/#branching-strategy) for more information.
+Content in other languages (localizations) | Use the localization's convention. See the [Localization branching strategy](/docs/contribute/localization/#branch-strategy) for more information.
 
 If you're still not sure which branch to choose, ask in `#sig-docs` on Slack.
 -->
@@ -159,7 +159,7 @@ If you're still not sure which branch to choose, ask in `#sig-docs` on Slack.
 :---------|:------------
 针对当前发行版本的，对现有英文内容的修改或新的英文内容 | `main`
  针对功能特性变更的内容 | 分支对应于功能特性变更的主要和次要版本，分支名称采用 `dev-<version>` 的模式。例如，如果某功能特性在 `v{{< skew nextMinorVersion >}}` 版本发生变化，则对应的文档变化要添加到 `dev-{{< skew nextMinorVersion >}}` 分支。
- 其他语言的内容（本地化） | 基于本地化团队的约定。参见[本地化分支策略](/zh-cn/docs/contribute/localization/#branching-strategy)了解更多信息。 
+ 其他语言的内容（本地化） | 基于本地化团队的约定。参见[本地化分支策略](/zh-cn/docs/contribute/localization/#branch-strategy)了解更多信息。 
 
 如果你仍不能确定要选择哪个分支，请在 Slack 的 `#sig-docs` 频道上提出问题。  
 

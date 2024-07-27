@@ -4,7 +4,7 @@ noedit: true
 cid: docsHome
 layout: docsportal_home
 class: gridPage gridPageHome
-linkTitle: "होम"
+linkTitle: "प्रलेखन"
 main_menu: true
 weight: 10
 hide_feedback: true
@@ -41,11 +41,11 @@ cards:
   button_path: "/docs/tasks"
 - name: training
   title: "प्रशिक्षण"
-  description: "कुबेरनेट्स में प्रमाणित हो कर अपने क्लाउड नेटिव प्रोजेक्ट सफल बनाएं!"
+  description: "कुबेरनेट्स में प्रमाणित हो कर अपने क्लाउड नेटिव प्रोजेक्ट को सफल बनाएं!"
   button: "प्रशिक्षण देखें"
-  button_path: "/training"
+  button_path: "/hi/training"
 - name: reference
-  title: संदर्भ जानकारी देखें 
+  title: संदर्भ मे दी गई जानकारी को देखें
   description: शब्दावली, कमांड लाइन सिंटैक्स, API संसाधनो के प्रकार और टूल सेटअप करने के प्रलेखन। 
   button: संदर्भ देखें 
   button_path: /docs/reference
@@ -55,10 +55,10 @@ cards:
   button: प्रलेखन में योगदान करें 
   button_path: /docs/contribute
 - name: release-notes
-  title: कुबेरनेट्स रिलीज नोट्स 
+  title: कुबेरनेट्स डाउनलोड करें
   description: यदि आप कुबेरनेट्स इंस्टॉल कर रहे हैं या नवीनतम संस्करण में अपग्रेड कर रहे हैं, तो वर्तमान रिलीज़ नोट्स देखें।
   button: कुबेरनेट्स डाउनलोड करें
-  button_path: "/docs/setup/release/notes"
+  button_path: "/releases/download"
 - name: about
   title: प्रलेखन के बारे में
   description: इस वेबसाइट में कुबेरनेट्स के वर्तमान और पिछले 4 संस्करणों के लिए प्रलेखन हैं।

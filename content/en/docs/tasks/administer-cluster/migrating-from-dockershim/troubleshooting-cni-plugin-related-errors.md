@@ -42,7 +42,7 @@ If the version of the plugin is missing in the CNI plugin config, the pod may
 run. However, stopping the pod generates an error similar to:
 
 ```
-ERRO[2022-04-26T00:43:24.518165483Z] StopPodSandbox for "b" failed
+ERROR[2022-04-26T00:43:24.518165483Z] StopPodSandbox for "b" failed
 error="failed to destroy network for sandbox \"bbc85f891eaf060c5a879e27bba9b6b06450210161dfdecfbb2732959fb6500a\": invalid version \"\": the version is empty"
 ```
 

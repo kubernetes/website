@@ -3,9 +3,9 @@ title: "Introducing Suspended Jobs"
 date: 2021-04-12
 slug: introducing-suspended-jobs
 layout: blog
+author: >
+  Adhityaa Chandrasekar (Google)
 ---
-
-**Author:** Adhityaa Chandrasekar (Google)
 
 [Jobs](/docs/concepts/workloads/controllers/job/) are a crucial part of
 Kubernetes' API. While other kinds of workloads such as [Deployments](/docs/concepts/workloads/controllers/deployment/),

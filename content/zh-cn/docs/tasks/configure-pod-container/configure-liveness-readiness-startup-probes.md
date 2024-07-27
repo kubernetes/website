@@ -13,6 +13,8 @@ weight: 140
 <!--
 This page shows how to configure liveness, readiness and startup probes for containers.
 
+For more information about probes, see [Liveness, Readiness and Startup Probes](/docs/concepts/configuration/liveness-readiness-startup-probes)
+
 The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) uses
 liveness probes to know when to restart a container. For example, liveness
 probes could catch a deadlock, where an application is running, but unable to
@@ -20,6 +22,9 @@ make progress. Restarting a container in such a state can help to make the
 application more available despite bugs.
 -->
 这篇文章介绍如何给容器配置存活（Liveness）、就绪（Readiness）和启动（Startup）探针。
+
+有关探针的更多信息，请参阅
+[Liveness、Readiness 和 Startup 探针](/zh-cn/docs/concepts/configuration/liveness-readiness-startup-probes)。
 
 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
 使用存活探针来确定什么时候要重启容器。
@@ -222,12 +227,12 @@ liveness-exec   1/1       Running   1          1m
 ## Define a liveness HTTP request
 
 Another kind of liveness probe uses an HTTP GET request. Here is the configuration
-file for a Pod that runs a container based on the `registry.k8s.io/liveness` image.
+file for a Pod that runs a container based on the `registry.k8s.io/e2e-test-images/agnhost` image.
 -->
 ## 定义一个存活态 HTTP 请求接口 {#define-a-liveness-HTTP-request}
 
 另外一种类型的存活探测方式是使用 HTTP GET 请求。
-下面是一个 Pod 的配置文件，其中运行一个基于 `registry.k8s.io/liveness` 镜像的容器。
+下面是一个 Pod 的配置文件，其中运行一个基于 `registry.k8s.io/e2e-test-images/agnhost` 镜像的容器。
 
 {{% code_sample file="pods/probe/http-liveness.yaml" %}}
 
@@ -330,7 +335,7 @@ can't it is considered a failure.
 <!--
 As you can see, configuration for a TCP check is quite similar to an HTTP check.
 This example uses both readiness and liveness probes. The kubelet will send the
-first readiness probe 5 seconds after the container starts. This will attempt to
+first readiness probe 15 seconds after the container starts. This will attempt to
 connect to the `goproxy` container on port 8080. If the probe succeeds, the Pod
 will be marked as ready. The kubelet will continue to run this check every 10
 seconds.
@@ -344,7 +349,7 @@ will be restarted.
 To try the TCP liveness check, create a Pod:
 -->
 如你所见，TCP 检测的配置和 HTTP 检测非常相似。
-下面这个例子同时使用就绪和存活探针。kubelet 会在容器启动 5 秒后发送第一个就绪探针。
+下面这个例子同时使用就绪和存活探针。kubelet 会在容器启动 15 秒后发送第一个就绪探针。
 探针会尝试连接 `goproxy` 容器的 8080 端口。
 如果探测成功，这个 Pod 会被标记为就绪状态，kubelet 将继续每隔 10 秒运行一次探测。
 
@@ -369,7 +374,7 @@ kubectl describe pod goproxy
 <!--
 ## Define a gRPC liveness probe
 -->
-## 定义 gRPC 存活探针
+## 定义 gRPC 存活探针 {#define-a-grpc-liveness-probe}
 
 {{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
@@ -486,7 +491,6 @@ For example:
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:
@@ -520,7 +524,6 @@ So, the previous example would become:
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:
@@ -579,12 +582,12 @@ Readiness probes runs on the container during its whole lifecycle.
 
 {{< caution >}}
 <!--
-Liveness probes *do not* wait for readiness probes to succeed.
-If you want to wait before executing a liveness probe you should use
+The readiness and liveness probes do not depend on each other to succeed.
+If you want to wait before executing a readiness probe, you should use
 `initialDelaySeconds` or a `startupProbe`.
 -->
-存活探针**不等待**就绪性探针成功。
-如果要在执行存活探针之前等待，应该使用 `initialDelaySeconds` 或 `startupProbe`。
+存活探针与就绪性探针相互间不等待对方成功。
+如果要在执行就绪性探针之前等待，应该使用 `initialDelaySeconds` 或 `startupProbe`。
 {{< /caution >}}
 
 <!--
@@ -635,8 +638,9 @@ liveness and readiness checks:
 <!--
 * `initialDelaySeconds`: Number of seconds after the container has started before startup,
   liveness or readiness probes are initiated. If a startup  probe is defined, liveness and
-  readiness probe delays do not begin until the startup probe has succeeded.
-  Defaults to 0 seconds. Minimum value is 0.
+  readiness probe delays do not begin until the startup probe has succeeded. If the value of
+  `periodSeconds` is greater than `initialDelaySeconds` then the `initialDelaySeconds` would be
+  ignored. Defaults to 0 seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10 seconds.
   The minimum value is 1.
 * `timeoutSeconds`: Number of seconds after which the probe times out.
@@ -647,7 +651,8 @@ liveness and readiness checks:
 -->
 * `initialDelaySeconds`：容器启动后要等待多少秒后才启动启动、存活和就绪探针。
   如果定义了启动探针，则存活探针和就绪探针的延迟将在启动探针已成功之后才开始计算。
-  默认是 0 秒，最小值是 0。
+  如果 `periodSeconds` 的值大于 `initialDelaySeconds`，则 `initialDelaySeconds`
+  将被忽略。默认是 0 秒，最小值是 0。
 * `periodSeconds`：执行探测的时间间隔（单位是秒）。默认是 10 秒。最小值是 1。
 * `timeoutSeconds`：探测的超时后等待多少秒。默认值是 1 秒。最小值是 1。
 * `successThreshold`：探针在失败后，被视为成功的最小连续成功数。默认值是 1。
@@ -655,6 +660,7 @@ liveness and readiness checks:
 <!--
 * `failureThreshold`: After a probe fails `failureThreshold` times in a row, Kubernetes
   considers that the overall check has failed: the container is _not_ ready/healthy/live.
+  Defaults to 3. Minimum value is 1.
   For the case of a startup or liveness probe, if at least `failureThreshold` probes have
   failed, Kubernetes treats the container as unhealthy and triggers a restart for that
   specific container. The kubelet honors the setting of `terminationGracePeriodSeconds`
@@ -666,6 +672,7 @@ liveness and readiness checks:
 -->
 * `failureThreshold`：探针连续失败了 `failureThreshold` 次之后，
   Kubernetes 认为总体上检查已失败：容器状态未就绪、不健康、不活跃。
+  默认值为 3，最小值为 1。
   对于启动探针或存活探针而言，如果至少有 `failureThreshold` 个探针已失败，
   Kubernetes 会将容器视为不健康并为这个特定的容器触发重启操作。
   kubelet 遵循该容器的 `terminationGracePeriodSeconds` 设置。
@@ -788,6 +795,36 @@ startupProbe:
         value: ""
 ```
 
+{{< note >}}
+<!--
+When the kubelet probes a Pod using HTTP, it only follows redirects if the redirect   
+is to the same host. If the kubelet receives 11 or more redirects during probing, the probe is considered successful
+and a related Event is created:
+-->
+当 kubelet 使用 HTTP 探测 Pod 时，仅当重定向到同一主机时，它才会遵循重定向。
+如果 kubelet 在探测期间收到 11 个或更多重定向，则认为探测成功并创建相关事件：
+
+```none
+Events:
+  Type     Reason        Age                     From               Message
+  ----     ------        ----                    ----               -------
+  Normal   Scheduled     29m                     default-scheduler  Successfully assigned default/httpbin-7b8bc9cb85-bjzwn to daocloud
+  Normal   Pulling       29m                     kubelet            Pulling image "docker.io/kennethreitz/httpbin"
+  Normal   Pulled        24m                     kubelet            Successfully pulled image "docker.io/kennethreitz/httpbin" in 5m12.402735213s
+  Normal   Created       24m                     kubelet            Created container httpbin
+  Normal   Started       24m                     kubelet            Started container httpbin
+ Warning  ProbeWarning  4m11s (x1197 over 24m)  kubelet            Readiness probe warning: Probe terminated redirects  
+```
+
+<!--
+If the kubelet receives a redirect where the hostname is different from the request,
+the outcome of the probe is treated as successful and kubelet creates an event
+to report the redirect failure.
+-->
+如果 kubelet 收到主机名与请求不同的重定向，则探测结果将被视为成功，并且
+kubelet 将创建一个事件来报告重定向失败。
+{{< /note >}}
+
 <!--
 ### TCP probes
 
@@ -851,7 +888,6 @@ spec:
     ports:
     - name: liveness-port
       containerPort: 8080
-      hostPort: 8080
 
     livenessProbe:
       httpGet:

@@ -27,7 +27,7 @@ The connection to the server <server-name:port> was refused - did you specify th
 
 예를 들어, 랩톱에서 로컬로 쿠버네티스 클러스터를 실행하려면, Minikube와 같은 도구를 먼저 설치한 다음 위에서 언급한 명령을 다시 실행해야 한다.
 
-kubectl cluster-info가 URL 응답을 반환하지만 클러스터에 접근할 수 없는 경우, 올바르게 구성되었는지 확인하려면 다음을 사용한다.
+`kubectl cluster-info`가 URL 응답을 반환하지만 클러스터에 접근할 수 없는 경우, 올바르게 구성되었는지 확인하려면 다음을 사용한다.
 
 ```shell
 kubectl cluster-info dump

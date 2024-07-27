@@ -27,7 +27,7 @@ Architecture: Conformance subproject_
 In this [SIG
 Architecture](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md)
 spotlight, we talked with [Riaan
-Kleinhans](https://github.com/Riaankl) (ii-Team), Lead for the
+Kleinhans](https://github.com/Riaankl) (ii.nz), Lead for the
 [Conformance
 sub-project](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md#conformance-definition-1).
 -->
@@ -35,7 +35,7 @@ sub-project](https://github.com/kubernetes/community/blob/master/sig-architectur
 我们从 SIG Architecture：Conformance 子项目开始。**
 
 在本次 [SIG Architecture](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md)
-访谈中，我们与 [Riaan Kleinhans](https://github.com/Riaankl) (ii-Team) 进行了对话，他是
+访谈中，我们与 [Riaan Kleinhans](https://github.com/Riaankl) (ii.nz) 进行了对话，他是
 [Conformance 子项目](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md#conformance-definition-1)的负责人。
 
 <!--
@@ -45,7 +45,7 @@ sub-project](https://github.com/kubernetes/community/blob/master/sig-architectur
 bit about yourself, your role and how you got involved in Kubernetes.
 
 **Riaan Kleinhans (RK)**: Hi! My name is Riaan Kleinhans and I live in
-South Africa. I am the Project manager for the [ii-Team](ii.nz) in New
+South Africa. I am the Project manager for the [ii.nz](https://ii.nz) in New
 Zealand. When I joined ii the plan was to move to New Zealand in April
 2020 and then Covid happened. Fortunately, being a flexible and
 dynamic team we were able to make it work remotely and in very
@@ -56,7 +56,7 @@ different time zones.
 **Frederico (FSM)**：你好 Riaan，欢迎！首先，请介绍一下你自己，你的角色以及你是如何参与 Kubernetes 的。
 
 **Riaan Kleinhans (RK)**：嗨！我叫 Riaan Kleinhans，我住在南非。
-我是新西兰 [ii-Team](ii.nz) 的项目经理。在我加入 ii 时，本来计划在 2020 年 4 月搬到新西兰，
+我是新西兰 [ii.nz](https://ii.nz) 的项目经理。在我加入 ii 时，本来计划在 2020 年 4 月搬到新西兰，
 然后新冠疫情爆发了。幸运的是，作为一个灵活和富有活力的团队，我们能够在各个不同的时区以远程方式协作。
 
 <!--

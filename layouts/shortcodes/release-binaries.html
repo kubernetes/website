@@ -1,0 +1,154 @@
+<!-- Fetch release_binaries.json from kubernetes-sigs/downloadkubernetes to render in table -->
+{{- $url := "https://raw.githubusercontent.com/kubernetes-sigs/downloadkubernetes/master/dist/release_binaries.json" }}
+{{- $response := "" }}
+
+{{- with resources.GetRemote $url -}}
+  {{- if .Err -}}
+    {{- $message := printf "Failed to retrieve release binaries data: %s" .Err -}}
+    {{- if eq hugo.Environment "production" -}}
+      {{- errorf $message -}}
+    {{- else -}}
+      {{- warnf $message -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $response = .Content | transform.Unmarshal }}
+  {{- end -}}
+{{- else -}}
+  {{ $message := printf "Unable to fetch release binaries data from the specified URL: %q" $url -}}
+  {{- if eq hugo.Environment "production" -}}
+    {{- errorf $message -}}
+  {{- else -}}
+    {{- warnf $message -}}
+  {{- end -}}
+{{- end -}}
+
+<!-- Continue processing only if release binaries JSON is available, accommodating for offline builds. -->
+{{ if ne $response nil }}
+{{ $currentVersion := site.Params.version }}
+
+{{ $Binaries := slice }}
+{{ $AllOSes := slice }}
+{{ $AllArch := slice }}
+{{ $AllVersions := slice }}
+
+{{ range $key, $value := $response }}
+    {{ if eq $key "Binaries" }}
+        {{ $Binaries = $value }}
+    {{ else if eq $key "AllOSes" }}
+        {{ $AllOSes = $value }}
+    {{ else if eq $key "AllArch" }}
+        {{ $AllArch = $value }}
+    {{ else if eq $key "AllVersions" }}
+        {{ $AllVersions = $value }}
+    {{ end }}
+{{ end }}
+
+
+<!-- The below <div> defines an alternate content to be displayed only 
+     when Javascript is disabled or when user's browser doesn't support Javascript -->
+<div class="downloadbinaries-nojs">
+        <p>{{ T "release_binary_alternate_links" | markdownify }}</p>
+</div>
+
+<!-- The below section containing the release binary details
+    is enabled by the script "release_binaries.js"  -->
+<div id="download-kubernetes-data" style="display: none;">
+    <p>
+        {{ $releaseBinarySection := T "release_binary_section" }}
+        {{ $releaseBinarySection = replace $releaseBinarySection "<current-version>" $currentVersion }}
+        {{ $releaseBinarySection | markdownify }}
+    </p>
+    <div class="alert alert-info note callout" role="alert">
+        <strong>{{ T "note" }}</strong>
+        {{ $releaseBinarySectionNote := T "release_binary_section_note" }}
+        {{ $releaseBinarySectionNote = replace $releaseBinarySectionNote "<current-changelog-url>" (replace $currentVersion "v" "") }}    
+        {{ $releaseBinarySectionNote = replace $releaseBinarySectionNote "<current-version>" $currentVersion }}
+        {{ $releaseBinarySectionNote | markdownify }}
+    </div>    
+    <details>
+        <summary>{{ T "release_binary_options" }}</summary>
+        <div class="text-center w-100">
+            <div class="d-inline-block text-center pr-4">
+                <div>
+                    <b>{{ T "release_binary_os_option" }}</b>
+                    <div class="buttons" id="os-filter">
+                        {{- range $AllOSes }}
+                        <button class="btn btn-outline-primary m-1" data-os="{{.}}-data">{{ T (printf "release_binary_os_%s" .) }}</button>
+                        {{- end }}
+                    </div>
+                </div>
+            </div>
+            <div class="d-inline-block text-center pr-4">
+                <div>
+                    <b>{{ T "release_binary_version_option" }}</b>
+                    <div class="buttons" id="version-filter">
+                        {{- range $AllVersions }}
+                        {{- $releaseBinaryData := printf "%s.%s" (index (split . ".") 0) (index (split . ".") 1) -}}
+                        {{- if eq $releaseBinaryData $currentVersion }}
+                        <button class="btn btn-primary m-1" data-version="{{.}}-data">{{ $currentVersion }} ({{ T "patch_release" }} {{ . }})</button>
+                        {{- end }}
+                        {{- end }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center w-100 p-4">
+                <div>
+                    <b>{{ T "release_binary_arch_option" }}</b>
+                    <div class="buttons" id="arch-filter">
+                        {{- range $AllArch }}
+                        <button class="btn btn-outline-primary m-1" data-arch="{{.}}-data">{{.}}</button>
+                        {{- end }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </details>
+
+    <div class="table-responsive">
+        <table class="table" id="release-binary-table">
+            <caption style="display:none">{{ T "release_binary_table_caption" }}</caption>
+            <thead>
+                <tr>
+                    <th>{{ T "release_binary_version" }}</th>
+                    <th>{{ T "release_binary_os" }}</th>
+                    <th>{{ T "release_binary_arch" }}</th>
+                    <th>{{ T "release_binary_download" }}</th>
+                    <th>{{ T "release_binary_copy_link" }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{- range $index, $binary := $Binaries -}}
+                {{- $releaseBinaryData := printf "%s.%s" (index (split $binary.Version ".") 0) (index (split $binary.Version ".") 1) -}}
+                {{- if eq $releaseBinaryData $currentVersion }}
+                {{ $LinkText := printf "dl.k8s.io/%s/bin/%s/%s/%s" $binary.Version $binary.OperatingSystem $binary.Architecture $binary.Name }}
+                {{ $BinaryLink := printf "https://dl.k8s.io/%s/bin/%s/%s/%s" $binary.Version $binary.OperatingSystem $binary.Architecture $binary.Name }}
+                {{ $ChecksumLink := printf "https://dl.k8s.io/%s/bin/%s/%s/%s.sha256" $binary.Version $binary.OperatingSystem $binary.Architecture $binary.Name }}
+                {{ $SignatureLink := printf "https://dl.k8s.io/%s/bin/%s/%s/%s.sig" $binary.Version $binary.OperatingSystem $binary.Architecture $binary.Name }}
+                {{ $CertificateLink := printf "https://dl.k8s.io/%s/bin/%s/%s/%s.cert" $binary.Version $binary.OperatingSystem $binary.Architecture $binary.Name }}
+                <tr class="{{ $binary.Version }}-data {{ $binary.OperatingSystem }}-data {{ $binary.Architecture }}-data {{ $binary.Name }}-data">
+                    <td>{{ $binary.Version }}</td>
+                    <td>{{ T (printf "release_binary_os_%s" $binary.OperatingSystem) }}</td>
+                    <td>{{ $binary.Architecture }}</td>
+                    <td>
+                        <span title="{{ T "release_binary_download_tooltip" }}">
+                            <a href="{{$BinaryLink}}">{{ $binary.Name }}</a>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="icon">
+                            <i class="fa fa-copy"></i>
+                        </span>
+                        <span title="{{ T "release_binary_copy_link_tooltip" }}">
+                            <a class="release-binary-copy" href="{{$BinaryLink}}">{{$LinkText}}</a>
+                            (<a class="release-binary-copy" href="{{$ChecksumLink}}">{{T "release_binary_copy_link_checksum"}}</a> | <a class="release-binary-copy" href="{{$SignatureLink}}">{{T "release_binary_copy_link_signature"}}</a> | <a class="release-binary-copy" href="{{$CertificateLink}}">{{T "release_binary_copy_link_certifcate"}}</a>)
+                        </span>
+                    </td>
+                </tr>
+                {{- end }}
+                {{- end }}
+            </tbody>
+        </table>
+    </div>
+</div>
+{{- end -}}

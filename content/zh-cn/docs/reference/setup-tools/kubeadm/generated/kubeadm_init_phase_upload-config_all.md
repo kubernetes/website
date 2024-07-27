@@ -1,30 +1,16 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-
-<!--
 Upload all configuration to a config map
 -->
-将所有配置上传到 ConfigMap
+将所有配置上传到 ConfigMap。
 
 <!-- 
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Upload all configuration to a config map
 -->
-
 将所有配置上传到 ConfigMap
 
 ```
@@ -34,7 +20,6 @@ kubeadm init phase upload-config all [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -101,7 +86,7 @@ help for all
 </p>
 -->
 <p>
-all 操作的帮助命令
+all 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -135,7 +120,6 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">

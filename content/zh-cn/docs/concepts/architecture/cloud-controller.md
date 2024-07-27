@@ -44,7 +44,7 @@ process.
 -->
 ## 设计  {#design}
 
-![Kubernetes 组件](/images/docs/components-of-kubernetes.svg)
+{{< figure src="/zh-cn/docs/images/components-of-kubernetes.svg" alt="此图展示了 Kubernetes 集群的组件" class="diagram-medium" >}}
 
 云控制器管理器以一组多副本的进程集合的形式运行在控制面中，通常表现为 Pod
 中的容器。每个 `cloud-controller-manager`

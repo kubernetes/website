@@ -35,6 +35,8 @@ spec:
         volumeMounts:
         - name: varlog
           mountPath: /var/log
+      # 可能需要设置较高的优先级类以确保 DaemonSet Pod 可以抢占正在运行的 Pod
+      # priorityClassName: important
       terminationGracePeriodSeconds: 30
       volumes:
       - name: varlog

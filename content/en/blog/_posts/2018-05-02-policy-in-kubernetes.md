@@ -2,6 +2,13 @@
 title: Current State of Policy in Kubernetes
 date: 2018-05-02
 slug: policy-in-kubernetes
+author: >
+  Zhipeng Huang,
+  Torin Sandall,
+  Michael Elder,
+  Erica Von Buelow,
+  Khalid Ahmed,
+  Yisui Hu
 ---
 
 Kubernetes has grown dramatically in its impact to the industry; and with rapid growth, we are beginning to see variations across components in how they define and apply policies.
@@ -45,5 +52,3 @@ When these concrete proposals got clearer the WG will be able to provide a high 
 ## Towards Cloud Native Policy Driven Architecture
 
 Policy is definitely something goes beyond Kubernetes and applied to a broader cloud native context. Our work in the Kubernetes Policy WG will provide the foundation of building a CNCF wide policy architecture, with the integration of Kubernetes and various other cloud native components such as open policy agent, Istio, Envoy, SPIFEE/SPIRE and so forth. The Policy WG has already collaboration with the CNCF SAFE WG (in-forming) team, and will work on more alignments to make sure a community driven cloud native policy architecture design.
-
-**Authors**: Zhipeng Huang, Torin Sandall, Michael Elder, Erica Von Buelow, Khalid Ahmed, Yisui Hu

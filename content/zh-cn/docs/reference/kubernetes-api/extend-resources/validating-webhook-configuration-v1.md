@@ -266,12 +266,12 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
      - 如果 failurePolicy=Ignore，忽略错误并跳过该 webhook。
 
   <!--
-  This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+  This is an beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
   
   <a name="MatchCondition"></a>
   *MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.*
   -->
-  这是一个 Alpha 功能特性，由 AdmissionWebhookMatchConditions 特性门控管理。
+  这是一个 Beta 功能特性，由 AdmissionWebhookMatchConditions 特性门控管理。
 
   <a name="MatchCondition"></a>
   **MatchCondition 表示将请求发送到 Webhook 之前必须满足的条件。**

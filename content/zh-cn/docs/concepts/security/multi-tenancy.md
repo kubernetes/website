@@ -608,7 +608,7 @@ sandboxing implementations are available:
 
 * [gVisor](https://gvisor.dev/) intercepts syscalls from containers and runs them through a
   userspace kernel, written in Go, with limited access to the underlying host.
-* [Kata Containers](https://katacontainers.io/) is an OCI compliant runtime that allows you to run
+* [Kata Containers](https://katacontainers.io/) provide a secure container runtime that allows you to run
   containers in a VM. The hardware virtualization available in Kata offers an added layer of
   security for containers running untrusted code.
 -->
@@ -617,8 +617,8 @@ sandboxing implementations are available:
 
 * [gVisor](https://gvisor.dev/) 拦截来自容器的系统调用，并通过用户空间内核运行它们，
   用户空间内核采用 Go 编写，对底层主机的访问是受限的
-* [Kata Containers](https://katacontainers.io/) 是符合 OCI 的运行时，允许你在 VM 中运行容器。
-  Kata 中提供的硬件虚拟化为运行不受信任代码的容器提供了额外的安全层。
+* [Kata Containers](https://katacontainers.io/) 提供了一个安全的容器运行时，
+  允许你在 VM 中运行容器。Kata 中提供的硬件虚拟化为运行不受信任代码的容器提供了额外的安全层。
 
 <!--
 ### Node Isolation
@@ -918,7 +918,7 @@ The two options are discussed in more detail in the following sections.
 <!--
 As previously mentioned, you should consider isolating each workload in its own namespace, even if
 you are using dedicated clusters or virtualized control planes. This ensures that each workload
-only has access to its own resources, such as Config Maps and Secrets, and allows you to tailor
+only has access to its own resources, such as ConfigMaps and Secrets, and allows you to tailor
 dedicated security policies for each workload. In addition, it is a best practice to give each
 namespace names that are unique across your entire fleet (that is, even if they are in separate
 clusters), as this gives you the flexibility to switch between dedicated and shared clusters in

@@ -3,8 +3,9 @@ title: " Bringing Kubernetes Support to Azure Container Service "
 date: 2016-11-07
 slug: bringing-kubernetes-support-to-azure
 url: /blog/2016/11/Bringing-Kubernetes-Support-To-Azure
+author: >
+  Brendan Burns (Microsoft)
 ---
-_Editor's note: Today’s post is by Brendan Burns, Partner Architect, at Microsoft & Kubernetes co-founder talking about bringing Kubernetes to Azure Container Service._
 
 With more than a thousand people coming to [KubeCon](http://events.linuxfoundation.org/events/kubecon) in my hometown of Seattle, nearly three years after I helped start the Kubernetes project, it’s amazing and humbling to see what a small group of people and a radical idea have become after three years of hard work from a large and growing community. In July of 2014, scarcely a month after Kubernetes became publicly available, Microsoft announced its initial support for Azure. The release of [Kubernetes 1.4](https://kubernetes.io/blog/2016/09/kubernetes-1-4-making-it-easy-to-run-on-kuberentes-anywhere/), brought support for native Microsoft networking, [load-balancer](https://github.com/kubernetes/kubernetes/pull/28821) and [disk integration](https://github.com/kubernetes/kubernetes/pull/29836).&nbsp;
 

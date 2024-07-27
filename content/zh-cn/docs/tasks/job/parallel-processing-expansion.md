@@ -28,7 +28,7 @@ this pattern fits more realistic use cases.
 本任务展示基于一个公共的模板运行多个{{< glossary_tooltip text="Jobs" term_id="job" >}}。
 你可以用这种方法来并行执行批处理任务。
 
-在本任务示例中，只有三个工作条目：_apple_、_banana_ 和 _cherry_。
+在本任务示例中，只有三个工作条目：**apple**、**banana** 和 **cherry**。
 示例任务处理每个条目时打印一个字符串之后结束。
 
 参考[在真实负载中使用 Job](#using-jobs-in-real-workloads)了解更适用于真实使用场景的模式。
@@ -76,7 +76,7 @@ First, download the following template of a job to a file called `job-tmpl.yaml`
 -->
 首先，将以下作业模板下载到名为 `job-tmpl.yaml` 的文件中。
 
-{{% code file="application/job/job-tmpl.yaml" %}}
+{{% code_sample file="application/job/job-tmpl.yaml" %}}
 
 ```shell
  # 使用 curl 下载 job-tmpl.yaml
@@ -101,8 +101,8 @@ variable, writing into a temporary directory named `jobs`. Run this now:
 -->
 ### 基于模板创建清单
 
-下面的 Shell 代码片段使用 `sed` 将字符串 `$ITEM` 替换为循环变量，并将结果
-写入到一个名为 `jobs` 的临时目录。
+下面的 Shell 代码片段使用 `sed` 将字符串 `$ITEM` 替换为循环变量，
+并将结果写入到一个名为 `jobs` 的临时目录。
 
 ```shell
 # 展开模板文件到多个文件中，每个文件对应一个要处理的条目
@@ -377,7 +377,7 @@ Kubernetes 接收清单文件并执行你所创建的 Job。
 kubectl delete job -l jobgroup=jobexample
 ```
 -->
-### 清理 {#cleanup-2}
+### 清理   {#cleanup-2}
 
 ```shell
 # 删除所创建的 Job
@@ -437,7 +437,7 @@ you can check on all Pods for these templated Jobs with a single command.
 {{< glossary_tooltip text="标签" term_id="label" >}}，以便能够将一个 Job
 的 Pod 与另一个 Job 的 Pod 区分开来。
 
-在本例中，每个 Job 及其 Pod 模板有一个标签: `jobgroup=jobexample`。
+在本例中，每个 Job 及其 Pod 模板有一个标签：`jobgroup=jobexample`。
 
 Kubernetes 自身对标签名 `jobgroup` 没有什么要求。
 为创建自同一模板的所有 Job 使用同一标签使得我们可以方便地同时操作组中的所有作业。

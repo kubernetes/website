@@ -3,9 +3,9 @@ layout: blog
 title: "Boosting Kubernetes container runtime observability with OpenTelemetry"
 date: 2022-12-01
 slug: runtime-observability-opentelemetry
+author: >
+  Sascha Grunert
 ---
-
-**Authors:** Sascha Grunert
 
 When speaking about observability in the cloud native space, then probably
 everyone will mention [OpenTelemetry (OTEL)][otel] at some point in the

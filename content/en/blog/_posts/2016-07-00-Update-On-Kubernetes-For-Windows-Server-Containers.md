@@ -3,6 +3,8 @@ title: " Updates to Performance and Scalability in Kubernetes 1.3 -- 2,000 node 
 date: 2016-07-07
 slug: update-on-kubernetes-for-windows-server-containers
 url: /blog/2016/07/Update-On-Kubernetes-For-Windows-Server-Containers
+author: >
+   Wojciech Tyczynski (Google)
 ---
 We are proud to announce that with the [release of version 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1-3-bridging-cloud-native-and-enterprise-workloads/), Kubernetes now supports 2000-node clusters with even better end-to-end pod startup time. The latency of our API calls are within our one-second [Service Level Objective (SLO)](https://en.wikipedia.org/wiki/Service_level_objective) and most of them are even an order of magnitude better than that. It is possible to run larger deployments than a 2,000 node cluster, but performance may be degraded and it may not meet our strict SLO.
 
@@ -99,8 +101,4 @@ Please join our community and help us build the future of Kubernetes! If you’r
 - chatting with us on our [Slack channel](https://kubernetes.slack.com/messages/sig-scale/)
 - joining the scalability [Special Interest Group](https://github.com/kubernetes/community/blob/master/README.md#special-interest-groups-sig), which meets every Thursday at 9 AM Pacific Time on this [SIG-Scale Hangout](https://plus.google.com/hangouts/_/google.com/k8scale-hangout)
 
-For more information about the Kubernetes project, visit [kubernetes.io](http://kubernetes.io/) and follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio).&nbsp;
-
-
-
-_-- Wojciech Tyczynski, Software Engineer, Google_  
+For more information about the Kubernetes project, visit [kubernetes.io](http://kubernetes.io/) and follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio).

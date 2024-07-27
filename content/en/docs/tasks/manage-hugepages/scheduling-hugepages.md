@@ -7,22 +7,52 @@ description: Configure and manage huge pages as a schedulable resource in a clus
 ---
 
 <!-- overview -->
-{{< feature-state state="stable" >}}
+{{< feature-state feature_gate_name="HugePages" >}}
 
 Kubernetes supports the allocation and consumption of pre-allocated huge pages
 by applications in a Pod. This page describes how users can consume huge pages.
 
 ## {{% heading "prerequisites" %}}
 
+Kubernetes nodes must
+[pre-allocate huge pages](https://www.kernel.org/doc/html/latest/admin-guide/mm/hugetlbpage.html)
+in order for the node to report its huge page capacity.
 
-1. Kubernetes nodes must pre-allocate huge pages in order for the node to report
-   its huge page capacity. A node can pre-allocate huge pages for multiple
-   sizes.
+A node can pre-allocate huge pages for multiple sizes, for instance,
+the following line in `/etc/default/grub` allocates `2*1GiB` of 1 GiB
+and `512*2 MiB` of 2 MiB pages:
+
+```
+GRUB_CMDLINE_LINUX="hugepagesz=1G hugepages=2 hugepagesz=2M hugepages=512"
+```
 
 The nodes will automatically discover and report all huge page resources as
 schedulable resources.
 
+When you describe the Node, you should see something similar to the following
+in the following in the `Capacity` and `Allocatable` sections:
 
+```
+Capacity:
+  cpu:                ...
+  ephemeral-storage:  ...
+  hugepages-1Gi:      2Gi
+  hugepages-2Mi:      1Gi
+  memory:             ...
+  pods:               ...
+Allocatable:
+  cpu:                ...
+  ephemeral-storage:  ...
+  hugepages-1Gi:      2Gi
+  hugepages-2Mi:      1Gi
+  memory:             ...
+  pods:               ...
+```
+
+{{< note >}}
+For dynamically allocated pages (after boot), the Kubelet needs to be restarted
+for the new allocations to be refrelected.
+{{< /note >}}
 
 <!-- steps -->
 

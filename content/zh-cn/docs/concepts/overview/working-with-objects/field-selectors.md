@@ -65,13 +65,32 @@ Error from server (BadRequest): Unable to find "ingresses" that match label sele
 ```
 
 <!--
+### List of supported fields
+
+| Kind                      | Fields                                                                                                                                                                                                                                                          |
+-->
+### 支持字段列表
+
+| 类别                       | 字段                                                                                                                                                                                                                                                            |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Pod                       | `spec.nodeName`<br>`spec.restartPolicy`<br>`spec.schedulerName`<br>`spec.serviceAccountName`<br>`spec.hostNetwork`<br>`status.phase`<br>`status.podIP`<br>`status.nominatedNodeName`                                                                            |
+| Event                     | `involvedObject.kind`<br>`involvedObject.namespace`<br>`involvedObject.name`<br>`involvedObject.uid`<br>`involvedObject.apiVersion`<br>`involvedObject.resourceVersion`<br>`involvedObject.fieldPath`<br>`reason`<br>`reportingComponent`<br>`source`<br>`type` |
+| Secret                    | `type`                                                                                                                                                                                                                                                          |
+| Namespace                 | `status.phase`                                                                                                                                                                                                                                                  |
+| ReplicaSet                | `status.replicas`                                                                                                                                                                                                                                               |
+| ReplicationController     | `status.replicas`                                                                                                                                                                                                                                               |
+| Job                       | `status.successful`                                                                                                                                                                                                                                             |
+| Node                      | `spec.unschedulable`                                                                                                                                                                                                                                            |
+| CertificateSigningRequest | `spec.signerName`                                                                                                                                                                                                                                               |
+
+<!--
 ## Supported operators
 
 You can use the `=`, `==`, and `!=` operators with field selectors (`=` and `==` mean the same thing). This `kubectl` command, for example, selects all Kubernetes Services that aren't in the `default` namespace:
 -->
 ## 支持的操作符   {#supported-operators}
 
-你可在字段选择器中使用 `=`、`==` 和 `!=` （`=` 和 `==` 的意义是相同的）操作符。
+你可在字段选择器中使用 `=`、`==` 和 `!=`（`=` 和 `==` 的意义是相同的）操作符。
 例如，下面这个 `kubectl` 命令将筛选所有不属于 `default` 命名空间的 Kubernetes 服务：
 
 ```shell

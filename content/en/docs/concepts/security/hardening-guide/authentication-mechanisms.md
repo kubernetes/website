@@ -29,7 +29,7 @@ suitable for this use-case.
 
 ## X.509 client certificate authentication {#x509-client-certificate-authentication}
 
-Kubernetes leverages [X.509 client certificate](/docs/reference/access-authn-authz/authentication/#x509-client-certs) 
+Kubernetes leverages [X.509 client certificate](/docs/reference/access-authn-authz/authentication/#x509-client-certificates) 
 authentication for system components, such as when the Kubelet authenticates to the API Server. 
 While this mechanism can also be used for user authentication, it might not be suitable for 
 production use due to several restrictions:

@@ -1,4 +1,36 @@
-<link rel="shortcut icon" type="image/png" href="{{ "images/favicon.png" | relURL }}">
-<link rel="apple-touch-icon" href="{{ "favicons/apple-touch-icon-180x180.png" | relURL }}" sizes="180x180">
-<link rel="manifest" href="/manifest.webmanifest">
-<link rel="apple-touch-icon" href="/images/kubernetes-192x192.png">
+<!-- site icons -->
+
+{{- $logo_raster := resources.Get "images/kubernetes.png" -}}
+<link rel="shortcut icon" type="image/png" href="{{ $logo_raster.RelPermalink }}" />
+
+{{- $sizes := slice 64 32 16 -}}
+{{- range $sizes -}}
+{{- $size := . }}
+{{- $favicon := $logo_raster.Fit (printf "%dx%d png" $size $size ) }}
+{{- with resources.Copy ( printf "icons/favicon-%d.png" $size ) $favicon -}}
+{{- $placed_icon := . -}}
+<link rel="icon" type="image/png" sizes="{{ printf "%dx%d" $size $size }}" href="{{ $placed_icon.RelPermalink }}" />
+{{- end -}}
+{{- end -}}
+
+{{- $sizes := slice 256 196 192 180 167 160 152 120 76 -}}
+{{- range $sizes -}}
+{{- $size := . }}
+{{- $apple_icon := $logo_raster.Fit (printf "%dx%d png" $size $size ) }}
+{{- with resources.Copy (printf "icons/apple-touch-icon-%dx%d.png" $size $size ) $apple_icon -}}
+{{- $placed_icon := . -}}
+{{- if eq . 192 -}}
+<link rel="apple-touch-icon" href="{{ $placed_icon.RelPermalink }}" />
+{{- end -}}
+<link rel="{{ printf "apple-touch-icon-%dx%d" $size $size }}" href="{{ $placed_icon.RelPermalink }}" />
+{{- end -}}
+{{- end -}}
+
+{{- $other_icon   := $logo_raster.Fit "128x128 png" }}
+{{- with resources.Copy "icons/icon-128x128.png" $other_icon -}}
+{{- $placed_icon := . -}}
+<link rel="icon" type="image/png" href="{{ $placed_icon.RelPermalink }}" sizes=128x128>
+{{- end -}}
+
+<meta name="theme-color" content="{{ index ($other_icon.Colors) 0 }}" />
+

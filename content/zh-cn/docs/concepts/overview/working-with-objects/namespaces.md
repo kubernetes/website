@@ -1,5 +1,8 @@
 ---
 title: 名字空间
+api_metadata:
+- apiVersion: "v1"
+  kind: "Namespace"
 content_type: concept
 weight: 45
 ---
@@ -9,6 +12,9 @@ reviewers:
 - mikedanese
 - thockin
 title: Namespaces
+api_metadata:
+- apiVersion: "v1"
+  kind: "Namespace"
 content_type: concept
 weight: 45
 -->
@@ -16,7 +22,7 @@ weight: 45
 <!-- overview -->
 
 <!--
-In Kubernetes, _namespaces_ provides a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced {{< glossary_tooltip text="objects" term_id="object" >}} _(e.g. Deployments, Services, etc)_ and not for cluster-wide objects _(e.g. StorageClass, Nodes, PersistentVolumes, etc)_.
+In Kubernetes, _namespaces_ provide a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced {{< glossary_tooltip text="objects" term_id="object" >}} _(e.g. Deployments, Services, etc)_ and not for cluster-wide objects _(e.g. StorageClass, Nodes, PersistentVolumes, etc.)_.
 -->
 在 Kubernetes 中，**名字空间（Namespace）** 提供一种机制，将同一集群中的资源划分为相互隔离的组。
 同一名字空间内的资源名称要唯一，但跨名字空间时没有这个要求。
@@ -80,7 +86,7 @@ Kubernetes starts with four initial namespaces:
 : Kubernetes includes this namespace so that you can start using your new cluster without first creating a namespace.
 
 `kube-node-lease`
-: This namespace holds [Lease](/docs/concepts/architecture/leases/) objects associated with each node. Node leases allow the kubelet to send [heartbeats](/docs/concepts/architecture/nodes/#heartbeats) so that the control plane can detect node failure.
+: This namespace holds [Lease](/docs/concepts/architecture/leases/) objects associated with each node. Node leases allow the kubelet to send [heartbeats](/docs/concepts/architecture/nodes/#node-heartbeats) so that the control plane can detect node failure.
 
 `kube-public`
 : This namespace is readable by *all* clients (including those not authenticated). This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. The public aspect of this namespace is only a convention, not a requirement.
@@ -95,7 +101,7 @@ Kubernetes 启动时会创建四个初始名字空间：
 
 `kube-node-lease`
 : 该名字空间包含用于与各个节点关联的 [Lease（租约）](/zh-cn/docs/concepts/architecture/leases/)对象。
-  节点租约允许 kubelet 发送[心跳](/zh-cn/docs/concepts/architecture/nodes/#heartbeats)，
+  节点租约允许 kubelet 发送[心跳](/zh-cn/docs/concepts/architecture/nodes/#node-heartbeats)，
   由此控制面能够检测到节点故障。
 
 `kube-public`

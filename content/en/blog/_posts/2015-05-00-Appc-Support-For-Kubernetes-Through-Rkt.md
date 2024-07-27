@@ -3,6 +3,8 @@ title: " AppC Support for Kubernetes through RKT "
 date: 2015-05-04
 slug: appc-support-for-kubernetes-through-rkt
 url: /blog/2015/05/Appc-Support-For-Kubernetes-Through-Rkt
+author: >
+   Craig McLuckie (Google)
 ---
 We very recently accepted a pull request to the Kubernetes project to add appc support for the Kubernetes community. &nbsp;Appc is a new open container specification that was initiated by CoreOS, and is supported through CoreOS rkt container runtime.
 
@@ -21,6 +23,3 @@ Docker has done an amazing job of democratizing container technologies and makin
 
 
 The really nice thing is that with Kubernetes you can now pick the container runtime that works best for you based on your workloads’ needs, change runtimes without having the replace your cluster environment, or even mix together applications where different parts are running in different container runtimes in the same cluster. &nbsp;Additional choices can’t help but ultimately benefit the end developer.
-
--- Craig McLuckie  
-Google Product Manager and Kubernetes co-founder  

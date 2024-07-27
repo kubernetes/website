@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.25: CSI Inline Volumes have graduated to GA"
 date: 2022-08-29
 slug: csi-inline-volumes-ga
+author: >
+  Jonathan Dobson (Red Hat)
 ---
-
-**Author:** Jonathan Dobson (Red Hat)
 
 CSI Inline Volumes were introduced as an alpha feature in Kubernetes 1.15 and have been beta since 1.16. We are happy to announce that this feature has graduated to General Availability (GA) status in Kubernetes 1.25.
 

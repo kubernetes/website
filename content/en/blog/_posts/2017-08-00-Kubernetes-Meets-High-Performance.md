@@ -3,8 +3,9 @@ title: " Kubernetes Meets High-Performance Computing "
 date: 2017-08-22
 slug: kubernetes-meets-high-performance
 url: /blog/2017/08/Kubernetes-Meets-High-Performance
+author: >
+   Robert Lalonde (Univa) 
 ---
-Editor's note: today's post is by Robert Lalonde, general manager at Univa, on supporting mixed HPC and containerized applications &nbsp;
 
 Anyone who has worked with Docker can appreciate the enormous gains in efficiency achievable with containers. While Kubernetes excels at orchestrating containers, high-performance computing (HPC) applications can be tricky to deploy on Kubernetes.
 

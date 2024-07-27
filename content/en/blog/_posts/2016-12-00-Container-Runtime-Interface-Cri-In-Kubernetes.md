@@ -3,8 +3,10 @@ title: " Introducing Container Runtime Interface (CRI) in Kubernetes "
 date: 2016-12-19
 slug: container-runtime-interface-cri-in-kubernetes
 url: /blog/2016/12/Container-Runtime-Interface-Cri-In-Kubernetes
+author: >
+  Yu-Ju Hong (Google)
 ---
-_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/12/five-days-of-kubernetes-1-5/) on what's new in Kubernetes 1.5_
+_**Editor's note:** this post is part of a [series of in-depth articles](/blog/2016/12/five-days-of-kubernetes-1-5/) on what's new in Kubernetes 1.5_
 
 
 At the lowest layers of a Kubernetes node is the software that, among other things, starts and stops containers. We call this the “Container Runtime”. The most widely known container runtime is Docker, but it is not alone in this space. In fact, the container runtime space has been rapidly evolving. As part of the effort to make Kubernetes more extensible, we've been working on a new plugin API for container runtimes in Kubernetes, called "CRI".
@@ -219,9 +221,3 @@ CRI is being actively developed and maintained by the Kubernetes [SIG-Node](http
 - Join the #sig-node channel on [Slack](https://kubernetes.slack.com/)
 - Subscribe to the [SIG-Node mailing list](mailto:kubernetes-sig-node@googlegroups.com)
 - Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates
-
-
-
-
-
-_--Yu-Ju Hong, Software Engineer, Google_

@@ -3,8 +3,10 @@ title: " Kubernetes supports OpenAPI "
 date: 2016-12-23
 slug: kubernetes-supports-openapi
 url: /blog/2016/12/Kubernetes-Supports-Openapi
+author: >
+  Mehdy Bohlool (Google)
 ---
-_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/12/five-days-of-kubernetes-1-5/) on what's new in Kubernetes 1.5_
+_**Editor's note:** this post is part of a [series of in-depth articles](/blog/2016/12/five-days-of-kubernetes-1-5/) on what's new in Kubernetes 1.5_
 
 [OpenAPI](https://www.openapis.org/) allows API providers to define their operations and models, and enables developers to automate their tools and generate their favorite language’s client to talk to that API server. Kubernetes has supported swagger 1.2 (older version of OpenAPI spec) for a while, but the spec was incomplete and invalid, making it hard to generate tools/clients based on it.   
 
@@ -185,7 +187,6 @@ If you want to get involved in development of OpenAPI support, client libraries,
 
 
 
-_--Mehdy Bohlool, Software Engineer, Google_
 
 
 

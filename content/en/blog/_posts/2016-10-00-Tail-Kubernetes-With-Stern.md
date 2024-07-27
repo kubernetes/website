@@ -3,8 +3,9 @@ title: " Tail Kubernetes with Stern "
 date: 2016-10-31
 slug: tail-kubernetes-with-stern
 url: /blog/2016/10/Tail-Kubernetes-With-Stern
+author: >
+  Antti Kupila (Wercker)
 ---
-_Editor’s note: today’s post is by Antti Kupila, Software Engineer, at Wercker, about building a tool to tail multiple pods and containers on Kubernetes._  
 
 We love Kubernetes here at [Wercker](http://wercker.com/) and build all our infrastructure on top of it. When deploying anything you need to have good visibility to what's going on and logs are a first view into the inner workings of your application. Good old tail -f has been around for a long time and Kubernetes has this too, built right into [kubectl](/docs/user-guide/kubectl-overview/).  
 

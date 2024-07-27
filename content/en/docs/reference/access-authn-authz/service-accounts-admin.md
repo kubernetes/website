@@ -1,9 +1,7 @@
 ---
 reviewers:
-  - bprashanth
-  - davidopp
-  - lavalamp
   - liggitt
+  - enj
 title: Managing Service Accounts
 content_type: concept
 weight: 50
@@ -62,9 +60,105 @@ for a number of reasons:
   without many constraints and have namespaced names, such configuration is
   usually portable.
 
+## Bound service account tokens
+
+ServiceAccount tokens can be bound to API objects that exist in the kube-apiserver.
+This can be used to tie the validity of a token to the existence of another API object.
+Supported object types are as follows:
+
+* Pod (used for projected volume mounts, see below)
+* Secret (can be used to allow revoking a token by deleting the Secret)
+* Node (in v1.30, creating new node-bound tokens is alpha, using existing node-bound tokens is beta)
+
+When a token is bound to an object, the object's `metadata.name` and `metadata.uid` are
+stored as extra 'private claims' in the issued JWT.
+
+When a bound token is presented to the kube-apiserver, the service account authenticator
+will extract and verify these claims.
+If the referenced object no longer exists (or its `metadata.uid` does not match),
+the request will not be authenticated.
+
+### Additional metadata in Pod bound tokens
+
+{{< feature-state feature_gate_name="ServiceAccountTokenPodNodeInfo" >}}
+
+When a service account token is bound to a Pod object, additional metadata is also
+embedded into the token that indicates the value of the bound pod's `spec.nodeName` field,
+and the uid of that Node, if available.
+
+This node information is **not** verified by the kube-apiserver when the token is used for authentication.
+It is included so integrators do not have to fetch Pod or Node API objects to check the associated Node name
+and uid when inspecting a JWT.
+
+### Verifying and inspecting private claims
+
+The `TokenReview` API can be used to verify and extract private claims from a token:
+
+1. First, assume you have a pod named `test-pod` and a service account named `my-sa`.
+2. Create a token that is bound to this Pod:
+
+```shell
+kubectl create token my-sa --bound-object-kind="Pod" --bound-object-name="test-pod"
+```
+
+3. Copy this token into a new file named `tokenreview.yaml`:
+
+```yaml
+apiVersion: authentication.k8s.io/v1
+kind: TokenReview
+spec:
+  token: <token from step 2>
+```
+
+4. Submit this resource to the apiserver for review:
+
+```shell
+kubectl create -o yaml -f tokenreview.yaml # we use '-o yaml' so we can inspect the output
+```
+
+You should see an output like below:
+
+```yaml
+apiVersion: authentication.k8s.io/v1
+kind: TokenReview
+metadata:
+  creationTimestamp: null
+spec:
+  token: <token>
+status:
+  audiences:
+  - https://kubernetes.default.svc.cluster.local
+  authenticated: true
+  user:
+    extra:
+      authentication.kubernetes.io/credential-id:
+      - JTI=7ee52be0-9045-4653-aa5e-0da57b8dccdc
+      authentication.kubernetes.io/node-name:
+      - kind-control-plane
+      authentication.kubernetes.io/node-uid:
+      - 497e9d9a-47aa-4930-b0f6-9f2fb574c8c6
+      authentication.kubernetes.io/pod-name:
+      - test-pod
+      authentication.kubernetes.io/pod-uid:
+      - e87dbbd6-3d7e-45db-aafb-72b24627dff5
+    groups:
+    - system:serviceaccounts
+    - system:serviceaccounts:default
+    - system:authenticated
+    uid: f8b4161b-2e2b-11e9-86b7-2afc33b31a7e
+    username: system:serviceaccount:default:my-sa
+```
+
+{{< note >}}
+Despite using `kubectl create -f` to create this resource, and defining it similar to
+other resource types in Kubernetes, TokenReview is a special type and the kube-apiserver
+does not actually persist the TokenReview object into etcd.
+Hence `kubectl get tokenreview` is not a valid command.
+{{< /note >}}
+
 ## Bound service account token volume mechanism {#bound-service-account-token-volume}
 
-{{< feature-state for_k8s_version="v1.22" state="stable" >}}
+{{< feature-state feature_gate_name="BoundServiceAccountTokenVolume" >}}
 
 By default, the Kubernetes control plane (specifically, the
 [ServiceAccount admission controller](#serviceaccount-admission-controller)) 
@@ -140,6 +234,62 @@ using [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/tok
 to obtain short-lived API access tokens is recommended instead.
 {{< /note >}}
 
+## Auto-generated legacy ServiceAccount token clean up {#auto-generated-legacy-serviceaccount-token-clean-up}
+
+Before version 1.24, Kubernetes automatically generated Secret-based tokens for
+ServiceAccounts. To distinguish between automatically generated tokens and
+manually created ones, Kubernetes checks for a reference from the
+ServiceAccount's secrets field. If the Secret is referenced in the `secrets`
+field, it is considered an auto-generated legacy token. Otherwise, it is
+considered a manually created legacy token. For example:
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: build-robot
+  namespace: default
+secrets:
+  - name: build-robot-secret # usually NOT present for a manually generated token                         
+```
+
+Beginning from version 1.29, legacy ServiceAccount tokens that were generated
+automatically will be marked as invalid if they remain unused for a certain
+period of time (set to default at one year). Tokens that continue to be unused
+for this defined period (again, by default, one year) will subsequently be
+purged by the control plane.
+
+If users use an invalidated auto-generated token, the token validator will
+
+1. add an audit annotation for the key-value pair
+  `authentication.k8s.io/legacy-token-invalidated: <secret name>/<namespace>`,
+1. increment the `invalid_legacy_auto_token_uses_total` metric count,
+1. update the Secret label `kubernetes.io/legacy-token-last-used` with the new
+   date,
+1. return an error indicating that the token has been invalidated.
+
+When receiving this validation error, users can update the Secret to remove the
+`kubernetes.io/legacy-token-invalid-since` label to temporarily allow use of
+this token.
+
+Here's an example of an auto-generated legacy token that has been marked with the
+`kubernetes.io/legacy-token-last-used` and `kubernetes.io/legacy-token-invalid-since`
+labels:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: build-robot-secret
+  namespace: default
+  labels:
+    kubernetes.io/legacy-token-last-used: 2022-10-24
+    kubernetes.io/legacy-token-invalid-since: 2023-10-25
+  annotations:
+    kubernetes.io/service-account.name: build-robot
+type: kubernetes.io/service-account-token
+```
+
 ## Control plane details
 
 ### ServiceAccount controller
@@ -192,6 +342,51 @@ it does the following when a Pod is created:
      on Windows nodes, the mount is at the equivalent path.
 1. If the spec of the incoming Pod doesn't already contain any `imagePullSecrets`, then the
    admission controller adds `imagePullSecrets`, copying them from the `ServiceAccount`.
+
+### Legacy ServiceAccount token tracking controller
+
+{{< feature-state feature_gate_name="LegacyServiceAccountTokenTracking" >}}
+
+This controller generates a ConfigMap called
+`kube-system/kube-apiserver-legacy-service-account-token-tracking` in the
+`kube-system` namespace. The ConfigMap records the timestamp when legacy service
+account tokens began to be monitored by the system.
+
+### Legacy ServiceAccount token cleaner
+
+{{< feature-state feature_gate_name="LegacyServiceAccountTokenCleanUp" >}}
+
+The legacy ServiceAccount token cleaner runs as part of the
+`kube-controller-manager` and checks every 24 hours to see if any auto-generated
+legacy ServiceAccount token has not been used in a *specified amount of time*.
+If so, the cleaner marks those tokens as invalid.
+
+The cleaner works by first checking the ConfigMap created by the control plane
+(provided that `LegacyServiceAccountTokenTracking` is enabled). If the current
+time is a *specified amount of time* after the date in the ConfigMap, the
+cleaner then loops through the list of Secrets in the cluster and evaluates each
+Secret that has the type `kubernetes.io/service-account-token`.
+
+If a Secret meets all of the following conditions, the cleaner marks it as
+invalid:
+
+- The Secret is auto-generated, meaning that it is bi-directionally referenced
+  by a ServiceAccount.
+- The Secret is not currently mounted by any pods.
+- The Secret has not been used in a *specified amount of time* since it was
+  created or since it was last used.
+
+The cleaner marks a Secret invalid by adding a label called
+`kubernetes.io/legacy-token-invalid-since` to the Secret, with the current date
+as the value. If an invalid Secret is not used in a *specified amount of time*,
+the cleaner will delete it.
+
+{{< note >}}
+All the *specified amount of time* above defaults to one year. The cluster
+administrator can configure this value through the
+`--legacy-service-account-token-clean-up-period` command line argument for the
+`kube-controller-manager` component.
+{{< /note >}}
 
 ### TokenRequest API
 
@@ -300,6 +495,12 @@ token:          ...
 If you launch a new Pod into the `examplens` namespace, it can use the `myserviceaccount`
 service-account-token Secret that you just created.
 
+{{< caution >}}
+Do not reference manually created Secrets in the `secrets` field of a
+ServiceAccount. Or the manually created Secrets will be cleaned if it is not used for a long
+time. Please refer to [auto-generated legacy ServiceAccount token clean up](#auto-generated-legacy-serviceaccount-token-clean-up).
+{{< /caution >}}
+
 ## Delete/invalidate a ServiceAccount token {#delete-token}
 
 If you know the name of the Secret that contains the token you want to remove:
@@ -338,30 +539,6 @@ Then, delete the Secret you now know the name of:
 
 ```shell
 kubectl -n examplens delete secret/example-automated-thing-token-zyxwv
-```
-
-The control plane spots that the ServiceAccount is missing its Secret,
-and creates a replacement:
-
-```shell
-kubectl -n examplens get serviceaccount/example-automated-thing -o yaml
-```
-
-```yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"v1","kind":"ServiceAccount","metadata":{"annotations":{},"name":"example-automated-thing","namespace":"examplens"}}
-  creationTimestamp: "2019-07-21T07:07:07Z"
-  name: example-automated-thing
-  namespace: examplens
-  resourceVersion: "1026"
-  selfLink: /api/v1/namespaces/examplens/serviceaccounts/example-automated-thing
-  uid: f23fd170-66f2-4697-b049-e1e266b7f835
-secrets:
-  - name: example-automated-thing-token-4rdrh
 ```
 
 ## Clean up

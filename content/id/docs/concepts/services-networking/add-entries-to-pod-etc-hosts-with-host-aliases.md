@@ -68,7 +68,7 @@ Selain _boilerplate default_, kita dapat menambahkan entri pada berkas
 `bar.remote` pada `10.1.2.3`, kita dapat melakukannya dengan cara menambahkan
 HostAliases pada Pod di bawah _field_ `.spec.hostAliases`:
 
-{{< codenew file="service/networking/hostaliases-pod.yaml" >}}
+{{% codenew file="service/networking/hostaliases-pod.yaml" %}}
 
 Pod ini kemudian dapat dihidupkan dengan perintah berikut:
 

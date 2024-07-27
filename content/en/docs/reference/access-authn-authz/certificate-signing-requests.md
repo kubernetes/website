@@ -5,8 +5,14 @@ reviewers:
 - munnerz
 - enj
 title: Certificates and Certificate Signing Requests
+api_metadata:
+- apiVersion: "certificates.k8s.io/v1"
+  kind: "CertificateSigningRequest"
+  override_link_text: "CSR v1"
+- apiVersion: "certificates.k8s.io/v1alpha1"
+  kind: "ClusterTrustBundle"  
 content_type: concept
-weight: 25
+weight: 60
 ---
 
 <!-- overview -->
@@ -25,7 +31,8 @@ There is also experimental (alpha) support for distributing [trust bundles](#clu
 {{< feature-state for_k8s_version="v1.19" state="stable" >}}
 
 
-A CertificateSigningRequest (CSR) resource is used to request that a certificate be signed
+A [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)
+(CSR) resource is used to request that a certificate be signed
 by a denoted signer, after which the request may be approved or denied before
 finally being signed.
 
@@ -165,7 +172,7 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
    May be auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
    1. Trust distribution: signed certificates must be honored as client certificates by the API server. The CA bundle
       is not distributed by any other means.
-   1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
+   1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name is "`system:node:${NODE_NAME}`".
    1. Permitted x509 extensions - honors key usage extensions, forbids subjectAltName extensions and drops other extensions.
    1. Permitted key usages - `["key encipherment", "digital signature", "client auth"]` or `["digital signature", "client auth"]`.
    1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
@@ -177,7 +184,7 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
    Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
    1. Trust distribution: signed certificates must be honored by the API server as valid to terminate connections to a kubelet.
       The CA bundle is not distributed by any other means.
-   1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
+   1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name is "`system:node:${NODE_NAME}`".
    1. Permitted x509 extensions - honors key usage and DNSName/IPAddress subjectAltName extensions, forbids EmailAddress and
       URI subjectAltName extensions, drops other extensions. At least one DNS or IP subjectAltName must be present.
    1. Permitted key usages - `["key encipherment", "digital signature", "server auth"]` or `["digital signature", "server auth"]`.
@@ -371,7 +378,7 @@ you like. If you want to add a note for human consumption, use the
 {{< feature-state for_k8s_version="v1.27" state="alpha" >}}
 
 {{< note >}}
-In Kubernetes {{< skew currentVersion >}}, you must enable the `ClusterTrustBundles`
+In Kubernetes {{< skew currentVersion >}}, you must enable the `ClusterTrustBundle`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 _and_ the `certificates.k8s.io/v1alpha1`
 {{< glossary_tooltip text="API group" term_id="api-group" >}} in order to use
@@ -438,7 +445,7 @@ controller in the cluster, so they have several security features:
   `<signerNameDomain>/*`.
 * Signer-linked ClusterTrustBundles **must** be named with a prefix derived from
   their `spec.signerName` field.  Slashes (`/`) are replaced with colons (`:`),
-  and a final colon is appended.  This is followed by an arbitary name.  For
+  and a final colon is appended.  This is followed by an arbitrary name.  For
   example, the signer `example.com/mysigner` can be linked to a
   ClusterTrustBundle `example.com:mysigner:<arbitrary-name>`.
 
@@ -472,6 +479,12 @@ such as role-based access control.
 To distinguish them from signer-linked ClusterTrustBundles, the names of
 signer-unlinked ClusterTrustBundles **must not** contain a colon (`:`).
 
+### Accessing ClusterTrustBundles from pods {#ctb-projection}
+
+{{<feature-state for_k8s_version="v1.29" state="alpha" >}}
+
+The contents of ClusterTrustBundles can be injected into the container filesystem, similar to ConfigMaps and Secrets.  See the [clusterTrustBundle projected volume source](/docs/concepts/storage/projected-volumes#clustertrustbundle) for more details.
+
 <!-- TODO this should become a task page -->
 ## How to issue a certificate for a user {#normal-user}
 
@@ -493,7 +506,9 @@ openssl req -new -key myuser.key -out myuser.csr -subj "/CN=myuser"
 
 ### Create a CertificateSigningRequest {#create-certificatessigningrequest}
 
-Create a CertificateSigningRequest and submit it to a Kubernetes Cluster via kubectl. Below is a script to generate the CertificateSigningRequest.
+Create a [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)
+and submit it to a Kubernetes Cluster via kubectl. Below is a script to generate the
+CertificateSigningRequest.
 
 ```shell
 cat <<EOF | kubectl apply -f -
@@ -602,3 +617,5 @@ kubectl config use-context myuser
 * View the source code for the kube-controller-manager built in [approver](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/approver/sarapprove.go)
 * For details of X.509 itself, refer to [RFC 5280](https://tools.ietf.org/html/rfc5280#section-3.1) section 3.1
 * For information on the syntax of PKCS#10 certificate signing requests, refer to [RFC 2986](https://tools.ietf.org/html/rfc2986)
+* Read about the ClusterTrustBundle API:
+  * {{< page-api-reference kind="ClusterTrustBundle" >}}

@@ -3,11 +3,11 @@ layout: blog
 title: "Kubernetes 2018 North American Contributor Summit"
 date: 2018-10-16
 evergreen: true
+author: >
+  Bob Killen (University of Michigan),
+  Sahdev Zala (IBM),
+  Ihor Dvoretskyi (CNCF) 
 ---
-
-**Authors:**
-[Bob Killen][bob] (University of Michigan), [Sahdev Zala][sahdev] (IBM), [Ihor Dvoretskyi][ihor] (CNCF)
-
 
 The 2018 North American Kubernetes Contributor Summit to be hosted right before
 [KubeCon + CloudNativeCon][kubecon] Seattle is shaping up to be the largest yet.

@@ -231,7 +231,7 @@ flowchart LR
 subgraph changes[你的变更]
 direction TB
 S[ ] -.-
-3[创建一个分支<br>例如: my_new_branch] --> 3a[使用文本编辑器<br>进行修改] --> 4["使用 Hugo 在本地<br>预览你的变更<br>(localhost:1313)<br>或构建容器镜像"]
+3[创建一个分支<br>例如：my_new_branch] --> 3a[使用文本编辑器<br>进行修改] --> 4["使用 Hugo 在本地<br>预览你的变更<br>(localhost:1313)<br>或构建容器镜像"]
 end
 subgraph changes2[提交 / 推送]
 direction TB
@@ -592,10 +592,14 @@ Alternately, install and use the `hugo` command on your computer:
 ### 从你的克隆副本向 kubernetes/website 发起拉取请求（PR）   {#open-a-pr}
 
 <!-- 
-Figure 3 shows the steps to open a PR from your fork to the kubernetes/website. The details follow.
+Figure 3 shows the steps to open a PR from your fork to the [kubernetes/website](https://github.com/kubernetes/website). The details follow.
+
+Please, note that contributors can mention `kubernetes/website` as `k/website`.
 -->
 图 3 显示了从你的克隆副本向 kubernetes/website 发起 PR 的步骤。
 详细信息如下。
+
+请注意，贡献者可以将 `kubernetes/website` 称为 `k/website`。
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -1055,4 +1059,3 @@ possible when you file issues or PRs.
 - Read [Reviewing](/docs/contribute/review/reviewing-prs) to learn more about the review process.
 -->
 - 阅读[评阅](/zh-cn/docs/contribute/review/reviewing-prs)节，学习评阅过程。
-

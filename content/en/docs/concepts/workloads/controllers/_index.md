@@ -1,5 +1,5 @@
 ---
-title: "Workload Resources"
+title: "Workload Management"
 weight: 20
 simple_list: true
 ---

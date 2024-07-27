@@ -81,7 +81,7 @@ Kubeadmはクラスター内の全ノードで同じ`KubeletConfiguration`を使
 - `kubectl edit cm kubelet-config-x.yy -n kube-system`を呼び出します(`x.yy`はKubernetesのバージョンに置き換えてください)。
 - 既存の`cgroupDriver`の値を修正するか、以下のような新しいフィールドを追加します。
 
-``yaml
+```yaml
   cgroupDriver: systemd
 ```
 

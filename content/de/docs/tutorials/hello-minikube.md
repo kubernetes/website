@@ -2,12 +2,6 @@
 title: Hallo Minikube
 content_type: tutorial
 weight: 5
-menu:
-  main:
-    title: "Loslegen"
-    weight: 10
-    post: >
-      <p>Sind Sie bereit, Ihre Hände schmutzig zu machen? Erstellen Sie einen einfachen Kubernetes-Cluster, auf dem "Hallo Welt" für Node.js ausgeführt wird.</p>
 card:
   name: tutorials
   weight: 10

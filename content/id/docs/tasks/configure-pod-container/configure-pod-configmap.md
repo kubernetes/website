@@ -467,7 +467,7 @@ configmap/special-config-2-c92b5mmcf2 created
 
 2.  Memberikan nilai `special.how` yang sudah terdapat pada ConfigMap pada variabel _environment_ `SPECIAL_LEVEL_KEY` di spesifikasi Pod.
 
-   {{< codenew file="pods/pod-single-configmap-env-variable.yaml" >}}
+   {{% codenew file="pods/pod-single-configmap-env-variable.yaml" %}}
 
    Buat Pod:
 
@@ -481,7 +481,7 @@ configmap/special-config-2-c92b5mmcf2 created
 
  * Seperti pada contoh sebelumnya, buat ConfigMap terlebih dahulu.
 
-   {{< codenew file="configmap/configmaps.yaml" >}}
+   {{% codenew file="configmap/configmaps.yaml" %}}
 
    Buat ConfigMap:
 
@@ -491,7 +491,7 @@ configmap/special-config-2-c92b5mmcf2 created
 
 * Tentukan variabel _environment_ pada spesifikasi Pod.
 
-  {{< codenew file="pods/pod-multiple-configmap-env-variable.yaml" >}}
+  {{% codenew file="pods/pod-multiple-configmap-env-variable.yaml" %}}
 
   Buat Pod:
 
@@ -509,7 +509,7 @@ Fungsi ini tersedia pada Kubernetes v1.6 dan selanjutnya.
 
 * Buat ConfigMap yang berisi beberapa pasangan kunci-nilai.
 
-  {{< codenew file="configmap/configmap-multikeys.yaml" >}}
+  {{% codenew file="configmap/configmap-multikeys.yaml" %}}
 
   Buat ConfigMap:
 
@@ -519,7 +519,7 @@ Fungsi ini tersedia pada Kubernetes v1.6 dan selanjutnya.
 
 * Gunakan `envFrom` untuk menentukan seluruh data pada ConfigMap sebagai variabel _environment_ kontainer. Kunci dari ConfigMap akan menjadi nama variabel _environment_ di dalam Pod.
 
- {{< codenew file="pods/pod-configmap-envFrom.yaml" >}}
+ {{% codenew file="pods/pod-configmap-envFrom.yaml" %}}
 
  Buat Pod:
 
@@ -536,7 +536,7 @@ Kamu dapat menggunakan variabel _environment_ yang ditentukan ConfigMap pada bag
 
 Sebagai contoh, spesifikasi Pod berikut
 
-{{< codenew file="pods/pod-configmap-env-var-valueFrom.yaml" >}}
+{{% codenew file="pods/pod-configmap-env-var-valueFrom.yaml" %}}
 
 dibuat dengan menjalankan
 
@@ -545,6 +545,9 @@ kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-env-var-valu
 ```
 
 menghasilkan keluaran pada kontainer `test-container` seperti berikut:
+```shell
+kubectl logs dapi-test-pod
+```
 
 ```shell
 very charm
@@ -556,7 +559,7 @@ Seperti yang sudah dijelaskan pada [Membuat ConfigMap dari berkas](#membuat-conf
 
 Contoh pada bagian ini merujuk pada ConfigMap bernama `special-config`, Seperti berikut.
 
-{{< codenew file="configmap/configmap-multikeys.yaml" >}}
+{{% codenew file="configmap/configmap-multikeys.yaml" %}}
 
 Buat ConfigMap:
 
@@ -570,7 +573,7 @@ Tambahkan nama ConfigMap di bawah bagian `volumes` pada spesifikasi Pod.
 Hal ini akan menambahkan data ConfigMap pada direktori yang ditentukan oleh `volumeMounts.mountPath` (pada kasus ini, `/etc/config`).
 Bagian `command` berisi daftar berkas pada direktori dengan nama-nama yang sesuai dengan kunci-kunci pada ConfigMap.
 
-{{< codenew file="pods/pod-configmap-volume.yaml" >}}
+{{% codenew file="pods/pod-configmap-volume.yaml" %}}
 
 Buat Pod:
 
@@ -594,7 +597,7 @@ Jika ada beberapa berkas pada direktori `/etc/config/`, berkas-berkas tersebut a
 Gunakan kolom `path` untuk menentukan jalur berkas yang diinginkan untuk butir tertentu pada ConfigMap (butir ConfigMap tertentu).
 Pada kasus ini, butir `SPECIAL_LEVEL` akan akan dipasangkan sebagai `config-volume` pada `/etc/config/keys`.
 
-{{< codenew file="pods/pod-configmap-volume-specific-key.yaml" >}}
+{{% codenew file="pods/pod-configmap-volume-specific-key.yaml" %}}
 
 Buat Pod:
 

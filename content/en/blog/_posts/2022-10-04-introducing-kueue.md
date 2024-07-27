@@ -3,9 +3,10 @@ layout: blog
 title: "Introducing Kueue"
 date: 2022-10-04
 slug: introducing-kueue
+author: >
+  Abdullah Gharaibeh (Google),
+  Aldo Culquicondor (Google)
 ---
-
-**Authors:** Abdullah Gharaibeh (Google), Aldo Culquicondor (Google)
 
 Whether on-premises or in the cloud, clusters face real constraints for resource usage, quota, and cost management reasons. Regardless of the autoscalling capabilities, clusters have finite capacity.  As a result, users want an easy way to fairly and 
 efficiently share resources. 

@@ -20,6 +20,20 @@ The annotations apply to audit events. Audit events are different from objects i
 
 <!-- body -->
 
+## k8s.io/deprecated
+
+Example: `k8s.io/deprecated: "true"`
+
+Value **must** be "true" or "false". The value "true" indicates that the
+request used a deprecated API version.
+
+## k8s.io/removed-release
+
+Example: `k8s.io/removed-release: "1.22"`
+
+Value **must** be in the format "<major>.<minor>". It is set to target the removal release
+on requests made to deprecated API versions with a target removal release.
+
 ## pod-security.kubernetes.io/exempt
 
 Example: `pod-security.kubernetes.io/exempt: namespace`
@@ -115,7 +129,7 @@ Example: `validation.policy.admission.k8s.io/validation_failure: '[{"message": "
 
 Used by Kubernetes version v1.27 and later.
 
-This annotation indicates that a admission policy validation evaluted to false
+This annotation indicates that a admission policy validation evaluated to false
 for an API request, or that the validation resulted in an error while the policy
 was configured with `failurePolicy: Fail`.
 

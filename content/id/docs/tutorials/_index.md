@@ -50,7 +50,7 @@ Sebelum melangkah lebih lanjut ke tutorial, sebaiknya tandai dulu halaman [Kamus
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/)
 
-* [seccomp](/docs/tutorials/clusters/seccomp/)
+* [Seccomp](/docs/tutorials/clusters/seccomp/)
 
 ## Servis
 
