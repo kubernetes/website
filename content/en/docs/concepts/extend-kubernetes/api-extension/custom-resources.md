@@ -161,8 +161,9 @@ The [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/cu
 API resource allows you to define custom resources.
 Defining a CRD object creates a new custom resource with a name and schema that you specify.
 The Kubernetes API serves and handles the storage of your custom resource.
-The name of a CRD object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+The name of the CRD object itself must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) derived from the defined resource name and its API group; see [how to create a CRD](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions#create-a-customresourcedefinition) for more details.
+Further, the name of an object whose kind/resource is defined by a CRD must also be a valid DNS subdomain name.
 
 This frees you from writing your own API server to handle the custom resource,
 but the generic nature of the implementation means you have less flexibility than with
@@ -223,6 +224,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
 | strategic-merge-patch | The new endpoints support PATCH with `Content-Type: application/strategic-merge-patch+json`. Useful for updating objects that may be modified both locally, and by the server. For more information, see ["Update API Objects in Place Using kubectl patch"](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/) | No | Yes |
 | Protocol Buffers | The new resource supports clients that want to use Protocol Buffers | No | Yes |
 | OpenAPI Schema | Is there an OpenAPI (swagger) schema for the types that can be dynamically fetched from the server? Is the user protected from misspelling field names by ensuring only allowed fields are set? Are types enforced (in other words, don't put an `int` in a `string` field?) | Yes, based on the [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) schema (GA in 1.16). | Yes |
+| Instance Name | Does this extension mechanism impose any constraints on the names of objects whose kind/resource is defined this way? | Yes, such an object's name must be a valid DNS subdomain name. | No |
 
 ### Common Features
 
