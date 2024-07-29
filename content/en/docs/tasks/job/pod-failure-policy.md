@@ -28,9 +28,6 @@ You should already be familiar with the basic use of [Job](/docs/concepts/worklo
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-Ensure that the [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-`PodDisruptionConditions` and `JobPodFailurePolicy` are both enabled in your cluster.
-
 ## Using Pod failure policy to avoid unnecessary Pod retries
 
 With the following example, you can learn how to use Pod failure policy to
