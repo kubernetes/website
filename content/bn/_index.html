@@ -1,0 +1,65 @@
+---
+title: "প্রোডাকশন-গ্রেড কন্টেইনার অর্কেস্ট্রেশন"
+abstract: "স্বয়ংক্রিয় কন্টেইনার ডিপ্লয়মেন্ট, স্কেলিং এবং ব্যবস্থাপনা"
+cid: home
+sitemap:
+  priority: 1.0
+---
+
+{{< site-searchbar >}}
+
+{{< blocks/section id="oceanNodes" >}}
+{{% blocks/feature image="flower" %}}
+[কুবারনেটিস]({{< relref "/docs/concepts/overview/" >}}), K8s নামেও পরিচিত, কনটেইনারাইজড অ্যাপ্লিকেশনের স্বয়ংক্রিয় ডিপ্লয়মেন্ট, স্কেলিং এবং পরিচালনার জন্য একটি ওপেন-সোর্স সিস্টেম।
+
+এটি সহজ ব্যবস্থাপনা এবং আবিষ্কারের জন্য লজিক্যাল ইউনিটে একটি অ্যাপ্লিকেশন তৈরি করে এমন কন্টেইনারগুলিকে গোষ্ঠীভুক্ত করে। কুবারনেটিস [Google-এ প্রোডাকশন ওয়ার্কলোড চালানোর 15 বছরের অভিজ্ঞতার ভিত্তিতে](http://queue.acm.org/detail.cfm?id=2898444) তৈরি করে, কমিউনিটির সেরা ধারণা এবং অনুশীলনের সাথে মিলিত ভাবে।
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+#### বিশ্বব্যাপী স্কেল
+
+Google সপ্তাহে বিলিয়ন কন্টেইনার চালানোর জন্য যে নীতিতে ডিজাইন প্রয়োগ করে, সেই একই নীতিতে কুবারনেটিস ডিজাইন করা হয়, ফলস্বরূপ কুবারনেটিস ব্যবহারকারীরা অপারেশন টিম না বাড়িয়ে স্কেল করতে পারে।
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+#### কখনই আউটগ্রো করবে না
+
+স্থানীয়ভাবে পরীক্ষা করা হোক বা বিশ্বব্যাপী এন্টারপ্রাইজ চালানো হোক না কেন, আপনার প্রয়োজনীয়তা যত জটিলই হোক না কেন আপনার অ্যাপ্লিকেশনগুলিকে ধারাবাহিকভাবে এবং সহজে সরবরাহ করতে কুবারনেটিসের নমনীয়তা আপনার সাথে বৃদ্ধি পায়।
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+#### যে কোন জায়গায় K8s চালান
+
+কুবারনেটিস হল ওপেন সোর্স যা আপনাকে অন-প্রিমিসেস, হাইব্রিড বা পাবলিক ক্লাউড অবকাঠামোর সুবিধা নেওয়ার স্বাধীনতা দেয়, যাতে আপনি সহজেই কাজের চাপগুলি যেখানে আপনার কাছে গুরুত্বপূর্ণ সেখানে স্থানান্তর করতে পারেন।
+
+কুবারনেটিস ডাউনলোড করতে, [ডাউনলোড](/bn/releases/download/) বিভাগে যান।
+
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
+<div class="light-text">
+<h2>150+ মাইক্রোসার্ভিস কুবারনেটিসে স্থানান্তরিত করার চ্যালেঞ্জ</h2>
+        <p>সারাহ ওয়েলস দ্বারা, অপারেশনস এবং নির্ভরযোগ্যতার জন্য প্রযুক্তিগত পরিচালক, ফিনান্সিয়াল টাইমস</p>
+        <button id="desktopShowVideoButton" onclick="kub.showVideo()">ভিডিও দেখুন</button>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/" button id="desktopKCButton">১৯-২২ মার্চ, ২০২৪-এ KubeCon + CloudNativeCon ইউরোপে যোগ দিন</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2024/" button id="desktopKCButton">১২-১৫ নভেম্বর, ২০২৪-এ KubeCon + CloudNativeCon উত্তর আমেরিকাতে যোগ দিন</a>
+</div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
+
+{{< blocks/case-studies >}}

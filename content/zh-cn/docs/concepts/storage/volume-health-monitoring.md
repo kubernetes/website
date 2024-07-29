@@ -74,7 +74,7 @@ is healthy. For more information, please check
 当外部健康监测器检测到节点失效事件，控制器会报送一个事件，该事件会在 PVC 上继续上报，
 以表明使用此 PVC 的 Pod 正位于一个失效的节点上。
 
-如果 CSI 驱动程序支持节点测的卷健康检测，那当在 CSI 卷上检测到异常卷时，
+如果 CSI 驱动程序支持节点侧的卷健康检测，那当在 CSI 卷上检测到异常卷时，
 会在使用该 PVC 的每个 Pod 上触发一个事件。
 此外，卷运行状况信息作为 Kubelet VolumeStats 指标公开。
 添加了一个新的指标 kubelet_volume_stats_health_status_abnormal。

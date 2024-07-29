@@ -3,9 +3,9 @@ layout: blog
 title: "Spotlight on SIG Usability"
 date: 2021-07-15
 slug: sig-usability-spotlight-2021
+author: >
+  Kunal Kushwaha (Civo)
 ---
-
-**Author:** Kunal Kushwaha (Civo)
 
 {{< note >}}
 SIG Usability, which is featured in this Spotlight blog, has been deprecated and is no longer active.

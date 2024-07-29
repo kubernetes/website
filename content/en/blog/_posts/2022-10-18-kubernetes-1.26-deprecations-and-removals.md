@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes Removals, Deprecations, and Major Changes in 1.26"
 date: 2022-11-18
 slug: upcoming-changes-in-kubernetes-1-26
+author: >
+  Frederico Muñoz (SAS)
 ---
-
-**Author**: Frederico Muñoz (SAS)
 
 Change is an integral part of the Kubernetes life-cycle: as Kubernetes grows and matures, features may be deprecated, removed, or replaced with improvements for the health of the project. For Kubernetes v1.26 there are several planned: this article identifies and describes some of them, based on the information available at this mid-cycle point in the v1.26 release process, which is still ongoing and can introduce additional changes.
 

@@ -297,12 +297,28 @@ This configuration file installed by the `kubeadm`
 [package](https://github.com/kubernetes/release/blob/cd53840/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf) is written to
 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` and is used by systemd.
 It augments the basic
-[`kubelet.service`](https://github.com/kubernetes/release/blob/cd53840/cmd/krel/templates/latest/kubelet/kubelet.service):
+[`kubelet.service`](https://github.com/kubernetes/release/blob/cd53840/cmd/krel/templates/latest/kubelet/kubelet.service).
 -->
 通过 `kubeadm` [包](https://github.com/kubernetes/release/blob/cd53840/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf) 
-安装的配置文件被写入 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`
+安装的配置文件被写入 `/usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf`
 并由 systemd 使用。它对原来的
-[`kubelet.service`](https://github.com/kubernetes/release/blob/cd53840/cmd/krel/templates/latest/kubelet/kubelet.service) 作了增强：
+[`kubelet.service`](https://github.com/kubernetes/release/blob/cd53840/cmd/krel/templates/latest/kubelet/kubelet.service) 作了增强。
+
+<!--
+If you want to override that further, you can make a directory `/etc/systemd/system/kubelet.service.d/`
+(not `/usr/lib/systemd/system/kubelet.service.d/`) and put your own customizations into a file there.
+For example, you might add a new local file `/etc/systemd/system/kubelet.service.d/local-overrides.conf`
+to override the unit settings configured by `kubeadm`.
+
+Here is what you are likely to find in `/usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf`:
+-->
+如果你想进一步覆盖它，可以创建一个目录`/etc/systemd/system/kubelet.service.d/`
+（而不是`/usr/lib/systemd/kubelet.service.d/`），并将你自己的自定义配置写入到该目录下的一个文件中。
+
+例如，您可以添加一个新的本地文件`/etc/systemd/system/kubelet.service.d/local-overrides.conf`
+以覆盖“kubeadm”配置的单元设置。
+
+以下是你可能在“/usr/lib/systemd/kubelet.service.d/10 kubeadm.conf”中找到的内容：
 
 {{< note >}}
 <!--

@@ -1,11 +1,20 @@
 <!--
+Check which versions are available to upgrade to and validate whether your current cluster is upgradeable.
+-->
+检查可升级到哪些版本，并验证你当前的集群是否可升级。
+
+<!--
 ### Synopsis
 
-Check which versions are available to upgrade to and validate whether your current cluster is upgradeable. To skip the internet check, pass in the optional [version] parameter
+Check which versions are available to upgrade to and validate whether your current cluster is upgradeable.
+This command can only run on the control plane nodes where the kubeconfig file "admin.conf" exists.
+To skip the internet check, pass in the optional [version] parameter.
 -->
 ### 概述
 
-检查可升级到哪些版本，并验证你当前的集群是否可升级。 要跳过互联网检查，请传递可选的 [version] 参数 
+检查可升级到哪些版本，并验证你当前的集群是否可升级。
+该命令只能在存在 kubeconfig 文件 `admin.conf` 的控制平面节点上运行。
+要跳过互联网检查，请传入可选参数 [version]。
 
 ```
 kubeadm upgrade plan [version] [flags]
@@ -33,6 +42,21 @@ Show unstable versions of Kubernetes as an upgrade alternative and allow upgradi
 -->
 <p>
 显示不稳定版本的 Kubernetes 作为升级替代方案，并允许升级到 Kubernetes 的 Alpha、Beta 或 RC 版本。
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
+-->
+如果为 true，则当模板中缺少字段或映射键时，忽略模板中的错误。仅适用于 golang 和
+jsonpath 输出格式。
 </p>
 </td>
 </tr>
@@ -66,23 +90,42 @@ Path to a kubeadm configuration file.
 </tr>
 
 <tr>
+<td colspan="2">-o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "text"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Output format. One of: text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file.
+-->
+输出格式为
+text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file
+其中一种。
+</p>
+</td>
+</tr>
+
+
+<tr>
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-EtcdLearnerMode=true|false (ALPHA - default=false)<br/>
-PublicKeysECDSA=true|false (ALPHA - default=false)<br/>
+EtcdLearnerMode=true|false (BETA - default=true)<br/>
+PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)<br/>
+WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
 -->
 <p>
 一组描述各种特征特性门控的键值对。选项有：<br/>
-EtcdLearnerMode=true|false (ALPHA - 默认值=false)<br/>
-PublicKeysECDSA=true|false (ALPHA - 默认值=false)<br/>
+EtcdLearnerMode=true|false (BETA - 默认值=true)<br/>
+PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
 UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)
+WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
 </p>
 </td>
 </tr>
@@ -141,14 +184,6 @@ Default: "text"
 -->
 默认值："text"
 </td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-EXPERIMENTAL: Output format. One of: text|json|yaml.
--->
-实验性功能；输出格式为 text|json|yaml 其中的一种。
-</p></td>
 </tr>
 
 <tr>

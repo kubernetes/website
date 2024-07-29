@@ -83,7 +83,7 @@ the Pod is put into the active queue or the backoff queue
 so that the scheduler will retry the scheduling of the Pod.
 
 {{< note >}}
-QueueingHint evaluation during scheduling is a beta-level feature. 
+QueueingHint evaluation during scheduling is a beta-level feature.
 The v1.28 release series initially enabled the associated feature gate; however, after the
 discovery of an excessive memory footprint, the Kubernetes project set that feature gate
 to be disabled by default. In Kubernetes {{< skew currentVersion >}}, this feature gate is
@@ -113,7 +113,7 @@ called for that node. Nodes may be evaluated concurrently.
 
 ### PostFilter {#post-filter}
 
-These plugins are called after Filter phase, but only when no feasible nodes
+These plugins are called after the Filter phase, but only when no feasible nodes
 were found for the pod. Plugins are called in their configured order. If
 any postFilter plugin marks the node as `Schedulable`, the remaining plugins
 will not be called. A typical PostFilter implementation is preemption, which

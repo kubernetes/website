@@ -185,7 +185,7 @@ As mentioned previously, a Service is backed by a group of Pods. These Pods are
 exposed through
 {{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlices">}}.
 The Service's selector will be evaluated continuously and the results will be POSTed
-to an EndpointSlice that is connected to the Service using a
+to an EndpointSlice that is connected to the Service using
 {{< glossary_tooltip text="labels" term_id="label" >}}.
 When a Pod dies, it is automatically removed from the EndpointSlices that contain it
 as an endpoint. New Pods that match the Service's selector will automatically get added

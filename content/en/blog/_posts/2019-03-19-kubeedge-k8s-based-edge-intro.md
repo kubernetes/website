@@ -2,9 +2,10 @@
 title: KubeEdge, a Kubernetes Native Edge Computing Framework
 date: 2019-03-19
 slug: kubeedge-k8s-based-edge-intro
+author: >
+  Sanil Kumar D (Huawei),
+  Jun Du(Huawei)
 ---
-
-**Author:** Sanil Kumar D (Huawei), Jun Du(Huawei)
 
 ## KubeEdge becomes the first Kubernetes Native Edge Computing Platform with both Edge and Cloud components open sourced!
 

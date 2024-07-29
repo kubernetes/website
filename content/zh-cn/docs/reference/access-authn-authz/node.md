@@ -1,7 +1,7 @@
 ---
 title: 使用 Node 鉴权
 content_type: concept
-weight: 90
+weight: 34
 ---
 <!--
 reviewers:
@@ -10,7 +10,7 @@ reviewers:
 - liggitt
 title: Using Node Authorization
 content_type: concept
-weight: 90
+weight: 34
 -->
 
 <!-- overview -->

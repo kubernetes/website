@@ -1,7 +1,7 @@
 ---
 title: 使用 ABAC 鉴权
 content_type: concept
-weight: 80
+weight: 39
 ---
 <!--
 reviewers:
@@ -11,7 +11,7 @@ reviewers:
 - liggitt
 title: Using ABAC Authorization
 content_type: concept
-weight: 80
+weight: 39
 -->
 
 <!-- overview -->

@@ -1,5 +1,14 @@
 # i18n strings for the French (main) site.
 
+[docs_version_current]
+other = "(cette documentation)"
+
+[docs_version_latest_heading]
+other = "Version courante"
+
+[docs_version_other_heading]
+other = "Versions précédentes"
+
 [deprecation_warning]
 other = " documentation non maintenue. Vous consultez une version statique. Pour une documentation à jour, veuillez consulter: "
 

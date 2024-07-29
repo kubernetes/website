@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iis
+spec:
+  selector:
+    matchLabels:
+      app: iis
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: iis
+      annotations:
+        experimental.windows.kubernetes.io/isolation-type: hyperv
+    spec:
+      containers:
+      - name: iis
+        image: microsoft/iis
+        ports:
+        - containerPort: 80
