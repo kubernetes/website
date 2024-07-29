@@ -6,8 +6,7 @@ weight: 30
 
 <!-- overview -->
 Esta página describe el ciclo de vida de un Pod.
-Los Pods siguen un ciclo de vida definido, comenzando en la fase [`Pending`](
-#pod-phase),
+Los Pods siguen un ciclo de vida definido, comenzando en la fase [`Pending`](#pod-phase),
 y luego pasando a "en ejecución" `Running` si al menos uno de sus contenedores primarios se
 inicia correctamente,
 y luego pasando a "exitoso" (`Succeeded`) o "fallido" (`Failed`) si uno de los contenedores de un Pod
