@@ -91,12 +91,12 @@ client, err := metav1.New(config)
 
 In the context of this article, there are six steps:
 
-1. Configure the loading rules.
-1. Configure the overrides.
-1. Build a set of flags.
-1. Bind the flags.
-1. Build the merged configuration.
-1. Obtain an API client.
+1. [Configure the loading rules](#configure-the-loading-rules).
+1. [Configure the overrides](#configure-the-overrides).
+1. [Build a set of flags](#build-a-set-of-flags).
+1. [Bind the flags](#bind-the-flags).
+1. [Build the merged configuration](#build-the-merged-configuration).
+1. [Obtain an API client](#obtain-an-api-client).
 
 ### Configure the loading rules
 
