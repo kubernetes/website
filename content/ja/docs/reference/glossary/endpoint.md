@@ -10,7 +10,7 @@ aka:
 tags:
 - networking
 ---
-エンドポイントは、{{< glossary_tooltip text="サービス" term_id="selector" >}}のセレクターに一致するポッドのIPアドレスを記録する責任があります。
+エンドポイントは、{{< glossary_tooltip text="サービス" term_id="selector" >}}のセレクターに一致するPodのIPアドレスを記録する責任があります。
 
 <!--more-->
 セレクター識別子を指定せずに、{{< glossary_tooltip text="サービス" term_id="selector" >}}上でエンドポイントを手動で構成できます。
