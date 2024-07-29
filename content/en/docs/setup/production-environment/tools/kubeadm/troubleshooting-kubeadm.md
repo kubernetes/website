@@ -213,7 +213,7 @@ in kube-apiserver logs. To fix the issue you must follow these steps:
    `kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`.
    `$NODE` must be set to the name of the existing failed node in the cluster.
    Modify the resulted `kubelet.conf` manually to adjust the cluster name and server endpoint,
-   or pass `kubeconfig user --config` (it accepts `InitConfiguration`). If your cluster does not have
+   or pass `kubeconfig user --config` (see [Generating kubeconfig files for additional users](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubeconfig-additional-users)). If your cluster does not have
    the `ca.key` you must sign the embedded certificates in the `kubelet.conf` externally.
 1. Copy this resulted `kubelet.conf` to `/etc/kubernetes/kubelet.conf` on the failed node.
 1. Restart the kubelet (`systemctl restart kubelet`) on the failed node and wait for

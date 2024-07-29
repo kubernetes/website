@@ -1,5 +1,8 @@
 ---
 title: CronJob
+api_metadata:
+- apiVersion: "batch/v1"
+  kind: "CronJob"
 content_type: concept
 description: >-
   CronJob 通过重复调度启动一次性的 Job。
@@ -12,6 +15,9 @@ reviewers:
 - soltysh
 - janetkuo
 title: CronJob
+api_metadata:
+- apiVersion: "batch/v1"
+  kind: "CronJob"
 content_type: concept
 description: >-
   A CronJob starts one-time Jobs on a repeating schedule.
@@ -310,18 +316,28 @@ When `.spec.suspend` changes from `true` to `false` on an existing CronJob witho
 <!--
 ### Jobs history limits
 
-The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields are optional.
-These fields specify how many completed and failed Jobs should be kept.
-By default, they are set to 3 and 1 respectively.  Setting a limit to `0` corresponds to keeping
-none of the corresponding kind of Jobs after they finish.
+The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields specify
+how many completed and failed Jobs should be kept. Both fields are optional.
 
-For another way to clean up Jobs automatically, see [Clean up finished Jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically).
+* `.spec.successfulJobsHistoryLimit`: This field specifies the number of successful finished
+jobs to keep. The default value is `3`. Setting this field to `0` will not keep any successful jobs.
+
+* `.spec.failedJobsHistoryLimit`: This field specifies the number of failed finished jobs to keep.
+The default value is `1`. Setting this field to `0` will not keep any failed jobs.
+
+For another way to clean up Jobs automatically, see
+[Clean up finished Jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically).
 -->
 ### 任务历史限制   {#jobs-history-limits}
 
-`.spec.successfulJobsHistoryLimit` 和 `.spec.failedJobsHistoryLimit` 字段是可选的。
-这两个字段指定应保留多少已完成和失败的 Job。
-默认设置分别为 3 和 1。将限制设置为 `0` 代表相应类型的 Job 完成后不会保留。
+`.spec.successfulJobsHistoryLimit` 和 `.spec.failedJobsHistoryLimit`
+字段指定应保留多少已完成和失败的 Job。这两个字段都是可选的。
+
+* `.spec.successfulJobsHistoryLimit`：此字段指定要保留多少成功完成的 Job。默认值为 `3`。
+ 将此字段设置为 `0` 意味着不会保留任何成功的 Job。
+
+* `.spec.failedJobsHistoryLimit`：此字段指定要保留多少失败完成的 Job。默认值为 `1`。
+ 将此字段设置为 `0` 意味着不会保留任何失败的 Job。
 
 有关自动清理 Job 的其他方式，
 请参见[自动清理完成的 Job](/zh-cn/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)。
@@ -362,31 +378,27 @@ Go 标准库中的时区数据库包含在二进制文件中，并用作备用�
 
 ### Unsupported TimeZone specification
 -->
-## CronJob 的限制    {#cronjob-limitations}
+## CronJob 的限制    {#cron-job-limitations}
 
 ### 不支持的时区规范   {#unsupported-timezone-spec}
 
 <!--
-The implementation of the CronJob API in Kubernetes {{< skew currentVersion >}} lets you set
-the `.spec.schedule` field to include a timezone; for example: `CRON_TZ=UTC * * * * *`
-or `TZ=UTC * * * * *`.
+Specifying a timezone using `CRON_TZ` or `TZ` variables inside `.spec.schedule`
+is **not officially supported** (and never has been).
 -->
-Kubernetes {{< skew currentVersion >}} 中的 CronJob API 实现允许你设置
-`.spec.schedule` 字段，在其中包括时区信息；
-例如 `CRON_TZ=UTC * * * * *` 或 `TZ=UTC * * * * *`。
+在 `.spec.schedule` 中通过 `CRON_TZ` 或 `TZ` 变量来指定时区**并未得到官方支持**（而且从未支持过）。
 
 <!--
-Specifying a timezone that way is **not officially supported** (and never has been).
-
-If you try to set a schedule that includes `TZ` or `CRON_TZ` timezone specification,
-Kubernetes reports a [warning](/blog/2020/09/03/warnings/) to the client.
-Future versions of Kubernetes will prevent setting the unofficial timezone mechanism entirely.
+Starting with Kubernetes 1.29 if you try to set a schedule that includes `TZ` or `CRON_TZ`
+timezone specification, Kubernetes will fail to create the resource with a validation
+error.
+Updates to CronJobs already using `TZ` or `CRON_TZ` will continue to report a
+[warning](/blog/2020/09/03/warnings/) to the client.
 -->
-以这种方式指定时区是 **未正式支持的**（而且也从未正式支持过）。
-
-如果你尝试设置包含 `TZ` 或 `CRON_TZ` 时区规范的排期表，
-Kubernetes 会向客户端报告一条[警告](/blog/2020/09/03/warnings/)。
-后续的 Kubernetes 版本将完全阻止设置非正式的时区机制。
+从 Kubernetes 1.29 版本开始，如果你尝试设定包含 `TZ` 或 `CRON_TZ` 时区规范的排期表，
+Kubernetes 将无法创建该资源，并会报告验证错误。
+对已经设置 `TZ` 或 `CRON_TZ` 的 CronJob 进行更新时，
+系统会继续向客户端发送[警告](/zh-cn/blog/2020/09/03/warnings/)。
 
 <!--
 ### Modifying a CronJob

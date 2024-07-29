@@ -3,15 +3,6 @@
 title: Привіт Minikube
 content_type: tutorial
 weight: 5
-menu:
-  main:
-    #title: "Get Started"
-    title: "Початок роботи"
-    weight: 10
-    #post: >
-      #<p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs "Hello World" for Node.js.</p>
-    post: >
-      <p>Готові попрацювати? Створимо простий Kubernetes кластер для запуску Node.js застосунку "Hello World".</p>
 card: 
   #name: tutorials
   name: навчальні матеріали

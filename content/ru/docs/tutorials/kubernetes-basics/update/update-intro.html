@@ -131,7 +131,7 @@ description: |-
                <p>Чтобы увидеть версию текущего образа в приложении, воспользуйтесь подкомандой <code>describe pods</code> и посмотрите на поле <code>Image</code>:</p>
                <p><code><b>kubectl describe pods</b></code></p>
                <p>Чтобы обновить версию образа приложения до v2, воспользуемся подкомандой <code>set image</code>, для которой укажем имя деплоймента и новую версию нужного образа:</p>
-               <p><code><b>kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2</b></code></p>
+               <p><code><b>kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=docker.io/jocatalin/kubernetes-bootcamp:v2</b></code></p>
                <p>Эта команда перевела деплоймент на использование другого образа для приложения и инициировала плавающее обновление. Статус новых и старых подов (т. е. тех, которые будут остановлены) можно проверить с помощью подкоманды <code>get pods</code>:</p>
                <p><code><b>kubectl get pods</b></code></p>
             </div>

@@ -3,9 +3,9 @@ layout: blog
 title: "Cluster API v1alpha3 Delivers New Features and an Improved User Experience"
 date: 2020-04-21
 slug: cluster-api-v1alpha3-delivers-new-features-and-an-improved-user-experience
+author: >
+  Daniel Lipovetsky (D2IQ)
 ---
-
-**Author:** Daniel Lipovetsky (D2IQ)
 
 <img src="/images/blog/2020-04-21-Cluster-API-v1alpha3-Delivers-New-Features-and-an-Improved-User-Experience/kubernetes-cluster-logos_final-02.svg" align="right" width="25%" alt="Cluster API Logo: Turtles All The Way Down">
 

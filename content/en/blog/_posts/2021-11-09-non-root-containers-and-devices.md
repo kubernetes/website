@@ -3,9 +3,9 @@ layout: blog
 title: 'Non-root Containers And Devices'
 date: 2021-11-09
 slug: non-root-containers-and-devices
+author: >
+  Mikko Ylinen (Intel)
 ---
-
-**Author:** Mikko Ylinen (Intel)
 
 The user/group ID related security settings in Pod's `securityContext` trigger a problem when users want to
 deploy containers that use accelerator devices (via [Kubernetes Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)) on Linux. In this blog

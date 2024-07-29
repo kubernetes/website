@@ -151,7 +151,7 @@ Kubernetes 默认提供访问权限并非是每个集群都需要的。
 It is vital to periodically review the Kubernetes RBAC settings for redundant entries and
 possible privilege escalations.
 If an attacker is able to create a user account with the same name as a deleted user,
-they can automatically inherit all the rights of the deleted user, especially the
+they can automatically inherit all the rights of the deleted user, specially the
 rights assigned to that user.
  -->
 ### 定期检查  {#periodic-review}
@@ -260,8 +260,8 @@ You should only allow access to create PersistentVolume objects for:
 你应该只允许以下实体具有创建 PersistentVolume 对象的访问权限：
 
 <!--
-- users (cluster operators) that need this access for their work, and who you trust,
-- the Kubernetes control plane components which creates PersistentVolumes based on PersistentVolumeClaims
+- Users (cluster operators) that need this access for their work, and who you trust,
+- The Kubernetes control plane components which creates PersistentVolumes based on PersistentVolumeClaims
   that are configured for automatic provisioning.
   This is usually setup by the Kubernetes provider or by the operator when installing a CSI driver.
 -->
@@ -368,6 +368,20 @@ mutating webhooks, also mutate admitted objects.
 可以控制 `validatingwebhookconfigurations` 或 `mutatingwebhookconfigurations`
 的用户可以控制能读取任何允许进入集群的对象的 webhook，
 并且在有变更 webhook 的情况下，还可以变更准入的对象。
+
+<!--
+### Namespace modification
+
+Users who can perform **patch** operations on Namespace objects (through a namespaced RoleBinding to a Role with that access) can modify
+labels on that namespace. In clusters where Pod Security Admission is used, this may allow a user to configure the namespace
+for a more permissive policy than intended by the administrators.
+For clusters where NetworkPolicy is used, users may be set labels that indirectly allow
+access to services that an administrator did not intend to allow.
+-->
+### 命名空间修改 {#namespace-modification}
+可以对命名空间对象执行 **patch** 操作的用户（通过命名空间内的 RoleBinding 关联到具有该权限的 Role），
+可以修改该命名空间的标签。在使用 Pod 安全准入的集群中，这可能允许用户将命名空间配置为比管理员预期更宽松的策略。
+对于使用 NetworkPolicy 的集群，用户所设置的标签可能间接导致对某些本不应被允许访问的服务的访问权限被开放。
 
 <!--
 ## Kubernetes RBAC - denial of service risks {#denial-of-service-risks}

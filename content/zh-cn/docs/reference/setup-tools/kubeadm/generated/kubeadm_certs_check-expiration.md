@@ -30,6 +30,25 @@ kubeadm certs check-expiration [flags]
 <tbody>
 
 <tr>
+<td colspan="2">
+<!--
+--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true
+-->
+--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：true
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
+-->
+如果为 true，忽略模板中缺少某字段或映射键的错误。仅适用于 golang 和 jsonpath 输出格式。
+</p>
+</td>
+</tr>
+
+<tr>
 <!--
 <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td> 
 -->
@@ -53,6 +72,26 @@ kubeadm certs check-expiration [flags]
 <p>Path to a kubeadm configuration file.</p> 
 -->
 <p>到 kubeadm 配置文件的路径。</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+-o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "text"
+-->
+-o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："text"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Output format. One of: text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file.
+-->
+输出格式。可选值为：
+text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file。
+</p>
 </td>
 </tr>
 
@@ -83,6 +122,20 @@ kubeadm certs check-expiration [flags]
 -->
 <p>在和集群连接时使用该 kubeconfig 文件。
 如果此标志未被设置，那么将会在一些标准的位置去搜索存在的 kubeconfig 文件。</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--show-managed-fields</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+If true, keep the managedFields when printing objects in JSON or YAML format.
+-->
+如果为 true，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
+</p>
 </td>
 </tr>
 

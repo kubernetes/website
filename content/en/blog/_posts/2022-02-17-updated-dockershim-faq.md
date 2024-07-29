@@ -109,7 +109,7 @@ Kubernetes clusters. Containers make this kind of interoperability possible.
 
 Mirantis and Docker have [committed][mirantis] to maintaining a replacement adapter for
 Docker Engine, and to maintain that adapter even after the in-tree dockershim is removed
-from Kubernetes. The replacement adapter is named [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd).
+from Kubernetes. The replacement adapter is named [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/).
 
 You can install `cri-dockerd` and use it to connect the kubelet to Docker Engine. Read [Migrate Docker Engine nodes from dockershim to cri-dockerd](/docs/tasks/administer-cluster/migrating-from-dockershim/migrate-dockershim-dockerd/) to learn more.
 

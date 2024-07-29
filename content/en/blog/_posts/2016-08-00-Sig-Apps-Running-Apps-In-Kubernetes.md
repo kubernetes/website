@@ -3,8 +3,10 @@ title: " SIG Apps: build apps for and operate them in Kubernetes "
 date: 2016-08-16
 slug: sig-apps-running-apps-in-kubernetes
 url: /blog/2016/08/Sig-Apps-Running-Apps-In-Kubernetes
+author: >
+  Matt Farina (Hewlett Packard Enterprise)
 ---
-_Editor’s note: This post is by the Kubernetes SIG-Apps team sharing how they focus on the developer and devops experience of running applications in Kubernetes._  
+_**Editor's note:** This post is by the Kubernetes SIG-Apps team sharing how they focus on the developer and devops experience of running applications in Kubernetes._  
 
 Kubernetes is an incredible manager for containerized applications. Because of this, [numerous](https://kubernetes.io/blog/2016/02/sharethis-kubernetes-in-production) [companies](https://blog.box.com/blog/kubernetes-box-microservices-maximum-velocity/) [have](http://techblog.yahoo.co.jp/infrastructure/os_n_k8s/) [started](http://www.nextplatform.com/2015/11/12/inside-ebays-shift-to-kubernetes-and-containers-atop-openstack/) to run their applications in Kubernetes.  
 
@@ -39,4 +41,4 @@ When it comes to application operation there’s still a lot to be figured out a
 - Join our open meetings: weekly at 9AM PT on Wednesdays, [full details here](https://github.com/kubernetes/community/blob/master/sig-apps/README.md#meeting).
 
 
-_--Matt Farina, Principal Engineer, Hewlett Packard Enterprise_  
+

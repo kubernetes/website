@@ -3,10 +3,9 @@ layout: blog
 title: "Kubernetes 1.24: Avoid Collisions Assigning IP Addresses to Services"
 date: 2022-05-23
 slug: service-ip-dynamic-and-static-allocation
+author: >
+  Antonio Ojea (Red Hat)
 ---
-
-**Author:** Antonio Ojea (Red Hat)
-
 
 In Kubernetes, [Services](/docs/concepts/services-networking/service/) are an abstract way to expose
 an application running on a set of Pods. Services

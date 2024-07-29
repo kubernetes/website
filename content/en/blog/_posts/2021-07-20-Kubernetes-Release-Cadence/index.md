@@ -3,9 +3,12 @@ layout: blog
 title: "Kubernetes Release Cadence Change: Here’s What You Need To Know"
 date: 2021-07-20
 slug: new-kubernetes-release-cadence
+author: >
+   Celeste Horgan,
+   Adolfo García Veytia,
+   James Laverack,
+   Jeremy Rickard
 ---
-
-**Authors**: Celeste Horgan, Adolfo García Veytia, James Laverack, Jeremy Rickard
 
 On April 23, 2021, the Release Team merged a Kubernetes Enhancement Proposal (KEP) changing the Kubernetes release cycle from four releases a year (once a quarter) to three releases a year. 
 

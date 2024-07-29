@@ -2,6 +2,9 @@
 reviewers:
 - freehan
 title: EndpointSlices
+api_metadata:
+- apiVersion: "discovery.k8s.io/v1"
+  kind: "EndpointSlice"
 content_type: concept
 weight: 60
 description: >-

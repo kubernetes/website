@@ -9,7 +9,7 @@ content_type: concept
 
 <!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="v1.28" >}}
+{{< feature-state state="stable" for_k8s_version="v1.30" >}}
 
 This page provides an overview of Validating Admission Policy.
 

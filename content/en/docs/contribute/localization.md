@@ -187,8 +187,11 @@ script and use it in the theme. Assign "language name in latin script" to
 `languageNameLatinScript`. For example, `languageNameLatinScript ="Korean"` or
 `languageNameLatinScript = "Deutsch"`.
 
-When assigning a `weight` parameter for your block, find the language block with
-the highest weight and add 1 to that value.
+The `weight` parameter determines the order of languages in the language selection bar.
+A lower weight takes precedence, resulting in the language appearing first. 
+When assigning the `weight` parameter, it is important to examine the existing languages 
+block and adjust their weights to ensure they are in a sorted order relative to all languages,
+including any newly added language.
 
 For more information about Hugo's multilingual support, see
 "[Multilingual Mode](https://gohugo.io/content-management/multilingual/)".
@@ -342,11 +345,11 @@ Releases | [All heading and subheading URLs](/releases)
 Translated documents must reside in their own `content/**/` subdirectory, but otherwise, follow the
 same URL path as the English source. For example, to prepare the
 [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) tutorial for translation into German,
-create a subfolder under the `content/de/` folder and copy the English source:
+create a subdirectory under the `content/de/` directory and copy the English source or directory:
 
 ```shell
 mkdir -p content/de/docs/tutorials
-cp content/en/docs/tutorials/kubernetes-basics.md content/de/docs/tutorials/kubernetes-basics.md
+cp -ra content/en/docs/tutorials/kubernetes-basics/ content/de/docs/tutorials/
 ```
 
 Translation tools can speed up the translation process. For example, some

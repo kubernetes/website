@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes’s IPTables Chains Are Not API"
 date: 2022-09-07
 slug: iptables-chains-not-api
+author: >
+  Dan Winship (Red Hat)
 ---
-
-**Author:** Dan Winship (Red Hat)
 
 Some Kubernetes components (such as kubelet and kube-proxy) create
 iptables chains and rules as part of their operation. These chains

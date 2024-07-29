@@ -1,9 +1,11 @@
 ---
 title: Update on Volume Snapshot Alpha for Kubernetes
 date: 2019-01-17
+author: >
+  DJing Xu (Google),
+  Xing Yang (Huawei),
+  Saad Ali (Google)
 ---
-
-**Authors:** Jing Xu (Google), Xing Yang (Huawei), Saad Ali (Google)
 
 Volume snapshotting support was introduced in Kubernetes v1.12 as an alpha feature. In Kubernetes v1.13, it remains an alpha feature, but a few enhancements were added and some breaking changes were made. This post summarizes the changes.
 

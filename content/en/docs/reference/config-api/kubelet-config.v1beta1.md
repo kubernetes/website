@@ -32,6 +32,14 @@ auto_generated: true
 <tbody>
     
   
+<tr><td><code>text</code> <B>[Required]</B><br/>
+<a href="#TextOptions"><code>TextOptions</code></a>
+</td>
+<td>
+   <p>[Alpha] Text contains options for logging format &quot;text&quot;.
+Only available when the LoggingAlphaOptions feature gate is enabled.</p>
+</td>
+</tr>
 <tr><td><code>json</code> <B>[Required]</B><br/>
 <a href="#JSONOptions"><code>JSONOptions</code></a>
 </td>
@@ -59,24 +67,11 @@ Only available when the LoggingAlphaOptions feature gate is enabled.</p>
 <tbody>
     
   
-<tr><td><code>splitStream</code> <B>[Required]</B><br/>
-<code>bool</code>
+<tr><td><code>OutputRoutingOptions</code> <B>[Required]</B><br/>
+<a href="#OutputRoutingOptions"><code>OutputRoutingOptions</code></a>
 </td>
-<td>
-   <p>[Alpha] SplitStream redirects error messages to stderr while
-info messages go to stdout, with buffering. The default is to write
-both to stdout, without buffering. Only available when
-the LoggingAlphaOptions feature gate is enabled.</p>
-</td>
-</tr>
-<tr><td><code>infoBufferSize</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#QuantityValue"><code>k8s.io/apimachinery/pkg/api/resource.QuantityValue</code></a>
-</td>
-<td>
-   <p>[Alpha] InfoBufferSize sets the size of the info stream when
-using split streams. The default is zero, which disables buffering.
-Only available when the LoggingAlphaOptions feature gate is enabled.</p>
-</td>
+<td>(Members of <code>OutputRoutingOptions</code> are embedded into this type.)
+   <span class="text-muted">No description provided.</span></td>
 </tr>
 </tbody>
 </table>
@@ -182,6 +177,71 @@ certain global defaults.</p>
 <td>
    <p>InfoStream can be used to override the os.Stdout default.</p>
 </td>
+</tr>
+</tbody>
+</table>
+
+## `OutputRoutingOptions`     {#OutputRoutingOptions}
+    
+
+**Appears in:**
+
+- [JSONOptions](#JSONOptions)
+
+- [TextOptions](#TextOptions)
+
+
+<p>OutputRoutingOptions contains options that are supported by both &quot;text&quot; and &quot;json&quot;.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>splitStream</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>[Alpha] SplitStream redirects error messages to stderr while
+info messages go to stdout, with buffering. The default is to write
+both to stdout, without buffering. Only available when
+the LoggingAlphaOptions feature gate is enabled.</p>
+</td>
+</tr>
+<tr><td><code>infoBufferSize</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#QuantityValue"><code>k8s.io/apimachinery/pkg/api/resource.QuantityValue</code></a>
+</td>
+<td>
+   <p>[Alpha] InfoBufferSize sets the size of the info stream when
+using split streams. The default is zero, which disables buffering.
+Only available when the LoggingAlphaOptions feature gate is enabled.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `TextOptions`     {#TextOptions}
+    
+
+**Appears in:**
+
+- [FormatOptions](#FormatOptions)
+
+
+<p>TextOptions contains options for logging format &quot;text&quot;.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>OutputRoutingOptions</code> <B>[Required]</B><br/>
+<a href="#OutputRoutingOptions"><code>OutputRoutingOptions</code></a>
+</td>
+<td>(Members of <code>OutputRoutingOptions</code> are embedded into this type.)
+   <span class="text-muted">No description provided.</span></td>
 </tr>
 </tbody>
 </table>
@@ -352,6 +412,16 @@ run, or the path to a single static pod file.
 Default: &quot;&quot;</p>
 </td>
 </tr>
+<tr><td><code>podLogsDir</code><br/>
+<code>string</code>
+</td>
+<td>
+   <p>podLogsDir is a custom root directory path kubelet will use to place pod's log files.
+Default: &quot;/var/log/pods/&quot;
+Note: it is not recommended to use the temp folder as a log directory as it may cause
+unexpected behavior in many places.</p>
+</td>
+</tr>
 <tr><td><code>syncFrequency</code><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
@@ -449,7 +519,7 @@ Default: &quot;&quot;</p>
 <td>
    <p>tlsCipherSuites is the list of allowed cipher suites for the server.
 Note that TLS 1.3 ciphersuites are not configurable.
-Values are from tls package constants (https://pkg.go.dev/crypto/tls#pkg-constants).
+Values are from tls package constants (https://golang.org/pkg/crypto/tls/#pkg-constants).
 Default: nil</p>
 </td>
 </tr>
@@ -458,7 +528,7 @@ Default: nil</p>
 </td>
 <td>
    <p>tlsMinVersion is the minimum TLS version supported.
-Values are from tls package constants (https://pkg.go.dev/crypto/tls#pkg-constants).
+Values are from tls package constants (https://golang.org/pkg/crypto/tls/#pkg-constants).
 Default: &quot;&quot;</p>
 </td>
 </tr>
@@ -1176,6 +1246,27 @@ be present for a container.
 Default: 5</p>
 </td>
 </tr>
+<tr><td><code>containerLogMaxWorkers</code><br/>
+<code>int32</code>
+</td>
+<td>
+   <p>ContainerLogMaxWorkers specifies the maximum number of concurrent workers to spawn
+for performing the log rotate operations. Set this count to 1 for disabling the
+concurrent log rotation workflows
+Default: 1</p>
+</td>
+</tr>
+<tr><td><code>containerLogMonitorInterval</code><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>ContainerLogMonitorInterval specifies the duration at which the container logs are monitored
+for performing the log rotate operation. This defaults to 10 * time.Seconds. But can be
+customized to a smaller value based on the log generation rate and the size required to be
+rotated against
+Default: 10s</p>
+</td>
+</tr>
 <tr><td><code>configMapAndSecretChangeDetectionStrategy</code><br/>
 <a href="#kubelet-config-k8s-io-v1beta1-ResourceChangeDetectionStrategy"><code>ResourceChangeDetectionStrategy</code></a>
 </td>
@@ -1416,7 +1507,7 @@ Also, avoid specifying:</p>
 <li>Duplicates, the same NUMA node, and memory type, but with a different value.</li>
 <li>zero limits for any memory type.</li>
 <li>NUMAs nodes IDs that do not exist under the machine.</li>
-<li>memory types except for memory and hugepages-<!-- raw HTML omitted --></li>
+<li>memory types except for memory and hugepages-&lt;size&gt;</li>
 </ol>
 <p>Default: nil</p>
 </td>
@@ -1458,7 +1549,7 @@ Default: 0.9</p>
 </td>
 </tr>
 <tr><td><code>registerWithTaints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <p>registerWithTaints are an array of taints to add to a node object when
@@ -1538,7 +1629,7 @@ It exists in the kubeletconfig API group because it is classified as a versioned
     
   
 <tr><td><code>source</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
 </td>
 <td>
    <p>source is the source that we are serializing.</p>
@@ -1584,9 +1675,9 @@ to provide credentials. Images are expected to contain the registry domain
 and URL path.</p>
 <p>Each entry in matchImages is a pattern which can optionally contain a port and a path.
 Globs can be used in the domain, but not in the port or the path. Globs are supported
-as subdomains like '<em>.k8s.io' or 'k8s.</em>.io', and top-level-domains such as 'k8s.<em>'.
-Matching partial subdomains like 'app</em>.k8s.io' is also supported. Each glob can only match
-a single subdomain segment, so *.io does not match *.k8s.io.</p>
+as subdomains like '&ast;.k8s.io' or 'k8s.&ast;.io', and top-level-domains such as 'k8s.&ast;'.
+Matching partial subdomains like 'app&ast;.k8s.io' is also supported. Each glob can only match
+a single subdomain segment, so '&ast;.io' does not match '&ast;.k8s.io'.</p>
 <p>A match exists between an image and a matchImage when all of the below are true:</p>
 <ul>
 <li>Both contain the same number of domain parts and each part matches.</li>
@@ -1596,9 +1687,9 @@ a single subdomain segment, so *.io does not match *.k8s.io.</p>
 <p>Example values of matchImages:</p>
 <ul>
 <li>123456789.dkr.ecr.us-east-1.amazonaws.com</li>
-<li>*.azurecr.io</li>
+<li>&ast;.azurecr.io</li>
 <li>gcr.io</li>
-<li><em>.</em>.registry.io</li>
+<li>&ast;.&ast;.registry.io</li>
 <li>registry.io:8080/path</li>
 </ul>
 </td>
@@ -1899,7 +1990,7 @@ and groups corresponding to the Organization in the client certificate.</p>
    <span class="text-muted">No description provided.</span></td>
 </tr>
 <tr><td><code>limits</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <span class="text-muted">No description provided.</span></td>
@@ -1926,8 +2017,8 @@ and groups corresponding to the Organization in the client certificate.</p>
 </td>
 <td>
    <p>swapBehavior configures swap memory available to container workloads. May be one of
-&quot;&quot;, &quot;LimitedSwap&quot;: workload combined memory and swap usage cannot exceed pod memory limit
-&quot;UnlimitedSwap&quot;: workloads can use unlimited swap, up to the allocatable limit.</p>
+&quot;&quot;, &quot;NoSwap&quot;: workloads can not use swap, default option.
+&quot;LimitedSwap&quot;: workload swap usage is limited. The swap limit is proportionate to the container's memory request.</p>
 </td>
 </tr>
 </tbody>

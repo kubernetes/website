@@ -34,6 +34,17 @@ etcdctl del "" --prefix
 
 See the [etcd documentation](https://github.com/coreos/etcd/tree/master/etcdctl) for more information.
 
+### Graceful kube-apiserver shutdown
+
+If you have your `kube-apiserver` configured with the `--shutdown-delay-duration` flag,
+you can run the following commands to attempt a graceful shutdown for the running API server Pod,
+before you run `kubeadm reset`:
+
+```bash
+yq eval -i '.spec.containers[0].command = []' /etc/kubernetes/manifests/kube-apiserver.yaml
+timeout 60 sh -c 'while pgrep kube-apiserver >/dev/null; do sleep 1; done' || true
+```
+
 ## {{% heading "whatsnext" %}}
 
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node

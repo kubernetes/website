@@ -77,10 +77,10 @@ footer {
     font-size: 1rem;
     border: 0px;
 
-  }
-
-  .button:hover {
-    background-color: darken($blue, 10%);
+    &:hover {
+      background-color: darken($blue, 10%);
+      color: white;
+    }
   }
 
   #cellophane {
@@ -104,6 +104,11 @@ main {
     text-decoration: none;
     font-size: 1rem;
     border: 0px;
+
+    &:hover {
+      background-color: darken($blue, 10%);
+      color: white;
+    }
   }
 }
 
@@ -472,7 +477,8 @@ section#cncf {
 }
 
 // OCEAN NODES
-#oceanNodes {
+#oceanNodes, .td-home .k8s-overview {
+
   padding-top: $ocean-nodes-padding-Y;
   padding-bottom: $ocean-nodes-padding-Y;
 
@@ -554,7 +560,7 @@ section#cncf {
 
   #desktopKCButton:hover{
     background-color: #ffffff;
-    color: #3371e3;
+    color: #326ce5;
     transition: 150ms;
   }
 

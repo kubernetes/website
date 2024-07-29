@@ -12,6 +12,7 @@ weight: 50
 -->
 
 <!-- overview -->
+
 <!--
 Networking is a central part of Kubernetes, but it can be challenging to
 understand exactly how it is expected to work.  There are 4 distinct networking
@@ -35,11 +36,16 @@ problems to address:
 <!-- body -->
 
 <!--
-Kubernetes is all about sharing machines between applications.  Typically,
+Kubernetes is all about sharing machines among applications.  Typically,
 sharing machines requires ensuring that two applications do not try to use the
 same ports.  Coordinating ports across multiple developers is very difficult to
 do at scale and exposes users to cluster-level issues outside of their control.
+-->
+Kubernetes 的宗旨就是在应用之间共享机器。
+通常来说，共享机器需要两个应用之间不能使用相同的端口，但是在多个应用开发者之间
+去大规模地协调端口是件很困难的事情，尤其是还要让用户暴露在他们控制范围之外的集群级别的问题上。
 
+<!--
 Dynamic port allocation brings a lot of complications to the system - every
 application has to take ports as flags, the API servers have to know how to
 insert dynamic port numbers into configuration blocks, services have to know
@@ -48,10 +54,6 @@ different approach.
 
 To learn about the Kubernetes networking model, see [here](/docs/concepts/services-networking/).
 -->
-Kubernetes 的宗旨就是在应用之间共享机器。
-通常来说，共享机器需要两个应用之间不能使用相同的端口，但是在多个应用开发者之间
-去大规模地协调端口是件很困难的事情，尤其是还要让用户暴露在他们控制范围之外的集群级别的问题上。
-
 动态分配端口也会给系统带来很多复杂度 - 每个应用都需要设置一个端口的参数，
 而 API 服务器还需要知道如何将动态端口数值插入到配置模块中，服务也需要知道如何找到对方等等。
 与其去解决这些问题，Kubernetes 选择了其他不同的方法。

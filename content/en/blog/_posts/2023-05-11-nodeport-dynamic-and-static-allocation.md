@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.27: Avoid Collisions Assigning Ports to NodePort Services"
 date: 2023-05-11
 slug: nodeport-dynamic-and-static-allocation
+author: >
+   Xu Zhenglun (Alibaba)
 ---
-
-**Author:** Xu Zhenglun (Alibaba)
 
 In Kubernetes, a Service can be used to provide a unified traffic endpoint for 
 applications running on a set of Pods. Clients can use the virtual IP address (or _VIP_) provided

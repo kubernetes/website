@@ -1,0 +1,20 @@
+---
+title: MutatingAdmissionPolicy
+content_type: feature_gate
+_build:
+  list: never
+  render: false
+
+stages:
+  - stage: alpha 
+    defaultValue: false
+    fromVersion: "1.30"
+---
+
+<!--
+In Kubernetes {{< skew currentVersion >}}, this feature gate has no effect.
+A future release of Kubernetes may use this feature gate to enable
+the MutatingAdmissionPolicy in admission chain.
+-->
+在 Kubernetes {{< skew currentVersion >}} 中，此特性门控没有效果。
+Kubernetes 的未来版本可能会使用此特性门控在准入链中启用 MutatingAdmissionPolicy。

@@ -37,9 +37,9 @@ etcd cluster externally or on custom ports.
 
 | 协议     | 方向      | 端口范围     | 目的                     | 使用者                     |
 |----------|-----------|------------|-------------------------|---------------------------|
-| TCP      | 入站       | 6443       | Kubernetes API server   | 所有                       |
-| TCP      | 入站       | 2379-2380  | etcd server client API  | kube-apiserver, etcd      |
-| TCP      | 入站       | 10250      | Kubelet API             | 自身, 控制面                |
+| TCP      | 入站       | 6443       | Kubernetes API 服务器    | 所有                       |
+| TCP      | 入站       | 2379-2380  | etcd 服务器客户端 API     | kube-apiserver、etcd      |
+| TCP      | 入站       | 10250      | kubelet API             | 自身、控制面                |
 | TCP      | 入站       | 10259      | kube-scheduler          | 自身                       |
 | TCP      | 入站       | 10257      | kube-controller-manager | 自身                       |
 
@@ -51,6 +51,7 @@ etcd cluster externally or on custom ports.
 | Protocol | Direction | Port Range  | Purpose               | Used By                 |
 |----------|-----------|-------------|-----------------------|-------------------------|
 | TCP      | Inbound   | 10250       | Kubelet API           | Self, Control plane     |
+| TCP      | Inbound   | 10256       | kube-proxy            | Self, Load balancers    |
 | TCP      | Inbound   | 30000-32767 | NodePort Services†    | All                     |
 
 † Default port range for [NodePort Services](/docs/concepts/services-networking/service/).
@@ -67,10 +68,11 @@ on the default port.
 
 | 协议     | 方向      | 端口范围     | 目的                     | 使用者                  |
 |----------|-----------|-------------|-----------------------|-------------------------|
-| TCP      | 入站       | 10250       | Kubelet API           | 自身, 控制面             |
+| TCP      | 入站       | 10250       | kubelet API           | 自身、控制面             |
+| TCP      | 入站       | 10256       | kube-proxy            | 自身、负载均衡器   |
 | TCP      | 入站       | 30000-32767 | NodePort Services†    | 所有                    |
 
-† [NodePort Services](/zh-cn/docs/concepts/services-networking/service/)的默认端口范围。
+† [NodePort Service](/zh-cn/docs/concepts/services-networking/service/) 的默认端口范围。
 
 所有默认端口都可以重新配置。当使用自定义的端口时，你需要打开这些端口来代替这里提到的默认端口。
 

@@ -136,6 +136,17 @@ This means the name must:
 - 必须以字母开头
 - 必须以字母数字结尾
 
+{{< note >}}
+<!--
+The only difference between the RFC 1035 and RFC 1123
+label standards is that RFC 1123 labels are allowed to
+start with a digit, whereas RFC 1035 labels can start
+with a lowercase alphabetic character only.
+-->
+RFC 1035 和 RFC 1123 标签标准之间的唯一区别是 RFC 1123
+标签允许以数字开头，而 RFC 1035 标签只能以小写字母字符开头。
+{{< /note >}}
+
 <!--
 ### Path Segment Names
 
@@ -191,4 +202,4 @@ UUID 是标准化的，见 ISO/IEC 9834-8 和 ITU-T X.667。
 * See the [Identifiers and Names in Kubernetes](https://git.k8s.io/design-proposals-archive/architecture/identifiers.md) design document.
 -->
 * 进一步了解 Kubernetes [标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)和[注解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)。
-* 参阅 [Kubernetes 标识符和名称](https://git.k8s.io/design-proposals-archive/architecture/identifiers.md)的设计文档
+* 参阅 [Kubernetes 标识符和名称](https://git.k8s.io/design-proposals-archive/architecture/identifiers.md)的设计文档。

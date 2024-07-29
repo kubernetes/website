@@ -14,4 +14,4 @@ tags:
 
 <!--more-->
 
-Рабочий узел может быть как виртуальной, так и физической машиной, в зависимости от кластера. У него есть локальные демоны или сервисы, необходимые для запуска {{< glossary_tooltip text="подов" term_id="pod" >}}, а сам он управляется плоскостью управления. Демоны на узле включают в себя {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} и среду выполнения контейнера, основанную на {{< glossary_tooltip text="CRI" term_id="cri" >}}, например {{< glossary_tooltip term_id="docker" >}}.
+Рабочий узел может быть как виртуальной, так и физической машиной, в зависимости от кластера. У него есть локальные демоны или сервисы, необходимые для запуска {{< glossary_tooltip text="подов" term_id="pod" >}}, а сам он управляется управляющим слоем (control plane). Демоны на узле включают в себя {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} и среду выполнения контейнера, основанную на {{< glossary_tooltip text="CRI" term_id="cri" >}}, например {{< glossary_tooltip term_id="docker" >}}.

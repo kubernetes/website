@@ -3,8 +3,9 @@ title: " Windows Networking at Parity with Linux for Kubernetes "
 date: 2017-09-08
 slug: windows-networking-at-parity-with-linux
 url: /blog/2017/09/Windows-Networking-At-Parity-With-Linux
+author: >
+   Jason Messer (Microsoft)
 ---
-_**Editor's note: today's post is by Jason Messer, Principal PM Manager at Microsoft, on improvements to the Windows network stack to support the Kubernetes CNI model.**_  
 
  Since I last blogged about [Kubernetes Networking for Windows](https://blogs.technet.microsoft.com/networking/2017/04/04/windows-networking-for-kubernetes/) four months ago, the Windows Core Networking team has made tremendous progress in both the platform and open source Kubernetes projects. With the updates, Windows is now on par with Linux in terms of networking. Customers can now deploy mixed-OS, Kubernetes clusters in any environment including Azure, on-premises, and on 3rd-party cloud stacks with the same network primitives and topologies supported on Linux without any workarounds, “hacks”, or 3rd-party switch extensions.  
 

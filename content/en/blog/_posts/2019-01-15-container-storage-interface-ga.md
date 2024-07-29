@@ -2,12 +2,12 @@
 title: Container Storage Interface (CSI) for Kubernetes GA
 date: 2019-01-15
 slug: container-storage-interface-ga
+author: >
+  Saad Ali (Google)
 ---
 
 ![Kubernetes Logo](/images/blog-logging/2018-04-10-container-storage-interface-beta/csi-kubernetes.png)
 ![CSI Logo](/images/blog-logging/2018-04-10-container-storage-interface-beta/csi-logo.png)
-
-**Author:** Saad Ali, Senior Software Engineer, Google
 
 The Kubernetes implementation of the [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI) has been promoted to GA in the Kubernetes v1.13 release. Support for CSI was [introduced as alpha](http://blog.kubernetes.io/2018/01/introducing-container-storage-interface.html) in Kubernetes v1.9 release, and [promoted to beta](https://kubernetes.io/blog/2018/04/10/container-storage-interface-beta/) in the Kubernetes v1.10 release.
 

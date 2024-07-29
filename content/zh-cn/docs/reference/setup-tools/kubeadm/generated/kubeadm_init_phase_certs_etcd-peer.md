@@ -23,11 +23,6 @@ If both files already exist, kubeadm skips the generation step and existing file
 -->
 如果两个文件都已存在，则 kubeadm 将跳过生成步骤，使用现有文件。
 
-<!--
-Alpha Disclaimer: this command is currently alpha.
--->
-Alpha 免责声明：此命令当前为 Alpha 功能。
-
 ```
 kubeadm init phase certs etcd-peer [flags]
 ```
