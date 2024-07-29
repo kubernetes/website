@@ -587,6 +587,8 @@ other = """<p>Items on this page refer to third party products or projects that 
 [thirdparty_message_vendor]
 other = """Items on this page refer to vendors external to Kubernetes. The Kubernetes project authors aren't responsible for those third-party products or projects. To add a vendor, product or project to this list, read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change. <a href="#third-party-content-disclaimer">More information.</a>"""
 
+[translated_by]
+other = "Translated By"
 
 [ui_search_placeholder]
 other = "Search this site"
