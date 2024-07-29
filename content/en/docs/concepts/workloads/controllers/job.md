@@ -439,8 +439,18 @@ kubectl get -o yaml job job-backoff-limit-per-index-example
     - message: Job has failed indexes
       reason: FailedIndexes
       status: "True"
+      type: FailureTarget
+    - message: Job has failed indexes
+      reason: FailedIndexes
+      status: "True"
       type: Failed
 ```
+
+The Job controller adds the `FailureTarget` Job condition to trigger
+[Job termination and cleanup](#job-termination-and-cleanup). When all of the
+Job Pods are terminated, the Job controller adds the `Failed` condition
+with the same values for `reason` and `message` as the `FailureTarget` Job
+condition. For details, see [Termination of Job Pods](#termination-of-job-pods).
 
 Additionally, you may want to use the per-index backoff along with a
 [pod failure policy](#pod-failure-policy). When using
@@ -540,6 +550,11 @@ Starting with Kubernetes v1.28, when Pod failure policy is used, the Job control
 terminating Pods only once these Pods reach the terminal `Failed` phase. This behavior is similar
 to `podReplacementPolicy: Failed`. For more information, see [Pod replacement policy](#pod-replacement-policy).
 {{< /note >}}
+
+When you use the `podFailurePolicy`, and the Job fails due to the pod
+matching the rule with the `FailJob` action, then the Job controller triggers
+the Job termination process by adding the `FailureTarget` condition.
+For more details, see [Job termination and cleanup](#job-termination-and-cleanup).
 
 ## Success policy {#success-policy}
 
@@ -646,6 +661,70 @@ Keep in mind that the `restartPolicy` applies to the Pod, and not to the Job its
 there is no automatic Job restart once the Job status is `type: Failed`.
 That is, the Job termination mechanisms activated with `.spec.activeDeadlineSeconds`
 and `.spec.backoffLimit` result in a permanent Job failure that requires manual intervention to resolve.
+
+### Terminal Job conditions
+
+A Job has two possible terminal states, each of which has a corresponding Job
+condition:
+* Succeeded:  Job condition `Complete`
+* Failed: Job condition `Failed`
+
+Jobs fail for the following reasons:
+- The number of Pod failures exceeded the specified `.spec.backoffLimit` in the Job
+  specification. For details, see [Pod backoff failure policy](#pod-backoff-failure-policy).
+- The Job runtime exceeded the specified `.spec.activeDeadlineSeconds`
+- An indexed Job that used `.spec.backoffLimitPerIndex` has failed indexes.
+  For details, see [Backoff limit per index](#backoff-limit-per-index).
+- The number of failed indexes in the Job exceeded the specified
+  `spec.maxFailedIndexes`. For details, see [Backoff limit per index](#backoff-limit-per-index)
+- A failed Pod matches a rule in `.spec.podFailurePolicy` that has the `FailJob`
+   action. For details about how Pod failure policy rules might affect failure
+   evaluation, see [Pod failure policy](#pod-failure-policy).
+
+Jobs succeed for the following reasons:
+- The number of succeeded Pods reached the specified `.spec.completions`
+- The criteria specified in `.spec.successPolicy` are met. For details, see
+  [Success policy](#success-policy).
+
+In Kubernetes v1.31 and later the Job controller delays the addition of the
+terminal conditions,`Failed` or `Complete`, until all of the Job Pods are terminated.
+
+In Kubernetes v1.30 and earlier, the Job controller added the `Complete` or the
+`Failed` Job terminal conditions as soon as the Job termination process was
+triggered and all Pod finalizers were removed. However, some Pods would still
+be running or terminating at the moment that the terminal condition was added.
+
+In Kubernetes v1.31 and later, the controller only adds the Job terminal conditions
+_after_ all of the Pods are terminated. You can enable this behavior by using the
+`JobManagedBy` or the `JobPodReplacementPolicy` (enabled by default)
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/).
+
+### Termination of Job pods
+
+The Job controller adds the `FailureTarget` condition or the `SuccessCriteriaMet`
+condition to the Job to trigger Pod termination after a Job meets either the
+success or failure criteria.
+
+Factors like `terminationGracePeriodSeconds` might increase the amount of time
+from the moment that the Job controller adds the `FailureTarget` condition or the
+`SuccessCriteriaMet` condition to the moment that all of the Job Pods terminate
+and the Job controller adds a [terminal condition](#terminal-job-conditions)
+(`Failed` or `Complete`).
+
+You can use the `FailureTarget` or the `SuccessCriteriaMet` condition to evaluate
+whether the Job has failed or succeeded without having to wait for the controller
+to add a terminal condition.
+
+For example, you might want to decide when to create a replacement Job
+that replaces a failed Job. If you replace the failed Job when the `FailureTarget`
+condition appears, your replacement Job runs sooner, but could result in Pods
+from the failed and the replacement Job running at the same time, using
+extra compute resources.
+
+Alternatively, if your cluster has limited resource capacity, you could choose to
+wait until the `Failed` condition appears on the Job, which would delay your
+replacement Job but would ensure that you conserve resources by waiting
+until all of the failed Pods are removed.
 
 ## Clean up finished jobs automatically
 
