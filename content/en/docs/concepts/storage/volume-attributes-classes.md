@@ -8,7 +8,7 @@ weight: 40
 ---
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="VolumeAttributesClass" >}}
 
 This page assumes that you are familiar with [StorageClasses](/docs/concepts/storage/storage-classes/),
 [volumes](/docs/concepts/storage/volumes/) and [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
@@ -18,15 +18,21 @@ in Kubernetes.
 
 A VolumeAttributesClass provides a way for administrators to describe the mutable
 "classes" of storage they offer. Different classes might map to different quality-of-service levels.
-Kubernetes itself is unopinionated about what these classes represent.
+Kubernetes itself is un-opinionated about what these classes represent.
 
-This is an alpha feature and disabled by default.
+This is a beta feature and disabled by default.
 
-If you want to test the feature whilst it's alpha, you need to enable the `VolumeAttributesClass`
+If you want to test the feature whilst it's beta, you need to enable the `VolumeAttributesClass`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kube-controller-manager and the kube-apiserver. You use the `--feature-gates` command line argument:
 
 ```
 --feature-gates="...,VolumeAttributesClass=true"
+```
+
+You will also have to enable the `storage.k8s.io/v1beta1` API group through the `kube-apiserver` [runtime-config](https://kubernetes.io/docs/tasks/administer-cluster/enable-disable-api/). You use the following command line argument: 
+
+```
+--runtime-config=storage.k8s.io/v1beta1=true
 ```
 
 You can also only use VolumeAttributesClasses with storage backed by
@@ -45,7 +51,7 @@ While the name of a VolumeAttributesClass object in a `PersistentVolumeClaim` is
 
 
 ```yaml
-apiVersion: storage.k8s.io/v1alpha1
+apiVersion: storage.k8s.io/v1beta1
 kind: VolumeAttributesClass
 metadata:
   name: silver
@@ -74,7 +80,7 @@ Each VolumeAttributesClass has a resizer that determines what volume plugin is u
 
 The modifying volume feature support for VolumeAttributesClass is implemented in [kubernetes-csi/external-resizer](https://github.com/kubernetes-csi/external-resizer).
 
-For example, a existing PersistentVolumeClaim is using a VolumeAttributesClass named silver:
+For example, an existing PersistentVolumeClaim is using a VolumeAttributesClass named silver:
 
 ```yaml
 apiVersion: v1
@@ -91,7 +97,7 @@ A new VolumeAttributesClass gold is available in the cluster:
 
 
 ```yaml
-apiVersion: storage.k8s.io/v1alpha1
+apiVersion: storage.k8s.io/v1beta1
 kind: VolumeAttributesClass
 metadata:
   name: gold
