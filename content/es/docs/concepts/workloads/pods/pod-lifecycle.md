@@ -60,7 +60,7 @@ ese Pod puede ser reemplazado por un Pod nuevo, casi idéntico, incluso con el m
 deseado, pero con un UID diferente.
 
 Cuando se dice que algo tiene la misma vida útil que un Pod, como un
-{{< glosario_tooltip term_id="volume" text="volumen" >}},
+{{< glossary_tooltip term_id="volume" text="volumen" >}},
 eso significa que la cosa existe mientras ese Pod específico (con ese UID exacto)
 existe. Si ese Pod se elimina por cualquier motivo, e incluso si se requiere un reemplazo idéntico
 se crea, el objeto relacionado (un volumen, en este ejemplo) también se destruye y
