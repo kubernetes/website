@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Kubernetes 1.31: Fine-grained SupplementalGroups control'
-date: xxxx-xx-xx
+date: 2024-08-22
 slug: fine-grained-supplementalgroups-control
 author: >
   Shingo Omura (Woven By Toyota)
@@ -23,7 +23,7 @@ What is the result of `id` command in the `ctr` container?
 
 ```shell
 # Create the Pod:
-$ kubectl apply -f https://k8s.io/blog/xxxx-xx-xx-Fine-grained-SupplementalGroups-control/implicit-groups.yaml
+$ kubectl apply -f https://k8s.io/blog/2024-08-22-Fine-grained-SupplementalGroups-control/implicit-groups.yaml
 
 # Verify that the Pod's Container is running:
 $ kubectl get pod implicit-groups
@@ -73,7 +73,7 @@ Let's see how `Strict` policy works.
 
 ```shell
 # Create the Pod:
-$ kubectl apply -f https://k8s.io/blog/xxxx-xx-xx-Fine-grained-SupplementalGroups-control/strict-supplementalgroups-policy.yaml
+$ kubectl apply -f https://k8s.io/blog/2024-08-22-Fine-grained-SupplementalGroups-control/strict-supplementalgroups-policy.yaml
 
 # Verify that the Pod's Container is running:
 $ kubectl get pod strict-supplementalgroups-policy
