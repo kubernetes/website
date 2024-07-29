@@ -121,15 +121,14 @@ the Kubernetes management system executes the handler according to the hook acti
 `httpGet`、`tcpSocket` 和 `sleep` 由 kubelet 进程执行，而 `exec` 在容器中执行。
 
 <!--
-Hook handler calls are synchronous within the context of the Pod containing the Container.
-This means that for a `PostStart` hook,
-the Container ENTRYPOINT and hook fire asynchronously.
-However, if the hook takes too long to run or hangs,
-the Container cannot reach a `running` state.
+The `PostStart` hook handler call is initiated when a container is created,
+meaning the container ENTRYPOINT and the `PostStart` hook are triggered simultaneously. 
+However, if the `PostStart` hook takes too long to execute or if it hangs,
+it can prevent the container from transitioning to a `running` state.
 -->
-回调处理程序调用在包含容器的 Pod 上下文中是同步的。
-这意味着对于 `PostStart` 回调，容器入口点和回调异步触发。
-但是，如果回调运行或挂起的时间太长，则容器无法达到 `running` 状态。
+当容器创建时，会调用 `PostStart` 回调程序，
+这意味着容器的 ENTRYPOINT 和 `PostStart` 回调会同时触发。然而，
+如果 `PostStart` 回调程序执行时间过长或挂起，它可能会阻止容器进入 `running` 状态。
 
 <!--
 `PreStop` hooks are not executed asynchronously from the signal
