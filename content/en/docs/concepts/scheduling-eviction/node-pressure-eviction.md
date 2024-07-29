@@ -76,25 +76,27 @@ point in time. The kubelet uses eviction signals to make eviction decisions by
 comparing the signals to eviction thresholds, which are the minimum amount of
 the resource that should be available on the node.
 
-On Linux, the kubelet uses the following eviction signals:
+The kubelet uses the following eviction signals:
 
-| Eviction Signal          | Description                                                                           |
-|--------------------------|---------------------------------------------------------------------------------------|
-| `memory.available`       | `memory.available` := `node.status.capacity[memory]` - `node.stats.memory.workingSet` |
-| `nodefs.available`       | `nodefs.available` := `node.stats.fs.available`                                       |
-| `nodefs.inodesFree`      | `nodefs.inodesFree` := `node.stats.fs.inodesFree`                                     |
-| `imagefs.available`      | `imagefs.available` := `node.stats.runtime.imagefs.available`                         |
-| `imagefs.inodesFree`     | `imagefs.inodesFree` := `node.stats.runtime.imagefs.inodesFree`                       |
-| `containerfs.available`  | `containerfs.available` := `node.stats.runtime.containerfs.available`                 |
-| `containerfs.inodesFree` | `containerfs.inodesFree` := `node.stats.runtime.containerfs.inodesFree`               |
-| `pid.available`          | `pid.available` := `node.stats.rlimit.maxpid` - `node.stats.rlimit.curproc`           |
+| Eviction Signal          | Description                                                                           | Linux Only |
+|--------------------------|---------------------------------------------------------------------------------------|------------|
+| `memory.available`       | `memory.available` := `node.status.capacity[memory]` - `node.stats.memory.workingSet` |            |
+| `nodefs.available`       | `nodefs.available` := `node.stats.fs.available`                                       |            |
+| `nodefs.inodesFree`      | `nodefs.inodesFree` := `node.stats.fs.inodesFree`                                     |      •     |
+| `imagefs.available`      | `imagefs.available` := `node.stats.runtime.imagefs.available`                         |            |
+| `imagefs.inodesFree`     | `imagefs.inodesFree` := `node.stats.runtime.imagefs.inodesFree`                       |      •     |
+| `containerfs.available`  | `containerfs.available` := `node.stats.runtime.containerfs.available`                 |            |
+| `containerfs.inodesFree` | `containerfs.inodesFree` := `node.stats.runtime.containerfs.inodesFree`               |      •     |
+| `pid.available`          | `pid.available` := `node.stats.rlimit.maxpid` - `node.stats.rlimit.curproc`           |      •     |
 
 In this table, the **Description** column shows how kubelet gets the value of the
 signal. Each signal supports either a percentage or a literal value. The kubelet
 calculates the percentage value relative to the total capacity associated with
 the signal.
 
-The value for `memory.available` is derived from the cgroupfs instead of tools
+#### Memory signals
+
+On Linux nodes, the value for `memory.available` is derived from the cgroupfs instead of tools
 like `free -m`. This is important because `free -m` does not work in a
 container, and if users use the [node allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 feature, out of resource decisions
@@ -106,7 +108,14 @@ reproduces the same set of steps that the kubelet performs to calculate
 file-backed memory on the inactive LRU list) from its calculation, as it assumes that
 memory is reclaimable under pressure.
 
-The kubelet recognizes three specific filesystem identifiers:
+On Windows nodes, the value for `memory.available` is derived from the node's global
+memory commit levels (queried through the [`GetPerformanceInfo()`](https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getperformanceinfo)
+system call) by subtracting the node's global [`CommitTotal`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information) from the node's [`CommitLimit`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information). Please note that `CommitLimit` can change if the node's page-file size changes!
+
+#### Filesystem signals
+
+The kubelet recognizes three specific filesystem identifiers that can be used with
+eviction signals (`<identifier>.inodesFree` or `<identifier>.available`):
 
 1. `nodefs`: The node's main filesystem, used for local disk volumes,
     emptyDir volumes not backed by memory, log storage, ephemeral storage,
@@ -143,6 +152,8 @@ other local node filesystems.
 
 The kubelet does not support other container filesystems or storage configurations,
 and it does not currently support multiple filesystems for images and containers.
+
+#### Deprecated kubelet garbage collection features
 
 Some kubelet garbage collection features are deprecated in favor of eviction:
 
@@ -205,7 +216,8 @@ thresholds like `memory.available<1Gi`.
 
 The kubelet has the following default hard eviction thresholds:
 
-- `memory.available<100Mi`
+- `memory.available<100Mi` (Linux nodes)
+- `memory.available<500Mi` (Windows nodes)
 - `nodefs.available<10%`
 - `imagefs.available<15%`
 - `nodefs.inodesFree<5%` (Linux nodes)
