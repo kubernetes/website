@@ -235,7 +235,8 @@ can happen, according to:
 
 {{< feature-state feature_gate_name="PodDisruptionConditions" >}}
 
-A dedicated Pod `DisruptionTarget` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions) is added to indicate
+A dedicated Pod `DisruptionTarget` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
+is added to indicate
 that the Pod is about to be deleted due to a {{<glossary_tooltip term_id="disruption" text="disruption">}}.
 The `reason` field of the condition additionally
 indicates one of the following reasons for the Pod termination:
