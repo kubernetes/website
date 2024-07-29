@@ -136,7 +136,7 @@ picks a node for the Pod to run on. In any cluster where there is more than one 
 running nodes, you should set the
 [kubernetes.io/os](/docs/reference/labels-annotations-taints/#kubernetes-io-os)
 label correctly on each node, and define pods with a `nodeSelector` based on the operating system
-label, the kube-scheduler assigns your pod to a node based on other criteria and may or may not
+label. The kube-scheduler assigns your pod to a node based on other criteria and may or may not
 succeed in picking a suitable node placement where the node OS is right for the containers in that Pod.
 The [Pod security standards](/docs/concepts/security/pod-security-standards/) also use this
 field to avoid enforcing policies that aren't relevant to the operating system.
