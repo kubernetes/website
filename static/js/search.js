@@ -68,31 +68,43 @@
         else return "";
     }
 
-    if (getCookie("is_china") === "") {
-        $.ajax({
-            url: "https://ipinfo.io?token=796e43f4f146b1",
-            dataType: "jsonp",
-            success: function (response) {
-                if (response.country == 'CN') {
-                    window.renderPageFindSearchResults()
-                    document.cookie = "is_china=true;" + path + expires
-                } else {
-                    window.renderGoogleSearchResults()
-                    document.cookie = "is_china=false;" + path + expires;
-                }
-            },
-            error: function () {
-                window.renderPageFindSearchResults()
-                document.cookie = "is_china=true;" + path + expires;
-            },
-            timeout: 3000
-        });
-    } else if (getCookie("is_china") == "true") {
-        window.addEventListener('DOMContentLoaded', (event) => {
-            window.renderPageFindSearchResults()
-        });
-    } else {
-        window.renderGoogleSearchResults()
+    async function checkBlockedSite(url) {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => {
+          controller.abort();
+        }, 5000); // Timeout set to 5000ms (5 seconds)
+      
+        try {
+            const response = await fetch(url, { method: 'HEAD', mode: 'no-cors', signal: controller.signal });
+            // If we reach this point, the site is accessible (since mode: 'no-cors' doesn't allow us to check response.ok)
+            clearTimeout(timeout);
+            return false;
+        } catch (error) {
+            // If an error occurs, it's likely the site is blocked
+            return true;
+        }
     }
 
+    async function loadSearch() {
+        if (getCookie("can_google") === "") {
+            const isGoogleBlocked = await checkBlockedSite("https://www.google.com/favicon.ico");
+            if ( isGoogleBlocked ) {
+                // Google is blocked.
+                console.log("Google is blocked")
+                document.cookie = "can_google=false;" + path + expires
+                window.renderPageFindSearchResults()
+            } else {
+                // Google is not blocked.
+                console.log("Google is NOT blocked")
+                document.cookie = "can_google=true;" + path + expires
+                window.renderGoogleSearchResults()
+            }
+        } else if (getCookie("can_google") == "false") {
+            window.renderPageFindSearchResults()
+        } else {
+            window.renderGoogleSearchResults()
+        }
+    }
+
+    window.onload = loadSearch;
 
