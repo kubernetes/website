@@ -7,7 +7,7 @@ author: >
   [Stephen Kitt](https://github.com/skitt) (Red Hat)
 ---
 
-If you've ever wanted to develop a command-line client for a Kubernetes API,
+If you've ever wanted to develop a command line client for a Kubernetes API,
 especially if you’ve considered making your client usable as a `kubectl` plugin,
 you might have wondered how to make your client feel familiar to users of `kubectl`.
 A quick glance at the output of `kubectl options` might put a damper on that:
@@ -15,7 +15,7 @@ A quick glance at the output of `kubectl options` might put a damper on that:
 
 Fear not, others have done a lot of the work involved for you.
 In fact, the Kubernetes provides two libraries to help you handle
-`kubectl`-style command-line options,
+`kubectl`-style command line arguments,
 [`clientcmd`](https://pkg.go.dev/k8s.io/client-go/tools/clientcmd) and
 [`cli-runtime`](https://pkg.go.dev/k8s.io/cli-runtime)
 (which uses `clientcmd`).
@@ -31,9 +31,9 @@ that can issue requests to an API server.
 It follows `kubectl` semantics:
 * defaults are taken from `~/.kube` or equivalent;
 * files can be specified using the `KUBECONFIG` environment variable;
-* all the above can be further overridden using command-line arguments.
+* all the above can be further overridden using command line arguments.
 
-It doesn’t set up a `--kubeconfig` flag,
+It doesn’t set up a `--kubeconfig` command line argument,
 which you might want to do to align with `kubectl`;
 you’ll see how to do this
 [in the “Bind the flags” section](#bind-the-flags).
@@ -113,38 +113,54 @@ but in most cases the defaults are fine.
 
 `clientcmd.ConfigOverrides` is a `struct` storing overrides which will be applied over the settings loaded from the configuration derived using the loading rules.
 In the context of this article,
-its primary purpose is to store values obtained from command-line flags.
+its primary purpose is to store values obtained from command line arguments.
+These are handled using the [pflag](https://github.com/spf13/pflag) library,
+which is a drop-in replacement for Go’s [flag package](https://pkg.go.dev/flag),
+adding support for double-hyphen arguments with long names.
 
 In most cases there’s nothing to set in the overrides;
 we will only bind them to flags.
 
 ### Build a set of flags
 
-Three sets of flags are available:
+In this context, a flag is a representation of a command line argument,
+specifying its long name (such as `--namespace`),
+its short name if any (such as `-n`),
+its default value,
+and a description shown in the usage information.
+Flags are stored in instances of
+[the `FlagInfo` `struct`](https://pkg.go.dev/k8s.io/client-go/tools/clientcmd#FlagInfo).
 
-* authentication flags (certificates, tokens, impersonations, username/password);
-* cluster flags (API server, certificate authority, TLS configuration, proxy, compression)
-* context flags (cluster name, `kubeconfig` user name, namespace)
+Three sets of flags are available,
+representing the following command line arguments:
 
-The recommended selection includes all three with a named context selection flag and a timeout flag.
+* authentication arguments (certificates, tokens, impersonations, username/password);
+* cluster arguments (API server, certificate authority, TLS configuration, proxy, compression)
+* context arguments (cluster name, `kubeconfig` user name, namespace)
+
+The recommended selection includes all three with a named context selection argument and a timeout argument.
 
 These are all available using the `Recommended…Flags` functions.
-The functions take a prefix, which is prepended to all the flags.
+The functions take a prefix, which is prepended to all the argument long names.
 
 So calling
 [`clientcmd.RecommendedConfigOverrideFlags("")`](https://pkg.go.dev/k8s.io/client-go/tools/clientcmd#RecommendedConfigOverrideFlags)
 results in flags including `--context`, `--namespace`, and so on.
 The `--timeout` flag is given a default of 0,
 and the `--namespace` flags has a corresponding short variant, `-n`.
-Adding a prefix, _e.g._ `"from-"`, results in flags such as
+Adding a prefix, such as `"from-"`, results in command line arguments such as
 `--from-context`, `--from-namespace`, etc.
 This might not seem particularly useful on commands involving a single API server,
 but they come in handy when multiple API servers are involved,
 such as in multi-cluster scenarios.
 
-There’s a potential gotcha here: prefixes don’t modify the short flag,
-so `--namespace` needs some care with prefixes.
-Short flags can be cleared as follows:
+There’s a potential gotcha here: prefixes don’t modify the short name,
+so `--namespace` needs some care if multiple prefixes are used:
+only one of the prefixes can be associated with the `-n` short name.
+You’ll have to clear the short names associated with the other prefixes’
+`--namespace` , or perhaps all prefixes if there’s no sensible
+`-n` association.
+Short names can be cleared as follows:
 
 ```lang-go
 kflags := clientcmd.RecommendedConfigOverrideFlags(prefix)
@@ -160,7 +176,7 @@ kflags.ContextOverrideFlags.Namespace.LongName = ""
 ### Bind the flags
 
 Once a set of flags has been defined,
-it can be used to bind command-line flags to overrides using
+it can be used to bind command line arguments to overrides using
 [`clientcmd.BindOverrideFlags`](https://pkg.go.dev/k8s.io/client-go/tools/clientcmd#BindOverrideFlags).
 This requires a
 [`pflag`](https://pkg.go.dev/github.com/spf13/pflag) `FlagSet`
@@ -187,7 +203,7 @@ whereas the second only operates on the information given to it by the caller.
 
 The “deferred” mention in these function names refers to the fact that
 the final configuration will be determined as late as possible.
-This means that these functions can be called before the command-line flags are parsed,
+This means that these functions can be called before the command line arguments are parsed,
 and the resulting configuration will use whatever values have been parsed
 by the time it’s actually constructed.
 
@@ -200,11 +216,11 @@ An API client can be obtained from that by calling the `ClientConfig()` method.
 If no configuration is given
 (`KUBECONFIG` is empty or points to non-existent files,
 `~/.kube/config` doesn’t exist,
-and no configuration is given using command-line flags),
+and no configuration is given using command line arguments),
 the default setup will return an obscure error referring to `KUBERNETES_MASTER`.
 This is legacy behaviour;
 several attempts have been made to get rid of it,
-but it is preserved for the `--local` and `--dry-run` flags in `--kubectl`.
+but it is preserved for the `--local` and `--dry-run` command line arguments in `--kubectl`.
 You should check for “empty configuration” errors by calling `clientcmd.IsEmptyConfig()`
 and provide a more explicit error message.
 
@@ -235,7 +251,7 @@ func main() {
 	// Loading rules, no configuration
 	loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
 
-	// Overrides and flag setup
+	// Overrides and flag (command line argument) setup
 	configOverrides := &clientcmd.ConfigOverrides{}
 	flags := pflag.NewFlagSet("clientcmddemo", pflag.ExitOnError)
 	clientcmd.BindOverrideFlags(configOverrides, flags,
