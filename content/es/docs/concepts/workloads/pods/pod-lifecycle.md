@@ -39,7 +39,7 @@ se considera que los Pods son entidades relativamente efímeras
 (en lugar de durables).
 Los Pods se crean y se les 
 asigna un identificador único
-([UID](/docs/concepts/overview/working-with-objects/names/#uids)),
+([UID](/es/docs/concepts/overview/working-with-objects/names/#uids)),
 y se programan para ejecutarse en nodos donde se mantienen hasta que se terminan
 (de acuerdo con las políticas de reinicio) o se eliminan.
 
