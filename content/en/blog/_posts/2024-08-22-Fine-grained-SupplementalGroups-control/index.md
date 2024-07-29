@@ -8,12 +8,12 @@ author: >
 
 ---
 
-This blog discusses a new feature in Kubernetes 1.31 to improve the handling of supplementary groups in containers in Pods.
+This blog discusses a new feature in Kubernetes 1.31 to improve the handling of supplementary groups in containers within Pods.
 
 
 ## Motivation: Implicit group memberships defined in `/etc/group` in the container image
 
-Although this behavior may not be quite popular by many Kubernetes cluster users/admins, kubernetes, by default, _merges_ group information from the Pod with information defined in `/etc/group` in the container image.
+Although this behavior may not be popular with many Kubernetes cluster users/admins, kubernetes, by default, _merges_ group information from the Pod with information defined in `/etc/group` in the container image.
 
 Let's see an example, below Pod specifies `runAsUser=1000`, `runAsGroup=3000` and `supplementalGroups=4000` in the Pod's security context.
 
@@ -90,8 +90,11 @@ uid=1000 gid=3000 groups=3000,4000
 
 You can see `Strict` policy can exclude group `50000` from `groups`! 
 
-Thus, enforcing `SupplementalGroupsPolicy=Merge` by some policy engines helps preventing the implicit supplementary groups in a Pod (note: actually, this is not enough because container with strong priviledge/capability can change its process identity. Please see the following section for details).
+Thus, enforcing `SupplementalGroupsPolicy=Merge` by some policy engines helps preventing the implicit supplementary groups in a Pod.
 
+{{<note>}}
+Actually, this is not enough because container with strong priviledge/capability can change its process identity. Please see the following section for details).
+{{</note>}}
 
 ## Attached process identity in Pod status
 
