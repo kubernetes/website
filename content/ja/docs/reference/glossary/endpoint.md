@@ -4,7 +4,7 @@ id: endpoints
 date: 2020-04-23
 full_link: 
 short_description: >
-  エンドポイントは、サービスのセレクターに一致するポッドのIPアドレスを記録する責任があります。
+  エンドポイントは、サービスのセレクターに一致するPodのIPアドレスを記録する責任があります。
 
 aka:
 tags:
