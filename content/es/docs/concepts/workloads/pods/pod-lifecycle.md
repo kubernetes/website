@@ -53,9 +53,18 @@ Si un Pod está programado para un {{< glossary_tooltip text="nodo" term_id="nod
 el Pod se elimina; de la misma manera,
 un Pod no sobrevivirá a un desalojo debido a falta de recursos o mantenimiento
 del Nodo.
-Kubernetes utiliza una abstracción llamada {{< glossary_tooltip term_id="controller" text="controlador" >}}, que maneja el trabajo de administrar las instancias de
-lugar, ese Pod se puede reemplazar por un Pod nuevo, casi idéntico, incluso con
-el mismo nombre si se desea, pero con un UID diferente.
+Kubernetes utiliza una abstracción llamada {{< glossary_tooltip term_id="controller" text="controlador" >}}, que se encarga del trabajo de gestionar las instancias de Pod relativamente desechables.
+
+Un Pod determinado (según lo definido por un UID) nunca se "reprograma" a un nodo diferente; en cambio,
+ese Pod puede ser reemplazado por un Pod nuevo, casi idéntico, incluso con el mismo nombre si
+deseado, pero con un UID diferente.
+
+Cuando se dice que algo tiene la misma vida útil que un Pod, como un
+{{< glosario_tooltip term_id="volume" text="volumen" >}},
+eso significa que la cosa existe mientras ese Pod específico (con ese UID exacto)
+existe. Si ese Pod se elimina por cualquier motivo, e incluso si se requiere un reemplazo idéntico
+se crea, el objeto relacionado (un volumen, en este ejemplo) también se destruye y
+creado de nuevo.
 
 {{< figure src="/images/docs/pod.svg" title="Diagrama de un Pod" class=" diagram-medium" >}}
 
