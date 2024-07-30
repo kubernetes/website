@@ -12,23 +12,13 @@ inicia correctamente,
 y luego pasando a "exitoso" (`Succeeded`) o "fallido" (`Failed`) si uno de los contenedores de un Pod
 termina en error.
 
-Mientras un Pod está en `Running`,
-el kubelet puede reiniciar sus contenedores para manejar algunos errores.
-Dentro de un Pod,
-Kubernetes rastrea diferentes [estados](#container-states) de contenedores y
-decide qué acción tomar para que el Pod esté sano otra vez.
+Al igual que contenedores de aplicaciones, los Pods se consideran entidades relativamente efímeras.
+Los Pods se crean y se les asigna un identificador único ([UID](/docs/concepts/overview/working-with-objects/names/#uids)), y se programan para ejecutarse en nodos donde se mantienen hasta que se terminan (de acuerdo con las políticas de reinicio) o se eliminan.
 
-En la API de Kubernetes, los Pods tienen una especificación y un estado actual.
-El estado de un Pod consiste en un conjunto
-de [condiciones de un Pod](#pod-conditions).
-También puedes
-inyectar [información de estado personalizada](#pod-readiness-gate) en los datos
-de condiciones de un Pod, si es útil para tu aplicación.
-
-Los Pods se [programan](/docs/concepts/scheduling-eviction/) únicamente una vez
-en su tiempo de vida.
-Una vez que un Pod se programa (asigna) a un Nodo, el Pod se ejecuta en ese Nodo
-hasta que se termine o se [elimina](#pod-termination).
+Si un {{< glossary_tooltip text="nodo" term_id="node" >}} muere,
+los Pods programados para ejecutarse en ese Nodo
+se [programan para eliminarse](#pod-garbage-collection).
+El plano de control marca los Pods para ser eliminados luego de un periodo de tiempo.
 
 <!-- body -->
 
