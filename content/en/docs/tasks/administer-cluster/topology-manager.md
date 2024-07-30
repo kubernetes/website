@@ -78,13 +78,13 @@ carry out the alignment (e.g. `best-effort`, `restricted`, `single-numa-node`, e
 Details on the various `scopes` and `policies` available today can be found below.
 
 {{< note >}}
-To align CPU resources with other requested resources in a Pod Spec, the CPU Manager should be
+To align CPU resources with other requested resources in a Pod spec, the CPU Manager should be
 enabled and proper CPU Manager policy should be configured on a Node.
 See [control CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 {{< /note >}}
 
 {{< note >}}
-To align memory (and hugepages) resources with other requested resources in a Pod Spec, the Memory
+To align memory (and hugepages) resources with other requested resources in a Pod spec, the Memory
 Manager should be enabled and proper Memory Manager policy should be configured on a Node. Examine
 [Memory Manager](/docs/tasks/administer-cluster/memory-manager/) documentation.
 {{< /note >}}
