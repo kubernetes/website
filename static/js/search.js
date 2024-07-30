@@ -90,12 +90,10 @@
             const isGoogleBlocked = await checkBlockedSite("https://www.google.com/favicon.ico");
             if ( isGoogleBlocked ) {
                 // Google is blocked.
-                console.log("Google is blocked")
                 document.cookie = "can_google=false;" + path + expires
                 window.renderPageFindSearchResults()
             } else {
                 // Google is not blocked.
-                console.log("Google is NOT blocked")
                 document.cookie = "can_google=true;" + path + expires
                 window.renderGoogleSearchResults()
             }
