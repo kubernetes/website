@@ -223,37 +223,55 @@ You can toggle groups of options on and off based upon their maturity level usin
 
 You will still have to enable each option using the `TopologyManagerPolicyOptions` kubelet option.
 
-The following policy options exists:
-* `prefer-closest-numa-nodes` (beta, visible by default; `TopologyManagerPolicyOptions` and `TopologyManagerPolicyBetaOptions` feature gates have to be enabled).
-  The `prefer-closest-numa-nodes` policy option is beta in Kubernetes {{< skew currentVersion >}}.
+### `prefer-closest-numa-nodes` (beta) {#policy-option-prefer-closest-numa-nodes}
 
-  If the `prefer-closest-numa-nodes` policy option is specified, the `best-effort` and `restricted`
-  policies will favor sets of NUMA nodes with shorter distance between them when making admission decisions.
-  You can enable this option by adding `prefer-closest-numa-nodes=true` to the Topology Manager policy options.
-  By default, without this option, Topology Manager aligns resources on either a single NUMA node or
-  the minimum number of NUMA nodes (in cases where more than one NUMA node is required). However,
-  the `TopologyManager` is not aware of NUMA distances and does not take them into account when making admission decisions.
-  This limitation surfaces in multi-socket, as well as single-socket multi NUMA systems,
-  and can cause significant performance degradation in latency-critical execution and high-throughput applications if the
-  Topology Manager decides to align resources on non-adjacent NUMA nodes.
+The `prefer-closest-numa-nodes` option is beta since Kubernetes 1.28. In Kubernetes {{< skew currentVersion >}}
+this policy option is visible by default provided that the `TopologyManagerPolicyOptions` and
+`TopologyManagerPolicyBetaOptions` [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+are enabled.
 
-* `max-allowable-numa-nodes` (beta, visible by default).
-  The `max-allowable-numa-nodes` policy option is beta in Kubernetes {{< skew currentVersion >}}.
+The topology manager is not aware by default of NUMA distances, and does not take them into account when making
+Pod admission decisions. This limitation surfaces in multi-socket, as well as single-socket multi NUMA systems,
+and can cause significant performance degradation in latency-critical execution and high-throughput applications
+if the topology manager decides to align resources on non-adjacent NUMA nodes.
 
-  The time to admit a pod is tied to the number of NUMA nodes on the physical machine.
-  By default, Kubernetes does not run a kubelet with the topology manager enabled, on any (Kubernetes) node where more than 8 NUMA nodes are detected.
-  If you select the the `max-allowable-numa-nodes` policy option, nodes with more than 8 NUMA nodes can
-  be allowed to run with the topology manager enabled. The Kubernetes project only has limited data on the impact
-  of using the topology manager on (Kubernetes) nodes with more than 8 NUMA nodes. Because of that
-  lack of data, using this policy option is **not** recommended and is at your own risk.
-  Setting a value of `max-allowable-numa-nodes` does not (in and of itself) affect the
-  latency of pod admission, but binding a Pod to a (Kubernetes) node with many NUMA does does have an impact.
-  Future, potential improvements to Kubernetes may improve Pod admission performance and the high
-  latency that happens as the number of NUMA nodes increases.
+If you specify the `prefer-closest-numa-nodes` policy option, the `best-effort` and `restricted`
+policies favor sets of NUMA nodes with shorter distance between them when making admission decisions.
+
+You can enable this option by adding `prefer-closest-numa-nodes=true` to the Topology Manager policy options.
+
+By default (without this option), Topology Manager aligns resources on either a single NUMA node or,
+in the case where more than one NUMA node is required, using the minimum number of NUMA nodes.
+
+### `max-allowable-numa-nodes` (beta) {#policy-option-max-allowable-numa-nodes}
+
+The `max-allowable-numa-nodes` option is beta since Kubernetes 1.31. In Kubernetes {{< skew currentVersion >}}
+this policy option is visible by default provided that the `TopologyManagerPolicyOptions` and
+`TopologyManagerPolicyBetaOptions` [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+are enabled.
+
+The time to admit a pod is tied to the number of NUMA nodes on the physical machine.
+By default, Kubernetes does not run a kubelet with the topology manager enabled, on any (Kubernetes) node where
+more than 8 NUMA nodes are detected.
+
+{{< note >}}
+If you select the the `max-allowable-numa-nodes` policy option, nodes with more than 8 NUMA nodes can
+be allowed to run with the topology manager enabled. The Kubernetes project only has limited data on the impact
+of using the topology manager on (Kubernetes) nodes with more than 8 NUMA nodes. Because of that
+lack of data, using this policy option with Kubernetes {{< skew currentVersion >}} is **not** recommended and is
+at your own risk.
+{{< /note >}}
+
+You can enable this option by adding `max-allowable-numa-nodes=true` to the Topology Manager policy options.
+
+Setting a value of `max-allowable-numa-nodes` does not (in and of itself) affect the
+latency of pod admission, but binding a Pod to a (Kubernetes) node with many NUMA does does have an impact.
+Future, potential improvements to Kubernetes may improve Pod admission performance and the high
+latency that happens as the number of NUMA nodes increases.
 
 ## Pod interactions with topology manager policies
 
-Consider the containers in the following pod specs:
+Consider the containers in the following Pod manifest:
 
 ```yaml
 spec:
@@ -364,7 +382,8 @@ assignments.
 
 1. The maximum number of NUMA nodes that Topology Manager allows is 8. With more than 8 NUMA nodes
    there will be a state explosion when trying to enumerate the possible NUMA affinities and
-   generating their hints.
+   generating their hints. See [`max-allowable-numa-nodes`](#policy-option-max-allowable-numa-nodes)
+   (beta) for more options.
 
 2. The scheduler is not topology-aware, so it is possible to be scheduled on a node and then fail
    on the node due to the Topology Manager.
