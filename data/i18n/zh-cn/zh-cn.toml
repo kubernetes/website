@@ -409,6 +409,9 @@ other = "这篇文章已经一年多了，较旧的文章可能包含过时的�
 [patch_release]
 other = "补丁版本"
 
+[post_byline_by]
+other = "作者"
+
 [post_create_issue]
 other = "登记一个问题"
 
@@ -567,6 +570,9 @@ other = """<p>本页面中的条目引用了第三方产品或项目，这些产
 
 [thirdparty_message_vendor]
 other = """本页面中的条目引用了 Kubernetes 外部的供应商。Kubernetes 项目的开发人员不对这些第三方产品（项目）负责。要将供应商、产品或项目添加到此列表中，请在提交更改之前阅读<a href="/zh-cn/docs/contribute/style/content-guide/#third-party-content">内容指南</a>。<a href="#third-party-content-disclaimer">更多信息。</a>"""
+
+[translated_by]
+other = "译者"
 
 [ui_search_placeholder]
 other = "搜索"
