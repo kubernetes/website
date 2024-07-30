@@ -10,8 +10,9 @@ weight: 200
 
 {{< feature-state feature_gate_name="CoordinatedLeaderElection" >}}
 
-Kubernetes {{< skew currentVersion >}} includes an alpha feature that allows
-{{< glossary_tooltip text="control plane" term_id="control-plane" >}} components to deterministically select a leader via _coordinated leader election.
+Kubernetes {{< skew currentVersion >}} includes an alpha feature that allows {{<
+glossary_tooltip text="control plane" term_id="control-plane" >}} components to
+deterministically select a leader via _coordinated leader election_.
 This is useful to satisfy Kubernetes version skew constraints during cluster upgrades.
 Currently, the only builtin selection strategy is `OldestEmulationVersion`,
 preferring the leader with the lowest emulation version, followed by binary
@@ -22,35 +23,18 @@ version, followed by creation timestamp.
 Ensure that `CoordinatedLeaderElection` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled
 when you start the {{< glossary_tooltip text="API Server"
-term_id="kube-apiserver" >}}: and that the `coordination.k8s.io/v1alpha1` API is
+term_id="kube-apiserver" >}}: and that the `coordination.k8s.io/v1alpha1` API group is
 enabled.
 
 This can be done by setting flags `--feature-gates="CoordinatedLeaderElection=true"` and
 `--runtime-config="coordination.k8s.io/v1alpha1=true"`.
 
-## Component Configuration
+## Component configuration
+Provided that you have enabled the `CoordinatedLeaderElection` feature gate _and_  
+have the `coordination.k8s.io/v1alpha1` API group enabled, compatible control plane  
+components automatically use the LeaseCandidate and Lease APIs to elect a leader  
+as needed.  
 
-With Coordinated Leader Election, components need to both run a LeaseCandidate
-and Lease goroutine (both found in client-go/pkg/leaderelection). Two components
-(kube-controller-manager and kube-scheduler) will automatically use coordinated
-leader election if enabled. Please refer to the example found in
-[k8s.io/kubernetes/cmd/kube-scheduler/app/server.go](https://github.com/kubernetes/kubernetes/blob/master/cmd/kube-scheduler/app/server.go) on set up.
-
-The created LeaseCandidate object looks similar to below:
-
-```
-apiVersion: coordination.k8s.io/v1alpha1
-kind: LeaseCandidate
-metadata:
-  name: hostname_uuid
-  namespace: kube-system
-spec:
-  binaryVersion: 1.31.0
-  emulationVersion: 1.31.0
-  leaseName: kube-scheduler
-  preferredStrategies:
-  - OldestEmulationVersion
-  renewTime: "2024-07-30T03:45:18.325483Z"
-```
-
-Please refer to the [documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#leasecandidate-v1alpha1-coordination-k8s-io) for LeaseCandidate for the full API details.
+For Kubernetes {{< skew currentVersion >}}, two control plane components  
+(kube-controller-manager and kube-scheduler) automatically use coordinated  
+leader election when the feature gate and API group are enabled.  

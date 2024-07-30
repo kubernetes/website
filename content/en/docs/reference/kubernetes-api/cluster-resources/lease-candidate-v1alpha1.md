@@ -5,7 +5,7 @@ api_metadata:
   kind: "LeaseCandidate"
 content_type: "api_reference"
 description: "This is a placeholder page to be overwritten when the docs are generated for 1.31"
-title: "Lease Candidate"
+title: "LeaseCandidate"
 weight: 5
 ---
 
