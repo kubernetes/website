@@ -96,12 +96,15 @@ The Topology Manager can deal with the alignment of resources in a couple of dis
 * `container` (default)
 * `pod`
 
-Either option can be selected at a time of the kubelet startup, with `--topology-manager-scope`
-flag.
+Either option can be selected at a time of the kubelet startup, by setting the
+`topologyManagerScope` in the
+[kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
 
 ### container scope
 
-The `container` scope is used by default.
+The `container` scope is used by default. You can also explicitly set the
+`topologyManagerScope` to `container` in the
+[kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
 
 Within this scope, the Topology Manager performs a number of sequential resource alignments, i.e.,
 for each container (in a pod) a separate alignment is computed. In other words, there is no notion
@@ -113,7 +116,7 @@ scope, for example the `pod` scope.
 
 ### pod scope
 
-To select the `pod` scope, start the kubelet with the command line option `--topology-manager-scope=pod`.
+To select the `pod` scope, set `topologyManagerScope` in the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/) to `pod`.`
 
 This scope allows for grouping all containers in a pod to a common set of NUMA nodes. That is, the
 Topology Manager treats a pod as a whole and attempts to allocate the entire pod (all containers)
