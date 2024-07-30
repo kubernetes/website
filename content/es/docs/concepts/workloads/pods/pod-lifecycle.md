@@ -24,6 +24,21 @@ El plano de control marca los Pods para ser eliminados luego de un periodo de ti
 
 ## Ciclo de vida de un Pod
 
+Mientras un Pod se está ejecutando, el kubelet puede reiniciar contenedores para manejar algunos tipos de fallos.
+Dentro de un Pod, Kubernetes rastrea distintos [estados](#container-states) del contenedor y determina qué acción realizar para que el Pod esté sano nuevamente.
+
+En la API de Kubernetes, los Pods tienen una especificación y un estatus actual.
+El estatus de un objeto Pod consiste en un conjunto de [condiciones del Pod](#pod-conditions).
+También puedes inyectar [información de readiness personalizada](#pod-readiness-gate) a los datos de condición de un Pod, si es útil para tu aplicación. 
+
+Los Pods solo se [programan](/docs/concepts/scheduling-eviction/) una vez en su ciclo de vida; asignar un Pod a un nodo específico se llama _vincular_ (binding, en inglés), y el proceso de seleccionar cuál Pod usar se llama _programar_.
+Una vez que un Pod está vinculado a un nodo, Kubernetes intenta ejecutar el Pod en ese nodo.
+El Pod se ejecuta en ese nodo hasta que termina, o hasta que es [terminado](#pod-termination); if Kubernetes no es capaz de iniciar el Pod en el nodo seleccionado (por ejemplo, si el nodo falla antes que el Pod inicie), entonces ese Pod en particular nunca inicia.
+
+Puedes usar [readiness de programación del Pod](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/) para retrasar la programación de un Pod hasta que todas sus _puertas de programación_ sean removidas.
+Por ejemplo, podrías querer definir un conjunto de Pods, pero solo lanzar la programación una vez que todos los Pods hayan sido creados.
+
+
 Igual que contenedores de aplicación individuales,
 se considera que los Pods son entidades relativamente efímeras
 (en lugar de durables).
