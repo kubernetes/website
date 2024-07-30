@@ -10,5 +10,5 @@ stages:
     defaultValue: false
     fromVersion: "1.31"
 ---
-Enables coordinated leader election for leases, deterministically
-managing the leader in leader elected components.
+Enables the behaviors supporting the LeaseCandidate API, and also enables
+coordinated leader election for the Kubernetes control plane, deterministically.

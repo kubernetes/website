@@ -11,13 +11,13 @@ weight: 200
 {{< feature-state feature_gate_name="CoordinatedLeaderElection" >}}
 
 Kubernetes {{< skew currentVersion >}} includes an alpha feature that allows
-components to deterministically select a leader via Coordinated Leader Election.
+{{< glossary_tooltip text="control plane" term_id="control-plane" >}} components to deterministically select a leader via _coordinated leader election.
 This is useful to satisfy Kubernetes version skew constraints during cluster upgrades.
 Currently, the only builtin selection strategy is `OldestEmulationVersion`,
 preferring the leader with the lowest emulation version, followed by binary
 version, followed by creation timestamp.
 
-## Enabling Coordinated Leader Election
+## Enabling coordinated leader election
 
 Ensure that `CoordinatedLeaderElection` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled
