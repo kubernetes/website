@@ -187,13 +187,14 @@ token might be shorter, or could even be longer).
 {{< feature-state feature_gate_name="ServiceAccountTokenNodeBinding" >}}
 
 When the `ServiceAccountTokenNodeBinding` and `ServiceAccountTokenNodeBindingValidation`
-features are enabled, it is possible to create a service account token that is directly bound to a `Node`:
+features are enabled, and using `kubectl` v1.31 or later, it is possible to create a service 
+account token that is directly bound to a Node:
 
 ```shell
 kubectl create token build-robot --bound-object-kind Node --bound-object-name node-001 --bound-object-uid 123...456
 ```
 
-The token will be valid until it expires or either the associated `Node` or service account are deleted.
+The token will be valid until it expires or either the associated Node or service account are deleted.
 
 {{< note >}}
 Versions of Kubernetes before v1.22 automatically created long term credentials for
