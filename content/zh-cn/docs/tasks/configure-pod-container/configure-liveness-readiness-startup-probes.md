@@ -660,6 +660,7 @@ liveness and readiness checks:
 <!--
 * `failureThreshold`: After a probe fails `failureThreshold` times in a row, Kubernetes
   considers that the overall check has failed: the container is _not_ ready/healthy/live.
+  Defaults to 3. Minimum value is 1.
   For the case of a startup or liveness probe, if at least `failureThreshold` probes have
   failed, Kubernetes treats the container as unhealthy and triggers a restart for that
   specific container. The kubelet honors the setting of `terminationGracePeriodSeconds`
@@ -671,6 +672,7 @@ liveness and readiness checks:
 -->
 * `failureThreshold`：探针连续失败了 `failureThreshold` 次之后，
   Kubernetes 认为总体上检查已失败：容器状态未就绪、不健康、不活跃。
+  默认值为 3，最小值为 1。
   对于启动探针或存活探针而言，如果至少有 `failureThreshold` 个探针已失败，
   Kubernetes 会将容器视为不健康并为这个特定的容器触发重启操作。
   kubelet 遵循该容器的 `terminationGracePeriodSeconds` 设置。
