@@ -53,4 +53,4 @@ spec:
   renewTime: "2024-07-30T03:45:18.325483Z"
 ```
 
-Please refer to the [documentation](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#leasecandidate-v1alpha1-coordination-k8s-io) for LeaseCandidate for the full API details.
+Please refer to the [documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#leasecandidate-v1alpha1-coordination-k8s-io) for LeaseCandidate for the full API details.
