@@ -7,8 +7,6 @@ author: >
   Frederico Muñoz (SAS Institute)
 ---
 
-**著者**: Frederico Muñoz (SAS Institute)
-
 Kubernetesとそれを取り巻く技術のエコシステム全体を学ぶことは、課題がないわけではありません。
 このインタビューでは、[AWSのCarlos Santana](https://www.linkedin.com/in/csantanapr/)さんに、コミュニティベースの学習体験を利用するために、彼がどのようにして[Kubernetesブッククラブ](https://community.cncf.io/kubernetes-virtual-book-club/)を作ったのか、その会がどのような活動をするのか、そしてどのようにして参加するのかについて伺います。
 
