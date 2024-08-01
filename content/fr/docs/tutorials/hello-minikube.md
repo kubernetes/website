@@ -82,7 +82,7 @@ Maintenant, vous pouvez utiliser cette URL et revenir au terminal où vous avez 
 
 ## Créer un Deployment
 
-Un [*Pod*](/docs/concepts/workloads/pods/) Kubernetes est un groupe de un ou plusieurs Containers, liés ensemble pour les besoins de l'administration et du réseau. Le Pod de ce tutoriel n'a qu'un seul Container. Un [*Deployment*](/docs/concepts/workloads/controllers/deployment/) Kubernetes vérifie l'état de santé de votre Pod et redémarre le Container du Pod s'il se termine. Les Deployments sont la méthode recommandée pour gérer la création et la mise à l'échelle des Pods.
+Un [*Pod*](/docs/concepts/workloads/pods/) Kubernetes est un groupe de un ou plusieurs conteneurs, liés ensemble pour les besoins de l'administration et du réseau. Le Pod de ce tutoriel n'a qu'un seul conteneur. Un [*Deployment*](/docs/concepts/workloads/controllers/deployment/) Kubernetes vérifie l'état de santé de votre Pod et redémarre le conteneur du Pod s'il se termine. Les Deployments sont la méthode recommandée pour gérer la création et la mise à l'échelle des Pods.
 
 1. Utilisez la commande `kubectl` create pour créer un Deployment qui gère un Pod. Le Pod exécute un Container basé sur l'image Docker fournie.
 
