@@ -54,7 +54,7 @@ minikube dashboard
 Maintenant, revenez au terminal où vous avez exécuté `minikube start`.
 
 {{< note >}}
-La commande `dashboard` active l'addon du tableau de bord et ouvre le proxy dans le navigateur par défaut.
+La commande `dashboard` active l'extension du tableau de bord et ouvre le proxy dans le navigateur par défaut.
 Vous pouvez créer des ressources Kubernetes sur le tableau de bord, telles que Deployment et Service.
 
 Pour savoir comment éviter d'invoquer directement le navigateur à partir du terminal et obtenir une URL pour le tableau de bord Web, consultez l'onglet "Copier et coller l'URL".
@@ -195,11 +195,11 @@ Le conteneur agnhost a un point de terminaison `/shell`, qui est utile pour le d
 
     Cette commande ouvre une fenêtre de navigateur qui sert votre application et affiche la réponse de l'application.
 
-## Activer les addons
+## Activer les extensions
 
 L'outil minikube inclut un ensemble intégré d'{{< glossary_tooltip text="addons" term_id="addons" >}} qui peuvent être activés, désactivés et ouverts dans l'environnement local Kubernetes.
 
-1. Liste des addons pris en charge actuellement:
+1. Liste des extensions pris en charge actuellement:
 
     ```shell
     minikube addons list
@@ -227,7 +227,7 @@ L'outil minikube inclut un ensemble intégré d'{{< glossary_tooltip text="addon
     storage-provisioner-gluster: disabled
     ```
 
-2. Activer un addon, par exemple, `metrics-server`:
+2. Activer une extension, par exemple, `metrics-server`:
 
     ```shell
     minikube addons enable metrics-server
@@ -239,7 +239,7 @@ L'outil minikube inclut un ensemble intégré d'{{< glossary_tooltip text="addon
     The 'metrics-server' addon is enabled
     ```
 
-3. Afficher le Pod et le Service que vous avez créés en installant cet addon:
+3. Afficher le Pod et le Service que vous avez créés en installant cette extension:
 
     ```shell
     kubectl get pod,svc -n kube-system
@@ -301,20 +301,20 @@ L'outil minikube inclut un ensemble intégré d'{{< glossary_tooltip text="addon
 
 ## Nettoyage
 
-Maintenant, vous pouvez nettoyer les ressources que vous avez créées dans votre cluster:
+Vous pouvez maintenant nettoyer les ressources que vous avez créées dans votre cluster:
 
 ```shell
 kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-Arrêter le cluster Minikube
+Si nécessaire, arrêtez la machine virtuelle Minikube (VM)
 
 ```shell
 minikube stop
 ```
 
-Facultatif, supprimer la VM Minikube:
+Si nécessaire, effacez la VM Minikube:
 
 ```shell
 # Facultatif
