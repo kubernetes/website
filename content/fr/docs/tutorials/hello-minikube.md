@@ -245,7 +245,7 @@ L'outil minikube inclut un ensemble intégré d'{{< glossary_tooltip text="addon
     kubectl get pod,svc -n kube-system
     ```
 
-    The output is similar to:
+    La sortie devrait être simulaire à :
 
     ```
     NAME                                        READY     STATUS    RESTARTS   AGE
