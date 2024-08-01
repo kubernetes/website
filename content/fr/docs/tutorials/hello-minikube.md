@@ -197,7 +197,7 @@ Le conteneur agnhost a un point de terminaison `/shell`, qui est utile pour le d
 
 ## Activer les extensions
 
-L'outil minikube inclut un ensemble intégré d'{{< glossary_tooltip text="addons" term_id="addons" >}} qui peuvent être activés, désactivés et ouverts dans l'environnement local Kubernetes.
+La commande `minikube` inclut un ensemble intégré d'{{< glossary_tooltip text="addons" term_id="addons" >}} qui peuvent être activés, désactivés et ouverts dans l'environnement local Kubernetes.
 
 1. Liste des extensions pris en charge actuellement:
 
