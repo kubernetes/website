@@ -5,10 +5,11 @@ weight: 30
 ---
 
 <!-- overview -->
-In Kubernetes, conditions as a concept are used to provide a detailed and structured status of a resource. This granular status information helps in understanding status of various Kubernetes objects and facilitates communication between different components of the system.
+In Kubernetes, conditions as a concept are used to provide a detailed and structured status of an object.
+This granular status information helps in understanding status of various Kubernetes objects and facilitates communication between different components of the system.
 
 <!-- body -->
-## Understanding Conditions
+## Understanding conditions
 
 A condition in Kubernetes includes several key fields:
 
@@ -18,9 +19,9 @@ A condition in Kubernetes includes several key fields:
 - **Message**: Message explaining details of the message
 - **Last Transition Time**: This represents the timestamp where condition last changed status
 
-## Example: Pod Conditions
+## Example: Pod conditions
 
-Pods, which are an integral part of the Kubernetes resources use conditions to indicate their state. Below is an example:
+The Pod API uses conditions to indicate Pod state. Here is an example:
 
 ```yaml
 status:
@@ -43,7 +44,7 @@ In this example, each condition provides specific information about the pod's st
 
 In example above, each condition provides information as to the status of the pod. Whether the pod has been scheduled, initialized and ready to accept different traffic. Also whether the container in the pod are ready to be started.
 
-## Purpose and Usage of Conditions
+## Purpose and usage of conditions
 
 Conditions being an integral part of Kubernetes play very important role by:
 
@@ -83,20 +84,15 @@ Examples where Conditions are used:
 
 It should be noticed that conditions are observations and not state machines. They are free-formers and don’t have states.
 
-* **Code examples**:
+## Examples of conditions usage in kubernetes projects
 
-Some not-so-well-known example of how conditions are used in various Kubernetes projects are:
+- [Gateway API](https://gateway-api.sigs.k8s.io/): Uses conditions to represent the state of Gateway and HTTPRoute resources, such as `Accepted`, `Programmed`, and `RoutesAccepted`.
+- [Cluster API](https://cluster-api.sigs.k8s.io/): Uses conditions to indicate the state of various resources, such as `Ready`, `Initialized`, and `ControlPlaneInitialized`.
+- [Node Conditions](https://kubernetes.io/docs/reference/node/node-status/#condition): Conditions like `OutOfDisk`, `Ready`, `MemoryPressure`, `DiskPressure`, and `PIDPressure` are used to represent the state of nodes in a cluster.
 
-* [Cert-Manager](https://cert-manager.io/docs/concepts/issuer/): The `Ready` condition is used for issuers.
-
-* OpenShift defines custom conditions, like `Available`, `Progressing`, `Degraded`, `Upgradable`, etc.
-
-* [Hyperconverged Cluster Operator](https://github.com/openshift/hypershift): The conditions are used to represent the state of component custom resources.
-
-* Gardene uses two conditions: `Valid` and `Installed` for the controller installation.
-
-## Further Reading
+## {{% heading "whatsnext" %}}
 
 If you want to learn more about conditions and when to use them in Kubernetes, you can refer to:
 
-- [Pod Lifecycle](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
+- [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
+- [Pod Readiness Gates](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)

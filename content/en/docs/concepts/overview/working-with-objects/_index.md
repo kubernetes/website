@@ -66,7 +66,7 @@ a replacement instance.
 For more information on the object spec, status, and metadata, see the
 [Kubernetes API Conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
 
-To understand more about how Kubernetes describes the current state of objects, see [Conditions in Kubernetes](https://kubernetes.io/docs/concepts/overview/working-with-objects.conditions.md).
+To understand more about how Kubernetes describes the current state of objects,see [Conditions in Kubernetes](/docs/concepts/overview/working-with-objects/conditions/).
 
 ### Describing a Kubernetes object
 
