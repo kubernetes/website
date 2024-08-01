@@ -1,5 +1,5 @@
 ---
-title: Bienvenue sur minikube
+title: Bienvenue sur Minikube
 content_type: tutorial
 weight: 5
 card:
