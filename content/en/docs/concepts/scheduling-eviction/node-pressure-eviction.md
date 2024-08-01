@@ -153,7 +153,7 @@ other local node filesystems.
 The kubelet does not support other container filesystems or storage configurations,
 and it does not currently support multiple filesystems for images and containers.
 
-#### Deprecated kubelet garbage collection features
+### Deprecated kubelet garbage collection features
 
 Some kubelet garbage collection features are deprecated in favor of eviction:
 
