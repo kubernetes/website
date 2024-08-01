@@ -2,8 +2,8 @@
 layout: blog
 title: "Spotlight on SIG API Machinery"
 slug: sig-api-machinery-spotlight-2024
-canonicalUrl: https://www.kubernetes.dev/blog/2024/07/18/sig-api-machinery-spotlight-2024
-date: 2024-07-18
+canonicalUrl: https://www.kubernetes.dev/blog/2024/08/07/sig-api-machinery-spotlight-2024
+date: 2024-08-07
 author: "Frederico Muñoz (SAS Institute)"
 ---
 
