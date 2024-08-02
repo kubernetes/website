@@ -1,5 +1,5 @@
 ---
-title: Liveness、ReadinessおよびStartup Probes
+title: Liveness、ReadinessおよびStartup Probe
 content_type: concept
 weight: 40
 ---
