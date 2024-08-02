@@ -254,7 +254,9 @@ indicates one of the following reasons for the Pod termination:
 : Pod, that is bound to a no longer existing Node, is due to be deleted by [Pod garbage collection](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection).
 
 `TerminationByKubelet`
-: Pod has been terminated by the kubelet, because of either {{<glossary_tooltip term_id="node-pressure-eviction" text="node pressure eviction">}} or the [graceful node shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown).
+: Pod has been terminated by the kubelet, because of either {{<glossary_tooltip term_id="node-pressure-eviction" text="node pressure eviction">}},
+  the [graceful node shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown),
+  or preemption for [system critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
 
 {{< note >}}
 A Pod disruption might be interrupted. The control plane might re-attempt to
