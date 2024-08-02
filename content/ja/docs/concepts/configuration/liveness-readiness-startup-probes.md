@@ -16,7 +16,12 @@ Kubernetesは様々な種類のProbeがあります。
 
 ## Liveness Probe
 
-Liveness Probeはコンテナを再起動するかを決定します。例えば、Liveness Probeはアプリケーションは起動しているが処理が継続できないデッドロックを検知することができます。コンテナがLiveness Probeを繰り返し失敗するとkubeletはコンテナを再起動します。Liveness ProbeはReadiness Probeの成功を待ちません。Liveness Probeの実行を待つためには、`initialDelaySeconds`を定義するか、[Startup Probe](#startup-probe)を使用してください。
+コンテナの再起動を判断するためにLiveness Probeを使用します。
+例えば、Liveness Probeはアプリケーションは起動しているが、処理が継続できないデッドロックを検知することができます。
+
+コンテナがLiveness Probeを繰り返し失敗するとkubeletはコンテナを再起動します。
+
+Liveness ProbeはReadiness Probeの成功を待ちません。Liveness Probeの実行を待つためには、`initialDelaySeconds`を定義するか、[Startup Probe](#startup-probe)を使用してください。
 
 
 ## Readiness Probe
