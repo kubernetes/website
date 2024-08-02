@@ -37,7 +37,7 @@ no_list: true
 
 プロダクション用のKubernetesクラスターを自身で構築する場合でもパートナーと連携する場合でもクラスターの*コントロールプレーン*、*ワーカーノード*、*ユーザーアクセス*、および*ワークロードリソース*に関連する要件を評価するために以下のセクションのレビューを行なってください。
 
-## 　プロダクション環境のクラスターのセットアップ
+## プロダクション環境のクラスターのセットアップ
 
 プロダクション環境向けのKubernetesクラスターでは、コントロールプレーンが異なる方法で複数のコンピューターに分散されたサービスからクラスターを管理します。一方で、各ワーカーノードは単一のエンティティとして表され、KubernetesのPodを実行するように設定されています。
 
@@ -102,7 +102,7 @@ no_list: true
 
 ## {{% heading "whatsnext" %}}
 
-- プロダクション環境のKubernetesを自身で構築するか、[ターンキークラウドソリューション](/ja/docs/setup/production-environment/turnkey-solutions/)や[Kubernetes パートナー](/ja/partners/)から取得するかを決定する
+- プロダクション環境のKubernetesを自身で構築するか、[ターンキークラウドソリューション](/ja/docs/setup/production-environment/turnkey-solutions/)や[Kubernetesパートナー](/ja/partners/)から取得するかを決定する
 - 自身で構築することを選んだ場合、[証明書](/ja/docs/setup/best-practices/certificates/)の管理方法を計画し、[etcd](/ja/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)や[APIサーバー](/docs/setup/production-environment/tools/kubeadm/ha-topology/)などの機能のための高可用性をセットアップする
 - [kubeadm](/ja/docs/setup/production-environment/tools/kubeadm/)、[kops](https://kops.sigs.k8s.io/)、[Kubespray](https://kubespray.io/)からデプロイメント方法を選択する
 - [認証](/ja/docs/reference/access-authn-authz/authentication/)と
