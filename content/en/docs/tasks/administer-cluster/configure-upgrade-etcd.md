@@ -444,6 +444,8 @@ either be a snapshot file from a previous backup operation, or from a remaining
    ```shell
    export ETCDCTL_API=3
    etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
+or 
+   etcdctl snapshot restore --data-dir <data-dir-location> snapshot.db
    ```
 
    If `<data-dir-location>` is the same folder as before, delete it and stop the etcd process before restoring the cluster. 
