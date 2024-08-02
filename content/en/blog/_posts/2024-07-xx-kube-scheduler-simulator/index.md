@@ -9,7 +9,7 @@ author: Kensei Nakada (Tetrate)
 The Kubernetes Scheduler is a crucial control plane component that determines which Node a Pod will run on. 
 Thus, anyone utilizing Kubernetes relies on the scheduler.
 
-[Kube-scheduler-simulator](sigs.k8s.io/kube-scheduler-simulator) is a simulator for the Kubernetes scheduler, initially developed by Kensei Nakada as part of [Google Summer of Code 2021](https://summerofcode.withgoogle.com/). 
+[Kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator) is a simulator for the Kubernetes scheduler, initially developed by Kensei Nakada as part of [Google Summer of Code 2021](https://summerofcode.withgoogle.com/).
 This tool allows users to closely examine the scheduler’s behavior and decisions. 
 
 It is useful for casual users who employ scheduling constraints (e.g., PodAffinity) 
@@ -28,7 +28,7 @@ The scheduler simulator aims to reveal this black box,
 enabling users to test their scheduling constraints, scheduler configurations, 
 and custom plugins while checking every detailed part of scheduling decisions.
 
-## What’s Kube-scheduler-simulator? 
+## Features of the Kube-scheduler-simulator
 
 The simulator’s core feature is its ability to expose the scheduler's internal decisions.
 The scheduler operates based on the [Scheduling Framework](/concepts/scheduling-eviction/scheduling-framework/), 
@@ -40,8 +40,6 @@ This visibility helps users understand the scheduler’s workings and define app
 
 {{< figure src="/images/blog/2024-07-xx-kube-scheduler-simulator/simulator.png" alt="Screenshot of the simulator web frontend" title="The simulator web frontend" >}}
 
-Inside the simulator, instead of the vanilla scheduler, 
-it runs the debuggable scheduler, which outputs each scheduler plugin’s result from every extension point to Pod’s annotations. 
 Inside the simulator, a debuggable scheduler runs instead of the vanilla scheduler. 
 This debuggable scheduler outputs the results of each scheduler plugin at every extension point to the Pod’s annotations 
 and the web front end shows the results fetched from the annotations.
@@ -96,7 +94,7 @@ make docker_up
 
 You can then access the simulator's web UI at http://localhost:3000.
 
-Visit [Kube-scheduler-simulator repository](sigs.k8s.io/kube-scheduler-simulator) for more details!
+Visit the [kube-scheduler-simulator repository](https://sigs.k8s.io/kube-scheduler-simulator) for more details!
 
 ## Getting involved 
 
