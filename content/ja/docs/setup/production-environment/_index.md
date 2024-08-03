@@ -1,12 +1,12 @@
 ---
 title: "プロダクション環境"
-description: プロダクション品質のkubernetesクラスターを作成します。
+description: プロダクション品質のKubernetesクラスターを作成します。
 weight: 30
 no_list: true
 ---
 <!-- overview -->
 
-プロダクション環境向けのkubernetesクラスターには計画と準備が必要です。kubernetesクラスターが重要なワークロードを動かしている場合、耐障害性のある構成にしなければいけません。このページはプロダクション環境で利用できるクラウターのセットアップをするための手順や既存のクラスターをプロダクション環境で利用できるように昇格するための手順を説明します。
+プロダクション環境向けのKubernetesクラスターには計画と準備が必要です。Kubernetesクラスターが重要なワークロードを動かしている場合、耐障害性のある構成にしなければいけません。このページはプロダクション環境で利用できるクラウターのセットアップをするための手順や既存のクラスターをプロダクション環境で利用できるように昇格するための手順を説明します。
 既にプロダクション環境のセットアップを理解している場合、[次の項目](#what-s-next)に進んでください。
 
 <!-- body -->
@@ -67,9 +67,9 @@ no_list: true
     - 汎用コンピュータシステムで十分か、GPUプロセッサやWindowsノード、VMの分離を必要とするワークロードがあるかどうかを考えること
 - *ノードの検証*: ノードがKubernetesクラスターに参加するための要件を満たしていることを保証する方法についての情報は[有効なノードのセットアップ](/ja/docs/setup/best-practices/node-conformance/)をご覧ください。
 - *クラスターへのノードの追加*: 自身でクラスターを管理している場合、自身のマシンをセットアップし手動で追加するか、または自動でクラスターのAPIサーバーに登録させることによってノードを追加できます。これらのKubernetesへノードを追加するためのセットアップ方法については、[ノード](/ja/docs/concepts/architecture/nodes/)セクションをご覧ください。
-- *ノードのスケール*: クラスターのキャパシティの拡張プランを作成することは最終的に必要になります。稼働させなければいけないpod数やコンテナ数を基にどのくらいのノード数が必要なのかを決定をするための助けとなる[大規模クラスターの考慮事項](/ja/docs/setup/best-practices/cluster-large/)をご覧ください。自身でノードを管理する場合、自身で物理機材を購入し設置することを意味します。
+- *ノードのスケール*: クラスターのキャパシティの拡張プランを作成することは最終的に必要になります。稼働させなければいけないPod数やコンテナ数を基にどのくらいのノード数が必要なのかを決定をするための助けとなる[大規模クラスターの考慮事項](/ja/docs/setup/best-practices/cluster-large/)をご覧ください。自身でノードを管理する場合、自身で物理機材を購入し設置することを意味します。
 - *ノードのオートスケーリング*: ノードやノードが提供するキャパシティを自動的に管理するために利用できるツールについて学ぶために、[クラスターのオートスケーリング](/ja/docs/concepts/cluster-administration/cluster-autoscaling)をご覧ください。
-- *ノードのヘルスチェックのセットアップ*: 重要なワークロードのためにノード上で稼働しているノードとpodが正常であることを確認しなければいけません。[Node Problem Detector](/ja/docs/tasks/debug/debug-cluster/monitor-node-health/)デーモンを使用し、ノードが正常であることを保証してください。
+- *ノードのヘルスチェックのセットアップ*: 重要なワークロードのためにノード上で稼働しているノードとPodが正常であることを確認しなければいけません。[Node Problem Detector](/ja/docs/tasks/debug/debug-cluster/monitor-node-health/)デーモンを使用し、ノードが正常であることを保証してください。
 
 ## プロダクション環境のユーザー管理
 
@@ -79,25 +79,25 @@ no_list: true
 
 - *認証*: APIサーバーはクライアント証明書、bearerトークン、認証プロキシまたはHTTPベーシック認証を使用し、ユーザーを認証できます。使用したい認証の方法を選択できます。プラグインを使用することで、APIサーバーはLDAPやKerberosなどの組織の既存の認証方法を活用できます。Kubernetesユーザーを認証する様々な方法の説明は[認証](/ja/docs/reference/access-authn-authz/authentication/)をご覧ください。
 - *認可*: 通常のユーザーを認可する際には、おそらくRBACとABACの認可方法のどちらかを選択することになります。様々なユーザーアカウントの認可方式(およびサービスアカウントによるクラスターがアクセスするための認可方式)を評価するために、[認可の概要](/docs/reference/access-authn-authz/authorization/)をご覧ください。
-- *ロールベースアクセスコントロール*: ([RBAC](/ja/docs/reference/access-authn-authz/rbac/)): 認証されたユーザーに特定の権限のセットを許可することによってクラスターへのアクセスを割り当てることができます。特定のnamespace(Role)やクラスター全体(ClusterRole)に権限を割り当てることができます。RoleBindingsやClusterRoleBindingsを使用することによって、権限を特定のユーザーに付与することができます。
+- *ロールベースアクセスコントロール*: ([RBAC](/ja/docs/reference/access-authn-authz/rbac/)): 認証されたユーザーに特定の権限のセットを許可することによってクラスターへのアクセスを割り当てることができます。特定のNamespace(Role)やクラスター全体(ClusterRole)に権限を割り当てることができます。RoleBindingsやClusterRoleBindingsを使用することによって、権限を特定のユーザーに付与することができます。
 - *属性ベースアクセスコントロール* ([ABAC](/ja/docs/reference/access-authn-authz/abac/)): クラスターのリソース属性に基づいたポリシーを作成し、その属性に基づいてアクセスを許可または拒否することができます。ポリシーファイルの各行は、バージョニングプロパティ(apiVersionとkind)やsubject(ユーザーやグループ)に紐づくプロパティとリソースに紐づくプロパティとリソースに紐づかないプロパティ(/version or /apis)と読み取り専用プロパティを持つmapのspecプロパティを特定します。詳細は、[Examples](/docs/reference/access-authn-authz/abac/#examples)をご覧ください。
 
 プロダクション用のKubernetesクラスターの認証認可をセットアップするにあたって、いくつかの考慮事項があります。
 
-- *認証モードの設定*: Kubermetes APIサーバー ([kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/))の起動時に、*--authorization-mode*フラグを使用しサポートされた認証モードを設定しなければいけません。例えば、*/etc/kubernetes/manifests*配下の*kube-adminserver.yaml*ファイルで*--authorization-mode*フラグにNodeやRBACを設定することで、認証されたリクエストに対してNodeやRBACの認証を許可することができます。
+- *認証モードの設定*: Kubermetes APIサーバー ([kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/))の起動時に、*--authorization-mode*フラグを使用しサポートされた認証モードを設定しなければいけません。例えば、*/etc/kubernetes/manifests*配下の*kube-adminserver.yaml*ファイルで*--authorization-mode*フラグにノードやRBACを設定することで、認証されたリクエストに対してノードやRBACの認証を許可することができます。
 - *ユーザー証明書とロールバインディングの作成(RMAC)*: RBAC認証を使用している場合、ユーザーはクラスター証明機関により署名された証明書署名要求(CSR)を作成でき、各ユーザーにRolesとClusterRolesをバインドすることができます。詳細は[証明書署名要求](/docs/reference/access-authn-authz/certificate-signing-requests/)をご覧ください。
-- *属性を組み合わせたポリシーの作成(ABAC)*: ABAC認証を使用している場合、特定のリソース（例えばポッド）、ネームスペース、またはAPIグループにアクセスするために、選択されたユーザーやグループに属性の組み合わせで形成されたポリシーを割り当てることができます。より多くの情報は[Examples](/docs/reference/access-authn-authz/abac/#examples)をご覧ください。
+- *属性を組み合わせたポリシーの作成(ABAC)*: ABAC認証を使用している場合、特定のリソース（例えばPod）、Namespace、またはAPIグループにアクセスするために、選択されたユーザーやグループに属性の組み合わせで形成されたポリシーを割り当てることができます。より多くの情報は[Examples](/docs/reference/access-authn-authz/abac/#examples)をご覧ください。
 - *アドミッションコントローラーの考慮事項*: APIサーバーを経由してくるリクエストのための追加の認証形式に[Webhookトークン認証](/ja/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)があります。Webhookや他の特別な認証形式はAPIサーバーへアドミッションコントローラーを追加し有効化される必要があります。
 
 ## ワークロードリソースの制限の設定
 
 プロダクションワークロードからの要求はKubernetesのコントロールプレーンの内外の両方で負荷が生じる原因になります。クラスターのワークロードの需要に合わせて設定するためには、次の項目を考慮してください。
 
-- *namespaceの制限の設定*: メモリやCPUなどの項目のクォートをnamespaceごとに設定します。詳細については、[メモリー、CPU、APIリソースの管理](/ja/docs/tasks/administer-cluster/manage-resources/)をご覧ください。制限を継承するために[階層型Namespaces](/blog/2020/08/14/introducing-hierarchical-namespaces/)を設定することもできます。
+- *Namespaceの制限の設定*: メモリやCPUなどの項目のクォートをNamespaceごとに設定します。詳細については、[メモリー、CPU、APIリソースの管理](/ja/docs/tasks/administer-cluster/manage-resources/)をご覧ください。制限を継承するために[階層型Namespace](/blog/2020/08/14/introducing-hierarchical-namespaces/)を設定することもできます。
 - *DNS要求のための準備*: ワークロードの急激なスケールアップを予測するのであれば、DNSサービスもスケールアップする準備をする必要があります。詳細については、[クラスター内のDNSサービスのオートスケール](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)をご覧ください。
-- *追加のサービスアカウントの作成*: ユーザーアカウントはクラスターで何ができるかを決定し、サービスアカウントは特定のnamespace内でのpodへのアクセスを定義します。
+- *追加のサービスアカウントの作成*: ユーザーアカウントはクラスターで何ができるかを決定し、サービスアカウントは特定のNamespace内でのPodへのアクセスを定義します。
 デフォルトでは、Podは名前空間のデフォルトのサービスアカウントを引き受けます。新規のサービスアカウントの作成についての情報は[サービスアカウントの管理](/docs/reference/access-authn-authz/service-accounts-admin/)をご覧ください。例えば、以下のようなことが考えられます：
-    - Podが特定のコンテナレジストリからイメージをプルするためのシークレットを追加する。例は[Podのためのサービスアカウントの構成](/docs/tasks/configure-pod-container/configure-service-account/)についてご覧ください。
+    - Podが特定のコンテナレジストリからイメージをプルするためのシークレットを追加する。例は[Podのためのサービスアカウントの構成](/docs/tasks/configure-Pod-container/configure-service-account/)についてご覧ください。
     - サービスアカウントへRBAC権限を割り当てる。詳細は[サービスアカウントの権限](/ja/docs/reference/access-authn-authz/rbac/#service-account-permissions)をご覧ください。
 
 ## {{% heading "whatsnext" %}}
