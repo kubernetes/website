@@ -1,5 +1,5 @@
 ---
-title: Podスケジューリング準備状態
+title: Podのスケジューリング準備
 content_type: concept
 weight: 40
 ---
