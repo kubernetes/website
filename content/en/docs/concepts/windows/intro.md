@@ -149,13 +149,12 @@ Some kubelet command line options behave differently on Windows, as described be
 * The `--kube-reserved`, `--system-reserved` , and `--eviction-hard` flags update
   [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 * Eviction by using `--enforce-node-allocable` is not implemented
-* Eviction by using `--eviction-hard` and `--eviction-soft` are not implemented
 * When running on a Windows node the kubelet does not have memory or CPU
   restrictions. `--kube-reserved` and `--system-reserved` only subtract from `NodeAllocatable`
   and do not guarantee resource provided for workloads.
   See [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/#resource-reservation)
   for more information.
-* The `MemoryPressure` Condition is not implemented
+* The `PIDPressure` Condition is not implemented
 * The kubelet does not take OOM eviction actions
 
 ### API compatibility {#api}
