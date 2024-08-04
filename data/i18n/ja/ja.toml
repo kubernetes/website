@@ -1,14 +1,15 @@
 # i18n strings for the English (main) site.
 # NOTE: Please keep the entries in alphabetical order when editing
 
-[docs_version_current]
-other = "(この文書)"
+[api_reference_title]
+other = "APIリファレンス"
 
-[docs_version_latest_heading]
-other = "最新のバージョン"
+[auto_generated_pageinfo]
+other = """<p>このページは自動生成されています。</p><p>このページに関する問題を報告する際は、問題の説明にこのページが自動生成されたものであることを明記してください。修正はKubernetesプロジェクトの他の場所で行う必要があるかもしれません。</p>
+"""
 
-[docs_version_other_heading]
-other = "以前のバージョン"
+[case_study_prefix]
+other = "ケーススタディ:"
 
 [caution]
 other = "注意:"
@@ -32,7 +33,10 @@ other = "Slack"
 other = "Stack Overflow"
 
 [community_twitter_name]
-other = "Twitter"
+other = "X (旧Twitter)"
+
+[community_x_name]
+other = "X (旧Twitter)"
 
 [community_youtube_name]
 other = "YouTube"
@@ -45,6 +49,15 @@ other = "現在表示しているのは、次のバージョン向けのドキ�
 
 [deprecation_warning]
 other = " のドキュメントは積極的にメンテナンスされていません。現在表示されているバージョンはスナップショットです。最新のドキュメントはこちらです: "
+
+[docs_version_current]
+other = "(この文書)"
+
+[docs_version_latest_heading]
+other = "最新のバージョン"
+
+[docs_version_other_heading]
+other = "以前のバージョン"
 
 [outdated_content_title]
 other = "このページに記載されている情報は古い可能性があります"
@@ -67,8 +80,23 @@ other = "私は..."
 [docs_label_users]
 other = "ユーザー"
 
+[docs_page_versions]
+other = "この%sはKubernetes %s用です。別のKubernetesバージョンを使用したい場合は、代わりに以下のページを参照してください。"
+
 [end_of_life]
 other = "サポート終了日"
+
+[envvars_heading]
+other = "環境変数"
+
+[examples_heading]
+other = "例"
+
+[feature_state_kubernetes_label]
+other = "Kubernetes"
+
+[feature_state_feature_gate_tooltip]
+other = "フィーチャーゲート:"
 
 [feedback_heading]
 other = "フィードバック"
@@ -84,6 +112,9 @@ other = "はい"
 
 [input_placeholder_email_address]
 other = "メールアドレス"
+
+[javascript_required]
+other = "このコンテンツを表示するには、JavaScriptを[有効に](https://www.enable-javascript.com/)する必要があります"
 
 [latest_release]
 other = "最新リリース"
@@ -103,11 +134,11 @@ other = "あなたの話を聞かせてください"
 [layouts_docs_glossary_aka]
 other = "またの名を"
 
-[layouts_docs_glossary_description]
-other = "この用語集は、Kubernetesの用語の包括的で標準化されたリストを対象としています。これには、Kubernetesに固有で有用なコンテキストを提供しつつも、より一般的な技術用語が含まれています。"
+[layout_docs_glossary_architecture_description]
+other = "Kubernetes内部のコンポーネント。"
 
-[layouts_docs_glossary_deselect_all]
-other = "すべての選択を解除"
+[layout_docs_glossary_architecture_name]
+other = "アーキテクチャ"
 
 [layouts_docs_glossary_click_details_after]
 other = "特定の用語の詳細な説明を取得するには、以下のインジケータを使用します。"
@@ -115,11 +146,83 @@ other = "特定の用語の詳細な説明を取得するには、以下のイ�
 [layouts_docs_glossary_click_details_before]
 other = "Click on the" # TODO: Translate me
 
+[layout_docs_glossary_community_description]
+other = "Kubernetesのオープンソース開発に関連する用語。"
+
+[layout_docs_glossary_community_name]
+other = "コミュニティ"
+
+[layout_docs_glossary_core-object_description]
+other = "Kubernetesがデフォルトで提供するリソースタイプ。"
+
+[layout_docs_glossary_core-object_name]
+other = "コアオブジェクト"
+
+[layouts_docs_glossary_description]
+other = "この用語集は、Kubernetesの用語の包括的で標準化されたリストを対象としています。これには、Kubernetesに固有で有用なコンテキストを提供しつつも、より一般的な技術用語が含まれています。"
+
+[layouts_docs_glossary_deselect_all]
+other = "すべての選択を解除"
+
+[layout_docs_glossary_extension_description]
+other = "Kubernetesによってサポートされているカスタマイズ。"
+
+[layout_docs_glossary_extension_name]
+other = "拡張"
+
 [layouts_docs_glossary_filter]
 other = "タグに従って用語をフィルタ"
 
+[layout_docs_glossary_fundamental_description]
+other = "Kubernetesを初めて使用するユーザーに関連する用語。"
+
+[layout_docs_glossary_fundamental_name]
+other = "基本"
+
+[layout_docs_glossary_networking_description]
+other = "Kubernetesコンポーネントが互いに(およびクラスター外のプログラムと)どのように通信するか。"
+
+[layout_docs_glossary_networking_name]
+other = "ネットワーキング"
+
+[layout_docs_glossary_operation_description]
+other = "Kubernetesの起動とメンテナンス。"
+
+[layout_docs_glossary_operation_name]
+other = "オペレーション"
+
+[layout_docs_glossary_security_description]
+other = "Kubernetesアプリケーションを安全かつセキュアに保つ。"
+
+[layout_docs_glossary_security_name]
+other = "セキュリティ"
+
 [layouts_docs_glossary_select_all]
 other = "すべてを選択"
+
+[layout_docs_glossary_storage_description]
+other = "Kubernetesアプリケーションが永続データをどのように処理するか。"
+
+[layout_docs_glossary_storage_name]
+other = "ストレージ"
+
+[layout_docs_glossary_tool_description]
+other = "Kubernetesをより良く、より簡単に使用するためのソフトウェア。"
+
+[layout_docs_glossary_tool_name]
+other = "ツール"
+
+[layout_docs_glossary_user-type_description]
+other = "一般的なKubernetesユーザーのタイプ。"
+
+[layout_docs_glossary_user-type_name]
+other = "ユーザータイプ"
+
+[layout_docs_glossary_workload_description]
+other = "Kubernetes上で実行されているアプリケーション。"
+
+[layout_docs_glossary_workload_name]
+other = "ワークロード"
 
 [layouts_docs_partials_feedback_improvement]
 other = "改善を提案"
@@ -222,6 +325,9 @@ other = """このセクションでは、Kubernetesが必要とする機能を�
 
 [thirdparty_message_disclaimer]
 other = """<p>このページの項目は、Kubernetesが必要とする機能を提供するサードパーティー製品またはプロジェクトです。Kubernetesプロジェクトの作者は、それらのサードパーティー製品またはプロジェクトに責任を負いません。詳しくは、<a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCFウェブサイトのガイドライン</a>をご覧ください。第三者のリンクを追加するような変更を提案する前に、<a href="/docs/contribute/style/content-guide/#third-party-content">コンテンツガイド</a>を読むべきです。</p>"""
+
+[translated_by]
+other = "翻訳:"
 
 [version_check_mustbe]
 other = "作業するKubernetesサーバーは次のバージョンである必要があります: "
