@@ -80,4 +80,4 @@ kubectl convert -f pod.yaml --output-version v1
 
 クラスターがデバイスプラグインを実行しており、ノードを新しいデバイスプラグインAPIバージョンを含むKubernetesリリースにアップグレードする必要がある場合、デバイスプラグインをアップグレードして両方のバージョンをサポートする必要があります。これにより、アップグレード中にデバイスの割り当てが正常に完了し続けることが保証されます。
 
-詳細については、[API互換性](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#api-compatibility)および[クベレットデバイスマネージャーAPIバージョン](/docs/reference/node/device-plugin-api-versions/)を参照してください。
+詳細については、[API互換性](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#api-compatibility)および[kubeletのデバイスマネージャーAPIバージョン](/docs/reference/node/device-plugin-api-versions/)を参照してください。
