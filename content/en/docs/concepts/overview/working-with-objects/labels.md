@@ -146,8 +146,8 @@ and all resources with no labels with the `tier` key. One could filter for resou
 excluding `frontend` using the comma operator: `environment=production,tier!=frontend`
 
 One usage scenario for equality-based label requirement is for Pods to specify
-node selection criteria. For example, the sample Pod below selects nodes with
-the label "`accelerator=nvidia-tesla-p100`".
+node selection criteria. For example, the sample Pod below selects nodes where
+the `accelerator` label exists and is set to `nvidia-tesla-p100`.
 
 ```yaml
 apiVersion: v1

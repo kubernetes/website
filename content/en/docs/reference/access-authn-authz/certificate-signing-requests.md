@@ -46,7 +46,7 @@ the `spec.request` field. The CertificateSigningRequest denotes the signer (the
 recipient that the request is being made to) using the `spec.signerName` field.
 Note that `spec.signerName` is a required key after API version `certificates.k8s.io/v1`.
 In Kubernetes v1.22 and later, clients may optionally set the `spec.expirationSeconds`
-field to request a particular lifetime for the issued certificate.  The minimum valid
+field to request a particular lifetime for the issued certificate. The minimum valid
 value for this field is `600`, i.e. ten minutes.
 
 Once created, a CertificateSigningRequest must be approved before it can be signed.
@@ -113,13 +113,15 @@ signed, a security certificate.
 
 Any signer that is made available for outside a particular cluster should provide information
 about how the signer works, so that consumers can understand what that means for CertifcateSigningRequests
-and (if enabled) [ClusterTrustBundles](#cluster-trust-bundles).  
+and (if enabled) [ClusterTrustBundles](#cluster-trust-bundles).
 This includes:
 
 1. **Trust distribution**: how trust anchors (CA certificates or certificate bundles) are distributed.
 1. **Permitted subjects**: any restrictions on and behavior when a disallowed subject is requested.
-1. **Permitted x509 extensions**: including IP subjectAltNames, DNS subjectAltNames, Email subjectAltNames, URI subjectAltNames etc, and behavior when a disallowed extension is requested.
-1. **Permitted key usages / extended key usages**: any restrictions on and behavior when usages different than the signer-determined usages are specified in the CSR.
+1. **Permitted x509 extensions**: including IP subjectAltNames, DNS subjectAltNames,
+   Email subjectAltNames, URI subjectAltNames etc, and behavior when a disallowed extension is requested.
+1. **Permitted key usages / extended key usages**: any restrictions on and behavior
+   when usages different than the signer-determined usages are specified in the CSR.
 1. **Expiration/certificate lifetime**: whether it is fixed by the signer, configurable by the admin, determined by the CSR `spec.expirationSeconds` field, etc
    and the behavior when the signer-determined expiration is different from the CSR `spec.expirationSeconds` field.
 1. **CA bit allowed/disallowed**: and behavior if a CSR contains a request a for a CA certificate when the signer does not permit it.
@@ -140,12 +142,12 @@ certificate expiration or lifetime. The expiration or lifetime therefore has to 
 through the `spec.expirationSeconds` field of the CSR object. The built-in signers
 use the `ClusterSigningDuration` configuration option, which defaults to 1 year,
 (the `--cluster-signing-duration` command-line flag of the kube-controller-manager)
-as the default when no `spec.expirationSeconds` is specified.  When `spec.expirationSeconds`
+as the default when no `spec.expirationSeconds` is specified. When `spec.expirationSeconds`
 is specified, the minimum of `spec.expirationSeconds` and `ClusterSigningDuration` is
 used.
 
 {{< note >}}
-The `spec.expirationSeconds` field was added in Kubernetes v1.22.  Earlier versions of Kubernetes do not honor this field.
+The `spec.expirationSeconds` field was added in Kubernetes v1.22. Earlier versions of Kubernetes do not honor this field.
 Kubernetes API servers prior to v1.22 will silently drop this field when the object is created.
 {{< /note >}}
 
@@ -208,14 +210,14 @@ The kube-controller-manager implements [control plane signing](#signer-control-p
 signers. Failures for all of these are only reported in kube-controller-manager logs.
 
 {{< note >}}
-The `spec.expirationSeconds` field was added in Kubernetes v1.22.  Earlier versions of Kubernetes do not honor this field.
+The `spec.expirationSeconds` field was added in Kubernetes v1.22. Earlier versions of Kubernetes do not honor this field.
 Kubernetes API servers prior to v1.22 will silently drop this field when the object is created.
 {{< /note >}}
 
-Distribution of trust happens out of band for these signers.  Any trust outside of those described above are strictly
+Distribution of trust happens out of band for these signers. Any trust outside of those described above are strictly
 coincidental. For instance, some distributions may honor `kubernetes.io/legacy-unknown` as client certificates for the
 kube-apiserver, but this is not a standard.
-None of these usages are related to ServiceAccount token secrets `.data[ca.crt]` in any way.  That CA bundle is only
+None of these usages are related to ServiceAccount token secrets `.data[ca.crt]` in any way. That CA bundle is only
 guaranteed to verify a connection to the API server using the default service (`kubernetes.default.svc`).
 
 ### Custom signers
@@ -240,7 +242,8 @@ were marked as approved.
 {{< /note >}}
 
 {{< note >}}
-The `spec.expirationSeconds` field was added in Kubernetes v1.22.  Earlier versions of Kubernetes do not honor this field.
+The `spec.expirationSeconds` field was added in Kubernetes v1.22.
+Earlier versions of Kubernetes do not honor this field.
 Kubernetes API servers prior to v1.22 will silently drop this field when the object is created.
 {{< /note >}}
 
@@ -386,7 +389,7 @@ this API.
 {{< /note >}}
 
 A ClusterTrustBundles is a cluster-scoped object for distributing X.509 trust
-anchors (root certificates) to workloads within the cluster.  They're designed
+anchors (root certificates) to workloads within the cluster. They're designed
 to work well with the [signer](#signers) concept from CertificateSigningRequests.
 
 ClusterTrustBundles can be used in two modes:
@@ -395,8 +398,8 @@ ClusterTrustBundles can be used in two modes:
 ### Common properties and validation {#ctb-common}
 
 All ClusterTrustBundle objects have strong validation on the contents of their
-`trustBundle` field.  That field must contain one or more X.509 certificates,
-DER-serialized, each wrapped in a PEM `CERTIFICATE` block.  The certificates
+`trustBundle` field. That field must contain one or more X.509 certificates,
+DER-serialized, each wrapped in a PEM `CERTIFICATE` block. The certificates
 must parse as valid X.509 certificates.
 
 Esoteric PEM features like inter-block data and intra-block headers are either
@@ -444,8 +447,8 @@ controller in the cluster, so they have several security features:
   `<signerNameDomain>/<signerNamePath>` or match a pattern such as
   `<signerNameDomain>/*`.
 * Signer-linked ClusterTrustBundles **must** be named with a prefix derived from
-  their `spec.signerName` field.  Slashes (`/`) are replaced with colons (`:`),
-  and a final colon is appended.  This is followed by an arbitrary name.  For
+  their `spec.signerName` field. Slashes (`/`) are replaced with colons (`:`),
+  and a final colon is appended. This is followed by an arbitrary name. For
   example, the signer `example.com/mysigner` can be linked to a
   ClusterTrustBundle `example.com:mysigner:<arbitrary-name>`.
 
@@ -468,8 +471,8 @@ spec:
   trustBundle: "<... PEM data ...>"
 ```
 
-They are primarily intended for cluster configuration use cases.  Each
-signer-unlinked ClusterTrustBundle is an independent object, in contrast to the
+They are primarily intended for cluster configuration use cases.
+Each signer-unlinked ClusterTrustBundle is an independent object, in contrast to the
 customary grouping behavior of signer-linked ClusterTrustBundles.
 
 Signer-unlinked ClusterTrustBundles have no `attest` verb requirement.
@@ -483,7 +486,8 @@ signer-unlinked ClusterTrustBundles **must not** contain a colon (`:`).
 
 {{<feature-state for_k8s_version="v1.29" state="alpha" >}}
 
-The contents of ClusterTrustBundles can be injected into the container filesystem, similar to ConfigMaps and Secrets.  See the [clusterTrustBundle projected volume source](/docs/concepts/storage/projected-volumes#clustertrustbundle) for more details.
+The contents of ClusterTrustBundles can be injected into the container filesystem, similar to ConfigMaps and Secrets.
+See the [clusterTrustBundle projected volume source](/docs/concepts/storage/projected-volumes#clustertrustbundle) for more details.
 
 <!-- TODO this should become a task page -->
 ## How to issue a certificate for a user {#normal-user}
@@ -609,12 +613,13 @@ To test it, change the context to `myuser`:
 kubectl config use-context myuser
 ```
 
-
 ## {{% heading "whatsnext" %}}
 
 * Read [Manage TLS Certificates in a Cluster](/docs/tasks/tls/managing-tls-in-a-cluster/)
-* View the source code for the kube-controller-manager built in [signer](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/signer/cfssl_signer.go)
-* View the source code for the kube-controller-manager built in [approver](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/approver/sarapprove.go)
+* View the source code for the kube-controller-manager built in
+  [signer](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/signer/cfssl_signer.go)
+* View the source code for the kube-controller-manager built in
+  [approver](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/approver/sarapprove.go)
 * For details of X.509 itself, refer to [RFC 5280](https://tools.ietf.org/html/rfc5280#section-3.1) section 3.1
 * For information on the syntax of PKCS#10 certificate signing requests, refer to [RFC 2986](https://tools.ietf.org/html/rfc2986)
 * Read about the ClusterTrustBundle API:

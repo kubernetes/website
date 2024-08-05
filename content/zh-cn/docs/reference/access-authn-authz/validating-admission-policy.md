@@ -18,7 +18,6 @@ content_type: concept
 <!--
 This page provides an overview of Validating Admission Policy.
 -->
-
 本页面提供验证准入策略（Validating Admission Policy）的概述。
 
 <!-- body -->
@@ -63,7 +62,6 @@ A policy is generally made up of three resources:
   A native type such as ConfigMap or a CRD defines the schema of a parameter resource.
   `ValidatingAdmissionPolicy` objects specify what Kind they are expecting for their parameter resource.
 -->
-
 - `ValidatingAdmissionPolicy` 描述策略的抽象逻辑（想想看：“这个策略确保一个特定标签被设置为一个特定值”）。
 
 - 一个 `ValidatingAdmissionPolicyBinding` 将上述资源联系在一起，并提供作用域。
@@ -86,22 +84,12 @@ If a `ValidatingAdmissionPolicy` does not need to be configured via parameters, 
 如果 `ValidatingAdmissionPolicy` 不需要参数配置，不设置 `ValidatingAdmissionPolicy` 中的
 `spec.paramKind` 即可。
 
-## {{% heading "prerequisites" %}}
-
-<!--
-- Ensure the `ValidatingAdmissionPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
-- Ensure that the `admissionregistration.k8s.io/v1beta1` API is enabled.
--->
-- 确保 `ValidatingAdmissionPolicy` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被启用。
-- 确保 `admissionregistration.k8s.io/v1beta1` API 被启用。
-
 <!--
 ## Getting Started with Validating Admission Policy
 
 Validating Admission Policy is part of the cluster control-plane. You should write and deploy them
 with great caution. The following describes how to quickly experiment with Validating Admission Policy.
 -->
-
 ## 开始使用验证准入策略  {#getting-started-with-validating-admission-policy}
 
 验证准入策略是集群控制平面的一部分。你应该非常谨慎地编写和部署它们。下面介绍如何快速试验验证准入策略。
@@ -179,9 +167,9 @@ The supported `validationActions` are:
   as a [warning](/blog/2020/09/03/warnings/).
 - `Audit`: Validation failure is included in the audit event for the API request.
 -->
-- `Deny`: 验证失败会导致请求被拒绝。
-- `Warn`: 验证失败会作为[警告](/blog/2020/09/03/warnings/)报告给请求客户端。
-- `Audit`: 验证失败会包含在 API 请求的审计事件中。
+- `Deny`：验证失败会导致请求被拒绝。
+- `Warn`：验证失败会作为[警告](/zh-cn/blog/2020/09/03/warnings/)报告给请求客户端。
+- `Audit`：验证失败会包含在 API 请求的审计事件中。
 
 <!--
 For example, to both warn clients about a validation failure and to audit the
@@ -199,6 +187,7 @@ API response body and the HTTP warning headers.
 -->
 `Deny` 和 `Warn` 不能一起使用，因为这种组合会不必要地将验证失败重复输出到
 API 响应体和 HTTP 警告头中。
+
 <!--
 A `validation` that evaluates to false is always enforced according to these
 actions. Failures defined by the `failurePolicy` are enforced
@@ -211,9 +200,9 @@ otherwise the failures are ignored.
 
 <!-- 
 See [Audit Annotations: validation failures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation-failure) for more details about the validation failure audit annotation.
- -->
-有关验证失败审计注解的详细信息，请参见
-[审计注解：验证失败](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)。
+-->
+有关验证失败审计注解的详细信息，
+请参见[审计注解：验证失败](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)。
 
 <!--
 ### Parameter resources
@@ -225,7 +214,7 @@ and then a policy binding ties a policy by name (via policyName) to a particular
 If parameter configuration is needed, the following is an example of a ValidatingAdmissionPolicy
 with parameter configuration.
 -->
-### 参数资源
+### 参数资源    {#parameter-resources}
 
 参数资源允许策略配置与其定义分开。
 一个策略可以定义 paramKind，给出参数资源的 GVK，
@@ -394,7 +383,9 @@ CEL 提供了 `has()` 方法，它检查传递给它的键是否存在。CEL 还
 
 结合这两者，我们可以提供一种验证可选参数的方法：
 
-`!has(params.optionalNumber) || (params.optionalNumber >= 5 && params.optionalNumber <= 10)`
+```
+!has(params.optionalNumber) || (params.optionalNumber >= 5 && params.optionalNumber <= 10)
+```
 
 <!--
 Here, we first check that the optional parameter is present with `!has(params.optionalNumber)`.
@@ -500,7 +491,7 @@ admission policy are handled. Allowed values are `Ignore` or `Fail`.
 
 Note that the `failurePolicy` is defined inside `ValidatingAdmissionPolicy`:
 -->
-### 失效策略
+### 失效策略   {#failure-policy}
 
 `failurePolicy` 定义了如何处理错误配置和准入策略的 CEL 表达式取值为 error 的情况。
 
@@ -520,7 +511,14 @@ Note that the `failurePolicy` is defined inside `ValidatingAdmissionPolicy`:
 To learn more, see the [CEL language specification](https://github.com/google/cel-spec)
 CEL expressions have access to the contents of the Admission request/response, organized into CEL
 variables as well as some other useful variables:
+-->
+### 检查表达式   {#validation-expression}
 
+`spec.validations[i].expression` 代表将使用 CEL 来计算表达式。
+要了解更多信息，请参阅 [CEL 语言规范](https://github.com/google/cel-spec)。
+CEL 表达式可以访问按 CEL 变量来组织的 Admission 请求/响应的内容，以及其他一些有用的变量 :
+
+<!--
 - 'object' - The object from the incoming request. The value is null for DELETE requests.
 - 'oldObject' - The existing object. The value is null for CREATE requests.
 - 'request' - Attributes of the [admission request](/docs/reference/config-api/apiserver-admission.v1/#admission-k8s-io-v1-AdmissionRequest).
@@ -533,12 +531,6 @@ variables as well as some other useful variables:
 - `authorizer.requestResource` - A shortcut for an authorization check configured with the request
   resource (group, resource, (subresource), namespace, name).
 -->
-### 检查表达式
-
-`spec.validations[i].expression` 代表将使用 CEL 来计算表达式。
-要了解更多信息，请参阅 [CEL 语言规范](https://github.com/google/cel-spec)。
-CEL 表达式可以访问按 CEL 变量来组织的 Admission 请求/响应的内容，以及其他一些有用的变量 :
-
 - 'object' - 来自传入请求的对象。对于 DELETE 请求，该值为 null。
 - 'oldObject' - 现有对象。对于 CREATE 请求，该值为 null。
 - 'request' - [准入请求](/zh-cn/docs/reference/config-api/apiserver-admission.v1/#admission-k8s-io-v1-AdmissionRequest)的属性。
@@ -567,7 +559,7 @@ Concatenation on arrays with x-kubernetes-list-type use the semantics of the lis
 列表类型为 "set" 或 "map" 的数组上的等价关系比较会忽略元素顺序，即 [1, 2] == [2, 1]。
 使用 x-kubernetes-list-type 连接数组时使用列表类型的语义：
 
-- 'set': `X + Y` 执行并集，其中 `X` 中所有元素的数组位置被保留，`Y` 中不相交的元素被追加，保留其元素的偏序关系。
+- 'set'：`X + Y` 执行并集，其中 `X` 中所有元素的数组位置被保留，`Y` 中不相交的元素被追加，保留其元素的偏序关系。
 - 'map'：`X + Y` 执行合并，保留 `X` 中所有键的数组位置，但是当 `X` 和 `Y` 的键集相交时，其值被 `Y` 的值覆盖。
   `Y` 中键值不相交的元素被追加，保留其元素之间的偏序关系。
 
@@ -662,7 +654,7 @@ the request is determined as follows:
 
 For example, here is an admission policy with an audit annotation:
 -->
-### 审计注解
+### 审计注解   {#audit-annotations}
 
 `auditAnnotations` 可用于在 API 请求的审计事件中包括审计注解。
 
@@ -733,7 +725,7 @@ message expression must evaluate to a string.
 For example, to better inform the user of the reason of denial when the policy refers to a parameter,
 we can have the following validation:
 -->
-### 消息表达式
+### 消息表达式   {#message-expression}
 
 为了在策略拒绝请求时返回更友好的消息，我们在 `spec.validations[i].messageExpression`
 中使用 CEL 表达式来构造消息。
@@ -768,8 +760,7 @@ Note that static message is validated against multi-line strings.
 这比静态消息 "too many replicas" 更具说明性。
 
 如果既定义了消息表达式，又在 `spec.validations[i].message` 中定义了静态消息，
-则消息表达式优先于静态消息。
-但是，如果消息表达式求值失败，则将使用静态消息。
+则消息表达式优先于静态消息。但是，如果消息表达式求值失败，则将使用静态消息。
 此外，如果消息表达式求值为多行字符串，则会丢弃求值结果并使用静态消息（如果存在）。
 请注意，静态消息也要检查是否存在多行字符串。
 
@@ -786,7 +777,7 @@ and an empty `status.typeChecking` means that no errors were detected.
 
 For example, given the following policy definition:
 -->
-### 类型检查
+### 类型检查   {#type-checking}
 
 创建或更新策略定义时，验证过程将解析它包含的表达式，在发现错误时报告语法错误并拒绝该定义。
 之后，引用的变量将根据 `spec.matchConstraints` 的匹配类型检查类型错误，包括缺少字段和类型混淆。
@@ -855,7 +846,7 @@ Type Checking has the following limitation:
 
 - 没有通配符匹配。
   如果 `spec.matchConstraints.resourceRules` 中的任何一个 `apiGroups`、`apiVersions`
-  或 `resources` 包含 "\*"，则不会检查与 "\*" 匹配的类型。
+  或 `resources` 包含 `"\*"`，则不会检查与 `"\*"` 匹配的类型。
 - 匹配的类型数量最多为 10 种。这是为了防止手动指定过多类型的策略消耗过多计算资源。
   按升序处理组、版本，然后是资源，忽略第 11 个及其之后的组合。
 - 类型检查不会以任何方式影响策略行为。即使类型检查检测到错误，策略也将继续评估。
@@ -870,7 +861,7 @@ If an expression grows too complicated, or part of the expression is reusable an
 you can extract some part of the expressions into variables. A variable is a named expression that can be referred later
 in `variables` in other expressions.
 -->
-### 变量组合
+### 变量组合   {#variable-composition}
 
 如果表达式变得太复杂，或者表达式的一部分可重用且进行评估时计算开销较大，可以将表达式的某些部分提取为变量。
 变量是一个命名表达式，后期可以在其他表达式中的 `variables` 中引用。
