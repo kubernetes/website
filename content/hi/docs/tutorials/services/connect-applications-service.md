@@ -52,7 +52,7 @@ kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
 
 ## सेवा बनाना
 
-तो हमारे पास फ्लैट, क्लस्टर वाइड, एड्रेस स्पेस में nginx चलाने वाले पॉड्स हैं। सिद्धांत रूप में, आप इन पॉड्स से सीधे बात कर सकते हैं, लेकिन जब कोई नोड मर जाता है तो क्या होता है? पॉड्स इसके साथ मर जाते हैं, और डिप्लॉयमेंट के अंदर रेप्लिकासेट अलग-अलग आईपी के साथ नए पॉड्स बनाएगा। यह वह समस्या है जिसे सर्विस हल करती है।
+तो हमारे पास फ्लैट, क्लस्टर वाइड, एड्रेस स्पेस में nginx चलाने वाले पॉड्स हैं। सिद्धांत रूप में, आप इन पॉड्स से सीधे बात कर सकते हैं, लेकिन जब कोई नोड समाप्त हो जाता है तो क्या होता है? पॉड्स इसके साथ समाप्त हो जाते हैं, और डिप्लॉयमेंट के अंदर रेप्लिकासेट अलग-अलग आईपी के साथ नए पॉड्स बनाएगा। यह वह समस्या है जिसे सर्विस हल करती है।
 
 कुबेरनेट्स सेवा एक अमूर्तता है जो आपके क्लस्टर में कहीं चल रहे पॉड्स के तार्किक सेट को परिभाषित करती है, जो सभी एक ही कार्यक्षमता प्रदान करते हैं। बनाए जाने पर, प्रत्येक सेवा को एक अद्वितीय IP पता (जिसे क्लस्टरIP भी कहा जाता है) सौंपा जाता है। यह पता सेवा के जीवनकाल से जुड़ा होता है, और सेवा के जीवित रहने के दौरान इसमें कोई बदलाव नहीं होगा। पॉड्स को सेवा से बात करने के लिए कॉन्फ़िगर किया जा सकता है, और यह जान सकते हैं कि सेवा के लिए संचार स्वचालित रूप से कुछ पॉड पर लोड-बैलेंस हो जाएगा जो सेवा का सदस्य है।
 
@@ -86,7 +86,7 @@ my-nginx   ClusterIP   10.0.162.149   <none>        80/TCP    21s
 जैसा कि पहले बताया गया है, एक सेवा पॉड्स के एक समूह द्वारा समर्थित होती है। ये पॉड्स 
 {{<glossary_tooltip term_id="endpoint-slice" text="एंडपॉइंट-स्लाइस">}} के माध्यम से उजागर होते हैं।
 सेवा के चयनकर्ता का लगातार मूल्यांकन किया जाएगा और परिणाम एक एंडपॉइंटस्लाइस पर पोस्ट किए जाएंगे जो {{< glossary_tooltip term_id="label" text="लेबल">}} का उपयोग करके सेवा से जुड़ा हुआ है।
-जब कोई पॉड मर जाता है, तो उसे स्वचालित रूप से एंडपॉइंटस्लाइस से हटा दिया जाता है जिसमें इसे एंडपॉइंट के रूप में शामिल किया जाता है। सेवा के चयनकर्ता से मेल खाने वाले नए पॉड स्वचालित रूप से उस सेवा के लिए एंडपॉइंटस्लाइस में जुड़ जाएंगे।
+जब कोई पॉड समाप्त हो जाता है, तो उसे स्वचालित रूप से एंडपॉइंटस्लाइस से हटा दिया जाता है जिसमें इसे एंडपॉइंट के रूप में शामिल किया जाता है। सेवा के चयनकर्ता से मेल खाने वाले नए पॉड स्वचालित रूप से उस सेवा के लिए एंडपॉइंटस्लाइस में जुड़ जाएंगे।
 
 एंडपॉइंट की जाँच करें, और ध्यान दें कि आईपी पहले वेरिएबलरण में बनाए गए पॉड के समान हैं:
 
@@ -146,7 +146,7 @@ KUBERNETES_SERVICE_PORT=443
 KUBERNETES_SERVICE_PORT_HTTPS=443
 ```
 
-ध्यान दें कि आपकी सेवा का कोई उल्लेख नहीं है। ऐसा इसलिए है क्योंकि आपने सेवा से पहले प्रतिकृतियां बनाई हैं। ऐसा करने का एक और नुकसान यह है कि शेड्यूलर दोनों पॉड को एक ही मशीन पर रख सकता है, जो आपकी पूरी सेवा को बंद कर देगा यदि यह मर जाती है। हम 2 पॉड को मारकर और उन्हें फिर से बनाने के लिए परिनियोजन की प्रतीक्षा करके इसे सही तरीके से कर सकते हैं। इस बार सेवा प्रतिकृतियों से *पहले* मौजूद है। यह आपको अपने पॉड के शेड्यूलर-स्तर की सेवा प्रसार देगा (बशर्ते आपके सभी नोड्स की क्षमता समान हो), साथ ही साथ सही पर्यावरण वेरिएबल:
+ध्यान दें कि आपकी सेवा का कोई उल्लेख नहीं है। ऐसा इसलिए है क्योंकि आपने सेवा से पहले प्रतिकृतियां बनाई हैं। ऐसा करने का एक और नुकसान यह है कि शेड्यूलर दोनों पॉड को एक ही मशीन पर रख सकता है, जो आपकी पूरी सेवा को बंद कर देगा यदि यह समाप्त हो जाती है। हम 2 पॉड को समाप्त कर और उन्हें फिर से बनाने के लिए परिनियोजन की प्रतीक्षा करके इसे सही तरीके से कर सकते हैं। इस बार सेवा प्रतिकृतियों से *पहले* मौजूद है। यह आपको अपने पॉड के शेड्यूलर-स्तर की सेवा प्रसार देगा (बशर्ते आपके सभी नोड्स की क्षमता समान हो), साथ ही साथ सही पर्यावरण वेरिएबल:
 
 ```shell
 kubectl scale deployment my-nginx --replicas=0; kubectl scale deployment my-nginx --replicas=2;
@@ -159,7 +159,7 @@ my-nginx-3800858182-e9ihh   1/1       Running   0          5s      10.244.2.7   
 my-nginx-3800858182-j4rm4   1/1       Running   0          5s      10.244.3.8    kubernetes-minion-905m
 ```
 
-आप देखेंगे कि पॉड्स के अलग-अलग नाम हैं, क्योंकि उन्हें मार दिया जाता है और फिर से बनाया जाता है।
+आप देखेंगे कि पॉड्स के अलग-अलग नाम हैं, क्योंकि उन्हें समाप्त कर दिया जाता है और फिर से बनाया जाता है।
 
 ```shell
 kubectl exec my-nginx-3800858182-e9ihh -- printenv | grep SERVICE
@@ -172,10 +172,9 @@ MY_NGINX_SERVICE_PORT=80
 KUBERNETES_SERVICE_PORT_HTTPS=443
 ```
 
-### DNS
+### डीएनएस
 
-Kubernetes offers a DNS cluster addon Service that automatically assigns dns names
-to other Services. You can check if it's running on your cluster:
+Kubernetes एक DNS क्लस्टर ऐडऑन सेवा प्रदान करता है जो स्वचालित रूप से अन्य सेवाओं को DNS नाम प्रदान करता है। आप जाँच सकते हैं कि यह आपके क्लस्टर पर चल रहा है या नहीं:
 
 ```shell
 kubectl get services kube-dns --namespace=kube-system
@@ -185,14 +184,12 @@ NAME       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)         AGE
 kube-dns   ClusterIP   10.0.0.10    <none>        53/UDP,53/TCP   8m
 ```
 
-The rest of this section will assume you have a Service with a long lived IP
-(my-nginx), and a DNS server that has assigned a name to that IP. Here we use
-the CoreDNS cluster addon (application name `kube-dns`), so you can talk to the
-Service from any pod in your cluster using standard methods (e.g. `gethostbyname()`).
-If CoreDNS isn't running, you can enable it referring to the
-[CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes)
-or [Installing CoreDNS](/docs/tasks/administer-cluster/coredns/#installing-coredns).
-Let's run another curl application to test this:
+इस खंड का बाकी हिस्सा यह मान लेगा कि आपके पास एक लंबे समय तक चलने वाली IP सेवा (my-nginx) है, 
+और एक DNS सर्वर है जिसने उस IP को एक नाम दिया है। यहाँ हम CoreDNS क्लस्टर ऐडऑन (एप्लिकेशन नाम `kube-dns`) 
+का उपयोग करते हैं, ताकि आप मानक विधियों (जैसे `gethostbyname()`) का उपयोग करके अपने क्लस्टर में किसी भी पॉड से सेवा 
+से बात कर सकें।
+यदि CoreDNS नहीं चल रहा है, तो आप इसे [CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes) 
+या [CoreDNS इंस्टॉल](/docs/tasks/administer-cluster/coredns/#installing-coredns) करने का संदर्भ देकर सक्षम कर सकते हैं।
 
 ```shell
 kubectl run curl --image=radial/busyboxplus:curl -i --tty --rm
@@ -202,7 +199,7 @@ Waiting for pod default/curl-131556218-9fnch to be running, status is Pending, p
 Hit enter for command prompt
 ```
 
-Then, hit enter and run `nslookup my-nginx`:
+फिर, एंटर दबाएं और `nslookup my-nginx` चलाएं:
 
 ```shell
 [ root@curl-131556218-9fnch:/ ]$ nslookup my-nginx
@@ -213,20 +210,17 @@ Name:      my-nginx
 Address 1: 10.0.162.149
 ```
 
-## Securing the Service
+## सेवा को सुरक्षित करना
 
-Till now we have only accessed the nginx server from within the cluster. Before
-exposing the Service to the internet, you want to make sure the communication
-channel is secure. For this, you will need:
+अब तक हमने क्लस्टर के भीतर से ही nginx सर्वर को एक्सेस किया है। सेवा को इंटरनेट पर दिखाने से पहले, आप यह सुनिश्चित करना चाहते हैं कि संचार चैनल सुरक्षित है। इसके लिए, आपको निम्न की आवश्यकता होगी:
 
-* Self signed certificates for https (unless you already have an identity certificate)
-* An nginx server configured to use the certificates
-* A [secret](/docs/concepts/configuration/secret/) that makes the certificates accessible to pods
+* https के लिए स्व-हस्ताक्षरित प्रमाणपत्र (जब तक कि आपके पास पहले से कोई पहचान प्रमाणपत्र न हो)
+* प्रमाणपत्रों का उपयोग करने के लिए कॉन्फ़िगर किया गया एक nginx सर्वर
+* एक [सीक्रेट](/docs/concepts/configuration/secret/) जो प्रमाणपत्रों को पॉड्स के लिए सुलभ बनाता है
 
-You can acquire all these from the
-[nginx https example](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/).
-This requires having go and make tools installed. If you don't want to install those,
-then follow the manual steps later. In short:
+आप ये सब [nginx https उदाहरण](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/) 
+से प्राप्त कर सकते हैं।
+इसके लिए go and make tools इंस्टॉल करना आवश्यक है। यदि आप उन्हें इंस्टॉल नहीं करना चाहते हैं, तो बाद में मैन्युअल चरणों का पालन करें। संक्षेप में:
 
 ```shell
 make keys KEY=/tmp/nginx.key CERT=/tmp/nginx.crt
@@ -242,13 +236,12 @@ kubectl get secrets
 NAME                  TYPE                                  DATA      AGE
 nginxsecret           kubernetes.io/tls                     2         1m
 ```
-And also the configmap:
+और कॉन्फ़िगरेशन मैप भी:
 ```shell
 kubectl create configmap nginxconfigmap --from-file=default.conf
 ```
 
-You can find an example for `default.conf` in
-[the Kubernetes examples project repo](https://github.com/kubernetes/examples/tree/bc9ca4ca32bb28762ef216386934bef20f1f9930/staging/https-nginx/).
+आप [Kubernetes उदाहरण प्रोजेक्ट रेपो](https://github.com/kubernetes/examples/tree/bc9ca4ca32bb28762ef216386934bef20f1f9930/staging/https-nginx/) में `default.conf` के लिए उदाहरण पा सकते हैं।
 
 ```
 configmap/nginxconfigmap created
@@ -261,13 +254,13 @@ NAME             DATA   AGE
 nginxconfigmap   1      114s
 ```
 
-You can view the details of the `nginxconfigmap` ConfigMap using the following command:
+आप निम्न कमांड का उपयोग करके `nginxconfigmap` ConfigMap का विवरण देख सकते हैं:
 
 ```shell
 kubectl describe configmap  nginxconfigmap
 ```
 
-The output is similar to:
+इसका आउटपुट कुछ इस प्रकार है:
 
 ```console
 Name:         nginxconfigmap
@@ -303,7 +296,7 @@ BinaryData
 Events:  <none>
 ```
 
-Following are the manual steps to follow in case you run into problems running make (on windows for example):
+यदि आपको make चलाने में समस्या आती है (उदाहरण के लिए विंडोज़ पर) तो निम्नलिखित मैनुअल चरणों का पालन करें:
 
 ```shell
 # Create a public private key pair
@@ -313,8 +306,8 @@ cat /d/tmp/nginx.crt | base64
 cat /d/tmp/nginx.key | base64
 ```
  
-Use the output from the previous commands to create a yaml file as follows.
-The base64 encoded value should all be on a single line.
+पिछले आदेशों से आउटपुट का उपयोग करके yaml फ़ाइल बनाएँ, जैसा कि नीचे दिया गया है।
+base64 एन्कोडेड मान सभी एक ही पंक्ति में होने चाहिए।
 
 ```yaml
 apiVersion: "v1"
@@ -327,7 +320,7 @@ data:
   tls.crt: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURIekNDQWdlZ0F3SUJBZ0lKQUp5M3lQK0pzMlpJTUEwR0NTcUdTSWIzRFFFQkJRVUFNQ1l4RVRBUEJnTlYKQkFNVENHNW5hVzU0YzNaak1SRXdEd1lEVlFRS0V3aHVaMmx1ZUhOMll6QWVGdzB4TnpFd01qWXdOekEzTVRKYQpGdzB4T0RFd01qWXdOekEzTVRKYU1DWXhFVEFQQmdOVkJBTVRDRzVuYVc1NGMzWmpNUkV3RHdZRFZRUUtFd2h1CloybHVlSE4yWXpDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBSjFxSU1SOVdWM0IKMlZIQlRMRmtobDRONXljMEJxYUhIQktMSnJMcy8vdzZhU3hRS29GbHlJSU94NGUrMlN5ajBFcndCLzlYTnBwbQppeW1CL3JkRldkOXg5UWhBQUxCZkVaTmNiV3NsTVFVcnhBZW50VWt1dk1vLzgvMHRpbGhjc3paenJEYVJ4NEo5Ci82UVRtVVI3a0ZTWUpOWTVQZkR3cGc3dlVvaDZmZ1Voam92VG42eHNVR0M2QURVODBpNXFlZWhNeVI1N2lmU2YKNHZpaXdIY3hnL3lZR1JBRS9mRTRqakxCdmdONjc2SU90S01rZXV3R0ljNDFhd05tNnNTSzRqYUNGeGpYSnZaZQp2by9kTlEybHhHWCtKT2l3SEhXbXNhdGp4WTRaNVk3R1ZoK0QrWnYvcW1mMFgvbVY0Rmo1NzV3ajFMWVBocWtsCmdhSXZYRyt4U1FVQ0F3RUFBYU5RTUU0d0hRWURWUjBPQkJZRUZPNG9OWkI3YXc1OUlsYkROMzhIYkduYnhFVjcKTUI4R0ExVWRJd1FZTUJhQUZPNG9OWkI3YXc1OUlsYkROMzhIYkduYnhFVjdNQXdHQTFVZEV3UUZNQU1CQWY4dwpEUVlKS29aSWh2Y05BUUVGQlFBRGdnRUJBRVhTMW9FU0lFaXdyMDhWcVA0K2NwTHI3TW5FMTducDBvMm14alFvCjRGb0RvRjdRZnZqeE04Tzd2TjB0clcxb2pGSW0vWDE4ZnZaL3k4ZzVaWG40Vm8zc3hKVmRBcStNZC9jTStzUGEKNmJjTkNUekZqeFpUV0UrKzE5NS9zb2dmOUZ3VDVDK3U2Q3B5N0M3MTZvUXRUakViV05VdEt4cXI0Nk1OZWNCMApwRFhWZmdWQTRadkR4NFo3S2RiZDY5eXM3OVFHYmg5ZW1PZ05NZFlsSUswSGt0ejF5WU4vbVpmK3FqTkJqbWZjCkNnMnlwbGQ0Wi8rUUNQZjl3SkoybFIrY2FnT0R4elBWcGxNSEcybzgvTHFDdnh6elZPUDUxeXdLZEtxaUMwSVEKQ0I5T2wwWW5scE9UNEh1b2hSUzBPOStlMm9KdFZsNUIyczRpbDlhZ3RTVXFxUlU9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
   tls.key: "LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2UUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktjd2dnU2pBZ0VBQW9JQkFRQ2RhaURFZlZsZHdkbFIKd1V5eFpJWmVEZWNuTkFhbWh4d1NpeWF5N1AvOE9ta3NVQ3FCWmNpQ0RzZUh2dGtzbzlCSzhBZi9WemFhWm9zcApnZjYzUlZuZmNmVUlRQUN3WHhHVFhHMXJKVEVGSzhRSHA3VkpMcnpLUC9QOUxZcFlYTE0yYzZ3MmtjZUNmZitrCkU1bEVlNUJVbUNUV09UM3c4S1lPNzFLSWVuNEZJWTZMMDUrc2JGQmd1Z0ExUE5JdWFubm9UTWtlZTRuMG4rTDQKb3NCM01ZUDhtQmtRQlAzeE9JNHl3YjREZXUraURyU2pKSHJzQmlIT05Xc0RadXJFaXVJMmdoY1kxeWIyWHI2UAozVFVOcGNSbC9pVG9zQngxcHJHclk4V09HZVdPeGxZZmcvbWIvNnBuOUYvNWxlQlkrZStjSTlTMkQ0YXBKWUdpCkwxeHZzVWtGQWdNQkFBRUNnZ0VBZFhCK0xkbk8ySElOTGo5bWRsb25IUGlHWWVzZ294RGQwci9hQ1Zkank4dlEKTjIwL3FQWkUxek1yall6Ry9kVGhTMmMwc0QxaTBXSjdwR1lGb0xtdXlWTjltY0FXUTM5SjM0VHZaU2FFSWZWNgo5TE1jUHhNTmFsNjRLMFRVbUFQZytGam9QSFlhUUxLOERLOUtnNXNrSE5pOWNzMlY5ckd6VWlVZWtBL0RBUlBTClI3L2ZjUFBacDRuRWVBZmI3WTk1R1llb1p5V21SU3VKdlNyblBESGtUdW1vVlVWdkxMRHRzaG9reUxiTWVtN3oKMmJzVmpwSW1GTHJqbGtmQXlpNHg0WjJrV3YyMFRrdWtsZU1jaVlMbjk4QWxiRi9DSmRLM3QraTRoMTVlR2ZQegpoTnh3bk9QdlVTaDR2Q0o3c2Q5TmtEUGJvS2JneVVHOXBYamZhRGR2UVFLQmdRRFFLM01nUkhkQ1pKNVFqZWFKClFGdXF4cHdnNzhZTjQyL1NwenlUYmtGcVFoQWtyczJxWGx1MDZBRzhrZzIzQkswaHkzaE9zSGgxcXRVK3NHZVAKOWRERHBsUWV0ODZsY2FlR3hoc0V0L1R6cEdtNGFKSm5oNzVVaTVGZk9QTDhPTm1FZ3MxMVRhUldhNzZxelRyMgphRlpjQ2pWV1g0YnRSTHVwSkgrMjZnY0FhUUtCZ1FEQmxVSUUzTnNVOFBBZEYvL25sQVB5VWs1T3lDdWc3dmVyClUycXlrdXFzYnBkSi9hODViT1JhM05IVmpVM25uRGpHVHBWaE9JeXg5TEFrc2RwZEFjVmxvcG9HODhXYk9lMTAKMUdqbnkySmdDK3JVWUZiRGtpUGx1K09IYnRnOXFYcGJMSHBzUVpsMGhucDBYSFNYVm9CMUliQndnMGEyOFVadApCbFBtWmc2d1BRS0JnRHVIUVV2SDZHYTNDVUsxNFdmOFhIcFFnMU16M2VvWTBPQm5iSDRvZUZKZmcraEppSXlnCm9RN3hqWldVR3BIc3AyblRtcHErQWlSNzdyRVhsdlhtOElVU2FsbkNiRGlKY01Pc29RdFBZNS9NczJMRm5LQTQKaENmL0pWb2FtZm1nZEN0ZGtFMXNINE9MR2lJVHdEbTRpb0dWZGIwMllnbzFyb2htNUpLMUI3MkpBb0dBUW01UQpHNDhXOTVhL0w1eSt5dCsyZ3YvUHM2VnBvMjZlTzRNQ3lJazJVem9ZWE9IYnNkODJkaC8xT2sybGdHZlI2K3VuCnc1YytZUXRSTHlhQmd3MUtpbGhFZDBKTWU3cGpUSVpnQWJ0LzVPbnlDak9OVXN2aDJjS2lrQ1Z2dTZsZlBjNkQKckliT2ZIaHhxV0RZK2Q1TGN1YSt2NzJ0RkxhenJsSlBsRzlOZHhrQ2dZRUF5elIzT3UyMDNRVVV6bUlCRkwzZAp4Wm5XZ0JLSEo3TnNxcGFWb2RjL0d5aGVycjFDZzE2MmJaSjJDV2RsZkI0VEdtUjZZdmxTZEFOOFRwUWhFbUtKCnFBLzVzdHdxNWd0WGVLOVJmMWxXK29xNThRNTBxMmk1NVdUTThoSDZhTjlaMTltZ0FGdE5VdGNqQUx2dFYxdEYKWSs4WFJkSHJaRnBIWll2NWkwVW1VbGc9Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K"
 ```
-Now create the secrets using the file:
+अब निम्न फ़ाइल का उपयोग करके सीक्रेट्स बनाएं:
 
 ```shell
 kubectl apply -f nginxsecrets.yaml
@@ -338,25 +331,22 @@ NAME                  TYPE                                  DATA      AGE
 nginxsecret           kubernetes.io/tls                     2         1m
 ```
 
-Now modify your nginx replicas to start an https server using the certificate
-in the secret, and the Service, to expose both ports (80 and 443):
+अब अपने nginx प्रतिकृतियों को संशोधित करें ताकि सीक्रेट् मे प्रमाण पत्र और सेवा का उपयोग करके एक https सर्वर शुरू किया जा सके, ताकि दोनों पोर्ट (80 और 443) उजागर हो सकें:
 
 {{% code_sample file="service/networking/nginx-secure-app.yaml" %}}
 
-Noteworthy points about the nginx-secure-app manifest:
+Nginx-secure-app मैनिफ़ेस्ट के बारे में उल्लेखनीय बातें:
 
-- It contains both Deployment and Service specification in the same file.
-- The [nginx server](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/default.conf)
-  serves HTTP traffic on port 80 and HTTPS traffic on 443, and nginx Service
-  exposes both ports.
-- Each container has access to the keys through a volume mounted at `/etc/nginx/ssl`.
-  This is set up *before* the nginx server is started.
+- इसमें एक ही फ़ाइल में डिप्लॉयमेंट और सेवा विनिर्देश दोनों शामिल हैं।
+- [nginx सर्वर](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/default.conf) 
+पोर्ट 80 पर HTTP ट्रैफ़िक और 443 पर HTTPS ट्रैफ़िक प्रदान करता है, और nginx सेवा दोनों पोर्ट को उजागर करती है।
+- प्रत्येक कंटेनर को `/etc/nginx/ssl` पर माउंट किए गए वॉल्यूम के माध्यम से कुंजियों तक पहुंच प्राप्त होती है। इसे nginx सर्वर शुरू  होने से पहले सेट किया जाता है।
 
 ```shell
 kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.yaml
 ```
 
-At this point you can reach the nginx server from any node.
+इस बिंदु पर आप किसी भी नोड से nginx सर्वर तक पहुंच सकते हैं।
 
 ```shell
 kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
@@ -370,12 +360,7 @@ node $ curl -k https://10.244.3.5
 <h1>Welcome to nginx!</h1>
 ```
 
-Note how we supplied the `-k` parameter to curl in the last step, this is because
-we don't know anything about the pods running nginx at certificate generation time,
-so we have to tell curl to ignore the CName mismatch. By creating a Service we
-linked the CName used in the certificate with the actual DNS name used by pods
-during Service lookup. Let's test this from a pod (the same secret is being reused
-for simplicity, the pod only needs nginx.crt to access the Service):
+ध्यान दें कि हमने अंतिम चरण में कर्ल को `-k` पैरामीटर कैसे दिया, ऐसा इसलिए है क्योंकि हम प्रमाणपत्र निर्माण के समय nginx चलाने वाले पॉड्स के बारे में कुछ नहीं जानते हैं, इसलिए हमें कर्ल को CName बेमेल को अनदेखा करने के लिए कहना होगा। एक सेवा बनाकर हमने प्रमाणपत्र में उपयोग किए गए CName को सेवा लुकअप के दौरान पॉड्स द्वारा उपयोग किए जाने वाले वास्तविक DNS नाम से जोड़ा। आइए इसे पॉड से परखें (सरलता के लिए उसी सीक्रेट का पुनः उपयोग किया जा रहा है, पॉड को सेवा तक पहुँचने के लिए केवल nginx.crt की आवश्यकता है):
 
 {{% code_sample file="service/networking/curlpod.yaml" %}}
 
@@ -394,13 +379,12 @@ kubectl exec curl-deployment-1515033274-1410r -- curl https://my-nginx --cacert 
 ...
 ```
 
-## Exposing the Service
+## सेवा को उजागर करना
 
-For some parts of your applications you may want to expose a Service onto an
-external IP address. Kubernetes supports two ways of doing this: NodePorts and
-LoadBalancers. The Service created in the last section already used `NodePort`,
-so your nginx HTTPS replica is ready to serve traffic on the internet if your
-node has a public IP.
+अपने अनुप्रयोगों के कुछ हिस्सों के लिए आप किसी बाहरी IP पते पर सेवा प्रदर्शित करना चाह सकते हैं। 
+Kubernetes ऐसा करने के दो तरीकों का समर्थन करता है: NodePorts और LoadBalancers। पिछले अनुभाग में 
+बनाई गई सेवा पहले से ही `NodePort` का उपयोग करती है, इसलिए यदि आपके नोड में सार्वजनिक IP है, तो 
+आपका nginx HTTPS प्रतिकृति इंटरनेट पर ट्रैफ़िक की सेवा के लिए तैयार है।
 
 ```shell
 kubectl get svc my-nginx -o yaml | grep nodePort -C 5
@@ -437,8 +421,8 @@ $ curl https://<EXTERNAL-IP>:<NODE-PORT> -k
 <h1>Welcome to nginx!</h1>
 ```
 
-Let's now recreate the Service to use a cloud load balancer.
-Change the `Type` of `my-nginx` Service from `NodePort` to `LoadBalancer`:
+आइए अब क्लाउड लोड बैलेंसर का उपयोग करने के लिए सेवा को फिर से बनाएँ। 
+`my-nginx` सेवा के `Type` को `NodePort` से `LoadBalancer` में बदलें:
 
 ```shell
 kubectl edit svc my-nginx
@@ -454,13 +438,11 @@ curl https://<EXTERNAL-IP> -k
 <title>Welcome to nginx!</title>
 ```
 
-The IP address in the `EXTERNAL-IP` column is the one that is available on the public internet.
-The `CLUSTER-IP` is only available inside your cluster/private cloud network.
+`EXTERNAL-IP` कॉलम में IP पता वह है जो सार्वजनिक इंटरनेट पर उपलब्ध है।
 
-Note that on AWS, type `LoadBalancer` creates an ELB, which uses a (long)
-hostname, not an IP.  It's too long to fit in the standard `kubectl get svc`
-output, in fact, so you'll need to do `kubectl describe service my-nginx` to
-see it.  You'll see something like this:
+`CLUSTER-IP` केवल आपके क्लस्टर/निजी क्लाउड नेटवर्क के अंदर उपलब्ध है।
+
+ध्यान दें कि AWS पर, `LoadBalancer` टाइप करने पर एक ELB बनता है, जो IP का नहीं, बल्कि एक (लंबे) होस्टनाम का उपयोग करता है। यह मानक `kubectl get svc` आउटपुट में फ़िट होने के लिए बहुत लंबा है, इसलिए आपको इसे देखने के लिए `kubectl description service my-nginx` करना होगा। आपको कुछ इस तरह दिखाई देगा:
 
 ```shell
 kubectl describe service my-nginx
@@ -474,6 +456,6 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 ## {{% heading "whatsnext" %}}
 
 
-* Learn more about [Using a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/)
-* Learn more about [Connecting a Front End to a Back End Using a Service](/docs/tasks/access-application-cluster/connecting-frontend-backend/)
-* Learn more about [Creating an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
+* [क्लस्टर में किसी एप्लिकेशन तक पहुंचने के लिए सेवा का उपयोग](/docs/tasks/access-application-cluster/service-access-application-cluster/) के बारे में अधिक जानें
+* [सेवा का उपयोग करके फ्रंट एंड को बैक एंड से कनेक्ट करने](/docs/tasks/access-application-cluster/connecting-frontend-backend/) के बारे में अधिक जानें
+* [बाहरी लोड बैलेंसर बनाने](/docs/tasks/access-application-cluster/create-external-load-balancer/) के बारे में अधिक जानें
