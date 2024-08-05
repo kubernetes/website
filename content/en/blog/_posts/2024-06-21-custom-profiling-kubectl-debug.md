@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes 1.31: Custom Profiling in kubectl debug graduates to beta"
+title: "Kubernetes 1.31: Custom Profiling in Kubectl Debug Graduates to Beta"
 date: 2024-08-22
 slug: kubernetes-1-31-custom-profiling-kubectl-debug
 author: >
@@ -53,7 +53,7 @@ env:
 and execute:
 
 ```shell
-$ kubectl debug example-pod -it --image=customapp --custom=partial_container.yaml
+kubectl debug example-pod -it --image=customapp --custom=partial_container.yaml
 ```
 
 Here is another example that modifies multiple fields at once (change port number, add resource limits, modify environment variable) in JSON:
@@ -91,9 +91,8 @@ In the future, more fields can be added to the disallowed list if required.
 
 ## Limitations
 
-kubectl debug command has 3 aspects: Debugging with ephemeral containers, pod copying and node debugging. The largest intersection set of these aspects is `Container` spec.
-That's why, custom profiling only supports the modification of the fields that are defined in `Container`. This leads us to a limitation that if user needs to modify the 
-other fields in the `Pod` spec, it is not supported.
+The `kubectl debug` command has 3 aspects: Debugging with ephemeral containers, pod copying, and node debugging. The largest intersection set of these aspects is the container spec within a Pod
+That's why, custom profiling only supports the modification of the fields that are defined with `containers`. This leads to a limitation that if user needs to modify the other fields in the Pod spec, it is not supported.
 
 ## Acknowledgments
 
