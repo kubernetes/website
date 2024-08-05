@@ -949,12 +949,12 @@ section#cncf {
   .cid-home .feature-box div {
     background-color: $dark-bg-color-2;
     color:$dark-text-color-1;
-    h3:hover, h4:hover, h5:hover {
-      color: $dark-text-color-1;
-      text-decoration: underline;
+    
+    h3 a:hover, h4 a:hover, h5 a:hover {
+  	 text-decoration: underline;
+  	 color: $dark-text-color-1;
     }
-}
-
+  }
   .cid-home main section:is(#video) #desktopShowVideoButton {
     background-color: $dark-bg-color-1;
   }
