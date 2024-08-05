@@ -315,8 +315,9 @@ The [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/cu
 API resource allows you to define custom resources.
 Defining a CRD object creates a new custom resource with a name and schema that you specify.
 The Kubernetes API serves and handles the storage of your custom resource.
-The name of a CRD object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+The name of the CRD object itself must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) derived from the defined resource name and its API group; see [how to create a CRD](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions#create-a-customresourcedefinition) for more details.
+Further, the name of an object whose kind/resource is defined by a CRD must also be a valid DNS subdomain name.
 -->
 ## CustomResourceDefinitions
 
@@ -324,8 +325,10 @@ The name of a CRD object must be a valid
 API 资源允许你定义定制资源。
 定义 CRD 对象的操作会使用你所设定的名字和模式定义（Schema）创建一个新的定制资源，
 Kubernetes API 负责为你的定制资源提供存储和访问服务。
-CRD 对象的名称必须是合法的
-[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+CRD 对象的名称必须是有效的 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)，
+该名称由定义的资源名称及其 API 组派生而来。有关详细信息，
+请参见[如何创建 CRD](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions#create-a-customresourcedefinition)。
+此外，由 CRD 定义的某种对象/资源的名称也必须是有效的 DNS 子域名。
 
 <!--
 This frees you from writing your own API server to handle the custom resource,
@@ -434,6 +437,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
 | strategic-merge-patch | The new endpoints support PATCH with `Content-Type: application/strategic-merge-patch+json`. Useful for updating objects that may be modified both locally, and by the server. For more information, see ["Update API Objects in Place Using kubectl patch"](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/) | No | Yes |
 | Protocol Buffers | The new resource supports clients that want to use Protocol Buffers | No | Yes |
 | OpenAPI Schema | Is there an OpenAPI (swagger) schema for the types that can be dynamically fetched from the server? Is the user protected from misspelling field names by ensuring only allowed fields are set? Are types enforced (in other words, don't put an `int` in a `string` field?) | Yes, based on the [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) schema (GA in 1.16). | Yes |
+| Instance Name | Does this extension mechanism impose any constraints on the names of objects whose kind/resource is defined this way? | Yes, such an object's name must be a valid DNS subdomain name. | No |
 -->
 | 特性    | 描述        | CRD | 聚合 API       |
 | ------- | ----------- | ---- | -------------- |
@@ -448,6 +452,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
 | strategic-merge-patch | 新的端点要支持标记了 `Content-Type: application/strategic-merge-patch+json` 的 PATCH 操作。对于更新既可在本地更改也可在服务器端更改的对象而言是有用的。要了解更多信息，可参见[使用 `kubectl patch` 来更新 API 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)。 | 不可以。 | 可以。 |
 | 支持协议缓冲区 | 新的资源要支持想要使用协议缓冲区（Protocol Buffer）的客户端。 | 不可以。 | 可以。 |
 | OpenAPI Schema | 是否存在新资源类别的 OpenAPI（Swagger）Schema 可供动态从服务器上读取？是否存在机制确保只能设置被允许的字段以避免用户犯字段拼写错误？是否实施了字段类型检查（换言之，不允许在 `string` 字段设置 `int` 值）？ | 可以，依据 [OpenAPI v3.0 合法性检查](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) 模式（1.16 中进入正式发布状态）。 | 可以。|
+| 实例名称 | 这种扩展机制是否对通过这种方式定义的对象（类别/资源）的名称有任何限制? | 可以，此类对象的名称必须是一个有效的 DNS 子域名。 | 不可以|
 
 <!--
 ### Common Features

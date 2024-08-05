@@ -986,10 +986,11 @@ the filesystem of one or more of the Pod's containers.
 
 <!--
 For instructions, refer to
-[Distribute credentials securely using Secrets](/docs/tasks/inject-data-application/distribute-credentials-secure/#create-a-pod-that-has-access-to-the-secret-data-through-a-volume).
+[Create a Pod that has access to the secret data through a Volume](/docs/tasks/inject-data-application/distribute-credentials-secure/#create-a-pod-that-has-access-to-the-secret-data-through-a-volume).
 -->
 相关的指示说明，
-可以参阅[创建一个通过volume来访问Secret的Pod](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/#create-a-pod-that-has-access-to-the-secret-data-through-a-volume)。
+可以参阅[创建一个可以通过卷访问 Secret 数据的 Pod](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/#create-a-pod-that-has-access-to-the-secret-data-through-a-volume)。
+
 
 <!--
 When a volume contains data from a Secret, and that Secret is updated, Kubernetes tracks

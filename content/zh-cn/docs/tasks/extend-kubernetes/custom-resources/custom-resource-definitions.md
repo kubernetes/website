@@ -2048,12 +2048,10 @@ Unlike other rules, transition rules apply only to operations meeting the follow
 
 <!--
 Errors will be generated on CRD writes if a schema node contains a transition rule that can never be
-applied, e.g. "*path*: update rule *rule* cannot be set on schema because the schema or its parent
-schema is not mergeable".
+applied, e.g. "oldSelf cannot be used on the uncorrelatable portion of the schema within *path*".
 -->
 如果一个模式节点包含一个永远不能应用的转换规则，在 CRD 写入时将会产生错误，例如：
-"*path*: update rule *rule* cannot be set on schema because the schema or its parent
-schema is not mergeable"。
+"oldSelf cannot be used on the uncorrelatable portion of the schema within *path*"。
 
 <!--
 Transition rules are only allowed on _correlatable portions_ of a schema.

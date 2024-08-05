@@ -6,9 +6,10 @@ canonicalUrl: https://www.kubernetes.dev/blog/2024/06/20/sig-node-spotlight-2024
 date: 2024-06-20
 author: >
   Arpit Agrawal
+translator: >
+  Taisuke Okamoto (IDCフロンティア),
+  [Junya Okabe](https://github.com/Okabe-Junya) (筑波大学)
 ---
-
-**翻訳者:** [Taisuke Okamoto](https://github.com/b1gb4by) (IDC Frontier Inc), [Junya Okabe](https://github.com/Okabe-Junya) (University of Tsukuba)
 
 コンテナオーケストレーションの世界で、[Kubernetes](/ja)は圧倒的な存在感を示しており、世界中で最も複雑で動的なアプリケーションの一部を動かしています。
 その裏では、Special Interest Groups(SIG)のネットワークがKubernetesの革新と安定性を牽引しています。
