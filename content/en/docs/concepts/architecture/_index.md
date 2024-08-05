@@ -100,7 +100,7 @@ Containers started by Kubernetes automatically include this DNS server in their 
 
 ### Cluster-level Logging
 
-A [cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for saving container logs to a central log store with search/browsing interface.
+A [cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for saving container logs to a central log store with a search/browsing interface.
 
 ### Network Plugins
 
@@ -146,7 +146,7 @@ The flexibility of Kubernetes architecture allows organizations to tailor their 
 
 Kubernetes architecture allows for significant customization:
 
-- Custom schedulers can be deployed alongside or instead of the default scheduler.
+- Custom schedulers can be deployed to work alongside the default Kubernetes scheduler or to replace it entirely.
 - API servers can be extended with CustomResourceDefinitions and API Aggregation.
 - Cloud providers can integrate deeply with Kubernetes using the cloud-controller-manager.
 
