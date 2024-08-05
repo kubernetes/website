@@ -782,10 +782,15 @@ either be a snapshot file from a previous backup operation, or from a remaining
 
    <!--
    If `<data-dir-location>` is the same folder as before, delete it and stop the etcd process before restoring the cluster. 
-   Otherwise, change etcd configuration and restart the etcd process after restoration to have it use the new data directory.
+   Otherwise, change etcd configuration and restart the etcd process after restoration to have it use the new data directory:
+   first change  `/etc/kubernetes/manifests/etcd.yaml`'s `volumes.hostPath.path` for `name: etcd-data`  to `<data-dir-location>`,
+   then execute `kubectl -n kube-system delete pod <name-of-etcd-pod>` or `systemctl restart kubelet.service` (or both).
    -->
    如果 `<data-dir-location>` 与之前的文件夹相同，请先删除此文件夹并停止 etcd 进程，再恢复集群。
-   否则，在恢复后更改 etcd 配置并重启 etcd 进程将使用新的数据目录。
+   否则，在恢复后更改 etcd 配置并重启 etcd 进程将使用新的数据目录：
+   首先将 `/etc/kubernetes/manifests/etcd.yaml` 中 `name: etcd-data` 对应条目的
+   `volumes.hostPath.path` 改为 `<data-dir-location>`，
+   然后执行 `kubectl -n kube-system delete pod <name-of-etcd-pod>` 或 `systemctl restart kubelet.service`（或两段命令都执行）。
 
 {{% /tab %}}
 {{< /tabs >}}

@@ -5,9 +5,12 @@ slug: diy-create-your-own-cloud-with-kubernetes-part-2
 date: 2024-04-05T07:35:00+00:00
 author: >
   Andrei Kvapil (Ænix)
+translator: >
+  [Taisuke Okamoto](https://github.com/b1gb4by) ([IDCフロンティア](https://www.idcf.jp/)),
+  [Daiki Hayakawa(bells17)](https://github.com/bells17) ([3-shake](https://3-shake.com/)),
+  [atoato88](https://github.com/atoato88) ([NEC](https://jpn.nec.com/index.html)),
+  [Kaito Ii](https://github.com/kaitoii11) ([Hewlett Packard Enterprise](https://www.hpe.com/jp/ja/home.html))
 ---
-
-**翻訳者:** [Taisuke Okamoto](https://github.com/b1gb4by) ([IDC Frontier Inc.](https://www.idcf.jp/)), [Daiki Hayakawa(bells17)](https://github.com/bells17) ([3-shake Inc.](https://3-shake.com/en/)), [atoato88](https://github.com/atoato88) ([NEC Corporation](https://jpn.nec.com/index.html)),  [Kaito Ii](https://github.com/kaitoii11) ([Hewlett Packard Enterprise](https://www.hpe.com/jp/ja/home.html))
 
 Kubernetesエコシステムだけを使って自分だけのクラウドを構築する方法について、一連の記事を続けています。
 [前回の記事](/ja/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-1/)では、Talos LinuxとFlux CDをベースにした基本的なKubernetes ディストリビューションの準備方法を説明しました。
