@@ -471,10 +471,21 @@ common use cases and suggested solutions.
 1. Cluster with proprietary images, a few of which require stricter access control.
    - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
      is active. Otherwise, all Pods potentially have access to all images.
+   - Another way to restrict the usage of a private image with the `imagePullPolicy` set to `IfNotPresent`
+     that is already pulled(using `imagePullSecrets`) on the same node by an another pod
+     is to enable the `KubeletEnsureSecretPulledImages` featuregate and configure
+     the `pullImageSecretRecheck` field of the `KubeletConfiguration` to `true`
+     and `pullImageSecretRecheckPeriod` to some reasonable duration other than `0s`
+     Doing so would allow the kubelet to re-pull the image with the given `imagePullSecrets` and fail
+     the start of the pod incase the credentials are invalid/unauthorized.
    - Move sensitive data into a "Secret" resource, instead of packaging it in an image.
 1. A multi-tenant cluster where each tenant needs own private registry.
    - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
      is active. Otherwise, all Pods of all tenants potentially have access to all images.
+   - Configuring the fields of the `KubeletConfiguration` namely `pullImageSecretRecheck` and `pullImageSecretRecheckPeriod`
+     that are enabled by the `KubeletEnsureSecretPulledImages` featuregate helps in restricting the usage of a single private image
+     on a same node by two different pods with different `imagePullSecrets` when the `imagePullPolicy` is set to `IfNotPresent`.
+     Based on this configuration, the kubelet allows a pod with valid credentials to run while it rejects the other pod with invalid/unauthorized credentials.
    - Run a private registry with authorization required.
    - Generate registry credential for each tenant, put into secret, and populate secret to each
      tenant namespace.
