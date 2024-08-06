@@ -62,7 +62,7 @@ _Labels_ are key/value pairs. Valid label keys have two segments: an optional
 prefix and name, separated by a slash (`/`). The name segment is required and
 must be 63 characters or less, beginning and ending with an alphanumeric
 character (`[a-z0-9A-Z]`) with dashes (`-`), underscores (`_`), dots (`.`),
-and alphanumerics between. The prefix is optional. If specified, the prefix
+and alphanumerics allowed in between. The prefix is optional. If specified, the prefix
 must be a DNS subdomain: a series of DNS labels separated by dots (`.`),
 not longer than 253 characters in total, followed by a slash (`/`).
 
@@ -78,7 +78,7 @@ Valid label value:
 
 * must be 63 characters or less (can be empty),
 * unless empty, must begin and end with an alphanumeric character (`[a-z0-9A-Z]`),
-* could contain dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
+* could contain dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics allowed in between.
 
 For example, here's a manifest for a Pod that has two labels
 `environment: production` and `app: nginx`:
