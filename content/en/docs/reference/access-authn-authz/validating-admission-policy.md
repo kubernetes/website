@@ -47,11 +47,6 @@ must be defined for a policy to have an effect.
 If a `ValidatingAdmissionPolicy` does not need to be configured via parameters, simply leave
 `spec.paramKind` in  `ValidatingAdmissionPolicy` not specified.
 
-## {{% heading "prerequisites" %}}
-
-- Ensure the `ValidatingAdmissionPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
-- Ensure that the `admissionregistration.k8s.io/v1beta1` API is enabled.
-
 ## Getting Started with Validating Admission Policy
 
 Validating Admission Policy is part of the cluster control-plane. You should write and deploy them

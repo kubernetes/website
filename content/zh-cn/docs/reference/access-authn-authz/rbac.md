@@ -1148,7 +1148,7 @@ This allows the cluster to repair accidental modifications, and helps to keep ro
 up-to-date as permissions and subjects change in new Kubernetes releases.
 
 To opt out of this reconciliation, set the `rbac.authorization.kubernetes.io/autoupdate`
-annotation on a default cluster role or rolebinding to `false`.
+annotation on a default cluster role or default cluster RoleBinding to `false`.
 Be aware that missing default permissions and subjects can result in non-functional clusters.
 
 Auto-reconciliation is enabled by default if the RBAC authorizer is active.
@@ -1160,7 +1160,7 @@ Auto-reconciliation is enabled by default if the RBAC authorizer is active.
 这种自动协商机制允许集群去修复一些不小心发生的修改，
 并且有助于保证角色和角色绑定在新的发行版本中有权限或主体变更时仍然保持最新。
 
-如果要禁止此功能，请将默认 ClusterRole 以及 ClusterRoleBinding 的
+如果要禁止此功能，请将默认 ClusterRole 以及默认 ClusterRoleBinding 的
 `rbac.authorization.kubernetes.io/autoupdate` 注解设置成 `false`。
 注意，缺少默认权限和角色绑定主体可能会导致集群无法正常工作。
 
@@ -1169,9 +1169,9 @@ Auto-reconciliation is enabled by default if the RBAC authorizer is active.
 <!--
 ### API discovery roles {#discovery-roles}
 
-Default role bindings authorize unauthenticated and authenticated users to read API information
+Default cluster role bindings authorize unauthenticated and authenticated users to read API information
 that is deemed safe to be publicly accessible (including CustomResourceDefinitions).
-To disable anonymous unauthenticated access, add `--anonymous-auth=false` to
+To disable anonymous unauthenticated access, add `--anonymous-auth=false` flag to
 the API server configuration.
 
 To view the configuration of these roles via `kubectl` run:
@@ -1179,8 +1179,8 @@ To view the configuration of these roles via `kubectl` run:
 ### API 发现角色  {#discovery-roles}
 
 无论是经过身份验证的还是未经过身份验证的用户，
-默认的角色绑定都授权他们读取被认为是可安全地公开访问的 API（包括 CustomResourceDefinitions）。
-如果要禁用匿名的未经过身份验证的用户访问，请在 API 服务器配置中中添加
+默认的集群角色绑定都授权他们读取被认为是可安全地公开访问的 API（包括 CustomResourceDefinitions）。
+如果要禁用匿名的未经过身份验证的用户访问，请在 API 服务器配置中添加
 `--anonymous-auth=false` 的配置选项。
 
 通过运行命令 `kubectl` 可以查看这些角色的配置信息:

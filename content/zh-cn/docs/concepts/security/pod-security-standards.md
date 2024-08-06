@@ -1,7 +1,7 @@
 ---
 title: Pod 安全性标准
 description: >
-  详细了解 Pod 安全性标准（Pod Security Standards）中所定义的不同策略级别。
+  详细了解 Pod 安全性标准（Pod Security Standard）中所定义的不同策略级别。
 content_type: concept
 weight: 15
 ---
@@ -52,17 +52,16 @@ Pod 安全性标准定义了三种不同的**策略（Policy）**，以广泛覆
 **The _Privileged_ policy is purposely-open, and entirely unrestricted.** This type of policy is
 typically aimed at system- and infrastructure-level workloads managed by privileged, trusted users.
 
-The Privileged policy is defined by an absence of restrictions. Allow-by-default
-mechanisms (such as gatekeeper) may be Privileged by default. In contrast, for a deny-by-default mechanism (such as Pod
-Security Policy) the Privileged policy should disable all restrictions.
+The Privileged policy is defined by an absence of restrictions. If you define a Pod where the Privileged
+security policy applies, the Pod you define is able to bypass typical container isolation mechanisms.
+For example, you can define a Pod that has access to the node's host network.
 -->
 **_Privileged_ 策略是有目的地开放且完全无限制的策略。**
 此类策略通常针对由特权较高、受信任的用户所管理的系统级或基础设施级负载。
 
-Privileged 策略定义中限制较少。默认允许的（Allow-by-default）实施机制（例如 gatekeeper）
-可以缺省设置为 Privileged。
-与此不同，对于默认拒绝（Deny-by-default）的实施机制（如 Pod 安全策略）而言，
-Privileged 策略应该禁止所有限制。
+Privileged 策略定义中限制较少。
+如果你定义应用了 Privileged 安全策略的 Pod，你所定义的这个 Pod 能够绕过典型的容器隔离机制。
+例如，你可以定义有权访问节点主机网络的 Pod。
 
 ### Baseline
 
@@ -99,9 +98,15 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">HostProcess</td>
 			<td>
-				<p><!--Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> which enables privileged access to the Windows node. Privileged access to the host is disallowed in the baseline policy. -->
-                                Windows Pod 提供了运行 <a href="/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess 容器</a> 的能力，这使得对 Windows 节点的特权访问成为可能。Baseline 策略中禁止对宿主的特权访问。{{< feature-state for_k8s_version="v1.26" state="stable" >}}
-                                </p>
+				<p>
+				<!--
+				Windows Pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> which enables privileged access to the Windows host machine. Privileged access to the host is disallowed in the Baseline policy.
+				-->
+				Windows Pod 提供了运行
+				<a href="/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess 容器</a>的能力，
+				这使得对 Windows 宿主的特权访问成为可能。Baseline 策略中禁止对宿主的特权访问。
+				{{< feature-state for_k8s_version="v1.26" state="stable" >}}
+				</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.securityContext.windowsOptions.hostProcess</code></li>
@@ -206,7 +211,8 @@ fail validation.
 				<p><strong><!--Allowed Values-->准许的取值</strong></p>
 				<ul>
 					<li><!--Undefined/nil-->未定义、nil</li>
-					<li><!--Known list (not supported by the built-in <a href="/docs/concepts/security/pod-security-admission/">Pod Security Admission controller</a>)-->已知列表（不支持内置的 <a href="/docs/concepts/security/pod-security-admission/">Pod 安全性准入控制器</a> ）</li>
+					<li><!--Known list (not supported by the built-in <a href="/docs/concepts/security/pod-security-admission/">Pod Security Admission controller</a>)-->
+					已知列表（不支持内置的 <a href="/zh-cn/docs/concepts/security/pod-security-admission/">Pod 安全性准入控制器</a> ）</li>
 					<li><code>0</code></li>
 				</ul>
 			</td>
@@ -215,14 +221,14 @@ fail validation.
 			<td style="white-space: nowrap">AppArmor</td>
 			<td>
 				<p>
-           <!--
-           On supported hosts, the <code>RuntimeDefault</code> AppArmor profile is applied by default. The baseline policy should prevent overriding or disabling the default AppArmor profile, or restrict overrides to an allowed set of profiles.
-           -->
-           在受支持的主机上，默认使用 <code>RuntimeDefault</code> AppArmor 配置。Baseline
-           策略应避免覆盖或者禁用默认策略，以及限制覆盖一些配置集合的权限。
-        </p>
+				<!--
+				On supported hosts, the <code>RuntimeDefault</code> AppArmor profile is applied by default. The baseline policy should prevent overriding or disabling the default AppArmor profile, or restrict overrides to an allowed set of profiles.
+				-->
+				在受支持的主机上，默认使用 <code>RuntimeDefault</code> AppArmor 配置。Baseline
+				策略应避免覆盖或者禁用默认策略，以及限制覆盖一些配置集合的权限。
+				</p>
         <p><strong><!--Restricted Fields-->限制的字段</strong></p>
-         <ul>
+        <ul>
               <li><code>spec.securityContext.appArmorProfile.type</code></li>
               <li><code>spec.containers[*].securityContext.appArmorProfile.type</code></li>
               <li><code>spec.initContainers[*].securityContext.appArmorProfile.type</code></li>
@@ -250,11 +256,11 @@ fail validation.
 			<td style="white-space: nowrap">SELinux</td>
 			<td>
 				<p>
-           <!--
-           Setting the SELinux type is restricted, and setting a custom SELinux user or role option is forbidden.
-           -->
-          设置 SELinux 类型的操作是被限制的，设置自定义的 SELinux 用户或角色选项是被禁止的。
-        </p>
+				<!--
+				Setting the SELinux type is restricted, and setting a custom SELinux user or role option is forbidden.
+				-->
+				设置 SELinux 类型的操作是被限制的，设置自定义的 SELinux 用户或角色选项是被禁止的。
+				</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.securityContext.seLinuxOptions.type</code></li>
@@ -327,12 +333,12 @@ fail validation.
 			<td style="white-space: nowrap">Sysctls</td>
 			<td>
 				<p>
-           <!--
-				   Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for an allowed "safe" subset. A sysctl is considered safe if it is namespaced in the container or the Pod, and it is isolated from other Pods or processes on the same Node.
-           -->
-           sysctl 可以禁用安全机制或影响宿主上所有容器，因此除了若干“安全”的允许子集之外，其他都应该被禁止。
-           如果某 sysctl 是受容器或 Pod 的名字空间限制，且与节点上其他 Pod 或进程相隔离，可认为是安全的。
-        </p>
+				<!--
+				Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for an allowed "safe" subset. A sysctl is considered safe if it is namespaced in the container or the Pod, and it is isolated from other Pods or processes on the same Node.
+				-->
+				sysctl 可以禁用安全机制或影响宿主上所有容器，因此除了若干“安全”的允许子集之外，其他都应该被禁止。
+				如果某 sysctl 是受容器或 Pod 的名字空间限制，且与节点上其他 Pod 或进程相隔离，可认为是安全的。
+				</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.securityContext.sysctls[*].name</code></li>
@@ -370,7 +376,7 @@ enforced/disallowed:
 
 {{< note >}}
 <!--
-In this table, wildcards (`*`) indicate all elements in a list. For example, 
+In this table, wildcards (`*`) indicate all elements in a list. For example,
 `spec.containers[*].securityContext` refers to the Security Context object for _all defined
 containers_. If any of the listed containers fails to meet the requirements, the entire pod will
 fail validation.
@@ -388,16 +394,16 @@ fail validation.
 			<td><strong><!--Policy-->策略</strong></td>
 		</tr>
 		<tr>
-			<td colspan="2"><em><!--Everything from the baseline profile.-->Baseline 策略的所有要求。</em></td>
+			<td colspan="2"><em><!--Everything from the Baseline policy-->Baseline 策略的所有要求</em></td>
 		</tr>
 		<tr>
 			<td style="white-space: nowrap"><!--Volume Types-->卷类型</td>
 			<td>
 				<p>
 				  <!--
-				  In addition to restricting HostPath volumes, the restricted policy limits usage of non-core volume types to those defined through PersistentVolumes.
+				  The Restricted policy only permits the following volume types.
 				  -->
-				  除了限制 HostPath 卷之外，此类策略还限制可以通过 PersistentVolumes 定义的非核心卷类型。
+				  Restricted 策略仅允许以下卷类型。
 				</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
@@ -427,7 +433,7 @@ fail validation.
 					<li><code>spec.initContainers[*].securityContext.allowPrivilegeEscalation</code></li>
 					<li><code>spec.ephemeralContainers[*].securityContext.allowPrivilegeEscalation</code></li>
 				</ul>
-				<p><strong><!--Allowed Values-->允许的取值</strong></p>
+				<p><strong><!--Allowed Values-->准许的取值</strong></p>
 				<ul>
 					<li><code>false</code></li>
 				</ul>
@@ -574,7 +580,7 @@ of individual policies are not defined here.
 {{% thirdparty-content %}}
 
 <!--
-Other alternatives for enforcing policies are being developed in the Kubernetes ecosystem, such as: 
+Other alternatives for enforcing policies are being developed in the Kubernetes ecosystem, such as:
 -->
 在 Kubernetes 生态系统中还在开发一些其他的替代方案，例如：
 
@@ -601,21 +607,21 @@ Kubernetes 中的 Windows 与基于 Linux 的工作负载相比有一些限制�
 
 {{< note >}}
 <!--
-Kubelets prior to v1.24 don't enforce the pod OS field, and if a cluster has nodes on versions earlier than v1.24 the restricted policies should be pinned to a version prior to v1.25.
+Kubelets prior to v1.24 don't enforce the pod OS field, and if a cluster has nodes on versions earlier than v1.24 the Restricted policies should be pinned to a version prior to v1.25.
 -->
-v1.24 之前的 Kubelet 不强制处理 Pod OS 字段，如果集群中有些节点运行早于 v1.24 的版本，
-则应将限制性的策略锁定到 v1.25 之前的版本。
+v1.24 之前的 kubelet 不强制处理 Pod OS 字段，如果集群中有些节点运行早于 v1.24 的版本，
+则应将 Restricted 策略锁定到 v1.25 之前的版本。
 {{< /note >}}
 
 <!--
 ### Restricted Pod Security Standard changes
-Another important change, made in Kubernetes v1.25 is that the  _restricted_ Pod security
+Another important change, made in Kubernetes v1.25 is that the  _Restricted_ policy
 has been updated to use the `pod.spec.os.name` field. Based on the OS name, certain policies that are specific
 to a particular OS can be relaxed for the other OS.
 -->
 ### 限制性的 Pod Security Standard 变更   {#restricted-pod-security-standard-changes}
 
-Kubernetes v1.25 中的另一个重要变化是**限制性的（Restricted）** Pod 安全性已更新，
+Kubernetes v1.25 中的另一个重要变化是 _Restricted_ 策略已更新，
 能够处理 `pod.spec.os.name` 字段。根据 OS 名称，专用于特定 OS 的某些策略对其他 OS 可以放宽限制。
 
 <!--
@@ -629,6 +635,7 @@ Restrictions on the following controls are only required if `.spec.os.name` is n
 #### OS 特定的策略控制
 
 仅当 `.spec.os.name` 不是 `windows` 时，才需要对以下控制进行限制：
+
 - 特权提升
 - Seccomp
 - Linux 权能
@@ -644,32 +651,30 @@ the [documentation](/docs/concepts/workloads/pods/user-namespaces#integration-wi
 
 用户命名空间是 Linux 特有的功能，可在运行工作负载时提高隔离度。
 关于用户命名空间如何与 PodSecurityStandard 协同工作，
-请参阅
-[文档](/zh-cn/docs/concepts/workloads/pods/user-namespaces#integration-with-pod-security-admission-checks)
-了解 Pod 如何使用用户命名空间。
+请参阅[文档](/zh-cn/docs/concepts/workloads/pods/user-namespaces#integration-with-pod-security-admission-checks)了解
+Pod 如何使用用户命名空间。
 
 <!--
 ## FAQ
 
-### Why isn't there a profile between privileged and baseline?
+### Why isn't there a profile between Privileged and Baseline?
 -->
 ## 常见问题    {#faq}
 
-### 为什么不存在介于 Privileged 和 Baseline 之间的策略类型
+### 为什么不存在介于 Privileged 和 Baseline 之间的策略类型   {#why-isnt-there-a-profile-between-privileged-and-baseline}
 
 <!--
-The three profiles defined here have a clear linear progression from most secure (restricted) to least
-secure (privileged), and cover a broad set of workloads. Privileges required above the baseline
+The three profiles defined here have a clear linear progression from most secure (Restricted) to least
+secure (Privileged), and cover a broad set of workloads. Privileges required above the Baseline
 policy are typically very application specific, so we do not offer a standard profile in this
 niche. This is not to say that the privileged profile should always be used in this case, but that
 policies in this space need to be defined on a case-by-case basis.
 
 SIG Auth may reconsider this position in the future, should a clear need for other profiles arise.
 -->
-这里定义的三种策略框架有一个明晰的线性递进关系，从最安全（Restricted）到最不安全，
-并且覆盖了很大范围的工作负载。特权要求超出 Baseline 策略者通常是特定于应用的需求，
-所以我们没有在这个范围内提供标准框架。
-这并不意味着在这样的情形下仍然只能使用 Privileged 框架，
+这里定义的三种策略框架有一个明晰的线性递进关系，从最安全（Restricted）到最不安全（Privileged），
+并且覆盖了很大范围的工作负载。特权要求超出 Baseline 策略，这通常是特定于应用的需求，
+所以我们没有在这个范围内提供标准框架。这并不意味着在这样的情形下仍然只能使用 Privileged 框架，
 只是说处于这个范围的策略需要因地制宜地定义。
 
 SIG Auth 可能会在将来考虑这个范围的框架，前提是有对其他框架的需求。
@@ -681,7 +686,7 @@ SIG Auth 可能会在将来考虑这个范围的框架，前提是有对其他�
 Containers at runtime. Security contexts are defined as part of the Pod and container specifications
 in the Pod manifest, and represent parameters to the container runtime.
 -->
-### 安全配置与安全上下文的区别是什么？
+### 安全配置与安全上下文的区别是什么？   {#whats-the-difference-between-security-profile-and-security-context}
 
 [安全上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)在运行时配置 Pod
 和容器。安全上下文是在 Pod 清单中作为 Pod 和容器规约的一部分来定义的，
@@ -689,12 +694,12 @@ in the Pod manifest, and represent parameters to the container runtime.
 
 <!--
 Security profiles are control plane mechanisms to enforce specific settings in the Security Context,
-as well as other related parameters outside the Security Context. As of July 2021, 
+as well as other related parameters outside the Security Context. As of July 2021,
 [Pod Security Policies](/docs/concepts/security/pod-security-policy/) are deprecated in favor of the
-built-in [Pod Security Admission Controller](/docs/concepts/security/pod-security-admission/). 
+built-in [Pod Security Admission Controller](/docs/concepts/security/pod-security-admission/).
 -->
 安全策略则是控制面用来对安全上下文以及安全性上下文之外的参数实施某种设置的机制。
-在 2020 年 7 月，
+在 2021 年 7 月，
 [Pod 安全性策略](/zh-cn/docs/concepts/security/pod-security-policy/)已被废弃，
 取而代之的是内置的 [Pod 安全性准入控制器](/zh-cn/docs/concepts/security/pod-security-admission/)。
 
