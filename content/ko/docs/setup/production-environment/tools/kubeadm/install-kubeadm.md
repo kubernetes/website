@@ -155,7 +155,7 @@ kubeadm은 `kubelet` 또는 `kubectl` 을 설치하거나 관리하지 **않으�
 
    ```shell
    sudo apt-get update
-   # apt-transport-https 는 더미 패키지일수도 있다. 그렇다면 해당 패키지는 생략해도 된디ㅏ.
+   # apt-transport-https 는 더미 패키지일수도 있다. 그렇다면 해당 패키지는 생략해도 된다.
    sudo apt-get install -y apt-transport-https ca-certificates curl
    ```
 
