@@ -291,7 +291,7 @@ curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSIO
 ```
 
 {{< note >}}
-Linux 배포판이 기본적으로 `glibc`를 포함하지 않는 경우에는 [시작하기 전에](#before-you-begin) 섹션의 노트를 참고한다.
+Linux 배포판이 기본적으로 `glibc`를 포함하지 않는 경우에는 [시작하기 전에](#시작하기-전에) 섹션의 노트를 참고한다.
 {{< /note >}}
 
 [도구 설치](/docs/tasks/tools/#kubectl)의 지침을 따라 `kubectl`을 설치한다.
