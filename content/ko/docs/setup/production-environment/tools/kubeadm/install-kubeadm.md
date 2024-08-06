@@ -30,7 +30,7 @@ card:
 {{< note >}}
 `kubeadm` 설치는 동적 링크를 사용하는 바이너리를 통해 이루어지며, 대상 시스템이 glibc를 제공한다고 가정한다. 이는 많은 Linux 배포판(예: Debian, Ubuntu, Fedora, CentOS 등)에서 합리적인 가정이지만, 기본적으로 `glibc`를 포함하지 않는 커스텀 및 경량 배포판(예: Alpine Linux)에서는 그렇지 않을수도 있다.
 
-이러한 경우 배포판은 `glibc`를 포함하거나, 예상되는 심볼을 제공하는 [호환 레이어](https://wiki.alpinelinux.org/wiki/Running_glibc_programs)를 포함해야 합니다.
+이러한 경우 배포판은 `glibc`를 포함하거나, 예상되는 심볼을 제공하는 [호환 레이어](https://wiki.alpinelinux.org/wiki/Running_glibc_programs)를 포함해야 한다.
 {{< /note >}}
 
 <!-- steps -->
