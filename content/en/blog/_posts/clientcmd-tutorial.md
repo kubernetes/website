@@ -8,10 +8,10 @@ author: >
 ---
 
 If you've ever wanted to develop a command line client for a Kubernetes API,
-especially if you’ve considered making your client usable as a `kubectl` plugin,
+especially if you've considered making your client usable as a `kubectl` plugin,
 you might have wondered how to make your client feel familiar to users of `kubectl`.
 A quick glance at the output of `kubectl options` might put a damper on that:
-“am I really supposed to implement all those options?”
+"Am I really supposed to implement all those options?"
 
 Fear not, others have done a lot of the work involved for you.
 In fact, the Kubernetes provides two libraries to help you handle
@@ -23,20 +23,20 @@ This article will show how to use the former.
 
 ## General philosophy
 
-As might be expected since it’s part of `client-go`,
-`clientcmd`’s ultimate purpose is to provide an instance of
+As might be expected since it's part of `client-go`,
+`clientcmd`'s ultimate purpose is to provide an instance of
 [`restclient.Config`](https://pkg.go.dev/k8s.io/client-go/rest#Config)
 that can issue requests to an API server.
 
 It follows `kubectl` semantics:
 * defaults are taken from `~/.kube` or equivalent;
 * files can be specified using the `KUBECONFIG` environment variable;
-* all the above can be further overridden using command line arguments.
+* all of the above settings can be further overridden using command line arguments.
 
-It doesn’t set up a `--kubeconfig` command line argument,
+It doesn't set up a `--kubeconfig` command line argument,
 which you might want to do to align with `kubectl`;
-you’ll see how to do this
-[in the “Bind the flags” section](#bind-the-flags).
+you'll see how to do this
+[in the "Bind the flags" section](#bind-the-flags).
 
 ## Available features
 
@@ -64,7 +64,7 @@ missing files result in warnings only.
 If the user explicitly specifies a path (in `--kubeconfig` style),
 there must be a corresponding file.
 
-If `KUBECONFIG` isn’t defined,
+If `KUBECONFIG` isn't defined,
 the default configuration file, `~/.kube/config`, is used instead,
 if present.
 
@@ -115,10 +115,10 @@ but in most cases the defaults are fine.
 In the context of this article,
 its primary purpose is to store values obtained from command line arguments.
 These are handled using the [pflag](https://github.com/spf13/pflag) library,
-which is a drop-in replacement for Go’s [flag package](https://pkg.go.dev/flag),
+which is a drop-in replacement for Go's [flag package](https://pkg.go.dev/flag),
 adding support for double-hyphen arguments with long names.
 
-In most cases there’s nothing to set in the overrides;
+In most cases there's nothing to set in the overrides;
 we will only bind them to flags.
 
 ### Build a set of flags
@@ -154,11 +154,11 @@ This might not seem particularly useful on commands involving a single API serve
 but they come in handy when multiple API servers are involved,
 such as in multi-cluster scenarios.
 
-There’s a potential gotcha here: prefixes don’t modify the short name,
+There's a potential gotcha here: prefixes don't modify the short name,
 so `--namespace` needs some care if multiple prefixes are used:
 only one of the prefixes can be associated with the `-n` short name.
-You’ll have to clear the short names associated with the other prefixes’
-`--namespace` , or perhaps all prefixes if there’s no sensible
+You'll have to clear the short names associated with the other prefixes'
+`--namespace` , or perhaps all prefixes if there's no sensible
 `-n` association.
 Short names can be cleared as follows:
 
@@ -180,7 +180,7 @@ it can be used to bind command line arguments to overrides using
 [`clientcmd.BindOverrideFlags`](https://pkg.go.dev/k8s.io/client-go/tools/clientcmd#BindOverrideFlags).
 This requires a
 [`pflag`](https://pkg.go.dev/github.com/spf13/pflag) `FlagSet`
-rather than one from Go’s flag package.
+rather than one from Go's flag package.
 
 If you also want to bind `--kubeconfig`, you should do so now,
 by binding `ExplicitPath` in the loading rules:
@@ -201,11 +201,11 @@ can ask for authentication information interactively,
 using a provided reader,
 whereas the second only operates on the information given to it by the caller.
 
-The “deferred” mention in these function names refers to the fact that
+The "deferred" mention in these function names refers to the fact that
 the final configuration will be determined as late as possible.
 This means that these functions can be called before the command line arguments are parsed,
 and the resulting configuration will use whatever values have been parsed
-by the time it’s actually constructed.
+by the time it's actually constructed.
 
 ### Obtain an API client
 
@@ -215,13 +215,13 @@ An API client can be obtained from that by calling the `ClientConfig()` method.
 
 If no configuration is given
 (`KUBECONFIG` is empty or points to non-existent files,
-`~/.kube/config` doesn’t exist,
+`~/.kube/config` doesn't exist,
 and no configuration is given using command line arguments),
 the default setup will return an obscure error referring to `KUBERNETES_MASTER`.
 This is legacy behaviour;
 several attempts have been made to get rid of it,
 but it is preserved for the `--local` and `--dry-run` command line arguments in `--kubectl`.
-You should check for “empty configuration” errors by calling `clientcmd.IsEmptyConfig()`
+You should check for "empty configuration" errors by calling `clientcmd.IsEmptyConfig()`
 and provide a more explicit error message.
 
 The `Namespace()` method is also useful:
@@ -231,7 +231,7 @@ It also indicates whether the namespace was overridden by the user
 
 ## Full example
 
-Here’s a complete example.
+Here's a complete example.
 
 ```lang-go
 package main
