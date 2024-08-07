@@ -13,3 +13,14 @@
 {{- if .HasShortcode "cncf-landscape" -}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.min.js" integrity="sha384-hHTwgxzjpO1G1NI0wMHWQYUxnGtpWyDjVSZrFnDrlWa5OL+DFY57qnDWw/5WSJOl" crossorigin="anonymous"></script>
 {{- end -}}
+
+{{- if .HasShortcode "figure" -}}
+<!-- Enable zoom-on-click for figures that opt in to this -->
+  {{- if hugo.IsProduction -}}
+    {{- $zoomJs :=  resources.Get "js/zoom.js" | minify | fingerprint -}}
+<script defer src="{{ $zoomJs.RelPermalink }}" integrity="{{ $zoomJs.Data.Integrity }}" crossorigin="anonymous"></script>
+  {{- else -}}
+    {{- $zoomJs := resources.Get "js/zoom.js" -}}
+<script defer src="{{ $zoomJs.RelPermalink }}"></script>
+  {{- end -}}
+{{- end -}}
