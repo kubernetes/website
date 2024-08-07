@@ -32,3 +32,13 @@
     {{- errorf "Unable to find the glossary helper script" -}}
   {{- end -}}
 {{- end -}}
+
+{{- if .HasShortcode "release-binaries" -}}
+  {{- if hugo.IsProduction -}}
+    {{- $releaseBinariesJs :=  resources.Get "js/release_binaries.js" | minify | fingerprint -}}
+<script defer src="{{ $releaseBinariesJs.RelPermalink }}" integrity="{{ $releaseBinariesJs.Data.Integrity }}" crossorigin="anonymous"></script>
+  {{- else -}}
+    {{- $releaseBinariesJs := resources.Get "js/release_binaries.js" -}}
+<script defer src="{{ $releaseBinariesJs.RelPermalink }}"></script>
+  {{- end -}}
+{{- end -}}
