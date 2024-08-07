@@ -24,3 +24,11 @@
 <script defer src="{{ $zoomJs.RelPermalink }}"></script>
   {{- end -}}
 {{- end -}}
+
+{{- if eq .Layout "glossary" -}}
+  {{- with resources.Get "js/glossary.js" -}}
+  <script defer src="{{ .RelPermalink }}"></script>
+  {{- else -}}
+    {{- errorf "Unable to find the glossary helper script" -}}
+  {{- end -}}
+{{- end -}}
