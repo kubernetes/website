@@ -38,44 +38,43 @@ El Pod se ejecuta en ese nodo hasta que termina, o hasta que es [terminado](#pod
 Puedes usar [readiness de programación del Pod](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/) para retrasar la programación de un Pod hasta que todas sus _puertas de programación_ sean removidas.
 Por ejemplo, podrías querer definir un conjunto de Pods, pero solo lanzar la programación una vez que todos los Pods hayan sido creados.
 
+### Recuperación de fallos en los Pods {#pod-fault-recovery}
 
-Igual que contenedores de aplicación individuales,
-se considera que los Pods son entidades relativamente efímeras
-(en lugar de durables).
-Los Pods se crean y se les 
-asigna un identificador único
-([UID](/es/docs/concepts/overview/working-with-objects/names/#uids)),
-y se programan para ejecutarse en nodos donde se mantienen hasta que se terminan
-(de acuerdo con las políticas de reinicio) o se eliminan.
+Si falla uno de los contenedores en el Pod, Kubernetes puede intentar reiniciar ese contenedor en específico.
+Para saber más, lea [cómo los Pods manejan los errores del contenedor](#container-restarts).
 
-Si un {{< glossary_tooltip term_id="node" text="nodo" >}} muere,
-los Pods programados para ejecutarse en ese Nodo
-se [programan para eliminarse](#pod-garbage-collection) luego de un periodo de
-tiempo.
+Sin embargo, los Pods pueden fallar de una manera que el clúster no puede recuperar, y en ese caso
+Kubernetes no intenta sanar el Pod más; en su lugar, Kubernetes elimina el
+Pod y confía en otros componentes para proporcionar una curación automática.
 
-Los Pods, por sí mismos, no se curan automáticamente.
-Si un Pod está programado para un {{< glossary_tooltip text="nodo" term_id="node" >}} y luego falla,
-el Pod se elimina; de la misma manera,
-un Pod no sobrevivirá a un desalojo debido a falta de recursos o mantenimiento
-del Nodo.
-Kubernetes utiliza una abstracción llamada {{< glossary_tooltip term_id="controller" text="controlador" >}}, que se encarga del trabajo de gestionar las instancias de Pod relativamente desechables.
+Si un Pod está programado para un {{< glossary_tooltip text="nodo" term_id="node" >}} y ese
+nodo luego falla, el Pod se trata como no saludable y Kubernetes eventualmente elimina el Pod.
+Un Pod no sobrevivirá a una {{< glossary_tooltip text="evicción" term_id="eviction" >}} debido
+a la falta de recursos o al mantenimiento del Nodo.
 
-Un Pod determinado (según lo definido por un UID) nunca se "reprograma" a un nodo diferente; en cambio,
-ese Pod puede ser reemplazado por un Pod nuevo, casi idéntico, incluso con el mismo nombre si
-deseado, pero con un UID diferente.
+Kubernetes utiliza una abstracción de nivel superior, llamada
+{{< glossary_tooltip term_id="controlador" text="controller" >}}, que maneja el trabajo de
+gestionar las instancias de Pods relativamente desechables.
+
+Un Pod dado (como se define por un UID) nunca es "reprogramado" a un nodo diferente; en su lugar,
+ese Pod puede ser reemplazado por un nuevo Pod casi idéntico.
+Si hace un Pod de reemplazo, incluso puede
+tener el mismo nombre (como en `.metadata.name`) que tenía el Pod antiguo, pero el reemplazo
+tendría un `.metadata.uid` diferente del Pod antiguo.
+
+Kubernetes no garantiza que un reemplazo de un Pod existente sea programado
+en el mismo nodo que el antiguo Pod que estaba siendo reemplazado.
+
+### Ciclo de vida asociados
 
 Cuando se dice que algo tiene la misma vida útil que un Pod, como un
 {{< glossary_tooltip term_id="volume" text="volumen" >}},
-eso significa que la cosa existe mientras ese Pod específico (con ese UID exacto)
-existe. Si ese Pod se elimina por cualquier motivo, e incluso si se requiere un reemplazo idéntico
-se crea, el objeto relacionado (un volumen, en este ejemplo) también se destruye y
-creado de nuevo.
+eso significa que el objeto existe mientras ese Pod específico (con ese UID exacto)
+exista.
+Si ese Pod se elimina por cualquier razón, e incluso si se crea un reemplazo idéntico,
+el objeto relacionado (un volumen, en este ejemplo) también se destruye y se crea nuevamente.
 
-{{< figure src="/images/docs/pod.svg" title="Diagrama de un Pod" class=" diagram-medium" >}}
-
-Un Pod con múltiples contenedores que contiene un extractor de ficheros y un
-servidor web que usa un volumen persistente para compartir datos entre los
-contenedores.
+{{< figure src="/images/docs/pod.svg" title="Figura 1." class="diagram-medium" caption="Un Pod de varios contenedores que contiene un extractor de archivos sidecar y un servidor web. El Pod utiliza un volumen efímero emptyDir para almacenamiento compartido entre los contenedores." >}}
 
 ## Fase del Pod
 
@@ -97,7 +96,7 @@ Aquí están los posibles valores de `phase`:
 
 | Valor       | Descripción                                                                                                                                                                                                                                                                 |
 |:------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `Pending`   | El clúster de Kubernetes aceptó el pod, pero uno o más contenedores no se configuraron ni prepararon para ejecutarse. Esto incluye el tiempo que pasa un Pod esperando ser programado, así como el tiempo dedicado a descargar imágenes de contenedores a través de la red. |
+| `Pending`   | El clúster de Kubernetes aceptó el Pod, pero uno o más contenedores no se configuraron ni prepararon para ejecutarse. Esto incluye el tiempo que pasa un Pod esperando ser programado, así como el tiempo dedicado a descargar imágenes de contenedores a través de la red. |
 | `Running`   | El Pod se vinculó a un nodo y se crearon todos los contenedores. Al menos un contenedor todavía se está ejecutando o está en proceso de iniciarse o reiniciarse.                                                                                                            |
 | `Succeeded` | Todos los contenedores del Pod finalizaron con éxito y no se reiniciarán.                                                                                                                                                                                                   |
 | `Failed`    | Todos los contenedores del Pod han finalizado y al menos un contenedor ha finalizado con error. Es decir, el contenedor salió con un estado distinto de cero o el sistema lo canceló.                                                                                       |
@@ -138,7 +137,7 @@ Una vez que el {{< glossary_tooltip text="programador" term_id="kube-scheduler" 
 asigna un Pod a un Nodo,
 el kubelet inicia creando los contenedores para ese Pod usando un
 {{< glossary_tooltip text="espacio de ejecución del contenedor" term_id="container-runtime" >}}.
-Hay 3 estados posibles para un contenedor: `Waiting`, `Running`, y `Terminated`.
+Hay 3 estados posibles para un contenedor: `Waiting`(esperando), `Running`(en ejecución), y `Terminated`(terminado).
 
 Para revisar el estado de los contenedores de un Pod,
 puedes usar `kubectl describe pod <name-of-pod>`.
@@ -174,6 +173,40 @@ inicio y de finalización del contenedor.
 
 Si un contenedor tiene un hook `preStop` configurado, el hook se ejecuta antes
 de que el contenedor entre en estado `Terminated`.
+
+## Cómo los Pods manejan los problemas con los contenedores {#container-restarts}
+
+Kubernetes maneja los fallos de los contenedores dentro de los Pods usando una [política de reinicio, `restartPolicy` en inglés](#restart-policy) definida en la especificación `spec` del Pod.
+Esta política determina cómo reacciona Kubernetes cuando los contenedores salen debido a errores u otras razones, lo que sigue la siguiente secuencia:
+
+1. **Fallo inicial**: Kubernetes intenta un reinicio inmediato basado en la `restartPolicy` del Pod.
+1. **Fallos repetidos**:
+   Después del fallo inicial, Kubernetes aplica un retraso exponencial para los reinicios subsiguientes, descrito en [restartPolicy](#restart-policy).
+   Esto evita que los intentos de reinicio rápidos y repetidos sobrecarguen el sistema.
+1. **Estado de CrashLoopBackOff**:
+   Esto indica que el mecanismo de retraso exponencial está actualmente en efecto para un contenedor dado que está en un bucle de fallos, fallando y reiniciando repetidamente.
+1. **Reinicio del retraso**:
+   Si un contenedor funciona correctamente durante un cierto período (por ejemplo, 10 minutos), Kubernetes reinicia el retraso, tratando cualquier nuevo fallo como el primero.
+
+2. En la práctica, un `CrashLoopBackOff` es una condición o evento que podría verse como salida del comando `kubectl`, al describir o listar Pods, cuando un contenedor en el Pod no arranca correctamente y luego intenta y falla continuamente en un bucle.
+
+En otras palabras, cuando un contenedor entra en el bucle de fallos, Kubernetes aplica el retraso exponencial mencionado en la [Política de reinicio del contenedor](#restart-policy).
+Este mecanismo evita que un contenedor defectuoso sobrecargue el sistema con intentos de inicio fallidos continuos.
+
+El `CrashLoopBackOff` puede ser causado por problemas como los siguientes:
+
+* Errores de la aplicación que hacen que el contenedor salga.
+* Errores de configuración, como variables de entorno incorrectas o archivos de configuración faltantes.
+* Restricciones de recursos, donde el contenedor puede no tener suficiente memoria o CPU para arrancar correctamente.
+* Fallos en los chequeos de salud si la aplicación no comienza a servir dentro del tiempo esperado.
+* Las sondas de liveness o de arranque del contenedor devuelven un resultado de `Failure` como se menciona en la [sección de sondas](#container-probes).
+Para investigar la causa raíz de un problema de `CrashLoopBackOff`, un usuario puede:
+
+1. **Revisar los registros**: Use `kubectl logs <nombre-del-pod>` para revisar los registros del contenedor. Esta es a menudo la forma más directa de diagnosticar el problema que causa los fallos.
+1. **Inspeccionar eventos**: Use `kubectl describe pod <nombre-del-pod>` para ver eventos para el Pod, lo que puede proporcionar pistas sobre problemas de configuración o recursos.
+1. **Revisar la configuración**: Asegúrese de que la configuración del Pod, incluidas las variables de entorno y los volúmenes montados, sea correcta y que todos los recursos externos necesarios estén disponibles.
+1. **Verificar los límites de recursos**: Asegúrese de que el contenedor tenga suficiente CPU y memoria asignada. A veces, aumentar los recursos en la definición del Pod puede resolver el problema.
+1. **Depurar la aplicación**: Pueden existir errores o configuraciones incorrectas en el código de la aplicación. Ejecutar esta imagen de contenedor localmente o en un entorno de desarrollo puede ayudar a diagnosticar problemas específicos de la aplicación.
 
 ## Política de reinicio del contenedor {#restart-policy}
 
@@ -305,89 +338,42 @@ en `ContainersReady`.
 {{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
 {{< note >}}
-Durante su desarrollo temprano, esta condición se llamaba `PodhasNetwork`.
+Durante su desarrollo temprano, esta condición se llamó `PodHasNetwork`.
 {{< /note >}}
 
-{{< feature-state for_k8s_version="v1.14" state="stable" >}}
+Después de que un Pod es programado en un nodo, necesita ser admitido por el kubelet y
+tener cualquier volumen de almacenamiento requerido montado.
+Una vez que estas fases se completan,
+el kubelet trabaja con
+un runtime de contenedores (usando {{< glossary_tooltip term_id="cri" >}}) para configurar un
+sandbox de runtime y configurar la red para el Pod.
+Si la [puerta de características](/docs/reference/command-line-tools-reference/feature-gates/)
+`PodReadyToStartContainersCondition`
+ está habilitada
+(esta habilitada por defecto para Kubernetes {{< skew currentVersion >}}), la
+condición `PodReadyToStartContainers` se agregará al campo `status.conditions` de un Pod.
 
-Tu aplicación puede inyectar retroalimentación adicional o señales
-al `PodStatus`:
-_Pod readiness_.
-Para usar esto, establece `readinessGates` en la `spec` del Pod para especificar una
-lista de condiciones adicionales que el kubelet evalúa para la preparación del
-Pod.
+La condición `PodReadyToStartContainers` se establece en `False` por el kubelet cuando detecta que un
+Pod no tiene un sandbox de runtime con red configurada.
+Esto ocurre en los siguientes escenarios:
 
-Las condiciones de preparación están determinadas por el estado actual de los
-campos `status.conditions` de un Pod.
-Si Kubernetes no puede encontrar una condición en el campo `status.conditions`
-de un Pod, el estado de la condición se establece en "`False`".
+- Al principio del ciclo de vida del Pod, cuando el kubelet aún no ha comenzado a configurar un sandbox para
+el Pod usando el runtime de contenedores.
+- Más adelante en el ciclo de vida del Pod, cuando el sandbox del Pod ha sido destruido debido a:
+  - el nodo reiniciándose, sin que el Pod sea desalojado
+  - para runtimes de contenedores que usan máquinas virtuales para aislamiento, la máquina virtual del sandbox del Pod reiniciándose, lo que luego requiere crear un nuevo sandbox y
+una nueva configuración de red para el contenedor.
 
-Aquí hay un ejemplo:
+La condición `PodReadyToStartContainers` se establece en True por el kubelet después de la
+completación exitosa de la creación del sandbox y la configuración de la red para el Pod
+por el plugin de runtime. El kubelet puede comenzar a extraer imágenes de contenedores y crear
+contenedores después de que la condición PodReadyToStartContainers se haya establecido en True.
 
-```yaml
-kind: Pod
-...
-spec:
-  readinessGates:
-    - conditionType: "www.example.com/feature-1"
-status:
-  conditions:
-    - type: Ready                              # una PodCondition construida
-      status: "False"
-      lastProbeTime: null
-      lastTransitionTime: 2018-01-01T00:00:00Z
-    - type: "www.example.com/feature-1"        # una PodCondition extra
-      status: "False"
-      lastProbeTime: null
-      lastTransitionTime: 2018-01-01T00:00:00Z
-  containerStatuses:
-    - containerID: docker://abcd...
-      ready: true
-...
-```
-
-Las condiciones del Pod que incluyas deben tener nombres que sean válidos para
-los [formatos de etiqueta](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)
-de Kubernetes.
-
-### Estado de preparación del Pod {#pod-readiness-status}
-
-El comando `kubectl patch` no admite actualizar el estado del objeto.
-Para establecer estas `status.conditions` para el Pod, las aplicaciones y
-los {{< glossary_tooltip term_id="operator-pattern" text="operadores">}}
-deberían utilizar la acción `Patch`.
-
-Puedes utilizar
-una [librería cliente de Kubernetes](/docs/reference/using-api/client-libraries/)
-para escribir código que establece condiciones personalizadas de un Pod para su
-preparación.
-
-Para los Pods que utilizan condiciones personalizadas, ese Pod es evaluado para
-estar listo **solamente** cuando ambas afirmaciones aplican:
-
-* Todos los contenedores del Pod están listos.
-* Todas las condiciones personalizadas especificadas en `readinessGates`
-  están `True`.
-
-Cuando los contenedores de un Pod están listos, pero al menos una condición
-personalizada está ausente o `False`,
-el kubelet establece la [condición](#pod-conditions) del Pod
-en `ContainersReady`.
-
-### Preparación de la red del Pod {#pod-has-network}
-
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
-
-{{< note >}}
-Durante su desarrollo temprano, esta condición se llamaba `PodhasNetwork`.
-{{< /note >}}
-
-### Preparación de la programación del Pod {#pod-scheduling-readiness-gate}
-
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
-
-Revisa [Preparación de la programación del Pod](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
-para más información.
+Para un Pod con contenedores de inicialización, el kubelet establece la condición `Initialized` en
+`True` después de que los contenedores de inicialización se hayan completado exitosamente (lo que ocurre
+después de la creación exitosa del sandbox y la configuración de la red por el plugin de runtime).
+Para un Pod sin contenedores de inicialización, el kubelet establece la condición `Initialized`
+en `True` antes de que comience la creación del sandbox y la configuración de la red.
 
 ## Sondeos del contenedor
 
