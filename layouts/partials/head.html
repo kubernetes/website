@@ -91,11 +91,6 @@
 <script defer src="{{ "js/release_binaries.js" | relURL }}"></script>
 {{- end -}}
 
-<!-- Enable zoom-on-click for figures that opt in to this -->
-{{- if .HasShortcode "figure" -}}
-<script defer src="{{ "js/zoom.js" | relURL }}"></script>
-{{- end -}}
-
 {{- if eq (lower .Params.cid) "community" -}}
 {{- if eq .Params.community_styles_migrated true -}}
 <link href="/css/community.css" rel="stylesheet"><!-- legacy styles -->

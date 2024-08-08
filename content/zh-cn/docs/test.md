@@ -829,13 +829,21 @@ Notes catch the reader's attention without a sense of urgency.
 
 You can have multiple paragraphs and block-level elements inside an admonition.
 
-| Or | a | table |
+You can also add tables to organize and highlight key information.
+
+| Header 1 | Header 2 | Header 3 |
+| -------- | -------- | -------- |
+| Data 1   | Data A   | Info X   |
+| Data 2   | Data B   | Info Y   |
 -->
 说明信息用来引起读者的注意，但不过分强调其紧迫性。
 
-你可以在提醒框内包含多个段落和块级元素。
+你还可以添加表格来组织和突出关键信息。
 
-| 甚至 | 包含 | 表格 |
+| 表头 1 | 表头 2 | 表头 3 |
+| -------- | -------- | -------- |
+| 数据 1   | 数据 A   | 信息 X   |
+| 数据 2   | 数据 B   | 信息 Y   |
 {{< /note >}}
 
 {{< caution >}}

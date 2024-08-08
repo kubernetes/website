@@ -85,7 +85,7 @@ CEL 表达式示例：
 | `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas`           | Validate that the three fields defining replicas are ordered appropriately        |
 | `'Available' in self.stateCounts`                                                  | Validate that an entry with the 'Available' key exists in a map                   |
 | `(self.list1.size() == 0) != (self.list2.size() == 0)`                             | Validate that one of two lists is non-empty, but not both                         |
-| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')`   | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
+| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$'))`  | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
 | `has(self.expired) && self.created + self.ttl < self.expired`                      | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration       |
 | `self.health.startsWith('ok')`                                                     | Validate a 'health' string field has the prefix 'ok'                              |
 | `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                               | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
@@ -103,7 +103,7 @@ CEL 表达式示例：
 | `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas`  | 验证定义副本的三个字段被正确排序                                   |
 | `'Available' in self.stateCounts`                                         | 验证映射中存在主键为 'Available' 的条目                           |
 | `(self.list1.size() == 0) != (self.list2.size() == 0)`                    | 验证两个列表中有一个非空，但不是两个都非空                           |
-| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')` | 验证 listMap 条目的 'value' 字段，其主键字段 'name' 是 'MY_ENV' |
+| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$'))` | 验证 listMap 条目的 'value' 字段，其主键字段 'name' 是 'MY_ENV' |
 | `has(self.expired) && self.created + self.ttl < self.expired`             | 验证 'expired' 日期在 'create' 日期加上 'ttl' 持续时间之后         |
 | `self.health.startsWith('ok')`                                            | 验证 'health' 字符串字段具有前缀 'ok'                             |
 | `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                      | 验证具有键 'x' 的 listMap 项的 'foo' 属性小于 10                  |

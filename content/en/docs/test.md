@@ -370,7 +370,12 @@ Notes catch the reader's attention without a sense of urgency.
 
 You can have multiple paragraphs and block-level elements inside an admonition.
 
-| Or | a | table |
+You can also add tables to organize and highlight key information.
+
+| Header 1 | Header 2 | Header 3 |
+| -------- | -------- | -------- |
+| Data 1   | Data A   | Info X   |
+| Data 2   | Data B   | Info Y   |
 {{< /note >}}
 
 {{< caution >}}
