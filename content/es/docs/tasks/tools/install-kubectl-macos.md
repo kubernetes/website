@@ -22,7 +22,7 @@ Existen los siguientes métodos para instalar kubectl en macOS:
   - [Instalar con Macports en macOS](#instalar-con-macports-en-macos)
 - [Verificar la configuración de kubectl](#verificar-la-configuración-de-kubectl)
 - [Configuraciones y plugins opcionales para kubectl](#configuraciones-opcionales-y-plugins-de-kubectl)
-  - [Habilitar el autocompletado de la shell](#instalar-bash-complete)
+  - [Habilitar el autocompletado de la shell](#habilitar-el-autocompletado-en-la-shell)
   - [Instalar el plugin `kubectl convert`](#instalar-el-plugin-kubectl-convert)
 
 ### Instalación del binario para macOS de kubectl con Curl
@@ -39,8 +39,8 @@ Existen los siguientes métodos para instalar kubectl en macOS:
    {{< /tabs >}}
 
    {{< note >}}
-   Para Descargar una versión específica reemplazar la siguiente parte del comando con la 
-   versión que desea instalar `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
+   Para descargar una versión específica, reemplaza la siguiente parte del comando con la 
+   versión que deseas instalar `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
 
    Por ejemplo, para descargar la versión {{< skew currentPatchVersion >}} en macOS:
 
@@ -48,7 +48,7 @@ Existen los siguientes métodos para instalar kubectl en macOS:
    curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl"
    ```
 
-   Para macOS con procesador Apple Silicon, ejecute:
+   Para macOS con procesador Apple Silicon, ejecuta:
 
    ```bash
    curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/arm64/kubectl"
@@ -75,7 +75,7 @@ Existen los siguientes métodos para instalar kubectl en macOS:
    echo "$(cat kubectl.sha256)  kubectl" | shasum -a 256 --check
    ```
 
-   Si es válido va a obtener la siguiente respuesta:
+   Si es válido, vas a obtener la siguiente respuesta:
 
    ```console
    kubectl: OK
@@ -98,7 +98,7 @@ Existen los siguientes métodos para instalar kubectl en macOS:
    chmod +x ./kubectl
    ```
 
-1. Mover el binario de kubectl al `PATH` de su sistema.
+1. Mover el binario de kubectl al `PATH` de tu sistema.
 
    ```bash
    sudo mv ./kubectl /usr/local/bin/kubectl
@@ -106,7 +106,7 @@ Existen los siguientes métodos para instalar kubectl en macOS:
    ```
 
    {{< note >}}
-   Asegúrese que el PATH `/usr/local/bin` forme parte de las variables de entorno.
+   Asegúrate que el PATH `/usr/local/bin` forme parte de las variables de entorno.
    {{< /note >}}
 
 1. Test para asegurar que la versión instalada está actualizada:
@@ -153,7 +153,7 @@ puede instalar kubectl con Homebrew.
 ### Instalar con Macports en macOS
 
 Si esta en macOS y utiliza [Macports](https://macports.org/),
-puede instalar kubectl con Macports.
+puedes instalar kubectl con Macports.
 
 1. Ejecute  el comando para instalar:
 
@@ -191,7 +191,7 @@ A continuación están los procedimientos para configurarlo en Bash, Fisch y Zsh
 
 {{< include "included/kubectl-convert-overview.md" >}}
 
-1. Descargue la última versión con el siguiente comando:
+1. Descarga la última versión con el siguiente comando:
 
    {{< tabs name="download_convert_binary_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
