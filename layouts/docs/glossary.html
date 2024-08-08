@@ -4,8 +4,9 @@
 
 {{ define "main" }}
 <h1>{{ .Title }}</h1>
-<link href="{{ "css/glossary.css" | relURL }}" rel="stylesheet">
-<script src="{{ "js/glossary.js" | relURL }}"></script>
+{{- with resources.Get "css/glossary.css" -}}
+<link href="{{ .RelPermalink }}" rel="stylesheet">
+{{- end -}}
 <p>{{ T "layouts_docs_glossary_description" }}</p>
 <div id="tag-container">
 	<p>{{ T "layouts_docs_glossary_filter" }}</p>
