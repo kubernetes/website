@@ -21,7 +21,7 @@ Let's see an example, below Pod specifies `runAsUser=1000`, `runAsGroup=3000` an
 
 What is the result of `id` command in the `ctr` container?
 
-```shell
+```console
 # Create the Pod:
 $ kubectl apply -f https://k8s.io/blog/2024-08-22-Fine-grained-SupplementalGroups-control/implicit-groups.yaml
 
@@ -42,7 +42,7 @@ Where does group ID `50000` in supplementary groups (`groups` field) come from, 
 
 Checking the contents of `/etc/group` in the container image should show below:
 
-```shell
+```console
 $ kubectl exec implicit-groups -- cat /etc/group
 ...
 user-defined-in-image:x:1000:
@@ -71,7 +71,7 @@ Let's see how `Strict` policy works.
 
 {{% code_sample file="strict-supplementalgroups-policy.yaml" %}}
 
-```shell
+```console
 # Create the Pod:
 $ kubectl apply -f https://k8s.io/blog/2024-08-22-Fine-grained-SupplementalGroups-control/strict-supplementalgroups-policy.yaml
 
@@ -90,10 +90,10 @@ uid=1000 gid=3000 groups=3000,4000
 
 You can see `Strict` policy can exclude group `50000` from `groups`! 
 
-Thus, enforcing `SupplementalGroupsPolicy=Merge` by some policy engines helps preventing the implicit supplementary groups in a Pod.
+Thus, ensuring `supplementalGroupsPolicy: Merge` (enforced by some policy mechanism) helps prevent the implicit supplementary groups in a Pod.
 
 {{<note>}}
-Actually, this is not enough because container with strong priviledge/capability can change its process identity. Please see the following section for details).
+Actually, this is not enough because container with sufficient privileges / capability can change its process identity. Please see the following section for details.
 {{</note>}}
 
 ## Attached process identity in Pod status
@@ -153,7 +153,7 @@ the feature gate manually.
 ## How can I learn more?
 
 <!-- https://github.com/kubernetes/website/pull/46920 -->
-Please check out the [documentation](/content/en/docs/tasks/configure-pod-container/security-context/)
+Please check out the [documentation](/docs/tasks/configure-pod-container/security-context/)
 for the further details of `supplementalGroupsPolicy`.
 
 ## How to get involved?
