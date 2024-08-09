@@ -84,17 +84,22 @@ body.cid-training .col:first-child { margin-left: 0; }
 body.cid-training .col-container {
   display: flex; /* Make the container element behave like a table */
   flex-direction: row;
+  justify-content: space-around;
+  align-items: stretch;
   width: 100%; /* Set full-width to expand the whole page */
   padding-bottom: 30px;
 }
 
 body.cid-training .col-nav {
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   flex-grow: 1;
   width: 18%;
   background-color: #f9f9f9;
   padding: 20px;
   border: 5px solid white;
+  text-align: center;
 }
 
 body.cid-training #get-certified .col-nav {
@@ -119,6 +124,8 @@ body.cid-training #get-certified .col-nav a.button {
   width: auto;
   margin-left: auto;
   margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 
