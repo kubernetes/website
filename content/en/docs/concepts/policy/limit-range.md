@@ -55,15 +55,17 @@ The name of a LimitRange object must be a valid
 
 A `LimitRange` does **not** check the consistency of the default values it applies. This means that a default value for the _limit_ that is set by `LimitRange` may be less than the _request_ value specified for the container in the spec that a client submits to the API server. If that happens, the final Pod will not be schedulable.
 
+
 For example, you define a `LimitRange` with this manifest:
 
-{{% code_sample file="concepts/policy/limit-range/problematic-limit-range.yaml" %}}
+{{< warning >}}
+The following examples operate within the default namespace, as the namespace parameter is undefined. This implies that any references or operations within these examples will interact with elements within the default namespace unless otherwise specified.{{< /warning >}}
 
+{{% code_sample file="concepts/policy/limit-range/problematic-limit-range.yaml" %}}
 
 along with a Pod that declares a CPU resource request of `700m`, but not a limit:
 
 {{% code_sample file="concepts/policy/limit-range/example-conflict-with-limitrange-cpu.yaml" %}}
-
 
 then that Pod will not be scheduled, failing with an error similar to:
 ```
