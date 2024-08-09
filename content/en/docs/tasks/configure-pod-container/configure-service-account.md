@@ -58,6 +58,12 @@ When a Pod authenticates as a ServiceAccount, its level of access depends on the
 [authorization plugin and policy](/docs/reference/access-authn-authz/authorization/#authorization-modules)
 in use.
 
+The API credentials are automatically revoked when the Pod is deleted, even if
+finalizers are in place. In particular, the API credentials are revoked 60 seconds
+beyond the `.metadata.deletionTimestamp` set on the Pod (the deletion timestamp
+is typically the time that the **delete** request was accepted plus the Pod's
+termination grace period).
+
 ### Opt out of API credential automounting
 
 If you don't want the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
