@@ -10,7 +10,7 @@ hide_summary: true # Listed separately in section index
 
 <!-- overview -->
 
-A container image represents binary data that encapsulates an application and all its
+A container image is an OCI artifact that that encapsulates an application and all its
 software dependencies. Container images are executable software bundles that can run
 standalone and that make very well defined assumptions about their runtime environment.
 
@@ -62,6 +62,21 @@ Some image name examples that Kubernetes can use are:
 - `registry.k8s.io/pause:3.5` - Image name with a custom registry and non-latest tag.
 - `registry.k8s.io/pause@sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07` - Image name with digest.
 - `registry.k8s.io/pause:3.5@sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07` - Image name with tag and digest. Only digest will be used for pulling.
+
+## Image content
+
+OCI images are composed of layers. Each layer is a set of files that are added to the image.
+Each layer and final image are identified by a digest. The digest of layer is a hash of the layer's content.
+
+OCI Container images can be created using various tools and techniques.
+Some examples are: Docker, Buildah, Kaniko, and Buildpacks.
+
+For more information on the OCI Image Specification, see the [OCI Image Spec](https://github.com/opencontainers/image-spec).
+
+{{< note >}}
+Other types of artifacts that are OCI compliant but not container images 
+cannot be used by Kubernetes as images. You can read more about them in the [OCI Manifest Spec](https://github.com/opencontainers/image-spec/blob/main/manifest.md).
+{{< /note >}}
 
 ## Updating images
 
