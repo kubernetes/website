@@ -173,7 +173,7 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 
 | Name                       | Slack                      | GitHub                     |                   
 | -------------------------- | -------------------------- | -------------------------- |
-| Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
+| Sreeram Venkitesh               | @sreeram.venkitesh                      | @sreeram-venkitesh              |
 
 # `README.md`에 대한 쿠버네티스 문서 현지화(localization) {#localization-readmemds}
 
