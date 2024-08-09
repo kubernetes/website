@@ -1,5 +1,10 @@
 {{ define "main" }}
     <div class="td-content">
+    {{- if .HasShortcode "kat-button" -}}
+    <div class="pageinfo pageinfo-secondary">
+    {{ T "katacoda_message" | safeHTML }}
+    </div>
+    {{- end -}}
     {{ partial "docs/content-page" (dict "ctx" . "page" .) }}
     <!-- Partial "docs/api-reference-links" determines API reference links for 'partial/page-meta-links.html' -->
     {{ partial "docs/api-reference-links" . }}
