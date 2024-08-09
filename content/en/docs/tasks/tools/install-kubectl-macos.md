@@ -27,6 +27,29 @@ The following methods exist for installing kubectl on macOS:
   - [Enable shell autocompletion](#enable-shell-autocompletion)
   - [Install `kubectl convert` plugin](#install-kubectl-convert-plugin)
 
+### Install with Homebrew on macOS
+
+If you are on macOS and using [Homebrew](https://brew.sh/) package manager,
+you can install kubectl with Homebrew.
+
+1. Run the installation command:
+
+   ```bash
+   brew install kubectl
+   ```
+
+   or
+
+   ```bash
+   brew install kubernetes-cli
+   ```
+
+1. Test to ensure the version you installed is up-to-date:
+
+   ```bash
+   kubectl version --client
+   ```
+
 ### Install kubectl binary with curl on macOS
 
 1. Download the latest release:
@@ -127,29 +150,6 @@ The following methods exist for installing kubectl on macOS:
 
    ```bash
    rm kubectl.sha256
-   ```
-
-### Install with Homebrew on macOS
-
-If you are on macOS and using [Homebrew](https://brew.sh/) package manager,
-you can install kubectl with Homebrew.
-
-1. Run the installation command:
-
-   ```bash
-   brew install kubectl
-   ```
-
-   or
-
-   ```bash
-   brew install kubernetes-cli
-   ```
-
-1. Test to ensure the version you installed is up-to-date:
-
-   ```bash
-   kubectl version --client
    ```
 
 ### Install with Macports on macOS
