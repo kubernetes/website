@@ -253,7 +253,7 @@ be specified per rule in which case the union of both are omitted.</p>
 <td>
    <p>OmitManagedFields indicates whether to omit the managed fields of the request
 and response bodies from being written to the API audit log.
-This is used as a global default - a value of 'true' will omit the managed fileds,
+This is used as a global default - a value of 'true' will omit the managed fields,
 otherwise the managed fields will be included in the API audit log.
 Note that this can also be specified per rule in which case the value specified
 in a rule will override the global default.</p>
