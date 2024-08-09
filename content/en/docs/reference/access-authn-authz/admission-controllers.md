@@ -58,6 +58,61 @@ corresponding reclamation or reconciliation process, as a given admission
 controller does not know for sure that a given request will pass all of the
 other admission controllers.
 
+The ordering of these calls can be seen below.
+
+
+{{< mermaid >}} 
+
+
+%% Have to set fontSize globally as this isn't respected due to https://github.com/mermaid-js/mermaid/issues/3990
+%%{init:{"theme":"neutral","fontSize": "22px", "sequence": {"mirrorActors":true},
+    "themeVariables": {
+        "actorBkg":"#326ce5",
+        "actorTextColor":"white",
+        "loopTextColor": "#326ce5",
+        "noteBkgColor": "grey",
+        "fontSize": "22px"
+}}}%%
+sequenceDiagram
+
+    %% This is the alt-text for accessibility, and should be updated every time the diagram is.
+    accDescr {
+        Sequence diagram for kube-apiserver handling requests during the admission phase showing mutation webhooks, followed by validatingadmissionpolicies and finally validating webhooks. 
+        It shows that the continue until the first rejection, or being accepted by all of them. 
+        It also shows that mutations by mutating webhooks cause all previously called webhooks to be called again.
+    }
+
+    participant User as User 
+    participant API as Kubernetes API Server
+    participant Auth as Authentication + Authorisation
+    %% participant AdmCtrl as Admission Control
+    box Gainsboro  Admission Control <br>Called until first rejection
+    participant MutatingWebhook as Mutating Webhook(s)
+    participant ValidatingPol as Validating Admission Policies
+    participant ValidatingWebhook as Validating Webhook(s)
+    end
+
+
+    User ->> API : Request (e.g., create a pod) 
+    API ->> Auth: Authenticate user and <br>check user permissions
+
+    par For all Mutating Webhooks
+        Auth ->> MutatingWebhook: Invoke Mutating Webhooks
+        MutatingWebhook ->> Auth: Modify or reject object (if needed)
+    end
+    par For all Validating Policies
+    Auth ->> ValidatingPol: Invoke Validating Policies
+    ValidatingPol ->> Auth: Reject object (if needed)
+    end
+    par For all Validating Webhooks
+    Auth ->> ValidatingWebhook: Invoke Validating Webhooks
+    ValidatingPol ->> Auth: Reject object (if needed)
+    end
+    Auth ->> API: Allow or reject request
+
+    API -->> User: Response  (e.g., success or error)
+{{< /mermaid >}} 
+
 ## Why do I need them?
 
 Several important features of Kubernetes require an admission controller to be enabled in order
