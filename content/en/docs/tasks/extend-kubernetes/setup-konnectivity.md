@@ -6,8 +6,15 @@ weight: 70
 
 <!-- overview -->
 
-The Konnectivity service provides a TCP level proxy for the control plane to cluster
-communication.
+Kubernetes can use an optional proxy mechanism, _Konnectivity_, that helps you connect 
+your control plane's {{< glossary_tooltip text="API servers" term_id="kube-apiserver" >}} 
+to your nodes, to {{< glossary_tooltip term_id="etcd" >}}, or to aggregated API servers.  
+
+The proxy operates at a stream layer, independent of packets and network routes.  
+You can use Konnectivity to deploy a cluster where there is no direct route between the  
+node network and the subnet(s) where you have deployed your control plane hosts.  
+
+You can learn more about [Konnectivity](/docs/concepts/architecture/control-plane-node-communication/#konnectivity-service).
 
 ## {{% heading "prerequisites" %}}
 
