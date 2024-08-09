@@ -108,6 +108,10 @@ cgroup driver instead of `cgroupfs`.
 
 ### systemd cgroup driver {#systemd-cgroup-driver}
 
+{{< note >}}
+The minimum `systemd` version should be v228 and above, see [details](https://github.com/systemd/systemd/commit/17f62e9bd00f5fefd486475861b06d3ec6b7ee10)
+{{< /note >}}
+
 When [systemd](https://www.freedesktop.org/wiki/Software/systemd/) is chosen as the init
 system for a Linux distribution, the init process generates and consumes a root control group
 (`cgroup`) and acts as a cgroup manager.
