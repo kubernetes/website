@@ -991,6 +991,7 @@ For instructions, refer to
 相关的指示说明，
 可以参阅[创建一个可以通过卷访问 Secret 数据的 Pod](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/#create-a-pod-that-has-access-to-the-secret-data-through-a-volume)。
 
+
 <!--
 When a volume contains data from a Secret, and that Secret is updated, Kubernetes tracks
 this and updates the data in the volume, using an eventually-consistent approach.
