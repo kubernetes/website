@@ -1470,3 +1470,14 @@ section.k8s-birthday-override:has(div.k8s-birthday-override.revert-to-previous i
   display: none;
   visibility: hidden;
 }
+
+/* Apply site-wide table styles for tables in alert callouts (note, caution, warning) */
+.alert {
+  &.alert-info, &.alert-caution, &.alert-danger {
+    > table {
+    @extend .table-striped;
+    @extend .table-responsive;
+    @extend .table;
+    }
+  }
+}
