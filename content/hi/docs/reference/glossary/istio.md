@@ -1,11 +1,11 @@
 ---
-title: Istio
+title: इसटीओ 
 id: istio
 date: 2018-04-12
 full_link: https://istio.io/latest/about/service-mesh/#what-is-istio
 short_description: >
  एक ओपन प्लैटफ़ॉर्म (कुबेरनेट्स-विशिष्ट नहीं) जो माइक्रोसर्विसेज को एकीकृत करने, ट्रैफ़िक प्रवाह को प्रबंधित करने, नीतियों को लागू करने और टेलीमेट्री डेटा को एकत्र करने का एक समान तरीका प्रदान करता हैं।
-aka: 
+aka: Istio
 tags:
 - networking
 - architecture
