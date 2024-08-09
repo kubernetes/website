@@ -4,14 +4,14 @@ metadata:
   name: test-projected-volume
 spec:
   containers:
-  - name: test-projected-volume
-    image: busybox:1.28
-    args:
+  - args:
     - sleep
     - "86400"
+    image: busybox:1.28
+    name: test-projected-volume
     volumeMounts:
-    - name: all-in-one
-      mountPath: "/projected-volume"
+    - mountPath: /projected-volume
+      name: all-in-one
       readOnly: true
   volumes:
   - name: all-in-one
