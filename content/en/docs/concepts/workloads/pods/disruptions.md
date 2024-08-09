@@ -261,6 +261,11 @@ indicates one of the following reasons for the Pod termination:
 `TerminationByKubelet`
 : Pod has been terminated by the kubelet, because of either {{<glossary_tooltip term_id="node-pressure-eviction" text="node pressure eviction">}} or the [graceful node shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown).
 
+In all other disruption scenarios, like eviction due to exceeding
+[Pod container limits](/docs/concepts/configuration/manage-resources-containers/),
+Pods don't receive the `DisruptionTarget` condition because the disruptions were
+probably caused by the Pod and would reoccur on retry.
+
 {{< note >}}
 A Pod disruption might be interrupted. The control plane might re-attempt to
 continue the disruption of the same Pod, but it is not guaranteed. As a result,
