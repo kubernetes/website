@@ -2340,7 +2340,8 @@ Example:  `jobset.sigs.k8s.io/jobset-name: "my-jobset"`
 
 Used on: Jobs, Pods
 
-This label is used to store the name of the JobSet to which a job or pod belongs.
+This label is used to store the name of the JobSet to which a Job or Pod belongs.
+JobSet is an extension API that you can deploy into your Kubernetes cluster.
 
 ### jobset.sigs.k8s.io/replicatedjob-replicas
 
@@ -2351,6 +2352,7 @@ Example: `jobset.sigs.k8s.io/replicatedjob-replicas: "5"`
 Used on: ReplicatedJobs
 
 This annotation specifies the number of replicas for a ReplicatedJob.
+ReplicatedJob is an extension API that you can deploy into your Kubernetes cluster.
 
 ### jobset.sigs.k8s.io/replicatedjob-name
 
@@ -2360,7 +2362,8 @@ Example: `jobset.sigs.k8s.io/replicatedjob-name: "my-replicatedjob"`
 
 Used on: Jobs
 
-This label is used to index into a job's labels and retrieve the name of the parent ReplicatedJob.
+This label is used to index into a Job's labels and retrieve the name of the parent ReplicatedJob.
+ReplicatedJob is an extension API that you can deploy into your Kubernetes cluster.
 
 ### jobset.sigs.k8s.io/job-index
 
@@ -2370,7 +2373,8 @@ Example: `jobset.sigs.k8s.io/job-index: "0"`
 
 Used on: Jobs
 
- This annotation stores the index of the job within the ReplicatedJob.
+This annotation stores the index of the Job within the ReplicatedJob.
+ReplicatedJob is an extension API that you can deploy into your Kubernetes cluster.
 
 ### jobset.sigs.k8s.io/job-key
 
@@ -2382,16 +2386,6 @@ Used on: Jobs
 
 This label provides a unique key for the job.
 
-### job-name
-
-Type: Label
-
-Example: `job-name: "my-job"`
-
-Used on: Jobs
-
-This label stores the name of the job.
-
 ### alpha.jobset.sigs.k8s.io/exclusive-topology
 
 Type: Annotation
@@ -2400,7 +2394,8 @@ Example: `alpha.jobset.sigs.k8s.io/exclusive-topology: "zone"`
 
 Used on: JobSets, ReplicatedJobs
 
- This annotation can be set on a JobSet or a ReplicatedJob template to ensure exclusive job placement per topology group.
+You can set this annotation on a JobSet or a ReplicatedJob template to ensure exclusive job placement per topology group.
+JobSet and ReplicaSet are extension APIs that you can deploy into your Kubernetes cluster.
 
 ### alpha.jobset.sigs.k8s.io/node-selector
 
@@ -2410,7 +2405,7 @@ Example: `alpha.jobset.sigs.k8s.io/node-selector: ""`
 
 Used on: JobSets
 
-This annotation acts as a flag. When set, the JobSet controller injects nodeSelectors for the JobSetNameKey label to ensure exclusive job placement per topology.
+This annotation acts as a flag. When set, the JobSet controller injects nodeSelectors for the `JobSetNameKey` label (e.g., `jobset.sigs.k8s.io/jobset-name`) to ensure exclusive job placement per topology.
 
 ### alpha.jobset.sigs.k8s.io/namespaced-job
 
@@ -2424,23 +2419,14 @@ This annotation indicates that the job is namespaced.
 
 ### alpha.jobset.sigs.k8s.io/no-schedule
 
-Type: Annotation
+Type: Taint
 
-Example: `alpha.jobset.sigs.k8s.io/no-schedule: "true"`
+Example: `alpha.jobset.sigs.k8s.io/no-schedule: NoSchedule`
 
-Used on: Jobs
+Used on: Nodes
 
-This annotation prevents the job from being scheduled.
-
-### jobset.sigs.k8s.io/jobset-controller
-
-Type: Label
-
-Example: `jobset.sigs.k8s.io/jobset-controller: "jobset-controller"`
-
-Used on: Jobs
-
-This label is used for the `managedBy` field to indicate that the job is managed by the built-in JobSet controller.
+The JobSet controller uses this taint to support its node labeling exclusive placement strategy.
+JobSet is an extension API that you can deploy into your Kubernetes cluster.
 
 ### jobset.sigs.k8s.io/coordinator
 
@@ -2450,7 +2436,9 @@ Example: `jobset.sigs.k8s.io/coordinator: "coordinator-endpoint"`
 
 Used on: Jobs, Pods
 
-This annotation/label is used on Jobs and Pods to store a stable network endpoint where the coordinator pod can be reached if the JobSet spec defines the `.spec.coordinator` field.
+This annotation/label is used on Jobs and Pods to store a stable network endpoint where the coordinator
+pod can be reached if the JobSet spec defines the `.spec.coordinator` field.
+JobSet is an extension API that you can deploy into your Kubernetes cluster.
 
 ## Annotations used for audit
 
