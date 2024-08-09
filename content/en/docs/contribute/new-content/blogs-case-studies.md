@@ -157,6 +157,10 @@ To submit a blog post follow these directions:
     title: "Your Title Here"
     date: YYYY-MM-DD
     slug: text-for-URL-link-here-no-spaces
+    author: >
+      Author-1 (Affiliation),
+      Author-2 (Affiliation),
+      Author-3 (Affiliation)
     ---
     ```
 
@@ -195,7 +199,7 @@ To mirror a blog post from the [Kubernetes contributor blog](https://www.kuberne
 
 - Keep the blog content the same. If there are changes, they should be made to the original article first, and then to the mirrored article.
 - The mirrored blog should have a `canonicalUrl`, that is, essentially the url of the original blog after it has been published.
-- [Kubernetes contributor blogs](https://kubernetes.dev/blog) have their authors mentioned in the YAML header, while the Kubernetes blog posts mention authors in the blog content itself. This should be changed when mirroring the content.
+- Same as [Kubernetes contributor blogs](https://kubernetes.dev/blog), Kubernetes blog posts also mention authors in the YAML header as per the new guidelines. This should be ensured.
 - Publication dates stay the same as the original blog.
 
 All of the other guidelines and expectations detailed above apply as well.
