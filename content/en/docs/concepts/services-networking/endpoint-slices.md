@@ -77,11 +77,19 @@ EndpointSlices support three address types:
 
 * IPv4
 * IPv6
-* FQDN (Fully Qualified Domain Name)
+* FQDN (Fully Qualified Domain Name; *deprecated*)
 
 Each `EndpointSlice` object represents a specific IP address type. If you have
 a Service that is available via IPv4 and IPv6, there will be at least two
 `EndpointSlice` objects (one for IPv4, and one for IPv6).
+
+{{< note >}}
+
+Setting the `addressType` for an EndpointSlice to the value "FQDN" is deprecated
+due to lack of clearly defined semantics. For more details, you can read the 
+[discussion](https://github.com/kubernetes/kubernetes/issues/114210).
+
+{{< /note >}}
 
 ### Conditions
 
