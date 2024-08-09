@@ -18,7 +18,9 @@
                     {{ $eolRelease.finalPatchRelease }}
                 </td>
                 <td>
-                    {{ $eolRelease.endOfLifeDate }}
+                    {{- with $eolRelease.endOfLifeDate -}}
+                    <time title="{{ time.Format ":date_long" . }}" datetime={{ time.Format "2006-01-02" . }}>{{ time.Format ( T "release_date_format" ) . }}</time>
+                    {{- end -}}
                 </td>
                 <td lang="en-US">
                     {{ $eolRelease.note | markdownify }}

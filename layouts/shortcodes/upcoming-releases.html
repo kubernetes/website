@@ -12,13 +12,21 @@
       .Site.Data.releases.schedule.upcoming_releases }}
       <tr>
         <td>
-          {{ time.Format ( T "release_date_format_month") $patchReleaseInfo.targetDate }}
+          {{- with $patchReleaseInfo.targetDate -}}
+          {{ time.Format ( T "release_date_format_month" ) . }}
+          {{- end -}}
         </td>
+        {{- with $patchReleaseInfo.cherryPickDeadline -}}
         <td>
-          {{ time.Format ( T "release_date_format") $patchReleaseInfo.cherryPickDeadline }}
+          <time title="{{ time.Format ":date_full" . }}" datetime={{ time.Format "2006-01-02" . }}>{{ time.Format ":date_medium" . }}</time>
         </td>
+        {{- else -}}
+          <td class="value-not-applicable">-</td>
+        {{- end -}}
         <td>
-          {{ time.Format ( T "release_date_format") $patchReleaseInfo.targetDate }}
+          {{- with $patchReleaseInfo.targetDate -}}
+          <time title="{{ time.Format ":date_full" . }}" datetime={{ time.Format "2006-01-02" . }}>{{ time.Format ":date_medium" . }}</time>
+          {{- end -}}
         </td>
       </tr>
       {{ end }}
