@@ -292,7 +292,13 @@ If the Pod [restarts](#pod-restart-reasons), or is restarted, all init container
 must execute again.
 
 Changes to the init container spec are limited to the container image field.
-Altering an init container image field is equivalent to restarting the Pod.
+Directly altering a Pod to change the container image for an init container does **not**
+automatically trigger the Pod to restart it containers.
+You can use a [workload management](/docs/concepts/workloads/controllers/) object, with
+implicit rollouts for changes. For example, if you change a Pod template embedded in
+a Deployment, and you use a different container image for an init container,
+the indirect change **does** trigger a rollout (Kubernetes makes new Pods based on the
+updated template).
 
 Because init containers can be restarted, retried, or re-executed, init container
 code should be idempotent. In particular, code that writes to files on `EmptyDirs`
