@@ -1,0 +1,6 @@
+- op: add
+  path: "/spec/containers/0/envFrom"
+  value:
+    - secretRef:
+        name: demo-secret
+

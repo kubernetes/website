@@ -1,0 +1,21 @@
+- op: add
+  path: "/spec/containers/0/envFrom"
+  value:
+    - secretRef:
+        name: demo-secret
+
+- op: add
+  path: "/spec/containers/0/volumeMounts"
+  value:
+    - name: demo-secret
+      mountPath: /secrets
+      readOnly: true
+
+- op: add
+  path: "/spec/volumes"
+  value:
+    - name: demo-secret
+      secret:
+        secretName: demo-secret
+        optional: true
+
