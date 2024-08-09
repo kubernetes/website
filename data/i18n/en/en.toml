@@ -34,8 +34,14 @@ other = "Cleaning up"
 [china_icp_license]
 other = "ICP license:"
 
-[community_events_calendar]
+[community_advice_guidelines]
+other = "You can also read about our {{ .link }}."
+
+[community_calendar_name]
 other = "Events Calendar"
+
+[community_contributor_site_name]
+other = "Contributor website"
 
 [community_forum_name]
 other = "Forum"
