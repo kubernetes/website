@@ -1236,17 +1236,43 @@ object.
 
 ### Avoiding deadlocks in self-hosted webhooks
 
-A webhook running inside the cluster might cause deadlocks for its own deployment if it is configured
-to intercept resources required to start its own pods.
+There are several ways that webhooks can cause deadlocks, where the cluster cannot make progress in
+scheduling pods:
 
-For example, a mutating admission webhook is configured to admit `CREATE` pod requests only if a certain label is set in the
-pod (e.g. `"env": "prod"`). The webhook server runs in a deployment which doesn't set the `"env"` label.
-When a node that runs the webhook server pods
-becomes unhealthy, the webhook deployment will try to reschedule the pods to another node. However the requests will
-get rejected by the existing webhook server since the `"env"` label is unset, and the migration cannot happen.
+* A webhook running inside the cluster might cause deadlocks for its own deployment if it is configured
+  to intercept resources required to start its own pods.
 
-It is recommended to exclude the namespace where your webhook is running with a
-[namespaceSelector](#matching-requests-namespaceselector).
+  For example, a mutating admission webhook is configured to admit `CREATE` pod requests only if a certain label is set in the
+  pod (such as `"env": "prod"`). The webhook server runs in a deployment which doesn't set the `"env"` label.
+  When a node that runs the webhook server pods
+  becomes unhealthy, the webhook deployment will try to reschedule the pods to another node. However the requests will
+  get rejected by the existing webhook server since the `"env"` label is unset, and the migration cannot happen.
+
+  It is recommended to exclude the namespace where your webhook is running with a
+  [namespaceSelector](#matching-requests-namespaceselector).
+
+* If the cluster has multiple webhooks configured (possibly from independent applications deployed on
+  the cluster), they can form a cycle.  Webhook A must be called to process startup of webhook B's
+  pods and vice versa.  If both webhook A and webhook B ever become inactive at the same time (for
+  example, due to a cluster-wide outage or a node failure where both pods run on the same node)
+  deadlock occurs because neither webhook pod can be recreated without the other already running.
+
+  It is recommended to establish a desired order for webhooks to start, then to exclude "earlier"
+  webhooks' resources from being inspected by later webhooks.  This ensures that the "earliest"
+  webhook can start, which in turn allows the next.
+
+  Where protection for the webhook and/or its namespace is desired, [Validating Admission Policies](/docs/reference/access-authn-authz/validating-admission-policy/)
+  provide many protection capabilities without introducing dependency cycles.
+
+* Webhooks can intercept rsesources used by critical cluster infrastructure, such as coredns,
+  the active CNI and, storage plugins.  These resources may be required to schedule the webhook pods
+  on the cluster, creating a deadlock if the webhook is configured to intercept them.
+
+  It is recommended to exclude cluster infrastructure namespaces from webhooks, including kube-system,
+  any namespaces used by CNI plugins, etc.
+
+  Where protection for the infrastructure components is desired, [Validating Admission Policies](/docs/reference/access-authn-authz/validating-admission-policy/)
+  provide many protection capabilities without introducing dependency cycles.
 
 ### Side effects
 
