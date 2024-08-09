@@ -3,6 +3,7 @@
 {{ end }}
 
 {{ define "main" }}
+{{ partial "deprecation-warning.html" . }}
 <h1>{{ .Title }}</h1>
 {{- with resources.Get "css/glossary.css" -}}
 <link href="{{ .RelPermalink }}" rel="stylesheet">
