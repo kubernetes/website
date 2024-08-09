@@ -196,7 +196,7 @@ Kubernetesのドキュメントへの貢献に関する詳細については以�
 
 | 名前                       | Slack                      | GitHub                     |                   
 | -------------------------- | -------------------------- | -------------------------- |
-| Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
+| Sreeram Venkitesh                | @sreeram.venkitesh                      | @sreeram-venkitesh              |
 
 ## 翻訳された`README.md`一覧 {#localization-readmemds}
 
