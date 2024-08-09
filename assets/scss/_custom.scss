@@ -626,6 +626,14 @@ body.td-home #deprecation-warning {
     margin-right: auto;
 }
 
+body.cid-community {
+  section.linkbox {
+    max-width: clamp(50%, calc(100em + 2vw), 100vw);
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 #caseStudies body > #deprecation-warning, body.cid-casestudies > #deprecation-warning, body.cid-community > #deprecation-warning {
     display: inline-block;
     vertical-align: top;
