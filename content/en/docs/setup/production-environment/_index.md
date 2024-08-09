@@ -278,6 +278,38 @@ needs of your cluster's workloads:
     [ServiceAccount permissions](/docs/reference/access-authn-authz/rbac/#service-account-permissions)
     for details.
 
+## Networking and load balancing
+
+### Load balancing for workloads
+
+In a Kubernetes production environment, load balancing is essential for distributing traffic across multiple instances of application workloads. While Kubernetes provides built-in load balancing for its internal components, such as the API server, additional solutions are needed for load balancing application workloads, such as Ingress and Gateway API.
+
+ - [Ingress](/docs/concepts/services-networking/ingress/) provides extra functionality
+    specifically for exposing HTTP applications, websites and APIs.
+
+ - [Gateway API](/docs/concepts/services-networking/gateway/) is an {{<glossary_tooltip text="add-on" term_id="addons">}}
+    that provides an expressive, extensible, and role-oriented family of API kinds for modeling service networking.
+
+External load balancers are often the preferred solution for load balancing application workloads. They offer better flexibility, scalability, and features compared to in-cluster solutions. For suggestions on external load balancing solutions, refer to the [create an external load balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/) documentation.
+
+### On-Premises load balancing options
+
+When deploying Kubernetes on-premises, using external load balancers may not be feasible. In such cases, on-premises load balancing solutions, such as [MetalLB](https://metallb.universe.tf/), can be used as alternatives to cloud-based load balancers.
+
+
+{{% thirdparty-content %}}
+
+-  [MetalLB](https://metallb.universe.tf/)
+
+{{<note>}}
+
+When utilizing third-party solutions like MetalLB, it's essential to thoroughly evaluate and understand the implications for your Kubernetes environment.
+
+Ensure compatibility and consider potential risks before implementing such solutions.
+
+{{</note>}}
+
+
 ## {{% heading "whatsnext" %}}
 
 - Decide if you want to build your own production Kubernetes or obtain one from
