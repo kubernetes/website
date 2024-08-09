@@ -59,8 +59,10 @@ When a Pod authenticates as a ServiceAccount, its level of access depends on the
 in use.
 
 The API credentials are automatically revoked when the Pod is deleted, even if
-finalizers are in place. In particular, the API credentials are revoked after 1
-minute of the `.metadata.deletionTimestamp`, which includes the grace period.
+finalizers are in place. In particular, the API credentials are revoked 60 seconds
+beyond the `.metadata.deletionTimestamp` set on the Pod (the deletion timestamp
+is typically the time that the **delete** request was accepted plus the Pod's
+termination grace period).
 
 ### Opt out of API credential automounting
 
