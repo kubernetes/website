@@ -1,0 +1,105 @@
+---
+title: Utilizar o Minikube para Criar um Cluster
+weight: 10
+description: |-
+  Aprender o que é um cluster Kubernetes.
+  Aprender o que é o Minikube.
+  Iniciar um cluster Kubernetes.
+---
+
+<!DOCTYPE html>
+
+<html lang="pt">
+
+<body>
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+      <div class="col-md-8">
+          <h3>Objetivos</h3>
+                <ul>
+                    <li>Aprender o que é um cluster Kubernetes.</li>
+                    <li>Aprender o que é o Minikube.</li>
+                    <li>Iniciar um cluster Kubernetes no seu computador.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h3>Clusters Kubernetes</h3>
+                <p>
+                <b>O Kubernetes coordena um cluster de computadores altamente disponível que estão interligados para trabalhar como uma única unidade.</b> As abstrações no Kubernetes permitem-lhe implementar aplicações contentorizadas num cluster sem as vincular especificamente a máquinas individuais. Para tirar partido deste novo modelo de implementação, as aplicações precisam de ser empacotadas de forma a desacoplá-las de hospedeiros individuais: precisam de ser contentorizadas. As aplicações contentorizadas são mais flexíveis e disponíveis do que nos modelos de implementação anteriores, onde as aplicações eram instaladas diretamente em máquinas específicas como pacotes profundamente integrados no hospedeiro. <b>O Kubernetes automatiza a distribuição e agendamento de contentores de aplicações através de um cluster de uma forma mais eficiente.</b> O Kubernetes é uma plataforma de código aberto e está pronta para produção.
+                </p>
+                <p>Um cluster Kubernetes consiste em dois tipos de recursos:
+                    <ul>
+                        <li>O <b>Plano de Controlo</b> coordena o cluster</li>
+                        <li><b>Nós</b> são os trabalhadores que executam as aplicações</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Resumo:</h3>
+                    <ul>
+                        <li>Cluster Kubernetes</li>
+                        <li>Minikube</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>
+                        O Kubernetes é uma plataforma de código aberto, pronta para produção, que orquestra o posicionamento (agendamento) e execução de contentores de aplicações dentro e através de clusters de computadores.
+                    </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Diagrama do Cluster</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><b>O Plano de Controlo é responsável por gerir o cluster.</b> O Plano de Controlo coordena todas as atividades no seu cluster, como o agendamento de aplicações, manutenção do estado desejado das aplicações, escalonamento das aplicações e lançamento de novas atualizações.</p>
+                <p><b>Um nó é uma VM ou um computador físico que serve como uma máquina trabalhadora num cluster Kubernetes.</b> Cada nó tem um Kubelet, que é um agente para gerir o nó e comunicar com o plano de controlo Kubernetes. O nó também deve ter ferramentas para lidar com operações de contentores, como o {{< glossary_tooltip text="containerd" term_id="containerd" >}} ou o {{< glossary_tooltip term_id="cri-o" >}}. Um cluster Kubernetes que lida com tráfego de produção deve ter um mínimo de três nós porque se um nó falhar, perde-se tanto um membro do <a href="/docs/concepts/overview/components/#etcd">etcd</a> quanto uma instância do plano de controlo, e a redundância fica comprometida. Pode mitigar este risco adicionando mais nós ao plano de controlo.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>Os Planos de Controlo gerem o cluster e os nós que são usados para hospedar as aplicações em execução.</i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>Quando implementa aplicações no Kubernetes, indica ao plano de controlo para iniciar os contentores de aplicações. O plano de controlo agenda os contentores para serem executados nos nós do cluster. <b>Componentes a nível de nó, como o kubelet, comunicam com o plano de controlo usando a <a href="/docs/concepts/overview/kubernetes-api/">API do Kubernetes</a></b>, que o plano de controlo expõe. Os utilizadores finais também podem usar a API do Kubernetes diretamente para interagir com o cluster.</p>
+
+                <p>Um cluster Kubernetes pode ser implementado tanto em máquinas físicas como virtuais. Para começar com o desenvolvimento Kubernetes, pode usar o Minikube. O Minikube é uma implementação leve do Kubernetes que cria uma VM na sua máquina local e implementa um cluster simples contendo apenas um nó. O Minikube está disponível para sistemas Linux, macOS e Windows. A CLI do Minikube fornece operações básicas de inicialização para trabalhar com o seu cluster, incluindo iniciar, parar, estado e eliminar.</p>
+
+                <p>Agora que sabe mais sobre o que é o Kubernetes, visite <a href="/docs/tutorials/hello-minikube/">Olá Minikube</a>
+                   para experimentar isto no seu computador.</p>
+
+
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>
