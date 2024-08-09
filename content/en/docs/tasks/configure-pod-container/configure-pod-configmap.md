@@ -582,9 +582,10 @@ Here is the manifest you will use:
 
   Now, the Pod's output includes environment variables `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=INFO`.
 
-  Once you're happy to move on, delete that Pod:
+  Once you're happy to move on, delete that Pod and ConfigMap:
   ```shell
   kubectl delete pod dapi-test-pod --now
+  kubectl delete configmap special-config
   ```
 
 ## Configure all key-value pairs in a ConfigMap as container environment variables
@@ -911,8 +912,18 @@ kubectl delete configmaps/special-config configmaps/env-config
 kubectl delete configmap -l 'game-config in (config-4,config-5)'
 ```
 
+Remove the `kustomization.yaml` that you used to create the ConfigMap from generator:
+
+```bash
+rm kustomization.yaml
+```
+
 If you created a directory `configure-pod-container` and no longer need it, you should remove that too,
 or move it into the trash can / deleted files location.
+
+```bash
+rm -r configure-pod-container
+```
 
 ## {{% heading "whatsnext" %}}
 
