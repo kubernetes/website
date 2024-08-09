@@ -77,7 +77,7 @@ It creates a [headless Service](/docs/concepts/services-networking/service/#head
 {{% code_sample file="application/web/web.yaml" %}}
 
 You will need to use at least two terminal windows. In the first terminal, use
-[`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to watch the creation
+[`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to {{< glossary_tooltip text="watch" term_id="watch" >}} the creation
 of the StatefulSet's Pods.
 
 ```shell
