@@ -19,9 +19,10 @@ author: >
   [Shane Utt](https://github.com/shaneutt) (Kong),
   [Gina Yeh](https://github.com/ginayeh) (Google),
   and other review and release note contributors
+translator: >
+  [Taisuke Okamoto](https://github.com/b1gb4by) ([IDC Frontier Inc.](https://www.idcf.jp/)),
+  [Daiki Hayakawa(bells17)](https://github.com/bells17) ([3-shake Inc.](https://3-shake.com/en/))
 ---
-
-**翻訳者:** [Taisuke Okamoto](https://github.com/b1gb4by) ([IDC Frontier Inc.](https://www.idcf.jp/)),
 
 ![Gateway API logo](gateway-api-logo.svg)
 
