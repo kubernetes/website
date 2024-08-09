@@ -19,23 +19,44 @@ $(document).ready(function() {
     return matches ? "true" : undefined;
   }
 
-  /* Check the presence of a cookie */
   let announcement = document.querySelector("#announcement");
-  let token = `announcement_ack_${announcement.getAttribute('data-announcement-name').replace(/\s/g, '_')}`; // Generate the unique token for announcement
-  let acknowledged = getCookie(token);
-  if (acknowledged === "true") {
-    announcement.remove(); // Remove the announcement if the cookie is set
+
+  if(announcement){
+    let announcementName = announcement.getAttribute('data-announcement-name');
+    if(announcementName){
+      let token = `announcement_ack_${announcementName.replace(/\s/g, '_')}`;
+      let acknowledged = getCookie(token);
+
+      if(acknowledged == "true"){
+        announcement.remove();
+      }
+      else{
+        announcement.classList.add('display-announcement');
+      }
+
+    }
+    else{
+      console.log("Attribute 'data-announcement-name' is null or undefined.");
+    }
   }
-  else {
-    announcement.classList.add('display-announcement') // Display the announcement if the cookie is not set
+  else{
+    console.log("Element with id 'announcement' not found.");
   }
+
+
 
   /* Driver code to set the cookie */
   let button = document.querySelector('#banner-dismiss');
-  button.removeAttribute('style');
-  button.addEventListener('click', function() {
-    setCookie(token, "true", 
-    button.getAttribute('data-ttl')); // Set a cookie with time to live parameter
-    announcement.remove();
-  });
+  if(button){
+     button.removeAttribute('style');
+     button.addEventListener('click', function() {
+        setCookie(token, "true", 
+        button.getAttribute('data-ttl')); // Set a cookie with time to live parameter
+        announcement.remove();
+    });
+  }
+  else{
+    console.log("Element with id 'banner-dismiss' not found.");
+  }
+  
 });
