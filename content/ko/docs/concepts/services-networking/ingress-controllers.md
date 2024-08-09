@@ -37,7 +37,7 @@ weight: 50
   Citrix 애플리케이션 딜리버리 컨트롤러에서 작동한다.
 * [Contour](https://projectcontour.io/)는 [Envoy](https://www.envoyproxy.io/) 기반 인그레스 컨트롤러다.
 * [EnRoute](https://getenroute.io/)는 인그레스 컨트롤러로 실행할 수 있는 [Envoy](https://www.envoyproxy.io) 기반 API 게이트웨이다.
-* [Easegress IngressController](https://github.com/megaease/easegress/blob/main/doc/reference/ingresscontroller.md)는 인그레스 컨트롤러로서 실행할 수 있는 [Easegress](https://megaease.com/easegress/) 기반 API 게이트웨이다.
+* [Easegress IngressController](https://megaease.com/docs/easegress/04.cloud-native/4.1.kubernetes-ingress-controller/)는 인그레스 컨트롤러로서 실행할 수 있는 [Easegress](https://megaease.com/easegress/) 기반 API 게이트웨이다.
 * F5 BIG-IP [쿠버네티스 용 컨테이너 인그레스 서비스](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)를
   이용하면 인그레스를 사용하여 F5 BIG-IP 가상 서버를 구성할 수 있다.
 * [Gloo](https://gloo.solo.io)는 API 게이트웨이 기능을 제공하는 [Envoy](https://www.envoyproxy.io) 기반의
