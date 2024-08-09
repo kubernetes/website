@@ -75,8 +75,9 @@ stored as extra 'private claims' in the issued JWT.
 
 When a bound token is presented to the kube-apiserver, the service account authenticator
 will extract and verify these claims.
-If the referenced object or the service account is pending deletion (for example, due to finalizers),
-the request will not be authenticated after 1 minute of the `.metadata.deletionTimestamp`.
+If the referenced object or the ServiceAccount is pending deletion (for example, due to finalizers),
+then for any instant that is 60 seconds (or more) after the `.metadata.deletionTimestamp` date,
+authentication with that token would fail.
 If the referenced object no longer exists (or its `metadata.uid` does not match),
 the request will not be authenticated.
 
