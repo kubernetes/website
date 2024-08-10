@@ -508,6 +508,16 @@ Taint Manager（`kube-controller-manager` 中节点生命周期控制器的一�
 由于{{<glossary_tooltip term_id="node-pressure-eviction" text="节点压力驱逐">}}或[节点体面关闭](/zh-cn/docs/concepts/architecture/nodes/#graceful-node-shutdown)而被
 kubelet 终止。
 
+<!--
+In all other disruption scenarios, like eviction due to exceeding
+[Pod container limits](/docs/concepts/configuration/manage-resources-containers/),
+Pods don't receive the `DisruptionTarget` condition because the disruptions were
+probably caused by the Pod and would reoccur on retry.
+-->
+在所有其他中断场景中，例如由于超出
+[Pod 容器限制]而被驱逐，`DisruptionTarget` 状况不会被添加到 Pod 上，
+因为中断可能是由 Pod 引起的，并且会在重试时再次发生。
+
 {{< note >}}
 <!-- 
 A Pod disruption might be interrupted. The control plane might re-attempt to
