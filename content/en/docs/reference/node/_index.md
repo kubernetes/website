@@ -13,6 +13,8 @@ This section contains the following reference topics about nodes:
 
 * [Node Labels Populated By The Kubelet](/docs/reference/node/node-labels)
 
+* [Local Files And Paths Used By The Kubelet](/docs/reference/node/kubelet-files)
+
 * [Node `.status` information](/docs/reference/node/node-status/)
 
 You can also read node reference details from elsewhere in the
