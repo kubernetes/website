@@ -5,7 +5,7 @@ description: >
   The architectural concepts behind Kubernetes.
 ---
 
-A Kubernetes cluster consists of a set of worker machines, called nodes, that run containerized applications. Every cluster has at least one worker node.
+A Kubernetes cluster consists of a control plane plus a set of worker machines, called nodes, that run containerized applications. Every cluster needs at least one worker node in order to run Pods.
 
 The worker node(s) host the Pods that are the components of the application workload. The control plane manages the worker nodes and the Pods in the cluster. In production environments, the control plane usually runs across multiple computers and a cluster usually runs multiple nodes, providing fault-tolerance and high availability.
 
@@ -15,7 +15,7 @@ This document outlines the various components you need to have for a complete an
 title="Kubernetes cluster components"
 caption="**Note:** This diagram presents an example reference architecture for a Kubernetes cluster. The actual distribution of components can vary based on specific cluster setups and requirements." class="diagram-large" >}}
 
-## Control Plane Components
+## Control plane components
 
 The control plane's components make global decisions about the cluster (for example, scheduling), as well as detecting and responding to cluster events (for example, starting up a new {{< glossary_tooltip text="pod" term_id="pod">}} when a Deployment's `{{< glossary_tooltip text="replicas" term_id="replica" >}}` field is unsatisfied).
 
@@ -60,7 +60,7 @@ The following controllers can have cloud provider dependencies:
 - Route controller: For setting up routes in the underlying cloud infrastructure
 - Service controller: For creating, updating and deleting cloud provider load balancers
 
-## Node Components
+## Node components
 
 Node components run on every node, maintaining running pods and providing the Kubernetes runtime environment.
 
@@ -68,9 +68,12 @@ Node components run on every node, maintaining running pods and providing the Ku
 
 {{< glossary_definition term_id="kubelet" length="all" >}}
 
-### kube-proxy
+### kube-proxy (optional) {#kube-proxy)
 
 {{< glossary_definition term_id="kube-proxy" length="all" >}}
+If you use a [network plugin](#network-plugins) that implements packet forwarding for Services
+by itself, and providing equivalent behavior to kube-proxy), then you do not need to run
+kube-proxy on the nodes in your cluster.
 
 ### Container runtime
 
@@ -94,7 +97,7 @@ Containers started by Kubernetes automatically include this DNS server in their 
 
 [Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) is a general purpose, web-based UI for Kubernetes clusters. It allows users to manage and troubleshoot applications running in the cluster, as well as the cluster itself.
 
-### Container Resource Monitoring
+### Container resource monitoring
 
 [Container Resource Monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/) records generic time-series metrics about containers in a central database, and provides a UI for browsing that data.
 
@@ -102,7 +105,7 @@ Containers started by Kubernetes automatically include this DNS server in their 
 
 A [cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for saving container logs to a central log store with a search/browsing interface.
 
-### Network Plugins
+### Network plugins
 
 [Network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins) are software components that implement the container network interface (CNI) specification. They are responsible for allocating IP addresses to pods and enabling them to communicate with each other within the cluster.
 
@@ -110,7 +113,7 @@ A [cluster-level logging](/docs/concepts/cluster-administration/logging/) mechan
 
 While the core components of Kubernetes remain consistent, the way they are deployed and managed can vary. Understanding these variations is crucial for designing and maintaining Kubernetes clusters that meet specific operational needs.
 
-### Control Plane Deployment Options
+### Control plane deployment options
 
 The control plane components can be deployed in several ways:
 
@@ -128,7 +131,7 @@ The control plane components can be deployed in several ways:
   <dd>Cloud providers often abstract away the control plane, managing its components as part of their service offering.</dd>
 </dl>
 
-### Workload Placement Considerations
+### Workload placement considerations
 
 The placement of workloads, including the control plane components, can vary based on cluster size, performance requirements, and operational policies:
 
@@ -136,13 +139,13 @@ The placement of workloads, including the control plane components, can vary bas
 - Larger production clusters often dedicate specific nodes to control plane components, separating them from user workloads.
 - Some organizations run critical add-ons or monitoring tools on control plane nodes.
 
-### Cluster Management Tools
+### Cluster management tools
 
 Tools like kubeadm, kops, and Kubespray offer different approaches to deploying and managing clusters, each with its own method of component layout and management.
 
 The flexibility of Kubernetes architecture allows organizations to tailor their clusters to specific needs, balancing factors such as operational complexity, performance, and management overhead.
 
-### Customization and Extensibility
+### Customization and extensibility
 
 Kubernetes architecture allows for significant customization:
 
