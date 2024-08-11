@@ -68,11 +68,11 @@ Node components run on every node, maintaining running pods and providing the Ku
 
 {{< glossary_definition term_id="kubelet" length="all" >}}
 
-### kube-proxy (optional) {#kube-proxy)
+### kube-proxy (optional) {#kube-proxy}
 
 {{< glossary_definition term_id="kube-proxy" length="all" >}}
 If you use a [network plugin](#network-plugins) that implements packet forwarding for Services
-by itself, and providing equivalent behavior to kube-proxy), then you do not need to run
+by itself, and providing equivalent behavior to kube-proxy, then you do not need to run
 kube-proxy on the nodes in your cluster.
 
 ### Container runtime
@@ -109,7 +109,7 @@ A [cluster-level logging](/docs/concepts/cluster-administration/logging/) mechan
 
 [Network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins) are software components that implement the container network interface (CNI) specification. They are responsible for allocating IP addresses to pods and enabling them to communicate with each other within the cluster.
 
-## Architecture Variations
+## Architecture variations
 
 While the core components of Kubernetes remain consistent, the way they are deployed and managed can vary. Understanding these variations is crucial for designing and maintaining Kubernetes clusters that meet specific operational needs.
 
@@ -117,19 +117,17 @@ While the core components of Kubernetes remain consistent, the way they are depl
 
 The control plane components can be deployed in several ways:
 
-<dl>
-  <dt>Traditional deployment</dt>
-  <dd>Control plane components run directly on dedicated machines or VMs, often managed as systemd services.</dd>
+Traditional deployment
+: Control plane components run directly on dedicated machines or VMs, often managed as systemd services.
 
-  <dt>Static Pods</dt>
-  <dd>Control plane components are deployed as static Pods, managed by the kubelet on specific nodes. This is a common approach used by tools like kubeadm.</dd>
+Static Pods
+: Control plane components are deployed as static Pods, managed by the kubelet on specific nodes. This is a common approach used by tools like kubeadm.
 
-  <dt>Self-hosted</dt>
-  <dd>The control plane runs as Pods within the Kubernetes cluster itself, managed by Deployments or other Kubernetes primitives.</dd>
+Self-hosted
+: The control plane runs as Pods within the Kubernetes cluster itself, managed by Deployments and StatefulSets or other Kubernetes primitives.
 
-  <dt>Managed Kubernetes services</dt>
-  <dd>Cloud providers often abstract away the control plane, managing its components as part of their service offering.</dd>
-</dl>
+Managed Kubernetes services
+: Cloud providers often abstract away the control plane, managing its components as part of their service offering.
 
 ### Workload placement considerations
 

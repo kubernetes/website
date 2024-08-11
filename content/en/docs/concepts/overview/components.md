@@ -28,55 +28,52 @@ A Kubernetes cluster consists of a control plane and one or more worker nodes. H
 
 Manage the overall state of the cluster:
 
-<dl>
-  <dt>kube-apiserver</dt>
-  <dd>The API server that exposes the Kubernetes API</dd>
+[kube-apiserver](/docs/concepts/architecture/#kube-apiserver)
+: The core component server that exposes the Kubernetes HTTP API
 
-  <dt>etcd</dt>
-  <dd>Consistent and highly-available key value store for all cluster data</dd>
+[etcd](/docs/concepts/architecture/#etcd)
+: Consistent and highly-available key value store for all API server data
 
-  <dt>kube-scheduler</dt>
-  <dd>Assigns Pods to Nodes</dd>
+[kube-scheduler](/docs/concepts/architecture/#kube-scheduler)
+: Looks for Pods not yet bound to a node, and assigns each Pod to a suitable node.
 
-  <dt>kube-controller-manager</dt>
-  <dd>Runs controller processes</dd>
+[kube-controller-manager](/docs/concepts/architecture/#kube-controller-manager)
+: Runs {{< glossary_tooltip text="controllers" term_id="controller" >}} to implement Kubernetes API behavior.
 
-  <dt>cloud-controller-manager</dt>
-  <dd>Integrates with underlying cloud providers</dd>
-</dl>
+[cloud-controller-manager](/docs/concepts/architecture/#cloud-controller-manager) (optional)
+: Integrates with underlying cloud provider(s)
 
 ### Node Components
 
 Run on every node, maintaining running pods and providing the Kubernetes runtime environment:
 
-<dl>
-  <dt>kubelet</dt>
-  <dd>Ensures that containers are running in a Pod</dd>
+[kubelet](/docs/concepts/architecture/#kubelet)
+: Ensures that Pods are running, including their containers.
 
-  <dt>kube-proxy</dt>
-  <dd>Maintains network rules on nodes</dd>
+[kube-proxy](/docs/concepts/architecture/#kube-proxy) (optional)
+: Maintains network rules on nodes to implement {{< glossary_tooltip text="Services" term_id="service" >}}
 
-  <dt>Container runtime</dt>
-  <dd>Software responsible for running containers</dd>
-</dl>
+[Container runtime](/docs/concepts/architecture/#container-runtime)
+: Software responsible for running containers. Read [Container Runtimes](/docs/setup/production-environment/container-runtimes/) to learn more. {{% thirdparty-content single="true" %}}
+
+Your cluster may require additional software on each node; for example, you might also
+run systemd on a Linux node to supervise local components.
 
 ## Addons
 
 Addons extend the functionality of Kubernetes. A few important examples include:
 
-<dl>
-  <dt>DNS</dt>
-  <dd>For cluster-wide DNS resolution</dd>
+[DNS](/docs/concepts/architecture/#dns)
+: For cluster-wide DNS resolution
 
-  <dt>Web UI (Dashboard)</dt>
-  <dd>For cluster management via a web interface</dd>
+[Web UI](/docs/concepts/architecture/#web-ui-dashboard) (Dashboard)
+: For cluster management via a web interface
 
-  <dt>Container Resource Monitoring</dt>
-  <dd>For collecting and storing container metrics</dd>
+[Container Resource Monitoring](/docs/concepts/architecture/#container-resource-monitoring)
+: For collecting and storing container metrics
 
-  <dt>Cluster-level Logging</dt>
-  <dd>For saving container logs to a central log store</dd>
-</dl>
+[Cluster-level Logging](/docs/concepts/architecture/#cluster-level-logging)
+: For saving container logs to a central log store
 
 ## Flexibility in Architecture
 
