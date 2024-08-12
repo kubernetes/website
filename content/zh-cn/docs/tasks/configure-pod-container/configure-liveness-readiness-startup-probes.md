@@ -23,8 +23,8 @@ application more available despite bugs.
 -->
 这篇文章介绍如何给容器配置存活（Liveness）、就绪（Readiness）和启动（Startup）探针。
 
-有关探针的更多信息，请参阅
-[Liveness、Readiness 和 Startup 探针](/zh-cn/docs/concepts/configuration/liveness-readiness-startup-probes)。
+有关探针的更多信息，
+请参阅[存活、就绪和启动探针](/zh-cn/docs/concepts/configuration/liveness-readiness-startup-probes)。
 
 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
 使用存活探针来确定什么时候要重启容器。
@@ -291,7 +291,7 @@ checks will fail, and the kubelet will kill and restart the container.
 
 To try the HTTP liveness check, create a Pod:
 -->
-kubelet 在容器启动之后 3 秒开始执行健康检测。所以前几次健康检查都是成功的。
+kubelet 在容器启动之后 3 秒开始执行健康检查。所以前几次健康检查都是成功的。
 但是 10 秒之后，健康检查会失败，并且 kubelet 会杀死容器再重新启动容器。
 
 创建一个 Pod 来测试 HTTP 的存活检测：
@@ -334,29 +334,34 @@ can't it is considered a failure.
 
 <!--
 As you can see, configuration for a TCP check is quite similar to an HTTP check.
-This example uses both readiness and liveness probes. The kubelet will send the
-first readiness probe 15 seconds after the container starts. This will attempt to
-connect to the `goproxy` container on port 8080. If the probe succeeds, the Pod
-will be marked as ready. The kubelet will continue to run this check every 10
-seconds.
+This example uses both readiness and liveness probes. The kubelet will run the
+first liveness probe 15 seconds after the container starts. This will attempt to
+connect to the `goproxy` container on port 8080. If the liveness probe fails,
+the container will be restarted. The kubelet will continue to run this check
+every 10 seconds.
+-->
+如你所见，TCP 检测的配置和 HTTP 检测非常相似。
+下面这个例子同时使用就绪探针和存活探针。kubelet 会在容器启动 15 秒后运行第一次存活探测。
+此探测会尝试连接 `goproxy` 容器的 8080 端口。
+如果此存活探测失败，容器将被重启。kubelet 将继续每隔 10 秒运行一次这种探测。
 
-In addition to the readiness probe, this configuration includes a liveness probe.
-The kubelet will run the first liveness probe 15 seconds after the container
-starts. Similar to the readiness probe, this will attempt to connect to the
-`goproxy` container on port 8080. If the liveness probe fails, the container
-will be restarted.
+<!--
+In addition to the liveness probe, this configuration includes a readiness
+probe. The kubelet will run the first readiness probe 15 seconds after the
+container starts. Similar to the liveness probe, this will attempt to connect to
+the `goproxy` container on port 8080. If the probe succeeds, the Pod will be
+marked as ready and will receive traffic from services. If the readiness probe
+fails, the pod will be marked unready and will not receive traffic from any
+services.
 
 To try the TCP liveness check, create a Pod:
 -->
-如你所见，TCP 检测的配置和 HTTP 检测非常相似。
-下面这个例子同时使用就绪和存活探针。kubelet 会在容器启动 15 秒后发送第一个就绪探针。
-探针会尝试连接 `goproxy` 容器的 8080 端口。
-如果探测成功，这个 Pod 会被标记为就绪状态，kubelet 将继续每隔 10 秒运行一次探测。
+除了存活探针，这个配置还包括一个就绪探针。
+kubelet 会在容器启动 15 秒后运行第一次就绪探测。
+与存活探测类似，就绪探测会尝试连接 `goproxy` 容器的 8080 端口。
+如果就绪探测失败，Pod 将被标记为未就绪，且不会接收来自任何服务的流量。
 
-除了就绪探针，这个配置包括了一个存活探针。
-kubelet 会在容器启动 15 秒后进行第一次存活探测。
-与就绪探针类似，存活探针会尝试连接 `goproxy` 容器的 8080 端口。
-如果存活探测失败，容器会被重新启动。
+要尝试 TCP 存活检测，运行以下命令创建 Pod：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/probe/tcp-liveness-readiness.yaml
@@ -365,7 +370,7 @@ kubectl apply -f https://k8s.io/examples/pods/probe/tcp-liveness-readiness.yaml
 <!--
 After 15 seconds, view Pod events to verify that liveness probes:
 -->
-15 秒之后，通过看 Pod 事件来检测存活探针：
+15 秒之后，通过查看 Pod 事件来检测存活探针：
 
 ```shell
 kubectl describe pod goproxy
@@ -388,11 +393,6 @@ Here is an example manifest:
 -->
 如果你的应用实现了
 [gRPC 健康检查协议](https://github.com/grpc/grpc/blob/master/doc/health-checking.md)，
-kubelet 可以配置为使用该协议来执行应用存活性检查。
-你必须启用 `GRPCContainerProbe`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-才能配置依赖于 gRPC 的检查机制。
-
 这个例子展示了如何配置 Kubernetes 以将其用于应用的存活性检查。
 类似地，你可以配置就绪探针和启动探针。
 
@@ -422,10 +422,10 @@ those. For example: `myservice-liveness` (using `-` as a separator).
 
 {{< note >}}
 <!--
-Unlike HTTP and TCP probes, you cannot specify the health check port by name, and you
+Unlike HTTP or TCP probes, you cannot specify the health check port by name, and you
 cannot configure a custom hostname.
 -->
-与 HTTP 和 TCP 探针不同，gRPC 探测不能使用按名称指定端口，
+与 HTTP 或 TCP 探针不同，gRPC 探测不能按名称指定健康检查端口，
 也不能自定义主机名。
 {{< /note >}}
 
@@ -501,21 +501,20 @@ livenessProbe:
 <!--
 ## Protect slow starting containers with startup probes {#define-startup-probes}
 
-Sometimes, you have to deal with legacy applications that might require
-an additional startup time on their first initialization.
-In such cases, it can be tricky to set up liveness probe parameters without
-compromising the fast response to deadlocks that motivated such a probe.
-The trick is to set up a startup probe with the same command, HTTP or TCP
-check, with a `failureThreshold * periodSeconds` long enough to cover the
-worst case startup time.
+Sometimes, you have to deal with applications that require additional startup
+time on their first initialization. In such cases, it can be tricky to set up
+liveness probe parameters without compromising the fast response to deadlocks
+that motivated such a probe. The solution is to set up a startup probe with the
+same command, HTTP or TCP check, with a `failureThreshold * periodSeconds` long
+enough to cover the worst case startup time.
 
 So, the previous example would become:
 -->
 ## 使用启动探针保护慢启动容器 {#define-startup-probes}
 
 有时候，会有一些现有的应用在启动时需要较长的初始化时间。
-要这种情况下，若要不影响对死锁作出快速响应的探测，设置存活探测参数是要技巧的。
-技巧就是使用相同的命令来设置启动探测，针对 HTTP 或 TCP 检测，可以通过将
+在这种情况下，若要不影响对死锁作出快速响应的探测，设置存活探测参数是要技巧的。
+解决办法是使用相同的命令来设置启动探测，针对 HTTP 或 TCP 检测，可以通过将
 `failureThreshold * periodSeconds` 参数设置为足够长的时间来应对最糟糕情况下的启动时间。
 
 这样，前面的例子就变成了：
@@ -639,7 +638,7 @@ liveness and readiness checks:
 * `initialDelaySeconds`: Number of seconds after the container has started before startup,
   liveness or readiness probes are initiated. If a startup  probe is defined, liveness and
   readiness probe delays do not begin until the startup probe has succeeded. If the value of
-  `periodSeconds` is greater than `initialDelaySeconds` then the `initialDelaySeconds` would be
+  `periodSeconds` is greater than `initialDelaySeconds` then the `initialDelaySeconds` will be
   ignored. Defaults to 0 seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10 seconds.
   The minimum value is 1.
@@ -878,6 +877,28 @@ For example:
 -->
 例如：
 
+<!--
+```yaml
+spec:
+  terminationGracePeriodSeconds: 3600  # pod-level
+  containers:
+  - name: test
+    image: ...
+
+    ports:
+    - name: liveness-port
+      containerPort: 8080
+
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: liveness-port
+      failureThreshold: 1
+      periodSeconds: 60
+      # Override pod-level terminationGracePeriodSeconds #
+      terminationGracePeriodSeconds: 60
+```
+-->
 ```yaml
 spec:
   terminationGracePeriodSeconds: 3600  # Pod 级别设置
