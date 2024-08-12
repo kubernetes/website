@@ -54,10 +54,13 @@ Run on every node, maintaining running pods and providing the Kubernetes runtime
 : Maintains network rules on nodes to implement {{< glossary_tooltip text="Services" term_id="service" >}}
 
 [Container runtime](/docs/concepts/architecture/#container-runtime)
-: Software responsible for running containers. Read [Container Runtimes](/docs/setup/production-environment/container-runtimes/) to learn more. {{% thirdparty-content single="true" %}}
+: Software responsible for running containers. Read [Container Runtimes](/docs/setup/production-environment/container-runtimes/) to learn more.
+
+
+{{% thirdparty-content single="true" %}}
 
 Your cluster may require additional software on each node; for example, you might also
-run systemd on a Linux node to supervise local components.
+run [systemd](https://systemd.io/) on a Linux node to supervise local components.
 
 ## Addons
 
