@@ -18,7 +18,7 @@ weight: 350
 
 ## {{% heading "prerequisites" %}}
 
-既存のクラスターが必要です。このページではKubernetes {{< skew currentVersionAddMinor -1 >}} から Kubernetes {{< skew currentVersion >}} へのアップグレードについて説明しています。現在のクラスターがKubernetes {{< skew currentVersionAddMinor -1 >}} を実行していない場合は、アップグレードしようとしているKubernetesバージョンのドキュメントを確認してください。
+既存のクラスターが必要です。このページではKubernetes {{< skew currentVersionAddMinor -1 >}}からKubernetes {{< skew currentVersion >}}へのアップグレードについて説明しています。現在のクラスターがKubernetes {{< skew currentVersionAddMinor -1 >}}を実行していない場合は、アップグレードしようとしているKubernetesバージョンのドキュメントを確認してください。
 
 ## アップグレード方法
 
