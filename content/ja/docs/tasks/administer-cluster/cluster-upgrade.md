@@ -42,7 +42,7 @@ weight: 350
 - kube-scheduler
 - クラウドコントローラーマネージャー(使用している場合)
 
-この時点で、[最新バージョンの `kubectl` をインストール](/docs/tasks/tools/)してください。
+この時点で、[最新バージョンの`kubectl`をインストール](/docs/tasks/tools/)してください。
 
 クラスター内の各ノードに対して、そのノードを[ドレイン](/docs/tasks/administer-cluster/safely-drain-node/)し、{{< skew currentVersion >}} kubeletを使用する新しいノードと置き換えるか、そのノードのkubeletをアップグレードして再稼働させます。
 
