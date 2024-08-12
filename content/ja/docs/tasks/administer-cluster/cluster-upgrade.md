@@ -74,7 +74,7 @@ kubeletをアップグレードする前にノードをドレインすること�
 kubectl convert -f pod.yaml --output-version v1
 ```
 
-`kubectl` ツールは `pod.yaml` の内容を、`kind` がPod（変更なし）で、`apiVersion` が改訂されたマニフェストに置き換えます。
+`kubectl`ツールは`pod.yaml`の内容を、`kind`がPod(変更なし)で、`apiVersion`が改訂されたマニフェストに置き換えます。
 
 ### デバイスプラグイン
 
