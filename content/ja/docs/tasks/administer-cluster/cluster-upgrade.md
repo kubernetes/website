@@ -24,7 +24,7 @@ weight: 350
 
 ### kubeadm {#upgrade-kubeadm}
 
-クラスターが `kubeadm` ツールを使用してデプロイされた場合の詳細なアップグレード方法は、[アップグレードkubeadmクラスター](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)を参照してください。
+クラスターが`kubeadm`ツールを使用してデプロイされた場合の詳細なアップグレード方法は、[アップグレードkubeadmクラスター](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)を参照してください。
 
 クラスターをアップグレードしたら、忘れずに[最新バージョンの `kubectl` をインストール](/docs/tasks/tools/)してください。
 
