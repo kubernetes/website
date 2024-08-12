@@ -166,7 +166,7 @@ Kubernetesでのサービスネットワークの実装は、サービスネッ�
 
 CiliumはeBPFテクノロジーに基づいており、Linuxネットワークスタックを効率的にオフロードできるため、iptablesベースの従来の方法と比較してパフォーマンスとセキュリティが向上します。
 
-実際には、CiliumとKube-OVNを簡単に[統合]((https://kube-ovn.readthedocs.io/zh-cn/stable/en/advance/with-cilium/))することが可能です。
+実際には、CiliumとKube-OVNを簡単に[統合](https://kube-ovn.readthedocs.io/zh-cn/stable/en/advance/with-cilium/)することが可能です。
 これにより、仮想マシン向けにシームレスでマルチテナントのネットワーキングを提供する統合ソリューションを実現することができます。
 また、高度なネットワークポリシーと統合されたサービスネットワーク機能も提供されます。
 
