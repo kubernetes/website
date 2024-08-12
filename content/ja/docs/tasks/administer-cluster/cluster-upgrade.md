@@ -68,7 +68,7 @@ kubeletをアップグレードする前にノードをドレインすること�
 
 新しいKubernetesバージョンへのアップグレードにより、新しいAPIが提供されることがあります。
 
-異なるAPIバージョン間でマニフェストを変換するために、`kubectl convert` コマンドを使用できます。例えば:
+異なるAPIバージョン間でマニフェストを変換するために`kubectl convert`コマンドを使用できます。例えば:
 
 ```shell
 kubectl convert -f pod.yaml --output-version v1
