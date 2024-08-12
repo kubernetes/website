@@ -72,6 +72,35 @@ violated from the PodSecurity enforcement.
 See [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
 for more information.
 
+## apiserver.latency.k8s.io/transform-response-object
+
+Example: `apiserver.latency.k8s.io/transform-response-object: "1.386µs"`
+
+This annotations shows the latency incurred in transforming the response object(s)
+returned from the underlying storage layer. This includes transforming the object to
+user's desired form (ie. as Table), and also setting appropriate API level fields.
+
+Please note that this does not include the latency incurred in serialization (json or protobuf) of the
+response object or writing of it to the http ResponseWriter object. They are covered by annotations
+mentioned later in this page.
+
+## apiserver.latency.k8s.io/serialize-response-object
+
+Example: `apiserver.latency.k8s.io/serialize-response-object: "23.613µs"`
+
+This annotation indicates the measure of latency incurred in serialization (json or protobuf)
+of the response object. The latency measure shown here includes the time spent writing the
+serialized raw bytes to the http ResponseWriter object as serialization and writing of the serialized
+raw bytes to the associated http ResponseWriter object are interleaved.
+
+## apiserver.latency.k8s.io/response-write
+
+Example: `apiserver.latency.k8s.io/response-write: "749ns"`
+
+This annotation indicates the measure of latency incurred in writing the serialized raw bytes
+to the http ResponseWriter object (via the Write method) associated with the request.
+As the Write method can be invoked multiple times , the latency includes the sum of duration from each call.
+
 ## authorization.k8s.io/decision
 
 Example: `authorization.k8s.io/decision: "forbid"`
