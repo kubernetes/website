@@ -36,7 +36,7 @@ weight: 350
 
 次の順序でコントロールプレーンを手動で更新する必要があります:
 
-- etcd (すべてのインスタンス)
+- etcd(すべてのインスタンス)
 - kube-apiserver (すべてのコントロールプレーンホスト)
 - kube-controller-manager
 - kube-scheduler
