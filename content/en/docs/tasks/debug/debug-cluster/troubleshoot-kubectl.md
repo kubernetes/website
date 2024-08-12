@@ -112,6 +112,7 @@ Verify the status of the load balancer (if used) to ensure it is healthy and for
 traffic to the API server.
 
 ## TLS problems
+* Additional tools required - `base64` and `openssl` version 3.0 or above.
 
 The Kubernetes API server only serves HTTPS requests by default. In that case TLS problems
 may occur due to various reasons, such as certificate expiry or chain of trust validity.
@@ -123,23 +124,23 @@ directory. The `certificate-authority` attribute contains the CA certificate and
 Verify the expiry of these certificates:
 
 ```shell
-openssl x509 -noout -dates -in $(kubectl config view --minify --output 'jsonpath={.clusters[0].cluster.certificate-authority}')
+kubectl config view --flatten --output 'jsonpath={.clusters[0].cluster.certificate-authority-data}' | base64 -d | openssl x509 -noout -dates
 ```
 
 output:
 ```console
-notBefore=Sep  2 08:34:12 2023 GMT
-notAfter=Aug 31 08:34:12 2033 GMT
+notBefore=Feb 13 05:57:47 2024 GMT
+notAfter=Feb 10 06:02:47 2034 GMT
 ```
 
 ```shell
-openssl x509 -noout -dates -in $(kubectl config view --minify --output 'jsonpath={.users[0].user.client-certificate}')
+kubectl config view --flatten --output 'jsonpath={.users[0].user.client-certificate-data}'| base64 -d | openssl x509 -noout -dates
 ```
 
 output:
 ```console
-notBefore=Sep  2 08:34:12 2023 GMT
-notAfter=Sep  2 08:34:12 2026 GMT
+notBefore=Feb 13 05:57:47 2024 GMT
+notAfter=Feb 12 06:02:50 2025 GMT
 ```
 
 ## Verify kubectl helpers
