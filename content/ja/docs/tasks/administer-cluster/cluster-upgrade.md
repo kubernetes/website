@@ -40,7 +40,7 @@ weight: 350
 - kube-apiserver(すべてのコントロールプレーンホスト)
 - kube-controller-manager
 - kube-scheduler
-- クラウドコントローラーマネージャー（使用している場合）
+- クラウドコントローラーマネージャー(使用している場合)
 
 この時点で、[最新バージョンの `kubectl` をインストール](/docs/tasks/tools/)してください。
 
