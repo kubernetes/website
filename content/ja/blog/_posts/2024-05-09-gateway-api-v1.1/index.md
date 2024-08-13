@@ -91,7 +91,7 @@ ParentReferenceにportフィールドが追加されました。
 例えば、HTTPRouteをGatewayの特定のリスナーに関連付ける際、リスナー名ではなくリスナーのポートを指定できるようになりました。
 これにより、一つまたは複数の特定のリスナーに関連付けることができます。
 
-詳細については、[Gatewayへの関連付け](リンク先のURLを挿入してください)を参照してください。
+詳細については、[Gatewayへの関連付け](https://gateway-api.sigs.k8s.io/api-types/httproute/#attaching-to-gateways)を参照してください。
 
 #### [適合性プロファイルとレポート](https://gateway-api.sigs.k8s.io/concepts/conformance/#conformance-profiles)
 
