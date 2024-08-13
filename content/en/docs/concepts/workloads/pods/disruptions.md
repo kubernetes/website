@@ -233,15 +233,10 @@ can happen, according to:
 
 ## Pod disruption conditions {#pod-disruption-conditions}
 
-{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+{{< feature-state feature_gate_name="PodDisruptionConditions" >}}
 
-{{< note >}}
-In order to use this behavior, you must have the `PodDisruptionConditions`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled in your cluster.
-{{< /note >}}
-
-When enabled, a dedicated Pod `DisruptionTarget` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions) is added to indicate
+A dedicated Pod `DisruptionTarget` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
+is added to indicate
 that the Pod is about to be deleted due to a {{<glossary_tooltip term_id="disruption" text="disruption">}}.
 The `reason` field of the condition additionally
 indicates one of the following reasons for the Pod termination:
@@ -259,7 +254,9 @@ indicates one of the following reasons for the Pod termination:
 : Pod, that is bound to a no longer existing Node, is due to be deleted by [Pod garbage collection](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection).
 
 `TerminationByKubelet`
-: Pod has been terminated by the kubelet, because of either {{<glossary_tooltip term_id="node-pressure-eviction" text="node pressure eviction">}} or the [graceful node shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown).
+: Pod has been terminated by the kubelet, because of either {{<glossary_tooltip term_id="node-pressure-eviction" text="node pressure eviction">}},
+  the [graceful node shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown),
+  or preemption for [system critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
 
 In all other disruption scenarios, like eviction due to exceeding
 [Pod container limits](/docs/concepts/configuration/manage-resources-containers/),
@@ -274,8 +271,7 @@ deleted. In such a situation, after some time, the
 Pod disruption condition will be cleared.
 {{< /note >}}
 
-When the `PodDisruptionConditions` feature gate is enabled,
-along with cleaning up the pods, the Pod garbage collector (PodGC) will also mark them as failed if they are in a non-terminal
+Along with cleaning up the pods, the Pod garbage collector (PodGC) will also mark them as failed if they are in a non-terminal
 phase (see also [Pod garbage collection](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)).
 
 When using a Job (or CronJob), you may want to use these Pod disruption conditions as part of your Job's

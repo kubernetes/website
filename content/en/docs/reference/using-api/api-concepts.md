@@ -1168,6 +1168,11 @@ Any
 Most recent
 : Return data at the most recent resource version. The returned data must be
   consistent (in detail: served from etcd via a quorum read).
+  For etcd v3.4.31+ and v3.5.13+ Kubernetes {{< skew currentVersion >}} serves “most recent” reads from the _watch cache_:
+  an internal, in-memory store within the API server that caches and mirrors the state of data
+  persisted into etcd. Kubernetes requests progress notification to maintain cache consistency against
+  the etcd persistence layer. Kubernetes versions v1.28 through to v1.30 also supported this
+  feature, although as Alpha it was not recommended for production nor enabled by default until the v1.31 release.
 
 Not older than
 : Return data at least as new as the provided `resourceVersion`. The newest

@@ -144,8 +144,8 @@ install them selectively.
 {{< tab name="kube-proxy" include="generated/kubeadm_init_phase_addon_kube-proxy.md" />}}
 {{< /tabs >}}
 
-For more details on each field in the `v1beta3` configuration you can navigate to our
-[API reference pages.](/docs/reference/config-api/kubeadm-config.v1beta3/)
+For more details on each field in the `v1beta4` configuration you can navigate to our
+[API reference pages.](/docs/reference/config-api/kubeadm-config.v1beta4/)
 
 ## {{% heading "whatsnext" %}}
 

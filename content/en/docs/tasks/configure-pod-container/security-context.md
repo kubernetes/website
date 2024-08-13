@@ -66,6 +66,8 @@ all processes within any containers of the Pod. If this field is omitted, the pr
 will be root(0). Any files created will also be owned by user 1000 and group 3000 when `runAsGroup` is specified.
 Since `fsGroup` field is specified, all processes of the container are also part of the supplementary group ID 2000.
 The owner for volume `/data/demo` and any files created in that volume will be Group ID 2000.
+Additionally, when the `supplementalGroups` field is specified, all processes of the container are also part of the
+specified groups. If this field is omitted, it means empty.
 
 Create the Pod:
 
@@ -142,18 +144,197 @@ id
 The output is similar to this:
 
 ```none
-uid=1000 gid=3000 groups=2000
+uid=1000 gid=3000 groups=2000,3000,4000
 ```
 
 From the output, you can see that `gid` is 3000 which is same as the `runAsGroup` field.
 If the `runAsGroup` was omitted, the `gid` would remain as 0 (root) and the process will
 be able to interact with files that are owned by the root(0) group and groups that have
-the required group permissions for the root (0) group.
+the required group permissions for the root (0) group. You can also see that `groups`
+contains the group IDs which are specified by `fsGroup` and `supplementalGroups`,
+in addition to `gid`.
 
 Exit your shell:
 
 ```shell
 exit
+```
+
+### Implicit group memberships defined in `/etc/group` in the container image
+
+By default, kubernetes merges group information from the Pod with information defined in `/etc/group` in the container image.
+
+{{% code_sample file="pods/security/security-context-5.yaml" %}}
+
+This Pod security context contains `runAsUser`, `runAsGroup` and `supplementalGroups`.
+However, you can see that the actual supplementary groups attached to the container process
+will include group IDs which come from `/etc/group` in the container image.
+
+Create the Pod:
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/security-context-5.yaml
+```
+
+Verify that the Pod's Container is running:
+
+```shell
+kubectl get pod security-context-demo
+```
+
+Get a shell to the running Container:
+
+```shell
+kubectl exec -it security-context-demo -- sh
+```
+
+Check the process identity:
+
+```shell
+$ id
+```
+
+The output is similar to this:
+
+```none
+uid=1000 gid=3000 groups=3000,4000,50000
+```
+
+You can see that `groups` includes group ID `50000`. This is because the user (`uid=1000`),
+which is defined in the image, belongs to the group (`gid=50000`), which is defined in `/etc/group`
+inside the container image.
+
+Check the `/etc/group` in the container image:
+
+```shell
+$ cat /etc/group
+```
+
+You can see that uid `1000` belongs to group `50000`.
+
+```none
+...
+user-defined-in-image:x:1000:
+group-defined-in-image:x:50000:user-defined-in-image
+```
+
+Exit your shell:
+
+```shell
+exit
+```
+
+{{<note>}}
+_Implicitly merged_ supplementary groups may cause security problems particularly when accessing
+the volumes (see [kubernetes/kubernetes#112879](https://issue.k8s.io/112879) for details).
+If you want to avoid this. Please see the below section.
+{{</note>}}
+
+## Configure fine-grained SupplementalGroups control for a Pod {#supplementalgroupspolicy}
+
+{{< feature-state feature_gate_name="SupplementalGroupsPolicy" >}}
+
+This feature can be enabled by setting the `SupplementalGroupsPolicy`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for kubelet and
+kube-apiserver, and setting the `.spec.securityContext.supplementalGroupsPolicy` field for a pod.
+
+The `supplementalGroupsPolicy` field defines the policy for calculating the
+supplementary groups for the container processes in a pod. There are two valid
+values for this field:
+
+* `Merge`: The group membership defined in `/etc/group` for the container's primary user will be merged.
+  This is the default policy if not specified.
+
+* `Strict`: Only group IDs in `fsGroup`, `supplementalGroups`, or `runAsGroup` fields 
+  are attached as the supplementary groups of the container processes.
+  This means no group membership from `/etc/group` for the container's primary user will be merged.
+
+When the feature is enabled, it also exposes the process identity attached to the first container process
+in `.status.containerStatuses[].user.linux` field. It would be useful for detecting if
+implicit group ID's are attached.
+
+{{% code_sample file="pods/security/security-context-6.yaml" %}}
+
+This pod manifest defines `supplementalGroupsPolicy=Strict`. You can see that no group memberships
+defined in `/etc/group` are merged to the supplementary groups for container processes.
+
+Create the Pod:
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/security-context-6.yaml
+```
+
+Verify that the Pod's Container is running:
+
+```shell
+kubectl get pod security-context-demo
+```
+
+Check the process identity:
+
+```shell
+kubectl exec -it security-context-demo -- id
+```
+
+The output is similar to this:
+
+```none
+uid=1000 gid=3000 groups=3000,4000
+```
+
+See the Pod's status:
+
+```shell
+kubectl get pod security-context-demo -o yaml
+```
+
+You can see that the `status.containerStatuses[].user.linux` field exposes the process identitiy
+attached to the first container process.
+
+```none
+...
+status:
+  containerStatuses:
+  - name: sec-ctx-demo
+    user:
+      linux:
+        gid: 3000
+        supplementalGroups:
+        - 3000
+        - 4000
+        uid: 1000
+...
+```
+
+{{<note>}}
+Please note that the values in the `status.containerStatuses[].user.linux` field is _the first attached_
+process identity to the first container process in the container. If the container has sufficient privilege
+to make system calls related to process identity
+(e.g. [`setuid(2)`](https://man7.org/linux/man-pages/man2/setuid.2.html),
+[`setgid(2)`](https://man7.org/linux/man-pages/man2/setgid.2.html) or
+[`setgroups(2)`](https://man7.org/linux/man-pages/man2/setgroups.2.html), etc.),
+the container process can change its identity. Thus, the _actual_ process identity will be dynamic.
+{{</note>}}
+
+### Implementations {#implementations-supplementalgroupspolicy}
+
+{{% thirdparty-content %}}
+
+The following container runtimes are known to support fine-grained SupplementalGroups control.
+
+CRI-level:
+- [containerd](https://containerd.io/), since v2.0
+- [CRI-O](https://cri-o.io/), since v1.31
+
+You can see if the feature is supported in the Node status.
+
+```yaml
+apiVersion: v1
+kind: Node
+...
+status:
+  features:
+    supplementalGroupsPolicy: true
 ```
 
 ## Configure volume permission and ownership change policy for Pods
@@ -418,6 +599,56 @@ securityContext:
     type: Localhost
     localhostProfile: my-profiles/profile-allow.json
 ```
+
+## Set the AppArmor Profile for a Container
+
+To set the AppArmor profile for a Container, include the `appArmorProfile` field
+in the `securityContext` section of your Container. The `appArmorProfile` field
+is a
+[AppArmorProfile](/docs/reference/generated/kubernetes-api/{{< param "version"
+>}}/#apparmorprofile-v1-core) object consisting of `type` and `localhostProfile`.
+Valid options for `type` include `RuntimeDefault`(default), `Unconfined`, and
+`Localhost`. `localhostProfile` must only be set if `type` is `Localhost`. It
+indicates the name of the pre-configured profile on the node. The profile needs
+to be loaded onto all nodes suitable for the Pod, since you don't know where the
+pod will be scheduled. 
+Approaches for setting up custom profiles are discussed in
+[Setting up nodes with profiles](/docs/tutorials/security/apparmor/#setting-up-nodes-with-profiles).
+
+Note: If `containers[*].securityContext.appArmorProfile.type` is explicitly set 
+to `RuntimeDefault`, then the Pod will not be admitted if AppArmor is not
+enabled on the Node. However if `containers[*].securityContext.appArmorProfile.type`
+is not specified, then the default (which is also `RuntimeDefault`) will only
+be applied if the node has AppArmor enabled. If the node has AppArmor disabled
+the Pod will be admitted but the Container will not be restricted by the 
+`RuntimeDefault` profile.
+
+Here is an example that sets the AppArmor profile to the node's container runtime
+default profile:
+
+```yaml
+...
+containers:
+- name: container-1
+  securityContext:
+    appArmorProfile:
+      type: RuntimeDefault
+```
+
+Here is an example that sets the AppArmor profile to a pre-configured profile
+named `k8s-apparmor-example-deny-write`:
+
+```yaml
+...
+containers:
+- name: container-1
+  securityContext:
+    appArmorProfile:
+      type: Localhost
+      localhostProfile: k8s-apparmor-example-deny-write
+```
+
+For more details please see, [Restrict a Container's Access to Resources with AppArmor](/docs/tutorials/security/apparmor/).
 
 ## Assign SELinux labels to a Container
 

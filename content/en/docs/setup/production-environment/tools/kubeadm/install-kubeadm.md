@@ -296,10 +296,10 @@ DOWNLOAD_DIR="/usr/local/bin"
 sudo mkdir -p "$DOWNLOAD_DIR"
 ```
 
-Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)):
+Optionally install crictl (required for interaction with the Container Runtime Interface (CRI), optional for kubeadm):
 
 ```bash
-CRICTL_VERSION="v1.30.0"
+CRICTL_VERSION="v1.31.0"
 ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```

@@ -124,26 +124,14 @@ Azure File CSI driver does not support using same volume with different fsgroups
 To disable the `azureFile` storage plugin from being loaded by the controller manager
 and the kubelet, set the `InTreePluginAzureFileUnregister` flag to `true`.
 
-### cephfs (deprecated) {#cephfs}
-{{< feature-state for_k8s_version="v1.28" state="deprecated" >}}
+### cephfs (removed) {#cephfs}
 
-{{< note >}}
-The Kubernetes project suggests that you use the [CephFS CSI](https://github.com/ceph/ceph-csi) third party
-storage driver instead.
-{{< /note >}}
+<!-- maintenance note: OK to remove all mention of cephfs once the v1.30 release of
+Kubernetes has gone out of support -->
 
-A `cephfs` volume allows an existing CephFS volume to be
-mounted into your Pod. Unlike `emptyDir`, which is erased when a pod is
-removed, the contents of a `cephfs` volume are preserved and the volume is merely
-unmounted. This means that a `cephfs` volume can be pre-populated with data, and
-that data can be shared between pods. The `cephfs` volume can be mounted by multiple
-writers simultaneously.
+Kubernetes {{< skew currentVersion >}} does not include a `cephfs` volume type.
 
-{{< note >}}
-You must have your own Ceph server running with the share exported before you can use it.
-{{< /note >}}
-
-See the [CephFS example](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/) for more details.
+The `cephfs` in-tree storage driver was deprecated in the Kubernetes v1.28 release and then removed entirely in the v1.31 release.
 
 ### cinder (deprecated) {#cinder}
 
@@ -555,6 +543,71 @@ spec:
       type: FileOrCreate
 ```
 
+### image
+
+{{< feature-state feature_gate_name="ImageVolume" >}}
+
+An `image` volume source represents an OCI object (a container image or
+artifact) which is available on the kubelet's host machine.
+
+One example to use the `image` volume source is:
+
+{{% code_sample file="pods/image-volumes.yaml" %}}
+
+The volume is resolved at pod startup depending on which `pullPolicy` value is
+provided:
+
+`Always`
+: the kubelet always attempts to pull the reference. If the pull fails, the kubelet sets the Pod to `Failed`.
+
+`Never`
+: the kubelet never pulls the reference and only uses a local image or artifact. The Pod becomes `Failed` if any layers of the image aren't already present locally, or if the manifest for that image isn't already cached.
+
+`IfNotPresent`
+: the kubelet pulls if the reference isn't already present on disk. The Pod becomes `Failed` if the reference isn't present and the pull fails.
+
+The volume gets re-resolved if the pod gets deleted and recreated, which means
+that new remote content will become available on pod recreation. A failure to
+resolve or pull the image during pod startup will block containers from starting
+and may add significant latency. Failures will be retried using normal volume
+backoff and will be reported on the pod reason and message.
+
+The types of objects that may be mounted by this volume are defined by the
+container runtime implementation on a host machine and at minimum must include
+all valid types supported by the container image field. The OCI object gets
+mounted in a single directory (`spec.containers[*].volumeMounts.mountPath`) by
+will be mounted read-only. On Linux, the container runtime typically also mounts the 
+volume with file execution blocked (`noexec`).
+
+Beside that:
+- Sub path mounts for containers are not supported
+  (`spec.containers[*].volumeMounts.subpath`).
+- The field `spec.securityContext.fsGroupChangePolicy` has no effect on this
+  volume type.
+- The [`AlwaysPullImages` Admission Controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
+  does also work for this volume source like for container images.
+
+The following fields are available for the `image` type:
+
+`reference`
+: Artifact reference to be used. For example, you could specify
+`registry.k8s.io/conformance:v{{< skew currentPatchVersion >}}` to load the
+files from the Kubernetes conformance test image. Behaves in the same way as
+`pod.spec.containers[*].image`. Pull secrets will be assembled in the same way
+as for the container image by looking up node credentials, service account image
+pull secrets, and pod spec image pull secrets. This field is optional to allow
+higher level config management to default or override container images in
+workload controllers like Deployments and StatefulSets.
+[More info about container images](/docs/concepts/containers/images)
+
+`pullPolicy`
+: Policy for pulling OCI objects. Possible values are: `Always`, `Never` or
+`IfNotPresent`. Defaults to `Always` if `:latest` tag is specified, or
+`IfNotPresent` otherwise.
+
+See the [_Use an Image Volume With a Pod_](/docs/tasks/configure-pod-container/image-volumes)
+example for more details on how to use the volume source.
+
 ### iscsi
 
 An `iscsi` volume allows an existing iSCSI (SCSI over IP) volume to be mounted
@@ -741,79 +794,34 @@ For more details, see the [Portworx volume](https://github.com/kubernetes/exampl
 #### Portworx CSI migration
 {{< feature-state for_k8s_version="v1.25" state="beta" >}}
 
-The `CSIMigration` feature for Portworx has been added but disabled by default in Kubernetes 1.23 since it's in alpha state.
-It has been beta now since v1.25 but it is still turned off by default.
+By default, Kubernetes {{% skew currentVersion %}} attempts to migrate legacy
+Portworx volumes to use CSI. (CSI migration for Portworx has been available since
+Kubernetes v1.23, but was only turned on by default since the v1.31 release).
+If you want to disable automatic migration, you can set the `CSIMigrationPortworx`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+to `false`; you need to make that change for the kube-controller-manager **and** on
+every relevant kubelet.
+
 It redirects all plugin operations from the existing in-tree plugin to the
 `pxd.portworx.com` Container Storage Interface (CSI) Driver.
 [Portworx CSI Driver](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi)
 must be installed on the cluster.
-To enable the feature, set `CSIMigrationPortworx=true` in kube-controller-manager and kubelet.
 
 ### projected
 
 A projected volume maps several existing volume sources into the same
 directory. For more details, see [projected volumes](/docs/concepts/storage/projected-volumes/).
 
-### rbd
-{{< feature-state for_k8s_version="v1.28" state="deprecated" >}}
+### rbd (removed) {#rbd}
 
-{{< note >}}
-The Kubernetes project suggests that you use the [Ceph CSI](https://github.com/ceph/ceph-csi)
-third party storage driver instead, in RBD mode.
-{{< /note >}}
+<!-- maintenance note: OK to remove all mention of rbd once the v1.30 release of
+Kubernetes has gone out of support -->
 
-An `rbd` volume allows a
-[Rados Block Device](https://docs.ceph.com/en/latest/rbd/) (RBD) volume to mount
-into your Pod. Unlike `emptyDir`, which is erased when a pod is removed, the
-contents of an `rbd` volume are preserved and the volume is unmounted. This
-means that a RBD volume can be pre-populated with data, and that data can be
-shared between pods.
+Kubernetes {{< skew currentVersion >}} does not include a `rbd` volume type.
 
-{{< note >}}
-You must have a Ceph installation running before you can use RBD.
-{{< /note >}}
+The [Rados Block Device](https://docs.ceph.com/en/latest/rbd/) (RBD) in-tree storage driver and its csi migration support were deprecated in the Kubernetes v1.28 release
+and then removed entirely in the v1.31 release.
 
-A feature of RBD is that it can be mounted as read-only by multiple consumers
-simultaneously. This means that you can pre-populate a volume with your dataset
-and then serve it in parallel from as many pods as you need. Unfortunately,
-RBD volumes can only be mounted by a single consumer in read-write mode.
-Simultaneous writers are not allowed.
-
-See the [RBD example](https://github.com/kubernetes/examples/tree/master/volumes/rbd)
-for more details.
-
-#### RBD CSI migration {#rbd-csi-migration}
-
-{{< feature-state for_k8s_version="v1.28" state="deprecated" >}}
-
-The `CSIMigration` feature for `RBD`, when enabled, redirects all plugin
-operations from the existing in-tree plugin to the `rbd.csi.ceph.com` {{<
-glossary_tooltip text="CSI" term_id="csi" >}} driver. In order to use this
-feature, the
-[Ceph CSI driver](https://github.com/ceph/ceph-csi)
-must be installed on the cluster and the `CSIMigrationRBD`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-must be enabled. (Note that the `csiMigrationRBD` flag has been removed and
-replaced with `CSIMigrationRBD` in release v1.24)
-
-{{< note >}}
-
-As a Kubernetes cluster operator that administers storage, here are the
-prerequisites that you must complete before you attempt migration to the
-RBD CSI driver:
-
-* You must install the Ceph CSI driver (`rbd.csi.ceph.com`), v3.5.0 or above,
-  into your Kubernetes cluster.
-* considering the `clusterID` field is a required parameter for CSI driver for
-  its operations, but in-tree StorageClass has `monitors` field as a required
-  parameter, a Kubernetes storage admin has to create a clusterID based on the
-  monitors hash ( ex:`#echo -n
-  '<monitors_string>' | md5sum`) in the CSI config map and keep the monitors
-  under this clusterID configuration.
-* Also, if the value of `adminId` in the in-tree Storageclass is different from
- `admin`, the `adminSecretName` mentioned in the in-tree Storageclass has to be
-  patched with the base64 value of the `adminId` parameter value, otherwise this
-  step can be skipped. {{< /note >}}
 
 ### secret
 
@@ -1067,12 +1075,12 @@ persistent volume:
   secret is required. If the object contains more than one secret, all
   secrets are passed.  When you have configured secret data for node-initiated
   volume expansion, the kubelet passes that data via the `NodeExpandVolume()`
-  call to the CSI driver. In order to use the `nodeExpandSecretRef` field, your
-  cluster should be running Kubernetes version 1.25 or later.
-* If you are running Kubernetes Version 1.25 or 1.26, you must enable
-  the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  call to the CSI driver. All supported versions of Kubernetes offer the
+  `nodeExpandSecretRef` field, and have it available by default. Kubernetes releases
+  prior to v1.25 did not include this support.
+* Enable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates-removed/)
   named `CSINodeExpandSecret` for each kube-apiserver and for the kubelet on every
-  node. In Kubernetes version 1.27 this feature has been enabled by default
+  node. Since Kubernetes version 1.27 this feature has been enabled by default
   and no explicit enablement of the feature gate is required.
   You must also be using a CSI driver that supports or requires secret data during
   node-initiated storage resize operations.
