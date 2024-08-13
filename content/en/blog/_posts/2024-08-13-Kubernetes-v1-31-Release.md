@@ -38,7 +38,7 @@ Kubernetes v1.31's Elli is all about celebrating this wonderful spirit! Here's t
 
 _This is a selection of some of the improvements that are now stable following the v1.31 release._
 
-### AppAprmor support is now stable
+### AppArmor support is now stable
 
 Kubernetes support for AppArmor is now GA. Protect your containers using AppArmor by setting the `appArmorProfile.type` field in the container's `securityContext`. 
 Note that before Kubernetes v1.30, AppArmor was controlled via annotations; starting in v1.30 it is controlled using fields. 
