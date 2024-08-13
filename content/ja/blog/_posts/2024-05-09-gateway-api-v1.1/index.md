@@ -107,7 +107,7 @@ Gatewayの各リスナーでクライアント証明書の検証が設定でき�
 これは、`tls`内に新しく追加された`frontendValidation`フィールドによって実現されています。
 このフィールドでは、クライアントが提示する証明書を検証するための信頼アンカーとして使用できるCA証明書のリストを設定できます。
 
-以下の例は、ConfigMapの`foo-example-com-ca-cert`に保存されているCA証明書を使用して、Gatewayリスナーの`foo-https`に接続するクライアントの証明書を検証する方法をしめしています。
+以下の例は、ConfigMapの`foo-example-com-ca-cert`に保存されているCA証明書を使用して、Gatewayリスナーの`foo-https`に接続するクライアントの証明書を検証する方法を示しています。
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
