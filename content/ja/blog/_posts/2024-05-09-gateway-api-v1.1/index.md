@@ -44,7 +44,7 @@ translator: >
 
 #### [サービスメッシュのサポート](https://gateway-api.sigs.k8s.io/mesh/)
 
-Gateway APIのサービスメッシュサポートにより、サービスメッシュユーザーは同じAPIを使用してIngressトラフィックとメッシュトラフィックを管理できるようになりました。
+Gateway APIのサービスメッシュサポートにより、サービスメッシュユーザーは同じAPIを使用してIngressトラフィックとメッシュトラフィックを管理することが可能になります。
 これにより、同じポリシーとルーティングインターフェースを再利用できます。
 Gateway API v1.1では、HTTPRouteなどのルートがServiceを`parentRef`として持つことができるようになり、特定のサービスへのトラフィックの動作を制御できます。
 詳細については、[Gateway APIのサービスメッシュドキュメント](https://gateway-api.sigs.k8s.io/mesh/)をお読みいただくか、[Gateway APIの実装リスト](https://gateway-api.sigs.k8s.io/implementations/#service-mesh-implementation-status)をご覧ください。
