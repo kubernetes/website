@@ -106,7 +106,7 @@ many nodes, consider the following:
   as you scale out your cluster.
 * Many addons scale horizontally - you add capacity by running more pods - but with
   a very large cluster you may also need to raise CPU or memory limits slightly.
-  The VerticalPodAutoscaler can run in _recommender_ mode to provide suggested
+  The [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) can run in _recommender_ mode to provide suggested
   figures for requests and limits.
 * Some addons run as one copy per node, controlled by a {{< glossary_tooltip text="DaemonSet"
   term_id="daemonset" >}}: for example, a node-level log aggregator. Similar to
