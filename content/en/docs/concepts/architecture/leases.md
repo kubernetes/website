@@ -34,6 +34,10 @@ This is used by control plane components like `kube-controller-manager` and `kub
 HA configurations, where only one instance of the component should be actively running while the other
 instances are on stand-by.
 
+Read [coordinated leader election](/docs/concepts/cluster-administration/coordinated-leader-election)
+to learn about how Kubernetes builds on the Lease API to select which component instance
+acts as leader.
+
 ## API server identity
 
 {{< feature-state feature_gate_name="APIServerIdentity" >}}

@@ -668,8 +668,7 @@ Additionally, PodGC cleans up any Pods which satisfy any of the following condit
    [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service),
    when the `NodeOutOfServiceVolumeDetach` feature gate is enabled.
 
-When the `PodDisruptionConditions` feature gate is enabled, along with
-cleaning up the Pods, PodGC will also mark them as failed if they are in a non-terminal
+Along with cleaning up the Pods, PodGC will also mark them as failed if they are in a non-terminal
 phase. Also, PodGC adds a Pod disruption condition when cleaning up an orphan Pod.
 See [Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)
 for more details.

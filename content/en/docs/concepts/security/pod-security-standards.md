@@ -213,6 +213,7 @@ fail validation.
 					<li><code>container_t</code></li>
 					<li><code>container_init_t</code></li>
 					<li><code>container_kvm_t</code></li>
+					<li><code>container_engine_t</code> (since Kubernetes 1.31)</li>
 				</ul>
 				<hr />
 				<p><strong>Restricted Fields</strong></p>

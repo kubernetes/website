@@ -178,13 +178,11 @@ will also add a pod label with this index: `apps.kubernetes.io/pod-index`.
 
 ### Start ordinal
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state feature_gate_name="StatefulSetStartOrdinal" >}}
 
 `.spec.ordinals` is an optional field that allows you to configure the integer
-ordinals assigned to each Pod. It defaults to nil. You must enable the
-`StatefulSetStartOrdinal`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
-use this field. Once enabled, you can configure the following options:
+ordinals assigned to each Pod. It defaults to nil. Within the field, you can
+configure the following options:
 
 * `.spec.ordinals.start`: If the `.spec.ordinals.start` field is set, Pods will
   be assigned ordinals from `.spec.ordinals.start` up through
