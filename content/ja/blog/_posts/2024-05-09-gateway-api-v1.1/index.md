@@ -21,7 +21,8 @@ author: >
   and other review and release note contributors
 translator: >
   [Taisuke Okamoto](https://github.com/b1gb4by) ([IDC Frontier Inc.](https://www.idcf.jp/)),
-  [Daiki Hayakawa(bells17)](https://github.com/bells17) ([3-shake Inc.](https://3-shake.com/en/))
+  [Daiki Hayakawa(bells17)](https://github.com/bells17) ([3-shake Inc.](https://3-shake.com/en/)),
+  [Junya Okabe](https://github.com/Okabe-Junya) (University of Tsukuba)
 ---
 
 ![Gateway API logo](gateway-api-logo.svg)
