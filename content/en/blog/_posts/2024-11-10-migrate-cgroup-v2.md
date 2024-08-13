@@ -1,15 +1,20 @@
 ---
 layout: blog
-title: 'Why we should migrate to vgroup v2?'
+title: 'The Shift to cgroup v2 in Kubernetes: What You Need to Know'
 date: 2024-11-10
-slug: kubernetes-cgroup-v2-process
+slug: kubernetes-cgroup-v2-shift
 author: >
    Paco Xu (DaoCloud)
 ---
 
-Kubernetes v1.31 moves cgroup v1 Support into Maintenance Mode, and in v1.25, cgroup v2 graduated.
+`cgroups` (control groups) are a Linux kernel feature used for managing system resources.
+Kubernetes uses cgroups to allocate resources like CPU and memory to containers,
+ensuring that applications run smoothly without interfering with each other.
+With the release of Kubernetes v1.31, cgroup v1 has been moved into maintenance mode.
+For cgroup v2, it graduated in v1.25 2 years ago.
 
-Before talking about how to migrate, users needs to know why we should migrate and what's the benifits and lost.
+Top FAQs are why we should migrate, what's the benifits and lost,
+and what needs to be noticed when using cgroup v2.
 
 ## cgroup v1 problem, and solutions in cgroup v2
 
@@ -20,43 +25,70 @@ Cgroup v1 and cgroup official doc can be found in
 
 Let's talk from the known issue.
 
-### [active_file memory is not considered as available memory](/docs/concepts/scheduling-eviction/node-pressure-eviction/#active-file-memory-is-not-considered-as-available-memory)
+### active_file memory is not considered as available memory
 
-There is a known issue of page cache: [#43916](https://github.com/kubernetes/kubernetes/issues/43916).
+There is [a known issue](/docs/concepts/scheduling-eviction/node-pressure-eviction/#active-file-memory-is-not-considered-as-available-memory) of page cache: [#43916](https://github.com/kubernetes/kubernetes/issues/43916).
 
-- In cgroup v1, we have no native solutions. Workarounds are setting larger memory limit for Pods or using some external projects to drop cache or throttling memory allocating when memory is beyond a threshold.
-- In cgroup v2, we can use `memory.high` to throttle. 
+- In cgroup v1, we have no native solutions.
+  Workarounds are setting larger memory limit for Pods or using some external projects to drop cache or
+  throttling memory allocating when memory is beyond a threshold.
+- In cgroup v2, we can use `memory.high` to throttle.
 
-Support for Memory QoS was initially added in Kubernetes v1.22, and later some limitations around the formula for calculating memory.high were identified. These limitations are addressed in Kubernetes v1.27.
+Support for Memory QoS was initially added in Kubernetes v1.22, 
+and later some limitations around the formula for calculating `memory.high` were identified.
+These limitations are addressed in Kubernetes v1.27.
 
-However, until v1.31, the feature gate is still alpha due to another known issue that application pod may be hanging forever due to heavy memory reclaiming.
+However, until v1.31, the feature gate is still alpha due to another known issue
+that application pod may be hanging forever due to heavy memory reclaiming.
 
-### OOM handling
+### container aware OOM killer and better OOM handling strategies
 
-[TODO]
-As mentioned above, cgroup v2 `memory.high` can throttle the new memory allocation and cgroup can be aware of the OOM earsiler. Besides, PSI can also help to know memory load.
+In cgroup v2, one process of a multi-processes Pod could be killed by the OOM killer.
+In this case, Pod has to use [runit](https://github.com/void-linux/runit) or
+supervisord to manage multi processes lifecycle.
 
-[oomd](https://github.com/facebookincubator/oomd): A userspace out-of-memory killer.
+Cgroup v2 uses `cgroup.kill` file.
+Writing “1” to the file causes the cgroup and all descendant cgroups to be killed.
+This means that all processes located in the affected cgroup tree will be killed via SIGKILL.
+Pod may run multiple processes, and all processes can be killed simultaneously.
+
+As mentioned above, cgroup v2 `memory.high` can throttle the new memory allocation and
+cgroup can be aware of the OOM earsiler.
+Besides, PSI can also help to know memory load. [oomd](https://github.com/facebookincubator/oomd) is a good example
+using PSI to implement a userspace out-of-memory killer.
 
 ### rootless support
 
 In cgroup v1,  delegating cgroup v1 controllers to less privileged containers may be dangerous.
 
-Unlike cgroup v1, cgroup v2 officially supports delegation. Most Rootless Containers implementations rely on systemd for delegating v2 controllers to non-root users.
+Unlike cgroup v1, cgroup v2 officially supports delegation.
+Most Rootless Containers implementations rely on systemd for
+delegating v2 controllers to non-root users.
 
-User Namespace minimal kernel version is 6.5, according to [KEP-127](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/127-user-namespaces/README.md).
+User Namespace minimal kernel version is 6.5, according to
+[KEP-127](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/127-user-namespaces/README.md).
 
 ### What's more?
 
 1. eBPF stories:
    - In cgroup v1, the device access control are defined in the static configuration/.
    - Cgroup v2 device controller has no interface files and is implemented on top of cgroup BPF.
-2. PSI is planned in a future release [KEP-4205](https://github.com/kubernetes/enhancements/issues/4205), but pending due to runc 1.2.0 release which is in progress.
-3. monitoring tools support, like Cadvisor. Currently, cgroup v2 features are not fully-supported yet.
+   - Cilium will automatically mount cgroup v2 filesystem required to attach BPF cgroup programs
+     by default at the path /run/cilium/cgroupv2 .
+2. PSI is planned in a future release [KEP-4205](https://github.com/kubernetes/enhancements/issues/4205),
+   but pending due to runc 1.2.0 release delay.
+3. monitoring tools support, like [Cadvisor](https://github.com/google/cadvisor/).
+   Currently, cgroup v2 features are not fully-supported yet.
 
-## How to migrate?
+## Tips to use Cgroup V2
 
-### cgroup v2 requirements
+Note, this blog will only include the basic requirments and configurations in Kubernetes components.
+It will not include how to enable cgroup fs in OS distributions.
+For migration, you can refer to [migrating cgroup v2](/docs/concepts/architecture/cgroups/#migrating-cgroupv2)
+
+### requirements
+
+In Kubernetes 1.25, cgroup v2 graduated to GA. And, we have some requirements.
 
 - OS distribution enables cgroup v2
 - Linux Kernel version is 5.8 or later
@@ -65,9 +97,44 @@ User Namespace minimal kernel version is 6.5, according to [KEP-127](https://git
   - cri-o v1.20 and later
 - The kubelet and the container runtime are configured to use the systemd cgroup driver
 
-### troubleshooting
+### Use systemd as cgroup driver
 
-TBC
+[Configure the kubelet's cgroup driver to match the container runtime cgroup driver](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
+
+The [Container runtimes](/docs/setup/production-environment/container-runtimes)
+page explains that the `systemd` driver is recommended for kubeadm
+based setups instead of the kubelet's default `cgroupfs` driver,
+because kubeadm manages the kubelet as a systemd service.
+
+A minimal example of configuring the field explicitly:
+
+```YAML
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+cgroupDriver: systemd
+```
+
+In v1.31, [KEP-4033](https://github.com/kubernetes/enhancements/issues/4033) is beta to extend CRI API for the kubelet
+to discover the cgroup driver from the container runtime. This will help installer and kubelet to 
+
+### Troubleshooting Tools and Commands
+
+Tools and commands that you should know about cgroup:
+
+- `stat -fc %T /sys/fs/cgroup/`: Check if cgroup v2 is enabled which will return `cgroup2fs`
+- `systemctl list-units kube* --type=slice` or `--type=scope`: List kube related units that systemd currently has in memory.
+- `bpftool cgroup list /sys/fs/cgroup/*`: List all programs attached to the cgroup CGROUP.
+- `systemd-cgls /sys/fs/cgroup/*`: Recursively show control group contents.
+- `systemd-cgtop`: Show top control groups by their resource usage.
+- `tree -L 2 -d /sys/fs/cgroup/kubepods.slice`: Show Pods' related cgroup directories.
+
+How to check if a Pod CPU or memory limit is successfully applied to the cgroup file?
+
+- Kubernetes Pod Spec: check limits `spec.containers[*].resources.limits.{cpu,memory}` and requests `spec.containers[*].resources.requests.{cpu,memory}`
+- CRI: `cpu_period`, `cpu_quota`, `cpu_shares` for CPU and `memory_limit_in_bytes` for memory limit
+- OCI Spec: `memorry.limit`, `cpu.shares`, `cpu.quota`, `cpu.period`
+- Systemd Scope Unit: `CPUWeight`, `CPUQuotaPerSecUSec`, `CPUQuotaPeriodUSec`, `MemoryMax`
+- Cgroupfs value: `/sys/fs/cgroup/../cpu.weight`, `/sys/fs/cgroup/../cpu.max`, `/sys/fs/cgroup/../memory.max`
 
 ## Further reading
 
