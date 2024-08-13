@@ -284,7 +284,7 @@ Then run the following commands (adapted from <https://gist.github.com/tombigel/
 ```shell
 #!/bin/sh
 
-# 这些是原始的 gist 链接，立即链接到我的 gist
+# 这些是原始的 gist 链接，现在则会链接到我的 gist
 # curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxfiles.plist
 # curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxproc.plist
 

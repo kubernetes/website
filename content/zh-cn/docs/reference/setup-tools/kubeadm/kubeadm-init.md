@@ -341,12 +341,16 @@ as a learner and promoted to a voting member only after the etcd data are fully 
 `PublicKeysECDSA`
 : Can be used to create a cluster that uses ECDSA certificates instead of the default RSA algorithm.
 Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
-switch between the RSA and ECDSA algorithms on the fly or during upgrades.
+switch between the RSA and ECDSA algorithms on the fly or during upgrades. Kubernetes
+{{< skew currentVersion >}} has a bug where keys in generated kubeconfig files are set use RSA
+despite the feature gate being enabled.
 -->
 `PublicKeysECDSA`
 : 可用于创建集群时使用 ECDSA 证书而不是默认 RSA 算法。
   支持用 `kubeadm certs renew` 更新现有 ECDSA 证书，
   但你不能在集群运行期间或升级期间切换 RSA 和 ECDSA 算法。
+  Kubernetes {{< skew currentVersion >}} 有一个错误，尽管开启了特性门控， 
+  所生成的 kubeconfig 文件中的密钥仍使用 RSA 设置。
 
 <!--
 `RootlessControlPlane`

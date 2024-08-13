@@ -8,7 +8,7 @@ description: >-
 
 ## Metrics (v1.30)
 
-<!-- (auto-generated 2024 Apr 24) -->
+<!-- (auto-generated 2024 Jul 02) -->
 <!-- (auto-generated v1.30) -->
 This page details the metrics that different Kubernetes components export. You can query the metrics endpoint for these 
 components using an HTTP scrape, and fetch the current metrics data in Prometheus format.
@@ -52,6 +52,20 @@ Stable metrics observe strict API contracts and no labels can be added or remove
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">STABLE</span></li>
 	<li data-type="gauge"><label class="metric_detail">Type:</label> <span class="metric_type">Gauge</span></li>
 	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">component</span><span class="metric_label">group</span><span class="metric_label">resource</span><span class="metric_label">scope</span><span class="metric_label">subresource</span><span class="metric_label">verb</span><span class="metric_label">version</span></li></ul>
+	</div><div class="metric" data-stability="stable">
+	<div class="metric_name">apiserver_request_duration_seconds</div>
+	<div class="metric_help">Response latency distribution in seconds for each verb, dry run value, group, version, resource, subresource, scope and component.</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">STABLE</span></li>
+	<li data-type="histogram"><label class="metric_detail">Type:</label> <span class="metric_type">Histogram</span></li>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">component</span><span class="metric_label">dry_run</span><span class="metric_label">group</span><span class="metric_label">resource</span><span class="metric_label">scope</span><span class="metric_label">subresource</span><span class="metric_label">verb</span><span class="metric_label">version</span></li></ul>
+	</div><div class="metric" data-stability="stable">
+	<div class="metric_name">apiserver_request_total</div>
+	<div class="metric_help">Counter of apiserver requests broken out for each verb, dry run value, group, version, resource, scope, component, and HTTP response code.</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">STABLE</span></li>
+	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">code</span><span class="metric_label">component</span><span class="metric_label">dry_run</span><span class="metric_label">group</span><span class="metric_label">resource</span><span class="metric_label">scope</span><span class="metric_label">subresource</span><span class="metric_label">verb</span><span class="metric_label">version</span></li></ul>
 	</div><div class="metric" data-stability="stable">
 	<div class="metric_name">apiserver_requested_deprecated_apis</div>
 	<div class="metric_help">Gauge of deprecated APIs that have been requested, broken out by API group, version, resource, subresource, and removed_release.</div>
@@ -522,6 +536,20 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 	<li data-type="histogram"><label class="metric_detail">Type:</label> <span class="metric_type">Histogram</span></li>
 	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">jwt_issuer_hash</span><span class="metric_label">result</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
+	<div class="metric_name">apiserver_authorization_config_controller_automatic_reload_last_timestamp_seconds</div>
+	<div class="metric_help">Timestamp of the last automatic reload of authorization configuration split by status and apiserver identity.</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
+	<li data-type="gauge"><label class="metric_detail">Type:</label> <span class="metric_type">Gauge</span></li>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">apiserver_id_hash</span><span class="metric_label">status</span></li></ul>
+	</div><div class="metric" data-stability="alpha">
+	<div class="metric_name">apiserver_authorization_config_controller_automatic_reloads_total</div>
+	<div class="metric_help">Total number of automatic reloads of authorization configuration split by status and apiserver identity.</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
+	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">apiserver_id_hash</span><span class="metric_label">status</span></li></ul>
+	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">apiserver_authorization_decisions_total</div>
 	<div class="metric_help">Total number of terminal decisions made by an authorizer split by authorizer type, name, and decision.</div>
 	<ul>
@@ -725,12 +753,26 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
 	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">apiserver_id_hash</span></li><li class="metric_deprecated_version"><label class="metric_detail">Deprecated Versions:</label><span>1.30.0</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
+	<div class="metric_name">apiserver_encryption_config_controller_automatic_reload_last_timestamp_seconds</div>
+	<div class="metric_help">Timestamp of the last successful or failed automatic reload of encryption configuration split by apiserver identity.</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
+	<li data-type="gauge"><label class="metric_detail">Type:</label> <span class="metric_type">Gauge</span></li>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">apiserver_id_hash</span><span class="metric_label">status</span></li></ul>
+	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">apiserver_encryption_config_controller_automatic_reload_success_total</div>
 	<div class="metric_help">Total number of successful automatic reloads of encryption configuration split by apiserver identity.</div>
 	<ul>
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
 	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">apiserver_id_hash</span></li><li class="metric_deprecated_version"><label class="metric_detail">Deprecated Versions:</label><span>1.30.0</span></li></ul>
+	</div><div class="metric" data-stability="alpha">
+	<div class="metric_name">apiserver_encryption_config_controller_automatic_reloads_total</div>
+	<div class="metric_help">Total number of reload successes and failures of encryption configuration split by apiserver identity.</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
+	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">apiserver_id_hash</span><span class="metric_label">status</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">apiserver_envelope_encryption_dek_cache_fill_percent</div>
 	<div class="metric_help">Percent of the cache slots currently occupied by cached DEKs.</div>
@@ -1004,6 +1046,13 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
 	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">type</span></li></ul>
+	</div><div class="metric" data-stability="alpha">
+	<div class="metric_name">apiserver_nodeport_repair_reconcile_errors_total</div>
+	<div class="metric_help">Number of reconciliation failures on the nodeport repair reconcile loop</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
+	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
+	</ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">apiserver_request_aborts_total</div>
 	<div class="metric_help">Number of requests which apiserver aborted possibly due to a timeout, for each group, version, verb, resource, subresource and scope</div>
@@ -1704,6 +1753,20 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="gauge"><label class="metric_detail">Type:</label> <span class="metric_type">Gauge</span></li>
 	</ul>
+	</div><div class="metric" data-stability="alpha">
+	<div class="metric_name">kube_apiserver_nodeport_allocator_allocation_errors_total</div>
+	<div class="metric_help">Number of errors trying to allocate NodePort</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
+	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">scope</span></li></ul>
+	</div><div class="metric" data-stability="alpha">
+	<div class="metric_name">kube_apiserver_nodeport_allocator_allocation_total</div>
+	<div class="metric_help">Number of NodePort allocations</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
+	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">scope</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">kube_apiserver_nodeport_allocator_available_ports</div>
 	<div class="metric_help">Gauge measuring the number of available NodePorts for Services</div>
