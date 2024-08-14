@@ -358,7 +358,7 @@ Kubernetes v1.31リリースの詳細については、[リリースノート](h
 **カスタムスケジューラープラグイン開発者向けの必要なアクション**:
 プラグインからの拒否が、スケジュールされていないPod自体の更新によって解決される可能性がある場合、プラグインはPod/Updateイベントに対するQueueingHintを実装する必要があります。
 例えば`schedulable=false`ラベルを持つPodを拒否するカスタムプラグインを開発したとします。
-`schedulable=false`ラベルを持つPodは、`schedulable=false`ラベルが削除されればスケジュール可能になるため、このプラグインはPod/Updateイベントに対するQueueingHintを実装し、スケジュールされていないPodでそのようなラベルの変更が行われた場合にQueueを返すようにします。
+`schedulable=false`ラベルを持つPodは、`schedulable=false`ラベルが削除されるとスケジュール可能になります。このプラグインはPod/Updateイベントに対するQueueingHintを実装し、スケジュールされていないPodでそのようなラベルの変更が行われた場合にQueueを返すようにします。
 詳細については、プルリクエスト[#122234](https://github.com/kubernetes/kubernetes/pull/122234)をご覧ください。
 
 #### kubeletの`--keep-terminated-pod-volumes`コマンドラインフラグの削除
