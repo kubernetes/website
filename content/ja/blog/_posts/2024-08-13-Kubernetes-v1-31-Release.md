@@ -344,7 +344,7 @@ v1.31リリースでは、すべての非CSIボリューム制限スケジュー
 
 Kubernetes v1.31リリースの詳細については、[リリースノート](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md)をご確認ください。
 
-#### `SchedulerQueueingHints`が有効な場合、スケジューラはQueueingHintを使用するようになりました
+#### `SchedulerQueueingHints`が有効な場合、スケジューラーはQueueingHintを使用するようになりました
 
 スケジューラに、Pod/Updatedイベントに登録されたQueueingHintを使用して、以前スケジュール不可能だったPodの更新がそれらをスケジュール可能にしたかどうかを判断するサポートが追加されました。
 この新機能は、フィーチャーゲート`SchedulerQueueingHints`が有効な場合に動作します。
