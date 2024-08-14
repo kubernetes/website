@@ -173,7 +173,7 @@ kubeletのDRAサポートも更新され、kubeletとコントロールプレー
 DRAドライバコントローラによる割り当ては、現在「クラシックDRA」と呼ばれる方法でも引き続きサポートされています。
 
 Kubernetes v1.31では、クラシックDRAに`DRAControlPlaneController`という別のフィーチャーゲートが用意されており、これを明示的に有効にする必要があります。
-このコントロールプレーンコントローラを使用することで、DRAドライバは構造化パラメータではまだサポートされていない割り当てポリシーを実装できます。
+このコントロールプレーンコントローラーを使用することで、DRAドライバは構造化パラメータではまだサポートされていない割り当てポリシーを実装できます。
 
 この機能は、[SIG Node](https://github.com/kubernetes/community/tree/master/sig-node)が[KEP #3063](https://github.com/kubernetes/enhancements/issues/3063)の一環として開発されました。
 
