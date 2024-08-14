@@ -400,7 +400,7 @@ CNCF K8s DevStatsプロジェクトは、Kubernetesと様々なサブプロジ�
 * [Kubernetesに貢献している企業](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&from=1715032800000&to=1723586399000&var-period=d28&var-repogroup_name=Kubernetes&var-repo_name=kubernetes%2Fkubernetes)
 * [エコシステム全体への貢献](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&from=1715032800000&to=1723586399000&var-period=d28&var-repogroup_name=All&var-repo_name=kubernetes%2Fkubernetes)
 
-ここでいう貢献とは、コミットの作成、コードレビュー、コメント、イシューやPRの作成、PRのレビュー(ブログやドキュメントを含む)、またはイシューやPRへのコメントを指します。
+ここでいう貢献とは、コミットの作成、コードレビュー、コメント、IssueやPRの作成、PRのレビュー(ブログやドキュメントを含む)、またはIssueやPRへのコメントを指します。
 
 貢献に興味がある方は、[このページ](https://www.kubernetes.dev/docs/guide/#getting-started)を訪れて始めてください。
 
