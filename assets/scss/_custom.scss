@@ -626,6 +626,147 @@ body.td-home #deprecation-warning {
     margin-right: auto;
 }
 
+body.glossary {
+  main {
+    ul.glossary-terms > li {
+      list-style-type: none;
+      padding: 0.5em;
+      padding-bottom: calc(min(0.5em, 0.25em + 0.15vh ));
+      margin: 0;
+      margin-top: calc(min(1.0em, 0.25em + 0.15vh ));
+    }
+    ul.glossary-terms > li.hide {
+      display: none;
+    }
+    ul.glossary-terms > li:has(.term-anchor:target) {
+      border-left: 0.3em solid $blue;
+      background: rgba(#999999, 0.2);
+    }
+    #tag-container {
+      float: left;
+      max-width: calc(max(80%, 100em));
+      border-top: 1px solid #999999;
+      border-bottom: 1px solid #999999;
+      padding-top: 0.5em 0;
+      margin: 2em 0;
+      > p {
+        display: inline-block;
+        padding-top: 0.2em;
+      }
+      .hide {
+        display: none;
+      }
+      .tag-option {
+        border-radius: 0.33em;
+        padding: 0.5em;
+        padding-left: 0.6em;
+        padding-right: 0.75em;
+        margin: 0.75em;
+        margin-top: 0.1em;
+        float: left;
+        font-weight: bold;
+        font-size: 0.925em;
+      }
+      .tag-option:not(.canonical-tag):hover {
+        outline: 1.5px solid $blue;
+      }
+      .tag-description {
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0.2em;
+        padding-bottom: 0.8em;
+        text-align: center;
+      }
+      .canonical-tag {
+        color: white;
+        background-color: #999999;
+      }
+      .canonical-tag a {
+        color: inherit;
+        background: transparent;
+        text-decoration: none !important;
+      }
+      .active-tag {
+        color: $white;
+        background-color: $blue;
+      }
+      // darken on hover
+      .canonical-tag:hover {
+        background: darken(#999999, 15%)
+      }
+      .canonical-tag.active-tag:hover {
+        background: darken($blue, 15%)
+      }
+    }
+    .term-anchor:target + .term-name > span {
+      color: $blue;
+    }
+    .term-anchor:target {
+      visibility: initial;
+    }
+    .glossary-term-name {
+      font-weight: bold;
+      display: inline-block;
+      padding-left: 0.25em;
+      padding-right: 0.25em;
+    }
+    .glossary-aka {
+      display: inline-block;
+      padding-left: 0.25em;
+      padding-right: 0.25em;
+      padding-bottom: 0.25em;
+    }
+    #glossary-details-before {
+       margin-top: 3em;
+       font-style: italic;
+       clear: both;
+    }
+    .preview-text {
+      display: inline-block;
+      margin-bottom: 0.2em;
+    }
+    .preview-text + * {
+      margin-top: 0.2em;
+    }
+    .term-definition {
+       margin-left: calc(min(2em, 0.5em + 0.75vw));
+       .hide {
+          display: none;
+       }
+    }
+    .glossary-aka {
+      font-style: italic;
+    }
+    .preview-text p {
+      display: inline;
+    }
+    .permalink {
+      display: inline-block;
+      background-image: url(../images/link.png);
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 1em;
+      height: 1em;
+      padding-left: 0.1em;
+    }
+    .term-name:hover {
+      color: $blue;
+    }
+    .term-name:not(:hover) > .permalink {
+      visibility: hidden;
+    }
+    .term-anchor {
+      display: block;
+      position: relative;
+      top: -4rem; // adjust scrolling to target
+      visibility: hidden;
+    }
+    .invisible {
+      visibility: hidden;
+    }
+  }
+}
+
 #caseStudies body > #deprecation-warning, body.cid-casestudies > #deprecation-warning, body.cid-community > #deprecation-warning {
     display: inline-block;
     vertical-align: top;
