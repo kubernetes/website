@@ -223,7 +223,7 @@ CRDフィールドセレクター(これもv1.31でベータに移行)と組み�
 
 ここでは、GA(一般提供とも呼ばれる)に昇格したすべての機能を紹介します。新機能やアルファからベータへの昇格を含む完全な更新リストについては、リリースノートをご覧ください。
 
-このリリースでは、以下の11個の機能強化がGAに昇格しました：
+このリリースでは、以下の11個の機能強化がGAに昇格しました:
 
 * [PersistentVolume last phase transition time](https://github.com/kubernetes/enhancements/issues/3762)
 * [Metric cardinality enforcement](https://github.com/kubernetes/enhancements/issues/2305)
