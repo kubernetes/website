@@ -148,7 +148,7 @@ SIG Networkingは、サービスネットワーキングにおける最適なユ
 
 この機能の詳細については、[1.30リリースブログ](/blog/2024/04/17/kubernetes-v1-30-release/#traffic-distribution-for-services-sig-network-https-github-com-kubernetes-community-tree-master-sig-network)をお読みいただくか、[サービス](/docs/concepts/services-networking/service/#traffic-distribution)のドキュメントページをご覧ください。
 
-この機能は、[SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)が[KEP #4444](https://github.com/kubernetes/enhancements/issues/4444)の一環として開発されました。
+この機能は、[SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)が[KEP #4444](https://github.com/kubernetes/enhancements/issues/4444)の一環として開発しました。
 
 ### Kubernetes VolumeAttributesClassによるボリューム修正機能
 
