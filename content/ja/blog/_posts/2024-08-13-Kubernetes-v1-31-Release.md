@@ -136,7 +136,7 @@ NodeとPodのIP範囲は、それぞれインフラストラクチャやネッ�
 
 この機能の詳細については、[仮想IPとサービスプロキシ](/docs/reference/networking/virtual-ips/#ip-address-objects)のドキュメントページをご覧ください。
 
-この機能は、[SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)が[KEP #1880](https://github.com/kubernetes/enhancements/issues/1880)の一環として開発されました。
+この機能は、[SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)が[KEP #1880](https://github.com/kubernetes/enhancements/issues/1880)の一環として開発しました。
 
 ### サービスのトラフィック分散機能
 
