@@ -365,7 +365,7 @@ Kubernetes v1.31リリースの詳細については、[リリースノート](h
 
 2017年に非推奨となったkubeletのフラグ`--keep-terminated-pod-volumes`が、v1.31リリースの一部として削除されました。
 
-詳細については、プルリクエスト[#122082](https://github.com/kubernetes/kubernetes/pull/122082)をご覧ください。
+詳細については、Pull Request [#122082](https://github.com/kubernetes/kubernetes/pull/122082)をご覧ください。
 
 ## 入手方法
 
