@@ -288,7 +288,7 @@ v1.31では、`DisableNodeKubeProxyVersion`[フィーチャーゲート](/docs/r
 この変更により、Kubernetesは真にベンダー中立なプラットフォームに近づきます。
 
 クラウドプロバイダー統合の詳細については、[v1.29 クラウドプロバイダー統合機能のブログ記事](/ja/blog/2023/12/14/cloud-provider-integration-changes/)をお読みください。
-ツリー内コード削除に関する追加の背景については、([v1.29 非推奨化ブログ](/ja/blog/2023/11/16/kubernetes-1-29-upcoming-changes/#removal-of-in-tree-integrations-with-cloud-providers-kep-2395-https-kep-k8s-io-2395))をご確認ください。
+インツリーのコード削除に関する追加の背景については、([v1.29 非推奨化ブログ](/ja/blog/2023/11/16/kubernetes-1-29-upcoming-changes/#removal-of-in-tree-integrations-with-cloud-providers-kep-2395-https-kep-k8s-io-2395))をご確認ください。
 
 後者のブログには、v1.29以降のバージョンに移行する必要があるユーザーにとって有用な情報も含まれています。
 
