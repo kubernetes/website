@@ -395,7 +395,7 @@ CNCF K8s DevStatsプロジェクトは、Kubernetesと様々なサブプロジ�
 クラウドネイティブエコシステム全体では、379の企業から合計2268人の貢献者がいます。
 これは、前回のリリースサイクルと比較して、貢献者数が驚異の63%増加しました！
 
-このデータの出典：
+このデータの出典:
 
 * [Kubernetesに貢献している企業](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&from=1715032800000&to=1723586399000&var-period=d28&var-repogroup_name=Kubernetes&var-repo_name=kubernetes%2Fkubernetes)
 * [エコシステム全体への貢献](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&from=1715032800000&to=1723586399000&var-period=d28&var-repogroup_name=All&var-repo_name=kubernetes%2Fkubernetes)
