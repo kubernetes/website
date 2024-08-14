@@ -157,7 +157,7 @@ VolumeAttributesClassは、プロビジョニングされたIOのような動的
 これにより、プロバイダーがサポートしている場合、ワークロードはコストとパフォーマンスのバランスを取るために、オンラインでボリュームを垂直スケーリングできるようになります。
 この機能は、Kubernetes 1.29からアルファ版として提供されていました。
 
-この機能は、[SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage)が主導し、[KEP #3751](https://github.com/kubernetes/enhancements/issues/3751)の一環として開発されました。
+この機能は、[SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage)が主導し、[KEP #3751](https://github.com/kubernetes/enhancements/issues/3751)の一環として開発しました。
 
 ## アルファ版として導入された新機能
 
