@@ -90,7 +90,7 @@ uid=1000 gid=3000 groups=3000,4000
 
 You can see `Strict` policy can exclude group `50000` from `groups`! 
 
-Thus, ensuring `supplementalGroupsPolicy: Merge` (enforced by some policy mechanism) helps prevent the implicit supplementary groups in a Pod.
+Thus, ensuring `supplementalGroupsPolicy: Strict` (enforced by some policy mechanism) helps prevent the implicit supplementary groups in a Pod.
 
 {{<note>}}
 Actually, this is not enough because container with sufficient privileges / capability can change its process identity. Please see the following section for details.
