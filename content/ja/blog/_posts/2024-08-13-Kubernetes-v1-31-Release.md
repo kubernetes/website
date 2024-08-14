@@ -22,7 +22,7 @@ Kubernetes v1.31: Elliのリリースを発表します！
 
 {{< figure src="/images/blog/2024-08-13-kubernetes-1.31-release/k8s-1.31.png" alt="Kubernetes v1.31 Elliのロゴ" class="release-logo" >}}
 
-Kubernetes v1.31のリリーステーマは「Elli」です。
+Kubernetes v1.31のリリーステーマは"Elli"です。
 
 Kubernetes v1.31のElliは、優しい心を持つ愛らしい犬で、かわいらしい船乗りの帽子をかぶっています。
 これは、多様で大きな Kubernetesコントリビューターファミリーへの遊び心あふれる敬意を表しています。
