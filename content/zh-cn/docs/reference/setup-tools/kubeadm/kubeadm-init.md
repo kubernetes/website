@@ -4,12 +4,6 @@ content_type: concept
 weight: 20
 ---
 
-<!--
-title: kubeadm init
-content_type: concept
-weight: 20
--->
-
 <!-- overview -->
 
 <!--
@@ -249,7 +243,7 @@ If your configuration is not using the latest version it is **recommended** that
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 
 For more information on the fields and usage of the configuration you can navigate to our
-[API reference page](/docs/reference/config-api/kubeadm-config.v1beta3/).
+[API reference page](/docs/reference/config-api/kubeadm-config.v1beta4/).
 -->
 可以使用 [kubeadm config print](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)
 命令打印出默认配置。
@@ -258,7 +252,7 @@ For more information on the fields and usage of the configuration you can naviga
 [kubeadm config migrate](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)
 命令进行迁移。
 
-关于配置的字段和用法的更多信息，你可以访问 [API 参考页面](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)。
+关于配置的字段和用法的更多信息，你可以访问 [API 参考页面](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)。
 
 <!--
 ### Using kubeadm init with feature gates {#feature-gates}
@@ -276,12 +270,12 @@ Kubeadm 支持一组独有的特性门控，只能在 `kubeadm init` 创建集�
 <!--
 To pass a feature gate you can either use the `--feature-gates` flag for
 `kubeadm init`, or you can add items into the `featureGates` field when you pass
-a [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-ClusterConfiguration)
+a [configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/#kubeadm-k8s-io-v1beta4-ClusterConfiguration)
 using `--config`.
 -->
 你可以使用 `--feature-gates` 标志来为 `kubeadm init` 设置特性门控，
 或者你可以在用 `--config`
-传递[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-ClusterConfiguration)时添加条目到
+传递[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/#kubeadm-k8s-io-v1beta4-ClusterConfiguration)时添加条目到
 `featureGates` 字段中。
 
 <!--
@@ -301,18 +295,18 @@ List of feature gates:
 {{< table caption="kubeadm feature gates" >}}
 Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
+`ControlPlaneKubeletLocalMode` | `false` | 1.31 | - | -
 `EtcdLearnerMode` | `true` | 1.27 | 1.29 | -
 `PublicKeysECDSA` | `false` | 1.19 | - | -
-`RootlessControlPlane` | `false` | 1.22 | - | -
 `WaitForAllControlPlaneComponents` | `false` | 1.30 | - | -
 {{< /table >}}
 -->
 {{< table caption="kubeadm 特性门控" >}}
 特性 | 默认值 | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
+`ControlPlaneKubeletLocalMode` | `false` | 1.31 | - | -
 `EtcdLearnerMode` | `true` | 1.27 | 1.29 | -
 `PublicKeysECDSA` | `false` | 1.19 | - | -
-`RootlessControlPlane` | `false` | 1.22 | - | -
 `WaitForAllControlPlaneComponents` | `false` | 1.30 | - | -
 {{< /table >}}
 
@@ -329,6 +323,17 @@ Feature gate descriptions:
 特性门控的描述：
 
 <!--
+`ControlPlaneKubeletLocalMode`
+: With this feature gate enabled, when joining a new control plane node, kubeadm will configure the kubelet
+to connect to the local kube-apiserver. This ensures that there will not be a violation of the version skew
+policy during rolling upgrades.
+-->
+`ControlPlaneKubeletLocalMode`
+: 启用此特性门控后，当加入新的控制平面节点时，
+  kubeadm 将配置 kubelet 连接到本地 kube-apiserver。
+  这将确保在滚动升级期间不会违反版本偏差策略。
+
+<!--
 `EtcdLearnerMode`
 : With this feature gate enabled, when joining a new control plane node, a new etcd member will be created
 as a learner and promoted to a voting member only after the etcd data are fully aligned.
@@ -343,27 +348,17 @@ as a learner and promoted to a voting member only after the etcd data are fully 
 Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
 switch between the RSA and ECDSA algorithms on the fly or during upgrades. Kubernetes
 {{< skew currentVersion >}} has a bug where keys in generated kubeconfig files are set use RSA
-despite the feature gate being enabled.
+despite the feature gate being enabled. Kubernetes versions before v1.31 had a bug where keys in generated kubeconfig files
+were set use RSA, even when you had enabled the `PublicKeysECDSA` feature gate.
 -->
 `PublicKeysECDSA`
 : 可用于创建集群时使用 ECDSA 证书而不是默认 RSA 算法。
   支持用 `kubeadm certs renew` 更新现有 ECDSA 证书，
   但你不能在集群运行期间或升级期间切换 RSA 和 ECDSA 算法。
-  Kubernetes {{< skew currentVersion >}} 有一个错误，尽管开启了特性门控， 
+  Kubernetes {{< skew currentVersion >}} 有一个错误，尽管开启了特性门控，
   所生成的 kubeconfig 文件中的密钥仍使用 RSA 设置。
-
-<!--
-`RootlessControlPlane`
-: Setting this flag configures the kubeadm deployed control plane component static Pod containers
-for `kube-apiserver`, `kube-controller-manager`, `kube-scheduler` and `etcd` to run as non-root users.
-If the flag is not set, those components run as root. You can change the value of this feature gate before
-you upgrade to a newer version of Kubernetes.
--->
-`RootlessControlPlane`
-: 设置此标志来配置 kubeadm 所部署的控制平面组件中的静态 Pod 容器
-  `kube-apiserver`、`kube-controller-manager`、`kube-scheduler` 和 `etcd`
-  以非 root 用户身份运行。如果未设置该标志，则这些组件以 root 身份运行。
-  你可以在升级到更新版本的 Kubernetes 之前更改此特性门控的值。
+  在 v1.31 之前的 Kubernetes 版本中，即使启用了 `PublicKeysECDSA` 特性门控，
+  所生成的 kubeconfig 文件中的密钥仍然被设置为使用 RSA。
 
 <!--
 `WaitForAllControlPlaneComponents`
@@ -392,15 +387,15 @@ List of deprecated feature gates:
 
 <!--
 {{< table caption="kubeadm deprecated feature gates" >}}
-Feature | Default
-:-------|:--------
-`UpgradeAddonsBeforeControlPlane` | `false`
+Feature | Default | Alpha | Beta | GA | Deprecated
+:-------|:--------|:------|:-----|:---|:----------
+`RootlessControlPlane` | `false` | 1.22 | - | - | 1.31
 {{< /table >}}
 -->
 {{< table caption="kubeadm 弃用的特性门控" >}}
-特性     | 默认值
-:-------|:--------
-`UpgradeAddonsBeforeControlPlane` | `false`
+特性 | 默认值 | Alpha | Beta | GA |  弃用
+:-------|:--------|:------|:-----|:---|:----------
+`RootlessControlPlane` | `false` | 1.22 | - | - | 1.31
 {{< /table >}}
 
 <!--
@@ -409,40 +404,17 @@ Feature gate descriptions:
 特性门控描述：
 
 <!--
-`UpgradeAddonsBeforeControlPlane`
-: This is as a **disabled** feature gate that was introduced for Kubernetes v1.28,
-in order to allow reactivating a legacy and deprecated behavior during cluster upgrade.
-For kubeadm versions prior to v1.28, kubeadm upgrades cluster addons
-(including CoreDNS and kube-proxy) immediately during `kubeadm upgrade apply`,
-regardless of whether there are other control plane instances that have not been upgraded.
-This may cause compatibility problems. Since v1.28, kubeadm defaults to a mode that
-always checks whether all the control plane instances have been upgraded before starting
-to upgrade the addons. This behavior is applied to both `kubeadm upgrade apply` and
-`kubeadm upgrade node`. kubeadm determines whether a control plane instance
-has been upgraded by checking whether the image of the kube-apiserver Pod has
-been upgraded. You must perform control plane instances upgrade sequentially or
-at least ensure that the last control plane instance upgrade is not started until
-all the other control plane instances have been upgraded completely, and the addons
-upgrade will be performed after the last control plane instance is upgraded.
-The deprecated `UpgradeAddonsBeforeControlPlane` feature gate gives you a chance
-to keep the old upgrade behavior. You should not need this old behavior; if you do,
-you should consider changing your cluster or upgrade processes, as this
-feature gate will be removed in a future release.
+`RootlessControlPlane`
+: Setting this flag configures the kubeadm deployed control plane component static Pod containers
+for `kube-apiserver`, `kube-controller-manager`, `kube-scheduler` and `etcd` to run as non-root users.
+If the flag is not set, those components run as root. You can change the value of this feature gate before
+you upgrade to a newer version of Kubernetes.
 -->
-`UpgradeAddonsBeforeControlPlane`
-: 这是一个在 Kubernetes v1.28 中引入的默认**禁用**的特性门控，
-  目的是在集群升级期间允许重新激活旧版且已弃用的行为。对于早于 v1.28 的 kubeadm 版本，
-  在 `kubeadm upgrade apply` 期间会立即升级集群插件（包括 CoreDNS 和 kube-proxy），
-  而不管是否有其他未升级的控制平面实例。这可能导致兼容性问题。从 v1.28 开始，
-  kubeadm 默认采用的模式是在开始升级插件之前始终检查是否所有控制平面实例都已完成升级。
-  此行为适用于 `kubeadm upgrade apply` 和 `kubeadm upgrade node`。
-  kubeadm 通过检查 kube-apiserver Pod 的镜像来确定控制平面实例是否已升级。
-  你必须按顺序执行控制平面实例的升级，
-  或者至少确保在所有其他控制平面实例完全升级之前不启动最后一个控制平面实例的升级，
-  并且在最后一个控制平面实例升级完成后再执行插件的升级。
-  这个弃用的 `UpgradeAddonsBeforeControlPlane` 特性门控使你有机会保留旧的升级行为。
-  你不应该需要这种旧的行为；如果确实需要，请考虑更改集群或升级流程，
-  因为此特性门控将在未来的版本中被移除。
+`RootlessControlPlane`
+: 设置此标志来配置 kubeadm 所部署的控制平面组件中的静态 Pod 容器
+  `kube-apiserver`、`kube-controller-manager`、`kube-scheduler` 和 `etcd`
+  以非 root 用户身份运行。如果未设置该标志，则这些组件以 root 身份运行。
+  你可以在升级到更新版本的 Kubernetes 之前更改此特性门控的值。
 
 <!--
 List of removed feature gates:
@@ -455,6 +427,7 @@ Feature | Alpha | Beta | GA | Removed
 :-------|:------|:-----|:---|:-------
 `IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
 `UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
+`UpgradeAddonsBeforeControlPlane` | 1.28 | - | - | 1.31
 {{< /table >}}
 -->
 {{< table caption="kubeadm 已移除的特性门控" >}}
@@ -462,6 +435,7 @@ Feature | Alpha | Beta | GA | Removed
 :-------|:------|:-----|:---|:-------
 `IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
 `UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
+`UpgradeAddonsBeforeControlPlane` | 1.28 | - | - | 1.31
 {{< /table >}}
 
 <!--
@@ -500,6 +474,14 @@ if that does not succeed, kubeadm falls back to using the legacy (versioned) nam
   当读取此 ConfigMap 时（在执行 `kubeadm join`、`kubeadm reset`、`kubeadm upgrade` 等操作期间），
   kubeadm 尝试首先使用无版本（后缀）的 ConfigMap 名称；
   如果不成功，kubeadm 将回退到使用该 ConfigMap 的旧（带版本号的）名称。
+
+<!--
+`UpgradeAddonsBeforeControlPlane`
+: This feature gate has been removed. It was introduced in v1.28 as a deprecated feature and then removed in v1.31. For documentation on older versions, please switch to the corresponding website version.
+-->
+`UpgradeAddonsBeforeControlPlane`
+: 此特性门控已被移除。它在 v1.28 中作为一个已弃用的特性被引入，在 v1.31 中被移除。
+  有关旧版本的文档，请切换到相应的网站版本。
 
 <!--
 ### Adding kube-proxy parameters {#kube-proxy}
@@ -661,13 +643,14 @@ The following phase command can be used to re-upload the certificates after expi
 ```shell
 kubeadm init phase upload-certs --upload-certs --config=SOME_YAML_FILE
 ```
+
 {{< note >}}
 <!--
 A predefined `certificateKey` can be provided in `InitConfiguration` when passing the
-[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/) with `--config`.
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/) with `--config`.
 -->
 在使用 `--config`
-传递[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)时，
+传递[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)时，
 可以在 `InitConfiguration` 中提供预定义的 `certificateKey`。
 {{< /note >}}
 
