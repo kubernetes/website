@@ -13,10 +13,10 @@ translator: >
 
 Kubernetes v1.31: Elliのリリースを発表します！
 
-これまでのリリースと同様に、Kubernetes v1.31では新たなGA版、ベータ版、アルファ版の機能が導入されています。
+これまでのリリースと同様に、Kubernetes v1.31では新たなGA、ベータ、アルファの機能が導入されています。
 継続的に高品質なリリースを提供できていることは、私たちの開発サイクルの強さと、活発なコミュニティのサポートを示すものです。
 今回のリリースでは、45の機能強化が行われました。
-そのうち、11の機能がGA版に昇格し、22の機能がベータ版に移行し、12の機能がアルファ版として導入されています。
+そのうち、11の機能がGAに昇格し、22の機能がベータに移行し、12の機能がアルファとして導入されています。
 
 ## リリースのテーマとロゴ
 
@@ -38,11 +38,11 @@ Kubernetesは誕生以来、長い道のりを歩んできました。
 Kubernetes v1.31のElliは、まさにこの素晴らしい精神を祝福する存在なのです！
 Kubernetesの輝かしい次の10年に、みんなで乾杯しましょう！
 
-## GA版に昇格した機能のハイライト
+## GAに昇格した機能のハイライト
 
-_これは、v1.31のリリースに伴いGA版となった改善点の一部です。_
+_これは、v1.31のリリースに伴いGAとなった改善点の一部です。_
 
-### AppArmorのサポートが安定版に
+### AppArmorのサポートがGAに
 
 KubernetesのAppArmorサポートがGAになりました。
 コンテナの`securityContext`内の`appArmorProfile.type`フィールドを設定することで、AppArmorを使用してコンテナを保護できます。
@@ -60,7 +60,7 @@ Kubernetesのロードバランサーに関する一般的な課題の1つに、
 また、クラウドプロバイダーとKubernetesのロードバランサー実装における推奨プラクティスも確立しました。
 
 この機能を利用するには、kube-proxyがクラスタ上でデフォルトのサービスプロキシとして動作し、ロードバランサーが接続の切り替えをサポートしている必要があります。
-特別な設定は不要で、v1.30からkube-proxyにデフォルトで組み込まれており、v1.31で正式に安定版となりました。
+特別な設定は不要で、v1.30からkube-proxyにデフォルトで組み込まれており、v1.31で正式にGAとなりました。
 
 詳しくは、[仮想IPとサービスプロキシのドキュメント](/docs/reference/networking/virtual-ips/#external-traffic-policy)をご覧ください。
 
@@ -80,13 +80,13 @@ Kubernetes v1.31にアップグレードした後、PersistentVolumeが更新さ
 
 この機能は、[SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage)が[KEP #3762](https://github.com/kubernetes/enhancements/issues/3762)の一環として開発されました。
 
-## ベータ版に昇格した機能のハイライト
+## ベータに昇格した機能のハイライト
 
-_これは、v1.31のリリースに伴いベータ版となった改善点の一部です。_
+_これは、v1.31のリリースに伴いベータとなった改善点の一部です。_
 
 ### kube-proxyでのnftablesバックエンドの導入
 
-v1.31では、nftablesバックエンドがベータ版として登場しました。
+v1.31では、nftablesバックエンドがベータとして登場しました。
 この機能は`NFTablesProxyMode`という設定で制御され、現在はデフォルトで有効になっています。
 
 nftables APIは、iptables APIの次世代版として開発され、より高いパフォーマンスと拡張性を提供します。
@@ -103,7 +103,7 @@ Kubernetes v1.31の時点では、`nftables`モードはまだ新しい機能の
 
 ### 永続ボリュームのreclaimポリシーに関する変更
 
-Kubernetes v1.31では、PersistentVolumeのreclaimポリシーを常に尊重する機能がベータ版になりました。
+Kubernetes v1.31では、PersistentVolumeのreclaimポリシーを常に尊重する機能がベータになりました。
 この機能強化により、関連するPersistentVolumeClaim(PVC)が削除された後でも、PersistentVolume(PV)のreclaimポリシーが確実に適用されるようになり、ボリュームの漏洩を防止します。
 
 これまでは、PVとPVCのどちらが先に削除されたかによって、特定の条件下でPVに設定された`reclaim`ポリシーが無視されることがありました。
@@ -116,7 +116,7 @@ Kubernetes v1.31では、PersistentVolumeのreclaimポリシーを常に尊重�
 
 ### バインドされたサービスアカウントトークンの改善
 
-`ServiceAccountTokenNodeBinding`機能が、v1.31でベータ版に昇格しました。
+`ServiceAccountTokenNodeBinding`機能が、v1.31でベータに昇格しました。
 この機能により、PodではなくNodeにのみバインドされたトークンを要求できるようになりました。
 このトークンには、Node情報が含まれており、トークンが使用される際にNodeの存在を検証します。
 詳しくは、[バインドされたサービスアカウントトークンのドキュメント](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-tokens)をご覧ください。
@@ -125,7 +125,7 @@ Kubernetes v1.31では、PersistentVolumeのreclaimポリシーを常に尊重�
 
 ### 複数のサービスCIDRのサポート
 
-v1.31では、複数のサービスCIDRを持つクラスターのサポートがベータ版になりました(デフォルトでは無効)。
+v1.31では、複数のサービスCIDRを持つクラスターのサポートがベータになりました(デフォルトでは無効)。
 
 Kubernetesクラスターには、IPアドレスを使用する複数のコンポーネントがあります：Node、Pod、そしてServiceです。
 NodeとPodのIP範囲は、それぞれインフラストラクチャやネットワークプラグインに依存するため、動的に変更できます。
@@ -140,7 +140,7 @@ NodeとPodのIP範囲は、それぞれインフラストラクチャやネッ�
 
 ### サービスのトラフィック分散機能
 
-サービスのトラフィック分散機能が、v1.31でベータ版となり、デフォルトで有効になりました。
+サービスのトラフィック分散機能が、v1.31でベータとなり、デフォルトで有効になりました。
 
 SIG Networkingは、サービスネットワーキングにおける最適なユーザー体験とトラフィック制御機能を見出すため、何度も改良を重ねてきました。
 その結果、サービス仕様に`trafficDistribution`フィールドを実装しました。
@@ -152,16 +152,16 @@ SIG Networkingは、サービスネットワーキングにおける最適なユ
 
 ### Kubernetes VolumeAttributesClassによるボリューム修正機能
 
-[VolumeAttributesClass](/ja/docs/concepts/storage/volume-attributes-classes/) APIが、v1.31でベータ版になります。
+[VolumeAttributesClass](/ja/docs/concepts/storage/volume-attributes-classes/) APIが、v1.31でベータになります。
 VolumeAttributesClassは、プロビジョニングされたIOのような動的なボリュームパラメータを修正するための、Kubernetes独自の汎用APIを提供します。
 これにより、プロバイダーがサポートしている場合、ワークロードはコストとパフォーマンスのバランスを取るために、オンラインでボリュームを垂直スケーリングできるようになります。
-この機能は、Kubernetes 1.29からアルファ版として提供されていました。
+この機能は、Kubernetes 1.29からアルファとして提供されていました。
 
 この機能は、[SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage)が主導し、[KEP #3751](https://github.com/kubernetes/enhancements/issues/3751)の一環として開発されました。
 
-## アルファ版として導入された新機能
+## アルファとして導入された新機能
 
-_これは、v1.31のリリースでアルファ版として導入された主な改善点の一部です。_
+_これは、v1.31のリリースでアルファとして導入された主な改善点の一部です。_
 
 ### アクセラレータなどのハードウェア管理を改善する新しいDRA API
 
@@ -206,7 +206,7 @@ Kubernetes v1.31以前では、Podが故障したデバイスと関連付けら�
 この機能により、Webhookオーソライザーや将来の(現在は設計されていない)ツリー内オーソライザーが、ラベルやフィールドセレクターを使用するリクエストに限り、**list**と**watch**リクエストを許可できるようになります。
 例えば、オーソライザーは次のような表現が可能になります：このユーザーはすべてのPodをリストできないが、`.spec.nodeName`が特定の値に一致するPodはリストできる。
 あるいは、ユーザーが名前空間内の`confidential: true`とラベル付けされて**いない**すべてのSecretを監視することを許可する。
-CRDフィールドセレクター(これもv1.31でベータ版に移行)と組み合わせることで、より安全なNodeごとの拡張機能を作成することが可能になります。
+CRDフィールドセレクター(これもv1.31でベータに移行)と組み合わせることで、より安全なNodeごとの拡張機能を作成することが可能になります。
 
 この機能は、[SIG Auth](https://github.com/kubernetes/community/tree/master/sig-auth)が[KEP #4601](https://github.com/kubernetes/enhancements/issues/4601)の一環として開発されました。
 
@@ -221,7 +221,7 @@ CRDフィールドセレクター(これもv1.31でベータ版に移行)と組�
 
 ### GAへの昇格
 
-ここでは、GA(一般提供版とも呼ばれる)に昇格したすべての機能を紹介します。新機能やアルファ版からベータ版への昇格を含む完全な更新リストについては、リリースノートをご覧ください。
+ここでは、GA(一般提供とも呼ばれる)に昇格したすべての機能を紹介します。新機能やアルファからベータへの昇格を含む完全な更新リストについては、リリースノートをご覧ください。
 
 このリリースでは、以下の11個の機能強化がGAに昇格しました：
 
@@ -297,7 +297,7 @@ v1.31では、`DisableNodeKubeProxyVersion`[フィーチャーゲート](/docs/r
 Kubernetes v1.31では、以下のアルファフィーチャーゲートが削除されました：`InTreePluginAWSUnregister`、`InTreePluginAzureDiskUnregister`、`InTreePluginAzureFileUnregister`、`InTreePluginGCEUnregister`、`InTreePluginOpenStackUnregister`、および`InTreePluginvSphereUnregister`。
 これらのフィーチャーゲートは、実際にコードベースから削除することなく、ツリー内ボリュームプラグインが削除されたシナリオのテストを容易にするために導入されました。
 Kubernetes 1.30でこれらのツリー内ボリュームプラグインが非推奨となったため、これらのフィーチャーゲートは冗長となり、もはや目的を果たさなくなりました。
-唯一残っているCSIの移行ゲートは`InTreePluginPortworxUnregister`で、これはPortworxのCSI移行が完了し、そのツリー内ボリュームプラグインの削除準備が整うまでアルファ版のままとなります。
+唯一残っているCSIの移行ゲートは`InTreePluginPortworxUnregister`で、これはPortworxのCSI移行が完了し、そのツリー内ボリュームプラグインの削除準備が整うまでアルファのままとなります。
 
 #### kubeletの`--keep-terminated-pod-volumes`コマンドラインフラグの削除
 
