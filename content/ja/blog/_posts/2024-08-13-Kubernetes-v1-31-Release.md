@@ -22,10 +22,10 @@ Kubernetes v1.31: Elliのリリースを発表します！
 
 {{< figure src="/images/blog/2024-08-13-kubernetes-1.31-release/k8s-1.31.png" alt="Kubernetes v1.31 Elliのロゴ" class="release-logo" >}}
 
-Kubernetes v1.31のリリーステーマは「Elli」です。
+Kubernetes v1.31のリリーステーマは"Elli"です。
 
 Kubernetes v1.31のElliは、優しい心を持つ愛らしい犬で、かわいらしい船乗りの帽子をかぶっています。
-これは、多様で大きな Kubernetesコントリビューターファミリーへの遊び心あふれる敬意を表しています。
+これは、多様で大きなKubernetesコントリビューターファミリーへの遊び心あふれる敬意を表しています。
 
 Kubernetes v1.31は、プロジェクトが[10周年](/ja/blog/2024/06/06/10-years-of-kubernetes/)を祝った後の初めてのリリースです。
 Kubernetesは誕生以来、長い道のりを歩んできました。
@@ -127,7 +127,7 @@ Kubernetes v1.31では、PersistentVolumeのreclaimポリシーを常に尊重�
 
 v1.31では、複数のサービスCIDRを持つクラスターのサポートがベータになりました(デフォルトでは無効)。
 
-Kubernetesクラスターには、IPアドレスを使用する複数のコンポーネントがあります：Node、Pod、そしてServiceです。
+Kubernetesクラスターには、IPアドレスを使用する複数のコンポーネントがあります: Node、Pod、そしてServiceです。
 NodeとPodのIP範囲は、それぞれインフラストラクチャやネットワークプラグインに依存するため、動的に変更できます。
 しかし、サービスのIP範囲は、クラスター作成時にkube-apiserverのハードコードされたフラグとして定義されていました。
 長期間運用されているクラスターや大規模なクラスターでは、管理者が割り当てられたサービスCIDR範囲を拡張、縮小、あるいは完全に置き換える必要があり、IPアドレスの枯渇が問題となっていました。
@@ -136,7 +136,7 @@ NodeとPodのIP範囲は、それぞれインフラストラクチャやネッ�
 
 この機能の詳細については、[仮想IPとサービスプロキシ](/docs/reference/networking/virtual-ips/#ip-address-objects)のドキュメントページをご覧ください。
 
-この機能は、[SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)が[KEP #1880](https://github.com/kubernetes/enhancements/issues/1880)の一環として開発されました。
+この機能は、[SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)が[KEP #1880](https://github.com/kubernetes/enhancements/issues/1880)の一環として開発しました。
 
 ### サービスのトラフィック分散機能
 
@@ -148,7 +148,7 @@ SIG Networkingは、サービスネットワーキングにおける最適なユ
 
 この機能の詳細については、[1.30リリースブログ](/blog/2024/04/17/kubernetes-v1-30-release/#traffic-distribution-for-services-sig-network-https-github-com-kubernetes-community-tree-master-sig-network)をお読みいただくか、[サービス](/docs/concepts/services-networking/service/#traffic-distribution)のドキュメントページをご覧ください。
 
-この機能は、[SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)が[KEP #4444](https://github.com/kubernetes/enhancements/issues/4444)の一環として開発されました。
+この機能は、[SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)が[KEP #4444](https://github.com/kubernetes/enhancements/issues/4444)の一環として開発しました。
 
 ### Kubernetes VolumeAttributesClassによるボリューム修正機能
 
@@ -157,7 +157,7 @@ VolumeAttributesClassは、プロビジョニングされたIOのような動的
 これにより、プロバイダーがサポートしている場合、ワークロードはコストとパフォーマンスのバランスを取るために、オンラインでボリュームを垂直スケーリングできるようになります。
 この機能は、Kubernetes 1.29からアルファとして提供されていました。
 
-この機能は、[SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage)が主導し、[KEP #3751](https://github.com/kubernetes/enhancements/issues/3751)の一環として開発されました。
+この機能は、[SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage)が主導し、[KEP #3751](https://github.com/kubernetes/enhancements/issues/3751)の一環として開発しました。
 
 ## アルファとして導入された新機能
 
@@ -173,9 +173,9 @@ kubeletのDRAサポートも更新され、kubeletとコントロールプレー
 DRAドライバコントローラによる割り当ては、現在「クラシックDRA」と呼ばれる方法でも引き続きサポートされています。
 
 Kubernetes v1.31では、クラシックDRAに`DRAControlPlaneController`という別のフィーチャーゲートが用意されており、これを明示的に有効にする必要があります。
-このコントロールプレーンコントローラを使用することで、DRAドライバは構造化パラメータではまだサポートされていない割り当てポリシーを実装できます。
+このコントロールプレーンコントローラーを使用することで、DRAドライバは構造化パラメータではまだサポートされていない割り当てポリシーを実装できます。
 
-この機能は、[SIG Node](https://github.com/kubernetes/community/tree/master/sig-node)が[KEP #3063](https://github.com/kubernetes/enhancements/issues/3063)の一環として開発されました。
+この機能は、[SIG Node](https://github.com/kubernetes/community/tree/master/sig-node)が[KEP #3063](https://github.com/kubernetes/enhancements/issues/3063)の一環として開発しました。
 
 ### イメージボリュームのサポート
 
