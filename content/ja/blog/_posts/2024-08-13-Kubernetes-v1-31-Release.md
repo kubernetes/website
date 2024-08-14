@@ -296,7 +296,7 @@ v1.31では、`DisableNodeKubeProxyVersion`[フィーチャーゲート](/docs/r
 
 Kubernetes v1.31では、以下のアルファフィーチャーゲートが削除されました: `InTreePluginAWSUnregister`、`InTreePluginAzureDiskUnregister`、`InTreePluginAzureFileUnregister`、`InTreePluginGCEUnregister`、`InTreePluginOpenStackUnregister`、および`InTreePluginvSphereUnregister`。
 これらのフィーチャーゲートは、実際にコードベースから削除することなく、インツリーのボリュームプラグインが削除されたシナリオのテストを容易にするために導入されました。
-Kubernetes 1.30でこれらのツリー内ボリュームプラグインが非推奨となったため、これらのフィーチャーゲートは冗長となり、もはや目的を果たさなくなりました。
+Kubernetes 1.30でこれらのインツリーのボリュームプラグインが非推奨となったため、これらのフィーチャーゲートは冗長となり、もはや目的を果たさなくなりました。
 唯一残っているCSIの移行ゲートは`InTreePluginPortworxUnregister`で、これはPortworxのCSI移行が完了し、そのツリー内ボリュームプラグインの削除準備が整うまでアルファのままとなります。
 
 #### kubeletの`--keep-terminated-pod-volumes`コマンドラインフラグの削除
