@@ -50,7 +50,7 @@ Kubernetes v1.30より前では、AppArmorはアノテーションで制御さ�
 そのためアノテーションの使用をやめ、`appArmorProfile.type`フィールドの使用に移行することをお勧めします。
 
 詳細については、[AppArmorのチュートリアル](/docs/tutorials/security/apparmor/)をご覧ください。
-この機能は、[SIG Node](https://github.com/kubernetes/community/tree/master/sig-node)によって[KEP #24](https://github.com/kubernetes/enhancements/issues/24)の一環として開発されました。
+この機能は、[SIG Node](https://github.com/kubernetes/community/tree/master/sig-node)によって[KEP #24](https://github.com/kubernetes/enhancements/issues/24)の一環として開発しました。
 
 ### kube-proxyによる外部からの接続の安定性改善
 
@@ -64,7 +64,7 @@ Kubernetesのロードバランサーに関する一般的な課題の1つに、
 
 詳しくは、[仮想IPとサービスプロキシのドキュメント](/docs/reference/networking/virtual-ips/#external-traffic-policy)をご覧ください。
 
-この機能は、[SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)が[KEP #3836](https://github.com/kubernetes/enhancements/issues/3836)の一環として開発されました。
+この機能は、[SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)が[KEP #3836](https://github.com/kubernetes/enhancements/issues/3836)の一環として開発しました。
 
 ### 永続ボリュームの状態変化時刻の記録機能が正式リリース
 
@@ -78,7 +78,7 @@ Kubernetes v1.31にアップグレードした後、PersistentVolumeが更新さ
 
 詳しくは、[永続ボリュームのドキュメント](/ja/docs/concepts/storage/persistent-volumes/)をご覧ください。
 
-この機能は、[SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage)が[KEP #3762](https://github.com/kubernetes/enhancements/issues/3762)の一環として開発されました。
+この機能は、[SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage)が[KEP #3762](https://github.com/kubernetes/enhancements/issues/3762)の一環として開発しました。
 
 ## ベータに昇格した機能のハイライト
 
@@ -99,7 +99,7 @@ Kubernetes v1.31の時点では、`nftables`モードはまだ新しい機能の
 移行を検討する際は、特にNodePortサービスに関連する一部の機能が、iptablesモードとnftablesモードで完全に同じように動作しない点に注意が必要です。
 デフォルト設定の変更が必要かどうかは、[移行ガイド](/docs/reference/networking/virtual-ips/#migrating-from-iptables-mode-to-nftables)で確認してください。
 
-この機能は、[SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)が[KEP #3866](https://github.com/kubernetes/enhancements/issues/3866)の一環として開発されました。
+この機能は、[SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)が[KEP #3866](https://github.com/kubernetes/enhancements/issues/3866)の一環として開発しました。
 
 ### 永続ボリュームのreclaimポリシーに関する変更
 
@@ -112,7 +112,7 @@ Kubernetes v1.31では、PersistentVolumeのreclaimポリシーを常に尊重�
 
 この機能の導入により、PVとPVCの削除順序に関係なく、reclaimポリシーの`Delete`が確実に実行され、バックエンドインフラから基盤となるストレージオブジェクトが削除されることがKubernetesによって保証されるようになりました。
 
-この機能は、[SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage)が[KEP #2644](https://github.com/kubernetes/enhancements/issues/2644)の一環として開発されました。
+この機能は、[SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage)が[KEP #2644](https://github.com/kubernetes/enhancements/issues/2644)の一環として開発しました。
 
 ### バインドされたサービスアカウントトークンの改善
 
@@ -121,7 +121,7 @@ Kubernetes v1.31では、PersistentVolumeのreclaimポリシーを常に尊重�
 このトークンには、Node情報が含まれており、トークンが使用される際にNodeの存在を検証します。
 詳しくは、[バインドされたサービスアカウントトークンのドキュメント](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-tokens)をご覧ください。
 
-この機能は、[SIG Auth](https://github.com/kubernetes/community/tree/master/sig-auth)が[KEP #4193](https://github.com/kubernetes/enhancements/issues/4193)の一環として開発されました。
+この機能は、[SIG Auth](https://github.com/kubernetes/community/tree/master/sig-auth)が[KEP #4193](https://github.com/kubernetes/enhancements/issues/4193)の一環として開発しました。
 
 ### 複数のサービスCIDRのサポート
 
@@ -188,7 +188,7 @@ Kubernetesコミュニティは、将来的に人工知能(AI)や機械学習(ML
 この機能により、ユーザーはPod内でイメージ参照をボリュームとして指定し、それをコンテナ内のボリュームマウントとして再利用できます。
 この機能を試すには、`ImageVolume`フィーチャーゲートを有効にする必要があります。
 
-この機能は、[SIG Node](https://github.com/kubernetes/community/tree/master/sig-node)と[SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage)が[KEP #4639](https://github.com/kubernetes/enhancements/issues/4639)の一環として開発されました。
+この機能は、[SIG Node](https://github.com/kubernetes/community/tree/master/sig-node)と[SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage)が[KEP #4639](https://github.com/kubernetes/enhancements/issues/4639)の一環として開発しました。
 
 ### Podステータスを通じたデバイスの健全性情報の公開
 
@@ -199,7 +199,7 @@ Kubernetes v1.31以前では、Podが故障したデバイスと関連付けら�
 この機能を有効にすると、各Pod の`.status`内の各コンテナステータスに`allocatedResourcesStatus`フィールドが追加されます。
 `allocatedResourcesStatus`フィールドは、コンテナに割り当てられた各デバイスの健全性情報を報告します。
 
-この機能は、[SIG Node](https://github.com/kubernetes/community/tree/master/sig-node)が[KEP #4680](https://github.com/kubernetes/enhancements/issues/4680)の一環として開発されました。
+この機能は、[SIG Node](https://github.com/kubernetes/community/tree/master/sig-node)が[KEP #4680](https://github.com/kubernetes/enhancements/issues/4680)の一環として開発しました。
 
 ### セレクターに基づいたより細かな認可
 
@@ -208,14 +208,14 @@ Kubernetes v1.31以前では、Podが故障したデバイスと関連付けら�
 あるいは、ユーザーが名前空間内の`confidential: true`とラベル付けされて**いない**すべてのSecretを監視することを許可する。
 CRDフィールドセレクター(これもv1.31でベータに移行)と組み合わせることで、より安全なNodeごとの拡張機能を作成することが可能になります。
 
-この機能は、[SIG Auth](https://github.com/kubernetes/community/tree/master/sig-auth)が[KEP #4601](https://github.com/kubernetes/enhancements/issues/4601)の一環として開発されました。
+この機能は、[SIG Auth](https://github.com/kubernetes/community/tree/master/sig-auth)が[KEP #4601](https://github.com/kubernetes/enhancements/issues/4601)の一環として開発しました。
 
 ### 匿名APIアクセスへの制限
 
 `AnonymousAuthConfigurableEndpoints`フィーチャーゲートを有効にすることで、ユーザーは認証設定ファイルを使用して、匿名リクエストがアクセスできるエンドポイントを設定できるようになりました。
 これにより、匿名ユーザーにクラスタへの広範なアクセスを与えてしまうようなRBAC設定ミスから、ユーザー自身を守ることができます。
 
-この機能は、[SIG Auth](https://github.com/kubernetes/community/tree/master/sig-auth)が[KEP #4633](https://github.com/kubernetes/enhancements/issues/4633)の一環として開発されました。
+この機能は、[SIG Auth](https://github.com/kubernetes/community/tree/master/sig-auth)が[KEP #4633](https://github.com/kubernetes/enhancements/issues/4633)の一環として開発しました。
 
 ## 1.31における機能の昇格、非推奨化、および削除
 
@@ -254,7 +254,7 @@ Kubernetesのメンテナンスモードとは、cgroup v1サポートに新機�
 
 問題が発生した場合は、[issue](https://github.com/kubernetes/kubernetes/issues/new/choose)を作成して報告してください。
 
-この機能は、[SIG Node](https://github.com/kubernetes/community/tree/master/sig-node)が[KEP #4569](https://github.com/kubernetes/enhancements/issues/4569)の一環として開発されました。
+この機能は、[SIG Node](https://github.com/kubernetes/community/tree/master/sig-node)が[KEP #4569](https://github.com/kubernetes/enhancements/issues/4569)の一環として開発しました。
 
 #### SHA-1署名サポートに関する注意事項
 
