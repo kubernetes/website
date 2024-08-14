@@ -335,7 +335,7 @@ v1.31リリースでは、すべての非CSIボリューム制限スケジュー
 
 これらのボリュームタイプはCSIに移行されているため、代わりに`NodeVolumeLimits`プラグインを使用することをお勧めします。
 `NodeVolumeLimits`プラグインは、削除されたプラグインと同じ機能を処理できます。
-[スケジューラ設定](/ja/docs/reference/scheduling/config/)で明示的にこれらのプラグインを使用している場合は、非推奨のプラグインを`NodeVolumeLimits`プラグインに置き換えてください。
+[スケジューラーの設定](/ja/docs/reference/scheduling/config/)で明示的にこれらのプラグインを使用している場合は、非推奨のプラグインを`NodeVolumeLimits`プラグインに置き換えてください。
 `AzureDiskLimits`、`CinderLimits`、`EBSLimits`、`GCEPDLimits`プラグインは将来のリリースで削除される予定です。
 
 これらのプラグインは、Kubernetes v1.14以降非推奨となっていたため、デフォルトのスケジューラプラグインリストから削除されます。
