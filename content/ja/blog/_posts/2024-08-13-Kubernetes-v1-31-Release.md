@@ -292,7 +292,7 @@ v1.31では、`DisableNodeKubeProxyVersion`[フィーチャーゲート](/docs/r
 
 後者のブログには、v1.29以降のバージョンに移行する必要があるユーザーにとって有用な情報も含まれています。
 
-#### ツリー内プロバイダーのフィーチャーゲートの削除
+#### インツリープロバイダーのフィーチャーゲートの削除
 
 Kubernetes v1.31では、以下のアルファフィーチャーゲートが削除されました：`InTreePluginAWSUnregister`、`InTreePluginAzureDiskUnregister`、`InTreePluginAzureFileUnregister`、`InTreePluginGCEUnregister`、`InTreePluginOpenStackUnregister`、および`InTreePluginvSphereUnregister`。
 これらのフィーチャーゲートは、実際にコードベースから削除することなく、ツリー内ボリュームプラグインが削除されたシナリオのテストを容易にするために導入されました。
