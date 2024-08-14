@@ -277,7 +277,7 @@ Kubernetes v1.31では、Nodeの`.status.nodeInfo.kubeProxyVersion`フィール�
 
 v1.31では、`DisableNodeKubeProxyVersion`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)がデフォルトで`true`に設定され、kubeletは関連するNodeの`.status.kubeProxyVersion`フィールドを設定しなくなります。
 
-#### クラウドプロバイダーとの全てのツリー内統合の削除
+#### クラウドプロバイダーとの全てのインツリー統合の削除
 
 [以前の記事](/ja/blog/2024/05/20/completing-cloud-provider-migration/)で強調したように、クラウドプロバイダー統合の最後に残っていたツリー内サポートがv1.31リリースの一部として削除されました。
 これは、クラウドプロバイダーと統合できなくなったという意味ではありません。
