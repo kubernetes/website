@@ -110,7 +110,7 @@ Kubernetes v1.31では、PersistentVolumeのreclaimポリシーを常に尊重�
 その結果、reclaimポリシーが"Delete"に設定されていても、外部インフラの対応するストレージリソースが削除されないケースがありました。
 これにより、一貫性の欠如やリソースのリークが発生する可能性がありました。
 
-この機能の導入により、PVとPVCの削除順序に関係なく、reclaimポリシーの`Delete`が確実に実行され、バックエンドインフラから基盤となるストレージオブジェクトが削除されることがKubernetesによって保証されるようになりました。
+この機能の導入により、PVとPVCの削除順序に関係なく、reclaimポリシーの"Delete"が確実に実行され、バックエンドインフラから基盤となるストレージオブジェクトが削除されることがKubernetesによって保証されるようになりました。
 
 この機能は、[SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage)が[KEP #2644](https://github.com/kubernetes/enhancements/issues/2644)の一環として開発しました。
 
