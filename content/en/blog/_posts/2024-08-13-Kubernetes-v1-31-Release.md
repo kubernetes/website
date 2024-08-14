@@ -413,8 +413,8 @@ Explore the upcoming Kubernetes and cloud-native events from August to November 
 - [**KCD Porto 2024**](https://community.cncf.io/events/details/cncf-kcd-porto-presents-kcd-porto-2024/): September 27-28, 2024 | Porto, Portugal
 
 **October 2024**
-- [**KubeDay Australia**](https://events.linuxfoundation.org/kubeday-australia/): October 1, 2024 | Melbourne, Australia
-- [**KCD Austria 2024: October 8-10, 2024 | Wien, Austria**](https://community.cncf.io/events/details/cncf-kcd-austria-presents-kcd-austria-2024/) 
+- [**KCD Austria 2024**](https://community.cncf.io/events/details/cncf-kcd-austria-presents-kcd-austria-2024/): October 8-10, 2024 | Wien, Austria 
+- [**KubeDay Australia**](https://events.linuxfoundation.org/kubeday-australia/): October 15, 2024 | Melbourne, Australia
 - [**KCD UK - London 2024**](https://community.cncf.io/events/details/cncf-kcd-uk-presents-kubernetes-community-days-uk-london-2024/): October 22-23, 2024 | Greater London, United Kingdom
 
 **November 2024**
