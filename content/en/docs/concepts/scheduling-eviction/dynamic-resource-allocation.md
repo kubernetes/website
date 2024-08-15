@@ -34,18 +34,17 @@ handles allocation in cooperation with the Kubernetes scheduler.
 ## {{% heading "prerequisites" %}}
 
 Kubernetes v{{< skew currentVersion >}} includes cluster-level API support for
-dynamic resource allocation, but it [needs to be
-enabled](#enabling-dynamic-resource-allocation) explicitly.  You also must
-install a resource driver for specific resources that are meant to be managed
-using this API.  If you are not running Kubernetes v{{< skew currentVersion>}},
-check the documentation for that version of Kubernetes.
+dynamic resource allocation, but it [needs to be enabled](#enabling-dynamic-resource-allocation)
+explicitly. You also must install a resource driver for specific resources that
+are meant to be managed using this API. If you are not running Kubernetes
+v{{< skew currentVersion>}}, check the documentation for that version of Kubernetes.
 
 <!-- body -->
 
 ## API
 
-The `resource.k8s.io/v1alpha3` {{< glossary_tooltip text="API group"
-term_id="api-group" >}} provides these types:
+The `resource.k8s.io/v1alpha3`
+{{< glossary_tooltip text="API group" term_id="api-group" >}} provides these types:
 
 ResourceClaim
 : Describes a request for access to resources in the cluster,
@@ -268,12 +267,10 @@ the `.spec.nodeName` field and to use a node selector instead.
 ## Enabling dynamic resource allocation
 
 Dynamic resource allocation is an *alpha feature* and only enabled when the
-`DynamicResourceAllocation` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
-`resource.k8s.io/v1alpha3` {{< glossary_tooltip text="API group"
-term_id="api-group" >}} are enabled. For details on that, see the
-`--feature-gates` and `--runtime-config` [kube-apiserver
-parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
+`DynamicResourceAllocation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+and the `resource.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}
+are enabled. For details on that, see the `--feature-gates` and `--runtime-config`
+[kube-apiserver parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
 kube-scheduler, kube-controller-manager and kubelet also need the feature gate.
 
 When a resource driver uses a control plane controller, then the
@@ -281,7 +278,7 @@ When a resource driver uses a control plane controller, then the
 `DynamicResourceAllocation`.
 
 A quick check whether a Kubernetes cluster supports the feature is to list
-ResourceClass objects with:
+DeviceClass objects with:
 
 ```shell
 kubectl get deviceclasses
@@ -315,7 +312,7 @@ be installed. Please refer to the driver's documentation for details.
 
 ## {{% heading "whatsnext" %}}
 
- - For more information on the design, see the
-   [Structured Parameters with Structured Parameters](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4381-dra-structured-parameters)
-   and the
-   [Dynamic Resource Allocation with Control Plane Controller](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md) KEPs.
+- For more information on the design, see the
+  [Structured Parameters with Structured Parameters](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4381-dra-structured-parameters)
+  and the
+  [Dynamic Resource Allocation with Control Plane Controller](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md) KEPs.
