@@ -25,7 +25,7 @@ Kubernetes requires PKI for the following operations:
 
 * Server certificate for the API server endpoint
 * Server certificate for the etcd server
-* [Server certificates](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#client-and-serving-certificates) each kubelet (every {{< glossary_tooltip text="node" term_id="node" >}} runs a kubelet)
+* [Server certificates](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#client-and-serving-certificates) for each kubelet (every {{< glossary_tooltip text="node" term_id="node" >}} runs a kubelet)
 * Optional server certificate for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
 
 ### Client certificates
