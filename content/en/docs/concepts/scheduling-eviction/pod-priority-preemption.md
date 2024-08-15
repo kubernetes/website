@@ -64,7 +64,7 @@ and it cannot be prefixed with `system-`.
 
 A PriorityClass object can have any 32-bit integer value smaller than or equal
 to 1 billion. This means that the range of values for a PriorityClass object is
-from -2147483648 to 1000000000 inclusive. Larger numbers are reserved for 
+from -2147483648 to 1000000000 inclusive. Larger numbers are reserved for
 built-in PriorityClasses that represent critical system Pods. A cluster
 admin should create one PriorityClass object for each such mapping that they want.
 
@@ -182,8 +182,8 @@ When Pod priority is enabled, the scheduler orders pending Pods by
 their priority and a pending Pod is placed ahead of other pending Pods
 with lower priority in the scheduling queue. As a result, the higher
 priority Pod may be scheduled sooner than Pods with lower priority if
-its scheduling requirements are met. If such Pod cannot be scheduled,
-scheduler will continue and tries to schedule other lower priority Pods.
+its scheduling requirements are met. If such Pod cannot be scheduled, the
+scheduler will continue and try to schedule other lower priority Pods.
 
 ## Preemption
 
@@ -199,7 +199,7 @@ the Pods are gone, P can be scheduled on the Node.
 ### User exposed information
 
 When Pod P preempts one or more Pods on Node N, `nominatedNodeName` field of Pod
-P's status is set to the name of Node N. This field helps scheduler track
+P's status is set to the name of Node N. This field helps the scheduler track
 resources reserved for Pod P and also gives users information about preemptions
 in their clusters.
 
@@ -209,8 +209,8 @@ After victim Pods are preempted, they get their graceful termination period. If
 another node becomes available while scheduler is waiting for the victim Pods to
 terminate, scheduler may use the other node to schedule Pod P. As a result
 `nominatedNodeName` and `nodeName` of Pod spec are not always the same. Also, if
-scheduler preempts Pods on Node N, but then a higher priority Pod than Pod P
-arrives, scheduler may give Node N to the new higher priority Pod. In such a
+the scheduler preempts Pods on Node N, but then a higher priority Pod than Pod P
+arrives, the scheduler may give Node N to the new higher priority Pod. In such a
 case, scheduler clears `nominatedNodeName` of Pod P. By doing this, scheduler
 makes Pod P eligible to preempt Pods on another Node.
 
@@ -256,9 +256,9 @@ the Node is not considered for preemption.
 
 If a pending Pod has inter-pod {{< glossary_tooltip text="affinity" term_id="affinity" >}}
 to one or more of the lower-priority Pods on the Node, the inter-Pod affinity
-rule cannot be satisfied in the absence of those lower-priority Pods. In this case, 
+rule cannot be satisfied in the absence of those lower-priority Pods. In this case,
 the scheduler does not preempt any Pods on the Node. Instead, it looks for another
-Node. The scheduler might find a suitable Node or it might not. There is no 
+Node. The scheduler might find a suitable Node or it might not. There is no
 guarantee that the pending Pod can be scheduled.
 
 Our recommended solution for this problem is to create inter-Pod affinity only
@@ -288,7 +288,7 @@ enough demand and if we find an algorithm with reasonable performance.
 
 ## Troubleshooting
 
-Pod priority and pre-emption can have unwanted side effects. Here are some
+Pod priority and preemption can have unwanted side effects. Here are some
 examples of potential problems and ways to deal with them.
 
 ### Pods are preempted unnecessarily
@@ -361,7 +361,7 @@ to get evicted. The kubelet ranks pods for eviction based on the following facto
 
   1. Whether the starved resource usage exceeds requests
   1. Pod Priority
-  1. Amount of resource usage relative to requests 
+  1. Amount of resource usage relative to requests
 
 See [Pod selection for kubelet eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/#pod-selection-for-kubelet-eviction)
 for more details.

@@ -31,7 +31,7 @@ APIサーバーに接続したい{{< glossary_tooltip text="Pod" term_id="pod" >
 
 コントロールプレーン(APIサーバー)からノードへの主要な通信経路は2つあります。
 1つ目は、APIサーバーからクラスター内の各ノードで実行される{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}プロセスへの通信経路です。
-2つ目は、APIサーバーの _プロキシー_ 機能を介した、APIサーバーから任意のノード、Pod、またはサービスへの通信経路です。
+2つ目は、APIサーバーの _プロキシ_ 機能を介した、APIサーバーから任意のノード、Pod、またはサービスへの通信経路です。
 
 ### APIサーバーからkubeletへの通信 {#api-server-to-kubelet}
 
@@ -67,7 +67,7 @@ SSHトンネルは現在非推奨であるため、自分が何をしている�
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-SSHトンネルの代替として、Konnectivityサービスは、コントロールプレーンからクラスターへの通信に、TCPレベルのプロキシーを提供します。Konnectivityサービスは、コントロールプレーンネットワークのKonnectivityサーバーと、ノードネットワークのKonnectivityエージェントの、2つの部分で構成されています。
+SSHトンネルの代替として、Konnectivityサービスは、コントロールプレーンからクラスターへの通信に、TCPレベルのプロキシを提供します。Konnectivityサービスは、コントロールプレーンネットワークのKonnectivityサーバーと、ノードネットワークのKonnectivityエージェントの、2つの部分で構成されています。
 Konnectivityエージェントは、Konnectivityサーバーへの接続を開始し、ネットワーク接続を維持します。
 Konnectivityサービスを有効にすると、コントロールプレーンからノードへのトラフィックは、すべてこの接続を経由するようになります。
 

@@ -51,23 +51,44 @@ Example CEL expressions:
 | `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas`           | Validate that the three fields defining replicas are ordered appropriately        |
 | `'Available' in self.stateCounts`                                                  | Validate that an entry with the 'Available' key exists in a map                   |
 | `(self.list1.size() == 0) != (self.list2.size() == 0)`                             | Validate that one of two lists is non-empty, but not both                         |
-| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')`   | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
+| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$'))`  | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
 | `has(self.expired) && self.created + self.ttl < self.expired`                      | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration       |
 | `self.health.startsWith('ok')`                                                     | Validate a 'health' string field has the prefix 'ok'                              |
 | `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                               | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
-| `type(self) == string ? self == '99%' : self == 42`                                | Validate an int-or-string field for both the int and string cases             |
+| `type(self) == string ? self == '99%' : self == 42`                                | Validate an int-or-string field for both the int and string cases                 |
 | `self.metadata.name == 'singleton'`                                                | Validate that an object's name matches a specific value (making it a singleton)   |
 | `self.set1.all(e, !(e in self.set2))`                                              | Validate that two listSets are disjoint                                           |
 | `self.names.size() == self.details.size() && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet           |
+| `self.details.all(key, key.matches('^[a-zA-Z]*$'))`                                | Validate the keys of the 'details' map                                            |
+| `self.details.all(key, self.details[key].matches('^[a-zA-Z]*$'))`                  | Validate the values of the 'details' map                                          |
 {{< /table >}}
 
-## CEL community libraries
+## CEL options, language features, and libraries
 
-Kubernetes CEL expressions have access to the following CEL community libraries:
+CEL is configured with the following options, libraries and language features, introduced at the specified Kubernetes versions:
 
-- CEL standard functions, defined in the [list of standard definitions](https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions)
-- CEL standard [macros](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)
-- CEL [extended string function library](https://pkg.go.dev/github.com/google/cel-go/ext#Strings)
+| CEL option, library or language feature                                                                                | Included                                                                                                                                  | Availablity               |
+|------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
+| [Standard macros](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)                                | `has`, `all`, `exists`, `exists_one`, `map`, `filter`                                                                                     | All Kubernetes versions   |
+| [Standard functions](https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions)       | See [official list of standard definitions](https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions)   | All Kubernetes versions   |
+| [Homogeneous Aggregate Literals](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#HomogeneousAggregateLiterals) |                                                                                                                                           | All Kubernetes versions   |
+| [Default UTC Time Zone](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#DefaultUTCTimeZone)                    |                                                                                                                                           | All Kubernetes versions   |
+| [Eagerly Validate Declarations](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#EagerlyValidateDeclarations)   |                                                                                                                                           | All Kubernetes versions   |
+| [extended strings library](https://pkg.go.dev/github.com/google/cel-go/ext#Strings), Version 1                         | `charAt`, `indexOf`, `lastIndexOf`, `lowerAscii`, `upperAscii`, `replace`, `split`, `join`, `substring`, `trim`                           | All Kubernetes versions   |
+| Kubernetes list library                                                                                                | See [Kubernetes list library](#kubernetes-list-library)                                                                                   | All Kubernetes versions   |
+| Kubernetes regex library                                                                                               | See [Kubernetes regex library](#kubernetes-regex-library)                                                                                 | All Kubernetes versions   |
+| Kubernetes URL library                                                                                                 | See [Kubernetes URL library](#kubernetes-url-library)                                                                                     | All Kubernetes versions   |
+| Kubernetes authorizer library                                                                                          | See [Kubernetes authorizer library](#kubernetes-authorizer-library)                                                                       | All Kubernetes versions   |
+| Kubernetes quantity library                                                                                            | See [Kubernetes quantity library](#kubernetes-quantity-library)                                                                           | Kubernetes versions 1.29+ |
+| CEL optional types                                                                                                     | See [CEL optional types](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes)                                           | Kubernetes versions 1.29+ |
+| CEL CrossTypeNumericComparisons                                                                                        | See [CEL CrossTypeNumericComparisons](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#CrossTypeNumericComparisons)                | Kubernetes versions 1.29+ |
+
+CEL functions, features and language settings support Kubernetes control plane
+rollbacks. For example, _CEL Optional Values_ was introduced at Kubernetes 1.29
+and so only API servers at that version or newer will accept write requests to
+CEL expressions that use _CEL Optional Values_. However, when a cluster is
+rolled back to Kubernetes 1.28 CEL expressions using "CEL Optional Values" that
+are already stored in API resources will continue to evaluate correctly.
 
 ## Kubernetes CEL libraries
 
@@ -112,8 +133,8 @@ Examples:
 {{< table caption="Examples of CEL expressions using regex library functions" >}}
 | CEL Expression                                              | Purpose                                                  |
 |-------------------------------------------------------------|----------------------------------------------------------|
-| `"abc 123".find('[0-9]*')`                                  | Find the first number in a string                        |
-| `"1, 2, 3, 4".findAll('[0-9]*').map(x, int(x)).sum() < 100` | Verify that the numbers in a string sum to less than 100 |
+| `"abc 123".find('[0-9]+')`                                  | Find the first number in a string                        |
+| `"1, 2, 3, 4".findAll('[0-9]+').map(x, int(x)).sum() < 100` | Verify that the numbers in a string sum to less than 100 |
 {{< /table >}}
 
 See the [Kubernetes regex library](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#Regex)
@@ -179,8 +200,64 @@ To perform an authorization check for a service account:
 | `authorizer.serviceAccount('default', 'myserviceaccount').resource('deployments').check('delete').allowed()` | Checks if the service account is authorized to delete deployments. |
 {{< /table >}}
 
+{{< feature-state state="alpha" for_k8s_version="v1.31" >}}
+
+With the alpha `AuthorizeWithSelectors` feature enabled, field and label selectors can be added to authorization checks.
+
+{{< table caption="Examples of CEL expressions using selector authorization functions" >}}
+| CEL Expression                                                                                               | Purpose                                        |
+|--------------------------------------------------------------------------------------------------------------|------------------------------------------------|
+| `authorizer.group('').resource('pods').fieldSelector('spec.nodeName=mynode').check('list').allowed()`        | Returns true if the principal (user or service account) is allowed to list pods with the field selector `spec.nodeName=mynode`. |
+| `authorizer.group('').resource('pods').labelSelector('example.com/mylabel=myvalue').check('list').allowed()` | Returns true if the principal (user or service account) is allowed to list pods with the label selector `example.com/mylabel=myvalue`. |
+{{< /table >}}
+
 See the [Kubernetes Authz library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)
+and [Kubernetes AuthzSelectors library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#AuthzSelectors)
 godoc for more information.
+
+### Kubernetes quantity library
+
+Kubernetes 1.28 adds support for manipulating quantity strings (ex 1.5G, 512k, 20Mi)
+
+- `isQuantity(string)` checks if a string is a valid Quantity according to [Kubernetes'
+  resource.Quantity](https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#Quantity). 
+- `quantity(string) Quantity` converts a string to a Quantity or results in an error if the
+  string is not a valid quantity.
+
+Once parsed via the `quantity` function, the resulting Quantity object has the 
+following library of member functions:
+
+{{< table caption="Available member functions of a Quantity" >}}
+| Member Function               | CEL Return Value  | Description                                                                                                                                                          |
+|-------------------------------|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `isInteger()`                 | bool              | returns true if and only if asInteger is safe to call without an error                                                                                               |
+| `asInteger()`                 | int               | returns a representation of the current value as an int64 if possible or results in an error if conversion would result in overflow or loss of precision.             |
+| `asApproximateFloat()`        | float              | returns a float64 representation of the quantity which may lose precision. If the value of the quantity is outside the range of a float64 +Inf/-Inf will be returned.  |
+| `sign()`                      | int               | Returns `1` if the quantity is positive, `-1` if it is negative. `0` if it is zero                                                                                   |
+| `add(<Quantity>)`             | Quantity          | Returns sum of two quantities                                                                                                                                        |
+| `add(<int>)`                  | Quantity          | Returns sum of quantity and an integer                                                                                                                               | 
+| `sub(<Quantity>)`             | Quantity          | Returns difference between two quantities                                                                                                                            |
+| `sub(<int>)`                  | Quantity          | Returns difference between a quantity and an integer                                                                                                                 |
+| `isLessThan(<Quantity>)`      | bool              | Returns true if and only if the receiver is less than the operand                                                                                                    |
+| `isGreaterThan(<Quantity>)`   | bool              | Returns true if and only if the receiver is greater than the operand                                                                                                 |
+| `compareTo(<Quantity>)`       | int               | Compares receiver to operand and returns 0 if they are equal, 1 if the receiver is greater, or -1 if the receiver is less than the operand                           |
+{{< /table >}}
+
+Examples:
+
+{{< table caption="Examples of CEL expressions using URL library functions" >}}
+| CEL Expression                                                            | Purpose                                               |
+|---------------------------------------------------------------------------|-------------------------------------------------------|
+| `quantity("500000G").isInteger()`                                         | Test if conversion to integer would throw an error    |
+| `quantity("50k").asInteger()`                                             | Precise conversion to integer                         |
+| `quantity("9999999999999999999999999999999999999G").asApproximateFloat()` | Lossy conversion to float                              |
+| `quantity("50k").add(quantity("20k"))`                                   | Add two quantities                                    |
+| `quantity("50k").sub(20000)`                                              | Subtract an integer from a quantity                   |
+| `quantity("50k").add(20).sub(quantity("100k")).sub(-50000)`               | Chain adding and subtracting integers and quantities  |
+| `quantity("200M").compareTo(quantity("0.2G"))`                            | Compare two quantities                                |
+| `quantity("150Mi").isGreaterThan(quantity("100Mi"))`                      | Test if a quantity is greater than the receiver       |
+| `quantity("50M").isLessThan(quantity("100M"))`                            | Test if a quantity is less than the receiver          |
+{{< /table >}}
 
 ## Type checking
 
@@ -336,3 +413,4 @@ API resources by rejecting create or update operations containing the CEL
 expression to the API resources. This feature offers a stronger assurance that
 CEL expressions written to the API resource will be evaluate at runtime without
 exceeding the runtime cost budget.
+

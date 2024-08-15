@@ -3,9 +3,10 @@ layout: blog
 title: 'Increasing the security bar in Ingress-NGINX v1.2.0'
 date: 2022-04-28
 slug: ingress-nginx-1-2-0
+author: >
+   Ricardo Katz (VMware),
+   James Strong (Chainguard)
 ---
-
-**Authors:** Ricardo Katz (VMware), James Strong (Chainguard)
 
 The [Ingress](/docs/concepts/services-networking/ingress/) may be one of the most targeted components
 of Kubernetes. An Ingress typically defines an HTTP reverse proxy, exposed to the Internet, containing

@@ -33,18 +33,25 @@ Secret 和 ConfigMap。你可以使用 Kustomize 创建**资源生成器（Resou
 
 You can generate a Secret by defining a `secretGenerator` in a
 `kustomization.yaml` file that references other existing files, `.env` files, or
-literal values. For example, the following instructions create a Kustomization
+literal values. For example, the following instructions create a kustomization
 file for the username `admin` and the password `1f2d1e2e67df`.
 
-### Create the Kustomization file
+### Create the kustomization file
 -->
 ## 创建 Secret    {#create-a-secret}
 
 你可以在 `kustomization.yaml` 文件中定义 `secreteGenerator` 字段，
 并在定义中引用其它本地文件、`.env` 文件或文字值生成 Secret。
-例如：下面的指令为用户名 `admin` 和密码 `1f2d1e2e67df` 创建 Kustomization 文件。
+例如：下面的指令为用户名 `admin` 和密码 `1f2d1e2e67df` 创建 kustomization 文件。
 
-### 创建 Kustomization 文件   {#create-the-kustomization-file}
+{{< note >}}
+<!--
+The `stringData` field for a Secret does not work well with server-side apply.
+-->
+Secret 的 `stringData` 字段与服务端应用不兼容。
+{{< /note >}}
+
+### 创建 kustomization 文件   {#create-the-kustomization-file}
 
 {{< tabs name="Secret data" >}}
 {{< tab name="文字" codelang="yaml" >}}
@@ -86,7 +93,7 @@ secretGenerator:
      - password.txt
    ```
 
-{{% /tab %}}}
+{{% /tab %}}
 {{% tab name=".env 文件" %}}
 <!-- 
 You can also define the secretGenerator in the `kustomization.yaml` file by
@@ -106,7 +113,7 @@ secretGenerator:
 {{< /tabs >}}
 
 <!--
-In all cases, you don't need to base64 encode the values. The name of the YAML
+In all cases, you don't need to encode the values in base64. The name of the YAML
 file **must** be `kustomization.yaml` or `kustomization.yml`.
 -->
 在所有情况下，你都不需要对取值作 base64 编码。
@@ -140,6 +147,10 @@ the Secret data and appending the hash value to the name. This ensures that
 a new Secret is generated each time the data is modified.
 
 To verify that the Secret was created and to decode the Secret data,
+
+```shell
+kubectl get -k <directory-path> -o jsonpath='{.data}' 
+```
 -->
 生成 Secret 时，Secret 的名称最终是由 `name` 字段和数据的哈希值拼接而成。
 这将保证每次修改数据时生成一个新的 Secret。
@@ -147,7 +158,7 @@ To verify that the Secret was created and to decode the Secret data,
 要验证 Secret 是否已创建并解码 Secret 数据，
 
 ```shell
-kubectl get -k <directory-path> -o jsonpath='{.data}' 
+kubectl get -k <目录路径> -o jsonpath='{.data}' 
 ```
 
 <!--
@@ -156,11 +167,11 @@ The output is similar to:
 输出类似于：
 
 ```
-{ "password": "UyFCXCpkJHpEc2I9", "username": "YWRtaW4=" }
-````
+{ "password": "MWYyZDFlMmU2N2Rm", "username": "YWRtaW4=" }
+```
 
 ```
-echo 'UyFCXCpkJHpEc2I9' | base64 --decode
+echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 ```
 
 <!--
@@ -169,7 +180,7 @@ The output is similar to:
 输出类似于：
 
 ```
-S!B\*d$zDsb=
+1f2d1e2e67df
 ```
 
 <!--
@@ -186,6 +197,10 @@ For more information, refer to
 
 1.  In your `kustomization.yaml` file, modify the data, such as the `password`.
 1.  Apply the directory that contains the kustomization file:
+
+    ```shell
+    kubectl apply -k <directory-path>
+    ```
 -->
 ## 编辑 Secret {#edit-secret}
 

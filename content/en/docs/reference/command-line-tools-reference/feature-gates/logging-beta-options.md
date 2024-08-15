@@ -10,4 +10,4 @@ stages:
     defaultValue: true
     fromVersion: "1.24"
 ---
-Allow fine-tuing of experimental, beta-quality logging options.
+Allow fine-tuning of experimental, beta-quality logging options.

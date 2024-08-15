@@ -14,4 +14,5 @@ stages:
     defaultValue: true
     fromVersion: "1.28"
 ---
-Allow fine-tuning of topology manager policies,
+Enable [fine-tuning](/docs/tasks/administer-cluster/topology-manager/#topology-manager-policy-options)
+of topology manager policies.

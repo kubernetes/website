@@ -264,7 +264,7 @@ a way to extend Kubernetes with supports for new kinds of volumes. The volumes c
 durable external storage, or provide ephemeral storage, or they might offer a read-only interface
 to information using a filesystem paradigm.
 
-Kubernetes also includes support for [FlexVolume](/docs/concepts/storage/volumes/#flexvolume-deprecated) plugins,
+Kubernetes also includes support for [FlexVolume](/docs/concepts/storage/volumes/#flexvolume) plugins,
 which are deprecated since Kubernetes v1.23 (in favour of CSI).
 
 FlexVolume plugins allow users to mount volume types that aren't natively supported by Kubernetes. When

@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.26: Job Tracking, to Support Massively Parallel Batch Workloads, Is Generally Available"
 date: 2022-12-29
 slug: "scalable-job-tracking-ga"
+author: >
+  Aldo Culquicondor (Google)
 ---
-
-**Authors:** Aldo Culquicondor (Google)
 
 The Kubernetes 1.26 release includes a stable implementation of the [Job](/docs/concepts/workloads/controllers/job/)
 controller that can reliably track a large amount of Jobs with high levels of

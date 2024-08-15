@@ -10,4 +10,5 @@ approvers:
 - sig-docs-hi-owners
 
 labels:
+- area/localization
 - language/hi

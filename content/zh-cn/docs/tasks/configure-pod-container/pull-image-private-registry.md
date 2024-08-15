@@ -13,8 +13,8 @@ weight: 130
 
 <!--
 This page shows how to create a Pod that uses a
-{{< glossary_tooltip text="Secret" term_id="secret" >}} to pull an image 
-from a private container image registry or repository. There are many private 
+{{< glossary_tooltip text="Secret" term_id="secret" >}} to pull an image
+from a private container image registry or repository. There are many private
 registries in use. This task uses [Docker Hub](https://www.docker.com/products/docker-hub)
 as an example registry.
 -->
@@ -32,8 +32,8 @@ as an example registry.
 <!--
 * To do this exercise, you need the `docker` command line tool, and a
   [Docker ID](https://docs.docker.com/docker-id/) for which you know the password.
-* If you are using a different private container registry, you need the command 
-  line tool for that registry and any login information for the registry. 
+* If you are using a different private container registry, you need the command
+  line tool for that registry and any login information for the registry.
 -->
 * 要进行此练习，你需要 `docker` 命令行工具和一个知道密码的
   [Docker ID](https://docs.docker.com/docker-id/)。

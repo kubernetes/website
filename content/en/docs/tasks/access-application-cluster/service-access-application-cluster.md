@@ -87,7 +87,7 @@ Here is the configuration file for the application Deployment:
    Events:                 <none>
    ```
 
-   Make a note of the NodePort value for the service. For example,
+   Make a note of the NodePort value for the Service. For example,
    in the preceding output, the NodePort value is 31496.
 
 1. List the pods that are running the Hello World application:
@@ -128,7 +128,9 @@ Here is the configuration file for the application Deployment:
    response to a successful request is a hello message:
 
    ```none
-   Hello Kubernetes!
+   Hello, world!
+   Version: 2.0.0
+   Hostname: hello-world-cdd4458f4-m47c8
    ```
 
 ## Using a service configuration file

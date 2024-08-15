@@ -1,7 +1,8 @@
+---
 content_type: "reference"
 title: 由 kubelet 填充的节点标签
 weight: 40
-
+---
 <!--
 content_type: "reference"
 title: Node Labels Populated By The Kubelet
@@ -25,7 +26,7 @@ Kubernetes {{< glossary_tooltip text="节点" term_id="node" >}}预先填充了�
 
 The preset labels that Kubernetes sets on nodes are:
 -->
-## 预设标签
+## 预设标签 {#preset-labels}
 
 Kubernetes 在节点上设置的预设标签有：
 

@@ -17,6 +17,8 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.28"  
+    toVersion: "1.29" 
+removed: true
 ---
 Enable kubelet and kube-apiserver to allow more DNS
 search paths and longer list of DNS search paths. This feature requires container

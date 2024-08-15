@@ -192,7 +192,7 @@ spec:
   ...
 ```
 
-Isso é útil se você deseja utilizar PersistentVolumes que possuem suas `claimPolicy` configuradas para `Retain`, incluindo situações onde você estiver reutilizando um PV existente.
+Isso é útil se você deseja utilizar PersistentVolumes que possuem suas `persistentVolumeReclaimPolicy` configuradas para `Retain`, incluindo situações onde você estiver reutilizando um PV existente.
 
 ### Expandindo Requisições de Volumes Persistentes
 

@@ -178,6 +178,16 @@ PersistentVolumeClaim requests to this PersistentVolume.
 [StorageClass 的名称](/zh-cn/docs/concepts/storage/persistent-volumes/#class)为 `manual`。
 它将用于将 PersistentVolumeClaim 的请求绑定到此 PersistentVolume。
 
+{{< note >}}
+<!--
+This example uses the `ReadWriteOnce` access mode, for simplicity. For
+production use, the Kubernetes project recommends using the `ReadWriteOncePod`
+access mode instead.
+-->
+为了简化，本示例采用了 `ReadWriteOnce` 访问模式。然而对于生产环境，
+Kubernetes 项目建议改用 `ReadWriteOncePod` 访问模式。
+{{< /note >}}
+
 <!--
 Create the PersistentVolume:
 -->

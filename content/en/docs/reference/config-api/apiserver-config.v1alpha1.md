@@ -114,6 +114,13 @@ The specific position of JWT authenticators in relation to other
 authenticators is neither defined nor stable across releases.  Since
 each JWT authenticator must have a unique issuer URL, at most one
 JWT authenticator will attempt to cryptographically validate the token.</p>
+<p>The minimum valid JWT payload must contain the following claims:
+{
+&quot;iss&quot;: &quot;https://issuer.example.com&quot;,
+&quot;aud&quot;: [&quot;audience&quot;],
+&quot;exp&quot;: 1234567890,
+&quot;&lt;username claim&gt;&quot;: &quot;username&quot;
+}</p>
 </td>
 </tr>
 </tbody>
@@ -238,6 +245,20 @@ configuration. If present, it will be used instead of the path to the configurat
 </tbody>
 </table>
 
+## `AudienceMatchPolicyType`     {#apiserver-k8s-io-v1alpha1-AudienceMatchPolicyType}
+    
+(Alias of `string`)
+
+**Appears in:**
+
+- [Issuer](#apiserver-k8s-io-v1alpha1-Issuer)
+
+
+<p>AudienceMatchPolicyType is a set of valid values for issuer.audienceMatchPolicy</p>
+
+
+
+
 ## `AuthorizerConfiguration`     {#apiserver-k8s-io-v1alpha1-AuthorizerConfiguration}
     
 
@@ -308,7 +329,11 @@ Must not be defined when Type!=Webhook</p>
    <p>username represents an option for the username attribute.
 The claim's value must be a singular string.
 Same as the --oidc-username-claim and --oidc-username-prefix flags.
-If username.expression is set, the expression must produce a string value.</p>
+If username.expression is set, the expression must produce a string value.
+If username.expression uses 'claims.email', then 'claims.email_verified' must be used in
+username.expression or extra[&ast;].valueExpression or claimValidationRules[&ast;].expression.
+An example claim validation rule expression that matches the validation automatically
+applied when username.claim is set to 'email' is 'claims.?email_verified.orValue(true)'.</p>
 <p>In the flag based approach, the --oidc-username-claim and --oidc-username-prefix are optional. If --oidc-username-claim is not set,
 the default value is &quot;sub&quot;. For the authentication config, there is no defaulting for claim or prefix. The claim and prefix must be set explicitly.
 For claim, if --oidc-username-claim was not set with legacy flag approach, configure username.claim=&quot;sub&quot; in the authentication config.
@@ -316,8 +341,8 @@ For prefix:
 (1) --oidc-username-prefix=&quot;-&quot;, no prefix was added to the username. For the same behavior using authentication config,
 set username.prefix=&quot;&quot;
 (2) --oidc-username-prefix=&quot;&quot; and  --oidc-username-claim != &quot;email&quot;, prefix was &quot;&lt;value of --oidc-issuer-url&gt;#&quot;. For the same
-behavior using authentication config, set username.prefix=&quot;<!-- raw HTML omitted -->#&quot;
-(3) --oidc-username-prefix=&quot;<!-- raw HTML omitted -->&quot;. For the same behavior using authentication config, set username.prefix=&quot;<!-- raw HTML omitted -->&quot;</p>
+behavior using authentication config, set username.prefix=&quot;&lt;value of issuer.url&gt;#&quot;
+(3) --oidc-username-prefix=&quot;&lt;value&gt;&quot;. For the same behavior using authentication config, set username.prefix=&quot;&lt;value&gt;&quot;</p>
 </td>
 </tr>
 <tr><td><code>groups</code><br/>
@@ -406,7 +431,7 @@ Mutually exclusive with expression.</p>
 <ul>
 <li>'claims' is a map of claim names to claim values.
 For example, a variable named 'sub' can be accessed as 'claims.sub'.
-Nested claims can be accessed using dot notation, e.g. 'claims.email.verified'.</li>
+Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 </ul>
 <p>Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/</p>
 <p>Mutually exclusive with claim.</p>
@@ -462,7 +487,7 @@ Must produce a boolean.</p>
 <ul>
 <li>'claims' is a map of claim names to claim values.
 For example, a variable named 'sub' can be accessed as 'claims.sub'.
-Nested claims can be accessed using dot notation, e.g. 'claims.email.verified'.
+Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.
 Must return true for the validation to pass.</li>
 </ul>
 <p>Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/</p>
@@ -574,7 +599,8 @@ The &quot;master&quot; egress selector is deprecated in favor of &quot;controlpl
 key must be a domain-prefix path (e.g. example.org/foo). All characters before the first &quot;/&quot; must be a valid
 subdomain as defined by RFC 1123. All characters trailing the first &quot;/&quot; must
 be valid HTTP Path characters as defined by RFC 3986.
-key must be lowercase.</p>
+key must be lowercase.
+Required to be unique.</p>
 </td>
 </tr>
 <tr><td><code>valueExpression</code> <B>[Required]</B><br/>
@@ -589,7 +615,7 @@ Empty string values contained within a string array are filtered out.</p>
 <ul>
 <li>'claims' is a map of claim names to claim values.
 For example, a variable named 'sub' can be accessed as 'claims.sub'.
-Nested claims can be accessed using dot notation, e.g. 'claims.email.verified'.</li>
+Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 </ul>
 <p>Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/</p>
 </td>
@@ -605,7 +631,7 @@ Nested claims can be accessed using dot notation, e.g. 'claims.email.verified'.<
 - [JWTAuthenticator](#apiserver-k8s-io-v1alpha1-JWTAuthenticator)
 
 
-<p>Issuer provides the configuration for a external provider specific settings.</p>
+<p>Issuer provides the configuration for an external provider's specific settings.</p>
 
 
 <table class="table">
@@ -620,8 +646,35 @@ Nested claims can be accessed using dot notation, e.g. 'claims.email.verified'.<
    <p>url points to the issuer URL in a format https://url or https://url/path.
 This must match the &quot;iss&quot; claim in the presented JWT, and the issuer returned from discovery.
 Same value as the --oidc-issuer-url flag.
-Used to fetch discovery information unless overridden by discoveryURL.
-Required to be unique.
+Discovery information is fetched from &quot;{url}/.well-known/openid-configuration&quot; unless overridden by discoveryURL.
+Required to be unique across all JWT authenticators.
+Note that egress selection configuration is not used for this network connection.</p>
+</td>
+</tr>
+<tr><td><code>discoveryURL</code><br/>
+<code>string</code>
+</td>
+<td>
+   <p>discoveryURL, if specified, overrides the URL used to fetch discovery
+information instead of using &quot;{url}/.well-known/openid-configuration&quot;.
+The exact value specified is used, so &quot;/.well-known/openid-configuration&quot;
+must be included in discoveryURL if needed.</p>
+<p>The &quot;issuer&quot; field in the fetched discovery information must match the &quot;issuer.url&quot; field
+in the AuthenticationConfiguration and will be used to validate the &quot;iss&quot; claim in the presented JWT.
+This is for scenarios where the well-known and jwks endpoints are hosted at a different
+location than the issuer (such as locally in the cluster).</p>
+<p>Example:
+A discovery url that is exposed using kubernetes service 'oidc' in namespace 'oidc-namespace'
+and discovery information is available at '/.well-known/openid-configuration'.
+discoveryURL: &quot;https://oidc.oidc-namespace/.well-known/openid-configuration&quot;
+certificateAuthority is used to verify the TLS connection and the hostname on the leaf certificate
+must be set to 'oidc.oidc-namespace'.</p>
+<p>curl https://oidc.oidc-namespace/.well-known/openid-configuration (.discoveryURL field)
+{
+issuer: &quot;https://oidc.example.com&quot; (.url field)
+}</p>
+<p>discoveryURL must be different from url.
+Required to be unique across all JWT authenticators.
 Note that egress selection configuration is not used for this network connection.</p>
 </td>
 </tr>
@@ -643,6 +696,29 @@ Same value as the content of the file referenced by the --oidc-ca-file flag.</p>
 At least one of the entries must match the &quot;aud&quot; claim in presented JWTs.
 Same value as the --oidc-client-id flag (though this field supports an array).
 Required to be non-empty.</p>
+</td>
+</tr>
+<tr><td><code>audienceMatchPolicy</code><br/>
+<a href="#apiserver-k8s-io-v1alpha1-AudienceMatchPolicyType"><code>AudienceMatchPolicyType</code></a>
+</td>
+<td>
+   <p>audienceMatchPolicy defines how the &quot;audiences&quot; field is used to match the &quot;aud&quot; claim in the presented JWT.
+Allowed values are:</p>
+<ol>
+<li>&quot;MatchAny&quot; when multiple audiences are specified and</li>
+<li>empty (or unset) or &quot;MatchAny&quot; when a single audience is specified.</li>
+</ol>
+<ul>
+<li>
+<p>MatchAny: the &quot;aud&quot; claim in the presented JWT must match at least one of the entries in the &quot;audiences&quot; field.
+For example, if &quot;audiences&quot; is [&quot;foo&quot;, &quot;bar&quot;], the &quot;aud&quot; claim in the presented JWT must contain either &quot;foo&quot; or &quot;bar&quot; (and may contain both).</p>
+</li>
+<li>
+<p>&quot;&quot;: The match policy can be empty (or unset) when a single audience is specified in the &quot;audiences&quot; field. The &quot;aud&quot; claim in the presented JWT must contain the single audience (and may contain others).</p>
+</li>
+</ul>
+<p>For more nuanced audience validation, use claimValidationRules.
+example: claimValidationRule[].expression: 'sets.equivalent(claims.aud, [&quot;bar&quot;, &quot;foo&quot;, &quot;baz&quot;])' to require an exact match.</p>
 </td>
 </tr>
 </tbody>
@@ -740,7 +816,7 @@ Mutually exclusive with expression.</p>
 <ul>
 <li>'claims' is a map of claim names to claim values.
 For example, a variable named 'sub' can be accessed as 'claims.sub'.
-Nested claims can be accessed using dot notation, e.g. 'claims.email.verified'.</li>
+Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 </ul>
 <p>Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/</p>
 <p>Mutually exclusive with claim and prefix.</p>

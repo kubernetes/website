@@ -3,9 +3,10 @@ layout: blog
 title: "Using Admission Controllers to Detect Container Drift at Runtime"
 date: 2021-12-21
 slug: admission-controllers-for-container-drift
+author: >
+   Saifuding Diliyaer (Box)
 ---
 
-**Author:** Saifuding Diliyaer (Box)
 {{< figure src="intro-illustration.png" alt="Introductory illustration" attr="Illustration by Munire Aireti" >}}
 
 At Box, we use Kubernetes (K8s) to manage hundreds of micro-services that enable Box to stream data at a petabyte scale. When it comes to the deployment process, we run [kube-applier](https://github.com/box/kube-applier) as part of the GitOps workflows with declarative configuration and automated deployment. Developers declare their K8s apps manifest into a Git repository that requires code reviews and automatic checks to pass, before any changes can get merged and applied inside our K8s clusters. With `kubectl exec` and other similar commands, however, developers are able to directly interact with running containers and alter them from their deployed state. This interaction could then subvert the change control and code review processes that are enforced in our CI/CD pipelines. Further, it allows such impacted containers to continue receiving traffic long-term in production.

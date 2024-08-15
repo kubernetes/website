@@ -28,7 +28,7 @@ and [PodAntiAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affini
 本教程展示了在 Kubernetes 上使用
 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)、
 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget) 和
-[PodAntiAffinity](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#亲和与反亲和)
+[PodAntiAffinity](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 特性运行 [Apache Zookeeper](https://zookeeper.apache.org)。
 
 ## {{% heading "prerequisites" %}}
@@ -46,7 +46,7 @@ Kubernetes concepts.
 - [PersistentVolume 制备](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
 - [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
 - [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget)
-- [PodAntiAffinity](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#亲和与反亲和)
+- [PodAntiAffinity](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 - [kubectl CLI](/zh-cn/docs/reference/kubectl/kubectl/)
 
 <!--
@@ -148,7 +148,7 @@ and a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 
 下面的清单包含一个[无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)、
 一个 [Service](/zh-cn/docs/concepts/services-networking/service/)、
-一个 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)
+一个 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/#pod-disruption-budgets)
 和一个 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)。
 
 {{% code_sample file="application/zookeeper/zookeeper.yaml" %}}
@@ -1261,7 +1261,7 @@ domains to ensure availability. To avoid an outage, due to the loss of an
 individual machine, best practices preclude co-locating multiple instances of the
 application on the same machine.
 -->
-## 容忍节点故障
+## 容忍节点故障   {#tolerating-node-failure}
 
 ZooKeeper 需要一个 quorum 来提交数据变动。对于一个拥有 3 个服务器的 ensemble 来说，
 必须有两个服务器是健康的，写入才能成功。

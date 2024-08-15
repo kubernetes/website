@@ -93,7 +93,7 @@ cgroupとインターフェースするために、kubeletおよびコンテナ�
 ### cgroupfsドライバー {#cgroupfs-cgroup-driver}
 
 `cgroupfs`ドライバーは、kubeletのデフォルトのcgroupドライバーです。
-`cgroupfs`ドライバーを使用すると、kubeletとコンテナランタイムはcgroupファイルシステムと直接インターフェイスし、cgroupを設定します。
+`cgroupfs`ドライバーを使用すると、kubeletとコンテナランタイムはcgroupファイルシステムと直接インターフェースし、cgroupを設定します。
 
 [systemd](https://www.freedesktop.org/wiki/Software/systemd/)がinitシステムである場合、`cgroupfs`ドライバーは推奨**されません**。
 なぜなら、systemdはシステム上のcgroupマネージャーが単一であると想定しているからです。
@@ -223,7 +223,7 @@ kubeadmを使用している場合、手動で[kubelet cgroupドライバーの�
 
 本セクションでは、コンテナランタイムとしてCRI-Oをインストールするために必要な手順を説明します。
 
-CRI-Oをインストールするには、[CRI-Oのインストール手順](https://github.com/cri-o/cri-o/blob/main/install.md#readme)に従ってください。
+CRI-Oをインストールするには、[CRI-Oのインストール手順](https://github.com/cri-o/packaging/blob/main/README.md#usage)に従ってください。
 
 #### cgroupドライバー
 

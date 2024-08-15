@@ -130,14 +130,21 @@ The following methods exist for installing kubectl on Linux:
    ```shell
    sudo apt-get update
    # apt-transport-https may be a dummy package; if so, you can skip that package
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
    ```
 
 2. Download the public signing key for the Kubernetes package repositories. The same signing key is used for all repositories so you can disregard the version in the URL:
 
    ```shell
+   # If the folder `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
+   # sudo mkdir -p -m 755 /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+   sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg # allow unprivileged APT programs to read this keyring
    ```
+   
+{{< note >}}
+In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
+{{< /note >}}
 
 3. Add the appropriate Kubernetes `apt` repository. If you want to use Kubernetes version different than {{< param "version" >}},
    replace {{< param "version" >}} with the desired minor version in the command below:
@@ -145,6 +152,7 @@ The following methods exist for installing kubectl on Linux:
    ```shell
    # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
    echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list   # helps tools such as command-not-found to work correctly
    ```
 
 {{< note >}}
@@ -157,10 +165,6 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
    sudo apt-get update
    sudo apt-get install -y kubectl
    ```
-
-{{< note >}}
-In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default, and can be created using `sudo mkdir -m 755 /etc/apt/keyrings`
-{{< /note >}}
 
 {{% /tab %}}
 
@@ -218,11 +222,42 @@ before running `zypper update`. This procedure is described in more detail in
 [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
 {{< /note >}}
 
-   2. Install kubectl using `zypper`:
+2. Update `zypper` and confirm the new repo addition:
+   
+   ```bash
+   sudo zypper update
+   ```
 
-      ```bash
-      sudo zypper install -y kubectl
-      ```
+   When this message appears, press 't' or 'a':
+
+   ```
+   New repository or package signing key received:
+
+   Repository:       Kubernetes
+   Key Fingerprint:  1111 2222 3333 4444 5555 6666 7777 8888 9999 AAAA
+   Key Name:         isv:kubernetes OBS Project <isv:kubernetes@build.opensuse.org>
+   Key Algorithm:    RSA 2048
+   Key Created:      Thu 25 Aug 2022 01:21:11 PM -03
+   Key Expires:      Sat 02 Nov 2024 01:21:11 PM -03 (expires in 85 days)
+   Rpm Name:         gpg-pubkey-9a296436-6307a177
+
+   Note: Signing data enables the recipient to verify that no modifications occurred after the data
+   were signed. Accepting data with no, wrong or unknown signature can lead to a corrupted system
+   and in extreme cases even to a system compromise.
+
+   Note: A GPG pubkey is clearly identified by its fingerprint. Do not rely on the key's name. If
+   you are not sure whether the presented key is authentic, ask the repository provider or check
+   their web site. Many providers maintain a web page showing the fingerprints of the GPG keys they
+   are using.
+
+   Do you want to reject the key, trust temporarily, or trust always? [r/t/a/?] (r): a
+   ```
+   
+3. Install kubectl using `zypper`:
+
+   ```bash
+   sudo zypper install -y kubectl
+   ```
 
 {{% /tab %}}
 {{< /tabs >}}

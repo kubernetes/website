@@ -70,6 +70,13 @@ characters.
 你必须使用单引号 `''` 转义字符串中的特殊字符，如 `$`、`\`、`*`、`=`和`!` 。否则，你的 shell
 将会解析这些字符。
 
+{{< note >}}
+<!--
+The `stringData` field for a Secret does not work well with server-side apply.
+-->
+Secret 的 `stringData` 字段与服务端应用不兼容。
+{{< /note >}}
+
 <!--
 ### Use source files
 -->

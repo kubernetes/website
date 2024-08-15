@@ -4,9 +4,9 @@ title: 'Kubernetes 1.18: Fit & Finish'
 date: 2020-03-25
 slug: kubernetes-1-18-release-announcement
 evergreen: true
+author: >
+  [Kubernetes 1.18 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.18/release_team.md) 
 ---
-
-**Authors:** [Kubernetes 1.18 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.18/release_team.md)
 
 We're pleased to announce the delivery of Kubernetes 1.18, our first release of 2020! Kubernetes 1.18 consists of 38 enhancements: 15 enhancements are moving to stable, 11 enhancements in beta, and 12 enhancements in alpha.
 

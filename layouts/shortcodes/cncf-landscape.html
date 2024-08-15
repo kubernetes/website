@@ -10,12 +10,12 @@ function updateLandscapeSource(button,shouldUpdateFragment) {
   console.log({button: button,shouldUpdateFragment: shouldUpdateFragment});
   try {
     if(shouldUpdateFragment) {
-      window.location.hash = "#"+button.id;
+      window.location.hash = "#iframe-landscape-"+button.id;
       // hash change handler will call us again with shouldUpdateFragment set false
     } else {
       var landscapeElements = document.querySelectorAll("#landscape");
       let categories=button.dataset.landscapeTypes;
-      let link = "https://landscape.cncf.io/card-mode?category="+encodeURIComponent(categories)+"&grouping=category&embed=yes";
+      let link = `https://landscape.cncf.io/embed/embed.html?key=${encodeURIComponent(categories)}&headers=false&style=shadowed&size=md&bg-color=%23d95e00&fg-color=%23ffffff&iframe-resizer=true`
       landscapeElements[0].src = link;
     }
   }
@@ -58,10 +58,25 @@ document.addEventListener("DOMContentLoaded", function () {
 {{- end -}}
 <div id="frameHolder">
   {{ if ( .Get "category" ) }}
-  <iframe frameborder="0" id="landscape" scrolling="no" src="https://landscape.cncf.io/card-mode?category={{ .Get "category" }}&grouping=category&embed=yes" style="width: 1px; min-width: 100%"></iframe>
+  <iframe id="iframe-landscape" src="https://landscape.cncf.io/embed/embed.html?key={{ .Get "category" }}&headers=false&style=shadowed&size=md&bg-color=%233371e3&fg-color=%23ffffff&iframe-resizer=true" style="width: 1px; min-width: 100%; min-height: 100px; border: 0;"></iframe>
+  <script>
+    iFrameResize({ }, '#iframe-landscape');
+  </script>
   {{ else }}
-  <iframe frameborder="0" id="landscape" scrolling="no" src="https://landscape.cncf.io/card-mode?embed=yes" style="width: 1px; min-width: 100%" title="CNCF Landscape"></iframe>
+  <style>
+    /* Display subcategory name under sticky header when using anchor */
+    #iframe-landscape-kcsp, #iframe-landscape-conformance, #iframe-landscape-ktp {
+      scroll-margin-top: 35px;
+    }
+  </style>
+  <iframe id="iframe-landscape-kcsp" src="https://landscape.cncf.io/embed/embed.html?key=special--kubernetes-certified-service-provider&headers=true&style=shadowed&size=md&bg-color=%233371e3&fg-color=%23ffffff&iframe-resizer=true" style="width: 1px; min-width: 100%; min-height: 100px; border: 0;"></iframe>
+  <iframe id="iframe-landscape-conformance" src="https://landscape.cncf.io/embed/embed.html?key=platform&headers=true&style=shadowed&size=md&bg-color=%233371e3&fg-color=%23ffffff&iframe-resizer=true" style="width: 1px; min-width: 100%; min-height: 100px; border: 0;"></iframe>
+  <iframe id="iframe-landscape-ktp" src="https://landscape.cncf.io/embed/embed.html?key=special--kubernetes-training-partner&headers=true&style=shadowed&size=md&bg-color=%233371e3&fg-color=%23ffffff&iframe-resizer=true" style="width: 1px; min-width: 100%; min-height: 100px; border: 0;"></iframe>
+  <script>
+    iFrameResize({ }, '#iframe-landscape-kcsp');
+    iFrameResize({ }, '#iframe-landscape-conformance');
+    iFrameResize({ }, '#iframe-landscape-ktp');
+  </script>
   {{ end }}
-  <script src="https://landscape.cncf.io/iframeResizer.js"></script>
 </div>
 {{- end -}}

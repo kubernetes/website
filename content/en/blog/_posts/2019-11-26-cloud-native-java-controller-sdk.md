@@ -1,12 +1,12 @@
-
 ---
 layout: blog
 title: "Develop a Kubernetes controller in Java"
 date: 2019-11-26
 slug: Develop-A-Kubernetes-Controller-in-Java
+author: >
+  Min Kim (Ant Financial), 
+  Tony Ado (Ant Financial)
 ---
-
-**Authors:** Min Kim (Ant Financial), Tony Ado (Ant Financial)
 
 The official [Kubernetes Java SDK](https://github.com/kubernetes-client/java) project
 recently released their latest work on providing the Java Kubernetes developers

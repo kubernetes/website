@@ -3,9 +3,9 @@ layout: blog
 title: PersistentVolume Last Phase Transition Time in Kubernetes
 date: 2023-10-23
 slug: persistent-volume-last-phase-transition-time
+author: >
+  Roman Bednář (Red Hat)
 ---
-
-**Author:** Roman Bednář (Red Hat)
 
 In the recent Kubernetes v1.28 release, we (SIG Storage) introduced a new alpha feature that aims to improve PersistentVolume (PV)
 storage management and help cluster administrators gain better insights into the lifecycle of PVs.

@@ -242,31 +242,125 @@ Use their suggestions to get the content to a release ready state.
 为了确保技术准确性，内容可能还需要相应 SIG 的技术审核。
 尽量利用他们所给出的建议，改进文档内容以达到发布就绪状态。
 
-<!--
-If your feature is an Alpha or Beta feature and is behind a feature gate,
-make sure you add it to [Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
-table as part of your pull request. With new feature gates, a description of
-the feature gate is also required. If your feature is GA'ed or deprecated,
-make sure to move it from the
-[Feature gates for Alpha/Feature](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table
-to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed)
-table with Alpha and Beta history intact.
--->
-如果你在处理的功能特性处于 Alpha 或 Beta 阶段并由某特性门控控制，
-请确保在你的 PR 中，该特性门控被添加到
-[Alpha/Beta 特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)表格中。
-对于新的特性门控选项，需要为该特性门控提供一段描述。
-如果所处理的功能特性已经进入正式发布（GA）状态或者被废弃，
-请确保将其从
-[Alpha 和 Beta 状态的特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)表格迁移到
-[已毕业和已废弃的特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed)，
-并确保迁移后保留其 Alpha、Beta 版本变迁历史。
-
 <!-- 
 If your feature needs documentation and the first draft
 content is not received, the feature may be removed from the milestone.
 -->
-如果你的功能特性需要文档，而你未提交初版文档，该特性可能会被从里程碑中删除。
+如果你的特性需要文档，而你未提交初版文档，那此特性可能会被从里程碑中移除。
+
+<!--
+#### Feature gates {#ready-for-review-feature-gates}
+-->
+#### 特性门控   {#ready-for-review-feature-gates}
+
+<!--
+If your feature is an Alpha or Beta feature and is behind a feature gate,
+you need a feature gate file for it inside
+`content/en/docs/reference/command-line-tools-reference/feature-gates/`.
+The name of the file should be the feature gate, converted from `UpperCamelCase`
+to `kebab-case`, with `.md` as the suffix.
+You can look at other files already in the same directory for a hint about what yours
+should look like. Usually a single paragraph is enough; for longer explanations,
+add documentation elsewhere and link to that.
+-->
+如果你在处理的特性处于 Alpha 或 Beta 阶段并由某特性门控控制，
+你需要在 `content/en/docs/reference/command-line-tools-reference/feature-gates/` 目录中为其创建一个特性门控文件。
+此文件的名称应该是特性门控的名称，此名称的式样从 `UpperCamelCase` 转换为 `kebab-case`，并以 `.md` 作为后缀。
+你可以参照同一目录中已存在的其他文件，以了解你的文件应该是什么样子的。
+通常一段话就够了；若要长篇阐述，请在其他地方添加文档，并为其添加链接。
+
+<!--
+Also,
+to ensure your feature gate appears in the [Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table, include the following details 
+in the [front matter](https://gohugo.io/content-management/front-matter/) of your Markdown
+description file:
+-->
+此外，为了确保你的特性门控出现在
+[Alpha/Beta 特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)表格中，
+请在 Markdown 描述文件的 [Front Matter](https://gohugo.io/content-management/front-matter/) 中包含以下细节：
+
+<!--
+```yaml
+stages:
+  - stage: <alpha/beta/stable/deprecated>  # Specify the development stage of the feature gate
+    defaultValue: <true or false>     # Set to true if enabled by default, false otherwise
+    fromVersion: <Version>            # Version from which the feature gate is available
+    toVersion: <Version>              # (Optional) The version until which the feature gate is available
+```
+-->
+```yaml
+stages:
+  - stage: <alpha/beta/stable/deprecated>  # 指定特性门控的开发阶段
+    defaultValue: <true or false>     # 如果默认启用，则设置为 true，否则为 false
+    fromVersion: <Version>            # 特性门控可用的起始版本
+    toVersion: <Version>              # （可选）特性门控可用的结束版本
+```
+
+<!--
+With net new feature gates, a separate
+description of the feature gate is also required; create a new Markdown file
+inside `content/en/docs/reference/command-line-tools-reference/feature-gates/`
+(use other files as a template).
+-->
+对于全新的特性门控，还需要一个单独的特性门控描述；在
+`content/en/docs/reference/command-line-tools-reference/feature-gates/`
+目录中创建一个新的 Markdown 文件（把其他文件用作模板）。
+
+<!--
+When you change a feature gate to disabled-by-default to enabled-by-default,
+you may also need to change other documentation (not just the list of
+feature gates). Watch out for language such as ”The `exampleSetting` field
+is a beta field and disabled by default. You can enable it by enabling the
+`ProcessExampleThings` feature gate.”
+-->
+当你将特性门控从默认禁用更改为默认启用时，你可能还需要更改其他文档（不仅仅是特性门控列表）。
+参照这样的话术 “`exampleSetting` 字段是一个 Beta 字段，默认禁用。
+你可以通过启用 `ProcessExampleThings` 特性门控来启用此字段。”
+
+<!--
+If your feature is GA'ed or deprecated, 
+include an additional `stage` entry within the `stages` block in the description file. 
+Ensure that the Alpha and Beta stages remain intact. 
+This step transitions the feature gate from the 
+[Feature gates for Alpha/Feature](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table
+to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features) table. For example:
+-->
+如果你的特性已经是 GA（正式发布）或已弃用的，请在描述文件的 `stages` 块中包含一个额外的 `stage` 条目。
+确保 Alpha 和 Beta 阶段保持不变。这一步将特性门控从
+[Alpha/Beta 特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
+表格移到[已毕业或已弃用的特性门控](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)表格。例如：
+
+<!--
+# Added 'stable' stage block to existing stages.
+-->
+{{< highlight yaml "linenos=false,hl_lines=10-15" >}}
+stages:
+  - stage: alpha 
+    defaultValue: false
+    fromVersion: "1.12"
+    toVersion: "1.12"
+  - stage: beta 
+    defaultValue: true
+    fromVersion: "1.13"
+    toVersion: "1.18"    
+  # 将 'stable' stage 代码块添加到了 stages 下 
+  - stage: stable     
+    defaultValue: true
+    fromVersion: "1.19"
+    toVersion: "1.27"   
+{{< / highlight >}}
+
+<!--
+Eventually, Kubernetes will stop including the feature gate at all. To signify the removal of a feature gate, 
+include `removed: true` in the front matter of the respective description file.
+This action triggers the transition of the feature gate 
+from [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed) section to a dedicated page titled 
+[Feature Gates (removed)](/docs/reference/command-line-tools-reference/feature-gates-removed/), including its description.
+-->
+最终，Kubernetes 将完全停止包含此特性门控。为了表示某特性门控已被移除，
+请在相应描述文件的 Front Matter 中包括 `removed: true`。
+此操作将使特性门控及其描述从[已毕业或已弃用的特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed)
+部分移到名为[特性门控（已移除）](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/)的专用页面。
 
 <!--
 ### All PRs reviewed and ready to merge
@@ -281,4 +375,3 @@ milestone.
 如果你的 PR 在发行截止日期之前尚未合并到 `dev-{{< skew nextMinorVersion >}}` 分支，
 请与负责管理该发行版本的文档团队成员一起合作，在截止期限之前将其合并。
 如果功能特性需要文档，而文档并未就绪，该特性可能会被从里程碑中去除。
-

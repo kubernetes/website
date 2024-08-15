@@ -202,7 +202,7 @@ helpful for troubleshooting.
 There are many configurations for load balancers. The following example is only one
 option. Your cluster requirements may need a different configuration.
 -->
-使用负载均衡器需要许多配置。你的集群搭建可能需要不同的配置。下面的例子只是其中的一方面配置。
+负载均衡器有很多种可能的配置方式。以下仅提供一个配置的例子。你的集群可能需要进行不同的配置。
 {{< /note >}}
 
 <!--
@@ -314,7 +314,7 @@ option. Your cluster requirements may need a different configuration.
    you must add the `certificateKey` field in the appropriate config locations
    (under `InitConfiguration` and `JoinConfiguration: controlPlane`).
    -->
-   标志 `kubeadm init`、`--config` 和 `--certificate-key` 不能混合使用，
+   在使用 `kubeadm init` 时，标记 `--config` 和 `--certificate-key` 不能混用，
    因此如果你要使用
    [kubeadm 配置](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)，你必须在相应的配置结构
    （位于 `InitConfiguration` 和 `JoinConfiguration: controlPlane`）添加 `certificateKey` 字段。

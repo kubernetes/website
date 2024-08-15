@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes v1.26: Advancements in Kubernetes Traffic Engineering"
 date: 2022-12-30
 slug: advancements-in-kubernetes-traffic-engineering
+author: >
+  Andrew Sy Kim (Google)
 ---
-
-**Authors:** Andrew Sy Kim (Google)
 
 Kubernetes v1.26 includes significant advancements in network traffic engineering with the graduation of
 two features (Service internal traffic policy support, and EndpointSlice terminating conditions) to GA,

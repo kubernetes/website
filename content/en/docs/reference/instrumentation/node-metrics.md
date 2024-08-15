@@ -40,7 +40,7 @@ By default, Kubernetes fetches node summary metrics data using an embedded
 [cAdvisor](https://github.com/google/cadvisor) that runs within the kubelet. If you 
 enable the `PodAndContainerStatsFromCRI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
 in your cluster, and you use a container runtime that supports statistics access via
-{{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI), then
+{{< glossary_tooltip term_id="container-runtime-interface" text="Container Runtime Interface">}} (CRI), then
 the kubelet [fetches Pod- and container-level metric data using CRI](/docs/reference/instrumentation/cri-pod-container-metrics), and not via cAdvisor.
 
 ## {{% heading "whatsnext" %}}

@@ -7,7 +7,6 @@ description: |-
 ---
 
 <!DOCTYPE html>
-
 <html lang="en">
 
 <body>
@@ -27,6 +26,13 @@ description: |-
 
             <div class="col-md-8">
                 <h3>Kubernetes Deployments</h3>
+
+                {{< note >}}
+                <p>This tutorial uses a container that requires the AMD64 architecture. If you are using
+                minikube on a computer with a different CPU architecture, you could try using minikube with
+                a driver that can emulate AMD64. For example, the Docker Desktop driver can do this.</p>
+                {{< /note >}}
+
                 <p>
                 Once you have a <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">running Kubernetes cluster</a>, you can deploy your containerized applications on top of it.
                 To do so, you create a Kubernetes <b>Deployment</b>. The Deployment instructs Kubernetes
@@ -143,18 +149,18 @@ description: |-
                 <p><b><code>curl http://localhost:8001/version</code></b></p>
                 <div class="alert alert-info note callout" role="alert"><strong>Note:</strong> If port 8001 is not accessible, ensure that the <code>kubectl proxy</code> that you started above is running in the second terminal.</div>
                 <p>The API server will automatically create an endpoint for each pod, based on the pod name, that is also accessible through the proxy.</p>
-                <p>First we need to get the Pod name, and we'll store in the environment variable <tt>POD_NAME</tt>:</p>
+                <p>First we need to get the Pod name, and we'll store it in the environment variable <tt>POD_NAME</tt>:</p>
                 <p><b><code>export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')</code></b><br />
                    <b><code>echo Name of the Pod: $POD_NAME</code></b></p>
                 <p>You can access the Pod through the proxied API, by running:</p>
-                <p><b><code>curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/</code></b></p>
+                <p><b><code>curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME:8080/proxy/</code></b></p>
                 <p>In order for the new Deployment to be accessible without using the proxy, a Service is required which will be explained in <a href="/docs/tutorials/kubernetes-basics/expose/">Module 4</a>.</p>
             </div>
 
       </div>
       <div class="row">
           <p>
-            Once you're ready, move on to <a href="/docs/tutorials/kubernetes-basics/explore/explore-intro/" title="Viewing Pods and Nodes">Viewing Pods and Nodes</a>.</p>
+            Once you're ready, move on to <a href="/docs/tutorials/kubernetes-basics/explore/explore-intro/" title="Viewing Pods and Nodes">Viewing Pods and Nodes</a>.
           </p>
       </div>
 

@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes v1.28: Retroactive Default StorageClass move to GA"
 date: 2023-08-18
 slug: retroactive-default-storage-class-ga
+author: >
+  Roman Bednář (Red Hat)
 ---
-
-**Author:** Roman Bednář (Red Hat)
 
 Announcing graduation to General Availability (GA) - Retroactive Default StorageClass Assignment in Kubernetes v1.28!
 

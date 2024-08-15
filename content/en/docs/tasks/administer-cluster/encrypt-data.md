@@ -50,22 +50,34 @@ to either:
 
 <!-- steps -->
 
-## Configuration and determining whether encryption at rest is already enabled
+## Determine whether encryption at rest is already enabled {#determining-whether-encryption-at-rest-is-already-enabled}
+
+By default, the API server stores plain-text representations of resources into etcd, with
+no at-rest encryption.
 
 The `kube-apiserver` process accepts an argument `--encryption-provider-config`
-that controls how API data is encrypted in etcd.
-The configuration is provided as an API named
-[`EncryptionConfiguration`](/docs/reference/config-api/apiserver-encryption.v1/). An example configuration is provided below.
+that specifies a path to a configuration file. The contents of that file, if you specify one,
+control how Kubernetes API data is encrypted in etcd.
+If you are running the kube-apiserver without the `--encryption-provider-config` command line
+argument, you do not have encryption at rest enabled. If you are running the kube-apiserver
+with the `--encryption-provider-config` command line argument, and the file that it references
+specifies the `identity` provider as the first encryption provider in the list, then you
+do not have at-rest encryption enabled
+(**the default `identity` provider does not provide any confidentiality protection.**)
 
-{{< caution >}}
-**IMPORTANT:** For high-availability configurations (with two or more control plane nodes), the
-encryption configuration file must be the same! Otherwise, the `kube-apiserver` component cannot
-decrypt data stored in the etcd.
-{{< /caution >}}
+If you are running the kube-apiserver
+with the `--encryption-provider-config` command line argument, and the file that it references
+specifies a provider other than `identity` as the first encryption provider in the list, then
+you already have at-rest encryption enabled. However, that check does not tell you whether
+a previous migration to encrypted storage has succeeded. If you are not sure, see
+[ensure all relevant data are encrypted](#ensure-all-secrets-are-encrypted).
 
 ## Understanding the encryption at rest configuration
 
-```yaml
+<!-- note to localizers: the highlight is to make the initial comment obvious -->
+<!-- you can use as many lines as makes sense for your target localization    -->
+
+{{< highlight yaml "linenos=false,hl_lines=2-5" >}}
 ---
 #
 # CAUTION: this is an example configuration.
@@ -118,7 +130,7 @@ resources:
           keys:
           - name: key3
             secret: c2VjcmV0IGlzIHNlY3VyZSwgSSB0aGluaw==
-```
+{{< /highlight  >}}
 
 Each `resources` array item is a separate config and contains a complete configuration. The
 `resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`)
@@ -150,27 +162,42 @@ encrypt all resources, even custom resources that are added after API server sta
 since part of the configuration would be ineffective. The `resources` list's processing order and precedence
 are determined by the order it's listed in the configuration. {{< /note >}}
 
-Opting out of encryption for specific resources while wildcard is enabled can be achieved by adding a new
-`resources` array item with the resource name, followed by the `providers` array item with the `identity` provider.
-For example, if '`*.*`' is enabled and you want to opt-out encryption for the `events` resource, add a new item
-to the `resources` array with `events` as the resource name, followed by the providers array item with `identity`.
-The new item should look like this:
+If you have a wildcard covering resources and want to opt out of at-rest encryption for a particular kind
+of resource, you achieve that by adding a separate `resources` array item with the name of the resource that
+you want to exempt, followed by a `providers` array item where you specify the `identity` provider. You add
+this item to the list so that it appears earlier than the configuration where you do specify encryption
+(a provider that is not `identity`).
+
+For example, if '`*.*`' is enabled and you want to opt out of encryption for Events and ConfigMaps, add a
+new **earlier** item to the `resources`, followed by the providers array item with `identity` as the
+provider. The more specific entry must come before the wildcard entry.
+
+The new item would look similar to:
 
 ```yaml
-- resources:
-    - events
-  providers:
-    - identity: {}
+  ...
+  - resources:
+      - configmaps. # specifically from the core API group,
+                    # because of trailing "."
+      - events
+    providers:
+      - identity: {}
+  # and then other entries in resources
 ```
-Ensure that the new item is listed before the wildcard '`*.*`' item in the resources array to give it precedence.
+
+Ensure that the exemption is listed _before_ the wildcard '`*.*`' item in the resources array
+to give it precedence.
 
 For more detailed information about the `EncryptionConfiguration` struct, please refer to the
 [encryption configuration API](/docs/reference/config-api/apiserver-encryption.v1/).
 
 {{< caution >}}
-If any resource is not readable via the encryption config (because keys were changed),
-the only recourse is to delete that key from the underlying etcd directly. Calls that attempt to
-read that resource will fail until it is deleted or a valid decryption key is provided.
+If any resource is not readable via the encryption configuration (because keys were changed),
+and you cannot restore a working configuration, your only recourse is to delete that entry from
+the underlying etcd directly.
+
+Any calls to the Kubernetes API that attempt to read that resource will fail until it is deleted
+or a valid decryption key is provided.
 {{< /caution >}}
 
 ### Available providers {#providers}
@@ -321,6 +348,10 @@ appropriate for your security needs.
 
 ### Generate the encryption key {#generate-key-no-kms}
 
+The following steps assume that you are not using KMS, and therefore the steps also
+assume that you need to generate an encryption key. If you already have an encryption key,
+skip to [Write an encryption configuration file](#write-an-encryption-configuration-file).
+
 {{< caution >}}
 Storing the raw encryption key in the EncryptionConfig only moderately improves your security posture,
 compared to no encryption.
@@ -368,9 +399,18 @@ Generate a 32-byte random key and base64 encode it. You can use this command:
 
 
 {{< note >}}
-Keep the encryption key confidential, including whilst you generate it and
+Keep the encryption key confidential, including while you generate it and
 ideally even after you are no longer actively using it.
 {{< /note >}}
+
+### Replicate the encryption key
+
+Using a secure mechanism for file transfer, make a copy of that encryption key
+available to every other control plane host.
+
+At a minimum, use encryption in transit - for example, secure shell (SSH). For more
+security, use asymmetric encryption between hosts, or change the approach you are using
+so that you're relying on KMS encryption.
 
 ### Write an encryption configuration file
 
@@ -464,6 +504,18 @@ Kubernetes cluster has multiple control plane hosts, so there is more to do.
 
 If you have multiple API servers in your cluster, you should deploy the
 changes in turn to each API server.
+
+{{< caution >}}
+For cluster configurations with two or more control plane nodes, the encryption configuration
+should be identical across each control plane node.
+
+If there is a difference in the encryption provider configuration between control plane
+nodes, this difference may mean that the kube-apiserver can't decrypt data.
+{{< /caution >}}
+
+When you are planning to update the encryption configuration of your cluster, plan this
+so that the API servers in your control plane can always decrypt the stored data
+(even part way through rolling out the change).
 
 Make sure that you use the **same** encryption configuration on each
 control plane host.
@@ -562,21 +614,99 @@ For larger clusters, you may wish to subdivide the Secrets by namespace,
 or script an update.
 {{< /note >}}
 
-## Rotating a decryption key
+## Prevent plain text retrieval {#cleanup-all-secrets-encrypted}
 
-Changing a Secret without incurring downtime requires a multi-step operation, especially in
-the presence of a highly-available deployment where multiple `kube-apiserver` processes are running.
+If you want to make sure that the only access to a particular API kind is done using
+encryption, you can remove the API server's ability to read that API's backing data
+as plaintext.
 
-1. Generate a new key and add it as the second key entry for the current provider on all servers
-1. Restart all `kube-apiserver` processes to ensure each server can decrypt using the new key
-1. Make the new key the first entry in the `keys` array so that it is used for encryption in the config
-1. Restart all `kube-apiserver` processes to ensure each server now encrypts using the new key
-1. Run `kubectl get secrets --all-namespaces -o json | kubectl replace -f -` to encrypt all
-   existing Secrets with the new key
-1. Remove the old decryption key from the config after you have backed up etcd with the new key in use
-   and updated all Secrets
+{{< warning >}}
+Making this change prevents the API server from retrieving resources that are marked
+as encrypted at rest, but are actually stored in the clear.
 
-When running a single `kube-apiserver` instance, step 2 may be skipped.
+When you have configured encryption at rest for an API (for example: the API kind
+`Secret`, representing `secrets` resources in the core API group), you **must** ensure
+that all those resources in this cluster really are encrypted at rest. Check this before
+you carry on with the next steps.
+{{< /warning >}}
+
+Once all Secrets in your cluster are encrypted, you can remove the `identity`
+part of the encryption configuration. For example:
+
+{{< highlight yaml "linenos=false,hl_lines=12" >}}
+---
+apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
+resources:
+  - resources:
+      - secrets
+    providers:
+      - aescbc:
+          keys:
+            - name: key1
+              secret: <BASE 64 ENCODED SECRET>
+      - identity: {} # REMOVE THIS LINE
+{{< /highlight >}}
+
+…and then restart each API server in turn. This change prevents the API server
+from accessing a plain-text Secret, even by accident.
+
+## Rotate a decryption key {#rotating-a-decryption-key}
+
+Changing an encryption key for Kubernetes without incurring downtime requires a multi-step operation,
+especially in the presence of a highly-available deployment where multiple `kube-apiserver` processes
+are running.
+
+1. Generate a new key and add it as the second key entry for the current provider on all
+   control plane nodes.
+1. Restart **all** `kube-apiserver` processes, to ensure each server can decrypt
+   any data that are encrypted with the new key.
+1. Make a secure backup of the new encryption key. If you lose all copies of this key you would
+   need to delete all the resources were encrypted under the lost key, and workloads may not
+   operate as expected during the time that at-rest encryption is broken.
+1. Make the new key the first entry in the `keys` array so that it is used for encryption-at-rest
+   for new writes
+1. Restart all `kube-apiserver` processes to ensure each control plane host now encrypts using the new key
+1. As a privileged user, run `kubectl get secrets --all-namespaces -o json | kubectl replace -f -`
+   to encrypt all existing Secrets with the new key
+1. After you have updated all existing Secrets to use the new key and have made a secure backup of the
+   new key, remove the old decryption key from the configuration.
+
+## Decrypt all data {#decrypting-all-data}
+
+This example shows how to stop encrypting the Secret API at rest. If you are encrypting
+other API kinds, adjust the steps to match.
+
+To disable encryption at rest, place the `identity` provider as the first
+entry in your encryption configuration file:
+
+```yaml
+---
+apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
+resources:
+  - resources:
+      - secrets
+      # list any other resources here that you previously were
+      # encrypting at rest
+    providers:
+      - identity: {} # add this line
+      - aescbc:
+          keys:
+            - name: key1
+              secret: <BASE 64 ENCODED SECRET> # keep this in place
+                                               # make sure it comes after "identity"
+```
+
+Then run the following command to force decryption of all Secrets:
+
+```shell
+kubectl get secrets --all-namespaces -o json | kubectl replace -f -
+```
+
+Once you have replaced all existing encrypted resources with backing data that
+don't use encryption, you can remove the encryption settings from the
+`kube-apiserver`.
 
 ## Configure automatic reloading
 
@@ -589,9 +719,14 @@ allows you to change the keys for encryption at rest without restarting the
 API server.
 
 To allow automatic reloading, configure the API server to run with:
-`--encryption-provider-config-automatic-reload=true`
+`--encryption-provider-config-automatic-reload=true`.
+When enabled, file changes are polled every minute to observe the modifications.
+The `apiserver_encryption_config_controller_automatic_reload_last_timestamp_seconds`
+metric identifies when the new config becomes effective. This allows
+encryption keys to be rotated without restarting the API server.
+
 
 ## {{% heading "whatsnext" %}}
 
 * Read about [decrypting data that are already stored at rest](/docs/tasks/administer-cluster/decrypt-data/)
-* Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-encryption.v1/).
+* Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-config.v1/).

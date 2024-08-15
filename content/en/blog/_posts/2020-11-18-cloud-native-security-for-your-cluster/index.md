@@ -3,9 +3,9 @@ layout: blog
 title: "Cloud native security for your clusters"
 date: 2020-11-18
 slug: cloud-native-security-for-your-clusters
+author: >
+  [Pushkar Joglekar](https://twitter.com/pudijoglekar)
 ---
-
-**Author**: [Pushkar Joglekar](https://twitter.com/pudijoglekar)
 
 Over the last few years a small, security focused community has been working diligently to deepen our understanding of security, given the evolving cloud native infrastructure and corresponding iterative deployment practices. To enable sharing of this knowledge with the rest of the community, members of [CNCF SIG Security](https://github.com/cncf/sig-security) (a group which reports into [CNCF TOC](https://github.com/cncf/toc#sigs) and who are friends with [Kubernetes SIG Security](https://github.com/kubernetes/community/tree/master/sig-security)) led by Emily Fox, collaborated on a whitepaper outlining holistic cloud native security concerns and best practices. After over 1200 comments, changes, and discussions from 35 members across the world, we are proud to share [cloud native security whitepaper v1.0](https://www.cncf.io/blog/2020/11/18/announcing-the-cloud-native-security-white-paper) that serves as essential reading for security leadership in enterprises, financial and healthcare industries, academia, government, and non-profit organizations.
 

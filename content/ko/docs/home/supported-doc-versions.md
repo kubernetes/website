@@ -2,10 +2,7 @@
 title: 가용 문서 버전
 content_type: custom
 layout: supported-versions
-card:
-  name: about
-  weight: 10
-  title: 가용 문서 버전
+weight: 10
 ---
 
 이 웹사이트에서는 쿠버네티스 현재 버전 및

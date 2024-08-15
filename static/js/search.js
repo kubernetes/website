@@ -3,12 +3,9 @@
     document.addEventListener('DOMContentLoaded', function() {
       let searchTerm = new URLSearchParams(window.location.search).get('q');
       let fetchingElem = document.getElementById('bing-results-container');
-      let searchTitle = document.querySelector('.search-title');
 
       if (!searchTerm) {
         if (fetchingElem) fetchingElem.style.display = 'none';
-        if (searchTitle) searchTitle.style.display = 'none';
-
       }
     });
 
@@ -22,57 +19,41 @@
         s.parentNode.insertBefore(gcse, s);
     }
 
-    window.getPaginationAnchors = (pages) => {
-        var pageAnchors = '', searchTerm  = window.location.search.split("=")[1].split("&")[0].replace(/%20/g, ' ');
-        var currentPage = window.location.search.split("=")[2];
-        currentPage = (!currentPage) ?  1 : currentPage.split("&")[0];
-
-        for(var i = 1; i <= 10; i++){
-            if(i > pages) break;
-            pageAnchors += '<a class="bing-page-anchor" href="/search/?q='+searchTerm+'&page='+i+'">';
-            pageAnchors += (currentPage == i) ? '<b>'+i+'</b>' : i;
-            pageAnchors += '</a>';
+    window.renderPageFindSearchResults = () => {
+        let urlParams = new URLSearchParams(window.location.search);
+        let searchTerm = urlParams.get("q") || "";
+        let sidebarSearch = document.querySelector('.td-sidebar__search');
+        if (sidebarSearch) {
+            sidebarSearch.remove();
         }
-        return pageAnchors;
-    }
-
-    window.getResultMarkupString = (ob) => {
-        return '<div class="bing-result">'
-            + '<div class="bing-result-name"><a href="'+ob.url+'">'+ob.name+'</a></div>'
-            + '<div class="bing-result-url">'+ob.displayUrl+'</div>'
-            + '<div class="bing-result-snippet">'+ob.snippet+'</div>'
-            +'</div>';
-    }
-
-    window.renderBingSearchResults = () => {
-      let urlParams = new URLSearchParams(window.location.search);
-      let searchTerm = urlParams.get("q") || "";
-      let page = urlParams.get("page") || 1;
-      let q = searchTerm;
-      let results = '';
-      let offset = (page - 1) * 10;
-      let ajaxConf = {};
-
-      if (!searchTerm) return;
-
-      ajaxConf.url = 'https://kubernetes-io-search.azurewebsites.net/api/bingsearchproxy';
-      ajaxConf.data =  { q: q, offset: offset };
-      ajaxConf.type = "GET";
-
-      $.ajax(ajaxConf).done(function(res) {
-        if (res.status === 500) {
-          console.log('Server Error');
-          return;
+        document.getElementById('search').style.display = 'block';
+        pagefind = new PagefindUI({ element: "#search", showImages: false });
+        if (searchTerm) {
+            pagefind.triggerSearch(searchTerm);
         }
 
-        if (res.webPages == null) return; // If no result, 'webPages' is 'undefined'
-        var paginationAnchors = window.getPaginationAnchors(Math.ceil(res.webPages.totalEstimatedMatches / 10));
-        res.webPages.value.map(ob => { results += window.getResultMarkupString(ob); })
-
-        if($('#bing-results-container').length > 0) $('#bing-results-container').html(results);
-        if($('#bing-pagination-container').length > 0) $('#bing-pagination-container').html(paginationAnchors);
-      });
+        document.querySelector("#search input").addEventListener("input", function() {
+            var inputValue = this.value;
+            var queryStringVar = "q";
+            updateQueryString(queryStringVar, inputValue);
+        });
     }
+
+	function updateQueryString(key, value) {
+		var baseUrl = window.location.href.split("?")[0];
+		var queryString = window.location.search.slice(1);
+		var urlParams = new URLSearchParams(queryString);
+
+		if (urlParams.has(key)) {
+			urlParams.set(key, value);
+		} else {
+			urlParams.append(key, value);
+		}
+
+		var newUrl = baseUrl + "?" + urlParams.toString();
+		// Update the browser history (optional)
+        history.replaceState(null, '', newUrl);
+	}
 
     // China Verification.
     var path = "path=/;"
@@ -87,29 +68,41 @@
         else return "";
     }
 
-    if (getCookie("is_china") === "") {
-        $.ajax({
-            url: "https://ipinfo.io?token=796e43f4f146b1",
-            dataType: "jsonp",
-            success: function (response) {
-                if (response.country == 'CN') {
-                    window.renderBingSearchResults()
-                    document.cookie = "is_china=true;" + path + expires
-                } else {
-                    window.renderGoogleSearchResults()
-                    document.cookie = "is_china=false;" + path + expires;
-                }
-            },
-            error: function () {
-                window.renderBingSearchResults()
-                document.cookie = "is_china=true;" + path + expires;
-            },
-            timeout: 3000
-        });
-    } else if (getCookie("is_china") === "true") {
-        window.renderBingSearchResults()
-    } else {
-        window.renderGoogleSearchResults()
+    async function checkBlockedSite(url) {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => {
+          controller.abort();
+        }, 5000); // Timeout set to 5000ms (5 seconds)
+      
+        try {
+            const response = await fetch(url, { method: 'HEAD', mode: 'no-cors', signal: controller.signal });
+            // If we reach this point, the site is accessible (since mode: 'no-cors' doesn't allow us to check response.ok)
+            clearTimeout(timeout);
+            return false;
+        } catch (error) {
+            // If an error occurs, it's likely the site is blocked
+            return true;
+        }
     }
 
+    async function loadSearch() {
+        if (getCookie("can_google") === "") {
+            const isGoogleBlocked = await checkBlockedSite("https://www.google.com/favicon.ico");
+            if ( isGoogleBlocked ) {
+                // Google is blocked.
+                document.cookie = "can_google=false;" + path + expires
+                window.renderPageFindSearchResults()
+            } else {
+                // Google is not blocked.
+                document.cookie = "can_google=true;" + path + expires
+                window.renderGoogleSearchResults()
+            }
+        } else if (getCookie("can_google") == "false") {
+            window.renderPageFindSearchResults()
+        } else {
+            window.renderGoogleSearchResults()
+        }
+    }
+
+    window.onload = loadSearch;
 

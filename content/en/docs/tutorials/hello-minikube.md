@@ -2,12 +2,6 @@
 title: Hello Minikube
 content_type: tutorial
 weight: 5
-menu:
-  main:
-    title: "Get Started"
-    weight: 10
-    post: >
-      <p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs a sample app.</p>
 card:
   name: tutorials
   weight: 10
@@ -28,7 +22,10 @@ The tutorial provides a container image that uses NGINX to echo back all the req
 
 
 This tutorial assumes that you have already set up `minikube`.
-See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
+See __Step 1__ in [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
+{{< note >}}
+Only execute the instructions in __Step 1, Installation__. The rest is covered on this page.  
+{{< /note >}}
 
 You also need to install `kubectl`.
 See [Install tools](/docs/tasks/tools/#kubectl) for installation instructions.
@@ -117,6 +114,8 @@ recommended way to manage the creation and scaling of Pods.
     hello-node   1/1     1            1           1m
     ```
 
+    (It may take some time for the pod to become available. If you see "0/1", try again in a few seconds.)
+
 1. View the Pod:
 
     ```shell
@@ -142,7 +141,11 @@ recommended way to manage the creation and scaling of Pods.
     kubectl config view
     ```
 
-1. View application logs for a container in a pod.
+1. View application logs for a container in a pod (replace pod name with the one you got from `kubectl get pods`).
+   
+   {{< note >}}
+   Replace `hello-node-5f76cf6ccf-br9b5` in the `kubectl logs` command with the name of the pod from the `kubectl get pods` command output.
+   {{< /note >}}
    
    ```shell
    kubectl logs hello-node-5f76cf6ccf-br9b5
@@ -166,6 +169,12 @@ By default, the Pod is only accessible by its internal IP address within the
 Kubernetes cluster. To make the `hello-node` Container accessible from outside the
 Kubernetes virtual network, you have to expose the Pod as a
 Kubernetes [*Service*](/docs/concepts/services-networking/service/).
+
+{{< warning >}}
+The agnhost container has a `/shell` endpoint, which is useful for
+debugging, but dangerous to expose to the public internet. Do not run this on an
+internet-facing cluster, or a production cluster.
+{{< /warning >}}
 
 1. Expose the Pod to the public internet using the `kubectl expose` command:
 
@@ -333,6 +342,10 @@ minikube delete
 ```
 
 If you want to use minikube again to learn more about Kubernetes, you don't need to delete it.
+
+## Conclusion
+
+This page covered the basic aspects to get a minikube cluster up and running. You are now ready to deploy applications.
 
 ## {{% heading "whatsnext" %}}
 

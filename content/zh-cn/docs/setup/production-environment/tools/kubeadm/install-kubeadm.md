@@ -43,8 +43,7 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-mac-address) for more details.
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
 * Swap configuration. The default behavior of a kubelet was to fail to start if swap memory was detected on a node.
-  Swap has been supported since v1.22. And since v1.28, Swap is supported for cgroup v2 only; the NodeSwap feature
-  gate of the kubelet is beta but disabled by default.
+  See [Swap memory management](/docs/concepts/architecture/nodes/#swap-memory) for more details.
   * You **MUST** disable swap if the kubelet is not properly configured to use swap. For example, `sudo swapoff -a`
     will disable swapping temporarily. To make this change persistent across reboots, make sure swap is disabled in
     config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
@@ -57,8 +56,7 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * 节点之中不可以有重复的主机名、MAC 地址或 product_uuid。请参见[这里](#verify-mac-address)了解更多详细信息。
 * 开启机器上的某些端口。请参见[这里](#check-required-ports)了解更多详细信息。
 * 交换分区的配置。kubelet 的默认行为是在节点上检测到交换内存时无法启动。
-  kubelet 自 v1.22 起已开始支持交换分区。自 v1.28 起，仅针对 cgroup v2 支持交换分区；
-  kubelet 的 NodeSwap 特性门控处于 Beta 阶段，但默认被禁用。
+  更多细节参阅[交换内存管理](/zh-cn/docs/concepts/architecture/nodes/#swap-memory)。
   * 如果 kubelet 未被正确配置使用交换分区，则你**必须**禁用交换分区。
     例如，`sudo swapoff -a` 将暂时禁用交换分区。要使此更改在重启后保持不变，请确保在如
     `/etc/fstab`、`systemd.swap` 等配置文件中禁用交换分区，具体取决于你的系统如何配置。
@@ -112,19 +110,19 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 这样 Kubernetes 集群就可以通过对应的适配器完成连接。
 
 <!--
-## Check required ports
+## Check required ports {#check-required-ports}
 These
 These [required ports](/docs/reference/networking/ports-and-protocols/)
 need to be open in order for Kubernetes components to communicate with each other.
-You can use tools like netcat to check if a port is open. For example:
+You can use tools like [netcat](https://netcat.sourceforge.net) to check if a port is open. For example:
 -->
-## 检查所需端口{#check-required-ports}
+## 检查所需端口   {#check-required-ports}
 
 启用这些[必要的端口](/zh-cn/docs/reference/networking/ports-and-protocols/)后才能使 Kubernetes 的各组件相互通信。
-可以使用 netcat 之类的工具来检查端口是否启用，例如：
+可以使用 [netcat](https://netcat.sourceforge.net) 之类的工具来检查端口是否开放，例如：
 
 ```shell
-nc 127.0.0.1 6443
+nc 127.0.0.1 6443 -v
 ```
 
 <!--
@@ -330,9 +328,23 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
 -->
 2. 下载用于 Kubernetes 软件包仓库的公共签名密钥。所有仓库都使用相同的签名密钥，因此你可以忽略URL中的版本：
 
+   <!--
+   # If the folder `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
+   # sudo mkdir -p -m 755 /etc/apt/keyrings 
+   -->
    ```shell
+   # 如果 `/etc/apt/keyrings` 目录不存在，则应在 curl 命令之前创建它，请阅读下面的注释。
+   # sudo mkdir -p -m 755 /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
+
+{{< note >}}
+<!--
+In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
+-->
+在低于 Debian 12 和 Ubuntu 22.04 的发行版本中，`/etc/apt/keyrings` 默认不存在。
+应在 curl 命令之前创建它。
+{{< /note >}}
 
 <!--
 3. Add the appropriate Kubernetes `apt` repository. Please note that this repository have packages
@@ -361,15 +373,6 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    sudo apt-get install -y kubelet kubeadm kubectl
    sudo apt-mark hold kubelet kubeadm kubectl
    ```
-
-{{< note >}}
-<!--
-In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default;
-you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
--->
-在 Debian 12 和 Ubuntu 22.04 之前的早期版本中，默认情况下不存在 `/etc/apt/keyrings` 目录；
-你可以通过运行 `sudo mkdir -m 755 /etc/apt/keyrings` 来创建它。
-{{< /note >}}
 
 {{% /tab %}}
 
@@ -492,7 +495,7 @@ Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)
 安装 crictl（kubeadm/kubelet 容器运行时接口（CRI）所需）：
 
 ```bash
-CRICTL_VERSION="v1.28.0"
+CRICTL_VERSION="v1.30.0"
 ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
@@ -510,9 +513,9 @@ sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${
 sudo chmod +x {kubeadm,kubelet}
 
 RELEASE_VERSION="v0.16.2"
-curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubelet/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
-sudo mkdir -p /etc/systemd/system/kubelet.service.d
-curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubelet/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /usr/lib/systemd/system/kubelet.service
+sudo mkdir -p /usr/lib/systemd/system/kubelet.service.d
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
 {{< note >}}
@@ -538,12 +541,12 @@ systemctl enable --now kubelet
 <!--
 The Flatcar Container Linux distribution mounts the `/usr` directory as a read-only filesystem.
 Before bootstrapping your cluster, you need to take additional steps to configure a writable directory.
-See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only/)
+See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only)
 to learn how to set up a writable directory.
 -->
 Flatcar Container Linux 发行版会将 `/usr/` 目录挂载为一个只读文件系统。
 在启动引导你的集群之前，你需要执行一些额外的操作来配置一个可写入的目录。
-参见 [kubeadm 故障排查指南](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only/)
+参见 [kubeadm 故障排查指南](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only)
 以了解如何配置一个可写入的目录。
 {{< /note >}}
 

@@ -244,11 +244,11 @@ excluding `frontend` using the comma operator: `environment=production,tier!=fro
 
 <!--
 One usage scenario for equality-based label requirement is for Pods to specify
-node selection criteria. For example, the sample Pod below selects nodes with
-the label "`accelerator=nvidia-tesla-p100`".
+node selection criteria. For example, the sample Pod below selects nodes where
+the  `accelerator` label exists and is set to `nvidia-tesla-p100`.
 -->
 基于等值的标签要求的一种使用场景是 Pod 要指定节点选择标准。
-例如，下面的示例 Pod 选择带有标签 "`accelerator=nvidia-tesla-p100`"。
+例如，下面的示例 Pod 选择存在 `accelerator` 标签且值为 `nvidia-tesla-p100` 的节点。
 
 ```yaml
 apiVersion: v1

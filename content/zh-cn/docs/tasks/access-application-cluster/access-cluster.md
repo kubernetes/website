@@ -48,11 +48,11 @@ kubectl config view
 ```
 
 <!--
-Many of the [examples](/docs/reference/kubectl/cheatsheet/) provide an introduction to using
+Many of the [examples](/docs/reference/kubectl/quick-reference/) provide an introduction to using
 `kubectl`, and complete documentation is found in the
 [kubectl reference](/docs/reference/kubectl/).
 -->
-有许多[例子](/zh-cn/docs/reference/kubectl/cheatsheet/)介绍了如何使用 kubectl，
+有许多[例子](/zh-cn/docs/reference/kubectl/quick-reference/)介绍了如何使用 kubectl，
 可以在 [kubectl 参考](/zh-cn/docs/reference/kubectl/)中找到更完整的文档。
 
 <!--

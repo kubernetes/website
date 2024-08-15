@@ -3,8 +3,10 @@ title: " Hypernetes: Bringing Security and Multi-tenancy to Kubernetes "
 date: 2016-05-24
 slug: hypernetes-security-and-multi-tenancy-in-kubernetes
 url: /blog/2016/05/Hypernetes-Security-And-Multi-Tenancy-In-Kubernetes
----
-_Today’s guest post is written by Harry Zhang and Pengfei Ni, engineers at HyperHQ, describing a new hypervisor based container called HyperContainer_  
+author: >
+  Harry Zhang (HyperHQ),
+  Pengfei Ni (HyperHQ)
+--- 
 
 While many developers and security professionals are comfortable with Linux containers as an effective boundary, many users need a stronger degree of isolation, particularly for those running in a multi-tenant environment. Sadly, today, those users are forced to run their containers inside virtual machines, even one VM per container.  
 
@@ -193,9 +195,3 @@ We believe all of these [open source projects](https://github.com/hyperhq/) are 
 
 
 This post introduces some of the technical details about HyperContainer and the Hypernetes project. We hope that people will be interested in this new category of secure container and its integration with Kubernetes. If you are looking to try out Hypernetes and HyperContainer, we have just announced the public beta of our new secure container cloud service ([Hyper\_](https://hyper.sh/)), which is built on these technologies. But even if you are running on-premise, we believe that Hypernetes and HyperContainer will let you run Kubernetes in a more secure way.
-
-
-
-
-
-_~Harry Zhang and Pengfei Ni, engineers at HyperHQ_

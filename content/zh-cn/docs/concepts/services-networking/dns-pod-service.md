@@ -184,9 +184,9 @@ SRV 记录格式为 `_port-name._port-protocol.my-svc.my-namespace.svc.cluster-d
 <!--
 ### A/AAAA records
 
-In general a Pod has the following DNS resolution:
+Kube-DNS versions, prior to the implementation of the [DNS specification](https://github.com/kubernetes/dns/blob/master/docs/specification.md), had the following DNS resolution:
 
-`pod-ip-address.my-namespace.pod.cluster-domain.example`.
+`pod-ipv4-address.my-namespace.pod.cluster-domain.example`.
 
 For example, if a Pod in the `default` namespace has the IP address 172.17.0.3,
 and the domain name for your cluster is `cluster.local`, then the Pod has a DNS name:
@@ -195,13 +195,14 @@ and the domain name for your cluster is `cluster.local`, then the Pod has a DNS 
 
 Any Pods exposed by a Service have the following DNS resolution available:
 
-`pod-ip-address.service-name.my-namespace.svc.cluster-domain.example`.
+`pod-ipv4-address.service-name.my-namespace.svc.cluster-domain.example`.
 -->
 ### A/AAAA 记录 {#a-aaaa-records}
 
-一般而言，Pod 会对应如下 DNS 名字解析：
+在实现 [DNS 规范](https://github.com/kubernetes/dns/blob/master/docs/specification.md)之前，
+Kube-DNS 版本使用以下 DNS 解析：
 
-`pod-ip-address.my-namespace.pod.cluster-domain.example`
+`pod-ipv4-address.my-namespace.pod.cluster-domain.example`
 
 例如，对于一个位于 `default` 名字空间，IP 地址为 172.17.0.3 的 Pod，
 如果集群的域名为 `cluster.local`，则 Pod 会对应 DNS 名称：
@@ -210,7 +211,7 @@ Any Pods exposed by a Service have the following DNS resolution available:
 
 通过 Service 暴露出来的所有 Pod 都会有如下 DNS 解析名称可用：
 
-`pod-ip-address.service-name.my-namespace.svc.cluster-domain.example`
+`pod-ipv4-address.service-name.my-namespace.svc.cluster-domain.example`
 
 <!--
 ### Pod's hostname and subdomain fields
@@ -369,7 +370,7 @@ When you set `setHostnameAsFQDN: true` in the Pod spec, the kubelet writes the P
 <!--
 In Linux, the hostname field of the kernel (the `nodename` field of `struct utsname`) is limited to 64 characters.
 
-If a Pod enables this feature and its FQDN is longer than 64 character, it will fail to start. The Pod will remain in `Pending` status (`ContainerCreating` as seen by `kubectl`) generating error events, such as Failed to construct FQDN from Pod hostname and cluster domain, FQDN `long-FQDN` is too long (64 characters is the max, 70 characters requested). One way of improving user experience for this scenario is to create an [admission webhook controller](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) to control FQDN size when users create top level objects, for example, Deployment.
+If a Pod enables this feature and its FQDN is longer than 64 character, it will fail to start. The Pod will remain in `Pending` status (`ContainerCreating` as seen by `kubectl`) generating error events, such as Failed to construct FQDN from Pod hostname and cluster domain, FQDN `long-FQDN` is too long (64 characters is the max, 70 characters requested). One way of improving user experience for this scenario is to create an [admission webhook controller](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks) to control FQDN size when users create top level objects, for example, Deployment.
 -->
 在 Linux 中，内核的主机名字段（`struct utsname` 的 `nodename` 字段）限定最多 64 个字符。
 
@@ -380,7 +381,7 @@ Pod 会一直出于 `Pending` 状态（通过 `kubectl` 所看到的 `ContainerC
 `long-FQDN` is too long (64 characters is the max, 70 characters requested)."
 （无法基于 Pod 主机名和集群域名构造 FQDN，FQDN `long-FQDN` 过长，至多 64 个字符，请求字符数为 70）。
 对于这种场景而言，改善用户体验的一种方式是创建一个
-[准入 Webhook 控制器](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)，
+[准入 Webhook 控制器](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)，
 在用户创建顶层对象（如 Deployment）的时候控制 FQDN 的长度。
 {{< /note >}}
 

@@ -4,8 +4,9 @@
 
 {{ define "main" }}
 <h1>{{ .Title }}</h1>
-<link href="{{ "css/glossary.css" | relURL }}" rel="stylesheet">
-<script src="{{ "js/glossary.js" | relURL }}"></script>
+{{- with resources.Get "css/glossary.css" -}}
+<link href="{{ .RelPermalink }}" rel="stylesheet">
+{{- end -}}
 <p>{{ T "layouts_docs_glossary_description" }}</p>
 <div id="tag-container">
 	<p>{{ T "layouts_docs_glossary_filter" }}</p>
@@ -41,9 +42,9 @@
 	<li class="{{ $.Scratch.Get "tag_classes" }} hide" data-show-count="0">
 		<div id="{{ $term_identifier }}" class="term-anchor"></div>
 		<div>
-			<div class="term-name"><b>{{ .Title }}</b><a href="{{ printf "#%s" $term_identifier }}" class="permalink hide">LINK</a></div>
+			<div class="term-name" term="{{ .Title}}" data-pagefind-index-attrs="term"><b>{{ .Title }}</b><a href="{{ printf "#%s" $term_identifier }}" class="permalink hide">LINK</a></div>
 			{{ with .Params.aka }}
-			{{ T "layouts_docs_glossary_aka" }}:<i>{{ delimit . ", " }}</i>
+			{{ T "layouts_docs_glossary_aka" }}: <i>{{ delimit . ", " }}</i>
 			<br>
 			{{ end }}
 			<span class="preview-text">{{ .Summary }} <a href="javascript:void(0)" class="click-controller no-underline" data-target="{{ .Params.id }}">[+]</a></span>

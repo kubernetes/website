@@ -98,12 +98,12 @@ The following methods exist for installing kubectl on Linux:
 
    下载 kubectl 校验和文件：
 
-   {{< tabs name="download_checksum_linux" >}} 
+   {{< tabs name="download_checksum_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
    {{< /tab >}}
    {{< tab name="ARM64" codelang="bash" >}}
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl.sha256"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl.sha256"
    {{< /tab >}}
    {{< /tabs >}}
 
@@ -158,6 +158,9 @@ The following methods exist for installing kubectl on Linux:
    -->
    即使你没有目标系统的 root 权限，仍然可以将 kubectl 安装到目录 `~/.local/bin` 中：
 
+   <!--
+   # and then append (or prepend) ~/.local/bin to $PATH
+   -->
    ```bash
    chmod +x kubectl
    mkdir -p ~/.local/bin
@@ -202,13 +205,13 @@ Or use this for detailed view of version:
    ```shell
    sudo apt-get update
    # apt-transport-https may be a dummy package; if so, you can skip that package
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
    ```
    -->
    ```shell
    sudo apt-get update
    # apt-transport-https 可以是一个虚拟包；如果是这样，你可以跳过这个包
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
    ```
 
 <!--
@@ -217,9 +220,24 @@ Or use this for detailed view of version:
 2. 下载 Kubernetes 软件包仓库的公共签名密钥。
    同一个签名密钥适用于所有仓库，因此你可以忽略 URL 中的版本信息：
 
+   <!--
+   # If the folder `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
+   # sudo mkdir -p -m 755 /etc/apt/keyrings
+   -->
    ```shell
+   # 如果 `/etc/apt/keyrings` 目录不存在，则应在 curl 命令之前创建它，请阅读下面的注释。
+   # sudo mkdir -p -m 755 /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+   sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg # allow unprivileged APT programs to read this keyring   
    ```
+
+{{< note >}}
+<!--
+In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
+-->
+在低于 Debian 12 和 Ubuntu 22.04 的发行版本中，`/etc/apt/keyrings` 默认不存在。
+应在 curl 命令之前创建它。
+{{< /note >}}
 
 <!--
 3. Add the appropriate Kubernetes `apt` repository. If you want to use Kubernetes version different than {{< param "version" >}},
@@ -232,43 +250,33 @@ Or use this for detailed view of version:
    ```shell
    # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
    echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list   # helps tools such as command-not-found to work correctly
    ```
    -->
    ```shell
    # 这会覆盖 /etc/apt/sources.list.d/kubernetes.list 中的所有现存配置
    echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list   # 有助于让诸如 command-not-found 等工具正常工作
    ```
 
 {{< note >}}
-   <!--
-   To upgrade kubectl to another minor release, you'll need to bump the version in
-   `/etc/apt/sources.list.d/kubernetes.list` before running `apt-get update` and
-   `apt-get upgrade`. This procedure is described in more detail in
-   [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
-   -->
-要升级 kubectl 到别的次要版本，你需要先升级 `/etc/apt/sources.list.d/kubernetes.list` 中的版本，
-再运行 `apt-get update` 和 `apt-get upgrade`。
-更详细的步骤可以在[更改 Kubernetes 软件包仓库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)中找到。
+<!--
+To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/apt/sources.list.d/kubernetes.list` before running `apt-get update` and `apt-get upgrade`. This procedure is described in more detail in [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+-->
+要将 kubectl 升级到别的次要版本，你需要先升级 `/etc/apt/sources.list.d/kubernetes.list` 中的版本，
+再运行 `apt-get update` 和 `apt-get upgrade` 命令。
+更详细的步骤可以在[更改 Kubernetes 软件包存储库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)中找到。
 {{< /note >}}
 
 <!--
 4. Update `apt` package index, then install kubectl:
 -->
-
 4. 更新 `apt` 包索引，然后安装 kubectl：
 
    ```shell
    sudo apt-get update
    sudo apt-get install -y kubectl
    ```
-
-{{< note >}}
-<!--
-In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default, and can be created using `sudo mkdir -m 755 /etc/apt/keyrings`
--->
-在低于 Debian 12 和 Ubuntu 22.04 的发行版本中，`/etc/apt/keyrings` 默认不存在。
-可以使用 `sudo mkdir -m 755 /etc/apt/keyrings` 来创建。
-{{< /note >}}
 
 {{% /tab %}}
 
@@ -334,7 +342,8 @@ different than {{< param "version" >}}, replace {{< param "version" >}} with
 the desired minor version in the command below.
 -->
 
-1. 添加 Kubernetes `zypper` 软件源。如果您想使用不同于 {{< param "version" >}} 的 Kubernetes 版本，请在下面的命令中将 {{< param "version" >}} 替换为所需的次要版本。
+1. 添加 Kubernetes `zypper` 软件源。如果你想使用不同于 {{< param "version" >}}
+   的 Kubernetes 版本，请在下面的命令中将 {{< param "version" >}} 替换为所需的次要版本。
 
 <!-- 
 ```bash
@@ -348,7 +357,7 @@ gpgcheck=1
 gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
 EOF
 ```
- -->
+-->
 ```bash
 # 这将覆盖 /etc/zypp/repos.d/kubernetes.repo 中的任何现有配置。
 cat <<EOF | sudo tee /etc/zypp/repos.d/kubernetes.repo
@@ -362,17 +371,19 @@ EOF
 ```
 {{< note >}}
 <!--
-   To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/zypp/repos.d/kubernetes.repo` before running `zypper update`. This procedure is described in more detail in
-   [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/zypp/repos.d/kubernetes.repo` before running `zypper update`. This procedure is described in more detail in
+[Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
 -->
 要升级 kubectl 到另一个小版本，你需要先更新 `/etc/zypp/repos.d/kubernetes.repo` 的版本，
-再运行 `zypper update`。此过程在[更改 Kubernetes 软件包仓库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/) 中有更详细的描述。
+再运行 `zypper update`。
+此过程在[更改 Kubernetes 软件包仓库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)中有更详细的描述。
 {{< /note >}}
 
 <!--
-	2. Install kubectl using `zypper`:
+2. Install kubectl using `zypper`:
 -->
-2. 使用 `zypper` 安装 kubectl:
+2. 使用 `zypper` 安装 kubectl：
+
    ```bash
    sudo zypper install -y kubectl
    ```
