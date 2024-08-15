@@ -48,12 +48,13 @@ Please see [Kubernetes issue #125689](https://github.com/kubernetes/kubernetes/i
 
 ### Deprecation of `status.nodeInfo.kubeProxyVersion` field for Nodes ([KEP 4004](https://github.com/kubernetes/enhancements/issues/4004))
 
-The `.status.nodeInfo.kubeProxyVersion` field of Nodes is being deprecated in Kubernetes v1.31,
-and will be removed in a later release.
-It's being deprecated because the value of this field wasn't (and isn't) accurate.
+**Update**: *This section was edited post-publication due to changes resulting from https://issue.k8s.io/126720*
+
+The `.status.nodeInfo.kubeProxyVersion` field of Nodes was deprecated in Kubernetes v1.29,
+and will not be populated starting in Kubernetes v1.33, because the value of this field wasn't (and isn't) accurate.
 This field is set by the kubelet, which does not have reliable information about the kube-proxy version or whether kube-proxy is running. 
 
-The `DisableNodeKubeProxyVersion` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) will be set to `true` in by default in v1.31 and the kubelet will no longer attempt to set the `.status.kubeProxyVersion` field for its associated Node.
+The `DisableNodeKubeProxyVersion` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) will be set to `true` in by default in v1.33 and the kubelet will no longer attempt to set the `.status.kubeProxyVersion` field for its associated Node.
 
 ### Removal of all in-tree integrations with cloud providers
 
