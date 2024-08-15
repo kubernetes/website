@@ -266,7 +266,7 @@ Kubernetesリリース、バージョンXを想像してください。
 
 上記のタイムラインではAPI v1に存在し、非推奨化される必要があるWidgetという仮想のRESTリソースを考えてみましょう。
 私たちはリリースX+1と同期して非推奨をドキュメント化と[アナウンス](https://groups.google.com/forum/#!forum/kubernetes-announce)を行います。
-WidgetリソースはAPIバージョンv1（非推奨）にはまだ存在しますがv2alpha1には存在しません。
+WidgetリソースはAPIバージョンv1(非推奨)にはまだ存在しますがv2alpha1には存在しません。
 WidgetリソースはX+8までのリリースに引き続き存在して機能します。
 API v1が期限切れになるX+9でのみ、Widgetリソースは存在しなくなり、その動作が削除されます。
 
