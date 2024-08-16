@@ -649,7 +649,7 @@ on the API server. If you want to use command line flags instead of the configur
 continue to work as-is. To access the new capabilities like configuring multiple authenticators,
 setting multiple audiences for an issuer, switch to using the configuration file.
 -->
-你必须使用 API 服务器上的 `--authentication-config` 标志指定身份验证配置的路径。
+你必须使用 API 服务器上的 `--authentication-config` 标志指定身份认证配置的路径。
 如果你想使用命令行标志而不是配置文件，命令行标志仍然有效。
 要使用新功能（例如配置多个认证组件、为发行者设置多个受众），请切换到使用配置文件。
 
@@ -677,7 +677,7 @@ command line arguments, and use the configuration file instead.
 -->
 你不能同时指定 `--authentication-config` 和 `--oidc-*` 命令行参数，
 否则API服务器会报告错误，然后立即退出。
-如果你想切换到使用结构化身份验证配置，则必须删除 `--oidc-*` 命令行参数，并改用配置文件。
+如果你想切换到使用结构化身份认证配置，则必须删除 `--oidc-*` 命令行参数，并改用配置文件。
 {{< /note >}}
 
 <!--
@@ -1450,7 +1450,26 @@ Kubernetes API 服务器默认发送 `authentication.k8s.io/v1beta1` 令牌以�
 要选择接收 `authentication.k8s.io/v1` 令牌认证，API 服务器必须带着参数
 `--authentication-token-webhook-version=v1` 启动。
 {{< /note >}}
+<!--
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1",
+  "kind": "TokenReview",
+  "spec": {
+    # Opaque bearer token sent to the API server
+    "token": "014fbff9a07c...",
 
+    # Optional list of the audience identifiers for the server the token was presented to.
+    # Audience-aware token authenticators (for example, OIDC token authenticators)
+    # should verify the token was intended for at least one of the audiences in this list,
+    # and return the intersection of this list and the valid audiences for the token in the response status.
+    # This ensures the token is valid to authenticate to the server it was presented to.
+    # If no audiences are provided, the token should be validated to authenticate to the Kubernetes API server.
+    "audiences": ["https://myserver.example.com", "https://myserver.internal.example.com"]
+  }
+}
+```
+-->
 ```yaml
 {
   "apiVersion": "authentication.k8s.io/v1",
@@ -1471,6 +1490,26 @@ Kubernetes API 服务器默认发送 `authentication.k8s.io/v1beta1` 令牌以�
 ```
 {{% /tab %}}
 {{% tab name="authentication.k8s.io/v1beta1" %}}
+<!--
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1beta1",
+  "kind": "TokenReview",
+  "spec": {
+    # Opaque bearer token sent to the API server
+    "token": "014fbff9a07c...",
+
+    # Optional list of the audience identifiers for the server the token was presented to.
+    # Audience-aware token authenticators (for example, OIDC token authenticators)
+    # should verify the token was intended for at least one of the audiences in this list,
+    # and return the intersection of this list and the valid audiences for the token in the response status.
+    # This ensures the token is valid to authenticate to the server it was presented to.
+    # If no audiences are provided, the token should be validated to authenticate to the Kubernetes API server.
+    "audiences": ["https://myserver.example.com", "https://myserver.internal.example.com"]
+  }
+}
+```
+-->
 ```yaml
 {
   "apiVersion": "authentication.k8s.io/v1beta1",
@@ -1505,6 +1544,38 @@ A successful validation of the bearer token would return:
 
 {{< tabs name="TokenReview_response_success" >}}
 {{% tab name="authentication.k8s.io/v1" %}}
+<!--
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1",
+  "kind": "TokenReview",
+  "status": {
+    "authenticated": true,
+    "user": {
+      # Required
+      "username": "janedoe@example.com",
+      # Optional
+      "uid": "42",
+      # Optional group memberships
+      "groups": ["developers", "qa"],
+      # Optional additional information provided by the authenticator.
+      # This should not contain confidential data, as it can be recorded in logs
+      # or API objects, and is made available to admission webhooks.
+      "extra": {
+        "extrafield1": [
+          "extravalue1",
+          "extravalue2"
+        ]
+      }
+    },
+    # Optional list audience-aware token authenticators can return,
+    # containing the audiences from the `spec.audiences` list for which the provided token was valid.
+    # If this is omitted, the token is considered to be valid to authenticate to the Kubernetes API server.
+    "audiences": ["https://myserver.example.com"]
+  }
+}
+```
+-->
 ```yaml
 {
   "apiVersion": "authentication.k8s.io/v1",
@@ -1537,6 +1608,38 @@ A successful validation of the bearer token would return:
 ```
 {{% /tab %}}
 {{% tab name="authentication.k8s.io/v1beta1" %}}
+<!--
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1beta1",
+  "kind": "TokenReview",
+  "status": {
+    "authenticated": true,
+    "user": {
+      # Required
+      "username": "janedoe@example.com",
+      # Optional
+      "uid": "42",
+      # Optional group memberships
+      "groups": ["developers", "qa"],
+      # Optional additional information provided by the authenticator.
+      # This should not contain confidential data, as it can be recorded in logs
+      # or API objects, and is made available to admission webhooks.
+      "extra": {
+        "extrafield1": [
+          "extravalue1",
+          "extravalue2"
+        ]
+      }
+    },
+    # Optional list audience-aware token authenticators can return,
+    # containing the audiences from the `spec.audiences` list for which the provided token was valid.
+    # If this is omitted, the token is considered to be valid to authenticate to the Kubernetes API server.
+    "audiences": ["https://myserver.example.com"]
+  }
+}
+```
+-->
 ```yaml
 {
   "apiVersion": "authentication.k8s.io/v1beta1",
@@ -1577,6 +1680,21 @@ An unsuccessful request would return:
 
 {{< tabs name="TokenReview_response_error" >}}
 {{% tab name="authentication.k8s.io/v1" %}}
+<!--
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1",
+  "kind": "TokenReview",
+  "status": {
+    "authenticated": false,
+    # Optionally include details about why authentication failed.
+    # If no error is provided, the API will return a generic Unauthorized message.
+    # The error field is ignored when authenticated=true.
+    "error": "Credentials are expired"
+  }
+}
+```
+-->
 ```yaml
 {
   "apiVersion": "authentication.k8s.io/v1",
@@ -1592,6 +1710,21 @@ An unsuccessful request would return:
 ```
 {{% /tab %}}
 {{% tab name="authentication.k8s.io/v1beta1" %}}
+<!--
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1beta1",
+  "kind": "TokenReview",
+  "status": {
+    "authenticated": false,
+    # Optionally include details about why authentication failed.
+    # If no error is provided, the API will return a generic Unauthorized message.
+    # The error field is ignored when authenticated=true.
+    "error": "Credentials are expired"
+  }
+}
+```
+-->
 ```yaml
 {
   "apiVersion": "authentication.k8s.io/v1beta1",
@@ -1758,6 +1891,76 @@ that grant access to the `*` user or `*` group do not include anonymous users.
 从 1.6 版本开始，ABAC 和 RBAC 鉴权模块要求对 `system:anonymous` 用户或者
 `system:unauthenticated` 用户组执行显式的权限判定，所以之前的为用户 `*` 或用户组
 `*` 赋予访问权限的策略规则都不再包含匿名用户。
+
+<!--
+### Anonymous Authenticator Configuration
+-->
+### 匿名身份认证模块配置   {#anonymous-authenticator-configuration}
+
+{{< feature-state feature_gate_name="AnonymousAuthConfigurableEndpoints" >}}
+
+<!--
+The `AuthenticationConfiguration` can be used to configure the anonymous
+authenticator. To enable configuring anonymous auth via the config file you need
+enable the `AnonymousAuthConfigurableEndpoints` feature gate. When this feature
+gate is enabled you cannot set the `--anonymous-auth` flag.
+-->
+`AuthenticationConfiguration` 可用于配置匿名身份认证模块。
+要通过配置文件启用匿名身份认证配置，你需要启用 `AnonymousAuthConfigurableEndpoints` 特性门控。
+当此特性门控被启用时，你不能设置 `--anonymous-auth` 标志。
+
+<!--
+The main advantage of configuring anonymous authenticator using the authentication
+configuration file is that in addition to enabling and disabling anonymous authentication
+you can also configure which endpoints support anonymous authentication.
+
+A sample authentication configuration file is below:
+-->
+使用身份认证配置文件来配置匿名身份认证模块的主要优点是，
+除了启用和禁用匿名身份认证外，你还可以配置哪些端点支持匿名身份认证。
+
+以下是一个身份认证配置文件示例：
+
+<!--
+```yaml
+---
+#
+# CAUTION: this is an example configuration.
+#          Do not use this for your own cluster!
+#
+apiVersion: apiserver.config.k8s.io/v1beta1
+kind: AuthenticationConfiguration
+anonymous:
+  enabled: true
+  conditions:
+  - path: /livez
+  - path: /readyz
+  - path: /healthz
+```
+-->
+```yaml
+---
+#
+# 注意：这是一个示例配置。
+#      请勿将其用于你自己的集群！
+#
+apiVersion: apiserver.config.k8s.io/v1beta1
+kind: AuthenticationConfiguration
+anonymous:
+  enabled: true
+  conditions:
+  - path: /livez
+  - path: /readyz
+  - path: /healthz
+```
+
+<!--
+In the configuration above only the `/livez`, `/readyz` and `/healthz` endpoints
+are reachable by anonymous requests. Any other endpoints will not be reachable
+even if it is allowed by RBAC configuration.
+-->
+在上述配置中，只有 `/livez`、`/readyz` 和 `/healthz` 端点可以通过匿名请求进行访问。
+即使 RBAC 配置允许进行匿名请求，也不可以访问任何其他端点。
 
 <!--
 ## User impersonation
