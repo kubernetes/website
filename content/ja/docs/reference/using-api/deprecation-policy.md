@@ -1,8 +1,4 @@
 ---
-reviewers:
-- bgrant0607
-- lavalamp
-- thockin
 title: Kubernetes非推奨ポリシー
 content_type: concept
 weight: 40
