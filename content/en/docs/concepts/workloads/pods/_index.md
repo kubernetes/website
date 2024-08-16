@@ -227,7 +227,7 @@ have some limitations:
 
 - Most of the metadata about a Pod is immutable. For example, you cannot
   change the `namespace`, `name`, `uid`, or `creationTimestamp` fields;
-  the `generation` field is unique. It only accepts updates that increment the
+  the `generation` field is unique. It only accepts updates that increase the
   field's current value.
 - If the `metadata.deletionTimestamp` is set, no new entry can be added to the
   `metadata.finalizers` list.
