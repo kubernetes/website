@@ -360,14 +360,14 @@ Esto ocurre en los siguientes escenarios:
 - Al principio del ciclo de vida del Pod, cuando el kubelet aún no ha comenzado a configurar un sandbox para
 el Pod usando el runtime de contenedores.
 - Más adelante en el ciclo de vida del Pod, cuando el sandbox del Pod ha sido destruido debido a:
-  - el nodo reiniciándose, sin que el Pod sea desalojado
+  - el nodo reiniciándose, sin que el Pod sea desalojado.
   - para runtimes de contenedores que usan máquinas virtuales para aislamiento, la máquina virtual del sandbox del Pod reiniciándose, lo que luego requiere crear un nuevo sandbox y
 una nueva configuración de red para el contenedor.
 
-La condición `PodReadyToStartContainers` se establece en True por el kubelet después de la
-completación exitosa de la creación del sandbox y la configuración de la red para el Pod
+La condición `PodReadyToStartContainers` se establece en `True` por el kubelet después de la
+finalización exitosa de la creación del sandbox y la configuración de la red para el Pod
 por el plugin de runtime. El kubelet puede comenzar a extraer imágenes de contenedores y crear
-contenedores después de que la condición PodReadyToStartContainers se haya establecido en True.
+contenedores después de que la condición `PodReadyToStartContainers` se haya establecido en True.
 
 Para un Pod con contenedores de inicialización, el kubelet establece la condición `Initialized` en
 `True` después de que los contenedores de inicialización se hayan completado exitosamente (lo que ocurre
@@ -687,8 +687,8 @@ para [borrar Pods de un StatefulSet](/docs/tasks/run-application/force-delete-st
 
 ### Terminación del Pod y contenedores sidecar {##termination-with-sidecars}
 
-Si tus Pods incluyen uno o más [contenedores sidecar](/docs/concepts/workloads/pods/sidecar-containers/)(contenedores de inicialización con una política de reinicio `Always`), el kubelet retrasará el envío de la señal TERM a estos contenedores sidecar hasta que el último contenedor principal se haya terminado completamente.
-Los contenedores sidecar serán eliminadors en orden inverso al que se han definido en la especificación del Pod.
+Si tus Pods incluyen uno o más [contenedores sidecar](/docs/concepts/workloads/pods/sidecar-containers/) (contenedores de inicialización con una política de reinicio `Always`), el kubelet retrasará el envío de la señal TERM a estos contenedores sidecar hasta que el último contenedor principal se haya terminado completamente.
+Los contenedores sidecar serán eliminados en orden inverso al que se han definido en la especificación del Pod.
 Esto asegura que los contenedores sidecar continúan sirviendo a los otros contenedores en el Pod hasta que ya no se necesiten.
 
 Esto significa que la terminación lenta de un contenedor principal también retrasará la terminación de los contenedores sidecar.
@@ -703,7 +703,7 @@ En general, si has usado hooks de `preStop` para controlar el orden de terminaci
 
 Cuando los Pods fallan,
 los objetos API permanecen en el clúster hasta que un humano o el proceso de
-{{< glossary_tooltip term_id="controller" text="controlador" >}} los elimina
+{{< glossary_tooltip term_id="controller" text="controlador" >}} los elimine
 explícitamente.
 
 El recolector de elementos no utilizados (PodGC en inglés) es un controlador en
