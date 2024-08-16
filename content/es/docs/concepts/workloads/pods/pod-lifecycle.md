@@ -413,7 +413,7 @@ de abrir la conexión, el diagnóstico se considera exitoso.
 
 {{< caution >}}
 A diferencia de otros mecanismos, la implementación de la sonda `exec` involucra
-la creación/bifuración de múltiples procesos cada vez que se ejecuta.
+la creación/bifurcación de múltiples procesos cada vez que se ejecuta.
 Como resultado, en caso de clústers con mayor densidad de Pods, intérvalos más
 bajos de `initialDelaySeconds`, `periodSeconds`, configurando un sondeo
 con `exec` puede introducir una sobrecarga en el uso de la CPU del nodo.
@@ -561,16 +561,16 @@ tiempo de ejecución del contenedor.
 No hay garantía del orden de procesamiento de estas peticiones.
 Muchos contenedores respetan el valor `STOPSIGNAL` definido en la imagen del
 contenedor y, si es diferente, envían el valor de `STOPSIGNAL` en lugar de
-SIGTERM.
+TERM.
 
 Una vez que el período de gracia ha acabado,
-se envía la señal KILL a cualquier processo restante, y luego el Pod se elimina
+se envía la señal KILL a cualquier proceso restante, y luego el Pod se elimina
 del {{< glossary_tooltip text="Servidor API" term_id="kube-apiserver" >}}.
 Si el kubelet o el tiempo de ejecución del contenedor del servicio que lo
 administra se reinicia mientras espera que los procesos terminen, el kubelet
 reintenta de nuevo el proceso incluyendo el periodo original de gracia.
 
-Un flujo de ejemplo:
+Un flujo de finalización de un Pod, ilustrado con un ejemplo:
 
 1. Utilizas la herramienta `kubectl` para eliminar manualmente un Pod
    específico, con un periodo de gracia por defecto (30 segundos).
@@ -584,7 +584,7 @@ Un flujo de ejemplo:
    Pod se ha marcado como terminando (se ha definido una duración de parada con
    gracia), el kubelet comienza el proceso local de parar el Pod.
 
-1. Si uno de los contenedores del Pod tiene definido
+   1. Si uno de los contenedores del Pod tiene definido
    un [hook](/docs/concepts/containers/container-lifecycle-hooks) `preStop` y
    el `terminationGracePeriodSeconds` en la especificación del Pod no está
    definido en 0, el kubelet ejecuta ese hook dentro del contenedor.
@@ -600,7 +600,7 @@ Un flujo de ejemplo:
    debes modificar el `terminationGracePeriodSeconds` para adaptarlo.
    {{< /note >}}
 
-1. El kubelet lanza el tiempo de ejecución del contenedor para enviar una
+   1. El kubelet lanza el tiempo de ejecución del contenedor para enviar una
    señal TERM al proceso 1 dentro de cada contenedor.
    {{< note >}}
    Los contenedores en el Pod reciben la señal TERM en tiempos diferentes y en
@@ -638,53 +638,15 @@ Un flujo de ejemplo:
    Puedes encontrar más detalles en cómo implementar drenado de conexiones en el
    tutorial [Pods y flujo de terminación de Endpoints](/docs/tutorials/services/pods-and-endpoint-termination-flow/)
 
-{{<note>}}
-Si no tienes la `EndpointSliceTerminatingCondition` habilitada en tu clúster (la
-característica está habilitada por defecto desde Kubernetes 1.22, y se bloquea en
-1.26), entonces el plano de control de Kubernetes elimina un Pod de cualquier
-EndpointSlices relevante tan pronto como inicia el período de gracia terminación
-del Pod.
-El comportamiento descrito arriba aplica para cuando la característica `EndpointSliceTerminatingCondition` está habilitada.
-{{</note>}}
+<a id="pod-termination-beyond-grace-period" />
 
-{{<note>}}
-A partir de Kubernetes 1.29, si tu Pod incluye uno o más contenedores sidecars
-(contenedores de inicialización con política de reinicio `AlwaysRestart`), el
-kubelet retrasará enviar la señal TERM a estos contenedores sidecar hasta que el
-último contenedor principal del Pod haya finalizado.
-
-Los contenedores sidecar terminarán en el orden inverso del que están definidos
-en la especificación del Pod.
-Esto asegura que los contenedores sidecar continúen sirviendo a los demás
-contenedores en el Pod mientras no se necesitan más.
-
-Ten en cuenta que la terminación lenta de un controlador principal también
-retrasará la terminación de los contenedores sidecar.
-Si el período de gracia expira antes que acabe el proceso de terminación, el Pod
-entrará en terminación de emergencia.
-En este caso, todos los contenedores restantes en el Pod se terminarán
-simultáneamente con un período de gracia corto.
-
-Igualmente, si el Pod tiene un hook `PreStop` que excede el périodo de gracia de
-finalización, puede ocurrir una terminación de emergencia.
-En general, si has usado hooks de `preStop` para controlar el orden de
-terminación sin contenedores sidecar, puedes quitarlos y permitir que el kubelet
-los administre automáticamente.
-{{</note>}}
-
-1. Cuando expira el tiempo de gracia,
-   el kubelet lanza un apagado forzado.
-   El tiempo de ejecución del contenedor envía una señal `SIGKILL`a cualquier
-   proceso que se esté ejecutando en cualquier contenedor en el Pod.
-   El kubelet también limpia un contenedor `pause` escondido si ese tiempo de
-   ejecución del contenedor usa uno.
-1. El kubelet hace una transición del Pod a fase terminal
-   (`Failed` o `Succeeded`, dependiendo del estado de sus contenedores).
-   Este paso está garantizado desde la versión 1.27.
-1. El kubelet lanza la eliminación forzada del objeto Pod del servidor API,
-   estableciendo el período de gracia a 0 (detención inmediata).
-1. El servidor API borra el objeto API del Pod,
-   que ya no es visible desde ningún cliente.
+1. El kubelet se asegura que el Pod se ha apagado y terminado
+   1. Cuando finaliza el tiempo de gracia, si aún existe algún contenedor ejecutándose en el Pod, el kubelet lanza un apagado forzado. 
+    El runtime del contenedor envía una señal `SIGKILL` a cualquier proceso ejecutándose en cualquier contenedor en el Pod. 
+    El kubelet también limpia un contenedor `pause` oculto si ese contenedor usa uno.
+   1. El kubelet hace la transición del Pod a una fase terminal (`Failed` ó `Succeeded` dependiendo del estado final de sus contenedores).
+   1. El Kubelet lanza la eliminación forzosa de los objetos del Pod del servidor API, estableciendo el periodo de gracia a 0 (detención inmediata).
+   1. El servidor API elimina el objeto API del Pod, que ya no es visible desde ningún cliente.
 
 ### Terminación Forzada del Pod {#pod-termination-forced}
 
@@ -702,10 +664,8 @@ Pod del servidor API.
 Si el Pod aún se está ejecutando en un nodo, esa eliminación forzada hace que
 el kubelet inicie una limpieza inmediata.
 
-{{< note >}}
-Debes especificar una opción adicional `--force` junto con `--grace-period=0`
+Usando kubectl, debes especificar una opción adicional `--force` junto con `--grace-period=0`
 para realizar eliminaciones forzadas.
-{{< /note >}}
 
 Cuando se realiza una eliminación forzada,
 el servidor API no espera la confirmación del kubelet de que el Pod ha terminado
@@ -724,6 +684,21 @@ El recurso puede continuar ejecutándose en el clúster de forma indefinida.
 Si necesitas eliminar Pods por la fuerza y son parte de un `StatefulSet`,
 mira la documentación
 para [borrar Pods de un StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
+
+### Terminación del Pod y contenedores sidecar {##termination-with-sidecars}
+
+Si tus Pods incluyen uno o más [contenedores sidecar](/docs/concepts/workloads/pods/sidecar-containers/)(contenedores de inicialización con una política de reinicio `Always`), el kubelet retrasará el envío de la señal TERM a estos contenedores sidecar hasta que el último contenedor principal se haya terminado completamente.
+Los contenedores sidecar serán eliminadors en orden inverso al que se han definido en la especificación del Pod.
+Esto asegura que los contenedores sidecar continúan sirviendo a los otros contenedores en el Pod hasta que ya no se necesiten.
+
+Esto significa que la terminación lenta de un contenedor principal también retrasará la terminación de los contenedores sidecar.
+
+Si el periodo de gracia expira antes que se complete el proceso de terminación, el Pod podría entrar en [terminación forzada](#pod-termination-beyond-grace-period).
+En este caso, todos los contenedores restantes en el Pod serán terminados simultáneamente con un periodo de gracia corto.
+
+De forma similar, si el Pod tiene un hook `preStop` que excede el periodo de gracia de finalización, puede ocurrir una terminación de emergencia.
+En general, si has usado hooks de `preStop` para controlar el orden de terminación sin contenedores sidecar, puedes quitarlos y permitir que el kubelet maneje la terminación de sidecars automáticamente.
+
 ### Recolección de elementos no utilizados de los Pods {#pod-garbage-collection}
 
 Cuando los Pods fallan,
