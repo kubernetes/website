@@ -246,7 +246,7 @@ Deployment 是管理 Pod 创建和扩展的推荐方法。
 <!--
 1. View application logs for a container in a pod (replace pod name with the one you got from `kubectl get pods`).
 -->
-1. 查看 Pod 中容器的应用程序日志（将 Pod 名称替换为你用 `kubectl get pods` 命令获得的名称）。
+6. 查看 Pod 中容器的应用程序日志（将 Pod 名称替换为你用 `kubectl get pods` 命令获得的名称）。
 
    {{< note >}}
    <!--
