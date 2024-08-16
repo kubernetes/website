@@ -211,7 +211,7 @@ a Pod that has generic ephemeral storage is the owner of the PersistentVolumeCla
 that provide that ephemeral storage. When the Pod is deleted,
 the Kubernetes garbage collector deletes the PVC, which then usually
 triggers deletion of the volume because the default reclaim policy of
-storage classes is to delete volumes. You can create quasi-ephemeral local storage
+storage classes is to delete volumes. You can create ephemeral local storage
 using a StorageClass with a reclaim policy of `retain`: the storage outlives the Pod, 
 and in this case you need to ensure that volume clean up happens separately.
 
