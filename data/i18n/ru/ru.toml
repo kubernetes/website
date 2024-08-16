@@ -526,7 +526,7 @@ other = "Дедлайн для Cherry Pick"
 other = "Дата конца жизни (EOL)"
 
 [release_full_details_initial_text]
-other = "Полностью"
+other = "Полная информация по релизу"
 
 [release_information_navbar]
 other = "Информация о релизе"
@@ -552,7 +552,7 @@ other = "**%s** переходит в режим поддержки (maintenance
 other = "Примечание"
 
 [release_schedule]
-other = "График"
+other = "План патч-версий"
 
 [release_target_date]
 other = "Планируемая дата"
