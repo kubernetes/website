@@ -26,30 +26,24 @@ weight: 30
 
 ## {{% heading "prerequisites" %}}
 
-
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-* {{< include "default-storage-class-prereqs.md" >}}
-* 이 튜토리얼은
+- {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+- {{< include "default-storage-class-prereqs.md" >}}
+- 이 튜토리얼은
   [퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes/)
   그리고 [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/),
   [파드](/ko/docs/concepts/workloads/pods/),
   [서비스](/ko/docs/concepts/services-networking/service/),
   [컨피그맵(ConfigMap)](/docs/tasks/configure-pod-container/configure-pod-configmap/)와 같은 핵심 개념들에 대해 알고 있다고 가정한다.
-* MySQL에 대한 지식이 있으면 도움이 되지만, 이 튜토리얼은 다른 시스템을 활용하였을 때도
+- MySQL에 대한 지식이 있으면 도움이 되지만, 이 튜토리얼은 다른 시스템을 활용하였을 때도
   도움이 되는 일반적인 패턴을 다루는데 중점을 둔다.
-* default 네임스페이스를 사용하거나, 다른 오브젝트들과 충돌이 나지 않는 다른 네임스페이스를 사용한다.
-
-
+- default 네임스페이스를 사용하거나, 다른 오브젝트들과 충돌이 나지 않는 다른 네임스페이스를 사용한다.
 
 ## {{% heading "objectives" %}}
 
-
-* 스테이트풀셋을 이용한 복제 MySQL 토폴로지를 배포한다.
-* MySQL 클라이언트에게 트래픽을 보낸다.
-* 다운타임에 대한 저항력을 관찰한다.
-* 스테이트풀셋을 확장/축소한다.
-
-
+- 스테이트풀셋을 이용한 복제 MySQL 토폴로지를 배포한다.
+- MySQL 클라이언트에게 트래픽을 보낸다.
+- 다운타임에 대한 저항력을 관찰한다.
+- 스테이트풀셋을 확장/축소한다.
 
 <!-- lessoncontent -->
 
@@ -492,13 +486,10 @@ kubectl delete pvc data-mysql-3
 kubectl delete pvc data-mysql-4
 ```
 
-
-
 ## {{% heading "cleanup" %}}
 
-
 1. `SELECT @@server_id` 루프를 끝내기 위해, 터미널에 **Ctrl+C**를 입력하거나,
-    해당 명령을 다른 터미널에서 실행시키자.
+   해당 명령을 다른 터미널에서 실행시키자.
 
    ```shell
    kubectl delete pod mysql-client-loop --now
@@ -536,13 +527,11 @@ kubectl delete pvc data-mysql-4
    일부 (EBS나 PD와 같은) 동적 프로비저너들은 퍼시스턴트볼륨을 삭제
    하면 그 뒤에 존재하는 리소스들도 삭제한다.
 
-
-
 ## {{% heading "whatsnext" %}}
 
-* [스테이트풀셋(StatefulSet) 확장하기](/ko/docs/tasks/run-application/scale-stateful-set/)에 대해 더 배워보기.
-* [스테이트풀셋 디버깅하기](/ko/docs/tasks/debug/debug-application/debug-statefulset/)에 대해 더 배워보기.
-* [스테이트풀셋(StatefulSet) 삭제하기](/ko/docs/tasks/run-application/delete-stateful-set/)에 대해 더 배워보기.
-* [스테이트풀셋(StatefulSet) 파드 강제 삭제하기](/ko/docs/tasks/run-application/force-delete-stateful-set-pod/)에 대해 더 배워보기.
-* [Helm Charts 저장소](https://artifacthub.io/)를 통해
+- [스테이트풀셋(StatefulSet) 확장하기](/ko/docs/tasks/run-application/scale-stateful-set/)에 대해 더 배워보기.
+- [스테이트풀셋 디버깅하기](/ko/docs/tasks/debug/debug-application/debug-statefulset/)에 대해 더 배워보기.
+- [스테이트풀셋(StatefulSet) 삭제하기](/ko/docs/tasks/run-application/delete-stateful-set/)에 대해 더 배워보기.
+- [스테이트풀셋(StatefulSet) 파드 강제 삭제하기](/ko/docs/tasks/run-application/force-delete-stateful-set-pod/)에 대해 더 배워보기.
+- [Helm Charts 저장소](https://artifacthub.io/)를 통해
   다른 스테이트풀 애플리케이션 예제들을 확인해보기.

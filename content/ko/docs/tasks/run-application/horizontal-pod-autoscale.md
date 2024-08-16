@@ -84,7 +84,7 @@ class pod1,pod2,pod3 pod
 리소스 메트릭 API(파드 단위 리소스 메트릭 용) 또는
 커스텀 메트릭 API(그 외 모든 메트릭 용)로부터 메트릭을 수집한다.
 
-* 파드 단위 리소스 메트릭(예 : CPU)의 경우 컨트롤러는 HorizontalPodAutoscaler가
+- 파드 단위 리소스 메트릭(예 : CPU)의 경우 컨트롤러는 HorizontalPodAutoscaler가
   대상으로하는 각 파드에 대한 리소스 메트릭 API에서 메트릭을 가져온다.
   그런 다음, 목표 사용률 값이 설정되면, 컨트롤러는 각 파드의
   컨테이너에 대한 동등한 [자원 요청](/ko/docs/concepts/configuration/manage-resources-containers/#요청-및-제한)을
@@ -99,10 +99,10 @@ class pod1,pod2,pod3 pod
   해당 메트릭에 대해 아무런 조치도 취하지 않는다. 오토스케일링
   알고리즘의 작동 방식에 대한 자세한 내용은 아래 [알고리즘 세부 정보](#알고리즘-세부-정보) 섹션을 참조하기 바란다.
 
-* 파드 단위 사용자 정의 메트릭의 경우, 컨트롤러는 사용률 값이 아닌 원시 값을 사용한다는 점을
+- 파드 단위 사용자 정의 메트릭의 경우, 컨트롤러는 사용률 값이 아닌 원시 값을 사용한다는 점을
   제외하고는 파드 단위 리소스 메트릭과 유사하게 작동한다.
 
-* 오브젝트 메트릭 및 외부 메트릭의 경우, 문제의 오브젝트를 표현하는
+- 오브젝트 메트릭 및 외부 메트릭의 경우, 문제의 오브젝트를 표현하는
   단일 메트릭을 가져온다. 이 메트릭은 목표 값과
   비교되어 위와 같은 비율을 생성한다. `autoscaling/v2` API
   버전에서는, 비교가 이루어지기 전에 해당 값을 파드의 개수로
@@ -156,7 +156,7 @@ HorizontalPodAutoscaler 컨트롤러는 스케일링을 지원하는 상응하�
 같이 누락된 메트릭이 있는 모든 파드는 최종 스케일 량을 조정하는데 사용된다.
 
 CPU를 스케일할 때, 파드가 아직 Ready되지 않았거나(여전히
-초기화중이거나, unhealthy하여서) *또는* 파드의 최신 메트릭 포인트가 준비되기
+초기화중이거나, unhealthy하여서) _또는_ 파드의 최신 메트릭 포인트가 준비되기
 전이라면, 마찬가지로 해당 파드는 나중에 처리된다.
 
 기술적 제약으로 인해, HorizontalPodAutoscaler 컨트롤러는
@@ -189,7 +189,7 @@ CPU를 스케일할 때, 파드가 아직 Ready되지 않았거나(여전히
 컨트롤러가 스케일링을 건너뛴다.
 그렇지 않으면, 새로 계산한 사용률를 이용하여 파드 수 변경 결정을 내린다.
 
-평균 사용량에 대한 *원래* 값은 새로운 사용 비율이 사용되는
+평균 사용량에 대한 _원래_ 값은 새로운 사용 비율이 사용되는
 경우에도 아직-준비되지-않은 파드 또는 누락된 메트릭에 대한
 고려없이 HorizontalPodAutoscaler 상태를 통해 다시
 보고된다.
@@ -227,7 +227,7 @@ API 오브젝트에 대한 자세한 내용은
 
 HorizontalPodAutoscaler를 사용하여 레플리카 그룹의 크기를 관리할 때,
 측정하는 메트릭의 동적 특성 때문에 레플리카 수가 계속 자주 요동칠 수 있다.
-이는 종종 *thrashing* 또는 *flapping*이라고 불린다.
+이는 종종 _thrashing_ 또는 _flapping_이라고 불린다.
 이는 사이버네틱스 분야의 *이력 현상(hysteresis)* 개념과 비슷하다.
 
 
@@ -276,7 +276,7 @@ resource:
 
 ### 컨테이너 리소스 메트릭
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 HorizontalPodAutoscaler API는 대상 리소스를 스케일링하기 위해 HPA가 파드 집합에서 개별 컨테이너의
 리소스 사용량을 추적할 수 있는 컨테이너 메트릭 소스도 지원한다.
@@ -316,7 +316,6 @@ HorizontalPodAutoscaler가 추적하는 컨테이너의 이름을 변경하는 �
 이전 컨테이너 이름을 제거하여 정리한다.
 {{< /note >}}
 
-
 ## 사용자 정의 메트릭을 이용하는 스케일링
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
@@ -347,17 +346,17 @@ HorizontalPodAutoscaler는 새롭게 제안된 스케일링 크기 중 가장 �
 기본적으로 HorizontalPodAutoscaler 컨트롤러는 일련의 API에서 메트릭을 검색한다. 이러한
 API에 접속하려면 클러스터 관리자는 다음을 확인해야 한다.
 
-* [API 애그리게이션 레이어](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) 활성화
+- [API 애그리게이션 레이어](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) 활성화
 
-* 해당 API 등록:
+- 해당 API 등록:
 
-  * 리소스 메트릭의 경우, 일반적으로 이것은 [메트릭-서버](https://github.com/kubernetes-sigs/metrics-server)가 제공하는 `metrics.k8s.io` API이다.
+  - 리소스 메트릭의 경우, 일반적으로 이것은 [메트릭-서버](https://github.com/kubernetes-sigs/metrics-server)가 제공하는 `metrics.k8s.io` API이다.
     클러스터 애드온으로 실행할 수 있다.
 
-  * 사용자 정의 메트릭의 경우, 이것은 `custom.metrics.k8s.io` API이다. 메트릭 솔루션 공급 업체에서 제공하는 "어댑터" API 서버에서 제공한다.
+  - 사용자 정의 메트릭의 경우, 이것은 `custom.metrics.k8s.io` API이다. 메트릭 솔루션 공급 업체에서 제공하는 "어댑터" API 서버에서 제공한다.
     사용 가능한 쿠버네티스 메트릭 어댑터가 있는지 확인하려면 사용하고자 하는 메트릭 파이프라인을 확인한다.
 
-  * 외부 메트릭의 경우, 이것은 `external.metrics.k8s.io` API이다. 위에 제공된 사용자 정의 메트릭 어댑터에서 제공될 수 있다.
+  - 외부 메트릭의 경우, 이것은 `external.metrics.k8s.io` API이다. 위에 제공된 사용자 정의 메트릭 어댑터에서 제공될 수 있다.
 
 이런 다양한 메트릭 경로와 각각의 다른 점에 대한 상세 내용은 관련 디자인 제안서인
 [HPA V2](https://git.k8s.io/design-proposals-archive/autoscaling/hpa-v2.md),
@@ -537,7 +536,7 @@ Horizontal Pod Autoscaler는 모든 API 리소스와 마찬가지로 `kubectl`�
 
 또한 Horizontal Pod Autoscaler를 생성할 수 있는 `kubectl autoscale`이라는 특별한 명령이 있다.
 예를 들어 `kubectl autoscale rs foo --min=2 --max=5 --cpu-percent=80`을
-실행하면 레플리카셋 *foo* 에 대한 오토스케일러가 생성되고, 목표 CPU 사용률은 `80 %`,
+실행하면 레플리카셋 _foo_ 에 대한 오토스케일러가 생성되고, 목표 CPU 사용률은 `80 %`,
 그리고 2와 5 사이의 레플리카 개수로 설정된다.
 
 ## 암시적 점검 모드(maintenance-mode) 비활성화
@@ -595,8 +594,8 @@ HPA가 활성화되어 있으면, 디플로이먼트, 스테이트풀셋 모두 
 
 HorizontalPodAutoscaler에 대한 더 많은 정보는 아래를 참고한다.
 
-* horizontal pod autoscaling에 대한 [연습 예제](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)를 확인한다.
-* [`kubectl autoscale`](/docs/reference/generated/kubectl/kubectl-commands/#autoscale) 문서를 확인한다.
-* 커스텀 메트릭 어댑터를 직접 작성하고 싶다면,
+- horizontal pod autoscaling에 대한 [연습 예제](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)를 확인한다.
+- [`kubectl autoscale`](/docs/reference/generated/kubectl/kubectl-commands/#autoscale) 문서를 확인한다.
+- 커스텀 메트릭 어댑터를 직접 작성하고 싶다면,
   [샘플](https://github.com/kubernetes-sigs/custom-metrics-apiserver)을 확인한다.
-* HorizontalPodAutoscaler [API 레퍼런스](/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/)를 확인한다.
+- HorizontalPodAutoscaler [API 레퍼런스](/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/)를 확인한다.
