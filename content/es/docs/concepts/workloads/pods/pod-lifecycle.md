@@ -53,7 +53,7 @@ Un Pod no sobrevivirá a una {{< glossary_tooltip text="evicción" term_id="evic
 a la falta de recursos o al mantenimiento del Nodo.
 
 Kubernetes utiliza una abstracción de nivel superior, llamada
-{{< glossary_tooltip term_id="controlador" text="controller" >}}, que maneja el trabajo de
+{{< glossary_tooltip term_id="controller" text="controlador" >}}, que maneja el trabajo de
 gestionar las instancias de Pods relativamente desechables.
 
 Un Pod dado (como se define por un UID) nunca es "reprogramado" a un nodo diferente; en su lugar,
