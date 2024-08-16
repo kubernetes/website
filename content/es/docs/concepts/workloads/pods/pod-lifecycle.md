@@ -33,7 +33,7 @@ También puedes inyectar [información de readiness personalizada](#pod-readines
 
 Los Pods solo se [programan](/docs/concepts/scheduling-eviction/) una vez en su ciclo de vida; asignar un Pod a un nodo específico se llama _vincular_ (binding, en inglés), y el proceso de seleccionar cuál Pod usar se llama _programar_.
 Una vez que un Pod está vinculado a un nodo, Kubernetes intenta ejecutar el Pod en ese nodo.
-El Pod se ejecuta en ese nodo hasta que termina, o hasta que es [terminado](#pod-termination); if Kubernetes no es capaz de iniciar el Pod en el nodo seleccionado (por ejemplo, si el nodo falla antes que el Pod inicie), entonces ese Pod en particular nunca inicia.
+El Pod se ejecuta en ese nodo hasta que termina, o hasta que es [terminado](#pod-termination); si Kubernetes no es capaz de iniciar el Pod en el nodo seleccionado (por ejemplo, si el nodo falla antes que el Pod inicie), entonces ese Pod en particular nunca inicia.
 
 Puedes usar [readiness de programación del Pod](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/) para retrasar la programación de un Pod hasta que todas sus _puertas de programación_ sean removidas.
 Por ejemplo, podrías querer definir un conjunto de Pods, pero solo lanzar la programación una vez que todos los Pods hayan sido creados.
@@ -44,12 +44,12 @@ Si falla uno de los contenedores en el Pod, Kubernetes puede intentar reiniciar 
 Para saber más, lea [cómo los Pods manejan los errores del contenedor](#container-restarts).
 
 Sin embargo, los Pods pueden fallar de una manera que el clúster no puede recuperar, y en ese caso
-Kubernetes no intenta sanar el Pod más; en su lugar, Kubernetes elimina el
+Kubernetes no intenta más sanar el Pod; en su lugar, Kubernetes elimina el
 Pod y confía en otros componentes para proporcionar una curación automática.
 
 Si un Pod está programado para un {{< glossary_tooltip text="nodo" term_id="node" >}} y ese
 nodo luego falla, el Pod se trata como no saludable y Kubernetes eventualmente elimina el Pod.
-Un Pod no sobrevivirá a una {{< glossary_tooltip text="evicción" term_id="eviction" >}} debido
+Un Pod no sobrevivirá a una {{< glossary_tooltip text="evacuación" term_id="eviction" >}} debido
 a la falta de recursos o al mantenimiento del Nodo.
 
 Kubernetes utiliza una abstracción de nivel superior, llamada
@@ -63,20 +63,20 @@ tener el mismo nombre (como en `.metadata.name`) que tenía el Pod antiguo, pero
 tendría un `.metadata.uid` diferente del Pod antiguo.
 
 Kubernetes no garantiza que un reemplazo de un Pod existente sea programado
-en el mismo nodo que el antiguo Pod que estaba siendo reemplazado.
+en el mismo nodo en el que el antiguo Pod estaba siendo reemplazado.
 
 ### Ciclo de vida asociados
 
 Cuando se dice que algo tiene la misma vida útil que un Pod, como un
-{{< glossary_tooltip term_id="volume" text="volumen" >}},
+{{< glossary_tooltip term_id="volume" text="volúmen" >}},
 eso significa que el objeto existe mientras ese Pod específico (con ese UID exacto)
 exista.
 Si ese Pod se elimina por cualquier razón, e incluso si se crea un reemplazo idéntico,
 el objeto relacionado (un volumen, en este ejemplo) también se destruye y se crea nuevamente.
 
-{{< figure src="/images/docs/pod.svg" title="Figura 1." class="diagram-medium" caption="Un Pod de varios contenedores que contiene un extractor de archivos sidecar y un servidor web. El Pod utiliza un volumen efímero emptyDir para almacenamiento compartido entre los contenedores." >}}
+{{< figure src="/images/docs/pod.svg" title="Figura 1." class="diagram-medium" caption="Un Pod de varios contenedores que contiene un extractor de archivos sidecar y un servidor web. El Pod utiliza un volumen efímero `emptyDir` para almacenamiento compartido entre los contenedores." >}}
 
-## Fase del Pod
+## Fase del Pod {##pod-phase }
 
 El campo `status` de un Pod es un objeto
 [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core) 
@@ -136,7 +136,7 @@ contenedor.
 Una vez que el {{< glossary_tooltip text="programador" term_id="kube-scheduler" >}}
 asigna un Pod a un Nodo,
 el kubelet inicia creando los contenedores para ese Pod usando un
-{{< glossary_tooltip text="espacio de ejecución del contenedor" term_id="container-runtime" >}}.
+{{< glossary_tooltip text="runtime del contenedor" term_id="container-runtime" >}}.
 Hay 3 estados posibles para un contenedor: `Waiting`(esperando), `Running`(en ejecución), y `Terminated`(terminado).
 
 Para revisar el estado de los contenedores de un Pod,
@@ -177,7 +177,7 @@ de que el contenedor entre en estado `Terminated`.
 ## Cómo los Pods manejan los problemas con los contenedores {#container-restarts}
 
 Kubernetes maneja los fallos de los contenedores dentro de los Pods usando una [política de reinicio, `restartPolicy` en inglés](#restart-policy) definida en la especificación `spec` del Pod.
-Esta política determina cómo reacciona Kubernetes cuando los contenedores salen debido a errores u otras razones, lo que sigue la siguiente secuencia:
+Esta política determina cómo reacciona Kubernetes cuando los contenedores salen debido a errores u otras razones, que sigue la siguiente secuencia:
 
 1. **Fallo inicial**: Kubernetes intenta un reinicio inmediato basado en la `restartPolicy` del Pod.
 1. **Fallos repetidos**:
@@ -221,10 +221,10 @@ Los [contenedores sidecar](/docs/concepts/workloads/pods/sidecar-containers/)
 ignoran el campo `restartPolicy`: en Kubernetes, un sidecar se define como una
 entrada dentro de `initContainers` que tiene su `restartPolicy` a nivel del contenedor
 establecido en `Always`. Para contenedores de inicio que finalizan con un error, el kubelet reinicia el
-contenedor de inicio if el nivel del Pod `restartPolicy` es `OnFailure`
+contenedor de inicio si el nivel del Pod `restartPolicy` es `OnFailure`
 o `Always`.
 
-Cuando el kubelet está manejando el contenedor se reinicia de acuerdo con la política de reinicio configurada, que solo se aplica a los reinicios que realizan contenedores de
+Cuando el kubelet está manejando el contenedor, se reinicia de acuerdo con la política de reinicio configurada, que solo se aplica a los reinicios que realizan contenedores de
 reemplazo dentro del
 mismo Pod y ejecutándose en el mismo nodo.
 Después de que los contenedores en un Pod terminan, el kubelet
