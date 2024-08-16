@@ -124,7 +124,7 @@ Si un Nodo muere o se desconecta del resto del clúster,
 Kubernetes aplica una política para establecer la `phase` de todos los Pods
 en `Failed`.
 
-## Estados del contenedor {#container-states}
+## Estados del contenedor
 
 Así como la fase del Pod en general, Kubernetes rastrea el estado de cada
 contenedor dentro de un Pod.
