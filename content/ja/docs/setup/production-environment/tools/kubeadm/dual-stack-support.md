@@ -16,8 +16,7 @@ Kubernetesクラスターには[デュアルスタック](/ja/docs/concepts/serv
 
 ## {{% heading "prerequisites" %}}
 
-[kubeadmのインストール](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)の手順に従って、
-{{< glossary_tooltip text="kubeadm" term_id="kubeadm">}}ツールをインストールしておく必要があります。
+[kubeadmのインストール](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)の手順に従って、{{< glossary_tooltip text="kubeadm" term_id="kubeadm">}}ツールをインストールしておく必要があります。
 
 {{< glossary_tooltip text="ノード" term_id="node">}}として使用したいサーバーごとに、IPv6フォワーディングが許可されていることを確認してください。
 Linuxでは、各サーバーでrootユーザーとして`sysctl -w net.ipv6.conf.all.forwarding=1`を実行することで設定できます。
@@ -29,8 +28,7 @@ Linuxでは、各サーバーでrootユーザーとして`sysctl -w net.ipv6.con
 IPアドレス割り当てのサイズは、実行する予定のPodとサービスの数に適している必要があります。
 
 {{< note >}}
-`kubeadm upgrade`コマンドを使用して既存のクラスターをアップグレードする場合、
-`kubeadm`はPodのIPアドレス範囲(「クラスターCIDR」)やクラスターのサービスアドレス範囲(「サービスCIDR」)の変更をサポートしません。
+`kubeadm upgrade`コマンドを使用して既存のクラスターをアップグレードする場合、`kubeadm`はPodのIPアドレス範囲(「クラスターCIDR」)やクラスターのサービスアドレス範囲(「サービスCIDR」)の変更をサポートしません。
 {{< /note >}}
 
 ### デュアルスタッククラスターの作成
@@ -42,9 +40,7 @@ IPアドレス割り当てのサイズは、実行する予定のPodとサービ
 kubeadm init --pod-network-cidr=10.244.0.0/16,2001:db8:42:0::/56 --service-cidr=10.96.0.0/16,2001:db8:42:1::/112
 ```
 
-わかりやすいように、主要なデュアルスタックコントロールプレーンノードの
-kubeadm[構成ファイル](/ja/docs/reference/config-api/kubeadm-config.v1beta3/)
-`kubeadm-config.yaml`の例を示します。
+わかりやすいように、主要なデュアルスタックコントロールプレーンノードのkubeadm[構成ファイル](/ja/docs/reference/config-api/kubeadm-config.v1beta3/)`kubeadm-config.yaml`の例を示します。
 
 ```yaml
 ---
@@ -82,8 +78,7 @@ kube-controller-managerフラグ`--node-cidr-mask-size-ipv4|--node-cidr-mask-siz
 
 ### デュアルスタッククラスターへのノード参加
 
-ノードを参加させる前に、そのノードにIPv6ルーティングが可能なネットワークインターフェースがあり、
-IPv6フォワーディングが許可されていることを確認してください。
+ノードを参加させる前に、そのノードにIPv6ルーティングが可能なネットワークインターフェースがあり、IPv6フォワーディングが許可されていることを確認してください。
 
 以下は、ワーカーノードをクラスターに参加させるためのkubeadm[構成ファイル](/ja/docs/reference/config-api/kubeadm-config.v1beta3/)`kubeadm-config.yaml`の例です。
 
@@ -139,8 +134,7 @@ kubeadm join --config=kubeadm-config.yaml
 デュアルスタックネットワーク機能が有効になっているシングルスタッククラスターを展開することができます。
 {{< /note >}}
 
-よりわかりやすいように、シングルスタックコントロールプレーンノードの
-kubeadm[構成ファイル](/ja/docs/reference/config-api/kubeadm-config.v1beta3/)`kubeadm-config.yaml`の例を示します。
+よりわかりやすいように、シングルスタックコントロールプレーンノードのkubeadm[構成ファイル](/ja/docs/reference/config-api/kubeadm-config.v1beta3/)`kubeadm-config.yaml`の例を示します。
 
 
 ```yaml
