@@ -1,7 +1,4 @@
 ---
-reviewers:
-- msau42
-- xing-yang
 title: VolumeAttributesClasses
 content_type: concept
 weight: 40
