@@ -1,5 +1,5 @@
 ---
-title: VolumeAttributesClasses
+title: VolumeAttributesClass
 content_type: concept
 weight: 40
 ---
