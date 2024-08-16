@@ -222,13 +222,17 @@ ignoran el campo `restartPolicy`: en Kubernetes, un sidecar se define como una
 entrada dentro de `initContainers` que tiene su `restartPolicy` a nivel del contenedor
 establecido en `Always`. Para contenedores de inicio que finalizan con un error, el kubelet reinicia el
 contenedor de inicio si el nivel del Pod `restartPolicy` es `OnFailure`
-o `Always`.
+o `Always`:
+
+* `Always`: Automáticamente reinicia el contenedor luego de alguna terminación.
+* `OnFailure`: Solo reinicia el contenedor si finaliza con un error (estado de salida distinto de cero).
+* `Never`: No reinicia el contenedor automáticamente.
 
 Cuando el kubelet está manejando el contenedor, se reinicia de acuerdo con la política de reinicio configurada, que solo se aplica a los reinicios que realizan contenedores de
 reemplazo dentro del
 mismo Pod y ejecutándose en el mismo nodo.
 Después de que los contenedores en un Pod terminan, el kubelet
-los reinicia con un retraso de retroceso exponencial (10 s, 20 s, 40 s,...), que
+los reinicia con un retraso de retroceso exponencial (10s, 20s, 40s,...), que
 está limitado a
 cinco minutos. Una vez que un contenedor se ha ejecutado durante 10 minutos sin
 ningún problema, el
@@ -256,14 +260,14 @@ El kubelet administra las siguientes condiciones del Pod:
 * `Ready`: el Pod es capaz de recibir peticiones y debería ser agregado a los
   grupos de equilibrio de carga de todos los Services que coincidan.
 
-| Nombre del campo     | Descripción                                                                                           |
-|:---------------------|:------------------------------------------------------------------------------------------------------|
-| `type`               | Nombre de esta condición del Pod.                                                                     |
-| `status`             | Indica si la condición es aplicable, con valores posibles "`True`", "`False`", ó "`Unknown`".         |
-| `lastProbeTime`      | Marca de tiempo de cuando se probó por última vez la condición del Pod.                               |
-| `lastTransitionTime` | Marca de tiempo de cuando el Pod hizo transición de un estado a otro.                                 |
-| `reason`             | Texto legible por máquina que indica el motivo de la última transición de la condición.               |
-| `message`            | Mensaje legible por humanos indicando detalles acerca ade la última transición de estado.             |
+| Nombre del campo     | Descripción                                                                                          |
+|:---------------------|:-----------------------------------------------------------------------------------------------------|
+| `type`               | Nombre de esta condición del Pod.                                                                    |
+| `status`             | Indica si la condición es aplicable, con valores posibles "`True`", "`False`", ó "`Unknown`".        |
+| `lastProbeTime`      | Marca de tiempo de cuando se probó por última vez la condición del Pod.                              |
+| `lastTransitionTime` | Marca de tiempo de cuando el Pod hizo transición de un estado a otro.                                |
+| `reason`             | Texto legible por máquina que indica el motivo de la última transición de la condición.              |
+| `message`            | Mensaje legible por humanos indicando detalles acerca de la última transición de estado.             |
 
 ### Preparación del Pod {#pod-readiness-gate}
 
@@ -715,7 +719,7 @@ Esto evita la fuga de recursos mientras que los Pods se crean y se eliminan en
 el tiempo.
 
 Adicionalmente,
-el PodGC limpia cualquier Pod que satisfaga cualquiera de las siguiente
+el PodGC limpia cualquier Pod que satisfaga cualquiera de las siguientes
 condiciones:
 
 1. Pods huérfanos - asociados a un Nodo que ya no existe,
@@ -734,10 +738,10 @@ Mira [condiciones de disrupción del Pod](/docs/concepts/workloads/pods/disrupti
 ## {{% heading "whatsnext" %}}
 
 * Obtén experiencia práctica
-  [agregar controladores a los eventos del ciclo de vida del contenedor](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
+  [agregando controladores a los eventos del ciclo de vida del contenedor](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
 * Obtén experiencia práctica
-  [configurar sondas de Liveness, Readiness y Startup](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
+  [configurando sondas de Liveness, Readiness y Startup](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 * Aprende más sobre [hooks del ciclo de vida del contenedor](/docs/concepts/containers/container-lifecycle-hooks/).
 
