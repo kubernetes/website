@@ -153,7 +153,8 @@ Kubernetes SIG Nodeは、この機能が将来的なKubernetesのリリースで
 
 <!-- https://github.com/kubernetes/website/pull/46920 -->
 
-`supplementalGroupsPolicy`の詳細については、[ドキュメント](/ja/docs/tasks/configure-pod-container/security-context/)を参照してください。
+- [Podとコンテナにセキュリティコンテキストを設定する](/ja/docs/tasks/configure-pod-container/security-context/)(`supplementalGroupsPolicy`の詳細)
+- [KEP-3619: Fine-grained SupplementalGroups control](https://github.com/kubernetes/enhancements/issues/3619)
 
 ## 参加するには？
 
