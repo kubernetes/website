@@ -5,16 +5,17 @@ date: 2024-08-22
 slug: fine-grained-supplementalgroups-control
 author: >
   Shingo Omura (Woven By Toyota)
-
+translator: >
+  Shingo Omura (Woven By Toyota)
 ---
 
 この記事ではKubernetes 1.31の新機能である、Pod内のコンテナにおける補助グループ制御の改善機能について説明します。
 
 ## 動機: コンテナイメージ内の`/etc/group`に定義される暗黙的なグループ情報
 
-この挙動は多くのKubernetesユーザー、管理者にとってあまり知られていないかもしれませんが、Kubernetesは、デフォルトでは、Podで定義された情報に加えて、コンテナイメージ内の`/etc/group`のグループ情報を _マージ_ します。
+この挙動は多くのKubernetesクラスターのユーザー、管理者にとってあまり知られていないかもしれませんが、Kubernetesは、デフォルトでは、Podで定義された情報に加えて、コンテナイメージ内の`/etc/group`のグループ情報を _マージ_ します。
 
-例を見てみましょう。このPodはsecurity contextで`runAsUser=1000`、`runAsGroup=3000`、`supplementalGroups=4000`を指定しています。
+例を見てみましょう。このPodはsecurityContextで`runAsUser=1000`、`runAsGroup=3000`、`supplementalGroups=4000`を指定しています。
 
 {{% code_sample file="implicit-groups.yaml" %}}
 
@@ -27,7 +28,7 @@ $ kubectl apply -f https://k8s.io/blog/2024-08-22-Fine-grained-SupplementalGroup
 # Podのコンテナが実行されていることを確認します。
 $ kubectl get pod implicit-groups
 
-# プロセスのユーザー、グループ情報を確認します。
+# idコマンドを確認します。
 $ kubectl exec implicit-groups -- id
 ```
 
@@ -37,7 +38,7 @@ $ kubectl exec implicit-groups -- id
 uid=1000 gid=3000 groups=3000,4000,50000
 ```
 
-Podマニフェストには`50000`は一切定義されていないにもかかわらず、補助グループ(`groups`フィールド)に含まれているグループID `50000`は一体どこから来るのでしょうか? 答えはコンテナイメージの`/etc/group`ファイルです。
+Podマニフェストには`50000`は一切定義されていないにもかかわらず、補助グループ(`groups`フィールド)に含まれているグループID`50000`は一体どこから来るのでしょうか? 答えはコンテナイメージの`/etc/group`ファイルです。
 
 コンテナイメージの`/etc/group`の内容が下記のようになっていることが確認できるでしょう。
 
@@ -54,7 +55,7 @@ group-defined-in-image:x:50000:user-defined-in-image
 
 ### 何が悪いのか？
 
-コンテナイメージの`/etc/group`から _暗黙的にマージ_ されるグループ情報は、特にボリュームアクセスを行う際に、セキュリティ上の懸念を引き起こすことがあります(詳細は[kubernetes/kubernetes#112879](https://issue.k8s.io/112879)を参照してください)。なぜなら、Linuxにおいて、ファイルパーミッションはuid/gidで制御されているからです。更に悪いことに、`/etc/group`に由来する暗黙的なgidは、マニフェストに情報が無いため、ポリシーエンジン等でチェック・検知をすることが出来ません。これはKubernetesセキュリティの観点からも懸念となります。
+コンテナイメージの`/etc/group`から _暗黙的にマージ_ されるグループ情報は、特にボリュームアクセスを行う際に、セキュリティ上の懸念を引き起こすことがあります(詳細は[kubernetes/kubernetes#112879](https://issue.k8s.io/112879)を参照してください)。なぜなら、Linuxにおいて、ファイルパーミッションはuid/gidで制御されているからです。更に悪いことに、`/etc/group`に由来する暗黙的なgidは、マニフェストにグループ情報の手がかりが無いため、ポリシーエンジン等でチェック・検知をすることが出来ません。これはKubernetesセキュリティの観点からも懸念となります。
 
 ## PodにおけるFine-grined(きめ細かい) SupplementalGroups control: `SupplementaryGroupsPolicy`
 
@@ -62,9 +63,9 @@ group-defined-in-image:x:50000:user-defined-in-image
 
 このフィールドは、Pod内のコンテナプロセスに付与される補助グループを決定するを方法を制御できるようにします。有効なポリシーは次の2つです。
 
-* _Merge_: `/etc/group`で定義されている、コンテナのプライマリユーザーが所属するグループをマージします。指定されていない場合、このポリシーがデフォルトです(後方互換性を考慮して既存の挙動と同様)。
+* _Merge_: `/etc/group`で定義されている、コンテナのプライマリユーザーが所属するグループ情報をマージします。指定されていない場合、このポリシーがデフォルトです(後方互換性を考慮して既存の挙動と同様)。
 
-* _Strict_: `fsGroup`、`supplementalGroups`、`runAsGroup`フィールドで指定されたグループのみ補助グループに指定されます。つまり、`/etc/group`で定義された、コンテナのプライマリユーザーのグループ情報はマージされません。
+* _Strict_: `fsGroup`、`supplementalGroups`、`runAsGroup`フィールドで指定されたグループIDのみ補助グループに指定されます。つまり、`/etc/group`で定義された、コンテナのプライマリユーザーのグループ情報はマージされません。
 
 では、どのように`Strict`ポリシーが動作するか見てみましょう。
 
@@ -89,7 +90,7 @@ uid=1000 gid=3000 groups=3000,4000
 
 `Strict`ポリシーによってグループ`50000`が`groups`から除外されているのが確認できました！
 
-このように、確実に`supplementalGroupsPolicy: Strict`が設定する(ポリシーエンジン等によって強制する)ことで、暗黙的な補助グループを回避することが可能になります。
+このように、確実に`supplementalGroupsPolicy: Strict`を設定する(ポリシーエンジン等によって強制する)ことで、暗黙的な補助グループを回避することが可能になります。
 
 {{<note>}}
 このフィールドの値を強制するだけでは不十分な場合もあります。なぜなら、プロセスが自分自身のユーザー、グループ情報を変更できる権限/ケーパビリティを持っている場合があるからです。詳細は次のセクションを参照してください。
@@ -126,12 +127,12 @@ status:
 
 `supplementalGroupsPolicy`フィールドを有効化するには、下記のコンポーネントを利用する必要があります。
 
-- Kubernetes: v1.31以降、かつ、`SupplementalGroupsPolicy`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)が有効化されていること。v1.31現在、このフィーチャーゲートはAlphaです。
+- Kubernetes: v1.31以降、かつ、`SupplementalGroupsPolicy`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)が有効化されていること。v1.31現在、このフィーチャーゲートはアルファです。
 - CRI実装:
   - containerd: v2.0以降
   - CRI-O: v1.31以降
 
-ノードのステータスでこの機能が利用可能かどうか確認出来ます。
+ノードの`.status.features.supplementalGroupsPolicy`フィールドでこの機能が利用可能かどうか確認出来ます。
 
 ```yaml
 apiVersion: v1
