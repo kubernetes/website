@@ -10,7 +10,7 @@ weight: 30
 This command initializes a Kubernetes worker node and joins it to the cluster.
 
 <!-- body -->
-{{< include "generated/kubeadm_join.md" >}}
+{{< include "generated/kubeadm_join/_index.md" >}}
 
 ### The join workflow {#join-workflow}
 
