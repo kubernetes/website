@@ -130,10 +130,6 @@ The program was introduced to help new contributors understand the PR wrangling 
   [PR Wranglers Wiki page](https://github.com/kubernetes/website/wiki/PR-Wranglers)
   to see the PR wrangling schedule for this year and sign up.
 
-- Kubernetes org members can edit the
-  [PR Wranglers Wiki page](https://github.com/kubernetes/website/wiki/PR-Wranglers)
-  and sign up to shadow an existing PR Wrangler for a week.
-
 - Others can reach out on the [#sig-docs Slack channel](https://kubernetes.slack.com/messages/sig-docs)
   for requesting to shadow an assigned PR Wrangler for a specific week. Feel free to reach out to
   Brad Topol (`@bradtopol`) or one of the
