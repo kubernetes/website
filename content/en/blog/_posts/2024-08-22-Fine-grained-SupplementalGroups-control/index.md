@@ -153,8 +153,9 @@ the feature gate manually.
 ## How can I learn more?
 
 <!-- https://github.com/kubernetes/website/pull/46920 -->
-Please check out the [documentation](/docs/tasks/configure-pod-container/security-context/)
-for the further details of `supplementalGroupsPolicy`.
+- [Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/)
+for the further details of `supplementalGroupsPolicy`
+- [KEP-3619: Fine-grained SupplementalGroups control](https://github.com/kubernetes/enhancements/issues/3619)
 
 ## How to get involved?
 
