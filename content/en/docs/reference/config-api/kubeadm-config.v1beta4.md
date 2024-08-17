@@ -184,7 +184,8 @@ configuration types to be used during a <code>kubeadm init</code> run.</p>
 </span><span style="color:#bbb">	    </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;someValue&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">	    </span><span style="color:#000;font-weight:bold">effect</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;NoSchedule&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">kubeletExtraArgs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">	  </span><span style="color:#000;font-weight:bold">v</span>:<span style="color:#bbb"> </span><span style="color:#099">4</span><span style="color:#bbb">
+</span><span style="color:#bbb">	  </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;v&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">	  </span>  <span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#099">4</span><span style="color:#bbb">
 </span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">ignorePreflightErrors</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">	  </span>- IsPrivilegedUser<span style="color:#bbb">
 </span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">imagePullPolicy</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;IfNotPresent&#34;</span><span style="color:#bbb">
@@ -209,7 +210,8 @@ configuration types to be used during a <code>kubeadm init</code> run.</p>
 </span><span style="color:#bbb">	  </span><span style="color:#000;font-weight:bold">imageTag</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;3.2.24&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">	  </span><span style="color:#000;font-weight:bold">dataDir</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/var/lib/etcd&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">	  </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">	    </span><span style="color:#000;font-weight:bold">listen-client-urls</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;http://10.100.0.1:2379&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">	    </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;listen-client-urls&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">	    </span>  <span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;http://10.100.0.1:2379&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">	  </span><span style="color:#000;font-weight:bold">serverCertSANs</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">	    </span>- <span style="color:#bbb"> </span><span style="color:#d14">&#34;ec2-10-100-0-1.compute-1.amazonaws.com&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">	  </span><span style="color:#000;font-weight:bold">peerCertSANs</span>:<span style="color:#bbb">
@@ -233,7 +235,8 @@ configuration types to be used during a <code>kubeadm init</code> run.</p>
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiServer</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">	  </span><span style="color:#000;font-weight:bold">authorization-mode</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;Node,RBAC&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">	  </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;authorization-mode&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">	  </span>  <span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;Node,RBAC&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">extraVolumes</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">	  </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;some-volume&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">	    </span><span style="color:#000;font-weight:bold">hostPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-path&#34;</span><span style="color:#bbb">
@@ -248,7 +251,8 @@ configuration types to be used during a <code>kubeadm init</code> run.</p>
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">controllerManager</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">	  </span><span style="color:#000;font-weight:bold">&#34;node-cidr-mask-size&#34;: </span><span style="color:#d14">&#34;20&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">	  </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;node-cidr-mask-size&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">	  </span>  <span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;20&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">extraVolumes</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">	  </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;some-volume&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">	    </span><span style="color:#000;font-weight:bold">hostPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-path&#34;</span><span style="color:#bbb">
@@ -259,7 +263,8 @@ configuration types to be used during a <code>kubeadm init</code> run.</p>
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">scheduler</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">	  </span><span style="color:#000;font-weight:bold">address</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;10.100.0.1&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">	  </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;address&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">	  </span>  <span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;10.100.0.1&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">extraVolumes</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">	  </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;some-volume&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">	    </span><span style="color:#000;font-weight:bold">hostPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-path&#34;</span><span style="color:#bbb">
