@@ -294,19 +294,15 @@ StatefulSet 的控制器也会添加一个包含此索引的 Pod 标签：`apps.
 -->
 ### 起始序号   {#start-ordinal}
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state feature_gate_name="StatefulSetStartOrdinal" >}}
 
 <!--
 `.spec.ordinals` is an optional field that allows you to configure the integer
-ordinals assigned to each Pod. It defaults to nil. You must enable the
-`StatefulSetStartOrdinal`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
-use this field. Once enabled, you can configure the following options:
+ordinals assigned to each Pod. It defaults to nil. Within the field, you can
+configure the following options:
 -->
 `.spec.ordinals` 是一个可选的字段，允许你配置分配给每个 Pod 的整数序号。
-该字段默认为 nil 值。你必须启用 `StatefulSetStartOrdinal`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)才能使用此字段。
-一旦启用，你就可以配置以下选项：
+该字段默认为 nil 值。在该字段内，你可以配置以下选项：
 
 <!--
 * `.spec.ordinals.start`: If the `.spec.ordinals.start` field is set, Pods will
