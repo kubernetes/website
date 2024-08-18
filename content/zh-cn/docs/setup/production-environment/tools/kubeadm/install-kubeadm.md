@@ -43,8 +43,7 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-mac-address) for more details.
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
 * Swap configuration. The default behavior of a kubelet was to fail to start if swap memory was detected on a node.
-  Swap has been supported since v1.22. And since v1.28, Swap is supported for cgroup v2 only; the NodeSwap feature
-  gate of the kubelet is beta but disabled by default.
+  See [Swap memory management](/docs/concepts/architecture/nodes/#swap-memory) for more details.
   * You **MUST** disable swap if the kubelet is not properly configured to use swap. For example, `sudo swapoff -a`
     will disable swapping temporarily. To make this change persistent across reboots, make sure swap is disabled in
     config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
@@ -57,8 +56,7 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * 节点之中不可以有重复的主机名、MAC 地址或 product_uuid。请参见[这里](#verify-mac-address)了解更多详细信息。
 * 开启机器上的某些端口。请参见[这里](#check-required-ports)了解更多详细信息。
 * 交换分区的配置。kubelet 的默认行为是在节点上检测到交换内存时无法启动。
-  kubelet 自 v1.22 起已开始支持交换分区。自 v1.28 起，仅针对 cgroup v2 支持交换分区；
-  kubelet 的 NodeSwap 特性门控处于 Beta 阶段，但默认被禁用。
+  更多细节参阅[交换内存管理](/zh-cn/docs/concepts/architecture/nodes/#swap-memory)。
   * 如果 kubelet 未被正确配置使用交换分区，则你**必须**禁用交换分区。
     例如，`sudo swapoff -a` 将暂时禁用交换分区。要使此更改在重启后保持不变，请确保在如
     `/etc/fstab`、`systemd.swap` 等配置文件中禁用交换分区，具体取决于你的系统如何配置。
@@ -118,7 +116,7 @@ These [required ports](/docs/reference/networking/ports-and-protocols/)
 need to be open in order for Kubernetes components to communicate with each other.
 You can use tools like [netcat](https://netcat.sourceforge.net) to check if a port is open. For example:
 -->
-## 检查所需端口{#check-required-ports}
+## 检查所需端口   {#check-required-ports}
 
 启用这些[必要的端口](/zh-cn/docs/reference/networking/ports-and-protocols/)后才能使 Kubernetes 的各组件相互通信。
 可以使用 [netcat](https://netcat.sourceforge.net) 之类的工具来检查端口是否开放，例如：
@@ -497,7 +495,7 @@ Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)
 安装 crictl（kubeadm/kubelet 容器运行时接口（CRI）所需）：
 
 ```bash
-CRICTL_VERSION="v1.28.0"
+CRICTL_VERSION="v1.30.0"
 ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```

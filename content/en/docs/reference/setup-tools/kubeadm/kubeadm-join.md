@@ -182,7 +182,7 @@ In case the discovery file does not contain credentials, the TLS discovery token
 
 #### Use of custom kubelet credentials with `kubeadm join`
 
-To allow `kubeadm join` to use predefined kubelet credentials and skip client TLS bootstrap 
+To allow `kubeadm join` to use predefined kubelet credentials and skip client TLS bootstrap
 and CSR approval for a new node:
 
 1. From a working control plane node in the cluster that has `/etc/kubernetes/pki/ca.key`
@@ -317,7 +317,7 @@ If your configuration is not using the latest version it is **recommended** that
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-migrate) command.
 
 For more information on the fields and usage of the configuration you can navigate to our
-[API reference](/docs/reference/config-api/kubeadm-config.v1beta3/).
+[API reference](/docs/reference/config-api/kubeadm-config.v1beta4/).
 
 ## {{% heading "whatsnext" %}}
 

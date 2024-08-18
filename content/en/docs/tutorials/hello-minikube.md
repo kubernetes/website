@@ -141,7 +141,11 @@ recommended way to manage the creation and scaling of Pods.
     kubectl config view
     ```
 
-1. View application logs for a container in a pod.
+1. View application logs for a container in a pod (replace pod name with the one you got from `kubectl get pods`).
+   
+   {{< note >}}
+   Replace `hello-node-5f76cf6ccf-br9b5` in the `kubectl logs` command with the name of the pod from the `kubectl get pods` command output.
+   {{< /note >}}
    
    ```shell
    kubectl logs hello-node-5f76cf6ccf-br9b5
@@ -165,6 +169,12 @@ By default, the Pod is only accessible by its internal IP address within the
 Kubernetes cluster. To make the `hello-node` Container accessible from outside the
 Kubernetes virtual network, you have to expose the Pod as a
 Kubernetes [*Service*](/docs/concepts/services-networking/service/).
+
+{{< warning >}}
+The agnhost container has a `/shell` endpoint, which is useful for
+debugging, but dangerous to expose to the public internet. Do not run this on an
+internet-facing cluster, or a production cluster.
+{{< /warning >}}
 
 1. Expose the Pod to the public internet using the `kubectl expose` command:
 

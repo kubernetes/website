@@ -49,7 +49,7 @@ Before walking through each tutorial, you may want to bookmark the
 
 * [Apply Pod Security Standards at Cluster level](/docs/tutorials/security/cluster-level-pss/)
 * [Apply Pod Security Standards at Namespace level](/docs/tutorials/security/ns-level-pss/)
-* [AppArmor](/docs/tutorials/security/apparmor/)
+* [Restrict a Container's Access to Resources with AppArmor](/docs/tutorials/security/apparmor/)
 * [Seccomp](/docs/tutorials/security/seccomp/)
 ## {{% heading "whatsnext" %}}
 

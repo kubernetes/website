@@ -573,9 +573,7 @@ multiple pods running at once. Therefore, your pods must also be tolerant of con
 为此，你的 Pod 也必须能够处理并发性问题。
 
 <!--
-When the [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-`PodDisruptionConditions` and `JobPodFailurePolicy` are both enabled,
-and the `.spec.podFailurePolicy` field is set, the Job controller does not consider a terminating
+If you specify the `.spec.podFailurePolicy` field, the Job controller does not consider a terminating
 Pod (a pod that has a `.metadata.deletionTimestamp` field set) as a failure until that Pod is
 terminal (its `.status.phase` is `Failed` or `Succeeded`). However, the Job controller
 creates a replacement Pod as soon as the termination becomes apparent. Once the
@@ -586,8 +584,7 @@ If either of these requirements is not satisfied, the Job controller counts
 a terminating Pod as an immediate failure, even if that Pod later terminates
 with `phase: "Succeeded"`.
 -->
-当[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-`PodDisruptionConditions` 和 `JobPodFailurePolicy` 都被启用且 `.spec.podFailurePolicy` 字段被设置时，
+当你指定了 `.spec.podFailurePolicy` 字段，
 Job 控制器不会将终止过程中的 Pod（已设置 `.metadata.deletionTimestamp` 字段的 Pod）视为失效 Pod，
 直到该 Pod 完全终止（其 `.status.phase` 为 `Failed` 或 `Succeeded`）。
 但只要终止变得显而易见，Job 控制器就会创建一个替代的 Pod。一旦 Pod 终止，Job 控制器将把这个刚终止的
@@ -744,8 +741,24 @@ kubectl get -o yaml job job-backoff-limit-per-index-example
     - message: Job has failed indexes
       reason: FailedIndexes
       status: "True"
+      type: FailureTarget
+    - message: Job has failed indexes
+      reason: FailedIndexes
+      status: "True"
       type: Failed
 ```
+
+<!--
+The Job controller adds the `FailureTarget` Job condition to trigger
+[Job termination and cleanup](#job-termination-and-cleanup). When all of the
+Job Pods are terminated, the Job controller adds the `Failed` condition
+with the same values for `reason` and `message` as the `FailureTarget` Job
+condition. For details, see [Termination of Job Pods](#termination-of-job-pods).
+-->
+Job 控制器添加 `FailureTarget` Job 状况来触发 [Job 终止和清理](#job-termination-and-cleanup)。
+当所有 Job Pod 都终止时，Job 控制器会添加 `Failed` 状况，
+其 `reason` 和 `message` 的值与 `FailureTarget` Job 状况相同。
+有关详细信息，请参阅 [Job Pod 的终止](#termination-of-job-pods)。
 
 <!--
 Additionally, you may want to use the per-index backoff along with a
@@ -753,7 +766,7 @@ Additionally, you may want to use the per-index backoff along with a
 per-index backoff, there is a new `FailIndex` action available which allows you to
 avoid unnecessary retries within an index.
 -->
-此外，你可能想要结合使用逐索引回退与 [Pod 失败策略](#pod-failure-policy)。
+此外，你可能想要结合使用逐索引回退与 [Pod 失效策略](#pod-failure-policy)。
 在使用逐索引回退时，有一个新的 `FailIndex` 操作可用，它让你避免就某个索引进行不必要的重试。
 
 <!-- 
@@ -761,25 +774,7 @@ avoid unnecessary retries within an index.
 -->
 ### Pod 失效策略 {#pod-failure-policy}
 
-{{< feature-state for_k8s_version="v1.26" state="beta" >}}
-
-{{< note >}}
-<!--
-You can only configure a Pod failure policy for a Job if you have the
-`JobPodFailurePolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled in your cluster. Additionally, it is recommended
-to enable the `PodDisruptionConditions` feature gate in order to be able to detect and handle
-Pod disruption conditions in the Pod failure policy (see also:
-[Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)).
-Both feature gates are available in Kubernetes {{< skew currentVersion >}}.
--->
-只有你在集群中启用了
-`JobPodFailurePolicy` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-你才能为某个 Job 配置 Pod 失效策略。
-此外，建议启用 `PodDisruptionConditions` 特性门控以便在 Pod 失效策略中检测和处理 Pod 干扰状况
-（参考：[Pod 干扰状况](/zh-cn/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)）。
-这两个特性门控都是在 Kubernetes {{< skew currentVersion >}} 中提供的。
-{{< /note >}}
+{{< feature-state feature_gate_name="JobPodFailurePolicy" >}}
 
 <!--
 A Pod failure policy, defined with the `.spec.podFailurePolicy` field, enables
@@ -948,9 +943,126 @@ Starting with Kubernetes v1.28, when Pod failure policy is used, the Job control
 terminating Pods only once these Pods reach the terminal `Failed` phase. This behavior is similar
 to `podReplacementPolicy: Failed`. For more information, see [Pod replacement policy](#pod-replacement-policy).
 -->
-自 Kubernetes v1.28 开始，当使用 Pod 失败策略时，Job 控制器仅在这些 Pod 达到终止的
+自 Kubernetes v1.28 开始，当使用 Pod 失效策略时，Job 控制器仅在这些 Pod 达到终止的
 `Failed` 阶段时才会重新创建终止中的 Pod。这种行为类似于 `podReplacementPolicy: Failed`。
 细节参阅 [Pod 替换策略](#pod-replacement-policy)。
+{{< /note >}}
+
+<!--
+When you use the `podFailurePolicy`, and the Job fails due to the pod
+matching the rule with the `FailJob` action, then the Job controller triggers
+the Job termination process by adding the `FailureTarget` condition.
+For more details, see [Job termination and cleanup](#job-termination-and-cleanup).
+-->
+当你使用了 `podFailurePolicy`，并且 Pod 因为与 `FailJob`
+操作的规则匹配而失败时，Job 控制器会通过添加
+`FailureTarget` 状况来触发 Job 终止流程。
+更多详情，请参阅 [Job 的终止和清理](#job-termination-and-cleanup)。
+
+<!--
+## Success policy {#success-policy}
+-->
+## 成功策略   {#success-policy}
+
+{{< feature-state feature_gate_name="JobSuccessPolicy" >}}
+
+{{< note >}}
+<!--
+You can only configure a success policy for an Indexed Job if you have the
+`JobSuccessPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled in your cluster.
+-->
+只有你在集群中启用了 `JobSuccessPolicy`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时，
+才可以为带索引的 Job 配置成功策略。
+{{< /note >}}
+
+<!--
+When creating an Indexed Job, you can define when a Job can be declared as succeeded using a `.spec.successPolicy`,
+based on the pods that succeeded.
+
+By default, a Job succeeds when the number of succeeded Pods equals `.spec.completions`.
+These are some situations where you might want additional control for declaring a Job succeeded:
+-->
+你在创建带索引的 Job 时，可以基于成功的 Pod 个数使用 `.spec.successPolicy` 来定义 Job 何时可以被声明为成功。
+
+默认情况下，当成功的 Pod 数等于 `.spec.completions` 时，则 Job 成功。
+在以下一些情况下，你可能需要对何时声明 Job 成功作额外的控制：
+
+<!--
+* When running simulations with different parameters, 
+  you might not need all the simulations to succeed for the overall Job to be successful.
+* When following a leader-worker pattern, only the success of the leader determines the success or
+  failure of a Job. Examples of this are frameworks like MPI and PyTorch etc.
+-->
+* 在使用不同的参数运行模拟任务时，你可能不需要所有模拟都成功就可以认为整个 Job 是成功的。
+* 在遵循领导者与工作者模式时，只有领导者的成功才能决定 Job 成功或失败。
+  这类框架的例子包括 MPI 和 PyTorch 等。
+
+<!--
+You can configure a success policy, in the `.spec.successPolicy` field,
+to meet the above use cases. This policy can handle Job success based on the
+succeeded pods. After the Job meets the success policy, the job controller terminates the lingering Pods.
+A success policy is defined by rules. Each rule can take one of the following forms:
+-->
+你可以在 `.spec.successPolicy` 字段中配置成功策略，以满足上述使用场景。
+此策略可以基于 Pod 的成功状况处理 Job 的成功状态。当 Job 满足成功策略后，Job 控制器会终止剩余的 Pod。
+成功策略由规则进行定义。每条规则可以采用以下形式中的一种：
+
+<!--
+* When you specify the `succeededIndexes` only,
+  once all indexes specified in the `succeededIndexes` succeed, the job controller marks the Job as succeeded.
+  The `succeededIndexes` must be a list of intervals between 0 and `.spec.completions-1`.
+* When you specify the `succeededCount` only,
+  once the number of succeeded indexes reaches the `succeededCount`, the job controller marks the Job as succeeded.
+* When you specify both `succeededIndexes` and `succeededCount`,
+  once the number of succeeded indexes from the subset of indexes specified in the `succeededIndexes` reaches the `succeededCount`,
+  the job controller marks the Job as succeeded.
+-->
+* 当你仅指定 `succeededIndexes` 时，一旦 `succeededIndexes` 中指定的所有索引成功，Job 控制器就会将 Job 标记为成功。
+  `succeededIndexes` 必须是一个介于 0 和 `.spec.completions-1` 之间的间隔列表。
+* 当你仅指定 `succeededCount` 时，一旦成功的索引数量达到 `succeededCount`，Job 控制器就会将 Job 标记为成功。
+* 当你同时指定 `succeededIndexes` 和 `succeededCount` 时，一旦 `succeededIndexes`
+  中指定的索引子集中的成功索引数达到 `succeededCount`，Job 控制器就会将 Job 标记为成功。
+
+<!--
+Note that when you specify multiple rules in the `.spec.successPolicy.rules`,
+the job controller evaluates the rules in order. Once the Job meets a rule, the job controller ignores remaining rules.
+
+Here is a manifest for a Job with `successPolicy`:
+-->
+请注意，当你在 `.spec.successPolicy.rules` 中指定多个规则时，Job 控制器会按顺序评估这些规则。
+一旦 Job 符合某个规则，Job 控制器将忽略剩余的规则。
+
+以下是一个带有 `successPolicy` 的 Job 的清单：
+
+{{% code_sample file="/controllers/job-success-policy.yaml" %}}
+
+<!--
+In the example above, both `succeededIndexes` and `succeededCount` have been specified.
+Therefore, the job controller will mark the Job as succeeded and terminate the lingering Pods 
+when either of the specified indexes, 0, 2, or 3, succeed.
+The Job that meets the success policy gets the `SuccessCriteriaMet` condition with a `SuccessPolicy` reason.
+After the removal of the lingering Pods is issued, the Job gets the `Complete` condition.
+
+Note that the `succeededIndexes` is represented as intervals separated by a hyphen.
+The number are listed in represented by the first and last element of the series, separated by a hyphen.
+-->
+在上面的例子中，`succeededIndexes` 和 `succeededCount` 都已被指定。
+因此，当指定的索引 0、2 或 3 中的任意一个成功时，Job 控制器将 Job 标记为成功并终止剩余的 Pod。
+符合成功策略的 Job 会被标记 `SuccessCriteriaMet` 状况，且状况的原因为 `SuccessPolicy`。
+在剩余的 Pod 被移除后，Job 会被标记 `Complete` 状况。
+
+请注意，`succeededIndexes` 表示为以连字符分隔的数字序列。
+所表达的数值为一个序列，连字符所连接的为列表中第一个元素和最后一个元素。
+
+{{< note >}}
+<!--
+When you specify both a success policy and some terminating policies such as `.spec.backoffLimit` and `.spec.podFailurePolicy`,
+once the Job meets either policy, the job controller respects the terminating policy and ignores the success policy.
+-->
+当你同时设置了成功策略和 `.spec.backoffLimit` 和 `.spec.podFailurePolicy` 这类终止策略时，
+一旦 Job 符合任一策略，Job 控制器将按终止策略处理，忽略成功策略。
 {{< /note >}}
 
 <!--
@@ -1045,6 +1157,132 @@ and `.spec.backoffLimit` result in a permanent Job failure that requires manual 
 一旦 Job 状态变为 `type: Failed`，就不会再发生 Job 重启的动作。
 换言之，由 `.spec.activeDeadlineSeconds` 和 `.spec.backoffLimit` 所触发的 Job
 终结机制都会导致 Job 永久性的失败，而这类状态都需要手工干预才能解决。
+
+<!--
+### Terminal Job conditions
+
+A Job has two possible terminal states, each of which has a corresponding Job
+condition:
+* Succeeded:  Job condition `Complete`
+* Failed: Job condition `Failed`
+-->
+### Job 终止状况   {#terminal-job-conditions}
+
+一个 Job 有两种可能的终止状况，每种状况都有相应的 Job 状况：
+
+* Succeeded：Job `Complete` 状况
+* Failed：Job `Failed` 状况
+
+<!--
+Jobs fail for the following reasons:
+- The number of Pod failures exceeded the specified `.spec.backoffLimit` in the Job
+  specification. For details, see [Pod backoff failure policy](#pod-backoff-failure-policy).
+- The Job runtime exceeded the specified `.spec.activeDeadlineSeconds`
+- An indexed Job that used `.spec.backoffLimitPerIndex` has failed indexes.
+  For details, see [Backoff limit per index](#backoff-limit-per-index).
+- The number of failed indexes in the Job exceeded the specified
+  `spec.maxFailedIndexes`. For details, see [Backoff limit per index](#backoff-limit-per-index)
+- A failed Pod matches a rule in `.spec.podFailurePolicy` that has the `FailJob`
+   action. For details about how Pod failure policy rules might affect failure
+   evaluation, see [Pod failure policy](#pod-failure-policy).
+-->
+Job 失败的原因如下：
+
+- Pod 失败数量超出了 Job 规约中指定的 `.spec.backoffLimit`，
+  详情请参见 [Pod 回退失效策略](#pod-backoff-failure-policy)。
+- Job 运行时间超过了指定的 `.spec.activeDeadlineSeconds`。
+- 使用 `.spec.backoffLimitPerIndex` 的索引 Job 出现索引失败。
+  有关详细信息，请参阅[逐索引的回退限制](#backoff-limit-per-index)。
+- Job 中失败的索引数量超出了指定的 `spec.maxFailedIndexes` 值，
+  详情见[逐索引的回退限制](#backoff-limit-per-index)。
+- 失败的 Pod 匹配了 `.spec.podFailurePolicy` 中定义的一条规则，该规则的动作为 FailJob。
+  有关 Pod 失效策略规则如何影响故障评估的详细信息，请参阅 [Pod 失效策略](#pod-failure-policy)。
+
+<!--
+Jobs succeed for the following reasons:
+- The number of succeeded Pods reached the specified `.spec.completions`
+- The criteria specified in `.spec.successPolicy` are met. For details, see
+  [Success policy](#success-policy).
+-->
+Pod 成功的原因如下：
+
+- 成功的 Pod 的数量达到了指定的 `.spec.completions` 数量。
+- `.spec.successPolicy` 中指定的标准已满足。详情请参见[成功策略](#success-policy)。
+
+<!--
+In Kubernetes v1.31 and later the Job controller delays the addition of the
+terminal conditions,`Failed` or `Complete`, until all of the Job Pods are terminated.
+
+In Kubernetes v1.30 and earlier, the Job controller added the `Complete` or the
+`Failed` Job terminal conditions as soon as the Job termination process was
+triggered and all Pod finalizers were removed. However, some Pods would still
+be running or terminating at the moment that the terminal condition was added.
+-->
+在 Kubernetes v1.31 及更高版本中，Job 控制器会延迟添加终止状况 `Failed` 或
+`Complete`，直到所有 Job Pod 都终止。
+
+在 Kubernetes v1.30 及更早版本中，一旦触发 Job 终止过程并删除所有
+Pod 终结器，Job 控制器就会给 Job 添加 `Complete` 或 `Failed` 终止状况。
+然而，在添加终止状况时，一些 Pod 仍会运行或处于终止过程中。
+
+<!--
+In Kubernetes v1.31 and later, the controller only adds the Job terminal conditions
+_after_ all of the Pods are terminated. You can enable this behavior by using the
+`JobManagedBy` or the `JobPodReplacementPolicy` (enabled by default)
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/).
+-->
+在 Kubernetes v1.31 及更高版本中，控制器仅在所有 Pod 终止后添加 Job 终止状况。
+你可以使用 `JobManagedBy` 或 `JobPodReplacementPolicy`（默认启用）
+启用此行为的[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+
+<!--
+### Termination of Job pods
+
+The Job controller adds the `FailureTarget` condition or the `SuccessCriteriaMet`
+condition to the Job to trigger Pod termination after a Job meets either the
+success or failure criteria.
+-->
+### Job Pod 的终止
+
+Job 控制器将 `FailureTarget` 状况或 `SuccessCriteriaMet` 状况添加到
+Job，以便在 Job 满足成功或失败标准后触发 Pod 终止。
+
+<!--
+Factors like `terminationGracePeriodSeconds` might increase the amount of time
+from the moment that the Job controller adds the `FailureTarget` condition or the
+`SuccessCriteriaMet` condition to the moment that all of the Job Pods terminate
+and the Job controller adds a [terminal condition](#terminal-job-conditions)
+(`Failed` or `Complete`).
+
+You can use the `FailureTarget` or the `SuccessCriteriaMet` condition to evaluate
+whether the Job has failed or succeeded without having to wait for the controller
+to add a terminal condition.
+-->
+诸如 `terminationGracePeriodSeconds` 之类的因素可能会增加从
+Job 控制器添加 `FailureTarget` 状况或 `SuccessCriteriaMet` 状况到所有
+Job Pod 终止并且 Job 控制器添加[终止状况](#terminal-job-conditions)（`Failed` 或 `Complete`）的这段时间量。
+
+你可以使用 `FailureTarget` 或 `SuccessCriteriaMet`
+状况来评估 Job 是否失败或成功，而无需等待控制器添加终止状况。
+
+<!--
+For example, you might want to decide when to create a replacement Job
+that replaces a failed Job. If you replace the failed Job when the `FailureTarget`
+condition appears, your replacement Job runs sooner, but could result in Pods
+from the failed and the replacement Job running at the same time, using
+extra compute resources.
+
+Alternatively, if your cluster has limited resource capacity, you could choose to
+wait until the `Failed` condition appears on the Job, which would delay your
+replacement Job but would ensure that you conserve resources by waiting
+until all of the failed Pods are removed.
+-->
+例如，你可能想要决定何时创建 Job 来替代某个已失败 Job。
+如果在出现 `FailureTarget` 状况时替换失败的 Job，则替换 Job 启动得会更早，
+但可能会导致失败的 Job 和替换 Job 的 Pod 同时处于运行状态，进而额外耗用计算资源。
+
+或者，如果你的集群资源容量有限，你可以选择等到 Job 上出现 `Failed` 状况后再执行替换操作。
+这样做会延迟替换 Job 的启动，不过通过等待所有失败的 Pod 都被删除，可以节省资源。
 
 <!--
 ## Clean up finished jobs automatically
@@ -1311,15 +1549,15 @@ timer will be stopped and reset when a Job is suspended and resumed.
 
 <!--
 When you suspend a Job, any running Pods that don't have a status of `Completed`
-will be [terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
+will be [terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
 with a SIGTERM signal. The Pod's graceful termination period will be honored and
 your Pod must handle this signal in this period. This may involve saving
 progress for later or undoing changes. Pods terminated this way will not count
 towards the Job's `completions` count.
 -->
 当你挂起一个 Job 时，所有正在运行且状态不是 `Completed` 的 Pod
-将被[终止](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
-Pod 的体面终止期限会被考虑，不过 Pod 自身也必须在此期限之内处理完信号。
+将被[终止](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)并附带
+SIGTERM 信号。Pod 的体面终止期限会被考虑，不过 Pod 自身也必须在此期限之内处理完信号。
 处理逻辑可能包括保存进度以便将来恢复，或者取消已经做出的变更等等。
 Pod 以这种形式终止时，不会被记入 Job 的 `completions` 计数。
 
@@ -1628,22 +1866,20 @@ observe that pods from a Job are stuck with the tracking finalizer.
 -->
 ### 弹性索引 Job  {#elastic-indexed-jobs}
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state feature_gate_name="ElasticIndexedJob" >}}
 
 <!--
 You can scale Indexed Jobs up or down by mutating both `.spec.parallelism` 
 and `.spec.completions` together such that `.spec.parallelism == .spec.completions`. 
-When the `ElasticIndexedJob`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
-is disabled, `.spec.completions` is immutable.
+When scaling down, Kubernetes removes the Pods with higher indexes.
 
 Use cases for elastic Indexed Jobs include batch workloads which require 
 scaling an indexed Job, such as MPI, Horovord, Ray, and PyTorch training jobs.
 -->
 你可以通过同时改变 `.spec.parallelism` 和 `.spec.completions` 来扩大或缩小带索引 Job，
 从而满足 `.spec.parallelism == .spec.completions`。
-当 [API 服务器](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)
-上的 `ElasticIndexedJob` 特性门控被禁用时，`.spec.completions` 是不可变的。
+缩减规模时，Kubernetes 会删除具有更高索引的 Pod。
+
 弹性索引 Job 的使用场景包括需要扩展索引 Job 的批处理工作负载，例如 MPI、Horovord、Ray
 和 PyTorch 训练作业。
 
@@ -1689,11 +1925,11 @@ See [Pod failure policy](#pod-failure-policy) to learn more about Pod failure po
 -->
 你可以选择仅在终止过程中的 Pod 完全终止（具有 `status.phase: Failed`）时才创建替换 Pod。
 为此，可以设置 `.spec.podReplacementPolicy: Failed`。
-默认的替换策略取决于 Job 是否设置了 `podFailurePolicy`。对于没有定义 Pod 失败策略的 Job，
+默认的替换策略取决于 Job 是否设置了 `podFailurePolicy`。对于没有定义 Pod 失效策略的 Job，
 省略 `podReplacementPolicy` 字段相当于选择 `TerminatingOrFailed` 替换策略：
 控制平面在 Pod 删除时立即创建替换 Pod（只要控制平面发现该 Job 的某个 Pod 被设置了 `deletionTimestamp`）。
-对于设置了 Pod 失败策略的 Job，默认的 `podReplacementPolicy` 是 `Failed`，不允许其他值。
-请参阅 [Pod 失败策略](#pod-failure-policy)以了解更多关于 Job 的 Pod 失败策略的信息。
+对于设置了 Pod 失效策略的 Job，默认的 `podReplacementPolicy` 是 `Failed`，不允许其他值。
+请参阅 [Pod 失效策略](#pod-failure-policy)以了解更多关于 Job 的 Pod 失效策略的信息。
 
 ```yaml
 kind: Job
@@ -1727,6 +1963,81 @@ kind: Job
 status:
   terminating: 3 # 三个 Pod 正在终止且还未达到 Failed 阶段
 ```
+
+<!--
+### Delegation of managing a Job object to external controller
+-->
+### 将管理 Job 对象的任务委托给外部控制器   {#delegation-of-managing-a-job-object-to-external-controller}
+
+{{< feature-state feature_gate_name="JobManagedBy" >}}
+
+{{< note >}}
+<!--
+You can only set the `managedBy` field on Jobs if you enable the `JobManagedBy`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+(disabled by default).
+-->
+你只有在启用了 `JobManagedBy`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（默认禁用）时，
+才可以在 Job 上设置 `managedBy` 字段。
+{{< /note >}}
+
+<!--
+This feature allows you to disable the built-in Job controller, for a specific
+Job, and delegate reconciliation of the Job to an external controller.
+
+You indicate the controller that reconciles the Job by setting a custom value
+for the `spec.managedBy` field - any value
+other than `kubernetes.io/job-controller`. The value of the field is immutable.
+-->
+此特性允许你为特定 Job 禁用内置的 Job 控制器，并将 Job 的协调任务委托给外部控制器。
+
+你可以通过为 `spec.managedBy` 字段设置一个自定义值来指示用来协调 Job 的控制器，
+这个自定义值可以是除了 `kubernetes.io/job-controller` 之外的任意值。此字段的值是不可变的。
+
+{{< note >}}
+<!--
+When using this feature, make sure the controller indicated by the field is
+installed, otherwise the Job may not be reconciled at all.
+-->
+在使用此特性时，请确保此字段指示的控制器已被安装，否则 Job 可能根本不会被协调。
+{{< /note >}}
+
+{{< note >}}
+<!--
+When developing an external Job controller be aware that your controller needs
+to operate in a fashion conformant with the definitions of the API spec and
+status fields of the Job object.
+
+Please review these in detail in the [Job API](/docs/reference/kubernetes-api/workload-resources/job-v1/).
+We also recommend that you run the e2e conformance tests for the Job object to
+verify your implementation.
+
+Finally, when developing an external Job controller make sure it does not use the
+`batch.kubernetes.io/job-tracking` finalizer, reserved for the built-in controller.
+-->
+在开发外部 Job 控制器时，请注意你的控制器需要以符合 Job 对象的 API 规范和状态字段定义的方式运行。
+
+有关细节请参阅 [Job API](/zh-cn/docs/reference/kubernetes-api/workload-resources/job-v1/)。
+我们也建议你运行 Job 对象的 e2e 合规性测试以检验你的实现。
+
+最后，在开发外部 Job 控制器时，请确保它不使用为内置控制器预留的
+`batch.kubernetes.io/job-tracking` Finalizer。
+{{< /note >}}
+
+{{< warning >}}
+<!--
+If you are considering to disable the `JobManagedBy` feature gate, or to
+downgrade the cluster to a version without the feature gate enabled, check if
+there are jobs with a custom value of the `spec.managedBy` field. If there
+are such jobs, there is a risk that they might be reconciled by two controllers
+after the operation: the built-in Job controller and the external controller
+indicated by the field value.
+-->
+如果你考虑禁用 `JobManagedBy` 特性门控，或者将集群降级到未启用此特性门控的版本，
+请检查是否有 Job 的 `spec.managedBy` 字段值带有一个自定义值。如果存在这样的 Job，就会有一个风险，
+即禁用或降级操作后这些 Job 可能会被两个控制器（内置的 Job 控制器和字段值指示的外部控制器）进行协调。
+{{< /warning >}}
 
 <!--
 ## Alternatives

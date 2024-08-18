@@ -503,11 +503,11 @@ also known as PascalCase. Do not write API kinds with code formatting.
 
 Don't split an API object name into separate words. For example, use PodTemplateList, not Pod Template List.
 
-For more information about PascalCase and code formatting, please review the related guidance on
+For more information about PascalCase and code formatting, review the related guidance on
 [Use upper camel case for API objects](/docs/contribute/style/style-guide/#use-upper-camel-case-for-api-objects)
 and [Use code style for inline code, commands, and API objects](/docs/contribute/style/style-guide/#code-style-inline-code).
 
-For more information about Kubernetes API terminologies, please review the related
+For more information about Kubernetes API terminologies, review the related
 guidance on [Kubernetes API terminology](/docs/reference/using-api/api-concepts/#standard-api-terminology).
 -->
 ### API 资源名称

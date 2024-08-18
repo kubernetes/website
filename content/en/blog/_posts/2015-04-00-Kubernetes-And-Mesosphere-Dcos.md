@@ -3,6 +3,8 @@ title: " Kubernetes and the Mesosphere DCOS "
 date: 2015-04-22
 slug: kubernetes-and-mesosphere-dcos
 url: /blog/2015/04/Kubernetes-And-Mesosphere-Dcos
+author: >
+   Craig McLuckie (Google)
 ---
 
 # Kubernetes and the Mesosphere DCOS
@@ -22,10 +24,6 @@ By way of background, Kubernetes is a cluster management framework that was star
 Kubernetes was designed from the start to make these capabilities available to everyone, and built by the same engineers that built the system internally known as Borg.  For many users the promise of 'Google style app management' is interesting, but they want to run these new classes of applications on the same set of physical resources as their existing workloads like Hadoop, Spark, Kafka, etc.  Now they will have access to commercially supported offering that brings the two worlds together.
 
 Mesosphere, one of the earliest supporters of the Kubernetes project, has been working closely with the core Kubernetes team to create a natural experience for users looking to get the best of both worlds, adding Kubernetes to every Mesos deployment they instantiate, whether it be in the public cloud, private cloud, or in a hybrid deployment model.  This is well aligned with the overall Kubernetes vision of creating ubiquitous management framework that runs anywhere a container can.  It will be interesting to see how you blend together the old world and the new on a commercially supported, versatile platform.
-
-Craig McLuckie
-
-Product Manager, Google and Kubernetes co-founder
 
 [1]: https://mesosphere.com/product/
 [2]: http://research.google.com/pubs/pub43438.html
