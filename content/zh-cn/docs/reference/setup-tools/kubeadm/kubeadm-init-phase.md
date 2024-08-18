@@ -229,10 +229,10 @@ install them selectively.
 {{< /tabs >}}
 
 <!--
-For more details on each field in the `v1beta3` configuration you can navigate to our
+For more details on each field in the `v1beta4` configuration you can navigate to our
 [API reference pages.](/docs/reference/config-api/kubeadm-config.v1beta3/)
 -->
-有关 `v1beta3` 配置中每个字段的更多详细信息，可以访问
+有关 `v1beta4` 配置中每个字段的更多详细信息，可以访问
 [API](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)。
 
 ## {{% heading "whatsnext" %}}
