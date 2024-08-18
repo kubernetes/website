@@ -164,8 +164,8 @@ These queries exclude localization PRs. All queries are against the main branch 
 
 - [非主分支的 PR](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3Alanguage%2Fen+-base%3Amain): 
   如果 PR 针对 `dev-` 分支，则表示它适用于即将发布的版本。
-  请添加带有 `/assign @<负责人的 github 账号>`，将其指派给 
-  [发行版本负责人](https://github.com/kubernetes/sig-release/tree/master/release-team#kubernetes-release-team-roles)。
+  请添加带有 `/assign @<负责人的 github 账号>`，
+  将其指派给[发行版本负责人](https://github.com/kubernetes/sig-release/tree/master/release-team#kubernetes-release-team-roles)。
   如果 PR 是针对旧分支，请帮助 PR 作者确定是否所针对的是最合适的分支。
 
 <!--
@@ -258,10 +258,6 @@ The program was introduced to help new contributors understand the PR wrangling 
   [PR Wranglers Wiki page](https://github.com/kubernetes/website/wiki/PR-Wranglers)
   to see the PR wrangling schedule for this year and sign up.
 
-- Kubernetes org members can edit the
-  [PR Wranglers Wiki page](https://github.com/kubernetes/website/wiki/PR-Wranglers)
-  and sign up to shadow an existing PR Wrangler for a week.
-
 - Others can reach out on the [#sig-docs Slack channel](https://kubernetes.slack.com/messages/sig-docs)
   for requesting to shadow an assigned PR Wrangler for a specific week. Feel free to reach out to
   Brad Topol (`@bradtopol`) or one of the
@@ -275,10 +271,6 @@ The program was introduced to help new contributors understand the PR wrangling 
 - 如果你有兴趣成为一名 PR 管理者的影子，请访问
   [PR 管理者维基页面](https://github.com/kubernetes/website/wiki/PR-Wranglers)查看今年的
   PR 管理轮值表，然后注册报名。
-
-- Kubernetes 组织成员可以编辑
-  [PR 管理者维基页面](https://github.com/kubernetes/website/wiki/PR-Wranglers)，
-  注册成为一名现有 PR 管理者一周内的影子。
 
 - 其他人可以通过 [#sig-docs Slack 频道](https://kubernetes.slack.com/messages/sig-docs)申请成为指定
   PR 管理者某一周的影子。可以随时咨询 (`@bradtopol`) 或某一位
