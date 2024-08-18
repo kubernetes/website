@@ -1,6 +1,6 @@
 ---
 reviewers:
-title: ロールベースアクセス制御のグッドプラクティス
+title: ロールベースアクセスコントロールのグッドプラクティス
 description: >
   クラスター運用者向けの適切なRBAC設計の原則と実践方法
 content_type: concept
