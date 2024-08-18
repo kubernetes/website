@@ -62,7 +62,7 @@ The ordering of these calls can be seen below.
 
 
 {{< mermaid >}} 
-
+sequenceDiagram
 
 %% Have to set fontSize globally as this isn't respected due to https://github.com/mermaid-js/mermaid/issues/3990
 %%{init:{"theme":"neutral","fontSize": "22px", "sequence": {"mirrorActors":true},
@@ -73,7 +73,7 @@ The ordering of these calls can be seen below.
         "noteBkgColor": "grey",
         "fontSize": "22px"
 }}}%%
-sequenceDiagram
+
 
     %% This is the alt-text for accessibility, and should be updated every time the diagram is.
     accDescr {
