@@ -102,7 +102,7 @@ TLSの問題は、証明書の有効期限切れやトラストチェーンの�
 TLS証明書は、`~/.kube/config`ディレクトリにあるkubeconfigファイルに含まれています。
 `certificate-authority`属性にはCA証明書が、`client-certificate`属性にはクライアント証明書が含まれています。
 
-これらの証明書の有効期限を確認する:
+これらの証明書の有効期限を確認します:
 
 ```shell
 kubectl config view --flatten --output 'jsonpath={.clusters[0].cluster.certificate-authority-data}' | base64 -d | openssl x509 -noout -dates
