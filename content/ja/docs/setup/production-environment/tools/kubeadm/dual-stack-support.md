@@ -96,7 +96,8 @@ discovery:
     # 上記の認証情報をクラスターの実際のトークンとCA証明書に一致するように変更
 nodeRegistration:
   kubeletExtraArgs:
-    node-ip: 10.100.0.3,fd00:1:2:3::3
+  - name: "node-ip"
+    value: "10.100.0.2,fd00:1:2:3::3"
 ```
 
 また以下は、別のコントロールプレーンノードをクラスターに参加させるためのkubeadm[構成ファイル](/ja/docs/reference/config-api/kubeadm-config.v1beta3/)`kubeadm-config.yaml`の例です。
