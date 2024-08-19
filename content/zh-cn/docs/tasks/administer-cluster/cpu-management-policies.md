@@ -419,6 +419,7 @@ The following policy options exist for the static `CPUManager` policy:
 * `full-pcpus-only` (beta, visible by default) (1.22 or higher)
 * `distribute-cpus-across-numa` (alpha, hidden by default) (1.23 or higher)
 * `align-by-socket` (alpha, hidden by default) (1.25 or higher)
+* `distribute-cpus-across-cores` (alpha, hidden by default) (1.31 or higher)
 -->
 #### Static 策略选项
 
@@ -429,8 +430,9 @@ The following policy options exist for the static `CPUManager` policy:
 
 静态 `CPUManager` 策略存在以下策略选项：
 * `full-pcpus-only`（Beta，默认可见）（1.22 或更高版本）
-* `distribute-cpus-across-numa`（alpha，默认隐藏）（1.23 或更高版本）
+* `distribute-cpus-across-numa`（Alpha，默认隐藏）（1.23 或更高版本）
 * `align-by-socket`（Alpha，默认隐藏）（1.25 或更高版本）
+* `distribute-cpus-across-cores` (Alpha，默认隐藏) (1.31 或更高版本)
 
 <!--
 If the `full-pcpus-only` policy option is specified, the static policy will always allocate full physical cores.
@@ -500,6 +502,29 @@ than number of NUMA nodes.
 注意，此策略选项不兼容 `TopologyManager` 与 `single-numa-node` 策略，并且不适用于 CPU 的插槽数量大于 NUMA 节点数量的硬件。
 
 <!--
+If the `distribute-cpus-across-cores` policy option is specified, the static policy
+will attempt to allocate virtual cores (hardware threads) across different physical cores.
+By default, the `CPUManager` tends to pack cpus onto as few physical cores as possible,
+which can lead to contention among cpus on the same physical core and result
+in performance bottlenecks. By enabling the `distribute-cpus-across-cores` policy,
+the static policy ensures that cpus are distributed across as many physical cores
+as possible, reducing the contention on the same physical core and thereby
+improving overall performance. However, it is important to note that this strategy
+might be less effective when the system is heavily loaded. Under such conditions,
+the benefit of reducing contention diminishes. Conversely, default behavior
+can help in reducing inter-core communication overhead, potentially providing
+better performance under high load conditions.
+-->
+如果指定了 `distribute-cpus-across-cores` 策略选项，
+静态策略将尝试将虚拟核（硬件线程）分配到不同的物理核上。默认情况下，
+`CPUManager` 倾向于将 CPU 打包到尽可能少的物理核上，
+这可能导致同一物理核上的 CPU 争用，从而导致性能瓶颈。
+启用 `distribute-cpus-across-cores` 策略后，静态策略将确保 CPU 尽可能分布在多个物理核上，
+从而减少同一物理核上的争用，提升整体性能。然而，需要注意的是，当系统负载较重时，
+这一策略的效果可能会减弱。在这种情况下，减少争用的好处会减少。
+相反，默认行为可以帮助减少跨核的通信开销，在高负载条件下可能会提供更好的性能。
+
+<!--
 The `full-pcpus-only` option can be enabled by adding `full-pcpus-only=true` to
 the CPUManager policy options.
 Likewise, the `distribute-cpus-across-numa` option can be enabled by adding
@@ -517,3 +542,12 @@ and `distribute-cpus-across-numa` policy options.
 可以通过将 `align-by-socket=true` 添加到 `CPUManager` 策略选项来启用 `align-by-socket` 策略选项。
 同样，也能够将 `distribute-cpus-across-numa=true` 添加到 `full-pcpus-only`
 和 `distribute-cpus-across-numa` 策略选项中。
+
+<!--
+The `distribute-cpus-across-cores` option can be enabled by adding
+`distribute-cpus-across-cores=true` to the `CPUManager` policy options.
+It cannot be used with `full-pcpus-only` or `distribute-cpus-across-numa` policy
+options together at this moment.
+-->
+可以通过将 `distribute-cpus-across-cores=true` 添加到 `CPUManager` 策略选项中来启用 `distribute-cpus-across-cores` 选项。
+当前，该选项不能与 `full-pcpus-only` 或 `distribute-cpus-across-numa` 策略选项同时使用。
