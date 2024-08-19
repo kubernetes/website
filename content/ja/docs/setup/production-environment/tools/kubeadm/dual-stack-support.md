@@ -51,7 +51,7 @@ networking:
   podSubnet: 10.244.0.0/16,2001:db8:42:0::/56
   serviceSubnet: 10.96.0.0/16,2001:db8:42:1::/112
 ---
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: InitConfiguration
 localAPIEndpoint:
   advertiseAddress: "10.100.0.1"
