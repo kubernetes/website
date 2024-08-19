@@ -85,7 +85,7 @@ kubectl config use-context <context-name>
 ## APIサーバーとロードバランサー
 
 {{<glossary_tooltip text="kube-apiserver" term_id="kube-apiserver">}}サーバーは、Kubernetesクラスターの中心的なコンポーネントです。
-APIサーバーや、APIサーバーの前段にあるロードバランサーが到達できない、または応答しない場合、クラスターとのやり取りができません。
+APIサーバーや、APIサーバーの前段にあるロードバランサーに到達できない、または応答しない場合、クラスターとのやり取りができません。
 
 APIサーバーのホストが到達可能かどうかを確認するために`ping`コマンドを使用します。
 クラスターネットワークの接続性とファイアウォールを確認してください。
