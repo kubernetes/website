@@ -17,6 +17,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.30"
+    toVersion: "1.31"
+
+removed: true
 ---
 Enables improved discovery of mounted volumes during kubelet
 startup. Since the associated code had been significantly refactored, Kubernetes versions 1.25 to 1.29
