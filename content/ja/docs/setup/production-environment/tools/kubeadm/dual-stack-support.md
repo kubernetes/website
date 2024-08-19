@@ -153,4 +153,4 @@ networking:
 
 * [IPv4/IPv6デュアルスタックの検証](/ja/docs/tasks/network/validate-dual-stack)
 * [デュアルスタック](/ja/docs/concepts/services-networking/dual-stack/)クラスターネットワークについて読む
-* kubeadm[構成形式](/ja/docs/reference/config-api/kubeadm-config.v1beta3/)についてもっと詳しく知る
+* kubeadm[構成形式](/docs/reference/config-api/kubeadm-config.v1beta4/)についてもっと詳しく知る
