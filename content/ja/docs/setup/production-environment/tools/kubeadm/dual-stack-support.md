@@ -138,7 +138,7 @@ kubeadm join --config=kubeadm-config.yaml
 デュアルスタックネットワーク機能が有効になっているシングルスタッククラスターをデプロイすることができます。
 {{< /note >}}
 
-よりわかりやすいように、シングルスタックコントロールプレーンノードのkubeadm[構成ファイル](/ja/docs/reference/config-api/kubeadm-config.v1beta3/)`kubeadm-config.yaml`の例を示します。
+よりわかりやすいように、シングルスタックコントロールプレーンノードのkubeadm[構成ファイル](/docs/reference/config-api/kubeadm-config.v1beta4/)`kubeadm-config.yaml`の例を示します。
 
 
 ```yaml
