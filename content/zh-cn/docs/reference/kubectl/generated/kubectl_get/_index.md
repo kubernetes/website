@@ -17,7 +17,7 @@ no_list: true
 <!--
 Display one or many resources.
 
- Prints a table of the most important information about the specified resources. You can filter the list using a label selector and the --selector flag. If the desired resource type is namespaced you will only see results in your current namespace unless you pass --all-namespaces.
+ Prints a table of the most important information about the specified resources. You can filter the list using a label selector and the --selector flag. If the desired resource type is namespaced you will only see results in the current namespace unless you pass --all-namespaces.
 -->
 显示一个或多个资源。
 
@@ -55,6 +55,8 @@ kubectl get [(-o|--output=)json|yaml|name|go-template|go-template-file|template|
   # List all replication controllers and services together in ps output format
   # List one or more resources by their type and names
   # List the 'status' subresource for a single pod
+  # List all deployments in namespace 'backend'
+  # List all pods existing in all namespaces
 ```
 -->
 ```shell
@@ -93,6 +95,12 @@ kubectl get rc/web service/frontend pods/web-pod-13je7
   
 # 列举单个 Pod 的 “status” 子资源
 kubectl get pod web-pod-13je7 --subresource status
+
+# 列出 “backend” 命名空间中的所有 Deployment
+kubectl get deployments.apps --namespace backend
+  
+# 列出所有命名空间中存在的所有 Pod
+kubectl get pods --all-namespaces
 ```
 
 ## {{% heading "options" %}}
@@ -499,30 +507,6 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L7 负载均衡流量代理和健康检查开放的 CIDR。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L4 负载均衡流量代理和健康检查开放的 CIDR。
 </p></td>
 </tr>
 
