@@ -10,7 +10,7 @@ min-kubernetes-server-version: 1.21
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 Kubernetesクラスターには[デュアルスタック](/ja/docs/concepts/services-networking/dual-stack/)ネットワークが含まれています。つまりクラスターネットワークではいずれかのアドレスファミリーを使用することができます。
-クラスターでは、コントロールプレーンはIPv4アドレスとIPv6アドレスの両方を、単一の{{< glossary_tooltip text="Pod" term_id="pod" >}}または{{< glossary_tooltip text="サービス" term_id="service" >}}に割り当てることができます。
+クラスターでは、コントロールプレーンはIPv4アドレスとIPv6アドレスの両方を、単一の{{< glossary_tooltip text="Pod" term_id="pod" >}}または{{< glossary_tooltip text="Service" term_id="service" >}}に割り当てることができます。
 
 <!-- body -->
 
