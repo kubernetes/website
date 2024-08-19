@@ -104,7 +104,7 @@ nodeRegistration:
 
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: JoinConfiguration
 controlPlane:
   localAPIEndpoint:
