@@ -65,7 +65,7 @@ nodeRegistration:
 InitConfigurationの`advertiseAddress`は、APIサーバーがリッスンしていることをアドバタイズするIPアドレスを指定します。
 `advertiseAddress`の値は`kubeadm init`の`--apiserver-advertise-address`フラグに相当します。
 
-`kubeadm`そ実行してデュアルスタックコントロールプレーンノードを初期化します:
+`kubeadm`を実行してデュアルスタックコントロールプレーンノードを初期化します:
 
 ```shell
 kubeadm init --config=kubeadm-config.yaml
