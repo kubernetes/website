@@ -7,7 +7,7 @@ author: >
   [Jiaxin Shan](https://github.com/Jeffwan) (Bytedance)
 ---
 
-In Kubernetes v1.31, we are excited to introduce a significant enhancement to CPU management capabilities: the `distribute-cpus-across-cores` option for the CPUManager static policy. This feature is currently in alpha and hidden by default, marking a strategic shift aimed at optimizing CPU utilization and improving system performance across multi-core processors.
+In Kubernetes v1.31, we are excited to introduce a significant enhancement to CPU management capabilities: the `distribute-cpus-across-cores` option for the [CPUManager static policy](/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-options). This feature is currently in alpha and hidden by default, marking a strategic shift aimed at optimizing CPU utilization and improving system performance across multi-core processors.
 
 ## Understanding the Feature
 
