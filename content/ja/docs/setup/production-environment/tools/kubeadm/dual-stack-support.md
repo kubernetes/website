@@ -58,7 +58,8 @@ localAPIEndpoint:
   bindPort: 6443
 nodeRegistration:
   kubeletExtraArgs:
-    node-ip: 10.100.0.2,fd00:1:2:3::2
+  - name: "node-ip"
+    value: "10.100.0.2,fd00:1:2:3::2
 ```
 
 InitConfigurationの`advertiseAddress`は、APIサーバーがリッスンしていることをアドバタイズするIPアドレスを指定します。
