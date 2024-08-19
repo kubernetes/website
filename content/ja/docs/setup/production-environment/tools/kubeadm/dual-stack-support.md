@@ -85,7 +85,7 @@ kube-controller-managerフラグ`--node-cidr-mask-size-ipv4|--node-cidr-mask-siz
 以下は、ワーカーノードをクラスターに参加させるためのkubeadm[構成ファイル](/docs/reference/config-api/kubeadm-config.v1beta4/)`kubeadm-config.yaml`の例です。
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: JoinConfiguration
 discovery:
   bootstrapToken:
