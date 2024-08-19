@@ -33,7 +33,7 @@ kubectl create rolebinding NAME --clusterrole=NAME|--role=NAME [--user=username]
   # Create a role binding for user1, user2, and group1 using the admin cluster role
   kubectl create rolebinding admin --clusterrole=admin --user=user1 --user=user2 --group=group1
   
-  # Create a role binding for serviceaccount monitoring:sa-dev using the admin role
+  # Create a role binding for service account monitoring:sa-dev using the admin role
   kubectl create rolebinding admin-binding --role=admin --serviceaccount=monitoring:sa-dev
 ```
 
@@ -205,20 +205,6 @@ kubectl create rolebinding NAME --clusterrole=NAME|--role=NAME [--user=username]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a client key file for TLS</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks</p></td>
 </tr>
 
 <tr>
