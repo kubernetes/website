@@ -328,7 +328,7 @@ at least &quot;minFeasibleNodesToFind&quot; feasible nodes no matter what the va
 Example: if the cluster size is 500 nodes and the value of this flag is 30,
 then scheduler stops finding further feasible nodes once it finds 150 feasible ones.
 When the value is 0, default percentage (5%--50% based on the size of the cluster) of the
-nodes will be scored. It is overridden by profile level PercentageofNodesToScore.</p>
+nodes will be scored. It is overridden by profile level PercentageOfNodesToScore.</p>
 </td>
 </tr>
 <tr><td><code>podInitialBackoffSeconds</code> <B>[Required]</B><br/>
@@ -396,7 +396,7 @@ Defaults to false.</p>
     
   
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    <p>AddedAffinity is applied to all Pods additionally to the NodeAffinity
@@ -495,7 +495,7 @@ The default strategy is LeastAllocated with an equal &quot;cpu&quot; and &quot;m
     
   
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <p>DefaultConstraints defines topology spread constraints to be applied to
