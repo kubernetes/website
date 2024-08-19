@@ -26,7 +26,7 @@ Technically, within this static policy, the free CPU list is reordered in the ma
 {{< figure src="cpu-ordering.png" caption="cpu-ordering" >}}
 
 
-## Enabling the Feature
+## Enabling the feature
 To enable this feature, users can add `distribute-cpus-across-cores=true` to their CPUManager policy options in the Kubernetes configuration. This setting directs the CPUManager to adopt the new distribution strategy. It is important to note that this policy option cannot currently be used in conjunction with `full-pcpus-only` or `distribute-cpus-across-numa` options.
 
 
