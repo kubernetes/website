@@ -76,7 +76,7 @@ curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/stable.txt)/r
 Kubernetes воспользуйтесь инструкцией 
 [Verify Signed Container Images](/docs/tasks/administer-cluster/verify-signed-artifacts).
 
-Если вы загружаете образ контейнера для конкретной архитектуры, этот 
+Если вы скачиваете образ контейнера для конкретной архитектуры, этот 
 образ, предназначенный только для неё, будет подписан так же, как и 
 в списке с мульти-архитектурными манифестами.
 
