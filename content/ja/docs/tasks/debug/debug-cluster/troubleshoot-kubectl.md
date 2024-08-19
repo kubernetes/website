@@ -45,7 +45,7 @@ Server Version: version.Info{Major:"1", Minor:"27", GitVersion:"v1.27.3",GitComm
 `kubectl`がKubernetesクラスターに接続するためには`kubeconfig`ファイルが必要です。
 `kubeconfig`ファイルは通常`~/.kube/config`ディレクトリに配置されています。
 有効な`kubeconfig`ファイルがあることを確認してください。
-`kubeconfig`ファイルがない場合、Kubernetes管理者から取得するか、Kubernetesコントロールプレーンの`/etc/kubernetes/admin.conf`ディレクトリからコピーすることができます。
+`kubeconfig`ファイルがない場合、Kubernetes管理者から入手するか、Kubernetesコントロールプレーンの`/etc/kubernetes/admin.conf`ディレクトリからコピーすることができます。
 Kubernetesクラスターをクラウドプラットフォームにデプロイし、`kubeconfig`ファイルを紛失した場合は、クラウドプロバイダーのツールを使用してファイルを再生成できます。
 `kubeconfig`ファイルの再生成については、クラウドプロバイダーのドキュメントを参照してください。
 
