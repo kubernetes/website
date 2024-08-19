@@ -108,7 +108,7 @@ TLS証明書は、`~/.kube/config`ディレクトリにあるkubeconfigファイ
 kubectl config view --flatten --output 'jsonpath={.clusters[0].cluster.certificate-authority-data}' | base64 -d | openssl x509 -noout -dates
 ```
 
-output:
+出力:
 ```console
 notBefore=Feb 13 05:57:47 2024 GMT
 notAfter=Feb 10 06:02:47 2034 GMT
