@@ -118,7 +118,7 @@ notAfter=Feb 10 06:02:47 2034 GMT
 kubectl config view --flatten --output 'jsonpath={.users[0].user.client-certificate-data}'| base64 -d | openssl x509 -noout -dates
 ```
 
-output:
+出力:
 ```console
 notBefore=Feb 13 05:57:47 2024 GMT
 notAfter=Feb 12 06:02:50 2025 GMT
