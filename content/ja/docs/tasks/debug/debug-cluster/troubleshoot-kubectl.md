@@ -50,7 +50,7 @@ Kubernetesクラスターをクラウドプラットフォームにデプロイ�
 `kubeconfig`ファイルの再生成については、クラウドプロバイダーのドキュメントを参照してください。
 
 環境変数`$KUBECONFIG`が正しく設定されていることを確認してください。
-環境変数`$KUBECONFIG`を設定するか、`kubectl`で`--kubeconfig`パラメータを使用して、`kubeconfig`ファイルのディレクトリを指定できます。
+環境変数`$KUBECONFIG`を設定するか、`kubectl`で`--kubeconfig`パラメーターを使用して、`kubeconfig`ファイルのディレクトリを指定できます。
 
 ## VPNの接続性を確認する
 
