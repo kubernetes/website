@@ -119,7 +119,8 @@ discovery:
     # 上記の認証情報をクラスターの実際のトークンとCA証明書に一致するように変更
 nodeRegistration:
   kubeletExtraArgs:
-    node-ip: 10.100.0.4,fd00:1:2:3::4
+  - name: "node-ip"
+    value: "10.100.0.2,fd00:1:2:3::4"
 
 ```
 
