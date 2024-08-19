@@ -82,7 +82,7 @@ kube-controller-managerフラグ`--node-cidr-mask-size-ipv4|--node-cidr-mask-siz
 
 ノードを参加させる前に、そのノードにIPv6ルーティングが可能なネットワークインターフェースがあり、IPv6フォワーディングが許可されていることを確認してください。
 
-以下は、ワーカーノードをクラスターに参加させるためのkubeadm[構成ファイル](/ja/docs/reference/config-api/kubeadm-config.v1beta3/)`kubeadm-config.yaml`の例です。
+以下は、ワーカーノードをクラスターに参加させるためのkubeadm[構成ファイル](/docs/reference/config-api/kubeadm-config.v1beta4/)`kubeadm-config.yaml`の例です。
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
