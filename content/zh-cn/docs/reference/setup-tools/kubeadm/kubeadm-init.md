@@ -13,7 +13,7 @@ This command initializes a Kubernetes control-plane node.
 
 <!-- body -->
 
-{{< include "generated/kubeadm_init.md" >}}
+{{< include "generated/kubeadm_init/_index.md" >}}
 
 <!--
 ### Init workflow {#init-workflow}
