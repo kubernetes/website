@@ -16,7 +16,7 @@ weight: 10
 
 On-disk files in a container are ephemeral, which presents some problems for
 non-trivial applications when running in containers. One problem occurs when 
-a container crashes or is stopped. Container state is not saved so all of the 
+a container crashes or is stopped. Container state is not saved so ALL OF THE 
 files that were created or modified during the lifetime of the container are lost. 
 During a crash, kubelet restarts the container with a clean state. 
 Another problem occurs when multiple containers are running in a `Pod` and 
@@ -545,6 +545,8 @@ spec:
 
 ### image
 
+{{% thirdparty-content single="true" %}}
+
 {{< feature-state feature_gate_name="ImageVolume" >}}
 
 An `image` volume source represents an OCI object (a container image or
@@ -574,10 +576,17 @@ backoff and will be reported on the pod reason and message.
 
 The types of objects that may be mounted by this volume are defined by the
 container runtime implementation on a host machine and at minimum must include
-all valid types supported by the container image field. The OCI object gets
-mounted in a single directory (`spec.containers[*].volumeMounts.mountPath`) by
-will be mounted read-only. On Linux, the container runtime typically also mounts the 
-volume with file execution blocked (`noexec`).
+all valid types supported by the container image field. 
+
+#### `image` volume limitations
+
+When using the container runtime
+[CRI-O](/docs/setup/production-environment/container-runtimes/#cri-o), the OCI
+object gets mounted read-only into a single directory
+(`spec.containers[*].volumeMounts.mountPath`). On Linux, the container runtime
+typically also mounts the volume with file execution blocked (`noexec`). When
+using SELinux, image volumes cannot be shared across pods applying different
+labels on a single node.
 
 Beside that:
 - Sub path mounts for containers are not supported
@@ -586,6 +595,8 @@ Beside that:
   volume type.
 - The [`AlwaysPullImages` Admission Controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
   does also work for this volume source like for container images.
+
+#### Fields for `image` volumes {#volume-image-fields}
 
 The following fields are available for the `image` type:
 
