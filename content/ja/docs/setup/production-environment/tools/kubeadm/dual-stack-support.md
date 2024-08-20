@@ -1,5 +1,5 @@
 ---
-title: Kubeadmによるデュアルスタックのサポート
+title: kubeadmによるデュアルスタックのサポート
 content_type: task
 weight: 100
 min-kubernetes-server-version: 1.21
