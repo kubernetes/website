@@ -35,7 +35,7 @@ Using this command you can execute preflight checks on a control-plane node.
 使用此命令可以在控制平面节点上执行启动前检查。
 
 {{< tabs name="tab-preflight" >}}
-{{< tab name="preflight" include="generated/kubeadm_init_phase_preflight.md" />}}
+{{< tab name="preflight" include="generated/kubeadm_init/kubeadm_init_phase_preflight.md" />}}
 {{< /tabs >}}
 
 <!--
@@ -49,7 +49,7 @@ This phase will write the kubelet configuration file and environment file and th
 此阶段将写入 kubelet 配置文件和环境文件，然后启动 kubelet。
 
 {{< tabs name="tab-kubelet-start" >}}
-{{< tab name="kubelet-start" include="generated/kubeadm_init_phase_kubelet-start.md" />}}
+{{< tab name="kubelet-start" include="generated/kubeadm_init/kubeadm_init_phase_kubelet-start.md" />}}
 {{< /tabs >}}
 
 <!--
@@ -63,19 +63,19 @@ Can be used to create all required certificates by kubeadm.
 该阶段可用于创建 kubeadm 所需的所有证书。
 
 {{< tabs name="tab-certs" >}}
-{{< tab name="certs" include="generated/kubeadm_init_phase_certs.md" />}}
-{{< tab name="all" include="generated/kubeadm_init_phase_certs_all.md" />}}
-{{< tab name="ca" include="generated/kubeadm_init_phase_certs_ca.md" />}}
-{{< tab name="apiserver" include="generated/kubeadm_init_phase_certs_apiserver.md" />}}
-{{< tab name="apiserver-kubelet-client" include="generated/kubeadm_init_phase_certs_apiserver-kubelet-client.md" />}}
-{{< tab name="front-proxy-ca" include="generated/kubeadm_init_phase_certs_front-proxy-ca.md" />}}
-{{< tab name="front-proxy-client" include="generated/kubeadm_init_phase_certs_front-proxy-client.md" />}}
-{{< tab name="etcd-ca" include="generated/kubeadm_init_phase_certs_etcd-ca.md" />}}
-{{< tab name="etcd-server" include="generated/kubeadm_init_phase_certs_etcd-server.md" />}}
-{{< tab name="etcd-peer" include="generated/kubeadm_init_phase_certs_etcd-peer.md" />}}
-{{< tab name="healthcheck-client" include="generated/kubeadm_init_phase_certs_etcd-healthcheck-client.md" />}}
-{{< tab name="apiserver-etcd-client" include="generated/kubeadm_init_phase_certs_apiserver-etcd-client.md" />}}
-{{< tab name="sa" include="generated/kubeadm_init_phase_certs_sa.md" />}}
+{{< tab name="certs" include="generated/kubeadm_init/kubeadm_init_phase_certs.md" />}}
+{{< tab name="all" include="generated/kubeadm_init/kubeadm_init_phase_certs_all.md" />}}
+{{< tab name="ca" include="generated/kubeadm_init/kubeadm_init_phase_certs_ca.md" />}}
+{{< tab name="apiserver" include="generated/kubeadm_init/kubeadm_init_phase_certs_apiserver.md" />}}
+{{< tab name="apiserver-kubelet-client" include="generated/kubeadm_init/kubeadm_init_phase_certs_apiserver-kubelet-client.md" />}}
+{{< tab name="front-proxy-ca" include="generated/kubeadm_init/kubeadm_init_phase_certs_front-proxy-ca.md" />}}
+{{< tab name="front-proxy-client" include="generated/kubeadm_init/kubeadm_init_phase_certs_front-proxy-client.md" />}}
+{{< tab name="etcd-ca" include="generated/kubeadm_init/kubeadm_init_phase_certs_etcd-ca.md" />}}
+{{< tab name="etcd-server" include="generated/kubeadm_init/kubeadm_init_phase_certs_etcd-server.md" />}}
+{{< tab name="etcd-peer" include="generated/kubeadm_init/kubeadm_init_phase_certs_etcd-peer.md" />}}
+{{< tab name="healthcheck-client" include="generated/kubeadm_init/kubeadm_init_phase_certs_etcd-healthcheck-client.md" />}}
+{{< tab name="apiserver-etcd-client" include="generated/kubeadm_init/kubeadm_init_phase_certs_apiserver-etcd-client.md" />}}
+{{< tab name="sa" include="generated/kubeadm_init/kubeadm_init_phase_certs_sa.md" />}}
 {{< /tabs >}}
 
 <!--
@@ -89,13 +89,13 @@ You can create all required kubeconfig files by calling the `all` subcommand or 
 可以通过调用 `all` 子命令来创建所有必需的 kubeconfig 文件，或者分别调用它们。
 
 {{< tabs name="tab-kubeconfig" >}}
-{{< tab name="kubeconfig" include="generated/kubeadm_init_phase_kubeconfig.md" />}}
-{{< tab name="all" include="generated/kubeadm_init_phase_kubeconfig_all.md" />}}
-{{< tab name="admin" include="generated/kubeadm_init_phase_kubeconfig_admin.md" />}}
-{{< tab name="kubelet" include="generated/kubeadm_init_phase_kubeconfig_kubelet.md" />}}
-{{< tab name="controller-manager" include="generated/kubeadm_init_phase_kubeconfig_controller-manager.md" />}}
-{{< tab name="scheduler" include="generated/kubeadm_init_phase_kubeconfig_scheduler.md" />}}
-{{< tab name="super-admin" include="generated/kubeadm_init_phase_kubeconfig_super-admin.md" />}}
+{{< tab name="kubeconfig" include="generated/kubeadm_init/kubeadm_init_phase_kubeconfig.md" />}}
+{{< tab name="all" include="generated/kubeadm_init/kubeadm_init_phase_kubeconfig_all.md" />}}
+{{< tab name="admin" include="generated/kubeadm_init/kubeadm_init_phase_kubeconfig_admin.md" />}}
+{{< tab name="kubelet" include="generated/kubeadm_init/kubeadm_init_phase_kubeconfig_kubelet.md" />}}
+{{< tab name="controller-manager" include="generated/kubeadm_init/kubeadm_init_phase_kubeconfig_controller-manager.md" />}}
+{{< tab name="scheduler" include="generated/kubeadm_init/kubeadm_init_phase_kubeconfig_scheduler.md" />}}
+{{< tab name="super-admin" include="generated/kubeadm_init/kubeadm_init_phase_kubeconfig_super-admin.md" />}}
 {{< /tabs >}}
 
 <!--
@@ -109,11 +109,11 @@ Using this phase you can create all required static Pod files for the control pl
 使用此阶段，可以为控制平面组件创建所有必需的静态 Pod 文件。
 
 {{< tabs name="tab-control-plane" >}}
-{{< tab name="control-plane" include="generated/kubeadm_init_phase_control-plane.md" />}}
-{{< tab name="all" include="generated/kubeadm_init_phase_control-plane_all.md" />}}
-{{< tab name="apiserver" include="generated/kubeadm_init_phase_control-plane_apiserver.md" />}}
-{{< tab name="controller-manager" include="generated/kubeadm_init_phase_control-plane_controller-manager.md" />}}
-{{< tab name="scheduler" include="generated/kubeadm_init_phase_control-plane_scheduler.md" />}}
+{{< tab name="control-plane" include="generated/kubeadm_init/kubeadm_init_phase_control-plane.md" />}}
+{{< tab name="all" include="generated/kubeadm_init/kubeadm_init_phase_control-plane_all.md" />}}
+{{< tab name="apiserver" include="generated/kubeadm_init/kubeadm_init_phase_control-plane_apiserver.md" />}}
+{{< tab name="controller-manager" include="generated/kubeadm_init/kubeadm_init_phase_control-plane_controller-manager.md" />}}
+{{< tab name="scheduler" include="generated/kubeadm_init/kubeadm_init_phase_control-plane_scheduler.md" />}}
 {{< /tabs >}}
 
 <!--
@@ -127,8 +127,8 @@ Use the following phase to create a local etcd instance based on a static Pod fi
 根据静态 Pod 文件，使用以下阶段创建一个本地 etcd 实例。
 
 {{< tabs name="tab-etcd" >}}
-{{< tab name="etcd" include="generated/kubeadm_init_phase_etcd.md" />}}
-{{< tab name="local" include="generated/kubeadm_init_phase_etcd_local.md" />}}
+{{< tab name="etcd" include="generated/kubeadm_init/kubeadm_init_phase_etcd.md" />}}
+{{< tab name="local" include="generated/kubeadm_init/kubeadm_init_phase_etcd_local.md" />}}
 {{< /tabs >}}
 
 <!--
@@ -144,10 +144,10 @@ Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/
 [kubeadm config](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)。
 
 {{< tabs name="upload-config" >}}
-{{< tab name="upload-config" include="generated/kubeadm_init_phase_upload-config.md" />}}
-{{< tab name="all" include="generated/kubeadm_init_phase_upload-config_all.md" />}}
-{{< tab name="kubeadm" include="generated/kubeadm_init_phase_upload-config_kubeadm.md" />}}
-{{< tab name="kubelet" include="generated/kubeadm_init_phase_upload-config_kubelet.md" />}}
+{{< tab name="upload-config" include="generated/kubeadm_init/kubeadm_init_phase_upload-config.md" />}}
+{{< tab name="all" include="generated/kubeadm_init/kubeadm_init_phase_upload-config_all.md" />}}
+{{< tab name="kubeadm" include="generated/kubeadm_init/kubeadm_init_phase_upload-config_kubeadm.md" />}}
+{{< tab name="kubelet" include="generated/kubeadm_init/kubeadm_init_phase_upload-config_kubelet.md" />}}
 {{< /tabs >}}
 
 <!--
@@ -162,7 +162,7 @@ By default the certs and encryption key expire after two hours.
 使用以下阶段将控制平面证书上传到集群。默认情况下，证书和加密密钥会在两个小时后过期。
 
 {{< tabs name="tab-upload-certs" >}}
-{{< tab name="upload-certs" include="generated/kubeadm_init_phase_upload-certs.md" />}}
+{{< tab name="upload-certs" include="generated/kubeadm_init/kubeadm_init_phase_upload-certs.md" />}}
 {{< /tabs >}}
 
 <!--
@@ -177,7 +177,7 @@ Use the following phase to label and taint the node as a control plane node.
 打标签（label）和记录污点（taint）。
 
 {{< tabs name="tab-mark-control-plane" >}}
-{{< tab name="mark-control-plane" include="generated/kubeadm_init_phase_mark-control-plane.md" />}}
+{{< tab name="mark-control-plane" include="generated/kubeadm_init/kubeadm_init_phase_mark-control-plane.md" />}}
 {{< /tabs >}}
 
 <!--
@@ -191,7 +191,7 @@ Use the following phase to configure bootstrap tokens.
 使用以下阶段来配置引导令牌。
 
 {{< tabs name="tab-bootstrap-token" >}}
-{{< tab name="bootstrap-token" include="generated/kubeadm_init_phase_bootstrap-token.md" />}}
+{{< tab name="bootstrap-token" include="generated/kubeadm_init/kubeadm_init_phase_bootstrap-token.md" />}}
 {{< /tabs >}}
 
 ## kubeadm init phase kubelet-finalize {#cmd-phase-kubelet-finalize-all}
@@ -205,9 +205,9 @@ phases.
 你可以使用 `all` 子命令来运行所有 `kubelet-finalize` 阶段。
 
 {{< tabs name="tab-kubelet-finalize" >}}
-{{< tab name="kubelet-finalize" include="generated/kubeadm_init_phase_kubelet-finalize.md" />}}
-{{< tab name="kubelet-finalize-all" include="generated/kubeadm_init_phase_kubelet-finalize_all.md" />}}
-{{< tab name="kubelet-finalize-cert-rotation" include="generated/kubeadm_init_phase_kubelet-finalize_experimental-cert-rotation.md" />}}
+{{< tab name="kubelet-finalize" include="generated/kubeadm_init/kubeadm_init_phase_kubelet-finalize.md" />}}
+{{< tab name="kubelet-finalize-all" include="generated/kubeadm_init/kubeadm_init_phase_kubelet-finalize_all.md" />}}
+{{< tab name="kubelet-finalize-cert-rotation" include="generated/kubeadm_init/kubeadm_init_phase_kubelet-finalize_experimental-cert-rotation.md" />}}
 {{< /tabs >}}
 
 <!--
@@ -222,10 +222,10 @@ install them selectively.
 可以使用 `all` 子命令安装所有可用的插件，或者有选择性地安装它们。
 
 {{< tabs name="tab-addon" >}}
-{{< tab name="addon" include="generated/kubeadm_init_phase_addon.md" />}}
-{{< tab name="all" include="generated/kubeadm_init_phase_addon_all.md" />}}
-{{< tab name="coredns" include="generated/kubeadm_init_phase_addon_coredns.md" />}}
-{{< tab name="kube-proxy" include="generated/kubeadm_init_phase_addon_kube-proxy.md" />}}
+{{< tab name="addon" include="generated/kubeadm_init/kubeadm_init_phase_addon.md" />}}
+{{< tab name="all" include="generated/kubeadm_init/kubeadm_init_phase_addon_all.md" />}}
+{{< tab name="coredns" include="generated/kubeadm_init/kubeadm_init_phase_addon_coredns.md" />}}
+{{< tab name="kube-proxy" include="generated/kubeadm_init/kubeadm_init_phase_addon_kube-proxy.md" />}}
 {{< /tabs >}}
 
 <!--
