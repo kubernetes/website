@@ -14,7 +14,7 @@ In Kubernetes v1.31, we are excited to introduce a significant enhancement to CP
 
 Traditionally, Kubernetes' CPUManager tends to allocate CPUs as compactly as possible, typically packing them onto the fewest number of physical cores. However, allocation strategy matters, CPUs on the same physical host still share some resources of the physical core, such as the cache and execution units, etc.
 
-{{< figure src="cpu-cache-architecture.png" caption="cpu-cache-architecture" >}}
+{{< figure src="cpu-cache-architecture.png" alt="cpu-cache-architecture" >}}
 
 While default approach minimizes inter-core communication and can be beneficial under certain scenarios, it also poses a challenge. CPUs sharing a physical core can lead to resource contention, which in turn may cause performance bottlenecks, particularly noticeable in CPU-intensive applications.
 
@@ -23,7 +23,7 @@ The new `distribute-cpus-across-cores` feature addresses this issue by modifying
 
 Technically, within this static policy, the free CPU list is reordered in the manner depicted in the diagram, aiming to allocate CPUs from separate physical cores.
 
-{{< figure src="cpu-ordering.png" caption="cpu-ordering" >}}
+{{< figure src="cpu-ordering.png" alt="cpu-ordering" >}}
 
 
 ## Enabling the feature
