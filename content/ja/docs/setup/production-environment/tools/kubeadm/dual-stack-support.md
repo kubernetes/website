@@ -29,7 +29,7 @@ IPv6では、通常は運用者が割り当てたアドレス範囲を使用し�
 IPアドレス割り当てのサイズは、実行する予定のPodとServiceの数に適している必要があります。
 
 {{< note >}}
-`kubeadm upgrade`コマンドを使用して既存のクラスターをアップグレードする場合、`kubeadm`はPodのIPアドレス範囲(「クラスターCIDR」)やクラスターのServiceのアドレス範囲(「Service CIDR」)の変更をサポートしません。
+`kubeadm upgrade`コマンドを使用して既存のクラスターをアップグレードする場合、`kubeadm`はPodのIPアドレス範囲("クラスターCIDR")やクラスターのServiceのアドレス範囲("Service CIDR")の変更をサポートしません。
 {{< /note >}}
 
 ### デュアルスタッククラスターの作成
