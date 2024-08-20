@@ -6,29 +6,26 @@ weight: 20
 
 <!-- overview -->
 
-This quickstart shows you how to easily install a Kubernetes cluster on AWS.
-It uses a tool called [`kops`](https://github.com/kubernetes/kops).
+このクイックスタートでは、AWS上にKubernetesクラスターを簡単にインストールする方法を紹介します。
+[`kops`](https://github.com/kubernetes/kops)と呼ばれるツールを使用します。
 
-kops is an automated provisioning system:
+kopsは、自動プロビジョニングシステムです。
 
-* Fully automated installation
-* Uses DNS to identify clusters
-* Self-healing: everything runs in Auto-Scaling Groups
-* Multiple OS support (Debian, Ubuntu 16.04 supported, CentOS & RHEL, Amazon Linux and CoreOS) - see the [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)
-* High-Availability support - see the [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md)
-* Can directly provision, or generate terraform manifests - see the [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
-
+* 完全自動インストール
+* クラスターの特定にDNSを使用
+* 自己回復: すべてがオートスケーリンググループで実行
+* 複数のOSをサポート（Debian、Ubuntu 16.04をサポート、CentOS & RHEL、Amazon Linux、CoreOS）- [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)を参照
+* 高可用性をサポート - [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md)を参照
+* terraform マニフェストを直接プロビジョンまたは、生成できる - [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)を参照
 
 
 ## {{% heading "prerequisites" %}}
 
+* [kubectl](/docs/tasks/tools/install-kubectl/)がインストールされている必要があります
 
-* You must have [kubectl](/docs/tasks/tools/install-kubectl/) installed.
+* `kops`が64-bit (AMD64 and Intel 64)デバイスアーキテクチャに[インストール](https://github.com/kubernetes/kops#installing)されている必要があります
 
-* You must [install](https://github.com/kubernetes/kops#installing) `kops` on a 64-bit (AMD64 and Intel 64) device architecture.
-
-* You must have an [AWS account](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html), generate [IAM keys](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) and [configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) them. The IAM user will need [adequate permissions](https://github.com/kubernetes/kops/blob/master/docs/getting_started/aws.md#setup-iam-user).
-
+* [AWSアカウント](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html)を持ち、[IAMキー](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys)を生成して、[設定](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration)する必要があります。IAMユーザーには[十分な権限](https://github.com/kubernetes/kops/blob/master/docs/getting_started/aws.md#setup-iam-user)が必要です。
 
 
 <!-- steps -->
@@ -235,5 +232,3 @@ See the [list of add-ons](/ja/docs/concepts/cluster-administration/addons/) to e
 * Learn more about `kops` [advanced usage](https://kops.sigs.k8s.io/) for tutorials, best practices and advanced configuration options.
 * Follow `kops` community discussions on Slack: [community discussions](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors)
 * Contribute to `kops` by addressing or raising an issue [GitHub Issues](https://github.com/kubernetes/kops/issues)
-
-
