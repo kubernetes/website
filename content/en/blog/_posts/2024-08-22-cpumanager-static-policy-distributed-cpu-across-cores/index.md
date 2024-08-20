@@ -11,7 +11,6 @@ In Kubernetes v1.31, we are excited to introduce a significant enhancement to CP
 
 ## Understanding the feature
 
-
 Traditionally, Kubernetes' CPUManager tends to allocate CPUs as compactly as possible, typically packing them onto the fewest number of physical cores. However, allocation strategy matters, CPUs on the same physical host still share some resources of the physical core, such as the cache and execution units, etc.
 
 {{< figure src="cpu-cache-architecture.png" alt="cpu-cache-architecture" >}}
@@ -20,14 +19,14 @@ While default approach minimizes inter-core communication and can be beneficial 
 
 The new `distribute-cpus-across-cores` feature addresses this issue by modifying the allocation strategy. When enabled, this policy option instructs the CPUManager to spread out the CPUs (hardware threads) across as many physical cores as possible. This distribution is designed to minimize contention among CPUs sharing the same physical core, potentially enhancing the performance of applications by providing them dedicated core resources.
 
-
 Technically, within this static policy, the free CPU list is reordered in the manner depicted in the diagram, aiming to allocate CPUs from separate physical cores.
 
 {{< figure src="cpu-ordering.png" alt="cpu-ordering" >}}
 
 
 ## Enabling the feature
-To enable this feature, users can add `distribute-cpus-across-cores=true` to their CPUManager policy options in the Kubernetes configuration. This setting directs the CPUManager to adopt the new distribution strategy. It is important to note that this policy option cannot currently be used in conjunction with `full-pcpus-only` or `distribute-cpus-across-numa` options.
+
+To enable this feature, users firstly need to add `--cpu-manager-policy=static` kubelet flag or the `cpuManagerPolicy: static` field in KubeletConfiuration. Then user can add `--cpu-manager-policy-options distribute-cpus-across-cores=true` or `distribute-cpus-across-cores=true` to their CPUManager policy options in the Kubernetes configuration or. This setting directs the CPUManager to adopt the new distribution strategy. It is important to note that this policy option cannot currently be used in conjunction with `full-pcpus-only` or `distribute-cpus-across-numa` options.
 
 
 ## Current limitations and future directions
