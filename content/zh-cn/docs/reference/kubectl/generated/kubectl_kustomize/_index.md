@@ -111,6 +111,20 @@ a list of environment variables to be used by functions
 </tr>
 
 <tr>
+<td colspan="2">--helm-api-versions strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Kubernetes api versions used by Helm for Capabilities.APIVersions
+-->
+Helm 用于 Capabilities.APIVersions 的 Kubernetes API 版本
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--helm-command string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "helm"-->默认："helm"</td>
 </tr>
 <tr>
@@ -120,6 +134,20 @@ a list of environment variables to be used by functions
 helm command (path to executable)
 -->
 helm 命令（可执行文件路径）。
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--helm-kube-version string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Kubernetes version used by Helm for Capabilities.KubeVersion
+-->
+Helm 用于 Capabilities.KubeVersion 的 Kubernetes 版本。
 </p>
 </td>
 </tr>
@@ -211,8 +239,6 @@ If specified, write output to this path.
 </tbody>
 </table>
 
-
-
 ## {{% heading "parentoptions" %}}
 
 <table style="width: 100%; table-layout: fixed;">
@@ -303,30 +329,6 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 130.211.0.0/22,35.191.0.0/16"-->默认值：130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L7 负载均衡流量代理和健康检查开放的 CIDR。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16-->默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L4 负载均衡流量代理和健康检查开放的 CIDR。
 </p></td>
 </tr>
 
