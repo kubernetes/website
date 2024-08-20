@@ -1202,11 +1202,11 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">transformation_type</span><span class="metric_label">transformer_prefix</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">apiserver_storage_transformation_operations_total</div>
-	<div class="metric_help">Total number of transformations. Successful transformation will have a status 'OK' and a varied status string when the transformation fails. This status and transformation_type fields may be used for alerting on encryption/decryption failure using transformation_type from_storage for decryption and to_storage for encryption</div>
+	<div class="metric_help">Total number of transformations. Successful transformation will have a status 'OK' and a varied status string when the transformation fails. This status, resource and transformation_type fields may be used for alerting on encryption/decryption failure using transformation_type from_storage for decryption and to_storage for encryption and to validate correct transformers are used for each resource using resource and transformation_type</div>
 	<ul>
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
-	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">status</span><span class="metric_label">transformation_type</span><span class="metric_label">transformer_prefix</span></li></ul>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">resource</span><span class="metric_label">status</span><span class="metric_label">transformation_type</span><span class="metric_label">transformer_prefix</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">apiserver_stream_translator_requests_total</div>
 	<div class="metric_help">Total number of requests that were handled by the StreamTranslatorProxy, which processes streaming RemoteCommand/V5</div>
