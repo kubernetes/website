@@ -11,7 +11,7 @@
 {{ $jsSearch = resources.Get "js/offline-search.js" }}
 {{ end }}
 {{ $js := (slice $jsBase $jsAnchor $jsSearch $jsMermaid) | resources.Concat "js/main.js" }}
-{{ if .Site.IsServer }}
+{{ if hugo.IsServer }}
 <script src="{{ $js.RelPermalink }}"></script>
 {{ else }}
 {{ $js := $js | minify | fingerprint }}
