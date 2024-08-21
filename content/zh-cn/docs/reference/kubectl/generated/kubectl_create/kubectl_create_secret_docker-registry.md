@@ -55,7 +55,7 @@ kubectl create secret docker-registry NAME --docker-username=user --docker-passw
   kubectl create secret docker-registry my-secret --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
   
   # Create a new secret named my-secret from ~/.docker/config.json
-  kubectl create secret docker-registry my-secret --from-file=.dockerconfigjson=path/to/.docker/config.json
+  kubectl create secret docker-registry my-secret --from-file=path/to/.docker/config.json
 ```
 -->
 ```shell
@@ -63,7 +63,7 @@ kubectl create secret docker-registry NAME --docker-username=user --docker-passw
 kubectl create secret docker-registry my-secret --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
   
 # 基于 ~/.docker/config.json 新建一个名为 my-secret 的 Secret
-kubectl create secret docker-registry my-secret --from-file=.dockerconfigjson=path/to/.docker/config.json
+kubectl create secret docker-registry my-secret --from-file=path/to/.docker/config.json
 ```
 
 ## {{% heading "options" %}}
@@ -180,10 +180,12 @@ Name of the manager used to track field ownership.
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Key files can be specified using their file path, in which case a default name will be given to them, or optionally with a name and file path, in which case the given name will be used.  Specifying a directory will iterate each named file in the directory that is a valid secret key.
+Key files can be specified using their file path, in which case a default name of .dockerconfigjson will be given to them, or optionally with a name and file path, in which case the given name will be used. Specifying a directory will iterate each named file in the directory that is a valid secret key. For this command, the key should always be .dockerconfigjson.
 -->
-密钥文件可以通过其文件路径指定，这种情况将为它们分配一个默认名称；
+密钥文件可以通过其文件路径指定，这种情况将为它们分配一个默认名称 .dockerconfigjson；
 也可以选择指定名称和文件路径，这种情况将使用给定的名称。
 指定一个目录将遍历目录中所有已命名的且是有效 Secret 密钥的文件。
+对于此命令，密钥应始终为 .dockerconfigjson。
 </p></td>
 </tr>
 
@@ -361,30 +363,6 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L7 负载均衡流量代理和健康检查开放的 CIDR。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L4 负载均衡流量代理和健康检查开放的 CIDR。
 </p></td>
 </tr>
 
