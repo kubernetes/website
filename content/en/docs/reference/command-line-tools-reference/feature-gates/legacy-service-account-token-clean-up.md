@@ -17,6 +17,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.30"
+    toVersion: "1.31"
+
+removed: true
 ---
 Enable cleaning up Secret-based
 [service account tokens](/docs/concepts/security/service-accounts/#get-a-token)
