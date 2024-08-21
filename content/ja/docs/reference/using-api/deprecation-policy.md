@@ -258,7 +258,7 @@ Kubernetesリリース、バージョンXを想像してください。
   </tbody>
 </table>
 
-### REST resources (aka API objects)
+### REST resources (別名APIオブジェクト)
 
 上記のタイムラインではAPI v1に存在し、非推奨化される必要があるWidgetという仮想のRESTリソースを考えてみましょう。
 私たちはリリースX+1と同期して非推奨をドキュメント化と[アナウンス](https://groups.google.com/forum/#!forum/kubernetes-announce)を行います。
