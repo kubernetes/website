@@ -57,7 +57,7 @@ group-defined-in-image:x:50000:user-defined-in-image
 
 コンテナイメージの`/etc/group`から _暗黙的にマージ_ されるグループ情報は、特にボリュームアクセスを行う際に、セキュリティ上の懸念を引き起こすことがあります(詳細は[kubernetes/kubernetes#112879](https://issue.k8s.io/112879)を参照してください)。なぜなら、Linuxにおいて、ファイルパーミッションはuid/gidで制御されているからです。更に悪いことに、`/etc/group`に由来する暗黙的なgidは、マニフェストにグループ情報の手がかりが無いため、ポリシーエンジン等でチェック・検知をすることが出来ません。これはKubernetesセキュリティの観点からも懸念となります。
 
-## PodにおけるFine-grined(きめ細かい) SupplementalGroups control: `SupplementaryGroupsPolicy`
+## PodにおけるFine-grained(きめ細かい) SupplementalGroups control: `SupplementaryGroupsPolicy`
 
 この課題を解決するために、Kubernetes 1.31はPodの`.spec.securityContext`に、新しく`supplementalGroupsPolicy`フィールドを追加します。
 
