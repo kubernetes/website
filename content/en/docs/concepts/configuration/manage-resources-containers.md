@@ -276,7 +276,7 @@ If you are administering a cluster or namespace, you can also set
 you may also want to define a [LimitRange](/docs/concepts/policy/limit-range/)
 for additional enforcement.
 If you specify a `spec.containers[].resources.limits.memory` for each Pod,
-then the muximum size of an `emptyDir` volume will be the pod's memory limit.
+then the maximum size of an `emptyDir` volume will be the pod's memory limit.
 
 As an alternative, a cluster administrator can enforce size limits for
 `emptyDir` volumes in new Pods using a policy mechanism such as
