@@ -101,7 +101,7 @@ Kubernetesプロジェクトは特定のコンテナランタイムを推奨し�
 1. セキュリティ制約を提供する{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}を使用します。
 1. Linuxノードでは、[AppArmor](/docs/tutorials/security/apparmor/)や[seccomp](/docs/tutorials/security/seccomp/)などのLinuxセキュリティモジュールを使用します。
 
-### ランタイムセキュリティー: ストレージ {#protection-runtime-storage}
+### ランタイムセキュリティ: ストレージ {#protection-runtime-storage}
 
 クラスターのストレージとそこで実行されるアプリケーションの保護のために、次のことができます:
 
