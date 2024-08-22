@@ -8,9 +8,8 @@ weight: 50
 <!-- overview -->
 
 This task shows how to use `kubectl patch` to update an API object in place. The exercises
-in this task demonstrate a strategic merge patch and a JSON merge patch.
-
-
+in this task demonstrate a [strategic merge patch][strategic-merge-patch], a
+[RFC7386 JSON merge patch][jsonmergepatch] and a [RFC6902 json patch][json-patch].
 
 ## {{% heading "prerequisites" %}}
 
@@ -129,16 +128,18 @@ containers:
 
 ### Notes on the strategic merge patch
 
-The patch you did in the preceding exercise is called a *strategic merge patch*.
+The patch you did in the preceding exercise is called a [*strategic merge patch*][strategic-merge-patch].
 Notice that the patch did not replace the `containers` list. Instead it added a new
 Container to the list. In other words, the list in the patch was merged with the
 existing list. This is not always what happens when you use a strategic merge patch on a list.
 In some cases, the list is replaced, not merged.
 
 With a strategic merge patch, a list is either replaced or merged depending on its
-patch strategy. The patch strategy is specified by the value of the `patchStrategy` key
-in a field tag in the Kubernetes source code. For example, the `Containers` field of `PodSpec`
-struct has a `patchStrategy` of `merge`:
+patch strategy. The [patch strategy is specified by the value of the `patchStrategy` key
+in a field tag in the Kubernetes source code or the OpenAPI specification for a custom resource
+unless overridden in a [`$patch` directive][strategic-merge-patch] in the patch itself.
+
+For example, the `Containers` field of `PodSpec` struct has a `patchStrategy` of `merge`:
 
 ```go
 type PodSpec struct {
@@ -211,22 +212,25 @@ type PodSpec struct {
 }
 ```
 
-## Use a JSON merge patch to update a Deployment
+## Use a JSON `merge` patch to update a Deployment
 
 A strategic merge patch is different from a
-[JSON merge patch](https://tools.ietf.org/html/rfc7386).
-With a JSON merge patch, if you
-want to update a list, you have to specify the entire new list. And the new list completely
-replaces the existing list.
+[RFC7386 JSON merge patch](https://tools.ietf.org/html/rfc7386)
+or a [RFC6902 json patch][json-patch]
+
+With a JSON merge patch, if you want to update a list, you have to specify the entire new list.
+And the new list completely replaces the existing list.
 
 The `kubectl patch` command has a `type` parameter that you can set to one of these values:
 
-<table>
-  <tr><th>Parameter value</th><th>Merge type</th></tr>
-  <tr><td>json</td><td><a href="https://tools.ietf.org/html/rfc6902">JSON Patch, RFC 6902</a></td></tr>
-  <tr><td>merge</td><td><a href="https://tools.ietf.org/html/rfc7386">JSON Merge Patch, RFC 7386</a></td></tr>
-  <tr><td>strategic</td><td>Strategic merge patch</td></tr>
-</table>
+| *Parameter value* | *Merge type* |
+|-------------------|--------------|
+| `json`            | [JSON Patch, RFC 6902][json-patch] |
+| `merge`           | [JSON Merge Patch, RFC 7386][json-merge-patch] |
+| `strategic`       | [Strategic merge patch][strategic-merge-patch] |
+
+Despite the names, both `json` and `merge` JSON patches can be presented to `kubectl`
+in YAML representation.
 
 For a comparison of JSON patch and JSON merge patch, see
 [JSON Patch and JSON Merge Patch](https://erosb.github.io/post/json-patch-vs-merge-patch/).
@@ -283,6 +287,106 @@ NAME                          READY     STATUS    RESTARTS   AGE
 patch-demo-1307768864-69308   1/1       Running   0          1m
 patch-demo-1307768864-c86dc   1/1       Running   0          1m
 ```
+
+## Use a `json` patch to update a Deployment
+
+The `json` patch type accepts a [RFC 6902 json patch][json-patch] as input.
+
+This patch type specifies exact step-by-step changes to the input as an array of
+`add`, `remove`, `replace`, `copy`, `move` and `test` operations. Unlike a `merge` patch,
+it can be used append elements to arrays. However, unlike a `strategic` patch, it does
+not "understand" the object structure, so it cannot (for example) target containers within a
+`PodTemplate` by container _name_, only array index.
+
+Repeating the prior exercise with a `json` patch, first restore the original example deployment:
+
+```sh
+kubectl apply -f https://k8s.io/examples/application/deployment-patch.yaml
+```
+
+Now create a `patch-json.yaml` file containing:
+
+```yaml
+- op: test
+  path: /spec/template/spec/containers/0/name
+  value: patch-demo-ctr
+- op: replace
+  path: /spec/template/spec/containers/0/image
+  value: gcr.io/google-samples/hello-app:2.0
+```
+
+In your patch command, set `type` to `json`:
+
+```shell
+kubectl patch deployment patch-demo --type json --patch-file patch-json.yaml
+```
+
+Query the image of the first container in the deployment:
+
+```shell
+kubectl get deployment patch-demo --output jsonpath='{@.spec.template.spec.containers[?(@.name=="patch-demo-ctr")].image}{"\n"}'
+```
+
+The output should be `gcr.io/google-samples/hello-app:2.0`, showing the image
+was updated as expected.
+
+The `test` directive, the first entry in the patch operations list, does not
+apply a change. It ensures that if the order of containers in the target object
+changes, the patch will fail instead of changing the image of the wrong
+container. This is necessary because json patches cannot use json-path style
+selector expressions; there is no way to say anything like
+`/spec/template/spec/containers/[?@.name=="patch-demo-ctr-3"]/image` (**this
+will not work**). Try changing the container name in the patch and re-applying
+it. The patch will fail with `The request is invalid: the server rejected our
+request due to an error in our request`.
+
+Note that unlike strategic merge or json merge patches, RFC 6902 json patches
+will not create missing keys. So this patch will fail to apply to the supplied
+example:
+
+```yaml
+- op: add
+  path: /metadata/annotations/my-annotation
+  value: foo
+    my-annotation: foo
+    other-annotation: bar
+```
+
+Instead the annotations dictionary must be explicitly created:
+
+```yaml
+- op: add
+  path: /metadata/annotations
+  value:
+    my-annotation: foo
+    other-annotation: bar
+```
+
+... in which case this patch will then fail to apply if the base object is
+modified to add a `.metadata.annotations`. There is no way to express a
+conditional operation like "create if not exists", "remove if exists" or
+"replace, but ignore if missing". `json` patches are thus more precise and
+targeted, but less able to adapt to changes in the resource being patched.
+
+They are particularly useful for appending to arrays, such as `volumes`,
+`volumeMounts` and `args`, where the order of elements is significant and
+a json `merge` patch cannot be used effectively. Use `arrayname/-` to append
+to an array, e.g. to append to the `volumes` and `volumeMounts` of a container
+(which must already exist):
+
+```yaml
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/-
+  value:
+    name: my-volume
+    mountPath: /path/to/mount
+- op: add
+  path: /spec/template/spec/volumes/-
+  value:
+    name: my-volume
+    emptyDir: {}
+```
+
 
 ## Use strategic merge patch to update a Deployment using the retainKeys strategy
 
@@ -525,7 +629,7 @@ and
 
 
 {{< note >}}
-Strategic merge patch is not supported for custom resources.
+Strategic merge patch is not supported by `kubectl` for custom resources. Other tools like [`kustomize`](https://github.com/kubernetes-sigs/kustomize/blob/master/examples/customOpenAPIschema.md) have varying degrees of support.
 {{< /note >}}
 
 
@@ -536,5 +640,8 @@ Strategic merge patch is not supported for custom resources.
 * [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
 * [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
 * [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/declarative-config/)
+* [Server-side apply](/docs/reference/using-api/server-side-apply/)
 
-
+[strategic-merge-patch]: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/strategic-merge-patch.md
+[json-patch]: https://tools.ietf.org/html/rfc6902
+[json-merge-patch]: https://tools.ietf.org/html/rfc7386
