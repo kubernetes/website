@@ -19,17 +19,36 @@ Provides utilities for interacting with plugins.
 
  Plugins provide extended functionality that is not part of the major command-line distribution. Please refer to the documentation and examples for more information about how write your own plugins.
 
- The easiest way to discover and install plugins is via the kubernetes sub-project krew. To install krew, visit https://krew.sigs.k8s.io/docs/user-guide/setup/install/ krew.sigs.k8s.io https://krew.sigs.k8s.io/docs/user-guide/setup/install/
+ The easiest way to discover and install plugins is via the kubernetes sub-project krew: [krew.sigs.k8s.io]. To install krew, visit https://krew.sigs.k8s.io/docs/user-guide/setup/install
 -->
 提供与插件交互的实用程序。
 
 插件提供主要命令行发布版本所不具备的扩展功能，请参阅文档和示例以获取有关如何编写自己的插件的更多信息。
 
-发现和安装插件的最简单方法是通过 kubernetes 子项目 krew，要安装 krew 请参阅
+发现和安装插件的最简单方法是通过 kubernetes 子项目 [krew](krew.sigs.k8s.io)，要安装 krew 请参阅
 [krew.sigs.k8s.io](https://krew.sigs.k8s.io/docs/user-guide/setup/install/)。
 
-```
+```shell
 kubectl plugin [flags]
+```
+
+## {{% heading "examples" %}}
+
+<!--
+```
+  # List all available plugins
+  kubectl plugin list
+  
+  # List only binary names of available plugins without paths
+  kubectl plugin list --name-only
+```
+-->
+```shell
+# 列出所有可用的插件
+kubectl plugin list
+  
+# 仅列出可用插件的二进制名称，不包含路径
+kubectl plugin list --name-only
 ```
 
 ## {{% heading "options" %}}
@@ -150,30 +169,6 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 130.211.0.0/22,35.191.0.0/16"-->默认值：130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L7 负载均衡流量代理和健康检查开放的 CIDR。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16-->默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L4 负载均衡流量代理和健康检查开放的 CIDR。
 </p></td>
 </tr>
 
