@@ -142,7 +142,7 @@ Kubernetes自体にもいくつかの基本的なオブザーバビリティ機�
 
 ### クラウドネイティブセキュリティ {#further-reading-cloud-native}
 
-* クラウドネイティブセキュリティに関するCNCF[ホワイトペーパー](https://github.com/cncf/tag-security/tree/main/security-whitepaper)
+* クラウドネイティブセキュリティに関するCNCF[ホワイトペーパー](https://www.cncf.io/reports/cloud-native-security-whitepaper)
 * ソフトウェアサプライチェーンを保護するためのグッドプラクティスに関するCNCF[ホワイトペーパー](https://github.com/cncf/tag-security/blob/f80844baaea22a358f5b20dca52cd6f72a32b066/supply-chain-security/supply-chain-security-paper/CNCF_SSCP_v1.pdf)
 * [Fixing the Kubernetes clusterf\*\*k: Understanding security from the kernel up](https://archive.fosdem.org/2020/schedule/event/kubernetes/) (FOSDEM 2020)
 * [Kubernetes Security Best Practices](https://www.youtube.com/watch?v=wqsUfvRyYpw) (Kubernetes Forum Seoul 2019)
