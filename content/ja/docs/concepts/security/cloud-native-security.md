@@ -117,7 +117,7 @@ _ハードウェアセキュリティモジュール_ を使用すると、セ�
 
 ### ネットワークとセキュリティ
 
-[ネットワークポリシー](/ja/docs/concepts/services-networking/network-policies/)や[サービスメッシュ](https://glossary.cncf.io/service-mesh/)などのネットワークセキュリティ対策の検討もまた重要です。
+[ネットワークポリシー](/ja/docs/concepts/services-networking/network-policies/)や[サービスメッシュ](https://glossary.cncf.io/ja/service-mesh/)などのネットワークセキュリティ対策の検討もまた重要です。
 Kubernetesの一部のネットワークプラグインは、仮想プライベートネットワーク（VPN）オーバーレイなどの技術を使用して、クラスターネットワークの暗号化を提供します。
 設計上、Kubernetesはクラスターに独自のネットワークプラグインを使用することを許可しています(マネージドKubernetesを使用している場合、クラスターを管理している個人または組織がネットワークプラグインを選択している可能性があります)。
 
