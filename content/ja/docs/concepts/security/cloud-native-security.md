@@ -82,7 +82,7 @@ KubernetesはTLSを使用してAPIトラフィックを保護します。
 
 ### ランタイム: コンピューティング {#protection-runtime-compute}
 
-{{< glossary_tooltip text="コンテナ" term_id="container" >}}は、異なるアプリケーション間の分離と、それらの分離されたアプリケーションを同じホストコンピュータで実行するメカニズムの2つを提供します。
+{{< glossary_tooltip text="コンテナ" term_id="container" >}}は、異なるアプリケーション間の分離と、それらの分離されたアプリケーションを同じホストコンピューターで実行するメカニズムの2つを提供します。
 これらの2つの側面、分離と集約は、ランタイムセキュリティとのトレードオフがあり、適切なバランスを見つける必要があることを意味します。
 
 Kubernetesは実際にコンテナを設定して実行するために{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}に依存しています。
