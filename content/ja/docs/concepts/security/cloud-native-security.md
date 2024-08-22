@@ -51,7 +51,7 @@ Kubernetesはクラウドネイティブアーキテクチャに基づいてお�
 1. サプライチェーンを保証するために、デジタル証明書などの検証メカニズムを使用します。
 1. セキュリティリスクを通知するためのフィードや他のメカニズムにサブスクライブします。
 1. アーティファクトへのアクセスを制限します。
-   コンテナイメージを[プライベートレジストリ](/ja/docs/concepts/containers/images/#using-a-private-registry)に配置し、認証されたクライアントのみがイメージをプルできるようにします。
+   コンテナイメージを[プライベートレジストリ](/ja/docs/concepts/containers/images/#using-a-private-registry)に配置し、認証されたクライアントのみがイメージを取得できるようにします。
 
 ## _Deploy_ ライフサイクルフェーズ {#lifecycle-phase-deploy}
 
