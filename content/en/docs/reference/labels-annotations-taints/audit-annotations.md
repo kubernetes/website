@@ -76,15 +76,16 @@ for more information.
 
 Example: `apiserver.latency.k8s.io/total: "573.018706ms"`
 
-This value shows total latency incurred in components within the apiserver. Please note that the latency is recorded in
-annotation only when the total latency of the given request exceeds 500ms; This is in keeping with the
-traces in rest/handlers for create, delete, update, get, list, and delete collection.
+This annotation records total latency incurred in components within the API server.
+The API server only adds this audit annotation for requests where the total latency for handling
+and responding to that request exceeds a threshold; in Kubernetes {{< skew currentVersion >}}
+that threshold is 500ms (half a second).
 
 ## authorization.k8s.io/decision
 
 Example: `authorization.k8s.io/decision: "forbid"`
 
-Value must be **forbid** or **allow**. This annotation indicates whether or not a request was authorized in Kubernetes audit logs.
+This annotation indicates whether or not a request was authorized in Kubernetes audit logs.
 
 See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
 
