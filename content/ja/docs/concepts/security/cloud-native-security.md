@@ -63,7 +63,7 @@ ITインフラストラクチャは、より高いレイヤーが期待するセ
 
 ## _Runtime_ ライフサイクルフェーズ {#lifecycle-phase-runtime}
 
-ランタイムフェーズは、[コンピューティング](#protection-runtime-compute)、[アクセス](#protection-runtime-access)、および[ストレージ](#protection-runtime-storage)の3つの重要な領域から構成されます。
+Runtimeフェーズは、[コンピューティング](#protection-runtime-compute)、[アクセス](#protection-runtime-access)、および[ストレージ](#protection-runtime-storage)の3つの重要な領域から構成されます。
 
 ### Runtimeセキュリティ: アクセス {#protection-runtime-access}
 
