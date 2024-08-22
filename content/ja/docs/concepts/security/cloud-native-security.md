@@ -35,7 +35,7 @@ Kubernetesはクラウドネイティブアーキテクチャに基づいてお�
 1. セキュリティの懸念を考慮したコードレビュープロセスを定義する。
 1. システムまたはアプリケーションの _脅威モデル_ を作成し、信頼境界を特定する。
    そのモデルを使用してリスクを特定し、それらのリスクに対処する方法を見つけるのに役立てる。
-1. _ファジング_ や[セキュリティカオスエンジニアリング](https://glossary.cncf.io/security-chaos-engineering/)のような高度なセキュリティ自動化を組み込む。
+1. _ファジング_ や[セキュリティカオスエンジニアリング](https://glossary.cncf.io/ja/security-chaos-engineering/)のような高度なセキュリティ自動化を組み込む。
 
 ## _Distribute_ ライフサイクルフェーズ {#lifecycle-phase-distribute}
 
