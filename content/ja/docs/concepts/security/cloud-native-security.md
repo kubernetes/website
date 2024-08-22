@@ -65,7 +65,7 @@ ITインフラストラクチャは、より高いレイヤーが期待するセ
 
 ランタイムフェーズは、[コンピューティング](#protection-runtime-compute)、[アクセス](#protection-runtime-access)、および[ストレージ](#protection-runtime-storage)の3つの重要な領域から構成されます。
 
-### ランタイムセキュリティ: アクセス {#protection-runtime-access}
+### Runtimeセキュリティ: アクセス {#protection-runtime-access}
 
 Kubernetes APIはクラスターを機能させるためのものです。
 このAPIを保護することは、効果的なクラスターセキュリティを提供するための鍵となります。
