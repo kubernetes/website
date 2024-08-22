@@ -156,6 +156,6 @@ Kubernetes自体にもいくつかの基本的なオブザーバビリティ機�
 * [保存時のデータ暗号化](/docs/tasks/administer-cluster/encrypt-data/)
 * [KubernetesのSecret](/ja/docs/concepts/configuration/secret/)
 * [Kubernetes APIへのアクセスコントロール](/ja/docs/concepts/security/controlling-access)
-* [ネットワークポリシー](/ja/docs/concepts/services-networking/network-policies/) for Pods
+* Podの[ネットワークポリシー](/ja/docs/concepts/services-networking/network-policies/)
 * [Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)
 * [RuntimeClass](/ja/docs/concepts/containers/runtime-class)
