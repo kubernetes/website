@@ -21,7 +21,7 @@ Kubernetesはクラウドネイティブアーキテクチャに基づいてお�
 ローカライズする際に、そのうち1つをリンクすることができれば、さらに良いでしょう。
 {{< /comment >}}
 
-クラウドネイティブセキュリティに関するCNCF[ホワイトペーパー](https://github.com/cncf/tag-security/tree/main/security-whitepaper)では、さまざまな _ライフサイクルフェーズ_ に適したセキュリティコントロールとプラクティスが定義されています。
+クラウドネイティブセキュリティに関するCNCF[ホワイトペーパー](https://www.cncf.io/reports/cloud-native-security-whitepaper)では、さまざまな _ライフサイクルフェーズ_ に適したセキュリティコントロールとプラクティスが定義されています。
 
 ## _Develop_ ライフサイクルフェーズ {#lifecycle-phase-develop}
 
