@@ -29,7 +29,7 @@ Edit the latest last-applied-configuration annotations of resources from the def
   它将打开由 KUBE_EDITOR 或 EDITOR 环境变量定义的编辑器，或者在 Linux 上默认使用 "vi" 或在 Windows 上默认使用 "notepad"。
   你可以编辑多个对象，不过所做的更改只能是逐个被应用的。此命令接受文件名以及命令行参数，但你指向的文件必须是资源的先前保存的版本。
 - 默认格式为 YAML。若要以 JSON 格式编辑，请指定 `-o json`。
-- 标志 --windows-line-endings 可用于强制使用 Windows 风格的行尾，否则将使用操作系统的默认设置。
+- 标志 `--windows-line-endings` 可用于强制使用 Windows 风格的行尾，否则将使用操作系统的默认设置。
 - 如果在更新过程中发生错误，则会在磁盘上创建一个包含未被应用的变更的临时文件。
   更新资源时最常见的错误是另一个编辑者更改了服务器上的资源，发生这种情况时，你必须将更改应用于资源的较新版本，
   或更新临时保存的副本以包含最新的资源版本。
@@ -80,7 +80,7 @@ If true, ignore any errors in templates when a field or map key is missing in th
 </tr>
 
 <tr>
-<td colspan="2">--field-manager string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "kubectl-client-side-apply"</td>
+<td colspan="2">--field-manager string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "kubectl-client-side-apply"-->默认值："kubectl-client-side-apply"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -303,30 +303,6 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 130.211.0.0/22,35.191.0.0/16"-->默认值：130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L7 负载均衡流量代理和健康检查开放的 CIDR。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16-->默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L4 负载均衡流量代理和健康检查开放的 CIDR。
 </p></td>
 </tr>
 
