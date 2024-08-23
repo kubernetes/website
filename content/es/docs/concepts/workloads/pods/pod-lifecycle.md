@@ -255,7 +255,7 @@ El kubelet administra las siguientes condiciones del Pod:
   correctamente y se configuró la red.
 * `ContainersReady`: todos los contenedores en el Pod están listos.
 * `Initialized`: todos
-  los [contenedores de inicio](/docs/concepts/workloads/pods/init-containers/)
+  los [contenedores de inicio](/es/docs/concepts/workloads/pods/init-containers/)
   han terminado exitosamente.
 * `Ready`: el Pod es capaz de recibir peticiones y debería ser agregado a los
   grupos de equilibrio de carga de todos los Services que coincidan.
