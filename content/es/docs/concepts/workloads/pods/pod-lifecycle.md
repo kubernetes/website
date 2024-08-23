@@ -237,7 +237,7 @@ está limitado a
 cinco minutos. Una vez que un contenedor se ha ejecutado durante 10 minutos sin
 ningún problema, el
 kubelet restablece el temporizador de reinicio para ese contenedor.
-[Ciclo de vida de contenedores Sidecar y el Pod](#sidecar-containers-and-pod-lifecycle)
+[Ciclo de vida de contenedores Sidecar y el Pod](/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)
 explica el comportamiento de `init containers` cuando
 especifica una `restartPolicy`.
 
