@@ -379,7 +379,7 @@ después de la creación exitosa del sandbox y la configuración de la red por e
 Para un Pod sin contenedores de inicialización, el kubelet establece la condición `Initialized`
 en `True` antes de que comience la creación del sandbox y la configuración de la red.
 
-## Sondeos del contenedor
+## Sondeos del contenedor {#container-probes}
 
 Una _sonda_ es un diagnóstico realizado periódicamente por
 el [kubelet](/docs/reference/command-line-tools-reference/kubelet/) en un
