@@ -117,11 +117,13 @@ text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonp
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!-- 
-<p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p> 
+The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file. 
 -->
-<p>在和集群连接时使用该 kubeconfig 文件。
-如果此标志未被设置，那么将会在一些标准的位置去搜索存在的 kubeconfig 文件。</p>
+在和集群连接时使用该 kubeconfig 文件。
+如果此标志未被设置，那么将会在一些标准的位置去搜索存在的 kubeconfig 文件。
+</p>
 </td>
 </tr>
 
@@ -145,7 +147,7 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <!--
 ### Options inherited from parent commands
 -->
-### 继承于父命令的选项
+### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>

@@ -48,7 +48,7 @@ help for certs
 <!--
 ### Options inherited from parent commands
 -->
-### 继承于父命令的选项
+### 从父命令继承的选项
 
 <table style="width: 100%; table-layout: fixed;">
 <colgroup>
