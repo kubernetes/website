@@ -216,7 +216,7 @@ El valor por defecto es `Always`.
 
 La política de reinicio (`restartPolicy` en inglés) para un Pod aplica a
 {{< glossary_tooltip text="contenedores de apps" term_id="app-container" >}} en el Pod
-para [contenedores de inicialización](/docs/concepts/workloads/pods/init-containers/) regulares.
+para [contenedores de inicialización](/es/docs/concepts/workloads/pods/init-containers/) regulares.
 Los [contenedores sidecar](/docs/concepts/workloads/pods/sidecar-containers/)
 ignoran el campo `restartPolicy`: en Kubernetes, un sidecar se define como una
 entrada dentro de `initContainers` que tiene su `restartPolicy` a nivel del contenedor
