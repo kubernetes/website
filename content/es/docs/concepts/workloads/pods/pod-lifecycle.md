@@ -76,7 +76,7 @@ el objeto relacionado (un volumen, en este ejemplo) también se destruye y se cr
 
 {{< figure src="/images/docs/pod.svg" title="Figura 1." class="diagram-medium" caption="Un Pod de varios contenedores que contiene un extractor de archivos sidecar y un servidor web. El Pod utiliza un volumen efímero `emptyDir` para almacenamiento compartido entre los contenedores." >}}
 
-## Fase del Pod {##pod-phase }
+## Fase del Pod {#pod-phase}
 
 El campo `status` de un Pod es un objeto
 [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core) 
