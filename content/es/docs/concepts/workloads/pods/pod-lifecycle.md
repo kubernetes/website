@@ -13,7 +13,7 @@ y luego pasando a "exitoso" (`Succeeded`) o "fallido" (`Failed`) si uno de los c
 termina en error.
 
 Al igual que contenedores de aplicaciones, los Pods se consideran entidades relativamente efímeras.
-Los Pods se crean y se les asigna un identificador único ([UID](/docs/concepts/overview/working-with-objects/names/#uids)), y se programan para ejecutarse en nodos donde se mantienen hasta que se terminan (de acuerdo con las políticas de reinicio) o se eliminan.
+Los Pods se crean y se les asigna un identificador único ([UID](/es/docs/concepts/overview/working-with-objects/names/#uids)), y se programan para ejecutarse en nodos donde se mantienen hasta que se terminan (de acuerdo con las políticas de reinicio) o se eliminan.
 
 Si un {{< glossary_tooltip text="nodo" term_id="node" >}} muere,
 los Pods programados para ejecutarse en ese Nodo
