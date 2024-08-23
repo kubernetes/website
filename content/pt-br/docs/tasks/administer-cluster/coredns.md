@@ -1,7 +1,7 @@
 ---
 reviewers:
 - johnbelamaric
-title: Using CoreDNS for Service Discovery
+title: Usando o CoreDNS para Descoberta de Serviços
 min-kubernetes-server-version: v1.9
 content_type: task
 weight: 380
