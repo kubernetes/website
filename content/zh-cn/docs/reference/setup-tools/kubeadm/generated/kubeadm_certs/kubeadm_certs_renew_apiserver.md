@@ -55,10 +55,10 @@ kubeadm certs renew apiserver [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The path where to save the certificates.
 -->
-<p>
 保存证书的路径。
 </p>
 </td>
@@ -69,10 +69,10 @@ The path where to save the certificates.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a kubeadm configuration file.
 -->
-<p>
 kubeadm 配置文件的路径。
 </p>
 </td>
@@ -83,10 +83,10 @@ kubeadm 配置文件的路径。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for apiserver
 -->
-<p>
 apiserver 子操作的帮助命令。
 </p>
 </td>
@@ -103,10 +103,10 @@ apiserver 子操作的帮助命令。
 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-<p>
 与集群通信时使用的 kubeconfig 文件。
 如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。
 </p>
@@ -133,10 +133,10 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>
 [实验] 到 '真实' 主机根文件系统的路径。
 </p>
 </td>
