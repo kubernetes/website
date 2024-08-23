@@ -129,7 +129,7 @@ en `Failed`.
 Así como la fase del Pod en general, Kubernetes rastrea el estado de cada
 contenedor dentro de un Pod.
 Puedes
-usar [hooks del ciclo de vida de un contenedor](/docs/concepts/containers/container-lifecycle-hooks/)
+usar [hooks del ciclo de vida de un contenedor](/es/docs/concepts/containers/container-lifecycle-hooks/)
 para lanzar eventos en ciertos puntos en el ciclo de vida de un
 contenedor.
 
