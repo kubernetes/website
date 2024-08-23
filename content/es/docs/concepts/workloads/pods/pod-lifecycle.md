@@ -310,7 +310,7 @@ status:
 ```
 
 Las condiciones del Pod que incluyas deben tener nombres que sean válidos para
-los [formatos de etiqueta](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)
+los [formatos de etiqueta](/es/docs/concepts/overview/working-with-objects/labels/#sintaxis-y-conjunto-de-caracteres)
 de Kubernetes.
 
 ### Estado de preparación del Pod {#pod-readiness-status}
