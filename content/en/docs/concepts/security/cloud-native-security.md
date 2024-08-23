@@ -24,7 +24,7 @@ There are localized versions available of this whitepaper; if you can link to on
 when localizing, that's even better.
 {{< /comment >}}
 
-The CNCF [white paper](https://github.com/cncf/tag-security/tree/main/security-whitepaper)
+The CNCF [white paper](https://github.com/cncf/tag-security/tree/main/community/resources/security-whitepaper)
 on cloud native security defines security controls and practices that are
 appropriate to different _lifecycle phases_.
 
