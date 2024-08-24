@@ -65,7 +65,7 @@ ITインフラストラクチャは、より高いレイヤーが期待するセ
 
 Runtimeフェーズは、[コンピューティング](#protection-runtime-compute)、[アクセス](#protection-runtime-access)、および[ストレージ](#protection-runtime-storage)の3つの重要な領域から構成されます。
 
-### Runtimeセキュリティ: アクセス {#protection-runtime-access}
+### Runtime保護: アクセス {#protection-runtime-access}
 
 Kubernetes APIはクラスターを機能させるためのものです。
 このAPIを保護することは、効果的なクラスターセキュリティを提供するための鍵となります。
@@ -80,7 +80,7 @@ KubernetesはTLSを使用してAPIトラフィックを保護します。
 (ノードとコントロールプレーン間のトラフィックを含めて)TLSを使用してクラスターをデプロイし、暗号化キーを保護してください。
 [CertificateSigningRequests](/docs/reference/access-authn-authz/certificate-signing-requests/#certificate-signing-requests)にKubernetes独自のAPIを使用する場合は、その悪用を制限するために特に注意を払ってください。
 
-### Runtime: コンピューティング {#protection-runtime-compute}
+### Runtime保護: コンピューティング {#protection-runtime-compute}
 
 {{< glossary_tooltip text="コンテナ" term_id="container" >}}は、異なるアプリケーション間の分離と、それらの分離されたアプリケーションを同じホストコンピューターで実行するメカニズムの2つを提供します。
 これらの2つの側面、分離と集約は、ランタイムセキュリティとのトレードオフがあり、適切なバランスを見つける必要があることを意味します。
@@ -101,7 +101,7 @@ Kubernetesプロジェクトは特定のコンテナランタイムを推奨し�
 1. セキュリティ制約を提供する{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}を使用します。
 1. Linuxノードでは、[AppArmor](/docs/tutorials/security/apparmor/)や[seccomp](/docs/tutorials/security/seccomp/)などのLinuxセキュリティモジュールを使用します。
 
-### ランタイムセキュリティ: ストレージ {#protection-runtime-storage}
+### Runtime保護: ストレージ {#protection-runtime-storage}
 
 クラスターのストレージとそこで実行されるアプリケーションの保護のために、次のことができます:
 
