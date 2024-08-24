@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Node is a worker node in Kubernetes."
 title: "Node"
-weight: 1
+weight: 8
 auto_generated: true
 ---
 
@@ -104,6 +104,8 @@ NodeSpec describes the attributes that a node is created with.
 
 - **podCIDRs** ([]string)
 
+  *Set: unique values will be kept during a merge*
+  
   podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6.
 
 - **providerID** (string)
@@ -112,6 +114,8 @@ NodeSpec describes the attributes that a node is created with.
 
 - **taints** ([]Taint)
 
+  *Atomic: will be replaced during a merge*
+  
   If specified, the node's taints.
 
   <a name="Taint"></a>
@@ -154,6 +158,8 @@ NodeStatus is information about the current status of a node.
 
   *Patch strategy: merge on key `type`*
   
+  *Map: unique values on key type will be kept during a merge*
+  
   List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
 
   <a name="NodeAddress"></a>
@@ -173,11 +179,13 @@ NodeStatus is information about the current status of a node.
 
 - **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-  Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+  Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
 
 - **conditions** ([]NodeCondition)
 
   *Patch strategy: merge on key `type`*
+  
+  *Map: unique values on key type will be kept during a merge*
   
   Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
 
@@ -345,8 +353,21 @@ NodeStatus is information about the current status of a node.
 
       Port number of the given endpoint.
 
+- **features** (NodeFeatures)
+
+  Features describes the set of features implemented by the CRI implementation.
+
+  <a name="NodeFeatures"></a>
+  *NodeFeatures describes the set of features implemented by the CRI implementation. The features contained in the NodeFeatures should depend only on the cri implementation independent of runtime handlers.*
+
+  - **features.supplementalGroupsPolicy** (boolean)
+
+    SupplementalGroupsPolicy is set to true if the runtime supports SupplementalGroupsPolicy and ContainerUser.
+
 - **images** ([]ContainerImage)
 
+  *Atomic: will be replaced during a merge*
+  
   List of container images on this node
 
   <a name="ContainerImage"></a>
@@ -354,6 +375,8 @@ NodeStatus is information about the current status of a node.
 
   - **images.names** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     Names by which this image is known. e.g. ["kubernetes.example/hyperkube:v1.0.7", "cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7"]
 
   - **images.sizeBytes** (int64)
@@ -385,7 +408,7 @@ NodeStatus is information about the current status of a node.
 
   - **nodeInfo.kubeProxyVersion** (string), required
 
-    KubeProxy Version reported by the node.
+    Deprecated: KubeProxy Version reported by the node.
 
   - **nodeInfo.kubeletVersion** (string), required
 
@@ -411,8 +434,38 @@ NodeStatus is information about the current status of a node.
 
   NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
 
+- **runtimeHandlers** ([]NodeRuntimeHandler)
+
+  *Atomic: will be replaced during a merge*
+  
+  The available runtime handlers.
+
+  <a name="NodeRuntimeHandler"></a>
+  *NodeRuntimeHandler is a set of runtime handler information.*
+
+  - **runtimeHandlers.features** (NodeRuntimeHandlerFeatures)
+
+    Supported features.
+
+    <a name="NodeRuntimeHandlerFeatures"></a>
+    *NodeRuntimeHandlerFeatures is a set of features implemented by the runtime handler.*
+
+    - **runtimeHandlers.features.recursiveReadOnlyMounts** (boolean)
+
+      RecursiveReadOnlyMounts is set to true if the runtime handler supports RecursiveReadOnlyMounts.
+
+    - **runtimeHandlers.features.userNamespaces** (boolean)
+
+      UserNamespaces is set to true if the runtime handler supports UserNamespaces, including for volumes.
+
+  - **runtimeHandlers.name** (string)
+
+    Runtime handler name. Empty for the default runtime handler.
+
 - **volumesAttached** ([]AttachedVolume)
 
+  *Atomic: will be replaced during a merge*
+  
   List of volumes that are attached to the node.
 
   <a name="AttachedVolume"></a>
@@ -428,6 +481,8 @@ NodeStatus is information about the current status of a node.
 
 - **volumesInUse** ([]string)
 
+  *Atomic: will be replaced during a merge*
+  
   List of attachable volumes in use (mounted) by the node.
 
 
@@ -483,9 +538,9 @@ GET /api/v1/nodes/{name}
   name of the Node
 
 
-- **pretty** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  
 
 
 
@@ -511,9 +566,9 @@ GET /api/v1/nodes/{name}/status
   name of the Node
 
 
-- **pretty** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  
 
 
 
@@ -534,59 +589,59 @@ GET /api/v1/nodes
 #### Parameters
 
 
-- **allowWatchBookmarks** (*in query*): boolean
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
-
-
-- **continue** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+  
 
 
-- **fieldSelector** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
-
-
-- **labelSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+  
 
 
-- **limit** (*in query*): integer
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  
 
 
-- **resourceVersion** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
-
-
-- **resourceVersionMatch** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+  
 
 
-- **sendInitialEvents** (*in query*): boolean
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
-
-
-- **timeoutSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+  
 
 
-- **watch** (*in query*): boolean
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
 
 
 
@@ -607,6 +662,16 @@ POST /api/v1/nodes
 #### Parameters
 
 
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
 - **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>, required
 
   
@@ -617,19 +682,9 @@ POST /api/v1/nodes
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -659,6 +714,16 @@ PUT /api/v1/nodes/{name}
   name of the Node
 
 
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
 - **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>, required
 
   
@@ -669,19 +734,9 @@ PUT /api/v1/nodes/{name}
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -709,6 +764,16 @@ PUT /api/v1/nodes/{name}/status
   name of the Node
 
 
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
 - **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>, required
 
   
@@ -719,19 +784,9 @@ PUT /api/v1/nodes/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -759,7 +814,22 @@ PATCH /api/v1/nodes/{name}
   name of the Node
 
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
 
   
 
@@ -769,24 +839,9 @@ PATCH /api/v1/nodes/{name}
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -814,7 +869,22 @@ PATCH /api/v1/nodes/{name}/status
   name of the Node
 
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
 
   
 
@@ -824,24 +894,9 @@ PATCH /api/v1/nodes/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -869,7 +924,27 @@ DELETE /api/v1/nodes/{name}
   name of the Node
 
 
-- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
 
   
 
@@ -877,21 +952,6 @@ DELETE /api/v1/nodes/{name}
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **gracePeriodSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-- **propagationPolicy** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 
 
@@ -914,69 +974,74 @@ DELETE /api/v1/nodes
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+- ****: 
 
   
 
 
-- **continue** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
 
 
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
-
-
-- **gracePeriodSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
-
-
-- **labelSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
-
-
-- **limit** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-- **propagationPolicy** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
-
-
-- **resourceVersion** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
-
-
-- **resourceVersionMatch** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
-
-
-- **sendInitialEvents** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
-
-
-- **timeoutSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 
 
