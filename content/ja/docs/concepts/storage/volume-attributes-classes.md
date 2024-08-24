@@ -16,7 +16,7 @@ VolumeAttributesClassは、管理者がストレージの変更可能な「ク�
 異なるクラスは異なるサービス品質レベルに対応する場合があります。
 Kubernetes自体は、これらのクラスが何を表すかかについては見解を持っていません。
 
-これはalpha版の機能であり、デフォルトで無効化されています。
+これはアルファ機能であり、デフォルトで無効化されています。
 
 alpha版であるうちに機能をテストしたい場合は、kube-controller-managerおよびkube-apiserverで`VolumeAttributesClass`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効化する必要があります。
 コマンドライン引数の`--feature-gates`を使用します:
