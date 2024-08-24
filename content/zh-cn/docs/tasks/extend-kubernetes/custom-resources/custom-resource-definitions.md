@@ -2732,24 +2732,29 @@ may also be used with field selectors when included in the `spec.versions[*].sel
 {{< feature-state feature_gate_name="CustomResourceFieldSelectors" >}}
 
 <!--
-You need to enable the `CustomResourceFieldSelectors`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
-use this behavior, which then applies to all CustomResourceDefinitions in your
-cluster.
+For Kubernetes {{< skew currentVersion >}} the ability to define field selectors for
+custom resources is available by default (enabled by default since Kubernetes v1.31);
+you can disable it for your cluster  by turning off the `CustomResourceFieldSelectors`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
 The `spec.versions[*].selectableFields` field of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be used to
-declare which other fields in a custom resource may be used in field selectors.
+declare which other fields in a custom resource may be used in field selectors
+with the feature of `CustomResourceFieldSelectors`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) (This feature gate is enabled by default since Kubernetes v1.31).
 The following example adds the `.spec.color` and `.spec.size` fields as
 selectable fields.
 
 Save the CustomResourceDefinition to `shirt-resource-definition.yaml`:
 -->
-你需要启用 `CustomResourceFieldSelectors`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-才能使用此行为，然后该行为将应用于集群中的所有 CustomResourceDefinition。
+在 Kubernetes {{< skew currentVersion >}} 中，
+自定义资源的字段选择器功能默认启用（自 Kubernetes v1.31 起默认开启）。
+如果你想禁用此功能，可以通过关闭 `CustomResourceFieldSelectors`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 实现。
 
 CustomResourceDefinition 的 `spec.versions[*].selectableFields`
 字段可用于声明自定义资源中的哪些其他字段可在字段选择器中使用。
+这一功能依赖于 `CustomResourceFieldSelectors`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（自 Kubernetes v1.31 起默认启用）。
 以下示例将 `.spec.color` 和 `.spec.size` 字段添加为可选字段。
 
 将 CustomResourceDefinition 保存到 `shirt-resource-definition.yaml`：
