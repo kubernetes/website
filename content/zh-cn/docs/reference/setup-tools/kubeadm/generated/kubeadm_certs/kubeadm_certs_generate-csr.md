@@ -1,7 +1,7 @@
 <!--
 Generate keys and certificate signing requests
 -->
-生成密钥和证书签名请求
+生成密钥和证书签名请求。
 
 <!--
 ### Synopsis
@@ -18,7 +18,7 @@ Generates keys and certificate signing requests (CSRs) for all the certificates 
 <!--  
 This command is designed for use in [Kubeadm External CA Mode](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#external-ca-mode). It generates CSRs which you can then submit to your external certificate authority for signing.
 -->
-此命令设计用于 [Kubeadm 外部 CA 模式](https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#external-ca-mode)。
+此命令设计用于 [Kubeadm 外部 CA 模式](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#external-ca-mode)。
 它生成你可以提交给外部证书颁发机构进行签名的 CSR。
 
 <!--  
@@ -43,7 +43,7 @@ kubeadm certs generate-csr [flags]
   kubeadm certs generate-csr --kubeconfig-dir /tmp/etc-k8s --cert-dir /tmp/etc-k8s/pki
 ```
 -->
-```
+```shell
 # 以下命令将为所有控制平面证书和 kubeconfig 文件生成密钥和 CSR：
 kubeadm certs generate-csr --kubeconfig-dir /tmp/etc-k8s --cert-dir /tmp/etc-k8s/pki
 ```
@@ -126,7 +126,7 @@ The path where to save the kubeconfig file.
 <!--
 ### Options inherited from parent commands
 -->
-### 继承于父命令的选项
+### 从父命令继承的选项
 
 <table style="width: 100%; table-layout: fixed;">
 <colgroup>
