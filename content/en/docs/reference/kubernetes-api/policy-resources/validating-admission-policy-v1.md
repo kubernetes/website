@@ -1,12 +1,12 @@
 ---
 api_metadata:
-  apiVersion: "admissionregistration.k8s.io/v1beta1"
-  import: "k8s.io/api/admissionregistration/v1beta1"
+  apiVersion: "admissionregistration.k8s.io/v1"
+  import: "k8s.io/api/admissionregistration/v1"
   kind: "ValidatingAdmissionPolicy"
 content_type: "api_reference"
 description: "ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it."
-title: "ValidatingAdmissionPolicy v1beta1"
-weight: 4
+title: "ValidatingAdmissionPolicy"
+weight: 7
 auto_generated: true
 ---
 
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: admissionregistration.k8s.io/v1beta1`
+`apiVersion: admissionregistration.k8s.io/v1`
 
-`import "k8s.io/api/admissionregistration/v1beta1"`
+`import "k8s.io/api/admissionregistration/v1"`
 
 
 ## ValidatingAdmissionPolicy {#ValidatingAdmissionPolicy}
@@ -32,7 +32,7 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
 
 <hr>
 
-- **apiVersion**: admissionregistration.k8s.io/v1beta1
+- **apiVersion**: admissionregistration.k8s.io/v1
 
 
 - **kind**: ValidatingAdmissionPolicy
@@ -106,7 +106,7 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
          - If failurePolicy=Ignore, the policy is skipped
 
     <a name="MatchCondition"></a>
-    *MatchCondition represents a condition which must be fulfilled for a request to be sent to a webhook.*
+    *MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.*
 
     - **spec.matchConditions.expression** (string), required
 
@@ -446,13 +446,13 @@ ValidatingAdmissionPolicyList is a list of ValidatingAdmissionPolicy.
 
 <hr>
 
+- **items** ([]<a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>), required
+
+  List of ValidatingAdmissionPolicy.
+
 - **apiVersion** (string)
 
   APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-
-- **items** ([]<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>)
-
-  List of ValidatingAdmissionPolicy.
 
 - **kind** (string)
 
@@ -736,7 +736,7 @@ The CEL expressions of a policy must have a computed CEL cost below the maximum 
 
 #### HTTP Request
 
-GET /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name}
+GET /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}
 
 #### Parameters
 
@@ -746,16 +746,16 @@ GET /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name
   name of the ValidatingAdmissionPolicy
 
 
-- **pretty** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
 
 401: Unauthorized
 
@@ -764,7 +764,7 @@ GET /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name
 
 #### HTTP Request
 
-GET /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name}/status
+GET /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}/status
 
 #### Parameters
 
@@ -774,16 +774,16 @@ GET /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name
   name of the ValidatingAdmissionPolicy
 
 
-- **pretty** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
 
 401: Unauthorized
 
@@ -792,71 +792,71 @@ GET /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name
 
 #### HTTP Request
 
-GET /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies
+GET /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies
 
 #### Parameters
 
 
-- **allowWatchBookmarks** (*in query*): boolean
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
-
-
-- **continue** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+  
 
 
-- **fieldSelector** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
-
-
-- **labelSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+  
 
 
-- **limit** (*in query*): integer
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  
 
 
-- **resourceVersion** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
-
-
-- **resourceVersionMatch** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+  
 
 
-- **sendInitialEvents** (*in query*): boolean
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
-
-
-- **timeoutSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+  
 
 
-- **watch** (*in query*): boolean
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicyList" >}}">ValidatingAdmissionPolicyList</a>): OK
+200 (<a href="{{< ref "../policy-resources/validating-admission-policy-v1#ValidatingAdmissionPolicyList" >}}">ValidatingAdmissionPolicyList</a>): OK
 
 401: Unauthorized
 
@@ -865,12 +865,22 @@ GET /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies
 
 #### HTTP Request
 
-POST /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies
+POST /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- **body**: <a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>, required
 
   
 
@@ -880,30 +890,20 @@ POST /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
+201 (<a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
 
-202 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Accepted
+202 (<a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Accepted
 
 401: Unauthorized
 
@@ -912,7 +912,7 @@ POST /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies
 
 #### HTTP Request
 
-PUT /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name}
+PUT /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}
 
 #### Parameters
 
@@ -922,7 +922,17 @@ PUT /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name
   name of the ValidatingAdmissionPolicy
 
 
-- **body**: <a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- **body**: <a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>, required
 
   
 
@@ -932,28 +942,18 @@ PUT /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
+201 (<a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
 
 401: Unauthorized
 
@@ -962,7 +962,7 @@ PUT /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name
 
 #### HTTP Request
 
-PUT /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name}/status
+PUT /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}/status
 
 #### Parameters
 
@@ -972,7 +972,17 @@ PUT /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name
   name of the ValidatingAdmissionPolicy
 
 
-- **body**: <a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- **body**: <a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>, required
 
   
 
@@ -982,28 +992,18 @@ PUT /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
+201 (<a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
 
 401: Unauthorized
 
@@ -1012,7 +1012,7 @@ PUT /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name
 
 #### HTTP Request
 
-PATCH /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name}
+PATCH /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}
 
 #### Parameters
 
@@ -1022,7 +1022,22 @@ PATCH /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{na
   name of the ValidatingAdmissionPolicy
 
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
 
   
 
@@ -1032,33 +1047,18 @@ PATCH /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{na
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
+201 (<a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
 
 401: Unauthorized
 
@@ -1067,7 +1067,7 @@ PATCH /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{na
 
 #### HTTP Request
 
-PATCH /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name}/status
+PATCH /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}/status
 
 #### Parameters
 
@@ -1077,7 +1077,22 @@ PATCH /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{na
   name of the ValidatingAdmissionPolicy
 
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
 
   
 
@@ -1087,33 +1102,18 @@ PATCH /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{na
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
+201 (<a href="{{< ref "../policy-resources/validating-admission-policy-binding-v1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
 
 401: Unauthorized
 
@@ -1122,7 +1122,7 @@ PATCH /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{na
 
 #### HTTP Request
 
-DELETE /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name}
+DELETE /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies/{name}
 
 #### Parameters
 
@@ -1132,7 +1132,27 @@ DELETE /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{n
   name of the ValidatingAdmissionPolicy
 
 
-- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
 
   
 
@@ -1140,21 +1160,6 @@ DELETE /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{n
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **gracePeriodSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-- **propagationPolicy** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 
 
@@ -1172,74 +1177,79 @@ DELETE /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{n
 
 #### HTTP Request
 
-DELETE /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies
+DELETE /apis/admissionregistration.k8s.io/v1/validatingadmissionpolicies
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+- ****: 
 
   
 
 
-- **continue** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
 
 
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
-
-
-- **gracePeriodSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
-
-
-- **labelSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
-
-
-- **limit** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-- **propagationPolicy** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
-
-
-- **resourceVersion** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
-
-
-- **resourceVersionMatch** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
-
-
-- **sendInitialEvents** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
-
-
-- **timeoutSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 
 

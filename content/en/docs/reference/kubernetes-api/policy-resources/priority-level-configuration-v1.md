@@ -1,12 +1,12 @@
 ---
 api_metadata:
-  apiVersion: "flowcontrol.apiserver.k8s.io/v1beta3"
-  import: "k8s.io/api/flowcontrol/v1beta3"
+  apiVersion: "flowcontrol.apiserver.k8s.io/v1"
+  import: "k8s.io/api/flowcontrol/v1"
   kind: "PriorityLevelConfiguration"
 content_type: "api_reference"
 description: "PriorityLevelConfiguration represents the configuration of a priority level."
-title: "PriorityLevelConfiguration v1beta3"
-weight: 8
+title: "PriorityLevelConfiguration"
+weight: 6
 auto_generated: true
 ---
 
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: flowcontrol.apiserver.k8s.io/v1beta3`
+`apiVersion: flowcontrol.apiserver.k8s.io/v1`
 
-`import "k8s.io/api/flowcontrol/v1beta3"`
+`import "k8s.io/api/flowcontrol/v1"`
 
 
 ## PriorityLevelConfiguration {#PriorityLevelConfiguration}
@@ -32,7 +32,7 @@ PriorityLevelConfiguration represents the configuration of a priority level.
 
 <hr>
 
-- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta3
+- **apiVersion**: flowcontrol.apiserver.k8s.io/v1
 
 
 - **kind**: PriorityLevelConfiguration
@@ -42,11 +42,11 @@ PriorityLevelConfiguration represents the configuration of a priority level.
 
   `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfigurationSpec" >}}">PriorityLevelConfigurationSpec</a>)
+- **spec** (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfigurationSpec" >}}">PriorityLevelConfigurationSpec</a>)
 
   `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
-- **status** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfigurationStatus" >}}">PriorityLevelConfigurationStatus</a>)
+- **status** (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfigurationStatus" >}}">PriorityLevelConfigurationStatus</a>)
 
   `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
@@ -59,10 +59,6 @@ PriorityLevelConfiguration represents the configuration of a priority level.
 PriorityLevelConfigurationSpec specifies the configuration of a priority level.
 
 <hr>
-
-- **type** (string), required
-
-  `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
 
 - **exempt** (ExemptPriorityLevelConfiguration)
 
@@ -144,7 +140,15 @@ PriorityLevelConfigurationSpec specifies the configuration of a priority level.
     
     NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
     
-    Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of 30.
+    Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level.
+    
+    If not specified, this field defaults to a value of 30.
+    
+    Setting this field to zero supports the construction of a "jail" for this priority level that is used to hold some request(s)
+
+- **type** (string), required
+
+  `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
 
 
 
@@ -200,7 +204,7 @@ PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
 
 <hr>
 
-- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta3
+- **apiVersion**: flowcontrol.apiserver.k8s.io/v1
 
 
 - **kind**: PriorityLevelConfigurationList
@@ -210,7 +214,7 @@ PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
 
   `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>), required
+- **items** ([]<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>), required
 
   `items` is a list of request-priorities.
 
@@ -233,7 +237,7 @@ PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
 
 #### HTTP Request
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}
+GET /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations/{name}
 
 #### Parameters
 
@@ -243,16 +247,16 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
   name of the PriorityLevelConfiguration
 
 
-- **pretty** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
 401: Unauthorized
 
@@ -261,7 +265,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
 
 #### HTTP Request
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}/status
+GET /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations/{name}/status
 
 #### Parameters
 
@@ -271,16 +275,16 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
   name of the PriorityLevelConfiguration
 
 
-- **pretty** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
 401: Unauthorized
 
@@ -289,71 +293,71 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
 
 #### HTTP Request
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
+GET /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations
 
 #### Parameters
 
 
-- **allowWatchBookmarks** (*in query*): boolean
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
-
-
-- **continue** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+  
 
 
-- **fieldSelector** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
-
-
-- **labelSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+  
 
 
-- **limit** (*in query*): integer
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  
 
 
-- **resourceVersion** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
-
-
-- **resourceVersionMatch** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+  
 
 
-- **sendInitialEvents** (*in query*): boolean
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
-
-
-- **timeoutSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+  
 
 
-- **watch** (*in query*): boolean
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfigurationList" >}}">PriorityLevelConfigurationList</a>): OK
+200 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfigurationList" >}}">PriorityLevelConfigurationList</a>): OK
 
 401: Unauthorized
 
@@ -362,12 +366,22 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
 
 #### HTTP Request
 
-POST /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
+POST /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- **body**: <a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
 
   
 
@@ -377,30 +391,20 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
-202 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Accepted
+202 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Accepted
 
 401: Unauthorized
 
@@ -409,7 +413,7 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
 
 #### HTTP Request
 
-PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}
+PUT /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations/{name}
 
 #### Parameters
 
@@ -419,7 +423,17 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
   name of the PriorityLevelConfiguration
 
 
-- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- **body**: <a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
 
   
 
@@ -429,28 +443,18 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
 401: Unauthorized
 
@@ -459,7 +463,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
 
 #### HTTP Request
 
-PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}/status
+PUT /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations/{name}/status
 
 #### Parameters
 
@@ -469,7 +473,17 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
   name of the PriorityLevelConfiguration
 
 
-- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- **body**: <a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
 
   
 
@@ -479,28 +493,18 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
 401: Unauthorized
 
@@ -509,7 +513,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
 
 #### HTTP Request
 
-PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}
+PATCH /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations/{name}
 
 #### Parameters
 
@@ -519,7 +523,22 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{na
   name of the PriorityLevelConfiguration
 
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
 
   
 
@@ -529,33 +548,18 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{na
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
 401: Unauthorized
 
@@ -564,7 +568,7 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{na
 
 #### HTTP Request
 
-PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}/status
+PATCH /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations/{name}/status
 
 #### Parameters
 
@@ -574,7 +578,22 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{na
   name of the PriorityLevelConfiguration
 
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
 
   
 
@@ -584,33 +603,18 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{na
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
 401: Unauthorized
 
@@ -619,7 +623,7 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{na
 
 #### HTTP Request
 
-DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}
+DELETE /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations/{name}
 
 #### Parameters
 
@@ -629,7 +633,27 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{n
   name of the PriorityLevelConfiguration
 
 
-- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
 
   
 
@@ -637,21 +661,6 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{n
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **gracePeriodSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-- **propagationPolicy** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 
 
@@ -669,74 +678,79 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{n
 
 #### HTTP Request
 
-DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
+DELETE /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+- ****: 
 
   
 
 
-- **continue** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
 
 
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
-
-
-- **gracePeriodSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
-
-
-- **labelSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
-
-
-- **limit** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-- **propagationPolicy** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
-
-
-- **resourceVersion** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
-
-
-- **resourceVersionMatch** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
-
-
-- **sendInitialEvents** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
-
-
-- **timeoutSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 
 

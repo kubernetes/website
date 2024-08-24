@@ -81,6 +81,8 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
 
   - **names.categories** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
 
   - **names.listKind** (string)
@@ -89,6 +91,8 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
 
   - **names.shortNames** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get \<shortname>`. It must be all lowercase.
 
   - **names.singular** (string)
@@ -101,6 +105,8 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
 
 - **versions** ([]CustomResourceDefinitionVersion), required
 
+  *Atomic: will be replaced during a merge*
+  
   versions is the list of all API versions of the defined custom resource. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
 
   <a name="CustomResourceDefinitionVersion"></a>
@@ -120,6 +126,8 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
 
   - **versions.additionalPrinterColumns** ([]CustomResourceColumnDefinition)
 
+    *Atomic: will be replaced during a merge*
+    
     additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
 
     <a name="CustomResourceColumnDefinition"></a>
@@ -167,6 +175,19 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
     - **versions.schema.openAPIV3Schema** (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
 
       openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
+
+  - **versions.selectableFields** ([]SelectableField)
+
+    *Atomic: will be replaced during a merge*
+    
+    selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+
+    <a name="SelectableField"></a>
+    *SelectableField specifies the JSON path of a field that may be used with field selectors.*
+
+    - **versions.selectableFields.jsonPath** (string), required
+
+      jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
 
   - **versions.subresources** (CustomResourceSubresources)
 
@@ -222,6 +243,8 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
 
     - **conversion.webhook.conversionReviewVersions** ([]string), required
 
+      *Atomic: will be replaced during a merge*
+      
       conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.
 
     - **conversion.webhook.clientConfig** (WebhookClientConfig)
@@ -308,9 +331,15 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 
 - **allOf** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
 
+  *Atomic: will be replaced during a merge*
+  
+  
 
 - **anyOf** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
 
+  *Atomic: will be replaced during a merge*
+  
+  
 
 - **default** (JSON)
 
@@ -333,6 +362,9 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 
 - **enum** ([]JSON)
 
+  *Atomic: will be replaced during a merge*
+  
+  
 
   <a name="JSON"></a>
   *JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil.*
@@ -411,6 +443,9 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 
 - **oneOf** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
 
+  *Atomic: will be replaced during a merge*
+  
+  
 
 - **pattern** (string)
 
@@ -423,6 +458,9 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 
 - **required** ([]string)
 
+  *Atomic: will be replaced during a merge*
+  
+  
 
 - **title** (string)
 
@@ -452,6 +490,8 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 
 - **x-kubernetes-list-map-keys** ([]string)
 
+  *Atomic: will be replaced during a merge*
+  
   x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
   
   This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
@@ -496,7 +536,7 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
   
   *Map: unique values on key rule will be kept during a merge*
   
-  x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+  x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
 
   <a name="ValidationRule"></a>
   *ValidationRule describes a validation rule written in the CEL expression language.*
@@ -528,6 +568,14 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
       - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
         are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
         non-intersecting keys are appended, retaining their partial order.
+    
+    If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
+    
+    By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
+     variable whose value() is the same type as `self`.
+    See the documentation for the `optionalOldSelf` field for details.
+    
+    Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
 
   - **x-kubernetes-validations.fieldPath** (string)
 
@@ -540,6 +588,16 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
   - **x-kubernetes-validations.messageExpression** (string)
 
     MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
+
+  - **x-kubernetes-validations.optionalOldSelf** (boolean)
+
+    optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
+    
+    When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
+    
+    You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+    
+    May not be set unless `oldSelf` is used in `rule`.
 
   - **x-kubernetes-validations.reason** (string)
 
@@ -572,6 +630,8 @@ CustomResourceDefinitionStatus indicates the state of the CustomResourceDefiniti
 
   - **acceptedNames.categories** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
 
   - **acceptedNames.listKind** (string)
@@ -580,6 +640,8 @@ CustomResourceDefinitionStatus indicates the state of the CustomResourceDefiniti
 
   - **acceptedNames.shortNames** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get \<shortname>`. It must be all lowercase.
 
   - **acceptedNames.singular** (string)
@@ -620,6 +682,8 @@ CustomResourceDefinitionStatus indicates the state of the CustomResourceDefiniti
 
 - **storedVersions** ([]string)
 
+  *Atomic: will be replaced during a merge*
+  
   storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
 
 
@@ -677,9 +741,9 @@ GET /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
   name of the CustomResourceDefinition
 
 
-- **pretty** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  
 
 
 
@@ -705,9 +769,9 @@ GET /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}/status
   name of the CustomResourceDefinition
 
 
-- **pretty** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  
 
 
 
@@ -728,59 +792,59 @@ GET /apis/apiextensions.k8s.io/v1/customresourcedefinitions
 #### Parameters
 
 
-- **allowWatchBookmarks** (*in query*): boolean
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
-
-
-- **continue** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+  
 
 
-- **fieldSelector** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
-
-
-- **labelSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+  
 
 
-- **limit** (*in query*): integer
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  
 
 
-- **resourceVersion** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
-
-
-- **resourceVersionMatch** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+  
 
 
-- **sendInitialEvents** (*in query*): boolean
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
-
-
-- **timeoutSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+  
 
 
-- **watch** (*in query*): boolean
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
 
 
 
@@ -801,6 +865,16 @@ POST /apis/apiextensions.k8s.io/v1/customresourcedefinitions
 #### Parameters
 
 
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
 - **body**: <a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>, required
 
   
@@ -811,19 +885,9 @@ POST /apis/apiextensions.k8s.io/v1/customresourcedefinitions
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -853,6 +917,16 @@ PUT /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
   name of the CustomResourceDefinition
 
 
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
 - **body**: <a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>, required
 
   
@@ -863,19 +937,9 @@ PUT /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -903,6 +967,16 @@ PUT /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}/status
   name of the CustomResourceDefinition
 
 
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
 - **body**: <a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>, required
 
   
@@ -913,19 +987,9 @@ PUT /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -953,7 +1017,22 @@ PATCH /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
   name of the CustomResourceDefinition
 
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
 
   
 
@@ -963,24 +1042,9 @@ PATCH /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -1008,7 +1072,22 @@ PATCH /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}/status
   name of the CustomResourceDefinition
 
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
 
   
 
@@ -1018,24 +1097,9 @@ PATCH /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -1063,7 +1127,27 @@ DELETE /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
   name of the CustomResourceDefinition
 
 
-- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
 
   
 
@@ -1071,21 +1155,6 @@ DELETE /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **gracePeriodSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-- **propagationPolicy** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 
 
@@ -1108,69 +1177,74 @@ DELETE /apis/apiextensions.k8s.io/v1/customresourcedefinitions
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+- ****: 
 
   
 
 
-- **continue** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
 
 
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
-
-
-- **gracePeriodSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
-
-
-- **labelSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
-
-
-- **limit** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-- **propagationPolicy** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
-
-
-- **resourceVersion** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
-
-
-- **resourceVersionMatch** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
-
-
-- **sendInitialEvents** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
-
-
-- **timeoutSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 
 

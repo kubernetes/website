@@ -1,12 +1,12 @@
 ---
 api_metadata:
-  apiVersion: "flowcontrol.apiserver.k8s.io/v1beta3"
-  import: "k8s.io/api/flowcontrol/v1beta3"
+  apiVersion: "flowcontrol.apiserver.k8s.io/v1"
+  import: "k8s.io/api/flowcontrol/v1"
   kind: "FlowSchema"
 content_type: "api_reference"
 description: "FlowSchema defines the schema of a group of flows."
-title: "FlowSchema v1beta3"
-weight: 7
+title: "FlowSchema"
+weight: 1
 auto_generated: true
 ---
 
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: flowcontrol.apiserver.k8s.io/v1beta3`
+`apiVersion: flowcontrol.apiserver.k8s.io/v1`
 
-`import "k8s.io/api/flowcontrol/v1beta3"`
+`import "k8s.io/api/flowcontrol/v1"`
 
 
 ## FlowSchema {#FlowSchema}
@@ -32,7 +32,7 @@ FlowSchema defines the schema of a group of flows. Note that a flow is made up o
 
 <hr>
 
-- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta3
+- **apiVersion**: flowcontrol.apiserver.k8s.io/v1
 
 
 - **kind**: FlowSchema
@@ -42,11 +42,11 @@ FlowSchema defines the schema of a group of flows. Note that a flow is made up o
 
   `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchemaSpec" >}}">FlowSchemaSpec</a>)
+- **spec** (<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchemaSpec" >}}">FlowSchemaSpec</a>)
 
   `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
-- **status** (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchemaStatus" >}}">FlowSchemaStatus</a>)
+- **status** (<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchemaStatus" >}}">FlowSchemaStatus</a>)
 
   `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
@@ -59,17 +59,6 @@ FlowSchema defines the schema of a group of flows. Note that a flow is made up o
 FlowSchemaSpec describes how the FlowSchema's specification looks like.
 
 <hr>
-
-- **priorityLevelConfiguration** (PriorityLevelConfigurationReference), required
-
-  `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
-
-  <a name="PriorityLevelConfigurationReference"></a>
-  *PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.*
-
-  - **priorityLevelConfiguration.name** (string), required
-
-    `name` is the name of the priority level configuration being referenced Required.
 
 - **distinguisherMethod** (FlowDistinguisherMethod)
 
@@ -85,6 +74,17 @@ FlowSchemaSpec describes how the FlowSchema's specification looks like.
 - **matchingPrecedence** (int32)
 
   `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
+
+- **priorityLevelConfiguration** (PriorityLevelConfigurationReference), required
+
+  `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
+
+  <a name="PriorityLevelConfigurationReference"></a>
+  *PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.*
+
+  - **priorityLevelConfiguration.name** (string), required
+
+    `name` is the name of the priority level configuration being referenced Required.
 
 - **rules** ([]PolicyRulesWithSubjects)
 
@@ -263,7 +263,7 @@ FlowSchemaList is a list of FlowSchema objects.
 
 <hr>
 
-- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta3
+- **apiVersion**: flowcontrol.apiserver.k8s.io/v1
 
 
 - **kind**: FlowSchemaList
@@ -273,7 +273,7 @@ FlowSchemaList is a list of FlowSchema objects.
 
   `metadata` is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>), required
+- **items** ([]<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>), required
 
   `items` is a list of FlowSchemas.
 
@@ -296,7 +296,7 @@ FlowSchemaList is a list of FlowSchema objects.
 
 #### HTTP Request
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
+GET /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}
 
 #### Parameters
 
@@ -306,16 +306,16 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
   name of the FlowSchema
 
 
-- **pretty** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>): OK
 
 401: Unauthorized
 
@@ -324,7 +324,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
 
 #### HTTP Request
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
+GET /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}/status
 
 #### Parameters
 
@@ -334,16 +334,16 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
   name of the FlowSchema
 
 
-- **pretty** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>): OK
 
 401: Unauthorized
 
@@ -352,71 +352,71 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
 
 #### HTTP Request
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas
+GET /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas
 
 #### Parameters
 
 
-- **allowWatchBookmarks** (*in query*): boolean
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
-
-
-- **continue** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+  
 
 
-- **fieldSelector** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
-
-
-- **labelSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+  
 
 
-- **limit** (*in query*): integer
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  
 
 
-- **resourceVersion** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
-
-
-- **resourceVersionMatch** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+  
 
 
-- **sendInitialEvents** (*in query*): boolean
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
-
-
-- **timeoutSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+  
 
 
-- **watch** (*in query*): boolean
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchemaList" >}}">FlowSchemaList</a>): OK
+200 (<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchemaList" >}}">FlowSchemaList</a>): OK
 
 401: Unauthorized
 
@@ -425,12 +425,22 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas
 
 #### HTTP Request
 
-POST /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas
+POST /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- **body**: <a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>, required
 
   
 
@@ -440,30 +450,20 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Created
+201 (<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>): Created
 
-202 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Accepted
+202 (<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>): Accepted
 
 401: Unauthorized
 
@@ -472,7 +472,7 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas
 
 #### HTTP Request
 
-PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
+PUT /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}
 
 #### Parameters
 
@@ -482,7 +482,17 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
   name of the FlowSchema
 
 
-- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- **body**: <a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>, required
 
   
 
@@ -492,28 +502,18 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Created
+201 (<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>): Created
 
 401: Unauthorized
 
@@ -522,7 +522,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
 
 #### HTTP Request
 
-PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
+PUT /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}/status
 
 #### Parameters
 
@@ -532,7 +532,17 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
   name of the FlowSchema
 
 
-- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- **body**: <a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>, required
 
   
 
@@ -542,28 +552,18 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Created
+201 (<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>): Created
 
 401: Unauthorized
 
@@ -572,7 +572,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
 
 #### HTTP Request
 
-PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
+PATCH /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}
 
 #### Parameters
 
@@ -582,7 +582,22 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
   name of the FlowSchema
 
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
 
   
 
@@ -592,33 +607,18 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Created
+201 (<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>): Created
 
 401: Unauthorized
 
@@ -627,7 +627,7 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
 
 #### HTTP Request
 
-PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
+PATCH /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}/status
 
 #### Parameters
 
@@ -637,7 +637,22 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
   name of the FlowSchema
 
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
 
   
 
@@ -647,33 +662,18 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Created
+201 (<a href="{{< ref "../policy-resources/flow-schema-v1#FlowSchema" >}}">FlowSchema</a>): Created
 
 401: Unauthorized
 
@@ -682,7 +682,7 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
 
 #### HTTP Request
 
-DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
+DELETE /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas/{name}
 
 #### Parameters
 
@@ -692,7 +692,27 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
   name of the FlowSchema
 
 
-- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
 
   
 
@@ -700,21 +720,6 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **gracePeriodSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-- **propagationPolicy** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 
 
@@ -732,74 +737,79 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
 
 #### HTTP Request
 
-DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas
+DELETE /apis/flowcontrol.apiserver.k8s.io/v1/flowschemas
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+- ****: 
 
   
 
 
-- **continue** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
 
 
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
-
-
-- **gracePeriodSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
-
-
-- **labelSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
-
-
-- **limit** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-- **propagationPolicy** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
-
-
-- **resourceVersion** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
-
-
-- **resourceVersionMatch** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
-
-
-- **sendInitialEvents** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
-
-
-- **timeoutSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 
 
