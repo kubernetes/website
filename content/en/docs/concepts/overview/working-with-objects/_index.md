@@ -1,7 +1,7 @@
 ---
 title: Objects In Kubernetes
 content_type: concept
-weight: 10
+weight: 30
 description: >
   Kubernetes objects are persistent entities in the Kubernetes system.
   Kubernetes uses these entities to represent the state of your cluster.
