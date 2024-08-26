@@ -65,7 +65,7 @@ The `.spec.schedule` field is required. The value of that field follows the [Cro
 # * * * * *
 ```
 
-For example, `0 0 13 * 5` means this cron job will run at midnight(12:00 AM) on Friday the 13th of every month.
+For example, `0 0 1,10,20 * 1,3,5` means this cron job is scheduled to run at midnight on the 1st, 10th, and 20th of each month, but only if those days fall on a Monday, Wednesday, or Friday.
 
 The format also includes extended "Vixie cron" step values. As explained in the
 [FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
