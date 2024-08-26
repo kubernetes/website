@@ -1,6 +1,5 @@
 ---
 reviewers:
-- johnbelamaric
 title: Usando o CoreDNS para Descoberta de Serviços
 min-kubernetes-server-version: v1.9
 content_type: task
@@ -8,7 +7,7 @@ weight: 380
 ---
 
 <!-- overview -->
-Essa página descreve o processo de upgrade de CoreDNS e como instalar o CoreDNS ao invés de kube-dns.
+Essa página descreve o processo de atualização do CoreDNS e como instalar o CoreDNS ao invés de kube-dns.
 
 
 ## {{% heading "prerequisites" %}}
@@ -20,7 +19,7 @@ Essa página descreve o processo de upgrade de CoreDNS e como instalar o CoreDNS
 
 ## Sobre o CoreDNS
 
-[CoreDNS](https://coredns.io) é um servidor DNS flexivel e extesinvo
+[CoreDNS](https://coredns.io) é um servidor DNS flexível e extensível
 que pode servir como Kubernetes cluster DNS.
 Como o Kubernetes, o projeto CoreDNS é hospedado pelo
 {{< glossary_tooltip text="CNCF" term_id="cncf" >}}.
@@ -49,25 +48,25 @@ stub domains, e upstream name server.
 ## Atualizando CoreDNS
 
 Você pode verificar a versão do CoreDNS que o kubeadm instala para cada versão do Kubernetes na pagina 
-[CoreDNS versão no Kubernetes](https://github.com/coredns/deployment/blob/master/kubernetes/CoreDNS-k8s_version.md).
+[versão do CoreDNS no Kubernetes](https://github.com/coredns/deployment/blob/master/kubernetes/CoreDNS-k8s_version.md).
 
 CoreDNS pode ser atualizado manualmente, caso você queria atualizar somente o CoreDNS
 ou usar sua própria imagem customizada.
 Aqui está um link útil [diretriz e passo a passo](https://github.com/coredns/deployment/blob/master/kubernetes/Upgrading_CoreDNS.md)
-disponivel para garantir um upgrade tranquilo.
-Garanta que a configuração existente do CoreDNS ("Corefile") é mantida quando atualizar o seu cluster.
+disponivel para garantir uma atualização tranquilo.
+Certifique-se que a configuração existente do CoreDNS ("Corefile") é mantida quando atualizar o seu cluster.
 
-Se você está atualizando o seu cluster usando a ferramenta `kubeadm`, O`kubeadm`
+Se você está atualizando o seu cluster usando a ferramenta `kubeadm`, O `kubeadm`
 pode cuidar da retenção da configuração existente do CoreDNS automaticamente.
 
 
 ## Ajustando o CoreDNS
 
-Quando a utilização dos recursos é uma preocupação, pode ser útil ajustar a configuração do CoreDNS. Para mais detalhes, confira [documentação para escalar o CoreDNS](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md).
+Quando a utilização dos recursos é uma preocupação, pode ser útil ajustar a configuração do CoreDNS. Para mais detalhes, confira [documentação para escalonar o CoreDNS](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md).
 
 ## {{% heading "whatsnext" %}}
 
-Você pode configurar o [CoreDNS](https://coredns.io) para suportar muitos outros cenarios de uso que o
+Você pode configurar o [CoreDNS](https://coredns.io) para suportar muitos outros cenários de uso que o
 kube-dns, apenas por modificar a configuração do CoreDNS("Corefile").
 Para mais informações, veja a [documentação](https://coredns.io/plugins/kubernetes/)
 para o `kubernetes` CoreDNS plugin, ou leia o 
