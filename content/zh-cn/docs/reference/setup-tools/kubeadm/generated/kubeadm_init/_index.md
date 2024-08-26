@@ -18,6 +18,7 @@ The "init" command executes the following phases:
 -->
 "init" 命令执行以下阶段：
 
+<!--
 ```
 preflight                    Run pre-flight checks
 certs                        Certificate generation
@@ -57,6 +58,47 @@ addon                        Install required addons for passing conformance tes
   /coredns                     Install the CoreDNS addon to a Kubernetes cluster
   /kube-proxy                  Install the kube-proxy addon to a Kubernetes cluster
 show-join-command            Show the join command for control-plane and worker node
+```
+-->
+```
+preflight                    预检
+certs                        生成证书
+  /ca                          生成自签名根 CA 用于配置其他 kubernetes 组件
+  /apiserver                   生成 apiserver 的证书
+  /apiserver-kubelet-client    生成 apiserver 连接到 kubelet 的证书
+  /front-proxy-ca              生成前端代理自签名CA(扩展apiserver)
+  /front-proxy-client          生成前端代理客户端的证书（扩展 apiserver）
+  /etcd-ca                     生成 etcd 自签名 CA
+  /etcd-server                 生成 etcd 服务器证书
+  /etcd-peer                   生成 etcd 节点相互通信的证书
+  /etcd-healthcheck-client     生成 etcd 健康检查的证书
+  /apiserver-etcd-client       生成 apiserver 访问 etcd 的证书
+  /sa                          生成用于签署服务帐户令牌的私钥和公钥
+kubeconfig                   生成建立控制平面和管理所需的所有 kubeconfig 文件
+  /admin                       生成一个 kubeconfig 文件供管理员使用以及供 kubeadm 本身使用
+  /super-admin                 为超级管理员生成 kubeconfig 文件
+  /kubelet                     为 kubelet 生成一个 kubeconfig 文件，*仅*用于集群引导
+  /controller-manager          生成 kubeconfig 文件供控制器管理器使用
+  /scheduler                   生成 kubeconfig 文件供调度程序使用
+etcd                         为本地 etcd 生成静态 Pod 清单文件
+  /local                       为本地单节点本地 etcd 实例生成静态 Pod 清单文件
+control-plane                生成建立控制平面所需的所有静态 Pod 清单文件
+  /apiserver                   生成 kube-apiserver 静态 Pod 清单
+  /controller-manager          生成 kube-controller-manager 静态 Pod 清单
+  /scheduler                   生成 kube-scheduler 静态 Pod 清单
+kubelet-start                写入 kubelet 设置并启动（或重启） kubelet
+upload-config                将 kubeadm 和 kubelet 配置上传到 ConfigMap
+  /kubeadm                     将 kubeadm 集群配置上传到 ConfigMap
+  /kubelet                     将 kubelet 组件配置上传到 ConfigMap
+upload-certs                 将证书上传到 kubeadm-certs
+mark-control-plane           将节点标记为控制面
+bootstrap-token              生成用于将节点加入集群的引导令牌
+kubelet-finalize             在 TLS 引导后更新与 kubelet 相关的设置
+  /experimental-cert-rotation  启用 kubelet 客户端证书轮换
+addon                        安装用于通过一致性测试所需的插件
+  /coredns                     将 CoreDNS 插件安装到 Kubernetes 集群
+  /kube-proxy                  将 kube-proxy 插件安装到 Kubernetes 集群
+show-join-command            显示控制平面和工作节点的加入命令
 ```
 
 ```
