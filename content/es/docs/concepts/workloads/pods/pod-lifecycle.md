@@ -687,7 +687,7 @@ El recurso puede continuar ejecutándose en el clúster de forma indefinida.
 
 Si necesitas eliminar Pods por la fuerza y son parte de un `StatefulSet`,
 mira la documentación
-para [borrar Pods de un StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
+para [borrar Pods de un StatefulSet](/es/docs/tasks/run-application/force-delete-stateful-set-pod/).
 
 ### Terminación del Pod y contenedores sidecar {##termination-with-sidecars}
 
