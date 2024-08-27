@@ -743,7 +743,7 @@ Mira [condiciones de disrupción del Pod](/docs/concepts/workloads/pods/disrupti
 * Obtén experiencia práctica
   [configurando sondas de Liveness, Readiness y Startup](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
-* Aprende más sobre [hooks del ciclo de vida del contenedor](/docs/concepts/containers/container-lifecycle-hooks/).
+* Aprende más sobre [hooks del ciclo de vida del contenedor](/es/docs/concepts/containers/container-lifecycle-hooks/).
 
 * Aprende más sobre [contenedores sidecar](/docs/concepts/workloads/pods/sidecar-containers/).
 
