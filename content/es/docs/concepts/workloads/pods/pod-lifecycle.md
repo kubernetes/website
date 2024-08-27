@@ -470,7 +470,7 @@ está sujeto a su [política de reinicio](#restart-policy). Si un contenedor no
 tiene un sondeo de inicio, el estado por defecto es `Success`.
 
 Para mayor información sobre como configurar un sondeo liveness,
-readiness o de startup, mire la
+readiness o de startup, mira la
 sección [Configurar una sonda Liveness, Readiness y Startup](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 #### ¿Cuándo debería utilizar un sondeo liveness?
