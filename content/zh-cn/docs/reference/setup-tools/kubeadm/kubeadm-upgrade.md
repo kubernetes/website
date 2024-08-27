@@ -5,7 +5,6 @@ weight: 40
 ---
 <!--
 reviewers:
-- mikedanese
 - luxas
 - jbeda
 title: kubeadm upgrade
@@ -14,25 +13,26 @@ weight: 40
 -->
 
 <!-- overview -->
+
 <!--
 `kubeadm upgrade` is a user-friendly command that wraps complex upgrading logic
-behind one command, with support for both planning an upgrade and actually performing it. -->
-`kubeadm upgrade` 是一个对用户友好的命令，它将复杂的升级逻辑包装在一个命令后面，支持升级的规划和实际执行。
+behind one command, with support for both planning an upgrade and actually performing it.
+-->
+`kubeadm upgrade` 是一个对用户友好的命令，它将复杂的升级逻辑包装在一条命令后面，支持升级的规划和实际执行。
 
 <!-- body -->
 
 <!--
 ## kubeadm upgrade guidance
 -->
-## kubeadm upgrade 指南
+## kubeadm upgrade 指南    {#kubeadm-upgrade-guidance}
 
 <!--
 The steps for performing an upgrade using kubeadm are outlined in [this document](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
 For older versions of kubeadm, please refer to older documentation sets of the Kubernetes website.
 -->
-[本文档](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)概述
-使用 kubeadm 执行升级的步骤。
-与 kubeadm 旧版本相关的文档，请参阅 Kubernetes 网站的旧版文档。
+[本文档](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)概述使用
+kubeadm 执行升级的步骤。与 kubeadm 旧版本相关的文档，请参阅 Kubernetes 网站的旧版文档。
 
 <!--
 You can use `kubeadm upgrade diff` to see the changes that would be applied to static pod manifests.
@@ -46,10 +46,9 @@ To opt-out, it is possible to pass the flag `--certificate-renewal=false`. For m
 renewal see the [certificate management documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
 -->
 在 Kubernetes v1.15.0 和更高版本中，`kubeadm upgrade apply` 和 `kubeadm upgrade node`
-也将自动续订该节点上的 kubeadm 托管证书，包括存储在 kubeconfig 文件中的证书。
-要选择退出，可以传递参数 `--certificate-renewal=false`。
+也将自动续订节点上的 kubeadm 托管证书，包括存储在 kubeconfig 文件中的证书。
+如果不想续订，可以传递参数 `--certificate-renewal=false`。
 有关证书续订的更多详细信息请参见[证书管理文档](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)。
-
 
 {{< note >}}
 <!-- 
@@ -64,23 +63,26 @@ reports of unexpected results.
 {{</ note >}}
 
 ## kubeadm upgrade plan {#cmd-upgrade-plan}
-{{< include "generated/kubeadm_upgrade_plan.md" >}}
+
+{{< include "generated/kubeadm_upgrade/kubeadm_upgrade_plan.md" >}}
 
 ## kubeadm upgrade apply  {#cmd-upgrade-apply}
-{{< include "generated/kubeadm_upgrade_apply.md" >}}
+
+{{< include "generated/kubeadm_upgrade/kubeadm_upgrade_apply.md" >}}
 
 ## kubeadm upgrade diff {#cmd-upgrade-diff}
-{{< include "generated/kubeadm_upgrade_diff.md" >}}
+
+{{< include "generated/kubeadm_upgrade/kubeadm_upgrade_diff.md" >}}
 
 ## kubeadm upgrade node {#cmd-upgrade-node}
-{{< include "generated/kubeadm_upgrade_node.md" >}}
+
+{{< include "generated/kubeadm_upgrade/kubeadm_upgrade_node.md" >}}
 
 ## {{% heading "whatsnext" %}}
 
 <!--
 * [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/) if you initialized your cluster using kubeadm v1.7.x or lower, to configure your cluster for `kubeadm upgrade`
 -->
-* 如果你使用 kubeadm v1.7.x 或更低版本初始化集群，则可以参考
-  [kubeadm 配置](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)
-  配置集群用于 `kubeadm upgrade`。
-
+* 如果你使用 kubeadm v1.7.x 或更低版本初始化了集群，则可以参考
+  [kubeadm config](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)，
+  为 `kubeadm upgrade` 配置你的集群。

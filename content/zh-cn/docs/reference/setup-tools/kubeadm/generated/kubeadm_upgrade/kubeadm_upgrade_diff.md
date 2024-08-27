@@ -7,14 +7,10 @@ Show what differences would be applied to existing static pod manifests. See als
 ### Synopsis
 
 Show what differences would be applied to existing static pod manifests. See also: kubeadm upgrade apply --dry-run
-
-```
-kubeadm upgrade diff [version] [flags]
-```
 -->
-### 概述
+### 概要
 
-显示哪些差异将被应用于现有的静态 Pod 资源清单。参考：kubeadm upgrade apply --dry-run
+显示哪些差异将被应用于现有的静态 Pod 资源清单。另请参考：kubeadm upgrade apply --dry-run
 
 ```
 kubeadm upgrade diff [version] [flags]
