@@ -105,6 +105,17 @@ in use.
 其访问能力取决于所使用的[鉴权插件和策略](/zh-cn/docs/reference/access-authn-authz/authorization/#authorization-modules)。
 
 <!--
+The API credentials are automatically revoked when the Pod is deleted, even if
+finalizers are in place. In particular, the API credentials are revoked 60 seconds
+beyond the `.metadata.deletionTimestamp` set on the Pod (the deletion timestamp
+is typically the time that the **delete** request was accepted plus the Pod's
+termination grace period).
+-->
+当 Pod 被删除时，即使设置了终结器，API 凭据也会自动失效。
+需要额外注意的是，API 凭据会在 Pod 上设置的 `.metadata.deletionTimestamp` 之后的 60 秒内失效
+（删除时间戳通常是 **delete** 请求被接受的时间加上 Pod 的终止宽限期）。
+
+<!--
 ### Opt out of API credential automounting
 
 If you don't want the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
