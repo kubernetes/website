@@ -218,14 +218,14 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    NAME=${NAMES[$i]}
    cat << EOF > /tmp/${HOST}/kubeadmcfg.yaml
    ---
-   apiVersion: "kubeadm.k8s.io/v1beta3"
+   apiVersion: "kubeadm.k8s.io/v1beta4"
    kind: InitConfiguration
    nodeRegistration:
        name: ${NAME}
    localAPIEndpoint:
        advertiseAddress: ${HOST}
    ---
-   apiVersion: "kubeadm.k8s.io/v1beta3"
+   apiVersion: "kubeadm.k8s.io/v1beta4"
    kind: ClusterConfiguration
    etcd:
        local:
@@ -234,13 +234,20 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
            peerCertSANs:
            - "${HOST}"
            extraArgs:
-               initial-cluster: ${NAMES[0]}=https://${HOSTS[0]}:2380,${NAMES[1]}=https://${HOSTS[1]}:2380,${NAMES[2]}=https://${HOSTS[2]}:2380
-               initial-cluster-state: new
-               name: ${NAME}
-               listen-peer-urls: https://${HOST}:2380
-               listen-client-urls: https://${HOST}:2379
-               advertise-client-urls: https://${HOST}:2379
-               initial-advertise-peer-urls: https://${HOST}:2380
+           - name: initial-cluster
+             value: ${NAMES[0]}=https://${HOSTS[0]}:2380,${NAMES[1]}=https://${HOSTS[1]}:2380,${NAMES[2]}=https://${HOSTS[2]}:2380
+           - name: initial-cluster-state
+             value: new
+           - name: name
+             value: ${NAME}
+           - name: listen-peer-urls
+             value: https://${HOST}:2380
+           - name: listen-client-urls
+             value: https://${HOST}:2379
+           - name: advertise-client-urls
+             value: https://${HOST}:2379
+           - name: initial-advertise-peer-urls
+             value: https://${HOST}:2380
    EOF
    done
    ```
