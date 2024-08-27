@@ -4,7 +4,7 @@ id: limitrange
 date: 2019-04-15
 full_link:  /docs/concepts/policy/limit-range/
 short_description: >
-  Provides constraints to limit resource consumption per Containers or Pods in a namespace.
+  ネームスペース内のコンテナまたはポッドごとのリソース消費を制限するための制約を提供します。
 
 aka: 
 tags:
@@ -16,8 +16,7 @@ related:
  - container
 
 ---
- Provides constraints to limit resource consumption per {{< glossary_tooltip text="Containers" term_id="container" >}} or {{< glossary_tooltip text="Pods" term_id="pod" >}} in a namespace.
+{{< glossary_tooltip text="コンテナ" term_id="container" >}}または{{< glossary_tooltip text="ポッド" term_id="pod" >}}ごとのリソース消費を制限するための制約を提供します。
 
 <!--more--> 
-LimitRange limits the quantity of objects that can be created  by type, 
-as well as the amount of compute resources that may be requested/consumed by individual {{< glossary_tooltip text="Containers" term_id="container" >}} or {{< glossary_tooltip text="Pods" term_id="pod" >}} in a namespace.
+LimitRangeは、オブジェクトの作成可能な数量をタイプごとに制限し、また、ネームスペース内の個々の{{< glossary_tooltip text="コンテナ" term_id="container" >}}または{{< glossary_tooltip text="ポッド" term_id="pod" >}}が要求または消費できるコンピューティングリソースの量を制限します。
