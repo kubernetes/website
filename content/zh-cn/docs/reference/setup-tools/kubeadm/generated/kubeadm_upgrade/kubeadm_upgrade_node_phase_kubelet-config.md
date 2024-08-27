@@ -34,10 +34,10 @@ kubeadm upgrade node phase kubelet-config [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Do not change any state, just output the actions that would be performed.
 -->
-<p>
 不改变任何状态，只输出将要执行的操作。
 </p>
 </td>
@@ -48,10 +48,10 @@ Do not change any state, just output the actions that would be performed.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for kubelet-config
 -->
-<p>
 kubelet-config 操作的帮助命令。
 </p>
 </td>
@@ -67,10 +67,10 @@ kubelet-config 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-<p>
 用于和集群通信的 kubeconfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 kubeconfig 文件。
 </p>
 </td>
@@ -113,10 +113,10 @@ Path to a directory that contains files named &quot;target[suffix][+patchtype].e
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>
 [实验] 到'真实'主机根文件系统的路径。
 </p>
 </td>
