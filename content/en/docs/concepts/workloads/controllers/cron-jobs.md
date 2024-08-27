@@ -65,7 +65,7 @@ The `.spec.schedule` field is required. The value of that field follows the [Cro
 # * * * * *
 ```
 
-For example, `0 3 * * 1` means this cron job is scheduled to run weekly on a Monday at 3 AM.
+For example, `0 3 * * 1` means this task is scheduled to run weekly on a Monday at 3 AM.
 
 The format also includes extended "Vixie cron" step values. As explained in the
 [FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
