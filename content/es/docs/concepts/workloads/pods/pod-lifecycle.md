@@ -465,7 +465,7 @@ es `Success`.
 `startupProbe`
 : Indica si la aplicación dentro del contenedor ha iniciado. El resto de los
 sondeos están deshabilitados si un sondeo de inicio se proporciona, hasta que se
-complete. Si el sondeo falla, el kubelet mata el contenedor, y el contenedor
+complete. Si el sondeo falla, el kubelet mata el contenedor y el contenedor
 está sujeto a su [política de reinicio](#restart-policy). Si un contenedor no
 tiene un sondeo de inicio, el estado por defecto es `Success`.
 
