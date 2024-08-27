@@ -589,7 +589,7 @@ Un flujo de finalización de un Pod, ilustrado con un ejemplo:
    gracia), el kubelet comienza el proceso local de parar el Pod.
 
    1. Si uno de los contenedores del Pod tiene definido
-   un [hook](/docs/concepts/containers/container-lifecycle-hooks) `preStop` y
+   un [hook](/es/docs/concepts/containers/container-lifecycle-hooks) `preStop` y
    el `terminationGracePeriodSeconds` en la especificación del Pod no está
    definido en 0, el kubelet ejecuta ese hook dentro del contenedor.
    El `terminationGracePeriodSeconds` por defecto es 30 segundos.
