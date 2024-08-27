@@ -630,7 +630,7 @@ Un flujo de finalización de un Pod, ilustrado con un ejemplo:
 
    Cualquier endpoint que representa los Pods en finalización no son removidos
    inmediatamente de `EndpointSlices` y se expone un estatus indicando
-   el [estado de terminación](/docs/concepts/services-networking/endpoint-slices/#conditions)
+   el [estado de terminación](/es/docs/concepts/services-networking/endpoint-slices/#condiciones)
    de la API de EndpointSlice
    (y la API de Endpoint legada).
    Los endpoints que están terminando siempre tienen su estatus `ready`
