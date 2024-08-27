@@ -74,9 +74,19 @@ POST /apis/authorization.k8s.io/v1/namespaces/{namespace}/localsubjectaccessrevi
 #### Parameters
 
 
-- **namespace** (*in path*): string, required
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
 
 
 - **body**: <a href="{{< ref "../authorization-resources/local-subject-access-review-v1#LocalSubjectAccessReview" >}}">LocalSubjectAccessReview</a>, required
@@ -89,19 +99,9 @@ POST /apis/authorization.k8s.io/v1/namespaces/{namespace}/localsubjectaccessrevi
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 

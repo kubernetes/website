@@ -44,6 +44,8 @@ Role is a namespaced, logical grouping of PolicyRules that can be referenced as 
 
 - **rules** ([]PolicyRule)
 
+  *Atomic: will be replaced during a merge*
+  
   Rules holds all the PolicyRules for this Role
 
   <a name="PolicyRule"></a>
@@ -51,22 +53,32 @@ Role is a namespaced, logical grouping of PolicyRules that can be referenced as 
 
   - **rules.apiGroups** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
 
   - **rules.resources** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     Resources is a list of resources this rule applies to. '*' represents all resources.
 
   - **rules.verbs** ([]string), required
 
+    *Atomic: will be replaced during a merge*
+    
     Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
 
   - **rules.resourceNames** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 
   - **rules.nonResourceURLs** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
 
 
@@ -122,14 +134,14 @@ GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles/{name}
   name of the Role
 
 
-- **namespace** (*in path*): string, required
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  
 
 
-- **pretty** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  
 
 
 
@@ -150,64 +162,64 @@ GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles
 #### Parameters
 
 
-- **namespace** (*in path*): string, required
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **allowWatchBookmarks** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
+  
 
 
-- **continue** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
-
-
-- **fieldSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+  
 
 
-- **labelSelector** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
-
-
-- **limit** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+  
 
 
-- **pretty** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-- **resourceVersion** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+  
 
 
-- **resourceVersionMatch** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
-
-
-- **sendInitialEvents** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+  
 
 
-- **timeoutSeconds** (*in query*): integer
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+  
 
 
-- **watch** (*in query*): boolean
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
 
 
 
@@ -228,59 +240,59 @@ GET /apis/rbac.authorization.k8s.io/v1/roles
 #### Parameters
 
 
-- **allowWatchBookmarks** (*in query*): boolean
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
-
-
-- **continue** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+  
 
 
-- **fieldSelector** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
-
-
-- **labelSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+  
 
 
-- **limit** (*in query*): integer
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+  
 
 
-- **resourceVersion** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
-
-
-- **resourceVersionMatch** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+  
 
 
-- **sendInitialEvents** (*in query*): boolean
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
-
-
-- **timeoutSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+  
 
 
-- **watch** (*in query*): boolean
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
 
 
 
@@ -301,9 +313,19 @@ POST /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles
 #### Parameters
 
 
-- **namespace** (*in path*): string, required
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
 
 
 - **body**: <a href="{{< ref "../authorization-resources/role-v1#Role" >}}">Role</a>, required
@@ -316,19 +338,9 @@ POST /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -358,9 +370,19 @@ PUT /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles/{name}
   name of the Role
 
 
-- **namespace** (*in path*): string, required
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
 
 
 - **body**: <a href="{{< ref "../authorization-resources/role-v1#Role" >}}">Role</a>, required
@@ -373,19 +395,9 @@ PUT /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles/{name}
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -413,12 +425,27 @@ PATCH /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles/{name}
   name of the Role
 
 
-- **namespace** (*in path*): string, required
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  
 
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
 
   
 
@@ -428,24 +455,9 @@ PATCH /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles/{name}
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -473,12 +485,32 @@ DELETE /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles/{name}
   name of the Role
 
 
-- **namespace** (*in path*): string, required
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  
 
 
-- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
 
   
 
@@ -486,21 +518,6 @@ DELETE /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles/{name}
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **gracePeriodSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-- **propagationPolicy** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 
 
@@ -523,74 +540,79 @@ DELETE /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles
 #### Parameters
 
 
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+- ****: 
 
   
 
 
-- **continue** (*in query*): string
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- ****: 
+
+  
 
 
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
-
-
-- **gracePeriodSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
-
-
-- **labelSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
-
-
-- **limit** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-- **propagationPolicy** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
-
-
-- **resourceVersion** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
-
-
-- **resourceVersionMatch** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
-
-
-- **sendInitialEvents** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
-
-
-- **timeoutSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 
 

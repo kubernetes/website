@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Binding ties one object to another; for example, a pod is bound to a node by a scheduler."
 title: "Binding"
-weight: 9
+weight: 2
 auto_generated: true
 ---
 
@@ -70,12 +70,22 @@ POST /api/v1/namespaces/{namespace}/bindings
 #### Parameters
 
 
-- **namespace** (*in path*): string, required
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  
 
 
-- **body**: <a href="{{< ref "../cluster-resources/binding-v1#Binding" >}}">Binding</a>, required
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
+- **body**: <a href="{{< ref "../workload-resources/binding-v1#Binding" >}}">Binding</a>, required
 
   
 
@@ -85,30 +95,20 @@ POST /api/v1/namespaces/{namespace}/bindings
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/binding-v1#Binding" >}}">Binding</a>): OK
+200 (<a href="{{< ref "../workload-resources/binding-v1#Binding" >}}">Binding</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/binding-v1#Binding" >}}">Binding</a>): Created
+201 (<a href="{{< ref "../workload-resources/binding-v1#Binding" >}}">Binding</a>): Created
 
-202 (<a href="{{< ref "../cluster-resources/binding-v1#Binding" >}}">Binding</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/binding-v1#Binding" >}}">Binding</a>): Accepted
 
 401: Unauthorized
 
@@ -122,17 +122,27 @@ POST /api/v1/namespaces/{namespace}/pods/{name}/binding
 #### Parameters
 
 
+- ****: 
+
+  
+
+
 - **name** (*in path*): string, required
 
   name of the Binding
 
 
-- **namespace** (*in path*): string, required
+- ****: 
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  
 
 
-- **body**: <a href="{{< ref "../cluster-resources/binding-v1#Binding" >}}">Binding</a>, required
+- ****: 
+
+  
+
+
+- **body**: <a href="{{< ref "../workload-resources/binding-v1#Binding" >}}">Binding</a>, required
 
   
 
@@ -142,30 +152,20 @@ POST /api/v1/namespaces/{namespace}/pods/{name}/binding
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/binding-v1#Binding" >}}">Binding</a>): OK
+200 (<a href="{{< ref "../workload-resources/binding-v1#Binding" >}}">Binding</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/binding-v1#Binding" >}}">Binding</a>): Created
+201 (<a href="{{< ref "../workload-resources/binding-v1#Binding" >}}">Binding</a>): Created
 
-202 (<a href="{{< ref "../cluster-resources/binding-v1#Binding" >}}">Binding</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/binding-v1#Binding" >}}">Binding</a>): Accepted
 
 401: Unauthorized
 

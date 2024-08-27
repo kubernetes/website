@@ -82,9 +82,81 @@ SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one
   <a name="ResourceAttributes"></a>
   *ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface*
 
+  - **resourceAttributes.fieldSelector** (FieldSelectorAttributes)
+
+    fieldSelector describes the limitation on access based on field.  It can only limit access, not broaden it.
+    
+    This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+
+    <a name="FieldSelectorAttributes"></a>
+    *FieldSelectorAttributes indicates a field limited access. Webhook authors are encouraged to * ensure rawSelector and requirements are not both set * consider the requirements field if set * not try to parse or consider the rawSelector field if set. This is to avoid another CVE-2022-2880 (i.e. getting different systems to agree on how exactly to parse a query is not something we want), see https://www.oxeye.io/resources/golang-parameter-smuggling-attack for more details. For the *SubjectAccessReview endpoints of the kube-apiserver: * If rawSelector is empty and requirements are empty, the request is not limited. * If rawSelector is present and requirements are empty, the rawSelector will be parsed and limited if the parsing succeeds. * If rawSelector is empty and requirements are present, the requirements should be honored * If rawSelector is present and requirements are present, the request is invalid.*
+
+    - **resourceAttributes.fieldSelector.rawSelector** (string)
+
+      rawSelector is the serialization of a field selector that would be included in a query parameter. Webhook implementations are encouraged to ignore rawSelector. The kube-apiserver's *SubjectAccessReview will parse the rawSelector as long as the requirements are not present.
+
+    - **resourceAttributes.fieldSelector.requirements** ([]FieldSelectorRequirement)
+
+      *Atomic: will be replaced during a merge*
+      
+      requirements is the parsed interpretation of a field selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
+
+      <a name="FieldSelectorRequirement"></a>
+      *FieldSelectorRequirement is a selector that contains values, a key, and an operator that relates the key and values.*
+
+      - **resourceAttributes.fieldSelector.requirements.key** (string), required
+
+        key is the field selector key that the requirement applies to.
+
+      - **resourceAttributes.fieldSelector.requirements.operator** (string), required
+
+        operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. The list of operators may grow in the future.
+
+      - **resourceAttributes.fieldSelector.requirements.values** ([]string)
+
+        *Atomic: will be replaced during a merge*
+        
+        values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty.
+
   - **resourceAttributes.group** (string)
 
     Group is the API Group of the Resource.  "*" means all.
+
+  - **resourceAttributes.labelSelector** (LabelSelectorAttributes)
+
+    labelSelector describes the limitation on access based on labels.  It can only limit access, not broaden it.
+    
+    This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+
+    <a name="LabelSelectorAttributes"></a>
+    *LabelSelectorAttributes indicates a label limited access. Webhook authors are encouraged to * ensure rawSelector and requirements are not both set * consider the requirements field if set * not try to parse or consider the rawSelector field if set. This is to avoid another CVE-2022-2880 (i.e. getting different systems to agree on how exactly to parse a query is not something we want), see https://www.oxeye.io/resources/golang-parameter-smuggling-attack for more details. For the *SubjectAccessReview endpoints of the kube-apiserver: * If rawSelector is empty and requirements are empty, the request is not limited. * If rawSelector is present and requirements are empty, the rawSelector will be parsed and limited if the parsing succeeds. * If rawSelector is empty and requirements are present, the requirements should be honored * If rawSelector is present and requirements are present, the request is invalid.*
+
+    - **resourceAttributes.labelSelector.rawSelector** (string)
+
+      rawSelector is the serialization of a field selector that would be included in a query parameter. Webhook implementations are encouraged to ignore rawSelector. The kube-apiserver's *SubjectAccessReview will parse the rawSelector as long as the requirements are not present.
+
+    - **resourceAttributes.labelSelector.requirements** ([]LabelSelectorRequirement)
+
+      *Atomic: will be replaced during a merge*
+      
+      requirements is the parsed interpretation of a label selector. All requirements must be met for a resource instance to match the selector. Webhook implementations should handle requirements, but how to handle them is up to the webhook. Since requirements can only limit the request, it is safe to authorize as unlimited request if the requirements are not understood.
+
+      <a name="LabelSelectorRequirement"></a>
+      *A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.*
+
+      - **resourceAttributes.labelSelector.requirements.key** (string), required
+
+        key is the label key that the selector applies to.
+
+      - **resourceAttributes.labelSelector.requirements.operator** (string), required
+
+        operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
+
+      - **resourceAttributes.labelSelector.requirements.values** ([]string)
+
+        *Atomic: will be replaced during a merge*
+        
+        values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
 
   - **resourceAttributes.name** (string)
 
@@ -134,6 +206,16 @@ POST /apis/authorization.k8s.io/v1/selfsubjectaccessreviews
 #### Parameters
 
 
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
 - **body**: <a href="{{< ref "../authorization-resources/self-subject-access-review-v1#SelfSubjectAccessReview" >}}">SelfSubjectAccessReview</a>, required
 
   
@@ -144,19 +226,9 @@ POST /apis/authorization.k8s.io/v1/selfsubjectaccessreviews
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
