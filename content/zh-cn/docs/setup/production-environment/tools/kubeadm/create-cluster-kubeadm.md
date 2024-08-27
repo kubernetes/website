@@ -211,12 +211,12 @@ to a Kubernetes component, the component may exit with an error.
 <!--
 To configure the API server advertise address for control plane nodes created with both
 `init` and `join`, the flag `--apiserver-advertise-address` can be used.
-Preferably, this option can be set in the [kubeadm API](/docs/reference/config-api/kubeadm-config.v1beta3)
+Preferably, this option can be set in the [kubeadm API](/docs/reference/config-api/kubeadm-config.v1beta4)
 as `InitConfiguration.localAPIEndpoint` and `JoinConfiguration.controlPlane.localAPIEndpoint`.
 -->
 要为使用 `init` 或 `join` 创建的控制平面节点配置 API 服务器的公告地址，
 你可以使用 `--apiserver-advertise-address` 标志。
-最好在 [kubeadm API](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3)中使用
+最好在 [kubeadm API](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4)中使用
 `InitConfiguration.localAPIEndpoint` 和 `JoinConfiguration.controlPlane.localAPIEndpoint`
 来设置此选项。
 
@@ -621,14 +621,12 @@ See a list of add-ons that implement the
 
 <!--
 Please refer to the [Installing Addons](/docs/concepts/cluster-administration/addons/#networking-and-network-policy)
-page for a non-exhaustive list of networking addons supported by Kubernetes. 
-
+page for a non-exhaustive list of networking addons supported by Kubernetes.
 You can install a Pod network add-on with the following command on the
 control-plane node or a node that has the kubeconfig credentials:
 -->
 请参阅[安装插件](/zh-cn/docs/concepts/cluster-administration/addons/#networking-and-network-policy)页面，
 了解 Kubernetes 支持的网络插件的非详尽列表。
-
 你可以使用以下命令在控制平面节点或具有 kubeconfig 凭据的节点上安装 Pod 网络附加组件：
 
 ```bash
@@ -1046,13 +1044,13 @@ match the kubeadm version with the versions of the control plane components, kub
 kubeadm can be used with Kubernetes components that are the same version as kubeadm
 or one version older. The Kubernetes version can be specified to kubeadm by using the
 `--kubernetes-version` flag of `kubeadm init` or the
-[`ClusterConfiguration.kubernetesVersion`](/docs/reference/config-api/kubeadm-config.v1beta3/)
+[`ClusterConfiguration.kubernetesVersion`](/docs/reference/config-api/kubeadm-config.v1beta4/)
 field when using `--config`. This option will control the versions
 of kube-apiserver, kube-controller-manager, kube-scheduler and kube-proxy.
 -->
 kubeadm 可以与 Kubernetes 组件一起使用，这些组件的版本与 kubeadm 相同，或者比它大一个版本。
 Kubernetes 版本可以通过使用 `--kubeadm init` 的 `--kubernetes-version` 标志或使用 `--config` 时的
-[`ClusterConfiguration.kubernetesVersion`](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)
+[`ClusterConfiguration.kubernetesVersion`](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)
 字段指定给 kubeadm。
 这个选项将控制 kube-apiserver、kube-controller-manager、kube-scheduler 和 kube-proxy 的版本。
 
