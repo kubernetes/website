@@ -481,7 +481,7 @@ kubelet automáticamente realizará la acción adecuada de acuerdo con la polít
 de reinicio `restartPolicy` del Pod.
 
 Si te gustaría que tu contenedor fuese destruido y reiniciado si falla un
-sondeo, especifica un sondeo liveness, y especifica una `restartPolicy`
+sondeo, especifica un sondeo liveness y especifica una `restartPolicy`
 de `Always` o `OnFailure`.
 
 #### ¿Cuándo debería utilizar un sondeo readiness?
