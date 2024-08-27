@@ -354,7 +354,7 @@ sandbox de runtime y configurar la red para el Pod.
 Si la [puerta de características](/docs/reference/command-line-tools-reference/feature-gates/)
 `PodReadyToStartContainersCondition`
  está habilitada
-(esta habilitada por defecto para Kubernetes {{< skew currentVersion >}}), la
+(está habilitada por defecto para Kubernetes {{< skew currentVersion >}}), la
 condición `PodReadyToStartContainers` se agregará al campo `status.conditions` de un Pod.
 
 La condición `PodReadyToStartContainers` se establece en `False` por el kubelet cuando detecta que un
