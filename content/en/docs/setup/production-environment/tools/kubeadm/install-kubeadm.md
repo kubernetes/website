@@ -27,9 +27,14 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-mac-address) for more details.
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
 * Swap configuration: The default behavior of a kubelet is to fail to start if swap memory is detected on a node.
-  See [Swap memory management](/docs/concepts/architecture/nodes/#swap-memory) for more details.
-  * You **MUST** disable swap if the kubelet is not properly configured to use swap. For example, `sudo swapoff -a`
-    will disable swapping temporarily. To make this change persistent across reboots, make sure swap is disabled in
+  This means that swap should either be disabled or tolerated by kubelet.
+  * To tolerate swap, add `failSwapOn: false` to kubelet configuration or as a command line argument.
+    Note: even if `failSwapOn: false` is provided, workloads wouldn't have swap access by default.
+    This can be changed by setting a `swapBehavior`, again in the kubelet configuration file. To use swap,
+    set a `swapBehavior` other than the default `NoSwap` setting.
+    See [Swap memory management](/docs/concepts/architecture/nodes/#swap-memory) for more details.
+  * To disable swap, `sudo swapoff -a` can be used to disable swapping temporarily.
+    To make this change persistent across reboots, make sure swap is disabled in
     config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
 
 {{< note >}}
