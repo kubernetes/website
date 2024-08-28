@@ -18,10 +18,17 @@ The "reset" command executes the following phases:
 -->
 "reset" 命令执行以下阶段：
 
+<!--
 ```
 preflight              Run reset pre-flight checks
 remove-etcd-member     Remove a local etcd member.
 cleanup-node           Run cleanup node.
+```
+-->
+```
+preflight              重置预检
+remove-etcd-member     移除本地 etcd 成员
+cleanup-node           清理节点
 ```
 
 ```
@@ -33,7 +40,7 @@ kubeadm reset [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -50,10 +57,10 @@ kubeadm reset [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The path to the directory where the certificates are stored. If specified, clean this directory.
 -->
-<p>
 存储证书的目录路径。如果已指定，则需要清空此目录。
 </p>
 </td>
@@ -66,10 +73,10 @@ The path to the directory where the certificates are stored. If specified, clean
 <td>
 </td>
 <td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Cleanup the &quot;/etc/kubernetes/tmp&quot; directory
 -->
-<p>
 清理 &quot;/etc/kubernetes/tmp&quot; 目录。
 </p>
 </td>
@@ -202,7 +209,7 @@ List of phases to be skipped
 -->
 ### 从父命令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -216,9 +223,9 @@ List of phases to be skipped
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
-[实验] 指向 '真实' 宿主机根文件系统的路径。
+到“真实”主机根文件系统的路径。这将导致 kubeadm 切换到所提供的路径。
 </p>
 </td>
 </tr>

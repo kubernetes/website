@@ -1,7 +1,7 @@
 <!--
 Remove a local etcd member.
 -->
-删除本地 etcd 成员。
+移除本地 etcd 成员。
 
 <!--
 ### Synopsis
@@ -11,7 +11,7 @@ Remove a local etcd member.
 <!--
 Remove a local etcd member for a control plane node.
 -->
-删除控制平面节点的本地 etcd 成员。
+移除控制平面节点的本地 etcd 成员。
 
 ```
 kubeadm reset phase remove-etcd-member [flags]
@@ -22,7 +22,7 @@ kubeadm reset phase remove-etcd-member [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -63,7 +63,7 @@ remove-etcd-member 操作的帮助命令。
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-与集群通信时使用的 Kubeconfig 文件。如果未设置该标志，则可以在默认位置中查找现有的 Kubeconfig 文件。
+与集群通信时使用的 kubeconfig 文件。如果未设置该标志，则可以在默认位置中查找现有的 kubeconfig 文件。
 </p>
 </td>
 </tr>
@@ -76,7 +76,7 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 -->
 ### 从父命令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -90,9 +90,9 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
-[实验] 到'真实'主机根文件系统的路径。
+到“真实”主机根文件系统的路径。这将导致 kubeadm 切换到所提供的路径。
 </p>
 </td>
 </tr>
