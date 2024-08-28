@@ -22,7 +22,7 @@ kubeadm reset phase cleanup-node [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -39,10 +39,10 @@ kubeadm reset phase cleanup-node [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The path to the directory where the certificates are stored. If specified, clean this directory.
 -->
-<p>
 存储证书的目录路径。如果已指定，则需要清空此目录。
 </p>
 </td>
@@ -55,10 +55,10 @@ The path to the directory where the certificates are stored. If specified, clean
 <td>
 </td>
 <td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Cleanup the &quot;/etc/kubernetes/tmp&quot; directory
 -->
-<p>
 清理 &quot;/etc/kubernetes/tmp&quot; 目录。
 </p>
 </td>
@@ -69,11 +69,12 @@ Cleanup the &quot;/etc/kubernetes/tmp&quot; directory
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.
 -->
-<p>
-要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；仅当安装了多个 CRI 或具有非标准 CRI 套接字时，才使用此选项。
+要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；
+仅当安装了多个 CRI 或具有非标准 CRI 套接字时，才使用此选项。
 </p>
 </td>
 </tr>
@@ -85,10 +86,10 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 <td>
 </td>
 <td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Don't apply any changes; just output what would be done.
 -->
-<p>
 不做任何更改；只输出将要执行的操作。
 </p>
 </td>
@@ -99,10 +100,10 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for cleanup-node
 -->
-<p>
 cleanup-node 操作的帮助命令。
 </p>
 </td>
@@ -116,7 +117,7 @@ cleanup-node 操作的帮助命令。
 -->
 ### 从父命令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -128,11 +129,11 @@ cleanup-node 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
--->
 <p>
-[实验] 指向 '真实' 宿主机根文件系统的路径。
+<!--
+The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
+-->
+到“真实”主机根文件系统的路径。这将导致 kubeadm 切换到所提供的路径。
 </p>
 </td>
 </tr>
