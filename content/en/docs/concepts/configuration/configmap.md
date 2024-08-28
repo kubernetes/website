@@ -234,12 +234,12 @@ data:
 ```
 The following command will create the ConfigMap object:
 ```shell
-$ kubectl apply -f myconfigmap.yaml
+kubectl apply -f myconfigmap.yaml
 configmap/myconfigmap created
 ```
 The following command will produce a JSON object that contains the ConfigMap's key-value pairs:
 ```shell
-$ kubectl get configmap myconfigmap -o jsonpath='{.data}' | jq
+kubectl get configmap myconfigmap -o jsonpath='{.data}' | jq
 {
   username: "k8s-admin"
   access_level: "1"
@@ -264,9 +264,9 @@ spec:
 The envFrom field instructs Kubernetes to create environment variables from the sources nested within it. The configMapRef refers to a ConfigMap by its name and selects all its key-value pairs.
 Add the Pod to your cluster, then retrieve its logs to see the output from the printenv command. This should confirm that the two key-value pairs from the ConfigMap have been set as environment variables:
 ```shell
-$ kubectl apply -f env-configmap.yaml
+kubectl apply -f env-configmap.yaml
 pod/ env-configmap created
-$ kubectl logs pod/ env-configmap
+kubectl logs pod/ env-configmap
 ...
 username: "k8s-admin"
 access_level: "1"
