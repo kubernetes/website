@@ -70,19 +70,9 @@ POST /api/v1/namespaces/{namespace}/bindings
 #### Parameters
 
 
-- ****: 
+- **namespace** (*in path*): string, required
 
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../workload-resources/binding-v1#Binding" >}}">Binding</a>, required
@@ -95,9 +85,19 @@ POST /api/v1/namespaces/{namespace}/bindings
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -122,24 +122,14 @@ POST /api/v1/namespaces/{namespace}/pods/{name}/binding
 #### Parameters
 
 
-- ****: 
-
-  
-
-
 - **name** (*in path*): string, required
 
   name of the Binding
 
 
-- ****: 
+- **namespace** (*in path*): string, required
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../workload-resources/binding-v1#Binding" >}}">Binding</a>, required
@@ -152,9 +142,19 @@ POST /api/v1/namespaces/{namespace}/pods/{name}/binding
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 

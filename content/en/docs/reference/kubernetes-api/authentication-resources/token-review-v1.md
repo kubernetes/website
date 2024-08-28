@@ -143,16 +143,6 @@ POST /apis/authentication.k8s.io/v1/tokenreviews
 #### Parameters
 
 
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
 - **body**: <a href="{{< ref "../authentication-resources/token-review-v1#TokenReview" >}}">TokenReview</a>, required
 
   
@@ -163,9 +153,19 @@ POST /apis/authentication.k8s.io/v1/tokenreviews
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
