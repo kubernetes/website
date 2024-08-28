@@ -221,6 +221,63 @@ in a Pod:
    in the specified environment variables.
 
 This is an example of defining a ConfigMap as a pod environment variable:
+
+The following ConfigMap(myconfigmap.yaml) stores two properties: username and access_level:
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myconfigmap
+data:
+  username: "k8s-admin"
+  access_level: "1"
+```
+The following command will create the ConfigMap object:
+```shell
+$ kubectl apply -f myconfigmap.yaml
+configmap/myconfigmap created
+```
+The following command will produce a JSON object that contains the ConfigMap's key-value pairs:
+```shell
+$ kubectl get configmap myconfigmap -o jsonpath='{.data}' | jq
+{
+  username: "k8s-admin"
+  access_level: "1"
+}
+```
+
+Once created a ConfigMap, you can consume it within your Pods. You can access all or part of a ConfigMap as environment variables, command line arguments, or mounted files.
+The following Pod (env-configmap.yaml) makes the content of the myconfigmap ConfigMap available as environment variables:
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: env-configmap
+spec:
+  containers:
+    - name: app
+      command: ["/bin/sh", "-c", "printenv"]
+      image: busybox:latest
+      envFrom:
+        - configMapRef:
+            name: myconfigmap
+```
+
+The envFrom field instructs Kubernetes to create environment variables from the sources nested within it. The configMapRef refers to a ConfigMap by its name and selects all its key-value pairs.
+Add the Pod to your cluster, then retrieve its logs to see the output from the printenv command. This should confirm that the two key-value pairs from the ConfigMap have been set as environment variables:
+```shell
+$ kubectl apply -f env-configmap.yaml
+pod/ env-configmap created
+
+$ kubectl logs pod/ env-configmap
+...
+username: "k8s-admin"
+access_level: "1"
+...
+```
+Sometimes a Pod won't require access to all the values contained in a ConfigMap. For example, you could have another Pod which only utilizes the username value from myconfigmap ConfigMap.
+The env.valueFrom syntax can be used instead of envFrom for this use case. It lets you select individual keys in a ConfigMap. Keys can also be renamed to different environment variables:
+
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -238,6 +295,7 @@ spec:
           key: username
 
 ```
+If you add this Pod to your cluster, youÅfll see that only CONFIGMAP_USERNAME is set as an environment variable and It has the value of the username key from the myconfigmap ConfigMap.
 
 It's important to note that the range of characters allowed for environment
 variable names in pods is [restricted](/docs/tasks/inject-data-application/define-environment-variable-container/#using-environment-variables-inside-of-your-config).
