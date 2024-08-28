@@ -28,6 +28,10 @@ Before walking through each tutorial, you may want to bookmark the
 * [Example: Configuring a Java Microservice](/docs/tutorials/configuration/configure-java-microservice/)
 * [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
+## Authoring Pods
+
+* [Adopting Sidecar Containers](/docs/tutorials/configuration/pod-sidecar-containers/)
+
 ## Stateless Applications
 
 * [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
@@ -49,7 +53,7 @@ Before walking through each tutorial, you may want to bookmark the
 
 * [Apply Pod Security Standards at Cluster level](/docs/tutorials/security/cluster-level-pss/)
 * [Apply Pod Security Standards at Namespace level](/docs/tutorials/security/ns-level-pss/)
-* [AppArmor](/docs/tutorials/security/apparmor/)
+* [Restrict a Container's Access to Resources with AppArmor](/docs/tutorials/security/apparmor/)
 * [Seccomp](/docs/tutorials/security/seccomp/)
 ## {{% heading "whatsnext" %}}
 

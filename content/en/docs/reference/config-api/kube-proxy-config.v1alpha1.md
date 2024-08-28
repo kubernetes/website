@@ -336,7 +336,7 @@ Profiling handlers will be handled by metrics server.</p>
 <a href="#kubeproxy-config-k8s-io-v1alpha1-LocalMode"><code>LocalMode</code></a>
 </td>
 <td>
-   <p>detectLocalMode determines mode to use for detecting local traffic, defaults to LocalModeClusterCIDR</p>
+   <p>detectLocalMode determines mode to use for detecting local traffic, defaults to ClusterCIDR</p>
 </td>
 </tr>
 <tr><td><code>detectLocal</code> <B>[Required]</B><br/>
@@ -352,7 +352,7 @@ Profiling handlers will be handled by metrics server.</p>
 <td>
    <p>clusterCIDR is the CIDR range of the pods in the cluster. (For dual-stack
 clusters, this can be a comma-separated dual-stack pair of CIDR ranges.). When
-DetectLocalMode is set to LocalModeClusterCIDR, kube-proxy will consider
+DetectLocalMode is set to ClusterCIDR, kube-proxy will consider
 traffic to be local if its source IP is in this range. (Otherwise it is not
 used.)</p>
 </td>
@@ -361,10 +361,12 @@ used.)</p>
 <code>[]string</code>
 </td>
 <td>
-   <p>nodePortAddresses is a list of CIDR ranges that contain valid node IPs. If set,
+   <p>nodePortAddresses is a list of CIDR ranges that contain valid node IPs, or
+alternatively, the single string 'primary'. If set to a list of CIDRs,
 connections to NodePort services will only be accepted on node IPs in one of
-the indicated ranges. If unset, NodePort connections will be accepted on all
-local IPs.</p>
+the indicated ranges. If set to 'primary', NodePort services will only be
+accepted on the node's primary IPv4 and/or IPv6 address according to the Node
+object. If unset, NodePort connections will be accepted on all local IPs.</p>
 </td>
 </tr>
 <tr><td><code>oomScoreAdj</code> <B>[Required]</B><br/>
@@ -395,6 +397,13 @@ than 0.</p>
 </td>
 <td>
    <p>portRange was previously used to configure the userspace proxy, but is now unused.</p>
+</td>
+</tr>
+<tr><td><code>windowsRunAsService</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>windowsRunAsService, if true, enables Windows service control manager API integration.</p>
 </td>
 </tr>
 </tbody>

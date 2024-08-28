@@ -3,6 +3,8 @@ title: " One million requests per second: Dependable and dynamic distributed sys
 date: 2015-11-11
 slug: one-million-requests-per-second-dependable-and-dynamic-distributed-systems-at-scale
 url: /blog/2015/11/One-Million-Requests-Per-Second-Dependable-And-Dynamic-Distributed-Systems-At-Scale
+author: >
+  Brendan Burns (Google)
 ---
 
 Recently, I’ve gotten in the habit of telling people that building a reliable service isn’t that hard. If you give me two Compute Engine virtual machines, a Cloud Load balancer, supervisord and nginx, I can create you a static web service that will serve a static web page, effectively forever.  
@@ -30,7 +32,3 @@ I hope I’ve shown you how Kubernetes can enable developers of distributed syst
 
 
  "https://www.youtube.com/embed/7TOWLerX0Ps"
-
-
-
-- Brendan Burns, Senior Staff Software Engineer, Google, Inc.

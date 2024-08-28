@@ -87,6 +87,6 @@ Kubernetes:
 
 ## {{% heading "whatsnext" %}}
 
-*   Изучите [Компоненты Kubernetes](/docs/concepts/overview/components/)
-*   Готовы [начать](/docs/setup/)?
+*   Изучите [Компоненты Kubernetes](/ru/docs/concepts/overview/components/)
+*   Готовы [начать](/ru/docs/setup/)?
 

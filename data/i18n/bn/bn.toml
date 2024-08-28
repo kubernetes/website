@@ -81,7 +81,7 @@ other = "ইস্যু সারাংশ"
 other = "অফিসিয়াল কুবারনেটিস CVE তালিকা"
 
 [cve_table_date_format]
-other = "2006-01-02 15:04:05 MST"
+other = "02-01-2006 15:04:05 MST"
 
 [cve_table_date_format_string]
 other = "(সর্বশেষ ভার্সন: %s)"
@@ -514,7 +514,7 @@ other = "(রিলিজ হয়েছিল: "
 # See https://gohugo.io/functions/format/gos-layout-string
 # Use a suitable format for your locale
 [release_date_format]
-other = "2006-01-02"
+other = "02-01-2006"
 
 [release_date_format_month]
 other = "জানুয়ারি 2006"

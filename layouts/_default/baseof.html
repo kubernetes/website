@@ -32,7 +32,7 @@
     {{ end }}
 		{{ end }}
     <div class="td-outer">
-      <main role="main" class="td-main">
+      <main role="main" class="td-main" {{ if (or (ne .FirstSection "case-studies") (not .IsSection) ) }}data-pagefind-body{{ end }}>
         {{ block "main" . }}{{ end }}
       </main>
     </div>

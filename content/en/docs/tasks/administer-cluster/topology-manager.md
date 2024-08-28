@@ -35,7 +35,7 @@ responsible for these optimizations.
 
 <!-- steps -->
 
-## How Topology Manager Works
+## How topology manager works
 
 Prior to the introduction of Topology Manager, the CPU and Device Manager in Kubernetes make
 resource allocation decisions independently of each other.  This can result in undesirable
@@ -60,7 +60,7 @@ the pod can be accepted or rejected from the node based on the selected hint.
 The hint is then stored in the Topology Manager for use by the *Hint Providers* when making the
 resource allocation decisions.
 
-## Topology Manager Scopes and Policies
+## Topology manager scopes and policies
 
 The Topology Manager currently:
 
@@ -78,30 +78,33 @@ carry out the alignment (e.g. `best-effort`, `restricted`, `single-numa-node`, e
 Details on the various `scopes` and `policies` available today can be found below.
 
 {{< note >}}
-To align CPU resources with other requested resources in a Pod Spec, the CPU Manager should be
+To align CPU resources with other requested resources in a Pod spec, the CPU Manager should be
 enabled and proper CPU Manager policy should be configured on a Node.
 See [control CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 {{< /note >}}
 
 {{< note >}}
-To align memory (and hugepages) resources with other requested resources in a Pod Spec, the Memory
+To align memory (and hugepages) resources with other requested resources in a Pod spec, the Memory
 Manager should be enabled and proper Memory Manager policy should be configured on a Node. Examine
 [Memory Manager](/docs/tasks/administer-cluster/memory-manager/) documentation.
 {{< /note >}}
 
-### Topology Manager Scopes
+## Topology manager scopes
 
 The Topology Manager can deal with the alignment of resources in a couple of distinct scopes:
 
 * `container` (default)
 * `pod`
 
-Either option can be selected at a time of the kubelet startup, with `--topology-manager-scope`
-flag.
+Either option can be selected at a time of the kubelet startup, by setting the
+`topologyManagerScope` in the
+[kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
 
-### container scope
+### `container` scope
 
-The `container` scope is used by default.
+The `container` scope is used by default. You can also explicitly set the
+`topologyManagerScope` to `container` in the
+[kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
 
 Within this scope, the Topology Manager performs a number of sequential resource alignments, i.e.,
 for each container (in a pod) a separate alignment is computed. In other words, there is no notion
@@ -111,9 +114,9 @@ the Topology Manager performs an arbitrary alignment of individual containers to
 The notion of grouping the containers was endorsed and implemented on purpose in the following
 scope, for example the `pod` scope.
 
-### pod scope
+### `pod` scope
 
-To select the `pod` scope, start the kubelet with the command line option `--topology-manager-scope=pod`.
+To select the `pod` scope, set `topologyManagerScope` in the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/) to `pod`.`
 
 This scope allows for grouping all containers in a pod to a common set of NUMA nodes. That is, the
 Topology Manager treats a pod as a whole and attempts to allocate the entire pod (all containers)
@@ -147,7 +150,7 @@ is present among possible allocations. Reconsider the example above:
 To recap, Topology Manager first computes a set of NUMA nodes and then tests it against Topology
 Manager policy, which either leads to the rejection or admission of the pod.
 
-### Topology Manager Policies
+## Topology manager policies
 
 Topology Manager supports four allocation policies. You can set a policy via a Kubelet flag,
 `--topology-manager-policy`. There are four supported policies:
@@ -163,11 +166,11 @@ the policy, is reflecting requirements of the entire pod, and thus each containe
 will result with **the same** topology alignment decision.
 {{< /note >}}
 
-### none policy {#policy-none}
+### `none` policy {#policy-none}
 
 This is the default policy and does not perform any topology alignment.
 
-### best-effort policy {#policy-best-effort}
+### `best-effort` policy {#policy-best-effort}
 
 For each container in a Pod, the kubelet, with `best-effort` topology management policy, calls
 each Hint Provider to discover their resource availability. Using this information, the Topology
@@ -177,7 +180,7 @@ preferred, Topology Manager will store this and admit the pod to the node anyway
 The *Hint Providers* can then use this information when making the
 resource allocation decision.
 
-### restricted policy {#policy-restricted}
+### `restricted` policy {#policy-restricted}
 
 For each container in a Pod, the kubelet, with `restricted` topology management policy, calls each
 Hint Provider to discover their resource availability.  Using this information, the Topology
@@ -193,7 +196,7 @@ have the `Topology Affinity` error.
 If the pod is admitted, the *Hint Providers* can then use this information when making the
 resource allocation decision.
 
-### single-numa-node policy {#policy-single-numa-node}
+### `single-numa-node` policy {#policy-single-numa-node}
 
 For each container in a Pod, the kubelet, with `single-numa-node` topology management policy,
 calls each Hint Provider to discover their resource availability.  Using this information, the
@@ -208,7 +211,7 @@ reschedule the pod. It is recommended to use a Deployment with replicas to trigg
 the Pod.An external control loop could be also implemented to trigger a redeployment of pods
 that have the `Topology Affinity` error.
 
-### Topology manager policy options
+## Topology manager policy options
 
 Support for the Topology Manager policy options requires `TopologyManagerPolicyOptions`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled
@@ -220,23 +223,55 @@ You can toggle groups of options on and off based upon their maturity level usin
 
 You will still have to enable each option using the `TopologyManagerPolicyOptions` kubelet option.
 
-The following policy options exists:
-* `prefer-closest-numa-nodes` (beta, visible by default; `TopologyManagerPolicyOptions` and `TopologyManagerPolicyBetaOptions` feature gates have to be enabled).
-The `prefer-closest-numa-nodes` policy option is beta in Kubernetes {{< skew currentVersion >}}.
+### `prefer-closest-numa-nodes` (beta) {#policy-option-prefer-closest-numa-nodes}
 
-If the `prefer-closest-numa-nodes` policy option is specified, the `best-effort` and `restricted`
-policies will favor sets of NUMA nodes with shorter distance between them when making admission decisions.
+The `prefer-closest-numa-nodes` option is beta since Kubernetes 1.28. In Kubernetes {{< skew currentVersion >}}
+this policy option is visible by default provided that the `TopologyManagerPolicyOptions` and
+`TopologyManagerPolicyBetaOptions` [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+are enabled.
+
+The topology manager is not aware by default of NUMA distances, and does not take them into account when making
+Pod admission decisions. This limitation surfaces in multi-socket, as well as single-socket multi NUMA systems,
+and can cause significant performance degradation in latency-critical execution and high-throughput applications
+if the topology manager decides to align resources on non-adjacent NUMA nodes.
+
+If you specify the `prefer-closest-numa-nodes` policy option, the `best-effort` and `restricted`
+policies favor sets of NUMA nodes with shorter distance between them when making admission decisions.
+
 You can enable this option by adding `prefer-closest-numa-nodes=true` to the Topology Manager policy options.
-By default, without this option, Topology Manager aligns resources on either a single NUMA node or
-the minimum number of NUMA nodes (in cases where more than one NUMA node is required). However,
-the `TopologyManager` is not aware of NUMA distances and does not take them into account when making admission decisions.
-This limitation surfaces in multi-socket, as well as single-socket multi NUMA systems,
-and can cause significant performance degradation in latency-critical execution and high-throughput applications if the
-Topology Manager decides to align resources on non-adjacent NUMA nodes.
 
-### Pod Interactions with Topology Manager Policies
+By default (without this option), Topology Manager aligns resources on either a single NUMA node or,
+in the case where more than one NUMA node is required, using the minimum number of NUMA nodes.
 
-Consider the containers in the following pod specs:
+### `max-allowable-numa-nodes` (beta) {#policy-option-max-allowable-numa-nodes}
+
+The `max-allowable-numa-nodes` option is beta since Kubernetes 1.31. In Kubernetes {{< skew currentVersion >}}
+this policy option is visible by default provided that the `TopologyManagerPolicyOptions` and
+`TopologyManagerPolicyBetaOptions` [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+are enabled.
+
+The time to admit a pod is tied to the number of NUMA nodes on the physical machine.
+By default, Kubernetes does not run a kubelet with the topology manager enabled, on any (Kubernetes) node where
+more than 8 NUMA nodes are detected.
+
+{{< note >}}
+If you select the the `max-allowable-numa-nodes` policy option, nodes with more than 8 NUMA nodes can
+be allowed to run with the topology manager enabled. The Kubernetes project only has limited data on the impact
+of using the topology manager on (Kubernetes) nodes with more than 8 NUMA nodes. Because of that
+lack of data, using this policy option with Kubernetes {{< skew currentVersion >}} is **not** recommended and is
+at your own risk.
+{{< /note >}}
+
+You can enable this option by adding `max-allowable-numa-nodes=true` to the Topology Manager policy options.
+
+Setting a value of `max-allowable-numa-nodes` does not (in and of itself) affect the
+latency of pod admission, but binding a Pod to a (Kubernetes) node with many NUMA does does have an impact.
+Future, potential improvements to Kubernetes may improve Pod admission performance and the high
+latency that happens as the number of NUMA nodes increases.
+
+## Pod interactions with topology manager policies
+
+Consider the containers in the following Pod manifest:
 
 ```yaml
 spec:
@@ -343,11 +378,12 @@ Using this information the Topology Manager calculates the optimal hint for the 
 this information, which will be used by the Hint Providers when they are making their resource
 assignments.
 
-### Known Limitations
+## Known limitations
 
 1. The maximum number of NUMA nodes that Topology Manager allows is 8. With more than 8 NUMA nodes
    there will be a state explosion when trying to enumerate the possible NUMA affinities and
-   generating their hints.
+   generating their hints. See [`max-allowable-numa-nodes`](#policy-option-max-allowable-numa-nodes)
+   (beta) for more options.
 
 2. The scheduler is not topology-aware, so it is possible to be scheduled on a node and then fail
    on the node due to the Topology Manager.

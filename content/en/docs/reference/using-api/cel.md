@@ -51,7 +51,7 @@ Example CEL expressions:
 | `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas`           | Validate that the three fields defining replicas are ordered appropriately        |
 | `'Available' in self.stateCounts`                                                  | Validate that an entry with the 'Available' key exists in a map                   |
 | `(self.list1.size() == 0) != (self.list2.size() == 0)`                             | Validate that one of two lists is non-empty, but not both                         |
-| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')`   | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
+| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$'))`  | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
 | `has(self.expired) && self.created + self.ttl < self.expired`                      | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration       |
 | `self.health.startsWith('ok')`                                                     | Validate a 'health' string field has the prefix 'ok'                              |
 | `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                               | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
@@ -200,7 +200,19 @@ To perform an authorization check for a service account:
 | `authorizer.serviceAccount('default', 'myserviceaccount').resource('deployments').check('delete').allowed()` | Checks if the service account is authorized to delete deployments. |
 {{< /table >}}
 
+{{< feature-state state="alpha" for_k8s_version="v1.31" >}}
+
+With the alpha `AuthorizeWithSelectors` feature enabled, field and label selectors can be added to authorization checks.
+
+{{< table caption="Examples of CEL expressions using selector authorization functions" >}}
+| CEL Expression                                                                                               | Purpose                                        |
+|--------------------------------------------------------------------------------------------------------------|------------------------------------------------|
+| `authorizer.group('').resource('pods').fieldSelector('spec.nodeName=mynode').check('list').allowed()`        | Returns true if the principal (user or service account) is allowed to list pods with the field selector `spec.nodeName=mynode`. |
+| `authorizer.group('').resource('pods').labelSelector('example.com/mylabel=myvalue').check('list').allowed()` | Returns true if the principal (user or service account) is allowed to list pods with the label selector `example.com/mylabel=myvalue`. |
+{{< /table >}}
+
 See the [Kubernetes Authz library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)
+and [Kubernetes AuthzSelectors library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#AuthzSelectors)
 godoc for more information.
 
 ### Kubernetes quantity library

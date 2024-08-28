@@ -160,7 +160,7 @@ The general workflow of a device plugin includes the following steps:
    The processing of the fully-qualified CDI device names by the Device Manager requires
    that the `DevicePluginCDIDevices` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
    is enabled for both the kubelet and the kube-apiserver. This was added as an alpha feature in Kubernetes
-   v1.28 and graduated to beta in v1.29.
+   v1.28, graduated to beta in v1.29 and to GA in v1.31.
    {{< /note >}}
 
 ### Handling kubelet restarts
@@ -169,6 +169,35 @@ A device plugin is expected to detect kubelet restarts and re-register itself wi
 kubelet instance. A new kubelet instance deletes all the existing Unix sockets under
 `/var/lib/kubelet/device-plugins` when it starts. A device plugin can monitor the deletion
 of its Unix socket and re-register itself upon such an event.
+
+### Device plugin and unhealthy devices
+
+There are cases when devices fail or are shut down. The responsibility of the Device Plugin
+in this case is to notify the kubelet about the situation using the `ListAndWatchResponse` API.
+
+Once a device is marked as unhealthy, the kubelet will decrease the allocatable count
+for this resource on the Node to reflect how many devices can be used for scheduling new pods.
+Capacity count for the resource will not change.
+
+Pods that were assigned to the failed devices will continue be assigned to this device.
+It is typical that code relying on the device will start failing and Pod may get
+into Failed phase if `restartPolicy` for the Pod was not `Always` or enter the crash loop
+otherwise.
+
+Before Kubernetes v1.31, the way to know whether or not a Pod is associated with the
+failed device is to use the [PodResources API](#monitoring-device-plugin-resources).
+
+{{< feature-state feature_gate_name="ResourceHealthStatus" >}}
+
+By enabling the feature gate `ResourceHealthStatus`, the field `allocatedResourcesStatus`
+will be added to each container status, within the `.status` for each Pod. The `allocatedResourcesStatus`
+field
+reports health information for each device assigned to the container.
+
+For a failed Pod, or or where you suspect a fault, you can use this status to understand whether
+the Pod behavior may be associated with device failure. For example, if an accelerator is reporting
+an over-temperature event, the `allocatedResourcesStatus` field may be able to report this.
+
 
 ## Device plugin deployment
 

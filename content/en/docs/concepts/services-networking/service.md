@@ -525,8 +525,6 @@ spec:
 
 #### Reserve Nodeport ranges to avoid collisions  {#avoid-nodeport-collisions}
 
-{{< feature-state for_k8s_version="v1.29" state="stable" >}}
-
 The policy for assigning ports to NodePort services applies to both the auto-assignment and
 the manual assignment scenarios. When a user wants to create a NodePort service that
 uses a specific port, the target port may conflict with another port that has already been assigned.
@@ -727,16 +725,16 @@ Select one of the tabs.
 metadata:
   name: my-service
   annotations:
-      networking.gke.io/load-balancer-type: "Internal"
+    networking.gke.io/load-balancer-type: "Internal"
 ```
 {{% /tab %}}
 {{% tab name="AWS" %}}
 
 ```yaml
 metadata:
-    name: my-service
-    annotations:
-        service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+  name: my-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
 ```
 
 {{% /tab %}}
@@ -746,7 +744,7 @@ metadata:
 metadata:
   name: my-service
   annotations:
-      service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 ```
 
 {{% /tab %}}
@@ -756,7 +754,7 @@ metadata:
 metadata:
   name: my-service
   annotations:
-      service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
+    service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
 ```
 
 {{% /tab %}}
@@ -804,7 +802,7 @@ metadata:
 metadata:
   name: my-service
   annotations:
-      service.beta.kubernetes.io/oci-load-balancer-internal: true
+    service.beta.kubernetes.io/oci-load-balancer-internal: true
 ```
 {{% /tab %}}
 {{< /tabs >}}

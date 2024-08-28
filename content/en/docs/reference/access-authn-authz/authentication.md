@@ -1082,6 +1082,41 @@ Starting in 1.6, the ABAC and RBAC authorizers require explicit authorization of
 `system:anonymous` user or the `system:unauthenticated` group, so legacy policy rules
 that grant access to the `*` user or `*` group do not include anonymous users.
 
+### Anonymous Authenticator Configuration
+
+{{< feature-state feature_gate_name="AnonymousAuthConfigurableEndpoints" >}}
+
+The `AuthenticationConfiguration` can be used to configure the anonymous
+authenticator. To enable configuring anonymous auth via the config file you need
+enable the `AnonymousAuthConfigurableEndpoints` feature gate. When this feature
+gate is enabled you cannot set the `--anonymous-auth` flag.
+
+The main advantage of configuring anonymous authenticator using the authentication
+configuration file is that in addition to enabling and disabling anonymous authentication
+you can also configure which endpoints support anonymous authentication.
+
+A sample authentication configuration file is below:
+
+```yaml
+---
+#
+# CAUTION: this is an example configuration.
+#          Do not use this for your own cluster!
+#
+apiVersion: apiserver.config.k8s.io/v1beta1
+kind: AuthenticationConfiguration
+anonymous:
+  enabled: true
+  conditions:
+  - path: /livez
+  - path: /readyz
+  - path: /healthz
+```
+
+In the configuration above only the `/livez`, `/readyz` and `/healthz` endpoints
+are reachable by anonymous requests. Any other endpoints will not be reachable
+even if it is allowed by RBAC configuration.
+
 ## User impersonation
 
 A user can act as another user through impersonation headers. These let requests

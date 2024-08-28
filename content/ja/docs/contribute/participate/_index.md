@@ -62,7 +62,7 @@ ProwチームとGitHub teamsが完全に一致せずに重複する場合があ�
 
 Kubernetesプロジェクトは、GitHubのissueとPull Requestに関連する自動化のためにprowと呼ばれる自動化ツールを使用します。 
 [Kubernetes Webサイトリポジトリ](https://github.com/kubernetes/website) 
-は、2つの[prowプラグイン](https://github.com/kubernetes/test-infra/tree/master/prow/plugins)を使用します：
+は、2つの[prowプラグイン](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins)を使用します：
 
 - blunderbuss
 - approve

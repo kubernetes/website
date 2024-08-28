@@ -143,6 +143,20 @@ Create a copy of the target Pod with this name.
 </tr>
 
 <tr>
+<td colspan="2">--custom string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Path to a JSON or YAML file containing a partial container spec to customize built-in debug profiles.
+-->
+包含部分容器规约的 JSON 或 YAML 文件的路径，用于自定义内置调试配置文件。
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--env stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：[]</td>
 </tr>
 <tr>
@@ -199,6 +213,90 @@ Container image to use for debug container.
 The image pull policy for the container. If left empty, this value will not be specified by the client and defaulted by the server.
 -->
 容器的镜像拉取策略。如果留空，此值将不会由客户端指定，而是默认由服务器指定。
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--keep-annotations</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+If true, keep the original pod annotations.(This flag only works when used with '--copy-to')
+-->
+如果为真，则保留原始 Pod 的注解。
+（此标志仅与 '--copy-to' 一起使用时才有效）
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--keep-init-containers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Run the init containers for the pod. Defaults to true.(This flag only works when used with '--copy-to')
+-->
+运行 Pod 的初始化容器，默认为 true。
+（此标志仅与 '--copy-to' 一起使用时才有效）
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--keep-labels</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+If true, keep the original pod labels.(This flag only works when used with '--copy-to')
+-->
+如果为真，则保留原始 Pod 的标签。
+（此标志仅与 '--copy-to' 一起使用时才有效）
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--keep-liveness</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+If true, keep the original pod liveness probes.(This flag only works when used with '--copy-to')
+-->
+如果为真，则保留原始 Pod 的存活性检测。
+（此标志仅与 '--copy-to' 一起使用时才有效）
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--keep-readiness</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+If true, keep the original pod readiness probes.(This flag only works when used with '--copy-to')
+-->
+如果为真，则保留原始 Pod 的就绪性探测。
+（此标志仅与 '--copy-to; 一起使用时才有效）
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--keep-startup</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+If true, keep the original startup probes.(This flag only works when used with '--copy-to')
+-->
+如果为真，则保留原始 Pod 的启动性检测。
+（此标志仅与 '--copy-to' 一起使用时才有效）
 </p></td>
 </tr>
 
@@ -403,30 +501,6 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L7 负载均衡流量代理和健康检查开放的 CIDR。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L4 负载均衡流量代理和健康检查开放的 CIDR。
 </p></td>
 </tr>
 

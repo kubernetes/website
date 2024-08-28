@@ -11,6 +11,19 @@ in the `Pending` [phase](#pod-phase), moving through `Running` if at least one
 of its primary containers starts OK, and then through either the `Succeeded` or
 `Failed` phases depending on whether any container in the Pod terminated in failure.
 
+Like individual application containers, Pods are considered to be relatively
+ephemeral (rather than durable) entities. Pods are created, assigned a unique
+ID ([UID](/docs/concepts/overview/working-with-objects/names/#uids)), and scheduled
+to run on nodes where they remain until termination (according to restart policy) or
+deletion.
+If a {{< glossary_tooltip term_id="node" >}} dies, the Pods running on (or scheduled
+to run on) that node are [marked for deletion](#pod-garbage-collection). The control
+plane marks the Pods for removal after a timeout period.
+
+<!-- body -->
+
+## Pod lifetime
+
 Whilst a Pod is running, the kubelet is able to restart containers to handle some
 kind of faults. Within a Pod, Kubernetes tracks different container
 [states](#container-states) and determines what action to take to make the Pod
@@ -21,32 +34,48 @@ status for a Pod object consists of a set of [Pod conditions](#pod-conditions).
 You can also inject [custom readiness information](#pod-readiness-gate) into the
 condition data for a Pod, if that is useful to your application.
 
-Pods are only [scheduled](/docs/concepts/scheduling-eviction/) once in their lifetime.
-Once a Pod is scheduled (assigned) to a Node, the Pod runs on that Node until it stops
-or is [terminated](#pod-termination).
+Pods are only [scheduled](/docs/concepts/scheduling-eviction/) once in their lifetime;
+assigning a Pod to a specific node is called _binding_, and the process of selecting
+which node to use is called _scheduling_.
+Once a Pod has been scheduled and is bound to a node, Kubernetes tries
+to run that Pod on the node. The Pod runs on that node until it stops, or until the Pod
+is [terminated](#pod-termination); if Kubernetes isn't able start the Pod on the selected
+node (for example, if the node crashes before the Pod starts), then that particular Pod
+never starts.
 
-<!-- body -->
+You can use [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
+to delay scheduling for a Pod until all its _scheduling gates_ are removed. For example,
+you might want to define a set of Pods but only trigger scheduling once all the Pods
+have been created.
 
-## Pod lifetime
+### Pods and fault recovery {#pod-fault-recovery}
 
-Like individual application containers, Pods are considered to be relatively
-ephemeral (rather than durable) entities. Pods are created, assigned a unique
-ID ([UID](/docs/concepts/overview/working-with-objects/names/#uids)), and scheduled
-to nodes where they remain until termination (according to restart policy) or
-deletion.
-If a {{< glossary_tooltip term_id="node" >}} dies, the Pods scheduled to that node
-are [scheduled for deletion](#pod-garbage-collection) after a timeout period.
+If one of the containers in the Pod fails, then Kubernetes may try to restart that
+specific container.
+Read [How Pods handle problems with containers](#container-restarts) to learn more.
 
-Pods do not, by themselves, self-heal. If a Pod is scheduled to a
-{{< glossary_tooltip text="node" term_id="node" >}} that then fails, the Pod is deleted; likewise,
-a Pod won't survive an eviction due to a lack of resources or Node maintenance. Kubernetes uses a
-higher-level abstraction, called a
+Pods can however fail in a way that the cluster cannot recover from, and in that case
+Kubernetes does not attempt to heal the Pod further; instead, Kubernetes deletes the
+Pod and relies on other components to provide automatic healing.
+
+If a Pod is scheduled to a {{< glossary_tooltip text="node" term_id="node" >}} and that
+node then fails, the Pod is treated as unhealthy and Kubernetes eventually deletes the Pod.
+A Pod won't survive an {{< glossary_tooltip text="eviction" term_id="eviction" >}} due to
+a lack of resources or Node maintenance.
+
+Kubernetes uses a higher-level abstraction, called a
 {{< glossary_tooltip term_id="controller" text="controller" >}}, that handles the work of
 managing the relatively disposable Pod instances.
 
 A given Pod (as defined by a UID) is never "rescheduled" to a different node; instead,
-that Pod can be replaced by a new, near-identical Pod, with even the same name if
-desired, but with a different UID.
+that Pod can be replaced by a new, near-identical Pod. If you make a replacement Pod, it can
+even have same name (as in `.metadata.name`) that the old Pod had, but the replacement
+would have a different `.metadata.uid` from the old Pod.
+
+Kubernetes does not guarantee that a replacement for an existing Pod would be scheduled to
+the same node as the old Pod that was being replaced.
+
+### Associated lifetimes
 
 When something is said to have the same lifetime as a Pod, such as a
 {{< glossary_tooltip term_id="volume" text="volume" >}},
@@ -55,10 +84,7 @@ exists. If that Pod is deleted for any reason, and even if an identical replacem
 is created, the related thing (a volume, in this example) is also destroyed and
 created anew.
 
-{{< figure src="/images/docs/pod.svg" title="Pod diagram" class="diagram-medium" >}}
-
-A multi-container Pod that contains a file puller and a
-web server that uses a persistent volume for shared storage between the containers.
+{{< figure src="/images/docs/pod.svg" title="Figure 1." class="diagram-medium" caption="A multi-container Pod that contains a file puller [sidecar](/docs/concepts/workloads/pods/sidecar-containers/) and a web server. The Pod uses an [ephemeral `emptyDir` volume](/docs/concepts/storage/volumes/#emptydir) for shared storage between the containers." >}}
 
 ## Pod phase
 
@@ -85,8 +111,20 @@ Value       | Description
 `Unknown`   | For some reason the state of the Pod could not be obtained. This phase typically occurs due to an error in communicating with the node where the Pod should be running.
 
 {{< note >}}
-When a Pod is being deleted, it is shown as `Terminating` by some kubectl commands.
-This `Terminating` status is not one of the Pod phases.
+
+When a pod is failing to start repeatedly, `CrashLoopBackOff` may appear in the `Status` field of some kubectl commands. Similarly, when a pod is being deleted, `Terminating` may appear in the `Status` field of some kubectl commands. 
+
+Make sure not to confuse _Status_, a kubectl display field for user intuition, with the pod's `phase`.
+Pod phase is an explicit part of the Kubernetes data model and of the
+[Pod API](/docs/reference/kubernetes-api/workload-resources/pod-v1/). 
+
+```
+  NAMESPACE               NAME               READY   STATUS             RESTARTS   AGE
+  alessandras-namespace   alessandras-pod    0/1     CrashLoopBackOff   200        2d9h
+```
+
+---
+
 A Pod is granted a term to terminate gracefully, which defaults to 30 seconds.
 You can use the flag `--force` to [terminate a Pod by force](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced).
 {{< /note >}}
@@ -348,13 +386,6 @@ after successful sandbox creation and network configuration by the runtime
 plugin). For a Pod without init containers, the kubelet sets the `Initialized`
 condition to `True` before sandbox creation and network configuration starts.
 
-### Pod scheduling readiness {#pod-scheduling-readiness-gate}
-
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
-
-See [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
-for more information.
-
 ## Container probes
 
 A _probe_ is a diagnostic performed periodically by the [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
@@ -511,7 +542,7 @@ processes, and the Pod is then deleted from the
 container runtime's management service is restarted while waiting for processes to terminate, the
 cluster retries from the start including the full original grace period.
 
-An example flow:
+Pod termination flow, illustrated with an example:
 
 1. You use the `kubectl` tool to manually delete a specific Pod, with the default grace period
    (30 seconds).
@@ -530,18 +561,19 @@ An example flow:
 
       If the `preStop` hook is still running after the grace period expires, the kubelet requests
       a small, one-off grace period extension of 2 seconds.
-
-      {{< note >}}
-      If the `preStop` hook needs longer to complete than the default grace period allows,
-      you must modify `terminationGracePeriodSeconds` to suit this.
-      {{< /note >}}
+   {{% note %}}
+   If the `preStop` hook needs longer to complete than the default grace period allows,
+   you must modify `terminationGracePeriodSeconds` to suit this.
+   {{% /note %}}
 
    1. The kubelet triggers the container runtime to send a TERM signal to process 1 inside each
       container.
-      {{< note >}}
-      The containers in the Pod receive the TERM signal at different times and in an arbitrary
-      order. If the order of shutdowns matters, consider using a `preStop` hook to synchronize.
-      {{< /note >}}
+
+      There is [special ordering](#termination-with-sidecars) if the Pod has any
+      {{< glossary_tooltip text="sidecar containers" term_id="sidecar-container" >}} defined.
+      Otherwise, the containers in the Pod receive the TERM signal at different times and in
+      an arbitrary order. If the order of shutdowns matters, consider using a `preStop` hook
+      to synchronize (or switch to using sidecar containers).
 
 1. At the same time as the kubelet is starting graceful shutdown of the Pod, the control plane
    evaluates whether to remove that shutting-down Pod from EndpointSlice (and Endpoints) objects,
@@ -565,38 +597,19 @@ An example flow:
    condition `serving`.  You can find more details on how to implement connections draining in the
    tutorial [Pods And Endpoints Termination Flow](/docs/tutorials/services/pods-and-endpoint-termination-flow/)
 
-{{<note>}}
-If you don't have the `EndpointSliceTerminatingCondition` feature gate enabled
-in your cluster (the gate is on by default from Kubernetes 1.22, and locked to default in 1.26),
-then the Kubernetes control plane removes a Pod from any relevant EndpointSlices as soon as the Pod's
-termination grace period _begins_. The behavior above is described when the
-feature gate `EndpointSliceTerminatingCondition` is enabled.
-{{</note>}}
+   <a id="pod-termination-beyond-grace-period" />
 
-{{<note>}}
-Beginning with Kubernetes 1.29, if your Pod includes one or more sidecar containers
-(init containers with an Always restart policy), the kubelet will delay sending
-the TERM signal to these sidecar containers until the last main container has fully terminated.
-The sidecar containers will be terminated in the reverse order they are defined in the Pod spec.
-This ensures that sidecar containers continue serving the other containers in the Pod until they are no longer needed.
+1. The kubelet ensures the Pod is shut down and terminated
+   1. When the grace period expires, if there is still any container running in the Pod, the
+      kubelet triggers forcible shutdown.
+      The container runtime sends `SIGKILL` to any processes still running in any container in the Pod.
+      The kubelet also cleans up a hidden `pause` container if that container runtime uses one.
+   1. The kubelet transitions the Pod into a terminal phase (`Failed` or `Succeeded` depending on
+      the end state of its containers).
+   1. The kubelet triggers forcible removal of the Pod object from the API server, by setting grace period
+      to 0 (immediate deletion).
+   1. The API server deletes the Pod's API object, which is then no longer visible from any client.
 
-Note that slow termination of a main container will also delay the termination of the sidecar containers.
-If the grace period expires before the termination process is complete, the Pod may enter emergency termination.
-In this case, all remaining containers in the Pod will be terminated simultaneously with a short grace period.
-
-Similarly, if the Pod has a preStop hook that exceeds the termination grace period, emergency termination may occur.
-In general, if you have used preStop hooks to control the termination order without sidecar containers, you can now
-remove them and allow the kubelet to manage sidecar termination automatically.
-{{</note>}}
-
-1. When the grace period expires, the kubelet triggers forcible shutdown. The container runtime sends
-   `SIGKILL` to any processes still running in any container in the Pod.
-   The kubelet also cleans up a hidden `pause` container if that container runtime uses one.
-1. The kubelet transitions the Pod into a terminal phase (`Failed` or `Succeeded` depending on
-   the end state of its containers). This step is guaranteed since version 1.27.
-1. The kubelet triggers forcible removal of Pod object from the API server, by setting grace period
-   to 0 (immediate deletion).
-1. The API server deletes the Pod's API object, which is then no longer visible from any client.
 
 ### Forced Pod termination {#pod-termination-forced}
 
@@ -612,10 +625,8 @@ Setting the grace period to `0` forcibly and immediately deletes the Pod from th
 server. If the Pod was still running on a node, that forcible deletion triggers the kubelet to
 begin immediate cleanup.
 
-{{< note >}}
-You must specify an additional flag `--force` along with `--grace-period=0`
+Using kubectl, You must specify an additional flag `--force` along with `--grace-period=0`
 in order to perform force deletions.
-{{< /note >}}
 
 When a force deletion is performed, the API server does not wait for confirmation
 from the kubelet that the Pod has been terminated on the node it was running on. It
@@ -631,6 +642,24 @@ The resource may continue to run on the cluster indefinitely.
 If you need to force-delete Pods that are part of a StatefulSet, refer to the task
 documentation for
 [deleting Pods from a StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
+
+### Pod shutdown and sidecar containers {##termination-with-sidecars}
+
+If your Pod includes one or more
+[sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/)
+(init containers with an Always restart policy), the kubelet will delay sending
+the TERM signal to these sidecar containers until the last main container has fully terminated.
+The sidecar containers will be terminated in the reverse order they are defined in the Pod spec.
+This ensures that sidecar containers continue serving the other containers in the Pod until they
+are no longer needed.
+
+This means that slow termination of a main container will also delay the termination of the sidecar containers.
+If the grace period expires before the termination process is complete, the Pod may enter [forced termination](#pod-termination-beyond-grace-period).
+In this case, all remaining containers in the Pod will be terminated simultaneously with a short grace period.
+
+Similarly, if the Pod has a `preStop` hook that exceeds the termination grace period, emergency termination may occur.
+In general, if you have used `preStop` hooks to control the termination order without sidecar containers, you can now
+remove them and allow the kubelet to manage sidecar termination automatically.
 
 ### Garbage collection of Pods {#pod-garbage-collection}
 
@@ -651,8 +680,7 @@ Additionally, PodGC cleans up any Pods which satisfy any of the following condit
    [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service),
    when the `NodeOutOfServiceVolumeDetach` feature gate is enabled.
 
-When the `PodDisruptionConditions` feature gate is enabled, along with
-cleaning up the Pods, PodGC will also mark them as failed if they are in a non-terminal
+Along with cleaning up the Pods, PodGC will also mark them as failed if they are in a non-terminal
 phase. Also, PodGC adds a Pod disruption condition when cleaning up an orphan Pod.
 See [Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)
 for more details.
