@@ -5,6 +5,7 @@
 title: 네트워크 폴리시(Network Policy) 선언하기
 min-kubernetes-server-version: v1.8
 content_type: task
+weight: 180
 ---
 <!-- overview -->
 이 문서는 사용자가 쿠버네티스 [네트워크폴리시 API](/ko/docs/concepts/services-networking/network-policies/)를 사용하여 파드(Pod)가 서로 통신하는 방법을 제어하는 네트워크 폴리시를 선언하는데 도움을 준다.

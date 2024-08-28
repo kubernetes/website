@@ -1,6 +1,7 @@
 ---
 title: 퍼시스턴트볼륨 반환 정책 변경하기
 content_type: task
+weight: 100
 ---
 
 <!-- overview -->

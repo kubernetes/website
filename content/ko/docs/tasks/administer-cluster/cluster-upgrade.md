@@ -99,4 +99,4 @@ kubectl convert -f pod.yaml --output-version v1
 업그레이드 중에 장치 할당이 계속 성공적으로 완료되도록 하려면
 장치 플러그인을 업그레이드해야 한다.
 
-[API 호환성](docs/concepts/extend-kubernetes/compute-storage-net/device-plugins.md/#api-compatibility) 및 [Kubelet 장치 매니저 API 버전](docs/reference/node/device-plugin-api-versions.md)을 참조한다.
+[API 호환성](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#api-호환성) 및 [Kubelet 장치 매니저 API 버전](/docs/reference/node/device-plugin-api-versions/)을 참조한다.

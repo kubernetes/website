@@ -1,6 +1,7 @@
 ---
 title: 쿠버네티스 API 활성화 혹은 비활성화하기
 content_type: task
+weight: 200
 ---
 
 <!-- overview -->
