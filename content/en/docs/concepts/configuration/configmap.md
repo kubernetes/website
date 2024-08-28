@@ -222,7 +222,7 @@ in a Pod:
 
 This is an example of defining a ConfigMap as a pod environment variable:
 
-The following ConfigMap(myconfigmap.yaml) stores two properties: username and access_level:
+The following ConfigMap (myconfigmap.yaml) stores two properties: username and access_level:
 ```yaml
 apiVersion: v1
 kind: ConfigMap
@@ -245,7 +245,6 @@ $ kubectl get configmap myconfigmap -o jsonpath='{.data}' | jq
   access_level: "1"
 }
 ```
-
 Once created a ConfigMap, you can consume it within your Pods. You can access all or part of a ConfigMap as environment variables, command line arguments, or mounted files.
 The following Pod (env-configmap.yaml) makes the content of the myconfigmap ConfigMap available as environment variables:
 ```yaml
@@ -262,13 +261,11 @@ spec:
         - configMapRef:
             name: myconfigmap
 ```
-
 The envFrom field instructs Kubernetes to create environment variables from the sources nested within it. The configMapRef refers to a ConfigMap by its name and selects all its key-value pairs.
 Add the Pod to your cluster, then retrieve its logs to see the output from the printenv command. This should confirm that the two key-value pairs from the ConfigMap have been set as environment variables:
 ```shell
 $ kubectl apply -f env-configmap.yaml
 pod/ env-configmap created
-
 $ kubectl logs pod/ env-configmap
 ...
 username: "k8s-admin"
@@ -293,9 +290,8 @@ spec:
         configMapKeyRef:
           name: myconfigmap
           key: username
-
 ```
-If you add this Pod to your cluster, youÅfll see that only CONFIGMAP_USERNAME is set as an environment variable and It has the value of the username key from the myconfigmap ConfigMap.
+If you add this Pod to your cluster, you will see that only CONFIGMAP_USERNAME is set as an environment variable and it has the value of the username key from the myconfigmap ConfigMap.
 
 It's important to note that the range of characters allowed for environment
 variable names in pods is [restricted](/docs/tasks/inject-data-application/define-environment-variable-container/#using-environment-variables-inside-of-your-config).
