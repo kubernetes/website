@@ -1,5 +1,5 @@
 ---
-title: プルリクエストのレビュー
+title: Pull Requestのレビュー
 content_type: concept
 main_menu: true
 weight: 10
@@ -7,9 +7,9 @@ weight: 10
 
 <!-- overview -->
 
-ドキュメントのプルリクエストは誰でもレビューすることができます。Kubernetesのwebsiteリポジトリで[pull requests](https://github.com/kubernetes/website/pulls)のセクションに移動し、open状態のプルリクエストを確認してください。
+ドキュメントのPull Requestは誰でもレビューすることができます。Kubernetesのwebsiteリポジトリで[pull requests](https://github.com/kubernetes/website/pulls)のセクションに移動し、open状態のPull Requestを確認してください。
 
-ドキュメントのプルリクエストのレビューは、Kubernetesコミュニティに自分を知ってもらうためのよい方法の1つです。コードベースについて学んだり、他のコントリビューターとの信頼関係を築く助けともなるはずです。
+ドキュメントのPull Requestのレビューは、Kubernetesコミュニティに自分を知ってもらうためのよい方法の1つです。コードベースについて学んだり、他のコントリビューターとの信頼関係を築く助けともなるはずです。
 
 レビューを行う前には、以下のことを理解しておくとよいでしょう。
 
@@ -31,9 +31,9 @@ weight: 10
 
 ## レビューのプロセス
 
-一般に、コンテンツや文体に対するプルリクエストは、英語でレビューを行います。図1は、レビュープロセスについて手順の概要を示しています。 各ステップの詳細は次のとおりです。
+一般に、コンテンツや文体に対するPull Requestは、英語でレビューを行います。図1は、レビュープロセスについて手順の概要を示しています。 各ステップの詳細は次のとおりです。
 
-**(訳注:SIG Docs jaでは、日本語でも対応しています。日本語の翻訳に対するレビューは、日本語でも構いません。ただし、プルリクエストの作成者や他のコントリビューターが必ずしも日本語を理解できるとは限りませんので、注意して発言してください。)**
+**(訳注:SIG Docs jaでは、日本語でも対応しています。日本語の翻訳に対するレビューは、日本語でも構いません。ただし、Pull Requestの作成者や他のコントリビューターが必ずしも日本語を理解できるとは限りませんので、注意して発言してください。)**
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -66,7 +66,7 @@ class third,fourth white
 
 図1. レビュープロセスの手順
 
-1.  [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls)に移動します。Kubernetesのウェブサイトとドキュメントに対するopen状態のプルリクエスト一覧が表示されます。
+1.  [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls)に移動します。Kubernetesのウェブサイトとドキュメントに対するopen状態のPull Request一覧が表示されます。
 
 2.  open状態のPRに、以下に示すラベルを1つ以上使って絞り込みます。
 

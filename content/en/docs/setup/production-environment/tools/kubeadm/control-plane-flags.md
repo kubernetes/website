@@ -14,7 +14,7 @@ and kube-proxy you can use `KubeletConfiguration` and `KubeProxyConfiguration`, 
 
 All of these options are possible via the kubeadm configuration API.
 For more details on each field in the configuration you can navigate to our
-[API reference pages](/docs/reference/config-api/kubeadm-config.v1beta3/).
+[API reference pages](/docs/reference/config-api/kubeadm-config.v1beta4/).
 
 {{< note >}}
 Customizing the CoreDNS deployment of kubeadm is currently not supported. You must manually
@@ -42,7 +42,7 @@ The components are defined using the following structures:
 - `scheduler`
 - `etcd`
 
-These structures contain a common `extraArgs` field, that consists of `key: value` pairs.
+These structures contain a common `extraArgs` field, that consists of `name` / `value` pairs.
 To override a flag for a control plane component:
 
 1.  Add the appropriate `extraArgs` to your configuration.
@@ -72,14 +72,15 @@ For details, see the [reference documentation for kube-apiserver](/docs/referenc
 Example usage:
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 kubernetesVersion: v1.16.0
 apiServer:
   extraArgs:
-    anonymous-auth: "false"
-    enable-admission-plugins: AlwaysPullImages,DefaultStorageClass
-    audit-log-path: /home/johndoe/audit.log
+  - name: "enable-admission-plugins"
+    value: "AlwaysPullImages,DefaultStorageClass"
+  - name: "audit-log-path"
+    value: "/home/johndoe/audit.log"
 ```
 
 ### ControllerManager flags
@@ -89,13 +90,15 @@ For details, see the [reference documentation for kube-controller-manager](/docs
 Example usage:
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 kubernetesVersion: v1.16.0
 controllerManager:
   extraArgs:
-    cluster-signing-key-file: /home/johndoe/keys/ca.key
-    deployment-controller-sync-period: "50"
+  - name: "cluster-signing-key-file"
+    value: "/home/johndoe/keys/ca.key"
+  - name: "deployment-controller-sync-period"
+    value: "50"
 ```
 
 ### Scheduler flags
@@ -105,12 +108,13 @@ For details, see the [reference documentation for kube-scheduler](/docs/referenc
 Example usage:
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 kubernetesVersion: v1.16.0
 scheduler:
   extraArgs:
-    config: /etc/kubernetes/scheduler-config.yaml
+  - name: "config"
+    value: "/etc/kubernetes/scheduler-config.yaml"
   extraVolumes:
     - name: schedulerconfig
       hostPath: /home/johndoe/schedconfig.yaml
@@ -126,12 +130,13 @@ For details, see the [etcd server documentation](https://etcd.io/docs/).
 Example usage:
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 etcd:
   local:
     extraArgs:
-      election-timeout: 1000
+    - name: "election-timeout"
+      value: 1000
 ```
 
 ## Customizing with patches {#patches}
@@ -145,7 +150,7 @@ is written to disk.
 You can pass this file to `kubeadm init` with `--config <YOUR CONFIG YAML>`:
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: InitConfiguration
 patches:
   directory: /home/user/somedir
@@ -159,7 +164,7 @@ separated by `---`.
 You can pass this file to `kubeadm join` with `--config <YOUR CONFIG YAML>`:
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: JoinConfiguration
 patches:
   directory: /home/user/somedir
@@ -206,7 +211,7 @@ For additional details see [Configuring each kubelet in your cluster using kubea
 To customize kube-proxy you can pass a `KubeProxyConfiguration` next your `ClusterConfiguration` or
 `InitConfiguration` to `kubeadm init` separated by `---`.
 
-For more details you can navigate to our [API reference pages](/docs/reference/config-api/kubeadm-config.v1beta3/).
+For more details you can navigate to our [API reference pages](/docs/reference/config-api/kubeadm-config.v1beta4/).
 
 {{< note >}}
 kubeadm deploys kube-proxy as a {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}, which means

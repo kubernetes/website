@@ -1,5 +1,14 @@
 # i18n strings for the German (main) site.
 
+[docs_version_current]
+other = "(dieser Dokumentation)"
+
+[docs_version_latest_heading]
+other = "Aktuelle Version"
+
+[docs_version_other_heading]
+other = "Vorherige Versionen"
+
 [deprecation_warning]
 other = " Die Dokumentation wird nicht mehr aktiv gepflegt. Die aktuell angezeigte Version ist eine statische Momentaufnahme. Aktuelle Dokumentation finden Sie unter "
 

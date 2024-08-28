@@ -27,6 +27,13 @@ Read operations:
 * secrets, configmaps, persistent volume claims and persistent volumes related
   to pods bound to the kubelet's node
 
+{{< feature-state feature_gate_name="AuthorizeNodeWithSelectors" >}}
+
+When the `AuthorizeNodeWithSelectors` feature is enabled
+(along with the pre-requisite `AuthorizeWithSelectors` feature),
+kubelets are only allowed to read their own Node objects,
+and are only allowed to read pods bound to their node.
+
 Write operations:
 
 * nodes and node status (enable the `NodeRestriction` admission plugin to limit

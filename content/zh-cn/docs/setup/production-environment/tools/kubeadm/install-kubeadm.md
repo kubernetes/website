@@ -490,12 +490,12 @@ sudo mkdir -p "$DOWNLOAD_DIR"
 ```
 
 <!--
-Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)):
+Optionally install crictl (required for interaction with the Container Runtime Interface (CRI), optional for kubeadm):
 -->
-安装 crictl（kubeadm/kubelet 容器运行时接口（CRI）所需）：
+可以选择安装 crictl（与容器运行时接口 (CRI) 交互时必需，但对 kubeadm 来说是可选的）：
 
 ```bash
-CRICTL_VERSION="v1.30.0"
+CRICTL_VERSION="v1.31.0"
 ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```

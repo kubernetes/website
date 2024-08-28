@@ -50,13 +50,6 @@ You should already be familiar with the basic use of [Job](/docs/concepts/worklo
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!--
-Ensure that the [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-`PodDisruptionConditions` and `JobPodFailurePolicy` are both enabled in your cluster.
--->
-确保[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-`PodDisruptionConditions` 和 `JobPodFailurePolicy` 在你的集群中均已启用。
-
-<!--
 ## Using Pod failure policy to avoid unnecessary Pod retries
 
 With the following example, you can learn how to use Pod failure policy to
@@ -93,18 +86,30 @@ kubectl get jobs -l job-name=job-pod-failure-policy-failjob -o yaml
 ```
 
 <!--
-In the Job status, see a job `Failed` condition with the field `reason`
-equal `PodFailurePolicy`. Additionally, the `message` field contains a
-more detailed information about the Job termination, such as:
-`Container main for pod default/job-pod-failure-policy-failjob-8ckj8 failed with exit code 42 matching FailJob rule at index 0`.
+In the Job status, the following conditions display:
+- `FailureTarget` condition: has a `reason` field set to `PodFailurePolicy` and
+  a `message` field with more information about the termination, like
+  `Container main for pod default/job-pod-failure-policy-failjob-8ckj8 failed with exit code 42 matching FailJob rule at index 0`.
+  The Job controller adds this condition as soon as the Job is considered a failure.
+  For details, see [Termination of Job Pods](/docs/concepts/workloads/controllers/job/#termination-of-job-pods).
+- `Failed` condition: same `reason` and `message` as the `FailureTarget`
+  condition. The Job controller adds this condition after all of the Job's Pods
+  are terminated.
+-->
+在 Job 状态中，显示以下情况：
 
+- `FailureTarget` 状况：有一个设置为 `PodFailurePolicy` 的 `reason`
+  字段和一个包含更多有关终止信息的 `message` 字段，例如
+  `Container main for pod default/job-pod-failure-policy-failjob-8ckj8 failed with exit code 42 matching FailJob rule at index 0`。
+  一旦 Job 被视为失败，Job 控制器就会添加此状况。有关详细信息，请参阅
+  [Job Pod 的终止](/zh-cn/docs/concepts/workloads/controllers/job/#termination-of-job-pods)。
+- `Failed`：与 `FailureTarget` 状况相同的 `reason` 和 `message`。
+  Job 控制器会在 Job 的所有 Pod 终止后添加此状况。
+
+<!--
 For comparison, if the Pod failure policy was disabled it would take 6 retries
 of the Pod, taking at least 2 minutes.
 -->
-在 Job 状态中，看到一个任务状况为 `Failed`，其 `reason` 字段等于 `PodFailurePolicy`。
-此外，`message` 字段包含有关 Job 终止更详细的信息，例如：
-`Container main for pod default/job-pod-failure-policy-failjob-8ckj8 failed with exit code 42 matching FailJob rule at index 0`。
-
 为了比较，如果 Pod 失效策略被禁用，将会让 Pod 重试 6 次，用时至少 2 分钟。
 
 <!--
