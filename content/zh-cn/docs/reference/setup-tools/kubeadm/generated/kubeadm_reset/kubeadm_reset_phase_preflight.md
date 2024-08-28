@@ -23,7 +23,7 @@ kubeadm reset phase preflight [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -35,10 +35,10 @@ kubeadm reset phase preflight [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Don't apply any changes; just output what would be done.
 -->
-<p>
 不做任何更改；只输出将要执行的操作。
 </p>
 </td>
@@ -88,7 +88,7 @@ Don't apply any changes; just output what would be done.
 -->
 ### 从父命令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -100,10 +100,12 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
+The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
-<p>[实验] 指向 '真实' 宿主机根文件系统的路径。</p>
+到“真实”主机根文件系统的路径。这将导致 kubeadm 切换到所提供的路径。
+</p>
 </td>
 </tr>
 
