@@ -63,14 +63,16 @@
 - definition: io.k8s.api.core.v1.PodSecurityContext
   field_categories:
   - fields:
+    - appArmorProfile
+    - fsGroup
+    - fsGroupChangePolicy
     - runAsUser
     - runAsNonRoot
     - runAsGroup
-    - supplementalGroups
-    - fsGroup
-    - fsGroupChangePolicy
     - seccompProfile
     - seLinuxOptions
+    - supplementalGroups
+    - supplementalGroupsPolicy
     - sysctls
     - windowsOptions
 
@@ -166,30 +168,36 @@
 - definition: io.k8s.api.core.v1.SecurityContext
   field_categories:
   - fields:
+    - allowPrivilegeEscalation
+    - appArmorProfile
+    - capabilities
+    - procMount
+    - privileged
+    - readOnlyRootFilesystem
     - runAsUser
     - runAsNonRoot
     - runAsGroup
-    - readOnlyRootFilesystem
-    - procMount
-    - privileged
-    - allowPrivilegeEscalation
-    - capabilities
-    - seccompProfile
     - seLinuxOptions
+    - seccompProfile
     - windowsOptions
 
 - definition: io.k8s.api.core.v1.ContainerStatus
   field_categories:
   - fields:
-    - name
+    - allocatedResources
+    - allocatedResourcesStatus
+    - containerID
     - image
     - imageID
-    - containerID
-    - state
     - lastState
+    - name
     - ready
+    - resources
     - restartCount
     - started
+    - state
+    - user
+    - volumeMounts
 
 - definition: io.k8s.api.core.v1.ContainerStateTerminated
   field_categories:
