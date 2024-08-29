@@ -17,16 +17,13 @@ This command manages bootstrap tokens. It is optional and needed only for advanc
 In short, bootstrap tokens are used for establishing bidirectional trust between a client and a server.
 A bootstrap token can be used when a client (for example a node that is about to join the cluster) needs
 to trust the server it is talking to. Then a bootstrap token with the "signing" usage can be used.
--->
-简而言之，引导令牌（bootstrap token）用于在客户端和服务器之间建立双向信任。
-当客户端（例如，即将加入集群的节点）需要时，可以使用引导令牌相信正在与之通信的服务器。
-然后可以使用具有 “签名” 的引导令牌。
-
-<!--
 bootstrap tokens can also function as a way to allow short-lived authentication to the API Server
 (the token serves as a way for the API Server to trust the client), for example for doing the TLS Bootstrap.
 -->
-引导令牌还可以作为一种允许对 API 服务器进行短期身份验证的方法（令牌用作 API 服务器信任客户端的方式），例如用于执行 TLS 引导程序。
+简而言之，引导令牌（Bootstrap Token）用于在客户端和服务器之间建立双向信任。
+当客户端（例如，即将加入集群的节点）需要信任所通信的服务器时，可以使用引导令牌。
+这时可以使用具有 “signing” 用途的引导令牌。引导令牌还可以作为一种允许对 API
+服务器进行短期身份验证的方法（令牌用作 API 服务器信任客户端的方式），例如用于执行 TLS 引导程序。
 
 <!--
 What is a bootstrap token more exactly?
@@ -34,7 +31,7 @@ What is a bootstrap token more exactly?
  - A bootstrap token must be of the form "[a-z0-9]{6}.[a-z0-9]{16}". The former part is the public token ID,
    while the latter is the Token Secret and it must be kept private at all circumstances!
  - The name of the Secret must be named "bootstrap-token-(token-id)".
- -->
+-->
 引导令牌准确来说是什么？
 
 - 它是位于 kube-system 命名空间中类型为 “bootstrap.kubernetes.io/token” 的一个 Secret。
@@ -43,10 +40,10 @@ What is a bootstrap token more exactly?
 
 <!--
 You can read more about bootstrap tokens here:
-  /docs/admin/bootstrap-tokens/
+  https://kubernetes.io/docs/admin/bootstrap-tokens/
 -->
 你可以在此处阅读有关引导令牌（bootstrap token）的更多信息：
-  /docs/admin/bootstrap-tokens/
+  https://kubernetes.io/zh-cn/docs/admin/bootstrap-tokens/
 
 ```
 kubeadm token [flags]
@@ -69,10 +66,10 @@ kubeadm token [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Whether to enable dry-run mode or not
 -->
-<p>
 是否启用 `dry-run` 模式。
 </p>
 </td>
@@ -83,10 +80,10 @@ Whether to enable dry-run mode or not
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for token
 -->
-<p>
 token 操作的帮助命令。
 </p>
 </td>
@@ -102,10 +99,10 @@ token 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-<p>
 与集群通信时使用的 kubeconfig 文件。如果未设置，则搜索一组标准位置以查找现有 kubeconfig 文件。
 </p>
 </td>
@@ -131,11 +128,11 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
--->
 <p>
-[实验] 指向 '真实' 宿主机根文件系统的路径。
+<!--
+The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
+-->
+到“真实”主机根文件系统的路径。这将导致 kubeadm 切换到所提供的路径。
 </p>
 </td>
 </tr>
