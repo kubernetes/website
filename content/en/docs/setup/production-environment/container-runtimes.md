@@ -256,9 +256,6 @@ sandbox image by setting the following config:
 
 You might need to restart `containerd` as well once you've updated the config file: `systemctl restart containerd`.
 
-Please note, that it is a best practice for kubelet to declare the matching `pod-infra-container-image`.
-If not configured, kubelet may attempt to garbage collect the `pause` image..
-
 ### CRI-O
 
 This section contains the necessary steps to install CRI-O as a container runtime.
