@@ -1,5 +1,5 @@
 <!-- 
-Generate and print a bootstrap token, but do not create it on the server 
+Generate and print a bootstrap token, but do not create it on the server
 -->
 生成并打印一个引导令牌，但不要在服务器上创建它。
 
@@ -103,10 +103,12 @@ kubeadm token generate [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- 
-<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>  
+<p>
+<!--
+The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
-<p>[实验] 指向 '真实' 宿主机根文件系统的路径。</p>
+到“真实”主机根文件系统的路径。这将导致 kubeadm 切换到所提供的路径。
+</p>
 </td>
 </tr>
 
