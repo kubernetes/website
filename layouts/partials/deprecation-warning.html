@@ -1,6 +1,6 @@
 {{ if (.Site.Param "deprecated") }}
 <section id="deprecation-warning">
-  <div class="content deprecation-warning pageinfo">
+  <div class="deprecation-warning {{ if $.IsHome }}home-pageinfo{{else}}pageinfo{{ end }}">
     <h3>
       {{ T "deprecation_title" }} {{ .Param "version" }}
     </h3>
@@ -11,7 +11,7 @@
 </section>
 {{ else if and (eq .Section "blog") (not .Params.evergreen) .Date (.Date.Before (now.AddDate -1 0 0)) -}}
 <section id="deprecation-warning">
-  <div class="content deprecation-warning pageinfo outdated-blog">
+  <div class="deprecation-warning pageinfo outdated-blog">
     <p>{{ T "outdated_blog__message" }}</p>
   </div>
 </section>
