@@ -310,13 +310,13 @@ option. Your cluster requirements may need a different configuration.
    {{< note >}}
    <!--
    The `kubeadm init` flags `--config` and `--certificate-key` cannot be mixed, therefore if you want
-   to use the [kubeadm configuration](/docs/reference/config-api/kubeadm-config.v1beta3/)
+   to use the [kubeadm configuration](/docs/reference/config-api/kubeadm-config.v1beta4/)
    you must add the `certificateKey` field in the appropriate config locations
    (under `InitConfiguration` and `JoinConfiguration: controlPlane`).
    -->
    在使用 `kubeadm init` 时，标记 `--config` 和 `--certificate-key` 不能混用，
    因此如果你要使用
-   [kubeadm 配置](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)，你必须在相应的配置结构
+   [kubeadm 配置](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)，你必须在相应的配置结构
    （位于 `InitConfiguration` 和 `JoinConfiguration: controlPlane`）添加 `certificateKey` 字段。
    {{< /note >}}
 
@@ -512,7 +512,7 @@ in the kubeadm config file.
 
    ```yaml
    ---
-   apiVersion: kubeadm.k8s.io/v1beta3
+   apiVersion: kubeadm.k8s.io/v1beta4
    kind: ClusterConfiguration
    kubernetesVersion: stable
    controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT" # change this (see below)
@@ -534,7 +534,7 @@ in the kubeadm config file.
 
    ```yaml
    ---
-   apiVersion: kubeadm.k8s.io/v1beta3
+   apiVersion: kubeadm.k8s.io/v1beta4
    kind: ClusterConfiguration
    kubernetesVersion: stable
    controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT" # change this (see below)
