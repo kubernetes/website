@@ -646,7 +646,7 @@ Jobが`batch.kubernetes.io/job-tracking`というアノテーションを持っ�
 
 `.spec.parallelism`と`.spec.compleitions`の両方を、`.spec.parallelism` == `.spec.compleitions`となるように変更することで、インデックス付きJobを増減させることができます。[APIサーバ](/docs/reference/command-line-tools-reference/kube-apiserver/)の`ElasticIndexedJob`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が無効になっている場合、`.spec.compleitions`は不変です。
 
-静的なインデックス付きJobの使用例としては、MPI、Horovord、Ray、PyTorchトレーニングジョブなど、インデックス付きJobのスケーリングを必要とするバッチワークロードがあります。
+静的なインデックス付きJobの使用例としては、MPI、Horovod、Ray、PyTorchトレーニングジョブなど、インデックス付きJobのスケーリングを必要とするバッチワークロードがあります。
 
 ## 代替案  {#alternatives}
 
