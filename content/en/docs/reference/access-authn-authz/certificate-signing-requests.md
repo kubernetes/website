@@ -537,7 +537,7 @@ Some points to note:
   You can get the content using this command: 
 
   ```shell
-  cat myuser.csr | base64 | tr -d "\n"
+  cat myuser.csr |base64 -w 0
   ```
 
 

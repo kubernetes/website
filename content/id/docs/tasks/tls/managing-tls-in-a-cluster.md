@@ -105,7 +105,7 @@ kind: CertificateSigningRequest
 metadata:
   name: my-svc.my-namespace
 spec:
-  request: $(cat server.csr | base64 | tr -d '\n')
+  request: $(cat server.csr | base64 -w 0)
   usages:
   - digital signature
   - key encipherment

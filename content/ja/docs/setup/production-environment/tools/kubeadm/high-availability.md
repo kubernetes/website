@@ -133,7 +133,7 @@ weight: 60
     Weave Netを使用する場合の例:
 
     ```sh
-    kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+    kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 -w 0)"
     ```
 
 1.  以下のコマンドを入力し、コンポーネントのPodが起動するのを確認します:
@@ -220,7 +220,7 @@ kubeadmバージョン1.15以降、複数のコントロールプレーンノー
 1.  使用するCNIプラグインを適用します。以下はWeave CNIの場合です:
 
     ```sh
-    kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+    kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 -w 0)"
     ```
 
 ### 残りのコントロールプレーンノードの手順

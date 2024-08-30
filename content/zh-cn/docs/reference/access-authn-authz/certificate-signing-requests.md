@@ -956,7 +956,7 @@ Some points to note:
   要得到该值，可以执行命令：
 
   ```shell
-  cat myuser.csr | base64 | tr -d "\n"
+  cat myuser.csr |base64 -w 0
   ```
 
 <!--

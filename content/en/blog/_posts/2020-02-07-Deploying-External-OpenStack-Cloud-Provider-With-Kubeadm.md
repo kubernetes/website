@@ -367,7 +367,7 @@ Now install your favourite CNI and the control-plane node will become ready.
 
 For example, to install Weave Net, run this command:
 ```shell
-kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 -w 0)"
 ```
 
 Next we'll set up worker nodes.

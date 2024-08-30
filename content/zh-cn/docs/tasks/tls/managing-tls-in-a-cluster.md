@@ -191,7 +191,7 @@ kind: CertificateSigningRequest
 metadata:
   name: my-svc.my-namespace
 spec:
-  request: $(cat server.csr | base64 | tr -d '\n')
+  request: $(cat server.csr | base64 -w 0)
   signerName: example.com/serving
   usages:
   - digital signature

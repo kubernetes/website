@@ -361,7 +361,7 @@ Weave Net menyalakan mode _hairpin_ secara bawaan. Hal ini mengizinkan Pod untuk
 jika mereka tidak tahu PodIP miliknya.
 
 ```shell
-kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 -w 0)"
 ```
 {{% /tab %}}
 

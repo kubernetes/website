@@ -181,7 +181,7 @@ d’autres nœuds du control plane au cluster.
 1.  Activez l'extension CNI Weave:
 
     ```sh
-    kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+    kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 -w 0)"
     ```
 
 1.  Tapez ce qui suit et observez les pods des composants démarrer:
@@ -315,7 +315,7 @@ donnée par` kubeadm init` sur le premier noeud. Ça devrait ressembler a quelqu
 1.  Appliquer le plugin CNI Weave:
 
     ```sh
-    kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+    kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 -w 0)"
     ```
 
 ### Étapes pour le reste des nœuds du control plane

@@ -162,7 +162,7 @@ opsi. Kebutuhan klastermu mungkin membutuhkan konfigurasi berbeda.
     Pada contoh berikut kami menggunakan Weave Net:
 
     ```sh
-    kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+    kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 -w 0)"
     ```
 
 3.  Tulis perintah berikut dan saksikan Pod komponen-komponen _control plane_ mulai dinyalakan:
@@ -256,7 +256,7 @@ Langkah-langkah berikut sama dengan pengaturan pada etcd bertumpuk:
 3.  Pasang _plugin_ CNI pilihanmu. Contoh berikut ini untuk Weave Net:
 
     ```sh
-    kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+    kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 -w 0)"
     ```
 
 ### Langkah selanjutnya untuk Node _control plane_ lainnya
