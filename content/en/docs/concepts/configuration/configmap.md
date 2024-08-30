@@ -233,7 +233,9 @@ data:
   username: "k8s-admin"
   access_level: "1"
 ```
+
 The following command will create the ConfigMap object:
+
 ```shell
 kubectl apply -f myconfigmap.yaml
 configmap/myconfigmap created
