@@ -37,10 +37,10 @@ kubeadm token list [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!-- 
 If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
 -->
-<p>
 如果设置为 true，则在模板中缺少字段或哈希表的键时忽略模板中的任何错误。
 仅适用于 golang 和 jsonpath 输出格式。
 </p>
@@ -55,10 +55,10 @@ If true, ignore any errors in templates when a field or map key is missing in th
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--  
 Output format. One of: text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file.
 -->
-<p>
 输出格式：text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file 其中之一
 </p>
 </td>
@@ -69,8 +69,10 @@ Output format. One of: text|json|yaml|go-template|go-template-file|template|temp
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- help for list -->
 <p>
+<!--
+help for list
+-->
 list 操作的帮助命令。
 </p>
 </td>
@@ -129,10 +131,10 @@ Whether to enable dry-run mode or not
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-<p>
 用于和集群通信的 kubeconfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 kubeconfig 文件。
 </p>
 </td>
@@ -143,9 +145,11 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- [EXPERIMENTAL] The path to the 'real' host root filesystem.  -->
 <p>
-[实验] 指向 '真实' 宿主机根文件系统的路径。
+<!--
+The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
+-->
+到“真实”主机根文件系统的路径。这将导致 kubeadm 切换到所提供的路径。
 </p>
 </td>
 </tr>

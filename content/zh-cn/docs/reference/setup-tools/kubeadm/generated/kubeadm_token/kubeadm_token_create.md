@@ -57,10 +57,10 @@ When used together with '--print-join-command', print the full 'kubeadm join' fl
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a kubeadm configuration file.
 -->
-<p>
 kubeadm 配置文件的路径。
 </p>
 </td>
@@ -71,10 +71,10 @@ kubeadm 配置文件的路径。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 A human friendly description of how this token is used.
 -->
-<p>
 针对令牌用途的人性化的描述。
 </p>
 </td>
@@ -92,10 +92,10 @@ A human friendly description of how this token is used.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Extra groups that this token will authenticate as when used for authentication. Must match "\\Asystem:bootstrappers:[a-z0-9:-]{0,255}[a-z0-9]\\z"
 -->
-<p>
 此令牌用于身份验证时将对其他组进行身份验证。必须匹配 "\\Asystem:bootstrappers:[a-z0-9:-]{0,255}[a-z0-9]\\z"
 </p>
 </td>
@@ -106,10 +106,10 @@ Extra groups that this token will authenticate as when used for authentication. 
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for create
 -->
-<p>
 create 操作的帮助命令。
 </p>
 </td>
@@ -120,10 +120,10 @@ create 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Instead of printing only the token, print the full 'kubeadm join' flag needed to join the cluster using the token.
 -->
-<p>
 不仅仅打印令牌，而是打印使用令牌加入集群所需的完整 'kubeadm join' 参数。
 </p>
 </td>
@@ -139,10 +139,10 @@ Instead of printing only the token, print the full 'kubeadm join' flag needed to
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The duration before the token is automatically deleted (e.g. 1s, 2m, 3h). If set to '0', the token will never expire
 -->
-<p>
 令牌有效时间，超过该时间令牌被自动删除。(例如：1s, 2m, 3h)。如果设置为 '0'，令牌将永远不过期。
 </p>
 </td>
@@ -158,11 +158,12 @@ The duration before the token is automatically deleted (e.g. 1s, 2m, 3h). If set
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Describes the ways in which this token can be used. You can pass --usages multiple times or provide a comma separated list of options. Valid options: [signing,authentication]
 -->
-<p>
-描述可以使用此令牌的方式。你可以多次使用 `--usages` 或者提供一个以逗号分隔的选项列表。合法选项有: [signing,authentication]
+描述可以使用此令牌的方式。你可以多次使用 `--usages` 或者提供一个以逗号分隔的选项列表。
+合法选项有：[signing,authentication]
 </p>
 </td>
 </tr>
@@ -187,10 +188,10 @@ Describes the ways in which this token can be used. You can pass --usages multip
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Whether to enable dry-run mode or not
 -->
-<p>
 是否启用 `dry-run` 运行模式。
 </p>
 </td>
@@ -206,10 +207,10 @@ Whether to enable dry-run mode or not
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-<p>
 用于和集群通信的 kubeconfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 kubeconfig 文件。
 </p>
 </td>
@@ -220,11 +221,11 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
--->
 <p>
-[实验] 指向 '真实' 宿主机根文件系统的路径。
+<!--
+The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
+-->
+到“真实”主机根文件系统的路径。这将导致 kubeadm 切换到所提供的路径。
 </p>
 </td>
 </tr>
