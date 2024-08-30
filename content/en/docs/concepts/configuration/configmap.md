@@ -250,8 +250,10 @@ kubectl get configmap myconfigmap -o jsonpath='{.data}' | jq
   access_level: "1"
 }
 ```
+
 Once created a ConfigMap, you can consume it within your Pods. You can access all or part of a ConfigMap as environment variables, command line arguments, or mounted files.
 The following Pod (env-configmap.yaml) makes the content of the myconfigmap ConfigMap available as environment variables:
+
 ```yaml
 apiVersion: v1
 kind: Pod
