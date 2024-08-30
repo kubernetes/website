@@ -268,8 +268,10 @@ spec:
         - configMapRef:
             name: myconfigmap
 ```
+
 The envFrom field instructs Kubernetes to create environment variables from the sources nested within it. The configMapRef refers to a ConfigMap by its name and selects all its key-value pairs.
 Add the Pod to your cluster, then retrieve its logs to see the output from the printenv command. This should confirm that the two key-value pairs from the ConfigMap have been set as environment variables:
+
 ```shell
 kubectl apply -f env-configmap.yaml
 pod/ env-configmap created
