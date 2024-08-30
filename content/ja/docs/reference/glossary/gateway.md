@@ -12,7 +12,7 @@ tags:
 - architecture
 - extension
 ---
-Kubernetesでサービスネットワークをモデル化するために使用されるAPIクラスのセット。
+Kubernetesでサービスネットワーキングをモデル化するために使用されるAPIクラス群。
 
 <!--more--> 
 Gateway APIは、Kubernetesにおけるサービスネットワーキングをモデル化するための、拡張性が高く、ロール指向で、プロトコル対応のAPIクラス群を提供します。
