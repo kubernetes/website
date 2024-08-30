@@ -10,7 +10,7 @@ author: >
 
 The blog post explains some of the internals of the _Memory manager_, a beta feature
 of Kubernetes 1.22. In Kubernetes, the Memory Manager is a
-[kubelet](https://kubernetes.io/docs/concepts/architecture/#kubelet) subcomponent.
+[kubelet](https://kubernetes.io/docs/concepts/overview/components/#kubelet) subcomponent.
 The memory manage provides guaranteed memory (and hugepages)
 allocation for pods in the `Guaranteed` [QoS class](https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/#qos-classes).
 
