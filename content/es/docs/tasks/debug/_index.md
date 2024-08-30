@@ -28,7 +28,7 @@ usado.
 
 ## Obteniendo Ayuda
 
-Si ninguna de las guías anteriores resuelve su problema, existen varias formas de obtener ayuda de la comunidad de Kubernetes..
+Si ninguna de las guías anteriores resuelve su problema, existen varias formas de obtener ayuda de la comunidad de Kubernetes.
 
 ### Preguntas
 
