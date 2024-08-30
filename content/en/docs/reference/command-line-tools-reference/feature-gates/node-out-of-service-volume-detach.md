@@ -17,6 +17,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.28"  
+    toVersion: "1.31"
+
+removed: true
 ---
 When a Node is marked out-of-service using the
 `node.kubernetes.io/out-of-service` taint, Pods on the node will be forcefully deleted
