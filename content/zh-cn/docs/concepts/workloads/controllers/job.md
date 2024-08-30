@@ -1880,7 +1880,7 @@ scaling an indexed Job, such as MPI, Horovod, Ray, and PyTorch training jobs.
 从而满足 `.spec.parallelism == .spec.completions`。
 缩减规模时，Kubernetes 会删除具有更高索引的 Pod。
 
-弹性索引 Job 的使用场景包括需要扩展索引 Job 的批处理工作负载，例如 MPI、Horovord、Ray
+弹性索引 Job 的使用场景包括需要扩展索引 Job 的批处理工作负载，例如 MPI、Horovod、Ray
 和 PyTorch 训练作业。
 
 <!--
