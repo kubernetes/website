@@ -301,6 +301,7 @@ spec:
           name: myconfigmap
           key: username
 ```
+
 If you add this Pod to your cluster, you will see that only CONFIGMAP_USERNAME is set as an environment variable and it has the value of the username key from the myconfigmap ConfigMap.
 
 It's important to note that the range of characters allowed for environment
