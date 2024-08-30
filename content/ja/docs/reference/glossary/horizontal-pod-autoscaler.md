@@ -1,17 +1,17 @@
 ---
-title: …•½PodŽ©“®ƒXƒP[ƒ‰[ (Horizontal Pod Autoscaler)
+title: æ°´å¹³Podè‡ªå‹•ã‚¹ã‚±ãƒ¼ãƒ©ãƒ¼ (Horizontal Pod Autoscaler)
 id: horizontal-pod-autoscaler
 date: 2018-04-12
 full_link: /docs/tasks/run-application/horizontal-pod-autoscale/
 short_description: >
-  …•½PodŽ©“®ƒXƒP[ƒ‰[‚ÍAƒ^[ƒQƒbƒgCPUŽg—p—¦‚Ü‚½‚ÍƒJƒXƒ^ƒ€ƒƒgƒŠƒbƒNƒXƒ^[ƒQƒbƒg‚ÉŠî‚Ã‚¢‚ÄPodƒŒƒvƒŠƒJ”‚ðƒXƒP[ƒŠƒ“ƒO‚·‚éAPIƒŠƒ\[ƒX‚Å‚·B
+  æ°´å¹³Podè‡ªå‹•ã‚¹ã‚±ãƒ¼ãƒ©ãƒ¼ã¯ã€ã‚¿ãƒ¼ã‚²ãƒƒãƒˆCPUä½¿ç”¨çŽ‡ã¾ãŸã¯ã‚«ã‚¹ã‚¿ãƒ ãƒ¡ãƒˆãƒªãƒƒã‚¯ã‚¹ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«åŸºã¥ã„ã¦Podãƒ¬ãƒ—ãƒªã‚«æ•°ã‚’ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã™ã‚‹APIãƒªã‚½ãƒ¼ã‚¹ã§ã™ã€‚
 
 aka: 
 - HPA
 tags:
 - operation
 ---
-…•½PodŽ©“®ƒXƒP[ƒ‰[‚ÍAƒ^[ƒQƒbƒgCPUŽg—p—¦‚Ü‚½‚ÍƒJƒXƒ^ƒ€ƒƒgƒŠƒbƒNƒXƒ^[ƒQƒbƒg‚ÉŠî‚Ã‚¢‚Ä{{< glossary_tooltip text="Pod" term_id="pod" >}}ƒŒƒvƒŠƒJ”‚ðƒXƒP[ƒŠƒ“ƒO‚·‚éAPIƒŠƒ\[ƒX‚Å‚·B
+æ°´å¹³Podè‡ªå‹•ã‚¹ã‚±ãƒ¼ãƒ©ãƒ¼ã¯ã€ã‚¿ãƒ¼ã‚²ãƒƒãƒˆCPUä½¿ç”¨çŽ‡ã¾ãŸã¯ã‚«ã‚¹ã‚¿ãƒ ãƒ¡ãƒˆãƒªãƒƒã‚¯ã‚¹ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«åŸºã¥ã„ã¦{{< glossary_tooltip text="Pod" term_id="pod" >}}ãƒ¬ãƒ—ãƒªã‚«æ•°ã‚’ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã™ã‚‹APIãƒªã‚½ãƒ¼ã‚¹ã§ã™ã€‚
 
 <!--more--> 
-HPA‚Í’Êí{{< glossary_tooltip text="ReplicationControllers" term_id="replication-controller" >}}A{{< glossary_tooltip text="Deployments" term_id="deployment" >}}‚Ü‚½‚Í{{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}}‚ÅŽg—p‚³‚ê‚Ü‚·BHPA‚Í{{< glossary_tooltip text="DaemonSets" term_id="daemonset" >}}‚È‚Ç‚ÌƒXƒP[ƒŠƒ“ƒO‚ðƒTƒ|[ƒg‚µ‚È‚¢ƒIƒuƒWƒFƒNƒg‚Å‚ÍŽg—p‚Å‚«‚Ü‚¹‚ñB
+HPAã¯é€šå¸¸{{< glossary_tooltip text="ReplicationControllers" term_id="replication-controller" >}}ã€{{< glossary_tooltip text="Deployments" term_id="deployment" >}}ã¾ãŸã¯{{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}}ã§ä½¿ç”¨ã•ã‚Œã¾ã™ã€‚HPAã¯{{< glossary_tooltip text="DaemonSets" term_id="daemonset" >}}ãªã©ã®ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã‚’ã‚µãƒãƒ¼ãƒˆã—ãªã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§ã¯ä½¿ç”¨ã§ãã¾ã›ã‚“ã€‚
