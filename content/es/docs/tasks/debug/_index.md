@@ -18,7 +18,7 @@ dos secciones:
 
 * [Depuración de tu aplicación](/docs/tasks/debug/debug-application/) - Útil
 para usuarios que están implementando código en Kubernetes y se preguntan por qué no funciona.
-* [Depuración de su clúster](/docs/tasks/debug/debug-cluster/) - Útil
+* [Depuración de tu clúster](/docs/tasks/debug/debug-cluster/) - Útil
 para administradores de clústeres y personas cuyo clúster de Kubernetes no funciona correctamente.
 
 También debe comprobar los problemas conocidos del [release](https://github.com/kubernetes/kubernetes/releases)
