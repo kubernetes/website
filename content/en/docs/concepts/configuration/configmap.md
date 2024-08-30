@@ -240,7 +240,9 @@ The following command will create the ConfigMap object:
 kubectl apply -f myconfigmap.yaml
 configmap/myconfigmap created
 ```
+
 The following command will produce a JSON object that contains the ConfigMap's key-value pairs:
+
 ```shell
 kubectl get configmap myconfigmap -o jsonpath='{.data}' | jq
 {
