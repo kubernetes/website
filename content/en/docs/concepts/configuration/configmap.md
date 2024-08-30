@@ -223,6 +223,7 @@ in a Pod:
 This is an example of defining a ConfigMap as a pod environment variable:
 
 The following ConfigMap (myconfigmap.yaml) stores two properties: username and access_level:
+
 ```yaml
 apiVersion: v1
 kind: ConfigMap
