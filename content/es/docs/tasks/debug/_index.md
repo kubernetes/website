@@ -34,7 +34,7 @@ Si ninguna de las guías anteriores resuelve su problema, existen varias formas 
 
 La documentación de este sitio ha sido estructurada para brindar respuestas a una amplia gama de preguntas. [Conceptos](/es/docs/concepts/) explican la arquitectura de Kubernetes
 y cómo funciona cada componente, mientras [Configuración](/es/docs/setup/) proporciona
-instrucciones prácticas para empezar. [Tareas](/docs/tasks/) muestran cómo
+instrucciones prácticas para empezar. [Tareas](/es/docs/tasks/) muestran cómo
 realizar tareas de uso común, y [Tutoriales](/docs/tutorials/) son recorridos más completos de escenarios de desarrollo reales, específicos de la industria o de extremo a extremo. La sección de [Referencia](/docs/reference/) proporciona
 documentación detallada sobre el [Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 y las interfaces de línea de comandos (CLIs), tal como [`kubectl`](/docs/reference/kubectl/).
