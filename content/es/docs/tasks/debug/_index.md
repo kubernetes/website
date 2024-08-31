@@ -70,7 +70,7 @@ Antes de preguntar una nueva!
 
 Muchas personas de la comunidad de Kubernetes se reúnen en Kubernetes Slack en el canal `#kubernetes-users`.
 Slack requiere registro; puedes [solicitar una invitación](https://slack.kubernetes.io), el registro está abierto a todos. No dudes en participar y hacer todas y cada una de las preguntas.
-Una vez registrado, ingrese a la [Organización de Kubernetes en Slack](https://kubernetes.slack.com)
+Una vez registrado, ingresa a la [Organización de Kubernetes en Slack](https://kubernetes.slack.com)
 a través de tu navegador web o mediante la aplicación dedicada de Slack.
 
 Una vez que estés registrado, explora la creciente lista de canales para diversos temas de
