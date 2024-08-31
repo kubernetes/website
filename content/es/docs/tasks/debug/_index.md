@@ -107,7 +107,7 @@ Te invitamos a unirte al Foro oficial de Kubernetes: [discuss.kubernetes.io](htt
 
 ### Bugs y solicitudes de funcionalidades
 
-Si tiene lo que parece ser un error (bug) o desea realizar una solicitud de funcionalidades,
+Si tienes lo que parece ser un error (bug) o deseas realizar una solicitud de funcionalidades,
 por favor utiliza el [sistema de seguimiento de asuntos en el GitHub](https://github.com/kubernetes/kubernetes/issues).
 
 Antes de presentar un problema, busca problemas existentes para ver si tu problema ya está cubierto.
