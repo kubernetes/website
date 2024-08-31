@@ -46,7 +46,7 @@ y las interfaces de línea de comandos (CLIs), tal como [`kubectl`](/docs/refere
 Si tienes preguntas relacionadas con *desarrollo de software* para su aplicación en contenedores,
 puedes preguntar en [Stack Overflow](https://stackoverflow.com/questions/tagged/kubernetes).
 
-Si tiene preguntas sobre Kubernetes relacionadas con *administración de clústeres* o *configuración*,
+Si tienes preguntas sobre Kubernetes relacionadas con *administración de clústeres* o *configuración*,
 puedes preguntar en [Server Fault](https://serverfault.com/questions/tagged/kubernetes).
 
 También hay varios sitios de Stack Exchange que podrían ser el lugar adecuado para hacer preguntas sobre Kubernetes en áreas como
