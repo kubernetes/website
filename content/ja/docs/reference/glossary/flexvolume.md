@@ -4,14 +4,14 @@ id: flexvolume
 date: 2018-06-25
 full_link: /ja/docs/concepts/storage/volumes/#flexvolume
 short_description: >
-    FlexVolumeは、ツリー外のボリュームプラグインを作成するための非推奨なインターフェースです。{{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}}は、FlexVolumeのいくつかの問題に対処する新しいインターフェースです。
+    FlexVolumeは、ツリー外のボリュームプラグインを作成するための非推奨なインターフェースです。{{< glossary_tooltip text="コンテナストレージインターフェース(CSI)" term_id="csi" >}}は、FlexVolumeのいくつかの問題に対処する新しいインターフェースです。
 
 
 aka: 
 tags:
 - storage 
 ---
- FlexVolumeは、ツリー外のボリュームプラグインを作成するための非推奨なインターフェースです。{{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}}は、FlexVolumeのいくつかの問題に対処する新しいインターフェースです。
+ FlexVolumeは、ツリー外のボリュームプラグインを作成するための非推奨なインターフェースです。{{< glossary_tooltip text="コンテナストレージインターフェース(CSI)" term_id="csi" >}}は、FlexVolumeのいくつかの問題に対処する新しいインターフェースです。
 
 <!--more--> 
 
