@@ -37,7 +37,7 @@ y cómo funciona cada componente, mientras [Configuración](/es/docs/setup/) pro
 instrucciones prácticas para empezar. [Tareas](/es/docs/tasks/) muestran cómo
 realizar tareas de uso común, y [Tutoriales](/es/docs/tutorials/) son recorridos más completos de escenarios de desarrollo reales, específicos de la industria o de extremo a extremo. La sección de [Referencia](/es/docs/reference/) proporciona
 documentación detallada sobre el [Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-y las interfaces de línea de comandos (CLIs), tal como [`kubectl`](/docs/reference/kubectl/).
+y las interfaces de línea de comandos (CLIs), tal como [`kubectl`](/es/docs/reference/kubectl/).
 
 ## ¡Ayuda! ¡Mi pregunta no está tratada! ¡Necesito ayuda ahora!
 
