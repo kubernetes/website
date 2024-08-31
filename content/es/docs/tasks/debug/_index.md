@@ -43,7 +43,7 @@ y las interfaces de línea de comandos (CLIs), tal como [`kubectl`](/es/docs/ref
 
 ### Stack Exchange, Stack Overflow o Server Fault {#stack-exchange}
 
-Si tienes preguntas relacionadas con *desarrollo de software* para su aplicación en contenedores,
+Si tienes preguntas relacionadas con *desarrollo de software* para tu aplicación en contenedores,
 puedes preguntar en [Stack Overflow](https://stackoverflow.com/questions/tagged/kubernetes).
 
 Si tienes preguntas sobre Kubernetes relacionadas con *administración de clústeres* o *configuración*,
