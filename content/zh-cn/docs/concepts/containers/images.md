@@ -313,7 +313,7 @@ If you would like to always force a pull, you can do one of the following:
 -->
 #### 必要的镜像拉取   {#required-image-pull}
 
-如果你想总是强制执行拉取，你可以使用下述的一中方式：
+如果你想总是强制执行拉取，你可以使用下述的一种方式：
 
 - 设置容器的 `imagePullPolicy` 为 `Always`。
 - 省略 `imagePullPolicy`，并使用 `:latest` 作为镜像标签；
