@@ -64,7 +64,7 @@ sea [sobre el tema en Stack Overflow](https://stackoverflow.com/help/on-topic),
 [Server Fault](https://serverfault.com/help/on-topic), o el Stack Exchange 
 correcto en el que estás preguntando**, y lea las instrucciones sobre 
 [Cómo hacer una nueva pregunta](https://stackoverflow.com/help/how-to-ask),
-Antes de preguntar una nueva!
+antes de preguntar una nueva!
 
 ### Slack
 
