@@ -62,7 +62,7 @@ El equipo de Kubernetes también monitoreará
 Si no hay ninguna pregunta existente que te ayude, **asegúrate de que tu pregunta
 sea [sobre el tema en Stack Overflow](https://stackoverflow.com/help/on-topic),
 [Server Fault](https://serverfault.com/help/on-topic), o el Stack Exchange 
-correcto en el que estás preguntando**, y lea las instrucciones sobre 
+correcto en el que estás preguntando**, y lee las instrucciones sobre 
 [Cómo hacer una nueva pregunta](https://stackoverflow.com/help/how-to-ask),
 antes de preguntar una nueva!
 
