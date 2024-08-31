@@ -73,7 +73,7 @@ Slack requiere registro; puedes [solicitar una invitación](https://slack.kubern
 Una vez registrado, ingrese a la [Organización de Kubernetes en Slack](https://kubernetes.slack.com)
 a través de tu navegador web o mediante la aplicación dedicada de Slack..
 
-Una vez que esté registrado, explore la creciente lista de canales para diversos temas de
+Una vez que estés registrado, explora la creciente lista de canales para diversos temas de
 interés. Por ejemplo, las personas nuevas en Kubernetes también pueden querer unirse al canal
 [`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice). Como otro ejemplo, los desarrolladores deberían unirse al canal
 [`#kubernetes-contributors`](https://kubernetes.slack.com/messages/kubernetes-contributors).
