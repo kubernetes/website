@@ -129,12 +129,12 @@ The default value for `operator` is `Equal`.
 <!--
 A toleration "matches" a taint if the keys are the same and the effects are the same, and:
 
-* the `operator` is `Exists` (in which case no `value` should be specified), or
+* the `operator` is `Exists` (in which case no `value` should be specified), and the key should included
 * the `operator` is `Equal` and the values should be equal.
 -->
 一个容忍度和一个污点相“匹配”是指它们有一样的键名和效果，并且：
 
-* 如果 `operator` 是 `Exists`（此时容忍度不能指定 `value`），或者
+* 如果 `operator` 是 `Exists`（此时容忍度不能指定 `value`），则键的值需要被包含
 * 如果 `operator` 是 `Equal`，则它们的值应该相等。
 
 {{< note >}}

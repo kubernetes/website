@@ -78,7 +78,7 @@ The default value for `operator` is `Equal`.
 
 A toleration "matches" a taint if the keys are the same and the effects are the same, and:
 
-* the `operator` is `Exists` (in which case no `value` should be specified), or
+* the `operator` is `Exists` (in which case no `value` should be specified), and the key should included
 * the `operator` is `Equal` and the values should be equal.
 
 {{< note >}}
