@@ -33,12 +33,14 @@ cd website
 কুবারনেটিস ওয়েবসাইটটি [Docsy Hugo থিম](https://github.com/google/docsy#readme) ব্যবহার করে। এমনকি যদি আপনি একটি কন্টেইনারে ওয়েবসাইট চালানোর পরিকল্পনা করেন, আমরা দৃঢ়ভাবে নিম্নলিখিতগুলি চালিয়ে সাবমডিউল এবং অন্যান্য প্রয়োজনীয় জিনিসগুলো  পুল(pull) করার পরামর্শ দিই:
 
 ### Windows
+
 ```powershell
 # fetch submodule dependencies
 git submodule update --init --recursive --depth 1
 ```
 
 ### Linux / other Unix
+
 ```bash
 # fetch submodule dependencies
 make module-init
@@ -62,11 +64,14 @@ make container-serve
 দরকারি জিনিসগুলো ইনস্টল করতে, স্থানীয়ভাবে সাইট তৈরি এবং পরীক্ষা করতে, চালান:
 
 - For macOS and Linux
+
   ```bash
   npm ci
   make serve
   ```
+  
 - For Windows (PowerShell)
+
   ```powershell
   npm ci
   hugo.exe server --buildFuture --environment development
