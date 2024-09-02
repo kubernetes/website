@@ -1,5 +1,5 @@
 ---
-title: "Security"
+title: "セキュリティ"
 weight: 85
 description: >
   クラウドネイティブなワークロードをセキュアに維持するためのコンセプト
