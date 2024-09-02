@@ -21,7 +21,7 @@ Kubernetesには、情報セキュリティを管理する方法の一部を構�
 
 どのKubernetesのクラスターでも重要なセキュリティメカニズムは[Kubernetes APIへのアクセスコントロール](/ja/docs/concepts/security/controlling-access)です。
 
-Kubernetesでは、コントロールプレーン内やコントロールプレーンとそのクライアント間で[データ転送中の暗号化](/docs/tasks/tls/managing-tls-in-a-cluster/)を提供するために、TLSを設定し使用することが求められます。また、Kubernetesコントロールプレーン内に保存されているデータに対して[保存データの暗号化](/docs/tasks/administer-cluster/encrypt-data/)を有効にすることもできます。これは、自身のワークロードのデータに対して保存データの暗号化を使用することとは別のものになります。また、これもまた有効な方法かもしれません。
+Kubernetesでは、コントロールプレーン内やコントロールプレーンとそのクライアント間で[データ転送中の暗号化](/docs/tasks/tls/managing-tls-in-a-cluster/)を提供するために、TLSを設定し使用することが求められます。また、Kubernetesコントロールプレーン内に保存されているデータに対して[保存データの暗号化](/docs/tasks/administer-cluster/encrypt-data/)を有効にすることもできます。これは、自身のワークロードのデータに対して保存データの暗号化を使用することとは別のもので、この方法もまた有効かもしれません。
 
 ### Secret
 
