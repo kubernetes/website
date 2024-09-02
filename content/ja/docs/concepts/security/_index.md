@@ -8,7 +8,7 @@ simple_list: true
 
 このセクションは、ワークロードをより安全に実行する方法やKubernetesクラスターのセキュリティを保つための重要な観点について学ぶのに役立ちます。
 
-Kubernetesはクラウドネイティブアーキテクチャに基づいており、クラウドネイティブ情報セキュリティのベストプラクティスについての{{< glossary_tooltip text="CNCF" term_id="cncf" >}} からのアドバイスを参考にしています。
+Kubernetesはクラウドネイティブアーキテクチャに基づいており、クラウドネイティブ情報セキュリティのグッドプラクティスについての{{< glossary_tooltip text="CNCF" term_id="cncf" >}} からのアドバイスを参考にしています。
 
 クラスターとクラスター上で実行しているアプリケーションをどのように保護するかについての広い文脈を理解するために[クラウドネイティブセキュリティとKubernetes](/docs/concepts/security/cloud-native-security/)をご覧ください。
 
