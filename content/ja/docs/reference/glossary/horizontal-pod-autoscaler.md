@@ -11,7 +11,7 @@ aka:
 tags:
 - operation
 ---
-水平Pod自動スケーラーは、ターゲットCPU使用率またはカスタムメトリックスターゲットに基づいて{{< glossary_tooltip text="Pod" term_id="pod" >}}レプリカ数をスケーリングするAPIリソースです。
+水平Pod自動スケーラーは、ターゲットCPU使用率またはカスタムメトリクスターゲットに基づいて{{< glossary_tooltip text="Pod" term_id="pod" >}}のレプリカ数をスケーリングするAPIリソースです。
 
 <!--more--> 
 HPAは通常{{< glossary_tooltip text="ReplicationControllers" term_id="replication-controller" >}}、{{< glossary_tooltip text="Deployments" term_id="deployment" >}}または{{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}}で使用されます。HPAは{{< glossary_tooltip text="DaemonSets" term_id="daemonset" >}}などのスケーリングをサポートしないオブジェクトでは使用できません。
