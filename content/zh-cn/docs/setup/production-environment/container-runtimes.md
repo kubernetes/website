@@ -457,17 +457,6 @@ You might need to restart `containerd` as well once you've updated the config fi
 -->
 一旦你更新了这个配置文件，可能就同样需要重启 `containerd`：`systemctl restart containerd`。
 
-<!--
-Please note, that it is a best practice for kubelet to declare the matching `pod-infra-container-image`.
-If not configured, kubelet may attempt to garbage collect the `pause` image.
-There is ongoing work in [containerd to pin the pause image](https://github.com/containerd/containerd/issues/6352)
-and not require this setting on kubelet any longer.
--->
-请注意，声明匹配的 `pod-infra-container-image` 是 kubelet 的最佳实践。
-如果未配置，kubelet 可能会尝试对 `pause` 镜像进行垃圾回收。
-[containerd 固定 pause 镜像](https://github.com/containerd/containerd/issues/6352)的工作正在进行中，
-将不再需要在 kubelet 上进行此设置。
-
 ### CRI-O
 
 <!--
