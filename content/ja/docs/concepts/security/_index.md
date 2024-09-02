@@ -29,7 +29,7 @@ Kubernetesでは、コントロールプレーン内やコントロールプレ�
 
 ### ワークロードの保護
 
-[Podセキュリティ基準](/docs/concepts/security/pod-security-standards/)を順守して、Podやコンテナが適切に独立されるようにします。必要に応じてカスタムの分離を定義するために[RuntimeClasses](/ja/docs/concepts/containers/runtime-class)を使用することもできます。
+[Podセキュリティ基準](/docs/concepts/security/pod-security-standards/)を順守して、Podやコンテナが適切に独立されるようにします。必要に応じてカスタムの分離を定義するために[RuntimeClass](/ja/docs/concepts/containers/runtime-class)を使用することもできます。
 
 [ネットワークポリシー](/ja/docs/concepts/services-networking/network-policies/)を使用すると、Pod間やPodとクラスター外との通信のネットワークトラフィックを制御できます。
 
