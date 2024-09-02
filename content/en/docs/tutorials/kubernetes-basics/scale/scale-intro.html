@@ -8,6 +8,18 @@ description: |-
 <!DOCTYPE html>
 
 <html lang="en">
+  <style>
+    .summary-box {
+      display: flex;
+      flex-direction: column; 
+      padding: 10px;          
+      border: 1px solid #ccc; 
+      margin: 10px;           
+      width: 100%;            
+      box-sizing: border-box; 
+  }
+
+  </style>
 
 <body>
 
@@ -36,7 +48,7 @@ description: |-
               {{< /note >}}
             </div>
             <div class="col-md-4">
-                <div class="content__box content__box_lined">
+                <div class="summary-box">
                     <h3>Summary:</h3>
                         <li>Scaling a Deployment</li>
                 </div>
