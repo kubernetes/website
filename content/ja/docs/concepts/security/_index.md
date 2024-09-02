@@ -80,7 +80,7 @@ VMware vSphere | https://www.vmware.com/security/hardening-guides |
 * Podのための[ネットワークポリシー](/ja/docs/concepts/services-networking/network-policies/)
 * [KubernetesのSecret](/ja/docs/concepts/configuration/secret/)
 * [Podセキュリティ基準](/ja/docs/concepts/security/pod-security-standards/)
-* [RuntimeClasses](/ja/docs/concepts/containers/runtime-class)
+* [RuntimeClass](/ja/docs/concepts/containers/runtime-class)
 
 背景について学ぶためには:
 
