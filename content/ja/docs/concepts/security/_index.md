@@ -62,9 +62,7 @@ VMware vSphere | https://www.vmware.com/security/hardening-guides |
 
 ## ポリシー {#policies}
 
-[ネットワークポリシー](/ja/docs/concepts/services-networking/network-policies/)
-(ネットワークパケットフィルタリングの宣言的制御)や
-[アドミッションポリシー検証](/docs/reference/access-authn-authz/validating-admission-policy/) (Kubernetes APIを使用し誰が何を変更できるかの宣言的な制限)などのKubernetesネイティブメカニズムを使用し、セキュリティポリシーを定義することができます。
+[ネットワークポリシー](/ja/docs/concepts/services-networking/network-policies/)(ネットワークパケットフィルタリングの宣言的制御)や[アドミッションポリシーの検証](/docs/reference/access-authn-authz/validating-admission-policy/) (Kubernetes APIを使用し誰が何を変更できるかの宣言的な制限)などのKubernetesネイティブメカニズムを使用し、セキュリティポリシーを定義することができます。
 
 また、Kubernetesの周辺のエコシステムによるポリシーの実装に頼ることもできます。Kubernetesはエコシステムのプロジェクトに独自のポリシー制御を実装させるための拡張メカニズムを提供します。ソースコードレビューやコンテナイメージの承認、APIアクセスコントロール、ネットワーキングなどをポリシー制御に実装することができます。
 
