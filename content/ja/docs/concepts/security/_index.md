@@ -10,7 +10,7 @@ simple_list: true
 
 Kubernetesはクラウドネイティブアーキテクチャに基づいており、クラウドネイティブ情報セキュリティのグッドプラクティスについての{{< glossary_tooltip text="CNCF" term_id="cncf" >}} からのアドバイスを参考にしています。
 
-クラスターとクラスター上で実行しているアプリケーションをどのように保護するかについての広い文脈を理解するために[クラウドネイティブセキュリティとKubernetes](/docs/concepts/security/cloud-native-security/)をご覧ください。
+クラスターとクラスター上で実行しているアプリケーションをどのように保護するかについての広い文脈を理解するために[クラウドネイティブセキュリティとKubernetes](/docs/concepts/security/cloud-native-security/)を参照してください。
 
 ## Kubernetesセキュリティメカニズム {#security-mechanisms}
 
