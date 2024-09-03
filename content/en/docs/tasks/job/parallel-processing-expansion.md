@@ -285,7 +285,7 @@ you can check on all Pods for these templated Jobs with a single command.
 
 {{< note >}}
 The label key `jobgroup` is not special or reserved.
-You can pick your own labelling scheme.
+You can pick your own labeling scheme.
 There are [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels)
 that you can use if you wish.
 {{< /note >}}

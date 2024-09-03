@@ -84,7 +84,7 @@ ServiceSpec describes the attributes that a user creates on a service.
     Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the 'port' field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the 'port' field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
 
     <a name="IntOrString"></a>
-    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshaling and unmarshaling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
 
   - **ports.protocol** (string)
 

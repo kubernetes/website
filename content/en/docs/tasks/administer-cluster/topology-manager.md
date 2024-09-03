@@ -69,7 +69,7 @@ The Topology Manager currently:
 
 If these conditions are met, the Topology Manager will align the requested resources.
 
-In order to customise how this alignment is carried out, the Topology Manager provides two
+In order to customize how this alignment is carried out, the Topology Manager provides two
 distinct knobs: `scope` and `policy`.
 
 The `scope` defines the granularity at which you would like resource alignment to be performed

@@ -302,7 +302,7 @@ be useful for debugging.
 
 {{< note >}}
 The commands below use Docker as default container engine. Set the `CONTAINER_ENGINE` environment
-variable to override this behaviour.
+variable to override this behavior.
 {{< /note >}}
 
 1. Build the container image locally  

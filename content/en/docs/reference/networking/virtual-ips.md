@@ -672,7 +672,7 @@ same-zone traffic. However, there are key differences in their approaches:
 
 If the `service.kubernetes.io/topology-mode` annotation is set to `Auto`, it
 will take precedence over `trafficDistribution`. (The annotation may be deprecated
-in the future in favour of the `trafficDistribution` field).
+in the future in favor of the `trafficDistribution` field).
 
 ### Interaction with Traffic Policies
 

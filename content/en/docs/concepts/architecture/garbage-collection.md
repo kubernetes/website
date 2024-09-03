@@ -106,7 +106,7 @@ to learn more.
 
 When Kubernetes deletes an owner object, the dependents left behind are called
 *orphan* objects. By default, Kubernetes deletes dependent objects. To learn how
-to override this behaviour, see [Delete owner objects and orphan dependents](/docs/tasks/administer-cluster/use-cascading-deletion/#set-orphan-deletion-policy).
+to override this behavior, see [Delete owner objects and orphan dependents](/docs/tasks/administer-cluster/use-cascading-deletion/#set-orphan-deletion-policy).
 
 ## Garbage collection of unused containers and images {#containers-images}
 

@@ -103,7 +103,7 @@ A StatefulSetSpec is the specification of a StatefulSet.
       The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is alpha-level and is only honored by servers that enable the MaxUnavailableStatefulSet feature. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable.
 
       <a name="IntOrString"></a>
-      *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+      *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshaling and unmarshaling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
 
     - **updateStrategy.rollingUpdate.partition** (int32)
 

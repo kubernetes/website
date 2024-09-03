@@ -75,7 +75,7 @@ loads a special filter that does the following:
 * When a resource request reaches an API server that cannot serve that API
   (either because it is at a version pre-dating the introduction of the API or the API is turned off on the API server)
   the API server attempts to send the request to a peer API server that can serve the requested API.
-  It does so by identifying API groups / versions / resources that the local server doesn't recognise,
+  It does so by identifying API groups / versions / resources that the local server doesn't recognize,
   and tries to proxy those requests to a peer API server that is capable of handling the request.
 * If the peer API server fails to respond, the _source_ API server responds with 503 ("Service Unavailable") error.
 

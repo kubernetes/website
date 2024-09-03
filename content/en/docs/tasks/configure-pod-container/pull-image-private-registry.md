@@ -80,7 +80,7 @@ kubectl create secret generic regcred \
 ```
 
 If you need more control (for example, to set a namespace or a label on the new
-secret) then you can customise the Secret before storing it.
+secret) then you can customize the Secret before storing it.
 Be sure to:
 
 - set the name of the data item to `.dockerconfigjson`

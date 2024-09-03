@@ -34,7 +34,7 @@ Images can also include a registry hostname; for example: `fictional.registry.ex
 and possibly a port number as well; for example: `fictional.registry.example:10443/imagename`.
 
 If you don't specify a registry hostname, Kubernetes assumes that you mean the [Docker public registry](https://hub.docker.com/).
-You can change this behaviour by setting default image registry in 
+You can change this behavior by setting default image registry in 
 [container runtime](/docs/setup/production-environment/container-runtimes/) configuration.
 
 After the image name part you can add a _tag_ or _digest_ (in the same way you would when using with commands

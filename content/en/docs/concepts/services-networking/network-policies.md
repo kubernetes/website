@@ -264,7 +264,7 @@ ingress or egress traffic.
 ## Network traffic filtering
 
 NetworkPolicy is defined for [layer 4](https://en.wikipedia.org/wiki/OSI_model#Layer_4:_Transport_layer)
-connections (TCP, UDP, and optionally SCTP). For all the other protocols, the behaviour may vary
+connections (TCP, UDP, and optionally SCTP). For all the other protocols, the behavior may vary
 across network plugins.
 
 {{< note >}}
@@ -273,7 +273,7 @@ protocol NetworkPolicies.
 {{< /note >}}
 
 When a `deny all` network policy is defined, it is only guaranteed to deny TCP, UDP and SCTP
-connections. For other protocols, such as ARP or ICMP, the behaviour is undefined.
+connections. For other protocols, such as ARP or ICMP, the behavior is undefined.
 The same applies to allow rules: when a specific pod is allowed as ingress source or egress destination,
 it is undefined what happens with (for example) ICMP packets. Protocols such as ICMP may be allowed by some
 network plugins and denied by others.
@@ -395,7 +395,7 @@ but cannot reach Pod B until a few seconds later.
 
 ## NetworkPolicy and `hostNetwork` pods
 
-NetworkPolicy behaviour for `hostNetwork` pods is undefined, but it should be limited to 2 possibilities:
+NetworkPolicy behavior for `hostNetwork` pods is undefined, but it should be limited to 2 possibilities:
 
 - The network plugin can distinguish `hostNetwork` pod traffic from all other traffic
   (including being able to distinguish traffic from different `hostNetwork` pods on

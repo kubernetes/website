@@ -1692,7 +1692,7 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">backoffLimit</span><span class="metric_label">status</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">job_controller_job_pods_creation_total</div>
-	<div class="metric_help">`The number of Pods created by the Job controller labelled with a reason for the Pod creation., This metric also distinguishes between Pods created using different PodReplacementPolicy settings., Possible values of the "reason" label are:, "new", "recreate_terminating_or_failed", "recreate_failed"., Possible values of the "status" label are:, "succeeded", "failed".`</div>
+	<div class="metric_help">`The number of Pods created by the Job controller labeled with a reason for the Pod creation., This metric also distinguishes between Pods created using different PodReplacementPolicy settings., Possible values of the "reason" label are:, "new", "recreate_terminating_or_failed", "recreate_failed"., Possible values of the "status" label are:, "succeeded", "failed".`</div>
 	<ul>
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>

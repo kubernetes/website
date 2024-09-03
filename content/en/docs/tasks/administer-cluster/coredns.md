@@ -66,7 +66,7 @@ can take care of retaining the existing CoreDNS configuration automatically.
 
 ## Tuning CoreDNS
 
-When resource utilisation is a concern, it may be useful to tune the
+When resource utilization is a concern, it may be useful to tune the
 configuration of CoreDNS. For more details, check out the
 [documentation on scaling CoreDNS](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md).
 

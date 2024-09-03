@@ -522,7 +522,7 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
   1) `granular`:
        These maps are actual maps (key-value pairs) and each fields are independent
        from each other (they can each be manipulated by separate actors). This is
-       the default behaviour for all maps.
+       the default behavior for all maps.
   2) `atomic`: the list is treated as a single entity, like a scalar.
        Atomic maps will be entirely replaced when updated.
 

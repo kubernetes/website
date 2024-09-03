@@ -46,7 +46,7 @@ this is true when user namespaces are used.
 {{< note >}}
 The feature gate to enable user namespaces was previously named
 `UserNamespacesStatelessPodsSupport`, when only stateless pods were supported.
-Only Kubernetes v1.25 through to v1.27 recognise `UserNamespacesStatelessPodsSupport`.
+Only Kubernetes v1.25 through to v1.27 recognize `UserNamespacesStatelessPodsSupport`.
 {{</ note >}}
 
 The cluster that you're using **must** include at least one node that meets the

@@ -16,7 +16,7 @@ to authenticate to the
 
 A _service account_ provides an identity for processes that run in a Pod,
 and maps to a ServiceAccount object. When you authenticate to the API
-server, you identify yourself as a particular _user_. Kubernetes recognises
+server, you identify yourself as a particular _user_. Kubernetes recognizes
 the concept of a user, however, Kubernetes itself does **not** have a User
 API.
 

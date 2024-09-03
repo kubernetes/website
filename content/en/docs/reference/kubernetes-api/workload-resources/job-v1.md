@@ -122,7 +122,7 @@ JobSpec describes how the job execution will look like.
 
 - **podFailurePolicy** (PodFailurePolicy)
 
-  Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+  Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behavior applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
 
   <a name="PodFailurePolicy"></a>
   *PodFailurePolicy describes how failed pods influence the backoffLimit.*

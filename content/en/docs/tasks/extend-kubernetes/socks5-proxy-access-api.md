@@ -33,7 +33,7 @@ Figure 1 represents what you're going to achieve in this task.
 * The Kubernetes server/API is hosted on a remote server.
 * You will use SSH client and server software to create a secure SOCKS5 tunnel between the local and
   the remote server. The HTTPS traffic between the client and the Kubernetes API will flow over the SOCKS5
-  tunnel, which is itself tunnelled over SSH.
+  tunnel, which is itself tunneled over SSH.
 
 {{< mermaid >}}
 graph LR;

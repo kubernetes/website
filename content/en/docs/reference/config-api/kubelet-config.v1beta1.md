@@ -845,7 +845,7 @@ Default: &quot;None&quot;</p>
 </td>
 <td>
    <p>cpuManagerPolicyOptions is a set of key=value which 	allows to set extra options
-to fine tune the behaviour of the cpu manager policies.
+to fine tune the behavior of the cpu manager policies.
 Requires  both the &quot;CPUManager&quot; and &quot;CPUManagerPolicyOptions&quot; feature gates to be enabled.
 Default: nil</p>
 </td>
@@ -904,7 +904,7 @@ that topology manager requests and hint providers generate. Valid values include
 </td>
 <td>
    <p>TopologyManagerPolicyOptions is a set of key=value which allows to set extra options
-to fine tune the behaviour of the topology manager policies.
+to fine tune the behavior of the topology manager policies.
 Requires  both the &quot;TopologyManager&quot; and &quot;TopologyManagerPolicyOptions&quot; feature gates to be enabled.
 Default: nil</p>
 </td>

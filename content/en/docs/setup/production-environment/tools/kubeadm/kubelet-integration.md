@@ -105,7 +105,7 @@ for more details.
 
 ### Workflow when using `kubeadm init`
 
-When you call `kubeadm init`, the kubelet configuration is marshalled to disk
+When you call `kubeadm init`, the kubelet configuration is marshaled to disk
 at `/var/lib/kubelet/config.yaml`, and also uploaded to a `kubelet-config` ConfigMap in the `kube-system`
 namespace of the cluster. A kubelet configuration file is also written to `/etc/kubernetes/kubelet.conf`
 with the baseline cluster-wide configuration for all kubelets in the cluster. This configuration file
@@ -126,7 +126,7 @@ In addition to the flags used when starting the kubelet, the file also contains 
 parameters such as the cgroup driver and whether to use a different container runtime socket
 (`--cri-socket`).
 
-After marshalling these two files to disk, kubeadm attempts to run the following two
+After marshaling these two files to disk, kubeadm attempts to run the following two
 commands, if you are using systemd:
 
 ```bash

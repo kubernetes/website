@@ -1135,7 +1135,7 @@ Sometimes it's useful to know which admission webhooks are frequently rejecting 
 reason for a rejection.
 
 The API server exposes a Prometheus counter metric recording admission webhook rejections. The
-metrics are labelled to identify the causes of webhook rejection(s):
+metrics are labeled to identify the causes of webhook rejection(s):
 
 - `name`: the name of the webhook that rejected a request.
 - `operation`: the operation type of the request, can be one of `CREATE`,

@@ -46,7 +46,7 @@ when new servers are created in your cloud infrastructure. The node controller o
 hosts running inside your tenancy with the cloud provider. The node controller performs the following functions:
 
 1. Update a Node object with the corresponding server's unique identifier obtained from the cloud provider API.
-1. Annotating and labelling the Node object with cloud-specific information, such as the region the node
+1. Annotating and labeling the Node object with cloud-specific information, such as the region the node
    is deployed into and the resources (CPU, memory, etc) that it has available.
 1. Obtain the node's hostname and network addresses.
 1. Verifying the node's health. In case a node becomes unresponsive, this controller checks with

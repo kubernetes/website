@@ -231,7 +231,7 @@ kubelet [flags]
 <td colspan="2">--cpu-manager-policy-options string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">A set of 'key=value' CPU manager policy options to use, to fine tune their behaviour. If not supplied, keep the default behaviour. (DEPRECATED: This parameter should be set via the config file specified by the kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">A set of 'key=value' CPU manager policy options to use, to fine tune their behavior. If not supplied, keep the default behavior. (DEPRECATED: This parameter should be set via the config file specified by the kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
@@ -847,7 +847,7 @@ WindowsHostNetwork=true|false (ALPHA - default=true)<br/>
 <td colspan="2">--protect-kernel-defaults</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Default kubelet behaviour for kernel tuning. If set, kubelet errors if any of kernel tunables is different than kubelet defaults. (DEPRECATED: This parameter should be set via the config file specified by the kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Default kubelet behavior for kernel tuning. If set, kubelet errors if any of kernel tunables is different than kubelet defaults. (DEPRECATED: This parameter should be set via the config file specified by the kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
@@ -1063,7 +1063,7 @@ Insecure values:
 <td colspan="2">--topology-manager-policy-options string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">A set of &lt;key&gt;=&lt;value&gt; topology manager policy options to use, to fine tune their behaviour. If not supplied, keep the default behaviour. (DEPRECATED: This parameter should be set via the config file specified by the kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">A set of &lt;key&gt;=&lt;value&gt; topology manager policy options to use, to fine tune their behavior. If not supplied, keep the default behavior. (DEPRECATED: This parameter should be set via the config file specified by the kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>

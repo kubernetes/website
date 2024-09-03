@@ -331,7 +331,7 @@ deciphers the data key, and finally recovers the plain text. Communication betwe
 and the KMS requires in-transit protection, such as TLS.
 
 Using envelope encryption creates dependence on the key encryption key, which is not stored in Kubernetes.
-In the KMS case, an attacker who intends to get unauthorised access to the plaintext
+In the KMS case, an attacker who intends to get unauthorized access to the plaintext
 values would need to compromise etcd **and** the third-party KMS provider.
 
 ### Protection for encryption keys

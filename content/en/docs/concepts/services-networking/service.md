@@ -103,7 +103,7 @@ view or modify Service definitions using the Kubernetes API. Usually
 you use a tool such as `kubectl` to make those API calls for you.
 
 For example, suppose you have a set of Pods that each listen on TCP port 9376
-and are labelled as `app.kubernetes.io/name=MyApp`. You can define a Service to
+and are labeled as `app.kubernetes.io/name=MyApp`. You can define a Service to
 publish that TCP listener:
 
 ```yaml

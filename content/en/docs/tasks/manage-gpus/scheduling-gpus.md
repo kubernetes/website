@@ -81,7 +81,7 @@ kubectl label nodes node2 accelerator=other-gpu-k915
 That label key `accelerator` is just an example; you can use
 a different label key if you prefer.
 
-## Automatic node labelling {#node-labeller}
+## Automatic node labeling {#node-labeller}
 
 As an administrator, you can automatically discover and label all your GPU enabled nodes
 by deploying Kubernetes [Node Feature Discovery](https://github.com/kubernetes-sigs/node-feature-discovery) (NFD).

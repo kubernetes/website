@@ -378,6 +378,6 @@ of Kubernetes.
 
 * Read about [Kubernetes system logs](/docs/concepts/cluster-administration/system-logs/)
 * Learn about [Traces For Kubernetes System Components](/docs/concepts/cluster-administration/system-traces/)
-* Learn how to [customise the termination message](/docs/tasks/debug/debug-application/determine-reason-pod-failure/#customizing-the-termination-message)
+* Learn how to [customize the termination message](/docs/tasks/debug/debug-application/determine-reason-pod-failure/#customizing-the-termination-message)
   that Kubernetes records when a Pod fails
 

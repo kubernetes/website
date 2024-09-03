@@ -155,7 +155,7 @@ lack of resources, and compare actual usage to the pod's request.
 
 The kube-scheduler identifies the resource [requests and limits](/docs/concepts/configuration/manage-resources-containers/)
 configured for each Pod; when either a request or limit is non-zero, the kube-scheduler reports a
-metrics timeseries. The time series is labelled by:
+metrics timeseries. The time series is labeled by:
 
 - namespace
 - pod name

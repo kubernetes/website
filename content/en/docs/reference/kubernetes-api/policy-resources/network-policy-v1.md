@@ -127,7 +127,7 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
       port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
 
       <a name="IntOrString"></a>
-      *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+      *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshaling and unmarshaling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
 
     - **ingress.ports.endPort** (int32)
 
@@ -198,7 +198,7 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
       port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
 
       <a name="IntOrString"></a>
-      *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+      *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshaling and unmarshaling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
 
     - **egress.ports.endPort** (int32)
 

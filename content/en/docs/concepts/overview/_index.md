@@ -97,7 +97,7 @@ Kubernetes:
 * Does not deploy source code and does not build your application. Continuous Integration,
   Delivery, and Deployment (CI/CD) workflows are determined by organization cultures and
   preferences as well as technical requirements.
-* Does not provide application-level services, such as middleware (for example, message buses),
+* Does not provide application-level services, such as middleware (for example, message busses),
   data-processing frameworks (for example, Spark), databases (for example, MySQL), caches, nor
   cluster storage systems (for example, Ceph) as built-in services. Such components can run on
   Kubernetes, and/or can be accessed by applications running on Kubernetes through portable

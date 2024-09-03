@@ -71,7 +71,7 @@ Graceful node shutdown feature is configured with two
 
 {{< note >}}
 
-There are cases when Node termination was cancelled by the system (or perhaps manually
+There are cases when Node termination was canceled by the system (or perhaps manually
 by an administrator). In either of those situations the Node will return to the `Ready` state.
 However, Pods which already started the process of termination will not be restored by kubelet
 and will need to be re-scheduled.
@@ -248,7 +248,7 @@ which states that `ControllerUnpublishVolume` "**must** be called after all
 `NodeUnstageVolume` and `NodeUnpublishVolume` on the volume are called and succeed".
 In such circumstances, volumes on the node in question might encounter data corruption.
 
-The forced storage detach behaviour is optional; users might opt to use the "Non-graceful
+The forced storage detach behavior is optional; users might opt to use the "Non-graceful
 node shutdown" feature instead.
 
 Force storage detach on timeout can be disabled by setting the `disable-force-detach-on-timeout`

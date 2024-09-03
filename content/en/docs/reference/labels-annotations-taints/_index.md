@@ -615,7 +615,7 @@ Example: `kubernetes.io/description: "Description of K8s object."`
 
 Used on: All Objects
 
-This annotation is used for describing specific behaviour of given object.
+This annotation is used for describing specific behavior of given object.
 
 ### kubernetes.io/enforce-mountable-secrets {#enforce-mountable-secrets}
 

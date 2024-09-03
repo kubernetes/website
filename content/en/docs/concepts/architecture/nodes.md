@@ -319,7 +319,7 @@ memorySwap:
   Only Pods of Burstable QoS are permitted to employ swap.
 
 If configuration for `memorySwap` is not specified and the feature gate is
-enabled, by default the kubelet will apply the same behaviour as the
+enabled, by default the kubelet will apply the same behavior as the
 `NoSwap` setting.
 
 With `LimitedSwap`, Pods that do not fall under the Burstable QoS classification (i.e.

@@ -8,7 +8,7 @@ weight: 20
 
 Alongside the [PR Wrangler](/docs/contribute/participate/pr-wranglers), formal approvers,
 reviewers and members of SIG Docs take week-long shifts
-[triaging and categorising issues](/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
+[triaging and categorizing issues](/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
 for the repository.
 
 <!-- body -->

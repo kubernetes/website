@@ -1186,7 +1186,7 @@ Once the checks are good, Kubernetes updates `app-1` and finally `app-2`.
 If you added two more Pods, Kubernetes would set up `app-3` and wait for that to become healthy before deploying
 `app-4`.
 
-Because this is the default setting, you've already practised using it.
+Because this is the default setting, you've already practiced using it.
 
 ### Parallel Pod management
 

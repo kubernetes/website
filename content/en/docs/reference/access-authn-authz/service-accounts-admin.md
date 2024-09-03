@@ -46,7 +46,7 @@ for a number of reasons:
   username that represents a user represents the same user.
   In Kubernetes, service accounts are namespaced: two different namespaces can
   contain ServiceAccounts that have identical names.
-- Typically, a cluster's user accounts might be synchronised from a corporate
+- Typically, a cluster's user accounts might be synchronized from a corporate
   database, where new user account creation requires special privileges and is
   tied to complex business processes. By contrast, service account creation is
   intended to be more lightweight, allowing cluster users to create service accounts

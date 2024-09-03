@@ -26,7 +26,7 @@ large Kubernetes clusters.
 
 <!-- body -->
 
-In large clusters, you can tune the scheduler's behaviour balancing
+In large clusters, you can tune the scheduler's behavior balancing
 scheduling outcomes between latency (new Pods are placed quickly) and
 accuracy (the scheduler rarely makes poor placement decisions).
 

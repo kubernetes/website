@@ -115,7 +115,7 @@ clients that access it.
 #### Key to the figure
 
 1. Users often interact with the Kubernetes API using `kubectl`. [Plugins](#client-extensions)
-   customise the behaviour of clients. There are generic extensions that can apply to different clients,
+   customize the behavior of clients. There are generic extensions that can apply to different clients,
    as well as specific ways to extend `kubectl`.
 
 1. The API server handles all requests. Several types of extension points in the API server allow
@@ -265,7 +265,7 @@ durable external storage, or provide ephemeral storage, or they might offer a re
 to information using a filesystem paradigm.
 
 Kubernetes also includes support for [FlexVolume](/docs/concepts/storage/volumes/#flexvolume) plugins,
-which are deprecated since Kubernetes v1.23 (in favour of CSI).
+which are deprecated since Kubernetes v1.23 (in favor of CSI).
 
 FlexVolume plugins allow users to mount volume types that aren't natively supported by Kubernetes. When
 you run a Pod that relies on FlexVolume storage, the kubelet calls a binary plugin to mount the volume.

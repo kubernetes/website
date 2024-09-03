@@ -52,7 +52,7 @@ Successfully running cloud-controller-manager requires some changes to your clus
   must be specified. Otherwise, it should not be specified.
 
 Keep in mind that setting up your cluster to use cloud controller manager will
-change your cluster behaviour in a few ways:
+change your cluster behavior in a few ways:
 
 * Components that specify `--cloud-provider=external` will add a taint
  `node.cloudprovider.kubernetes.io/uninitialized` with an effect `NoSchedule`

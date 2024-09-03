@@ -1690,7 +1690,7 @@ LifecycleHandler defines a specific action that should be taken in a lifecycle h
     Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
 
     <a name="IntOrString"></a>
-    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshaling and unmarshaling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
 
   - **httpGet.host** (string)
 
@@ -1744,7 +1744,7 @@ LifecycleHandler defines a specific action that should be taken in a lifecycle h
     Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
 
     <a name="IntOrString"></a>
-    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshaling and unmarshaling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
 
   - **tcpSocket.host** (string)
 
@@ -2053,7 +2053,7 @@ Probe describes a health check to be performed against a container to determine 
     Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
 
     <a name="IntOrString"></a>
-    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshaling and unmarshaling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
 
   - **httpGet.host** (string)
 
@@ -2096,7 +2096,7 @@ Probe describes a health check to be performed against a container to determine 
     Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
 
     <a name="IntOrString"></a>
-    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshaling and unmarshaling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
 
   - **tcpSocket.host** (string)
 

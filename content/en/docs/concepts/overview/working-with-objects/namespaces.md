@@ -148,7 +148,7 @@ kubectl api-resources --namespaced=true
 kubectl api-resources --namespaced=false
 ```
 
-## Automatic labelling
+## Automatic labeling
 
 {{< feature-state for_k8s_version="1.22" state="stable" >}}
 

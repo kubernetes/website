@@ -272,8 +272,8 @@ The following policy options exist for the static `CPUManager` policy:
 If the `full-pcpus-only` policy option is specified, the static policy will always allocate full physical cores.
 By default, without this option, the static policy allocates CPUs using a topology-aware best-fit allocation.
 On SMT enabled systems, the policy can allocate individual virtual cores, which correspond to hardware threads.
-This can lead to different containers sharing the same physical cores; this behaviour in turn contributes
-to the [noisy neighbours problem](https://en.wikipedia.org/wiki/Cloud_computing_issues#Performance_interference_and_noisy_neighbors).
+This can lead to different containers sharing the same physical cores; this behavior in turn contributes
+to the [noisy neighbors problem](https://en.wikipedia.org/wiki/Cloud_computing_issues#Performance_interference_and_noisy_neighbors).
 With the option enabled, the pod will be admitted by the kubelet only if the CPU request of all its containers
 can be fulfilled by allocating full physical cores.
 If the pod does not pass the admission, it will be put in Failed state with the message `SMTAlignmentError`.

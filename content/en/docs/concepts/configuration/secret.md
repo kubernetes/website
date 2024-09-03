@@ -544,7 +544,7 @@ which strategy the kubelet uses. The default strategy is `Watch`.
 
 Updates to Secrets can be either propagated by an API watch mechanism (the default), based on
 a cache with a defined time-to-live, or polled from the cluster API server on each kubelet
-synchronisation loop.
+synchronization loop.
 
 As a result, the total delay from the moment when the Secret is updated to the moment
 when new keys are projected to the Pod can be as long as the kubelet sync period + cache

@@ -148,7 +148,7 @@ You will install these packages on all of your machines:
 kubeadm **will not** install or manage `kubelet` or `kubectl` for you, so you will
 need to ensure they match the version of the Kubernetes control plane you want
 kubeadm to install for you. If you do not, there is a risk of a version skew occurring that
-can lead to unexpected, buggy behaviour. However, _one_ minor version skew between the
+can lead to unexpected, buggy behavior. However, _one_ minor version skew between the
 kubelet and the control plane is supported, but the kubelet version may never exceed the API
 server version. For example, the kubelet running 1.7.0 should be fully compatible with a 1.8.0 API server,
 but not vice versa.

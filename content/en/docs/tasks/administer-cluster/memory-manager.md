@@ -132,7 +132,7 @@ A dedicated set of flags can be used for this purpose to set the total amount of
 for a node. This pre-configured value is subsequently utilized to calculate
 the real amount of node's "allocatable" memory available to pods.
 
-The Kubernetes scheduler incorporates "allocatable" to optimise pod scheduling process.
+The Kubernetes scheduler incorporates "allocatable" to optimize pod scheduling process.
 The foregoing flags include `--kube-reserved`, `--system-reserved` and `--eviction-threshold`.
 The sum of their values will account for the total amount of reserved memory.
 
@@ -446,7 +446,7 @@ comprises these two NUMA nodes, i.e. `0` and `1` indexed NUMA nodes.
 Notice that the management of groups is handled in a relatively complex manner, and
 further elaboration is provided in Memory Manager KEP in [this][1] and [this][3] sections.
 
-In order to analyse memory resources available in a group,the corresponding entries from
+In order to analyze memory resources available in a group,the corresponding entries from
 NUMA nodes belonging to the group must be added up.
 
 For example, the total amount of free "conventional" memory in the group can be computed
