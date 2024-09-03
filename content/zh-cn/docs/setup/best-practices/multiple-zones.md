@@ -47,13 +47,13 @@ Kubernetes 从设计上允许同一个 Kubernetes 集群跨多个失效区来运
 <!--
 ## Control plane behavior
 
-All [control plane components](/docs/concepts/overview/components/#control-plane-components)
+All [control plane components](/docs/concepts/architecture/#control-plane-components)
 support running as a pool of interchangeable resources, replicated per
 component.
 -->
 ## 控制面行为   {#control-plane-behavior}
 
-所有的[控制面组件](/zh-cn/docs/concepts/overview/components/#control-plane-components)
+所有的[控制面组件](/zh-cn/docs/concepts/architecture/#control-plane-components)
 都支持以一组可相互替换的资源池的形式来运行，每个组件都有多个副本。
 
 <!--

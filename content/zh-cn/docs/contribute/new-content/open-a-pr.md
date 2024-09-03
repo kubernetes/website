@@ -343,7 +343,7 @@ Figure 2. Working from a local fork to make your changes.
 <!--
 ### Create a branch
 
-1. Decide which branch base to your work on:
+1. Decide which branch to base your work on:
 
    - For improvements to existing content, use `upstream/main`.
    - For new content about existing features, use `upstream/main`.
