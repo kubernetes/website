@@ -1,6 +1,6 @@
 <!-- All former base stylesheet links commented out as we are using Docsy for styles. -->
 
-{{ $inServerMode := site.IsServer }}
+{{ $inServerMode := hugo.IsServer }}
 
 <!--begin splitter-->
 <style>
@@ -44,8 +44,6 @@
     <link rel="stylesheet" href="{{ $prodCaseStudiesCSS.RelPermalink }}" integrity="{{ $prodCaseStudiesCSS.Data.Integrity }}">
   {{ end }}
 {{- end }}
-
-<link rel="stylesheet" href="{{ "css/feature-states.css" | relURL }}">
 
 {{- if or (eq .Params.class "gridPage") (eq .Params.class "gridPage gridPageHome") }}
   <link rel="stylesheet" href="{{ "css/gridpage.css" | relURL }}">

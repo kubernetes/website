@@ -3,9 +3,10 @@ layout: blog
 title: 'Kubernetes 1.20: Granular Control of Volume Permission Changes'
 date: 2020-12-14 
 slug: kubernetes-release-1.20-fsGroupChangePolicy-fsGroupPolicy
+author: >
+  Hemant Kumar (Red Hat),
+  Christian Huffman (Red Hat)
 ---
-
-**Authors**: Hemant Kumar, Red Hat & Christian Huffman, Red Hat
 
 Kubernetes 1.20 brings two important beta features, allowing Kubernetes admins and users alike to have more adequate control over how volume permissions are applied when a volume is mounted inside a Pod.
 

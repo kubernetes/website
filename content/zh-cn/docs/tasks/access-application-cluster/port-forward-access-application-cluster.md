@@ -174,9 +174,9 @@ for database debugging.
    ```
 
    <!--
-   27017 is the TCP port allocated to MongoDB on the internet.
+   27017 is the official TCP port for MongoDB.
    -->
-   27017 是分配给 MongoDB 的互联网 TCP 端口。
+   27017 是 MongoDB 的官方 TCP 端口。
 
 <!--
 ## Forward a local port to a port on the Pod

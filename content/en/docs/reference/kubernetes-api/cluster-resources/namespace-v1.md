@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Namespace provides a scope for Names."
 title: "Namespace"
-weight: 2
+weight: 7
 auto_generated: true
 ---
 
@@ -62,6 +62,8 @@ NamespaceSpec describes the attributes on a Namespace.
 
 - **finalizers** ([]string)
 
+  *Atomic: will be replaced during a merge*
+  
   Finalizers is an opaque list of values that must be empty to permanently remove object from storage. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
 
 
@@ -77,6 +79,8 @@ NamespaceStatus is information about the current status of a Namespace.
 - **conditions** ([]NamespaceCondition)
 
   *Patch strategy: merge on key `type`*
+  
+  *Map: unique values on key type will be kept during a merge*
   
   Represents the latest available observations of a namespace's current state.
 

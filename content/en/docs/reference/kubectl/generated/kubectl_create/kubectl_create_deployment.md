@@ -41,6 +41,9 @@ kubectl create deployment NAME --image=image -- [COMMAND] [args...]
   
   # Create a deployment named my-dep that runs the busybox image and expose port 5701
   kubectl create deployment my-dep --image=busybox --port=5701
+  
+  # Create a deployment named my-dep that runs multiple containers
+  kubectl create deployment my-dep --image=busybox:latest --image=ubuntu:latest --image=nginx
 ```
 
 ## {{% heading "options" %}}
@@ -84,7 +87,7 @@ kubectl create deployment NAME --image=image -- [COMMAND] [args...]
 <td colspan="2">--image strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Image names to run.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Image names to run. A deployment can have multiple images set for multi-container pod.</p></td>
 </tr>
 
 <tr>
@@ -98,7 +101,7 @@ kubectl create deployment NAME --image=image -- [COMMAND] [args...]
 <td colspan="2">--port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: -1</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The port that this container exposes.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The containerPort that this deployment exposes.</p></td>
 </tr>
 
 <tr>
@@ -172,13 +175,6 @@ kubectl create deployment NAME --image=image -- [COMMAND] [args...]
 </tr>
 
 <tr>
-<td colspan="2">--azure-container-registry-config string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the file containing Azure container registry configuration information.</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "$HOME/.kube/cache"</td>
 </tr>
 <tr>
@@ -204,20 +200,6 @@ kubectl create deployment NAME --image=image -- [COMMAND] [args...]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a client key file for TLS</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks</p></td>
 </tr>
 
 <tr>

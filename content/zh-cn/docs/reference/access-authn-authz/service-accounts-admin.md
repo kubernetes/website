@@ -107,11 +107,163 @@ Kubernetes 区分用户账号和服务账号的概念，主要基于以下原因
   因为服务账号的创建约束不多并且有名字空间域的名称，所以这种配置通常是轻量的。
 
 <!--
+## Bound service account tokens
+-->
+## 绑定的服务账号令牌  {#bound-service-account-tokens}
+
+<!--
+ServiceAccount tokens can be bound to API objects that exist in the kube-apiserver.
+This can be used to tie the validity of a token to the existence of another API object.
+Supported object types are as follows:
+
+* Pod (used for projected volume mounts, see below)
+* Secret (can be used to allow revoking a token by deleting the Secret)
+* Node (in v1.30, creating new node-bound tokens is alpha, using existing node-bound tokens is beta)
+-->
+ServiceAccount 令牌可以被绑定到 kube-apiserver 中存在的 API 对象。
+这可用于将令牌的有效性与另一个 API 对象的存在与否关联起来。
+支持的对象类型如下：
+
+* Pod（用于投射卷的挂载，见下文）
+* Secret（可用于允许通过删除 Secret 来撤销令牌）
+* 节点（在 v1.30 中，创建新的节点绑定令牌是 Alpha 特性，使用现有的节点绑定特性是 Beta 特性）
+
+<!--
+When a token is bound to an object, the object's `metadata.name` and `metadata.uid` are
+stored as extra 'private claims' in the issued JWT.
+
+When a bound token is presented to the kube-apiserver, the service account authenticator
+will extract and verify these claims.
+If the referenced object no longer exists (or its `metadata.uid` does not match),
+the request will not be authenticated.
+-->
+当将令牌绑定到某对象时，该对象的 `metadata.name` 和 `metadata.uid`
+将作为额外的“私有声明”存储在所发布的 JWT 中。
+
+当将被绑定的令牌提供给 kube-apiserver 时，服务帐户身份认证组件将提取并验证这些声明。
+如果所引用的对象不再存在（或其 `metadata.uid` 不匹配），则请求将无法通过认证。
+
+<!--
+### Additional metadata in Pod bound tokens
+-->
+### Pod 绑定令牌中的附加元数据    {#additional-metadata-in-pod-bound-tokens}
+
+{{< feature-state feature_gate_name="ServiceAccountTokenPodNodeInfo" >}}
+
+<!--
+When a service account token is bound to a Pod object, additional metadata is also
+embedded into the token that indicates the value of the bound pod's `spec.nodeName` field,
+and the uid of that Node, if available.
+
+This node information is **not** verified by the kube-apiserver when the token is used for authentication.
+It is included so integrators do not have to fetch Pod or Node API objects to check the associated Node name
+and uid when inspecting a JWT.
+-->
+当服务帐户令牌被绑定到某 Pod 对象时，一些额外的元数据也会被嵌入到令牌中，
+包括所绑定 Pod 的 `spec.nodeName` 字段的值以及该节点的 uid（如果可用）。
+
+当使用令牌进行身份认证时，kube-apiserver **不会**检查此节点信息的合法性。
+由于节点信息被包含在令牌内，所以集成商在检查 JWT 时不必获取 Pod 或 Node API 对象来检查所关联的 Node 名称和 uid。
+
+<!--
+### Verifying and inspecting private claims
+
+The `TokenReview` API can be used to verify and extract private claims from a token:
+-->
+### 查验和检视私有声明   {#verifying-and-inspecting-private-claims}
+
+`TokenReview` API 可用于校验并从令牌中提取私有声明：
+
+<!--
+1. First, assume you have a pod named `test-pod` and a service account named `my-sa`.
+2. Create a token that is bound to this Pod:
+-->
+1. 首先，假设你有一个名为 `test-pod` 的 Pod 和一个名为 `my-sa` 的服务帐户。
+2. 创建绑定到此 Pod 的令牌：
+
+```shell
+kubectl create token my-sa --bound-object-kind="Pod" --bound-object-name="test-pod"
+```
+
+<!--
+3. Copy this token into a new file named `tokenreview.yaml`:
+-->
+3. 将此令牌复制到名为 `tokenreview.yaml` 的新文件中：
+
+```yaml
+apiVersion: authentication.k8s.io/v1
+kind: TokenReview
+spec:
+  token: <来自第二步的令牌内容>
+```
+
+<!--
+4. Submit this resource to the apiserver for review:
+-->
+4. 将此资源提交给 API 服务器进行审核：
+
+<!--
+# we use '-o yaml' so we can inspect the output
+-->
+```shell
+kubectl create -o yaml -f tokenreview.yaml # 我们使用 '-o yaml' 以便检视命令输出
+```
+
+<!--
+You should see an output like below:
+-->
+你应该看到如下所示的输出：
+
+```yaml
+apiVersion: authentication.k8s.io/v1
+kind: TokenReview
+metadata:
+  creationTimestamp: null
+spec:
+  token: <token>
+status:
+  audiences:
+  - https://kubernetes.default.svc.cluster.local
+  authenticated: true
+  user:
+    extra:
+      authentication.kubernetes.io/credential-id:
+      - JTI=7ee52be0-9045-4653-aa5e-0da57b8dccdc
+      authentication.kubernetes.io/node-name:
+      - kind-control-plane
+      authentication.kubernetes.io/node-uid:
+      - 497e9d9a-47aa-4930-b0f6-9f2fb574c8c6
+      authentication.kubernetes.io/pod-name:
+      - test-pod
+      authentication.kubernetes.io/pod-uid:
+      - e87dbbd6-3d7e-45db-aafb-72b24627dff5
+    groups:
+    - system:serviceaccounts
+    - system:serviceaccounts:default
+    - system:authenticated
+    uid: f8b4161b-2e2b-11e9-86b7-2afc33b31a7e
+    username: system:serviceaccount:default:my-sa
+```
+
+{{< note >}}
+<!--
+Despite using `kubectl create -f` to create this resource, and defining it similar to
+other resource types in Kubernetes, TokenReview is a special type and the kube-apiserver
+does not actually persist the TokenReview object into etcd.
+Hence `kubectl get tokenreview` is not a valid command.
+-->
+尽管你使用了 `kubectl create -f` 来创建此资源，并与 Kubernetes
+中的其他资源类型类似的方式定义它，但 TokenReview 是一种特殊类别，
+kube-apiserver 实际上并不将 TokenReview 对象持久保存到 etcd 中。
+因此 `kubectl get tokenreview` 不是一个有效的命令。
+{{< /note >}}
+
+<!--
 ## Bound service account token volume mechanism {#bound-service-account-token-volume}
 -->
 ## 绑定的服务账号令牌卷机制  {#bound-service-account-token-volume}
 
-{{< feature-state for_k8s_version="v1.22" state="stable" >}}
+{{< feature-state feature_gate_name="BoundServiceAccountTokenVolume" >}}
 
 <!--
 By default, the Kubernetes control plane (specifically, the
@@ -127,6 +279,27 @@ Here's an example of how that looks for a launched Pod:
 
 以下示例演示如何查找已启动的 Pod：
 
+<!--
+```yaml
+...
+  - name: kube-api-access-<random-suffix>
+    projected:
+      sources:
+        - serviceAccountToken:
+            path: token # must match the path the app expects
+        - configMap:
+            items:
+              - key: ca.crt
+                path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+              - fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+                path: namespace
+```
+-->
 ```yaml
 ...
   - name: kube-api-access-<随机后缀>
@@ -345,7 +518,7 @@ ensures a ServiceAccount named "default" exists in every active namespace.
 -->
 ## 控制平面细节   {#control-plane-details}
 
-### ServiceAccount 控制器   {#serviceaccount-controller} 
+### ServiceAccount 控制器   {#serviceaccount-controller}
 
 ServiceAccount 控制器管理名字空间内的 ServiceAccount，
 并确保每个活跃的名字空间中都存在名为 `default` 的 ServiceAccount。
@@ -443,9 +616,9 @@ it does the following when a Pod is created:
 <!--
 ### Legacy ServiceAccount token tracking controller
 -->
-### 传统 ServiceAccount 令牌追踪控制器
+### 传统 ServiceAccount 令牌追踪控制器   {#legacy-serviceaccount-token-tracking-controller}
 
-{{< feature-state for_k8s_version="v1.28" state="stable" >}}
+{{< feature-state feature_gate_name="LegacyServiceAccountTokenTracking" >}}
 
 <!--
 This controller generates a ConfigMap called
@@ -455,14 +628,14 @@ account tokens began to be monitored by the system.
 -->
 此控制器在 `kube-system` 命名空间中生成名为
 `kube-apiserver-legacy-service-account-token-tracking` 的 ConfigMap。
-这个 ConfigMap 记录了系统开始监视传统服务账户令牌的时间戳。
+这个 ConfigMap 记录了系统开始监视传统服务账号令牌的时间戳。
 
 <!--
 ### Legacy ServiceAccount token cleaner
 -->
-### 传统 ServiceAccount 令牌清理器
+### 传统 ServiceAccount 令牌清理器   {#legacy-serviceaccount-token-cleaner}
 
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
+{{< feature-state feature_gate_name="LegacyServiceAccountTokenCleanUp" >}}
 
 <!--
 The legacy ServiceAccount token cleaner runs as part of the
@@ -561,6 +734,9 @@ kubelet 确保该卷包含允许容器作为正确 ServiceAccount 进行身份�
 
 以下示例演示如何查找已启动的 Pod：
 
+<!--
+# decimal equivalent of octal 0644
+-->
 ```yaml
 ...
   - name: kube-api-access-<random-suffix>
@@ -719,6 +895,9 @@ Otherwise, first find the Secret for the ServiceAccount.
 -->
 否则，先找到 ServiceAccount 所用的 Secret。
 
+<!--
+# This assumes that you already have a namespace named 'examplens'
+-->
 ```shell
 # 此处假设你已有一个名为 'examplens' 的名字空间
 kubectl -n examplens get serviceaccount/example-automated-thing -o yaml

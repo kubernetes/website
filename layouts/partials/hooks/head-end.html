@@ -1,0 +1,54 @@
+<link rel="manifest" href="/manifest.webmanifest">
+
+{{- if or (.HasShortcode "table")  (.HasShortcode "feature-gate-table") -}}
+  {{- if hugo.IsProduction -}}
+    {{- $sortableTableJs :=  resources.Get "js/sortable-table.js" | minify | fingerprint -}}
+<script defer src="{{ $sortableTableJs.RelPermalink }}" integrity="{{ $sortableTableJs.Data.Integrity }}" crossorigin="anonymous"></script>
+  {{- else -}}
+    {{- $sortableTableJs := resources.Get "js/sortable-table.js" -}}
+<script defer src="{{ $sortableTableJs.RelPermalink }}"></script>
+  {{- end -}}
+{{- end -}}
+
+{{- if .HasShortcode "cncf-landscape" -}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.min.js" integrity="sha384-hHTwgxzjpO1G1NI0wMHWQYUxnGtpWyDjVSZrFnDrlWa5OL+DFY57qnDWw/5WSJOl" crossorigin="anonymous"></script>
+{{- end -}}
+
+{{- if .HasShortcode "figure" -}}
+<!-- Enable zoom-on-click for figures that opt in to this -->
+  {{- if hugo.IsProduction -}}
+    {{- $zoomJs :=  resources.Get "js/zoom.js" | minify | fingerprint -}}
+<script defer src="{{ $zoomJs.RelPermalink }}" integrity="{{ $zoomJs.Data.Integrity }}" crossorigin="anonymous"></script>
+  {{- else -}}
+    {{- $zoomJs := resources.Get "js/zoom.js" -}}
+<script defer src="{{ $zoomJs.RelPermalink }}"></script>
+  {{- end -}}
+{{- end -}}
+
+{{ if .HasShortcode "mermaid" }}
+  <!-- Copied from https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js -->
+  {{- with resources.Get "js/mermaid-10.6.1.min.js" -}}
+  <script src="{{ .RelPermalink }}" integrity="sha384-+NGfjU8KzpDLXRHduEqW+ZiJr2rIg+cidUVk7B51R5xK7cHwMKQfrdFwGdrq1Bcz"></script>
+  {{- else -}}
+    <!-- without Mermaid, the site won't appear right -->
+    {{- errorf "No Mermaid helper script found" -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if eq .Layout "glossary" -}}
+  {{- with resources.Get "js/glossary.js" -}}
+  <script defer src="{{ .RelPermalink }}"></script>
+  {{- else -}}
+    {{- errorf "Unable to find the glossary helper script" -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if .HasShortcode "release-binaries" -}}
+  {{- if hugo.IsProduction -}}
+    {{- $releaseBinariesJs :=  resources.Get "js/release_binaries.js" | minify | fingerprint -}}
+<script defer src="{{ $releaseBinariesJs.RelPermalink }}" integrity="{{ $releaseBinariesJs.Data.Integrity }}" crossorigin="anonymous"></script>
+  {{- else -}}
+    {{- $releaseBinariesJs := resources.Get "js/release_binaries.js" -}}
+<script defer src="{{ $releaseBinariesJs.RelPermalink }}"></script>
+  {{- end -}}
+{{- end -}}

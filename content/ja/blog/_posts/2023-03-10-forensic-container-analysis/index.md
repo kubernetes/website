@@ -3,9 +3,9 @@ layout: blog
 title: "フォレンジックコンテナ分析"
 date: 2023-03-10
 slug: forensic-container-analysis
+author: >
+  Adrian Reber (Red Hat)
 ---
-
-**Authors:** Adrian Reber (Red Hat)
 
 前回投稿した[Kubernetesにおけるフォレンジックコンテナチェックポイント処理][forensic-blog]では、Kubernetesでのチェックポイントの作成や、それがどのようにセットアップされ、どのように使用されるのかを紹介しました。
 機能の名前はフォレンジックコンテナチェックポイントですが、Kubernetesによって作成されたチェックポイントの実際の分析方法については、詳細を説明しませんでした。

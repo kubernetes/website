@@ -7,7 +7,7 @@ cid: code-of-conduct
 _কুবারনেটিস অনুসরণ করে
 [CNCF কোড অফ কন্ডাক্ট](https://github.com/cncf/foundation/blob/main/code-of-conduct.md)।
 CNCF CoC এর পাঠ্যটি নীচে প্রতিলিপি করা হয়েছে, 
-[commit 71412bb02](https://github.com/cncf/foundation/blob/71412bb029090d42ecbeadb39374a337bfb48a9c/code-of-conduct.md) হিসাবে_
+[commit 71412bb02](https://github.com/cncf/foundation/blob/71412bb029090d42ecbeadb39374a337bfb48a9c/code-of-conduct-languages/bn.md) হিসাবে_
 
 <div id="cncf-code-of-conduct">
 {{< include "static/cncf-code-of-conduct.md" >}}

@@ -63,6 +63,8 @@ RoleBinding references a role, but does not contain it.  It can reference a Role
 
 - **subjects** ([]Subject)
 
+  *Atomic: will be replaced during a merge*
+  
   Subjects holds references to the objects the role applies to.
 
   <a name="Subject"></a>

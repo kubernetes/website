@@ -1,5 +1,5 @@
 ---
-title: সাইডকার কন্টেইনার (Sidecar Containers)
+title: সাইডকার কন্টেইনার 
 content_type: concept
 weight: 50
 ---

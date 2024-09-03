@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PersistentVolume (PV) is a storage resource provisioned by an administrator."
 title: "PersistentVolume"
-weight: 5
+weight: 7
 auto_generated: true
 ---
 
@@ -62,6 +62,8 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **accessModes** ([]string)
 
+  *Atomic: will be replaced during a merge*
+  
   accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
 
 - **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -74,6 +76,8 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **mountOptions** ([]string)
 
+  *Atomic: will be replaced during a merge*
+  
   mountOptions is the list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
 
 - **nodeAffinity** (VolumeNodeAffinity)
@@ -92,6 +96,8 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
     - **nodeAffinity.required.nodeSelectorTerms** ([]NodeSelectorTerm), required
 
+      *Atomic: will be replaced during a merge*
+      
       Required. A list of node selector terms. The terms are ORed.
 
       <a name="NodeSelectorTerm"></a>
@@ -99,10 +105,14 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
       - **nodeAffinity.required.nodeSelectorTerms.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
+        *Atomic: will be replaced during a merge*
+        
         A list of node selector requirements by node's labels.
 
       - **nodeAffinity.required.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
+        *Atomic: will be replaced during a merge*
+        
         A list of node selector requirements by node's fields.
 
 - **persistentVolumeReclaimPolicy** (string)
@@ -112,6 +122,10 @@ PersistentVolumeSpec is the specification of a persistent volume.
 - **storageClassName** (string)
 
   storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
+
+- **volumeAttributesClassName** (string)
+
+  Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
 
 - **volumeMode** (string)
 
@@ -243,6 +257,8 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
   - **cephfs.monitors** ([]string), required
 
+    *Atomic: will be replaced during a merge*
+    
     monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
   - **cephfs.path** (string)
@@ -361,7 +377,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
   - **csi.nodeExpandSecretRef** (SecretReference)
 
-    nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+    nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 
     <a name="SecretReference"></a>
     *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
@@ -433,10 +449,14 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
   - **fc.targetWWNs** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     targetWWNs is Optional: FC target worldwide names (WWNs)
 
   - **fc.wwids** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
 
 - **flexVolume** (FlexPersistentVolumeSource)
@@ -581,6 +601,8 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
   - **iscsi.portals** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     portals is the iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 
   - **iscsi.readOnly** (boolean)
@@ -699,6 +721,8 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
   - **rbd.monitors** ([]string), required
 
+    *Atomic: will be replaced during a merge*
+    
     monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   - **rbd.fsType** (string)
@@ -854,7 +878,7 @@ PersistentVolumeStatus is the current status of a persistent volume.
 
 - **lastPhaseTransitionTime** (Time)
 
-  lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+  lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions.
 
   <a name="Time"></a>
   *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*

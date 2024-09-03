@@ -72,12 +72,6 @@ you already have at-rest encryption enabled. However, that check does not tell y
 a previous migration to encrypted storage has succeeded. If you are not sure, see
 [ensure all relevant data are encrypted](#ensure-all-secrets-are-encrypted).
 
-{{< caution >}}
-**IMPORTANT:** For high-availability configurations (with two or more control plane nodes), the
-encryption configuration file must be the same! Otherwise, the `kube-apiserver` component cannot
-decrypt data stored in the etcd.
-{{< /caution >}}
-
 ## Understanding the encryption at rest configuration
 
 <!-- note to localizers: the highlight is to make the initial comment obvious -->
@@ -168,27 +162,42 @@ encrypt all resources, even custom resources that are added after API server sta
 since part of the configuration would be ineffective. The `resources` list's processing order and precedence
 are determined by the order it's listed in the configuration. {{< /note >}}
 
-Opting out of encryption for specific resources while wildcard is enabled can be achieved by adding a new
-`resources` array item with the resource name, followed by the `providers` array item with the `identity` provider.
-For example, if '`*.*`' is enabled and you want to opt-out encryption for the `events` resource, add a new item
-to the `resources` array with `events` as the resource name, followed by the providers array item with `identity`.
-The new item should look like this:
+If you have a wildcard covering resources and want to opt out of at-rest encryption for a particular kind
+of resource, you achieve that by adding a separate `resources` array item with the name of the resource that
+you want to exempt, followed by a `providers` array item where you specify the `identity` provider. You add
+this item to the list so that it appears earlier than the configuration where you do specify encryption
+(a provider that is not `identity`).
+
+For example, if '`*.*`' is enabled and you want to opt out of encryption for Events and ConfigMaps, add a
+new **earlier** item to the `resources`, followed by the providers array item with `identity` as the
+provider. The more specific entry must come before the wildcard entry.
+
+The new item would look similar to:
 
 ```yaml
-- resources:
-    - events
-  providers:
-    - identity: {}
+  ...
+  - resources:
+      - configmaps. # specifically from the core API group,
+                    # because of trailing "."
+      - events
+    providers:
+      - identity: {}
+  # and then other entries in resources
 ```
-Ensure that the new item is listed before the wildcard '`*.*`' item in the resources array to give it precedence.
+
+Ensure that the exemption is listed _before_ the wildcard '`*.*`' item in the resources array
+to give it precedence.
 
 For more detailed information about the `EncryptionConfiguration` struct, please refer to the
 [encryption configuration API](/docs/reference/config-api/apiserver-encryption.v1/).
 
 {{< caution >}}
-If any resource is not readable via the encryption config (because keys were changed),
-the only recourse is to delete that key from the underlying etcd directly. Calls that attempt to
-read that resource will fail until it is deleted or a valid decryption key is provided.
+If any resource is not readable via the encryption configuration (because keys were changed),
+and you cannot restore a working configuration, your only recourse is to delete that entry from
+the underlying etcd directly.
+
+Any calls to the Kubernetes API that attempt to read that resource will fail until it is deleted
+or a valid decryption key is provided.
 {{< /caution >}}
 
 ### Available providers {#providers}
@@ -390,7 +399,7 @@ Generate a 32-byte random key and base64 encode it. You can use this command:
 
 
 {{< note >}}
-Keep the encryption key confidential, including whilst you generate it and
+Keep the encryption key confidential, including while you generate it and
 ideally even after you are no longer actively using it.
 {{< /note >}}
 
@@ -495,6 +504,18 @@ Kubernetes cluster has multiple control plane hosts, so there is more to do.
 
 If you have multiple API servers in your cluster, you should deploy the
 changes in turn to each API server.
+
+{{< caution >}}
+For cluster configurations with two or more control plane nodes, the encryption configuration
+should be identical across each control plane node.
+
+If there is a difference in the encryption provider configuration between control plane
+nodes, this difference may mean that the kube-apiserver can't decrypt data.
+{{< /caution >}}
+
+When you are planning to update the encryption configuration of your cluster, plan this
+so that the API servers in your control plane can always decrypt the stored data
+(even part way through rolling out the change).
 
 Make sure that you use the **same** encryption configuration on each
 control plane host.
@@ -698,9 +719,14 @@ allows you to change the keys for encryption at rest without restarting the
 API server.
 
 To allow automatic reloading, configure the API server to run with:
-`--encryption-provider-config-automatic-reload=true`
+`--encryption-provider-config-automatic-reload=true`.
+When enabled, file changes are polled every minute to observe the modifications.
+The `apiserver_encryption_config_controller_automatic_reload_last_timestamp_seconds`
+metric identifies when the new config becomes effective. This allows
+encryption keys to be rotated without restarting the API server.
+
 
 ## {{% heading "whatsnext" %}}
 
 * Read about [decrypting data that are already stored at rest](/docs/tasks/administer-cluster/decrypt-data/)
-* Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-encryption.v1/).
+* Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-config.v1/).

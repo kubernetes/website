@@ -34,10 +34,10 @@ kubectl এর সর্বশেষ সামঞ্জস্যপূর্ণ 
    {{< note >}}
 একটি নির্দিষ্ট সংস্করণ ডাউনলোড করতে, নির্দিষ্ট সংস্করণের সাথে কমান্ডের `$(curl -L -s https://dl.k8s.io/release/stable.txt)` অংশটি প্রতিস্থাপন করুন। 
 
-উদাহরণস্বরূপ, লিনাক্সে সংস্করণ {{< param "fullversion" >}} ডাউনলোড করতে, টাইপ করুন:
+উদাহরণস্বরূপ, লিনাক্সে সংস্করণ {{% skew currentPatchVersion %}} ডাউনলোড করতে, টাইপ করুন:
 
    ```bash
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+   curl -LO https://dl.k8s.io/release/v{{% skew currentPatchVersion %}}/bin/linux/amd64/kubectl
    ```
    {{< /note >}}
 

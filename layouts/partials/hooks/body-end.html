@@ -6,7 +6,13 @@
 {{ end }}
 {{/* copy-and-paste helper for codenew shortcode */}}
 {{- if or (.HasShortcode "code_sample") (.HasShortcode "code") (.HasShortcode "codenew") -}}
-<script async src="{{ "js/sweetalert-2.1.2.min.js" | relURL }}"></script>
+  {{- if hugo.IsProduction -}}
+    {{- $sweetAlert :=  resources.Get "js/sweetalert-2.1.2.min.js" | minify | fingerprint -}}
+<script async src="{{ $sweetAlert.RelPermalink }}" integrity="{{ $sweetAlert.Data.Integrity }}" crossorigin="anonymous"></script>
+  {{- else -}}
+    {{- $sweetAlert := resources.Get "js/sweetalert-2.1.2.min.js" -}}
+<script async src="{{ $sweetAlert.RelPermalink }}"></script>
+  {{- end -}}
 <script type="text/javascript">
 function copyCode(elem){
   if (document.getElementById(elem)) {

@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes 1.26: Windows HostProcess Containers Are Generally Available"
 date: 2022-12-13
 slug: windows-host-process-containers-ga
+author: >
+  Brandon Smith (Microsoft),
+  Mark Rossetti (Microsoft)
 ---
-
-**Authors**: Brandon Smith (Microsoft) and Mark Rossetti (Microsoft)
 
 The long-awaited day has arrived: HostProcess containers, the Windows equivalent to Linux privileged
 containers, has finally made it to **GA in Kubernetes 1.26**!

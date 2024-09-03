@@ -1,5 +1,8 @@
 ---
 title: Deployments
+api_metadata:
+- apiVersion: "apps/v1"
+  kind: "Deployment"
 feature:
   title: 自动化上线和回滚
   description: >
@@ -14,6 +17,9 @@ hide_summary: true # 在章节索引中单独列出
 reviewers:
 - janetkuo
 title: Deployments
+api_metadata:
+- apiVersion: "apps/v1"
+  kind: "Deployment"
 feature:
   title: Automated rollouts and rollbacks
   description: >

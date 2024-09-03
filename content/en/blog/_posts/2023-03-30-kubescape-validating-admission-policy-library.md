@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes Validating Admission Policies: A Practical Example"
 date: 2023-03-30T00:00:00+0000
 slug: kubescape-validating-admission-policy-library
+author: >
+   Craig Box (ARMO),
+   Ben Hirschberg (ARMO)
 ---
-
-**Authors**: Craig Box (ARMO), Ben Hirschberg (ARMO)
 
 Admission control is an important part of the Kubernetes control plane, with several internal
 features depending on the ability to approve or change an API object as it is submitted to the

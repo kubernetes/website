@@ -9,7 +9,7 @@ weight: 30
 
 {{< feature-state for_k8s_version="v1.11" state="stable" >}}
 
-`crictl`はCRI互換のコンテナランタイム用のコマンドラインインターフェイスです。
+`crictl`はCRI互換のコンテナランタイム用のコマンドラインインターフェースです。
 
 これを使って、Kubernetesノード上のコンテナランタイムやアプリケーションの検査やデバッグを行うことができます。
 `crictl`とそのソースコードは[cri-tools](https://github.com/kubernetes-sigs/cri-tools)リポジトリにホストされています。

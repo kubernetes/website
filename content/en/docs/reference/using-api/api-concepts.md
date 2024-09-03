@@ -19,7 +19,9 @@ fine grained authorization (such as separate views for Pod details and
 log retrievals), and can accept and serve those resources in different
 representations for convenience or efficiency.
 
-Kubernetes supports efficient change notifications on resources via *watches*.
+Kubernetes supports efficient change notifications on resources via
+_watches_:
+{{< glossary_definition prepend="in the Kubernetes API, watch is" term_id="watch" length="short" >}}
 Kubernetes also provides consistent list operations so that API clients can
 effectively cache, track, and synchronize the state of resources.
 
@@ -229,7 +231,7 @@ the API server will send any `BOOKMARK` event even when requested.
 
 ## Streaming lists
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state feature_gate_name="WatchList" >}}
 
 On large clusters, retrieving the collection of some resource types may result in
 a significant increase of resource usage (primarily RAM) on the control plane.
@@ -287,7 +289,7 @@ Content-Type: application/json
 
 ## Response compression
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+{{< feature-state feature_gate_name="APIResponseCompression" >}}
 
 `APIResponseCompression` is an option that allows the API server to compress the responses for **get**
 and **list** requests, reducing the network bandwidth and improving the performance of large-scale clusters.
@@ -317,7 +319,7 @@ The `content-encoding` header indicates that the response is compressed with `gz
 
 ## Retrieving large results sets in chunks
 
-{{< feature-state for_k8s_version="v1.29" state="stable" >}}
+{{< feature-state feature_gate_name="APIListChunking" >}}
 
 On large clusters, retrieving the collection of some resource types may result in
 very large responses that can impact the server and client. For instance, a cluster
@@ -349,7 +351,7 @@ of time (by default 5 minutes) and return a `410 Gone` if more results cannot be
 returned. In this case, the client will need to start from the beginning or omit the
 `limit` parameter.
 
-For example, if there are 1,253 pods on the cluster and you wants to receive chunks
+For example, if there are 1,253 pods on the cluster and you want to receive chunks
 of 500 pods at a time, request those chunks as follows:
 
 1. List all of the pods on a cluster, retrieving up to 500 pods each time.
@@ -787,7 +789,7 @@ These situations are:
 
 ### Validation for unrecognized or duplicate fields {#setting-the-field-validation-level}
 
-{{< feature-state for_k8s_version="v1.27" state="stable" >}}
+{{< feature-state feature_gate_name="ServerSideFieldValidation" >}}
 
 From 1.25 onward, unrecognized or duplicate fields in an object are detected via
 validation on the server when you use HTTP verbs that can submit data (`POST`, `PUT`, and `PATCH`). Possible levels of
@@ -846,7 +848,7 @@ a boolean flag.
 
 ## Dry-run
 
- {{< feature-state for_k8s_version="v1.18" state="stable" >}}
+{{< feature-state feature_gate_name="DryRun" >}}
 
 When you use HTTP verbs that can modify resources (`POST`, `PUT`, `PATCH`, and
 `DELETE`), you can submit your request in a _dry run_ mode. Dry run mode helps to
@@ -1168,6 +1170,11 @@ Any
 Most recent
 : Return data at the most recent resource version. The returned data must be
   consistent (in detail: served from etcd via a quorum read).
+  For etcd v3.4.31+ and v3.5.13+ Kubernetes {{< skew currentVersion >}} serves “most recent” reads from the _watch cache_:
+  an internal, in-memory store within the API server that caches and mirrors the state of data
+  persisted into etcd. Kubernetes requests progress notification to maintain cache consistency against
+  the etcd persistence layer. Kubernetes versions v1.28 through to v1.30 also supported this
+  feature, although as Alpha it was not recommended for production nor enabled by default until the v1.31 release.
 
 Not older than
 : Return data at least as new as the provided `resourceVersion`. The newest

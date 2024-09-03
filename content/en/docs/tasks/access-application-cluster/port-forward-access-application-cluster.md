@@ -110,7 +110,7 @@ for database debugging.
    27017
    ```
 
-   27017 is the TCP port allocated to MongoDB on the internet.
+   27017 is the official TCP port for MongoDB.
 
 ## Forward a local port to a port on the Pod
 

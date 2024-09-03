@@ -3,9 +3,9 @@ layout: blog
 title: "Spotlight on SIG Node"
 date: 2021-09-27
 slug: sig-node-spotlight-2021
+author: >
+   Dewan Ahmed (Red Hat)
 ---
-
-**Author:** Dewan Ahmed, Red Hat
 
 ## Introduction
 

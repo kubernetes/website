@@ -6,6 +6,7 @@
 {{- end -}}
 {{- end -}}
     <div class="td-content">
+        {{- partial "deprecation-warning.html" . -}}
         {{ $hasContent := false }}
         {{ with .File }}
             {{ if ne .Filename "" }}
@@ -17,6 +18,8 @@
             {{ partial "docs/top-section-page" (dict "ctx" $ "page" $ ) }}
             {{- else -}}
             {{ partial "docs/content-page" (dict "ctx" $ "page" $ ) }}
+            <!-- Partial "docs/api-reference-links" determines API reference links for 'partial/page-meta-links.html' -->
+            {{ partial "docs/api-reference-links" $ }}
             {{- end -}}
         {{ else }}
             <h1>{{ .Title }}</h1>

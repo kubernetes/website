@@ -96,14 +96,14 @@ Kubernetes 文档的这一部分包含教程。
 
 * [Apply Pod Security Standards at Cluster level](/docs/tutorials/security/cluster-level-pss/)
 * [Apply Pod Security Standards at Namespace level](/docs/tutorials/security/ns-level-pss/)
-* [AppArmor](/zh-cn/docs/tutorials/security/apparmor/)
+* [Restrict a Container's Access to Resources with AppArmor](/docs/tutorials/security/apparmor/)
 * [Seccomp](/zh-cn/docs/tutorials/security/seccomp/)
 -->
 ## 安全  {#security}
 
 * [在集群级别应用 Pod 安全标准](/zh-cn/docs/tutorials/security/cluster-level-pss/)
 * [在名字空间级别应用 Pod 安全标准](/zh-cn/docs/tutorials/security/ns-level-pss/)
-* [AppArmor](/zh-cn/docs/tutorials/security/apparmor/)
+* [使用 AppArmor 限制容器对资源的访问](/zh-cn/docs/tutorials/security/apparmor/)
 * [Seccomp](/zh-cn/docs/tutorials/security/seccomp/)
 
 ## {{% heading "whatsnext" %}}

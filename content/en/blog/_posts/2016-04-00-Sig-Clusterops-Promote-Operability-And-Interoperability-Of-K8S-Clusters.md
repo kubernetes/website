@@ -3,8 +3,10 @@ title: " SIG-ClusterOps: Promote operability and interoperability of Kubernetes 
 date: 2016-04-19
 slug: sig-clusterops-promote-operability-and-interoperability-of-k8s-clusters
 url: /blog/2016/04/Sig-Clusterops-Promote-Operability-And-Interoperability-Of-K8S-Clusters
+author: >
+  Rob Hirschfeld (RackN)
 ---
-_Editor’s note: This week we’re featuring [Kubernetes Special Interest Groups](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs)); Today’s post is by the SIG-ClusterOps team whose mission is to promote operability and interoperability of Kubernetes clusters -- to listen, help & escalate._  
+_**Editor's note:** This week we’re featuring [Kubernetes Special Interest Groups](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs)); Today’s post is by the SIG-ClusterOps team whose mission is to promote operability and interoperability of Kubernetes clusters -- to listen, help & escalate._  
 
 We think Kubernetes is an awesome way to run applications at scale! Unfortunately, there's a bootstrapping problem: we need good ways to build secure & reliable scale environments around Kubernetes. While some parts of the platform administration leverage the platform (cool!), there are fundamental operational topics that need to be addressed and questions (like upgrade and conformance) that need to be answered.  
 
@@ -26,8 +28,4 @@ Cluster Ops can be hard work – don't do it alone. We're here to listen, to hel
 - Chat with us on the [Cluster Ops Slack channel](https://kubernetes.slack.com/messages/sig-cluster-ops/)
 - Email us at the [Cluster Ops SIG email list](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-ops)
 
-The Cluster Ops Special Interest Group meets weekly at 13:00PT on Thursdays, you can join us via the [video hangout](https://plus.google.com/hangouts/_/google.com/sig-cluster-ops) and see latest [meeting notes](https://docs.google.com/document/d/1IhN5v6MjcAUrvLd9dAWtKcGWBWSaRU8DNyPiof3gYMY/edit) for agendas and topics covered.  
-
-
-
-_--Rob Hirschfeld, CEO, RackN&nbsp;_
+The Cluster Ops Special Interest Group meets weekly at 13:00PT on Thursdays, you can join us via the [video hangout](https://plus.google.com/hangouts/_/google.com/sig-cluster-ops) and see latest [meeting notes](https://docs.google.com/document/d/1IhN5v6MjcAUrvLd9dAWtKcGWBWSaRU8DNyPiof3gYMY/edit) for agendas and topics covered.

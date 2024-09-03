@@ -150,7 +150,7 @@ solutions.
 The choice of monitoring platform depends heavily on your needs, budget, and technical resources.
 Kubernetes does not recommend any specific metrics pipeline; [many options](https://landscape.cncf.io/?group=projects-and-products&view-mode=card#observability-and-analysis--monitoring) are available.
 Your monitoring system should be capable of handling the [OpenMetrics](https://openmetrics.io/) metrics
-transmission standard, and needs to chosen to best fit in to your overall design and deployment of
+transmission standard and needs to be chosen to best fit into your overall design and deployment of
 your infrastructure platform. 
 -->
 将完整的指标管道集成到 Kubernetes 实现中超出了 Kubernetes

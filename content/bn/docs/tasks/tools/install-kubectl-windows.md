@@ -24,12 +24,12 @@ kubectl এর সর্বশেষ সামঞ্জস্যপূর্ণ 
 
 ### উইন্ডোজে কার্ল ব্যাবহার kubectl বাইনারি ইনস্টল করুন
 
-1. [latest release {{< param "fullversion" >}}](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe) ডাউনলোড করুন।
+1. সর্বশেষ {{< skew currentVersion >}} প্যাচ রিলিজ ডাউনলোড করুন: [kubectl {{% skew currentPatchVersion %}}](https://dl.k8s.io/release/v{{% skew currentPatchVersion %}}/bin/windows/amd64/kubectl.exe)।
 
    অথবা যদি আপনার `curl` ইনস্টল থাকে, এই কমান্ডটি ব্যবহার করুন:
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe"
+   curl.exe -LO "https://dl.k8s.io/release/v{{% skew currentPatchVersion %}}/bin/windows/amd64/kubectl.exe"
    ```
 
    {{< note >}}
@@ -41,7 +41,7 @@ kubectl এর সর্বশেষ সামঞ্জস্যপূর্ণ 
    `kubectl` চেকসাম ফাইলটি ডাউনলোড করুন:
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256"
+   curl.exe -LO "https://dl.k8s.io/v{{% skew currentPatchVersion %}}/bin/windows/amd64/kubectl.exe.sha256"
    ```
 
    চেকসাম ফাইলের বিপরীতে `kubectl` বাইনারি যাচাই করুন:
@@ -170,7 +170,7 @@ kubectl Bash, Zsh, Fish এবং PowerShell-এর জন্য ওটোকম
 1. কমান্ড সহ সর্বশেষ রিলিজ ডাউনলোড করুন:
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe"
+   curl.exe -LO "https://dl.k8s.io/release/v{{% skew currentPatchVersion %}}/bin/windows/amd64/kubectl-convert.exe"
    ```
 
 1. বাইনারি যাচাই করুন (অপশনাল)।
@@ -178,7 +178,7 @@ kubectl Bash, Zsh, Fish এবং PowerShell-এর জন্য ওটোকম
    `kubectl-convert` চেকসাম ফাইলটি ডাউনলোড কর্সনা 
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
+   curl.exe -LO "https://dl.k8s.io/v{{% skew currentPatchVersion %}}/bin/windows/amd64/kubectl-convert.exe.sha256"
    ```
 
    চেকসাম ফাইলের বিপরীতে `kubectl-convert` বাইনারি যাচাই করুন:

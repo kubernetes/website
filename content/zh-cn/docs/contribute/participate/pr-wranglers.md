@@ -30,9 +30,6 @@ SIG Docs 的[批准人（Approver）](/zh-cn/docs/contribute/participate/roles-a
 
 Each day in a week-long shift as PR Wrangler:
 
-- Triage and tag incoming issues daily. See
-  [Triage and categorize issues](/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
-  for guidelines on how SIG Docs uses metadata.
 - Review [open pull requests](https://github.com/kubernetes/website/pulls) for quality
   and adherence to the [Style](/docs/contribute/style/style-guide/) and
   [Content](/docs/contribute/style/content-guide/) guides.
@@ -42,9 +39,6 @@ Each day in a week-long shift as PR Wrangler:
 
 在为期一周的轮值期内，PR 管理者要：
 
-- 每天对新增的 Issue 判定和打标签。参见
-  [对 Issue 进行判定和分类](/zh-cn/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
-  以了解 SIG Docs 如何使用元数据的详细信息。
 - 检查[悬决的 PR](https://github.com/kubernetes/website/pulls)
   的质量并确保它们符合[样式指南](/zh-cn/docs/contribute/style/style-guide/)和
   [内容指南](/zh-cn/docs/contribute/style/content-guide/)要求。
@@ -91,6 +85,33 @@ Each day in a week-long shift as PR Wrangler:
     你通常可以将这些风格修复问题标记为 `good first issue`。
   - 将风格修复事项标记为 `good first issue` 可以很好地确保向新加入的贡献者分派一些比较简单的任务，
     这有助于接纳新的贡献者。
+
+<!--
+- Also check for pull requests against the [reference docs generator](https://github.com/kubernetes-sigs/reference-docs) code, and review those (or bring in help).
+- Support the [issue wrangler](/docs/contribute/participate/issue-wrangler/) to
+  triage and tag incoming issues daily.
+  See [Triage and categorize issues](/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
+  for guidelines on how SIG Docs uses metadata.
+-->
+- 同时检查针对[参考文档生成器](https://github.com/kubernetes-sigs/reference-docs)的代码拉取请求，
+  并对其进行审查（或寻求帮助）。
+- 支持[问题管理者](/zh-cn/docs/contribute/participate/issue-wrangler/)每日对新问题进行分类和标记。
+  参见[分类和组织问题](/zh-cn/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
+  了解 SIG Docs 如何使用元数据。
+
+{{< note >}}
+<!--
+PR wrangler duties do not apply to localization PRs (non-English PRs). 
+Localization teams have their own processes and teams for reviewing their language PRs. 
+However, it's often helpful to ensure language PRs are labeled correctly, 
+review small non-language dependent PRs (like a link update), 
+or tag reviewers or contributors in long-running PRs (ones opened more than 6 months ago and have not been updated in a month or more).
+-->
+PR 管理者的职责不适用于本地化 PR（非英语 PR）。
+本地化团队有自己的流程和团队来审查其语言 PR。
+但是，其对于确保被语言 PR 被正确标记，审查与语言无关的小型 PR（如链接更新），或为长期搁置的
+PR（已打开超过 6 个月且一个月或更长时间未更新的）添加审阅者或贡献者标签通常很有帮助。
+{{< /note >}}
 
 <!--
 ### Helpful GitHub queries for wranglers
@@ -143,8 +164,8 @@ These queries exclude localization PRs. All queries are against the main branch 
 
 - [非主分支的 PR](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3Alanguage%2Fen+-base%3Amain): 
   如果 PR 针对 `dev-` 分支，则表示它适用于即将发布的版本。
-  请添加带有 `/assign @<负责人的 github 账号>`，将其指派给 
-  [发行版本负责人](https://github.com/kubernetes/sig-release/tree/master/release-team#kubernetes-release-team-roles)。
+  请添加带有 `/assign @<负责人的 github 账号>`，
+  将其指派给[发行版本负责人](https://github.com/kubernetes/sig-release/tree/master/release-team#kubernetes-release-team-roles)。
   如果 PR 是针对旧分支，请帮助 PR 作者确定是否所针对的是最合适的分支。
 
 <!--
@@ -237,10 +258,6 @@ The program was introduced to help new contributors understand the PR wrangling 
   [PR Wranglers Wiki page](https://github.com/kubernetes/website/wiki/PR-Wranglers)
   to see the PR wrangling schedule for this year and sign up.
 
-- Kubernetes org members can edit the
-  [PR Wranglers Wiki page](https://github.com/kubernetes/website/wiki/PR-Wranglers)
-  and sign up to shadow an existing PR Wrangler for a week.
-
 - Others can reach out on the [#sig-docs Slack channel](https://kubernetes.slack.com/messages/sig-docs)
   for requesting to shadow an assigned PR Wrangler for a specific week. Feel free to reach out to
   Brad Topol (`@bradtopol`) or one of the
@@ -254,10 +271,6 @@ The program was introduced to help new contributors understand the PR wrangling 
 - 如果你有兴趣成为一名 PR 管理者的影子，请访问
   [PR 管理者维基页面](https://github.com/kubernetes/website/wiki/PR-Wranglers)查看今年的
   PR 管理轮值表，然后注册报名。
-
-- Kubernetes 组织成员可以编辑
-  [PR 管理者维基页面](https://github.com/kubernetes/website/wiki/PR-Wranglers)，
-  注册成为一名现有 PR 管理者一周内的影子。
 
 - 其他人可以通过 [#sig-docs Slack 频道](https://kubernetes.slack.com/messages/sig-docs)申请成为指定
   PR 管理者某一周的影子。可以随时咨询 (`@bradtopol`) 或某一位
