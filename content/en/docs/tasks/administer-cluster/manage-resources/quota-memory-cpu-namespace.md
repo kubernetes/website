@@ -111,7 +111,7 @@ status:
 ```
 
 If you have the `jq` tool, you can also query (using [JSONPath](/docs/reference/kubectl/jsonpath/))
-for just the `used` values, **and** pretty-print that that of the output. For example:
+for just the `used` values, **and** pretty-print that of the output. For example:
 
 ```shell
 kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example -o jsonpath='{ .status.used }' | jq .

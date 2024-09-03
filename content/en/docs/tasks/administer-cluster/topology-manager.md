@@ -255,7 +255,7 @@ By default, Kubernetes does not run a kubelet with the topology manager enabled,
 more than 8 NUMA nodes are detected.
 
 {{< note >}}
-If you select the the `max-allowable-numa-nodes` policy option, nodes with more than 8 NUMA nodes can
+If you select the `max-allowable-numa-nodes` policy option, nodes with more than 8 NUMA nodes can
 be allowed to run with the topology manager enabled. The Kubernetes project only has limited data on the impact
 of using the topology manager on (Kubernetes) nodes with more than 8 NUMA nodes. Because of that
 lack of data, using this policy option with Kubernetes {{< skew currentVersion >}} is **not** recommended and is
@@ -265,7 +265,7 @@ at your own risk.
 You can enable this option by adding `max-allowable-numa-nodes=true` to the Topology Manager policy options.
 
 Setting a value of `max-allowable-numa-nodes` does not (in and of itself) affect the
-latency of pod admission, but binding a Pod to a (Kubernetes) node with many NUMA does does have an impact.
+latency of pod admission, but binding a Pod to a (Kubernetes) node with many NUMA does have an impact.
 Future, potential improvements to Kubernetes may improve Pod admission performance and the high
 latency that happens as the number of NUMA nodes increases.
 

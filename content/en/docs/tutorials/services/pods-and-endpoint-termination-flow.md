@@ -161,7 +161,7 @@ This allows applications to communicate their state during termination
 and clients (such as load balancers) to implement a connections draining functionality.
 These clients may detect terminating endpoints and implement a special logic for them.
 
-In Kubernetes, endpoints that are terminating always have their `ready` status set as as `false`.
+In Kubernetes, endpoints that are terminating always have their `ready` status set as `false`.
 This needs to happen for backward
 compatibility, so existing load balancers will not use it for regular traffic.
 If traffic draining on terminating pod is needed, the actual readiness can be

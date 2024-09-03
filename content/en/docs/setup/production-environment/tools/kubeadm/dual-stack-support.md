@@ -25,7 +25,7 @@ For each server that you want to use as a {{< glossary_tooltip text="node" term_
 make sure it allows IPv6 forwarding. On Linux, you can set this by running run
 `sysctl -w net.ipv6.conf.all.forwarding=1` as the root user on each server.
 
-You need to have an IPv4 and and IPv6 address range to use. Cluster operators typically
+You need to have an IPv4 and IPv6 address range to use. Cluster operators typically
 use private address ranges for IPv4. For IPv6, a cluster operator typically chooses a global
 unicast address block from within `2000::/3`, using a range that is assigned to the operator.
 You don't have to route the cluster's IP address ranges to the public internet.
