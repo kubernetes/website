@@ -154,16 +154,6 @@ POST /apis/authorization.k8s.io/v1/selfsubjectrulesreviews
 #### Parameters
 
 
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
 - **body**: <a href="{{< ref "../authorization-resources/self-subject-rules-review-v1#SelfSubjectRulesReview" >}}">SelfSubjectRulesReview</a>, required
 
   
@@ -174,9 +164,19 @@ POST /apis/authorization.k8s.io/v1/selfsubjectrulesreviews
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 

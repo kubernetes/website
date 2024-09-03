@@ -263,9 +263,9 @@ GET /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
   name of the DeviceClass
 
 
-- ****: 
+- **pretty** (*in query*): string
 
-  
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -286,59 +286,59 @@ GET /apis/resource.k8s.io/v1alpha3/deviceclasses
 #### Parameters
 
 
-- ****: 
+- **allowWatchBookmarks** (*in query*): boolean
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 
-- ****: 
+- **continue** (*in query*): string
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 
-- ****: 
+- **fieldSelector** (*in query*): string
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 
-- ****: 
+- **labelSelector** (*in query*): string
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 
-- ****: 
+- **limit** (*in query*): integer
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 
-- ****: 
+- **pretty** (*in query*): string
 
-  
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+- **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
+
+- **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
+
+- **watch** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
 
 
@@ -359,16 +359,6 @@ POST /apis/resource.k8s.io/v1alpha3/deviceclasses
 #### Parameters
 
 
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
 - **body**: <a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>, required
 
   
@@ -379,9 +369,19 @@ POST /apis/resource.k8s.io/v1alpha3/deviceclasses
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -411,16 +411,6 @@ PUT /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
   name of the DeviceClass
 
 
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
 - **body**: <a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>, required
 
   
@@ -431,9 +421,19 @@ PUT /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -461,22 +461,7 @@ PATCH /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
   name of the DeviceClass
 
 
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
   
 
@@ -486,9 +471,24 @@ PATCH /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -516,27 +516,7 @@ DELETE /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
   name of the DeviceClass
 
 
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
+- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
   
 
@@ -544,6 +524,21 @@ DELETE /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **gracePeriodSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+- **propagationPolicy** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 
 
@@ -566,74 +561,69 @@ DELETE /apis/resource.k8s.io/v1alpha3/deviceclasses
 #### Parameters
 
 
-- ****: 
+- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
   
 
 
-- ****: 
+- **continue** (*in query*): string
 
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
+
+- **gracePeriodSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **labelSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
+
+- **limit** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+- **propagationPolicy** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+
+
+- **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
+
+- **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 
 

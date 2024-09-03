@@ -409,6 +409,138 @@ PodSpec is a description of a pod.
   <a name="PodSecurityContext"></a>
   *PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.*
 
+  - **securityContext.appArmorProfile** (AppArmorProfile)
+
+    appArmorProfile is the AppArmor options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+
+    <a name="AppArmorProfile"></a>
+    *AppArmorProfile defines a pod or container's AppArmor settings.*
+
+    - **securityContext.appArmorProfile.type** (string), required
+
+      type indicates which kind of AppArmor profile will be applied. Valid options are:
+        Localhost - a profile pre-loaded on the node.
+        RuntimeDefault - the container runtime's default profile.
+        Unconfined - no AppArmor enforcement.
+
+    - **securityContext.appArmorProfile.localhostProfile** (string)
+
+      localhostProfile indicates a profile loaded on the node that should be used. The profile must be preconfigured on the node to work. Must match the loaded name of the profile. Must be set if and only if type is "Localhost".
+
+  - **securityContext.fsGroup** (int64)
+
+    A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
+    
+    1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
+    
+    If unset, the Kubelet will not modify the ownership and permissions of any volume. Note that this field cannot be set when spec.os.name is windows.
+
+  - **securityContext.fsGroupChangePolicy** (string)
+
+    fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used. Note that this field cannot be set when spec.os.name is windows.
+
+  - **securityContext.runAsUser** (int64)
+
+    The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+
+  - **securityContext.runAsNonRoot** (boolean)
+
+    Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+
+  - **securityContext.runAsGroup** (int64)
+
+    The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+
+  - **securityContext.seccompProfile** (SeccompProfile)
+
+    The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+
+    <a name="SeccompProfile"></a>
+    *SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.*
+
+    - **securityContext.seccompProfile.type** (string), required
+
+      type indicates which kind of seccomp profile will be applied. Valid options are:
+      
+      Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
+
+    - **securityContext.seccompProfile.localhostProfile** (string)
+
+      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must be set if type is "Localhost". Must NOT be set for any other type.
+
+  - **securityContext.seLinuxOptions** (SELinuxOptions)
+
+    The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+
+    <a name="SELinuxOptions"></a>
+    *SELinuxOptions are the labels to be applied to the container*
+
+    - **securityContext.seLinuxOptions.level** (string)
+
+      Level is SELinux level label that applies to the container.
+
+    - **securityContext.seLinuxOptions.role** (string)
+
+      Role is a SELinux role label that applies to the container.
+
+    - **securityContext.seLinuxOptions.type** (string)
+
+      Type is a SELinux type label that applies to the container.
+
+    - **securityContext.seLinuxOptions.user** (string)
+
+      User is a SELinux user label that applies to the container.
+
+  - **securityContext.supplementalGroups** ([]int64)
+
+    *Atomic: will be replaced during a merge*
+    
+    A list of groups applied to the first process run in each container, in addition to the container's primary GID and fsGroup (if specified).  If the SupplementalGroupsPolicy feature is enabled, the supplementalGroupsPolicy field determines whether these are in addition to or instead of any group memberships defined in the container image. If unspecified, no additional groups are added, though group memberships defined in the container image may still be used, depending on the supplementalGroupsPolicy field. Note that this field cannot be set when spec.os.name is windows.
+
+  - **securityContext.supplementalGroupsPolicy** (string)
+
+    Defines how supplemental groups of the first container processes are calculated. Valid values are "Merge" and "Strict". If not specified, "Merge" is used. (Alpha) Using the field requires the SupplementalGroupsPolicy feature gate to be enabled and the container runtime must implement support for this feature. Note that this field cannot be set when spec.os.name is windows.
+
+  - **securityContext.sysctls** ([]Sysctl)
+
+    *Atomic: will be replaced during a merge*
+    
+    Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
+
+    <a name="Sysctl"></a>
+    *Sysctl defines a kernel parameter to be set*
+
+    - **securityContext.sysctls.name** (string), required
+
+      Name of a property to set
+
+    - **securityContext.sysctls.value** (string), required
+
+      Value of a property to set
+
+  - **securityContext.windowsOptions** (WindowsSecurityContextOptions)
+
+    The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
+
+    <a name="WindowsSecurityContextOptions"></a>
+    *WindowsSecurityContextOptions contain Windows-specific options and credentials.*
+
+    - **securityContext.windowsOptions.gmsaCredentialSpec** (string)
+
+      GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
+
+    - **securityContext.windowsOptions.gmsaCredentialSpecName** (string)
+
+      GMSACredentialSpecName is the name of the GMSA credential spec to use.
+
+    - **securityContext.windowsOptions.hostProcess** (boolean)
+
+      HostProcess determines if a container should be run as a 'Host Process' container. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers). In addition, if HostProcess is true then HostNetwork must also be set to true.
+
+    - **securityContext.windowsOptions.runAsUserName** (string)
+
+      The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+
 ### Alpha level
 
 
@@ -854,6 +986,134 @@ A single application container that you want to run within a pod.
   <a name="SecurityContext"></a>
   *SecurityContext holds security configuration that will be applied to a container. Some fields are present in both SecurityContext and PodSecurityContext.  When both are set, the values in SecurityContext take precedence.*
 
+  - **securityContext.allowPrivilegeEscalation** (boolean)
+
+    AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
+
+  - **securityContext.appArmorProfile** (AppArmorProfile)
+
+    appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod's appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
+
+    <a name="AppArmorProfile"></a>
+    *AppArmorProfile defines a pod or container's AppArmor settings.*
+
+    - **securityContext.appArmorProfile.type** (string), required
+
+      type indicates which kind of AppArmor profile will be applied. Valid options are:
+        Localhost - a profile pre-loaded on the node.
+        RuntimeDefault - the container runtime's default profile.
+        Unconfined - no AppArmor enforcement.
+
+    - **securityContext.appArmorProfile.localhostProfile** (string)
+
+      localhostProfile indicates a profile loaded on the node that should be used. The profile must be preconfigured on the node to work. Must match the loaded name of the profile. Must be set if and only if type is "Localhost".
+
+  - **securityContext.capabilities** (Capabilities)
+
+    The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
+
+    <a name="Capabilities"></a>
+    *Adds and removes POSIX capabilities from running containers.*
+
+    - **securityContext.capabilities.add** ([]string)
+
+      *Atomic: will be replaced during a merge*
+      
+      Added capabilities
+
+    - **securityContext.capabilities.drop** ([]string)
+
+      *Atomic: will be replaced during a merge*
+      
+      Removed capabilities
+
+  - **securityContext.procMount** (string)
+
+    procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
+
+  - **securityContext.privileged** (boolean)
+
+    Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
+
+  - **securityContext.readOnlyRootFilesystem** (boolean)
+
+    Whether this container has a read-only root filesystem. Default is false. Note that this field cannot be set when spec.os.name is windows.
+
+  - **securityContext.runAsUser** (int64)
+
+    The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
+
+  - **securityContext.runAsNonRoot** (boolean)
+
+    Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+
+  - **securityContext.runAsGroup** (int64)
+
+    The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
+
+  - **securityContext.seLinuxOptions** (SELinuxOptions)
+
+    The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
+
+    <a name="SELinuxOptions"></a>
+    *SELinuxOptions are the labels to be applied to the container*
+
+    - **securityContext.seLinuxOptions.level** (string)
+
+      Level is SELinux level label that applies to the container.
+
+    - **securityContext.seLinuxOptions.role** (string)
+
+      Role is a SELinux role label that applies to the container.
+
+    - **securityContext.seLinuxOptions.type** (string)
+
+      Type is a SELinux type label that applies to the container.
+
+    - **securityContext.seLinuxOptions.user** (string)
+
+      User is a SELinux user label that applies to the container.
+
+  - **securityContext.seccompProfile** (SeccompProfile)
+
+    The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
+
+    <a name="SeccompProfile"></a>
+    *SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.*
+
+    - **securityContext.seccompProfile.type** (string), required
+
+      type indicates which kind of seccomp profile will be applied. Valid options are:
+      
+      Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
+
+    - **securityContext.seccompProfile.localhostProfile** (string)
+
+      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must be set if type is "Localhost". Must NOT be set for any other type.
+
+  - **securityContext.windowsOptions** (WindowsSecurityContextOptions)
+
+    The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
+
+    <a name="WindowsSecurityContextOptions"></a>
+    *WindowsSecurityContextOptions contain Windows-specific options and credentials.*
+
+    - **securityContext.windowsOptions.gmsaCredentialSpec** (string)
+
+      GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
+
+    - **securityContext.windowsOptions.gmsaCredentialSpecName** (string)
+
+      GMSACredentialSpecName is the name of the GMSA credential spec to use.
+
+    - **securityContext.windowsOptions.hostProcess** (boolean)
+
+      HostProcess determines if a container should be run as a 'Host Process' container. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers). In addition, if HostProcess is true then HostNetwork must also be set to true.
+
+    - **securityContext.windowsOptions.runAsUserName** (string)
+
+      The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+
 ### Debugging
 
 
@@ -1171,6 +1431,134 @@ To add an ephemeral container, use the ephemeralcontainers subresource of an exi
 
   <a name="SecurityContext"></a>
   *SecurityContext holds security configuration that will be applied to a container. Some fields are present in both SecurityContext and PodSecurityContext.  When both are set, the values in SecurityContext take precedence.*
+
+  - **securityContext.allowPrivilegeEscalation** (boolean)
+
+    AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
+
+  - **securityContext.appArmorProfile** (AppArmorProfile)
+
+    appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod's appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
+
+    <a name="AppArmorProfile"></a>
+    *AppArmorProfile defines a pod or container's AppArmor settings.*
+
+    - **securityContext.appArmorProfile.type** (string), required
+
+      type indicates which kind of AppArmor profile will be applied. Valid options are:
+        Localhost - a profile pre-loaded on the node.
+        RuntimeDefault - the container runtime's default profile.
+        Unconfined - no AppArmor enforcement.
+
+    - **securityContext.appArmorProfile.localhostProfile** (string)
+
+      localhostProfile indicates a profile loaded on the node that should be used. The profile must be preconfigured on the node to work. Must match the loaded name of the profile. Must be set if and only if type is "Localhost".
+
+  - **securityContext.capabilities** (Capabilities)
+
+    The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
+
+    <a name="Capabilities"></a>
+    *Adds and removes POSIX capabilities from running containers.*
+
+    - **securityContext.capabilities.add** ([]string)
+
+      *Atomic: will be replaced during a merge*
+      
+      Added capabilities
+
+    - **securityContext.capabilities.drop** ([]string)
+
+      *Atomic: will be replaced during a merge*
+      
+      Removed capabilities
+
+  - **securityContext.procMount** (string)
+
+    procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
+
+  - **securityContext.privileged** (boolean)
+
+    Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
+
+  - **securityContext.readOnlyRootFilesystem** (boolean)
+
+    Whether this container has a read-only root filesystem. Default is false. Note that this field cannot be set when spec.os.name is windows.
+
+  - **securityContext.runAsUser** (int64)
+
+    The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
+
+  - **securityContext.runAsNonRoot** (boolean)
+
+    Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+
+  - **securityContext.runAsGroup** (int64)
+
+    The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
+
+  - **securityContext.seLinuxOptions** (SELinuxOptions)
+
+    The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
+
+    <a name="SELinuxOptions"></a>
+    *SELinuxOptions are the labels to be applied to the container*
+
+    - **securityContext.seLinuxOptions.level** (string)
+
+      Level is SELinux level label that applies to the container.
+
+    - **securityContext.seLinuxOptions.role** (string)
+
+      Role is a SELinux role label that applies to the container.
+
+    - **securityContext.seLinuxOptions.type** (string)
+
+      Type is a SELinux type label that applies to the container.
+
+    - **securityContext.seLinuxOptions.user** (string)
+
+      User is a SELinux user label that applies to the container.
+
+  - **securityContext.seccompProfile** (SeccompProfile)
+
+    The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
+
+    <a name="SeccompProfile"></a>
+    *SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.*
+
+    - **securityContext.seccompProfile.type** (string), required
+
+      type indicates which kind of seccomp profile will be applied. Valid options are:
+      
+      Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
+
+    - **securityContext.seccompProfile.localhostProfile** (string)
+
+      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must be set if type is "Localhost". Must NOT be set for any other type.
+
+  - **securityContext.windowsOptions** (WindowsSecurityContextOptions)
+
+    The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
+
+    <a name="WindowsSecurityContextOptions"></a>
+    *WindowsSecurityContextOptions contain Windows-specific options and credentials.*
+
+    - **securityContext.windowsOptions.gmsaCredentialSpec** (string)
+
+      GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
+
+    - **securityContext.windowsOptions.gmsaCredentialSpecName** (string)
+
+      GMSACredentialSpecName is the name of the GMSA credential spec to use.
+
+    - **securityContext.windowsOptions.hostProcess** (boolean)
+
+      HostProcess determines if a container should be run as a 'Host Process' container. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers). In addition, if HostProcess is true then HostNetwork must also be set to true.
+
+    - **securityContext.windowsOptions.runAsUserName** (string)
+
+      The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
 
 ### Not allowed
 
@@ -1884,6 +2272,325 @@ PodStatus represents information about the status of a pod. Status may trail the
   <a name="ContainerStatus"></a>
   *ContainerStatus contains details for the current status of this container.*
 
+  - **initContainerStatuses.allocatedResources** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+    AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+
+  - **initContainerStatuses.allocatedResourcesStatus** ([]ResourceStatus)
+
+    *Patch strategy: merge on key `name`*
+    
+    *Map: unique values on key name will be kept during a merge*
+    
+    AllocatedResourcesStatus represents the status of various resources allocated for this Pod.
+
+    <a name="ResourceStatus"></a>
+    **
+
+    - **initContainerStatuses.allocatedResourcesStatus.name** (string), required
+
+      Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+
+    - **initContainerStatuses.allocatedResourcesStatus.resources** ([]ResourceHealth)
+
+      *Map: unique values on key resourceID will be kept during a merge*
+      
+      List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it's definition.
+
+      <a name="ResourceHealth"></a>
+      *ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680 and historical health changes are planned to be added in future iterations of a KEP.*
+
+      - **initContainerStatuses.allocatedResourcesStatus.resources.resourceID** (string), required
+
+        ResourceID is the unique identifier of the resource. See the ResourceID type for more information.
+
+      - **initContainerStatuses.allocatedResourcesStatus.resources.health** (string)
+
+        Health of the resource. can be one of:
+         - Healthy: operates as normal
+         - Unhealthy: reported unhealthy. We consider this a temporary health issue
+                      since we do not have a mechanism today to distinguish
+                      temporary and permanent issues.
+         - Unknown: The status cannot be determined.
+                    For example, Device Plugin got unregistered and hasn't been re-registered since.
+        
+        In future we may want to introduce the PermanentlyUnhealthy Status.
+
+  - **initContainerStatuses.containerID** (string)
+
+    ContainerID is the ID of the container in the format '\<type>://\<container_id>'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
+
+  - **initContainerStatuses.image** (string), required
+
+    Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
+
+  - **initContainerStatuses.imageID** (string), required
+
+    ImageID is the image ID of the container's image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
+
+  - **initContainerStatuses.lastState** (ContainerState)
+
+    LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
+
+    <a name="ContainerState"></a>
+    *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
+
+    - **initContainerStatuses.lastState.running** (ContainerStateRunning)
+
+      Details about a running container
+
+      <a name="ContainerStateRunning"></a>
+      *ContainerStateRunning is a running state of a container.*
+
+      - **initContainerStatuses.lastState.running.startedAt** (Time)
+
+        Time at which the container was last (re-)started
+
+        <a name="Time"></a>
+        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+    - **initContainerStatuses.lastState.terminated** (ContainerStateTerminated)
+
+      Details about a terminated container
+
+      <a name="ContainerStateTerminated"></a>
+      *ContainerStateTerminated is a terminated state of a container.*
+
+      - **initContainerStatuses.lastState.terminated.containerID** (string)
+
+        Container's ID in the format '\<type>://\<container_id>'
+
+      - **initContainerStatuses.lastState.terminated.exitCode** (int32), required
+
+        Exit status from the last termination of the container
+
+      - **initContainerStatuses.lastState.terminated.startedAt** (Time)
+
+        Time at which previous execution of the container started
+
+        <a name="Time"></a>
+        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+      - **initContainerStatuses.lastState.terminated.finishedAt** (Time)
+
+        Time at which the container last terminated
+
+        <a name="Time"></a>
+        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+      - **initContainerStatuses.lastState.terminated.message** (string)
+
+        Message regarding the last termination of the container
+
+      - **initContainerStatuses.lastState.terminated.reason** (string)
+
+        (brief) reason from the last termination of the container
+
+      - **initContainerStatuses.lastState.terminated.signal** (int32)
+
+        Signal from the last termination of the container
+
+    - **initContainerStatuses.lastState.waiting** (ContainerStateWaiting)
+
+      Details about a waiting container
+
+      <a name="ContainerStateWaiting"></a>
+      *ContainerStateWaiting is a waiting state of a container.*
+
+      - **initContainerStatuses.lastState.waiting.message** (string)
+
+        Message regarding why the container is not yet running.
+
+      - **initContainerStatuses.lastState.waiting.reason** (string)
+
+        (brief) reason the container is not yet running.
+
+  - **initContainerStatuses.name** (string), required
+
+    Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
+
+  - **initContainerStatuses.ready** (boolean), required
+
+    Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+    
+    The value is typically used to determine whether a container is ready to accept traffic.
+
+  - **initContainerStatuses.resources** (ResourceRequirements)
+
+    Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+
+    <a name="ResourceRequirements"></a>
+    *ResourceRequirements describes the compute resource requirements.*
+
+    - **initContainerStatuses.resources.claims** ([]ResourceClaim)
+
+      *Map: unique values on key name will be kept during a merge*
+      
+      Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+      
+      This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+      
+      This field is immutable. It can only be set for containers.
+
+      <a name="ResourceClaim"></a>
+      *ResourceClaim references one entry in PodSpec.ResourceClaims.*
+
+      - **initContainerStatuses.resources.claims.name** (string), required
+
+        Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
+
+      - **initContainerStatuses.resources.claims.request** (string)
+
+        Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+
+    - **initContainerStatuses.resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+      Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+    - **initContainerStatuses.resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+      Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+  - **initContainerStatuses.restartCount** (int32), required
+
+    RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
+
+  - **initContainerStatuses.started** (boolean)
+
+    Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
+
+  - **initContainerStatuses.state** (ContainerState)
+
+    State holds details about the container's current condition.
+
+    <a name="ContainerState"></a>
+    *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
+
+    - **initContainerStatuses.state.running** (ContainerStateRunning)
+
+      Details about a running container
+
+      <a name="ContainerStateRunning"></a>
+      *ContainerStateRunning is a running state of a container.*
+
+      - **initContainerStatuses.state.running.startedAt** (Time)
+
+        Time at which the container was last (re-)started
+
+        <a name="Time"></a>
+        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+    - **initContainerStatuses.state.terminated** (ContainerStateTerminated)
+
+      Details about a terminated container
+
+      <a name="ContainerStateTerminated"></a>
+      *ContainerStateTerminated is a terminated state of a container.*
+
+      - **initContainerStatuses.state.terminated.containerID** (string)
+
+        Container's ID in the format '\<type>://\<container_id>'
+
+      - **initContainerStatuses.state.terminated.exitCode** (int32), required
+
+        Exit status from the last termination of the container
+
+      - **initContainerStatuses.state.terminated.startedAt** (Time)
+
+        Time at which previous execution of the container started
+
+        <a name="Time"></a>
+        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+      - **initContainerStatuses.state.terminated.finishedAt** (Time)
+
+        Time at which the container last terminated
+
+        <a name="Time"></a>
+        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+      - **initContainerStatuses.state.terminated.message** (string)
+
+        Message regarding the last termination of the container
+
+      - **initContainerStatuses.state.terminated.reason** (string)
+
+        (brief) reason from the last termination of the container
+
+      - **initContainerStatuses.state.terminated.signal** (int32)
+
+        Signal from the last termination of the container
+
+    - **initContainerStatuses.state.waiting** (ContainerStateWaiting)
+
+      Details about a waiting container
+
+      <a name="ContainerStateWaiting"></a>
+      *ContainerStateWaiting is a waiting state of a container.*
+
+      - **initContainerStatuses.state.waiting.message** (string)
+
+        Message regarding why the container is not yet running.
+
+      - **initContainerStatuses.state.waiting.reason** (string)
+
+        (brief) reason the container is not yet running.
+
+  - **initContainerStatuses.user** (ContainerUser)
+
+    User represents user identity information initially attached to the first process of the container
+
+    <a name="ContainerUser"></a>
+    *ContainerUser represents user identity information*
+
+    - **initContainerStatuses.user.linux** (LinuxContainerUser)
+
+      Linux holds user identity information initially attached to the first process of the containers in Linux. Note that the actual running identity can be changed if the process has enough privilege to do so.
+
+      <a name="LinuxContainerUser"></a>
+      *LinuxContainerUser represents user identity information in Linux containers*
+
+      - **initContainerStatuses.user.linux.gid** (int64), required
+
+        GID is the primary gid initially attached to the first process in the container
+
+      - **initContainerStatuses.user.linux.uid** (int64), required
+
+        UID is the primary uid initially attached to the first process in the container
+
+      - **initContainerStatuses.user.linux.supplementalGroups** ([]int64)
+
+        *Atomic: will be replaced during a merge*
+        
+        SupplementalGroups are the supplemental groups initially attached to the first process in the container
+
+  - **initContainerStatuses.volumeMounts** ([]VolumeMountStatus)
+
+    *Patch strategy: merge on key `mountPath`*
+    
+    *Map: unique values on key mountPath will be kept during a merge*
+    
+    Status of volume mounts.
+
+    <a name="VolumeMountStatus"></a>
+    *VolumeMountStatus shows status of volume mounts.*
+
+    - **initContainerStatuses.volumeMounts.mountPath** (string), required
+
+      MountPath corresponds to the original VolumeMount.
+
+    - **initContainerStatuses.volumeMounts.name** (string), required
+
+      Name corresponds to the name of the original VolumeMount.
+
+    - **initContainerStatuses.volumeMounts.readOnly** (boolean)
+
+      ReadOnly corresponds to the original VolumeMount.
+
+    - **initContainerStatuses.volumeMounts.recursiveReadOnly** (string)
+
+      RecursiveReadOnly must be set to Disabled, Enabled, or unspecified (for non-readonly mounts). An IfPossible value in the original VolumeMount must be translated to Disabled or Enabled, depending on the mount result.
+
 - **containerStatuses** ([]ContainerStatus)
 
   *Atomic: will be replaced during a merge*
@@ -1893,6 +2600,325 @@ PodStatus represents information about the status of a pod. Status may trail the
   <a name="ContainerStatus"></a>
   *ContainerStatus contains details for the current status of this container.*
 
+  - **containerStatuses.allocatedResources** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+    AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+
+  - **containerStatuses.allocatedResourcesStatus** ([]ResourceStatus)
+
+    *Patch strategy: merge on key `name`*
+    
+    *Map: unique values on key name will be kept during a merge*
+    
+    AllocatedResourcesStatus represents the status of various resources allocated for this Pod.
+
+    <a name="ResourceStatus"></a>
+    **
+
+    - **containerStatuses.allocatedResourcesStatus.name** (string), required
+
+      Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+
+    - **containerStatuses.allocatedResourcesStatus.resources** ([]ResourceHealth)
+
+      *Map: unique values on key resourceID will be kept during a merge*
+      
+      List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it's definition.
+
+      <a name="ResourceHealth"></a>
+      *ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680 and historical health changes are planned to be added in future iterations of a KEP.*
+
+      - **containerStatuses.allocatedResourcesStatus.resources.resourceID** (string), required
+
+        ResourceID is the unique identifier of the resource. See the ResourceID type for more information.
+
+      - **containerStatuses.allocatedResourcesStatus.resources.health** (string)
+
+        Health of the resource. can be one of:
+         - Healthy: operates as normal
+         - Unhealthy: reported unhealthy. We consider this a temporary health issue
+                      since we do not have a mechanism today to distinguish
+                      temporary and permanent issues.
+         - Unknown: The status cannot be determined.
+                    For example, Device Plugin got unregistered and hasn't been re-registered since.
+        
+        In future we may want to introduce the PermanentlyUnhealthy Status.
+
+  - **containerStatuses.containerID** (string)
+
+    ContainerID is the ID of the container in the format '\<type>://\<container_id>'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
+
+  - **containerStatuses.image** (string), required
+
+    Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
+
+  - **containerStatuses.imageID** (string), required
+
+    ImageID is the image ID of the container's image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
+
+  - **containerStatuses.lastState** (ContainerState)
+
+    LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
+
+    <a name="ContainerState"></a>
+    *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
+
+    - **containerStatuses.lastState.running** (ContainerStateRunning)
+
+      Details about a running container
+
+      <a name="ContainerStateRunning"></a>
+      *ContainerStateRunning is a running state of a container.*
+
+      - **containerStatuses.lastState.running.startedAt** (Time)
+
+        Time at which the container was last (re-)started
+
+        <a name="Time"></a>
+        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+    - **containerStatuses.lastState.terminated** (ContainerStateTerminated)
+
+      Details about a terminated container
+
+      <a name="ContainerStateTerminated"></a>
+      *ContainerStateTerminated is a terminated state of a container.*
+
+      - **containerStatuses.lastState.terminated.containerID** (string)
+
+        Container's ID in the format '\<type>://\<container_id>'
+
+      - **containerStatuses.lastState.terminated.exitCode** (int32), required
+
+        Exit status from the last termination of the container
+
+      - **containerStatuses.lastState.terminated.startedAt** (Time)
+
+        Time at which previous execution of the container started
+
+        <a name="Time"></a>
+        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+      - **containerStatuses.lastState.terminated.finishedAt** (Time)
+
+        Time at which the container last terminated
+
+        <a name="Time"></a>
+        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+      - **containerStatuses.lastState.terminated.message** (string)
+
+        Message regarding the last termination of the container
+
+      - **containerStatuses.lastState.terminated.reason** (string)
+
+        (brief) reason from the last termination of the container
+
+      - **containerStatuses.lastState.terminated.signal** (int32)
+
+        Signal from the last termination of the container
+
+    - **containerStatuses.lastState.waiting** (ContainerStateWaiting)
+
+      Details about a waiting container
+
+      <a name="ContainerStateWaiting"></a>
+      *ContainerStateWaiting is a waiting state of a container.*
+
+      - **containerStatuses.lastState.waiting.message** (string)
+
+        Message regarding why the container is not yet running.
+
+      - **containerStatuses.lastState.waiting.reason** (string)
+
+        (brief) reason the container is not yet running.
+
+  - **containerStatuses.name** (string), required
+
+    Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
+
+  - **containerStatuses.ready** (boolean), required
+
+    Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+    
+    The value is typically used to determine whether a container is ready to accept traffic.
+
+  - **containerStatuses.resources** (ResourceRequirements)
+
+    Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+
+    <a name="ResourceRequirements"></a>
+    *ResourceRequirements describes the compute resource requirements.*
+
+    - **containerStatuses.resources.claims** ([]ResourceClaim)
+
+      *Map: unique values on key name will be kept during a merge*
+      
+      Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+      
+      This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+      
+      This field is immutable. It can only be set for containers.
+
+      <a name="ResourceClaim"></a>
+      *ResourceClaim references one entry in PodSpec.ResourceClaims.*
+
+      - **containerStatuses.resources.claims.name** (string), required
+
+        Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
+
+      - **containerStatuses.resources.claims.request** (string)
+
+        Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+
+    - **containerStatuses.resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+      Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+    - **containerStatuses.resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+      Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+  - **containerStatuses.restartCount** (int32), required
+
+    RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
+
+  - **containerStatuses.started** (boolean)
+
+    Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
+
+  - **containerStatuses.state** (ContainerState)
+
+    State holds details about the container's current condition.
+
+    <a name="ContainerState"></a>
+    *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
+
+    - **containerStatuses.state.running** (ContainerStateRunning)
+
+      Details about a running container
+
+      <a name="ContainerStateRunning"></a>
+      *ContainerStateRunning is a running state of a container.*
+
+      - **containerStatuses.state.running.startedAt** (Time)
+
+        Time at which the container was last (re-)started
+
+        <a name="Time"></a>
+        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+    - **containerStatuses.state.terminated** (ContainerStateTerminated)
+
+      Details about a terminated container
+
+      <a name="ContainerStateTerminated"></a>
+      *ContainerStateTerminated is a terminated state of a container.*
+
+      - **containerStatuses.state.terminated.containerID** (string)
+
+        Container's ID in the format '\<type>://\<container_id>'
+
+      - **containerStatuses.state.terminated.exitCode** (int32), required
+
+        Exit status from the last termination of the container
+
+      - **containerStatuses.state.terminated.startedAt** (Time)
+
+        Time at which previous execution of the container started
+
+        <a name="Time"></a>
+        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+      - **containerStatuses.state.terminated.finishedAt** (Time)
+
+        Time at which the container last terminated
+
+        <a name="Time"></a>
+        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+      - **containerStatuses.state.terminated.message** (string)
+
+        Message regarding the last termination of the container
+
+      - **containerStatuses.state.terminated.reason** (string)
+
+        (brief) reason from the last termination of the container
+
+      - **containerStatuses.state.terminated.signal** (int32)
+
+        Signal from the last termination of the container
+
+    - **containerStatuses.state.waiting** (ContainerStateWaiting)
+
+      Details about a waiting container
+
+      <a name="ContainerStateWaiting"></a>
+      *ContainerStateWaiting is a waiting state of a container.*
+
+      - **containerStatuses.state.waiting.message** (string)
+
+        Message regarding why the container is not yet running.
+
+      - **containerStatuses.state.waiting.reason** (string)
+
+        (brief) reason the container is not yet running.
+
+  - **containerStatuses.user** (ContainerUser)
+
+    User represents user identity information initially attached to the first process of the container
+
+    <a name="ContainerUser"></a>
+    *ContainerUser represents user identity information*
+
+    - **containerStatuses.user.linux** (LinuxContainerUser)
+
+      Linux holds user identity information initially attached to the first process of the containers in Linux. Note that the actual running identity can be changed if the process has enough privilege to do so.
+
+      <a name="LinuxContainerUser"></a>
+      *LinuxContainerUser represents user identity information in Linux containers*
+
+      - **containerStatuses.user.linux.gid** (int64), required
+
+        GID is the primary gid initially attached to the first process in the container
+
+      - **containerStatuses.user.linux.uid** (int64), required
+
+        UID is the primary uid initially attached to the first process in the container
+
+      - **containerStatuses.user.linux.supplementalGroups** ([]int64)
+
+        *Atomic: will be replaced during a merge*
+        
+        SupplementalGroups are the supplemental groups initially attached to the first process in the container
+
+  - **containerStatuses.volumeMounts** ([]VolumeMountStatus)
+
+    *Patch strategy: merge on key `mountPath`*
+    
+    *Map: unique values on key mountPath will be kept during a merge*
+    
+    Status of volume mounts.
+
+    <a name="VolumeMountStatus"></a>
+    *VolumeMountStatus shows status of volume mounts.*
+
+    - **containerStatuses.volumeMounts.mountPath** (string), required
+
+      MountPath corresponds to the original VolumeMount.
+
+    - **containerStatuses.volumeMounts.name** (string), required
+
+      Name corresponds to the name of the original VolumeMount.
+
+    - **containerStatuses.volumeMounts.readOnly** (boolean)
+
+      ReadOnly corresponds to the original VolumeMount.
+
+    - **containerStatuses.volumeMounts.recursiveReadOnly** (string)
+
+      RecursiveReadOnly must be set to Disabled, Enabled, or unspecified (for non-readonly mounts). An IfPossible value in the original VolumeMount must be translated to Disabled or Enabled, depending on the mount result.
+
 - **ephemeralContainerStatuses** ([]ContainerStatus)
 
   *Atomic: will be replaced during a merge*
@@ -1901,6 +2927,325 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   <a name="ContainerStatus"></a>
   *ContainerStatus contains details for the current status of this container.*
+
+  - **ephemeralContainerStatuses.allocatedResources** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+    AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+
+  - **ephemeralContainerStatuses.allocatedResourcesStatus** ([]ResourceStatus)
+
+    *Patch strategy: merge on key `name`*
+    
+    *Map: unique values on key name will be kept during a merge*
+    
+    AllocatedResourcesStatus represents the status of various resources allocated for this Pod.
+
+    <a name="ResourceStatus"></a>
+    **
+
+    - **ephemeralContainerStatuses.allocatedResourcesStatus.name** (string), required
+
+      Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+
+    - **ephemeralContainerStatuses.allocatedResourcesStatus.resources** ([]ResourceHealth)
+
+      *Map: unique values on key resourceID will be kept during a merge*
+      
+      List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it's definition.
+
+      <a name="ResourceHealth"></a>
+      *ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680 and historical health changes are planned to be added in future iterations of a KEP.*
+
+      - **ephemeralContainerStatuses.allocatedResourcesStatus.resources.resourceID** (string), required
+
+        ResourceID is the unique identifier of the resource. See the ResourceID type for more information.
+
+      - **ephemeralContainerStatuses.allocatedResourcesStatus.resources.health** (string)
+
+        Health of the resource. can be one of:
+         - Healthy: operates as normal
+         - Unhealthy: reported unhealthy. We consider this a temporary health issue
+                      since we do not have a mechanism today to distinguish
+                      temporary and permanent issues.
+         - Unknown: The status cannot be determined.
+                    For example, Device Plugin got unregistered and hasn't been re-registered since.
+        
+        In future we may want to introduce the PermanentlyUnhealthy Status.
+
+  - **ephemeralContainerStatuses.containerID** (string)
+
+    ContainerID is the ID of the container in the format '\<type>://\<container_id>'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
+
+  - **ephemeralContainerStatuses.image** (string), required
+
+    Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
+
+  - **ephemeralContainerStatuses.imageID** (string), required
+
+    ImageID is the image ID of the container's image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
+
+  - **ephemeralContainerStatuses.lastState** (ContainerState)
+
+    LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
+
+    <a name="ContainerState"></a>
+    *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
+
+    - **ephemeralContainerStatuses.lastState.running** (ContainerStateRunning)
+
+      Details about a running container
+
+      <a name="ContainerStateRunning"></a>
+      *ContainerStateRunning is a running state of a container.*
+
+      - **ephemeralContainerStatuses.lastState.running.startedAt** (Time)
+
+        Time at which the container was last (re-)started
+
+        <a name="Time"></a>
+        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+    - **ephemeralContainerStatuses.lastState.terminated** (ContainerStateTerminated)
+
+      Details about a terminated container
+
+      <a name="ContainerStateTerminated"></a>
+      *ContainerStateTerminated is a terminated state of a container.*
+
+      - **ephemeralContainerStatuses.lastState.terminated.containerID** (string)
+
+        Container's ID in the format '\<type>://\<container_id>'
+
+      - **ephemeralContainerStatuses.lastState.terminated.exitCode** (int32), required
+
+        Exit status from the last termination of the container
+
+      - **ephemeralContainerStatuses.lastState.terminated.startedAt** (Time)
+
+        Time at which previous execution of the container started
+
+        <a name="Time"></a>
+        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+      - **ephemeralContainerStatuses.lastState.terminated.finishedAt** (Time)
+
+        Time at which the container last terminated
+
+        <a name="Time"></a>
+        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+      - **ephemeralContainerStatuses.lastState.terminated.message** (string)
+
+        Message regarding the last termination of the container
+
+      - **ephemeralContainerStatuses.lastState.terminated.reason** (string)
+
+        (brief) reason from the last termination of the container
+
+      - **ephemeralContainerStatuses.lastState.terminated.signal** (int32)
+
+        Signal from the last termination of the container
+
+    - **ephemeralContainerStatuses.lastState.waiting** (ContainerStateWaiting)
+
+      Details about a waiting container
+
+      <a name="ContainerStateWaiting"></a>
+      *ContainerStateWaiting is a waiting state of a container.*
+
+      - **ephemeralContainerStatuses.lastState.waiting.message** (string)
+
+        Message regarding why the container is not yet running.
+
+      - **ephemeralContainerStatuses.lastState.waiting.reason** (string)
+
+        (brief) reason the container is not yet running.
+
+  - **ephemeralContainerStatuses.name** (string), required
+
+    Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
+
+  - **ephemeralContainerStatuses.ready** (boolean), required
+
+    Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+    
+    The value is typically used to determine whether a container is ready to accept traffic.
+
+  - **ephemeralContainerStatuses.resources** (ResourceRequirements)
+
+    Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+
+    <a name="ResourceRequirements"></a>
+    *ResourceRequirements describes the compute resource requirements.*
+
+    - **ephemeralContainerStatuses.resources.claims** ([]ResourceClaim)
+
+      *Map: unique values on key name will be kept during a merge*
+      
+      Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+      
+      This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+      
+      This field is immutable. It can only be set for containers.
+
+      <a name="ResourceClaim"></a>
+      *ResourceClaim references one entry in PodSpec.ResourceClaims.*
+
+      - **ephemeralContainerStatuses.resources.claims.name** (string), required
+
+        Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
+
+      - **ephemeralContainerStatuses.resources.claims.request** (string)
+
+        Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+
+    - **ephemeralContainerStatuses.resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+      Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+    - **ephemeralContainerStatuses.resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+      Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+  - **ephemeralContainerStatuses.restartCount** (int32), required
+
+    RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
+
+  - **ephemeralContainerStatuses.started** (boolean)
+
+    Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
+
+  - **ephemeralContainerStatuses.state** (ContainerState)
+
+    State holds details about the container's current condition.
+
+    <a name="ContainerState"></a>
+    *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
+
+    - **ephemeralContainerStatuses.state.running** (ContainerStateRunning)
+
+      Details about a running container
+
+      <a name="ContainerStateRunning"></a>
+      *ContainerStateRunning is a running state of a container.*
+
+      - **ephemeralContainerStatuses.state.running.startedAt** (Time)
+
+        Time at which the container was last (re-)started
+
+        <a name="Time"></a>
+        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+    - **ephemeralContainerStatuses.state.terminated** (ContainerStateTerminated)
+
+      Details about a terminated container
+
+      <a name="ContainerStateTerminated"></a>
+      *ContainerStateTerminated is a terminated state of a container.*
+
+      - **ephemeralContainerStatuses.state.terminated.containerID** (string)
+
+        Container's ID in the format '\<type>://\<container_id>'
+
+      - **ephemeralContainerStatuses.state.terminated.exitCode** (int32), required
+
+        Exit status from the last termination of the container
+
+      - **ephemeralContainerStatuses.state.terminated.startedAt** (Time)
+
+        Time at which previous execution of the container started
+
+        <a name="Time"></a>
+        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+      - **ephemeralContainerStatuses.state.terminated.finishedAt** (Time)
+
+        Time at which the container last terminated
+
+        <a name="Time"></a>
+        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+      - **ephemeralContainerStatuses.state.terminated.message** (string)
+
+        Message regarding the last termination of the container
+
+      - **ephemeralContainerStatuses.state.terminated.reason** (string)
+
+        (brief) reason from the last termination of the container
+
+      - **ephemeralContainerStatuses.state.terminated.signal** (int32)
+
+        Signal from the last termination of the container
+
+    - **ephemeralContainerStatuses.state.waiting** (ContainerStateWaiting)
+
+      Details about a waiting container
+
+      <a name="ContainerStateWaiting"></a>
+      *ContainerStateWaiting is a waiting state of a container.*
+
+      - **ephemeralContainerStatuses.state.waiting.message** (string)
+
+        Message regarding why the container is not yet running.
+
+      - **ephemeralContainerStatuses.state.waiting.reason** (string)
+
+        (brief) reason the container is not yet running.
+
+  - **ephemeralContainerStatuses.user** (ContainerUser)
+
+    User represents user identity information initially attached to the first process of the container
+
+    <a name="ContainerUser"></a>
+    *ContainerUser represents user identity information*
+
+    - **ephemeralContainerStatuses.user.linux** (LinuxContainerUser)
+
+      Linux holds user identity information initially attached to the first process of the containers in Linux. Note that the actual running identity can be changed if the process has enough privilege to do so.
+
+      <a name="LinuxContainerUser"></a>
+      *LinuxContainerUser represents user identity information in Linux containers*
+
+      - **ephemeralContainerStatuses.user.linux.gid** (int64), required
+
+        GID is the primary gid initially attached to the first process in the container
+
+      - **ephemeralContainerStatuses.user.linux.uid** (int64), required
+
+        UID is the primary uid initially attached to the first process in the container
+
+      - **ephemeralContainerStatuses.user.linux.supplementalGroups** ([]int64)
+
+        *Atomic: will be replaced during a merge*
+        
+        SupplementalGroups are the supplemental groups initially attached to the first process in the container
+
+  - **ephemeralContainerStatuses.volumeMounts** ([]VolumeMountStatus)
+
+    *Patch strategy: merge on key `mountPath`*
+    
+    *Map: unique values on key mountPath will be kept during a merge*
+    
+    Status of volume mounts.
+
+    <a name="VolumeMountStatus"></a>
+    *VolumeMountStatus shows status of volume mounts.*
+
+    - **ephemeralContainerStatuses.volumeMounts.mountPath** (string), required
+
+      MountPath corresponds to the original VolumeMount.
+
+    - **ephemeralContainerStatuses.volumeMounts.name** (string), required
+
+      Name corresponds to the name of the original VolumeMount.
+
+    - **ephemeralContainerStatuses.volumeMounts.readOnly** (boolean)
+
+      ReadOnly corresponds to the original VolumeMount.
+
+    - **ephemeralContainerStatuses.volumeMounts.recursiveReadOnly** (string)
+
+      RecursiveReadOnly must be set to Disabled, Enabled, or unspecified (for non-readonly mounts). An IfPossible value in the original VolumeMount must be translated to Disabled or Enabled, depending on the mount result.
 
 - **resourceClaimStatuses** ([]PodResourceClaimStatus)
 
@@ -1980,14 +3325,14 @@ GET /api/v1/namespaces/{namespace}/pods/{name}
   name of the Pod
 
 
-- ****: 
+- **namespace** (*in path*): string, required
 
-  
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- ****: 
+- **pretty** (*in query*): string
 
-  
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -2013,14 +3358,14 @@ GET /api/v1/namespaces/{namespace}/pods/{name}/ephemeralcontainers
   name of the Pod
 
 
-- ****: 
+- **namespace** (*in path*): string, required
 
-  
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- ****: 
+- **pretty** (*in query*): string
 
-  
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -2041,59 +3386,59 @@ GET /api/v1/namespaces/{namespace}/pods/{name}/log
 #### Parameters
 
 
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
 - **name** (*in path*): string, required
 
   name of the Pod
 
 
-- ****: 
+- **namespace** (*in path*): string, required
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- ****: 
+- **container** (*in query*): string
 
-  
-
-
-- ****: 
-
-  
+  The container for which to stream logs. Defaults to only container if there is one container in the pod.
 
 
-- ****: 
+- **follow** (*in query*): boolean
 
-  
+  Follow the log stream of the pod. Defaults to false.
 
 
-- ****: 
+- **insecureSkipTLSVerifyBackend** (*in query*): boolean
 
-  
+  insecureSkipTLSVerifyBackend indicates that the apiserver should not confirm the validity of the serving certificate of the backend it is connecting to.  This will make the HTTPS connection between the apiserver and the backend insecure. This means the apiserver cannot verify the log data it is receiving came from the real kubelet.  If the kubelet is configured to verify the apiserver's TLS credentials, it does not mean the connection to the real kubelet is vulnerable to a man in the middle attack (e.g. an attacker could not intercept the actual log data coming from the real kubelet).
+
+
+- **limitBytes** (*in query*): integer
+
+  If set, the number of bytes to read from the server before terminating the log output. This may not display a complete final line of logging, and may return slightly more or slightly less than the specified limit.
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+- **previous** (*in query*): boolean
+
+  Return previous terminated container logs. Defaults to false.
+
+
+- **sinceSeconds** (*in query*): integer
+
+  A relative time in seconds before the current time from which to show logs. If this value precedes the time a pod was started, only logs since the pod start will be returned. If this value is in the future, no logs will be returned. Only one of sinceSeconds or sinceTime may be specified.
+
+
+- **tailLines** (*in query*): integer
+
+  If set, the number of lines from the end of the logs to show. If not specified, logs are shown from the creation of the container or sinceSeconds or sinceTime
+
+
+- **timestamps** (*in query*): boolean
+
+  If true, add an RFC3339 or RFC3339Nano timestamp at the beginning of every line of log output. Defaults to false.
 
 
 
@@ -2119,14 +3464,14 @@ GET /api/v1/namespaces/{namespace}/pods/{name}/status
   name of the Pod
 
 
-- ****: 
+- **namespace** (*in path*): string, required
 
-  
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- ****: 
+- **pretty** (*in query*): string
 
-  
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -2147,64 +3492,64 @@ GET /api/v1/namespaces/{namespace}/pods
 #### Parameters
 
 
-- ****: 
+- **namespace** (*in path*): string, required
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- ****: 
+- **allowWatchBookmarks** (*in query*): boolean
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 
-- ****: 
+- **continue** (*in query*): string
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 
-- ****: 
+- **fieldSelector** (*in query*): string
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 
-- ****: 
+- **labelSelector** (*in query*): string
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 
-- ****: 
+- **limit** (*in query*): integer
 
-  
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 
-- ****: 
+- **pretty** (*in query*): string
 
-  
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+- **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
+
+- **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
+
+- **watch** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
 
 
@@ -2225,59 +3570,59 @@ GET /api/v1/pods
 #### Parameters
 
 
-- ****: 
+- **allowWatchBookmarks** (*in query*): boolean
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 
-- ****: 
+- **continue** (*in query*): string
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 
-- ****: 
+- **fieldSelector** (*in query*): string
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 
-- ****: 
+- **labelSelector** (*in query*): string
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 
-- ****: 
+- **limit** (*in query*): integer
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 
-- ****: 
+- **pretty** (*in query*): string
 
-  
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+- **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
+
+- **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
+
+- **watch** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
 
 
@@ -2298,19 +3643,9 @@ POST /api/v1/namespaces/{namespace}/pods
 #### Parameters
 
 
-- ****: 
+- **namespace** (*in path*): string, required
 
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>, required
@@ -2323,9 +3658,19 @@ POST /api/v1/namespaces/{namespace}/pods
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -2355,19 +3700,9 @@ PUT /api/v1/namespaces/{namespace}/pods/{name}
   name of the Pod
 
 
-- ****: 
+- **namespace** (*in path*): string, required
 
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>, required
@@ -2380,9 +3715,19 @@ PUT /api/v1/namespaces/{namespace}/pods/{name}
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -2410,19 +3755,9 @@ PUT /api/v1/namespaces/{namespace}/pods/{name}/ephemeralcontainers
   name of the Pod
 
 
-- ****: 
+- **namespace** (*in path*): string, required
 
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>, required
@@ -2435,9 +3770,19 @@ PUT /api/v1/namespaces/{namespace}/pods/{name}/ephemeralcontainers
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -2465,19 +3810,9 @@ PUT /api/v1/namespaces/{namespace}/pods/{name}/status
   name of the Pod
 
 
-- ****: 
+- **namespace** (*in path*): string, required
 
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>, required
@@ -2490,9 +3825,19 @@ PUT /api/v1/namespaces/{namespace}/pods/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -2520,27 +3865,12 @@ PATCH /api/v1/namespaces/{namespace}/pods/{name}
   name of the Pod
 
 
-- ****: 
+- **namespace** (*in path*): string, required
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
   
 
@@ -2550,9 +3880,24 @@ PATCH /api/v1/namespaces/{namespace}/pods/{name}
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -2580,27 +3925,12 @@ PATCH /api/v1/namespaces/{namespace}/pods/{name}/ephemeralcontainers
   name of the Pod
 
 
-- ****: 
+- **namespace** (*in path*): string, required
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
   
 
@@ -2610,9 +3940,24 @@ PATCH /api/v1/namespaces/{namespace}/pods/{name}/ephemeralcontainers
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -2640,27 +3985,12 @@ PATCH /api/v1/namespaces/{namespace}/pods/{name}/status
   name of the Pod
 
 
-- ****: 
+- **namespace** (*in path*): string, required
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
   
 
@@ -2670,9 +4000,24 @@ PATCH /api/v1/namespaces/{namespace}/pods/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -2700,32 +4045,12 @@ DELETE /api/v1/namespaces/{namespace}/pods/{name}
   name of the Pod
 
 
-- ****: 
+- **namespace** (*in path*): string, required
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
+- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
   
 
@@ -2733,6 +4058,21 @@ DELETE /api/v1/namespaces/{namespace}/pods/{name}
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **gracePeriodSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+- **propagationPolicy** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 
 
@@ -2755,79 +4095,74 @@ DELETE /api/v1/namespaces/{namespace}/pods
 #### Parameters
 
 
-- ****: 
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
   
 
 
-- ****: 
+- **continue** (*in query*): string
 
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
+
+- **gracePeriodSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **labelSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
+
+- **limit** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+- **propagationPolicy** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+
+
+- **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
+
+- **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 
 
