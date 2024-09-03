@@ -22,6 +22,7 @@ Weitere Informationen zum Beitrag zur Kubernetes-Dokumentation finden Sie unter:
 ## `README.md`'s Localizing Kubernetes Documentation
 
 ### Deutsch
+
 Die Betreuer der deutschen Lokalisierung erreichen Sie unter:
 
 * Benedikt Rollik ([@bene2k1](https://github.com/bene2k1))
