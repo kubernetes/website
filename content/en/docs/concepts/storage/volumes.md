@@ -1197,6 +1197,13 @@ Users of FlexVolume should move their workloads to use the equivalent CSI Driver
 
 ## Mount propagation
 
+  {{< caution >}}
+  Mount propagation is a low-level feature that does not work consistently on all
+  volume types. It is recommended to use only with `hostPath` or in-memory `emptyDir`
+  volumes. See [this discussion](https://github.com/kubernetes/kubernetes/issues/95049)
+  for more context. 
+  {{< /caution >}}
+
 Mount propagation allows for sharing volumes mounted by a container to
 other containers in the same pod, or even to other pods on the same node.
 
