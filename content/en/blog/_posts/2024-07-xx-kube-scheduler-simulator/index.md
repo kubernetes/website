@@ -27,17 +27,18 @@ which could result in unexpected scheduling results in a large production enviro
 Also, testing your scheduler is a complex challenge.
 There are countless patterns of operations executed within a real cluster, making it impractical to anticipate every scenario with a finite number of tests. 
 More often than not, bugs are discovered only when the scheduler is deployed in an actual cluster.
-Actually, many bugs are reported by users after we ship the release, even in the upstream kube-scheduler. 
+Actually, many bugs are reported by users after we ship the release, and the bugs are found
 
-Having a development or sandbox environment for testing the scheduler — or, indeed, any Kubernetes controllers — is a common practice for this problem.
+Having a development or sandbox environment for testing the scheduler — or, indeed, any Kubernetes controllers — is a common practice.
 However, this approach falls short of capturing all the potential scenarios that might arise in a production cluster 
-because a development cluster is often much smaller, and never sees the exact same use or exhibits the same behavior as its production counterpart, 
-with notable differences in workload sizes and scaling dynamics.
+because a development cluster is often much smaller with notable differences in workload sizes and scaling dynamics.
+It never sees the exact same use or exhibits the same behavior as its production counterpart.
 
 The scheduler simulator aims to solve those problems.
 It enables users to test their scheduling constraints, scheduler configurations, 
 and custom plugins while checking every detailed part of scheduling decisions.
-It also allows us to create a simulated cluster environment, where you can test your scheduler with the same resources as your production cluster, but without affecting your actual workloads.
+It also allows you to create a simulated cluster environment, where you can test your scheduler
+with the same resources as your production cluster without affecting your actual workloads.
 
 ## Features of the Kube-scheduler-simulator
 
@@ -89,9 +90,11 @@ This would be useful to custom plugin developers who want to test their plugins 
 
 ## The simulator as a better dev cluster
 
-As mentioned earlier, it is impossible to predict every possible scenario in a real-world cluster with a limited set of tests. Typically, we test the scheduler in a small, development cluster before deploying it to production, hoping no issues arise.
+As mentioned earlier, with a limited set of tests, it is impossible to predict every possible scenario in a real-world cluster.
+Typically, you will test the scheduler in a small, development cluster before deploying it to production, hoping that no issues arise.
 
-[The simulator’s importing feature](https://github.com/kubernetes-sigs/kube-scheduler-simulator/blob/master/simulator/docs/import-cluster-resources.md) provides a solution by allowing you to simulate deploying a new scheduler version in a production-like environment without impacting your live workloads.
+[The simulator’s importing feature](https://github.com/kubernetes-sigs/kube-scheduler-simulator/blob/master/simulator/docs/import-cluster-resources.md)
+provides a solution by allowing you to simulate deploying a new scheduler version in a production-like environment without impacting your live workloads.
 
 By continuously syncing between your production cluster and the simulator, you can safely test a new scheduler version with the same resources your production cluster handles. 
 Once confident in its performance, you can proceed with the production deployment, reducing the risk of unexpected issues.
