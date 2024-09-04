@@ -238,6 +238,9 @@ The following command will create the ConfigMap object:
 
 ```shell
 kubectl apply -f myconfigmap.yaml
+```
+The output is similar to this:
+```console
 configmap/myconfigmap created
 ```
 
@@ -245,6 +248,9 @@ The following command will produce a JSON object that contains the ConfigMap's k
 
 ```shell
 kubectl get configmap myconfigmap -o jsonpath='{.data}' | jq
+```
+The output is similar to this:
+```console
 {
   username: "k8s-admin"
   access_level: "1"
@@ -254,20 +260,7 @@ kubectl get configmap myconfigmap -o jsonpath='{.data}' | jq
 Once created a ConfigMap, you can consume it within your Pods. You can access all or part of a ConfigMap as environment variables, command line arguments, or mounted files.
 The following Pod (env-configmap.yaml) makes the content of the myconfigmap ConfigMap available as environment variables:
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: env-configmap
-spec:
-  containers:
-    - name: app
-      command: ["/bin/sh", "-c", "printenv"]
-      image: busybox:latest
-      envFrom:
-        - configMapRef:
-            name: myconfigmap
-```
+{{% code_sample file="configmap/env-configmap.yaml" %}}
 
 The `envFrom` field instructs Kubernetes to create environment variables from the sources nested within it.
 The inner `configMapRef` refers to a ConfigMap by its name and selects all its key-value pairs.
@@ -275,8 +268,16 @@ Add the Pod to your cluster, then retrieve its logs to see the output from the p
 
 ```shell
 kubectl apply -f env-configmap.yaml
+```
+The output is similar to this:
+```console
 pod/ env-configmap created
+```
+```shell
 kubectl logs pod/ env-configmap
+```
+The output is similar to this:
+```console
 ...
 username: "k8s-admin"
 access_level: "1"
