@@ -284,7 +284,9 @@ access_level: "1"
 ```
 
 Sometimes a Pod won't require access to all the values contained in a ConfigMap. For example, you could have another Pod which only utilizes the username value from myconfigmap ConfigMap.
-The env.valueFrom syntax can be used instead of envFrom for this use case. It lets you select individual keys in a ConfigMap. Keys can also be renamed to different environment variables:
+For this use case, you can use the `env.valueFrom` syntax instead, which lets you select individual keys in
+a ConfigMap. The name of the environment variable can also be different from the key within the ConfigMap;
+for example:
 
 ```yaml
 apiVersion: v1
