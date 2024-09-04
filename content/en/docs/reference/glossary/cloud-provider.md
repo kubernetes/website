@@ -1,31 +1,27 @@
 ---
-title: Cloud Provider
+title: ক্লাউড প্রোভাইডার
 id: cloud-provider
 date: 2018-04-12
 short_description: >
-  An organization that offers a cloud computing platform.
+  একটি প্রতিষ্ঠান যা একটি ক্লাউড কম্পিউটিং প্ল্যাটফর্ম অফার করে।
 
 aka:
-- Cloud Service Provider
+- ক্লাউড সার্ভিস প্রোভাইডার
 tags:
-- community
+- কমিউনিটি
 ---
- A business or other organization that offers a cloud computing platform.
+একটি ব্যবসা বা অন্য কোন প্রতিষ্ঠান যা একটি ক্লাউড কম্পিউটিং প্ল্যাটফর্ম অফার করে।
 
 <!--more-->
 
-Cloud providers, sometimes called Cloud Service Providers (CSPs), offer
-cloud computing platforms or services.
+ক্লাউড প্রোভাইডাররা, যাদের কখনও কখনও ক্লাউড সার্ভিস প্রোভাইডার (CSPs) বলা হয়,
+ক্লাউড কম্পিউটিং প্ল্যাটফর্ম বা সেবা প্রদান করে।
 
-Many cloud providers offer managed infrastructure (also called
-Infrastructure as a Service or IaaS).
-With managed infrastructure the cloud provider is responsible for
-servers, storage, and networking while you manage layers on top of that
-such as running a Kubernetes cluster.
+অনেক ক্লাউড প্রোভাইডার ব্যবস্থাপিত পরিকাঠামো অফার করে (যা ইনফ্রাস্ট্রাকচার অ্যাজ এ সার্ভিস বা IaaS হিসাবেও পরিচিত)।
+পরিচালিত পরিকাঠামোর ক্ষেত্রে ক্লাউড প্রোভাইডার দায়ী থাকে সার্ভার, স্টোরেজ, এবং নেটওয়ার্কিংয়ের জন্য,
+যখন আপনি তার উপরে স্তরগুলি পরিচালনা করেন, যেমন একটি কুবেরনেটিস ক্লাস্টার চালানো।
 
-You can also find Kubernetes as a managed service; sometimes called
-Platform as a Service, or PaaS. With managed Kubernetes, your
-cloud provider is responsible for the Kubernetes control plane as well
-as the {{< glossary_tooltip term_id="node" text="nodes" >}} and the
-infrastructure they rely on: networking, storage, and possibly other
-elements such as load balancers.
+আপনি কুবেরনেটিসকেও একটি ব্যবস্থাপিত সেবা হিসাবে খুঁজে পেতে পারেন; যাকে কখনও কখনও
+প্ল্যাটফর্ম অ্যাজ এ সার্ভিস বা PaaS বলা হয়। ব্যবস্থাপিত কুবেরনেটিসের ক্ষেত্রে, আপনার
+ক্লাউড প্রোভাইডার দায়ী থাকে কুবেরনেটিস কন্ট্রোল প্লেনের পাশাপাশি {{< glossary_tooltip term_id="node" text="নোড" >}} এবং
+তারা যে পরিকাঠামোর উপর নির্ভর করে: নেটওয়ার্কিং, স্টোরেজ, এবং সম্ভবত অন্যান্য উপাদান যেমন লোড ব্যালেন্সার।
