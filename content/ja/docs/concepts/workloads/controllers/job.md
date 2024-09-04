@@ -1,5 +1,5 @@
 ---
-title: Jobs
+title: Job
 content_type: concept
 feature:
   title: バッチ実行
