@@ -305,7 +305,10 @@ spec:
           key: username
 ```
 
-If you add this Pod to your cluster, you will see that only CONFIGMAP_USERNAME is set as an environment variable and it has the value of the username key from the myconfigmap ConfigMap.
+If you add this Pod to your cluster, you  see that `CONFIGMAP_USERNAME` is set as an environment variable
+and it has the value of the `username` key from the myconfigmap ConfigMap. Other values from the
+ConfigMap data are not copied into the environment.
+
 
 It's important to note that the range of characters allowed for environment
 variable names in pods is [restricted](/docs/tasks/inject-data-application/define-environment-variable-container/#using-environment-variables-inside-of-your-config).
