@@ -313,6 +313,6 @@ be installed. Please refer to the driver's documentation for details.
 ## {{% heading "whatsnext" %}}
 
 - For more information on the design, see the
-  [Structured Parameters with Structured Parameters](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4381-dra-structured-parameters)
+  [Dynamic Resource Allocation with Structured Parameters](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4381-dra-structured-parameters)
   and the
   [Dynamic Resource Allocation with Control Plane Controller](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md) KEPs.
