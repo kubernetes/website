@@ -92,29 +92,30 @@ kubeadm init --pod-network-cidr=10.244.0.0/16,2001:db8:42:0::/56 --service-cidr=
 
 <!--
 To make things clearer, here is an example kubeadm 
-[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/) 
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/) 
 `kubeadm-config.yaml` for the primary dual-stack control plane node.
 -->
 为了更便于理解，参看下面的名为 `kubeadm-config.yaml` 的 kubeadm
-[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)，
+[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)，
 该文件用于双协议栈控制面的主控制节点。
 
 ```yaml
 ---
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 networking:
   podSubnet: 10.244.0.0/16,2001:db8:42:0::/56
   serviceSubnet: 10.96.0.0/16,2001:db8:42:1::/112
 ---
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: InitConfiguration
 localAPIEndpoint:
   advertiseAddress: "10.100.0.1"
   bindPort: 6443
 nodeRegistration:
   kubeletExtraArgs:
-    node-ip: 10.100.0.2,fd00:1:2:3::2
+  - name: "node-ip"
+    value: "10.100.0.2,fd00:1:2:3::2"
 ```
 
 <!--
@@ -153,7 +154,7 @@ The `--apiserver-advertise-address` flag does not support dual-stack.
 
 Before joining a node, make sure that the node has IPv6 routable network interface and allows IPv6 forwarding.
 
-Here is an example kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/)
+Here is an example kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/)
 `kubeadm-config.yaml` for joining a worker node to the cluster.
 -->
 ### 向双协议栈集群添加节点   {#join-a-node-to-dual-stack-cluster}
@@ -161,7 +162,7 @@ Here is an example kubeadm [configuration file](/docs/reference/config-api/kubea
 在添加节点之前，请确保该节点具有 IPv6 可路由的网络接口并且启用了 IPv6 转发。
 
 下面的名为 `kubeadm-config.yaml` 的 kubeadm
-[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)
+[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)
 示例用于向集群中添加工作节点。
 
 <!--
@@ -179,22 +180,23 @@ discovery:
     # 请更改上面的认证信息，使之与你的集群中实际使用的令牌和 CA 证书匹配
 nodeRegistration:
   kubeletExtraArgs:
-    node-ip: 10.100.0.3,fd00:1:2:3::3
+  - name: "node-ip"
+    value: "10.100.0.2,fd00:1:2:3::3"
 ```
 
 <!--
-Also, here is an example kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/)
+Also, here is an example kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/)
 `kubeadm-config.yaml` for joining another control plane node to the cluster.
 -->
 下面的名为 `kubeadm-config.yaml` 的 kubeadm
-[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)
+[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)
 示例用于向集群中添加另一个控制面节点。
 
 <!--
 # change auth info above to match the actual token and CA certificate hash for your cluster
 -->
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: JoinConfiguration
 controlPlane:
   localAPIEndpoint:
@@ -209,7 +211,8 @@ discovery:
     # 请更改上面的认证信息，使之与你的集群中实际使用的令牌和 CA 证书匹配
 nodeRegistration:
   kubeletExtraArgs:
-    node-ip: 10.100.0.4,fd00:1:2:3::4
+  - name: "node-ip"
+    value: "10.100.0.2,fd00:1:2:3::4"
 ```
 
 <!--
@@ -241,15 +244,15 @@ You can deploy a single-stack cluster that has the dual-stack networking feature
 
 <!--
 To make things more clear, here is an example kubeadm
-[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/)
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/)
 `kubeadm-config.yaml` for the single-stack control plane node.
 -->
 为了更便于理解，参看下面的名为 `kubeadm-config.yaml` 的 kubeadm
-[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)示例，
+[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)示例，
 该文件用于单协议栈控制面节点。
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 networking:
   podSubnet: 10.244.0.0/16
@@ -261,8 +264,8 @@ networking:
 <!--
 * [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking
 * Read about [Dual-stack](/docs/concepts/services-networking/dual-stack/) cluster networking
-* Learn more about the kubeadm [configuration format](/docs/reference/config-api/kubeadm-config.v1beta3/)
+* Learn more about the kubeadm [configuration format](/docs/reference/config-api/kubeadm-config.v1beta4/)
 -->
 * [验证 IPv4/IPv6 双协议栈](/zh-cn/docs/tasks/network/validate-dual-stack)联网
 * 阅读[双协议栈](/zh-cn/docs/concepts/services-networking/dual-stack/)集群网络
-* 进一步了解 kubeadm [配置格式](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)
+* 进一步了解 kubeadm [配置格式](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)

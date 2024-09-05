@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: ""
 title: "Common Parameters"
-weight: 11
+weight: 10
 auto_generated: true
 ---
 
@@ -60,7 +60,7 @@ When present, indicates that modifications should not be persisted. An invalid o
 
 ## fieldManager {#fieldManager}
 
-fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://pkg.go.dev/unicode#IsPrint.
+fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.
 
 <hr>
 
@@ -142,7 +142,7 @@ object name and auth scope, such as for teams and projects
 
 ## pretty {#pretty}
 
-If 'true', then the output is pretty printed.
+If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).
 
 <hr>
 

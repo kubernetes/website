@@ -40,6 +40,6 @@ A startup probe verifies whether the application within a container is started. 
 
 If such a probe is configured, it disables liveness and readiness checks until it succeeds.
 
-This type of probe is only executed at startup, unlike readiness probes, which are run periodically.
+This type of probe is only executed at startup, unlike liveness and readiness probes, which are run periodically.
 
 * Read more about the [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes).

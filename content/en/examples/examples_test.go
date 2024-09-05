@@ -156,6 +156,7 @@ func getCodecForObject(obj runtime.Object) (runtime.Codec, error) {
 
 func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	podValidationOptions := validation.PodValidationOptions{
+		AllowImageVolumeSource:          true,
 		AllowInvalidPodDeletionCost:     false,
 		AllowIndivisibleHugePagesValues: true,
 	}
@@ -169,8 +170,6 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		AllowInvalidLabelValueInSelector: false,
 	}
 
-	// Enable CustomPodDNS for testing
-	// feature.DefaultFeatureGate.Set("CustomPodDNS=true")
 	switch t := obj.(type) {
 	case *admissionregistration.ValidatingWebhookConfiguration:
 		errors = admreg_validation.ValidateValidatingWebhookConfiguration(t)
@@ -602,6 +601,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"pods": {
 			"commands":                            {&api.Pod{}},
+			"image-volumes":                       {&api.Pod{}},
 			"init-containers":                     {&api.Pod{}},
 			"lifecycle-events":                    {&api.Pod{}},
 			"pod-configmap-env-var-valueFrom":     {&api.Pod{}},
@@ -676,6 +676,8 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"security-context-2": {&api.Pod{}},
 			"security-context-3": {&api.Pod{}},
 			"security-context-4": {&api.Pod{}},
+			"security-context-5": {&api.Pod{}},
+			"security-context-6": {&api.Pod{}},
 		},
 		"pods/storage": {
 			"projected":                                    {&api.Pod{}},

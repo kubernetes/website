@@ -94,7 +94,7 @@ The architecture components, from right to left in the figure, consist of the fo
 
 * [cAdvisor](https://github.com/google/cadvisor): Daemon for collecting, aggregating and exposing
   container metrics included in Kubelet.
-* [kubelet](/docs/concepts/overview/components/#kubelet): Node agent for managing container
+* [kubelet](/docs/concepts/architecture/#kubelet): Node agent for managing container
   resources. Resource metrics are accessible using the `/metrics/resource` and `/stats` kubelet
   API endpoints.
 * [node level resource metrics](/docs/reference/instrumentation/node-metrics): API provided by the kubelet for discovering and retrieving
@@ -111,7 +111,7 @@ The architecture components, from right to left in the figure, consist of the fo
 图中从右到左的架构组件包括以下内容：
 
 * [cAdvisor](https://github.com/google/cadvisor): 用于收集、聚合和公开 Kubelet 中包含的容器指标的守护程序。
-* [kubelet](/zh-cn/docs/concepts/overview/components/#kubelet): 用于管理容器资源的节点代理。
+* [kubelet](/zh-cn/docs/concepts/architecture/#kubelet): 用于管理容器资源的节点代理。
   可以使用 `/metrics/resource` 和 `/stats` kubelet API 端点访问资源指标。
 * [节点层面资源指标](/zh-cn/docs/reference/instrumentation/node-metrics): kubelet 提供的 API，用于发现和检索可通过 `/metrics/resource` 端点获得的每个节点的汇总统计信息。
 * [metrics-server](#metrics-server): 集群插件组件，用于收集和聚合从每个 kubelet 中提取的资源指标。

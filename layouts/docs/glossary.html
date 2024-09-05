@@ -1,19 +1,17 @@
 {{ define "side-menu" }}
-{{ partial "docs/side-menu.html" . }}
+    {{ partial "docs/side-menu.html" . }}
 {{ end }}
 
 {{ define "main" }}
+{{ partial "deprecation-warning.html" . }}
 <h1>{{ .Title }}</h1>
-{{- with resources.Get "css/glossary.css" -}}
-<link href="{{ .RelPermalink }}" rel="stylesheet">
-{{- end -}}
 <p>{{ T "layouts_docs_glossary_description" }}</p>
 <div id="tag-container">
-	<p>{{ T "layouts_docs_glossary_filter" }}</p>
+	<p><em>{{ T "layouts_docs_glossary_filter" }}</em></p>
 	<div class="tag-description invisible" id="placeholder">.</div>
 	{{ range (index site.Data "canonical-tags") }}
 	<div class="tag-description hide" id="{{ printf "tag-%s-description" .id  }}">
-		<i>{{ T (printf "layout_docs_glossary_%s_description" .id) }}</i>
+		{{ T (printf "layout_docs_glossary_%s_description" .id) }}
 	</div>
 	{{ end }}
 	{{ $sorted_tags := sort (index site.Data "canonical-tags") "id" }}
@@ -26,12 +24,12 @@
 	<span class="tag-option"><a id="select-all-tags" href="javascript:void(0)">{{ T "layouts_docs_glossary_select_all" }}</a></span>
 	<span class="tag-option"><a id="deselect-all-tags" href="javascript:void(0)">{{ T "layouts_docs_glossary_deselect_all" }}</a></span>
 </div>
-<p>{{ T "layouts_docs_glossary_click_details_before" }} <a href="javascript:void(0)" class="no-underline">[+]</a> {{ T "layouts_docs_glossary_click_details_after" }}</p>
+<p id="glossary-details-before">{{ T "layouts_docs_glossary_click_details_before" }} <a href="javascript:void(0)" class="no-underline">[+]</a> {{ T "layouts_docs_glossary_click_details_after" }}</p>
 {{ partial "docs/glossary-terms.html" . }}
 {{ $glossary_items := $.Scratch.Get "glossary_items" }}
 {{ with $glossary_items }}
 {{ $glossary_terms := sort . "Title" "asc" }}
-<ul>
+<ul class="glossary-terms">
 	{{ range $glossary_terms }}
 	{{ $.Scratch.Set "tag_classes" "" }}
 	{{ range .Params.tags }}
@@ -41,11 +39,15 @@
 	
 	<li class="{{ $.Scratch.Get "tag_classes" }} hide" data-show-count="0">
 		<div id="{{ $term_identifier }}" class="term-anchor"></div>
-		<div>
-			<div class="term-name" term="{{ .Title}}" data-pagefind-index-attrs="term"><b>{{ .Title }}</b><a href="{{ printf "#%s" $term_identifier }}" class="permalink hide">LINK</a></div>
+		<div class="term-name" data-pagefind-index-attrs="term"><span class="glossary-term-name">{{ .Title }}</span><a href="{{ printf "#%s" $term_identifier }}" class="permalink">
+		{{- with resources.Get "icons/link.svg" -}}
+		{{- .Content | safeHTML -}}
+		{{- end -}}
+		</a></div>
+		<div class="term-definition">
 			{{ with .Params.aka }}
-			{{ T "layouts_docs_glossary_aka" }}: <i>{{ delimit . ", " }}</i>
-			<br>
+                        {{ T "layouts_docs_glossary_aka" }}: <span class="glossary-aka">{{ delimit . ", " }}</span>
+			<br />
 			{{ end }}
 			<span class="preview-text">{{ .Summary }} <a href="javascript:void(0)" class="click-controller no-underline" data-target="{{ .Params.id }}">[+]</a></span>
 			<div id="{{ .Params.id }}" class="hide">

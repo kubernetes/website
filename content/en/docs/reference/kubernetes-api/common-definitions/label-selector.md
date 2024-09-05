@@ -32,6 +32,8 @@ A label selector is a label query over a set of resources. The result of matchLa
 
 - **matchExpressions** ([]LabelSelectorRequirement)
 
+  *Atomic: will be replaced during a merge*
+  
   matchExpressions is a list of label selector requirements. The requirements are ANDed.
 
   <a name="LabelSelectorRequirement"></a>
@@ -47,6 +49,8 @@ A label selector is a label query over a set of resources. The result of matchLa
 
   - **matchExpressions.values** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
 
 - **matchLabels** (map[string]string)

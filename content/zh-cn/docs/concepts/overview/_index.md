@@ -59,124 +59,6 @@ Kubernetes 建立在 [Google 大规模运行生产工作负载十几年经验](h
 结合了社区中最优秀的想法和实践。
 
 <!--
-## Going back in time
-
-Let's take a look at why Kubernetes is so useful by going back in time.
--->
-## 时光回溯    {#going-back-in-time}
-
-让我们回顾一下为何 Kubernetes 能够裨益四方。
-
-<!--
-![Deployment evolution](/images/docs/Container_Evolution.svg)
--->
-![部署演进](/zh-cn/docs/images/Container_Evolution.svg)
-
-<!--
-**Traditional deployment era:**
-Early on, organizations ran applications on physical servers. There was no way to define
-resource boundaries for applications in a physical server, and this caused resource
-allocation issues. For example, if multiple applications run on a physical server, there
-can be instances where one application would take up most of the resources, and as a result,
-the other applications would underperform. A solution for this would be to run each application
-on a different physical server. But this did not scale as resources were underutilized, and it
-was expensive for organizations to maintain many physical servers.
--->
-**传统部署时代：**
-
-早期，各个组织是在物理服务器上运行应用程序。
-由于无法限制在物理服务器中运行的应用程序资源使用，因此会导致资源分配问题。
-例如，如果在同一台物理服务器上运行多个应用程序，
-则可能会出现一个应用程序占用大部分资源的情况，而导致其他应用程序的性能下降。
-一种解决方案是将每个应用程序都运行在不同的物理服务器上，
-但是当某个应用程序资源利用率不高时，剩余资源无法被分配给其他应用程序，
-而且维护许多物理服务器的成本很高。
-
-<!--
-**Virtualized deployment era:** As a solution, virtualization was introduced. It allows you
-to run multiple Virtual Machines (VMs) on a single physical server's CPU. Virtualization
-allows applications to be isolated between VMs and provides a level of security as the
-information of one application cannot be freely accessed by another application.
--->
-**虚拟化部署时代：**
-
-因此，虚拟化技术被引入了。虚拟化技术允许你在单个物理服务器的 CPU 上运行多台虚拟机（VM）。
-虚拟化能使应用程序在不同 VM 之间被彼此隔离，且能提供一定程度的安全性，
-因为一个应用程序的信息不能被另一应用程序随意访问。
-
-<!--
-Virtualization allows better utilization of resources in a physical server and allows
-better scalability because an application can be added or updated easily, reduces
-hardware costs, and much more. With virtualization you can present a set of physical
-resources as a cluster of disposable virtual machines.
-
-Each VM is a full machine running all the components, including its own operating
-system, on top of the virtualized hardware.
--->
-虚拟化技术能够更好地利用物理服务器的资源，并且因为可轻松地添加或更新应用程序，
-而因此可以具有更高的可扩缩性，以及降低硬件成本等等的好处。
-通过虚拟化，你可以将一组物理资源呈现为可丢弃的虚拟机集群。
-
-每个 VM 是一台完整的计算机，在虚拟化硬件之上运行所有组件，包括其自己的操作系统。
-
-<!--
-**Container deployment era:** Containers are similar to VMs, but they have relaxed
-isolation properties to share the Operating System (OS) among the applications.
-Therefore, containers are considered lightweight. Similar to a VM, a container
-has its own filesystem, share of CPU, memory, process space, and more. As they
-are decoupled from the underlying infrastructure, they are portable across clouds
-and OS distributions.
--->
-**容器部署时代：**
-
-容器类似于 VM，但是更宽松的隔离特性，使容器之间可以共享操作系统（OS）。
-因此，容器比起 VM 被认为是更轻量级的。且与 VM 类似，每个容器都具有自己的文件系统、CPU、内存、进程空间等。
-由于它们与基础架构分离，因此可以跨云和 OS 发行版本进行移植。
-
-<!--
-Containers have become popular because they provide extra benefits, such as:
--->
-容器因具有许多优势而变得流行起来，例如：
-
-<!--
-* Agile application creation and deployment: increased ease and efficiency of
-  container image creation compared to VM image use.
-* Continuous development, integration, and deployment: provides for reliable
-  and frequent container image build and deployment with quick and efficient
-  rollbacks (due to image immutability).
-* Dev and Ops separation of concerns: create application container images at
-  build/release time rather than deployment time, thereby decoupling
-  applications from infrastructure.
-* Observability: not only surfaces OS-level information and metrics, but also
-  application health and other signals.
-* Environmental consistency across development, testing, and production: runs
-  the same on a laptop as it does in the cloud.
-* Cloud and OS distribution portability: runs on Ubuntu, RHEL, CoreOS, on-premises,
-  on major public clouds, and anywhere else.
-* Application-centric management: raises the level of abstraction from running an
-  OS on virtual hardware to running an application on an OS using logical resources.
-* Loosely coupled, distributed, elastic, liberated micro-services: applications are
-  broken into smaller, independent pieces and can be deployed and managed dynamically –
-  not a monolithic stack running on one big single-purpose machine.
-* Resource isolation: predictable application performance.
-* Resource utilization: high efficiency and density.
--->
-* 敏捷应用程序的创建和部署：与使用 VM 镜像相比，提高了容器镜像创建的简便性和效率。
-* 持续开发、集成和部署：通过快速简单的回滚（由于镜像不可变性），
-  提供可靠且频繁的容器镜像构建和部署。
-* 关注开发与运维的分离：在构建、发布时创建应用程序容器镜像，而不是在部署时，
-  从而将应用程序与基础架构分离。
-* 可观察性：不仅可以显示 OS 级别的信息和指标，还可以显示应用程序的运行状况和其他指标信号。
-* 跨开发、测试和生产的环境一致性：在笔记本计算机上也可以和在云中运行一样的应用程序。
-* 跨云和操作系统发行版本的可移植性：可在 Ubuntu、RHEL、CoreOS、本地、
-  Google Kubernetes Engine 和其他任何地方运行。
-* 以应用程序为中心的管理：提高抽象级别，从在虚拟硬件上运行 OS 到使用逻辑资源在 OS 上运行应用程序。
-* 松散耦合、分布式、弹性、解放的微服务：应用程序被分解成较小的独立部分，
-  并且可以动态部署和管理 - 而不是在一台大型单机上整体运行。
-* 资源隔离：可预测的应用程序性能。
-* 资源利用：高效率和高密度。
-
-<!--
 ## Why you need Kubernetes and what it can do {#why-you-need-kubernetes-and-what-can-it-do}
 -->
 ## 为什么需要 Kubernetes，它能做什么？   {#why-you-need-kubernetes-and-what-can-it-do}
@@ -367,6 +249,131 @@ Kubernetes：
   而 Kubernetes 包含了一组独立可组合的控制过程，可以持续地将当前状态驱动到所提供的预期状态。
   你不需要在乎如何从 A 移动到 C，也不需要集中控制，这使得系统更易于使用且功能更强大、
   系统更健壮，更为弹性和可扩展。
+
+<!--
+## Historical context for Kubernetes {#going-back-in-time}
+
+Let's take a look at why Kubernetes is so useful by going back in time.
+-->
+## Kubernetes 的历史背景   {#going-back-in-time}
+
+让我们回顾一下为何 Kubernetes 能够裨益四方。
+
+<!--
+![Deployment evolution](/images/docs/Container_Evolution.svg)
+-->
+![部署演进](/zh-cn/docs/images/Container_Evolution.svg)
+
+<!--
+**Traditional deployment era:**
+
+Early on, organizations ran applications on physical servers. There was no way to define
+resource boundaries for applications in a physical server, and this caused resource
+allocation issues. For example, if multiple applications run on a physical server, there
+can be instances where one application would take up most of the resources, and as a result,
+the other applications would underperform. A solution for this would be to run each application
+on a different physical server. But this did not scale as resources were underutilized, and it
+was expensive for organizations to maintain many physical servers.
+-->
+**传统部署时代：**
+
+早期，各个组织是在物理服务器上运行应用程序。
+由于无法限制在物理服务器中运行的应用程序资源使用，因此会导致资源分配问题。
+例如，如果在同一台物理服务器上运行多个应用程序，
+则可能会出现一个应用程序占用大部分资源的情况，而导致其他应用程序的性能下降。
+一种解决方案是将每个应用程序都运行在不同的物理服务器上，
+但是当某个应用程序资源利用率不高时，剩余资源无法被分配给其他应用程序，
+而且维护许多物理服务器的成本很高。
+
+<!--
+**Virtualized deployment era:**
+
+As a solution, virtualization was introduced. It allows you
+to run multiple Virtual Machines (VMs) on a single physical server's CPU. Virtualization
+allows applications to be isolated between VMs and provides a level of security as the
+information of one application cannot be freely accessed by another application.
+-->
+**虚拟化部署时代：**
+
+因此，虚拟化技术被引入了。虚拟化技术允许你在单个物理服务器的 CPU 上运行多台虚拟机（VM）。
+虚拟化能使应用程序在不同 VM 之间被彼此隔离，且能提供一定程度的安全性，
+因为一个应用程序的信息不能被另一应用程序随意访问。
+
+<!--
+Virtualization allows better utilization of resources in a physical server and allows
+better scalability because an application can be added or updated easily, reduces
+hardware costs, and much more. With virtualization you can present a set of physical
+resources as a cluster of disposable virtual machines.
+
+Each VM is a full machine running all the components, including its own operating
+system, on top of the virtualized hardware.
+-->
+虚拟化技术能够更好地利用物理服务器的资源，并且因为可轻松地添加或更新应用程序，
+而因此可以具有更高的可扩缩性，以及降低硬件成本等等的好处。
+通过虚拟化，你可以将一组物理资源呈现为可丢弃的虚拟机集群。
+
+每个 VM 是一台完整的计算机，在虚拟化硬件之上运行所有组件，包括其自己的操作系统。
+
+<!--
+**Container deployment era:**
+
+Containers are similar to VMs, but they have relaxed
+isolation properties to share the Operating System (OS) among the applications.
+Therefore, containers are considered lightweight. Similar to a VM, a container
+has its own filesystem, share of CPU, memory, process space, and more. As they
+are decoupled from the underlying infrastructure, they are portable across clouds
+and OS distributions.
+-->
+**容器部署时代：**
+
+容器类似于 VM，但是更宽松的隔离特性，使容器之间可以共享操作系统（OS）。
+因此，容器比起 VM 被认为是更轻量级的。且与 VM 类似，每个容器都具有自己的文件系统、CPU、内存、进程空间等。
+由于它们与基础架构分离，因此可以跨云和 OS 发行版本进行移植。
+
+<!--
+Containers have become popular because they provide extra benefits, such as:
+-->
+容器因具有许多优势而变得流行起来，例如：
+
+<!--
+* Agile application creation and deployment: increased ease and efficiency of
+  container image creation compared to VM image use.
+* Continuous development, integration, and deployment: provides for reliable
+  and frequent container image build and deployment with quick and efficient
+  rollbacks (due to image immutability).
+* Dev and Ops separation of concerns: create application container images at
+  build/release time rather than deployment time, thereby decoupling
+  applications from infrastructure.
+* Observability: not only surfaces OS-level information and metrics, but also
+  application health and other signals.
+-->
+* 敏捷应用程序的创建和部署：与使用 VM 镜像相比，提高了容器镜像创建的简便性和效率。
+* 持续开发、集成和部署：通过快速简单的回滚（由于镜像不可变性），
+  提供可靠且频繁的容器镜像构建和部署。
+* 关注开发与运维的分离：在构建、发布时创建应用程序容器镜像，而不是在部署时，
+  从而将应用程序与基础架构分离。
+* 可观察性：不仅可以显示 OS 级别的信息和指标，还可以显示应用程序的运行状况和其他指标信号。
+<!--
+* Environmental consistency across development, testing, and production: runs
+  the same on a laptop as it does in the cloud.
+* Cloud and OS distribution portability: runs on Ubuntu, RHEL, CoreOS, on-premises,
+  on major public clouds, and anywhere else.
+* Application-centric management: raises the level of abstraction from running an
+  OS on virtual hardware to running an application on an OS using logical resources.
+* Loosely coupled, distributed, elastic, liberated micro-services: applications are
+  broken into smaller, independent pieces and can be deployed and managed dynamically –
+  not a monolithic stack running on one big single-purpose machine.
+* Resource isolation: predictable application performance.
+* Resource utilization: high efficiency and density.
+-->
+* 跨开发、测试和生产的环境一致性：在笔记本计算机上也可以和在云中运行一样的应用程序。
+* 跨云和操作系统发行版本的可移植性：可在 Ubuntu、RHEL、CoreOS、本地、
+  Google Kubernetes Engine 和其他任何地方运行。
+* 以应用程序为中心的管理：提高抽象级别，从在虚拟硬件上运行 OS 到使用逻辑资源在 OS 上运行应用程序。
+* 松散耦合、分布式、弹性、解放的微服务：应用程序被分解成较小的独立部分，
+  并且可以动态部署和管理 - 而不是在一台大型单机上整体运行。
+* 资源隔离：可预测的应用程序性能。
+* 资源利用：高效率和高密度。
 
 ## {{% heading "whatsnext" %}}
 

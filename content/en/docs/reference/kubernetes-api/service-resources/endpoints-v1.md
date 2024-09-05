@@ -30,17 +30,17 @@ guide. You can file document formatting bugs against the
 
 Endpoints is a collection of endpoints that implement the actual service. Example:
 
-	 Name: "mysvc",
-	 Subsets: [
-	   {
-	     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-	     Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-	   },
-	   {
-	     Addresses: [{"ip": "10.10.3.3"}],
-	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-	   },
-	]
+   Name: "mysvc",
+   Subsets: [
+     {
+       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+       Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+     },
+     {
+       Addresses: [{"ip": "10.10.3.3"}],
+       Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+     },
+  ]
 
 <hr>
 
@@ -56,6 +56,8 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
 
 - **subsets** ([]EndpointSubset)
 
+  *Atomic: will be replaced during a merge*
+  
   The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.
 
   <a name="EndpointSubset"></a>
@@ -73,6 +75,8 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
 
   - **subsets.addresses** ([]EndpointAddress)
 
+    *Atomic: will be replaced during a merge*
+    
     IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
 
     <a name="EndpointAddress"></a>
@@ -96,6 +100,8 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
 
   - **subsets.notReadyAddresses** ([]EndpointAddress)
 
+    *Atomic: will be replaced during a merge*
+    
     IP addresses which offer the related ports but are not currently marked as ready because they have not yet finished starting, have recently failed a readiness check, or have recently failed a liveness check.
 
     <a name="EndpointAddress"></a>
@@ -119,6 +125,8 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
 
   - **subsets.ports** ([]EndpointPort)
 
+    *Atomic: will be replaced during a merge*
+    
     Port numbers available on the related IP addresses.
 
     <a name="EndpointPort"></a>
@@ -143,7 +151,7 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
       * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
       
       * Kubernetes-defined prefixed names:
-        * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+        * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
         * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
         * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
       

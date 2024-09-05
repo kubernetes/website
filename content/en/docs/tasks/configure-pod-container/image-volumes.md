@@ -26,7 +26,7 @@ mount content from OCI registries inside containers.
 
 ## Run a Pod that uses an image volume {#create-pod}
 
-An image volume for a pod is enabled setting the `volumes.[*].image` field of `.spec`
+An image volume for a pod is enabled by setting the `volumes.[*].image` field of `.spec`
 to a valid reference and consuming it in the `volumeMounts` of the container. For example:
 
 {{% code_sample file="pods/image-volumes.yaml" %}}
@@ -43,29 +43,29 @@ to a valid reference and consuming it in the `volumeMounts` of the container. Fo
    kubectl attach -it image-volume bash
    ```
 
-Run this command:
+1. Check the content of a file in the volume:
 
-```shell
-cat /volume/dir/file
-```
+   ```shell
+   cat /volume/dir/file
+   ```
 
-The output is similar to:
+   The output is similar to:
 
-```shell
-1
-```
+   ```none
+   1
+   ```
 
-Also run:
+   You can also check another file in a different path:
 
-```shell
-cat /volume/file
-```
+   ```shell
+   cat /volume/file
+   ```
 
-The output is similar to:
+   The output is similar to:
 
-```shell
-2
-```
+   ```none
+   2
+   ```
 
 ## Further reading
 

@@ -28,9 +28,6 @@ for information security.
 The version of Kubernetes that you need depends on which KMS API version
 you have selected.  Kubernetes recommends using KMS v2.
 
-- If you selected KMS API v2, you should use Kubernetes v{{< skew currentVersion >}}
-  (if you are running a different version of Kubernetes that also supports the v2 KMS
-  API, switch to the documentation for that version of Kubernetes).
 - If you selected KMS API v1 to support clusters prior to version v1.27
   or if you have a legacy KMS plugin that only supports KMS v1,
   any supported Kubernetes version will work.  This API is deprecated as of Kubernetes v1.28.
