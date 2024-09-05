@@ -1009,7 +1009,7 @@ WinDSR=true|false (ALPHA - 默认值为 false)<br/>
 WinOverlay=true|false (BETA - 默认值为 true)<br/>
 WindowsHostNetwork=true|false (ALPHA - 默认值为 true)<br/>
 已弃用: 应在 <code>--config</code> 所给的配置文件中进行设置。
-（<a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file">进一步了解</a>）
+（<a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file">进一步了解</a>）
 </td>
 </tr>
 
@@ -1319,7 +1319,7 @@ See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for
 大小可以指定为字节数（512）、1000 的倍数（1K）、1024 的倍数（2Ki）或它们的幂（3M、4G、5Mi、6Gi）。
 启用 <code>LoggingAlphaOptions</code> 特性门控来使用它。
 （已弃用：应通过 kubelet 的 <code>--config</code> 标志指定的配置文件来设置此参数。
-请参阅 https://kubernetes.io/docs/zh-cn/tasks/administer-cluster/kubelet-config-file/ 了解更多信息。）
+请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>
 </tr>
 
@@ -1340,8 +1340,7 @@ See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for
 默认是将单个流写入标准输出。
 启用 <code>LoggingAlphaOptions</code> 特性门控以使用它。
 （已弃用：应通过 kubelet 的 <code>--config</code> 标志指定的配置文件来设置此参数。
-请参阅 https://kubernetes.io/docs/zh-cn/tasks/administer-cluster/kubelet-config-file/ 了解更多信息。
-）
+请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>
 </tr>
 
