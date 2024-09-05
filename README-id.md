@@ -41,7 +41,6 @@ make container-serve
 
 Buka **browser** kamu ke http://localhost:1313 untuk melihat laman dokumentasi. Selama kamu melakukan penambahan konten, **Hugo** akan secara otomatis melakukan perubahan terhadap laman dokumentasi apabila **browser** melakukan proses **refresh**.
 
-
 ## Petunjuk untuk menjalankan website pada mesin lokal dengan menggunakan Hugo
 
 Kamu dapat melihat [dokumentasi resmi Hugo](https://gohugo.io/getting-started/installing/) untuk mengetahui langkah yang diperlukan untuk melakukan instalasi **Hugo**. Pastikan kamu melakukan instalasi versi **Hugo** sesuai dengan versi yang tersedia pada **environment variable** `HUGO_VERSION` pada **file**[`netlify.toml`](netlify.toml#L9).
