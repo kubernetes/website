@@ -10,8 +10,7 @@ aka:
 tags:
 - community
 ---
-যেসকল শর্তাবলীর জন্য ওপেন সোর্স প্রজেক্টে {{< glossary_tooltip text="অনুদানকারী" term_id="contributor" >}} 
-একটি লাইসেন্স অনুমোদন করা হয়।
+একজন {{< glossary_tooltip text="অবদানকারী" term_id="contributor" >}} তার অবদানের জন্য ওপেন সোর্স প্রকল্পকে যে সকল শর্তের অধীনে লাইসেন্স প্রদান করেন।
 
 <!--more--> 
 
