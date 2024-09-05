@@ -1,44 +1,44 @@
 ---
 api_metadata:
-  apiVersion: "resource.k8s.io/v1alpha2"
-  import: "k8s.io/api/resource/v1alpha2"
+  apiVersion: "resource.k8s.io/v1alpha3"
+  import: "k8s.io/api/resource/v1alpha3"
   kind: "PodSchedulingContext"
 content_type: "api_reference"
 description: "PodSchedulingContext 对象包含使用 \"WaitForFirstConsumer\" 分配模式的 ResourceClaims 来调度 Pod 所需的信息。"
-title: "PodSchedulingContext v1alpha2"
-weight: 14
+title: "PodSchedulingContext v1alpha3"
+weight: 15
 ---
 <!--
 api_metadata:
-  apiVersion: "resource.k8s.io/v1alpha2"
-  import: "k8s.io/api/resource/v1alpha2"
+  apiVersion: "resource.k8s.io/v1alpha3"
+  import: "k8s.io/api/resource/v1alpha3"
   kind: "PodSchedulingContext"
 content_type: "api_reference"
 description: "PodSchedulingContext objects hold information that is needed to schedule a Pod with ResourceClaims that use \"WaitForFirstConsumer\" allocation mode."
-title: "PodSchedulingContext v1alpha2"
-weight: 14
+title: "PodSchedulingContext v1alpha3"
+weight: 15
 auto_generated: true
 -->
 
-`apiVersion: resource.k8s.io/v1alpha2`
+`apiVersion: resource.k8s.io/v1alpha3`
 
-`import "k8s.io/api/resource/v1alpha2"`
+`import "k8s.io/api/resource/v1alpha3"`
 
 ## PodSchedulingContext {#PodSchedulingContext}
 
 <!--
 PodSchedulingContext objects hold information that is needed to schedule a Pod with ResourceClaims that use "WaitForFirstConsumer" allocation mode.
 
-This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+This is an alpha type and requires enabling the DRAControlPlaneController feature gate.
 -->
 PodSchedulingContext 对象包含调度某些 Pod 所需要的额外信息，这些 Pod 使用了
 “WaitForFirstConsumer” 分配模式的 ResourceClaim。
 
-本功能特性是 Alpha 级别的特性，需要启用 DynamicResourceAllocation 特性门控。
+本功能特性是 Alpha 级别的特性，需要启用 DRAControlPlaneController 特性门控。
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1alpha2
+- **apiVersion**: resource.k8s.io/v1alpha3
 
 - **kind**: PodSchedulingContext
 
@@ -50,19 +50,19 @@ PodSchedulingContext 对象包含调度某些 Pod 所需要的额外信息，这
   标准的对象元数据。
 
 <!--
-- **spec** (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContextSpec" >}}">PodSchedulingContextSpec</a>), required
+- **spec** (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContextSpec" >}}">PodSchedulingContextSpec</a>), required
 
   Spec describes where resources for the Pod are needed.
 
-- **status** (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContextStatus" >}}">PodSchedulingContextStatus</a>)
+- **status** (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContextStatus" >}}">PodSchedulingContextStatus</a>)
 
   Status describes where resources for the Pod can be allocated.
 -->
-- **spec** (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContextSpec" >}}">PodSchedulingContextSpec</a>)，必需
+- **spec** (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContextSpec" >}}">PodSchedulingContextSpec</a>)，必需
 
   spec 描述了 Pod 需要在哪里找到资源。
 
-- **status** (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContextStatus" >}}">PodSchedulingContextStatus</a>)
+- **status** (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContextStatus" >}}">PodSchedulingContextStatus</a>)
 
   status 描述了 Pod 的资源可以在哪里分配。
 
@@ -75,16 +75,18 @@ PodSchedulingContextSpec 描述了 Pod 所需要的资源在哪里。
 
 <hr>
 
+<!--
 - **potentialNodes** ([]string)
 
-  <!--
-  *Set: unique values will be kept during a merge*
+  *Atomic: will be replaced during a merge*
   
   PotentialNodes lists nodes where the Pod might be able to run.
   
   The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
-  -->
-  **集合：合并期间保留唯一值**
+-->
+- **potentialNodes** ([]string)
+
+  **原子：将在合并期间被替换**
 
   potentialNodes 列出可以运行 Pod 的节点。
 
@@ -140,14 +142,14 @@ PodSchedulingContextStatus 描述 Pod 的资源可以从哪里分配。
   - **resourceClaims.unsuitableNodes** ([]string)
 
     <!--
-    *Set: unique values will be kept during a merge*
+    *Atomic: will be replaced during a merge*
     
     UnsuitableNodes lists nodes that the ResourceClaim cannot be allocated for.
     
     The size of this field is limited to 128, the same as for PodSchedulingSpec.PotentialNodes. This may get increased in the future, but not reduced.
     -->
     
-    **集合：合并期间保留唯一值**
+    **原子：将在合并期间被替换**
 
     unsuitableNodes 列出 ResourceClaim 无法被分配的节点。
 
@@ -163,7 +165,7 @@ PodSchedulingContextList 是 Pod 调度对象的集合。
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1alpha2
+- **apiVersion**: resource.k8s.io/v1alpha3
 
 - **kind**: PodSchedulingContextList
 
@@ -175,11 +177,11 @@ PodSchedulingContextList 是 Pod 调度对象的集合。
   标准的列表元数据。
 
 <!--
-- **items** ([]<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>), required
 
   Items is the list of PodSchedulingContext objects.
 -->
-- **items** ([]<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>)，必需
+- **items** ([]<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>)，必需
 
   items 是 PodSchedulingContext 对象的列表。
 
@@ -198,7 +200,7 @@ PodSchedulingContextList 是 Pod 调度对象的集合。
 
 #### HTTP 请求
 
-GET /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts/{name}
+GET /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts/{name}
 
 <!--
 #### Parameters
@@ -234,7 +236,7 @@ GET /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts/
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
 
 401: Unauthorized
 
@@ -247,7 +249,7 @@ GET /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts/
 
 #### HTTP 请求
 
-GET /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts/{name}/status
+GET /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts/{name}/status
 
 <!--
 #### Parameters
@@ -283,7 +285,7 @@ GET /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts/
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
 
 401: Unauthorized
 
@@ -296,7 +298,7 @@ GET /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts/
 
 #### HTTP 请求
 
-GET /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts
+GET /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts
 
 <!--
 #### Parameters
@@ -404,7 +406,7 @@ GET /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContextList" >}}">PodSchedulingContextList</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContextList" >}}">PodSchedulingContextList</a>): OK
 
 401: Unauthorized
 
@@ -417,7 +419,7 @@ GET /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts
 
 #### HTTP 请求
 
-GET /apis/resource.k8s.io/v1alpha2/podschedulingcontexts
+GET /apis/resource.k8s.io/v1alpha3/podschedulingcontexts
 
 <!--
 #### Parameters
@@ -517,7 +519,7 @@ GET /apis/resource.k8s.io/v1alpha2/podschedulingcontexts
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContextList" >}}">PodSchedulingContextList</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContextList" >}}">PodSchedulingContextList</a>): OK
 
 401: Unauthorized
 
@@ -530,7 +532,7 @@ GET /apis/resource.k8s.io/v1alpha2/podschedulingcontexts
 
 #### HTTP 请求
 
-POST /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts
+POST /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts
 
 <!--
 #### Parameters
@@ -539,7 +541,7 @@ POST /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>, required
+- **body**: <a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>, required
 
 - **dryRun** (_in query_): string
 
@@ -563,7 +565,7 @@ POST /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>，必需
+- **body**: <a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>，必需
 
 - **dryRun**（**查询参数**）：string
 
@@ -586,11 +588,11 @@ POST /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>): Created
+201 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): Created
 
-202 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): Accepted
 
 401: Unauthorized
 
@@ -603,7 +605,7 @@ POST /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts
 
 #### HTTP 请求
 
-PUT /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts/{name}
+PUT /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts/{name}
 
 <!--
 #### Parameters
@@ -616,7 +618,7 @@ PUT /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts/
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>, required
+- **body**: <a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>, required
 
 - **dryRun** (_in query_): string
 
@@ -644,7 +646,7 @@ PUT /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts/
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>，必需
+- **body**: <a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>，必需
 
 - **dryRun**（**查询参数**）：string
 
@@ -667,9 +669,9 @@ PUT /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts/
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>): Created
+201 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): Created
 
 401: Unauthorized
 
@@ -682,7 +684,7 @@ PUT /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts/
 
 #### HTTP 请求
 
-PUT /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts/{name}/status
+PUT /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts/{name}/status
 
 <!--
 #### Parameters
@@ -695,7 +697,7 @@ PUT /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts/
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>, required
+- **body**: <a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>, required
 
 - **dryRun** (_in query_): string
 
@@ -723,7 +725,7 @@ PUT /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts/
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>，必需
+- **body**: <a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>，必需
 
 - **dryRun**（**查询参数**）：string
 
@@ -746,9 +748,9 @@ PUT /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts/
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>): Created
+201 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): Created
 
 401: Unauthorized
 
@@ -761,7 +763,7 @@ PUT /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts/
 
 #### HTTP 请求
 
-PATCH /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts/{name}
+PATCH /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts/{name}
 
 <!--
 #### Parameters
@@ -833,9 +835,9 @@ PATCH /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontext
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>): Created
+201 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): Created
 
 401: Unauthorized
 
@@ -848,7 +850,7 @@ PATCH /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontext
 
 #### HTTP 请求
 
-PATCH /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts/{name}/status
+PATCH /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts/{name}/status
 
 <!--
 #### Parameters
@@ -920,9 +922,9 @@ PATCH /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontext
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>): Created
+201 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): Created
 
 401: Unauthorized
 
@@ -935,7 +937,7 @@ PATCH /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontext
 
 #### HTTP 请求
 
-DELETE /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts/{name}
+DELETE /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts/{name}
 
 <!--
 #### Parameters
@@ -999,9 +1001,9 @@ DELETE /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontex
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
 
-202 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha2#PodSchedulingContext" >}}">PodSchedulingContext</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): Accepted
 
 401: Unauthorized
 
@@ -1014,7 +1016,7 @@ DELETE /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontex
 
 #### HTTP 请求
 
-DELETE /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/podschedulingcontexts
+DELETE /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts
 
 <!--
 #### Parameters
