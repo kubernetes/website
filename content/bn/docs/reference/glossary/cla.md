@@ -1,5 +1,5 @@
 ---
-title: সিএলএ (কন্ট্রিবিউটর লাইসেন্স চুক্তি)
+title: CLA (কন্ট্রিবিউটর লাইসেন্স চুক্তি)
 id: cla
 date: 2018-04-12
 full_link: https://github.com/kubernetes/community/blob/master/CLA.md
