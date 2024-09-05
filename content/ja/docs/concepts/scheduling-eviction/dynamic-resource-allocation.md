@@ -203,7 +203,7 @@ spec:
 
 また、アドミッション時に入力されるPodの`.spec.nodeName`フィールドを解除し、代わりにノードセレクターを使用することもできます。
 
-## 動的リソース割り当ての有効化
+## 動的リソース割り当ての有効化 {#enabling-dynamic-resource-allocation}
 
 動的リソース割り当ては*アルファ機能*であり、`DynamicResourceAllocation`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)と`resource.k8s.io/v1alpha3` {{< glossary_tooltip text="APIグループ" term_id="api-group" >}}が有効になっている場合のみ有効になります。
 詳細については、`--feature-gates`および`--runtime-config`[kube-apiserverパラメータ](/docs/reference/command-line-tools-reference/kube-apiserver/)を参照してください。
