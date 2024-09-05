@@ -206,7 +206,7 @@ spec:
 ## 動的リソース割り当ての有効化 {#enabling-dynamic-resource-allocation}
 
 動的リソース割り当ては*アルファ機能*であり、`DynamicResourceAllocation`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)と`resource.k8s.io/v1alpha3` {{< glossary_tooltip text="APIグループ" term_id="api-group" >}}が有効になっている場合のみ有効になります。
-詳細については、`--feature-gates`および`--runtime-config`[kube-apiserverパラメータ](/docs/reference/command-line-tools-reference/kube-apiserver/)を参照してください。
+詳細については、`--feature-gates`および`--runtime-config`[kube-apiserverパラメーター](/docs/reference/command-line-tools-reference/kube-apiserver/)を参照してください。
 kube-scheduler、kube-controller-manager、kubeletもフィーチャーゲートが必要です。
 
 リソースドライバーがコントロールプレーンコントローラーを使用する場合、`DynamicResourceAllocation`に加えて`DRAControlPlaneController`フィーチャーゲートを有効化する必要があります。
