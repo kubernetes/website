@@ -51,7 +51,7 @@ DeviceClass
   ResourceClaim内でデバイスを割り当てる各要求は、正確に1つのDeviceClassを参照する必要があります。
 
 PodSchedulingContext
-: ResourceClaimをPodに割り当てる必要があり、それらのResourceClaimがコントロールプレーンコントローラーを使用する場合に、Podのスケジューリングを調整するために、コントローラープレーンとリソースドライバーによって内部的に使用されます。
+: ResourceClaimをPodに割り当てる必要があり、それらのResourceClaimがコントロールプレーンコントローラーを使用する場合に、Podのスケジューリングを調整するために、コントロールプレーンとリソースドライバーによって内部的に使用されます。
 
 ResourceSlice
 : クラスター内で使用可能なリソースに関する情報を公開するために、構造化パラメーターとともに使用します。
