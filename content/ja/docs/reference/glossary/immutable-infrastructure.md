@@ -16,8 +16,6 @@ tags:
 
 {{< glossary_tooltip text="Containers" term_id="コンテナ">}}はイミュータブルインフラストラクチャの良い例です。
 コンテナーへの永続的な変更は新たなバージョンでコンテナを作成するかイメージからコンテナーを再作成する方法しかありません。
-{{< glossary_tooltip text="Containers" term_id="コンテナ" >}} are a good example of immutable infrastructure because persistent changes to containers
-can only be made by creating a new version of the container or recreating the existing container from its image.
 
 不正な変更を阻止または特定することでイミュータブルインフラストラクチャーはセキュリティリスクの特定と軽減を容易にします。
 このようなシステムの運用は管理者が想定できるため、より簡単になります。
