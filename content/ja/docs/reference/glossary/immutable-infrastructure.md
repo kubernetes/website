@@ -14,9 +14,9 @@ tags:
 
 イミュータビリティ(不変性)は、不正な変更を自動的な上書きやそもそも変更を許可しないシステムによって強制します。
 
-{{< glossary_tooltip text="Containers" term_id="コンテナー">}}はイミュータブルインフラストラクチャの良い例です。
-コンテナーへの永続的な変更は新たなバージョンでコンテナーを作成するかイメージからコンテナーを再作成する方法しかありません。
-{{< glossary_tooltip text="Containers" term_id="container" >}} are a good example of immutable infrastructure because persistent changes to containers
+{{< glossary_tooltip text="Containers" term_id="コンテナ">}}はイミュータブルインフラストラクチャの良い例です。
+コンテナーへの永続的な変更は新たなバージョンでコンテナを作成するかイメージからコンテナーを再作成する方法しかありません。
+{{< glossary_tooltip text="Containers" term_id="コンテナ" >}} are a good example of immutable infrastructure because persistent changes to containers
 can only be made by creating a new version of the container or recreating the existing container from its image.
 
 不正な変更を阻止または特定することでイミュータブルインフラストラクチャーはセキュリティリスクの特定と軽減を容易にします。
