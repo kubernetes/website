@@ -26,7 +26,7 @@ Kubernetes {{< glossary_tooltip text="RBAC" term_id="rbac" >}}は、クラスタ
 
 - 可能であれば、namespaceレベルで権限を割り当てます。
   特定のnamespace内でのみユーザーに権限を与えるため、ClusterRoleBindingsではなくRoleBindingsを使用します。
-- 可能であれば、ワイルドカード権限を提供しないでください。
+- 可能であれば、ワイルドカード権限を提供しないでください。特に全てのリソースへの権限を提供しないでください。
   Kubernetesは拡張可能なシステムであるため、ワイルドカードアクセスを提供すると、クラスター内に現存するすべてオブジェクトタイプだけでなく、将来作成されるすべてのオブジェクトタイプにも権限が与えられてしまいます。
 - 管理者は特に必要でない限り、`cluster-admin`アカウントを使用すべきではありません。
   権限の低いアカウントに[偽装権限](/ja/docs/reference/access-authn-authz/authentication/#user-impersonation)を提供することで、クラスターリソースの誤った変更を回避できます。
