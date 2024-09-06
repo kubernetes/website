@@ -139,7 +139,7 @@ CSR APIは、CSRに対する`create`権限と`certificatesigningrequests/approva
 
 ### Namespaceの変更
 
-Namespaceオブジェクトにおいて**patch**操作を実行できるユーザーは(そのアクセス権を持つロールへの名前空間付きのRoleBindingを通じて)namespaceのラベルを変更できます。
+Namespaceオブジェクトにおいて**patch**操作を実行できるユーザーは(そのアクセス権を持つロールへのnamespace付きのRoleBindingを通じて)namespaceのラベルを変更できます。
 Podのセキュリティアドミッションが使用されているクラスターでは、ユーザーは管理者が意図したより緩いポリシーをnamespaceに設定できる場合があります。
 NetworkPolicyが使用されているクラスターでは、ユーザーは管理者が意図していないサービスへのアクセスを間接的に許可するラベルを設定できる場合があります。
 
