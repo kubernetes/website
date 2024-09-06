@@ -31,7 +31,7 @@ Kubernetes {{< glossary_tooltip text="RBAC" term_id="rbac" >}}は、クラスタ
 - 管理者は特に必要でない限り、`cluster-admin`アカウントを使用すべきではありません。
   権限の低いアカウントに[偽装権限](/ja/docs/reference/access-authn-authz/authentication/#user-impersonation)を提供することで、クラスターリソースの誤った変更を回避できます。
 - `system:masters`グループにユーザーを追加しないでください。
-  このグループのメンバーであるユーザーは、すべてのRBAC権限をバイパスし、常に制限のないスーパーユーザーアクセスを持ち、RoleBindingsまたはClusterRoleBindingsを削除しても取り消すことができません。
+  このグループのメンバーであるユーザーは、すべてのRBAC権限をバイパスし、常に制限のないスーパーユーザーアクセス権限を持ちます。この権限はRoleBindingsまたはClusterRoleBindingsを削除しても取り消すことができません。
   余談ですが、クラスターが認可ウェブフックを使用している場合、このグループのメンバーシップもそのウェブフックをバイパスします(そのグループのメンバーであるユーザーからのリクエストがウェブフックに送信されることはありません)
 
 ### 特権トークンの配布を最小限に抑える
