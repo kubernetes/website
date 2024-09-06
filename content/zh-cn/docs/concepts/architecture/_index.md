@@ -147,6 +147,15 @@ Node components run on every node, maintaining running pods and providing the Ku
 
 {{< glossary_definition term_id="kubelet" length="all" >}}
 
+<!--
+### kube-proxy (optional) {#kube-proxy}
+
+If you use a [network plugin](#network-plugins) that implements packet forwarding for Services
+by itself, and providing equivalent behavior to kube-proxy, then you do not need to run
+kube-proxy on the nodes in your cluster.
+
+### Container runtime
+-->
 ### kube-proxy（可选）  {#kube-proxy}
 
 {{< glossary_definition term_id="kube-proxy" length="all" >}}
