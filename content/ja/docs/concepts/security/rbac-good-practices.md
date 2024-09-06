@@ -125,7 +125,7 @@ PersistentVolumeオブジェクトを作成する権限を許可するのは、�
 
 ### CSRと証明書の発行
 
-CSR APIは、CSRに対する`create`権限と`certificatesigningrequests/approval`に対する`update`権限を持つユーザーが、クラスターに対して認証するための新しいクライアント証明書を作成できるようにします。
+CSR APIは、CSRに対する`create`権限と`kubernetes.io/kube-apiserver-client`を署名者とする`certificatesigningrequests/approval`に対する`update`権限を持つユーザーが、クラスターに対して認証するための新しいクライアント証明書を作成できるようにします。
 これらのクライアント証明書は、Kubernetesシステムコンポーネントの重複を含む任意の名前を持つことができます。
 これにより、特権昇格が可能になります。
 
