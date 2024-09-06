@@ -145,7 +145,7 @@ NetworkPolicyが使用されているクラスターでは、ユーザーは管�
 
 ## Kubernetes RBAC - サービス拒否リスク {#denial-of-service-risks}
 
-### オブジェクト作成によるサービス拒否
+### オブジェクト作成によるサービス拒否 {#object-creation-dos}
 
 クラスター内のオブジェクトを作成する権限を持つユーザーは、[etcd used by Kubernetes is vulnerable to OOM attack](https://github.com/kubernetes/kubernetes/issues/107325)で議論されているように、オブジェクトのサイズや数に基づいてサービス拒否を引き起こすほど大きなオブジェクトを作成できる可能性があります。
 これは、半信頼または信頼されていないユーザーにシステムへの限定的なアクセスが許可されている場合、特にマルチテナントクラスターに関係する可能性があります。
