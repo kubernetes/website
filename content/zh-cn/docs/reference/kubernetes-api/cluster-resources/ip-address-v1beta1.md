@@ -1,28 +1,28 @@
 ---
 api_metadata:
-  apiVersion: "networking.k8s.io/v1alpha1"
-  import: "k8s.io/api/networking/v1alpha1"
+  apiVersion: "networking.k8s.io/v1beta1"
+  import: "k8s.io/api/networking/v1beta1"
   kind: "IPAddress"
 content_type: "api_reference"
 description: "IPAddress 表示单个 IP 族的单个 IP。"
-title: "IPAddress v1alpha1"
-weight: 5
+title: "IPAddress v1beta1"
+weight: 4
 ---
 <!--
 api_metadata:
-  apiVersion: "networking.k8s.io/v1alpha1"
-  import: "k8s.io/api/networking/v1alpha1"
+  apiVersion: "networking.k8s.io/v1beta1"
+  import: "k8s.io/api/networking/v1beta1"
   kind: "IPAddress"
 content_type: "api_reference"
 description: "IPAddress represents a single IP of a single IP Family."
-title: "IPAddress v1alpha1"
-weight: 5
+title: "IPAddress v1beta1"
+weight: 4
 auto_generated: true
 -->
 
-`apiVersion: networking.k8s.io/v1alpha1`
+`apiVersion: networking.k8s.io/v1beta1`
 
-`import "k8s.io/api/networking/v1alpha1"`
+`import "k8s.io/api/networking/v1beta1"`
 
 ## IPAddress {#IPAddress}
 
@@ -38,7 +38,7 @@ IPv4 地址由点分隔的四个十进制数字组成，前导零可省略；IPv
 
 <hr>
 
-- **apiVersion**: networking.k8s.io/v1alpha1
+- **apiVersion**: networking.k8s.io/v1beta1
 
 - **kind**: IPAddress
 
@@ -47,7 +47,7 @@ IPv4 地址由点分隔的四个十进制数字组成，前导零可省略；IPv
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddressSpec" >}}">IPAddressSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddressSpec" >}}">IPAddressSpec</a>)
 
   spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 -->
@@ -56,7 +56,7 @@ IPv4 地址由点分隔的四个十进制数字组成，前导零可省略；IPv
   标准的对象元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddressSpec" >}}">IPAddressSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddressSpec" >}}">IPAddressSpec</a>)
 
   spec 是 IPAddress 的预期状态。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -71,14 +71,14 @@ IPAddressSpec 描述 IP 地址中的属性。
 <hr>
 
 <!--
-- **parentRef** (ParentReference)
+- **parentRef** (ParentReference), required
 
   ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
 
   <a name="ParentReference"></a>
   *ParentReference describes a reference to a parent object.*
 -->
-- **parentRef** (ParentReference)
+- **parentRef** (ParentReference)，必需
 
   parentRef 引用挂接 IPAddress 的资源。IPAddress 必须引用一个父对象。
 
@@ -86,13 +86,27 @@ IPAddressSpec 描述 IP 地址中的属性。
   **ParentReference 描述指向父对象的引用。**
 
   <!--
+  - **parentRef.name** (string), required
+
+    Name is the name of the object being referenced.
+
+  - **parentRef.resource** (string), required
+
+    Resource is the resource of the object being referenced.
+  -->
+
+  - **parentRef.name** (string)，必需
+
+    name 是被引用的对象的名称。
+
+  - **parentRef.resource** (string)，必需
+
+    resource 是被引用的对象的资源。
+
+  <!--
   - **parentRef.group** (string)
 
     Group is the group of the object being referenced.
-
-  - **parentRef.name** (string)
-
-    Name is the name of the object being referenced.
 
   - **parentRef.namespace** (string)
 
@@ -103,31 +117,9 @@ IPAddressSpec 描述 IP 地址中的属性。
 
     group 是被引用的对象的组。
 
-  - **parentRef.name** (string)
-
-    name 是被引用的对象的名称。
-
   - **parentRef.namespace** (string)
 
     namespace 是被引用的对象的名字空间。
-
-  <!--
-  - **parentRef.resource** (string)
-
-    Resource is the resource of the object being referenced.
-
-  - **parentRef.uid** (string)
-
-    UID is the uid of the object being referenced.
-  -->
-
-  - **parentRef.resource** (string)
-
-    resource 是被引用的对象的资源。
-
-  - **parentRef.uid** (string)
-
-    uid 是被引用的对象的唯一标识符（uid）。
 
 ## IPAddressList {#IPAddressList}
 
@@ -138,7 +130,7 @@ IPAddressList 包含 IPAddress 的列表。
 
 <hr>
 
-- **apiVersion**: networking.k8s.io/v1alpha1
+- **apiVersion**: networking.k8s.io/v1beta1
 
 - **kind**: IPAddressList
 
@@ -147,7 +139,7 @@ IPAddressList 包含 IPAddress 的列表。
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>), required
+- **items** ([]<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>), required
 
   items is the list of IPAddresses.
 -->
@@ -156,7 +148,7 @@ IPAddressList 包含 IPAddress 的列表。
   标准的对象元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>)，必需
+- **items** ([]<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>)，必需
 
   items 是 IPAddresses 的列表。
 
@@ -175,7 +167,7 @@ IPAddressList 包含 IPAddress 的列表。
 
 #### HTTP 请求
 
-GET /apis/networking.k8s.io/v1alpha1/ipaddresses/{name}
+GET /apis/networking.k8s.io/v1beta1/ipaddresses/{name}
 
 <!--
 #### Parameters
@@ -201,7 +193,7 @@ GET /apis/networking.k8s.io/v1alpha1/ipaddresses/{name}
 -->
 #### 响应
 
-200 (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>): OK
+200 (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>): OK
 
 401: Unauthorized
 
@@ -214,7 +206,7 @@ GET /apis/networking.k8s.io/v1alpha1/ipaddresses/{name}
 
 #### HTTP 请求
 
-GET /apis/networking.k8s.io/v1alpha1/ipaddresses
+GET /apis/networking.k8s.io/v1beta1/ipaddresses
 
 <!--
 #### Parameters
@@ -281,7 +273,7 @@ GET /apis/networking.k8s.io/v1alpha1/ipaddresses
 -->
 #### 响应
 
-200 (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddressList" >}}">IPAddressList</a>): OK
+200 (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddressList" >}}">IPAddressList</a>): OK
 
 401: Unauthorized
 
@@ -294,11 +286,11 @@ GET /apis/networking.k8s.io/v1alpha1/ipaddresses
 
 #### HTTP 请求
 
-POST /apis/networking.k8s.io/v1alpha1/ipaddresses
+POST /apis/networking.k8s.io/v1beta1/ipaddresses
 
 <!--
 #### Parameters
-- **body**: <a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>, required
 - **dryRun** (*in query*): string
 - **fieldManager** (*in query*): string
 - **fieldValidation** (*in query*): string
@@ -306,7 +298,7 @@ POST /apis/networking.k8s.io/v1alpha1/ipaddresses
 -->
 #### 参数
 
-- **body**: <a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>，必需
+- **body**: <a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>，必需
 
 - **dryRun**（**查询参数**）：string
 
@@ -329,11 +321,11 @@ POST /apis/networking.k8s.io/v1alpha1/ipaddresses
 -->
 #### 响应
 
-200 (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>): OK
+200 (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>): OK
 
-201 (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>): Created
+201 (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>): Created
 
-202 (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>): Accepted
+202 (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>): Accepted
 
 401: Unauthorized
 
@@ -346,7 +338,7 @@ POST /apis/networking.k8s.io/v1alpha1/ipaddresses
 
 #### HTTP 请求
 
-PUT /apis/networking.k8s.io/v1alpha1/ipaddresses/{name}
+PUT /apis/networking.k8s.io/v1beta1/ipaddresses/{name}
 
 <!--
 #### Parameters
@@ -355,7 +347,7 @@ PUT /apis/networking.k8s.io/v1alpha1/ipaddresses/{name}
 
   name of the IPAddress
 
-- **body**: <a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>, required
 
 - **dryRun** (*in query*): string
 
@@ -371,7 +363,7 @@ PUT /apis/networking.k8s.io/v1alpha1/ipaddresses/{name}
 
   IPAddress 的名称。
 
-- **body**: <a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>，必需
+- **body**: <a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>，必需
 
 - **dryRun**（**查询参数**）：string
 
@@ -394,9 +386,9 @@ PUT /apis/networking.k8s.io/v1alpha1/ipaddresses/{name}
 -->
 #### 响应
 
-200 (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>): OK
+200 (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>): OK
 
-201 (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>): Created
+201 (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>): Created
 
 401: Unauthorized
 
@@ -409,7 +401,7 @@ PUT /apis/networking.k8s.io/v1alpha1/ipaddresses/{name}
 
 #### HTTP 请求
 
-PATCH /apis/networking.k8s.io/v1alpha1/ipaddresses/{name}
+PATCH /apis/networking.k8s.io/v1beta1/ipaddresses/{name}
 
 <!--
 #### Parameters
@@ -463,9 +455,9 @@ PATCH /apis/networking.k8s.io/v1alpha1/ipaddresses/{name}
 -->
 #### 响应
 
-200 (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>): OK
+200 (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>): OK
 
-201 (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>): Created
+201 (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>): Created
 
 401: Unauthorized
 
@@ -478,7 +470,7 @@ PATCH /apis/networking.k8s.io/v1alpha1/ipaddresses/{name}
 
 #### HTTP 请求
 
-DELETE /apis/networking.k8s.io/v1alpha1/ipaddresses/{name}
+DELETE /apis/networking.k8s.io/v1beta1/ipaddresses/{name}
 
 <!--
 #### Parameters
@@ -541,7 +533,7 @@ DELETE /apis/networking.k8s.io/v1alpha1/ipaddresses/{name}
 
 #### HTTP 请求
 
-DELETE /apis/networking.k8s.io/v1alpha1/ipaddresses
+DELETE /apis/networking.k8s.io/v1beta1/ipaddresses
 
 <!--
 #### Parameters
