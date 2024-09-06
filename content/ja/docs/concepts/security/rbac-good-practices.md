@@ -99,7 +99,7 @@ PersistentVolumeオブジェクトを作成する権限を許可するのは、�
 
 - ユーザー(クラスター運用者)が、作業にこのアクセスを必要としており、かつ信頼できる場合。
 - 自動プロビジョニングのために設定されたPersistentVolumeClaimに基づいてPersistentVolumeを作成するKubernetesコントロールコンポーネント。
-  これは通常、KubernetesプロバイダーまたはCSIドラインバーのインストール時に設定されます。
+  これは通常、KubernetesプロバイダーまたはCSIドライバーのインストール時に設定されます。
 
 永続ストレージへのアクセスが必要な場合、信頼できる管理者がPersistentVolumeを作成し、制約のあるユーザーはPersistentVolumeClaimを使用してそのストレージにアクセスするべきです。
 
