@@ -55,7 +55,7 @@ Kubernetesは、すべてのクラスターに必要とは限らないアクセ�
 - `system:unauthenticated`グループのバインディングを確認し、可能であれば削除します。
   これにより、ネットワークレベルでAPIサーバーに接続できるすべてのユーザーにアクセスが許可されます。
 - `automountServiceAccountToken: false`を設定することで、サービスアカウントトークンのデフォルトの自動マウントを回避します。
-  詳細については、[デフォルトのサービスアカウントトークンの使用](/ja/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)を参照してください。
+  詳細については、[デフォルトのサービスアカウントトークンの使用](/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)を参照してください。
   Podにこの値を設定すると、サービスアカウント設定が上書きされ、サービスアカウントトークンを必要とするワークロードは引き続きそれをマウントできます。
 
 ### 定期的なレビュー
