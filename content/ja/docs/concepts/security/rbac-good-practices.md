@@ -79,7 +79,7 @@ Kubernetes RBAC内には、ユーザーやサービスアカウントがクラ�
 ### ワークロードの作成
 
 Namespace内でワークロード(PodやPodを管理する[ワークロードリソース](/ja/docs/concepts/workloads/controllers/))を作成する権限により、そのnamespace内のSecret、ConfigMap、PersistentVolumeなどのPodにマウントできる他の多くのリソースへのアクセスが暗黙的に許可されます。
-さらに、Podは任意の[ServiceAccount](/ja/docs/reference/access-authn-authz/service-accounts-admin/)として実行できるため、ワークロードを作成する権限もまた、そのnamespace内の任意のサービスアカウントのAPIアクセスレベルを暗黙的に許可します。
+さらに、Podは任意の[ServiceAccount](/docs/reference/access-authn-authz/service-accounts-admin/)として実行できるため、ワークロードを作成する権限もまた、そのnamespace内の任意のサービスアカウントのAPIアクセスレベルを暗黙的に許可します。
 
 特権付きPodを実行できるユーザーは、そのアクセス権を使用してノードへのアクセスを取得し、さらに特権昇格させる可能性があります。
 適切に安全で隔離されたPodを作成できるユーザーや他のプリンシパルを完全に信頼していない場合は、**ベースライン**または**制限付き**Podセキュリティ標準を強制する必要があります。
