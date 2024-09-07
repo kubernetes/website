@@ -49,9 +49,9 @@ endpoints.
   The OpenAPI v3 is the preferred method for accessing OpenAPI as it
 provides
   a more comprehensive and accurate view of the API. It includes all the available
-  API paths, as well as all resources consumed and produced for every operations
-  on every endpoints. It also includes any extensibility components that a cluster supports.
-  The data is a complete specification and is significantly larger than that from the
+  API paths, as well as all resources consumed and produced for every operation
+  on every endpoint. It also includes any extensibility components that a cluster supports.
+  The data is a complete specification and is significantly larger than that of the
   Discovery API.
 
 ## Discovery API
@@ -65,8 +65,8 @@ the Discovery API. This includes the following for each resource:
 - Alternative names
 - Group, version, kind
 
-The API is available both aggregated and unaggregated form. The aggregated
-discovery serves two endpoints while the unaggregated discovery serves a
+The API is available in both aggregated and unaggregated form. The aggregated
+discovery serves two endpoints, while the unaggregated discovery serves a
 separate endpoint for each group version.
 
 ### Aggregated discovery
