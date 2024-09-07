@@ -34,14 +34,30 @@ other = "Cleaning up"
 [china_icp_license]
 other = "ICP license:"
 
-[community_events_calendar]
+[community_advice_guidelines]
+other = "You can also read about our {{ .link }}."
+
+[community_calendar_name]
 other = "Events Calendar"
+
+# Also cover [community_contribute] if localizing this site
+
+[community_contributor_site_name]
+other = "Contributor website"
+
+# Also cover [community_develop] if localizing this site
 
 [community_forum_name]
 other = "Forum"
 
 [community_github_name]
 other = "GitHub"
+
+# Also cover [community_introduce] if localizing this site
+
+# Also cover [community_join] if localizing this site
+
+# Also cover [community_learn] if localizing this site
 
 [community_server_fault_name]
 other = "Server Fault"
@@ -54,6 +70,8 @@ other = "Stack Overflow"
 
 [community_twitter_name]
 other = "X (formerly Twitter)"
+
+# Also cover [community_using] if localizing this site
 
 [community_x_name]
 other = "X (formerly Twitter)"
