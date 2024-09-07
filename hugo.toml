@@ -127,6 +127,7 @@ id = "UA-00000000-0"
 copyright_k8s = "The Kubernetes Authors"
 copyright_linux = "Copyright © 2020 The Linux Foundation ®."
 
+contribution_guidelines_url = "https://www.kubernetes.dev/docs/contributor-cheatsheet/"
 # privacy_policy = "https://policies.google.com/privacy"
 
 # First one is picked as the Twitter card image if not set on page.
@@ -243,53 +244,46 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 [params.links]
 # End user relevant links. These will show up on left side of footer and in the community page if you have one.
 [[params.links.user]]
-	name = "User mailing list"
-	url = "https://discuss.kubernetes.io"
-	icon = "fa fa-envelope"
-	desc = "Discussion and help from your fellow users"
-
-[[params.links.user]]
-	name = "X(Twitter)"
-	url = "https://twitter.com/kubernetesio"
-	icon = "fab fa-x-twitter"
-	desc = "Follow us on X (formerly Twitter) to get the latest news!"
-
-[[params.links.user]]
-	name = "Calendar"
-	url = "https://calendar.google.com/calendar/embed?src=calendar%40kubernetes.io"
-	icon = "fas fa-calendar-alt"
-	desc = "Google Calendar for Kubernetes"
-
-[[params.links.user]]
-	name = "Youtube"
+	name_key = "community_youtube_name"
 	url = "https://youtube.com/kubernetescommunity"
 	icon = "fab fa-youtube"
-	desc = "Youtube community videos"
+
+[[params.links.user]]
+	name_key = "community_forum_name"
+	url = "https://discuss.kubernetes.io"
+	icon = "fa fa-envelope"
+
+[[params.links.user]]
+	name_key = "community_server_fault_name"
+	url = "https://serverfault.com/questions/tagged/kubernetes"
+	icon = "fab fa-stack-overflow"
+
+[[params.links.user]]
+	name_key = "community_x_name"
+	url = "https://twitter.com/kubernetesio"
+	icon = "fab fa-twitter"
+# Replace with fa-x-twitter once available
 
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
-	name = "GitHub"
+	name_key = "community_contributor_site_name"
+	url = "https://k8s.dev/"
+	icon = "fas fa-laptop-code"
+
+[[params.links.developer]]
+	name_key = "community_github_name"
 	url = "https://github.com/kubernetes/kubernetes"
 	icon = "fab fa-github"
-	desc = "Development takes place here!"
 
 [[params.links.developer]]
-	name = "Slack"
+	name_key = "community_slack_name"
 	url = "https://slack.k8s.io"
 	icon = "fab fa-slack"
-	desc = "Chat with other project developers"
 
 [[params.links.developer]]
-	name = "Contribute"
-	url = "https://git.k8s.io/community/contributors/guide"
-	icon = "fas fa-edit"
-	desc = "Contribute to the Kubernetes website"
-
-[[params.links.developer]]
-	name = "Stack Overflow"
-	url = "https://stackoverflow.com/questions/tagged/kubernetes"
-	icon = "fab fa-stack-overflow"
-	desc = "Practical questions and curated answers"
+	name_key = "community_calendar_name"
+	url = "https://calendar.google.com/calendar/embed?src=calendar%40kubernetes.io"
+	icon = "fas fa-calendar-alt"
 
 # Language definitions.
 
