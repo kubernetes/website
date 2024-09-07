@@ -417,8 +417,6 @@ footer {
 }
 
 
-/* COMMUNITY */
-
 body.cid-community {
   main > * h1 {
     visibility: hidden;
@@ -1120,21 +1118,6 @@ body.cid-community #cncf-code-of-conduct h2:after {
   }
   body.cid-community .community-section#meetups p:last-of-type {
    margin-bottom: 6em; /* extra space for background */
-  }
-}
-
-@media only screen and (max-width: 767px) {
-  body.cid-community .community-section h2:before,
-  body.cid-community .community-section h2:after {
-    display: none;
-  }
-}
-
-body.cid-community {
-  section.linkbox {
-    max-width: clamp(50%, calc(100em + 2vw), 100vw);
-    margin-left: auto;
-    margin-right: auto;
   }
 }
 
