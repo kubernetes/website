@@ -85,7 +85,7 @@ CEL 表达式示例：
 | `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas`           | Validate that the three fields defining replicas are ordered appropriately        |
 | `'Available' in self.stateCounts`                                                  | Validate that an entry with the 'Available' key exists in a map                   |
 | `(self.list1.size() == 0) != (self.list2.size() == 0)`                             | Validate that one of two lists is non-empty, but not both                         |
-| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')`   | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
+| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$'))`  | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
 | `has(self.expired) && self.created + self.ttl < self.expired`                      | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration       |
 | `self.health.startsWith('ok')`                                                     | Validate a 'health' string field has the prefix 'ok'                              |
 | `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                               | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
@@ -93,8 +93,8 @@ CEL 表达式示例：
 | `self.metadata.name == 'singleton'`                                                | Validate that an object's name matches a specific value (making it a singleton)   |
 | `self.set1.all(e, !(e in self.set2))`                                              | Validate that two listSets are disjoint                                           |
 | `self.names.size() == self.details.size() && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet           |
-| `self.details.all(key, key.matches('^[a-zA-Z]*$')`                                 | Validate the keys of the 'details' map                                            |
-| `self.details.all(key, self.details[key].matches('^[a-zA-Z]*$')`                   | Validate the values of the 'details' map                                          |
+| `self.details.all(key, key.matches('^[a-zA-Z]*$'))`                                 | Validate the keys of the 'details' map                                            |
+| `self.details.all(key, self.details[key].matches('^[a-zA-Z]*$'))`                   | Validate the values of the 'details' map                                          |
 {{< /table >}}
 -->
 {{< table caption="CEL 表达式例子和每个表达式的用途" >}}
@@ -103,7 +103,7 @@ CEL 表达式示例：
 | `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas`  | 验证定义副本的三个字段被正确排序                                   |
 | `'Available' in self.stateCounts`                                         | 验证映射中存在主键为 'Available' 的条目                           |
 | `(self.list1.size() == 0) != (self.list2.size() == 0)`                    | 验证两个列表中有一个非空，但不是两个都非空                           |
-| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')` | 验证 listMap 条目的 'value' 字段，其主键字段 'name' 是 'MY_ENV' |
+| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$'))` | 验证 listMap 条目的 'value' 字段，其主键字段 'name' 是 'MY_ENV' |
 | `has(self.expired) && self.created + self.ttl < self.expired`             | 验证 'expired' 日期在 'create' 日期加上 'ttl' 持续时间之后         |
 | `self.health.startsWith('ok')`                                            | 验证 'health' 字符串字段具有前缀 'ok'                             |
 | `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                      | 验证具有键 'x' 的 listMap 项的 'foo' 属性小于 10                  |
@@ -111,8 +111,8 @@ CEL 表达式示例：
 | `self.metadata.name == 'singleton'`                                       | 验证某对象的名称与特定的值匹配（使其成为一个特例）                     |
 | `self.set1.all(e, !(e in self.set2))`                                     | 验证两个 listSet 不相交                                          |
 | `self.names.size() == self.details.size() && self.names.all(n, n in self.details)` | 验证 'details' 映射是由 'names' listSet 中的各项键入的 |
-| `self.details.all(key, key.matches('^[a-zA-Z]*$')`                                 | 验证 'details' 映射的主键                                     |
-| `self.details.all(key, self.details[key].matches('^[a-zA-Z]*$')`                   | 验证 'details' 映射的值                                       |
+| `self.details.all(key, key.matches('^[a-zA-Z]*$'))`                                 | 验证 'details' 映射的主键                                     |
+| `self.details.all(key, self.details[key].matches('^[a-zA-Z]*$'))`                   | 验证 'details' 映射的值                                       |
 {{< /table >}}
 
 <!--
@@ -257,15 +257,15 @@ Examples:
 {{< table caption="Examples of CEL expressions using regex library functions" >}}
 | CEL Expression                                              | Purpose                                                  |
 |-------------------------------------------------------------|----------------------------------------------------------|
-| `"abc 123".find('[0-9]*')`                                  | Find the first number in a string                        |
-| `"1, 2, 3, 4".findAll('[0-9]*').map(x, int(x)).sum() < 100` | Verify that the numbers in a string sum to less than 100 |
+| `"abc 123".find('[0-9]+')`                                  | Find the first number in a string                        |
+| `"1, 2, 3, 4".findAll('[0-9]+').map(x, int(x)).sum() < 100` | Verify that the numbers in a string sum to less than 100 |
 {{< /table >}}
 -->
 {{< table caption="使用正则表达式库函数的 CEL 表达式例子" >}}
 | CEL 表达式                                                   | 用途                       |
 |-------------------------------------------------------------|----------------------------|
-| `"abc 123".find('[0-9]*')`                                  | 找到字符串中的第一个数字       |
-| `"1, 2, 3, 4".findAll('[0-9]*').map(x, int(x)).sum() < 100` | 验证字符串中的数字之和小于 100 |
+| `"abc 123".find('[0-9]+')`                                  | 找到字符串中的第一个数字       |
+| `"1, 2, 3, 4".findAll('[0-9]+').map(x, int(x)).sum() < 100` | 验证字符串中的数字之和小于 100 |
 {{< /table >}}
 
 <!--
@@ -476,8 +476,8 @@ Examples:
 |---------------------------------------------------------------------------|-------------------------------------------------------|
 | `quantity("500000G").isInteger()`                                         | Test if conversion to integer would throw an error    |
 | `quantity("50k").asInteger()`                                             | Precise conversion to integer                         |
-| `quantity("9999999999999999999999999999999999999G").asApproximateFloat()` | Lossy conversion to float                              |
-| `quantity("50k").add("20k")`                                              | Add two quantities                                    |
+| `quantity("9999999999999999999999999999999999999G").asApproximateFloat()` | Lossy conversion to float                             |
+| `quantity("50k").add(quantity("20k"))`                                    | Add two quantities                                    |
 | `quantity("50k").sub(20000)`                                              | Subtract an integer from a quantity                   |
 | `quantity("50k").add(20).sub(quantity("100k")).sub(-50000)`               | Chain adding and subtracting integers and quantities  |
 | `quantity("200M").compareTo(quantity("0.2G"))`                            | Compare two quantities                                |
@@ -491,7 +491,7 @@ Examples:
 | `quantity("500000G").isInteger()`                                         | 测试转换为整数是否会报错 |
 | `quantity("50k").asInteger()`                                             | 精确转换为整数         |
 | `quantity("9999999999999999999999999999999999999G").asApproximateFloat()` | 松散转换为浮点数        |
-| `quantity("50k").add("20k")`                                              | 两个数量相加           |
+| `quantity("50k").add(quantity("20k"))`                                    | 两个数量相加           |
 | `quantity("50k").sub(20000)`                                              | 从数量中减去整数        |
 | `quantity("50k").add(20).sub(quantity("100k")).sub(-50000)`               | 链式相加和减去整数和数量 |
 | `quantity("200M").compareTo(quantity("0.2G"))`                            | 比较两个数量           |

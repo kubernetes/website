@@ -622,23 +622,6 @@ allowVolumeExpansion: true
 
 For more information about persistent volume claims, see [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
 
-### PersistentVolumeLabel {#persistentvolumelabel}
-
-{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
-
-**Type**: Mutating.
-
-This admission controller automatically attaches region or zone labels to PersistentVolumes
-as defined by the cloud provider (for example, Azure or GCP).
-It helps ensure the Pods and the PersistentVolumes mounted are in the same
-region and/or zone.
-If the admission controller doesn't support automatic labelling your PersistentVolumes, you
-may need to add the labels manually to prevent pods from mounting volumes from
-a different zone. PersistentVolumeLabel is **deprecated** as labeling for persistent volumes has been taken over by
-the {{< glossary_tooltip text="cloud-controller-manager" term_id="cloud-controller-manager" >}}.
-
-This admission controller is disabled by default.
-
 ### PodNodeSelector {#podnodeselector}
 
 {{< feature-state for_k8s_version="v1.5" state="alpha" >}}

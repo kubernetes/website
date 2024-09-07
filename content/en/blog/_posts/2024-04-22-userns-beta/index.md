@@ -64,8 +64,7 @@ signals to, etc. Furthermore, capabilities granted are only valid inside the
 user namespace and not on the host, limiting the impact a container
 escape can have.
 
-{{< figure src="/images/blog/2024-04-22-userns-beta/userns-ids.png" alt="Image showing IDs 0-65535 are reserved to the host, pods use higher IDs" title="User namespace IDs allocation" >}}
-
+{{< figure src="/images/blog/2024-04-22-userns-beta/image.svg" alt="Image showing IDs 0-65535 are reserved to the host, pods use higher IDs" title="User namespace IDs allocation" class="diagram-medium" >}}
 
 Without using a user namespace, a container running as root in the case of a
 container breakout has root privileges on the node. If some capabilities

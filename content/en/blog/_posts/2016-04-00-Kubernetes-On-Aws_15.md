@@ -3,11 +3,9 @@ title: " How to deploy secure, auditable, and reproducible Kubernetes clusters o
 date: 2016-04-15
 slug: kubernetes-on-aws_15
 url: /blog/2016/04/Kubernetes-On-Aws_15
+author: >
+  Colin Hom (CoreOS)
 ---
-
-_Today’s guest post is written by Colin Hom, infrastructure engineer at [CoreOS](https://coreos.com/), the company delivering Google’s Infrastructure for Everyone Else (#GIFEE) and running the world's containers securely on CoreOS Linux, Tectonic and Quay._  
-
-_Join us at [CoreOS Fest Berlin](https://coreos.com/fest/), the Open Source Distributed Systems Conference, and learn more about CoreOS and Kubernetes._  
 
 At CoreOS, we're all about deploying Kubernetes in production at scale. Today we are excited to share a tool that makes deploying Kubernetes on Amazon Web Services (AWS) a breeze. Kube-aws is a tool for deploying auditable and reproducible Kubernetes clusters to AWS, currently used by CoreOS to spin up production clusters.  
 
@@ -116,7 +114,3 @@ A [github issue](https://github.com/coreos/coreos-kubernetes/issues/340) tracks 
 
 
 _Learn more about Kubernetes and meet the community at [CoreOS Fest Berlin](https://coreos.com/fest/) - May 9-10, 2016_
-
-
-
-_– Colin Hom, infrastructure engineer, CoreOS_

@@ -168,7 +168,7 @@ simply as *nodes*).
 - *Configure nodes*: Nodes can be physical or virtual machines. If you want to
   create and manage your own nodes, you can install a supported operating system,
   then add and run the appropriate
-  [Node services](/docs/concepts/overview/components/#node-components). Consider:
+  [Node services](/docs/concepts/architecture/#node-components). Consider:
   - The demands of your workloads when you set up nodes by having appropriate memory, CPU, and disk speed and storage capacity available.
   - Whether generic computer systems will do or you have workloads that need GPU processors, Windows nodes, or VM isolation.
 - *Validate nodes*: See [Valid node setup](/docs/setup/best-practices/node-conformance/)

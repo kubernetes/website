@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node."
 title: "VolumeAttachment"
-weight: 7
+weight: 11
 auto_generated: true
 ---
 

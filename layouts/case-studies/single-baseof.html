@@ -3,10 +3,12 @@
 	<head>
 		{{ partial "head.html" . }}
 	</head>
-	<body>
+        <body{{ with .Page.Params.body_class }} class="{{ . }}"{{ end }}>
 		{{ partial "navbar.html" . }}
 		{{ partial "deprecation-warning.html" . }}
+		<div data-pagefind-body>
 		{{ block "main" . }}{{ end }}
+		</div>
 		{{ partialCached "footer.html" . }}
     {{ partialCached "scripts.html" . }}
 

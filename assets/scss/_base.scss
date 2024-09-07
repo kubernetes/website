@@ -94,7 +94,7 @@ footer {
 }
 
 main {
-  .button {
+  .button, .portal-button {
     display: inline-block;
     border-radius: 6px;
     padding: 6px 20px;
@@ -477,7 +477,8 @@ section#cncf {
 }
 
 // OCEAN NODES
-#oceanNodes {
+#oceanNodes, .td-home .k8s-overview {
+
   padding-top: $ocean-nodes-padding-Y;
   padding-bottom: $ocean-nodes-padding-Y;
 

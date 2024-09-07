@@ -1507,7 +1507,7 @@ Also, avoid specifying:</p>
 <li>Duplicates, the same NUMA node, and memory type, but with a different value.</li>
 <li>zero limits for any memory type.</li>
 <li>NUMAs nodes IDs that do not exist under the machine.</li>
-<li>memory types except for memory and hugepages-&lt;size&gt;</li>
+<li>memory types except for memory and hugepages-<!-- raw HTML omitted --></li>
 </ol>
 <p>Default: nil</p>
 </td>
@@ -1549,7 +1549,7 @@ Default: 0.9</p>
 </td>
 </tr>
 <tr><td><code>registerWithTaints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <p>registerWithTaints are an array of taints to add to a node object when
@@ -1608,6 +1608,17 @@ Examples:'unix:///path/to/runtime.sock', 'npipe:////./pipe/runtime'.
 If not specified, the value in containerRuntimeEndpoint is used.</p>
 </td>
 </tr>
+<tr><td><code>failCgroupV1</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>FailCgroupV1 prevents the kubelet from starting on hosts
+that use cgroup v1. By default, this is set to 'false', meaning
+the kubelet is allowed to start on cgroup v1 hosts unless this
+option is explicitly enabled.
+Default: false</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -1629,7 +1640,7 @@ It exists in the kubeletconfig API group because it is classified as a versioned
     
   
 <tr><td><code>source</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
 </td>
 <td>
    <p>source is the source that we are serializing.</p>
@@ -1675,9 +1686,9 @@ to provide credentials. Images are expected to contain the registry domain
 and URL path.</p>
 <p>Each entry in matchImages is a pattern which can optionally contain a port and a path.
 Globs can be used in the domain, but not in the port or the path. Globs are supported
-as subdomains like '&ast;.k8s.io' or 'k8s.&ast;.io', and top-level-domains such as 'k8s.&ast;'.
-Matching partial subdomains like 'app&ast;.k8s.io' is also supported. Each glob can only match
-a single subdomain segment, so '&ast;.io' does not match '&ast;.k8s.io'.</p>
+as subdomains like '<em>.k8s.io' or 'k8s.</em>.io', and top-level-domains such as 'k8s.<em>'.
+Matching partial subdomains like 'app</em>.k8s.io' is also supported. Each glob can only match
+a single subdomain segment, so *.io does not match *.k8s.io.</p>
 <p>A match exists between an image and a matchImage when all of the below are true:</p>
 <ul>
 <li>Both contain the same number of domain parts and each part matches.</li>
@@ -1687,9 +1698,9 @@ a single subdomain segment, so '&ast;.io' does not match '&ast;.k8s.io'.</p>
 <p>Example values of matchImages:</p>
 <ul>
 <li>123456789.dkr.ecr.us-east-1.amazonaws.com</li>
-<li>&ast;.azurecr.io</li>
+<li>*.azurecr.io</li>
 <li>gcr.io</li>
-<li>&ast;.&ast;.registry.io</li>
+<li><em>.</em>.registry.io</li>
 <li>registry.io:8080/path</li>
 </ul>
 </td>
@@ -1990,7 +2001,7 @@ and groups corresponding to the Organization in the client certificate.</p>
    <span class="text-muted">No description provided.</span></td>
 </tr>
 <tr><td><code>limits</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <span class="text-muted">No description provided.</span></td>

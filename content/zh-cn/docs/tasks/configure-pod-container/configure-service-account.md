@@ -105,6 +105,17 @@ in use.
 其访问能力取决于所使用的[鉴权插件和策略](/zh-cn/docs/reference/access-authn-authz/authorization/#authorization-modules)。
 
 <!--
+The API credentials are automatically revoked when the Pod is deleted, even if
+finalizers are in place. In particular, the API credentials are revoked 60 seconds
+beyond the `.metadata.deletionTimestamp` set on the Pod (the deletion timestamp
+is typically the time that the **delete** request was accepted plus the Pod's
+termination grace period).
+-->
+当 Pod 被删除时，即使设置了终结器，API 凭据也会自动失效。
+需要额外注意的是，API 凭据会在 Pod 上设置的 `.metadata.deletionTimestamp` 之后的 60 秒内失效
+（删除时间戳通常是 **delete** 请求被接受的时间加上 Pod 的终止宽限期）。
+
+<!--
 ### Opt out of API credential automounting
 
 If you don't want the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
@@ -301,23 +312,25 @@ token might be shorter, or could even be longer).
 你可以使用 `kubectl create token` 命令的 `--duration` 参数来请求特定的令牌有效期
 （实际签发的令牌的有效期可能会稍短一些，也可能会稍长一些）。
 
+{{< feature-state feature_gate_name="ServiceAccountTokenNodeBinding" >}}
+
 <!--
 When the `ServiceAccountTokenNodeBinding` and `ServiceAccountTokenNodeBindingValidation`
-features are enabled and the `KUBECTL_NODE_BOUND_TOKENS` environment variable is set to `true`,
-it is possible to create a service account token that is directly bound to a `Node`:
+features are enabled, and using `kubectl` v1.31 or later, it is possible to create a service 
+account token that is directly bound to a Node:
 -->
 当启用了 `ServiceAccountTokenNodeBinding` 和 `ServiceAccountTokenNodeBindingValidation`
-特性，并将 `KUBECTL_NODE_BOUND_TOKENS` 环境变量设置为 `true` 时，
+特性，并使用 v1.31 或更高版本的 `kubectl` 时，
 可以创建一个直接绑定到 `Node` 的服务账号令牌：
 
 ```shell
-KUBECTL_NODE_BOUND_TOKENS=true kubectl create token build-robot --bound-object-kind Node --bound-object-name node-001 --bound-object-uid 123...456
+kubectl create token build-robot --bound-object-kind Node --bound-object-name node-001 --bound-object-uid 123...456
 ```
 
 <!--
-The token will be valid until it expires or either the associated `Node` or service account are deleted.
+The token will be valid until it expires or either the associated Node or service account are deleted.
 -->
-此令牌将有效直至其过期或关联的 `Node` 或服务账户被删除。
+此令牌将有效直至其过期或关联的 Node 或服务账户被删除。
 
 {{< note >}}
 <!--
@@ -421,12 +434,12 @@ token:          ...
 
 {{< note >}}
 <!--
-The content of `token` is elided here.
+The content of `token` is omitted here.
 
 Take care not to display the contents of a `kubernetes.io/service-account-token`
 Secret somewhere that your terminal / computer screen could be seen by an onlooker.
 -->
-这里将 `token` 的内容抹去了。
+这里将 `token` 的内容省略了。
 
 注意在你的终端或者计算机屏幕可能被旁观者看到的场合，不要显示
 `kubernetes.io/service-account-token` 的内容。

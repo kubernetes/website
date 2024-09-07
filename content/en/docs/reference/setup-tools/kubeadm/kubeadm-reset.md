@@ -10,7 +10,7 @@ weight: 60
 Performs a best effort revert of changes made by `kubeadm init` or `kubeadm join`.
 
 <!-- body -->
-{{< include "generated/kubeadm_reset.md" >}}
+{{< include "generated/kubeadm_reset/_index.md" >}}
 
 ### Reset workflow {#reset-workflow}
 

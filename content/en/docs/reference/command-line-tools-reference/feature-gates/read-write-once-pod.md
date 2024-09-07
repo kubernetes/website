@@ -17,6 +17,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.29" 
+    toVersion: "1.30"
+
+removed: true
 ---
 Enables the usage of `ReadWriteOncePod` PersistentVolume
 access mode.

@@ -16,7 +16,6 @@ kubeadm：轻松创建一个安全的 Kubernetes 集群
     │ https://github.com/kubernetes/kubeadm/issues             │
     └──────────────────────────────────────────────────────────┘
 -->
-
 ```
 ┌──────────────────────────────────────────────────────────┐
 │ KUBEADM                                                  │
@@ -37,7 +36,8 @@ Example usage:
     (which controls the cluster), and one worker node
     (where your workloads, like Pods and Deployments run).
 -->
-创建一个有两台机器的集群，包含一个主节点（用来控制集群）和一个工作节点（运行你的 Pod 和 Deployment 等工作负载）。
+创建一个有两台机器的集群，包含一个控制平面节点（用来控制集群）
+和一个工作节点（运行你的 Pod 和 Deployment 等工作负载）。
 
 <!--
     ┌──────────────────────────────────────────────────────────┐
@@ -54,7 +54,6 @@ Example usage:
 
     You can then repeat the second step on as many other machines as you like.
 -->
-
 ```
 ┌──────────────────────────────────────────────────────────┐
 │ 在第一台机器上：                                            │
@@ -76,7 +75,7 @@ Example usage:
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -100,10 +99,12 @@ Example usage:
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
+The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
-<p>[实验] 指向 '真实' 宿主机根文件系统的路径。<p>
+到“真实”主机根文件系统的路径。设置此参数将导致 kubeadm 切换到所提供的路径。
+<p>
 </td>
 </tr>
 

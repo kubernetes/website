@@ -23,9 +23,9 @@ no_list: true
 * [API アクセスコントロール](/docs/reference/access-authn-authz/) - KubernetesがAPIアクセスをどのように制御するかの詳細です。
 * [よく知られたラベル、アノテーション、テイント](/docs/reference/labels-annotations-taints/)
 
-## 公式にサポートされているクライアントライブラリー
+## 公式にサポートされているクライアントライブラリ
 
-プログラミング言語からKubernetesのAPIを呼ぶためには、[クライアントライブラリー](/docs/reference/using-api/client-libraries/)を使うことができます。公式にサポートしているクライアントライブラリー:
+プログラミング言語からKubernetesのAPIを呼ぶためには、[クライアントライブラリ](/docs/reference/using-api/client-libraries/)を使うことができます。公式にサポートしているクライアントライブラリ:
 
 - [Kubernetes Go client library](https://github.com/kubernetes/client-go/)
 - [Kubernetes Python client library](https://github.com/kubernetes-client/python)

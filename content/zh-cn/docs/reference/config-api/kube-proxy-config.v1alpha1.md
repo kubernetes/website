@@ -27,8 +27,6 @@ auto_generated: true
 
 - [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
 
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
-
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
@@ -105,8 +103,6 @@ default value of 'application/json'. This field will control all connections to 
 -->
 **出现在：**
 
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
-
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
@@ -153,8 +149,6 @@ enableProfiling is true.
 **Appears in:**
 -->
 **出现在：**
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
@@ -298,16 +292,61 @@ KubeProxyConfiguration 包含用来配置 Kubernetes 代理服务器的所有配
    用来启用或者禁用测试性质的功能特性。</p>
 </td>
 </tr>
+<tr><td><code>clientConnection</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#ClientConnectionConfiguration"><code>ClientConnectionConfiguration</code></a>
+</td>
+<td>
+   <p>
+   <!--
+   clientConnection specifies the kubeconfig file and client connection settings for the proxy
+   server to use when communicating with the apiserver.
+   -->
+   <code>clientConnection</code> 指定了代理服务器与 apiserver 通信时应使用的 <code>kubeconfig</code> 文件和客户端连接设置。
+   </p>
+</td>
+</tr>
+<tr><td><code>logging</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#LoggingConfiguration"><code>LoggingConfiguration</code></a>
+</td>
+<td>
+   <p>
+   <!--
+   logging specifies the options of logging.
+   Refer to <a href="https://github.com/kubernetes/component-base/blob/master/logs/options.go">Logs Options</a>
+   for more information.
+   -->
+   <code>logging</code> 指定了日志记录的选项。有关更多信息，
+   请参阅<a href="https://github.com/kubernetes/component-base/blob/master/logs/options.go">日志选项</a>。
+   </p>
+</td>
+</tr>
+<tr><td><code>hostnameOverride</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>
+   <!--
+   hostnameOverride, if non-empty, will be used as the name of the Node that
+   kube-proxy is running on. If unset, the node name is assumed to be the same as
+   the node's hostname.
+   -->
+   <code>hostnameOverride</code> 如果不为空，将作为 kube-proxy 所运行节点的名称使用。
+   如果未设置，则默认使用节点的主机名作为节点名称。
+   </p>
+</td>
+</tr>
 <tr><td><code>bindAddress</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
 <td>
    <!--
-   bindAddress is the IP address for the proxy server to serve on (set to 0.0.0.0
-for all interfaces)
+   bindAddress can be used to override kube-proxy's idea of what its node's
+primary IP is. Note that the name is a historical artifact, and kube-proxy does
+not actually bind any sockets to this IP.
    -->
-   <p><code>bindAddress</code> 字段是代理服务器提供服务时所用 IP 地址（设置为 0.0.0.0
-时意味着在所有网络接口上提供服务）。</p>
+   <p><code>bindAddress</code> 可以用来指定 kube-proxy 所认为的节点主 IP。请注意，
+   虽然名称中有绑定的意思，但实际上 kube-proxy 并不会将任何套接字绑定到这个 IP 地址上。
+   </p>
 </td>
 </tr>
 <tr><td><code>healthzBindAddress</code> <B><!--[Required]-->[必需]</B><br/>
@@ -315,11 +354,13 @@ for all interfaces)
 </td>
 <td>
    <!--
-   healthzBindAddress is the IP address and port for the health check server to serve on,
-defaulting to 0.0.0.0:10256
+   healthzBindAddress is the IP address and port for the health check server to
+serve on, defaulting to &quot;0.0.0.0:10256&quot; (if bindAddress is unset or IPv4), or
+&quot;[::]:10256&quot; (if bindAddress is IPv6).
    -->
-   <p><code>healthzBindAddress</code> 字段是健康状态检查服务器提供服务时所使用的 IP 地址和端口，
-   默认设置为 '0.0.0.0:10256'。</p>
+   <p><code>healthzBindAddress</code> 是健康检查服务器的 IP 地址和端口，默认情况下，
+   如果 bindAddress 未设置或为 IPv4，则为 "0.0.0.0:10256"；如果 bindAddress 为 IPv6，
+   则为 "[::]:10256"。</p>
 </td>
 </tr>
 <tr><td><code>metricsBindAddress</code> <B><!--[Required]-->[必需]</B><br/>
@@ -327,11 +368,15 @@ defaulting to 0.0.0.0:10256
 </td>
 <td>
    <!--
-   metricsBindAddress is the IP address and port for the metrics server to serve on,
-defaulting to 127.0.0.1:10249 (set to 0.0.0.0 for all interfaces)
+   metricsBindAddress is the IP address and port for the metrics server to serve
+on, defaulting to &quot;127.0.0.1:10249&quot; (if bindAddress is unset or IPv4), or
+&quot;[::1]:10249&quot; (if bindAddress is IPv6). (Set to &quot;0.0.0.0:10249&quot; / &quot;[::]:10249&quot;
+to bind on all interfaces.)
    -->
-   <p><code>metricsBindAddress</code> 字段是指标服务器提供服务时所使用的 IP 地址和端口，
-   默认设置为 '127.0.0.1:10249'（设置为 0.0.0.0 意味着在所有接口上提供服务）。</p>
+   <p><code>metricsBindAddress</code> 是指标服务器监听的 IP 地址和端口，默认情况下，
+   如果 bindAddress 未设置或为 IPv4，则为 "127.0.0.1:10249"；
+   如果 bindAddress 为 IPv6，则为 "[::1]:10249"。
+  （设置为 "0.0.0.0:10249" / "[::]:10249" 以绑定到所有接口。）。</p>
 </td>
 </tr>
 <tr><td><code>bindAddressHardFail</code> <B><!--[Required]-->[必需]</B><br/>
@@ -339,7 +384,8 @@ defaulting to 127.0.0.1:10249 (set to 0.0.0.0 for all interfaces)
 </td>
 <td>
    <!--
-   bindAddressHardFail, if true, kube-proxy will treat failure to bind to a port as fatal and exit
+   bindAddressHardFail, if true, tells kube-proxy to treat failure to bind to a
+port as fatal and exit
    -->
    <p><code>bindAddressHardFail</code> 字段设置为 true 时，
    kube-proxy 将无法绑定到某端口这类问题视为致命错误并直接退出。</p>
@@ -357,41 +403,24 @@ Profiling handlers will be handled by metrics server.
    性能分析处理程序将由指标服务器执行。</p>
 </td>
 </tr>
-<tr><td><code>clusterCIDR</code> <B><!--[Required]-->[必需]</B><br/>
+<tr><td><code>showHiddenMetricsForVersion</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
 <td>
    <!--
-   clusterCIDR is the CIDR range of the pods in the cluster. It is used to
-bridge traffic coming from outside of the cluster. If not provided,
-no off-cluster bridging will be performed.
+   showHiddenMetricsForVersion is the version for which you want to show hidden metrics.
    -->
-   <p><code>clusterCIDR</code> 字段是集群中 Pod 所使用的 CIDR 范围。
-   这一地址范围用于对来自集群外的请求流量进行桥接。
-   如果未设置，则 kube-proxy 不会对非集群内部的流量做桥接。</p>
+   <p><code>showHiddenMetricsForVersion</code> 用于指定要显示隐藏指标的版本。</p>
 </td>
 </tr>
-<tr><td><code>hostnameOverride</code> <B><!--[Required]-->[必需]</B><br/>
-<code>string</code>
+<tr><td><code>mode</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#kubeproxy-config-k8s-io-v1alpha1-ProxyMode"><code>ProxyMode</code></a>
 </td>
 <td>
    <!--
-   hostnameOverride, if non-empty, will be used as the identity instead of the actual hostname.
+   mode specifies which proxy mode to use.
    -->
-   <p><code>hostnameOverride</code> 字段非空时，
-   所给的字符串（而不是实际的主机名）将被用作 kube-proxy 的标识。</p>
-</td>
-</tr>
-<tr><td><code>clientConnection</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="#ClientConnectionConfiguration"><code>ClientConnectionConfiguration</code></a>
-</td>
-<td>
-   <!--
-   clientConnection specifies the kubeconfig file and client connection settings for the proxy
-server to use when communicating with the apiserver.
-   -->
-   <p><code>clientConnection</code> 字段给出代理服务器与 API
-   服务器通信时要使用的 kubeconfig 文件和客户端链接设置。</p>
+   <p><code>mode</code> 指定要使用的代理模式。</p>
 </td>
 </tr>
 <tr><td><code>iptables</code> <B><!--[Required]-->[必需]</B><br/>
@@ -414,83 +443,14 @@ server to use when communicating with the apiserver.
    <p><code>ipvs</code> 字段中包含与 ipvs 相关的配置选项。</p>
 </td>
 </tr>
-<tr><td><code>oomScoreAdj</code> <B><!--[Required]-->[必需]</B><br/>
-<code>int32</code>
+<tr><td><code>nftables</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#kubeproxy-config-k8s-io-v1alpha1-KubeProxyNFTablesConfiguration"><code>KubeProxyNFTablesConfiguration</code></a>
 </td>
 <td>
    <!--
-   oomScoreAdj is the oom-score-adj value for kube-proxy process. Values must be within
-the range [-1000, 1000]
+   nftables contains nftables-related configuration options
    -->
-   <p><code>oomScoreAdj</code> 字段是为 kube-proxy 进程所设置的 oom-score-adj 值。
-   此设置值必须介于 [-1000, 1000] 范围内。</p>
-</td>
-</tr>
-<tr><td><code>mode</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="#kubeproxy-config-k8s-io-v1alpha1-ProxyMode"><code>ProxyMode</code></a>
-</td>
-<td>
-   <!--
-   mode specifies which proxy mode to use.
-   -->
-   <p><code>mode</code> 字段用来设置将使用的代理模式。</p>
-</td>
-</tr>
-<tr><td><code>portRange</code> <B><!--[Required]-->[必需]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <!--
-   portRange is the range of host ports (beginPort-endPort, inclusive) that may be consumed
-in order to proxy service traffic. If unspecified (0-0) then ports will be randomly chosen.
-   -->
-   <p><code>portRange</code> 字段是主机端口的范围，形式为 ‘beginPort-endPort’（包含边界），
-   用来设置代理服务所使用的端口。如果未指定（即 ‘0-0’），则代理服务会随机选择端口号。</p>
-</td>
-</tr>
-<tr><td><code>conntrack</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConntrackConfiguration"><code>KubeProxyConntrackConfiguration</code></a>
-</td>
-<td>
-   <!--
-   conntrack contains conntrack-related configuration options.
-   -->
-   <p><code>conntrack</code> 字段包含与 conntrack 相关的配置选项。</p>
-</td>
-</tr>
-<tr><td><code>configSyncPeriod</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <!--
-   configSyncPeriod is how often configuration from the apiserver is refreshed. Must be greater
-than 0.
-   -->
-   <p><code>configSyncPeriod</code> 字段是从 API 服务器刷新配置的频率。此值必须大于 0。</p>
-</td>
-</tr>
-<tr><td><code>nodePortAddresses</code> <B><!--[Required]-->[必需]</B><br/>
-<code>[]string</code>
-</td>
-<td>
-   <!--
-   nodePortAddresses is the --nodeport-addresses value for kube-proxy process. Values must be valid
-IP blocks. These values are as a parameter to select the interfaces where nodeport works.
-In case someone would like to expose a service on localhost for local visit and some other interfaces for
-particular purpose, a list of IP blocks would do that.
-If set it to "127.0.0.0/8", kube-proxy will only select the loopback interface for NodePort.
-If set it to a non-zero IP block, kube-proxy will filter that down to just the IPs that applied to the node.
-An empty string slice is meant to select all network interfaces.
-   -->
-   <p><code>nodePortAddresses</code> 字段是 kube-proxy 进程的
-   <code>--nodeport-addresses</code> 命令行参数设置。
-   此值必须是合法的 IP 段。所给的 IP 段会作为参数来选择 NodePort 类型服务所使用的接口。
-   如果有人希望将本地主机（Localhost）上的服务暴露给本地访问，
-   同时暴露在某些其他网络接口上以实现某种目标，可以使用 IP 段的列表。
-   如果此值被设置为 &quot;127.0.0.0/8&quot;，则 kube-proxy 将仅为 NodePort
-   服务选择本地回路（loopback）接口。
-   如果此值被设置为非零的 IP 段，则 kube-proxy 会对 IP 作过滤，仅使用适用于当前节点的 IP 地址。
-   空的字符串列表意味着选择所有网络接口。</p>
+   <p><code>nftables</code> 包含与 nftables 相关的配置选项。</p>
 </td>
 </tr>
 <tr><td><code>winkernel</code> <B><!--[Required]-->[必需]</B><br/>
@@ -500,18 +460,7 @@ An empty string slice is meant to select all network interfaces.
    <!--
    winkernel contains winkernel-related configuration options.
    -->
-   <p><code>winkernel</code> 字段包含与 winkernel 相关的配置选项。</p>
-</td>
-</tr>
-<tr><td><code>showHiddenMetricsForVersion</code> <B><!--[Required]-->[必需]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <!--
-   ShowHiddenMetricsForVersion is the version for which you want to show hidden metrics.
-   -->
-   <p><code>showHiddenMetricsForVersion</code> 字段给出的是一个 Kubernetes 版本号字符串，
-   用来设置你希望显示隐藏指标的版本。</p>
+   <p><code>winkernel</code> 包含与 winkernel 相关的配置选项。</p>
 </td>
 </tr>
 <tr><td><code>detectLocalMode</code> <B><!--[Required]-->[必需]</B><br/>
@@ -519,33 +468,94 @@ An empty string slice is meant to select all network interfaces.
 </td>
 <td>
    <!--
-   DetectLocalMode determines mode to use for detecting local traffic, defaults to LocalModeClusterCIDR
+   detectLocalMode determines mode to use for detecting local traffic, defaults to LocalModeClusterCIDR.
    -->
-   <p><code>detectLocalMode</code> 字段用来确定检测本地流量的方式，默认为 LocalModeClusterCIDR。</p>
+   <p><code>detectLocalMode</code> 确定用于检测本地流量的模式，默认为 LocalModeClusterCIDR。</p>
 </td>
 </tr>
 <tr><td><code>detectLocal</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#kubeproxy-config-k8s-io-v1alpha1-DetectLocalConfiguration"><code>DetectLocalConfiguration</code></a>
 </td>
 <td>
-<!--
-DetectLocal contains optional configuration settings related to DetectLocalMode.
--->
-   <p><code>detectLocal</code> 字段包含与 DetectLocalMode 相关的可选配置设置。</p>
+   <!--
+   detectLocal contains optional configuration settings related to DetectLocalMode.
+   -->
+   <p><code>detectLocal</code> 包含与 DetectLocalMode 相关的可选配置设置。</p>
 </td>
 </tr>
-
-<tr><td><code>logging</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="#LoggingConfiguration"><code>LoggingConfiguration</code></a>
+<tr><td><code>clusterCIDR</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
 </td>
 <td>
    <!--
-   logging specifies the options of logging.
-Refer to <a href="https://github.com/kubernetes/component-base/blob/master/logs/options.go">Logs Options</a>
-for more information.
+   clusterCIDR is the CIDR range of the pods in the cluster. (For dual-stack
+clusters, this can be a comma-separated dual-stack pair of CIDR ranges.). When
+DetectLocalMode is set to LocalModeClusterCIDR, kube-proxy will consider
+traffic to be local if its source IP is in this range. (Otherwise it is not
+used.)
    -->
-   <p><code>logging</code> 字段指定记录日志的选项。更多细节参阅
-   <a href="https://github.com/kubernetes/component-base/blob/master/logs/options.go">Logs Options</a>。</p>
+   <p><code>clusterCIDR</code> 指定集群中 Pod 的 CIDR 范围。
+  （对于双栈集群，这个参数可以是一个用逗号分隔的双栈 CIDR 范围对。）
+   当 DetectLocalMode 设置为 LocalModeClusterCIDR 时，如果流量的源 IP 在这个范围内，
+   kube-proxy 会将其视为本地流量。（否则不会使用此设置。）</p>
+</td>
+</tr>
+<tr><td><code>nodePortAddresses</code> <B><!--[Required]-->[必需]</B><br/>
+<code>[]string</code>
+</td>
+<td>
+   <!--
+   nodePortAddresses is a list of CIDR ranges that contain valid node IPs. If set,
+connections to NodePort services will only be accepted on node IPs in one of
+the indicated ranges. If unset, NodePort connections will be accepted on all
+local IPs.
+   -->
+   <p><code>nodePortAddresses</code> 是一个包含有效节点 IP 的 CIDR 范围列表。
+   如果设置了此项，只有来自这些范围内的节点 IP 的 NodePort 服务连接才会被接受。
+   如果未设置，将接受所有本地 IP 的 NodePort 连接。</p>
+</td>
+</tr>
+<tr><td><code>oomScoreAdj</code> <B><!--[Required]-->[必需]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   <!--
+   oomScoreAdj is the oom-score-adj value for kube-proxy process. Values must be within
+the range [-1000, 1000]
+   -->
+   <p><code>oomScoreAdj</code> 是 kube-proxy 进程的 OOM 评分调整值。该值必须在 [-1000, 1000] 范围内。</p>
+</td>
+</tr>
+<tr><td><code>conntrack</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConntrackConfiguration"><code>KubeProxyConntrackConfiguration</code></a>
+</td>
+<td>
+   <!--
+   conntrack contains conntrack-related configuration options.
+   -->
+   <p><code>conntrack</code> 包含与 conntrack 相关的配置选项。</p>
+</td>
+</tr>
+<tr><td><code>configSyncPeriod</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+<!--
+configSyncPeriod is how often configuration from the apiserver is refreshed. Must be greater
+than 0.
+-->
+   <p><code>configSyncPeriod</code> 指定从 apiserver 刷新配置的频率，必须大于 0。</p>
+</td>
+</tr>
+
+<tr><td><code>portRange</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <!--
+   portRange was previously used to configure the userspace proxy, but is now unused.
+   -->
+   <p><code>portRange</code> 之前用于配置用户空间代理，但现在已不再使用。</p>
 </td>
 </tr>
 
@@ -575,13 +585,13 @@ DetectLocalConfiguration 包含与 DetectLocalMode 选项相关的可选设置�
 </td>
 <td>
 <!--
-BridgeInterface is a string argument which represents a single bridge interface name.
-Kube-proxy considers traffic as local if originating from this given bridge.
-This argument should be set if DetectLocalMode is set to LocalModeBridgeInterface.
+bridgeInterface is a bridge interface name. When DetectLocalMode is set to
+LocalModeBridgeInterface, kube-proxy will consider traffic to be local if
+it originates from this bridge.
 -->
-   <p><code>bridgeInterface</code> 字段是一个表示单个桥接接口名称的字符串参数。
-   Kube-proxy 将来自这个给定桥接接口的流量视为本地流量。
-   如果 DetectLocalMode 设置为 LocalModeBridgeInterface，则应设置该参数。</p>
+   <p><code>bridgeInterface</code> 指的是桥接接口的名称。
+   当 DetectLocalMode 设置为 LocalModeBridgeInterface 时，
+   如果流量来自这个桥接接口，kube-proxy 会将其视为本地流量。</p>
 </td>
 </tr>
 <tr><td><code>interfaceNamePrefix</code> <B><!--[Required]-->[必需]</B><br/>
@@ -589,13 +599,13 @@ This argument should be set if DetectLocalMode is set to LocalModeBridgeInterfac
 </td>
 <td>
 <!--
-InterfaceNamePrefix is a string argument which represents a single interface prefix name.
-Kube-proxy considers traffic as local if originating from one or more interfaces which match
-the given prefix. This argument should be set if DetectLocalMode is set to LocalModeInterfaceNamePrefix.
+interfaceNamePrefix is an interface name prefix. When DetectLocalMode is set to
+LocalModeInterfaceNamePrefix, kube-proxy will consider traffic to be local if
+it originates from any interface whose name begins with this prefix.
 -->
-   <p><code>interfaceNamePrefix</code> 字段是一个表示单个接口前缀名称的字符串参数。
-   Kube-proxy 将来自一个或多个与给定前缀匹配的接口流量视为本地流量。
-   如果 DetectLocalMode 设置为 LocalModeInterfaceNamePrefix，则应设置该参数。</p>
+   <p><code>interfaceNamePrefix</code> 是接口名称的前缀。
+   当 DetectLocalMode 设置为 LocalModeInterfaceNamePrefix 时，
+   如果流量来自任何名称以该前缀开头的接口，kube-proxy 会将其视为本地流量。</p>
 </td>
 </tr>
 </tbody>
@@ -638,7 +648,7 @@ per CPU core (0 to leave the limit as-is and ignore min).
 <td>
    <!--
    min is the minimum value of connect-tracking records to allocate,
-regardless of conntrackMaxPerCore (set maxPerCore=0 to leave the limit as-is).
+regardless of maxPerCore (set maxPerCore=0 to leave the limit as-is).
    -->
    <p><code>min</code> 字段给出要分配的链接跟踪记录个数下限。
    设置此值时会忽略 maxPerCore 的值（将 maxPerCore 设置为 0 时不会调整上限值）。</p>
@@ -670,6 +680,46 @@ table. (e.g. '60s'). Must be greater than 0 to set.
    此设置值必须大于 0。</p>
 </td>
 </tr>
+<tr><td><code>tcpBeLiberal</code> <B><!--[Required]-->[必需]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <!--
+   tcpBeLiberal, if true, kube-proxy will configure conntrack
+to run in liberal mode for TCP connections and packets with
+out-of-window sequence numbers won't be marked INVALID.
+   -->
+   <p><code>tcpBeLiberal</code> 如果设置为 true，
+   kube-proxy 将配置 conntrack 以宽松模式运行，
+   对于 TCP 连接和超出窗口序列号的报文不会被标记为 INVALID。</p>
+</td>
+</tr>
+<tr><td><code>udpTimeout</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <!--
+   udpTimeout is how long an idle UDP conntrack entry in
+UNREPLIED state will remain in the conntrack table
+(e.g. '30s'). Must be greater than 0 to set.
+   -->
+   <p><code>udpTimeout</code> 指定处于 UNREPLIED 状态的空闲 UDP conntrack 条目在 conntrack 表中保留的时间
+  （例如 '30s'）。该值必须大于 0。</p>
+</td>
+</tr>
+<tr><td><code>udpStreamTimeout</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <!--
+   udpStreamTimeout is how long an idle UDP conntrack entry in
+ASSURED state will remain in the conntrack table
+(e.g. '300s'). Must be greater than 0 to set.
+   -->
+   <p><code>udpStreamTimeout</code> 指定处于 ASSURED 状态的空闲 UDP conntrack 条目在 conntrack 表中保留的时间
+  （例如 '300s'）。该值必须大于 0。</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -698,10 +748,10 @@ KubeProxyIPTablesConfiguration 包含用于 Kubernetes 代理服务器的、与 
 <td>
    <!--
    masqueradeBit is the bit of the iptables fwmark space to use for SNAT if using
-the pure iptables proxy mode. Values must be within the range [0, 31].
+the iptables or ipvs proxy mode. Values must be within the range [0, 31].
    -->
    <p><code>masqueradeBit</code> 字段是 iptables fwmark 空间中的具体一位，
-   用来在纯 iptables 代理模式下设置 SNAT。此值必须介于 [0, 31]（含边界值）。</p>
+   用来在 iptables 或 ipvs 代理模式下设置 SNAT。此值必须介于 [0, 31]（含边界值）。</p>
 </td>
 </tr>
 <tr><td><code>masqueradeAll</code> <B><!--[Required]-->[必需]</B><br/>
@@ -709,19 +759,25 @@ the pure iptables proxy mode. Values must be within the range [0, 31].
 </td>
 <td>
    <!--
-   masqueradeAll tells kube-proxy to SNAT everything if using the pure iptables proxy mode.
+   masqueradeAll tells kube-proxy to SNAT all traffic sent to Service cluster IPs,
+when using the iptables or ipvs proxy mode. This may be required with some CNI
+plugins.
    -->
    <p><code>masqueradeAll</code> 字段用来通知 kube-proxy
-   在使用纯 iptables 代理模式时对所有流量执行 SNAT 操作。</p>
+   在使用 iptables 或 ipvs 代理模式时对所有流量执行 SNAT 操作。这在某些 CNI 插件中可能是必需的。</p>
 </td>
 </tr>
 <tr><td><code>localhostNodePorts</code> <B><!--[Required]-->[必需]</B><br/>
 <code>bool</code>
 </td>
 <td>
-   <!--LocalhostNodePorts tells kube-proxy to allow service NodePorts to be accessed via
-localhost (iptables mode only)-->
-   <p>localhostNodePorts 告知 kube-proxy 允许通过 localhost 访问服务 NodePorts（仅 iptables 模式）</p>
+   <!--localhostNodePorts, if false, tells kube-proxy to disable the legacy behavior
+of allowing NodePort services to be accessed via localhost. (Applies only to
+iptables mode and IPv4; localhost NodePorts are never allowed with other proxy
+modes or with IPv6.)-->
+   <p><code>localhostNodePorts</code> 如果设置为 false，
+   则会通知 kube-proxy 禁用通过本地主机访问 NodePort 服务的旧有行为。
+  （仅适用于 iptables 模式和 IPv4；在其他代理模式或 IPv6 下，不允许本地主机访问 NodePort 服务。）</p>
 </td>
 </tr>
 <tr><td><code>syncPeriod</code> <B><!--[Required]-->[必需]</B><br/>
@@ -729,11 +785,12 @@ localhost (iptables mode only)-->
 </td>
 <td>
    <!--
-   syncPeriod is the period that iptables rules are refreshed (e.g. '5s', '1m',
-'2h22m').  Must be greater than 0.
+   syncPeriod is an interval (e.g. '5s', '1m', '2h22m') indicating how frequently
+various re-synchronizing and cleanup operations are performed. Must be greater
+than 0.
    -->
-   <p><code>syncPeriod</code> 字段给出 iptables
-   规则的刷新周期（例如，'5s'、'1m'、'2h22m'）。此值必须大于 0。</p>
+   <p><code>syncPeriod</code> 是时间间隔（例如 '5s'、'1m'、'2h22m'），
+   指示各种重新同步和清理操作的执行频率。该值必须大于 0。</p>
 </td>
 </tr>
 <tr><td><code>minSyncPeriod</code> <B><!--[Required]-->[必需]</B><br/>
@@ -741,10 +798,12 @@ localhost (iptables mode only)-->
 </td>
 <td>
    <!--
-   minSyncPeriod is the minimum period that iptables rules are refreshed (e.g. '5s', '1m', '2h22m').
+   minSyncPeriod is the minimum period between iptables rule resyncs (e.g. '5s',
+'1m', '2h22m'). A value of 0 means every Service or EndpointSlice change will
+result in an immediate iptables resync.
    -->
-   <p><code>minSyncPeriod</code> 字段给出 iptables
-   规则被刷新的最小周期（例如，'5s'、'1m'、'2h22m'）。</p>
+   <p><code>minSyncPeriod</code> 是 iptables 规则重新同步的最小时间间隔（例如 '5s'、'1m'、'2h22m'）。
+   如果值为 0，表示每次服务或 EndpointSlice 发生变化时都会立即重新同步 iptables。</p>
 </td>
 </tr>
 </tbody>
@@ -774,11 +833,12 @@ KubeProxyIPVSConfiguration 包含用于 Kubernetes 代理服务器的、与 ipvs
 </td>
 <td>
    <!--
-   syncPeriod is the period that ipvs rules are refreshed (e.g. '5s', '1m',
-'2h22m').  Must be greater than 0.
+   syncPeriod is an interval (e.g. '5s', '1m', '2h22m') indicating how frequently
+various re-synchronizing and cleanup operations are performed. Must be greater
+than 0.
    -->
-   <p><code>syncPeriod</code> 字段给出 ipvs 规则的刷新周期（例如，'5s'、'1m'、'2h22m'）。
-   此值必须大于 0。</p>
+   <p><code>syncPeriod</code> 是各种重新同步和清理操作执行频率的时间间隔（例如 '5s', '1m', '2h22m'）。
+   该值必须大于 0</p>
 </td>
 </tr>
 <tr><td><code>minSyncPeriod</code> <B><!--[Required]-->[必需]</B><br/>
@@ -786,9 +846,12 @@ KubeProxyIPVSConfiguration 包含用于 Kubernetes 代理服务器的、与 ipvs
 </td>
 <td>
    <!--
-   minSyncPeriod is the minimum period that ipvs rules are refreshed (e.g. '5s', '1m', '2h22m').
+   mminSyncPeriod is the minimum period between IPVS rule resyncs (e.g. '5s', '1m',
+'2h22m'). A value of 0 means every Service or EndpointSlice change will result
+in an immediate IPVS resync.
    -->
-   <p><code>minSyncPeriod</code> 字段给出 ipvs 规则被刷新的最小周期（例如，'5s'、'1m'、'2h22m'）。</p>
+   <p><code>minSyncPeriod</code> 是 IPVS 规则重新同步之间的最小时间间隔（例如 '5s', '1m', '2h22m'）。
+   值为 0 表示每次服务或 EndpointSlice 发生变化时都会立即触发 IPVS 重新同步。</p>
 </td>
 </tr>
 <tr><td><code>scheduler</code> <B><!--[Required]-->[必需]</B><br/>
@@ -796,9 +859,9 @@ KubeProxyIPVSConfiguration 包含用于 Kubernetes 代理服务器的、与 ipvs
 </td>
 <td>
    <!--
-   ipvs scheduler
+   scheduler is the IPVS scheduler to use
    -->
-   <p>IPVS 调度器。</p>
+   <p><code>scheduler</code> 是用于 IPVS 的调度器。</p>
 </td>
 </tr>
 <tr><td><code>excludeCIDRs</code> <B><!--[Required]-->[必需]</B><br/>
@@ -806,7 +869,7 @@ KubeProxyIPVSConfiguration 包含用于 Kubernetes 代理服务器的、与 ipvs
 </td>
 <td>
    <!--
-   excludeCIDRs is a list of CIDR's which the ipvs proxier should not touch
+   excludeCIDRs is a list of CIDRs which the ipvs proxier should not touch
 when cleaning up ipvs services.
    -->
    <p><code>excludeCIDRs</code> 字段取值为一个 CIDR 列表，ipvs 代理程序在清理 IPVS 服务时不应触碰这些 IP 地址。</p>
@@ -817,7 +880,7 @@ when cleaning up ipvs services.
 </td>
 <td>
    <!--
-   strict ARP configure arp_ignore and arp_announce to avoid answering ARP queries
+   strictARP configures arp_ignore and arp_announce to avoid answering ARP queries
 from kube-ipvs0 interface
    -->
    <p><code>strictARP</code> 字段用来配置 arp_ignore 和 arp_announce，以避免（错误地）响应来自 kube-ipvs0 接口的
@@ -863,6 +926,78 @@ The default value is 0, which preserves the current timeout value on the system.
 </tbody>
 </table>
 
+## `KubeProxyNFTablesConfiguration`     {#kubeproxy-config-k8s-io-v1alpha1-KubeProxyNFTablesConfiguration}
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
+
+<!--
+KubeProxyNFTablesConfiguration contains nftables-related configuration
++details for the Kubernetes proxy server.
+-->
+<p>KubeProxyNFTablesConfiguration 包含 Kubernetes 代理服务器的 nftables 相关配置详细信息。</p>
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+
+<tr><td><code>masqueradeBit</code> <B><!--[Required]-->[必需]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   <!--
+   masqueradeBit is the bit of the iptables fwmark space to use for SNAT if using
+the nftables proxy mode. Values must be within the range [0, 31].
+   -->
+   <p><code>masqueradeBit</code> 字段是 iptables fwmark 空间中的具体一位，
+   用来在 nftables 代理模式下设置 SNAT。此值必须介于 [0, 31]（含边界值）。</p>
+</td>
+</tr>
+<tr><td><code>masqueradeAll</code> <B><!--[Required]-->[必需]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <!--
+   masqueradeAll tells kube-proxy to SNAT all traffic sent to Service cluster IPs,
+when using the nftables mode. This may be required with some CNI plugins.
+   -->
+   <p><code>masqueradeAll</code> 通知 kube-proxy 在使用 nftables 模式时，
+   对发送到服务集群 IP 的所有流量执行 SNAT。这在某些 CNI 插件中可能是必需的。</p>
+</td>
+</tr>
+<tr><td><code>syncPeriod</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <!--
+   syncPeriod is an interval (e.g. '5s', '1m', '2h22m') indicating how frequently
+various re-synchronizing and cleanup operations are performed. Must be greater
+than 0.
+   -->
+   <p><code>syncPeriod</code> 表示各种重新同步和清理操作执行频率的时间间隔（例如 '5s', '1m', '2h22m'）。
+   该值必须大于 0。</p>
+</td>
+</tr>
+<tr><td><code>minSyncPeriod</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <!--
+   minSyncPeriod is the minimum period between iptables rule resyncs (e.g. '5s',
+'1m', '2h22m'). A value of 0 means every Service or EndpointSlice change will
+result in an immediate iptables resync.
+   -->
+   <p><code>minSyncPeriod</code>是 iptables 规则重新同步之间的最小时间间隔（例如 '5s', '1m', '2h22m'）。
+   值为 0 时，表示每次服务或 EndpointSlice 发生变化时都会立即重新同步 iptables。</p>
+</td>
+</tr>
+</tbody>
+</table>
+
 ## `KubeProxyWinkernelConfiguration`     {#kubeproxy-config-k8s-io-v1alpha1-KubeProxyWinkernelConfiguration}
     
 <!--
@@ -898,7 +1033,7 @@ to create endpoints and policies
 </td>
 <td>
   <!--
-   sourceVip is the IP address of the source VIP endoint used for
+   sourceVip is the IP address of the source VIP endpoint used for
 NAT when loadbalancing
    -->
    <p><code>sourceVip</code> 字段是执行负载均衡时进行 NAT 转换所使用的源端 VIP 端点 IP 地址。</p>
@@ -920,7 +1055,7 @@ with DSR
 </td>
 <td>
 <!--
-RootHnsEndpointName is the name of hnsendpoint that is attached to
+rootHnsEndpointName is the name of hnsendpoint that is attached to
 l2bridge for root network namespace
 -->
    <p><code>rootHnsEndpointName</code>
@@ -932,7 +1067,7 @@ l2bridge for root network namespace
 </td>
 <td>
 <!--
-ForwardHealthCheckVip forwards service VIP for health check port on
+forwardHealthCheckVip forwards service VIP for health check port on
 Windows
 -->
    <p><code>forwardHealthCheckVip</code>

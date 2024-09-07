@@ -132,11 +132,11 @@ Kubernetes. In the future, this list may be expanded.
 
 In Kubernetes v{{< skew currentVersion >}}, the value of `.spec.os.name` does not affect
 how the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
-picks a Pod to run a node. In any cluster where there is more than one operating system for
+picks a node for the Pod to run on. In any cluster where there is more than one operating system for
 running nodes, you should set the
 [kubernetes.io/os](/docs/reference/labels-annotations-taints/#kubernetes-io-os)
 label correctly on each node, and define pods with a `nodeSelector` based on the operating system
-label, the kube-scheduler assigns your pod to a node based on other criteria and may or may not
+label. The kube-scheduler assigns your pod to a node based on other criteria and may or may not
 succeed in picking a suitable node placement where the node OS is right for the containers in that Pod.
 The [Pod security standards](/docs/concepts/security/pod-security-standards/) also use this
 field to avoid enforcing policies that aren't relevant to the operating system.
@@ -316,7 +316,7 @@ Pods, the kubelet directly supervises each static Pod (and restarts it if it fai
 
 Static Pods are always bound to one {{< glossary_tooltip term_id="kubelet" >}} on a specific node.
 The main use for static Pods is to run a self-hosted control plane: in other words,
-using the kubelet to supervise the individual [control plane components](/docs/concepts/overview/components/#control-plane-components).
+using the kubelet to supervise the individual [control plane components](/docs/concepts/architecture/#control-plane-components).
 
 The kubelet automatically tries to create a {{< glossary_tooltip text="mirror Pod" term_id="mirror-pod" >}}
 on the Kubernetes API server for each static Pod.

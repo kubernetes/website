@@ -51,7 +51,7 @@ Example CEL expressions:
 | `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas`           | Validate that the three fields defining replicas are ordered appropriately        |
 | `'Available' in self.stateCounts`                                                  | Validate that an entry with the 'Available' key exists in a map                   |
 | `(self.list1.size() == 0) != (self.list2.size() == 0)`                             | Validate that one of two lists is non-empty, but not both                         |
-| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')`   | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
+| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$'))`  | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
 | `has(self.expired) && self.created + self.ttl < self.expired`                      | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration       |
 | `self.health.startsWith('ok')`                                                     | Validate a 'health' string field has the prefix 'ok'                              |
 | `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                               | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
@@ -59,8 +59,8 @@ Example CEL expressions:
 | `self.metadata.name == 'singleton'`                                                | Validate that an object's name matches a specific value (making it a singleton)   |
 | `self.set1.all(e, !(e in self.set2))`                                              | Validate that two listSets are disjoint                                           |
 | `self.names.size() == self.details.size() && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet           |
-| `self.details.all(key, key.matches('^[a-zA-Z]*$')`                                 | Validate the keys of the 'details' map                                            |
-| `self.details.all(key, self.details[key].matches('^[a-zA-Z]*$')`                   | Validate the values of the 'details' map                                          |
+| `self.details.all(key, key.matches('^[a-zA-Z]*$'))`                                | Validate the keys of the 'details' map                                            |
+| `self.details.all(key, self.details[key].matches('^[a-zA-Z]*$'))`                  | Validate the values of the 'details' map                                          |
 {{< /table >}}
 
 ## CEL options, language features, and libraries
@@ -133,8 +133,8 @@ Examples:
 {{< table caption="Examples of CEL expressions using regex library functions" >}}
 | CEL Expression                                              | Purpose                                                  |
 |-------------------------------------------------------------|----------------------------------------------------------|
-| `"abc 123".find('[0-9]*')`                                  | Find the first number in a string                        |
-| `"1, 2, 3, 4".findAll('[0-9]*').map(x, int(x)).sum() < 100` | Verify that the numbers in a string sum to less than 100 |
+| `"abc 123".find('[0-9]+')`                                  | Find the first number in a string                        |
+| `"1, 2, 3, 4".findAll('[0-9]+').map(x, int(x)).sum() < 100` | Verify that the numbers in a string sum to less than 100 |
 {{< /table >}}
 
 See the [Kubernetes regex library](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#Regex)
@@ -200,7 +200,19 @@ To perform an authorization check for a service account:
 | `authorizer.serviceAccount('default', 'myserviceaccount').resource('deployments').check('delete').allowed()` | Checks if the service account is authorized to delete deployments. |
 {{< /table >}}
 
+{{< feature-state state="alpha" for_k8s_version="v1.31" >}}
+
+With the alpha `AuthorizeWithSelectors` feature enabled, field and label selectors can be added to authorization checks.
+
+{{< table caption="Examples of CEL expressions using selector authorization functions" >}}
+| CEL Expression                                                                                               | Purpose                                        |
+|--------------------------------------------------------------------------------------------------------------|------------------------------------------------|
+| `authorizer.group('').resource('pods').fieldSelector('spec.nodeName=mynode').check('list').allowed()`        | Returns true if the principal (user or service account) is allowed to list pods with the field selector `spec.nodeName=mynode`. |
+| `authorizer.group('').resource('pods').labelSelector('example.com/mylabel=myvalue').check('list').allowed()` | Returns true if the principal (user or service account) is allowed to list pods with the label selector `example.com/mylabel=myvalue`. |
+{{< /table >}}
+
 See the [Kubernetes Authz library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)
+and [Kubernetes AuthzSelectors library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#AuthzSelectors)
 godoc for more information.
 
 ### Kubernetes quantity library
@@ -239,7 +251,7 @@ Examples:
 | `quantity("500000G").isInteger()`                                         | Test if conversion to integer would throw an error    |
 | `quantity("50k").asInteger()`                                             | Precise conversion to integer                         |
 | `quantity("9999999999999999999999999999999999999G").asApproximateFloat()` | Lossy conversion to float                              |
-| `quantity("50k").add("20k")`                                              | Add two quantities                                    |
+| `quantity("50k").add(quantity("20k"))`                                   | Add two quantities                                    |
 | `quantity("50k").sub(20000)`                                              | Subtract an integer from a quantity                   |
 | `quantity("50k").add(20).sub(quantity("100k")).sub(-50000)`               | Chain adding and subtracting integers and quantities  |
 | `quantity("200M").compareTo(quantity("0.2G"))`                            | Compare two quantities                                |
