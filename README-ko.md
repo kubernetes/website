@@ -186,7 +186,6 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 * 손석호 ([GitHub - @seokho-son](https://github.com/seokho-son))
 * [슬랙 채널](https://kubernetes.slack.com/messages/kubernetes-docs-ko)
 
-
 # 행동 강령
 
 쿠버네티스 커뮤니티 참여는 [CNCF 행동 강령](https://github.com/cncf/foundation/blob/master/code-of-conduct-languages/ko.md)을 따릅니다.
