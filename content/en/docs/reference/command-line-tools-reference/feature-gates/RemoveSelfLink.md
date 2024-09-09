@@ -1,5 +1,4 @@
 ---
-removed: true
 title: RemoveSelfLink
 content_type: feature_gate
 _build:
@@ -19,6 +18,8 @@ stages:
     defaultValue: true
     fromVersion: "1.24"  
     toVersion: "1.29"
+
+removed: true
 ---
 Sets the `.metadata.selfLink` field to blank (empty string) for all
 objects and collections. This field has been deprecated since the Kubernetes v1.16
