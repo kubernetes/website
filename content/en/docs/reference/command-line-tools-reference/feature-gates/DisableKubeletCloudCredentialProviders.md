@@ -13,6 +13,11 @@ stages:
   - stage: beta 
     defaultValue: true
     fromVersion: "1.29"     
+    toVersion: "1.30"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.31"
+
 ---
 Disable the in-tree functionality in kubelet
 to authenticate to a cloud provider container registry for image pull credentials.
