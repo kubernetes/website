@@ -13,6 +13,9 @@ stages:
   - stage: deprecated
     defaultValue: true
     fromVersion: "1.29"  
+    toVersion: "1.30"
+
+removed: true
 ---
 Skip validation for GCE, will enable in the
 next version.
