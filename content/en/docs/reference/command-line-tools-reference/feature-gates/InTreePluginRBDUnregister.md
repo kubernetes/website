@@ -13,6 +13,9 @@ stages:
   - stage: deprecated
     defaultValue: false
     fromVersion: "1.28"  
+    toVersion: "1.30"
+
+removed: true
 ---
 Stops registering the RBD in-tree plugin in kubelet
 and volume controllers.
