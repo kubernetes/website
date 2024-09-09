@@ -17,6 +17,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.29"  
+    toVersion: "1.30"
+
+removed: true
 ---
 Enables tracking the number of Pods that have a `Ready`
 [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions).
