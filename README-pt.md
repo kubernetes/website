@@ -65,7 +65,7 @@ npm ci
 make serve
 ```
 
- O Hugo iniciará localmente na porta 1313. Abra o seu navegador em http://localhost:1313 para visualizar o website. Conforme você faz alterações nos arquivos fontes, o Hugo atualiza o website e força uma atualização no navegador.
+O Hugo iniciará localmente na porta 1313. Abra o seu navegador em http://localhost:1313 para visualizar o website. Conforme você faz alterações nos arquivos fontes, o Hugo atualiza o website e força uma atualização no navegador.
 
 ## Construindo a página de referência da API
 
@@ -148,6 +148,7 @@ Esta solução funciona tanto para o MacOS Catalina quanto para o MacOS Mojave.
 ### Erro de "Out of Memory"
 
 Se você executar o comando `make container-serve` e retornar o seguinte erro:
+
 ```
 make: *** [container-serve] Error 137
 ```
