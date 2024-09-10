@@ -49,9 +49,9 @@ endpoints.
   The OpenAPI v3 is the preferred method for accessing OpenAPI as it
 provides
   a more comprehensive and accurate view of the API. It includes all the available
-  API paths, as well as all resources consumed and produced for every operation
-  on every endpoint. It also includes any extensibility components that a cluster supports.
-  The data is a complete specification and is significantly larger than that of the
+  API paths, as well as all resources consumed and produced for every operations
+  on every endpoints. It also includes any extensibility components that a cluster supports.
+  The data is a complete specification and is significantly larger than that from the
   Discovery API.
 
 ## Discovery API
