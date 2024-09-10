@@ -26,7 +26,8 @@ conventions and process used during a release by both groups.
 ## For documentation contributors
 
 In general, documentation contributors don't write content from scratch for a release.
-Instead, they work with the SIG creating a new feature to refine the draft documentation and make it release ready.
+Instead, they work with the SIG creating a new feature to refine the draft documentation
+and make it release ready.
 
 After you've chosen a feature to document or assist, ask about it in the `#sig-docs`
 Slack channel, in a weekly SIG Docs meeting, or directly on the PR filed by the
@@ -106,11 +107,9 @@ deadlines.
    issue with a link to the PR to notify the docs person managing this release that
    the feature docs are coming and should be tracked for the release.
 
-If your feature does not need
-any documentation changes, make sure the sig-release team knows this, by
-mentioning it in the `#sig-release` Slack channel. If the feature does need
-documentation but the PR is not created, the feature may be removed from the
-milestone.
+If your feature does not need any documentation changes, make sure the sig-release team knows this,
+by mentioning it in the `#sig-release` Slack channel. If the feature does need
+documentation but the PR is not created, the feature may be removed from the milestone.
 
 ### PR ready for review
 
@@ -133,8 +132,7 @@ content is not received, the feature may be removed from the milestone.
 If your feature is an Alpha or Beta feature and is behind a feature gate,
 you need a feature gate file for it inside
 `content/en/docs/reference/command-line-tools-reference/feature-gates/`.
-The name of the file should be the feature gate, converted from `UpperCamelCase`
-to `kebab-case`, with `.md` as the suffix.
+The name of the file should be the name of the feature gate with `.md` as the suffix.
 You can look at other files already in the same directory for a hint about what yours
 should look like. Usually a single paragraph is enough; for longer explanations,
 add documentation elsewhere and link to that.
@@ -153,9 +151,8 @@ stages:
     toVersion: <Version>              # (Optional) The version until which the feature gate is available
 ```
 
-With net new feature gates, a separate
-description of the feature gate is also required; create a new Markdown file
-inside `content/en/docs/reference/command-line-tools-reference/feature-gates/`
+With net new feature gates, a separate description of the feature gate is also required;
+create a new Markdown file inside `content/en/docs/reference/command-line-tools-reference/feature-gates/`
 (use other files as a template).
 
 When you change a feature gate from disabled-by-default to enabled-by-default,
