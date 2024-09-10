@@ -64,15 +64,14 @@ type and enforces the appropriate maximum number of volumes for the node. For ex
 
 * On
 <a href="https://cloud.google.com/compute/">Google Compute Engine</a>,
-up to 127 volumes can be attached to a node, [depending on the node
+up to 127 volumes can be attached to a Node, [depending on the Node
 type](https://cloud.google.com/compute/docs/disks/#pdnumberlimits).
 
-* For Amazon EBS disks on M5,C5,R5,T3 and Z1D instance types, Kubernetes allows only 25
-volumes to be attached to a Node. For other instance types on
+* On
 <a href="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud (EC2)</a>,
-Kubernetes allows 39 volumes to be attached to a Node.
+up to 127 volumes can be attached to a Node, depending on the Node type. For more details, refer to [Amazon EBS volume limits for Amazon EC2 instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/volume_limits.html).
 
-* On Azure, up to 64 disks can be attached to a node, depending on the node type. For more details, refer to [Sizes for virtual machines in Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes).
+* On Azure, up to 64 disks can be attached to a Node, depending on the Node type. For more details, refer to [Sizes for virtual machines in Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes).
 
 * If a CSI storage driver advertises a maximum number of volumes for a Node (using `NodeGetInfo`), the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} honors that limit.
 Refer to the [CSI specifications](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) for details.
