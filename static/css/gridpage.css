@@ -157,6 +157,9 @@ p.attrib {
     color: #326de6;
 }
 
+.gridPage #video button > h6:hover {
+    color: #0e2e70;
+}
 .gridPage #users {
     padding: 50px;
 }
