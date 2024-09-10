@@ -42,7 +42,11 @@ Kubernetes requires PKI for the following operations:
 
 ### Kubelet's server and client certificates
 
-To establish a secure connection and authenticate itself to the kubelet, the kube-apiserver requires a client certificate and key pair. In this scenario, there are two approaches for certificate usage: using shared certificates or separate certificates;
+To establish a secure connection and authenticate itself to the kubelet, the API Server 
+requires a client certificate and key pair. 
+
+In this scenario, there are two approaches for certificate usage: 
+using shared certificates or separate certificates;
 
 * Shared Certificates: The kube-apiserver can utilize the same certificate and key pair it uses to authenticate its clients. This means that the existing certificates, such as `apiserver.crt`  and `apiserver.key`, can be used for communicating with the kubelet servers.
 
