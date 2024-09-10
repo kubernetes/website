@@ -1,0 +1,8 @@
+.content__box {
+    padding: 10px; 
+    width: 100%; 
+    height: auto; 
+  }
+ .content__box_lined {
+    border: 2px #4BAAC8; 
+  }
