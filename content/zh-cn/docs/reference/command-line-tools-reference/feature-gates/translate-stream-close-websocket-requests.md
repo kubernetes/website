@@ -6,9 +6,9 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
-    defaultValue: false
-    fromVersion: "1.29"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.30"
 ---
 
 <!--

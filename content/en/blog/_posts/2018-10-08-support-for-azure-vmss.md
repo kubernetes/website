@@ -2,9 +2,10 @@
 layout: blog
 title: 'Support for Azure VMSS,  Cluster-Autoscaler and User Assigned Identity'
 date: 2018-10-08
+author: >
+  [Krishnakumar R (KK)](https://twitter.com/kkwriting) (Microsoft),
+  [Pengfei Ni](https://twitter.com/feisky) (Microsoft)
 ---
-
-**Author**: [Krishnakumar R (KK)](https://twitter.com/kkwriting) (Microsoft), [Pengfei Ni](https://twitter.com/feisky) (Microsoft)
 
 ## Introduction
 

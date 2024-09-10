@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes v1.25: Pod Security Admission Controller in Stable"
 date: 2022-08-25
 slug: pod-security-admission-stable
+author: >
+  Tim Allclair (Google),
+  Sam Stoelinga (Google)
 ---
-
-**Authors:** Tim Allclair (Google), Sam Stoelinga (Google)
 
 The release of Kubernetes v1.25 marks a major milestone for Kubernetes out-of-the-box pod security
 controls: Pod Security admission (PSA) graduated to stable, and Pod Security Policy (PSP) has been

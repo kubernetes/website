@@ -3,9 +3,9 @@ layout: blog
 title: Kubernetes 1.18 Feature Server-side Apply Beta 2
 date: 2020-04-01
 slug: Kubernetes-1.18-Feature-Server-side-Apply-Beta-2
+author: >
+  Antoine Pelisse (Google)
 ---
-
-**Authors:** Antoine Pelisse (Google)
 
 ## What is Server-side Apply?
 Server-side Apply is an important effort to migrate “kubectl apply” to the apiserver. It was started in 2018 by the Apply working group.

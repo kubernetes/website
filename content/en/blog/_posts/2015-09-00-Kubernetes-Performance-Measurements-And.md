@@ -3,6 +3,8 @@ title: " Kubernetes Performance Measurements and Roadmap "
 date: 2015-09-10
 slug: kubernetes-performance-measurements-and
 url: /blog/2015/09/Kubernetes-Performance-Measurements-And
+author: >
+   Wojciech Tyczynski (Google)
 ---
 No matter how flexible and reliable your container orchestration system is, ultimately, you have some work to be done, and you want it completed quickly. For big problems, a common answer is to just throw more machines at the problem. After all, more compute = faster, right?
 
@@ -114,7 +116,6 @@ This is by no means an exhaustive list. We will be adding new elements (or remov
 - If you have specific performance or scalability questions before then,  please join our scalability special interest group on Slack: https://kubernetes.slack.com/messages/sig-scale
 - General questions? Feel free to join our Kubernetes community on Slack: https://kubernetes.slack.com/messages/kubernetes-users/
 - Submit a pull request or file an issue! You can do this in our GitHub repository. Everyone is also enthusiastically encouraged  to contribute with their own experiments (and their result) or PR contributions improving Kubernetes.
-\- Wojciech Tyczynski, Google Software Engineer
 
 [1]: http://kubernetes.io/images/nav_logo.svg
 [2]: http://kubernetes.io/docs/

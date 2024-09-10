@@ -30,7 +30,7 @@ content_type: concept
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T-Data-Center/index.html) плагин для контейнера (NCP) обеспечивающий интеграцию между VMware NSX-T и контейнерами оркестраторов, таких как Kubernetes, а так же интеграцию между NSX-T и контейнеров на основе платформы CaaS/PaaS, таких как Pivotal Container Service (PKS) и OpenShift.
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst) - эта платформа SDN, которая обеспечивает сетевое взаимодействие на основе политик между Kubernetes подами и не Kubernetes окружением, с отображением и мониторингом безопасности.
 * [Romana](https://github.com/romana/romana) - это сетевое решение уровня 3 для сетей подов, которое также поддерживает [NetworkPolicy API](/docs/concepts/services-networking/network-policies/). Подробности установки Kubeadm доступны [здесь](https://github.com/romana/romana/tree/master/containerize).
-* [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/) предоставляет сеть и обеспечивает сетевую политику, будет работать на обеих сторонах сетевого раздела и не требует внешней базы данных.
+* [Weave Net](https://github.com/rajch/weave#using-weave-on-kubernetes) предоставляет сеть и обеспечивает сетевую политику, будет работать на обеих сторонах сетевого раздела и не требует внешней базы данных.
 
 ## Обнаружение служб
 

@@ -4,9 +4,9 @@ title: "Spotlight on SIG Testing"
 slug: sig-testing-spotlight-2023
 date: 2023-11-24
 canonicalUrl: https://www.kubernetes.dev/blog/2023/11/24/sig-testing-spotlight-2023/
+author: >
+  Sandipan Panda
 ---
-
-**Author:** Sandipan Panda
 
 Welcome to another edition of the _SIG spotlight_ blog series, where we
 highlight the incredible work being done by various Special Interest

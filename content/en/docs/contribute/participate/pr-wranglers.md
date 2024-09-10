@@ -19,9 +19,6 @@ see [Reviewing changes](/docs/contribute/review/).
 
 Each day in a week-long shift as PR Wrangler:
 
-- Triage and tag incoming issues daily. See
-  [Triage and categorize issues](/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
-  for guidelines on how SIG Docs uses metadata.
 - Review [open pull requests](https://github.com/kubernetes/website/pulls) for quality
   and adherence to the [Style](/docs/contribute/style/style-guide/) and
   [Content](/docs/contribute/style/content-guide/) guides.
@@ -44,6 +41,19 @@ Each day in a week-long shift as PR Wrangler:
       issues as [good first issues](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue).
     - Using style fixups as good first issues is a good way to ensure a supply of easier tasks
       to help onboard new contributors.
+- Also check for pull requests against the [reference docs generator](https://github.com/kubernetes-sigs/reference-docs) code, and review those (or bring in help).
+- Support the [issue wrangler](/docs/contribute/participate/issue-wrangler/) to
+  triage and tag incoming issues daily.
+  See [Triage and categorize issues](/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
+  for guidelines on how SIG Docs uses metadata.
+
+{{< note >}}
+PR wrangler duties do not apply to localization PRs (non-English PRs). 
+Localization teams have their own processes and teams for reviewing their language PRs. 
+However, it's often helpful to ensure language PRs are labeled correctly, 
+review small non-language dependent PRs (like a link update), 
+or tag reviewers or contributors in long-running PRs (ones opened more than 6 months ago and have not been updated in a month or more).
+{{< /note >}}
 
 
 ### Helpful GitHub queries for wranglers
@@ -119,10 +129,6 @@ The program was introduced to help new contributors understand the PR wrangling 
 - If you are interested in shadowing as a PR wrangler, please visit the
   [PR Wranglers Wiki page](https://github.com/kubernetes/website/wiki/PR-Wranglers)
   to see the PR wrangling schedule for this year and sign up.
-
-- Kubernetes org members can edit the
-  [PR Wranglers Wiki page](https://github.com/kubernetes/website/wiki/PR-Wranglers)
-  and sign up to shadow an existing PR Wrangler for a week.
 
 - Others can reach out on the [#sig-docs Slack channel](https://kubernetes.slack.com/messages/sig-docs)
   for requesting to shadow an assigned PR Wrangler for a specific week. Feel free to reach out to

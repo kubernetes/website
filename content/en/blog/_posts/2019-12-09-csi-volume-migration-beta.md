@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.17 Feature: Kubernetes In-Tree to CSI Volume Migration Moves to Beta"
 date: 2019-12-09T09:00:00+08:00
 slug: kubernetes-1-17-feature-csi-migration-beta
+author: >
+  David Zhu (Software Engineer, Google)
 ---
-
-**Authors:** David Zhu, Software Engineer, Google
 
 The Kubernetes in-tree storage plugin to [Container Storage Interface (CSI)](https://kubernetes.io/blog/2019/01/15/container-storage-interface-ga/) migration infrastructure is now beta in Kubernetes v1.17. CSI migration was introduced as alpha in Kubernetes v1.14.
 

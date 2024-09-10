@@ -47,7 +47,7 @@ to `cri-dockerd`.
 
 ## {{% heading "prerequisites" %}}
 
-*   [`cri-dockerd`](https://github.com/mirantis/cri-dockerd#build-and-install)
+*   [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/usage/install)
     installed and started on each node.
 *   A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/).
 

@@ -918,3 +918,4 @@ or move it into the trash can / deleted files location.
 
 * Follow a real world example of
   [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
+* Follow an example of [Updating configuration via a ConfigMap](/docs/tutorials/configuration/updating-configuration-via-a-configmap/).

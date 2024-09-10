@@ -341,13 +341,21 @@ script and use it in the theme. Assign "language name in latin script" to
 例如，`languageNameLatinScript ="Korean"` 或 `languageNameLatinScript = "Deutsch"`。
 
 <!--
-When assigning a `weight` parameter for your block, find the language block with
-the highest weight and add 1 to that value.
+The `weight` parameter determines the order of languages in the language selection bar.
+A lower weight takes precedence, resulting in the language appearing first. 
+When assigning the `weight` parameter, it is important to examine the existing languages 
+block and adjust their weights to ensure they are in a sorted order relative to all languages,
+including any newly added language.
+-->
+`weight` 参数决定语言选择栏中的语言顺序，
+优先显示权重较低的语言。
+分配 `weight` 参数时，检查现有语言块并调整其权重以确保它们相对于所有语言
+（包括任何新添加的语言）按排序顺序非常重要。
 
+<!--
 For more information about Hugo's multilingual support, see
 "[Multilingual Mode](https://gohugo.io/content-management/multilingual/)".
 -->
-为你的语言块分配一个 `weight` 参数时，找到权重最高的语言块并将其加 1。
 
 有关 Hugo 多语言支持的更多信息，请参阅"[多语言模式](https://gohugo.io/content-management/multilingual/)"。
 
@@ -613,15 +621,15 @@ Releases | [All heading and subheading URLs](/releases)
 Translated documents must reside in their own `content/**/` subdirectory, but otherwise, follow the
 same URL path as the English source. For example, to prepare the
 [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) tutorial for translation into German,
-create a subfolder under the `content/de/` folder and copy the English source:
+create a subdirectory under the `content/de/` directory and copy the English source or directory:
 -->
 翻译后的文档必须保存在自己的 `content/**/` 子目录中，否则将遵循与英文源相同的 URL 路径。
 例如，要准备将 [Kubernetes 基础](/zh-cn/docs/tutorials/kubernetes-basics/)教程翻译为德语，
-请在 `content/de/` 文件夹下创建一个子文件夹并复制英文源：
+请在 `content/de/` 目录下创建一个子目录，并复制英文源文件或目录：
 
 ```shell
 mkdir -p content/de/docs/tutorials
-cp content/en/docs/tutorials/kubernetes-basics.md content/de/docs/tutorials/kubernetes-basics.md
+cp -ra content/en/docs/tutorials/kubernetes-basics/ content/de/docs/tutorials/
 ```
 
 <!--
@@ -781,7 +789,7 @@ German (`de`):
 [`data/i18n/en/en.toml`](https://github.com/kubernetes/website/blob/main/data/i18n/en/en.toml)
 的内容。以德语为例：`data/i18n/de/de.toml`。
 
-将新的本地化文件和目录添加到 `data/i18n/`。例如德语 (`de`)：
+将新的本地化文件和目录添加到 `data/i18n/`。例如德语（`de`）：
 
 ```bash
 mkdir -p data/i18n/de

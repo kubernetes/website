@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes 1.28: Improved failure handling for Jobs"
 date: 2023-08-21
 slug: kubernetes-1-28-jobapi-update
+author: >
+  Kevin Hannon (G-Research),
+  Michał Woźniak (Google)
 ---
-
-**Authors:** Kevin Hannon (G-Research), Michał Woźniak (Google)
 
 This blog discusses two new features in Kubernetes 1.28 to improve Jobs for batch
 users: [Pod replacement policy](/docs/concepts/workloads/controllers/job/#pod-replacement-policy)

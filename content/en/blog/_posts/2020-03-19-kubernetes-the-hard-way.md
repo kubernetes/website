@@ -3,9 +3,9 @@ layout: blog
 title: Join SIG Scalability and Learn Kubernetes the Hard Way
 date: 2020-03-19
 slug: join-sig-scalability
+author: >
+  Alex Handy
 ---
-
-**Authors:** Alex Handy
 
 Contributing to SIG Scalability is a great way to learn Kubernetes in all its depth and breadth, and the team would love to have you [join as a contributor](https://github.com/kubernetes/community/tree/master/sig-scalability#scalability-special-interest-group). I took a look at the value of learning the hard way and interviewed the current SIG chairs to give you an idea of what contribution feels like.
 

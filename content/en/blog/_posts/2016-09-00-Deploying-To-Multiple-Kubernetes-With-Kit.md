@@ -3,8 +3,9 @@ title: " Deploying to Multiple Kubernetes Clusters with kit "
 date: 2016-09-06
 slug: deploying-to-multiple-kubernetes-with-kit
 url: /blog/2016/09/Deploying-To-Multiple-Kubernetes-With-Kit
+author: >
+  Chesley Brown (InVision)
 ---
-_Editor’s note: today’s guest post is by&nbsp;Chesley Brown, Full-Stack Engineer, at InVision, talking about how they build and open&nbsp;sourced kit to help them to continuously deploy updates to multiple clusters._  
 
 Our Docker journey at InVision may sound familiar. We started with Docker in our development environments, trying to get consistency there first. We wrangled our legacy monolith application into Docker images and streamlined our Dockerfiles to minimize size and amp the efficiency. Things were looking good. Did we learn a lot along the way? For sure. But at the end of it all, we had our entire engineering team working with Docker locally for their development environments. Mission accomplished! Well, not quite. Development was one thing, but moving to production was a whole other ballgame.  
 
@@ -56,7 +57,6 @@ In the near future, we want to make deployments even smarter so as to handle upd
 We hope you take a closer look at [kit](https://github.com/InVisionApp/kit) and tell us what you think! Check out our [InVision Engineering](http://engineering.invisionapp.com/) blog for more posts about the cool things we are up to at InVision. If you want to work on kit or other interesting things like this, click through to [our jobs page](https://www.invisionapp.com/company#jobs). We'd love to hear from you!  
 
 
-_--Chesley Brown, Full-Stack Engineer, at&nbsp;[InVision](https://www.invisionapp.com/)._  
 
 
 - [Download](http://get.k8s.io/) Kubernetes

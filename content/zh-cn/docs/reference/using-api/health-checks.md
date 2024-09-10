@@ -131,12 +131,13 @@ healthz check passed
 
 <!-- 
 Each individual health check exposes an HTTP endpoint and can be checked individually.
-The schema for the individual health checks is `/livez/<healthcheck-name>` where `livez` and `readyz` and be used to indicate if you want to check the liveness or the readiness of the API server.
+The schema for the individual health checks is `/livez/<healthcheck-name>` or `/readyz/<healthcheck-name>`, where `livez` and `readyz` can be used to indicate if you want to check the liveness or the readiness of the API server, respectively.
 The `<healthcheck-name>` path can be discovered using the `verbose` flag from above and take the path between `[+]` and `ok`.
 These individual health checks should not be consumed by machines but can be helpful for a human operator to debug a system:
 -->
 每个单独的健康检查都会公开一个 HTTP 端点，并且可以单独检查。
-单个运行状况检查的模式为 `/livez/<healthcheck-name>`，其中 `livez` 和 `readyz` 表明你要检查的是 API 服务器是否存活或就绪。
+单个运行状况检查的模式为 `/livez/<healthcheck-name>` 或 `/readyz/<healthcheck-name>`，
+其中 `livez` 和 `readyz` 分别表明你要检查的是 API 服务器是否存活或就绪。
 `<healthcheck-name>` 的路径可以通过上面的 `verbose` 参数发现 ，并采用 `[+]` 和 `ok` 之间的路径。
 这些单独的健康检查不应由机器使用，但对于操作人员调试系统而言，是有帮助的：
 

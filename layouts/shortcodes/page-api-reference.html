@@ -1,0 +1,32 @@
+<!-- This shortcode shows API reference links based on metadata in the page's front matter -->
+ 
+<!-- Call the partial template "docs/api-reference-links" to determine the API reference links -->
+{{ partial "docs/api-reference-links" page }}
+
+ <!-- "noop" (“no operation”) statement to let content render and store sync -->
+ {{ $noop := .Page.Content }}
+
+<!-- Getting the map from the page's store  -->
+{{- $pageApiReferenceLinksMap := $.Page.Store.Get "pageApiReferenceLinksMap" -}} 
+
+<!-- Checking if "pageApiReferenceLinksMap" is not nil or empty -->
+{{- if and $pageApiReferenceLinksMap (ne (len $pageApiReferenceLinksMap) 0) -}}
+
+    <!-- Retrieving the "kind" parameter from the shortcode -->
+    {{- $kindParam := .Get "kind" -}}
+
+    <!-- Checking if "kind" parameter is provided -->
+    {{- if $kindParam -}}
+        <!-- Accessing the specific API reference "kind" from the map -->
+        {{ $apiRefPageLink   := index $pageApiReferenceLinksMap $kindParam}}
+        {{- printf "%s" $apiRefPageLink   | safeHTML -}}
+
+    {{- else -}} <!-- If "kind" parameter is not provided -->
+        <ul class="api-reference-links">
+            {{- range $kind, $apiRefPageLink := $pageApiReferenceLinksMap -}}
+                <li>{{- printf "%s" $apiRefPageLink   | safeHTML -}}</li>
+            {{- end -}}
+        </ul>
+    {{- end -}}
+    
+{{- end -}}

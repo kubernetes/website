@@ -6,9 +6,9 @@ description: >
   Special Interest Groups and Working Groups.
 date: 2021-06-28T10:00:00-08:00
 slug: Announcing-Kubernetes-Community-Group-Annual-Reports
+author: >
+  Divya Mohan
 ---
-
-**Authors:** Divya Mohan
 
 {{< figure src="k8s_annual_report_2020.svg" alt="Community annual report 2020" link="https://www.cncf.io/reports/kubernetes-community-annual-report-2020/" >}}
 

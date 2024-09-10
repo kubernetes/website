@@ -3,10 +3,11 @@ layout: blog
 title: "What's new in Security Profiles Operator v0.4.0"
 date: 2021-12-17
 slug: security-profiles-operator
----
-
-**Authors:** Jakub Hrozek, Juan Antonio Osorio, Paulo Gomes, Sascha Grunert
-
+author: >
+   Jakub Hrozek,
+   Juan Antonio Osorio,
+   Paulo Gomes,
+   Sascha Grunert
 ---
 
 The [Security Profiles Operator (SPO)](https://sigs.k8s.io/security-profiles-operator)

@@ -284,10 +284,10 @@ version.
    ```
    [kubernetes]
    name=Kubernetes
-   baseurl=https://pkgs.k8s.io/core:/stable:/{{< skew currentVersionAddMinor -1 "." >}}/rpm/
+   baseurl=https://pkgs.k8s.io/core:/stable:/v{{< skew currentVersionAddMinor -1 "." >}}/rpm/
    enabled=1
    gpgcheck=1
-   gpgkey=https://pkgs.k8s.io/core:/stable:/{{< skew currentVersionAddMinor -1 "." >}}/rpm/repodata/repomd.xml.key
+   gpgkey=https://pkgs.k8s.io/core:/stable:/v{{< skew currentVersionAddMinor -1 "." >}}/rpm/repodata/repomd.xml.key
    exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
    ```
 

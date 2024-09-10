@@ -3,9 +3,11 @@ layout: blog
 title: "Kubernetes Removals and Major Changes In 1.25"
 date: 2022-08-04
 slug: upcoming-changes-in-kubernetes-1-25
+author: >
+  Kat Cosgrove,
+  Frederico Muñoz,
+  Debabrata Panigrahi
 ---
-
-**Authors**: Kat Cosgrove, Frederico Muñoz, Debabrata Panigrahi
 
 As Kubernetes grows and matures, features may be deprecated, removed, or replaced with improvements for the health of the project. Kubernetes v1.25 includes several major changes and one major removal.
 

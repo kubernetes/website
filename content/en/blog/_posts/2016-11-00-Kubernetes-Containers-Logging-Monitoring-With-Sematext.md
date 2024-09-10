@@ -3,9 +3,9 @@ title: " Kubernetes Containers Logging and Monitoring with Sematext "
 date: 2016-11-18
 slug: kubernetes-containers-logging-monitoring-with-sematext
 url: /blog/2016/11/Kubernetes-Containers-Logging-Monitoring-With-Sematext
+author: >
+  Stefan Thies (Sematext)
 ---
-_Editor's note: Today’s post is by Stefan Thies, Developer Evangelist, at Sematext, showing key Kubernetes metrics and log elements to help you troubleshoot and tune Docker and Kubernetes._  
-
 
 Managing microservices in containers is typically done with Cluster Managers and Orchestration tools. Each container platform has a slightly different set of options to deploy containers or schedule tasks on each cluster node. Because we do [container monitoring and logging](http://sematext.com/kubernetes) at Sematext, part of our job is to share our knowledge of these tools, especially as it pertains to container observability and devops. Today we’ll show a tutorial for Container Monitoring and Log Collection on Kubernetes.  
 
@@ -220,8 +220,6 @@ There are many other useful features Logsene and Sematext Docker Agent give you 
 Most of those topics are described in our [Docker Log Management](https://sematext.com/blog/2015/08/12/docker-log-management/) post and are relevant for Kubernetes log management as well. If you want to learn more about [Docker monitoring](http://blog.sematext.com/2016/01/12/docker-swarm-collecting-metrics-events-logs/), read more on our [blog](https://sematext.com/blog/tag/docker,kubernetes).
 
 
-
-_--Stefan Thies, Developer Evangelist, at Sematext_
 
 
 

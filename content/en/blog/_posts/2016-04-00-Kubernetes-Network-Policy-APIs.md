@@ -3,8 +3,10 @@ title: " SIG-Networking: Kubernetes Network Policy APIs Coming in 1.3 "
 date: 2016-04-18
 slug: kubernetes-network-policy-apis
 url: /blog/2016/04/Kubernetes-Network-Policy-APIs
+author: >
+  Chris Marino (Pani Networks)
 ---
-_Editor’s note: This week we’re featuring [Kubernetes Special Interest Groups](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs)); Today’s post is by the Network-SIG team describing network policy APIs coming in 1.3 - policies for security, isolation and multi-tenancy._  
+_**Editor's note:** This week we’re featuring [Kubernetes Special Interest Groups](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs)); Today’s post is by the Network-SIG team describing network policy APIs coming in 1.3 - policies for security, isolation and multi-tenancy._  
 
 The [Kubernetes network SIG](https://kubernetes.slack.com/messages/sig-network/) has been meeting regularly since late last year to work on bringing network policy to Kubernetes and we’re starting to see the results of this effort.  
 
@@ -163,7 +165,4 @@ If you’re interested in Kubernetes and networking, there are several ways to p
 - Our [Kubernetes Networking Special Interest Group](https://groups.google.com/forum/#!forum/kubernetes-sig-network) email list&nbsp;
 
 
-The Networking “Special Interest Group,” which meets bi-weekly at 3pm (15h00) Pacific Time at [SIG-Networking hangout](https://zoom.us/j/5806599998).&nbsp;
-
-
-_--Chris Marino, Co-Founder, Pani Networks_  
+The Networking “Special Interest Group,” which meets bi-weekly at 3pm (15h00) Pacific Time at [SIG-Networking hangout](https://zoom.us/j/5806599998).

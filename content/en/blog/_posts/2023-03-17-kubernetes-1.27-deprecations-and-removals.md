@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes Removals and Major Changes In v1.27"
 date: 2023-03-17T14:00:00+0000
 slug: upcoming-changes-in-kubernetes-v1-27
+author: >
+   Harshita Sao
 ---
-
-**Author**: Harshita Sao
 
 As Kubernetes develops and matures, features may be deprecated, removed, or replaced
 with better ones for the project's overall health. Based on the information available

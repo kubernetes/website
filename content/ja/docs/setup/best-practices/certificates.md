@@ -11,15 +11,14 @@ Kubernetesでは、TLS認証のためにPKI証明書が必要です。
 自身で証明書を作成することも可能です。例えば、秘密鍵をAPIサーバーに保持しないことで、管理をよりセキュアにする場合が挙げられます。
 本ページでは、クラスターに必要な証明書について説明します。
 
-
-
 <!-- body -->
 
 ## クラスターではどのように証明書が使われているのか
 
-Kubernetesは下記の用途でPKIを必要とします：
+Kubernetesは下記の用途でPKIを必要とします:
 
 * kubeletがAPIサーバーの認証をするためのクライアント証明書
+* APIサーバーがkubeletと通信するためのkubeletの[サーバー証明書](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#client-and-serving-certificates)
 * APIサーバーのエンドポイント用サーバー証明書
 * クラスターの管理者がAPIサーバーの認証を行うためのクライアント証明書
 * APIサーバーがkubeletと通信するためのクライアント証明書
@@ -36,11 +35,14 @@ Kubernetesは下記の用途でPKIを必要とします：
 
 ## 証明書の保存場所
 
-kubeadmを使用してKubernetesをインストールする場合、証明書は`/etc/kubernetes/pki`に保存されます。このドキュメントの全てのパスは、そのディレクトリの相対パスを表します。
+kubeadmを使用してKubernetesをインストールする場合、ほとんどの証明書は`/etc/kubernetes/pki`に保存されます。このドキュメントの全てのパスは、そのディレクトリの相対パスを表します。
+ただしユーザーアカウントの証明書に関しては、kubeadmは`/etc/kubernetes`に配置します。
 
 ## 手動で証明書を設定する
 
-kubeadmで証明書を生成したくない場合は、下記の方法のいずれかで手動で生成可能です。
+もしkubeadmに必要な証明書の生成を望まない場合、それらを単一ルート認証局を使って作成するか、全ての証明書を提供することで作成できます。
+自身の認証局を作成する詳細については、[証明書を手動で生成する](/ja/docs/tasks/administer-cluster/certificates/)を参照してください。
+証明書の管理についての詳細は、[kubeadmによる証明書管理](/ja/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)を参照してください。
 
 ### 単一ルート認証局
 
@@ -55,6 +57,16 @@ kubeadmで証明書を生成したくない場合は、下記の方法のいず�
 | front-proxy-ca.crt,key | kubernetes-front-proxy-ca | [front-end proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)用　　　 |
 
 上記の認証局に加えて、サービスアカウント管理用に公開鍵/秘密鍵のペア(`sa.key`と`sa.pub`)を取得する事が必要です。
+次の例は、前の表で示されたCAのキーと証明書を示しています:
+
+```
+/etc/kubernetes/pki/ca.crt
+/etc/kubernetes/pki/ca.key
+/etc/kubernetes/pki/etcd/ca.crt
+/etc/kubernetes/pki/etcd/ca.key
+/etc/kubernetes/pki/front-proxy-ca.crt
+/etc/kubernetes/pki/front-proxy-ca.key
+```
 
 ### 全ての証明書
 
@@ -72,9 +84,14 @@ CAの秘密鍵をクラスターにコピーしたくない場合、自身で全
 | kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client                                 |                                                     |
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client                                 |                                                     |
 
+{{< note >}}
+`kube-apiserver-kubelet-client`にスーパーユーザーグループ`system:masters`を使用する代わりに、より権限の低いグループを使用することができます。
+そのために、kubeadmは`kubeadm:cluster-admins`グループを使用します。
+{{< /note >}}
+
 [1]: クラスターに接続するIPおよびDNS名( [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)を使用する場合と同様、ロードバランサーのIPおよびDNS名、`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、`kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`)
 
-`kind`は下記の[x509の鍵用途](https://pkg.go.dev/k8s.io/api/certificates/v1beta1#KeyUsage)のタイプにマッピングされます:
+ここで`種類`は、一つまたは複数のx509の鍵用途にマッピングされており、これは[CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1#CertificateSigningRequest)の`.spec.usages`にも記載されています:
 
 | 種類   | 鍵の用途  　　　                                                                     |
 |--------|---------------------------------------------------------------------------------|
@@ -87,14 +104,14 @@ CAの秘密鍵をクラスターにコピーしたくない場合、自身で全
 {{< /note >}}
 
 {{< note >}}
-kubeadm利用者のみ：
+kubeadm利用者のみ:
 
 * 秘密鍵なしでCA証明書をクラスターにコピーするシナリオは、kubeadmドキュメントの外部認証局の項目で言及されています。
 * kubeadmでPKIを生成すると、`kube-etcd`、`kube-etcd-peer`および `kube-etcd-healthcheck-client`証明書は外部etcdを利用するケースでは生成されない事に留意してください。
 
 {{< /note >}}
 
-### 証明書のパス
+### 証明書のパス {#certificate-paths}
 
 証明書は推奨パスに配置するべきです([kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)を使用する場合と同様)。
 パスは場所に関係なく与えられた引数で特定されます。
@@ -123,24 +140,67 @@ kubeadm利用者のみ：
 |  sa.key                      |                             | kube-controller-manager | service-account-private              |
 |                              | sa.pub                      | kube-apiserver          | service-account-key                  |
 
-## ユーザアカウント用に証明書を設定する
+次の例は、自分自身で全てのキーと証明書を生成している場合に提供する必要があるファイルパスを[前の表](#certificate-paths)から示しています:
+
+```
+/etc/kubernetes/pki/etcd/ca.key
+/etc/kubernetes/pki/etcd/ca.crt
+/etc/kubernetes/pki/apiserver-etcd-client.key
+/etc/kubernetes/pki/apiserver-etcd-client.crt
+/etc/kubernetes/pki/ca.key
+/etc/kubernetes/pki/ca.crt
+/etc/kubernetes/pki/apiserver.key
+/etc/kubernetes/pki/apiserver.crt
+/etc/kubernetes/pki/apiserver-kubelet-client.key
+/etc/kubernetes/pki/apiserver-kubelet-client.crt
+/etc/kubernetes/pki/front-proxy-ca.key
+/etc/kubernetes/pki/front-proxy-ca.crt
+/etc/kubernetes/pki/front-proxy-client.key
+/etc/kubernetes/pki/front-proxy-client.crt
+/etc/kubernetes/pki/etcd/server.key
+/etc/kubernetes/pki/etcd/server.crt
+/etc/kubernetes/pki/etcd/peer.key
+/etc/kubernetes/pki/etcd/peer.crt
+/etc/kubernetes/pki/etcd/healthcheck-client.key
+/etc/kubernetes/pki/etcd/healthcheck-client.crt
+/etc/kubernetes/pki/sa.key
+/etc/kubernetes/pki/sa.pub
+```
+
+## ユーザーアカウント用に証明書を設定する
 
 管理者アカウントおよびサービスアカウントは手動で設定しなければなりません。
 
-| ファイル名                | クレデンシャル名              | デフォルトCN                     | 組織　　　　　　 |
-|-------------------------|----------------------------|--------------------------------|----------------|
-| admin.conf              | default-admin              | kubernetes-admin               | system:masters |
-| kubelet.conf            | default-auth               | system:node:`<nodeName>` (see note) | system:nodes   |
-| controller-manager.conf | default-controller-manager | system:kube-controller-manager |                |
-| scheduler.conf          | default-scheduler          | system:kube-scheduler          |                |
+| ファイル名                | クレデンシャル名            | デフォルトCN                          | O (in Subject)         |
+|-------------------------|----------------------------|-------------------------------------|------------------------|
+| admin.conf              | default-admin              | kubernetes-admin                    | `<admin-group>`        |
+| super-admin.conf        | default-super-admin        | kubernetes-super-admin              | system:masters         |
+| kubelet.conf            | default-auth               | system:node:`<nodeName>` (備考を参照) | system:nodes           |
+| controller-manager.conf | default-controller-manager | system:kube-controller-manager      |                        |
+| scheduler.conf          | default-scheduler          | system:kube-scheduler               |                        |
 
 {{< note >}}
 `kubelet.conf`における`<nodeName>`の値は**必ず**APIサーバーに登録されたkubeletのノード名と一致しなければなりません。詳細は、[Node Authorization](/docs/reference/access-authn-authz/node/)を参照してください。
 {{< /note >}}
 
+{{< note >}}
+上記の例での`<admin-group>`は実装に依存します。
+一部のツールはデフォルトの`admin.conf`内の証明書に`system:masters`グループの一部として署名します。
+`system:masters`は緊急用のスーパーユーザーグループであり、RBACのようなKubernetesの認証レイヤーをバイパスすることができます。
+また、一部のツールはこのスーパーユーザーグループに紐づけられた証明書を含む`super-admin.conf`を生成しません。
+
+kubeadmはkubeconfigファイル内に2つの別々の管理者証明書を生成します。
+一つは`admin.conf`内にあり、`Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin`となっています。
+`kubeadm:cluster-admins`は`cluster-admin` ClusterRoleに紐づけられたカスタムグループです。
+このファイルは、kubeadmが管理する全てのコントロールプレーンマシン上で生成されます。
+
+もう一つは`super-admin.conf`内にあり、`Subject: O = system:masters, CN = kubernetes-super-admin`となっています。
+このファイルは`kubeadm init`が呼び出されたノード上でのみ生成されます。
+{{< /note >}}
+
 1. 各コンフィグ毎に、CN名と組織を指定してx509証明書と鍵ペアを生成してください。
 
-1. 以下のように、各コンフィグで`kubectl`を実行してください。
+2. 以下のように、各コンフィグで`kubectl`を実行してください。
 
 ```shell
 KUBECONFIG=<filename> kubectl config set-cluster default-cluster --server=https://<host ip>:6443 --certificate-authority <path-to-kubernetes-ca> --embed-certs
@@ -158,5 +218,12 @@ KUBECONFIG=<filename> kubectl config use-context default-system
 | controller-manager.conf | kube-controller-manager | `manifests/kube-controller-manager.yaml`のマニフェストファイルに追記する必要があります。 |
 | scheduler.conf          | kube-scheduler          | `manifests/kube-scheduler.yaml`のマニフェストファイルに追記する必要があります。          |
 
+以下のファイルは、前の表に挙げたファイルへの絶対パスを示しています:
 
-
+```
+/etc/kubernetes/admin.conf
+/etc/kubernetes/super-admin.conf
+/etc/kubernetes/kubelet.conf
+/etc/kubernetes/controller-manager.conf
+/etc/kubernetes/scheduler.conf
+```

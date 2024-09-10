@@ -2,9 +2,10 @@
 layout: blog
 title: Introducing kustomize; Template-free Configuration Customization for Kubernetes
 date: 2018-05-29
+author: >
+  Jeff Regan (Google),
+  Phil Wittrock (Google)
 ---
-
-**Authors:** Jeff Regan (Google), Phil Wittrock (Google)
 
 [**kustomize**]: https://github.com/kubernetes-sigs/kustomize
 [hello world]: https://github.com/kubernetes-sigs/kustomize/blob/master/examples/helloWorld

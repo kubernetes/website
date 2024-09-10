@@ -3,9 +3,9 @@ layout: blog
 title: "Enforce CRD Immutability with CEL Transition Rules"
 date: 2022-09-29
 slug: enforce-immutability-using-cel
+author: >
+  [Alexander Zielenski](https://github.com/alexzielenski) (Google)
 ---
-
-**Author:** [Alexander Zielenski](https://github.com/alexzielenski) (Google)
 
 Immutable fields can be found in a few places in the built-in Kubernetes types.
 For example, you can't change the `.metadata.name` of an object. Specific objects

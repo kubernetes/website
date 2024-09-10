@@ -3,9 +3,9 @@ layout: blog
 title: "Announcing the 2020 Steering Committee Election Results"
 date: 2020-10-12
 slug: steering-committee-results-2020
+author: >
+   Kaslin Fields
 ---
-
-**Author**: Kaslin Fields
 
 The [2020 Steering Committee Election](https://github.com/kubernetes/community/tree/master/events/elections/2020) is now complete. In 2019, the committee arrived at its final allocation of 7 seats, 3 of which were up for election in 2020. Incoming committee members serve a term of 2 years, and all members are elected by the Kubernetes Community.
 

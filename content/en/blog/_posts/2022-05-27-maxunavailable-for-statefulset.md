@@ -3,9 +3,9 @@ layout: blog
 title: 'Kubernetes 1.24: Maximum Unavailable Replicas for StatefulSet'
 date: 2022-05-27
 slug: maxunavailable-for-statefulset
+author: >
+  Mayank Kumar (Salesforce)
 ---
-
-**Author:** Mayank Kumar (Salesforce)
 
 Kubernetes [StatefulSets](/docs/concepts/workloads/controllers/statefulset/), since their introduction in 
 1.5 and becoming stable in 1.9, have been widely used to run stateful applications. They provide stable pod identity, persistent

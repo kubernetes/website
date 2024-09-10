@@ -20,6 +20,14 @@ For example:
 - [kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/)
 
 <!--
+- [Cluster API](https://cluster-api.sigs.k8s.io/): A Kubernetes sub-project focused on
+  providing declarative APIs and tooling to simplify provisioning, upgrading, and operating
+  multiple Kubernetes clusters.
+-->
+- [Cluster API](https://cluster-api.sigs.k8s.io/): 
+  一个 Kubernetes 子项目，专注于提供声明式 API 和工具，以简化多个 Kubernetes 集群的配置、升级和操作。
+
+<!--
 - [kops](https://kops.sigs.k8s.io/): An automated cluster provisioning tool.
   For tutorials, best practices, configuration options  and information on
   reaching out to the community, please check the

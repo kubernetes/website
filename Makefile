@@ -81,7 +81,7 @@ container-push: container-image ## Push container image for the preview of the w
 
 PLATFORMS ?= linux/arm64,linux/amd64
 docker-push: ## Build a multi-architecture image and push that into the registry
-	docker run --rm --privileged tonistiigi/binfmt:qemu-v6.2.0-26@sha256:5bf63a53ad6222538112b5ced0f1afb8509132773ea6dd3991a197464962854e --install all
+	docker run --rm --privileged tonistiigi/binfmt:qemu-v8.1.5-43@sha256:46c5a036f13b8ad845d6703d38f8cce6dd7c0a1e4d42ac80792279cabaeff7fb --install all
 	docker version
 	$(DOCKER_BUILDX) version
 	$(DOCKER_BUILDX) inspect image-builder > /dev/null 2>&1 || $(DOCKER_BUILDX) create --name image-builder --use

@@ -3,9 +3,14 @@ layout: blog
 title: "Defining Network Policy Conformance for Container Network Interface (CNI) providers"
 date: 2021-04-20
 slug: defining-networkpolicy-conformance-cni-providers
+author: >
+  Matt Fenwick (Synopsys),
+  Jay Vyas (VMWare),
+  Ricardo Katz,
+  Amim Knabben (Loadsmart),
+  Douglas Schilling Landgraf (Red Hat),
+  Christopher Tomkins (Tigera)
 ---
-
-Authors: Matt Fenwick (Synopsys), Jay Vyas (VMWare), Ricardo Katz, Amim Knabben (Loadsmart), Douglas Schilling Landgraf (Red Hat), Christopher Tomkins (Tigera)
 
 Special thanks to Tim Hockin and Bowie Du (Google), Dan Winship and Antonio Ojea (Red Hat),
 Casey Davenport and Shaun Crampton (Tigera), and Abhishek Raut and Antonin Bas (VMware) for

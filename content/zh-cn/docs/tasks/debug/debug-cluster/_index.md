@@ -239,7 +239,7 @@ status:
     type: PIDPressure
   - lastHeartbeatTime: "2022-02-17T22:20:15Z"
     lastTransitionTime: "2022-02-17T22:15:15Z"
-    message: kubelet is posting ready status. AppArmor enabled
+    message: kubelet is posting ready status.
     reason: KubeletReady
     status: "True"
     type: Ready

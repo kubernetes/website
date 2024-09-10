@@ -1,5 +1,10 @@
 ---
 title: Ingress
+api_metadata:
+- apiVersion: "networking.k8s.io/v1"
+  kind: "Ingress"
+- apiVersion: "networking.k8s.io/v1"
+  kind: "IngressClass"
 content_type: concept
 description: >-
   使用一种能感知协议配置的机制来解析 URI、主机名称、路径等 Web 概念，
@@ -11,6 +16,11 @@ weight: 30
 reviewers:
 - bprashanthluster: A set of Nodes that run containerized app
 title: Ingress
+api_metadata:
+- apiVersion: "networking.k8s.io/v1"
+  kind: "Ingress"
+- apiVersion: "networking.k8s.io/v1"
+  kind: "IngressClass"
 content_type: concept
 description: >-
   Make your HTTP (or HTTPS) network service available using a protocol-aware configuration
@@ -571,7 +581,7 @@ that is used for a workload. If you used a cluster-scoped parameter then either:
   the application team make changes to the cluster-scoped parameters resource.
 -->
 名字空间作用域的参数帮助集群操作者将对工作负载所需的配置数据（比如：负载均衡设置、
-API 网关定义）的控制权力委派出去。如果你使用集群作用域的参数，那么你将面临一下情况之一：
+API 网关定义）的控制权力委派出去。如果你使用集群作用域的参数，那么你将面临以下情况之一：
 
 - 每次应用一项新的配置变更时，集群操作团队需要批准其他团队所作的修改。
 - 集群操作团队必须定义具体的准入控制规则，比如 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)
@@ -1069,10 +1079,10 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 
 <!--
 * Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
-* Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
+* Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport)
 -->
 * 使用 [Service.Type=LoadBalancer](/zh-cn/docs/concepts/services-networking/service/#loadbalancer)
-* 使用 [Service.Type=NodePort](/zh-cn/docs/concepts/services-networking/service/#nodeport)
+* 使用 [Service.Type=NodePort](/zh-cn/docs/concepts/services-networking/service/#type-nodeport)
 
 ## {{% heading "whatsnext" %}}
 

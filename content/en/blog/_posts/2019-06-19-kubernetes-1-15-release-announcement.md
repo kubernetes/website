@@ -4,8 +4,9 @@ title: "Kubernetes 1.15: Extensibility and Continuous Improvement"
 date: 2019-06-19
 slug: kubernetes-1-15-release-announcement
 evergreen: true
+author: >
+  [Kubernetes 1.15 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.15/release_team.md)
 ---
-**Authors:** The 1.15 [Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.15/release_team.md)
 
 We’re pleased to announce the delivery of Kubernetes 1.15, our second release of 2019! Kubernetes 1.15 consists of 25 enhancements: 2 moving to stable, 13 in beta, and 10 in alpha. The main themes of this release are:
 

@@ -244,7 +244,7 @@ kubeadm을 사용하는 경우,
 
 이 섹션은 CRI-O를 컨테이너 런타임으로 설치하는 필수적인 단계를 담고 있다.
 
-CRI-O를 설치하려면, [CRI-O 설치 방법](https://github.com/cri-o/cri-o/blob/main/install.md#readme)을 따른다.
+CRI-O를 설치하려면, [CRI-O 설치 방법](https://github.com/cri-o/packaging/blob/main/README.md#usage)을 따른다.
 
 #### cgroup 드라이버
 

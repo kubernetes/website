@@ -381,7 +381,7 @@ the API server will send any `BOOKMARK` event even when requested.
 -->
 ## 流式列表  {#streaming-lists}
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state feature_gate_name="WatchList" >}}
 
 <!--
 On large clusters, retrieving the collection of some resource types may result in
@@ -474,7 +474,7 @@ Content-Type: application/json
 -->
 ## 响应压缩   {#response-compression}
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+{{< feature-state feature_gate_name="APIResponseCompression" >}}
 
 <!--
 `APIResponseCompression` is an option that allows the API server to compress the responses for **get**
@@ -524,7 +524,7 @@ The `content-encoding` header indicates that the response is compressed with `gz
 -->
 ## 分块检视大体量结果  {#retrieving-large-results-sets-in-chunks}
 
-{{< feature-state for_k8s_version="v1.29" state="stable" >}}
+{{< feature-state feature_gate_name="APIListChunking" >}}
 
 <!--
 On large clusters, retrieving the collection of some resource types may result in
@@ -580,7 +580,7 @@ of time (by default 5 minutes) and return a `410 Gone` if more results cannot be
 returned. In this case, the client will need to start from the beginning or omit the
 `limit` parameter.
 
-For example, if there are 1,253 pods on the cluster and you wants to receive chunks
+For example, if there are 1,253 pods on the cluster and you want to receive chunks
 of 500 pods at a time, request those chunks as follows:
 -->
 与 **watch** 操作类似，`continue` 令牌也会在很短的时间（默认为 5 分钟）内过期，
@@ -1252,7 +1252,7 @@ These situations are:
 -->
 ### 检查无法识别或重复的字段  {#setting-the-field-validation-level}
 
-{{< feature-state for_k8s_version="v1.27" state="stable" >}}
+{{< feature-state feature_gate_name="ServerSideFieldValidation" >}}
 
 <!--
 From 1.25 onward, unrecognized or duplicate fields in an object are detected via
@@ -1355,7 +1355,7 @@ a boolean flag.
 -->
 ## 试运行  {#dry-run}
 
-{{< feature-state for_k8s_version="v1.18" state="stable" >}}
+{{< feature-state feature_gate_name="DryRun" >}}
 
 <!--
 When you use HTTP verbs that can modify resources (`POST`, `PUT`, `PATCH`, and

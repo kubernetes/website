@@ -3,14 +3,12 @@ title: " Cloud Native Application Interfaces "
 date: 2016-09-01
 slug: cloud-native-application-interfaces
 url: /blog/2016/09/Cloud-Native-Application-Interfaces
+author: >
+  Brian Grant (Google),
+  Craig Mcluckie (Google)
 ---
 
-
 **Standard Interfaces (or, the Thirteenth Factor)**
-
-_--by Brian Grant and Craig Mcluckie, Google_
-
-
 
 When you say we need ‘software standards’ in erudite company, you get some interesting looks. Most concede that software standards have been central to the success of the boldest and most successful projects out there (like the Internet). Most are also skeptical about how they apply to the innovative world we live in today. Our projects are executed in week increments, not years. Getting bogged down behind mega-software-corporation-driven standards practices would be the death knell in this fluid, highly competitive world.  
 
@@ -53,7 +51,3 @@ Standardizing interfaces (at least by convention) between the management system 
 
 
 Kubernetes and Cloud Native Computing Foundation ([CNCF](https://cncf.io/)) represent a great opportunity to support the emergence of standard interfaces, and to support the emergence of a fully automated software world. We’d love to see this community embrace the ideal of promoting standard interfaces from working technology. The obvious first step is to identify the immediate set of critical interfaces, and establish working groups in CNCF to start assess what exists in this area as candidates, and to sponsor work to start developing standard interfaces that work across container formats, orchestrators, developer tools and the myriad other systems that are needed to deliver on the Cloud Native vision.
-
-
-
-_--Brian Grant and Craig Mcluckie, Google_

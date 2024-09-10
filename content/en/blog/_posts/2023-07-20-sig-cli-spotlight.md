@@ -4,9 +4,9 @@ title: "Spotlight on SIG CLI"
 date: 2023-07-20
 slug: sig-cli-spotlight-2023
 canonicalUrl: https://www.kubernetes.dev/blog/2023/07/20/sig-cli-spotlight-2023/
+author: >
+  Arpit Agrawal
 ---
-
-**Author**: Arpit Agrawal
 
 In the world of Kubernetes, managing containerized applications at
 scale requires powerful and efficient tools. The command-line

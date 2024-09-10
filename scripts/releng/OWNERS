@@ -4,11 +4,11 @@
 # Teams and members are visible at https://github.com/orgs/kubernetes/teams.
 
 reviewers:
-  - sig-docs-en-reviews
+  - sig-docs-website-owners
   - release-engineering-reviewers
 
 approvers:
-  - sig-docs-en-owners
+  - sig-docs-website-owners
   - sig-release-leads
   - release-engineering-approvers
 

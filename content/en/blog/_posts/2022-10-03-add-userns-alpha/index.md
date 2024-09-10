@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes 1.25: alpha support for running Pods with user namespaces"
 date: 2022-10-03
 slug: userns-alpha
+author: >
+  Rodrigo Campos (Microsoft),
+  Giuseppe Scrivano (Red Hat)
 ---
-
-**Authors:** Rodrigo Campos (Microsoft), Giuseppe Scrivano (Red Hat)
 
 Kubernetes v1.25 introduces the support for user namespaces.
 

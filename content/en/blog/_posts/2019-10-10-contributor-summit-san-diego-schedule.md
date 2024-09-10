@@ -3,9 +3,11 @@ layout: blog
 title: "Contributor Summit San Diego Schedule Announced!"
 date: 2019-10-10
 slug: contributor-summit-san-diego-schedule
+author: >
+  Josh Berkus (Red Hat),
+  Paris Pittman (Google),
+  Jonas Rosland (VMware)
 ---
-
-**Authors:** Josh Berkus (Red Hat), Paris Pittman (Google), Jonas Rosland (VMware)
 
 There are many great sessions planned for the Contributor Summit, spread across
 five rooms of current contributor content in addition to the new contributor

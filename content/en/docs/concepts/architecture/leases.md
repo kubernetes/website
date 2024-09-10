@@ -1,5 +1,8 @@
 ---
 title: Leases
+api_metadata:
+- apiVersion: "coordination.k8s.io/v1"
+  kind: "Lease"
 content_type: concept
 weight: 30
 ---
@@ -22,7 +25,7 @@ namespace. Under the hood, every kubelet heartbeat is an **update** request to t
 the `spec.renewTime` field for the Lease. The Kubernetes control plane uses the time stamp of this field
 to determine the availability of this `Node`.
 
-See [Node Lease objects](/docs/concepts/architecture/nodes/#heartbeats) for more details.
+See [Node Lease objects](/docs/concepts/architecture/nodes/#node-heartbeats) for more details.
 
 ## Leader election
 
@@ -31,9 +34,13 @@ This is used by control plane components like `kube-controller-manager` and `kub
 HA configurations, where only one instance of the component should be actively running while the other
 instances are on stand-by.
 
+Read [coordinated leader election](/docs/concepts/cluster-administration/coordinated-leader-election)
+to learn about how Kubernetes builds on the Lease API to select which component instance
+acts as leader.
+
 ## API server identity
 
-{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+{{< feature-state feature_gate_name="APIServerIdentity" >}}
 
 Starting in Kubernetes v1.26, each `kube-apiserver` uses the Lease API to publish its identity to the
 rest of the system. While not particularly useful on its own, this provides a mechanism for clients to

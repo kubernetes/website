@@ -4,9 +4,10 @@ layout: blog
 title: "Announcing etcd 3.4"
 date: 2019-08-30
 slug: announcing-etcd-3-4
+author: >
+  [Gyuho Lee](https://github.com/gyuho) (Amazon Web Services),
+  [Jingyi Hu](https://github.com/jingyih) (Google)
 ---
-
-**Authors:** Gyuho Lee (Amazon Web Services, @[gyuho](https://github.com/gyuho)), Jingyi Hu (Google, @[jingyih](https://github.com/jingyih))
 
 etcd 3.4 focuses on stability, performance and ease of operation, with features like pre-vote and non-voting member and improvements to storage backend and client balancer.
 

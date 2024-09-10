@@ -3,10 +3,9 @@ layout: blog
 title: Consider All Microservices Vulnerable — And Monitor Their Behavior
 date: 2023-01-20
 slug: security-behavior-analysis
+author: >
+  David Hadas (IBM Research Labs)
 ---
-
-**Author:**
-David Hadas (IBM Research Labs)
 
 _This post warns Devops from a false sense of security. Following security
 best practices when developing and configuring microservices do not result

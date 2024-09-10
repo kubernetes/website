@@ -99,7 +99,7 @@ Kubernetesは、クラスターへカスタムリソースを追加する2つの
 
 Kubernetesは、さまざまなユーザーのニーズを満たすためにこれら2つのオプションを提供しており、使いやすさや柔軟性が損なわれることはありません。
 
-アグリゲートAPIは、プロキシーとして機能するプライマリAPIサーバーの背後にある、下位のAPIServerです。このような配置は[APIアグリゲーション](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)(AA)と呼ばれています。ユーザーにとっては、単にAPIサーバーが拡張されているように見えます。
+アグリゲートAPIは、プロキシとして機能するプライマリAPIサーバーの背後にある、下位のAPIServerです。このような配置は[APIアグリゲーション](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)(AA)と呼ばれています。ユーザーにとっては、単にAPIサーバーが拡張されているように見えます。
 
 CRDでは、APIサーバーの追加なしに、ユーザーが新しい種類のリソースを作成できます。CRDを使うには、APIアグリゲーションを理解する必要はありません。
 

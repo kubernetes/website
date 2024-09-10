@@ -3,9 +3,11 @@ layout: blog
 title: "API Priority and Fairness Alpha"
 date: 2020-04-06
 slug: kubernetes-1-18-feature-api-priority-and-fairness-alpha
+author: >
+  Min Kim (Ant Financial),
+  Mike Spreitzer (IBM),
+  Daniel Smith (Google)
 ---
-
-**Authors:** Min Kim (Ant Financial), Mike Spreitzer (IBM), Daniel Smith (Google)
 
 This blog describes “API Priority And Fairness”, a new alpha feature in Kubernetes 1.18. API Priority And Fairness permits cluster administrators to divide the concurrency of the control plane into different weighted priority levels. Every request arriving at a kube-apiserver will be categorized into one of the priority levels and get its fair share of the control plane’s throughput.
 

@@ -3,9 +3,9 @@ layout: blog
 title: "k8s.gcr.io Image Registry Will Be Frozen From the 3rd of April 2023"
 date: 2023-02-06
 slug: k8s-gcr-io-freeze-announcement
+author: >
+   Mahamed Ali (Rackspace Technology)
 ---
-
-**Authors**: Mahamed Ali (Rackspace Technology)
 
 The Kubernetes project runs a community-owned image registry called `registry.k8s.io`
 to host its container images. On the 3rd of April 2023, the old registry `k8s.gcr.io`

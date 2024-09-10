@@ -1,9 +1,9 @@
 ---
 title: Kubernetes End-to-end Testing for Everyone
 date: 2019-03-22
+author: >
+  Patrick Ohly (Intel)
 ---
-
-**Author:** Patrick Ohly (Intel)
 
 More and more components that used to be part of Kubernetes are now
 being developed outside of Kubernetes. For example, storage drivers

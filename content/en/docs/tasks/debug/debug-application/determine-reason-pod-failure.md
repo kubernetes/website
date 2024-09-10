@@ -127,5 +127,8 @@ is empty and the container exited with an error. The log output is limited to
 
 * See the `terminationMessagePath` field in
   [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).
+* See [ImagePullBackOff](/docs/concepts/containers/images/#imagepullbackoff) in [Images](/docs/concepts/containers/images/).
 * Learn about [retrieving logs](/docs/concepts/cluster-administration/logging/).
 * Learn about [Go templates](https://pkg.go.dev/text/template).
+* Learn about [Pod status](/docs/tasks/debug/debug-application/debug-init-containers/#understanding-pod-status) and [Pod phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase).
+* Learn about [container states](/docs/concepts/workloads/pods/pod-lifecycle/#container-states).

@@ -59,7 +59,7 @@ no_list: true
 * [Аудит](/docs/tasks/debug-application-cluster/audit/) описывает, как взаимодействовать с журналами аудита Kubernetes.
 
 ### Обеспечение безопасности kubelet
-  * [Связь между плоскостью управления и узлом](/docs/concepts/architecture/control-plane-node-communication/)
+  * [Связь между управляющим слоем и узлом](/ru/docs/concepts/architecture/control-plane-node-communication/)
   * [Загрузка TLS](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
   * [Аутентификация/авторизация Kubelet](/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/)
 

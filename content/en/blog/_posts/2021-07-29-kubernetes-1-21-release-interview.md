@@ -2,9 +2,9 @@
 layout: blog
 title: "Roorkee robots, releases and racing: the Kubernetes 1.21 release interview"
 date: 2021-07-29
+author: >
+  Craig Box (Google)
 ---
-
-**Author**: Craig Box (Google)
 
 With Kubernetes 1.22 due out next week, now is a great time to look back on 1.21. The release team for that version was led by [Nabarun Pal](https://twitter.com/theonlynabarun) from VMware.
 

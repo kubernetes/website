@@ -7,7 +7,7 @@ description: Configure and manage huge pages as a schedulable resource in a clus
 ---
 
 <!-- overview -->
-{{< feature-state state="stable" >}}
+{{< feature-state feature_gate_name="HugePages" >}}
 
 Kubernetes supports the allocation and consumption of pre-allocated huge pages
 by applications in a Pod. This page describes how users can consume huge pages.

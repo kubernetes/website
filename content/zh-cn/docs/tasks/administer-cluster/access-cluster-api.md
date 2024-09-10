@@ -27,7 +27,7 @@ This page shows how to access clusters using the Kubernetes API.
 
 ### Accessing for the first time with kubectl
 -->
-## 访问 Kubernetes API
+## 访问 Kubernetes API   {#accessing-the-kubernetes-api}
 
 ### 使用 kubectl 进行首次访问
 

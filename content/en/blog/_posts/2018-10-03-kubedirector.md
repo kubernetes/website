@@ -2,9 +2,9 @@
 layout: blog
 title: 'KubeDirector: The easy way to run complex stateful applications on Kubernetes'
 date: 2018-10-03
+author: >
+  Thomas Phelan (BlueData)
 ---
-
-**Author**: Thomas Phelan (BlueData)
 
 KubeDirector is an open source project designed to make it easy to run complex stateful scale-out application clusters on Kubernetes. KubeDirector is built using the custom resource definition (CRD) framework and leverages the native Kubernetes API extensions and design philosophy. This enables transparent integration with Kubernetes user/resource management as well as existing clients and tools.
 

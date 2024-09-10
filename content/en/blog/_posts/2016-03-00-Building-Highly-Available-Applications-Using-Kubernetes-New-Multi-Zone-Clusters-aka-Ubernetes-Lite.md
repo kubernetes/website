@@ -3,8 +3,11 @@ title: " Building highly available applications using Kubernetes new multi-zone 
 date: 2016-03-29
 slug: building-highly-available-applications-using-kubernetes-new-multi-zone-clusters-a.k.a-ubernetes-lite
 url: /blog/2016/03/Building-Highly-Available-Applications-Using-Kubernetes-New-Multi-Zone-Clusters-aka-Ubernetes-Lite
+author: >
+   Quinton Hoole (Google),
+   Justin Santa Barbara (Google)
 ---
-_Editor's note: this is the third post in a [series of in-depth posts](https://kubernetes.io/blog/2016/03/five-days-of-kubernetes-12) on what's new in Kubernetes 1.2_  
+_**Editor's note:**  this is the third post in a [series of in-depth posts](/blog/2016/03/five-days-of-kubernetes-12) on what's new in Kubernetes 1.2_  
 
 
 
@@ -234,6 +237,4 @@ Please join our community and help us build the future of Kubernetes! There are 
 - The federation “Special Interest Group,” which meets every Thursday at 9:30 a.m. Pacific Time at [SIG-Federation hangout&nbsp;](https://plus.google.com/hangouts/_/google.com/ubernetes)
 
 
-And of course for more information about the project in general, go to www.kubernetes.io  
-
-&nbsp;-- _Quinton Hoole, Staff Software Engineer, Google, and Justin Santa Barbara_
+And of course for more information about the project in general, go to www.kubernetes.io

@@ -17,7 +17,7 @@ content_type: task
 
 <!-- overview -->
 
-{{< feature-state state="alpha" for_k8s_version="v1.29" >}}
+{{< feature-state feature_gate_name="MultiCIDRServiceAllocator" >}}
 
 <!--
 This document shares how to extend the existing Service IP range assigned to a cluster.

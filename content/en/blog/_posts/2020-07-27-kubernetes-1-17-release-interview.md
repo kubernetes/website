@@ -2,9 +2,9 @@
 layout: blog
 title: "Music and math: the Kubernetes 1.17 release interview"
 date: 2020-07-27
+author: >
+  Adam Glick (Google)
 ---
-
-**Author**: Adam Glick (Google)
 
 Every time the Kubernetes release train stops at the station, we like to ask the release lead to take a moment to reflect on their experience. That takes the form of an interview on the weekly [Kubernetes Podcast from Google](https://kubernetespodcast.com/) that I co-host with [Craig Box](https://twitter.com/craigbox). If you're not familiar with the show, every week we summarise the new in the Cloud Native ecosystem, and have an insightful discussion with an interesting guest from the broader Kubernetes community.
 

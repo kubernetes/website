@@ -69,20 +69,20 @@ on every resource object.
 | Key                                 | Description           | Example  | Type |
 | ----------------------------------- | --------------------- | -------- | ---- |
 | `app.kubernetes.io/name`            | The name of the application | `mysql` | string |
-| `app.kubernetes.io/instance`        | A unique name identifying the instance of an application | `mysql-abcxzy` | string |
+| `app.kubernetes.io/instance`        | A unique name identifying the instance of an application | `mysql-abcxyz` | string |
 | `app.kubernetes.io/version`         | The current version of the application (e.g., a [SemVer 1.0](https://semver.org/spec/v1.0.0.html), revision hash, etc.) | `5.7.21` | string |
 | `app.kubernetes.io/component`       | The component within the architecture | `database` | string |
 | `app.kubernetes.io/part-of`         | The name of a higher level application this one is part of | `wordpress` | string |
-| `app.kubernetes.io/managed-by`      | The tool being used to manage the operation of an application | `helm` | string |
+| `app.kubernetes.io/managed-by`      | The tool being used to manage the operation of an application | `Helm` | string |
 -->
 | 键                                 | 描述           | 示例  | 类型 |
 | ----------------------------------- | --------------------- | -------- | ---- |
 | `app.kubernetes.io/name`            | 应用程序的名称 | `mysql` | 字符串 |
-| `app.kubernetes.io/instance`        | 用于唯一确定应用实例的名称 | `mysql-abcxzy` | 字符串 |
+| `app.kubernetes.io/instance`        | 用于唯一确定应用实例的名称 | `mysql-abcxyz` | 字符串 |
 | `app.kubernetes.io/version`         | 应用程序的当前版本（例如[语义版本 1.0](https://semver.org/spec/v1.0.0.html)、修订版哈希等） | `5.7.21` | 字符串 |
 | `app.kubernetes.io/component`       | 架构中的组件 | `database` | 字符串 |
 | `app.kubernetes.io/part-of`         | 此级别的更高级别应用程序的名称 | `wordpress` | 字符串 |
-| `app.kubernetes.io/managed-by`      | 用于管理应用程序的工具 | `helm` | 字符串 |
+| `app.kubernetes.io/managed-by`      | 用于管理应用程序的工具 | `Helm` | 字符串 |
 
 <!--
 To illustrate these labels in action, consider the following {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} object:
@@ -96,11 +96,11 @@ kind: StatefulSet
 metadata:
   labels:
     app.kubernetes.io/name: mysql
-    app.kubernetes.io/instance: mysql-abcxzy
+    app.kubernetes.io/instance: mysql-abcxyz
     app.kubernetes.io/version: "5.7.21"
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
-    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/managed-by: Helm
 ```
 
 <!--
@@ -113,7 +113,7 @@ than once where different websites are different installations of WordPress.
 The name of an application and the instance name are recorded separately. For
 example, WordPress has a `app.kubernetes.io/name` of `wordpress` while it has
 an instance name, represented as `app.kubernetes.io/instance` with a value of
-`wordpress-abcxzy`. This enables the application and instance of the application
+`wordpress-abcxyz`. This enables the application and instance of the application
 to be identifiable. Every instance of an application must have a unique name.
 -->
 ## 应用和应用实例   {#application-and-instances-of-applications}
@@ -123,7 +123,7 @@ to be identifiable. Every instance of an application must have a unique name.
 
 应用的名称和实例的名称是分别记录的。例如，WordPress 应用的 
 `app.kubernetes.io/name` 为 `wordpress`，而其实例名称 
-`app.kubernetes.io/instance` 为 `wordpress-abcxzy`。
+`app.kubernetes.io/instance` 为 `wordpress-abcxyz`。
 这使得应用和应用的实例均可被识别，应用的每个实例都必须具有唯一的名称。
 
 <!--
@@ -158,7 +158,7 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/name: myservice
-    app.kubernetes.io/instance: myservice-abcxzy
+    app.kubernetes.io/instance: myservice-abcxyz
 ...
 ```
 
@@ -173,7 +173,7 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: myservice
-    app.kubernetes.io/instance: myservice-abcxzy
+    app.kubernetes.io/instance: myservice-abcxyz
 ...
 ```
 
@@ -200,9 +200,9 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/name: wordpress
-    app.kubernetes.io/instance: wordpress-abcxzy
+    app.kubernetes.io/instance: wordpress-abcxyz
     app.kubernetes.io/version: "4.9.4"
-    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: server
     app.kubernetes.io/part-of: wordpress
 ...
@@ -219,9 +219,9 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: wordpress
-    app.kubernetes.io/instance: wordpress-abcxzy
+    app.kubernetes.io/instance: wordpress-abcxyz
     app.kubernetes.io/version: "4.9.4"
-    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: server
     app.kubernetes.io/part-of: wordpress
 ...
@@ -238,9 +238,9 @@ kind: StatefulSet
 metadata:
   labels:
     app.kubernetes.io/name: mysql
-    app.kubernetes.io/instance: mysql-abcxzy
+    app.kubernetes.io/instance: mysql-abcxyz
     app.kubernetes.io/version: "5.7.21"
-    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
 ...
@@ -257,9 +257,9 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: mysql
-    app.kubernetes.io/instance: mysql-abcxzy
+    app.kubernetes.io/instance: mysql-abcxyz
     app.kubernetes.io/version: "5.7.21"
-    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
 ...

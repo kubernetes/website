@@ -11,8 +11,8 @@ tags:
 - architecture
 - fundamental
 ---
-In Kubernetes sind Controller Kontrollschleifen, die den Zustand des {{< glossary_tooltip term_id="cluster" text="Clusters">}} beobachten, und dann Änderungen ausführen oder anfragen, wenn benötigt.
-Jeder Controller versucht den aktuellen Clusterzustand in Richtung des Wunschzustands zu bewegen.
+In Kubernetes sind Controller Kontrollschleifen, die den Zustand des {{< glossary_tooltip term_id="cluster" text="Clusters">}} überwachen und bei Bedarf Änderungen ausführen oder anfordern.
+Jeder Controller versucht, den aktuellen Clusterzustand in Richtung des Wunschzustands zu bewegen.
 
 <!--more-->
 

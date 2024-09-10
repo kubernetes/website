@@ -38,6 +38,18 @@ Visit [Install tools](/docs/tasks/tools/#minikube) to learn how to install `mini
 本教程假设你正在使用 `minikube` 运行一个本地 Kubernetes 集群。
 参阅[安装工具](/zh-cn/docs/tasks/tools/#minikube)了解如何安装 `minikube`。
 
+{{< note >}}
+<!--
+This tutorial uses a container that requires the AMD64 architecture. 
+If you are using minikube on a computer with a different CPU architecture,
+you could try using minikube with a driver that can emulate AMD64.
+For example, the Docker Desktop driver can do this.
+-->
+本教程使用需要 AMD64 架构的容器。
+如果你在其他 CPU 架构的计算机上使用 minikube，可以尝试使用带有可以模拟 AMD64 的驱动程序的 minikube。
+例如，Docker Desktop 驱动程序可以执行此操作。
+{{< /note >}}
+
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!--
@@ -119,6 +131,24 @@ If you haven't already set up a cluster locally, run `minikube start` to create 
    deployment.apps/web created
    ```
 
+   <!--
+   Verify that the Deployment is in a Ready state:
+   -->
+   验证 Deployment 是否处于 Ready 状态：
+
+   ```shell
+   kubectl get deployment web 
+   ```  
+   <!--
+   The output should be similar to:
+   -->
+   输出应类似于：
+
+   ```none
+   NAME   READY   UP-TO-DATE   AVAILABLE   AGE
+   web    1/1     1            1           53s
+   ```
+
 <!--
 1. Expose the Deployment:
 -->
@@ -157,9 +187,14 @@ If you haven't already set up a cluster locally, run `minikube start` to create 
    ```
 
 <!--
-1. Visit the Service via NodePort:
+1. Visit the Service via NodePort, using the [`minikube service`](https://minikube.sigs.k8s.io/docs/handbook/accessing/#using-minikube-service-with-tunnel) command. Follow the instructions for your platform:
 -->
-4. 使用节点端口信息访问服务：
+4. 使用节点端口信息访问服务，使用
+   [`minikube service`](https://minikube.sigs.k8s.io/docs/handbook/accessing/#using-minikube-service-with-tunnel) 命令。
+   请按照适合你平台的说明进行操作：
+
+   {{< tabs name="minikube_service" >}}
+   {{% tab name="Linux" %}}
 
    ```shell
    minikube service web --url
@@ -174,9 +209,48 @@ If you haven't already set up a cluster locally, run `minikube start` to create 
    http://172.17.0.15:31637
    ```
 
+   <!--
+   Invoke the URL obtained in the output of the previous step:
+   -->
+   调用上一步输出中获取的 URL：
+
    ```shell
    curl http://172.17.0.15:31637
    ```
+
+   {{% /tab %}}
+   {{% tab name="MacOS" %}}
+
+   <!--
+   # The command must be run in a separate terminal.
+   -->
+   ```shell
+   # 该命令必须在单独的终端中运行。
+   minikube service web --url 
+   ```
+
+   <!--
+   The output is similar to:
+   -->
+   输出类似于：
+
+   ```none
+    http://127.0.0.1:62445
+    ! Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
+   ```
+
+   <!--
+   From a different terminal, invoke the URL obtained in the output of the previous step:
+   -->
+   从不同的终端调用在上一步的输出中获取的 URL：
+
+   ```shell
+    curl http://127.0.0.1:62445 
+   ```
+
+   {{% /tab %}}
+   {{< /tabs >}}
+   <br>
 
    <!--
    The output is similar to:
@@ -200,13 +274,13 @@ If you haven't already set up a cluster locally, run `minikube start` to create 
 ## Create an Ingress
 
 The following manifest defines an Ingress that sends traffic to your Service via
-`hello-world.info`.
+`hello-world.example`.
 
 1. Create `example-ingress.yaml` from the following file:
 -->
 ## 创建一个 Ingress   {#create-ingress}
 
-下面是一个定义 Ingress 的配置文件，负责通过 `hello-world.info`
+下面是一个定义 Ingress 的配置文件，负责通过 `hello-world.example`
 将请求转发到你的服务。
 
 1. 根据下面的 YAML 创建文件 `example-ingress.yaml`：
@@ -253,18 +327,66 @@ The following manifest defines an Ingress that sends traffic to your Service via
    接下来你将会在 `ADDRESS` 列中看到 IPv4 地址，例如：
 
    ```none
-   NAME              CLASS    HOSTS              ADDRESS        PORTS   AGE
-   example-ingress   <none>   hello-world.info   172.17.0.15    80      38s
+   NAME              CLASS   HOSTS                 ADDRESS        PORTS   AGE
+   example-ingress   nginx   hello-world.example   172.17.0.15    80      38s
    ```
 
 <!--
-1. Verify that the Ingress controller is directing traffic:
+1. Verify that the Ingress controller is directing traffic, by following the instructions for your platform:
 -->
-4. 验证 Ingress 控制器能够转发请求流量：
+4. 验证 Ingress 控制器能够转发请求流量，按照适用于所属平台的说明进行操作：
+
+   {{< note >}}
+   <!--
+   The network is limited if using the Docker driver on MacOS (Darwin) and the Node IP is not reachable directly. To get ingress to work you’ll need to open a new terminal and run `minikube tunnel`.
+   `sudo` permission is required for it, so provide the password when prompted. 
+   -->
+   如果在 MacOS（Darwin）上使用 Docker 驱动程序，网络会受到限制，并且无法直接访问节点 IP。
+   要让 Ingress 正常工作，你需要打开一个新终端并运行 `minikube tunnel`。
+   此操作需要 `sudo` 权限，因此请在出现提示时提供密码。
+   {{< /note >}}
+
+   {{< tabs name="ingress" >}}
+   {{% tab name="Linux" %}}
 
    ```shell
-   curl --resolve "hello-world.info:80:$( minikube ip )" -i http://hello-world.info
+    curl --resolve "hello-world.example:80:$( minikube ip )" -i http://hello-world.example
    ```
+
+   {{% /tab %}}
+   {{% tab name="MacOS" %}}
+
+   ```shell
+   minikube tunnel
+   ```
+   
+   <!--
+   The output is similar to:
+   -->
+   输出类似于：
+
+   ```none
+   Tunnel successfully started
+ 
+   NOTE: Please do not close this terminal as this process must stay alive for the tunnel to be accessible ...
+   
+   The service/ingress example-ingress requires privileged ports to be exposed: [80 443]
+   sudo permission will be asked for it.
+   Starting tunnel for service example-ingress.
+   ```
+
+   <!--
+   From within a new terminal, invoke the following command:
+   -->
+   从新终端中调用以下命令：
+
+   ```shell
+    curl --resolve "hello-world.example:80:127.0.0.1" -i http://hello-world.example
+   ```
+
+   {{% /tab %}}
+   {{< /tabs >}}
+   <br>
 
    <!--
    You should see:
@@ -307,10 +429,12 @@ The following manifest defines an Ingress that sends traffic to your Service via
      ```
 
      {{< note >}}
+
      <!--
      Change the IP address to match the output from `minikube ip`.
      -->
-     更改 IP 地址以匹配 `minikube ip` 的输出。
+
+更改 IP 地址以匹配 `minikube ip` 的输出。
      {{< /note >}}
 
      <!--
@@ -340,6 +464,25 @@ The following manifest defines an Ingress that sends traffic to your Service via
 
    ```none
    deployment.apps/web2 created
+   ```
+
+   <!--
+   Verify that the Deployment is in a Ready state:
+   -->
+   验证 Deployment 是否处于 Ready 状态：
+
+   ```shell
+   kubectl get deployment web2 
+   ```  
+
+   <!--
+   The output should be similar to:
+   -->
+   输出应类似于：
+
+   ```none
+   NAME   READY   UP-TO-DATE   AVAILABLE   AGE
+   web2   1/1     1            1           16s
    ```
 
 <!--
@@ -407,9 +550,47 @@ The following manifest defines an Ingress that sends traffic to your Service via
 
 1. 访问 Hello World 应用的第一个版本：
 
+   {{< tabs name="ingress2-v1" >}}
+   {{% tab name="Linux" %}}
+
    ```shell
-   curl --resolve "hello-world.info:80:$( minikube ip )" -i http://hello-world.info
+    curl --resolve "hello-world.example:80:$( minikube ip )" -i http://hello-world.example
    ```
+
+   {{% /tab %}}
+   {{% tab name="MacOS" %}}
+
+   ```shell
+   minikube tunnel
+   ```
+   
+   <!--
+   The output is similar to:
+   -->
+   输出类似于：
+
+   ```none
+   Tunnel successfully started
+ 
+   NOTE: Please do not close this terminal as this process must stay alive for the tunnel to be accessible ...
+   
+   The service/ingress example-ingress requires privileged ports to be exposed: [80 443]
+   sudo permission will be asked for it.
+   Starting tunnel for service example-ingress.
+   ```
+
+   <!--
+   From within a new terminal, invoke the following command:
+   -->
+   从新终端中调用以下命令：
+
+   ```shell
+    curl --resolve "hello-world.example:80:127.0.0.1" -i http://hello-world.example
+   ```
+
+   {{% /tab %}}
+   {{< /tabs >}}
+   <br>
 
    <!--
    The output is similar to:
@@ -427,9 +608,46 @@ The following manifest defines an Ingress that sends traffic to your Service via
 -->
 2. 访问 Hello World 应用的第二个版本：
 
+   {{< tabs name="ingress2-v2" >}}
+   {{% tab name="Linux" %}}
+
    ```shell
-   curl --resolve "hello-world.info:80:$( minikube ip )" -i http://hello-world.info/v2
+   curl --resolve "hello-world.example:80:$( minikube ip )" -i http://hello-world.example/v2
    ```
+
+   {{% /tab %}}
+   {{% tab name="MacOS" %}}
+
+   ```shell
+   minikube tunnel
+   ```
+   
+   <!--
+   The output is similar to:
+   -->
+   输出类似于：
+
+   ```none
+   Tunnel successfully started
+ 
+   NOTE: Please do not close this terminal as this process must stay alive for the tunnel to be accessible ...
+   
+   The service/ingress example-ingress requires privileged ports to be exposed: [80 443]
+   sudo permission will be asked for it.
+   Starting tunnel for service example-ingress.
+   ```
+
+   <!--
+   From within a new terminal, invoke the following command:
+   -->
+   从新终端中调用以下命令：
+
+   ```shell
+    curl --resolve "hello-world.example:80:127.0.0.1" -i http://hello-world.example/v2
+   ```
+
+   {{% /tab %}}
+   {{< /tabs >}}
 
    <!--
    The output is similar to:
@@ -444,11 +662,11 @@ The following manifest defines an Ingress that sends traffic to your Service via
 
    {{< note >}}
    <!--
-   If you did the optional step to update `/etc/hosts`, you can also visit `hello-world.info` and
-   `hello-world.info/v2` from your browser.
+   If you did the optional step to update `/etc/hosts`, you can also visit `hello-world.example` and
+   `hello-world.example/v2` from your browser.
    -->
    如果你执行了更新 `/etc/hosts` 的可选步骤，你也可以从你的浏览器中访问
-   `hello-world.info` 和 `hello-world.info/v2`。
+   `hello-world.example` 和 `hello-world.example/v2`。
    {{< /note >}}
 
 ## {{% heading "whatsnext" %}}

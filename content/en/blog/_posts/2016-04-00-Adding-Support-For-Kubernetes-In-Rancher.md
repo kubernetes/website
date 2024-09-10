@@ -3,8 +3,9 @@ title: " Adding Support for Kubernetes in Rancher "
 date: 2016-04-08
 slug: adding-support-for-kubernetes-in-rancher
 url: /blog/2016/04/Adding-Support-For-Kubernetes-In-Rancher
+author: >
+  Darren Shepherd (Rancher Labs) 
 ---
-_Today’s guest post is written by Darren Shepherd, Chief Architect at Rancher Labs, an open-source software platform for managing containers._  
 
 Over the last year, we’ve seen a tremendous increase in the number of companies looking to leverage containers in their software development and IT organizations. To achieve this, organizations have been looking at how to build a centralized container management capability that will make it simple for users to get access to containers, while centralizing visibility and control with the IT organization. In 2014 we started the open-source Rancher project to address this by building a management platform for containers.  
 
@@ -31,8 +32,4 @@ Even better, we have been able to add a number of services around the core Kuber
 
 
 
-Like Kubernetes, Rancher is an open-source software project, free to use by anyone, and given to the community without any restrictions. You can find all of the source code, upcoming releases and issues for Rancher on [GitHub](http://www.github.com/rancher/rancher). We’re thrilled to be joining the Kubernetes community, and look forward to working with all of the other contributors. View a demo of the new Kubernetes support in Rancher [here](http://rancher.com/kubernetes/).&nbsp;
-
-
-
-_-- Darren Shepherd, Chief Architect, Rancher Labs_
+Like Kubernetes, Rancher is an open-source software project, free to use by anyone, and given to the community without any restrictions. You can find all of the source code, upcoming releases and issues for Rancher on [GitHub](http://www.github.com/rancher/rancher). We’re thrilled to be joining the Kubernetes community, and look forward to working with all of the other contributors. View a demo of the new Kubernetes support in Rancher [here](http://rancher.com/kubernetes/).

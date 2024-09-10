@@ -137,7 +137,7 @@ Kubernetes 生态系统中正在开发作为灵活策略引擎的动态准入控
 ## Apply policies using Kubelet configurations
 
 Kubernetes allows configuring the Kubelet on each worker node.  Some Kubelet configurations act as policies:
-* [Process ID limts and reservations](/docs/concepts/policy/pid-limiting/) are used to limit and reserve allocatable PIDs.
+* [Process ID limits and reservations](/docs/concepts/policy/pid-limiting/) are used to limit and reserve allocatable PIDs.
 * [Node Resource Managers](/docs/concepts/policy/node-resource-managers/) can manage compute, memory, and device resources for latency-critical and high-throughput workloads.
 -->
 ## 使用 Kubelet 配置应用策略   {#apply-policies-using-kubelet-configurations}

@@ -18,7 +18,7 @@ particular PersistentVolumeClaim and PersistentVolume.
 
 <!-- body -->
 
-Some application need additional storage but don't care whether that
+Some applications need additional storage but don't care whether that
 data is stored persistently across restarts. For example, caching
 services are often limited by memory size and can move infrequently
 used data into storage that is slower than memory with little impact

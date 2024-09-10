@@ -1,7 +1,7 @@
 # See the OWNERS docs at https://go.k8s.io/owners
 
 reviewers:
-- sig-docs-en-reviews # Defined in OWNERS_ALIASES
+- sig-docs-website-owners # Defined in OWNERS_ALIASES
 
 approvers:
-- sig-docs-en-owners # Defined in OWNERS_ALIASES
+- sig-docs-website-owners # Defined in OWNERS_ALIASES

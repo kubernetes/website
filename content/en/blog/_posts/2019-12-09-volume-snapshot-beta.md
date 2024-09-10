@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes 1.17 Feature: Kubernetes Volume Snapshot Moves to Beta"
 date: 2019-12-09T10:00:00-08:00
 slug: kubernetes-1-17-feature-cis-volume-snapshot-beta
+author: >
+  Xing Yang (VMware),
+  Xiangqian Yu (Google)
 ---
-
-**Authors:** Xing Yang, VMware & Xiangqian Yu, Google
 
 The Kubernetes Volume Snapshot feature is now beta in Kubernetes v1.17. It was introduced [as alpha](https://kubernetes.io/blog/2018/10/09/introducing-volume-snapshot-alpha-for-kubernetes/) in Kubernetes v1.12, with a [second alpha](https://kubernetes.io/blog/2019/01/17/update-on-volume-snapshot-alpha-for-kubernetes/) with breaking changes in Kubernetes v1.13.  This post summarizes the changes in the beta release.
 

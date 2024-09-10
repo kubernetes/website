@@ -54,7 +54,7 @@ When a PVC does not specify a `storageClassName`, the default StorageClass is
 used.
 
 If you set the
-[`storageclass.kubernetes.io/is-default-class`](/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class)
+[`storageclass.kubernetes.io/is-default-class`](/docs/reference/labels-annotations-taints/#storageclass-kubernetes-io-is-default-class)
 annotation to true on more than one StorageClass in your cluster, and you then
 create a PersistentVolumeClaim with no `storageClassName` set, Kubernetes
 uses the most recently created default StorageClass.

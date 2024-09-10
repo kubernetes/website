@@ -90,11 +90,12 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-
 * [コンテナ](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)の`terminationMessagePath`フィールド参照
-* [ログ取得](/docs/concepts/cluster-administration/logging/)について
+* [イメージ](/ja/docs/concepts/containers/images/)の[ImagePullBackOff](/ja/docs/concepts/containers/images/#imagepullbackoff)を参照
+* [ログ取得](/ja/docs/concepts/cluster-administration/logging/)について
 * [Goテンプレート](https://pkg.go.dev/text/template)について
-
+* [Podのステータス](/ja/docs/tasks/debug/debug-application/debug-init-containers/#understanding-pod-status)と[Podのフェーズ](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)について
+* [コンテナのステータス](/ja/docs/concepts/workloads/pods/pod-lifecycle/#container-states)について
 
 
 

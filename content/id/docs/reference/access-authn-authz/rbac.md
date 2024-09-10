@@ -1,7 +1,7 @@
 ---
 title: Menggunakan Otorisasi RBAC
 content_type: concept
-aliases: [../../../rbac/]
+aliases: [/id/rbac/]
 weight: 70
 ---
 

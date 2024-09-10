@@ -1,5 +1,8 @@
 ---
 title: 定制资源
+api_metadata:
+- apiVersion: "apiextensions.k8s.io/v1"
+  kind: "CustomResourceDefinition"
 content_type: concept
 weight: 10
 ---
@@ -8,6 +11,9 @@ title: Custom Resources
 reviewers:
 - enisoc
 - deads2k
+api_metadata:
+- apiVersion: "apiextensions.k8s.io/v1"
+  kind: "CustomResourceDefinition"
 content_type: concept
 weight: 10
 -->
@@ -309,8 +315,9 @@ The [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/cu
 API resource allows you to define custom resources.
 Defining a CRD object creates a new custom resource with a name and schema that you specify.
 The Kubernetes API serves and handles the storage of your custom resource.
-The name of a CRD object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+The name of the CRD object itself must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) derived from the defined resource name and its API group; see [how to create a CRD](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions#create-a-customresourcedefinition) for more details.
+Further, the name of an object whose kind/resource is defined by a CRD must also be a valid DNS subdomain name.
 -->
 ## CustomResourceDefinitions
 
@@ -318,8 +325,10 @@ The name of a CRD object must be a valid
 API 资源允许你定义定制资源。
 定义 CRD 对象的操作会使用你所设定的名字和模式定义（Schema）创建一个新的定制资源，
 Kubernetes API 负责为你的定制资源提供存储和访问服务。
-CRD 对象的名称必须是合法的
-[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+CRD 对象的名称必须是有效的 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)，
+该名称由定义的资源名称及其 API 组派生而来。有关详细信息，
+请参见[如何创建 CRD](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions#create-a-customresourcedefinition)。
+此外，由 CRD 定义的某种对象/资源的名称也必须是有效的 DNS 子域名。
 
 <!--
 This frees you from writing your own API server to handle the custom resource,
@@ -428,6 +437,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
 | strategic-merge-patch | The new endpoints support PATCH with `Content-Type: application/strategic-merge-patch+json`. Useful for updating objects that may be modified both locally, and by the server. For more information, see ["Update API Objects in Place Using kubectl patch"](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/) | No | Yes |
 | Protocol Buffers | The new resource supports clients that want to use Protocol Buffers | No | Yes |
 | OpenAPI Schema | Is there an OpenAPI (swagger) schema for the types that can be dynamically fetched from the server? Is the user protected from misspelling field names by ensuring only allowed fields are set? Are types enforced (in other words, don't put an `int` in a `string` field?) | Yes, based on the [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) schema (GA in 1.16). | Yes |
+| Instance Name | Does this extension mechanism impose any constraints on the names of objects whose kind/resource is defined this way? | Yes, such an object's name must be a valid DNS subdomain name. | No |
 -->
 | 特性    | 描述        | CRD | 聚合 API       |
 | ------- | ----------- | ---- | -------------- |
@@ -442,6 +452,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
 | strategic-merge-patch | 新的端点要支持标记了 `Content-Type: application/strategic-merge-patch+json` 的 PATCH 操作。对于更新既可在本地更改也可在服务器端更改的对象而言是有用的。要了解更多信息，可参见[使用 `kubectl patch` 来更新 API 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)。 | 不可以。 | 可以。 |
 | 支持协议缓冲区 | 新的资源要支持想要使用协议缓冲区（Protocol Buffer）的客户端。 | 不可以。 | 可以。 |
 | OpenAPI Schema | 是否存在新资源类别的 OpenAPI（Swagger）Schema 可供动态从服务器上读取？是否存在机制确保只能设置被允许的字段以避免用户犯字段拼写错误？是否实施了字段类型检查（换言之，不允许在 `string` 字段设置 `int` 值）？ | 可以，依据 [OpenAPI v3.0 合法性检查](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) 模式（1.16 中进入正式发布状态）。 | 可以。|
+| 实例名称 | 这种扩展机制是否对通过这种方式定义的对象（类别/资源）的名称有任何限制? | 可以，此类对象的名称必须是一个有效的 DNS 子域名。 | 不可以|
 
 <!--
 ### Common Features
@@ -585,6 +596,79 @@ Kubernetes [客户端库](/zh-cn/docs/reference/using-api/client-libraries/)可�
 - 你所编写的 REST 客户端
 - 使用 [Kubernetes 客户端生成工具](https://github.com/kubernetes/code-generator)所生成的客户端。
   生成客户端的工作有些难度，不过某些项目可能会随着 CRD 或聚合 API 一起提供一个客户端。
+
+<!--
+## Custom resource field selectors
+
+[Field Selectors](/docs/concepts/overview/working-with-objects/field-selectors/)
+let clients select custom resources based on the value of one or more resource
+fields.
+-->
+## 定制资源字段选择算符   {#custom-resource-field-selectors}
+
+[字段选择算符](/zh-cn/docs/concepts/overview/working-with-objects/field-selectors/)允许客户端根据一个或多个资源字段的值选择定制资源。
+
+<!--
+All custom resources support the `metadata.name` and `metadata.namespace` field
+selectors.
+
+Fields declared in a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+may also be used with field selectors when included in the `spec.versions[*].selectableFields` field of the
+{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}.
+-->
+所有定制资源都支持 `metadata.name` 和 `metadata.namespace` 字段选择算符。
+
+当 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+中声明的字段包含在 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+的 `spec.versions[*].selectableFields` 字段中时，也可以与字段选择算符一起使用。
+
+<!--
+### Selectable fields for custom resources {#crd-selectable-fields}
+-->
+### 定制资源的可选择字段   {#crd-selectable-fields}
+
+{{< feature-state feature_gate_name="CustomResourceFieldSelectors" >}}
+
+<!--
+The `spec.versions[*].selectableFields` field of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be used to
+declare which other fields in a custom resource may be used in field selectors
+with the feature of `CustomResourceFieldSelectors`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) (This feature gate is enabled by default since Kubernetes v1.31).
+The following example adds the `.spec.color` and `.spec.size` fields as
+selectable fields.
+-->
+你需要启用 `CustomResourceFieldSelectors`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+来使用此行为，然后将其应用到集群中的所有 CustomResourceDefinitions。
+
+{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+字段可以用来在启用了 `CustomResourceFieldSelectors`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 
+（自 Kubernetes v1.31 起，此特性默认启用）的集群中控制哪些字段可以用在字段选择算符中。
+
+以下示例将 `.spec.color` 和 `.spec.size` 字段添加为可选择字段。
+
+{{% code_sample file="customresourcedefinition/shirt-resource-definition.yaml" %}}
+
+<!--
+Field selectors can then be used to get only resources with a `color` of `blue`:
+-->
+字段选择算符随后可用于仅获取 `color` 为 `blue` 的资源：
+
+```shell
+kubectl get shirts.stable.example.com --field-selector spec.color=blue
+```
+
+<!--
+The output should be:
+-->
+输出应该是：
+
+```
+NAME       COLOR  SIZE
+example1   blue   S
+example2   blue   M
+```
 
 ## {{% heading "whatsnext" %}}
 

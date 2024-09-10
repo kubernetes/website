@@ -35,11 +35,11 @@ The **flowcontrol.apiserver.k8s.io/v1beta3** API version of FlowSchema and Prior
 
 ### v1.29
 
-The **v1.29** release will stop serving the following deprecated API versions:
+The **v1.29** release stopped serving the following deprecated API versions:
 
 #### Flow control resources {#flowcontrol-resources-v129}
 
-The **flowcontrol.apiserver.k8s.io/v1beta2** API version of FlowSchema and PriorityLevelConfiguration will no longer be served in v1.29.
+The **flowcontrol.apiserver.k8s.io/v1beta2** API version of FlowSchema and PriorityLevelConfiguration is no longer served as of v1.29.
 
 * Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1** API version, available since v1.29, or the **flowcontrol.apiserver.k8s.io/v1beta3** API version, available since v1.26.
 * All existing persisted objects are accessible via the new API
@@ -54,7 +54,7 @@ The **v1.27** release stopped serving the following deprecated API versions:
 
 #### CSIStorageCapacity {#csistoragecapacity-v127}
 
-The **storage.k8s.io/v1beta1** API version of CSIStorageCapacity will no longer be served in v1.27.
+The **storage.k8s.io/v1beta1** API version of CSIStorageCapacity is no longer served as of v1.27.
 
 * Migrate manifests and API clients to use the **storage.k8s.io/v1** API version, available since v1.24.
 * All existing persisted objects are accessible via the new API
@@ -78,7 +78,8 @@ The **autoscaling/v2beta2** API version of HorizontalPodAutoscaler is no longer 
 
 * Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
 * All existing persisted objects are accessible via the new API
-
+* Notable changes:
+  * `targetAverageUtilization` is replaced with `target.averageUtilization` and `target.type: Utilization`. See [Autoscaling on multiple metrics and custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics).
 ### v1.25
 
 The **v1.25** release stopped serving the following deprecated API versions:
@@ -130,6 +131,8 @@ The **autoscaling/v2beta1** API version of HorizontalPodAutoscaler is no longer 
 
 * Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
 * All existing persisted objects are accessible via the new API
+* Notable changes:
+  * `targetAverageUtilization` is replaced with `target.averageUtilization` and `target.type: Utilization`. See [Autoscaling on multiple metrics and custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics).
 
 #### PodDisruptionBudget {#poddisruptionbudget-v125}
 

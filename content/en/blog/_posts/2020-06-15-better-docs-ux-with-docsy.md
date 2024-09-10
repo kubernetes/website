@@ -4,9 +4,9 @@ title: A Better Docs UX With Docsy
 date: 2020-06-15
 slug: better-docs-ux-with-docsy
 url: /blog/2020/06/better-docs-ux-with-docsy
+author: >
+  Zach Corleissen (Cloud Native Computing Foundation)
 ---
-
-**Author:** Zach Corleissen, Cloud Native Computing Foundation
 
 *Editor's note: Zach is one of the chairs for the Kubernetes documentation special interest group (SIG Docs).*
 

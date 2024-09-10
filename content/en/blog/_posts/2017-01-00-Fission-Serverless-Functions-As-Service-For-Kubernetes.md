@@ -3,9 +3,9 @@ title: " Fission: Serverless Functions as a Service for Kubernetes "
 date: 2017-01-30
 slug: fission-serverless-functions-as-service-for-kubernetes
 url: /blog/2017/01/Fission-Serverless-Functions-As-Service-For-Kubernetes
+author: >
+  Soam Vasani (Platform9 Systems)
 ---
-_Editor's note: Today’s post is by Soam Vasani, Software Engineer at Platform9 Systems, talking about a new open source Serverless Function (FaaS) framework for Kubernetes._&nbsp;  
-
 [Fission](https://github.com/fission/fission) is a Functions as a Service (FaaS) / Serverless function framework built on Kubernetes.  
 
 Fission allows you to easily create HTTP services on Kubernetes from functions. It works at the source level and abstracts away container images (in most cases). It also simplifies the Kubernetes learning curve, by enabling you to make useful services without knowing much about Kubernetes.  
@@ -127,6 +127,3 @@ Fission is open source and developed in the open by [Platform9 Systems](http://p
 - Connect with the community on [Slack](http://slack.k8s.io/)
 - Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates
 
-
-
-_--Soam Vasani, Software Engineer, Platform9 Systems_

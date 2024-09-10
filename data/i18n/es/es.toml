@@ -1,5 +1,14 @@
 # i18n strings for the Spanish (main) site.
 
+[docs_version_current]
+other = "(esta documentación)"
+
+[docs_version_latest_heading]
+other = "Versión actual"
+
+[docs_version_other_heading]
+other = "Versiones anteriores"
+
 [deprecation_warning]
 other = " ya no mantiene activamente la documentación. La versión que está viendo actualmente es una instantánea estática. Para la documentación actualizada, visita la "
 
@@ -94,7 +103,7 @@ other = "Contribuir"
 other = "Editar esta página"
 
 [main_page_history]
-other ="Historial cambios"
+other ="Historial de cambios"
 
 [main_page_last_modified_on]
 other = "Página modificada por última vez el "
@@ -146,10 +155,10 @@ other = "Filtrar terminos por categoría:"
 other = "Seleccionar todos"
 
 [layouts_docs_glossary_deselect_all]
-other = "Elmininar selección"
+other = "Eliminar selección"
 
 [layouts_docs_glossary_aka]
-other = "Also known as"
+other = "También conocido como"
 
 [layouts_docs_glossary_click_details_before]
 other = "Haz click en el símbolo"

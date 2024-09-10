@@ -42,7 +42,7 @@ Dashboard also provides information on the state of Kubernetes resources in your
 Dashboard 是基于网页的 Kubernetes 用户界面。
 你可以使用 Dashboard 将容器应用部署到 Kubernetes 集群中，也可以对容器应用排错，还能管理集群资源。
 你可以使用 Dashboard 获取运行在集群中的应用的概览信息，也可以创建或者修改 Kubernetes 资源
-（如 Deployment，Job，DaemonSet 等等）。
+（如 Deployment、Job、DaemonSet 等等）。
 例如，你可以对 Deployment 实现弹性伸缩、发起滚动升级、重启 Pod 或者使用向导创建新的应用。
 
 Dashboard 同时展示了 Kubernetes 集群中的资源状态信息和所有报错信息。
@@ -53,14 +53,32 @@ Dashboard 同时展示了 Kubernetes 集群中的资源状态信息和所有报�
 
 <!--
 ## Deploying the Dashboard UI
-
-The Dashboard UI is not deployed by default. To deploy it, run the following command:
 -->
 ## 部署 Dashboard UI   {#deploying-the-dashboard-ui}
-默认情况下不会部署 Dashboard。可以通过以下命令部署：
 
+{{< note >}}
+<!--
+Kubernetes Dashboard supports only Helm-based installation currently as it is faster
+and gives us better control over all dependencies required by Dashboard to run.
+-->
+Kubernetes Dashboard 目前仅支持基于 Helm 的安装，因为它速度更快，
+并且可以让我们更好地控制 Dashboard 运行所需的所有依赖项。
+{{< /note >}}
+
+<!--
+The Dashboard UI is not deployed by default. To deploy it, run the following command:
+-->
+默认情况下不会部署 Dashboard，可以通过以下命令部署：
+
+<!--
+# Add kubernetes-dashboard repository
+# Deploy a Helm Release named "kubernetes-dashboard" using the kubernetes-dashboard chart
+-->
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+# 添加 kubernetes-dashboard 仓库
+helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
+# 使用 kubernetes-dashboard Chart 部署名为 `kubernetes-dashboard` 的 Helm Release
+helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
 ```
 
 <!--
@@ -108,7 +126,7 @@ kubectl 会使得 Dashboard 可以通过 [http://localhost:8001/api/v1/namespace
 <!--
 The UI can _only_ be accessed from the machine where the command is executed. See `kubectl proxy --help` for more options.
 -->
-UI _只能_ 通过执行这条命令的机器进行访问。更多选项参见 `kubectl proxy --help`。
+UI **只能**通过执行这条命令的机器进行访问。更多选项参见 `kubectl proxy --help`。
 
 {{< note >}}
 <!--
@@ -149,7 +167,7 @@ You can either manually specify application details, or upload a YAML or JSON _m
 
 通过一个简单的部署向导，你可以使用 Dashboard 将容器化应用作为一个 Deployment 和可选的
 Service 进行创建和部署。你可以手工指定应用的详细配置，或者上传一个包含应用配置的 YAML
-或 JSON _清单_文件。
+或 JSON **清单**文件。
 
 <!--
 Click the **CREATE** button in the upper right corner of any page to begin.
@@ -261,7 +279,7 @@ If needed, you can expand the **Advanced options** section where you can specify
   such as release, environment, tier, partition, and release track.
 -->
 - **标签**：应用默认使用的
-  [标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/) 是应用名称和版本。
+  [标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)是应用名称和版本。
   你可以为 Deployment、Service（如果有）定义额外的标签，比如 release（版本）、
   environment（环境）、tier（层级）、partition（分区） 和 release track（版本跟踪）。
 
@@ -281,8 +299,7 @@ If needed, you can expand the **Advanced options** section where you can specify
   They let you partition resources into logically named groups.
 -->
 - **名字空间**：Kubernetes 支持多个虚拟集群依附于同一个物理集群。
-  这些虚拟集群被称为
-  [名字空间](/zh-cn/docs/tasks/administer-cluster/namespaces/)，
+  这些虚拟集群被称为[名字空间](/zh-cn/docs/tasks/administer-cluster/namespaces/)，
   可以让你将资源划分为逻辑命名的组。
 
   <!--
@@ -346,8 +363,8 @@ If needed, you can expand the **Advanced options** section where you can specify
   [entrypoint command](/docs/tasks/inject-data-application/define-command-argument-container/).
   You can use the command options and arguments to override the default.
  -->
-- **运行命令**和**运行命令参数**：默认情况下，你的容器会运行 Docker 镜像的默认
-  [入口命令](/zh-cn/docs/tasks/inject-data-application/define-command-argument-container/)。
+- **运行命令**和**运行命令参数**：默认情况下，你的容器会运行 Docker
+  镜像的默认[入口命令](/zh-cn/docs/tasks/inject-data-application/define-command-argument-container/)。
   你可以使用 command 选项覆盖默认值。
 
 <!--
@@ -371,7 +388,7 @@ If needed, you can expand the **Advanced options** section where you can specify
 - **环境变量**：Kubernetes 通过
   [环境变量](/zh-cn/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
   暴露 Service。你可以构建环境变量，或者将环境变量的值作为参数传递给你的命令。
-  它们可以被应用用于查找 Service。值可以通过  `$(VAR_NAME)` 语法关联其他变量。
+  它们可以被应用用于查找 Service。值可以通过 `$(VAR_NAME)` 语法关联其他变量。
 
 <!--
 ### Uploading a YAML or JSON file
@@ -383,8 +400,8 @@ The manifests use Kubernetes [API](/docs/concepts/overview/kubernetes-api/) reso
 ### 上传 YAML 或者 JSON 文件   {#uploading-a-yaml-or-json-file}
 
 Kubernetes 支持声明式配置。所有的配置都存储在清单文件
-（YAML 或者 JSON 配置文件）中。这些
-清单使用 Kubernetes [API](/zh-cn/docs/concepts/overview/kubernetes-api/) 定义的资源模式。
+（YAML 或者 JSON 配置文件）中。
+这些清单使用 Kubernetes [API](/zh-cn/docs/concepts/overview/kubernetes-api/) 定义的资源模式。
 
 <!--
 As an alternative to specifying application details in the deploy wizard,
@@ -412,7 +429,7 @@ this can be changed using the namespace selector located in the navigation menu.
 ### 导航   {#navigation}
 
 当在集群中定义 Kubernetes 对象时，Dashboard 会在初始视图中显示它们。
-默认情况下只会显示 _默认_ 名字空间中的对象，可以通过更改导航栏菜单中的名字空间筛选器进行改变。
+默认情况下只会显示**默认**名字空间中的对象，可以通过更改导航栏菜单中的名字空间筛选器进行改变。
 
 <!--
 Dashboard shows most Kubernetes object kinds and groups them in a few menu categories.
@@ -512,4 +529,4 @@ Pod 列表和详细信息页面可以链接到 Dashboard 内置的日志查看�
 For more information, see the
 [Kubernetes Dashboard project page](https://github.com/kubernetes/dashboard).
 -->
-更多信息，参见 [Kubernetes Dashboard 项目页面](https://github.com/kubernetes/dashboard).
+更多信息，参见 [Kubernetes Dashboard 项目页面](https://github.com/kubernetes/dashboard)。

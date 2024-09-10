@@ -3,10 +3,9 @@ layout: blog
 title: "Kubernetes 1.24: Volume Populators Graduate to Beta"
 date: 2022-05-16
 slug: volume-populators-beta
+author: >
+  Ben Swartzlander (NetApp)
 ---
-
-**Author:**
-Ben Swartzlander (NetApp)
 
 The volume populators feature is now two releases old and entering beta! The `AnyVolumeDataSource` feature
 gate defaults to enabled in Kubernetes v1.24, which means that users can specify any custom resource

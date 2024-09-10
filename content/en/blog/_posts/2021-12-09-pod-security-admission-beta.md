@@ -3,9 +3,10 @@ layout: blog
 title: 'Kubernetes 1.23: Pod Security Graduates to Beta'
 date: 2021-12-09
 slug: pod-security-admission-beta
+author: >
+   Jim Angel (Google),
+   Lachlan Evenson (Microsoft)
 ---
-
-**Authors:** Jim Angel (Google), Lachlan Evenson (Microsoft)
 
 With the release of Kubernetes v1.23, [Pod Security admission](/docs/concepts/security/pod-security-admission/) has now entered beta. Pod Security is a [built-in](/docs/reference/access-authn-authz/admission-controllers/) admission controller that evaluates pod specifications against a predefined set of [Pod Security Standards](/docs/concepts/security/pod-security-standards/) and determines whether to `admit` or `deny` the pod from running.
 

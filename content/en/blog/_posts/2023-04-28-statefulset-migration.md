@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.27: StatefulSet Start Ordinal Simplifies Migration"
 date: 2023-04-28
 slug: statefulset-start-ordinal
+author: >
+   Peter Schuurman (Google)
 ---
-
-**Author**: Peter Schuurman (Google)
 
 Kubernetes v1.26 introduced a new, alpha-level feature for
 [StatefulSets](/docs/concepts/workloads/controllers/statefulset/) that controls

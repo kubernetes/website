@@ -3,9 +3,9 @@ layout: blog
 title: 'Kubernetes 1.24: Prevent unauthorised volume mode conversion'
 date: 2022-05-18
 slug: prevent-unauthorised-volume-mode-conversion-alpha
+author: >
+  Raunak Pradip Shah (Mirantis)
 ---
-
-**Author:** Raunak Pradip Shah (Mirantis)
 
 Kubernetes v1.24 introduces a new alpha-level feature that prevents unauthorised users 
 from modifying the volume mode of a [`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/) created from an 

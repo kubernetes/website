@@ -10,7 +10,7 @@ weight: 30
 This command initializes a Kubernetes worker node and joins it to the cluster.
 
 <!-- body -->
-{{< include "generated/kubeadm_join.md" >}}
+{{< include "generated/kubeadm_join/_index.md" >}}
 
 ### The join workflow {#join-workflow}
 
@@ -182,7 +182,7 @@ In case the discovery file does not contain credentials, the TLS discovery token
 
 #### Use of custom kubelet credentials with `kubeadm join`
 
-To allow `kubeadm join` to use predefined kubelet credentials and skip client TLS bootstrap 
+To allow `kubeadm join` to use predefined kubelet credentials and skip client TLS bootstrap
 and CSR approval for a new node:
 
 1. From a working control plane node in the cluster that has `/etc/kubernetes/pki/ca.key`
@@ -191,8 +191,10 @@ and CSR approval for a new node:
 2. Modify the resulted `kubelet.conf` manually to adjust the cluster name and the server endpoint,
    or run `kubeadm kubeconfig user --config` (it accepts `InitConfiguration`).
 
-If your cluster does not have the `ca.key` file, you must sign the embedded certificates in 
-the `kubelet.conf` externally.
+If your cluster does not have the `ca.key` file, you must sign the embedded certificates in
+the `kubelet.conf` externally. For additional information, see
+[PKI certificates and requirements](/docs/setup/best-practices/certificates/) and
+[Certificate Management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#external-ca-mode).
 
 1. Copy the resulting `kubelet.conf` to `/etc/kubernetes/kubelet.conf` on the new node.
 2. Execute `kubeadm join` with the flag
@@ -315,7 +317,7 @@ If your configuration is not using the latest version it is **recommended** that
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-migrate) command.
 
 For more information on the fields and usage of the configuration you can navigate to our
-[API reference](/docs/reference/config-api/kubeadm-config.v1beta3/).
+[API reference](/docs/reference/config-api/kubeadm-config.v1beta4/).
 
 ## {{% heading "whatsnext" %}}
 

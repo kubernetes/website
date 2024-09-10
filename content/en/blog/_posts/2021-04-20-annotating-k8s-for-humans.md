@@ -3,9 +3,9 @@ layout: blog
 title: 'Annotating Kubernetes Services for Humans'
 date: 2021-04-20
 slug: annotating-k8s-for-humans
+author: >
+  Richard Li (Ambassador Labs)
 ---
-
-**Author:** Richard Li, Ambassador Labs
 
 Have you ever been asked to troubleshoot a failing Kubernetes service and struggled to find basic information about the service such as the source repository and owner?
 

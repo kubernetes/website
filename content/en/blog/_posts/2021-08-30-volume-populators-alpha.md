@@ -3,10 +3,9 @@ layout: blog
 title: "Kubernetes 1.22: A New Design for Volume Populators"
 date: 2021-08-30
 slug: volume-populators-redesigned
+author: >
+  Ben Swartzlander (NetApp)
 ---
-
-**Authors:**
-Ben Swartzlander (NetApp)
 
 Kubernetes v1.22, released earlier this month, introduced a redesigned approach for volume
 populators. Originally implemented

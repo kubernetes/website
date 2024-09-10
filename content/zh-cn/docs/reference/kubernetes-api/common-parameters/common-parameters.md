@@ -70,10 +70,10 @@ When present, indicates that modifications should not be persisted. An invalid o
 ## fieldManager {#fieldManager}
 
 <!--
-fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.
+fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://pkg.go.dev/unicode#IsPrint
 -->
 fieldManager 是与进行这些更改的参与者或实体相关联的名称。
-长度小于或128个字符且仅包含可打印字符，如 https://golang.org/pkg/unicode/#IsPrint 所定义。
+长度小于或128个字符且仅包含可打印字符，如 https://pkg.go.dev/unicode#IsPrint 所定义。
 
 <hr>
 

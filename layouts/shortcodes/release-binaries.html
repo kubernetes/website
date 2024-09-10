@@ -1,6 +1,29 @@
 <!-- Fetch release_binaries.json from kubernetes-sigs/downloadkubernetes to render in table -->
-{{ $response := getJSON "https://raw.githubusercontent.com/kubernetes-sigs/downloadkubernetes/master/dist/release_binaries.json" }}
+{{- $url := "https://raw.githubusercontent.com/kubernetes-sigs/downloadkubernetes/master/dist/release_binaries.json" }}
+{{- $response := "" }}
 
+{{- with resources.GetRemote $url -}}
+  {{- if .Err -}}
+    {{- $message := printf "Failed to retrieve release binaries data: %s" .Err -}}
+    {{- if eq hugo.Environment "production" -}}
+      {{- errorf $message -}}
+    {{- else -}}
+      {{- warnf $message -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $response = .Content | transform.Unmarshal }}
+  {{- end -}}
+{{- else -}}
+  {{ $message := printf "Unable to fetch release binaries data from the specified URL: %q" $url -}}
+  {{- if eq hugo.Environment "production" -}}
+    {{- errorf $message -}}
+  {{- else -}}
+    {{- warnf $message -}}
+  {{- end -}}
+{{- end -}}
+
+<!-- Continue processing only if release binaries JSON is available, accommodating for offline builds. -->
+{{ if ne $response nil }}
 {{ $currentVersion := site.Params.version }}
 
 {{ $Binaries := slice }}
@@ -128,3 +151,4 @@
         </table>
     </div>
 </div>
+{{- end -}}

@@ -3,6 +3,10 @@ title: " Dynamic Provisioning and Storage Classes in Kubernetes "
 date: 2017-03-29
 slug: dynamic-provisioning-and-storage-classes-kubernetes
 url: /blog/2017/03/Dynamic-Provisioning-And-Storage-Classes-Kubernetes
+author: >
+  Saad Ali (Google),
+  Michelle Au (Google),
+  Matthew De Lio (Google)  
 ---
 
 _Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1-6) on what's new in Kubernetes 1.6_
@@ -202,8 +206,6 @@ Yes, you can assign a StorageClass to an existing PV by editing the appropriate 
 
 **What happens if I delete a PersistentVolumeClaim (PVC)?**  
 If the volume was dynamically provisioned, then the default reclaim policy is set to “delete”. This means that, by default, when the PVC is deleted, the underlying PV and storage asset will also be deleted. If you want to retain the data stored on the volume, then you must change the reclaim policy from “delete” to “retain” after the PV is provisioned.  
-
-_--Saad Ali & Michelle Au, Software Engineers, and Matthew De Lio, Product Manager, Google_  
 
 
 - Post questions (or answer questions) on [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)

@@ -45,7 +45,7 @@ Das `conditions` Feld beschreibt den Zustand, aller `Running` Nodes.
 | Node Condition | Beschreibung |
 |----------------|-------------|
 | `OutOfDisk`    | `True` wenn auf dem Node nicht genügend freier Speicherplatz zum Hinzufügen neuer Pods vorhanden ist, andernfalls `False` |
-| `Ready`        | `True` wenn der Node in einem guten Zustand und bereit ist Pods aufzunehmen, `False` wenn der Node nicht in einem guten Zustand ist und nicht bereit ist Pods aufzunehmeb, und `Unknown` wenn der Node-Controller seit der letzten `node-monitor-grace-period` nichts von dem Node gehört hat (Die Standardeinstellung beträgt 40 Sekunden) |
+| `Ready`        | `True` wenn der Node in einem guten Zustand und bereit ist Pods aufzunehmen, `False` wenn der Node nicht in einem guten Zustand ist und nicht bereit ist Pods aufzunehmen, und `Unknown` wenn der Node-Controller seit der letzten `node-monitor-grace-period` nichts von dem Node gehört hat (Die Standardeinstellung beträgt 40 Sekunden) |
 | `MemoryPressure`    | `True` wenn der verfügbare Speicher des Nodes niedrig ist; Andernfalls`False` |
 | `PIDPressure`    | `True` wenn zu viele Prozesse auf dem Node vorhanden sind; Andernfalls`False` |
 | `DiskPressure`    | `True` wenn die Festplattenkapazität niedrig ist. Andernfalls `False` |

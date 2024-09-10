@@ -3,9 +3,9 @@ layout: blog
 title: How Kubernetes contributors are building a better communication process
 date: 2020-04-21
 slug: contributor-communication
+author: >
+  Paris Pittman
 ---
-
-**Authors:** Paris Pittman
 
 > "Perhaps we just need to use a different word. We may need to use community development or project advocacy as a word in the open source realm as opposed to marketing, and perhaps then people will realize that they need to do it." 
 > ~ [*Nithya Ruff*](https://todogroup.org/www.linkedin.com/in/nithyaruff/) (from [*TODO Group*](https://todogroup.org/guides/marketing-open-source-projects/))

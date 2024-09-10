@@ -23,6 +23,16 @@
     {{ $newPageQS := querify "value" $newPageStub.Content "filename" "change-me.md" | safeURL }}
     {{ $newPageURL := printf "%s/new/%s?%s"  $gh_repo $gh_repo_path $newPageQS }}
 
+    <!-- Accessing API Reference links from "layouts/api-reference-links.html" -->
+    {{- $apiReferenceMetaLinks := $.Store.Get "apiReferenceMetaLinks" -}}
+    {{- if $apiReferenceMetaLinks -}}
+      <!-- Loop through the API reference links -->
+        {{- range $apiReferenceMetaLinks -}}
+          {{- $apiRefPageLink  := . -}}
+          {{- $apiRefPageLink  | replaceRE "<a([^>]*)>" "<a$1><i class=\"fa fa-code fa-fw\"></i> " | safeHTML -}}
+        {{- end -}}
+    {{- end -}}
+
     {{ if not (.Param "auto_generated") }}
     <a href="{{ $editURL }}" target="_blank"><i class="fa fa-edit fa-fw"></i> {{ T "post_edit_this" }}</a>
     {{- if .HasShortcode "thirdparty-content" -}}

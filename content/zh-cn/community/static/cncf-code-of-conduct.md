@@ -143,7 +143,7 @@ For incidents occurring in the Kubernetes community, contact the [Kubernetes Cod
 <!--
 For other projects, or for incidents that are project-agnostic or impact multiple CNCF projects, please contact the [CNCF Code of Conduct Committee](https://www.cncf.io/conduct/committee/) via conduct@cncf.io.  Alternatively, you can contact any of the individual members of the [CNCF Code of Conduct Committee](https://www.cncf.io/conduct/committee/) to submit your report. For more detailed instructions on how to submit a report, including how to submit a report anonymously, please see our [Incident Resolution Procedures](https://www.cncf.io/conduct/procedures/). You can expect a response within three business days.
 
-For incidents ocurring at CNCF event that is produced by the Linux Foundation, please contact eventconduct@cncf.io.
+For incidents occurring at CNCF event that is produced by the Linux Foundation, please contact eventconduct@cncf.io.
 -->
 对于其他项目、或与项目无关或影响到多个 CNCF 项目的事件，请通过 <conduct@cncf.io> 联系
 [CNCF 行为准则委员会](https://www.cncf.io/conduct/committee/)。

@@ -4,9 +4,9 @@ title: "Free Katacoda Kubernetes Tutorials Are Shutting Down"
 date: 2023-02-14
 slug: kubernetes-katacoda-tutorials-stop-from-2023-03-31
 evergreen: true
+author: >
+  Natali Vlatko (SIG Docs Co-Chair for Kubernetes)
 ---
-
-**Author**: Natali Vlatko, SIG Docs Co-Chair for Kubernetes
 
 [Katacoda](https://katacoda.com/kubernetes), the popular learning platform from O’Reilly that has been helping people learn all about 
 Java, Docker, Kubernetes, Python, Go, C++, and more, [shut down for public use in June 2022](https://www.oreilly.com/online-learning/leveraging-katacoda-technology.html). 

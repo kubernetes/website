@@ -8,6 +8,8 @@ weight: 140
 
 This page shows how to configure liveness, readiness and startup probes for containers.
 
+For more information about probes, see [Liveness, Readiness and Startup Probes](/docs/concepts/configuration/liveness-readiness-startup-probes)
+
 The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) uses
 liveness probes to know when to restart a container. For example, liveness
 probes could catch a deadlock, where an application is running, but unable to
@@ -140,7 +142,7 @@ liveness-exec   1/1       Running   1          1m
 ## Define a liveness HTTP request
 
 Another kind of liveness probe uses an HTTP GET request. Here is the configuration
-file for a Pod that runs a container based on the `registry.k8s.io/liveness` image.
+file for a Pod that runs a container based on the `registry.k8s.io/e2e-test-images/agnhost` image.
 
 {{% code_sample file="pods/probe/http-liveness.yaml" %}}
 
@@ -206,17 +208,19 @@ can't it is considered a failure.
 {{% code_sample file="pods/probe/tcp-liveness-readiness.yaml" %}}
 
 As you can see, configuration for a TCP check is quite similar to an HTTP check.
-This example uses both readiness and liveness probes. The kubelet will send the
-first readiness probe 15 seconds after the container starts. This will attempt to
-connect to the `goproxy` container on port 8080. If the probe succeeds, the Pod
-will be marked as ready. The kubelet will continue to run this check every 10
-seconds.
+This example uses both readiness and liveness probes. The kubelet will run the
+first liveness probe 15 seconds after the container starts. This will attempt to
+connect to the `goproxy` container on port 8080. If the liveness probe fails,
+the container will be restarted. The kubelet will continue to run this check
+every 10 seconds.
 
-In addition to the readiness probe, this configuration includes a liveness probe.
-The kubelet will run the first liveness probe 15 seconds after the container
-starts. Similar to the readiness probe, this will attempt to connect to the
-`goproxy` container on port 8080. If the liveness probe fails, the container
-will be restarted.
+In addition to the liveness probe, this configuration includes a readiness
+probe. The kubelet will run the first readiness probe 15 seconds after the
+container starts. Similar to the liveness probe, this will attempt to connect to
+the `goproxy` container on port 8080. If the probe succeeds, the Pod will be
+marked as ready and will receive traffic from services. If the readiness probe
+fails, the pod will be marked unready and will not receive traffic from any
+services.
 
 To try the TCP liveness check, create a Pod:
 
@@ -294,7 +298,6 @@ For example:
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:
@@ -304,13 +307,12 @@ livenessProbe:
 
 ## Protect slow starting containers with startup probes {#define-startup-probes}
 
-Sometimes, you have to deal with legacy applications that might require
-an additional startup time on their first initialization.
-In such cases, it can be tricky to set up liveness probe parameters without
-compromising the fast response to deadlocks that motivated such a probe.
-The trick is to set up a startup probe with the same command, HTTP or TCP
-check, with a `failureThreshold * periodSeconds` long enough to cover the
-worst case startup time.
+Sometimes, you have to deal with applications that require additional startup
+time on their first initialization. In such cases, it can be tricky to set up
+liveness probe parameters without compromising the fast response to deadlocks
+that motivated such a probe. The solution is to set up a startup probe with the
+same command, HTTP or TCP check, with a `failureThreshold * periodSeconds` long
+enough to cover the worst case startup time.
 
 So, the previous example would become:
 
@@ -318,7 +320,6 @@ So, the previous example would become:
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:
@@ -394,7 +395,7 @@ liveness and readiness checks:
 * `initialDelaySeconds`: Number of seconds after the container has started before startup,
   liveness or readiness probes are initiated. If a startup  probe is defined, liveness and
   readiness probe delays do not begin until the startup probe has succeeded. If the value of
-  `periodSeconds` is greater than `initialDelaySeconds` then the `initialDelaySeconds` would be
+  `periodSeconds` is greater than `initialDelaySeconds` then the `initialDelaySeconds` will be
   ignored. Defaults to 0 seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10 seconds.
   The minimum value is 1.
@@ -405,6 +406,7 @@ liveness and readiness checks:
   Minimum value is 1.
 * `failureThreshold`: After a probe fails `failureThreshold` times in a row, Kubernetes
   considers that the overall check has failed: the container is _not_ ready/healthy/live.
+  Defaults to 3. Minimum value is 1.
   For the case of a startup or liveness probe, if at least `failureThreshold` probes have
   failed, Kubernetes treats the container as unhealthy and triggers a restart for that
   specific container. The kubelet honors the setting of `terminationGracePeriodSeconds`
@@ -542,7 +544,6 @@ spec:
     ports:
     - name: liveness-port
       containerPort: 8080
-      hostPort: 8080
 
     livenessProbe:
       httpGet:

@@ -243,7 +243,7 @@ spec:
     spec:
       containers:
       - name: patch-demo-ctr-3
-        image: gcr.io/google-samples/node-hello:1.0
+        image: gcr.io/google-samples/hello-app:2.0
 ```
 
 In your patch command, set `type` to `merge`:
@@ -264,7 +264,7 @@ The output shows that your list of one Container replaced the existing `containe
 ```yaml
 spec:
   containers:
-  - image: gcr.io/google-samples/node-hello:1.0
+  - image: gcr.io/google-samples/hello-app:2.0
     ...
     name: patch-demo-ctr-3
 ```

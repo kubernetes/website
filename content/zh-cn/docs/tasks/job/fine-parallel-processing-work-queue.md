@@ -112,6 +112,16 @@ You could also download the following files directly:
 - [`worker.py`](/examples/application/job/redis/worker.py)
 
 <!--
+To start a single instance of Redis, you need to create the redis pod and redis service:
+-->
+要启动一个 Redis 实例，你需要创建 Redis Pod 和 Redis 服务：
+
+```shell
+kubectl apply -f https://k8s.io/examples/application/job/redis/redis-pod.yaml
+kubectl apply -f https://k8s.io/examples/application/job/redis/redis-service.yaml
+```
+
+<!--
 ## Filling the queue with tasks
 
 Now let's fill the queue with some "tasks".  In this example, our tasks are strings to be
@@ -278,7 +288,7 @@ Since the workers themselves detect when the workqueue is empty, and the Job con
 know about the workqueue, it relies on the workers to signal when they are done working.
 The workers signal that the queue is empty by exiting with success.  So, as soon as **any** worker
 exits with success, the controller knows the work is done, and that the Pods will exit soon.
-So, we need to set the completion count of the Job to 1.  The job controller will wait for
+So, you need to leave the completion count of the Job unset. The job controller will wait for
 the other pods to complete too.
 -->
 在这个例子中，每个 Pod 处理了队列中的多个项目，直到队列中没有项目时便退出。
@@ -286,8 +296,7 @@ the other pods to complete too.
 这依赖于工作程序在完成工作时发出信号。
 工作程序以成功退出的形式发出信号表示工作队列已经为空。
 所以，只要有**任意**一个工作程序成功退出，控制器就知道工作已经完成了，所有的 Pod 将很快会退出。
-因此，我们需要将 Job 的完成计数（Completion Count）设置为 1。
-尽管如此，Job 控制器还是会等待其它 Pod 完成。
+因此，你不需要设置 Job 的完成次数。Job 控制器还是会等待其它 Pod 完成。
 
 <!--
 ## Running the Job

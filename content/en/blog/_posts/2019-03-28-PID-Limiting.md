@@ -1,9 +1,9 @@
 ---
 title: 'Process ID Limiting for Stability Improvements in Kubernetes 1.14'
 date: 2019-04-15
+author: >
+  Derek Carr
 ---
-
-**Author: Derek Carr** 
 
 Have you ever seen someone take more than their fair share of the cookies? The one person who reaches in and grabs a half dozen fresh baked chocolate chip chunk morsels and skitters off like Cookie Monster exclaiming “Om nom nom nom.”
 

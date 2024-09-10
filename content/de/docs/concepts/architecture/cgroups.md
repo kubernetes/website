@@ -30,7 +30,7 @@ cgroup v2 bietet einige Verbesserungen gegenüber cgroup v1, zum Beispiel folgen
   - Einheitliche Erfassung für verschiedene Arten der Speicherzuteilung (Netzwerkspeicher, Kernelspeicher, usw.)
   - Erfassung nicht-unmittelbarer Ressourcenänderungen wie "page cache write backs"
 
-Manche Kubernetes Funktionen verwenden ausschließlich cgroup v2 für erweitertes Ressourcenmanagement und Isolierung. Die [MemoryQoS](/blog/2021/11/26/qos-memory-resources/) Funktion, zum Beispiel, verbessert Speicher QoS und setzt dabei auf cgroup v2 Primitives.
+Manche Kubernetes Funktionen verwenden ausschließlich cgroup v2 für erweitertes Ressourcenmanagement und Isolierung. Die [MemoryQoS](/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2) Funktion, zum Beispiel, verbessert Speicher QoS und setzt dabei auf cgroup v2 Primitives.
 
 
 ## cgroup v2 verwenden {#cgroupv2-verwenden}

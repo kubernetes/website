@@ -3,9 +3,10 @@ layout: blog
 title: "Introducing ingress2gateway; Simplifying Upgrades to Gateway API"
 date: 2023-10-25T10:00:00-08:00
 slug: introducing-ingress2gateway
+author: >
+  Lior Lieberman (Google),
+  Kobi Levi (independent)
 ---
-
-***Authors:*** Lior Lieberman (Google), Kobi Levi (independent)
 
 Today we are releasing [ingress2gateway](https://github.com/kubernetes-sigs/ingress2gateway), a tool
 that can help you migrate from [Ingress](/docs/concepts/services-networking/ingress/) to [Gateway

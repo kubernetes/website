@@ -121,7 +121,7 @@ current policy level:
 - Any metadata updates **except** changes to the seccomp or AppArmor annotations:
   - `seccomp.security.alpha.kubernetes.io/pod` (deprecated)
   - `container.seccomp.security.alpha.kubernetes.io/*` (deprecated)
-  - `container.apparmor.security.beta.kubernetes.io/*`
+  - `container.apparmor.security.beta.kubernetes.io/*` (deprecated)
 - Valid updates to `.spec.activeDeadlineSeconds`
 - Valid updates to `.spec.tolerations`
 

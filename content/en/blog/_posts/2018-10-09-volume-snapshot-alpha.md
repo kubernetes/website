@@ -2,9 +2,11 @@
 layout: blog
 title: 'Introducing Volume Snapshot Alpha for Kubernetes'
 date: 2018-10-09
+author: >
+  Jing Xu (Google),
+  Xing Yang (Huawei),
+  Saad Ali (Google) 
 ---
-
-**Author**: Jing Xu (Google) Xing Yang (Huawei), Saad Ali (Google)
 
 Kubernetes v1.12 introduces alpha support for volume snapshotting. This feature allows creating/deleting volume snapshots, and the ability to create new volumes from a snapshot natively using the Kubernetes API.
 

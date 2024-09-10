@@ -3,8 +3,10 @@ title: " Modernizing the Skytap Cloud Micro-Service Architecture with Kubernetes
 date: 2016-11-07
 slug: skytap-modernizing-microservice-architecture-with-kubernetes
 url: /blog/2016/11/Skytap-Modernizing-Microservice-Architecture-With-Kubernetes
+author: >
+  Shawn Falkner-Horine (Skytap),
+  Joe Burchett (Skytap)
 ---
-_Editor's note: Today’s guest post is by the Tools and Infrastructure Engineering team at Skytap, a public cloud provider focused on empowering DevOps workflows, sharing their experience on adopting Kubernetes.&nbsp;_  
 
 [Skytap](https://www.skytap.com/) is a global public cloud that provides our customers the ability to save and clone complex virtualized environments in any given state. Our customers include enterprise organizations running applications in a hybrid cloud, educational organizations providing [virtual training labs](https://www.skytap.com/solutions/virtual-training/), users who need easy-to-maintain development and test labs, and a variety of organizations with diverse DevOps workflows.  
 
@@ -164,7 +166,6 @@ We love application modernization challenges. The Skytap platform is well suited
 
 
 
-_--Shawn Falkner-Horine and Joe Burchett, Tools and Infrastructure Engineering, Skytap_
 
 
 

@@ -3,10 +3,9 @@ layout: blog
 title: 'Kubernetes 1.25: PodHasNetwork Condition for Pods'
 date: 2022-09-14
 slug: pod-has-network-condition
+author: >
+  Deep Debroy (Apple)
 ---
-
-**Author:**
-Deep Debroy (Apple)
 
 Kubernetes 1.25 introduces Alpha support for a new kubelet-managed pod condition
 in the status field of a pod: `PodHasNetwork`. The kubelet, for a worker node,

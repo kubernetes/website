@@ -163,4 +163,4 @@ Make sure that you use the same encryption configuration on each control plane h
 
 ## {{% heading "whatsnext" %}}
 
-* Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-encryption.v1/).
+* Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-config.v1/).

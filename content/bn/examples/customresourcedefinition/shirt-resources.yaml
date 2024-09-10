@@ -1,0 +1,24 @@
+---
+apiVersion: stable.example.com/v1
+kind: Shirt
+metadata:
+  name: example1
+spec:
+  color: blue
+  size: S
+---
+apiVersion: stable.example.com/v1
+kind: Shirt
+metadata:
+  name: example2
+spec:
+  color: blue
+  size: M
+---
+apiVersion: stable.example.com/v1
+kind: Shirt
+metadata:
+  name: example3
+spec:
+  color: green
+  size: M

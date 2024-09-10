@@ -3,9 +3,9 @@ title: " From Network Policies to Security Policies "
 date: 2016-12-08
 slug: from-network-policies-to-security-policies
 url: /blog/2016/12/From-Network-Policies-To-Security-Policies
+author: >
+  Bernard Van De Walle (Aporeto)
 ---
-_Editor's note: Today’s post is by Bernard Van De Walle, Kubernetes Lead Engineer, at Aporeto, showing how they took a new approach to the Kubernetes network policy enforcement._  
-
 
 **Kubernetes Network Policies&nbsp;**  
 
@@ -42,6 +42,3 @@ To learn more, download the code, and engage with the project, visit:
 
 - Trireme on [GitHub](https://github.com/aporeto-inc/trireme-kubernetes)
 - Trireme for Kubernetes by Aporeto on [GitHub](https://github.com/aporeto-inc/trireme-kubernetes)
-
-
-_--Bernard Van De Walle, Kubernetes lead engineer, [Aporeto](https://www.aporeto.com/)_  

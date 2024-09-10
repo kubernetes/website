@@ -1,6 +1,6 @@
 # La documentación de Kubernetes
 
-[![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-main-staging/deploys)
 [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
 Bienvenido!
@@ -36,7 +36,6 @@ El sitio web de Kubernetes utiliza Docsy Hugo theme. Se sugiere que se instale s
 ```bash
 # pull de los submódulos del repositorio
 git submodule update --init --recursive --depth 1
-
 ```
 
 Si identifica que `git` reconoce una cantidad innumerable de cambios nuevos en el proyecto, la forma más simple de solucionarlo es cerrando y volviendo a abrir el proyecto en el editor. Los submódulos son automáticamente detectados por `git`, pero los plugins usados por los editores pueden tener dificultades para ser cargados.

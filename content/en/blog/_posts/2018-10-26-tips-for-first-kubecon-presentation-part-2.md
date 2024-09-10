@@ -2,9 +2,9 @@
 layout: blog
 title: 'Tips for Your First Kubecon Presentation - Part 2'
 date: 2018-10-26
+author: >
+  Michael Gasch (VMware)
 ---
-
-**Author**: Michael Gasch (VMware)
 
 Hello and welcome back to the second and final part about tips for KubeCon first-time speakers. If you missed the last post, please give it a read [here](https://kubernetes.io/blog/2018/10/18/tips-for-your-first-kubecon-presentation-part-1/).
 

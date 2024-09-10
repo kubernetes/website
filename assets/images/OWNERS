@@ -1,0 +1,22 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# This is the directory for common images. Allow English localization
+# reviewers to review and approve.
+# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+reviewers:
+- sig-docs-en-reviews
+
+approvers:
+- sig-docs-en-owners
+
+filters:
+  "\\.svg":
+    labels:
+    - area/web-development
+  "\\.png$":
+    labels:
+    - area/web-development
+  "\\.jpe?g$":
+    labels:
+    - area/web-development

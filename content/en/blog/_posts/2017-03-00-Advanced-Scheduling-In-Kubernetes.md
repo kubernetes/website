@@ -3,6 +3,9 @@ title: " Advanced Scheduling in Kubernetes "
 date: 2017-03-31
 slug: advanced-scheduling-in-kubernetes
 url: /blog/2017/03/Advanced-Scheduling-In-Kubernetes
+author: >
+  Ian Lewis (Google),
+  David Oppenheimer (Google)
 ---
 _Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1-6) on what's new in Kubernetes 1.6_
 
@@ -227,6 +230,3 @@ Share your voice at our weekly [community meeting](https://github.com/kubernetes
 
 Many thanks for your contributions.
 
-
-
-_--Ian Lewis, Developer Advocate, and David Oppenheimer, Software Engineer, Google_

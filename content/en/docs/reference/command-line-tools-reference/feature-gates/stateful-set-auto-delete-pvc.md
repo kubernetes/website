@@ -12,7 +12,7 @@ stages:
     fromVersion: "1.23"
     toVersion: "1.26"
   - stage: beta
-    defaultValue: false
+    defaultValue: true
     fromVersion: "1.27"
 ---
 Allows the use of the optional `.spec.persistentVolumeClaimRetentionPolicy` field, 

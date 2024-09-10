@@ -13,7 +13,7 @@ card:
 ---
 
 <!-- overview -->
-L'outil en ligne de commande de kubernetes, [kubectl](/docs/user-guide/kubectl/), vous permet d'exécuter des commandes dans les clusters Kubernetes. Vous pouvez utiliser kubectl pour déployer des applications, inspecter et gérer les ressources du cluster et consulter les logs. Pour une liste complète des opérations kubectl, voir [Aperçu de kubectl](/fr/docs/reference/kubectl/overview/).
+L'outil en ligne de commande de kubernetes, [kubectl](/fr/docs/reference/kubectl/), vous permet d'exécuter des commandes dans les clusters Kubernetes. Vous pouvez utiliser kubectl pour déployer des applications, inspecter et gérer les ressources du cluster et consulter les logs. Pour une liste complète des opérations kubectl, voir [Aperçu de kubectl](/fr/docs/reference/kubectl/overview/).
 
 
 ## {{% heading "prerequisites" %}}

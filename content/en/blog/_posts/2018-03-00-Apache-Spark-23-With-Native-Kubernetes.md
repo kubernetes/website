@@ -3,6 +3,9 @@ title: "Apache Spark 2.3 with Native Kubernetes Support"
 date: 2018-03-06
 slug: apache-spark-23-with-native-kubernetes
 url: /blog/2018/03/Apache-Spark-23-With-Native-Kubernetes
+author: >
+  Anirudh Ramanathan (Google),
+  Palak Bhatia (Google)
 ---
 ### Kubernetes and Big Data
 
@@ -90,9 +93,6 @@ There's lots of exciting work to be done in the near future. We're actively work
 And we're just getting started! We would love for you to get involved and help us evolve the project further.  
 
 Huge thanks to the Apache Spark and Kubernetes contributors spread across multiple organizations who spent many hundreds of hours working on this effort. We look forward to seeing more of you contribute to the project and help it evolve further.
-
-Anirudh Ramanathan and Palak Bhatia  
-Google
 
 [1]: https://kubernetes.io/docs/concepts/api-extension/custom-resources/
 [2]: https://kubernetes.io/docs/concepts/api-extension/custom-resources/#custom-controllers

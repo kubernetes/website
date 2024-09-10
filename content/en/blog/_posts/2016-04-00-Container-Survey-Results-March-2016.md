@@ -3,6 +3,8 @@ title: " Container survey results - March 2016 "
 date: 2016-04-08
 slug: container-survey-results-march-2016
 url: /blog/2016/04/Container-Survey-Results-March-2016
+author: >
+  Brendan Burns (Google)
 ---
 Last month, we had our third installment of our container survey and today we look at the results. &nbsp;(raw data is available [here](https://docs.google.com/spreadsheets/d/13356w6I2xxKnmjblFSsKGVANZGGlX2yFMzb8eOIe2Oo/edit?usp=sharing))
 
@@ -30,6 +32,4 @@ Finally, [Kubernetes](http://kubernetes.io/) is still the favorite for container
 
 Finally, the absolute use of containers appears to be ticking up. &nbsp;The number of people running more than 250 containers has grown from 12% to nearly 20%. &nbsp;And the number people running containers on 50 or more machines has grown from 10% to 18%.
 
-As always, the raw data is available for you to analyze [here](https://docs.google.com/spreadsheets/d/13356w6I2xxKnmjblFSsKGVANZGGlX2yFMzb8eOIe2Oo/edit?usp=sharing).  
-
---Brendan Burns, Software Engineer, Google
+As always, the raw data is available for you to analyze [here](https://docs.google.com/spreadsheets/d/13356w6I2xxKnmjblFSsKGVANZGGlX2yFMzb8eOIe2Oo/edit?usp=sharing).

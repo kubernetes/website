@@ -1,6 +1,6 @@
 # See the OWNERS docs at https://go.k8s.io/owners
 
-# This is the localization project for Bahasa.
+# This is the localization project for Bahasa Indonesia.
 # Teams and members are visible at https://github.com/orgs/kubernetes/teams.
 
 reviewers:
@@ -10,4 +10,5 @@ approvers:
 - sig-docs-id-owners
 
 labels:
+- area/localization
 - language/id

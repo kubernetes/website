@@ -2,9 +2,9 @@
 layout: blog
 title: 'Tips for Your First Kubecon Presentation - Part 1'
 date: 2018-10-18
+author: >
+  Michael Gasch (VMware)
 ---
-
-**Author**: Michael Gasch (VMware)
 
 First of all, let me congratulate you to this outstanding achievement. Speaking at KubeCon, especially if it's your first time, is a tremendous honor and experience. Well done!
 

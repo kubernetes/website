@@ -17,7 +17,7 @@ Kubernetesには、Kubernetesシステムの操作に役立ついくつかの組
 [`minikube`](https://minikube.sigs.k8s.io/docs/)は、開発やテストのためにワークステーション上でシングルノードのKubernetesクラスターをローカルで実行するツールです。
 
 ## Dashboard
-[`Dashboard`](/ja/docs/tasks/access-application-cluster/web-ui-dashboard/)は、KubernetesのWebベースのユーザインタフェースで、コンテナ化されたアプリケーションをKubernetesクラスターにデプロイしたり、トラブルシューティングしたり、クラスターとそのリソース自体を管理したりすることが出来ます。
+[`Dashboard`](/ja/docs/tasks/access-application-cluster/web-ui-dashboard/)は、KubernetesのWebベースのユーザインターフェースで、コンテナ化されたアプリケーションをKubernetesクラスターにデプロイしたり、トラブルシューティングしたり、クラスターとそのリソース自体を管理したりすることが出来ます。
 
 ## Helm
 [`Kubernetes Helm`](https://github.com/helm/helm)は、事前に設定されたKubernetesリソースのパッケージ、別名Kubernetes chartsを管理するためのツールです。

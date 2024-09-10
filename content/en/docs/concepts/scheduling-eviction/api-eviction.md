@@ -11,11 +11,11 @@ using a client of the {{<glossary_tooltip term_id="kube-apiserver" text="API ser
 creates an `Eviction` object, which causes the API server to terminate the Pod.
 
 API-initiated evictions respect your configured [`PodDisruptionBudgets`](/docs/tasks/run-application/configure-pdb/)
-and [`terminationGracePeriodSeconds`](/docs/concepts/workloads/pods/pod-lifecycle#pod-termination). 
+and [`terminationGracePeriodSeconds`](/docs/concepts/workloads/pods/pod-lifecycle#pod-termination).
 
 Using the API to create an Eviction object for a Pod is like performing a
 policy-controlled [`DELETE` operation](/docs/reference/kubernetes-api/workload-resources/pod-v1/#delete-delete-a-pod)
-on the Pod. 
+on the Pod.
 
 ## Calling the Eviction API
 
@@ -75,13 +75,13 @@ checks and responds in one of the following ways:
 * `429 Too Many Requests`: the eviction is not currently allowed because of the
   configured {{<glossary_tooltip term_id="pod-disruption-budget" text="PodDisruptionBudget">}}.
   You may be able to attempt the eviction again later. You might also see this
-  response because of API rate limiting. 
+  response because of API rate limiting.
 * `500 Internal Server Error`: the eviction is not allowed because there is a
   misconfiguration, like if multiple PodDisruptionBudgets reference the same Pod.
 
 If the Pod you want to evict isn't part of a workload that has a
 PodDisruptionBudget, the API server always returns `200 OK` and allows the
-eviction. 
+eviction.
 
 If the API server allows the eviction, the Pod is deleted as follows:
 
@@ -103,12 +103,12 @@ If the API server allows the eviction, the Pod is deleted as follows:
 ## Troubleshooting stuck evictions
 
 In some cases, your applications may enter a broken state, where the Eviction
-API will only return `429` or `500` responses until you intervene. This can 
-happen if, for example, a ReplicaSet creates pods for your application but new 
+API will only return `429` or `500` responses until you intervene. This can
+happen if, for example, a ReplicaSet creates pods for your application but new
 pods do not enter a `Ready` state. You may also notice this behavior in cases
 where the last evicted Pod had a long termination grace period.
 
-If you notice stuck evictions, try one of the following solutions: 
+If you notice stuck evictions, try one of the following solutions:
 
 * Abort or pause the automated operation causing the issue. Investigate the stuck
   application before you restart the operation.

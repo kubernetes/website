@@ -1,0 +1,607 @@
+# i18n strings for the Bengali (main) site.
+# NOTE: Please keep the entries in alphabetical order (english alphabetical order)  when editing
+
+# For "and", see [conjunction_1]
+
+[api_reference_title]
+other = "API রেফারেন্স"
+
+[auto_generated_edit_notice]
+other = "(অটো-জেনারেটেড পেজ)"
+
+[auto_generated_pageinfo]
+other = """<p>এই পৃষ্ঠাটি স্বয়ংক্রিয়ভাবে তৈরি হয়।</p><p>আপনি যদি এই পৃষ্ঠার সাথে একটি সমস্যা রিপোর্ট করার পরিকল্পনা করেন, তাহলে উল্লেখ করুন যে পৃষ্ঠাটি আপনার সমস্যার বিবরণে স্বয়ংক্রিয়ভাবে তৈরি হয়েছে। কুবারনেটিস প্রজেক্টের অন্য কোথাও ঠিক করার প্রয়োজন হতে পারে।</p>"""
+
+[blog_post_show_more]
+other = "আরো পোস্ট দেখান..."
+
+[banner_acknowledgement]
+other = "এই নোটিস লুকান"
+
+[case_study_prefix]
+other = "কেস স্টাডিজ:"
+
+[caution]
+other = "সতর্কতা:"
+
+[cleanup_heading]
+other = "ক্লিনিং"
+
+# Localization note (no need to translate this note)
+# This is always followed by Chinese text, as required by the Kubernetes
+# project's ICP license, issued by the government of the People's Republic
+# of China.
+[china_icp_license]
+other = "ICP লাইসেন্স"
+
+[community_events_calendar]
+other = "ইভেন্ট ক্যালেন্ডার"
+
+[community_forum_name]
+other = "ফোরাম"
+
+[community_github_name]
+other = "গিটহাব"
+
+[community_server_fault_name]
+other = "সার্ভারের ত্রুটি"
+
+[community_slack_name]
+other = "স্ল্যাক"
+
+[community_stack_overflow_name]
+other = "স্ট্যাক ওভারফ্লো"
+
+[community_twitter_name]
+other = "X (আগে টুইটার)"
+
+[community_x_name]
+other = "X (আগে টুইটার)"
+
+[community_youtube_name]
+other = "ইউটিউব"
+
+## Avoid using conjunction_1.
+## Must match the context in layouts/shortcodes/release-data.html
+## Appears on https://kubernetes.io/releases/
+## For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "এবং"
+
+[cve_id]
+other = "CVE ID"
+
+[cve_issue_url]
+other = "CVE গিটহাব ইস্যু URL"
+
+[cve_summary]
+other = "ইস্যু সারাংশ"
+
+[cve_table]
+other = "অফিসিয়াল কুবারনেটিস CVE তালিকা"
+
+[cve_table_date_format]
+other = "02-01-2006 15:04:05 MST"
+
+[cve_table_date_format_string]
+other = "(সর্বশেষ ভার্সন: %s)"
+
+[deprecation_title]
+other = "আপনি যে কুবারনেটিস ভার্সনের জন্য ডকুমেন্টেশন দেখছেন :"
+
+[deprecation_warning]
+other = " ডকুমেন্টেশন আর সক্রিয়ভাবে রক্ষণাবেক্ষণ করা হয় না। আপনি বর্তমানে যে ভার্সনটি দেখছেন সেটি একটি স্ট্যাটিক স্ন্যাপশট। আপ-টু-ডেট ডকুমেন্টেশনের জন্য, দেখুন "
+
+[deprecation_file_warning]
+other = "ডেপ্রিক্যাটেড"
+
+[outdated_content_title]
+other = "এই ডকুমেন্টে তথ্য পুরানো হতে পারে"
+
+[outdated_content_message]
+other = "এই ডকুমেন্টটির আসলটির চেয়ে পুরানো আপডেটের তারিখ রয়েছে, তাই এতে থাকা তথ্য পুরানো হতে পারে৷ আপনি ইংরেজি পড়তে সক্ষম হলে, সবচেয়ে আপ-টু-ডেট তথ্যের জন্য ইংরেজি ভার্সনটি দেখুন:"
+
+[dockershim_message]
+other = """1.24 রিলিজ হিসাবে Dockershim কুবারনেটিস প্রকল্প থেকে সরানো হয়েছে। আরও বিস্তারিত জানার জন্য <a href="/dockershim">ডকারশিম রিমুভাল FAQ</a> পড়ুন।"""
+
+[docs_label_browse]
+other = "ডক্স ব্রাউজ করুন"
+
+[docs_label_contributors]
+other = "অবদানকারীরা"
+
+[docs_label_i_am]
+other = "আমি..."
+
+[docs_label_users]
+other = "ব্যবহারকারীরা"
+
+[docs_page_versions]
+other = "এই %s কুবারনেটিস %s-এর জন্য। আপনি যদি একটি ভিন্ন কুবারনেটিস ভার্সন ব্যবহার করতে চান, তবে দয়া করে এর পরিবর্তে নিম্নলিখিত পৃষ্ঠাগুলি পড়ুন:"
+
+[docs_version_current]
+other = "(এই ডকুমেন্টেশন)"
+
+[docs_version_latest_heading]
+other = "সর্বশেষ ভার্সন"
+
+[docs_version_other_heading]
+other = "পুরানো ভার্সন"
+
+[end_of_life]
+other = "জীবনের শেষ:"
+
+[envvars_heading]
+other = "এনভায়রনমেন্ট ভেরিয়েবল"
+
+[error_404_were_you_looking_for]
+other = "আপনি এই খুঁজছেন:"
+
+[examples_heading]
+other = "উদাহরণ"
+
+[feature_gate_stage_alpha]
+other = "Alpha"
+
+[feature_gate_stage_beta]
+other = "Beta"
+
+[feature_gate_stage_stable]
+other = "GA"
+
+[feature_gate_stage_deprecated]
+other = "ডেপ্রিক্যাটেড"
+
+[feature_gate_table_header_default]
+other = "ডিফল্ট"
+
+[feature_gate_table_header_feature]
+other = "ফিচার"
+
+[feature_gate_table_header_from]
+other = "থেকে"
+
+[feature_gate_table_header_since]
+other = "থেকে"
+
+[feature_gate_table_header_stage]
+other = "স্টেজ"
+
+[feature_gate_table_header_to]
+other = "প্রতি"
+
+[feature_gate_table_header_until]
+other = "পর্যন্ত"
+
+[feature_state]
+other = "ফিচার স্টেট:"
+
+[feature_state_kubernetes_label]
+other = "কুবারনেটিস"
+
+[feature_state_feature_gate_tooltip]
+other = "ফিচার গেট:"
+
+[feedback_heading]
+other = "ফিডব্যাক"
+
+[feedback_no]
+other = "না"
+
+[feedback_question]
+other = "এই পেজটি কি সহায়ক ছিল?"
+
+[feedback_yes]
+other = "হ্যাঁ"
+
+[final_patch_release]
+other = "চূড়ান্ত প্যাচ রিলিজ"
+
+[inline_list_separator]
+other = ","
+
+[input_placeholder_email_address]
+other = "ইমেইল ঠিকানা"
+
+[javascript_required]
+other = "এই বিষয়বস্তু দেখতে JavaScript [চালু](https://www.enable-javascript.com/) থাকতে হবে"
+
+[katacoda_message]
+other = """<h4>ইন্টারেক্টিভ টিউটোরিয়ালের শাটডাউন</h4>
+<p>এই ওয়েবসাইটের ইন্টারেক্টিভ টিউটোরিয়াল বন্ধ করা হচ্ছে। 
+কুবারনেটিস প্রজেক্ট দীর্ঘমেয়াদে একই ধরনের ইন্টারেক্টিভ লার্নিং 
+অপশন পুনঃস্থাপন করার আশা করছে।</p>
+<p>শাটডাউনটি O'Reilly Media  এর 2019  সালে Katacoda এর <a
+href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">অধিগ্রহণের</a>
+পরে শাটডাউন করা হলো ।</p>
+<p>কুবারনেটিস O'Reilly এবং Katacoda-এর কাছে কৃতজ্ঞ, অনেক বছর ধরে মানুষকে কুবারনেটিস শেখানোর জন্য 
+তাদের প্রথম পদক্ষেপ নিতে সাহায্য করার জন্য।</p>
+<p>টিউটোরিয়ালগুলি <b>৩১শে মার্চ, ২০২৩</b> এর পরে কাজ করা বন্ধ করে
+দেবে। আরও তথ্যের জন্য,  "<a href="/blog/2023/02/14/kubernetes-katacoda-tutorials-stop-from-2023-03-31/">Free Katacoda Kubernetes Tutorials Are Shutting
+Down</a>" দেখুন।</p>"""
+
+[latest_release]
+other = "সর্বশেষ রিলিজ:"
+
+[latest_version]
+other = "সর্বশেষ ভার্সন"
+
+[layouts_blog_pager_next]
+other = "পরবর্তী >>"
+
+[layouts_blog_pager_prev]
+other = "<< পূর্ববর্তী"
+
+[layouts_case_studies_list_tell]
+other = "আপনার স্টোরী বলুন"
+
+[layouts_docs_glossary_aka]
+other = "এই নামেও পরিচিত"
+
+[layout_docs_glossary_architecture_description]
+other = "কুবারনেটিসের অভ্যন্তরীণ উপাদান"
+
+[layout_docs_glossary_architecture_name]
+other = "আর্কিটেকচার"
+
+[layouts_docs_glossary_click_details_after]
+other = "কোনো নির্দিষ্ট শব্দের জন্য একটি দীর্ঘ ব্যাখ্যা পেতে নীচের সূচকগুলি"
+
+[layouts_docs_glossary_click_details_before]
+other = "ক্লিক করুন"
+
+[layout_docs_glossary_community_description]
+other = "কুবারনেটিস ওপেন সোর্স ডেভেলপমেন্ট সম্পর্কিত"
+
+[layout_docs_glossary_community_name]
+other = "কমিউনিটি"
+
+[layout_docs_glossary_core-object_description]
+other = "একটি রিসোর্স টাইপ যা কুবারনেটিস ডিফল্টরূপে সাপোর্ট করে"
+
+[layout_docs_glossary_core-object_name]
+other = "কোর অবজেক্ট"
+
+[layouts_docs_glossary_description]
+other = "এই শব্দকোষটি কুবারনেটিস পরিভাষার একটি বিস্তৃত, প্রমিত তালিকা হওয়ার উদ্দেশ্যে করা হয়েছে। এতে প্রযুক্তিগত শব্দ রয়েছে যা কুবারনেটিসের জন্য নির্দিষ্ট, সেইসাথে আরও সাধারণ শব্দ যা দরকারী প্রসঙ্গ প্রদান করে।"
+
+[layouts_docs_glossary_deselect_all]
+other = "সব গুলো অনির্বাচিত কর"
+
+[layout_docs_glossary_extension_description]
+other = "কুবারনেটিস এর সাপোর্টেড কাস্টমাইজেশন।"
+
+[layout_docs_glossary_extension_name]
+other = "এক্সটেনশন"
+
+[layouts_docs_glossary_filter]
+other = "তাদের ট্যাগ অনুযায়ী শর্তাবলী ফিল্টার"
+
+[layout_docs_glossary_fundamental_description]
+other = "কুবারনেটিসের প্রথমবারের ব্যবহারকারীর জন্য প্রাসঙ্গিক"
+
+[layout_docs_glossary_fundamental_name]
+other = "মৌলিক"
+
+[layout_docs_glossary_networking_description]
+other = "কিভাবে কুবারনেটিস উপাদান একে অপরের সাথে কথা বলে (এবং ক্লাস্টারের বাইরের প্রোগ্রামগুলিতে)।"
+
+[layout_docs_glossary_networking_name]
+other = "নেটওয়ার্কিং"
+
+[layout_docs_glossary_operation_description]
+other = "কুবারনেটিস শুরু করা এবং মেন্টনন্স রাখা"
+
+[layout_docs_glossary_operation_name]
+other = "অপারেশন"
+
+[layout_docs_glossary_security_description]
+other = "কুবারনেটিস অ্যাপ্লিকেশন নিরাপদ এবং সুরক্ষিত রাখা"
+
+[layout_docs_glossary_security_name]
+other = "নিরাপত্তা"
+
+[layouts_docs_glossary_select_all]
+other = "সব নির্বাচন করুন"
+
+[layout_docs_glossary_storage_description]
+other = "কুবারনেটস অ্যাপ্লিকেশনগুলি কীভাবে স্থায়ী ডেটা পরিচালনা করে"
+
+[layout_docs_glossary_storage_name]
+other = "স্টোরেজ"
+
+[layout_docs_glossary_tool_description]
+other = "সফ্টওয়্যার যা কুবারনেটিস ব্যবহার করা সহজ বা ভাল করে তোলে"
+
+[layout_docs_glossary_tool_name]
+other = "টুল"
+
+[layout_docs_glossary_user-type_description]
+other = "একটি সাধারণ কুবারনেটিস ব্যবহারকারীর প্রতিনিধিত্ব করে"
+
+[layout_docs_glossary_user-type_name]
+other = "ব্যবহারকারীর ধরন"
+
+[layout_docs_glossary_workload_description]
+other = "কুবারনেটিস এ চলমান অ্যাপ্লিকেশন"
+
+[layout_docs_glossary_workload_name]
+other = "ওয়ার্কলোড"
+
+[layouts_docs_partials_feedback_improvement]
+other = "উন্নতির পরামর্শ দিন"
+
+[layouts_docs_partials_feedback_issue]
+other = "আপনি যদি চান তবে [গিটহাব রিপোতে](https://www.github.com/kubernetes/website/) এ একটি ইস্যু খুলুন "
+
+[layouts_docs_partials_feedback_or]
+other = "অথবা"
+
+[layouts_docs_partials_feedback_problem]
+other = "একটি সমস্যা রিপোর্ট করুন"
+
+[layouts_docs_partials_feedback_thanks]
+other = "সাহায্য করার জন্য ধন্যবাদ. কুবারনেটিস কীভাবে ব্যবহার করবেন সে সম্পর্কে আপনার যদি একটি নির্দিষ্ট, উত্তরযোগ্য প্রশ্ন থাকে তবে এটি জিজ্ঞাসা করুন"
+
+[layouts_docs_search_fetching]
+other = "ফলাফল আনা হচ্ছে..."
+
+[legacy_repos_message]
+other = """লিগেসি প্যাকেজ রিপোজিটরিজগুলি (`apt.kubernetes.io` এবং `yum.kubernetes.io`)
+[১৩ সেপ্টেম্বর, 2023 থেকে বন্ধ করা হয়েছে এবং ফ্রযেন করা হয়েছে](/blog/2023/08/31/legacy-package-repository-deprecation/)।
+**[`pkgs.k8s.io`-এ হোস্ট করা নতুন প্যাকেজ রিপোজিটরিজগুলি](/blog/2023/08/15/pkgs-k8s-io-introduction/) ব্যবহার
+করা দৃঢ়ভাবে সুপারিশ করা হয় এবং ১৩ সেপ্টেম্বর, ২০২৩-এর পরে প্রকাশিত কুবারনেটিস ভার্সনগুলি ইনস্টল করার জন্য প্রয়োজনীয়।**
+অপ্রচলিত লিগেসি  রিপোজিটরিজগুলি, এবং তাদের কনটেন্ট, ভবিষ্যতে যেকোনো সময় সরানো হতে পারে এবং পরবর্তী
+নোটিশের সময় ছাড়াই। নতুন প্যাকেজ রিপোজিটরিজগুলি v1.24.0 থেকে শুরু করে কুবারনেটিস ভার্সনগুলির জন্য ডাউনলোড প্রদান করে।"""
+
+[main_by]
+other = "দ্বারা"
+
+[main_cncf_project]
+other = """আমরা একটি <a href="https://cncf.io/">CNCF</a> গ্র্যাজুয়েটেড প্রকল্প</p>"""
+
+[main_community_explore]
+other = "কমিউনিটি এক্সপ্লোর করুন"
+
+[main_contribute]
+other = "কান্ট্রিবিউট করুন"
+
+[main_copyright_notice]
+other = """The Linux Foundation &reg;. সমস্ত অধিকার সংরক্ষিত। The Linux Foundation নিবন্ধিত ট্রেডমার্ক এবং ট্রেডমার্ক ব্যবহার করে। The Linux Foundation এর ট্রেডমার্কের তালিকার জন্য, অনুগ্রহ করে আমাদের <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a> দেখুন """
+
+[main_documentation_license]
+other = """The Kubernetes Authors | ডকুমেন্টেশন  <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> লাইসেন্সের অধীনে বিতরণ করা হয়েছে"""
+
+[main_github_invite]
+other = "মূল কুবারনেটিস কোড বেস হ্যাকিং করতে আগ্রহী?"
+
+[main_github_view_on]
+other = "গিটহাবে দেখুন"
+
+[main_kubernetes_features]
+other = "কুবারনেটিস ফিচার"
+
+[main_kubeweekly_baseline]
+other = "সর্বশেষ কুবারনেটিস খবর পেতে আগ্রহী? KubeWeekly এর জন্য সাইন আপ করুন"
+
+[main_kubernetes_past_link]
+other = "অতীতের নিউজলেটার দেখুন"
+
+[main_kubeweekly_signup]
+other = "সাবস্ক্রাইব"
+
+[main_page_history]
+other ="পৃষ্ঠার ইতিহাস"
+
+[main_page_last_modified_on]
+other = "পৃষ্ঠায় সর্বশেষ পরিবর্তন করা হয়েছে"
+
+[main_read_about]
+other = "সম্পর্কে পড়ুন"
+
+[main_read_more]
+other = "আরও পড়ুন"
+
+[monthly_patch_release]
+other = "মাসিক প্যাচ রিলিজ"
+
+[not_applicable]
+## Localization teams: it's OK to use a longer text here
+other = "প্রযোজ্য নয়"
+
+[note]
+other = "বিঃদ্রঃ:"
+
+[objectives_heading]
+other = "উদ্দেশ্য"
+
+[options_heading]
+other = "অপশন"
+
+[outdated_blog__message]
+other = "এই নিবন্ধটি এক বছরেরও বেশি পুরনো। পুরানো নিবন্ধে পুরানো বিষয়বস্তু থাকতে পারে। পৃষ্ঠায় তথ্য প্রকাশের পর থেকে ভুল হয়ে গেছে তা পরীক্ষা করুন।"
+
+[patch_release]
+other = "প্যাচ রিলিজ"
+
+[post_create_issue]
+other = "একটি ইস্যু তৈরি করুন"
+
+[prerequisites_heading]
+other = "শুরু করার আগে"
+
+[previous_patches]
+other = "প্যাচ রিলিজ:"
+
+# The following text is displayed when JavaScript isn't available.
+[release_binary_alternate_links]
+other  = """আপনি [চেঞ্জলগ](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) ফাইলগুলিতে কুবারনেটিস উপাদান (এবং তাদের চেকসাম) ডাউনলোড করার লিঙ্কগুলি খুঁজে পেতে পারেন।
+বিকল্পভাবে, ভার্সন এবং আর্কিটেকচার দ্বারা ফিল্টার করতে [downloadkubernetes.com](https://www.downloadkubernetes.com/) ব্যবহার করুন।"""
+
+[release_binary_arch]
+other  = "আর্কিটেকচার"
+
+[release_binary_arch_option]
+other = "আর্কিটেকচারগুলো"
+
+[release_binary_copy_link]
+other = "কপি লিংক"
+
+[release_binary_copy_link_certifcate]
+other = "cert"
+
+[release_binary_copy_link_checksum]
+other = "চেকসাম"
+
+[release_binary_copy_link_signature]
+other = "স্বাক্ষর"
+
+[release_binary_copy_link_tooltip]
+other = "ক্লিপবোর্ডে কপি করুন"
+
+[release_binary_download]
+other  = "বাইনারি ডাউনলোড করুন"
+
+[release_binary_download_tooltip]
+other = "বাইনারি ফাইল ডাউনলোড করুন"
+
+[release_binary_options]
+other  = "ডাউনলোড অপশন"
+
+[release_binary_os]
+other = "অপারেটিং সিস্টেম"
+
+[release_binary_os_option]
+other = "অপারেটিং সিস্টেমগুলো"
+
+[release_binary_os_darwin]
+other = "darwin"
+
+[release_binary_os_linux]
+other = "linux"
+
+[release_binary_os_windows]
+other = "windows"
+
+[release_binary_table_caption]
+other = "কুবারনেটিস কম্পোনেন্ট বাইনারি ডাউনলোড করুন"
+
+# NOTE: <current-version> is a placeholder for the actual version number set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> placeholder.
+[release_binary_section]
+other = """আপনি নীচে <current-version> কুবারনেটিস উপাদান (তাদের চেকসাম সহ) ডাউনলোড করার লিঙ্কগুলি খুঁজে পেতে পারেন।
+পুরানো সাপোর্টেড ভার্সনগুলির জন্য ডাউনলোডগুলি অ্যাক্সেস করতে, সংশ্লিষ্ট ডকুমেন্টেশন দেখুন৷
+[পুরানো ভার্সন](https://kubernetes.io/docs/home/supported-doc-versions/#versions-older) এর জন্য লিঙ্ক বা [downloadkubernetes.com](https://www.downloadkubernetes.com/) ব্যবহার করুন।""" 
+
+# NOTE: <current-version> and <current-changelog-url> are placeholders set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> and <current-changelog-url>  placeholders.
+[release_binary_section_note]
+other = """<current-version> কুবারনেটিস উপাদানগুলির (এবং তাদের চেকসাম) এর পুরানো প্যাচ ভার্সনগুলি ডাউনলোড করতে, 
+অনুগ্রহ করে [চেঞ্জলগ](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md) ফাইলটি দেখুন।""" 
+
+[release_binary_version]
+other  = "ভার্সন"
+
+[release_binary_version_option]
+other = "সর্বশেষ ভার্সন"
+
+[release_date_after]
+other = ")"
+
+[release_date_before]
+other = "(রিলিজ হয়েছিল: "
+
+# See https://gohugo.io/functions/format/gos-layout-string
+# Use a suitable format for your locale
+[release_date_format]
+other = "02-01-2006"
+
+[release_date_format_month]
+other = "জানুয়ারি 2006"
+
+[release_cherry_pick_deadline]
+other = "Cherry Pick সময়সীমা"
+
+[release_end_of_life_date]
+other = "End Of Life তারিখ"
+
+[release_full_details_initial_text]
+other = "সম্পূর্ণ"
+
+[release_information_navbar]
+other = "রিলিজ তথ্য"
+
+[release_minor_version]
+other = "ক্ষুদ্র ভার্সন"
+
+[release_info_next_patch]
+other = "পরবর্তী প্যাচ রিলিজ হয় **%s**."
+
+## Localization note: You can use Markdown here.
+## The three placeholders (in order) are:
+##   Kubernetes minor version
+##   maintenance mode date
+##   end of life date
+##
+## Keep this order. It is OK to use more than one sentence, and it's also OK to change the
+## tense of the text so long as the meaning is clear.
+[release_info_eol]
+other = "**%s** enters maintenance mode on **%s** and End of Life is on **%s**."
+
+[release_note]
+other = "বিঃদ্রঃ"
+
+[release_schedule]
+other = "শিডিউল"
+
+[release_target_date]
+other = "টার্গেট তারিখ"
+
+[release_changelog]
+other = "চেঞ্জলগ"
+
+[seealso_heading]
+other = "আরো দেখুন"
+
+[subscribe_button]
+other = "সাবস্ক্রাইব"
+
+[synopsis_heading]
+other = "সারমর্ম"
+
+[thirdparty_message]
+other = """এই বিভাগটি তৃতীয় পক্ষের (third party) প্রকল্পগুলির সাথে লিঙ্ক করে যা কুবারনেটিস দ্বারা প্রয়োজনীয় কার্যকারিতা প্রদান করে। কুবারনেটিস প্রকল্প লেখক এই প্রকল্পগুলির জন্য দায়ী নয়, যা বর্ণানুক্রমিকভাবে তালিকাভুক্ত করা হয়েছে। এই তালিকায় একটি প্রকল্প যোগ করতে, একটি পরিবর্তন জমা দেওয়ার আগে <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> পড়ুন। <a href="#third-party-content-disclaimer">অধিক তথ্য</a>"""
+
+[thirdparty_message_edit_disclaimer]
+other="""তৃতীয় পক্ষের বিষয়বস্তু পরামর্শ"""
+
+
+[thirdparty_message_single_item]
+other = """&#128711; এই আইটেমটি একটি তৃতীয় পক্ষের প্রকল্প বা পণ্যের সাথে লিঙ্ক করে যা নিজে কুবারনেটিস এর অংশ নয়। <a class="alert-more-info" href="#third-party-content-disclaimer">অধিক তথ্য</a>"""
+[thirdparty_message_disclaimer]
+other = """<p>এই পৃষ্ঠার আইটেমগুলি তৃতীয় পক্ষের পণ্য বা প্রকল্পগুলিকে নির্দেশ করে যা কুবারনেটসের প্রয়োজনীয় কার্যকারিতা প্রদান করে। কুবারনেটিস প্রকল্পের লেখকরা সেই তৃতীয় পক্ষের পণ্য বা প্রকল্পগুলির জন্য দায়ী নয়৷ আরো বিস্তারিত জানার জন্য <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF website guidelines</a> দেখুন। </p><p> একটি অতিরিক্ত তৃতীয় পক্ষের লিঙ্ক যোগ করে এমন একটি পরিবর্তন প্রস্তাব করার আগে আপনার <a href="/docs/contribute/style/content-guide/third-party-content">content guide</a> পড়া উচিত।</p>"""
+
+[thirdparty_message_vendor]
+other = """এই পৃষ্ঠার আইটেমগুলি কুবারনেটিসের বাইরের বিক্রেতাদের উল্লেখ করে। কুবারনেটিস প্রকল্পের লেখকরা সেই তৃতীয় পক্ষের পণ্য বা প্রকল্পগুলির জন্য দায়ী নয়৷ এই তালিকায় একটি বিক্রেতা, পণ্য বা প্রকল্প যোগ করতে, একটি পরিবর্তন জমা দেওয়ার আগে <a href="/docs/contribute/style/content-guide/#third-party-content">কন্টেন্ট গাইড</a> পড়ুন। <a href="#third-party-content-disclaimer">আরো তথ্য।</a>"""
+
+
+[ui_search_placeholder]
+other = "অনুসন্ধান করুন"
+
+[version_check_mustbe]
+other = "আপনার কুবারনেটিস সার্ভার ভার্সন হতে হবে "
+
+[version_check_mustbeorlater]
+other = "আপনার কুবারনেটিস সার্ভার ভার্সনের চেয়ে বা তার পরে হতে হবে "
+
+[version_check_tocheck]
+other = "ভার্সন পরীক্ষা করতে, এন্টার করুন "
+
+[version_menu]
+other = "ভার্সন"
+
+[warning]
+other = "সতর্কতা:"
+
+[whatsnext_heading]
+other = "এর পরের কি"

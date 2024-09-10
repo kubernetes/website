@@ -3,12 +3,9 @@ title: " Containers as a Service, the foundation for next generation PaaS "
 date: 2017-02-21
 slug: caas-the-foundation-for-next-gen-paas
 url: /blog/2017/02/Caas-The-Foundation-For-Next-Gen-Paas
+author: >
+  [Brendan Burns](https://twitter.com/brendandburns) (Microsoft)
 ---
-
-_Today’s post is by Brendan Burns, Partner Architect, at Microsoft & Kubernetes co-founder._  
-
-
-
 Containers are revolutionizing the way that people build, package and deploy software. But what is often overlooked is how they are revolutionizing the way that people build the software that builds, packages and deploys software. (it’s ok if you have to read that sentence twice…) Today, and in a talk at [Container World](https://tmt.knect365.com/container-world/) tomorrow, I’m taking a look at how container orchestrators like Kubernetes form the foundation for next generation platform as a service (PaaS). In particular, I’m interested in how cloud container as a service (CaaS) platforms like [Azure Container Service](https://azure.microsoft.com/en-us/services/container-service/), [Google Container Engine](https://cloud.google.com/container-engine/) and [others](/docs/getting-started-guides/#hosted-solutions) are becoming the new infrastructure layer that PaaS is built upon.  
 
 To see this, it’s important to consider the set of services that have traditionally been provided by PaaS platforms:  
@@ -33,13 +30,6 @@ Kubernetes is infrastructure for next generation applications, PaaS and more. Gi
 Furthermore, because we know that the world of PaaS and software development in general is a hybrid one, we’re excited to announce the preview availability of [Windows clusters in Azure Container Service](https://learn.microsoft.com/en-us/azure/container-service/container-service-kubernetes-walkthrough). We’re also working on [hybrid clusters](https://github.com/Azure/acs-engine/blob/master/docs/kubernetes/windows.md) in [ACS-Engine](https://github.com/Azure/acs-engine) and expect to roll those out to general availability in the coming months.  
 
 I’m thrilled to see how containers and container as a service is changing the world of compute, I’m confident that we’re only scratching the surface of the transformation we’ll see in the coming months and years.  
-
-
-
-
-
-_--[Brendan Burns](https://twitter.com/brendandburns), Partner Architect, at Microsoft and co-founder of Kubernetes_
-
 
 
 

@@ -79,7 +79,7 @@ POD-NAMEの部分を実際のPodの名前に書き換えてください。
 
 ### RedisのマスターのServiceを作成する
 
-ゲストブックアプリケーションは、データを書き込むためにRedisのマスターと通信する必要があります。そのためには、[Service](/ja/docs/concepts/services-networking/service/)を適用して、トラフィックをRedisのマスターのPodへプロキシーしなければなりません。Serviceは、Podにアクセスするためのポリシーを指定します。
+ゲストブックアプリケーションは、データを書き込むためにRedisのマスターと通信する必要があります。そのためには、[Service](/ja/docs/concepts/services-networking/service/)を適用して、トラフィックをRedisのマスターのPodへプロキシしなければなりません。Serviceは、Podにアクセスするためのポリシーを指定します。
 
 {{% codenew file="application/guestbook/redis-master-service.yaml" %}}
 

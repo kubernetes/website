@@ -3,9 +3,11 @@ layout: blog
 title: 'Third Party Device Metrics Reaches GA'
 date: 2020-12-16
 slug: third-party-device-metrics-reaches-ga
+author: >
+  Renaud Gaubert (NVIDIA),
+  David Ashpole (Google),
+  Pramod Ramarao (NVIDIA)
 ---
-
- **Authors:** Renaud Gaubert (NVIDIA), David Ashpole (Google), and Pramod Ramarao (NVIDIA)
 
  With Kubernetes 1.20, infrastructure teams who manage large scale Kubernetes clusters, are seeing the graduation of two exciting and long awaited features:
  * The Pod Resources API (introduced in 1.13) is finally graduating to GA. This allows Kubernetes plugins to obtain information about the node’s resource usage and assignment; for example: which pod/container consumes which device.

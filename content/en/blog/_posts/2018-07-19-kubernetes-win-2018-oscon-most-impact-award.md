@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes Wins the 2018 OSCON Most Impact Award"
 date:  2018-07-19
 slug: kubernetes-wins-2018-oscon-most-impact-award
+author: >
+  Brian Grant (Google),
+  Tim Hockin (Google) 
 ---
-
-**Authors**: Brian Grant (Principal Engineer, Google) and Tim Hockin (Principal Engineer, Google)
 
 We are humbled to be recognized by the community with this award.
 

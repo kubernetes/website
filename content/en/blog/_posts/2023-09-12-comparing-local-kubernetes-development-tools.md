@@ -3,9 +3,9 @@ layout: blog
 title: 'Comparing Local Kubernetes Development Tools: Telepresence, Gefyra, and mirrord'
 date: 2023-09-12
 slug: local-k8s-development-tools
+author: >
+  Eyal Bukchin (MetalBear)
 ---
-
-**Author:** Eyal Bukchin (MetalBear)
 
 The Kubernetes development cycle is an evolving landscape with a myriad of tools seeking to streamline the process. Each tool has its unique approach, and the choice often comes down to individual project requirements, the team's expertise, and the preferred workflow.
 

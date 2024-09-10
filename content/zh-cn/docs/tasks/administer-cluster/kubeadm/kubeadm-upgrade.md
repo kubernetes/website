@@ -81,34 +81,75 @@ The upgrade workflow at high level is the following:
   first drain the node (or nodes) that you are upgrading. In the case of control plane nodes,
   they could be running CoreDNS Pods or other critical workloads. For more information see
   [Draining nodes](/docs/tasks/administer-cluster/safely-drain-node/).
+- The Kubernetes project recommends that you match your kubelet and kubeadm versions.
+  You can instead use a version of kubelet that is older than kubeadm, provided it is within the
+  range of supported versions.
+  For more details, please visit [kubeadm's skew against the kubelet](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#kubeadm-s-skew-against-the-kubelet).
 - All containers are restarted after upgrade, because the container spec hash value is changed.
 -->
 - 下述说明了在升级过程中何时腾空每个节点。如果你正在对任何 kubelet 进行小版本升级，
   你需要先腾空待升级的节点（或多个节点）。对于控制面节点，其上可能运行着 CoreDNS Pod
   或者其它非常重要的负载。更多信息见[腾空节点](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)。
+- Kubernetes 项目推荐你使用版本匹配的 kubelet 和 kubeadm。
+  但你也可以使用比 kubeadm 版本更低的 kubelet 版本，前提是该版本仍处于支持的版本范围内。
+  欲了解更多信息，请访问 [kubeadm 与 kubelet 的版本差异](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#kubeadm-s-skew-against-the-kubelet)。
 - 升级后，因为容器规约的哈希值已更改，所有容器都会被重新启动。
 
 <!--
 - To verify that the kubelet service has successfully restarted after the kubelet has been upgraded,
   you can execute `systemctl status kubelet` or view the service logs with `journalctl -xeu kubelet`.
-- Usage of the `--config` flag of `kubeadm upgrade` with
-  [kubeadm configuration API types](/docs/reference/config-api/kubeadm-config.v1beta3)
-  with the purpose of reconfiguring the cluster is not recommended and can have unexpected results. Follow the steps in
+- `kubeadm upgrade` supports `--config` with a
+  [`UpgradeConfiguration` API type](/docs/reference/config-api/kubeadm-config.v1beta4) which can
+  be used to configure the upgrade process.
+- `kubeadm upgrade` does not support reconfiguration of an existing cluster. Follow the steps in
   [Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure) instead.
 -->
 - 要验证 kubelet 服务在升级后是否成功重启，可以执行 `systemctl status kubelet`
   或 `journalctl -xeu kubelet` 查看服务日志。
-- 不建议使用 `kubeadm upgrade` 的 `--config` 参数和
-  [kubeadm 配置 API 类型](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3)来重新配置集群，
-  这样会产生意想不到的结果。
+- `kubeadm upgrade` 支持 `--config` 和
+  [`UpgradeConfiguration` API 类型](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4)
+  可用于配置升级过程。
+- `kubeadm upgrade` 不支持重新配置现有集群。
   请按照[重新配置 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)中的步骤来进行。
+
+<!--
+### Considerations when upgrading etcd
+
+Because the `kube-apiserver` static pod is running at all times (even if you
+have drained the node), when you perform a kubeadm upgrade which includes an
+etcd upgrade, in-flight requests to the server will stall while the new etcd
+static pod is restarting. As a workaround, it is possible to actively stop the
+`kube-apiserver` process a few seconds before starting the `kubeadm upgrade
+apply` command. This permits to complete in-flight requests and close existing
+connections, and minimizes the consequence of the etcd downtime. This can be
+done as follows on control plane nodes:
+-->
+### 升级 etcd 时的注意事项
+
+由于 `kube-apiserver` 静态 Pod 始终在运行（即使你已经执行了腾空节点的操作），
+因此当你执行包括 etcd 升级在内的 kubeadm 升级时，对服务器正在进行的请求将停滞，
+因为要重新启动新的 etcd 静态 Pod。作为一种解决方法，可以在运行 `kubeadm upgrade apply`
+命令之前主动停止 `kube-apiserver` 进程几秒钟。这样可以允许正在进行的请求完成处理并关闭现有连接，
+并最大限度地减少 etcd 停机的后果。此操作可以在控制平面节点上按如下方式完成：
+
+<!--
+```shell
+# trigger a graceful kube-apiserver shutdown
+# wait a little bit to permit completing in-flight requests
+# execute a kubeadm upgrade command
+-->
+```shell
+killall -s SIGTERM kube-apiserver # 触发 kube-apiserver 体面关闭
+sleep 20 # 等待一下，以完成进行中的请求
+kubeadm upgrade ... # 执行 kubeadm 升级命令
+```
 
 <!-- steps -->
 
 <!--
 ## Changing the package repository
 
-If you're using the community-owned package repositories (`pkgs.k8s.io`), you need to 
+If you're using the community-owned package repositories (`pkgs.k8s.io`), you need to
 enable the package repository for the desired Kubernetes minor release. This is explained in
 [Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)
 document.
@@ -132,28 +173,37 @@ Find the latest patch release for Kubernetes {{< skew currentVersion >}} using t
 使用操作系统的包管理器找到最新的补丁版本 Kubernetes {{< skew currentVersion >}}：
 
 {{< tabs name="k8s_install_versions" >}}
-{{% tab name="Ubuntu, Debian or HypriotOS" %}}
+{{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
+
 <!--
+```shell
 # Find the latest {{< skew currentVersion >}} version in the list.
 # It should look like {{< skew currentVersion >}}.x-*, where x is the latest patch.
+sudo apt update
+sudo apt-cache madison kubeadm
+```
 -->
 ```shell
 # 在列表中查找最新的 {{< skew currentVersion >}} 版本
 # 它看起来应该是 {{< skew currentVersion >}}.x-*，其中 x 是最新的补丁版本
-apt update
-apt-cache madison kubeadm
+sudo apt update
+sudo apt-cache madison kubeadm
 ```
 
 {{% /tab %}}
-{{% tab name="CentOS, RHEL or Fedora" %}}
+{{% tab name="CentOS、RHEL 或 Fedora" %}}
+
 <!--
+```shell
 # Find the latest {{< skew currentVersion >}} version in the list.
 # It should look like {{< skew currentVersion >}}.x-*, where x is the latest patch.
+sudo yum list --showduplicates kubeadm --disableexcludes=kubernetes
+```
 -->
 ```shell
 # 在列表中查找最新的 {{< skew currentVersion >}} 版本
 # 它看起来应该是 {{< skew currentVersion >}}.x-*，其中 x 是最新的补丁版本
-yum list --showduplicates kubeadm --disableexcludes=kubernetes
+sudo yum list --showduplicates kubeadm --disableexcludes=kubernetes
 ```
 
 {{% /tab %}}
@@ -188,27 +238,35 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 1. 升级 kubeadm：
 
    {{< tabs name="k8s_install_kubeadm_first_cp" >}}
-   {{% tab name="Ubuntu, Debian or HypriotOS" %}}
+   {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
 
    <!--
+   ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+   sudo apt-mark unhold kubeadm && \
+   sudo apt-get update && sudo apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
+   sudo apt-mark hold kubeadm
+   ```
    -->
    ```shell
    # 用最新的补丁版本号替换 {{< skew currentVersion >}}.x-* 中的 x
-   apt-mark unhold kubeadm && \
-   apt-get update && apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
-   apt-mark hold kubeadm
+   sudo apt-mark unhold kubeadm && \
+   sudo apt-get update && sudo apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
+   sudo apt-mark hold kubeadm
    ```
 
    {{% /tab %}}
-   {{% tab name="CentOS, RHEL or Fedora" %}}
+   {{% tab name="CentOS、RHEL 或 Fedora" %}}
 
    <!--
+   ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+   sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   ```
    -->
    ```shell
    # 用最新的补丁版本号替换 {{< skew currentVersion >}}.x-* 中的 x
-   yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
 
    {{% /tab %}}
@@ -229,7 +287,7 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 3. 验证升级计划：
 
    ```shell
-   kubeadm upgrade plan
+   sudo kubeadm upgrade plan
    ```
 
    <!--
@@ -248,17 +306,6 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
    `kubeadm upgrade` 也会自动对 kubeadm 在节点上所管理的证书执行续约操作。
    如果需要略过证书续约操作，可以使用标志 `--certificate-renewal=false`。
    更多的信息，可参阅[证书管理指南](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)。
-   {{</ note >}}
-
-   {{< note >}}
-   <!--
-   If `kubeadm upgrade plan` shows any component configs that require manual upgrade, users must provide
-   a config file with replacement configs to `kubeadm upgrade apply` via the `--config` command line flag.
-   Failing to do so will cause `kubeadm upgrade apply` to exit with an error and not perform an upgrade.
-   -->
-   如果 `kubeadm upgrade plan` 给出任何需要手动升级的组件配置，
-   用户必须通过 `--config` 命令行标志向 `kubeadm upgrade apply` 命令提供替代的配置文件。
-   如果不这样做，`kubeadm upgrade apply` 会出错并退出，不再执行升级操作。
    {{</ note >}}
 
 <!--
@@ -297,23 +344,14 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
    the control plane instances have been upgraded before starting to upgrade the addons. You must perform control plane
    instances upgrade sequentially or at least ensure that the last control plane instance upgrade is not started until all
    the other control plane instances have been upgraded completely, and the addons upgrade will be performed after the last
-   control plane instance is upgraded. If you want to keep the old upgrade behavior, please enable the `UpgradeAddonsBeforeControlPlane`
-   feature gate by `kubeadm upgrade apply --feature-gates=UpgradeAddonsBeforeControlPlane=true`. The Kubernetes project does
-   not in general recommend enabling this feature gate, you should instead change your upgrade process or cluster addons so
-   that you do not need to enable the legacy behavior. The `UpgradeAddonsBeforeControlPlane` feature gate will be removed in
-   a future release.
+   control plane instance is upgraded.
    -->
    对于 v1.28 之前的版本，kubeadm 默认采用这样一种模式：在 `kubeadm upgrade apply`
    期间立即升级插件（包括 CoreDNS 和 kube-proxy），而不管是否还有其他尚未升级的控制平面实例。
    这可能会导致兼容性问题。从 v1.28 开始，kubeadm 默认采用这样一种模式：
    在开始升级插件之前，先检查是否已经升级所有的控制平面实例。
    你必须按顺序执行控制平面实例的升级，或者至少确保在所有其他控制平面实例已完成升级之前不启动最后一个控制平面实例的升级，
-   并且在最后一个控制平面实例完成升级之后才执行插件的升级。如果你要保留旧的升级行为，可以通过
-   `kubeadm upgrade apply --feature-gates=UpgradeAddonsBeforeControlPlane=true` 启用
-   `UpgradeAddonsBeforeControlPlane` 特性门控。Kubernetes 项目通常不建议启用此特性门控，
-   你应该转为更改你的升级过程或集群插件，这样你就不需要启用旧的行为。
-   `UpgradeAddonsBeforeControlPlane` 特性门控将在后续的版本中被移除。
-
+   并且在最后一个控制平面实例完成升级之后才执行插件的升级。
    {{</ note >}}
 
 <!--
@@ -395,27 +433,35 @@ kubectl drain <node-to-drain> --ignore-daemonsets
 1. 升级 kubelet 和 kubectl：
 
    {{< tabs name="k8s_install_kubelet" >}}
-   {{% tab name="Ubuntu, Debian or HypriotOS" %}}
+   {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
 
    <!--
+   ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+   sudo apt-mark unhold kubelet kubectl && \
+   sudo apt-get update && sudo apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
+   sudo apt-mark hold kubelet kubectl
+   ```
    -->
    ```shell
    # 用最新的补丁版本替换 {{< skew currentVersion >}}.x-* 中的 x
-   apt-mark unhold kubelet kubectl && \
-   apt-get update && apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
-   apt-mark hold kubelet kubectl
+   sudo apt-mark unhold kubelet kubectl && \
+   sudo apt-get update && sudo apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
+   sudo apt-mark hold kubelet kubectl
    ```
 
    {{% /tab %}}
-   {{% tab name="CentOS, RHEL or Fedora" %}}
+   {{% tab name="CentOS、RHEL 或 Fedora" %}}
 
    <!--
+   ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   ```
    -->
    ```shell
    # 用最新的补丁版本号替换 {{< skew currentVersion >}}.x-* 中的 x
-   yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
 
    {{% /tab %}}
@@ -510,9 +556,9 @@ This command is idempotent and eventually makes sure that the actual state is th
 此命令是幂等的，并最终确保实际状态是你声明的期望状态。
 
 <!--
-To recover from a bad state, you can also run `kubeadm upgrade apply --force` without changing the version that your cluster is running.
+To recover from a bad state, you can also run `sudo kubeadm upgrade apply --force` without changing the version that your cluster is running.
 -->
-要从故障状态恢复，你还可以运行 `kubeadm upgrade apply --force` 而无需更改集群正在运行的版本。
+要从故障状态恢复，你还可以运行 `sudo kubeadm upgrade apply --force` 而无需更改集群正在运行的版本。
 
 <!--
 During upgrade kubeadm writes the following backup folders under `/etc/kubernetes/tmp`:
@@ -541,6 +587,14 @@ and post-upgrade manifest file for a certain component, a backup file for it wil
 如果升级失败并且无法自动回滚，则此文件夹中的内容可以复制到
 `/etc/kubernetes/manifests` 目录实现手工恢复。
 如果由于某些原因，在升级前后某个组件的清单未发生变化，则 kubeadm 也不会为之生成备份版本。
+
+{{< note >}}
+<!--
+After the cluster upgrade using kubeadm, the backup directory `/etc/kubernetes/tmp` will remain and
+these backup files will need to be cleared manually.
+-->
+集群通过 kubeadm 升级后，备份目录 `/etc/kubernetes/tmp` 将保留，这些备份文件需要手动清理。
+{{</ note >}}
 
 <!--
 ## How it works

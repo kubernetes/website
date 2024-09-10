@@ -27,6 +27,7 @@ etcd cluster externally or on custom ports.
 | Protocol | Direction | Port Range  | Purpose               | Used By                 |
 |----------|-----------|-------------|-----------------------|-------------------------|
 | TCP      | Inbound   | 10250       | Kubelet API           | Self, Control plane     |
+| TCP      | Inbound   | 10256       | kube-proxy            | Self, Load balancers    |
 | TCP      | Inbound   | 30000-32767 | NodePort Services†    | All                     |
 
 † Default port range for [NodePort Services](/docs/concepts/services-networking/service/).

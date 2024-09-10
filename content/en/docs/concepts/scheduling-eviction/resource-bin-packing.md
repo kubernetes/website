@@ -58,8 +58,8 @@ Within the `scoringStrategy` field, you can configure two parameters: `requested
 `resources`. The `shape` in the `requestedToCapacityRatio`
 parameter allows the user to tune the function as least requested or most
 requested based on `utilization` and `score` values. The `resources` parameter
-consists of `name` of the resource to be considered during scoring and `weight`
-specify the weight of each resource.
+comprises both the `name` of the resource to be considered during scoring and
+its corresponding `weight`, which specifies the weight of each resource.
 
 Below is an example configuration that sets
 the bin packing behavior for extended resources `intel.com/foo` and `intel.com/bar`

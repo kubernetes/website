@@ -1,9 +1,10 @@
 ---
 title: Poseidon-Firmament Scheduler – Flow Network Graph Based Scheduler
 date: 2019-02-06
+author: >
+  Deepak Vij (Huawei),
+  Shivram Shrivastava (Huawei)  
 ---
-
-**Authors:** Deepak Vij (Huawei), Shivram Shrivastava (Huawei)  
 
 ## Introduction  
 

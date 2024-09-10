@@ -2,6 +2,9 @@
 reviewers:
 - nelvadas
 title: Limit Ranges
+api_metadata:
+- apiVersion: "v1"
+  kind: "LimitRange"
 content_type: concept
 weight: 10
 ---

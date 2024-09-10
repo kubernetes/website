@@ -4,9 +4,9 @@ date: 2016-02-24
 slug: kubecon-eu-2016-kubernetes-community-in
 url: /blog/2016/02/Kubecon-Eu-2016-Kubernetes-Community-In
 evergreen: true
+author: >
+   Sarah Novotny (Google)
 ---
-
-**Author:** Sarah Novotny (Google)
 
 KubeCon EU 2016 is the inaugural European Kubernetes community conference that follows on the American launch in November 2015. KubeCon is fully dedicated to education and community engagement for [Kubernetes](/) enthusiasts, production users and the surrounding ecosystem.
 

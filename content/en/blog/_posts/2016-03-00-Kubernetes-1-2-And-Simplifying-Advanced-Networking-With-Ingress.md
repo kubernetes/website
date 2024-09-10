@@ -3,8 +3,10 @@ title: " Kubernetes 1.2 and simplifying advanced networking with Ingress "
 date: 2016-03-31
 slug: kubernetes-1.2-and-simplifying-advanced-networking-with-ingress
 url: /blog/2016/03/Kubernetes-1-2-And-Simplifying-Advanced-Networking-With-Ingress
+author: >
+  Prashanth Balasubramanian (independent)
 ---
-_Editor's note: This is the sixth post in a [series of in-depth posts](https://kubernetes.io/blog/2016/03/five-days-of-kubernetes-12) on what's new in Kubernetes 1.2._  
+_**Editor's note:** This is the sixth post in a [series of in-depth posts](/blog/2016/03/five-days-of-kubernetes-12) on what's new in Kubernetes 1.2_  
 _Ingress is currently in beta and under active development._  
 
 In Kubernetes, Services and Pods have IPs only routable by the cluster network, by default. All traffic that ends up at an edge router is either dropped or forwarded elsewhere. In Kubernetes 1.2, we’ve made improvements to the Ingress object, to simplify allowing inbound connections to reach the cluster services. It can be configured to give services externally-reachable URLs, load balance traffic, terminate SSL, offer name based virtual hosting and lots more.  
@@ -110,6 +112,4 @@ There are many ways to participate. If you’re particularly interested in Kuber
 - Our [Kubernetes Networking Special Interest Group](https://groups.google.com/forum/#!forum/kubernetes-sig-network) email list
 - The Big Data “Special Interest Group,” which meets biweekly at 3pm (15h00) Pacific Time at [SIG-Networking hangout](https://zoom.us/j/5806599998)
 
-And of course for more information about the project in general, go to[www.kubernetes.io](http://kubernetes.io/)  
-
--- _Prashanth Balasubramanian, Software Engineer_
+And of course for more information about the project in general, go to[www.kubernetes.io](http://kubernetes.io/) 

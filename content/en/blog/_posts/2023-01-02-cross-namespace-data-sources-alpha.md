@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes v1.26: Alpha support for cross-namespace storage data sources"
 date: 2023-01-02
 slug: cross-namespace-data-sources-alpha
+author: >
+  Takafumi Takahashi (Hitachi Vantara)
 ---
-
-**Author:** Takafumi Takahashi (Hitachi Vantara)
 
 Kubernetes v1.26, released last month, introduced an alpha feature that
 lets you specify a data source for a PersistentVolumeClaim, even where the source

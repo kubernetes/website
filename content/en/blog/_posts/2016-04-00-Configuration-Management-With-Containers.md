@@ -3,8 +3,10 @@ title: " Configuration management with Containers "
 date: 2016-04-04
 slug: configuration-management-with-containers
 url: /blog/2016/04/Configuration-Management-With-Containers
+author: >
+  Paul Morie (Red Hat)
 ---
-_Editor’s note: this is our seventh post in a [series of in-depth posts](https://kubernetes.io/blog/2016/03/five-days-of-kubernetes-12) on what's new in Kubernetes 1.2_  
+_**Editor's note:** this is our seventh post in a [series of in-depth posts](/blog/2016/03/five-days-of-kubernetes-12) on what's new in Kubernetes 1.2_  
 
 A [good practice](http://12factor.net/config) when writing applications is to separate application code from configuration. We want to enable application authors to easily employ this pattern within Kubernetes. While  the Secrets API allows separating information like credentials and keys from an application, no object existed in the past for ordinary, non-secret configuration. In [Kubernetes 1.2](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md/#v120), we've added a new API resource called ConfigMap to handle this type of configuration data.  
 
@@ -196,6 +198,4 @@ If you’re interested in Kubernetes and configuration, you’ll want to partici
 
 
 
-And of course for more information about the project in general, go to [www.kubernetes.io](http://www.kubernetes.io/) and follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio).  
-
--- _Paul Morie, Senior Software Engineer, Red Hat_
+And of course for more information about the project in general, go to [www.kubernetes.io](http://www.kubernetes.io/) and follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio).

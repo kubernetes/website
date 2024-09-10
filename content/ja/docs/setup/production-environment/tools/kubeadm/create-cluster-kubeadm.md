@@ -63,7 +63,7 @@ kubeadmツールの全体の機能の状態は、一般利用可能(GA)です。
 1. (推奨)シングルコントロールプレーンの`kubeadm`クラスターを高可用性クラスターにアップグレードする予定がある場合、`--control-plane-endpoint`を指定して、すべてのコントロールプレーンノードとエンドポイントを共有する必要があります。エンドポイントにはDNSネームやロードバランサーのIPアドレスが使用できます。
 1. Podネットワークアドオンを選んで、`kubeadm init`に引数を渡す必要があるかどうか確認してください。選んだサードパーティーのプロバイダーによっては、`--pod-network-cidr`をプロバイダー固有の値に設定する必要がある場合があります。詳しくは、[Podネットワークアドオンのインストール](#pod-network)を参照してください。
 1. (オプション)バージョン1.14から、`kubeadm`はよく知られたドメインソケットのパスリストを用いて、Linux上のコンテナランタイムの検出を試みます。異なるコンテナランタイムを使用する場合やプロビジョニングするノードに2つ以上のランタイムがインストールされている場合、`kubeadm init`に`--cri-socket`引数を指定してください。詳しくは、[ランタイムのインストール](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)を読んでください。
-1. (オプション)明示的に指定しない限り、`kubeadm`はデフォルトゲートウェイに関連付けられたネットワークインターフェイスを使用して、この特定のコントロールプレーンノードのAPIサーバーのadvertise addressを設定します。異なるネットワークインターフェイスを使用するには、`kubeadm init`に`--apiserver-advertise-address=<ip-address>`引数を指定してください。IPv6アドレスを使用するIPv6 Kubernetesクラスターをデプロイするには、たとえば`--apiserver-advertise-address=fd00::101`のように、IPv6アドレスを指定する必要があります。
+1. (オプション)明示的に指定しない限り、`kubeadm`はデフォルトゲートウェイに関連付けられたネットワークインターフェースを使用して、この特定のコントロールプレーンノードのAPIサーバーのadvertise addressを設定します。異なるネットワークインターフェースを使用するには、`kubeadm init`に`--apiserver-advertise-address=<ip-address>`引数を指定してください。IPv6アドレスを使用するIPv6 Kubernetesクラスターをデプロイするには、たとえば`--apiserver-advertise-address=fd00::101`のように、IPv6アドレスを指定する必要があります。
 1. (オプション)`kubeadm init`を実行する前に`kubeadm config images pull`を実行して、gcr.ioコンテナイメージレジストリに接続できるかどうかを確認します。
 
 コントロールプレーンノードを初期化するには、次のコマンドを実行します。

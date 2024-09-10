@@ -2,9 +2,9 @@
 layout: blog
 title:  'Health checking gRPC servers on Kubernetes'
 date: 2018-10-01
+author: >
+  [Ahmet Alp Balkan](https://twitter.com/ahmetb) (Google)
 ---
-
-**Author**: [Ahmet Alp Balkan](https://twitter.com/ahmetb) (Google)
 
 **Update (December 2021):** _Kubernetes now has built-in gRPC health probes starting in v1.23.
 To learn more, see [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe).

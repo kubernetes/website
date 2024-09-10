@@ -28,9 +28,6 @@ for information security.
 The version of Kubernetes that you need depends on which KMS API version
 you have selected.  Kubernetes recommends using KMS v2.
 
-- If you selected KMS API v2, you should use Kubernetes v{{< skew currentVersion >}}
-  (if you are running a different version of Kubernetes that also supports the v2 KMS
-  API, switch to the documentation for that version of Kubernetes).
 - If you selected KMS API v1 to support clusters prior to version v1.27
   or if you have a legacy KMS plugin that only supports KMS v1,
   any supported Kubernetes version will work.  This API is deprecated as of Kubernetes v1.28.
@@ -264,7 +261,10 @@ defined in a CustomResourceDefinition, your cluster must be running Kubernetes v
 
 1. Set the `--encryption-provider-config` flag on the kube-apiserver to point to the location of the configuration file.
 
-1. `--encryption-provider-config-automatic-reload` boolean argument determines if the file set by `--encryption-provider-config` should be automatically reloaded if the disk contents change. This enables key rotation without API server restarts.
+1. `--encryption-provider-config-automatic-reload` boolean argument 
+   determines if the file set by `--encryption-provider-config` should be
+   [automatically reloaded](/docs/tasks/administer-cluster/encrypt-data/#configure-automatic-reloading)
+   if the disk contents change.
 
 1. Restart your API server.
 
@@ -281,12 +281,12 @@ defined in a CustomResourceDefinition, your cluster must be running Kubernetes v
        providers:
          - kms:
              name: myKmsPluginFoo
-             endpoint: unix:///tmp/socketfile.sock
+             endpoint: unix:///tmp/socketfile-foo.sock
              cachesize: 100
              timeout: 3s
          - kms:
              name: myKmsPluginBar
-             endpoint: unix:///tmp/socketfile.sock
+             endpoint: unix:///tmp/socketfile-bar.sock
              cachesize: 100
              timeout: 3s
    ```
@@ -305,12 +305,12 @@ defined in a CustomResourceDefinition, your cluster must be running Kubernetes v
          - kms:
              apiVersion: v2
              name: myKmsPluginFoo
-             endpoint: unix:///tmp/socketfile.sock
+             endpoint: unix:///tmp/socketfile-foo.sock
              timeout: 3s
          - kms:
              apiVersion: v2
              name: myKmsPluginBar
-             endpoint: unix:///tmp/socketfile.sock
+             endpoint: unix:///tmp/socketfile-bar.sock
              timeout: 3s
    ```
 

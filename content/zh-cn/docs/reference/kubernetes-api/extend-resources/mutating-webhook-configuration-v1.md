@@ -1,8 +1,8 @@
 ---
 api_metadata:
-apiVersion: "admissionregistration.k8s.io/v1"
-import: "k8s.io/api/admissionregistration/v1"
-kind: "MutatingWebhookConfiguration"
+  apiVersion: "admissionregistration.k8s.io/v1"
+  import: "k8s.io/api/admissionregistration/v1"
+  kind: "MutatingWebhookConfiguration"
 content_type: "api_reference"
 description: "MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可在更改对象的情况下接受或拒绝对象请求"
 title: "MutatingWebhookConfiguration"

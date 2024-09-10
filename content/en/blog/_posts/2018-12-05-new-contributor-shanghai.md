@@ -2,9 +2,12 @@
 layout: blog
 title: 'New Contributor Workshop Shanghai'
 date: 2018-12-05
+author: >
+  Josh Berkus (Red Hat),
+  Yang Li (The Plant),
+  Puja Abbassi (Giant Swarm),
+  XiangPeng Zhao (ZTE)
 ---
-
-**Authors**: Josh Berkus (Red Hat), Yang Li (The Plant), Puja Abbassi (Giant Swarm), XiangPeng Zhao (ZTE)
 
 {{< figure src="/images/blog/2018-12-05-new-contributor-shanghai/attendees.png" caption="Kubecon Shanghai New Contributor Summit attendees. Photo by Jerry Zhang" >}}
 

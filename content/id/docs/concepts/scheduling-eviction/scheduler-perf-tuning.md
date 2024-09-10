@@ -103,9 +103,9 @@ percentageOfNodesToScore: 50
 
 `percentageOfNodesToScore` merupakan angka 1 sampai 100 dengan
 nilai bawaan yang dihitung berdasarkan ukuran klaster. Di sini juga terdapat
-batas bawah yang telah ditetapkan, yaitu 50 Node.
+batas bawah yang telah ditetapkan, yaitu 100 Node.
 
-{{< note >}}Pada klaster dengan kurang dari 50 Node layak, penjadwal masih
+{{< note >}}Pada klaster dengan kurang dari 100 Node layak, penjadwal masih
 terus memeriksa seluruh Node karena Node-Node layak belum mencukupi supaya
 penjadwal dapat menghentikan proses pencarian lebih awal.
 

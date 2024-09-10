@@ -13,7 +13,7 @@ min-kubernetes-server-version: 1.27
 
 <!-- overview -->
 
-{{< feature-state state="alpha" for_k8s_version="v1.27" >}}
+{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
 <!--
 This page assumes that you are familiar with [Quality of Service](/docs/tasks/configure-pod-container/quality-service-pod/)
@@ -30,6 +30,17 @@ resource usage based on the `limits` specified in the pod's containers.
 本页说明如何在不重启 Pod 或其容器的情况下调整分配给运行中 Pod 容器的 CPU 和内存资源。
 Kubernetes 节点会基于 Pod 的 `requests` 为 Pod 分配资源，
 并基于 Pod 的容器中指定的 `limits` 限制 Pod 的资源使用。
+
+<!--
+Changing the resource allocation for a running Pod requires the
+`InPlacePodVerticalScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+to be enabled. The alternative is to delete the Pod and let the
+[workload controller](/docs/concepts/workloads/controllers/) make a replacement Pod
+that has a different resource requirement.
+-->
+要为正在运行的 Pod 更改资源分配量，需要启用 `InPlacePodVerticalScaling`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+并让[工作负载控制器](/zh-cn/docs/concepts/workloads/controllers/)创建一个具有不同资源需求的新 Pod。
 
 <!--
 For in-place resize of pod resources:
@@ -72,6 +83,13 @@ For in-place resize of pod resources:
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+<!--
+The `InPlacePodVerticalScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled
+for your control plane and for all nodes in your cluster.
+-->
+你必须在控制平面和集群中的所有节点上启用 `InPlacePodVerticalScaling`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
 <!--
 ## Container Resize Policies
@@ -241,13 +259,13 @@ spec:
 <!--
 ## Updating the pod's resources
 
-Let's say the CPU requirements have increased, and 0.8 CPU is now desired. This
-is typically determined, and may be programmatically applied, by an entity such as
+Let's say the CPU requirements have increased, and 0.8 CPU is now desired. This may
+be specified manually, or determined and programmatically applied by an entity such as
 [VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) (VPA).
 -->
 ## 更新 Pod 的资源   {#updating-pod-resources}
 
-假设要求的 CPU 需求已上升，现在需要 0.8 CPU。这通常由
+假设要求的 CPU 需求已上升，现在需要 0.8 CPU。这可以手动指定，或由如
 [VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) (VPA)
 这样的实体确定并可能以编程方式应用。
 

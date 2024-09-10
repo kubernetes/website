@@ -1,0 +1,28 @@
+# This policy enforces that all containers of a deployment has the image repo match the environment label of its namespace.
+# Except for "exempt" deployments, or any containers that do not belong to the "example.com" organization (e.g. common sidecars).
+# For example, if the namespace has a label of {"environment": "staging"}, all container images must be either staging.example.com/*
+# or do not contain "example.com" at all, unless the deployment has {"exempt": "true"} label.
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "image-matches-namespace-environment.policy.example.com"
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["apps"]
+      apiVersions: ["v1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["deployments"]
+  variables:
+  - name: environment
+    expression: "'environment' in namespaceObject.metadata.labels ? namespaceObject.metadata.labels['environment'] : 'prod'"
+  - name: exempt
+    expression: "'exempt' in object.metadata.labels && object.metadata.labels['exempt'] == 'true'"
+  - name: containers
+    expression: "object.spec.template.spec.containers"
+  - name: containersToCheck
+    expression: "variables.containers.filter(c, c.image.contains('example.com/'))"
+  validations:
+  - expression: "variables.exempt || variables.containersToCheck.all(c, c.image.startsWith(variables.environment + '.'))"
+    messageExpression: "'only ' + variables.environment + ' images are allowed in namespace ' + namespaceObject.metadata.name"

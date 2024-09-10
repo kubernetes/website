@@ -64,3 +64,10 @@ for the upcoming **{{< skew nextMinorVersion >}}** Kubernetes release!
 ## Helpful Resources
 -->
 ## 有用的资源   {#helpful-resources}
+
+<!--
+Refer to the [Kubernetes Release Team](https://github.com/kubernetes/sig-release/tree/master/release-team) resources 
+for key information on roles and the release process.
+-->
+有关角色和发布流程的重要信息，
+请参阅 [Kubernetes 发布团队](https://github.com/kubernetes/sig-release/tree/master/release-team) 资源。

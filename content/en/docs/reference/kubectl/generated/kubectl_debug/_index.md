@@ -104,6 +104,13 @@ kubectl debug (POD | TYPE[[.VERSION].GROUP]/NAME) [ -- COMMAND [args...] ]
 </tr>
 
 <tr>
+<td colspan="2">--custom string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a JSON or YAML file containing a partial container spec to customize built-in debug profiles.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--env stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: []</td>
 </tr>
 <tr>
@@ -139,10 +146,52 @@ kubectl debug (POD | TYPE[[.VERSION].GROUP]/NAME) [ -- COMMAND [args...] ]
 </tr>
 
 <tr>
+<td colspan="2">--keep-annotations</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, keep the original pod annotations.(This flag only works when used with '--copy-to')</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--keep-init-containers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Run the init containers for the pod. Defaults to true.(This flag only works when used with '--copy-to')</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--keep-labels</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, keep the original pod labels.(This flag only works when used with '--copy-to')</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--keep-liveness</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, keep the original pod liveness probes.(This flag only works when used with '--copy-to')</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--keep-readiness</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, keep the original pod readiness probes.(This flag only works when used with '--copy-to')</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--keep-startup</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, keep the original startup probes.(This flag only works when used with '--copy-to')</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "legacy"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Debugging profile. Options are &quot;legacy&quot;, &quot;general&quot;, &quot;baseline&quot;, &quot;netadmin&quot;, or &quot;restricted&quot;.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Options are &quot;legacy&quot;, &quot;general&quot;, &quot;baseline&quot;, &quot;netadmin&quot;, &quot;restricted&quot; or &quot;sysadmin&quot;.</p></td>
 </tr>
 
 <tr>
@@ -237,13 +286,6 @@ kubectl debug (POD | TYPE[[.VERSION].GROUP]/NAME) [ -- COMMAND [args...] ]
 </tr>
 
 <tr>
-<td colspan="2">--azure-container-registry-config string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the file containing Azure container registry configuration information.</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "$HOME/.kube/cache"</td>
 </tr>
 <tr>
@@ -269,20 +311,6 @@ kubectl debug (POD | TYPE[[.VERSION].GROUP]/NAME) [ -- COMMAND [args...] ]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a client key file for TLS</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks</p></td>
 </tr>
 
 <tr>

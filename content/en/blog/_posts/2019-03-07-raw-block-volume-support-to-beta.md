@@ -1,10 +1,10 @@
 ---
 title: Raw Block Volume support to Beta
 date: 2019-03-07
+author: >
+  Ben Swartzlander (NetApp),
+  Saad Ali (Google) 
 ---
-
-**Authors:**
-Ben Swartzlander (NetApp), Saad Ali (Google)
 
 Kubernetes v1.13 moves raw block volume support to beta. This feature allows persistent volumes to be exposed inside containers as a block device instead of as a mounted file system.
 

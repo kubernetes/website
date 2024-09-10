@@ -4,6 +4,20 @@ title: "당황하지 마세요. 쿠버네티스와 도커"
 date: 2020-12-02
 slug: dont-panic-kubernetes-and-docker
 evergreen: true
+author: >
+  Jorge Castro,
+  Duffie Cooley,
+  Kat Cosgrove,
+  Justin Garrison,
+  Noah Kantrowitz,
+  Bob Killen,
+  Rey Lejano,
+  Dan “POP” Papandrea,
+  Jeffrey Sica,
+  Davanum “Dims” Srinivas
+translator:
+  박재화(삼성SDS),
+  손석호(ETRI)
 ---
 
 **업데이트:** _쿠버네티스의 도커심을 통한 도커 지원이 제거되었습니다.
@@ -11,10 +25,6 @@ evergreen: true
 또는 지원 중단에 대한 [GitHub 이슈](https://github.com/kubernetes/kubernetes/issues/106917)에서 논의를 할 수도 있습니다._
 
 ---
-
-**저자:** Jorge Castro, Duffie Cooley, Kat Cosgrove, Justin Garrison, Noah Kantrowitz, Bob Killen, Rey Lejano, Dan “POP” Papandrea, Jeffrey Sica, Davanum “Dims” Srinivas
-
-**번역:** 박재화(삼성SDS), 손석호(한국전자통신연구원)
 
 쿠버네티스는 v1.20 이후 컨테이너 런타임으로서
 [도커를 사용 중단(deprecating)](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.20.md#deprecation)합니다.

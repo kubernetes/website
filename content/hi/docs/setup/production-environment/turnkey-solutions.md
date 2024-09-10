@@ -9,4 +9,4 @@ weight: 30
 
 <!-- body -->
 
-{{< cncf-landscape helpers=true category="certified-kubernetes-hosted" >}}
+{{< cncf-landscape helpers=true category="platform--certified-kubernetes-hosted" >}}

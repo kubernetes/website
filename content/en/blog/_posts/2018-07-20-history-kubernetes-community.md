@@ -2,9 +2,9 @@
 layout: blog
 title: "The History of Kubernetes & the Community Behind It"
 date:  2018-07-20
+author: >
+  Brendan Burns (Microsoft) 
 ---
-
-**Authors**: Brendan Burns (Distinguished Engineer, Microsoft)
 
 ![oscon award](/images/blog/2018-07-20-history-kubernetes-community.png)
 

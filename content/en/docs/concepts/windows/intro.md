@@ -149,13 +149,12 @@ Some kubelet command line options behave differently on Windows, as described be
 * The `--kube-reserved`, `--system-reserved` , and `--eviction-hard` flags update
   [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 * Eviction by using `--enforce-node-allocable` is not implemented
-* Eviction by using `--eviction-hard` and `--eviction-soft` are not implemented
 * When running on a Windows node the kubelet does not have memory or CPU
   restrictions. `--kube-reserved` and `--system-reserved` only subtract from `NodeAllocatable`
   and do not guarantee resource provided for workloads.
   See [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/#resource-reservation)
   for more information.
-* The `MemoryPressure` Condition is not implemented
+* The `PIDPressure` Condition is not implemented
 * The kubelet does not take OOM eviction actions
 
 ### API compatibility {#api}
@@ -352,6 +351,40 @@ Windows Server SAC release
 
 The Kubernetes [version-skew policy](/docs/setup/release/version-skew-policy/) also applies.
 
+## Hardware recommendations and considerations {#windows-hardware-recommendations}
+
+{{% thirdparty-content %}}
+
+{{< note >}}
+The following hardware specifications outlined here should be regarded as sensible default values. 
+They are not intended to represent minimum requirements or specific recommendations for production environments.
+Depending on the requirements for your workload these values may need to be adjusted. 
+{{< /note >}}
+
+- 64-bit processor 4 CPU cores or more, capable of supporting virtualization
+- 8GB or more of RAM
+- 50GB or more of free disk space
+
+Refer to
+[Hardware requirements for Windows Server Microsoft documentation](https://learn.microsoft.com/en-us/windows-server/get-started/hardware-requirements)
+for the most up-to-date information on minimum hardware requirements. For guidance on deciding on resources for
+production worker nodes refer to [Production worker nodes Kubernetes documentation](https://kubernetes.io/docs/setup/production-environment/#production-worker-nodes).
+
+To optimize system resources, if a graphical user interface is not required,
+it may be preferable to use a Windows Server OS installation that excludes
+the [Windows Desktop Experience](https://learn.microsoft.com/en-us/windows-server/get-started/install-options-server-core-desktop-experience)
+installation option, as this configuration typically frees up more system 
+resources. 
+
+In assessing disk space for Windows worker nodes, take note that Windows container images are typically larger than
+Linux container images, with container image sizes ranging
+from [300MB to over 10GB](https://techcommunity.microsoft.com/t5/containers/nano-server-x-server-core-x-server-which-base-image-is-the-right/ba-p/2835785)
+for a single image. Additionally, take note that the `C:` drive in Windows containers represents a virtual free size of
+20GB by default, which is not the actual consumed space, but rather the disk size for which a single container can grow
+to occupy when using local storage on the host.
+See [Containers on Windows - Container Storage Documentation](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/container-storage#storage-limits)
+for more detail.
+
 ## Getting help and troubleshooting {#troubleshooting}
 
 Your main source of help for troubleshooting your Kubernetes cluster should start
@@ -373,6 +406,17 @@ You should first search the list of issues in case it was
 reported previously and comment with your experience on the issue and add additional
 logs. SIG Windows channel on the Kubernetes Slack is also a great avenue to get some initial support and
 troubleshooting ideas prior to creating a ticket.
+
+### Validating the Windows cluster operability
+
+The Kubernetes project provides a _Windows Operational Readiness_ specification,
+accompanied by a structured test suite. This suite is split into two sets of tests,
+core and extended, each containing categories aimed at testing specific areas.
+It can be used to validate all the functionalities of a Windows and hybrid system
+(mixed with Linux nodes) with full coverage.
+
+To set up the project on a newly created cluster, refer to the instructions in the
+[project guide](https://github.com/kubernetes-sigs/windows-operational-readiness/blob/main/README.md).
 
 ## Deployment tools
 

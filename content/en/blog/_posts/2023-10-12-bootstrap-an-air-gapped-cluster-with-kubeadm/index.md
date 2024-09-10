@@ -3,9 +3,9 @@ layout: blog
 title: "Bootstrap an Air Gapped Cluster With Kubeadm"
 date: 2023-10-12
 slug: bootstrap-an-air-gapped-cluster-with-kubeadm
+author: >
+  Rob Mengert (Defense Unicorns)
 ---
-
-**Author:** Rob Mengert (Defense Unicorns)
 
 Ever wonder how software gets deployed onto a system that is deliberately disconnected from the Internet and other networks? These systems are typically disconnected due to their sensitive nature. Sensitive as in utilities (power/water), banking, healthcare, weapons systems, other government use cases, etc. Sometimes it's technically a water gap, if you're running Kubernetes on an underwater vessel. Still, these environments need software to operate. This concept of deployment in a disconnected state is what it means to deploy to the other side of an [air gap](https://en.wikipedia.org/wiki/Air_gap_(networking)).
 
@@ -658,7 +658,7 @@ From the air gapped VM, switch into the ~/tmp directory where all of the artifac
 ```bash
 cd ~/tmp
 ```
-Set `$KUBECONFIG` to a file with credentials for the local cluster; also set the the Zarf version:
+Set `$KUBECONFIG` to a file with credentials for the local cluster; also set the Zarf version:
 ```bash
 export KUBECONFIG=/etc/kubernetes/admin.conf
 

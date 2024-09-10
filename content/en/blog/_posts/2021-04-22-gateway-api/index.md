@@ -1,12 +1,15 @@
-
 ---
 layout: blog
 title: 'Evolving Kubernetes networking with the Gateway API'
 date: 2021-04-22
 slug: evolving-kubernetes-networking-with-the-gateway-api
+author: >
+   Mark Church (Google),
+   Harry Bagdi (Kong),
+   Daneyon Hanson (Red Hat),
+   Nick Young (VMware),
+   Manuel Zapf (Traefik Labs)
 ---
-
-**Authors:** Mark Church (Google), Harry Bagdi (Kong), Daneyon Hanson (Red Hat), Nick Young (VMware), Manuel Zapf (Traefik Labs)
 
 The Ingress resource is one of the many Kubernetes success stories. It created a [diverse ecosystem of Ingress controllers](/docs/concepts/services-networking/ingress-controllers/) which were used across hundreds of thousands of clusters in a standardized and consistent way. This standardization helped users adopt Kubernetes. However, five years after the creation of Ingress, there are signs of fragmentation into different but [strikingly similar CRDs](https://dave.cheney.net/paste/ingress-is-dead-long-live-ingressroute.pdf) and [overloaded annotations](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/). The same portability that made Ingress pervasive also limited its future.
 

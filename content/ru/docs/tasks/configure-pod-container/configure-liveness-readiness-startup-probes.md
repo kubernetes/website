@@ -124,7 +124,7 @@ liveness-exec   1/1       Running   1          1m
 
 ## Определение liveness HTTP запроса
 
-Другой вид liveness пробы использует запрос HTTP GET. Ниже представлен файл конфигурации для Pod, который запускает контейнер, основанный на образе `registry.k8s.io/liveness`.
+Другой вид liveness пробы использует запрос HTTP GET. Ниже представлен файл конфигурации для Pod, который запускает контейнер, основанный на образе `registry.k8s.io/e2e-test-images/agnhost`.
 
 {{% codenew file="pods/probe/http-liveness.yaml" %}}
 
@@ -213,7 +213,6 @@ kubectl describe pod goproxy
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:
@@ -234,8 +233,7 @@ livenessProbe:
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
-
+  
 livenessProbe:
   httpGet:
     path: /healthz

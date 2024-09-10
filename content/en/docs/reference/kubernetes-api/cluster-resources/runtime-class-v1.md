@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "RuntimeClass defines a class of container runtime supported in the cluster."
 title: "RuntimeClass"
-weight: 6
+weight: 9
 auto_generated: true
 ---
 

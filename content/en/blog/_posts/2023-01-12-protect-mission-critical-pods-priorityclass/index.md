@@ -4,9 +4,9 @@ title: "Protect Your Mission-Critical Pods From Eviction With PriorityClass"
 date: 2023-01-12
 slug: protect-mission-critical-pods-priorityclass
 description: "Pod priority and preemption help to make sure that mission-critical pods are up in the event of a resource crunch by deciding order of scheduling and eviction."
+author: >
+  Sunny Bhambhani (InfraCloud Technologies)
 ---
-
-**Author:** Sunny Bhambhani (InfraCloud Technologies)
 
 Kubernetes has been widely adopted, and many organizations use it as their de-facto
 orchestration engine for running workloads that need to be created and deleted frequently.

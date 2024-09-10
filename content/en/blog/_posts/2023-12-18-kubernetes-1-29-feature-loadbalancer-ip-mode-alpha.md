@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.29: New (alpha) Feature, Load Balancer IP Mode for Services"
 date: 2023-12-18
 slug: kubernetes-1-29-feature-loadbalancer-ip-mode-alpha
+author: >
+  [Aohan Yang](https://github.com/RyanAoh)
 ---
-
-**Author:** [Aohan Yang](https://github.com/RyanAoh)
 
 This blog introduces a new alpha feature in Kubernetes 1.29. 
 It provides a configurable approach to define how Service implementations, 

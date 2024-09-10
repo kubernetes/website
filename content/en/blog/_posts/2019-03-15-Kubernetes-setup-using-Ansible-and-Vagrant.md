@@ -2,9 +2,9 @@
 layout: blog
 title: Kubernetes Setup Using Ansible and Vagrant
 date: 2019-03-15
+author: >
+  Naresh L J (Infosys) 
 ---
-
-**Author:** Naresh L J (Infosys)
 
 ## Objective
 This blog post describes the steps required to setup a multi node Kubernetes cluster for development purposes. This setup provides a production-like cluster that can be setup on your local machine. 

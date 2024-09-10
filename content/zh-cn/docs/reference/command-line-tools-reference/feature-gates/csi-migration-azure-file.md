@@ -21,6 +21,8 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.26"  
+    toVersion: "1.29" 
+removed: true
 ---
 <!--
 Enables shims and translation logic to route volume

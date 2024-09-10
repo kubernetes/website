@@ -253,12 +253,12 @@ is unaware of the number of Pods on each node that are used as a target.
 外部负载均衡器不知道每个节点上用作目标的 Pod 数量。
 
 <!--
-Where `NumServicePods <<  _NumNodes` or `NumServicePods >> NumNodes`, a fairly close-to-equal
+Where `NumServicePods <<  NumNodes` or `NumServicePods >> NumNodes`, a fairly close-to-equal
 distribution will be seen, even without weights.
 
 Internal pod to pod traffic should behave similar to ClusterIP services, with equal probability across all pods.
 -->
-在 `NumServicePods <<  _NumNodes` 或 `NumServicePods >> NumNodes` 时，
+在 `NumServicePods <<  NumNodes` 或 `NumServicePods >> NumNodes` 时，
 即使没有权重，也会看到接近相等的分布。
 
 内部 Pod 到 Pod 的流量应该与 ClusterIP 服务类似，所有 Pod 的概率相同。

@@ -62,7 +62,15 @@ tolerations:
   effect: "NoSchedule"
 ```
 
-Here's an example of a pod that uses tolerations:
+The default Kubernetes scheduler takes taints and tolerations into account when
+selecting a node to run a particular Pod. However, if you manually specify the
+`.spec.nodeName` for a Pod, that action bypasses the scheduler; the Pod is then
+bound onto the node where you assigned it, even if there are `NoSchedule`
+taints on that node that you selected.
+If this happens and the node also has a `NoExecute` taint set, the kubelet will
+eject the Pod unless there is an appropriate tolerance set.
+
+Here's an example of a pod that has some tolerations defined:
 
 {{% code_sample file="pods/pod-with-toleration.yaml" %}}
 
@@ -84,7 +92,7 @@ An empty `effect` matches all effects with key `key1`.
 
 {{< /note >}}
 
-The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
+The above example used the `effect` of `NoSchedule`. Alternatively, you can use the `effect` of `PreferNoSchedule`.
 
 
 The allowed values for the `effect` field are:
@@ -227,7 +235,7 @@ are true. The following taints are built in:
  * `node.kubernetes.io/network-unavailable`: Node's network is unavailable.
  * `node.kubernetes.io/unschedulable`: Node is unschedulable.
  * `node.cloudprovider.kubernetes.io/uninitialized`: When the kubelet is started
-    with "external" cloud provider, this taint is set on a node to mark it
+    with an "external" cloud provider, this taint is set on a node to mark it
     as unusable. After a controller from the cloud-controller-manager initializes
     this node, the kubelet removes this taint.
 

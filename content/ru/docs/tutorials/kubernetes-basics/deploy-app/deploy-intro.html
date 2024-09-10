@@ -137,7 +137,7 @@ description: |-
                 <p><b><code>export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')</code></b><br />
                    <b><code>echo Name of the Pod: $POD_NAME</code></b></p>
                 <p>Теперь получим доступ к поду через проксированный API, выполнив команду:</p>
-                <p><b><code>curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/</code></b></p>
+                <p><b><code>curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME:8080/proxy/</code></b></p>
                 <p>Чтобы новый деплоймент был доступен без использования прокси, потребуется сервис (объект Service), о котором будет рассказано в следующих разделах.</p>
             </div>
 

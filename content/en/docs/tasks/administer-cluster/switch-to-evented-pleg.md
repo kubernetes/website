@@ -5,7 +5,7 @@ content_type: task
 weight: 90
 ---
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state feature_gate_name="EventedPLEG" >}}
 
 <!-- overview -->
 

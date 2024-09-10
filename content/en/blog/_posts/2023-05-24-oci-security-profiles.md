@@ -3,9 +3,9 @@ layout: blog
 title: "Using OCI artifacts to distribute security profiles for seccomp, SELinux and AppArmor"
 date: 2023-05-24
 slug: oci-security-profiles
+author: >
+  Sascha Grunert
 ---
-
-**Author**: Sascha Grunert
 
 The [Security Profiles Operator (SPO)][spo] makes managing seccomp, SELinux and
 AppArmor profiles within Kubernetes easier than ever. It allows cluster

@@ -2,9 +2,9 @@
 layout: blog
 title: 'Pod Priority and Preemption in Kubernetes'
 date: 2019-04-16
+author: >
+  Bobby Salamat 
 ---
-
-**Author**: Bobby Salamat
 
 Kubernetes is well-known for running scalable workloads. It scales your workloads based on their resource usage. When a workload is scaled up, more instances of the application get created. When the application is critical for your product, you want to make sure that these new instances are scheduled even when your cluster is under resource pressure. One obvious solution to this problem is to over-provision your cluster resources to have some amount of slack resources available for scale-up situations. This approach often works, but costs more as you would have to pay for the resources that are idle most of the time.
 

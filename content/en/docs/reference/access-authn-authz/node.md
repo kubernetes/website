@@ -5,7 +5,7 @@ reviewers:
 - liggitt
 title: Using Node Authorization
 content_type: concept
-weight: 90
+weight: 34
 ---
 
 <!-- overview -->
@@ -26,6 +26,13 @@ Read operations:
 * pods
 * secrets, configmaps, persistent volume claims and persistent volumes related
   to pods bound to the kubelet's node
+
+{{< feature-state feature_gate_name="AuthorizeNodeWithSelectors" >}}
+
+When the `AuthorizeNodeWithSelectors` feature is enabled
+(along with the pre-requisite `AuthorizeWithSelectors` feature),
+kubelets are only allowed to read their own Node objects,
+and are only allowed to read pods bound to their node.
 
 Write operations:
 

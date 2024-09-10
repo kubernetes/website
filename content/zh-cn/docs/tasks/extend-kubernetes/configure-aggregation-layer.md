@@ -530,7 +530,7 @@ if not used correctly.
   of the request. If it is signed by one of the CA certificates in the file referenced by
   `--client-ca-file`, then the request is treated as a legitimate request,
   and the user is the value of the common name `CN=`, while the group is the organization `O=`.
-  See the [documentation on TLS authentication](/docs/reference/access-authn-authz/authentication/#x509-client-certs).
+  See the [documentation on TLS authentication](/docs/reference/access-authn-authz/authentication/#x509-client-certificates).
 * `--requestheader-client-ca-file`: When a request arrives to the Kubernetes apisever,
   if this option is enabled, the Kubernetes apiserver checks the certificate of the request.
   If it is signed by one of the CA certificates in the file reference by `--requestheader-client-ca-file`,
@@ -544,11 +544,11 @@ if not used correctly.
   则 Kubernetes apiserver 会检查请求的证书。
   如果它是由 `--client-ca-file` 引用的文件中的 CA 证书之一签名的，
   并且用户是公用名 `CN=` 的值，而组是组织 `O=` 的取值，则该请求被视为合法请求。
-  请参阅[关于 TLS 身份验证的文档](/zh-cn/docs/reference/access-authn-authz/authentication/#x509-client-certs)。
+  请参阅[关于 TLS 身份验证的文档](/zh-cn/docs/reference/access-authn-authz/authentication/#x509-client-certificates)。
 
 * `--requestheader-client-ca-file`：当请求到达 Kubernetes apiserver 时，
   如果启用此选项，则 Kubernetes apiserver 会检查请求的证书。
-  如果它是由文件引用中的 --requestheader-client-ca-file 所签署的 CA 证书之一签名的，
+  如果它是由文件引用中的 `--requestheader-client-ca-file` 所签署的 CA 证书之一签名的，
   则该请求将被视为潜在的合法请求。
   然后，Kubernetes apiserver 检查通用名称 `CN=` 是否是
   `--requestheader-allowed-names` 提供的列表中的名称之一。
@@ -578,19 +578,19 @@ option - to authorize control plane components and end-users - and the `--reques
 传递的客户端请求将失败，因为 CA 将与 `--requestheader-client-ca-file`
 中的 CA 匹配，但是通用名称 `CN=` 将不匹配 `--requestheader-allowed-names`
 中可接受的通用名称之一。
-这可能导致你的 kubelet 和其他控制平面组件以及最终用户无法向 Kubernetes
-apiserver 认证。
+这可能导致你的 kubelet 和其他控制平面组件以及最终用户无法向
+Kubernetes apiserver 认证。
 
-因此，请对用于控制平面组件和最终用户鉴权的 `--client-ca-file` 选项和
-用于聚合 apiserver 鉴权的 `--requestheader-client-ca-file` 选项使用
-不同的 CA 证书。
+因此，请对用于控制平面组件和最终用户鉴权的 `--client-ca-file`
+选项和用于聚合 apiserver 鉴权的 `--requestheader-client-ca-file`
+选项使用不同的 CA 证书。
 
 {{< warning >}}
 <!--
 Do **not** reuse a CA that is used in a different context unless you understand
 the risks and the mechanisms to protect the CA's usage.
 -->
-除非你了解风险和保护 CA 用法的机制，否则 **不要** 重用在不同上下文中使用的 CA。
+除非你了解风险和保护 CA 用法的机制，否则**不要**重用在不同上下文中使用的 CA。
 {{< /warning >}}
 
 <!--

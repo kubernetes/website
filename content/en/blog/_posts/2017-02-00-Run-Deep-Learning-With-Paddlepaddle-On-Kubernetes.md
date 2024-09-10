@@ -3,11 +3,10 @@ title: " Run Deep Learning with PaddlePaddle on Kubernetes "
 date: 2017-02-08
 slug: run-deep-learning-with-paddlepaddle-on-kubernetes
 url: /blog/2017/02/Run-Deep-Learning-With-Paddlepaddle-On-Kubernetes
+author: >
+  Yi Wang ([Baidu Research](http://research.baidu.com/)),
+  Xiang Li ([CoreOS](https://coreos.com/))
 ---
-
-_Editor's note: Today's post is a joint post from the deep learning team at Baidu and the etcd team at CoreOS._  
-
-
 
 **[![](https://3.bp.blogspot.com/-Mwn3FU9hffI/WJk8QBxA6SI/AAAAAAAAA8w/AS5QoMdPTN8bL9jnixlsCXzj1IfYerhRQCLcB/s200/baidu_research_logo_rgb.png)](https://3.bp.blogspot.com/-Mwn3FU9hffI/WJk8QBxA6SI/AAAAAAAAA8w/AS5QoMdPTN8bL9jnixlsCXzj1IfYerhRQCLcB/s1600/baidu_research_logo_rgb.png)**
 
@@ -158,9 +157,6 @@ To solve the problems mentioned above, we will add a PaddlePaddle master that un
 Another potential improvement is better PaddlePaddle job configuration. Our experience of having the same number of trainers and parameter servers was mostly collected from using special-purpose clusters. That strategy was observed performant on our clients' clusters that run only PaddlePaddle jobs. However, this strategy might not be optimal on general-purpose clusters that run many kinds of jobs.  
 
 PaddlePaddle trainers can utilize multiple GPUs to accelerate computations. GPU is not a first class resource in Kubernetes yet. We have to manage GPUs semi-manually. We would love to work with Kubernetes community to improve GPU support to ensure PaddlePaddle runs the best on Kubernetes.   
-
-_--Yi Wang, [Baidu Research](http://research.baidu.com/) and Xiang Li, [CoreOS](https://coreos.com/)_   
-
 
 
 - [Download](http://get.k8s.io/) Kubernetes

@@ -8,7 +8,7 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: true
     fromVersion: "1.3"
     toVersion: "1.7"

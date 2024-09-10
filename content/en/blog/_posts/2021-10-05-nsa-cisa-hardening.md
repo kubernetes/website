@@ -3,10 +3,11 @@ layout: blog
 title: A Closer Look at NSA/CISA Kubernetes Hardening Guidance
 date: 2021-10-05
 slug: nsa-cisa-kubernetes-hardening-guidance
+author: >
+  Jim Angel (Google),
+  Pushkar Joglekar (VMware),
+  Savitha Raghunathan (Red Hat)
 ---
-
-**Authors:** Jim Angel (Google), Pushkar Joglekar (VMware), and Savitha
-Raghunathan (Red Hat)
 
 {{% alert title="Disclaimer" %}}
 The open source tools listed in this article are to serve as examples only 

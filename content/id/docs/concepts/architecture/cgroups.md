@@ -30,7 +30,7 @@ cgroup v2 menawarkan beberapa peningkatan dibandingkan cgroup v1, seperti beriku
   - Perhitungan yang lebih terpadu untuk berbagai jenis pengalokasian memori (memori jaringan, memori kernel, dll)
   - Menghitung perubahan <i>resource</i> yang tidak langsung seperti respon cache pada sebuah halaman
 
-Beberapa fitur-fitur Kubernetes secara eksklusif menggunakan cgroup v2 untuk <i>resource management</i> dan <i>isolation</i> yang lebih baik. Sebagai contoh, fitur [MemoryQoS](/blog/2021/11/26/qos-memory-resources/) meningkatkan memori QoS dan mengandalkan cgroup v2 primitif.
+Beberapa fitur-fitur Kubernetes secara eksklusif menggunakan cgroup v2 untuk <i>resource management</i> dan <i>isolation</i> yang lebih baik. Sebagai contoh, fitur [MemoryQoS](/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2) meningkatkan memori QoS dan mengandalkan cgroup v2 primitif.
 
 
 ## Penggunaan cgroup v2 {#using-cgroupv2}

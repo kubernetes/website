@@ -43,19 +43,19 @@ the target localization.
 
 <!--
 [NAT](https://en.wikipedia.org/wiki/Network_address_translation)
-: network address translation
+: Network address translation
 
 [Source NAT](https://en.wikipedia.org/wiki/Network_address_translation#SNAT)
-: replacing the source IP on a packet; in this page, that usually means replacing with the IP address of a node.
+: Replacing the source IP on a packet; in this page, that usually means replacing with the IP address of a node.
 
 [Destination NAT](https://en.wikipedia.org/wiki/Network_address_translation#DNAT)
-: replacing the destination IP on a packet; in this page, that usually means replacing with the IP address of a {{< glossary_tooltip term_id="pod" >}}
+: Replacing the destination IP on a packet; in this page, that usually means replacing with the IP address of a {{< glossary_tooltip term_id="pod" >}}
 
 [VIP](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)
-: a virtual IP address, such as the one assigned to every {{< glossary_tooltip text="Service" term_id="service" >}} in Kubernetes
+: A virtual IP address, such as the one assigned to every {{< glossary_tooltip text="Service" term_id="service" >}} in Kubernetes
 
 [kube-proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)
-: a network daemon that orchestrates Service VIP management on every node
+: A network daemon that orchestrates Service VIP management on every node
 -->
 [NAT](https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2)
 : 网络地址转换
@@ -89,6 +89,7 @@ IP of requests it receives through an HTTP header. You can create it as follows:
 ```shell
 kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.4
 ```
+
 <!-- 
 The output is:
 -->
@@ -130,6 +131,7 @@ kube-proxy，则从集群内发送到 ClusterIP 的数据包永远不会进行�
 ```console
 kubectl get nodes
 ```
+
 <!--
 The output is similar to this:
 -->
@@ -341,6 +343,7 @@ Visually:
 * Pod 的回复被发送回给客户端
 
 用图表示：
+
 {{< figure src="/zh-cn/docs/images/tutor-service-nodePort-fig01.svg" alt="图 1：源 IP NodePort" class="diagram-large" caption="如图。使用 SNAT 的源 IP（Type=NodePort）" link="https://mermaid.live/edit#pako:eNqNkV9rwyAUxb-K3LysYEqS_WFYKAzat9GHdW9zDxKvi9RoMIZtlH732ZjSbE970cu5v3s86hFqJxEYfHjRNeT5ZcUtIbXRaMNN2hZ5vrYRqt52cSXV-4iMSuwkZiYtyX739EqWaahMQ-V1qPxDVLNOvkYrO6fj2dupWMR2iiT6foOKdEZoS5Q2hmVSStoH7w7IMqXUVOefWoaG3XVftHbGeZYVRbH6ZXJ47CeL2-qhxvt_ucTe1SUlpuMN6CX12XeGpLdJiaMMFFr0rdAyvvfxjHEIDbbIgcVSohKDCRy4PUV06KQIuJU6OA9MCdMjBTEEt_-2NbDgB7xAGy3i97VJPP0ABRmcqg" >}}
 
 <!-- 
@@ -368,6 +371,7 @@ Set the `service.spec.externalTrafficPolicy` field as follows:
 ```shell
 kubectl patch svc nodeport -p '{"spec":{"externalTrafficPolicy":"Local"}}'
 ```
+
 <!-- 
 The output is:
 -->
@@ -385,6 +389,7 @@ Now, re-run the test:
 ```shell
 for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i client_address; done
 ```
+
 <!-- 
 The output is similar to:
 -->
@@ -447,6 +452,7 @@ You can test this by exposing the source-ip-app through a load balancer:
 ```shell
 kubectl expose deployment source-ip-app --name=loadbalancer --port=80 --target-port=8080 --type=LoadBalancer
 ```
+
 <!-- 
 The output is:
 -->
@@ -550,6 +556,7 @@ serving the health check at `/healthz`. You can test this:
 ```shell
 kubectl get pod -o wide -l app=source-ip-app
 ```
+
 <!-- 
 The output is similar to this:
 -->

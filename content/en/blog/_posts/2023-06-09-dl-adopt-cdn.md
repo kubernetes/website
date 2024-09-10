@@ -3,10 +3,11 @@ layout: blog
 title: "dl.k8s.io to adopt a Content Delivery Network"
 date: 2023-06-09
 slug: dl-adopt-cdn
+author: >
+  Arnaud Meukam (VMware),
+  Hannah Aubry (Fastly),
+  Frederico Muñoz (SAS Institute)
 ---
-
-**Authors**: Arnaud Meukam (VMware), Hannah Aubry (Fastly), Frederico
-Muñoz (SAS Institute)
 
 We're happy to announce that dl.k8s.io, home of the official Kubernetes
 binaries, will soon be powered by [Fastly](https://www.fastly.com).

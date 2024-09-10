@@ -292,10 +292,10 @@ spec:
 ```
 
 <!--
-This pod runs in the `BestEffort` QoS class because no resource `requests` or
+The pod above runs in the `BestEffort` QoS class because no resource `requests` or
 `limits` are specified. It runs in the shared pool.
 -->
-该 Pod 属于 `BestEffort` QoS 类型，因为其未指定 `requests` 或 `limits` 值。
+上例的 Pod 属于 `BestEffort` QoS 类，因为其未指定 `requests` 或 `limits` 值。
 所以该容器运行在共享 CPU 池中。
 
 ```yaml
@@ -311,11 +311,11 @@ spec:
 ```
 
 <!--
-This pod runs in the `Burstable` QoS class because resource `requests` do not
+The pod above runs in the `Burstable` QoS class because resource `requests` do not
 equal `limits` and the `cpu` quantity is not specified. It runs in the shared
 pool.
 -->
-该 Pod 属于 `Burstable` QoS 类型，因为其资源 `requests` 不等于 `limits`，且未指定 `cpu` 数量。
+上例的 Pod 属于 `Burstable` QoS 类，因为其资源 `requests` 不等于 `limits`，且未指定 `cpu` 数量。
 所以该容器运行在共享 CPU 池中。
 
 ```yaml
@@ -333,10 +333,10 @@ spec:
 ```
 
 <!--
-This pod runs in the `Burstable` QoS class because resource `requests` do not
+The pod above runs in the `Burstable` QoS class because resource `requests` do not
 equal `limits`. It runs in the shared pool.
 -->
-该 Pod 属于 `Burstable` QoS 类型，因为其资源 `requests` 不等于 `limits`。
+上例的 Pod 属于 `Burstable` QoS 类，因为其资源 `requests` 不等于 `limits`。
 所以该容器运行在共享 CPU 池中。
 
 ```yaml
@@ -354,11 +354,11 @@ spec:
 ```
 
 <!--
-This pod runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
+The pod above runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
 And the container's resource limit for the CPU resource is an integer greater than
 or equal to one. The `nginx` container is granted 2 exclusive CPUs.
 -->
-该 Pod 属于 `Guaranteed` QoS 类型，因为其 `requests` 值与 `limits`相等。
+上例的 Pod 属于 `Guaranteed` QoS 类，因为其 `requests` 值与 `limits` 相等。
 同时，容器对 CPU 资源的限制值是一个大于或等于 1 的整数值。
 所以，该 `nginx` 容器被赋予 2 个独占 CPU。
 
@@ -377,11 +377,11 @@ spec:
 ```
 
 <!--
-This pod runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
+The pod above runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
 But the container's resource limit for the CPU resource is a fraction. It runs in
 the shared pool.
 -->
-该 Pod 属于 `Guaranteed` QoS 类型，因为其 `requests` 值与 `limits`相等。
+上例的 Pod 属于 `Guaranteed` QoS 类，因为其 `requests` 值与 `limits` 相等。
 但是容器对 CPU 资源的限制值是一个小数。所以该容器运行在共享 CPU 池中。
 
 ```yaml
@@ -396,12 +396,12 @@ spec:
 ```
 
 <!--
-This pod runs in the `Guaranteed` QoS class because only `limits` are specified
+The pod above runs in the `Guaranteed` QoS class because only `limits` are specified
 and `requests` are set equal to `limits` when not explicitly specified. And the
 container's resource limit for the CPU resource is an integer greater than or
 equal to one. The `nginx` container is granted 2 exclusive CPUs.
 -->
-该 Pod 属于 `Guaranteed` QoS 类型，因其指定了 `limits` 值，同时当未显式指定时，
+上例的 Pod 属于 `Guaranteed` QoS 类，因其指定了 `limits` 值，同时当未显式指定时，
 `requests` 值被设置为与 `limits` 值相等。
 同时，容器对 CPU 资源的限制值是一个大于或等于 1 的整数值。
 所以，该 `nginx` 容器被赋予 2 个独占 CPU。
@@ -419,6 +419,7 @@ The following policy options exist for the static `CPUManager` policy:
 * `full-pcpus-only` (beta, visible by default) (1.22 or higher)
 * `distribute-cpus-across-numa` (alpha, hidden by default) (1.23 or higher)
 * `align-by-socket` (alpha, hidden by default) (1.25 or higher)
+* `distribute-cpus-across-cores` (alpha, hidden by default) (1.31 or higher)
 -->
 #### Static 策略选项
 
@@ -429,8 +430,9 @@ The following policy options exist for the static `CPUManager` policy:
 
 静态 `CPUManager` 策略存在以下策略选项：
 * `full-pcpus-only`（Beta，默认可见）（1.22 或更高版本）
-* `distribute-cpus-across-numa`（alpha，默认隐藏）（1.23 或更高版本）
+* `distribute-cpus-across-numa`（Alpha，默认隐藏）（1.23 或更高版本）
 * `align-by-socket`（Alpha，默认隐藏）（1.25 或更高版本）
+* `distribute-cpus-across-cores` (Alpha，默认隐藏) (1.31 或更高版本)
 
 <!--
 If the `full-pcpus-only` policy option is specified, the static policy will always allocate full physical cores.
@@ -495,9 +497,32 @@ than number of NUMA nodes.
 -->
 如果指定了 `align-by-socket` 策略选项，那么在决定如何分配 CPU 给容器时，CPU 将被视为在 CPU 的插槽边界对齐。
 默认情况下，`CPUManager` 在 NUMA 边界对齐 CPU 分配，如果需要从多个 NUMA 节点提取出 CPU 以满足分配，将可能会导致系统性能下降。
-尽管 `align-by-socket` 策略试图确保从 NUMA 节点的**最小**数量分配所有 CPU，但不能保证这些 NUMA 节点将位于同一个 CPU 的插槽上。
+尽管该默认策略试图确保从 NUMA 节点的**最小**数量分配所有 CPU，但不能保证这些 NUMA 节点将位于同一个 CPU 的插槽上。
 通过指示 `CPUManager` 在 CPU 的插槽边界而不是 NUMA 边界显式对齐 CPU，我们能够避免此类问题。
 注意，此策略选项不兼容 `TopologyManager` 与 `single-numa-node` 策略，并且不适用于 CPU 的插槽数量大于 NUMA 节点数量的硬件。
+
+<!--
+If the `distribute-cpus-across-cores` policy option is specified, the static policy
+will attempt to allocate virtual cores (hardware threads) across different physical cores.
+By default, the `CPUManager` tends to pack cpus onto as few physical cores as possible,
+which can lead to contention among cpus on the same physical core and result
+in performance bottlenecks. By enabling the `distribute-cpus-across-cores` policy,
+the static policy ensures that cpus are distributed across as many physical cores
+as possible, reducing the contention on the same physical core and thereby
+improving overall performance. However, it is important to note that this strategy
+might be less effective when the system is heavily loaded. Under such conditions,
+the benefit of reducing contention diminishes. Conversely, default behavior
+can help in reducing inter-core communication overhead, potentially providing
+better performance under high load conditions.
+-->
+如果指定了 `distribute-cpus-across-cores` 策略选项，
+静态策略将尝试将虚拟核（硬件线程）分配到不同的物理核上。默认情况下，
+`CPUManager` 倾向于将 CPU 打包到尽可能少的物理核上，
+这可能导致同一物理核上的 CPU 争用，从而导致性能瓶颈。
+启用 `distribute-cpus-across-cores` 策略后，静态策略将确保 CPU 尽可能分布在多个物理核上，
+从而减少同一物理核上的争用，提升整体性能。然而，需要注意的是，当系统负载较重时，
+这一策略的效果可能会减弱。在这种情况下，减少争用的好处会减少。
+相反，默认行为可以帮助减少跨核的通信开销，在高负载条件下可能会提供更好的性能。
 
 <!--
 The `full-pcpus-only` option can be enabled by adding `full-pcpus-only=true` to
@@ -517,3 +542,12 @@ and `distribute-cpus-across-numa` policy options.
 可以通过将 `align-by-socket=true` 添加到 `CPUManager` 策略选项来启用 `align-by-socket` 策略选项。
 同样，也能够将 `distribute-cpus-across-numa=true` 添加到 `full-pcpus-only`
 和 `distribute-cpus-across-numa` 策略选项中。
+
+<!--
+The `distribute-cpus-across-cores` option can be enabled by adding
+`distribute-cpus-across-cores=true` to the `CPUManager` policy options.
+It cannot be used with `full-pcpus-only` or `distribute-cpus-across-numa` policy
+options together at this moment.
+-->
+可以通过将 `distribute-cpus-across-cores=true` 添加到 `CPUManager` 策略选项中来启用 `distribute-cpus-across-cores` 选项。
+当前，该选项不能与 `full-pcpus-only` 或 `distribute-cpus-across-numa` 策略选项同时使用。

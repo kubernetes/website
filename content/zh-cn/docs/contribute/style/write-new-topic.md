@@ -84,7 +84,7 @@ URL for the topic, for example:
 
 选择一个标题，确保其中包含希望搜索引擎发现的关键字。
 确定文件名时请使用标题中的单词，由连字符分隔。
-例如，标题为[Using an HTTP Proxy to Access Kubernetes API](/zh-cn/docs/tasks/extend-kubernetes/http-proxy-access-api/)
+例如，标题为[使用 HTTP 代理访问 Kubernetes API](/zh-cn/docs/tasks/extend-kubernetes/http-proxy-access-api/)
 的主题的文件名为 `http-proxy-access-api.md`。
 你不需要在文件名中加上 "kubernetes"，因为 "kubernetes" 已经在主题的 URL 中了，
 例如：
@@ -186,7 +186,7 @@ following cases (not an exhaustive list):
 - The code is not generic enough for users to try out. As an example, you can
   embed the YAML
   file for creating a Pod which depends on a specific
-  [FlexVolume](/docs/concepts/storage/volumes#flexvolume) implementation.
+  [FlexVolume](/docs/concepts/storage/volumes/#flexvolume) implementation.
 - The code is an incomplete example because its purpose is to highlight a
   portion of a larger file. For example, when describing ways to
   customize a [RoleBinding](/docs/reference/access-authn-authz/rbac/#role-binding-examples),
@@ -199,7 +199,7 @@ following cases (not an exhaustive list):
 
 - 代码显示来自命令的输出，例如 `kubectl get deploy mydeployment -o json | jq '.status'`。
 - 代码不够通用，用户无法验证。例如，你可以嵌入 YAML 文件来创建一个依赖于特定
-  [FlexVolume](/zh-cn/docs/concepts/storage/volumes#flexvolume) 实现的 Pod。
+  [FlexVolume](/zh-cn/docs/concepts/storage/volumes/#flexvolume) 实现的 Pod。
 - 该代码是一个不完整的示例，因为其目的是突出展现某个大文件中的部分内容。
   例如，在描述
   [RoleBinding](/zh-cn/docs/reference/access-authn-authz/rbac/#role-binding-examples)

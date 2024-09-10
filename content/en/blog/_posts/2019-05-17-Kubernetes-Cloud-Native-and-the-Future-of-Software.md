@@ -2,9 +2,10 @@
 layout: blog
 title: 'Kubernetes, Cloud Native, and the Future of Software'
 date: 2019-05-17
+author: >
+  Brian Grant (Google),
+  Jaice Singer DuMars (Google)
 ---
-
-**Authors:** Brian Grant (Google), Jaice Singer DuMars (Google)
 
 # Kubernetes, Cloud Native, and the Future of Software
 

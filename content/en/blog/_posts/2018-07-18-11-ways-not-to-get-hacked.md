@@ -2,9 +2,9 @@
 layout: blog
 title: "11 Ways (Not) to Get Hacked"
 date:  2018-07-18
+author: >
+  Andrew Martin (ControlPlane) 
 ---
-
-**Author**: Andrew Martin (ControlPlane)
 
 Kubernetes security has come a long way since the project&#39;s inception, but still contains some gotchas. Starting with the control plane, building up through workload and network security, and finishing with a projection into the future of security, here is a list of handy tips to help harden your clusters and increase their resilience if compromised.
 

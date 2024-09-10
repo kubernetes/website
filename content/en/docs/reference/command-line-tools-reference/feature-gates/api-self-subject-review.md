@@ -1,4 +1,5 @@
 ---
+# Removed from Kubernetes
 title: APISelfSubjectReview
 content_type: feature_gate
 _build:
@@ -17,6 +18,8 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.28"  
+    toVersion: "1.29"
+removed: true
 ---
 Activate the `SelfSubjectReview` API which allows users
 to see the requesting subject's authentication information.

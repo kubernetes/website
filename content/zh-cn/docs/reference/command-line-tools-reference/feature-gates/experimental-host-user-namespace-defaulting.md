@@ -13,6 +13,8 @@ stages:
   - stage: deprecated
     defaultValue: false
     fromVersion: "1.28"  
+    toVersion: "1.29" 
+removed: true
 ---
 <!--
 Enabling the defaulting user

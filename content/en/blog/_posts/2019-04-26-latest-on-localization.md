@@ -2,9 +2,9 @@
 layout: blog
 title: 'How You Can Help Localize Kubernetes Docs'
 date: 2019-04-26
+author: >
+  Zach Corleissen (Linux Foundation) 
 ---
-
-**Author: Zach Corleissen (Linux Foundation)**
 
 Last year we optimized the Kubernetes website for [hosting multilingual content](/blog/2018/11/08/kubernetes-docs-updates-international-edition/). Contributors responded by adding multiple new localizations: as of April 2019, Kubernetes docs are partially available in nine different languages, with six added in 2019 alone. You can see a list of available languages in the language selector at the top of each page.
 

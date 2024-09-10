@@ -2,9 +2,11 @@
 layout: blog
 title: Kubernetes Containerd Integration Goes GA
 date: 2018-05-24
+author: >
+  Lantao Liu (Google),
+  Mike Brown (IBM)
 ---
 # Kubernetes Containerd Integration Goes GA
-**Authors**: Lantao Liu, Software Engineer, Google and Mike Brown, Open Source Developer Advocate, IBM
 
 In a previous blog - [Containerd Brings More Container Runtime Options for Kubernetes](https://kubernetes.io/blog/2017/11/containerd-container-runtime-options-kubernetes), we introduced the alpha version of the Kubernetes containerd integration. With another 6 months of development, the integration with containerd is now generally available! You can now use [containerd 1.1](https://github.com/containerd/containerd/releases/tag/v1.1.0) as the container runtime for production Kubernetes clusters!
 

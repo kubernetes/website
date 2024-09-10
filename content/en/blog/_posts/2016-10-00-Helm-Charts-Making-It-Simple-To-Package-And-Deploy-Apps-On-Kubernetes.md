@@ -3,6 +3,8 @@ title: " Helm Charts: making it simple to package and deploy common applications
 date: 2016-10-10
 slug: helm-charts-making-it-simple-to-package-and-deploy-apps-on-kubernetes
 url: /blog/2016/10/Helm-Charts-Making-It-Simple-To-Package-And-Deploy-Apps-On-Kubernetes
+author: >
+  Vic Iglesias (Google)
 ---
 There are thousands of people and companies packaging their applications for deployment on Kubernetes. This usually involves crafting a few different Kubernetes resource definitions that configure the application runtime, as well as defining the mechanism that users and other apps leverage to communicate with the application. There are some very common applications that users regularly look for guidance on deploying, such as databases, CI tools, and content management systems. These types of applications are usually not ones that are developed and iterated on by end users, but rather their configuration is customized to fit a specific use case. Once that application is deployed users can link it to their existing systems or leverage their functionality to solve their pain points.  
 
@@ -113,8 +115,6 @@ Now that you’ve seen workflows for both developers and users, we hope that you
 - SIG Apps - [Weekly Meeting](https://github.com/kubernetes/community/tree/master/sig-apps#meeting)
 - [Submit a Kubernetes Charts Issue](https://github.com/kubernetes/charts/issues)
 A big thank you to the folks at Bitnami, Deis, Google and the [other contributors](https://github.com/kubernetes/charts/graphs/contributors) who have helped get the Charts repository to where it is today. We still have a lot of work to do but it's been wonderful working together as a community to move this effort forward.  
-
-_--Vic Iglesias, Cloud Solutions Architect, Google_  
 
 
 - [Download](http://get.k8s.io/) Kubernetes
