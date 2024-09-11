@@ -69,7 +69,7 @@ within the Kubernetes documentation.
 > Special note: kube-scheduler and kube-controller-manager uses different ports than the ones mentioned in the guidance
 
 The [Threat modelling](https://cnsmap.netlify.app/threat-modelling) section
-from the CNCF [Cloud Native Security Whitepaper + Map](https://github.com/cncf/tag-security/tree/main/security-whitepaper)
+from the CNCF [Cloud Native Security Whitepaper + Map](https://github.com/cncf/tag-security/blob/main/community/resources/security-whitepaper/v2/CNCF_cloud-native-security-whitepaper-May2022-v2.pdf)
 provides another perspective on approaching threat modelling Kubernetes, from a
 cloud native lens.
 
