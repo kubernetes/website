@@ -306,9 +306,9 @@ spec:
           key: username
 ```
 
-If you add this Pod to your cluster, you  see that `CONFIGMAP_USERNAME` is set as an environment variable
-and it has the value of the `username` key from the myconfigmap ConfigMap. Other values from the
-ConfigMap data are not copied into the environment.
+In the Pod created from this manifest, you will see that the environment variable
+`CONFIGMAP_USERNAME` is set to the value of the `username` value from the ConfigMap.
+Other keys from the ConfigMap data are not copied into the environment.
 
 
 It's important to note that the range of characters allowed for environment
