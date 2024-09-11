@@ -19,8 +19,6 @@ Cette page est une vue d'ensemble de Kubernetes.
 
 <!-- body -->
 
-Kubernetes est une plateforme open source portable et extensible pour gérer les charges de travail et les services conteneurisés, qui facilite à la fois la configuration déclarative et l'automatisation. Il dispose d'un écosystème vaste et en pleine croissance. Les services, le support et les outils Kubernetes sont largement disponibles.
-
 Le nom Kubernetes provient du grec, signifiant timonier ou pilote. K8s comme abréviation résulte du comptage des huit lettres entre le "K" et le "s". Google a open-sourcé le projet Kubernetes en 2014. Kubernetes combine [plus de 15 ans d'expérience de Google](/blog/2015/04/borg-predecessor-to-kubernetes/) dans l'exécution de charges de travail en production à grande échelle avec les meilleures idées et pratiques de la communauté.
 
 ## Pourquoi vous avez besoin de Kubernetes et ce qu'il peut faire {#pourquoi-vous-avez-besoin-de-kubernetes-et-ce-quil-peut-faire}
