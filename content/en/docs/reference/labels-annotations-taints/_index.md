@@ -2401,21 +2401,21 @@ JobSet and ReplicaSet are extension APIs that you can deploy into your Kubernete
 
 Type: Annotation
 
-Example: `alpha.jobset.sigs.k8s.io/node-selector: ""`
+Example: `alpha.jobset.sigs.k8s.io/node-selector-strategy=true`
 
-Used on: JobSets
+Used on: JObs ,Pods
 
-This annotation acts as a flag. When set, the JobSet controller injects nodeSelectors for the `JobSetNameKey` label (e.g., `jobset.sigs.k8s.io/jobset-name`) to ensure exclusive job placement per topology.
+This annotation can be applied to a JobSet. When it's set, the JobSet controller modifies the Jobs and their corresponding Pods by adding node selectors. This ensures exclusive job placement per topology domain, restricting the scheduling of these Pods to specific nodes based on the strategy.
 
 ### alpha.jobset.sigs.k8s.io/namespaced-job
 
-Type: Annotation
+Type: Annotation, Label
 
-Example: `alpha.jobset.sigs.k8s.io/namespaced-job: "true"`
+Example: `alpha.jobset.sigs.k8s.io/namespaced-job:my-jobset-replicatedjob-A-0`
 
-Used on: Jobs
+Used on: Jobs, Pods
 
-This annotation indicates that the job is namespaced.
+The JobSet controller adds this label/annotation to Jobs and Pods that are part of a JobSet. It stores the namespaced Job name, which is used for logging and event management within the JobSet context.
 
 ### alpha.jobset.sigs.k8s.io/no-schedule
 
