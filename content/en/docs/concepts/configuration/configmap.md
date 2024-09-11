@@ -230,7 +230,7 @@ kind: ConfigMap
 metadata:
   name: myconfigmap
 data:
-  username: "k8s-admin"
+  username: k8s-admin
   access_level: "1"
 ```
 
