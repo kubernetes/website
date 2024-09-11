@@ -134,6 +134,35 @@ documentation for the plugins about what port(s) those need.
 由于各个 Pod 网络插件的功能都有所不同，请参阅他们各自文档中对端口的要求。
 
 <!--
+## Swap configuration {#swap-configuration}
+
+The default behavior of a kubelet is to fail to start if swap memory is detected on a node.
+This means that swap should either be disabled or tolerated by kubelet.
+
+* To tolerate swap, add `failSwapOn: false` to kubelet configuration or as a command line argument.
+  Note: even if `failSwapOn: false` is provided, workloads wouldn't have swap access by default.
+  This can be changed by setting a `swapBehavior`, again in the kubelet configuration file. To use swap,
+  set a `swapBehavior` other than the default `NoSwap` setting.
+  See [Swap memory management](/docs/concepts/architecture/nodes/#swap-memory) for more details.
+* To disable swap, `sudo swapoff -a` can be used to disable swapping temporarily.
+  To make this change persistent across reboots, make sure swap is disabled in
+  config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
+-->
+## 交换分区的配置 {#swap-configuration}
+
+kubelet 的默认行为是在节点上检测到交换内存时无法启动。
+这意味着要么禁用交换（swap）功能，要么让 kubelet 容忍交换。
+
+* 若需允许交换分区（swap），请在 kubelet 配置文件中添加 `failSwapOn: false`，或通过命令行参数指定。
+  注意：即使设置了 `failSwapOn: false`，工作负载默认情况下仍无法访问交换空间。
+  可以通过在 kubelet 配置文件中设置 `swapBehavior` 来修改此设置。若要使用交换空间，
+  请设置 `swapBehavior` 的值，这个值不能是默认的 `NoSwap`。
+  更多细节参阅[交换内存管理](/zh-cn/docs/concepts/architecture/nodes/#swap-memory)。
+* 要禁用交换分区（swap），可以使用命令 `sudo swapoff -a` 暂时关闭交换分区功能。
+  要使此更改在重启后仍然生效，请确保在系统的配置文件（如 `/etc/fstab` 或 `systemd.swap`）中禁用交换功能，
+  具体取决于你的系统配置方式。
+
+<!--
 ## Installing a container runtime {#installing-runtime}
 
 To run containers in Pods, Kubernetes uses a
