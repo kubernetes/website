@@ -243,12 +243,6 @@ These pods are tracked via `.status.currentHealthy` field in the PDB status.
 
 {{< feature-state feature_gate_name="PDBUnhealthyPodEvictionPolicy" >}}
 
-{{< note >}}
-This feature is enabled by default. You can disable it by disabling the `PDBUnhealthyPodEvictionPolicy`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/).
-{{< /note >}}
-
 PodDisruptionBudget guarding an application ensures that `.status.currentHealthy` number of pods
 does not fall below the number specified in `.status.desiredHealthy` by disallowing eviction of healthy pods.
 By using `.spec.unhealthyPodEvictionPolicy`, you can also define the criteria when unhealthy pods

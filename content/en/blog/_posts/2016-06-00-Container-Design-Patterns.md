@@ -3,6 +3,9 @@ title: " Container Design Patterns "
 date: 2016-06-21
 slug: container-design-patterns
 url: /blog/2016/06/Container-Design-Patterns
+author: >
+  Brendan Burns (Google),
+  David Oppenheimer (Google)
 ---
 Kubernetes automates deployment, operations, and scaling of applications, but our goals in the Kubernetes project extend beyond system management -- we want Kubernetes to help developers, too. Kubernetes should make it easy for them to write the distributed applications and services that run in cloud and datacenter environments. To enable this, Kubernetes defines not only an API for administrators to perform management actions, but also an API for containerized applications to interact with the management platform.  
 
@@ -19,6 +22,4 @@ This week Kubernetes co-founder Brendan Burns is presenting a [**paper**](https:
 
 As the Kubernetes project continues to bring our decade of experience with [Borg](https://queue.acm.org/detail.cfm?id=2898444) to the open source community, we aim not only to make application deployment and operations at scale simple and reliable, but also to make it easy to create “cloud-native” applications in the first place. Our work on documenting our ideas around design patterns for container-based services, and Kubernetes’s enabling of such patterns, is a first step in this direction. We look forward to working with the academic and practitioner communities to identify and codify additional patterns, with the aim of helping containers fulfill the promise of bringing increased simplicity and reliability to the entire software lifecycle, from development, to deployment, to operations.  
 
-To learn more about the Kubernetes project visit [kubernetes.io](http://kubernetes.io/) or chat with us on Slack at [slack.kubernetes.io](http://slack.kubernetes.io/).  
-
--_-Brendan Burns and David Oppenheimer, Software Engineers, Google_  
+To learn more about the Kubernetes project visit [kubernetes.io](http://kubernetes.io/) or chat with us on Slack at [slack.kubernetes.io](http://slack.kubernetes.io/).

@@ -1,9 +1,11 @@
 ---
 title: 卷
+api_metadata:
+- apiVersion: ""
+  kind: "Volume"
 content_type: concept
 weight: 10
 ---
-
 <!--
 reviewers:
 - jsafrane
@@ -11,6 +13,9 @@ reviewers:
 - thockin
 - msau42
 title: Volumes
+api_metadata:
+- apiVersion: ""
+  kind: "Volume"
 content_type: concept
 weight: 10
 -->
@@ -117,15 +122,16 @@ Kubernetes supports several types of volumes.
 Kubernetes 支持下列类型的卷：
 
 <!--
-### awsElasticBlockStore (removed) {#awselasticblockstore}
+### awsElasticBlockStore (deprecated) {#awselasticblockstore}
 -->
-### awsElasticBlockStore （已移除）   {#awselasticblockstore}
+### awsElasticBlockStore （已弃用）   {#awselasticblockstore}
 
 <!-- maintenance note: OK to remove all mention of awsElasticBlockStore once the v1.27 release of
 Kubernetes has gone out of support -->
 
 <!--
-Kubernetes {{< skew currentVersion >}} does not include a `awsElasticBlockStore` volume type.
+In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `awsElasticBlockStore` type
+are redirected to the `ebs.csi.aws.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
 
 The AWSElasticBlockStore in-tree storage driver was deprecated in the Kubernetes v1.19 release
 and then removed entirely in the v1.27 release.
@@ -133,7 +139,8 @@ and then removed entirely in the v1.27 release.
 The Kubernetes project suggests that you use the [AWS EBS](https://github.com/kubernetes-sigs/aws-ebs-csi-driver) third party
 storage driver instead.
 -->
-Kubernetes {{< skew currentVersion >}} 不包含 `awsElasticBlockStore` 卷类型。
+在 Kubernetes {{< skew currentVersion >}} 中，所有针对树内 `awsElasticBlockStore`
+类型的操作都会被重定向到 `ebs.csi.aws.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动。
 
 AWSElasticBlockStore 树内存储驱动已在 Kubernetes v1.19 版本中废弃，
 并在 v1.27 版本中被完全移除。
@@ -142,15 +149,16 @@ Kubernetes 项目建议你转为使用 [AWS EBS](https://github.com/kubernetes-s
 第三方存储驱动插件。
 
 <!--
-### azureDisk (removed) {#azuredisk}
+### azureDisk (deprecated) {#azuredisk}
 -->
-### azureDisk （已移除）   {#azuredisk}
+### azureDisk （已弃用）   {#azuredisk}
 
 <!-- maintenance note: OK to remove all mention of azureDisk once the v1.27 release of
 Kubernetes has gone out of support -->
 
 <!--
-Kubernetes {{< skew currentVersion >}} does not include a `azureDisk` volume type.
+In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `azureDisk` type
+are redirected to the `disk.csi.azure.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
 
 The AzureDisk in-tree storage driver was deprecated in the Kubernetes v1.19 release
 and then removed entirely in the v1.27 release.
@@ -158,7 +166,8 @@ and then removed entirely in the v1.27 release.
 The Kubernetes project suggests that you use the [Azure Disk](https://github.com/kubernetes-sigs/azuredisk-csi-driver) third party
 storage driver instead.
 -->
-Kubernetes {{< skew currentVersion >}} 不包含 `azureDisk` 卷类型。
+在 Kubernetes {{< skew currentVersion >}} 中，所有针对树内 `azureDisk`
+类型的操作都会被重定向到 `disk.csi.azure.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动。
 
 AzureDisk 树内存储驱动已在 Kubernetes v1.19 版本中废弃，并在 v1.27 版本中被完全移除。
 
@@ -225,55 +234,34 @@ and the kubelet, set the `InTreePluginAzureFileUnregister` flag to `true`.
 要禁止控制器管理器和 kubelet 加载 `azureFile` 存储插件，
 请将 `InTreePluginAzureFileUnregister` 标志设置为 `true`。
 
-### cephfs {#cephfs}
-
-{{< feature-state for_k8s_version="v1.28" state="deprecated" >}}
-
-{{< note >}}
 <!--
-The Kubernetes project suggests that you use the [CephFS CSI](https://github.com/ceph/ceph-csi) third party
-storage driver instead.
+### cephfs (removed) {#cephfs}
 -->
-Kubernetes 项目建议你转为使用 [CephFS CSI](https://github.com/ceph/ceph-csi)
-第三方存储驱动插件。
-{{< /note >}}
+### cephfs（已移除）  {#cephfs}
+
+<!-- maintenance note: OK to remove all mention of cephfs once the v1.30 release of
+Kubernetes has gone out of support -->
 
 <!--
-A `cephfs` volume allows an existing CephFS volume to be
-mounted into your Pod. Unlike `emptyDir`, which is erased when a pod is
-removed, the contents of a `cephfs` volume are preserved and the volume is merely
-unmounted. This means that a `cephfs` volume can be pre-populated with data, and
-that data can be shared between pods. The `cephfs` volume can be mounted by multiple
-writers simultaneously.
--->
-`cephfs` 卷允许你将现存的 CephFS 卷挂载到 Pod 中。
-不像 `emptyDir` 那样会在 Pod 被删除的同时也会被删除，`cephfs`
-卷的内容在 Pod 被删除时会被保留，只是卷被卸载了。
-这意味着 `cephfs` 卷可以被预先填充数据，且这些数据可以在
-Pod 之间共享。同一 `cephfs` 卷可同时被多个写者挂载。
+Kubernetes {{< skew currentVersion >}} does not include a `cephfs` volume type.
 
-{{< note >}}
-<!--
-You must have your own Ceph server running with the share exported before you can use it.
+The `cephfs` in-tree storage driver was deprecated in the Kubernetes v1.28 release and then removed entirely in the v1.31 release.
 -->
-在使用 Ceph 卷之前，你的 Ceph 服务器必须已经运行并将要使用的 share 导出（exported）。
-{{< /note >}}
+Kubernetes {{< skew currentVersion >}} 不包括 `cephfs` 卷类型。
+
+`cephfs` 树内存储驱动在 Kubernetes v1.28 版本中被弃用，并在 v1.31 版本中被完全移除。
 
 <!--
-See the [CephFS example](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/) for more details.
+### cinder (deprecated) {#cinder}
 -->
-更多信息请参考 [CephFS 示例](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/)。
-
-<!--
-### cinder (removed) {#cinder}
--->
-### cinder（已移除）   {#cinder}
+### cinder（已弃用）   {#cinder}
 
 <!-- maintenance note: OK to remove all mention of cinder once the v1.26 release of
 Kubernetes has gone out of support -->
 
 <!--
-Kubernetes {{< skew currentVersion >}} does not include a `cinder` volume type.
+In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `cinder` type
+are redirected to the `cinder.csi.openstack.org` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
 
 The OpenStack Cinder in-tree storage driver was deprecated in the Kubernetes v1.11 release
 and then removed entirely in the v1.26 release.
@@ -282,7 +270,8 @@ The Kubernetes project suggests that you use the
 [OpenStack Cinder](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
 third party storage driver instead.
 -->
-Kubernetes {{< skew currentVersion >}} 不包含 `cinder` 卷类型。
+在 Kubernetes {{< skew currentVersion >}} 中，所有针对树内 `cinder`
+类型的操作都会被重定向到 `cinder.csi.openstack.org` {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动。
 
 OpenStack Cinder 树内存储驱动已在 Kubernetes v1.11 版本中废弃，
 并在 v1.26 版本中被完全移除。
@@ -346,19 +335,20 @@ keyed with `log_level`.
 条目中的所有内容都被挂载到 Pod 的 `/etc/config/log_level` 路径下。
 请注意，这个路径来源于卷的 `mountPath` 和 `log_level` 键对应的 `path`。
 
+{{< note >}}
 <!--
-* You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)
+* You must [create a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/#create-a-configmap)
   before you can use it.
 
 * A ConfigMap is always mounted as `readOnly`.
 
 * A container using a ConfigMap as a [`subPath`](#using-subpath) volume mount will not
   receive ConfigMap updates.
-
+  
 * Text data is exposed as files using the UTF-8 character encoding. For other character encodings, use `binaryData`.
 -->
-{{< note >}}
-* 在使用 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/) 之前你首先要创建它。
+* 你必须先[创建 ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/#create-a-configmap)，
+  才能使用它。
 * ConfigMap 总是以 `readOnly` 的模式挂载。
 * 容器以 [`subPath`](#using-subpath) 卷挂载方式使用 ConfigMap 时，将无法接收 ConfigMap 的更新。
 * 文本数据挂载成文件时采用 UTF-8 字符编码。如果使用其他字符编码形式，可使用
@@ -455,14 +445,26 @@ overlays), the `emptyDir` may run out of capacity before this limit.
 
 {{< note >}}
 <!--
-If the `SizeMemoryBackedVolumes` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
-you can specify a size for memory backed volumes.  If no size is specified, memory
-backed volumes are sized to node allocatable memory.
+You can specify a size for memory backed volumes, provided that the `SizeMemoryBackedVolumes`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in your cluster (this has been beta, and active by default, since the Kubernetes 1.22 release).
+If you don't specify a volume size, memory backed volumes are sized to node allocatable memory.
 -->
-当启用 `SizeMemoryBackedVolumes` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时，
-你可以为基于内存提供的卷指定大小。
-如果未指定大小，内存提供的卷的大小根据节点可分配内存进行调整。
+你可以指定内存作为介质的卷的大小，前提是集群中启用了 `SizeMemoryBackedVolumes`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+（自 Kubernetes 1.22 发布以来，此特性一直处于 Beta 阶段，并且默认启用）。
+如果你未指定大小，内存作为介质的卷的大小根据节点可分配内存进行调整。
 {{< /note>}}
+
+{{< caution >}}
+<!--
+Please check [here](/docs/concepts/configuration/manage-resources-containers/#memory-backed-emptydir)
+for points to note in terms of resource management when using memory-backed `emptyDir`.
+-->
+使用内存作为介质的 `emptyDir` 卷时，
+请查阅[此处](/zh-cn/docs/concepts/configuration/manage-resources-containers/#memory-backed-emptydir)，
+了解有关资源管理方面的注意事项。
+{{< /caution >}}
 
 <!--
 #### emptyDir configuration example
@@ -517,13 +519,15 @@ for more details.
 更多详情请参考 [FC 示例](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)。
 
 <!--
-### gcePersistentDisk (removed) {#gcepersistentdisk}
+### gcePersistentDisk (deprecated) {#gcepersistentdisk}
 
-Kubernetes {{< skew currentVersion >}} does not include a `gcePersistentDisk` volume type.
+In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `gcePersistentDisk` type
+are redirected to the `pd.csi.storage.gke.io` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
 -->
-### gcePersistentDisk（已移除） {#gcepersistentdisk}
+### gcePersistentDisk（已弃用） {#gcepersistentdisk}
 
-Kubernetes {{< skew currentVersion >}} 不包含 `gcePersistentDisk` 卷类型。
+在 Kubernetes {{< skew currentVersion >}} 中，所有针对树内 `gcePersistentDisk`
+类型的操作都会被重定向到 `pd.csi.storage.gke.io` {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动。
 
 <!--
 The `gcePersistentDisk` in-tree storage driver was deprecated in the Kubernetes v1.17 release
@@ -565,13 +569,34 @@ must be installed on the cluster.
 
 {{< warning >}}
 <!--
-The `gitRepo` volume type is deprecated. To provision a container with a git repo, mount an
-[EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the
+The `gitRepo` volume type is deprecated.
+
+To provision a Pod that has a Git repository mounted, you can
+mount an
+[`emptyDir`](#emptydir) volume into an [init container](/docs/concepts/workloads/pods/init-containers/) that
+clones the repo using Git, then mount the
 [EmptyDir](#emptydir) into the Pod's container.
 -->
-`gitRepo` 卷类型已经被废弃。如果需要在容器中提供 git 仓库，请将一个
-[EmptyDir](#emptydir) 卷挂载到 InitContainer 中，使用 git
-命令完成仓库的克隆操作，然后将 [EmptyDir](#emptydir) 卷挂载到 Pod 的容器中。
+`gitRepo` 卷类型已经被弃用。
+
+如果需要制备已挂载 Git 仓库的 Pod，你可以将
+[EmptyDir](#emptydir) 卷挂载到 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/) 中，
+使用 Git 命令完成仓库的克隆操作，然后将 [EmptyDir](#emptydir) 卷挂载到 Pod 的容器中。
+
+---
+
+<!--
+You can restrict the use of `gitRepo` volumes in your cluster using
+[policies](/docs/concepts/policy/) such as
+[ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/).
+You can use the following Common Expression Language (CEL) expression as
+part of a policy to reject use of `gitRepo` volumes:
+`has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`.
+-->
+你可以使用 [ValidatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)
+这类[策略](/zh-cn/docs/concepts/policy/)来限制在你的集群中使用 `gitRepo` 卷。
+你可以使用以下通用表达语言（CEL）表达式作为策略的一部分，以拒绝使用 `gitRepo` 卷：
+`has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`。
 {{< /warning >}}
 
 <!--
@@ -625,99 +650,138 @@ GlusterFS 树内存储驱动程序在 Kubernetes v1.25 版本中被弃用，然�
 
 ### hostPath {#hostpath}
 
-{{< warning >}}
-<!-- 
-HostPath volumes present many security risks, and it is a best practice to avoid the use of
-HostPaths when possible. When a HostPath volume must be used, it should be scoped to only the
-required file or directory, and mounted as ReadOnly.
-
-If restricting HostPath access to specific directories through AdmissionPolicy, `volumeMounts` MUST
-be required to use `readOnly` mounts for the policy to be effective.
--->
-HostPath 卷存在许多安全风险，最佳做法是尽可能避免使用 HostPath。
-当必须使用 HostPath 卷时，它的范围应仅限于所需的文件或目录，并以只读方式挂载。
-
-如果通过 AdmissionPolicy 限制 HostPath 对特定目录的访问，则必须要求
-`volumeMounts` 使用 `readOnly` 挂载以使策略生效。
-{{< /warning >}}
-
 <!--
 A `hostPath` volume mounts a file or directory from the host node's filesystem
 into your Pod. This is not something that most Pods will need, but it offers a
 powerful escape hatch for some applications.
 -->
 `hostPath` 卷能将主机节点文件系统上的文件或目录挂载到你的 Pod 中。
-虽然这不是大多数 Pod 需要的，但是它为一些应用程序提供了强大的逃生舱。
+虽然这不是大多数 Pod 需要的，但是它为一些应用提供了强大的逃生舱。
+
+{{< warning >}}
+<!-- 
+Using the `hostPath` volume type presents many security risks.
+If you can avoid using a `hostPath` volume, you should. For example,
+define a [`local` PersistentVolume](#local), and use that instead.
+
+If you are restricting access to specific directories on the node using
+admission-time validation, that restriction is only effective when you
+additionally require that any mounts of that `hostPath` volume are
+**read only**. If you allow a read-write mount of any host path by an
+untrusted Pod, the containers in that Pod may be able to subvert the
+read-write host mount.
+-->
+使用 `hostPath` 类型的卷存在许多安全风险。如果可以，你应该尽量避免使用 `hostPath` 卷。
+例如，你可以改为定义并使用 [`local` PersistentVolume](#local)。
+
+如果你通过准入时的验证来限制对节点上特定目录的访问，这种限制只有在你额外要求所有
+`hostPath` 卷的挂载都是**只读**的情况下才有效。如果你允许不受信任的 Pod 以读写方式挂载任意主机路径，
+则该 Pod 中的容器可能会破坏可读写主机挂载卷的安全性。
+
+---
 
 <!--
-For example, some uses for a `hostPath` are:
-
-* running a container that needs access to Docker internals; use a `hostPath`
-  of `/var/lib/docker`
-* running cAdvisor in a container; use a `hostPath` of `/sys`
-* allowing a Pod to specify whether a given `hostPath` should exist prior to the
-  Pod running, whether it should be created, and what it should exist as
+Take care when using `hostPath` volumes, whether these are mounted as read-only
+or as read-write, because:
 -->
-例如，`hostPath` 的一些用法有：
-
-* 运行一个需要访问 Docker 内部机制的容器；可使用 `hostPath` 挂载 `/var/lib/docker` 路径。
-* 在容器中运行 cAdvisor 时，以 `hostPath` 方式挂载 `/sys`。
-* 允许 Pod 指定给定的 `hostPath` 在运行 Pod 之前是否应该存在，是否应该创建以及应该以什么方式存在。
+无论 `hostPath` 卷是以只读还是读写方式挂载，使用时都需要小心，这是因为：
 
 <!--
-In addition to the required `path` property, you can optionally specify a `type` for a `hostPath` volume.
-
-The supported values for field `type` are:
+* Access to the host filesystem can expose privileged system credentials (such as for the kubelet) or privileged APIs
+  (such as the container runtime socket), that can be used for container escape or to attack other
+  parts of the cluster.
+* Pods with identical configuration (such as created from a PodTemplate) may
+  behave differently on different nodes due to different files on the nodes.
+* `hostPath` volume usage is not treated as ephemeral storage usage.
+  You need to monitor the disk usage by yourself because excessive `hostPath` disk
+  usage will lead to disk pressure on the node.
 -->
-除了必需的 `path` 属性之外，你可以选择性地为 `hostPath` 卷指定 `type`。
+* 访问主机文件系统可能会暴露特权系统凭证（例如 kubelet 的凭证）或特权 API（例如容器运行时套接字），
+  这些可以被用于容器逃逸或攻击集群的其他部分。
+* 具有相同配置的 Pod（例如基于 PodTemplate 创建的 Pod）可能会由于节点上的文件不同而在不同节点上表现出不同的行为。
+* `hostPath` 卷的用量不会被视为临时存储用量。
+  你需要自己监控磁盘使用情况，因为过多的 `hostPath` 磁盘使用量会导致节点上的磁盘压力。
+{{< /warning >}}
 
-支持的 `type` 值如下：
+
+<!--
+Some uses for a `hostPath` are:
+
+* running a container that needs access to node-level system components
+  (such as a container that transfers system logs to a central location,
+  accessing those logs using a read-only mount of `/var/log`)
+* making a configuration file stored on the host system available read-only
+  to a {{< glossary_tooltip text="static pod" term_id="static-pod" >}};
+  unlike normal Pods, static Pods cannot access ConfigMaps
+-->
+`hostPath` 的一些用法有：
+
+* 运行一个需要访问节点级系统组件的容器
+  （例如一个将系统日志传输到集中位置的容器，使用只读挂载 `/var/log` 来访问这些日志）
+* 让存储在主机系统上的配置文件可以被{{< glossary_tooltip text="静态 Pod" term_id="static-pod" >}}
+  以只读方式访问；与普通 Pod 不同，静态 Pod 无法访问 ConfigMap。
+
+<!--
+#### `hostPath` volume types
+
+In addition to the required `path` property, you can optionally specify a
+`type` for a `hostPath` volume.
+
+The available values for `type` are:
+-->
+#### `hostPath` 卷类型
+
+除了必需的 `path` 属性外，你还可以选择为 `hostPath` 卷指定 `type`。
+
+`type` 的可用值有：
+
+<!-- empty string represented using U+200C ZERO WIDTH NON-JOINER -->
 
 <!--
 | Value | Behavior |
 |:------|:---------|
-| | Empty string (default) is for backward compatibility, which means that no checks will be performed before mounting the hostPath volume. |
+| `‌""` | Empty string (default) is for backward compatibility, which means that no checks will be performed before mounting the `hostPath` volume. |
 | `DirectoryOrCreate` | If nothing exists at the given path, an empty directory will be created there as needed with permission set to 0755, having the same group and ownership with Kubelet. |
 | `Directory` | A directory must exist at the given path |
 | `FileOrCreate` | If nothing exists at the given path, an empty file will be created there as needed with permission set to 0644, having the same group and ownership with Kubelet. |
 | `File` | A file must exist at the given path |
 | `Socket` | A UNIX socket must exist at the given path |
-| `CharDevice` | A character device must exist at the given path |
-| `BlockDevice` | A block device must exist at the given path |
+| `CharDevice` | _(Linux nodes only)_ A character device must exist at the given path |
+| `BlockDevice` | _(Linux nodes only)_ A block device must exist at the given path |
 -->
 | 取值  | 行为     |
 |:------|:---------|
-| | 空字符串（默认）用于向后兼容，这意味着在安装 hostPath 卷之前不会执行任何检查。 |
+| `‌""` | 空字符串（默认）用于向后兼容，这意味着在安装 hostPath 卷之前不会执行任何检查。 |
 | `DirectoryOrCreate` | 如果在给定路径上什么都不存在，那么将根据需要创建空目录，权限设置为 0755，具有与 kubelet 相同的组和属主信息。 |
 | `Directory` | 在给定路径上必须存在的目录。|
 | `FileOrCreate` | 如果在给定路径上什么都不存在，那么将在那里根据需要创建空文件，权限设置为 0644，具有与 kubelet 相同的组和所有权。|
 | `File` | 在给定路径上必须存在的文件。|
 | `Socket` | 在给定路径上必须存在的 UNIX 套接字。|
-| `CharDevice` | 在给定路径上必须存在的字符设备。|
-| `BlockDevice` | 在给定路径上必须存在的块设备。|
+| `CharDevice` | **（仅 Linux 节点）** 在给定路径上必须存在的字符设备。|
+| `BlockDevice` | **（仅 Linux 节点）** 在给定路径上必须存在的块设备。|
+
+{{< caution >}}
+<!--
+The `FileOrCreate` mode does **not** create the parent directory of the file. If the parent directory
+of the mounted file does not exist, the pod fails to start. To ensure that this mode works,
+you can try to mount directories and files separately, as shown in the
+[`FileOrCreate` example](#hostpath-fileorcreate-example) for `hostPath`.
+-->
+`FileOrCreate` 模式**不会**创建文件的父目录。如果挂载文件的父目录不存在，Pod 将启动失败。
+为了确保这种模式正常工作，你可以尝试分别挂载目录和文件，如
+`hostPath` 的 [`FileOrCreate` 示例](#hostpath-fileorcreate-example)所示。
+{{< /caution >}}
 
 <!--
-Watch out when using this type of volume, because:
-
-* HostPaths can expose privileged system credentials (such as for the Kubelet) or privileged APIs
-  (such as container runtime socket), which can be used for container escape or to attack other
-  parts of the cluster.
-* Pods with identical configuration (such as created from a PodTemplate) may
-  behave differently on different nodes due to different files on the nodes
-* The files or directories created on the underlying hosts are only writable by root. You
-  either need to run your process as root in a
-  [privileged Container](/docs/tasks/configure-pod-container/security-context/) or modify the file
-  permissions on the host to be able to write to a `hostPath` volume
+Some files or directories created on the underlying hosts might only be
+accessible by root. You then either need to run your process as root in a
+[privileged container](/docs/tasks/configure-pod-container/security-context/)
+or modify the file permissions on the host to be able to read from
+(or write to) a `hostPath` volume.
 -->
-当使用这种类型的卷时要小心，因为：
-
-* HostPath 卷可能会暴露特权系统凭据（例如 Kubelet）或特权
-  API（例如容器运行时套接字），可用于容器逃逸或攻击集群的其他部分。
-* 具有相同配置（例如基于同一 PodTemplate 创建）的多个 Pod
-  会由于节点上文件的不同而在不同节点上有不同的行为。
-* 下层主机上创建的文件或目录只能由 root 用户写入。
-  你需要在[特权容器](/zh-cn/docs/tasks/configure-pod-container/security-context/)中以
-  root 身份运行进程，或者修改主机上的文件权限以便容器能够写入 `hostPath` 卷。
+下层主机上创建的某些文件或目录只能由 root 用户访问。
+此时，你需要在[特权容器](/zh-cn/docs/tasks/configure-pod-container/security-context/)中以
+root 身份运行进程，或者修改主机上的文件权限，以便能够从 `hostPath` 卷读取数据（或将数据写入到 `hostPath` 卷）。
 
 <!--
 #### hostPath configuration example
@@ -725,47 +789,114 @@ Watch out when using this type of volume, because:
 #### hostPath 配置示例
 
 <!--
+Linux node
+# This manifest mounts /data/foo on the host as /foo inside the
+# single container that runs within the hostpath-example-linux Pod.
+#
+# The mount into the container is read-only.
+
+# mount /data/foo, but only if that directory already exists
+
 # directory location on host
 # this field is optional
 -->
-```yaml
+{{< tabs name="hostpath_examples" >}}
+{{< tab name="Linux 节点" codelang="yaml" >}}
+---
+# 此清单将主机上的 /data/foo 挂载为 hostpath-example-linux Pod 中运行的单个容器内的 /foo
+#
+# 容器中的挂载是只读的
 apiVersion: v1
 kind: Pod
 metadata:
-  name: test-pd
+  name: hostpath-example-linux
 spec:
+  os: { name: linux }
+  nodeSelector:
+    kubernetes.io/os: linux
   containers:
-  - image: registry.k8s.io/test-webserver
-    name: test-container
+  - name: example-container
+    image: registry.k8s.io/test-webserver
     volumeMounts:
-    - mountPath: /test-pd
-      name: test-volume
+    - mountPath: /foo
+      name: example-volume
+      readOnly: true
   volumes:
-  - name: test-volume
+  - name: example-volume
+    # 挂载 /data/foo，但仅当该目录已经存在时
     hostPath:
-      # 宿主机上目录位置
-      path: /data
-      # 此字段为可选
-      type: Directory
-```
+      path: /data/foo # 主机上的目录位置
+      type: Directory # 此字段可选
+{{< /tab >}}
 
-{{< caution >}}
 <!--
-The `FileOrCreate` mode does not create the parent directory of the file. If the parent directory
-of the mounted file does not exist, the pod fails to start. To ensure that this mode works,
-you can try to mount directories and files separately, as shown in the
-[`FileOrCreate`configuration](#hostpath-fileorcreate-example).
+Windows node
+# This manifest mounts C:\Data\foo on the host as C:\foo, inside the
+# single container that runs within the hostpath-example-windows Pod.
+#
+# The mount into the container is read-only.
+
+# mount C:\Data\foo from the host, but only if that directory already exists
+
+# directory location on host
+# this field is optional
 -->
-`FileOrCreate` 模式不会负责创建文件的父目录。
-如果欲挂载的文件的父目录不存在，Pod 启动会失败。
-为了确保这种模式能够工作，可以尝试把文件和它对应的目录分开挂载，如
-[`FileOrCreate` 配置](#hostpath-fileorcreate-example)所示。
-{{< /caution >}}
+{{< tab name="Windows 节点" codelang="yaml" >}}
+---
+# 此清单将主机上的 C:\Data\foo 挂载为 hostpath-example-windows Pod 中运行的单个容器内的 C:\foo
+#
+# 容器中的挂载是只读的
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostpath-example-windows
+spec:
+  os: { name: windows }
+  nodeSelector:
+    kubernetes.io/os: windows
+  containers:
+  - name: example-container
+    image: microsoft/windowsservercore:1709
+    volumeMounts:
+    - name: example-volume
+      mountPath: "C:\\foo"
+      readOnly: true
+  volumes:
+    # 从主机挂载 C:\Data\foo，但仅当该目录已经存在时
+  - name: example-volume
+    hostPath:
+      path: "C:\\Data\\foo" # 主机上的目录位置
+      type: Directory       # 此字段可选
+{{< /tab >}}
+{{< /tabs >}}
 
 <!--
 #### hostPath FileOrCreate configuration example {#hostpath-fileorcreate-example}
 -->
 #### hostPath FileOrCreate 配置示例  {#hostpath-fileorcreate-example}
+
+<!--
+The following manifest defines a Pod that mounts `/var/local/aaa`
+inside the single container in the Pod. If the node does not
+already have a path `/var/local/aaa`, the kubelet creates
+it as a directory and then mounts it into the Pod.
+
+If `/var/local/aaa` already exists but is not a directory,
+the Pod fails. Additionally, the kubelet attempts to make
+a file named `/var/local/aaa/1.txt` inside that directory
+(as seen from the host); if something already exists at
+that path and isn't a regular file, the Pod fails.
+
+Here's the example manifest:
+-->
+以下清单定义了一个 Pod，将 `/var/local/aaa` 挂载到 Pod 中的单个容器内。
+如果节点上还没有路径 `/var/local/aaa`，kubelet 会创建这一目录，然后将其挂载到 Pod 中。
+
+如果 `/var/local/aaa` 已经存在但不是一个目录，Pod 会失败。
+此外，kubelet 还会尝试在该目录内创建一个名为 `/var/local/aaa/1.txt` 的文件（从主机的视角来看）；
+如果在该路径上已经存在某个东西且不是常规文件，则 Pod 会失败。
+
+以下是清单示例：
 
 <!--
 # Ensure the file directory is created.
@@ -776,6 +907,9 @@ kind: Pod
 metadata:
   name: test-webserver
 spec:
+  os: { name: linux }
+  nodeSelector:
+    kubernetes.io/os: linux
   containers:
   - name: test-webserver
     image: registry.k8s.io/test-webserver:latest
@@ -795,6 +929,129 @@ spec:
       path: /var/local/aaa/1.txt
       type: FileOrCreate
 ```
+
+### image
+
+{{< feature-state feature_gate_name="ImageVolume" >}}
+
+<!--
+An `image` volume source represents an OCI object (a container image or
+artifact) which is available on the kubelet's host machine.
+
+One example to use the `image` volume source is:
+-->
+`image` 卷源代表一个在 kubelet 主机上可用的 OCI 对象（容器镜像或工件）。
+
+使用 `image` 卷源的一个例子是：
+
+{{% code_sample file="pods/image-volumes.yaml" %}}
+
+<!--
+The volume is resolved at pod startup depending on which `pullPolicy` value is
+provided:
+
+`Always`
+: the kubelet always attempts to pull the reference. If the pull fails, the kubelet sets the Pod to `Failed`.
+-->
+此卷在 Pod 启动时基于提供的 `pullPolicy` 值进行解析：
+
+`Always`
+: kubelet 始终尝试拉取此引用。如果拉取失败，kubelet 会将 Pod 设置为 `Failed`。
+
+<!--
+`Never`
+: the kubelet never pulls the reference and only uses a local image or artifact. The Pod becomes `Failed` if any layers of the image aren't already present locally, or if the manifest for that image isn't already cached.
+
+`IfNotPresent`
+: the kubelet pulls if the reference isn't already present on disk. The Pod becomes `Failed` if the reference isn't present and the pull fails.
+-->
+`Never`
+: kubelet 从不拉取此引用，仅使用本地镜像或工件。
+  如果本地没有任何镜像层存在，或者该镜像的清单未被缓存，则 Pod 会变为 `Failed`。
+
+`IfNotPresent`
+: 如果引用在磁盘上不存在，kubelet 会进行拉取。
+  如果引用不存在且拉取失败，则 Pod 会变为 `Failed`。
+
+<!--
+The volume gets re-resolved if the pod gets deleted and recreated, which means
+that new remote content will become available on pod recreation. A failure to
+resolve or pull the image during pod startup will block containers from starting
+and may add significant latency. Failures will be retried using normal volume
+backoff and will be reported on the pod reason and message.
+-->
+如果 Pod 被删除并重新创建，此卷会被重新解析，这意味着在 Pod 重新创建时将可以访问新的远程内容。
+在 Pod 启动期间解析或拉取镜像失败将导致容器无法启动，并可能显著增加延迟。
+如果失败，将使用正常的卷回退进行重试，并输出 Pod 失败的原因和相关消息。
+
+<!--
+The types of objects that may be mounted by this volume are defined by the
+container runtime implementation on a host machine and at minimum must include
+all valid types supported by the container image field. The OCI object gets
+mounted in a single directory (`spec.containers[*].volumeMounts.mountPath`) by
+will be mounted read-only. On Linux, the container runtime typically also mounts the 
+volume with file execution blocked (`noexec`).
+-->
+此卷可以挂载的对象类型由主机上的容器运行时实现负责定义，至少必须包含容器镜像字段所支持的所有有效类型。
+OCI 对象将以只读方式被挂载到单个目录（`spec.containers[*].volumeMounts.mountPath`）中。
+在 Linux 上，容器运行时通常还会挂载阻止文件执行（`noexec`）的卷。
+
+<!--
+Beside that:
+- Sub path mounts for containers are not supported
+  (`spec.containers[*].volumeMounts.subpath`).
+- The field `spec.securityContext.fsGroupChangePolicy` has no effect on this
+  volume type.
+- The [`AlwaysPullImages` Admission Controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
+  does also work for this volume source like for container images.
+-->
+此外：
+
+- 不支持容器使用子路径挂载（`spec.containers[*].volumeMounts.subpath`）。
+- `spec.securityContext.fsGroupChangePolicy` 字段对这种卷没有效果。
+- [`AlwaysPullImages` 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)也适用于此卷源，
+  就像适用于容器镜像一样。
+
+<!--
+The following fields are available for the `image` type:
+-->
+`image` 类型可用的字段如下：
+
+<!--
+`reference`
+: Artifact reference to be used. For example, you could specify
+`registry.k8s.io/conformance:v{{< skew currentPatchVersion >}}` to load the
+files from the Kubernetes conformance test image. Behaves in the same way as
+`pod.spec.containers[*].image`. Pull secrets will be assembled in the same way
+as for the container image by looking up node credentials, service account image
+pull secrets, and pod spec image pull secrets. This field is optional to allow
+higher level config management to default or override container images in
+workload controllers like Deployments and StatefulSets.
+[More info about container images](/docs/concepts/containers/images)
+-->
+`reference`
+: 要使用的工件引用。例如，你可以指定 `registry.k8s.io/conformance:v{{< skew currentPatchVersion >}}`
+  来加载 Kubernetes 合规性测试镜像中的文件。其行为与 `pod.spec.containers[*].image` 相同。
+  拉取 Secret 的组装方式与容器镜像所用的方式相同，即通过查找节点凭据、服务账户镜像拉取 Secret
+  和 Pod 规约镜像拉取 Secret。此字段是可选的，允许更高层次的配置管理在 Deployment 和
+  StatefulSet 这类工作负载控制器中默认使用或重载容器镜像。
+  参阅[容器镜像更多细节](/zh-cn/docs/concepts/containers/images)。
+
+<!--
+`pullPolicy`
+: Policy for pulling OCI objects. Possible values are: `Always`, `Never` or
+`IfNotPresent`. Defaults to `Always` if `:latest` tag is specified, or
+`IfNotPresent` otherwise.
+
+See the [_Use an Image Volume With a Pod_](/docs/tasks/configure-pod-container/image-volumes)
+example for more details on how to use the volume source.
+-->
+`pullPolicy`
+: 拉取 OCI 对象的策略。可能的值为：`Always`、`Never` 或 `IfNotPresent`。
+  如果指定了 `:latest` 标记，则默认为 `Always`，否则默认为 `IfNotPresent`。
+
+有关如何使用卷源的更多细节，
+请参见 [Pod 使用镜像卷](/zh-cn/docs/tasks/configure-pod-container/image-volumes)示例。
 
 ### iscsi
 
@@ -1093,20 +1350,28 @@ For more details, see the [Portworx volume](https://github.com/kubernetes/exampl
 {{< feature-state for_k8s_version="v1.25" state="beta" >}}
 
 <!--
-The `CSIMigration` feature for Portworx has been added but disabled by default in Kubernetes 1.23 since it's in alpha state.
-It has been beta now since v1.25 but it is still turned off by default.
+By default, Kubernetes {{% skew currentVersion %}} attempts to migrate legacy
+Portworx volumes to use CSI. (CSI migration for Portworx has been available since
+Kubernetes v1.23, but was only turned on by default since the v1.31 release).
+If you want to disable automatic migration, you can set the `CSIMigrationPortworx`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+to `false`; you need to make that change for the kube-controller-manager **and** on
+every relevant kubelet.
+
 It redirects all plugin operations from the existing in-tree plugin to the
 `pxd.portworx.com` Container Storage Interface (CSI) Driver.
 [Portworx CSI Driver](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi)
 must be installed on the cluster.
-To enable the feature, set `CSIMigrationPortworx=true` in kube-controller-manager and kubelet.
 -->
-已针对 Portworx 添加 `CSIMigration` 特性，但在 Kubernetes 1.23 中默认禁用，因为它处于 Alpha 状态。
-自 v1.25 以来它已进入 Beta 阶段，但默认仍关闭。
+默认情况下，Kubernetes {{% skew currentVersion %}} 尝试将传统的 Portworx 卷迁移为使用 CSI。
+（Portworx 的 CSI 迁移自 Kubernetes v1.23 版本以来一直可用，但从 v1.31 版本开始才默认启用）。
+如果你想禁用自动迁移，可以将 `CSIMigrationPortworx`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 设置为 `false`；
+你需要在 kube-controller-manager **和** 每个相关的 kubelet 上进行此更改。
+
 它将所有插件操作不再指向树内插件（In-Tree Plugin），转而指向
 `pxd.portworx.com` 容器存储接口（Container Storage Interface，CSI）驱动。
 [Portworx CSI 驱动程序](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi)必须安装在集群上。
-要启用此特性，需在 kube-controller-manager 和 kubelet 中设置 `CSIMigrationPortworx=true`。
 
 <!--
 ### projected
@@ -1118,109 +1383,24 @@ directory. For more details, see [projected volumes](/docs/concepts/storage/proj
 
 投射卷能将若干现有的卷来源映射到同一目录上。更多详情请参考[投射卷](/zh-cn/docs/concepts/storage/projected-volumes/)。
 
-### rbd
-
-{{< feature-state for_k8s_version="v1.28" state="deprecated" >}}
-
-{{< note >}}
 <!--
-The Kubernetes project suggests that you use the [Ceph CSI](https://github.com/ceph/ceph-csi)
-third party storage driver instead, in RBD mode.
+### rbd (removed) {#rbd}
 -->
-Kubernetes 项目建议你转为以 RBD 模式使用 [Ceph CSI](https://github.com/ceph/ceph-csi)
-第三方存储驱动插件。
-{{< /note >}}
+### rbd（已移除）  {#rbd}
+
+<!-- maintenance note: OK to remove all mention of rbd once the v1.30 release of
+Kubernetes has gone out of support -->
 
 <!--
-An `rbd` volume allows a
-[Rados Block Device](https://docs.ceph.com/en/latest/rbd/) (RBD) volume to mount
-into your Pod. Unlike `emptyDir`, which is erased when a pod is removed, the
-contents of an `rbd` volume are preserved and the volume is unmounted. This
-means that a RBD volume can be pre-populated with data, and that data can be
-shared between pods.
+Kubernetes {{< skew currentVersion >}} does not include a `rbd` volume type.
+
+The [Rados Block Device](https://docs.ceph.com/en/latest/rbd/) (RBD) in-tree storage driver and its csi migration support were deprecated in the Kubernetes v1.28 release
+and then removed entirely in the v1.31 release.
 -->
-`rbd` 卷允许将 [Rados 块设备](https://docs.ceph.com/en/latest/rbd/)卷挂载到你的 Pod 中。
-不像 `emptyDir` 那样会在删除 Pod 的同时也会被删除，`rbd` 卷的内容在删除 Pod 时会被保存，卷只是被卸载。
-这意味着 `rbd` 卷可以被预先填充数据，并且这些数据可以在 Pod 之间共享。
+Kubernetes {{< skew currentVersion >}} 不包括 `rbd` 卷类型。
 
-{{< note >}}
-<!--
-You must have a Ceph installation running before you can use RBD.
--->
-在使用 RBD 之前，你必须安装运行 Ceph。
-{{< /note >}}
-
-<!--
-A feature of RBD is that it can be mounted as read-only by multiple consumers
-simultaneously. This means that you can pre-populate a volume with your dataset
-and then serve it in parallel from as many pods as you need. Unfortunately,
-RBD volumes can only be mounted by a single consumer in read-write mode.
-Simultaneous writers are not allowed.
-
-See the [RBD example](https://github.com/kubernetes/examples/tree/master/volumes/rbd)
-for more details.
--->
-RBD 的一个特性是它可以同时被多个用户以只读方式挂载。
-这意味着你可以用数据集预先填充卷，然后根据需要在尽可能多的 Pod 中并行地使用卷。
-不幸的是，RBD 卷只能由单个使用者以读写模式安装。不允许同时写入。
-
-更多详情请参考
-[RBD 示例](https://github.com/kubernetes/examples/tree/master/volumes/rbd)。
-
-<!--
-#### RBD CSI migration
--->
-#### RBD CSI 迁移 {#rbd-csi-migration}
-
-{{< feature-state for_k8s_version="v1.28" state="deprecated" >}}
-
-<!--
-The `CSIMigration` feature for `RBD`, when enabled, redirects all plugin
-operations from the existing in-tree plugin to the `rbd.csi.ceph.com` {{<
-glossary_tooltip text="CSI" term_id="csi" >}} driver. In order to use this
-feature, the
-[Ceph CSI driver](https://github.com/ceph/ceph-csi)
-must be installed on the cluster and the `CSIMigrationRBD`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-must be enabled. (Note that the `csiMigrationRBD` flag has been removed and
-replaced with `CSIMigrationRBD` in release v1.24)
--->
-启用 RBD 的 `CSIMigration` 特性后，所有插件操作从现有的树内插件重定向到
-`rbd.csi.ceph.com` {{<glossary_tooltip text="CSI" term_id="csi" >}} 驱动程序。
-要使用该特性，必须在集群内安装
-[Ceph CSI 驱动](https://github.com/ceph/ceph-csi)，并启用 `csiMigrationRBD`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-（请注意，`csiMigrationRBD` 标志已在 v1.24 版本中移除且替换为 `CSIMigrationRBD`。）
-
-{{< note >}}
-<!--
-As a Kubernetes cluster operator that administers storage, here are the
-prerequisites that you must complete before you attempt migration to the
-RBD CSI driver:
-
-* You must install the Ceph CSI driver (`rbd.csi.ceph.com`), v3.5.0 or above,
-  into your Kubernetes cluster.
-* considering the `clusterID` field is a required parameter for CSI driver for
-  its operations, but in-tree StorageClass has `monitors` field as a required
-  parameter, a Kubernetes storage admin has to create a clusterID based on the
-  monitors hash ( ex:`#echo -n
-  '<monitors_string>' | md5sum`) in the CSI config map and keep the monitors
-  under this clusterID configuration.
-* Also, if the value of `adminId` in the in-tree Storageclass is different from
- `admin`, the `adminSecretName` mentioned in the in-tree Storageclass has to be
-  patched with the base64 value of the `adminId` parameter value, otherwise this
-  step can be skipped.
--->
-作为一位管理存储的 Kubernetes 集群操作者，在尝试迁移到 RBD CSI 驱动前，你必须完成下列先决事项：
-
-* 你必须在集群中安装 v3.5.0 或更高版本的 Ceph CSI 驱动（`rbd.csi.ceph.com`）。
-* 因为 `clusterID` 是 CSI 驱动程序必需的参数，而树内存储类又将 `monitors`
-  作为一个必需的参数，所以 Kubernetes 存储管理者需要根据 `monitors`
-  的哈希值（例如：`#echo -n '<monitors_string>' | md5sum`）来创建
-  `clusterID`，并保持该 `monitors` 存在于该 `clusterID` 的配置中。
-* 同时，如果树内存储类的 `adminId` 的值不是 `admin`，那么其 `adminSecretName`
-  就需要被修改成 `adminId` 参数的 base64 编码值。
-{{< /note >}}
+[Rados 块设备](https://docs.ceph.com/en/latest/rbd/)（RBD）
+树内存储驱动及其 CSI 迁移支持在 Kubernetes v1.28 版本中被弃用，并在 v1.31 版本中被完全移除。
 
 ### secret
 
@@ -1298,7 +1478,7 @@ are redirected to the `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" t
 
 <!--
 [vSphere CSI driver](https://github.com/kubernetes-sigs/vsphere-csi-driver)
-must be installed on the cluster. You can find additional advice on how to migrate in-tree `vsphereVolume` in VMware's documentation page 
+must be installed on the cluster. You can find additional advice on how to migrate in-tree `vsphereVolume` in VMware's documentation page
 [Migrating In-Tree vSphere Volumes to vSphere Container Storage Plug-in](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html).
 If vSphere CSI Driver is not installed volume operations can not be performed on the PV created with the in-tree `vsphereVolume` type.
 -->
@@ -1358,13 +1538,13 @@ To turn off the `vsphereVolume` plugin from being loaded by the controller manag
 ## Using subPath {#using-subpath}
 
 Sometimes, it is useful to share one volume for multiple uses in a single pod.
-The `volumeMounts.subPath` property specifies a sub-path inside the referenced volume
+The `volumeMounts[*].subPath` property specifies a sub-path inside the referenced volume
 instead of its root.
 -->
 ## 使用 subPath  {#using-subpath}
 
 有时，在单个 Pod 中共享卷以供多方使用是很有用的。
-`volumeMounts.subPath` 属性可用于指定所引用的卷内的子路径，而不是其根路径。
+`volumeMounts[*].subPath` 属性可用于指定所引用的卷内的子路径，而不是其根路径。
 
 <!--
 The following example shows how to configure a Pod with a LAMP stack (Linux Apache MySQL PHP)
@@ -1665,13 +1845,13 @@ persistent volume:
   secret is required. If the object contains more than one secret, all
   secrets are passed.  When you have configured secret data for node-initiated
   volume expansion, the kubelet passes that data via the `NodeExpandVolume()`
-  call to the CSI driver. In order to use the `nodeExpandSecretRef` field, your
-  cluster should be running Kubernetes version 1.25 or later.
-  If you are running Kubernetes Version 1.25 or 1.26, you must enable
-  the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  call to the CSI driver. All supported versions of Kubernetes offer the
+  `nodeExpandSecretRef` field, and have it available by default. Kubernetes releases
+  prior to v1.25 did not include this support.
+* Enable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates-removed/)
   named `CSINodeExpandSecret` for each kube-apiserver and for the kubelet on every
-  node. In Kubernetes version 1.27 this feature has been enabled by default
-  and no explicit enablement of the feature gate is required. 
+  node. Since Kubernetes version 1.27 this feature has been enabled by default
+  and no explicit enablement of the feature gate is required.
   You must also be using a CSI driver that supports or requires secret data during
   node-initiated storage resize operations.
 -->
@@ -1680,12 +1860,11 @@ persistent volume:
   此字段是可选的，如果不需要 Secret，则可能是空的。
   如果 Secret 包含多个 Secret 条目，则传递所有 Secret 条目。
   当你为节点初始化的卷扩展配置 Secret 数据时，kubelet 会通过 `NodeExpandVolume()`
-  调用将该数据传递给 CSI 驱动。为了使用 `nodeExpandSecretRef` 字段，
-  你的集群应运行 Kubernetes 1.25 或更高版本，
-  如果你所运行的 Kubernetes 是 1.25 或 1.26，你必须为每个 kube-apiserver
-  和每个节点上的 kubelet 启用名为 `CSINodeExpandSecret`
-  的[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-  在 Kubernetes 1.27 版本中，此特性已默认启用，无需显式启用特性门控。
+  调用将该数据传递给 CSI 驱动。所有受支持的 Kubernetes 版本都提供 `nodeExpandSecretRef` 字段，
+  并且默认可用。Kubernetes v1.25 之前的版本不包括此支持。
+  为每个 kube-apiserver 和每个节点上的 kubelet 启用名为 `CSINodeExpandSecret` 的
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/)。
+  自 Kubernetes 1.27 版本起，此特性已默认启用，无需显式启用特性门控。
   在节点初始化的存储大小调整操作期间，你还必须使用支持或需要 Secret 数据的 CSI 驱动。
 
 <!--
@@ -1797,13 +1976,43 @@ plugins to corresponding CSI plugins (which are expected to be installed and con
 As a result, operators do not have to make any
 configuration changes to existing Storage Classes, PersistentVolumes or PersistentVolumeClaims
 (referring to in-tree plugins) when transitioning to a CSI driver that supersedes an in-tree plugin.
-
-The operations and features that are supported include:
-provisioning/delete, attach/detach, mount/unmount and resizing of volumes.
 -->
 `CSIMigration` 特性针对现有树内插件的操作会被定向到相应的 CSI 插件（应已安装和配置）。
 因此，操作员在过渡到取代树内插件的 CSI 驱动时，无需对现有存储类、PV 或 PVC（指树内插件）进行任何配置更改。
 
+{{< note >}}
+<!--
+Existing PVs created by a in-tree volume plugin can still be used in the future without any configuration
+changes, even after the migration to CSI is completed for that volume type, and even after you upgrade to a
+version of Kubernetes that doesn't have compiled-in support for that kind of storage.
+
+As part of that migration, you - or another cluster administrator - **must** have installed and configured
+the appropriate CSI driver for that storage. The core of Kubernetes does not install that software for you.
+-->
+即使你针对这种卷完成了 CSI 迁移且你升级到不再内置对这种存储类别的支持的 Kubernetes 版本，
+现有的由树内卷插件所创建的 PV 在未来无需进行任何配置更改就可以使用，
+
+作为迁移的一部分，你或其他集群管理员**必须**安装和配置适用于该存储的 CSI 驱动。
+Kubernetes 不会为你安装该软件。
+
+---
+
+<!--
+After that migration, you can also define new PVCs and PVs that refer to the legacy, built-in
+storage integrations.
+Provided you have the appropriate CSI driver installed and configured, the PV creation continues
+to work, even for brand new volumes. The actual storage management now happens through
+the CSI driver.
+-->
+在完成迁移之后，你也可以定义新的 PVC 和 PV，引用原来的、内置的集成存储。
+只要你安装并配置了适当的 CSI 驱动，即使是全新的卷，PV 的创建仍然可以继续工作。
+实际的存储管理现在通过 CSI 驱动来进行。
+{{< /note >}}
+
+<!--
+The operations and features that are supported include:
+provisioning/delete, attach/detach, mount/unmount and resizing of volumes.
+-->
 所支持的操作和特性包括：配备（Provisioning）/删除、挂接（Attach）/解挂（Detach）、
 挂载（Mount）/卸载（Unmount）和调整卷大小。
 
@@ -1875,13 +2084,13 @@ Mount propagation allows for sharing volumes mounted by a container to
 other containers in the same pod, or even to other pods on the same node.
 
 Mount propagation of a volume is controlled by the `mountPropagation` field
-in `Container.volumeMounts`. Its values are:
+in `containers[*].volumeMounts`. Its values are:
 -->
 ## 挂载卷的传播   {#mount-propagation}
 
 挂载卷的传播能力允许将容器安装的卷共享到同一 Pod 中的其他容器，甚至共享到同一节点上的其他 Pod。
 
-卷的挂载传播特性由 `Container.volumeMounts` 中的 `mountPropagation` 字段控制。
+卷的挂载传播特性由 `containers[*].volumeMounts` 中的 `mountPropagation` 字段控制。
 它的值包括：
 
 <!--
@@ -1962,6 +2171,127 @@ in `Container.volumeMounts`. Its values are:
   强烈建议你熟悉 Linux 内核行为。
   此外，由 Pod 中的容器创建的任何卷挂载必须在终止时由容器销毁（卸载）。
   {{< /warning >}}
+
+<!--
+## Read-only mounts
+
+A mount can be made read-only by setting the `.spec.containers[].volumeMounts[].readOnly`
+field to `true`.
+This does not make the volume itself read-only, but that specific container will
+not be able to write to it.
+Other containers in the Pod may mount the same volume as read-write.
+-->
+## 只读挂载   {#read-only-mounts}
+
+通过将 `.spec.containers[].volumeMounts[].readOnly` 字段设置为 `true` 可以使挂载只读。
+这不会使卷本身只读，但该容器将无法写入此卷。
+Pod 中的其他容器可以以读写方式挂载同一个卷。
+
+<!--
+On Linux, read-only mounts are not recursively read-only by default.
+For example, consider a Pod which mounts the hosts `/mnt` as a `hostPath` volume.  If
+there is another filesystem mounted read-write on `/mnt/<SUBMOUNT>` (such as tmpfs,
+NFS, or USB storage), the volume mounted into the container(s) will also have a writeable
+`/mnt/<SUBMOUNT>`, even if the mount itself was specified as read-only.
+-->
+在 Linux 上，只读挂载默认不会以递归方式只读。
+假如有一个 Pod 将主机的 `/mnt` 挂载为 `hostPath` 卷。
+如果在 `/mnt/<SUBMOUNT>` 上有另一个以读写方式挂载的文件系统（如 tmpfs、NFS 或 USB 存储），
+即使挂载本身被指定为只读，挂载到容器中的卷 `/mnt/<SUBMOUNT>` 也是可写的。
+
+<!--
+### Recursive read-only mounts
+-->
+### 递归只读挂载    {#recursive-read-only-mounts}
+
+{{< feature-state feature_gate_name="RecursiveReadOnlyMounts" >}}
+
+<!--
+Recursive read-only mounts can be enabled by setting the
+`RecursiveReadOnlyMounts` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+for kubelet and kube-apiserver, and setting the `.spec.containers[].volumeMounts[].recursiveReadOnly`
+field for a pod.
+-->
+通过为 kubelet 和 kube-apiserver 设置 `RecursiveReadOnlyMounts`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+并为 Pod 设置 `.spec.containers[].volumeMounts[].recursiveReadOnly` 字段，
+递归只读挂载可以被启用。
+
+<!--
+The allowed values are:
+
+* `Disabled` (default): no effect.
+-->
+允许的值为：
+
+* `Disabled`（默认）：无效果。
+
+<!--
+* `Enabled`: makes the mount recursively read-only.
+  Needs all the following requirements to be satisfied:
+  * `readOnly` is set to `true`
+  * `mountPropagation` is unset, or, set to `None`
+  * The host is running with Linux kernel v5.12 or later
+  * The [CRI-level](/docs/concepts/architecture/cri) container runtime supports recursive read-only mounts
+  * The OCI-level container runtime supports recursive read-only mounts.
+  It will fail if any of these is not true.
+-->
+* `Enabled`：使挂载递归只读。需要满足以下所有要求：
+
+  * `readOnly` 设置为 `true`
+  * `mountPropagation` 不设置，或设置为 `None`
+  * 主机运行 Linux 内核 v5.12 或更高版本
+  * [CRI 级别](/zh-cn/docs/concepts/architecture/cri)的容器运行时支持递归只读挂载
+  * OCI 级别的容器运行时支持递归只读挂载
+
+  如果其中任何一个不满足，递归只读挂载将会失败。
+
+<!--
+* `IfPossible`: attempts to apply `Enabled`, and falls back to `Disabled`
+  if the feature is not supported by the kernel or the runtime class.
+
+Example:
+-->
+* `IfPossible`：尝试应用 `Enabled`，如果内核或运行时类不支持该特性，则回退为 `Disabled`。
+
+示例：
+
+{{% code_sample file="storage/rro.yaml" %}}
+
+<!--
+When this property is recognized by kubelet and kube-apiserver,
+the `.status.containerStatuses[].volumeMounts[].recursiveReadOnly` field is set to either
+`Enabled` or `Disabled`.
+
+#### Implementations {#implementations-rro}
+-->
+当此属性被 kubelet 和 kube-apiserver 识别到时，
+`.status.containerStatuses[].volumeMounts[].recursiveReadOnly` 字段将被设置为 `Enabled` 或 `Disabled`。
+
+#### 实现   {#implementations-rro}
+
+{{% thirdparty-content %}}
+
+<!--
+The following container runtimes are known to support recursive read-only mounts.
+
+CRI-level:
+- [containerd](https://containerd.io/), since v2.0
+
+OCI-level:
+- [runc](https://runc.io/), since v1.1
+- [crun](https://github.com/containers/crun), since v1.8.6
+-->
+以下容器运行时已知支持递归只读挂载。
+
+CRI 级别：
+
+- [containerd](https://containerd.io/)，自 v2.0 起
+
+OCI 级别：
+
+- [runc](https://runc.io/)，自 v1.1 起
+- [crun](https://github.com/containers/crun)，自 v1.8.6 起
 
 ## {{% heading "whatsnext" %}}
 

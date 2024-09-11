@@ -199,7 +199,7 @@ yet cover some relevant and plausible situations.
 
 * Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
 * Learn about the
-  [trafficDistribution](/docs/concepts/services-networking/service/#trafic-distribution)
+  [trafficDistribution](/docs/concepts/services-networking/service/#traffic-distribution)
   field, which is closely related to the `service.kubernetes.io/topology-mode`
   annotation and provides flexible options for traffic routing within
   Kubernetes.

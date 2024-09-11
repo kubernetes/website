@@ -26,6 +26,15 @@ Install [`kubectl`](/docs/tasks/tools/#kubectl).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
+Ensure that your cluster has the `StorageVersionMigrator` and `InformerResourceVersion`
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled. You will need control plane administrator access to make that change.
+
+Enable storage version migration REST api by setting runtime config
+`storagemigration.k8s.io/v1alpha1` to `true` for the API server. For more information on
+how to do that,
+read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-disable-api/).
+
 <!-- steps -->
 
 ## Re-encrypt Kubernetes secrets using storage version migration

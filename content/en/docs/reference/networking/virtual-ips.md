@@ -262,20 +262,75 @@ exits with an error.
 
 ### `nftables` proxy mode {#proxy-mode-nftables}
 
-{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="NFTablesProxyMode" >}}
 
-_This proxy mode is only available on Linux nodes._
+_This proxy mode is only available on Linux nodes, and requires kernel
+5.13 or later._
 
 In this mode, kube-proxy configures packet forwarding rules using the
 nftables API of the kernel netfilter subsystem. For each endpoint, it
 installs nftables rules which, by default, select a backend Pod at
 random.
 
-The nftables API is the successor to the iptables API, and although it
-is designed to provide better performance and scalability than
-iptables, the kube-proxy nftables mode is still under heavy
-development as of {{< skew currentVersion >}} and is not necessarily
-expected to outperform the other Linux modes at this time.
+The nftables API is the successor to the iptables API and is designed
+to provide better performance and scalability than iptables. The
+`nftables` proxy mode is able to process changes to service endpoints
+faster and more efficiently than the `iptables` mode, and is also able
+to more efficiently process packets in the kernel (though this only
+becomes noticeable in clusters with tens of thousands of services).
+
+As of Kubernetes {{< skew currentVersion >}}, the `nftables` mode is
+still relatively new, and may not be compatible with all network
+plugins; consult the documentation for your network plugin.
+
+#### Migrating from `iptables` mode to `nftables`
+
+Users who want to switch from the default `iptables` mode to the
+`nftables` mode should be aware that some features work slightly
+differently the `nftables` mode:
+
+ - **NodePort interfaces**: In `iptables` mode, by default,
+   [NodePort services](/docs/concepts/services-networking/service/#type-nodeport)
+   are reachable on all local IP addresses. This is usually not what
+   users want, so the `nftables` mode defaults to
+   `--nodeport-addresses primary`, meaning NodePort services are only
+   reachable on the node's primary IPv4 and/or IPv6 addresses. You can
+   override this by specifying an explicit value for that option:
+   e.g., `--nodeport-addresses 0.0.0.0/0` to listen on all (local)
+   IPv4 IPs.
+
+ - **NodePort services on `127.0.0.1`**: In `iptables` mode, if the
+   `--nodeport-addresses` range includes `127.0.0.1` (and the option
+   `--iptables-localhost-nodeports false` option is not passed), then
+   NodePort services are reachable even on "localhost" (`127.0.0.1`).
+   In `nftables` mode (and `ipvs` mode), this will not work. If you
+   are not sure if you are depending on this functionality, you can
+   check kube-proxy's
+   `iptables_localhost_nodeports_accepted_packets_total` metric; if it
+   is non-0, that means that some client has connected to a NodePort
+   service via `127.0.0.1`.
+
+ - **NodePort interaction with firewalls**: The `iptables` mode of
+   kube-proxy tries to be compatible with overly-agressive firewalls;
+   for each NodePort service, it will add rules to accept inbound
+   traffic on that port, in case that traffic would otherwise be
+   blocked by a firewall. This approach will not work with firewalls
+   based on nftables, so kube-proxy's `nftables` mode does not do
+   anything here; if you have a local firewall, you must ensure that
+   it is properly configured to allow Kubernetes traffic through
+   (e.g., by allowing inbound traffic on the entire NodePort range).
+
+ - **Conntrack bug workarounds**: Linux kernels prior to 6.1 have a
+   bug that can result in long-lived TCP connections to service IPs
+   being closed with the error "Connection reset by peer". The
+   `iptables` mode of kube-proxy installs a workaround for this bug,
+   but this workaround was later found to cause other problems in some
+   clusters. The `nftables` mode does not install any workaround by
+   default, but you can check kube-proxy's
+   `iptables_ct_state_invalid_dropped_packets_total` metric to see if
+   your cluster is depending on the workaround, and if so, you can run
+   kube-proxy with the option `--conntrack-tcp-be-liberal` to work
+   around the problem in `nftables` mode.
 
 ### `kernelspace` proxy mode {#proxy-mode-kernelspace}
 
@@ -369,7 +424,7 @@ IP addresses that are no longer used by any Services.
 
 #### IP address allocation tracking using the Kubernetes API {#ip-address-objects}
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state feature_gate_name="MultiCIDRServiceAllocator" >}}
 
 If you enable the `MultiCIDRServiceAllocator`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
@@ -428,7 +483,7 @@ Users can create or delete new ServiceCIDR objects to manage the available IP ra
 
 ```shell
 cat <<'EOF' | kubectl apply -f -
-apiVersion: networking.k8s.io/v1alpha1
+apiVersion: networking.k8s.io/v1beta1
 kind: ServiceCIDR
 metadata:
   name: newservicecidr

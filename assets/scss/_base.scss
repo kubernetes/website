@@ -477,7 +477,8 @@ section#cncf {
 }
 
 // OCEAN NODES
-#oceanNodes {
+#oceanNodes, .td-home .k8s-overview {
+
   padding-top: $ocean-nodes-padding-Y;
   padding-bottom: $ocean-nodes-padding-Y;
 

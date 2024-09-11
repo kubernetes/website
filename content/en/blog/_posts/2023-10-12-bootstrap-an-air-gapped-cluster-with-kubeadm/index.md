@@ -658,7 +658,7 @@ From the air gapped VM, switch into the ~/tmp directory where all of the artifac
 ```bash
 cd ~/tmp
 ```
-Set `$KUBECONFIG` to a file with credentials for the local cluster; also set the the Zarf version:
+Set `$KUBECONFIG` to a file with credentials for the local cluster; also set the Zarf version:
 ```bash
 export KUBECONFIG=/etc/kubernetes/admin.conf
 

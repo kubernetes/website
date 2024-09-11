@@ -609,14 +609,14 @@ spec:
     matchLabels:
       app: myapp
   policyTypes:
-  - Egress
+    - Egress
   egress:
-   - to:
-     - namespaceSelector:
-       matchExpressions:
-       - key: namespace
-         operator: In
-         values: ["frontend", "backend"]
+    - to:
+      - namespaceSelector:
+          matchExpressions:
+            - key: namespace
+              operator: In
+              values: ["frontend", "backend"]
 ```
 
 {{< note >}}

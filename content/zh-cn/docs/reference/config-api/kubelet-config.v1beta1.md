@@ -39,6 +39,21 @@ FormatOptions 包含为不同日志格式提供的选项。
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
 
+<tr>
+<td>
+<code>text</code> <B><!-- [Required] -->[必需]</B><br/>
+<a href="#TextOptions"><code>TextOptions</code></a>
+</td>
+<td>
+<!--
+   <p>[Alpha] Text contains options for logging format &quot;text&quot;.
+Only available when the LoggingAlphaOptions feature gate is enabled.</p>
+-->
+   <p>[Alpha] 文本包含用于记录 &quot;text&quot; 格式的选项。
+仅当 LoggingAlphaOptions 特性门控被启用时可用。</p>
+</td>
+</tr>
+
 <tr><td><code>json</code> <B><!-- [Required] -->[必需]</B><br/>
 <a href="#JSONOptions"><code>JSONOptions</code></a>
 </td>
@@ -73,38 +88,19 @@ JSONOptions 包含为 &quot;json&quot; 日志格式提供的选项。
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-<tr><td><code>splitStream</code> <B><!-- [Required] -->[必需]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>
-   <!--
-   [Alpha] SplitStream redirects error messages to stderr while
-info messages go to stdout, with buffering. The default is to write
-both to stdout, without buffering. Only available when
-the LoggingAlphaOptions feature gate is enabled.
-   -->
-   [Alpha] <code>splitStream</code> 将错误信息重定向到标准错误输出（stderr），
-而将提示信息重定向到标准输出（stdout），并为二者提供缓存。
-默认设置是将二者都写出到标准输出，并且不提供缓存。
-只有 LoggingAlphaOptions 特性门控被启用时才可用。
-   </p>
-</td>
-</tr>
 
-<tr><td><code>infoBufferSize</code> <B><!-- [Required] -->[必需]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#QuantityValue"><code>k8s.io/apimachinery/pkg/api/resource.QuantityValue</code></a>
-</td>
+<tr>
 <td>
-   <p>
-   <!--
-   [Alpha] InfoBufferSize sets the size of the info stream when
-using split streams. The default is zero, which disables buffering.
-Only available when the LoggingAlphaOptions feature gate is enabled.
-   -->
-   [Alpha] <code>infoBufferSize</code> 在分离数据流时用来设置 info 数据流的大小。
-默认值为 0，相当于禁止缓存。只有 LoggingAlphaOptions 特性门控被启用时才可用。
-   </p>
+<code>OutputRoutingOptions</code> <B><!-- [Required] -->[必需]</B><br/>
+<a href="#OutputRoutingOptions"><code>OutputRoutingOptions</code></a>
+ </td>
+<td>
+<!--
+(Members of <code>OutputRoutingOptions</code> are embedded into this type.)
+   <span class="text-muted">No descrtputRoutingOptions contains options that are supported biption provided.</span>
+-->
+（<code>OutputRoutingOptions</code> 的成员嵌入到此类型中。）
+   <span class="text-muted">没有提供描述。</span>
 </td>
 </tr>
 </tbody>
@@ -257,6 +253,96 @@ certain global defaults.
    -->
    <code>InfoStream</code> 可用于覆盖默认值 <code>os.Stdout</code>。
    </p>
+</td>
+</tr>
+</tbody>
+</table>
+
+<!--
+## `OutputRoutingOptions`     {#OutputRoutingOptions}
+
+**Appears in:**
+-->
+## `OutputRoutingOptions`     {#OutputRoutingOptions}
+
+- [JSONOptions](#JSONOptions)
+
+- [TextOptions](#TextOptions)
+
+<p>
+<!--
+OutputRoutingOptions contains options that are supported by both &quot;text&quot; and &quot;json&quot;.
+-->
+</p>
+OutputRoutingOptions 包含 &quot;text&quot; 和 &quot;json&quot; 支持的选项。
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th><!--Description-->描述<</th></tr></thead>
+
+<tbody>
+<tr><td><code>splitStream</code> <B><!--[Required]-->[必需]</B><br/>
+<code>bool</code>
+</td>
+<td>
+<!--
+   <p>[Alpha] SplitStream redirects error messages to stderr while
+info messages go to stdout, with buffering. The default is to write
+both to stdout, without buffering. Only available when
+the LoggingAlphaOptions feature gate is enabled.</p>
+-->
+   <p>[Alpha] SplitStream 将错误消息重定向到 stderr，而信息消息则转到 stdout，并进行缓冲。
+默认是将两者都写入 stdout，而不进行缓冲。仅在 LoggingAlphaOptions 特性门控启用时可用。</p>
+</td>
+</tr>
+<tr>
+<td><code>infoBufferSize</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#QuantityValue"><code>k8s.io/apimachinery/pkg/api/resource.QuantityValue</code></a>
+</td>
+<td>
+<!--
+   <p>[Alpha] InfoBufferSize sets the size of the info stream when
+using split streams. The default is zero, which disables buffering.
+Only available when the LoggingAlphaOptions feature gate is enabled.</p>
+-->
+   <p>[Alpha] InfoBufferSize 设置使用分割流时信息流的大小。默认值为零，表示禁用缓冲。
+仅在 LoggingAlphaOptions 特性门控启用时可用。</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `TextOptions`     {#TextOptions} 
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [FormatOptions](#FormatOptions)
+
+<p>
+<!--
+TextOptions contains options for logging format &quot;text&quot;.
+-->
+TextOptions 包含用于记录 &quot;text&quot; 格式的选项。
+</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+    
+<tr>
+<td><code>OutputRoutingOptions</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#OutputRoutingOptions"><code>OutputRoutingOptions</code></a>
+</td>
+<td>
+<!--
+(Members of <code>OutputRoutingOptions</code> are embedded into this type.)
+   <span class="text-muted">No description provided.</span>
+-->
+（<code>OutputRoutingOptions</code> 的成员嵌入到此类型中。）
+   <span class="text-muted">未提供描述。</span>
 </td>
 </tr>
 </tbody>
@@ -480,6 +566,23 @@ Default: &quot;&quot;
 </td>
 </tr>
 
+<tr><td><code>podLogsDir</code><br/>
+<code>string</code>
+</td>
+<td>
+<!--
+   <p>podLogsDir is a custom root directory path kubelet will use to place pod's log files.
+Default: &quot;/var/log/pods/&quot;
+Note: it is not recommended to use the temp folder as a log directory as it may cause
+unexpected behavior in many places.</p>
+-->
+   <p>podLogsDir 是 kubelet 用于放置 Pod 日志文件的自定义根目录路径。
+默认值：&quot;/var/log/pods/&quot;
+注意：不建议使用临时文件夹作为日志目录，因为它可能会在许多地方引起意外行为。</p>
+</td>
+</tr>
+
+
 <tr><td><code>syncFrequency</code><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
@@ -637,12 +740,12 @@ Default: &quot;&quot;
    <!--
    tlsCipherSuites is the list of allowed cipher suites for the server.
    Note that TLS 1.3 ciphersuites are not configurable.
-   Values are from tls package constants (https://pkg.go.dev/crypto/tls#pkg-constants).
+   Values are from tls package constants (https://golang.org/pkg/crypto/tls/#pkg-constants).
    Default: nil
    -->
    <p><code>tlsCipherSuites</code> 是一个字符串列表，其中包含服务器所接受的加密包名称。
    请注意，TLS 1.3 密码套件是不可配置的。
-   列表中的每个值来自于 <code>tls</code> 包中定义的常数（https://pkg.go.dev/crypto/tls#pkg-constants）。</p>
+   列表中的每个值来自于 <code>tls</code> 包中定义的常数（https://golang.org/pkg/crypto/tls/#pkg-constants）。</p>
   <p>默认值：nil</p>
 </td>
 </tr>
@@ -653,11 +756,11 @@ Default: &quot;&quot;
 <td>
    <!--
    tlsMinVersion is the minimum TLS version supported.
-Values are from tls package constants (https://pkg.go.dev/crypto/tls#pkg-constants).
+Values are from tls package constants (https://golang.org/pkg/crypto/tls/#pkg-constants).
 Default: &quot;&quot;
    -->
    <p><code>tlsMinVersion</code> 给出所支持的最小 TLS 版本。
-字段取值来自于 <code>tls</code> 包中的常数定义（https://pkg.go.dev/crypto/tls#pkg-constants）。</p>
+字段取值来自于 <code>tls</code> 包中的常数定义（https://golang.org/pkg/crypto/tls/#pkg-constants）。</p>
   <p>默认值：&quot;&quot;</p>
 </td>
 </tr>
@@ -1855,6 +1958,40 @@ Default: 5
 </td>
 </tr>
 
+<tr><td><code>containerLogMaxWorkers</code><br/>
+<code>int32</code>
+</td>
+<td>
+<!--
+   <p>ContainerLogMaxWorkers specifies the maximum number of concurrent workers to spawn
+for performing the log rotate operations. Set this count to 1 for disabling the
+concurrent log rotation workflows
+Default: 1</p>
+-->
+   <p>containerLogMaxWorkers 指定执行日志轮换操作所需的并发工作程序的最大数量。
+将此计数设置为 1，以禁用并发日志轮换工作流程。
+默认值：1</p>
+</td>
+</tr>
+<tr>
+<td><code>containerLogMonitorInterval</code><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+<!--
+   <p>ContainerLogMonitorInterval specifies the duration at which the container logs are monitored
+for performing the log rotate operation. This defaults to 10 * time.Seconds. But can be
+customized to a smaller value based on the log generation rate and the size required to be
+rotated against
+Default: 10s</p>
+-->
+   <p>ContainerLogMonitorInterval 指定监视容器日志以执行日志轮转操作的持续时间。
+默认为 10s，但可以根据日志生成率和需要轮换的大小定制为较小的值。
+默认值：10s
+</p>
+</td>
+</tr>
+
 <tr><td><code>configMapAndSecretChangeDetectionStrategy</code><br/>
 <a href="#kubelet-config-k8s-io-v1beta1-ResourceChangeDetectionStrategy"><code>ResourceChangeDetectionStrategy</code></a>
 </td>
@@ -2333,7 +2470,7 @@ Default: 0.8
 </tr>
 
 <tr><td><code>registerWithTaints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <!--
@@ -2448,7 +2585,7 @@ SerializedNodeConfigSource 允许对 `v1.NodeConfigSource` 执行序列化操作
 <tr><td><code>kind</code><br/>string</td><td><code>SerializedNodeConfigSource</code></td></tr>
 
 <tr><td><code>source</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
 </td>
 <td>
    <!--
@@ -2932,7 +3069,7 @@ MemoryReservation 为每个 NUMA 节点设置不同类型的内存预留。
 </tr>
 
 <tr><td><code>limits</code> <B><!-- [Required] -->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <!--span class="text-muted">No description provided.</span-->

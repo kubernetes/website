@@ -1168,7 +1168,7 @@ with the `response` stanza populated, serialized to JSON.
 If conversion succeeds, a webhook should return a `response` stanza containing the following fields:
 * `uid`, copied from the `request.uid` sent to the webhook
 * `result`, set to `{"status":"Success"}`
-* `convertedObjects`, containing all of the objects from `request.objects`, converted to `request.desiredVersion`
+* `convertedObjects`, containing all of the objects from `request.objects`, converted to `request.desiredAPIVersion`
 
 Example of a minimal successful response from a webhook:
 -->
@@ -1183,7 +1183,7 @@ Webhook 响应包含 200 HTTP 状态代码、`Content-Type: application/json`，
 * `uid`，从发送到 webhook 的 `request.uid` 复制而来
 * `result`，设置为 `{"status":"Success"}}`
 * `convertedObjects`，包含来自 `request.objects` 的所有对象，均已转换为
-  `request.desiredVersion`
+  `request.desiredAPIVersion`
 
 Webhook 的最简单成功响应示例：
 

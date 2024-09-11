@@ -4,10 +4,9 @@ date: 2017-09-29
 slug: kubernetes-18-security-workloads-and
 url: /blog/2017/09/Kubernetes-18-Security-Workloads-And
 evergreen: true
+author: >
+  [Kubernetes v1.8 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.8/release_team.md)
 ---
-
-**Authors:** Kubernetes v1.8 release team
-
 
 We’re pleased to announce the delivery of Kubernetes 1.8, our third release this year. Kubernetes 1.8 represents a snapshot of many exciting enhancements and refinements underway. In addition to functional improvements, we’re increasing project-wide focus on maturing [process](https://github.com/kubernetes/sig-release), formalizing [architecture](https://github.com/kubernetes/community/tree/master/sig-architecture), and strengthening Kubernetes’ [governance model](https://github.com/kubernetes/community/tree/master/community/elections/2017). The evolution of mature processes clearly signals that sustainability is a driving concern, and helps to ensure that Kubernetes is a viable and thriving project far into the future.  
 

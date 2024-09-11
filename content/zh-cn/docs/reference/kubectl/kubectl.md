@@ -19,7 +19,7 @@ kubectl 管理控制 Kubernetes 集群。
 <!--
 Find more information in [Command line tool](/docs/reference/kubectl/) (`kubectl`).
 -->
-更多信息请查阅[命令行工具](/zh-cn/docs/kubectl/)（`kubectl`）。
+更多信息请查阅[命令行工具](/zh-cn/docs/reference/kubectl/)（`kubectl`）。
 
 ```shell
 kubectl [flags]

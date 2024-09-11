@@ -29,7 +29,7 @@ A _Pod_ (as in a pod of whales or pea pod) is a group of one or more
 and a specification for how to run the containers. A Pod's contents are always co-located and
 co-scheduled, and run in a shared context. A Pod models an
 application-specific "logical host": it contains one or more application
-containers which are relatively tightly coupled. 
+containers which are relatively tightly coupled.
 In non-cloud contexts, applications executed on the same physical or virtual machine are
 analogous to cloud applications executed on the same logical host.
 -->
@@ -37,7 +37,7 @@ analogous to cloud applications executed on the same logical host.
 
 **Pod**（就像在鲸鱼荚或者豌豆荚中）是一组（一个或多个）
 {{< glossary_tooltip text="容器" term_id="container" >}}；
-这些容器共享存储、网络、以及怎样运行这些容器的声明。
+这些容器共享存储、网络、以及怎样运行这些容器的规约。
 Pod 中的内容总是并置（colocated）的并且一同调度，在共享的上下文中运行。
 Pod 所建模的是特定于应用的 “逻辑主机”，其中包含一个或多个应用容器，
 这些容器相对紧密地耦合在一起。
@@ -246,11 +246,11 @@ Kubernetes. In the future, this list may be expanded.
 
 In Kubernetes v{{< skew currentVersion >}}, the value of `.spec.os.name` does not affect
 how the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
-picks a Pod to run a node. In any cluster where there is more than one operating system for
+picks a node for the Pod to run on. In any cluster where there is more than one operating system for
 running nodes, you should set the
 [kubernetes.io/os](/docs/reference/labels-annotations-taints/#kubernetes-io-os)
 label correctly on each node, and define pods with a `nodeSelector` based on the operating system
-label, the kube-scheduler assigns your pod to a node based on other criteria and may or may not
+label. The kube-scheduler assigns your pod to a node based on other criteria and may or may not
 succeed in picking a suitable node placement where the node OS is right for the containers in that Pod.
 The [Pod security standards](/docs/concepts/security/pod-security-standards/) also use this
 field to avoid enforcing policies that aren't relevant to the operating system.
@@ -259,8 +259,8 @@ field to avoid enforcing policies that aren't relevant to the operating system.
 这两个是 Kubernetes 目前支持的操作系统。将来，这个列表可能会被扩充。
 
 在 Kubernetes v{{< skew currentVersion >}} 中，`.spec.os.name` 的值对
-{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} 如何调度 Pod 到节点上没有影响。
-在任何有多种操作系统运行节点的集群中，你应该在每个节点上正确设置
+{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
+如何选择要运行 Pod 的节点没有影响。在任何有多种操作系统运行节点的集群中，你应该在每个节点上正确设置
 [kubernetes.io/os](/zh-cn/docs/reference/labels-annotations-taints/#kubernetes-io-os)
 标签，并根据操作系统标签为 Pod 设置 `nodeSelector` 字段。
 kube-scheduler 将根据其他标准将你的 Pod 分配到节点，
@@ -305,7 +305,7 @@ PodTemplates are specifications for creating Pods, and are included in workload 
 ### Pod 模板    {#pod-templates}
 
 {{< glossary_tooltip text="工作负载" term_id="workload" >}}资源的控制器通常使用
-**Pod 模板（Pod Template）**来替你创建 Pod 并管理它们。
+**Pod 模板（Pod Template）** 来替你创建 Pod 并管理它们。
 
 Pod 模板是包含在工作负载对象中的规范，用来创建 Pod。这类负载资源包括
 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)、
@@ -581,7 +581,7 @@ Pods, the kubelet directly supervises each static Pod (and restarts it if it fai
 -->
 ## 静态 Pod    {#static-pods}
 
-**静态 Pod（Static Pod）**直接由特定节点上的 `kubelet` 守护进程管理，
+**静态 Pod（Static Pod）** 直接由特定节点上的 `kubelet` 守护进程管理，
 不需要 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}看到它们。
 尽管大多数 Pod 都是通过控制面（例如，{{< glossary_tooltip text="Deployment" term_id="deployment" >}}）
 来管理的，对于静态 Pod 而言，`kubelet` 直接监控每个 Pod，并在其失效时重启之。

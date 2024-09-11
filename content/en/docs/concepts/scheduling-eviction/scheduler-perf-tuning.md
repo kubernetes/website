@@ -103,9 +103,9 @@ percentageOfNodesToScore: 50
 
 `percentageOfNodesToScore` must be a value between 1 and 100 with the default
 value being calculated based on the cluster size. There is also a hardcoded
-minimum value of 50 nodes.
+minimum value of 100 nodes.
 
-{{< note >}}In clusters with less than 50 feasible nodes, the scheduler still
+{{< note >}}In clusters with less than 100 feasible nodes, the scheduler still
 checks all the nodes because there are not enough feasible nodes to stop
 the scheduler's search early.
 

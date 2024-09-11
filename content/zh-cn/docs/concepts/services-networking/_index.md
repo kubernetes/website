@@ -7,7 +7,8 @@ description: Kubernetes 网络背后的概念和资源。
 <!--
 ## The Kubernetes network model
 
-Every [`Pod`](/docs/concepts/workloads/pods/) in a cluster gets its own unique cluster-wide IP address. 
+Every [`Pod`](/docs/concepts/workloads/pods/) in a cluster gets its own unique cluster-wide IP address
+(one address per IP address family).
 This means you do not need to explicitly create links between `Pods` and you
 almost never need to deal with mapping container ports to host ports.  
 This creates a clean, backwards-compatible model where `Pods` can be treated
@@ -18,7 +19,7 @@ application configuration, and migration.
 ## Kubernetes 网络模型   {#the-kubernetes-network-model}
 
 集群中每一个 [`Pod`](/zh-cn/docs/concepts/workloads/pods/) 都会获得自己的、
-独一无二的 IP 地址，
+独一无二的 IP 地址（每个 IP 地址族一个地址），
 这就意味着你不需要显式地在 `Pod` 之间创建链接，你几乎不需要处理容器端口到主机端口之间的映射。
 这将形成一个干净的、向后兼容的模型；在这个模型里，从端口分配、命名、服务发现、
 [负载均衡](/zh-cn/docs/concepts/services-networking/ingress/#load-balancing)、
@@ -41,11 +42,9 @@ Kubernetes 强制要求所有网络设施都满足以下基本要求（从而排
 * 节点上的代理（比如：系统守护进程、kubelet）可以和节点上的所有 Pod 通信
 
 <!--
-Note: For those platforms that support `Pods` running in the host network (e.g.
-Linux), when pods are attached to the host network of a node they can still communicate 
-with all pods on all nodes without NAT.
+For those platforms that support `Pods` running in the host network (such as Linux), when pods are attached to the host network of a node they can still communicate with all pods on all nodes without NAT.
 -->
-说明：对于支持在主机网络中运行 `Pod` 的平台（比如：Linux），
+对于支持在主机网络中运行 `Pod` 的平台（比如：Linux），
 当 Pod 挂接到节点的宿主网络上时，它们仍可以不通过 NAT 和所有节点上的 Pod 通信。
 
 <!--

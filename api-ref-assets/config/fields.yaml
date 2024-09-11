@@ -400,9 +400,11 @@
   - name: Beta level
     fields:
     - podFailurePolicy
+    - successPolicy
   - name: Alpha level
     fields:
     - backoffLimitPerIndex
+    - managedBy
     - maxFailedIndexes
     - podReplacementPolicy
 
@@ -491,6 +493,7 @@
     - publishNotReadyAddresses
     - sessionAffinityConfig
     - allocateLoadBalancerNodePorts
+    - trafficDistribution
 
 - definition: io.k8s.api.core.v1.ServicePort
   field_categories:
@@ -557,6 +560,7 @@
     - gcePersistentDisk
     - glusterfs
     - iscsi
+    - image
     - nfs
     - photonPersistentDisk
     - portworxVolume
@@ -618,6 +622,7 @@
     fields:
     - dataSource
     - dataSourceRef
+    - volumeAttributesClassName
 
 - definition: io.k8s.api.core.v1.PersistentVolumeSpec
   field_categories:
@@ -629,6 +634,7 @@
     - nodeAffinity
     - persistentVolumeReclaimPolicy
     - storageClassName
+    - volumeAttributesClassName
     - volumeMode
   - name: Local
     fields:
@@ -666,6 +672,11 @@
     - resourceNames
     - nonResourceURLs
 
+- definition: io.k8s.api.networking.v1beta1.IPAddressSpec
+  field_categories:
+  - fields:
+    - parentRef
+
 - definition: io.k8s.api.networking.v1.NetworkPolicySpec
   field_categories:
   - fields:
@@ -686,6 +697,11 @@
     - port
     - endPort
     - protocol
+
+- definition: io.k8s.api.networking.v1beta1.ServiceCIDRSpec
+  field_categories:
+  - fields:
+    - cidrs
 
 - definition: io.k8s.api.policy.v1beta1.PodSecurityPolicySpec
   field_categories:
@@ -737,3 +753,38 @@
     - resourceVersion
     - selfLink
     - uid
+
+- definition: io.k8s.api.storagemigration.v1alpha1.StorageVersionMigrationSpec
+  field_categories:
+  - fields:
+    - continueToken
+    - resource
+
+- definition: io.k8s.api.storagemigration.v1alpha1.StorageVersionMigrationSpec
+  field_categories:
+  - fields:
+    - driverName
+    - parameters
+
+- definition: io.k8s.api.resource.v1alpha3.DeviceClassSpec
+  field_categories:
+  - fields:
+    - config
+    - selectors
+    - suitableNodes
+
+- definition: io.k8s.api.flowcontrol.v1.FlowSchemaSpec
+  field_categories:
+  - fields:
+    - distinguisherMethod
+    - matchingPrecedence
+    - priorityLevelConfiguration
+    - rules
+
+- definition: io.k8s.api.flowcontrol.v1.PriorityLevelConfigurationSpec
+  field_categories:
+  - fields:
+    - exempt
+    - limited
+    - type
+

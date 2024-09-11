@@ -3,8 +3,9 @@ title: " Kubespray Ansible Playbooks foster Collaborative Kubernetes Ops "
 date: 2017-05-19
 slug: kubespray-ansible-collaborative-kubernetes-ops
 url: /blog/2017/05/Kubespray-Ansible-Collaborative-Kubernetes-Ops
+author: >
+   Rob Hirschfeld (RackN)
 ---
-_Today’s guest post is by Rob Hirschfeld, co-founder of open infrastructure automation project, Digital Rebar and co-chair of the SIG Cluster Ops. &nbsp;_  
 
 **Why Kubespray?**  
 
@@ -105,11 +106,6 @@ I am excited to see and be part of the community progress towards enterprise-rea
 With Kubespray and Digital Rebar as a repeatable base, extensions get much faster and easier. Even better, using upstream directly allows improvements to be quickly cycled back into upstream. That means we’re closer to building a community focused on the operational side of Kubernetes with an [SRE mindset](https://rackn.com/sre).  
 
 If this is interesting, please engage with us in the [Cluster Ops SIG](https://github.com/kubernetes/community/tree/master/sig-cluster-ops), [Kubespray](https://github.com/kubernetes-incubator/kubespray)&nbsp;or [Digital Rebar](http://rebar.digital/) communities.&nbsp;  
-
-
-_-- Rob Hirschfeld, co-founder of RackN and co-chair of the Cluster Ops SIG_
-
-
 
 
 

@@ -90,7 +90,7 @@ A minimal example of configuring the field explicitly:
 ```yaml
 # kubeadm-config.yaml
 kind: ClusterConfiguration
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kubernetesVersion: v1.21.0
 ---
 kind: KubeletConfiguration

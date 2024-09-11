@@ -58,7 +58,7 @@ spec:
 Minimum storage requests are used when the underlying storage provider requires certain minimums. For example,
 AWS EBS volumes have a 1Gi minimum requirement.
 
-## StorageQuota to limit PVC count and cumulative storage capacity
+## ResourceQuota to limit PVC count and cumulative storage capacity
 
 Admins can limit the number of PVCs in a namespace as well as the cumulative capacity of those PVCs. New PVCs that exceed
 either maximum value will be rejected.

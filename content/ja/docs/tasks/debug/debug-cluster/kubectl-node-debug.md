@@ -28,7 +28,7 @@ kubectl debug node/mynode -it --image=ubuntu
 ```
 
 ```console
-ノードmynode上に、コンテナデバッガーを持つデバッグ用Pod、node-debugger-mynode-pdx84を作成します。
+mynodeという名前のノード上に、コンテナデバッガーを持つデバッグの用Pod、node-debugger-mynode-pdx84を作成します。
 コマンドプロンプトが表示されない場合は、エンターキーを押してみてください。
 root@mynode:/#
 ```
@@ -70,7 +70,8 @@ kubeletをファイルシステムのネームスペースで実行している�
   これは、一部のプロセス情報の読み取りが失敗する可能性があることを意味します。
   その情報へのアクセスはスーパーユーザーに制限されているためです。
   例えば、`chroot /host`は失敗します。
-  特権Podが必要な場合は、手動で作成してください。
+  特権Podが必要な場合は、手動で作成するか、`--profile=sysadmin`を使用してください。
+* デバッグ用のPodに[デバッグプロファイル](/ja/docs/tasks/debug/debug-application/debug-running-pod/#debugging-profiles)を適用することで、[securityContext](/ja/docs/tasks/configure-pod-container/security-context/)などの特定のプロパティを設定できます。
 
 ## {{% heading "cleanup" %}}
 

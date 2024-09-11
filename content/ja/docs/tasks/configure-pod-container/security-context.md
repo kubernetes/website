@@ -52,7 +52,7 @@ Podに設定したセキュリティ設定はPod内の全てのコンテナに�
 
 設定ファイルの中の`runAsUser`フィールドは、Pod内のコンテナに対して全てのプロセスをユーザーID 1000で実行するように指定します。
 `runAsGroup`フィールドはPod内のコンテナに対して全てのプロセスをプライマリーグループID 3000で実行するように指定します。このフィールドが省略されたときは、コンテナのプライマリーグループIDはroot(0)になります。`runAsGroup`が指定されている場合、作成されたファイルもユーザー1000とグループ3000の所有物になります。
-また`fsGroup`も指定されているため、全てのコンテナ内のプロセスは補助グループID 2000にも含まれます。`/data/demo`ボリュームとこのボリュームに作成されたファイルはグループID 2000になります。
+また`fsGroup`も指定されているため、全てのコンテナ内のプロセスは補助グループID 2000にも含まれます。`/data/demo`ボリュームとこのボリュームに作成されたファイルはグループID 2000になります。加えて、`supplementalGroups`フィールドが指定されている場合、全てのコンテナ内のプロセスは指定されている補助グループIDにも含まれます。もしこのフィールドが指定されていない場合、空を意味します。
 
 Podを作成してみましょう。
 
@@ -128,15 +128,174 @@ id
 出力はこのようになります。
 
 ```none
-uid=1000 gid=3000 groups=2000
+uid=1000 gid=3000 groups=2000,3000,4000
 ```
 
-出力から`runAsGroup`フィールドと同じく`gid`が3000になっていることが確認できるでしょう。`runAsGroup`が省略された場合、`gid`は0(root)になり、そのプロセスはグループroot(0)とグループroot(0)に必要なグループパーミッションを持つグループが所有しているファイルを操作することができるようになります。
+出力から`runAsGroup`フィールドと同じく`gid`が3000になっていることが確認できるでしょう。`runAsGroup`が省略された場合、`gid`は0(root)になり、そのプロセスはグループroot(0)とグループroot(0)に必要なグループパーミッションを持つグループが所有しているファイルを操作することができるようになります。また、`groups`の出力に、`gid`に加えて、`fsGroups`、`supplementalGroups`フィールドで指定したグループIDも含まれていることも確認できるでしょう。
 
 shellから抜けましょう。
 
 ```shell
 exit
+```
+
+### コンテナイメージ内の`/etc/group`から暗黙的にマージされるグループ情報
+
+Kubernetesは、デフォルトでは、Podで定義された情報に加えて、コンテナイメージ内の`/etc/group`のグループ情報をマージします。
+
+{{% code_sample file="pods/security/security-context-5.yaml" %}}
+
+このPodはsecurity contextで`runAsUser`、`runAsGroup`、`supplementalGroups`フィールドが指定されています。しかし、コンテナ内のプロセスには、コンテナイメージ内の`/etc/group`に定義されたグループIDが、補助グループとして付与されていることが確認できるでしょう。
+
+Podを作成してみましょう。
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/security-context-5.yaml
+```
+
+Podのコンテナが実行されていることを確認します。
+
+```shell
+kubectl get pod security-context-demo
+```
+
+実行中のコンテナでshellを取ります。
+
+```shell
+kubectl exec -it security-context-demo -- sh
+```
+
+プロセスのユーザー、グループ情報を確認します。
+
+```shell
+$ id
+```
+
+出力はこのようになります。
+
+```none
+uid=1000 gid=3000 groups=3000,4000,50000
+```
+
+`groups`にグループID`50000`が含まれていることが確認できるでしょう。これは、ユーザー(`uid=1000`)がコンテナイメージで定義されており、コンテナイメージ内の`/etc/group`でグループ(`gid=50000`)に所属しているためです。
+
+コンテナイメージの`/etc/group`の内容を確認してみましょう。
+
+```shell
+$ cat /etc/group
+```
+
+ユーザー`1000`がグループ`50000`に所属していることが確認できるでしょう。
+
+```none
+...
+user-defined-in-image:x:1000:
+group-defined-in-image:x:50000:user-defined-in-image
+```
+
+shellから抜けましょう。
+
+```shell
+exit
+```
+
+{{<note>}}
+_暗黙的にマージされる_ 補助グループはボリュームアクセスを行う際にセキュリティ上の懸念を引き起こすことがあります(詳細は[kubernetes/kubernetes#112879](https://issue.k8s.io/112879)を参照してください)。回避したい場合、次節を参照してください。
+{{</note>}}
+
+## Podにfine-grained(きめ細かい) SupplementalGroups controlを設定する {#supplementalgroupspolicy}
+
+{{< feature-state feature_gate_name="SupplementalGroupsPolicy" >}}
+
+この機能はkubeletとkube-apiseverに`SupplementalGroupsPolicy`
+[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を設定し、Podの`.spec.securityContext.supplementalGroupsPolicy`フィールドを指定することで利用できます。
+
+`supplementalGroupsPolicy`フィールドは、Pod内のコンテナプロセスに付与される補助グループを、どのように決定するかを定義します。有効な値は次の2つです。
+
+* `Merge`: `/etc/group`で定義されている、コンテナのプライマリユーザーが所属するグループをマージします。指定されていない場合、このポリシーがデフォルトです。
+
+* `Strict`: `fsGroup`、`supplementalGroups`、`runAsGroup`フィールドで指定されたグループのみ補助グループに指定されます。つまり、`/etc/group`で定義された、コンテナのプライマリユーザーのグループ情報はマージされません。
+
+この機能が有効な場合、`.status.containerStatuses[].user.linux`フィールドで、コンテナの最初のプロセスに付与されたユーザー、グループ情報が確認出来ます。暗黙的なグループIDが付与されているかどうかを確認するのに便利でしょう。
+
+{{% code_sample file="pods/security/security-context-6.yaml" %}}
+
+このPodマニフェストは`supplementalGroupsPolicy=Strict`を指定しています。`/etc/group`に定義されているグループ情報が、コンテナ内のプロセスの補助グループにマージされないことが確認できるでしょう。
+
+Podを作成してみましょう。
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/security-context-6.yaml
+```
+
+Podのコンテナが実行されていることを確認します。
+
+```shell
+kubectl get pod security-context-demo
+```
+
+プロセスのユーザー、グループ情報を確認します。
+
+```shell
+kubectl exec -it security-context-demo -- id
+```
+
+出力はこのようになります。
+
+```none
+uid=1000 gid=3000 groups=3000,4000
+```
+
+Podのステータスを確認します。
+
+```shell
+kubectl get pod security-context-demo -o yaml
+```
+
+`status.containerStatuses[].user.linux`フィールドでコンテナの最初のプロセスに付与されたユーザー、グループ情報が確認出来ます。
+
+```none
+...
+status:
+  containerStatuses:
+  - name: sec-ctx-demo
+    user:
+      linux:
+        gid: 3000
+        supplementalGroups:
+        - 3000
+        - 4000
+        uid: 1000
+...
+```
+
+{{<note>}}
+`status.containerStatuses[].user.linux`フィールドで公開されているユーザー、グループ情報は、コンテナの最初のプロセスに、_最初に付与された_ 情報であることに注意してください。
+もしそのプロセスが、自身のユーザー、グループ情報を変更できるシステムコール(例えば [`setuid(2)`](https://man7.org/linux/man-pages/man2/setuid.2.html),
+[`setgid(2)`](https://man7.org/linux/man-pages/man2/setgid.2.html),
+[`setgroups(2)`](https://man7.org/linux/man-pages/man2/setgroups.2.html)等)を実行する権限を持っている場合、プロセス自身で動的に変更が可能なためです。
+つまり、実際にプロセスに付与されているユーザー、グループ情報は動的に変化します。
+{{</note>}}
+
+### 利用可能な実装 {#implementations-supplementalgroupspolicy}
+
+{{% thirdparty-content %}}
+
+下記のコンテナランタイムがfine-grained(きめ細かい) SupplementalGroups controlを実装しています。
+
+CRI実装:
+- [containerd](https://containerd.io/) v2.0以降
+- [CRI-O](https://cri-o.io/) v1.31以降
+
+ノードのステータスでこの機能が利用可能かどうか確認出来ます。
+
+```yaml
+apiVersion: v1
+kind: Node
+...
+status:
+  features:
+    supplementalGroupsPolicy: true
 ```
 
 ## Podのボリュームパーミッションと所有権変更ポリシーを設定する
@@ -367,6 +526,41 @@ securityContext:
     localhostProfile: my-profiles/profile-allow.json
 ```
 
+## コンテナにAppArmorプロフィールを設定する
+
+コンテナにAppArmorプロフィールを設定するには、`securityContext`セクションに`appAormorProfile`フィールドを含めてください。
+`appAormerProfile`フィールドには、`type`フィールドと`localhostProfile`フィールドから構成される[AppArmorProfile](/docs/reference/generated/kubernetes-api/{{< param "version"
+>}}/#apparmorprofile-v1-core)オブジェクトが入ります。`type`フィールドの有効なオプションは`RuntimeDefault`(デフォルト)、`Unconfined`、`Localhost`です。
+`localhostProfile`は`type`が`Localhost`のときには必ず設定しなければなりません。この値はノードで事前に設定されたプロフィール名を示します。Podは事前にどのノードにスケジュールされるかわからないため、指定されたプロフィールはPodがスケジュールされ得る全てのノードにロードされている必要があります。カスタムプロフィールをセットアップする方法は[Setting up nodes with profiles](/docs/tutorials/security/apparmor/#setting-up-nodes-with-profiles)を参照してください。
+
+注意: `containers[*].securityContext.appArmorProfile.type`が明示的に`RuntimeDefault`に設定されている場合は、もしノードでAppArmorが有効化されていなければ、Podの作成は許可されません。
+しかし、`containers[*].securityContext.appArmorProfile.type`が設定されていない場合、AppArmorが有効化されていれば、デフォルト(`RuntimeDefault`)が適用されます。もし、AppArmorが無効化されている場合は、Podの作成は許可されますが、コンテナには`RuntimeDefault`プロフィールの制限は適用されません。
+
+これは、AppArmorプロフィールとして、ノードのコンテナランタイムのデフォルトプロフィールを設定する例です。
+
+```yaml
+...
+containers:
+- name: container-1
+  securityContext:
+    appArmorProfile:
+      type: RuntimeDefault
+```
+
+これは、AppArmorプロフィールとして、`k8s-apparmor-example-deny-write`という名前で事前に設定されたプロフィールを設定する例です。
+
+```yaml
+...
+containers:
+- name: container-1
+  securityContext:
+    appArmorProfile:
+      type: Localhost
+      localhostProfile: k8s-apparmor-example-deny-write
+```
+
+より詳細な内容については[Restrict a Container's Access to Resources with AppArmor](/docs/tutorials/security/apparmor/)を参照してください。
+
 ## コンテナにSELinuxラベルをつける
 
 コンテナにSELinuxラベルをつけるには、Pod・コンテナマニフェストの`securityContext`セクションに`seLinuxOptions`フィールドを追加してください。
@@ -386,24 +580,72 @@ SELinuxラベルを適用するには、ホストOSにSELinuxセキュリティ�
 
 ### 効率的なSELinuxのボリューム再ラベル付け
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state feature_gate_name="SELinuxMountReadWriteOncePod" >}}
+
+{{< note >}}
+Kubernetes v1.27で、`ReadWriteOncePod` アクセスモードを使用するボリューム(およびPersistentVolumeClaim)にのみ、この機能の限定的な機能が早期提供されています。
+
+Alphaフィーチャーとして、`SELinuxMount`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効にすることで、以下で説明するように、他の種類のPersistentVolumeClaimにもパフォーマンス改善の範囲を広げる事ができます。
+{{< /note >}}
 
 デフォルトでは、コンテナランタイムは全てのPodのボリュームの全てのファイルに再帰的にSELinuxラベルを付与します。処理速度を上げるために、Kubernetesはマウントオプションで`-o context=<label>`を使うことでボリュームのSELinuxラベルを即座に変更することができます。
 
 この高速化の恩恵を受けるには、以下の全ての条件を満たす必要があります。
 
 * Alphaフィーチャーゲートの`ReadWriteOncePod`と`SELinuxMountReadWriteOncePod`を有効にすること
-* Podが`accessModes: ["ReadWriteOncePod"]`でPersistentVolumeClaimを使うこと
+* Podが適用可能な`accessModes`でPersistentVolumeClaimを使うこと
+  * ボリュームが`accessModes: ["ReadWriteOncePod"]`を持ち、フィーチャーゲート`SELinuxMountReadWriteOncePod`が有効であること
+  * または、ボリュームが他のアクセスモードを使用し、フィーチャーゲート`SELinuxMountReadWriteOncePod`と`SELinuxMount`の両方が有効であること
 * Pod(またはPersistentVolumeClaimを使っている全てのコンテナ)に`seLinuxOptions`が設定されていること
-* 対応するPersistentVolumeが{{< glossary_tooltip text="CSI" term_id="csi" >}}ドライバーを利用するボリュームか、レガシー`iscsi`ボリュームタイプを利用するボリュームであること
-  * CSIドライバーを利用するボリュームを利用している場合、そのCSIドライバーがCSIドライバーインスタンスで`spec.seLinuxMount: true`を指定したときに`-o context`でマウントを行うとアナウンスしていること
+* 対応するPersistentVolumeが以下のいずれかであること
+  * レガシーのin-treeボリュームの場合、`iscs`、`rbd`、`fc`ボリュームタイプであること
+  * または、{{< glossary_tooltip text="CSI" term_id="csi" >}}ドライバーを使用するボリュームで、そのCSIドライバーがCSIドライバーインスタンスで`spec.seLinuxMount: true`を指定したときに`-o context`でマウントを行うとアナウンスしていること
 
 それ以外のボリュームタイプでは、コンテナランタイムはボリュームに含まれる全てのinode(ファイルやディレクトリ)に対してSELinuxラベルを再帰的に変更します。
 ボリューム内のファイルやディレクトリが増えるほど、ラベリングにかかる時間は増加します。
 
+## `/proc`ファイルシステムへのアクセスを管理する {#proc-access}
+
+{{< feature-state feature_gate_name="ProcMountType" >}}
+
+OCI runtime specificationに準拠するランタイムでは、コンテナはデフォルトで、いくつかの複数のパスはマスクされ、かつ、読み取り専用のモードで実行されます。
+その結果、コンテナのマウントネームスペース内にはこれらのパスが存在し、あたかもコンテナが隔離されたホストであるかのように機能しますが、コンテナプロセスはそれらのパスに書き込むことはできません。
+マスクされるパスおよび読み取り専用のパスのリストは次のとおりです。
+
+- マスクされるパス:
+  - `/proc/asound`
+  - `/proc/acpi`
+  - `/proc/kcore`
+  - `/proc/keys`
+  - `/proc/latency_stats`
+  - `/proc/timer_list`
+  - `/proc/timer_stats`
+  - `/proc/sched_debug`
+  - `/proc/scsi`
+  - `/sys/firmware`
+  - `/sys/devices/virtual/powercap`
+
+- 読み取り専用のパス:
+  - `/proc/bus`
+  - `/proc/fs`
+  - `/proc/irq`
+  - `/proc/sys`
+  - `/proc/sysrq-trigger`
+
+一部のPodでは、デフォルトでパスがマスクされるのを回避したい場合があります。このようなケースで最も一般的なのは、Kubernetesコンテナ(Pod内のコンテナ)内でコンテナを実行しようとする場合です。
+
+`securityContext`の`procMount`フィールドを使用すると、コンテナの`/proc`を`Unmasked`にしたり、コンテナプロセスによって読み書き可能な状態でマウントすることができます。この設定は、`/proc`以外の`/sys/firmware`にも適用されます。
+
+```yaml
+...
+securityContext:
+  procMount: Unmasked
+```
+
 {{< note >}}
-Kubernetes 1.25では、kubeletは再起動後にボリュームラベルを追跡できなくなります。言い換えると、kubeletはPodの中のラベルのコンフリクトが解消されるまで"conflicting
-SELinux labels of volume"というようなエラーでPodの起動を拒否する可能性があるということです。Kubeletを再起動する前に必ずノードを[完全にdrain](https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/)された状態にしてください。
+`procMount`をUnmaskedに設定するには、Podの`spec.hostUsers`の値が`false`である必要があります。
+つまり、Unmaskedな`/proc`やUnmaskedな`/sys`を使用したいコンテナは、[user namespace](/docs/concepts/workloads/pods/user-namespaces/)内で動作している必要があります。
+Kubernetes v1.12からv1.29までは、この要件は強制されません。
 {{< /note >}}
 
 ## 議論
@@ -442,3 +684,5 @@ kubectl delete pod security-context-demo-4
 * [PodSecurity Admission](/docs/concepts/security/pod-security-admission/)
 * [AllowPrivilegeEscalation design document](https://git.k8s.io/design-proposals-archive/auth/no-new-privs.md)
 * Linuxのセキュリティについてさらに知りたい場合は、[Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)を確認してください(注: 一部の情報は古くなっています)。
+* Linux pods向けの[User Namespaces](/docs/concepts/workloads/pods/user-namespaces/)について確認してください。
+* [Masked Paths in the OCI Runtime Specification](https://github.com/opencontainers/runtime-spec/blob/f66aad47309/config-linux.md#masked-paths)

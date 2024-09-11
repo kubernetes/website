@@ -4,11 +4,13 @@ title: '쿠버네티스 1.22: 새로운 정점에 도달(Reaching New Peaks)'
 date: 2021-08-04
 slug: kubernetes-1-22-release-announcement
 evergreen: true
+author: >
+  [쿠버네티스 1.22 릴리스 팀](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.22/release-team.md)
+translator: >
+  [손석호(ETRI)](https://github.com/seokho-son),
+  [서지훈(ETRI)](https://github.com/jihoon-seo),
+  [쿠버네티스 문서 한글화 팀](https://kubernetes.slack.com/archives/CA1MMR86S)
 ---
-
-**저자:** [쿠버네티스 1.22 릴리스 팀](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.22/release-team.md)
-
-**번역:** [손석호(ETRI)](https://github.com/seokho-son), [서지훈(ETRI)](https://github.com/jihoon-seo), [쿠버네티스 문서 한글화 팀](https://kubernetes.slack.com/archives/CA1MMR86S)
 
 2021년의 두 번째 릴리스인 쿠버네티스 1.22 릴리스를 발표하게 되어 기쁘게 생각합니다!
 

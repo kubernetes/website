@@ -92,7 +92,7 @@ Where `<profile_type>` is one of:
 * `Localhost` to use a profile loaded on the host (see below)
 * `Unconfined` to run without AppArmor
 
-See the [API Reference](#api-reference) for the full details on the AppArmor profile API.
+See [Specifying AppArmor Confinement](#specifying-apparmor-confinement) for full details on the AppArmor profile API.
 
 To verify that the profile was applied, you can check that the container's root process is
 running with the correct profile by examining its proc attr:

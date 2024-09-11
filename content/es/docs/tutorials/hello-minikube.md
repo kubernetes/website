@@ -2,12 +2,6 @@
 title: Hello Minikube
 content_type: tutorial
 weight: 5
-menu:
-  main:
-    title: "Get Started"
-    weight: 10
-    post: >
-      <p>¿Listo para poner manos a la obra? Construye un clúster sencillo de Kubernetes que ejecuta un Hola Mundo para Node.js</p>
 card:
   name: tutorials
   weight: 10

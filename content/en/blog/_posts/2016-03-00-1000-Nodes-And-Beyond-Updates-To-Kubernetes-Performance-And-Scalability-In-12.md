@@ -3,8 +3,10 @@ title: " 1000 nodes and beyond: updates to Kubernetes performance and scalabilit
 date: 2016-03-28
 slug: 1000-nodes-and-beyond-updates-to-kubernetes-performance-and-scalability-in-12
 url: /blog/2016/03/1000-Nodes-And-Beyond-Updates-To-Kubernetes-Performance-And-Scalability-In-12
+author: >
+   Wojciech Tyczynski (Google)
 ---
-_Editor's&nbsp;note: this is the first in a [series of in-depth posts](https://kubernetes.io/blog/2016/03/five-days-of-kubernetes-12) on what's new in Kubernetes 1.2_  
+_**Editor's note:**  this is the first in a [series of in-depth posts](/blog/2016/03/five-days-of-kubernetes-12) on what's new in Kubernetes 1.2_  
 
 We're proud to announce that with the [release of 1.2](https://kubernetes.io/blog/2016/03/kubernetes-1-2-even-more-performance-upgrades-plus-easier-application-deployment-and-management), Kubernetes now supports 1000-node clusters, with a reduction of 80% in 99th percentile tail latency for most API operations. This means in just six months, we've increased our overall scale by 10 times while maintaining a great user experience&nbsp;—&nbsp;the&nbsp;99th percentile pod startup times are less than 3 seconds, and 99th percentile latency of most API operations is tens of milliseconds (the exception being LIST operations, which take hundreds of milliseconds in very large clusters).
 
@@ -160,9 +162,7 @@ Please join our community and help us build the future of Kubernetes! There are 
 
 - Our [scalability slack channel](https://kubernetes.slack.com/messages/sig-scale/)
 - The scalability “Special Interest Group”, which meets every Thursday at 9 AM Pacific Time at [SIG-Scale hangout](https://plus.google.com/hangouts/_/google.com/k8scale-hangout)&nbsp;
-&nbsp;And of course for more information about the project in general, go to [www.kubernetes.io](http://www.kubernetes.io/)  
-
-- _Wojciech Tyczynski, Software Engineer, Google_  
+&nbsp;And of course for more information about the project in general, go to [www.kubernetes.io](http://www.kubernetes.io/)
 
 
 * * *

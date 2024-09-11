@@ -29,13 +29,13 @@ Kompose is released via GitHub on a three-week cycle, you can see all current re
 
 ```sh
 # Linux
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.26.0/kompose-linux-amd64 -o kompose
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.34.0/kompose-linux-amd64 -o kompose
 
 # macOS
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.26.0/kompose-darwin-amd64 -o kompose
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.34.0/kompose-darwin-amd64 -o kompose
 
 # Windows
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.26.0/kompose-windows-amd64.exe -o kompose.exe
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.34.0/kompose-windows-amd64.exe -o kompose.exe
 
 chmod +x kompose
 sudo mv ./kompose /usr/local/bin/kompose
@@ -93,26 +93,27 @@ you need is an existing `docker-compose.yml` file.
 1. Go to the directory containing your `docker-compose.yml` file. If you don't have one, test using this one.
 
    ```yaml
-   version: "2"
 
    services:
 
-     redis-master:
-       image: registry.k8s.io/redis:e2e
+     redis-leader:
+       container_name: redis-leader
+       image: redis
        ports:
          - "6379"
 
-     redis-slave:
-       image: gcr.io/google_samples/gb-redisslave:v3
+     redis-replica:
+       container_name: redis-replica
+       image: redis
        ports:
          - "6379"
-       environment:
-         - GET_HOSTS_FROM=dns
+       command: redis-server --replicaof redis-leader 6379 --dir /tmp
 
-     frontend:
-       image: gcr.io/google-samples/gb-frontend:v4
+     web:
+       container_name: web
+       image: quay.io/kompose/web
        ports:
-         - "80:80"
+         - "8080:8080"
        environment:
          - GET_HOSTS_FROM=dns
        labels:
@@ -129,27 +130,27 @@ you need is an existing `docker-compose.yml` file.
    The output is similar to:
 
    ```none
-   INFO Kubernetes file "frontend-tcp-service.yaml" created 
-   INFO Kubernetes file "redis-master-service.yaml" created 
-   INFO Kubernetes file "redis-slave-service.yaml" created 
-   INFO Kubernetes file "frontend-deployment.yaml" created 
-   INFO Kubernetes file "redis-master-deployment.yaml" created 
-   INFO Kubernetes file "redis-slave-deployment.yaml" created
+   INFO Kubernetes file "redis-leader-service.yaml" created
+   INFO Kubernetes file "redis-replica-service.yaml" created
+   INFO Kubernetes file "web-tcp-service.yaml" created
+   INFO Kubernetes file "redis-leader-deployment.yaml" created
+   INFO Kubernetes file "redis-replica-deployment.yaml" created
+   INFO Kubernetes file "web-deployment.yaml" created
    ```
 
    ```bash
-    kubectl apply -f frontend-tcp-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
+    kubectl apply -f web-tcp-service.yaml,redis-leader-service.yaml,redis-replica-service.yaml,web-deployment.yaml,redis-leader-deployment.yaml,redis-replica-deployment.yaml
    ```
 
    The output is similar to:
 
    ```none
-   service/frontend-tcp created
-   service/redis-master created
-   service/redis-slave created
-   deployment.apps/frontend created
-   deployment.apps/redis-master created
-   deployment.apps/redis-slave created
+   deployment.apps/redis-leader created
+   deployment.apps/redis-replica created
+   deployment.apps/web created
+   service/redis-leader created
+   service/redis-replica created
+   service/web-tcp created
    ```
 
     Your deployments are running in Kubernetes.
@@ -159,39 +160,35 @@ you need is an existing `docker-compose.yml` file.
    If you're already using `minikube` for your development process:
 
    ```bash
-   minikube service frontend
+   minikube service web-tcp
    ```
 
    Otherwise, let's look up what IP your service is using!
 
    ```sh
-   kubectl describe svc frontend
+   kubectl describe svc web-tcp
    ```
 
    ```none
-   Name:                     frontend-tcp
-   Namespace:                default
-   Labels:                   io.kompose.service=frontend-tcp
-   Annotations:              kompose.cmd: kompose convert
-                             kompose.service.type: LoadBalancer
-                             kompose.version: 1.26.0 (40646f47)
-   Selector:                 io.kompose.service=frontend
-   Type:                     LoadBalancer
-   IP Family Policy:         SingleStack
-   IP Families:              IPv4
-   IP:                       10.43.67.174
-   IPs:                      10.43.67.174
-   Port:                     80  80/TCP
-   TargetPort:               80/TCP
-   NodePort:                 80  31254/TCP
-   Endpoints:                10.42.0.25:80
-   Session Affinity:         None
-   External Traffic Policy:  Cluster
-   Events:
-     Type    Reason                Age   From                Message
-     ----    ------                ----  ----                -------
-     Normal  EnsuringLoadBalancer  62s   service-controller  Ensuring load balancer
-     Normal  AppliedDaemonSet      62s   service-controller  Applied LoadBalancer DaemonSet kube-system/svclb-frontend-tcp-9362d276
+    Name:                     web-tcp
+    Namespace:                default
+    Labels:                   io.kompose.service=web-tcp
+    Annotations:              kompose.cmd: kompose convert
+                              kompose.service.type: LoadBalancer
+                              kompose.version: 1.33.0 (3ce457399)
+    Selector:                 io.kompose.service=web
+    Type:                     LoadBalancer
+    IP Family Policy:         SingleStack
+    IP Families:              IPv4
+    IP:                       10.102.30.3
+    IPs:                      10.102.30.3
+    Port:                     8080  8080/TCP
+    TargetPort:               8080/TCP
+    NodePort:                 8080  31624/TCP
+    Endpoints:                10.244.0.5:8080
+    Session Affinity:         None
+    External Traffic Policy:  Cluster
+    Events:                   <none>
    ```
 
    If you're using a cloud provider, your IP will be listed next to `LoadBalancer Ingress`.
@@ -206,7 +203,7 @@ you need is an existing `docker-compose.yml` file.
    resources used.
    
    ```sh
-   kubectl delete -f frontend-tcp-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
+   kubectl delete -f web-tcp-service.yaml,redis-leader-service.yaml,redis-replica-service.yaml,web-deployment.yaml,redis-leader-deployment.yaml,redis-replica-deployment.yaml
    ```
 
 <!-- discussion -->

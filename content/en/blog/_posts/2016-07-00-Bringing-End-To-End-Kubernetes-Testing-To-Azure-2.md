@@ -3,8 +3,9 @@ title: " Bringing End-to-End Kubernetes Testing to Azure (Part 2) "
 date: 2016-07-18
 slug: bringing-end-to-end-kubernetes-testing-to-azure-2
 url: /blog/2016/07/Bringing-End-To-End-Kubernetes-Testing-To-Azure-2
+author: >
+  Travis Newhouse (AppFormix)
 ---
-_Editor’s Note: Today’s guest post is Part II from a [series](https://kubernetes.io/blog/2016/06/bringing-end-to-end-testing-to-azure) by Travis Newhouse, Chief Architect at AppFormix, writing about their contributions to Kubernetes._  
 
 Historically, Kubernetes testing has been hosted by Google, running e2e tests on [Google Compute Engine](https://cloud.google.com/compute/) (GCE) and [Google Container Engine](https://cloud.google.com/container-engine/) (GKE). In fact, the gating checks for the submit-queue are a subset of tests executed on these test platforms. Federated testing aims to expand test coverage by enabling organizations to host test jobs for a variety of platforms and contribute test results to benefit the Kubernetes project. Members of the Kubernetes test team at Google and SIG-Testing have created a [Kubernetes test history dashboard](http://storage.googleapis.com/kubernetes-test-history/static/index.html) that publishes the results from all federated test jobs (including those hosted by Google).  
 
@@ -45,9 +46,4 @@ The second [pull-request cleaned up an unused import](https://github.com/kuberne
 
 The addition of a nightly e2e test job for Kubernetes on Azure has helped to define the process to contribute a federated test to the Kubernetes project. During the course of the work, we also saw the immediate benefit of expanding test coverage to more platforms when our Azure test job identified compatibility issues.  
 
-We want to thank Aaron Crickenberger, Erick Fejta, Joe Finney, and Ryan Hutchinson for their help to incorporate the results of our Azure e2e tests into the Kubernetes test history. If you’d like to get involved with testing to create a stable, high quality releases of Kubernetes, join us in the [Kubernetes Testing SIG (sig-testing)](https://github.com/kubernetes/community/tree/master/sig-testing).  
-
-
-
-
-_--Travis Newhouse, Chief Architect at AppFormix_
+We want to thank Aaron Crickenberger, Erick Fejta, Joe Finney, and Ryan Hutchinson for their help to incorporate the results of our Azure e2e tests into the Kubernetes test history. If you’d like to get involved with testing to create a stable, high quality releases of Kubernetes, join us in the [Kubernetes Testing SIG (sig-testing)](https://github.com/kubernetes/community/tree/master/sig-testing).

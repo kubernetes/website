@@ -123,7 +123,7 @@ object's [`metadata`](/docs/reference/kubernetes-api/common-definitions/object-m
 共享字段的所有者可以放弃字段的所有权，这只需发出不包含该字段的服务器端应用 **patch** 请求即可。
 
 字段管理的信息存储在 `managedFields` 字段中，该字段是对象的
-[`metadata`](/zh-cn/docs/reference/kubernetes-api/common-definitions/object-meta/)。
+[`metadata`](/zh-cn/docs/reference/kubernetes-api/common-definitions/object-meta/)
 中的一部分。
 
 <!-- 

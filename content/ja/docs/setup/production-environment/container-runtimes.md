@@ -223,7 +223,7 @@ kubeadmを使用している場合、手動で[kubelet cgroupドライバーの�
 
 本セクションでは、コンテナランタイムとしてCRI-Oをインストールするために必要な手順を説明します。
 
-CRI-Oをインストールするには、[CRI-Oのインストール手順](https://github.com/cri-o/cri-o/blob/main/install.md#readme)に従ってください。
+CRI-Oをインストールするには、[CRI-Oのインストール手順](https://github.com/cri-o/packaging/blob/main/README.md#usage)に従ってください。
 
 #### cgroupドライバー
 

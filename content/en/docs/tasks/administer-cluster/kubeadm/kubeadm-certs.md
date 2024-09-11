@@ -238,15 +238,17 @@ To activate the built-in signer, you must pass the `--cluster-signing-cert-file`
 `--cluster-signing-key-file` flags.
 
 If you're creating a new cluster, you can use a kubeadm
-[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/):
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/):
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 controllerManager:
   extraArgs:
-    cluster-signing-cert-file: /etc/kubernetes/pki/ca.crt
-    cluster-signing-key-file: /etc/kubernetes/pki/ca.key
+  - name: "cluster-signing-cert-file"
+    value: "/etc/kubernetes/pki/ca.crt"
+  - name: "cluster-signing-key-file"
+    value: "/etc/kubernetes/pki/ca.key"
 ```
 
 ### Create certificate signing requests (CSR)
@@ -286,7 +288,7 @@ To configure the kubelets in a new kubeadm cluster to obtain properly signed ser
 certificates you must pass the following minimal configuration to `kubeadm init`:
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 ---
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -357,7 +359,7 @@ Sharing the `admin.conf` with additional users is **not recommended**!
 Instead, you can use the [`kubeadm kubeconfig user`](/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig)
 command to generate kubeconfig files for additional users.
 The command accepts a mixture of command line flags and
-[kubeadm configuration](/docs/reference/config-api/kubeadm-config.v1beta3/) options.
+[kubeadm configuration](/docs/reference/config-api/kubeadm-config.v1beta4/) options.
 The generated kubeconfig will be written to stdout and can be piped to a file using
 `kubeadm kubeconfig user ... > somefile.conf`.
 
@@ -365,7 +367,7 @@ Example configuration file that can be used with `--config`:
 
 ```yaml
 # example.yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 # Will be used as the target "cluster" in the kubeconfig
 clusterName: "kubernetes"
@@ -412,7 +414,7 @@ directory for kubeconfig files is `/etc/kubernetes`. These defaults can be
 overridden with the flags `--cert-dir` and `--kubeconfig-dir`, respectively.
 
 To pass custom options to `kubeadm certs generate-csr` use the `--config` flag,
-which accepts a [kubeadm configuration](/docs/reference/config-api/kubeadm-config.v1beta3/)
+which accepts a [kubeadm configuration](/docs/reference/config-api/kubeadm-config.v1beta4/)
 file, similarly to commands such as `kubeadm init`. Any specification such
 as extra SANs and custom IP addresses must be stored in the same configuration
 file and used for all relevant kubeadm commands by passing it as `--config`.

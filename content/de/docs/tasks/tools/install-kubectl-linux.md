@@ -163,17 +163,60 @@ Falls es benötigt wird, kann es angelegt werden. Hierzu sollte es danach von je
 {{% /tab %}}
 
 {{% tab name="Red Hat-basierte Distributionen" %}}
-```bash
-cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-EOF
-sudo yum install -y kubectl
-```
+
+1. Hinzufügen des Kubernetes `yum` Repository. Wenn eine andere Kubernetes Version als {{< param "version" >}} installiert werden soll, muss {{< param "version" >}} im unteren Block durch die gewünschte Version ersetzt werden.
+
+   ```bash
+   # Bestehende Inhalte in /etc/yum.repos.d/kubernetes.repo werden überschrieben
+   cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+   [kubernetes]
+   name=Kubernetes
+   baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
+   EOF
+   ```
+{{< note >}}
+Wenn eine andere minor Version von kubectl installiert werden soll muss `/etc/yum.repos.d/kubernetes.repo` angepasst werden
+bevor `yum install` ausgeführt wird. Eine genauere Beschreibung findet sich hier
+[Wechseln des Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+{{< /note >}}
+
+2. Installieren von kubectl mit Hilfe von `yum`:
+
+   ```bash
+   sudo yum install -y kubectl
+   ```
+
+{{% /tab %}}
+
+{{% tab name="SUSE-basierte Distributionen" %}}
+1. Hinzufügen des Kubernetes `zypper` Repository. Wenn eine andere Kubernetes Version als {{< param "version" >}} installiert werden soll, muss {{< param "version" >}} im unteren Block durch die gewünschte Version ersetzt werden.
+
+   ```bash
+   # Bestehende Inhalte in /etc/zypp/repos.d/kubernetes.repo werden überschrieben
+   cat <<EOF | sudo tee /etc/zypp/repos.d/kubernetes.repo
+   [kubernetes]
+   name=Kubernetes
+   baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
+   EOF
+   ```
+
+{{< note >}}
+Wenn eine andere minor Version von kubectl installiert werden soll muss `/etc/zypp/repos.d/kubernetes.repo` angepasst werden
+bevor `zypper update` ausgeführt wird. Eine genauere Beschreibung findet sich hier
+[Wechseln des Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+{{< /note >}}
+
+   2. Install kubectl using `zypper`:
+
+      ```bash
+      sudo zypper install -y kubectl
+      ```
 
 {{% /tab %}}
 {{< /tabs >}}

@@ -1192,7 +1192,7 @@ Kubernetes {{< skew currentVersion >}} 下实现的验证逐步升级不支持�
 
 <!--
 - `x-kubernetes-validations`
-  For Kubernetes 1.28, CRD validation rules](#validation-rules) are ignored by
+  For Kubernetes 1.28, CRD [validation rules](#validation-rules) are ignored by
   ratcheting. Starting with Alpha 2 in Kubernetes 1.29, `x-kubernetes-validations`
   are ratcheted only if they do not refer to `oldSelf`.
 
@@ -2048,12 +2048,10 @@ Unlike other rules, transition rules apply only to operations meeting the follow
 
 <!--
 Errors will be generated on CRD writes if a schema node contains a transition rule that can never be
-applied, e.g. "*path*: update rule *rule* cannot be set on schema because the schema or its parent
-schema is not mergeable".
+applied, e.g. "oldSelf cannot be used on the uncorrelatable portion of the schema within *path*".
 -->
 如果一个模式节点包含一个永远不能应用的转换规则，在 CRD 写入时将会产生错误，例如：
-"*path*: update rule *rule* cannot be set on schema because the schema or its parent
-schema is not mergeable"。
+"oldSelf cannot be used on the uncorrelatable portion of the schema within *path*"。
 
 <!--
 Transition rules are only allowed on _correlatable portions_ of a schema.
@@ -2631,6 +2629,77 @@ The `NAME` column is implicit and does not need to be defined in the CustomResou
 {{< /note >}}
 
 <!--
+#### Priority
+
+Each column includes a `priority` field. Currently, the priority
+differentiates between columns shown in standard view or wide view (using the `-o wide` flag).
+
+- Columns with priority `0` are shown in standard view.
+- Columns with priority greater than `0` are shown only in wide view.
+-->
+#### 优先级    {#priority}
+
+每个列都包含一个 `priority`（优先级）字段。当前，优先级用来区分标准视图（Standard
+View）和宽视图（Wide View）（使用 `-o wide` 标志）中显示的列：
+
+- 优先级为 `0` 的列会在标准视图中显示。
+- 优先级大于 `0` 的列只会在宽视图中显示。
+
+<!--
+#### Type
+
+A column's `type` field can be any of the following (compare
+[OpenAPI v3 data types](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)):
+
+- `integer` – non-floating-point numbers
+- `number` – floating point numbers
+- `string` – strings
+- `boolean` – `true` or `false`
+- `date` – rendered differentially as time since this timestamp.
+-->
+#### 类型    {#type}
+
+列的 `type` 字段可以是以下值之一
+（比较 [OpenAPI v3 数据类型](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)）：
+
+- `integer` – 非浮点数字
+- `number` – 浮点数字
+- `string` – 字符串
+- `boolean` – `true` 或 `false`
+- `date` – 显示为以自此时间戳以来经过的时长
+
+<!--
+If the value inside a CustomResource does not match the type specified for the column,
+the value is omitted. Use CustomResource validation to ensure that the value
+types are correct.
+-->
+如果 CustomResource 中的值与列中指定的类型不匹配，该值会被忽略。
+你可以通过 CustomResource 的合法性检查来确保取值类型是正确的。
+
+<!--
+#### Format
+
+A column's `format` field can be any of the following:
+-->
+#### 格式    {#format}
+
+列的 `format` 字段可以是以下值之一：
+
+- `int32`
+- `int64`
+- `float`
+- `double`
+- `byte`
+- `date`
+- `date-time`
+- `password`
+
+<!--
+The column's `format` controls the style used when `kubectl` prints the value.
+-->
+列的 `format` 字段控制 `kubectl` 打印对应取值时采用的风格。
+
+<!--
 ### Field selectors
 
 [Field Selectors](/docs/concepts/overview/working-with-objects/field-selectors/)
@@ -2660,28 +2729,32 @@ may also be used with field selectors when included in the `spec.versions[*].sel
 -->
 #### 自定义资源的可选字段    {#crd-selectable-fields}
 
-{{< feature-state state="alpha" for_k8s_version="v1.30" >}}
 {{< feature-state feature_gate_name="CustomResourceFieldSelectors" >}}
 
 <!--
-You need to enable the `CustomResourceFieldSelectors`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
-use this behavior, which then applies to all CustomResourceDefinitions in your
-cluster.
+For Kubernetes {{< skew currentVersion >}} the ability to define field selectors for
+custom resources is available by default (enabled by default since Kubernetes v1.31);
+you can disable it for your cluster  by turning off the `CustomResourceFieldSelectors`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
 The `spec.versions[*].selectableFields` field of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be used to
-declare which other fields in a custom resource may be used in field selectors.
+declare which other fields in a custom resource may be used in field selectors
+with the feature of `CustomResourceFieldSelectors`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) (This feature gate is enabled by default since Kubernetes v1.31).
 The following example adds the `.spec.color` and `.spec.size` fields as
 selectable fields.
 
 Save the CustomResourceDefinition to `shirt-resource-definition.yaml`:
 -->
-你需要启用 `CustomResourceFieldSelectors`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-才能使用此行为，然后该行为将应用于集群中的所有 CustomResourceDefinition。
+在 Kubernetes {{< skew currentVersion >}} 中，
+自定义资源的字段选择器功能默认启用（自 Kubernetes v1.31 起默认开启）。
+如果你想禁用此功能，可以通过关闭 `CustomResourceFieldSelectors`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 实现。
 
 CustomResourceDefinition 的 `spec.versions[*].selectableFields`
 字段可用于声明自定义资源中的哪些其他字段可在字段选择器中使用。
+这一功能依赖于 `CustomResourceFieldSelectors`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（自 Kubernetes v1.31 起默认启用）。
 以下示例将 `.spec.color` 和 `.spec.size` 字段添加为可选字段。
 
 将 CustomResourceDefinition 保存到 `shirt-resource-definition.yaml`：
@@ -2772,77 +2845,6 @@ Should output:
 NAME       COLOR  SIZE
 example2   blue   M
 ```
-
-<!--
-#### Priority
-
-Each column includes a `priority` field. Currently, the priority
-differentiates between columns shown in standard view or wide view (using the `-o wide` flag).
-
-- Columns with priority `0` are shown in standard view.
-- Columns with priority greater than `0` are shown only in wide view.
--->
-#### 优先级    {#priority}
-
-每个列都包含一个 `priority`（优先级）字段。当前，优先级用来区分标准视图（Standard
-View）和宽视图（Wide View）（使用 `-o wide` 标志）中显示的列：
-
-- 优先级为 `0` 的列会在标准视图中显示。
-- 优先级大于 `0` 的列只会在宽视图中显示。
-
-<!--
-#### Type
-
-A column's `type` field can be any of the following (compare
-[OpenAPI v3 data types](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)):
-
-- `integer` – non-floating-point numbers
-- `number` – floating point numbers
-- `string` – strings
-- `boolean` – `true` or `false`
-- `date` – rendered differentially as time since this timestamp.
--->
-#### 类型    {#type}
-
-列的 `type` 字段可以是以下值之一
-（比较 [OpenAPI v3 数据类型](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)）：
-
-- `integer` – 非浮点数字
-- `number` – 浮点数字
-- `string` – 字符串
-- `boolean` – `true` 或 `false`
-- `date` – 显示为以自此时间戳以来经过的时长
-
-<!--
-If the value inside a CustomResource does not match the type specified for the column,
-the value is omitted. Use CustomResource validation to ensure that the value
-types are correct.
--->
-如果定制资源中的值与列中指定的类型不匹配，该值会被忽略。
-你可以通过定制资源的合法性检查来确保取值类型是正确的。
-
-<!--
-#### Format
-
-A column's `format` field can be any of the following:
--->
-#### 格式    {#format}
-
-列的 `format` 字段可以是以下值之一：
-
-- `int32`
-- `int64`
-- `float`
-- `double`
-- `byte`
-- `date`
-- `date-time`
-- `password`
-
-<!--
-The column's `format` controls the style used when `kubectl` prints the value.
--->
-列的 `format` 字段控制 `kubectl` 打印对应取值时采用的风格。
 
 <!--
 ### Subresources

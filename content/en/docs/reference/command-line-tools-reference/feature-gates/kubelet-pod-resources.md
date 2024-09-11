@@ -17,6 +17,8 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.28"  
+    toVersion: "1.29" 
+removed: true
 ---
 Enable the kubelet's pod resources gRPC endpoint. See
 [Support Device Monitoring](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/606-compute-device-assignment/README.md)

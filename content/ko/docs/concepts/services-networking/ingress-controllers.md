@@ -58,7 +58,7 @@ weight: 50
 * [Traefik 쿠버네티스 인그레스 제공자](https://doc.traefik.io/traefik/providers/kubernetes-ingress/)는
   [Traefik](https://traefik.io/traefik/) 프록시 용 인그레스 컨트롤러다.
 * [Tyk 오퍼레이터](https://github.com/TykTechnologies/tyk-operator)는 사용자 지정 리소스로 인그레스를 확장하여 API 관리 기능을 인그레스로 가져온다. Tyk 오퍼레이터는 오픈 소스 Tyk 게이트웨이 및 Tyk 클라우드 컨트롤 플레인과 함께 작동한다.
-* [Voyager](https://appscode.com/products/voyager)는
+* [Voyager](https://voyagermesh.com)는
   [HAProxy](https://www.haproxy.org/#desc)의 인그레스 컨트롤러다.
 
 ## 여러 인그레스 컨트롤러 사용

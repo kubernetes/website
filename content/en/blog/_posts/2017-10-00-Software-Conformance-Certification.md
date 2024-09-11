@@ -3,10 +3,9 @@ title: " Introducing Software Certification for Kubernetes "
 date: 2017-10-19
 slug: software-conformance-certification
 url: /blog/2017/10/Software-Conformance-Certification
+author: >
+  William Denniss (Google)
 ---
-
-_**Editor's Note: Today's post is by William Denniss, Product Manager, Google Cloud on the new Certified Kubernetes Conformance Program.**_    
-
 
 Over the last three years, Kubernetes® has seen wide-scale adoption by a vibrant and diverse community of providers. In fact, there are now more than [60](https://docs.google.com/spreadsheets/d/1LxSqBzjOxfGx3cmtZ4EbB_BGCxT_wlxW_xgHVVa23es/edit#gid=0) known Kubernetes platforms and distributions. From the start, one goal of Kubernetes has been consistency and portability.  
 

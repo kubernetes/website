@@ -224,7 +224,7 @@ read [Virtual IPs and Service Proxies](/docs/reference/networking/virtual-ips/).
 [服务类型](#publishing-services-service-types)默认为 ClusterIP 的 Service。
 该 Service 指向带有标签 `app.kubernetes.io/name: MyApp` 的所有 Pod 的 TCP 端口 9376。
 
-Kubernetes 为该服务分配一个 IP 地址（称为 “集群 IP”），供虚拟 IP 地址机制使用。
+Kubernetes 为该 Service 分配一个 IP 地址（称为 “集群 IP”），供虚拟 IP 地址机制使用。
 有关该机制的更多详情，请阅读[虚拟 IP 和服务代理](/zh-cn/docs/reference/networking/virtual-ips/)。
 
 <!--
@@ -317,7 +317,7 @@ Each port definition can have the same `protocol`, or a different one.
 Service 的默认协议是 [TCP](/zh-cn/docs/reference/networking/service-protocols/#protocol-tcp)；
 你还可以使用其他[受支持的任何协议](/zh-cn/docs/reference/networking/service-protocols/)。
 
-由于许多 Service 需要公开多个端口，所以 Kubernetes 为同一服务定义[多个端口](#multi-port-services)。
+由于许多 Service 需要公开多个端口，所以 Kubernetes 为同一 Service 定义[多个端口](#multi-port-services)。
 每个端口定义可以具有相同的 `protocol`，也可以具有不同协议。
 
 <!--
@@ -408,14 +408,14 @@ endpoints:
 apiVersion: discovery.k8s.io/v1
 kind: EndpointSlice
 metadata:
-  name: my-service-1 # 按惯例将服务的名称用作 EndpointSlice 名称的前缀
+  name: my-service-1 # 按惯例将 Service 的名称用作 EndpointSlice 名称的前缀
   labels:
     # 你应设置 "kubernetes.io/service-name" 标签。
-    # 设置其值以匹配服务的名称
+    # 设置其值以匹配 Service 的名称
     kubernetes.io/service-name: my-service
 addressType: IPv4
 ports:
-  - name: '' # 应与上面定义的服务端口的名称匹配
+  - name: '' # 应与上面定义的 Service 端口的名称匹配
     appProtocol: http
     protocol: TCP
     port: 9376
@@ -499,13 +499,13 @@ the EndpointSlice manifest: a TCP connection to 10.1.2.3 or 10.4.5.6, on port 93
 {{< note >}}
 <!--
 The Kubernetes API server does not allow proxying to endpoints that are not mapped to
-pods. Actions such as `kubectl proxy <service-name>` where the service has no
+pods. Actions such as `kubectl port-forward service/<service-name> forwardedPort:servicePort` where the service has no
 selector will fail due to this constraint. This prevents the Kubernetes API server
 from being used as a proxy to endpoints the caller may not be authorized to access.
 -->
 Kubernetes API 服务器不允许将流量代理到未被映射至 Pod 上的端点。由于此约束，当 Service
-没有选择算符时，诸如 `kubectl proxy <service-name>` 之类的操作将会失败。这可以防止
-Kubernetes API 服务器被用作调用者可能无权访问的端点的代理。
+没有选择算符时，诸如 `kubectl port-forward service/<service-name> forwardedPort:servicePort` 之类的操作将会失败。
+这可以防止 Kubernetes API 服务器被用作调用者可能无权访问的端点的代理。
 {{< /note >}}
 
 <!--
@@ -539,7 +539,7 @@ See [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/) for mo
 information about this API.
 -->
 [EndpointSlice](/zh-cn/docs/concepts/services-networking/endpoint-slices/)
-对象表示某个服务的后端网络端点的子集（**切片**）。
+对象表示某个 Service 的后端网络端点的子集（**切片**）。
 
 你的 Kubernetes 集群会跟踪每个 EndpointSlice 所表示的端点数量。
 如果 Service 的端点太多以至于达到阈值，Kubernetes 会添加另一个空的
@@ -638,6 +638,8 @@ This field follows standard Kubernetes label syntax. Valid values are one of:
 | Protocol | Description |
 |----------|-------------|
 | `kubernetes.io/h2c` | HTTP/2 over cleartext as described in [RFC 7540](https://www.rfc-editor.org/rfc/rfc7540) |
+| `kubernetes.io/ws`  | WebSocket over cleartext as described in [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455) |
+| `kubernetes.io/wss` | WebSocket over TLS as described in [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455) |
 -->
 此字段遵循标准的 Kubernetes 标签语法。合法的取值值可以是以下之一：
 
@@ -647,7 +649,9 @@ This field follows standard Kubernetes label syntax. Valid values are one of:
 
   | 协议     | 描述        |
   |----------|-------------|
-  | `kubernetes.io/h2c`    | 基于明文的 HTTP/2 协议，如 [RFC 7540](https://www.rfc-editor.org/rfc/rfc7540) 所述 |
+  | `kubernetes.io/h2c` | 基于明文的 HTTP/2 协议，如 [RFC 7540](https://www.rfc-editor.org/rfc/rfc7540) 所述     |
+  | `kubernetes.io/ws`  | 基于明文的 WebSocket 协议，如 [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455) 所述  |
+  | `kubernetes.io/wss` | 基于 TLS 的 WebSocket 协议，如 [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455) 所述 |
 
 <!--
 ### Multi-Port Services
@@ -733,14 +737,14 @@ Kubernetes Service 类型允许指定你所需要的 Service 类型。
 -->
 `ClusterIP`
 : 通过集群的内部 IP 公开 Service，选择该值时 Service 只能够在集群内部访问。
-  这也是你没有为服务显式指定 `type` 时使用的默认值。
+  这也是你没有为 Service 显式指定 `type` 时使用的默认值。
   你可以使用 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
   或者 [Gateway API](https://gateway-api.sigs.k8s.io/) 向公共互联网公开服务。
 
 [`NodePort`](#type-nodeport)
 : 通过每个节点上的 IP 和静态端口（`NodePort`）公开 Service。
   为了让 Service 可通过节点端口访问，Kubernetes 会为 Service 配置集群 IP 地址，
-  相当于你请求了 `type: ClusterIP` 的服务。
+  相当于你请求了 `type: ClusterIP` 的 Service。
 
 <!--
 [`LoadBalancer`](#loadbalancer)
@@ -771,7 +775,7 @@ define a `LoadBalancer` Service by
 -->
 服务 API 中的 `type` 字段被设计为层层递进的形式 - 每层都建立在前一层的基础上。
 但是，这种层层递进的形式有一个例外。
-你可以在定义 `LoadBalancer` 服务时[禁止负载均衡器分配 `NodePort`](/zh-cn/docs/concepts/services-networking/service/#load-balancer-nodeport-allocation)。
+你可以在定义 `LoadBalancer` Service 时[禁止负载均衡器分配 `NodePort`](/zh-cn/docs/concepts/services-networking/service/#load-balancer-nodeport-allocation)。
 
 <!--
 ### `type: ClusterIP` {#type-clusterip}
@@ -857,7 +861,7 @@ endpoints associated with that Service. You'll be able to contact the `type: Nod
 Service, from outside the cluster, by connecting to any node using the appropriate
 protocol (for example: TCP), and the appropriate port (as assigned to that Service).
 -->
-对于 NodePort 服务，Kubernetes 额外分配一个端口（TCP、UDP 或 SCTP 以匹配 Service 的协议）。
+对于 NodePort 类型 Service，Kubernetes 额外分配一个端口（TCP、UDP 或 SCTP 以匹配 Service 的协议）。
 集群中的每个节点都将自己配置为监听所分配的端口，并将流量转发到与该 Service 关联的某个就绪端点。
 通过使用合适的协议（例如 TCP）和适当的端口（分配给该 Service）连接到任何一个节点，
 你就能够从集群外部访问 `type: NodePort` 服务。
@@ -1296,7 +1300,7 @@ Select one of the tabs.
 metadata:
   name: my-service
   annotations:
-      networking.gke.io/load-balancer-type: "Internal"
+    networking.gke.io/load-balancer-type: "Internal"
 ```
 
 {{% /tab %}}
@@ -1304,9 +1308,9 @@ metadata:
 
 ```yaml
 metadata:
-    name: my-service
-    annotations:
-        service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+  name: my-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
 ```
 
 {{% /tab %}}
@@ -1316,7 +1320,7 @@ metadata:
 metadata:
   name: my-service
   annotations:
-      service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 ```
 
 {{% /tab %}}
@@ -1326,7 +1330,7 @@ metadata:
 metadata:
   name: my-service
   annotations:
-      service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
+    service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
 ```
 
 {{% /tab %}}
@@ -1805,7 +1809,7 @@ Kubernetes 所配置的规则和路由会确保流量被路由到该 Service 的
 
 定义 Service 时，你可以为任何[服务类型](#publishing-services-service-types)指定 `externalIPs`。
 
-在下面的例子中，名为 `my-service` 的服务可以在 "`198.51.100.32:80`"
+在下面的例子中，名为 `my-service` 的 Service 可以在 "`198.51.100.32:80`"
 （根据 `.spec.externalIPs[]` 和 `.spec.ports[].port` 得出）上被客户端使用 TCP 协议访问。
 
 ```yaml

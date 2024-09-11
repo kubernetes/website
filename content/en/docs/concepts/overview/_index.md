@@ -32,65 +32,6 @@ Kubernetes project in 2014. Kubernetes combines
 [over 15 years of Google's experience](/blog/2015/04/borg-predecessor-to-kubernetes/) running
 production workloads at scale with best-of-breed ideas and practices from the community.
 
-## Going back in time
-
-Let's take a look at why Kubernetes is so useful by going back in time.
-
-![Deployment evolution](/images/docs/Container_Evolution.svg)
-
-**Traditional deployment era:**
-Early on, organizations ran applications on physical servers. There was no way to define
-resource boundaries for applications in a physical server, and this caused resource
-allocation issues. For example, if multiple applications run on a physical server, there
-can be instances where one application would take up most of the resources, and as a result,
-the other applications would underperform. A solution for this would be to run each application
-on a different physical server. But this did not scale as resources were underutilized, and it
-was expensive for organizations to maintain many physical servers.
-
-**Virtualized deployment era:** As a solution, virtualization was introduced. It allows you
-to run multiple Virtual Machines (VMs) on a single physical server's CPU. Virtualization
-allows applications to be isolated between VMs and provides a level of security as the
-information of one application cannot be freely accessed by another application.
-
-Virtualization allows better utilization of resources in a physical server and allows
-better scalability because an application can be added or updated easily, reduces
-hardware costs, and much more. With virtualization you can present a set of physical
-resources as a cluster of disposable virtual machines.
-
-Each VM is a full machine running all the components, including its own operating
-system, on top of the virtualized hardware.
-
-**Container deployment era:** Containers are similar to VMs, but they have relaxed
-isolation properties to share the Operating System (OS) among the applications.
-Therefore, containers are considered lightweight. Similar to a VM, a container
-has its own filesystem, share of CPU, memory, process space, and more. As they
-are decoupled from the underlying infrastructure, they are portable across clouds
-and OS distributions.
-
-Containers have become popular because they provide extra benefits, such as:
-
-* Agile application creation and deployment: increased ease and efficiency of
-  container image creation compared to VM image use.
-* Continuous development, integration, and deployment: provides for reliable
-  and frequent container image build and deployment with quick and efficient
-  rollbacks (due to image immutability).
-* Dev and Ops separation of concerns: create application container images at
-  build/release time rather than deployment time, thereby decoupling
-  applications from infrastructure.
-* Observability: not only surfaces OS-level information and metrics, but also
-  application health and other signals.
-* Environmental consistency across development, testing, and production: runs
-  the same on a laptop as it does in the cloud.
-* Cloud and OS distribution portability: runs on Ubuntu, RHEL, CoreOS, on-premises,
-  on major public clouds, and anywhere else.
-* Application-centric management: raises the level of abstraction from running an
-  OS on virtual hardware to running an application on an OS using logical resources.
-* Loosely coupled, distributed, elastic, liberated micro-services: applications are
-  broken into smaller, independent pieces and can be deployed and managed dynamically –
-  not a monolithic stack running on one big single-purpose machine.
-* Resource isolation: predictable application performance.
-* Resource utilization: high efficiency and density.
-
 ## Why you need Kubernetes and what it can do {#why-you-need-kubernetes-and-what-can-it-do}
 
 Containers are a good way to bundle and run your applications. In a production
@@ -173,6 +114,71 @@ Kubernetes:
   control processes that continuously drive the current state towards the provided desired state.
   It shouldn't matter how you get from A to C. Centralized control is also not required. This
   results in a system that is easier to use and more powerful, robust, resilient, and extensible.
+
+## Historical context for Kubernetes {#going-back-in-time}
+
+Let's take a look at why Kubernetes is so useful by going back in time.
+
+![Deployment evolution](/images/docs/Container_Evolution.svg)
+
+**Traditional deployment era:**
+
+Early on, organizations ran applications on physical servers. There was no way to define
+resource boundaries for applications in a physical server, and this caused resource
+allocation issues. For example, if multiple applications run on a physical server, there
+can be instances where one application would take up most of the resources, and as a result,
+the other applications would underperform. A solution for this would be to run each application
+on a different physical server. But this did not scale as resources were underutilized, and it
+was expensive for organizations to maintain many physical servers.
+
+**Virtualized deployment era:**
+
+As a solution, virtualization was introduced. It allows you
+to run multiple Virtual Machines (VMs) on a single physical server's CPU. Virtualization
+allows applications to be isolated between VMs and provides a level of security as the
+information of one application cannot be freely accessed by another application.
+
+Virtualization allows better utilization of resources in a physical server and allows
+better scalability because an application can be added or updated easily, reduces
+hardware costs, and much more. With virtualization you can present a set of physical
+resources as a cluster of disposable virtual machines.
+
+Each VM is a full machine running all the components, including its own operating
+system, on top of the virtualized hardware.
+
+**Container deployment era:**
+
+Containers are similar to VMs, but they have relaxed
+isolation properties to share the Operating System (OS) among the applications.
+Therefore, containers are considered lightweight. Similar to a VM, a container
+has its own filesystem, share of CPU, memory, process space, and more. As they
+are decoupled from the underlying infrastructure, they are portable across clouds
+and OS distributions.
+
+Containers have become popular because they provide extra benefits, such as:
+
+* Agile application creation and deployment: increased ease and efficiency of
+  container image creation compared to VM image use.
+* Continuous development, integration, and deployment: provides for reliable
+  and frequent container image build and deployment with quick and efficient
+  rollbacks (due to image immutability).
+* Dev and Ops separation of concerns: create application container images at
+  build/release time rather than deployment time, thereby decoupling
+  applications from infrastructure.
+* Observability: not only surfaces OS-level information and metrics, but also
+  application health and other signals.
+* Environmental consistency across development, testing, and production: runs
+  the same on a laptop as it does in the cloud.
+* Cloud and OS distribution portability: runs on Ubuntu, RHEL, CoreOS, on-premises,
+  on major public clouds, and anywhere else.
+* Application-centric management: raises the level of abstraction from running an
+  OS on virtual hardware to running an application on an OS using logical resources.
+* Loosely coupled, distributed, elastic, liberated micro-services: applications are
+  broken into smaller, independent pieces and can be deployed and managed dynamically –
+  not a monolithic stack running on one big single-purpose machine.
+* Resource isolation: predictable application performance.
+* Resource utilization: high efficiency and density.
+
 
 ## {{% heading "whatsnext" %}}
 

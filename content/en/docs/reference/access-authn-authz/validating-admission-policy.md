@@ -47,11 +47,6 @@ must be defined for a policy to have an effect.
 If a `ValidatingAdmissionPolicy` does not need to be configured via parameters, simply leave
 `spec.paramKind` in  `ValidatingAdmissionPolicy` not specified.
 
-## {{% heading "prerequisites" %}}
-
-- Ensure the `ValidatingAdmissionPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
-- Ensure that the `admissionregistration.k8s.io/v1beta1` API is enabled.
-
 ## Getting Started with Validating Admission Policy
 
 Validating Admission Policy is part of the cluster control-plane. You should write and deploy them
@@ -283,6 +278,7 @@ variables as well as some other useful variables:
   The value is null if the incoming object is cluster-scoped.
 - `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal
   (authenticated user) of the request. See
+  [AuthzSelectors](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#AuthzSelectors) and
   [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz) in the Kubernetes CEL library
   documentation for more details.
 - `authorizer.requestResource` - A shortcut for an authorization check configured with the request

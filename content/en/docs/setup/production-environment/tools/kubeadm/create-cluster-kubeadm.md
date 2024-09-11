@@ -116,7 +116,7 @@ to a Kubernetes component, the component may exit with an error.
 
 To configure the API server advertise address for control plane nodes created with both
 `init` and `join`, the flag `--apiserver-advertise-address` can be used.
-Preferably, this option can be set in the [kubeadm API](/docs/reference/config-api/kubeadm-config.v1beta3)
+Preferably, this option can be set in the [kubeadm API](/docs/reference/config-api/kubeadm-config.v1beta4)
 as `InitConfiguration.localAPIEndpoint` and `JoinConfiguration.controlPlane.localAPIEndpoint`.
 
 For kubelets on all nodes, the `--node-ip` option can be passed in
@@ -335,8 +335,8 @@ See a list of add-ons that implement the
 
 
 Please refer to the [Installing Addons](/docs/concepts/cluster-administration/addons/#networking-and-network-policy)
-page for a non-exhaustive list of networking addons supported by Kubernetes. 
-You can install a Pod network add-on with the following command on the 
+page for a non-exhaustive list of networking addons supported by Kubernetes.
+You can install a Pod network add-on with the following command on the
 control-plane node or a node that has the kubeconfig credentials:
 
 ```bash
@@ -578,7 +578,7 @@ match the kubeadm version with the versions of the control plane components, kub
 kubeadm can be used with Kubernetes components that are the same version as kubeadm
 or one version older. The Kubernetes version can be specified to kubeadm by using the
 `--kubernetes-version` flag of `kubeadm init` or the
-[`ClusterConfiguration.kubernetesVersion`](/docs/reference/config-api/kubeadm-config.v1beta3/)
+[`ClusterConfiguration.kubernetesVersion`](/docs/reference/config-api/kubeadm-config.v1beta4/)
 field when using `--config`. This option will control the versions
 of kube-apiserver, kube-controller-manager, kube-scheduler and kube-proxy.
 

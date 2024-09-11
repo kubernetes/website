@@ -1,23 +1,20 @@
 ---
-title: Cluster
+title: क्लस्टर
 id: cluster
 date: 2019-06-15
 full_link: 
 short_description: >
-   A set of worker machines, called nodes, that run containerized applications. Every cluster has at least one worker node.
+  वर्कर मशीनों का एक समूह, जिन्हें नोड्स भी कहा जाता है, जो कंटेनरीकृत एप्लिकेशन्स चलाते हैं। हर क्लस्टर में कम से कम एक वर्कर नोड होता है।
 
 aka: 
 tags:
 - fundamental
 - operation
 ---
-A set of worker machines, called {{< glossary_tooltip text="nodes" term_id="node" >}},
-that run containerized applications. Every cluster has at least one worker node.
+वर्कर मशीनों का एक समूह, जिन्हें {{< glossary_tooltip text="नोड्स" term_id="node" >}} भी कहा जाता है,
+जो कंटेनरीकृत एप्लिकेशन्स चलाते हैं। हर क्लस्टर में कम से कम एक वर्कर नोड होता है।
 
 <!--more-->
-The worker node(s) host the {{< glossary_tooltip text="Pods" term_id="pod" >}} that are
-the components of the application workload. The
-{{< glossary_tooltip text="control plane" term_id="control-plane" >}} manages the worker
-nodes and the Pods in the cluster. In production environments, the control plane usually
-runs across multiple computers and a cluster usually runs multiple nodes, providing
-fault-tolerance and high availability.
+वर्कर मशीन {{< glossary_tooltip text="पॉड्स" term_id="pod" >}} को होस्ट करते है जो कि एप्लिकेशन वर्कलोड के घटक हैं।  
+{{< glossary_tooltip text="कंट्रोल प्लेन" term_id="control-plane" >}} क्लस्टर में वर्कर नोड्स और पॉड्स का प्रबंधन करता है। एक प्रोडक्शन वातावरण में, कंट्रोल प्लेन आमतौर पर
+कई कंप्यूटरों पर चलता है और एक क्लस्टर आमतौर पर कई नोड्स चलाता है, जो बिना किसी विफलता के और उच्च उपलब्धता प्रदान करता है।

@@ -17,6 +17,8 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.28"  
+    toVersion: "1.29" 
+removed: true
 ---
 Enable the kube-proxy to handle terminating
 endpoints when `ExternalTrafficPolicy=Local`.

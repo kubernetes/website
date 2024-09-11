@@ -62,6 +62,8 @@ TokenReviewSpec is a description of the token authentication request.
 
 - **audiences** ([]string)
 
+  *Atomic: will be replaced during a merge*
+  
   Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
 
 - **token** (string)
@@ -80,6 +82,8 @@ TokenReviewStatus is the result of the token authentication request.
 
 - **audiences** ([]string)
 
+  *Atomic: will be replaced during a merge*
+  
   Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
 
 - **authenticated** (boolean)
@@ -103,6 +107,8 @@ TokenReviewStatus is the result of the token authentication request.
 
   - **user.groups** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     The names of groups this user is a part of.
 
   - **user.uid** (string)
@@ -137,6 +143,16 @@ POST /apis/authentication.k8s.io/v1/tokenreviews
 #### Parameters
 
 
+- ****: 
+
+  
+
+
+- ****: 
+
+  
+
+
 - **body**: <a href="{{< ref "../authentication-resources/token-review-v1#TokenReview" >}}">TokenReview</a>, required
 
   
@@ -147,19 +163,9 @@ POST /apis/authentication.k8s.io/v1/tokenreviews
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
 - **fieldValidation** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 

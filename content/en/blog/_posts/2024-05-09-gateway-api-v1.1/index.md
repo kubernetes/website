@@ -33,6 +33,7 @@ session persistence and client certificate verification.
 ## What's new
 
 ### Graduation to Standard
+
 This release includes the graduation to Standard of four eagerly awaited features.
 This means they are no longer experimental concepts; inclusion in the Standard
 release channel denotes a high level of confidence in the API surface and
@@ -43,22 +44,21 @@ refinements and improvements to these new features in the future.
 For more information on how all of this works, refer to the
 [Gateway API Versioning Policy](https://gateway-api.sigs.k8s.io/concepts/versioning/).
 
-
 #### [Service Mesh Support](https://gateway-api.sigs.k8s.io/mesh/)
+
 Service mesh support in Gateway API allows service mesh users to use the same
 API to manage ingress traffic and mesh traffic, reusing the same policy and
 routing interfaces. In Gateway API v1.1, routes (such as HTTPRoute) can now have
 a Service as a `parentRef`, to control how traffic to specific services behave.
-For more information, read the 
+For more information, read the
 [Gateway API service mesh documentation](https://gateway-api.sigs.k8s.io/mesh/)
 or see the
-[list of Gateway API implementations
-](https://gateway-api.sigs.k8s.io/implementations/#service-mesh-implementation-status).
+[list of Gateway API implementations](https://gateway-api.sigs.k8s.io/implementations/#service-mesh-implementation-status).
 
 As an example, one could do a canary deployment of a workload deep in an
 application's call graph with an HTTPRoute as follows:
 
-```
+```yaml
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -79,21 +79,21 @@ spec:
       port: 80
       weight: 50
 ```
-      
+
 This would split traffic sent to the `color` Service in the `faces` namespace
 50/50 between the original `color` Service and the `color2` Service, using a
 portable configuration that's easy to move from one mesh to another.
 
-
 #### [GRPCRoute](https://gateway-api.sigs.k8s.io/guides/grpc-routing/)
+
 If you are already using the experimental version of GRPCRoute, we recommend holding
 off on upgrading to the standard channel version of GRPCRoute until the
 controllers you're using have been updated to support GRPCRoute v1. Until then,
 it is safe to upgrade to the experimental channel version of GRPCRoute in v1.1
 that includes both v1alpha2 and v1 API versions.
 
-
 #### [ParentReference Port](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io%2fv1.ParentReference)
+
 The `port` field was added to ParentReference, allowing you to attach resources
 to Gateway Listeners, Services, or other parent resources
 (depending on the implementation). Binding to a port also allows you to attach
@@ -102,9 +102,8 @@ to multiple Listeners at once.
 For example, you can attach an HTTPRoute to one or more specific Listeners of a
 Gateway as specified by the Listener `port`, instead of the Listener `name` field.
 
-For more information, see [Attaching to Gateways.
-](https://gateway-api.sigs.k8s.io/api-types/httproute/#attaching-to-gateways)
-
+For more information, see
+[Attaching to Gateways](https://gateway-api.sigs.k8s.io/api-types/httproute/#attaching-to-gateways).
 
 #### [Conformance Profiles and Reports](https://gateway-api.sigs.k8s.io/concepts/conformance/#conformance-profiles)
 
@@ -115,7 +114,6 @@ now filled in automatically by the suite machinery, along with a brief
 description of the testing outcome. The Reports have been reorganized in a more
 structured way, and the implementations can now add information on how the tests
 have been run and provide reproduction steps.
-
 
 ### New additions to Experimental channel
 
@@ -130,7 +128,7 @@ The following example shows how the CACertificate stored in
 the `foo-example-com-ca-cert` ConfigMap can be used to validate the certificates
 presented by clients connecting to the `foo-https` Gateway Listener.
 
-```
+```yaml
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
@@ -156,7 +154,8 @@ spec:
 
 #### [Session Persistence and BackendLBPolicy](https://gateway-api.sigs.k8s.io/geps/gep-1619/)
 
-[Session Persistence](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io%2fv1.SessionPersistence) is being introduced to Gateway API via a new policy
+[Session Persistence](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io%2fv1.SessionPersistence)
+is being introduced to Gateway API via a new policy
 ([BackendLBPolicy](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1alpha2.BackendLBPolicy))
 for Service-level configuration and as fields within HTTPRoute
 and GRPCRoute for route-level configuration. The BackendLBPolicy and route-level
@@ -168,7 +167,7 @@ session persistence for the `foo` service. It sets the session name to
 `foo-session`, defines absolute and idle timeouts, and configures the cookie to
 be a session cookie:
 
-```
+```yaml
 apiVersion: gateway.networking.k8s.io/v1alpha2
 kind: BackendLBPolicy
 metadata:
@@ -201,16 +200,15 @@ newer version.
 
 Any references to v1alpha2 BackendTLSPolicy fields will need to be updated to
 v1alpha3. Specific changes to fields include:
+
 - `targetRef` becomes `targetRefs` to allow a BackendTLSPolicy to attach to
-multiple targets
+  multiple targets
 - `tls` becomes `validation`
 - `tls.caCertRefs` becomes `validation.caCertificateRefs`
 - `tls.wellKnownCACerts` becomes `validation.wellKnownCACertificates`
 
-
 For a full list of the changes included in this release, please refer to the
-[v1.1.0 release notes.
-](https://github.com/kubernetes-sigs/gateway-api/releases/tag/v1.1.0)
+[v1.1.0 release notes](https://github.com/kubernetes-sigs/gateway-api/releases/tag/v1.1.0).
 
 ## Gateway API background
 
@@ -219,11 +217,9 @@ at the 2019 KubeCon San Diego as the next generation
 of Ingress API. Since then, an incredible community has formed to develop what
 has likely become the
 [most collaborative API in Kubernetes history](https://www.youtube.com/watch?v=V3Vu_FWb4l4).
-Over 200 people have contributed to this API so far, and that number continues
-to grow.
+Over 200 people have contributed to this API so far, and that number continues to grow.
 
-The maintainers
-would like to thank _everyone_ who's contributed to Gateway API, whether in the
+The maintainers would like to thank _everyone_ who's contributed to Gateway API, whether in the
 form of commits to the repo, discussion, ideas, or general support. We literally
 couldn't have gotten this far without the support of this dedicated and active
 community.
@@ -242,17 +238,18 @@ To try out the API, follow our [Getting Started Guide](https://gateway-api.sigs.
 There are lots of opportunities to get involved and help define the future of
 Kubernetes routing APIs for both ingress and service mesh.
 
-* Check out the [user guides](https://gateway-api.sigs.k8s.io/guides) to see what use-cases can be addressed. 
-* Try out one of the [existing Gateway controllers](https://gateway-api.sigs.k8s.io/implementations/)
+* Check out the [user guides](https://gateway-api.sigs.k8s.io/guides) to see what use-cases can be addressed.
+* Try out one of the [existing Gateway controllers](https://gateway-api.sigs.k8s.io/implementations/).
 * Or [join us in the community](https://gateway-api.sigs.k8s.io/contributing/)
-and help us build the future of Gateway API together!
+  and help us build the future of Gateway API together!
 
 ## Related Kubernetes blog articles
+
 * [New Experimental Features in Gateway API v1.0](/blog/2023/11/28/gateway-api-ga/)
-11/2023
+  11/2023
 * [Gateway API v1.0: GA Release](/blog/2023/10/31/gateway-api-ga/)
-10/2023
+  10/2023
 * [Introducing ingress2gateway; Simplifying Upgrades to Gateway API](/blog/2023/10/25/introducing-ingress2gateway/)
-10/2023
+  10/2023
 * [Gateway API v0.8.0: Introducing Service Mesh Support](/blog/2023/08/29/gateway-api-v0-8/)
-08/2023
+  08/2023

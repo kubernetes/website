@@ -750,7 +750,7 @@ validations are not supported by ratcheting under the implementation in Kubernet
   - `not`
   -  any validations in a descendent of one of these fields
 - `x-kubernetes-validations`
-  For Kubernetes 1.28, CRD validation rules](#validation-rules) are ignored by
+  For Kubernetes 1.28, CRD [validation rules](#validation-rules) are ignored by
   ratcheting. Starting with Alpha 2 in Kubernetes 1.29, `x-kubernetes-validations`
   are ratcheted only if they do not refer to `oldSelf`.
 
@@ -1247,8 +1247,7 @@ Unlike other rules, transition rules apply only to operations meeting the follow
   later update to the same object.
 
 Errors will be generated on CRD writes if a schema node contains a transition rule that can never be
-applied, e.g. "*path*: update rule *rule* cannot be set on schema because the schema or its parent
-schema is not mergeable".
+applied, e.g. "oldSelf cannot be used on the uncorrelatable portion of the schema within *path*".
 
 Transition rules are only allowed on _correlatable portions_ of a schema.
 A portion of the schema is correlatable if all `array` parent schemas are of type `x-kubernetes-list-type=map`;
@@ -1630,6 +1629,45 @@ my-new-cron-object   * * * * *   1          7s
 The `NAME` column is implicit and does not need to be defined in the CustomResourceDefinition.
 {{< /note >}}
 
+
+#### Priority
+
+Each column includes a `priority` field. Currently, the priority
+differentiates between columns shown in standard view or wide view (using the `-o wide` flag).
+
+- Columns with priority `0` are shown in standard view.
+- Columns with priority greater than `0` are shown only in wide view.
+
+#### Type
+
+A column's `type` field can be any of the following (compare
+[OpenAPI v3 data types](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)):
+
+- `integer` – non-floating-point numbers
+- `number` – floating point numbers
+- `string` – strings
+- `boolean` – `true` or `false`
+- `date` – rendered differentially as time since this timestamp.
+
+If the value inside a CustomResource does not match the type specified for the column,
+the value is omitted. Use CustomResource validation to ensure that the value
+types are correct.
+
+#### Format
+
+A column's `format` field can be any of the following:
+
+- `int32`
+- `int64`
+- `float`
+- `double`
+- `byte`
+- `date`
+- `date-time`
+- `password`
+
+The column's `format` controls the style used when `kubectl` prints the value.
+
 ### Field selectors
 
 [Field Selectors](/docs/concepts/overview/working-with-objects/field-selectors/)
@@ -1645,16 +1683,16 @@ may also be used with field selectors when included in the `spec.versions[*].sel
 
 #### Selectable fields for custom resources {#crd-selectable-fields}
 
-{{< feature-state state="alpha" for_k8s_version="v1.30" >}}
 {{< feature-state feature_gate_name="CustomResourceFieldSelectors" >}}
 
-You need to enable the `CustomResourceFieldSelectors`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
-use this behavior, which then applies to all CustomResourceDefinitions in your
-cluster.
-
+For Kubernetes {{< skew currentVersion >}} the ability to define field selectors for
+custom resources is available by default (enabled by default since Kubernetes v1.31);
+you can disable it for your cluster  by turning off the `CustomResourceFieldSelectors`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 The `spec.versions[*].selectableFields` field of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be used to
-declare which other fields in a custom resource may be used in field selectors.
+declare which other fields in a custom resource may be used in field selectors
+with the feature of `CustomResourceFieldSelectors`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) (This feature gate is enabled by default since Kubernetes v1.31).
 The following example adds the `.spec.color` and `.spec.size` fields as
 selectable fields.
 
@@ -1719,44 +1757,6 @@ Should output:
 NAME       COLOR  SIZE
 example2   blue   M
 ```
-
-#### Priority
-
-Each column includes a `priority` field. Currently, the priority
-differentiates between columns shown in standard view or wide view (using the `-o wide` flag).
-
-- Columns with priority `0` are shown in standard view.
-- Columns with priority greater than `0` are shown only in wide view.
-
-#### Type
-
-A column's `type` field can be any of the following (compare
-[OpenAPI v3 data types](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)):
-
-- `integer` – non-floating-point numbers
-- `number` – floating point numbers
-- `string` – strings
-- `boolean` – `true` or `false`
-- `date` – rendered differentially as time since this timestamp.
-
-If the value inside a CustomResource does not match the type specified for the column,
-the value is omitted. Use CustomResource validation to ensure that the value
-types are correct.
-
-#### Format
-
-A column's `format` field can be any of the following:
-
-- `int32`
-- `int64`
-- `float`
-- `double`
-- `byte`
-- `date`
-- `date-time`
-- `password`
-
-The column's `format` controls the style used when `kubectl` prints the value.
 
 ### Subresources
 

@@ -241,18 +241,6 @@ the `cgroupDriver` field under `KubeletConfiguration`, kubeadm defaults it to `s
 {{< /note >}}
 
 <!--
-In Kubernetes v1.28, with the `KubeletCgroupDriverFromCRI`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled and a container runtime that supports the `RuntimeConfig` CRI RPC,
-the kubelet automatically detects the appropriate cgroup driver from the runtime,
-and ignores the `cgroupDriver` setting within the kubelet configuration.
--->
-在 Kubernetes v1.28 中，启用 `KubeletCgroupDriverFromCRI`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)结合支持
-`RuntimeConfig` CRI RPC 的容器运行时，kubelet 会自动从运行时检测适当的 Cgroup
-驱动程序，并忽略 kubelet 配置中的 `cgroupDriver` 设置。
-
-<!--
 If you configure `systemd` as the cgroup driver for the kubelet, you must also
 configure `systemd` as the cgroup driver for the container runtime. Refer to
 the documentation for your container runtime for instructions. For example:
@@ -262,6 +250,18 @@ the documentation for your container runtime for instructions. For example:
 
 *  [containerd](#containerd-systemd)
 *  [CRI-O](#cri-o)
+
+<!--
+In Kubernetes {{< skew currentVersion >}}, with the `KubeletCgroupDriverFromCRI`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled and a container runtime that supports the `RuntimeConfig` CRI RPC,
+the kubelet automatically detects the appropriate cgroup driver from the runtime,
+and ignores the `cgroupDriver` setting within the kubelet configuration.
+-->
+在 Kubernetes {{< skew currentVersion >}} 中，启用 `KubeletCgroupDriverFromCRI`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)结合支持
+`RuntimeConfig` CRI RPC 的容器运行时，kubelet 会自动从运行时检测适当的 Cgroup
+驱动程序，并忽略 kubelet 配置中的 `cgroupDriver` 设置。
 
 {{< caution >}}
 <!--
@@ -473,11 +473,11 @@ and not require this setting on kubelet any longer.
 <!--
 This section contains the necessary steps to install CRI-O as a container runtime.
 
-To install CRI-O, follow [CRI-O Install Instructions](https://github.com/cri-o/cri-o/blob/main/install.md#readme).
+To install CRI-O, follow [CRI-O Install Instructions](https://github.com/cri-o/packaging/blob/main/README.md#usage).
 -->
 本节包含安装 CRI-O 作为容器运行时的必要步骤。
 
-要安装 CRI-O，请按照 [CRI-O 安装说明](https://github.com/cri-o/cri-o/blob/main/install.md#readme)执行操作。
+要安装 CRI-O，请按照 [CRI-O 安装说明](https://github.com/cri-o/packaging/blob/main/README.md#usage)执行操作。
 
 <!--
 #### cgroup driver

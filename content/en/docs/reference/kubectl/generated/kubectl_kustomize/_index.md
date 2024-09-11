@@ -79,10 +79,24 @@ kubectl kustomize DIR [flags]
 </tr>
 
 <tr>
+<td colspan="2">--helm-api-versions strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Kubernetes api versions used by Helm for Capabilities.APIVersions</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--helm-command string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "helm"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>helm command (path to executable)</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--helm-kube-version string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Kubernetes version used by Helm for Capabilities.KubeVersion</p></td>
 </tr>
 
 <tr>
@@ -188,20 +202,6 @@ kubectl kustomize DIR [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a client key file for TLS</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks</p></td>
 </tr>
 
 <tr>

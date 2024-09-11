@@ -33,6 +33,36 @@ Kubernetes API 中不使用以下注解。当你在集群中[启用审计](/zh-c
 {{</note>}}
 
 <!-- body -->
+
+<!--
+## k8s.io/deprecated
+
+Example: `k8s.io/deprecated: "true"`
+
+Value **must** be "true" or "false". The value "true" indicates that the
+request used a deprecated API version.
+-->
+## k8s.io/deprecated {#k8s-io-deprecated}
+
+例子：`k8s.io/deprecated: "true"`
+
+值**必须**为 "true" 或 "false"。值为 "true" 时表示该请求使用了已弃用的 API 版本。
+
+<!--
+## k8s.io/removed-release
+
+Example: `k8s.io/removed-release: "1.22"`
+
+Value **must** be in the format "<major>.<minor>". It is set to target the removal release
+on requests made to deprecated API versions with a target removal release.
+-->
+## k8s.io/removed-release {#k8s-io-removed-release} 
+
+例子：`k8s.io/removed-release: "1.22"`
+
+值**必须**为 "<major>.<minor>" 的格式。当请求使用了已弃用的 API 版本时，
+该值会被设置为目标移除的版本。
+
 <!--
 ## pod-security.kubernetes.io/exempt
 

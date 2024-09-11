@@ -833,6 +833,7 @@ them. The list of masked and read-only paths are as follows:
   - `/proc/sched_debug`
   - `/proc/scsi`
   - `/sys/firmware`
+  - `/sys/devices/virtual/powercap`
 
 <!--
 - Read-Only Paths:

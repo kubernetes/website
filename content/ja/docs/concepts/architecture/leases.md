@@ -18,7 +18,7 @@ Kubernetesでは、kubeletのノードハートビートをKubernetes APIサー�
 内部的には、kubeletのハートビートはこの`Lease`オブジェクトに対するUPDATEリクエストであり、Leaseの`spec.renewTime`フィールドを更新しています。
 Kubernetesのコントロールプレーンはこのフィールドのタイムスタンプを見て、`Node`が利用可能かを判断しています。
 
-詳しくは[Node Leaseオブジェクト](/ja/docs/concepts/architecture/nodes/#heartbeats)をご覧ください。
+詳しくは[Node Leaseオブジェクト](/ja/docs/concepts/architecture/nodes/#node-heartbeats)をご覧ください。
 
 ## リーダー選出
 

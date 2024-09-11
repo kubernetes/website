@@ -11,11 +11,11 @@ weight: 20
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
 Bootstrap tokens are a simple bearer token that is meant to be used when
-creating new clusters or joining new nodes to an existing cluster.  It was built
-to support [kubeadm](/docs/reference/setup-tools/kubeadm/), but can be used in other contexts
+creating new clusters or joining new nodes to an existing cluster.
+It was built to support [kubeadm](/docs/reference/setup-tools/kubeadm/), but can be used in other contexts
 for users that wish to start clusters without `kubeadm`. It is also built to
 work, via RBAC policy, with the
-[Kubelet TLS Bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/) system.
+[kubelet TLS Bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/) system.
 
 
 <!-- body -->
@@ -23,19 +23,19 @@ work, via RBAC policy, with the
 
 Bootstrap Tokens are defined with a specific type
 (`bootstrap.kubernetes.io/token`) of secrets that lives in the `kube-system`
-namespace.  These Secrets are then read by the Bootstrap Authenticator in the
-API Server.  Expired tokens are removed with the TokenCleaner controller in the
-Controller Manager.  The tokens are also used to create a signature for a
+namespace. These Secrets are then read by the Bootstrap Authenticator in the
+API Server. Expired tokens are removed with the TokenCleaner controller in the
+Controller Manager. The tokens are also used to create a signature for a
 specific ConfigMap used in a "discovery" process through a BootstrapSigner
 controller.
 
 ## Token Format
 
-Bootstrap Tokens take the form of `abcdef.0123456789abcdef`.  More formally,
-they must match the regular expression `[a-z0-9]{6}\.[a-z0-9]{16}`.
+Bootstrap Tokens take the form of `abcdef.0123456789abcdef`.
+More formally, they must match the regular expression `[a-z0-9]{6}\.[a-z0-9]{16}`.
 
 The first part of the token is the "Token ID" and is considered public
-information.  It is used when referring to a token without leaking the secret
+information. It is used when referring to a token without leaking the secret
 part used for authentication. The second part is the "Token Secret" and should
 only be shared with trusted parties.
 
@@ -56,8 +56,8 @@ Authorization: Bearer 07401b.f395accd246ae52d
 ```
 
 Tokens authenticate as the username `system:bootstrap:<token id>` and are members
-of the group `system:bootstrappers`.  Additional groups may be specified in the
-token's Secret.
+of the group `system:bootstrappers`. 
+Additional groups may be specified in the token's Secret.
 
 Expired tokens can be deleted automatically by enabling the `tokencleaner`
 controller on the controller manager.
@@ -68,7 +68,7 @@ controller on the controller manager.
 
 ## Bootstrap Token Secret Format
 
-Each valid token is backed by a secret in the `kube-system` namespace.  You can
+Each valid token is backed by a secret in the `kube-system` namespace. You can
 find the full design doc
 [here](https://git.k8s.io/design-proposals-archive/cluster-lifecycle/bootstrap-discovery.md).
 
@@ -104,20 +104,19 @@ stringData:
 ```
 
 The type of the secret must be `bootstrap.kubernetes.io/token` and the name must
-be `bootstrap-token-<token id>`.  It must also exist in the `kube-system`
-namespace.
+be `bootstrap-token-<token id>`. It must also exist in the `kube-system` namespace.
 
-The `usage-bootstrap-*` members indicate what this secret is intended to be used
-for.  A value must be set to `true` to be enabled.
+The `usage-bootstrap-*` members indicate what this secret is intended to be used for.
+A value must be set to `true` to be enabled.
 
 * `usage-bootstrap-authentication` indicates that the token can be used to
 authenticate to the API server as a bearer token.
 * `usage-bootstrap-signing` indicates that the token may be used to sign the
 `cluster-info` ConfigMap as described below.
 
-The `expiration` field controls the expiry of the token.  Expired tokens are
+The `expiration` field controls the expiry of the token. Expired tokens are
 rejected when used for authentication and ignored during ConfigMap signing.
-The expiry value is encoded as an absolute UTC time using RFC3339.  Enable the
+The expiry value is encoded as an absolute UTC time using RFC3339. Enable the
 `tokencleaner` controller to automatically delete expired tokens.
 
 ## Token Management with kubeadm
@@ -127,9 +126,9 @@ You can use the `kubeadm` tool to manage tokens on a running cluster. See the
 
 ## ConfigMap Signing
 
-In addition to authentication, the tokens can be used to sign a ConfigMap.  This
-is used early in a cluster bootstrap process before the client trusts the API
-server.  The signed ConfigMap can be authenticated by the shared token.
+In addition to authentication, the tokens can be used to sign a ConfigMap.
+This is used early in a cluster bootstrap process before the client trusts the API
+server. The signed ConfigMap can be authenticated by the shared token.
 
 Enable ConfigMap signing by enabling the `bootstrapsigner` controller on the
 Controller Manager.
@@ -140,7 +139,7 @@ Controller Manager.
 
 The ConfigMap that is signed is `cluster-info` in the `kube-public` namespace.
 The typical flow is that a client reads this ConfigMap while unauthenticated and
-ignoring TLS errors.  It then validates the payload of the ConfigMap by looking
+ignoring TLS errors. It then validates the payload of the ConfigMap by looking
 at a signature embedded in the ConfigMap.
 
 The ConfigMap may look like this:
@@ -168,15 +167,15 @@ data:
 ```
 
 The `kubeconfig` member of the ConfigMap is a config file with only the cluster
-information filled out.  The key thing being communicated here is the
-`certificate-authority-data`.  This may be expanded in the future.
+information filled out. The key thing being communicated here is the
+`certificate-authority-data`. This may be expanded in the future.
 
-The signature is a JWS signature using the "detached" mode.  To validate the
+The signature is a JWS signature using the "detached" mode. To validate the
 signature, the user should encode the `kubeconfig` payload according to JWS
-rules (base64 encoded while discarding any trailing `=`).  That encoded payload
-is then used to form a whole JWS by inserting it between the 2 dots.  You can
+rules (base64 encoded while discarding any trailing `=`). That encoded payload
+is then used to form a whole JWS by inserting it between the 2 dots. You can
 verify the JWS using the `HS256` scheme (HMAC-SHA256) with the full token (e.g.
-`07401b.f395accd246ae52d`) as the shared secret.  Users _must_ verify that HS256
+`07401b.f395accd246ae52d`) as the shared secret. Users _must_ verify that HS256
 is used.
 
 {{< warning >}}
@@ -188,4 +187,3 @@ client relying on the signature to bootstrap TLS trust.
 
 Consult the [kubeadm implementation details](/docs/reference/setup-tools/kubeadm/implementation-details/)
 section for more information.
-

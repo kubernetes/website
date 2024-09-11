@@ -132,9 +132,9 @@ service/php-apache created
 <!--
 ## Create the HorizontalPodAutoscaler {#create-horizontal-pod-autoscaler}
 
-Now that the server is running, create the autoscaler using `kubectl`. There is
+Now that the server is running, create the autoscaler using `kubectl`. The
 [`kubectl autoscale`](/docs/reference/generated/kubectl/kubectl-commands#autoscale) subcommand,
-part of `kubectl`, that helps you do this.
+part of `kubectl`, helps you do this.
 
 You will shortly run a command that creates a HorizontalPodAutoscaler that maintains
 between 1 and 10 replicas of the Pods controlled by the php-apache Deployment that
@@ -420,12 +420,12 @@ status:
 Notice that the `targetCPUUtilizationPercentage` field has been replaced with an array called `metrics`.
 The CPU utilization metric is a *resource metric*, since it is represented as a percentage of a resource
 specified on pod containers.  Notice that you can specify other resource metrics besides CPU.  By default,
-the only other supported resource metric is memory.  These resources do not change names from cluster
+the only other supported resource metric is `memory`.  These resources do not change names from cluster
 to cluster, and should always be available, as long as the `metrics.k8s.io` API is available.
 -->
 需要注意的是，`targetCPUUtilizationPercentage` 字段已经被名为 `metrics` 的数组所取代。
 CPU 利用率这个度量指标是一个 **resource metric**（资源度量指标），因为它表示容器上指定资源的百分比。
-除 CPU 外，你还可以指定其他资源度量指标。默认情况下，目前唯一支持的其他资源度量指标为内存。
+除 CPU 外，你还可以指定其他资源度量指标。默认情况下，目前唯一支持的其他资源度量指标为 `memory`。
 只要 `metrics.k8s.io` API 存在，这些资源度量指标就是可用的，并且他们不会在不同的 Kubernetes 集群中改变名称。
 
 <!--
@@ -436,6 +436,16 @@ setting the corresponding `target.averageValue` field instead of the `target.ave
 你还可以指定资源度量指标使用绝对数值，而不是百分比，你需要将 `target.type` 从
 `Utilization` 替换成 `AverageValue`，同时设置 `target.averageValue`
 而非 `target.averageUtilization` 的值。
+
+```
+  metrics:
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: AverageValue
+        averageValue: 500Mi
+```
 
 <!--
 There are two other types of metrics, both of which are considered *custom metrics*: pod metrics and

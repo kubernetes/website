@@ -117,10 +117,10 @@ credspec:
   DomainJoinConfig:
     DnsName: contoso.com  # DNS Domain Name
     DnsTreeName: contoso.com # DNS Domain Name Root
-    Guid: 244818ae-87ac-4fcd-92ec-e79e5252348a  # GUID
+    Guid: 244818ae-87ac-4fcd-92ec-e79e5252348a  # GUID of the Domain
     MachineAccountName: WebApp1 # Username of the GMSA account
     NetBiosName: CONTOSO  # NETBIOS Domain Name
-    Sid: S-1-5-21-2126449477-2524075714-3094792973 # SID of GMSA
+    Sid: S-1-5-21-2126449477-2524075714-3094792973 # SID of the Domain
 ```
 
 The above credential spec resource may be saved as `gmsa-Webapp1-credspec.yaml`
@@ -270,7 +270,7 @@ If you are having difficulties getting GMSA to work in your environment,
 there are a few troubleshooting steps you can take.
 
 First, make sure the credspec has been passed to the Pod. To do this you will need
-to `exec` into one of your Pods and check the output of the `nltest.exe /parentdomain` command.  
+to `exec` into one of your Pods and check the output of the `nltest.exe /parentdomain` command.
 
 In the example below the Pod did not get the credspec correctly:
 

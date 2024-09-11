@@ -142,6 +142,13 @@ spec:
         memory: 100Mi
 ```
 
+{{< note >}}
+<!--
+If only `limits` are specified in the pod definition, kubelet will deduce `requests` from those limits and set them to be the same as the defined `limits`.
+-->
+如果在 Pod 定义中只设置了 `limits`，kubelet 将根据 limits 推断 `requests`，并将其设置与 limits 相同的值。
+{{< /note >}}
+
 <!--
 At admission time the RuntimeClass [admission controller](/docs/reference/access-authn-authz/admission-controllers/)
 updates the workload's PodSpec to include the `overhead` as described in the RuntimeClass. If the PodSpec already has this field defined,

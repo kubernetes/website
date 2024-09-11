@@ -1,17 +1,14 @@
 ---
-title: 运行应用程序的多个实例
+title: 运行多实例的应用
 weight: 10
 description: |-
-  使用 kubectl 扩缩现有的应用程序
+  使用 kubectl 手动扩缩现有的应用
 ---
-
 <!--
----
 title: Running Multiple Instances of Your App
 weight: 10
 description: |-
   Scale an existing app manually using kubectl.
----
 -->
 
 <!DOCTYPE html>
@@ -31,13 +28,13 @@ description: |-
           <h3>目标</h3>
                 <ul>
                     <!-- <li>Scale an app using kubectl.</li> -->
-                    <li>用 kubectl 扩缩应用程序</li>
+                    <li>用 kubectl 扩缩应用</li>
                 </ul>
             </div>
 
             <div class="col-md-8">
        <!-- <h3>Scaling an application</h3> -->
-       <h3>扩缩应用程序</h3>
+       <h3>扩缩应用</h3>
 
             <!--
             <p>Previously we created a <a href="/docs/concepts/workloads/controllers/deployment/"> Deployment</a>, and then exposed it publicly via a <a href="/docs/concepts/services-networking/service/">Service</a>. The Deployment created only one Pod for running our application.  When traffic increases, we will need to scale the application to keep up with user demand.</p>
@@ -45,19 +42,14 @@ description: |-
             -->
             <p>之前我们创建了一个 <a href="/zh-cn/docs/concepts/workloads/controllers/deployment/"> Deployment</a>，
               然后通过 <a href="/zh-cn/docs/concepts/services-networking/service/">Service</a> 让其可以公开访问。
-              Deployment 仅创建了一个 Pod 用于运行这个应用程序。当流量增加时，我们需要扩容应用程序满足用户需求。</p>
-            <p>如果你还没有学习过之前的章节, 从 <a href="/zh-cn/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">使用 Minikube 创建集群</a> 开始。</p>
+              Deployment 仅创建了一个 Pod 用于运行这个应用。当流量增加时，我们需要扩容应用满足用户需求。</p>
+            <p>如果你还没有学习过之前的章节，
+              从<a href="/zh-cn/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">使用 Minikube 创建集群</a>开始。</p>
 
             <!--
             <p><em>Scaling</em> is accomplished by changing the number of replicas in a Deployment</p>
-            <p>If you are trying this after <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/">the previous section</a>, you may have deleted the Service exposing the Deployment. In that case, please expose the Deployment again using the following command:</p><p><code><b>kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080</b></code></p>
             -->
-            <p><b>扩缩</b> 是通过改变 Deployment 中的副本数量来实现的。</p>
-              {{< note >}}
-              <p>如果你是在 <a href="/zh-cn/docs/tutorials/kubernetes-basics/expose/expose-intro/">上一节</a> 之后尝试此操作,
-                那么你可能已经删除了公开 Deployment 的 Service。在这种情况下，请使用以下命令再次公开 Deployment：</p>
-              <p><code><b>kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080</b></code></p>
-              {{< /note >}}
+            <p><b>扩缩</b>是通过改变 Deployment 中的副本数量来实现的。</p>
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_lined">
@@ -79,40 +71,67 @@ description: |-
         <br>
 
         <div class="row">
-            <div class="col-md-8">
-                <!-- <h2 style="color: #3771e3;">Scaling overview</h2> -->
-                <h2 style="color: #3771e3;">扩缩概述</h2>
-            </div>
+          <div class="col-md-12">
+            {{< note >}}
+
+              <!--
+              <p>If you are trying this after <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/">the previous section </a>, then you
+              may have deleted the service you created, or have created a Service of <tt>type: NodePort</tt>.
+              In this section, it is assumed that a service with <tt>type: LoadBalancer</tt> is created for the kubernetes-bootcamp Deployment.</p>
+              -->
+              <p>
+              如果你是在<a href="/zh-cn/docs/tutorials/kubernetes-basics/expose/expose-intro/">上一节</a>之后尝试此操作,
+              那么你可能已经删除了你创建的服务或已创建了 <tt>type: NodePort</tt> 类别的 Service。
+              在本节中，假设为 kubernetes-bootcamp Deployment 创建了 <tt>type: LoadBalancer</tt> 类别的 Service。
+              </p>
+              <!--
+              <p>If you have <em>not</em> deleted the Service created in <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro">the previous section</a>,
+              first delete that Service and then run the following command to create a new Service with its
+              <tt>type</tt> set to <tt>LoadBalancer</tt>:</p>
+              -->
+              <p>如果你<b>没有</b>删除在<a href="/zh-cn/docs/tutorials/kubernetes-basics/expose/expose-intro">前一节</a>中创建的 Service，
+              请先删除该 Service，然后运行以下命令来创建一个新的 <tt>type</tt> 设置为 <tt>LoadBalancer</tt> 的 Service：</p>
+              <p><code><b>kubectl expose deployment/kubernetes-bootcamp --type="LoadBalancer" --port 8080</b></code></p>
+
+            {{< /note >}}
+          </div>
         </div>
 
         <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-8">
-                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
-                    <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="1"></li>
-                    </ol>
-                      <div class="carousel-inner" role="listbox">
-                        <div class="item carousel-item active">
-                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
-                        </div>
+          <div class="col-md-8">
+              <!-- <h2 style="color: #3771e3;">Scaling overview</h2> -->
+              <h2 style="color: #3771e3;">扩缩概述</h2>
+          </div>
+        </div>
 
-                        <div class="item carousel-item">
-                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
-                        </div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-8">
+              <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                  <ol class="carousel-indicators">
+                      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                      <li data-target="#myCarousel" data-slide-to="1"></li>
+                  </ol>
+                    <div class="carousel-inner" role="listbox">
+                      <div class="item carousel-item active">
+                        <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
                       </div>
 
-                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                        <span class="sr-only ">Previous</span>
-                      </a>
-                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                        <span class="sr-only">Next</span>
-                      </a>
-
+                      <div class="item carousel-item">
+                        <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
+                      </div>
                     </div>
-            </div>
-        </div>
+
+                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                      <span class="sr-only ">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                      <span class="sr-only">Next</span>
+                    </a>
+
+                  </div>
+          </div>
+      </div>
 
         <br>
 
@@ -130,7 +149,7 @@ description: |-
                 <!--
                 <p>Running multiple instances of an application will require a way to distribute the traffic to all of them. Services have an integrated load-balancer that will distribute network traffic to all Pods of an exposed Deployment. Services will monitor continuously the running Pods using endpoints, to ensure the traffic is sent only to available Pods.</p>
                 -->
-                <p>运行应用程序的多个实例，需要有方法在它们之间分配流量。Service 有一个集成的负载均衡器，
+                <p>运行多实例的应用，需要有方法在多个实例之间分配流量。Service 有一个集成的负载均衡器，
                   将网络流量分配到一个可公开访问的 Deployment 的所有 Pod 上。
                   服务将会一直通过端点来监视 Pod 的运行，保证流量只分配到可用的 Pod 上。</p>
 
@@ -153,7 +172,7 @@ description: |-
                 <p> Once you have multiple instances of an application running, you would be able to do Rolling updates without downtime. We'll cover that in the next section of the tutorial. Now, let's go to the terminal and scale our application.</p>
                 -->
                 <p>一旦有了多个应用实例，就可以进行滚动更新而无需停机。我们将会在教程的下一节介绍这些。
-                  现在让我们进入终端，来扩缩我们的应用程序。</p>
+                  现在让我们进入终端，来扩缩我们的应用。</p>
             </div>
         </div>
         <br>
@@ -190,8 +209,8 @@ kubernetes-bootcamp   1/1     1            1           11m
                <li><em>NAME</em> 列出 Deployment 在集群中的名称。</li>
                <li><em>READY</em> 显示当前/预期（CURRENT/DESIRED）副本数的比例。</li>
                <li><em>UP-TO-DATE</em> 显示为了达到预期状态，而被更新的副本的数量。</li>
-               <li><em>AVAILABLE</em> 显示应用程序有多少个副本对你的用户可用。</li>
-               <li><em>AGE</em> 显示应用程序的运行时间。</li>
+               <li><em>AVAILABLE</em> 显示应用有多少个副本对你的用户可用。</li>
+               <li><em>AGE</em> 显示应用的运行时间。</li>
                </ul>
                <!--
                <p>To see the ReplicaSet created by the Deployment, run:</p>
@@ -212,7 +231,7 @@ kubernetes-bootcamp   1/1     1            1           11m
                -->
                <p>该输出有两个重要的列是：</p>
                <ul>
-               <li><em>DESIRED</em> 显示了应用程序的预期副本数量，这是你在创建 Deployment 时定义的。这就是预期状态（desired state）。</li>
+               <li><em>DESIRED</em> 显示了应用的预期副本数量，这是你在创建 Deployment 时定义的。这就是预期状态（desired state）。</li>
                <li><em>CURRENT</em> 显示了当前正在运行的副本数量。</li>
                </ul>
                <!--
@@ -229,7 +248,7 @@ kubernetes-bootcamp   1/1     1            1           11m
                <!--
                <p>The change was applied, and we have 4 instances of the application available. Next, let’s check if the number of Pods changed:</p>
                -->
-               <p>更改已应用，我们有 4 个应用程序实例可用。接下来，让我们检查 Pod 的数量是否发生变化：</p>
+               <p>更改已应用，我们有 4 个应用实例可用。接下来，让我们检查 Pod 的数量是否发生变化：</p>
                <p><code><b>kubectl get pods -o wide</b></code></p>
                <!--
                <p>There are 4 Pods now, with different IP addresses. The change was registered in the Deployment events log. To check that, use the describe subcommand:</p>
@@ -286,7 +305,7 @@ kubernetes-bootcamp   1/1     1            1           11m
                   <code><b>minikube service kubernetes-bootcamp --url</b></code></p>
                 <p>输出看起来像这样：
                   <pre><b>http://127.0.0.1:51082<br>!  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.</b></pre></p>
-                <p>然后使用给定的 URL 访问应用程序：
+                <p>然后使用给定的 URL 访问应用：
                   <code><b>curl 127.0.0.1:51082</b></code></p>
                {{< /note >}}
             </div>

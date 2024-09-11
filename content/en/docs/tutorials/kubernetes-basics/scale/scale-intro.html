@@ -30,13 +30,6 @@ description: |-
             <p>If you haven't worked through the earlier sections, start from <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">Using minikube to create a cluster</a>.</p>
 
             <p><em>Scaling</em> is accomplished by changing the number of replicas in a Deployment</p>
-            <p><b>NOTE</b> If you are trying this after <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/">the previous section </a>, then you
-            may have deleted the service you created, or have created a Service of <tt>type: NodePort</tt>.
-            In this section, it is assumed that a service with <tt>type: LoadBalancer</tt> is created for the kubernetes-bootcamp Deployment.</p>
-            <p>If you have <em>not</em> deleted the Service created in <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro">the previous section</a>,
-            first delete that Service and then run the following command to create a new Service with its
-            <tt>type</tt> set to <tt>LoadBalancer</tt>:</p>
-            <p><code><b>kubectl expose deployment/kubernetes-bootcamp --type="LoadBalancer" --port 8080</b></code></p>
             </br>
             </div>
             <div class="col-md-4">
@@ -55,7 +48,13 @@ description: |-
         <div class="row">
           <div class="col-md-12">
             {{< note >}}
-            <p>If you are trying this after <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/">the previous section</a>, you may have deleted the Service exposing the Deployment. In that case, please expose the Deployment again using the following command:</p><p><code><b>kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080</b></code></p>
+              <p>If you are trying this after <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/">the previous section </a>, then you
+              may have deleted the service you created, or have created a Service of <tt>type: NodePort</tt>.
+              In this section, it is assumed that a service with <tt>type: LoadBalancer</tt> is created for the kubernetes-bootcamp Deployment.</p>
+              <p>If you have <em>not</em> deleted the Service created in <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro">the previous section</a>,
+              first delete that Service and then run the following command to create a new Service with its
+              <tt>type</tt> set to <tt>LoadBalancer</tt>:</p>
+              <p><code><b>kubectl expose deployment/kubernetes-bootcamp --type="LoadBalancer" --port 8080</b></code></p>
             {{< /note >}}
           </div>
         </div>

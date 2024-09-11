@@ -187,7 +187,7 @@ Caso você precise de ajuda em algum momento ao contribuir, os [Embaixadores par
 
 | Nome                       | Slack                      | GitHub                     |                   
 | -------------------------- | -------------------------- | -------------------------- |
-| Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
+| Sreeram Venkitesh                | @sreeram.venkitesh                      | @sreeram-venkitesh              |
 
 ## Traduções do `README.md`
 

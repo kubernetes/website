@@ -69,7 +69,7 @@ By default, Kubernetes fetches node summary metrics data using an embedded
 [cAdvisor](https://github.com/google/cadvisor) that runs within the kubelet. If you 
 enable the `PodAndContainerStatsFromCRI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
 in your cluster, and you use a container runtime that supports statistics access via
-{{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI), then
+{{< glossary_tooltip term_id="container-runtime-interface" text="Container Runtime Interface">}} (CRI), then
 the kubelet [fetches Pod- and container-level metric data using CRI](/docs/reference/instrumentation/cri-pod-container-metrics), and not via cAdvisor.
 -->
 ## 概要指标 API 源  {#summary-api-source}
@@ -77,9 +77,10 @@ the kubelet [fetches Pod- and container-level metric data using CRI](/docs/refer
 默认情况下，Kubernetes 使用 kubelet 内运行的嵌入式 [cAdvisor](https://github.com/google/cadvisor)
 获取节点概要指标数据。如果你在自己的集群中启用 `PodAndContainerStatsFromCRI`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-且你通过{{< glossary_tooltip term_id="cri" text="容器运行时接口">}} (CRI) 使用支持统计访问的容器运行时，
+且你通过{{< glossary_tooltip term_id="container-runtime-interface" text="容器运行时接口">}}（CRI）使用支持统计访问的容器运行时，
 则 kubelet [将使用 CRI 来获取 Pod 和容器级别的指标数据](/zh-cn/docs/reference/instrumentation/cri-pod-container-metrics)，
 而不是 cAdvisor 来获取。
+
 ## {{% heading "whatsnext" %}}
 
 <!--

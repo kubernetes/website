@@ -3,6 +3,8 @@ title: " Visualize Kubelet Performance with Node Dashboard "
 date: 2016-11-17
 slug: visualize-kubelet-performance-with-node-dashboard
 url: /blog/2016/11/Visualize-Kubelet-Performance-With-Node-Dashboard
+author: >
+  Zhou Fang (Google)
 ---
 
 _Since this article was published, the Node Performance Dashboard was retired and is no longer available._
@@ -114,10 +116,6 @@ The [node performance dashboard](http://node-perf-dash.k8s.io/) is a brand new f
 
 
 Please join our community and help us build the future of Kubernetes! If you’re particularly interested in nodes or performance testing, participate by chatting with us in our [Slack channel](https://kubernetes.slack.com/messages/sig-scale/) or join our meeting which meets every Tuesday at 10 AM PT on this [SIG-Node Hangout](https://github.com/kubernetes/community/tree/master/sig-node).
-
-
-
-_--Zhou Fang, Software Engineering Intern, Google_  
 
 
 - [Download](http://get.k8s.io/) Kubernetes

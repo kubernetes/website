@@ -191,13 +191,13 @@ percentageOfNodesToScore: 50
 <!--
 `percentageOfNodesToScore` must be a value between 1 and 100 with the default
 value being calculated based on the cluster size. There is also a hardcoded
-minimum value of 50 nodes.
+minimum value of 100 nodes.
 -->
 `percentageOfNodesToScore` 的值必须在 1 到 100 之间，而且其默认值是通过集群的规模计算得来的。
-另外，还有一个 50 个 Node 的最小值是硬编码在程序中。
+另外，还有一个 100 个 Node 的最小值是硬编码在程序中。
 
 <!--
-{{< note >}} In clusters with less than 50 feasible nodes, the scheduler still
+{{< note >}} In clusters with less than 100 feasible nodes, the scheduler still
 checks all the nodes because there are not enough feasible nodes to stop
 the scheduler's search early.
 
@@ -210,7 +210,7 @@ scheduler's performance significantly.
 {{< /note >}}
 -->
 {{< note >}}
-当集群中的可调度节点少于 50 个时，调度器仍然会去检查所有的 Node，
+当集群中的可调度节点少于 100 个时，调度器仍然会去检查所有的 Node，
 因为可调度节点太少，不足以停止调度器最初的过滤选择。
 
 同理，在小规模集群中，如果你将 `percentageOfNodesToScore`
