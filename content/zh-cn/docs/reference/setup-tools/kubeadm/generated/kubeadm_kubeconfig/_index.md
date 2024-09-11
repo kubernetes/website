@@ -27,10 +27,12 @@ kubeconfig 文件工具。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for kubeconfig
 -->
 kubeconfig 操作的帮助命令。
+<p>
 </td>
 </tr>
 
@@ -54,11 +56,12 @@ kubeconfig 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
-[实验] 到 '真实' 主机根文件系统的路径。
-</td>
+到“真实”主机根文件系统的路径。设置此标志将导致 kubeadm 切换到所提供的路径。
+</p>
 </td>
 </tr>
 

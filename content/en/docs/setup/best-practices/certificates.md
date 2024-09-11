@@ -21,16 +21,36 @@ This page explains the certificates that your cluster requires.
 
 Kubernetes requires PKI for the following operations:
 
-* Client certificates for the kubelet to authenticate to the API server
-* Kubelet [server certificates](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#client-and-serving-certificates)
-  for the API server to talk to the kubelets
+### Server certificates
+
 * Server certificate for the API server endpoint
-* Client certificates for administrators of the cluster to authenticate to the API server
-* Client certificates for the API server to talk to the kubelets
-* Client certificate for the API server to talk to etcd
-* Client certificate/kubeconfig for the controller manager to talk to the API server
-* Client certificate/kubeconfig for the scheduler to talk to the API server.
-* Client and server certificates for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
+* Server certificate for the etcd server
+* [Server certificates](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#client-and-serving-certificates)
+  for each kubelet (every {{< glossary_tooltip text="node" term_id="node" >}} runs a kubelet)
+* Optional server certificate for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
+
+### Client certificates
+
+* Client certificates for each kubelet, used to authenticate to the API server as a client of
+  the Kubernetes API
+* Client certificate for each API server, used to authenticate to etcd
+* Client certificate for the controller manager to securely communicate with the API server
+* Client certificate for the scheduler to securely communicate with the API server
+* Client certificates, one for each node, for kube-proxy to authenticate to the API server
+* Optional client certificates for administrators of the cluster to authenticate to the API server
+* Optional client certificate for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
+
+### Kubelet's server and client certificates
+
+To establish a secure connection and authenticate itself to the kubelet, the API Server 
+requires a client certificate and key pair. 
+
+In this scenario, there are two approaches for certificate usage: 
+using shared certificates or separate certificates;
+
+* Shared Certificates: The kube-apiserver can utilize the same certificate and key pair it uses to authenticate its clients. This means that the existing certificates, such as `apiserver.crt`  and `apiserver.key`, can be used for communicating with the kubelet servers.
+
+* Separate Certificates: Alternatively, the kube-apiserver can generate a new client certificate and key pair to authenticate its communication with the kubelet servers. In this case, a distinct certificate named `kubelet-client.crt` and its corresponding private key, `kubelet-client.key` are created.
 
 {{< note >}}
 `front-proxy` certificates are required only if you run kube-proxy to support

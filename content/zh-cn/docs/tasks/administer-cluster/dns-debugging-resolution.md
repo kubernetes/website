@@ -29,7 +29,6 @@ Your cluster must be configured to use the CoreDNS
 {{< glossary_tooltip text="addon" term_id="addons" >}} or its precursor,
 kube-dns.  
 -->
-
 你的集群必须使用了 CoreDNS {{< glossary_tooltip text="插件" term_id="addons" >}}
 或者其前身，`kube-dns`。
 
@@ -39,27 +38,25 @@ kube-dns.
 
 <!--
 ### Create a simple Pod to use as a test environment
-
-{{% code_sample file="admin/dns/dnsutils.yaml" %}}
-
-{{< note >}}
-This example creates a pod in the `default` namespace. DNS name resolution for 
-services depends on the namespace of the pod. For more information, review
-[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names). 
-{{< /note >}}
-
-Use that manifest to create a Pod:
 -->
 ### 创建一个简单的 Pod 作为测试环境   {#create-a-simple-pod-to-use-as-a-test-environment}
 
 {{< codenew file="admin/dns/dnsutils.yaml" >}}
 
 {{< note >}}
+<!--
+This example creates a pod in the `default` namespace. DNS name resolution for 
+services depends on the namespace of the pod. For more information, review
+[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names).
+-->
 此示例在 `default` 名字空间创建 Pod。
 服务的 DNS 名字解析取决于 Pod 的名字空间。
 详细信息请查阅 [Pod 与 Service 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names)。
 {{< /note >}}
 
+<!--
+Use that manifest to create a Pod:
+-->
 使用上面的清单来创建一个 Pod：
 
 ```shell
@@ -121,7 +118,7 @@ Take a look inside the resolv.conf file.
 
 查看 resolv.conf 文件的内容
 （阅读[定制 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/) 和
-后文的[已知问题](#known-issues) ，获取更多信息)
+后文的[已知问题](#known-issues) ，获取更多信息）
 
 ```shell
 kubectl exec -ti dnsutils -- cat /etc/resolv.conf
@@ -132,7 +129,7 @@ Verify that the search path and name server are set up like the following
 (note that search path may vary for different cloud providers):
 -->
 验证 search 和 nameserver 的配置是否与下面的内容类似
-（注意 search 根据不同的云提供商可能会有所不同)：
+（注意 search 根据不同的云提供商可能会有所不同）：
 
 ```
 search default.svc.cluster.local svc.cluster.local cluster.local google.internal c.gce_project_id.internal
@@ -159,6 +156,9 @@ Address 1: 10.0.0.10
 nslookup: can't resolve 'kubernetes.default'
 ```
 
+<!--
+or
+-->
 或者
 
 ```shell
@@ -197,10 +197,10 @@ coredns-7b96bf9f76-mvmmt   1/1       Running   0           1h
 ...
 ```
 
+{{< note >}}
 <!--
 The value for label `k8s-app` is `kube-dns` for both CoreDNS and kube-dns deployments.
 -->
-{{< note >}}
 对于 CoreDNS 和 kube-dns 部署而言，标签 `k8s-app` 的值都应该是 `kube-dns`。
 {{< /note >}}
 
@@ -271,11 +271,10 @@ kube-dns     ClusterIP   10.0.0.10      <none>        53/UDP,53/TCP        1h
 ...
 ```
 
+{{< note >}}
 <!--
 The service name is `kube-dns` for both CoreDNS and kube-dns deployments.
 -->
-
-{{< note >}}
 不管是 CoreDNS 还是 kube-dns，这个服务的名字都会是 `kube-dns`。
 {{< /note >}}
 
@@ -286,8 +285,7 @@ but it does not appear, see
 more information.
 -->
 如果你已经创建了 DNS 服务，或者该服务应该是默认自动创建的但是它并没有出现，
-请阅读[调试服务](/zh-cn/docs/tasks/debug/debug-application/debug-service/)
-来获取更多信息。
+请阅读[调试服务](/zh-cn/docs/tasks/debug/debug-application/debug-service/)来获取更多信息。
 
 <!--
 ### Are DNS endpoints exposed?
@@ -316,11 +314,11 @@ For additional Kubernetes DNS examples, see the
 [cluster-dns examples](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns)
 in the Kubernetes GitHub repository.
 -->
-如果你没看到对应的端点，请阅读
-[调试服务](/zh-cn/docs/tasks/debug/debug-application/debug-service/)的端点部分。
+如果你没看到对应的端点，
+请阅读[调试服务](/zh-cn/docs/tasks/debug/debug-application/debug-service/)的端点部分。
 
 若需要了解更多的 Kubernetes DNS 例子，请在 Kubernetes GitHub 仓库里查看
-[cluster-dns 示例](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns)。 
+[cluster-dns 示例](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns)。
 
 <!--
 ### Are DNS queries being received/processed?
@@ -394,8 +392,8 @@ linux/amd64, go1.10.3, 2e322f6
 2018/09/07 15:29:04 [INFO] plugin/reload: Running configuration MD5 = 162475cdf272d8aa601e6fe67a6ad42f
 2018/09/07 15:29:04 [INFO] Reloading complete
 172.17.0.18:41675 - [07/Sep/2018:15:29:11 +0000] 59925 "A IN kubernetes.default.svc.cluster.local. udp 54 false 512" NOERROR qr,aa,rd,ra 106 0.000066649s
-
 ```
+
 <!--
 ### Does CoreDNS have sufficient permissions?
 
@@ -454,6 +452,7 @@ kubectl edit clusterrole system:coredns -n kube-system
 Example insertion of EndpointSlices permissions:
 -->
 EndpointSlices 权限的插入示例：
+
 ```
 ...
 - apiGroups:
@@ -528,7 +527,8 @@ Kubernetes installs do not configure the nodes' `resolv.conf` files to use the
 cluster DNS by default, because that process is inherently distribution-specific.
 This should probably be implemented eventually.
 -->
-Kubernetes 的安装并不会默认配置节点的 `resolv.conf` 文件来使用集群的 DNS 服务，因为这个配置对于不同的发行版本是不一样的。这个问题应该迟早会被解决的。
+Kubernetes 的安装并不会默认配置节点的 `resolv.conf` 文件来使用集群的 DNS 服务，
+因为这个配置对于不同的发行版本是不一样的。这个问题应该迟早会被解决的。
 
 <!--
 Linux's libc (a.k.a. glibc) has a limit for the DNS `nameserver` records to 3 by

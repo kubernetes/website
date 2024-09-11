@@ -323,10 +323,10 @@ simply as *nodes*).
 - *Configure nodes*: Nodes can be physical or virtual machines. If you want to
   create and manage your own nodes, you can install a supported operating system,
   then add and run the appropriate
-  [Node services](/docs/concepts/overview/components/#node-components). Consider:
+  [Node services](/docs/concepts/architecture/#node-components). Consider:
 -->
 - **配置节点**：节点可以是物理机或者虚拟机。如果你希望自行创建和管理节点，
-  你可以安装一个受支持的操作系统，之后添加并运行合适的[节点服务](/zh-cn/docs/concepts/overview/components/#node-components)。考虑：
+  你可以安装一个受支持的操作系统，之后添加并运行合适的[节点服务](/zh-cn/docs/concepts/architecture/#node-components)。考虑：
   <!--
   - The demands of your workloads when you set up nodes by having appropriate memory, CPU, and disk speed and storage capacity available.
   - Whether generic computer systems will do or you have workloads that need GPU processors, Windows nodes, or VM isolation.

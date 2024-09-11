@@ -1,28 +1,28 @@
 ---
 api_metadata:
-  apiVersion: "flowcontrol.apiserver.k8s.io/v1beta3"
-  import: "k8s.io/api/flowcontrol/v1beta3"
+  apiVersion: "flowcontrol.apiserver.k8s.io/v1"
+  import: "k8s.io/api/flowcontrol/v1"
   kind: "PriorityLevelConfiguration"
 content_type: "api_reference"
 description: "PriorityLevelConfiguration 表示一个优先级的配置。"
-title: "PriorityLevelConfiguration v1beta3"
-weight: 8
+title: "PriorityLevelConfiguration v1"
+weight: 6
 ---
 <!--
 api_metadata:
-  apiVersion: "flowcontrol.apiserver.k8s.io/v1beta3"
-  import: "k8s.io/api/flowcontrol/v1beta3"
+  apiVersion: "flowcontrol.apiserver.k8s.io/v1"
+  import: "k8s.io/api/flowcontrol/v1"
   kind: "PriorityLevelConfiguration"
 content_type: "api_reference"
 description: "PriorityLevelConfiguration represents the configuration of a priority level."
-title: "PriorityLevelConfiguration v1beta3"
-weight: 8
+title: "PriorityLevelConfiguration"
+weight: 6
 auto_generated: true
 -->
 
-`apiVersion: flowcontrol.apiserver.k8s.io/v1beta3`
+`apiVersion: flowcontrol.apiserver.k8s.io/v1`
 
-`import "k8s.io/api/flowcontrol/v1beta3"`
+`import "k8s.io/api/flowcontrol/v1"`
 
 ## PriorityLevelConfiguration {#PriorityLevelConfiguration}
 
@@ -33,7 +33,7 @@ PriorityLevelConfiguration 表示一个优先级的配置。
 
 <hr>
 
-- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta3
+- **apiVersion**: flowcontrol.apiserver.k8s.io/v1
 
 - **kind**: PriorityLevelConfiguration
 
@@ -42,7 +42,7 @@ PriorityLevelConfiguration 表示一个优先级的配置。
 
   `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfigurationSpec" >}}">PriorityLevelConfigurationSpec</a>)
+- **spec** (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfigurationSpec" >}}">PriorityLevelConfigurationSpec</a>)
 
   `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 -->
@@ -51,17 +51,17 @@ PriorityLevelConfiguration 表示一个优先级的配置。
   `metadata` 是标准的对象元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfigurationSpec" >}}">PriorityLevelConfigurationSpec</a>)
+- **spec** (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfigurationSpec" >}}">PriorityLevelConfigurationSpec</a>)
   
   `spec` 是 “request-priority” 预期行为的规约。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 <!--
-- **status** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfigurationStatus" >}}">PriorityLevelConfigurationStatus</a>)
+- **status** (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfigurationStatus" >}}">PriorityLevelConfigurationStatus</a>)
 
   `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 -->
-- **status** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfigurationStatus" >}}">PriorityLevelConfigurationStatus</a>)
+- **status** (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfigurationStatus" >}}">PriorityLevelConfigurationStatus</a>)
   
   `status` 是 “请求优先级” 的当前状况。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -74,18 +74,6 @@ PriorityLevelConfigurationSpec specifies the configuration of a priority level.
 PriorityLevelConfigurationSpec 指定一个优先级的配置。
 
 <hr>
-
-<!--
-- **type** (string), required
-
-  `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
--->
-- **type** (string)，必需
-  
-  `type` 指示此优先级是否遵从有关请求执行的限制。
-  取值为 `"Exempt"` 意味着此优先级的请求不遵从某个限制（且因此从不排队）且不会减损其他优先级可用的容量。
-  取值为 `"Limited"` 意味着 (a) 此优先级的请求遵从这些限制且
-  (b) 服务器某些受限的容量仅可用于此优先级。必需。
 
 - **exempt** (ExemptPriorityLevelConfiguration)
 
@@ -282,7 +270,7 @@ PriorityLevelConfigurationSpec 指定一个优先级的配置。
     
     NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
     
-    Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of 30.
+    Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level.
   -->
 
   - **limited.nominalConcurrencyShares** (int32)
@@ -294,7 +282,19 @@ PriorityLevelConfigurationSpec 指定一个优先级的配置。
 
     NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
 
-    较大的数字意味着更大的标称并发限制，但是这将牺牲其他优先级的资源。该字段的默认值为 30。
+    较大的数字意味着更大的标称并发限制，但是这将牺牲其他优先级的资源。
+
+<!--
+- **type** (string), required
+
+  `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
+-->
+- **type** (string)，必需
+  
+  `type` 指示此优先级是否遵从有关请求执行的限制。
+  取值为 `"Exempt"` 意味着此优先级的请求不遵从某个限制（且因此从不排队）且不会减损其他优先级可用的容量。
+  取值为 `"Limited"` 意味着 (a) 此优先级的请求遵从这些限制且
+  (b) 服务器某些受限的容量仅可用于此优先级。必需。
 
 ## PriorityLevelConfigurationStatus {#PriorityLevelConfigurationStatus}
 
@@ -308,6 +308,8 @@ PriorityLevelConfigurationStatus 表示 “请求优先级” 的当前状况。
 <!--
 - **conditions** ([]PriorityLevelConfigurationCondition)
 
+  *Patch strategy: merge on key `type`*
+  
   *Map: unique values on key type will be kept during a merge*
   
   `conditions` is the current state of "request-priority".
@@ -317,6 +319,8 @@ PriorityLevelConfigurationStatus 表示 “请求优先级” 的当前状况。
 -->
 - **conditions** ([]PriorityLevelConfigurationCondition)
   
+  **补丁策略：基于键 `type` 合并**
+
   **Map：合并期间保留根据键 type 保留其唯一值**
   
   `conditions` 是 “请求优先级” 的当前状况。
@@ -386,7 +390,7 @@ PriorityLevelConfigurationList 是 PriorityLevelConfiguration 对象的列表。
 
 <hr>
 
-- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta3
+- **apiVersion**: flowcontrol.apiserver.k8s.io/v1
 
 - **kind**: PriorityLevelConfigurationList
 
@@ -395,7 +399,7 @@ PriorityLevelConfigurationList 是 PriorityLevelConfiguration 对象的列表。
 
   `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>), required
+- **items** ([]<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>), required
 
   `items` is a list of request-priorities.
 -->
@@ -404,7 +408,7 @@ PriorityLevelConfigurationList 是 PriorityLevelConfiguration 对象的列表。
   `metadata` 是标准的对象元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>)，必需
+- **items** ([]<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>)，必需
   
   `items` 是请求优先级设置的列表。
 
@@ -422,7 +426,7 @@ PriorityLevelConfigurationList 是 PriorityLevelConfiguration 对象的列表。
 
 #### HTTP 请求
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}
+GET /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations/{name}
 
 <!--
 #### Parameters
@@ -445,7 +449,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
 401: Unauthorized
 
@@ -457,7 +461,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
 
 #### HTTP 请求
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}/status
+GET /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations/{name}/status
 
 <!--
 #### Parameters
@@ -480,7 +484,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
 401: Unauthorized
 
@@ -492,7 +496,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
 
 #### HTTP 请求
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
+GET /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations
 
 <!--
 #### Parameters
@@ -559,7 +563,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfigurationList" >}}">PriorityLevelConfigurationList</a>): OK
+200 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfigurationList" >}}">PriorityLevelConfigurationList</a>): OK
 
 401: Unauthorized
 
@@ -571,11 +575,11 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
 
 #### HTTP 请求
 
-POST /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
+POST /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations
 
 <!--
 #### Parameters
-- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
+- **body**: <a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
 - **dryRun** (*in query*): string
 - **fieldManager** (*in query*): string
 - **fieldValidation** (*in query*): string
@@ -583,7 +587,7 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
 -->
 #### 参数
 
-- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>，必需
+- **body**: <a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>，必需
 
 - **dryRun**（**查询参数**）：string
   
@@ -606,11 +610,11 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
-202 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Accepted
+202 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Accepted
 
 401: Unauthorized
 
@@ -622,13 +626,13 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
 
 #### HTTP 请求
 
-PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}
+PUT /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations/{name}
 
 <!--
 #### Parameters
 - **name** (*in path*): string, required
   name of the PriorityLevelConfiguration
-- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
+- **body**: <a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
 - **dryRun** (*in query*): string
 - **fieldManager** (*in query*): string
 - **fieldValidation** (*in query*): string
@@ -640,7 +644,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
   
   PriorityLevelConfiguration 的名称。
 
-- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>，必需
+- **body**: <a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>，必需
 
 - **dryRun**（**查询参数**）：string
   
@@ -663,9 +667,9 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
 401: Unauthorized
 
@@ -677,13 +681,13 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
 
 #### HTTP 请求
 
-PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}/status
+PUT /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations/{name}/status
 
 <!--
 #### Parameters
 - **name** (*in path*): string, required
   name of the PriorityLevelConfiguration
-- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
+- **body**: <a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
 - **dryRun** (*in query*): string
 - **fieldManager** (*in query*): string
 - **fieldValidation** (*in query*): string
@@ -695,7 +699,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
   
   PriorityLevelConfiguration 的名称。
 
-- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>，必需
+- **body**: <a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>，必需
 
 - **dryRun**（**查询参数**）：string
   
@@ -718,9 +722,9 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
 401: Unauthorized
 
@@ -732,7 +736,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
 
 #### HTTP 请求
 
-PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}
+PATCH /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations/{name}
 
 <!--
 #### Parameters
@@ -778,9 +782,9 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{na
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
 401: Unauthorized
 
@@ -792,7 +796,7 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{na
 
 #### HTTP 请求
 
-PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}/status
+PATCH /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations/{name}/status
 
 <!--
 #### Parameters
@@ -838,9 +842,9 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{na
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../policy-resources/priority-level-configuration-v1#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
 401: Unauthorized
 
@@ -852,7 +856,7 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{na
 
 #### HTTP 请求
 
-DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}
+DELETE /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations/{name}
 
 <!--
 #### Parameters
@@ -907,7 +911,7 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{n
 
 #### HTTP 请求
 
-DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
+DELETE /apis/flowcontrol.apiserver.k8s.io/v1/prioritylevelconfigurations
 
 <!--
 #### Parameters

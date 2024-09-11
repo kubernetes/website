@@ -1,413 +1,194 @@
 ---
 api_metadata:
-  apiVersion: "resource.k8s.io/v1alpha2"
-  import: "k8s.io/api/resource/v1alpha2"
-  kind: "ResourceClaim"
+  apiVersion: "resource.k8s.io/v1alpha3"
+  import: "k8s.io/api/resource/v1alpha3"
+  kind: "PodSchedulingContext"
 content_type: "api_reference"
-description: "ResourceClaim 描述资源使用者需要哪些资源。"
-title: "ResourceClaim v1alpha2"
+description: "PodSchedulingContext 对象包含使用 \"WaitForFirstConsumer\" 分配模式的 ResourceClaims 来调度 Pod 所需的信息。"
+title: "PodSchedulingContext v1alpha3"
 weight: 15
 ---
 <!--
 api_metadata:
-  apiVersion: "resource.k8s.io/v1alpha2"
-  import: "k8s.io/api/resource/v1alpha2"
-  kind: "ResourceClaim"
+  apiVersion: "resource.k8s.io/v1alpha3"
+  import: "k8s.io/api/resource/v1alpha3"
+  kind: "PodSchedulingContext"
 content_type: "api_reference"
-description: "ResourceClaim describes which resources are needed by a resource consumer."
-title: "ResourceClaim v1alpha2"
+description: "PodSchedulingContext objects hold information that is needed to schedule a Pod with ResourceClaims that use \"WaitForFirstConsumer\" allocation mode."
+title: "PodSchedulingContext v1alpha3"
 weight: 15
 auto_generated: true
 -->
 
-`apiVersion: resource.k8s.io/v1alpha2`
+`apiVersion: resource.k8s.io/v1alpha3`
 
-`import "k8s.io/api/resource/v1alpha2"`
+`import "k8s.io/api/resource/v1alpha3"`
 
-## ResourceClaim {#ResourceClaim}
+## PodSchedulingContext {#PodSchedulingContext}
 
 <!--
-ResourceClaim describes which resources are needed by a resource consumer. Its status tracks whether the resource has been allocated and what the resulting attributes are.
+PodSchedulingContext objects hold information that is needed to schedule a Pod with ResourceClaims that use "WaitForFirstConsumer" allocation mode.
 
-This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+This is an alpha type and requires enabling the DRAControlPlaneController feature gate.
 -->
-ResourceClaim 描述资源使用者需要哪些资源。它的状态跟踪资源是否已被分配以及产生的属性是什么。
+PodSchedulingContext 对象包含调度某些 Pod 所需要的额外信息，这些 Pod 使用了
+“WaitForFirstConsumer” 分配模式的 ResourceClaim。
 
-这是一个 Alpha 级别的资源类型，需要启用 DynamicResourceAllocation 特性门控。
+本功能特性是 Alpha 级别的特性，需要启用 DRAControlPlaneController 特性门控。
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1alpha2
+- **apiVersion**: resource.k8s.io/v1alpha3
 
-- **kind**: ResourceClaim
+- **kind**: PodSchedulingContext
 
-<!--
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
+  <!--
   Standard object metadata
--->
-- **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
-
+  -->
   标准的对象元数据。
 
 <!--
-- **spec** (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaimSpec" >}}">ResourceClaimSpec</a>), required
+- **spec** (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContextSpec" >}}">PodSchedulingContextSpec</a>), required
 
-  Spec describes the desired attributes of a resource that then needs to be allocated. It can only be set once when creating the ResourceClaim.
+  Spec describes where resources for the Pod are needed.
 
-- **status** (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaimStatus" >}}">ResourceClaimStatus</a>)
+- **status** (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContextStatus" >}}">PodSchedulingContextStatus</a>)
 
-  Status describes whether the resource is available and with which attributes.
+  Status describes where resources for the Pod can be allocated.
 -->
-- **spec** (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaimSpec" >}}">ResourceClaimSpec</a>)，必需
+- **spec** (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContextSpec" >}}">PodSchedulingContextSpec</a>)，必需
 
-  spec 描述了需要被分配的资源所需的属性。它只能在创建 ResourceClaim 时设置一次。
+  spec 描述了 Pod 需要在哪里找到资源。
 
-- **status** (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaimStatus" >}}">ResourceClaimStatus</a>)
+- **status** (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContextStatus" >}}">PodSchedulingContextStatus</a>)
 
-  status 描述资源是否可用以及具有哪些属性。
+  status 描述了 Pod 的资源可以在哪里分配。
 
-## ResourceClaimSpec {#ResourceClaimSpec}
+## PodSchedulingContextSpec {#PodSchedulingContextSpec}
 
 <!--
-ResourceClaimSpec defines how a resource is to be allocated.
+PodSchedulingContextSpec describes where resources for the Pod are needed.
 -->
-ResourceClaimSpec 定义资源如何被分配。
+PodSchedulingContextSpec 描述了 Pod 所需要的资源在哪里。
 
 <hr>
 
 <!--
-- **resourceClassName** (string), required
+- **potentialNodes** ([]string)
 
-  ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
-
-- **allocationMode** (string)
-
-  Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
--->
-- **resourceClassName** (string)，必需
-
-  resourceClassName 通过部署驱动时创建的 ResourceClass 名称来引用驱动和附加参数。
-
-- **allocationMode** (string)
-
-  分配可以立即开始或在 Pod 想要使用资源时开始。"WaitForFirstConsumer" 是默认值。
-
-<!--
-- **parametersRef** (ResourceClaimParametersReference)
-
-  ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
-
-  The object must be in the same namespace as the ResourceClaim.
-
-  <a name="ResourceClaimParametersReference"></a>
-  _ResourceClaimParametersReference contains enough information to let you locate the parameters for a ResourceClaim. The object must be in the same namespace as the ResourceClaim._
--->
-- **parametersRef** (ResourceClaimParametersReference)
-
-  parametersRef 引用一个单独的对象，包含驱动为申领分配资源时将使用的任意参数。
-
-  此对象必须与 ResourceClaim 在同一个名字空间中。
-
-  <a name="ResourceClaimParametersReference"></a>
-  **ResourceClaimParametersReference 包含足够信息，便于你定位 ResourceClaim 的参数。
-  该对象必须与 ResourceClaim 在相同的名字空间中。**
-
-  <!--
-  - **parametersRef.kind** (string), required
-
-    Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
-
-  - **parametersRef.name** (string), required
-
-    Name is the name of resource being referenced.
-
-  - **parametersRef.apiGroup** (string)
-
-    APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
-  -->
-
-  - **parametersRef.kind** (string)，必需
-
-    kind 是所引用资源的类别。这个值与参数对象元数据中的值相同，例如 "ConfigMap"。
-
-  - **parametersRef.name** (string)，必需
-
-    name 是所引用资源的名称。
-
-  - **parametersRef.apiGroup** (string)
-
-    apiGroup 是所引用资源的组。对于核心 API 而言此值为空。
-    字段值与创建资源时所用的 apiVersion 中的组匹配。
-
-## ResourceClaimStatus {#ResourceClaimStatus}
-
-<!--
-ResourceClaimStatus tracks whether the resource has been allocated and what the resulting attributes are.
--->
-ResourceClaimStatus 跟踪资源是否已被分配以及产生的属性是什么。
-
-<hr>
-
-<!--
-- **allocation** (AllocationResult)
-
-  Allocation is set by the resource driver once a resource or set of resources has been allocated successfully. If this is not specified, the resources have not been allocated yet.
-
-  <a name="AllocationResult"></a>
-  _AllocationResult contains attributes of an allocated resource._
--->
-- **allocation** (AllocationResult)
-
-  一旦某资源或资源集已被成功分配，资源驱动就会设置 allocation 的值。
-  如果此项未被设置，则表示资源尚未被分配。
-
-  <a name="AllocationResult"></a>
-  **AllocationResult 包含已分配资源的属性。**
-
-  <!--
-  - **allocation.availableOnNodes** (NodeSelector)
-
-    This field will get set by the resource driver after it has allocated the resource to inform the scheduler where it can schedule Pods using the ResourceClaim.
-
-    Setting this field is optional. If null, the resource is available everywhere.
-
-    <a name="NodeSelector"></a>
-    _A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms._
-  -->
-
-  - **allocation.availableOnNodes** (NodeSelector)
-
-    在资源驱动完成资源分配之后，将设置此字段以通知调度器可以将使用了 ResourceClaim 的 Pod 调度到哪里。
-
-    设置此字段是可选的。如果字段值为空，表示资源可以在任何地方访问。
-
-    <a name="NodeSelector"></a>
-    **节点选择算符表示对一组节点执行一个或多个标签查询的结果的并集；
-    也就是说，它表示由节点选择算符条件表示的选择算符的逻辑或计算结果。**
-
-    <!--
-    - **allocation.availableOnNodes.nodeSelectorTerms** ([]NodeSelectorTerm), required
-
-      Required. A list of node selector terms. The terms are ORed.
-
-      <a name="NodeSelectorTerm"></a>
-      _A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm._
-    -->
-
-    - **allocation.availableOnNodes.nodeSelectorTerms** ([]NodeSelectorTerm)，必需
-
-      必需。节点选择算符条件的列表。这些条件以逻辑或进行计算。
-
-      <a name="NodeSelectorTerm"></a>
-      **一个 null 或空的节点选择算符条件不会与任何对象匹配。条件中的要求会按逻辑与的关系来计算。
-      TopologySelectorTerm 类别实现了 NodeSelectorTerm 的子集。**
-
-      - **allocation.availableOnNodes.nodeSelectorTerms.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
-
-        <!--
-        A list of node selector requirements by node's labels.
-        -->
-
-        基于节点标签所设置的节点选择算符要求的列表。
-
-      - **allocation.availableOnNodes.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
-
-        <!--
-        A list of node selector requirements by node's fields.
-        -->
-
-        基于节点字段所设置的节点选择算符要求的列表。
-
-  - **allocation.resourceHandles** ([]ResourceHandle)
-
-    <!--
-    _Atomic: will be replaced during a merge_
-
-    ResourceHandles contain the state associated with an allocation that should be maintained throughout the lifetime of a claim. Each ResourceHandle contains data that should be passed to a specific kubelet plugin once it lands on a node. This data is returned by the driver after a successful allocation and is opaque to Kubernetes. Driver documentation may explain to users how to interpret this data if needed.
-    -->
-
-    **原子性：将在合并期间被替换**
-
-    resourceHandles 包含应在申领的整个生命期中保持的、与某资源分配所关联的状态。
-    每个 resourceHandle 包含应向特定 kubelet 插件传递的数据，
-    一旦资源落到某具体节点上，这些数据就会被传递给该插件。
-    此数据将在成功分配后由驱动返回，并对 Kubernetes 不透明。
-    必要时驱动文档可能会向用户阐述如何解读这些数据。
-
-    <!--
-    Setting this field is optional. It has a maximum size of 32 entries. If null (or empty), it is assumed this allocation will be processed by a single kubelet plugin with no ResourceHandle data attached. The name of the kubelet plugin invoked will match the DriverName set in the ResourceClaimStatus this AllocationResult is embedded in.
-
-    <a name="ResourceHandle"></a>
-    _ResourceHandle holds opaque resource data for processing by a specific kubelet plugin._
-    -->
-
-    设置此字段是可选的。它最大可以有 32 个条目。如果为 null（或为空），
-    则假定此分配将由某个确定的 kubelet 插件处理，
-    不会附加 resourceHandle 数据。所调用的 kubelet 插件的名称将与嵌入此
-    AllocationResult 的 ResourceClaimStatus 中设置的 driverName 匹配。
-
-    <a name="ResourceHandle"></a>
-    **resourceHandle 保存不透明的资源数据，以供特定的 kubelet 插件处理。**
-
-    <!--
-    - **allocation.resourceHandles.data** (string)
-
-      Data contains the opaque data associated with this ResourceHandle. It is set by the controller component of the resource driver whose name matches the DriverName set in the ResourceClaimStatus this ResourceHandle is embedded in. It is set at allocation time and is intended for processing by the kubelet plugin whose name matches the DriverName set in this ResourceHandle.
-
-      The maximum size of this field is 16KiB. This may get increased in the future, but not reduced.
-    -->
-
-    - **allocation.resourceHandles.data** (string)
-
-      data 包含与此 resourceHandle 关联的不透明数据。
-      data 由资源驱动中的控制器组件设置，该驱动的名字与嵌入此 resourceHandle 的
-      ResourceClaimStatus 中设置的 driverName 相同。
-      data 在分配时进行设置，供 kubelet 插件处理；所指的插件的名称与此 resourceHandle
-      所设置的 driverName 相同。
-
-      该字段的最大值为 16KiB。此值在未来可能会增加，但不会减少。
-
-    - **allocation.resourceHandles.driverName** (string)
-
-      <!--
-      DriverName specifies the name of the resource driver whose kubelet plugin should be invoked to process this ResourceHandle's data once it lands on a node. This may differ from the DriverName set in ResourceClaimStatus this ResourceHandle is embedded in.
-      -->
-
-      driverName 指定资源驱动的名称；一旦 resourceHandle 落到某具体节点，
-      就应调用该驱动对应的 kubelet 插件来处理此数据。
-      字段值可能与嵌入此 resourceHandle 的 ResourceClaimStatus 中设置的 driverName 不同。
-
-  - **allocation.shareable** (boolean)
-
-    <!--
-    Shareable determines whether the resource supports more than one consumer at a time.
-    -->
-
-    shareable 确定资源是否同时支持多个使用者。
-
-<!--
-- **deallocationRequested** (boolean)
-
-  DeallocationRequested indicates that a ResourceClaim is to be deallocated.
-
-  The driver then must deallocate this claim and reset the field together with clearing the Allocation field.
-
-  While DeallocationRequested is set, no new consumers may be added to ReservedFor.
--->
-- **deallocationRequested** (boolean)
+  *Atomic: will be replaced during a merge*
   
-  deallocationRequested 表示某 ResourceClaim 将被取消分配。
-
-  出现请求后，驱动必须释放此申领，重置此字段并清除 allocation 字段。
-
-  在 deallocationRequested 被设置时，不能将新的使用者添加到 reservedFor。
-
-<!--
-- **driverName** (string)
-
-  DriverName is a copy of the driver name from the ResourceClass at the time when allocation started.
-
-- **reservedFor** ([]ResourceClaimConsumerReference)
-
-  _Map: unique values on key uid will be kept during a merge_
-
-  ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started.
--->
-- **driverName** (string)
-
-  driverName 是在确定了分配之后，从 ResourceClass 复制而来的驱动名称。
-
-- **reservedFor** ([]ResourceClaimConsumerReference)
-
-  **Map：合并期间根据键 uid 保留不重复的值**
-
-  reservedFor 标明目前哪些实体允许使用申领。如果引用未为某个 Pod 预留的 ResourceClaim，则该 Pod 将不会启动。
-
-  <!--
-  There can be at most 32 such reservations. This may get increased in the future, but not reduced.
-
-  <a name="ResourceClaimConsumerReference"></a>
-  _ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim._
-  -->
-
-  最多可以有 32 个这样的预留。这一限制可能会在未来放宽，但不会减少。
-
-  <a name="ResourceClaimConsumerReference"></a>
-  **ResourceClaimConsumerReference 包含足够的信息以便定位 ResourceClaim 的使用者。
-  用户必须是与 ResourceClaim 在同一名字空间中的资源。**
-
-  <!--
-  - **reservedFor.name** (string), required
-
-    Name is the name of resource being referenced.
-
-  - **reservedFor.resource** (string), required
-
-    Resource is the type of resource being referenced, for example "pods".
-
-  - **reservedFor.uid** (string), required
-
-    UID identifies exactly one incarnation of the resource.
-
-  - **reservedFor.apiGroup** (string)
-
-    APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
-  -->
+  PotentialNodes lists nodes where the Pod might be able to run.
   
-  - **reservedFor.name** (string)，必需
+  The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
+-->
+- **potentialNodes** ([]string)
 
-    name 是所引用资源的名称。
+  **原子：将在合并期间被替换**
 
-  - **reservedFor.resource** (string)，必需
+  potentialNodes 列出可以运行 Pod 的节点。
 
-    resource 是所引用资源的类别，例如 "pods"。
+  该字段的大小限制为 128。对于许多集群来说，这已经足够大了。
+  较大的集群可能需要更多的尝试去找到一个适合所有待定资源的节点。
+  这个限制值可能会在以后提高，但不会降低。
 
-  - **reservedFor.uid** (string)，必需
+- **selectedNode** (string)
 
-    uid 用于唯一标识资源的某实例。
+  <!--
+  SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
+  -->
+  selectedNode 是一个节点，由 Pod 引用的 ResourceClaim 将在此节点上尝试，
+  且尝试的分配模式是 “WaitForFirstConsumer”。
 
-  - **reservedFor.apiGroup** (string)
-
-    apiGroup 是所引用资源的组。对于核心 API 而言此值为空。
-    字段值与创建资源时所用的 apiVersion 中的组匹配。
-
-## ResourceClaimList {#ResourceClaimList}
+## PodSchedulingContextStatus {#PodSchedulingContextStatus}
 
 <!--
-ResourceClaimList is a collection of claims.
+PodSchedulingContextStatus describes where resources for the Pod can be allocated.
 -->
-ResourceClaimList 是申领的集合。
+PodSchedulingContextStatus 描述 Pod 的资源可以从哪里分配。
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1alpha2
+- **resourceClaims** ([]ResourceClaimSchedulingStatus)
 
-- **kind**: ResourceClaimList
+  <!--
+  *Map: unique values on key name will be kept during a merge*
+  
+  ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
+  -->
+  **映射：键 `name` 的唯一值将在合并过程中保留**
+
+  resourceClaims 描述了每个 pod.spec.resourceClaim 条目的资源可用性，
+  其中对应的 ResourceClaim 使用 “WaitForFirstConsumer” 分配模式。
+
+  <!--
+  <a name="ResourceClaimSchedulingStatus"></a>
+  *ResourceClaimSchedulingStatus contains information about one particular ResourceClaim with "WaitForFirstConsumer" allocation mode.*
+  -->
+  <a name="ResourceClaimSchedulingStatus"></a>
+  **ResourceClaimSchedulingStatus 包含关于一个采用 “WaitForFirstConsumer”
+  分配模式的特定 ResourceClaim 的信息。**
+
+  - **resourceClaims.name** (string)
+
+    <!--
+    Name matches the pod.spec.resourceClaims[*].Name field.
+    -->
+
+    name 与 pod.spec.resourceClaims[*].name 字段匹配。
+
+  - **resourceClaims.unsuitableNodes** ([]string)
+
+    <!--
+    *Atomic: will be replaced during a merge*
+    
+    UnsuitableNodes lists nodes that the ResourceClaim cannot be allocated for.
+    
+    The size of this field is limited to 128, the same as for PodSchedulingSpec.PotentialNodes. This may get increased in the future, but not reduced.
+    -->
+    
+    **原子：将在合并期间被替换**
+
+    unsuitableNodes 列出 ResourceClaim 无法被分配的节点。
+
+    该字段的大小限制为 128，与 PodSchedulingSpec.PotentialNodes 相同。
+    这可能会在以后增加，但不会减少。
+
+## PodSchedulingContextList {#PodSchedulingContextList}
 
 <!--
+PodSchedulingContextList is a collection of Pod scheduling objects.
+-->
+PodSchedulingContextList 是 Pod 调度对象的集合。
+
+<hr>
+
+- **apiVersion**: resource.k8s.io/v1alpha3
+
+- **kind**: PodSchedulingContextList
+
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
+  <!--
   Standard list metadata
-
-- **items** ([]<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>), required
-
-  Items is the list of resource claims.
--->
-- **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
-
+  -->
   标准的列表元数据。
 
-- **items** ([]<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>)，必需
+<!--
+- **items** ([]<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>), required
 
-  items 是资源申领的列表。
+  Items is the list of PodSchedulingContext objects.
+-->
+- **items** ([]<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>)，必需
+
+  items 是 PodSchedulingContext 对象的列表。
 
 <!--
 ## Operations {#Operations}
 
-<hr>
-
-### `get` read the specified ResourceClaim
+### `get` read the specified PodSchedulingContext
 
 #### HTTP Request
 -->
@@ -415,18 +196,18 @@ ResourceClaimList 是申领的集合。
 
 <hr>
 
-### `get` 读取指定的 ResourceClaim
+### `get` 读取指定的 PodSchedulingContext
 
 #### HTTP 请求
 
-GET /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims/{name}
+GET /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts/{name}
 
 <!--
 #### Parameters
 
 - **name** (_in path_): string, required
 
-  name of the ResourceClaim
+  name of the PodSchedulingContext
 
 - **namespace** (_in path_): string, required
 
@@ -435,14 +216,12 @@ GET /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims/{name}
 - **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-#### Response
 -->
 #### 参数
 
 - **name**（**路径参数**）：string，必需
 
-  ResourceClaim 的名称。
+  PodSchedulingContext 的名称。
 
 - **namespace**（**路径参数**）：string，必需
 
@@ -452,29 +231,32 @@ GET /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
+<!--
+#### Response
+-->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
 
 401: Unauthorized
 
 <!--
-### `get` read status of the specified ResourceClaim
+### `get` read the specified PodSchedulingContext
 
 #### HTTP Request
 -->
-### `get` 读取指定 ResourceClaim 的状态
+### `get` 读取指定 PodSchedulingContext 的状态
 
 #### HTTP 请求
 
-GET /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims/{name}/status
+GET /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts/{name}/status
 
 <!--
 #### Parameters
 
 - **name** (_in path_): string, required
 
-  name of the ResourceClaim
+  name of the PodSchedulingContext
 
 - **namespace** (_in path_): string, required
 
@@ -483,14 +265,12 @@ GET /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims/{name}/
 - **pretty** (_in query_): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-#### Response
 -->
 #### 参数
 
 - **name**（**路径参数**）：string，必需
 
-  ResourceClaim 的名称。
+  PodSchedulingContext 的名称。
 
 - **namespace**（**路径参数**）：string，必需
 
@@ -500,22 +280,25 @@ GET /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims/{name}/
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
+<!--
+#### Response
+-->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
 
 401: Unauthorized
 
 <!--
-### `list` list or watch objects of kind ResourceClaim
+### `list` list or watch objects of kind PodSchedulingContext
 
 #### HTTP Request
 -->
-### `list` 列出或监视 ResourceClaim 类别的对象
+### `list` 列出或监视 PodSchedulingContext 类别的对象
 
 #### HTTP 请求
 
-GET /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims
+GET /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts
 
 <!--
 #### Parameters
@@ -623,20 +406,20 @@ GET /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaimList" >}}">ResourceClaimList</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContextList" >}}">PodSchedulingContextList</a>): OK
 
 401: Unauthorized
 
 <!--
-### `list` list or watch objects of kind ResourceClaim
+### `list` list or watch objects of kind PodSchedulingContext
 
 #### HTTP Request
 -->
-### `list` 列出或监视 ResourceClaim 类别的对象
+### `list` 列出或监视 PodSchedulingContext 类别的对象
 
 #### HTTP 请求
 
-GET /apis/resource.k8s.io/v1alpha2/resourceclaims
+GET /apis/resource.k8s.io/v1alpha3/podschedulingcontexts
 
 <!--
 #### Parameters
@@ -736,20 +519,20 @@ GET /apis/resource.k8s.io/v1alpha2/resourceclaims
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaimList" >}}">ResourceClaimList</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContextList" >}}">PodSchedulingContextList</a>): OK
 
 401: Unauthorized
 
 <!--
-### `create` create a ResourceClaim
+### `create` create a PodSchedulingContext
 
 #### HTTP Request
 -->
-### `create` 创建 ResourceClaim
+### `create` 创建 PodSchedulingContext
 
 #### HTTP 请求
 
-POST /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims
+POST /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts
 
 <!--
 #### Parameters
@@ -758,7 +541,7 @@ POST /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>, required
+- **body**: <a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>, required
 
 - **dryRun** (_in query_): string
 
@@ -782,7 +565,7 @@ POST /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>，必需
+- **body**: <a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>，必需
 
 - **dryRun**（**查询参数**）：string
 
@@ -805,116 +588,37 @@ POST /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): Created
 
-202 (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): Accepted
 
 401: Unauthorized
 
 <!--
-### `update` replace the specified ResourceClaim
+### `update` replace the specified PodSchedulingContext
 
 #### HTTP Request
 -->
-### `update` 替换指定的 ResourceClaim
+### `update` 替换指定的 PodSchedulingContext
 
 #### HTTP 请求
 
-PUT /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims/{name}
+PUT /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts/{name}
 
 <!--
 #### Parameters
 
 - **name** (_in path_): string, required
 
-  name of the ResourceClaim
+  name of the PodSchedulingContext
 
 - **namespace** (_in path_): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>, required
-
-- **dryRun** (_in query_): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-- **fieldManager** (_in query_): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-- **fieldValidation** (_in query_): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-- **pretty** (_in query_): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
--->
-#### 参数
-
-- **name**（**路径参数**）：string，必需
-
-  ResourceClaim 的名称。
-
-- **namespace**（**路径参数**）：string，必需
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>，必需
-
-- **dryRun**（**查询参数**）：string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-- **fieldManager**（**查询参数**）：string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-- **fieldValidation**（**查询参数**）：string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-- **pretty**（**查询参数**）：string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-<!--
-#### Response
--->
-#### 响应
-
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>): OK
-
-201 (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>): Created
-
-401: Unauthorized
-
-<!--
-### `update` replace status of the specified ResourceClaim
-
-#### HTTP Request
--->
-### `update` 替换指定 ResourceClaim 的状态
-
-#### HTTP 请求
-
-PUT /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims/{name}/status
-
-<!--
-#### Parameters
-
-- **name** (_in path_): string, required
-
-  name of the ResourceClaim
-
-- **namespace** (_in path_): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>, required
+- **body**: <a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>, required
 
 - **dryRun** (_in query_): string
 
@@ -936,13 +640,13 @@ PUT /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims/{name}/
 
 - **name**（**路径参数**）：string，必需
 
-  ResourceClaim 的名称。
+  PodSchedulingContext 的名称。
 
 - **namespace**（**路径参数**）：string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>，必需
+- **body**: <a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>，必需
 
 - **dryRun**（**查询参数**）：string
 
@@ -965,29 +669,108 @@ PUT /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims/{name}/
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): Created
 
 401: Unauthorized
 
 <!--
-### `patch` partially update the specified ResourceClaim
+### `update` replace status of the specified PodSchedulingContext
 
 #### HTTP Request
 -->
-### `patch` 部分更新指定的 ResourceClaim
+### `update` 替换指定 PodSchedulingContext 的状态
 
 #### HTTP 请求
 
-PATCH /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims/{name}
+PUT /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts/{name}/status
 
 <!--
 #### Parameters
 
 - **name** (_in path_): string, required
 
-  name of the ResourceClaim
+  name of the PodSchedulingContext
+
+- **namespace** (_in path_): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **body**: <a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>, required
+
+- **dryRun** (_in query_): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (_in query_): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (_in query_): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **pretty** (_in query_): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+-->
+#### 参数
+
+- **name**（**路径参数**）：string，必需
+
+  PodSchedulingContext 的名称。
+
+- **namespace**（**路径参数**）：string，必需
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **body**: <a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>，必需
+
+- **dryRun**（**查询参数**）：string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager**（**查询参数**）：string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation**（**查询参数**）：string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **pretty**（**查询参数**）：string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+<!--
+#### Response
+-->
+#### 响应
+
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
+
+201 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): Created
+
+401: Unauthorized
+
+<!--
+### `patch` partially update the specified PodSchedulingContext
+
+#### HTTP Request
+-->
+### `patch` 部分更新指定的 PodSchedulingContext
+
+#### HTTP 请求
+
+PATCH /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts/{name}
+
+<!--
+#### Parameters
+
+- **name** (_in path_): string, required
+
+  name of the PodSchedulingContext
 
 - **namespace** (_in path_): string, required
 
@@ -1019,7 +802,7 @@ PATCH /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims/{name
 
 - **name**（**路径参数**）：string，必需
 
-  ResourceClaim 的名称。
+  PodSchedulingContext 的名称。
 
 - **namespace**（**路径参数**）：string，必需
 
@@ -1052,29 +835,29 @@ PATCH /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims/{name
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): Created
 
 401: Unauthorized
 
 <!--
-### `patch` partially update status of the specified ResourceClaim
+### `patch` partially update status of the specified PodSchedulingContext
 
 #### HTTP Request
 -->
-### `patch` 部分更新指定 ResourceClaim 的状态
+### `patch` 部分更新指定 PodSchedulingContext 的状态
 
 #### HTTP 请求
 
-PATCH /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims/{name}/status
+PATCH /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts/{name}/status
 
 <!--
 #### Parameters
 
 - **name** (_in path_): string, required
 
-  name of the ResourceClaim
+  name of the PodSchedulingContext
 
 - **namespace** (_in path_): string, required
 
@@ -1106,7 +889,7 @@ PATCH /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims/{name
 
 - **name**（**路径参数**）：string，必需
 
-  ResourceClaim 的名称。
+  PodSchedulingContext 的名称。
 
 - **namespace**（**路径参数**）：string，必需
 
@@ -1139,29 +922,29 @@ PATCH /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims/{name
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): Created
 
 401: Unauthorized
 
 <!--
-### `delete` delete a ResourceClaim
+### `delete` delete a PodSchedulingContext
 
 #### HTTP Request
 -->
-### `delete` 删除 ResourceClaim
+### `delete` 删除 PodSchedulingContext
 
 #### HTTP 请求
 
-DELETE /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims/{name}
+DELETE /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts/{name}
 
 <!--
 #### Parameters
 
 - **name** (_in path_): string, required
 
-  name of the ResourceClaim
+  name of the PodSchedulingContext
 
 - **namespace** (_in path_): string, required
 
@@ -1189,7 +972,7 @@ DELETE /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims/{nam
 
 - **name**（**路径参数**）：string，必需
 
-  ResourceClaim 的名称。
+  PodSchedulingContext 的名称。
 
 - **namespace**（**路径参数**）：string，必需
 
@@ -1218,22 +1001,22 @@ DELETE /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims/{nam
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): OK
 
-202 (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaim" >}}">ResourceClaim</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/pod-scheduling-context-v1alpha3#PodSchedulingContext" >}}">PodSchedulingContext</a>): Accepted
 
 401: Unauthorized
 
 <!--
-### `deletecollection` delete collection of ResourceClaim
+### `deletecollection` delete collection of PodSchedulingContext
 
 #### HTTP Request
 -->
-### `deletecollection` 删除 ResourceClaim 的集合
+### `deletecollection` 删除 PodSchedulingContext 的集合
 
 #### HTTP 请求
 
-DELETE /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaims
+DELETE /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/podschedulingcontexts
 
 <!--
 #### Parameters

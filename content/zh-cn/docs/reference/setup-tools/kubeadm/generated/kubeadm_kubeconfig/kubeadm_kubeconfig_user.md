@@ -41,7 +41,7 @@ kubeadm alpha kubeconfig user --client-name=foo --config=bar
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -53,10 +53,12 @@ kubeadm alpha kubeconfig user --client-name=foo --config=bar
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The name of user. It will be used as the CN if client certificates are created
 -->
 用户名。如果生成客户端证书，则用作其 CN。
+</p>
 </td>
 </tr>
 
@@ -65,10 +67,12 @@ The name of user. It will be used as the CN if client certificates are created
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a kubeadm configuration file.
 -->
 指向 kubeadm 配置文件的路径。
+</p>
 </td>
 </tr>
 
@@ -77,10 +81,12 @@ Path to a kubeadm configuration file.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for user
 -->
 user 操作的帮助命令。
+</p>
 </td>
 </tr>
 
@@ -89,10 +95,12 @@ user 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The organizations of the client certificate. It will be used as the O if client certificates are created
 -->
 客户端证书的组织。如果创建客户端证书，此值将用作其 O 字段值。
+</p>
 </td>
 </tr>
 
@@ -102,10 +110,12 @@ The organizations of the client certificate. It will be used as the O if client 
 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The token that should be used as the authentication mechanism for this kubeconfig, instead of client certificates
 -->
 应该用此令牌做为 kubeconfig 的身份验证机制，而不是客户端证书。
+</p>
 </td>
 </tr>
 
@@ -114,10 +124,10 @@ The token that should be used as the authentication mechanism for this kubeconfi
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The validity period of the client certificate. It is an offset from the current time.
 -->
-<p>
 客户证书的合法期限。所设置值为相对当前时间的偏移。
 </p></td>
 </tr>
@@ -130,7 +140,7 @@ The validity period of the client certificate. It is an offset from the current 
 -->
 ### 从父命令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -142,10 +152,12 @@ The validity period of the client certificate. It is an offset from the current 
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
-[实验] 指向 '真实' 宿主机的根目录。
+到“真实”主机根文件系统的路径。设置此标志将导致 kubeadm 切换到所提供的路径。
+</p>
 </td>
 </tr>
 

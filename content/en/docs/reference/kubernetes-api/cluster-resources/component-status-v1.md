@@ -122,9 +122,9 @@ GET /api/v1/componentstatuses/{name}
   name of the ComponentStatus
 
 
-- ****: 
+- **pretty** (*in query*): string
 
-  
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 
 
@@ -145,59 +145,59 @@ GET /api/v1/componentstatuses
 #### Parameters
 
 
-- ****: 
+- **allowWatchBookmarks** (*in query*): boolean
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 
-- ****: 
+- **continue** (*in query*): string
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 
-- ****: 
+- **fieldSelector** (*in query*): string
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 
-- ****: 
+- **labelSelector** (*in query*): string
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 
-- ****: 
+- **limit** (*in query*): integer
 
-  
-
-
-- ****: 
-
-  
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 
-- ****: 
+- **pretty** (*in query*): string
 
-  
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+- **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
+
+- **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
+
+- **watch** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
 
 

@@ -44,8 +44,7 @@ The concept of sidecar containers is not new and there are multiple implementati
 As well as sidecar containers that you, the person defining the Pod, want to run, you can also find
 that some {{< glossary_tooltip text="addons" term_id="addons" >}} modify Pods -  before the Pods
 start running - so that there are extra sidecar containers. The mechanisms to _inject_ those extra
-sidecars are often [mutating webhooks](/docs/reference/access-authn-authz/admission-controllers/
-#mutatingadmissionwebhook).
+sidecars are often [mutating webhooks](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook).
 For example, a service mesh addon might inject a sidecar that configures mutual TLS and encryption
 in transit between different Pods.
 
