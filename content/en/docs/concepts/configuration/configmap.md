@@ -258,7 +258,7 @@ The output is similar to this:
 ```
 
 Once created a ConfigMap, you can consume it within your Pods. You can access all or part of a ConfigMap as environment variables, command line arguments, or mounted files.
-The following Pod (env-configmap.yaml) makes the content of the myconfigmap ConfigMap available as environment variables:
+The following Pod consumes the content of the ConfigMap as environment variables:
 
 {{% code_sample file="configmap/env-configmap.yaml" %}}
 
