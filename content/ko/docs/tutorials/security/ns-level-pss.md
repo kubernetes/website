@@ -1,7 +1,7 @@
 ---
 title: 파드 시큐리티 스탠다드를 네임스페이스 수준에 적용하기
 content_type: tutorial
-weight: 10
+weight: 20
 ---
 
 {{% alert title="Note" %}}
@@ -9,7 +9,7 @@ weight: 10
 {{% /alert %}}
 
 파드 시큐리티 어드미션(PSA, Pod Security Admission)은 
-[베타로 변경](/blog/2021/12/09/pod-security-admission-beta/)되어 v1.23 이상에서 기본적으로 활성화되어 있다. 
+[베타로 변경](/blog/2021/12/09/pod-security-admission-beta/)되어 v1.25 이상에서 기본적으로 활성화되어 있다. 
 파드 시큐리티 어드미션은 파드가 생성될 때 
 [파드 시큐리티 스탠다드(Pod Security Standards)](/ko/docs/concepts/security/pod-security-standards/)를 적용하는 어드미션 컨트롤러이다. 
 이 튜토리얼에서는, 
@@ -23,22 +23,22 @@ weight: 10
 
 워크스테이션에 다음을 설치한다.
 
-- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/ko/docs/tasks/tools/)
 
 ## 클러스터 생성하기
 
-1. 다음과 같이 `KinD` 클러스터를 생성한다.
+1. 다음과 같이 `kind` 클러스터를 생성한다.
 
    ```shell
-   kind create cluster --name psa-ns-level --image kindest/node:v1.23.0
+   kind create cluster --name psa-ns-level
    ```
 
    다음과 비슷하게 출력될 것이다.
 
    ```
    Creating cluster "psa-ns-level" ...
-    ✓ Ensuring node image (kindest/node:v1.23.0) 🖼 
+    ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼 
     ✓ Preparing nodes 📦  
     ✓ Writing configuration 📜 
     ✓ Starting control-plane 🕹️ 
@@ -52,7 +52,7 @@ weight: 10
    Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/
    ```
 
-1. kubectl context를 새로 생성한 클러스터로 설정한다.
+2. kubectl context를 새로 생성한 클러스터로 설정한다.
 
    ```shell
    kubectl cluster-info --context kind-psa-ns-level
@@ -112,36 +112,19 @@ namespace/example created
 1. `example` 네임스페이스에 최소한의 파드를 생성한다.
 
    ```shell
-   cat <<EOF > /tmp/pss/nginx-pod.yaml
-   apiVersion: v1
-   kind: Pod
-   metadata:
-     name: nginx
-   spec:
-     containers:
-       - image: nginx
-         name: nginx
-         ports:
-           - containerPort: 80
-   EOF
+   kubectl apply -n example -f https://k8s.io/examples/security/example-baseline-pod.yaml
    ```
-
-1. 클러스터의 `example` 네임스페이스에 해당 파드 스펙을 적용한다.
-
-   ```shell
-   kubectl apply -n example -f /tmp/pss/nginx-pod.yaml
-   ```
-   다음과 비슷하게 출력될 것이다.
+   파드는 생성되었으나 경고문이 출력될 것이다.
 
    ```
    Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
    pod/nginx created
    ```
 
-1. 클러스터의 `default` 네임스페이스에 해당 파드 스펙을 적용한다.
+2. 클러스터의 `default` 네임스페이스에 해당 파드 스펙을 적용한다.
 
    ```shell
-   kubectl apply -n default -f /tmp/pss/nginx-pod.yaml
+   kubectl apply -n default -f https://k8s.io/examples/security/example-baseline-pod.yaml
    ```
    다음과 비슷하게 출력될 것이다.
 
@@ -163,7 +146,7 @@ namespace/example created
   [셸 스크립트](/examples/security/kind-with-namespace-level-baseline-pod-security.sh)를 
   실행한다.
 
-  1. KinD 클러스터를 생성
+  1. kind 클러스터를 생성
   2. 새로운 네임스페이스를 생성
   3. `baseline` 파드 시큐리티 스탠다드는 `enforce` 모드로 적용하고 
      `restricted` 파드 시큐리티 스탠다드는 `warn` 및 `audit` 모드로 적용
