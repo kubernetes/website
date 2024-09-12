@@ -299,7 +299,7 @@ allowedTopologies:
     - us-east-2c
 ```
 
-- `tagSpecification`: Tags to be applied on the dynamically provisioned volumes.
+- `tagSpecification`: Tags to be applied on dynamically provisioned ebs volumes.
 
 ### NFS
 
