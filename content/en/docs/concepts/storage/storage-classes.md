@@ -290,8 +290,7 @@ parameters:
   type: io1
   iopsPerGB: "50"
   encrypted: "true"
-  tagSpecification_1: "key1=value1"
-  tagSpecification_2: "key2=hello world"
+  tagSpecification: "key1=value1"
 allowedTopologies:
 - matchLabelExpressions:
   - key: topology.ebs.csi.aws.com/zone
@@ -299,7 +298,7 @@ allowedTopologies:
     - us-east-2c
 ```
 
-- `tagSpecification`: Tags to be applied on dynamically provisioned ebs volumes.
+- `tagSpecification`: Tags to be applied on dynamically provisioned ebs volumes through AWS_EBS_CSI_DRIVER (in v1.6.0 and later).
 
 ### NFS
 
