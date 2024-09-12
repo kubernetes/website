@@ -185,7 +185,7 @@ Pour les nœuds, il existe deux formes de battements de cœur :
 
 * Mises à jour de l'[`.status`](/docs/reference/node/node-status/) d'un Nœud.
 * Objets [Lease](/docs/concepts/architecture/leases/)
-  dans l'espace de noms `kube-node-lease`.
+  dans le namespace `kube-node-lease`.
   Chaque Nœud a un objet Lease associé.
 
 ## Contrôleur de nœud
