@@ -194,10 +194,10 @@ en équilibrant des facteurs tels que la complexité opérationnelle, les perfor
 
 En savoir plus sur les sujets suivants :
 
-- [Nœuds](/docs/concepts/architecture/nodes/) et
-  [leur communication](/docs/concepts/architecture/control-plane-node-communication/)
+- [Nœuds](/fr/docs/concepts/architecture/nodes/) et
+  [leur communication](/fr/docs/concepts/architecture/control-plane-node-communication/)
   avec le plan de contrôle.
-- Les [contrôleurs](/docs/concepts/architecture/controller/) Kubernetes.
+- Les [contrôleurs](/fr/docs/concepts/architecture/controller/) Kubernetes.
 - [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/), qui est l'ordonnanceur par défaut de Kubernetes.
 - La [documentation officielle](https://etcd.io/docs/) d'Etcd.
 - Plusieurs [runtimes de conteneurs](/docs/setup/production-environment/container-runtimes/) dans Kubernetes.
