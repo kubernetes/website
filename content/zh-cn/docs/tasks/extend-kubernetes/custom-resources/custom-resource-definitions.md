@@ -1144,7 +1144,7 @@ cluster.
 才能使用这种行为，并将其应用到集群中的所有 CustomResourceDefinition。
 
 <!--
-Provided you enabled the feature gate, Kubernetes implements _validation racheting_
+Provided you enabled the feature gate, Kubernetes implements _validation ratcheting_
 for CustomResourceDefinitions. The API server is willing to accept updates to resources that
 are not valid after the update, provided that each part of the resource that failed to validate
 was not changed by the update operation. In other words, any invalid part of the resource
