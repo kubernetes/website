@@ -99,7 +99,7 @@ kube-proxy sur les nœuds de votre cluster.
 Les add-ons utilisent des ressources Kubernetes ({{< glossary_tooltip term_id="daemonset" >}},
 {{< glossary_tooltip term_id="deployment" >}}, etc.) pour implémenter des fonctionnalités de cluster.
 Étant donné qu'ils fournissent des fonctionnalités au niveau du cluster, les ressources des add-ons
-appartiennent à l'espace de noms `kube-system`.
+appartiennent au namespace `kube-system`.
 
 Certains add-ons sélectionnés sont décrits ci-dessous ; pour une liste étendue d'add-ons disponibles,
 veuillez consulter [Add-ons](/docs/concepts/cluster-administration/addons/).

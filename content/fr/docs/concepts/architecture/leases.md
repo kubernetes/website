@@ -20,7 +20,7 @@ qui sont utilisés pour des fonctionnalités critiques du système telles que le
 ## Battements de cœur des nœuds {#node-heart-beats}
 
 Kubernetes utilise l'API Lease pour communiquer les battements de cœur des nœuds kubelet au serveur API Kubernetes.
-Pour chaque `Node`, il existe un objet `Lease` avec un nom correspondant dans l'espace de noms `kube-node-lease`.
+Pour chaque `Node`, il existe un objet `Lease` avec un nom correspondant dans le namespace `kube-node-lease`.
 Sous le capot, chaque battement de cœur kubelet est une demande de **mise à jour** de cet objet `Lease`, mettant à jour
 le champ `spec.renewTime` pour le bail. Le plan de contrôle Kubernetes utilise le horodatage de ce champ
 pour déterminer la disponibilité de ce `Node`.
@@ -48,7 +48,7 @@ découvrir combien d'instances de `kube-apiserver` opèrent sur le plan de contr
 L'existence des Lease kube-apiserver permet des fonctionnalités futures qui peuvent nécessiter une coordination entre
 chaque kube-apiserver.
 
-Vous pouvez inspecter les Lease détenus par chaque kube-apiserver en vérifiant les objets de bail dans l'espace de noms `kube-system`
+Vous pouvez inspecter les Lease détenus par chaque kube-apiserver en vérifiant les objets de bail dans le namespace `kube-system`
 avec le nom `kube-apiserver-<sha256-hash>`. Alternativement, vous pouvez utiliser le sélecteur d'étiquettes `apiserver.kubernetes.io/identity=kube-apiserver`:
 
 ```shell

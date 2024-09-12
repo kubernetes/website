@@ -37,7 +37,7 @@ pour la provision automatisée des certificats client du kubelet.
 Les {{< glossary_tooltip text="pods" term_id="pod" >}} qui souhaitent se connecter au serveur API peuvent le faire de manière sécurisée en utilisant un compte de service de sorte
 que Kubernetes injecte automatiquement le certificat racine public et un jeton d'accès valide
 dans le pod lors de son instanciation.
-Le service `kubernetes` (dans l'espace de noms `default`) est configuré avec une adresse IP virtuelle qui est
+Le service `kubernetes` (dans le namespace `default`) est configuré avec une adresse IP virtuelle qui est
 redirigée (via `{{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}`) vers le point de terminaison HTTPS du serveur API.
 
 Les composants du plan de contrôle communiquent également avec le serveur API via le port sécurisé.
