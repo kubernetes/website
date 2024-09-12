@@ -107,9 +107,9 @@ veuillez consulter [Add-ons](/docs/concepts/cluster-administration/addons/).
 ### DNS
 
 Bien que les autres add-ons ne soient pas strictement nécessaires, tous les clusters Kubernetes devraient avoir
-[DNS de cluster](/docs/concepts/services-networking/dns-pod-service/), car de nombreux exemples en dépendent.
+[DNS du cluster](/docs/concepts/services-networking/dns-pod-service/), car de nombreux exemples en dépendent.
 
-Le DNS de cluster est un serveur DNS, en plus des autres serveur(s) DNS de votre environnement,
+Le DNS du cluster est un serveur DNS, en plus des autres serveur(s) DNS de votre environnement,
 qui fournit des enregistrements DNS pour les services Kubernetes.
 
 Les conteneurs démarrés par Kubernetes incluent automatiquement ce serveur DNS dans leurs recherches DNS.
