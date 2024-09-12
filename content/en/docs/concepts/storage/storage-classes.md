@@ -290,12 +290,16 @@ parameters:
   type: io1
   iopsPerGB: "50"
   encrypted: "true"
+  tagSpecification_1: "key1=value1"
+  tagSpecification_2: "key2=hello world"
 allowedTopologies:
 - matchLabelExpressions:
   - key: topology.ebs.csi.aws.com/zone
     values:
     - us-east-2c
 ```
+
+- `tagSpecification`: Tags to be applied on the dynamically provisioned volumes.
 
 ### NFS
 
