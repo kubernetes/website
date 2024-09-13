@@ -83,7 +83,8 @@ To specify an IPv6 tuple for `<control-plane-host>:<control-plane-port>`, IPv6 a
 If you do not have the token, you can get it by running the following command on the control plane node:
 
 ```bash
-kubeadm token list
+# Run this on a control plane node
+sudo kubeadm token list
 ```
 
 The output is similar to this:
@@ -101,7 +102,8 @@ current token has expired, you can create a new token by running the following c
 control plane node:
 
 ```bash
-kubeadm token create
+# Run this on a control plane node
+sudo kubeadm token create
 ```
 
 The output is similar to this:
