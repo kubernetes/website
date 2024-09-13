@@ -334,7 +334,7 @@ These healthcheck endpoint paths are hard coded and generated/controlled by the 
 Until the steps defined in [Ensuring all secrets are encrypted](#ensuring-all-secrets-are-encrypted) are performed, the `providers` list should end with the `identity: {}` provider to allow unencrypted data to be read.  Once all resources are encrypted, the `identity` provider should be removed to prevent the API server from honoring unencrypted data.
 
 For details about the `EncryptionConfiguration` format, please check the
-[API server encryption API reference](/docs/reference/config-api/apiserver-encryption.v1/).
+[API server encryption API reference](/docs/reference/config-api/apiserver-config.v1/).
 
 ## Verifying that the data is encrypted
 
