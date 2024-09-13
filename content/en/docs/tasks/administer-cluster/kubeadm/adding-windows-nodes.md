@@ -6,6 +6,8 @@ weight: 50
 
 <!-- overview -->
 
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+
 This page explains how to add Windows worker nodes to a kubeadm cluster.
 
 ## {{% heading "prerequisites" %}}
