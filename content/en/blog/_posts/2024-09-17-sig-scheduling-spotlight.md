@@ -2,8 +2,8 @@
 layout: blog
 title: "Spotlight on SIG Scheduling"
 slug: sig-scheduling-spotlight-2024
-canonicalUrl: https://www.kubernetes.dev/blog/2024/09/06/sig-scheduling-spotlight-2024
-date: 2024-09-06
+canonicalUrl: https://www.kubernetes.dev/blog/2024/09/17/sig-scheduling-spotlight-2024
+date: 2024-09-17
 author: "Arvind Parekh"
 ---
 
