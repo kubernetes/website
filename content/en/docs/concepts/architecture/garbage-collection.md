@@ -144,9 +144,8 @@ until disk usage reaches the `LowThresholdPercent` value.
 As a beta feature, you can specify the maximum time a local image can be unused for,
 regardless of disk usage. This is a kubelet setting that you configure for each node.
 
-To configure the setting, enable the `ImageMaximumGCAge`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kubelet,
-and also set a value for the `imageMaximumGCAge` field in the kubelet configuration file.
+To configure the setting, you need to set a value for the `imageMaximumGCAge` 
+field in the kubelet configuration file.
 
 The value is specified as a Kubernetes _duration_; 
 Valid time units for the `imageMaximumGCAge` field in the kubelet configuration file are:
