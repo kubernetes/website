@@ -1,7 +1,7 @@
 ---
 title: Adding Windows worker nodes
 content_type: task
-weight: 50
+weight: 11
 ---
 
 <!-- overview -->
