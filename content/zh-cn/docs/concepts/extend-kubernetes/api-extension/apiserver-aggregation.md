@@ -35,7 +35,7 @@ which are a way to make the {{< glossary_tooltip term_id="kube-apiserver" text="
 recognise new kinds of object.
 -->
 聚合层不同于
-[定制资源（Custom Resources）](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)。
+[定制资源定义（Custom Resource Definitions）](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)。
 后者的目的是让 {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
 能够识别新的对象类别（Kind）。
 
