@@ -1,7 +1,7 @@
 ---
 title: Adding Linux worker nodes
 content_type: task
-weight: 50
+weight: 10
 ---
 
 <!-- overview -->
