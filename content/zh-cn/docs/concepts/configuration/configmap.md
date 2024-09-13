@@ -1,11 +1,19 @@
 ---
-title: ConfigMaps
+title: ConfigMap
 api_metadata:
 - apiVersion: "v1"
   kind: "ConfigMap"
 content_type: concept
 weight: 20
 ---
+<!--
+title: ConfigMaps
+api_metadata:
+- apiVersion: "v1"
+  kind: "ConfigMap"
+content_type: concept
+weight: 20
+-->
 
 <!-- overview -->
 
@@ -108,17 +116,17 @@ You can write a Pod `spec` that refers to a ConfigMap and configures the contain
 in that Pod based on the data in the ConfigMap. The Pod and the ConfigMap must be in
 the same {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
 -->
-## ConfigMaps 和 Pods
+## ConfigMap 和 Pod   {#configmaps-and-pods}
 
 你可以写一个引用 ConfigMap 的 Pod 的 `spec`，并根据 ConfigMap 中的数据在该
 Pod 中配置容器。这个 Pod 和 ConfigMap 必须要在同一个
 {{< glossary_tooltip text="名字空间" term_id="namespace" >}} 中。
 
+{{< note >}}
 <!--
 The `spec` of a {{< glossary_tooltip text="static Pod" term_id="static-pod" >}} cannot refer to a ConfigMap
 or any other API objects.
 -->
-{{< note >}}
 {{< glossary_tooltip text="静态 Pod" term_id="static-pod" >}} 中的 `spec`
 字段不能引用 ConfigMap 或任何其他 API 对象。
 {{< /note >}}
@@ -150,6 +158,7 @@ data:
     color.bad=yellow
     allow.textmode=true
 ```
+
 <!--
 There are four different ways that you can use a ConfigMap to configure
 a container inside a Pod:
@@ -356,11 +365,12 @@ ConfigMaps consumed as environment variables are not updated automatically and r
 以环境变量方式使用的 ConfigMap 数据不会被自动更新。
 更新这些数据需要重新启动 Pod。
 
+{{< note >}}
 <!--
 A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes#using-subpath) volume mount will not receive ConfigMap updates.
 -->
-{{< note >}}
-使用 ConfigMap 作为 [subPath](/zh-cn/docs/concepts/storage/volumes#using-subpath) 卷挂载的容器将不会收到 ConfigMap 的更新。
+使用 ConfigMap 作为 [subPath](/zh-cn/docs/concepts/storage/volumes#using-subpath)
+卷挂载的容器将不会收到 ConfigMap 的更新。
 {{< /note >}}
 
 <!--
@@ -386,8 +396,81 @@ in a Pod:
 
 <!--
 This is an example of defining a ConfigMap as a pod environment variable:
+
+The following ConfigMap (myconfigmap.yaml) stores two properties: username and access_level:
 -->
 下面是一个将 ConfigMap 定义为 Pod 环境变量的示例：
+
+以下 ConfigMap (myconfigmap.yaml) 存储两个属性：username 和 access_level：
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myconfigmap
+data:
+  username: k8s-admin
+  access_level: "1"
+```
+
+<!--
+The following command will create the ConfigMap object:
+-->
+以下命令将创建 ConfigMap 对象：
+
+```shell
+kubectl apply -f myconfigmap.yaml
+```
+
+<!--
+The following Pod consumes the content of the ConfigMap as environment variables:
+-->
+以下 Pod 将 ConfigMap 的内容用作环境变量：
+
+{{% code_sample file="configmap/env-configmap.yaml" %}}
+
+<!--
+The `envFrom` field instructs Kubernetes to create environment variables from the sources nested within it.
+The inner `configMapRef` refers to a ConfigMap by its name and selects all its key-value pairs.
+Add the Pod to your cluster, then retrieve its logs to see the output from the printenv command.
+This should confirm that the two key-value pairs from the ConfigMap have been set as environment variables:
+-->
+`envFrom` 字段指示 Kubernetes 使用其中嵌套的源创建环境变量。
+内部的 `configMapRef` 通过 ConfigMap 的名称引用之，并选择其所有键值对。
+将 Pod 添加到你的集群中，然后检索其日志以查看 printenv 命令的输出。
+此操作可确认来自 ConfigMap 的两个键值对已被设置为环境变量：
+
+```shell
+kubectl apply -f env-configmap.yaml
+```
+
+```shell
+kubectl logs pod/ env-configmap
+```
+
+<!--
+The output is similar to this:
+-->
+输出类似于：
+
+```console
+...
+username: "k8s-admin"
+access_level: "1"
+...
+```
+
+<!--
+Sometimes a Pod won't require access to all the values in a ConfigMap.
+For example, you could have another Pod which only uses the username value from the ConfigMap.
+For this use case, you can use the `env.valueFrom` syntax instead, which lets you select individual keys in
+a ConfigMap. The name of the environment variable can also be different from the key within the ConfigMap.
+For example:
+-->
+有时 Pod 不需要访问 ConfigMap 中的所有值。
+例如，你可以有另一个 Pod 只使用 ConfigMap 中的 username 值。
+在这种使用场景中，你可以转为使用 `env.valueFrom` 语法，这样可以让你选择 ConfigMap 中的单个键。
+环境变量的名称也可以不同于 ConfigMap 中的键。例如：
 
 ```yaml
 apiVersion: v1
@@ -404,8 +487,15 @@ spec:
         configMapKeyRef:
           name: myconfigmap
           key: username
-
 ```
+
+<!--
+In the Pod created from this manifest, you will see that the environment variable
+`CONFIGMAP_USERNAME` is set to the value of the `username` value from the ConfigMap.
+Other keys from the ConfigMap data are not copied into the environment.
+-->
+在从此清单创建的 Pod 中，你将看到环境变量 `CONFIGMAP_USERNAME` 被设置为 ConfigMap 中 `username` 的取值。
+来自 ConfigMap 数据中的其他键不会被复制到环境中。
 
 <!--
 It's important to note that the range of characters allowed for environment
@@ -429,7 +519,7 @@ individual Secrets and ConfigMaps as immutable. For clusters that extensively us
 (at least tens of thousands of unique ConfigMap to Pod mounts), preventing changes to their
 data has the following advantages:
 -->
-Kubernetes 特性 _Immutable Secret 和 ConfigMaps_ 提供了一种将各个
+Kubernetes 特性 **Immutable Secret 和 ConfigMap** 提供了一种将各个
 Secret 和 ConfigMap 设置为不可变更的选项。对于大量使用 ConfigMap 的集群
 （至少有数万个各不相同的 ConfigMap 给 Pod 挂载）而言，禁止更改
 ConfigMap 的数据有以下好处：
