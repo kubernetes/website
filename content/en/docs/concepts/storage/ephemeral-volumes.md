@@ -46,7 +46,7 @@ different purposes:
   [downwardAPI](/docs/concepts/storage/volumes/#downwardapi),
   [secret](/docs/concepts/storage/volumes/#secret): inject different
   kinds of Kubernetes data into a Pod
-- [image](docs/concepts/storage/volumes/#image): Allows mounting container image files or artifacts,
+- [image](/docs/concepts/storage/volumes/#image): allows mounting container image files or artifacts,
   directly to a Pod.
 - [CSI ephemeral volumes](#csi-ephemeral-volumes):
   similar to the previous volume kinds, but provided by special {{< glossary_tooltip text="CSI" term_id="csi" >}} drivers
