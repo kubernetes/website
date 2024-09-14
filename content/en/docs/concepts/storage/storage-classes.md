@@ -298,8 +298,7 @@ allowedTopologies:
 ```
 ### AWS EFS
 
-To configure AWS EFS storage, you can use the out-of-tree driver
-[AWS_EFS_CSI_DRIVER](https://github.com/kubernetes-sigs/aws-efs-csi-driver).
+To configure AWS EFS storage, you can use the out-of-tree [AWS_EFS_CSI_DRIVER](https://github.com/kubernetes-sigs/aws-efs-csi-driver).
 
 ```yaml
 kind: StorageClass
