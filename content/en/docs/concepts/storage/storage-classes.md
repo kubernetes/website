@@ -299,7 +299,7 @@ allowedTopologies:
     - us-east-2c
 ```
 
-- `tagSpecification`: Tags with this prefix are applied to dynamically provisioned EBS volumes. For more details, refer to the [AWS EBS CSI Driver StorageClass Tagging](https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/docs/tagging.md) documentation.
+- `tagSpecification`: Tags with this prefix are applied to dynamically provisioned EBS volumes. For more details, refer to the [AWS_EBS_CSI_Driver StorageClass Tagging](https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/docs/tagging.md) documentation.
 
 ### NFS
 
