@@ -127,7 +127,7 @@ kubeletは、退避の判断を行うときに使用するカスタムの退避�
 退避閾値は`[eviction-signal][operator][quantity]`の形式を取ります:
 
 - `eviction-signal`は、使用する[退避シグナル](#eviction-signals)です。
-- `operator`は、`<`(より小さい)などの[関係演算子]((https://ja.wikipedia.org/wiki/%E9%96%A2%E4%BF%82%E6%BC%94%E7%AE%97%E5%AD%90#%E6%A8%99%E6%BA%96%E7%9A%84%E3%81%AA%E9%96%A2%E4%BF%82%E6%BC%94%E7%AE%97%E5%AD%90))です。
+- `operator`は、`<`(より小さい)などの[関係演算子](https://ja.wikipedia.org/wiki/%E9%96%A2%E4%BF%82%E6%BC%94%E7%AE%97%E5%AD%90#%E6%A8%99%E6%BA%96%E7%9A%84%E3%81%AA%E9%96%A2%E4%BF%82%E6%BC%94%E7%AE%97%E5%AD%90)です。
 - `quantity`は、`1Gi`などの退避閾値量です。
   `quantity`の値はKubernetesで使用される数量表現と一致する必要があります。
   リテラル値またはパーセンテージ(`%`)を使用できます。
