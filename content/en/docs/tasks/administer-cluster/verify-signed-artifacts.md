@@ -13,7 +13,7 @@ weight: 420
 
 You will need to have the following tools installed:
 
-- `cosign` ([install guide](https://docs.sigstore.dev/cosign/installation/))
+- `cosign` ([install guide](https://docs.sigstore.dev/cosign/system_config/installation/))
 - `curl` (often provided by your operating system)
 - `jq` ([download jq](https://jqlang.github.io/jq/download/))
 
