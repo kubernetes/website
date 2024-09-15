@@ -679,16 +679,16 @@ null `namespaceSelector` matches the namespace of the Pod where the rule is defi
 {{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
 
 {{< note >}}
-<!-- UPDATE THIS WHEN PROMOTING TO BETA -->
+<!-- UPDATE THIS WHEN PROMOTING TO STABLE -->
 <!--
-The `matchLabelKeys` field is an alpha-level field and is disabled by default in
+The `matchLabelKeys` field is an beta-level field and is disabled by default in
 Kubernetes {{< skew currentVersion >}}.
-When you want to use it, you have to enable it via the
+When you want to disable it, you have to disable it explicitly via the
 `MatchLabelKeysInPodAffinity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
-`matchLabelKeys` 字段是一个 Alpha 级别的字段，在 Kubernetes {{< skew currentVersion >}} 中默认被禁用。
-当你想要使用此字段时，你必须通过 `MatchLabelKeysInPodAffinity`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)启用它。
+`matchLabelKeys` 字段是一个 Beta 级别的字段，在 Kubernetes {{< skew currentVersion >}} 中默认被禁用。
+当你想要禁用此字段时，你必须通过 `MatchLabelKeysInPodAffinity`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)禁用它。
 {{< /note >}}
 
 <!--
@@ -753,16 +753,16 @@ spec:
 {{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
 
 {{< note >}}
-<!-- UPDATE THIS WHEN PROMOTING TO BETA -->
+<!-- UPDATE THIS WHEN PROMOTING TO STABLE -->
 <!--
-The `mismatchLabelKeys` field is an alpha-level field and is disabled by default in
+The `mismatchLabelKeys` field is an beta-level field and is disabled by default in
 Kubernetes {{< skew currentVersion >}}.
-When you want to use it, you have to enable it via the
+When you want to disable it, you have to disable it explicitly via the
 `MatchLabelKeysInPodAffinity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
-`mismatchLabelKeys` 字段是一个 Alpha 级别的字段，在 Kubernetes {{< skew currentVersion >}} 中默认被禁用。
-当你想要使用此字段时，你必须通过 `MatchLabelKeysInPodAffinity`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)启用它。
+`mismatchLabelKeys` 字段是一个 Beta 级别的字段，在 Kubernetes {{< skew currentVersion >}} 中默认被禁用。
+当你想要禁用此字段时，你必须通过 `MatchLabelKeysInPodAffinity`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)禁用它。
 {{< /note >}}
 
 <!--
