@@ -289,6 +289,25 @@ in the StatefulSet topic for more details.
 Note the [PodIndexLabel](/docs/reference/command-line-tools-reference/feature-gates/)
 feature gate must be enabled for this label to be added to pods.
 
+### autoscaling.alpha.kubernetes.io/behavior (deprecated)
+Type : Annotation
+
+Example: `autoscaling.alpha.kubernetes.io/behavior: <JSON-encoded string>`
+
+Used on: Horizontal Pod Autoscaler (HPA)
+
+This annotation was used to define the scaling behavior for the Horizontal Pod Autoscaler in early versions of Kubernetes. 
+The value is a JSON-encoded string that specifies how scaling up or down should occur,
+including parameters like stabilization windows and scaling policies (e.g., step sizes or rate limits for scaling actions).
+
+If this annotation is set, it controls the scaling decisions of the HPA. However, 
+it is an alpha feature and is not officially registered, having been replaced by the stable behavior field in the HPA v2beta2 API.
+
+{{< note >}}
+This annotation is now deprecated and should not be used in new configurations.
+{{< /note >}}
+
+
 ### cluster-autoscaler.kubernetes.io/safe-to-evict
 
 Type: Annotation
