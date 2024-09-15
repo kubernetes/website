@@ -80,7 +80,7 @@ expanded to `data.test.svc.cluster.local`. The values of the `search` option
 are used to expand queries. To learn more about DNS queries, see 
 [the `resolv.conf` manual page.](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html) 
 -->
-DNS 查询可以使用 Pod 中的 `/etc/resolv.conf` 文件进行扩展。
+DNS 查询可以使用 Pod 中的 `/etc/resolv.conf` 展开。
 Kubelet 为每个 Pod 配置此文件。
 例如，对 `data` 的查询可能被扩展为 `data.test.svc.cluster.local`。
 `search` 选项的值用于扩展查询。要进一步了解 DNS 查询，可参阅
@@ -118,7 +118,7 @@ considered implementation details and are subject to change without warning.
 For more up-to-date specification, see
 [Kubernetes DNS-Based Service Discovery](https://github.com/kubernetes/dns/blob/master/docs/specification.md).
 -->
-以下各节详细介绍了已支持的 DNS 记录类型和布局。
+以下各节详细介绍已支持的 DNS 记录类型和布局。
 其它布局、名称或者查询即使碰巧可以工作，也应视为实现细节，
 将来很可能被更改而且不会因此发出警告。
 有关最新规范请查看
@@ -147,9 +147,9 @@ selection from the set.
 
 除了无头 Service 之外的 “普通” Service 会被赋予一个形如 `my-svc.my-namespace.svc.cluster-domain.example`
 的 DNS A 和/或 AAAA 记录，取决于 Service 的 IP 协议族（可能有多个）设置。
-该名称会解析成对应 Service 的 cluster IP。
+该名称会解析成对应 Service 的集群 IP。
 
-没有 cluster IP 的[无头 Service](/zh-cn/docs/concepts/services-networking/service/#headless-services)
+没有集群 IP 的[无头 Service](/zh-cn/docs/concepts/services-networking/service/#headless-services)
 也会被赋予一个形如 `my-svc.my-namespace.svc.cluster-domain.example` 的 DNS A 和/或 AAAA 记录。
 与普通 Service 不同，这一记录会被解析成对应 Service 所选择的 Pod IP 的集合。
 客户端要能够使用这组 IP，或者使用标准的轮转策略从这组 IP 中进行选择。
@@ -173,7 +173,7 @@ Kubernetes 根据普通 Service 或无头 Service
 SRV 记录格式为 `_port-name._port-protocol.my-svc.my-namespace.svc.cluster-domain.example`。
 对于普通 Service，该记录会被解析成端口号和域名：`my-svc.my-namespace.svc.cluster-domain.example`。
 对于无头 Service，该记录会被解析成多个结果，及该服务的每个后端 Pod 各一个 SRV 记录，
-其中包含 Pod 端口号和域名的格式为 `hostname.my-svc.my-namespace.svc.cluster-domain.example`
+其中包含 Pod 端口号和格式为 `hostname.my-svc.my-namespace.svc.cluster-domain.example`
 的域名。
 
 <!--
@@ -244,7 +244,7 @@ have its hostname set to `"foo"` and its fully qualified domain name (FQDN) set 
 the Pod).
 -->
 
-Pod 规约还有一个可选的 `subdomain` 字段，可以用来表示 Pod 属于命名空间的一个子组。
+Pod 规约还有一个可选的 `subdomain` 字段，可以用来表明该 Pod 属于命名空间的一个子组。
 例如，某 Pod 的 `spec.hostname` 设置为 `“foo”`，`spec.subdomain` 设置为 `“bar”`，
 在命名空间 `“my-namespace”` 中，主机名称被设置成 `“foo”` 并且对应的完全限定域名（FQDN）为
 “`foo.bar.my-namespace.svc.cluster-domain.example`”（还是从 Pod 内部观察）。
