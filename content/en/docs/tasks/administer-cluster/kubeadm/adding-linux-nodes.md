@@ -39,6 +39,7 @@ To specify an IPv6 tuple for `<control-plane-host>:<control-plane-port>`, IPv6 a
 If you do not have the token, you can get it by running the following command on the control plane node:
 
 ```bash
+# Run this on a control plane node
 sudo kubeadm token list
 ```
 
@@ -57,6 +58,7 @@ current token has expired, you can create a new token by running the following c
 control plane node:
 
 ```bash
+# Run this on a control plane node
 sudo kubeadm token create
 ```
 
@@ -70,6 +72,7 @@ If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it 
 following commands on the control plane node:
 
 ```bash
+# Run this on a control plane node
 sudo cat /etc/kubernetes/pki/ca.crt | openssl x509 -pubkey  | openssl rsa -pubin -outform der 2>/dev/null | \
    openssl dgst -sha256 -hex | sed 's/^.* //'
 ```
