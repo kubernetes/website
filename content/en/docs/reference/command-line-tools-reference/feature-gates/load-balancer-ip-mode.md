@@ -13,6 +13,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.30"
+    toVersion: "1.31"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.32"
 ---
 Allows setting `ipMode` for Services where `type` is set to `LoadBalancer`.
 See [Specifying IPMode of load balancer status](/docs/concepts/services-networking/service/#load-balancer-ip-mode)
