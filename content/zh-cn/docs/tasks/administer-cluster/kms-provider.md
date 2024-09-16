@@ -619,10 +619,10 @@ Once all resources are encrypted, the `identity` provider should be removed to p
 
 <!--
 For details about the `EncryptionConfiguration` format, please check the
-[API server encryption API reference](/docs/reference/config-api/apiserver-encryption.v1/).
+[API server encryption API reference](/docs/reference/config-api/apiserver-config.v1/).
 -->
 有关 `EncryptionConfiguration` 格式的更多详细信息，请参阅
-[kube-apiserver 加密 API 参考（v1）](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/)。
+[kube-apiserver 加密 API 参考（v1）](/zh-cn/docs/reference/config-api/apiserver-config.v1/)。
 
 <!--
 ## Verifying that the data is encrypted
