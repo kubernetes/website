@@ -3,7 +3,7 @@ reviewers:
 - sig-cluster-lifecycle
 title: Reconfiguring a kubeadm cluster
 content_type: task
-weight: 30
+weight: 90
 ---
 
 <!-- overview -->

@@ -1,7 +1,7 @@
 ---
 title: Changing The Kubernetes Package Repository
 content_type: task
-weight: 120
+weight: 150
 ---
 
 <!-- overview -->
