@@ -142,10 +142,14 @@ Um kubectl auf Linux zu installieren, gibt es die folgenden Möglichkeiten:
    curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
    ```
 
-3. Kubernetes zum `apt` Repository:
+   
+
+3. Kubernetes zum `apt` Repository hinzufügen. Wenn eine andere Kubernetes Version als {{< param "version" >}} installiert werden soll, muss {{< param "version" >}} im unteren Block durch die gewünschte Version ersetzt werden.
 
    ```shell
-   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   # Dies überschreibt jede bestehende Konfiguration in /etc/apt/sources.list.d/kubernetes.list
+   echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list
    ```
 
 4. Den `apt` Paketindex mit dem neuen Repository updaten und kubectl installieren:
