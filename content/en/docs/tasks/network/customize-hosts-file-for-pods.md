@@ -13,8 +13,8 @@ min-kubernetes-server-version: 1.7
 
 Adding entries to a Pod's `/etc/hosts` file provides Pod-level override of hostname resolution when DNS and other options are not applicable. You can add these custom entries with the HostAliases field in PodSpec.
 
-Modification not using HostAliases is not suggested because the file is managed by the kubelet and can be overwritten on during Pod creation/restart.
-
+Modification using the HostAliases field in the PodSpec is recommended because changes
+made in other ways may be overwritten by the kubelet during Pod creation or restart.
 
 <!-- steps -->
 
