@@ -141,13 +141,17 @@ The types of plugins that can place socket files into that directory are:
 
 (typically `/var/lib/kubelet/plugins_registry`).
 
-## Seccomp
+## Security profiles & configuration
 
-Seccomp profile files referenced from Pods should be placed in `/docs/reference/node/seccomp/`.
-See [seccomp documentation](/docs/reference/node/seccomp/) for details.
+### Seccomp
 
-Note, apparmor profiles are being loaded via operating system rather then referenced by the path.
-See [apparmor documentation](https://kubernetes.io/docs/tutorials/security/apparmor/#specifying-apparmor-confinement).
+Seccomp profile files referenced from Pods should be placed in `/var/lib/kubelet/seccomp`.
+See the [seccomp reference](/docs/reference/node/seccomp/) for details.
+
+### AppArmor
+
+The kubelet does not load or refer to AppArmor profiles by a Kubernetes-specific path.
+AppArmor profiles are loaded via the node operating system rather then referenced by their path.
 
 ## Locking
 
