@@ -15,6 +15,8 @@ This section contains the following reference topics about nodes:
 
 * [Node `.status` information](/docs/reference/node/node-status/)
 
+* [Seccomp information](/docs/reference/node/seccomp/)
+
 You can also read node reference details from elsewhere in the
 Kubernetes documentation, including:
 
