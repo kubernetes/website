@@ -334,7 +334,7 @@ the `Terminated` state.
 -->
 ### `Terminated`（已终止）   {#container-state-terminated}
 
-处于 `Terminated` 状态的容器已经开始执行，并且正常结束或者因为某些原因失败。
+处于 `Terminated` 状态的容器开始执行后，或者运行至正常结束或者因为某些原因失败。
 如果你使用 `kubectl` 来查询包含 `Terminated` 状态的容器的 Pod 时，
 你会看到容器进入此状态的原因、退出代码以及容器执行期间的起止时间。
 
