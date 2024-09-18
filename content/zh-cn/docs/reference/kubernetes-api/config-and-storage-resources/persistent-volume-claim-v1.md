@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PersistentVolumeClaim 是用户针对一个持久卷的请求和申领。"
 title: "PersistentVolumeClaim"
-weight: 4
+weight: 6
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PersistentVolumeClaim is a user's request for and claim to a persistent volume."
 title: "PersistentVolumeClaim"
-weight: 4
+weight: 6
 -->
 
 `apiVersion: v1`
@@ -71,6 +71,8 @@ PersistentVolumeClaimSpec describes the common attributes of storage devices and
 <hr>
 - **accessModes** ([]string)
 
+  *Atomic: will be replaced during a merge*
+
   accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -83,6 +85,8 @@ PersistentVolumeClaimSpec 描述存储设备的常用参数，并支持通过 so
 
 - **accessModes** ([]string)
 
+  **原子性：将在合并期间被替换**
+
   accessModes 包含卷应具备的预期访问模式。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#access-modes-1
 
@@ -91,57 +95,24 @@ PersistentVolumeClaimSpec 描述存储设备的常用参数，并支持通过 so
   selector 是在绑定时对卷进行选择所执行的标签查询。
 
 <!--
-- **resources** (ResourceRequirements)
+-  **resources** (VolumeResourceRequirements)
 
   resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-
-  <a name="ResourceRequirements"></a>
-  *ResourceRequirements describes the compute resource requirements.*
 -->
-- **resources** (ResourceRequirements)
+-  **resources** (VolumeResourceRequirements)
 
   resources 表示卷应拥有的最小资源。
   如果启用了 RecoverVolumeExpansionFailure 功能特性，则允许用户指定这些资源要求，
   此值必须低于之前的值，但必须高于申领的状态字段中记录的容量。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#resources
 
-  <a name="ResourceRequirements"></a>
-  **ResourceRequirements 描述计算资源要求。**
+  <a name="VolumeResourceRequirements"></a>
 
-  - **resources.claims** ([]ResourceClaim)
+  <!--
+  *VolumeResourceRequirements describes the storage resource requirements for a volume.*
+  -->
 
-    <!--
-    *Map: unique values on key name will be kept during a merge*
-
-    Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
-
-    This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
-
-    This field is immutable. It can only be set for containers.
-    -->
-
-    **集合：键 name 的唯一值将在合并期间被保留**
-
-    claims 列出了此容器使用的、在 spec.resourceClaims 中定义的资源的名称。
-
-    这是一个 Alpha 字段，需要启用 DynamicResourceAllocation 特性门控。
-
-    此字段是不可变的。
-
-    <!--
-    <a name="ResourceClaim"></a>
-    *ResourceClaim references one entry in PodSpec.ResourceClaims.*
-
-    - **resources.claims.name** (string), required
-
-      Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
-    -->
-    <a name="ResourceClaim"></a>
-    **ResourceClaim 引用 PodSpec.ResourceClaims 中的一个条目。**
-
-    - **resources.claims.name** (string)，必需
-
-      对于使用此字段的 Pod，name 必须与 pod.spec.resourceClaims 中的一个条目的名称匹配。
+  **VolumeResourceRequirements 描述了卷的存储资源要求。**
 
   <!--
   - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -280,6 +251,23 @@ dataSourceRef specifies the object from which to populate the volume with data, 
     以允许该名字空间的所有者接受引用。有关详细信息，请参阅 ReferenceGrant 文档。
     (Alpha) 此字段需要启用 CrossNamespaceVolumeDataSource 特性门控。
 
+- **volumeAttributesClassName** (string)
+
+  <!--
+  volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).
+  -->
+
+  `volumeAttributesClassName` 可用于设置此申领所使用的 VolumeAttributesClass。
+  如果设置了此字段，CSI 驱动程序将使用相应 VolumeAttributesClass 中定义的属性创建或更新卷。
+  与 `storageClassName` 的用途不同，此属性可以在创建申领之后更改。空字符串值表示不会将 VolumeAttributesClass
+  应用于申领，但一旦设置，就不允许将此字段重置为空字符串。如果未指定且 PersistentVolumeClaim 未绑定，
+  则持久卷控制器将设置默认的 VolumeAttributesClass（如果存在）。
+  如果 VolumeAttributesClass 所引用的资源不存在，则此 PersistentVolumeClaim 将被设置为 Pending 状态，
+  如 `modifyVolumeStatus` 字段所示，直到存在此类资源。更多信息：
+  https://kubernetes.io/zh-cn/docs/concepts/storage/volume-attributes-classes/
+  
+  （Beta）使用此字段需要启用 VolumeAttributesClass 特性门控（默认情况下关闭）。
+
 ## PersistentVolumeClaimStatus {#PersistentVolumeClaimStatus}
 <!--
 PersistentVolumeClaimStatus is the current status of a persistent volume claim.
@@ -287,6 +275,9 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
 <hr>
 
 - **accessModes** ([]string)
+
+  *Atomic: will be replaced during a merge*
+
   accessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 -->
 PersistentVolumeClaimStatus 是持久卷申领的当前状态。
@@ -294,6 +285,8 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
 <hr>
 
 - **accessModes** ([]string)
+
+  **原子性：将在合并期间被替换**
 
   accessModes 包含支持 PVC 的卷所具有的实际访问模式。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#access-modes-1
@@ -415,7 +408,9 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
 - **conditions** ([]PersistentVolumeClaimCondition)
   *Patch strategy: merge on key `type`*
 
-  conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+  *Map: unique values on key type will be kept during a merge*
+
+  conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'Resizing'.
 
   <a name="PersistentVolumeClaimCondition"></a>
   *PersistentVolumeClaimCondition contains details about state of pvc*
@@ -424,8 +419,10 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
 
   **补丁策略：按照键 `type` 合并**
 
+  **映射：基于 `name` 键的唯一值将在合并期间被保留**
+
   conditions 是持久卷声明的当前的状况。
-  如果正在调整底层持久卷的大小，则状况将被设为 “ResizeStarted”。
+  如果正在调整底层持久卷的大小，则状况将被设为 “Resizing”。
 
   <a name="PersistentVolumeClaimCondition"></a>
   **PersistentVolumeClaimCondition 包含有关 PVC 状态的详细信息。**
@@ -464,7 +461,7 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
     message is the human-readable message indicating details about last transition.
 
   - **conditions.reason** (string)
-    reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
+    reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "Resizing" that means the underlying persistent volume is being resized.
 -->
   - **conditions.lastTransitionTime** (Time)
 
@@ -481,7 +478,67 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
   - **conditions.reason** (string)
 
     reason 是唯一的，它应该是一个机器可理解的简短字符串，指明上次状况转换的原因。
-    如果它报告 “ResizeStarted”，则意味着正在调整底层持久卷的大小。
+    如果它报告 “Resizing”，则意味着正在调整底层持久卷的大小。
+
+  - **currentVolumeAttributesClassName** (string)
+
+    <!--
+    currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+    -->
+
+    `currentVolumeAttributesClassName` 是 PVC 所使用的 VolumeAttributesClass 的当前名称。
+    这是一个 Beta 级别字段，需要启用 VolumeAttributesClass 特性（默认情况下处于关闭状态）。
+
+  - **modifyVolumeStatus** (ModifyVolumeStatus)
+
+    <!--
+    ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+    -->
+
+    `modifyVolumeStatus` 表示 ControllerModifyVolume 操作的状态对象。
+    如果未设置，则表示没有尝试执行任何修改卷操作。这是一个测试字段，需要启用
+    VolumeAttributesClass 特性（默认关闭）。
+
+    <a name="ModifyVolumeStatus"></a>
+
+    <!--
+    *ModifyVolumeStatus represents the status object of ControllerModifyVolume operation*
+    -->
+
+    **ModifyVolumeStatus 表示 ControllerModifyVolume 操作的状态对象**
+
+  <!--
+  - **modifyVolumeStatus.status** (string), required
+
+    status is the status of the ControllerModifyVolume operation. It can be in any of following states:
+     - Pending
+       Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as
+       the specified VolumeAttributesClass not existing.
+     - InProgress
+       InProgress indicates that the volume is being modified.
+     - Infeasible
+      Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+         resolve the error, a valid VolumeAttributesClass needs to be specified.
+    Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+  -->
+
+  - **modifyVolumeStatus.status** (string)，必需
+
+    status 是 ControllerModifyVolume 操作的状态。它可以是以下任一状态：
+    - Pending
+      Pending 表示由于未满足要求（例如指定的 VolumeAttributesClass 不存在）而无法修改 PersistentVolumeClaim。
+    - InProgress
+      InProgress 表示卷正在被修改。
+    - Infeasible
+      Infeasible 表示请求已被 CSI 驱动程序拒绝，因为请求无效。要解决此错误，需要指定有效的 VolumeAttributesClass。
+  注意：将来可能会添加新状态。消费者应当检查未知状态，并适当地处理失败情况。
+
+  - **modifyVolumeStatus.targetVolumeAttributesClassName** (string)
+
+  <!--
+  targetVolumeAttributesClassName is the name of the VolumeAttributesClass the PVC currently being reconciled
+  -->
+  `targetVolumeAttributesClassName` 是当前正在协调的 PVC 的 VolumeAttributesClass 的名称
 
 <!--
 - **phase** (string)

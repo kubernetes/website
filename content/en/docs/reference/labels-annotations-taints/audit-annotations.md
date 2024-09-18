@@ -76,7 +76,8 @@ for more information.
 
 Example: `authorization.k8s.io/decision: "forbid"`
 
-This annotation indicates whether or not a request was authorized in Kubernetes audit logs.
+Value must be **forbid** or **allow**. This annotation indicates whether or not a request
+was authorized in Kubernetes audit logs.
 
 See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
 

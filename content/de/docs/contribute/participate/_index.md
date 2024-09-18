@@ -51,7 +51,7 @@ Automatisierung die Informationen aus den `OWNERS`-Dateien.
 ### OWNERS Dateien und Front-Matter
 
 Das Kubernetes-Projekt verwendet ein Automatisierungstool namens prow für die Automatisierung im Zusammenhang mit GitHub-Issues und Pull-Requests. 
-Das [Kubernetes-Website-Repository](https://github.com/kubernetes/website) verwendet zwei [prow-Plugins](https://github.com/kubernetes/test-infra/tree/master/prow/plugins):
+Das [Kubernetes-Website-Repository](https://github.com/kubernetes/website) verwendet zwei [prow-Plugins](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins):
 
 - blunderbuss
 - approve

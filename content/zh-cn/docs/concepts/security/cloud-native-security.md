@@ -52,7 +52,7 @@ when localizing, that's even better.
 {{< /comment >}}
 
 <!--
-The CNCF [white paper](https://github.com/cncf/tag-security/tree/main/security-whitepaper)
+The CNCF [white paper](https://github.com/cncf/tag-security/blob/main/community/resources/security-whitepaper/v2/CNCF_cloud-native-security-whitepaper-May2022-v2.pdf)
 on cloud native security defines security controls and practices that are
 appropriate to different _lifecycle phases_.
 -->
@@ -440,10 +440,10 @@ logs are both tamper-proof and confidential.
 ### 云原生安全 {#further-reading-cloud-native}
 
 <!--
-* CNCF [white paper](https://github.com/cncf/tag-security/tree/main/security-whitepaper)
+* CNCF [white paper](https://github.com/cncf/tag-security/blob/main/community/resources/security-whitepaper/v2/CNCF_cloud-native-security-whitepaper-May2022-v2.pdf)
   on cloud native security.
 -->
-* CNCF 有关云原生安全的[白皮书](https://github.com/cncf/tag-security/tree/main/security-whitepaper)。
+* CNCF 有关云原生安全的[白皮书](https://github.com/cncf/tag-security/blob/main/community/resources/security-whitepaper/v2/CNCF_cloud-native-security-whitepaper-May2022-v2.pdf)。
 <!--
 * CNCF [white paper](https://github.com/cncf/tag-security/blob/f80844baaea22a358f5b20dca52cd6f72a32b066/supply-chain-security/supply-chain-security-paper/CNCF_SSCP_v1.pdf)
   on good practices for securing a software supply chain.

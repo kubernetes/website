@@ -62,7 +62,7 @@ with cheap hardware to large AI/ML-optimized GPU-enabled nodes. Nodes may stay o
 maybe be short-lived and be preempted at any moment as they are running on excess compute of a cloud
 provider.
 
-[`kubelet`](/docs/concepts/overview/components/#kubelet) — the
+[`kubelet`](/docs/concepts/architecture/#kubelet) — the
 Kubernetes agent on a node — must work in all these environments reliably. As for the performance
 of kubelet operations, this is becoming increasingly important today. On one hand, as Kubernetes is
 being used on extra small nodes more and more often in telecom and retail environments, it needs to

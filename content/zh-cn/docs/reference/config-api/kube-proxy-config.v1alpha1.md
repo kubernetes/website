@@ -468,9 +468,9 @@ Profiling handlers will be handled by metrics server.
 </td>
 <td>
    <!--
-   detectLocalMode determines mode to use for detecting local traffic, defaults to LocalModeClusterCIDR.
+   detectLocalMode determines mode to use for detecting local traffic, defaults to ClusterCIDR.
    -->
-   <p><code>detectLocalMode</code> 确定用于检测本地流量的模式，默认为 LocalModeClusterCIDR。</p>
+   <p><code>detectLocalMode</code> 确定用于检测本地流量的模式，默认为 ClusterCIDR。</p>
 </td>
 </tr>
 <tr><td><code>detectLocal</code> <B><!--[Required]-->[必需]</B><br/>
@@ -490,7 +490,7 @@ Profiling handlers will be handled by metrics server.
    <!--
    clusterCIDR is the CIDR range of the pods in the cluster. (For dual-stack
 clusters, this can be a comma-separated dual-stack pair of CIDR ranges.). When
-DetectLocalMode is set to LocalModeClusterCIDR, kube-proxy will consider
+DetectLocalMode is set to ClusterCIDR, kube-proxy will consider
 traffic to be local if its source IP is in this range. (Otherwise it is not
 used.)
    -->
@@ -505,13 +505,15 @@ used.)
 </td>
 <td>
    <!--
-   nodePortAddresses is a list of CIDR ranges that contain valid node IPs. If set,
-connections to NodePort services will only be accepted on node IPs in one of
-the indicated ranges. If unset, NodePort connections will be accepted on all
-local IPs.
+   nodePortAddresses is a list of CIDR ranges that contain valid node IPs, or
+alternatively, the single string 'primary'. If set to a list of CIDRs,
+the indicated ranges. If set to 'primary', NodePort services will only be
+accepted on the node's primary IPv4 and/or IPv6 address according to the Node
+object. If unset, NodePort connections will be accepted on all local IPs.</p>
    -->
-   <p><code>nodePortAddresses</code> 是一个包含有效节点 IP 的 CIDR 范围列表。
-   如果设置了此项，只有来自这些范围内的节点 IP 的 NodePort 服务连接才会被接受。
+   <p><code>nodePortAddresses</code> 是一个包含有效节点 IP 的 CIDR 范围列表或单个字符串 `primary`。
+   如果设置为 CIDR 范围列表，只有来自这些范围内的节点 IP 的 NodePort 服务连接才会被接受。
+   如果设置为 `primary`，则根据 Node 对象，NodePort 服务将仅在节点的主 IPv4 和/或 IPv6 地址上被接受。
    如果未设置，将接受所有本地 IP 的 NodePort 连接。</p>
 </td>
 </tr>
@@ -556,6 +558,18 @@ than 0.
    portRange was previously used to configure the userspace proxy, but is now unused.
    -->
    <p><code>portRange</code> 之前用于配置用户空间代理，但现在已不再使用。</p>
+</td>
+</tr>
+<tr><td><code>windowsRunAsService</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>
+    <!--
+    windowsRunAsService, if true, enables Windows service control manager API integration.
+    -->
+    如果为 <code>windowsRunAsService</code> 为 True，则启用 Windows 服务控制管理器 API 集成。
+   </p>
 </td>
 </tr>
 

@@ -116,6 +116,20 @@ If true, wait for the Pod to start running, and then attach to the Pod as if 'ku
 </tr>
 
 <tr>
+<td colspan="2">--cascade string[="background"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："background"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!--
+Must be &quot;background&quot;, &quot;orphan&quot;, or &quot;foreground&quot;. Selects the deletion cascading strategy for the dependents (e.g. Pods created by a ReplicationController). Defaults to background.
+-->
+必须是 "background"、"orphan" 或 "foreground"。
+选择依赖项（例如，由 ReplicationController 创建的 Pod）的删除级联策略，
+默认为 background。
+</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--command</td>
 </tr>
 <tr>
@@ -177,6 +191,46 @@ Name of the manager used to track field ownership.
 </tr>
 
 <tr>
+<td colspan="2">-f, --filename strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+to use to replace the resource.
+-->
+用来替换资源。
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--force</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!--
+If true, immediately remove resources from API and bypass graceful deletion. Note that immediate deletion of some resources may result in inconsistency or data loss and requires confirmation.
+-->
+如果为真，则立即从 API 中移除资源并略过体面删除处理。
+请注意，立即删除某些资源可能会导致不一致或数据丢失，并且需要确认操作。
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--grace-period int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：-1</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!--
+Period of time in seconds given to the resource to terminate gracefully. Ignored if negative. Set to 1 for immediate shutdown. Can only be set to 0 when --force is true (force deletion).
+-->
+指定给资源的体面终止时间（以秒为单位）。
+如果为负数则忽略，为 1 表示立即关闭。
+仅当 --force 为真（强制删除）时才可以设置为 0。
+</p></td>
+</tr>
+
+<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
@@ -209,6 +263,18 @@ The image for the container to run.
 The image pull policy for the container.  If left empty, this value will not be specified by the client and defaulted by the server.
 -->
 容器的镜像拉取策略。如果留空，则此值不会由客户端指定，而是默认由服务器指定。
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-k, --kustomize string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!--
+Process a kustomization directory. This flag can't be used together with -f or -R.
+-->
+处理 kustomization 目录，此标志不能与 -f 或 -R 一起使用。
 </p></td>
 </tr>
 
@@ -324,6 +390,18 @@ If true, suppress prompt messages.
 </tr>
 
 <tr>
+<td colspan="2">-R, --recursive</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!--
+Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
+-->
+以递归方式处理在 -f、--filename 中给出的目录。当你想要管理位于同一目录中的相关清单时很有用。
+</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--restart string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："Always"</td>
 </tr>
 <tr>
@@ -398,6 +476,18 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 </tr>
 
 <tr>
+<td colspan="2">--timeout duration</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!--
+The length of time to wait before giving up on a delete, zero means determine a timeout from the size of the object
+-->
+放弃删除之前等待的时长；标志值为 0 表示根据对象的大小确定超时。
+</p></td>
+</tr>
+
+<tr>
 <td colspan="2">-t, --tty</td>
 </tr>
 <tr>
@@ -406,6 +496,18 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 Allocate a TTY for the container in the pod.
 -->
 为 Pod 中的容器分配 TTY。
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--wait&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!--
+If true, wait for resources to be gone before returning. This waits for finalizers.
+-->
+如果为 true，则等待资源消失后再返回。此参数会等待终结器被清空。
 </p></td>
 </tr>
 
@@ -502,30 +604,6 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L7 负载均衡流量代理和健康检查开放的 CIDR。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L4 负载均衡流量代理和健康检查开放的 CIDR。
 </p></td>
 </tr>
 

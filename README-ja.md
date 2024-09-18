@@ -64,16 +64,19 @@ make container-serve
 ローカルで依存関係をインストールし、サイトを構築してテストするには、次のコマンドを実行します。
 
 - For macOS and Linux
+
   ```bash
   npm ci
   make serve
   ```
+  
 - For Windows (PowerShell)
+
   ```powershell
   npm ci
   hugo.exe server --buildFuture --environment development
   ```
-
+  
 これで、Hugoのサーバーが1313番ポートを使って起動します。使用しているブラウザで<http://localhost:1313>にアクセスしてください。リポジトリ内のソースファイルに変更を加えると、HugoがWebサイトの内容を更新してブラウザに反映します。
 
 ## API reference pagesをビルドする
@@ -196,7 +199,7 @@ Kubernetesのドキュメントへの貢献に関する詳細については以�
 
 | 名前                       | Slack                      | GitHub                     |                   
 | -------------------------- | -------------------------- | -------------------------- |
-| Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
+| Sreeram Venkitesh                | @sreeram.venkitesh                      | @sreeram-venkitesh              |
 
 ## 翻訳された`README.md`一覧 {#localization-readmemds}
 

@@ -3,7 +3,7 @@ reviewers:
 - sig-cluster-lifecycle
 title: Certificate Management with kubeadm
 content_type: task
-weight: 10
+weight: 80
 ---
 
 <!-- overview -->

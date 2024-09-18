@@ -36,6 +36,8 @@ DeleteOptions may be provided when deleting an API object.
 
 - **dryRun** ([]string)
 
+  *Atomic: will be replaced during a merge*
+  
   When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
 
 - **gracePeriodSeconds** (int64)
