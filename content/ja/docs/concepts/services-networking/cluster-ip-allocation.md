@@ -11,7 +11,7 @@ Kubernetesでは、[Service](/ja/docs/concepts/services-networking/service/)はP
 
 <!-- body -->
 
-## どうやってServiceのClusterIPは割り当てられるのか？
+## どのようにServiceのClusterIPが割り当てられるのか？
 
 KubernetesがServiceに仮想IPアドレスを割り当てる必要がある場合、2つの方法の内どちらかの方法で行われます:
 
