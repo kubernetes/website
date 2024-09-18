@@ -191,8 +191,7 @@ An {{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}} can spec
 the DNS hostname for any endpoint addresses, along with its IP.
 
 {{< note >}}
-Because A and AAAA records are not created for Pod names, `hostname` is required for the Pod's A or AAAA
-record to be created. A Pod with no `hostname` but with `subdomain` will only create the
+A and AAAA records are not created for Pod names since `hostname` is missing for the Pod. A Pod with no `hostname` but with `subdomain` will only create the
 A or AAAA record for the headless Service (`busybox-subdomain.my-namespace.svc.cluster-domain.example`),
 pointing to the Pods' IP addresses. Also, the Pod needs to be ready in order to have a
 record unless `publishNotReadyAddresses=True` is set on the Service.

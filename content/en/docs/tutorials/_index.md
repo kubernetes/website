@@ -28,6 +28,10 @@ Before walking through each tutorial, you may want to bookmark the
 * [Example: Configuring a Java Microservice](/docs/tutorials/configuration/configure-java-microservice/)
 * [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
+## Authoring Pods
+
+* [Adopting Sidecar Containers](/docs/tutorials/configuration/pod-sidecar-containers/)
+
 ## Stateless Applications
 
 * [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)

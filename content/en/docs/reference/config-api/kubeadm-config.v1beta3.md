@@ -11,17 +11,17 @@ This version improves on the v1beta2 format by fixing some minor issues and addi
 <ul>
 <li>The deprecated &quot;ClusterConfiguration.useHyperKubeImage&quot; field has been removed.
 Kubeadm no longer supports the hyperkube image.</li>
-<li>The &quot;ClusterConfiguration.DNS.Type&quot; field has been removed since CoreDNS is the only supported
+<li>The &quot;ClusterConfiguration.dns.type&quot; field has been removed since CoreDNS is the only supported
 DNS server type by kubeadm.</li>
 <li>Include &quot;datapolicy&quot; tags on the fields that hold secrets.
 This would result in the field values to be omitted when API structures are printed with klog.</li>
-<li>Add &quot;InitConfiguration.SkipPhases&quot;, &quot;JoinConfiguration.SkipPhases&quot; to allow skipping
+<li>Add &quot;InitConfiguration.skipPhases&quot;, &quot;JoinConfiguration.skipPhases&quot; to allow skipping
 a list of phases during kubeadm init/join command execution.</li>
-<li>Add &quot;InitConfiguration.NodeRegistration.ImagePullPolicy&quot; and &quot;JoinConfiguration.NodeRegistration.ImagePullPolicy&quot;
+<li>Add &quot;InitConfiguration.nodeRegistration.imagePullPolicy&quot; and &quot;JoinConfiguration.nodeRegistration.imagePullPolicy&quot;
 to allow specifying the images pull policy during kubeadm &quot;init&quot; and &quot;join&quot;.
 The value must be one of &quot;Always&quot;, &quot;Never&quot; or &quot;IfNotPresent&quot;.
 &quot;IfNotPresent&quot; is the default, which has been the existing behavior prior to this addition.</li>
-<li>Add &quot;InitConfiguration.Patches.Directory&quot;, &quot;JoinConfiguration.Patches.Directory&quot; to allow
+<li>Add &quot;InitConfiguration.patches.directory&quot;, &quot;JoinConfiguration.patches.directory&quot; to allow
 the user to configure a directory from which to take patches for components deployed by kubeadm.</li>
 <li>Move the BootstrapToken* API and related utilities out of the &quot;kubeadm&quot; API group to a new group
 &quot;bootstraptoken&quot;. The kubeadm API version v1beta3 no longer contains the BootstrapToken* structures.</li>
@@ -307,7 +307,7 @@ for, so other administrators can know its purpose.</p>
 </td>
 </tr>
 <tr><td><code>expires</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <p><code>expires</code> specifies the timestamp when this token expires. Defaults to being set
@@ -1038,7 +1038,7 @@ file from which to load cluster information.</p>
 </td>
 </tr>
 <tr><td><code>pathType</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
    <p><code>pathType</code> is the type of the <code>hostPath</code>.</p>
@@ -1262,7 +1262,7 @@ This information will be annotated to the Node API object, for later re-use.</p>
 </td>
 </tr>
 <tr><td><code>taints</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <p><code>taints</code> specifies the taints the Node API object should be registered with.
@@ -1294,7 +1294,7 @@ Value <code>all</code> ignores errors from all checks.</p>
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    <p><code>imagePullPolicy</code> specifies the policy for image pulling during kubeadm &quot;init&quot; and

@@ -40,7 +40,7 @@ Les objets de base de Kubernetes incluent:
 * [Pod](/docs/concepts/workloads/pods/pod-overview/)
 * [Service](/docs/concepts/services-networking/service/)
 * [Volume](/docs/concepts/storage/volumes/)
-* [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
+* [Namespace](/fr/docs/concepts/overview/working-with-objects/namespaces/)
 
 En outre, Kubernetes contient un certain nombre d'abstractions de niveau supérieur appelées Contrôleurs.
 Les contrôleurs s'appuient sur les objets de base et fournissent des fonctionnalités supplémentaires.
@@ -79,7 +79,7 @@ Le master node Kubernetes contrôle chaque noeud; vous interagirez rarement dire
 
 #### Metadonnées des objets Kubernetes
 
-* [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
+* [Annotations](/fr/docs/concepts/overview/working-with-objects/annotations/)
 
 
 

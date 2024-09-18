@@ -2365,6 +2365,38 @@ without a class specified will be assigned this default class.
 资源将被设置为此默认类。
 
 <!--
+### nginx.ingress.kubernetes.io/configuration-snippet
+
+Type: Annotation
+
+Example: `nginx.ingress.kubernetes.io/configuration-snippet: "  more_set_headers \"Request-Id: $req_id\";\nmore_set_headers \"Example: 42\";\n"`
+
+Used on: Ingress
+
+You can use this annotation to set extra configuration on an Ingress that 
+uses the [NGINX Ingress Controller] (https://github.com/kubernetes/ingress-nginx/)
+The `configuration-snippet` annotation is ignored
+by default since version 1.9.0 of the ingress controller.
+The NGINX ingress controller setting `allow-snippet-annotations.` 
+has to be explicitly enabled to
+use this annotation.
+Enabling the annotation can be dangerous in a multi-tenant cluster, as it can lead people with otherwise
+limited permissions being able to retrieve all Secrets in the cluster.
+-->
+### nginx.ingress.kubernetes.io/configuration-snippet {#nginx-ingress-kubernetes-io-configuration-snippet}
+
+类别：注解
+
+例子：`nginx.ingress.kubernetes.io/configuration-snippet: "  more_set_headers \"Request-Id: $req_id\";\nmore_set_headers \"Example: 42\";\n"`
+
+用于：Ingress
+
+你可以使用此注解在使用 [NGINX Ingress Controller](https://github.com/kubernetes/ingress-nginx/) 的 Ingress 上设置额外配置。
+自 Ingress 控制器 1.9.0 版本以来，`configuration-snippet` 注解默认会被忽略。
+要使用此注解，必须显式启用 NGINX Ingress 控制器的 `allow-snippet-annotations` 设置。
+在多租户集群中启用该注解可能是危险的，因为这可能导致权限受限的用户能够获取集群中的所有 Secret。
+
+<!--
 ### kubernetes.io/ingress.class (deprecated)
 
 Type: Annotation

@@ -123,13 +123,13 @@ GitHub 上有两类 SIG Docs 团队：
 The Kubernetes project uses an automation tool called prow for automation
 related to GitHub issues and pull requests. The
 [Kubernetes website repository](https://github.com/kubernetes/website) uses
-two [prow plugins](https://github.com/kubernetes/test-infra/tree/master/prow/plugins):
+two [prow plugins](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins):
 -->
 ### OWNERS 文件和扉页   {#owners-files-and-front-matter}
 
 Kubernetes 项目使用名为 prow 的自动化工具来自动处理 GitHub issue 和 PR。
 [Kubernetes website 仓库](https://github.com/kubernetes/website) 使用了两个
-[prow 插件](https://github.com/kubernetes/test-infra/tree/master/prow/plugins)：
+[prow 插件](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins)：
 
 - blunderbuss
 - approve

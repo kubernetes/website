@@ -84,10 +84,10 @@ If such a probe is configured, it disables liveness and readiness checks until i
 如果配置了这类探针，它会禁用存活检测和就绪检测，直到启动探针成功为止。
 
 <!--
-This type of probe is only executed at startup, unlike readiness probes, which are run periodically.
+This type of probe is only executed at startup, unlike liveness and readiness probes, which are run periodically.
 
 * Read more about the [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes).
 -->
-这类探针仅在启动时执行，不像就绪探针那样周期性地运行。
+这类探针仅在启动时执行，不像存活探针和就绪探针那样周期性地运行。
 
 * 更多细节参阅[配置存活、就绪和启动探针](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes)。

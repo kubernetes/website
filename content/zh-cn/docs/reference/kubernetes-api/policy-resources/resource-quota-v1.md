@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ResourceQuota 设置每个命名空间强制执行的聚合配额限制。"
 title: "ResourceQuota"
-weight: 2
+weight: 3
 ---
 
 <!-- a
@@ -17,7 +17,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ResourceQuota sets aggregate quota restrictions enforced per namespace."
 title: "ResourceQuota"
-weight: 2
+weight: 3
 auto_generated: true 
 -->
 
@@ -95,13 +95,16 @@ ResourceQuotaSpec 定义为 Quota 强制执行所需的硬限制。
   *A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.* 
   -->
 
-  scope 选择算符表示的是由限定范围的资源选择算符进行 **逻辑与** 计算得出的结果。
+  scope 选择算符表示的是由限定范围的资源选择算符进行**逻辑与**运算得出的结果。
 
   - **scopeSelector.matchExpressions** ([]ScopedResourceSelectorRequirement)
 
-    <!-- 
+    <!--
+    *Atomic: will be replaced during a merge*
+    
     A list of scope selector requirements by scope of the resources. 
     -->
+    **原子：将在合并期间被替换**
 
     按资源范围划分的范围选择算符需求列表。
 
@@ -130,9 +133,12 @@ ResourceQuotaSpec 定义为 Quota 强制执行所需的硬限制。
 
     - **scopeSelector.matchExpressions.values** ([]string)
 
-      <!-- 
+      <!--
+      *Atomic: will be replaced during a merge*
+
       An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch. 
       -->
+      **原子：将在合并期间被替换**
 
       字符串值数组。
       如果操作符是 In 或 NotIn，values 数组必须是非空的。
@@ -141,9 +147,13 @@ ResourceQuotaSpec 定义为 Quota 强制执行所需的硬限制。
 
 - **scopes** ([]string)
 
-  <!-- 
+  <!--
+  *Atomic: will be replaced during a merge*
+  
   A collection of filters that must match each object tracked by a quota. If not specified, the quota matches all objects. 
   -->
+
+  **原子：将在合并期间被替换**
 
   一个匹配被配额跟踪的所有对象的过滤器集合。
   如果没有指定，则默认匹配所有对象。
@@ -841,4 +851,3 @@ DELETE /api/v1/namespaces/{namespace}/resourcequotas
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
-

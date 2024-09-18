@@ -4,7 +4,7 @@
 # change is that the Hugo version is now an overridable argument rather than a fixed
 # environment variable.
 
-FROM docker.io/library/golang:1.20-alpine
+FROM docker.io/library/golang:1.23.0-alpine3.20
 
 LABEL maintainer="Luc Perkins <lperkins@linuxfoundation.org>"
 
@@ -24,7 +24,7 @@ RUN mkdir $HOME/src && \
     cd "hugo-${HUGO_VERSION}" && \
     go install --tags extended
 
-FROM docker.io/library/golang:1.20-alpine
+FROM docker.io/library/golang:1.23.0-alpine3.20
 
 RUN apk add --no-cache \
     runuser \

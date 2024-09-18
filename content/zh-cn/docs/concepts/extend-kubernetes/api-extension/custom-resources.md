@@ -630,13 +630,10 @@ may also be used with field selectors when included in the `spec.versions[*].sel
 {{< feature-state feature_gate_name="CustomResourceFieldSelectors" >}}
 
 <!--
-You need to enable the `CustomResourceFieldSelectors`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
-use this behavior, which then applies to all CustomResourceDefinitions in your
-cluster.
-
 The `spec.versions[*].selectableFields` field of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be used to
-declare which other fields in a custom resource may be used in field selectors.
+declare which other fields in a custom resource may be used in field selectors
+with the feature of `CustomResourceFieldSelectors`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) (This feature gate is enabled by default since Kubernetes v1.31).
 The following example adds the `.spec.color` and `.spec.size` fields as
 selectable fields.
 -->
@@ -645,7 +642,10 @@ selectable fields.
 来使用此行为，然后将其应用到集群中的所有 CustomResourceDefinitions。
 
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
-的 `spec.versions[*].selectableFields` 字段可以用来声明可以在字段选择算符中使用定制资源中的其他哪些字段。
+字段可以用来在启用了 `CustomResourceFieldSelectors`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 
+（自 Kubernetes v1.31 起，此特性默认启用）的集群中控制哪些字段可以用在字段选择算符中。
+
 以下示例将 `.spec.color` 和 `.spec.size` 字段添加为可选择字段。
 
 {{% code_sample file="customresourcedefinition/shirt-resource-definition.yaml" %}}

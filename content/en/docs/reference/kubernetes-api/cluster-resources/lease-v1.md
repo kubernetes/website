@@ -65,15 +65,19 @@ LeaseSpec is a specification of a Lease.
 
 - **holderIdentity** (string)
 
-  holderIdentity contains the identity of the holder of a current lease.
+  holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
 
 - **leaseDurationSeconds** (int32)
 
-  leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+  leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
 
 - **leaseTransitions** (int32)
 
   leaseTransitions is the number of transitions of a lease between holders.
+
+- **preferredHolder** (string)
+
+  PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
 
 - **renewTime** (MicroTime)
 
@@ -81,6 +85,10 @@ LeaseSpec is a specification of a Lease.
 
   <a name="MicroTime"></a>
   *MicroTime is version of Time with microsecond level precision.*
+
+- **strategy** (string)
+
+  Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
 
 
 

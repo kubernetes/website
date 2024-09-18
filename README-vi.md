@@ -194,7 +194,7 @@ Nếu bạn cần trợ giúp bất kỳ lúc nào khi đóng góp, [Đại sứ
 
 | Name                       | Slack                      | GitHub                     |
 | -------------------------- | -------------------------- | -------------------------- |
-| Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
+| Sreeram Venkitesh              | @sreeram.venkitesh                   | @sreeram-venkitesh              |
 
 ## Các tệp README đa ngôn ngữ
 

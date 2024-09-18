@@ -63,6 +63,8 @@ ClusterRoleBinding references a ClusterRole, but not contain it.  It can referen
 
 - **subjects** ([]Subject)
 
+  *Atomic: will be replaced during a merge*
+  
   Subjects holds references to the objects the role applies to.
 
   <a name="Subject"></a>

@@ -219,13 +219,31 @@ Value       | Description
 
 {{< note >}}
 <!--
-When a Pod is being deleted, it is shown as `Terminating` by some kubectl commands.
-This `Terminating` status is not one of the Pod phases.
+When a pod is failing to start repeatedly, `CrashLoopBackOff` may appear in the `Status` field of some kubectl commands. Similarly, when a pod is being deleted, `Terminating` may appear in the `Status` field of some kubectl commands. 
+
+Make sure not to confuse _Status_, a kubectl display field for user intuition, with the pod's `phase`.
+Pod phase is an explicit part of the Kubernetes data model and of the
+[Pod API](/docs/reference/kubernetes-api/workload-resources/pod-v1/).
+-->
+当 Pod 反复启动失败时，某些 kubectl 命令的 `Status` 字段中可能会出现 `CrashLoopBackOff`。
+同样，当 Pod 被删除时，某些 kubectl 命令的 `Status` 字段中可能会出现 `Terminating`。
+
+确保不要将 **Status**（kubectl 用于用户直觉的显示字段）与 Pod 的 `phase` 混淆。
+Pod 阶段（phase）是 Kubernetes 数据模型和
+[Pod API](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/)
+的一个明确的部分。
+
+```console
+NAMESPACE               NAME               READY   STATUS             RESTARTS   AGE
+alessandras-namespace   alessandras-pod    0/1     CrashLoopBackOff   200        2d9h
+```
+
+---
+
+<!--
 A Pod is granted a term to terminate gracefully, which defaults to 30 seconds.
 You can use the flag `--force` to [terminate a Pod by force](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced).
 -->
-当一个 Pod 被删除时，执行一些 kubectl 命令会展示这个 Pod 的状态为 `Terminating`（终止）。
-这个 `Terminating` 状态并不是 Pod 阶段之一。
 Pod 被赋予一个可以体面终止的期限，默认为 30 秒。
 你可以使用 `--force` 参数来[强制终止 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)。
 {{< /note >}}
@@ -334,7 +352,7 @@ the `Terminated` state.
 -->
 ### `Terminated`（已终止）   {#container-state-terminated}
 
-处于 `Terminated` 状态的容器已经开始执行并且或者正常结束或者因为某些原因失败。
+处于 `Terminated` 状态的容器开始执行后，或者运行至正常结束或者因为某些原因失败。
 如果你使用 `kubectl` 来查询包含 `Terminated` 状态的容器的 Pod 时，
 你会看到容器进入此状态的原因、退出代码以及容器执行期间的起止时间。
 
@@ -897,7 +915,7 @@ specify a liveness probe, and specify a `restartPolicy` of Always or OnFailure.
 <!--
 #### When should you use a readiness probe?
 -->
-#### 何时该使用就绪态探针?      {#when-should-you-use-a-readiness-probe}
+#### 何时该使用就绪态探针？      {#when-should-you-use-a-readiness-probe}
 
 <!--
 If you'd like to start sending traffic to a Pod only when a probe succeeds,
@@ -1227,7 +1245,8 @@ documentation for
 [deleting Pods from a StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 -->
 如果你需要强制删除 StatefulSet 的 Pod，
-请参阅[从 StatefulSet 中删除 Pod](/zh-cn/docs/tasks/run-application/force-delete-stateful-set-pod/) 的任务文档。
+请参阅[从 StatefulSet 中删除 Pod](/zh-cn/docs/tasks/run-application/force-delete-stateful-set-pod/)
+的任务文档。
 
 <!--
 ### Pod shutdown and sidecar containers {##termination-with-sidecars}
@@ -1295,8 +1314,7 @@ Additionally, PodGC cleans up any Pods which satisfy any of the following condit
    [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service),
    when the `NodeOutOfServiceVolumeDetach` feature gate is enabled.
 
-When the `PodDisruptionConditions` feature gate is enabled, along with
-cleaning up the Pods, PodGC will also mark them as failed if they are in a non-terminal
+Along with cleaning up the Pods, PodGC will also mark them as failed if they are in a non-terminal
 phase. Also, PodGC adds a Pod disruption condition when cleaning up an orphan Pod.
 See [Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)
 for more details.
@@ -1309,8 +1327,7 @@ for more details.
    绑定到有 [`node.kubernetes.io/out-of-service`](/zh-cn/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service)
    污点的未就绪节点。
 
-若启用 `PodDisruptionConditions` 特性门控，在清理 Pod 的同时，
-如果它们处于非终止状态阶段，PodGC 也会将它们标记为失败。
+在清理 Pod 的同时，如果它们处于非终止状态阶段，PodGC 也会将它们标记为失败。
 此外，PodGC 在清理孤儿 Pod 时会添加 Pod 干扰状况。参阅
 [Pod 干扰状况](/zh-cn/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions) 了解更多详情。
 

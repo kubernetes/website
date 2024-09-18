@@ -86,7 +86,7 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
         secret: c2VjcmV0IGlzIHNlY3VyZQ==
   ```
 
-- To ensure that previously created secret `my-secert` is re-encrypted
+- To ensure that previously created secret `my-secret` is re-encrypted
   with new key `key2`, you will use _Storage Version Migration_.
 
 - Create a StorageVersionMigration manifest named `migrate-secret.yaml` as follows:

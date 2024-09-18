@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "configuration of a horizontal pod autoscaler."
 title: "HorizontalPodAutoscaler"
-weight: 11
+weight: 12
 auto_generated: true
 ---
 

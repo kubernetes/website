@@ -23,8 +23,9 @@ This page explains the certificates that your cluster requires.
 -->
 Kubernetes 需要 PKI 证书才能进行基于 TLS 的身份验证。如果你是使用
 [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) 安装的 Kubernetes，
-则会自动生成集群所需的证书。你还可以生成自己的证书。
-例如，不将私钥存储在 API 服务器上，可以让私钥更加安全。此页面说明了集群必需的证书。
+则会自动生成集群所需的证书。
+你也可以自己生成证书 --- 例如，不将私钥存储在 API 服务器上，
+可以让私钥更加安全。此页面说明了集群必需的证书。
 
 <!-- body -->
 
@@ -38,27 +39,75 @@ Kubernetes requires PKI for the following operations:
 Kubernetes 需要 PKI 才能执行以下操作：
 
 <!--
-* Client certificates for the kubelet to authenticate to the API server
-* Kubelet [server certificates](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#client-and-serving-certificates)
-  for the API server to talk to the kubelets
+### Server certificates
+
 * Server certificate for the API server endpoint
-* Client certificates for administrators of the cluster to authenticate to the API server
-* Client certificates for the API server to talk to the kubelets
-* Client certificate for the API server to talk to etcd
-* Client certificate/kubeconfig for the controller manager to talk to the API server
-* Client certificate/kubeconfig for the scheduler to talk to the API server.
-* Client and server certificates for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
+* Server certificate for the etcd server
+* [Server certificates](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#client-and-serving-certificates)
+  for each kubelet (every {{< glossary_tooltip text="node" term_id="node" >}} runs a kubelet)
+* Optional server certificate for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
 -->
-* Kubelet 的客户端证书，用于 API 服务器身份验证
-* Kubelet [服务端证书](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#client-and-serving-certificates)，
-  用于 API 服务器与 Kubelet 的会话
+### 服务器证书
+
 * API 服务器端点的证书
-* 集群管理员的客户端证书，用于 API 服务器身份认证
-* API 服务器的客户端证书，用于和 Kubelet 的会话
-* API 服务器的客户端证书，用于和 etcd 的会话
-* 控制器管理器的客户端证书或 kubeconfig，用于和 API 服务器的会话
-* 调度器的客户端证书或 kubeconfig，用于和 API 服务器的会话
+* etcd 服务器的服务器证书
+* 每个 kubelet 的服务器证书（每个 {{< glossary_tooltip text="节点" term_id="node" >}}运行一个 kubelet）
+* 可选的[前端代理](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)的服务器证书
+
+<!--
+### Client certificates
+-->
+### 客户端证书
+
+<!--
+* Client certificates for each kubelet, used to authenticate to the API server as a client of
+  the Kubernetes API
+* Client certificate for each API server, used to authenticate to etcd
+* Client certificate for the controller manager to securely communicate with the API server
+* Client certificate for the scheduler to securely communicate with the API server
+* Client certificates, one for each node, for kube-proxy to authenticate to the API server
+* Optional client certificates for administrators of the cluster to authenticate to the API server
+* Optional client certificate for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
+-->
+* 针对每个 kubelet 的客户端证书，用于 API 服务器作为 Kubernetes API 的客户端进行身份验证
+* 每个 API 服务器的客户端证书，用于向 etcd 进行身份验证
+* 控制器管理器与 API 服务器进行安全通信的客户端证书
+* 调度程序与 API 服务器进行安全通信的客户端证书
+* 客户端证书（每个节点一个），用于 kube-proxy 向 API 服务器进行身份验证
+* 集群管理员向 API 服务器进行身份验证的可选客户端证书
 * [前端代理](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)的客户端及服务端证书
+
+<!--
+### Kubelet's server and client certificates
+
+To establish a secure connection and authenticate itself to the kubelet, the API Server 
+requires a client certificate and key pair. 
+-->
+### kubelet 的服务器和客户端证书
+
+为了建立安全连接并向 kubelet 进行身份验证，API 服务器需要客户端证书和密钥对。
+
+<!--
+In this scenario, there are two approaches for certificate usage: 
+using shared certificates or separate certificates;
+
+* Shared Certificates: The kube-apiserver can utilize the same certificate and key pair it uses to authenticate its clients.
+  This means that the existing certificates, such as `apiserver.crt`  and `apiserver.key`,
+  can be used for communicating with the kubelet servers.
+
+* Separate Certificates: Alternatively, the kube-apiserver can generate a new client certificate
+  and key pair to authenticate its communication with the kubelet servers.
+  In this case, a distinct certificate named `kubelet-client.crt` and its corresponding private key,
+  `kubelet-client.key` are created.
+-->
+在此场景中，证书的使用有两种方法：
+使用共享证书或单独证书；
+
+* 共享证书：kube-apiserver 可以使用与验证其客户端相同的证书和密钥对。
+  这意味着现有证书（例如 `apiserver.crt` 和 `apiserver.key`）可用于与 kubelet 服务器进行通信。
+
+* 单独的证书：或者，kube-apiserver 可以生成新的客户端证书和密钥对，以验证其与 kubelet 服务器的通信。
+  在这种情况下，将创建一个名为 `kubelet-client.crt` 的不同证书及其对应的私钥 `kubelet-client.key`。
 
 {{< note >}}
 <!--
@@ -129,9 +178,9 @@ management, `sa.key` and `sa.pub`.
 
 | 路径                    | 默认 CN                    | 描述                             |
 |------------------------|---------------------------|----------------------------------|
-| ca.crt,key             | kubernetes-ca             | Kubernetes 通用 CA                |
-| etcd/ca.crt,key        | etcd-ca                   | 与 etcd 相关的所有功能              |
-| front-proxy-ca.crt,key | kubernetes-front-proxy-ca | 用于[前端代理](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/) |
+| ca.crt、key             | kubernetes-ca             | Kubernetes 通用 CA                |
+| etcd/ca.crt、key        | etcd-ca                   | 与 etcd 相关的所有功能              |
+| front-proxy-ca.crt、key | kubernetes-front-proxy-ca | 用于[前端代理](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/) |
 
 上面的 CA 之外，还需要获取用于服务账号管理的密钥对，也就是 `sa.key` 和 `sa.pub`。
 
@@ -173,13 +222,13 @@ Required certificates:
 | kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client           |                                                     |
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client           |                                                     |
 -->
-| 默认 CN                       | 父级 CA                    |O（位于 Subject 中）| kind             | 主机 (SAN)                                          |
+| 默认 CN                       | 父级 CA                    |O（位于 Subject 中）| kind             | 主机（SAN）                                           |
 |-------------------------------|---------------------------|-------------------|------------------|-----------------------------------------------------|
-| kube-etcd                     | etcd-ca                   |                   | server, client   | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
-| kube-etcd-peer                | etcd-ca                   |                   | server, client   | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
+| kube-etcd                     | etcd-ca                   |                   | server、client   | `<hostname>`、`<Host_IP>`、`localhost`、`127.0.0.1` |
+| kube-etcd-peer                | etcd-ca                   |                   | server、client   | `<hostname>`、`<Host_IP>`、`localhost`、`127.0.0.1` |
 | kube-etcd-healthcheck-client  | etcd-ca                   |                   | client           |                                                     |
 | kube-apiserver-etcd-client    | etcd-ca                   |                   | client           |                                                     |
-| kube-apiserver                | kubernetes-ca             |                   | server           | `<hostname>`, `<Host_IP>`, `<advertise_IP>`, `[1]`  |
+| kube-apiserver                | kubernetes-ca             |                   | server           | `<hostname>`、`<Host_IP>`、`<advertise_IP>`、`[1]`  |
 | kube-apiserver-kubelet-client | kubernetes-ca             | system:masters    | client           |                                                     |
 | front-proxy-client            | kubernetes-front-proxy-ca |                   | client           |                                                     |
 
@@ -375,7 +424,7 @@ The value of `<nodeName>` for `kubelet.conf` **must** match precisely the value 
 provided by the kubelet as it registers with the apiserver. For further details, read the
 [Node Authorization](/docs/reference/access-authn-authz/node/).
 -->
-`kubelet.conf` 中 `<nodeName>` 的值 **必须** 与 kubelet 向 apiserver 注册时提供的节点名称的值完全匹配。
+`kubelet.conf` 中 `<nodeName>` 的值**必须**与 kubelet 向 apiserver 注册时提供的节点名称的值完全匹配。
 有关更多详细信息，请阅读[节点授权](/zh-cn/docs/reference/access-authn-authz/node/)。
 {{< /note >}}
 
@@ -399,7 +448,8 @@ One is in `admin.conf` and has `Subject: O = kubeadm:cluster-admins, CN = kubern
 This file is generated on all kubeadm managed control plane machines.
 -->
 kubeadm 在 kubeconfig 文件中生成两个单独的管理员证书。
-一个是在 `admin.conf` 中，带有 `Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin`。`kubeadm:cluster-admins` 是绑定到 `cluster-admin` ClusterRole 的自定义组。
+一个是在 `admin.conf` 中，带有 `Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin`。
+`kubeadm:cluster-admins` 是绑定到 `cluster-admin` ClusterRole 的自定义组。
 这个文件在所有由 kubeadm 管理的控制平面机器上生成。
 
 <!--
@@ -419,7 +469,7 @@ This file is generated only on the node where `kubeadm init` was called.
 
 1. 为每个配置运行下面的 `kubectl` 命令：
 
-```
+```bash
 KUBECONFIG=<filename> kubectl config set-cluster default-cluster --server=https://<host ip>:6443 --certificate-authority <path-to-kubernetes-ca> --embed-certs
 KUBECONFIG=<filename> kubectl config set-credentials <credential-name> --client-key <path-to-key>.pem --client-certificate <path-to-cert>.pem --embed-certs
 KUBECONFIG=<filename> kubectl config set-context default-system --cluster default-cluster --user <credential-name>

@@ -86,7 +86,7 @@ The following sysctls are supported in the _safe_ set:
 There are some exceptions to the set of safe sysctls:
 
 - The `net.*` sysctls are not allowed with host networking enabled.
-- The `net.ipv4.tcp_syncookies` sysctl is not namespaced on Linux kernel version 4.4 or lower.
+- The `net.ipv4.tcp_syncookies` sysctl is not namespaced on Linux kernel version 4.5 or lower.
 {{< /note >}}
 
 This list will be extended in future Kubernetes versions when the kubelet
