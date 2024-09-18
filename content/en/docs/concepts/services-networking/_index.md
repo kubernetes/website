@@ -7,58 +7,103 @@ description: >
 
 ## The Kubernetes network model
 
-Every [`Pod`](/docs/concepts/workloads/pods/) in a cluster gets its own unique cluster-wide IP address
-(one address per IP address family). 
-This means you do not need to explicitly create links between `Pods` and you 
-almost never need to deal with mapping container ports to host ports.  
-This creates a clean, backwards-compatible model where `Pods` can be treated 
-much like VMs or physical hosts from the perspectives of port allocation, 
-naming, service discovery, [load balancing](/docs/concepts/services-networking/ingress/#load-balancing), 
-application configuration, and migration.
+The Kubernetes network model is built out of several pieces:
 
-Kubernetes imposes the following fundamental requirements on any networking
-implementation (barring any intentional network segmentation policies):
+  * Each [Pod](/docs/concepts/workloads/pods/) in a cluster gets its
+    own unique cluster-wide IP address.
 
-   * pods can communicate with all other pods on any other [node](/docs/concepts/architecture/nodes/) 
-     without NAT
-   * agents on a node (e.g. system daemons, kubelet) can communicate with all
-     pods on that node
+      * A pod has its own private network namespace which is shared by
+        all of the containers within the pod. Processes running in
+        different containers in the same pod can communicate with each
+        other over `localhost`.
 
-{{< note >}}
-For those platforms that support `Pods` running in the host network (such as Linux), when pods are attached to the host network of a node they can still communicate with all pods on all nodes without NAT.
-{{< /note >}}
+  * The _pod network_ (also called a cluster network) handles communication
+    between pods. It ensures that (barring intentional network
+    segmentation):
 
-This model is not only less complex overall, but it is principally compatible
-with the desire for Kubernetes to enable low-friction porting of apps from VMs
-to containers.  If your job previously ran in a VM, your VM had an IP and could
-talk to other VMs in your project.  This is the same basic model.
+      * All pods can communicate with all other pods, whether they are
+        on the same [node](/docs/concepts/architecture/nodes/) or on
+        different nodes. Pods can communicate with each other
+        directly, without the use of proxies or address translation
+        (NAT).
 
-Kubernetes IP addresses exist at the `Pod` scope - containers within a `Pod`
-share their network namespaces - including their IP address and MAC address.
-This means that containers within a `Pod` can all reach each other's ports on
-`localhost`. This also means that containers within a `Pod` must coordinate port
-usage, but this is no different from processes in a VM.  This is called the
-"IP-per-pod" model.
+          * (On Windows, this rule does not apply to host-network pods.)
 
-How this is implemented is a detail of the particular container runtime in use.
+      * Agents on a node (such as system daemons, or kubelet) can
+        communicate with all pods on that node.
 
-It is possible to request ports on the `Node` itself which forward to your `Pod`
-(called host ports), but this is a very niche operation. How that forwarding is
-implemented is also a detail of the container runtime. The `Pod` itself is
-blind to the existence or non-existence of host ports.
+  * The [Service](/docs/concepts/services-networking/service/) API
+    lets you provide a stable (long lived) IP address or hostname for a service implemented
+    by one or more backend pods, where the individual pods making up
+    the service can change over time.
 
-Kubernetes networking addresses four concerns:
-- Containers within a Pod [use networking to communicate](/docs/concepts/services-networking/dns-pod-service/) via loopback.
-- Cluster networking provides communication between different Pods.
-- The [Service](/docs/concepts/services-networking/service/) API lets you
-  [expose an application running in Pods](/docs/tutorials/services/connect-applications-service/)
-  to be reachable from outside your cluster.
-  - [Ingress](/docs/concepts/services-networking/ingress/) provides extra functionality
-    specifically for exposing HTTP applications, websites and APIs.
-  - [Gateway API](/docs/concepts/services-networking/gateway/) is an {{<glossary_tooltip text="add-on" term_id="addons">}}
-    that provides an expressive, extensible, and role-oriented family of API kinds for modeling service networking.
-- You can also use Services to
-  [publish services only for consumption inside your cluster](/docs/concepts/services-networking/service-traffic-policy/).
+      * Kubernetes automatically manages
+        [EndpointSlice](/docs/concepts/services-networking/endpoint-slices/)
+        objects to provide information about the pods currently
+        backing a Service.
+
+      * A service proxy implementation monitors the `Service` and
+        `EndpointSlice` objects, and programs the data plane to route
+        service traffic to its backends, by using operating system or
+        cloud provider APIs to intercept or rewrite packets.
+
+  * The [Gateway](/docs/concepts/services-networking/gateway/) API
+    (or its predecessor,
+    [Ingress](/docs/concepts/services-networking/ingress/)) allows
+    you to make Services accessible to clients that are outside the cluster.
+
+      * A simpler, but less-configurable, mechanism for cluster
+        ingress is available via the Service API's [`type:
+        LoadBalancer`](/docs/concepts/services-networking/service/#loadbalancer),
+        when using a supported {{< glossary_tooltip term_id="cloud-provider">}}.
+
+  * [NetworkPolicy](/docs/concepts/services-networking/network-policies) is a built-in
+    Kubernetes API that
+    allows you to control traffic between pods, or between pods and
+    the outside world.
+
+In older container systems, there was no automatic connectivity
+between containers on different hosts, and so it was often necessary
+to explicitly create links between containers, or to map container
+ports to host ports to make them reachable by containers on other
+hosts. This is not needed in Kubernetes; Kubernetes's model is that
+pods can be treated much like VMs or physical hosts from the
+perspectives of port allocation, naming, service discovery, load
+balancing, application configuration, and migration.
+
+Only a few parts of this model are implemented by Kubernetes itself.
+For the other parts, Kubernetes defines the APIs, but the
+corresponding functionality is provided by external components, some
+of which are optional:
+
+  * Pod network namespace setup is handled by system-level software
+    implementing the [Container Runtime
+    Interface](/docs/concepts/architecture/cri.md).
+
+  * The pod network itself is managed by a [pod network
+    implementation](/docs/concepts/cluster-administration/addons/#networking-and-network-policy).
+    On Linux, most container runtimes use the
+    {{< glossary_tooltip text="Container Networking Interface (CNI)" term_id="cni" >}}
+    to interact with the pod network implementation, so these
+    implementations are often called _CNI plugins_.
+
+  * Kubernetes provides a default implementation of service proxying,
+    called {{< glossary_tooltip term_id="kube-proxy">}}, but some pod
+    network implementations instead use their own service proxy that
+    is more tightly integrated with the rest of the implementation.
+
+  * NetworkPolicy is generally also implemented by the pod network
+    implementation. (Some simpler pod network implementations don't
+    implement NetworkPolicy, or an administrator may choose to
+    configure the pod network without NetworkPolicy support. In these
+    cases, the API will still be present, but it will have no effect.)
+
+  * There are many [implementations of the Gateway
+    API](https://gateway-api.sigs.k8s.io/implementations/), some of
+    which are specific to particular cloud environments, some more
+    focused on "bare metal" environments, and others more generic.
+
+## {{% heading "whatsnext" %}}
 
 The [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial lets you learn about Services and Kubernetes networking with a hands-on example.
 
