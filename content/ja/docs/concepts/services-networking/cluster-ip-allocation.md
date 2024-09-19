@@ -16,7 +16,7 @@ Kubernetesでは、[Service](/ja/docs/concepts/services-networking/service/)はP
 KubernetesがServiceに仮想IPアドレスを割り当てる必要がある場合、2つの方法の内どちらかの方法で行われます:
 
 _動的割り当て_
-: クラスターのコントロールプレーンは自動的に`type: ClusterIP` のServiceのために設定されたIP範囲の中から未割り当てのIPアドレスを選びます。
+: クラスターのコントロールプレーンは自動的に`type: ClusterIP`のServiceのために設定されたIP範囲の中から未割り当てのIPアドレスを選びます。
 
 _静的割り当て_
 : Serviceのために設定されたIP範囲の中から自身でIPアドレスを選びます。
