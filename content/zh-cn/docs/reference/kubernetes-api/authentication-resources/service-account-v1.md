@@ -60,8 +60,13 @@ ServiceAccount 将以下内容绑定在一起：
 - **imagePullSecrets** ([]<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
 
   <!--
+  *Atomic: will be replaced during a merge*
+  
   ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are only accessed by the kubelet. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
   -->
+  
+  **原子：将在合并期间被替换**  
+
   imagePullSecrets 是对同一命名空间中 Secret 的引用列表，用于拉取引用此 ServiceAccount 的 Pod 中的任何镜像。
   imagePullSecrets 与 Secret 不同，因为 Secret 可以挂载在 Pod 中，但 imagePullSecrets 只能由 kubelet 访问。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
@@ -71,6 +76,8 @@ ServiceAccount 将以下内容绑定在一起：
   <!--
   *Patch strategy: merge on key `name`*
 
+  *Map: unique values on key name will be kept during a merge*
+  
   Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
   Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use
   Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountabl
@@ -79,6 +86,8 @@ ServiceAccount 将以下内容绑定在一起：
   account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
   -->
   **补丁策略：基于键 `name` 合并**
+
+  **映射：键 `name` 的唯一值将在合并过程中保留**
 
   secrets 是允许使用此 ServiceAccount 运行的 Pod 使用的同一命名空间中的秘密列表。
   仅当此服务帐户的 “kubernetes.io/enforce-mountable-secrets” 注释设置为 “true” 时，Pod 才限于此列表。

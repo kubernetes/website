@@ -143,6 +143,7 @@ request and limit, the same as the scheduler.
 
 ## {{% heading "whatsnext" %}}
 
+* Learn how to [Adopt Sidecar Containers](/docs/tutorials/configuration/pod-sidecar-containers/)
 * Read a blog post on [native sidecar containers](/blog/2023/08/25/native-sidecar-containers/).
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container).
 * Learn about the [types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.

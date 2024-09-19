@@ -53,7 +53,7 @@ The image in the following command only runs on AMD64 architectures.
 {{< /note >}}
 
 ```shell
-kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.4
+kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.10
 ```
 The output is:
 ```

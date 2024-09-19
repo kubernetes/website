@@ -125,4 +125,4 @@ spec:
 #### GPU vendor implementations
 
 - [Intel](https://intel.github.io/intel-device-plugins-for-kubernetes/cmd/gpu_plugin/README.html)
-- [NVIDIA](https://github.com/NVIDIA/gpu-feature-discovery/#readme)
+- [NVIDIA](https://github.com/NVIDIA/k8s-device-plugin)

@@ -865,7 +865,7 @@ are redirected to the `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" t
 
 [vSphere CSI driver](https://github.com/kubernetes-sigs/vsphere-csi-driver)
 must be installed on the cluster. You can find additional advice on how to migrate in-tree `vsphereVolume` in VMware's documentation page
-[Migrating In-Tree vSphere Volumes to vSphere Container Storage lug-in](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html).
+[Migrating In-Tree vSphere Volumes to vSphere Container Storage Plug-in](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html).
 If vSphere CSI Driver is not installed volume operations can not be performed on the PV created with the in-tree `vsphereVolume` type.
 
 You must run vSphere 7.0u2 or later in order to migrate to the vSphere CSI driver.
@@ -1196,6 +1196,13 @@ Users of FlexVolume should move their workloads to use the equivalent CSI Driver
 {{< /note >}}
 
 ## Mount propagation
+
+  {{< caution >}}
+  Mount propagation is a low-level feature that does not work consistently on all
+  volume types. It is recommended to use only with `hostPath` or in-memory `emptyDir`
+  volumes. See [this discussion](https://github.com/kubernetes/kubernetes/issues/95049)
+  for more context. 
+  {{< /caution >}}
 
 Mount propagation allows for sharing volumes mounted by a container to
 other containers in the same pod, or even to other pods on the same node.

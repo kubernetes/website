@@ -54,7 +54,7 @@ responsible for these optimizations.
 <!-- steps -->
 
 <!--
-## How Topology Manager Works
+## How topology manager works
 -->
 ## 拓扑管理器如何工作 {#how-topology-manager-works}
 
@@ -103,14 +103,13 @@ resource allocation decisions.
 之后，建议会被存储在拓扑管理器中，供 **建议提供者** 在作资源分配决策时使用。
 
 <!--
-## Topology Manager Scopes and Policies
+## Topology manager scopes and policies
 
 The Topology Manager currently:
 
 - Aligns Pods of all QoS classes.
 - Aligns the requested resources that Hint Provider provides topology hints for.
 -->
-
 ## 拓扑管理器作用域和策略 {#topology-manager-scopes-and-policies}
 
 拓扑管理器目前：
@@ -138,63 +137,69 @@ Details on the various `scopes` and `policies` available today can be found belo
 `policy` 定义了对齐时实际使用的策略（例如，`best-effort`、`restricted`、`single-numa-node` 等等）。
 可以在下文找到现今可用的各种 `scopes` 和 `policies` 的具体信息。
 
+{{< note >}}
 <!--
-To align CPU resources with other requested resources in a Pod Spec, the CPU Manager should be
+To align CPU resources with other requested resources in a Pod spec, the CPU Manager should be
 enabled and proper CPU Manager policy should be configured on a Node.
 See [control CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 -->
-{{< note >}}
 为了将 Pod 规约中的 CPU 资源与其他请求资源对齐，需要启用 CPU
 管理器并在节点上配置适当的 CPU 管理器策略。
 参看[控制 CPU 管理策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/).
 {{< /note >}}
 
+{{< note >}}
 <!--
-To align memory (and hugepages) resources with other requested resources in a Pod Spec, the Memory
+To align memory (and hugepages) resources with other requested resources in a Pod spec, the Memory
 Manager should be enabled and proper Memory Manager policy should be configured on a Node. Examine
 [Memory Manager](/docs/tasks/administer-cluster/memory-manager/) documentation.
 -->
-{{< note >}}
 为了将 Pod 规约中的内存（和 hugepages）资源与所请求的其他资源对齐，需要启用内存管理器，
 并且在节点配置适当的内存管理器策略。
 查看[内存管理器](/zh-cn/docs/tasks/administer-cluster/memory-manager/)文档。
 {{< /note >}}
 
 <!--
-### Topology Manager Scopes
+## Topology manager scopes
 
 The Topology Manager can deal with the alignment of resources in a couple of distinct scopes:
 
 * `container` (default)
 * `pod`
 
-Either option can be selected at a time of the kubelet startup, with `--topology-manager-scope`
-flag.
+Either option can be selected at a time of the kubelet startup, by setting the
+`topologyManagerScope` in the
+[kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
 -->
-### 拓扑管理器作用域 {#topology-manager-scopes}
+## 拓扑管理器作用域 {#topology-manager-scopes}
 
 拓扑管理器可以在以下不同的作用域内进行资源对齐：
 
-* `container` （默认）
+* `container`（默认）
 * `pod`
 
-在 kubelet 启动时，可以使用 `--topology-manager-scope` 标志来选择其中任一选项。
+在 kubelet 启动时，你可以通过在
+[kubelet 配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中设置
+`topologyManagerScope` 来选择其中任一选项。
 
 <!--
-### container scope
+### `container` scope
 
-The `container` scope is used by default.
+The `container` scope is used by default. You can also explicitly set the
+`topologyManagerScope` to `container` in the
+[kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
 -->
-### 容器作用域 {#container-scope}
+### `container` 作用域 {#container-scope}
 
 默认使用的是 `container` 作用域。
+你也可以在 [kubelet 配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中明确将
+`topologyManagerScope` 设置为 `container`。
 
 <!--
 Within this scope, the Topology Manager performs a number of sequential resource alignments, i.e.,
 for each container (in a pod) a separate alignment is computed. In other words, there is no notion
 of grouping the containers to a specific set of NUMA nodes, for this particular scope. In effect,
 the Topology Manager performs an arbitrary alignment of individual containers to NUMA nodes.
-
 -->
 在该作用域内，拓扑管理器依次进行一系列的资源对齐，
 也就是，对（Pod 中的）每一个容器计算单独的对齐。
@@ -208,13 +213,14 @@ scope, for example the `pod` scope.
 容器分组的概念是在以下的作用域内特别实现的，也就是 `pod` 作用域。
 
 <!--
-### pod scope
+### `pod` scope
 
-To select the `pod` scope, start the kubelet with the command line option `--topology-manager-scope=pod`.
+To select the `pod` scope, set `topologyManagerScope` in the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/) to `pod`.
 -->
-### Pod 作用域 {#pod-scope}
+### `pod` 作用域 {#pod-scope}
 
-启动 kubelet 时附带 `--topology-manager-scope=pod` 命令行选项，就可以选择 `pod` 作用域。
+要选择 `pod` 作用域，在 [kubelet 配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中将
+`topologyManagerScope` 设置为 `pod`。
 
 <!--
 This scope allows for grouping all containers in a pod to a common set of NUMA nodes. That is, the
@@ -256,8 +262,6 @@ Using the `pod` scope in tandem with `single-numa-node` Topology Manager policy 
 valuable for workloads that are latency sensitive or for high-throughput applications that perform
 IPC. By combining both options, you are able to place all containers in a pod onto a single NUMA
 node; hence, the inter-NUMA communication overhead can be eliminated for that pod.
-
-
 -->
 `pod` 作用域与 `single-numa-node` 拓扑管理器策略一起使用，
 对于延时敏感的工作负载，或者对于进行 IPC 的高吞吐量应用程序，都是特别有价值的。
@@ -267,7 +271,6 @@ node; hence, the inter-NUMA communication overhead can be eliminated for that po
 <!--
 In the case of `single-numa-node` policy, a pod is accepted only if a suitable set of NUMA nodes
 is present among possible allocations. Reconsider the example above:
-
 -->
 在 `single-numa-node` 策略下，只有当可能的分配方案中存在合适的 NUMA 节点集时，Pod 才会被接受。
 重新考虑上述的例子：
@@ -289,9 +292,9 @@ Manager policy, which either leads to the rejection or admission of the pod.
 从而决定拒绝或者接受 Pod。
 
 <!--
-### Topology Manager Policies
+## Topology manager policies
 -->
-### 拓扑管理器策略 {#topology-manager-policies}
+## 拓扑管理器策略 {#topology-manager-policies}
 
 <!--
 Topology Manager supports four allocation policies. You can set a policy via a Kubelet flag,
@@ -306,42 +309,40 @@ Topology Manager supports four allocation policies. You can set a policy via a K
 你可以通过 Kubelet 标志 `--topology-manager-policy` 设置策略。
 所支持的策略有四种：
 
-* `none` (默认)
+* `none`（默认）
 * `best-effort`
 * `restricted`
 * `single-numa-node`
 
-<!--
 {{< note >}}
+<!--
 If Topology Manager is configured with the **pod** scope, the container, which is considered by
 the policy, is reflecting requirements of the entire pod, and thus each container from the pod
 will result with **the same** topology alignment decision.
-{{< /note >}}
 -->
-{{< note >}}
 如果拓扑管理器配置使用 **pod** 作用域，
 那么在策略评估一个容器时，该容器反映的是整个 Pod 的要求，
 所以该 Pod 里的每个容器都会应用 **相同的** 拓扑对齐决策。
 {{< /note >}}
 
 <!--
-### none policy {#policy-none}
+### `none` policy {#policy-none}
 
 This is the default policy and does not perform any topology alignment.
 -->
-### none 策略 {#policy-none}
+### `none` 策略 {#policy-none}
 
 这是默认策略，不执行任何拓扑对齐。
 
 <!--
-### best-effort policy {#policy-best-effort}
+### `best-effort` policy {#policy-best-effort}
 
 For each container in a Pod, the kubelet, with `best-effort` topology management policy, calls
 each Hint Provider to discover their resource availability. Using this information, the Topology
 Manager stores the preferred NUMA Node affinity for that container. If the affinity is not
 preferred, Topology Manager will store this and admit the pod to the node anyway.
 -->
-### best-effort 策略 {#policy-best-effort}
+### `best-effort` 策略 {#policy-best-effort}
 
 对于 Pod 中的每个容器，具有 `best-effort` 拓扑管理策略的
 kubelet 将调用每个建议提供者以确定资源可用性。
@@ -355,7 +356,7 @@ resource allocation decision.
 之后**建议提供者**可以在进行资源分配决策时使用这个信息。
 
 <!--
-### restricted policy {#policy-restricted}
+### `restricted` policy {#policy-restricted}
 
 For each container in a Pod, the kubelet, with `restricted` topology management policy, calls each
 Hint Provider to discover their resource availability.  Using this information, the Topology
@@ -363,7 +364,7 @@ Manager stores the preferred NUMA Node affinity for that container. If the affin
 preferred, Topology Manager will reject this pod from the node. This will result in a pod in a
 `Terminated` state with a pod admission failure.
 -->
-### restricted 策略 {#policy-restricted}
+### `restricted` 策略 {#policy-restricted}
 
 对于 Pod 中的每个容器，配置了 `restricted` 拓扑管理策略的 kubelet
 调用每个建议提供者以确定其资源可用性。
@@ -388,7 +389,7 @@ resource allocation decision.
 如果 Pod 被允许运行在某节点，则**建议提供者**可以在做出资源分配决定时使用此信息。
 
 <!--
-### single-numa-node policy {#policy-single-numa-node}
+### `single-numa-node` policy {#policy-single-numa-node}
 
 For each container in a Pod, the kubelet, with `single-numa-node` topology management policy,
 calls each Hint Provider to discover their resource availability.  Using this information, the
@@ -398,7 +399,7 @@ resource allocation decision.  If, however, this is not possible then the Topolo
 reject the pod from the node. This will result in a pod in a `Terminated` state with a pod
 admission failure.
 -->
-### single-numa-node 策略 {#policy-single-numa-node}
+### `single-numa-node` 策略 {#policy-single-numa-node}
 
 对于 Pod 中的每个容器，配置了 `single-numa-node` 拓扑管理策略的
 kubelet 调用每个建议提供者以确定其资源可用性。
@@ -418,23 +419,24 @@ that have the `Topology Affinity` error.
 还可以通过实现外部控制环，以触发重新部署具有 `Topology Affinity` 错误的 Pod。
 
 <!--
-### Topology manager policy options
+## Topology manager policy options
 
 Support for the Topology Manager policy options requires `TopologyManagerPolicyOptions`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled
 (it is enabled by default).
 -->
-### 拓扑管理器策略选项  {#topology-manager-policy-options}
+## 拓扑管理器策略选项  {#topology-manager-policy-options}
 
 对拓扑管理器策略选项的支持需要启用 `TopologyManagerPolicyOptions`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（默认启用）。
 
 <!--
 You can toggle groups of options on and off based upon their maturity level using the following feature gates:
-* `TopologyManagerPolicyBetaOptions` default enabled.. Enable to show beta-level options.
+* `TopologyManagerPolicyBetaOptions` default enabled. Enable to show beta-level options.
 * `TopologyManagerPolicyAlphaOptions` default disabled. Enable to show alpha-level options.
 -->
 你可以使用以下特性门控根据成熟度级别打开和关闭这些选项组：
+
 * `TopologyManagerPolicyBetaOptions` 默认启用。启用以显示 Beta 级别选项。
 * `TopologyManagerPolicyAlphaOptions` 默认禁用。启用以显示 Alpha 级别选项。
 
@@ -444,43 +446,105 @@ You will still have to enable each option using the `TopologyManagerPolicyOption
 你仍然需要使用 `TopologyManagerPolicyOptions` kubelet 选项来启用每个选项。
 
 <!--
-The following policy options exists:
-* `prefer-closest-numa-nodes` (beta, visible by default, `TopologyManagerPolicyOptions` and `TopologyManagerPolicyAlphaOptions` feature gates have to be enabled).
-The `prefer-closest-numa-nodes` policy option is beta in Kubernetes {{< skew currentVersion >}}.
+### `prefer-closest-numa-nodes` (beta) {#policy-option-prefer-closest-numa-nodes}
+
+The `prefer-closest-numa-nodes` option is beta since Kubernetes 1.28. In Kubernetes {{< skew currentVersion >}}
+this policy option is visible by default provided that the `TopologyManagerPolicyOptions` and
+`TopologyManagerPolicyBetaOptions` [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+are enabled.
 -->
-存在以下策略选项：
-* `prefer-closest-numa-nodes`（Beta，默认可见，`TopologyManagerPolicyOptions` 和
-  `TopologyManagerPolicyAlphaOptions` 特性门控必须被启用）。
-  `prefer-closest-numa-nodes` 策略选项在 Kubernetes {{< skew currentVersion >}}
-  中是 Beta 版。
+### `prefer-closest-numa-nodes`（Beta） {#policy-option-prefer-closest-numa-nodes}
+
+自 Kubernetes 1.28 起，`prefer-closest-numa-nodes` 选项进入 Beta 阶段。
+在 Kubernetes {{< skew currentVersion >}} 中，只要启用了
+`TopologyManagerPolicyOptions` 和 `TopologyManagerPolicyBetaOptions`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，此策略选项默认可见。
 
 <!--
-If the `prefer-closest-numa-nodes` policy option is specified, the `best-effort` and `restricted`
-policies will favor sets of NUMA nodes with shorter distance between them when making admission decisions.
-You can enable this option by adding `prefer-closest-numa-nodes=true` to the Topology Manager policy options.
-By default, without this option, Topology Manager aligns resources on either a single NUMA node or
-the minimum number of NUMA nodes (in cases where more than one NUMA node is required). However,
-the `TopologyManager` is not aware of NUMA distances and does not take them into account when making admission decisions.
-This limitation surfaces in multi-socket, as well as single-socket multi NUMA systems,
-and can cause significant performance degradation in latency-critical execution and high-throughput applications if the
-Topology Manager decides to align resources on non-adjacent NUMA nodes.
+The topology manager is not aware by default of NUMA distances, and does not take them into account when making
+Pod admission decisions. This limitation surfaces in multi-socket, as well as single-socket multi NUMA systems,
+and can cause significant performance degradation in latency-critical execution and high-throughput applications
+if the topology manager decides to align resources on non-adjacent NUMA nodes.
+
+If you specify the `prefer-closest-numa-nodes` policy option, the `best-effort` and `restricted`
+policies favor sets of NUMA nodes with shorter distance between them when making admission decisions.
 -->
-如果 `prefer-closest-numa-nodes` 策略选项被指定，则在做出准入决策时 `best-effort` 和 `restricted`
+拓扑管理器默认不会感知 NUMA 距离，并且在做出 Pod 准入决策时不会考虑这些距离。
+这种限制出现在多插槽以及单插槽多 NUMA 系统中，如果拓扑管理器决定将资源对齐到不相邻的 NUMA 节点上，
+可能导致执行延迟敏感和高吞吐的应用出现明显的性能下降。
+
+如果你指定 `prefer-closest-numa-nodes` 策略选项，则在做出准入决策时 `best-effort` 和 `restricted`
 策略将偏向于彼此之间距离较短的一组 NUMA 节点。
-你可以通过将 `prefer-closest-numa-nodes=true` 添加到拓扑管理器策略选项来启用此选项。
-默认情况下，如果没有此选项，拓扑管理器会在单个 NUMA 节点或（在需要多个 NUMA 节点时）最小数量的 NUMA 节点上对齐资源。
-然而，`TopologyManager` 无法感知到 NUMA 距离且在做出准入决策时也没有考虑这些距离。
-这种限制出现在多插槽以及单插槽多 NUMA 系统中，如果拓扑管理器决定在非相邻 NUMA 节点上对齐资源，
-可能导致对执行延迟敏感和高吞吐的应用程序出现明显的性能下降。
 
 <!--
-### Pod Interactions with Topology Manager Policies
+You can enable this option by adding `prefer-closest-numa-nodes=true` to the Topology Manager policy options.
 
-Consider the containers in the following pod specs:
+By default (without this option), Topology Manager aligns resources on either a single NUMA node or,
+in the case where more than one NUMA node is required, using the minimum number of NUMA nodes.
+-->
+你可以通过将 `prefer-closest-numa-nodes=true` 添加到拓扑管理器策略选项来启用此选项。
+
+默认情况下，如果没有此选项，拓扑管理器会在单个 NUMA 节点或（在需要多个 NUMA 节点时）最小数量的 NUMA 节点上对齐资源。
+
+<!--
+### `max-allowable-numa-nodes` (beta) {#policy-option-max-allowable-numa-nodes}
+
+The `max-allowable-numa-nodes` option is beta since Kubernetes 1.31. In Kubernetes {{< skew currentVersion >}}
+this policy option is visible by default provided that the `TopologyManagerPolicyOptions` and
+`TopologyManagerPolicyBetaOptions` [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+are enabled.
+-->
+### `max-allowable-numa-nodes`（Beta） {#policy-option-max-allowable-numa-nodes}
+
+自 Kubernetes 1.31 起，`max-allowable-numa-nodes` 选项进入 Beta 阶段。
+在 Kubernetes {{< skew currentVersion >}} 中，只要启用了
+`TopologyManagerPolicyOptions` 和 `TopologyManagerPolicyBetaOptions`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，此策略选项默认可见。
+
+<!--
+The time to admit a pod is tied to the number of NUMA nodes on the physical machine.
+By default, Kubernetes does not run a kubelet with the topology manager enabled, on any (Kubernetes) node where
+more than 8 NUMA nodes are detected.
+-->
+Pod 被准入的时间与物理机上的 NUMA 节点数量相关。
+默认情况下，Kubernetes 不会在检测到有 8 个以上 NUMA
+节点的任何（Kubernetes）节点上运行启用拓扑管理器的 kubelet。
+
+{{< note >}}
+<!--
+If you select the the `max-allowable-numa-nodes` policy option, nodes with more than 8 NUMA nodes can
+be allowed to run with the topology manager enabled. The Kubernetes project only has limited data on the impact
+of using the topology manager on (Kubernetes) nodes with more than 8 NUMA nodes. Because of that
+lack of data, using this policy option with Kubernetes {{< skew currentVersion >}} is **not** recommended and is
+at your own risk.
+-->
+如果你选择 `max-allowable-numa-nodes` 策略选项，则可以允许在有 8 个以上 NUMA 节点的节点上启用拓扑管理器。
+Kubernetes 项目对在有 8 个以上 NUMA 节点的（Kubernetes）节点上使用拓扑管理器的影响只有有限的数据。
+由于缺少数据，所以不推荐在 Kubernetes {{< skew currentVersion >}} 上使用此策略选项，你需自行承担风险。
+{{< /note >}}
+
+<!--
+You can enable this option by adding `max-allowable-numa-nodes=true` to the Topology Manager policy options.
+
+Setting a value of `max-allowable-numa-nodes` does not (in and of itself) affect the
+latency of pod admission, but binding a Pod to a (Kubernetes) node with many NUMA does does have an impact.
+Future, potential improvements to Kubernetes may improve Pod admission performance and the high
+latency that happens as the number of NUMA nodes increases.
+-->
+你可以通过将 `max-allowable-numa-nodes=true` 添加到拓扑管理器策略选项来启用此选项。
+
+设置 `max-allowable-numa-nodes` 的值本身不会影响 Pod 准入的延时，
+但将 Pod 绑定到有多个 NUMA 节点的（Kubernetes）节点确实会产生影响。
+Kubernetes 后续潜在的改进可能会提高 Pod 准入性能，并降低随着 NUMA 节点数量增加而产生的高延迟。
+
+<!--
+## Pod interactions with topology manager policies
+
+Consider the containers in the following Pod manifest:
 -->
 ### Pod 与拓扑管理器策略的交互 {#pod-interactions-with-topology-manager-policies}
 
-考虑以下 Pod 规范中的容器：
+考虑以下 Pod 清单中的容器：
 
 ```yaml
 spec:
@@ -629,18 +693,19 @@ assignments.
 提示提供程序在进行资源分配时使用。
 
 <!--
-### Known Limitations
+## Known limitations
 
 1. The maximum number of NUMA nodes that Topology Manager allows is 8. With more than 8 NUMA nodes
    there will be a state explosion when trying to enumerate the possible NUMA affinities and
-   generating their hints.
-
+   generating their hints. See [`max-allowable-numa-nodes`](#policy-option-max-allowable-numa-nodes)
+   (beta) for more options.
 
 2. The scheduler is not topology-aware, so it is possible to be scheduled on a node and then fail
    on the node due to the Topology Manager.
 -->
-### 已知的局限性 {#known-limitations}
+## 已知的局限性 {#known-limitations}
 
 1. 拓扑管理器所能处理的最大 NUMA 节点个数是 8。若 NUMA 节点数超过 8，
    枚举可能的 NUMA 亲和性并为之生成提示时会发生状态爆炸。
+   更多选项参见 [`max-allowable-numa-nodes`](#policy-option-max-allowable-numa-nodes)（Beta）。
 2. 调度器无法感知拓扑，所以有可能一个 Pod 被调度到一个节点之后，会因为拓扑管理器的缘故在该节点上启动失败。

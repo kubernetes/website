@@ -577,15 +577,12 @@ prioritize scaling down pods based on the following general algorithm:
    the pod with the lower value will come first.
 1. Pods on nodes with more replicas come before pods on nodes with fewer replicas.
 1. If the pods' creation times differ, the pod that was created more recently
-   comes before the older pod (the creation times are bucketed on an integer log scale
-   when the `LogarithmicScaleDown` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
+   comes before the older pod (the creation times are bucketed on an integer log scale).
 -->
 1. 首先选择剔除悬决（Pending，且不可调度）的各个 Pod
 2. 如果设置了 `controller.kubernetes.io/pod-deletion-cost` 注解，则注解值较小的优先被裁减掉
 3. 所处节点上副本个数较多的 Pod 优先于所处节点上副本较少者
-4. 如果 Pod 的创建时间不同，最近创建的 Pod 优先于早前创建的 Pod 被裁减。
-   （当 `LogarithmicScaleDown` 这一[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-   被启用时，创建时间是按整数幂级来分组的）。
+4. 如果 Pod 的创建时间不同，最近创建的 Pod 优先于早前创建的 Pod 被裁减（创建时间是按整数幂级来分组的）。
 
 <!--
 If all of the above match, then selection is random.

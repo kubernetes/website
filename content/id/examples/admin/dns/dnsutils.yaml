@@ -6,9 +6,6 @@ metadata:
 spec:
   containers:
   - name: dnsutils
-    image: registry.k8s.io/e2e-test-images/jessie-dnsutils:1.3
-    command:
-      - sleep
-      - "3600"
+    image: registry.k8s.io/e2e-test-images/agnhost:2.39
     imagePullPolicy: IfNotPresent
   restartPolicy: Always

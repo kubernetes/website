@@ -497,7 +497,7 @@ If you are administering a cluster or namespace, you can also set
 you may also want to define a [LimitRange](/docs/concepts/policy/limit-range/)
 for additional enforcement.
 If you specify a `spec.containers[].resources.limits.memory` for each Pod,
-then the muximum size of an `emptyDir` volume will be the pod's memory limit.
+then the maximum size of an `emptyDir` volume will be the pod's memory limit.
 -->
 如果你在管理集群或命名空间，还可以设置限制内存使用的 [ResourceQuota](/zh-cn/docs/concepts/policy/resource-quotas/)；
 你可能还希望定义一个 [LimitRange](/zh-cn/docs/concepts/policy/limit-range/) 以施加额外的限制。如果为每个 Pod
@@ -905,7 +905,7 @@ that file but the kubelet does not categorize the space as in use.
 
 {{% tab name="文件系统项目配额" %}}
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+{{< feature-state feature_gate_name="LocalStorageCapacityIsolationFSQuotaMonitoring" >}}
 
 <!--
 Project quotas are an operating-system level feature for managing
@@ -954,19 +954,35 @@ Kubernetes 所使用的项目 ID 始于 `1048576`。
 而目录扫描方式会忽略被删除文件所占用的空间。
 
 <!--
+To use quotas to track a pod's resource usage, the pod must be in 
+a user namespace. Within user namespaces, the kernel restricts changes 
+to projectIDs on the filesystem, ensuring the reliability of storage 
+metrics calculated by quotas.
+-->
+要使用配额来跟踪 Pod 的资源使用情况，Pod 必须位于用户命名空间中。
+在用户命名空间内，内核限制对文件系统上 projectID 的更改，从而确保按配额计算的存储指标的可靠性。
+
+<!--
 If you want to use project quotas, you should:
 
 * Enable the `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
   using the `featureGates` field in the
-  [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
-  or the `--feature-gates` command line flag.
+  [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/).
 -->
 如果你希望使用项目配额，你需要：
 
 * 在 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中使用
-  `featureGates` 字段或者使用 `--feature-gates` 命令行参数启用
+  `featureGates` 字段启用
   `LocalStorageCapacityIsolationFSQuotaMonitoring=true` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+
+<!--
+* Ensure the `UserNamespacesSupport` 
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  is enabled, and that the kernel, CRI implementation and OCI runtime support user namespaces.
+-->
+* 确保 `UserNamespacesSupport` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)已启用，
+  并且内核、CRI 实现和 OCI 运行时支持用户命名空间。
 
 <!--
 * Ensure that the root filesystem (or optional runtime filesystem)
@@ -995,6 +1011,20 @@ If you want to use project quotas, you should:
 -->
 * 确保根文件系统（或者可选的运行时文件系统）在挂载时项目配额特性是被启用了的。
   对于 XFS 和 ext4fs 而言，对应的挂载选项称作 `prjquota`。
+
+<!--
+If you don't want to use project quotas, you should:
+
+* Disable the `LocalStorageCapacityIsolationFSQuotaMonitoring`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  using the `featureGates` field in the
+  [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/).
+-->
+如果不想使用项目配额，你应该：
+
+* 使用 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中的
+  `featureGates` 字段禁用 `LocalStorageCapacityIsolationFSQuotaMonitoring`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
 {{% /tab %}}
 {{< /tabs >}}

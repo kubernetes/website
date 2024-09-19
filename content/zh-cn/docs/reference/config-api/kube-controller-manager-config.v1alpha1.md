@@ -14,12 +14,8 @@ auto_generated: true
 - [CloudControllerManagerConfiguration](#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration)
 - [LeaderMigrationConfiguration](#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration)
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
-  
-    
-    
 
 ## `NodeControllerConfiguration`     {#NodeControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -55,7 +51,6 @@ NodeControllerConfiguration 包含描述 NodeController 的元素。
 </table>
 
 ## `ServiceControllerConfiguration`     {#ServiceControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -94,11 +89,8 @@ ServiceControllerConfiguration 包含描述 ServiceController 的元素。
 </tr>
 </tbody>
 </table>
-  
 
 ## `CloudControllerManagerConfiguration`     {#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration}
-    
-
 
 <p>
 <!-- CloudControllerManagerConfiguration contains elements describing cloud-controller manager.-->
@@ -1760,16 +1752,6 @@ HPAControllerConfiguration 包含描述 HPAController 的元素。
    </p>
 </td>
 </tr>
-<tr><td><code>HorizontalPodAutoscalerUpscaleForbiddenWindow</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <p>
-   <!-- HorizontalPodAutoscalerUpscaleForbiddenWindow is a period after which next upscale allowed. -->
-   HorizontalPodAutoscalerUpscaleForbiddenWindow 是一个时间段，过了这一时间段才允许下一次扩容
-   </p>
-</td>
-</tr>
 <tr><td><code>HorizontalPodAutoscalerDownscaleStabilizationWindow</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
@@ -1781,16 +1763,6 @@ HPAControllerConfiguration 包含描述 HPAController 的元素。
    -->
    horizontalpodautoscalerdowncalstabilizationwindow 是一个自动缩放器要回顾的时段长度，
    在所给时段内，自动缩放器不会按照建议执行任何缩容操作。
-   </p>
-</td>
-</tr>
-<tr><td><code>HorizontalPodAutoscalerDownscaleForbiddenWindow</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <p>
-   <!-- HorizontalPodAutoscalerDownscaleForbiddenWindow is a period after which next downscale allowed. -->
-   HorizontalPodAutoscalerDownscaleForbiddenWindow 是一个时间段长度，过了此时间段才允许执行下一此缩容操作。
    </p>
 </td>
 </tr>
@@ -2185,28 +2157,6 @@ PersistentVolumeBinderControllerConfiguration 包含描述 PersistentVolumeBinde
    </p>
 </td>
 </tr>
-<tr><td><code>VolumeHostCIDRDenylist</code> <B><!--[Required]-->[必需]</B><br/>
-<code>[]string</code>
-</td>
-<td>
-   <p>
-   <!-- DEPRECATED: VolumeHostCIDRDenylist is a list of CIDRs that should not be reachable by the
-controller from plugins. -->
-   已弃用：VolumeHostCIDRDenylist 是一个不能被插件中控制器访问的 CIDR 列表。
-   </p>
-</td>
-</tr>
-<tr><td><code>VolumeHostAllowLocalLoopback</code> <B><!--[Required]-->[必需]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>
-   <!-- DEPRECATED: VolumeHostAllowLocalLoopback indicates if local loopback hosts (127.0.0.1, etc)
-should be allowed from plugins. -->
-   已弃用：VolumeHostAllowLocalLoopback 表示是否应该允许插件使用本地回路主机地址（127.0.0.1 等）。
-   </p>
-</td>
-</tr>
 </tbody>
 </table>
 
@@ -2219,7 +2169,6 @@ should be allowed from plugins. -->
 **出现在：**
 
 - [VolumeConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-VolumeConfiguration)
-
 
 <p>
 <!-- PersistentVolumeRecyclerConfiguration contains elements describing persistent volume plugins. -->
@@ -2754,4 +2703,3 @@ VolumeConfiguration 包含<em>所有</em>用于配置各个卷插件的所有参
 </tr>
 </tbody>
 </table>
-  

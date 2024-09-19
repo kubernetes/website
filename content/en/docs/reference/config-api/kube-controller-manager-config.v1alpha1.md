@@ -1256,26 +1256,12 @@ Larger number = more responsive HPA processing, but more CPU (and network) load.
 pods in horizontal pod autoscaler.</p>
 </td>
 </tr>
-<tr><td><code>HorizontalPodAutoscalerUpscaleForbiddenWindow</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <p>HorizontalPodAutoscalerUpscaleForbiddenWindow is a period after which next upscale allowed.</p>
-</td>
-</tr>
 <tr><td><code>HorizontalPodAutoscalerDownscaleStabilizationWindow</code> <B>[Required]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    <p>HorizontalPodAutoscalerDowncaleStabilizationWindow is a period for which autoscaler will look
 backwards and not scale down below any recommendation it made during that period.</p>
-</td>
-</tr>
-<tr><td><code>HorizontalPodAutoscalerDownscaleForbiddenWindow</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <p>HorizontalPodAutoscalerDownscaleForbiddenWindow is a period after which next downscale allowed.</p>
 </td>
 </tr>
 <tr><td><code>HorizontalPodAutoscalerTolerance</code> <B>[Required]</B><br/>
@@ -1554,22 +1540,6 @@ and persistent volume claims.</p>
 </td>
 <td>
    <p>volumeConfiguration holds configuration for volume related features.</p>
-</td>
-</tr>
-<tr><td><code>VolumeHostCIDRDenylist</code> <B>[Required]</B><br/>
-<code>[]string</code>
-</td>
-<td>
-   <p>DEPRECATED: VolumeHostCIDRDenylist is a list of CIDRs that should not be reachable by the
-controller from plugins.</p>
-</td>
-</tr>
-<tr><td><code>VolumeHostAllowLocalLoopback</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>DEPRECATED: VolumeHostAllowLocalLoopback indicates if local loopback hosts (127.0.0.1, etc)
-should be allowed from plugins.</p>
 </td>
 </tr>
 </tbody>

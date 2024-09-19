@@ -109,6 +109,18 @@ by including a value for that field in a Server-Side Apply operation.
 还可以通过在服务器端应用操作中包含字段的值来声明和记录字段管理器。
 
 <!--
+A Server-Side Apply **patch** request requires the client to provide its identity
+as a [field manager](#managers). When using Server-Side Apply, trying to change a
+field that is controlled by a different manager results in a rejected
+request unless the client forces an override.
+For details of overrides, see [Conflicts](#conflicts).
+-->
+服务器端应用场景中的 **patch** 请求要求客户端提供自身的标识作为
+[字段管理器（Field Manager）](#managers)。使用服务器端应用时，
+如果尝试变更由别的管理器来控制的字段，会导致请求被拒绝，除非客户端强制要求进行覆盖。
+关于覆盖操作的细节，可参阅[冲突](#conflicts)节。
+
+<!--
 When two or more appliers set a field to the same value, they share ownership of
 that field. Any subsequent attempt to change the value of the shared field, by any of
 the appliers, results in a conflict. Shared field owners may give up ownership
@@ -220,15 +232,14 @@ for example, the `.metadata.managedFields` get into an inconsistent state
 <!-- 
 The format of `managedFields` is [described](/docs/reference/kubernetes-api/common-definitions/object-meta/#System)
 in the Kubernetes API reference.
-
-{{< caution >}}
-The `.metadata.managedFields` field is managed by the API server.
-You should avoid updating it manually.
-{{< /caution >}}
 -->
 `managedFields` 的格式在 Kubernetes API 参考中[描述](/zh-cn/docs/reference/kubernetes-api/common-definitions/object-meta/#System)。
 
 {{< caution >}}
+<!--
+The `.metadata.managedFields` field is managed by the API server.
+You should avoid updating it manually.
+-->
 `.metadata.managedFields` 字段由 API 服务器管理。
 你不应该手动更新它。
 {{< /caution >}}
@@ -255,13 +266,24 @@ this occurs, the applier has 3 options to resolve the conflicts:
   you use the `--force-conflicts` command line parameter), and make the request
   again. This forces the operation to succeed, changes the value of the field,
   and removes the field from all other managers' entries in `managedFields`.
+-->
+* **覆盖前值，成为唯一的管理器：** 如果打算覆盖该值（或应用者是一个自动化部件，比如控制器），
+  应用者应该设置查询参数 `force` 为 true（对 `kubectl apply` 来说，你可以使用命令行参数
+  `--force-conflicts`），然后再发送一次请求。
+  这将强制操作成功，改变字段的值，从所有其他管理器的 `managedFields` 条目中删除指定字段。
 
+<!--
 * **Don't overwrite value, give up management claim:** If the applier doesn't
   care about the value of the field any more, the applier can remove it from their
   local model of the resource, and make a new request with that particular field
   omitted. This leaves the value unchanged, and causes the field to be removed
   from the applier's entry in `managedFields`.
+-->
+* **不覆盖前值，放弃管理权：** 如果应用者不再关注该字段的值，
+  应用者可以从资源的本地模型中删掉它，并在省略该字段的情况下发送请求。
+  这就保持了原值不变，并从 `managedFields` 的应用者条目中删除该字段。
 
+<!--
 * **Don't overwrite value, become shared manager:** If the applier still cares
   about the value of a field, but doesn't want to overwrite it, they can
   change the value of that field in their local model of the resource so as to
@@ -270,15 +292,6 @@ this occurs, the applier has 3 options to resolve the conflicts:
   and causes that field's management to be shared by the applier along with all
   other field managers that already claimed to manage it.
 -->
-* **覆盖前值，成为唯一的管理器：** 如果打算覆盖该值（或应用者是一个自动化部件，比如控制器），
-  应用者应该设置查询参数 `force` 为 true（对 `kubectl apply` 来说，你可以使用命令行参数
-  `--force-conflicts`），然后再发送一次请求。
-  这将强制操作成功，改变字段的值，从所有其他管理器的 `managedFields` 条目中删除指定字段。
-
-* **不覆盖前值，放弃管理权：** 如果应用者不再关注该字段的值，
-  应用者可以从资源的本地模型中删掉它，并在省略该字段的情况下发送请求。
-  这就保持了原值不变，并从 `managedFields` 的应用者条目中删除该字段。
-
 * **不覆盖前值，成为共享的管理器：** 如果应用者仍然关注字段值，并不想覆盖它，
   他们可以更改资源的本地模型中该字段的值，以便与服务器上对象的值相匹配，
   然后基于本地更新发出新请求。这样做会保持值不变，
