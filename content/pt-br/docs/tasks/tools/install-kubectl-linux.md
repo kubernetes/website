@@ -132,18 +132,18 @@ Existem os seguintes métodos para instalar o kubectl no Linux:
 2. Faça download da chave de assinatura pública para os  repositórios de pacote do Kubernetes. A mesma chave de assinatura é usada para todos os repositórios, então você pode desconsiderar a versão na URL:
 
    ```shell
-   # Se a pasta `/etc/apt/keyrings` não existir, ela deveria ser criada antes do comando curl, leia a nota abaixo.
+   # Se a pasta `/etc/apt/keyrings` não existir, ela deve ser criada antes do comando curl, leia a nota abaixo.
    # sudo mkdir -p -m 755 /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
    sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg # permitir que programas APT sem acesso privilegiado leiam este keyring
    ```
 
 {{< note >}}
-Em releases mais antigos que o Debian 12 e Ubuntu 22.04, a pasta `/etc/apt/keyrings` não existem por padrão, e ela deveria ser criada antes do comando curl.
+Em releases mais antigos que o Debian 12 e Ubuntu 22.04, a pasta `/etc/apt/keyrings` não existe por padrão, e ela deve ser criada antes do comando curl.
 {{< /note >}}
 
 3. Adicione o repositório `apt` do Kubernetes. Se você quiser usar uma versão do Kubernetes diferente de {{< param "version" >}},
-   substitua {{< param "version" >}} com a versão do minor desejada no comando a seguir:
+   substitua {{< param "version" >}} com a versão menor desejada no comando a seguir:
 
    ```shell
    # Isto substitui qualquer configuração existente na pasta /etc/apt/sources.list.d/kubernetes.list
@@ -152,7 +152,7 @@ Em releases mais antigos que o Debian 12 e Ubuntu 22.04, a pasta `/etc/apt/keyri
    ```
    
 {{< note >}}
-Para atualizar o kubectl para o release de outro minor, você vai precisar atualizar a versão no arquivo `/etc/apt/sources.list.d/kubernetes.list` antes de rodar `apt-get update` e `apt-get upgrade`. <!-- Este procedimento está descrito com mais detalhes em [Mudando o Repositório de Pacotes do Kubernetes](/docs/tasks/administer-cluster/kubeadm/change-package-repository/). -->
+Para atualizar o kubectl para outra versão menor, você vai precisar atualizar a versão no arquivo `/etc/apt/sources.list.d/kubernetes.list` antes de rodar `apt-get update` e `apt-get upgrade`. Este procedimento está descrito com mais detalhes em [Mudando o Repositório de Pacotes do Kubernetes](/docs/tasks/administer-cluster/kubeadm/change-package-repository/) (em inglês).
 {{< /note >}}
 
 4. Atualize o índice do `apt` com o novo repositório e instale o kubectl:
@@ -166,9 +166,9 @@ Para atualizar o kubectl para o release de outro minor, você vai precisar atual
 
 {{% tab name="Distribuições baseadas no Red Hat" %}}
 
-1. Adicione o repositório do Kubernetes no `yum`. Se você quiser usar uma versão do 
+1. Adicione o repositório `yum` do Kubernetes. Se você quiser usar uma versão do 
    Kubernetes diferente de {{< param "version" >}}, substitua {{< param "version" >}} 
-   pela versão do minor desejada no comando a seguir.
+   pela versão menor desejada no comando a seguir.
 
 	```bash
 	# Isto substitui qualquer configuração existente na pasta /etc/yum.repos.d/kubernetes.repo
@@ -183,7 +183,7 @@ Para atualizar o kubectl para o release de outro minor, você vai precisar atual
 	```
 
 {{< note >}}
-Para atualizar o kubectl para o release de outro minor, você vai precisar atualizar a versão no arquivo `/etc/yum.repos.d/kubernetes.repo` antes de rodar `yum update`. <!-- Este procedimento está descrito com mais detalhes em [Mudando o Repositório de Pacotes do Kubernetes](/docs/tasks/administer-cluster/kubeadm/change-package-repository/). -->
+Para atualizar o kubectl para outra versão menor, você vai precisar atualizar a versão no arquivo `/etc/yum.repos.d/kubernetes.repo` antes de rodar `yum update`. Este procedimento está descrito com mais detalhes em [Mudando o Repositório de Pacotes do Kubernetes](/docs/tasks/administer-cluster/kubeadm/change-package-repository/) (em inglês).
 {{< /note >}}
 
 2. Instale o kubectl usando `yum`:
@@ -196,9 +196,9 @@ Para atualizar o kubectl para o release de outro minor, você vai precisar atual
 
 {{% tab name="Distribuições baseadas em SUSE" %}}
 
-1. Adicione o repositório do Kubernetes no `zypper`. Se você quiser instalar uma versão
+1. Adicione o repositório `zypper` do Kubernetes. Se você quiser instalar uma versão
    diferente de {{< param "version" >}}, substitua {{< param "version" >}} pela versão
-   do minor desejada no comando a seguir.
+   menor desejada no comando a seguir.
    
    ```bash
    # Isto substitui qualquer configuração existente no arquivo /etc/zypp/repos.d/kubernetes.repo
@@ -212,11 +212,11 @@ Para atualizar o kubectl para o release de outro minor, você vai precisar atual
    EOF
    ```
 {{< note >}}
-Para atualizar o kubectl para o release de outro minor, você vai precisar atualizar a versão no arquivo `/etc/zypp/repos.d/kubernetes.repo`
-antes de rodar `zypper update`.  <!-- Este procedimento está descrito com mais detalhes em [Mudando o Repositório de Pacotes do Kubernetes](/docs/tasks/administer-cluster/kubeadm/change-package-repository/). -->
+Para atualizar o kubectl para outra versão menor, você vai precisar atualizar a versão no arquivo `/etc/zypp/repos.d/kubernetes.repo`
+antes de rodar `zypper update`. Este procedimento está descrito com mais detalhes em [Mudando o Repositório de Pacotes do Kubernetes](/docs/tasks/administer-cluster/kubeadm/change-package-repository/) (em inglês).
 {{< /note >}}
 
-2. Atualize o `zypper` e confirme a adição do nove repo:
+2. Atualize o `zypper` e confirme a adição do novo repositório:
 
 	```bash
 	sudo zypper update
