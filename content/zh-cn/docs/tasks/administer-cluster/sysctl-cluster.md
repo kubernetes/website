@@ -156,12 +156,12 @@ The following sysctls are supported in the _safe_ set:
 There are some exceptions to the set of safe sysctls:
 
 - The `net.*` sysctls are not allowed with host networking enabled.
-- The `net.ipv4.tcp_syncookies` sysctl is not namespaced on Linux kernel version 4.4 or lower.
+- The `net.ipv4.tcp_syncookies` sysctl is not namespaced on Linux kernel version 4.5 or lower.
 -->
 安全 sysctl 参数有一些例外：
 
 - `net.*` sysctl 参数不允许在启用主机网络的情况下使用。
-- `net.ipv4.tcp_syncookies` sysctl 参数在 Linux 内核 4.4 或更低的版本中是无命名空间的。
+- `net.ipv4.tcp_syncookies` sysctl 参数在 Linux 内核 4.5 或更低的版本中是无命名空间的。
 {{< /note >}}
 
 <!--

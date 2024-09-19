@@ -117,6 +117,8 @@ all processes within any containers of the Pod. If this field is omitted, the pr
 will be root(0). Any files created will also be owned by user 1000 and group 3000 when `runAsGroup` is specified.
 Since `fsGroup` field is specified, all processes of the container are also part of the supplementary group ID 2000.
 The owner for volume `/data/demo` and any files created in that volume will be Group ID 2000.
+Additionally, when the `supplementalGroups` field is specified, all processes of the container are also part of the
+specified groups. If this field is omitted, it means empty.
 
 Create the Pod:
 -->
@@ -126,6 +128,8 @@ Create the Pod:
 当 `runAsGroup` 被设置时，所有创建的文件也会划归用户 1000 和组 3000。
 由于 `fsGroup` 被设置，容器中所有进程也会是附组 ID 2000 的一部分。
 卷 `/data/demo` 及在该卷中创建的任何文件的属主都会是组 ID 2000。
+此外，当 `supplementalGroups` 字段被指定时，容器的所有进程也会成为所指定的组的一部分。
+如果此字段被省略，则表示为空。
 
 创建该 Pod：
 
@@ -235,20 +239,23 @@ The output is similar to this:
 输出类似于：
 
 ```none
-uid=1000 gid=3000 groups=2000
+uid=1000 gid=3000 groups=2000,3000,4000
 ```
 
 <!--
 From the output, you can see that `gid` is 3000 which is same as the `runAsGroup` field.
 If the `runAsGroup` was omitted, the `gid` would remain as 0 (root) and the process will
 be able to interact with files that are owned by the root(0) group and groups that have
-the required group permissions for the root (0) group.
+the required group permissions for the root (0) group. You can also see that `groups`
+contains the group IDs which are specified by `fsGroup` and `supplementalGroups`,
+in addition to `gid`.
 
 Exit your shell:
 -->
 从输出中你会看到 `gid` 值为 3000，也就是 `runAsGroup` 字段的值。
 如果 `runAsGroup` 被忽略，则 `gid` 会取值 0（root），而进程就能够与 root
 用户组所拥有以及要求 root 用户组访问权限的文件交互。
+你还可以看到，除了 `gid` 之外，`groups` 还包含了由 `fsGroup` 和 `supplementalGroups` 指定的组 ID。
 
 退出你的 Shell：
 
@@ -257,9 +264,290 @@ exit
 ```
 
 <!--
+### Implicit group memberships defined in `/etc/group` in the container image
+
+By default, kubernetes merges group information from the Pod with information defined in `/etc/group` in the container image.
+-->
+### 容器镜像内 `/etc/group` 中定义的隐式组成员身份
+
+默认情况下，Kubernetes 会将 Pod 中的组信息与容器镜像内 `/etc/group` 中定义的信息合并。
+
+{{% code_sample file="pods/security/security-context-5.yaml" %}}
+
+<!--
+This Pod security context contains `runAsUser`, `runAsGroup` and `supplementalGroups`.
+However, you can see that the actual supplementary groups attached to the container process
+will include group IDs which come from `/etc/group` in the container image.
+
+Create the Pod:
+-->
+此 Pod 的安全上下文包含 `runAsUser`、`runAsGroup` 和 `supplementalGroups`。  
+然而，你可以看到，挂接到容器进程的实际附加组将包括来自容器镜像中 `/etc/group` 的组 ID。
+
+创建 Pod：
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/security-context-5.yaml
+```
+
+<!--
+Verify that the Pod's Container is running:
+-->
+验证 Pod 的 Container 正在运行：
+
+```shell
+kubectl get pod security-context-demo
+```
+
+<!--
+Get a shell to the running Container:
+-->
+打开一个 Shell 进入正在运行的 Container：
+
+```shell
+kubectl exec -it security-context-demo -- sh
+```
+
+<!--
+Check the process identity:
+-->
+检查进程身份：
+
+```shell
+$ id
+```
+
+<!--
+The output is similar to this:
+-->
+输出类似于：
+
+```none
+uid=1000 gid=3000 groups=3000,4000,50000
+```
+
+<!--
+You can see that `groups` includes group ID `50000`. This is because the user (`uid=1000`),
+which is defined in the image, belongs to the group (`gid=50000`), which is defined in `/etc/group`
+inside the container image.
+
+Check the `/etc/group` in the container image:
+-->
+你可以看到 `groups` 包含组 ID `50000`。
+这是因为镜像中定义的用户（`uid=1000`）属于在容器镜像内 `/etc/group` 中定义的组（`gid=50000`）。
+
+检查容器镜像中的 `/etc/group`：
+
+```shell
+$ cat /etc/group
+```
+
+<!--
+You can see that uid `1000` belongs to group `50000`.
+-->
+你可以看到 uid `1000` 属于组 `50000`。
+
+```none
+...
+user-defined-in-image:x:1000:
+group-defined-in-image:x:50000:user-defined-in-image
+```
+
+<!--
+Exit your shell:
+-->
+退出你的 Shell：
+
+```shell
+exit
+```
+
+{{<note>}}
+<!--
+_Implicitly merged_ supplementary groups may cause security problems particularly when accessing
+the volumes (see [kubernetes/kubernetes#112879](https://issue.k8s.io/112879) for details).
+If you want to avoid this. Please see the below section.
+-->
+**隐式合并的**附加组可能会导致安全问题，
+特别是在访问卷时（有关细节请参见 [kubernetes/kubernetes#112879](https://issue.k8s.io/112879)）。  
+如果你想避免这种问题，请查阅以下章节。
+{{</note>}}
+
+<!--
+## Configure fine-grained SupplementalGroups control for a Pod {#supplementalgroupspolicy}
+-->
+## 配置 Pod 的细粒度 SupplementalGroups 控制   {#supplementalgroupspolicy}
+
+{{< feature-state feature_gate_name="SupplementalGroupsPolicy" >}}
+
+<!--
+This feature can be enabled by setting the `SupplementalGroupsPolicy`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for kubelet and
+kube-apiserver, and setting the `.spec.securityContext.supplementalGroupsPolicy` field for a pod.
+
+The `supplementalGroupsPolicy` field defines the policy for calculating the
+supplementary groups for the container processes in a pod. There are two valid
+values for this field:
+-->
+通过为 kubelet 和 kube-apiserver 设置 `SupplementalGroupsPolicy`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+并为 Pod 设置 `.spec.securityContext.supplementalGroupsPolicy` 字段，此特性可以被启用。
+
+`supplementalGroupsPolicy` 字段为 Pod 中的容器进程定义了计算附加组的策略。
+此字段有两个有效值：
+
+<!--
+* `Merge`: The group membership defined in `/etc/group` for the container's primary user will be merged.
+  This is the default policy if not specified.
+
+* `Strict`: Only group IDs in `fsGroup`, `supplementalGroups`, or `runAsGroup` fields 
+  are attached as the supplementary groups of the container processes.
+  This means no group membership from `/etc/group` for the container's primary user will be merged.
+-->
+* `Merge`：为容器的主用户在 `/etc/group` 中定义的组成员身份将被合并。
+  如果不指定，这就是默认策略。
+
+* `Strict`：仅将 `fsGroup`、`supplementalGroups` 或 `runAsGroup`
+  字段中的组 ID 挂接为容器进程的附加组。这意味着容器主用户在 `/etc/group` 中的组成员身份将不会被合并。
+
+<!--
+When the feature is enabled, it also exposes the process identity attached to the first container process
+in `.status.containerStatuses[].user.linux` field. It would be useful for detecting if
+implicit group ID's are attached.
+-->
+当此特性被启用时，它还会在 `.status.containerStatuses[].user.linux`
+字段中暴露挂接到第一个容器进程的进程身份。这对于检测是否挂接了隐式组 ID 非常有用。
+
+{{% code_sample file="pods/security/security-context-6.yaml" %}}
+
+<!--
+This pod manifest defines `supplementalGroupsPolicy=Strict`. You can see that no group memberships
+defined in `/etc/group` are merged to the supplementary groups for container processes.
+
+Create the Pod:
+-->
+此 Pod 清单定义了 `supplementalGroupsPolicy=Strict`。
+你可以看到没有将 `/etc/group` 中定义的组成员身份合并到容器进程的附加组中。
+
+创建 Pod：
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/security-context-6.yaml
+```
+
+<!--
+Verify that the Pod's Container is running:
+-->
+验证 Pod 的 Container 正在运行：
+
+```shell
+kubectl get pod security-context-demo
+```
+
+<!--
+Check the process identity:
+-->
+检查进程身份：
+
+```shell
+kubectl exec -it security-context-demo -- id
+```
+
+<!--
+The output is similar to this:
+-->
+输出类似于：
+
+```none
+uid=1000 gid=3000 groups=3000,4000
+```
+
+<!--
+See the Pod's status:
+-->
+查看 Pod 的状态：
+
+```shell
+kubectl get pod security-context-demo -o yaml
+```
+
+<!--
+You can see that the `status.containerStatuses[].user.linux` field exposes the process identitiy
+attached to the first container process.
+-->
+你可以看到 `status.containerStatuses[].user.linux` 字段暴露了挂接到第一个容器进程的进程身份。
+
+```none
+...
+status:
+  containerStatuses:
+  - name: sec-ctx-demo
+    user:
+      linux:
+        gid: 3000
+        supplementalGroups:
+        - 3000
+        - 4000
+        uid: 1000
+...
+```
+
+{{<note>}}
+<!--
+Please note that the values in the `status.containerStatuses[].user.linux` field is _the first attached_
+process identity to the first container process in the container. If the container has sufficient privilege
+to make system calls related to process identity
+(e.g. [`setuid(2)`](https://man7.org/linux/man-pages/man2/setuid.2.html),
+[`setgid(2)`](https://man7.org/linux/man-pages/man2/setgid.2.html) or
+[`setgroups(2)`](https://man7.org/linux/man-pages/man2/setgroups.2.html), etc.),
+the container process can change its identity. Thus, the _actual_ process identity will be dynamic.
+-->
+请注意，`status.containerStatuses[].user.linux` 字段的值是**第一个挂接到**容器中第一个容器进程的进程身份。
+如果容器具有足够的权限来进行与进程身份相关的系统调用
+（例如 [`setuid(2)`](https://man7.org/linux/man-pages/man2/setuid.2.html)、
+[`setgid(2)`](https://man7.org/linux/man-pages/man2/setgid.2.html) 或
+[`setgroups(2)`](https://man7.org/linux/man-pages/man2/setgroups.2.html) 等），
+则容器进程可以更改其身份。因此，**实际**进程身份将是动态的。
+{{</note>}}
+
+<!--
+### Implementations {#implementations-supplementalgroupspolicy}
+-->
+### 实现   {#implementations-supplementalgroupspolicy}
+
+{{% thirdparty-content %}}
+
+<!--
+The following container runtimes are known to support fine-grained SupplementalGroups control.
+
+CRI-level:
+- [containerd](https://containerd.io/), since v2.0
+- [CRI-O](https://cri-o.io/), since v1.31
+
+You can see if the feature is supported in the Node status.
+-->
+已知以下容器运行时支持细粒度的 SupplementalGroups 控制。
+
+CRI 级别：
+
+- [containerd](https://containerd.io/)，自 v2.0 起
+- [CRI-O](https://cri-o.io/)，自 v1.31 起
+
+你可以在 Node 状态中查看此特性是否受支持。
+
+```yaml
+apiVersion: v1
+kind: Node
+...
+status:
+  features:
+    supplementalGroupsPolicy: true
+```
+
+<!--
 ## Configure volume permission and ownership change policy for Pods
 -->
-## 为 Pod 配置卷访问权限和属主变更策略
+## 为 Pod 配置卷访问权限和属主变更策略    {#configure-volume-permission-and-ownership-change-policy-for-pods}
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
@@ -675,6 +963,85 @@ securityContext:
 ```
 
 <!--
+## Set the AppArmor Profile for a Container
+-->
+## 为 Container 设置 AppArmor 配置   {#set-the-apparmor-profile-for-a-container}
+
+<!--
+To set the AppArmor profile for a Container, include the `appArmorProfile` field
+in the `securityContext` section of your Container. The `appArmorProfile` field
+is a
+[AppArmorProfile](/docs/reference/generated/kubernetes-api/{{< param "version"
+>}}/#apparmorprofile-v1-core) object consisting of `type` and `localhostProfile`.
+Valid options for `type` include `RuntimeDefault`(default), `Unconfined`, and
+`Localhost`. `localhostProfile` must only be set if `type` is `Localhost`. It
+indicates the name of the pre-configured profile on the node. The profile needs
+to be loaded onto all nodes suitable for the Pod, since you don't know where the
+pod will be scheduled. 
+Approaches for setting up custom profiles are discussed in
+[Setting up nodes with profiles](/docs/tutorials/security/apparmor/#setting-up-nodes-with-profiles).
+-->
+要为 Container 设置 AppArmor 配置，请在 Container 的 `securityContext` 节中包含 `appArmorProfile` 字段。
+`appArmorProfile` 字段是一个
+[AppArmorProfile](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#apparmorprofile-v1-core)
+对象，由 `type` 和 `localhostProfile` 组成。  
+`type` 的有效选项包括 `RuntimeDefault`（默认）、`Unconfined` 和 `Localhost`。
+只有当 `type` 为 `Localhost` 时，才能设置 `localhostProfile`。  
+它表示节点上预配的配置文件的名称。
+此配置需要被加载到所有适合 Pod 的节点上，因为你不知道 Pod 将被调度到哪里。  
+关于设置自定义配置的方法，参见[使用配置文件设置节点](/zh-cn/docs/tutorials/security/apparmor/#setting-up-nodes-with-profiles)。
+
+<!--
+Note: If `containers[*].securityContext.appArmorProfile.type` is explicitly set 
+to `RuntimeDefault`, then the Pod will not be admitted if AppArmor is not
+enabled on the Node. However if `containers[*].securityContext.appArmorProfile.type`
+is not specified, then the default (which is also `RuntimeDefault`) will only
+be applied if the node has AppArmor enabled. If the node has AppArmor disabled
+the Pod will be admitted but the Container will not be restricted by the 
+`RuntimeDefault` profile.
+
+Here is an example that sets the AppArmor profile to the node's container runtime
+default profile:
+-->
+注意：如果 `containers[*].securityContext.appArmorProfile.type` 被显式设置为
+`RuntimeDefault`，那么如果 AppArmor 未在 Node 上被启用，Pod 将不会被准入。  
+然而，如果 `containers[*].securityContext.appArmorProfile.type` 未被指定，
+则只有在节点已启用 AppArmor 时才会应用默认值（也是 `RuntimeDefault`）。  
+如果节点已禁用 AppArmor，Pod 将被准入，但 Container 将不受 `RuntimeDefault` 配置的限制。
+
+以下是将 AppArmor 配置设置为节点的容器运行时默认配置的例子：
+
+```yaml
+...
+containers:
+- name: container-1
+  securityContext:
+    appArmorProfile:
+      type: RuntimeDefault
+```
+
+<!--
+Here is an example that sets the AppArmor profile to a pre-configured profile
+named `k8s-apparmor-example-deny-write`:
+-->
+以下是将 AppArmor 配置设置为名为 `k8s-apparmor-example-deny-write` 的预配配置的例子：
+
+```yaml
+...
+containers:
+- name: container-1
+  securityContext:
+    appArmorProfile:
+      type: Localhost
+      localhostProfile: k8s-apparmor-example-deny-write
+```
+
+<!--
+For more details please see, [Restrict a Container's Access to Resources with AppArmor](/docs/tutorials/security/apparmor/).
+-->
+有关更多细节参见[使用 AppArmor 限制容器对资源的访问](/zh-cn/docs/tutorials/security/apparmor/)。
+
+<!--
 ## Assign SELinux labels to a Container
 
 To assign SELinux labels to a Container, include the `seLinuxOptions` field in
@@ -683,7 +1050,7 @@ the `securityContext` section of your Pod or Container manifest. The
 [SELinuxOptions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#selinuxoptions-v1-core)
 object. Here's an example that applies an SELinux level:
 -->
-## 为 Container 赋予 SELinux 标签
+## 为 Container 赋予 SELinux 标签   {#assign-selinux-labels-to-a-container}
 
 若要给 Container 设置 SELinux 标签，可以在 Pod 或 Container 清单的
 `securityContext` 节包含 `seLinuxOptions` 字段。
@@ -698,10 +1065,10 @@ securityContext:
     level: "s0:c123,c456"
 ```
 
+{{< note >}}
 <!--
 To assign SELinux labels, the SELinux security module must be loaded on the host operating system.
 -->
-{{< note >}}
 要指定 SELinux，需要在宿主操作系统中装载 SELinux 安全性模块。
 {{< /note >}}
 

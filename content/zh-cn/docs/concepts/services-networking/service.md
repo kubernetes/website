@@ -933,8 +933,6 @@ spec:
 -->
 #### 预留 NodePort 端口范围以避免发生冲突  {#avoid-nodeport-collisions}
 
-{{< feature-state for_k8s_version="v1.29" state="stable" >}}
-
 <!--
 The policy for assigning ports to NodePort services applies to both the auto-assignment and
 the manual assignment scenarios. When a user wants to create a NodePort service that

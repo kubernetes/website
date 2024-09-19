@@ -435,18 +435,20 @@ Kubernetes 证书颁发机构不是开箱即用。你可以配置外部签名者
 
 <!--
 If you're creating a new cluster, you can use a kubeadm
-[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/):
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/):
 -->
 如果你正在创建一个新的集群，你可以使用 kubeadm
-的[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)。
+的[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)。
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 controllerManager:
   extraArgs:
-    cluster-signing-cert-file: /etc/kubernetes/pki/ca.crt
-    cluster-signing-key-file: /etc/kubernetes/pki/ca.key
+  - name: "cluster-signing-cert-file"
+    value: "/etc/kubernetes/pki/ca.crt"
+  - name: "cluster-signing-key-file"
+    value: "/etc/kubernetes/pki/ca.key"
 ```
 
 <!--
@@ -527,7 +529,7 @@ certificates you must pass the following minimal configuration to `kubeadm init`
 你必须向 `kubeadm init` 传递如下最小配置数据：
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 ---
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -658,13 +660,13 @@ Sharing the `admin.conf` with additional users is **not recommended**!
 Instead, you can use the [`kubeadm kubeconfig user`](/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig)
 command to generate kubeconfig files for additional users.
 The command accepts a mixture of command line flags and
-[kubeadm configuration](/docs/reference/config-api/kubeadm-config.v1beta3/) options.
+[kubeadm configuration](/docs/reference/config-api/kubeadm-config.v1beta4/) options.
 The generated kubeconfig will be written to stdout and can be piped to a file using
 `kubeadm kubeconfig user ... > somefile.conf`.
 -->
 你要使用 [`kubeadm kubeconfig user`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig)
 命令为其他用户生成 kubeconfig 文件，这个命令支持命令行参数和
-[kubeadm 配置结构](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)。
+[kubeadm 配置结构](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)。
 以上命令会将 kubeconfig 打印到终端上，也可以使用 `kubeadm kubeconfig user ... > somefile.conf`
 输出到一个文件中。
 
@@ -673,9 +675,22 @@ Example configuration file that can be used with `--config`:
 -->
 如下 kubeadm 可以在 `--config` 后加的配置文件示例：
 
+<!--
 ```yaml
 # example.yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: ClusterConfiguration
+# Will be used as the target "cluster" in the kubeconfig
+clusterName: "kubernetes"
+# Will be used as the "server" (IP or DNS name) of this cluster in the kubeconfig
+controlPlaneEndpoint: "some-dns-address:6443"
+# The cluster CA key and certificate will be loaded from this local directory
+certificatesDir: "/etc/kubernetes/pki"
+```
+-->
+```yaml
+# example.yaml
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 # kubernetes 将作为 kubeconfig 中集群名称
 clusterName: "kubernetes"

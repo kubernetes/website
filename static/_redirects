@@ -430,10 +430,10 @@
 /docs/setup/on-premises-vm/dcos/     /docs/setup/production-environment/on-premises-vm/dcos/   301
 /docs/setup/on-premises-vm/ovirt/     /docs/setup/production-environment/on-premises-vm/ovirt/   301
 /docs/setup/windows/intro-windows-in-kubernetes/   /docs/concepts/windows/intro/  301
-/docs/setup/windows/user-guide-windows-nodes/    /docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/  301
+/docs/setup/windows/user-guide-windows-nodes/    /docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/ 301
 /docs/setup/production-environment/windows/user-guide-windows-containers/     /docs/concepts/windows/user-guide/   301
-/docs/setup/production-environment/windows/user-guide-windows-nodes/  /docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/  301
-/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/     /docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/   301
+/docs/setup/production-environment/windows/user-guide-windows-nodes/  /docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/ 301
+/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/     /docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/ 301
 /docs/setup/windows/user-guide-windows-containers/   /docs/concepts/windows/user-guide/   301
 /docs/setup/production-environment/windows/intro-windows-in-kubernetes/     /docs/concepts/windows/intro/   301
 /docs/setup/production-environment/windows/     /docs/concepts/windows/   301

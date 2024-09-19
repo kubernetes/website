@@ -13,14 +13,15 @@ weight: 60
 -->
 
 <!-- overview -->
+
 <!--
 Performs a best effort revert of changes made by `kubeadm init` or `kubeadm join`.
 -->
 该命令尽力还原由 `kubeadm init` 或 `kubeadm join` 所做的更改。
 
-
 <!-- body -->
-{{< include "generated/kubeadm_reset.md" >}}
+
+{{< include "generated/kubeadm_reset/_index.md" >}}
 
 <!--
 ### Reset workflow {#reset-workflow}
@@ -46,7 +47,7 @@ the `kubeadm join` and `kubeadm init` phase runners.
 <!--
 ### External etcd clean up
 -->
-### 外部 etcd 清理
+### 外部 etcd 清理   {#external-etcd-clean-up}
 
 <!--
 `kubeadm reset` will not delete any etcd data if external etcd is used. This means that if you run `kubeadm init` again using the same etcd endpoints, you will see state from previous clusters.
@@ -75,7 +76,7 @@ If you have your `kube-apiserver` configured with the `--shutdown-delay-duration
 you can run the following commands to attempt a graceful shutdown for the running API server Pod,
 before you run `kubeadm reset`:
 -->
-### 体面关闭 kube-apiserver
+### 体面关闭 kube-apiserver   {#graceful-kube-apiserver-shutdown}
 
 如果你为 `kube-apiserver` 配置了 `--shutdown-delay-duration` 标志，
 你可以在运行 `kubeadm reset` 之前，运行以下命令尝试体面关闭正在运行的 API 服务器 Pod：
@@ -91,5 +92,7 @@ timeout 60 sh -c 'while pgrep kube-apiserver >/dev/null; do sleep 1; done' || tr
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
 -->
-* 参考 [kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/) 来初始化 Kubernetes 主节点。
-* 参考 [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/) 来初始化 Kubernetes 工作节点并加入集群。
+* 参考 [kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/)
+  来初始化 Kubernetes 控制平面节点。
+* 参考 [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/)
+  来初始化 Kubernetes 工作节点并加入集群。

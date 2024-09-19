@@ -24,7 +24,7 @@ guide. You can file document formatting bugs against the
 
 Display one or many resources.
 
- Prints a table of the most important information about the specified resources. You can filter the list using a label selector and the --selector flag. If the desired resource type is namespaced you will only see results in your current namespace unless you pass --all-namespaces.
+ Prints a table of the most important information about the specified resources. You can filter the list using a label selector and the --selector flag. If the desired resource type is namespaced you will only see results in the current namespace if you don't specify any namespace.
 
  By specifying the output as 'template' and providing a Go template as the value of the --template flag, you can filter the attributes of the fetched resources.
 
@@ -72,6 +72,12 @@ kubectl get [(-o|--output=)json|yaml|name|go-template|go-template-file|template|
   
   # List the 'status' subresource for a single pod
   kubectl get pod web-pod-13je7 --subresource status
+  
+  # List all deployments in namespace 'backend'
+  kubectl get deployments.apps --namespace backend
+  
+  # List all pods existing in all namespaces
+  kubectl get pods --all-namespaces
 ```
 
 ## {{% heading "options" %}}
@@ -312,20 +318,6 @@ kubectl get [(-o|--output=)json|yaml|name|go-template|go-template-file|template|
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a client key file for TLS</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks</p></td>
 </tr>
 
 <tr>

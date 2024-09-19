@@ -25,7 +25,7 @@ Kubernetes creates DNS records for Services and Pods. You can contact
 Services with consistent DNS names instead of IP addresses.
 -->
 Kubernetes 为 Service 和 Pod 创建 DNS 记录。
-你可以使用一致的 DNS 名称而非 IP 地址访问 Service。
+你可以使用稳定的 DNS 名称而非 IP 地址访问 Service。
 
 <!-- body -->
 
@@ -34,8 +34,8 @@ Kubernetes publishes information about Pods and Services which is used
 to program DNS.  Kubelet configures Pods' DNS so that running containers
 can lookup Services by name rather than IP.
 -->
-Kubernetes 发布有关 Pod 和 Service 的信息，这些信息被用来对 DNS 进行编程。
-Kubelet 配置 Pod 的 DNS，以便运行中的容器可以通过名称而不是 IP 来查找服务。
+Kubernetes 发布有关 Pod 和 Service 的信息，用于配置 DNS。
+Kubelet 配置 Pod 的 DNS，使运行中的容器可以通过名称而不是 IP 地址来查找服务。
 
 <!--
 Services defined in the cluster are assigned DNS names. By default, a
@@ -44,7 +44,7 @@ cluster's default domain.
 -->
 
 集群中定义的 Service 被赋予 DNS 名称。
-默认情况下，客户端 Pod 的 DNS 搜索列表会包含 Pod 自身的名字空间和集群的默认域。
+默认情况下，客户端 Pod 的 DNS 搜索列表包括 Pod 所在的命名空间和集群的默认域名。
 
 <!--
 ### Namespaces of Services 
@@ -61,18 +61,17 @@ A query for `data` returns no results, because it uses the Pod's `test` namespac
 A query for `data.prod` returns the intended result, because it specifies the 
 namespace. 
 -->
-### Service 的名字空间 {#namespaces-of-services}
+### Service 的命名空间 {#namespaces-of-services}
 
-DNS 查询可能因为执行查询的 Pod 所在的名字空间而返回不同的结果。
-不指定名字空间的 DNS 查询会被限制在 Pod 所在的名字空间内。
-要访问其他名字空间中的 Service，需要在 DNS 查询中指定名字空间。
+DNS 查询可能因为执行查询的 Pod 所在的命名空间而返回不同的结果。
+不指定命名空间的 DNS 查询会被限制在 Pod 所在的命名空间内。
+要访问其他命名空间中的 Service，需要在 DNS 查询中指定命名空间。
 
-例如，假定名字空间 `test` 中存在一个 Pod，`prod` 名字空间中存在一个服务
-`data`。
+例如，假定命名空间 `test` 中存在一个 Pod，`prod` 命名空间中存在一个服务 `data`。
 
-Pod 查询 `data` 时没有返回结果，因为使用的是 Pod 的名字空间 `test`。
+Pod 查询 `data` 时没有返回结果，因为使用的是 Pod 所在的 `test` 命名空间。
 
-Pod 查询 `data.prod` 时则会返回预期的结果，因为查询中指定了名字空间。
+Pod 查询 `data.prod` 时则会返回预期的结果，因为查询中指定了命名空间。
 
 <!--
 DNS queries may be expanded using the Pod's `/etc/resolv.conf`. Kubelet 
@@ -83,8 +82,8 @@ are used to expand queries. To learn more about DNS queries, see
 -->
 DNS 查询可以使用 Pod 中的 `/etc/resolv.conf` 展开。
 Kubelet 为每个 Pod 配置此文件。
-例如，对 `data` 的查询可能被展开为 `data.test.svc.cluster.local`。
-`search` 选项的取值会被用来展开查询。要进一步了解 DNS 查询，可参阅
+例如，对 `data` 的查询可能被扩展为 `data.test.svc.cluster.local`。
+`search` 选项的值用于扩展查询。要进一步了解 DNS 查询，可参阅
 [`resolv.conf` 手册页面](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html)。
 
 ```
@@ -97,7 +96,7 @@ options ndots:5
 In summary, a Pod in the _test_ namespace can successfully resolve either 
 `data.prod` or `data.prod.svc.cluster.local`.
 -->
-概括起来，名字空间 _test_ 中的 Pod 可以成功地解析 `data.prod` 或者
+概括起来，命名空间 _test_ 中的 Pod 可以成功地解析 `data.prod` 或者
 `data.prod.svc.cluster.local`。
 
 <!--
@@ -172,8 +171,8 @@ of the form `hostname.my-svc.my-namespace.svc.cluster-domain.example`.
 Kubernetes 根据普通 Service 或无头 Service
 中的命名端口创建 SRV 记录。每个命名端口，
 SRV 记录格式为 `_port-name._port-protocol.my-svc.my-namespace.svc.cluster-domain.example`。
-普通 Service，该记录会被解析成端口号和域名：`my-svc.my-namespace.svc.cluster-domain.example`。
-无头 Service，该记录会被解析成多个结果，及该服务的每个后端 Pod 各一个 SRV 记录，
+对于普通 Service，该记录会被解析成端口号和域名：`my-svc.my-namespace.svc.cluster-domain.example`。
+对于无头 Service，该记录会被解析成多个结果，及该服务的每个后端 Pod 各一个 SRV 记录，
 其中包含 Pod 端口号和格式为 `hostname.my-svc.my-namespace.svc.cluster-domain.example`
 的域名。
 
@@ -204,7 +203,7 @@ Kube-DNS 版本使用以下 DNS 解析：
 
 `pod-ipv4-address.my-namespace.pod.cluster-domain.example`
 
-例如，对于一个位于 `default` 名字空间，IP 地址为 172.17.0.3 的 Pod，
+例如，对于一个位于 `default` 命名空间，IP 地址为 172.17.0.3 的 Pod，
 如果集群的域名为 `cluster.local`，则 Pod 会对应 DNS 名称：
 
 `172-17-0-3.default.pod.cluster.local`
@@ -245,9 +244,9 @@ have its hostname set to `"foo"` and its fully qualified domain name (FQDN) set 
 the Pod).
 -->
 
-Pod 规约还有一个可选的 `subdomain` 字段，可以用来表明该 Pod 是名字空间的子组的一部分。
-举个例子，某 Pod 的 `spec.hostname` 设置为 `“foo”`，`spec.subdomain` 设置为 `“bar”`，
-在名字空间 `“my-namespace”` 中，主机名称被设置成 `“foo”` 并且对应的完全限定域名（FQDN）为
+Pod 规约还有一个可选的 `subdomain` 字段，可以用来表明该 Pod 属于命名空间的一个子组。
+例如，某 Pod 的 `spec.hostname` 设置为 `“foo”`，`spec.subdomain` 设置为 `“bar”`，
+在命名空间 `“my-namespace”` 中，主机名称被设置成 `“foo”` 并且对应的完全限定域名（FQDN）为
 “`foo.bar.my-namespace.svc.cluster-domain.example`”（还是从 Pod 内部观察）。
 
 <!--
@@ -256,7 +255,7 @@ the same name as the subdomain, the cluster's DNS Server also returns A and/or A
 records for the Pod's fully qualified hostname.
 Example:
 -->
-如果 Pod 所在的名字空间中存在一个无头服务，其名称与子域相同，
+如果 Pod 所在的命名空间中存在一个无头 Service，其名称与子域相同，
 则集群的 DNS 服务器还会为 Pod 的完全限定主机名返回 A 和/或 AAAA 记录。
 
 示例：
@@ -271,7 +270,7 @@ spec:
     name: busybox
   clusterIP: None
   ports:
-  - name: foo # 实际上不需要指定端口号
+  - name: foo # 单个端口的 service 可以不指定 name
     port: 1234
 ---
 apiVersion: v1
@@ -363,7 +362,7 @@ When you set `setHostnameAsFQDN: true` in the Pod spec, the kubelet writes the P
 则默认情况下，该 Pod 内的 `hostname` 命令返回 `busybox-1`，而 `hostname --fqdn` 命令返回 FQDN。
 
 当你在 Pod 规约中设置了 `setHostnameAsFQDN: true` 时，kubelet 会将 Pod
-的全限定域名（FQDN）作为该 Pod 的主机名记录到 Pod 所在名字空间。
+的全限定域名（FQDN）作为该 Pod 的主机名记录到 Pod 所在命名空间。
 在这种情况下，`hostname` 和 `hostname --fqdn` 都会返回 Pod 的全限定域名。
 
 {{< note >}}
@@ -417,10 +416,10 @@ following Pod-specific DNS policies. These policies are specified in the
 DNS 策略可以逐个 Pod 来设定。目前 Kubernetes 支持以下特定 Pod 的 DNS 策略。
 这些策略可以在 Pod 规约中的 `dnsPolicy` 字段设置：
 
-- "`Default`": Pod 从运行所在的节点继承名称解析配置。
+- "`Default`": Pod 从运行所在的节点继承域名解析配置。
   参考[相关讨论](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers)获取更多信息。
 - "`ClusterFirst`": 与配置的集群域后缀不匹配的任何 DNS 查询（例如 "www.kubernetes.io"）
-  都会由 DNS 服务器转发到上游名称服务器。集群管理员可能配置了额外的存根域和上游 DNS 服务器。
+  都会由 DNS 服务器转发到上游域名服务器。集群管理员可能配置了额外的存根域和上游 DNS 服务器。
   参阅[相关讨论](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers)
   了解在这些场景中如何处理 DNS 查询的信息。
 - "`ClusterFirstWithHostNet`": 对于以 hostNetwork 方式运行的 Pod，应将其 DNS 策略显式设置为
@@ -509,7 +508,7 @@ Pod 的 DNS 配置可让用户对 Pod 的 DNS 设置进行更多控制。
 - `nameservers`：将用作于 Pod 的 DNS 服务器的 IP 地址列表。
   最多可以指定 3 个 IP 地址。当 Pod 的 `dnsPolicy` 设置为 "`None`" 时，
   列表必须至少包含一个 IP 地址，否则此属性是可选的。
-  所列出的服务器将合并到从指定的 DNS 策略生成的基本名称服务器，并删除重复的地址。
+  所列出的服务器将合并到从指定的 DNS 策略生成的基本域名服务器，并删除重复的地址。
 
 - `searches`：用于在 Pod 中查找主机名的 DNS 搜索域的列表。此属性是可选的。
   指定此属性时，所提供的列表将合并到根据所选 DNS 策略生成的基本搜索域名中。

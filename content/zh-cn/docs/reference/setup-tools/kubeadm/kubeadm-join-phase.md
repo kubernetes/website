@@ -1,11 +1,12 @@
 ---
 title: kubeadm join phase
 weight: 90
+content_type: concept
 ---
-
 <!--
 title: kubeadm join phase
 weight: 90
+content_type: concept
 -->
 
 <!--
@@ -21,13 +22,13 @@ if you wish to apply customization.
 and behind the scene both use the same code.
 -->
 `kubeadm join phase` 与
-[kubeadm join 工作流程](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/#join-workflow)
-一致，后台都使用相同的代码。
+[kubeadm join 工作流程](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/#join-workflow)一致，
+后台都使用相同的代码。
 
 ## kubeadm join phase {#cmd-join-phase}
 
 {{< tabs name="tab-phase" >}}
-{{< tab name="phase" include="generated/kubeadm_join_phase.md" />}}
+{{< tab name="phase" include="generated/kubeadm_join/kubeadm_join_phase.md" />}}
 {{< /tabs >}}
 
 ## kubeadm join phase preflight {#cmd-join-phase-preflight}
@@ -38,7 +39,7 @@ Using this phase you can execute preflight checks on a joining node.
 使用此命令可以在即将加入集群的节点上执行启动前检查。
 
 {{< tabs name="tab-preflight" >}}
-{{< tab name="preflight" include="generated/kubeadm_join_phase_preflight.md" />}}
+{{< tab name="preflight" include="generated/kubeadm_join/kubeadm_join_phase_preflight.md" />}}
 {{< /tabs >}}
 
 ## kubeadm join phase control-plane-prepare {#cmd-join-phase-control-plane-prepare}
@@ -49,12 +50,12 @@ Using this phase you can prepare a node for serving a control-plane.
 使用此阶段，你可以准备一个作为控制平面的节点。
 
 {{< tabs name="tab-control-plane-prepare" >}}
-{{< tab name="control-plane-prepare" include="generated/kubeadm_join_phase_control-plane-prepare.md" />}}
-{{< tab name="all" include="generated/kubeadm_join_phase_control-plane-prepare_all.md" />}}
-{{< tab name="download-certs" include="generated/kubeadm_join_phase_control-plane-prepare_download-certs.md" />}}
-{{< tab name="certs" include="generated/kubeadm_join_phase_control-plane-prepare_certs.md" />}}
-{{< tab name="kubeconfig" include="generated/kubeadm_join_phase_control-plane-prepare_kubeconfig.md" />}}
-{{< tab name="control-plane" include="generated/kubeadm_join_phase_control-plane-prepare_control-plane.md" />}}
+{{< tab name="control-plane-prepare" include="generated/kubeadm_join/kubeadm_join_phase_control-plane-prepare.md" />}}
+{{< tab name="all" include="generated/kubeadm_join/kubeadm_join_phase_control-plane-prepare_all.md" />}}
+{{< tab name="download-certs" include="generated/kubeadm_join/kubeadm_join_phase_control-plane-prepare_download-certs.md" />}}
+{{< tab name="certs" include="generated/kubeadm_join/kubeadm_join_phase_control-plane-prepare_certs.md" />}}
+{{< tab name="kubeconfig" include="generated/kubeadm_join/kubeadm_join_phase_control-plane-prepare_kubeconfig.md" />}}
+{{< tab name="control-plane" include="generated/kubeadm_join/kubeadm_join_phase_control-plane-prepare_control-plane.md" />}}
 {{< /tabs >}}
 
 ## kubeadm join phase kubelet-start {#cmd-join-phase-kubelet-start}
@@ -65,7 +66,7 @@ Using this phase you can write the kubelet settings, certificates and (re)start 
 使用此阶段，你可以配置 kubelet 设置、证书和（重新）启动 kubelet。
 
 {{< tabs name="tab-kubelet-start" >}}
-{{< tab name="kubelet-start" include="generated/kubeadm_join_phase_kubelet-start.md" />}}
+{{< tab name="kubelet-start" include="generated/kubeadm_join/kubeadm_join_phase_kubelet-start.md" />}}
 {{< /tabs >}}
 
 ## kubeadm join phase control-plane-join {#cmd-join-phase-control-plane-join}
@@ -76,11 +77,10 @@ Using this phase you can join a node as a control-plane instance.
 使用此阶段，你可以将节点作为控制平面实例加入。
 
 {{< tabs name="tab-control-plane-join" >}}
-{{< tab name="control-plane-join" include="generated/kubeadm_join_phase_control-plane-join.md" />}}
-{{< tab name="all" include="generated/kubeadm_join_phase_control-plane-join_all.md" />}}
-{{< tab name="etcd" include="generated/kubeadm_join_phase_control-plane-join_etcd.md" />}}
-{{< tab name="update-status" include="generated/kubeadm_join_phase_control-plane-join_update-status.md" />}}
-{{< tab name="mark-control-plane" include="generated/kubeadm_join_phase_control-plane-join_mark-control-plane.md" />}}
+{{< tab name="control-plane-join" include="generated/kubeadm_join/kubeadm_join_phase_control-plane-join.md" />}}
+{{< tab name="all" include="generated/kubeadm_join/kubeadm_join_phase_control-plane-join_all.md" />}}
+{{< tab name="etcd" include="generated/kubeadm_join/kubeadm_join_phase_control-plane-join_etcd.md" />}}
+{{< tab name="mark-control-plane" include="generated/kubeadm_join/kubeadm_join_phase_control-plane-join_mark-control-plane.md" />}}
 {{< /tabs >}}
 
 ## {{% heading "whatsnext" %}}
