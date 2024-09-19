@@ -57,7 +57,7 @@ spec:
 
 しかし、前述したように10.96.0.10のIPアドレスは予約されていません。他のServiceが動的割り当てよりも前に、または同時に作成された場合、このIPアドレスがそのServiceに割り当てられる可能性があります。その場合、競合エラーで失敗しDNS Serviceを作成することができません。
 
-## どうやってServiceのClusterIPのコンフリクトを避けるのか？ {#avoid-ClusterIP-conflict}
+## どのようにServiceのClusterIPの競合を回避するのか？ {#avoid-ClusterIP-conflict}
 
 Kubernetesで実装されているServiceへのClusterIPの割り当て戦略は、衝突リスクを軽減します。
 
