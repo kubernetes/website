@@ -125,7 +125,7 @@ Existem os seguintes métodos para instalar o kubectl no Linux:
 
    ```shell
    sudo apt-get update
-   # apt-transport-https pode ser um pacote falso; se for o caso, você pode ignorá-lo
+   # apt-transport-https pode ser um pacote simbólico; se for o caso, você pode ignorá-lo
    sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
    ```
    
