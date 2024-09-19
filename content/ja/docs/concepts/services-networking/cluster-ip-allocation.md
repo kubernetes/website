@@ -70,7 +70,7 @@ Kubernetesで実装されているServiceへのClusterIPの割り当て戦略は
 
 ### 例1 {#allocation-example-1}
 
-この例はServiceのIPアドレスは、10.96.0.0/24(CIDR表記法)のIPアドレスの範囲を使用します。
+この例ではServiceのIPアドレスとして、10.96.0.0/24(CIDR表記法)のIPアドレスの範囲を使用します。
 
 範囲の大きさ: 2<sup>8</sup> - 2 = 254
 帯域のオフセット(開始位置): `min(max(16, 256/16), 256)` = `min(16, 256)` = 16
