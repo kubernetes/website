@@ -7,7 +7,7 @@ weight: 120
 
 <!-- overview -->
 
-Kubernetesでは、[Service](/ja/docs/concepts/services-networking/service/)はPodとして実行しているアプリケーションを抽象的に公開する方法です。Serviceはクラスター内で仮想IPアドレス(type: ClusterIPのServiceを使用)を持つことができます。クライアントはその仮想IPアドレスを使用してServiceに接続することができます。KubernetesはそのServiceを通して複数のPodにトラフィックを負荷分散します。
+Kubernetesでは、[Service](/ja/docs/concepts/services-networking/service/)はPodの集合上で実行しているアプリケーションを抽象的に公開する方法です。Serviceはクラスター内で仮想IPアドレス(type: ClusterIPのServiceを使用)を持つことができます。クライアントはその仮想IPアドレスを使用してServiceに接続することができます。そしてKubernetesは、そのServiceへのトラフィックを異なる背後のPod間で負荷分散します。
 
 <!-- body -->
 
