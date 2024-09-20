@@ -66,10 +66,9 @@ Quando a utilização dos recursos é uma preocupação, pode ser útil ajustar 
 
 ## {{% heading "whatsnext" %}}
 
-Você pode configurar o [CoreDNS](https://coredns.io) para suportar muitos outros cenários de uso que o
-kube-dns, apenas por modificar a configuração do CoreDNS("Corefile").
+Você pode configurar o [CoreDNS](https://coredns.io) para suportar mais casos de uso do que o
+kube-dns suporta modificando a configuração do CoreDNS ("Corefile").
 Para mais informações, veja a [documentação](https://coredns.io/plugins/kubernetes/)
-para o `kubernetes` CoreDNS plugin, ou leia o 
-[Entradas DNS personalizadas para Kubernetes](https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/).
-no blog do CoreDNS.
+do plugin `kubernetes` do CoreDNS, ou leia o artigo
+[Custom DNS Entries For Kubernetes](https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/) (em inglês) no blog do CoreDNS.
 
