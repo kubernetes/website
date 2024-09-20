@@ -51,7 +51,7 @@ Interpreters are most valuable during networking, not in talks (with captions). 
 
 **CP**: Deaf and hard of hearing individuals are a minority and can only do so much. ***Allies are key to any diversity and inclusion initiative***. As a majority, allies can help spread the word and educate their peers, playing a key role in scaling advocacy efforts. They also have the power to demand change. It's easy for companies to ignore minorities, but if the majority demands that their employers be accessible, environmentally conscious, and good citizens, they will ultimately be pushed to adapt to new societal values. 
 
-## Expanding DEI Efforts and Future Vision
+## Expanding DEI efforts and future vision
 **SK: The importance of allies in driving change is clear. Beyond the DHHWG, are you involved in any other DEI groups or initiatives within the tech community?**
 
 **CP**: As mentioned above, I'm working on an initiative called ABIDE, which is still work in progress. I don't want to share too much about it yet, but what I can say is that the DHHWG will be part of it and that we just started a Blind and Visually Impaired WG (BVIWG). ABIDE will start by focusing on accessibility, so if anyone reading this has an idea for another WG, please reach out to me via the CNCF Slack @Catherine Paganini.
