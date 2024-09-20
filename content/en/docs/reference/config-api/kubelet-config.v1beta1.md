@@ -1720,7 +1720,7 @@ if a cache duration is not provided in the plugin response. This field is requir
    <p>Required input version of the exec CredentialProviderRequest. The returned CredentialProviderResponse
 MUST use the same encoding version as the input. Current supported values are:</p>
 <ul>
-<li>credentialprovider.kubelet.k8s.io/v1beta1</li>
+<li>credentialprovider.kubelet.k8s.io/v1</li>
 </ul>
 </td>
 </tr>
