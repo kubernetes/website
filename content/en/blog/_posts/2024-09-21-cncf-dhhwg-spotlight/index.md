@@ -28,7 +28,7 @@ Currently, I'm the co-chair of the [TAG Contributor Strategy](https://contribute
 ![DHHWG members at KubeCon Chicago](cncf-dhhwg-chicago.jpg)
 *DHHWG members at KubeCon Chicago*
 
-The team has grown since then, and we've been able to do much more. With a kiosk in the project, an open space discussion, a sign language crash course, and a few media interviews, KubeCon Paris had a stronger advocacy and outreach focus. [Check out this video of our team in Paris](https://www.youtube.com/watch?v=E8AcyqsgAyQ) to get a glimpse of all the different KubeCon activities — it was such a great event! The team also launched the first CNCF Community Group in sign language, [Deaf in Cloud Native](https://community.cncf.io/deaf-in-cloud-native/), a glossary team that creates sign language videos for each technical term to help standardize technical signs across the globe. It's crazy to think that it all happened within one year! 
+The team has grown since then, and we've been able to do much more. With a kiosk in the project pavilion, an open space discussion, a sign language crash course, and a few media interviews, KubeCon Paris had a stronger advocacy and outreach focus. [Check out this video of our team in Paris](https://www.youtube.com/watch?v=E8AcyqsgAyQ) to get a glimpse of all the different KubeCon activities — it was such a great event! The team also launched the first CNCF Community Group in sign language, [Deaf in Cloud Native](https://community.cncf.io/deaf-in-cloud-native/), a glossary team that creates sign language videos for each technical term to help standardize technical signs across the globe. It's crazy to think that it all happened within one year! 
 
 ## Overcoming Challenges and Addressing Misconceptions
 **SK: That's remarkable progress in just a year! Building such momentum must have come with its challenges. What barriers have you encountered in facilitating the DHHWG, and how did you and the group work to overcome them?**
@@ -54,7 +54,7 @@ Interpreters are most valuable during networking, not in talks (with captions). 
 ## Expanding DEI Efforts and Future Vision
 **SK: The importance of allies in driving change is clear. Beyond the DHHWG, are you involved in any other DEI groups or initiatives within the tech community?**
 
-**CP**: As mentioned above, I'm working on an initiative called ABIDE, which is still work in progress. I don't want to share too much about it yet, but what I can say is that the DHHWG will be part of it and that we just started a Blind and Visually Impaired WG (BVIWG). ABIDE will start by focusing on accessibility, so if anyone reading this has an idea for another WG, please reach out to me via CNCF Slack @Catherine Paganini.
+**CP**: As mentioned above, I'm working on an initiative called ABIDE, which is still work in progress. I don't want to share too much about it yet, but what I can say is that the DHHWG will be part of it and that we just started a Blind and Visually Impaired WG (BVIWG). ABIDE will start by focusing on accessibility, so if anyone reading this has an idea for another WG, please reach out to me via the CNCF Slack @Catherine Paganini.
 
 **SK: What does the future hold for the DHHWG? Can you share details about any ongoing or upcoming initiatives?**
 
