@@ -30,7 +30,7 @@ Currently, I'm the co-chair of the [TAG Contributor Strategy](https://contribute
 
 The team has grown since then, and we've been able to do much more. With a kiosk in the project pavilion, an open space discussion, a sign language crash course, and a few media interviews, KubeCon Paris had a stronger advocacy and outreach focus. [Check out this video of our team in Paris](https://www.youtube.com/watch?v=E8AcyqsgAyQ) to get a glimpse of all the different KubeCon activities — it was such a great event! The team also launched the first CNCF Community Group in sign language, [Deaf in Cloud Native](https://community.cncf.io/deaf-in-cloud-native/), a glossary team that creates sign language videos for each technical term to help standardize technical signs across the globe. It's crazy to think that it all happened within one year! 
 
-## Overcoming Challenges and Addressing Misconceptions
+## Overcoming challenges and addressing misconceptions
 **SK: That's remarkable progress in just a year! Building such momentum must have come with its challenges. What barriers have you encountered in facilitating the DHHWG, and how did you and the group work to overcome them?**
 
 **CP**: The support from the community, LF, and CNCF has been incredible. The fact that we achieved so much is proof of it. The challenges are more in helping some team members overcome their fear of contributing. Most are new to open source, and it can be intimidating to put your work out there for everyone to see. The fear of being criticized in public is real; however, as they will hopefully realize over time, our community is incredibly supportive. Instead of criticizing, people tend to help improve the work, leading to better outcomes.
