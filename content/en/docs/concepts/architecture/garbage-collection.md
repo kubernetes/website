@@ -169,8 +169,8 @@ based on image age.
 ### Container garbage collection {#container-image-garbage-collection} (deprecated)
 
 {{< caution >}}
-Container garbage collection is deprecated infavour of `--eviction-hard` or
-`--eviction-soft` and Will be removed in a future version. For more details on
+Container garbage collection is deprecated in favour of `--eviction-hard` or
+`--eviction-soft` and will be removed in a future version. For more details on
 eviction policy, see [node-pressure-eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 {{< /caution >}}
 
