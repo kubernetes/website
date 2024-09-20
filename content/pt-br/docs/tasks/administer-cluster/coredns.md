@@ -52,11 +52,11 @@ Você pode verificar a versão do CoreDNS que o kubeadm instala para cada versã
 
 CoreDNS pode ser atualizado manualmente, caso você queria atualizar somente o CoreDNS
 ou usar sua própria imagem customizada.
-Aqui está um link útil [diretriz e passo a passo](https://github.com/coredns/deployment/blob/master/kubernetes/Upgrading_CoreDNS.md)
-disponivel para garantir uma atualização tranquilo.
+Há uma página de [instruções e passo-a-passo](https://github.com/coredns/deployment/blob/master/kubernetes/Upgrading_CoreDNS.md)
+disponível para garantir uma atualização sem problemas.
 Certifique-se que a configuração existente do CoreDNS ("Corefile") é mantida quando atualizar o seu cluster.
 
-Se você está atualizando o seu cluster usando a ferramenta `kubeadm`, O `kubeadm`
+Se você está atualizando o seu cluster usando a ferramenta `kubeadm`, o `kubeadm`
 pode cuidar da retenção da configuração existente do CoreDNS automaticamente.
 
 
