@@ -642,6 +642,8 @@ liveness and readiness checks:
   ignored. Defaults to 0 seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10 seconds.
   The minimum value is 1.
+  While a container is not Ready, the `ReadinessProbe` may be executed at times other than
+  the configured `periodSeconds` interval. This is to make the Pod ready faster.
 * `timeoutSeconds`: Number of seconds after which the probe times out.
   Defaults to 1 second. Minimum value is 1.
 * `successThreshold`: Minimum consecutive successes for the probe to be considered successful
@@ -653,6 +655,8 @@ liveness and readiness checks:
   如果 `periodSeconds` 的值大于 `initialDelaySeconds`，则 `initialDelaySeconds`
   将被忽略。默认是 0 秒，最小值是 0。
 * `periodSeconds`：执行探测的时间间隔（单位是秒）。默认是 10 秒。最小值是 1。
+  当容器未就绪时，`ReadinessProbe` 可能会在除配置的 `periodSeconds`
+  间隔以外的时间执行。这是为了让 Pod 更快地达到可用状态。
 * `timeoutSeconds`：探测的超时后等待多少秒。默认值是 1 秒。最小值是 1。
 * `successThreshold`：探针在失败后，被视为成功的最小连续成功数。默认值是 1。
   存活和启动探测的这个值必须是 1。最小值是 1。
