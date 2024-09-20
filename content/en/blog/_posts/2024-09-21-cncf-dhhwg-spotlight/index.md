@@ -71,7 +71,7 @@ The next step is to refocus on advocacy. The same thing we did with the conferen
 
 **CP**: As we build our [accessibility page](https://contribute.cncf.io/accessibility/deaf-and-hard-of-hearing/), check in regularly to see what's new. Share the docs with your team, employer, and network — anyone, really. The more people understand what accessibility really means and why it matters, the more people will recognize when something isn't accessible, and be able to call out marketing-BS, which, unfortunately, is more often the case than not. We need allies to help push for change. **No minority can do this on their own**. So please learn about accessibility, keep an eye out for it, and call it out when something isn't accessible. We need your help! 
 
-# Wrapping up
+## Wrapping up
 
 Catherine and the DHHWG's work is a testament to the power of community and advocacy. As we celebrate Deaf Awareness Month, let's reflect on her role as an ally and consider how we can all contribute to building a more inclusive tech community.
 
