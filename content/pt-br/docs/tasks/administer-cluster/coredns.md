@@ -47,7 +47,7 @@ stub domains e upstream name server.
 
 ## Atualizando CoreDNS
 
-Você pode verificar a versão do CoreDNS que o kubeadm instala para cada versão do Kubernetes na pagina 
+Você pode verificar a versão do CoreDNS que o kubeadm instala para cada versão do Kubernetes na página 
 [versão do CoreDNS no Kubernetes](https://github.com/coredns/deployment/blob/master/kubernetes/CoreDNS-k8s_version.md).
 
 CoreDNS pode ser atualizado manualmente, caso você queria atualizar somente o CoreDNS
