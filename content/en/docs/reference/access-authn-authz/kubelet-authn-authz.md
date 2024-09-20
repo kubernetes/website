@@ -72,7 +72,7 @@ Kubelet API         | resource | subresource
 /logs/\*            | nodes    | log
 /spec/\*            | nodes    | spec
 /checkpoint/\*      | nodes    | spec
-*all others* | nodes    | proxy
+*all others*        | nodes    | proxy
 
 The namespace and API group attributes are always an empty string, and
 the resource name is always the name of the kubelet's `Node` API object.
