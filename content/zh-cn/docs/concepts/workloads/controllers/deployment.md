@@ -1431,12 +1431,12 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
   ```
 
 <!--
-* Watch the status of the rollout until it's done.
+* {{< glossary_tooltip text="Watch" term_id="watch" >}} the status of the rollout until it's done.
 -->
-* 观察上线的状态，直到完成。
+* {{< glossary_tooltip text="监视" term_id="watch" >}}上线的状态，直到完成。
 
   ```shell
-  kubectl get rs -w
+  kubectl get rs --watch
   ```
 
   <!--
@@ -1894,12 +1894,12 @@ thus that Deployment will not be able to roll back.
 
 If you want to roll out releases to a subset of users or servers using the Deployment, you
 can create multiple Deployments, one for each release, following the canary pattern described in
-[managing resources](/docs/concepts/cluster-administration/manage-deployment/#canary-deployments).
+[managing resources](/docs/concepts/workloads/management/#canary-deployments).
 -->
 ## 金丝雀部署 {#canary-deployment}
 
 如果要使用 Deployment 向用户子集或服务器子集上线版本，
-则可以遵循[资源管理](/zh-cn/docs/concepts/cluster-administration/manage-deployment/#canary-deployments)所描述的金丝雀模式，
+则可以遵循[资源管理](/zh-cn/docs/concepts/workloads/management/#canary-deployments)所描述的金丝雀模式，
 创建多个 Deployment，每个版本一个。
 
 <!--
