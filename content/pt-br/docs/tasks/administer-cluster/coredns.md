@@ -42,8 +42,8 @@ Para `kubeadm` v{{< skew currentVersion >}}, o único Cluster DNS suportado é o
 
 Você pode migrar para o CoreDNS quando usar o  `kubeadm` para atualizar o cluster que está usando 
 `kube-dns`. Neste caso, `kubeadm` gera a configuração do CoreDNS
-("Corefile") basedo no `kube-dns` ConfigMap, preservando a configuração para 
-stub domains, e upstream name server.
+("Corefile") baseado no ConfigMap `kube-dns`, preservando a configuração para 
+stub domains e upstream name server.
 
 ## Atualizando CoreDNS
 
