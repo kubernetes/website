@@ -65,12 +65,13 @@ DELETE    | delete
 
 The resource and subresource is determined from the incoming request's path:
 
-Kubelet API  | resource | subresource
--------------|----------|------------
-/stats/\*     | nodes    | stats
-/metrics/\*   | nodes    | metrics
-/logs/\*      | nodes    | log
-/spec/\*      | nodes    | spec
+Kubelet API         | resource | subresource
+--------------------|----------|------------
+/stats/\*           | nodes    | stats
+/metrics/\*         | nodes    | metrics
+/logs/\*            | nodes    | log
+/spec/\*            | nodes    | spec
+/checkpoint/\*      | nodes    | spec
 *all others* | nodes    | proxy
 
 The namespace and API group attributes are always an empty string, and
