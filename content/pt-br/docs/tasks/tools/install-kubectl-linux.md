@@ -134,7 +134,7 @@ Existem os seguintes métodos para instalar o kubectl no Linux:
    ```shell
    # Se a pasta `/etc/apt/keyrings` não existir, ela deve ser criada antes do comando curl, leia a nota abaixo.
    # sudo mkdir -p -m 755 /etc/apt/keyrings
-   curl -fsSL https://pkgs.k8s.io/core:/stable:{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+   curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg # permitir que programas APT sem acesso privilegiado leiam este keyring
    ```
 
