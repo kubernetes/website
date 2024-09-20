@@ -66,7 +66,7 @@ Interpreters are most valuable during networking, not in talks (with captions). 
 
 The next step is to refocus on advocacy. The same thing we did with the conference best practices but for other areas. The goal is to help educate the community about what real accessibility looks like, how projects can be more accessible, and why employers should seriously consider deaf candidates while providing them with the tools they need to conduct successful interviews and employee onboarding. We need to capture all that in documents, publish it, and then get the word out. That last part is certainly the most challenging, but it's also where everyone can get involved. 
 
-## Call to Action
+## Call to action
 **SK: Thank you for sharing your insights, Catherine. As we wrap up, do you have any final thoughts or a call to action for our readers?**
 
 **CP**: As we build our [accessibility page](https://contribute.cncf.io/accessibility/deaf-and-hard-of-hearing/), check in regularly to see what's new. Share the docs with your team, employer, and network — anyone, really. The more people understand what accessibility really means and why it matters, the more people will recognize when something isn't accessible, and be able to call out marketing-BS, which, unfortunately, is more often the case than not. We need allies to help push for change. **No minority can do this on their own**. So please learn about accessibility, keep an eye out for it, and call it out when something isn't accessible. We need your help! 
