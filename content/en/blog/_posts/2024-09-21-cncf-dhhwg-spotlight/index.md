@@ -17,7 +17,7 @@ My first contribution was the [CNCF Landscape Guide](https://landscape.cncf.io/g
 
 Currently, I'm the co-chair of the [TAG Contributor Strategy](https://contribute.cncf.io/about/) and the Facilitator of the Deaf and Hard of Hearing Working Group (DHHWG) and Blind and Visually Impaired WG (BVIWG), which is still in formation. I'm also working on a new Linux Foundation (LF) initiative called ABIDE (Accessibility and Belonging through Inclusion, Diversity, and Equity), so stay tuned to learn more about it! 
 
-## Motivation and Early Milestones
+## Motivation and early milestones
 **SK: That's inspiring! Building on your passion for accessibility, what motivated you to facilitate the creation of the DHHWG? Was there a speecifc moment or experience that sparked this initiative?**
 
 **CP**: Last year at KubeCon Amsterdam, I learned about a great initiative by Jay Tihema that creates [pathways for Maori youth into cloud native](https://contribute.cncf.io/resources/videos/2023/from-maori-to-deaf-engineers/) and open source. While telling my CODA (children of deaf adults) high school friend about it, I thought it'd be great to create something similar for deaf folks. A few months later, I posted about it in a LinkedIn post that the CNCF shared. Deaf people started to reach out, wanting to participate. And the rest is history. 
