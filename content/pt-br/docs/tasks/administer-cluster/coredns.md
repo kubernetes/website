@@ -25,13 +25,13 @@ Como o Kubernetes, o projeto CoreDNS é hospedado pelo
 {{< glossary_tooltip text="CNCF" term_id="cncf" >}}.
 
 Você pode usar o CoreDNS ao invés de kube-dns no seu cluster substituindo por
-kube-dns em um deployment existente, ou usando ferramentas como kubeadm
-que fará o deploy e o upgrade do cluster pra você.
+kube-dns em uma implantação existente, ou usando ferramentas como kubeadm
+que fará a instalação e a atualização do cluster pra você.
 
 ## Instalando o CoreDNS
 
-Para deployment manual, ou substituição do kube-dns, veja a documentação no
-[CoreDNS website](https://coredns.io/manual/installation/).
+Para instalação manual, ou substituição do kube-dns, veja a documentação no 
+[site do CoreDNS](https://coredns.io/manual/installation/).
 
 ## Migrando para CoreDNS
 
