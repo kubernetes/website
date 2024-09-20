@@ -71,7 +71,7 @@ Kubelet API         | resource | subresource
 /metrics/\*         | nodes    | metrics
 /logs/\*            | nodes    | log
 /spec/\*            | nodes    | spec
-/checkpoint/\*      | nodes    | spec
+/checkpoint/\*      | nodes    | checkpoint
 *all others*        | nodes    | proxy
 
 The namespace and API group attributes are always an empty string, and
