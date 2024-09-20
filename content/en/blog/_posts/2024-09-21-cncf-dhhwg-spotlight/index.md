@@ -39,7 +39,7 @@ The team has grown since then, and we've been able to do much more. With a kiosk
 
 **CP**: Deaf and hard of hearing individuals are very diverse — there is no one-size-fits-all. Some deaf people are oral (speak), others sign, while some lip read or prefer captions. It generally depends on how people grew up. While some people come from deaf families and sign language is their native language, others were born into hearing families who may or may not have learned how to sign. Some deaf people grew up surrounded by hearing people, while others grew up deeply embedded in Deaf culture. Hard-of-hearing individuals, on the other hand, typically can communicate well with hearing peers one-on-one in quiet settings, but loud environments or conversations with multiple people can make it hard to follow the conversation. Most rely heavily on captions. Each background and experience will shape their communication style and preferences. In short, what works for one person, doesn't necessarily work for others. So NEVER ASSUME and ALWAYS ASK about accessibility needs and preferences.
 
-## Impact and the Role of Allies
+## Impact and the role of allies
 **SK: Can you share some key impacts/outcomes of the conference best practices document?**
 
 **CP**: Here are the two most important ones: Captions should be on the monitor, not in an app. That's especially important during technical talks with live demos. Deaf and hard of hearing attendees will miss important information switching between captions on their phone and code on the screen. 
