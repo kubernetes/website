@@ -38,7 +38,7 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions
   based on Debian and Red Hat, and those distributions without a package manager.
 * 2 GB or more of RAM per machine (any less will leave little room for your apps).
-* 2 CPUs or more.
+* 2 CPUs or more for control plane machines.
 * Full network connectivity between all machines in the cluster (public or private network is fine).
 * Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-mac-address) for more details.
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
@@ -51,7 +51,7 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * 一台兼容的 Linux 主机。Kubernetes 项目为基于 Debian 和 Red Hat 的 Linux
   发行版以及一些不提供包管理器的发行版提供通用的指令。
 * 每台机器 2 GB 或更多的 RAM（如果少于这个数字将会影响你应用的运行内存）。
-* CPU 2 核心及以上。
+* 控制平面机器需要 CPU 2 核心或更多。
 * 集群中的所有机器的网络彼此均能相互连接（公网和内网都可以）。
 * 节点之中不可以有重复的主机名、MAC 地址或 product_uuid。请参见[这里](#verify-mac-address)了解更多详细信息。
 * 开启机器上的某些端口。请参见[这里](#check-required-ports)了解更多详细信息。
