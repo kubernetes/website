@@ -18,6 +18,7 @@ no cluster. Ele garante que os {{< glossary_tooltip text="contêineres" term_id=
 
 <!--more--> 
 
-O kubelet utiliza um conjunto de PodSpecs que são fornecidos por vários mecanismos
-e garante que os contêineres descritos nesses PodSpecs estejam funcionando corretamente.
-O kubelet não gerencia contêineres que não foram criados pelo Kubernetes.
+O [kubelet](/docs/reference/command-line-tools-reference/kubelet/) utiliza um conjunto de 
+PodSpecs que são fornecidos por vários mecanismos e garante que os contêineres descritos nesses 
+PodSpecs estejam sendo executados e saudáveis. O kubelet não gerencia contêineres que não 
+foram criados pelo Kubernetes.
