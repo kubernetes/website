@@ -22,7 +22,7 @@ Este documento descreve os vários componentes que você precisa para ter um clu
 completo e funcional.
 
 {{< figure 
-	src="/images/docs/kubernetes-cluster-architecture.svg" 
+	src="/images/docs/kubernetes-cluster-architecture-pt.svg" 
 	alt="A camada de gerenciamento (kube-apiserver, etcd, kube-controller-manager, kube-scheduler) e vários nós. Cada nó está executando um kubelet e um kube-proxy."
 	title="Componentes de um cluster Kubernetes"
 	caption="**Observação:** Este diagrama apresenta uma arquitetura de referência de exemplo para um cluster Kubernetes. A distribuição real dos componentes pode variar baseada em configurações e requisitos específicos do cluster." 
