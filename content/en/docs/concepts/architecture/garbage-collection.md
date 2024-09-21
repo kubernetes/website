@@ -95,8 +95,10 @@ to learn more.
 ### Background cascading deletion {#background-deletion}
 
 In background cascading deletion, the Kubernetes API server deletes the owner
-object immediately and the controller cleans up the dependent objects in
-the background. By default, Kubernetes uses background cascading deletion unless
+object immediately and the garbage collector controller (custom or default)
+cleans up the dependent objects in the background.
+If a finalizer exists, it ensures that objects are not deleted until all necessary clean-up tasks are completed.
+By default, Kubernetes uses background cascading deletion unless
 you manually use foreground deletion or choose to orphan the dependent objects.
 
 See [Use background cascading deletion](/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)
