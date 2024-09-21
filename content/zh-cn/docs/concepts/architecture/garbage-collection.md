@@ -286,13 +286,11 @@ regardless of disk usage. This is a kubelet setting that you configure for each 
 这是一个可以为每个节点配置的 kubelet 设置。
 
 <!--
-To configure the setting, enable the `imageMaximumGCAge`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kubelet,
-and also set a value for the `imageMaximumGCAge` field in the kubelet configuration file.
+To configure the setting, you need to set a value for the `imageMaximumGCAge` 
+field in the kubelet configuration file.
 -->
-请为 kubelet 启用 `imageMaximumGCAge`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-并在 kubelet 配置文件中为 `imageMaximumGCAge` 字段赋值来配置该设置。
+要配置该设置，你需要在 kubelet 配置文件中为 `imageMaximumGCAge`
+字段设置一个值。
 
 <!--
 The value is specified as a Kubernetes _duration_; 
