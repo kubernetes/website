@@ -7,7 +7,7 @@ description: >
 
 Um {{< glossary_tooltip text="cluster" term_id="cluster" >}} Kubernetes consiste de uma 
 {{< glossary_tooltip text="camada de gerenciamento" term_id="control-plane" >}} somada a 
-um conjunto de máquinas de processamento, chamadas {{< glossary_tooltip text="nós" term_id="node" >}},
+um conjunto de máquinas de processamento, chamadas {{< glossary_tooltip text="nós" term_id="node" >}} (Node em ingles),
 que executam aplicações em {{< glossary_tooltip text="contêineres" term_id="container" >}}.
 Cada cluster precisa de pelo menos um nó de processamento para executar Pods.
 
@@ -33,13 +33,13 @@ completo e funcional.
 
 Os componentes da camada de gerenciamento tomam decisões globais sobre o cluster (por exemplo, alocação),
 bem como detectam e respondem a eventos do cluster (por exemplo, iniciar um novo pod quando
-o campo {{< glossary_tooltip text="replicas" term_id="replica" >}} de um {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
-não está satisfeito)
+o campo `replicas` de um {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
+não está satisfeito).
 
 Os componentes da camada de gerenciamento podem ser executados em qualquer máquina no cluster.
 Contudo, para simplificar, scripts de configuração normalmente iniciam todos os componentes
 da camada de gerenciamento na mesma máquina, e não executam contêineres de usuários nesta máquina.
-Confira [Criando clusters de Alta Disponibilidade com kubeadm (em inglês)](/docs/setup/production-environment/tools/kubeadm/high-availability/)
+Confira [Criando clusters de Alta Disponibilidade com kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/) (em inglês)
 para um exemplo de uma configuração da camada de gerenciamento que é executada entre múltiplas máquinas.
 
 ### kube-apiserver
@@ -60,7 +60,7 @@ para um exemplo de uma configuração da camada de gerenciamento que é executad
 
 Existem diversos tipos diferentes de controladores. Alguns exemplos deles são:
 
-- Controlador de Nós: responsável por perceber e responder quando nós caem.
+- Controlador de Node: responsável por perceber e responder quando nós caem.
 - Controlador de {{< glossary_tooltip text="Job" term_id="job" >}}: Observa os objetos do
 tipo Job que representam tarefas pontuais, então cria Pods para executar estas tarefas até
 a conclusão.
@@ -83,18 +83,18 @@ gerenciador de controlador de nuvem.
 Assim como com o kube-controller-manager, o gerenciador de controlador de nuvem combina vários 
 circuitos de controles lógicos independentes em um único binário que você executa como um
 único processo.
-Você pode escalar horizontalmente (executar mais de uma cópia) para melhorar a performance
-ou ajudar a tolerar falhas.
+Você pode escalonar horizontalmente (executar mais de uma cópia) para melhorar
+o desempenho ou para auxiliar na tolerância a falhas.
 
 Os controladores a seguir podem ter dependências do provedor de nuvem:
 
-- Controlador de Nós: para verificar o provedor de numvem para determinar se um nó foi 
+- Controlador de Node: para verificar o provedor de numvem para determinar se um nó foi 
 removido na nuvem depois que ele parou de responder
-- Controlador de Rota: Para ajustar rotas na infraestrutura subjacente da nuvem
-- Controlador de Serviço: Para criar, atualizar e remover balanceadores de carga do provedor
+- Controlador de rotas: Para ajustar rotas na infraestrutura subjacente da nuvem
+- Controlador de Service: Para criar, atualizar e remover balanceadores de carga do provedor
 de nuvem
 
-## Componentes de Nó
+## Componentes para nó
 
 Componentes de Nó são executadso em cada nó, conservando a execução de pods e fornecendo o
 ambiente de execução do Kubernetes.
@@ -110,7 +110,7 @@ Se você usa um [plugin de redes](#network-plugins) que implementa o encaminhame
 para Serviços por si próprio, e que fornece o comportamento equivalente ao kube-proxy, então
 você não precisa executar o kube-proxy nos nós do seu cluster.
 
-### Agente de Execução de Contêiner
+### Agente de execução de contêiner
 
 {{< glossary_definition term_id="container-runtime" length="all" >}}
 
@@ -143,7 +143,7 @@ O [Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) é uma i
 baseada na web e de propósito geral para clusters Kubernetes. Ele permite que usuários gerenciem
 e solucionem problemas em aplicações que estão sendo executadas no cluster, bem como o próprio cluster.
 
-### Monitoramento de Recursos de Contêineres
+### Monitoramento de recursos de contêineres
 
 O [Monitoramento de Recursos de Contêineres](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 registra métricas de séries temporais genéricas em um banco de dados central, e fornece uma
