@@ -2362,7 +2362,6 @@ Example: `jobset.sigs.k8s.io/replicatedjob-name: "my-replicatedjob"`
 Used on: Jobs, Pods
 
 This label/annotation is used to index into a Job's labels and retrieve the name of the parent ReplicatedJob.
-ReplicatedJob is an extension API that you can deploy into your Kubernetes cluster.
 
 ### jobset.sigs.k8s.io/job-index
 
@@ -2400,7 +2399,7 @@ Type: Label, Annotation
 
 Example: `alpha.jobset.sigs.k8s.io/node-selector-strategy=true`
 
-Used on: Jobs ,Pods
+Used on: Jobs, Pods
 
 This label/annotation can be applied to a JobSet. When it's set, the JobSet controller modifies the Jobs and their corresponding Pods by adding node selectors. This ensures exclusive job placement per topology domain, restricting the scheduling of these Pods to specific nodes based on the strategy.
 
