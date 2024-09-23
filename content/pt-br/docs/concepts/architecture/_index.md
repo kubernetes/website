@@ -1,5 +1,5 @@
 ---
-title: "Arquitetura do Kubernetes"
+title: "Arquitetura do Cluster"
 weight: 30
 description: >
   Os conceitos arquiteturais por trás do Kubernetes

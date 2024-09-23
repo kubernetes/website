@@ -2,141 +2,89 @@
 title: Componentes do Kubernetes
 content_type: concept
 description: >
-  Um cluster Kubernetes consiste de componentes que são parte da camada de
-  gerenciamento e de um conjunto de máquinas chamadas nós.
-weight: 30
+  Uma visão geral dos componentes chave que formam um cluster Kubernetes.
+weight: 10
 card:
+  title: Components of a cluster
   name: concepts
   weight: 20
 ---
 
 <!-- overview -->
-Ao implantar o Kubernetes, você obtém um cluster.
-{{< glossary_definition term_id="cluster" length="all" prepend="Um cluster Kubernetes consiste em">}}
-
-Este documento descreve os vários componentes que você precisa ter para implantar
-um cluster Kubernetes completo e funcional.
+Este documento fornece uma visão geral em alto nível dos componentes essenciais que formam
+um cluster Kubernetes.
 
 {{< figure src="/images/docs/components-of-kubernetes.svg" alt="Componentes do Kubernetes" caption="Os componentes de um cluster do Kubernetes" class="diagram-large" >}}
 
 <!-- body -->
-## Componentes da camada de gerenciamento
 
-Os componentes da camada de gerenciamento tomam decisões globais sobre o cluster
-(por exemplo, alocação de Pods), bem como detectam e respondem aos eventos
-do cluster (por exemplo, inicialização de um novo {{< glossary_tooltip text="Pod" term_id="pod" >}}
-quando o campo `replicas` de um Deployment não está atendido).
+## Componentes essenciais
 
-Os componentes da camada de gerenciamento podem ser executados em qualquer máquina
-do cluster. Contudo, para simplificar, os scripts de configuração normalmente
-iniciam todos os componentes da camada de gerenciamento na mesma máquina, e
-contêineres com cargas de trabalho do usuário não rodam nesta máquina. Veja
-[Construindo clusters altamente disponíveis com o kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
-para um exemplo de configuração da camada de gerenciamento que roda em múltiplas
-máquinas.
+Um cluster Kubernetes consiste de uma camada de gerenciamento e um ou mais nós de processamento.
+Aqui está uma breve visão geral dos principais componentes:
 
-### kube-apiserver
+### Componentes da Camada de Gerenciamento
 
-{{< glossary_definition term_id="kube-apiserver" length="all" >}}
+Gerencia o estado geral do cluster:
 
-### etcd
+[kube-apiserver](/docs/concepts/architecture/#kube-apiserver)
+: Componente essencial de servidor que expõe a API HTTP do  Kubernetes
 
-{{< glossary_definition term_id="etcd" length="all" >}}
+[etcd](/docs/concepts/architecture/#etcd)
+: Banco de dados de chave-valor consistente e de alta disponibilidade para todos os dados do servidor da API
 
-### kube-scheduler
+[kube-scheduler](/docs/concepts/architecture/#kube-scheduler)
+: Procura por Pods que ainda não foram associados a um nó, e atribui cada Pod a um nó adequado.
 
-{{< glossary_definition term_id="kube-scheduler" length="all" >}}
+[kube-controller-manager](/docs/concepts/architecture/#kube-controller-manager)
+: Executa os {{< glossary_tooltip text="controladores" term_id="controller" >}} para implementar
+o comportamento da API do Kubernetes
 
-### kube-controller-manager
-
-{{< glossary_definition term_id="kube-controller-manager" length="all" >}}
-
-Alguns tipos desses controladores são:
-
-  * Controlador de nó: responsável por perceber e responder quando os nós caem.
-  * Controlador de Jobs: observa os objetos Job, que representam tarefas únicas, e em seguida cria Pods para executar essas tarefas até a conclusão.
-  * Controlador de EndpointSlice: preenche o objeto EndpointSlice (conecta os objetos Service e Pod).
-  * Controlador de ServiceAccount: cria a ServiceAccount `default` para novos namespaces.
-
-### cloud-controller-manager
-
-{{< glossary_definition term_id="cloud-controller-manager" length="short" >}}
-
-O cloud-controller-manager executa apenas controladores que são específicos para seu provedor de nuvem.
-Se você estiver executando o Kubernetes em suas próprias instalações ou em um ambiente de aprendizagem dentro de seu
-próprio PC, o cluster não possui um gerenciador de controlador de nuvem.
-
-Tal como acontece com o kube-controller-manager, o cloud-controller-manager combina
-vários ciclos de controle logicamente independentes em um binário único que você
-executa como um processo único. Você pode escalonar horizontalmente (executar mais
-de uma cópia) para melhorar o desempenho ou para auxiliar na tolerância a falhas.
-
-Os seguintes controladores podem ter dependências de provedor de nuvem:
-
-  * Controlador de nó: para verificar junto ao provedor de nuvem para determinar se um nó foi excluído da nuvem após parar de responder.
-  * Controlador de rota: para configurar rotas na infraestrutura de nuvem subjacente.
-  * Controlador de serviço: para criar, atualizar e excluir balanceadores de carga do provedor de nuvem.
+[cloud-controller-manager](/docs/concepts/architecture/#cloud-controller-manager) (optional)
+: Integra com o provedor de nuvem subjacente.
 
 ## Componentes do nó {#node-components}
 
 Os componentes do nó são executados em todos os nós, mantendo os Pods em execução
 e fornecendo o ambiente de execução do Kubernetes.
 
-### kubelet
+[kubelet](/docs/concepts/architecture/#kubelet)
+: Garante que os Pods estão em execução, incluindo seus contêineres.
 
-{{< glossary_definition term_id="kubelet" length="all" >}}
+[kube-proxy](/docs/concepts/architecture/#kube-proxy) (opcional)
+: Mantém regras de rede nos nós para implementar {{< glossary_tooltip text="serviços" term_id="service" >}}.
 
-### kube-proxy
+[Agente de execução de contêineres](/docs/concepts/architecture/#container-runtime)
+: Software responsável por executar contêineres. Leia
+  [Container Runtimes](/docs/setup/production-environment/container-runtimes/) para saber mais (em inglês).
 
-{{< glossary_definition term_id="kube-proxy" length="all" >}}
+{{% thirdparty-content single="true" %}}
 
-### Agente de execução de contêiner {#container-runtime}
-
-{{< glossary_definition term_id="container-runtime" length="all" >}}
+Seu cluster pode exigir softwares adicionais para cada nó; por exemplo, você pode também
+executar o [systemd](https://systemd.io/) em um nó Linux para supervisionar componentes
+que são executados localmente no nó.
 
 ## Complementos (_addons_) {#addons}
 
-Complementos (_addons_) usam recursos do Kubernetes ({{< glossary_tooltip term_id="daemonset" >}},
-{{< glossary_tooltip term_id="deployment" >}}, etc) para implementar funcionalidades
-do cluster. Como fornecem funcionalidades em nível do cluster, recursos de complementos
-que necessitem ser criados dentro de um namespace pertencem ao namespace `kube-system`.
+Complementos extendem a funcionalidade do Kubernetes. Alguns exemplos importantes incluem:
 
-Alguns complementos selecionados são descritos abaixo; para uma lista estendida dos
-complementos disponíveis, consulte [Instalando Complementos](/pt-br/docs/concepts/cluster-administration/addons/).
+[DNS](/docs/concepts/architecture/#dns)
+: para resolução de DNS para todo o cluster
 
-### DNS
+[Interface Web](/docs/concepts/architecture/#web-ui-dashboard) (Dashboard)
+: Para gerenciamento do cluster através de uma interface web
 
-Embora os outros complementos não sejam estritamente necessários, todos os clusters
-do Kubernetes devem ter um [DNS do cluster](/docs/concepts/services-networking/dns-pod-service/),
-já que muitos exemplos dependem disso.
+[Monitoramento de recursos de contêineres](/docs/concepts/architecture/#container-resource-monitoring)
+: Para coletar e armazenar métricas de contêineres
 
-O DNS do cluster é um servidor DNS, além de outros servidores DNS em seu ambiente,
-que fornece registros DNS para serviços do Kubernetes.
+[Geração de logs em nível de cluster](/docs/concepts/architecture/#cluster-level-logging)
+: Para salvar os logs dos contêineres para um armazenamento central de logs
 
-Os contêineres iniciados pelo Kubernetes incluem automaticamente esse servidor DNS em suas pesquisas DNS.
+## Flexibilidade na Arquitetura
 
-### Web UI (Dashboard)
+Kubernetes permite flexibilidade em como estes componentes são implantados e gerenciados.
+A arquitetura pode ser adaptada para diversas necessidades, de pequenos ambientes de
+desenvolvimento até implantações de ambientes de produção em larga escala.
 
-O [dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) é uma interface
-de usuário Web, de uso geral, para clusters do Kubernetes. Ele permite que os
-usuários gerenciem e solucionem problemas de aplicações em execução no cluster,
-bem como o próprio cluster.
-
-### Monitoramento de recursos do contêiner
-
-O [monitoramento de recursos do contêiner](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
-registra métricas de série temporal genéricas sobre os contêineres em um banco de
-dados central e fornece uma interface de usuário para navegar por esses dados.
-
-### Logging a nivel do cluster
-
-Um mecanismo de [_logging_ a nível do cluster](/pt-br/docs/concepts/cluster-administration/logging/)
-é responsável por guardar os _logs_ dos contêineres em um armazenamento central de
-_logs_ com uma interface para navegação/pesquisa.
-
-## {{% heading "whatsnext" %}}
-
-* Aprenda sobre [Nós](/pt-br/docs/concepts/architecture/nodes/).
-* Aprenda sobre [Controladores](/pt-br/docs/concepts/architecture/controller/).
-* Aprenda sobre [kube-scheduler](/pt-br/docs/concepts/scheduling-eviction/kube-scheduler/).
-* Leia a [documentação](https://etcd.io/docs/) oficial do etcd.
+Para mais informações detalhadas sobre como cada componente e várias formas de configurar
+a arquitetura do seu cluster, veja a página da [Arquitetura do Cluster](/docs/concepts/architecture/).
