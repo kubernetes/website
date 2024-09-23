@@ -1104,35 +1104,6 @@ For more information about persistent volume claims, see [PersistentVolumeClaims
 关于持久化卷申领的更多信息，请参见
 [PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
 
-### PersistentVolumeLabel {#persistentvolumelabel}
-
-{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
-
-<!--
-**Type**: Mutating.
--->
-**类别**：变更。
-
-<!--
-This admission controller automatically attaches region or zone labels to PersistentVolumes
-as defined by the cloud provider (for example, Azure or GCP).
-It helps ensure the Pods and the PersistentVolumes mounted are in the same
-region and/or zone.
-If the admission controller doesn't support automatic labelling your PersistentVolumes, you
-may need to add the labels manually to prevent pods from mounting volumes from
-a different zone. PersistentVolumeLabel is **deprecated** as labeling for persistent volumes has been taken over by
-the {{< glossary_tooltip text="cloud-controller-manager" term_id="cloud-controller-manager" >}}.
-
-This admission controller is disabled by default.
--->
-此准入控制器会自动将由云提供商（如 Azure 或 GCP）定义的区（region）或区域（zone）
-标签附加到 PersistentVolume 上。这有助于确保 Pod 和 PersistentVolume 位于相同的区或区域。
-如果准入控制器不支持为 PersistentVolumes 自动添加标签，那你可能需要手动添加标签，
-以防止 Pod 挂载其他区域的卷。PersistentVolumeLabel **已被弃用**，
-为持久卷添加标签的操作已由{{< glossary_tooltip text="云管理控制器" term_id="cloud-controller-manager" >}}接管。
-
-此准入控制器默认被禁用。
-
 ### PodNodeSelector {#podnodeselector}
 
 {{< feature-state for_k8s_version="v1.5" state="alpha" >}}
@@ -1509,7 +1480,7 @@ If a webhook called by this has side effects (for example, decrementing quota) i
 *must* have a reconciliation system, as it is not guaranteed that subsequent
 webhooks or other validating admission controllers will permit the request to finish.
 -->
-如果以此方式调用的 Webhook 有其它副作用（如：减少配额），则它 **必须** 具有协调机制。
+如果以此方式调用的 Webhook 有其它副作用（如：减少配额），则它**必须**具有协调机制。
 这是因为无法保证后续的 Webhook 或其他验证性准入控制器都允许请求完成。
 
 <!--
@@ -1534,4 +1505,4 @@ You can enable additional admission controllers beyond the default set using the
 有。推荐使用的准入控制器默认情况下都处于启用状态
 （请查看[这里](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/#options)）。
 因此，你无需显式指定它们。
-你可以使用 `--enable-admission-plugins` 标志（ **顺序不重要** ）来启用默认设置以外的其他准入控制器。
+你可以使用 `--enable-admission-plugins` 标志（**顺序不重要**）来启用默认设置以外的其他准入控制器。
