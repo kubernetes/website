@@ -48,10 +48,10 @@ other = "و"
 other = "رمز تعريف الCVE"
 
 [cve_issue_url]
-other = "رابط القضية للCVE"
+other = "رابط البلاغ للCVE"
 
 [cve_summary]
-other = "ملخص القضية"
+other = "ملخص البلاغ
 
 [cve_table]
 other = "القائمة الرسمية للCVE الخاصة بكوبيرنيتيس"
@@ -295,7 +295,7 @@ other = "حمل عمل"
 other = "اقتراح تحسيناً"
 
 [layouts_docs_partials_feedback_issue]
-other = """الرجاء إنشاء قضية على [جيتهاب](https://www.github.com/kubernetes/website/) إذا أردت """
+other = """الرجاء إنشاء بلاغ على [جيتهاب](https://www.github.com/kubernetes/website/) إذا أردت """
 
 [layouts_docs_partials_feedback_or]
 other = "أو أن"
@@ -380,7 +380,7 @@ other = "يعود نشر هذا المقال إلى أكثر من عام، فق�
 other = "الإصدار التصحيحي"
 
 [post_create_issue]
-other = "أنشئ قضية (issue)"
+other = "أنشئ بلاغ (issue)"
 
 [prerequisites_heading]
 other = "قبل أن تبدأ"
