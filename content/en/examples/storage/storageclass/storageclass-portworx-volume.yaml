@@ -1,0 +1,9 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: portworx-io-priority-high
+provisioner: kubernetes.io/portworx-volume # This provisioner is deprecated
+parameters:
+  repl: "1"
+  snap_interval: "70"
+  priority_io: "high"
