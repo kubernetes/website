@@ -137,7 +137,7 @@ desiredReplicas = ceil[currentReplicas * ( currentMetricValue / desiredMetricVal
 
 For example, if the current metric value is `200m`, and the desired value
 is `100m`, the number of replicas will be doubled, since `200.0 / 100.0 ==
-2.0` If the current value is instead `50m`, you'll halve the number of
+2.0` If the current value is instead `50m`, you'll have the number of
 replicas, since `50.0 / 100.0 == 0.5`. The control plane skips any scaling
 action if the ratio is sufficiently close to 1.0 (within a globally-configurable
 tolerance, 0.1 by default).
