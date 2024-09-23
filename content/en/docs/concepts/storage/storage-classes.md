@@ -290,6 +290,8 @@ parameters:
   type: io1
   iopsPerGB: "50"
   encrypted: "true"
+  tagSpecification_1: "key1=value1"
+  tagSpecification_2: "key2=value2"
 allowedTopologies:
 - matchLabelExpressions:
   - key: topology.ebs.csi.aws.com/zone
@@ -317,6 +319,8 @@ parameters:
 - `directoryPerms`: The directory permissions of the root directory created by the access point.
 
 For more details, refer to the [AWS_EFS_CSI_Driver Dynamic Provisioning](https://github.com/kubernetes-sigs/aws-efs-csi-driver/blob/master/examples/kubernetes/dynamic_provisioning/README.md) documentation.
+
+`tagSpecification`: Tags with this prefix are applied to dynamically provisioned EBS volumes.
 
 ### NFS
 
