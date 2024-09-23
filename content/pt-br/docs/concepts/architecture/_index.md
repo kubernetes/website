@@ -71,32 +71,31 @@ Cria contas de serviço padrão para novos {{< glossary_tooltip text="namespaces
 
 A lista acima não é completa.
 
-### Gerenciador de controlador de nuvem
+### cloud-controller-manager
 
 {{< glossary_definition term_id="cloud-controller-manager" length="short" >}}
 
-O gerenciador de controlador de nuvem apenas executa controladores que são específicos para
-o seu provedores de nuvem. Se você está executando Kubernetes nas suas próprias instalações
-(_on premises_), ou em um ambiente de aprendizado no seu PC próprio, o cluster não tem um
-gerenciador de controlador de nuvem.
+O cloud-controller-manager executa apenas controladores que são específicos para o seu
+provedor de nuvem. Se você está executando Kubernetes nas suas próprias instalações
+(_on premises_), ou em um ambiente de aprendizado no seu PC próprio, seu cluster não tem 
+um gerenciador de controladores integrados com a nuvem.
 
-Assim como com o kube-controller-manager, o gerenciador de controlador de nuvem combina vários 
+Assim como com o kube-controller-manager, o cloud-controller-manager combina vários 
 circuitos de controles lógicos independentes em um único binário que você executa como um
-único processo.
-Você pode escalonar horizontalmente (executar mais de uma cópia) para melhorar
-o desempenho ou para auxiliar na tolerância a falhas.
+único processo. Você pode escalonar horizontalmente (executar mais de uma cópia) para
+melhorar o desempenho ou para auxiliar na tolerância a falhas.
 
 Os controladores a seguir podem ter dependências do provedor de nuvem:
 
-- Controlador de Node: para verificar o provedor de numvem para determinar se um nó foi 
+- Controlador de Node: para verificar o provedor de nuvem para determinar se um nó foi 
 removido na nuvem depois que ele parou de responder
-- Controlador de rotas: Para ajustar rotas na infraestrutura subjacente da nuvem
+- Controlador de Route: Para ajustar rotas na infraestrutura subjacente da nuvem
 - Controlador de Service: Para criar, atualizar e remover balanceadores de carga do provedor
 de nuvem
 
 ## Componentes para nó
 
-Componentes de Nó são executadso em cada nó, conservando a execução de pods e fornecendo o
+Componentes de Nó são executados em cada nó, conservando a execução de pods e fornecendo o
 ambiente de execução do Kubernetes.
 
 ### kubelet
@@ -221,8 +220,7 @@ A arquitetura do Kubernetes permite personalização significativa:
 ou substituí-lo completamente.
 - Servidores de API podem ser estendidos com {{< glossary_tooltip text="CustomResourceDefinition" term_id="CustomResourceDefinition" >}}
 e {{< glossary_tooltip text="agregação" term_id="aggregation-layer" >}} de APIs.
-- Provedores de nuvem podem integrar profundamente com o Kubernetes usando o gerenciador
-de controlador de nuvem.
+- Provedores de nuvem podem integrar profundamente com o Kubernetes usando o cloud-controller-manager.
 
 A flexibilidade da arquitetura do Kubernetes permite que organizações adequem seus clusters
 para necessidades específicas, equilibrando fatores tais como complexidade operacional, e
@@ -240,5 +238,5 @@ padrão para o Kubernetes.
 - A [documentação](https://etcd.io/docs/) oficial do Etcd (**em inglês**).
 - Vários [agentes de execução de contêiner](/docs/setup/production-environment/container-runtimes/)
 no Kubernetes.
-- Integração com provedores de nuvem usando o [gerenciador de controlador de nuvem](/docs/concepts/architecture/cloud-controller).
+- Integração com provedores de nuvem usando o [Gerenciador de Controladores Integrados com a Nuvem](/docs/concepts/architecture/cloud-controller).
 - Comandos do [kubectl](/docs/reference/generated/kubectl/kubectl-commands).
