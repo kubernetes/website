@@ -2079,15 +2079,28 @@ FlexVolume 用户应迁移工作负载以使用对等的 CSI 驱动。
 
 <!--
 ## Mount propagation
+-->
+## 挂载卷的传播   {#mount-propagation}
 
+{{< caution >}}
+<!--
+Mount propagation is a low-level feature that does not work consistently on all
+volume types. It is recommended to use only with `hostPath` or in-memory `emptyDir`
+volumes. See [this discussion](https://github.com/kubernetes/kubernetes/issues/95049)
+for more context.
+-->
+挂载卷的传播是一项底层功能，不能在所有卷类型上保持一致性。
+建议仅与 `hostPath` 或内存中的 `emptyDir` 卷一起使用。
+有关更多背景信息，请参阅[此讨论](https://github.com/kubernetes/kubernetes/issues/95049)。
+{{< /caution >}}
+
+<!--
 Mount propagation allows for sharing volumes mounted by a container to
 other containers in the same pod, or even to other pods on the same node.
 
 Mount propagation of a volume is controlled by the `mountPropagation` field
 in `containers[*].volumeMounts`. Its values are:
 -->
-## 挂载卷的传播   {#mount-propagation}
-
 挂载卷的传播能力允许将容器安装的卷共享到同一 Pod 中的其他容器，甚至共享到同一节点上的其他 Pod。
 
 卷的挂载传播特性由 `containers[*].volumeMounts` 中的 `mountPropagation` 字段控制。
