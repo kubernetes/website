@@ -297,6 +297,9 @@ allowedTopologies:
   - key: topology.ebs.csi.aws.com/zone
     values:
     - us-east-2c
+
+`tagSpecification`: Tags with this prefix are applied to dynamically provisioned EBS volumes.
+
 ```
 ### AWS EFS
 
@@ -320,7 +323,6 @@ parameters:
 
 For more details, refer to the [AWS_EFS_CSI_Driver Dynamic Provisioning](https://github.com/kubernetes-sigs/aws-efs-csi-driver/blob/master/examples/kubernetes/dynamic_provisioning/README.md) documentation.
 
-`tagSpecification`: Tags with this prefix are applied to dynamically provisioned EBS volumes.
 
 ### NFS
 
