@@ -1,6 +1,7 @@
 ---
 title: 클러스터에서 DNS 서비스 오토스케일
 content_type: task
+weight: 80
 ---
 
 <!-- overview -->

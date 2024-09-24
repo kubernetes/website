@@ -1,8 +1,8 @@
 ---
 title: 노드에 대한 확장 리소스 알리기
 content_type: task
+weight: 70
 ---
-
 
 <!-- overview -->
 
@@ -10,16 +10,9 @@ content_type: task
 확장 리소스를 통해 클러스터 관리자는 쿠버네티스에게
 알려지지 않은 노드-레벨 리소스를 알릴 수 있다.
 
-
-
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
-
 
 <!-- steps -->
 
@@ -38,7 +31,7 @@ HTTP PATCH 요청을 보낸다. 예를 들어, 노드 중 하나에 4개의 동�
 가정한다. 다음은 노드에 4개의 동글 리소스를 알리는 PATCH 요청의
 예이다.
 
-```shell
+```
 PATCH /api/v1/nodes/<your-node-name>/status HTTP/1.1
 Accept: application/json
 Content-Type: application/json-patch+json
@@ -68,9 +61,9 @@ kubectl proxy
 
 ```shell
 curl --header "Content-Type: application/json-patch+json" \
---request PATCH \
---data '[{"op": "add", "path": "/status/capacity/example.com~1dongle", "value": "4"}]' \
-http://localhost:8001/api/v1/nodes/<your-node-name>/status
+  --request PATCH \
+  --data '[{"op": "add", "path": "/status/capacity/example.com~1dongle", "value": "4"}]' \
+  http://localhost:8001/api/v1/nodes/<your-node-name>/status
 ```
 
 {{< note >}}
@@ -99,9 +92,9 @@ kubectl describe node <your-node-name>
 
 ```yaml
 Capacity:
- cpu:  2
- memory:  2049008Ki
- example.com/dongle:  4
+  cpu:  2
+  memory:  2049008Ki
+  example.com/dongle:  4
 ```
 
 이제, 애플리케이션 개발자는 특정 개수의 동글을 요청하는 파드를
@@ -132,8 +125,8 @@ example.com/special-storage와 같은 특별한 스토리지의 이름을 생성
 
 ```yaml
 Capacity:
- ...
- example.com/special-storage: 8
+  ...
+  example.com/special-storage: 8
 ```
 
 이 특별한 스토리지에 대한 임의 요청을 허용하려면,
@@ -142,8 +135,8 @@ Capacity:
 
 ```yaml
 Capacity:
- ...
- example.com/special-storage:  800Gi
+  ...
+  example.com/special-storage:  800Gi
 ```
 
 그런 다음 컨테이너는 최대 800Gi의 임의 바이트 수의 특별한 스토리지를 요청할 수 있다.
@@ -177,9 +170,9 @@ kubectl proxy
 
 ```shell
 curl --header "Content-Type: application/json-patch+json" \
---request PATCH \
---data '[{"op": "remove", "path": "/status/capacity/example.com~1dongle"}]' \
-http://localhost:8001/api/v1/nodes/<your-node-name>/status
+  --request PATCH \
+  --data '[{"op": "remove", "path": "/status/capacity/example.com~1dongle"}]' \
+  http://localhost:8001/api/v1/nodes/<your-node-name>/status
 ```
 
 동글 알림이 제거되었는지 확인한다.
@@ -190,17 +183,13 @@ kubectl describe node <your-node-name> | grep dongle
 
 (출력이 보이지 않아야 함)
 
-
-
-
 ## {{% heading "whatsnext" %}}
-
 
 ### 애플리케이션 개발자를 위한 문서
 
-* [컨테이너에 확장 리소스 할당하기](/ko/docs/tasks/configure-pod-container/extended-resource/)
+- [컨테이너에 확장 리소스 할당하기](/ko/docs/tasks/configure-pod-container/extended-resource/)
 
 ### 클러스터 관리자를 위한 문서
 
-* [네임스페이스에 대한 메모리의 최소 및 최대 제약 조건 구성](/ko/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-* [네임스페이스에 대한 CPU의 최소 및 최대 제약 조건 구성](/ko/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+- [네임스페이스에 대한 메모리의 최소 및 최대 제약 조건 구성](/ko/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+- [네임스페이스에 대한 CPU의 최소 및 최대 제약 조건 구성](/ko/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)

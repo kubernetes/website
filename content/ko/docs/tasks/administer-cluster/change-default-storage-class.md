@@ -1,6 +1,7 @@
 ---
 title: 기본 스토리지클래스(StorageClass) 변경하기
 content_type: task
+weight: 90
 ---
 
 <!-- overview -->
