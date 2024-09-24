@@ -33,11 +33,11 @@ The main protocol for the communication between the {{< glossary_tooltip text="k
 <!-- 
 The Kubernetes Container Runtime Interface (CRI) defines the main
 [gRPC](https://grpc.io) protocol for the communication between the
-[node components](/docs/concepts/overview/components/#node-components)
+[node components](/docs/concepts/architecture/#node-components)
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
 -->
 Kubernetes 容器运行时接口（Container Runtime Interface；CRI）定义了主要 [gRPC](https://grpc.io) 协议，
-用于[节点组件](/zh-cn/docs/concepts/overview/components/#node-components)
+用于[节点组件](/zh-cn/docs/concepts/architecture/#node-components)
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
 和{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}之间的通信。
