@@ -51,7 +51,7 @@ other = "رمز تعريف الCVE"
 other = "رابط البلاغ للCVE"
 
 [cve_summary]
-other = "ملخص البلاغ
+other = "ملخص البلاغ"
 
 [cve_table]
 other = "القائمة الرسمية للCVE الخاصة بكوبيرنيتيس"
