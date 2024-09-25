@@ -91,7 +91,7 @@ During foreground cascading deletion, the only dependents that block owner
 deletion are those that have the `ownerReference.blockOwnerDeletion=true` field
 and are in the garbage collection controller cache. The garbage collection controller
 cache may not contain objects whose resource type cannot be listed / watched successfully,
-or objects which are created concurrent with deletion of an owner object.
+or objects that are created concurrent with deletion of an owner object.
 See [Use foreground cascading deletion](/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)
 to learn more.
 
