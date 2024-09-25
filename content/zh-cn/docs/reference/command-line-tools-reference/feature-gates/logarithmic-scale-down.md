@@ -10,9 +10,10 @@ stages:
     defaultValue: false
     fromVersion: "1.21"
     toVersion: "1.21"
-  - stage: beta
+    toVersion: "1.30"
+  - stage: stable
     defaultValue: true
-    fromVersion: "1.22"
+    fromVersion: "1.31"
 ---
 
 <!--
