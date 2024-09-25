@@ -517,7 +517,8 @@ other = "(রিলিজ হয়েছিল: "
 other = "02-01-2006"
 
 [release_date_format_month]
-other = "জানুয়ারি 2006"
+# Don't use Bangla here
+other = "January 2006"
 
 [release_cherry_pick_deadline]
 other = "Cherry Pick সময়সীমা"

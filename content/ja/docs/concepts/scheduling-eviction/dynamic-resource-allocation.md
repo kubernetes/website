@@ -240,4 +240,4 @@ kube-schedulerのデフォルト構成では、フィーチャーゲートが有
 
 ## {{% heading "whatsnext" %}}
 
-- 設計に関する詳細は、KEPの[Structured Parameters with Structured Parameters](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4381-dra-structured-parameters)と[Dynamic Resource Allocation with Control Plane Controller](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md)を参照してください。
+- 設計に関する詳細は、KEPの[Dynamic Resource Allocation with Structured Parameters](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4381-dra-structured-parameters)と[Dynamic Resource Allocation with Control Plane Controller](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md)を参照してください。

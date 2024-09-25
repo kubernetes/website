@@ -16,8 +16,12 @@ stages:
     toVersion: "1.28" 
   - stage: stable
     defaultValue: true
-    fromVersion: "1.29"  
+    fromVersion: "1.29"
+    toVersion: "1.30" 
+
+removed: true
 ---
+
 <!--
 Enable expression language validation in CRD
 which will validate customer resource based on validation rules written in
