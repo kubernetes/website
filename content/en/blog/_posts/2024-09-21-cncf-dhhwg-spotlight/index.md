@@ -50,7 +50,7 @@ Interpreters are most valuable during networking, not in talks (with captions). 
 
 **SK: In your view, how crucial is the role of allies within the DHHWG, and what contributions have they made to the group’s success?**
 
-**CP**: Deaf and hard of hearing individuals are a minority and can only do so much. ***Allies are key to any diversity and inclusion initiative***. As a majority, allies can help spread the word and educate their peers, playing a key role in scaling advocacy efforts. They also have the power to demand change. It's easy for companies to ignore minorities, but if the majority demands that their employers be accessible, environmentally conscious, and good citizens, they will ultimately be pushed to adapt to new societal values. 
+**CP**: Deaf and hard of hearing individuals are a minority and can only do so much. ***Allies are the key to any diversity and inclusion initiative***. As a majority, allies can help spread the word and educate their peers, playing a key role in scaling advocacy efforts. They also have the power to demand change. It's easy for companies to ignore minorities, but if the majority demands that their employers be accessible, environmentally conscious, and good citizens, they will ultimately be pushed to adapt to new societal values. 
 
 ## Expanding DEI efforts and future vision
 **SK: The importance of allies in driving change is clear. Beyond the DHHWG, are you involved in any other DEI groups or initiatives within the tech community?**
