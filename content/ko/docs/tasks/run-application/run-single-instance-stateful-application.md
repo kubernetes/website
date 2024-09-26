@@ -10,28 +10,17 @@ weight: 20
 사용하여, 단일 인스턴스 스테이트풀 애플리케이션을 실행하는 방법을 보인다.
 해당 애플리케이션은 MySQL이다.
 
-
-
-
 ## {{% heading "objectives" %}}
 
-
-* 사용자 환경의 디스크를 참조하는 퍼시스턴트볼륨 생성하기
-* MySQL 디플로이먼트 생성하기
-* 알려진 DNS 이름으로 클러스터의 다른 파드에 MySQL 서비스 노출하기
-
-
-
+- 사용자 환경의 디스크를 참조하는 퍼시스턴트볼륨 생성하기
+- MySQL 디플로이먼트 생성하기
+- 알려진 DNS 이름으로 클러스터의 다른 파드에 MySQL 서비스 노출하기
 
 ## {{% heading "prerequisites" %}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+- {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* {{< include "default-storage-class-prereqs.md" >}}
-
-
-
-
+- {{< include "default-storage-class-prereqs.md" >}}
 
 <!-- lessoncontent -->
 
@@ -54,81 +43,89 @@ MySQL을 실행하고 퍼시스턴트볼륨클레임을 참조하는 디플로�
 {{% codenew file="application/mysql/mysql-pv.yaml" %}}
 
 1. YAML 파일의 PV와 PVC를 배포한다.
-
-        kubectl apply -f https://k8s.io/examples/application/mysql/mysql-pv.yaml
-
+  ```shell
+  kubectl apply -f https://k8s.io/examples/application/mysql/mysql-pv.yaml
+  ```
 1. YAML 파일의 다른 오브젝트들을 배포한다.
-
-        kubectl apply -f https://k8s.io/examples/application/mysql/mysql-deployment.yaml
-
+  ```shell
+  kubectl apply -f https://k8s.io/examples/application/mysql/mysql-deployment.yaml
+  ```
 1. 디플로이먼트에 관한 정보를 확인한다.
+  ```shell
+  kubectl describe deployment mysql
+  ```
 
-        kubectl describe deployment mysql
+  출력은 다음과 유사하다.
 
-    출력은 다음과 유사하다.
-
-        Name:                 mysql
-        Namespace:            default
-        CreationTimestamp:    Tue, 01 Nov 2016 11:18:45 -0700
-        Labels:               app=mysql
-        Annotations:          deployment.kubernetes.io/revision=1
-        Selector:             app=mysql
-        Replicas:             1 desired | 1 updated | 1 total | 0 available | 1 unavailable
-        StrategyType:         Recreate
-        MinReadySeconds:      0
-        Pod Template:
-          Labels:       app=mysql
-          Containers:
-           mysql:
-            Image:      mysql:5.6
-            Port:       3306/TCP
-            Environment:
-              MYSQL_ROOT_PASSWORD:      password
-            Mounts:
-              /var/lib/mysql from mysql-persistent-storage (rw)
-          Volumes:
-           mysql-persistent-storage:
-            Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
-            ClaimName:  mysql-pv-claim
-            ReadOnly:   false
-        Conditions:
-          Type          Status  Reason
-          ----          ------  ------
-          Available     False   MinimumReplicasUnavailable
-          Progressing   True    ReplicaSetUpdated
-        OldReplicaSets:       <none>
-        NewReplicaSet:        mysql-63082529 (1/1 replicas created)
-        Events:
-          FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message
-          ---------    --------    -----    ----                -------------    --------    ------            -------
-          33s          33s         1        {deployment-controller }             Normal      ScalingReplicaSet Scaled up replica set mysql-63082529 to 1
+  ```
+  Name:                 mysql
+  Namespace:            default
+  CreationTimestamp:    Tue, 01 Nov 2016 11:18:45 -0700
+  Labels:               app=mysql
+  Annotations:          deployment.kubernetes.io/revision=1
+  Selector:             app=mysql
+  Replicas:             1 desired | 1 updated | 1 total | 0 available | 1 unavailable
+  StrategyType:         Recreate
+  MinReadySeconds:      0
+  Pod Template:
+    Labels:       app=mysql
+    Containers:
+     mysql:
+      Image:      mysql:5.6
+      Port:       3306/TCP
+      Environment:
+        MYSQL_ROOT_PASSWORD:      password
+      Mounts:
+        /var/lib/mysql from mysql-persistent-storage (rw)
+    Volumes:
+     mysql-persistent-storage:
+      Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+      ClaimName:  mysql-pv-claim
+      ReadOnly:   false
+  Conditions:
+    Type          Status  Reason
+    ----          ------  ------
+    Available     False   MinimumReplicasUnavailable
+    Progressing   True    ReplicaSetUpdated
+  OldReplicaSets:       <none>
+  NewReplicaSet:        mysql-63082529 (1/1 replicas created)
+  Events:
+    FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message
+    ---------    --------    -----    ----                -------------    --------    ------            -------
+    33s          33s         1        {deployment-controller }             Normal      ScalingReplicaSet Scaled up replica set mysql-63082529 to 1
+  ```
 
 1. 디플로이먼트로 생성된 파드를 나열한다.
+  ```shell
+  kubectl get pods -l app=mysql
+  ```
 
-        kubectl get pods -l app=mysql
+  출력은 다음과 유사하다.
 
-    출력은 다음과 유사하다.
-
-        NAME                   READY     STATUS    RESTARTS   AGE
-        mysql-63082529-2z3ki   1/1       Running   0          3m
-
+  ```
+  NAME                   READY     STATUS    RESTARTS   AGE
+  mysql-63082529-2z3ki   1/1       Running   0          3m
+  ```
 1. 퍼시스턴트볼륨클레임을 살펴본다.
+  ```shell
+  kubectl describe pvc mysql-pv-claim
+  ```
 
-        kubectl describe pvc mysql-pv-claim
+  출력은 다음과 유사하다.
 
-    출력은 다음과 유사하다.
-
-        Name:         mysql-pv-claim
-        Namespace:    default
-        StorageClass:
-        Status:       Bound
-        Volume:       mysql-pv-volume
-        Labels:       <none>
-        Annotations:    pv.kubernetes.io/bind-completed=yes
-                        pv.kubernetes.io/bound-by-controller=yes
-        Capacity:     20Gi
-        Access Modes: RWO
-        Events:       <none>
+  ```
+  Name:         mysql-pv-claim
+  Namespace:    default
+  StorageClass:
+  Status:       Bound
+  Volume:       mysql-pv-volume
+  Labels:       <none>
+  Annotations:    pv.kubernetes.io/bind-completed=yes
+                  pv.kubernetes.io/bound-by-controller=yes
+  Capacity:     20Gi
+  Access Modes: RWO
+  Events:       <none>
+  ```
 
 ## MySQL 인스턴스 접근하기
 
@@ -140,7 +137,7 @@ MySQL을 실행하고 퍼시스턴트볼륨클레임을 참조하는 디플로�
 
 서버에 접속하기 위하여 MySQL 클라이언트를 실행한다.
 
-```
+```shell
 kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppassword
 ```
 
@@ -161,11 +158,11 @@ mysql>
 이미지나 다른 부분을 변경할 수 있다. 스테이트풀 애플리케이션과 관련하여 몇 가지 
 주의 사항이 있다.
 
-* 애플리케이션을 스케일링하지 않는다. 이 설정은 단일 인스턴스 애플리케이션 전용이다. 
+- 애플리케이션을 스케일링하지 않는다. 이 설정은 단일 인스턴스 애플리케이션 전용이다.
   기본적인 퍼시스턴트볼륨은 하나의 파드에서만 마운트할 수 있다. 
   클러스터 형태의 스테이트풀 애플리케이션에 대해서는
   [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)을 보자.
-* 디플로이먼트 구성 YAML 파일에서 `strategy:` 
+- 디플로이먼트 구성 YAML 파일에서 `strategy:`
   `type: Recreate` 를 사용한다. 이는 쿠버네티스가 
   롤링 업데이트를 사용하지 _않도록_ 지시한다. 동시에 두 개 이상의 파드를 생성할 
   수 없으므로, 롤링 업데이트는 일어나지 않게 된다. `Recreate` 전략을 사용하면
@@ -175,7 +172,7 @@ mysql>
 
 이름으로 배포된 오브젝트를 삭제한다.
 
-```
+```shell
 kubectl delete deployment,svc mysql
 kubectl delete pvc mysql-pv-claim
 kubectl delete pv mysql-pv-volume
@@ -188,20 +185,12 @@ kubectl delete pv mysql-pv-volume
 일부 동적 프로비저너(EBS 와 PD와 같은)는 
 퍼시스턴트볼륨을 삭제할 때에 기본 리소스도 해제한다.
 
-
-
-
 ## {{% heading "whatsnext" %}}
 
+- [디플로이먼트 오브젝트](/ko/docs/concepts/workloads/controllers/deployment/)에 대해 더 배워 보기
 
-* [디플로이먼트 오브젝트](/ko/docs/concepts/workloads/controllers/deployment/)에 대해 더 배워 보기
+- [애플리케이션 배포하기](/ko/docs/tasks/run-application/run-stateless-application-deployment/)에 대해 더 배워보기
 
-* [애플리케이션 배포하기](/ko/docs/tasks/run-application/run-stateless-application-deployment/)에 대해 더 배워보기
+- [kubectl run 문서](/docs/reference/generated/kubectl/kubectl-commands/#run)
 
-* [kubectl run 문서](/docs/reference/generated/kubectl/kubectl-commands/#run)
-
-* [볼륨](/ko/docs/concepts/storage/volumes/)과 [퍼시스턴트 볼륨](/ko/docs/concepts/storage/persistent-volumes/)
-
-
-
-
+- [볼륨](/ko/docs/concepts/storage/volumes/)과 [퍼시스턴트 볼륨](/ko/docs/concepts/storage/persistent-volumes/)

@@ -27,25 +27,36 @@ weight: 120
 
 파드 내에서, 쿠버네티스 API에 연결하는 권장 방법은 다음과 같다.
 
-  - Go 클라이언트의 경우, 공식 [Go 클라이언트 라이브러리](https://github.com/kubernetes/client-go/)를 사용한다.
-    `rest.InClusterConfig()` 기능은 API 호스트 검색과 인증을 자동으로 처리한다.
-    [여기 예제](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go)를 참고한다.
+- Go 클라이언트의 경우, 공식
+  [Go 클라이언트 라이브러리](https://github.com/kubernetes/client-go/)를 사용한다.
+  `rest.InClusterConfig()` 기능은 API 호스트 검색과 인증을 자동으로 처리한다.
+  [여기 예제](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go)를 참고한다.
 
-  - Python 클라이언트의 경우, 공식 [Python 클라이언트 라이브러리](https://github.com/kubernetes-client/python/)를 사용한다.
-    `config.load_incluster_config()` 기능은 API 호스트 검색과 인증을 자동으로 처리한다.
-    [여기 예제](https://github.com/kubernetes-client/python/blob/master/examples/in_cluster_config.py)를 참고한다.
+- Python 클라이언트의 경우, 공식
+  [Python 클라이언트 라이브러리](https://github.com/kubernetes-client/python/)를 사용한다.
+  `config.load_incluster_config()` 기능은 API 호스트 검색과 인증을 자동으로 처리한다.
+  [여기 예제](https://github.com/kubernetes-client/python/blob/master/examples/in_cluster_config.py)를 참고한다.
 
-  - 사용할 수 있는 다른 라이브러리가 많이 있다. [클라이언트 라이브러리](/ko/docs/reference/using-api/client-libraries/) 페이지를 참고한다.
+- 사용할 수 있는 다른 라이브러리가 많이 있다.
+  [클라이언트 라이브러리](/ko/docs/reference/using-api/client-libraries/) 페이지를 참고한다.
 
 각각의 경우, 파드의 서비스 어카운트 자격 증명은 API 서버와
 안전하게 통신하는 데 사용된다.
 
 ### REST API에 직접 접근
 
-파드에서 실행되는 동안, 쿠버네티스 apiserver는 `default` 네임스페이스에서 `kubernetes`라는
-서비스를 통해 접근할 수 있다. 따라서, 파드는 `kubernetes.default.svc`
-호스트 이름을 사용하여 API 서버를 쿼리할 수 있다. 공식 클라이언트 라이브러리는
-이를 자동으로 수행한다.
+파드에서 실행되는 동안, 컨테이너는 `KUBERNETES_SERVICE_HOST` 및 `KUBERNETES_SERVICE_PORT_HTTPS`
+환경 변수를 가져와 쿠버네티스 API 서버에 대한 HTTPS URL을
+생성할 수 있다. API 서버의 클러스터 내 주소는 `default` 네임스페이스의
+`kubernetes`라는 이름의 서비스에도 게시되어 있으므로, 파드는 로컬 API 서버에 대한
+DNS 이름으로 `kubernetes.default.svc`를 참조할 수 있다.
+
+{{< note >}}
+쿠버네티스는 API 서버가 `kubernetes.default.svc` 호스트네임에 대해 유효한 인증서를
+가지고 있음을 보장하지 않는다.
+그러나 컨트롤 플레인**은** `$KUBERNETES_SERVICE_HOST`가 나타내는
+호스트네임 또는 IP 주소에 대해 유효한 인증서를 제공할 것으로 예상된다.
+{{< /note >}}
 
 API 서버를 인증하는 권장 방법은 
 [서비스 어카운트](/docs/tasks/configure-pod-container/configure-service-account/) 자격 증명을 사용하는 것이다. 
@@ -99,9 +110,7 @@ curl --cacert ${CACERT} --header "Authorization: Bearer ${TOKEN}" -X GET ${APISE
 ```json
 {
   "kind": "APIVersions",
-  "versions": [
-    "v1"
-  ],
+  "versions": ["v1"],
   "serverAddressByClientCIDRs": [
     {
       "clientCIDR": "0.0.0.0/0",
