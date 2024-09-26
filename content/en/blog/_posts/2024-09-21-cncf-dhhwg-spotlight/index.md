@@ -6,9 +6,9 @@ date: 2024-09-23
 author: "Sandeep Kanabar"
 ---
 
-_As we celebrate Deaf Awareness Month, we are spotlighting [Catherine Paganini](https://www.linkedin.com/in/catherinepaganini/), facilitator and one of the founding members of [CNCF Deaf and Hard-of-Hearing Working Group](https://contribute.cncf.io/about/deaf-and-hard-of-hearing/) (DHHWG). In this interview, Sandeep Kanabar, a deaf member of the DHHWG and part of the Kubernetes SIG ContribEx Communications team, sits down with Catherine to explore the impact of the DHHWG on cloud native projects like Kubernetes._
+_In recognition of Deaf Awareness Month and the importance of inclusivity in the tech community, we are spotlighting [Catherine Paganini](https://www.linkedin.com/in/catherinepaganini/), facilitator and one of the founding members of [CNCF Deaf and Hard-of-Hearing Working Group](https://contribute.cncf.io/about/deaf-and-hard-of-hearing/) (DHHWG). In this interview, [Sandeep Kanabar](https://www.linkedin.com/in/sandeepkanabar/), a deaf member of the DHHWG and part of the Kubernetes [SIG ContribEx Communications team](https://github.com/kubernetes/community/blob/master/sig-contributor-experience/README.md#contributor-comms), sits down with Catherine to explore the impact of the DHHWG on cloud native projects like Kubernetes._
 
-_Sandeep’s journey is a testament to the power of inclusion. Through his involvement in the DHHWG, he connected with members of the Kubernetes community who encouraged him to join SIG ContribEx - the group responsible for sustaining the Kubernetes contributor experience. In an ecosystem where open-source projects are actively seeking contributors and maintainers, this story highlights how important it is to create pathways for underrepresented groups, including those with disabilities, to contribute their unique perspectives and skills._
+_Sandeep’s journey is a testament to the power of inclusion. Through his involvement in the DHHWG, he connected with members of the Kubernetes community who encouraged him to join [SIG ContribEx](https://github.com/kubernetes/community/blob/master/sig-contributor-experience/README.md) - the group responsible for sustaining the Kubernetes contributor experience. In an ecosystem where open-source projects are actively seeking contributors and maintainers, this story highlights how important it is to create pathways for underrepresented groups, including those with disabilities, to contribute their unique perspectives and skills._
 
 _In this interview, we delve into Catherine’s journey, the challenges and triumphs of establishing the DHHWG, and the vision for a more inclusive future in cloud native. We invite Kubernetes contributors, maintainers, and community members to reflect on the **significance of empathy, advocacy, and community** in fostering a truly inclusive environment for all, and to think about how they can support efforts to increase diversity and accessibility within their own projects._
 
@@ -79,6 +79,6 @@ The next step is to refocus on advocacy. The same thing we did with the conferen
 
 ## Wrapping up
 
-Catherine and the DHHWG's work is a testament to the power of community and advocacy. As we celebrate Deaf Awareness Month, let's reflect on her role as an ally and consider how we can all contribute to building a more inclusive tech community.
+Catherine and the DHHWG's work exemplify the power of community and advocacy. As we celebrate Deaf Awareness Month, let's reflect on her role as an ally and consider how we can all contribute to building a more inclusive tech community, particularly within open-source projects like Kubernetes.
 
 *Together, we can break down barriers, challenge misconceptions, and ensure that everyone feels welcome and valued. By advocating for accessibility, supporting initiatives like the DHHWG, and fostering a culture of empathy, we can create a truly inclusive and welcoming space for all.*
