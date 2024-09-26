@@ -349,14 +349,24 @@ CSRs requesting serving certificates for any IP or domain name.
 
 ## Generating kubeconfig files for additional users {#kubeconfig-additional-users}
 
-During cluster creation, kubeadm signs the certificate in the `admin.conf` to have
-`Subject: O = system:masters, CN = kubernetes-admin`.
+During cluster creation, `kubeadm init` signs the certificate in the `super-admin.conf`
+to have `Subject: O = system:masters, CN = kubernetes-super-admin`.
 [`system:masters`](/docs/reference/access-authn-authz/rbac/#user-facing-roles)
 is a break-glass, super user group that bypasses the authorization layer (for example,
-[RBAC](/docs/reference/access-authn-authz/rbac/)).
-Sharing the `admin.conf` with additional users is **not recommended**!
+[RBAC](/docs/reference/access-authn-authz/rbac/)). The file `admin.conf` is also created
+by kubeadm on control plane nodes and it contains a certificate with
+`Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin`. `kubeadm:cluster-admins`
+is a group logically belonging to kubeadm. If your cluster uses RBAC
+(the kubeadm default), the `kubeadm:cluster-admins` group is bound to the
+[`cluster-admin`](/docs/reference/access-authn-authz/rbac/#user-facing-roles) ClusterRole.
 
-Instead, you can use the [`kubeadm kubeconfig user`](/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig)
+{{< warning >}}
+Avoid sharing the `super-admin.conf` or `admin.conf` files. Instead, create least
+privileged access even for people who work as administrators and use that least
+privilege alternative for anything other than break-glass (emergency) access.
+{{< /warning >}}
+
+You can use the [`kubeadm kubeconfig user`](/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig)
 command to generate kubeconfig files for additional users.
 The command accepts a mixture of command line flags and
 [kubeadm configuration](/docs/reference/config-api/kubeadm-config.v1beta4/) options.
