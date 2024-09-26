@@ -6,7 +6,11 @@ date: 2024-09-23
 author: "Sandeep Kanabar"
 ---
 
-_As we celebrate Deaf Awareness Month, we are spotlighting [Catherine Paganini](https://www.linkedin.com/in/catherinepaganini/), facilitator and one of the founding members of [CNCF Deaf and Hard-of-Hearing Working Group](https://contribute.cncf.io/accessibility/deaf-and-hard-of-hearing/) (DHHWG). In this spotlight, [Sandeep Kanabar](https://www.linkedin.com/in/sandeepkanabar/) interviews Catherine, who shares her journey, *the challenges and triumphs of establishing the DHHWG, and the vision for a more inclusive future in cloud native*. Join us as we explore the **importance of empathy, advocacy, and community** in creating a truly welcoming environment for all._
+_As we celebrate Deaf Awareness Month, we are spotlighting [Catherine Paganini](https://www.linkedin.com/in/catherinepaganini/), facilitator and one of the founding members of [CNCF Deaf and Hard-of-Hearing Working Group](https://contribute.cncf.io/about/deaf-and-hard-of-hearing/) (DHHWG). In this interview, Sandeep Kanabar, a deaf member of the DHHWG and part of the Kubernetes SIG ContribEx Communications team, sits down with Catherine to explore the impact of the DHHWG on cloud native projects like Kubernetes._
+
+_Sandeep’s journey is a testament to the power of inclusion. Through his involvement in the DHHWG, he connected with members of the Kubernetes community who encouraged him to join SIG ContribEx - the group responsible for sustaining the Kubernetes contributor experience. In an ecosystem where open-source projects are actively seeking contributors and maintainers, this story highlights how important it is to create pathways for underrepresented groups, including those with disabilities, to contribute their unique perspectives and skills._
+
+_In this interview, we delve into Catherine’s journey, the challenges and triumphs of establishing the DHHWG, and the vision for a more inclusive future in cloud native. We invite Kubernetes contributors, maintainers, and community members to reflect on the **significance of empathy, advocacy, and community** in fostering a truly inclusive environment for all, and to think about how they can support efforts to increase diversity and accessibility within their own projects._
 
 ## Introduction
 **Sandeep Kanabar (SK): Hello Catherine, could you please introduce yourself, share your professional background, and explain your connection to the Kubernetes ecosystem?**
