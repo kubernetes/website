@@ -24,7 +24,8 @@ Currently, I'm the co-chair of the [TAG Contributor Strategy](https://contribute
 
 **SK: Speaking of history, since its launch, how has the DHHWG evolved? Could you highlight some of the key milestones or achievements the group has reached recently?**
 
-**CP**: Our WG is about a year old. It started with a few deaf engineers and me brainstorming how to make KubeCon more accessible. We published an initial draft of [Best practices for an inclusive conference](https://contribute.cncf.io/accessibility/deaf-and-hard-of-hearing/conference-best-practices/) and shared it with the LF events team. KubeCon Chicago was two months later, and we had a couple of deaf attendees. It was the FIRST KubeCon accessible to deaf signers. [Destiny](https://www.linkedin.com/in/destiny-o-connor-28b2a5255/), one of our co-chairs, even participated in a [keynote panel](https://youtu.be/3WJ_s4Jvbsk?si=iscthTiCyMxoMUqY&t=347). It was incredible how quickly everything happened! 
+**CP**: Our WG is about a year old. It started with a few deaf engineers and me brainstorming how to make KubeCon more accessible. We published an initial draft of [Best practices for an inclusive conference](https://contribute.cncf.io/accessibility/deaf-and-hard-of-hearing/conference-best-practices/) and shared it with the LF events team. KubeCon Chicago was two months later, and we had a couple of deaf attendees. It was the FIRST KubeCon accessible to deaf signers. [Destiny](https://www.linkedin.com/in/destiny-o-connor-28b2a5255/), one of our co-chairs, even participated in a [keynote panel](https://youtu.be/3WJ_s4Jvbsk?si=iscthTiCyMxoMUqY&t=347). It was incredible how quickly everything happened!
+ 
 ![DHHWG members at KubeCon Chicago](cncf-dhhwg-chicago.jpg)
 *DHHWG members at KubeCon Chicago*
 
@@ -59,6 +60,7 @@ Interpreters are most valuable during networking, not in talks (with captions). 
 **SK: What does the future hold for the DHHWG? Can you share details about any ongoing or upcoming initiatives?**
 
 **CP**: I think we've been very successful in terms of visibility and awareness so far. We can't stop, though. Awareness work is ongoing, and most people in our community haven't heard about us or met anyone on our team yet, so a lot of work still lies ahead. 
+
 ![DHHWG members at KubeCon Paris](cncf-dhhwg-paris.jpg)
 *DHHWG members at KubeCon Paris*
 
