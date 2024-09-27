@@ -2,7 +2,7 @@
 layout: blog
 title: "Spotlight on CNCF Deaf and Hard-of-hearing Working Group (DHHWG)"
 slug: cncf-deaf-and-hard-of-hearing-working-group-spotlight
-date: 2024-09-23
+date: 2024-09-30
 author: "Sandeep Kanabar"
 ---
 
