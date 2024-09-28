@@ -1480,7 +1480,7 @@ If a webhook called by this has side effects (for example, decrementing quota) i
 *must* have a reconciliation system, as it is not guaranteed that subsequent
 webhooks or other validating admission controllers will permit the request to finish.
 -->
-如果以此方式调用的 Webhook 有其它副作用（如：减少配额），则它 **必须** 具有协调机制。
+如果以此方式调用的 Webhook 有其它副作用（如：减少配额），则它**必须**具有协调机制。
 这是因为无法保证后续的 Webhook 或其他验证性准入控制器都允许请求完成。
 
 <!--
@@ -1505,4 +1505,4 @@ You can enable additional admission controllers beyond the default set using the
 有。推荐使用的准入控制器默认情况下都处于启用状态
 （请查看[这里](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/#options)）。
 因此，你无需显式指定它们。
-你可以使用 `--enable-admission-plugins` 标志（ **顺序不重要** ）来启用默认设置以外的其他准入控制器。
+你可以使用 `--enable-admission-plugins` 标志（**顺序不重要**）来启用默认设置以外的其他准入控制器。
