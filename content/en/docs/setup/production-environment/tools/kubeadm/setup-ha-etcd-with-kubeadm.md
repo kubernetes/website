@@ -8,7 +8,6 @@ weight: 70
 
 <!-- overview -->
 
-{{< /note >}}
 
 By default, kubeadm runs a local etcd instance on each control plane node.
 It is also possible to treat the etcd cluster as external and provision
