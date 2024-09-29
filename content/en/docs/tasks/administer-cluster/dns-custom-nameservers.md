@@ -112,7 +112,7 @@ The Corefile configuration includes the following [plugins](https://coredns.io/p
 * [kubernetes](https://coredns.io/plugins/kubernetes/): CoreDNS will reply to DNS queries
   based on IP of the Services and Pods. You can find [more details](https://coredns.io/plugins/kubernetes/)
   about this plugin on the CoreDNS website.
-  - `ttl` allows you to set a custom TTL for responses. The default is 5 seconds.
+  - `ttl` allows you to set a custom TTL for responses. The default is 30 seconds.
     The minimum TTL allowed is 0 seconds, and the maximum is capped at 3600 seconds.
     Setting TTL to 0 will prevent records from being cached.  
   - The `pods insecure` option is provided for backward compatibility with `kube-dns`.
