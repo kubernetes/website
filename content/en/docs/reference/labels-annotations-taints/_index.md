@@ -2340,7 +2340,7 @@ Example:  `jobset.sigs.k8s.io/jobset-name: "my-jobset"`
 
 Used on: Jobs, Pods
 
-This label/annotation is used to store the name of the JobSet to which a Job or Pod belongs.
+This label/annotation is used to store the name of the JobSet that a Job or Pod belongs to.
 [JobSet](https://jobset.sigs.k8s.io) is an extension API that you can deploy into your Kubernetes cluster.
 
 ### jobset.sigs.k8s.io/replicatedjob-replicas
@@ -2361,7 +2361,7 @@ Example: `jobset.sigs.k8s.io/replicatedjob-name: "my-replicatedjob"`
 
 Used on: Jobs, Pods
 
-This label/annotation is used to index into a Job's labels and retrieve the name of the parent ReplicatedJob.
+This label/annotation stores the name of the ReplicatedJob that this Job or Pod is part of.
 
 ### jobset.sigs.k8s.io/job-index
 
