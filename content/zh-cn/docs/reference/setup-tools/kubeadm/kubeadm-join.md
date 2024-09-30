@@ -20,7 +20,7 @@ This command initializes a Kubernetes worker node and joins it to the cluster.
 
 
 <!-- body -->
-{{< include "generated/kubeadm_join.md" >}}
+{{< include "generated/kubeadm_join/_index.md" >}}
 
 <!--
 ### The join workflow {#join-workflow}
@@ -365,7 +365,7 @@ In case the discovery file does not contain credentials, the TLS discovery token
 #### 将自定义 kubelet 凭据与 `kubeadm join` 结合使用
 
 <!--
-To allow `kubeadm join` to use predefined kubelet credentials and skip client TLS bootstrap 
+To allow `kubeadm join` to use predefined kubelet credentials and skip client TLS bootstrap
 and CSR approval for a new node:
 -->
 要允许 `kubeadm join` 使用预定义的 kubelet 凭据并跳过客户端 TLS 引导程序和新节点的 CSR 批准：
@@ -603,10 +603,10 @@ the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/
 
 <!--
 For more information on the fields and usage of the configuration you can navigate to our
-[API reference](/docs/reference/config-api/kubeadm-config.v1beta3/).
+[API reference](/docs/reference/config-api/kubeadm-config.v1beta4/).
 -->
 有关配置的字段和用法的更多信息，你可以导航到我们的
-[API 参考页](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)。
+[API 参考页](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)。
 
 ## {{% heading "whatsnext" %}}
 

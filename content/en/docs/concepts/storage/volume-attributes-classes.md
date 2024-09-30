@@ -23,7 +23,7 @@ Kubernetes itself is un-opinionated about what these classes represent.
 This is a beta feature and disabled by default.
 
 If you want to test the feature whilst it's beta, you need to enable the `VolumeAttributesClass`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kube-controller-manager
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kube-controller-manager, kube-scheduler,
 and the kube-apiserver. You use the `--feature-gates` command line argument:
 
 ```

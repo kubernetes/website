@@ -57,7 +57,7 @@ Thus, the group membership defined in `/etc/group` in the container image for th
 
 The _implicitly_ merged group information from `/etc/group` in the container image may cause some concerns particularly in accessing volumes (see [kubernetes/kubernetes#112879](https://issue.k8s.io/112879) for details) because file permission is controlled by uid/gid in Linux. Even worse, the implicit gids from `/etc/group` can not be detected/validated by any policy engines because there is no clue for the implicit group information in the manifest. This can also be a concern for Kubernetes security.
 
-## Fine-grined SupplementalGroups control in a Pod: `SupplementaryGroupsPolicy`
+## Fine-grained SupplementalGroups control in a Pod: `SupplementaryGroupsPolicy`
 
 To tackle the above problem, Kubernetes 1.31 introduces new field `supplementalGroupsPolicy` in Pod's `.spec.securityContext`.
 

@@ -187,8 +187,10 @@ to learn more.
 ### Background cascading deletion {#background-deletion}
 
 In background cascading deletion, the Kubernetes API server deletes the owner
-object immediately and the controller cleans up the dependent objects in
-the background. By default, Kubernetes uses background cascading deletion unless
+object immediately and the garbage collector controller (custom or default)
+cleans up the dependent objects in the background.
+If a finalizer exists, it ensures that objects are not deleted until all necessary clean-up tasks are completed.
+By default, Kubernetes uses background cascading deletion unless
 you manually use foreground deletion or choose to orphan the dependent objects.
 
 See [Use background cascading deletion](/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)
@@ -196,7 +198,9 @@ to learn more.
 -->
 ### 后台级联删除 {#background-deletion}
 
-在后台级联删除过程中，Kubernetes 服务器立即删除属主对象，控制器在后台清理所有依赖对象。
+在后台级联删除过程中，Kubernetes 服务器立即删除属主对象，
+而垃圾收集控制器（无论是自定义的还是默认的）在后台清理所有依赖对象。
+如果存在 Finalizers，它会确保所有必要的清理任务完成后对象才被删除。
 默认情况下，Kubernetes 使用后台级联删除方案，除非你手动设置了要使用前台删除，
 或者选择遗弃依赖对象。
 
@@ -286,13 +290,11 @@ regardless of disk usage. This is a kubelet setting that you configure for each 
 这是一个可以为每个节点配置的 kubelet 设置。
 
 <!--
-To configure the setting, enable the `imageMaximumGCAge`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kubelet,
-and also set a value for the `imageMaximumGCAge` field in the kubelet configuration file.
+To configure the setting, you need to set a value for the `imageMaximumGCAge` 
+field in the kubelet configuration file.
 -->
-请为 kubelet 启用 `imageMaximumGCAge`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-并在 kubelet 配置文件中为 `imageMaximumGCAge` 字段赋值来配置该设置。
+要配置该设置，你需要在 kubelet 配置文件中为 `imageMaximumGCAge`
+字段设置一个值。
 
 <!--
 The value is specified as a Kubernetes _duration_; 

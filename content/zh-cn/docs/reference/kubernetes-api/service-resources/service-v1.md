@@ -54,7 +54,8 @@ Service 是软件服务（例如 mysql）的命名抽象，包含代理要侦听
   Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
   -->
 
-  spec 定义 Service 的行为。https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  spec 定义 Service 的行为。
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 - **status**（<a href="{{< ref "../service-resources/service-v1#ServiceStatus" >}}">ServiceStatus</a>）
 
@@ -93,6 +94,9 @@ ServiceSpec 描述用户在服务上创建的属性。
   *Map: unique values on keys `port, protocol` will be kept during a merge*
   
   The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+
+  <a name="ServicePort"></a>
+  *ServicePort contains information on service's port.*
   -->
 
   **Patch strategy：基于键 `type` 合并**
@@ -103,15 +107,11 @@ ServiceSpec 描述用户在服务上创建的属性。
   更多信息： https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 
   <a name="ServicePort"></a>
-
-  <!-- 
-  *ServicePort contains information on service's port.*
-  -->
-
   **ServicePort 包含有关 ServicePort 的信息。**
 
   <!-- 
   - **ports.port** (int32), required
+
     The port that will be exposed by this service.
   -->
 
@@ -123,6 +123,9 @@ ServiceSpec 描述用户在服务上创建的属性。
   - **ports.targetPort** (IntOrString)
 
     Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the 'port' field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the 'port' field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
+
+    <a name="IntOrString"></a>
+    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
   -->
 
   - **ports.targetPort** (IntOrString)
@@ -136,14 +139,9 @@ ServiceSpec 描述用户在服务上创建的属性。
     更多信息： https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
 
     <a name="IntOrString"></a>
-
-    <!-- 
-    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.* 
-    -->
-
-    IntOrString 是一种可以保存 int32 或字符串的类型。
+    **IntOrString 是一种可以保存 int32 或字符串的类型。
     在 JSON 或 YAML 编组和解组中使用时，它会生成或使用内部类型。
-    例如，这允许您拥有一个可以接受名称或数字的 JSON 字段。
+    例如，这允许您拥有一个可以接受名称或数字的 JSON 字段。**
 
   - **ports.protocol** (string)
 
@@ -187,24 +185,26 @@ ServiceSpec 描述用户在服务上创建的属性。
     此端口的应用协议，用作实现的提示，为他们理解的协议提供更丰富的行为。此字段遵循标准
     Kubernetes 标签语法，有效值包括：
     
-      <!--
-      * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
-   
-      * Kubernetes-defined prefixed names:
-        * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
-        * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
-        * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
-  
-      * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
-      -->
-      * 无前缀协议名称 - 保留用于 IANA 标准服务名称（根据 RFC-6335 和 https://www.iana.org/assignments/service-names）。
+    <!--
+    * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+    
+    * Kubernetes-defined prefixed names:
+      * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
+      * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
+      * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
+    
+    * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
+    -->
+
+    * 无前缀协议名称 - 保留用于 IANA 标准服务名称（根据 RFC-6335 和 https://www.iana.org/assignments/service-names）。
         
-      * Kubernetes 定义的前缀名称：
-        * 'kubernetes.io/h2c' - HTTP/2 明文传输，如 https://www.rfc-editor.org/rfc/rfc7540 中所述。
-        * 'kubernetes.io/ws'  - 基于明文的 WebSocket，如 https://www.rfc-editor.org/rfc/rfc6455 中所述。
-        * 'kubernetes.io/wss' - 基于 TLS 的 WebSocket，如 https://www.rfc-editor.org/rfc/rfc6455 中所述。
+    * Kubernetes 定义的前缀名称：
+      * 'kubernetes.io/h2c' - HTTP/2 先前以明文传输，如
+        https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior- 中所述。
+      * 'kubernetes.io/ws'  - 基于明文的 WebSocket，如 https://www.rfc-editor.org/rfc/rfc6455 中所述。
+      * 'kubernetes.io/wss' - 基于 TLS 的 WebSocket，如 https://www.rfc-editor.org/rfc/rfc6455 中所述。
         
-      * 其他协议应使用实现定义的前缀名称，例如 mycompany.com/my-custom-protocol。
+    * 其他协议应使用实现定义的前缀名称，例如 mycompany.com/my-custom-protocol。
 
 - **type** (string)
 
@@ -315,8 +315,12 @@ ServiceSpec 描述用户在服务上创建的属性。
 - **externalIPs** ([]string)
 
   <!-- 
+  *Atomic: will be replaced during a merge*
+  
   externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system. 
   -->
+
+  **原子：将在合并期间被替换**
 
   externalIPs 是一个 IP 列表，集群中的节点会为此 Service 接收针对这些 IP 地址的流量。
   这些 IP 不被 Kubernetes 管理。用户需要确保流量可以到达具有此 IP 的节点。
@@ -335,12 +339,7 @@ ServiceSpec 描述用户在服务上创建的属性。
 - **loadBalancerIP** (string)
 
   <!-- 
-  Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider
-  supports specifying the loadBalancerIP when a load balancer is created.
-  This field will be ignored if the cloud-provider does not support the feature.
-  Deprecated: This field was under-specified and its meaning varies across implementations.
-  Using it is non-portable and it may not support dual-stack. Users are encouraged to use
-  implementation-specific annotations when available. 
+  Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature. Deprecated: This field was under-specified and its meaning varies across implementations. Using it is non-portable and it may not support dual-stack. Users are encouraged to use implementation-specific annotations when available.
   -->
   仅适用于服务类型：LoadBalancer。此功能取决于底层云提供商是否支持负载均衡器。
   如果云提供商不支持该功能，该字段将被忽略。
@@ -350,8 +349,12 @@ ServiceSpec 描述用户在服务上创建的属性。
 - **loadBalancerSourceRanges** ([]string)
 
   <!-- 
+  *Atomic: will be replaced during a merge*
+  
   If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/ 
   -->
+
+  **原子：将在合并期间被替换**
 
   如果设置了此字段并且被平台支持，将限制通过云厂商的负载均衡器的流量到指定的客户端 IP。
   如果云提供商不支持该功能，该字段将被忽略。
@@ -434,32 +437,29 @@ ServiceSpec 描述用户在服务上创建的属性。
 - **sessionAffinityConfig** (SessionAffinityConfig)
 
   <!-- 
-  sessionAffinityConfig contains the configurations of session affinity. 
+  sessionAffinityConfig contains the configurations of session affinity.
+
+  <a name="SessionAffinityConfig"></a>
+  *SessionAffinityConfig represents the configurations of session affinity.*
   -->
   sessionAffinityConfig 包含会话亲和性的配置。
 
   <a name="SessionAffinityConfig"></a>
-
-  <!-- 
-  *SessionAffinityConfig represents the configurations of session affinity.* 
-  -->
   **SessionAffinityConfig 表示会话亲和性的配置。**
 
   - **sessionAffinityConfig.clientIP** (ClientIPConfig)
 
     <!-- 
-    clientIP contains the configurations of Client IP based session affinity. 
+    clientIP contains the configurations of Client IP based session affinity.
+
+    <a name="ClientIPConfig"></a>
+    *ClientIPConfig represents the configurations of Client IP based session affinity.*
     -->
     
     clientIP 包含基于客户端 IP 的会话亲和性的配置。
 
     <a name="ClientIPConfig"></a>
-  
-    <!-- 
-    *ClientIPConfig represents the configurations of Client IP based session affinity.* 
-    -->
-
-    ClientIPConfig 表示基于客户端 IP 的会话亲和性的配置。
+    **ClientIPConfig 表示基于客户端 IP 的会话亲和性的配置。**
 
     - **sessionAffinityConfig.clientIP.timeoutSeconds** (int32)
 
@@ -481,6 +481,18 @@ ServiceSpec 描述用户在服务上创建的属性。
   如果调用者（通过指定一个值）请求特定的 NodePort，则无论此字段如何，都会接受这些请求。
   该字段只能设置在 type 为 LoadBalancer 的 Service 上，如果 type 更改为任何其他类型，该字段将被移除。
 
+<!--
+- **trafficDistribution** (string)
+
+  TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an beta field and requires enabling ServiceTrafficDistribution feature.
+-->
+- **trafficDistribution** (string)
+
+  trafficDistribution 提供了一种流量如何被分配到 Service 端点的偏好表达方式。
+  各个实现可以将此字段用作提示，但不需要严格遵守。如果此字段未设置，实现将应用其默认路由策略。
+  如果设置为“PreferClose”，则实现应优先考虑在拓扑上接近的端点（例如，位于同一区域）。
+  这是一个 Beta 字段，需要启用 ServiceTrafficDistribution 特性。
+
 ## ServiceStatus {#ServiceStatus}
 
 <!-- 
@@ -496,28 +508,29 @@ ServiceStatus 表示 Service 的当前状态。
   *Patch strategy: merge on key `type`*
 
   *Map: unique values on key type will be kept during a merge*
+  
+  Current service state
 
-  Current service state 
+  <a name="Condition"></a>
+  *Condition contains details for one aspect of the current state of this API Resource.*
   -->
 
-  **Patch strategy: 在 `type` 上合并**
+  **补丁策略：基于键 `type` 合并**
 
   **Map: 键类型的唯一值将在合并期间保留**
 
   服务的当前状态。
 
   <a name="Condition"></a>
-
-  <!-- 
-  *Condition contains details for one aspect of the current state of this API Resource.* 
-  -->
-
   **condition 包含此 API 资源某一方面当前的状态详细信息。**
 
   <!--
-  - **conditions.lastTransitionTime**（Time）, required
-    
-    lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable. 
+  - **conditions.lastTransitionTime** (Time), required
+
+    lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+
+    <a name="Time"></a>
+    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
   -->
   
   - **conditions.lastTransitionTime**（Time），必需
@@ -527,13 +540,8 @@ ServiceStatus 表示 Service 的当前状态。
     那么使用 API 字段更改的时间是可以接受的。
 
     <a name="Time"></a>
-  
-    <!-- 
-    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.* 
-    -->
-
-    Time 是 time.Time 的包装类，支持正确地序列化为 YAML 和 JSON。
-    为 time 包提供的许多工厂方法提供了包装类。
+    **Time 是 time.Time 的包装类，支持正确地序列化为 YAML 和 JSON。
+    为 time 包提供的许多工厂方法提供了包装类。**
 
   <!-- 
   - **conditions.message** (string), required
@@ -598,33 +606,33 @@ ServiceStatus 表示 Service 的当前状态。
 - **loadBalancer** (LoadBalancerStatus)
 
   <!-- 
-  LoadBalancer contains the current status of the load-balancer, if one is present. 
+  LoadBalancer contains the current status of the load-balancer, if one is present.
+
+  <a name="LoadBalancerStatus"></a>
+  *LoadBalancerStatus represents the status of a load-balancer.*
   -->
 
   loadBalancer 包含负载均衡器的当前状态（如果存在）。
 
   <a name="LoadBalancerStatus"></a>
-
-  <!-- 
-  *LoadBalancerStatus represents the status of a load-balancer.* 
-  -->
-
   **LoadBalancerStatus 表示负载均衡器的状态。**
 
   - **loadBalancer.ingress** ([]LoadBalancerIngress)
 
     <!-- 
-    Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points. 
+    *Atomic: will be replaced during a merge*
+    
+    Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.
+
+    <a name="LoadBalancerIngress"></a>
+    *LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.*
     -->
   
+    **原子：将在合并期间被替换**
+
     ingress 是一个包含负载均衡器 Ingress 点的列表。Service 的流量需要被发送到这些 Ingress 点。
 
     <a name="LoadBalancerIngress"></a>
-  
-    <!-- 
-    *LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.* 
-    -->
-
     **LoadBalancerIngress 表示负载平衡器入口点的状态: 用于服务的流量是否被发送到入口点。**
 
     - **loadBalancer.ingress.hostname** (string)
@@ -721,27 +729,25 @@ ServiceList 包含一个 Service 列表。
 
 - **apiVersion**: v1
 
-- **kind**：Service 列表
+- **kind**: ServiceList
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
   <!-- 
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds 
   -->
-  标准列表元数据。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+
+  标准的列表元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 <!-- 
-- **items**（[]<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>）, required
--->
+- **items** ([]<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>), required
 
+  List of services
+-->
 - **items**（[]<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>），必需
 
-  <!-- 
-  List of services 
-  -->
-
-  Service 列表
+  Service 列表。
 
 <!-- 
 ## Operations {#Operations}
@@ -765,15 +771,24 @@ GET /api/v1/namespaces/{namespace}/services/{name}
 
 <!--
 #### Parameters
+
+- **name** (*in path*): string, required
+
+  name of the Service
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 #### 参数
 
 - **name** (**查询参数**)：string，必需
 
-  <!-- 
-  name of the Service 
-  -->
-  Service 名称
+  Service 的名称。
 
 - **namespace**（**路径参数**）：string，必需
 
@@ -786,7 +801,6 @@ GET /api/v1/namespaces/{namespace}/services/{name}
 <!--
 #### Response
 -->
-
 #### 响应
 
 200（<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>）: OK
@@ -798,7 +812,6 @@ GET /api/v1/namespaces/{namespace}/services/{name}
 
 #### HTTP Request 
 -->
-
 ### `get` 读取指定 Service 的状态
 
 #### HTTP 请求
@@ -807,17 +820,24 @@ GET /api/v1/namespaces/{namespace}/services/{name}/status
 
 <!--
 #### Parameters
--->
 
+- **name** (*in path*): string, required
+
+  name of the Service
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+-->
 #### 参数
 
 - **name** (**路径参数**)：string，必需
 
-  <!-- 
-  name of the Service 
-  -->
-
-  Service 名称
+  Service 的名称。
 
 - **namespace**（**路径参数**）：string，必需
 
@@ -830,7 +850,6 @@ GET /api/v1/namespaces/{namespace}/services/{name}/status
 <!--
 #### Response
 -->
-
 #### 响应
 
 200（<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>）: OK
@@ -842,7 +861,6 @@ GET /api/v1/namespaces/{namespace}/services/{name}/status
 
 #### HTTP Request 
 -->
-
 ### `list` 列出或监测 Service 类型的对象
 
 #### HTTP 请求
@@ -851,8 +869,55 @@ GET /api/v1/namespaces/{namespace}/services
 
 <!--
 #### Parameters
--->
 
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **allowWatchBookmarks** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
+
+- **continue** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
+- **fieldSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
+- **labelSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
+- **limit** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+- **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
+- **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
+- **watch** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
+-->
 #### 参数
 
 - **namespace**（**路径参数**）：string，必需
@@ -891,11 +956,6 @@ GET /api/v1/namespaces/{namespace}/services
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-<!--
-- **sendInitialEvents** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
--->
 - **sendInitialEvents** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
@@ -911,7 +971,6 @@ GET /api/v1/namespaces/{namespace}/services
 <!--
 #### Response
 -->
-
 #### 响应
 
 200（<a href="{{< ref "../service-resources/service-v1#ServiceList" >}}">ServiceList</a>）: OK
@@ -923,7 +982,6 @@ GET /api/v1/namespaces/{namespace}/services
 
 #### HTTP Request 
 -->
-
 ### `list` 列出或监测 Service 类型的对象
 
 #### HTTP 请求
@@ -932,8 +990,51 @@ GET /api/v1/services
 
 <!--
 #### Parameters
--->
 
+- **allowWatchBookmarks** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
+
+- **continue** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
+- **fieldSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
+- **labelSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
+- **limit** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+- **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
+- **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
+- **watch** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
+-->
 #### 参数
 
 - **allowWatchBookmarks**（**查询参数**）：boolean
@@ -968,11 +1069,6 @@ GET /api/v1/services
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-<!--
-- **sendInitialEvents** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
--->
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
@@ -988,7 +1084,6 @@ GET /api/v1/services
 <!--
 #### Response
 -->
-
 #### 响应
 
 200（<a href="{{< ref "../service-resources/service-v1#ServiceList" >}}">ServiceList</a>）: OK
@@ -1000,7 +1095,6 @@ GET /api/v1/services
 
 #### HTTP Request 
 -->
-
 ### `create` 创建一个 Service
 
 #### HTTP 请求
@@ -1009,8 +1103,29 @@ POST /api/v1/namespaces/{namespace}/services
 
 <!--
 #### Parameters
--->
 
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **body**: <a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>, required
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+-->
 #### 参数
 
 - **namespace**（**路径参数**）：string，必需
@@ -1038,7 +1153,6 @@ POST /api/v1/namespaces/{namespace}/services
 <!--
 #### Response
 -->
-
 #### 响应
 
 200（<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>）: OK
@@ -1054,7 +1168,6 @@ POST /api/v1/namespaces/{namespace}/services
 
 #### HTTP Request 
 -->
-
 ### `update` 替换指定的 Service
 
 #### HTTP 请求
@@ -1063,17 +1176,38 @@ PUT /api/v1/namespaces/{namespace}/services/{name}
 
 <!--
 #### Parameters
--->
 
+- **name** (*in path*): string, required
+
+  name of the Service
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **body**: <a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>, required
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+-->
 #### 参数
 
 - **name** (**路径参数**)：string，必需
 
-  <!-- 
-  name of the Service 
-  -->
-
-  Service 名称
+  Service 的名称。
 
 - **namespace**（**路径参数**）：string，必需
 
@@ -1100,7 +1234,6 @@ PUT /api/v1/namespaces/{namespace}/services/{name}
 <!--
 #### Response
 -->
-
 #### 响应
 
 200（<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>）: OK
@@ -1114,7 +1247,6 @@ PUT /api/v1/namespaces/{namespace}/services/{name}
 
 #### HTTP Request 
 -->
-
 ### `update` 替换指定 Service 的状态
 
 #### HTTP 请求
@@ -1123,17 +1255,38 @@ PUT /api/v1/namespaces/{namespace}/services/{name}/status
 
 <!--
 #### Parameters
--->
 
+- **name** (*in path*): string, required
+
+  name of the Service
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **body**: <a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>, required
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+-->
 #### 参数
 
 - **name** (**路径参数**)：string，必需
 
-  <!--
-  name of the Service 
-  -->
-
-  Service 名称
+  Service 的名称。
 
 - **namespace**（**路径参数**）：string，必需
 
@@ -1160,7 +1313,6 @@ PUT /api/v1/namespaces/{namespace}/services/{name}/status
 <!--
 #### Response
 -->
-
 #### 响应
 
 200（<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>）: OK
@@ -1174,7 +1326,6 @@ PUT /api/v1/namespaces/{namespace}/services/{name}/status
 
 #### HTTP Request 
 -->
-
 ### `patch` 部分更新指定的 Service
 
 #### HTTP 请求
@@ -1183,17 +1334,42 @@ PATCH /api/v1/namespaces/{namespace}/services/{name}
 
 <!--
 #### Parameters
--->
 
+- **name** (*in path*): string, required
+
+  name of the Service
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+-->
 #### 参数
 
 - **name** (**路径参数**)：string，必需
 
-  <!-- 
-  name of the Service 
-  -->
-
-  Service 名称
+  Service 的名称。
 
 - **namespace**（**路径参数**）：string，必需
 
@@ -1224,7 +1400,6 @@ PATCH /api/v1/namespaces/{namespace}/services/{name}
 <!--
 #### Response
 -->
-
 #### 响应
 
 200（<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>）: OK
@@ -1246,17 +1421,42 @@ PATCH /api/v1/namespaces/{namespace}/services/{name}/status
 
 <!--
 #### Parameters
--->
 
+- **name** (*in path*): string, required
+
+  name of the Service
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+-->
 #### 参数
 
 - **name** (**路径参数**)：string，必需
 
-  <!-- 
-  name of the Service 
-  -->
-
-  Service 名称
+  Service 的名称。
 
 - **namespace**（**路径参数**）：string，必需
 
@@ -1287,7 +1487,6 @@ PATCH /api/v1/namespaces/{namespace}/services/{name}/status
 <!--
 #### Response
 -->
-
 #### 响应
 
 200（<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>）: OK
@@ -1301,7 +1500,6 @@ PATCH /api/v1/namespaces/{namespace}/services/{name}/status
 
 #### HTTP Request 
 -->
-
 ### `delete` 删除 Service
 
 #### HTTP 请求
@@ -1310,23 +1508,44 @@ DELETE /api/v1/namespaces/{namespace}/services/{name}
 
 <!--
 #### Parameters
--->
 
+- **name** (*in path*): string, required
+
+  name of the Service
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **gracePeriodSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+- **propagationPolicy** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+-->
 #### 参数
 
 - **name** (**路径参数**)：string，必需
 
-  <!-- 
-  name of the Service 
-  -->
-
-  Service 名称
+  Service 的名称。
 
 - **namespace**（**路径参数**）：string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **正文**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
 - **dryRun**（**查询参数**）：string
 
@@ -1347,7 +1566,6 @@ DELETE /api/v1/namespaces/{namespace}/services/{name}
 <!--
 #### Response
 -->
-
 #### 响应
 
 200（<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>）: OK
@@ -1361,7 +1579,6 @@ DELETE /api/v1/namespaces/{namespace}/services/{name}
 
 #### HTTP Request 
 -->
-
 ### `deletecollection` 删除 Service 集合
 
 #### HTTP 请求
@@ -1370,8 +1587,61 @@ DELETE /api/v1/namespaces/{namespace}/services
 
 <!--
 #### Parameters
--->
 
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+
+- **continue** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
+- **gracePeriodSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **labelSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
+- **limit** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+- **propagationPolicy** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+
+- **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
+- **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+-->
 #### 参数
 
 - **namespace**（**路径参数**）：string，必需
@@ -1420,11 +1690,6 @@ DELETE /api/v1/namespaces/{namespace}/services
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-<!--
-- **sendInitialEvents** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
--->
 - **sendInitialEvents** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
@@ -1436,7 +1701,6 @@ DELETE /api/v1/namespaces/{namespace}/services
 <!--
 #### Response
 -->
-
 #### 响应
 
 200（<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>）: OK

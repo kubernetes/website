@@ -399,6 +399,8 @@ liveness and readiness checks:
   ignored. Defaults to 0 seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10 seconds.
   The minimum value is 1.
+  While a container is not Ready, the `ReadinessProbe` may be executed at times other than
+  the configured `periodSeconds` interval. This is to make the Pod ready faster.
 * `timeoutSeconds`: Number of seconds after which the probe times out.
   Defaults to 1 second. Minimum value is 1.
 * `successThreshold`: Minimum consecutive successes for the probe to be considered successful

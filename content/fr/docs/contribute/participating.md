@@ -179,7 +179,7 @@ Pour l'affectation des tickets, des pull requests, et aider la validation des PR
 ### OWNERS files et front-matter
 
 Le projet Kubernetes utilise un outil d'automatisation appelé prow pour l'automatisation liée aux Github issues et aux pull requests.
-Le [dépôt du site web Kubernetes](https://github.com/kubernetes/website) utilise deux [plugins prow](https://github.com/kubernetes/test-infra/tree/master/prow/plugins):
+Le [dépôt du site web Kubernetes](https://github.com/kubernetes/website) utilise deux [plugins prow](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins):
 
 - blunderbuss
 - approve

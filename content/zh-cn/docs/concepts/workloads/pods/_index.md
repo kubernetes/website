@@ -589,7 +589,7 @@ Pods, the kubelet directly supervises each static Pod (and restarts it if it fai
 <!--
 Static Pods are always bound to one {{< glossary_tooltip term_id="kubelet" >}} on a specific node.
 The main use for static Pods is to run a self-hosted control plane: in other words,
-using the kubelet to supervise the individual [control plane components](/docs/concepts/overview/components/#control-plane-components).
+using the kubelet to supervise the individual [control plane components](/docs/concepts/architecture/#control-plane-components).
 
 The kubelet automatically tries to create a {{< glossary_tooltip text="mirror Pod" term_id="mirror-pod" >}}
 on the Kubernetes API server for each static Pod.
@@ -599,7 +599,7 @@ but cannot be controlled from there. See the guide [Create static Pods](/docs/ta
 静态 Pod 通常绑定到某个节点上的 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}。
 其主要用途是运行自托管的控制面。
 在自托管场景中，使用 `kubelet`
-来管理各个独立的[控制面组件](/zh-cn/docs/concepts/overview/components/#control-plane-components)。
+来管理各个独立的[控制面组件](/zh-cn/docs/concepts/architecture/#control-plane-components)。
 
 `kubelet` 自动尝试为每个静态 Pod 在 Kubernetes API
 服务器上创建一个{{< glossary_tooltip text="镜像 Pod" term_id="mirror-pod" >}}。

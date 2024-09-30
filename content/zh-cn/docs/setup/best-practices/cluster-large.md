@@ -196,7 +196,7 @@ many nodes, consider the following:
   as you scale out your cluster.
 * Many addons scale horizontally - you add capacity by running more pods - but with
   a very large cluster you may also need to raise CPU or memory limits slightly.
-  The VerticalPodAutoscaler can run in _recommender_ mode to provide suggested
+  The [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) can run in _recommender_ mode to provide suggested
   figures for requests and limits.
 * Some addons run as one copy per node, controlled by a {{< glossary_tooltip text="DaemonSet"
   term_id="daemonset" >}}: for example, a node-level log aggregator. Similar to
@@ -209,8 +209,8 @@ many nodes, consider the following:
   对于这些附加组件，请在扩大集群时加大资源请求和资源限制。
 * 许多水平扩展插件 —— 你可以通过运行更多的 Pod 来增加容量——但是在大规模集群下，
   可能还需要稍微提高 CPU 或内存限制。
-  VerticalPodAutoscaler 可以在 **recommender** 模式下运行，
-  以提供有关请求和限制的建议数字。
+  [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)
+  可以在 **recommender** 模式下运行，以提供有关请求和限制的建议数字。
 * 一些插件在每个节点上运行一个副本，并由 DaemonSet 控制：
   例如，节点级日志聚合器。与水平扩展插件的情况类似，
   你可能还需要稍微提高 CPU 或内存限制。

@@ -32,15 +32,18 @@ Kubernetes API 是通过 HTTP 提供的基于资源 (RESTful) 的编程接口。
 为了方便或者提高效率，可以以不同的表示形式接受和服务这些资源。
 
 <!--
-Kubernetes supports efficient change notifications on resources via *watches*.
+Kubernetes supports efficient change notifications on resources via
+_watches_:
+{{< glossary_definition prepend="in the Kubernetes API, watch is" term_id="watch" length="short" >}}
 Kubernetes also provides consistent list operations so that API clients can
 effectively cache, track, and synchronize the state of resources.
 
 You can view the [API reference](/docs/reference/kubernetes-api/) online,
 or read on to learn about the API in general.
 -->
-Kubernetes 支持通过 **watch** 实现高效的资源变更通知。
-Kubernetes 还提供了一致的列表操作，以便 API 客户端可以有效地缓存、跟踪和同步资源的状态。
+Kubernetes 支持通过 **watch** 实现高效的资源变更通知：
+{{< glossary_definition prepend="在 Kubernetes API 中，watch 的是" term_id="watch" length="short" >}}
+Kubernetes 还提供一致的列表操作，以便 API 客户端可以有效地缓存、跟踪和同步资源的状态。
 
 你可以在线查看 [API 参考](/zh-cn/docs/reference/kubernetes-api/)，
 或继续阅读以了解 API 的一般信息。
@@ -83,9 +86,9 @@ as a permission check
 大多数 Kubernetes API
 资源类型都是[对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)：
 它们代表集群上某个概念的具体实例，例如 Pod 或名字空间。
-少数 API 资源类型是 “虚拟的”，它们通常代表的是操作而非对象本身，
+少数 API 资源类型是“虚拟的”，它们通常代表的是操作而非对象本身，
 例如权限检查（使用带有 JSON 编码的 `SubjectAccessReview` 主体的 POST 到 `subjectaccessreviews` 资源），
-或 Pod 的子资源 `eviction`（用于触发 [API-发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)）。
+或 Pod 的子资源 `eviction`（用于触发 [API 发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)）。
 
 <!--
 ### Object names
@@ -161,7 +164,8 @@ Examples:
 
 注意： 核心资源使用 `/api` 而不是 `/apis`，并且不包含 GROUP 路径段。
 
-例如:
+例如：
+
 * `/api/v1/namespaces`
 * `/api/v1/pods`
 * `/api/v1/namespaces/my-namespace/pods`
@@ -187,9 +191,12 @@ The following paths are used to retrieve collections and resources:
 你还可以访问资源集合（例如：列出所有 Node）。以下路径用于检索集合和资源：
 
 * 集群作用域的资源：
+
   * `GET /apis/GROUP/VERSION/RESOURCETYPE` - 返回指定资源类型的资源的集合
   * `GET /apis/GROUP/VERSION/RESOURCETYPE/NAME` - 返回指定资源类型下名称为 NAME 的资源
+
 * 名字空间作用域的资源：
+
   * `GET /apis/GROUP/VERSION/RESOURCETYPE` - 返回所有名字空间中指定资源类型的全部实例的集合
   * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE` - 返回名字空间 NAMESPACE 内给定资源类型的全部实例的集合
   * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME` - 返回名字空间 NAMESPACE 中给定资源类型的名称为 NAME 的实例
@@ -535,7 +542,7 @@ response (10-20MB) and consume a large amount of server resources.
 -->
 在较大规模集群中，检索某些资源类型的集合可能会导致非常大的响应，从而影响服务器和客户端。
 例如，一个集群可能有数万个 Pod，每个 Pod 大约相当于 2 KiB 的编码 JSON。
-跨所有名字空间检索所有 Pod 可能会导致非常大的响应 (10-20MB) 并消耗大量服务器资源。
+跨所有名字空间检索所有 Pod 可能会导致非常大的响应（10-20MB）并消耗大量服务器资源。
 
 <!--
 The Kubernetes API server supports the ability to break a single large collection request
@@ -1280,7 +1287,7 @@ information about warnings and the Kubernetes API, see the blog article
 `Warn`
 :（默认值）使 API 服务器成功处理请求，并向客户端发送告警信息。告警信息通过 `Warning:` 响应头发送，
 并为每个未知字段或重复字段添加一条告警信息。有关告警和相关的 Kubernetes API 的信息，
-可参阅博文[告警：增加实用告警功能](/blog/2020/09/03/warnings/)。
+可参阅博文[告警：增加实用告警功能](/zh-cn/blog/2020/09/03/warnings/)。
 
 <!--
 : The API server rejects the request with a 400 Bad Request error when it
@@ -1418,7 +1425,7 @@ that they do not have side effects, by setting their `sideEffects` field to `Non
 -->
 如果请求的非试运行版本会触发具有副作用的准入控制器，则该请求将失败，而不是冒不希望的副作用的风险。
 所有内置准入控制插件都支持试运行。
-此外，准入 Webhook 还可以设置[配置对象](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#validatingwebhook-v1-admissionregistration-k8s-io)
+此外，准入 Webhook 还可以设置[配置对象](/zh-cn/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#validatingwebhook-v1-admissionregistration-k8s-io)
 的 `sideEffects` 字段为 `None`，借此声明它们没有副作用。
 
 <!--
@@ -1844,7 +1851,7 @@ For **get** and **list**, the semantics of `resourceVersion` are:
 
 对于 **get** 和 **list** 而言，`resourceVersion` 的语义为：
 
-**get:**
+**get：**
 
 <!--
 | resourceVersion unset | resourceVersion="0" | resourceVersion="{value other than 0}" |
@@ -1855,7 +1862,7 @@ For **get** and **list**, the semantics of `resourceVersion` are:
 |-----------------------|---------------------|----------------------------------------|
 | 最新版本               | 任何版本            | 不老于给定版本                         |
 
-**list:**
+**list：**
 
 <!--
 From version v1.19, Kubernetes API servers support the `resourceVersionMatch` parameter
@@ -1943,10 +1950,6 @@ Any
   for the request to return data at a much older resource version that the client has previously
   observed, particularly in high availability configurations, due to partitions or stale
   caches. Clients that cannot tolerate this should not use this semantic.
-
-Most recent
-: Return data at the most recent resource version. The returned data must be
-  consistent (in detail: served from etcd via a quorum read).
 -->
 任意版本
 : 返回任何资源版本的数据。最新可用资源版本优先，但不需要强一致性；
@@ -1954,10 +1957,24 @@ Most recent
   请求可能返回客户端先前观察到的更旧资源版本的数据，特别是在高可用性配置中。
   不能容忍这种情况的客户不应该使用这种语义。
 
+<!--
+Most recent
+: Return data at the most recent resource version. The returned data must be
+  consistent (in detail: served from etcd via a quorum read).
+  For etcd v3.4.31+ and v3.5.13+ Kubernetes {{< skew currentVersion >}} serves “most recent” reads from the _watch cache_:
+  an internal, in-memory store within the API server that caches and mirrors the state of data
+  persisted into etcd. Kubernetes requests progress notification to maintain cache consistency against
+  the etcd persistence layer. Kubernetes versions v1.28 through to v1.30 also supported this
+  feature, although as Alpha it was not recommended for production nor enabled by default until the v1.31 release.
+-->
 最新版本
 : 返回最新资源版本的数据。
   返回的数据必须一致（详细说明：通过仲裁读取从 etcd 提供）。
-
+  对于 etcd v3.4.31+ 和 v3.5.13+ Kubernetes {{< skew currentVersion >}} 使用**监视缓存**来为“最新”读取提供服务：
+  监视缓存是 API 服务器内部的基于内存的存储，用于缓存和镜像持久化到 etcd 中的数据状态。
+  Kubernetes 请求进度通知以维护与 etcd 持久层的缓存一致性。Kubernetes
+  版本 v1.28 至 v1.30 也支持此特性，尽管当时其处于 Alpha 状态，不推荐用于生产，
+  也不默认启用，直到 v1.31 版本才启用。
 
 <!--
 Not older than
@@ -1992,14 +2009,13 @@ Continue Token, Exact
 
 精确匹配
 : 以提供的确切资源版本返回数据。如果提供的 `resourceVersion` 不可用，
-  则服务器以 HTTP 410 “Gone”响应。对于对支持 `resourceVersionMatch` 参数的服务器的 **list** 请求，
+  则服务器以 HTTP 410 “Gone” 响应。对于对支持 `resourceVersionMatch` 参数的服务器的 **list** 请求，
   这可以保证集合的 `.metadata.resourceVersion` 与你在查询字符串中请求的 `resourceVersion` 相同。
   该保证不适用于该集合中任何项目的 `.metadata.resourceVersion`。
 
 从 token 开始、精确匹配
 : 返回初始分页 **list** 调用的资源版本的数据。
   返回的 **Continue 令牌**负责跟踪最初提供的资源版本，最初提供的资源版本用于在初始分页 **list** 之后的所有分页 **list** 中。
-
 
 {{< note >}}
 <!--

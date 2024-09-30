@@ -437,7 +437,7 @@ at least &quot;minFeasibleNodesToFind&quot; feasible nodes no matter what the va
 Example: if the cluster size is 500 nodes and the value of this flag is 30,
 then scheduler stops finding further feasible nodes once it finds 150 feasible ones.
 When the value is 0, default percentage (5%--50% based on the size of the cluster) of the
-nodes will be scored. It is overridden by profile level PercentageofNodesToScore.
+nodes will be scored. It is overridden by profile level PercentageOfNodesToScore.
    -->
    <p>
    <code>percentageOfNodesToScore</code> 字段为所有节点的百分比，一旦调度器找到所设置比例的、能够运行 Pod 的节点，
@@ -446,7 +446,7 @@ nodes will be scored. It is overridden by profile level PercentageofNodesToScore
    例如：当集群规模为 500 个节点，而此字段的取值为 30，
    则调度器在找到 150 个合适的节点后会停止继续寻找合适的节点。当此值为 0 时，
    调度器会使用默认节点数百分比（基于集群规模确定的值，在 5% 到 50% 之间）来执行打分操作。
-   它可被配置文件级别的 PercentageofNodesToScore 覆盖。
+   它可被配置文件级别的 PercentageOfNodesToScore 覆盖。
    </p>
 </td>
 </tr>
@@ -542,7 +542,7 @@ NodeAffinityArgs holds arguments to configure the NodeAffinity plugin.
 <tr><td><code>kind</code><br/>string</td><td><code>NodeAffinityArgs</code></td></tr>
   
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    <!--
@@ -663,7 +663,7 @@ PodTopologySpreadArgs holds arguments used to configure the PodTopologySpread pl
 <tr><td><code>kind</code><br/>string</td><td><code>PodTopologySpreadArgs</code></td></tr>
 
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <!--

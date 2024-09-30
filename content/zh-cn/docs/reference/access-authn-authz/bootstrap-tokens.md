@@ -184,13 +184,13 @@ authenticate to the API server as a bearer token.
 <!--
 The `expiration` field controls the expiry of the token. Expired tokens are
 rejected when used for authentication and ignored during ConfigMap signing.
-The expiry value is encoded as an absolute UTC time using RFC3339. Enable the
+The expiry value is encoded as an absolute UTC time using [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339). Enable the
 `tokencleaner` controller to automatically delete expired tokens.
 -->
 `expiration` 字段控制令牌的失效期。过期的令牌在用于身份认证时会被拒绝，在用于
 ConfigMap 签名时会被忽略。
-过期时间值是遵循 RFC3339 进行编码的 UTC 时间。
-启用 TokenCleaner 控制器会自动删除过期的令牌。
+过期时间值是遵循 [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339)
+进行编码的 UTC 时间。启用 TokenCleaner 控制器会自动删除过期的令牌。
 
 <!--
 ## Token Management with kubeadm

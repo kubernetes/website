@@ -65,8 +65,8 @@ the Discovery API. This includes the following for each resource:
 - Alternative names
 - Group, version, kind
 
-The API is available both aggregated and unaggregated form. The aggregated
-discovery serves two endpoints while the unaggregated discovery serves a
+The API is available in both aggregated and unaggregated form. The aggregated
+discovery serves two endpoints, while the unaggregated discovery serves a
 separate endpoint for each group version.
 
 ### Aggregated discovery

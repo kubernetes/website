@@ -6,6 +6,9 @@ on:
 jobs:
   create-pull-request:
     name: Create PR (if required)
+    permissions:
+      contents: write
+      pull-requests: write
     if: github.repository == 'kubernetes/website'
     runs-on: ubuntu-latest
     steps:

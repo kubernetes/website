@@ -813,9 +813,9 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
   ```
   deployment.apps/nginx-deployment resumed
   ```
-* Watch the status of the rollout until it's done.
+* {{< glossary_tooltip text="Watch" term_id="watch" >}} the status of the rollout until it's done.
   ```shell
-  kubectl get rs -w
+  kubectl get rs --watch
   ```
 
   The output is similar to this:
@@ -1083,7 +1083,7 @@ thus that Deployment will not be able to roll back.
 
 If you want to roll out releases to a subset of users or servers using the Deployment, you
 can create multiple Deployments, one for each release, following the canary pattern described in
-[managing resources](/docs/concepts/cluster-administration/manage-deployment/#canary-deployments).
+[managing resources](/docs/concepts/workloads/management/#canary-deployments).
 
 ## Writing a Deployment Spec
 

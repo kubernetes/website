@@ -57,7 +57,7 @@ kubelet 使用就绪探针可以知道容器何时准备好接受请求流量，
 若 Pod 尚未就绪，会被从 Service 的负载均衡器中剔除。
 
 kubelet 使用启动探针来了解应用容器何时启动。
-如果配置了这类探针，存活探针和就绪探针成功之前不会重启，确保这些探针不会影响应用的启动。
+如果配置了这类探针，存活探针和就绪探针在启动探针成功之前不会启动，从而确保存活探针或就绪探针不会影响应用的启动。
 启动探针可以用于对慢启动容器进行存活性检测，避免它们在启动运行之前就被杀掉。
 
 {{< caution >}}
@@ -642,6 +642,8 @@ liveness and readiness checks:
   ignored. Defaults to 0 seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10 seconds.
   The minimum value is 1.
+  While a container is not Ready, the `ReadinessProbe` may be executed at times other than
+  the configured `periodSeconds` interval. This is to make the Pod ready faster.
 * `timeoutSeconds`: Number of seconds after which the probe times out.
   Defaults to 1 second. Minimum value is 1.
 * `successThreshold`: Minimum consecutive successes for the probe to be considered successful
@@ -653,6 +655,8 @@ liveness and readiness checks:
   如果 `periodSeconds` 的值大于 `initialDelaySeconds`，则 `initialDelaySeconds`
   将被忽略。默认是 0 秒，最小值是 0。
 * `periodSeconds`：执行探测的时间间隔（单位是秒）。默认是 10 秒。最小值是 1。
+  当容器未就绪时，`ReadinessProbe` 可能会在除配置的 `periodSeconds`
+  间隔以外的时间执行。这是为了让 Pod 更快地达到可用状态。
 * `timeoutSeconds`：探测的超时后等待多少秒。默认值是 1 秒。最小值是 1。
 * `successThreshold`：探针在失败后，被视为成功的最小连续成功数。默认值是 1。
   存活和启动探测的这个值必须是 1。最小值是 1。

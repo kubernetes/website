@@ -186,7 +186,7 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 
 | Імʼя                       | Slack                      | GitHub                     |                   
 | -------------------------- | -------------------------- | -------------------------- |
-| Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
+| Sreeram Venkitesh                | @sreeram.venkitesh                      | @sreeram-venkitesh              |
 
 ## Локалізовані файли README
 

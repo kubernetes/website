@@ -38,7 +38,7 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions
   based on Debian and Red Hat, and those distributions without a package manager.
 * 2 GB or more of RAM per machine (any less will leave little room for your apps).
-* 2 CPUs or more.
+* 2 CPUs or more for control plane machines.
 * Full network connectivity between all machines in the cluster (public or private network is fine).
 * Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-mac-address) for more details.
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
@@ -51,7 +51,7 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * 一台兼容的 Linux 主机。Kubernetes 项目为基于 Debian 和 Red Hat 的 Linux
   发行版以及一些不提供包管理器的发行版提供通用的指令。
 * 每台机器 2 GB 或更多的 RAM（如果少于这个数字将会影响你应用的运行内存）。
-* CPU 2 核心及以上。
+* 控制平面机器需要 CPU 2 核心或更多。
 * 集群中的所有机器的网络彼此均能相互连接（公网和内网都可以）。
 * 节点之中不可以有重复的主机名、MAC 地址或 product_uuid。请参见[这里](#verify-mac-address)了解更多详细信息。
 * 开启机器上的某些端口。请参见[这里](#check-required-ports)了解更多详细信息。
@@ -132,6 +132,35 @@ documentation for the plugins about what port(s) those need.
 -->
 你使用的 Pod 网络插件 (详见后续章节) 也可能需要开启某些特定端口。
 由于各个 Pod 网络插件的功能都有所不同，请参阅他们各自文档中对端口的要求。
+
+<!--
+## Swap configuration {#swap-configuration}
+
+The default behavior of a kubelet is to fail to start if swap memory is detected on a node.
+This means that swap should either be disabled or tolerated by kubelet.
+
+* To tolerate swap, add `failSwapOn: false` to kubelet configuration or as a command line argument.
+  Note: even if `failSwapOn: false` is provided, workloads wouldn't have swap access by default.
+  This can be changed by setting a `swapBehavior`, again in the kubelet configuration file. To use swap,
+  set a `swapBehavior` other than the default `NoSwap` setting.
+  See [Swap memory management](/docs/concepts/architecture/nodes/#swap-memory) for more details.
+* To disable swap, `sudo swapoff -a` can be used to disable swapping temporarily.
+  To make this change persistent across reboots, make sure swap is disabled in
+  config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
+-->
+## 交换分区的配置 {#swap-configuration}
+
+kubelet 的默认行为是在节点上检测到交换内存时无法启动。
+这意味着要么禁用交换（swap）功能，要么让 kubelet 容忍交换。
+
+* 若需允许交换分区（swap），请在 kubelet 配置文件中添加 `failSwapOn: false`，或通过命令行参数指定。
+  注意：即使设置了 `failSwapOn: false`，工作负载默认情况下仍无法访问交换空间。
+  可以通过在 kubelet 配置文件中设置 `swapBehavior` 来修改此设置。若要使用交换空间，
+  请设置 `swapBehavior` 的值，这个值不能是默认的 `NoSwap`。
+  更多细节参阅[交换内存管理](/zh-cn/docs/concepts/architecture/nodes/#swap-memory)。
+* 要禁用交换分区（swap），可以使用命令 `sudo swapoff -a` 暂时关闭交换分区功能。
+  要使此更改在重启后仍然生效，请确保在系统的配置文件（如 `/etc/fstab` 或 `systemd.swap`）中禁用交换功能，
+  具体取决于你的系统配置方式。
 
 <!--
 ## Installing a container runtime {#installing-runtime}
@@ -490,12 +519,12 @@ sudo mkdir -p "$DOWNLOAD_DIR"
 ```
 
 <!--
-Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)):
+Optionally install crictl (required for interaction with the Container Runtime Interface (CRI), optional for kubeadm):
 -->
-安装 crictl（kubeadm/kubelet 容器运行时接口（CRI）所需）：
+可以选择安装 crictl（与容器运行时接口 (CRI) 交互时必需，但对 kubeadm 来说是可选的）：
 
 ```bash
-CRICTL_VERSION="v1.30.0"
+CRICTL_VERSION="v1.31.0"
 ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```

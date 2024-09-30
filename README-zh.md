@@ -429,13 +429,14 @@ If you need help at any point when contributing, the [New Contributor Ambassador
 SIG Docs 的当前新贡献者大使：
 
 <!--
-| Name                       | Slack                      | GitHub                     |                   
+| Name                       | Slack                      | GitHub                     |
 | -------------------------- | -------------------------- | -------------------------- |
-| Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
+| Sreeram Venkitesh          | @sreeram.venkitesh         | @sreeram-venkitesh         |
 -->
 | 姓名                       | Slack                      | GitHub                     |
 | -------------------------- | -------------------------- | -------------------------- |
-| Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
+| Sreeram Venkitesh          | @sreeram.venkitesh         | @sreeram-venkitesh         |
+
 
 <!--
 ## Localization READMEs
