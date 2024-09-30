@@ -50,7 +50,7 @@ add version that can be used to convert to v1beta4</li>
 </ul>
 <h2>Basics</h2>
 <p>The preferred way to configure kubeadm is to pass an YAML configuration file with
-the `--config“ option. Some of the configuration options defined in the kubeadm
+the <code>--config</code> option. Some of the configuration options defined in the kubeadm
 config file are also available as command line flags, but only the most
 common/simple use case are supported with this approach.</p>
 <p>A kubeadm config file could contain multiple configuration types separated using three dashes (<code>---</code>).</p>
@@ -76,13 +76,13 @@ kind: ResetConfiguration
 apiVersion: kubeadm.k8s.io/v1beta4
 kind: UpgradeConfiguration
 </code></pre>
-<p>To print the defaults for &quot;init&quot; and &quot;join&quot; actions use the following commands:</p>
+<p>To print the defaults for <code>init</code> and <code>join</code> actions use the following commands:</p>
 <pre style="background-color:#fff">kubeadm config print init-defaults
 kubeadm config print join-defaults
 kubeadm config print reset-defaults
 kubeadm config print upgrade-defaults
 </pre><p>The list of configuration types that must be included in a configuration file depends by the action you are
-performing (<code>init or </code>join`) and by the configuration options you are going to use (defaults or advanced customization).</p>
+performing (<code>init</code> or <code>join</code>) and by the configuration options you are going to use (defaults or advanced customization).</p>
 <p>If some configuration types are not provided, or provided only partially, kubeadm will use default values; defaults
 provided by kubeadm includes also enforcing consistency of values across components when required (e.g.
 <code>--cluster-cidr</code> flag on controller manager and <code>clusterCIDR</code> on kube-proxy).</p>
@@ -91,19 +91,15 @@ relevance for security (e.g. enforce authorization-mode Node and RBAC on api ser
 <p>If the user provides a configuration types that is not expected for the action you are performing, kubeadm will
 ignore those types and print a warning.</p>
 <h2>Kubeadm init configuration types</h2>
-<p>When executing kubeadm init with the `--config“ option, the following configuration types could be used:
+<p>When executing kubeadm init with the <code>--config</code> option, the following configuration types could be used:
 InitConfiguration, ClusterConfiguration, KubeProxyConfiguration, KubeletConfiguration, but only one
 between InitConfiguration and ClusterConfiguration is mandatory.</p>
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta4<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>InitConfiguration<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">bootstrapTokens</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span>...<span style="color:#bbb">
-</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>...<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">nodeRegistration</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span>...<span style="color:#bbb">
-</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>...<span style="color:#bbb">
 </span></pre><p>The InitConfiguration type should be used to configure runtime settings, that in case of kubeadm init
 are the configuration of the bootstrap token and all the setting which are specific to the node where kubeadm
 is executed, including:</p>
@@ -121,20 +117,14 @@ use it e.g. to customize the API server advertise address.</p>
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta4<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>ClusterConfiguration<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">networking</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span>...<span style="color:#bbb">
-</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>...<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">etcd</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span>...<span style="color:#bbb">
-</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>...<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiServer</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">	  </span>...<span style="color:#bbb">
-</span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">extraVolumes</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">	  </span>...<span style="color:#bbb">
-</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>...<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraVolumes</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>...<span style="color:#bbb">
 </span><span style="color:#bbb"></span>...<span style="color:#bbb">
 </span></pre><p>The ClusterConfiguration type should be used to configure cluster-wide settings,
 including settings for:</p>
@@ -154,9 +144,7 @@ components by adding customized setting or overriding kubeadm default settings.<
 </ul>
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeproxy.config.k8s.io/v1alpha1<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>KubeProxyConfiguration<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span>...<span style="color:#bbb">
-</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>...<span style="color:#bbb">
 </span></pre><p>The KubeProxyConfiguration type should be used to change the configuration passed to kube-proxy instances deployed
 in the cluster. If this object is not provided or provided only partially, kubeadm applies defaults.</p>
 <p>See https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/ or
@@ -164,9 +152,7 @@ https://pkg.go.dev/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration
 for kube-proxy official documentation.</p>
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubelet.config.k8s.io/v1beta1<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>KubeletConfiguration<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span>...<span style="color:#bbb">
-</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>...<span style="color:#bbb">
 </span></pre><p>The KubeletConfiguration type should be used to change the configurations that will be passed to all kubelet instances
 deployed in the cluster. If this object is not provided or provided only partially, kubeadm applies defaults.</p>
 <p>See https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/ or
@@ -189,124 +175,110 @@ configuration types to be used during a <code>kubeadm init</code> run.</p>
 </span><span style="color:#bbb">  </span>- system:bootstrappers:kubeadm:default-node-token<span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">nodeRegistration</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">		</span><span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;ec2-10-100-0-1&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		</span><span style="color:#000;font-weight:bold">criSocket</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;unix:///var/run/containerd/containerd.sock&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		</span><span style="color:#000;font-weight:bold">taints</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">		  </span>- <span style="color:#000;font-weight:bold">key</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;kubeadmNode&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		    </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;someValue&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		    </span><span style="color:#000;font-weight:bold">effect</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;NoSchedule&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		</span><span style="color:#000;font-weight:bold">kubeletExtraArgs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">		  </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>v<span style="color:#bbb">
-</span><span style="color:#bbb">	     </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;5&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		</span><span style="color:#000;font-weight:bold">ignorePreflightErrors</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">		  </span>- IsPrivilegedUser<span style="color:#bbb">
-</span><span style="color:#bbb">		</span><span style="color:#000;font-weight:bold">imagePullPolicy</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;IfNotPresent&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">	 </span><span style="color:#000;font-weight:bold">imagePullSerial</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">true</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;ec2-10-100-0-1&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">criSocket</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;unix:///var/run/containerd/containerd.sock&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">taints</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#000;font-weight:bold">key</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;kubeadmNode&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;someValue&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">effect</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;NoSchedule&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">kubeletExtraArgs</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>v<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;5&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">ignorePreflightErrors</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- IsPrivilegedUser<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">imagePullPolicy</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;IfNotPresent&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">imagePullSerial</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">true</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">localAPIEndpoint</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">advertiseAddress</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;10.100.0.1&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">bindPort</span>:<span style="color:#bbb"> </span><span style="color:#099">6443</span><span style="color:#bbb">
-</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">advertiseAddress</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;10.100.0.1&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">bindPort</span>:<span style="color:#bbb"> </span><span style="color:#099">6443</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">certificateKey</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;e6a2eb8581237ab72a4f494f30285ec12a9694d750b9785706a83bfcbbbd2204&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">skipPhases</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">  </span>- preflight<span style="color:#bbb">
-</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">timeouts</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">controlPlaneComponentHealthCheck</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;60s&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">kubenetesAPICall</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;40s&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">controlPlaneComponentHealthCheck</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;60s&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">kubenetesAPICall</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;40s&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span>---<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta4<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>ClusterConfiguration<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">etcd</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb">		</span><span style="color:#998;font-style:italic"># one of local or external</span><span style="color:#bbb">
-</span><span style="color:#bbb">		</span><span style="color:#000;font-weight:bold">local</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">		  </span><span style="color:#000;font-weight:bold">imageRepository</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;registry.k8s.io&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		  </span><span style="color:#000;font-weight:bold">imageTag</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;3.2.24&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		  </span><span style="color:#000;font-weight:bold">dataDir</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/var/lib/etcd&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		  </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">		    </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>listen-client-urls<span style="color:#bbb">
-</span><span style="color:#bbb">	       </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span>http://<span style="color:#099">10.100.0.1</span>:<span style="color:#099">2379</span><span style="color:#bbb">
-</span><span style="color:#bbb">	   </span><span style="color:#000;font-weight:bold">extraEnvs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">	     </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>SOME_VAR<span style="color:#bbb">
-</span><span style="color:#bbb">	       </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span>SOME_VALUE<span style="color:#bbb">
-</span><span style="color:#bbb">		  </span><span style="color:#000;font-weight:bold">serverCertSANs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">		    </span>- <span style="color:#bbb"> </span><span style="color:#d14">&#34;ec2-10-100-0-1.compute-1.amazonaws.com&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		  </span><span style="color:#000;font-weight:bold">peerCertSANs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">		    </span>- <span style="color:#d14">&#34;10.100.0.1&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		</span><span style="color:#998;font-style:italic"># external:</span><span style="color:#bbb">
-</span><span style="color:#bbb">		  </span><span style="color:#998;font-style:italic"># endpoints:</span><span style="color:#bbb">
-</span><span style="color:#bbb">		  </span><span style="color:#998;font-style:italic"># - &#34;10.100.0.1:2379&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		  </span><span style="color:#998;font-style:italic"># - &#34;10.100.0.2:2379&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		  </span><span style="color:#998;font-style:italic"># caFile: &#34;/etcd/kubernetes/pki/etcd/etcd-ca.crt&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		  </span><span style="color:#998;font-style:italic"># certFile: &#34;/etcd/kubernetes/pki/etcd/etcd.crt&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		  </span><span style="color:#998;font-style:italic"># keyFile: &#34;/etcd/kubernetes/pki/etcd/etcd.key&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#998;font-style:italic"># one of local or external</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">local</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">imageRepository</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;registry.k8s.io&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">imageTag</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;3.2.24&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">dataDir</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/var/lib/etcd&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>listen-client-urls<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span>http://<span style="color:#099">10.100.0.1</span>:<span style="color:#099">2379</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">extraEnvs</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>SOME_VAR<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span>SOME_VALUE<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">serverCertSANs</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- <span style="color:#bbb"> </span><span style="color:#d14">&#34;ec2-10-100-0-1.compute-1.amazonaws.com&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">peerCertSANs</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- <span style="color:#d14">&#34;10.100.0.1&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#998;font-style:italic"># external:</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#998;font-style:italic">#   endpoints:</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#998;font-style:italic">#     - &#34;10.100.0.1:2379&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#998;font-style:italic">#     - &#34;10.100.0.2:2379&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#998;font-style:italic">#   caFile: &#34;/etcd/kubernetes/pki/etcd/etcd-ca.crt&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#998;font-style:italic">#   certFile: &#34;/etcd/kubernetes/pki/etcd/etcd.crt&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#998;font-style:italic">#   keyFile: &#34;/etcd/kubernetes/pki/etcd/etcd.key&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">networking</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">serviceSubnet</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;10.96.0.0/16&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">podSubnet</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;10.244.0.0/24&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">dnsDomain</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;cluster.local&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">serviceSubnet</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;10.96.0.0/16&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">podSubnet</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;10.244.0.0/24&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">dnsDomain</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;cluster.local&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kubernetesVersion</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;v1.21.0&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">controlPlaneEndpoint</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;10.100.0.1:6443&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiServer</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">		</span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">		  </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>authorization-mode<span style="color:#bbb">
-</span><span style="color:#bbb">	     </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;Node,RBAC&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">	 </span><span style="color:#000;font-weight:bold">extraEnvs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">	   </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>SOME_VAR<span style="color:#bbb">
-</span><span style="color:#bbb">	     </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span>SOME_VALUE<span style="color:#bbb">
-</span><span style="color:#bbb">		</span><span style="color:#000;font-weight:bold">extraVolumes</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">		  </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;some-volume&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		    </span><span style="color:#000;font-weight:bold">hostPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-path&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		    </span><span style="color:#000;font-weight:bold">mountPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-pod-path&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		    </span><span style="color:#000;font-weight:bold">readOnly</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
-</span><span style="color:#bbb">		    </span><span style="color:#000;font-weight:bold">pathType</span>:<span style="color:#bbb"> </span>File<span style="color:#bbb">
-</span><span style="color:#bbb">		</span><span style="color:#000;font-weight:bold">certSANs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">		  </span>- <span style="color:#d14">&#34;10.100.1.1&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		  </span>- <span style="color:#d14">&#34;ec2-10-100-0-1.compute-1.amazonaws.com&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>authorization-mode<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;Node,RBAC&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraEnvs</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>SOME_VAR<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span>SOME_VALUE<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraVolumes</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;some-volume&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">hostPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-path&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">mountPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-pod-path&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">readOnly</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">pathType</span>:<span style="color:#bbb"> </span>File<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">certSANs</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#d14">&#34;10.100.1.1&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#d14">&#34;ec2-10-100-0-1.compute-1.amazonaws.com&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">controllerManager</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">		</span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">		  </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>node-cidr-mask-size<span style="color:#bbb">
-</span><span style="color:#bbb">	     </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;20&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		</span><span style="color:#000;font-weight:bold">extraVolumes</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">		  </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;some-volume&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		    </span><span style="color:#000;font-weight:bold">hostPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-path&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		    </span><span style="color:#000;font-weight:bold">mountPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-pod-path&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		    </span><span style="color:#000;font-weight:bold">readOnly</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
-</span><span style="color:#bbb">		    </span><span style="color:#000;font-weight:bold">pathType</span>:<span style="color:#bbb"> </span>File<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>node-cidr-mask-size<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;20&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraVolumes</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;some-volume&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">hostPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-path&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">mountPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-pod-path&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">readOnly</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">pathType</span>:<span style="color:#bbb"> </span>File<span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">scheduler</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">		</span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">		  </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>address<span style="color:#bbb">
-</span><span style="color:#bbb">	     </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;10.100.0.1&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		</span><span style="color:#000;font-weight:bold">extraVolumes</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">		  </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;some-volume&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		    </span><span style="color:#000;font-weight:bold">hostPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-path&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		    </span><span style="color:#000;font-weight:bold">mountPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-pod-path&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">		    </span><span style="color:#000;font-weight:bold">readOnly</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
-</span><span style="color:#bbb">		    </span><span style="color:#000;font-weight:bold">pathType</span>:<span style="color:#bbb"> </span>File<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>address<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;10.100.0.1&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraVolumes</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;some-volume&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">hostPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-path&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">mountPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-pod-path&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">readOnly</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">pathType</span>:<span style="color:#bbb"> </span>File<span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">certificatesDir</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/kubernetes/pki&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">imageRepository</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;registry.k8s.io&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">clusterName</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;example-cluster&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">encryptionAlgorithm</span>:<span style="color:#bbb"> </span>ECDSA-P256<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">dns</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">disabled</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">true</span><span style="color:#bbb">  </span><span style="color:#998;font-style:italic"># disable CoreDNS</span><span style="color:#bbb">
-</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">disabled</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">true</span><span style="color:#bbb">  </span><span style="color:#998;font-style:italic"># disable CoreDNS</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">proxy</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">diabled</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">true</span><span style="color:#bbb">   </span><span style="color:#998;font-style:italic"># disable kube-proxy</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">diabled</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">true</span><span style="color:#bbb">   </span><span style="color:#998;font-style:italic"># disable kube-proxy</span><span style="color:#bbb">
 </span><span style="color:#bbb">
 </span><span style="color:#bbb"></span>---<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubelet.config.k8s.io/v1beta1<span style="color:#bbb">
@@ -321,13 +293,11 @@ configuration types to be used during a <code>kubeadm init</code> run.</p>
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta4<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>JoinConfiguration<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">discovery</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">bootstrapToken</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">	  </span><span style="color:#000;font-weight:bold">apiServerEndpoint</span>:<span style="color:#bbb"> </span>some-address:<span style="color:#099">6443</span><span style="color:#bbb">
-</span><span style="color:#bbb">	  </span><span style="color:#000;font-weight:bold">token</span>:<span style="color:#bbb"> </span>abcdef.0123456789abcdef<span style="color:#bbb">
-</span><span style="color:#bbb">	  </span><span style="color:#000;font-weight:bold">unsafeSkipCAVerification</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">true</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span><span style="color:#000;font-weight:bold">tlsBootstrapToken</span>:<span style="color:#bbb"> </span>abcdef.0123456789abcdef<span style="color:#bbb">
-</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">bootstrapToken</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">apiServerEndpoint</span>:<span style="color:#bbb"> </span>some-address:<span style="color:#099">6443</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">token</span>:<span style="color:#bbb"> </span>abcdef.0123456789abcdef<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">unsafeSkipCAVerification</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">true</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">tlsBootstrapToken</span>:<span style="color:#bbb"> </span>abcdef.0123456789abcdef<span style="color:#bbb">
 </span></pre><p>The JoinConfiguration type should be used to configure runtime settings, that in case of kubeadm join
 are the discovery method used for accessing the cluster info and all the setting which are specific
 to the node where kubeadm is executed, including:</p>
@@ -351,21 +321,13 @@ node only (e.g. the node ip).</p>
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta4<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>UpgradeConfiguration<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apply</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span>...<span style="color:#bbb">
-</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>...<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">diff</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span>...<span style="color:#bbb">
-</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>...<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">node</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span>...<span style="color:#bbb">
-</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>...<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">plan</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">
-</span><span style="color:#bbb">	</span>...<span style="color:#bbb">
-</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>...<span style="color:#bbb">
 </span></pre><p>The <code>UpgradeConfiguration</code> structure includes a few substructures that only apply to different subcommands of
 <code>kubeadm upgrade</code>. For example, the <code>apply</code> substructure will be used with the <code>kubeadm upgrade apply</code> subcommand
 and all other substructures will be ignored in such a case.</p>
