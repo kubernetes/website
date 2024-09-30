@@ -60,58 +60,7 @@ other admission controllers.
 
 The ordering of these calls can be seen below.
 
-
-{{< mermaid >}} 
-sequenceDiagram
-
-%% Have to set fontSize globally as this isn't respected due to https://github.com/mermaid-js/mermaid/issues/3990
-%%{init:{"theme":"neutral","fontSize": "22px", "sequence": {"mirrorActors":true},
-    "themeVariables": {
-        "actorBkg":"#326ce5",
-        "actorTextColor":"white",
-        "loopTextColor": "#326ce5",
-        "noteBkgColor": "grey",
-        "fontSize": "22px"
-}}}%%
-
-
-    %% This is the alt-text for accessibility, and should be updated every time the diagram is.
-    accDescr {
-        Sequence diagram for kube-apiserver handling requests during the admission phase showing mutation webhooks, followed by validatingadmissionpolicies and finally validating webhooks. 
-        It shows that the continue until the first rejection, or being accepted by all of them. 
-        It also shows that mutations by mutating webhooks cause all previously called webhooks to be called again.
-    }
-
-    participant User as User 
-    participant API as Kubernetes API Server
-    participant Auth as Authentication + Authorisation
-    %% participant AdmCtrl as Admission Control
-    box Gainsboro  Admission Control <br>Called until first rejection
-    participant MutatingWebhook as Mutating Webhook(s)
-    participant ValidatingPol as Validating Admission Policies
-    participant ValidatingWebhook as Validating Webhook(s)
-    end
-
-
-    User ->> API : Request (e.g., create a pod) 
-    API ->> Auth: Authenticate user and <br>check user permissions
-
-    par For all Mutating Webhooks
-        Auth ->> MutatingWebhook: Invoke Mutating Webhooks
-        MutatingWebhook ->> Auth: Modify or reject object (if needed)
-    end
-    par For all Validating Policies
-    Auth ->> ValidatingPol: Invoke Validating Policies
-    ValidatingPol ->> Auth: Reject object (if needed)
-    end
-    par For all Validating Webhooks
-    Auth ->> ValidatingWebhook: Invoke Validating Webhooks
-    ValidatingPol ->> Auth: Reject object (if needed)
-    end
-    Auth ->> API: Allow or reject request
-
-    API -->> User: Response  (e.g., success or error)
-{{< /mermaid >}} 
+{{< figure src="images/admission-control-phases.svg" alt="Sequence diagram for kube-apiserver handling requests during the admission phase showing mutation webhooks, followed by validatingadmissionpolicies and finally validating webhooks. It shows that the continue until the first rejection, or being accepted by all of them. It also shows that mutations by mutating webhooks cause all previously called webhooks to be called again." class="diagram-large" link="https://mermaid.live/edit#pako:eNqlVttu2zgQ_ZWBFkETrGMvUnSBGosA3RTdDRYBgqaXF71Q5FhiTZFaXpy4gf-9Q1KWZSXpS_UicTiXwzmHpB4LbgQWy8Lh_wE1x_eS1Za1pS71yQn8yzYI3oBDDyuj_Z38jlArUzGltsAc-EY6kE6_8mDRdcg9ChAhBTXed265WNTSN6Gac9MuWrQtk-L8m9t_LqRzAd3i9du3f8SSj1JLv3wsC99gi2WxLAuNwVumymJWFnsQNAFlcXHRPZCZvvbwo52CW2mtse-4N9aRyduAu1mpgZ4-8xdmJasUuhyRpvI0i1F_r-tU-7fXF39yfBNrT10-4YO_MsrY5HjfSI8TN2VMN_aCl_Jp45Eqjvxqi9uJ03NLL_Vutzs5iWxlV-LsU6aEqEFgyp97QkDkWWCco3Oykkr67QyYFuAaE5SACiF0gkXucIN2C162mBKILAfKN88FKMl7dNyOe3bXN3_wjtXWocJz1kmHllJCQ-WU1DXJhJydd6QSG8cJpmhJBtJo6BrmMMK6j3Nt8MxH8z1WjTFrN6PUSpl7AlptYcOUJNTkOSTojJJcokurW0mddHrwGxLN4QD_2qeCsWPMJzycWi01qTjQWyXTSloXNf6NJE51ZkBLrDCmjG3tfEZE5cCsYkA7qcCUM-My-6W5GJYHI3jAWXCY0nUWN9IER-vgNKY6gxPtMWKut7KaSd2TtNvLoWPWUz86pj18Jibilk3vp9Pvbq_j7H9Em9XoqYXRcpfYe8Y7-Ca6xzdSk3jm6fdkMFZ-T-NBk0ehor3yVqXogfcr6rg1KgdU5gH-odW4ylgDT73gr8peXuVlZ4Ym7DzFe9N3-GvuXSy-N0FvO3VnT-O-DNK5NQnywTDCddur7mfxo8qjHNPaqMVhMyemzi8vExNL-Jh3DpzivJ7PgFukHQsMOiPOekKjYwogFpZjckjKiX7aFbF5vEG-zqaOzuG8DDdSDXyIBwbJb9old1B10kCsNmnuEq71xqzxZ7FTPg6gb4yQq23cXplOMFV6ncoVaESBYtyqKdxRa49JGcAeMTpAfTHuWAAHmB9_DdxxR54BN-3li7G_CnCoTdohycTTddT8_rTeKyPpKzpHacYariPdIOw16UK6Y2ICjDfwWTEr-oue_jHSlXG42elT4IoF5dNFRq4seHO31Tzf2LPCmlA3xXJFhyeN8hXV_6AMVhSSLuOb_BeTfmZ2PwAQR_4x" >}}
 
 ## Why do I need them?
 
