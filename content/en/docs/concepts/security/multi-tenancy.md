@@ -422,8 +422,7 @@ Priority and Fairness, is also recommended.
 
 Namespace isolation is well-supported by Kubernetes, has a negligible resource cost, and provides
 mechanisms to allow tenants to interact appropriately, such as by allowing service-to-service
-communication. However, it can be difficult to configure, and doesn't apply to Kubernetes
-resources that can't be namespaced, such as Custom Resource Definitions, Storage Classes, and Webhooks.
+communication. However, it can be difficult to configure, and it doesn't apply to resources that are cluster-scoped and not namespaced, such as Custom Resource Definitions (CRDs) themselves (though the custom resources they define can be namespaced), Storage Classes, and Webhooks.
 
 Control plane virtualization allows for isolation of non-namespaced resources at the cost of
 somewhat higher resource usage and more difficult cross-tenant sharing. It is a good option when
