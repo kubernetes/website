@@ -41,7 +41,6 @@ Die Add-Ons in den einzelnen Kategorien sind alphabetisch sortiert - Die Reihenf
 ## Visualisierung &amp; Überwachung
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard) ist ein Dashboard Web Interface für Kubernetes.
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s) ist ein Tool um Container, Pods, Services usw. Grafisch zu visualieren. Kann in Verbindung mit einem [Weave Cloud Account](https://cloud.weave.works/) genutzt oder selbst gehosted werden.
 
 ## Infrastruktur
 

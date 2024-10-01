@@ -230,7 +230,7 @@ consider these steps:
   也可以运行在不同的机器上以获得更好的安全性和可用性。
   因为 etcd 存储着集群的配置数据，应该经常性地对 etcd 数据库进行备份，
   以确保在需要的时候你可以修复该数据库。与配置和使用 etcd 相关的细节可参阅
-  [etcd FAQ](/https://etcd.io/docs/v3.5/faq/)。
+  [etcd FAQ](https://etcd.io/docs/v3.5/faq/)。
   更多的细节可参阅[为 Kubernetes 运维 etcd 集群](/zh-cn/docs/tasks/administer-cluster/configure-upgrade-etcd/)
   和[使用 kubeadm 配置高可用的 etcd 集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)。
 <!--

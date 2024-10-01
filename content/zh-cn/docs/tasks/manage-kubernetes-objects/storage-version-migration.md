@@ -132,7 +132,7 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
 
 - Create a StorageVersionMigration manifest named `migrate-secret.yaml` as follows:
 -->
-- 要确保之前创建的 Secret `my-secert` 使用新密钥 `key2` 进行重新加密，你将使用**存储版本迁移**。
+- 要确保之前创建的 Secret `my-secret` 使用新密钥 `key2` 进行重新加密，你将使用**存储版本迁移**。
 
 - 创建以下名为 `migrate-secret.yaml` 的 StorageVersionMigration 清单：
 

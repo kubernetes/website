@@ -693,12 +693,12 @@ Depending on the requirements for your workload these values may need to be adju
 Refer to
 [Hardware requirements for Windows Server Microsoft documentation](https://learn.microsoft.com/en-us/windows-server/get-started/hardware-requirements)
 for the most up-to-date information on minimum hardware requirements. For guidance on deciding on resources for
-production worker nodes refer to [Production worker nodes Kubernetes documentation](https://kubernetes.io/docs/setup/production-environment/#production-worker-nodes).
+production worker nodes refer to [Production worker nodes Kubernetes documentation](/docs/setup/production-environment/#production-worker-nodes).
 -->
 有关最新的最低硬件要求信息，
 请参考[微软文档：Windows Server 的硬件要求](https://learn.microsoft.com/zh-cn/windows-server/get-started/hardware-requirements)。
 有关决定生产工作节点资源的指导信息，
-请参考 [Kubernetes 文档：生产用工作节点](https://kubernetes.io/zh-cn/docs/setup/production-environment/#production-worker-nodes)。
+请参考 [Kubernetes 文档：生产用工作节点](/zh-cn/docs/setup/production-environment/#production-worker-nodes)。
 
 <!--
 To optimize system resources, if a graphical user interface is not required,

@@ -498,17 +498,25 @@ Init 容器的端口将不会在 Service 中进行聚集。正在初始化中的
 
 <!--
 Changes to the init container spec are limited to the container image field.
-Altering an init container image field is equivalent to restarting the Pod.
+Directly altering the `image` field of  an init container does _not_ restart the
+Pod or trigger its recreation. If the Pod has yet to start, that change may
+have an effect on how the Pod boots up.
+
+For a [pod template](/docs/concepts/workloads/pods/#pod-templates)
+you can typically change any field for an init container; the impact of making
+that change depends on where the pod template is used.
 
 Because init containers can be restarted, retried, or re-executed, init container
-code should be idempotent. In particular, code that writes to files on `EmptyDirs`
+code should be idempotent. In particular, code that writes into any `emptyDir` volume
 should be prepared for the possibility that an output file already exists.
 -->
 对 Init 容器规约的修改仅限于容器的 `image` 字段。
-更改 Init 容器的 `image` 字段，等同于重启该 Pod。
+直接更改 Init 容器的 `image` 字段**不会**重启该 Pod 或触发其重新创建。如果该 Pod 尚未启动，则该更改可能会影响 Pod 的启动方式。
+
+对于 [Pod 模板](/zh-cn/docs/concepts/workloads/pods/#pod-templates)，你通常可以更改 Init 容器的任何字段；更改的影响取决于 Pod 模板的使用位置。
 
 因为 Init 容器可能会被重启、重试或者重新执行，所以 Init 容器的代码应该是幂等的。
-特别地，基于 `emptyDirs` 写文件的代码，应该对输出文件可能已经存在做好准备。
+特别地，向任何 `emptyDir` 卷写入数据的代码应该对输出文件可能已经存在做好准备。
 
 <!--
 Init containers have all of the fields of an app container. However, Kubernetes
