@@ -84,9 +84,8 @@ layers expect.
 
 ## _Runtime_ lifecycle phase {#lifecycle-phase-runtime}
 
-The Runtime phase comprises three critical areas: [compute](#protection-runtime-compute),
-[access](#protection-runtime-access), and [storage](#protection-runtime-storage).
-
+The Runtime phase comprises three critical areas: [access](#protection-runtime-access),
+[compute](#protection-runtime-compute), and [storage](#protection-runtime-storage).
 
 ### Runtime protection: access {#protection-runtime-access}
 
