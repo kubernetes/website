@@ -165,21 +165,27 @@ owner object:
 * 在删除过程完成之前，通过 Kubernetes API 仍然可以看到该对象。
 
 <!--
-After the owner object enters the deletion in progress state, the controller
-deletes the dependents. After deleting all the dependent objects, the controller
-deletes the owner object. At this point, the object is no longer visible in the
+After the owner object enters the *deletion in progress* state, the controller
+deletes dependents it knows about. After deleting all the dependent objects it knows about,
+the controller deletes the owner object. At this point, the object is no longer visible in the
 Kubernetes API.
 
 During foreground cascading deletion, the only dependents that block owner
-deletion are those that have the `ownerReference.blockOwnerDeletion=true` field.
+deletion are those that have the `ownerReference.blockOwnerDeletion=true` field
+and are in the garbage collection controller cache. The garbage collection controller
+cache may not contain objects whose resource type cannot be listed / watched successfully,
+or objects that are created concurrent with deletion of an owner object.
 See [Use foreground cascading deletion](/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)
 to learn more.
 -->
-当属主对象进入删除过程中状态后，控制器删除其依赖对象。控制器在删除完所有依赖对象之后，
-删除属主对象。这时，通过 Kubernetes API 就无法再看到该对象。
+当属主对象进入**删除进行中**状态后，控制器会删除其已知的依赖对象。
+在删除所有已知的依赖对象后，控制器会删除属主对象。
+这时，通过 Kubernetes API 就无法再看到该对象。
 
-在前台级联删除过程中，唯一可能阻止属主对象被删除的是那些带有
-`ownerReference.blockOwnerDeletion=true` 字段的依赖对象。
+在前台级联删除过程中，唯一会阻止属主对象被删除的是那些带有
+`ownerReference.blockOwnerDeletion=true` 字段并且存在于垃圾收集控制器缓存中的依赖对象。
+垃圾收集控制器缓存中可能不包含那些无法成功被列举/监视的资源类型的对象，
+或在属主对象删除的同时创建的对象。
 参阅[使用前台级联删除](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)
 以了解进一步的细节。
 
