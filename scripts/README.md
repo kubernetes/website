@@ -13,6 +13,7 @@
 | `replace-capture.sh`    | This script sets K8S_WEBSITE in your env to your docs website root or rely on this script to determine it automatically               |
 | `check-ctrlcode.py`     | This script finds control-code(0x00-0x1f) in text files.                                                                              |
 | `ja/verify-spelling.sh` | This script finds Japanese words that are against the guideline.                                                                      |
+| `diff_content_dir.sh` | This script compares the contents of a specific language directory with its English counterpart and displays the differences.         |
 
 
 
@@ -195,3 +196,12 @@ This script finds Japanese words that are against the guideline[1]
 ```
 Usage: ./ja/verify-spelling.sh
 ```
+
+## diff_content_dir.sh
+
+This script compares the contents of the input directory (in a specific language) with its English counterpart and displays the differences in colored output.
+
+Usage: ./scripts/diff_content_dir.sh <input_directory>
+
+Example: ./scripts/diff_content_dir.sh content/zh-cn/docs/
+
