@@ -563,6 +563,8 @@ spec:
   conversion:
     # the Webhook strategy instructs the API server to call an external webhook for any conversion between custom resources.
     strategy: Webhook
+    # Ensuring compatibility with v1 and v1beta1
+    conversionReviewVersions: ["v1", "v1beta1"]
     # webhookClientConfig is required when strategy is `Webhook` and it configures the webhook endpoint to be called by API server.
     webhookClientConfig:
       service:
@@ -570,6 +572,7 @@ spec:
         name: example-conversion-webhook-server
         path: /crdconvert
       caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle>...tLS0K"
+      # Optionally configure mutual TLS authentication here
   # either Namespaced or Cluster
   scope: Namespaced
   names:
@@ -979,7 +982,7 @@ If conversion fails, a webhook should return a `response` stanza containing the 
 
 {{< warning >}}
 Failing conversion can disrupt read and write access to the custom resources,
-including the ability to update or delete the resources. Conversion failures 
+including the ability to update or delete the resources. Conversion failures
 should be avoided whenever possible, and should not be used to enforce validation
  constraints (use validation schemas or webhook admission instead).
 {{< /warning >}}
