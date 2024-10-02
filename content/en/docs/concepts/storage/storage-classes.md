@@ -5,6 +5,9 @@ reviewers:
 - thockin
 - msau42
 title: Storage Classes
+api_metadata:
+- apiVersion: "storage.k8s.io/v1"
+  kind: "StorageClass"
 content_type: concept
 weight: 40
 ---
