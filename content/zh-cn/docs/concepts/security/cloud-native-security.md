@@ -180,11 +180,11 @@ layers expect.
 ## 运行阶段 {#lifecycle-phase-runtime}
 
 <!--
-The Runtime phase comprises three critical areas: [compute](#protection-runtime-compute),
-[access](#protection-runtime-access), and [storage](#protection-runtime-storage).
+The Runtime phase comprises three critical areas: [access](#protection-runtime-access),
+[compute](#protection-runtime-compute), and [storage](#protection-runtime-storage).
 -->
-运行阶段包含三个关键领域：[计算](#protection-runtime-compute)，
-[访问](#protection-runtime-access)和[存储](#protection-runtime-storage)。
+运行阶段包含三个关键领域：[访问](#protection-runtime-access)、
+[计算](#protection-runtime-compute)和[存储](#protection-runtime-storage)。
 
 
 <!--
