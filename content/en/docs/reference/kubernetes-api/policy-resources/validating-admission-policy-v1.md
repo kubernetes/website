@@ -468,7 +468,7 @@ ValidatingAdmissionPolicyList is a list of ValidatingAdmissionPolicy.
 
 ## ValidatingAdmissionPolicyBinding {#ValidatingAdmissionPolicyBinding}
 
-ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
+ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with parameterized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
 
 For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
 

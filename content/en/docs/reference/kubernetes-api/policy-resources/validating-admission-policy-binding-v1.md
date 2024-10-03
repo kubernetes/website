@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/admissionregistration/v1"
   kind: "ValidatingAdmissionPolicyBinding"
 content_type: "api_reference"
-description: "ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources."
+description: "ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with parameterized resources."
 title: "ValidatingAdmissionPolicyBinding"
 weight: 8
 auto_generated: true
@@ -28,7 +28,7 @@ guide. You can file document formatting bugs against the
 
 ## ValidatingAdmissionPolicyBinding {#ValidatingAdmissionPolicyBinding}
 
-ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
+ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with parameterized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
 
 For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
 
