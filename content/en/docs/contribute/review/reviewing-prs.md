@@ -163,6 +163,17 @@ When reviewing, use the following as a starting point.
 - Do the changes show up in the Netlify preview? Be particularly vigilant about lists, code
   blocks, tables, notes and images.
 
+### Blog
+
+- Early feedback of blog posts are welcome via a Google Doc or HackMD. Please request for early feedback on the [#sig-docs-blog Slack channel](https://kubernetes.slack.com/archives/CJDHVD54J).
+- Before reviewing blog PRs, be familiar with the [Submitting blog posts and case studies](/docs/contribute/new-content/blogs-case-studies/).
+- Blog posts from kubernetes.dev can be mirrored on kubernetes.io within 5 days of initial publication.
+- Consider the target audience if the blog post is appropriate for kubernetes.io e.g. if the target audience are Kubernetes
+ developers then kubernetes.dev may be more appropriate or if the blog post is on general platform engineering then it may be 
+ more suitable on another site.
+- The [content guide](/docs/contribute/style/content-guide/) and [style guide](/docs/contribute/style/style-guide/) apply 
+to blog PRs.
+
 ### Other
 
 - Watch out for [trivial edits](https://www.kubernetes.dev/docs/guide/pull-requests/#trivial-edits);
