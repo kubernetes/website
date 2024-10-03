@@ -571,8 +571,8 @@ spec:
         namespace: default
         name: example-conversion-webhook-server
         path: /crdconvert
-      caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle>...tLS0K"
       # Optionally configure mutual TLS authentication here
+      caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle>...tLS0K"
   # either Namespaced or Cluster
   scope: Namespaced
   names:
