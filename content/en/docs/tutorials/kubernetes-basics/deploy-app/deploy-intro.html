@@ -30,7 +30,9 @@ description: |-
                 {{< note >}}
                 <p>This tutorial uses a container that requires the AMD64 architecture. If you are using
                 minikube on a computer with a different CPU architecture, you could try using minikube with
-                a driver that can emulate AMD64. For example, the Docker Desktop driver can do this.</p>
+                a driver that can emulate AMD64. For example, the Docker Desktop driver can do this. You can
+                make sure Docker Deskstop is running when you issue your first `minikube start` command. If
+                you already have other Minikube instances you can create a one with `minikube start driver=docker`.</p>
                 {{< /note >}}
 
                 <p>
@@ -121,7 +123,6 @@ description: |-
                 <a id="deploy-an-app"></a>
                 <h3>Deploy an app</h3>
                 <p>Let’s deploy our first app on Kubernetes with the <code>kubectl create deployment</code> command. We need to provide the deployment name and app image location (include the full repository url for images hosted outside Docker Hub).</p>
-                {{< note >}}This <code>kubenetes-bootcamp</code> image is built only for the <code>amd64</code> CPU architecture and may not work on your machine.{{< /note >}}
                 <p><b><code>kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1</code></b></p>
                 <p>Great! You just deployed your first application by creating a deployment. This performed a few things for you:</p>
                 <ul>
