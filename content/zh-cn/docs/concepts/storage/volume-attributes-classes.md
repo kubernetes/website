@@ -35,7 +35,7 @@ Kubernetes itself is un-opinionated about what these classes represent.
 This is a beta feature and disabled by default.
 
 If you want to test the feature whilst it's beta, you need to enable the `VolumeAttributesClass`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kube-controller-manager
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kube-controller-manager, kube-scheduler,
 and the kube-apiserver. You use the `--feature-gates` command line argument:
 -->
 卷属性类（VolumeAttributesClass）为管理员提供了一种描述可变更的存储“类”的方法。
@@ -43,7 +43,7 @@ and the kube-apiserver. You use the `--feature-gates` command line argument:
 
 这是一个 Beta 特性，默认被禁用。
 
-如果你想测试这一处于 Beta 阶段的特性，你需要为 kube-controller-manager 和 kube-apiserver 启用
+如果你想测试这一处于 Beta 阶段的特性，你需要为 kube-controller-manager、kube-scheduler 和 kube-apiserver 启用
 `VolumeAttributesClass` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 你可以使用 `--feature-gates` 命令行参数：
 

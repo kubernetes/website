@@ -2,10 +2,6 @@
 title: 调度、抢占和驱逐
 weight: 95
 content_type: concept
-description: >
-  在 Kubernetes 中，调度（scheduling）指的是确保 Pod 匹配到合适的节点，
-  以便 kubelet 能够运行它们。抢占（Preemption）指的是终止低优先级的 Pod 以便高优先级的 Pod
-  可以调度运行的过程。驱逐（Eviction）是在资源匮乏的节点上，主动让一个或多个 Pod 失效的过程。
 no_list: true
 ---
 
@@ -13,12 +9,6 @@ no_list: true
 title: "Scheduling, Preemption and Eviction"
 weight: 95
 content_type: concept
-description: >
-  In Kubernetes, scheduling refers to making sure that Pods are matched to Nodes
-  so that the kubelet can run them. Preemption is the process of terminating
-  Pods with lower Priority so that Pods with higher Priority can schedule on
-  Nodes. Eviction is the process of proactively terminating one or more Pods on
-  resource-starved Nodes.
 no_list: true
 -->
 
