@@ -150,13 +150,14 @@ The resource and subresource is determined from the incoming request's path:
 <!--
 Kubelet API  | resource | subresource
 -->
-Kubelet API  | 资源 | 子资源
--------------|----------|------------
-/stats/\*     | nodes    | stats
-/metrics/\*   | nodes    | metrics
-/logs/\*      | nodes    | log
-/spec/\*      | nodes    | spec
-**其它所有**  | nodes    | proxy
+Kubelet API         | 资源     | 子资源
+--------------------|----------|------------
+/stats/\*           | nodes    | stats
+/metrics/\*         | nodes    | metrics
+/logs/\*            | nodes    | log
+/spec/\*            | nodes    | spec
+/checkpoint/\*      | nodes    | checkpoint
+**其它所有**         | nodes    | proxy
 
 <!--
 The namespace and API group attributes are always an empty string, and
