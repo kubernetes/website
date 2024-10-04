@@ -148,7 +148,14 @@ The resource and subresource is determined from the incoming request's path:
 资源和子资源是根据传入请求的路径确定的：
 
 <!--
-Kubelet API  | resource | subresource
+Kubelet API         | resource | subresource
+--------------------|----------|------------
+/stats/\*           | nodes    | stats
+/metrics/\*         | nodes    | metrics
+/logs/\*            | nodes    | log
+/spec/\*            | nodes    | spec
+/checkpoint/\*      | nodes    | checkpoint
+*all others*        | nodes    | proxy
 -->
 Kubelet API  | 资源 | 子资源
 -------------|----------|------------
@@ -156,6 +163,7 @@ Kubelet API  | 资源 | 子资源
 /metrics/\*   | nodes    | metrics
 /logs/\*      | nodes    | log
 /spec/\*      | nodes    | spec
+/checkpoint/\* | nodes   | checkpoint
 **其它所有**  | nodes    | proxy
 
 <!--
