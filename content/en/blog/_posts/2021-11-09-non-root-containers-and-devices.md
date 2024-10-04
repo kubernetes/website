@@ -135,11 +135,21 @@ deployments break, an opt-in config entry in both containerd and CRI-O to enable
 defaults to `false` and must be enabled to use the feature.
 
 ## See non-root containers using devices after the fix
-To demonstrate the new behavior, let's use a Data Plane Development Kit (DPDK) application using hardware accelerators, Kubernetes CPU manager, and HugePages as an example. The cluster runs containerd with:
+To demonstrate the new behavior, let's use a Data Plane Development Kit (DPDK) application using hardware accelerators, Kubernetes CPU manager, and HugePages as an example. The cluster runs
+
+Containerd v1 with:
 
 ```toml
 [plugins]
   [plugins."io.containerd.grpc.v1.cri"]
+    device_ownership_from_security_context = true
+```
+
+Containerd v2 with:
+
+```toml
+[plugins]
+  [plugins."io.containerd.cri.v1.runtime"]
     device_ownership_from_security_context = true
 ```
 
