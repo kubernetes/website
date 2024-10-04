@@ -371,28 +371,7 @@ Instead, you can use node selector for `kubernetes.io/hostname`:
 
 {{< /note >}}
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: task-pv-pod
-spec:
-  nodeSelector:
-    kubernetes.io/hostname: kube-01
-  volumes:
-    - name: task-pv-storage
-      persistentVolumeClaim:
-        claimName: task-pv-claim
-  containers:
-    - name: task-pv-container
-      image: nginx
-      ports:
-        - containerPort: 80
-          name: "http-server"
-      volumeMounts:
-        - mountPath: "/usr/share/nginx/html"
-          name: task-pv-storage
-```
+{{% code_sample language="yaml" file="storage/storageclass/pod-volume-binding.yaml" %}}
 
 <!--
 ## Allowed topologies
@@ -416,22 +395,7 @@ supported plugins.
 这个例子描述了如何将制备卷的拓扑限制在特定的区域，
 在使用时应该根据插件支持情况替换 `zone` 和 `zones` 参数。
 
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: standard
-provisioner: kubernetes.io/example
-parameters:
-  type: pd-standard
-volumeBindingMode: WaitForFirstConsumer
-allowedTopologies:
-- matchLabelExpressions:
-  - key: topology.kubernetes.io/zone
-    values:
-    - us-central-1a
-    - us-central-1b
-```
+{{% code_sample language="yaml" file="storage/storageclass/storageclass-topology.yaml" %}}
 
 <!--
 ## Parameters
@@ -476,24 +440,7 @@ Kubernetes 项目建议你转为使用 [AWS EBS](https://github.com/kubernetes-s
 
 以下是一个针对 AWS EBS CSI 驱动程序的 StorageClass 示例：
 
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: ebs-sc
-provisioner: ebs.csi.aws.com
-volumeBindingMode: WaitForFirstConsumer
-parameters:
-  csi.storage.k8s.io/fstype: xfs
-  type: io1
-  iopsPerGB: "50"
-  encrypted: "true"
-allowedTopologies:
-- matchLabelExpressions:
-  - key: topology.ebs.csi.aws.com/zone
-    values:
-    - us-east-2c
-```
+{{% code_sample language="yaml" file="storage/storageclass/storageclass-aws-ebs.yaml" %}}
 
 ### AWS EFS
 
@@ -503,17 +450,7 @@ To configure AWS EFS storage, you can use the out-of-tree [AWS_EFS_CSI_DRIVER](h
 要配置 AWS EFS 存储，你可以使用树外
 [AWS_EFS_CSI_DRIVER](https://github.com/kubernetes-sigs/aws-efs-csi-driver)。
 
-```yaml
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: efs-sc
-provisioner: efs.csi.aws.com
-parameters:
-  provisioningMode: efs-ap
-  fileSystemId: fs-92107410
-  directoryPerms: "700"
-```
+{{% code_sample language="yaml" file="storage/storageclass/storageclass-aws-efs.yaml" %}}
 
 <!--
 - `provisioningMode`: The type of volume to be provisioned by Amazon EFS. Currently, only access point based provisioning is supported (`efs-ap`).
@@ -540,17 +477,7 @@ To configure NFS storage, you can use the in-tree driver or the
 要配置 NFS 存储，
 你可以使用树内驱动程序或[针对 Kubernetes 的 NFS CSI 驱动程序](https://github.com/kubernetes-csi/csi-driver-nfs#readme)（推荐）。
 
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: example-nfs
-provisioner: example.com/external-nfs
-parameters:
-  server: nfs-server.example.com
-  path: /share
-  readOnly: "false"
-```
+{{% code_sample language="yaml" file="storage/storageclass/storageclass-nfs.yaml" %}}
 
 <!--
 - `server`: Server is the hostname or IP address of the NFS server.
@@ -747,25 +674,7 @@ This internal provisioner of Ceph RBD is deprecated. Please use
 Ceph RBD 的内部驱动程序已被弃用。请使用 [CephFS RBD CSI驱动程序](https://github.com/ceph/ceph-csi)。
 {{< /note >}}
 
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: fast
-provisioner: kubernetes.io/rbd
-parameters:
-  monitors: 10.16.153.105:6789
-  adminId: kube
-  adminSecretName: ceph-secret
-  adminSecretNamespace: kube-system
-  pool: kube
-  userId: kube
-  userSecretName: ceph-secret-user
-  userSecretNamespace: default
-  fsType: ext4
-  imageFormat: "2"
-  imageFeatures: "layering"
-```
+{{% code_sample language="yaml" file="storage/storageclass/storageclass-ceph-rbd.yaml" %}}
 
 <!--
 - `monitors`: Ceph monitors, comma delimited. This parameter is required.
@@ -846,17 +755,7 @@ Kubernetes 项目建议你转为使用
 -->
 ### Azure 文件（已弃用）  {#azure-file}
 
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: azurefile
-provisioner: kubernetes.io/azure-file
-parameters:
-  skuName: Standard_LRS
-  location: eastus
-  storageAccount: azure_storage_account_name
-```
+{{% code_sample language="yaml" file="storage/storageclass/storageclass-azure-file.yaml" %}}
 
 <!--
 - `skuName`: Azure storage account SKU tier. Default is empty.
@@ -913,17 +812,7 @@ be read by other users.
 -->
 ### Portworx 卷（已弃用）    {#portworx-volume}
 
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: portworx-io-priority-high
-provisioner: kubernetes.io/portworx-volume
-parameters:
-  repl: "1"
-  snap_interval: "70"
-  priority_io: "high"
-```
+{{% code_sample language="yaml" file="storage/storageclass/storageclass-portworx-volume.yaml" %}}
 
 <!--
 - `fs`: filesystem to be laid out: `none/xfs/ext4` (default: `ext4`).
@@ -969,14 +858,7 @@ parameters:
 -->
 ### 本地 {#local}
 
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: local-storage
-provisioner: kubernetes.io/no-provisioner
-volumeBindingMode: WaitForFirstConsumer
-```
+{{% code_sample language="yaml" file="storage/storageclass/storageclass-local.yaml" %}}
 
 <!--
 Local volumes do not support dynamic provisioning in Kubernetes {{< skew currentVersion >}};

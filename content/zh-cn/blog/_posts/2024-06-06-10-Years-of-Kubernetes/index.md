@@ -320,7 +320,7 @@ update any automation you have to use registry.k8s.io!
 [Kubernetes 历史上最大的迁移](/zh-cn/blog/2024/05/20/completing-cloud-provider-migration/)中，大约删除了
 150 万行代码，将核心组件的二进制文件大小减小了约 40%。在项目早期，很明显可扩展性是成功的关键。
 然而，如何实现这种可扩展性并不总是很清楚。此次迁移从核心 Kubernetes 代码库中删除了各种特定于供应商的功能。
-现在，特定于供应商的功能可以通过其他可插拔的扩展功能或模式更好地提供，例如[自定义资源定义（CRD）](https://https://kubernetes.io/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/) 
+现在，特定于供应商的功能可以通过其他可插拔的扩展功能或模式更好地提供，例如[自定义资源定义（CRD）](/docs/concepts/extend-kubernetes/api-extension/custom-resources/) 
 或 [Gateway API](https://gateway-api.sigs.k8s.io/) 等 API 标准。
 Kubernetes 在为其庞大的用户群体提供服务时也面临着新的挑战，社区正在相应地进行调整。其中一个例子是将镜像托管迁移到新的、由社区拥有的
 registry.k8s.io。为用户提供预编译二进制镜像的出口带宽和成本已经变得非常巨大。这一新的仓库变更使社区能够以更具成本效益和性能高效的方式继续提供这些便利的镜像。

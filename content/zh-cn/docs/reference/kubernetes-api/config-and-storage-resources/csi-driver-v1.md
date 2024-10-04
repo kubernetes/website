@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "CSIDriver 抓取集群上部署的容器存储接口（CSI）卷驱动有关的信息。"
 title: "CSIDriver"
-weight: 8
+weight: 3
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster."
 title: "CSIDriver"
-weight: 8
+weight: 3
 -->
 
 `apiVersion: storage.k8s.io/v1`
@@ -94,7 +94,7 @@ CSIDriverSpec 是 CSIDriver 的规约。
 
   fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
   
-  This field is immutable.
+  This field was immutable in Kubernetes \< 1.29 and now is mutable.
   
   Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
 -->
@@ -103,7 +103,7 @@ CSIDriverSpec 是 CSIDriver 的规约。
   fsGroupPolicy 定义底层卷是否支持在挂载之前更改卷的所有权和权限。
   有关更多详细信息，请参考特定的 FSGroupPolicy 值。
   
-  此字段不可变更。
+  此字段在 Kubernetes 1.29 版本之前不可变更，现在可变更。
   
   默认为 ReadWriteOnceWithFSType，这会检查每个卷，以决定 Kubernetes 是否应修改卷的所有权和权限。
   采用默认策略时，如果定义了 fstype 且卷的访问模式包含 ReadWriteOnce，将仅应用定义的 fsGroup。
@@ -122,7 +122,8 @@ CSIDriverSpec 是 CSIDriver 的规约。
   <!--
   The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
   
-  The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" if the volume is an ephemeral inline volume defined by a CSIVolumeSource, otherwise "false"
+  The following VolumeContext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" if the volume is an ephemeral inline volume
+                                  defined by a CSIVolumeSource, otherwise "false"
   -->
   CSI 驱动将 podInfoOnMount 指定为驱动部署的一部分。
   如果为 true，Kubelet 将在 CSI NodePublishVolume() 调用中作为 VolumeContext 传递 Pod 信息。
@@ -140,7 +141,7 @@ CSIDriverSpec 是 CSIDriver 的规约。
   <!--
   "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
   
-  This field is immutable.
+  This field was immutable in Kubernetes \< 1.29 and now is mutable.
   -->
   “csi.storage.k8s.io/ephemeral” 是 Kubernetes 1.16 中一个新的功能特性。
   只有同时支持 “Persistent” 和 “Ephemeral” VolumeLifecycleMode 的驱动，此字段才是必需的。
@@ -148,7 +149,7 @@ CSIDriverSpec 是 CSIDriver 的规约。
   由于 Kubernetes 1.15 不支持此字段，所以在这类集群上部署驱动时，只能支持一种模式。
   该部署就决定了是哪种模式，例如通过驱动的命令行参数。
   
-  此字段不可变更。
+  此字段在 Kubernetes 1.29 版本之前不可变更，现在可变更。
 
 <!--
 - **requiresRepublish** (boolean)

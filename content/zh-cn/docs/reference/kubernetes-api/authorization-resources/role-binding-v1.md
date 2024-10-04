@@ -82,15 +82,20 @@ RoleBinding 通过 Subjects 和所在的命名空间信息添加主体信息。
   - **roleRef.name** (string)，必需
     
     name 是被引用的资源的名称
-<!--
+
+- **subjects** ([]Subject)
+  <!--
+  *Atomic: will be replaced during a merge*
+
   Subjects holds references to the objects the role applies to.
   <a name="Subject"></a>
   *Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.*
 
   - **subjects.kind** (string), required
     Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
--->
-- **subjects** ([]Subject)
+  -->
+
+  **原子性：合并期间将被替换**
   
   subjects 包含角色所适用的对象的引用。
   

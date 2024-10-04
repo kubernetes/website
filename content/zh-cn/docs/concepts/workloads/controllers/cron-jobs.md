@@ -128,9 +128,9 @@ The `.spec.schedule` field is required. The value of that field follows the [Cro
 ```
 
 <!--
-For example, `0 0 13 * 5` states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight.
+For example, `0 3 * * 1` means this task is scheduled to run weekly on a Monday at 3 AM.
 -->
-例如 `0 0 13 * 5` 表示此任务必须在每个星期五的午夜以及每个月的 13 日的午夜开始。
+例如 `0 0 13 * 5` 表示此任务计划于每周一凌晨 3 点运行。
 
 <!--
 The format also includes extended "Vixie cron" step values. As explained in the
