@@ -121,7 +121,7 @@ spec:
   안정적인 스토리지를 제공한다.
 
 스테이트풀셋 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
+[DNS 레이블](/ko/docs/concepts/overview/working-with-objects/names#dns-label-names)이어야 한다.
 
 ### 파드 셀렉터
 
@@ -160,7 +160,7 @@ N개의 [레플리카](#레플리카)가 있는 스테이트풀셋은 스테이�
 
 ### 시작 순서
 
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 `.spec.ordinals`은 각 파드에 할당할 순서에 대한
 정수값을 설정할 수 있게 해주는 선택적인 필드로, 기본값은 nil이다.
@@ -360,7 +360,7 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 
 ## 퍼시스턴트볼륨클레임 유보
 
-{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 선택적 필드인 `.spec.persistentVolumeClaimRetentionPolicy` 는 
 스테이트풀셋의 생애주기동안 PVC를 삭제할 것인지, 

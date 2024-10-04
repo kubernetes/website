@@ -69,7 +69,7 @@ kubectl get rs
 
 그리고 생성된 프런트엔드를 볼 수 있다.
 
-```shell
+```
 NAME       DESIRED   CURRENT   READY   AGE
 frontend   3         3         3       6s
 ```
@@ -118,7 +118,7 @@ kubectl get pods
 
 다음과 유사한 파드 정보를 볼 수 있다.
 
-```shell
+```
 NAME             READY   STATUS    RESTARTS   AGE
 frontend-b2zdv   1/1     Running   0          6m36s
 frontend-vcmts   1/1     Running   0          6m36s
@@ -228,8 +228,9 @@ pod2             1/1     Running   0          36s
 레플리카셋은 모든 쿠버네티스 API 오브젝트와 마찬가지로 `apiVersion`, `kind`, `metadata` 필드가 필요하다.
 레플리카셋에 대한 `kind` 필드의 값은 항상 레플리카셋이다.
 
-레플리카셋 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
+컨트롤 플레인이 레플리케이션 컨트롤러에 대한 새 파드를 생성할 때, 레플리케이션 컨트롤러의 `.metadata.name`은 해당 파드의 이름을 지정하는 기준의 일부이다.
+레플리케이션 컨트롤러의 이름은 유효한 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름) 값이어야 하지만, 파드 호스트네임에 예기치 않은 결과가 발생할 수 있다.
+최상의 호환성을 위해, 이름은 [DNS 레이블](/ko/docs/concepts/overview/working-with-objects/names#dns-label-names)에 대한 보다 제한적인 규칙을 따라야 한다.
 
 레플리카셋도 [`.spec` 섹션](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)이 필요하다.
 
@@ -284,8 +285,8 @@ REST API 또는 `client-go` 라이브러리를 이용할 때는 -d 옵션으로 
 ```shell
 kubectl proxy --port=8080
 curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/frontend' \
-> -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
-> -H "Content-Type: application/json"
+  -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
+  -H "Content-Type: application/json"
 ```
 
 ### 레플리카셋만 삭제하기
@@ -299,8 +300,8 @@ REST API 또는 `client-go` 라이브러리를 이용할 때는 `propagationPoli
 ```shell
 kubectl proxy --port=8080
 curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/frontend' \
-> -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Orphan"}' \
-> -H "Content-Type: application/json"
+  -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Orphan"}' \
+  -H "Content-Type: application/json"
 ```
 
 원본이 삭제되면 새 레플리카셋을 생성해서 대체할 수 있다.
@@ -331,15 +332,15 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
  1. 파드 생성 시간이 다르면, 더 최근에 생성된 파드가 
     이전에 생성된 파드보다 먼저 스케일 다운된다. 
     (`LogarithmicScaleDown` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있으면 생성 시간이 정수 로그 스케일로 버킷화된다)
-    
+
 모든 기준에 대해 동등하다면, 스케일 다운할 파드가 임의로 선택된다.
 
 ### 파드 삭제 비용
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
-[`controller.kubernetes.io/pod-deletion-cost`](/ko/docs/reference/labels-annotations-taints/#pod-deletion-cost) 어노테이션을 이용하여, 
-레플리카셋을 스케일 다운할 때 어떤 파드부터 먼저 삭제할지에 대한 우선순위를 설정할 수 있다.
+[`controller.kubernetes.io/pod-deletion-cost`](/ko/docs/reference/labels-annotations-taints/#pod-deletion-cost)
+어노테이션을 이용하여, 레플리카셋을 스케일 다운할 때 어떤 파드부터 먼저 삭제할지에 대한 우선순위를 설정할 수 있다.
 
 이 어노테이션은 파드에 설정되어야 하며, [-2147483647, 2147483647] 범위를 갖는다.
 이 어노테이션은 하나의 레플리카셋에 있는 다른 파드와의 상대적 삭제 비용을 나타낸다.
@@ -355,8 +356,8 @@ kube-apiserver와 kube-controller-manager에 대해 `PodDeletionCost`
 {{< note >}}
 - 이 기능은 best-effort 방식으로 동작하므로, 파드 삭제 순서를 보장하지는 않는다.
 - 이 값을 자주 바꾸는 것은 피해야 한다 (예: 메트릭 값에 따라 변경). 
-apiserver에서 많은 양의 파드 업데이트를 동반하기 때문이다.
-{{< /note >}}
+  apiserver에서 많은 양의 파드 업데이트를 동반하기 때문이다.
+  {{< /note >}}
 
 #### 사용 예시
 
@@ -440,4 +441,3 @@ kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
   오브젝트 정의를 읽는다.
 * [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/)과
   이를 사용해서 어떻게 중단 중에 애플리케이션 가용성을 관리할 수 있는지에 대해 읽는다.
-

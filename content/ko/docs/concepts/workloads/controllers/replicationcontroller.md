@@ -112,11 +112,14 @@ nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 다른 형식의 파일인 `replication.yaml` 의 것과 동일하다. `--output=jsonpath` 은
 반환된 목록의 각 파드의 이름을 출력하도록 하는 옵션이다.
 
-## 레플리케이션 컨트롤러의 Spec 작성
+## 레플리케이션 컨트롤러의 매니페스트 작성
 
 다른 모든 쿠버네티스 컨피그와 마찬가지로 레플리케이션 컨트롤러는 `apiVersion`, `kind`, `metadata` 와 같은 필드가 필요하다.
-레플리케이션 컨트롤러 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
+
+컨트롤 플레인이 레플리케이션 컨트롤러에 대한 새로운 파드를 생성할 때, 레플리케이션 컨트롤러의 `.metadata.name`은 해당 파드의 이름을 지정하는 기준의 일부이다.
+레플리케이션 컨트롤러의 이름은 유효한 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름) 값이어야 하지만, 파드 호스트네임에 예기치 않은 결과가 발생할 수 있다.
+최고의 호환성을 위해, 이름은 [DNS 레이블](/ko/docs/concepts/overview/working-with-objects/names#dns-label-names)에 대한 보다 제한적인 규칙을 따라야 한다.
+
 환경설정 파일의 동작에 관련된 일반적인 정보는 [쿠버네티스 오브젝트 관리](/ko/docs/concepts/overview/working-with-objects/object-management/)를 참고한다.
 
 레플리케이션 컨트롤러는 또한 [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)도 필요하다.

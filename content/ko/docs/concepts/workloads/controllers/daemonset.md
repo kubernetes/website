@@ -105,30 +105,16 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 
 ## 데몬 파드가 스케줄 되는 방법
 
-### 기본 스케줄러로 스케줄
+데몬셋은 자격이 되는 모든 노드에서 파드 사본이 실행하도록 보장한다. 데몬셋 컨트롤러는
+각 적격 노드에 대해 파드를 생성하고 대상 호스트와 일치하도록 파드의 `spec.affinity.nodeAffinity` 필드를 추가한다.
+파드가 생성되면 일반적으로 기본 스케줄러가 넘겨받은 후 `.spec.nodeName` 필드를 설정하여 파드를 대상 호스트에 바인딩한다.
+새 파드가 노드에 맞지 않으면, 기본 스케줄러는 새 파드의 [우선순위](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/#파드-우선순위)에 따라 기존 파드 중 일부를 선점 (축출)할 수 있다.
 
-{{< feature-state for_k8s_version="1.17" state="stable" >}}
+사용자는 데몬셋의 `.spec.template.spec.schedulerName` 필드를 설정하여 데몬셋의 파드애 대해
+다른 스케줄러를 지정할 수 있다.
 
-데몬셋은 자격이 되는 모든 노드에서 파드 사본이 실행하도록 보장한다. 일반적으로
-쿠버네티스 스케줄러에 의해 파드가 실행되는 노드가 선택된다. 그러나
-데몬셋 파드는 데몬셋 컨트롤러에 의해 생성되고 스케줄된다.
-이에 대한 이슈를 소개한다.
-
-* 파드 동작의 불일치: 스케줄 되기 위해서 대기 중인 일반 파드는 `Pending` 상태로 생성된다.
-  그러나 데몬셋 파드는 `Pending` 상태로 생성되지 않는다.
-  이것은 사용자에게 혼란을 준다.
-* [파드 선점](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/)은
-  기본 스케줄러에서 처리한다. 선점이 활성화되면 데몬셋 컨트롤러는
-  파드 우선순위와 선점을 고려하지 않고 스케줄 한다.
-
-`ScheduleDaemonSetPods` 로 데몬셋 파드에 `.spec.nodeName` 용어 대신
-`NodeAffinity` 용어를 추가해서 데몬셋 컨트롤러 대신 기본
-스케줄러를 사용해서 데몬셋을 스케줄할 수 있다. 이후에 기본
-스케줄러를 사용해서 대상 호스트에 파드를 바인딩한다. 만약 데몬셋 파드에
-이미 노드 선호도가 존재한다면 교체한다(대상 호스트를 선택하기 전에 
-원래 노드의 어피니티가 고려된다). 데몬셋 컨트롤러는
-데몬셋 파드를 만들거나 수정할 때만 이런 작업을 수행하며,
-데몬셋의 `spec.template` 은 변경되지 않는다.
+`.spec.template.spec.affinity.nodeAffinity` 필드(지정했을 경우)에 지정된 노드 어피니티는
+데몬셋 컨트롤러가 적격한 노드를 평가할때 반영되나, 생성된 파드에서는 적격한 노드의 이름과 일치하는 노드 어피니티로 교체된다.
 
 ```yaml
 nodeAffinity:
@@ -141,25 +127,35 @@ nodeAffinity:
         - target-host-name
 ```
 
-또한, 데몬셋 파드에 `node.kubernetes.io/unschedulable:NoSchedule` 이 톨러레이션(toleration)으로
-자동으로 추가된다. 기본 스케줄러는 데몬셋 파드를
-스케줄링시 `unschedulable` 노드를 무시한다.
-
 ### 테인트(taints)와 톨러레이션(tolerations)
 
-데몬 파드는
-[테인트와 톨러레이션](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)을 존중하지만,
-다음과 같이 관련 기능에 따라 자동적으로 데몬셋 파드에
-톨러레이션을 추가한다.
+데몬셋 컨트롤러는 {{< glossary_tooltip text="톨러레이션" term_id="toleration" >}}을
+데몬셋 파드에 자동적으로 추가한다.
 
-| 톨러레이션 키                              | 영향       | 버전    | 설명                                                           |
-| ---------------------------------------- | ---------- | ------- | ------------------------------------------------------------ |
-| `node.kubernetes.io/not-ready`           | NoExecute  | 1.13+   | 네트워크 파티션과 같은 노드 문제가 발생해도 데몬셋 파드는 축출되지 않는다. |
-| `node.kubernetes.io/unreachable`         | NoExecute  | 1.13+   | 네트워크 파티션과 같은 노드 문제가 발생해도 데몬셋 파드는 축출되지 않는다. |
-| `node.kubernetes.io/disk-pressure`       | NoSchedule | 1.8+    | 데몬셋 파드는 기본 스케줄러에서 디스크-압박(disk-pressure) 속성을 허용한다. |
-| `node.kubernetes.io/memory-pressure`     | NoSchedule | 1.8+    | 데몬셋 파드는 기본 스케줄러에서 메모리-압박(memory-pressure) 속성을 허용한다. |
-| `node.kubernetes.io/unschedulable`       | NoSchedule | 1.12+   | 데몬셋 파드는 기본 스케줄러의 스케줄할 수 없는(unschedulable) 속성을 극복한다. |
-| `node.kubernetes.io/network-unavailable` | NoSchedule | 1.12+   | 호스트 네트워크를 사용하는 데몬셋 파드는 기본 스케줄러에 의해 이용할 수 없는 네트워크(network-unavailable) 속성을 극복한다. |
+{{< table caption="데몬셋 파드를 위한 톨러레이션" >}}
+
+| 톨러레이션 키                              | 영향       | 상세정보                                                         |
+| ---------------------------------------- | ---------- | ------------------------------------------------------------ |
+| [`node.kubernetes.io/not-ready`](/ko/docs/reference/labels-annotations-taints/#node-kubernetes-io-not-ready)           | NoExecute  | 데몬셋 파드를 상태가 healthy 하지 않거나 파드를 받을 준비가 되지 않는 노드에 스케줄할 수 있다. 이러한 노드에 실행중인 데몬셋 파드들은 축출되지 않는다.|
+| [`node.kubernetes.io/unreachable`](/ko/docs/reference/labels-annotations-taints/#node-kubernetes-io-unreachable)         | NoExecute  | 데몬셋 파드를 노드 컨트롤러에서 접근이 불가능한 노드에 스케줄할 수 있다. 이러한 노드에 실행중인 데몬셋 파드들은 축출되지 않는다.|
+| [`node.kubernetes.io/disk-pressure`](/ko/docs/reference/labels-annotations-taints/#node-kubernetes-io-disk-pressure)       | NoSchedule | 데몬셋 파드를 디스크 압박(disk pressure) 이슈를 겪고 있는 노드에 데몬셋 파드를 스케줄할 수 있다. |
+| [`node.kubernetes.io/memory-pressure`](/ko/docs/reference/labels-annotations-taints/#node-kubernetes-io-memory-pressure)     | NoSchedule | 데몬셋 파드를 메모리 압박(memory pressure) 이슈를 겪고 있는 노드에 스케줄할 수 있다. |
+| [`node.kubernetes.io/pid-pressure`](/ko/docs/reference/labels-annotations-taints/#node-kubernetes-io-pid-pressure) | NoSchedule | 데몬셋 파드를 프로세스 압박 (process pressure) 이슈를 겪고 있는 노드에 스케줄할 수 있다. |
+| [`node.kubernetes.io/unschedulable`](/ko/docs/reference/labels-annotations-taints/#node-kubernetes-io-unschedulable)       | NoSchedule | 데몬셋 파드를 스케줄할 수 없는(unschedulable) 상태의 노드에 스케줄할 수 있다. |
+| [`node.kubernetes.io/network-unavailable`](/ko/docs/reference/labels-annotations-taints/#node-kubernetes-io-network-unavailable) | NoSchedule | **호스트 네트워킹을 요청하는 데몬셋 파드에 한정된다**. 예를 들어, `spec.hostNetwork: true` 속성을 가진 파드가 있다. 이러한 데몬셋 파드를 네트워크 사용이 불가능한 노드에 스케줄할 수 있다. |
+
+{{< /table>}}
+
+데몬셋의 파드에 대한 톨러레이션 또한 데몬셋의 파드 템플릿에 정의해서 추가할 수 있다.
+
+데몬셋 컨트롤러는 `node.kubernetes.io/unschedulable:NoSchedule` 톨러레이션을 자동으로 설정하기 때문에,
+쿠버네티스는 _스케줄 불가능_으로 표시된 노드에서도 데몬셋 파드를 실행할 수 있다.
+
+만약 [클러스터 네트워킹](/ko/docs/concepts/cluster-administration/networking/)과 같은 중요한
+노드-레벨 기능을 제공하기 위해 데몬셋을 사용하는 경우, 쿠버네티스가 노드가 준비되기 전에 데몬셋 파드를 배치하는
+것이 유용하다. 예를 들어, 특별한 톨러레이션이 없으면 네트워크 플러그인이 해당 노드에서 실행되지 않기 때문에 노드가
+준비 상태로 표시되지 않고, 동시에 노드가 아직 준비되지 않았기 때문에 네트워크 플러그인이 해당 노드에서 실행되지
+않는 교착 상태에 빠질 수 있다.
 
 ## 데몬 파드와 통신
 
