@@ -231,6 +231,42 @@ systemd를 사용하는 시스템에서는, kubelet과 컨테이너 런타임은
 `kube-up.sh` 스크립트로 생성된 쿠버네티스 클러스터에서는, `logrotate` 도구로 로그가 로테이트되도록 설정된다.
 `logrotate` 도구는 로그가 매일 또는 크기가 100MB 보다 클 때 로테이트된다.
 
+## 로그 쿼리
+
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
+노드에서 문제를 디버깅하는 데 유용하도록, 쿠버네티스 v1.27은 노드에서 실행 중인 서비스의 로그를 볼 수 있는 기능을 도입했다. 이 기능을 사용하려면, 해당 노드에 대해 `NodeLogQuery` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있고, kubelet 구성 옵션 `enableSystemLogHandler` 및 `enableSystemLogQuery`가 모두 true로 설정되어 있는지 확인해야 한다.  리눅스에서는 journald를 통해 서비스 로그를 사용할 수 있다고 가정한다. 윈도우에서는 애플리케이션 로그 공급자에서 서비스 로그를 사용할 수 있다고 가정한다. 두 운영 체제 모두에서 `/var/log/` 내의 파일을 읽어서 로그를 사용할 수도 있다.
+
+노드 오브젝트와 상호 작용할 수 있는 권한이 있는 경우, 모든 노드 또는 하위 집합에서 이 알파 기능을 사용할 수 있다. 다음은 노드에서 kubelet 서비스 로그를 검색하는 예제이다.
+```shell
+# node-1.example 노드의 kubelet 로그를 가져온다.
+kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet"
+```
+
+파일이 kubelet이 로그 반환을 허용하는 디렉터리에 있는 경우 파일을 가져올 수도 있다. 예를 들어, 리눅스 노드의 `/var/log`에서 로그를 가져올 수 있다.
+```shell
+kubectl get --raw "/api/v1/nodes/<노드 이름>/proxy/logs/?query=/<로그 파일 이름>"
+```
+
+Kubelet은 휴리스틱 기법을 활용하여 로그를 검색한다.이는 특정 시스템 서비스가 로그를 journald와 같은 운영 체제의 네이티브 로거에 기록하는지 아니면 `/var/log/`의 로그 파일에 기록하는지 알 수 없는 경우에 유용하다. 휴리스틱은 먼저 네이티브 로거를 확인하고 사용할 수 없는 경우 `/var/log/<서버 이름>` 또는 `/var/log/<서버 이름>.log` 또는 `/var/log/<서버 이름>/<서버 이름>.log`에서 첫 번째 로그를 검색하려고 시도한다.
+
+사용할 수 있는 전체 옵션 목록은 다음과 같다.
+
+옵션 | 설명
+------ | -----------
+`boot` | boot는 특정 시스템 부팅 메시지를 표시한다.
+`pattern` | 패턴은 제공된 PERL 호환 정규식으로 로그 항목을 필터링한다.
+`query` | 쿼리는 로그를 반환할 서비스 또는 파일을 지정한다. (필수)
+`sinceTime` | 로그를 표시할 [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) 타임스탬프 (포함)
+`untilTime` | 로그를 표시할 때까지의 [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) 타임스탬프 (포함)
+`tailLines` | 로그 끝에서 몇 줄을 검색할지 지정한다. 기본값은 전체 로그를 가져오는 것이다.
+
+다음은 복잡한 쿼리의 예시이다.
+```shell
+# node-1.example 노드에서 단어 "error"가 포함되어 있는 로그를 가져온다.
+kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet&pattern=error"
+```
+
 ## {{% heading "whatsnext" %}}
 
 * [쿠버네티스 로깅 아키텍처](/ko/docs/concepts/cluster-administration/logging/) 알아보기
