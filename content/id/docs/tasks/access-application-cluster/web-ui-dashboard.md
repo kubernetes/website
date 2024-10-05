@@ -42,10 +42,10 @@ Contoh pengguna yang telah dibuat di tutorial tersebut akan memiliki hak istimew
 Kamu dapat mengakses Dashboard menggunakan perkakas CLI kubectl dengan menjalankan perintah berikut:
 
 ```
-kubectl proxy
+kubectl proxy --port=8001
 ```
 
-Kubectl akan membuat Dashboard tersedia di http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/.
+Kubectl akan membuat Dashboard tersedia di http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard-kong-proxy:443/proxy/.
 
 Antarmuka pengguna berbasis web tersebut hanya dapat di akses dari mesin dimana perintah tersebut dijalankan. Lihat `kubectl proxy --help` untuk lebih lanjut.
 
