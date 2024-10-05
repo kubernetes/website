@@ -50,10 +50,10 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/a
 以下のコマンドを実行することで、kubectlコマンドラインツールを使ってダッシュボードにアクセスすることができます:
 
 ```
-kubectl proxy
+kubectl proxy --port=8001
 ```
 
-kubectlは、ダッシュボードを http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/ で利用できるようにします。
+kubectlは、ダッシュボードを http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard-kong-proxy:443/proxy/ で利用できるようにします。
 
 UIはコマンドを実行しているマシンから _のみ_ アクセスできます。オプションについては`kubectl proxy --help`を参照してください。
 
