@@ -47,10 +47,10 @@ L’exemple d’utilisateur créé dans le didacticiel disposera de privilèges 
 Vous pouvez accéder au tableau de bord à l'aide de l'outil en ligne de commande kubectl en exécutant la commande suivante:
 
 ```text
-kubectl proxy
+kubectl proxy --port=8001
 ```
 
-Kubectl mettra le tableau de bord à disposition à l'adresse suivante: <http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/>.
+Kubectl mettra le tableau de bord à disposition à l'adresse suivante: <http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard-kong-proxy:443/proxy/>.
 
 Vous ne pouvez accéder à l'interface utilisateur _que_ depuis la machine sur laquelle la commande est exécutée.
 Voir `kubectl proxy --help` pour plus d'options.
