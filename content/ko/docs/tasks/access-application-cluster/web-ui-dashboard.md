@@ -57,10 +57,10 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.6.1/a
 접속을 활성화할 수 있다.
 
 ```
-kubectl proxy
+kubectl proxy --port=8001
 ```
 
-kubectl은 [http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/)를 통해 대시보드에 접속할 수 있게 해줄 것이다.
+kubectl은 [http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard-kong-proxy:443/proxy/](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard-kong-proxy:443/proxy/)를 통해 대시보드에 접속할 수 있게 해줄 것이다.
 
 UI는 _오직_ 커맨드가 실행된 머신에서만 접근 가능하다. 상세 내용은 `kubectl proxy --help` 옵션을 확인한다.
 
