@@ -27,7 +27,7 @@ $announcement-size-adjustment: 8px;
   }
 
   .ui-widget-content a {
-    color: $blue;
+    color: $primary;
   }
 }
 
@@ -735,7 +735,7 @@ body.cid-code-of-conduct main {
         color: #000000;
       }
 
-      color: $blue;
+      color: $primary;
       margin: 1rem;
     }
   }
@@ -1158,7 +1158,7 @@ div.alert > em.javascript-required {
 
 #search .pagefind-ui.pagefind-ui__result-nested::before {
   content: "\2937 ";
-  color: $blue;
+  color: $primary;
 }
 
 #search .pagefind-ui ol > li {
@@ -1169,7 +1169,7 @@ div.alert > em.javascript-required {
 
 #search .pagefind-ui button {
   color: #fff;
-  background-color: $blue;
+  background-color: $primary;
   border-radius: 0.2em;
   border: 0.1rem solid $medium-grey;
   padding: 0.3em;
