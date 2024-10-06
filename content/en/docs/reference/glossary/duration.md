@@ -1,6 +1,6 @@
 ---
 title: Duration
-id: duratoion
+id: duration
 date: 2024-10-05
 full_link:
 short_description: >
@@ -9,4 +9,6 @@ aka:
 tags:
 - fundamental
 ---
- In Kubernetes APIs, a duration must be non-negative and is typically expressed with a suffix (e.g., `5s` for five seconds or `1m30s` for one minute and thirty seconds).
+In Kubernetes APIs, a duration must be non-negative and is typically expressed with a suffix. 
+For example, `5s` for five seconds or `1m30s` for one minute and thirty seconds
+
