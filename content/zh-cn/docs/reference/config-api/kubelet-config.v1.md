@@ -110,15 +110,15 @@ and URL path.
 <!--
 Each entry in matchImages is a pattern which can optionally contain a port and a path.
 Globs can be used in the domain, but not in the port or the path. Globs are supported
-as subdomains like '&ast;.k8s.io' or 'k8s.&ast;.io', and top-level-domains such as 'k8s.&ast;'.
+as subdomains like '<em>.k8s.io' or 'k8s.</em>.io', and top-level-domains such as 'k8s.<em>'.
 Matching partial subdomains like 'app</em>.k8s.io' is also supported. Each glob can only match
-a single subdomain segment, so &ast;.io does not match &ast;.k8s.io.
+a single subdomain segment, so *.io does not match *.k8s.io.
 -->
 <p><code>matchImages</code> 中的每个条目都是一个模式字符串，其中可以包含端口号和路径。
-域名部分可以包含通配符，但端口或路径部分不可以。'&ast;.k8s.io' 或 'k8s.&ast;.io' 等子域名以及
-'k8s.&ast;' 这类顶级域名都支持通配符。</p>
+域名部分可以包含通配符，但端口或路径部分不可以。'<em>.k8s.io' 或 'k8s.</em>.io' 等子域名以及
+'k8s.<em>' 这类顶级域名都支持通配符。</p>
 <p>对于 'app</em>.k8s.io' 这类部分子域名的匹配也是支持的。
-每个通配符只能用来匹配一个子域名段，所以 &ast;.io 不会匹配 &ast;.k8s.io。</p>
+每个通配符只能用来匹配一个子域名段，所以 *.io 不会匹配 *.k8s.io。</p>
 <!--
 A match exists between an image and a matchImage when all of the below are true:
 -->
@@ -139,9 +139,9 @@ Example values of matchImages:
 <p><code>matchImages</code> 的一些示例如下：</p>
 <ul>
 <li>123456789.dkr.ecr.us-east-1.amazonaws.com</li>
-<li>&ast;.azurecr.io</li>
+<li>*.azurecr.io</li>
 <li>gcr.io</li>
-<li>&ast;.&ast;.registry.io</li>
+<li><em>.</em>.registry.io</li>
 <li>registry.io:8080/path</li>
 </ul>
 </td>
