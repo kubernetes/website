@@ -580,6 +580,14 @@ receiving traffic for the Service from the moment the kubelet starts all contain
 and marks it _Running_, til the kubelet stops all containers and deletes the pod from
 the API server.
 
+### autoscaling.alpha.kubernetes.io/behavior (deprecated)
+
+Type: Annotation
+
+Used on: HorizontalPodAutoscaler
+
+This annotation was used to configure the scaling behavior of the Horizontal Pod Autoscaler (HPA) in earlier Kubernetes versions. It allowed to specify how the HPA should scale pods up or down, including setting stabilization windows and scaling policies.
+
 ### kubernetes.io/hostname {#kubernetesiohostname}
 
 Type: Label
