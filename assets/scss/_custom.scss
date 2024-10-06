@@ -108,7 +108,7 @@ body.td-404 main .error-details {
 
   // mermaid diagram - sequence diagram
   .actor {
-    fill: #326ce5 !important;
+    fill: $primary !important;
   }
   text.actor {
     font-size: 18px !important;
@@ -956,7 +956,7 @@ body.cid-partners {
         line-height: 40px;
         color: #ffffff;
         font-size: 16px;
-        background-color: #326ce5;
+        background-color: $primary;
         text-decoration: none;
      }
 

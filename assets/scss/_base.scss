@@ -113,12 +113,12 @@ main {
 }
 
 ::selection {
-  background: #326ce5;
+  background: $primary;
   color: white;
 }
 
 ::-moz-selection {
-  background: #326ce5;
+  background: $primary;
   color: white;
 }
 
@@ -560,7 +560,7 @@ section#cncf {
 
   #desktopKCButton:hover{
     background-color: #ffffff;
-    color: #326ce5;
+    color: $primary;
     transition: 150ms;
   }
 
