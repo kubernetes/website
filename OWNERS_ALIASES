@@ -16,7 +16,6 @@ aliases:
     - salaxander
     - sftim
     - tengqm
-    - drewhagen # RT 1.31 temp acting Docs lead
   sig-docs-localization-owners: # Admins for localization content
     - a-mccarthy
     - divya-mohan0209
@@ -80,8 +79,8 @@ aliases:
     - shannonxtreme
     - tengqm
     - windsonsea
-    - Princesso # RT 1.31 Docs Lead
-    - drewhagen # RT 1.31 temp acting Docs lead
+    - Princesso
+    - drewhagen
   sig-docs-es-owners: # Admins for Spanish content
     - electrocucaracha
     - krol3
