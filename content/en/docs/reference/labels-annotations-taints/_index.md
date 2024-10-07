@@ -2361,7 +2361,7 @@ Example: `jobset.sigs.k8s.io/replicatedjob-name: "my-replicatedjob"`
 
 Used on: Jobs, Pods
 
-This label/annotation stores the name of the ReplicatedJob that this Job or Pod is part of.
+This label or annotation stores the name of the replicated job that this Job or Pod is part of.
 
 ### jobset.sigs.k8s.io/job-index
 
@@ -2381,7 +2381,8 @@ Example: `jobset.sigs.k8s.io/job-key=0f1e93893c4cb372080804ddb9153093cb0d20cefdd
 
 Used on: Jobs, Pods
 
-This label/annotation is set by the JobSet controller on child Jobs and Pods of a JobSet. The value will be the SHA256 hash of the namespaced Job name.
+The JobSet controller sets this label (and also an annotation with the same key)  on child Jobs and
+Pods of a JobSet. The value is the SHA256 hash of the namespaced Job name.
 
 ### alpha.jobset.sigs.k8s.io/exclusive-topology
 
@@ -2391,7 +2392,9 @@ Example: `alpha.jobset.sigs.k8s.io/exclusive-topology: "zone"`
 
 Used on: JobSets, ReplicatedJobs
 
-You can set this label/annotation on a [JobSet](https://jobset.sigs.k8s.io) or a ReplicatedJob template to ensure exclusive job placement per topology group.
+You can set this label/annotation on a [JobSet](https://jobset.sigs.k8s.io) to ensure exclusive Job
+placement per topology group. You can also define this label or annotation on a replicated job
+template. Read the documentation for JobSet to learn more.
 
 ### alpha.jobset.sigs.k8s.io/node-selector
 
