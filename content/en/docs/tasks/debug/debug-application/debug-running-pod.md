@@ -723,11 +723,11 @@ kubectl delete pod myapp
 
 {{< feature-state for_k8s_version="v1.31" state="beta" >}}
 
-You can define partial container spec as a custom profile in either YAML or JSON format, and apply it using the `--custom` flag.
+You can define a partial container spec as a custom profile in either YAML or JSON format, and apply it to an ephemeral container or a debugging container in a copied Pod or a debugging Pod using the `--custom` flag.
 
 {{< note >}}
-- Custom profile only supports the modification of the debug container spec. It does not support the modification of the Pod spec of the debug target.
-- Modifications via custom profile is not allowed for certain fields such as command, image, lifecycle, volume devices and container name. In the future, more fields can be added to the disallowed list if required.
+Custom profile only supports the modification of the debugging container spec. It does not support the modification of the Pod spec of the debug target.
+Modifications via a custom profile are not allowed for certain fields, including: `command`, `image`, `lifecycle`, `name`, and fields that define access to storage.
 {{< /note >}}
 
 
@@ -737,25 +737,58 @@ First, create a Pod named myapp as an example:
 kubectl run myapp --image=busybox:1.28 --restart=Never -- sleep 1d
 ```
 
-Create a custom profile in a YAML file named `custom-profile.yaml`:
+Create a custom profile in YAML or JSON format.
+Here, create a YAML format file named `custom-profile.yaml`:
 
-{{% code_sample file="debug/custom-profile.yaml" %}}
+{{< tabs name="custom_profiles" >}}
+{{< tab name="YAML" codelang="yaml" >}}
+env:
+- name: ENV_VAR_1
+  value: value_1
+- name: ENV_VAR_2
+  value: value_2
+securityContext:
+  capabilities:
+    add:
+    - NET_ADMIN
+    - SYS_TIME
 
-You can also use JSON format for the custom profile:
-
-{{% code_sample file="debug/custom-profile.json" %}}
+{{< /tab >}}
+{{< tab name="JSON" codelang="json" >}}
+{
+  "env": [
+    {
+      "name": "ENV_VAR_1",
+      "value": "value_1"
+    },
+    {
+      "name": "ENV_VAR_2",
+      "value": "value_2"
+    }
+  ],
+  "securityContext": {
+    "capabilities": {
+      "add": [
+        "NET_ADMIN",
+        "SYS_TIME"
+      ]
+    }
+  }
+}
+{{< /tab >}}
+{{< /tabs >}}
 
 
 Then, debug the Pod using an ephemeral container with the custom profile:
 
 ```shell
-kubectl debug -it myapp --image=busybox:1.28 --target=myapp --custom=custom-profile.yaml
+kubectl debug -it myapp --image=busybox:1.28 --target=myapp --profile=general --custom=custom-profile.yaml
 ```
 
 You can check that the ephemeral container was created with the custom profile applied:
 
 ```shell
-kubectl get po myapp -o jsonpath='{.spec.ephemeralContainers[0].env}'
+kubectl get pod myapp -o jsonpath='{.spec.ephemeralContainers[0].env}'
 ```
 
 ```
@@ -763,7 +796,7 @@ kubectl get po myapp -o jsonpath='{.spec.ephemeralContainers[0].env}'
 ```
 
 ```shell
-kubectl get po myapp -o jsonpath='{.spec.ephemeralContainers[0].securityContext}'
+kubectl get pod myapp -o jsonpath='{.spec.ephemeralContainers[0].securityContext}'
 ```
 
 ```
