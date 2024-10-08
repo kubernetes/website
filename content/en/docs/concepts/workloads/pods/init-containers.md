@@ -14,7 +14,7 @@ Init containers can contain utilities or setup scripts not present in an app ima
 You can specify init containers in the Pod specification alongside the `containers`
 array (which describes app containers).
 
-In Kubernetes, a [sidecar container](/docs/concepts/workloads/pods/sidecar-containers/) is a container that
+In Kubernetes, a [init container](/docs/concepts/workloads/pods/init-containers/) is a container that
 starts before the main application container and _continues to run_. This document is about init containers:
 containers that run to completion during Pod initialization.
 
