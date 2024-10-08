@@ -10,7 +10,7 @@ tags:
 ---
 A string value representing an amount of time.
 
-<!-- more -->
+<!--more-->
 
 The format of a duration is based on the [`time.Duration`](https://pkg.go.dev/time#Duration)
 type from the Go programming language.
