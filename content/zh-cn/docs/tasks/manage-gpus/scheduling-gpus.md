@@ -49,7 +49,7 @@ GPU vendor. Here are some links to vendors' instructions:
 作为集群管理员，你要在节点上安装来自对应硬件厂商的 GPU 驱动程序，并运行来自
 GPU 厂商的对应设备插件。以下是一些厂商说明的链接：
 
-* [AMD](https://github.com/RadeonOpenCompute/k8s-device-plugin#deployment)
+* [AMD](https://github.com/ROCm/k8s-device-plugin#deployment)
 * [Intel](https://intel.github.io/intel-device-plugins-for-kubernetes/cmd/gpu_plugin/README.html)
 * [NVIDIA](https://github.com/NVIDIA/k8s-device-plugin#quick-start)
 <!--

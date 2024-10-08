@@ -13,7 +13,7 @@ auto_generated: true
 <!--
 ## Resource Types
 -->
-## 资源类型
+## 资源类型   {#resource-types}
 
 - [CredentialProviderConfig](#kubelet-config-k8s-io-v1beta1-CredentialProviderConfig)
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
@@ -97,7 +97,7 @@ JSONOptions 包含为 &quot;json&quot; 日志格式提供的选项。
 <td>
 <!--
 (Members of <code>OutputRoutingOptions</code> are embedded into this type.)
-   <span class="text-muted">No descrtputRoutingOptions contains options that are supported biption provided.</span>
+   <span class="text-muted">No description provided.</span>
 -->
 （<code>OutputRoutingOptions</code> 的成员嵌入到此类型中。）
    <span class="text-muted">没有提供描述。</span>
@@ -108,11 +108,13 @@ JSONOptions 包含为 &quot;json&quot; 日志格式提供的选项。
 
 ## `LogFormatFactory`     {#LogFormatFactory}
 
+<p>
 <!--
 LogFormatFactory provides support for a certain additional,
 non-default log format.
 -->
-<p>LogFormatFactory 提供了对某些附加的、非默认的日志格式的支持。</p>
+LogFormatFactory 提供了对某些附加的、非默认的日志格式的支持。
+</p>
 
 ## `LoggingConfiguration`     {#LoggingConfiguration}
 
@@ -123,10 +125,12 @@ non-default log format.
 
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 
+<p>
 <!--
 LoggingConfiguration contains logging options.
 -->
 LoggingConfiguration 包含日志选项。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -273,8 +277,8 @@ certain global defaults.
 <!--
 OutputRoutingOptions contains options that are supported by both &quot;text&quot; and &quot;json&quot;.
 -->
-</p>
 OutputRoutingOptions 包含 &quot;text&quot; 和 &quot;json&quot; 支持的选项。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th><!--Description-->描述<</th></tr></thead>
@@ -311,7 +315,7 @@ Only available when the LoggingAlphaOptions feature gate is enabled.</p>
 </tbody>
 </table>
 
-## `TextOptions`     {#TextOptions} 
+## `TextOptions`     {#TextOptions}
 
 <!--
 **Appears in:**
@@ -326,7 +330,6 @@ TextOptions contains options for logging format &quot;text&quot;.
 -->
 TextOptions 包含用于记录 &quot;text&quot; 格式的选项。
 </p>
-
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th><!--Description-->描述</th></tr></thead>
@@ -406,10 +409,12 @@ flushFrequency field, and new fields should use metav1.Duration.
 
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 
+<p>
 <!--
 TracingConfiguration provides versioned configuration for OpenTelemetry tracing clients.
 -->
-<p>TracingConfiguration 为 OpenTelemetry 追踪客户端提供版本化的配置信息。</p>
+TracingConfiguration 为 OpenTelemetry 追踪客户端提供版本化的配置信息。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%">字段</th><th>描述</th></tr></thead>
@@ -458,12 +463,14 @@ rate, but otherwise never samples.
 
 - [LoggingConfiguration](#LoggingConfiguration)
 
+<p>
 <!--
 VModuleConfiguration is a collection of individual file names or patterns
 and the corresponding verbosity threshold.
 -->
 VModuleConfiguration 是一个集合，其中包含一个个文件名（或文件名模式）
 及其对应的详细程度阈值。
+</p>
 
 ## `VerbosityLevel`     {#VerbosityLevel}
     
@@ -479,13 +486,16 @@ VModuleConfiguration 是一个集合，其中包含一个个文件名（或文�
 
 - [LoggingConfiguration](#LoggingConfiguration)
 
+<p>
 <!--
 VerbosityLevel represents a klog or logr verbosity threshold.
 -->
-<p>VerbosityLevel 表示 klog 或 logr 的详细程度（verbosity）阈值。</p>
+VerbosityLevel 表示 klog 或 logr 的详细程度（verbosity）阈值。
+</p>
 
 ## `CredentialProviderConfig`     {#kubelet-config-k8s-io-v1beta1-CredentialProviderConfig}
 
+<p>
 <!--
 CredentialProviderConfig is the configuration containing information about
 each exec credential provider. Kubelet reads this configuration from disk and enables
@@ -493,6 +503,7 @@ each provider as specified by the CredentialProvider type.
 -->
 CredentialProviderConfig 包含有关每个 exec 凭据提供者的配置信息。
 Kubelet 从磁盘上读取这些配置信息，并根据 CredentialProvider 类型启用各个提供者。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -525,10 +536,12 @@ auth keys, the value from the provider earlier in this list is used.
 
 ## `KubeletConfiguration`     {#kubelet-config-k8s-io-v1beta1-KubeletConfiguration}
 
+<p>
 <!--
 KubeletConfiguration contains the configuration for the Kubelet
 -->
 KubeletConfiguration 中包含 Kubelet 的配置。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1132,8 +1145,8 @@ collected based on being unused for too long.
 Default: &quot;0s&quot; (disabled)
    -->
    <p><code>imageMaximumGCAge</code> 是对未使用镜像进行垃圾收集之前允许其存在的时长。
-   此字段的默认值为 &quot;0s&quot;，表示禁用此字段，这意味着镜像不会因为过长时间不使用而被垃圾收集。
-   默认值：&quot;0s&quot;（已禁用）</p>
+   此字段的默认值为 &quot;0s&quot;，表示禁用此字段，这意味着镜像不会因为过长时间不使用而被垃圾收集。</p>
+   <p>默认值：&quot;0s&quot;（已禁用）</p>
 </td>
 </tr>
 
@@ -2109,8 +2122,7 @@ Default: &quot;&quot;
    -->
    <p><code>systemReservedCgroup</code> 帮助 kubelet 识别用来为 OS 系统级守护进程实施
 <code>systemReserved</code> 计算资源预留时使用的顶级控制组（CGroup）。
-参考 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">Node Allocatable</a>
-以了解详细信息。</p>
+更多细节参阅<a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">节点可分配资源</a>。</p>
    <p>默认值：&quot;&quot;</p>
 </td>
 </tr>
@@ -2129,8 +2141,7 @@ Default: &quot;&quot;
    -->
    <p><code>kubeReservedCgroup</code> 帮助 kubelet 识别用来为 Kubernetes 节点系统级守护进程实施
 <code>kubeReserved</code> 计算资源预留时使用的顶级控制组（CGroup）。
-参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">Node Allocatable</a>
-了解进一步的信息。</p>
+更多细节参阅<a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">节点可分配资源</a></p>
    <p>默认值：&quot;&quot;</p>
 </td>
 </tr>
@@ -2158,8 +2169,7 @@ Default: [&quot;pods&quot;]
    <p>如果列表中包含 <code>system-reserved</code>，则必须设置 <code>systemReservedCgroup</code>。</p>
    <p>如果列表中包含 <code>kube-reserved</code>，则必须设置 <code>kubeReservedCgroup</code>。</p>
    <p>这个字段只有在 <code>cgroupsPerQOS</code>被设置为 <code>true</code> 才被支持。</p>
-   <p>参阅<a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">Node Allocatable</a>
-了解进一步的信息。</p>
+   <p>更多细节参阅<a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">节点可分配资源</a>。</p>
    <p>默认值：[&quot;pods&quot;]</p>
 </td>
 </tr>
@@ -2365,6 +2375,7 @@ Default: nil
 <a href="#kubelet-config-k8s-io-v1beta1-MemoryReservation"><code>[]MemoryReservation</code></a>
 </td>
 <td>
+   <p>
    <!--
    reservedMemory specifies a comma-separated list of memory reservations for NUMA nodes.
 The parameter makes sense only in the context of the memory manager feature.
@@ -2378,32 +2389,37 @@ reserved memory from all NUMA nodes should be equal to the amount of memory spec
 by the <a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">node allocatable</a>.
 If at least one node allocatable parameter has a non-zero value, you will need
 to specify at least one NUMA node.
-Also, avoid specifying:</p>
-<ol>
-<li>Duplicates, the same NUMA node, and memory type, but with a different value.</li>
-<li>zero limits for any memory type.</li>
-<li>NUMAs nodes IDs that do not exist under the machine.</li>
-<li>memory types except for memory and hugepages-&lt;size&gt;</li>
-</ol>
-<p>Default: nil</p>
+Also, avoid specifying:
 -->
-   <p><code>reservedMemory</code> 给出一个逗号分隔的列表，为 NUMA 节点预留内存。</p>
-   <p>此参数仅在内存管理器功能特性语境下有意义。内存管理器不会为容器负载分配预留内存。
+   <code>reservedMemory</code> 给出一个逗号分隔的列表，为 NUMA 节点预留内存。
+   此参数仅在内存管理器功能特性语境下有意义。内存管理器不会为容器负载分配预留内存。
 例如，如果你的 NUMA0 节点内存为 10Gi，<code>reservedMemory</code> 设置为在 NUMA0
-上预留 1Gi 内存，内存管理器会认为其上只有 9Gi 内存可供分配。</p>
-   <p>你可以设置不同数量的 NUMA 节点和内存类型。你也可以完全忽略这个字段，不过你要清楚，
+上预留 1Gi 内存，内存管理器会认为其上只有 9Gi 内存可供分配。
+   你可以设置不同数量的 NUMA 节点和内存类型。你也可以完全忽略这个字段，不过你要清楚，
 所有 NUMA 节点上预留内存的总量要等于通过
-<a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">node allocatable</a>
-设置的内存量。</p>
-   <p>如果至少有一个节点可分配参数设置值非零，则你需要设置至少一个 NUMA 节点。</p>
-   <p>此外，避免如下设置：</p>
+<a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">节点可分配资源</a>设置的内存量。
+   如果至少有一个节点可分配参数设置值非零，则你需要设置至少一个 NUMA 节点。
+   此外，避免如下设置：
+</p>
    <ol>
+   <!--
+   <li>Duplicates, the same NUMA node, and memory type, but with a different value.</li>
+   <li>zero limits for any memory type.</li>
+   <li>NUMAs nodes IDs that do not exist under the machine.</li>
+   <li>memory types except for memory and hugepages-&lt;size&gt;</li>
+   </ol>
+   -->
    <li>在配置值中存在重复项，NUMA 节点和内存类型相同，但配置值不同，这是不允许的。</li>
    <li>为任何内存类型设置限制值为零。</li>
    <li>NUMA 节点 ID 在宿主系统上不存在。/li>
    <li>除 <code>memory</code> 和 <code>hugepages-&lt;size&gt;</code> 之外的内存类型。</li>
    </ol>
-   <p>默认值：nil</p>
+   <p>
+   <!--
+   Default: nil
+   -->
+   默认值：nil
+   </p>
 </td>
 </tr>
 
@@ -2415,7 +2431,7 @@ Also, avoid specifying:</p>
    enableProfilingHandler enables profiling via web interface host:port/debug/pprof/
 Default: true
    -->
-   <p><code>enableProfilingHandler</code> 启用通过 host:port/debug/pprof/ 接口来执行性能分析。</p>
+   <p><code>enableProfilingHandler</code> 启用通过 <code>host:port/debug/pprof/</code> 接口来执行性能分析。</p>
    <p>默认值：true</p>
 </td>
 </tr>
@@ -2428,7 +2444,7 @@ Default: true
    enableDebugFlagsHandler enables flags endpoint via web interface host:port/debug/flags/v
 Default: true
    -->
-   <p><code>enableDebugFlagsHandler</code> 启用通过 host:port/debug/flags/v Web
+   <p><code>enableDebugFlagsHandler</code> 启用通过 <code>host:port/debug/flags/v Web</code>
 接口上的标志设置。</p>
    <p>默认值：true</p>
 </td>
@@ -2470,7 +2486,7 @@ Default: 0.8
 </tr>
 
 <tr><td><code>registerWithTaints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <!--
@@ -2563,6 +2579,25 @@ Linux 支持 UNIX 域套接字，而 Windows 支持命名管道和 TCP 端点。
 如果未指定，则使用 containerRuntimeEndpoint 中的值。</p>
 </td>
 </tr>
+<tr><td><code>failCgroupV1</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>
+   <!--
+   FailCgroupV1 prevents the kubelet from starting on hosts
+that use cgroup v1. By default, this is set to 'false', meaning
+the kubelet is allowed to start on cgroup v1 hosts unless this
+option is explicitly enabled.
+Default: false
+-->
+  <code>failCgroupV1</code> 防止 kubelet 在使用 cgroup v1 的主机上启动。
+默认情况下，此选项设置为 “false”，这意味着除非此选项被显式启用，
+否则 kubelet 被允许在 cgroup v1 主机上启动。  
+默认值：false
+</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -2585,7 +2620,7 @@ SerializedNodeConfigSource 允许对 `v1.NodeConfigSource` 执行序列化操作
 <tr><td><code>kind</code><br/>string</td><td><code>SerializedNodeConfigSource</code></td></tr>
 
 <tr><td><code>source</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
 </td>
 <td>
    <!--
@@ -2657,8 +2692,8 @@ a single subdomain segment, so *.io does not match *.k8s.io.
 -->
 <p><code>matchImages</code> 中的每个条目都是一个模式字符串，其中可以包含端口号和路径。
 域名部分可以包含统配符，但端口或路径部分不可以。通配符可以用作子域名，例如
-<code>&ast;.k8s.io</code> 或 <code>k8s.&ast;.io</code>，以及顶级域名，如 <code>k8s.&ast;</code>。</p>
-<p>对类似 <code>app&ast;.k8s.io</code> 这类部分子域名的匹配也是支持的。
+<code>&ast;.k8s.io</code> 或 <code>k8s.&ast;.io</code>，以及顶级域名，如 <code>k8s.&ast;</code>。
+对类似 <code>app&ast;.k8s.io</code> 这类部分子域名的匹配也是支持的。
 每个通配符只能用来匹配一个子域名段，所以 <code>&ast;.io</code> 不会匹配 <code>&ast;.k8s.io</code>。</p>
 <!--
 A match exists between an image and a matchImage when all of the below are true:
@@ -3069,7 +3104,7 @@ MemoryReservation 为每个 NUMA 节点设置不同类型的内存预留。
 </tr>
 
 <tr><td><code>limits</code> <B><!-- [Required] -->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <!--span class="text-muted">No description provided.</span-->

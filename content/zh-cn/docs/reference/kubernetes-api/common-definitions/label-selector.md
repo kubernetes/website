@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/apimachinery/pkg/apis/meta/v1"
   kind: "LabelSelector"
 content_type: "api_reference"
-description: "标签选择器是对一组资源的标签查询。"
+description: "标签选择算符是对一组资源的标签查询。"
 title: "LabelSelector"
 weight: 2
 ---
@@ -25,14 +25,16 @@ auto_generated: true
 <!-- 
 A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects.
 -->
-标签选择器是对一组资源的标签查询。
+标签选择算符是对一组资源的标签查询。
 `matchLabels` 和 `matchExpressions` 的结果按逻辑与的关系组合。
-一个 `empty` 标签选择器匹配所有对象。一个 `null` 标签选择器不匹配任何对象。
+一个 `empty` 标签选择算符匹配所有对象。一个 `null` 标签选择算符不匹配任何对象。
 
 <hr>
 
 <!--
 - **matchExpressions** ([]LabelSelectorRequirement)
+
+  *Atomic: will be replaced during a merge*
 
   matchExpressions is a list of label selector requirements. The requirements are ANDed.
 
@@ -41,10 +43,12 @@ A label selector is a label query over a set of resources. The result of matchLa
 -->
 - **matchExpressions** ([]LabelSelectorRequirement)
   
-  `matchExpressions` 是标签选择器要求的列表，这些要求的结果按逻辑与的关系来计算。
+  **原子性：将在合并期间被替换**
+
+  `matchExpressions` 是标签选择算符要求的列表，这些要求的结果按逻辑与的关系来计算。
    
   <a name="LabelSelectorRequirement"></a> 
-  **标签选择器要求是包含值、键和关联键和值的运算符的选择器。**
+  **标签选择算符要求是包含值、键和关联键和值的运算符的选择算符。**
  
   <!-- 
   - **matchExpressions.key** (string), required
@@ -54,7 +58,7 @@ A label selector is a label query over a set of resources. The result of matchLa
 
   - **matchExpressions.key** (string)，必需
     
-    `key` 是选择器应用的标签键。
+    `key` 是选择算符应用的标签键。
   
   <!-- 
   - **matchExpressions.operator** (string), required
@@ -69,11 +73,15 @@ A label selector is a label query over a set of resources. The result of matchLa
   <!--
   - **matchExpressions.values** ([]string)
 
+    *Atomic: will be replaced during a merge*
+
     values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
   -->
    
   - **matchExpressions.values** ([]string)
   
+    **原子性：将在合并期间被替换**
+
     `values` 是一个字符串值数组。如果运算符为 `In` 或 `NotIn`，则 `values` 数组必须为非空。
     如果运算符是 `Exists` 或 `DoesNotExist`，则 `values` 数组必须为空。
     该数组在策略性合并补丁（Strategic Merge Patch）期间被替换。
@@ -89,5 +97,5 @@ A label selector is a label query over a set of resources. The result of matchLa
 
   `matchLabels` 映射中的单个 {`key`,`value`} 键值对相当于 `matchExpressions` 的一个元素，
   其键字段为 `key`，运算符为 `In`，`values` 数组仅包含 `value`。
-    
+
   所表达的需求最终要按逻辑与的关系组合。
