@@ -1,242 +1,216 @@
 ---
 api_metadata:
-  apiVersion: "rbac.authorization.k8s.io/v1"
-  import: "k8s.io/api/rbac/v1"
-  kind: "ClusterRoleBinding"
+  apiVersion: "storage.k8s.io/v1beta1"
+  import: "k8s.io/api/storage/v1beta1"
+  kind: "VolumeAttributesClass"
 content_type: "api_reference"
-description: "ClusterRoleBinding 引用 ClusterRole，但不包含它。"
-title: "ClusterRoleBinding"
-weight: 6
+description: "VolumeAttributesClass 表示由 CSI 驱动所定义的可变更卷属性的规约。"
+title: "VolumeAttributesClass v1beta1"
+weight: 12
 ---
-<!-- 
----
+<!--
 api_metadata:
-  apiVersion: "rbac.authorization.k8s.io/v1"
-  import: "k8s.io/api/rbac/v1"
-  kind: "ClusterRoleBinding"
+  apiVersion: "storage.k8s.io/v1beta1"
+  import: "k8s.io/api/storage/v1beta1"
+  kind: "VolumeAttributesClass"
 content_type: "api_reference"
-description: "ClusterRoleBinding references a ClusterRole, but not contain it."
-title: "ClusterRoleBinding"
-weight: 6
+description: "VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver."
+title: "VolumeAttributesClass v1beta1"
+weight: 12
 auto_generated: true
----
 -->
-<!-- 
-`apiVersion: rbac.authorization.k8s.io/v1`
 
-`import "k8s.io/api/rbac/v1"`
--->
-`apiVersion: rbac.authorization.k8s.io/v1`
+`apiVersion: storage.k8s.io/v1beta1`
 
-`import "k8s.io/api/rbac/v1"`
+`import "k8s.io/api/storage/v1beta1"`
+
+## VolumeAttributesClass {#VolumeAttributesClass}
+
 <!--
-## ClusterRoleBinding {#ClusterRoleBinding}
-ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject.
+VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
 -->
-## ClusterRoleBinding {#ClusterRoleBinding}
+VolumeAttributesClass 表示由 CSI 驱动所定义的可变更卷属性的规约。
+此类可以在动态制备 PersistentVolumeClaim 期间被指定，
+并且可以在制备之后在 PersistentVolumeClaim 规约中更改。
 
-ClusterRoleBinding 引用 ClusterRole，但不包含它。
-它可以引用全局命名空间中的 ClusterRole，并通过 Subject 添加主体信息。
-<!-- 
-<hr>
-- **apiVersion**: rbac.authorization.k8s.io/v1
-- **kind**: ClusterRoleBinding
-- **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
-  Standard object's metadata.
--->
 <hr>
 
-- **apiVersion**: rbac.authorization.k8s.io/v1
+- **apiVersion**: storage.k8s.io/v1beta1
 
-- **kind**: ClusterRoleBinding
+- **kind**: VolumeAttributesClass
 
+<!--
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  标准对象的元数据。
-<!-- 
-- **roleRef** (RoleRef), required
-  RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
-  <a name="RoleRef"></a>
-  *RoleRef contains information that points to the role being used*
-  - **roleRef.apiGroup** (string), required
-    APIGroup is the group for the resource being referenced
-  - **roleRef.kind** (string), required
-    Kind is the type of resource being referenced
-  - **roleRef.name** (string), required
-    Name is the name of resource being referenced
--->
-- **roleRef** (RoleRef)，必需
+  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-  RoleRef 只能引用全局命名空间中的 ClusterRole。
-  如果无法解析 RoleRef，则 Authorizer 必定返回一个错误。这个字段是不可变的。
+- **driverName** (string), required
+
+  Name of the CSI driver This field is immutable.
+-->
+- **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+
+  标准的对象元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+
+- **driverName** (string)，必需
+
+  CSI 驱动的名称。此字段是不可变更的。
+
+<!--
+- **parameters** (map[string]string)
+
+  parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
   
-  <a name="RoleRef"></a>
-  **RoleRef 包含指向正被使用的角色的信息。**
-
-  - **roleRef.apiGroup** (string)，必需
-
-    apiGroup 是被引用资源的组
-
-  - **roleRef.kind** (string)，必需
-
-    kind 是被引用的资源的类别
-
-  - **roleRef.name** (string)，必需
-
-    name 是被引用的资源的名称
-<!-- 
-- **subjects** ([]Subject)
-
-  *Atomic: will be replaced during a merge*
-
-  Subjects holds references to the objects the role applies to.
-
-  <a name="Subject"></a>
-  *Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.*
+  This field is required and must contain at least one key/value pair. The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K. If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an "Infeasible" state in the modifyVolumeStatus field.
 -->
-- **subjects** ([]Subject)
+- **parameters** (map[string]string)
 
-  **原子性：将在合并期间被替换**
+  parameters 保存由 CSI 驱动所定义的卷属性。这些值对 Kubernetes 是不透明的，被直接传递给 CSI 驱动。
+  下层存储驱动支持更改现有卷的这些属性，但 parameters 字段本身是不可变更的。
+  要触发一次卷更新，应该使用新的参数创建新的 VolumeAttributesClass，
+  并且应更新 PersistentVolumeClaim，使之引用新的 VolumeAttributesClass。
 
-  Subjects 包含角色所适用的对象的引用。
-  
-  <a name="Subject"></a>
-  **Subject 包含对角色绑定所适用的对象或用户标识的引用。其中可以包含直接 API 对象的引用或非对象（如用户名和组名）的值。**
-  <!--
-  - **subjects.kind** (string), required
-    Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
-  - **subjects.name** (string), required
-    Name of the object being referenced. 
-  -->
-  - **subjects.kind** (string)，必需
+  此字段是必需的，必须至少包含一个键/值对。键不能为空，参数最多 512 个，累计最大尺寸为 256K。
+  如果 CSI 驱动拒绝无效参数，则目标 PersistentVolumeClaim
+  的状态中 modifyVolumeStatus 字段将被设置为 “Infeasible”。
 
-    被引用的对象的类别。这个 API 组定义的值是 `User`、`Group` 和 `ServiceAccount`。
-    如果 Authorizer 无法识别类别值，则 Authorizer 应报告一个错误。
+## VolumeAttributesClassList {#VolumeAttributesClassList}
 
-  - **subjects.name** (string)，必需
-
-    被引用的对象的名称。
-  <!-- 
-    - **subjects.apiGroup** (string)
-    APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
-  - **subjects.namespace** (string)
-    Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
-  -->
-  - **subjects.apiGroup** (string)
-
-    apiGroup 包含被引用主体的 API 组。对于 ServiceAccount 主体默认为 ""。
-    对于 User 和 Group 主体，默认为 "rbac.authorization.k8s.io"。
-
-  - **subjects.namespace** (string)
-
-    被引用对象的命名空间。
-    如果对象类别是 "User" 或 "Group" 等非命名空间作用域的对象且该值不为空，
-    则 Authorizer 应报告一个错误。
-<!-- 
-## ClusterRoleBindingList {#ClusterRoleBindingList}
-ClusterRoleBindingList is a collection of ClusterRoleBindings
-<hr>
-- **apiVersion**: rbac.authorization.k8s.io/v1
-- **kind**: ClusterRoleBindingList
+<!--
+VolumeAttributesClassList is a collection of VolumeAttributesClass objects.
 -->
-## ClusterRoleBindingList {#ClusterRoleBindingList}
-
-ClusterRoleBindingList 是 ClusterRoleBinding 的集合。
+VolumeAttributesClassList 是 VolumeAttributesClass 对象的集合。
 
 <hr>
 
-- **apiVersion**: rbac.authorization.k8s.io/v1
+- **apiVersion**: storage.k8s.io/v1beta1
 
-- **kind**: ClusterRoleBindingList
+- **kind**: VolumeAttributesClassList
+
 <!--
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
-  Standard object's metadata.
-- **items** ([]<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>), required
-  Items is a list of ClusterRoleBindings
+
+  Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+
+- **items** ([]<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>), required
+
+  items is the list of VolumeAttributesClass objects.
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  标准的对象元数据。
+  标准的列表元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>)，必需
+- **items** ([]<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>)，必需
 
-  items 是 ClusterRoleBindings 的列表。
-<!-- 
+  items 是 VolumeAttributesClass 对象的列表。
+
+<!--
 ## Operations {#Operations}
+
 <hr>
+
+### `get` read the specified VolumeAttributesClass
+
+#### HTTP Request
 -->
 ## 操作 {#Operations}
 
 <hr>
 
-<!-- 
-### `get` read the specified ClusterRoleBinding
-#### HTTP Request
--->
-### `get` 读取指定的 ClusterRoleBinding
+### `get` 读取指定的 VolumeAttributesClass
 
 #### HTTP 请求
 
-GET /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
-<!-- 
+GET /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
+
+<!--
 #### Parameters
+
 - **name** (*in path*): string, required
-  name of the ClusterRoleBinding
+
+  name of the VolumeAttributesClass
+
 - **pretty** (*in query*): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 #### 参数
 
 - **name** (**路径参数**): string，必需
 
-  ClusterRoleBinding 的名称
+  VolumeAttributesClass 的名称。
 
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-<!-- 
-#### Response
-200 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): OK
 
-401: Unauthorized
+<!--
+#### Response
 -->
 #### 响应
 
-200 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
 
 401: Unauthorized
-<!-- 
-### `list` list or watch objects of kind ClusterRoleBinding
+
+<!--
+### `list` list or watch objects of kind VolumeAttributesClass
+
 #### HTTP Request
 -->
-### `list` 列出或观测类别为 ClusterRoleBinding 的对象
+### `list` 列举或监视类别为 VolumeAttributesClass 的对象
 
 #### HTTP 请求
 
-GET /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
+GET /apis/storage.k8s.io/v1beta1/volumeattributesclasses
+
 <!--
 #### Parameters
+
 - **allowWatchBookmarks** (*in query*): boolean
+
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
+
 - **continue** (*in query*): string
+
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
 - **fieldSelector** (*in query*): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
 - **labelSelector** (*in query*): string
+
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
 - **limit** (*in query*): integer
+
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
 - **pretty** (*in query*): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 - **resourceVersion** (*in query*): string
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
 - **resourceVersionMatch** (*in query*): string
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
 - **sendInitialEvents** (*in query*): boolean
+
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (*in query*): integer
+
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
 - **watch** (*in query*): boolean
+
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 -->
 #### 参数
@@ -284,41 +258,52 @@ GET /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
 - **watch** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
-<!-- 
+
+<!--
 #### Response
-200 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBindingList" >}}">ClusterRoleBindingList</a>): OK
-401: Unauthorized
-### `create` create a ClusterRoleBinding
-#### HTTP Request
 -->
 #### 响应
 
-200 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBindingList" >}}">ClusterRoleBindingList</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClassList" >}}">VolumeAttributesClassList</a>): OK
 
 401: Unauthorized
 
-### `create` 创建 ClusterRoleBinding
+<!--
+### `create` create a VolumeAttributesClass
+
+#### HTTP Request
+-->
+### `create` 创建 VolumeAttributesClass
 
 #### HTTP 请求
 
-POST /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
-<!-- 
+POST /apis/storage.k8s.io/v1beta1/volumeattributesclasses
+
+<!--
 #### Parameters
-- **body**: <a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>, required
+
+- **body**: <a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>, required
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 #### 参数
 
-- **body**: <a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>，必需
-<!--
-- **dryRun** (*in query*): string
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-- **fieldManager** (*in query*): string
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-- **fieldValidation** (*in query*): string
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-- **pretty** (*in query*): string
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
--->
+- **body**: <a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>，必需
+
 - **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
@@ -334,53 +319,64 @@ POST /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 <!--
 #### Response
-200 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): OK
-201 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): Created
-202 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): Accepted
-401: Unauthorized
 -->
 #### 响应
 
-200 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
 
-201 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): Created
+201 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Created
 
-202 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): Accepted
+202 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Accepted
 
 401: Unauthorized
+
 <!--
-### `update` replace the specified ClusterRoleBinding
+### `update` replace the specified VolumeAttributesClass
+
 #### HTTP Request
-#### Parameters
-- **name** (*in path*): string, required
-  name of the ClusterRoleBinding
-- **body**: <a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>, required
 -->
-### `update` 替换指定的 ClusterRoleBinding
+### `update` 替换指定的 VolumeAttributesClass
 
 #### HTTP 请求
 
-PUT /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
+PUT /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 
+<!--
+#### Parameters
+
+- **name** (*in path*): string, required
+
+  name of the VolumeAttributesClass
+
+- **body**: <a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>, required
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+-->
 #### 参数
 
 - **name** (**路径参数**): string，必需
 
-  ClusterRoleBinding 的名称
+  VolumeAttributesClass 的名称。
 
-- **body**: <a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>，必需
-<!--
-- **dryRun** (*in query*): string
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-- **fieldManager** (*in query*): string
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-- **fieldValidation** (*in query*): string
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-- **pretty** (*in query*): string
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
--->
+- **body**: <a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>，必需
+
 - **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
@@ -396,54 +392,66 @@ PUT /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 <!--
 #### Response
-200 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): OK
-
-201 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): Created
-
-401: Unauthorized
 -->
 #### 响应
 
-200 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
 
-201 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): Created
+201 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Created
 
 401: Unauthorized
+
 <!--
-### `patch` partially update the specified ClusterRoleBinding
+### `patch` partially update the specified VolumeAttributesClass
+
 #### HTTP Request
+-->
+### `patch` 部分更新指定的 VolumeAttributesClass
+
+#### HTTP 请求
+
+PATCH /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
+
+<!--
 #### Parameters
+
 - **name** (*in path*): string, required
-  name of the ClusterRoleBinding
+
+  name of the VolumeAttributesClass
+
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-### `patch` 部分更新指定的 ClusterRoleBinding
-
-#### HTTP 请求
-
-PATCH /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
-
 #### 参数
 
 - **name** (**路径参数**): string，必需
 
-  ClusterRoleBinding 的名称
+  VolumeAttributesClass 的名称。
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
-<!--
-- **dryRun** (*in query*): string
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-- **fieldManager** (*in query*): string
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-- **fieldValidation** (*in query*): string
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-- **force** (*in query*): boolean
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-- **pretty** (*in query*): string
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
--->
+
 - **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
@@ -463,49 +471,60 @@ PATCH /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 <!--
 #### Response
-200 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): OK
-201 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): Created
-
-401: Unauthorized
 -->
 #### 响应
 
-200 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
 
-201 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): Created
+201 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Created
 
 401: Unauthorized
+
 <!--
-### `delete` delete a ClusterRoleBinding
+### `delete` delete a VolumeAttributesClass
+
 #### HTTP Request
-#### Parameters
-- **name** (*in path*): string, required
-  name of the ClusterRoleBinding
 -->
-### `delete` 删除 ClusterRoleBinding
+### `delete` 删除 VolumeAttributesClass
 
 #### HTTP 请求
 
-DELETE /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
+DELETE /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 
+<!--
+#### Parameters
+
+- **name** (*in path*): string, required
+
+  name of the VolumeAttributesClass
+
+- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **gracePeriodSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+- **propagationPolicy** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+-->
 #### 参数
 
 - **name** (**路径参数**): string，必需
 
-  ClusterRoleBinding 的名称
-<!--
-- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
-- **dryRun** (*in query*): string
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-- **gracePeriodSeconds** (*in query*): integer
-  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
-- **pretty** (*in query*): string
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-- **propagationPolicy** (*in query*): string
-  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
--->
+  VolumeAttributesClass 的名称。
+
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
 - **dryRun** (**查询参数**): string
@@ -523,54 +542,80 @@ DELETE /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
 - **propagationPolicy** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+
 <!--
 #### Response
-200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
-202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
-401: Unauthorized
 -->
 #### 响应
 
-200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
 
-202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
+202 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Accepted
 
 401: Unauthorized
+
 <!--
-### `deletecollection` delete collection of ClusterRoleBinding
+### `deletecollection` delete collection of VolumeAttributesClass
+
 #### HTTP Request
 -->
-### `deletecollection` 删除 ClusterRoleBinding 的集合
+### `deletecollection` 删除 VolumeAttributesClass 的集合
 
 #### HTTP 请求
 
-DELETE /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
+DELETE /apis/storage.k8s.io/v1beta1/volumeattributesclasses
+
 <!--
 #### Parameters
+
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+
 - **continue** (*in query*): string
+
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
 - **dryRun** (*in query*): string
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
 - **fieldSelector** (*in query*): string
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
 - **gracePeriodSeconds** (*in query*): integer
+
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
 - **labelSelector** (*in query*): string
+
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
 - **limit** (*in query*): integer
+
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
 - **pretty** (*in query*): string
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 - **propagationPolicy** (*in query*): string
+
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+
 - **resourceVersion** (*in query*): string
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
 - **resourceVersionMatch** (*in query*): string
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
 - **sendInitialEvents** (*in query*): boolean
+
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (*in query*): integer
+
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 -->
 #### 参数
@@ -624,10 +669,9 @@ DELETE /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
 - **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
 <!--
 #### Response
-200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
-401: Unauthorized
 -->
 #### 响应
 
