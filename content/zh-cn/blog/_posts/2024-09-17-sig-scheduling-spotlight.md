@@ -38,14 +38,14 @@ Kubernetes?**
 **Kensei**: Hi, thanks for the opportunity! I’m Kensei Nakada
 ([@sanposhiho](https://github.com/sanposhiho/)), a software engineer at
 [Tetrate.io](https://tetrate.io/). I have been contributing to Kubernetes in my free time for more
-than 3 years, and now I’m an approver of SIG-Scheduling in Kubernetes. Also, I’m a founder/owner of
+than 3 years, and now I’m an approver of SIG Scheduling in Kubernetes. Also, I’m a founder/owner of
 two SIG subprojects,
 [kube-scheduler-simulator](https://github.com/kubernetes-sigs/kube-scheduler-simulator) and
 [kube-scheduler-wasm-extension](https://github.com/kubernetes-sigs/kube-scheduler-wasm-extension).
 -->
 **Kensei**: 嗨，感谢你给我这个机会！我是 Kensei Nakada
 ([@sanposhiho](https://github.com/sanposhiho/))，是来自 [Tetrate.io](https://tetrate.io/) 的一名软件工程师。
-我在业余时间为 Kubernetes 贡献了超过 3 年的时间，现在我是 Kubernetes 中 SIG-Scheduling 的一名 Approver。
+我在业余时间为 Kubernetes 贡献了超过 3 年的时间，现在我是 Kubernetes 中 SIG Scheduling 的一名 Approver。
 同时，我还是两个 SIG 子项目的创始人/负责人：
 [kube-scheduler-simulator](https://github.com/kubernetes-sigs/kube-scheduler-simulator) 和
 [kube-scheduler-wasm-extension](https://github.com/kubernetes-sigs/kube-scheduler-wasm-extension)。
@@ -59,7 +59,7 @@ brief overview of SIG Scheduling and explain its role within the Kubernetes ecos
 **KN**: As the name implies, our responsibility is to enhance scheduling within
 Kubernetes. Specifically, we develop the components that determine which Node is the best place for
 each Pod. In Kubernetes, our main focus is on maintaining the
-[kube-scheduler](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/), along
+[kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/), along
 with other scheduling-related components as part of our SIG subprojects.
 -->
 ## 关于 SIG Scheduling
@@ -69,15 +69,15 @@ with other scheduling-related components as part of our SIG subprojects.
 **KN**: 正如名字所示，我们的责任是增强 Kubernetes 中的调度特性。
 具体来说，我们开发了一些组件，将每个 Pod 调度到最合适的 Node。
 在 Kubernetes 中，我们的主要关注点是维护
-[kube-scheduler](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/)，
+[kube-scheduler](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/)，
 以及其他调度相关的组件，这些组件是 SIG Scheduling 的子项目。
 
 <!--
 **AP: I see, got it! That makes me curious--what recent innovations or developments has SIG
 Scheduling introduced to Kubernetes scheduling?**
 
-**KN**: From a feature perspective, there have been [several
-enhancements](https://kubernetes.io/blog/2023/04/17/fine-grained-pod-topology-spread-features-beta/)
+**KN**: From a feature perspective, there have been
+[several enhancements](/blog/2023/04/17/fine-grained-pod-topology-spread-features-beta/)
 to `PodTopologySpread` recently. `PodTopologySpread` is a relatively new feature in the scheduler,
 and we are still in the process of gathering feedback and making improvements.
 -->
@@ -104,7 +104,7 @@ reducing the likelihood of wasting scheduling cycles.
 **A: That sounds interesting! Are there any other interesting topics or projects you are currently
 working on within SIG Scheduling?**
 
-**KN**: I’m leading the development of `QueueingHint` which I just shared.  Given that it’s a big new
+**KN**: I’m leading the development of `QueueingHint` which I just shared. Given that it’s a big new
 challenge for us, we’ve been facing many unexpected challenges, especially around the scalability,
 and we’re trying to solve each of them to eventually enable it by default.
 -->
@@ -115,15 +115,14 @@ and we’re trying to solve each of them to eventually enable it by default.
 
 <!--
 And also, I believe
-[kube-scheduler-wasm-extention](https://github.com/kubernetes-sigs/kube-scheduler-wasm-extension)
-(SIG sub project) that I started last year would be interesting to many people.  Kubernetes has
+[kube-scheduler-wasm-extension](https://github.com/kubernetes-sigs/kube-scheduler-wasm-extension)
+(a SIG subproject) that I started last year would be interesting to many people. Kubernetes has
 various extensions from many components. Traditionally, extensions are provided via webhooks
 ([extender](https://github.com/kubernetes/design-proposals-archive/blob/main/scheduling/scheduler_extender.md)
-in the scheduler) or Go SDK ([Scheduling
-Framework](https://kubernetes.io/docs/concepts/scheduling-eviction/scheduling-framework/) in the
-scheduler). However, these come with drawbacks - performance issues with webhooks and the need to
+in the scheduler) or Go SDK ([Scheduling Framework](/docs/concepts/scheduling-eviction/scheduling-framework/)
+in the scheduler). However, these come with drawbacks - performance issues with webhooks and the need to
 rebuild and replace schedulers with Go SDK, posing difficulties for those seeking to extend the
-scheduler but lacking familiarity with it.  The project is trying to introduce a new solution to
+scheduler but lacking familiarity with it. The project is trying to introduce a new solution to
 this general challenge - a [WebAssembly](https://webassembly.org/) based extension. Wasm allows
 users to build plugins easily, without worrying about recompiling or replacing their scheduler, and
 sidestepping performance concerns.
@@ -138,32 +137,32 @@ Go SDK（调度器中的[调度框架](/zh-cn/docs/concepts/scheduling-eviction/
 Wasm 允许用户轻松构建插件，而无需担心重新编译或替换调度器，还能规避性能问题。
 
 <!--
-Through this project, sig-scheduling has been learning valuable insights about WebAssembly's
+Through this project, SIG Scheduling has been learning valuable insights about WebAssembly's
 interaction with large Kubernetes objects. And I believe the experience that we’re gaining should be
-useful broadly within the community, beyond sig-scheduling.
+useful broadly within the community, beyond SIG Scheduling.
 
-**A: Definitely! Now, there are currently 8 subprojects inside SIG Scheduling. Would you like to
+**A: Definitely! Now, there are 8 subprojects inside SIG Scheduling. Would you like to
 talk about them? Are there some interesting contributions by those teams you want to highlight?**
 
-**KN**: Let me pick up three sub projects; Kueue, KWOK and descheduler.
+**KN**: Let me pick up three subprojects: Kueue, KWOK and descheduler.
 -->
-通过这个项目，sig-scheduling 正在积累 WebAssembly 与大型 Kubernetes 对象交互的宝贵洞察。
-我相信我们所获得的经验应该对整个社区都很有用，而不仅限于 sig-scheduling 的范围。
+通过这个项目，SIG Scheduling 正在积累 WebAssembly 与大型 Kubernetes 对象交互的宝贵洞察。
+我相信我们所获得的经验应该对整个社区都很有用，而不仅限于 SIG Scheduling 的范围。
 
 **A: 当然！目前 SIG Scheduling 有 8 个子项目。你想谈谈它们吗？有没有一些你想强调的有趣贡献？**
 
 **KN**: 让我挑选三个子项目：Kueue、KWOK 和 Descheduler。
 
 <!--
-[Kueue](https://github.com/kubernetes-sigs/kueue):
+[Kueue](https://github.com/kubernetes-sigs/kueue)
 : Recently, many people have been trying to manage batch workloads with Kubernetes, and in 2022,
-Kubernetes community founded
-[WG-Batch](https://github.com/kubernetes/community/blob/master/wg-batch/README.md) for better
-support for such batch workloads in Kubernetes.  [Kueue](https://github.com/kubernetes-sigs/kueue)
-is a project that takes a crucial role for it. It’s a job queueing controller, deciding when a job
-should wait, when a job should be admitted to start, and when a job should be preempted. Kueue aims
-to be installed on a vanilla Kubernetes cluster while cooperating with existing matured controllers
-(scheduler, cluster-autoscaler, kube-controller-manager, etc).
+  Kubernetes community founded
+  [WG-Batch](https://github.com/kubernetes/community/blob/master/wg-batch/README.md) for better
+  support for such batch workloads in Kubernetes. [Kueue](https://github.com/kubernetes-sigs/kueue)
+  is a project that takes a crucial role for it. It’s a job queueing controller, deciding when a job
+  should wait, when a job should be admitted to start, and when a job should be preempted. Kueue aims
+  to be installed on a vanilla Kubernetes cluster while cooperating with existing matured controllers
+  (scheduler, cluster-autoscaler, kube-controller-manager, etc).
 -->
 [Kueue](https://github.com/kubernetes-sigs/kueue):
 : 最近，许多人尝试使用 Kubernetes 管理批处理工作负载，2022 年，Kubernetes 社区成立了
@@ -175,18 +174,18 @@ to be installed on a vanilla Kubernetes cluster while cooperating with existing 
   同时与现有的成熟控制器（调度器、cluster-autoscaler、kube-controller-manager 等）协作。
 
 <!--
-[KWOK](https://github.com/kubernetes-sigs/kwok):
+[KWOK](https://github.com/kubernetes-sigs/kwok)
 : KWOK is a component in which you can create a cluster of thousands of Nodes in seconds. It’s
   mostly useful for simulation/testing as a lightweight cluster, and actually another SIG sub
   project [kube-scheduler-simulator](https://github.com/kubernetes-sigs/kube-scheduler-simulator)
   uses KWOK background.
 
-[descheduler](https://github.com/kubernetes-sigs/descheduler):
-: Descheduler is a component recreating pods that are running on undesired Nodes.  In Kubernetes,
-scheduling constraints (`PodAffinity`, `NodeAffinity`, `PodTopologySpread`, etc) are honored only at
-Pod schedule, but it’s not guaranteed that the contrtaints are kept being satisfied afterwards.
-Descheduler evicts Pods violating their scheduling constraints (or other undesired conditions) so
-that they’re recreated and rescheduled.
+[descheduler](https://github.com/kubernetes-sigs/descheduler)
+: Descheduler is a component recreating pods that are running on undesired Nodes. In Kubernetes,
+  scheduling constraints (`PodAffinity`, `NodeAffinity`, `PodTopologySpread`, etc) are honored only at
+  Pod schedule, but it’s not guaranteed that the contrtaints are kept being satisfied afterwards.
+  Descheduler evicts Pods violating their scheduling constraints (or other undesired conditions) so
+  that they’re recreated and rescheduled.
 -->
 [KWOK](https://github.com/kubernetes-sigs/kwok)
 : KWOK 这个组件可以在几秒钟内创建一个包含数千个节点的集群。它主要用于模拟/测试轻量级集群，实际上另一个 SIG 子项目
@@ -199,9 +198,9 @@ that they’re recreated and rescheduled.
   以便这些 Pod 被重新创建和重新调度。
 
 <!--
-[Descheduling Framework](https://github.com/kubernetes-sigs/descheduler/blob/master/keps/753-descheduling-framework/README.md).
-: One very interesting on-going project, similar to [Scheduling
-  Framework](https://kubernetes.io/docs/concepts/scheduling-eviction/scheduling-framework/) in the
+[Descheduling Framework](https://github.com/kubernetes-sigs/descheduler/blob/master/keps/753-descheduling-framework/README.md)
+: One very interesting on-going project, similar to
+  [Scheduling Framework](/docs/concepts/scheduling-eviction/scheduling-framework/) in the
   scheduler, aiming to make descheduling logic extensible and allow maintainers to focus on building
   a core engine of descheduler.
 -->
@@ -236,8 +235,7 @@ improving our components over the years.
 **AP: Kubernetes is a community-driven project. Any recommendations for new contributors or
 beginners looking to get involved and contribute to SIG scheduling? Where should they start?**
 
-**KN**: Let me start with a general recommendation for contributing to any SIG: a common approach is
-to look for
+**KN**: Let me start with a general recommendation for contributing to any SIG: a common approach is to look for
 [good-first-issue](https://github.com/kubernetes/kubernetes/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22).
 However, you'll soon realize that many people worldwide are trying to contribute to the Kubernetes
 repository.
@@ -254,10 +252,10 @@ SIG Scheduling 做出贡献的初学者有什么建议？他们应该从哪里�
 <!--
 I suggest starting by examining the implementation of a component that interests you. If you have
 any questions about it, ask in the corresponding Slack channel (e.g., #sig-scheduling for the
-scheduler, #sig-node for kubelet, etc).  Once you have a rough understanding of the implementation,
+scheduler, #sig-node for kubelet, etc). Once you have a rough understanding of the implementation,
 look at issues within the SIG (e.g.,
 [sig-scheduling](https://github.com/kubernetes/kubernetes/issues?q=is%3Aopen+is%3Aissue+label%3Asig%2Fscheduling)),
-where you'll find more unassigned issues compared to good-first-issue ones.  You may also want to
+where you'll find more unassigned issues compared to good-first-issue ones. You may also want to
 filter issues with the
 [kind/cleanup](https://github.com/kubernetes/kubernetes/issues?q=is%3Aopen+is%3Aissue++label%3Akind%2Fcleanup+)
 label, which often indicates lower-priority tasks and can be starting points.
@@ -271,11 +269,11 @@ Slack 频道中提问（例如，调度器的 #sig-scheduling，kubelet 的 #sig
 标签的 Issue，这通常表示较低优先级的任务，可以作为起点。
 
 <!--
-Specifically for SIG Scheduling, you should first understand the [Scheduling
-Framework](https://kubernetes.io/docs/concepts/scheduling-eviction/scheduling-framework/), which is
-the fundamental architecture of kube-scheduler.  Most of the implementation is found in
-[pkg/scheduler](https://github.com/kubernetes/kubernetes/tree/master/pkg/scheduler). I suggest
-starting with
+Specifically for SIG Scheduling, you should first understand the
+[Scheduling Framework](/docs/concepts/scheduling-eviction/scheduling-framework/), which is
+the fundamental architecture of kube-scheduler. Most of the implementation is found in
+[pkg/scheduler](https://github.com/kubernetes/kubernetes/tree/master/pkg/scheduler).
+I suggest starting with
 [ScheduleOne](https://github.com/kubernetes/kubernetes/blob/0590bb1ac495ae8af2a573f879408e48800da2c5/pkg/scheduler/schedule_one.go#L66)
 function and then exploring deeper from there.
 
@@ -295,15 +293,14 @@ considerable impact on the community.
 但许多项目实际上有大量用户，并对社区产生了相当大的影响。
 
 <!--
-And last but not least, remember contributing to the community isn’t just about code.  While I
+And last but not least, remember contributing to the community isn’t just about code. While I
 talked a lot about the implementation contribution, there are many ways to contribute, and each one
 is valuable. One comment to an issue, one feedback to an existing feature, one review comment in PR,
 one clarification on the documentation; every small contribution helps drive the Kubernetes
 ecosystem forward.
 
 **AP: Those are some pretty useful tips! And if I may ask, how do you assist new contributors in
-getting started, and what skills are contributors likely to learn by participating in SIG
-Scheduling?**
+getting started, and what skills are contributors likely to learn by participating in SIG Scheduling?**
 -->
 最后但同样重要的是，记住为社区做贡献不仅仅是编写代码。
 虽然我谈到了很多关于实现的贡献，但还有许多其他方式可以做贡献，每一种都很有价值。
@@ -336,9 +333,8 @@ pain points?**
 **KN**: Scheduling in Kubernetes can be quite challenging because of the diverse needs of different
 organizations with different business requirements. Supporting all possible use cases in
 kube-scheduler is impossible. Therefore, extensibility is a key focus for us. A few years ago, we
-rearchitected kube-scheduler with [Scheduling
-Framework](https://kubernetes.io/docs/concepts/scheduling-eviction/scheduling-framework/), which
-offers flexible extensibility for users to implement various scheduling needs through plugins. This
+rearchitected kube-scheduler with [Scheduling Framework](/docs/concepts/scheduling-eviction/scheduling-framework/),
+which offers flexible extensibility for users to implement various scheduling needs through plugins. This
 allows maintainers to focus on the core scheduling features and the framework runtime.
 -->
 **KN**: 在 Kubernetes 中进行调度可能相当具有挑战性，因为不同组织有不同的业务要求。
@@ -361,7 +357,7 @@ difficult as even small changes, which look irrelevant to performance, can lead 
 但不巧的是，我们有时会忽视在不常见场景下的性能下降。即使是与性能无关的小改动也有难度，可能导致性能下降。
 
 <!--
-**AP:  What are some upcoming goals or initiatives for SIG Scheduling? How do you envision the SIG evolving in the future?**
+**AP: What are some upcoming goals or initiatives for SIG Scheduling? How do you envision the SIG evolving in the future?**
 
 **KN**: Our primary goal is always to build and maintain _extensible_ and _stable_ scheduling
 runtime, and I bet this goal will remain unchanged forever.
@@ -369,7 +365,7 @@ runtime, and I bet this goal will remain unchanged forever.
 As already mentioned, extensibility is key to solving the challenge of the diverse needs of
 scheduling. Rather than trying to support every different use case directly in kube-scheduler, we
 will continue to focus on enhancing extensibility so that it can accommodate various use
-cases. [kube-scheduler-wasm-extention](https://github.com/kubernetes-sigs/kube-scheduler-wasm-extension)
+cases. [kube-scheduler-wasm-extension](https://github.com/kubernetes-sigs/kube-scheduler-wasm-extension)
 that I mentioned is also part of this initiative.
 -->
 **AP: 接下来 SIG Scheduling 有哪些即将实现的目标或计划？你如何看待 SIG 的未来发展？**
@@ -405,7 +401,7 @@ about SIG Scheduling?**
 **KN**: Scheduling is one of the most complicated areas in Kubernetes, and you may find it difficult
 at first. But, as I shared earlier, you can find many opportunities for contributions, and many
 maintainers are willing to help you understand things. We know your unique perspective and skills
-are what makes our open source so powerful :)
+are what makes our open source so powerful 😊
 -->
 ## 结束语
 
@@ -413,7 +409,7 @@ are what makes our open source so powerful :)
 
 **KN**: 调度是 Kubernetes 中最复杂的领域之一，你可能一开始会觉得很困难。但正如我之前分享的，
 你可以找到许多贡献的机会，许多维护者愿意帮助你理解各事项。
-我们知道你独特的视角和技能是我们的开源项目能够如此强大的源泉 :)
+我们知道你独特的视角和技能是我们的开源项目能够如此强大的源泉 😊
 
 <!--
 Feel free to reach out to us in Slack
