@@ -743,7 +743,19 @@ kubectl run myapp --image=busybox:1.28 --restart=Never -- sleep 1d
 Create a custom profile in YAML or JSON format.
 Here, create a YAML format file named `custom-profile.yaml`:
 
-{{% code_sample file="debug/custom-profile.yaml" %}}
+```yaml
+env:
+- name: ENV_VAR_1
+  value: value_1
+- name: ENV_VAR_2
+  value: value_2
+securityContext:
+  capabilities:
+    add:
+    - NET_ADMIN
+    - SYS_TIME
+
+```
 
 Run this command to debug the Pod using an ephemeral container with the custom profile:
 
