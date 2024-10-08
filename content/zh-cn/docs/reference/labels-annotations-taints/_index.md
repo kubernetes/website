@@ -573,6 +573,33 @@ feature gate must be enabled for this label to be added to pods.
 特性门控必须被启用，才能将此标签添加到 Pod 上。
 
 <!--
+### resource.kubernetes.io/pod-claim-name
+
+Type: Annotation
+
+Example: `resource.kubernetes.io/pod-claim-name: "my-pod-claim"`
+
+Used on: ResourceClaim
+
+This annotation is assigned to generated ResourceClaims. 
+Its value corresponds to the name of the resource claim in the `.spec` of any Pod(s) for which the ResourceClaim was created.
+This annotation is an internal implementation detail of [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/).
+You should not need to read or modify the value of this annotation.
+-->
+### resource.kubernetes.io/pod-claim-name {#resource-kubernetes-io-pod-claim-name}
+
+类别：注解
+
+示例：`resource.kubernetes.io/pod-claim-name: "my-pod-claim"`
+
+用于：ResourceClaim
+
+该注解被赋予自动生成的 ResourceClaim。
+注解的值对应于触发 ResourceClaim 创建的 Pod 在 `.spec` 中的资源声明名称。
+此注解是[动态资源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)的内部实现细节。
+你不需要读取或修改此注解的值。
+
+<!--
 ### cluster-autoscaler.kubernetes.io/safe-to-evict
 
 Type: Annotation
@@ -2373,13 +2400,12 @@ Example: `nginx.ingress.kubernetes.io/configuration-snippet: "  more_set_headers
 
 Used on: Ingress
 
-You can use this annotation to set extra configuration on an Ingress that 
-uses the [NGINX Ingress Controller] (https://github.com/kubernetes/ingress-nginx/)
+You can use this annotation to set extra configuration on an Ingress that
+uses the [NGINX Ingress Controller](https://github.com/kubernetes/ingress-nginx/).
 The `configuration-snippet` annotation is ignored
 by default since version 1.9.0 of the ingress controller.
-The NGINX ingress controller setting `allow-snippet-annotations.` 
-has to be explicitly enabled to
-use this annotation.
+The NGINX ingress controller setting `allow-snippet-annotations.`
+has to be explicitly enabled to use this annotation.
 Enabling the annotation can be dangerous in a multi-tenant cluster, as it can lead people with otherwise
 limited permissions being able to retrieve all Secrets in the cluster.
 -->
