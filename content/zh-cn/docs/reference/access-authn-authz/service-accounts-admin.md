@@ -134,6 +134,9 @@ stored as extra 'private claims' in the issued JWT.
 
 When a bound token is presented to the kube-apiserver, the service account authenticator
 will extract and verify these claims.
+If the referenced object or the ServiceAccount is pending deletion (for example, due to finalizers),
+then for any instant that is 60 seconds (or more) after the `.metadata.deletionTimestamp` date,
+authentication with that token would fail.
 If the referenced object no longer exists (or its `metadata.uid` does not match),
 the request will not be authenticated.
 -->
@@ -141,6 +144,9 @@ the request will not be authenticated.
 将作为额外的“私有声明”存储在所发布的 JWT 中。
 
 当将被绑定的令牌提供给 kube-apiserver 时，服务帐户身份认证组件将提取并验证这些声明。
+如果所引用的对象或 ServiceAccount 正处于删除中（例如，由于 finalizer 的原因），
+那么在 `.metadata.deletionTimestamp` 时间戳之后的 60 秒（或更长时间）后的某一时刻，
+使用该令牌进行身份认证将会失败。
 如果所引用的对象不再存在（或其 `metadata.uid` 不匹配），则请求将无法通过认证。
 
 <!--

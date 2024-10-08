@@ -84,7 +84,7 @@ no_list: true
 
 プロダクション用のKubernetesクラスターの認証認可をセットアップするにあたって、いくつかの考慮事項があります。
 
-- *認証モードの設定*: Kubermetes APIサーバー ([kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/))の起動時に、*--authorization-mode*フラグを使用しサポートされた認証モードを設定しなければいけません。例えば、*/etc/kubernetes/manifests*配下の*kube-adminserver.yaml*ファイルで*--authorization-mode*フラグにNodeやRBACを設定することで、認証されたリクエストに対してノードやRBACの認証を許可することができます。
+- *認証モードの設定*: Kubernetes APIサーバー ([kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/))の起動時に、*--authorization-mode*フラグを使用しサポートされた認証モードを設定しなければいけません。例えば、*/etc/kubernetes/manifests*配下の*kube-adminserver.yaml*ファイルで*--authorization-mode*フラグにNodeやRBACを設定することで、認証されたリクエストに対してノードやRBACの認証を許可することができます。
 - *ユーザー証明書とロールバインディングの作成(RMAC)*: RBAC認証を使用している場合、ユーザーはクラスター証明機関により署名された証明書署名要求(CSR)を作成でき、各ユーザーにRolesとClusterRolesをバインドすることができます。詳細は[証明書署名要求](/docs/reference/access-authn-authz/certificate-signing-requests/)をご覧ください。
 - *属性を組み合わせたポリシーの作成(ABAC)*: ABAC認証を使用している場合、特定のリソース（例えばPod）、Namespace、またはAPIグループにアクセスするために、選択されたユーザーやグループに属性の組み合わせで形成されたポリシーを割り当てることができます。より多くの情報は[Examples](/docs/reference/access-authn-authz/abac/#examples)をご覧ください。
 - *アドミッションコントローラーの考慮事項*: APIサーバーを経由してくるリクエストのための追加の認証形式に[Webhookトークン認証](/ja/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)があります。Webhookや他の特別な認証形式はAPIサーバーへアドミッションコントローラーを追加し有効化される必要があります。
