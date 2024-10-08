@@ -20,21 +20,23 @@ The annotations apply to audit events. Audit events are different from objects i
 
 <!-- body -->
 
-## k8s.io/deprecated
+## Annotations on the Event Object
+
+### k8s.io/deprecated
 
 Example: `k8s.io/deprecated: "true"`
 
 Value **must** be "true" or "false". The value "true" indicates that the
 request used a deprecated API version.
 
-## k8s.io/removed-release
+### k8s.io/removed-release
 
 Example: `k8s.io/removed-release: "1.22"`
 
 Value **must** be in the format "<major>.<minor>". It is set to target the removal release
 on requests made to deprecated API versions with a target removal release.
 
-## pod-security.kubernetes.io/exempt
+### pod-security.kubernetes.io/exempt
 
 Example: `pod-security.kubernetes.io/exempt: namespace`
 
@@ -44,7 +46,7 @@ dimensions. This annotation indicates on which dimension was based the exemption
 from the PodSecurity enforcement.
 
 
-## pod-security.kubernetes.io/enforce-policy
+### pod-security.kubernetes.io/enforce-policy
 
 Example: `pod-security.kubernetes.io/enforce-policy: restricted:latest`
 
@@ -58,7 +60,7 @@ allowed or denied the pod during PodSecurity admission.
 See [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
 for more information.
 
-## pod-security.kubernetes.io/audit-violations
+### pod-security.kubernetes.io/audit-violations
 
 Example:  `pod-security.kubernetes.io/audit-violations: would violate
 PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container
@@ -72,7 +74,7 @@ violated from the PodSecurity enforcement.
 See [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
 for more information.
 
-## authorization.k8s.io/decision
+### authorization.k8s.io/decision
 
 Example: `authorization.k8s.io/decision: "forbid"`
 
@@ -81,7 +83,7 @@ was authorized in Kubernetes audit logs.
 
 See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
 
-## authorization.k8s.io/reason
+### authorization.k8s.io/reason
 
 Example: `authorization.k8s.io/reason: "Human-readable reason for the decision"`
 
@@ -89,7 +91,7 @@ This annotation gives reason for the [decision](#authorization-k8s-io-decision) 
 
 See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
 
-## missing-san.invalid-cert.kubernetes.io/$hostname
+### missing-san.invalid-cert.kubernetes.io/$hostname
 
 Example: `missing-san.invalid-cert.kubernetes.io/example-svc.example-namespace.svc: "relies on a legacy Common Name field instead of the SAN extension for subject validation"`
 
@@ -107,7 +109,7 @@ to avoid disruption when running in Kubernetes 1.23+ environments.
 There's more information about this in the Go documentation:
 [X.509 CommonName deprecation](https://go.dev/doc/go1.15#commonname).
 
-## insecure-sha1.invalid-cert.kubernetes.io/$hostname
+### insecure-sha1.invalid-cert.kubernetes.io/$hostname
 
 Example: `insecure-sha1.invalid-cert.kubernetes.io/example-svc.example-namespace.svc: "uses an insecure SHA-1 signature"`
 
@@ -124,7 +126,7 @@ to ensure connections are secured properly and to avoid disruption in future rel
 There's more information about this in the Go documentation:
 [Rejecting SHA-1 certificates](https://go.dev/doc/go1.18#sha1).
 
-## validation.policy.admission.k8s.io/validation_failure
+### validation.policy.admission.k8s.io/validation_failure
 
 Example: `validation.policy.admission.k8s.io/validation_failure: '[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]'`
 
@@ -145,3 +147,15 @@ the CEL expressions that failed, respectively.
 The `validationActions` shows what actions were taken for this validation failure.
 See [Validating Admission Policy](/docs/reference/access-authn-authz/validating-admission-policy/)
 for more details about `validationActions`.
+
+## Event User.Extra Fields
+
+### authentication.kubernetes.io/credential-id
+
+This field contains the credential ID that was used to authenticate this request.
+
+For X.509 certificates, this is the SHA-256 fingerprint of the certificate, in the form `X509SHA256=<hexadecimal-encoded-hash>`.
+
+{{< feature-state feature_gate_name="ServiceAccountTokenJTI" >}}
+
+For service account tokens, this is the JTI claim embedded in the token, in the form `JTI=<jti>`.
