@@ -958,6 +958,30 @@ body.td-home {
     }
   }
 
+  // Add logo to CNCF section
+  main > section#cncf {
+
+    > .cncf-project-status {
+      text-align: center;
+      font-size: 1.2em;
+      max-width: 20em;
+
+      padding-top: 2em;
+      padding-bottom: 5em;
+      padding-right: calc(max(2vw, 1em));
+      padding-left: calc(max(2vw, 1em));
+      margin-bottom: 1em;
+      margin-top: 0;
+      margin-left: auto;
+      margin-right: auto;
+
+      background-image: url(/images/cncf-color.svg);
+      background-position: center bottom;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+  }
+
   // Special styles for Kubernetes' 10th birthday
   section.k8s-birthday-override {
     background: #dae9f9; // Kubernetes light blue
