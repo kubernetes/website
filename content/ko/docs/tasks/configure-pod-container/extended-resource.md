@@ -1,7 +1,7 @@
 ---
 title: 컨테이너에 확장 리소스 지정
 content_type: task
-weight: 40
+weight: 70
 ---
 
 <!-- overview -->

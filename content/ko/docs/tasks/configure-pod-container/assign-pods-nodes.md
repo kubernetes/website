@@ -1,7 +1,7 @@
 ---
 title: 노드에 파드 할당
 content_type: task
-weight: 120
+weight: 150
 ---
 
 <!-- overview -->

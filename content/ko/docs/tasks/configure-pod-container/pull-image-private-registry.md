@@ -1,7 +1,6 @@
 ---
 title: 프라이빗 레지스트리에서 이미지 받아오기
-content_type: task
-weight: 100
+weight: 130
 ---
 
 <!-- overview -->

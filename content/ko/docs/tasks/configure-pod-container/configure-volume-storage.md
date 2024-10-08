@@ -1,7 +1,7 @@
 ---
 title: 스토리지의 볼륨을 사용하는 파드 구성
 content_type: task
-weight: 50
+weight: 80
 ---
 
 <!-- overview -->
@@ -45,7 +45,7 @@ weight: 50
 
    출력은 이와 유사하다.
 
-   ```shell
+   ```console
    NAME      READY     STATUS    RESTARTS   AGE
    redis     1/1       Running   0          13s
    ```
@@ -73,7 +73,7 @@ weight: 50
 
    출력은 이와 유사하다.
 
-   ```shell
+   ```console
    USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
    redis        1  0.1  0.1  33308  3828 ?        Ssl  00:46   0:00 redis-server *:6379
    root        12  0.0  0.0  20228  3020 ?        Ss   00:47   0:00 /bin/bash
@@ -91,7 +91,7 @@ weight: 50
 1. 원래 터미널에서, Redis 파드의 변경을 지켜본다. 결국,
    다음과 유사한 것을 보게 될 것이다.
 
-   ```shell
+   ```console
    NAME      READY     STATUS     RESTARTS   AGE
    redis     1/1       Running    0          13s
    redis     0/1       Completed  0         6m

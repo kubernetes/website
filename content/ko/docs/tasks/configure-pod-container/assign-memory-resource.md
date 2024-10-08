@@ -357,3 +357,5 @@ kubectl delete namespace mem-example
 * [네임스페이스에 파드 할당량 구성](/ko/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
 * [API 오브젝트에 할당량 구성](/docs/tasks/administer-cluster/quota-api-object/)
+
+* [컨테이너에 할당된 CPU 및 메모리 리소스 크기 조정](/docs/tasks/configure-pod-container/resize-container-resources/)
