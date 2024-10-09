@@ -115,7 +115,6 @@ things: isolation between different applications, and a mechanism to combine
 those isolated applications to run on the same host computer. Those two
 aspects, isolation and aggregation, mean that runtime security involves
 identifying trade-offs and finding an appropriate balance.
-trade-offs and finding an appropriate balance.
 
 Kubernetes relies on a {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 to actually set up and run containers. The Kubernetes project does
