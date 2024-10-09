@@ -43,9 +43,13 @@ You can use [Krew](https://krew.dev/) to discover and install `kubectl`
 plugins from a community-curated
 [plugin index](https://krew.sigs.k8s.io/plugins/).
 
+#### Create plugins
+
+`kubectl` allows plugins to add custom create commands of the shape `kubectl create something` by providing a `kubectl-create-something` binary in the `PATH`.
+
 #### Limitations
 
-It is currently not possible to create plugins that overwrite existing `kubectl` commands. For example, creating a plugin `kubectl-version` will cause that plugin to never be executed, as the existing `kubectl version` command will always take precedence over it. Due to this limitation, it is also *not* possible to use plugins to add new subcommands to existing `kubectl` commands. For example, adding a subcommand `kubectl create foo` by naming your plugin `kubectl-create-foo` will cause that plugin to be ignored.
+It is currently not possible to create plugins that overwrite existing `kubectl` commands or extend commands other than `create`. For example, creating a plugin `kubectl-version` will cause that plugin to never be executed, as the existing `kubectl version` command will always take precedence over it. Due to this limitation, it is also *not* possible to use plugins to add new subcommands to existing `kubectl` commands. For example, adding a subcommand `kubectl attach vm` by naming your plugin `kubectl-attach-vm` will cause that plugin to be ignored.
 
 `kubectl plugin list` shows warnings for any valid plugins that attempt to do this.
 
