@@ -185,8 +185,28 @@ details:not([open]) > summary:after {
   display: inline-block;
 }
 
-// glossary
+/* Customize docs landing page display */
+body.docs-portal {
+  main .td-content {
+    .launch-content {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      row-gap: 5rem;
+    }
+    .launch-content > p:first-child {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 40em;
+      order: 1;
+    }
+  }
+  nav.td-breadcrumbs {
+    visibility: hidden; // not needed
+  }
+}
 
+/* glossary */
 body.glossary {
   main {
 
