@@ -886,12 +886,33 @@ body.td-home {
       float: left;
       margin-right: 2em;
     }
+  }
+
+  main > section.k8s-overview {
+    display: flex;
+    flex-flow: row wrap;
+    align-content: center;
+    justify-content: space-evenly;
+  }
+
+  .section-feature {
+    display: flex;
+    gap: calc(max(2vw, 1em));
     padding: 1em;
     max-width: calc(max(70em, 45vw));
+    min-height: 8em;
+    flex-shrink: 1;
+
+    .image-wrapper {
+      margin-right: 2em;
+      flex-shrink: 2;
+      max-width: 10vw;
+    }
 
     flex-basis: calc(max(50%, 60em));
     flex-grow: 0;
     flex-shrink: 1;
+    font-size: 1.1rem;
 
     a {
       font-weight: bold;
@@ -902,17 +923,50 @@ body.td-home {
     }
   }
 
+  // alternate which side the image is on
+  .section-feature:odd .image-wrapper {
+    order: 2;
+  }
+
   .section-feature#feature-primary {
     display: flex;
+    gap: initial;
+    row-gap: 1.5em;
+    min-width: 51vw; // always its own row
+    flex-shrink: 0;
+    flex-grow: 2;
+    flex-wrap: wrap;
+    align-self: flex-start; // top
+
+
+    justify-content: center;
+
+    .content {
+      flex-shrink: 2;
+      flex-basis: calc(min(90vw, 30em + 10vw ));
+      > p {
+        max-width: 64em;
+        padding-left: 1em;
+      }
+    }
 
     .image-wrapper {
       align-self: center;
+      flex-shrink: 1;
+      flex-basis: 28em;
+      max-width: initial;
+      order: 2; // image after text, always
+
+      @include media-breakpoint-up(lg) {
+        padding-right: 6em;
+      }
+
       img {
         @include media-breakpoint-down(sm) {
           display: none;
         }
-        min-height: 11em;
-        min-width: calc(min(22em, max(8em, 90vw - 20em));
+        min-height: calc(5em + 7vh);
+        min-width: calc(min(20em, max(8em, 90vw - 20em));
       }
     }
   }
@@ -947,16 +1001,6 @@ body.td-home {
       font-weight: 400;
     }
   }
-  main > section {
-    padding-left: calc( ( max(100vw - 175em, 6em) ) / 2);
-    padding-right: calc( ( max(100vw - 175em, 6em) ) / 2);
-
-    gap: 2em;
-
-    .row {
-      justify-content: center;
-    }
-  }
 
   // Add logo to CNCF section
   main > section#cncf {
@@ -979,6 +1023,59 @@ body.td-home {
       background-position: center bottom;
       background-repeat: no-repeat;
       background-size: contain;
+    }
+  }
+
+  section.k8s-overview {
+    background: $primary;
+    color: $white;
+    p {
+      background: transparent;
+      color: inherit;
+
+      > a {
+        background: transparent;
+        color: inherit;
+        font-weight: bold;
+        text-decoration: underline;
+      }
+    }
+    h2, h3, h4, h5, h6 {
+      background: transparent;
+      color: inherit;
+    }
+  }
+
+  #video {
+    min-height: calc(max(40em, 250px));
+
+    .video-items {
+      width: 100%;
+      display: flex;
+      flex-basis: 100vw;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+
+      > * {
+        flex-basis: 50em;
+        flex-grow: 0;
+        flex-shrink: 5;
+        text-align: right;
+      }
+
+      #videoPlayer {
+        flex-basis: 100%;
+        flex-grow: 2;
+        flex-shrink: 0;
+      }
+    }
+    .light-text, .light-text a {
+     color: $white;
+    }
+    button {
+      background: $primary;
+      color: $white;
+      border: 0;
     }
   }
 

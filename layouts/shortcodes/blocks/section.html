@@ -20,7 +20,7 @@
 {{- else -}}
 {{- end -}}
 <a id="{{ $id_fallback }}" class="td-offset-anchor"></a>
-<section id="{{ $id }}" class="row td-box td-box--{{ $col_id }} td-box--gradient td-box--height-{{ $height }}{{ with $class }} {{ . }}{{ end }}{{ with $backgroundImage }} section-with-bgimage {{ end }}" style="{{ with $backgroundImage }}background-image: url({{ .Permalink }}); {{ end }}{{ with $style }}{{ . | safeCSS }}{{ end }}">
+<section id="{{ $id }}" class="row td-box td-box--{{ $col_id }} td-box--gradient td-box--height-{{ $height }}{{ if isset .Params "class" }} {{ $class }}{{ end }}{{ with $backgroundImage }} section-with-bgimage {{ end }}" style="{{ with $backgroundImage }}background-image: url({{ .Permalink }}); {{ end }}{{ with $style }}{{ . | safeCSS }}{{ end }}">
 	<div class="col">
 		<div class="row {{ $type }}">
 			{{ if eq .Page.File.Ext "md" }}

@@ -3,8 +3,14 @@
 {{- $id := .Get "id" | default (printf "feature-%d" .Ordinal) -}}
 {{- $url_text := .Get "url_text" -}}
 <div class="section-feature" id="{{ $id }}">
-{{- with resources.Get ( printf "images/common-resources/%s.svg" $imageName) -}}
-<div class="image-wrapper"><img src="{{ .RelPermalink }}" alt=""></div>
+{{- if and (resources.Get ( printf "images/common-dark/%s.svg" $imageName)) (resources.Get ( printf "images/common-light/%s.svg" $imageName)) -}}
+<div class="image-wrapper">
+  <picture>
+  {{- with resources.Get ( printf "images/common-dark/%s.svg" $imageName) -}}
+  <img src="{{ .RelPermalink }}" alt="">
+  {{- end -}}
+  </picture>
+</div>
 {{- else -}}
 <div class="mb-4 h1">
   <i class="{{ if not (or (hasPrefix $icon "fas ") (hasPrefix $icon "fab ")) }}fas {{ end }}{{ $icon }}"></i>
