@@ -640,14 +640,17 @@ Don't forget to clean up the debugging Pod when you're finished with it:
 kubectl delete pod node-debugger-mynode-pdx84
 ```
 
-## Debugging Profiles {#debugging-profiles}
+## Debugging a Pod or Node while applying a profile {#debugging-profiles}
 
 When using `kubectl debug` to debug a node via a debugging Pod, a Pod via an ephemeral container, 
-or a copied Pod, you can apply a debugging profile to them using the `--profile` flag.
+or a copied Pod, you can apply a profile to them.
 By applying a profile, specific properties such as [securityContext](/docs/tasks/configure-pod-container/security-context/)
 are set, allowing for adaptation to various scenarios.
+There are two types of profiles, static profile and custom profile.
 
+### Applying a Static Profile {#static-profile}
 
+A static profile is a set of predefined properties, and you can apply them using the `--profile` flag.
 The available profiles are as follows:
 
 | Profile      | Description                                                     |
@@ -719,19 +722,18 @@ Clean up the Pod when you're finished with it:
 kubectl delete pod myapp
 ```
 
-### Custom Profile {#custom-profile}
+### Applying Custom Profile {#custom-profile}
 
 {{< feature-state for_k8s_version="v1.31" state="beta" >}}
 
-You can define a partial container spec as a custom profile in either YAML or JSON format.
-The custom profile can be applied to an ephemeral container or a debugging container in a copied Pod 
-or a debugging Pod using the `--custom` flag.
+You can define a partial container spec for debugging as a custom profile in either YAML or JSON format, 
+and apply it using the `--custom` flag.
 
 {{< note >}}
-Custom profile only supports the modification of the ephemeral container or debugging container spec.
+Custom profile only supports the modification of the container spec, 
+but modifications to `name`, `image`, `command`, `lifecycle` and `volumeDevices` fields of the container spec 
+are not allowed.
 It does not support the modification of the Pod spec.
-Modifications for `command`, `image`, `lifecycle`, `name` and `volumeDevices` fields 
-via a custom profile are not allowed.
 {{< /note >}}
 
 Create a Pod named myapp as an example:
