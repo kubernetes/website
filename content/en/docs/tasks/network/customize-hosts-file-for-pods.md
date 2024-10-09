@@ -17,7 +17,6 @@ The Kubernetes project recommends modifying DNS configuration using the `hostAli
 (part of the `.spec` for a Pod), and not by using an init container or other means to edit `/etc/hosts`
 directly.
 Change made in other ways may be overwritten by the kubelet during Pod creation or restart.
-made in other ways may be overwritten by the kubelet during Pod creation or restart.
 
 <!-- steps -->
 

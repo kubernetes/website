@@ -220,12 +220,12 @@ profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
 ```
 
 <!--
-The profile needs to loaded onto all nodes, since you don't know where the pod will be scheduled.
-For this example we'll use SSH to install the profiles, but other approaches are
+The profile needs to be loaded onto all nodes, since you don't know where the pod will be scheduled.
+For this example you can use SSH to install the profiles, but other approaches are
 discussed in [Setting up nodes with profiles](#setting-up-nodes-with-profiles).
 -->
 由于不知道 Pod 将被调度到哪里，该配置文件需要加载到所有节点上。
-在本例中，我们将使用 SSH 来安装概要文件，
+在本例中，你可以使用 SSH 来安装配置文件，
 但是在[使用配置文件设置节点](#setting-up-nodes-with-profiles)中讨论了其他方法。
 
 <!--
