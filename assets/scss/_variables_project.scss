@@ -1,18 +1,13 @@
-/* This file is provided by Docsy as an entry point to styling.
-Add styles or override variables from the theme here. */
-
-@import "reset";
-@import "skin";
-
-//K8S-Docsy integration
-@import "custom";
-
-//Media queries
-@import "base";
-@import "tablet";
-@import "desktop";
+/* This file is provided by Docsy as an extension point for styling.
+Override variables from the theme here. */
 
 $primary: #326ce5;
+
+$blue: #326ce5;
+$light-grey: #f7f7f7;
+$dark-grey: #303030;
+$medium-grey: #4c4c4c;
+$white: #ffffff;
 
 // tooltip
 $tooltip-bg: #555;
