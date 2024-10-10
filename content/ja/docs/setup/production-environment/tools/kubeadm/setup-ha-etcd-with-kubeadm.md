@@ -6,14 +6,6 @@ weight: 70
 
 <!-- overview -->
 
-{{< note >}}
-While kubeadm is being used as the management tool for external etcd nodes
-in this guide, please note that kubeadm does not plan to support certificate rotation
-or upgrades for such nodes. The long term plan is to empower the tool
-[etcdadm](https://github.com/kubernetes-sigs/etcdadm) to manage these
-aspects.
-{{< /note >}}
-
 Kubeadm defaults to running a single member etcd cluster in a static pod managed
 by the kubelet on the control plane node. This is not a high availability setup
 as the etcd cluster contains only one member and cannot sustain any members
