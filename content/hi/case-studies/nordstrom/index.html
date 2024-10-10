@@ -1,0 +1,75 @@
+---
+title: Nordstrom Case Study
+case_study_styles: true
+cid: caseStudies
+
+new_case_study_styles: true
+heading_background: /images/case-studies/nordstrom/banner1.jpg
+heading_title_logo: /images/nordstrom_logo.png
+subheading: >
+  Finding Millions in Potential Savings in a Tough Retail Climate
+case_study_details:
+  - Company: Nordstrom
+  - Location: Seattle, Washington
+  - Industry: Retail
+---
+
+<h2>Challenge</h2>
+
+<p>Nordstrom wanted to increase the efficiency and speed of its technology operations, which includes the Nordstrom.com e-commerce site. At the same time, Nordstrom Technology was looking for ways to tighten its technology operational costs.</p>
+
+<h2>Solution</h2>
+
+<p>After embracing a DevOps transformation and launching a continuous integration/continuous deployment (CI/CD) project four years ago, the company reduced its deployment time from three months to 30 minutes. But they wanted to go even faster across environments, so they began their cloud native journey, adopting Docker containers orchestrated with <a href="http://kubernetes.io/">Kubernetes</a>.</p>
+
+<h2>Impact</h2>
+
+<p>Nordstrom Technology developers using Kubernetes now deploy faster and can "just focus on writing applications," says Dhawal Patel, a senior engineer on the team building a Kubernetes enterprise platform for Nordstrom. Furthermore, the team has increased Ops efficiency, improving CPU utilization from 5x to 12x depending on the workload. "We run thousands of virtual machines (VMs), but aren't effectively using all those resources," says Patel. "With Kubernetes, without even trying to make our cluster efficient, we are currently at a 10x increase."</p>
+
+{{< case-studies/quote author="Dhawal Patel, senior engineer at Nordstrom" >}}
+"We are always looking for ways to optimize and provide more value through technology. With Kubernetes we are showcasing two types of efficiency that we can bring: Dev efficiency and Ops efficiency. It's a win-win."
+{{< /case-studies/quote >}}
+
+<p>When Dhawal Patel joined <a href="http://shop.nordstrom.com/">Nordstrom</a> five years ago as an application developer for the retailer's website, he realized there was an opportunity to help speed up development cycles.</p>
+
+<p>In those early DevOps days, Nordstrom Technology still followed a traditional model of silo teams and functions. "As a developer, I was spending more time fixing environments than writing code and adding value to business," Patel says. "I was passionate about that—so I was given the opportunity to help fix it."</p>
+
+<p>The company was eager to move faster, too, and in 2013 launched the first continuous integration/continuous deployment (CI/CD) project. That project was the first step in Nordstrom's cloud native journey.</p>
+
+<p>Dev and Ops team members built a CI/CD pipeline, working with the company's servers on premise. The team chose <a href="https://www.chef.io/chef/">Chef</a>, and wrote cookbooks that automated virtual IP creation, servers, and load balancing. "After we completed the project, deployment went from three months to 30 minutes," says Patel. "We still had multiple environments—dev, test, staging, then production—so with each environment running the Chef cookbooks, it took 30 minutes. It was a huge achievement at that point."</p>
+
+<p>But new environments still took too long to turn up, so the next step was working in the cloud. Today, Nordstrom Technology has built an enterprise platform that allows the company's 1,500 developers to deploy applications running as Docker containers in the cloud, orchestrated with Kubernetes.</p>
+
+{{< case-studies/quote image="/images/case-studies/nordstrom/banner3.jpg" >}}
+"We made a bet that Kubernetes was going to take off, informed by early indicators of community support and project velocity, so we rebuilt our system with Kubernetes at the core,"
+{{< /case-studies/quote >}}
+
+<p>"The cloud provided faster access to resources, because it took weeks for us to get a virtual machine (VM) on premises," says Patel. "But now we can do the same thing in only five minutes."</p>
+
+<p>Nordstrom's first foray into scheduling containers on a cluster was a homegrown system based on CoreOS fleet. They began doing a few proofs of concept projects with that system until Kubernetes 1.0 was released when they made the switch. "We made a bet that Kubernetes was going to take off, informed by early indicators of community support and project velocity, so we rebuilt our system with Kubernetes at the core," says Marius Grigoriu, Sr. Manager of the Kubernetes team at Nordstrom.</p>
+
+<p>While Kubernetes is often thought as a platform for microservices, the first application to launch on Kubernetes in a critical production role at Nordstrom was Jira. "It was not the ideal microservice we were hoping to get as our first application," Patel admits, "but the team that was working on it was really passionate about Docker and Kubernetes, and they wanted to try it out. They had their application running on premises, and wanted to move it to Kubernetes."</p>
+
+<p>The benefits were immediate for the teams that came on board. "Teams running on our Kubernetes cluster loved the fact that they had fewer issues to worry about. They didn't need to manage infrastructure or operating systems," says Grigoriu. "Early adopters loved the declarative nature of Kubernetes. They loved the reduced surface area they had to deal with."</p>
+
+{{< case-studies/quote image="/images/case-studies/nordstrom/banner4.jpg">}}
+"Teams running on our Kubernetes cluster loved the fact that they had fewer issues to worry about. They didn't need to manage infrastructure or operating systems," says Grigoriu. "Early adopters loved the declarative nature of Kubernetes. They loved the reduced surface area they had to deal with."
+{{< /case-studies/quote >}}
+
+<p>To support these early adopters, Patel's team began growing the cluster and building production-grade services. "We integrated with <a href="https://prometheus.io/">Prometheus</a> for monitoring, with a <a href="https://grafana.com/">Grafana</a> front end; we used <a href="http://www.fluentd.org/">Fluentd</a> to push logs to <a href="https://www.elastic.co/">Elasticsearch</a>, so that gives us log aggregation," says Patel. The team also added dozens of open-source components, including CNCF projects and has made contributions to Kubernetes, Terraform, and kube2iam.</p>
+
+<p>There are now more than 60 development teams running Kubernetes in Nordstrom Technology, and as success stories have popped up, more teams have gotten on board. "Our initial customer base, the ones who were willing to try this out, are now going and evangelizing to the next set of users," says Patel. "One early adopter had Docker containers and he was not sure how to run it in production. We sat with him and within 15 minutes we deployed it in production. He thought it was amazing, and more people in his org started coming in."</p>
+
+<p>For Nordstrom Technology, going cloud-native has vastly improved development and operational efficiency. The developers using Kubernetes now deploy faster and can focus on building value in their applications.  One such team started with a 25-minute merge to deploy by launching virtual machines in the cloud. Switching to Kubernetes was a 5x speedup in their process, improving their merge to deploy time to 5 minutes.</p>
+
+{{< case-studies/quote >}}
+"With Kubernetes, without even trying to make our cluster efficient, we are currently at 40 percent CPU utilization—a 10x increase. we are running 2600+ customer pods that would have been 2600+ VMs if they had gone directly to the cloud. We are running them on 40 VMs now, so that's a huge reduction in operational overhead."
+{{< /case-studies/quote >}}
+
+<p>Speed is great, and easily demonstrated, but perhaps the bigger impact lies in the operational efficiency. "We run thousands of VMs on AWS, and their overall average CPU utilization is about four percent," says Patel. "With Kubernetes, without even trying to make our cluster efficient, we are currently at 40 percent CPU utilization—a 10x increase. We are running 2600+ customer pods that would have been 2600+ VMs if they had gone directly to the cloud. We are running them on 40 VMs now, so that's a huge reduction in operational overhead."</p>
+
+<p>Nordstrom Technology is also exploring running Kubernetes on bare metal on premises. "If we can build an on-premises Kubernetes cluster," says Patel, "we could bring the power of cloud to provision resources fast on-premises. Then for the developer, their interface is Kubernetes; they might not even realize or care that their services are now deployed on premises because they're only working with Kubernetes."</p>
+
+<p>For that reason, Patel is eagerly following Kubernetes' development of multi-cluster capabilities. "With cluster federation, we can have our on-premise as the primary cluster and the cloud as a secondary burstable cluster," he says. "So, when there is an anniversary sale or Black Friday sale, and we need more containers - we can go to the cloud."</p>
+
+<p>That kind of possibility—as well as the impact that Grigoriu and Patel's team has already delivered using Kubernetes—is what led Nordstrom on its cloud native journey in the first place. "The way the retail environment is today, we are trying to build responsiveness and flexibility where we can," says Grigoriu.  "Kubernetes makes it easy to: bring efficiency to both the Dev and Ops side of the equation. It's a win-win."</p>
