@@ -156,7 +156,7 @@ List of feature gates:
 Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
 `ControlPlaneKubeletLocalMode` | `false` | 1.31 | - | -
-`EtcdLearnerMode` | `true` | 1.27 | 1.29 | -
+`EtcdLearnerMode` | `true` | 1.27 | 1.29 | 1.32
 `PublicKeysECDSA` | `false` | 1.19 | - | -
 `WaitForAllControlPlaneComponents` | `false` | 1.30 | - | -
 {{< /table >}}
