@@ -72,6 +72,19 @@ violated from the PodSecurity enforcement.
 See [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
 for more information.
 
+## apiserver.latency.k8s.io/validating-webhook
+
+Example: `apiserver.latency.k8s.io/validating-webhook: "203.698864ms"`
+
+This annotation shows the measure of the latency incurred in validating webhook(s).
+
+## apiserver.latency.k8s.io/mutating-webhook
+
+Example: `apiserver.latency.k8s.io/mutating-webhook: "305.741049ms"`
+
+This annotation shows the measure of latency incurred in mutating webhook(s).
+Since mutating webhooks are done sequentially, latency is aggregated using sum of the durations.
+
 ## authorization.k8s.io/decision
 
 Example: `authorization.k8s.io/decision: "forbid"`
