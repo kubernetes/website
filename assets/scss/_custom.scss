@@ -1155,7 +1155,7 @@ body.cid-code-of-conduct main {
 }
 
 .td-sidebar__inner {
-  form.td-sidebar__search {
+  div.td-sidebar__search {
 
     .td-sidebar__toggle {
       &:hover {
@@ -1164,6 +1164,14 @@ body.cid-code-of-conduct main {
 
       color: $blue;
       margin: 1rem;
+    }
+
+    .search-bar form > i:first-child {
+      visibility: hidden;
+      display: none;
+    }
+    .search-bar form > input {
+      padding-left: 1.5em;
     }
   }
 }
