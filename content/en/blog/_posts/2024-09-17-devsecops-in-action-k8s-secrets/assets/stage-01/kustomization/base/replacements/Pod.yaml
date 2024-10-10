@@ -1,0 +1,10 @@
+- source:
+    kind: Service
+    fieldPath: metadata.labels.app
+  targets:
+    - select:
+        kind: Pod
+      fieldPaths:
+        - metadata.name
+        - spec.containers.*.name
+        - spec.containers.*.ports.*.name
