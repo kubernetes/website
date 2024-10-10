@@ -759,8 +759,9 @@ to create endpoints and policies</p>
 <code>string</code>
 </td>
 <td>
-   <p>sourceVip is the IP address of the source VIP endpoint used for
-NAT when loadbalancing</p>
+   <p>sourceVip is the IP address of the source VIP endpoint used for NAT when loadbalancing.
+   In overlay networking mode, if this configuration is not specified, `sourceVip` will be set 
+   to the IP of a Host Networking Service (HNS) endpoint named `source_vip`. </p>
 </td>
 </tr>
 <tr><td><code>enableDSR</code> <B>[Required]</B><br/>
