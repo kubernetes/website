@@ -77,9 +77,9 @@ ResourceSlice
 The developer of a resource driver decides whether they want to handle
 allocation themselves with a control plane controller or instead rely on allocation
 through Kubernetes with structured parameters. A
-custom controller provides more flexibility, but cluster autoscaling is not
+custom controller provides more flexibility, but Node autoscaling is not
 going to work reliably for node-local resources. Structured parameters enable
-cluster autoscaling, but might not satisfy all use-cases.
+Node autoscaling, but might not satisfy all use-cases.
 
 When a driver uses structured parameters, all parameters that select devices
 are defined in the ResourceClaim and DeviceClass with in-tree types. Configuration

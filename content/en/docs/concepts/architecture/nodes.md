@@ -357,7 +357,7 @@ Learn more about the following:
 * [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
 * [Graceful/non-graceful node shutdown](/docs/concepts/cluster-administration/node-shutdown/).
-* [Cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/) to
+* [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/) to
   manage the number and size of nodes in your cluster.
 * [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
 * [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
