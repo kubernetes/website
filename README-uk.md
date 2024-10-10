@@ -30,12 +30,14 @@ cd website
 Сайт Kubernetes використовує  [Docsy Hugo theme](https://github.com/google/docsy#readme). Навіть якщо ви плануєте запускати вебсайт в контейнері, ми настійливо рекомендуємо встановити субмодулі та інші залежності зробивши наступне:
 
 ### Windows
+
 ```powershell
 # отримання залежностей субмодулів
 git submodule update --init --recursive --depth 1
 ```
 
 ### Linux / інші Unix
+
 ```bash
 # отримання залежностей субмодулів
 make module-init
@@ -61,11 +63,14 @@ make container-serve
 Для встановлення залежностей, розгорніть та перевірте сайт локально:
 
 - На macOS та Linux
+
   ```bash
   npm ci
   make serve
   ```
+  
 - На Windows (PowerShell)
+
   ```powershell
   npm ci
   hugo.exe server --buildFuture --environment development
