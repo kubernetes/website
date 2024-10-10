@@ -463,7 +463,6 @@ listed below.
 #### Multi-team tenancy
 
 * [Capsule](https://github.com/clastix/capsule)
-* [Kiosk](https://github.com/loft-sh/kiosk)
 
 #### Multi-customer tenancy
 
