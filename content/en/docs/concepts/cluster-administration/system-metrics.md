@@ -183,7 +183,7 @@ disabled metrics (i.e. `--disabled-metrics=metric1,metric2`).
 ## Metric cardinality enforcement
 
 Metrics with unbounded dimensions could cause memory issues in the components they instrument. To
-limit resource use, you can use the `--allow-label-value` command line option to dynamically
+limit resource use, you can use the `--allow-metric-labels` command line option to dynamically
 configure an allow-list of label values for a metric.
 
 In alpha stage, the flag can only take in a series of mappings as metric label allow-list.
@@ -207,9 +207,8 @@ can specify the path to that configuration file using the `--allow-metric-labels
 line argument to a component. Here's an example of the contents of that configuration file:
 
 ```yaml
-allow-list:
-- "metric1,label2": "v1,v2,v3"
-- "metric2,label1": "v1,v2,v3"
+"metric1,label2": "v1,v2,v3"
+"metric2,label1": "v1,v2,v3"
 ```
 
 Additionally, the `cardinality_enforcement_unexpected_categorizations_total` meta-metric records the
