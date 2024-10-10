@@ -1,3 +1,5 @@
+//Enabled partial dark mode support only in the main page.
+
 $announcement-size-adjustment: 8px;
 
 /* GLOBAL */
@@ -1527,7 +1529,6 @@ div.alert > em.javascript-required {
     background: #326de6;
 }
 
-
 // Adjust Search-bar search-icon
 .search-bar {
   display: flex;
@@ -1556,8 +1557,24 @@ div.alert > em.javascript-required {
   border: none;
   outline: none;
   padding: .5em 0 .5em 0;
+}  
+  
+//Home page dark-mode input [search and email]
+@media (prefers-color-scheme: dark) {
+  .search-bar {
+    background-color: #D3D3D3;
+  }
+ 
+  input.search-input, input.email {
+    background-color: #D3D3D3 !important;
+    color: #000 !important;
+  }
+  
+  input.search-input::placeholder, input.email::placeholder{
+    color: #000;
+  }
 }
-
+    
 // PageFind Styles
 
 #search .pagefind-ui form input  {
