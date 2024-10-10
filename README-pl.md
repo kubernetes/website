@@ -61,11 +61,13 @@ Upewnij się, że zainstalowałeś odpowiednią wersję Hugo "extended", określ
 Aby uruchomić i przetestować serwis lokalnie, wykonaj:
 
 - macOS i Linux
+
   ```bash
   npm ci
   make serve
   ```
 - Windows (PowerShell)
+
   ```powershell
   npm ci
   hugo.exe server --buildFuture --environment development
