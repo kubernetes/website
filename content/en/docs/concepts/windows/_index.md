@@ -20,13 +20,13 @@ no matter what operating system you use within your cluster.
 
 If you are using Windows nodes, you can read:
 
-* [Networking On Windows](/docs/concepts/services-networking/windows-networking/)
-* [Windows Storage In Kubernetes](/docs/concepts/storage/windows-storage/)
+* [Networking on Windows](/docs/concepts/services-networking/windows-networking/)
+* [Windows Storage in Kubernetes](/docs/concepts/storage/windows-storage/)
 * [Resource Management for Windows Nodes](/docs/concepts/configuration/windows-resource-management/)
 * [Configure RunAsUserName for Windows Pods and Containers](/docs/tasks/configure-pod-container/configure-runasusername/)
-* [Create A Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-pod/)
+* [Create a Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-pod/)
 * [Configure Group Managed Service Accounts for Windows Pods and Containers](/docs/tasks/configure-pod-container/configure-gmsa/)
-* [Security For Windows Nodes](/docs/concepts/security/windows-security/)
+* [Security for Windows Nodes](/docs/concepts/security/windows-security/)
 * [Windows Debugging Tips](/docs/tasks/debug/debug-cluster/windows/)
 * [Guide for Scheduling Windows Containers in Kubernetes](/docs/concepts/windows/user-guide)
 
