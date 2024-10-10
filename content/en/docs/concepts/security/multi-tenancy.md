@@ -286,7 +286,7 @@ workloads running in a shared cluster. Running workloads in a sandbox environmen
 insulate the host from container escapes, where an attacker exploits a vulnerability to gain
 access to the host system and all the processes/files running on that host.
 
-Virtual machines and userspace kernels are 2 popular approaches to sandboxing. The following
+Virtual machines and userspace kernels are two popular approaches to sandboxing. The following
 sandboxing implementations are available:
 
 * [gVisor](https://gvisor.dev/) intercepts syscalls from containers and runs them through a
