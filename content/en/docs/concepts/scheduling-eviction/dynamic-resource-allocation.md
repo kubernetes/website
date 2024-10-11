@@ -9,13 +9,7 @@ weight: 65
 
 <!-- overview -->
 
-Core Dynamic Resource Allocation with structured parameters:
-
 {{< feature-state feature_gate_name="DynamicResourceAllocation" >}}
-
-Dynamic Resource Allocation with control plane controller:
-
-{{< feature-state feature_gate_name="DRAControlPlaneController" >}}
 
 Dynamic resource allocation is an API for requesting and sharing resources
 between pods and containers inside a pod. It is a generalization of the
@@ -28,8 +22,10 @@ resources handled by Kubernetes via _structured parameters_ (introduced in Kuber
 Different kinds of resources support arbitrary parameters for defining requirements and
 initialization.
 
-When a driver provides a _control plane controller_, the driver itself
-handles allocation in cooperation with the Kubernetes scheduler.
+Kubernetes v1.26 through to 1.31 included an (alpha) implementation of _classic DRA_,
+which is no longer supported. This documentation, which is for Kubernetes
+v{{< skew currentVersion >}}, explains the current approach to dynamic resource
+allocation within Kubernetes.
 
 ## {{% heading "prerequisites" %}}
 
@@ -65,25 +61,14 @@ DeviceClass
   when installing a resource driver. Each request to allocate a device
   in a ResourceClaim must reference exactly one DeviceClass.
 
-PodSchedulingContext
-: Used internally by the control plane and resource drivers
-  to coordinate pod scheduling when ResourceClaims need to be allocated
-  for a Pod and those ResourceClaims use a control plane controller.
-
 ResourceSlice
-: Used with structured parameters to publish information about resources
+: Used by DRA drivers to publish information about resources
   that are available in the cluster.
 
-The developer of a resource driver decides whether they want to handle
-allocation themselves with a control plane controller or instead rely on allocation
-through Kubernetes with structured parameters. A
-custom controller provides more flexibility, but cluster autoscaling is not
-going to work reliably for node-local resources. Structured parameters enable
-cluster autoscaling, but might not satisfy all use-cases.
-
-When a driver uses structured parameters, all parameters that select devices
-are defined in the ResourceClaim and DeviceClass with in-tree types. Configuration
-parameters can be embedded there as arbitrary JSON objects.
+All parameters that select devices are defined in the ResourceClaim and
+DeviceClass with in-tree types. Configuration parameters can be embedded there.
+What configuration parameters are valid depends on the DRA driver, Kubernetes
+only passes them through without interpreting them.
 
 The `core/v1` `PodSpec` defines ResourceClaims that are needed for a Pod in a
 `resourceClaims` field. Entries in that list reference either a ResourceClaim
@@ -151,51 +136,7 @@ spec:
 
 ## Scheduling
 
-### With control plane controller
-
-In contrast to native resources (CPU, RAM) and extended resources (managed by a
-device plugin, advertised by kubelet), without structured parameters
-the scheduler has no knowledge of what
-dynamic resources are available in a cluster or how they could be split up to
-satisfy the requirements of a specific ResourceClaim. Resource drivers are
-responsible for that. They mark ResourceClaims as "allocated" once resources
-for it are reserved. This also then tells the scheduler where in the cluster a
-ResourceClaim is available.
-
-When a pod gets scheduled, the scheduler checks all ResourceClaims needed by a Pod and
-creates a PodScheduling object where it informs the resource drivers
-responsible for those ResourceClaims about nodes that the scheduler considers
-suitable for the Pod. The resource drivers respond by excluding nodes that
-don't have enough of the driver's resources left. Once the scheduler has that
-information, it selects one node and stores that choice in the PodScheduling
-object. The resource drivers then allocate their ResourceClaims so that the
-resources will be available on that node. Once that is complete, the Pod
-gets scheduled.
-
-As part of this process, ResourceClaims also get reserved for the
-Pod. Currently ResourceClaims can either be used exclusively by a single Pod or
-an unlimited number of Pods.
-
-One key feature is that Pods do not get scheduled to a node unless all of
-their resources are allocated and reserved. This avoids the scenario where a Pod
-gets scheduled onto one node and then cannot run there, which is bad because
-such a pending Pod also blocks all other resources like RAM or CPU that were
-set aside for it.
-
-{{< note >}}
-
-Scheduling of pods which use ResourceClaims is going to be slower because of
-the additional communication that is required. Beware that this may also impact
-pods that don't use ResourceClaims because only one pod at a time gets
-scheduled, blocking API calls are made while handling a pod with
-ResourceClaims, and thus scheduling the next pod gets delayed.
-
-{{< /note >}}
-
-### With structured parameters
-
-When a driver uses structured parameters, the scheduler takes over the
-responsibility of allocating resources to a ResourceClaim whenever a pod needs
+The scheduler is responsible for allocating resources to a ResourceClaim whenever a pod needs
 them. It does so by retrieving the full list of available resources from
 ResourceSlice objects, tracking which of those resources have already been
 allocated to existing ResourceClaims, and then selecting from those resources
@@ -235,14 +176,9 @@ later.
 Such a situation can also arise when support for dynamic resource allocation
 was not enabled in the scheduler at the time when the Pod got scheduled
 (version skew, configuration, feature gate, etc.). kube-controller-manager
-detects this and tries to make the Pod runnable by triggering allocation and/or
-reserving the required ResourceClaims.
-
-{{< note >}}
-
-This only works with resource drivers that don't use structured parameters.
-
-{{< /note >}}
+detects this and tries to make the Pod runnable by reserving the required
+ResourceClaims. However, this only works if those were allocated by
+the scheduler for some other pod.
 
 It is better to avoid bypassing the scheduler because a Pod that is assigned to a node
 blocks normal resources (RAM, CPU) that then cannot be used for other Pods
@@ -273,10 +209,6 @@ are enabled. For details on that, see the `--feature-gates` and `--runtime-confi
 [kube-apiserver parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
 kube-scheduler, kube-controller-manager and kubelet also need the feature gate.
 
-When a resource driver uses a control plane controller, then the
-`DRAControlPlaneController` feature gate has to be enabled in addition to
-`DynamicResourceAllocation`.
-
 A quick check whether a Kubernetes cluster supports the feature is to list
 DeviceClass objects with:
 
@@ -297,11 +229,6 @@ If not supported, this error is printed instead:
 error: the server doesn't have a resource type "deviceclasses"
 ```
 
-A control plane controller is supported when it is possible to create a
-ResourceClaim where the `spec.controller` field is set. When the
-`DRAControlPlaneController` feature is disabled, that field automatically
-gets cleared when storing the ResourceClaim.
-
 The default configuration of kube-scheduler enables the "DynamicResources"
 plugin if and only if the feature gate is enabled and when using
 the v1 configuration API. Custom configurations may have to be modified to
@@ -314,5 +241,4 @@ be installed. Please refer to the driver's documentation for details.
 
 - For more information on the design, see the
   [Dynamic Resource Allocation with Structured Parameters](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4381-dra-structured-parameters)
-  and the
-  [Dynamic Resource Allocation with Control Plane Controller](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md) KEPs.
+  KEP.
