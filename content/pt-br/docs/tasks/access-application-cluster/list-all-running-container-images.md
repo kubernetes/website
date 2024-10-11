@@ -23,7 +23,8 @@ por imagem.
 
 - Busque todos os Pods em todos os namespaces usando `kubectl get pods --all-namespaces`
 - Formate a saida incluindo apenas a lista de nomes das imagens de contêiner
-  usando `-o jsonpath={.items[*].spec['initContainers', 'containers'][*].image}`. Isso irá analisar recursivamente o campo `image` do JSON retornado.
+  usando `-o jsonpath={.items[*].spec['initContainers', 'containers'][*].image}`.
+  Isso irá analisar recursivamente o campo `image` do JSON retornado.
   - Consulte [jsonpath reference](/docs/reference/kubectl/jsonpath/)
     para obter mais informações sobre como usar o jsonpath.
 - Formate a saída usando as ferramentas: `tr`, `sort`, `uniq`
@@ -40,9 +41,9 @@ uniq -c
 O jsonpath é interpretado da seguinte forma:
 
 - `.items[*]`:  para cada valor retornado
-- `.spec`: get the spec
-- `['initContainers', 'containers'][*]`: for each container
-- `.image`: get the image
+- `.spec`: coleta a especificação do recurso informado
+- `['initContainers', 'containers'][*]`: especificação do tipo de Pod
+- `.image`: coleta o nome da imagem
 
 {{< note >}}
 Quando você busca um único Pod pelo nome, por exemplo `kubectl get pod nginx`,
