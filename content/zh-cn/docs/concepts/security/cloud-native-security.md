@@ -240,12 +240,11 @@ Kubernetes 使用 TLS 保护 API 流量；确保在部署集群时采用了 TLS�
 things: isolation between different applications, and a mechanism to combine
 those isolated applications to run on the same host computer. Those two
 aspects, isolation and aggregation, mean that runtime security involves
-trade-offs and finding an appropriate balance.
+identifying trade-offs and finding an appropriate balance.
 -->
 {{< glossary_tooltip text="容器" term_id="container" >}} 提供了两种功能：
-不同应用程序间的隔离和将这些隔离的应用程序合并运行到同一台主机。
-隔离和聚合这两个方面意味着运行时安全需要权衡利弊，
-找到合适的平衡点。
+不同应用程序间的隔离，以及将这些隔离的应用程序合并运行到同一台主机的机制。
+隔离和聚合这两个方面意味着运行时安全需要权衡利弊，并找到合适的平衡点。
 
 <!--
 Kubernetes relies on a {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
