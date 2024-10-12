@@ -1416,6 +1416,12 @@ body.partners {
         text-align: center;
     }
 
+    // highlight on hover
+    .col-nav:has(button.landscape-trigger:hover) {
+      background-color: #efefef; // darker than #f9f9f9
+      color: $black;
+    }
+
     @include media-breakpoint-down(sm) {
       .col { margin: 1% 0 1% 0%;}
       .span_3_of_3, .span_2_of_3, .span_1_of_3 { width: 100%; }
@@ -1481,6 +1487,12 @@ body.partners {
       max-width: 100%;
       text-align: center;
     }
+  }
+
+  button.landscape-trigger {
+    background: $primary;
+    color: $white;
+    border: 0;
   }
 
   .partner-box {
