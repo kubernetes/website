@@ -188,6 +188,24 @@ details:not([open]) > summary:after {
   display: inline-block;
 }
 
+// release details
+
+.release-details {
+  .release-inline-heading {
+    margin-right: 0.5em;
+  }
+
+  > p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+}
+
+.release-details + h2, .release-details + h3 {
+  margin-top: 4rem;
+}
+
 /* Customize docs landing page display */
 body.docs-portal {
   main .td-content {
