@@ -13,7 +13,7 @@ card:
 
 <!-- overview -->
 
-Note that "container" is an overloaded term. Whenever you use the word, check whether your audience uses the same definition.
+The word _container_ is an overloaded term. Whenever you use the word, check whether your audience uses the same definition.
 
 Each container that you run is repeatable; the standardization from having
 dependencies included means that you get the same behavior wherever you
