@@ -13,6 +13,8 @@ card:
 
 <!-- overview -->
 
+This page will discuss containers and container images, as well as their use in operations and solution development.
+
 The word _container_ is an overloaded term. Whenever you use the word, check whether your audience uses the same definition.
 
 Each container that you run is repeatable; the standardization from having
