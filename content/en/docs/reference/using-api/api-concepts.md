@@ -172,7 +172,7 @@ For example:
 
    ```
    POST /api/v1/namespaces/test/pods
-   Content-Type: json
+   Content-Type: application/json
    Accept: application/json
    … JSON encoded Pod object
    ---
