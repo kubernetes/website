@@ -290,14 +290,13 @@ or use a different optimization. However, as of Kubernetes version {{< skew curr
 it is required by kubectl. When present, the value of this annotation must be a comma separated list
 of the group-kinds, in the fully-qualified name format, i.e. `<resource>.<group>`.
 -->
-此注解处于 alpha 阶段。
+此注解处于 Alpha 阶段。
 对于 Kubernetes {{< skew currentVersion >}} 版本，如果定义它们的
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
 打了 `applyset.kubernetes.io/is-parent-type` 标签，
 那么你可以在 Secret、ConfigMap 或自定义资源上使用此注解。
 
-规范的部分功能用来实现
-[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
+规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
 此注解应用于父对象，这些父对象用于跟踪 ApplySet 以优化 ApplySet 成员对象列表。
 它在 AppySet 规范中是可选的，因为工具可以执行发现或使用不同的优化。
 然而，对于 Kubernetes {{< skew currentVersion >}} 版本，它是 kubectl 必需的。
@@ -333,14 +332,13 @@ of the group-kinds, in the fully-qualified name format, i.e. `<resource>.<group>
 
 用于：作为 ApplySet 父对象使用的对象。
 
-此注解处于 alpha 阶段。
+此注解处于 Alpha 阶段。
 对于 Kubernetes {{< skew currentVersion >}} 版本， 如果定义它们的
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
 打了 `applyset.kubernetes.io/is-parent-type` 标签，
-那么你可以在 Secret、ConfigMaps 或自定义资源上使用此注解。
+那么你可以在 Secret、ConfigMap 或自定义资源上使用此注解。
 
-规范的部分功能用来实现
-[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
+规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
 此注解应用于父对象，这些父对象用于跟踪 ApplySet 以优化 ApplySet 成员对象列表。
 它在 AppySet 规范中是可选的，因为工具可以执行发现或使用不同的优化。
 然而，对于 Kubernetes {{< skew currentVersion >}} 版本，它是 kubectl 必需的。
@@ -355,7 +353,7 @@ Example: `applyset.kubernetes.io/contains-group-resources: "certificates.cert-ma
 
 Used on: Objects being used as ApplySet parents.
 -->
-### applyset.kubernetes.io/contains-group-resources (已弃用) {#applyset-kubernetes-io-contains-group-resources}
+### applyset.kubernetes.io/contains-group-resources（已弃用） {#applyset-kubernetes-io-contains-group-resources}
 
 类别：注解
 
@@ -380,8 +378,7 @@ of the group-kinds, in the fully-qualified name format, i.e. `<resource>.<group>
 CustomResourceDefinition 打了 `applyset.kubernetes.io/is-parent-type` 标签，
 那么你可以在 Secret、ConfigMap 或自定义资源上使用此注解。
 
-规范的部分功能用来实现
-[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
+规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
 此注解应用于父对象，这些父对象用于跟踪 ApplySet 以优化 ApplySet 成员对象列表。
 它在 AppySet 规范中是可选的，因为工具可以执行发现或使用不同的优化。
 然而，对于 Kubernetes {{< skew currentVersion >}} 版本，它是 kubectl 必需的。
@@ -427,17 +424,16 @@ There is no relation between the value of this label and object UID.
 
 用于：作为 ApplySet 父对象使用的对象。
 
-此注解处于 alpha 阶段。
+此注解处于 Alpha 阶段。
 对于 Kubernetes {{< skew currentVersion >}} 版本， 如果定义它们的
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
-打了 `applyset.kubernetes.io/is-parent-type` 标签，那么你可以在 Secret、ConfigMaps 或自定义资源上使用此注解。
+打了 `applyset.kubernetes.io/is-parent-type` 标签，那么你可以在 Secret、ConfigMap 或自定义资源上使用此注解。
 
-规范的部分功能用来实现
-[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
+规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
 此标签使对象成为 AppySet 父对象。
 它的值是 ApplySet 的唯一 ID，该 ID 派生自父对象本身的标识。
 该 ID **必须** 是所在对象的 group-kind-name-namespace 的 hash 的 base64 编码（使用 RFC4648 的 URL 安全编码），
-格式为： `<base64(sha256(<name>.<namespace>.<kind>.<group>))>`。
+格式为：`<base64(sha256(<name>.<namespace>.<kind>.<group>))>`。
 此标签的值与对象 UID 之间没有关系。
 
 <!--
@@ -465,11 +461,10 @@ not being a valid parent for ApplySets, omit this label.
 
 用于：自定义资源 （CRD）
 
-此注解处于 alpha 阶段。
-规范的部分功能用来实现
-[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
+此注解处于 Alpha 阶段。
+规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
 你可以在 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} (CRD) 上设置这个标签，
-以将它定义的自定义资源类型(而不是 CRD 本身)标识为 ApplySet 的允许父类。
+以将它定义的自定义资源类型（而不是 CRD 本身）标识为 ApplySet 的允许父类。
 这个标签唯一允许的值是 `"true"`；如果你想将一个 CRD 标记为不是 ApplySet 的有效父级，请省略这个标签。
 
 <!--
@@ -496,9 +491,8 @@ label on the parent object.
 
 用于：所有对象。
 
-此注解处于 alpha 阶段。
-规范的部分功能用来实现
-[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
+此注解处于 Alpha 阶段。
+规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
 此标签使对象成为 ApplySet 的成员。
 标签的值 **必须** 与父对象上的 `applyset.kubernetes.io/id` 标签的值相匹配。
 
@@ -530,13 +524,12 @@ The value must be in the format `<toolname>/<semver>`.
 
 用于：作为 ApplySet 父对象使用的对象。
 
-此注解处于 alpha 阶段。
+此注解处于 Alpha 阶段。
 对于 Kubernetes {{< skew currentVersion >}} 版本， 如果定义它们的
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
-打了 `applyset.kubernetes.io/is-parent-type` 标签，那么你可以在 Secret、ConfigMaps 或自定义资源上使用此注解。
+打了 `applyset.kubernetes.io/is-parent-type` 标签，那么你可以在 Secret、ConfigMap 或自定义资源上使用此注解。
 
-规范的部分功能用来实现
-[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
+规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
 此注解应用于父对象，这些父对象用于跟踪 ApplySet 以指示哪个工具管理 AppySet。
 工具应该拒绝改变属于其他工具 ApplySets。
 该值必须采用 `<toolname>/<semver>` 格式。
@@ -1085,13 +1078,13 @@ Type: Label
 
 This label has been deprecated. Please use [`kubernetes.io/os`](#kubernetes-io-os) instead.
 -->
-### beta.kubernetes.io/arch (已弃用) {#beta-kubernetes-io-arch}
+### beta.kubernetes.io/arch（已弃用） {#beta-kubernetes-io-arch}
 
 类别：标签
 
 此标签已被弃用。请改用 [`kubernetes.io/arch`](#kubernetes-io-arch)。
 
-### beta.kubernetes.io/os (已弃用) {#beta-kubernetes-io-os}
+### beta.kubernetes.io/os（已弃用） {#beta-kubernetes-io-os}
 
 类别：标签
 
@@ -1163,6 +1156,27 @@ the API server.
 Service 上的这个注解表示 Endpoints 控制器是否应该继续为未准备好的 Pod 创建 Endpoints。
 这些 Service 的 Endpoints 保留其 DNS 记录，并从 kubelet 启动 Pod 中的所有容器并将其标记为
 **Running** 的那一刻起继续接收 Service 的流量，直到 kubelet 停止所有容器并从 API 服务器删除 Pod 为止。
+
+<!--
+### autoscaling.alpha.kubernetes.io/behavior (deprecated) {#autoscaling-alpha-kubernetes-io-behavior}
+
+Type: Annotation
+
+Used on: HorizontalPodAutoscaler
+
+This annotation was used to configure the scaling behavior for a HorizontalPodAutoscaler (HPA) in earlier Kubernetes versions.
+It allowed you to specify how the HPA should scale pods up or down, including setting stabilization windows and scaling policies.
+Setting this annotation has no effect in any supported release of Kubernetes.
+-->
+### autoscaling.alpha.kubernetes.io/behavior（已弃用）  {#autoscaling-alpha-kubernetes-io-behavior}
+
+类别：注解
+
+用于：HorizontalPodAutoscaler
+
+此注解曾在早期的 Kubernetes 版本中用于配置 HorizontalPodAutoscaler（HPA）的扩缩容行为。
+它允许你指定 HPA 应如何扩容或缩容 Pod，包括设置稳定窗口和扩缩容策略。
+在所有受支持的 Kubernetes 版本中，设置此注解没有任何效果。
 
 <!--
 ### kubernetes.io/hostname {#kubernetesiohostname}
@@ -1315,8 +1329,13 @@ backend set:
 你可以向特定的 Worker 节点添加标签，以将这些节点从外部负载均衡器使用的后端服务器列表中去除。
 以下命令可用于从后端集的后端服务器列表中排除一个 Worker 节点：
 
+<!--
 ```shell
 kubectl label nodes <node-name> node.kubernetes.io/exclude-from-external-load-balancers=true
+```
+-->
+```shell
+kubectl label nodes <节点名称> node.kubernetes.io/exclude-from-external-load-balancers=true
 ```
 
 <!--
@@ -1475,7 +1494,7 @@ bin dir (default `/opt/cni/bin`).
 
 Type: Label
 -->
-### beta.kubernetes.io/instance-type (已弃用) {#beta-kubernetes-io-instance-type}
+### beta.kubernetes.io/instance-type（已弃用） {#beta-kubernetes-io-instance-type}
 
 类别：标签
 
@@ -1521,7 +1540,7 @@ Kubelet 使用云驱动定义的实例类型填充它。
 
 Type: Label
 -->
-### failure-domain.beta.kubernetes.io/region (已弃用) {#failure-domainbetakubernetesioregion}
+### failure-domain.beta.kubernetes.io/region（已弃用） {#failure-domainbetakubernetesioregion}
 
 类别：标签
 
@@ -1538,7 +1557,7 @@ Starting in v1.17, this label is deprecated in favor of
 
 Type: Label
 -->
-### failure-domain.beta.kubernetes.io/zone (已弃用) {#failure-domainbetakubernetesiozone}
+### failure-domain.beta.kubernetes.io/zone（已弃用） {#failure-domainbetakubernetesiozone}
 
 类别：标签
 
@@ -1853,7 +1872,7 @@ Used on: PersistentVolumeClaim
 This annotation has been deprecated since v1.23.
 See [volume.kubernetes.io/storage-provisioner](#volume-kubernetes-io-storage-provisioner).
 -->
-### volume.beta.kubernetes.io/storage-provisioner (已弃用) {#volume-beta-kubernetes-io-storage-provisioner}
+### volume.beta.kubernetes.io/storage-provisioner（已弃用） {#volume-beta-kubernetes-io-storage-provisioner}
 
 类别：注解
 
@@ -2031,7 +2050,7 @@ For example, if the in-tree cloud provider storage type is `CSIMigrationvSphere`
 -->
 ### storage.alpha.kubernetes.io/migrated-plugins {#storagealphakubernetesiomigrated-plugins}
 
-类型：注解
+类别：注解
 
 例子：`storage.alpha.kubernetes.io/migrated-plugins: "kubernetes.io/cinder"`
 
@@ -2350,7 +2369,7 @@ Used on: Pod
 
 The annotation is used to run Windows containers with Hyper-V isolation.
 -->
-### experimental.windows.kubernetes.io/isolation-type (已弃用) {#experimental-windows-kubernetes-io-isolation-type}
+### experimental.windows.kubernetes.io/isolation-type（已弃用） {#experimental-windows-kubernetes-io-isolation-type}
 
 类别：注解
 
@@ -2429,7 +2448,7 @@ Type: Annotation
 
 Used on: Ingress
 -->
-### kubernetes.io/ingress.class (已弃用) {#kubernetes-io-ingress-class}
+### kubernetes.io/ingress.class（已弃用） {#kubernetes-io-ingress-class}
 
 类别：注解
 
@@ -2777,7 +2796,7 @@ Used on: Jobs
 The presence of this annotation on a Job used to indicate that the control plane is
 [tracking the Job status using finalizers](/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers).
 -->
-### batch.kubernetes.io/job-tracking (已弃用) {#batch-kubernetes-io-job-tracking}
+### batch.kubernetes.io/job-tracking（已弃用） {#batch-kubernetes-io-job-tracking}
 
 类别：注解
 
@@ -3171,7 +3190,8 @@ This allows the Pods on the out-of-service node to recover quickly on a differen
 Refer to [Non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)
 for further details about when and how to use this taint.
 -->
-有关何时以及如何使用此污点的更多详细信息，请参阅[非正常节点关闭](/zh-cn/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)。
+有关何时以及如何使用此污点的更多详细信息，
+请参阅[非正常节点关闭](/zh-cn/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)。
 {{< /caution >}}
 
 <!--
@@ -3297,8 +3317,8 @@ if there is one running on a node. It's used for informative use only.
 用于：节点
 
 这个注解记录 NFD-[worker](https://kubernetes-sigs.github.io/node-feature-discovery/stable/usage/nfd-worker.html)
-的版本(如果在节点上运行了一个 NFD-worker 的话)。
-它只用于提供信息。
+的版本（如果在节点上运行了一个 NFD-worker 的话）。
+此注解只用于提供信息。
 
 <!--
 ### nfd.node.kubernetes.io/feature-labels
@@ -3380,8 +3400,8 @@ the nodes where NFD is running. To learn more about NFD and
 its components go to its official [documentation](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/).
 -->
 这些节点特性发现（Node Feature Discovery, NFD）的标签或注解仅适用于运行 NFD 的节点。
-要了解关于 NFD 及其组件的信息，请访问官方
-[文档](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/)。
+要了解关于 NFD 及其组件的信息，
+请访问官方[文档](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/)。
 {{< /note >}}
 
 ### service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-emit-interval}
@@ -3624,9 +3644,8 @@ evenly across the registered targets in its availability zone only.
 
 用于：Service
 
-与 AWS 弹性负载均衡集成的云控制器管理器会根据此注解配置负载均衡器。
-如果你将此注解设置为 "true"，每个负载均衡器节点将在所有启用的
-[可用区](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-availability-zones)中的注册目标上均匀地分发请求。
+与 AWS 弹性负载均衡集成的云控制器管理器会根据此注解配置负载均衡器。如果你将此注解设置为 "true"，
+每个负载均衡器节点将在所有启用的[可用区](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-availability-zones)中的注册目标上均匀地分发请求。
 如果你禁用跨区负载均衡，则每个负载均衡器节点仅在其可用区中跨注册目标均匀地分发请求。
 
 ### service.beta.kubernetes.io/aws-load-balancer-eip-allocations (beta) {#service-beta-kubernetes-io-aws-load-balancer-eip-allocations}
@@ -4471,7 +4490,7 @@ learn the supported way to specify seccomp restrictions for a Pod.
 用于：Pod
 
 v1.25 之前的 Kubernetes 允许你使用此注解配置 seccomp 行为。
-请参考 [使用 seccomp 限制容器的系统调用](/zh-cn/docs/tutorials/security/seccomp/)，
+请参考[使用 seccomp 限制容器的系统调用](/zh-cn/docs/tutorials/security/seccomp/)，
 了解为 Pod 指定 seccomp 限制的受支持方法。
 
 <!--
@@ -4492,7 +4511,7 @@ learn the supported way to specify seccomp restrictions for a Pod.
 用于：Pod
 
 v1.25 之前的 Kubernetes 允许你使用此注解配置 seccomp 行为。
-请参考 [使用 seccomp 限制容器的系统调用](/zh-cn/docs/tutorials/security/seccomp/)
+请参考[使用 seccomp 限制容器的系统调用](/zh-cn/docs/tutorials/security/seccomp/)
 了解为 Pod 指定 seccomp 限制的受支持方法。
 
 ### snapshot.storage.kubernetes.io/allow-volume-mode-change {#allow-volume-mode-change}
@@ -4705,9 +4724,9 @@ ignores that node while calculating Topology Aware Hints.
 用来指示该节点用于运行控制平面组件的标记标签。Kubeadm 工具将此标签应用于其管理的控制平面节点。
 其他集群管理工具通常也会设置此污点。
 
-你可以使用此标签来标记控制平面节点，以便更容易地将 Pod 仅安排到这些节点上，或者避免在控制平面上运行 Pod。
-如果设置了此标签，[EndpointSlice 控制器](/zh-cn/docs/concepts/services-networking/topology-aware-routing/#implementation-control-plane)
-在计算拓扑感知提示时将忽略该节点。
+你可以使用此标签来标记控制平面节点，以便更容易地将 Pod 仅安排到这些节点上，
+或者避免在控制平面上运行 Pod。如果设置了此标签，
+[EndpointSlice 控制器](/zh-cn/docs/concepts/services-networking/topology-aware-routing/#implementation-control-plane)在计算拓扑感知提示时将忽略该节点。
 
 <!--
 ### node-role.kubernetes.io/control-plane {#node-role-kubernetes-io-control-plane-taint}
@@ -4737,8 +4756,13 @@ Kubeadm 应用在控制平面节点上的污点, 用来限制启动 Pod，并且
 
 如果应用此污点，则控制平面节点只允许对其进行关键工作负载调度。可以在特定节点上使用以下命令手动删除此污染。
 
+<!--
 ```shell
 kubectl taint nodes <node-name> node-role.kubernetes.io/control-plane:NoSchedule-
+```
+-->
+```shell
+kubectl taint nodes <节点名称> node-role.kubernetes.io/control-plane:NoSchedule-
 ```
 
 <!--
