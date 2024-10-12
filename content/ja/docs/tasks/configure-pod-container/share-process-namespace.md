@@ -41,7 +41,7 @@ weight: 200
 1. `shell`コンテナにアタッチして`ps`を実行します:
 
     ```shell
-    kubectl attach -it nginx -c shell
+    kubectl exec -it nginx -c shell -- /bin/sh
     ```
 
     コマンドプロンプトが表示されない場合は、Enterキーを押してみてください。
