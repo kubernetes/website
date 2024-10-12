@@ -10,4 +10,3 @@ card:
   weight: 10
   title: शब्दकोष
 ---
-	
