@@ -162,7 +162,7 @@ body {
 
     > .feature-state-name::before {
       content: 'ⓘ  ';
-      color: #326ce5; // Kubernetes blue
+      color: $primary;
     }
     > .feature-state-name {
       display: inline-block;

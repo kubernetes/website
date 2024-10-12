@@ -113,7 +113,7 @@ body.td-404 main .error-details {
 
   // mermaid diagram - sequence diagram
   .actor {
-    fill: #326ce5 !important;
+    fill: $primary !important;
   }
   text.actor {
     font-size: 18px !important;
@@ -413,7 +413,7 @@ body.cid-community {
     display: inline-block;
     vertical-align: top;
     position: relative;
-    background-color: #326ce5; // Kubernetes blue
+    background-color: $primary;
     color: #fff;
     padding: 0;
     margin: 0;
@@ -527,9 +527,9 @@ body.cid-partners {
         border-radius: 6px;
         padding: 0 20px;
         line-height: 40px;
-        color: #ffffff;
         font-size: 16px;
-        background-color: #326ce5;
+        background-color: $primary;
+        color: $white;
         text-decoration: none;
      }
 
