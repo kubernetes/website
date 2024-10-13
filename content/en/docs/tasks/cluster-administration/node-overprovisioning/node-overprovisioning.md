@@ -13,77 +13,44 @@ By maintaining some unused capacity, you ensure that resources are immediately a
 
 ## {{% heading "prerequisites" %}}
 
-- You need to have a running Kubernetes cluster.
-- Have kubectl configured to interact with your cluster.
-- Have a basic understanding of Kubernetes Deployments and Priority Classes.
+- Have a basic understanding of Deployments and PriorityClasses.
+- Your cluster must be set up with an [autoscaler](/docs/concepts/cluster-administration/cluster-autoscaling/)
+  that manages nodes based on demand.
 
 <!-- steps -->
 
-## Create a Placeholder Deployment
+## Create a placeholder Deployment
 
-Begin by creating a Deployment that runs placeholder pods. These pods should use a minimal process, such as a pause container, and have a very low priority to ensure they can be easily preempted when higher-priority pods require resources.
+Begin by defining a PriorityClass for the placeholder Pods. First, create a PriorityClass with a low value to assign to the placeholder pods.
+Later, you will set up a Deployment that uses this PriorityClass
 
-To define a Low-Priority Priority Class. First, create a Priority Class with a low value to assign to the placeholder pods.
+{{% code_sample language="yaml" file="priorityclass/low-priority-class.yaml" %}}
 
-```yaml
-apiVersion: scheduling.k8s.io/v1
-kind: PriorityClass
-metadata:
-  name: low-priority
-value: 1000
-globalDefault: false
-description: "Low priority for placeholder pods to enable overprovisioning."
-```
-
-Then apply the Priority Class:
+Then create the PriorityClass:
 
 ```shell
-kubectl apply -f low-priority-class.yaml
+kubectl apply -f https://k8s.io/examples/priorityclass/low-priority-class.yaml
 ```
 
-Now, to create the Placeholder Deployment, define a deployment that uses the low-priority Priority Class and runs a minimal container.
+Now, define a Deployment that uses the low-priority PriorityClass and runs a minimal container.
 
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: placeholder-deployment
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: placeholder
-  template:
-    metadata:
-      labels:
-        app: placeholder
-    spec:
-      priorityClassName: low-priority
-      containers:
-      - name: pause
-        image: k8s.gcr.io/pause:3.2
-        resources:
-          requests:
-            cpu: "50m"
-            memory: "100Mi"
-          limits:
-            cpu: "50m"
-            memory: "100Mi"
-```
+{{% code_sample language="yaml" file="deployments/deployment-with-low-priorityclass.yaml" %}}
 
 Apply the deployment:
 
 ```shell
-kubectl apply -f placeholder-deployment.yaml
+kubectl apply -f https://k8s.io/examples/deployments/deployment-with-low-priorityclass.yaml"
 ```
 
 ## Adjust Resource Requests and Limits
 
 Configure the resource requests and limits for the placeholder pods to define the amount of overprovisioned resources you want to maintain. This reservation ensures that a specific amount of CPU and memory is kept available for new pods.
 
-To edit the Deployment Configuration, modify the resources section in the Deployment YAML to set appropriate requests and limits. For example, to reserve 500m CPU and 1Gi memory across all placeholder pods:
+To edit the Deployment Configuration, modify the resources section in the Deployment YAML to set appropriate requests and limits. 
 
-```yaml
+For example, to reserve 500m CPU and 1Gi memory across all placeholder pods, define the resource requests and limits for a single placeholder pod:
+
+```
 resources:
   requests:
     cpu: "100m"
@@ -93,33 +60,27 @@ resources:
     memory: "200Mi"
 ```
 
-Now, to adjust the replicas count accordingly to achieve the desired total reserved resources, update the Deployment with the new resource configurations ensuring the aggregate of all placeholder pods meets your overprovisioning targets:
-
-```shell
-kubectl apply -f placeholder-deployment.yaml
-```
-
 ## Set the Desired Replica Count
 
 Determine the number of placeholder pods needed to achieve your desired level of overprovisioning. Start with a small number and gradually increase it to balance resource reservation with cost.
 
 Calculate the Total Reserved Resources:
 
-For example, with 5 replicas each reserving 100m CPU and 200Mi memory:
+For example, with 5 replicas each reserving 0.1 CPU and 200MiB of memory:
 
-Total CPU reserved: 5 * 100m = 500m
-Total Memory reserved: 5 * 200Mi = 1Gi
+Total CPU reserved: 5 × 0.1 = 0.5 (in the Pod specification, you'll write the quantity `500m`)
+Total Memory reserved: 5 × 200MiB = 1GiB (in the Pod specification, you'll write `1 Gi`)
 
 To Scale the Deployment, adjust the number of replicas based on your cluster's size and expected workload:
 
 ```shell
-kubectl scale deployment placeholder-deployment --replicas=5
+kubectl scale deployment https://k8s.io/examples/deployments/deployment-with-low-priorityclass.yaml --replicas=5
 ```
 
 Verify the scaling:
 
 ```shell
-kubectl get deployment placeholder-deployment
+kubectl get deployment https://k8s.io/examples/deployments/deployment-with-low-priorityclass.yaml
 ```
 
 The output should reflect the updated number of replicas:
