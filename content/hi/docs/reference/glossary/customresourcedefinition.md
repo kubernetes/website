@@ -1,5 +1,5 @@
 ---
-title: कस्टम रिसोर्स डिफिनिशन
+title: कस्टम रिसोर्स डिफिनिशन (Custom Resource Defination)
 id: CustomResourceDefinition
 date: 2018-04-12
 full_link: /docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/
