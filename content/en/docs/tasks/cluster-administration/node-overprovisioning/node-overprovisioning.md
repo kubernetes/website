@@ -50,14 +50,14 @@ To edit the Deployment Configuration, modify the resources section in the Deploy
 
 For example, to reserve 500m CPU and 1Gi memory across all placeholder pods, define the resource requests and limits for a single placeholder pod:
 
-```
-resources:
-  requests:
-    cpu: "100m"
-    memory: "200Mi"
-  limits:
-    cpu: "100m"
-    memory: "200Mi"
+```yaml
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "200Mi"
+    limits:
+      cpu: "100m"
+      memory: "200Mi"
 ```
 
 ## Set the Desired Replica Count
@@ -80,7 +80,7 @@ kubectl scale deployment https://k8s.io/examples/deployments/deployment-with-low
 Verify the scaling:
 
 ```shell
-kubectl get deployment https://k8s.io/examples/deployments/deployment-with-low-priorityclass.yaml
+kubectl get deployment placeholder-deployment
 ```
 
 The output should reflect the updated number of replicas:
