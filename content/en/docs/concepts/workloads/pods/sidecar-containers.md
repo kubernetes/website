@@ -68,6 +68,12 @@ next init container from the ordered `.spec.initContainers` list.
 That status either becomes true because there is a process running in the
 container and no startup probe defined, or as a result of its `startupProbe` succeeding.
 
+Upon Pod [termination](/docs/concepts/workloads/pods/pod-lifecycle/#termination-with-sidecars),
+the kubelet postpones terminating sidecar containers until the main application container has fully stopped.
+The sidecar containers are then shut down in the opposite order of their appearance in the Pod specification.
+This approach ensures that the sidecars remain operational, supporting other containers within the Pod,
+until their service is no longer required.
+
 ### Jobs with sidecar containers
 
 If you define a Job that uses sidecar using Kubernetes-style init containers,
