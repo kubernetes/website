@@ -20,7 +20,11 @@ This section contains the following reference topics about nodes:
 
 * [Node Labels Populated By The Kubelet](/docs/reference/node/node-labels)
 
+* [Local Files And Paths Used By The Kubelet](/docs/reference/node/kubelet-files)
+
 * [Node `.status` information](/docs/reference/node/node-status/)
+
+* [Seccomp information](/docs/reference/node/seccomp/)
 -->
 本部分包含以下有关节点的参考主题：
 
@@ -31,8 +35,11 @@ This section contains the following reference topics about nodes:
 
 * [由 kubelet 填充的节点标签](/zh-cn/docs/reference/node/node-labels)
 
+* [由 kubelet 使用的本地文件和路径](/zh-cn/docs/reference/node/kubelet-files)
+
 * [节点 `.status` 信息](/zh-cn/docs/reference/node/node-status/)
-* 
+
+* [Seccomp 信息](/zh-cn/docs/reference/node/seccomp/)
 
 <!--
 You can also read node reference details from elsewhere in the
