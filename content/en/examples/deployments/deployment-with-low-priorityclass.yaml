@@ -13,6 +13,13 @@ spec:
         app: placeholder
     spec:
       priorityClassName: low-priority
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app: placeholder
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - name: pause
         image: registry.k8s.io/pause:3.6
