@@ -7,7 +7,7 @@ weight: 100
 <!-- overview -->
 
 Esta página mostra como usar o kubectl para listar todas as imagens de 
-contêiner dos Pods em execução no cluster
+contêineres dos Pods em execução no cluster.
 
 ## {{% heading "prerequisites" %}}
 
