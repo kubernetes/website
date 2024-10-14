@@ -53,7 +53,7 @@ e não uma lista de itens.
 
 ## Listar imagens de conteiner por Pod
 
-O formato de saida pode ser controlado ainda mais usando a operação `range` para
+O formato de saída pode ser controlado ainda mais usando a operação `range` para
 iterar sobre os elementos individualmente.
 
 ```shell
