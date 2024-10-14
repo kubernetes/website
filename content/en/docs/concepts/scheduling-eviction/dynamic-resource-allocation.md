@@ -39,7 +39,7 @@ v{{< skew currentVersion>}}, check the documentation for that version of Kuberne
 
 ## API
 
-The `resource.k8s.io/v1alpha3`
+The `resource.k8s.io/v1beta1`
 {{< glossary_tooltip text="API group" term_id="api-group" >}} provides these types:
 
 ResourceClaim
@@ -85,7 +85,7 @@ Here is an example for a fictional resource driver. Two ResourceClaim objects
 will get created for this Pod and each container gets access to one of them.
 
 ```yaml
-apiVersion: resource.k8s.io/v1alpha3
+apiVersion: resource.k8s.io/v1beta1
 kind: DeviceClass
 name: resource.example.com
 spec:
@@ -93,7 +93,7 @@ spec:
   - cel:
       expression: device.driver == "resource-driver.example.com"
 ---
-apiVersion: resource.k8s.io/v1alpha2
+apiVersion: resource.k8s.io/v1beta1
 kind: ResourceClaimTemplate
 metadata:
   name: large-black-cat-claim-template
@@ -200,6 +200,37 @@ spec:
 You may also be able to mutate the incoming Pod, at admission time, to unset
 the `.spec.nodeName` field and to use a node selector instead.
 
+## Admin access
+
+{{< feature-state feature_gate_name="DRAAdminAccess" >}}
+
+A ResourceClaim with admin access grants access to devices which are in use and
+may enable additional permissions when making the device available in a
+container:
+
+```yaml
+apiVersion: resource.k8s.io/v1beta1
+kind: ResourceClaimTemplate
+metadata:
+  name: large-black-cat-claim-template
+spec:
+  spec:
+    devices:
+      requests:
+      - name: req-0
+        deviceClassName: resource.example.com
+        adminAccess: true
+```
+
+If this feature is disabled, the `adminAccess` field will be removed
+automatically when creating such a ResourceClaim.
+
+Admin access is a privileged mode which should not be made available to normal
+users in a multi-tenant cluster. Cluster administrators can restrict usage of
+this features by installing a validating admission policy similar to
+[the in-tree example](https://github.com/kubernetes/kubernetes/blob/33ea278/test/e2e/dra/test-driver/deploy/example/admin-access-policy.yaml)
+when enabling this feature.
+
 ## ResourceClaim Device Status
 
 {{< feature-state feature_gate_name="DRAResourceClaimDeviceStatus" >}}
@@ -219,9 +250,9 @@ existing ResourceClaim where the `status.devices` field is set.
 
 ## Enabling dynamic resource allocation
 
-Dynamic resource allocation is an *alpha feature* and only enabled when the
+Dynamic resource allocation is a *beta feature* which is off by default and only enabled when the
 `DynamicResourceAllocation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-and the `resource.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id="api-group" >}}
+and the `resource.k8s.io/v1beta1` {{< glossary_tooltip text="API group" term_id="api-group" >}}
 are enabled. For details on that, see the `--feature-gates` and `--runtime-config`
 [kube-apiserver parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
 kube-scheduler, kube-controller-manager and kubelet also need the feature gate.
@@ -257,6 +288,12 @@ include it.
 
 In addition to enabling the feature in the cluster, a resource driver also has to
 be installed. Please refer to the driver's documentation for details.
+
+### Enabling admin access
+
+Admin access is an *alpha feature* and only enabled when the
+`DRAAdminAccess` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kube-apiserver and kube-scheduler.
 
 ### Enabling Device Status
 
