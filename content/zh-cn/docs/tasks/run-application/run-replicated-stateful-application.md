@@ -54,6 +54,7 @@ MySQL 设置都使用的是不安全的默认值，这是因为我们想把重�
 - Some familiarity with MySQL helps, but this tutorial aims to present
   general patterns that should be useful for other systems.
 - You are using the default namespace or another namespace that does not contain any conflicting objects.
+- You need to have a AMD64-compatible CPU.
 -->
 - 本教程假定你熟悉
   [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/)
@@ -63,6 +64,7 @@ MySQL 设置都使用的是不安全的默认值，这是因为我们想把重�
   [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 - 熟悉 MySQL 会有所帮助，但是本教程旨在介绍对其他系统应该有用的常规模式。
 - 你正在使用默认命名空间或不包含任何冲突对象的另一个命名空间。
+- 你需要拥有一块兼容 AMD64 架构的 CPU。
 
 ## {{% heading "objectives" %}}
 
