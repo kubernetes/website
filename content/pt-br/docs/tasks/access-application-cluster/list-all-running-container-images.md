@@ -16,7 +16,7 @@ contêineres dos Pods em execução no cluster.
 <!-- steps -->
 
 Neste exercício, você usará o kubectl para buscar todos os Pods 
-em execução no cluster e formatar a saida com uma lista dos conteiners 
+em execução no cluster e formatar a saída com uma lista dos contêineres 
 por imagem.
 
 ## Listar todas as imagens de contêiner de todos os namespaces
