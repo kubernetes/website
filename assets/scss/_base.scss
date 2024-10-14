@@ -1,5 +1,6 @@
 @import "reset";
 
+
 // header
 $full-width-paddingX: 20px;
 
@@ -35,6 +36,7 @@ $vendor-strip-font-size: 16px;
 $video-section-height: 200px;
 
 @import "size";
+@import "documentation";
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -898,34 +900,3 @@ footer.row {
   margin-right: initial;
 }
 
-/* DOCUMENTATION */
-
-// nav-tabs and tab-content
-.nav-tabs {
-  border-bottom: none !important;
-
-  .nav-item {
-    margin-bottom: 0;
-  }
-}
-
-.td-content .tab-content .highlight {
-  margin: 0;
-}
-
-//Table Content
-.tab-content table{
-  border-collapse: separate;
-  border-spacing: 6px;
-}
-
-.tab-pane {
-  border-radius: 0.25rem;
-  padding: 0 16px 16px;
-  overflow: auto;
-
-  border: 1px solid #dee2e6;
-  &:first-of-type.active {
-    border-top-left-radius: 0;
-  }
-}
