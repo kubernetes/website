@@ -4,7 +4,7 @@
 ##- pmorie
 title: 파드의 스토리지에 프로젝티드 볼륨(Projected Volume)을 사용하도록 구성
 content_type: task
-weight: 70
+weight: 100
 ---
 
 <!-- overview -->
