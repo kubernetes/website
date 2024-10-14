@@ -8,7 +8,6 @@ short_description: >
 
 aka: 
 tags:
-- core-object
 - storage
 ---
  A Volume Plugin enables integration of storage within a {{< glossary_tooltip text="Pod" term_id="pod" >}}.
