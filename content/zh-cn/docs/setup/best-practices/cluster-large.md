@@ -2,7 +2,6 @@
 title: 大规模集群的注意事项
 weight: 10
 ---
-
 <!-- 
 reviewers:
 - davidopp
@@ -18,11 +17,10 @@ or virtual machines) running Kubernetes agents, managed by the
 Kubernetes {{< param "version" >}} supports clusters with up to 5,000 nodes. More specifically,
 Kubernetes is designed to accommodate configurations that meet *all* of the following criteria:
 -->
-集群是运行 Kubernetes 代理的、
-由{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}管理的一组
-{{< glossary_tooltip text="节点" term_id="node" >}}（物理机或虚拟机）。
+集群包含多个运行着 Kubernetes 代理程序、
+由{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}管理的一组{{< glossary_tooltip text="节点" term_id="node" >}}（物理机或虚拟机）。
 Kubernetes {{< param "version" >}} 单个集群支持的最大节点数为 5,000。
-更具体地说，Kubernetes 旨在适应满足以下**所有**标准的配置：
+更具体地说，Kubernetes 设计为满足以下**所有**标准的配置：
 
 <!--
 * No more than 110 pods per node
@@ -39,7 +37,7 @@ Kubernetes {{< param "version" >}} 单个集群支持的最大节点数为 5,000
 You can scale your cluster by adding or removing nodes. The way you do this depends
 on how your cluster is deployed.
 -->
-你可以通过添加或删除节点来扩展集群。集群扩缩的方式取决于集群的部署方式。
+你可以通过添加或删除节点来对集群扩缩容。集群扩缩容的方式取决于集群的部署方式。
 
 <!--  
 ## Cloud provider resource quotas {#quota-issues}
@@ -139,8 +137,8 @@ See [Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/conf
 for details on configuring and managing etcd for a large cluster.
 -->
 有关为大型集群配置和管理 etcd 的详细信息，
-请参阅[为 Kubernetes 运行 etcd 集群](/zh-cn/docs/tasks/administer-cluster/configure-upgrade-etcd/)
-和使用 [kubeadm 创建一个高可用 etcd 集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)。
+请参阅[为 Kubernetes 运行 etcd 集群](/zh-cn/docs/tasks/administer-cluster/configure-upgrade-etcd/)和使用
+[kubeadm 创建一个高可用 etcd 集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)。
 
 <!--
 ### Addon Resources
@@ -155,8 +153,9 @@ impact on other components. These resource limits apply to
 
 For example, you can set CPU and memory limits for a logging component:
 -->
-Kubernetes [资源限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/)
-有助于最大程度地减少内存泄漏的影响以及 Pod 和容器可能对其他组件的其他方式的影响。
+Kubernetes
+[资源限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/)有助于最大程度地减少内存泄漏的影响以及
+Pod 和容器可能对其他组件的其他方式的影响。
 这些资源限制适用于{{< glossary_tooltip text="插件" term_id="addons" >}}资源，
 就像它们适用于应用程序工作负载一样。
 
