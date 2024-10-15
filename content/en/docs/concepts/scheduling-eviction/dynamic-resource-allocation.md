@@ -9,6 +9,8 @@ weight: 65
 
 <!-- overview -->
 
+# TODO: update to beta
+
 Core Dynamic Resource Allocation with structured parameters:
 
 {{< feature-state feature_gate_name="DynamicResourceAllocation" >}}
