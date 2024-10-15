@@ -982,7 +982,7 @@ the Deployment and / or StatefulSet be removed from their
 a change to that object is applied, for example via `kubectl apply -f
 deployment.yaml`, this will instruct Kubernetes to scale the current number of Pods
 to the value of the `spec.replicas` key. This may not be
-desired and could be troublesome when an HPA is active.
+desired and could be troublesome when an HPA is active, resulting in thrashing or flapping behavior.
 -->
 
 ### 将 Deployment 和 StatefulSet 迁移到水平自动扩缩 {#migrating-deployments-and-statefulsets-to-horizontal-autoscaling}
@@ -991,7 +991,7 @@ desired and could be troublesome when an HPA is active.
 Deployment 和/或 StatefulSet 的 `spec.replicas` 的值。
 如果不这样做，则只要应用对该对象的更改，例如通过 `kubectl apply -f deployment.yaml`，
 这将指示 Kubernetes 将当前 Pod 数量扩缩到 `spec.replicas` 键的值。这可能不是所希望的，
-并且当 HPA 处于活动状态时可能会很麻烦。
+并且当 HPA 处于活动状态时，可能会导致波动或反复变化的行为，进而带来麻烦。
 
 <!--
 Keep in mind that the removal of `spec.replicas` may incur a one-time

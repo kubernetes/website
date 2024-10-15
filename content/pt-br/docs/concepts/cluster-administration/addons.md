@@ -40,7 +40,6 @@ Esta página lista alguns dos complementos disponíveis e links com suas respect
 ## Visualização &amp; Controle
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard) é uma interface web para gestão do Kubernetes.
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s) é uma ferramenta gráfica para visualizar contêineres, pods, serviços, entre outros objetos do cluster. Pode ser utilizado com uma [conta Weave Cloud](https://cloud.weave.works/). Como alternativa, é possível hospedar a interface do usuário por conta própria.
 
 ## Infraestrutura
 
