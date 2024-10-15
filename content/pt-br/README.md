@@ -164,6 +164,8 @@ Você também pode entrar em contato com os mantenedores deste projeto utilizand
     - [Obter o convide para este slack](https://slack.k8s.io/)
 - [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
+Você pode contatar os mantenedores da localização em Português no canal do Slack [#kubernetes-docs-pt](https://kubernetes.slack.com/messages/kubernetes-docs-pt).
+
 ## Contribuindo com a documentação
 
 Você pode clicar no botão **Fork** na área superior direita da tela para criar uma cópia desse repositório na sua conta do GitHub. Esta cópia é chamada de *fork*. Faça as alterações desejadas no seu fork e, quando estiver pronto para enviar as alterações para nós, vá até o fork e crie um novo **pull request** para nos informar sobre isso.
@@ -188,20 +190,6 @@ Caso você precise de ajuda em algum momento ao contribuir, os [Embaixadores par
 | Nome                       | Slack                      | GitHub                     |                   
 | -------------------------- | -------------------------- | -------------------------- |
 | Sreeram Venkitesh                | @sreeram.venkitesh                      | @sreeram-venkitesh              |
-
-## Traduções do `README.md`
-
-| Idioma                    | Idioma                     |
-| ------------------------- | -------------------------- |
-| [Alemão](README-de.md)    | [Italiano](README-it.md)   |
-| [Chinês](README-zh.md)    | [Japonês](README-ja.md)    |
-| [Coreano](README-ko.md)   | [Polonês](README-pl.md)    |
-| [Espanhol](README-es.md)  | [Português](README-pt.md)  |
-| [Francês](README-fr.md)   | [Russo](README-ru.md)      |
-| [Hindi](README-hi.md)     | [Ucraniano](README-uk.md)  |
-| [Indonésio](README-id.md) | [Vietnamita](README-vi.md) |
-
-Você pode contatar os mantenedores da localização em Português no canal do Slack [#kubernetes-docs-pt](https://kubernetes.slack.com/messages/kubernetes-docs-pt).
 
 # Código de conduta
 
