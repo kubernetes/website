@@ -146,18 +146,6 @@ Więcej informacji na temat współpracy przy tworzeniu dokumentacji znajdziesz 
 - [Styl pisania dokumentacji](http://kubernetes.io/docs/contribute/style/style-guide/)
 - [Lokalizacja dokumentacji Kubernetesa](https://kubernetes.io/docs/contribute/localization/)
 
-## Różne wersje językowe `README.md`
-
-| Język  | Język |
-|---|---|
-| [angielski](README.md)       | [francuski](README-fr.md)    |
-| [koreański](README-ko.md)    | [niemiecki](README-de.md)    |
-| [portugalski](README-pt.md)  | [hindi](README-hi.md)        |
-| [hiszpański](README-es.md)   | [indonezyjski](README-id.md) |
-| [chiński](README-zh.md)      | [japoński](README-ja.md)     |
-| [wietnamski](README-vi.md)   | [rosyjski](README-ru.md)     |
-| [włoski](README-it.md)       | [ukraiński](README-uk.md)    |
-
 ## Zasady postępowania
 
 Udział w działaniach społeczności Kubernetesa jest regulowany przez [Kodeks postępowania CNCF](https://github.com/cncf/foundation/blob/master/code-of-conduct-languages/pl.md).
