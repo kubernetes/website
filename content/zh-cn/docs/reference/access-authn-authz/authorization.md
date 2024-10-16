@@ -471,14 +471,14 @@ authorizers:
       connectionInfo:
         # Controls how the webhook should communicate with the server.
         # Valid values:
-        # - KubeConfig: use the file specified in kubeConfigFile to locate the
+        # - KubeConfigFile: use the file specified in kubeConfigFile to locate the
         #   server.
         # - InClusterConfig: use the in-cluster configuration to call the
         #   SubjectAccessReview API hosted by kube-apiserver. This mode is not
         #   allowed for kube-apiserver.
-        type: KubeConfig
+        type: KubeConfigFile
         # Path to KubeConfigFile for connection info
-        # Required, if connectionInfo.Type is KubeConfig
+        # Required, if connectionInfo.Type is KubeConfigFile
         kubeConfigFile: /kube-system-authz-webhook.yaml
         # matchConditions is a list of conditions that must be met for a request to be sent to this
         # webhook. An empty list of matchConditions matches all requests.
@@ -503,7 +503,7 @@ authorizers:
       # only intercept requests to kube-system
       - expression: request.resourceAttributes.namespace == 'kube-system'
       # don't intercept requests from kube-system service accounts
-      - expression: !('system:serviceaccounts:kube-system' in request.user.groups)
+      - expression: "!('system:serviceaccounts:kube-system' in request.groups)"
   - type: Node
     name: node
   - type: RBAC
@@ -565,9 +565,9 @@ authorizers:
       connectionInfo:
         # 控制 Webhook 如何与服务器通信。
         # 有效值：
-        # - KubeConfig：使用 kubeConfigFile 中指定的文件来定位服务器。
+        # - KubeConfigFile：使用 kubeConfigFile 中指定的文件来定位服务器。
         # - InClusterConfig：使用集群内配置来调用由 kube-apiserver 托管的 SubjectAccessReview API，kube-apiserver 不允许使用此模式。
-        type: KubeConfig
+        type: KubeConfigFile
         # 连接信息的 KubeConfig 文件的路径
         # 如果 connectionInfo.Type 是 KubeConfig，则为必填项
         kubeConfigFile: /kube-system-authz-webhook.yaml
@@ -594,7 +594,7 @@ authorizers:
       # 仅拦截对 kube-system 的请求
       - expression: request.resourceAttributes.namespace == 'kube-system'
       # 不要拦截来自 kube-system 服务账户的请求
-      - expression: !('system:serviceaccounts:kube-system' in request.user.groups)
+      - expression: "!('system:serviceaccounts:kube-system' in request.groups)"
   - type: Node
     name: node
   - type: RBAC
