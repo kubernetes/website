@@ -9,6 +9,8 @@ title: Persistent Volumes
 api_metadata:
 - apiVersion: "v1"
   kind: "PersistentVolume"
+- apiVersion: "k8s.io/api/core/v1"
+  kind: "PersistentVolumeClaim"
 feature:
   title: Storage orchestration
   description: >
