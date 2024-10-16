@@ -360,7 +360,7 @@ metadata:
   namespace: default
   uid: 052fb0f4-3d50-11e5-b066-42010af0d7b6
 imagePullSecrets:
-  - name: myregistrykey
+- name: myregistrykey
 ```
 
 ### Verify that imagePullSecrets are set for new Pods

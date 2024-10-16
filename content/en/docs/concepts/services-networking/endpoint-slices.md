@@ -48,17 +48,17 @@ metadata:
     kubernetes.io/service-name: example
 addressType: IPv4
 ports:
-  - name: http
-    protocol: TCP
-    port: 80
+- name: http
+  protocol: TCP
+  port: 80
 endpoints:
-  - addresses:
-      - "10.1.2.3"
-    conditions:
-      ready: true
-    hostname: pod-1
-    nodeName: node-1
-    zone: us-west2-a
+- addresses:
+  - "10.1.2.3"
+  conditions:
+    ready: true
+  hostname: pod-1
+  nodeName: node-1
+  zone: us-west2-a
 ```
 
 By default, the control plane creates and manages EndpointSlices to have no

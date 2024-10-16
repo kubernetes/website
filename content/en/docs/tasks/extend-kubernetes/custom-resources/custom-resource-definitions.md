@@ -48,24 +48,24 @@ spec:
   group: stable.example.com
   # list of versions supported by this CustomResourceDefinition
   versions:
-    - name: v1
-      # Each version can be enabled/disabled by Served flag.
-      served: true
-      # One and only one version must be marked as the storage version.
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                cronSpec:
-                  type: string
-                image:
-                  type: string
-                replicas:
-                  type: integer
+  - name: v1
+    # Each version can be enabled/disabled by Served flag.
+    served: true
+    # One and only one version must be marked as the storage version.
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              cronSpec:
+                type: string
+              image:
+                type: string
+              replicas:
+                type: integer
   # either Namespaced or Cluster
   scope: Namespaced
   names:
@@ -627,26 +627,26 @@ metadata:
 spec:
   group: stable.example.com
   versions:
-    - name: v1
-      served: true
-      storage: true
-      schema:
-        # openAPIV3Schema is the schema for validating custom objects.
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                cronSpec:
-                  type: string
-                  pattern: '^(\d+|\*)(/\d+)?(\s+(\d+|\*)(/\d+)?){4}$'
-                image:
-                  type: string
-                replicas:
-                  type: integer
-                  minimum: 1
-                  maximum: 10
+  - name: v1
+    served: true
+    storage: true
+    schema:
+      # openAPIV3Schema is the schema for validating custom objects.
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              cronSpec:
+                type: string
+                pattern: '^(\d+|\*)(/\d+)?(\s+(\d+|\*)(/\d+)?){4}$'
+              image:
+                type: string
+              replicas:
+                type: integer
+                minimum: 1
+                maximum: 10
   scope: Namespaced
   names:
     plural: crontabs
@@ -1402,28 +1402,28 @@ metadata:
 spec:
   group: stable.example.com
   versions:
-    - name: v1
-      served: true
-      storage: true
-      schema:
-        # openAPIV3Schema is the schema for validating custom objects.
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                cronSpec:
-                  type: string
-                  pattern: '^(\d+|\*)(/\d+)?(\s+(\d+|\*)(/\d+)?){4}$'
-                  default: "5 0 * * *"
-                image:
-                  type: string
-                replicas:
-                  type: integer
-                  minimum: 1
-                  maximum: 10
-                  default: 1
+  - name: v1
+    served: true
+    storage: true
+    schema:
+      # openAPIV3Schema is the schema for validating custom objects.
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              cronSpec:
+                type: string
+                pattern: '^(\d+|\*)(/\d+)?(\s+(\d+|\*)(/\d+)?){4}$'
+                default: "5 0 * * *"
+              image:
+                type: string
+              replicas:
+                type: integer
+                minimum: 1
+                maximum: 10
+                default: 1
   scope: Namespaced
   names:
     plural: crontabs
@@ -1845,41 +1845,41 @@ metadata:
 spec:
   group: stable.example.com
   versions:
-    - name: v1
-      served: true
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                cronSpec:
-                  type: string
-                image:
-                  type: string
-                replicas:
-                  type: integer
-            status:
-              type: object
-              properties:
-                replicas:
-                  type: integer
-                labelSelector:
-                  type: string
-      # subresources describes the subresources for custom resources.
-      subresources:
-        # status enables the status subresource.
-        status: {}
-        # scale enables the scale subresource.
-        scale:
-          # specReplicasPath defines the JSONPath inside of a custom resource that corresponds to Scale.Spec.Replicas.
-          specReplicasPath: .spec.replicas
-          # statusReplicasPath defines the JSONPath inside of a custom resource that corresponds to Scale.Status.Replicas.
-          statusReplicasPath: .status.replicas
-          # labelSelectorPath defines the JSONPath inside of a custom resource that corresponds to Scale.Status.Selector.
-          labelSelectorPath: .status.labelSelector
+  - name: v1
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              cronSpec:
+                type: string
+              image:
+                type: string
+              replicas:
+                type: integer
+          status:
+            type: object
+            properties:
+              replicas:
+                type: integer
+              labelSelector:
+                type: string
+    # subresources describes the subresources for custom resources.
+    subresources:
+      # status enables the status subresource.
+      status: {}
+      # scale enables the scale subresource.
+      scale:
+        # specReplicasPath defines the JSONPath inside of a custom resource that corresponds to Scale.Spec.Replicas.
+        specReplicasPath: .spec.replicas
+        # statusReplicasPath defines the JSONPath inside of a custom resource that corresponds to Scale.Status.Replicas.
+        statusReplicasPath: .status.replicas
+        # labelSelectorPath defines the JSONPath inside of a custom resource that corresponds to Scale.Status.Selector.
+        labelSelectorPath: .status.labelSelector
   scope: Namespaced
   names:
     plural: crontabs
@@ -1961,22 +1961,22 @@ metadata:
 spec:
   group: stable.example.com
   versions:
-    - name: v1
-      served: true
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                cronSpec:
-                  type: string
-                image:
-                  type: string
-                replicas:
-                  type: integer
+  - name: v1
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              cronSpec:
+                type: string
+              image:
+                type: string
+              replicas:
+                type: integer
   scope: Namespaced
   names:
     plural: crontabs

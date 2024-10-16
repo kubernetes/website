@@ -253,7 +253,7 @@ metadata:
   name: build-robot
   namespace: default
 secrets:
-  - name: build-robot-secret # usually NOT present for a manually generated token                         
+- name: build-robot-secret # usually NOT present for a manually generated token                         
 ```
 
 Beginning from version 1.29, legacy ServiceAccount tokens that were generated
@@ -535,7 +535,7 @@ metadata:
   selfLink: /api/v1/namespaces/examplens/serviceaccounts/example-automated-thing
   uid: f23fd170-66f2-4697-b049-e1e266b7f835
 secrets:
-  - name: example-automated-thing-token-zyxwv
+- name: example-automated-thing-token-zyxwv
 ```
 
 Then, delete the Secret you now know the name of:

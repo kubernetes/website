@@ -571,12 +571,12 @@ spec:
     storage: 5Gi
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   persistentVolumeReclaimPolicy: Recycle
   storageClassName: slow
   mountOptions:
-    - hard
-    - nfsvers=4.1
+  - hard
+  - nfsvers=4.1
   nfs:
     path: /tmp
     server: 172.17.0.2
@@ -794,7 +794,7 @@ metadata:
   name: myclaim
 spec:
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   volumeMode: Filesystem
   resources:
     requests:
@@ -804,7 +804,7 @@ spec:
     matchLabels:
       release: "stable"
     matchExpressions:
-      - {key: environment, operator: In, values: [dev]}
+    - {key: environment, operator: In, values: [dev]}
 ```
 
 ### Access Modes
@@ -927,15 +927,15 @@ metadata:
   name: mypod
 spec:
   containers:
-    - name: myfrontend
-      image: nginx
-      volumeMounts:
-      - mountPath: "/var/www/html"
-        name: mypd
+  - name: myfrontend
+    image: nginx
+    volumeMounts:
+    - mountPath: "/var/www/html"
+      name: mypd
   volumes:
-    - name: mypd
-      persistentVolumeClaim:
-        claimName: myclaim
+  - name: mypd
+    persistentVolumeClaim:
+      claimName: myclaim
 ```
 
 ### A Note on Namespaces
@@ -977,7 +977,7 @@ spec:
   capacity:
     storage: 10Gi
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   volumeMode: Block
   persistentVolumeReclaimPolicy: Retain
   fc:
@@ -995,7 +995,7 @@ metadata:
   name: block-pvc
 spec:
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   volumeMode: Block
   resources:
     requests:
@@ -1011,17 +1011,17 @@ metadata:
   name: pod-with-block-volume
 spec:
   containers:
-    - name: fc-container
-      image: fedora:26
-      command: ["/bin/sh", "-c"]
-      args: [ "tail -f /dev/null" ]
-      volumeDevices:
-        - name: data
-          devicePath: /dev/xvda
-  volumes:
+  - name: fc-container
+    image: fedora:26
+    command: ["/bin/sh", "-c"]
+    args: [ "tail -f /dev/null" ]
+    volumeDevices:
     - name: data
-      persistentVolumeClaim:
-        claimName: block-pvc
+      devicePath: /dev/xvda
+  volumes:
+  - name: data
+    persistentVolumeClaim:
+      claimName: block-pvc
 ```
 
 {{< note >}}
@@ -1079,7 +1079,7 @@ spec:
     kind: VolumeSnapshot
     apiGroup: snapshot.storage.k8s.io
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   resources:
     requests:
       storage: 10Gi
@@ -1103,7 +1103,7 @@ spec:
     name: existing-src-pvc-name
     kind: PersistentVolumeClaim
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   resources:
     requests:
       storage: 10Gi
@@ -1194,7 +1194,7 @@ spec:
     kind: ExampleDataSource
     apiGroup: example.storage.k8s.io
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   resources:
     requests:
       storage: 10Gi

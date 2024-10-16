@@ -54,7 +54,6 @@ To make things clearer, here is an example kubeadm
 `kubeadm-config.yaml` for the primary dual-stack control plane node.
 
 ```yaml
----
 apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 networking:

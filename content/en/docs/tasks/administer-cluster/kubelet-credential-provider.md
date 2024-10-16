@@ -64,57 +64,57 @@ kind: CredentialProviderConfig
 # for a single image, the results are combined. If providers return overlapping
 # auth keys, the value from the provider earlier in this list is used.
 providers:
-  # name is the required name of the credential provider. It must match the name of the
-  # provider executable as seen by the kubelet. The executable must be in the kubelet's
-  # bin directory (set by the --image-credential-provider-bin-dir flag).
-  - name: ecr-credential-provider
-    # matchImages is a required list of strings used to match against images in order to
-    # determine if this provider should be invoked. If one of the strings matches the
-    # requested image from the kubelet, the plugin will be invoked and given a chance
-    # to provide credentials. Images are expected to contain the registry domain
-    # and URL path.
-    #
-    # Each entry in matchImages is a pattern which can optionally contain a port and a path.
-    # Globs can be used in the domain, but not in the port or the path. Globs are supported
-    # as subdomains like '*.k8s.io' or 'k8s.*.io', and top-level-domains such as 'k8s.*'.
-    # Matching partial subdomains like 'app*.k8s.io' is also supported. Each glob can only match
-    # a single subdomain segment, so `*.io` does **not** match `*.k8s.io`.
-    #
-    # A match exists between an image and a matchImage when all of the below are true:
-    # - Both contain the same number of domain parts and each part matches.
-    # - The URL path of an matchImages must be a prefix of the target image URL path.
-    # - If the matchImages contains a port, then the port must match in the image as well.
-    #
-    # Example values of matchImages:
-    # - 123456789.dkr.ecr.us-east-1.amazonaws.com
-    # - *.azurecr.io
-    # - gcr.io
-    # - *.*.registry.io
-    # - registry.io:8080/path
-    matchImages:
-      - "*.dkr.ecr.*.amazonaws.com"
-      - "*.dkr.ecr.*.amazonaws.com.cn"
-      - "*.dkr.ecr-fips.*.amazonaws.com"
-      - "*.dkr.ecr.us-iso-east-1.c2s.ic.gov"
-      - "*.dkr.ecr.us-isob-east-1.sc2s.sgov.gov"
-    # defaultCacheDuration is the default duration the plugin will cache credentials in-memory
-    # if a cache duration is not provided in the plugin response. This field is required.
-    defaultCacheDuration: "12h"
-    # Required input version of the exec CredentialProviderRequest. The returned CredentialProviderResponse
-    # MUST use the same encoding version as the input. Current supported values are:
-    # - credentialprovider.kubelet.k8s.io/v1
-    apiVersion: credentialprovider.kubelet.k8s.io/v1
-    # Arguments to pass to the command when executing it.
-    # +optional
-    # args:
-    #   - --example-argument
-    # Env defines additional environment variables to expose to the process. These
-    # are unioned with the host's environment, as well as variables client-go uses
-    # to pass argument to the plugin.
-    # +optional
-    env:
-      - name: AWS_PROFILE
-        value: example_profile
+# name is the required name of the credential provider. It must match the name of the
+# provider executable as seen by the kubelet. The executable must be in the kubelet's
+# bin directory (set by the --image-credential-provider-bin-dir flag).
+- name: ecr-credential-provider
+  # matchImages is a required list of strings used to match against images in order to
+  # determine if this provider should be invoked. If one of the strings matches the
+  # requested image from the kubelet, the plugin will be invoked and given a chance
+  # to provide credentials. Images are expected to contain the registry domain
+  # and URL path.
+  #
+  # Each entry in matchImages is a pattern which can optionally contain a port and a path.
+  # Globs can be used in the domain, but not in the port or the path. Globs are supported
+  # as subdomains like '*.k8s.io' or 'k8s.*.io', and top-level-domains such as 'k8s.*'.
+  # Matching partial subdomains like 'app*.k8s.io' is also supported. Each glob can only match
+  # a single subdomain segment, so `*.io` does **not** match `*.k8s.io`.
+  #
+  # A match exists between an image and a matchImage when all of the below are true:
+  # - Both contain the same number of domain parts and each part matches.
+  # - The URL path of an matchImages must be a prefix of the target image URL path.
+  # - If the matchImages contains a port, then the port must match in the image as well.
+  #
+  # Example values of matchImages:
+  # - 123456789.dkr.ecr.us-east-1.amazonaws.com
+  # - *.azurecr.io
+  # - gcr.io
+  # - *.*.registry.io
+  # - registry.io:8080/path
+  matchImages:
+  - "*.dkr.ecr.*.amazonaws.com"
+  - "*.dkr.ecr.*.amazonaws.com.cn"
+  - "*.dkr.ecr-fips.*.amazonaws.com"
+  - "*.dkr.ecr.us-iso-east-1.c2s.ic.gov"
+  - "*.dkr.ecr.us-isob-east-1.sc2s.sgov.gov"
+  # defaultCacheDuration is the default duration the plugin will cache credentials in-memory
+  # if a cache duration is not provided in the plugin response. This field is required.
+  defaultCacheDuration: "12h"
+  # Required input version of the exec CredentialProviderRequest. The returned CredentialProviderResponse
+  # MUST use the same encoding version as the input. Current supported values are:
+  # - credentialprovider.kubelet.k8s.io/v1
+  apiVersion: credentialprovider.kubelet.k8s.io/v1
+  # Arguments to pass to the command when executing it.
+  # +optional
+  # args:
+  #   - --example-argument
+  # Env defines additional environment variables to expose to the process. These
+  # are unioned with the host's environment, as well as variables client-go uses
+  # to pass argument to the plugin.
+  # +optional
+  env:
+  - name: AWS_PROFILE
+    value: example_profile
 ```
 
 The `providers` field is a list of enabled plugins used by the kubelet. Each entry has a few required fields:

@@ -167,19 +167,19 @@ metadata:
   name: configmap-pod
 spec:
   containers:
-    - name: test
-      image: busybox:1.28
-      command: ['sh', '-c', 'echo "The app is running!" && tail -f /dev/null']
-      volumeMounts:
-        - name: config-vol
-          mountPath: /etc/config
-  volumes:
+  - name: test
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo "The app is running!" && tail -f /dev/null']
+    volumeMounts:
     - name: config-vol
-      configMap:
-        name: log-config
-        items:
-          - key: log_level
-            path: log_level
+      mountPath: /etc/config
+  volumes:
+  - name: config-vol
+    configMap:
+      name: log-config
+      items:
+      - key: log_level
+        path: log_level
 ```
 
 The `log-config` ConfigMap is mounted as a volume, and all contents stored in
@@ -914,26 +914,26 @@ kind: Pod
 metadata:
   name: my-lamp-site
 spec:
-    containers:
-    - name: mysql
-      image: mysql
-      env:
-      - name: MYSQL_ROOT_PASSWORD
-        value: "rootpasswd"
-      volumeMounts:
-      - mountPath: /var/lib/mysql
-        name: site-data
-        subPath: mysql
-    - name: php
-      image: php:7.0-apache
-      volumeMounts:
-      - mountPath: /var/www/html
-        name: site-data
-        subPath: html
-    volumes:
-    - name: site-data
-      persistentVolumeClaim:
-        claimName: my-lamp-site-data
+  containers:
+  - name: mysql
+    image: mysql
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: "rootpasswd"
+    volumeMounts:
+    - mountPath: /var/lib/mysql
+      name: site-data
+      subPath: mysql
+  - name: php
+    image: php:7.0-apache
+    volumeMounts:
+    - mountPath: /var/www/html
+      name: site-data
+      subPath: html
+  volumes:
+  - name: site-data
+    persistentVolumeClaim:
+      claimName: my-lamp-site-data
 ```
 
 ### Using subPath with expanded environment variables {#using-subpath-expanded-environment}

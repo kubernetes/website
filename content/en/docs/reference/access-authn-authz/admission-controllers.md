@@ -253,8 +253,8 @@ requests to store new Events. The cluster admin can specify event rate limits by
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
 plugins:
-  - name: EventRateLimit
-    path: eventconfig.yaml
+- name: EventRateLimit
+  path: eventconfig.yaml
 ...
 ```
 
@@ -272,13 +272,13 @@ Below is a sample `eventconfig.yaml` for such a configuration:
 apiVersion: eventratelimit.admission.k8s.io/v1alpha1
 kind: Configuration
 limits:
-  - type: Namespace
-    qps: 50
-    burst: 100
-    cacheSize: 2000
-  - type: User
-    qps: 10
-    burst: 50
+- type: Namespace
+  qps: 50
+  burst: 100
+  cacheSize: 2000
+- type: User
+  qps: 10
+  burst: 50
 ```
 
 See the [EventRateLimit Config API (v1alpha1)](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
@@ -331,8 +331,8 @@ Reference the ImagePolicyWebhook configuration file from the file provided to th
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
 plugins:
-  - name: ImagePolicyWebhook
-    path: imagepolicyconfig.yaml
+- name: ImagePolicyWebhook
+  path: imagepolicyconfig.yaml
 ...
 ```
 
@@ -342,14 +342,14 @@ Alternatively, you can embed the configuration directly in the file:
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
 plugins:
-  - name: ImagePolicyWebhook
-    configuration:
-      imagePolicy:
-        kubeConfigFile: <path-to-kubeconfig-file>
-        allowTTL: 50
-        denyTTL: 50
-        retryBackoff: 500
-        defaultAllow: true
+- name: ImagePolicyWebhook
+  configuration:
+    imagePolicy:
+      kubeConfigFile: <path-to-kubeconfig-file>
+      allowTTL: 50
+      denyTTL: 50
+      retryBackoff: 500
+      defaultAllow: true
 ```
 
 The ImagePolicyWebhook config file must reference a

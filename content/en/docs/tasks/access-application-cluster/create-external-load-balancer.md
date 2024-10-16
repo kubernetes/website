@@ -52,8 +52,8 @@ spec:
   selector:
     app: example
   ports:
-    - port: 8765
-      targetPort: 9376
+  - port: 8765
+    targetPort: 9376
   type: LoadBalancer
 ```
 
@@ -150,8 +150,8 @@ spec:
   selector:
     app: example
   ports:
-    - port: 8765
-      targetPort: 9376
+  - port: 8765
+    targetPort: 9376
   externalTrafficPolicy: Local
   type: LoadBalancer
 ```

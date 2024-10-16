@@ -61,18 +61,17 @@ Suppose a Kubernetes cluster is running a device plugin that advertises resource
 on certain nodes. Here is an example of a pod requesting this resource to run a demo workload:
 
 ```yaml
----
 apiVersion: v1
 kind: Pod
 metadata:
   name: demo-pod
 spec:
   containers:
-    - name: demo-container-1
-      image: registry.k8s.io/pause:2.0
-      resources:
-        limits:
-          hardware-vendor.example/foo: 2
+  - name: demo-container-1
+    image: registry.k8s.io/pause:2.0
+    resources:
+      limits:
+        hardware-vendor.example/foo: 2
 #
 # This Pod needs 2 of the hardware-vendor.example/foo devices
 # and can only schedule onto a Node that's able to satisfy

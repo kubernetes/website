@@ -70,8 +70,8 @@ kind: KubeletConfiguration
 port: 20250
 serializeImagePulls: false
 clusterDNS:
-  - "192.168.0.9"
-  - "192.168.0.8"
+- "192.168.0.9"
+- "192.168.0.8"
 ```
 
 Contents of a file in `--config-dir` directory:
@@ -79,9 +79,9 @@ Contents of a file in `--config-dir` directory:
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
 clusterDNS:
-  - "192.168.0.2"
-  - "192.168.0.3"
-  - "192.168.0.5"
+- "192.168.0.2"
+- "192.168.0.3"
+- "192.168.0.5"
 ```
 
 The resulting configuration will be as follows:
@@ -91,9 +91,9 @@ kind: KubeletConfiguration
 port: 20250
 serializeImagePulls: false
 clusterDNS:
-  - "192.168.0.2"
-  - "192.168.0.3"
-  - "192.168.0.5"
+- "192.168.0.2"
+- "192.168.0.3"
+- "192.168.0.5"
 ```
 
 ### Maps, including Nested Structures

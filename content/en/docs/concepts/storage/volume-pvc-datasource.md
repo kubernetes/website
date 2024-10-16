@@ -53,8 +53,8 @@ that references an existing PVC in the same namespace.
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-    name: clone-of-pvc-1
-    namespace: myns
+  name: clone-of-pvc-1
+  namespace: myns
 spec:
   accessModes:
   - ReadWriteOnce

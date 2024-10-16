@@ -160,8 +160,8 @@ spec:
   containers:
   - image: busybox:1.28
     command:
-      - sleep
-      - "3600"
+    - sleep
+    - "3600"
     name: busybox
 ---
 apiVersion: v1
@@ -176,8 +176,8 @@ spec:
   containers:
   - image: busybox:1.28
     command:
-      - sleep
-      - "3600"
+    - sleep
+    - "3600"
     name: busybox
 ```
 
@@ -260,8 +260,8 @@ spec:
   containers:
   - image: busybox:1.28
     command:
-      - sleep
-      - "3600"
+    - sleep
+    - "3600"
     imagePullPolicy: IfNotPresent
     name: busybox
   restartPolicy: Always

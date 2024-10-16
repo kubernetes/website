@@ -57,11 +57,11 @@ metadata:
 spec:
   restartPolicy: OnFailure
   containers:
-    - name: example-vector-add
-      image: "registry.example/example-vector-add:v42"
-      resources:
-        limits:
-          gpu-vendor.example/example-gpu: 1 # requesting 1 GPU
+  - name: example-vector-add
+    image: "registry.example/example-vector-add:v42"
+    resources:
+      limits:
+        gpu-vendor.example/example-gpu: 1 # requesting 1 GPU
 ```
 
 ## Manage clusters with different types of GPUs

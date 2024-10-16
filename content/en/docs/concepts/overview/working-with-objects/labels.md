@@ -156,11 +156,11 @@ metadata:
   name: cuda-test
 spec:
   containers:
-    - name: cuda-test
-      image: "registry.k8s.io/cuda-vector-add:v0.1"
-      resources:
-        limits:
-          nvidia.com/gpu: 1
+  - name: cuda-test
+    image: "registry.k8s.io/cuda-vector-add:v0.1"
+    resources:
+      limits:
+        nvidia.com/gpu: 1
   nodeSelector:
     accelerator: nvidia-tesla-p100
 ```

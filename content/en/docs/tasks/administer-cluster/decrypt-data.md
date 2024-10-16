@@ -96,35 +96,33 @@ entry in your encryption configuration file.
 
 For example, if your existing EncryptionConfiguration file reads:
 ```yaml
----
 apiVersion: apiserver.config.k8s.io/v1
 kind: EncryptionConfiguration
 resources:
-  - resources:
-      - secrets
-    providers:
-      - aescbc:
-          keys:
-            # Do not use this (invalid) example key for encryption
-            - name: example
-              secret: 2KfZgdiq2K0g2YrYpyDYs9mF2LPZhQ==
+- resources:
+  - secrets
+  providers:
+  - aescbc:
+      keys:
+      # Do not use this (invalid) example key for encryption
+      - name: example
+        secret: 2KfZgdiq2K0g2YrYpyDYs9mF2LPZhQ==
 ```
 
 then change it to:
 
 ```yaml
----
 apiVersion: apiserver.config.k8s.io/v1
 kind: EncryptionConfiguration
 resources:
-  - resources:
-      - secrets
-    providers:
-      - identity: {} # add this line
-      - aescbc:
-          keys:
-            - name: example
-              secret: 2KfZgdiq2K0g2YrYpyDYs9mF2LPZhQ==
+- resources:
+  - secrets
+  providers:
+  - identity: {} # add this line
+  - aescbc:
+      keys:
+      - name: example
+        secret: 2KfZgdiq2K0g2YrYpyDYs9mF2LPZhQ==
 ```
 
 and restart the kube-apiserver Pod on this node.

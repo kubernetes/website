@@ -92,15 +92,15 @@ or enable your own. For example:
 apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
-  - plugins:
-      score:
-        disabled:
-        - name: PodTopologySpread
-        enabled:
-        - name: MyCustomPluginA
-          weight: 2
-        - name: MyCustomPluginB
-          weight: 1
+- plugins:
+    score:
+      disabled:
+      - name: PodTopologySpread
+      enabled:
+      - name: MyCustomPluginA
+        weight: 2
+      - name: MyCustomPluginB
+        weight: 1
 ```
 
 You can use `*` as name in the disabled array to disable all default plugins
@@ -194,15 +194,15 @@ disabled.
 apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
-  - schedulerName: default-scheduler
-  - schedulerName: no-scoring-scheduler
-    plugins:
-      preScore:
-        disabled:
-        - name: '*'
-      score:
-        disabled:
-        - name: '*'
+- schedulerName: default-scheduler
+- schedulerName: no-scoring-scheduler
+  plugins:
+    preScore:
+      disabled:
+      - name: '*'
+    score:
+      disabled:
+      - name: '*'
 ```
 
 Pods that want to be scheduled according to a specific profile can include
@@ -245,11 +245,11 @@ points, the profile config looks like:
 apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
-  - schedulerName: multipoint-scheduler
-    plugins:
-      multiPoint:
-        enabled:
-        - name: MyPlugin
+- schedulerName: multipoint-scheduler
+  plugins:
+    multiPoint:
+      enabled:
+      - name: MyPlugin
 ```
 
 This would equate to manually enabling `MyPlugin` for all of its extension
@@ -259,20 +259,20 @@ points, like so:
 apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
-  - schedulerName: non-multipoint-scheduler
-    plugins:
-      preScore:
-        enabled:
-        - name: MyPlugin
-      score:
-        enabled:
-        - name: MyPlugin
-      preFilter:
-        enabled:
-        - name: MyPlugin
-      filter:
-        enabled:
-        - name: MyPlugin
+- schedulerName: non-multipoint-scheduler
+  plugins:
+    preScore:
+      enabled:
+      - name: MyPlugin
+    score:
+      enabled:
+      - name: MyPlugin
+    preFilter:
+      enabled:
+      - name: MyPlugin
+    filter:
+      enabled:
+      - name: MyPlugin
 ```
 
 One benefit of using `multiPoint` here is that if `MyPlugin` implements another
@@ -288,17 +288,17 @@ An example of this, disabling `Score` and `PreScore`, would be:
 apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
-  - schedulerName: non-multipoint-scheduler
-    plugins:
-      multiPoint:
-        enabled:
-        - name: 'MyPlugin'
-      preScore:
-        disabled:
-        - name: '*'
-      score:
-        disabled:
-        - name: '*'
+- schedulerName: non-multipoint-scheduler
+  plugins:
+    multiPoint:
+      enabled:
+      - name: 'MyPlugin'
+    preScore:
+      disabled:
+      - name: '*'
+    score:
+      disabled:
+      - name: '*'
 ```
 
 Starting from `kubescheduler.config.k8s.io/v1beta3`, all [default plugins](#scheduling-plugins)
@@ -312,12 +312,12 @@ a weight of `1`. They can be reordered with different weights like so:
 apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
-  - schedulerName: multipoint-scheduler
-    plugins:
-      score:
-        enabled:
-        - name: 'DefaultScore2'
-          weight: 5
+- schedulerName: multipoint-scheduler
+  plugins:
+    score:
+      enabled:
+      - name: 'DefaultScore2'
+        weight: 5
 ```
 
 In this example, it's unnecessary to specify the plugins in `MultiPoint` explicitly
@@ -347,22 +347,22 @@ A valid sample configuration for these plugins would be:
 apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
-  - schedulerName: multipoint-scheduler
-    plugins:
-      multiPoint:
-        enabled:
-        - name: 'CustomQueueSort'
-        - name: 'CustomPlugin1'
-          weight: 3
-        - name: 'CustomPlugin2'
-        disabled:
-        - name: 'DefaultQueueSort'
-      filter:
-        disabled:
-        - name: 'DefaultPlugin1'
-      score:
-        enabled:
-        - name: 'DefaultPlugin2'
+- schedulerName: multipoint-scheduler
+  plugins:
+    multiPoint:
+      enabled:
+      - name: 'CustomQueueSort'
+      - name: 'CustomPlugin1'
+        weight: 3
+      - name: 'CustomPlugin2'
+      disabled:
+      - name: 'DefaultQueueSort'
+    filter:
+      disabled:
+      - name: 'DefaultPlugin1'
+    score:
+      enabled:
+      - name: 'DefaultPlugin2'
 ```
 
 Note that there is no error for re-declaring a `MultiPoint` plugin in a specific
@@ -381,32 +381,32 @@ In versions of the config before `v1beta3`, without `multiPoint`, the above snip
 apiVersion: kubescheduler.config.k8s.io/v1beta2
 kind: KubeSchedulerConfiguration
 profiles:
-  - schedulerName: multipoint-scheduler
-    plugins:
+- schedulerName: multipoint-scheduler
+  plugins:
 
-      # Disable the default QueueSort plugin
-      queueSort:
-        enabled:
-        - name: 'CustomQueueSort'
-        disabled:
-        - name: 'DefaultQueueSort'
+    # Disable the default QueueSort plugin
+    queueSort:
+      enabled:
+      - name: 'CustomQueueSort'
+      disabled:
+      - name: 'DefaultQueueSort'
 
-      # Enable custom Filter plugins
-      filter:
-        enabled:
-        - name: 'CustomPlugin1'
-        - name: 'CustomPlugin2'
-        - name: 'DefaultPlugin2'
-        disabled:
-        - name: 'DefaultPlugin1'
+    # Enable custom Filter plugins
+    filter:
+      enabled:
+      - name: 'CustomPlugin1'
+      - name: 'CustomPlugin2'
+      - name: 'DefaultPlugin2'
+      disabled:
+      - name: 'DefaultPlugin1'
 
-      # Enable and reorder custom score plugins
-      score:
-        enabled:
-        - name: 'DefaultPlugin2'
-          weight: 1
-        - name: 'DefaultPlugin1'
-          weight: 3
+    # Enable and reorder custom score plugins
+    score:
+      enabled:
+      - name: 'DefaultPlugin2'
+        weight: 1
+      - name: 'DefaultPlugin1'
+        weight: 3
 ```
 
 While this is a complicated example, it demonstrates the flexibility of `MultiPoint` config

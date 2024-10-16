@@ -200,19 +200,19 @@ apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 
 profiles:
-  - schedulerName: default-scheduler
-  - schedulerName: foo-scheduler
-    pluginConfig:
-      - name: NodeAffinity
-        args:
-          addedAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              nodeSelectorTerms:
-              - matchExpressions:
-                - key: scheduler-profile
-                  operator: In
-                  values:
-                  - foo
+- schedulerName: default-scheduler
+- schedulerName: foo-scheduler
+  pluginConfig:
+  - name: NodeAffinity
+    args:
+      addedAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: scheduler-profile
+              operator: In
+              values:
+              - foo
 ```
 
 The `addedAffinity` is applied to all Pods that set `.spec.schedulerName` to `foo-scheduler`, in addition to the
@@ -442,7 +442,7 @@ spec:
       requiredDuringSchedulingIgnoredDuringExecution:
       # ensure that pods associated with this tenant land on the correct node pool
       - matchLabelKeys:
-          - tenant
+        - tenant
         topologyKey: node-pool
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
