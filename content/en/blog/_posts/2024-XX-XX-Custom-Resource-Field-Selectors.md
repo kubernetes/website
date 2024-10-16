@@ -1,13 +1,12 @@
 ---
 layout: blog
-title: "Custom Resource Field Selectors"
-slug: custom-resource-field-selectors
-canonicalUrl: https://www.kubernetes.dev/blog/2024/09/24/custom-resource-field-selectors
+title: "Custom resource field selectors are GA in Kubernetes 1.32"
+slug: kubernetes-1-32-custom-resource-field-selectors
 date: 2024-XX-XX
 author: "Joe Betz"
 ---
 
-We're excited to announce that [Custom Resource Field Selectors](/docs/concepts/extend-kubernetes/api-extension/custom-resources/#custom-resource-field-selectors)
+SIG API Machinery is excited to announce that *[Custom resource field selectors](/docs/concepts/extend-kubernetes/api-extension/custom-resources/#custom-resource-field-selectors)*
 have graduated to stable in Kubernetes v1.32! This enhancement simplifies how you interact with your 
 custom resources and is now enabled by default.
 
@@ -15,7 +14,7 @@ custom resources and is now enabled by default.
 
 CustomResourceDefinitions (CRDs) often involve managing large collections of custom resources. While label selectors are useful, they're not always the most effective way to filter custom resources.  Why duplicate data in labels when the information you need already exists in the resource itself?
 
-Custom Resource Field Selectors allow you to filter custom resources directly by their field values. This eliminates the need to maintain redundant labels and ensures data consistency.
+*Custom resource field selectors* allow you to filter custom resources directly by their field values. This eliminates the need to maintain redundant labels and ensures data consistency.
 
 ## How do they work?
 
@@ -61,7 +60,7 @@ spec:
       type: string
 ```
 
-Once defined, you can use kubectl with the `--field-selector` flag to filter your CRs:
+Once defined, you can use kubectl with the `--field-selector` flag to filter your custom resources:
 
 ```sh
 kubectl get shirts.stable.example.com --field-selector spec.color=blue
@@ -74,6 +73,10 @@ Field selectors are not just for `kubectl`.  List and watch operations also supp
 Advanced features like [authorize with selectors](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/4601-authorize-with-selectors/README.md) build on this enhancement,
 allowing for fine-grained authorization based on custom resource field values.
 
-We encourage you to explore this feature and use it to make CRDs more convenient
+SIG API Machinery is excited for the community to leverage this feature to make CRDs more convenient
 and useful!
 
+
+## Acknowledgments
+
+Special thanks to [David Eads](https://github.com/deads2k) for feedback and reviews!
