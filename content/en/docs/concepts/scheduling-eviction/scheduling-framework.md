@@ -132,6 +132,9 @@ scheduler will call each scoring plugin for each node. There will be a well
 defined range of integers representing the minimum and maximum scores. After the
 [NormalizeScore](#normalize-scoring) phase, the scheduler will combine node
 scores from all plugins according to the configured plugin weights.
+With the enabling of the `StorageCapacityScoring` feature gate, nodes can be
+scored based on their available storage capacity. This only applies when using
+no static provisioning (dynamic provisioning only).
 
 ### NormalizeScore {#normalize-scoring}
 
