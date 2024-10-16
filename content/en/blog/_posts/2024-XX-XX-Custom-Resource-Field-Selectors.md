@@ -7,19 +7,19 @@ date: 2024-XX-XX
 author: "Joe Betz"
 ---
 
-We're excited to announce that [Custom Resource Field Selectors](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/#custom-resource-field-selectors)
+We're excited to announce that [Custom Resource Field Selectors](/docs/concepts/extend-kubernetes/api-extension/custom-resources/#custom-resource-field-selectors)
 have graduated to stable in Kubernetes v1.32! This enhancement simplifies how you interact with your 
-Custom Resources (CRs) and is now enabled by default.
+custom resources and is now enabled by default.
 
 ## What are Custom Resource Field Selectors?
 
-CustomResourceDefinitions often involve managing large collections of custom resources. While label selectors are useful, they're not always the most effective way to filter CRs.  Why duplicate data in labels when the information you need already exists in the resource itself?
+CustomResourceDefinitions (CRDs) often involve managing large collections of custom resources. While label selectors are useful, they're not always the most effective way to filter custom resources.  Why duplicate data in labels when the information you need already exists in the resource itself?
 
-Custom Resource Field Selectors allow you to filter CRs directly by their field values. This eliminates the need to maintain redundant labels and ensures data consistency.
+Custom Resource Field Selectors allow you to filter custom resources directly by their field values. This eliminates the need to maintain redundant labels and ensures data consistency.
 
 ## How do they work?
 
-To enable field selectors for your CRD, simply add the selectableFields section to your CRD definition.
+To enable field selectors for your CRD, simply add the `selectableFields` section to your CRD definition.
 For example:
 
 ```yaml
@@ -61,7 +61,7 @@ spec:
       type: string
 ```
 
-Once defined, you can use kubectl with the --field-selector flag to filter your CRs:
+Once defined, you can use kubectl with the `--field-selector` flag to filter your CRs:
 
 ```sh
 kubectl get shirts.stable.example.com --field-selector spec.color=blue
@@ -74,6 +74,6 @@ Field selectors are not just for `kubectl`.  List and watch operations also supp
 Advanced features like [authorize with selectors](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/4601-authorize-with-selectors/README.md) build on this enhancement,
 allowing for fine-grained authorization based on custom resource field values.
 
-We encourage you to explore this feature and use it to make CustomResourceDefinitions more convenient
+We encourage you to explore this feature and use it to make CRDs more convenient
 and useful!
 
