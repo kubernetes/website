@@ -138,7 +138,7 @@ should look like. Usually a single paragraph is enough; for longer explanations,
 add documentation elsewhere and link to that.
 
 Also,
-to ensure your feature gate appears in the [Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table, include the following details 
+to ensure your feature gate appears in the [Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table, include the following details
 in the [front matter](https://gohugo.io/content-management/front-matter/) of your Markdown
 description file:
 
@@ -155,20 +155,20 @@ description of the feature gate is also required; create a new Markdown file
 inside `content/en/docs/reference/command-line-tools-reference/feature-gates/`
 (use other files as a template).
 
-When you change a feature gate to disabled-by-default to enabled-by-default,
+When you change a feature gate from disabled-by-default to enabled-by-default,
 you may also need to change other documentation (not just the list of
 feature gates). Watch out for language such as ”The `exampleSetting` field
 is a beta field and disabled by default. You can enable it by enabling the
 `ProcessExampleThings` feature gate.”
 
-If your feature is GA'ed or deprecated, 
-include an additional `stage` entry within the `stages` block in the description file. 
-Ensure that the Alpha and Beta stages remain intact. 
-This step transitions the feature gate from the 
+If your feature is GA'ed or deprecated, include an additional `stage` entry within
+the `stages` block in the description file.
+Ensure that the Alpha and Beta stages remain intact. This step transitions the
+feature gate from the
 [Feature gates for Alpha/Feature](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table
 to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features) table. For example:
 
-{{< highlight yaml "linenos=false,hl_lines=10-15" >}}
+{{< highlight yaml "linenos=false,hl_lines=10-17" >}}
 stages:
   - stage: alpha 
     defaultValue: false
@@ -177,18 +177,19 @@ stages:
   - stage: beta 
     defaultValue: true
     fromVersion: "1.13"
-    toVersion: "1.18"    
-  # Added 'stable' stage block to existing stages.  
-  - stage: stable     
+  # Added a `toVersion` to the previous stage.
+    toVersion: "1.18"
+  # Added 'stable' stage block to existing stages.
+  - stage: stable
     defaultValue: true
     fromVersion: "1.19"
-    toVersion: "1.27"   
+    toVersion: "1.27"
 {{< / highlight >}}
 
-Eventually, Kubernetes will stop including the feature gate at all. To signify the removal of a feature gate, 
+Eventually, Kubernetes will stop including the feature gate at all. To signify the removal of a feature gate,
 include `removed: true` in the front matter of the respective description file.
-This action triggers the transition of the feature gate 
-from [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed) section to a dedicated page titled 
+Making that change means that the feature gate information moves from
+the [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed) section to a dedicated page titled
 [Feature Gates (removed)](/docs/reference/command-line-tools-reference/feature-gates-removed/), including its description.
 
 ### All PRs reviewed and ready to merge
