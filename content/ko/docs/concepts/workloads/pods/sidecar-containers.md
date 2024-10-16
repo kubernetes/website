@@ -41,12 +41,12 @@ weight: 50
 일반적인 초기화 컨테이너와 비교할 때, `initContainers` 내에 정의된 사이드카는
 시작된 후에도 계속 실행된다. 이는
 `.spec.initContainers`의 파드 내에 둘 이상의 항목이 있을 때 중요하다. 사이드카 스타일의 초기화 컨테이너가 실행 중일 때 (kubelet이
-해당 초기화 컨테이너의 `started `상태를 true로 설정함), kubelet은 순차적인 `.spec.initContainers` 목록에서
+해당 초기화 컨테이너의 `started`상태를 true로 설정함), kubelet은 순차적인 `.spec.initContainers` 목록에서
 다음 초기화 컨테이너를 시작한다.
 이 상태는 컨테이너 내에 프로세스가 실행 중이고 정의된 시작 프로브가 없는 경우 true가 되고,
 정의된 시작 프로브가 있는 경우 `startupProbe`의 결과값을 따른다.
 
-다음은 두 개의 컨테이너 중 한 컨테이너가 사이드카인 디플로이먼트(Deployment)의 예시이다.
+다음은 두 개의 컨테이너를 가진 디플로이먼트의 예시로, 그 중 하나는 사이드카이다.
 
 {{% code_sample language="yaml" file="application/deployment-sidecar.yaml" %}}
 
@@ -54,7 +54,7 @@ weight: 50
 컨테이너가 종료된 후에도 잡을 완료하지 못하게 하지 않으므로
 사이드카가 있는 잡들을 실행하는 데에도 유용하다.
 
-다음은 두 개의 컨테이너 중 한 컨테이너가 사이드카인 잡의 예시이다.
+다음은 두 개의 컨테이너를 가진 잡의 예시로, 그 중 하나는 사이드카이다.
 
 {{% code_sample language="yaml" file="application/job/job-sidecar.yaml" %}}
 
