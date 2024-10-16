@@ -279,10 +279,17 @@ EOF
 {{< note >}}
 Because you are not setting up a production cluster, you are using plain HTTP
 (`readOnlyPort: 10255`) for unauthenticated queries to the kubelet's API.
-{{< /note >}}
+
+The _authentication webhook_ is disabled and _authorization mode_ is set to `AlwaysAllow`
+for the purpose of this tutorial. You can learn more about
+[authorization modes](/docs/reference/access-authn-authz/authorization/#authorization-modules)
+and [webhook authentication](/docs/reference/access-authn-authz/webhook/) to properly
+configure kubelet in standalone mode in your environment.
 
 See [Ports and Protocols](/docs/reference/networking/ports-and-protocols/) to
 understand which ports Kubernetes components use.
+{{< /note >}}
+
 
 Install:
 
@@ -308,8 +315,8 @@ WantedBy=multi-user.target
 EOF
 ```
 
-We intentionally omitted the command line argument `--kubeconfig` in the service
-configuration file. This argument sets the path to a
+The command line argument `--kubeconfig` has been intentionally omitted in the
+service configuration file. This argument sets the path to a
 [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 file that specifies how to connect to the API server, enabling API server mode.
 Omitting it, enables standalone mode.
