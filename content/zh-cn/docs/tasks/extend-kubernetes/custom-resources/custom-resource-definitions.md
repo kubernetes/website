@@ -912,7 +912,7 @@ Kubernetes 会最终删除该资源，
 ### Validation
 
 Custom resources are validated via
-[OpenAPI v3 schemas](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject),
+[OpenAPI v3.0 schemas](https://github.com/OAI/OpenAPI-Specification/blob/3.0.0/versions/3.0.0.md#schema-object),
 by x-kubernetes-validations when the [Validation Rules feature](#validation-rules) is enabled, and you
 can add additional validation using
 [admission webhooks](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook).
@@ -920,7 +920,7 @@ can add additional validation using
 ### 合法性检查    {#validation}
 
 定制资源是通过
-[OpenAPI v3 模式定义](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject)
+[OpenAPI v3.0 模式定义](https://github.com/OAI/OpenAPI-Specification/blob/3.0.0/versions/3.0.0.md#schema-object)，
 来执行合法性检查的，当启用[验证规则特性](#validation-rules)时，通过 `x-kubernetes-validations` 验证，
 你可以通过使用[准入控制 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
 来添加额外的合法性检查逻辑。
