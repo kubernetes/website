@@ -108,6 +108,20 @@ div.feature-state-notice {
   border-width: 0 4px 0 0;
 }
 
+
+/* Custom styling for callouts within glossary entries */
+.glossary-terms .term-definition .alert {
+  border-radius: 0;
+}
+
+.glossary-terms .term-definition .alert.alert-info {
+  border-width: 0;
+  h4.alert-heading {
+    color: $primary;
+    font-weight: bold;
+  }
+}
+
 .glossary-tooltip {
   display: inline-block;
   border-bottom: 1px dotted black;
