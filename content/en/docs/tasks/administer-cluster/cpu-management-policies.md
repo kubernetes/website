@@ -268,6 +268,7 @@ The following policy options exist for the static `CPUManager` policy:
 * `distribute-cpus-across-numa` (alpha, hidden by default) (1.23 or higher)
 * `align-by-socket` (alpha, hidden by default) (1.25 or higher)
 * `distribute-cpus-across-cores` (alpha, hidden by default) (1.31 or higher)
+* `strict-cpu-reservation` (alpha, hidden by default) (1.32 or higher)
 
 If the `full-pcpus-only` policy option is specified, the static policy will always allocate full physical cores.
 By default, without this option, the static policy allocates CPUs using a topology-aware best-fit allocation.
@@ -318,7 +319,6 @@ the benefit of reducing contention diminishes. Conversely, default behavior
 can help in reducing inter-core communication overhead, potentially providing
 better performance under high load conditions.
 
-
 The `full-pcpus-only` option can be enabled by adding `full-pcpus-only=true` to
 the CPUManager policy options.
 Likewise, the `distribute-cpus-across-numa` option can be enabled by adding
@@ -334,3 +334,19 @@ The `distribute-cpus-across-cores` option can be enabled by adding
 `distribute-cpus-across-cores=true` to the `CPUManager` policy options.
 It cannot be used with `full-pcpus-only` or `distribute-cpus-across-numa` policy
 options together at this moment.
+
+The `reservedSystemCPUs` parameter in [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/),
+or the deprecated kubelet command line option `--reserved-cpus`, defines an explicit CPU set for OS system daemons
+and kubernetes system daemons.  More details of this parameter can be found on the
+[Explicitly Reserved CPU List](/docs/tasks/administer-cluster/reserve-compute-resources/#explicitly-reserved-cpu-list) page.
+
+By default this isolation is implemented only for guaranteed pods with integer CPU requests not for burstable and best-effort pods
+(and guaranteed pods with fractional CPU requests). Admission is only comparing the cpu requests against the allocatable cpus.
+Since the cpu limit are higher than the request, the default behaviour allows burstable and best-effort pods to use up the capacity
+of `reservedSystemCPUs` and cause host OS services to starve in real life deployments.
+
+If the `strict-cpu-reservation` policy option is enabled, the static policy will not allow
+any workload to use the CPU cores specified in `reservedSystemCPUs`.
+
+The `strict-cpu-reservation` option can be enabled by adding `strict-cpu-reservation=true` to
+the CPUManager policy options followed by removing the `/var/lib/kubelet/cpu_manager_state` file and restart kubelet.
