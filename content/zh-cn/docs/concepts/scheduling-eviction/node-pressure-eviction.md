@@ -919,7 +919,7 @@ The node can reach the eviction threshold if a pod is using more than its reques
 or if the system is using more than 1GiB of memory, which makes the `memory.available`
 signal fall below 500MiB and triggers the threshold.
 -->
-在此配置中，`--system-reserved` 标志为系统预留了 1GiB 的内存，
+在此配置中，`--system-reserved` 标志为系统预留了 1.5GiB 的内存，
 即 `总内存的 10% + 驱逐条件量`。
 
 如果 Pod 使用的内存超过其请求值或者系统使用的内存超过 `1Gi`，
