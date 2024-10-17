@@ -222,7 +222,7 @@ CronJob отвечает только за создание заданий (Jobs
 
 ## {{% heading "whatsnext" %}}
 
-* Ознакомьтесь с [Подами](/docs/concepts/workloads/pods/) и
+* Ознакомьтесь с [Подами](/ru/docs/concepts/workloads/pods/) и
   [Заданиями](/docs/concepts/workloads/controllers/job/) — двумя концепциями, на которые опираются CronJobs.
 * Ознакомьтесь с подробным [форматом](https://pkg.go.dev/github.com/robfig/cron/v3#hdr-CRON_Expression_Format)
   полей CronJob `.spec.schedule`.
