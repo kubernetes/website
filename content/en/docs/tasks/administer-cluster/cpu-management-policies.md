@@ -335,11 +335,18 @@ The `distribute-cpus-across-cores` option can be enabled by adding
 It cannot be used with `full-pcpus-only` or `distribute-cpus-across-numa` policy
 options together at this moment.
 
-The `strict-cpu-reservation` option can be enabled by adding `strict-cpu-reservation=true` to
-the CPUManager policy options.
+The `reservedSystemCPUs` parameter in [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/),
+or the deprecated kubelet command line option `--reserved-cpus`, defines an explicit CPU set for OS system daemons
+and kubernetes system daemons.  More details of this parameter can be found on the
+[Explicitly Reserved CPU List](/docs/tasks/administer-cluster/reserve-compute-resources/#explicitly-reserved-cpu-list) page.
+
+By default this isolation is implemented only for guaranteed pods with integer CPU requests not for burstable and best-effort pods
+(and guaranteed pods with fractional CPU requests). Admission is only comparing the cpu requests against the allocatable cpus.
+Since the cpu limit are higher than the request, the default behaviour allows burstable and best-effort pods to use up the capacity
+of `reservedSystemCPUs` and cause host OS services to starve in real life deployments.
 
 If the `strict-cpu-reservation` policy option is enabled, the static policy will not allow
-workloads to use the CPU cores specified in `reservedSystemCPUs`.
-The `reservedSystemCPUs` defines an explicit CPU set for OS system daemons and kubernetes
-system daemons. More details of this parameter can be found on the
-[Explicitly Reserved CPU List](/docs/tasks/administer-cluster/reserve-compute-resources) page.
+any workload to use the CPU cores specified in `reservedSystemCPUs`.
+
+The `strict-cpu-reservation` option can be enabled by adding `strict-cpu-reservation=true` to
+the CPUManager policy options followed by removing the `/var/lib/kubelet/cpu_manager_state` file and restart kubelet.
