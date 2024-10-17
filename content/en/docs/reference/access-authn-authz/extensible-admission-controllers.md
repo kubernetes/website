@@ -553,13 +553,13 @@ Match create requests for all resources (but not subresources) in all API groups
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 webhooks:
-  - name: my-webhook.example.com
-    rules:
-      - operations: ["CREATE"]
-        apiGroups: ["*"]
-        apiVersions: ["*"]
-        resources: ["*"]
-        scope: "*"
+- name: my-webhook.example.com
+  rules:
+  - operations: ["CREATE"]
+    apiGroups: ["*"]
+    apiVersions: ["*"]
+    resources: ["*"]
+    scope: "*"
 ```
 
 Match update requests for all `status` subresources in all API groups and versions:
@@ -568,13 +568,13 @@ Match update requests for all `status` subresources in all API groups and versio
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 webhooks:
-  - name: my-webhook.example.com
-    rules:
-      - operations: ["UPDATE"]
-        apiGroups: ["*"]
-        apiVersions: ["*"]
-        resources: ["*/status"]
-        scope: "*"
+- name: my-webhook.example.com
+  rules:
+  - operations: ["UPDATE"]
+    apiGroups: ["*"]
+    apiVersions: ["*"]
+    resources: ["*/status"]
+    scope: "*"
 ```
 
 ### Matching requests: objectSelector
@@ -629,18 +629,18 @@ that does not have a "runlevel" label of "0" or "1":
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 webhooks:
-  - name: my-webhook.example.com
-    namespaceSelector:
-      matchExpressions:
-        - key: runlevel
-          operator: NotIn
-          values: ["0","1"]
-    rules:
-      - operations: ["CREATE"]
-        apiGroups: ["*"]
-        apiVersions: ["*"]
-        resources: ["*"]
-        scope: "Namespaced"
+- name: my-webhook.example.com
+  namespaceSelector:
+    matchExpressions:
+    - key: runlevel
+      operator: NotIn
+      values: ["0","1"]
+  rules:
+  - operations: ["CREATE"]
+    apiGroups: ["*"]
+    apiVersions: ["*"]
+    resources: ["*"]
+    scope: "Namespaced"
 ```
 
 This example shows a validating webhook that matches a `CREATE` of any namespaced resource inside
@@ -650,18 +650,18 @@ a namespace that is associated with the "environment" of "prod" or "staging":
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 webhooks:
-  - name: my-webhook.example.com
-    namespaceSelector:
-      matchExpressions:
-        - key: environment
-          operator: In
-          values: ["prod","staging"]
-    rules:
-      - operations: ["CREATE"]
-        apiGroups: ["*"]
-        apiVersions: ["*"]
-        resources: ["*"]
-        scope: "Namespaced"
+- name: my-webhook.example.com
+  namespaceSelector:
+    matchExpressions:
+    - key: environment
+      operator: In
+      values: ["prod","staging"]
+  rules:
+  - operations: ["CREATE"]
+    apiGroups: ["*"]
+    apiVersions: ["*"]
+    resources: ["*"]
+    scope: "Namespaced"
 ```
 
 See [labels concept](/docs/concepts/overview/working-with-objects/labels)
@@ -735,52 +735,52 @@ Here is an example illustrating a few different uses for match conditions:
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 webhooks:
-  - name: my-webhook.example.com
-    matchPolicy: Equivalent
-    rules:
-      - operations: ['CREATE','UPDATE']
-        apiGroups: ['*']
-        apiVersions: ['*']
-        resources: ['*']
-    failurePolicy: 'Ignore' # Fail-open (optional)
-    sideEffects: None
-    clientConfig:
-      service:
-        namespace: my-namespace
-        name: my-webhook
-      caBundle: '<omitted>'
-    # You can have up to 64 matchConditions per webhook
-    matchConditions:
-      - name: 'exclude-leases' # Each match condition must have a unique name
-        expression: '!(request.resource.group == "coordination.k8s.io" && request.resource.resource == "leases")' # Match non-lease resources.
-      - name: 'exclude-kubelet-requests'
-        expression: '!("system:nodes" in request.userInfo.groups)' # Match requests made by non-node users.
-      - name: 'rbac' # Skip RBAC requests, which are handled by the second webhook.
-        expression: 'request.resource.group != "rbac.authorization.k8s.io"'
-  
-  # This example illustrates the use of the 'authorizer'. The authorization check is more expensive
-  # than a simple expression, so in this example it is scoped to only RBAC requests by using a second
-  # webhook. Both webhooks can be served by the same endpoint.
-  - name: rbac.my-webhook.example.com
-    matchPolicy: Equivalent
-    rules:
-      - operations: ['CREATE','UPDATE']
-        apiGroups: ['rbac.authorization.k8s.io']
-        apiVersions: ['*']
-        resources: ['*']
-    failurePolicy: 'Fail' # Fail-closed (the default)
-    sideEffects: None
-    clientConfig:
-      service:
-        namespace: my-namespace
-        name: my-webhook
-      caBundle: '<omitted>'
-    # You can have up to 64 matchConditions per webhook
-    matchConditions:
-      - name: 'breakglass'
-        # Skip requests made by users authorized to 'breakglass' on this webhook.
-        # The 'breakglass' API verb does not need to exist outside this check.
-        expression: '!authorizer.group("admissionregistration.k8s.io").resource("validatingwebhookconfigurations").name("my-webhook.example.com").check("breakglass").allowed()'
+- name: my-webhook.example.com
+  matchPolicy: Equivalent
+  rules:
+  - operations: ['CREATE','UPDATE']
+    apiGroups: ['*']
+    apiVersions: ['*']
+    resources: ['*']
+  failurePolicy: 'Ignore' # Fail-open (optional)
+  sideEffects: None
+  clientConfig:
+    service:
+      namespace: my-namespace
+      name: my-webhook
+    caBundle: '<omitted>'
+  # You can have up to 64 matchConditions per webhook
+  matchConditions:
+  - name: 'exclude-leases' # Each match condition must have a unique name
+    expression: '!(request.resource.group == "coordination.k8s.io" && request.resource.resource == "leases")' # Match non-lease resources.
+  - name: 'exclude-kubelet-requests'
+    expression: '!("system:nodes" in request.userInfo.groups)' # Match requests made by non-node users.
+  - name: 'rbac' # Skip RBAC requests, which are handled by the second webhook.
+    expression: 'request.resource.group != "rbac.authorization.k8s.io"'
+
+# This example illustrates the use of the 'authorizer'. The authorization check is more expensive
+# than a simple expression, so in this example it is scoped to only RBAC requests by using a second
+# webhook. Both webhooks can be served by the same endpoint.
+- name: rbac.my-webhook.example.com
+  matchPolicy: Equivalent
+  rules:
+  - operations: ['CREATE','UPDATE']
+    apiGroups: ['rbac.authorization.k8s.io']
+    apiVersions: ['*']
+    resources: ['*']
+  failurePolicy: 'Fail' # Fail-closed (the default)
+  sideEffects: None
+  clientConfig:
+    service:
+      namespace: my-namespace
+      name: my-webhook
+    caBundle: '<omitted>'
+  # You can have up to 64 matchConditions per webhook
+  matchConditions:
+  - name: 'breakglass'
+    # Skip requests made by users authorized to 'breakglass' on this webhook.
+    # The 'breakglass' API verb does not need to exist outside this check.
+    expression: '!authorizer.group("admissionregistration.k8s.io").resource("validatingwebhookconfigurations").name("my-webhook.example.com").check("breakglass").allowed()'
 ```
 
 {{< note >}}
@@ -913,8 +913,8 @@ Here is an example of a validating webhook indicating it has no side effects on 
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 webhooks:
-  - name: my-webhook.example.com
-    sideEffects: NoneOnDryRun
+- name: my-webhook.example.com
+  sideEffects: NoneOnDryRun
 ```
 
 ### Timeouts
@@ -934,8 +934,8 @@ Here is an example of a validating webhook with a custom timeout of 2 seconds:
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 webhooks:
-  - name: my-webhook.example.com
-    timeoutSeconds: 2
+- name: my-webhook.example.com
+  timeoutSeconds: 2
 ```
 
 The timeout for an admission webhook defaults to 10 seconds.

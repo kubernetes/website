@@ -150,7 +150,6 @@ CPU and 128MiB of memory. You can say the Pod has a request of 0.5 CPU and 128
 MiB of memory, and a limit of 1 CPU and 256MiB of memory.
 
 ```yaml
----
 apiVersion: v1
 kind: Pod
 metadata:
@@ -438,9 +437,9 @@ spec:
     - name: ephemeral
       mountPath: "/tmp"
   volumes:
-    - name: ephemeral
-      emptyDir:
-        sizeLimit: 500Mi
+  - name: ephemeral
+    emptyDir:
+      sizeLimit: 500Mi
 ```
 
 ### How Pods with ephemeral-storage requests are scheduled

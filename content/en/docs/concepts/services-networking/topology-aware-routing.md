@@ -95,19 +95,19 @@ metadata:
     kubernetes.io/service-name: example-svc
 addressType: IPv4
 ports:
-  - name: http
-    protocol: TCP
-    port: 80
+- name: http
+  protocol: TCP
+  port: 80
 endpoints:
-  - addresses:
-      - "10.1.2.3"
-    conditions:
-      ready: true
-    hostname: pod-1
-    zone: zone-a
-    hints:
-      forZones:
-        - name: "zone-a"
+- addresses:
+  - "10.1.2.3"
+  conditions:
+    ready: true
+  hostname: pod-1
+  zone: zone-a
+  hints:
+    forZones:
+    - name: "zone-a"
 ```
 
 ### kube-proxy {#implementation-kube-proxy}

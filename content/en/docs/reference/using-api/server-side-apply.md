@@ -97,7 +97,6 @@ becomes available.
 A simple example of an object created using Server-Side Apply could look like this:
 
 ```yaml
----
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -238,7 +237,6 @@ the body of the request that you submit.
 An example object with multiple managers could look like this:
 
 ```yaml
----
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -346,7 +344,6 @@ recommended to change a type from `atomic` to `map`/`set`/`granular`.
 Take for example, the custom resource:
 
 ```yaml
----
 apiVersion: example.com/v1
 kind: Foo
 metadata:

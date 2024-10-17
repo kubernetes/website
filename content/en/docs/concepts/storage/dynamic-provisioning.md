@@ -93,7 +93,7 @@ metadata:
   name: claim1
 spec:
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   storageClassName: fast
   resources:
     requests:

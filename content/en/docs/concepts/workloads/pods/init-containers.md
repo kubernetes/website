@@ -224,7 +224,6 @@ At this point, those init containers will be waiting to discover {{< glossary_to
 Here's a configuration you can use to make those Services appear:
 
 ```yaml
----
 apiVersion: v1
 kind: Service
 metadata:

@@ -48,9 +48,9 @@ spec:
   selector:
     app.kubernetes.io/name: MyApp
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
+  - protocol: TCP
+    port: 80
+    targetPort: 9376
   internalTrafficPolicy: Local
 ```
 

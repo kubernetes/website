@@ -46,10 +46,10 @@ address: "192.168.0.8"
 port: 20250
 serializeImagePulls: false
 evictionHard:
-    memory.available:  "100Mi"
-    nodefs.available:  "10%"
-    nodefs.inodesFree: "5%"
-    imagefs.available: "15%"
+  memory.available:  "100Mi"
+  nodefs.available:  "10%"
+  nodefs.inodesFree: "5%"
+  imagefs.available: "15%"
 ```
 
 In this example, the kubelet is configured with the following settings:

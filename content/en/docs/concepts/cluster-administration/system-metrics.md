@@ -49,10 +49,10 @@ kind: ClusterRole
 metadata:
   name: prometheus
 rules:
-  - nonResourceURLs:
-      - "/metrics"
-    verbs:
-      - get
+- nonResourceURLs:
+  - "/metrics"
+  verbs:
+  - get
 ```
 
 ## Metric lifecycle

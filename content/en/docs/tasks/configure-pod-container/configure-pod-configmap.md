@@ -823,16 +823,16 @@ metadata:
   name: dapi-test-pod
 spec:
   containers:
-    - name: test-container
-      image: gcr.io/google_containers/busybox
-      command: ["/bin/sh", "-c", "env"]
-      env:
-        - name: SPECIAL_LEVEL_KEY
-          valueFrom:
-            configMapKeyRef:
-              name: a-config
-              key: akey
-              optional: true # mark the variable as optional
+  - name: test-container
+    image: gcr.io/google_containers/busybox
+    command: ["/bin/sh", "-c", "env"]
+    env:
+    - name: SPECIAL_LEVEL_KEY
+      valueFrom:
+        configMapKeyRef:
+          name: a-config
+          key: akey
+          optional: true # mark the variable as optional
   restartPolicy: Never
 ```
 
@@ -852,17 +852,17 @@ metadata:
   name: dapi-test-pod
 spec:
   containers:
-    - name: test-container
-      image: gcr.io/google_containers/busybox
-      command: ["/bin/sh", "-c", "ls /etc/config"]
-      volumeMounts:
-      - name: config-volume
-        mountPath: /etc/config
-  volumes:
+  - name: test-container
+    image: gcr.io/google_containers/busybox
+    command: ["/bin/sh", "-c", "ls /etc/config"]
+    volumeMounts:
     - name: config-volume
-      configMap:
-        name: no-config
-        optional: true # mark the source ConfigMap as optional
+      mountPath: /etc/config
+  volumes:
+  - name: config-volume
+    configMap:
+      name: no-config
+      optional: true # mark the source ConfigMap as optional
   restartPolicy: Never
 ```
 

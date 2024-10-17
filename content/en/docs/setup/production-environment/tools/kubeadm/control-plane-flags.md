@@ -116,11 +116,11 @@ scheduler:
   - name: "config"
     value: "/etc/kubernetes/scheduler-config.yaml"
   extraVolumes:
-    - name: schedulerconfig
-      hostPath: /home/johndoe/schedconfig.yaml
-      mountPath: /etc/kubernetes/scheduler-config.yaml
-      readOnly: true
-      pathType: "File"
+  - name: schedulerconfig
+    hostPath: /home/johndoe/schedconfig.yaml
+    mountPath: /etc/kubernetes/scheduler-config.yaml
+    readOnly: true
+    pathType: "File"
 ```
 
 ### Etcd flags

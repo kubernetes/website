@@ -278,7 +278,6 @@ resource for that API.
 For example:
 
 ```yaml
----
 apiVersion: networking.k8s.io/v1
 kind: IngressClass
 metadata:
@@ -327,7 +326,6 @@ Here is an example of an IngressClass that refers to parameters that are
 namespaced:
 
 ```yaml
----
 apiVersion: networking.k8s.io/v1
 kind: IngressClass
 metadata:
