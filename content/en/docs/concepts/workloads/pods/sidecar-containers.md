@@ -80,9 +80,29 @@ If you define a Job that uses sidecar using Kubernetes-style init containers,
 the sidecar container in each Pod does not prevent the Job from completing after the
 main container has finished.
 
+{{% code_sample language="yaml" file="application/deployment-sidecar.yaml" %}}
+
+This feature is also useful for running Jobs with sidecars, as the sidecar
+container will not prevent the Job from completing after the main container
+has finished.
+
 Here's an example of a Job with two containers, one of which is a sidecar:
 
 {{% code_sample language="yaml" file="application/job/job-sidecar.yaml" %}}
+
+### Sidecar containers defined outside of `initContainers` field (legacy approach) {#sidecar-container-legacy-approach}
+
+Compared to regular defined within `initContainers`, you could 
+directly use multiple `.spec.containers` definitions for a Pod. If you do so, the
+kubelet starts the containers from the ordered `.spec.containers` list.
+
+Here's an example of a Deployment with two containers:
+
+{{% code_sample language="yaml" file="application/deployment-sidecar-legacy.yaml" %}}
+
+Here's an example of a Job with two containers:
+
+{{% code_sample language="yaml" file="application/job/job-sidecar-legacy.yaml" %}}
 
 ## Differences from application containers
 
