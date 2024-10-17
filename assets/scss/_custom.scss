@@ -75,6 +75,10 @@ body {
   }
 }
 
+table td.value-not-applicable {
+  text-align: center;
+}
+
 /* Emphasize first paragraph of running text on site front page */
 body.td-home main[role="main"] > section:first-of-type .content p:first-child {
   line-height: 1.3em;
