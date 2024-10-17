@@ -47,4 +47,4 @@ requires a restart of the kubelet.
 
 ## {{% heading "whatsnext" %}}
 
-- Learn more about the CRI [protocol definition](https://github.com/kubernetes/cri-api/blob/c75ef5b/pkg/apis/runtime/v1/api.proto)
+- Learn more about the CRI [protocol definition](https://github.com/kubernetes/cri-api/tree/master)
