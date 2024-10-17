@@ -188,6 +188,19 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 | -------------------------- | -------------------------- | -------------------------- |
 | Sreeram Venkitesh               | @sreeram.venkitesh                      | @sreeram-venkitesh              |
 
+## Localization READMEs
+
+| Language                      | Language                         |
+| ----------------------------- | -------------------------------- |
+| [Bengali](../bn/README.md)    | [Japanese](../ja/README.md)      |
+| [Chinese](../zh-cn/README.md) | [Korean](../ko/README.md)        |
+| [English](../../README.md)    | [Polish](../pl/README.md)        |
+| [French](../fr/README.md)     | [Portuguese](../pt-br/README.md) |
+| [German](../de/README.md)     | [Russian](../ru/README.md)       |
+| [Hindi](../hi/README.md)      | [Spanish](../es/README.md)       |
+| [Indonesian](../id/README.md) | [Ukrainian](../uk/README.md)     |
+| [Italian](../it/README.md)    | [Vietnamese](../vi/README.md)    |
+
 ## কোড অফ কন্ডাক্ট
 
 কুবারনেটিস কমিউনিটিয়ের অংশগ্রহণ [CNCF কোড অফ কন্ডাক্ট](https://github.com/cncf/foundation/blob/main/code-of-conduct.md) দ্বারা পরিচালিত হয়।
