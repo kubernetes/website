@@ -243,15 +243,15 @@ When scheduling a new Pod, the Kubernetes scheduler evaluates both the incoming 
 
 1. Hard Constraints (Node Filtering):
    - Incoming Pod's `podAffinity.requiredDuringSchedulingIgnoredDuringExecution`:
-     - The scheduler ensures that the new Pod is scheduled onto a node that satisfies the required affinity rules based on the existing Pods.
+     - The scheduler ensures the new Pod is assigned to nodes that satisfy these required affinity and anti-affinity rules based on existing Pods.
    - Incoming Pod's `podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution`:
-     - The scheduler filters out nodes that do not satisfy the required anti-affinity rules, ensuring that the new Pod does not get scheduled onto nodes where it would violate these rules.
+     - The scheduler ensures the new Pod is assigned to nodes that satisfy these required affinity and anti-affinity rules based on existing Pods.
    - Existing Pods' `podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution`:
      - The scheduler treats these as hard constraints, filtering out any nodes that do not comply with the anti-affinity requirements of existing Pods. This ensures that the new Pod does not end up on a node that would violate the anti-affinity rules of existing Pods.
 
 2. Soft Constraints (Scoring):
    - Incoming Pod's `podAffinity.preferredDuringSchedulingIgnoredDuringExecution`:
-     - The scheduler scores nodes based on how well they satisfy the preferred affinity rules, aiming to place the new Pod in locations that optimize for these preferences.
+     - The scheduler scores nodes based on how well they meet these preferred affinity and anti-affinity rules to optimize Pod placement.
    - Incoming Pod's `podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution`:
      - Similar to preferred affinity, the scheduler scores nodes to avoid anti-affinity preferences, aiming to minimize conflicts.
    - Existing Pods' `podAffinity.requiredDuringSchedulingIgnoredDuringExecution`:
