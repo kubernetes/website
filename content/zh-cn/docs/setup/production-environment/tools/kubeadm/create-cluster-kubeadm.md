@@ -57,8 +57,7 @@ as Ansible or Terraform.
 To follow this guide, you need:
 
 - One or more machines running a deb/rpm-compatible Linux OS; for example: Ubuntu or CentOS.
-- 2 GiB or more of RAM per machine--any less leaves little room for your
-   apps.
+- 2 GiB or more of RAM per machine--any less leaves little room for your apps.
 - At least 2 CPUs on the machine that you use as a control-plane node.
 - Full network connectivity among all machines in the cluster. You can use either a
   public or a private network.
@@ -92,7 +91,7 @@ The `kubeadm` tool's overall feature state is General Availability (GA). Some su
 still under active development. The implementation of creating the cluster may change
 slightly as the tool evolves, but the overall implementation should be pretty stable.
 -->
-`kubeadm` 工具的整体功能状态为一般可用性（GA）。一些子功能仍在积极开发中。
+`kubeadm` 工具的整体特性状态为正式发布（GA）。一些子特性仍在积极开发中。
 随着工具的发展，创建集群的实现可能会略有变化，但总体实现应相当稳定。
 
 {{< note >}}
@@ -132,8 +131,9 @@ Any commands under `kubeadm alpha` are, by definition, supported on an alpha lev
 #### 安装组件   {#component-installation}
 
 <!--
-Install a {{< glossary_tooltip term_id="container-runtime" text="container runtime" >}} and kubeadm on all the hosts.
-For detailed instructions and other prerequisites, see [Installing kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
+Install a {{< glossary_tooltip term_id="container-runtime" text="container runtime" >}}
+and kubeadm on all the hosts. For detailed instructions and other prerequisites, see
+[Installing kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 -->
 在所有主机上安装{{< glossary_tooltip term_id="container-runtime" text="容器运行时" >}}和 kubeadm。
 详细说明和其他前提条件，请参见[安装 kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)。
@@ -141,7 +141,8 @@ For detailed instructions and other prerequisites, see [Installing kubeadm](/doc
 {{< note >}}
 <!--
 If you have already installed kubeadm, see the first two steps of the
-[Upgrading Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes) document for instructions on how to upgrade kubeadm.
+[Upgrading Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes)
+document for instructions on how to upgrade kubeadm.
 
 When you upgrade, the kubelet restarts every few seconds as it waits in a crashloop for
 kubeadm to tell it what to do. This crashloop is expected and normal.
@@ -243,9 +244,8 @@ certificate files is reflected. See
 for more details on this topic.
 -->
 你分配给控制平面组件的 IP 地址将成为其 X.509 证书的使用者备用名称字段的一部分。
-更改这些 IP 地址将需要签署新的证书并重启受影响的组件，
-以便反映证书文件中的变化。有关此主题的更多细节参见
-[手动续期证书](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#manual-certificate-renewal)。
+更改这些 IP 地址将需要签署新的证书并重启受影响的组件，以便反映证书文件中的变化。
+有关此主题的更多细节参见[手动续期证书](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#manual-certificate-renewal)。
 
 {{< warning >}}
 <!--
@@ -311,13 +311,13 @@ communicates with).
 
 <!--
 1. (Recommended) If you have plans to upgrade this single control-plane `kubeadm` cluster
-to [high availability](/docs/setup/production-environment/tools/kubeadm/high-availability/)
-you should specify the `--control-plane-endpoint` to set the shared endpoint for all control-plane nodes.
-Such an endpoint can be either a DNS name or an IP address of a load-balancer.
+   to [high availability](/docs/setup/production-environment/tools/kubeadm/high-availability/)
+   you should specify the `--control-plane-endpoint` to set the shared endpoint for all control-plane nodes.
+   Such an endpoint can be either a DNS name or an IP address of a load-balancer.
 1. Choose a Pod network add-on, and verify whether it requires any arguments to
-be passed to `kubeadm init`. Depending on which
-third-party provider you choose, you might need to set the `--pod-network-cidr` to
-a provider-specific value. See [Installing a Pod network add-on](#pod-network).
+   be passed to `kubeadm init`. Depending on which
+   third-party provider you choose, you might need to set the `--pod-network-cidr` to
+   a provider-specific value. See [Installing a Pod network add-on](#pod-network).
 -->
 1. （推荐）如果计划将单个控制平面 kubeadm 集群升级成[高可用](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)，
    你应该指定 `--control-plane-endpoint` 为所有控制平面节点设置共享端点。
@@ -328,9 +328,9 @@ a provider-specific value. See [Installing a Pod network add-on](#pod-network).
 
 <!--
 1. (Optional) `kubeadm` tries to detect the container runtime by using a list of well
-known endpoints. To use different container runtime or if there are more than one installed
-on the provisioned node, specify the `--cri-socket` argument to `kubeadm`. See
-[Installing a runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
+   known endpoints. To use different container runtime or if there are more than one installed
+   on the provisioned node, specify the `--cri-socket` argument to `kubeadm`. See
+   [Installing a runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
 -->
 3. （可选）`kubeadm` 试图通过使用已知的端点列表来检测容器运行时。
    使用不同的容器运行时或在预配置的节点上安装了多个容器运行时，请为 `kubeadm init` 指定 `--cri-socket` 参数。
@@ -351,7 +351,7 @@ kubeadm init <args>
 ### 关于 apiserver-advertise-address 和 ControlPlaneEndpoint 的注意事项 {#considerations-about-apiserver-advertise-address-and-controlplaneendpoint}
 
 <!--
-While `--apiserver-advertise-address` can be used to set the advertise address for this particular
+While `--apiserver-advertise-address` can be used to set the advertised address for this particular
 control-plane node's API server, `--control-plane-endpoint` can be used to set the shared endpoint
 for all control-plane nodes.
 -->
@@ -377,7 +377,7 @@ Here is an example mapping:
 <!--
 Where `192.168.0.102` is the IP address of this node and `cluster-endpoint` is a custom DNS name that maps to this IP.
 This will allow you to pass `--control-plane-endpoint=cluster-endpoint` to `kubeadm init` and pass the same DNS name to
-`kubeadm join`. Later you can modify `cluster-endpoint` to point to the address of your load-balancer in an
+`kubeadm join`. Later you can modify `cluster-endpoint` to point to the address of your load-balancer in a
 high availability scenario.
 -->
 其中 `192.168.0.102` 是此节点的 IP 地址，`cluster-endpoint` 是映射到该 IP 的自定义 DNS 名称。
@@ -678,7 +678,8 @@ The `node-role.kubernetes.io/control-plane` label is such a restricted label and
 a privileged client after a node has been created. To do that manually you can do the same by using `kubectl label`
 and ensure it is using a privileged kubeconfig such as the kubeadm managed `/etc/kubernetes/admin.conf`.
 -->
-默认情况下，kubeadm 启用 [NodeRestriction](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
+默认情况下，kubeadm 启用
+[NodeRestriction](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
 准入控制器来限制 kubelet 在节点注册时可以应用哪些标签。准入控制器文档描述 kubelet `--node-labels` 选项允许使用哪些标签。
 其中 `node-role.kubernetes.io/control-plane` 标签就是这样一个受限制的标签，
 kubeadm 在节点创建后使用特权客户端手动应用此标签。
@@ -737,8 +738,8 @@ kubectl label nodes --all node.kubernetes.io/exclude-from-external-load-balancer
 <!--
 ### Adding more control plane nodes
 
-See [Creating Highly Available Clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/) for steps on creating a high availability kubeadm cluster by adding more control plane
-nodes.
+See [Creating Highly Available Clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
+for steps on creating a high availability kubeadm cluster by adding more control plane nodes.
 
 ### Adding worker nodes {#join-nodes}
 
@@ -750,7 +751,7 @@ the `kubeadm join` command:
 * [Adding Linux worker nodes](/docs/tasks/administer-cluster/kubeadm/adding-linux-nodes/)
 * [Adding Windows worker nodes](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
 -->
-### 添加更多控制平面节点
+### 添加更多控制平面节点   {#adding-more-control-plane-nodes}
 
 请参阅[使用 kubeadm 创建高可用性集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)，
 了解通过添加更多控制平面节点创建高可用性 kubeadm 集群的步骤。
@@ -821,7 +822,7 @@ admin.conf 文件为用户提供了对集群的超级用户特权。
 ### （可选）将 API 服务器代理到本地主机 {#optional-proxying-api-server-to-localhost}
 
 <!--
-If you want to connect to the API Server from outside the cluster you can use
+If you want to connect to the API Server from outside the cluster, you can use
 `kubectl proxy`:
 -->
 如果你要从集群外部连接到 API 服务器，则可以使用 `kubectl proxy`：
@@ -887,7 +888,8 @@ kubeadm reset
 ```
 
 <!--
-The reset process does not reset or clean up iptables rules or IPVS tables. If you wish to reset iptables, you must do so manually:
+The reset process does not reset or clean up iptables rules or IPVS tables.
+If you wish to reset iptables, you must do so manually:
 -->
 重置过程不会重置或清除 iptables 规则或 IPVS 表。如果你希望重置 iptables，则必须手动进行：
 
@@ -903,6 +905,7 @@ If you want to reset the IPVS tables, you must run the following command:
 ```bash
 ipvsadm -C
 ```
+
 <!--
 Now remove the node:
 
@@ -996,6 +999,7 @@ the same version as kubeadm or three version older.
 
 <!--
 Example:
+
 * kubeadm is at {{< skew currentVersion >}}
 * kubelet on the host must be at {{< skew currentVersion >}}, {{< skew currentVersionAddMinor -1 >}},
   {{< skew currentVersionAddMinor -2 >}} or {{< skew currentVersionAddMinor -3 >}}
@@ -1047,11 +1051,13 @@ MINOR 版本或比后者新一个 MINOR 版本。
 
 <!--
 Example for `kubeadm upgrade`:
+
 * kubeadm version {{< skew currentVersionAddMinor -1 >}} was used to create or upgrade the node
 * The version of kubeadm used for upgrading the node must be at {{< skew currentVersionAddMinor -1 >}}
-or {{< skew currentVersion >}}
+  or {{< skew currentVersion >}}
 -->
 `kubeadm upgrade` 的例子：
+
 * 用于创建或升级节点的 kubeadm 版本为 {{< skew currentVersionAddMinor -1 >}}。
 * 用于升级节点的 kubeadm 版本必须为 {{< skew currentVersionAddMinor -1 >}} 或 {{< skew currentVersion >}}。
 
@@ -1096,8 +1102,8 @@ Workarounds:
   [Options for Highly Available topology](/docs/setup/production-environment/tools/kubeadm/ha-topology/) to pick a cluster
   topology that provides [high-availability](/docs/setup/production-environment/tools/kubeadm/high-availability/).
 -->
-* 使用多个控制平面节点。你可以阅读
-  [可选的高可用性拓扑](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology/)选择集群拓扑提供的
+* 使用多个控制平面节点。
+  你可以阅读[可选的高可用性拓扑](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology/)选择集群拓扑提供的
   [高可用性](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)。
 
 <!--
@@ -1107,8 +1113,7 @@ Workarounds:
 
 <!--
 kubeadm deb/rpm packages and binaries are built for amd64, arm (32-bit), arm64, ppc64le, and s390x
-following the [multi-platform
-proposal](https://git.k8s.io/design-proposals-archive/multi-platform.md).
+following the [multi-platform proposal](https://git.k8s.io/design-proposals-archive/multi-platform.md).
 -->
 kubeadm deb/rpm 软件包和二进制文件是为 amd64、arm (32-bit)、arm64、ppc64le 和 s390x
 构建的遵循[多平台提案](https://git.k8s.io/design-proposals-archive/multi-platform.md)。
@@ -1141,9 +1146,9 @@ If you are running into difficulties with kubeadm, please consult our
 <!-- discussion -->
 
 <!--
-## What's next {#whats-next}
+## {{% heading "whatsnext" %}}
 -->
-## 下一步 {#whats-next}
+## {{% heading "whatsnext" %}}
 
 <!--
 * Verify that your cluster is running properly with [Sonobuoy](https://github.com/heptio/sonobuoy)
