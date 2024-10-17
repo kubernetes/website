@@ -2451,6 +2451,18 @@ only onto these nodes, or to avoid running Pods on the control plane.
 If this label is set, the [EndpointSlice controller](/docs/concepts/services-networking/topology-aware-routing/#implementation-control-plane)
 ignores that node while calculating Topology Aware Hints.
 
+### kubernetes.io/role: control-plane
+
+Type: Label
+
+Example: `kubernetes.io/role: control-plane`
+
+Used on: Node
+
+A marker label similar to `node-role.kubernetes.io/control-plan` to indicate  node based on
+their work type of load etc. For example a worker node could be database, frontend etc.
+Whatever label we provide, it can be seen in output of `kubectl get node -o wide` or `kubectl describe node`.
+
 ### node-role.kubernetes.io/control-plane {#node-role-kubernetes-io-control-plane-taint}
 
 Type: Taint
