@@ -12,7 +12,7 @@ tags:
 - core-object
 - workload
 ---
- एक  {{< glossary_tooltip text="पॉड" term_id="pod" >}} की एक कॉपी  {{< glossary_tooltip text="क्लस्टर" term_id="cluster" >}} के विभिन्न नोड्स पर चल रही है, यह सुनिश्चित करता है।
+ यह सुनिश्चित करता है कि {{<glossary_tooltip text="पॉड" term_id="pod">}} की एक प्रति {{<glossary_tooltip text="क्लस्टर" term_id="cluster" >}} में नोड्स के एक सेट पर चल रही है।
 
 <!--more--> 
 
