@@ -171,7 +171,7 @@ follow [configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/conf
 
 ## CRI version support {#cri-versions}
 
-Your container runtime must support at least v1alpha2 of the container runtime interface.
+Your container runtime must support at least v1 of the container runtime interface.
 
 Kubernetes [starting v1.26](/blog/2022/11/18/upcoming-changes-in-kubernetes-1-26/#cri-api-removal)
 _only works_ with v1 of the CRI API. Earlier versions default
