@@ -5,7 +5,6 @@
 このリポジトリには、[KubernetesのWebサイトとドキュメント](https://kubernetes.io/)をビルドするために必要な全アセットが格納されています。あなたの貢献をお待ちしています！
 
 - [ドキュメントに貢献する](#contributing-to-the-docs)
-- [翻訳された`README.md`一覧](#localization-readmemds)
 
 ## リポジトリの使い方
 
