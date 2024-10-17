@@ -4,6 +4,8 @@ content_type: concept
 weight: 20
 ---
 
+PLACEHOLDER
+
 <!-- overview -->
 
 This command initializes a Kubernetes control-plane node.
