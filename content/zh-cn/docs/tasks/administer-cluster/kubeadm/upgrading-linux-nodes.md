@@ -1,7 +1,7 @@
 ---
 title: 升级 Linux 节点
 content_type: task
-weight: 100
+weight: 40
 ---
 <!--
 title: Upgrading Linux nodes
