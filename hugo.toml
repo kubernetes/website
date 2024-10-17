@@ -158,9 +158,6 @@ githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 # GitHub repository link for editing a page and opening issues.
 github_repo = "https://github.com/kubernetes/website"
 
-# Searching
-k8s_search = true
-
 # The following search parameters are specific to Docsy's implementation. Kubernetes implementes its own search-related partials and scripts.
 
 # Google Custom Search Engine ID. Remove or comment out to disable search.
@@ -216,6 +213,8 @@ url = "https://v1-27.docs.kubernetes.io"
 
 # User interface configuration
 [params.ui]
+# Searching (eg via Google / Bing). Customized from Docsy's usual search.
+search = true
 # Enable to show the side bar menu in its compact state.
 sidebar_menu_compact = false
 # Show expand/collapse icon for sidebar sections.
