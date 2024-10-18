@@ -1,0 +1,62 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base/
+
+secretGenerator:
+  - name: demo-secret
+    envs:
+      - secrets/default.env
+    options:
+      disableNameSuffixHash: true
+
+images:
+  - name: IMAGE
+    newName: demo-secret
+    newTag: stage-01
+
+patches:
+- target:
+    kind: Pod
+  patch: |-
+
+    - op: add
+      path: "/spec/containers/0/lifecycle"
+      value:
+        postStart:
+          exec:
+            command: ["sh", "-c", "wget -qO- localhost:8080/readiness && echo > ${DEMO_SECRET__PASSWD_FILE}"]
+
+    - op: add
+      path: "/spec/containers/0/envFrom"
+      value:
+        - secretRef:
+            name: demo-secret
+
+    - op: add
+      path: "/spec/containers/0/volumeMounts"
+      value:
+        - name: demo-secret
+          mountPath: /secrets
+
+    - op: add
+      path: "/spec/volumes"
+      value:
+        - name: demo-secret
+          emptyDir: {}
+
+    - op: add
+      path: "/spec/initContainers"
+      value:
+        - name: secret-injector
+          image: alpine:3.19
+          command: ["sh", "-c", "cat /dev/urandom |base64 -w 0|fold -w 16| head -1 > ${DEMO_SECRET__PASSWD_FILE}"]
+          volumeMounts:
+            - name: demo-secret
+              mountPath: /secrets
+          envFrom:
+           - secretRef:
+               name: demo-secret
+
