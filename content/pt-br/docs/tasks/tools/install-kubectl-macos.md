@@ -129,12 +129,12 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
    rm kubectl.sha256
    ```
 
-### Install with Homebrew on macOS
+### Instalar com Homebrew no macOS
 
-If you are on macOS and using [Homebrew](https://brew.sh/) package manager,
-you can install kubectl with Homebrew.
+Se você está no macOS e usando o gerenciador de pacote [Homebrew](https://brew.sh/),
+você pode instalar o kubectl usando o Homebrew.
 
-1. Run the installation command:
+1. Execute o comando de instalação:
 
    ```bash
    brew install kubectl
@@ -146,7 +146,7 @@ you can install kubectl with Homebrew.
    brew install kubernetes-cli
    ```
 
-1. Test to ensure the version you installed is up-to-date:
+1. Teste para validar se a versão instalada está atualizada:
 
    ```bash
    kubectl version --client
