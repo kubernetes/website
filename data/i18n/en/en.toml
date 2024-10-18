@@ -161,6 +161,9 @@ other = "Were you looking for:"
 [examples_heading]
 other = "Examples"
 
+[feature_gate_enabled]
+other = "(enabled by default: {{ .enabled }})"
+
 [feature_gate_stage_alpha]
 other = "Alpha"
 
