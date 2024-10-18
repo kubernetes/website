@@ -34,16 +34,20 @@ For example, if you set a `memory` request of 256 MiB for a container, and that 
 a Pod scheduled to a Node with 8GiB of memory and no other Pods, then the container can try to use
 more RAM.
 
-If you set a `memory` limit of 4GiB for that container, the kubelet (and
-{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}) enforce the limit.
-The runtime prevents the container from using more than the configured resource limit. For example:
-when a process in the container tries to consume more than the allowed amount of memory,
-the system kernel terminates the process that attempted the allocation, with an out of memory
-(OOM) error.
+Both `CPU` and `memory` limits are applied by the kubelet (and
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}),
+and are ultimately enforced by the kernel. On Linux nodes, limits are enforced
+by {{< glossary_tooltip text="cgroups" term_id="cgroup" >}}). However, `CPU` and `memory` limits
+are enforced differently.
 
-Limits can be implemented either reactively (the system intervenes once it sees a violation)
-or by enforcement (the system prevents the container from ever exceeding the limit). Different
-runtimes can have different ways to implement the same restrictions.
+`CPU` limits are enforced by CPU throttling. When a container approaches
+its `CPU` limit, the kernel will restrict access to the CPU corresponding to the
+container's limit.
+
+`memory` limits are enforced by the kernel with OOM (out of memory) kills. When
+a pod uses more than its `memory` limit, the kernel may terminate it. However,
+if there is available memory on the node, the kernel may choose not to terminate
+the offending pod.
 
 {{< note >}}
 If you specify a limit for a resource, but do not specify any request, and no admission-time
@@ -884,4 +888,3 @@ memory limit (and possibly request) for that container.
 * Read about [project quotas](https://www.linux.org/docs/man8/xfs_quota.html) in XFS
 * Read more about the [kube-scheduler configuration reference (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 * Read more about [Quality of Service classes for Pods](/docs/concepts/workloads/pods/pod-qos/)
-
