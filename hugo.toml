@@ -300,7 +300,7 @@ i18nDir = "./data/i18n"
 description = "Production-Grade Container Orchestration"
 
 [languages.bn]
-title = "Kubernetes"
+title = "কুবারনেটিস"
 languageName = "বাংলা (Bengali)"
 weight = 2
 contentDir = "content/bn"
