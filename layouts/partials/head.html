@@ -82,11 +82,6 @@
 <script defer src="{{ "js/dismiss_banner.js" | relURL }}"></script>
 
 {{- if eq (lower .Params.cid) "community" -}}
-{{- if eq .Params.community_styles_migrated true -}}
-<link href="/css/community.css" rel="stylesheet"><!-- legacy styles -->
-{{- else -}}
-<link href="/css/legacy_community.css" rel="stylesheet">
-{{- end -}}
 <script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 {{- end -}}
 {{ with .Params.js }}{{ range (split . ",") }}<script src="{{ (trim . " ") | relURL }}"></script><!-- custom js added -->
