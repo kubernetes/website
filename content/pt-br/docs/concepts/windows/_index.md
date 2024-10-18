@@ -3,10 +3,10 @@ title: "Windows no Kubernetes"
 simple_list: true
 weight: 200 # late in list
 description: >-
-  O Kubernetes oferece suporte a nodes que executam Microsoft Windows.
+  O Kubernetes oferece suporte a nós que executam Microsoft Windows.
 ---
 
-O Kubernetes oferece suporte a {{< glossary_tooltip text="nodes" term_id="node" >}} de trabalho que executam Linux ou Microsoft Windows.
+O Kubernetes oferece suporte a {{< glossary_tooltip text="nós" term_id="nós" >}} de trabalho que executam Linux ou Microsoft Windows.
 
 {{% thirdparty-content single="true" %}}
 
