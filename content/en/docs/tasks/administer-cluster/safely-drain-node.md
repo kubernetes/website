@@ -100,8 +100,8 @@ afterwards to tell Kubernetes that it can resume scheduling new pods onto the no
 
 ## Draining multiple nodes in parallel
 
-The `kubectl drain` command should only be issued to a single node at a
-time. However, you can run multiple `kubectl drain` commands for
+The `kubectl drain` command should only be issued to a single node at a time. This is because as maintenance is being performed on the node, the pods are safely evicted until the node is back in service. If the command is used for more than a single node, the pods that are part of the service may also get terminated due to eviction. This can cause disruption and potential data loss in the running application.
+However, you can run multiple `kubectl drain` commands for
 different nodes in parallel, in different terminals or in the
 background. Multiple drain commands running concurrently will still
 respect the PodDisruptionBudget you specify.
