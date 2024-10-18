@@ -115,9 +115,9 @@ spec:
   selector:
     app.kubernetes.io/name: MyApp
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
+  - protocol: TCP
+    port: 80
+    targetPort: 9376
 ```
 
 Applying this manifest creates a new Service named "my-service" with the default
@@ -160,8 +160,8 @@ spec:
   - name: nginx
     image: nginx:stable
     ports:
-      - containerPort: 80
-        name: http-web-svc
+    - containerPort: 80
+      name: http-web-svc
 
 ---
 apiVersion: v1
@@ -219,10 +219,10 @@ metadata:
   name: my-service
 spec:
   ports:
-    - name: http
-      protocol: TCP
-      port: 80
-      targetPort: 9376
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 9376
 ```
 
 Because this Service has no selector, the corresponding EndpointSlice (and
@@ -242,15 +242,15 @@ metadata:
     kubernetes.io/service-name: my-service
 addressType: IPv4
 ports:
-  - name: http # should match with the name of the service port defined above
-    appProtocol: http
-    protocol: TCP
-    port: 9376
+- name: http # should match with the name of the service port defined above
+  appProtocol: http
+  protocol: TCP
+  port: 9376
 endpoints:
-  - addresses:
-      - "10.4.5.6"
-  - addresses:
-      - "10.1.2.3"
+- addresses:
+  - "10.4.5.6"
+- addresses:
+  - "10.1.2.3"
 ```
 
 #### Custom EndpointSlices
@@ -388,14 +388,14 @@ spec:
   selector:
     app.kubernetes.io/name: MyApp
   ports:
-    - name: http
-      protocol: TCP
-      port: 80
-      targetPort: 9376
-    - name: https
-      protocol: TCP
-      port: 443
-      targetPort: 9377
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 9376
+  - name: https
+    protocol: TCP
+    port: 443
+    targetPort: 9377
 ```
 
 {{< note >}}
@@ -513,14 +513,14 @@ spec:
   selector:
     app.kubernetes.io/name: MyApp
   ports:
-    - port: 80
-      # By default and for convenience, the `targetPort` is set to
-      # the same value as the `port` field.
-      targetPort: 80
-      # Optional field
-      # By default and for convenience, the Kubernetes control plane
-      # will allocate a port from a range (default: 30000-32767)
-      nodePort: 30007
+  - port: 80
+    # By default and for convenience, the `targetPort` is set to
+    # the same value as the `port` field.
+    targetPort: 80
+    # Optional field
+    # By default and for convenience, the Kubernetes control plane
+    # will allocate a port from a range (default: 30000-32767)
+    nodePort: 30007
 ```
 
 #### Reserve Nodeport ranges to avoid collisions  {#avoid-nodeport-collisions}
@@ -578,9 +578,9 @@ spec:
   selector:
     app.kubernetes.io/name: MyApp
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
+  - protocol: TCP
+    port: 80
+    targetPort: 9376
   clusterIP: 10.0.171.239
   type: LoadBalancer
 status:
@@ -1048,12 +1048,12 @@ spec:
   selector:
     app.kubernetes.io/name: MyApp
   ports:
-    - name: http
-      protocol: TCP
-      port: 80
-      targetPort: 49152
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 49152
   externalIPs:
-    - 198.51.100.32
+  - 198.51.100.32
 ```
 
 {{< note >}}

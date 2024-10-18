@@ -424,22 +424,21 @@ who runs the kube-apiserver can read this configuration.
 Create a new encryption configuration file. The contents should be similar to:
 
 ```yaml
----
 apiVersion: apiserver.config.k8s.io/v1
 kind: EncryptionConfiguration
 resources:
-  - resources:
-      - secrets
-      - configmaps
-      - pandas.awesome.bears.example
-    providers:
-      - aescbc:
-          keys:
-            - name: key1
-              # See the following text for more details about the secret value
-              secret: <BASE 64 ENCODED SECRET>
-      - identity: {} # this fallback allows reading unencrypted secrets;
-                     # for example, during initial migration
+- resources:
+  - secrets
+  - configmaps
+  - pandas.awesome.bears.example
+  providers:
+  - aescbc:
+      keys:
+      - name: key1
+        # See the following text for more details about the secret value
+        secret: <BASE 64 ENCODED SECRET>
+  - identity: {} # this fallback allows reading unencrypted secrets;
+                  # for example, during initial migration
 ```
 
 To create a new encryption key (that does not use KMS), see
@@ -681,21 +680,20 @@ To disable encryption at rest, place the `identity` provider as the first
 entry in your encryption configuration file:
 
 ```yaml
----
 apiVersion: apiserver.config.k8s.io/v1
 kind: EncryptionConfiguration
 resources:
-  - resources:
-      - secrets
-      # list any other resources here that you previously were
-      # encrypting at rest
-    providers:
-      - identity: {} # add this line
-      - aescbc:
-          keys:
-            - name: key1
-              secret: <BASE 64 ENCODED SECRET> # keep this in place
-                                               # make sure it comes after "identity"
+- resources:
+  - secrets
+  # list any other resources here that you previously were
+  # encrypting at rest
+  providers:
+  - identity: {} # add this line
+  - aescbc:
+      keys:
+      - name: key1
+        secret: <BASE 64 ENCODED SECRET> # keep this in place
+                                          # make sure it comes after "identity"
 ```
 
 Then run the following command to force decryption of all Secrets:

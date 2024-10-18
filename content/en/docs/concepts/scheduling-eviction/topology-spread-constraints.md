@@ -51,7 +51,6 @@ The Pod API includes a field, `spec.topologySpreadConstraints`. The usage of thi
 the following:
 
 ```yaml
----
 apiVersion: v1
 kind: Pod
 metadata:
@@ -59,14 +58,14 @@ metadata:
 spec:
   # Configure a topology spread constraint
   topologySpreadConstraints:
-    - maxSkew: <integer>
-      minDomains: <integer> # optional
-      topologyKey: <string>
-      whenUnsatisfiable: <string>
-      labelSelector: <object>
-      matchLabelKeys: <list> # optional; beta since v1.27
-      nodeAffinityPolicy: [Honor|Ignore] # optional; beta since v1.26
-      nodeTaintsPolicy: [Honor|Ignore] # optional; beta since v1.26
+  - maxSkew: <integer>
+    minDomains: <integer> # optional
+    topologyKey: <string>
+    whenUnsatisfiable: <string>
+    labelSelector: <object>
+    matchLabelKeys: <list> # optional; beta since v1.27
+    nodeAffinityPolicy: [Honor|Ignore] # optional; beta since v1.26
+    nodeTaintsPolicy: [Honor|Ignore] # optional; beta since v1.26
   ### other Pod fields go here
 ```
 
@@ -519,15 +518,15 @@ apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 
 profiles:
-  - schedulerName: default-scheduler
-    pluginConfig:
-      - name: PodTopologySpread
-        args:
-          defaultConstraints:
-            - maxSkew: 1
-              topologyKey: topology.kubernetes.io/zone
-              whenUnsatisfiable: ScheduleAnyway
-          defaultingType: List
+- schedulerName: default-scheduler
+  pluginConfig:
+  - name: PodTopologySpread
+    args:
+      defaultConstraints:
+      - maxSkew: 1
+        topologyKey: topology.kubernetes.io/zone
+        whenUnsatisfiable: ScheduleAnyway
+      defaultingType: List
 ```
 ### Built-in default constraints {#internal-default-constraints}
 
@@ -569,12 +568,12 @@ apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 
 profiles:
-  - schedulerName: default-scheduler
-    pluginConfig:
-      - name: PodTopologySpread
-        args:
-          defaultConstraints: []
-          defaultingType: List
+- schedulerName: default-scheduler
+  pluginConfig:
+  - name: PodTopologySpread
+    args:
+      defaultConstraints: []
+      defaultingType: List
 ```
 
 ## Comparison with podAffinity and podAntiAffinity {#comparison-with-podaffinity-podantiaffinity}

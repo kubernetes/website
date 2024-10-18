@@ -43,12 +43,12 @@ kind: ClusterRole
 metadata:
   name: kubeadm:get-nodes
 rules:
-  - apiGroups:
-      - ""
-    resources:
-      - nodes
-    verbs:
-      - get
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -59,9 +59,9 @@ roleRef:
   kind: ClusterRole
   name: kubeadm:get-nodes
 subjects:
-  - apiGroup: rbac.authorization.k8s.io
-    kind: Group
-    name: system:bootstrappers:kubeadm:default-node-token
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: system:bootstrappers:kubeadm:default-node-token
 ```
 
 ## `ebtables` or some similar executable not found during installation
