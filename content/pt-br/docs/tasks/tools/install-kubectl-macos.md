@@ -9,9 +9,9 @@ weight: 10
 ## {{% heading "prerequisites" %}}
 
 Você deve utilizar uma versão do kubectl que tenha pouca diferença da versão do
-seu cluster. Por exemplo, um v{{< skew currentVersion >}} cliente pode comunicar-se
-com v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
-e v{{< skew currentVersionAddMinor 1 >}} control planes.
+seu cluster. Por exemplo, um cliente v{{< skew currentVersion >}} pode comunicar-se
+com control planes v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
+e v{{< skew currentVersionAddMinor 1 >}}.
 Usar a versão compatível e mais recente do kubectl pode evitar imprevistos ou problemas.
 
 ## Instalando o kubectl no macOS
@@ -27,9 +27,9 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
   - [Habilitar autocomplete no shell](#habilitar-autocomplete-no-shell)
   - [Instalar `kubectl convert` plugin](#instalar-kubectl-convert-plugin)
 
-### Install kubectl binary with curl on macOS
+### Instalar o binário do kubectl com o curl no macOS
 
-1. Download the latest release:
+1. Baixe a última versão:
 
    {{< tabs name="download_binary_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
@@ -41,16 +41,16 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
    {{< /tabs >}}
 
    {{< note >}}
-   To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
-   portion of the command with the specific version.
+   Para baixar uma versão específica, substitua `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
+   parte do comando com a versão específica da versão.
 
-   For example, to download version {{< skew currentPatchVersion >}} on Intel macOS, type:
+   Por exemplo, para baixar a versão {{< skew currentPatchVersion >}} no Intel macOS, digite:
 
    ```bash
    curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl"
    ```
 
-   And for macOS on Apple Silicon, type:
+   E para macOS no Apple Silicon, digite:
 
    ```bash
    curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/arm64/kubectl"
@@ -58,9 +58,9 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
 
    {{< /note >}}
 
-1. Validate the binary (optional)
+1. Validando o binário (opcional)
 
-   Download the kubectl checksum file:
+   Baixe o arquivo de checksum do kubectl:
 
    {{< tabs name="download_checksum_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
@@ -71,19 +71,19 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
    {{< /tab >}}
    {{< /tabs >}}
   
-   Validate the kubectl binary against the checksum file:
+   Validando o binário do kubectl com o arquivo de checksum:
 
    ```bash
    echo "$(cat kubectl.sha256)  kubectl" | shasum -a 256 --check
    ```
 
-   If valid, the output is:
+   Se for válido, a saída será:
 
    ```console
    kubectl: OK
    ```
 
-   If the check fails, `shasum` exits with nonzero status and prints output similar to:
+   Se a houver falha na validação, `shasum` ele retornará uma saída diferente de zero semelhante a:
 
    ```console
    kubectl: FAILED
@@ -91,16 +91,16 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
    ```
 
    {{< note >}}
-   Download the same version of the binary and checksum.
+   Baixe a mesma versão do binário e do checksum.
    {{< /note >}}
 
-1. Make the kubectl binary executable.
+1. Tornando o binário do kubectl executável.
 
    ```bash
    chmod +x ./kubectl
    ```
 
-1. Move the kubectl binary to a file location on your system `PATH`.
+1. Movendo o binário do kubectl para um diretório do seu sistema`PATH`.
 
    ```bash
    sudo mv ./kubectl /usr/local/bin/kubectl
@@ -111,19 +111,19 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
    Make sure `/usr/local/bin` is in your PATH environment variable.
    {{< /note >}}
 
-1. Test to ensure the version you installed is up-to-date:
+1. Teste para validar que a versão instalada está atualizada:
 
    ```bash
    kubectl version --client
    ```
    
-   Or use this for detailed view of version:
+   Ou se preferir, use o seguinte comando para uma visão mais detalhada sobre a versão do Kubernetes:
 
    ```cmd
    kubectl version --client --output=yaml
    ```
 
-1. After installing and validating kubectl, delete the checksum file:
+1. Depois de instalar e validar o kubectl, delete o arquivo de checksum:
 
    ```bash
    rm kubectl.sha256
