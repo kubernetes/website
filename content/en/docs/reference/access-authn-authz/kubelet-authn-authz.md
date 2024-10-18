@@ -74,6 +74,25 @@ Kubelet API         | resource | subresource
 /checkpoint/\*      | nodes    | checkpoint
 *all others*        | nodes    | proxy
 
+{{< feature-state feature_gate_name="KubeletFineGrainedAuthz" >}}
+
+When the feature-gate `KubeletFineGrainedAuthz` is enabled kubelet performs a
+fine-grained check before falling back to the `proxy` subresource for the `/pods`,
+`/runningPods`, `/configz` and `/healthz` endpoints. So the table
+above changes to:
+
+Kubelet API   | resource | subresource
+--------------|----------|------------
+/stats/\*     | nodes    | stats
+/metrics/\*   | nodes    | metrics
+/logs/\*      | nodes    | log
+/spec/\*      | nodes    | spec
+/pods         | nodes    | pods, proxy
+/runningPods/ | nodes    | pods, proxy
+/healthz      | nodes    | healthz, proxy
+/configz      | nodes    | configz, proxy 
+*all others*  | nodes    | proxy
+
 The namespace and API group attributes are always an empty string, and
 the resource name is always the name of the kubelet's `Node` API object.
 
@@ -85,3 +104,12 @@ flags passed to the apiserver is authorized for the following attributes:
 * verb=\*, resource=nodes, subresource=log
 * verb=\*, resource=nodes, subresource=spec
 * verb=\*, resource=nodes, subresource=metrics
+
+{{< feature-state feature_gate_name="KubeletFineGrainedAuthz" >}}
+
+When the feature-gate `KubeletFineGrainedAuthz` is enabled, ensure the user identified by the `--kubelet-client-certificate` and `--kubelet-client-key`
+flags passed to the apiserver is additionally authorized for the following attributes :
+
+* verb=\*, resource=nodes, subresource=configz
+* verb=\*, resource=nodes, subresource=healthz
+* verb=\*, resource=nodes, subresource=pods
