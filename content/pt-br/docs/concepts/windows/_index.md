@@ -10,7 +10,7 @@ O Kubernetes oferece suporte a {{< glossary_tooltip text="nós" term_id="nós" >
 
 {{% thirdparty-content single="true" %}}
 
-A CNCF e sua empresa-mãe, a Linux Foundation, adotam uma abordagem neutra a fornecedores em relação à compatibilidade. É possível adicionar seu [servidor Windows](https://www.microsoft.com/pt-br/windows-server) como um node de trabalho em um cluster Kubernetes.
+A CNCF e sua controladora, a Linux Foundation, adotam uma abordagem neutra a fornecedores em relação à compatibilidade. É possível adicionar seu [servidor Windows](https://www.microsoft.com/pt-br/windows-server) como um node de trabalho em um cluster Kubernetes.
 
 Você pode [instalar e configurar o kubectl no Windows](/docs/tasks/tools/install-kubectl-windows/), independentemente do sistema operacional que você usa em seu cluster.
 
