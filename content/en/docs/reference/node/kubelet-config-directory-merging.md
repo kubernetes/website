@@ -4,9 +4,8 @@ title: Kubelet Configuration Directory Merging
 weight: 50
 ---
 
-When using the kubelet's `--config-dir` flag to specify a drop-in directory for
-configuration, there is some specific behavior on how different types are
-merged.
+When you provide the `--config-dir` command line argument, the kubelet follows specific behaviors to merge
+different types of configuration files.
 
 Here are some examples of how different data types behave during configuration merging:
 
