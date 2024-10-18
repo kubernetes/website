@@ -81,6 +81,8 @@ The following sysctls are supported in the _safe_ set:
 - `net.ipv4.tcp_fin_timeout` (since Kubernetes 1.29, needs kernel 4.6+);
 - `net.ipv4.tcp_keepalive_intvl` (since Kubernetes 1.29, needs kernel 4.5+);
 - `net.ipv4.tcp_keepalive_probes` (since Kubernetes 1.29, needs kernel 4.5+).
+- `net.ipv4.tcp_rmem` (since Kubernetes 1.32, needs kernel 4.15+).
+- `net.ipv4.tcp_wmem` (since Kubernetes 1.32, needs kernel 4.15+).
 
 {{< note >}}
 There are some exceptions to the set of safe sysctls:
