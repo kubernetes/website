@@ -100,9 +100,8 @@ In the above example, this version is `kubelet.config.k8s.io/v1beta1`.
 
 {{<feature-state for_k8s_version="v1.30" state="beta" >}}
 
-You can specify a drop-in configuration directory for the kubelet. By default, the kubelet does not look
-for drop-in configuration files anywhere - you must specify a path.
-For example: `--config-dir=/etc/kubernetes/kubelet.conf.d`
+By default, the kubelet looks for drop-in configuration files in `/etc/kubernetes/kubelet.conf.d`.
+You can opt out by setting `--config-dir=""`.
 
 For Kubernetes v1.28 to v1.29, you can only specify `--config-dir` if you also set
 the environment variable `KUBELET_CONFIG_DROPIN_DIR_ALPHA` for the kubelet process (the value
