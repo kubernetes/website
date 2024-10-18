@@ -254,6 +254,8 @@ tools to help with that:
   [AppArmor documentation](https://gitlab.com/apparmor/apparmor/wikis/Profiling_with_tools).
 * [bane](https://github.com/jfrazelle/bane) is an AppArmor profile generator for Docker that uses a
   simplified profile language.
+* [Armiel](https://archguardian.io/generate/) is an automatic AppArmor profile generator service
+  for containers that generates profiles based on behavior.
 
 To debug problems with AppArmor, you can check the system logs to see what, specifically, was
 denied. AppArmor logs verbose messages to `dmesg`, and errors can usually be found in the system
