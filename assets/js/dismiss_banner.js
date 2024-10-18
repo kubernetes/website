@@ -27,14 +27,14 @@ $(document).ready(function() {
     announcement.remove(); // Remove the announcement if the cookie is set
   }
   else {
-    announcement.classList.add('display-announcement') // Display the announcement if the cookie is not set
+    announcement.classList.remove('announcement-hidden') // Display the announcement if the cookie is not set
   }
 
   /* Driver code to set the cookie */
   let button = document.querySelector('#banner-dismiss');
   button.removeAttribute('style');
   button.addEventListener('click', function() {
-    setCookie(token, "true", 
+    setCookie(token, "true",
     button.getAttribute('data-ttl')); // Set a cookie with time to live parameter
     announcement.remove();
   });

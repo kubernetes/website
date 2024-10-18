@@ -1,15 +1,16 @@
-{{/* 
-This shortcode renders a main feature as seen on the top of the Kubernetes home page.
-
-It can be given a "image" parameter with a name partially matching a file in the images folder of the _common-resources bundle.
-
- */}}
 {{- $imageName := $.Get "image" | default "flower" -}}
-{{ if  $imageName }}{{- template "shortcodes-blocks_getimage" (dict "name" $imageName "ctx" . "target" "feature-image") -}}{{ end }}
-{{- $image := $.Scratch.Get "feature-image" -}}
-<div class="main-section">
-	{{ with $image }}<div class="image-wrapper"><img src="{{ .RelPermalink }}" alt=""></div>{{ end }}
-	<div class="content">
-		{{ $.Inner }}
-	</div>
+{{- $icon := .Get "icon" | default "fa-lightbulb" -}}
+{{- $id := .Get "id" | default (printf "feature-%d" .Ordinal) -}}
+{{- $url_text := .Get "url_text" -}}
+<div class="section-feature" id="{{ $id }}">
+{{- with resources.Get ( printf "images/common-resources/%s.svg" $imageName) -}}
+<div class="image-wrapper"><img src="{{ .RelPermalink }}" alt=""></div>
+{{- else -}}
+<div class="mb-4 h1">
+  <i class="{{ if not (or (hasPrefix $icon "fas ") (hasPrefix $icon "fab ")) }}fas {{ end }}{{ $icon }}"></i>
+</div>
+{{- end -}}
+<div class="content">
+{{ .Inner }}
+</div>
 </div>
