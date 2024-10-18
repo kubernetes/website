@@ -1,5 +1,4 @@
 {{- $isBlogPost := eq .Section "blog" }}
-{{- $ogType := cond (.IsHome) "website" "article" }}
 
 {{ $outputFormat := partial "outputformat.html" . -}}
 {{ if and hugo.IsProduction (ne $outputFormat "print") -}}
@@ -22,9 +21,7 @@
 {{ end -}}
 {{ partialCached "favicons.html" . }}
 <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
-{{- template "_internal/opengraph.html" . -}}
 {{- template "_internal/schema.html" . -}}
-{{- template "_internal/twitter_cards.html" . -}}
 {{- if hugo.IsProduction -}}
 {{ template "_internal/google_analytics.html" . }}
 {{ end }}
@@ -52,13 +49,14 @@
 {{ end }}
   }
 </script>
-<meta name="theme-color" content="#326ce5">
 {{ partial "css.html" . }}
 <!-- Content for social media sharing previews -->
 <!-- Facebook uses the og: stuff, while Twitter and others use twitter: -->
 <meta name="description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Summary }}{{ end }}">
 <meta property="og:description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Summary }}{{ end }}">
-<meta name="twitter:description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Summary }}{{ end }}">
+{{- with or .Description .Summary site.Params.description | plainify | htmlUnescape -}}
+<meta name="twitter:description" content="{{ trim . "\n\r\t " }}">
+{{- end }}
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:title" content="{{ if .Params.title }}{{ .Title }}{{ else }}{{ .Summary | truncate 10 }}{{ end }}">
 <meta name="twitter:title" content="{{ if .Params.title }}{{ .Title }}{{ else }}{{ .Summary | truncate 10 }}{{ end }}">
@@ -66,13 +64,29 @@
 <!-- Alt text for the site image -->
 <meta name="twitter:image:alt" content="{{ site.Title }}">
 {{ if $isBlogPost }}
-{{ with findRE "<img.*?>" .Content 1 }}
+{{- if .IsPage }}
+<meta property="og:type" content="article">
+{{- $ISO8601 := "2006-01-02T15:04:05-07:00" }}
+{{- with .PublishDate }}
+<meta property="article:published_time" {{ .Format $ISO8601 | printf "content=%q" | safeHTMLAttr }}>
+{{- end -}}
+{{- with .Lastmod -}}
+<meta property="article:modified_time" {{ .Format $ISO8601 | printf "content=%q" | safeHTMLAttr }}>
+{{- end -}}
+{{- else -}}
+{{- end -}}
+{{- with findRE "<img.*?>" .Content 1 -}}
 <meta property="og:image" content="{{ index . 0 | replaceRE ".*src=\"(.+?)\".*" "$1" }}">
-{{ end }}
-{{ else }}
-<meta property="og:image" content="{{ "/images/kubernetes-horizontal-color.png" | relURL }}">
-{{ end }}
-<meta property="og:type" content="{{ $ogType }}">
+{{- end }}
+{{- else -}}
+{{/* everything except blog articles */}}
+{{- with resources.Get "images/kubernetes-horizontal-color.png" -}}
+<meta property="og:image" content="{{ .Permalink }}">
+{{- else -}}{{/* missing resource */}}
+{{- warnf "%s" "No image for Open Graph metadata" -}}
+{{- end }}
+<meta property="og:type" content="website">
+{{- end }}
 
 <script src="/js/jquery-3.6.0.min.js" intregrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" crossorigin="anonymous"></script>
 <!--script src="https://unpkg.com/split.js/dist/split.min.js"></script-->
