@@ -152,19 +152,19 @@ você pode instalar o kubectl usando o Homebrew.
    kubectl version --client
    ```
 
-### Install with Macports on macOS
+### Instalar com Macports no macOS
 
-If you are on macOS and using [Macports](https://macports.org/) package manager,
-you can install kubectl with Macports.
+Se você está no macOS, usando o gerenciador de pacotes [Macports](https://macports.org/),
+você pode instalar o kubectl utilizando o Macports.
 
-1. Run the installation command:
+1. Execute o comando de instalação:
 
    ```bash
    sudo port selfupdate
    sudo port install kubectl
    ```
 
-1. Test to ensure the version you installed is up-to-date:
+1. Teste para validar se a versão instalada está atualizada:
 
    ```bash
    kubectl version --client
