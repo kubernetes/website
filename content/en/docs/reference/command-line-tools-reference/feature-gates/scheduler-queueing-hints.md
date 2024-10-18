@@ -13,6 +13,10 @@ stages:
   - stage: beta
     defaultValue: false
     fromVersion: "1.29"
+    toVersion: "1.31"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.32"
 ---
 Enables [the scheduler's _queueing hints_ enhancement](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/4247-queueinghint/README.md),
 which benefits to reduce the useless requeueing.
