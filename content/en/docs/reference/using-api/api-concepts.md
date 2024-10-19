@@ -152,7 +152,9 @@ For example:
 
    ```
    GET /api/v1/pods
-   ---
+   ```
+
+   ```
    200 OK
    Content-Type: application/json
 
@@ -166,7 +168,9 @@ For example:
    Content-Type: application/json
    Accept: application/json
    … JSON encoded Pod object
-   ---
+   ```
+
+   ```
    200 OK
    Content-Type: application/json
 
@@ -230,7 +234,9 @@ For example:
    ```
    GET /api/v1/pods
    Accept: application/vnd.kubernetes.protobuf
-   ---
+   ```
+
+   ```
    200 OK
    Content-Type: application/vnd.kubernetes.protobuf
 
@@ -245,7 +251,9 @@ For example:
    Content-Type: application/vnd.kubernetes.protobuf
    Accept: application/json
    … binary encoded Pod object
-   ---
+   ```
+
+   ```
    200 OK
    Content-Type: application/json
 
