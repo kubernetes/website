@@ -127,8 +127,8 @@ virtual resource type would be used if that becomes necessary.
 Over HTTP, Kubernetes supports JSON and Protobuf wire encodings.
 
 By default, Kubernetes returns objects in [JSON serialization](#json-encoding), using the
-`application/json` media type. Although JSON is the default, clients may request the more
-efficient binary [Protobuf representation](#protobuf-encoding) for better performance at scale.
+`application/json` media type. Although JSON is the default, clients may request a response in
+YAML, or use the more efficient binary [Protobuf representation](#protobuf-encoding) for better performance at scale.
 
 The Kubernetes API implements standard HTTP content type negotiation: passing an
 `Accept` header with a `GET` call will request that the server tries to return
@@ -186,7 +186,9 @@ For example:
    ```
    GET /api/v1/pods
    Accept: application/yaml
-   ---
+   ```
+   
+   ```
    200 OK
    Content-Type: application/yaml
 
@@ -199,7 +201,9 @@ For example:
    Content-Type: application/yaml
    Accept: application/yaml
    … YAML encoded Pod object
-   ---
+   ```
+   
+   ```
    200 OK
    Content-Type: application/yaml
 
