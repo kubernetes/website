@@ -162,7 +162,7 @@ body {
 
     > .feature-state-name::before {
       content: 'ⓘ  ';
-      color: #326ce5; // Kubernetes blue
+      color: $primary;
     }
     > .feature-state-name {
       display: inline-block;
@@ -214,7 +214,7 @@ body {
 }
 
 .deprecation-warning.outdated-blog, .pageinfo.deprecation-warning.outdated-blog {
-    background-color: $blue;
+    background-color: $primary;
     color: $white;
 }
 
@@ -251,7 +251,7 @@ body.glossary {
       display: none;
     }
     ul.glossary-terms > li:has(.term-anchor:target) {
-      border-left: 0.3em solid $blue;
+      border-left: 0.3em solid $primary;
       background: rgba(#999999, 0.2);
     }
     #tag-container {
@@ -280,7 +280,7 @@ body.glossary {
         font-size: 0.925em;
       }
       .tag-option:not(.canonical-tag):hover {
-        outline: 1.5px solid $blue;
+        outline: 1.5px solid $primary;
       }
       .tag-description {
         margin-left: auto;
@@ -300,18 +300,18 @@ body.glossary {
       }
       .active-tag {
         color: $white;
-        background-color: $blue;
+        background-color: $primary;
       }
       // darken on hover
       .canonical-tag:hover {
         background: darken(#999999, 15%)
       }
       .canonical-tag.active-tag:hover {
-        background: darken($blue, 15%)
+        background: darken($primary, 10%);
       }
     }
     .term-anchor:target + .term-name > span {
-      color: $blue;
+      color: $primary;
     }
     .term-anchor:target {
       visibility: initial;
@@ -362,7 +362,7 @@ body.glossary {
       padding-left: 0.1em;
     }
     .term-name:hover {
-      color: $blue;
+      color: $primary;
     }
     .term-name:not(:hover) > .permalink {
       visibility: hidden;
