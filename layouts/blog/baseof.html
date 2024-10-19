@@ -37,6 +37,9 @@
               RSS <i class="fa-solid fa-rss ml-2 "></i>
             </a>
             {{ end -}}
+            {{ block "deprecation_warning" . }}
+              {{ partial "deprecation-warning.html" . }}
+            {{ end }}
             {{ block "main" . }}{{ end }}
           </main>
           <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
