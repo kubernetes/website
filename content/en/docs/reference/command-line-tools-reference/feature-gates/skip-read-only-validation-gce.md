@@ -6,13 +6,15 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.28"
     toVersion: "1.28"
   - stage: deprecated
     defaultValue: true
-    fromVersion: "1.29"  
+    fromVersion: "1.29"
+    toVersion: "1.30"
+
+removed: true
 ---
-Skip validation for GCE, will enable in the
-next version.
+Skip validation that GCE PersistentDisk volumes are in read-only mode.
