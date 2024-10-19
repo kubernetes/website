@@ -2,7 +2,6 @@
 {{ if not .Site.Params.deprecated }}
   {{ .Content }}
 {{ else }}
-{{ partial "deprecation-warning.html" . }}
 <div class="section-index">
   {{ range where .Site.Pages "Section" "releases" }}
     {{ if not .IsNode }}
