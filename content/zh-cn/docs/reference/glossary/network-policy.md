@@ -11,6 +11,7 @@ tags:
 - networking
 - architecture
 - extension
+- core-object
 ---
 
 <!--
@@ -27,6 +28,7 @@ tags:
 - networking
 - architecture
 - extension
+- core-object
 ---
 
 <!--

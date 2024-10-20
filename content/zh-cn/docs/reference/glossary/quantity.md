@@ -8,7 +8,7 @@ short_description: >
 
 aka: 
 tags:
-- core-object
+- fundamental
 ---
 
 <!--
@@ -21,7 +21,7 @@ short_description: >
 
 aka: 
 tags:
-- core-object
+- fundamental
 -->
 
 <!--
