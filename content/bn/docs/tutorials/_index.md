@@ -28,6 +28,10 @@ content_type: ধারণা
 * [উদাহরণ: একটি জাভা মাইক্রোসার্ভিস কনফিগার কর](/docs/tutorials/configuration/configure-java-microservice/)
 * [কনফিগার ম্যাপ ব্যবহার করে রেডিস কনফিগার কর](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
+## অথরিং পড (Authoring Pods)
+
+* [এডপ্টিং সাইডকার কন্টেইনার](/docs/tutorials/configuration/pod-sidecar-containers/)
+
 ## স্টেটলেস অ্যাপ্লিকেশন
 
 * [একটি ক্লাস্টারে একটি অ্যাপ্লিকেশন অ্যাক্সেস করার জন্য একটি বহিরাগত আইপি ঠিকানা প্রকাশ করয ](/docs/tutorials/stateless-application/expose-external-ip-address/)
