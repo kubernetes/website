@@ -41,7 +41,6 @@ I componenti aggiuntivi in ogni sezione sono ordinati alfabeticamente - l'ordine
 ## Visualization & Control
 
 [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard) è un'interfaccia web dashboard per Kubernetes.
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s) è uno strumento per la visualizzazione grafica di contenitori, pod, servizi, ecc. Utilizzalo in combinazione con un [Weave Cloud account](https://cloud.weave.works/) o ospitali tu stesso.
 
 ## Legacy Add-ons
 
