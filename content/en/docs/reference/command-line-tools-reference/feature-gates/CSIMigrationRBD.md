@@ -13,6 +13,8 @@ stages:
   - stage: deprecated
     defaultValue: false
     fromVersion: "1.28"  
+    toVersion: "1.30"
+removed: true
 ---
 Enables shims and translation logic to route volume
 operations from the RBD in-tree plugin to Ceph RBD CSI plugin. Requires
