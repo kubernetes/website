@@ -1,3 +1,8 @@
+<!-- 
+Run this on any machine you wish to join an existing cluster 
+-->
+在你希望加入现有集群的任何机器上运行它。
+
 <!--
 ### Synopsis
 -->
