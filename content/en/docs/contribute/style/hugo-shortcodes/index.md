@@ -370,6 +370,34 @@ Add the shortcode:
 
 before the item, or just below the heading for the specific item.
 
+## Details
+
+You can render a `<details>` HTML element using a shortcode:
+
+```markdown
+{{</* details summary="More about widgets" */>}}
+The frobnicator extension API implements _widgets_ using example running text.
+
+Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
+adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
+dolore magnam aliquam quaerat voluptatem.
+{{</* /details */>}}
+```
+
+This renders as:
+{{< details summary="More about widgets" >}}
+The frobnicator extension API implements _widgets_ using example running text.
+
+Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
+adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
+dolore magnam aliquam quaerat voluptatem.
+{{< /details >}}
+
+{{< note >}}
+Use this shortcode sparingly; it is usually best to have all of the text directly shown
+to readers.
+{{< /note >}}
+
 ## Version strings
 
 To generate a version string for inclusion in the documentation, you can choose from

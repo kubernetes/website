@@ -238,6 +238,21 @@ body.td-home #deprecation-warning {
     margin-right: auto;
 }
 
+// <details> shortcode
+
+details > summary {
+  margin-bottom: 1em;
+  color: $primary;
+  background: transparent;
+}
+
+details:not([open]) > summary:after {
+  content: '…';
+  display: inline-block;
+}
+
+// glossary
+
 body.glossary {
   main {
     ul.glossary-terms > li {
