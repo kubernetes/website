@@ -354,8 +354,38 @@ will choose to evict pods of lowest Priority first.
 
 If you are running a [static pod](/docs/concepts/workloads/pods/#static-pods)
 and want to avoid having it evicted under resource pressure, set the
-`priority` field for that Pod directly. Static pods do not support the
-`priorityClassName` field.
+`priorityClassName` field for that Pod directly. 
+
+For example, the following configuration sets the priorityClassName for a static pod as `xyz-priority`. 
+
+```yaml
+kubectl get priorityclass
+NAME                      VALUE        GLOBAL-DEFAULT   AGE
+system-cluster-critical   2000000000   false            2m2s
+system-node-critical      2000001000   false            2m2s
+xyz-priority              1000000      false            47s
+```
+
+```yaml
+# This is a definition for a static Pod
+# You would define this directly for the kubelet on a particular node
+# (and not via kubectl)
+apiVersion: v1
+kind: Pod
+metadata:
+  name: static-web
+  labels:
+    role: myrole
+spec:
+  containers:
+    - name: web
+      image: nginx
+      ports:
+        - name: web
+          containerPort: 80
+          protocol: TCP
+  priorityClassName: xyz-priority
+```
 
 When the kubelet evicts pods in response to inode or process ID starvation, it uses
 the Pods' relative priority to determine the eviction order, because inodes and PIDs have no
