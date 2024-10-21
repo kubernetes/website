@@ -14,6 +14,10 @@ weight: 410
 
 {{< feature-state feature_gate_name="MemoryManager" >}}
 
+<!-- on windows this will be enabled as alpha in 1.32. How to document this affectively? -->
+{{< feature-state for_k8s_version="v1.32" state="alpha" >}}
+
+
 The Kubernetes *Memory Manager* enables the feature of guaranteed memory (and hugepages)
 allocation for pods in the `Guaranteed` {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}.
 

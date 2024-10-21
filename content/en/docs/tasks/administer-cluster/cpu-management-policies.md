@@ -14,6 +14,9 @@ weight: 140
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
+<!-- on windows this will be enabled as alpha in 1.32. How to document this affectively? -->
+{{< feature-state for_k8s_version="v1.32" state="alpha" >}}
+
 Kubernetes keeps many aspects of how pods execute on nodes abstracted
 from the user. This is by design.  However, some workloads require
 stronger guarantees in terms of latency and/or performance in order to operate
