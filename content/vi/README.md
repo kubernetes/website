@@ -196,18 +196,6 @@ Nếu bạn cần trợ giúp bất kỳ lúc nào khi đóng góp, [Đại sứ
 | -------------------------- | -------------------------- | -------------------------- |
 | Sreeram Venkitesh              | @sreeram.venkitesh                   | @sreeram-venkitesh              |
 
-## Các tệp README đa ngôn ngữ
-
-| Language                   | Language                   |
-| -------------------------- | -------------------------- |
-| [Chinese](README-zh.md)    | [Korean](README-ko.md)     |
-| [French](README-fr.md)     | [Polish](README-pl.md)     |
-| [German](README-de.md)     | [Portuguese](README-pt.md) |
-| [Hindi](README-hi.md)      | [Russian](README-ru.md)    |
-| [Indonesian](README-id.md) | [Spanish](README-es.md)    |
-| [Italian](README-it.md)    | [Ukrainian](README-uk.md)  |
-| [Japanese](README-ja.md)   | [Vietnamese](README-vi.md) |
-
 ## Quy tắc ứng xử
 
 Sự tham gia vào cộng đồng Kubernetes được điều chỉnh bởi [Quy tắc ứng xử của CNCF](https://github.com/cncf/foundation/blob/main/code-of-conduct.md).

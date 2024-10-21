@@ -115,6 +115,15 @@ Kubernetes 文档的这一部分包含教程。
 * [使用 AppArmor 限制容器对资源的访问](/zh-cn/docs/tutorials/security/apparmor/)
 * [Seccomp](/zh-cn/docs/tutorials/security/seccomp/)
 
+<!--
+## Cluster Management
+
+* [Running Kubelet in Standalone Mode](/docs/tutorials/cluster-management/kubelet-standalone/)
+-->
+## 集群管理
+
+* [以独立模式运行 kubelet](/zh-cn/docs/tutorials/cluster-management/kubelet-standalone/)
+
 ## {{% heading "whatsnext" %}}
 
 <!--

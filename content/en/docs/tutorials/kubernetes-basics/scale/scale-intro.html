@@ -168,6 +168,14 @@ kubernetes-bootcamp   1/1     1            1           11m
                <p>Next, we’ll do a <code>curl</code> to the exposed IP address and port. Execute the command multiple times:</p>
                <p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></b></b></code></p>
                <p>We hit a different Pod with every request. This demonstrates that the load-balancing is working.</p>
+              <p>The output should be similar to:</p>
+                  <pre>
+Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-wp67j | v=1
+Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-hs9dj | v=1
+Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-4hjvf | v=1
+Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-wp67j | v=1
+Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-4hjvf | v=1
+                  </pre>
                {{< note >}}<p>If you're running minikube with Docker Desktop as the container driver, a minikube tunnel is needed. This is because containers inside Docker Desktop are isolated from your host computer.<br>
                 <p>In a separate terminal window, execute:<br>
                   <code><b>minikube service kubernetes-bootcamp --url</b></code></p>

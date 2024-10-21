@@ -190,16 +190,16 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 
 ## Localization READMEs
 
-| Language                   | Language                   |
-| -------------------------- | -------------------------- |
-| [Bengali](README-bn.md)    | [Korean](README-ko.md)     |
-| [Chinese](README-zh.md)    | [Polish](README-pl.md)     |
-| [French](README-fr.md)     | [Portuguese](README-pt.md) |
-| [German](README-de.md)     | [Russian](README-ru.md)    |
-| [Hindi](README-hi.md)      | [Spanish](README-es.md)    |
-| [Indonesian](README-id.md) | [Ukrainian](README-uk.md)  |
-| [Italian](README-it.md)    | [Vietnamese](README-vi.md) |
-| [Japanese](README-ja.md)   | |
+| Language                      | Language                         |
+| ----------------------------- | -------------------------------- |
+| [Bengali](../bn/README.md)    | [Japanese](../ja/README.md)      |
+| [Chinese](../zh-cn/README.md) | [Korean](../ko/README.md)        |
+| [English](../../README.md)    | [Polish](../pl/README.md)        |
+| [French](../fr/README.md)     | [Portuguese](../pt-br/README.md) |
+| [German](../de/README.md)     | [Russian](../ru/README.md)       |
+| [Hindi](../hi/README.md)      | [Spanish](../es/README.md)       |
+| [Indonesian](../id/README.md) | [Ukrainian](../uk/README.md)     |
+| [Italian](../it/README.md)    | [Vietnamese](../vi/README.md)    |
 
 ## কোড অফ কন্ডাক্ট
 
