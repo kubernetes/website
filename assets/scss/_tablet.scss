@@ -31,12 +31,6 @@ $vendor-strip-font-size: 16px;
 //video
 $video-section-height: 400px;
 
-//features
-$features-h3-margin-bottom: 40px;
-$feature-box-margin-bottom: 60px;
-$feature-box-div-margin-bottom: 0;
-$feature-box-div-width: 45%;
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -156,29 +150,6 @@ $feature-box-div-width: 45%;
     display: none;
   }
 
-  #features {
-    padding-bottom: 60px;
-
-    .feature-box {
-      margin-bottom: 30px;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-
-    h3 {
-      margin-bottom: $features-h3-margin-bottom;
-    }
-
-    .feature-box {
-      & > div {
-        width: $feature-box-div-width;
-        margin-bottom: $feature-box-div-margin-bottom;
-      }
-    }
-  }
-
   #talkToUs {
     #bigSocial {
       div {
@@ -210,5 +181,10 @@ $feature-box-div-width: 45%;
     div {
       width: 48%;
     }
+  }
+
+  .features-container div.feature-box {
+     min-width: clamp(20rem, 6cm, 90vw);
+     max-width: clamp(90rem, 10cm, 90vw);
   }
 }
