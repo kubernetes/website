@@ -29,14 +29,6 @@ branches:
   note: 1.22.17 was released in December 2022 (after the EOL date) to backport registry
     changes and fix two critical issues.
   release: "1.22"
-- endOfLifeDate: "2022-11-09"
-  finalPatchRelease: 1.22.16
-  note: 1.22.16 was released in November 2022 (after the EOL date) to fix CVE-2022-3162
-    and CVE-2022-3294.
-  release: "1.22"
-- endOfLifeDate: "2022-10-28"
-  finalPatchRelease: 1.22.15
-  release: "1.22"
 - endOfLifeDate: "2022-06-28"
   finalPatchRelease: 1.21.14
   release: "1.21"
@@ -49,10 +41,6 @@ branches:
 - endOfLifeDate: "2021-06-18"
   finalPatchRelease: 1.18.20
   note: Created to solve regression introduced in 1.18.19
-  release: "1.18"
-- endOfLifeDate: "2021-05-12"
-  finalPatchRelease: 1.18.19
-  note: '[Regression](https://groups.google.com/g/kubernetes-dev/c/KuF8s2zueFs)'
   release: "1.18"
 - endOfLifeDate: "2021-01-13"
   finalPatchRelease: 1.17.17

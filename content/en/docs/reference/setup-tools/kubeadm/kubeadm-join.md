@@ -7,7 +7,7 @@ content_type: concept
 weight: 30
 ---
 <!-- overview -->
-This command initializes a Kubernetes worker node and joins it to the cluster.
+This command initializes a new Kubernetes node and joins it to the existing cluster.
 
 <!-- body -->
 {{< include "generated/kubeadm_join/_index.md" >}}
