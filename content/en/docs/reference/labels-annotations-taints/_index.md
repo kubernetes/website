@@ -2372,6 +2372,111 @@ Starting in v1.16, this annotation was removed in favor of
 [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
 {{< /note >}}
 
+### jobset.sigs.k8s.io/jobset-name
+
+Type: Label, Annotation
+
+Example:  `jobset.sigs.k8s.io/jobset-name: "my-jobset"`
+
+Used on: Jobs, Pods
+
+This label/annotation is used to store the name of the JobSet that a Job or Pod belongs to.
+[JobSet](https://jobset.sigs.k8s.io) is an extension API that you can deploy into your Kubernetes cluster.
+
+### jobset.sigs.k8s.io/replicatedjob-replicas
+
+Type: Label, Annotation
+
+Example: `jobset.sigs.k8s.io/replicatedjob-replicas: "5"`
+
+Used on: ReplicatedJobs
+
+This label/annotation specifies the number of replicas for a ReplicatedJob.
+
+### jobset.sigs.k8s.io/replicatedjob-name
+
+Type: Label, Annotation
+
+Example: `jobset.sigs.k8s.io/replicatedjob-name: "my-replicatedjob"`
+
+Used on: Jobs, Pods
+
+This label or annotation stores the name of the replicated job that this Job or Pod is part of.
+
+### jobset.sigs.k8s.io/job-index
+
+Type: Label, Annotation
+
+Example: `jobset.sigs.k8s.io/job-index: "0"`
+
+Used on: Jobs, Pods
+
+This label/annotation is set by the JobSet controller on child Jobs and Pods. It contains the index of the Job replica within its parent ReplicatedJob.
+
+### jobset.sigs.k8s.io/job-key
+
+Type: Label, Annotation
+
+Example: `jobset.sigs.k8s.io/job-key=0f1e93893c4cb372080804ddb9153093cb0d20cefdd37f653e739c232d363feb`
+
+Used on: Jobs, Pods
+
+The JobSet controller sets this label (and also an annotation with the same key)  on child Jobs and
+Pods of a JobSet. The value is the SHA256 hash of the namespaced Job name.
+
+### alpha.jobset.sigs.k8s.io/exclusive-topology
+
+Type: Label, Annotation
+
+Example: `alpha.jobset.sigs.k8s.io/exclusive-topology: "zone"`
+
+Used on: JobSets, ReplicatedJobs
+
+You can set this label/annotation on a [JobSet](https://jobset.sigs.k8s.io) to ensure exclusive Job
+placement per topology group. You can also define this label or annotation on a replicated job
+template. Read the documentation for JobSet to learn more.
+
+### alpha.jobset.sigs.k8s.io/node-selector
+
+Type: Label, Annotation
+
+Example: `alpha.jobset.sigs.k8s.io/node-selector-strategy=true`
+
+Used on: Jobs, Pods
+
+This label/annotation can be applied to a JobSet. When it's set, the JobSet controller modifies the Jobs and their corresponding Pods by adding node selectors. This ensures exclusive job placement per topology domain, restricting the scheduling of these Pods to specific nodes based on the strategy.
+
+### alpha.jobset.sigs.k8s.io/namespaced-job
+
+Type: Annotation, Label
+
+Example: `alpha.jobset.sigs.k8s.io/default_myjobset-replicatedjob-0`
+
+Used on: Jobs, Pods
+
+The JobSet controller adds this label/annotation to Jobs and Pods that are part of a JobSet. It stores the namespaced Job name, which is used for logging and event management within the JobSet context.
+
+### alpha.jobset.sigs.k8s.io/no-schedule
+
+Type: Taint
+
+Example: `alpha.jobset.sigs.k8s.io/no-schedule: NoSchedule`
+
+Used on: Nodes
+
+The [JobSet](https://jobset.sigs.k8s.io) controller uses this taint to support its node labeling exclusive placement strategy.
+
+### jobset.sigs.k8s.io/coordinator
+
+Type: Annotation, Label
+
+Example: `jobset.sigs.k8s.io/coordinator: "myjobset-workers-0-0.headless-svc"`
+
+Used on: Jobs, Pods
+
+This annotation/label is used on Jobs and Pods to store a stable network endpoint where the coordinator
+pod can be reached if the [JobSet](https://jobset.sigs.k8s.io) spec defines the `.spec.coordinator` field.
+
 ## Annotations used for audit
 
 <!-- sorted by annotation -->
