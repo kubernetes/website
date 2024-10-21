@@ -3,18 +3,18 @@
 {{ $shouldDelayActive := ge (len .Site.Pages) $sidebarCacheLimit -}}
 <div id="td-sidebar-menu" class="td-sidebar__inner{{ if $shouldDelayActive }} d-none{{ end }}">
   {{ if not .Site.Params.ui.sidebar_search_disable -}}
-  <form class="td-sidebar__search d-flex align-items-center">
-    {{ partial "search-input.html" . }}
+  <div class="td-sidebar__search d-flex align-items-center">
+    {{- partial "search-form.html" . }}
     <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
     </button>
-  </form>
+  </div>
   {{ else -}}
   <div id="content-mobile">
-  <form class="td-sidebar__search d-flex align-items-center">
-    {{ partial "search-input.html" . }}
+  <div class="td-sidebar__search d-flex align-items-center">
+    {{- partial "search-form.html" . }}
     <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
     </button>
-  </form>
+  </div>
   </div>
   <div id="content-desktop"></div>
   {{ end -}}

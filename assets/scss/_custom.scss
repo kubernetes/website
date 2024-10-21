@@ -86,6 +86,23 @@ body.td-home main[role="main"] > section:first-of-type .content p:first-child {
   margin-bottom: 1.5em;
 }
 
+// Style search on main (landing) page
+body.td-home section.k8s-search {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 3rem;
+  padding-left: calc(max(2rem, (100vw - 44rem) / 2));
+  padding-right: calc(max(2rem, (100vw - 44rem) / 2));
+
+  .search-bar {
+    // center align, allocate space
+
+    form input.search-input.td-search-input {
+      max-width: initial;
+    }
+  }
+}
+
 #desktopShowVideoButton {
   border: none
 }
@@ -254,6 +271,10 @@ body.td-404 main .error-details {
   }
 }
 
+.search-bar form input.search-input.td-search-input {
+  max-width: 100%;
+}
+
 .flip-nav .search-item {
   .td-search-input, .search-bar {
     background-color: $medium-grey;
@@ -373,6 +394,19 @@ footer {
   }
   footer div.order-3 ul.footer-icons {
     margin-right: auto;
+  }
+}
+
+/* LEFT NAV */
+
+#td-sidebar-menu {
+  .search-bar > form {
+    min-width: 8rem;
+
+    .td-search-input {
+      min-width: 8rem;
+      max-width: 100%; // override Docsy theme
+    }
   }
 }
 
@@ -732,7 +766,7 @@ body.cid-code-of-conduct main {
 }
 
 .td-sidebar__inner {
-  form.td-sidebar__search {
+  div.td-sidebar__search {
 
     .td-sidebar__toggle {
       &:hover {
@@ -741,6 +775,10 @@ body.cid-code-of-conduct main {
 
       color: $primary;
       margin: 1rem;
+    }
+
+    .search-bar form > input {
+      padding-left: 1.5em;
     }
   }
 }
@@ -1105,16 +1143,11 @@ div.alert > em.javascript-required {
 }
 
 
-// Adjust Search-bar search-icon
 .search-bar {
-  display: flex;
-  align-items: center;
   background-color: #fff;
   border: 1px solid #4c4c4c;
-  border-radius: 20px; 
+  border-radius: 20px;
   vertical-align: middle;
-  flex-grow: 1;
-  overflow-x: hidden;
   width: auto;
 
   &:focus-within {
@@ -1123,16 +1156,10 @@ div.alert > em.javascript-required {
   }
 }
 
-.search-bar i.search-icon {
-  padding: .5em .5em .5em .75em;
-  opacity: .75;
-}
-
-.search-input {
+input.search-input {
   flex: 1;
   border: none;
   outline: none;
-  padding: .5em 0 .5em 0;
 }
 
 // PageFind Styles
@@ -1189,9 +1216,14 @@ div.alert > em.javascript-required {
   font-size: 1.15rem;
 }
 
-body.td-search #search {
-  margin-top: 1rem;
-  margin-bottom: 3rem;
+body.td-search {
+  section.td-search-query {
+    padding: 3rem;
+  }
+  #search {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+  }
 }
 
 /* CSS for 'figure' full-screen display */
