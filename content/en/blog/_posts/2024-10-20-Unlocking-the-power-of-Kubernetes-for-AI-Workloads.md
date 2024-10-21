@@ -74,4 +74,3 @@ I invite you to [watch my presentation](https://www.youtube.com/watch?v=4JMXoPmO
 -   Minikube & PyTorch ML case: [https://github.com/BrandonKang/Pytorch-on-Minukube](https://github.com/BrandonKang/Pytorch-on-Minukube)
     
 Feel free to share your thoughts, ask questions, or provide insights based on your own experiences running AI workloads on Kubernetes. Together, we can make deploying and managing AI applications more accessible and efficient for everyone.
-###
