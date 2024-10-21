@@ -17,6 +17,8 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.29"    
+    toVersion: "1.30"
+removed: true
 ---
 Enable managing request concurrency with
 prioritization and fairness at each server. (Renamed from `RequestManagement`)
