@@ -459,14 +459,18 @@ This is useful if you want to target a specific namespace with a label
 
 Type: Annotation
 
-Example: `kubernetes.io/limit-ranger: "LimitRanger plugin set: cpu, memory request for container nginx; cpu, memory limit for container nginx"`
+Example: `kubernetes.io/limit-ranger: LimitRanger plugin set:`                           
+                             `cpu, memory request for container nginx;`                                                 
+                             `cpu, memory limit for container nginx;`                                                   
+                             `storage request for PersistentVolumeClaim in a namespace;`                                
+                             `storage limit for for PersistentVolumeClaim in a namespace`
 
-Used on: Pod
+Used on: Pod, Container, PersistentVolumeClaim
 
 Kubernetes by default doesn't provide any resource limit, that means unless you explicitly define
 limits, your container can consume unlimited CPU and memory.
-You can define a default request or default limit for pods. You do this by creating a LimitRange
-in the relevant namespace. Pods deployed after you define a LimitRange will have these limits
+You can define a default request or default limit for pods, PersistentVolumeClaim. You do this by creating a LimitRange
+in the relevant namespace. Pods, PersistentVolumeClaim deployed/created after you define a LimitRange will have these limits
 applied to them.
 The annotation `kubernetes.io/limit-ranger` records that resource defaults were specified for the Pod,
 and they were applied successfully.
