@@ -69,6 +69,12 @@ Using Kubernetes' native support for sidecar containers provides several benefit
    special care is needed to handle this situation.
 4. Also, with Jobs, built-in sidecar containers would keep being restarted once they are done, even if regular containers would not with Pod's `restartPolicy: Never`.
 
+{{< alert  title="Note" color="info" >}}
+
+From kubernetes perspective, sidecars will receive the `SIGTERM` following with `SIGKILL`, so exit codes != 0 for sidecar containers are normal on main container exit and should be ignored.
+
+{{< /alert >}}
+
 ## Adopting built-in sidecar containers
 
 The `SidecarContainers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is in beta state starting from Kubernetes version 1.29 and is enabled by default.
