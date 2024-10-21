@@ -58,6 +58,12 @@ the pod can be accepted or rejected from the node based on the selected hint.
 The hint is then stored in the Topology Manager for use by the *Hint Providers* when making the
 resource allocation decisions.
 
+## Windows Support
+
+{{< feature-state for_k8s_version="v1.32" state="alpha" feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
+
+The Topology Manager support can be enabled on Windows by using the `WindowsCPUAndMemoryAffinity` feature flag and requires a support in the container runtime.  
+
 ## Topology manager scopes and policies
 
 The Topology Manager currently:
