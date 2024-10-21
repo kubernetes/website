@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Run this on any machine you wish to join an existing cluster
-
 ### Synopsis
 
 
