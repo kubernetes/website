@@ -265,6 +265,8 @@ via the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure ment
 {{< /note >}}
 
 
+### Windows node graceful shutdown
+
 ## {{% heading "whatsnext" %}}
 
 Learn more about the following:
