@@ -2,7 +2,7 @@
 layout: blog
 title: "Unlocking the Power of Kubernetes for AI Workloads"
 date: 2024-10-20
-slug: unlockingthepowerofkubernetesforaiworkloads
+slug: kubernetes-for-ai-workloads
 author: >
   Brandon Kang (Akamai Technologies)
 ---
