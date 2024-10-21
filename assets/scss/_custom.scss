@@ -27,7 +27,7 @@ $announcement-size-adjustment: 8px;
   }
 
   .ui-widget-content a {
-    color: $blue;
+    color: $primary;
   }
 }
 
@@ -113,7 +113,7 @@ body.td-404 main .error-details {
 
   // mermaid diagram - sequence diagram
   .actor {
-    fill: #326ce5 !important;
+    fill: $primary !important;
   }
   text.actor {
     font-size: 18px !important;
@@ -413,7 +413,7 @@ body.cid-community {
     display: inline-block;
     vertical-align: top;
     position: relative;
-    background-color: #326ce5; // Kubernetes blue
+    background-color: $primary;
     color: #fff;
     padding: 0;
     margin: 0;
@@ -527,9 +527,9 @@ body.cid-partners {
         border-radius: 6px;
         padding: 0 20px;
         line-height: 40px;
-        color: #ffffff;
         font-size: 16px;
-        background-color: #326ce5;
+        background-color: $primary;
+        color: $white;
         text-decoration: none;
      }
 
@@ -735,7 +735,7 @@ body.cid-code-of-conduct main {
         color: #000000;
       }
 
-      color: $blue;
+      color: $primary;
       margin: 1rem;
     }
   }
@@ -1158,7 +1158,7 @@ div.alert > em.javascript-required {
 
 #search .pagefind-ui.pagefind-ui__result-nested::before {
   content: "\2937 ";
-  color: $blue;
+  color: $primary;
 }
 
 #search .pagefind-ui ol > li {
@@ -1169,7 +1169,7 @@ div.alert > em.javascript-required {
 
 #search .pagefind-ui button {
   color: #fff;
-  background-color: $blue;
+  background-color: $primary;
   border-radius: 0.2em;
   border: 0.1rem solid $medium-grey;
   padding: 0.3em;

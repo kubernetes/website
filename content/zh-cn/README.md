@@ -437,33 +437,6 @@ SIG Docs 的当前新贡献者大使：
 | -------------------------- | -------------------------- | -------------------------- |
 | Sreeram Venkitesh          | @sreeram.venkitesh         | @sreeram-venkitesh         |
 
-
-<!--
-## Localization READMEs
--->
-## README 本地化
-
-<!--
-| Language                   | Language                   |
-| -------------------------- | -------------------------- |
-| [Chinese](README-zh.md)    | [Korean](README-ko.md)     |
-| [French](README-fr.md)     | [Polish](README-pl.md)     |
-| [German](README-de.md)     | [Portuguese](README-pt.md) |
-| [Hindi](README-hi.md)      | [Russian](README-ru.md)    |
-| [Indonesian](README-id.md) | [Spanish](README-es.md)    |
-| [Italian](README-it.md)    | [Ukrainian](README-uk.md)  |
-| [Japanese](README-ja.md)   | [Vietnamese](README-vi.md) |
--->
-| 语言                       | 语言                       |
-| -------------------------- | -------------------------- |
-| [中文](README-zh.md)       | [韩语](README-ko.md)       |
-| [法语](README-fr.md)       | [波兰语](README-pl.md)     |
-| [德语](README-de.md)       | [葡萄牙语](README-pt.md)   |
-| [印地语](README-hi.md)     | [俄语](README-ru.md)       |
-| [印尼语](README-id.md)     | [西班牙语](README-es.md)   |
-| [意大利语](README-it.md)   | [乌克兰语](README-uk.md)   |
-| [日语](README-ja.md)       | [越南语](README-vi.md)     |
-
 ## 中文本地化
 
 可以通过以下方式联系中文本地化的维护人员：

@@ -1,14 +1,14 @@
 ---
 title: 重新配置 kubeadm 集群
 content_type: task
-weight: 30
+weight: 90
 ---
 <!--
 reviewers:
 - sig-cluster-lifecycle
 title: Reconfiguring a kubeadm cluster
 content_type: task
-weight: 30
+weight: 90
 -->
 
 <!-- overview -->
