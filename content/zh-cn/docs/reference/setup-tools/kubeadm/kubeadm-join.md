@@ -14,7 +14,7 @@ weight: 30
 
 <!-- overview -->
 <!--
-This command can be used to join a new Kubernetes node to an existing cluster.
+This command initializes a Kubernetes worker node and joins it to the cluster.
 -->
 此命令用来初始化 Kubernetes 工作节点并将其加入集群。
 
