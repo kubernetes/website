@@ -331,6 +331,36 @@ For example:
 Accept: application/vnd.kubernetes.protobuf, application/json
 ```
 
+### CBOR resource encoding {#cbor-encoding}
+
+{{< feature-state feature_gate_name="CBORServingAndStorage" >}}
+
+With the `CBORServingAndStorage` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled, request and response
+bodies for all built-in resource types and all resources defined by a {{< glossary_tooltip
+term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be encoded to the
+[CBOR](https://www.rfc-editor.org/rfc/rfc8949) binary data format. CBOR is also supported at the {{<
+glossary_tooltip text="aggregation layer" term_id="aggregation-layer" >}} if it is enabled in
+individual aggregated API servers.
+
+Clients should indicate the IANA media type `application/cbor` in the `Content-Type` HTTP request
+header when the request body contains a single CBOR [encoded data
+item](https://www.rfc-editor.org/rfc/rfc8949.html#section-1.2-4.2), and in the `Accept` HTTP request
+header when prepared to accept a CBOR encoded data item in the response. API servers will use
+`application/cbor` in the `Content-Type` HTTP response header when the response body contains a
+CBOR-encoded object.
+
+If an API server encodes its response to a [watch request](#efficient-detection-of-changes) using
+CBOR, the response body will be a [CBOR Sequence](https://www.rfc-editor.org/rfc/rfc8742) and the
+`Content-Type` HTTP response header will use the IANA media type `application/cbor-seq`. Each entry
+of the sequence (if any) is a single CBOR-encoded watch event.
+
+In addition to the existing `application/apply-patch+yaml` media type for YAML-encoded [server-side
+apply configurations](#patch-and-apply), API servers that enable CBOR will accept the
+`application/apply-patch+cbor` media type for CBOR-encoded server-side apply configurations. There
+is no supported CBOR equivalent for `application/json-patch+json` or `application/merge-patch+json`,
+or `application/strategic-merge-patch+json`.
+
 ## Efficient detection of changes
 
 The Kubernetes API allows clients to make an initial request for an object or a
