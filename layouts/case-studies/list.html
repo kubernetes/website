@@ -12,7 +12,6 @@
 <section id="mainContent">
 	<div class="main-section">
 		<div class="content">
-		{{ partial "deprecation-warning.html" . }}
 			<div class="case-studies">
 				{{ range $featured }}
 				{{ template "case-study-featured-block" (dict "ctx" $ "page" .) }}
