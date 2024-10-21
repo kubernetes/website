@@ -217,9 +217,7 @@ these pods will be stuck in terminating status on the shutdown node forever.
 
 To mitigate the above situation, a user can manually add the taint `node.kubernetes.io/out-of-service`
 with either `NoExecute` or `NoSchedule` effect to a Node marking it out-of-service.
-If the `NodeOutOfServiceVolumeDetach`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled on {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}},
-and a Node is marked out-of-service with this taint, the pods on the node will be forcefully deleted
+If a Node is marked out-of-service with this taint, the pods on the node will be forcefully deleted
 if there are no matching tolerations on it and volume detach operations for the pods terminating on
 the node will happen immediately. This allows the Pods on the out-of-service node to recover quickly
 on a different node.

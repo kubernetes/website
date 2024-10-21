@@ -17,6 +17,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.27"  
+    toVersion: "1.31"
+
+removed: true
 ---
 Enables server-side field validation. This means the validation
 of resource schema is performed at the API server side rather than the client side

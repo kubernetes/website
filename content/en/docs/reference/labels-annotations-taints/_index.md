@@ -1614,10 +1614,8 @@ Example: `node.kubernetes.io/out-of-service:NoExecute`
 Used on: Node
 
 A user can manually add the taint to a Node marking it out-of-service.
-If the `NodeOutOfServiceVolumeDetach`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled on `kube-controller-manager`, and a Node is marked out-of-service with this taint,
-the Pods on the node will be forcefully deleted if there are no matching tolerations on it and
+If a Node is marked out-of-service with this taint, the Pods on the node 
+will be forcefully deleted if there are no matching tolerations on it and
 volume detach operations for the Pods terminating on the node will happen immediately.
 This allows the Pods on the out-of-service node to recover quickly on a different node.
 
