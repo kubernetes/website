@@ -22,8 +22,8 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
   - [Instalar o binário do kubectl com curl no macOS](#instalar-o-binario-do-kubectl-com-curl-no-macos)
   - [Instalar com Homebew no macOS](#instalar-com-homebrew-no-macos)
   - [Instalar com Macports no macOS](#instalar-com-macports-no-macos)
-- [Verificar configuração do kubectl](#verificar-a-configuraçao-do-kubectl)
-- [Plugins e configurações opcionais do kubectl](#plugins-e-configuracoes-opcionais-do-kubectl)
+- [Verificar ajustes do kubectl](#verificar-ajustes-do-kubectl)
+- [Plugins e ajustes opcionais do kubectl](#plugins-e-ajustes-opcionais-do-kubectl)
   - [Habilitar autocomplete no shell](#habilitar-autocomplete-no-shell)
   - [Instalar `kubectl convert` plugin](#instalar-kubectl-convert-plugin)
 
@@ -170,11 +170,11 @@ você pode instalar o kubectl utilizando o Macports.
    kubectl version --client
    ```
 
-## Verificar a configuração do kubectl
+## Verificar ajustes do kubectl
 
 {{< include "included/verify-kubectl.md" >}}
 
-## Configurações opcionais dos plugins e kubectl
+## Plugins e ajustes opcionais do kubectl
 
 ### Habilitar autocomplete no shell
 
