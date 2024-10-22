@@ -177,7 +177,7 @@ You can use the following modes:
 * `--authorization-mode=AlwaysDeny` (always denies requests)
 
 You can choose more than one authorization mode; for example:
-`--authorization-mode=Node,Webhook`
+`--authorization-mode=Node,RBAC,Webhook`
 
 Kubernetes checks authorization modules based on the order that you specify them
 on the API server's command line, so an earlier module has higher priority to allow
@@ -197,7 +197,7 @@ For more information on command line arguments to the API server, read the
 
 {{< feature-state feature_gate_name="StructuredAuthorizationConfiguration" >}}
 
-As a beta feature, Kubernetes lets you configure authorization chains that can include multiple
+Kubernetes lets you configure authorization chains that can include multiple
 webhooks. The authorization items in that chain can have well-defined parameters that validate
 requests in a particular order, offering you fine-grained control, such as explicit Deny on failures.
 
@@ -220,7 +220,7 @@ are only available if you use an authorization configuration file.
 #
 # DO NOT USE THE CONFIG AS IS. THIS IS AN EXAMPLE.
 #
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: AuthorizationConfiguration
 authorizers:
   - type: Webhook
