@@ -60,7 +60,7 @@ The `.spec.schedule` field is required. The value of that field follows the [Cro
 # │ │ │ ┌───────────── month (1 - 12)
 # │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday)
 # │ │ │ │ │                                   OR sun, mon, tue, wed, thu, fri, sat
-# │ │ │ │ │ 
+# │ │ │ │ │
 # │ │ │ │ │
 # * * * * *
 ```
@@ -215,6 +215,10 @@ The scheduling is approximate because there
 are certain circumstances where two Jobs might be created, or no Job might be created.
 Kubernetes tries to avoid those situations, but does not completely prevent them. Therefore,
 the Jobs that you define should be _idempotent_.
+
+Starting with Kubernetes v1.32 the job created by CronJob controller will have an annotation
+`batch.kubernetes.io/cronjob-scheduled-timestamp` which will show the original (expected)
+creation timestamp for a Job. The value of this field is in RFC3339 format.
 
 If `startingDeadlineSeconds` is set to a large value or left unset (the default)
 and if `concurrencyPolicy` is set to `Allow`, the Jobs will always run
