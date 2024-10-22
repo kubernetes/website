@@ -19,9 +19,9 @@ a "keep-alive" signal to the systemd daemon. If the signal is not received
 within a specified timeout period, the service is considered unresponsive
 and is terminated. The service can then be restarted according to the configuration.
 
-### Who to use
+### How to use
 
-Using the systemd watchdog only requires configuring the WatchdogSec= parameter
+Using the systemd watchdog only requires configuring the `WatchdogSec` parameter
 in the [Service] section of the kubelet service unit file:
 ```sh
 [Service]
@@ -30,7 +30,7 @@ WatchdogSec=30s
 `WatchdogSec=30s` indicates a timeout of 30 seconds. In the kubelet program,
 the `sd_notify` function is called at intervals of `WatchdogSec/2` to send
 "WATCHDOG=1" for the keep-alive operation. If the watchdog is not fed
-within the timeout period, the kubelet will be killed. Setting `Restart=`
+within the timeout period, the kubelet will be killed. Setting `Restart`
 to always, on-failure, on-watchdog, or on-abnormal will ensure that the service
 is automatically restarted.
 
