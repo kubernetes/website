@@ -58,7 +58,7 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
 
    {{< /note >}}
 
-1. Validando o binário (opcional)
+1. Validando o binário (opcional).
 
    Baixe o arquivo de checksum do kubectl:
 
@@ -178,7 +178,7 @@ você pode instalar o kubectl utilizando o Macports.
 
 ### Habilitar autocomplete no shell
 
-kubectl fornece suporte para auto-complete para Bash, Zsh, Fish, e PowerShell
+O kubectl fornece suporte para auto-complete para Bash, Zsh, Fish, e PowerShell
 o que pode fazer com que você digite menos.
 
 Abaixo seguem os procedimentos para configurar o auto-complete para Bash, Fish, and Zsh.
@@ -204,7 +204,7 @@ Abaixo seguem os procedimentos para configurar o auto-complete para Bash, Fish, 
    {{< /tab >}}
    {{< /tabs >}}
 
-1. Valide o binário (opcional)
+1. Valide o binário (opcional).
 
    Baixe o arquivo de checksum do kubectl-convert:
 
@@ -240,7 +240,7 @@ Abaixo seguem os procedimentos para configurar o auto-complete para Bash, Fish, 
    Baixe a mesma versão do binário e do checksum.
    {{< /note >}}
 
-1. Torne o binário do kubectl-convert um executável
+1. Torne o binário do kubectl-convert um executável.
 
    ```bash
    chmod +x ./kubectl-convert
@@ -257,7 +257,7 @@ Abaixo seguem os procedimentos para configurar o auto-complete para Bash, Fish, 
    Tenha certeza de que `/usr/local/bin` está no PATH em suas configurações de variáveis ambiente.
    {{< /note >}}
 
-1. Verifique se o plugin foi instalado com sucesso
+1. Verifique se o plugin foi instalado com sucesso.
 
    ```shell
    kubectl convert --help
