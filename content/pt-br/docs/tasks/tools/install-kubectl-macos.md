@@ -108,7 +108,7 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
    ```
 
    {{< note >}}
-   Make sure `/usr/local/bin` is in your PATH environment variable.
+   Tenha certeza que `/usr/local/bin` está configurado na sua variável de ambiente PATH.
    {{< /note >}}
 
 1. Teste para validar que a versão instalada está atualizada:
