@@ -140,7 +140,7 @@ você pode instalar o kubectl usando o Homebrew.
    brew install kubectl
    ```
 
-   or
+   ou
 
    ```bash
    brew install kubernetes-cli
