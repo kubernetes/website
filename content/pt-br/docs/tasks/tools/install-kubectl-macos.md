@@ -170,18 +170,18 @@ você pode instalar o kubectl utilizando o Macports.
    kubectl version --client
    ```
 
-## Verify kubectl configuration
+## Verifique a configuração do kubectl
 
 {{< include "included/verify-kubectl.md" >}}
 
-## Optional kubectl configurations and plugins
+## Configurações opcionais dos plugins e kubectl
 
-### Enable shell autocompletion
+### Habilitar o auto complete no shell
 
-kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell
-which can save you a lot of typing.
+kubectl fornece suporte para auto-complete para Bash, Zsh, Fish, e PowerShell
+o que pode fazer com que você digite menos.
 
-Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
+Abaixo seguem os procedimentos para configurar o auto-complete para Bash, Fish, and Zsh.
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-mac.md" />}}
