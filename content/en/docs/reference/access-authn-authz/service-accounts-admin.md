@@ -18,7 +18,8 @@ For an introduction to service accounts, read [configure service accounts](/docs
 
 This task guide explains some of the concepts behind ServiceAccounts. The
 guide also explains how to obtain or revoke tokens that represent
-ServiceAccounts.
+ServiceAccounts, and how to (optionally) bind a ServiceAccount's validity to
+the lifetime of an API object.
 
 <!-- body -->
 
@@ -68,7 +69,7 @@ Supported object types are as follows:
 
 * Pod (used for projected volume mounts, see below)
 * Secret (can be used to allow revoking a token by deleting the Secret)
-* Node (in v1.30, creating new node-bound tokens is alpha, using existing node-bound tokens is beta)
+* Node (in v1.31, creating new node-bound tokens is beta, using existing node-bound tokens is GA)
 
 When a token is bound to an object, the object's `metadata.name` and `metadata.uid` are
 stored as extra 'private claims' in the issued JWT.
@@ -158,6 +159,66 @@ other resource types in Kubernetes, TokenReview is a special type and the kube-a
 does not actually persist the TokenReview object into etcd.
 Hence `kubectl get tokenreview` is not a valid command.
 {{< /note >}}
+
+#### Schema for service account private claims
+
+The schema for the Kubernetes-specific claims within JWT tokens is not currently documented,
+however the relevant code area can be found in [the serviceaccount package]() in the Kubernetes codebase.
+
+[the serviceaccount package]: https://github.com/kubernetes/kubernetes/blob/d8919343526597e0788a1efe133c70d9a0c07f69/pkg/serviceaccount/claims.go#L56-L68
+
+You can inspect a JWT using standard JWT decoding tools, an example of a JWT for the
+`my-serviceaccount` ServiceAccount, bound to a Pod object named `my-pod` which is scheduled
+to the Node `my-node`, in the `default` namespace:
+
+```json
+{
+  "aud": [
+    "https://kubernetes.default.svc.cluster.local"
+  ],
+  "exp": 1729605240,
+  "iat": 1729601640,
+  "iss": "https://kubernetes.default.svc.cluster.local",
+  "jti": "aed34954-b33a-4142-b1ec-389d6bbb4936",
+  "kubernetes.io": {
+    "namespace": "default",
+    "node": {
+      "name": "my-node",
+      "uid": "646e7c5e-32d6-4d42-9dbd-e504e6cbe6b1"
+    },
+    "pod": {
+      "name": "my-pod",
+      "uid": "5e0bd49b-f040-43b0-99b7-22765a53f7f3"
+    },
+    "serviceaccount": {
+      "name": "my-serviceaccount",
+      "uid": "14ee3fa4-a7e2-420f-9f9a-dbc4507c3798"
+    }
+  },
+  "nbf": 1729601640,
+  "sub": "system:serviceaccount:default:my-serviceaccount"
+}
+```
+
+{{< note >}}
+The presence of both the `pod` and `node` claim implies that this token is bound
+to a *Pod* object. When verifying Pod bound ServiceAccount tokens, the apiserver **does not**
+verify the existence of the referenced Node object.
+{{< /note >}}
+
+Services that run outside of Kubernetes and want to perform offline validation of JWTs may
+use this schema, along with a compliant JWT validator configured with OpenID Discovery information
+from the kube-apiserver, to verify presented JWTs without requiring use of the TokenReview API.
+
+Services that verify JWTs in this way **do not verify** the claims embedded in the JWT token to be
+current and still valid.
+This means if the token is bound to an object, and that object no longer exists, the token will still
+be considered valid (until the configured token expiry).
+
+Clients that require assurance that a token's bound claims are still valid **MUST** use the TokenReview
+API to present the token to the `kube-apiserver` for it to verify and expand the embedded claims, using
+similar steps to the [Verifying and inspecting private claims](#verifying-and-inspecting-private-claims)
+section above, but with a [supported client library](/docs/reference/using-api/client-libraries/).
 
 ## Bound service account token volume mechanism {#bound-service-account-token-volume}
 
