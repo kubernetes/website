@@ -126,18 +126,9 @@ virtual resource type would be used if that becomes necessary.
 
 Over HTTP, Kubernetes supports JSON and Protobuf wire encodings.
 
-{{% note %}}
-Although YAML is widely used to define Kubernetes manifests locally, Kubernetes does not
-support the [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512.html) media type
-for API operations.
-
-All JSON documents are valid YAML, so you can also use a JSON API response anywhere that is
-expecting a YAML input.
-{{% /note %}}
-
 By default, Kubernetes returns objects in [JSON serialization](#json-encoding), using the
-`application/json` media type. Although JSON is the default, clients may request the more
-efficient binary [Protobuf representation](#protobuf-encoding) for better performance at scale.
+`application/json` media type. Although JSON is the default, clients may request a response in
+YAML, or use the more efficient binary [Protobuf representation](#protobuf-encoding) for better performance at scale.
 
 The Kubernetes API implements standard HTTP content type negotiation: passing an
 `Accept` header with a `GET` call will request that the server tries to return
@@ -161,7 +152,9 @@ For example:
 
    ```
    GET /api/v1/pods
-   ---
+   ```
+
+   ```
    200 OK
    Content-Type: application/json
 
@@ -175,7 +168,9 @@ For example:
    Content-Type: application/json
    Accept: application/json
    … JSON encoded Pod object
-   ---
+   ```
+
+   ```
    200 OK
    Content-Type: application/json
 
@@ -184,6 +179,43 @@ For example:
      "apiVersion": "v1",
      …
    }
+   ```
+
+### YAML resource encoding {#yaml-encoding}
+Kubernetes also supports the [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512.html) media type for both requests and responses. [`YAML`](https://yaml.org/) can be used for defining Kubernetes manifests and API interactions.
+
+For example:
+
+1. List all of the pods on a cluster in YAML format
+   ```
+   GET /api/v1/pods
+   Accept: application/yaml
+   ```
+   
+   ```
+   200 OK
+   Content-Type: application/yaml
+
+   … YAML encoded collection of Pods (PodList object)
+   ```
+
+1. Create a pod by sending YAML-encoded data to the server, requesting a YAML response:
+   ```
+   POST /api/v1/namespaces/test/pods
+   Content-Type: application/yaml
+   Accept: application/yaml
+   … YAML encoded Pod object
+   ```
+   
+   ```
+   200 OK
+   Content-Type: application/yaml
+
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     name: my-pod
+     …
    ```
 
 ### Kubernetes Protobuf encoding {#protobuf-encoding}
@@ -202,7 +234,9 @@ For example:
    ```
    GET /api/v1/pods
    Accept: application/vnd.kubernetes.protobuf
-   ---
+   ```
+
+   ```
    200 OK
    Content-Type: application/vnd.kubernetes.protobuf
 
@@ -217,7 +251,9 @@ For example:
    Content-Type: application/vnd.kubernetes.protobuf
    Accept: application/json
    … binary encoded Pod object
-   ---
+   ```
+
+   ```
    200 OK
    Content-Type: application/json
 
