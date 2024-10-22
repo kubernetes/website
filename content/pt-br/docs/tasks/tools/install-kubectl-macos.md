@@ -176,7 +176,7 @@ você pode instalar o kubectl utilizando o Macports.
 
 ## Configurações opcionais dos plugins e kubectl
 
-### Habilitar o auto complete no shell
+### Habilitar autocomplete no shell
 
 kubectl fornece suporte para auto-complete para Bash, Zsh, Fish, e PowerShell
 o que pode fazer com que você digite menos.
