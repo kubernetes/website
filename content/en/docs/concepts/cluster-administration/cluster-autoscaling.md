@@ -37,7 +37,7 @@ node capacity (CPU, memory, and other node resources) available in your cluster.
 
 You can use the [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler) to manage the scale of your nodes automatically.
 The cluster autoscaler can integrate with a cloud provider, or with Kubernetes'
-[cluster API](https://github.com/kubernetes/autoscaler/blob/c6b754c359a8563050933a590f9a5dece823c836/cluster-autoscaler/cloudprovider/clusterapi/README.md),
+[cluster API](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/clusterapi/README.md),
 to achieve the actual node management that's needed.
 
 The cluster autoscaler adds nodes when there are unschedulable Pods, and
@@ -45,7 +45,7 @@ removes nodes when those nodes are empty.
 
 #### Cloud provider integrations {#cluster-autoscaler-providers}
 
-The [README](https://github.com/kubernetes/autoscaler/tree/c6b754c359a8563050933a590f9a5dece823c836/cluster-autoscaler#readme)
+The [README](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md)
 for the cluster autoscaler lists some of the cloud provider integrations
 that are available.
 
