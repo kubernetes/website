@@ -202,7 +202,7 @@ cd <web-base>
 make docker-serve
 ```
 
-Посмотрите [локальную предварительную версию сайта](https://localhost:1313/docs/reference/generated/kubectl/kubectl-commands/).
+Посмотрите [локальную предварительную версию сайта](http://localhost:1313/docs/reference/generated/kubectl/kubectl-commands/).
 
 ## Добавление и фиксация изменений в kubernetes/website
 
