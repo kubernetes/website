@@ -237,7 +237,7 @@ Abaixo seguem os procedimentos para configurar o auto-complete para Bash, Fish, 
    ```
 
    {{< note >}}
-   Download the same version of the binary and checksum.
+   Baixe a mesma versão do binário e do checksum.
    {{< /note >}}
 
 1. Torne o binário do kubectl-convert um executável
