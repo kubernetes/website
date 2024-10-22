@@ -189,11 +189,11 @@ Abaixo seguem os procedimentos para configurar o auto-complete para Bash, Fish, 
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
-### Install `kubectl convert` plugin
+### Instalar `kubectl convert` plugin
 
 {{< include "included/kubectl-convert-overview.md" >}}
 
-1. Download the latest release with the command:
+1. Baixe a última versão com o comando:
 
    {{< tabs name="download_convert_binary_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
@@ -204,9 +204,9 @@ Abaixo seguem os procedimentos para configurar o auto-complete para Bash, Fish, 
    {{< /tab >}}
    {{< /tabs >}}
 
-1. Validate the binary (optional)
+1. Valide o binário (opcional)
 
-   Download the kubectl-convert checksum file:
+   Baixe o arquivo de checksum do kubectl-convert:
 
    {{< tabs name="download_convert_checksum_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
@@ -217,19 +217,19 @@ Abaixo seguem os procedimentos para configurar o auto-complete para Bash, Fish, 
    {{< /tab >}}
    {{< /tabs >}}
 
-   Validate the kubectl-convert binary against the checksum file:
+   Valide o binário do kubectl-convert com o checksum:
 
    ```bash
    echo "$(cat kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
    ```
 
-   If valid, the output is:
+   Se for válido, a saída será:
 
    ```console
    kubectl-convert: OK
    ```
 
-   If the check fails, `shasum` exits with nonzero status and prints output similar to:
+   Se o teste falhar, `shasum` irá retornar um status com número diferente de zero, e uma saída parecida como abaixo:
 
    ```console
    kubectl-convert: FAILED
@@ -240,13 +240,13 @@ Abaixo seguem os procedimentos para configurar o auto-complete para Bash, Fish, 
    Download the same version of the binary and checksum.
    {{< /note >}}
 
-1. Make kubectl-convert binary executable
+1. Torne o binário do kubectl-convert um executável
 
    ```bash
    chmod +x ./kubectl-convert
    ```
 
-1. Move the kubectl-convert binary to a file location on your system `PATH`.
+1. Mova o binário do kubectl-convert para o `PATH` do sistema.
 
    ```bash
    sudo mv ./kubectl-convert /usr/local/bin/kubectl-convert
@@ -254,18 +254,18 @@ Abaixo seguem os procedimentos para configurar o auto-complete para Bash, Fish, 
    ```
 
    {{< note >}}
-   Make sure `/usr/local/bin` is in your PATH environment variable.
+   Tenha certeza de que `/usr/local/bin` está no PATH em suas configurações de variáveis ambiente.
    {{< /note >}}
 
-1. Verify plugin is successfully installed
+1. Verifique se o plugin foi instalado com sucesso
 
    ```shell
    kubectl convert --help
    ```
 
-   If you do not see an error, it means the plugin is successfully installed.
+   Se você não encontrar nenhum erro, isso quer dizer que o plugin foi instalado com sucesso.
 
-1. After installing the plugin, clean up the installation files:
+1. Após instalar o plugin, limpe os arquivos de instalação:
 
    ```bash
    rm kubectl-convert kubectl-convert.sha256
