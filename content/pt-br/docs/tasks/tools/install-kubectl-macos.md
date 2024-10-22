@@ -170,7 +170,7 @@ você pode instalar o kubectl utilizando o Macports.
    kubectl version --client
    ```
 
-## Verifique a configuração do kubectl
+## Verificar a configuração do kubectl
 
 {{< include "included/verify-kubectl.md" >}}
 
