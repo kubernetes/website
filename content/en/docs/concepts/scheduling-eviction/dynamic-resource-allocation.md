@@ -218,6 +218,13 @@ schedule multiple pods quickly by keeping information about ResourceClaim
 allocations in memory and writing this information to the ResourceClaim objects
 in the background while concurrently binding the pod to a node.
 
+## Writing prioritized alternate device requests
+
+{{< feature-state for_k8s_version="v1.32" state="alpha" >}}
+
+{{< feature-state feature_gate_name="DRAFirstAvailableOf" >}}
+
+
 ## Monitoring resources
 
 The kubelet provides a gRPC service to enable discovery of dynamic resources of
