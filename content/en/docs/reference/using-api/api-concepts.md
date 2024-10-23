@@ -400,13 +400,11 @@ the API server will send any `BOOKMARK` event even when requested.
 
 On large clusters, retrieving the collection of some resource types may result in
 a significant increase of resource usage (primarily RAM) on the control plane.
-In order to alleviate its impact and simplify the user experience of the **list** + **watch**
-pattern, Kubernetes v1.27 introduces as an alpha feature the support
-for requesting the initial state (previously requested via the **list** request) as part of
-the **watch** request.
+To alleviate the impact and simplify the user experience of the **list** + **watch**
+pattern, Kubernetes v1.32 promotes to beta the feature that allows requesting the initial state 
+(previously requested via the **list** request) as part of the **watch** request.
 
-Provided that the `WatchList` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled, this can be achieved by specifying `sendInitialEvents=true` as query string parameter
+On the client-side the initial state can be requested by specifying `sendInitialEvents=true` as query string parameter
 in a **watch** request. If set, the API server starts the watch stream with synthetic init
 events (of type `ADDED`) to build the whole state of all existing objects followed by a
 [`BOOKMARK` event](/docs/reference/using-api/api-concepts/#watch-bookmarks)
