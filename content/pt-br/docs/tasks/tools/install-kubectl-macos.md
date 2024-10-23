@@ -100,7 +100,7 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
    chmod +x ./kubectl
    ```
 
-1. Movendo o binário do kubectl para um diretório do seu sistema`PATH`.
+1. Movendo o binário do kubectl para um diretório do seu sistema `PATH`.
 
    ```bash
    sudo mv ./kubectl /usr/local/bin/kubectl
