@@ -5,7 +5,6 @@
 このリポジトリには、[KubernetesのWebサイトとドキュメント](https://kubernetes.io/)をビルドするために必要な全アセットが格納されています。あなたの貢献をお待ちしています！
 
 - [ドキュメントに貢献する](#contributing-to-the-docs)
-- [翻訳された`README.md`一覧](#localization-readmemds)
 
 ## リポジトリの使い方
 
@@ -200,18 +199,6 @@ Kubernetesのドキュメントへの貢献に関する詳細については以�
 | 名前                       | Slack                      | GitHub                     |                   
 | -------------------------- | -------------------------- | -------------------------- |
 | Sreeram Venkitesh                | @sreeram.venkitesh                      | @sreeram-venkitesh              |
-
-## 翻訳された`README.md`一覧 {#localization-readmemds}
-
-| Language  | Language |
-|---|---|
-|[中国語](README-zh.md)|[韓国語](README-ko.md)|
-|[フランス語](README-fr.md)|[ポーランド語](README-pl.md)|
-|[ドイツ語](README-de.md)|[ポルトガル語](README-pt.md)|
-|[ヒンディー語](README-hi.md)|[ロシア語](README-ru.md)|
-|[インドネシア語](README-id.md)|[スペイン語](README-es.md)|
-|[イタリア語](README-it.md)|[ウクライナ語](README-uk.md)|
-|[日本語](README-ja.md)|[ベトナム語](README-vi.md)|
 
 ### 行動規範
 

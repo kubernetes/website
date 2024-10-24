@@ -15,9 +15,19 @@ usually runs multiple nodes, providing fault-tolerance and high availability.
 
 This document outlines the various components you need to have for a complete and working Kubernetes cluster.
 
-{{< figure src="/images/docs/kubernetes-cluster-architecture.svg" alt="The control plane (kube-apiserver, etcd, kube-controller-manager, kube-scheduler) and several nodes. Each node is running a kubelet and kube-proxy."
-title="Kubernetes cluster components"
-caption="**Note:** This diagram presents an example reference architecture for a Kubernetes cluster. The actual distribution of components can vary based on specific cluster setups and requirements." class="diagram-large" >}}
+{{< figure src="/images/docs/kubernetes-cluster-architecture.svg" alt="The control plane (kube-apiserver, etcd, kube-controller-manager, kube-scheduler) and several nodes. Each node is running a kubelet and kube-proxy." caption="Figure 1. Kubernetes cluster components." class="diagram-large" >}}
+
+{{< details summary="About this architecture" >}}
+The diagram in Figure 1 presents an example reference architecture for a Kubernetes cluster.
+The actual distribution of components can vary based on specific cluster setups and requirements.
+
+In the diagram, each node runs the [`kube-proxy`](#kube-proxy) component. You need a
+network proxy component on each node to ensure that the
+{{< glossary_tooltip text="Service" term_id="service">}} API and associated behaviors
+are available on your cluster network. However, some network plugins provide their own,
+third party implementation of proxying. When you use that kind of network plugin,
+the node does not need to run `kube-proxy`.
+{{< /details >}}
 
 ## Control plane components
 
@@ -74,6 +84,8 @@ The following controllers can have cloud provider dependencies:
   deleted in the cloud after it stops responding
 - Route controller: For setting up routes in the underlying cloud infrastructure
 - Service controller: For creating, updating and deleting cloud provider load balancers
+
+---
 
 ## Node components
 

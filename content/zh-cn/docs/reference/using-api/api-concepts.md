@@ -233,25 +233,10 @@ Over HTTP, Kubernetes supports JSON and Protobuf wire encodings.
 
 通过 HTTP，Kubernetes 支持 JSON 和 Protobuf 网络编码格式。
 
-{{% note %}}
-<!--
-Although YAML is widely used to define Kubernetes manifests locally, Kubernetes does not
-support the [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512.html) media type
-for API operations.
-
-All JSON documents are valid YAML, so you can also use a JSON API response anywhere that is
-expecting a YAML input.
--->
-虽然 YAML 被广泛用于本地定义 Kubernetes 清单，但 Kubernetes 不支持
-[`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512.html) 媒体类型用于 API 操作。
-
-所有的 JSON 文档都是有效的 YAML，因此你也可以在所有期望输入 YAML 的地方使用 JSON API 响应。
-{{% /note %}}
-
 <!--
 By default, Kubernetes returns objects in [JSON serialization](#json-encoding), using the
-`application/json` media type. Although JSON is the default, clients may request the more
-efficient binary [Protobuf representation](#protobuf-encoding) for better performance at scale.
+`application/json` media type. Although JSON is the default, clients may request a response in
+YAML, or use the more efficient binary [Protobuf representation](#protobuf-encoding) for better performance at scale.
 
 The Kubernetes API implements standard HTTP content type negotiation: passing an
 `Accept` header with a `GET` call will request that the server tries to return
@@ -260,7 +245,7 @@ the server for a `PUT` or `POST` request, you must set the `Content-Type` reques
 appropriately.
 -->
 默认情况下，Kubernetes 使用 `application/json` 媒体类型以 [JSON 序列化](#json-encoding)返回对象。
-虽然 JSON 是默认类型，但客户端可以请求更高效的二进制
+虽然 JSON 是默认类型，但客户端可以用 YAML 请求响应，或使用更高效的二进制
 [Protobuf 表示](#protobuf-encoding)，以便在大规模环境中获得更好的性能。
 
 Kubernetes API 实现了标准的 HTTP 内容类型协商：
@@ -298,11 +283,21 @@ Kubernetes API 默认使用 [JSON](https://www.json.org/json-en.html) 来编码 
 
    ```
    GET /api/v1/pods
-   ---
+   ```
+
+   <!--
+   ```
    200 OK
    Content-Type: application/json
 
    … JSON encoded collection of Pods (PodList object)
+   ```
+   -->
+   ```
+   200 OK
+   Content-Type: application/json
+
+   … JSON 编码的 Pod 集合（PodList 对象）
    ```
 
 <!--
@@ -310,12 +305,22 @@ Kubernetes API 默认使用 [JSON](https://www.json.org/json-en.html) 来编码 
 -->
 2. 通过向服务器发送 JSON 并请求 JSON 响应来创建 Pod。
 
+   <!--
    ```
    POST /api/v1/namespaces/test/pods
    Content-Type: application/json
    Accept: application/json
    … JSON encoded Pod object
-   ---
+   ```
+   -->
+   ```
+   POST /api/v1/namespaces/test/pods
+   Content-Type: application/json
+   Accept: application/json
+   … JSON 编码的 Pod 对象
+   ```
+
+   ```
    200 OK
    Content-Type: application/json
 
@@ -327,19 +332,92 @@ Kubernetes API 默认使用 [JSON](https://www.json.org/json-en.html) 来编码 
    ```
 
 <!--
+### YAML resource encoding {#yaml-encoding}
+
+Kubernetes also supports the [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512.html) media type for both requests and responses. [`YAML`](https://yaml.org/) can be used for defining Kubernetes manifests and API interactions.
+
+For example:
+-->
+### YAML 资源编码   {#yaml-encoding}
+
+Kubernetes 还支持 [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512.html)
+媒体类型用于请求和响应。[`YAML`](https://yaml.org/) 可用于定义 Kubernetes 清单和 API 交互。
+
+例如：
+
+<!--
+1. List all of the pods on a cluster in YAML format
+-->
+1. 以 YAML 格式列举集群上的所有 Pod：
+
+   ```
+   GET /api/v1/pods
+   Accept: application/yaml
+   ```
+   
+   <!--
+   ```
+   200 OK
+   Content-Type: application/yaml
+
+   … YAML encoded collection of Pods (PodList object)
+   ```
+   -->
+   ```
+   200 OK
+   Content-Type: application/yaml
+
+   … YAML 编码的 Pod 集合（PodList 对象）
+   ```
+
+<!--
+1. Create a pod by sending YAML-encoded data to the server, requesting a YAML response:
+-->
+2. 通过向服务器发送 YAML 编码的数据并请求 YAML 响应来创建 Pod：
+
+   <!--
+   ```
+   POST /api/v1/namespaces/test/pods
+   Content-Type: application/yaml
+   Accept: application/yaml
+   … YAML encoded Pod object
+   ```
+   -->
+   ```
+   POST /api/v1/namespaces/test/pods
+   Content-Type: application/yaml
+   Accept: application/yaml
+   … YAML 编码的 Pod 对象
+   ```
+   
+   ```
+   200 OK
+   Content-Type: application/yaml
+
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     name: my-pod
+     …
+   ```
+
+<!--
 ### Kubernetes Protobuf encoding {#protobuf-encoding}
 
-Kubernetes uses an envelope wrapper to encode Protobuf responses. That wrapper starts
-with a 4 byte magic number to help identify content in disk or in etcd as Protobuf
-(as opposed to JSON), and then is followed by a Protobuf encoded wrapper message, which
-describes the encoding and type of the underlying object and then contains the object.
+Kubernetes uses an envelope wrapper to encode [Protobuf](https://protobuf.dev/) responses.
+That wrapper starts with a 4 byte magic number to help identify content in disk or in etcd as Protobuf
+(as opposed to JSON). The 4 byte magic number data is followed by a Protobuf encoded wrapper message, which
+describes the encoding and type of the underlying object. Within the Protobuf wrapper message,
+the inner object data is recorded using the `raw` field of Unknown (see the [IDL](##protobuf-encoding-idl)
+for more detail).
 -->
 ### Kubernetes Protobuf 编码   {#protobuf-encoding}
 
-Kubernetes 使用封套形式来对 Protobuf 响应进行编码。
+Kubernetes 使用封套形式来对 [Protobuf](https://protobuf.dev/) 响应进行编码。
 封套外层由 4 个字节的特殊数字开头，便于从磁盘文件或 etcd 中辩识 Protobuf
-格式的（而不是 JSON）数据。
-接下来存放的是 Protobuf 编码的封套消息，其中描述下层对象的编码和类型，最后才是对象本身。
+格式的（而不是 JSON）数据。这个 4 字节的特殊数字后跟一个 Protobuf 编码的封套消息，
+此消息描述了下层对象的编码和类型。在 Protobuf 封套消息中，内部对象数据使用 Unknown 的
+`raw` 字段进行记录（有关细节参见 [IDL](##protobuf-encoding-idl)）。
 
 <!--
 For example:
@@ -354,11 +432,21 @@ For example:
    ```
    GET /api/v1/pods
    Accept: application/vnd.kubernetes.protobuf
-   ---
+   ```
+
+   <!--
+   ```
    200 OK
    Content-Type: application/vnd.kubernetes.protobuf
 
    … JSON encoded collection of Pods (PodList object)
+   ```
+   -->
+   ```
+   200 OK
+   Content-Type: application/vnd.kubernetes.protobuf
+
+   … JSON 编码的 Pod 集合（PodList 对象）
    ```
 
 <!--
@@ -367,12 +455,22 @@ For example:
 -->
 2. 通过向服务器发送 Protobuf 编码的数据创建 Pod，但请求以 JSON 形式接收响应：
 
+   <!--
    ```
    POST /api/v1/namespaces/test/pods
    Content-Type: application/vnd.kubernetes.protobuf
    Accept: application/json
    … binary encoded Pod object
-   ---
+   ```
+   -->
+   ```
+   POST /api/v1/namespaces/test/pods
+   Content-Type: application/vnd.kubernetes.protobuf
+   Accept: application/json
+   … 二进制编码的 Pod 对象
+   ```
+
+   ```
    200 OK
    Content-Type: application/json
 
@@ -611,7 +709,7 @@ this is called a `Reflector` and is located in the `k8s.io/client-go/tools/cache
 （在 Go 客户端库中，这称为 `反射器（Reflector）`，位于 `k8s.io/client-go/tools/cache` 包中。）
 
 <!--
-### Watch bookmarks
+### Watch bookmarks {#watch-bookmarks}
 
 To mitigate the impact of short history window, the Kubernetes API provides a watch
 event named `BOOKMARK`. It is a special kind of event to mark that all changes up
@@ -1070,6 +1168,7 @@ items:
     namespace: kube-system
 ```
 
+{{< note >}}
 <!--
 Keep in mind that the Kubernetes API does not have a `kind` named `List`.
 
@@ -1077,7 +1176,6 @@ Keep in mind that the Kubernetes API does not have a `kind` named `List`.
 collections that might be of different kinds of object. Avoid depending on
 `kind: List` in automation or other code.
 -->
-{{< note >}}
 请记住，Kubernetes API 没有名为 `List` 的 `kind`。
 
 `kind: List` 是一个客户端内部实现细节，用于处理可能属于不同类别的对象的集合。
@@ -1366,8 +1464,8 @@ information about warnings and the Kubernetes API, see the blog article
 -->
 `Warn`
 :（默认值）使 API 服务器成功处理请求，并向客户端发送告警信息。告警信息通过 `Warning:` 响应头发送，
-并为每个未知字段或重复字段添加一条告警信息。有关告警和相关的 Kubernetes API 的信息，
-可参阅博文[告警：增加实用告警功能](/zh-cn/blog/2020/09/03/warnings/)。
+  并为每个未知字段或重复字段添加一条告警信息。有关告警和相关的 Kubernetes API 的信息，
+  可参阅博文[告警：增加实用告警功能](/zh-cn/blog/2020/09/03/warnings/)。
 
 <!--
 : The API server rejects the request with a 400 Bad Request error when it
@@ -1377,7 +1475,7 @@ detected.
 -->
 `Strict`
 : API 服务器检测到任何未知字段或重复字段时，拒绝处理请求并返回 400 Bad Request 错误。
-来自 API 服务器的响应消息列出了 API 检测到的所有未知字段或重复字段。
+  来自 API 服务器的响应消息列出了 API 检测到的所有未知字段或重复字段。
 
 <!--
 The field validation level is set by the `fieldValidation` query parameter.
@@ -1429,6 +1527,7 @@ kubectl 默认的校验设置是 `--validate=true` ，这意味着执行严格�
 当 kubectl 无法连接到启用字段校验的 API 服务器（Kubernetes 1.27 之前的 API 服务器）时，
 将回退到使用客户端的字段校验。
 客户端校验将在 kubectl 未来版本中被完全删除。
+
 {{< note >}}
 <!--
 Prior to Kubernetes 1.25  `kubectl --validate` was used to toggle client-side validation on or off as
@@ -1508,13 +1607,13 @@ that they do not have side effects, by setting their `sideEffects` field to `Non
 此外，准入 Webhook 还可以设置[配置对象](/zh-cn/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#validatingwebhook-v1-admissionregistration-k8s-io)
 的 `sideEffects` 字段为 `None`，借此声明它们没有副作用。
 
+{{< note >}}
 <!--
 If a webhook actually does have side effects, then the `sideEffects` field should be
 set to "NoneOnDryRun". That change is appropriate provided that the webhook is also
 be modified to understand the `DryRun` field in AdmissionReview, and to prevent side
 effects on any request marked as dry runs.
 -->
-{{< note >}}
 如果 webhook 确实有副作用，则应该将 `sideEffects` 字段设置为 “NoneOnDryRun”。
 如果还修改了 webhook 以理解 AdmissionReview 中的 DryRun 字段，
 并防止对标记为试运行的任何请求产生副作用，则该更改是适当的。
@@ -1920,12 +2019,10 @@ on the operation you request, and on the value of `resourceVersion`. If you set
 API 服务器根据你请求的操作和 `resourceVersion` 的值对 `resourceVersion` 参数进行不同的解释。
 如果你设置 `resourceVersionMatch` 那么这也会影响匹配发生的方式。
 
-
 <!--
 ### Semantics for **get** and **list**
 
 For **get** and **list**, the semantics of `resourceVersion` are:
-
 -->
 ### **get** 和 **list** 语义   {#semantics-for-get-and-list}
 
@@ -1981,6 +2078,7 @@ This table explains the behavior of **list** requests with various combinations 
 设置 `resourceVersionMatch` 参数而不设置 `resourceVersion` 参数是不合法的。
 
 下表解释了具有各种 `resourceVersion` 和 `resourceVersionMatch` 组合的 **list** 请求的行为：
+
 <!--
 | resourceVersionMatch param            | paging params                 | resourceVersion not set | resourceVersion="0"                       | resourceVersion="{value other than 0}" |
 |---------------------------------------|-------------------------------|-----------------------|-------------------------------------------|----------------------------------------|
@@ -2009,11 +2107,11 @@ This table explains the behavior of **list** requests with various combinations 
 
 {{< /table >}}
 
+{{< note >}}
 <!--
 If your cluster's API server does not honor the `resourceVersionMatch` parameter,
 the behavior is the same as if you did not set it.
 -->
-{{< note >}}
 如果你的集群的 API 服务器不支持 `resourceVersionMatch` 参数，
 则行为与你未设置它时相同。
 {{< /note >}}
@@ -2065,7 +2163,6 @@ Not older than
   `resourceVersion`, but does not make any guarantee about the `.metadata.resourceVersion` of any
   of the items in that collection.
 -->
-
 不老于指定版本
 : 返回数据至少与提供的 `resourceVersion` 一样新。
   最新的可用数据是首选，但可以提供不早于提供的 `resourceVersion` 的任何数据。
@@ -2086,7 +2183,6 @@ Continue Token, Exact
   tokens_ are responsible for keeping track of the initially provided resource version for all paginated
   **list** calls after the initial paginated **list**.
 -->
-
 精确匹配
 : 以提供的确切资源版本返回数据。如果提供的 `resourceVersion` 不可用，
   则服务器以 HTTP 410 “Gone” 响应。对于对支持 `resourceVersionMatch` 参数的服务器的 **list** 请求，
@@ -2123,7 +2219,6 @@ verify that the collection's `.metadata.resourceVersion` matches
 the requested `resourceVersion`, and handle the case where it does not. For
 example, the client might fall back to a request with `limit` set.
 -->
-
 当使用 `resourceVersionMatch=NotOlderThan` 并设置了限制时，
 客户端必须处理 HTTP 410 “Gone” 响应。
 例如，客户端可能会使用更新的 `resourceVersion` 重试或回退到 `resourceVersion=""`。
@@ -2152,7 +2247,6 @@ For watch, the semantics of resource version are:
 
 {{< /table >}}
 -->
-
 {{< table caption="watch 操作的 resourceVersion 设置" >}}
 
 | resourceVersion 未设置    | resourceVersion="0"      | resourceVersion="\<非零值\>" |
