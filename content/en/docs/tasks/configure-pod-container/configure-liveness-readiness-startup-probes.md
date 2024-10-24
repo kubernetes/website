@@ -21,9 +21,12 @@ as for readiness probes, but with a higher failureThreshold. This ensures that t
 is observed as not-ready for some period of time before it is hard killed.
 
 The kubelet uses readiness probes to know when a container is ready to start
-accepting traffic. A Pod is considered ready when all of its containers are ready.
-One use of this signal is to control which Pods are used as backends for Services.
-When a Pod is not ready, it is removed from Service load balancers.
+accepting traffic. One use of this signal is to control which Pods are used as
+backends for Services. A Pod is considered ready when its `Ready` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
+is true. When a Pod is not ready, it is removed from Service load balancers.
+A Pod's `Ready` condition is false when its Node's `Ready` condition is not true,
+when one of the Pod's `readinessGates` is false, or when at least one of its containers
+is not ready.
 
 The kubelet uses startup probes to know when a container application has started.
 If such a probe is configured, liveness and readiness probes do not start until
