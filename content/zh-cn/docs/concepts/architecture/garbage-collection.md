@@ -296,31 +296,19 @@ regardless of disk usage. This is a kubelet setting that you configure for each 
 这是一个可以为每个节点配置的 kubelet 设置。
 
 <!--
-To configure the setting, you need to set a value for the `imageMaximumGCAge` 
+To configure the setting, you need to set a value for the `imageMaximumGCAge`
 field in the kubelet configuration file.
 -->
 要配置该设置，你需要在 kubelet 配置文件中为 `imageMaximumGCAge`
 字段设置一个值。
 
 <!--
-The value is specified as a Kubernetes _duration_; 
-Valid time units for the `imageMaximumGCAge` field in the kubelet configuration file are:
-- "ns" for nanoseconds
-- "us" or "µs" for microseconds
-- "ms" for milliseconds
-- "s" for seconds
-- "m" for minutes
-- "h" for hours
+The value is specified as a Kubernetes {{< glossary_tooltip text="duration" term_id="duration" >}}; 
+See [duration](/docs/reference/glossary/?all=true#term-duration) in the glossary
+for more details.
 -->
-该值应遵循 Kubernetes **持续时间（Duration）** 格式；
-在 kubelet 配置文件中，`imageMaximumGCAge` 字段的有效时间单位如下：
-
-- "ns" 表示纳秒
-- "us" 或 "µs" 表示微秒
-- "ms" 表示毫秒
-- "s" 表示秒
-- "m" 表示分钟
-- "h" 表示小时
+该值应遵循 Kubernetes {{< glossary_tooltip text="持续时间（Duration）" term_id="duration" >}}格式；
+有关更多详细信息，请参阅词汇表中的[持续时间（Duration）](/zh-cn/docs/reference/glossary/?all=true#term-duration)。
 
 <!--
 For example, you can set the configuration field to `12h45m`,
