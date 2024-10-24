@@ -481,8 +481,8 @@ administrator intervention.
 {{% feature-state for_k8s_version="v1.23" state="alpha" %}}
 
 {{< note >}}
-Recovery from failing PVC expansion by users is available as an alpha feature
-since Kubernetes 1.23. The `RecoverVolumeExpansionFailure` feature must be
+Recovery from failing PVC expansion by users is available as an beta feature
+since Kubernetes 1.32. The `RecoverVolumeExpansionFailure` feature must be
 enabled for this feature to work. Refer to the
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 documentation for more information.
