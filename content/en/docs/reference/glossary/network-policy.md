@@ -11,6 +11,7 @@ tags:
 - networking
 - architecture
 - extension
+- core-object
 ---
  A specification of how groups of Pods are allowed to communicate with each other and with other network endpoints.
 

@@ -975,10 +975,8 @@ listed below.
 
 <!--
 * [Capsule](https://github.com/clastix/capsule)
-* [Kiosk](https://github.com/loft-sh/kiosk)
 -->
 * [Capsule](https://github.com/clastix/capsule)
-* [Kiosk](https://github.com/loft-sh/kiosk)
 
 <!--
 #### Multi-customer tenancy

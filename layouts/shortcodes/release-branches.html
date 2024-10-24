@@ -4,23 +4,41 @@
 
 <h3 id="{{ $dataIdVersion }}">{{ $version }}</h3>
 <p>
+    {{- if gt (time.Format "2006-01-02" $releaseInfo.maintenanceModeStartDate) (time.Format "2006-01-02" now) -}}
     {{ printf (T "release_info_next_patch") $releaseInfo.next.release | markdownify }}
+    {{- end -}}
 </p>
 <p>
     {{ $releaseInfo.next.note | markdownify }}
 </p>
 <p>
-    {{ printf (T "release_info_eol")
+  {{- $maintenance_mode_start_date :=
+      ( printf "<time datetime=%s title=\"%s\">%s</time>"
+        (time.Format "2006-01-02" $releaseInfo.maintenanceModeStartDate)
+        (time.Format ":date_full" $releaseInfo.maintenanceModeStartDate)
+        (time.Format ":date_medium" $releaseInfo.maintenanceModeStartDate)
+      ) | safeHTML -}}
+  {{- $release_eol_date :=
+      ( printf "<time datetime=%s title=\"%s\">%s</time>"
+        (time.Format "2006-01-02" $releaseInfo.endOfLifeDate)
+        (time.Format ":date_full" $releaseInfo.endOfLifeDate)
+        (time.Format ":date_medium" $releaseInfo.endOfLifeDate)
+      ) | safeHTML -}}
+  {{- if eq (T "release_info_eol") "" -}}
+    {{- if gt (time.Format "2006-01-02" $releaseInfo.maintenanceModeStartDate) (time.Format "2006-01-02" now) -}}
+      {{- T "release_maintenance_and_end_of_life_details_current" (dict "minor_version" $version "maintenance_mode_start_date" $maintenance_mode_start_date "release_eol_date" $release_eol_date ) | markdownify -}}
+    {{- else -}}
+      {{- T "release_maintenance_and_end_of_life_details_past" (dict "minor_version" $version "maintenance_mode_start_date" $maintenance_mode_start_date "release_eol_date" $release_eol_date ) | markdownify -}}
+    {{- end -}}
+  {{- else -}}
+    <!-- use legacy localization approach -->
+    {{- printf (T "release_info_eol")
         $version
-        ( printf "<time datetime=%s>%s</time>"
-            (time.Format "2006-01-02" $releaseInfo.maintenanceModeStartDate)
-            (time.Format ( T "release_date_format") $releaseInfo.maintenanceModeStartDate)
-        )
-        ( printf "<time datetime=%s>%s</time>"
-            (time.Format "2006-01-02" $releaseInfo.endOfLifeDate)
-            (time.Format ( T "release_date_format") $releaseInfo.endOfLifeDate)
-        )
-        | safeHTML | markdownify }}
+        $maintenance_mode_start_date
+        $release_eol_date
+      | markdownify -}}
+      {{- end -}}
+      </date>
 </p>
 {{ if $releaseInfo.previousPatches }}
 <div>
@@ -39,11 +57,21 @@
                 <td>
                     {{ $patchReleaseInfo.release }}
                 </td>
+                {{- with $patchReleaseInfo.cherryPickDeadline -}}
                 <td>
-                    {{ $patchReleaseInfo.cherryPickDeadline }}
+                  <time title="{{ time.Format ":date_full" . }}" datetime={{ time.Format "2006-01-02" . }}>{{ time.Format ( T "release_date_format" ) . }}</time>
                 </td>
+                {{- else -}}
+                  <td class="value-not-applicable">-</td>
+                {{- end -}}
+                {{- with $patchReleaseInfo.targetDate -}}
                 <td>
-                    {{ $patchReleaseInfo.targetDate }}
+                    <time title="{{ time.Format ":date_full" . }}" datetime={{ time.Format "2006-01-02" .}}>{{ time.Format ( T "release_date_format") . }}</time>
+                    </time>
+                </td>
+                {{- else -}}
+                  <td class="value-not-applicable">-</td>
+                {{- end -}}
                 </td>
                 <td lang="en-US">
                     {{ $patchReleaseInfo.note | markdownify }}
