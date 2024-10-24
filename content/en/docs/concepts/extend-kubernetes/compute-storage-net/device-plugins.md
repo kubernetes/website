@@ -490,6 +490,8 @@ Here are some examples of device plugin implementations:
   Intel GPU, FPGA, QAT, VPU, SGX, DSA, DLB and IAA devices
 * The [KubeVirt device plugins](https://github.com/kubevirt/kubernetes-device-plugins) for
   hardware-assisted virtualization
+* The [NVIDIA GPU device plugin](https://github.com/NVIDIA/k8s-device-plugin), NVIDIA's 
+  official device plugin to expose NVIDIA GPUs and monitor GPU health
 * The [NVIDIA GPU device plugin for Container-Optimized OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 * The [SocketCAN device plugin](https://github.com/collabora/k8s-socketcan)
