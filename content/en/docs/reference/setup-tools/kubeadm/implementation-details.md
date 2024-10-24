@@ -109,7 +109,7 @@ The user can skip specific preflight checks or all of them with the `--ignore-pr
 - [Error] if API server bindPort or ports 10250/10251/10252 are used
 - [Error] if `/etc/kubernetes/manifest` folder already exists and it is not empty
 - [Error] if swap is on
-- [Error] if `conntrack`, `ip`, `iptables`, `mount`, `nsenter` commands are not present in the command path
+- [Error] if `ip`, `iptables`, `mount`, `nsenter` commands are not present in the command path
 - [Warning] if `ebtables`, `ethtool`, `socat`, `tc`, `touch`, `crictl` commands are not present in the command path
 - [Warning] if extra arg flags for API server, controller manager, scheduler contains some invalid options
 - [Warning] if connection to https://API.AdvertiseAddress:API.BindPort goes through proxy
