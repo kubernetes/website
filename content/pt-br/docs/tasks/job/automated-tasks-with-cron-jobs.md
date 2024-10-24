@@ -1,8 +1,6 @@
 ---
 title: Executando tarefas automatizadas com CronJob
 min-kubernetes-server-version: v1.21
-reviewers:
-- chenopis
 content_type: task
 weight: 10
 ---
