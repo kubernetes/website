@@ -28,8 +28,8 @@ Typically, you only have one app container in a Pod. For example, if you have a 
 application that requires a local webserver, the local webserver is a sidecar and the
 web application itself is the app container.
 -->
-通常，一个 Pod 中只有一个应用程序容器。
-例如，如果你有一个需要本地 Web 服务器的 Web 应用程序，
+通常，一个 Pod 中只有一个应用容器。
+例如，如果你有一个需要本地 Web 服务器的 Web 应用，
 则本地 Web 服务器以边车容器形式运行，而 Web 应用本身以应用容器形式运行。
 
 <!-- body -->
@@ -63,8 +63,8 @@ and other init containers.
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 （该特性自 Kubernetes v1.29 起默认启用），你可以为 Pod 的 `initContainers`
 字段中列出的容器指定 `restartPolicy`。
-这些可重新启动的**边车（Sidecar）** 容器独立于其他 Init 容器以及同一 Pod 内的主应用程序容器，
-这些容器可以启动、停止和重新启动，而不会影响主应用程序容器和其他 Init 容器。
+这些可重新启动的**边车（Sidecar）** 容器独立于其他 Init 容器以及同一 Pod 内的主应用容器，
+这些容器可以启动、停止和重新启动，而不会影响主应用容器和其他 Init 容器。
 
 <!--
 You can also run a Pod with multiple containers that are not marked as init or sidecar
@@ -128,6 +128,17 @@ container and no startup probe defined, or as a result of its `startupProbe` suc
 kubelet 启动 `.spec.initContainers` 这一有序列表中的下一个 Init 容器。
 该状态要么因为容器中有一个正在运行的进程且没有定义启动探针而变为 true，
 要么是其 `startupProbe` 成功而返回的结果。
+
+<!--
+Upon Pod [termination](/docs/concepts/workloads/pods/pod-lifecycle/#termination-with-sidecars),
+the kubelet postpones terminating sidecar containers until the main application container has fully stopped.
+The sidecar containers are then shut down in the opposite order of their appearance in the Pod specification.
+This approach ensures that the sidecars remain operational, supporting other containers within the Pod,
+until their service is no longer required.
+-->
+在 Pod [终止](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#termination-with-sidecars)时，
+kubelet 会推迟终止边车容器，直到主应用容器已完全停止。边车容器随后将按照它们在 Pod 规约中出现的相反顺序被关闭。
+这种方法确保了在不再需要边车服务之前这些边车继续发挥作用，以支持 Pod 内的其他容器。
 
 <!--
 ### Jobs with sidecar containers
@@ -206,7 +217,7 @@ exchange messages with the app container in a Pod. Any data passing is one-way
 边车容器可以直接与主应用容器交互，因为与 Init 容器一样，
 它们总是与应用容器共享相同的网络，并且还可以选择共享卷（文件系统）。
 
-Init 容器在主容器启动之前停止，因此 Init 容器无法与 Pod 中的应用程序容器交换消息。
+Init 容器在主容器启动之前停止，因此 Init 容器无法与 Pod 中的应用容器交换消息。
 所有数据传递都是单向的（例如，Init 容器可以将信息放入 `emptyDir` 卷中）。
 
 ## 容器内的资源共享   {#resource-sharing-within-containers}
@@ -263,7 +274,7 @@ limit.
 On Linux, resource allocations for Pod level control groups (cgroups) are based on the effective Pod
 request and limit, the same as the scheduler.
 -->
-### Sidecar 容器和 Linux Cgroup   {#cgroups}
+### 边车容器和 Linux Cgroup   {#cgroups}
 
 在 Linux 上，Pod Cgroup 的资源分配基于 Pod 级别的有效资源请求和限制，这一点与调度器相同。
 

@@ -15,7 +15,7 @@ primary resources via the standard HTTP verbs (POST, PUT, PATCH, DELETE,
 GET).
 
 For some resources, the API includes additional subresources that allow
-fine grained authorization (such as separate views for Pod details and
+fine-grained authorization (such as separate views for Pod details and
 log retrievals), and can accept and serve those resources in different
 representations for convenience or efficiency.
 
@@ -65,7 +65,7 @@ example: Nodes), and so their names must be unique across the whole cluster.
 ### API verbs
 
 Almost all object resource types support the standard HTTP verbs - GET, POST, PUT, PATCH,
-and DELETE. Kubernetes also uses its own verbs, which are often written lowercase to distinguish
+and DELETE. Kubernetes also uses its own verbs, which are often written in lowercase to distinguish
 them from HTTP verbs.
 
 Kubernetes uses the term **list** to describe returning a [collection](#collections) of
@@ -78,7 +78,6 @@ For PUT requests, Kubernetes internally classifies these as either **create** or
 based on the state of the existing object. An **update** is different from a **patch**; the
 HTTP verb for a **patch** is PATCH.
 
-
 ## Resource URIs
 
 All resource types are either scoped by the cluster (`/apis/GROUP/VERSION/*`) or to a
@@ -89,6 +88,7 @@ is controlled by authorization checks on the namespace scope.
 Note: core resources use `/api` instead of `/apis` and omit the GROUP path segment.
 
 Examples:
+
 * `/api/v1/namespaces`
 * `/api/v1/pods`
 * `/api/v1/namespaces/my-namespace/pods`
@@ -106,9 +106,12 @@ The following paths are used to retrieve collections and resources:
 
 * Namespace-scoped resources:
 
-  * `GET /apis/GROUP/VERSION/RESOURCETYPE` - return the collection of all instances of the resource type across all namespaces
-  * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE` - return collection of all instances of the resource type in NAMESPACE
-  * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME` - return the instance of the resource type with NAME in NAMESPACE
+  * `GET /apis/GROUP/VERSION/RESOURCETYPE` - return the collection of all
+    instances of the resource type across all namespaces
+  * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE` - return
+    collection of all instances of the resource type in NAMESPACE
+  * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME` -
+    return the instance of the resource type with NAME in NAMESPACE
 
 Since a namespace is a cluster-scoped resource type, you can retrieve the list
 (“collection”) of all namespaces with `GET /api/v1/namespaces` and details about
@@ -126,18 +129,9 @@ virtual resource type would be used if that becomes necessary.
 
 Over HTTP, Kubernetes supports JSON and Protobuf wire encodings.
 
-{{% note %}}
-Although YAML is widely used to define Kubernetes manifests locally, Kubernetes does not
-support the [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512.html) media type
-for API operations.
-
-All JSON documents are valid YAML, so you can also use a JSON API response anywhere that is
-expecting a YAML input.
-{{% /note %}}
-
 By default, Kubernetes returns objects in [JSON serialization](#json-encoding), using the
-`application/json` media type. Although JSON is the default, clients may request the more
-efficient binary [Protobuf representation](#protobuf-encoding) for better performance at scale.
+`application/json` media type. Although JSON is the default, clients may request a response in
+YAML, or use the more efficient binary [Protobuf representation](#protobuf-encoding) for better performance at scale.
 
 The Kubernetes API implements standard HTTP content type negotiation: passing an
 `Accept` header with a `GET` call will request that the server tries to return
@@ -161,7 +155,9 @@ For example:
 
    ```
    GET /api/v1/pods
-   ---
+   ```
+
+   ```
    200 OK
    Content-Type: application/json
 
@@ -175,7 +171,9 @@ For example:
    Content-Type: application/json
    Accept: application/json
    … JSON encoded Pod object
-   ---
+   ```
+
+   ```
    200 OK
    Content-Type: application/json
 
@@ -186,13 +184,55 @@ For example:
    }
    ```
 
+### YAML resource encoding {#yaml-encoding}
+
+Kubernetes also supports the [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512.html)
+media type for both requests and responses. [`YAML`](https://yaml.org/)
+can be used for defining Kubernetes manifests and API interactions.
+
+For example:
+
+1. List all of the pods on a cluster in YAML format
+
+   ```
+   GET /api/v1/pods
+   Accept: application/yaml
+   ```
+   
+   ```
+   200 OK
+   Content-Type: application/yaml
+
+   … YAML encoded collection of Pods (PodList object)
+   ```
+
+1. Create a pod by sending YAML-encoded data to the server, requesting a YAML response:
+
+   ```
+   POST /api/v1/namespaces/test/pods
+   Content-Type: application/yaml
+   Accept: application/yaml
+   … YAML encoded Pod object
+   ```
+
+   ```
+   200 OK
+   Content-Type: application/yaml
+
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     name: my-pod
+     …
+   ```
+
 ### Kubernetes Protobuf encoding {#protobuf-encoding}
 
 Kubernetes uses an envelope wrapper to encode [Protobuf](https://protobuf.dev/) responses.
 That wrapper starts with a 4 byte magic number to help identify content in disk or in etcd as Protobuf
 (as opposed to JSON). The 4 byte magic number data is followed by a Protobuf encoded wrapper message, which
 describes the encoding and type of the underlying object. Within the Protobuf wrapper message,
-the inner object data is recorded using the `raw` field of Unknown (see the [IDL](##protobuf-encoding-idl)
+the inner object data is recorded using the `raw` field of Unknown (see the [IDL](#protobuf-encoding-idl)
 for more detail).
 
 For example:
@@ -202,7 +242,9 @@ For example:
    ```
    GET /api/v1/pods
    Accept: application/vnd.kubernetes.protobuf
-   ---
+   ```
+
+   ```
    200 OK
    Content-Type: application/vnd.kubernetes.protobuf
 
@@ -217,7 +259,9 @@ For example:
    Content-Type: application/vnd.kubernetes.protobuf
    Accept: application/json
    … binary encoded Pod object
-   ---
+   ```
+
+   ```
    200 OK
    Content-Type: application/json
 
@@ -286,7 +330,6 @@ For example:
 ```
 Accept: application/vnd.kubernetes.protobuf, application/json
 ```
-
 
 ## Efficient detection of changes
 
@@ -540,7 +583,7 @@ of 500 pods at a time, request those chunks as follows:
    }
    ```
 
-2. Continue the previous call, retrieving the next set of 500 pods.
+1. Continue the previous call, retrieving the next set of 500 pods.
 
    ```
    GET /api/v1/pods?limit=500&continue=ENCODED_CONTINUE_TOKEN
@@ -561,7 +604,7 @@ of 500 pods at a time, request those chunks as follows:
    }
    ```
 
-3. Continue the previous call, retrieving the last 253 pods.
+1. Continue the previous call, retrieving the last 253 pods.
 
    ```
    GET /api/v1/pods?limit=500&continue=ENCODED_CONTINUE_TOKEN_2
@@ -606,14 +649,15 @@ collections of different types of resource. Collections have a kind
 named for the resource kind, with `List` appended.
 
 When you query the API for a particular type, all items returned by that query are
-of that type.
-For example, when you **list** Services, the collection response
+of that type. For example, when you **list** Services, the collection response
 has `kind` set to
-[`ServiceList`](/docs/reference/kubernetes-api/service-resources/service-v1/#ServiceList); each item in that collection represents a single Service. For example:
+[`ServiceList`](/docs/reference/kubernetes-api/service-resources/service-v1/#ServiceList);
+each item in that collection represents a single Service. For example:
 
 ```
 GET /api/v1/services
 ```
+
 ```yaml
 {
   "kind": "ServiceList",
@@ -840,7 +884,7 @@ These situations are:
    exception to this is for {{< glossary_tooltip
    term_id="CustomResourceDefinition" text="CRDs" >}} that explicitly choose not to prune unknown
    fields via `x-kubernetes-preserve-unknown-fields`).
-2. The field is duplicated in the object.
+1. The field is duplicated in the object.
 
 ### Validation for unrecognized or duplicate fields {#setting-the-field-validation-level}
 
@@ -852,21 +896,21 @@ validation are `Ignore`, `Warn` (default), and `Strict`.
 
 `Ignore`
 : The API server succeeds in handling the request as it would without the erroneous fields
-being set, dropping all unknown and duplicate fields and giving no indication it
-has done so.
+  being set, dropping all unknown and duplicate fields and giving no indication it
+  has done so.
 
 `Warn`
 : (Default) The API server succeeds in handling the request, and reports a
-warning to the client. The warning is sent using the `Warning:` response header,
-adding one warning item for each unknown or duplicate field. For more
-information about warnings and the Kubernetes API, see the blog article
-[Warning: Helpful Warnings Ahead](/blog/2020/09/03/warnings/).
+  warning to the client. The warning is sent using the `Warning:` response header,
+  adding one warning item for each unknown or duplicate field. For more
+  information about warnings and the Kubernetes API, see the blog article
+  [Warning: Helpful Warnings Ahead](/blog/2020/09/03/warnings/).
 
 `Strict`
 : The API server rejects the request with a 400 Bad Request error when it
-detects any unknown or duplicate fields. The response message from the API
-server specifies all the unknown or duplicate fields that the API server has
-detected.
+  detects any unknown or duplicate fields. The response message from the API
+  server specifies all the unknown or duplicate fields that the API server has
+  detected.
 
 The field validation level is set by the `fieldValidation` query parameter.
 
@@ -926,7 +970,6 @@ string, working as an enum, and the only accepted values are:
 : Every stage runs as normal, except for the final storage stage where side effects
   are prevented.
 
-
 When you set `?dryRun=All`, any relevant
 {{< glossary_tooltip text="admission controllers" term_id="admission-controller" >}}
 are run, validating admission controllers check the request post-mutation, merge is
@@ -959,7 +1002,6 @@ Accept: application/json
 The response would look the same as for non-dry-run request, but the values of some
 generated fields may differ.
 
-
 ### Generated values
 
 Some values of an object are typically generated before the object is persisted. It
@@ -969,7 +1011,8 @@ request is made. Some of these fields are:
 
 * `name`: if `generateName` is set, `name` will have a unique random name
 * `creationTimestamp` / `deletionTimestamp`: records the time of creation/deletion
-* `UID`: [uniquely identifies](/docs/concepts/overview/working-with-objects/names/#uids) the object and is randomly generated (non-deterministic)
+* `UID`: [uniquely identifies](/docs/concepts/overview/working-with-objects/names/#uids)
+  the object and is randomly generated (non-deterministic)
 * `resourceVersion`: tracks the persisted version of the object
 * Any field set by a mutating admission controller
 * For the `Service` resource: Ports or IP addresses that the kube-apiserver assigns to Service objects
@@ -1009,7 +1052,8 @@ provided is stale), the API server returns a `409 Conflict` error response.
 
 Instead of sending a PUT request, the client can send an instruction to the API
 server to **patch** an existing resource. A **patch** is typically appropriate
-if the change that the client wants to make isn't conditional on the existing data. Clients that need effective detection of lost updates should consider
+if the change that the client wants to make isn't conditional on the existing data.
+Clients that need effective detection of lost updates should consider
 making their request conditional on the existing `resourceVersion` (either HTTP PUT or HTTP PATCH),
 and then handle any retries that are needed in case there is a conflict.
 
@@ -1053,7 +1097,6 @@ corresponding HTTP `Content-Type` header:
   The Kubernetes _server side apply_ mechanism has superseded Strategic Merge
   Patch.
   {{< /note >}}
-
 
 Kubernetes' [Server Side Apply](/docs/reference/using-api/server-side-apply/)
 feature allows the control plane to track managed fields for newly created objects.
@@ -1107,10 +1150,10 @@ A **patch** update is helpful, because:
 
 However:
 
-* you need more local (client) logic to build the patch; it helps a lot if you have
-  a library implementation of JSON Patch, or even for making a JSON Patch specifically against Kubernetes
-* as the author of client software, you need to be careful when building the patch
-  (the HTTP request body) not to drop fields (the order of operations matters)
+* You need more local (client) logic to build the patch; it helps a lot if you have
+  a library implementation of JSON Patch, or even for making a JSON Patch specifically against Kubernetes.
+* As the author of client software, you need to be careful when building the patch
+  (the HTTP request body) not to drop fields (the order of operations matters).
 
 #### HTTP PATCH using Server-Side Apply {#update-mechanism-server-side-apply}
 
@@ -1119,13 +1162,13 @@ Server-Side Apply has some clear benefits:
 * A single round trip: it rarely requires making a `GET` request first.
   * and you can still detect conflicts for unexpected changes
   * you have the option to force override a conflict, if appropriate
-* Client implementations are easy to make
+* Client implementations are easy to make.
 * You get an atomic create-or-update operation without extra effort
-  (similar to `UPSERT` in some SQL dialects)
+  (similar to `UPSERT` in some SQL dialects).
 
 However:
 
-* Server-Side Apply does not work at all for field changes that depend on a current value of the object
+* Server-Side Apply does not work at all for field changes that depend on a current value of the object.
 * You can only apply updates to objects. Some resources in the Kubernetes HTTP API are
   not objects (they do not have a `.metadata` field), and Server-Side Apply
   is only relevant for Kubernetes objects.
@@ -1147,9 +1190,12 @@ resource versions for greater-than or less-than relationships).
 Clients find resource versions in resources, including the resources from the response
 stream for a **watch**, or when using **list** to enumerate resources.
 
-[v1.meta/ObjectMeta](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectmeta-v1-meta) - The `metadata.resourceVersion` of a resource instance identifies the resource version the instance was last modified at.
+[v1.meta/ObjectMeta](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectmeta-v1-meta) -
+The `metadata.resourceVersion` of a resource instance identifies the resource version the instance was last modified at.
 
-[v1.meta/ListMeta](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#listmeta-v1-meta) - The `metadata.resourceVersion` of a resource collection (the response to a **list**) identifies the resource version at which the collection was constructed.
+[v1.meta/ListMeta](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#listmeta-v1-meta) -
+The `metadata.resourceVersion` of a resource collection (the response to a **list**) identifies the
+resource version at which the collection was constructed.
 
 ### `resourceVersion` parameters in query strings {#the-resourceversion-parameter}
 
@@ -1190,21 +1236,20 @@ quorum read to be served.
 
 Setting the `resourceVersionMatch` parameter without setting `resourceVersion` is not valid.
 
-
 This table explains the behavior of **list** requests with various combinations of
 `resourceVersion` and `resourceVersionMatch`:
 
 {{< table caption="resourceVersionMatch and paging parameters for list" >}}
 
-| resourceVersionMatch param            | paging params                 | resourceVersion not set | resourceVersion="0"                       | resourceVersion="{value other than 0}" |
-|---------------------------------------|-------------------------------|-----------------------|-------------------------------------------|----------------------------------------|
-| _unset_            | _limit unset_                   | Most Recent           | Any                                       | Not older than                         |
-| _unset_            | limit=\<n\>, _continue unset_     | Most Recent           | Any                                       | Exact                                  |
-| _unset_            | limit=\<n\>, continue=\<token\> | Continue Token, Exact | Invalid, treated as Continue Token, Exact | Invalid, HTTP `400 Bad Request`        |
-| `resourceVersionMatch=Exact`        | _limit unset_                 | Invalid               | Invalid                                   | Exact                                  |
-| `resourceVersionMatch=Exact`        | limit=\<n\>, _continue unset_ | Invalid               | Invalid                                   | Exact                                  |
-| `resourceVersionMatch=NotOlderThan` | _limit unset_                 | Invalid               | Any                                       | Not older than                         |
-| `resourceVersionMatch=NotOlderThan` | limit=\<n\>, _continue unset_ | Invalid               | Any                                       | Not older than                         |
+| resourceVersionMatch param | paging params | resourceVersion not set | resourceVersion="0" | resourceVersion="{value other than 0}" |
+|----------------------------|---------------|-------------------------|---------------------|----------------------------------------|
+| _unset_ | _limit unset_ | Most Recent | Any | Not older than |
+| _unset_ | limit=\<n\>, _continue unset_ | Most Recent | Any | Exact |
+| _unset_ | limit=\<n\>, continue=\<token\>| Continue Token, Exact | Invalid, treated as Continue Token, Exact | Invalid, HTTP `400 Bad Request` |
+| `resourceVersionMatch=Exact` | _limit unset_ | Invalid | Invalid | Exact |
+| `resourceVersionMatch=Exact` | limit=\<n\>, _continue unset_ | Invalid | Invalid | Exact |
+| `resourceVersionMatch=NotOlderThan` | _limit unset_ | Invalid | Any | Not older than |
+| `resourceVersionMatch=NotOlderThan` | limit=\<n\>, _continue unset_ | Invalid | Any | Not older than |
 
 {{< /table >}}
 

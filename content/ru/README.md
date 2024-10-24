@@ -121,18 +121,6 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 * [Руководство по оформлению документации](https://kubernetes.io/docs/contribute/style/style-guide/)
 * [Руководство по локализации Kubernetes](https://kubernetes.io/docs/contribute/localization/)
 
-# Файл `README.md` на других языках
-
-|           другие языки        |       другие языки            |
-|-------------------------------|-------------------------------|
-| [Английский](README.md)       | [Немецкий](README-de.md)      |
-| [Вьетнамский](README-vi.md)   | [Польский]( README-pl.md)     |
-| [Индонезийский](README-id.md) | [Португальский](README-pt.md) |
-| [Испанский](README-es.md)     | [Украинский](README-uk.md)    |
-| [Итальянский](README-it.md)   | [Французский](README-fr.md)   |
-| [Китайский](README-zh.md)     | [Хинди](README-hi.md)         |
-| [Корейский](README-ko.md)     | [Японский](README-ja.md)      |
-
 # Кодекс поведения
 
 Участие в сообществе Kubernetes регулируется [кодексом поведения CNCF](https://github.com/cncf/foundation/blob/master/code-of-conduct-languages/ru.md).
