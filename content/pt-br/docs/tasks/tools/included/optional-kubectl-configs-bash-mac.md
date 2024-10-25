@@ -1,6 +1,6 @@
 ---
-title: "bash auto-completion on macOS"
-description: "Some optional configuration for bash auto-completion on macOS."
+title: "Auto-completar no bash macOS"
+description: "Configurações opcionais do auto-completar do basch no macOS."
 headless: true
 _build:
   list: never
@@ -8,13 +8,13 @@ _build:
   publishResources: false
 ---
 
-### Introduction
+### Introdução
 
-The kubectl completion script for Bash can be generated with `kubectl completion bash`.
-Sourcing this script in your shell enables kubectl completion.
+O script de completar do bash pode ser gerado com `kubectl completion bash`.
+Ativando esse script no seu shell, habilita o auto-completar do kubectl.
 
-However, the kubectl completion script depends on
-[**bash-completion**](https://github.com/scop/bash-completion) which you thus have to previously install.
+Entretanto, o script para auto-completar do kubectl depende de
+[**bash-completion**](https://github.com/scop/bash-completion) que você deve ter instalado com antecedência.
 
 {{< warning>}}
 There are two versions of bash-completion, v1 and v2. V1 is for Bash 3.2
