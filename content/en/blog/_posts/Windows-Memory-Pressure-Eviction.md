@@ -49,7 +49,7 @@ For more information on configuring memory-pressure based eviction and understan
 
 Understanding the distinction between _Working Set_ and _Commit_ memory and being able to monitor both is critical for maintaining the stability of individual Pod workloads and the entire Windows node.
 
-Currently, `kubectl top` continues to report Working Set memory. As a result, a Pod may be evicted for exceeding its memory requests or encounter memory allocation failures due to exceeding its `CommitLimit`, even when the WorkingSet appears to be well within the expected bounds. This discrepancy can lead to confusion.
+Currently, `kubectl top` continues to report Working Set memory. As a result, a Pod may be evicted for exceeding its memory requests or encounter memory allocation failures due to exceeding its `CommitLimit`, even when the _WorkingSet_ memory usage appears to be well within the expected bounds. This discrepancy can lead to confusion.
 
 Starting with v1.31, Windows nodes now report the global `CommitTotal` and `CommitLimit` for each node through the `/stats/summary` API endpoint. This information is available under the `windows-global-commit-memory` syscontainer API resource.
 
@@ -78,7 +78,7 @@ kubectl get --raw http://<cluster-endpoint>/api/v1/nodes/<node-name>/proxy/stats
 
 Additionally, exposing the _Commit_ memory usage for individial Pods and Containers through the `/stats/summary` API is being worked on as part of the [cAdvisor-les, CRI-full Container and Pod Stats](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2371-cri-pod-container-stats/README.md) enhancement.
 
-[windows-exporter](https://github.com/prometheus-community/windows_exporter) can also be configured to monitor and report on _Commit_ memory usage today.
+[windows-exporter](https://github.com/prometheus-community/windows_exporter) can also be configured to monitor and report on _Commit_ memory usage for Pods and containers today.
 
 ## Additional resources
 
