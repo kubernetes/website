@@ -27,20 +27,20 @@ This approach differs from Linux, where available memory is reported based on _W
 
 Before diving into the reasons for using commit memory on Windows for eviction signalling, it's helpful to understand the difference between _Working Set_ and _Commit_ memory.
 
-_Working Set_ memory represents the amount of physical memory currently used by processes. It includes the pages of memory that are actively in use and exludes memory pages that have been swapped out to disk (if paging is enabled).
+_Working Set_ memory represents the amount of physical memory currently used by processes. It includes the pages of memory that are actively in use and excludes memory pages that have been swapped out to disk (if paging is enabled).
 
 _Commit_ memory, on the other hand, represents the total amount of virtual memory that has been reserved by processes - including memory that has been swapped out to disk. When memory is "committed", it means that the system has allocated the backing storage (either physical RAM or space in the paging file(s)) to ensure that the memory will be available if needed.
 
 Using global commit levels to measure available memory on Windows was implemented for two key reasons:
 
 1. **Memory limits for containers in Pods running on Windows nodes are enforced using Commit** (not WorkingSet) **memory**. Windows memory management enforces limits on processes based on the total amount of memory committed, not just the memory in use. 
-This also means that memory limits specified for containers in Kubernetes Pods are enforced on the total amount of virtual memory committed by all processes in the container. Consistenty in how memory usage is tracked and enforced is essential for workload stability.
+This also means that memory limits specified for containers in Kubernetes Pods are enforced on the total amount of virtual memory committed by all processes in the container. Consistency in how memory usage is tracked and enforced is essential for workload stability.
 
 2. **Paging (swap) is automatically enabled on Windows**, and it plays an essential role in the operating system's memory management. Disabling paging is not recommended because it can lead to system instability.
 
 ## Eviction thresholds
 
-By default, Windows nodes have a default "hard" eviction threadhold of `--eviction-hard=memory.available<500Mi`. This means that if the system's availalbe memory is less than 500 Mi the Kubelet will try and start evicting pods.
+By default, Windows nodes have a default "hard" eviction threshold of `--eviction-hard=memory.available<500Mi`. This means that if the system's availalbe memory is less than 500 Mi the Kubelet will try and start evicting pods.
 
 For more information on configuring memory-pressure based eviction and understanding the eviction signals and thresholds, refer to the official Kubernetes documentation on [memory-pressure-eviction](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals-and-thresholds).
 
@@ -58,7 +58,7 @@ kubectl get --raw http://<cluster-endpoint>/api/v1/nodes/<node-name>/proxy/stats
 
 {
  "node": {
-  "nodeName": "{node-name},
+  "nodeName": "<node-name>",
   "systemContainers": [
    ...
    {
