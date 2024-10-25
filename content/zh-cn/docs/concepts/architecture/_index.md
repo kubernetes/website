@@ -40,7 +40,7 @@ alt="控制平面（kube-apiserver、etcd、kube-controller-manager、kube-sched
 caption="图 1. Kubernetes 集群组件。" class="diagram-large" >}}
 
 <!--
-{{< /* details summary="About this architecture" */ >}}
+{{ /* details summary="About this architecture" */ }}
 -->
 {{< details summary="关于此架构" >}}
 <!--
