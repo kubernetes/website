@@ -7,10 +7,13 @@ schedules:
 - endOfLifeDate: "2025-10-28"
   maintenanceModeStartDate: "2025-08-28"
   next:
-    cherryPickDeadline: "2024-10-11"
+    cherryPickDeadline: "2024-11-08"
+    release: 1.31.3
+    targetDate: "2024-11-12"
+  previousPatches:
+  - cherryPickDeadline: "2024-10-11"
     release: 1.31.2
     targetDate: "2024-10-22"
-  previousPatches:
   - cherryPickDeadline: "2024-09-06"
     release: 1.31.1
     targetDate: "2024-09-11"
@@ -21,10 +24,13 @@ schedules:
 - endOfLifeDate: "2025-06-28"
   maintenanceModeStartDate: "2025-04-28"
   next:
-    cherryPickDeadline: "2024-10-11"
+    cherryPickDeadline: "2024-11-08"
+    release: 1.30.7
+    targetDate: "2024-11-12"
+  previousPatches:
+  - cherryPickDeadline: "2024-10-11"
     release: 1.30.6
     targetDate: "2024-10-22"
-  previousPatches:
   - cherryPickDeadline: "2024-09-06"
     release: 1.30.5
     targetDate: "2024-09-10"
@@ -47,10 +53,13 @@ schedules:
 - endOfLifeDate: "2025-02-28"
   maintenanceModeStartDate: "2024-12-28"
   next:
-    cherryPickDeadline: "2024-10-11"
+    cherryPickDeadline: "2024-11-08"
+    release: 1.29.11
+    targetDate: "2024-11-12"
+  previousPatches:
+  - cherryPickDeadline: "2024-10-11"
     release: 1.29.10
     targetDate: "2024-10-22"
-  previousPatches:
   - cherryPickDeadline: "2024-09-06"
     release: 1.29.9
     targetDate: "2024-09-10"
@@ -85,10 +94,13 @@ schedules:
 - endOfLifeDate: "2024-10-28"
   maintenanceModeStartDate: "2024-08-28"
   next:
-    cherryPickDeadline: "2024-10-11"
+    cherryPickDeadline: "2024-11-08"
+    release: 1.28.16
+    targetDate: "2024-11-12"
+  previousPatches:
+  - cherryPickDeadline: "2024-10-11"
     release: 1.28.15
     targetDate: "2024-10-22"
-  previousPatches:
   - cherryPickDeadline: "2024-09-06"
     release: 1.28.14
     targetDate: "2024-09-10"
@@ -136,9 +148,9 @@ schedules:
   release: "1.28"
   releaseDate: "2023-08-15"
 upcoming_releases:
-- cherryPickDeadline: "2024-10-11"
-  targetDate: "2024-10-22"
 - cherryPickDeadline: "2024-11-08"
   targetDate: "2024-11-12"
 - cherryPickDeadline: "2024-12-06"
   targetDate: "2024-12-10"
+- cherryPickDeadline: "2025-01-10"
+  targetDate: "2025-01-14"
