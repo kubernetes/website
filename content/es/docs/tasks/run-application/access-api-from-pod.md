@@ -47,31 +47,32 @@ comunicarse de manera segura con el servidor de la API.
 
 Al ejecutarse en un Pod, tu contenedor puede crear una URL HTTPS para el servidor
 de la API de Kubernetes obteniendo las variables de entorno `KUBERNETES_SERVICE_HOST`
-and `KUBERNETES_SERVICE_PORT_HTTPS`. La dirección del servidor de la API dentro del
+y `KUBERNETES_SERVICE_PORT_HTTPS`. La dirección del servidor de la API dentro del
 clúster también se publica en un Servicio llamado `kubernetes` en el espacio de nombres
 `default`, de modo que los pods pueden hacer referencia a `kubernetes.default.svc`como
 el nombre DNS para el servidor de la API local.
 
 {{< note >}}
-Kubernetes does not guarantee that the API server has a valid certificate for
-the hostname `kubernetes.default.svc`;
-however, the control plane **is** expected to present a valid certificate for the
-hostname or IP address that `$KUBERNETES_SERVICE_HOST` represents.
+Kubernetes no garantiza que el servidor de API tenga un certificado válido para el
+nombre de host `kubernetes.default.svc`;
+Sin embargo, se espera que el plano de control presente un certificado válido para
+el nombre de host o la dirección IP que representa `$KUBERNETES_SERVICE_HOST`
 {{< /note >}}
 
-The recommended way to authenticate to the API server is with a
-[service account](/docs/tasks/configure-pod-container/configure-service-account/)
-credential. By default, a Pod
-is associated with a service account, and a credential (token) for that
-service account is placed into the filesystem tree of each container in that Pod,
-at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
+La forma recomendada para autenticarse con el servidor de la API es con una
+credencial de [cuenta de servicio](/docs/tasks/configure-pod-container/configure-service-account/).
+Por defecto, un poc esta asociado con una cuenta de servicio,
+esta asociado con una cuenta de servicio, y una credencial (token) para esa cuenta
+de servicio se coloca en el sistema de archivos de cada contenedor en ese Pod
+en la ruta `/var/run/secrets/kubernetes.io/serviceaccount/token`.
 
-If available, a certificate bundle is placed into the filesystem tree of each
-container at `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt`, and should be
-used to verify the serving certificate of the API server.
+Si está disponible, un paquete de certificados se coloca en el sistema de archivos de
+cada contenedor en la ruta `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt`, y
+debe usarse para verificar el certificado de servicio del servidor API.
 
-Finally, the default namespace to be used for namespaced API operations is placed in a file
-at `/var/run/secrets/kubernetes.io/serviceaccount/namespace` in each container.
+Finalmente, el espacio de nombres predeterminado para ser utilizado en las operaciones de API
+con ámbito de espacio de nombres se coloca en un archivo en la ruta `/var/run/secrets/kubernetes.io/serviceaccount/namespace`
+de cada contenedor
 
 ### Using kubectl proxy
 
