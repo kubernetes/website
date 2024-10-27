@@ -4,42 +4,35 @@ reviewers:
 - maciaszczykm
 - shu-mutou
 - mikedanese
-title: Deploy and Access the Kubernetes Dashboard
+title: Implementação e Acesso ao Painel do Kubernetes
 description: >-
-  Deploy the web UI (Kubernetes Dashboard) and access it.
+  Implemente a interface web (Painel do Kubernetes) e acesse-a.
 content_type: concept
 weight: 10
 card:
   name: tasks
   weight: 30
-  title: Use the Web UI Dashboard
+  title: Use o Painel Web do Kubernetes
 ---
 
 <!-- overview -->
 
-Dashboard is a web-based Kubernetes user interface.
-You can use Dashboard to deploy containerized applications to a Kubernetes cluster,
-troubleshoot your containerized application, and manage the cluster resources.
-You can use Dashboard to get an overview of applications running on your cluster,
-as well as for creating or modifying individual Kubernetes resources
-(such as Deployments, Jobs, DaemonSets, etc).
-For example, you can scale a Deployment, initiate a rolling update, restart a pod
-or deploy new applications using a deploy wizard.
+O Painel é uma interface de usuário web para o Kubernetes. Através do Painel, você pode implantar aplicações containerizadas em um cluster Kubernetes, solucionar problemas em suas aplicações e gerenciar os recursos do cluster.
 
-Dashboard also provides information on the state of Kubernetes resources in your cluster and on any errors that may have occurred.
+O Painel oferece uma visão geral das aplicações em execução no seu cluster, além de permitir a criação ou modificação de recursos individuais do Kubernetes (como Deployments, Jobs, DaemonSets, etc.). Por exemplo, você pode escalar um Deployment, iniciar uma atualização contínua (rolling update), reiniciar um pod ou implantar novas aplicações utilizando um assistente de implantação.
 
+O Painel também fornece informações sobre o estado dos recursos do Kubernetes em seu cluster e sobre quaisquer erros que possam ter ocorrido.
 ![Kubernetes Dashboard UI](/images/docs/ui-dashboard.png)
 
 <!-- body -->
 
-## Deploying the Dashboard UI
+## Implementando o Kubernetes Dashboard
 
 {{< note >}}
-Kubernetes Dashboard supports only Helm-based installation currently as it is faster
-and gives us better control over all dependencies required by Dashboard to run.
+"Atualmente, o Painel do Kubernetes suporta apenas a instalação baseada em Helm, pois é mais rápida e nos oferece melhor controle sobre todas as dependências necessárias para a execução do Painel.
 {{< /note >}}
 
-The Dashboard UI is not deployed by default. To deploy it, run the following command:
+A interface de usuário do Painel não é implantada por padrão. Para implantá-la, execute o seguinte comando:
 
 ```shell
 # Add kubernetes-dashboard repository
@@ -48,103 +41,84 @@ helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
 helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
 ```
 
-## Accessing the Dashboard UI
+## Acessando o painel do Kubernetes
 
-To protect your cluster data, Dashboard deploys with a minimal RBAC configuration by default.
-Currently, Dashboard only supports logging in with a Bearer Token.
-To create a token for this demo, you can follow our guide on
-[creating a sample user](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md).
+Para proteger os dados do seu cluster, o Painel é implantado com uma configuração RBAC mínima por padrão. Atualmente, o Painel oferece suporte apenas ao login com um Bearer Token. Para criar um token para esta demonstração, você pode seguir nosso guia sobre criação de um usuário de exemplo.
+
+Acesse o nosso guia sobre [criação de um usuário de exemplo](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md) para gerar um token de acesso.
 
 {{< warning >}}
-The sample user created in the tutorial will have administrative privileges and is for educational purposes only.
+O usuário de exemplo criado no tutorial terá privilégios administrativos e é apenas para fins educacionais.
 {{< /warning >}}
 
-### Command line proxy
+### Proxy via linha de comando
 
-You can enable access to the Dashboard using the `kubectl` command-line tool,
-by running the following command:
+Você pode habilitar o acesso ao Painel usando a ferramenta de linha de comando `kubectl`,
+executando o seguinte comando:
 
 ```
 kubectl proxy
 ```
 
-Kubectl will make Dashboard available at [http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/).
+O kubectl disponibilizará o Painel em [http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/).
 
-The UI can _only_ be accessed from the machine where the command is executed. See `kubectl proxy --help` for more options.
+O acesso à interface é _restrito_ à máquina onde o comando é executado. Consulte `kubectl proxy --help` para mais opções.
 
 {{< note >}}
-The kubeconfig authentication method does **not** support external identity providers
-or X.509 certificate-based authentication.
+O método de autenticação kubeconfig **não** oferece suporte a provedores de identidade externos ou autenticação baseada em certificados X.509."
 {{< /note >}}
 
-## Welcome view
+## Visualização de boas-vindas
 
-When you access Dashboard on an empty cluster, you'll see the welcome page.
-This page contains a link to this document as well as a button to deploy your first application.
-In addition, you can view which system applications are running by default in the `kube-system`
-[namespace](/docs/tasks/administer-cluster/namespaces/) of your cluster, for example the Dashboard itself.
+Ao acessar o Painel em um cluster vazio, você verá a página de boas-vindas.
+Esta página contém um link para este documento, bem como um botão para implantar sua primeira aplicação.
 
-![Kubernetes Dashboard welcome page](/images/docs/ui-dashboard-zerostate.png)
+Além disso, você pode visualizar quais aplicações do sistema estão em execução por padrão no namespace `kube-system`
+[namespace](/docs/tasks/administer-cluster/namespaces/) do seu cluster, como o próprio Painel do Kubernetes.
 
-## Deploying containerized applications
+![Página de boas-vindas do painel do Kubernetes](/images/docs/ui-dashboard-zerostate.png)
 
-Dashboard lets you create and deploy a containerized application as a Deployment and optional Service with a simple wizard.
-You can either manually specify application details, or upload a YAML or JSON _manifest_ file containing application configuration.
+## Implementando aplicações containerizadas
 
-Click the **CREATE** button in the upper right corner of any page to begin.
+O Painel permite criar e implantar uma aplicação containerizada como um Deployment e um Service opcional através de um assistente simples. Você pode especificar os detalhes da aplicação manualmente ou carregar um arquivo de _manifesto_ em YAML ou JSON contendo a configuração da aplicação.
 
-### Specifying application details
+Clique no botão **CRIAR** no canto superior direito de qualquer página para iniciar.
 
-The deploy wizard expects that you provide the following information:
+### Especificando detalhes da aplicação
 
-- **App name** (mandatory): Name for your application.
-  A [label](/docs/concepts/overview/working-with-objects/labels/) with the name will be
-  added to the Deployment and Service, if any, that will be deployed.
+O assistente de implantação espera que você forneça as seguintes informações:
 
-  The application name must be unique within the selected Kubernetes [namespace](/docs/tasks/administer-cluster/namespaces/).
-  It must start with a lowercase character, and end with a lowercase character or a number,
-  and contain only lowercase letters, numbers and dashes (-). It is limited to 24 characters.
-  Leading and trailing spaces are ignored.
+- **Nome da aplicação** (mandatory): Nome para a sua aplicação.
+  A [label](/docs/concepts/overview/working-with-objects/labels/) com o nome será adicionado ao Deployment e ao Service (se houver) que serão implantados.
 
-- **Container image** (mandatory):
-  The URL of a public Docker [container image](/docs/concepts/containers/images/) on any registry,
-  or a private image (commonly hosted on the Google Container Registry or Docker Hub).
-  The container image specification must end with a colon.
+O nome da aplicação deve ser único dentro do [namespace](/docs/tasks/administer-cluster/namespaces/) do Kubernetes selecionado. Ele deve começar com uma letra minúscula, terminar com uma letra minúscula ou um número e conter apenas letras minúsculas, números e hífens (-). O limite é de 24 caracteres. Espaços à esquerda e à direita são ignorados.
 
-- **Number of pods** (mandatory): The target number of Pods you want your application to be deployed in.
-  The value must be a positive integer.
+- **Imagem do container** (mandatory):
+  A URL pública de uma imagem de container Docker [container image](/docs/concepts/containers/images/) em qualquer registry público ou uma imagem privada (comumente hospedada no Google Container Registry ou Docker Hub). A especificação da imagem do container deve terminar com dois pontos (:).
 
-  A [Deployment](/docs/concepts/workloads/controllers/deployment/) will be created to
-  maintain the desired number of Pods across your cluster.
+- **Número de pods** (mandatory): O número desejado de Pods nos quais você deseja que sua aplicação implantada. O valor deve ser um número inteiro positivo.
 
-- **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a
-  [Service](/docs/concepts/services-networking/service/) onto an external,
-  maybe public IP address outside of your cluster (external Service).
+  Um [Deployment](/docs/concepts/workloads/controllers/deployment/) será criado para manter o número desejado de Pods em seu cluster.
+
+- **Service** (optional): Para algumas partes da sua aplicação (por exemplo, frontends), você pode querer expor um [Service](/docs/concepts/services-networking/service/) em um endereço de IP externo, possivelmente público, fora do seu cluster (external Service).
 
   {{< note >}}
-  For external Services, you may need to open up one or more ports to do so.
+  Para Serviços externos, você pode precisar abrir uma ou mais portas para fazê-lo.
   {{< /note >}}
 
-  Other Services that are only visible from inside the cluster are called internal Services.
+  Outros  Serviços que são visíveis apenas de dentro do cluster são chamados de Services internos.
 
-  Irrespective of the Service type, if you choose to create a Service and your container listens
-  on a port (incoming), you need to specify two ports.
-  The Service will be created mapping the port (incoming) to the target port seen by the container.
-  This Service will route to your deployed Pods. Supported protocols are TCP and UDP.
-  The internal DNS name for this Service will be the value you specified as application name above.
+  Independentemente do tipo de Service, se você optar por criá-lo e seu container escutar em uma porta (entrada), será necessário especificar duas portas. O Serviço será criado mapeando a porta (entrada) para a porta de destino vista pelo container. Este Service direcionará o tráfego para seus Pods implantados. Os protocolos suportados são TCP e UDP. O nome de DNS interno para este Service será o valor especificado como nome da aplicação acima.
 
-If needed, you can expand the **Advanced options** section where you can specify more settings:
+Se necessário, você pode expandir a seção **Opções avançadas** onde você pode especificar mais configurações:
 
-- **Description**: The text you enter here will be added as an
+- **Descrição**: O texto inserido aqui será adicionado como uma
   [annotation](/docs/concepts/overview/working-with-objects/annotations/)
-  to the Deployment and displayed in the application's details.
+  ao Deployment e exibido nos detalhes da aplicação.
 
-- **Labels**: Default [labels](/docs/concepts/overview/working-with-objects/labels/) to be used
-  for your application are application name and version.
-  You can specify additional labels to be applied to the Deployment, Service (if any), and Pods,
-  such as release, environment, tier, partition, and release track.
+- **Labels**: Por padrão as [labels](/docs/concepts/overview/working-with-objects/labels/) usadas para sua aplicação são o nome e a versão da aplicação. Você pode especificar labels adicionais para serem aplicados ao Deployment, ao Service (se houver) e aos Pods, como release, tier, environment e track.
 
-  Example:
+  Exemplo:
 
   ```conf
   release=1.0
@@ -153,117 +127,116 @@ If needed, you can expand the **Advanced options** section where you can specify
   track=stable
   ```
 
-- **Namespace**: Kubernetes supports multiple virtual clusters backed by the same physical cluster.
-  These virtual clusters are called [namespaces](/docs/tasks/administer-cluster/namespaces/).
-  They let you partition resources into logically named groups.
+- **Namespace**: O Kubernetes suporta múltiplos clusters virtuais apoiados pelo mesmo cluster físico.
+  Esses clusters virtuais são chamados de [namespaces](/docs/tasks/administer-cluster/namespaces/).
+  Eles permitem que você particione os recursos em grupos logicamente nomeados.
 
-  Dashboard offers all available namespaces in a dropdown list, and allows you to create a new namespace.
-  The namespace name may contain a maximum of 63 alphanumeric characters and dashes (-) but can not contain capital letters.
-  Namespace names should not consist of only numbers.
-  If the name is set as a number, such as 10, the pod will be put in the default namespace.
+  O Dashboard oferece todos os namespaces disponíveis em uma lista suspensa e permite que você crie um novo namespace.
+  O nome do namespace pode conter no máximo 63 caracteres alfanuméricos e hífens (-), mas não pode conter letras maiúsculas.
+  Os nomes dos namespaces não devem consistir apenas de números.
+  Se o nome for definido como um número, como 10, o pod será colocado no namespace padrão.
 
-  In case the creation of the namespace is successful, it is selected by default.
-  If the creation fails, the first namespace is selected.
+  Caso a criação do namespace seja bem-sucedida, ele será selecionado por padrão.
+  Se a criação falhar, o primeiro namespace será selecionado.
 
 - **Image Pull Secret**:
-  In case the specified Docker container image is private, it may require
-  [pull secret](/docs/concepts/configuration/secret/) credentials.
+  Caso a imagem do contêiner Docker especificada seja privada, pode ser necessário fornecer credenciais de
+  [pull secret](/docs/concepts/configuration/secret/).
 
-  Dashboard offers all available secrets in a dropdown list, and allows you to create a new secret.
-  The secret name must follow the DNS domain name syntax, for example `new.image-pull.secret`.
+  O Dashboard oferece todos as secrets disponíveis em uma lista suspensa e permite que você crie uma nova secret.
+
+  O nome da secret deve seguir a sintaxe do nome de domínio DNS, por exemplo `new.image-pull.secret`.
   The content of a secret must be base64-encoded and specified in a
-  [`.dockercfg`](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod) file.
-  The secret name may consist of a maximum of 253 characters.
+  O conteúdo de uma secret deve ser codificado em base64 e especificado em um arquivo
+  [`.dockercfg`](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
+  O nome da secret pode consistir em no máximo 253 caracteres.
 
-  In case the creation of the image pull secret is successful, it is selected by default. If the creation fails, no secret is applied.
+  Caso a criação da secret de pull de imagem seja bem-sucedida, ele será selecionado por padrão. Se a criação falhar, nenhuma secret será aplicada.
 
 - **CPU requirement (cores)** and **Memory requirement (MiB)**:
-  You can specify the minimum [resource limits](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-  for the container. By default, Pods run with unbounded CPU and memory limits.
+  Você pode especificar os [resource limits](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+  para o container. Por padrão, os Pods são executados com limits de CPU e memória ilimitados.
 
 - **Run command** and **Run command arguments**:
-  By default, your containers run the specified Docker image's default
+  Por padrão, seus containers executam a imagem Docker especificada por padrão
   [entrypoint command](/docs/tasks/inject-data-application/define-command-argument-container/).
-  You can use the command options and arguments to override the default.
+  Você pode usar as opções e argumentos de comando para substituir o padrão.
 
-- **Run as privileged**: This setting determines whether processes in
+- **Run as privileged**: Esta configuração determina se os processos em
   [privileged containers](/docs/concepts/workloads/pods/#privileged-mode-for-containers)
-  are equivalent to processes running as root on the host.
-  Privileged containers can make use of capabilities like manipulating the network stack and accessing devices.
+  são equivalentes a processos executados como root no host.
+  Containers privilegiados podem fazer uso de capacidades como manipular stack de rede e acessar dispositivos.
 
-- **Environment variables**: Kubernetes exposes Services through
-  [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
-  You can compose environment variable or pass arguments to your commands using the values of environment variables.
-  They can be used in applications to find a Service.
-  Values can reference other variables using the `$(VAR_NAME)` syntax.
+- **Environment variables**: O Kubernetes expõe Services por meio
+  de [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
+  Você pode compor variáveis de ambiente ou passar argumentos para seus comandos usando os valores das variáveis de ambiente.
+  Eles podem ser usados em aplicativos para encontrar um Service.
+  Os valores podem referenciar outras variáveis usando a sintaxe `$(VAR_NAME)`.
 
-### Uploading a YAML or JSON file
+### upload de um arquivo YAML ou JSON
 
-Kubernetes supports declarative configuration.
-In this style, all configuration is stored in manifests (YAML or JSON configuration files).
-The manifests use Kubernetes [API](/docs/concepts/overview/kubernetes-api/) resource schemas.
+O Kubernetes suporta configuração declarativa.
+Nesse estilo, toda a configuração é armazenada em manifestos (arquivos de configuração YAML ou JSON).
+Os manifestos utilizam os esquemas de recursos da [API do Kubernetes](/docs/concepts/overview/kubernetes-api/).
 
-As an alternative to specifying application details in the deploy wizard,
-you can define your application in one or more manifests, and upload the files using Dashboard.
+Como alternativa à especificação dos detalhes da aplicação no assistente de implantação,
+você pode definir sua aplicação em um ou mais manifestos e fazer o upload dos arquivos usando o Dashboard.
 
-## Using Dashboard
+## Usando a Dashboard
 
-Following sections describe views of the Kubernetes Dashboard UI; what they provide and how can they be used.
+As seções a seguir descrevem as visualizações da interface do Kubernetes Dashboard; o que elas fornecem e como podem ser usadas.
 
-### Navigation
+### Navegação
 
-When there are Kubernetes objects defined in the cluster, Dashboard shows them in the initial view.
-By default only objects from the _default_ namespace are shown and
-this can be changed using the namespace selector located in the navigation menu.
+Quando há objetos do Kubernetes definidos no cluster, o Dashboard os exibe na visualização inicial.
+Por padrão, apenas objetos do namespace _default_ são exibidos e
+isso pode ser alterado usando o seletor de namespace localizado no menu de navegação.
 
-Dashboard shows most Kubernetes object kinds and groups them in a few menu categories.
+O Dashboard exibe a maioria dos tipos de objetos do Kubernetes e os agrupa em algumas categorias de menu.
 
-#### Admin overview
+#### Visão geral do administrador
 
-For cluster and namespace administrators, Dashboard lists Nodes, Namespaces and PersistentVolumes and has detail views for them.
-Node list view contains CPU and memory usage metrics aggregated across all Nodes.
-The details view shows the metrics for a Node, its specification, status,
-allocated resources, events and pods running on the node.
+Para administradores de cluster e namespace, o Dashboard lista Nodes, Namespaces e PersistentVolumes e possui visualizações detalhadas para eles.
+A visualização da lista de Nodes contém métricas de uso de CPU e memória agregadas em todos os Nodes.
+A visualização de detalhes mostra as métricas de um Node, sua especificação, status,
+recursos alocados, eventos e pods em execução no node.
 
 #### Workloads
 
-Shows all applications running in the selected namespace.
-The view lists applications by workload kind (for example: Deployments, ReplicaSets, StatefulSets).
-Each workload kind can be viewed separately.
-The lists summarize actionable information about the workloads,
-such as the number of ready pods for a ReplicaSet or current memory usage for a Pod.
+Mostra todas as aplicações em execução no namespace selecionado.
+A visualização lista as aplicações por tipo de workload (por exemplo: Deployments, ReplicaSets, StatefulSets).
+Cada tipo de workload pode ser visualizado separadamente.
+As listas resumem informações acionáveis sobre os workloads, como o número de
+pods ready para um ReplicaSet ou o uso de memória atual para um Pod.
 
-Detail views for workloads show status and specification information and
-surface relationships between objects.
-For example, Pods that ReplicaSet is controlling or new ReplicaSets and HorizontalPodAutoscalers for Deployments.
+As visualizações detalhadas dos workloads mostram informações de status e especificação e
+revelam as relações entre objetos.
+Por exemplo, Pods que um ReplicaSet está controlando ou novos ReplicaSets e HorizontalPodAutoscalers para Deployments.
 
 #### Services
 
-Shows Kubernetes resources that allow for exposing services to external world and
-discovering them within a cluster.
-For that reason, Service and Ingress views show Pods targeted by them,
-internal endpoints for cluster connections and external endpoints for external users.
+Exibe recursos do Kubernetes que permitem expor services para o mundo externo e
+descobri-los dentro de um cluster.
+Por essa razão, as visualizações de Service e Ingress mostram os Pods direcionados por eles,
+endpoints internos para conexões de cluster e endpoints externos para usuários externos.
 
 #### Storage
 
-Storage view shows PersistentVolumeClaim resources which are used by applications for storing data.
+A visualização de armazenamento exibe recursos PersistentVolumeClaim que são usados por aplicações para armazenar dados.
 
-#### ConfigMaps and Secrets {#config-maps-and-secrets}
+#### ConfigMaps e Secrets {#config-maps-and-secrets}
 
-Shows all Kubernetes resources that are used for live configuration of applications running in clusters.
-The view allows for editing and managing config objects and displays secrets hidden by default.
+Exibe todos os recursos do Kubernetes que são usados para a configuração ao vivo de aplicações em execução em clusters.
+A visualização permite editar e gerenciar objetos de configuração e exibe secrets ocultos por padrão.
 
-#### Logs viewer
+#### Visualizador de logs
 
-Pod lists and detail pages link to a logs viewer that is built into Dashboard.
-The viewer allows for drilling down logs from containers belonging to a single Pod.
+Listas de Pods e páginas de detalhes vinculam a um visualizador de logs integrado ao Dashboard.
+O visualizador permite explorar logs de containers pertencentes a um único Pod.
 
 ![Logs viewer](/images/docs/ui-dashboard-logs-view.png)
 
 ## {{% heading "whatsnext" %}}
 
-
-For more information, see the
-[Kubernetes Dashboard project page](https://github.com/kubernetes/dashboard).
-
-
+Para mais informações, veja a
+[página do projeto Kubernetes Dashboard](https://github.com/kubernetes/dashboard).
