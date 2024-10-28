@@ -1,9 +1,3 @@
----
-reviewers:
-- floreks
-- maciaszczykm
-- shu-mutou
-- mikedanese
 title: Implementação e Acesso ao Painel do Kubernetes
 description: >-
   Implemente a interface web (Painel do Kubernetes) e acesse-a.
