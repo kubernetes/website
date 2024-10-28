@@ -40,7 +40,7 @@ This also means that memory limits specified for containers in Kubernetes Pods a
 
 ## Eviction thresholds
 
-By default, Windows nodes have a default "hard" eviction threshold of `--eviction-hard=memory.available<500Mi`. This means that if the system's availalbe memory is less than 500 Mi the Kubelet will try and start evicting pods.
+By default, Windows nodes have a "hard" eviction threshold of 500Mi (kubelet setting `--eviction-hard=memory.available<500Mi`). This means that if the system's availble commit memory is less than 500 Mi the Kubelet will try and start evicting pods.
 
 For more information on configuring memory-pressure based eviction and understanding the eviction signals and thresholds, refer to the official Kubernetes documentation on [memory-pressure-eviction](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals-and-thresholds).
 
@@ -76,7 +76,7 @@ kubectl get --raw http://<cluster-endpoint>/api/v1/nodes/<node-name>/proxy/stats
 
 ```
 
-Additionally, exposing the _Commit_ memory usage for individial Pods and Containers through the `/stats/summary` API is being worked on as part of the [cAdvisor-les, CRI-full Container and Pod Stats](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2371-cri-pod-container-stats/README.md) enhancement.
+Additionally, exposing the _Commit_ memory usage for individial Pods and containers through the `/stats/summary` API is being worked on as part of the [cAdvisor-les, CRI-full Container and Pod Stats](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2371-cri-pod-container-stats/README.md) enhancement.
 
 [windows-exporter](https://github.com/prometheus-community/windows_exporter) can also be configured to monitor and report on _Commit_ memory usage for Pods and containers today.
 
