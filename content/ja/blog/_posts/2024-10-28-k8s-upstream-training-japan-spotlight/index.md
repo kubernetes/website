@@ -5,7 +5,7 @@ slug: k8s-upstream-training-japan-spotlight
 date: 2024-10-28
 canonicalUrl: https://www.k8s.dev/blog/2024/10/28/k8s-upstream-training-japan-spotlight/
 author: >
-  [Junya Okabe](https://github.com/Okabe-Junya) (筑波大学)
+  [Junya Okabe](https://github.com/Okabe-Junya) (筑波大学) / 
   Organizing team of Kubernetes Upstream Training in Japan
 ---
 
