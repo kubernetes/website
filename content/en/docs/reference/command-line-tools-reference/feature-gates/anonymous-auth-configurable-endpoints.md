@@ -10,5 +10,5 @@ stages:
     defaultValue: false
     fromVersion: "1.31"
 ---
-Enable [configurable endpoints for anonymous auth](/docs/reference/access-authn-authz/authentication/#anonymous-authenticator-onfiguration) 
+Enable [configurable endpoints for anonymous auth](/docs/reference/access-authn-authz/authentication/#anonymous-authenticator-configuration) 
 for the API server.
