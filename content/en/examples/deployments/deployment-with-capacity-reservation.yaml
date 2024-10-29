@@ -15,7 +15,8 @@ spec:
         kubernetes.io/description: "Capacity reservation"
     spec:
       priorityClassName: placeholder
-      affinity:
+      affinity: # Try to place these overhead Pods on different nodes
+                # if possible
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
