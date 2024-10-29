@@ -24,7 +24,7 @@ The Kubernetes project has a well-documented [deprecation policy](https://kubern
 
 * Alpha or experimental API versions may be removed in any release without prior deprecation notice, this process can become a withdrawal in cases where a different implementation for the same feature is already in place.
 
-Whether an API is removed as a result of a feature graduating from beta to stable or because that API simply did not succeed, all removals comply with this deprecation policy. Whenever an API is removed, migration options are communicated in the [documentation](https://kubernetes.io/docs/reference/using-api/deprecation-guide/).
+Whether an API is removed as a result of a feature graduating from beta to stable or because that API simply did not succeed, all removals comply with this deprecation policy. Whenever an API is removed, migration options are communicated in the [documentation](/docs/reference/using-api/deprecation-guide/).
 
 ## A note about the DRA removal
 
