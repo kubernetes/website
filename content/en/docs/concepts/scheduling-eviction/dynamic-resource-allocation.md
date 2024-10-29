@@ -67,7 +67,7 @@ ResourceSlice
 
 All parameters that select devices are defined in the ResourceClaim and
 DeviceClass with in-tree types. Configuration parameters can be embedded there.
-What configuration parameters are valid depends on the DRA driver, Kubernetes
+Which configuration parameters are valid depends on the DRA driver -- Kubernetes
 only passes them through without interpreting them.
 
 The `core/v1` `PodSpec` defines ResourceClaims that are needed for a Pod in a
