@@ -1,5 +1,5 @@
 ---
-title: Configure a Node to Overprovision a Cluster's capacity
+title: Overprovision Node Capacity For A Cluster 
 content_type: task
 weight: 10
 ---
@@ -13,15 +13,21 @@ By maintaining some unused capacity, you ensure that resources are immediately a
 
 ## {{% heading "prerequisites" %}}
 
-- Have a basic understanding of Deployments and PriorityClasses.
-- Your cluster must be set up with an [autoscaler](/docs/concepts/cluster-administration/cluster-autoscaling/)
+- You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with 
+  your cluster
+- You should already have a basic understanding of  
+  [Deployments](/docs/concepts/workloads/controllers/deployment/), 
+  Pod {{<glossary_tooltip text="priority" term_id="pod-priority">}},  
+  and [PriorityClasses](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass).  
+- Your cluster must be set up with an [autoscaler](/docs/concepts/cluster-administration/cluster-autoscaling/)   
   that manages nodes based on demand.
 
 <!-- steps -->
 
 ## Create a placeholder Deployment
 
-Begin by defining a PriorityClass for the placeholder Pods. First, create a PriorityClass with a low value to assign to the placeholder pods.
+Begin by defining a PriorityClass for the placeholder Pods. First, create a PriorityClass with a
+negative priority value, that you will shortly assign to the placeholder pods.
 Later, you will set up a Deployment that uses this PriorityClass
 
 {{% code_sample language="yaml" file="priorityclass/low-priority-class.yaml" %}}
@@ -32,14 +38,19 @@ Then create the PriorityClass:
 kubectl apply -f https://k8s.io/examples/priorityclass/low-priority-class.yaml
 ```
 
-Now, define a Deployment that uses the low-priority PriorityClass and runs a minimal container.
+You will next define a Deployment that uses the negative-priority PriorityClass and runs a minimal container.  
+When you add this to your cluster, Kubernetes runs those placeholder pods to reserve capacity. Any time there  
+is a capacity shortage, the control plane will pick one these placeholder pods as the first candidate to  
+{{< glossary_tooltip text="preempt" term_id="preemption" >}}. 
 
-{{% code_sample language="yaml" file="deployments/deployment-with-low-priorityclass.yaml" %}}
+Define that Deployment:  
+
+{{% code_sample language="yaml" file="deployments/deployment-with-capacity-reservation.yaml" %}}
 
 Apply the deployment:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/deployments/deployment-with-low-priorityclass.yaml"
+kubectl apply -f https://k8s.io/examples/deployments/deployment-with-capacity-reservation.yaml"
 ```
 
 ## Adjust Resource Requests and Limits
@@ -74,7 +85,7 @@ Total Memory reserved: 5 × 200MiB = 1GiB (in the Pod specification, you'll writ
 To Scale the Deployment, adjust the number of replicas based on your cluster's size and expected workload:
 
 ```shell
-kubectl scale deployment https://k8s.io/examples/deployments/deployment-with-low-priorityclass.yaml --replicas=5
+kubectl scale deployment https://k8s.io/examples/deployments/deployment-with-capacity-reservation.yaml --replicas=5
 ```
 
 Verify the scaling:
@@ -92,6 +103,6 @@ placeholder-deployment 5/5     5            5           2m
 
 ## {{% heading "whatsnext" %}}
 
-- Learn more about Priority Classes and how they affect pod scheduling.
-- Explore Cluster Autoscaling to dynamically adjust your cluster's size based on workload demands.
-- Understand Pod Preemption to manage how Kubernetes handles resource contention.
+- Learn more about [PriorityClasses](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass) and how they affect pod scheduling.
+- Explore [ClusterAutoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/) to dynamically adjust your cluster's size based on workload demands.
+- Understand [PodPreemption](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/) to manage how Kubernetes handles resource contention.

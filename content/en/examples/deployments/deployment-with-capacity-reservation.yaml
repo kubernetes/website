@@ -1,21 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: placeholder-deployment
+  name: capacity-reservation
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: placeholder
+      app.kubernetes.io/name: capacity-placeholder
   template:
     metadata:
       labels:
-        app: placeholder
+        app.kubernetes.io/name: capacity-placeholder
+      annotations:
+        kubernetes.io/description: "Capacity reservation"
     spec:
-      priorityClassName: low-priority
+      priorityClassName: placeholder
       affinity:
         podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
+          preferredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
               matchLabels:
                 app: placeholder
@@ -26,7 +28,6 @@ spec:
         resources:
           requests:
             cpu: "50m"
-            memory: "100Mi"
+            memory: "512Mi"
           limits:
-            cpu: "100m"
-            memory: "200Mi"
+            memory: "512Mi"

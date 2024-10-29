@@ -4,4 +4,4 @@ metadata:
   name: placeholder
 value: -1000
 globalDefault: false
-description: "Low priority for placeholder pods to enable overprovisioning."
+description: "Negative priority for placeholder pods to enable overprovisioning."
