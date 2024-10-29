@@ -26,7 +26,7 @@ The Kubernetes project has a well-documented [deprecation policy](/docs/referenc
 
 Whether an API is removed as a result of a feature graduating from beta to stable or because that API simply did not succeed, all removals comply with this deprecation policy. Whenever an API is removed, migration options are communicated in the [documentation](/docs/reference/using-api/deprecation-guide/).
 
-## A note about the DRA removal
+## Note on the removal of the old DRA implementation
 
 This enhancement initially introduced Dynamic Resource Allocation (DRA) in Kubernetes 1.26.
 
@@ -41,9 +41,9 @@ Please also see the issue [#3063](https://github.com/kubernetes/enhancements/iss
 
 ## Sneak peek of Kubernetes v1.32
 
-### Even more DRA enhancements
+### Even more DRA enhancements!
 
-In this release, like the previous one, we are continuing to introduce a number of enhancements to the Dynamic Resource Allocation (DRA), which is a key component of the Kubernetes resource management system. These enhancements aim to improve the flexibility and efficiency of resource allocation for workloads that require specialized hardware, such as GPUs, FPGAs and network adapters. The enhancements include:
+In this release, like the previous one, the Kubernetes project continues to introduce enhancements to the Dynamic Resource Allocation (DRA), which is a key component of the Kubernetes resource management system. These enhancements aim to improve the flexibility and efficiency of resource allocation for workloads that require specialized hardware, such as GPUs, FPGAs and network adapters. The enhancements for this release include:
 
 - Partionable devices support: KEP [#4815](https://github.com/kubernetes/enhancements/issues/4815)
 - Resource Claim Status and standardized network interface data: KEP [#4817](https://github.com/kubernetes/enhancements/issues/4817)
