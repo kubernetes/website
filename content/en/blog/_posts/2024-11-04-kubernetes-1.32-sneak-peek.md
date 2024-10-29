@@ -100,7 +100,7 @@ With the graduation of KEP-4369 to beta, Kubernetes now allows almost all printa
 This enhancement introduces a new field, status.hostIPs, to the Kubernetes Pod API, enabling support for multiple IP addresses (IPv4 and IPv6) assigned to a node. Previously, the Pod status only included a singular HostIP field, which limited address configurations, particularly in dual-stack networks. This enhancement allows the API to store multiple IP addresses in an array, accessible via the Downward API, which applications can leverage for environments with complex IP requirements, such as IPv6 migrations. 
 The feature is controlled by the PodHostIPs feature gate, supporting flexibility for gradual rollout.
 
-### Make Kubernetes aware of the LoadBalancer behaviour - KEP [#1860](https://github.com/kubernetes/enhancements/issues/1860)
+### Make Kubernetes aware of the LoadBalancer behavior - KEP [#1860](https://github.com/kubernetes/enhancements/issues/1860)
 
 KEP [#1860](https://github.com/kubernetes/enhancements/issues/1860) graduates to GA, introducing the `ipMode` field for a Service of `type: LoadBalancer`, which can be set to either `"VIP"` or `"Proxy"`. The existing behavior of kube-proxy is preserved when using `"VIP"`, where kube-proxy handles the load balancing. The use of `"Proxy"` results in traffic sent directly to the load balancer, providing cloud providers greater control over relying on kube-proxy.
 
