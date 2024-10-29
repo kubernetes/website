@@ -117,7 +117,7 @@ This enhancement simplifies common mutating tasks—such as adding labels, setti
 
 ### Control over terminating Pods in Deployments - KEP [#3973](https://github.com/kubernetes/enhancements/issues/3973)
 
-This enhancement adds a new field `.spec.PodReplacementPolicy` to Deployments, to specify whether new Pods can be scheduled only after old Pods have finished terminating, or once old Pods start terminating. The default behavior depends on the deployment strategy. Specifying this Pod replacement policy can potentially help avoid problems with excessive resource usage or slow scheduling during rollouts and scaling.
+This enhancement adds a new field `.spec.podReplacementPolicy` to Deployments, to specify whether new Pods can be created only after old Pods have finished terminating, or once old Pods start terminating. The default behavior depends on the deployment strategy. Specifying this Pod replacement policy can help to better control the speed of rollouts/scaling, and potentially avoid problems with excessive resource usage.
 
 ## Want to know more?
 New features and deprecations are also announced in the Kubernetes release notes. We will formally announce what's new in [Kubernetes v1.32](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md) as part of the CHANGELOG for this release.
