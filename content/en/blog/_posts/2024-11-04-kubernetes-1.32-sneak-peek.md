@@ -28,9 +28,9 @@ Whether an API is removed as a result of a feature graduating from beta to stabl
 
 ## Note on the removal of the old DRA implementation
 
-This enhancement initially introduced Dynamic Resource Allocation (DRA) in Kubernetes 1.26.
+This enhancement [#3063](https://github.com/kubernetes/enhancements/issues/3063) initially introduced Dynamic Resource Allocation (DRA) in Kubernetes 1.26.
 
-However, in Kubernetes v1.32, this KEP is withdrawn, and related code will be removed, leaving KEP [#4381](https://github.com/kubernetes/enhancements/issues/4381) as the base functionality. 
+However, in Kubernetes v1.32, it is withdrawn and related code will be removed, leaving KEP [#4381](https://github.com/kubernetes/enhancements/issues/4381) as the "new" base functionality. 
 
 The decision to remove this feature originated from its incompatibility with cluster autoscaling, as resource availability was made non-transparent, complicating decision making for both Cluster Autoscaler and controllers. 
 The newly added Structured Parameter model substitutes the functionality.
