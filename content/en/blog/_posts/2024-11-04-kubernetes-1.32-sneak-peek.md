@@ -26,7 +26,7 @@ The Kubernetes project has a well-documented [deprecation policy](/docs/referenc
 
 Whether an API is removed as a result of a feature graduating from beta to stable or because that API simply did not succeed, all removals comply with this deprecation policy. Whenever an API is removed, migration options are communicated in the [documentation](/docs/reference/using-api/deprecation-guide/).
 
-## Note on the removal of the old DRA implementation
+## Note on the withdrawal of the old DRA implementation
 
 This enhancement [#3063](https://github.com/kubernetes/enhancements/issues/3063) initially introduced Dynamic Resource Allocation (DRA) in Kubernetes 1.26.
 
