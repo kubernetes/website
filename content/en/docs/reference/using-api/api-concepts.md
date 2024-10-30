@@ -122,6 +122,171 @@ see the [API reference](/docs/reference/kubernetes-api/) for more information. I
 is not possible to access sub-resources across multiple resources - generally a new
 virtual resource type would be used if that becomes necessary.
 
+## HTTP media types {#alternate-representations-of-resources}
+
+Over HTTP, Kubernetes supports JSON and Protobuf wire encodings.
+
+{{% note %}}
+Although YAML is widely used to define Kubernetes manifests locally, Kubernetes does not
+support the [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512.html) media type
+for API operations.
+
+All JSON documents are valid YAML, so you can also use a JSON API response anywhere that is
+expecting a YAML input.
+{{% /note %}}
+
+By default, Kubernetes returns objects in [JSON serialization](#json-encoding), using the
+`application/json` media type. Although JSON is the default, clients may request the more
+efficient binary [Protobuf representation](#protobuf-encoding) for better performance at scale.
+
+The Kubernetes API implements standard HTTP content type negotiation: passing an
+`Accept` header with a `GET` call will request that the server tries to return
+a response in your preferred media type. If you want to send an object in Protobuf to
+the server for a `PUT` or `POST` request, you must set the `Content-Type` request header
+appropriately.
+
+If you request an available media type, the API server returns a response with a suitable
+`Content-Type`; if none of the media types you request are supported, the API server returns
+a `406 Not acceptable` error message.
+All built-in resource types support the `application/json` media type.
+
+### JSON resource encoding {#json-encoding}
+
+The Kubernetes API defaults to using [JSON](https://www.json.org/json-en.html) for encoding
+HTTP message bodies.
+
+For example:
+
+1. List all of the pods on a cluster, without specifying a preferred format
+
+   ```
+   GET /api/v1/pods
+   ---
+   200 OK
+   Content-Type: application/json
+
+   … JSON encoded collection of Pods (PodList object)
+   ```
+
+1. Create a pod by sending JSON to the server, requesting a JSON response.
+
+   ```
+   POST /api/v1/namespaces/test/pods
+   Content-Type: application/json
+   Accept: application/json
+   … JSON encoded Pod object
+   ---
+   200 OK
+   Content-Type: application/json
+
+   {
+     "kind": "Pod",
+     "apiVersion": "v1",
+     …
+   }
+   ```
+
+### Kubernetes Protobuf encoding {#protobuf-encoding}
+
+Kubernetes uses an envelope wrapper to encode [Protobuf](https://protobuf.dev/) responses.
+That wrapper starts with a 4 byte magic number to help identify content in disk or in etcd as Protobuf
+(as opposed to JSON). The 4 byte magic number data is followed by a Protobuf encoded wrapper message, which
+describes the encoding and type of the underlying object. Within the Protobuf wrapper message,
+the inner object data is recorded using the `raw` field of Unknown (see the [IDL](##protobuf-encoding-idl)
+for more detail).
+
+For example:
+
+1. List all of the pods on a cluster in Protobuf format.
+
+   ```
+   GET /api/v1/pods
+   Accept: application/vnd.kubernetes.protobuf
+   ---
+   200 OK
+   Content-Type: application/vnd.kubernetes.protobuf
+
+   … JSON encoded collection of Pods (PodList object)
+   ```
+
+1. Create a pod by sending Protobuf encoded data to the server, but request a response
+   in JSON.
+
+   ```
+   POST /api/v1/namespaces/test/pods
+   Content-Type: application/vnd.kubernetes.protobuf
+   Accept: application/json
+   … binary encoded Pod object
+   ---
+   200 OK
+   Content-Type: application/json
+
+   {
+     "kind": "Pod",
+     "apiVersion": "v1",
+     ...
+   }
+   ```
+
+You can use both techniques together and use Kubernetes' Protobuf encoding to interact with any API that
+supports it, for both reads and writes. Only some API resource types are [compatible](#protobuf-encoding-compatibility)
+with Protobuf.
+
+<a id="protobuf-encoding-idl" />
+
+The wrapper format is:
+
+```
+A four byte magic number prefix:
+  Bytes 0-3: "k8s\x00" [0x6b, 0x38, 0x73, 0x00]
+
+An encoded Protobuf message with the following IDL:
+  message Unknown {
+    // typeMeta should have the string values for "kind" and "apiVersion" as set on the JSON object
+    optional TypeMeta typeMeta = 1;
+
+    // raw will hold the complete serialized object in protobuf. See the protobuf definitions in the client libraries for a given kind.
+    optional bytes raw = 2;
+
+    // contentEncoding is encoding used for the raw data. Unspecified means no encoding.
+    optional string contentEncoding = 3;
+
+    // contentType is the serialization method used to serialize 'raw'. Unspecified means application/vnd.kubernetes.protobuf and is usually
+    // omitted.
+    optional string contentType = 4;
+  }
+
+  message TypeMeta {
+    // apiVersion is the group/version for this type
+    optional string apiVersion = 1;
+    // kind is the name of the object schema. A protobuf definition should exist for this object.
+    optional string kind = 2;
+  }
+```
+
+{{< note >}}
+Clients that receive a response in `application/vnd.kubernetes.protobuf` that does
+not match the expected prefix should reject the response, as future versions may need
+to alter the serialization format in an incompatible way and will do so by changing
+the prefix.
+{{< /note >}}
+
+#### Compatibility with Kubernetes Protobuf {#protobuf-encoding-compatibility}
+
+Not all API resource types support Kubernetes' Protobuf encoding; specifically, Protobuf isn't
+available for resources that are defined as
+{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinitions" >}}
+or are served via the
+{{< glossary_tooltip text="aggregation layer" term_id="aggregation-layer" >}}.
+
+As a client, if you might need to work with extension types you should specify multiple
+content types in the request `Accept` header to support fallback to JSON.
+For example:
+
+```
+Accept: application/vnd.kubernetes.protobuf, application/json
+```
+
 
 ## Efficient detection of changes
 
@@ -601,116 +766,6 @@ extensions, you should make requests that specify multiple content types in the
 ```
 Accept: application/json;as=Table;g=meta.k8s.io;v=v1, application/json
 ```
-
-## Alternate representations of resources
-
-By default, Kubernetes returns objects serialized to JSON with content type
-`application/json`. This is the default serialization format for the API. However,
-clients may request the more efficient
-[Protobuf representation](#protobuf-encoding) of these objects for better performance at scale.
-The Kubernetes API implements standard HTTP content type negotiation: passing an
-`Accept` header with a `GET` call will request that the server tries to return
-a response in your preferred media type, while sending an object in Protobuf to
-the server for a `PUT` or `POST` call means that you must set the `Content-Type`
-header appropriately.
-
-The server will return a response with a `Content-Type` header if the requested
-format is supported, or the `406 Not acceptable` error if none of the media types you
-requested are supported. All built-in resource types support the `application/json`
-media type.
-
-See the Kubernetes [API reference](/docs/reference/kubernetes-api/) for a list of
-supported content types for each API.
-
-For example:
-
-1. List all of the pods on a cluster in Protobuf format.
-
-   ```
-   GET /api/v1/pods
-   Accept: application/vnd.kubernetes.protobuf
-   ---
-   200 OK
-   Content-Type: application/vnd.kubernetes.protobuf
-
-   ... binary encoded PodList object
-   ```
-
-1. Create a pod by sending Protobuf encoded data to the server, but request a response
-   in JSON.
-
-   ```
-   POST /api/v1/namespaces/test/pods
-   Content-Type: application/vnd.kubernetes.protobuf
-   Accept: application/json
-   ... binary encoded Pod object
-   ---
-   200 OK
-   Content-Type: application/json
-
-   {
-     "kind": "Pod",
-     "apiVersion": "v1",
-     ...
-   }
-   ```
-
-Not all API resource types support Protobuf; specifically, Protobuf isn't available for
-resources that are defined as
-{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinitions" >}}
-or are served via the
-{{< glossary_tooltip text="aggregation layer" term_id="aggregation-layer" >}}.
-As a client, if you might need to work with extension types you should specify multiple
-content types in the request `Accept` header to support fallback to JSON.
-For example:
-
-```
-Accept: application/vnd.kubernetes.protobuf, application/json
-```
-
-### Kubernetes Protobuf encoding {#protobuf-encoding}
-
-Kubernetes uses an envelope wrapper to encode Protobuf responses. That wrapper starts
-with a 4 byte magic number to help identify content in disk or in etcd as Protobuf
-(as opposed to JSON), and then is followed by a Protobuf encoded wrapper message, which
-describes the encoding and type of the underlying object and then contains the object.
-
-The wrapper format is:
-
-```
-A four byte magic number prefix:
-  Bytes 0-3: "k8s\x00" [0x6b, 0x38, 0x73, 0x00]
-
-An encoded Protobuf message with the following IDL:
-  message Unknown {
-    // typeMeta should have the string values for "kind" and "apiVersion" as set on the JSON object
-    optional TypeMeta typeMeta = 1;
-
-    // raw will hold the complete serialized object in protobuf. See the protobuf definitions in the client libraries for a given kind.
-    optional bytes raw = 2;
-
-    // contentEncoding is encoding used for the raw data. Unspecified means no encoding.
-    optional string contentEncoding = 3;
-
-    // contentType is the serialization method used to serialize 'raw'. Unspecified means application/vnd.kubernetes.protobuf and is usually
-    // omitted.
-    optional string contentType = 4;
-  }
-
-  message TypeMeta {
-    // apiVersion is the group/version for this type
-    optional string apiVersion = 1;
-    // kind is the name of the object schema. A protobuf definition should exist for this object.
-    optional string kind = 2;
-  }
-```
-
-{{< note >}}
-Clients that receive a response in `application/vnd.kubernetes.protobuf` that does
-not match the expected prefix should reject the response, as future versions may need
-to alter the serialization format in an incompatible way and will do so by changing
-the prefix.
-{{< /note >}}
 
 ## Resource deletion
 

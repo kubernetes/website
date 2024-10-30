@@ -745,8 +745,8 @@ There are some implicit conventions worth noting here:
 
 - Only the Pods holding the same namespace as the incoming Pod can be matching candidates.
 
-- The scheduler bypasses any nodes that don't have any `topologySpreadConstraints[*].topologyKey`
-  present. This implies that:
+- The scheduler only considers nodes that have all `topologySpreadConstraints[*].topologyKey` present at the same time.
+  Nodes missing any of these `topologyKeys` are bypassed. This implies that:
 
   1. any Pods located on those bypassed nodes do not impact `maxSkew` calculation - in the
      above [example](#example-conflicting-topologyspreadconstraints), suppose the node `node1`
@@ -763,7 +763,8 @@ There are some implicit conventions worth noting here:
 
 - 只有与新来的 Pod 具有相同命名空间的 Pod 才能作为匹配候选者。
 
-- 调度器会忽略没有任何 `topologySpreadConstraints[*].topologyKey` 的节点。这意味着：
+- 调度器只会考虑同时具有全部 `topologySpreadConstraints[*].topologyKey` 的节点。
+  缺少任一 `topologyKey` 的节点将被忽略。这意味着：
 
   1. 位于这些节点上的 Pod 不影响 `maxSkew` 计算，在上面的[例子](#example-conflicting-topologyspreadconstraints)中，
      假设节点 `node1` 没有标签 "zone"，则 2 个 Pod 将被忽略，因此新来的
@@ -932,8 +933,8 @@ Pod 彼此的调度方式（更密集或更分散）。
 
 `podAntiAffinity`
 : 驱逐 Pod。如果将此设为 `requiredDuringSchedulingIgnoredDuringExecution` 模式，
-则只有单个 Pod 可以调度到单个拓扑域；如果你选择 `preferredDuringSchedulingIgnoredDuringExecution`，
-则你将丢失强制执行此约束的能力。
+  则只有单个 Pod 可以调度到单个拓扑域；如果你选择 `preferredDuringSchedulingIgnoredDuringExecution`，
+  则你将丢失强制执行此约束的能力。
 
 <!--
 For finer control, you can specify topology spread constraints to distribute
