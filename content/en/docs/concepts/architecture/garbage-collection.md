@@ -82,13 +82,16 @@ owner object:
 * The object remains visible through the Kubernetes API until the deletion
   process is complete.
 
-After the owner object enters the deletion in progress state, the controller
-deletes the dependents. After deleting all the dependent objects, the controller
-deletes the owner object. At this point, the object is no longer visible in the
+After the owner object enters the *deletion in progress* state, the controller
+deletes dependents it knows about. After deleting all the dependent objects it knows about,
+the controller deletes the owner object. At this point, the object is no longer visible in the
 Kubernetes API.
 
 During foreground cascading deletion, the only dependents that block owner
-deletion are those that have the `ownerReference.blockOwnerDeletion=true` field.
+deletion are those that have the `ownerReference.blockOwnerDeletion=true` field
+and are in the garbage collection controller cache. The garbage collection controller
+cache may not contain objects whose resource type cannot be listed / watched successfully,
+or objects that are created concurrent with deletion of an owner object.
 See [Use foreground cascading deletion](/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)
 to learn more.
 
