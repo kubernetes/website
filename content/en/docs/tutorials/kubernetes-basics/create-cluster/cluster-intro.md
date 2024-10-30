@@ -24,20 +24,16 @@ open-source platform and is production-ready.
 
 A Kubernetes cluster consists of two types of resources:
 
-
 * The **Control Plane** coordinates the cluster
 * **Nodes** are the workers that run applications
 
 ### Cluster Diagram
 
-
 {{< figure src="../../public/images/module_01_cluster.svg" class="diagram-medium" >}}
-
 
 **The Control Plane is responsible for managing the cluster.** The Control Plane
 coordinates all activities in your cluster, such as scheduling applications, maintaining
 applications' desired state, scaling applications, and rolling out new updates.
-
 
 **A node is a VM or a physical computer that serves as a worker machine in a Kubernetes
 cluster.** Each node has a Kubelet, which is an agent for managing the node and
@@ -45,9 +41,8 @@ communicating with the Kubernetes control plane. The node should also have tools
 handling container operations, such as {{< glossary_tooltip text="containerd" term_id="containerd" >}}
 or {{< glossary_tooltip term_id="cri-o" >}}. A Kubernetes cluster that handles production
 traffic should have a minimum of three nodes because if one node goes down, both an
-[etcd](/docs/concepts/architecture/#etcd) member and a control plane instance
-are lost, and redundancy is compromised. You can mitigate this risk by adding more
-control plane nodes.
+[etcd](/docs/concepts/architecture/#etcd) member and a control plane instance are lost,
+and redundancy is compromised. You can mitigate this risk by adding more control plane nodes.
 
 When you deploy applications on Kubernetes, you tell the control plane to start
 the application containers. The control plane schedules the containers to run on
