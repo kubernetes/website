@@ -45,7 +45,10 @@ on a Windows node:
 
 ## Eviction thresholds
 
-By default, Windows nodes have a "hard" eviction threshold of 500Mi (kubelet setting `--eviction-hard=memory.available<500Mi`). This means that if the system's availble commit memory is less than 500 Mi the Kubelet will try and start evicting pods.
+By default, Windows nodes have a "hard" eviction threshold of 500Mi
+(kubelet setting `--eviction-hard=memory.available<500Mi`).
+This means that if the system's availble commit memory is less than 500 Mi,
+the Kubelet will try to evict pods.
 
 For more information on configuring memory-pressure based eviction and understanding the eviction signals and thresholds, refer to the official Kubernetes documentation on [memory-pressure-eviction](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals-and-thresholds).
 
