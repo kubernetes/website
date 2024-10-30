@@ -4,9 +4,13 @@ main_menu: true
 no_list: true
 weight: 20
 content_type: concept
+card:
+  name: tutorials
+  weight: 20
+  title: Walkthrough the basics
 ---
 
-## Kubernetes Basics
+## {{% heading "objectives" %}}
 
 This tutorial provides a walkthrough of the basics of the Kubernetes cluster orchestration
 system. Each module contains some background information on major Kubernetes features
@@ -31,26 +35,26 @@ container orchestration, combined with best-of-breed ideas from the community.
 
 ## Kubernetes Basic Modules
 
-### [Create a Kubernetes cluster](/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)
+### [1. Create a Kubernetes cluster](/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)
 
-{{< figure src="public/images/module_01.svg" class="diagram-small" >}}
+<!-- {{< figure src="public/images/module_01.svg" class="diagram-small" >}} -->
 
-### [Deploy an app](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)
+### [2. Deploy an app](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)
 
-{{< figure src="public/images/module_02.svg" class="diagram-small" >}}
+<!-- {{< figure src="public/images/module_02.svg" class="diagram-small" >}} -->
 
-### [Explore your app](/docs/tutorials/kubernetes-basics/explore/explore-intro/)
+### [3. Explore your app](/docs/tutorials/kubernetes-basics/explore/explore-intro/)
 
-{{< figure src="public/images/module_03.svg" class="diagram-small" >}}
+<!-- {{< figure src="public/images/module_03.svg" class="diagram-small" >}} -->
 
-### [Expose your app publicly](/docs/tutorials/kubernetes-basics/expose/expose-intro/)
+### [4. Expose your app publicly](/docs/tutorials/kubernetes-basics/expose/expose-intro/)
 
-{{< figure src="public/images/module_04.svg" class="diagram-small" >}}
+<!-- {{< figure src="public/images/module_04.svg" class="diagram-small" >}} -->
 
-### [Scale up your app](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
+### [5. Scale up your app](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
 
-{{< figure src="public/images/module_05.svg" class="diagram-small" >}}
+<!-- {{< figure src="public/images/module_05.svg" class="diagram-small" >}} -->
 
-### [Update your app](/docs/tutorials/kubernetes-basics/update/update-intro/)
+### [6. Update your app](/docs/tutorials/kubernetes-basics/update/update-intro/)
 
-{{< figure src="public/images/module_06.svg" class="diagram-small" >}}
+<!-- {{< figure src="public/images/module_06.svg" class="diagram-small" >}} -->
