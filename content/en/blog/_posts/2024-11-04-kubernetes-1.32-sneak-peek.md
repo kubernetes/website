@@ -13,7 +13,7 @@ author: >
 
 As we get closer to the release date for Kubernetes v1.32, the project develops and matures, features may be deprecated, removed, or replaced with better ones for the project's overall health. 
 
-This blog outlines some of the planned changes for the Kubernetes v1.32 release, that the release team feels you should be aware of, for the continued mantainance of your Kubernetes enviroment and keeping up to date with the latest changes. Information listed below is based on the current status of the v1.32 release and may change before the actual release date. 
+This blog outlines some of the planned changes for the Kubernetes v1.32 release, that the release team feels you should be aware of, for the continued maintenance of your Kubernetes environment and keeping up to date with the latest changes. Information listed below is based on the current status of the v1.32 release and may change before the actual release date. 
 
 ### The Kubernetes API removal and deprecation process
 The Kubernetes project has a well-documented [deprecation policy](/docs/reference/using-api/deprecation-policy/) for features. This policy states that stable APIs may only be deprecated when a newer, stable version of that same API is available and that APIs have a minimum lifetime for each stability level. A deprecated API has been marked for removal in a future Kubernetes release, it will continue to function until removal (at least one year from the deprecation), but usage will result in a warning being displayed. Removed APIs are no longer available in the current version, at which point you must migrate to using the replacement.
@@ -47,7 +47,7 @@ In this release, like the previous one, the Kubernetes project continues to intr
 
 - Partitionable devices support: [KEP #4815](https://github.com/kubernetes/enhancements/issues/4815)
 - Resource Claim Status and standardized network interface data: [KEP #4817](https://github.com/kubernetes/enhancements/issues/4817)
-- Structured parameters: KEP [#4381](https://github.com/kubernetes/enhancements/issues/4381)
+- Structured parameters: [KEP #4381](https://github.com/kubernetes/enhancements/issues/4381)
 - Prioritized Alternatives in Device Requests: [KEP #4816](https://github.com/kubernetes/enhancements/issues/4816)
 - Resource Health Status in Pod Status: [KEP #4680](https://github.com/kubernetes/enhancements/issues/4680)
 
