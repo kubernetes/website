@@ -165,21 +165,27 @@ owner object:
 * 在删除过程完成之前，通过 Kubernetes API 仍然可以看到该对象。
 
 <!--
-After the owner object enters the deletion in progress state, the controller
-deletes the dependents. After deleting all the dependent objects, the controller
-deletes the owner object. At this point, the object is no longer visible in the
+After the owner object enters the *deletion in progress* state, the controller
+deletes dependents it knows about. After deleting all the dependent objects it knows about,
+the controller deletes the owner object. At this point, the object is no longer visible in the
 Kubernetes API.
 
 During foreground cascading deletion, the only dependents that block owner
-deletion are those that have the `ownerReference.blockOwnerDeletion=true` field.
+deletion are those that have the `ownerReference.blockOwnerDeletion=true` field
+and are in the garbage collection controller cache. The garbage collection controller
+cache may not contain objects whose resource type cannot be listed / watched successfully,
+or objects that are created concurrent with deletion of an owner object.
 See [Use foreground cascading deletion](/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)
 to learn more.
 -->
-当属主对象进入删除过程中状态后，控制器删除其依赖对象。控制器在删除完所有依赖对象之后，
-删除属主对象。这时，通过 Kubernetes API 就无法再看到该对象。
+当属主对象进入**删除进行中**状态后，控制器会删除其已知的依赖对象。
+在删除所有已知的依赖对象后，控制器会删除属主对象。
+这时，通过 Kubernetes API 就无法再看到该对象。
 
-在前台级联删除过程中，唯一可能阻止属主对象被删除的是那些带有
-`ownerReference.blockOwnerDeletion=true` 字段的依赖对象。
+在前台级联删除过程中，唯一会阻止属主对象被删除的是那些带有
+`ownerReference.blockOwnerDeletion=true` 字段并且存在于垃圾收集控制器缓存中的依赖对象。
+垃圾收集控制器缓存中可能不包含那些无法成功被列举/监视的资源类型的对象，
+或在属主对象删除的同时创建的对象。
 参阅[使用前台级联删除](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)
 以了解进一步的细节。
 
@@ -187,8 +193,10 @@ to learn more.
 ### Background cascading deletion {#background-deletion}
 
 In background cascading deletion, the Kubernetes API server deletes the owner
-object immediately and the controller cleans up the dependent objects in
-the background. By default, Kubernetes uses background cascading deletion unless
+object immediately and the garbage collector controller (custom or default)
+cleans up the dependent objects in the background.
+If a finalizer exists, it ensures that objects are not deleted until all necessary clean-up tasks are completed.
+By default, Kubernetes uses background cascading deletion unless
 you manually use foreground deletion or choose to orphan the dependent objects.
 
 See [Use background cascading deletion](/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)
@@ -196,7 +204,9 @@ to learn more.
 -->
 ### 后台级联删除 {#background-deletion}
 
-在后台级联删除过程中，Kubernetes 服务器立即删除属主对象，控制器在后台清理所有依赖对象。
+在后台级联删除过程中，Kubernetes 服务器立即删除属主对象，
+而垃圾收集控制器（无论是自定义的还是默认的）在后台清理所有依赖对象。
+如果存在 Finalizers，它会确保所有必要的清理任务完成后对象才被删除。
 默认情况下，Kubernetes 使用后台级联删除方案，除非你手动设置了要使用前台删除，
 或者选择遗弃依赖对象。
 
@@ -286,33 +296,19 @@ regardless of disk usage. This is a kubelet setting that you configure for each 
 这是一个可以为每个节点配置的 kubelet 设置。
 
 <!--
-To configure the setting, enable the `imageMaximumGCAge`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kubelet,
-and also set a value for the `imageMaximumGCAge` field in the kubelet configuration file.
+To configure the setting, you need to set a value for the `imageMaximumGCAge`
+field in the kubelet configuration file.
 -->
-请为 kubelet 启用 `imageMaximumGCAge`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-并在 kubelet 配置文件中为 `imageMaximumGCAge` 字段赋值来配置该设置。
+要配置该设置，你需要在 kubelet 配置文件中为 `imageMaximumGCAge`
+字段设置一个值。
 
 <!--
-The value is specified as a Kubernetes _duration_; 
-Valid time units for the `imageMaximumGCAge` field in the kubelet configuration file are:
-- "ns" for nanoseconds
-- "us" or "µs" for microseconds
-- "ms" for milliseconds
-- "s" for seconds
-- "m" for minutes
-- "h" for hours
+The value is specified as a Kubernetes {{< glossary_tooltip text="duration" term_id="duration" >}}; 
+See [duration](/docs/reference/glossary/?all=true#term-duration) in the glossary
+for more details.
 -->
-该值应遵循 Kubernetes **持续时间（Duration）** 格式；
-在 kubelet 配置文件中，`imageMaximumGCAge` 字段的有效时间单位如下：
-
-- "ns" 表示纳秒
-- "us" 或 "µs" 表示微秒
-- "ms" 表示毫秒
-- "s" 表示秒
-- "m" 表示分钟
-- "h" 表示小时
+该值应遵循 Kubernetes {{< glossary_tooltip text="持续时间（Duration）" term_id="duration" >}}格式；
+有关更多详细信息，请参阅词汇表中的[持续时间（Duration）](/zh-cn/docs/reference/glossary/?all=true#term-duration)。
 
 <!--
 For example, you can set the configuration field to `12h45m`,

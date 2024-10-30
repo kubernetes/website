@@ -3,6 +3,8 @@ title: 持久卷
 api_metadata:
 - apiVersion: "v1"
   kind: "PersistentVolume"
+- apiVersion: "v1"
+  kind: "PersistentVolumeClaim"
 feature:
   title: 存储编排
   description: >
@@ -21,6 +23,8 @@ title: Persistent Volumes
 api_metadata:
 - apiVersion: "v1"
   kind: "PersistentVolume"
+- apiVersion: "v1"
+  kind: "PersistentVolumeClaim"
 feature:
   title: Storage orchestration
   description: >
@@ -37,7 +41,7 @@ This document describes _persistent volumes_ in Kubernetes. Familiarity with
 and [VolumeAttributesClasses](/docs/concepts/storage/volume-attributes-classes/) is suggested.
 -->
 本文描述 Kubernetes 中的**持久卷（Persistent Volumes）**。
-建议先熟悉[卷（volume）](/zh-ch/docs/concepts/storage/volumes/)、
+建议先熟悉[卷（volume）](/zh-cn/docs/concepts/storage/volumes/)、
 [存储类（StorageClass）](/zh-cn/docs/concepts/storage/storage-classes/)和
 [卷属性类（VolumeAttributesClass）](/zh-cn/docs/concepts/storage/volume-attributes-classes/)。
 

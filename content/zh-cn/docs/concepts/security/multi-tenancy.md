@@ -603,7 +603,7 @@ access to the host system and all the processes/files running on that host.
 在容器逃逸场景中，攻击者会利用漏洞来访问主机系统以及在该主机上运行的所有进程/文件。
 
 <!--
-Virtual machines and userspace kernels are 2 popular approaches to sandboxing. The following
+Virtual machines and userspace kernels are two popular approaches to sandboxing. The following
 sandboxing implementations are available:
 
 * [gVisor](https://gvisor.dev/) intercepts syscalls from containers and runs them through a
@@ -975,10 +975,8 @@ listed below.
 
 <!--
 * [Capsule](https://github.com/clastix/capsule)
-* [Kiosk](https://github.com/loft-sh/kiosk)
 -->
 * [Capsule](https://github.com/clastix/capsule)
-* [Kiosk](https://github.com/loft-sh/kiosk)
 
 <!--
 #### Multi-customer tenancy

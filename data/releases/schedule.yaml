@@ -9,11 +9,13 @@ schedules:
   next:
     cherryPickDeadline: "2024-10-11"
     release: 1.31.2
-    targetDate: "2024-10-15"
+    targetDate: "2024-10-22"
   previousPatches:
   - cherryPickDeadline: "2024-09-06"
     release: 1.31.1
     targetDate: "2024-09-11"
+  - release: 1.31.0
+    targetDate: "2024-08-13"
   release: "1.31"
   releaseDate: "2024-08-13"
 - endOfLifeDate: "2025-06-28"
@@ -21,7 +23,7 @@ schedules:
   next:
     cherryPickDeadline: "2024-10-11"
     release: 1.30.6
-    targetDate: "2024-10-15"
+    targetDate: "2024-10-22"
   previousPatches:
   - cherryPickDeadline: "2024-09-06"
     release: 1.30.5
@@ -47,7 +49,7 @@ schedules:
   next:
     cherryPickDeadline: "2024-10-11"
     release: 1.29.10
-    targetDate: "2024-10-15"
+    targetDate: "2024-10-22"
   previousPatches:
   - cherryPickDeadline: "2024-09-06"
     release: 1.29.9
@@ -85,7 +87,7 @@ schedules:
   next:
     cherryPickDeadline: "2024-10-11"
     release: 1.28.15
-    targetDate: "2024-10-15"
+    targetDate: "2024-10-22"
   previousPatches:
   - cherryPickDeadline: "2024-09-06"
     release: 1.28.14
@@ -126,8 +128,7 @@ schedules:
   - cherryPickDeadline: "2023-09-08"
     release: 1.28.2
     targetDate: "2023-09-13"
-  - cherryPickDeadline: N/A
-    note: Unplanned release to include CVE fixes
+  - note: Unplanned release to include CVE fixes
     release: 1.28.1
     targetDate: "2023-08-23"
   - release: 1.28.0
@@ -136,7 +137,7 @@ schedules:
   releaseDate: "2023-08-15"
 upcoming_releases:
 - cherryPickDeadline: "2024-10-11"
-  targetDate: "2024-10-15"
+  targetDate: "2024-10-22"
 - cherryPickDeadline: "2024-11-08"
   targetDate: "2024-11-12"
 - cherryPickDeadline: "2024-12-06"

@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PriorityClass 定义了从优先级类名到优先级数值的映射。"
 title: "PriorityClass"
-weight: 13
+weight: 14
 auto_generated: false
 ---
 
@@ -18,7 +18,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PriorityClass defines mapping from a priority class name to the priority integer value."
 title: "PriorityClass"
-weight: 13
+weight: 14
 auto_generated: true
 -->
 

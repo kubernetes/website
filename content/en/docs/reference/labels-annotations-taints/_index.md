@@ -289,6 +289,19 @@ in the StatefulSet topic for more details.
 Note the [PodIndexLabel](/docs/reference/command-line-tools-reference/feature-gates/)
 feature gate must be enabled for this label to be added to pods.
 
+### resource.kubernetes.io/pod-claim-name
+
+Type: Annotation
+
+Example: `resource.kubernetes.io/pod-claim-name: "my-pod-claim"`
+
+Used on: ResourceClaim
+
+This annotation is assigned to generated ResourceClaims. 
+Its value corresponds to the name of the resource claim in the `.spec` of any Pod(s) for which the ResourceClaim was created.
+This annotation is an internal implementation detail of [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/).
+You should not need to read or modify the value of this annotation.
+
 ### cluster-autoscaler.kubernetes.io/safe-to-evict
 
 Type: Annotation
@@ -579,6 +592,16 @@ Endpoints for unready Pods. Endpoints of these Services retain their DNS records
 receiving traffic for the Service from the moment the kubelet starts all containers in the pod
 and marks it _Running_, til the kubelet stops all containers and deletes the pod from
 the API server.
+
+### autoscaling.alpha.kubernetes.io/behavior (deprecated) {#autoscaling-alpha-kubernetes-io-behavior}
+
+Type: Annotation
+
+Used on: HorizontalPodAutoscaler
+
+This annotation was used to configure the scaling behavior for a HorizontalPodAutoscaler (HPA) in earlier Kubernetes versions.
+It allowed you to specify how the HPA should scale pods up or down, including setting stabilization windows and scaling policies.
+Setting this annotation has no effect in any supported release of Kubernetes.
 
 ### kubernetes.io/hostname {#kubernetesiohostname}
 

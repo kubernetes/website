@@ -64,7 +64,8 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管
 1. `kubectl create` コマンドを使用してPodを管理するDeploymentを作成してください。Podは提供されたDockerイメージを元にコンテナを実行します。
 
     ```shell
-    kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
+    # Webサーバーを含むテストコンテナイメージを実行する
+    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
     ```
 
 2. Deploymentを確認します:

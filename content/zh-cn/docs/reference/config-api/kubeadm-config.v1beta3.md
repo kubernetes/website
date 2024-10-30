@@ -27,11 +27,11 @@ This version improves on the v1beta2 format by fixing some minor issues and addi
 <ul>
 <li>The deprecated &quot;ClusterConfiguration.useHyperKubeImage&quot; field has been removed.
 Kubeadm no longer supports the hyperkube image.</li>
-<li>The &quot;ClusterConfiguration.DNS.Type&quot; field has been removed since CoreDNS is the only supported
+<li>The &quot;ClusterConfiguration.dns.Type&quot; field has been removed since CoreDNS is the only supported
 DNS server type by kubeadm.</li>
 <li>Include &quot;datapolicy&quot; tags on the fields that hold secrets.
 This would result in the field values to be omitted when API structures are printed with klog.</li>
-<li>Add &quot;InitConfiguration.SkipPhases&quot;, &quot;JoinConfiguration.SkipPhases&quot; to allow skipping
+<li>Add &quot;InitConfiguration.skipPhases&quot;, &quot;JoinConfiguration.skipPhases&quot; to allow skipping
 a list of phases during kubeadm init/join command execution.</li>
 -->
 <ul>
@@ -44,11 +44,11 @@ kubeadm 所支持的唯一 DNS 服务器类型。</li>
 <li>添加了 &quot;InitConfiguration.skipPhases&quot;、&quot;JoinConfiguration.skipPhases&quot;，
 以允许在执行 <code>kubeadm init/join</code> 命令时略过某些阶段。</li>
 <!--
-<li>Add &quot;InitConfiguration.NodeRegistration.ImagePullPolicy&quot; and &quot;JoinConfiguration.NodeRegistration.ImagePullPolicy&quot;
+<li>Add &quot;InitConfiguration.nodeRegistration.imagePullPolicy&quot; and &quot;JoinConfiguration.nodeRegistration.imagePullPolicy&quot;
 to allow specifying the images pull policy during kubeadm &quot;init&quot; and &quot;join&quot;.
 The value must be one of &quot;Always&quot;, &quot;Never&quot; or &quot;IfNotPresent&quot;.
 &quot;IfNotPresent&quot; is the default, which has been the existing behavior prior to this addition.</li>
-<li>Add &quot;InitConfiguration.Patches.Directory&quot;, &quot;JoinConfiguration.Patches.Directory&quot; to allow
+<li>Add &quot;InitConfiguration.patches.directory&quot;, &quot;JoinConfiguration.patches.directory&quot; to allow
 the user to configure a directory from which to take patches for components deployed by kubeadm.</li>
 <li>Move the BootstrapToken* API and related utilities out of the &quot;kubeadm&quot; API group to a new group
 &quot;bootstraptoken&quot;. The kubeadm API version v1beta3 no longer contains the BootstrapToken* structures.</li>
@@ -496,7 +496,7 @@ for, so other administrators can know its purpose.
 </td>
 </tr>
 <tr><td><code>expires</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <!--
@@ -1531,7 +1531,7 @@ HostPathMount contains elements describing volumes that are mounted from the hos
 </td>
 </tr>
 <tr><td><code>pathType</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
    <!--
@@ -1827,7 +1827,7 @@ This information will be annotated to the Node API object, for later re-use.
 </td>
 </tr>
 <tr><td><code>taints</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <!--
@@ -1880,7 +1880,7 @@ the current node is registered, e.g.
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    <!--

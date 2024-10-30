@@ -141,12 +141,14 @@ A toleration "matches" a taint if the keys are the same and the effects are the 
 <!--
 There are two special cases:
 
-An empty `key` with operator `Exists` matches all keys, values and effects which means this
-will tolerate everything.
+If the `key` is empty, then the `operator` must be `Exists`, which matches all keys and values. Note that the `effect` still needs to be matched at the same time.
 
 An empty `effect` matches all effects with key `key1`.
 -->
 存在两种特殊情况：
+
+如果 `key` 为空，那么 `operator` 必须是 `Exists`，匹配所有 key 和 value。
+注意，同时 `effect` 仍然需要匹配。
 
 如果一个容忍度的 `key` 为空且 `operator` 为 `Exists`，
 表示这个容忍度与任意的 key、value 和 effect 都匹配，即这个容忍度能容忍任何污点。

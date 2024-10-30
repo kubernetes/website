@@ -477,8 +477,8 @@ There are some implicit conventions worth noting here:
 
 - Only the Pods holding the same namespace as the incoming Pod can be matching candidates.
 
-- The scheduler bypasses any nodes that don't have any `topologySpreadConstraints[*].topologyKey`
-  present. This implies that:
+- The scheduler only considers nodes that have all `topologySpreadConstraints[*].topologyKey` present at the same time.
+  Nodes missing any of these `topologyKeys` are bypassed. This implies that:
 
   1. any Pods located on those bypassed nodes do not impact `maxSkew` calculation - in the
      above [example](#example-conflicting-topologyspreadconstraints), suppose the node `node1`

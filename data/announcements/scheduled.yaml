@@ -247,3 +247,18 @@ announcements:
     <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-open-source-summit-ai-dev-china/register/?utm_source=kubernetes&utm_medium=all&utm_campaign=kubeconcn24&utm_content=slim-banner">
     Buy your ticket now! 21 - 23 August | Hong Kong
     </a> 
+
+- name: KubeCon 2024 NA
+  startTime: 2024-09-30T00:00:00  #Added in https://github.com/kubernetes/website/pull/48086
+  endTime: 2024-11-15T18:00:00
+  style: >-
+    background: linear-gradient(90deg, rgba(64,66,169,1) 60%, rgba(0,81,181,1) 100%);
+    color: #fffff;
+  title: |
+    <img src ="/images/announcements/kccnc-na-2024-white.svg" style="float: right; height: 100px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/">KubeCon + CloudNativeCon 2024</a>
+  message: |
+    Join us for three days of incredible opportunities to collaborate, learn and share with the cloud native community.<br/> 
+    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/register/?utm_source=kubernetes&utm_medium=homepage&utm_campaign=KubeCon-NA-2024&utm_content=top-banner">
+    Buy your ticket now! 12 - 15 November | Salt Lake City
+    </a> 

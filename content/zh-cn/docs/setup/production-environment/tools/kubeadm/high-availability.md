@@ -30,7 +30,8 @@ cluster using kubeadm:
 
 <!--
 Before proceeding, you should carefully consider which approach best meets the needs of your applications
-and environment. [Options for Highly Available topology](/docs/setup/production-environment/tools/kubeadm/ha-topology/) outlines the advantages and disadvantages of each.
+and environment. [Options for Highly Available topology](/docs/setup/production-environment/tools/kubeadm/ha-topology/)
+outlines the advantages and disadvantages of each.
 
 If you encounter issues with setting up the HA cluster, please report these
 in the kubeadm [issue tracker](https://github.com/kubernetes/kubeadm/issues/new).
@@ -145,6 +146,7 @@ You need:
 <!-- end of shared prerequisites -->
 <!--
 And you also need:
+
 - Three or more additional machines, that will become etcd cluster members.
   Having an odd number of members in the etcd cluster is a requirement for achieving
   optimal voting quorum.
@@ -152,6 +154,7 @@ And you also need:
   - These machines also require a container runtime, that is already set up and working.
 -->
 还需要准备：
+
 - 给 etcd 集群使用的另外至少三台机器。为了分布式一致性算法达到更好的投票效果，集群必须由奇数个节点组成。
   - 机器上已经安装 `kubeadm` 和 `kubelet`。
   - 机器上同样需要安装好容器运行时，并能正常运行。
@@ -164,17 +167,23 @@ _See [External etcd topology](/docs/setup/production-environment/tools/kubeadm/h
 {{% /tab %}}
 {{< /tabs >}}
 
-<!-- ### Container images -->
-### 容器镜像
+<!--
+### Container images
+-->
+### 容器镜像  {#container-images}
 
 <!--
-Each host should have access read and fetch images from the Kubernetes container image registry, `registry.k8s.io`.
-If you want to deploy a highly-available cluster where the hosts do not have access to pull images, this is possible. You must ensure by some other means that the correct container images are already available on the relevant hosts.
+Each host should have access read and fetch images from the Kubernetes container image registry,
+`registry.k8s.io`. If you want to deploy a highly-available cluster where the hosts do not have
+access to pull images, this is possible. You must ensure by some other means that the correct
+container images are already available on the relevant hosts.
 -->
 每台主机需要能够从 Kubernetes 容器镜像仓库（`registry.k8s.io`）读取和拉取镜像。
 想要在无法拉取 Kubernetes 仓库镜像的机器上部署高可用集群也是可行的。通过其他的手段保证主机上已经有对应的容器镜像即可。
 
-<!-- ### Command line interface {#kubectl} -->
+<!--
+### Command line interface {#kubectl}
+-->
 ### 命令行  {#kubectl}
 
 <!--
@@ -285,6 +294,7 @@ option. Your cluster requirements may need a different configuration.
    ```sh
    sudo kubeadm init --control-plane-endpoint "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT" --upload-certs
    ```
+
    - You can use the `--kubernetes-version` flag to set the Kubernetes version to use.
      It is recommended that the versions of kubeadm, kubelet, kubectl and Kubernetes match.
    - The `--control-plane-endpoint` flag should be set to the address or DNS and port of the load balancer.
@@ -351,11 +361,13 @@ option. Your cluster requirements may need a different configuration.
    ```
 
    <!--
-   - Copy this output to a text file. You will need it later to join control plane and worker nodes to the cluster.
+   - Copy this output to a text file. You will need it later to join control plane and worker nodes to
+     the cluster.
    - When `--upload-certs` is used with `kubeadm init`, the certificates of the primary control plane
-   are encrypted and uploaded in the `kubeadm-certs` Secret.
-   - To re-upload the certificates and generate a new decryption key, use the following command on a control plane
-   node that is already joined to the cluster:
+     are encrypted and uploaded in the `kubeadm-certs` Secret.
+   - To re-upload the certificates and generate a new decryption key, use the following command on a
+     control plane
+     node that is already joined to the cluster:
    -->
    - 将此输出复制到文本文件。 稍后你将需要它来将控制平面节点和工作节点加入集群。
    - 当使用 `--upload-certs` 调用 `kubeadm init` 时，主控制平面的证书被加密并上传到 `kubeadm-certs` Secret 中。
@@ -717,6 +729,23 @@ SSH is required if you want to control all nodes from a single machine.
    -->
    在以下示例中，用其他控制平面节点的 IP 地址替换 `CONTROL_PLANE_IPS`。
 
+   <!--
+   ```sh
+   USER=ubuntu # customizable
+   CONTROL_PLANE_IPS="10.0.0.7 10.0.0.8"
+   for host in ${CONTROL_PLANE_IPS}; do
+       scp /etc/kubernetes/pki/ca.crt "${USER}"@$host:
+       scp /etc/kubernetes/pki/ca.key "${USER}"@$host:
+       scp /etc/kubernetes/pki/sa.key "${USER}"@$host:
+       scp /etc/kubernetes/pki/sa.pub "${USER}"@$host:
+       scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@$host:
+       scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@$host:
+       scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host:etcd-ca.crt
+       # Skip the next line if you are using external etcd
+       scp /etc/kubernetes/pki/etcd/ca.key "${USER}"@$host:etcd-ca.key
+   done
+   ```
+   -->
    ```sh
    USER=ubuntu # 可定制
    CONTROL_PLANE_IPS="10.0.0.7 10.0.0.8"
@@ -750,6 +779,21 @@ SSH is required if you want to control all nodes from a single machine.
 5. 然后，在每个即将加入集群的控制平面节点上，你必须先运行以下脚本，然后再运行 `kubeadm join`。
    该脚本会将先前复制的证书从主目录移动到 `/etc/kubernetes/pki`：
 
+   <!--
+   ```sh
+   USER=ubuntu # customizable
+   mkdir -p /etc/kubernetes/pki/etcd
+   mv /home/${USER}/ca.crt /etc/kubernetes/pki/
+   mv /home/${USER}/ca.key /etc/kubernetes/pki/
+   mv /home/${USER}/sa.pub /etc/kubernetes/pki/
+   mv /home/${USER}/sa.key /etc/kubernetes/pki/
+   mv /home/${USER}/front-proxy-ca.crt /etc/kubernetes/pki/
+   mv /home/${USER}/front-proxy-ca.key /etc/kubernetes/pki/
+   mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
+   # Skip the next line if you are using external etcd
+   mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
+   ```
+   -->
    ```sh
    USER=ubuntu # 可定制
    mkdir -p /etc/kubernetes/pki/etcd
@@ -763,4 +807,3 @@ SSH is required if you want to control all nodes from a single machine.
    # 如果你正使用外部 etcd，忽略下一行
    mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
    ```
-
