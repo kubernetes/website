@@ -34,7 +34,9 @@ _Commit_ memory, on the other hand, represents the total amount of virtual memor
 There are two reasons to using the global commit levels for measuring the available memory
 on a Windows node:
 
-1. **Memory limits for containers in Pods running on Windows nodes are enforced using Commit** (not WorkingSet) **memory**. Windows memory management enforces limits on processes based on the total amount of memory committed, not just the memory in use. 
+1. **Memory limits for containers in Pods running on Windows nodes are enforced using Commit (not WorkingSet) memory**.
+   Windows memory management enforces limits on processes based on the total amount of memory committed,
+   not just the memory in use. 
 This also means that memory limits specified for containers in Kubernetes Pods are enforced on the total amount of virtual memory committed by all processes in the container. Consistency in how memory usage is tracked and enforced is essential for workload stability.
 
 2. **Paging (swap) is automatically enabled on Windows**, and it plays an essential role in the operating system's memory management. Disabling paging is not recommended because it can lead to system instability.
