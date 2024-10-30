@@ -91,7 +91,7 @@ Currently, Kubernetes provides graceful node shutdown functionality for Linux no
 
 KEP [#4885](https://github.com/kubernetes/enhancements/issues/4885) adds CPU and memory affinity support to Windows nodes in Kubernetes, thus improving performance for workloads that benefit from cache vicinity and NUMA optimizations, this effort also aligns Windows capabilities with Linux nodes.
 
-### Almost every ASCII character in env variables - KEP [#4369](https://github.com/kubernetes/enhancements/issues/4369)
+### Allow special characters in environment variables - KEP [#4369](https://github.com/kubernetes/enhancements/issues/4369)
 
 With the graduation of KEP-4369 to beta, Kubernetes now allows almost all printable ASCII characters (excluding "=") to be used as environment variable names. This change addresses the limitations previously imposed on variable naming, facilitating broader adoption of Kubernetes by accommodating various application needs. The relaxed validation will be enabled by default via `RelaxedEnvironmentVariableValidation` feature gate, ensuring that users can easily utilize environment variables without strict constraints, enhancing flexibility for developers working with applications like .NET Core that require special characters in their configurations.
 
