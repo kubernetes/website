@@ -34,7 +34,7 @@ _Commit_ memory, on the other hand, represents the total amount of virtual memor
 There are two reasons to using the global commit levels for measuring the available memory
 on a Windows node:
 
-1. **Memory limits for containers in Pods running on Windows nodes are enforced using Commit (not WorkingSet) memory**.
+1. **Memory limits for containers in Pods running on Windows nodes are enforced using Commit (not Working Set) memory**.
    Windows memory management enforces limits on processes based on the total amount of memory committed,
    not just the memory in use. 
    This also means that memory limits specified for containers in Kubernetes Pods are enforced
@@ -58,9 +58,9 @@ refer to the official Kubernetes documentation on [memory-pressure-eviction](/do
 
 Understanding the distinction between _Working Set_ and _Commit_ memory and being able to monitor both is critical for maintaining the stability of individual Pod workloads and the entire Windows node.
 
-Currently, `kubectl top` continues to report Working Set memory. As a result, a Pod may be evicted for exceeding its memory requests or encounter memory allocation failures due to exceeding its `CommitLimit`, even when the _WorkingSet_ memory usage appears to be well within the expected bounds. This discrepancy can lead to confusion.
+Currently, `kubectl top` continues to report Working Set memory. As a result, a Pod may be evicted for exceeding its memory requests or encounter memory allocation failures due to exceeding its `CommitLimit`, even when the _Working Set_ memory usage appears to be well within the expected bounds. This discrepancy can lead to confusion.
 
-Starting with v1.31, Windows nodes now report the global `CommitTotal` and `CommitLimit` for each node through the `/stats/summary` API endpoint. This information is available under the `windows-global-commit-memory` syscontainer API resource.
+Starting with v1.31, Windows nodes report the global `CommitTotal` and `CommitLimit` for each node through the `/stats/summary` API endpoint. This information is available under the `windows-global-commit-memory` named object in the `systemContainers` collection:
 
 ```json=
 kubectl get --raw http://<cluster-endpoint>/api/v1/nodes/<node-name>/proxy/stats/summary
@@ -85,7 +85,7 @@ kubectl get --raw http://<cluster-endpoint>/api/v1/nodes/<node-name>/proxy/stats
 
 ```
 
-Additionally, exposing the _Commit_ memory usage for individial Pods and containers through the `/stats/summary` API is being worked on as part of the [cAdvisor-les, CRI-full Container and Pod Stats](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2371-cri-pod-container-stats/README.md) enhancement.
+Additionally, exposing the _Commit_ memory usage for individial Pods and containers through the `/stats/summary` API is being worked on as part of the [cAdvisor-less, CRI-full Container and Pod Stats](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2371-cri-pod-container-stats/README.md) enhancement.
 
 [windows-exporter](https://github.com/prometheus-community/windows_exporter) can also be configured to monitor and report on _Commit_ memory usage for Pods and containers today.
 
