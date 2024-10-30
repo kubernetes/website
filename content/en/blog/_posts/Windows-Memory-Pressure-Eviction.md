@@ -31,7 +31,8 @@ _Working Set_ memory represents the amount of physical memory currently used by 
 
 _Commit_ memory, on the other hand, represents the total amount of virtual memory that has been reserved by processes - including memory that has been swapped out to disk. When memory is "committed", it means that the system has allocated the backing storage (either physical RAM or space in the paging file(s)) to ensure that the memory will be available if needed.
 
-Using global commit levels to measure available memory on Windows was implemented for two key reasons:
+There are two reasons to using the global commit levels for measuring the available memory
+on a Windows node:
 
 1. **Memory limits for containers in Pods running on Windows nodes are enforced using Commit** (not WorkingSet) **memory**. Windows memory management enforces limits on processes based on the total amount of memory committed, not just the memory in use. 
 This also means that memory limits specified for containers in Kubernetes Pods are enforced on the total amount of virtual memory committed by all processes in the container. Consistency in how memory usage is tracked and enforced is essential for workload stability.
