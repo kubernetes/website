@@ -8,9 +8,9 @@ https://github.com/cncf/foundation/blob/master/code-of-conduct-languages/zh.md
 
 ### Community Code of Conduct
 -->
-## 云原生计算基金会（CNCF）社区行为准则 1.3 版本
+## 云原生计算基金会（CNCF）社区行为准则 1.3 版本   {#cncf-community-code-of-conduct-v13}
 
-### 社区行为准则
+### 社区行为准则  {#community-code-of-conduct}
 
 <!--
 As contributors, maintainers, and participants in the CNCF community, and in the interest of fostering
@@ -34,7 +34,7 @@ This code of conduct applies:
 * within project and community spaces,
 * in other spaces when an individual CNCF community participant's words or actions are directed at or are about a CNCF project, the CNCF community, or another CNCF community participant.
 -->
-## 范围
+## 范围  {#scope}
 
 本行为准则适用于：
 
@@ -46,7 +46,7 @@ This code of conduct applies:
 
 CNCF events that are produced by the Linux Foundation with professional events staff are governed by the Linux Foundation [Events Code of Conduct](https://events.linuxfoundation.org/code-of-conduct/) available on the event page. This is designed to be used in conjunction with the CNCF Code of Conduct.
 -->
-### CNCF 活动行为准则
+### CNCF 活动行为准则   {#cncf-events}
 
 由 Linux 基金会和专业活动人员举办的 CNCF 活动受 Linux
 基金会[活动行为准则](https://events.linuxfoundation.org/code-of-conduct/)管辖，
@@ -59,7 +59,7 @@ The CNCF Community is open, inclusive and respectful. Every member of our commun
 
 Examples of behavior that contributes to a positive environment include but are not limited to:
 -->
-## 我们的标准
+## 我们的标准   {#our-standards}
 
 CNCF 社区是开放、包容和尊重的。社区的每个成员都有权让自己的身份受到尊重。
 
@@ -120,9 +120,9 @@ The following behaviors are also prohibited:
 * 由于某人报告事件或作为证人提供有关事件的信息而对其进行报复。
 
 <!--
-Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct. 
+Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct.
 By adopting this Code of Conduct, project maintainers commit themselves to fairly and consistently applying these principles to every aspect
-of managing a CNCF project. 
+of managing a CNCF project.
 Project maintainers who do not follow or enforce the Code of Conduct may be temporarily or permanently removed from the project team.
 -->
 项目维护者有权利和责任删除、编辑或拒绝不符合本行为准则的评论、提交、编写代码、编辑维基、提问和其它贡献。
@@ -130,49 +130,50 @@ Project maintainers who do not follow or enforce the Code of Conduct may be temp
 不遵守或不执行行为准则的项目维护者可能被永久地从项目团队中移除。
 
 <!--
-## Reporting 
+## Reporting
 
 For incidents occurring in the Kubernetes community, contact the [Kubernetes Code of Conduct Committee](https://git.k8s.io/community/committee-code-of-conduct) via <conduct@kubernetes.io>. You can expect a response within three business days.
 -->
-## 上报
+## 上报   {#reporting}
 
 对于 Kubernetes 社区中出现的事件，请发送邮件至 <conduct@kubernetes.io> 联系
 [Kubernetes 行为准则委员会](https://git.k8s.io/community/committee-code-of-conduct)。
 预计你可以在三个工作日内收到答复。
 
 <!--
-For other projects, or for incidents that are project-agnostic or impact multiple CNCF projects, please contact the [CNCF Code of Conduct Committee](https://www.cncf.io/conduct/committee/) via conduct@cncf.io.  Alternatively, you can contact any of the individual members of the [CNCF Code of Conduct Committee](https://www.cncf.io/conduct/committee/) to submit your report. For more detailed instructions on how to submit a report, including how to submit a report anonymously, please see our [Incident Resolution Procedures](https://www.cncf.io/conduct/procedures/). You can expect a response within three business days.
+For other projects, or for incidents that are project-agnostic or impact multiple CNCF projects, please contact the [CNCF Code of Conduct Committee](https://www.cncf.io/conduct/committee/) via <conduct@cncf.io>.  Alternatively, you can contact any of the individual members of the [CNCF Code of Conduct Committee](https://www.cncf.io/conduct/committee/) to submit your report. For more detailed instructions on how to submit a report, including how to submit a report anonymously, please see our [Incident Resolution Procedures](https://github.com/cncf/foundation/blob/main/code-of-conduct/coc-incident-resolution-procedures.md). You can expect a response within three business days.
 
-For incidents occurring at CNCF event that is produced by the Linux Foundation, please contact eventconduct@cncf.io.
+For incidents occurring at CNCF event that is produced by the Linux Foundation, please contact <eventconduct@cncf.io>.
 -->
 对于其他项目、或与项目无关或影响到多个 CNCF 项目的事件，请通过 <conduct@cncf.io> 联系
 [CNCF 行为准则委员会](https://www.cncf.io/conduct/committee/)。
 你也可以联系 [CNCF 行为准则委员会](https://www.cncf.io/conduct/committee/)的任何成员提交你的报告。
 包括匿名提交报告在内有关如何提交报告的更多详细指示，
-请参阅我们的[事件解决程序](https://www.cncf.io/conduct/procedures/)。预计你可以在三个工作日内收到答复。
+请参阅我们的[事件解决程序](https://github.com/cncf/foundation/blob/main/code-of-conduct/coc-incident-resolution-procedures.md)。
+预计你可以在三个工作日内收到答复。
 
 对于 Linux 基金会举办的 CNCF 活动中所发生的事件，请联系 <eventconduct@cncf.io>。
 
 <!--
-## Enforcement 
+## Enforcement
 
-Upon review and investigation of a reported incident, the CoC response team that has jurisdiction will determine what action is appropriate based on this Code of Conduct and its related documentation. 
+Upon review and investigation of a reported incident, the CoC response team that has jurisdiction will determine what action is appropriate based on this Code of Conduct and its related documentation.
 
-For information about which Code of Conduct incidents are handled by project leadership, which incidents are handled by the CNCF Code of Conduct Committee, and which incidents are handled by the Linux Foundation (including its events team), see our [Jurisdiction Policy](https://www.cncf.io/conduct/jurisdiction/).
+For information about which Code of Conduct incidents are handled by project leadership, which incidents are handled by the CNCF Code of Conduct Committee, and which incidents are handled by the Linux Foundation (including its events team), see our [Jurisdiction Policy](https://github.com/cncf/foundation/blob/main/code-of-conduct/coc-committee-jurisdiction-policy.md).
 -->
-## 执行
+## 执行   {#enforcement}
 
 在对报告的事件进行审查和调查后，具有管辖权的行为准则应变小组（CoC）将根据本行为准则及其相关文档采取适当的行动。
 
 关于哪些行为准则事件由项目领导层处理、哪些事件由 CNCF 行为准则委员会处理以及哪些事件由 Linux
-基金会（包括其活动团队）处理，请参阅我们的[管辖及逐级上报政策](https://www.cncf.io/conduct/jurisdiction/)。
+基金会（包括其活动团队）处理，请参阅我们的[管辖及逐级上报政策](https://github.com/cncf/foundation/blob/main/code-of-conduct/coc-committee-jurisdiction-policy.md)。
 
 <!--
 ## Amendments
 
 Consistent with the CNCF Charter, any substantive changes to this Code of Conduct must be approved by the Technical Oversight Committee.
 -->
-## 修正
+## 修正   {#amendments}
 
 根据 CNCF 章程，对本行为准则的任何实质性变更都必须得到技术监督委员会的批准。
 
@@ -180,10 +181,10 @@ Consistent with the CNCF Charter, any substantive changes to this Code of Conduc
 ## Acknowledgements
 
 This Code of Conduct is adapted from the Contributor Covenant
-(http://contributor-covenant.org), version 2.0 available at
-http://contributor-covenant.org/version/2/0/code_of_conduct/
+(https://contributor-covenant.org), version 2.0 available at
+https://contributor-covenant.org/version/2/0/code_of_conduct/
 -->
-## 致谢
+## 致谢   {#acknowledgements}
 
-本行为准则改编自[贡献者契约（Contributor Covenant）](http://contributor-covenant.org) v2.0，
-具体可查阅 <http://contributor-covenant.org/version/2/0/code_of_conduct/>
+本行为准则改编自[贡献者契约（Contributor Covenant）](https://contributor-covenant.org) v2.0，
+具体可查阅 <https://contributor-covenant.org/version/2/0/code_of_conduct/>
