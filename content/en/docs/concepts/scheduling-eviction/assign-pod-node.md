@@ -517,7 +517,7 @@ spec:
         topologyKey: node-pool
 ```
 
-#### More Practical Use-cases
+#### More practical use-cases
 
 Inter-pod affinity and anti-affinity can be even more useful when they are used with higher
 level collections such as ReplicaSets, StatefulSets, Deployments, etc. These
