@@ -65,7 +65,7 @@ node capacity (CPU, memory, and other node resources) available in your cluster.
 
 You can use the [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler) to manage the scale of your nodes automatically.
 The cluster autoscaler can integrate with a cloud provider, or with Kubernetes'
-[cluster API](https://github.com/kubernetes/autoscaler/blob/c6b754c359a8563050933a590f9a5dece823c836/cluster-autoscaler/cloudprovider/clusterapi/README.md),
+[cluster API](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/clusterapi/README.md),
 to achieve the actual node management that's needed.
 -->
 ## 自动水平扩缩容   {#autoscaling-horizontal}
@@ -74,7 +74,7 @@ to achieve the actual node management that's needed.
 
 你可以使用 [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
 自动管理节点的数目规模。Cluster Autoscaler 可以与云驱动或 Kubernetes 的
-[Cluster API](https://github.com/kubernetes/autoscaler/blob/c6b754c359a8563050933a590f9a5dece823c836/cluster-autoscaler/cloudprovider/clusterapi/README.md)
+[Cluster API](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/clusterapi/README.md)
 集成，以完成实际所需的节点管理。
 
 <!--
@@ -83,7 +83,7 @@ removes nodes when those nodes are empty.
 
 #### Cloud provider integrations {#cluster-autoscaler-providers}
 
-The [README](https://github.com/kubernetes/autoscaler/tree/c6b754c359a8563050933a590f9a5dece823c836/cluster-autoscaler#readme)
+The [README](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md)
 for the cluster autoscaler lists some of the cloud provider integrations
 that are available.
 -->
@@ -93,8 +93,8 @@ that are available.
 #### 云驱动集成组件   {#cluster-autoscaler-providers}
 
 Cluster Autoscaler 的
-[README](https://github.com/kubernetes/autoscaler/tree/c6b754c359a8563050933a590f9a5dece823c836/cluster-autoscaler#readme)
-列举了一些可用的云驱动集成组件。
+[README](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/README.md)
+中列举了一些可用的云驱动集成组件。
 
 <!--
 ## Cost-aware multidimensional scaling {#autoscaling-multi-dimension}
@@ -153,7 +153,11 @@ cloud providers:
 -->
 在 Karpenter 的核心与以下云驱动之间，存在可用的集成组件：
 
+<!--
 - [Amazon Web Services](https://github.com/aws/karpenter-provider-aws)
+- [Azure](https://github.com/Azure/karpenter-provider-azure)
+-->
+- [亚马逊 Web 服务（Amazon Web Service）](https://github.com/aws/karpenter-provider-aws)
 - [Azure](https://github.com/Azure/karpenter-provider-azure)
 
 <!--
@@ -189,7 +193,7 @@ and cores, and scales the number of replicas of the target workload accordingly.
 #### Cluster Proportional Autoscaler
 
 对于需要基于集群大小进行扩缩容的工作负载（例如 `cluster-dns` 或其他系统组件），
-你可以使用 [Cluster Proportional Autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler)。
+你可以使用 [**Cluster Proportional Autoscaler**](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler)。
 
 Cluster Proportional Autoscaler 监视可调度节点和核心的数量，并相应地调整目标工作负载的副本数量。
 
