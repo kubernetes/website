@@ -101,8 +101,6 @@ sudo apt update
 sudo apt-cache madison kubeadm
 ```
 
-If you don't see the version you expect to upgrade to, [verify if the Kubernetes package repositories are used.](/docs/tasks/administer-cluster/kubeadm/change-package-repository/#verifying-if-the-kubernetes-package-repositories-are-used)
-
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
 
@@ -113,6 +111,9 @@ sudo yum list --showduplicates kubeadm --disableexcludes=kubernetes
 ```
 
 {{% /tab %}}
+
+If you don't see the version you expect to upgrade to, [verify if the Kubernetes package repositories are used.](/docs/tasks/administer-cluster/kubeadm/change-package-repository/#verifying-if-the-kubernetes-package-repositories-are-used)
+
 {{< /tabs >}}
 
 ## Upgrading control plane nodes
