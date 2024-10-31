@@ -13,6 +13,11 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.28"
+    toVersion: "1.31"
+  - stage: stable
+    defaultValue: true    
+    fromVersion: "1.32"
+
 ---
 Enable [fine-tuning](/docs/tasks/administer-cluster/topology-manager/#topology-manager-policy-options)
 of topology manager policies.

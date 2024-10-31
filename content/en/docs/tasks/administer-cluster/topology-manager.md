@@ -221,14 +221,9 @@ You can toggle groups of options on and off based upon their maturity level usin
 * `TopologyManagerPolicyBetaOptions` default enabled. Enable to show beta-level options.
 * `TopologyManagerPolicyAlphaOptions` default disabled. Enable to show alpha-level options.
 
-You will still have to enable each option using the `TopologyManagerPolicyOptions` kubelet option.
-
 ### `prefer-closest-numa-nodes` (beta) {#policy-option-prefer-closest-numa-nodes}
 
-The `prefer-closest-numa-nodes` option is beta since Kubernetes 1.28. In Kubernetes {{< skew currentVersion >}}
-this policy option is visible by default provided that the `TopologyManagerPolicyOptions` and
-`TopologyManagerPolicyBetaOptions` [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-are enabled.
+The `prefer-closest-numa-nodes` option is GA'ed since Kubernetes 1.32.
 
 The Topology Manager is not aware by default of NUMA distances, and does not take them into account when making
 Pod admission decisions. This limitation surfaces in multi-socket, as well as single-socket multi NUMA systems,
