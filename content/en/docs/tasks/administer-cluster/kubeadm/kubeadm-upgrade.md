@@ -101,6 +101,8 @@ sudo apt update
 sudo apt-cache madison kubeadm
 ```
 
+If you don't see the version you expect to upgrade to, [verify which kubernetes package repositories are used](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/change-package-repository/#verifying-if-the-kubernetes-package-repositories-are-used)
+
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
 
