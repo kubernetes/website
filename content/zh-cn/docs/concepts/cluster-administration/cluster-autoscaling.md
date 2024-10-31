@@ -167,7 +167,7 @@ cloud providers:
 
 The [descheduler](https://github.com/kubernetes-sigs/descheduler) can help you
 consolidate Pods onto a smaller number of nodes, to help with automatic scale down
-when the cluster has space capacity.
+when the cluster has spare capacity.
 -->
 ## 相关组件   {#related-components}
 
