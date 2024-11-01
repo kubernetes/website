@@ -39,6 +39,16 @@ This removal allows Kubernetes to handle new hardware requirements and resource 
 
 Please also see the enhancement issue [#3063](https://github.com/kubernetes/enhancements/issues/3063) to find out more.
 
+## API removal
+
+There is only a single API removal planned for [Kubernetes v1.32](/docs/reference/using-api/deprecation-guide/#v1-32):
+
+* The `flowcontrol.apiserver.k8s.io/v1beta3` API version of FlowSchema and PriorityLevelConfiguration has been removed. 
+To prepare for this, you can edit your existing manifests and rewrite client software to use the `flowcontrol.apiserver.k8s.io/v1 API` version, available since v1.29. 
+All existing persisted objects are accessible via the new API. Notable changes in flowcontrol.apiserver.k8s.io/v1beta3 include that the PriorityLevelConfiguration `spec.limited.nominalConcurrencyShares` field only defaults to 30 when unspecified, and an explicit value of 0 is not changed to 30.
+
+For more information, please refer to the [API deprecation guide](/docs/reference/using-api/deprecation-guide/#v1-32).
+
 ## Sneak peek of Kubernetes v1.32
 
 ### Even more DRA enhancements!
