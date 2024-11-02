@@ -1,6 +1,4 @@
 ---
-reviewers:
-- mikedanese
 title: Instalar e configurar o kubectl no macOS
 content_type: task
 weight: 10
