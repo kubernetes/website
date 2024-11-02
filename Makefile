@@ -34,7 +34,7 @@ module-init: ## Initialize required submodules.
 all: build ## Build site with production settings and put deliverables in ./public
 
 build: module-check ## Build site with non-production settings and put deliverables in ./public
-	hugo --cleanDestinationDir --minify --environment development
+	hugo --cleanDestinationDir --minify --environment development --themesdir node_modules
 
 build-preview: module-check ## Build site with drafts and future posts enabled
 	hugo --cleanDestinationDir --buildDrafts --buildFuture --environment preview
@@ -56,7 +56,7 @@ non-production-build: module-check ## Build the non-production site, which adds 
 	GOMAXPROCS=1 hugo --cleanDestinationDir --enableGitInfo --environment nonprod
 
 serve: module-check ## Boot the development server.
-	hugo server --buildFuture --environment development
+	hugo server --buildFuture --environment development --themesDir node_modules
 
 docker-image:
 	@echo -e "$(CCRED)**** The use of docker-image is deprecated. Use container-image instead. ****$(CCEND)"
@@ -97,11 +97,11 @@ docker-push: ## Build a multi-architecture image and push that into the registry
 	rm Dockerfile.cross
 
 container-build: module-check
-	$(CONTAINER_RUN) --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 $(CONTAINER_IMAGE) sh -c "npm ci && hugo --minify --environment development"
+	$(CONTAINER_RUN) --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 $(CONTAINER_IMAGE) sh -c "npm ci && hugo --minify --environment development --themesDir /usr/local/lib/node_modules"
 
 # no build lock to allow for read-only mounts
 container-serve: module-check ## Boot the development server using container.
-	$(CONTAINER_RUN) --cap-drop=ALL --cap-add=AUDIT_WRITE --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 -p 1313:1313 $(CONTAINER_IMAGE) hugo server --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/hugo --cleanDestinationDir --noBuildLock
+	$(CONTAINER_RUN) --cap-drop=ALL --cap-add=AUDIT_WRITE --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 -p 1313:1313 $(CONTAINER_IMAGE) hugo server --buildFuture --environment development --themesDir /usr/local/lib/node_modules --bind 0.0.0.0 --destination /tmp/hugo --cleanDestinationDir --noBuildLock
 
 test-examples:
 	scripts/test_examples.sh install

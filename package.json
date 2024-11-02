@@ -1,5 +1,8 @@
 {
   "private": true,
+  "dependencies": {
+    "docsy": "github:google/docsy#v0.4.0"
+  },
   "devDependencies": {
     "autoprefixer": "^9.8.4",
     "postcss-cli": "^7.1.1"
