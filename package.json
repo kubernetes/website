@@ -4,7 +4,7 @@
     "update:pkgs": "npx npm-check-updates -u"
   },
   "dependencies": {
-    "docsy": "github:google/docsy#v0.4.0"
+    "docsy": "github:google/docsy#v0.5.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
