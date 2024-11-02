@@ -221,6 +221,13 @@ other = "Yes"
 [final_patch_release]
 other = "Final Patch Release"
 
+[i18n_language_name_short_en]
+other = "en"
+
+# Change this to the localized name for the English language
+[i18n_language_name_long_en]
+other = "English"
+
 [inline_list_separator]
 other = ","
 
@@ -596,6 +603,9 @@ other = "Changelog"
 
 [seealso_heading]
 other = "See Also"
+
+[sidebar_toggle_nav]
+other = "Toggle section navigation"
 
 [subscribe_button]
 other = "Subscribe"
