@@ -1,11 +1,12 @@
 {
+  "name": "kubernetes.io",
   "private": true,
   "scripts": {
     "update:pkgs": "npx npm-check-updates -u"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
-    "docsy": "github:google/docsy#v0.5.x",
+    "docsy": "github:google/docsy#semver:0.6.0",
     "postcss-cli": "^11.0.0"
   },
   "spelling": "cSpell:ignore docsy pkgs -"
