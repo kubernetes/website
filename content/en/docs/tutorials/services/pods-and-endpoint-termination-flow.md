@@ -17,7 +17,7 @@ graceful connection draining.
 
 ## Termination process for Pods and their endpoints
 
-There are often cases when you need to terminate a Pod - be it for upgrade or scale down.
+There are often cases when you need to terminate a Pod - be it to upgrade or scale down.
 In order to improve application availability, it may be important to implement
 a proper active connections draining.
 
@@ -29,11 +29,11 @@ a simple nginx web server to demonstrate the concept.
 
 ## Example flow with endpoint termination
 
-The following is the example of the flow described in the
+The following is the example flow described in the 
 [Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
 document.
 
-Let's say you have a Deployment containing of a single `nginx` replica
+Let's say you have a Deployment containing a single `nginx` replica
 (just for demonstration purposes) and a Service:
 
 {{% code_sample file="service/pod-with-graceful-termination.yaml" %}}
