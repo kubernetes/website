@@ -26,7 +26,7 @@ RUN apt-get update && apt-get install -y \
 RUN rm -rf /var/cache/* # partial cleanup
 
 WORKDIR /opt/npm
-RUN npm install -D -g autoprefixer postcss-cli google/docsy#semver:0.6.0
+RUN npm install -D -g autoprefixer postcss-cli google/docsy#semver:0.7.2
 
 RUN useradd -m --user-group -u 60000 -d /var/hugo hugo && \
     chown -R hugo: /var/hugo && \
