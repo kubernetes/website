@@ -33,28 +33,49 @@ and when you want, and helps them find the resources and tools they need to work
 is a production-ready, open source platform designed with Google's accumulated experience in
 container orchestration, combined with best-of-breed ideas from the community.
 
-## Kubernetes Basic Modules
+## Kubernetes Basics Modules
 
-### [1. Create a Kubernetes cluster](/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)
+<!-- this css code is to preserve the original format -->
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between;">
+  <div style="width: 30%; text-align: center;">
+    <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">
+      <img src="/docs/tutorials/kubernetes-basics/public/images/module_01.svg?v=1469803628347" alt="Module 1" style="width: 100%;">
+      <h5>1. Create a Kubernetes cluster</h5>
+    </a>
+  </div>
+  <div style="width: 30%; text-align: center;">
+    <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">
+      <img src="/docs/tutorials/kubernetes-basics/public/images/module_02.svg?v=1469803628347" alt="Module 2" style="width: 100%;">
+      <h5>2. Deploy an app</h5>
+    </a>
+  </div>
+  <div style="width: 30%; text-align: center;">
+    <a href="/docs/tutorials/kubernetes-basics/explore/explore-intro/">
+      <img src="/docs/tutorials/kubernetes-basics/public/images/module_03.svg?v=1469803628347" alt="Module 3" style="width: 100%;">
+      <h5>3. Explore your app</h5>
+    </a>
+  </div>
+  <div style="width: 30%; text-align: center;">
+    <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/">
+      <img src="/docs/tutorials/kubernetes-basics/public/images/module_04.svg?v=1469803628347" alt="Module 4" style="width: 100%;">
+      <h5>4. Expose your app publicly</h5>
+    </a>
+  </div>
+  <div style="width: 30%; text-align: center;">
+    <a href="/docs/tutorials/kubernetes-basics/scale/scale-intro/">
+      <img src="/docs/tutorials/kubernetes-basics/public/images/module_05.svg?v=1469803628347" alt="Module 5" style="width: 100%;">
+      <h5>5. Scale up your app</h5>
+    </a>
+  </div>
+  <div style="width: 30%; text-align: center;">
+    <a href="/docs/tutorials/kubernetes-basics/update/update-intro/">
+      <img src="/docs/tutorials/kubernetes-basics/public/images/module_06.svg?v=1469803628347" alt="Module 6" style="width: 100%;">
+      <h5>6. Update your app</h5>
+    </a>
+  </div>
+</div>
 
-<!-- {{< figure src="public/images/module_01.svg" class="diagram-small" >}} -->
+## {{% heading "whatsnext" %}}
 
-### [2. Deploy an app](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)
-
-<!-- {{< figure src="public/images/module_02.svg" class="diagram-small" >}} -->
-
-### [3. Explore your app](/docs/tutorials/kubernetes-basics/explore/explore-intro/)
-
-<!-- {{< figure src="public/images/module_03.svg" class="diagram-small" >}} -->
-
-### [4. Expose your app publicly](/docs/tutorials/kubernetes-basics/expose/expose-intro/)
-
-<!-- {{< figure src="public/images/module_04.svg" class="diagram-small" >}} -->
-
-### [5. Scale up your app](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
-
-<!-- {{< figure src="public/images/module_05.svg" class="diagram-small" >}} -->
-
-### [6. Update your app](/docs/tutorials/kubernetes-basics/update/update-intro/)
-
-<!-- {{< figure src="public/images/module_06.svg" class="diagram-small" >}} -->
+* Tutorial [Using Minikube to Create a
+Cluster](/docs/tutorials/kubernetes-basics/create-cluster/)
