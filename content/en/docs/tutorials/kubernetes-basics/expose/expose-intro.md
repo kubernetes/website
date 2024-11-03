@@ -135,11 +135,18 @@ minikube service kubernetes-bootcamp --url
 ```
 
 The output looks like this:
-`http://127.0.0.1:51082`!
-Because you are using a Docker driver on darwin, the terminal needs to be open to run it.</b></pre></p>
+
+```
+http://127.0.0.1:51082
+!  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
+```
 
 Then use the given URL to access the app:
-`curl 127.0.0.1:51082`
+
+```shell
+curl 127.0.0.1:51082
+```
+
 {{< /note >}}
 
 And we get a response from the server. The Service is exposed.
