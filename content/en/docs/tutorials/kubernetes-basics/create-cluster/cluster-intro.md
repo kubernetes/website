@@ -11,6 +11,14 @@ weight: 10
 
 ## Kubernetes Clusters
 
+<div class="col-md-8">
+  <div class="content__box content__box_fill">
+    <p><i>Kubernetes is a production-grade, open-source platform that orchestrates
+      the placement (scheduling) and execution of application containers
+      within and across computer clusters.</i></p>
+  </div>
+</div>
+
 **Kubernetes coordinates a highly available cluster of computers that are connected
 to work as a single unit.** The abstractions in Kubernetes allow you to deploy
 containerized applications to a cluster without tying them specifically to individual
@@ -29,11 +37,17 @@ A Kubernetes cluster consists of two types of resources:
 
 ### Cluster Diagram
 
-{{< figure src="../../public/images/module_01_cluster.svg" class="diagram-medium" >}}
+{{< figure src="/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg" style="width: 100%;" >}}
 
 **The Control Plane is responsible for managing the cluster.** The Control Plane
 coordinates all activities in your cluster, such as scheduling applications, maintaining
 applications' desired state, scaling applications, and rolling out new updates.
+
+<div class="col-md-8">
+  <div style="background-color: #eaf7ff; border-left: 5px solid #3771e3; padding: 15px; margin: 20px 0;">
+    <p><i>Control Planes manage the cluster and the nodes that are used to host the running applications.</i></p>
+  </div>
+</div>
 
 **A node is a VM or a physical computer that serves as a worker machine in a Kubernetes
 cluster.** Each node has a Kubelet, which is an agent for managing the node and
@@ -60,5 +74,5 @@ working with your cluster, including start, stop, status, and delete.
 
 ## {{% heading "whatsnext" %}}
 
-Now that you know more about what Kubernetes is, visit [Hello Minikube](/docs/tutorials/hello-minikube/)
-to try this out on your computer.
+* Tutorial [Hello Minikube](/docs/tutorials/hello-minikube/).
+* Learn more about [Cluster Architecture](/docs/concepts/architecture/).
