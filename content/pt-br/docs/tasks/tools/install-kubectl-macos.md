@@ -299,5 +299,3 @@ brew remove kubectl
 ## {{% heading "whatsnext" %}}
 
 {{< include "included/kubectl-whats-next.md" >}}
-
-
