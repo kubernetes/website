@@ -1,6 +1,6 @@
 ---
 title: "Auto-completar no bash macOS"
-description: "Configurações opcionais do auto-completar do basch no macOS."
+description: "Configurações opcionais do auto-completar do bash no macOS."
 headless: true
 _build:
   list: never
@@ -10,7 +10,7 @@ _build:
 
 ### Introdução
 
-O script de completar do bash pode ser gerado com `kubectl completion bash`.
+O script de auto-completar do bash pode ser gerado com `kubectl completion bash`.
 Ativando esse script no seu shell, você estará habilitando o auto-completar do kubectl.
 
 Entretanto, o script para auto-completar do kubectl depende do
