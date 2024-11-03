@@ -34,7 +34,7 @@ The following is the example flow described in the
 document.
 
 Let's say you have a Deployment containing a single `nginx` replica
-(say just for the sake demonstration purposes) and a Service:
+(say just for the sake of demonstration purposes) and a Service:
 
 {{% code_sample file="service/pod-with-graceful-termination.yaml" %}}
 
