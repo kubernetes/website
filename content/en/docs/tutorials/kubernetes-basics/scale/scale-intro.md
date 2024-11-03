@@ -9,7 +9,7 @@ weight: 10
 
 ## Scaling an application
 
-Previously we created a [Deployment](/docs/concepts/workloads/controllers/deployment),
+Previously we created a [Deployment](/docs/concepts/workloads/controllers/deployment/),
 and then exposed it publicly via a [Service](/docs/concepts/services-networking/service/).
 The Deployment created only one Pod for running our application. When traffic increases,
 we will need to scale the application to keep up with user demand.
@@ -34,13 +34,33 @@ with its `type` set to `LoadBalancer`:
 ```shell
 kubectl expose deployment/kubernetes-bootcamp --type="LoadBalancer" --port 8080
 ```
+
 {{< /note >}}
 
 ## Scaling overview
 
-<div class="figure-container" style="display: flex; gap: 10px; justify-content: center;">
-  {{< figure src="../../public/images/module_05_scaling1.svg" width="480" >}}
-  {{< figure src="../../public/images/module_05_scaling2.svg" width="480" >}}
+<!-- animation -->
+<div class="col-md-8">
+  <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+    </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="item carousel-item active">
+          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
+        </div>
+        <div class="item carousel-item">
+          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="sr-only ">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="sr-only">Next</span>
+      </a>
+  </div>
 </div>
 
 Scaling out a Deployment will ensure new Pods are created and scheduled to Nodes
@@ -65,6 +85,7 @@ To list your Deployments, use the `get deployments` subcommand:
 ```shell
 kubectl get deployments
 ```
+
 The output should be similar to:
 
 ```
@@ -158,7 +179,6 @@ Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-wp67j | 
 Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-4hjvf | v=1
 ```
 
-
 {{< note >}}
 If you're running minikube with Docker Desktop as the container driver, a minikube
 tunnel is needed. This is because containers inside Docker Desktop are isolated
@@ -208,6 +228,7 @@ This confirms that 2 Pods were terminated.
 
 ## {{% heading "whatsnext" %}}
 
-Once you're ready, move on to
+* Tutorial
 [Performing a Rolling Update](/docs/tutorials/kubernetes-basics/update/update-intro/).
-
+* Learn more about [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/).
+* Learn more about [Autoscaling](/docs/concepts/workloads/autoscaling/).
