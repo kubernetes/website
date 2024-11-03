@@ -159,79 +159,98 @@ body.td-404 main .error-details {
 
 /* HEADER */
 
-.td-navbar {
+body > header:first-child nav.td-navbar {
+  width: 100vw;
   position: fixed !important;
-  width: 100%;
+  margin: 0;
+  padding: 0;
   padding-bottom: 1rem !important;
-  background: transparent !important;
+  background: transparent;
   transition: 0.3s;
 
   .navbar-brand {
-    position: absolute;
-    width: 45px;
-    height: 44px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-image: url("/images/logo-header.png");
+    display: inline-block;
+    margin-top: 0.5rem;
   }
 
-  #hamburger {
-    &:focus {
-      outline: none;
-    }
+  .navbar-site-title {
+    display: none;
+    visibility: collapse;
   }
 
-  @media only screen and (min-width: 768px) {
-    .navbar-brand {
-      background-image: url("/images/nav_logo.svg");
-      top: 1.5rem;
-      width: 180px;
-      margin-left: 1rem;
-    }
-  }
-}
+  #main_navbar {
+    ul.navbar-nav > li {
+      a.nav-link {
+         display: block;
+         border-bottom : 2px solid transparent;
+      }
 
-.td-navbar-nav-scroll {
-  overflow: visible !important;
-  display: none;
-
-  .navbar-nav {
-    overflow: visible !important;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-
-    .nav-item {
-      position: relative;
-      height: 10%;
-
-      .active::after {
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        content: "";
-        bottom: -4px;
-        left: 0;
-        background: #fff;
+      a.nav-link.active {
+         border-bottom : 2px solid $white;
       }
     }
   }
 
-  @media only screen and (min-width: 768px) {
-    display: block;
-    margin-top: 3.5rem !important;
+  @media only screen and (max-width: 1280px) and (min-width: 1024px) {
+    .search-bar {
+       display: none;
+    }
+    #main_navbar {
+      position: fixed;
+      right: 0;
+
+    }
+  }
+  @media only screen and (max-width: 512px) {
+    & {
+      min-height: 10rem;
+    }
+    #main_navbar {
+      ul.navbar-nav {
+        visibility: hidden;
+      }
+    }
+  }
+  @media only screen and (max-width: 1024px) {
+    #main_navbar {
+      ul.navbar-nav {
+        justify-content: center;
+        max-width: calc(max(80vw, 100vw-1.5rem));
+        flex-wrap: wrap;
+        overflow-x: clip;
+        min-height: 2rem;
+
+      }
+    }
   }
 
-  @media only screen and (min-width: 1170px) {
-    margin-top: 1rem !important;
+  #hamburger {
+    position: fixed;
+    right: 1rem;
+    top: 1rem;
+    &:focus {
+      outline: none;
+    }
+  }
+  // Kubernetes logo starts off with white text
+  .navbar-logo #kubernetes-logo-text {
+    fill: $white;
   }
 }
 
-// Flip-Nav
-.flip-nav .td-navbar {
-  background-color: white !important;
+body > header:first-child nav.td-navbar + section.header-hero {
+  @media only screen and (max-width: 512px) {
+    h1 {
+      visibility: hidden;
+    }
+    h1 {
+      visibility: collapse; // if supported
+    }
+  }
+}
+
+.flip-nav body > header:first-child nav.td-navbar {
+  background-color: $white;
   box-shadow: 0 1px 2px $medium-grey;
 
   .navbar-nav {
@@ -253,14 +272,6 @@ body.td-404 main .error-details {
     }
   }
 
-  .navbar-nav .nav-item .active {
-    color: $dark-grey;
-
-    &::after {
-      background: $dark-grey;
-    }
-  }
-
   #hamburger:hover {
     div,
     &:before,
@@ -269,14 +280,13 @@ body.td-404 main .error-details {
     }
   }
 
-  @media only screen and (min-width: 768px) {
-    .navbar-brand {
-      background-image: url("/images/nav_logo2.svg");
-    }
+  // Kubernetes logo changes to blue text
+  .navbar-logo #kubernetes-logo-text {
+    fill: $primary;
   }
 }
 
-.search-item.nav-item {
+header nav.navbar .search-bar {
     input, input::placeholder {
       color: black;
       width: 200px;
