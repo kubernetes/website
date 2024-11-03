@@ -17,10 +17,10 @@
     <div class="container-fluid td-outer">
       <div class="td-main">
         <div class="row flex-xl-nowrap">
-          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none{{ if .Site.Params.ui.sidebar_resizable }} split{{ end }}">
+          <div id="nav-sidebar" class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none{{ if .Site.Params.ui.sidebar_resizable }} split{{ end }}">
             {{ partial "sidebar.html" . }}
           </div>
-          <main class="col-12 col-md-9 col-xl-8 ps-md-5" role="main"
+          <main class="col-12 col-md-9 col-xl-8 ps-md-5 docs-main-content" role="main"
             {{ if ne .Params.cid "docsHome" }}data-pagefind-body{{ end }}{{ if (and .IsPage .Params.description ) }} data-pagefind-meta="description:{{ .Params.description }}"{{ end }}>
               <!-- inside main element -->
               {{ if not .Site.Params.ui.breadcrumb_disable }}{{ partial "breadcrumb.html" . }}{{ end }}

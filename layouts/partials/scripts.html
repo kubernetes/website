@@ -46,9 +46,10 @@
   function enableSplitter(mediaQuery) {
     if (mediaQuery.matches) {
       if (!splitInstance) {
-        splitInstance = Split(["#sidebarnav", "#maindoc"], {
+        splitInstance = Split(["#nav-sidebar", ".docs-main-content"], {
           sizes: [20, 80],
           minSize: 100,
+          gutterSize: 8 // pixels
         });
       }
     } else {
@@ -61,7 +62,7 @@
 
   const screenWidthMediaQuery = window.matchMedia("(min-width: 768px)");
 
-  const eleNav = document.getElementById("sidebarnav");
+  const eleNav = document.getElementById("nav-sidebar");
   if (eleNav !== null) {
     enableSplitter(screenWidthMediaQuery);
     screenWidthMediaQuery.addListener(enableSplitter);
