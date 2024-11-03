@@ -20,3 +20,8 @@ $tooltip-font-size: 1rem;
 $tooltip-padding: 5px 8px;
 $tooltip-border-radius: 6px;
 $tooltip-font-weight: 400;
+
+// input placeholders
+$input-placeholder-color:  $gray-600 !default;
+$placeholder-opacity-max:  .5 !default;
+$placeholder-opacity-min:  .2 !default;
