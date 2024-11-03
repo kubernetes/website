@@ -12,6 +12,8 @@ $announcement-size-adjustment: 8px;
   }
 
   main {
+    padding-left: 2rem;
+
     *:not(figure) > img {
       max-width: 100%;
     }
