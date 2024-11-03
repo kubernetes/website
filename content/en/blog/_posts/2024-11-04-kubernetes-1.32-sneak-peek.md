@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Kubernetes v1.32 sneak peek'
-date: 2024-11-04
+date: 2024-11-09
 slug: kubernetes-1-32-upcoming-changes
 author: >
   Matteo Bianchi,
