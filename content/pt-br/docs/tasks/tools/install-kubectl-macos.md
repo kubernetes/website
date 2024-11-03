@@ -81,7 +81,7 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
    kubectl: OK
    ```
 
-   Se a houver falha na validação, `shasum` vai retornar uma saída diferente de zero semelhante a:
+   Se houver falha na validação, o `shasum` vai retornar uma saída diferente de zero semelhante a:
 
    ```console
    kubectl: FAILED
