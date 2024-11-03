@@ -36,7 +36,7 @@ provide a fundamentally different approach to application management.
 
 ## Deploying your first app on Kubernetes
 
-{{< figure src="../../public/images/module_02_first_app.svg" class="diagram-medium" >}}
+{{< figure src="/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg" class="diagram-medium" >}}
 
 You can create and manage a Deployment by using the Kubernetes command line interface,
 [kubectl](/docs/reference/kubectl/). `kubectl` uses the Kubernetes API to interact
@@ -110,7 +110,7 @@ we're interacting through an API endpoint to communicate with our application.
 
 We will cover other options on how to expose your application outside the Kubernetes
 cluster later, in [Module 4](/docs/tutorials/kubernetes-basics/expose/).
-Also as a basic tutorial, we're not explaining what <code>Pods</code> are in any
+Also as a basic tutorial, we're not explaining what `Pods` are in any
 detail here, it will be covered in later topics.
 
 The `kubectl proxy` command can create a proxy that will forward communications
@@ -158,4 +158,5 @@ is required which will be explained in [Module 4](/docs/tutorials/kubernetes-bas
 
 ## {{% heading "whatsnext" %}}
 
-Once you're ready, move on to [Viewing Pods and Nodes](/docs/tutorials/kubernetes-basics/explore/explore-intro/).
+* Tutorial [Viewing Pods and Nodes](/docs/tutorials/kubernetes-basics/explore/explore-intro/).
+* Learn more about [Deployments](/docs/concepts/workloads/controllers/deployment/).
