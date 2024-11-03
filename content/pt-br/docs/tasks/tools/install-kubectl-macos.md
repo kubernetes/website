@@ -18,12 +18,12 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
 
 - [Instalar kubectl no macOS](#instalar-kubectl-no-macos)
   - [Instalar o binário do kubectl com curl no macOS](#instalar-o-binario-do-kubectl-com-curl-no-macos)
-  - [Instalar com Homebew no macOS](#instalar-com-homebrew-no-macos)
+  - [Instalar com Homebrew no macOS](#instalar-com-homebrew-no-macos)
   - [Instalar com Macports no macOS](#instalar-com-macports-no-macos)
 - [Verificar ajustes do kubectl](#verificar-ajustes-do-kubectl)
 - [Plugins e ajustes opcionais do kubectl](#plugins-e-ajustes-opcionais-do-kubectl)
   - [Habilitar autocomplete no shell](#habilitar-autocomplete-no-shell)
-  - [Instalar `kubectl convert` plugin](#instalar-kubectl-convert-plugin)
+  - [Instalar o plugin `kubectl convert`](#instalar-kubectl-convert-plugin)
 
 ### Instalar o binário do kubectl com o curl no macOS
 
@@ -81,7 +81,7 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
    kubectl: OK
    ```
 
-   Se a houver falha na validação, `shasum` ele retornará uma saída diferente de zero semelhante a:
+   Se a houver falha na validação, `shasum` vai retornar uma saída diferente de zero semelhante a:
 
    ```console
    kubectl: FAILED
@@ -98,7 +98,7 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
    chmod +x ./kubectl
    ```
 
-1. Movendo o binário do kubectl para um diretório do seu sistema `PATH`.
+1. Movendo o binário do kubectl para um diretório que esteja no `PATH` do seu sistema.
 
    ```bash
    sudo mv ./kubectl /usr/local/bin/kubectl
@@ -269,7 +269,7 @@ Abaixo seguem os procedimentos para configurar o auto-complete para Bash, Fish, 
    rm kubectl-convert kubectl-convert.sha256
    ```
 
-### Desinstalar kubectl no macOS
+### Desinstalar o kubectl no macOS
 
 Dependendo da forma que você instalou o `kubectl`, use um dos métodos abaixo.
 
