@@ -396,10 +396,12 @@ have a number of fields that you can use to more precisely control the behavior 
 liveness and readiness checks:
 
 * `initialDelaySeconds`: Number of seconds after the container has started before startup,
-  liveness or readiness probes are initiated. If a startup  probe is defined, liveness and
+  liveness or readiness probes are initiated. If a startup probe is defined, liveness and
   readiness probe delays do not begin until the startup probe has succeeded.
-  `initialDelaySeconds` will block probes, but `periodSeconds` remains active. The probe may
-  be initiated at a time after `initialDelaySeconds` has elapsed.
+  An `initialDelaySeconds` value greater than 0 will delay when the first probe starts. If
+  the value of `periodSeconds` is greater than `initialDelaySeconds` then `periodSeconds`
+  intervals remain effective. For example, if `initialDelaySeconds` is set to 10, but
+  `periodSeconds` is set to 20, periodic probes will still begin after an initial 20 seconds.
   Defaults to 0 seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10 seconds.
   The minimum value is 1.
