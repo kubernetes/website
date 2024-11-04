@@ -340,7 +340,7 @@ startupProbe:
 ```
 
 Thanks to the startup probe, the application will have a maximum of 5 minutes
-(30 \* 10 = 300s) to finish its startup.
+(30 * 10 = 300s) to finish its startup.
 Once the startup probe has succeeded once, the liveness probe takes over to
 provide a fast response to container deadlocks.
 If the startup probe never succeeds, the container is killed after 300s and
