@@ -7,17 +7,18 @@
 {{ if not $feature_gate_name }}
   {{ if not $is_valid }}
     {{ errorf "%q is not a valid feature-state, use one of %q" $state $valid_states }}
-  {{ else }}
+  {{- else -}}
+    {{- /* Display feature state notice */ -}}
     <div class="feature-state-notice feature-{{ $state }}">
-      <span class="feature-state-name">{{ T "feature_state" }}</span> 
+      <span class="feature-state-name">{{ T "feature_state" }}</span>
       <code>{{ T "feature_state_kubernetes_label" }} {{ $for_k8s_version }} [{{ $state }}]</code>
     </div>
   {{ end }}
 {{ else }}
   <!-- When 'feature_gate_name' is specified, extract status of the feature gate -->
-  
+
   {{- $featureGateDescriptionFilesPath := "/docs/reference/command-line-tools-reference/feature-gates" -}}
-  
+
   {{- with index (where .Site.Sites "Language.Lang" "eq" "en") 0 -}}
     {{- with .GetPage $featureGateDescriptionFilesPath -}}
 
