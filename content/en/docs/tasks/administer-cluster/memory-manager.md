@@ -6,7 +6,7 @@ reviewers:
 - derekwaynecarr
 
 content_type: task
-min-kubernetes-server-version: v1.21
+min-kubernetes-server-version: v1.32
 weight: 410
 ---
 
@@ -217,11 +217,15 @@ display an error.
 Here is an example of a correct configuration:
 
 ```shell
---feature-gates=MemoryManager=true
 --kube-reserved=cpu=4,memory=4Gi
 --system-reserved=cpu=1,memory=1Gi
 --memory-manager-policy=Static
 --reserved-memory '0:memory=3Gi;1:memory=2148Mi'
+```
+
+Prior to Kubernetes 1.32, you also need to add
+```shell
+--feature-gates=MemoryManager=true
 ```
 
 Let us validate the configuration above:
