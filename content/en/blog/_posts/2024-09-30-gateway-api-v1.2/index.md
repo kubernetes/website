@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Gateway API v1.2: Protocols, Labels, and Timeouts, oh my!"
+title: "Gateway API v1.2: WebSockets, Timeouts, Retries, and More"
 date: 2024-11-06T09:00:00-08:00
 slug: gateway-api-v1-2
 author: Gateway API Contributors
