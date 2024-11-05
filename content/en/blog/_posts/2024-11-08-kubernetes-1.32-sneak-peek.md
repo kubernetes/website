@@ -51,6 +51,8 @@ For more information, please refer to the [API deprecation guide](/docs/referenc
 
 ## Sneak peek of Kubernetes v1.32
 
+The following list of enhancements is likely to be included in the v1.32 release. This is not a commitment and the release content is subject to change.
+
 ### Even more DRA enhancements!
 
 In this release, like the previous one, the Kubernetes project continues introducing enhancements to the Dynamic Resource Allocation (DRA), a key component of the Kubernetes resource management system. These enhancements aim to improve the flexibility and efficiency of resource allocation for workloads that require specialized hardware, such as GPUs, FPGAs and network adapters. The improvements for this release include:
