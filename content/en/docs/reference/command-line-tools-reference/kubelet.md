@@ -426,7 +426,6 @@ LoggingBetaOptions=true|false (BETA - default=true)<br/>
 MatchLabelKeysInPodAffinity=true|false (ALPHA - default=false)<br/>
 MatchLabelKeysInPodTopologySpread=true|false (BETA - default=true)<br/>
 MaxUnavailableStatefulSet=true|false (ALPHA - default=false)<br/>
-MemoryManager=true|false (BETA - default=true)<br/>
 MemoryQoS=true|false (ALPHA - default=false)<br/>
 MultiCIDRServiceAllocator=true|false (ALPHA - default=false)<br/>
 MutatingAdmissionPolicy=true|false (ALPHA - default=false)<br/>
