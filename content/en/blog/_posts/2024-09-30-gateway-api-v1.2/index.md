@@ -405,8 +405,8 @@ version of Gateway API.
 
 To try out the API, follow our [Getting Started
 Guide](https://gateway-api.sigs.k8s.io/guides/). As of this writing, five
-implementations are already fully conformant with Gateway API v1.2.0. In
-alphabetical order:
+implementations are already conformant with Gateway API v1.2. In alphabetical
+order:
 
 * [Cilium v1.17.0-pre.1](https://github.com/cilium/cilium), Experimental channel
 * [Envoy Gateway v1.2.0-rc.1](https://github.com/envoyproxy/gateway), Experimental channel
