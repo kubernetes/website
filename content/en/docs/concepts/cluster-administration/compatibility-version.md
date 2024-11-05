@@ -24,13 +24,3 @@ When used, the capabilities available will match the emulated version:
 This enables a binary from a particular Kubernetes release to emulate the behavior of a previous version with sufficient fidelity that interoperability with other system components can be defined in terms of the emulated version.
 
 The `--emulated-version` must be <= `binaryVersion`. See the help message of the `--emulated-version` flag for supported range of emulated versions.
-
-## Minimum Compatibility Version
-
-The version compatibility can be set by the `--min-compatibility-version` flag of control plane components. It controls the minimum version a control plane component is compatible with (in terms of storage versions, validation rules, ...). 
-
-When used, the component tolerates workloads that expect the behavior of the specified minimum compatibility version, component skew ranges extend based on the minimum compatibility version, and rollbacks can be performed back to the specified minimum compatibility version.
-
-When there is no need to rollback, setting `--min-compatibility-version=$(binaryVersion)` can be used to indicate that the cluster does not require any feature availability delay to support a compatibility range and benefit from access to all the latest available features.
-
-The `--min-compatibility-version` must be <= `--emulated-version`. See the help message of the `--min-compatibility-version` flag for supported range of minimum compatibility versions.
