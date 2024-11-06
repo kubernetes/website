@@ -62,7 +62,7 @@ cluster Kubernetes utilizando afinidade de nó.
 ## Agendar um Pod usando afinidade de nó obrigatória
 
 Este manifesto descreve um Pod que possui uma afinidade de nó `requiredDuringSchedulingIgnoredDuringExecution` com o label `disktype: ssd`. 
-Isso significa que o Pod será agendado apenas em um nó que tenha o label `disktype=ssd`. 
+Isso significa que o Pod será alocado apenas em um nó que tenha o label `disktype=ssd`. 
 
 {{% code_sample file="pods/pod-nginx-required-affinity.yaml" %}}
 
