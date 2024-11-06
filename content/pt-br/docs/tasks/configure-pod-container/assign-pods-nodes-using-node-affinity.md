@@ -7,7 +7,7 @@ weight: 160
 
 <!-- overview -->
 Esta página mostra como atribuir um Pod kubernetes a um nó particular em um 
-cluster Kubernetes utilizando afinidade de nó
+cluster Kubernetes utilizando afinidade de nó.
 
 
 ## {{% heading "prerequisites" %}}
