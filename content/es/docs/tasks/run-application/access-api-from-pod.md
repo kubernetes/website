@@ -97,7 +97,7 @@ SERVICEACCOUNT=/var/run/secrets/kubernetes.io/serviceaccount
 # Lectura del Namespace del Pod
 NAMESPACE=$(cat ${SERVICEACCOUNT}/namespace)
 
-# Read the ServiceAccount bearer token
+# Lectura del bearer token del ServiceAccount
 TOKEN=$(cat ${SERVICEACCOUNT}/token)
 
 # Reference the internal certificate authority (CA)
