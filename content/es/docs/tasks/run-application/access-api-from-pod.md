@@ -33,23 +33,23 @@ Desde un Pod, las formas recomendadas de conectarse a la API de Kubernetes son:
   y la autenticación. Vea [un ejemplo aqui](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go).
 
 - Para un cliente de Python, utilice la
-  [biblioteca oficial de cliente Python](https://github.com/kubernetes-client/python/).
+  [biblioteca oficial del cliente de Python](https://github.com/kubernetes-client/python/).
   La función `config.load_incluster_config()` maneja automáticamente el descubrimiento
-  del host de la API y la autenticación. Ver [un ejemplo aqui](https://github.com/kubernetes-client/python/blob/master/examples/in_cluster_config.py).
+  del host de la API y la autenticación. Vea [un ejemplo aqui](https://github.com/kubernetes-client/python/blob/master/examples/in_cluster_config.py).
 
-- Existen varias bibliotecas disponibles, por favor consulta la pagina de
-  [Bibliotecas de Cliente](/docs/reference/using-api/client-libraries/).
+- Existen varias bibliotecas disponibles, por favor consulte la página de
+  [Bibliotecas de Clientes](/docs/reference/using-api/client-libraries/).
 
 En cada caso, las credenciales de la cuenta de servicio del Pod se utilizan para
 comunicarse de manera segura con el servidor de la API.
 
 ### Accediendo directamente a la API REST
 
-Al ejecutarse en un Pod, tu contenedor puede crear una URL HTTPS para el servidor
+Al ejecutarse en un Pod, su contenedor puede crear una URL HTTPS para el servidor
 de la API de Kubernetes obteniendo las variables de entorno `KUBERNETES_SERVICE_HOST`
 y `KUBERNETES_SERVICE_PORT_HTTPS`. La dirección del servidor de la API dentro del
 clúster también se publica en un Servicio llamado `kubernetes` en el espacio de nombres
-`default`, de modo que los pods pueden hacer referencia a `kubernetes.default.svc`como
+`default`, de modo que los pods pueden hacer referencia a `kubernetes.default.svc` como
 el nombre DNS para el servidor de la API local.
 
 {{< note >}}
@@ -61,7 +61,7 @@ el nombre de host o la dirección IP que representa `$KUBERNETES_SERVICE_HOST`
 
 La forma recomendada para autenticarse con el servidor de la API es con una
 credencial de [cuenta de servicio](/docs/tasks/configure-pod-container/configure-service-account/).
-Por defecto, un poc esta asociado con una cuenta de servicio,
+Por defecto, un Pod esta asociado con una cuenta de servicio,
 esta asociado con una cuenta de servicio, y una credencial (token) para esa cuenta
 de servicio se coloca en el sistema de archivos de cada contenedor en ese Pod
 en la ruta `/var/run/secrets/kubernetes.io/serviceaccount/token`.
