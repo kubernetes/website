@@ -14,9 +14,9 @@ Esta guía muestra como acceder a la API de Kubernetes desde de un Pod.
 
 <!-- steps -->
 
-## Accediendo a la API desde dentro de un Pod
+## Accediendo a la API desde un Pod
 
-El acceder a la API desde de un Pod, la ubicacion y autentication
+El acceder a la API desde un Pod, la ubicacion y autentication
 del servidor de la API es ligeramente diferente que en el caso de un cliente externo.
 
 La forma más fácil de usar la API de Kubernetes desde un Pod es utilizando
@@ -88,10 +88,10 @@ Es posible evitar el uso del proxy de kubectl pasando el token de autenticación
 directamente al servidor de la API. El certificado interno asegura la conexión.
 
 ```shell
-# Point to the internal API server hostname
+# Apuntar nombre de host del servidor API interno.
 APISERVER=https://kubernetes.default.svc
 
-# Path to ServiceAccount token
+# Ruta del token de ServiceAccount
 SERVICEACCOUNT=/var/run/secrets/kubernetes.io/serviceaccount
 
 # Lectura del Namespace del Pod
