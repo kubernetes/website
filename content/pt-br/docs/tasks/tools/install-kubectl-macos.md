@@ -6,9 +6,9 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
-Você deve utilizar uma versão do kubectl que tenha pouca diferença da versão do
-seu cluster. Por exemplo, um cliente v{{< skew currentVersion >}} pode comunicar-se
-com control planes v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
+Você deve usar uma versão do kubectl que esteja próxima da versão do seu cluster.
+Por exemplo, um cliente v{{< skew currentVersion >}} pode se comunicar
+com control planes nas versões v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
 e v{{< skew currentVersionAddMinor 1 >}}.
 Usar a versão compatível e mais recente do kubectl pode evitar imprevistos ou problemas.
 
@@ -17,15 +17,15 @@ Usar a versão compatível e mais recente do kubectl pode evitar imprevistos ou 
 Existem os seguintes métodos para instalar o kubectl no macOS:
 
 - [Instalar kubectl no macOS](#instalar-kubectl-no-macos)
-  - [Instalar o binário do kubectl com curl no macOS](#instalar-o-binario-do-kubectl-com-curl-no-macos)
+  - [Instalar o kubectl com curl no macOS](#instalar-o-kubectl-com-o-curl-no-macos)
   - [Instalar com Homebrew no macOS](#instalar-com-homebrew-no-macos)
   - [Instalar com Macports no macOS](#instalar-com-macports-no-macos)
-- [Verificar ajustes do kubectl](#verificar-ajustes-do-kubectl)
+- [Verificar a configuração do kubectl](#verificar-a-configuração-do-kubectl)
 - [Plugins e ajustes opcionais do kubectl](#plugins-e-ajustes-opcionais-do-kubectl)
-  - [Habilitar autocomplete no shell](#habilitar-autocomplete-no-shell)
+  - [Habilitar o autocompletar no shell](#ative-o-autocompletar-no-shell)
   - [Instalar o plugin `kubectl convert`](#instalar-kubectl-convert-plugin)
 
-### Instalar o binário do kubectl com o curl no macOS
+### Instalar o kubectl com o curl no macOS
 
 1. Baixe a última versão:
 
@@ -39,8 +39,8 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
    {{< /tabs >}}
 
    {{< note >}}
-   Para baixar uma versão específica, substitua `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
-   parte do comando com a versão específica da versão.
+   Para baixar uma versão específica, substitua a parte `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
+   do comando com a versão específica da versão.
 
    Por exemplo, para baixar a versão {{< skew currentPatchVersion >}} no Intel macOS, digite:
 
@@ -56,7 +56,7 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
 
    {{< /note >}}
 
-1. Validando o binário (opcional).
+1. Valide o binário (opcional).
 
    Baixe o arquivo de checksum do kubectl:
 
@@ -69,7 +69,7 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
    {{< /tab >}}
    {{< /tabs >}}
   
-   Validando o binário do kubectl com o arquivo de checksum:
+   Valide o binário do kubectl com o arquivo de checksum:
 
    ```bash
    echo "$(cat kubectl.sha256)  kubectl" | shasum -a 256 --check
@@ -98,7 +98,7 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
    chmod +x ./kubectl
    ```
 
-1. Movendo o binário do kubectl para um diretório que esteja no `PATH` do seu sistema.
+1. Mova o binário do kubectl para um diretório que esteja no `PATH` do seu sistema.
 
    ```bash
    sudo mv ./kubectl /usr/local/bin/kubectl
@@ -106,7 +106,7 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
    ```
 
    {{< note >}}
-   Tenha certeza que `/usr/local/bin` está configurado na sua variável de ambiente PATH.
+   Confira que `/usr/local/bin` está configurado na sua variável de ambiente PATH.
    {{< /note >}}
 
 1. Teste para validar que a versão instalada está atualizada:
@@ -168,18 +168,18 @@ você pode instalar o kubectl utilizando o Macports.
    kubectl version --client
    ```
 
-## Verificar ajustes do kubectl
+## Verificar a configuração do kubectl
 
 {{< include "included/verify-kubectl.md" >}}
 
-## Plugins e ajustes opcionais do kubectl
+## Configurações e plugins opcionais do kubectl
 
-### Habilitar autocomplete no shell
+### Ative o autocompletar no shell
 
-O kubectl fornece suporte para auto-complete para Bash, Zsh, Fish, e PowerShell
-o que pode fazer com que você digite menos.
+O kubectl oferece recursos de autocompletar para Bash, Zsh, Fish e PowerShell,
+o que pode economizar muita digitação.
 
-Abaixo seguem os procedimentos para configurar o auto-complete para Bash, Fish, and Zsh.
+Abaixo estão os procedimentos para configurar o autocompletar para Bash, Fish e Zsh.
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-mac.md" />}}
@@ -191,7 +191,7 @@ Abaixo seguem os procedimentos para configurar o auto-complete para Bash, Fish, 
 
 {{< include "included/kubectl-convert-overview.md" >}}
 
-1. Baixe a última versão com o comando:
+1. Faça download da versão mais recente com o comando:
 
    {{< tabs name="download_convert_binary_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
@@ -204,7 +204,7 @@ Abaixo seguem os procedimentos para configurar o auto-complete para Bash, Fish, 
 
 1. Valide o binário (opcional).
 
-   Baixe o arquivo de checksum do kubectl-convert:
+   Faça download do arquivo checksum de verificação do kubectl-convert:
 
    {{< tabs name="download_convert_checksum_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
@@ -215,7 +215,7 @@ Abaixo seguem os procedimentos para configurar o auto-complete para Bash, Fish, 
    {{< /tab >}}
    {{< /tabs >}}
 
-   Valide o binário do kubectl-convert com o checksum:
+   Valide o binário kubectl-convert com o arquivo de verificação:
 
    ```bash
    echo "$(cat kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
@@ -227,7 +227,7 @@ Abaixo seguem os procedimentos para configurar o auto-complete para Bash, Fish, 
    kubectl-convert: OK
    ```
 
-   Se o teste falhar, `shasum` irá retornar um status com número diferente de zero, e uma saída parecida como abaixo:
+   Se a verificação falhar, o `sha256` exibirá o status diferente de zero e a saída será semelhante a:
 
    ```console
    kubectl-convert: FAILED
