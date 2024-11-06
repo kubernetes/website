@@ -71,7 +71,7 @@ cada contenedor en la ruta `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 debe usarse para verificar el certificado de servicio del servidor API.
 
 Finalmente, el espacio de nombres predeterminado para ser utilizado en las operaciones de API
-con ámbito de espacio de nombres se coloca en un archivo en la ruta `/var/run/secrets/kubernetes.io/serviceaccount/namespace`
+con ámbito de espacio de nombres que se colocan en un archivo con la ruta `/var/run/secrets/kubernetes.io/serviceaccount/namespace`
 de cada contenedor
 
 ### Usando kubectl proxy
