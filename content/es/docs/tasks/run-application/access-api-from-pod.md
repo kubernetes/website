@@ -74,7 +74,7 @@ Finalmente, el espacio de nombres predeterminado para ser utilizado en las opera
 con ámbito de espacio de nombres se coloca en un archivo en la ruta `/var/run/secrets/kubernetes.io/serviceaccount/namespace`
 de cada contenedor
 
-### Using kubectl proxy
+### Usando kubectl proxy
 
 Si deseas consultar la API sin una biblioteca de cliente oficial, puedes ejecutar `kubectl proxy`
 como el [comando](/docs/tasks/inject-data-application/define-command-argument-container/)
