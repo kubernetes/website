@@ -117,4 +117,3 @@ Isso significa que o Pod será alocado de preferência em um nó com o label `di
 
 Saiba mais sobre
 [Afinidade de nó](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity).
-
