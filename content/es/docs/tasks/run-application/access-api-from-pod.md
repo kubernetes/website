@@ -25,7 +25,7 @@ bibliotecas pueden automáticamente descubrir el servidor de la API y autenticar
 
 ### Usando Bibliotecas de Cliente Oficiales
 
-Desde dentro de un POD, las formas recomendadas de conectarse a la API de Kubernetes son:
+Desde un Pod, las formas recomendadas de conectarse a la API de Kubernetes son:
 
 - Para un cliente de Go, utiliza la
   [biblioteca oficial de cliente Go](https://github.com/kubernetes/client-go/).
