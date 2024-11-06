@@ -19,7 +19,7 @@ Esta guía muestra como acceder a la API de Kubernetes desde de un Pod.
 El acceder a la API desde de un Pod, la ubicacion y autentication
 del servidor de la API es ligeramente diferente que en el caso de un cliente externo.
 
-La forma más fácil de usar la API de Kubernetes desde un Pod es utilizar
+La forma más fácil de usar la API de Kubernetes desde un Pod es utilizando
 una de las bibliotecas de [cliente oficiales](/docs/reference/using-api/client-libraries/). Estas
 bibliotecas pueden descubrir automáticamente el servidor de la API y autenticarse.
 
