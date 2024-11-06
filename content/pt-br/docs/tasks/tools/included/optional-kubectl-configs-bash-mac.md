@@ -1,5 +1,5 @@
 ---
-title: "Auto-completar no bash macOS"
+title: "Autocompletar no bash macOS"
 description: "Configurações opcionais do auto-completar do bash no macOS."
 headless: true
 _build:
