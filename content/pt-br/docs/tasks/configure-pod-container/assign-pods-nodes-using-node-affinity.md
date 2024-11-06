@@ -66,7 +66,7 @@ Isso significa que o Pod será alocado apenas em um nó que tenha o label `diskt
 
 {{% code_sample file="pods/pod-nginx-required-affinity.yaml" %}}
 
-1. Aplique o manifesto para criar um Pod que será agendado no nó escolhido:
+1. Aplique o manifesto para criar um Pod que será alocado no nó escolhido:
     
     ```shell
     kubectl apply -f https://k8s.io/examples/pods/pod-nginx-required-affinity.yaml
