@@ -22,8 +22,8 @@ usually runs multiple nodes, providing fault-tolerance and high availability.
 
 This document outlines the various components you need to have for a complete and working Kubernetes cluster.
 -->
-Kubernetes 集群由一个控制平面和一组用于运行容器化应用的工作机器组成，这些工作机器称作节点（Node）。
-每个集群至少需要一个工作节点来运行 Pod。
+Kubernetes 集群由一个控制平面和一组用于运行容器化应用的工作机器组成，
+这些工作机器称作节点（Node）。每个集群至少需要一个工作节点来运行 Pod。
 
 工作节点托管着组成应用负载的 Pod。控制平面管理集群中的工作节点和 Pod。
 在生产环境中，控制平面通常跨多台计算机运行，而一个集群通常运行多个节点，以提供容错和高可用。
@@ -31,13 +31,39 @@ Kubernetes 集群由一个控制平面和一组用于运行容器化应用的工
 本文概述了构建一个完整且可运行的 Kubernetes 集群所需的各种组件。
 
 <!--
-{{< figure src="/images/docs/kubernetes-cluster-architecture.svg" alt="The control plane (kube-apiserver, etcd, kube-controller-manager, kube-scheduler) and several nodes. Each node is running a kubelet and kube-proxy."
-title="Kubernetes cluster components"
-caption="**Note:** This diagram presents an example reference architecture for a Kubernetes cluster. The actual distribution of components can vary based on specific cluster setups and requirements." class="diagram-large" >}}
+{{< figure src="/images/docs/kubernetes-cluster-architecture.svg"
+alt="The control plane (kube-apiserver, etcd, kube-controller-manager, kube-scheduler) and several nodes. Each node is running a kubelet and kube-proxy."
+caption="Figure 1. Kubernetes cluster components." class="diagram-large" >}}
 -->
-{{< figure src="/images/docs/kubernetes-cluster-architecture.svg" alt="控制平面（kube-apiserver、etcd、kube-controller-manager、kube-scheduler）和多个节点。每个节点运行 kubelet 和 kube-proxy。"
-title="Kubernetes 集群组件"
-caption="**注意：** 此图展示了 Kubernetes 集群的参考架构示例。这些组件的实际分布可能会基于特定的集群设置和要求而有所不同。" class="diagram-large" >}}
+{{< figure src="/images/docs/kubernetes-cluster-architecture.svg"
+alt="控制平面（kube-apiserver、etcd、kube-controller-manager、kube-scheduler）和多个节点。每个节点运行 kubelet 和 kube-proxy。"
+caption="图 1. Kubernetes 集群组件。" class="diagram-large" >}}
+
+<!--
+{{ /* details summary="About this architecture" */ }}
+-->
+{{< details summary="关于此架构" >}}
+<!--
+The diagram in Figure 1 presents an example reference architecture for a Kubernetes cluster.
+The actual distribution of components can vary based on specific cluster setups and requirements.
+-->
+图 1 中的图表展示了 Kubernetes 集群的示例参考架构，
+组件的实际分布可能根据特定的集群设置和要求而有所不同。
+
+<!--
+In the diagram, each node runs the [`kube-proxy`](#kube-proxy) component. You need a
+network proxy component on each node to ensure that the
+{{< glossary_tooltip text="Service" term_id="service">}} API and associated behaviors
+are available on your cluster network. However, some network plugins provide their own,
+third party implementation of proxying. When you use that kind of network plugin,
+the node does not need to run `kube-proxy`.
+-->
+图中每个节点都运行 [`kube-proxy`](#kube-proxy) 组件。
+你需要在每个节点上安装一个网络代理组件，以确保 {{< glossary_tooltip text="Service" term_id="service">}}
+API 和相关行为在你的集群网络上可用。
+但是，一些网络插件为流量代理提供了自己的第三方实现。
+当你使用那种网络插件时，节点便不需要运行 `kube-proxy`。
+{{< /details >}}
 
 <!--
 ## Control plane components
@@ -50,7 +76,8 @@ as well as detecting and responding to cluster events (for example, starting up 
 ## 控制平面组件   {#control-plane-components}
 
 控制平面组件会为集群做出全局决策，比如资源的调度。
-以及检测和响应集群事件，例如当不满足 Deployment 的 `{{< glossary_tooltip text="replicas" term_id="replica" >}}`
+以及检测和响应集群事件，例如当不满足 Deployment 的
+`{{< glossary_tooltip text="replicas" term_id="replica" >}}`
 字段时，要启动新的 {{< glossary_tooltip text="Pod" term_id="pod">}}）。
 
 <!--
@@ -133,6 +160,8 @@ The following controllers can have cloud provider dependencies:
 - Node 控制器：用于在节点终止响应后检查云平台以确定节点是否已被删除
 - Route 控制器：用于在底层云基础架构中设置路由
 - Service 控制器：用于创建、更新和删除云平台上的负载均衡器
+
+---
 
 <!--
 ## Node components
@@ -332,7 +361,8 @@ balancing factors such as operational complexity, performance, and management ov
 -->
 ### 集群管理工具   {#cluster-management-tools}
 
-像 kubeadm、kops 和 Kubespray 这样的工具提供了不同的集群部署和管理方法，每种方法都有自己的组件布局和管理方式。
+像 kubeadm、kops 和 Kubespray 这样的工具提供了不同的集群部署和管理方法，
+每种方法都有自己的组件布局和管理方式。
 
 Kubernetes 架构的灵活性使各组织能够根据特定需求调整其集群，平衡操作复杂性、性能和管理开销等因素。
 
