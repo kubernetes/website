@@ -45,12 +45,11 @@ comunicarse de manera segura con el servidor de la API.
 
 ### Accediendo directamente a la API REST
 
-Al ejecutarse en un Pod, su contenedor puede crear una URL HTTPS para el servidor
-de la API de Kubernetes obteniendo las variables de entorno `KUBERNETES_SERVICE_HOST`
-y `KUBERNETES_SERVICE_PORT_HTTPS`. La dirección del servidor de la API dentro del
-clúster también se publica en un Servicio llamado `kubernetes` en el espacio de nombres
-`default`, de modo que los pods pueden hacer referencia a `kubernetes.default.svc` como
-el nombre DNS para el servidor de la API local.
+Al ejecutarse en un Pod, su contenedor puede crear una URL HTTPS para el servidor de la API de Kubernetes
+obteniendo las variables de entorno `KUBERNETES_SERVICE_HOST`y `KUBERNETES_SERVICE_PORT_HTTPS`.
+La dirección del servidor de la API dentro del clúster también se publica
+en un Servicio llamado `kubernetes` en el namespace `default`, de modo que los pods pueden hacer referencia a
+`kubernetes.default.svc` como el nombre DNS para el servidor de la API local.
 
 {{< note >}}
 Kubernetes no garantiza que el servidor de API tenga un certificado válido para el
@@ -70,9 +69,8 @@ Si está disponible, un paquete de certificados se coloca en el sistema de archi
 cada contenedor en la ruta `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt`, y
 debe usarse para verificar el certificado de servicio del servidor API.
 
-Finalmente, el Namespace default puede ser utilizado en las operaciones de API
-con ámbito de espacio de nombres que se colocan en un archivo con la ruta `/var/run/secrets/kubernetes.io/serviceaccount/namespace`
-de cada contenedor
+Finalmente, el Namespace default puede ser utilizado en las operaciones de API con ámbito de espacio de nombres que se colocan en un archivo
+con la ruta `/var/run/secrets/kubernetes.io/serviceaccount/namespace` de cada contenedor
 
 ### Usando kubectl proxy
 
