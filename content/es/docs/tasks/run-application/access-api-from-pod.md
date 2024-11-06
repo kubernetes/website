@@ -100,7 +100,7 @@ NAMESPACE=$(cat ${SERVICEACCOUNT}/namespace)
 # Lectura del bearer token del ServiceAccount
 TOKEN=$(cat ${SERVICEACCOUNT}/token)
 
-# Reference the internal certificate authority (CA)
+# Referencia a la autoridad de certificación interna (CA)
 CACERT=${SERVICEACCOUNT}/ca.crt
 
 # Explore the API with TOKEN
