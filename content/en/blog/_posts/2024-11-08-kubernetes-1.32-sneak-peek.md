@@ -108,7 +108,7 @@ With the graduation of this [enhancement](https://github.com/kubernetes/enhancem
 This [enhancement](https://github.com/kubernetes/enhancements/issues/2681) introduces a new field, `status.hostIPs`, to the Kubernetes Pod API, enabling support for multiple IP addresses (IPv4 and IPv6) assigned to a node. Previously, the Pod status only included a singular HostIP field, which limited address configurations, particularly in dual-stack networks. This enhancement allows the API to store multiple IP addresses in an array, accessible via the Downward API, which applications can leverage for environments with complex IP requirements, such as IPv6 migrations. 
 The feature is controlled by the PodHostIPs feature gate, supporting flexibility for gradual rollout.
 
-For more information about giving containers information about themselves, visit the [downward-api documentation](https://kubernetes.io/docs/concepts/workloads/pods/downward-api/).
+For more information about giving containers information about themselves, visit the [downward-api documentation](/docs/concepts/workloads/pods/downward-api/).
 
 ### Make Kubernetes aware of the LoadBalancer behavior
 
