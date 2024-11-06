@@ -27,7 +27,7 @@ bibliotecas pueden automáticamente descubrir el servidor de la API y autenticar
 
 Desde un Pod, las formas recomendadas de conectarse a la API de Kubernetes son:
 
-- Para un cliente de Go, utiliza la
+- Para un cliente de Go, utilice la
   [biblioteca oficial de cliente Go](https://github.com/kubernetes/client-go/).
   La función `rest.InClusterConfig()` maneja automáticamente el descubrimiento del host de la API
   y la autenticación. Ver [un ejemplo aqui](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go).
