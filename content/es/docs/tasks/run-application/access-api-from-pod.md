@@ -6,7 +6,7 @@ weight: 120
 
 <!-- overview -->
 
-Esta guía demuestra cómo acceder a la API de Kubernetes desde dentro de un pod.
+Esta guía muestra como acceder a la API de Kubernetes desde de un Pod.
 
 ## {{% heading "prerequisites" %}}
 
