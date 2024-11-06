@@ -92,7 +92,7 @@ Existem os seguintes métodos para instalar o kubectl no macOS:
    Baixe a mesma versão do binário e do checksum.
    {{< /note >}}
 
-1. Tornando o binário do kubectl executável.
+1. Torne o binário do kubectl executável.
 
    ```bash
    chmod +x ./kubectl
