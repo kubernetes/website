@@ -85,10 +85,10 @@ Isso significa que o Pod será alocado apenas em um nó que tenha o label `diskt
     nginx    1/1       Running   0          13s    10.200.0.4   worker0
     ```
     
-## Agendar um Pod usando afinidade de nó preferencial
+## Alocar um Pod usando afinidade de nó preferencial
 
 Este manifesto descreve um Pod que possui uma afinidade de nó `requiredDuringSchedulingIgnoredDuringExecution` com o label `disktype: ssd`.
-Isso significa que o Pod será agendado de preferência em um nó com o label `disktype=ssd`. 
+Isso significa que o Pod será alocado de preferência em um nó com o label `disktype=ssd`. 
 
 {{% code_sample file="pods/pod-nginx-preferred-affinity.yaml" %}}
 
