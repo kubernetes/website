@@ -92,7 +92,7 @@ Isso significa que o Pod será alocado de preferência em um nó com o label `di
 
 {{% code_sample file="pods/pod-nginx-preferred-affinity.yaml" %}}
 
-1. Aplique o manifesto para criar um Pod que será agendado no nó escolhido:
+1. Aplique o manifesto para criar um Pod que será alocado no nó escolhido:
     
     ```shell
     kubectl apply -f https://k8s.io/examples/pods/pod-nginx-preferred-affinity.yaml
