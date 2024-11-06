@@ -94,7 +94,7 @@ APISERVER=https://kubernetes.default.svc
 # Path to ServiceAccount token
 SERVICEACCOUNT=/var/run/secrets/kubernetes.io/serviceaccount
 
-# Read this Pod's namespace
+# Lectura del Namespace del Pod
 NAMESPACE=$(cat ${SERVICEACCOUNT}/namespace)
 
 # Read the ServiceAccount bearer token
