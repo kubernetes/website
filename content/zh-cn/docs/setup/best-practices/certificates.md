@@ -47,17 +47,17 @@ Kubernetes 需要 PKI 才能执行以下操作：
   for each kubelet (every {{< glossary_tooltip text="node" term_id="node" >}} runs a kubelet)
 * Optional server certificate for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
 -->
-### 服务器证书
+### 服务器证书   {#server-certificates}
 
 * API 服务器端点的证书
 * etcd 服务器的服务器证书
-* 每个 kubelet 的服务器证书（每个 {{< glossary_tooltip text="节点" term_id="node" >}}运行一个 kubelet）
+* 每个 kubelet 的服务器证书（每个{{< glossary_tooltip text="节点" term_id="node" >}}运行一个 kubelet）
 * 可选的[前端代理](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)的服务器证书
 
 <!--
 ### Client certificates
 -->
-### 客户端证书
+### 客户端证书   {#client-certificates}
 
 <!--
 * Client certificates for each kubelet, used to authenticate to the API server as a client of
@@ -75,33 +75,31 @@ Kubernetes 需要 PKI 才能执行以下操作：
 * 调度程序与 API 服务器进行安全通信的客户端证书
 * 客户端证书（每个节点一个），用于 kube-proxy 向 API 服务器进行身份验证
 * 集群管理员向 API 服务器进行身份验证的可选客户端证书
-* [前端代理](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)的客户端及服务端证书
+* [前端代理](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)的可选客户端证书
 
 <!--
 ### Kubelet's server and client certificates
 
-To establish a secure connection and authenticate itself to the kubelet, the API Server 
-requires a client certificate and key pair. 
+To establish a secure connection and authenticate itself to the kubelet, the API Server
+requires a client certificate and key pair.
 -->
-### kubelet 的服务器和客户端证书
+### kubelet 的服务器和客户端证书   {#kubelets-server-and-client-certificates}
 
 为了建立安全连接并向 kubelet 进行身份验证，API 服务器需要客户端证书和密钥对。
 
 <!--
-In this scenario, there are two approaches for certificate usage: 
-using shared certificates or separate certificates;
+In this scenario, there are two approaches for certificate usage:
 
-* Shared Certificates: The kube-apiserver can utilize the same certificate and key pair it uses to authenticate its clients.
-  This means that the existing certificates, such as `apiserver.crt`  and `apiserver.key`,
-  can be used for communicating with the kubelet servers.
+* Shared Certificates: The kube-apiserver can utilize the same certificate and key pair it uses
+  to authenticate its clients. This means that the existing certificates, such as `apiserver.crt`
+  and `apiserver.key`, can be used for communicating with the kubelet servers.
 
 * Separate Certificates: Alternatively, the kube-apiserver can generate a new client certificate
-  and key pair to authenticate its communication with the kubelet servers.
-  In this case, a distinct certificate named `kubelet-client.crt` and its corresponding private key,
+  and key pair to authenticate its communication with the kubelet servers. In this case,
+  a distinct certificate named `kubelet-client.crt` and its corresponding private key,
   `kubelet-client.key` are created.
 -->
 在此场景中，证书的使用有两种方法：
-使用共享证书或单独证书；
 
 * 共享证书：kube-apiserver 可以使用与验证其客户端相同的证书和密钥对。
   这意味着现有证书（例如 `apiserver.crt` 和 `apiserver.key`）可用于与 kubelet 服务器进行通信。
@@ -165,7 +163,7 @@ multiple intermediate CAs, and delegate all further creation to Kubernetes itsel
 <!--
 Required CAs:
 
-| path                   | Default CN                | description                      |
+| Path                   | Default CN                | Description                      |
 |------------------------|---------------------------|----------------------------------|
 | ca.crt,key             | kubernetes-ca             | Kubernetes general CA            |
 | etcd/ca.crt,key        | etcd-ca                   | For all etcd-related functions   |
@@ -173,6 +171,7 @@ Required CAs:
 
 On top of the above CAs, it is also necessary to get a public/private key pair for service account
 management, `sa.key` and `sa.pub`.
+The following example illustrates the CA key and certificate files shown in the previous table:
 -->
 需要这些 CA：
 
@@ -183,10 +182,6 @@ management, `sa.key` and `sa.pub`.
 | front-proxy-ca.crt、key | kubernetes-front-proxy-ca | 用于[前端代理](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/) |
 
 上面的 CA 之外，还需要获取用于服务账号管理的密钥对，也就是 `sa.key` 和 `sa.pub`。
-
-<!--
-The following example illustrates the CA key and certificate files shown in the previous table:
--->
 下面的例子说明了上表中所示的 CA 密钥和证书文件。
 
 ```console
@@ -218,7 +213,7 @@ Required certificates:
 | kube-etcd-peer                | etcd-ca                   |                | server, client   | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
 | kube-etcd-healthcheck-client  | etcd-ca                   |                | client           |                                                     |
 | kube-apiserver-etcd-client    | etcd-ca                   |                | client           |                                                     |
-| kube-apiserver                | kubernetes-ca             |                | server           | `<hostname>`, `<Host_IP>`, `<advertise_IP>`, `[1]`  |
+| kube-apiserver                | kubernetes-ca             |                | server           | `<hostname>`, `<Host_IP>`, `<advertise_IP>`[^1]     |
 | kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client           |                                                     |
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client           |                                                     |
 -->
@@ -228,7 +223,7 @@ Required certificates:
 | kube-etcd-peer                | etcd-ca                   |                   | server、client   | `<hostname>`、`<Host_IP>`、`localhost`、`127.0.0.1` |
 | kube-etcd-healthcheck-client  | etcd-ca                   |                   | client           |                                                     |
 | kube-apiserver-etcd-client    | etcd-ca                   |                   | client           |                                                     |
-| kube-apiserver                | kubernetes-ca             |                   | server           | `<hostname>`、`<Host_IP>`、`<advertise_IP>`、`[1]`  |
+| kube-apiserver                | kubernetes-ca             |                   | server           | `<hostname>`、`<Host_IP>`、`<advertise_IP>`[^1]  |
 | kube-apiserver-kubelet-client | kubernetes-ca             | system:masters    | client           |                                                     |
 | front-proxy-client            | kubernetes-front-proxy-ca |                   | client           |                                                     |
 
@@ -243,7 +238,7 @@ that purpose.
 {{< /note >}}
 
 <!--
-[1]: any other IP or DNS name you contact your cluster on (as used by [kubeadm](/docs/reference/setup-tools/kubeadm/)
+[^1]: any other IP or DNS name you contact your cluster on (as used by [kubeadm](/docs/reference/setup-tools/kubeadm/)
 the load balancer stable IP and/or DNS name, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
 `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`)
 
@@ -251,7 +246,7 @@ where `kind` maps to one or more of the x509 key usage, which is also documented
 `.spec.usages` of a [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1#CertificateSigningRequest)
 type:
 -->
-[1]: 用来连接到集群的不同 IP 或 DNS 名称
+[^1]: 用来连接到集群的不同 IP 或 DNS 名称
 （就像 [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) 为负载均衡所使用的固定
 IP 或 DNS 名称：`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、
 `kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`）。
@@ -310,39 +305,39 @@ Paths should be specified using the given argument regardless of location.
 使用）。无论使用什么位置，都应使用给定的参数指定路径。
 
 <!--
-| Default CN                   | recommended key path         | recommended cert path       | command                 | key argument                 | cert argument                             |
-|------------------------------|------------------------------|-----------------------------|-------------------------|------------------------------|-------------------------------------------|
-| etcd-ca                      | etcd/ca.key                  | etcd/ca.crt                 | kube-apiserver          |                              | --etcd-cafile                             |
-| kube-apiserver-etcd-client   | apiserver-etcd-client.key    | apiserver-etcd-client.crt   | kube-apiserver          | --etcd-keyfile               | --etcd-certfile                           |
-| kubernetes-ca                | ca.key                       | ca.crt                      | kube-apiserver          |                              | --client-ca-file                          |
-| kubernetes-ca                | ca.key                       | ca.crt                      | kube-controller-manager | --cluster-signing-key-file   | --client-ca-file, --root-ca-file, --cluster-signing-cert-file |
-| kube-apiserver               | apiserver.key                | apiserver.crt               | kube-apiserver          | --tls-private-key-file       | --tls-cert-file                           |
-| kube-apiserver-kubelet-client| apiserver-kubelet-client.key | apiserver-kubelet-client.crt| kube-apiserver          | --kubelet-client-key         | --kubelet-client-certificate              |
-| front-proxy-ca               | front-proxy-ca.key           | front-proxy-ca.crt          | kube-apiserver          |                              | --requestheader-client-ca-file            |
-| front-proxy-ca               | front-proxy-ca.key           | front-proxy-ca.crt          | kube-controller-manager |                              | --requestheader-client-ca-file            |
-| front-proxy-client           | front-proxy-client.key       | front-proxy-client.crt      | kube-apiserver          | --proxy-client-key-file      | --proxy-client-cert-file                  |
-| etcd-ca                      | etcd/ca.key                  | etcd/ca.crt                 | etcd                    |                              | --trusted-ca-file, --peer-trusted-ca-file |
-| kube-etcd                    | etcd/server.key              | etcd/server.crt             | etcd                    | --key-file                   | --cert-file                               |
-| kube-etcd-peer               | etcd/peer.key                | etcd/peer.crt               | etcd                    | --peer-key-file              | --peer-cert-file                          |
-| etcd-ca                      |                              | etcd/ca.crt                 | etcdctl                 |                              | --cacert                                  |
-| kube-etcd-healthcheck-client | etcd/healthcheck-client.key  | etcd/healthcheck-client.crt | etcdctl                 | --key                        | --cert                                    |
+| DefaultCN | recommendedkeypath | recommendedcertpath | command | keyargument | certargument |
+| --------- | ------------------ | ------------------- | ------- | ----------- | ------------ |
+| etcd-ca | etcd/ca.key | etcd/ca.crt | kube-apiserver | | --etcd-cafile |
+| kube-apiserver-etcd-client | apiserver-etcd-client.key | apiserver-etcd-client.crt | kube-apiserver | --etcd-keyfile | --etcd-certfile |
+| kubernetes-ca | ca.key | ca.crt | kube-apiserver | | --client-ca-file |
+| kubernetes-ca | ca.key | ca.crt | kube-controller-manager | --cluster-signing-key-file | --client-ca-file,--root-ca-file,--cluster-signing-cert-file |
+| kube-apiserver | apiserver.key | apiserver.crt| kube-apiserver | --tls-private-key-file | --tls-cert-file |
+| kube-apiserver-kubelet-client | apiserver-kubelet-client.key | apiserver-kubelet-client.crt | kube-apiserver | --kubelet-client-key | --kubelet-client-certificate |
+| front-proxy-ca | front-proxy-ca.key | front-proxy-ca.crt | kube-apiserver | | --requestheader-client-ca-file |
+| front-proxy-ca | front-proxy-ca.key | front-proxy-ca.crt | kube-controller-manager | | --requestheader-client-ca-file |
+| front-proxy-client | front-proxy-client.key | front-proxy-client.crt | kube-apiserver | --proxy-client-key-file | --proxy-client-cert-file |
+| etcd-ca | etcd/ca.key | etcd/ca.crt | etcd | | --trusted-ca-file,--peer-trusted-ca-file |
+| kube-etcd | etcd/server.key | etcd/server.crt | etcd | --key-file | --cert-file |
+| kube-etcd-peer | etcd/peer.key | etcd/peer.crt | etcd | --peer-key-file | --peer-cert-file |
+| etcd-ca| | etcd/ca.crt | etcdctl | | --cacert |
+| kube-etcd-healthcheck-client | etcd/healthcheck-client.key | etcd/healthcheck-client.crt | etcdctl | --key | --cert |
 -->
-| 默认 CN                   | 建议的密钥路径         | 建议的证书路径       | 命令        | 密钥参数               | 证书参数                             |
-|------------------------------|------------------------------|-----------------------------|----------------|------------------------------|-------------------------------------------|
-| etcd-ca                      |     etcd/ca.key                         | etcd/ca.crt                 | kube-apiserver |                              | --etcd-cafile                             |
-| kube-apiserver-etcd-client   | apiserver-etcd-client.key    | apiserver-etcd-client.crt   | kube-apiserver | --etcd-keyfile               | --etcd-certfile                           |
-| kubernetes-ca                |    ca.key                          | ca.crt                      | kube-apiserver |                              | --client-ca-file                          |
-| kubernetes-ca                |    ca.key                          | ca.crt                      | kube-controller-manager | --cluster-signing-key-file      | --client-ca-file, --root-ca-file, --cluster-signing-cert-file  |
-| kube-apiserver               | apiserver.key                | apiserver.crt               | kube-apiserver | --tls-private-key-file       | --tls-cert-file                           |
-| kube-apiserver-kubelet-client|     apiserver-kubelet-client.key                         | apiserver-kubelet-client.crt| kube-apiserver | --kubelet-client-key | --kubelet-client-certificate              |
-| front-proxy-ca               |     front-proxy-ca.key                         | front-proxy-ca.crt          | kube-apiserver |                              | --requestheader-client-ca-file            |
-| front-proxy-ca               |     front-proxy-ca.key                         | front-proxy-ca.crt          | kube-controller-manager |                              | --requestheader-client-ca-file |
-| front-proxy-client           | front-proxy-client.key       | front-proxy-client.crt      | kube-apiserver | --proxy-client-key-file      | --proxy-client-cert-file                  |
-| etcd-ca                      |         etcd/ca.key                     | etcd/ca.crt                 | etcd           |                              | --trusted-ca-file, --peer-trusted-ca-file |
-| kube-etcd                    | etcd/server.key              | etcd/server.crt             | etcd           | --key-file                   | --cert-file                               |
-| kube-etcd-peer               | etcd/peer.key                | etcd/peer.crt               | etcd           | --peer-key-file              | --peer-cert-file                          |
-| etcd-ca                      |                              | etcd/ca.crt                 | etcdctl    |                              | --cacert                                  |
-| kube-etcd-healthcheck-client | etcd/healthcheck-client.key  | etcd/healthcheck-client.crt | etcdctl     | --key                        | --cert                                    |
+| 默认 CN | 建议的密钥路径 | 建议的证书路径 | 命令 | 密钥参数 | 证书参数 |
+|---------|-------------|--------------|-----|--------|---------|
+| etcd-ca | etcd/ca.key | etcd/ca.crt | kube-apiserver | | --etcd-cafile |
+| kube-apiserver-etcd-client | apiserver-etcd-client.key | apiserver-etcd-client.crt | kube-apiserver | --etcd-keyfile | --etcd-certfile |
+| kubernetes-ca | ca.key | ca.crt | kube-apiserver | | --client-ca-file |
+| kubernetes-ca | ca.key | ca.crt | kube-controller-manager | --cluster-signing-key-file | --client-ca-file, --root-ca-file, --cluster-signing-cert-file |
+| kube-apiserver | apiserver.key | apiserver.crt | kube-apiserver | --tls-private-key-file | --tls-cert-file |
+| kube-apiserver-kubelet-client | apiserver-kubelet-client.key | apiserver-kubelet-client.crt| kube-apiserver | --kubelet-client-key | --kubelet-client-certificate |
+| front-proxy-ca | front-proxy-ca.key | front-proxy-ca.crt | kube-apiserver | | --requestheader-client-ca-file |
+| front-proxy-ca | front-proxy-ca.key | front-proxy-ca.crt | kube-controller-manager | | --requestheader-client-ca-file |
+| front-proxy-client | front-proxy-client.key | front-proxy-client.crt | kube-apiserver | --proxy-client-key-file | --proxy-client-cert-file |
+| etcd-ca | etcd/ca.key | etcd/ca.crt | etcd | | --trusted-ca-file, --peer-trusted-ca-file |
+| kube-etcd | etcd/server.key | etcd/server.crt | etcd | --key-file | --cert-file |
+| kube-etcd-peer | etcd/peer.key | etcd/peer.crt | etcd | --peer-key-file | --peer-cert-file |
+| etcd-ca | | etcd/ca.crt | etcdctl | | --cacert |
+| kube-etcd-healthcheck-client | etcd/healthcheck-client.key | etcd/healthcheck-client.crt | etcdctl | --key | --cert |
 
 <!--
 Same considerations apply for the service account key pair:
@@ -402,7 +397,7 @@ You must manually configure these administrator account and service accounts:
 你必须手动配置以下管理员账号和服务账号：
 
 <!--
-| filename                | credential name            | Default CN                          | O (in Subject)         |
+| Filename                | Credential name            | Default CN                          | O (in Subject)         |
 |-------------------------|----------------------------|-------------------------------------|------------------------|
 | admin.conf              | default-admin              | kubernetes-admin                    | `<admin-group>`        |
 | super-admin.conf        | default-super-admin        | kubernetes-super-admin              | system:masters         |
@@ -461,25 +456,34 @@ This file is generated only on the node where `kubeadm init` was called.
 {{< /note >}}
 
 <!--
-1. For each config, generate an x509 cert/key pair with the given CN and O.
+1. For each configuration, generate an x509 certificate/key pair with the
+   given Common Name (CN) and Organization (O).
 
-1. Run `kubectl` as follows for each config:
+1. Run `kubectl` as follows for each configuration:
 -->
-1. 对于每个配置，请都使用给定的 CN 和 O 生成 x509 证书/密钥偶对。
+1. 对于每个配置，请都使用给定的通用名称（CN）和组织（O）生成 x509 证书/密钥对。
 
 1. 为每个配置运行下面的 `kubectl` 命令：
 
-```bash
-KUBECONFIG=<filename> kubectl config set-cluster default-cluster --server=https://<host ip>:6443 --certificate-authority <path-to-kubernetes-ca> --embed-certs
-KUBECONFIG=<filename> kubectl config set-credentials <credential-name> --client-key <path-to-key>.pem --client-certificate <path-to-cert>.pem --embed-certs
-KUBECONFIG=<filename> kubectl config set-context default-system --cluster default-cluster --user <credential-name>
-KUBECONFIG=<filename> kubectl config use-context default-system
-```
+   <!--
+   ```
+   KUBECONFIG=<filename> kubectl config set-cluster default-cluster --server=https://<host ip>:6443 --certificate-authority <path-to-kubernetes-ca> --embed-certs
+   KUBECONFIG=<filename> kubectl config set-credentials <credential-name> --client-key <path-to-key>.pem --client-certificate <path-to-cert>.pem --embed-certs
+   KUBECONFIG=<filename> kubectl config set-context default-system --cluster default-cluster --user <credential-name>
+   KUBECONFIG=<filename> kubectl config use-context default-system
+   ```
+   -->
+   ```bash
+   KUBECONFIG=<文件名> kubectl config set-cluster default-cluster --server=https://<主机ip>:6443 --certificate-authority <kubernetes-ca路径> --embed-certs
+   KUBECONFIG=<文件名> kubectl config set-credentials <凭据名称> --client-key <密钥路径>.pem --client-certificate <证书路径>.pem --embed-certs
+   KUBECONFIG=<文件名> kubectl config set-context default-system --cluster default-cluster --user <凭据名称>
+   KUBECONFIG=<文件名> kubectl config use-context default-system
+   ```
 
 <!--
 These files are used as follows:
 
-| filename                | command                 | comment                                                               |
+| Filename                | Command                 | Comment                                                               |
 |-------------------------|-------------------------|-----------------------------------------------------------------------|
 | admin.conf              | kubectl                 | Configures administrator user for the cluster                         |
 | super-admin.conf        | kubectl                 | Configures super administrator user for the cluster                   |

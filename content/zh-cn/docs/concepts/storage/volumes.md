@@ -2293,6 +2293,7 @@ The following container runtimes are known to support recursive read-only mounts
 
 CRI-level:
 - [containerd](https://containerd.io/), since v2.0
+- [CRI-O](https://cri-o.io/), since v1.30
 
 OCI-level:
 - [runc](https://runc.io/), since v1.1
@@ -2303,6 +2304,7 @@ OCI-level:
 CRI 级别：
 
 - [containerd](https://containerd.io/)，自 v2.0 起
+- [CRI-O](https://cri-o.io/)，自 v1.30 起
 
 OCI 级别：
 
