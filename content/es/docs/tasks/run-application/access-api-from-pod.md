@@ -21,7 +21,7 @@ del servidor de la API es ligeramente diferente que en el caso de un cliente ext
 
 La forma más fácil de usar la API de Kubernetes desde un Pod es utilizando
 una de las bibliotecas de [cliente oficiales](/docs/reference/using-api/client-libraries/). Estas
-bibliotecas pueden descubrir automáticamente el servidor de la API y autenticarse.
+bibliotecas pueden automáticamente descubrir el servidor de la API y autenticarse.
 
 ### Usando Bibliotecas de Cliente Oficiales
 
