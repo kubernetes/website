@@ -32,7 +32,7 @@ Desde un Pod, las formas recomendadas de conectarse a la API de Kubernetes son:
   La función `rest.InClusterConfig()` maneja automáticamente el descubrimiento del host de la API
   y la autenticación. Vea [un ejemplo aqui](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go).
 
-- Para un cliente de Python, utiliza la
+- Para un cliente de Python, utilice la
   [biblioteca oficial de cliente Python](https://github.com/kubernetes-client/python/).
   La función `config.load_incluster_config()` maneja automáticamente el descubrimiento
   del host de la API y la autenticación. Ver [un ejemplo aqui](https://github.com/kubernetes-client/python/blob/master/examples/in_cluster_config.py).
