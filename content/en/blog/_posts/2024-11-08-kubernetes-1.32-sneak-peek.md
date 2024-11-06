@@ -35,7 +35,7 @@ However, in Kubernetes v1.32, this approach to DRA will be significantly changed
 The decision to remove this feature originated from its incompatibility with cluster autoscaling, as resource availability was made non-transparent, complicating decision-making for both Cluster Autoscaler and controllers. 
 The newly added Structured Parameter model substitutes the functionality.
 
-This removal will Kubernetes to handle new hardware requirements and resource claims more predictably, bypassing the complexities of back and forth API calls to the kube-apiserver.
+This removal will allow Kubernetes to handle new hardware requirements and resource claims more predictably, bypassing the complexities of back and forth API calls to the kube-apiserver.
 
 Please also see the enhancement issue [#3063](https://github.com/kubernetes/enhancements/issues/3063) to find out more.
 
