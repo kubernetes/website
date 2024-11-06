@@ -103,7 +103,7 @@ TOKEN=$(cat ${SERVICEACCOUNT}/token)
 # Referencia a la autoridad de certificación interna (CA)
 CACERT=${SERVICEACCOUNT}/ca.crt
 
-# Explore the API with TOKEN
+# Explora la API con TOKEN
 curl --cacert ${CACERT} --header "Authorization: Bearer ${TOKEN}" -X GET ${APISERVER}/api
 ```
 
