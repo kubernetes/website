@@ -28,7 +28,7 @@ Whether an API is removed due to a feature graduating from beta to stable or bec
 
 ## Note on the withdrawal of the old DRA implementation
 
-This enhancement [#3063](https://github.com/kubernetes/enhancements/issues/3063) introduced Dynamic Resource Allocation (DRA) in Kubernetes 1.26.
+The enhancement [#3063](https://github.com/kubernetes/enhancements/issues/3063) introduced Dynamic Resource Allocation (DRA) in Kubernetes 1.26.
 
 However, in Kubernetes v1.32, this approach to DRA will be significantly changed. Code related to the original implementation will be removed, leaving KEP [#4381](https://github.com/kubernetes/enhancements/issues/4381) as the "new" base functionality. 
 
