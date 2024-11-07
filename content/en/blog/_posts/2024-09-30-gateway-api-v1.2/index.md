@@ -302,7 +302,7 @@ mirrored, for example:
 
 This configuration mirrors 1 in 10,000 requests to the `color-mirror` backend,
 which may be relevant with very high request rates. For more details, see
-[GEP-1731]](https://gateway-api.sigs.k8s.io/geps/gep-3171).
+[GEP-1731](https://gateway-api.sigs.k8s.io/geps/gep-3171).
 
 ### Additional backend TLS configuration
 
