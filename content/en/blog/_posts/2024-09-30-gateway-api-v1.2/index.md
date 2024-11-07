@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Gateway API v1.2: WebSockets, Timeouts, Retries, and More"
-date: 2024-11-06T09:00:00-08:00
+date: 2024-11-07T09:00:00-08:00
 slug: gateway-api-v1-2
 author: Gateway API Contributors
 ---
@@ -103,12 +103,12 @@ cloud-based implementations may be creating cloud load balancer resources. In
 many cases, it can be helpful to be able to propagate labels or annotations to
 these generated resources.
 
-In 1.2.0, the Gateway `infrastructure` stanza moves to the Standard channel,
+In v1.2.0, the Gateway `infrastructure` stanza moves to the Standard channel,
 allowing you to specify labels and annotations for the infrastructure created
-by the Gateway API controller. For example, the following Gateway
-configuration specifies both Linkerd and Istio injection, allowing the Gateway
-infrastructure to be incorporated into whichever service mesh you've
-installed:
+by the Gateway API controller. For example, if your Gateway infrastructure is
+running in-cluster, you can specify both Linkerd and Istio injection using the
+following Gateway configuration, making it simpler for the infrastructure to
+be incorporated into whichever service mesh you've installed:
 
 ```
 apiVersion: gateway.networking.k8s.io/v1
@@ -212,9 +212,8 @@ spec:
 ```
 
 Logging or status messages can now refer to these two rules as `center-rule`
-or `edge-rule` instead of being forced to refer to them by index. At present,
-rule names are only available for logging and status. For more information,
-see [GEP-995](https://gateway-api.sigs.k8s.io/geps/gep-995/).
+or `edge-rule` instead of being forced to refer to them by index. For more
+information, see [GEP-995](https://gateway-api.sigs.k8s.io/geps/gep-995/).
 
 ### HTTPRoute retry support
 
@@ -340,7 +339,7 @@ For a full list of the changes included in this release, please refer to the
 
 ## Project updates
 
-Beyond the technical, the 1.2 release also marks a few milestones in the life
+Beyond the technical, the v1.2 release also marks a few milestones in the life
 of the Gateway API project itself.
 
 ### Release process improvements
