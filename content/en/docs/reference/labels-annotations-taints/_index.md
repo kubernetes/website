@@ -13,7 +13,7 @@ card:
 
 <!-- overview -->
 
-Kubernetes reserves all labels and annotations in the `kubernetes.io` and `k8s.io` namespaces.
+Kubernetes reserves all labels, annotations and taints in the `kubernetes.io` and `k8s.io` namespaces.
 
 This document serves both as a reference to the values and as a coordination point for assigning values.
 
