@@ -25,11 +25,11 @@ card:
 
 <!-- overview -->
 <!--
-Kubernetes reserves all labels and annotations in the `kubernetes.io` and `k8s.io` namespaces.
+Kubernetes reserves all labels, annotations and taints in the `kubernetes.io` and `k8s.io` namespaces.
 
 This document serves both as a reference to the values and as a coordination point for assigning values.
 -->
-Kubernetes 将所有标签和注解保留在 `kubernetes.io` 和 `k8s.io` 名字空间中。
+Kubernetes 保留 `kubernetes.io` 和 `k8s.io` 名字空间中的所有标签、注解和污点。
 
 本文档既可作为值的参考，也可作为分配值的协调点。
 
