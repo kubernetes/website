@@ -49,7 +49,7 @@ decisão em um processo chamado _binding_.
 
 Fatores que precisam ser levados em consideração para decisões de escalonamento incluem 
 requisitos individuais e coletivos de recursos, restrições de hardware / software / política, 
-especificações de afinidade e anti-afinidade, localização de dados, interferência entre workloads 
+especificações de afinidade e anti-afinidade, localização de dados, interferência entre cargas de trabalho 
 e assim por diante.
 
 ### Seleção do Nó no kube-scheduler {#implementação-kube-scheduler}
