@@ -131,7 +131,7 @@ kubectl set serviceaccount (-f FILENAME | TYPE NAME) SERVICE_ACCOUNT
 <td colspan="2">--template string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [https://pkg.go.dev/text/template#pkg-overview].</p></td>
 </tr>
 
 </tbody>
