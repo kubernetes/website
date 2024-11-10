@@ -66,7 +66,7 @@ Nós contém quaisquer Nós adequados; frequentemente, haverá mais de um. Se a 
 vazia, esse Pod (ainda) não é escalonável.
 
 Na etapa de _pontuação_, o escalonador classifica os Nós restantes para escolher o mais 
-adequado. O escalonador atribui uma pontuação a cada Nó que sobreviveu à filtragem, baseando 
+adequado. O escalonador atribui uma pontuação a cada Nó que passou na filtragem, baseando 
 essa pontuação nas regras de pontuação ativas.
 
 Por fim, o kube-scheduler atribui o Pod ao Nó com a classificação mais alta. Se houver mais 
