@@ -677,8 +677,7 @@ Additionally, PodGC cleans up any Pods which satisfy any of the following condit
 1. are orphan Pods - bound to a node which no longer exists,
 1. are unscheduled terminating Pods,
 1. are terminating Pods, bound to a non-ready node tainted with
-   [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service),
-   when the `NodeOutOfServiceVolumeDetach` feature gate is enabled.
+   [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service).
 
 Along with cleaning up the Pods, PodGC will also mark them as failed if they are in a non-terminal
 phase. Also, PodGC adds a Pod disruption condition when cleaning up an orphan Pod.
