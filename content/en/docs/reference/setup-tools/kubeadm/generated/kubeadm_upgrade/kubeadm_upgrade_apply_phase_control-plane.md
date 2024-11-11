@@ -10,15 +10,15 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Upgrade the kubelet configuration for this node
+Upgrade the control plane
 
 ### Synopsis
 
 
-Upgrade the kubelet configuration for this node by downloading it from the kubelet-config ConfigMap stored in the cluster
+Upgrade the control plane
 
 ```
-kubeadm upgrade node phase kubelet-config [flags]
+kubeadm upgrade apply phase control-plane [flags]
 ```
 
 ### Options
@@ -31,6 +31,13 @@ kubeadm upgrade node phase kubelet-config [flags]
 <tbody>
 
 <tr>
+<td colspan="2">--certificate-renewal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Perform the renewal of certificates used by component changed during upgrades.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--config string</td>
 </tr>
 <tr>
@@ -41,14 +48,21 @@ kubeadm upgrade node phase kubelet-config [flags]
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Do not change any state, just output the actions that would be performed.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Do not change any state, just output what actions would be performed.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--etcd-upgrade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Perform the upgrade of etcd.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for kubelet-config</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for control-plane</p></td>
 </tr>
 
 <tr>

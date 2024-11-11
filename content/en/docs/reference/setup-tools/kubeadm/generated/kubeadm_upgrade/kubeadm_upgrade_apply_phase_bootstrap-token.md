@@ -10,15 +10,15 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Certificate generation
+Configures bootstrap token and cluster-info RBAC rules
 
 ### Synopsis
 
 
-Certificate generation
+Configures bootstrap token and cluster-info RBAC rules
 
 ```
-kubeadm init phase certs [flags]
+kubeadm upgrade apply phase bootstrap-token [flags]
 ```
 
 ### Options
@@ -31,10 +31,31 @@ kubeadm init phase certs [flags]
 <tbody>
 
 <tr>
+<td colspan="2">--config string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Do not change any state, just output what actions would be performed.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for certs</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for bootstrap-token</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p></td>
 </tr>
 
 </tbody>
