@@ -178,7 +178,7 @@ and editorial review of their PR.
 ## How merging works
 
 When a pull request is merged to the branch used to publish content, that content
-is published to http://kubernetes.io. To ensure that
+is published to https://kubernetes.io. To ensure that
 the quality of our published content is high, we limit merging pull requests to
 SIG Docs approvers. Here's how it works.
 
@@ -195,7 +195,7 @@ SIG Docs approvers. Here's how it works.
 -->
 ## PR 是怎样被合并的 {#how-merging-works}
 
-当某个拉取请求（PR）被合并到用来发布内容的分支，对应的内容就会被发布到 http://kubernetes.io。
+当某个拉取请求（PR）被合并到用来发布内容的分支，对应的内容就会被发布到 https://kubernetes.io。
 为了确保我们所发布的内容的质量足够好，合并 PR 的权限仅限于
 SIG Docs 批准人。下面是合并的工作机制：
 

@@ -199,7 +199,7 @@ On Linux, the container runtime typically configures
 kernel {{< glossary_tooltip text="cgroups" term_id="cgroup" >}} that apply and enforce the
 limits you defined.
 
-- The CPU limit defines a hard ceiling on how much CPU time that the container can use.
+- The CPU limit defines a hard ceiling on how much CPU time the container can use.
   During each scheduling interval (time slice), the Linux kernel checks to see if this
   limit is exceeded; if so, the kernel waits before allowing that cgroup to resume execution.
 - The CPU request typically defines a weighting. If several different containers (cgroups)
@@ -244,30 +244,30 @@ directly or from your monitoring tools.
 If you do not specify a `sizeLimit` for an `emptyDir` volume, that volume may
 consume up to that pod's memory limit (`Pod.spec.containers[].resources.limits.memory`).
 If you do not set a memory limit, the pod has no upper bound on memory consumption,
-and can consume all available memory on the node.  Kubernetes schedules pods based
+and can consume all available memory on the node. Kubernetes schedules pods based
 on resource requests (`Pod.spec.containers[].resources.requests`) and will not
 consider memory usage above the request when deciding if another pod can fit on
-a given node.  This can result in a denial of service and cause the OS to do
-out-of-memory (OOM) handling.  It is possible to create any number of `emptyDir`s
+a given node. This can result in a denial of service and cause the OS to do
+out-of-memory (OOM) handling. It is possible to create any number of `emptyDir`s
 that could potentially consume all available memory on the node, making OOM
 more likely.
 {{< /caution >}}
 
 From the perspective of memory management, there are some similarities between
 when a process uses memory as a work area and when using memory-backed
-`emptyDir`. But when using memory as a volume like memory-backed `emptyDir`,
-there are additional points below that you should be careful of.
+`emptyDir`. But when using memory as a volume, like memory-backed `emptyDir`,
+there are additional points below that you should be careful of:
 
 * Files stored on a memory-backed volume are almost entirely managed by the
-  user application.  Unlike when used as a work area for a process, you can not
+  user application. Unlike when used as a work area for a process, you can not
   rely on things like language-level garbage collection.
 * The purpose of writing files to a volume is to save data or pass it between
-  applications.  Neither Kubernetes nor the OS may automatically delete files
+  applications. Neither Kubernetes nor the OS may automatically delete files
   from a volume, so memory used by those files can not be reclaimed when the
   system or the pod are under memory pressure.
 * A memory-backed `emptyDir` is useful because of its performance, but memory
   is generally much smaller in size and much higher in cost than other storage
-  media, such as disks or SSDs.  Using large amounts of memory for `emptyDir`
+  media, such as disks or SSDs. Using large amounts of memory for `emptyDir`
   volumes may affect the normal operation of your pod or of the whole node,
   so should be used carefully.
 
