@@ -10,12 +10,16 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Use this command to invoke single phase of the init workflow
+Use this command to invoke single phase of the "init" workflow
 
 ### Synopsis
 
 
-Use this command to invoke single phase of the init workflow
+Use this command to invoke single phase of the "init" workflow
+
+```
+kubeadm init phase [flags]
+```
 
 ### Options
 
