@@ -1,10 +1,10 @@
 ---
 reviewers:
 - lavalamp
-title: Kubernetes Components
+title: কুবারনেটিস কম্পোনেন্টস 
 content_type: concept
 description: >
-  An overview of the key components that make up a Kubernetes cluster.
+  কুবারনেটিস ক্লাস্টার তৈরী করে যে মূল কম্পোনেন্টস গুলো তাদের একটি ওভারভিউ। 
 weight: 10
 card:
   title: Components of a cluster
@@ -14,7 +14,7 @@ card:
 
 <!-- overview -->
 
-This page provides a high-level overview of the essential components that make up a Kubernetes cluster.
+এই পেইজটি প্রয়োজনীয় কম্পোনেন্টসগুলির একটি উচ্চ-স্তরের ওভারভিউ প্রদান করে যা একটি কুবারনেটিস ক্লাস্টার তৈরি করে।
 
 {{< figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="The components of a Kubernetes cluster" class="diagram-large" clicktozoom="true" >}}
 
@@ -22,68 +22,65 @@ This page provides a high-level overview of the essential components that make u
 
 ## Core Components
 
-A Kubernetes cluster consists of a control plane and one or more worker nodes.
-Here's a brief overview of the main components:
+একটি কুবারনেটিস ক্লাস্টার একটি কন্ট্রোল প্লেন এবং এক বা একাধিক ওয়ার্কার নোড নিয়ে গঠিত।
+এখানে প্রধান কম্পোনেন্টসগুলির একটি সংক্ষিপ্ত বিবরণ রয়েছে:
 
-### Control Plane Components
+### কন্ট্রোল প্লেন কম্পোনেন্টস
 
-Manage the overall state of the cluster:
+ক্লাস্টারের সামগ্রিক অবস্থা পরিচালনা করে:
 
 [kube-apiserver](/docs/concepts/architecture/#kube-apiserver)
-: The core component server that exposes the Kubernetes HTTP API
+: মূল কম্পোনেন্ট সার্ভার যা কুবারনেটিস HTTP API প্রকাশ করে
 
 [etcd](/docs/concepts/architecture/#etcd)
-: Consistent and highly-available key value store for all API server data
+: সকল API সার্ভার ডেটার জন্য সামঞ্জস্যপূর্ণ এবং অত্যন্ত-উপলব্ধ কী ভ্যালু স্টোর
 
 [kube-scheduler](/docs/concepts/architecture/#kube-scheduler)
-: Looks for Pods not yet bound to a node, and assigns each Pod to a suitable node.
+: একটি নোডের সাথে এখনও আবদ্ধ নয় এমন পডগুলির সন্ধান করে এবং প্রতিটি পডকে একটি উপযুক্ত নোডে বরাদ্দ করে৷
 
 [kube-controller-manager](/docs/concepts/architecture/#kube-controller-manager)
-: Runs {{< glossary_tooltip text="controllers" term_id="controller" >}} to implement Kubernetes API behavior.
+: কুবারনেটিস API আচরণ বাস্তবায়ন করতে {{< glossary_tooltip text="কন্ট্রোলার" term_id="controller" >}}  চালায়।
 
 [cloud-controller-manager](/docs/concepts/architecture/#cloud-controller-manager) (optional)
-: Integrates with underlying cloud provider(s).
+: অন্তর্নিহিত ক্লাউড প্রদানকারী(গুলি) এর সাথে সংহত করে।
 
-### Node Components
+### নোড কম্পোনেন্টস
 
-Run on every node, maintaining running pods and providing the Kubernetes runtime environment:
+প্রতিটি নোডে চালানো হয়, চলমান পড বজায় রেখে এবং কুবারনেটিস রানটাইম এনভায়রনমেন্ট প্রদান করে:
 
 [kubelet](/docs/concepts/architecture/#kubelet)
-: Ensures that Pods are running, including their containers.
+: নিশ্চিত করে যে পডগুলো চলছে, তাদের কন্টেইনার সহ।
 
 [kube-proxy](/docs/concepts/architecture/#kube-proxy) (optional)
-: Maintains network rules on nodes to implement {{< glossary_tooltip text="Services" term_id="service" >}}.
+: নোডগুলিতে নেটওয়ার্ক নিয়ম বজায় রাখে {{< glossary_tooltip text="সেবাগুলি" term_id="service" >}} বাস্তবায়নের জন্য।
 
 [Container runtime](/docs/concepts/architecture/#container-runtime)
-: Software responsible for running containers. Read
-  [Container Runtimes](/docs/setup/production-environment/container-runtimes/) to learn more.
+: কন্টেইনার চালানোর জন্য দায়ী সফ্টওয়্যার। আরো জানতে
+  [Container Runtimes](/docs/setup/production-environment/container-runtimes/) পড়ুন।
 
 {{% thirdparty-content single="true" %}}
 
-Your cluster may require additional software on each node; for example, you might also
-run [systemd](https://systemd.io/) on a Linux node to supervise local components.
+আপনার ক্লাস্টার প্রতিটি নোডে অতিরিক্ত সফ্টওয়্যার প্রয়োজন হতে পারে; উদাহরণস্বরূপ, আপনি একটি লিনাক্স নোডে [systemd](https://systemd.io/) চালাতে পারেন লোকাল কম্পোনেন্টস তদারকি করার জন্য।
 
-## Addons
+## অ্যাডনস্
 
-Addons extend the functionality of Kubernetes. A few important examples include:
+অ্যাডনস্ কুবারনেটিসের কার্যকারিতা প্রসারিত করে। কয়েকটি গুরুত্বপূর্ণ উদাহরণের মধ্যে রয়েছে:
 
 [DNS](/docs/concepts/architecture/#dns)
-: For cluster-wide DNS resolution
+: ক্লাস্টার-ওয়াইড DNS রেজোলিউশনের জন্য
 
 [Web UI](/docs/concepts/architecture/#web-ui-dashboard) (Dashboard)
-: For cluster management via a web interface
+: একটি ওয়েব ইন্টারফেসের মাধ্যমে ক্লাস্টার পরিচালনার জন্য
 
 [Container Resource Monitoring](/docs/concepts/architecture/#container-resource-monitoring)
-: For collecting and storing container metrics
+: কন্টেইনার মেট্রিক্স সংগ্রহ এবং সংরক্ষণের জন্য
 
 [Cluster-level Logging](/docs/concepts/architecture/#cluster-level-logging)
-: For saving container logs to a central log store
+: একটি কেন্দ্রীয় লগ স্টোরে কন্টেইনার লগ সংরক্ষণের জন্য
 
-## Flexibility in Architecture
+## আর্কিটেকচারে নমনীয়তা
 
-Kubernetes allows for flexibility in how these components are deployed and managed.
-The architecture can be adapted to various needs, from small development environments
-to large-scale production deployments.
+কুবারনেটিস এই কম্পোনেন্টগুলিকে কীভাবে স্থাপন এবং পরিচালনা করা হয় তার ক্ষেত্রে নমনীয়তা প্রদান করে।
+আর্কিটেকচারটি বিভিন্ন প্রয়োজনের জন্য মানিয়ে নেওয়া যেতে পারে, ছোট ডেভেলপমেন্ট এনভায়রনমেন্ট থেকে শুরু করে বড় পরিসরের প্রোডাকশন ডিপ্লয়মেন্ট পর্যন্ত।
 
-For more detailed information about each component and various ways to configure your
-cluster architecture, see the [Cluster Architecture](/docs/concepts/architecture/) page.
+প্রতিটি কম্পোনেন্টের ব্যাপারে এবং আপনার ক্লাস্টার আর্কিটেকচার কনফিগার করার বিভিন্ন উপায় সম্পর্কে আরও বিস্তারিত তথ্যের জন্য, [Cluster Architecture](/docs/concepts/architecture/) পেইজটি দেখুন।
