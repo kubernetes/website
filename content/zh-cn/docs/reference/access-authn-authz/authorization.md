@@ -298,6 +298,26 @@ is reachable from the public internet.
 {{< /warning >}}
 
 <!--
+### The system:masters group
+
+The `system:masters` group is a built-in Kubernetes group that grants unrestricted
+access to the API server. Any user assigned to this group has full cluster administrator
+privileges, bypassing any authorization restrictions imposed by the RBAC or Webhook mechanisms.
+[Avoid adding users](/docs/concepts/security/rbac-good-practices/#least-privilege)
+to this group. If you do need to grant a user cluster-admin rights, you can create a
+[ClusterRoleBinding](/docs/reference/access-authn-authz/rbac/#user-facing-roles)
+to the built-in `cluster-admin` ClusterRole.
+-->
+### `system:masters` 组
+
+`system:masters` 组是 Kubernetes 内置的一个组，授予其成员对 API 服务器的无限制访问权限。
+任何被分配到此组的用户都具有完全的集群管理员权限，可以绕过由 RBAC 或 Webhook 机制施加的任何鉴权限制。
+请[避免将用户添加到此组](/zh-cn/docs/concepts/security/rbac-good-practices/#least-privilege)。
+如果你确实需要授予某个用户集群管理员权限，可以通过创建一个
+[ClusterRoleBinding](/zh-cn/docs/reference/access-authn-authz/rbac/#user-facing-roles)
+将其绑定到内置的 `cluster-admin` ClusterRole。
+
+<!--
 ### Authorization mode configuration {#choice-of-authz-config}
 
 You can configure the Kubernetes API server's authorizer chain using either
