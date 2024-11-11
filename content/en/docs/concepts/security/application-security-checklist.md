@@ -44,7 +44,7 @@ would apply to most applications deploying to Kubernetes.
   when designing applications.
 - [ ] Application configured with appropriate {{< glossary_tooltip text="QoS class" term_id="QoS-class" >}}
   through resource request and limits.
-  - [ ] Memory limit is set for the workloads with a limit equal or inferior to the request.
+  - [ ] Memory limit is set for the workloads with a limit equal to or greater than the request.
   - [ ] CPU limit might be set on sensitive workloads.
 
 ### Service account
