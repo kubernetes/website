@@ -11,6 +11,10 @@ weight: 65
 
 {{< feature-state feature_gate_name="DynamicResourceAllocation" >}}
 
+Dynamic Resource Allocation with ResourceClaim device status:
+
+{{< feature-state feature_gate_name="DRAResourceClaimDeviceStatus" >}}
+
 Dynamic resource allocation is an API for requesting and sharing resources
 between pods and containers inside a pod. It is a generalization of the
 persistent volumes API for generic resources. Typically those resources
@@ -47,7 +51,11 @@ ResourceClaim
   for use by workloads. For example, if a workload needs an accelerator device
   with specific properties, this is how that request is expressed. The status
   stanza tracks whether this claim has been satisfied and what specific
-  resources have been allocated.
+  resources have been allocated. When the `DRAResourceClaimDeviceStatus` 
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
+  enabled, drivers can report driver-specific device status data for each allocated 
+  device in a resource claim. For example, IPs assigned to a network interface device
+  can be reported in the ResourceClaim status.
 
 ResourceClaimTemplate
 : Defines the spec and some metadata for creating
@@ -209,6 +217,10 @@ are enabled. For details on that, see the `--feature-gates` and `--runtime-confi
 [kube-apiserver parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
 kube-scheduler, kube-controller-manager and kubelet also need the feature gate.
 
+When a resource driver reports the status of the devices, then the
+`DRAResourceClaimDeviceStatus` feature gate has to be enabled in addition to
+`DynamicResourceAllocation`.
+
 A quick check whether a Kubernetes cluster supports the feature is to list
 DeviceClass objects with:
 
@@ -228,6 +240,11 @@ If not supported, this error is printed instead:
 ```
 error: the server doesn't have a resource type "deviceclasses"
 ```
+
+A ResourceClaim device status is supported when it is possible, from a DRA driver,
+to update an existing ResourceClaim where the `status.devices` field is set. When the
+`DRAResourceClaimDeviceStatus` feature is disabled, that field automatically
+gets cleared when storing the ResourceClaim.
 
 The default configuration of kube-scheduler enables the "DynamicResources"
 plugin if and only if the feature gate is enabled and when using
