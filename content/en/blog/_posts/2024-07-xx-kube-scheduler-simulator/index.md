@@ -9,10 +9,10 @@ author: Kensei Nakada (Tetrate)
 The Kubernetes Scheduler is a crucial control plane component that determines which Node a Pod will run on. 
 Thus, anyone utilizing Kubernetes relies on the scheduler.
 
-[Kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator) is a simulator for the Kubernetes scheduler, initially developed by Kensei Nakada as part of [Google Summer of Code 2021](https://summerofcode.withgoogle.com/).
+The [kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator) is a simulator for the Kubernetes scheduler, initially developed by me (Kensei Nakada) as part of [Google Summer of Code 2021](https://summerofcode.withgoogle.com/).
 This tool allows users to closely examine the scheduler’s behavior and decisions. 
 
-It is useful for casual users who employ scheduling constraints (e.g., PodAffinity) 
+It is useful for casual users who employ scheduling constraints (e.g., inter-Pod affinity)
 and experts who extend the scheduler with custom plugins.
 
 ## Motivation
@@ -61,29 +61,29 @@ kind: Pod
 apiVersion: v1
 metadata:
   annotations:
-    scheduler-simulator/bind-result: '{"DefaultBinder":"success"}'
-    scheduler-simulator/filter-result: >-
+    kube-scheduler-simulator.sigs.k8s.io/bind-result: '{"DefaultBinder":"success"}'
+    kube-scheduler-simulator.sigs.k8s.io/filter-result: >-
       {"node-jjfg5":{"NodeName":"passed","NodeResourcesFit":"passed","NodeUnschedulable":"passed","TaintToleration":"passed"},"node-mtb5x":{"NodeName":"passed","NodeResourcesFit":"passed","NodeUnschedulable":"passed","TaintToleration":"passed"}}
-    scheduler-simulator/finalscore-result: >-
+    kube-scheduler-simulator.sigs.k8s.io/finalscore-result: >-
       {"node-jjfg5":{"ImageLocality":"0","NodeAffinity":"0","NodeResourcesBalancedAllocation":"52","NodeResourcesFit":"47","TaintToleration":"300","VolumeBinding":"0"},"node-mtb5x":{"ImageLocality":"0","NodeAffinity":"0","NodeResourcesBalancedAllocation":"76","NodeResourcesFit":"73","TaintToleration":"300","VolumeBinding":"0"}}
-    scheduler-simulator/permit-result: '{}'
-    scheduler-simulator/permit-result-timeout: '{}'
-    scheduler-simulator/postfilter-result: '{}'
-    scheduler-simulator/prebind-result: '{"VolumeBinding":"success"}'
-    scheduler-simulator/prefilter-result: '{}'
-    scheduler-simulator/prefilter-result-status: >-
+    kube-scheduler-simulator.sigs.k8s.io/permit-result: '{}'
+    kube-scheduler-simulator.sigs.k8s.io/permit-result-timeout: '{}'
+    kube-scheduler-simulator.sigs.k8s.io/postfilter-result: '{}'
+    kube-scheduler-simulator.sigs.k8s.io/prebind-result: '{"VolumeBinding":"success"}'
+    kube-scheduler-simulator.sigs.k8s.io/prefilter-result: '{}'
+    kube-scheduler-simulator.sigs.k8s.io/prefilter-result-status: >-
       {"AzureDiskLimits":"","EBSLimits":"","GCEPDLimits":"","InterPodAffinity":"","NodeAffinity":"","NodePorts":"","NodeResourcesFit":"success","NodeVolumeLimits":"","PodTopologySpread":"","VolumeBinding":"","VolumeRestrictions":"","VolumeZone":""}
-    scheduler-simulator/prescore-result: >-
+    kube-scheduler-simulator.sigs.k8s.io/prescore-result: >-
       {"InterPodAffinity":"","NodeAffinity":"success","NodeResourcesBalancedAllocation":"success","NodeResourcesFit":"success","PodTopologySpread":"","TaintToleration":"success"}
-    scheduler-simulator/reserve-result: '{"VolumeBinding":"success"}'
-    scheduler-simulator/result-history: >-
-      [{"scheduler-simulator/bind-result":"{\"DefaultBinder\":\"success\"}","scheduler-simulator/filter-result":"{\"node-jjfg5\":{\"NodeName\":\"passed\",\"NodeResourcesFit\":\"passed\",\"NodeUnschedulable\":\"passed\",\"TaintToleration\":\"passed\"},\"node-mtb5x\":{\"NodeName\":\"passed\",\"NodeResourcesFit\":\"passed\",\"NodeUnschedulable\":\"passed\",\"TaintToleration\":\"passed\"}}","scheduler-simulator/finalscore-result":"{\"node-jjfg5\":{\"ImageLocality\":\"0\",\"NodeAffinity\":\"0\",\"NodeResourcesBalancedAllocation\":\"52\",\"NodeResourcesFit\":\"47\",\"TaintToleration\":\"300\",\"VolumeBinding\":\"0\"},\"node-mtb5x\":{\"ImageLocality\":\"0\",\"NodeAffinity\":\"0\",\"NodeResourcesBalancedAllocation\":\"76\",\"NodeResourcesFit\":\"73\",\"TaintToleration\":\"300\",\"VolumeBinding\":\"0\"}}","scheduler-simulator/permit-result":"{}","scheduler-simulator/permit-result-timeout":"{}","scheduler-simulator/postfilter-result":"{}","scheduler-simulator/prebind-result":"{\"VolumeBinding\":\"success\"}","scheduler-simulator/prefilter-result":"{}","scheduler-simulator/prefilter-result-status":"{\"AzureDiskLimits\":\"\",\"EBSLimits\":\"\",\"GCEPDLimits\":\"\",\"InterPodAffinity\":\"\",\"NodeAffinity\":\"\",\"NodePorts\":\"\",\"NodeResourcesFit\":\"success\",\"NodeVolumeLimits\":\"\",\"PodTopologySpread\":\"\",\"VolumeBinding\":\"\",\"VolumeRestrictions\":\"\",\"VolumeZone\":\"\"}","scheduler-simulator/prescore-result":"{\"InterPodAffinity\":\"\",\"NodeAffinity\":\"success\",\"NodeResourcesBalancedAllocation\":\"success\",\"NodeResourcesFit\":\"success\",\"PodTopologySpread\":\"\",\"TaintToleration\":\"success\"}","scheduler-simulator/reserve-result":"{\"VolumeBinding\":\"success\"}","scheduler-simulator/score-result":"{\"node-jjfg5\":{\"ImageLocality\":\"0\",\"NodeAffinity\":\"0\",\"NodeResourcesBalancedAllocation\":\"52\",\"NodeResourcesFit\":\"47\",\"TaintToleration\":\"0\",\"VolumeBinding\":\"0\"},\"node-mtb5x\":{\"ImageLocality\":\"0\",\"NodeAffinity\":\"0\",\"NodeResourcesBalancedAllocation\":\"76\",\"NodeResourcesFit\":\"73\",\"TaintToleration\":\"0\",\"VolumeBinding\":\"0\"}}","scheduler-simulator/selected-node":"node-mtb5x"}]
-    scheduler-simulator/score-result: >-
+    kube-scheduler-simulator.sigs.k8s.io/reserve-result: '{"VolumeBinding":"success"}'
+    kube-scheduler-simulator.sigs.k8s.io/result-history: >-
+      [{"kube-scheduler-simulator.sigs.k8s.io/bind-result":"{\"DefaultBinder\":\"success\"}","kube-scheduler-simulator.sigs.k8s.io/filter-result":"{\"node-jjfg5\":{\"NodeName\":\"passed\",\"NodeResourcesFit\":\"passed\",\"NodeUnschedulable\":\"passed\",\"TaintToleration\":\"passed\"},\"node-mtb5x\":{\"NodeName\":\"passed\",\"NodeResourcesFit\":\"passed\",\"NodeUnschedulable\":\"passed\",\"TaintToleration\":\"passed\"}}","kube-scheduler-simulator.sigs.k8s.io/finalscore-result":"{\"node-jjfg5\":{\"ImageLocality\":\"0\",\"NodeAffinity\":\"0\",\"NodeResourcesBalancedAllocation\":\"52\",\"NodeResourcesFit\":\"47\",\"TaintToleration\":\"300\",\"VolumeBinding\":\"0\"},\"node-mtb5x\":{\"ImageLocality\":\"0\",\"NodeAffinity\":\"0\",\"NodeResourcesBalancedAllocation\":\"76\",\"NodeResourcesFit\":\"73\",\"TaintToleration\":\"300\",\"VolumeBinding\":\"0\"}}","kube-scheduler-simulator.sigs.k8s.io/permit-result":"{}","kube-scheduler-simulator.sigs.k8s.io/permit-result-timeout":"{}","kube-scheduler-simulator.sigs.k8s.io/postfilter-result":"{}","kube-scheduler-simulator.sigs.k8s.io/prebind-result":"{\"VolumeBinding\":\"success\"}","kube-scheduler-simulator.sigs.k8s.io/prefilter-result":"{}","kube-scheduler-simulator.sigs.k8s.io/prefilter-result-status":"{\"AzureDiskLimits\":\"\",\"EBSLimits\":\"\",\"GCEPDLimits\":\"\",\"InterPodAffinity\":\"\",\"NodeAffinity\":\"\",\"NodePorts\":\"\",\"NodeResourcesFit\":\"success\",\"NodeVolumeLimits\":\"\",\"PodTopologySpread\":\"\",\"VolumeBinding\":\"\",\"VolumeRestrictions\":\"\",\"VolumeZone\":\"\"}","kube-scheduler-simulator.sigs.k8s.io/prescore-result":"{\"InterPodAffinity\":\"\",\"NodeAffinity\":\"success\",\"NodeResourcesBalancedAllocation\":\"success\",\"NodeResourcesFit\":\"success\",\"PodTopologySpread\":\"\",\"TaintToleration\":\"success\"}","kube-scheduler-simulator.sigs.k8s.io/reserve-result":"{\"VolumeBinding\":\"success\"}","kube-scheduler-simulator.sigs.k8s.io/score-result":"{\"node-jjfg5\":{\"ImageLocality\":\"0\",\"NodeAffinity\":\"0\",\"NodeResourcesBalancedAllocation\":\"52\",\"NodeResourcesFit\":\"47\",\"TaintToleration\":\"0\",\"VolumeBinding\":\"0\"},\"node-mtb5x\":{\"ImageLocality\":\"0\",\"NodeAffinity\":\"0\",\"NodeResourcesBalancedAllocation\":\"76\",\"NodeResourcesFit\":\"73\",\"TaintToleration\":\"0\",\"VolumeBinding\":\"0\"}}","kube-scheduler-simulator.sigs.k8s.io/selected-node":"node-mtb5x"}]
+    kube-scheduler-simulator.sigs.k8s.io/score-result: >-
       {"node-jjfg5":{"ImageLocality":"0","NodeAffinity":"0","NodeResourcesBalancedAllocation":"52","NodeResourcesFit":"47","TaintToleration":"0","VolumeBinding":"0"},"node-mtb5x":{"ImageLocality":"0","NodeAffinity":"0","NodeResourcesBalancedAllocation":"76","NodeResourcesFit":"73","TaintToleration":"0","VolumeBinding":"0"}}
-    scheduler-simulator/selected-node: node-mtb5x
+    kube-scheduler-simulator.sigs.k8s.io/selected-node: node-mtb5x
 ```
 
-Users can also integrate their custom plugins or extenders into the debuggable scheduler and visualize their results. 
+Users can also integrate their custom plugins or extenders, into the debuggable scheduler and visualize their results. 
 
 This debuggable scheduler can also run standalone, e.g., on any Kubernetes cluster or in integration tests. 
 This would be useful to custom plugin developers who want to test their plugins or examine their custom scheduler in a real cluster with better debuggability.
@@ -102,8 +102,8 @@ Once confident in its performance, you can proceed with the production deploymen
 ## What are the use cases?
 
 1. **Cluster users**: Examine if your scheduling constraints (e.g., PodAffinity, PodTopologySpread) work as intended.
-2. **Cluster admins**: Assess how your cluster would behave with changes to the scheduler configuration.
-3. **Scheduler plugin developers**: Test your custom scheduler plugins or extenders, use the debuggable scheduler in integration tests or development clusters, and use [the syncing feature](https://github.com/kubernetes-sigs/kube-scheduler-simulator/blob/master/simulator/docs/import-cluster-resources.md) for testing within a production-like environment. 
+1. **Cluster admins**: Assess how your cluster would behave with changes to the scheduler configuration.
+1. **Scheduler plugin developers**: Test your custom scheduler plugins or extenders, use the debuggable scheduler in integration tests or development clusters, or use the [syncing](https://github.com/kubernetes-sigs/kube-scheduler-simulator/blob/simulator/v0.3.0/simulator/docs/import-cluster-resources.md) feature for testing within a production-like environment.
 
 ## Getting started
 
@@ -115,15 +115,15 @@ cd kube-scheduler-simulator
 make docker_up
 ```
 
-You can then access the simulator's web UI at http://localhost:3000.
+You can then access the simulator's web UI at `http://localhost:3000`.
 
 Visit the [kube-scheduler-simulator repository](https://sigs.k8s.io/kube-scheduler-simulator) for more details!
 
 ## Getting involved 
 
-The Kube-scheduler-simulator is developed by Kubernetes SIG Scheduling. Your feedback and contributions are welcome!
+The scheduler simulator is developed by Kubernetes SIG Scheduling. Your feedback and contributions are welcome!
 
-Open issues or PRs at [Kube-scheduler-simulator repository](sigs.k8s.io/kube-scheduler-simulator)
+Open issues or PRs at the [kube-scheduler-simulator repository](https://sigs.k8s.io/kube-scheduler-simulator).
 Join the conversation on the [#sig-scheduling](https://kubernetes.slack.com/messages/sig-scheduling) slack channel.
 
 ## Acknowledgments
@@ -132,6 +132,4 @@ The simulator has been maintained by dedicated volunteer engineers, overcoming m
 
 A big shout out to all [the awesome contributors](https://github.com/kubernetes-sigs/kube-scheduler-simulator/graphs/contributors)!
 
-![contributors](./contributors.png)
-
-{{< figure src="/images/blog/2024-07-xx-kube-scheduler-simulator/contributors.png" alt="Screenshot of the contributor list" title="Contributors" >}}
+![Screenshot of the contributor list](./contributors.png)
