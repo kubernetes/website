@@ -319,6 +319,12 @@ Similarly, you must pass the corresponding public key to the `kube-apiserver`
 using the `--service-account-key-file` flag. The public key will be used to
 verify the tokens during authentication.
 
+{{< feature-state feature_gate_name="ExternalServiceAccountTokenSigner" >}}
+
+An alternate setup to setting `--service-account-private-key-file` and `--service-account-key-file` flags is
+to configure an external JWT signer for [external ServiceAccount token signing and key management](#external-serviceaccount-token-signing-and-key-management). 
+Note that these setups are mutually exclusive and cannot be configured together.
+
 ### ServiceAccount admission controller
 
 The modification of pods is implemented via a plugin
@@ -543,6 +549,22 @@ Then, delete the Secret you now know the name of:
 ```shell
 kubectl -n examplens delete secret/example-automated-thing-token-zyxwv
 ```
+
+## External ServiceAccount token signing and key management
+
+{{< feature-state feature_gate_name="ExternalServiceAccountTokenSigner" >}}
+
+The kube-apiserver can be configured to use external signer for token signing and token verifying key management.
+This feature enables kubernetes distributions to integrate with key management solutions of their choice (eg: HSMs, cloud KMSes) for service account credential signing and verification.
+To configure kube-apiserver to use external-jwt-signer set the `--service-account-signing-endpoint` flag to the location of a Unix domain socket (UDS) on a filesystem, or be prefixed with an @ symbol and name a UDS in the abstract socket namespace.
+At the configured UDS, shall be an RPC server which implements [ExternalJWTSigner](https://github.com/kubernetes/kubernetes/blob/release-1.32/staging/src/k8s.io/externaljwt/apis/v1alpha1/api.proto).
+The external-jwt-signer must be healthy and be ready to serve supported service account keys for the kube-apiserver to start.
+
+Check out [KEP-740](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/740-service-account-external-signing) for more details on ExternalJWTSigner.
+
+{{< note >}}
+The kube-apiserver flags `--service-account-key-file` and `--service-account-signing-key-file` will continue to be used for reading from files unless `--service-account-signing-endpoint` is set; they are mutually exclusive ways of supporting JWT signing and authentication.
+{{< /note >}}
 
 ## Clean up
 
