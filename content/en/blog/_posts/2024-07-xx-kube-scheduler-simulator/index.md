@@ -6,7 +6,7 @@ slug: introducing-kube-scheduler-simulator
 author: Kensei Nakada (Tetrate)
 ---
 
-The Kubernetes Scheduler is a crucial control plane component that determines which Node a Pod will run on. 
+The Kubernetes Scheduler is a crucial control plane component that determines which node a Pod will run on. 
 Thus, anyone utilizing Kubernetes relies on the scheduler.
 
 The [kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator) is a simulator for the Kubernetes scheduler, initially developed by me (Kensei Nakada) as part of [Google Summer of Code 2021](https://summerofcode.withgoogle.com/).
@@ -28,6 +28,7 @@ Also, testing your scheduler is a complex challenge.
 There are countless patterns of operations executed within a real cluster, making it impractical to anticipate every scenario with a finite number of tests. 
 More often than not, bugs are discovered only when the scheduler is deployed in an actual cluster.
 Actually, many bugs are reported by users after we ship the release, and the bugs are found
+even in the upstream kube-scheduler. 
 
 Having a development or sandbox environment for testing the scheduler — or, indeed, any Kubernetes controllers — is a common practice.
 However, this approach falls short of capturing all the potential scenarios that might arise in a production cluster 
@@ -43,9 +44,9 @@ with the same resources as your production cluster without affecting your actual
 ## Features of the Kube-scheduler-simulator
 
 The simulator’s core feature is its ability to expose the scheduler's internal decisions.
-The scheduler operates based on the [Scheduling Framework](/concepts/scheduling-eviction/scheduling-framework/), 
+The scheduler operates based on the [scheduling framework](/docs/concepts/scheduling-eviction/scheduling-framework/), 
 utilizing various plugins at different extension points; 
-filter Nodes (Filter phase), score Nodes (Score phase), and ultimately determine the best Node for the Pod.
+filter nodes (Filter phase), score nodes (Score phase), and ultimately determine the best node for the Pod.
 
 The simulator allows users to create Kubernetes resources and observe how each plugin influences the scheduling decisions for Pods.
 This visibility helps users understand the scheduler’s workings and define appropriate scheduling constraints.
