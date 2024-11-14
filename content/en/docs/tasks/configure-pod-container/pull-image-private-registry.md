@@ -239,7 +239,7 @@ Events:
 ## Using images from multiple registries
 
 A pod can have multiple containers, each container image can be from a different registry.
-You can use multiple pull secrets with one pod, and pull secrets can contain multiple credentials.
+You can use multiple `imagePullSecrets` with one pod, and each can contain multiple credentials.
 
 The image pull will be attempted using each credential that matches the registry.
 If no credentials match the registry, the image pull will be attempted without authorization.
