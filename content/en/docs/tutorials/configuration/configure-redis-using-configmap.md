@@ -37,7 +37,7 @@ In this tutorial, you'll learn how to do the following tasks:
 
 ## 1. Create a Redis ConfigMap
 
-You could to use data stored in a ConfigMap to configure a Redis cache.
+You could use data stored in a ConfigMap to configure a Redis cache.
 
 1. Run the following command to create a ConfigMap with an empty configuration block:
 
