@@ -1,7 +1,7 @@
 {
   "private": true,
   "dependencies": {
-    "docsy": "github:google/docsy#v0.7.2"
+    "docsy": "github:google/docsy#v0.11.0"
   },
   "devDependencies": {
     "autoprefixer": "^9.8.4",
