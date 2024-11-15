@@ -57,7 +57,7 @@ kubeletは退避シグナルを使用して、シグナルと退避閾値(ノー
 
 kubeletは次の退避シグナルを使用します:
 
-| 退避シグナル | 説明 | Linuxのみ |
+| 退避シグナル | 説明 | Linux専用 |
 |--------------------------|---------------------------------------------------------------------------------------|------------|
 | `memory.available`       | `memory.available` := `node.status.capacity[memory]` - `node.stats.memory.workingSet` |            |
 | `nodefs.available`       | `nodefs.available` := `node.stats.fs.available`                                       |            |
