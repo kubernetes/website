@@ -32,7 +32,7 @@ kubeletは、エンドユーザーのPodを終了する前に[ノードレベル
 
 失敗したPodを置き換える{{< glossary_tooltip text="ワークロード" term_id="workload" >}}管理オブジェクト({{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}や{{< glossary_tooltip text="Deployment" term_id="deployment" >}})によってPodが管理されている場合、コントロールプレーン(`kube-controller-manager`)は退避されたPodの代わりに新しいPodを作成します。
 
-### static podの自己修復
+### static Podの自己修復
 
 リソースが圧迫されているノード上で[static pod](/ja/docs/concepts/workloads/pods/#static-pods)が実行されている場合、kubeletはそのstatic Podを退避することがあります。
 static Podは常にそのノード上でPodを実行しようとするため、kubeletは代替Podの作成を試みます。
