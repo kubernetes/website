@@ -1,5 +1,5 @@
 ---
-title: ノード圧迫による退避
+title: ノードの圧迫による退避
 content_type: concept
 weight: 100
 ---
