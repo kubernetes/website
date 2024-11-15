@@ -252,7 +252,7 @@ kubeletは、次のパラメータを使用してPodの退避順序を決定し�
 1. リソース使用量がリクエストを超えている`BestEffort`または`Burstable` Pod。
    これらのPodは、その優先度に基づき、リクエストを超える使用量に応じて退避されます。
 
-1. リソース使用量がリクエストを下回っている`Guaranteed`と`Burstable` Podは、その優先度に基づいて最後に退避されます。
+1. リソース使用量がリクエストを下回っている`Guaranteed`と`Burstable`Podは、その優先度に基づいて最後に退避されます。
 
 {{<note>}}
 kubeletは、Podの[QoSクラス](/docs/concepts/workloads/pods/pod-qos/)を使用して退避順序を決定しません。
