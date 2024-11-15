@@ -123,7 +123,7 @@ kubeletは、他のコンテナファイルシステムやストレージ構成�
 ### 退避閾値
 
 kubeletは、退避の判断を行うときに使用するカスタムの退避閾値を指定できます。
-[ソフト](#soft-eviction-thresholds)と[ハード](#hard-eviction-thresholds)の退避閾値を構成できます。
+[ソフト退避閾値](#soft-eviction-thresholds)と[ハード退避閾値](#hard-eviction-thresholds)の退避閾値を構成できます。
 
 退避閾値は`[eviction-signal][operator][quantity]`の形式を取ります:
 
