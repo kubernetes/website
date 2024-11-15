@@ -297,7 +297,8 @@ Kubernetes v{{< skew currentVersion >}}以降、`containerfs.available`メトリ
 場合によっては、Podの退避によって回収されるリソースがごくわずかであることがあります。
 このため、kubeletが設定された退避閾値に繰り返し達し、複数の退避をトリガーする可能性があります。
 
-`--eviction-minimum-reclaim`フラグや[kubelet設定ファイル](/docs/tasks/administer-cluster/kubelet-config-file/)を使用して、各リソースの最小の回収量を構成できます。
+`--eviction-minimum-reclaim`フラグや[Set Kubelet Parameters Via A Configuration File
+](/docs/tasks/administer-cluster/kubelet-config-file/)を使用して、各リソースの最小の回収量を構成できます。
 kubeletがリソース不足を検知すると、指定した量に達するまでリソースを回収し続けます。
 
 例えば、次の構成は最小回収量を設定します:
