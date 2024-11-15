@@ -8,6 +8,7 @@ spec:
   paramRef:
     name: "replica-limit-test.example.com"
     namespace: "default"
+    parameterNotFoundAction: Deny
   matchResources:
     namespaceSelector:
       matchLabels:
