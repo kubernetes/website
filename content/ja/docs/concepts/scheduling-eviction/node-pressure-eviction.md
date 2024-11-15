@@ -15,7 +15,7 @@ _分割イメージファイルシステム_ 機能は、`containerfs`ファイ�
 {{</note>}}
 
 {{<glossary_tooltip term_id="kubelet" text="kubelet">}}は、クラスターのノード上のメモリ、ディスク容量、ファイルシステムのinodeなどのリソースを監視します。
-これらのリソースの1つ以上が特定の消費レベルに達すると、kubeletはノード上の1つ以上のPodを積極的に失敗させることでリソースを回収し、枯渇を防ぎます。
+これらのリソースの1つ以上が特定の消費レベルに達すると、kubeletはリソースの枯渇を防ぐため、ノード上の1つ以上のPodを事前に停止してリソースを回収します。
 
 ノードのリソース枯渇による退避中に、kubeletは選択されたPodの[フェーズ](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)を`Failed`に設定し、Podを終了します。
 
