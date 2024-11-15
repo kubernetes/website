@@ -299,7 +299,7 @@ Kubernetes v{{< skew currentVersion >}}以降、`containerfs.available`メトリ
 
 `--eviction-minimum-reclaim`フラグや[Set Kubelet Parameters Via A Configuration File
 ](/docs/tasks/administer-cluster/kubelet-config-file/)を使用して、各リソースの最小の回収量を構成できます。
-kubeletがリソース不足を検知すると、指定した量に達するまでリソースを回収し続けます。
+kubeletがリソース不足を検知すると、指定した値に達するまでリソースを回収し続けます。
 
 例えば、次の構成は最小回収量を設定します:
 
