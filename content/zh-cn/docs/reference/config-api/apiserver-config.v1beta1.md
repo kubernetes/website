@@ -25,9 +25,6 @@ Package v1beta1 is the v1beta1 version of the API.</p>
 - [EgressSelectorConfiguration](#apiserver-k8s-io-v1beta1-EgressSelectorConfiguration)
 - [TracingConfiguration](#apiserver-k8s-io-v1beta1-TracingConfiguration)
 
-
-
-
 ## `TracingConfiguration`     {#TracingConfiguration}
    
 <!--
@@ -52,7 +49,7 @@ TracingConfiguration 为 OpenTelemetry 跟踪客户端提供版本化的配置�
 
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
- 
+
 <tr><td><code>endpoint</code><br/>
 <code>string</code>
 </td>
@@ -88,16 +85,13 @@ TracingConfiguration 为 OpenTelemetry 跟踪客户端提供版本化的配置�
 </table>
 
 ## `AuthenticationConfiguration`     {#apiserver-k8s-io-v1beta1-AuthenticationConfiguration}
-    
-
 
 <p>
 <!--
 AuthenticationConfiguration provides versioned configuration for authentication.
 -->
-AuthenticationConfiguration 为身份验证提供版本化的配置。
+AuthenticationConfiguration 为身份认证提供版本化的配置。
 </p>
-
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -105,8 +99,7 @@ AuthenticationConfiguration 为身份验证提供版本化的配置。
     
 <tr><td><code>apiVersion</code><br/>string</td><td><code>apiserver.k8s.io/v1beta1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>AuthenticationConfiguration</code></td></tr>
-    
-  
+
 <tr><td><code>jwt</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#apiserver-k8s-io-v1beta1-JWTAuthenticator"><code>[]JWTAuthenticator</code></a>
 </td>
@@ -125,12 +118,12 @@ authenticators is neither defined nor stable across releases.  Since
 each JWT authenticator must have a unique issuer URL, at most one
 JWT authenticator will attempt to cryptographically validate the token.
    -->
-   jwt 是一个身份验证器列表，用于对使用符合 JWT 的令牌的 Kubernetes 用户进行身份验证。
-   身份验证器将尝试解析原始 ID 令牌，验证其是否由配置的发放者签名。用于验证签名的公钥是通过
+   jwt 是一个身份认证器列表，用于对使用符合 JWT 的令牌的 Kubernetes 用户进行身份认证。
+   身份认证器将尝试解析原始 ID 令牌，验证其是否由配置的发放者签名。用于验证签名的公钥是通过
    OIDC 发现从颁发者的公开端点获取的。对于传入的令牌，将按照此列表中指定的顺序尝试每个 JWT
-   身份验证器。但是请注意，其他身份验证器可能会在 JWT 身份验证器之前或之后运行。JWT
-   身份验证器相对于其他身份验证器的具体位置在不同版本中既未定义也不稳定。由于每个 JWT
-   身份验证器必须具有唯一的颁发者 URL，因此最多只有一个 JWT 身份验证器会尝试基于密码学方法对对令牌进行合法性检查。
+   身份认证器。但是请注意，其他身份认证器可能会在 JWT 身份认证器之前或之后运行。JWT
+   身份认证器相对于其他身份认证器的具体位置在不同版本中既未定义也不稳定。由于每个 JWT
+   身份认证器必须具有唯一的颁发者 URL，因此最多只有一个 JWT 身份认证器会尝试基于密码学方法对令牌进行合法性检查。
    </p>
 <p>
 <!--
@@ -164,9 +157,6 @@ The minimum valid JWT payload must contain the following claims:
 </table>
 
 ## `AuthorizationConfiguration`     {#apiserver-k8s-io-v1beta1-AuthorizationConfiguration}
-    
-
-
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -174,8 +164,7 @@ The minimum valid JWT payload must contain the following claims:
     
 <tr><td><code>apiVersion</code><br/>string</td><td><code>apiserver.k8s.io/v1beta1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>AuthorizationConfiguration</code></td></tr>
-    
-  
+
 <tr><td><code>authorizers</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#apiserver-k8s-io-v1beta1-AuthorizerConfiguration"><code>[]AuthorizerConfiguration</code></a>
 </td>
@@ -196,14 +185,13 @@ Must be at least one.
 </tbody>
 </table>
 
-
 ## `EgressSelectorConfiguration`     {#apiserver-k8s-io-v1beta1-EgressSelectorConfiguration}
 
 <p>
 <!-- 
 EgressSelectorConfiguration provides versioned configuration for egress selector clients. 
 -->
-EgressSelectorConfiguration 为离站流量选择器客户端（Egress Selector Client）提供版本化的配置选项。
+EgressSelectorConfiguration 为出站流量选择器客户端（Egress Selector Client）提供版本化的配置选项。
 </p>
 
 <table class="table">
@@ -220,13 +208,12 @@ EgressSelectorConfiguration 为离站流量选择器客户端（Egress Selector 
    <p>
    <!-- connectionServices contains a list of egress selection client configurations
    -->
-   connectionServices 包含一组离站流量选择器客户端（Egress Selector Client）配置选项。
+   connectionServices 包含一组出站流量选择器客户端（Egress Selector Client）配置选项。
    </p>
 </td>
 </tr>
 </tbody>
 </table>
-
 
 ## `TracingConfiguration`     {#apiserver-k8s-io-v1beta1-TracingConfiguration}
 
@@ -260,7 +247,6 @@ TracingConfiguration 为跟踪客户端提供版本化的配置信息。
 </table>
 
 ## `AnonymousAuthCondition`     {#apiserver-k8s-io-v1beta1-AnonymousAuthCondition}
-    
 
 <!--
 **Appears in:**
@@ -269,21 +255,18 @@ TracingConfiguration 为跟踪客户端提供版本化的配置信息。
 
 - [AnonymousAuthConfig](#apiserver-k8s-io-v1beta1-AnonymousAuthConfig)
 
-
 <p>
 <!--
 AnonymousAuthCondition describes the condition under which anonymous auth
 should be enabled.
 -->
-AnonymousAuthCondition 描述了应启用匿名身份验证的条件。
+AnonymousAuthCondition 描述了应启用匿名身份认证的条件。
 </p>
-
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>path</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -292,7 +275,7 @@ AnonymousAuthCondition 描述了应启用匿名身份验证的条件。
    <!--
    Path for which anonymous auth is enabled.
    -->
-   启用匿名身份验证的路径。
+   启用匿名身份认证的路径。
    </p>
 </td>
 </tr>
@@ -308,18 +291,15 @@ AnonymousAuthCondition 描述了应启用匿名身份验证的条件。
 
 - [AuthenticationConfiguration](#apiserver-k8s-io-v1beta1-AuthenticationConfiguration)
 
-
 <p>
 <!--
 AnonymousAuthConfig provides the configuration for the anonymous authenticator.
 -->
 AnonymousAuthConfig 为匿名身份认证器提供配置信息。</p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
   
 <tr><td><code>enabled</code> <B><!--[Required]-->[必需]</B><br/>
 <code>bool</code>
@@ -336,7 +316,7 @@ AnonymousAuthConfig 为匿名身份认证器提供配置信息。</p>
    If set, anonymous auth is only allowed if the request meets one of the
 conditions.
    -->
-   如果设置，只有在请求满足其中一个条件时才允许匿名身份验证。
+   如果设置，只有在请求满足其中一个条件时才允许匿名身份认证。
    </p>
 </td>
 </tr>
@@ -344,7 +324,7 @@ conditions.
 </table>
 
 ## `AudienceMatchPolicyType`     {#apiserver-k8s-io-v1beta1-AudienceMatchPolicyType}
-    
+
 <!--
 (Alias of `string`)
 
@@ -356,7 +336,6 @@ conditions.
 
 - [Issuer](#apiserver-k8s-io-v1beta1-Issuer)
 
-
 <p>
 <!--
 AudienceMatchPolicyType is a set of valid values for issuer.audienceMatchPolicy
@@ -364,10 +343,7 @@ AudienceMatchPolicyType is a set of valid values for issuer.audienceMatchPolicy
 AudienceMatchPolicyType 是 issuer.audienceMatchPolicy 合法值的集合
 </p>
 
-
-
 ## `AuthorizerConfiguration`     {#apiserver-k8s-io-v1beta1-AuthorizerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -376,13 +352,10 @@ AudienceMatchPolicyType 是 issuer.audienceMatchPolicy 合法值的集合
 
 - [AuthorizationConfiguration](#apiserver-k8s-io-v1beta1-AuthorizationConfiguration)
 
-
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>type</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -396,7 +369,7 @@ types like Node, RBAC, ABAC, etc.
    -->
    type 指的是鉴权器的类型。
    通用 API 服务器支持 &quot;Webhook&quot;。
-   其他 API 服务器可能支持其他授权者类型，如 Node、RBAC、ABAC 等。
+   其他 API 服务器可能支持其他鉴权器类型，如 Node、RBAC、ABAC 等。
    </p>
 </td>
 </tr>
@@ -440,7 +413,6 @@ Must not be defined when Type!=Webhook
 </table>
 
 ## `ClaimMappings`     {#apiserver-k8s-io-v1beta1-ClaimMappings}
-    
 
 <!--
 **Appears in:**
@@ -449,7 +421,6 @@ Must not be defined when Type!=Webhook
 
 - [JWTAuthenticator](#apiserver-k8s-io-v1beta1-JWTAuthenticator)
 
-
 <p>
 <!--
 ClaimMappings provides the configuration for claim mapping
@@ -457,12 +428,10 @@ ClaimMappings provides the configuration for claim mapping
 ClaimMappings 为声明映射提供配置信息
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>username</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#apiserver-k8s-io-v1beta1-PrefixedClaimOrExpression"><code>PrefixedClaimOrExpression</code></a>
 </td>
@@ -502,16 +471,16 @@ For prefix:
 -->
 在基于标志的方法中，--oidc-username-claim 和 --oidc-username-prefix
 是可选的。如果未设置 --oidc-username-claim，默认值为 &quot;sub&quot;。
-对于身份验证配置，声明或前缀都没有默认值。声明和前缀必须显式设置。
+对于身份认证配置，声明或前缀都没有默认值。声明和前缀必须显式设置。
 对于声明，如果在传统标志方法中未设置 --oidc-username-claim，
-请在身份验证配置中配置 username.claim=&quot;sub&quot;。
+请在身份认证配置中配置 username.claim=&quot;sub&quot;。
 对于前缀：
-(1) --oidc-username-prefix="-", 未添加前缀到用户名。要实现相同的行为，请在身份验证配置中设置
+(1) --oidc-username-prefix="-", 未添加前缀到用户名。要实现相同的行为，请在身份认证配置中设置
 username.prefix=&quot;&quot;
 (2) --oidc-username-prefix=&quot;&quot; 并且 --oidc-username-claim != &quot;email&quot;，
-前缀为 &quot;&lt;--oidc-issuer-url 的值&gt;#&quot;。要实现相同的行为，请在身份验证配置中设置
+前缀为 &quot;&lt;--oidc-issuer-url 的值&gt;#&quot;。要实现相同的行为，请在身份认证配置中设置
 username.prefix=&quot;&lt;issuer.url 的值&gt;#&quot;。
-(3) --oidc-username-prefix=&quot;&lt;value&gt;&quot;。要实现相同的行为，请在身份验证配置中设置
+(3) --oidc-username-prefix=&quot;&lt;value&gt;&quot;。要实现相同的行为，请在身份认证配置中设置
 username.prefix=&quot;&lt;value&gt;&quot;。
 </p>
 </td>
@@ -593,7 +562,7 @@ This will result in:
  - key: "foo"
    valueExpression: "claims.some_claim"
 </pre>
-这将导致一个额外的属性 - foo: [some_claim 的值]
+结果会是一个 extra 属性 - foo: [some_claim 的值]
 
 硬编码 key，value 从声明的值派生<br/>
 <pre>
@@ -607,13 +576,13 @@ This will result in:
 <!--
 if is_admin claim is present and true, extra attribute - admin: [&quot;true&quot;]
 -->
-如果 is_admin 声明存在且为 true，则额外属性 - admin: [&quot;true&quot;]
+如果 is_admin 声明存在且为 true，则添加 extra 属性 - admin: [&quot;true&quot;]
 </li>
 <li>
 <!--
 if is_admin claim is present and false or is_admin claim is not present, no extra attribute will be added
 -->
-如果 is_admin 声明存在且为 false 或 is_admin 声明不存在，则不会添加额外属性
+如果 is_admin 声明存在且为 false 或 is_admin 声明不存在，则不会添加 extra 属性
 </li>
 </ul>
 </td>
@@ -622,7 +591,6 @@ if is_admin claim is present and false or is_admin claim is not present, no extr
 </table>
 
 ## `ClaimOrExpression`     {#apiserver-k8s-io-v1beta1-ClaimOrExpression}
-    
 
 <!--
 **Appears in:**
@@ -631,7 +599,6 @@ if is_admin claim is present and false or is_admin claim is not present, no extr
 
 - [ClaimMappings](#apiserver-k8s-io-v1beta1-ClaimMappings)
 
-
 <p>
 <!--
 ClaimOrExpression provides the configuration for a single claim or expression.
@@ -639,11 +606,9 @@ ClaimOrExpression provides the configuration for a single claim or expression.
 ClaimOrExpression 为单个声明或表达式提供配置信息。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
   
 <tr><td><code>claim</code><br/>
 <code>string</code>
@@ -693,7 +658,6 @@ Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 </table>
 
 ## `ClaimValidationRule`     {#apiserver-k8s-io-v1beta1-ClaimValidationRule}
-    
 
 <!--
 **Appears in:**
@@ -707,12 +671,10 @@ Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 -->
 <p>ClaimValidationRule 为单个声明验证规则提供配置信息。</p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>claim</code><br/>
 <code>string</code>
 </td>
@@ -801,7 +763,6 @@ Mutually exclusive with claim and requiredValue.
 </tbody>
 </table>
 
-
 ## `Connection`     {#apiserver-k8s-io-v1beta1-Connection}
 
 <!--
@@ -815,7 +776,7 @@ Mutually exclusive with claim and requiredValue.
 <!--
 Connection provides the configuration for a single egress selection client.
 -->
-Connection 提供某个离站流量选择器客户端（Egress Selector Client）的配置信息。
+Connection 提供某个出站流量选择器客户端（Egress Selector Client）的配置信息。
 </p>
 
 <table class="table">
@@ -864,7 +825,7 @@ Connection 提供某个离站流量选择器客户端（Egress Selector Client�
 <!--
 EgressSelection provides the configuration for a single egress selection client.
 -->
-EgressSelection 为某个离站流量选择器客户端（Egress Selector Client）提供配置信息。
+EgressSelection 为某个出站流量选择器客户端（Egress Selector Client）提供配置信息。
 </p>
 
 <table class="table">
@@ -881,9 +842,9 @@ EgressSelection 为某个离站流量选择器客户端（Egress Selector Client
    Currently supported values are &quot;controlplane&quot;, &quot;master&quot;, &quot;etcd&quot; and &quot;cluster&quot;
    The &quot;master&quot; egress selector is deprecated in favor of &quot;controlplane&quot; 
    -->
-   name 是离站流量选择（egress selection）的名称。当前支持的取值有 &quot;controlplane&quot;，
+   name 是出站流量选择（egress selection）的名称。当前支持的取值有 &quot;controlplane&quot;，
    &quot;master&quot;，&quot;etcd&quot; 和 &quot;cluster&quot;。
-   &quot;master&quot; 离站流量选择（egress selection）已被弃用，推荐使用 &quot;controlplane&quot;。
+   &quot;master&quot; 出站流量选择（egress selection）已被弃用，推荐使用 &quot;controlplane&quot;。
    </p>
 </td>
 </tr>
@@ -895,17 +856,14 @@ EgressSelection 为某个离站流量选择器客户端（Egress Selector Client
    <!--
    connection is the exact information used to configure the egress selection
    -->
-   connection 是用来配置离站流量选择（egress selection）的确切信息。
+   connection 是用来配置出站流量选择（egress selection）的确切信息。
    </p>
 </td>
 </tr>
 </tbody>
 </table>
 
-
-
 ## `ExtraMapping`     {#apiserver-k8s-io-v1beta1-ExtraMapping}
-    
 
 <!--
 **Appears in:**
@@ -914,12 +872,10 @@ EgressSelection 为某个离站流量选择器客户端（Egress Selector Client
 
 - [ClaimMappings](#apiserver-k8s-io-v1beta1-ClaimMappings)
 
-
 <!--
 <p>ExtraMapping provides the configuration for a single extra mapping.</p>
 -->
 <p>ExtraMapping 为单个 extra 映射提供配置信息。</p>
-
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -982,7 +938,6 @@ Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 </table>
 
 ## `Issuer`     {#apiserver-k8s-io-v1beta1-Issuer}
-    
 
 <!--
 **Appears in:**
@@ -995,7 +950,6 @@ Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 <p>Issuer provides the configuration for an external provider's specific settings.</p>
 -->
 <p>Issuer 为外部提供者的特定设置提供配置。</p>
-
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1019,7 +973,7 @@ Note that egress selection configuration is not used for this network connection
    此 URL 必须与所提供的 JWT 中的 &quot;iss&quot; 声明以及从发现中返回的颁发者匹配。
    与 --oidc-issuer-url 标志的值相同。
    除非被 discoveryURL 覆盖，否则发现信息将从 &quot;{url}/.well-known/openid-configuration&quot; 获取。
-   在所有 JWT 身份验证器中必须唯一。
+   在所有 JWT 身份认证器中必须唯一。
    请注意，此网络连接不使用出站流量选择配置。
    </p>
 </td>
@@ -1085,7 +1039,7 @@ curl https://oidc.oidc-namespace/.well-known/openid-configuration （discoveryUR
 </pre>
 </p>
 <p>discoveryURL 必须与 url 不同。
-在所有 JWT 身份验证器中必须唯一。
+在所有 JWT 身份认证器中必须唯一。
 请注意，此网络连接不使用出站流量选择配置。</p>
 </td>
 </tr>
@@ -1178,7 +1132,6 @@ example: claimValidationRule[].expression: 'sets.equivalent(claims.aud, [&quot;b
 </table>
 
 ## `JWTAuthenticator`     {#apiserver-k8s-io-v1beta1-JWTAuthenticator}
-    
 
 <!--
 **Appears in:**
@@ -1190,14 +1143,12 @@ example: claimValidationRule[].expression: 'sets.equivalent(claims.aud, [&quot;b
 <!--
 <p>JWTAuthenticator provides the configuration for a single JWT authenticator.</p>
 -->
-<p>JWTAuthenticator 为单个 JWT 身份验证器提供配置信息。</p>
-
+<p>JWTAuthenticator 为单个 JWT 身份认证器提供配置信息。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>issuer</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#apiserver-k8s-io-v1beta1-Issuer"><code>Issuer</code></a>
 </td>
@@ -1244,7 +1195,7 @@ These allow invariants to be applied to incoming identities such as preventing t
 use of the system: prefix that is commonly used by Kubernetes components.
 The validation rules are logically ANDed together and must all return true for the validation to pass.
    -->
-   userValidationRules 是在完成身份验证之前应用于最终用户的规则。
+   userValidationRules 是在完成身份认证之前应用于最终用户的规则。
    这些规则允许将不变量应用于传入的身份，例如禁止使用 Kubernetes 组件常用的 <code>system:</code> 前缀。
    验证规则在逻辑上是 AND 关系，必须全部返回 true 才能通过验证。
    </p>
@@ -1254,7 +1205,6 @@ The validation rules are logically ANDed together and must all return true for t
 </table>
 
 ## `PrefixedClaimOrExpression`     {#apiserver-k8s-io-v1beta1-PrefixedClaimOrExpression}
-    
 
 <!--
 **Appears in:**
@@ -1266,15 +1216,12 @@ The validation rules are logically ANDed together and must all return true for t
 <!--
 <p>PrefixedClaimOrExpression provides the configuration for a single prefixed claim or expression.</p>
 -->
-
 <p>PrefixedClaimOrExpression 为单个带前缀的声明或表达式提供配置。</p>
-
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>claim</code><br/>
 <code>string</code>
 </td>
@@ -1332,7 +1279,6 @@ Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 </tr>
 </tbody>
 </table>
-
 
 ## `ProtocolType`     {#apiserver-k8s-io-v1beta1-ProtocolType}
    
@@ -1448,7 +1394,7 @@ TLSConfig 为连接 konnectivity 服务器提供身份认证信息。仅用于 T
    Must be absent/empty if TCPTransport.URL is prefixed with http://
    Must be configured if TCPTransport.URL is prefixed with https://
    -->
-   clientKey 是与 konnectivity 服务器进行 mtls 握手时使用的客户端秘钥文件位置。
+   clientKey 是与 konnectivity 服务器进行 mTLS 握手时使用的客户端秘钥文件位置。
    如果 TCPTransport.URL 前缀为 http://，必须不指定或者为空；
    如果 TCPTransport.URL 前缀为 https://，必须设置。
    </p>
@@ -1464,7 +1410,7 @@ TLSConfig 为连接 konnectivity 服务器提供身份认证信息。仅用于 T
    Must be absent/empty if TCPTransport.URL is prefixed with http://
    Must be configured if TCPTransport.URL is prefixed with https://
    -->
-   <code>clientCert</code> 是与 konnectivity 服务器进行 mtls 握手时使用的客户端证书文件位置。
+   <code>clientCert</code> 是与 konnectivity 服务器进行 mTLS 握手时使用的客户端证书文件位置。
    如果 TCPTransport.URL 前缀为 http://，必须不指定或者为空；
    如果 TCPTransport.URL 前缀为 https://，必须设置。
    </p>
@@ -1564,10 +1510,7 @@ UDSTransport 设置通过 UDS 连接 konnectivity 服务器时需要的信息。
 </tbody>
 </table>  
 
-
-
 ## `UserValidationRule`     {#apiserver-k8s-io-v1beta1-UserValidationRule}
-    
 
 <!--
 **Appears in:**
@@ -1576,7 +1519,6 @@ UDSTransport 设置通过 UDS 连接 konnectivity 服务器时需要的信息。
 
 - [JWTAuthenticator](#apiserver-k8s-io-v1beta1-JWTAuthenticator)
 
-
 <p>
 <!--
 UserValidationRule provides the configuration for a single user info validation rule.
@@ -1584,12 +1526,10 @@ UserValidationRule provides the configuration for a single user info validation 
 UserValidationRule 为单个用户信息验证规则提供配置信息。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>expression</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -1638,7 +1578,6 @@ API 文档：https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28
 </table>
 
 ## `WebhookConfiguration`     {#apiserver-k8s-io-v1beta1-WebhookConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -1647,13 +1586,10 @@ API 文档：https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28
 
 - [AuthorizerConfiguration](#apiserver-k8s-io-v1beta1-AuthorizerConfiguration)
 
-
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>authorizedTTL</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
@@ -1697,7 +1633,7 @@ Required, no default value.
    -->
    Webhook 请求超时时间。
    允许的最大时间为 30 秒。
-   必填，没有默认值。
+   必需，没有默认值。
    </p>
 </td>
 </tr>
@@ -1715,7 +1651,7 @@ Required, no default value</p>
    <p>要发送到 Webhook 并期望从 Webhook 获得的 authorization.k8s.io SubjectAccessReview 的 API 版本。
 与设置 <code>--authorization-webhook-version</code> 标志相同。
 有效值：v1beta1、v1。
-必填，无默认值</p>
+必需，无默认值</p>
 </td>
 </tr>
 <tr><td><code>matchConditionSubjectAccessReviewVersion</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1730,8 +1666,7 @@ Valid values: v1
 Required, no default value
    -->
    matchConditionSubjectAccessReviewVersion 指定对 CEL 表达式求值时使用的 SubjectAccessReview 版本。
-   有效值：v1。
-   必填，无默认值。
+   有效值：v1。必需，无默认值。
    </p>
 </td>
 </tr>
@@ -1759,7 +1694,7 @@ Required, with no default.</li>
 <li>NoOpinion：继续执行后续鉴权组件，看其中是否有组件允许该请求；</li>
 <li>Deny：拒绝请求而不考虑后续鉴权组件。</li>
 </ul>
-必填，没有默认值。
+必需，没有默认值。
 </td>
 </tr>
 <tr><td><code>connectionInfo</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1811,7 +1746,6 @@ There are a maximum of 64 match conditions allowed.</p>
 </table>
 
 ## `WebhookConnectionInfo`     {#apiserver-k8s-io-v1beta1-WebhookConnectionInfo}
-    
 
 <!--
 **Appears in:**
@@ -1820,13 +1754,10 @@ There are a maximum of 64 match conditions allowed.</p>
 
 - [WebhookConfiguration](#apiserver-k8s-io-v1beta1-WebhookConfiguration)
 
-
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>type</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -1867,7 +1798,6 @@ Required, if connectionInfo.Type is KubeConfig
 </table>
 
 ## `WebhookMatchCondition`     {#apiserver-k8s-io-v1beta1-WebhookMatchCondition}
-    
 
 <!--
 **Appears in:**
@@ -1876,13 +1806,10 @@ Required, if connectionInfo.Type is KubeConfig
 
 - [WebhookConfiguration](#apiserver-k8s-io-v1beta1-WebhookConfiguration)
 
-
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>expression</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -1894,7 +1821,7 @@ If version specified by subjectAccessReviewVersion in the request variable is v1
 the contents would be converted to the v1 version before evaluating the CEL expression.</p>
 <p>Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/</p>
 -->
-   <p>表达式表示将由 CEL 求值的表达式。求值结果必须为布尔值。
+   <p>expression 表示将由 CEL 求值的表达式。求值结果必须为布尔值。
 CEL 表达式可以访问 v1 版本中的 SubjectAccessReview 的内容。
 如果请求变量中 subjectAccessReviewVersion 指定的版本是 v1beta1，
 在计算 CEL 表达式之前，内容将被转换为 v1 版本。</p>
