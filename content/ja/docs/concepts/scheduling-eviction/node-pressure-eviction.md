@@ -21,7 +21,7 @@ _分割イメージファイルシステム_ 機能は、`containerfs`ファイ�
 
 ノードのリソース枯渇による退避は、[APIを起点とした退避](/ja/docs/concepts/scheduling-eviction/api-eviction/)とは異なります。
 
-kubeletは、設定された{{<glossary_tooltip term_id="pod-disruption-budget" text="PodDisruptionBudget">}}やPodの`terminationGracePeriodSeconds`を考慮しません。
+kubeletは、設定した{{<glossary_tooltip term_id="pod-disruption-budget" text="PodDisruptionBudget">}}やPodの`terminationGracePeriodSeconds`を考慮しません。
 [ソフト退避](#soft-eviction-thresholds)の閾値を使用する場合は、kubeletは設定された`eviction-max-pod-grace-period`を順守します。
 [ハード退避](#hard-eviction-thresholds)の閾値を使用する場合は、kubeletは終了に`0秒`の猶予期間(即時シャットダウン)を使用します。
 
