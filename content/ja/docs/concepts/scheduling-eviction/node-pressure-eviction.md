@@ -9,7 +9,7 @@ weight: 100
 {{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
 
 {{<note>}}
-_分割イメージファイルシステム_ 機能は、`containerfs`ファイルシステムのサポートを有効にし、いくつかの新しい退避シグナル、閾値、メトリクスを追加します
+_分割イメージファイルシステム_ 機能は、`containerfs`ファイルシステムのサポートを有効にし、いくつかの新しい退避シグナル、閾値、メトリクスを追加します。
 `containerfs`を使用するには、Kubernetesリリース v{{< skew currentVersion >}}で`KubeletSeparateDiskGC`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。
 現在、`containerfs`ファイルシステムのサポートを提供しているのはCRI-O(v1.29以降)のみです。
 {{</note>}}
