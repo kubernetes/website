@@ -160,12 +160,12 @@ kubeletは猶予期間を指定しない場合、起動時にエラーを返し�
 
 kubeletには、次のデフォルトのハード退避閾値があります:
 
-- `memory.available<100Mi` (Linuxノード)
-- `memory.available<500Mi` (Windowsノード)
+- `memory.available<100Mi`(Linuxノード)
+- `memory.available<500Mi`(Windowsノード)
 - `nodefs.available<10%`
 - `imagefs.available<15%`
-- `nodefs.inodesFree<5%` (Linuxノード)
-- `imagefs.inodesFree<5%` (Linuxノード)
+- `nodefs.inodesFree<5%`(Linuxノード)
+- `imagefs.inodesFree<5%`(Linuxノード)
 
 これらのハード退避閾値のデフォルト値は、いずれのパラメーター値も変更されていない場合にのみ設定されます。
 いずれかのパラメーター値を変更すると、他のパラメーター値はデフォルト値として継承されず、ゼロに設定されます。
