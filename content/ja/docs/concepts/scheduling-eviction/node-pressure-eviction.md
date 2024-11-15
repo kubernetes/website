@@ -34,7 +34,7 @@ kubeletは、エンドユーザーのPodを終了する前に[ノードレベル
 
 ### static Podの自己修復
 
-リソースが圧迫されているノード上で[static pod](/ja/docs/concepts/workloads/pods/#static-pods)が実行されている場合、kubeletはそのstatic Podを退避することがあります。
+リソースが圧迫しているノード上で[static pod](/ja/docs/concepts/workloads/pods/#static-pods)が実行されている場合、kubeletはそのstatic Podを退避することがあります。
 static Podは常にそのノード上でPodを実行しようとするため、kubeletは代替Podの作成を試みます。
 
 kubeletは、代替Podを作成する際にstatic Podの`_priority_`を考慮します。
