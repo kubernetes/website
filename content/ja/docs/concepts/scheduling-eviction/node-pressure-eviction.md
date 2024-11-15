@@ -25,7 +25,7 @@ kubeletは、設定した{{<glossary_tooltip term_id="pod-disruption-budget" tex
 [ソフト退避](#soft-eviction-thresholds)の閾値を使用する場合は、kubeletは設定された`eviction-max-pod-grace-period`を順守します。
 [ハード退避](#hard-eviction-thresholds)の閾値を使用する場合は、kubeletは終了に`0秒`の猶予期間(即時シャットダウン)を使用します。
 
-## 自己修復動作
+## 自己修復の仕組み
 
 kubeletは、エンドユーザーのPodを終了する前に[ノードレベルのリソースを回収](#reclaim-node-resources)しようとします。
 例えば、ディスクリソースが枯渇している場合は未使用のコンテナイメージを削除します。
