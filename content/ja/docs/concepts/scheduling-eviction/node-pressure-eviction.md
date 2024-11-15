@@ -75,7 +75,7 @@ kubeletは、シグナルに関連付けられた総容量に対する割合を�
 #### メモリシグナル
 
 Linuxノード上では、`free -m`のようなツールの代わりにcgroupfsから`memory.available`の値が取得されます。
-これは重要なことであり、`free -m`はコンテナ内で動作せず、ユーザーが[ノードアロケータブル](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)機能を使用する場合、リソース不足の判断はルートノードと同様にcgroup階層のエンドユーザーPodの一部に対してローカルに行われます。
+これは重要なことであり、`free -m`はコンテナ内で動作せず、ユーザーが[Node Allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)機能を使用する場合、リソース不足の判断はルートノードと同様にcgroup階層のエンドユーザーPodの一部に対してローカルに行われるためです。
 この[スクリプト](/examples/admin/resource/memory-available.sh)または[cgroupv2スクリプト](/examples/admin/resource/memory-available-cgroupv2.sh)は、kubeletが`memory.available`を計算するために実行する一連の手順を再現します。
 kubeletは、圧迫下でもメモリが再利用可能であると想定しているため、inactive_file(非アクティブなLRUリスト上のファイルベースのメモリのバイト数)を計算から除外します。
 
