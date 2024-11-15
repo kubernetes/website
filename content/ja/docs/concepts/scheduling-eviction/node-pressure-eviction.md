@@ -375,7 +375,7 @@ Podの退避とは異なり、コンテナがOOMで強制終了された場合�
 ノードは、Podがリクエスト以上のメモリを使用している場合や、システムが1GiB以上のメモリを使用している場合に、退避閾値に達する可能性があります。
 これにより、`memory.available`シグナルが500MiBを下回り、閾値がトリガーされます。
 
-### DaemonSetとノード圧迫による退避 {#daemonset}
+### DaemonSetとノードの圧迫による退避 {#daemonset}
 
 Podの優先度は、退避の決定において重要な要素です。
 kubeletは、DaemonSetに属するPodを退避させたくない場合、そのPodのspecに適切な`priorityClassName`を指定して十分な優先度を与えることができます。
