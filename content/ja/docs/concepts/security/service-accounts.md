@@ -168,7 +168,7 @@ metadata:
 ## サービスアカウント資格情報の認証 {#authenticating-credentials}
 
 ServiceAccountは、Kubernetes APIサーバーおよび信頼関係が存在する他のシステムに対して、署名された{{<glossary_tooltip term_id="jwt" text="JSON Web Tokens">}} (JWTs) を使用して認証を行います。
-トークンの発行方法（`TokenRequest`を使用して時間制限付きで発行されるか、Secretを使用して従来のメカニズムで発行されるか）に応じて、ServiceAccountトークンには有効期限、オーディエンス、トークンが*有効になる*時間などが含まれる場合があります。
+トークンの発行方法(`TokenRequest`を使用して時間制限付きで発行されるか、Secretを使用して従来のメカニズムで発行されるか)に応じて、ServiceAccountトークンには有効期限、オーディエンス、トークンが*有効になる*時間などが含まれる場合があります。
 ServiceAccountとして機能しているクライアントがKubernetes APIサーバーと通信しようとすると、クライアントはHTTPリクエストに`Authorization: Bearer <token>`ヘッダーを含めます。
 APIサーバーは、次のようにしてBearerトークンの有効性を確認します:
 
