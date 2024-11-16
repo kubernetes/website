@@ -1,6 +1,6 @@
 module k8s.io/website
 
-go 1.22.0
+go 1.22
 
 require (
 	k8s.io/apimachinery v0.31.0
