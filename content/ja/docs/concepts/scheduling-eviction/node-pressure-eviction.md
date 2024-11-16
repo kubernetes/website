@@ -37,7 +37,7 @@ kubeletは、エンドユーザーのPodを終了する前に[ノードレベル
 リソースが圧迫しているノード上で[static pod](/ja/docs/concepts/workloads/pods/#static-pods)が実行されている場合、kubeletはそのstatic Podを退避することがあります。
 static Podは常にそのノード上でPodを実行しようとするため、kubeletは代替のPodの作成を試みます。
 
-kubeletは、代替のPodを作成する際にstatic Podの`_priority_`を考慮します。
+kubeletは、代替のPodを作成する際にstatic Podの _priority_ を考慮します。
 static Podのマニフェストで低い優先度が指定され、クラスターのコントロールプレーン内で定義されたより高い優先度のPodがあります。
 ノードのリソースが圧迫されている場合、kubeletはそのstatic Podのためにスペースを確保できない可能性があります。
 kubeletは、ノードのリソースが圧迫されている場合でもすべてのstatic Podの実行を試行し続けます。
