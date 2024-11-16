@@ -220,6 +220,6 @@ Kubernetesプロジェクトでは、TokenReview APIの使用を推奨してお�
 
 ## {{% heading "whatsnext" %}}
 
-* [クラスターの管理者としてServiceAccountを管理する]((/docs/reference/access-authn-authz/service-accounts-admin/))方法を学ぶ
+* [クラスターの管理者としてServiceAccountを管理する](/docs/reference/access-authn-authz/service-accounts-admin/)方法を学ぶ
 * [PodにServiceAccountを割り当てる方法](/docs/tasks/configure-pod-container/configure-service-account/)を学ぶ
 * [ServiceAccount APIリファレンス](/docs/reference/kubernetes-api/authentication-resources/service-account-v1/)を読む
