@@ -136,7 +136,7 @@ Kubernetesクラスターの外部で実行されるアプリケーションの�
 これにより認証が可能になりますが、Kubernetesプロジェクトではこのアプローチを避けることを推奨しています。
 長期間有効なBearerトークンは、一度漏洩するとトークンが悪用される可能性があるため、セキュリティリスクとなります。
 代わりとなる手段を検討してください。
-例えば、外部アプリケーションは、十分に保護された秘密鍵`と`証明書を使用して認証するか、独自に実装した[Webhook認証](/ja/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)などのカスタムメカニズムを使用して認証することもできます。
+例えば、外部アプリケーションは、十分に保護された秘密鍵 **と** 証明書を使用して認証するか、独自に実装した[Webhook認証](/ja/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)などのカスタムメカニズムを使用して認証することもできます。
 
 また、`TokenRequest`を使用して外部アプリケーションのために有効期間の短いのトークンを取得することもできます。
 {{< /note >}}
