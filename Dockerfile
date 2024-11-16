@@ -6,8 +6,6 @@
 
 FROM docker.io/library/golang:1.23.0-alpine3.20
 
-LABEL maintainer="Luc Perkins <lperkins@linuxfoundation.org>"
-
 RUN apk add --no-cache \
     curl \
     gcc \
