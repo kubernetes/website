@@ -179,7 +179,7 @@ APIサーバーは、次のようにしてBearerトークンの有効性を確�
 1. オーディエンス要求を確認します。
 
 TokenRequest APIは、ServiceAccountに _バインドされたトークン_ を生成します。
-このバインディングは、そのServiceAccountとして機能しているクライアント（Podなど）のライフタイムにリンクされています
+このバインディングは、そのServiceAccountとして機能しているクライアント(Podなど)のライフタイムにリンクされています
 バインドされたPodのサービスアカウントトークンのJWTスキーマとペイロードの例については、[トークンボリューム投影](/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)を参照してください。
 
 `TokenRequest` APIを使用して発行されたトークンの場合、APIサーバーは、そのオブジェクトの {{< glossary_tooltip term_id="uid" text="ユニークID" >}} と一致する、ServiceAccountを使用している特定のオブジェクト参照がまだ存在するかどうかも確認します。
