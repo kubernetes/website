@@ -100,20 +100,20 @@ Jobオブジェクトをリストする権限を付与するRoleオブジェク�
 ### PodにServiceAccountを割り当てる {#assign-to-pod}
 
 ServiceAccountをPodに割り当てるには、Podの仕様にある`spec.serviceAccountName`フィールドを設定します。
-Kubernetesは、そのServiceAccountの資格情報をPodに自動的に提供します。
+Kubernetesは、そのServiceAccountの認証情報をPodに自動的に提供します。
 v1.22以降では、Kubernetesは`TokenRequest` APIを使用して有効期間が短く**自動的にローテーションされる**トークンを取得し、そのトークンを[投影ボリューム](/ja/docs/concepts/storage/projected-volumes/#serviceaccounttoken)としてPodにマウントします。
 
-デフォルトではKubernetesは、ServiceAccountが`default` ServiceAccountか指定したカスタムServiceAccountであるかに関わらず、PodにそのServiceAccountの資格情報を提供します。
+デフォルトではKubernetesは、ServiceAccountが`default` ServiceAccountか指定したカスタムServiceAccountであるかに関わらず、PodにそのServiceAccountの認証情報を提供します。
 
-Kubernetesが指定されたServiceAccountまたは`default` ServiceAccountの資格情報を自動的に注入しないようにするには、Podの使用にある`automountServiceAccountToken`フィールドを`false`に設定します。
+Kubernetesが指定されたServiceAccountまたは`default` ServiceAccountの認証情報を自動的に注入しないようにするには、Podの使用にある`automountServiceAccountToken`フィールドを`false`に設定します。
 
 <!-- Kubernetes 1.31がリリースされた後、この履歴の詳細は削除しても問題ありません -->
 
 1.22より前のバージョンでは、Kubernetesは有効期間の長い静的なトークンをSecretとしてPodに提供します。
 
-#### ServiceAccount資格情報の手動取得 {#get-a-token}
+#### ServiceAccount認証情報の手動取得 {#get-a-token}
 
-ServiceAccountを標準以外の場所にマウントするための資格情報、またはAPIサーバー以外の対象向けの資格情報が必要な場合は、次のいずれかの方法を使用します:
+ServiceAccountを標準以外の場所にマウントするための認証情報、またはAPIサーバー以外の対象向けの認証情報が必要な場合は、次のいずれかの方法を使用します:
 
 * [TokenRequest API](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
   (推奨): 独自の*アプリケーションコード*から短期間のサービスアカウントトークンをリクエストします。
@@ -126,7 +126,7 @@ ServiceAccountを標準以外の場所にマウントするための資格情報
   (非推奨): サービスアカウントトークンをKubernetes SecretとしてPodにマウントできます。
   これらのトークンは期限切れになることも、ローテーションされることもありません。
   v1.24以前のバージョンでは、サービスアカウントごとに永続的なトークンが自動的に作成されていました。
-  この方法は、静的で有効期間の長い資格情報に関するリスクがあるため、特に大規模な環境では推奨されなくなりました。
+  この方法は、静的で有効期間の長い認証情報に関するリスクがあるため、特に大規模な環境では推奨されなくなりました。
   [LegacyServiceAccountTokenNoAutoGenerationフィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates-removed)により、Kubernetesが指定されたServiceAccountに対してこれらのトークンを自動的に作成するのを防止できました。
   このフィーチャーゲートはGAステータスに昇格したため、v1.27では削除されました。
   無期限のサービスアカウントトークンを手動で作成することは引き続き可能ですが、セキュリティ上の影響を考慮する必要があります。
@@ -165,7 +165,7 @@ metadata:
 
 これらの制限を理解して適用することで、クラスター管理者はより厳格なセキュリティプロファイルを維持し、適切なリソースのみがシークレットにアクセスできるようにします。
 
-## サービスアカウント資格情報の認証 {#authenticating-credentials}
+## サービスアカウント認証情報の認証 {#authenticating-credentials}
 
 ServiceAccountは、Kubernetes APIサーバーおよび信頼関係が存在する他のシステムに対して、署名された{{<glossary_tooltip term_id="jwt" text="JSON Web Tokens">}} (JWTs) を使用して認証を行います。
 トークンの発行方法(`TokenRequest`を使用して時間制限付きで発行されるか、Secretを使用して従来のメカニズムで発行されるか)に応じて、ServiceAccountトークンには有効期限、オーディエンス、トークンが*有効になる*時間などが含まれる場合があります。
@@ -187,9 +187,9 @@ PodにSecretとしてマウントされているレガシートークンの場�
 
 認証プロセスの詳細については、[認証](/ja/docs/reference/access-authn-authz/authentication/)を参照してください。
 
-### 独自のコードでサービスアカウントの資格情報を認証する {#authenticating-in-code}
+### 独自のコードでサービスアカウントの認証情報を認証する {#authenticating-in-code}
 
-Kubernetesサービスアカウントの資格情報の検証が必要なサービスがある場合、次の方法を使用できます:
+Kubernetesサービスアカウントの認証情報の検証が必要なサービスがある場合、次の方法を使用できます:
 
 * [TokenReview API](/docs/reference/kubernetes-api/authentication-resources/token-review-v1/)
   (推奨)
@@ -214,7 +214,7 @@ Kubernetesプロジェクトでは、TokenReview APIの使用を推奨してお�
   * クラウドプロバイダーなどの外部のIdentity
     and Access Management (IAM)サービスを使用して作成されたサービスアカウントまたはユーザーアカウントを使用して、クラスターに認証します。
   * [クライアント証明書でCertificateSigningRequest APIを使用します](/docs/tasks/tls/managing-tls-in-a-cluster/)。
-* [イメージレジストリから資格情報を取得するようにkubeletを構成する](/docs/tasks/administer-cluster/kubelet-credential-provider/).
+* [イメージレジストリから認証情報を取得するようにkubeletを構成する](/docs/tasks/administer-cluster/kubelet-credential-provider/).
 * Device Pluginを使用して仮想Trusted Platform Module (TPM)にアクセスし、秘密鍵を使用した認証を許可します。
 
 ## {{% heading "whatsnext" %}}
