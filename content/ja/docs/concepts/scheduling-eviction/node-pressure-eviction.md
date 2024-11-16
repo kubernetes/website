@@ -79,7 +79,7 @@ Linuxノード上では、`free -m`のようなツールの代わりにcgroupfs�
 この[スクリプト](/examples/admin/resource/memory-available.sh)または[cgroupv2スクリプト](/examples/admin/resource/memory-available-cgroupv2.sh)は、kubeletが`memory.available`を計算するために実行する一連の手順を再現します。
 kubeletは、圧迫下でもメモリが再利用可能であると想定しているため、inactive_file(非アクティブなLRUリスト上のファイルベースのメモリのバイト数)を計算から除外します。
 
-Windowsノードでは、`memory.available`の値は、ノードのグローバルメモリコミットレベル（[`GetPerformanceInfo()`](https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getperformanceinfo)システムコールによって参照）から、ノードの[`CommitLimit`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information)からノードのグローバル[`CommitTotal`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information)を減算することによって導出されます。
+Windowsノードでは、`memory.available`の値は、ノードのグローバルメモリコミットレベル([`GetPerformanceInfo()`](https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getperformanceinfo)システムコールによって参照)から、ノードの[`CommitLimit`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information)からノードのグローバル[`CommitTotal`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information)を減算することによって導出されます。
 `CommitTotal`は、ノード上のすべてのプロセスによって使用されるコミットされたメモリの合計です。
 
 #### ファイルシステムシグナル
