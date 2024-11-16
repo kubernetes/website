@@ -211,9 +211,8 @@ Kubernetesプロジェクトでは、TokenReview APIの使用を推奨してお�
   * [Istioなどのサービスメッシュを使用してPodに証明書を提供します](https://istio.io/latest/docs/tasks/security/cert-management/plugin-ca-cert/)。
 * サービスアカウントトークンを使用せずに、クラスター外部からAPIサーバーに認証します:
   * [IDプロバイダーからのOpenID Connect (OIDC)トークンを受け入れるようにAPIサーバーを構成します](/ja/docs/reference/access-authn-authz/authentication/#openid-connect-tokens)。
-  * Use service accounts or user accounts created using an external Identity
-    and Access Management (IAM) service, such as from a cloud provider, to
-    authenticate to your cluster.
+  * クラウドプロバイダーなどの外部のIdentity
+    and Access Management (IAM)サービスを使用して作成されたサービスアカウントまたはユーザーアカウントを使用して、クラスターに認証します。
   * [クライアント証明書でCertificateSigningRequest APIを使用します](/docs/tasks/tls/managing-tls-in-a-cluster/)。
 * [イメージレジストリから資格情報を取得するようにkubeletを構成する](/docs/tasks/administer-cluster/kubelet-credential-provider/).
 * Device Pluginを使用して仮想Trusted Platform Module (TPM)にアクセスし、秘密鍵を使用した認証を許可します。
