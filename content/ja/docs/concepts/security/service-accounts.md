@@ -62,7 +62,7 @@ NamespaceにPodをデプロイし、[Podに手動でServiceAccountを割り当�
 
 * PodがKubernetes APIサーバーと通信する必要がある場合、例えば次のような場合です:
   * Secretに保存されている機密情報への読み取り専用アクセスを提供します。
-  * [Namespaceをまたいだアクセス](#cross-namespace)を許可する、例えば、`example` NamespaceのPodが`kube-node-lease` NamespaceのLeaseオブジェクトを読み取り、一覧、監視することを許可します。
+  * [Namespaceをまたいだアクセス](#cross-namespace)を許可します。例えば、`example` NamespaceのPodが`kube-node-lease` NamespaceのLeaseオブジェクトを読み取り、一覧、監視することを許可します。
 * Podは外部サービスと通信する必要があります。例えば、ワークロードのPodには商用クラウドAPIのアイデンティティが必要であり、商用プロバイダーは適切な信頼関係の構成を許可する場合です。
 * [`imagePullSecret`を使用してプライベートイメージレジストリに認証する](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
 * 外部サービスはKubernetes APIサーバーと通信する必要があります。例えば、CI/CDパイプラインの一部としてクラスターに認証する必要がある場合です。
