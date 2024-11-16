@@ -66,7 +66,7 @@ NamespaceにPodをデプロイし、[Podに手動でServiceAccountを割り当�
 * Podが外部のサービスと通信する必要がある場合。例えば、ワークロードのPodには商用クラウドAPIのアイデンティティが必要であり、商用プロバイダーは適切な信頼関係の構成を許可する場合です。
 * [`imagePullSecret`を使用してプライベートイメージレジストリに認証する](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)場合。
 * 外部サービスがKubernetes APIサーバーと通信する必要がある場合。例えば、CI/CDパイプラインの一部としてクラスターに認証する必要がある場合です。
-* クラスター内でサードパーティのセキュリティソフトウェアを使用し、さまざまなPodのServiceAccountアイデンティティを使用してこれらのPodを異なるコンテキストにグループ化します。
+* クラスター内でサードパーティのセキュリティソフトウェアを使用する場合。さまざまなPodのServiceAccountアイデンティティを使用してこれらのPodを異なるコンテキストにグループ化します。
 
 ## サービスアカウントの使用方法 {#how-to-use}
 
