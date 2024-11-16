@@ -204,7 +204,7 @@ Kubernetesプロジェクトでは、TokenReview APIの使用を推奨してお�
 
 ## 代替案
 
-* 別のメカにずみを使用して独自のトークンを発行し、[Webhookトークン認証](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)を使用して、独自の検証サービスを使用してBearerトークンを検証します。
+* 別のメカニズムを使用して独自のトークンを発行し、[Webhookトークン認証](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)を使用して、独自の検証サービスを使用してBearerトークンを検証します。
 * Podに独自のアイデンティティを提供します。
   * [SPIFFE CSIドライバープラグインを使用して、SPIFFE SVID をX.509証明書ペアとしてPodに提供します](https://cert-manager.io/docs/projects/csi-driver-spiffe/)。
     {{% thirdparty-content single="true" %}}
