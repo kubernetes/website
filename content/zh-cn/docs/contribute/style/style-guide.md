@@ -1040,6 +1040,8 @@ Use ordered headings to provide a meaningful high-level outline of your content.
 Use pound or hash signs (`#`) for non-blog post content. | Use underlines (`---` or `===`) to designate first-level headings.
 Use sentence case for headings in the page body. For example, **Extend kubectl with plugins** | Use title case for headings in the page body. For example, **Extend Kubectl With Plugins**
 Use title case for the page title in the front matter. For example, `title: Kubernetes API Server Bypass Risks` | Use sentence case for page titles in the front matter. For example, don't use `title: Kubernetes API server bypass risks`
+Place relevant links in the body copy. | Include hyperlinks (`<a href=""></a>`) in headings.
+Use proper heading markers (`---` or `===`) to indicate headings. | Use **bold** text or other indicators to split paragraphs.
 {{< /table >}}
 -->
 {{< table caption = "标题约定" >}}
@@ -1050,6 +1052,8 @@ Use title case for the page title in the front matter. For example, `title: Kube
 在非博客内容页面中使用井号（`#`）| 使用下划线 `---` 或 `===` 来标记一级标题。
 页面正文中的小标题采用正常语句的大小写。例如：**Extend kubectl with plugins** | 页面正文中的小标题采用首字母大写的大标题式样。例如：**Extend Kubectl With Plugins**
 头部的页面标题采用大标题的式样。例如：`title: Kubernetes API Server Bypass Risks` | 头部的页面标题采用正常语句的大小写。例如不要使用 `title: Kubernetes API server bypass risks`
+将相关链接放在正文中。| 在标题中包含超链接（`<a href=""></a>`）。
+使用适当的标题标记（`---` 或 `===`）来指示标题。| 使用**粗体**文本或其他指示符来拆分段落。
 {{< /table >}}
 
 <!--
