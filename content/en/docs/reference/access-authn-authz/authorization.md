@@ -152,6 +152,16 @@ You should not use the `AlwaysAllow` mode on a Kubernetes cluster where the API 
 is reachable from the public internet.
 {{< /warning >}}
 
+### The system:masters group
+
+The `system:masters` group is a built-in Kubernetes group that grants unrestricted
+access to the API server. Any user assigned to this group has full cluster administrator
+privileges, bypassing any authorization restrictions imposed by the RBAC or Webhook mechanisms.
+[Avoid adding users](/docs/concepts/security/rbac-good-practices/#least-privilege)
+to this group. If you do need to grant a user cluster-admin rights, you can create a
+[ClusterRoleBinding](/docs/reference/access-authn-authz/rbac/#user-facing-roles)
+to the built-in `cluster-admin` ClusterRole.
+
 ### Authorization mode configuration {#choice-of-authz-config}
 
 You can configure the Kubernetes API server's authorizer chain using either
