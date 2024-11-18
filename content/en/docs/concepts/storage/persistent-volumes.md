@@ -478,7 +478,7 @@ administrator intervention.
 
 {{% /tab %}}
 {{% tab name="By requesting expansion to smaller size" %}}
-{{% feature-state for_k8s_version="v1.23" state="alpha" %}}
+{{< feature-state feature_gate_name="RecoverVolumeExpansionFailure" >}}
 
 {{< note >}}
 Recovery from failing PVC expansion by users is available as an beta feature
