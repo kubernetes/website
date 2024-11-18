@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Gateway API v1.2: WebSockets, Timeouts, Retries, and More"
-date: 2024-11-07T09:00:00-08:00
+date: 2024-11-21T09:00:00-08:00
 slug: gateway-api-v1-2
 author: Gateway API Contributors
 ---
