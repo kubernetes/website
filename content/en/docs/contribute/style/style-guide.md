@@ -511,7 +511,7 @@ Use pound or hash signs (`#`) for non-blog post content. | Use underlines (`---`
 Use sentence case for headings in the page body. For example, **Extend kubectl with plugins** | Use title case for headings in the page body. For example, **Extend Kubectl With Plugins**
 Use title case for the page title in the front matter. For example, `title: Kubernetes API Server Bypass Risks` | Use sentence case for page titles in the front matter. For example, don't use `title: Kubernetes API server bypass risks`
 Place relevant links in the body copy. | Include hyperlinks (`<a href=""></a>`) in headings.
-Use proper heading markers (`---` or `===`) to indicate headings. | Use **bold** text or other indicators to split paragraphs.
+Use pound or hash signs (`#`) to indicate headings. | Use **bold** text or other indicators to split paragraphs.
 {{< /table >}}
 
 ### Paragraphs
