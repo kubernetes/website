@@ -7,21 +7,21 @@ weight: 10
 ## {{% heading "prerequisites" %}}
 
 Você deve usar uma versão do kubectl que esteja próxima da versão do seu cluster.
-Por exemplo, um cliente v{{< skew currentVersion >}} pode se comunicar
-com control planes nas versões v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
-e v{{< skew currentVersionAddMinor 1 >}}.
-Usar a versão compatível e mais recente do kubectl pode evitar imprevistos ou problemas.
+Por exemplo, um cliente v{{< skew currentVersion >}} pode se comunicar com as
+versões v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}
+e v{{< skew currentVersionAddMinor 1 >}} da camada de gerenciamento. Usar a
+versão compatível mais recente do kubectl ajuda a evitar problemas inesperados.
 
 ## Instalando o kubectl no macOS
 
 Existem os seguintes métodos para instalar o kubectl no macOS:
 
-- [Instalar kubectl no macOS](#instalar-kubectl-no-macos)
+- [Instalando o kubectl no macOS](#instalando-o-kubectl-no-macos)
   - [Instalar o kubectl com curl no macOS](#instalar-o-kubectl-com-o-curl-no-macos)
   - [Instalar com Homebrew no macOS](#instalar-com-homebrew-no-macos)
   - [Instalar com Macports no macOS](#instalar-com-macports-no-macos)
 - [Verificar a configuração do kubectl](#verificar-a-configuração-do-kubectl)
-- [Plugins e ajustes opcionais do kubectl](#plugins-e-ajustes-opcionais-do-kubectl)
+- [Configurações e plugins opcionais do kubectl](#configurações-e-plugins-opcionais-do-kubectl)
   - [Habilitar o autocompletar no shell](#ative-o-autocompletar-no-shell)
   - [Instalar o plugin `kubectl convert`](#instalar-kubectl-convert-plugin)
 
