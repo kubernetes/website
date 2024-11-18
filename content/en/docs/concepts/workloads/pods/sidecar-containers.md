@@ -92,7 +92,7 @@ Here's an example of a Job with two containers, one of which is a sidecar:
 
 ### Sidecar containers defined outside of `initContainers` field (legacy approach) {#sidecar-container-legacy-approach}
 
-Compared to regularly defined within `initContainers`, you could 
+Compared to defining `initContainers` separately, you could 
 directly use multiple `.spec.containers` definitions for a Pod. If you do so, the
 kubelet starts the containers from the ordered `.spec.containers` list.
 
