@@ -8,12 +8,15 @@ author: Gateway API Contributors
 
 ![Gateway API logo](gateway-api-logo.svg)
 
-Kubernetes SIG Network is delighted to announce the v1.2 release of [Gateway
-API](https://gateway-api.sigs.k8s.io/)! This release brings a number of new
-features to the _Standard channel_ (Gateway API's GA release channel),
-introduces some new experimental features, and inaugurates our new release
-process -- but it also brings two breaking changes that you'll want to be
-careful of.
+Kubernetes SIG Network is delighted to announce the general availability of
+[Gateway API](https://gateway-api.sigs.k8s.io/) v1.2! This version of the API
+was released on October 3, and we're delighted to report that we now have a
+number of conformant implementations of it for you to try out.
+
+Gateway API v1.2 brings a number of new features to the _Standard channel_
+(Gateway API's GA release channel), introduces some new experimental features,
+and inaugurates our new release process -- but it also brings two breaking
+changes that you'll want to be careful of.
 
 ## BREAKING CHANGES
 
@@ -368,11 +371,10 @@ process:
   the required upstream review, build release candidates, and release the new
   version.
 
-Gateway API 1.2.0 is the first release to use the new process, and although
+Gateway API 1.2.0 was the first release to use the new process, and although
 there are the usual rough edges of anything new, we believe that it went well.
-To that end, we've just started the Scoping phase for Gateway API 1.3, which
-will end on November 19, 2024, with the release expected around the end of
-January 2025.
+We've already completed the Scoping phase for Gateway API 1.3, with the
+release expected around the end of January 2025.
 
 ### `gwctl` moves out
 
