@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: capacity-reservation
+  # You should decide what namespace to deploy this into
 spec:
   replicas: 1
   selector:
