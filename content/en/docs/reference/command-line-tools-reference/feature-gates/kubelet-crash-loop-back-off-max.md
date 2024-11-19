@@ -11,4 +11,4 @@ stages:
     fromVersion: "1.32"
 ---
 Enables support for configurable per-node backoff maximums for restarting
-containers (aka containers in CrashLoopBackOff)
+containers in the CrashLoopBackOff state.
