@@ -33,7 +33,6 @@
 <script src="https://unpkg.com/lunr@2.1.6/lunr.js"></script>
 <script src="/js/offline-search.js"></script>
 {{end}}
-{{ partial "hooks/head-end.html" . }}
 
 <!-- Docsy head.html ends here -->
 
@@ -78,11 +77,11 @@
 <!--script src="https://unpkg.com/split.js/dist/split.min.js"></script-->
 <script src="/js/split-1.6.0.js" intregrity="sha384-0blL3GqHy6+9fw0cyY2Aoiwg4onHAtslAs4OkqZY7UQBrR65/K4gI+hxLdWDrjpz"></script>
 
-<!--Script for dismissing banners/notices-->
-<script defer src="{{ "js/dismiss_banner.js" | relURL }}"></script>
-
 {{- if eq (lower .Params.cid) "community" -}}
 <script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 {{- end -}}
 {{ with .Params.js }}{{ range (split . ",") }}<script src="{{ (trim . " ") | relURL }}"></script><!-- custom js added -->
 {{ end }}{{ else }}<!-- no custom js detected -->{{ end }}
+
+{{/* make sure that head-end hook comes last */}}
+{{ partial "hooks/head-end.html" . }}
