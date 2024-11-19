@@ -262,7 +262,7 @@ explains the behaviour of `init containers` when specify `restartpolicy` field o
 
 ### Configurable container restart delay
 
-{{< feature-state for_k8s_version="v1.32" state="alpha" >}}
+{{< feature-state feature_state_name="KubeletCrashLoopBackOffMax" >}}
 
 With the alpha feature gate `KubeletCrashLoopBackOffMax` enabled, you can
 reconfigure the maximum delay between container restarts from the default of
