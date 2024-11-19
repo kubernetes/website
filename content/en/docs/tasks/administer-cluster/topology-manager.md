@@ -60,9 +60,10 @@ resource allocation decisions.
 
 ## Windows Support
 
-{{< feature-state for_k8s_version="v1.32" state="alpha" feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
+{{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
 
-The Topology Manager support can be enabled on Windows by using the `WindowsCPUAndMemoryAffinity` feature flag and requires a support in the container runtime.  
+The Topology Manager support can be enabled on Windows by using the `WindowsCPUAndMemoryAffinity` feature gate and
+it requires a support in the container runtime.  
 
 ## Topology manager scopes and policies
 

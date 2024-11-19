@@ -46,7 +46,7 @@ Preceding v1.22, the `kubelet` must be started with the following flag:
 
 in order to enable the Memory Manager feature.
 
-## How does the Memory Manager Operates?
+## How does the Memory Manager Operate?
 
 The Memory Manager currently offers the guaranteed memory (and hugepages) allocation
 for Pods in Guaranteed QoS class.
@@ -93,9 +93,10 @@ illustrates how the management of groups occurs.
 
 ### Windows Support
 
-{{< feature-state for_k8s_version="v1.32" state="alpha" feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
+{{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
 
-Windows support can be enabled via the `WindowsCPUAndMemoryAffinity` feature gate and requires a support in the container runtime.  Only the [BestEffort Policy](#policy-best-effort) is supported on Windows.
+Windows support can be enabled via the `WindowsCPUAndMemoryAffinity` feature gate and requires a support in the container runtime.
+Only the [BestEffort Policy](#policy-best-effort) is supported on Windows.
 
 ## Memory Manager configuration
 
@@ -130,17 +131,17 @@ In the case of the `BestEffort` or `Burstable` pod, the `Static` Memory Manager 
 the default topology hint as there is no request for the guaranteed memory,
 and does not reserve the memory in the internal [NodeMap][2] object.
 
-This policy is only Supported on Linux.
+This policy is only supported on Linux.
 
 #### BestEffort policy {#policy-best-effort}
 
-{{< feature-state for_k8s_version="v1.32" state="alpha" feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
+{{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
 
-This policy is only Support on Windows.
+This policy is only supported on Windows.
 
-On Windows, NUMA node assignment works differently than Linux.  There is no mechanism
-to ensure that Memory access only comes from a specific NUMA node, instead the Windows
-internals will select the most optimal NUMA node based on the CPU assignment and it is
+On Windows, NUMA node assignment works differently from Linux.  There is no mechanism
+to ensure that memory access only comes from a specific NUMA node, instead the Windows
+scheduler will select the most optimal NUMA node based on the CPU assignments and it is
 possible that Windows might use other nodes if required or deemed optimal.  For this
 reason this policy is best effort.  
 
