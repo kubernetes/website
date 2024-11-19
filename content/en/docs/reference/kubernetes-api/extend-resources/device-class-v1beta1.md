@@ -1,31 +1,22 @@
 ---
 api_metadata:
-  apiVersion: "resource.k8s.io/v1alpha3"
-  import: "k8s.io/api/resource/v1alpha3"
+  apiVersion: "resource.k8s.io/v1beta1"
+  import: "k8s.io/api/resource/v1beta1"
   kind: "DeviceClass"
 content_type: "api_reference"
 description: "DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors."
-title: "DeviceClass v1alpha3"
+title: "DeviceClass v1beta1"
 weight: 2
 auto_generated: true
 ---
 
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
-
-TODO: this file should be under "workload-resources".
+The file was copied and updated manually from the v1alpha3 API.
 -->
 
-`apiVersion: resource.k8s.io/v1alpha3`
+`apiVersion: resource.k8s.io/v1beta1`
 
-`import "k8s.io/api/resource/v1alpha3"`
+`import "k8s.io/api/resource/v1beta1"`
 
 
 ## DeviceClass {#DeviceClass}
@@ -36,7 +27,7 @@ This is an alpha type and requires enabling the DynamicResourceAllocation featur
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1alpha3
+- **apiVersion**: resource.k8s.io/v1beta1
 
 
 - **kind**: DeviceClass
@@ -46,7 +37,7 @@ This is an alpha type and requires enabling the DynamicResourceAllocation featur
 
   Standard object metadata
 
-- **spec** (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClassSpec" >}}">DeviceClassSpec</a>), required
+- **spec** (<a href="{{< ref "../extend-resources/device-class-v1beta1#DeviceClassSpec" >}}">DeviceClassSpec</a>), required
 
   Spec defines what can be allocated and how to configure it.
   
@@ -222,7 +213,7 @@ DeviceClassList is a collection of classes.
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1alpha3
+- **apiVersion**: resource.k8s.io/v1beta1
 
 
 - **kind**: DeviceClassList
@@ -232,7 +223,7 @@ DeviceClassList is a collection of classes.
 
   Standard list metadata
 
-- **items** ([]<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>), required
+- **items** ([]<a href="{{< ref "../extend-resources/device-class-v1beta1#DeviceClass" >}}">DeviceClass</a>), required
 
   Items is the list of resource classes.
 
@@ -255,7 +246,7 @@ DeviceClassList is a collection of classes.
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
+GET /apis/resource.k8s.io/v1beta1/deviceclasses/{name}
 
 #### Parameters
 
@@ -274,7 +265,7 @@ GET /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1beta1#DeviceClass" >}}">DeviceClass</a>): OK
 
 401: Unauthorized
 
@@ -283,7 +274,7 @@ GET /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1alpha3/deviceclasses
+GET /apis/resource.k8s.io/v1beta1/deviceclasses
 
 #### Parameters
 
@@ -347,7 +338,7 @@ GET /apis/resource.k8s.io/v1alpha3/deviceclasses
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClassList" >}}">DeviceClassList</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1beta1#DeviceClassList" >}}">DeviceClassList</a>): OK
 
 401: Unauthorized
 
@@ -356,12 +347,12 @@ GET /apis/resource.k8s.io/v1alpha3/deviceclasses
 
 #### HTTP Request
 
-POST /apis/resource.k8s.io/v1alpha3/deviceclasses
+POST /apis/resource.k8s.io/v1beta1/deviceclasses
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>, required
+- **body**: <a href="{{< ref "../extend-resources/device-class-v1beta1#DeviceClass" >}}">DeviceClass</a>, required
 
   
 
@@ -390,11 +381,11 @@ POST /apis/resource.k8s.io/v1alpha3/deviceclasses
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1beta1#DeviceClass" >}}">DeviceClass</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): Created
+201 (<a href="{{< ref "../extend-resources/device-class-v1beta1#DeviceClass" >}}">DeviceClass</a>): Created
 
-202 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): Accepted
+202 (<a href="{{< ref "../extend-resources/device-class-v1beta1#DeviceClass" >}}">DeviceClass</a>): Accepted
 
 401: Unauthorized
 
@@ -403,7 +394,7 @@ POST /apis/resource.k8s.io/v1alpha3/deviceclasses
 
 #### HTTP Request
 
-PUT /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
+PUT /apis/resource.k8s.io/v1beta1/deviceclasses/{name}
 
 #### Parameters
 
@@ -413,7 +404,7 @@ PUT /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
   name of the DeviceClass
 
 
-- **body**: <a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>, required
+- **body**: <a href="{{< ref "../extend-resources/device-class-v1beta1#DeviceClass" >}}">DeviceClass</a>, required
 
   
 
@@ -442,9 +433,9 @@ PUT /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1beta1#DeviceClass" >}}">DeviceClass</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): Created
+201 (<a href="{{< ref "../extend-resources/device-class-v1beta1#DeviceClass" >}}">DeviceClass</a>): Created
 
 401: Unauthorized
 
@@ -453,7 +444,7 @@ PUT /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
 
 #### HTTP Request
 
-PATCH /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
+PATCH /apis/resource.k8s.io/v1beta1/deviceclasses/{name}
 
 #### Parameters
 
@@ -497,9 +488,9 @@ PATCH /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1beta1#DeviceClass" >}}">DeviceClass</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): Created
+201 (<a href="{{< ref "../extend-resources/device-class-v1beta1#DeviceClass" >}}">DeviceClass</a>): Created
 
 401: Unauthorized
 
@@ -508,7 +499,7 @@ PATCH /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
+DELETE /apis/resource.k8s.io/v1beta1/deviceclasses/{name}
 
 #### Parameters
 
@@ -547,9 +538,9 @@ DELETE /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1beta1#DeviceClass" >}}">DeviceClass</a>): OK
 
-202 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): Accepted
+202 (<a href="{{< ref "../extend-resources/device-class-v1beta1#DeviceClass" >}}">DeviceClass</a>): Accepted
 
 401: Unauthorized
 
@@ -558,7 +549,7 @@ DELETE /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1alpha3/deviceclasses
+DELETE /apis/resource.k8s.io/v1beta1/deviceclasses
 
 #### Parameters
 

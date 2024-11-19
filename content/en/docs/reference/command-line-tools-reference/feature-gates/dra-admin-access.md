@@ -15,4 +15,4 @@ in a ResourceClaim. A ResourceClaim
 with admin access grants access to devices which are in use and may enable
 additional access permissions when making the device available in a container.
 
-Has no effect unless DynamicResourceAllocation is also enabled.
+This feature gate has no effect unless you also enable the `DynamicResourceAllocation` feature gate.

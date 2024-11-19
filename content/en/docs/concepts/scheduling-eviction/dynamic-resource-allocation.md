@@ -5,6 +5,15 @@ reviewers:
 title: Dynamic Resource Allocation
 content_type: concept
 weight: 65
+api_metadata:
+- apiVersion: "resource.k8s.io/v1beta1"
+  kind: "ResourceClaim"
+- apiVersion: "resource.k8s.io/v1beta1"
+  kind: "ResourceClaimTemplate"
+- apiVersion: "resource.k8s.io/v1beta1"
+  kind: "DeviceClass"
+- apiVersion: "resource.k8s.io/v1beta1"
+  kind: "ResourceSlice"
 ---
 
 <!-- overview -->
@@ -204,7 +213,8 @@ the `.spec.nodeName` field and to use a node selector instead.
 
 {{< feature-state feature_gate_name="DRAAdminAccess" >}}
 
-A ResourceClaim with admin access grants access to devices which are in use and
+You can mark a request in a ResourceClaim or ResourceClaimTemplate as having privileged features.
+A request with admin access grants access to devices which are in use and
 may enable additional permissions when making the device available in a
 container:
 
@@ -227,9 +237,75 @@ automatically when creating such a ResourceClaim.
 
 Admin access is a privileged mode which should not be made available to normal
 users in a multi-tenant cluster. Cluster administrators can restrict usage of
-this features by installing a validating admission policy similar to
-[the in-tree example](https://github.com/kubernetes/kubernetes/blob/33ea278/test/e2e/dra/test-driver/deploy/example/admin-access-policy.yaml)
-when enabling this feature.
+this feature by installing a validating admission policy similar to the following
+example. Cluster administrators need to adapt at least the names and replace
+"dra.example.com".
+
+```yaml
+# Permission to use admin access is granted only in namespaces which have the
+# "admin-access.dra.example.com" label. Other ways of making that decision are
+# also possible.
+
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: resourceclaim-policy.dra.example.com
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["resource.k8s.io"]
+      apiVersions: ["v1alpha3", "v1beta1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["resourceclaims"]
+  validations:
+    - expression: '! object.spec.devices.requests.exists(e, has(e.adminAccess) && e.adminAccess)'
+      reason: Forbidden
+      messageExpression: '"admin access to devices not enabled"'
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: resourceclaim-binding.dra.example.com
+spec:
+  policyName:  resourceclaim-policy.dra.example.com
+  validationActions: [Deny]
+  matchResources:
+    namespaceSelector:
+      matchExpressions:
+      - key: admin-access.dra.example.com
+        operator: DoesNotExist
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: resourceclaimtemplate-policy.dra.example.com
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["resource.k8s.io"]
+      apiVersions: ["v1alpha3", "v1beta1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["resourceclaimtemplates"]
+  validations:
+    - expression: '! object.spec.spec.devices.requests.exists(e, has(e.adminAccess) && e.adminAccess)'
+      reason: Forbidden
+      messageExpression: '"admin access to devices not enabled"'
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: resourceclaimtemplate-binding.dra.example.com
+spec:
+  policyName:  resourceclaimtemplate-policy.dra.example.com
+  validationActions: [Deny]
+  matchResources:
+    namespaceSelector:
+      matchExpressions:
+      - key: admin-access.dra.example.com
+        operator: DoesNotExist
+```
 
 ## ResourceClaim Device Status
 
@@ -291,7 +367,7 @@ be installed. Please refer to the driver's documentation for details.
 
 ### Enabling admin access
 
-Admin access is an *alpha feature* and only enabled when the
+[Admin access](#admin-access) is an *alpha feature* and only enabled when the
 `DRAAdminAccess` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled in the kube-apiserver and kube-scheduler.
 
