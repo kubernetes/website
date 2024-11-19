@@ -674,6 +674,8 @@ For more information, you can refer to the [documentation about this annotation]
 {{< warning >}}
 Any containers that run with `privileged: true` on a node can access all
 Secrets used on that node.
+
+`kubernetes.io/enforce-mountable-secrets` is deprecated in v1.32+. Use separate namespaces to isolate access to mounted secrets.
 {{< /warning >}}
 
 ## {{% heading "whatsnext" %}}

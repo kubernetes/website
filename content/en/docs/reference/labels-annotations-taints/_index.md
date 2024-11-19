@@ -806,6 +806,10 @@ This annotation is used for describing specific behaviour of given object.
 
 ### kubernetes.io/enforce-mountable-secrets {#enforce-mountable-secrets}
 
+{{< warning >}}
+`kubernetes.io/enforce-mountable-secrets` is deprecated in v1.32+. Use separate namespaces to isolate access to mounted secrets.
+{{< /warning >}}
+
 Type: Annotation
 
 Example: `kubernetes.io/enforce-mountable-secrets: "true"`
