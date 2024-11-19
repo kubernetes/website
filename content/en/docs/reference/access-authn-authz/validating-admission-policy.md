@@ -263,12 +263,14 @@ The `paramRef` field specifies the parameter resource used by the policy. It has
 
 One of `name` or `selector` must be set, but not both.
 
-**Note:** The `parameterNotFoundAction` field in `paramRef` is **required**. It specifies the action to take when no parameters are found matching the `paramRef`. If not specified, the policy binding may be considered invalid and will be ignored or could lead to unexpected behavior.
+{{< note >}}
+The `parameterNotFoundAction` field in `paramRef` is **required**. It specifies the action to take when no parameters are found matching the `paramRef`. If not specified, the policy binding may be considered invalid and will be ignored or could lead to unexpected behavior.
 
 - **`Allow`**: If set to `Allow`, and no parameters are found, the binding treats the absence of parameters as a successful validation, and the policy is considered to have passed.
 - **`Deny`**: If set to `Deny`, and no parameters are found, the binding enforces the `failurePolicy` of the policy. If the `failurePolicy` is `Fail`, the request is rejected.
 
 Make sure to set `parameterNotFoundAction` according to the desired behavior when parameters are missing.
+{{< /note >}}
 
 #### Handling Missing Parameters with `parameterNotFoundAction`
 
