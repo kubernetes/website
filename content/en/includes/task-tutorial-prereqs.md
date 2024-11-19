@@ -1,8 +1,6 @@
-You need to have a Kubernetes cluster, and the kubectl command-line tool must
-be configured to communicate with your cluster. It is recommended to run this tutorial on a cluster with at least two nodes that are not acting as control plane hosts. If you do not already have a
-cluster, you can create one by using
-[minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/)
-or you can use one of these Kubernetes playgrounds:
+* You have a Kubernetes cluster with a least two nodes that aren't
+  control plane hosts.
 
-* [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
-* [Play with Kubernetes](https://labs.play-with-k8s.com/)
+  <!-- We previously digressed a good bit here talking about how to create a cluster.
+  I'd keep it brief and provide a link for users that need it. -->
+  To create a cluster, see [Using Minikube to Create a Cluster](/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/).
