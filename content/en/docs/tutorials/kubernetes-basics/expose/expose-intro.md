@@ -22,6 +22,11 @@ each Pod in a Kubernetes cluster has a unique IP address, even Pods on the same 
 so there needs to be a way of automatically reconciling changes among Pods so that your
 applications continue to function.
 
+{{% alert %}}
+_A Kubernetes Service is an abstraction layer which defines a logical set of Pods and
+enables external traffic exposure, load balancing and service discovery for those Pods._
+{{% /alert %}}
+
 A [Service](/docs/concepts/services-networking/service/) in Kubernetes is an abstraction
 which defines a logical set of Pods and a policy by which to access them. Services
 enable a loose coupling between dependent Pods. A Service is defined using YAML or JSON,
@@ -146,7 +151,6 @@ Then use the given URL to access the app:
 ```shell
 curl 127.0.0.1:51082
 ```
-
 {{< /note >}}
 
 And we get a response from the server. The Service is exposed.
