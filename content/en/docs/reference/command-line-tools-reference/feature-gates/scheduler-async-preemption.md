@@ -11,5 +11,6 @@ stages:
     fromVersion: "1.32"
 ---
 
-Running some expensive operation within [the scheduler's preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/) asynchronously,
-which improves the scheduling latency when the preemption involves in.
+Enable running some expensive operations within the scheduler, associated with
+[preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/), asynchronously.
+Asynchronous processing of preemption improves overall Pod scheduling latency.
