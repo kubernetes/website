@@ -9,6 +9,11 @@ Perform a rolling update using kubectl.
 
 ## Updating an application
 
+{{% alert %}}
+_Rolling updates allow Deployments' update to take place with zero downtime by
+incrementally updating Pods instances with new ones._
+{{% /alert %}}
+
 Users expect applications to be available all the time, and developers are expected
 to deploy new versions of them several times a day. In Kubernetes this is done with
 rolling updates. A **rolling update** allows a Deployment update to take place with
@@ -28,34 +33,27 @@ versioned and any Deployment update can be reverted to a previous (stable) versi
 <!-- animation -->
 <div class="col-md-8">
   <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
-      <li data-target="#myCarousel" data-slide-to="3"></li>
-    </ol>
-      <div class="carousel-inner" role="listbox">
-        <div class="item carousel-item active">
-          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates1.svg">
-        </div>
-        <div class="item carousel-item">
-          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates2.svg">
-        </div>
-        <div class="item carousel-item">
-          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates3.svg">
-        </div>
-        <div class="item carousel-item">
-          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates4.svg">
-        </div>
+    <div class="carousel-inner" role="listbox">
+      <div class="item carousel-item active">
+        <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates1.svg">
       </div>
-      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="sr-only ">Previous</span>
-      </a>
-      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="sr-only">Next</span>
-      </a>
+      <div class="item carousel-item">
+        <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates2.svg">
+      </div>
+      <div class="item carousel-item">
+        <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates3.svg">
+      </div>
+      <div class="item carousel-item">
+        <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates4.svg">
+      </div>
     </div>
+  </div>
 </div>
+
+{{% alert %}}
+_If a Deployment is exposed publicly, the Service will load-balance the traffic
+only to available Pods during the update._
+{{% /alert %}}
 
 Similar to application Scaling, if a Deployment is exposed publicly, the Service
 will load-balance the traffic only to available Pods during the update. An available
@@ -206,7 +204,7 @@ kubectl describe pods
 The Deployment is once again using a stable version of the app (`v2`). The rollback
 was successful.
 
-Remember to clean up your local cluster
+Remember to clean up your local cluster.
 
 ```shell
 kubectl delete deployments/kubernetes-bootcamp services/kubernetes-bootcamp
