@@ -11,13 +11,11 @@ weight: 10
 
 ## Kubernetes Clusters
 
-<div class="col-md-8">
-  <div class="content__box content__box_fill">
-    <p><i>Kubernetes is a production-grade, open-source platform that orchestrates
-      the placement (scheduling) and execution of application containers
-      within and across computer clusters.</i></p>
-  </div>
-</div>
+{{% alert %}}
+_Kubernetes is a production-grade, open-source platform that orchestrates
+the placement (scheduling) and execution of application containers
+within and across computer clusters._
+{{% /alert %}}
 
 **Kubernetes coordinates a highly available cluster of computers that are connected
 to work as a single unit.** The abstractions in Kubernetes allow you to deploy
@@ -43,11 +41,10 @@ A Kubernetes cluster consists of two types of resources:
 coordinates all activities in your cluster, such as scheduling applications, maintaining
 applications' desired state, scaling applications, and rolling out new updates.
 
-<div class="col-md-8">
-  <div style="background-color: #eaf7ff; border-left: 5px solid #3771e3; padding: 15px; margin: 20px 0;">
-    <p><i>Control Planes manage the cluster and the nodes that are used to host the running applications.</i></p>
-  </div>
-</div>
+{{% alert %}}
+_Control Planes manage the cluster and the nodes that are used to host the running
+applications._
+{{% /alert %}}
 
 **A node is a VM or a physical computer that serves as a worker machine in a Kubernetes
 cluster.** Each node has a Kubelet, which is an agent for managing the node and
