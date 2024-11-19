@@ -789,6 +789,10 @@ Regarding the annotation `kubernetes.io/enforce-mountable-secrets`: While the an
 its enforcement also extends to other ways Secrets are used in the context of a Pod.
 Therefore, it is crucial to ensure that all the referenced secrets are correctly specified in the ServiceAccount.
 
+{{< warning >}}
+`kubernetes.io/enforce-mountable-secrets` is deprecated in v1.32+. Use separate namespaces to isolate access to mounted secrets.
+{{< /warning >}}
+
 ### StorageObjectInUseProtection
 
 **Type**: Mutating.

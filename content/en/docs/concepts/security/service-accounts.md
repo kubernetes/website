@@ -199,6 +199,10 @@ You can also use TokenRequest to obtain short-lived tokens for your external app
 
 ### Restricting access to Secrets {#enforce-mountable-secrets}
 
+{{< warning >}}
+`kubernetes.io/enforce-mountable-secrets` is deprecated in v1.32+. Use separate namespaces to isolate access to mounted secrets.
+{{< /warning >}}
+
 Kubernetes provides an annotation called `kubernetes.io/enforce-mountable-secrets`
 that you can add to your ServiceAccounts. When this annotation is applied,
 the ServiceAccount's secrets can only be mounted on specified types of resources,

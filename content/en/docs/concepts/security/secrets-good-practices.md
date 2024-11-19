@@ -68,6 +68,10 @@ You can also use the `kubernetes.io/enforce-mountable-secrets` annotation on
 a ServiceAccount to enforce specific rules on how Secrets are used in a Pod.
 For more details, see the [documentation on this annotation](/docs/reference/labels-annotations-taints/#enforce-mountable-secrets).
 
+{{< warning >}}
+`kubernetes.io/enforce-mountable-secrets` is deprecated in v1.32+. Use separate namespaces to isolate access to mounted secrets.
+{{< /warning >}}
+
 ### Improve etcd management policies
 
 Consider wiping or shredding the durable storage used by `etcd` once it is
