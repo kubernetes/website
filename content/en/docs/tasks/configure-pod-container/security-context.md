@@ -715,7 +715,7 @@ For Pods that want to opt-out from relabeling using mount options, they can set
 when multiple pods share a single volume on the same node, but they run with
 different SELinux labels that allows simultaneous access to the volume. For example, a privileged pod
 running with label `spc_t` and an unprivileged pod running with the default label `container_file_t`.
-With unset `spec.securityContext.seLinuxChangePolicy` (or with the value `MountOption`),
+With unset `spec.securityContext.seLinuxChangePolicy` (or with the default value `MountOption`),
 only one of such pods is able to run on a node, the other one gets ContainerCreating with error
 `conflicting SELinux labels of volume <name of the volume>: <label of the running pod> and <label of the pod that can't start>`.
 
