@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capacity-reservation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: capacity-placeholder
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: capacity-placeholder
+      annotations:
+        kubernetes.io/description: "Capacity reservation"
+    spec:
+      priorityClassName: placeholder
+      affinity: # 有可能的话，将这些 Pod 开销放到不同的节点
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app: placeholder
+            topologyKey: "kubernetes.io/hostname"
+      containers:
+      - name: pause
+        image: registry.k8s.io/pause:3.6
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "512Mi"
+          limits:
+            memory: "512Mi"
