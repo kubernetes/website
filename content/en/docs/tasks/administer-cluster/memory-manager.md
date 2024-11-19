@@ -95,7 +95,7 @@ illustrates how the management of groups occurs.
 
 {{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
 
-Windows support can be enabled via the `WindowsCPUAndMemoryAffinity` feature gate and requires a support in the container runtime.
+Windows support can be enabled via the `WindowsCPUAndMemoryAffinity` feature gate and requires support in the container runtime.
 Only the [BestEffort Policy](#policy-best-effort) is supported on Windows.
 
 ## Memory Manager configuration
@@ -139,15 +139,15 @@ This policy is only supported on Linux.
 
 This policy is only supported on Windows.
 
-On Windows, NUMA node assignment works differently from Linux.  There is no mechanism
-to ensure that memory access only comes from a specific NUMA node, instead the Windows
-scheduler will select the most optimal NUMA node based on the CPU assignments and it is
-possible that Windows might use other nodes if required or deemed optimal.  For this
-reason this policy is best effort.  
+On Windows, NUMA node assignment works differently than Linux.
+There is no mechanism to ensure that Memory access only comes from a specific NUMA node.
+Instead the Windows scheduler will select the most optimal NUMA node based on the CPU(s) assignments.
+It is possible that Windows might use other NUMA nodes if deemed optimal by the Windows scheduler. 
 
-The policy does track the amount of memory available and requested through the internal
-[NodeMap][2] to make a best effort at ensuring that memory enough memory is available on
-a NUMA node before making the hint to assign it to the NODE.  This means that in most cases, this should function as expected.
+The policy does track the amount of memory available and requested through the internal [NodeMap][2]. 
+The memory manager will make a best effort at ensuring that enough memory is available on
+a NUMA node before making the assignment.  
+This means that in most cases memory assignment should function as expected.
 
 ### Reserved memory flag
 

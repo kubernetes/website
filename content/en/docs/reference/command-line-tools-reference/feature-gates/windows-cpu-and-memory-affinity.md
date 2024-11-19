@@ -1,5 +1,4 @@
 ---
-# Removed from Kubernetes
 title: WindowsCPUAndMemoryAffinity
 content_type: feature_gate
 

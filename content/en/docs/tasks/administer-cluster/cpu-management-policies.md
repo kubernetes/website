@@ -53,8 +53,8 @@ management policies to determine some placement preferences on the node.
 
 {{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
 
-The CPU Manager support can be enabled on Windows by using the `WindowsCPUAndMemoryAffinity` feature gate and requires a support in the container runtime.  
-Once the feature gate is enabled, follow the steps below to configure the [CPU manager policy](#configuration).
+CPU Manager support can be enabled on Windows by using the `WindowsCPUAndMemoryAffinity` feature flag and requires support in the container runtime.  
+Once feature is enabled follow the steps above to configure the [CPU Manager Policy](#configuration).
 
 ### Configuration
 
