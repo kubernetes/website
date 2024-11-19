@@ -10,6 +10,10 @@ weight: 10
 
 ## Kubernetes Deployments
 
+{{% alert %}}
+_A Deployment is responsible for creating and updating instances of your application._
+{{% /alert %}}
+
 {{< note >}}
 This tutorial uses a container that requires the AMD64 architecture. If you are using
 minikube on a computer with a different CPU architecture, you could try using minikube with
@@ -35,6 +39,11 @@ your application instances and keeping them running across Nodes, Kubernetes Dep
 provide a fundamentally different approach to application management.
 
 ## Deploying your first app on Kubernetes
+
+{{% alert %}}
+_Applications need to be packaged into one of the supported container formats in
+order to be deployed on Kubernetes._
+{{% /alert %}}
 
 {{< figure src="/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg" class="diagram-medium" >}}
 

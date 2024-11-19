@@ -9,6 +9,11 @@ weight: 10
 
 ## Scaling an application
 
+{{% alert %}}
+_You can create from the start a Deployment with multiple instances using the --replicas
+parameter for the kubectl create deployment command._
+{{% /alert %}}
+
 Previously we created a [Deployment](/docs/concepts/workloads/controllers/deployment/),
 and then exposed it publicly via a [Service](/docs/concepts/services-networking/service/).
 The Deployment created only one Pod for running our application. When traffic increases,
@@ -34,7 +39,6 @@ with its `type` set to `LoadBalancer`:
 ```shell
 kubectl expose deployment/kubernetes-bootcamp --type="LoadBalancer" --port 8080
 ```
-
 {{< /note >}}
 
 ## Scaling overview
@@ -42,26 +46,20 @@ kubectl expose deployment/kubernetes-bootcamp --type="LoadBalancer" --port 8080
 <!-- animation -->
 <div class="col-md-8">
   <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-    </ol>
-      <div class="carousel-inner" role="listbox">
-        <div class="item carousel-item active">
-          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
-        </div>
-        <div class="item carousel-item">
-          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
-        </div>
+    <div class="carousel-inner" role="listbox">
+      <div class="item carousel-item active">
+        <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
       </div>
-      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="sr-only ">Previous</span>
-      </a>
-      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="sr-only">Next</span>
-      </a>
+      <div class="item carousel-item">
+        <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
+      </div>
+    </div>
   </div>
 </div>
+
+{{% alert %}}
+_Scaling is accomplished by changing the number of replicas in a Deployment._
+{{% /alert %}}
 
 Scaling out a Deployment will ensure new Pods are created and scheduled to Nodes
 with available resources. Scaling will increase the number of Pods to the new desired

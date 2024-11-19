@@ -11,6 +11,11 @@ weight: 10
 
 ## Kubernetes Pods
 
+{{% alert %}}
+_A Pod is a group of one or more application containers (such as Docker) and includes
+shared storage (volumes), IP address and information about how to run them._
+{{% /alert %}}
+
 When you created a Deployment in [Module 2](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/),
 Kubernetes created a **Pod** to host your application instance. A Pod is a Kubernetes
 abstraction that represents a group of one or more application containers (such as Docker),
@@ -38,6 +43,11 @@ the cluster.
 ### Pods overview
 
 {{< figure src="/docs/tutorials/kubernetes-basics/public/images/module_03_pods.svg" class="diagram-medium" >}}
+
+{{% alert %}}
+_Containers should only be scheduled together in a single Pod if they are tightly
+coupled and need to share resources such as disk._
+{{% /alert %}}
 
 ## Nodes
 
@@ -75,8 +85,8 @@ operations can be done with the following kubectl subcommands:
 You can use these commands to see when applications were deployed, what their current
 statuses are, where they are running and what their configurations are.
 
-Now that we know more about our cluster components and the command line, let's explore
-our application.
+Now that we know more about our cluster components and the command line, let's
+explore our application.
 
 ### Check application configuration
 
