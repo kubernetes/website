@@ -261,7 +261,7 @@ Credentials can be provided in several ways:
   - all pods can use any images cached on a node
   - requires root access to all nodes to set up
 - Specifying ImagePullSecrets on a Pod
-  - only pods which provide own keys can access the private registry
+  - only pods which provide their own keys can access the private registry
 - Vendor-specific or local extensions
   - if you're using a custom node configuration, you (or your cloud
     provider) can implement your mechanism for authenticating the node

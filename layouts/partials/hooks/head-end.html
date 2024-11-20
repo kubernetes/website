@@ -52,3 +52,12 @@
 <script defer src="{{ $releaseBinariesJs.RelPermalink }}"></script>
   {{- end -}}
 {{- end -}}
+
+{{/* JavaScript for announcements */}}
+{{- if hugo.IsProduction -}}
+  {{- $bannerDismissJs :=  resources.Get "js/banner-dismiss.js" | minify | fingerprint -}}
+<script defer src="{{ $bannerDismissJs.RelPermalink }}" integrity="{{ $bannerDismissJs.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- else -}}
+  {{- $bannerDismissJs := resources.Get "js/banner-dismiss.js" -}}
+<script defer src="{{ $bannerDismissJs.RelPermalink }}"></script>
+{{- end -}}
