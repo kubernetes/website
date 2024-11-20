@@ -251,7 +251,21 @@ body.td-404 main .error-details {
 .search-item.nav-item {
     input, input::placeholder {
       color: black;
+      width: 200px;
+      box-sizing: border-box;
+      padding: 8px;
+      height: 40px;
+      font-size: 14px;
+      transition: width 0.3s ease-in-out;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
   }
+}
+
+input[type="search"]{
+  -moz-box-sizing: border-box;
+  width: 100%;
 }
 
 .flip-nav .search-item {

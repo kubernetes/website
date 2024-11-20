@@ -22,8 +22,30 @@ You need to have installed the {{< glossary_tooltip text="kubeadm" term_id="kube
 following the steps from [Installing kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 
 For each server that you want to use as a {{< glossary_tooltip text="node" term_id="node" >}},
-make sure it allows IPv6 forwarding. On Linux, you can set this by running run
-`sysctl -w net.ipv6.conf.all.forwarding=1` as the root user on each server.
+make sure it allows IPv6 forwarding. 
+
+### Enable IPv6 packet forwarding {#prerequisite-ipv6-forwarding}
+
+To check if IPv6 packet forwarding is enabled:
+
+```bash
+sysctl net.ipv6.conf.all.forwarding
+```
+If the output is `net.ipv6.conf.all.forwarding = 1` it is already enabled. 
+Otherwise it is not enabled yet.
+
+To manually enable IPv6 packet forwarding:
+
+```bash
+# sysctl params required by setup, params persist across reboots
+cat <<EOF | sudo tee -a /etc/sysctl.d/k8s.conf
+net.ipv6.conf.all.forwarding = 1
+EOF
+
+# Apply sysctl params without reboot
+sudo sysctl --system
+```
+
 
 You need to have an IPv4 and and IPv6 address range to use. Cluster operators typically
 use private address ranges for IPv4. For IPv6, a cluster operator typically chooses a global
