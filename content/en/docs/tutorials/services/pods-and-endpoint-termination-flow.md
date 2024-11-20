@@ -17,7 +17,7 @@ graceful connection draining.
 
 ## Termination process for Pods and their endpoints
 
-There are often cases when you need to terminate a Pod - be it for upgrade or scale down.
+There are often cases when you need to terminate a Pod - be it to upgrade or scale down.
 In order to improve application availability, it may be important to implement
 a proper active connections draining.
 
@@ -29,12 +29,12 @@ a simple nginx web server to demonstrate the concept.
 
 ## Example flow with endpoint termination
 
-The following is the example of the flow described in the
+The following is the example flow described in the 
 [Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
 document.
 
-Let's say you have a Deployment containing of a single `nginx` replica
-(just for demonstration purposes) and a Service:
+Let's say you have a Deployment containing a single `nginx` replica
+(say just for the sake of demonstration purposes) and a Service:
 
 {{% code_sample file="service/pod-with-graceful-termination.yaml" %}}
 
@@ -158,10 +158,10 @@ The output is similar to this:
 ```
 
 This allows applications to communicate their state during termination
-and clients (such as load balancers) to implement a connections draining functionality.
+and clients (such as load balancers) to implement connection draining functionality.
 These clients may detect terminating endpoints and implement a special logic for them.
 
-In Kubernetes, endpoints that are terminating always have their `ready` status set as as `false`.
+In Kubernetes, endpoints that are terminating always have their `ready` status set as `false`.
 This needs to happen for backward
 compatibility, so existing load balancers will not use it for regular traffic.
 If traffic draining on terminating pod is needed, the actual readiness can be
