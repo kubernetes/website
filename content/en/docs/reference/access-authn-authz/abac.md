@@ -14,6 +14,11 @@ Attribute-based access control (ABAC) defines an access control paradigm whereby
 to users through the use of policies which combine attributes together.
 
 <!-- body -->
+{{< note >}}
+{{< feature-state state="deprecated" for_k8s_version="1.6" >}}
+The ABAC Authorization feature has been considered deprecated from the Kubernetes 1.6 release.
+{{< /note >}}
+
 ## Policy File Format
 
 To enable `ABAC` mode, specify `--authorization-policy-file=SOME_FILENAME` and `--authorization-mode=ABAC`
