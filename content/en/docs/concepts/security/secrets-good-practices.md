@@ -62,15 +62,8 @@ recommendations include:
 *  Implement audit rules that alert on specific events, such as concurrent
    reading of multiple Secrets by a single user
 
-#### Additional ServiceAccount annotations for Secret management
-
-You can also use the `kubernetes.io/enforce-mountable-secrets` annotation on
-a ServiceAccount to enforce specific rules on how Secrets are used in a Pod.
-For more details, see the [documentation on this annotation](/docs/reference/labels-annotations-taints/#enforce-mountable-secrets).
-
-{{< warning >}}
-`kubernetes.io/enforce-mountable-secrets` is deprecated in v1.32+. Use separate namespaces to isolate access to mounted secrets.
-{{< /warning >}}
+#### Restrict Access for Secrets
+Use separate namespaces to isolate access to mounted secrets.
 
 ### Improve etcd management policies
 
