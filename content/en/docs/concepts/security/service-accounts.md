@@ -197,11 +197,13 @@ or using a custom mechanism such as an [authentication webhook](/docs/reference/
 You can also use TokenRequest to obtain short-lived tokens for your external application.
 {{< /note >}}
 
-### Restricting access to Secrets {#enforce-mountable-secrets}
+### Restricting access to Secrets (deprecated) {#enforce-mountable-secrets}
 
-{{< warning >}}
-`kubernetes.io/enforce-mountable-secrets` is deprecated in v1.32+. Use separate namespaces to isolate access to mounted secrets.
-{{< /warning >}}
+{{< feature-state for_k8s_version="v1.32" state="deprecated" >}}
+
+{{< note >}}
+`kubernetes.io/enforce-mountable-secrets` is deprecated since Kubernetes v1.32. Use separate namespaces to isolate access to mounted secrets.
+{{< /note >}}
 
 Kubernetes provides an annotation called `kubernetes.io/enforce-mountable-secrets`
 that you can add to your ServiceAccounts. When this annotation is applied,
