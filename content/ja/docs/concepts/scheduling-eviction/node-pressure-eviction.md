@@ -150,7 +150,7 @@ kubeletは猶予期間を指定しない場合、起動時にエラーを返し�
 - `eviction-soft-grace-period`: Podと退避をトリガーする前にソフト退避閾値を保持する必要がある時間を定義する、`memory.available=1m30s`のような退避猶予期間のセット。
 - `eviction-max-pod-grace-period`: ソフト退避閾値に達した場合、Podを終了する際に使用する最大許容猶予期間(秒)。
 
-#### ハード退避閾値 {#hard-eviction-thresholds}
+#### ハード退避の閾値 {#hard-eviction-thresholds}
 
 ハード退避閾値には、猶予期間がありません。
 ハード退避閾値に達した場合、kubeletはグレースフルな終了ではなく即座にポッドを終了してリソースを回収します。
