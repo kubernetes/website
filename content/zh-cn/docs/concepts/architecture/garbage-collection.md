@@ -229,13 +229,13 @@ to override this behaviour, see [Delete owner objects and orphan dependents](/do
 ## Garbage collection of unused containers and images {#containers-images}
 
 The {{<glossary_tooltip text="kubelet" term_id="kubelet">}} performs garbage
-collection on unused images every two minutes and on unused containers every
+collection on unused images every five minutes and on unused containers every
 minute. You should avoid using external garbage collection tools, as these can
 break the kubelet behavior and remove containers that should exist.
 -->
 ## 未使用容器和镜像的垃圾收集     {#containers-images}
 
-{{<glossary_tooltip text="kubelet" term_id="kubelet">}} 会每两分钟对未使用的镜像执行一次垃圾收集，
+{{<glossary_tooltip text="kubelet" term_id="kubelet">}} 会每五分钟对未使用的镜像执行一次垃圾收集，
 每分钟对未使用的容器执行一次垃圾收集。
 你应该避免使用外部的垃圾收集工具，因为外部工具可能会破坏 kubelet
 的行为，移除应该保留的容器。
