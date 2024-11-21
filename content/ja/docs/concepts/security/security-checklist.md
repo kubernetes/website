@@ -36,7 +36,7 @@ Kubernetesのセキュリティは「万能」ではないため、チェック�
 
 ブートストラップ後、ユーザーもコンポーネントもKubernetes APIに対して`system:masters`として認証しないでください。
 同様に、すべてのkube-controller-managerを`system:masters`として実行することは避けてください。
-`system:masters`は管理者ユーザーではなく、ブレークグラスメカニズムとしてのみ使用してください。
+実際には、`system:masters`は管理者ユーザーとは対照的に、緊急アクセス用としてのみ使用してください。
 
 ## ネットワークセキュリティ
 
