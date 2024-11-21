@@ -184,7 +184,7 @@ kubeletは、設定された`housekeeping-interval`に基づいて退避閾値�
 
 ### ノードの状態 {#node-conditions}
 
-kubeletは、猶予期間の構成とは関係なく、ハードまたはソフト退避閾値に達したためにノードが圧迫されていることを示す[ノードのConditions](/ja/docs/concepts/architecture/nodes/#condition)を報告します。
+kubeletは、猶予期間の構成とは関係なく、ハードまたはソフト退避閾値に達したためにノードが圧迫されていることを示すノードの[Conditions](/ja/docs/concepts/architecture/nodes/#condition)を報告します。
 
 kubeletは、次のように退避シグナルをノードの状態にマッピングします:
 
