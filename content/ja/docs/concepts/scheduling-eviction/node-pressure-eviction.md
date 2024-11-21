@@ -194,7 +194,7 @@ kubeletは、次のように退避シグナルをノードの状態にマッピ�
 | `DiskPressure`    | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, `imagefs.inodesFree`, `containerfs.available`, or `containerfs.inodesFree` | ノードのルートファイルシステム、イメージファイルシステム、またはコンテナファイルシステムのいずれかの利用可能なディスク容量とinodeが退避閾値に達しています |
 | `PIDPressure`     | `pid.available`                                                                       | (Linux)ノード上で使用可能なプロセス識別子が退避閾値を下回りました |
 
-コントロールプレーンは、これらのノードの状態をテイントにも[マッピング](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)します。
+コントロールプレーンは、これらのノードの状態をテイントにも[マッピング](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)します。
 
 kubeletは、設定された`--node-status-update-frequency`に基づいてノードの状態を更新し、デフォルトでは`10s`です。
 
