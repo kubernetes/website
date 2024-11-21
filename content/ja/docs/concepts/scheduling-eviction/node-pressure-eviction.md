@@ -264,7 +264,7 @@ QoSの分類はEphemeralStorageのリクエストには適用されないため�
 (`kubelet`や`journald`のような)システムデーモンが、`system-reserved`や`kube-reserved`の割り当てよりも多くのリソースを消費しており、ノードにはリクエストより少ないリソースを使用している`Guaranteed`または`Burstable`Podしかない場合、kubeletは他のPodへのリソース枯渇の影響を制限してノードの安定性を保つために、これらのPodのなかから退避するPodを選択する必要があります。
 この場合、最も低い優先度のPodを退避するように選択します。
 
-[static Pod](/ja/docs/concepts/workloads/pods/#static-pods)を実行しており、リソース圧迫による退避を回避したい場合は、そのPodに直接`priority`フィールドを設定します。
+[static Pod](/ja/docs/concepts/workloads/pods/#static-pod)を実行しており、リソース圧迫による退避を回避したい場合は、そのPodに直接`priority`フィールドを設定します。
 Static Podは`priorityClassName`フィールドをサポートしていません。
 
 kubeletは、inodeまたはプロセスIDの枯渇に応じてPodを退避する場合、inodeとPIDにはリクエストがないため、Podの相対的な優先度を使用して退避順序を決定します。
