@@ -15,7 +15,7 @@ number of conformant implementations of it for you to try out.
 
 Gateway API v1.2 brings a number of new features to the _Standard channel_
 (Gateway API's GA release channel), introduces some new experimental features,
-and inaugurates our new release process -- but it also brings two breaking
+and inaugurates our new release process — but it also brings two breaking
 changes that you'll want to be careful of.
 
 ## Breaking changes
@@ -39,7 +39,7 @@ information about what you need to do to safely upgrade.
 
 [release notes]: https://github.com/kubernetes-sigs/gateway-api/releases/tag/v1.2.0
 
-### Change to `.status.supportedFeatures` (experimental){#status-supported-features}
+### Change to `.status.supportedFeatures` (experimental) {#status-supported-features}
 
 A much smaller breaking change: `.status.supportedFeatures` in a Gateway is
 now a list of objects instead of a list of strings. The objects have a single
@@ -59,7 +59,7 @@ refinements and improvements to these new features in the future. For more
 information on how all of this works, refer to the [Gateway API Versioning
 Policy](https://gateway-api.sigs.k8s.io/concepts/versioning/).
 
-### HTTPRoute Timeouts
+### HTTPRoute timeouts
 
 [GEP-1742](https://gateway-api.sigs.k8s.io/geps/gep-1742/) introduced the
 `timeouts` stanza into HTTPRoute, permitting configuring basic timeouts for
@@ -132,23 +132,25 @@ spec:
       linkerd.io/inject: enabled
 ```
 
-For more information, check out the [`infrastructure` API
-reference](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.GatewayInfrastructure).
+For more information, check out the
+[`infrastructure` API reference](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.GatewayInfrastructure).
 
 ### Backend protocol support
 
 Since Kubernetes v1.20, the Service and EndpointSlice resources have supported
 a stable `appProtocol`  field to allow users to specify the L7 protocol that
-Service supports. With the adoption of [KEP
-3726](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/3726-standard-application-protocols),
+Service supports. With the adoption of
+[KEP 3726](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/3726-standard-application-protocols),
 Kubernetes now supports three new `appProtocol` values:
 
-- `kubernetes.io/h2c` - HTTP/2 over cleartext as described in
-[RFC7540](https://www.rfc-editor.org/rfc/rfc7540)
-- `kubernetes.io/ws` - WebSocket over cleartext as described in
-[RFC6445](https://www.rfc-editor.org/rfc/rfc6445)
-- `kubernetes.io/wss` - WebSocket over TLS as described in
-[RFC6445](https://www.rfc-editor.org/rfc/rfc6445)
+`kubernetes.io/h2c`
+: HTTP/2 over cleartext as described in [RFC7540](https://www.rfc-editor.org/rfc/rfc7540)
+
+`kubernetes.io/ws`
+: WebSocket over cleartext as described in [RFC6445](https://www.rfc-editor.org/rfc/rfc6445)
+
+`kubernetes.io/wss`
+: WebSocket over TLS as described in [RFC6445](https://www.rfc-editor.org/rfc/rfc6445)
 
 With Gateway API 1.2.0, support for honoring `appProtocol` is now Standard.
 For example, given the following Service:
@@ -254,8 +256,8 @@ For more information, check out [GEP
 
 ### HTTPRoute percentage-based mirroring
 
-Gateway API has long supported the [Request
-Mirroring](https://gateway-api.sigs.k8s.io/guides/http-request-mirroring/)
+Gateway API has long supported the
+[Request Mirroring](https://gateway-api.sigs.k8s.io/guides/http-request-mirroring/)
 feature, which allows sending the same request to multiple backends. In
 Gateway API 1.2.0, we're introducing percentage-based mirroring, which allows
 you to specify a percentage of requests to mirror to a different backend. For
@@ -310,7 +312,7 @@ which may be relevant with very high request rates. For more details, see
 ### Additional backend TLS configuration
 
 This release includes three additions related to TLS configuration for
-communications between a Gateway and a workload (a "backend"):
+communications between a Gateway and a workload (a _backend_):
 
 1. **A new `backendTLS` field on Gateway**
 
@@ -383,13 +385,13 @@ https://github.com/kubernetes-sigs/gwctl. `gwctl` has proven a valuable tool
 for the Gateway API community; moving it into its own repository will, we
 believe, make it easier to maintain and develop. As always, we welcome
 contributions; while still experimental, `gwctl` already helps make working
-with Gateway API a bit easier -- especially for newcomers to the project!
+with Gateway API a bit easier — especially for newcomers to the project!
 
 ### Maintainer changes
 
 Rounding out our changes to the project itself, we're pleased to announce that
 [Mattia Lavacca] has joined the ranks of Gateway API Maintainers! We're also
-sad to announce that [Keith Mattix] has stepped down as a GAMMA lead --
+sad to announce that [Keith Mattix] has stepped down as a GAMMA lead —
 happily, [Mike Morris] has returned to the role. We're grateful for everything
 Keith has done, and excited to have Mattia and Mike on board.
 
