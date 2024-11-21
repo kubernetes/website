@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: capacity-reservation
+  # 你应决定要将此 Deployment 部署到哪个命名空间
 spec:
   replicas: 1
   selector:

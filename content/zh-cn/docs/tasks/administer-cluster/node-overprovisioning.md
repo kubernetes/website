@@ -4,7 +4,7 @@ content_type: task
 weight: 10
 ---
 <!--
-title: Overprovision Node Capacity For A Cluster 
+title: Overprovision Node Capacity For A Cluster
 content_type: task
 weight: 10
 -->
@@ -12,45 +12,49 @@ weight: 10
 <!-- overview -->
 
 <!--
-This page guides you through configuring {{< glossary_tooltip text="Node" term_id="node" >}} overprovisioning in your Kubernetes cluster. Node overprovisioning is a strategy that proactively reserves a portion of your cluster's compute resources. This reservation helps reduce the time required to schedule new pods during scaling events, enhancing your cluster's responsiveness to sudden spikes in traffic or workload demands. 
+This page guides you through configuring {{< glossary_tooltip text="Node" term_id="node" >}}
+overprovisioning in your Kubernetes cluster. Node overprovisioning is a strategy that proactively
+reserves a portion of your cluster's compute resources. This reservation helps reduce the time
+required to schedule new pods during scaling events, enhancing your cluster's responsiveness
+to sudden spikes in traffic or workload demands.
 
-By maintaining some unused capacity, you ensure that resources are immediately available when new pods are created, preventing them from entering a pending state while the cluster scales up.
+By maintaining some unused capacity, you ensure that resources are immediately available when
+new pods are created, preventing them from entering a pending state while the cluster scales up.
 -->
 本页指导你在 Kubernetes 集群中配置{{< glossary_tooltip text="节点" term_id="node" >}}超配。
 节点超配是一种主动预留部分集群计算资源的策略。这种预留有助于减少在扩缩容事件期间调度新 Pod 所需的时间，
 从而增强集群对突发流量或突发工作负载需求的响应能力。
 
-通过保持一些未使用的容量，你确保在新 Pod 被创建时资源可以立即可用，防止 Pod 在集群扩缩容时进入 Pending 状态。
+通过保持一些未使用的容量，确保在新 Pod 被创建时资源可以立即可用，防止 Pod 在集群扩缩容时进入 Pending 状态。
 
 ## {{% heading "prerequisites" %}}
 
 <!--
-- You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with 
+- You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with
   your cluster.
 - You should already have a basic understanding of
   [Deployments](/docs/concepts/workloads/controllers/deployment/),
-  Pod {{<glossary_tooltip text="priority" term_id="pod-priority">}},
-  and [PriorityClasses](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass).
+  Pod {{< glossary_tooltip text="priority" term_id="pod-priority" >}},
+  and {{< glossary_tooltip text="PriorityClasses" term_id="priority-class" >}}.
 - Your cluster must be set up with an [autoscaler](/docs/concepts/cluster-administration/cluster-autoscaling/)
   that manages nodes based on demand.
 -->
 - 你需要有一个 Kubernetes 集群，并且 kubectl 命令行工具必须被配置为与你的集群通信。
 - 你应该已经基本了解了 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)、Pod
   {{<glossary_tooltip text="优先级" term_id="pod-priority">}}和
-  [PriorityClass](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)。
-- 你的集群必须设置一个基于需求管理节点的
-  [Autoscaler](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/)。
+  {{< glossary_tooltip text="PriorityClass" term_id="priority-class" >}}。
+- 你的集群必须设置一个基于需求管理节点的[自动扩缩程序](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/)。
 
 <!-- steps -->
 
 <!--
-## Create a placeholder Deployment
+## Create a PriorityClass
 
 Begin by defining a PriorityClass for the placeholder Pods. First, create a PriorityClass with a
 negative priority value, that you will shortly assign to the placeholder pods.
 Later, you will set up a Deployment that uses this PriorityClass
 -->
-## 创建占位 Deployment   {#create-a-placeholder-deployment}
+## 创建 PriorityClass   {#create-a-priorityclass}
 
 首先为占位 Pod 定义一个 PriorityClass。
 先创建一个优先级值为负数的 PriorityClass，稍后将其分配给占位 Pod。
@@ -72,25 +76,50 @@ You will next define a Deployment that uses the negative-priority PriorityClass 
 When you add this to your cluster, Kubernetes runs those placeholder pods to reserve capacity. Any time there
 is a capacity shortage, the control plane will pick one these placeholder pods as the first candidate to
 {{< glossary_tooltip text="preempt" term_id="preemption" >}}.
-
-Review the sample manifest:
 -->
-接下来，你将定义一个 Deployment，使用优先级值为负数的 PriorityClass 并运行最小容器。
+接下来，你将定义一个 Deployment，使用优先级值为负数的 PriorityClass 并运行最小的容器。
 当你将此 Deployment 添加到集群中时，Kubernetes 会运行这些占位 Pod 以预留容量。
 每当出现容量短缺时，控制面将选择这些占位 Pod
 中的一个作为第一个候选者进行{{< glossary_tooltip text="抢占" term_id="preemption" >}}。
+
+<!--
+## Run Pods that request node capacity
+
+Review the sample manifest:
+-->
+## 运行请求节点容量的 Pod   {#run-pods-that-request-node-capacity}
 
 查看样例清单：
 
 {{% code_sample language="yaml" file="deployments/deployment-with-capacity-reservation.yaml" %}}
 
 <!--
-Create a Deployment based on that manifest:
+### Pick a namespace for the placeholder pods
+
+You should select, or create, a {{< glossary_tooltip term_id="namespace" text="namespace">}}
+that the placeholder Pods will go into.
 -->
+### 为占位 Pod 挑选一个命名空间    {#pick-a-namespace-for-the-placeholder-pods}
+
+你应选择或创建占位 Pod 要进入的{{< glossary_tooltip term_id="namespace" text="命名空间">}}。
+
+<!--
+### Create the placeholder deployment
+
+Create a Deployment based on that manifest:
+
+```shell
+# Change the namespace name "example"
+kubectl --namespace example apply -f https://k8s.io/examples/deployments/deployment-with-capacity-reservation.yaml
+```
+-->
+### 创建占位 Deployment    {#create-the-placeholder-deployment}
+
 基于该清单创建 Deployment：
 
 ```shell
-kubectl apply -f https://k8s.io/examples/deployments/deployment-with-capacity-reservation.yaml
+# 你要更改命名空间名称 "example"
+kubectl --namespace example apply -f https://k8s.io/examples/deployments/deployment-with-capacity-reservation.yaml
 ```
 
 <!--
@@ -108,13 +137,22 @@ To edit the Deployment, modify the `resources` section in the Deployment manifes
 to set appropriate requests and limits. You can download that file locally and then edit it
 with whichever text editor you prefer.
 
-For example, to reserve 500m CPU and 1Gi memory across 5 placeholder pods,
-define the resource requests and limits for a single placeholder pod as follows:
+You can also edit the Deployment using kubectl:
 -->
 要编辑 Deployment，可以修改 Deployment 清单文件中的 `resources` 一节，
 设置合适的 `requests` 和 `limits`。
 你可以将该文件下载到本地，然后用自己喜欢的文本编辑器进行编辑。
 
+你也可以使用 kubectl 来编辑 Deployment：
+
+```shell
+kubectl edit deployment capacity-reservation
+```
+
+<!--
+For example, to reserve 500m CPU and 1Gi memory across 5 placeholder pods,
+define the resource requests and limits for a single placeholder pod as follows:
+-->
 例如，要为 5 个占位 Pod 预留 500m CPU 和 1Gi 内存，请为单个占位 Pod 定义以下资源请求和限制：
 
 ```yaml
@@ -130,23 +168,23 @@ define the resource requests and limits for a single placeholder pod as follows:
 ## Set the desired replica count
 
 ### Calculate the total reserved resources
-
-For example, with 5 replicas each reserving 0.1 CPU and 200MiB of memory:
-
-Total CPU reserved: 5 × 0.1 = 0.5 (in the Pod specification, you'll write the quantity `500m`)
-Total Memory reserved: 5 × 200MiB = 1GiB (in the Pod specification, you'll write `1 Gi`)
-
-To scale the Deployment, adjust the number of replicas based on your cluster's size and expected workload:
 -->
 ## 设置所需的副本数量   {#set-the-desired-replica-count}
 
 ### 计算总预留资源   {#calculate-the-total-reserved-resources}
 
-例如，有 5 个副本，每个预留 0.1 CPU 和 200MiB 内存：
+<!-- trailing whitespace in next paragraph is significant -->
 
-CPU 预留总量：5 × 0.1 = 0.5（在 Pod 规约中，你将写入数量 `500m`）
+<!--
+For example, with 5 replicas each reserving 0.1 CPU and 200MiB of memory:  
+Total CPU reserved: 5 × 0.1 = 0.5 (in the Pod specification, you'll write the quantity `500m`)  
+Total memory reserved: 5 × 200MiB = 1GiB (in the Pod specification, you'll write `1 Gi`)  
 
-内存预留总量：5 × 200MiB = 1GiB（在 Pod 规约中，你将写入 `1 Gi`）
+To scale the Deployment, adjust the number of replicas based on your cluster's size and expected workload:
+-->
+例如，有 5 个副本，每个预留 0.1 CPU 和 200MiB 内存：  
+CPU 预留总量：5 × 0.1 = 0.5（在 Pod 规约中，你将写入数量 `500m`）  
+内存预留总量：5 × 200MiB = 1GiB（在 Pod 规约中，你将写入 `1 Gi`）  
 
 要扩缩容 Deployment，请基于集群的大小和预期的工作负载调整副本数：
 
