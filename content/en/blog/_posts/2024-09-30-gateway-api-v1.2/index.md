@@ -18,7 +18,7 @@ Gateway API v1.2 brings a number of new features to the _Standard channel_
 and inaugurates our new release process -- but it also brings two breaking
 changes that you'll want to be careful of.
 
-## BREAKING CHANGES
+## Breaking changes
 
 ### GRPCRoute and ReferenceGrant `v1alpha2` removal
 
