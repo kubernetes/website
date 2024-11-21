@@ -34,7 +34,7 @@ Kubernetesのセキュリティは「万能」ではないため、チェック�
 - [ ] 定期的なアクセスレビューのプロセスが存在し、レビューの間隔は24か月以内です。
 - [ ] 認証と認可に関するガイダンスについては、[ロールベースのアクセス制御のベストプラクティス](/ja/docs/concepts/security/rbac-good-practices/)に従っています。
 
-ブートストラップ後、ユーザーもコンポーネントもKubernetesAPIに対して`system:masters`として認証しないでください。
+ブートストラップ後、ユーザーもコンポーネントもKubernetes APIに対して`system:masters`として認証しないでください。
 同様に、すべてのkube-controller-managerを`system:masters`として実行することは避けてください。
 `system:masters`は管理者ユーザーではなく、ブレークグラスメカニズムとしてのみ使用してください。
 
