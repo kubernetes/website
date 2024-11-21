@@ -1,7 +1,7 @@
 apiVersion: scheduling.k8s.io/v1
 kind: PriorityClass
 metadata:
-  name: placeholder
+  name: placeholder # 这些 Pod 表示占位容量
 value: -1000
 globalDefault: false
 description: "Negative priority for placeholder pods to enable overprovisioning."
