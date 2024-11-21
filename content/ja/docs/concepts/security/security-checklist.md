@@ -1,7 +1,7 @@
 ---
 title: セキュリティチェックリスト
 description: >
-  Kubernetes クラスタのセキュリティを確保するためのベースラインチェックリスト。
+  Kubernetesクラスターのセキュリティを確保するための基本的なチェックリスト。
 content_type: コンセプト
 weight: 100
 ---
