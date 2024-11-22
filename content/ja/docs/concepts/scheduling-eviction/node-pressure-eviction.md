@@ -80,7 +80,7 @@ Linuxノード上では、`free -m`のようなツールの代わりにcgroupfs�
 kubeletは、圧迫下でもメモリが再利用可能であると想定しているため、inactive_file(非アクティブなLRUリスト上のファイルベースのメモリのバイト数)を計算から除外します。
 
 Windowsノードでは、`memory.available`の値は、ノードのグローバルメモリコミットレベル([`GetPerformanceInfo関数`](https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getperformanceinfo)システムコールによって参照)から、ノードの[`CommitLimit`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information)からノードのグローバル[`CommitTotal`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information)を減算することによって導出されます。
-`CommitTotal`は、ノード上のすべてのプロセスによって使用されるコミットされたメモリの合計です。
+ノードのページファイルサイズが変更されると、`CommitLimit`も変更されることに注意してください。
 
 #### ファイルシステムシグナル
 
