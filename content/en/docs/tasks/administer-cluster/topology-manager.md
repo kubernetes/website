@@ -63,7 +63,7 @@ resource allocation decisions.
 {{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
 
 The Topology Manager support can be enabled on Windows by using the `WindowsCPUAndMemoryAffinity` feature gate and
-it requires a support in the container runtime.  
+it requires support in the container runtime.
 
 ## Topology manager scopes and policies
 
