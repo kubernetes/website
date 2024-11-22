@@ -294,7 +294,7 @@ kubelet [flags]
 <td colspan="2">--eviction-max-pod-grace-period int32</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"> Maximum allowed grace period (in seconds) to use when terminating pods in response to a soft eviction threshold being met. If negative, defer to pod specified value. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"> Maximum allowed grace period (in seconds) for terminating pods during soft eviction. A positive value sets an explicit grace period, while 0 results in immediate termination. When set to a negative value, the kubelet sends a -1 grace period to the CRI runtime, leading to immediate termination with a SIGKILL signal (exit code 137). To ensure predictable behavior, configure this parameter with a positive value or use the kubelet configuration file.  (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
