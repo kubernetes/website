@@ -95,7 +95,8 @@ illustrates how the management of groups occurs.
 
 {{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
 
-Windows support can be enabled via the `WindowsCPUAndMemoryAffinity` feature gate and requires support in the container runtime.
+Windows support can be enabled via the `WindowsCPUAndMemoryAffinity` feature gate
+and it requires support in the container runtime.
 Only the [BestEffort Policy](#policy-best-effort) is supported on Windows.
 
 ## Memory Manager configuration
