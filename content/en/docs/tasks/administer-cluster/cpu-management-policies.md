@@ -342,7 +342,7 @@ and kubernetes system daemons.  More details of this parameter can be found on t
 
 By default this isolation is implemented only for guaranteed pods with integer CPU requests not for burstable and best-effort pods
 (and guaranteed pods with fractional CPU requests). Admission is only comparing the cpu requests against the allocatable cpus.
-Since the cpu limit are higher than the request, the default behaviour allows burstable and best-effort pods to use up the capacity
+Since the cpu limit is higher than the request, the default behaviour allows burstable and best-effort pods to use up the capacity
 of `reservedSystemCPUs` and cause host OS services to starve in real life deployments.
 
 If the `strict-cpu-reservation` policy option is enabled, the static policy will not allow
