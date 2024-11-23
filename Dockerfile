@@ -1,47 +1,34 @@
-# Credit to Julien Guyomard (https://github.com/jguyomard). This Dockerfile
-# is essentially based on his Dockerfile at
-# https://github.com/jguyomard/docker-hugo/blob/master/Dockerfile. The only significant
-# change is that the Hugo version is now an overridable argument rather than a fixed
-# environment variable.
+FROM docker.io/library/debian:bookworm AS builder
 
-FROM docker.io/library/golang:1.23.0-alpine3.20
+LABEL maintainer="Kubernetes Authors https://github.com/kubernetes/website"
+LABEL description="Image for building and serving a the Kubernetes website"
+LABEL version="1.0"
 
-RUN apk add --no-cache \
-    curl \
-    gcc \
-    g++ \
-    musl-dev \
-    build-base \
-    libc6-compat
+# Install dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates openssh-client curl git rsync golang make npm && \
+    curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION} | bash - && \
+    apt-get install -y --no-install-recommends nodejs && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /var/cache/*
 
+# Install Hugo
 ARG HUGO_VERSION
+RUN mkdir -p /build && \
+    curl -L -o /build/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb && \
+    dpkg -i /build/hugo.deb && \
+    rm -rf /build
 
-RUN mkdir $HOME/src && \
-    cd $HOME/src && \
-    curl -L https://github.com/gohugoio/hugo/archive/refs/tags/v${HUGO_VERSION}.tar.gz | tar -xz && \
-    cd "hugo-${HUGO_VERSION}" && \
-    go install --tags extended
-
-FROM docker.io/library/golang:1.23.0-alpine3.20
-
-RUN apk add --no-cache \
-    runuser \
-    git \
-    openssh-client \
-    rsync \
-    npm
-
-RUN mkdir -p /var/hugo && \
-    addgroup -Sg 1000 hugo && \
-    adduser -Sg hugo -u 1000 -h /var/hugo hugo && \
+# Create hugo user and configure Git
+RUN useradd -m --user-group -u 60000 -d /var/hugo hugo && \
     chown -R hugo: /var/hugo && \
     runuser -u hugo -- git config --global --add safe.directory /src
 
-COPY --from=0 /go/bin/hugo /usr/local/bin/hugo
-
 WORKDIR /src
+
+# Copy and install npm dependencies
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ci --omit=dev
 
 USER hugo:hugo
 
