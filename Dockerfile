@@ -2,7 +2,6 @@ FROM docker.io/library/debian:bookworm AS builder
 
 LABEL maintainer="Kubernetes Authors https://github.com/kubernetes/website"
 LABEL description="Image for building and serving a the Kubernetes website"
-LABEL version="1.0"
 
 # Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
