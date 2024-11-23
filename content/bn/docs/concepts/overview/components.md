@@ -16,7 +16,7 @@ card:
 
 এই পেইজটি প্রয়োজনীয় কম্পোনেন্ট গুলোর একটি হাই-লেভেলের ওভারভিউ প্রদান করে যা একটি কুবারনেটিস ক্লাস্টার তৈরি করে।
 
-{{< figure src="/content/bn/docs/images/components-of-kubernetes-(bn-version).svg" alt="একটি ক্লাস্টারের কম্পোনেন্ট গুলো" caption="একটি কুবারনেটিস ক্লাস্টারের কম্পোনেন্ট গুলো" class="diagram-large" clicktozoom="true" >}}
+{{< figure src="/bn/docs/images/components-of-kubernetes-(bn-version).svg" alt="একটি ক্লাস্টারের কম্পোনেন্ট গুলো" caption="একটি কুবারনেটিস ক্লাস্টারের কম্পোনেন্ট গুলো" class="diagram-large" clicktozoom="true" >}}
 
 <!-- body -->
 
