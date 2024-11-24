@@ -116,7 +116,7 @@ to override this behaviour, see [Delete owner objects and orphan dependents](/do
 ## Garbage collection of unused containers and images {#containers-images}
 
 The {{<glossary_tooltip text="kubelet" term_id="kubelet">}} performs garbage
-collection on unused images every two minutes and on unused containers every
+collection on unused images every five minutes and on unused containers every
 minute. You should avoid using external garbage collection tools, as these can
 break the kubelet behavior and remove containers that should exist.
 
@@ -149,20 +149,15 @@ until disk usage reaches the `LowThresholdPercent` value.
 As a beta feature, you can specify the maximum time a local image can be unused for,
 regardless of disk usage. This is a kubelet setting that you configure for each node.
 
-To configure the setting, you need to set a value for the `imageMaximumGCAge` 
+To configure the setting, you need to set a value for the `imageMaximumGCAge`
 field in the kubelet configuration file.
 
-The value is specified as a Kubernetes _duration_; 
-Valid time units for the `imageMaximumGCAge` field in the kubelet configuration file are:
-- "ns" for nanoseconds
-- "us" or "µs" for microseconds
-- "ms" for milliseconds
-- "s" for seconds
-- "m" for minutes
-- "h" for hours
+The value is specified as a Kubernetes {{< glossary_tooltip text="duration" term_id="duration" >}}.
+See [duration](/docs/reference/glossary/?all=true#term-duration) in the glossary
+for more details.
 
 For example, you can set the configuration field to `12h45m`,
-which means 12 hours and 45 minutes. 
+which means 12 hours and 45 minutes.
 
 {{< note >}}
 This feature does not track image usage across kubelet restarts. If the kubelet

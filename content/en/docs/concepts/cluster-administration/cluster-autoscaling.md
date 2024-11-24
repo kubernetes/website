@@ -88,7 +88,7 @@ cloud providers:
 
 The [descheduler](https://github.com/kubernetes-sigs/descheduler) can help you
 consolidate Pods onto a smaller number of nodes, to help with automatic scale down
-when the cluster has space capacity.
+when the cluster has spare capacity.
 
 ### Sizing a workload based on cluster size
 
@@ -115,3 +115,4 @@ in the cluster.
 ## {{% heading "whatsnext" %}}
 
 - Read about [workload-level autoscaling](/docs/concepts/workloads/autoscaling/)
+- Read about [node overprovisioning](/docs/tasks/administer-cluster/node-overprovisioning/)

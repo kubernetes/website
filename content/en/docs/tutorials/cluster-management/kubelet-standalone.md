@@ -6,7 +6,7 @@ weight: 10
 
 <!-- overview -->
 
-This tutorial shows you how to run a standalone Kubelet instance.
+This tutorial shows you how to run a standalone kubelet instance.
 
 You may have different motivations for running a standalone kubelet.
 This tutorial is aimed at introducing you to Kubernetes, even if you don't have
@@ -29,7 +29,7 @@ tutorial does not cover the details you need for running a resilient control pla
 * Learn how the different components of the solution interact among themselves.
 
 {{< caution >}}
-The Kubelet configuration used for this tutorial is insecure by design and should
+The kubelet configuration used for this tutorial is insecure by design and should
 _not_ be used in a production environment.
 {{< /caution >}}
 
@@ -38,11 +38,11 @@ _not_ be used in a production environment.
 * Admin (`root`) access to a Linux system that uses `systemd` and `iptables`
   (or nftables with `iptables` emulation).
 * Access to the Internet to download the components needed for the tutorial, such as:
-* A {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
+  * A {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
     that implements the Kubernetes {{< glossary_tooltip term_id="cri" text="(CRI)">}}.
-* Network plugins (these are often known as
+  * Network plugins (these are often known as
     {{< glossary_tooltip text="Container Networking Interface (CNI)" term_id="cni" >}})
-* Required CLI tools: `curl`, `tar`, `jq`.
+  * Required CLI tools: `curl`, `tar`, `jq`.
 
 <!-- lessoncontent -->
 
@@ -50,7 +50,7 @@ _not_ be used in a production environment.
 
 ### Swap configuration
 
-The default behavior of kubelet is to fail to start if swap memory is detected on a node.
+By default, kubelet fails to start if swap memory is detected on a node.
 This means that swap should either be disabled or tolerated by kubelet.
 
 {{< note >}}
@@ -79,7 +79,7 @@ sudo swapoff -a
 
 To make this change persistent across reboots:
 
-Make sure swap is disabled in either `/etc/fstab` or `systemd.swap`, depending how it was
+Make sure swap is disabled in either `/etc/fstab` or `systemd.swap`, depending on how it was
 configured on your system.
 
 ### Enable IPv4 packet forwarding
@@ -100,6 +100,7 @@ sudo tee /etc/sysctl.d/k8s.conf <<EOF
 net.ipv4.ip_forward = 1
 EOF
 ```
+
 Apply the changes to the system:
 
 ```shell
@@ -182,11 +183,10 @@ Detailed service check:
 sudo journalctl -f -u crio.service
 ```
 
-### Install  network plugins
+### Install network plugins
 
 The `cri-o` installer installs and configures the `cni-plugins` package. You can
 verify the installation running the following command:
-
 
 ```shell
 /opt/cni/bin/bridge --version
@@ -234,13 +234,13 @@ The output is similar to:
 
 {{< note >}}
 Make sure that the default `subnet` range (`10.85.0.0/16`) does not overlap with
-one of your active networks. If there is an overlap, you can edit the file and change it
+any of your active networks. If there is an overlap, you can edit the file and change it
 accordingly. Restart the service after the change.
 {{< /note >}}
 
 ### Download and set up the kubelet
 
-Download the [latest stable release](/releases/download/) of the Kubelet.
+Download the [latest stable release](/releases/download/) of the kubelet.
 
 {{< tabs name="download_kubelet" >}}
 {{< tab name="x86-64" codelang="bash" >}}
@@ -289,7 +289,6 @@ configure kubelet in standalone mode in your environment.
 See [Ports and Protocols](/docs/reference/networking/ports-and-protocols/) to
 understand which ports Kubernetes components use.
 {{< /note >}}
-
 
 Install:
 
@@ -346,7 +345,7 @@ Detailed service check:
 sudo journalctl -u kubelet.service
 ```
 
-Check the Kubelet's API `/healthz` endpoint:
+Check the kubelet's API `/healthz` endpoint:
 
 ```shell
 curl http://localhost:10255/healthz?verbose
@@ -361,7 +360,7 @@ The output is similar to:
 healthz check passed
 ```
 
-Query the Kubelet's API `/pods` endpoint:
+Query the kubelet's API `/pods` endpoint:
 
 ```shell
 curl http://localhost:10255/pods | jq '.'
@@ -378,7 +377,7 @@ The output is similar to:
 }
 ```
 
-## Run a Pod in the Kubelet
+## Run a Pod in the kubelet
 
 In standalone mode, you can run Pods using Pod manifests. The manifests can either
 be on the local filesystem, or fetched via HTTP from a configuration source.
@@ -408,12 +407,12 @@ Copy the `static-web.yaml` manifest file to the `/etc/kubernetes/manifests` dire
 sudo cp static-web.yaml /etc/kubernetes/manifests/
 ```
 
-### Find out information about the Kubelet and the Pod {#find-out-information}
+### Find out information about the kubelet and the Pod {#find-out-information}
 
 The Pod networking plugin creates a network bridge (`cni0`) and a pair of `veth` interfaces
 for each Pod (one of the pair is inside the newly made Pod, and the other is at the host level).
 
-Query the Kubelet's API endpoint at `http://localhost:10255/pods`:
+Query the kubelet's API endpoint at `http://localhost:10255/pods`:
 
 ```shell
 curl http://localhost:10255/pods | jq '.'
@@ -463,7 +462,7 @@ within the following directories for monitoring and troubleshooting:
 
 ## Clean up
 
-### Kubelet
+### kubelet
 
 ```shell
 sudo systemctl disable --now kubelet.service
@@ -502,7 +501,7 @@ sudo rm -rf /var/lib/cni
 This page covered the basic aspects of deploying a kubelet in standalone mode.
 You are now ready to deploy Pods and test additional functionality.
 
-Notice that in standalone mode the Kubelet does *not* support fetching Pod
+Notice that in standalone mode the kubelet does *not* support fetching Pod
 configurations from the control plane (because there is no control plane connection).
 
 You also cannot use a {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} or a

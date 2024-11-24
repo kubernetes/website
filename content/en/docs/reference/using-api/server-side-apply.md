@@ -96,6 +96,11 @@ becomes available.
 
 A simple example of an object created using Server-Side Apply could look like this:
 
+{{< note >}}
+`kubectl get` omits managed fields by default. 
+Add `--show-managed-fields` to show `managedFields` when the output format is either `json` or `yaml`.
+{{< /note >}}
+
 ```yaml
 ---
 apiVersion: v1
@@ -249,8 +254,10 @@ metadata:
   managedFields:
   - manager: kubectl
     operation: Apply
+    time: '2019-03-30T15:00:00.000Z'
     apiVersion: v1
-    fields:
+    fieldsType: FieldsV1
+    fieldsV1:
       f:metadata:
         f:labels:
           f:test-label: {}
@@ -258,7 +265,8 @@ metadata:
     operation: Update
     apiVersion: v1
     time: '2019-03-30T16:00:00.000Z'
-    fields:
+    fieldsType: FieldsV1
+    fieldsV1:
       f:data:
         f:key: {}
 data:
@@ -294,12 +302,12 @@ for fields within Kubernetes objects.
 For a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}},
 you can set these markers when you define the custom resource.
 
-| Golang marker | OpenAPI extension | Possible values | Description |
-|---|---|---|---|---|
-| `//+listType` | `x-kubernetes-list-type` | `atomic`/`set`/`map` | Applicable to lists. `set` applies to lists that include only scalar elements. These elements must be unique. `map` applies to lists of nested types only. The key values (see `listMapKey`) must be unique in the list. `atomic` can apply to any list. If configured as `atomic`, the entire list is replaced during merge. At any point in time, a single manager owns the list. If `set` or `map`, different managers can manage entries separately. |
-| `//+listMapKey` | `x-kubernetes-list-map-keys` | List of field names, e.g. `["port", "protocol"]` | Only applicable when `+listType=map`. A list of field names whose values uniquely identify entries in the list. While there can be multiple keys, `listMapKey` is singular because keys need to be specified individually in the Go type. The key fields must be scalars. |
-| `//+mapType` | `x-kubernetes-map-type` | `atomic`/`granular` | Applicable to maps. `atomic` means that the map can only be entirely replaced by a single manager. `granular` means that the map supports separate managers updating individual fields. |
-| `//+structType` | `x-kubernetes-map-type` | `atomic`/`granular` | Applicable to structs; otherwise same usage and OpenAPI annotation as `//+mapType`.|
+| Golang marker   | OpenAPI extension            | Possible values                                  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| --------------- | ---------------------------- | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |  |
+| `//+listType`   | `x-kubernetes-list-type`     | `atomic`/`set`/`map`                             | Applicable to lists. `set` applies to lists that include only scalar elements. These elements must be unique. `map` applies to lists of nested types only. The key values (see `listMapKey`) must be unique in the list. `atomic` can apply to any list. If configured as `atomic`, the entire list is replaced during merge. At any point in time, a single manager owns the list. If `set` or `map`, different managers can manage entries separately. |
+| `//+listMapKey` | `x-kubernetes-list-map-keys` | List of field names, e.g. `["port", "protocol"]` | Only applicable when `+listType=map`. A list of field names whose values uniquely identify entries in the list. While there can be multiple keys, `listMapKey` is singular because keys need to be specified individually in the Go type. The key fields must be scalars.                                                                                                                                                                                |
+| `//+mapType`    | `x-kubernetes-map-type`      | `atomic`/`granular`                              | Applicable to maps. `atomic` means that the map can only be entirely replaced by a single manager. `granular` means that the map supports separate managers updating individual fields.                                                                                                                                                                                                                                                                  |
+| `//+structType` | `x-kubernetes-map-type`      | `atomic`/`granular`                              | Applicable to structs; otherwise same usage and OpenAPI annotation as `//+mapType`.                                                                                                                                                                                                                                                                                                                                                                      |
 
 If `listType` is missing, the API server interprets a
 `patchStrategy=merge` marker as a `listType=map` and the
@@ -355,7 +363,8 @@ metadata:
   - manager: "manager-one"
     operation: Apply
     apiVersion: example.com/v1
-    fields:
+    fieldsType: FieldsV1
+    fieldsV1:
       f:spec:
         f:data: {}
 spec:
