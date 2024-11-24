@@ -84,7 +84,7 @@ owner object:
 
 After the owner object enters the *deletion in progress* state, the controller
 deletes dependents it knows about. After deleting all the dependent objects it knows about,
-the controller deletes the owner object. At this point, the object is no longer visible in the
+the garbage collection controller deletes the owner object. At this point, the object is no longer visible in the
 Kubernetes API.
 
 During foreground cascading deletion, the only dependents that block owner
