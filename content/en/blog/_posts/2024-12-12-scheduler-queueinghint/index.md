@@ -1,11 +1,12 @@
 ---
 layout: blog
 title: "Kubernetes v1.32: QueueingHint Brings a New Possibility to Optimize Pod Scheduling"
-date: 2024-xx-xxT00:00:00-08:00
+date: 2024-12-12
 slug: scheduler-queueinghint
+draft: true
+Author: >
+  [Kensei Nakada](https://github.com/sanposhiho) (Tetrate.io)
 ---
-
-**Author:** [Kensei Nakada](https://github.com/sanposhiho) (Tetrate.io)
 
 The Kubernetes [scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/) is the core
 component that decides which node any new Pods should run on.
@@ -92,15 +93,25 @@ for example, filtering out node related events when nodes aren't ready.
 But, it's not ideal because this hard-coded `preCheck` refers to in-tree plugins logic,
 and it causes issues for custom plugins (for example: [#110175](https://github.com/kubernetes/kubernetes/issues/110175)).
 
-## What's new in v1.29
+## QueueingHint's history and what's new in v1.32
 
 Within SIG Scheduling, we have been working on the development of QueueingHint since
 Kubernetes v1.28.
-In v1.28, only one alpha plugin (DRA) supported QueueingHint,
-and in v1.29, some stable plugins started to implement QueueingHints.
 
-QueueingHint is not something user-facing, but we have a feature gate (`SchedulerQueueingHints`) as a safety net 
-because QueueingHint changes a critical path of the scheduler and adds some memory overhead, depending on how busy a cluster is.
+QueueingHint is not something user-facing, but we implemented a feature gate (`SchedulerQueueingHints`) as a safety net,
+...which actually saved our life soon.
+
+In v1.28, we implemented QueueingHints with a few in-tree plugins experimentally,
+and made the feature gate enabled by default.
+
+But, users reported the memory leak issue, and consequently we disabled the feature gate in the patch release of v1.28.
+
+In v1.28 - v1.31, we kept working on the QueueingHint implementation within the rest of in-tree plugins,
+and having bug fixes.
+
+And, at v1.32, we will make this feature enabled by default again;
+we finished implementing QueueingHints with all plugins,
+and also identified the cause of the memory leak, finally!
 
 ## Getting involved
 
