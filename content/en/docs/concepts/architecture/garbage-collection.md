@@ -82,7 +82,7 @@ owner object:
 * The object remains visible through the Kubernetes API until the deletion
   process is complete.
 
-After the owner object enters the *deletion in progress* state, the controller
+After the owner object enters the *deletion in progress* state, the garbage collection controller
 deletes dependents it knows about. After deleting all the dependent objects it knows about,
 the garbage collection controller deletes the owner object. At this point, the object is no longer visible in the
 Kubernetes API.
