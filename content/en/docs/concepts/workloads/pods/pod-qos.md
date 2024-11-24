@@ -105,7 +105,7 @@ mechanisms that both provide controls over quality of service.
 
 Certain behavior is independent of the QoS class assigned by Kubernetes. For example:
 
-* Any Container exceeding a resource limit will be killed and restarted by the kubelet without
+* Any Container exceeding a memory limit will be killed and restarted by the kubelet without
   affecting other Containers in that Pod.
 
 * If a Container exceeds its resource request and the node it runs on faces
