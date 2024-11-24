@@ -497,7 +497,7 @@ to mount in a Pod. You can specify single or multiple target world wide names (W
 using the parameter `targetWWNs` in your Volume configuration. If multiple WWNs are specified,
 targetWWNs expect that those WWNs are from multi-path connections.
 -->
-### fc (光纤通道) {#fc}
+### fc（光纤通道） {#fc}
 
 `fc` 卷类型允许将现有的光纤通道块存储卷挂载到 Pod 中。
 可以使用卷配置中的参数 `targetWWNs` 来指定单个或多个目标 WWN（World Wide Names）。
@@ -580,7 +580,7 @@ clones the repo using Git, then mount the
 `gitRepo` 卷类型已经被弃用。
 
 如果需要制备已挂载 Git 仓库的 Pod，你可以将
-[EmptyDir](#emptydir) 卷挂载到 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/) 中，
+[EmptyDir](#emptydir) 卷挂载到 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)中，
 使用 Git 命令完成仓库的克隆操作，然后将 [EmptyDir](#emptydir) 卷挂载到 Pod 的容器中。
 
 ---
@@ -591,12 +591,12 @@ You can restrict the use of `gitRepo` volumes in your cluster using
 [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/).
 You can use the following Common Expression Language (CEL) expression as
 part of a policy to reject use of `gitRepo` volumes:
-`has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`.
+`!has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`.
 -->
 你可以使用 [ValidatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)
 这类[策略](/zh-cn/docs/concepts/policy/)来限制在你的集群中使用 `gitRepo` 卷。
 你可以使用以下通用表达语言（CEL）表达式作为策略的一部分，以拒绝使用 `gitRepo` 卷：
-`has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`。
+`!has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`。
 {{< /warning >}}
 
 <!--
@@ -788,19 +788,38 @@ root 身份运行进程，或者修改主机上的文件权限，以便能够从
 -->
 #### hostPath 配置示例
 
+{{< tabs name="hostpath_examples" >}}
+
 <!--
 Linux node
+---
 # This manifest mounts /data/foo on the host as /foo inside the
 # single container that runs within the hostpath-example-linux Pod.
 #
 # The mount into the container is read-only.
-
-# mount /data/foo, but only if that directory already exists
-
-# directory location on host
-# this field is optional
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostpath-example-linux
+spec:
+  os: { name: linux }
+  nodeSelector:
+    kubernetes.io/os: linux
+  containers:
+  - name: example-container
+    image: registry.k8s.io/test-webserver
+    volumeMounts:
+    - mountPath: /foo
+      name: example-volume
+      readOnly: true
+  volumes:
+  - name: example-volume
+    # mount /data/foo, but only if that directory already exists
+    hostPath:
+      path: /data/foo # directory location on host
+      type: Directory # this field is optional
 -->
-{{< tabs name="hostpath_examples" >}}
+
 {{< tab name="Linux 节点" codelang="yaml" >}}
 ---
 # 此清单将主机上的 /data/foo 挂载为 hostpath-example-linux Pod 中运行的单个容器内的 /foo
@@ -831,15 +850,32 @@ spec:
 
 <!--
 Windows node
+---
 # This manifest mounts C:\Data\foo on the host as C:\foo, inside the
 # single container that runs within the hostpath-example-windows Pod.
 #
 # The mount into the container is read-only.
-
-# mount C:\Data\foo from the host, but only if that directory already exists
-
-# directory location on host
-# this field is optional
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostpath-example-windows
+spec:
+  os: { name: windows }
+  nodeSelector:
+    kubernetes.io/os: windows
+  containers:
+  - name: example-container
+    image: microsoft/windowsservercore:1709
+    volumeMounts:
+    - name: example-volume
+      mountPath: "C:\\foo"
+      readOnly: true
+  volumes:
+    # mount C:\Data\foo from the host, but only if that directory already exists
+  - name: example-volume
+    hostPath:
+      path: "C:\\Data\\foo" # directory location on host
+      type: Directory       # this field is optional
 -->
 {{< tab name="Windows 节点" codelang="yaml" >}}
 ---
@@ -899,7 +935,34 @@ Here's the example manifest:
 以下是清单示例：
 
 <!--
-# Ensure the file directory is created.
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-webserver
+spec:
+  os: { name: linux }
+  nodeSelector:
+    kubernetes.io/os: linux
+  containers:
+  - name: test-webserver
+    image: registry.k8s.io/test-webserver:latest
+    volumeMounts:
+    - mountPath: /var/local/aaa
+      name: mydir
+    - mountPath: /var/local/aaa/1.txt
+      name: myfile
+  volumes:
+  - name: mydir
+    hostPath:
+      # Ensure the file directory is created.
+      path: /var/local/aaa
+      type: DirectoryOrCreate
+  - name: myfile
+    hostPath:
+      path: /var/local/aaa/1.txt
+      type: FileOrCreate
+```
 -->
 ```yaml
 apiVersion: v1
@@ -1307,7 +1370,25 @@ Here is an example Pod referencing a pre-provisioned Portworx volume:
 下面是一个引用预先配备的 Portworx 卷的示例 Pod：
 
 <!--
-# This Portworx volume must already exist.
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-portworx-volume-pod
+spec:
+  containers:
+  - image: registry.k8s.io/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /mnt
+      name: pxvol
+  volumes:
+  - name: pxvol
+    # This Portworx volume must already exist.
+    portworxVolume:
+      volumeID: "pxvol"
+      fsType: "<fs-type>"
+```
 -->
 ```yaml
 apiVersion: v1
@@ -1432,7 +1513,7 @@ receive Secret updates.
 <!--
 For more details, see [Configuring Secrets](/docs/concepts/configuration/secret/).
 -->
-更多详情请参考[配置 Secrets](/zh-cn/docs/concepts/configuration/secret/)。
+更多详情请参考[配置 Secret](/zh-cn/docs/concepts/configuration/secret/)。
 
 <!--
 ### vsphereVolume (deprecated) {#vspherevolume}
@@ -1612,7 +1693,33 @@ The host directory `/var/log/pods/pod1` is mounted at `/logs` in the container.
 宿主机目录 `/var/log/pods/pod1` 被挂载到容器的 `/logs` 中。
 
 <!--
-# The variable expansion uses round brackets (not curly brackets).
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod1
+spec:
+  containers:
+  - name: container1
+    env:
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.name
+    image: busybox:1.28
+    command: [ "sh", "-c", "while [ true ]; do echo 'Hello'; sleep 10; done | tee -a /logs/hello.txt" ]
+    volumeMounts:
+    - name: workdir1
+      mountPath: /logs
+      # The variable expansion uses round brackets (not curly brackets).
+      subPathExpr: $(POD_NAME)
+  restartPolicy: Never
+  volumes:
+  - name: workdir1
+    hostPath:
+      path: /var/log/pods
+```
 -->
 ```yaml
 apiVersion: v1
