@@ -1,7 +1,7 @@
 ---
 title: Kubernetes z-pages
 content_type: reference
-weight: 20
+weight: 60
 reviewers:
 - dashpole
 ---
