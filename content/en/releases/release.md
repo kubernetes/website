@@ -11,7 +11,7 @@ This content is auto-generated and links may not function. The source of the doc
 {{% /pageinfo %}}
 <!-- Localization note: omit the pageinfo block when localizing -->
 
-# Targeting enhancements, Issues and PRs to Release Milestones
+## Targeting enhancements, Issues and PRs to Release Milestones
 
 This document is focused on Kubernetes developers and contributors who need to
 create an enhancement, issue, or pull request which targets a specific release
