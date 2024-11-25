@@ -1370,9 +1370,9 @@ Default: [&quot;pods&quot;]</p>
 <code>[]string</code>
 </td>
 <td>
-   <p>A comma separated whitelist of unsafe sysctls or sysctl patterns (ending in <code>*</code>).
+   <p>allowedUnsafeSysctls is the list of unsafe sysctls or sysctl patterns (ending in <code>*</code>).
 Unsafe sysctl groups are <code>kernel.shm*</code>, <code>kernel.msg*</code>, <code>kernel.sem</code>, <code>fs.mqueue.*</code>,
-and <code>net.*</code>. For example: &quot;<code>kernel.msg*,net.ipv4.route.min_pmtu</code>&quot;
+and <code>net.*</code>. For example: <code>[&quot;kernel.msg*&quot;, &quot;net.ipv4.route.min_pmtu&quot;]</code>
 Default: []</p>
 </td>
 </tr>
