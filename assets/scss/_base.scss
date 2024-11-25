@@ -437,12 +437,6 @@ $ocean-nodes-h3-margin-bottom: 30px;
 // video
 $video-section-height: 200px;
 
-// features
-$features-h3-margin-bottom: 20px;
-$feature-box-div-width: 100%;
-$feature-box-margin-bottom: 0;
-$feature-box-div-margin-bottom: 40px;
-
 // Home-specific
 
 .td-home {
@@ -687,47 +681,58 @@ section#cncf {
 }
 
 // Features
-#features {
-  padding-top: 140px;
+body.td-home section.features-container {
+  padding: 0; // reset
+  padding-top: 140px; // make room for logo
+
   background-color: $light-grey;
   background-image: url(/images/wheel.svg);
   background-position: center 60px;
   background-repeat: no-repeat;
   background-size: 60px;
-}
 
-.feature-box {
-  //padding: 50px 0
-  width: 100%;
-  overflow: hidden;
-  clear: both;
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+  padding-bottom: 2em;
 
-  h4 {
-    line-height: normal;
-    margin-bottom: 15px;
+  .k8s-features-heading {
+    color: $primary;
+    text-align: center;
   }
 
   & > div {
-    background-color: #daeaf9;
-    border-radius: 20px;
-    padding: 25px;
-  }
-}
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: stretch;
+    gap: 1.2rem;
 
-#features {
-  h3 {
-    margin-bottom: $features-h3-margin-bottom;
-  }
+    margin-top: 1.8em;
 
-  .feature-box {
-    margin-bottom: $feature-box-margin-bottom;
+    max-width: clamp(75em, 25cm, 90vw);
+    margin-left: auto;
+    margin-right: auto;
 
-    & > div {
-      width: $feature-box-div-width;
-      margin-bottom: $feature-box-div-margin-bottom;
+    background: initial;
+
+    & > .feature-box {
+        margin: 0;
+
+        h3 {
+          text-align: center;
+          line-height: normal;
+          font-size: 1.3em;
+          margin-bottom: 1rem;
+        }
+
+        flex-basis: calc(min(75vw, 12.5cm, 35em));
+        flex-shrink: 0;
+
+        border-radius: 0.5em;
+        padding: 1em;
+        padding-bottom: 1.2em;
+
+        background-color: #daeaf9; // light blue
     }
   }
 }
