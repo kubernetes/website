@@ -8,9 +8,7 @@ _build:
 stages:
   - stage: alpha 
     defaultValue: false
-    fromVersion: "1.30"
+    fromVersion: "1.32"
 ---
-In Kubernetes {{< skew currentVersion >}}, this feature gate has no effect.
-A future release of Kubernetes may use this feature gate to enable
-the MutatingAdmissionPolicy in admission chain.
 
+Enable [MutatingAdmissionPolicy](/docs/reference/access-authn-authz/mutating-admission-policy/) support for CEL mutations be used in Admission Control.
