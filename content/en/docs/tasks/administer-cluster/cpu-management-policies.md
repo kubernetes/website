@@ -49,6 +49,14 @@ However, in workloads where CPU cache affinity and scheduling latency
 significantly affect workload performance, the kubelet allows alternative CPU
 management policies to determine some placement preferences on the node.
 
+## Windows Support
+
+{{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
+
+CPU Manager support can be enabled on Windows by using the `WindowsCPUAndMemoryAffinity` feature gate
+and it requires support in the container runtime.
+Once the feature gate is enabled, follow the steps below to configure the [CPU manager policy](#configuration).
+
 ### Configuration
 
 The CPU Manager policy is set with the `--cpu-manager-policy` kubelet
