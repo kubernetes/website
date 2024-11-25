@@ -3,6 +3,8 @@ layout: blog
 title: "Kubernetes 1.29：修改卷之 VolumeAttributesClass"
 date: 2023-12-15
 slug: kubernetes-1-29-volume-attributes-class
+author: >
+  Sunny Song (Google)
 ---
 <!--
 layout: blog
@@ -10,11 +12,6 @@ title: "Kubernetes 1.29: VolumeAttributesClass for Volume Modification"
 date: 2023-12-15
 slug: kubernetes-1-29-volume-attributes-class
 -->
-
-<!--
-**Author**: Sunny Song (Google)
--->
-**作者**：Sunny Song (Google)
 
 **译者**：[Baofa Fan](https://github.com/carlory) (DaoCloud)
 
