@@ -445,7 +445,7 @@ PodReadyToStartContainersCondition=true|false (BETA - default=true)<br/>
 PortForwardWebsockets=true|false (ALPHA - default=false)<br/>
 ProcMountType=true|false (ALPHA - default=false)<br/>
 QOSReserved=true|false (ALPHA - default=false)<br/>
-RecoverVolumeExpansionFailure=true|false (ALPHA - default=false)<br/>
+RecoverVolumeExpansionFailure=true|false (BETA - default=true)<br/>
 RecursiveReadOnlyMounts=true|false (ALPHA - default=false)<br/>
 RelaxedEnvironmentVariableValidation=true|false (ALPHA - default=false)<br/>
 RetryGenerateName=true|false (ALPHA - default=false)<br/>
