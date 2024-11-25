@@ -1,5 +1,5 @@
 ---
-title: "Pod Lifecycle: Key Areas and Behaviors"
+title: "Pod Lifecycle Areas and Behaviors"
 content_type: reference
 weight: 30
 ---
