@@ -200,6 +200,23 @@ spec:
 You may also be able to mutate the incoming Pod, at admission time, to unset
 the `.spec.nodeName` field and to use a node selector instead.
 
+## ResourceClaim Device Status
+
+{{< feature-state feature_gate_name="DRAResourceClaimDeviceStatus" >}}
+
+The drivers can report driver-specific device status data for each allocated device
+in a resource claim. For example, IPs assigned to a network interface device can be 
+reported in the ResourceClaim status.
+
+The drivers setting the status, the accuracy of the information depends on the implementation 
+of those DRA Drivers. Therefore, the reported status of the device may not always reflect the 
+real time changes of the state of the device.
+
+When the feature is disabled, that field automatically gets cleared when storing the ResourceClaim. 
+
+A ResourceClaim device status is supported when it is possible, from a DRA driver, to update an 
+existing ResourceClaim where the `status.devices` field is set. 
+
 ## Enabling dynamic resource allocation
 
 Dynamic resource allocation is an *alpha feature* and only enabled when the
@@ -208,6 +225,10 @@ and the `resource.k8s.io/v1alpha3` {{< glossary_tooltip text="API group" term_id
 are enabled. For details on that, see the `--feature-gates` and `--runtime-config`
 [kube-apiserver parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
 kube-scheduler, kube-controller-manager and kubelet also need the feature gate.
+
+When a resource driver reports the status of the devices, then the
+`DRAResourceClaimDeviceStatus` feature gate has to be enabled in addition to
+`DynamicResourceAllocation`.
 
 A quick check whether a Kubernetes cluster supports the feature is to list
 DeviceClass objects with:
@@ -236,6 +257,13 @@ include it.
 
 In addition to enabling the feature in the cluster, a resource driver also has to
 be installed. Please refer to the driver's documentation for details.
+
+### Enabling Device Status
+
+[ResourceClaim Device Status](#resourceclaim-device-status) is an *alpha feature* 
+and only enabled when the `DRAResourceClaimDeviceStatus` 
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kube-apiserver.
 
 ## {{% heading "whatsnext" %}}
 
