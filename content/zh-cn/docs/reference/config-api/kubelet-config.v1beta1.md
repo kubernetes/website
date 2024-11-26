@@ -1684,7 +1684,7 @@ Default: nil
    <p>maxParallelImagePulls 设置并行拉取镜像的最大数量。
 如果 serializeImagePulls 为 true，则无法设置此字段。
 把它设置为 nil 意味着没有限制。</p>
-   <p>默认值：true</p>
+   <p>默认值：nil</p>
 </td>
 </tr>
 <tr><td><code>evictionHard</code><br/>
