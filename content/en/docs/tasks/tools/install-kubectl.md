@@ -218,7 +218,9 @@ You can install kubectl as part of the Google Cloud SDK.
     curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
     ```
 
+    {{< note >}}
     To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
+    {{< /note >}}
 
     For example, to download version {{< param "fullversion" >}} on Linux, type:
     
