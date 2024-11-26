@@ -264,19 +264,17 @@ be installed. Please refer to the driver's documentation for details.
 
 There are cases when devices fail or are shut down. The responsibility of the DRA plugin
 in this case is to notify the kubelet about the situation using the `WatchResources` API.
+Code that relies on the devices will usually fail. Pods that don't set the `restartPolicy`
+field to `Always` might enter the `Failed` phase. Pods that do set the `restartPolicy`
+field to `Always` might enter a crash loop.
 
-Pods that were assigned to the failed devices will continue be assigned to this device.
-It is typical that code relying on the device will start failing and Pod may get
-into Failed phase if `restartPolicy` for the Pod was not `Always` or enter the crash loop
-otherwise.
-
-By enabling the feature gate `ResourceHealthStatus`, the field `allocatedResourcesStatus`
-will be added to each container status, within the `.status` for each Pod. The `allocatedResourcesStatus`
+If you enable the `ResourceHealthStatus` feature gate, the `allocatedResourcesStatus` field
+is added to each entry in the `status.containerStatuses` field of the Pod specification. The `allocatedResourcesStatus`
 field reports health information for each device assigned to the container.
 
-For a failed Pod, or or where you suspect a fault, you can use this status to understand whether
-the Pod behavior may be associated with device failure. For example, if an accelerator is reporting
-an over-temperature event, the `allocatedResourcesStatus` field may be able to report this.
+For a failed Pod, or where you suspect a fault, you can use the `allocatedResourcesStatus` field to understand
+whether the Pod behavior might be associated with device failure. For example, if an accelerator is reporting
+an over-temperature event, the `allocatedResourcesStatus` field might help you to identify the event.
 
 ## {{% heading "whatsnext" %}}
 
