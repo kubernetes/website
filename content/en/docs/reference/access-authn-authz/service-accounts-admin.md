@@ -169,7 +169,7 @@ in the Kubernetes codebase.
 
 You can inspect a JWT using standard JWT decoding tool. Below is an example of a JWT for the
 `my-serviceaccount` ServiceAccount, bound to a Pod object named `my-pod` which is scheduled
-to the Node `my-node`, in the `default` namespace:
+to the Node `my-node`, in the `my-namespace` namespace:
 
 ```json
 {
@@ -181,7 +181,7 @@ to the Node `my-node`, in the `default` namespace:
   "iss": "https://my-cluster.example.com",
   "jti": "aed34954-b33a-4142-b1ec-389d6bbb4936",
   "kubernetes.io": {
-    "namespace": "default",
+    "namespace": "my-namespace",
     "node": {
       "name": "my-node",
       "uid": "646e7c5e-32d6-4d42-9dbd-e504e6cbe6b1"
@@ -196,7 +196,7 @@ to the Node `my-node`, in the `default` namespace:
     }
   },
   "nbf": 1729601640,
-  "sub": "system:serviceaccount:default:my-serviceaccount"
+  "sub": "system:serviceaccount:my-namespace:my-serviceaccount"
 }
 ```
 
