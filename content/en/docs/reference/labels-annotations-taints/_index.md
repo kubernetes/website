@@ -804,13 +804,17 @@ Used on: All Objects
 
 This annotation is used for describing specific behaviour of given object.
 
-### kubernetes.io/enforce-mountable-secrets {#enforce-mountable-secrets}
+### kubernetes.io/enforce-mountable-secrets (deprecated) {#enforce-mountable-secrets}
 
 Type: Annotation
 
 Example: `kubernetes.io/enforce-mountable-secrets: "true"`
 
 Used on: ServiceAccount
+
+{{< note >}}
+`kubernetes.io/enforce-mountable-secrets` is deprecated since Kubernetes v1.32. Use separate namespaces to isolate access to mounted secrets.
+{{< /note >}}
 
 The value for this annotation must be **true** to take effect.
 When you set this annotation  to "true", Kubernetes enforces the following rules for
