@@ -264,7 +264,7 @@ announcements:
     </a> 
 
 - name: KubeCon 2024 India
-  startTime: 2024-11-26T00:00:00  #Added in https://github.com/kubernetes/website/pull/TODO
+  startTime: 2024-11-26T00:00:00  #Added in https://github.com/kubernetes/website/pull/48862
   endTime: 2024-12-12T18:00:00
   style: >-
     background: linear-gradient(90deg, rgba(217,54,73,1) 35%, rgba(81,0,116,1) 100%);
