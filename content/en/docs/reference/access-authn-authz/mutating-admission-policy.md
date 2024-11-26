@@ -9,7 +9,8 @@ content_type: concept
 
 <!-- overview -->
 
-{{< feature-state feature_gate_name="MutatingAdmissionPolicy" >}}
+{{< feature-state for_k8s_version="v1.32" state="alpha" >}}
+<!-- due to feature gate history, use manual version specification here -->
 
 This page provides an overview of _MutatingAdmissionPolicies_.
 
