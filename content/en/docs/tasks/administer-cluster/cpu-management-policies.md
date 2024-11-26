@@ -156,6 +156,7 @@ The following policy options exist for the static `CPUManager` policy:
 * `align-by-socket` (alpha, hidden by default) (1.25 or higher)
 * `distribute-cpus-across-cores` (alpha, hidden by default) (1.31 or higher)
 * `strict-cpu-reservation` (alpha, hidden by default) (1.32 or higher)
+* `prefer-align-cpus-by-uncorecache` (alpha, hidden by default) (1.32 or higher)
 
 The `full-pcpus-only` option can be enabled by adding `full-pcpus-only=true` to
 the CPUManager policy options.
@@ -175,6 +176,11 @@ options together at this moment.
 
 The `strict-cpu-reservation` option can be enabled by adding `strict-cpu-reservation=true` to
 the CPUManager policy options followed by removing the `/var/lib/kubelet/cpu_manager_state` file and restart kubelet.
+
+The `prefer-align-cpus-by-uncorecache` option can be enabled by adding the
+`prefer-align-cpus-by-uncorecache` to the `CPUManager` policy options. If 
+incompatible options are used, the kubelet will fail to start with the error 
+explained in the logs.
 
 For mode detail about the behavior of the individual options you can configure, please refer to the
 [Node ResourceManagers](/docs/concepts/policy/node-resource-managers) documentation.
