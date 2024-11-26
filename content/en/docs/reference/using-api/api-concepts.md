@@ -875,6 +875,41 @@ not vulnerable to ordering changes in the list.
 
 Once the last finalizer is removed, the resource is actually removed from etcd.
 
+### Force deletion
+
+{{< feature-state feature_gate_name="AllowUnsafeMalformedObjectDeletion" >}}
+
+{{< caution >}}
+This may break the workload associated with the resource being force deleted, if it
+relies on the normal deletion flow, so cluster breaking consequences may apply.
+{{< /caution >}}
+
+By enabling the delete option `ignoreStoreReadErrorWithClusterBreakingPotential`, the
+user can perform an unsafe force **delete** operation of an undecryptable/corrupt
+resource. This option is behind an ALPHA feature gate, and it is disabled by
+default. In order to use this option, the cluster operator must enable the feature by
+setting the command line option `--feature-gates=AllowUnsafeMalformedObjectDeletion=true`.
+
+{{< note >}}
+The user performing the force **delete** operation must have the privileges to do both
+the **delete** and **unsafe-delete-ignore-read-errors** verbs on the given resource.
+{{< /note >}}
+
+A resource is considered corrupt if it can not be successfully retrieved from the
+storage due to a) transformation error (for example: decryption failure), or b) the object
+failed to decode. The API server first attempts a normal deletion, and if it fails with
+a _corrupt resource_ error then it triggers the force delete. A force **delete** operation
+is unsafe because it ignores finalizer constraints, and skips precondition checks.
+
+The default value for this option is `false`, this maintains backward compatibility.
+For a **delete** request with `ignoreStoreReadErrorWithClusterBreakingPotential`
+set to `true`, the fields `dryRun`, `gracePeriodSeconds`, `orphanDependents`,
+`preconditions`, and `propagationPolicy` must be left unset.
+
+{{< note >}}
+If the user issues a **delete** request with `ignoreStoreReadErrorWithClusterBreakingPotential`
+set to `true` on an otherwise readable resource, the API server aborts the request with an error.
+{{< /note >}}
 
 ## Single resource API
 
