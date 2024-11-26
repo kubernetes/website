@@ -11,10 +11,6 @@ weight: 65
 
 {{< feature-state feature_gate_name="DynamicResourceAllocation" >}}
 
-Dynamic Resource Allocation with ResourceClaim device status:
-
-{{< feature-state feature_gate_name="DRAResourceClaimDeviceStatus" >}}
-
 Dynamic resource allocation is an API for requesting and sharing resources
 between pods and containers inside a pod. It is a generalization of the
 persistent volumes API for generic resources. Typically those resources
@@ -51,11 +47,7 @@ ResourceClaim
   for use by workloads. For example, if a workload needs an accelerator device
   with specific properties, this is how that request is expressed. The status
   stanza tracks whether this claim has been satisfied and what specific
-  resources have been allocated. When the `DRAResourceClaimDeviceStatus` 
-  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
-  enabled, drivers can report driver-specific device status data for each allocated 
-  device in a resource claim. For example, IPs assigned to a network interface device
-  can be reported in the ResourceClaim status.
+  resources have been allocated.
 
 ResourceClaimTemplate
 : Defines the spec and some metadata for creating
@@ -208,6 +200,23 @@ spec:
 You may also be able to mutate the incoming Pod, at admission time, to unset
 the `.spec.nodeName` field and to use a node selector instead.
 
+## ResourceClaim Device Status
+
+{{< feature-state feature_gate_name="DRAResourceClaimDeviceStatus" >}}
+
+The drivers can report driver-specific device status data for each allocated device
+in a resource claim. For example, IPs assigned to a network interface device can be 
+reported in the ResourceClaim status.
+
+The drivers setting the status, the accuracy of the information depends on the implementation 
+of those DRA Drivers. Therefore, the reported status of the device may not always reflect the 
+real time changes of the state of the device.
+
+When the feature is disabled, that field automatically gets cleared when storing the ResourceClaim. 
+
+A ResourceClaim device status is supported when it is possible, from a DRA driver, to update an 
+existing ResourceClaim where the `status.devices` field is set. 
+
 ## Enabling dynamic resource allocation
 
 Dynamic resource allocation is an *alpha feature* and only enabled when the
@@ -241,11 +250,6 @@ If not supported, this error is printed instead:
 error: the server doesn't have a resource type "deviceclasses"
 ```
 
-A ResourceClaim device status is supported when it is possible, from a DRA driver,
-to update an existing ResourceClaim where the `status.devices` field is set. When the
-`DRAResourceClaimDeviceStatus` feature is disabled, that field automatically
-gets cleared when storing the ResourceClaim.
-
 The default configuration of kube-scheduler enables the "DynamicResources"
 plugin if and only if the feature gate is enabled and when using
 the v1 configuration API. Custom configurations may have to be modified to
@@ -253,6 +257,13 @@ include it.
 
 In addition to enabling the feature in the cluster, a resource driver also has to
 be installed. Please refer to the driver's documentation for details.
+
+### Enabling Device Status
+
+[ResourceClaim Device Status](#resourceclaim-device-status) is an *alpha feature* 
+and only enabled when the `DRAResourceClaimDeviceStatus` 
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kube-apiserver.
 
 ## {{% heading "whatsnext" %}}
 
