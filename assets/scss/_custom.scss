@@ -1954,6 +1954,14 @@ body.td-search #search {
   padding: 0.2rem;
 }
 
+
+// handle main page features on narrow viewports
+@media screen and (max-width: 768px) {
+  .features-container div.feature-box {
+     min-width: 80vw;
+  }
+}
+
 @media screen and (max-aspect-ratio: 9/15) {
     gap: 0.4rem;
 }
