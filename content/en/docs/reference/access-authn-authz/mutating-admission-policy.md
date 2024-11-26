@@ -34,14 +34,15 @@ A policy is generally made up of three resources:
 - The MutatingAdmissionPolicy describes the abstract logic of a policy
   (think: "this policy sets a particular label to a particular value").
 
-- A MutatingAdmissionPolicyBinding links the above resources together and provides scoping.
-  If you only want to set an `owner` label for `Pods`, and not other API kinds, the binding is where you
-  specify this mutation.
-
 - A _parameter resource_ provides information to a MutatingAdmissionPolicy to make it a concrete
   statement (think "set the `owner` label to something like `company.example.com`").
   Parameter resources refer to Kubernetes resources, available in the Kubernetes API. They can be built-in types or extensions,
   such as a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} (CRD). For example, you can use a ConfigMap as a parameter.
+- A MutatingAdmissionPolicyBinding links the above (MutatingAdmissionPolicy and parameter) resources together and provides scoping.
+  If you only want to set an `owner` label for `Pods`, and not other API kinds, the binding is where you
+  specify this mutation.
+
+
 
 At least a MutatingAdmissionPolicy and a corresponding MutatingAdmissionPolicyBinding
 must be defined for a policy to have an effect.
@@ -59,7 +60,7 @@ experiment with Mutating admission policy.
 
 The following is an example of a MutatingAdmissionPolicy. This policy mutates newly created Pods to have a sidecar container if it does not exist.
 
-{{% code_sample language="yaml" file="mutatingadmissionpolicy/applyconfiguration-patch.yaml" %}}
+{{% code_sample language="yaml" file="mutatingadmissionpolicy/applyconfiguration-example.yaml" %}}
 
 The `.spec.mutations` field consists of a list of expressions that evaluate to resource patches.
 The emitted patches may be either [apply configurations](#patch-type-apply-configuration) or [JSON Patch](#patch-type-json-patch)
@@ -133,15 +134,14 @@ CEL expressions have access to the contents of the API request, organized into C
 - `authorizer.requestResource` - A CEL ResourceCheck constructed from the `authorizer` and configured with the
   request resource.
 
-The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the  
+The `apiVersion`, `kind`, `metadata.name`, `metadata.generateName` and `metadata.labels` are always accessible from the root of the  
 object. No other metadata properties are accessible.  
-This means that you cannot emit an apply configuration to make any change to an object's labels or annotations.  
 
 #### `JSONPatch` {#patch-type-json-patch}
 
 The same mutation can be written as a [JSON Patch](https://jsonpatch.com/) as follows:
 
-{{% code_sample language="yaml" file="mutatingadmissionpolicy/json-patch.yaml" %}}
+{{% code_sample language="yaml" file="mutatingadmissionpolicy/json-patch-example.yaml" %}}
 
 The expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/).
 ref: https://github.com/google/cel-spec
