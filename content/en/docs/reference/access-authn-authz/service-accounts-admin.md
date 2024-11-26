@@ -163,22 +163,22 @@ Hence `kubectl get tokenreview` is not a valid command.
 #### Schema for service account private claims
 
 The schema for the Kubernetes-specific claims within JWT tokens is not currently documented,
-however the relevant code area can be found in [the serviceaccount package]() in the Kubernetes codebase.
+however the relevant code area can be found in
+[the serviceaccount package](https://github.com/kubernetes/kubernetes/blob/d8919343526597e0788a1efe133c70d9a0c07f69/pkg/serviceaccount/claims.go#L56-L68)
+in the Kubernetes codebase.
 
-[the serviceaccount package]: https://github.com/kubernetes/kubernetes/blob/d8919343526597e0788a1efe133c70d9a0c07f69/pkg/serviceaccount/claims.go#L56-L68
-
-You can inspect a JWT using standard JWT decoding tools, an example of a JWT for the
+You can inspect a JWT using standard JWT decoding tool. Below is an example of a JWT for the
 `my-serviceaccount` ServiceAccount, bound to a Pod object named `my-pod` which is scheduled
 to the Node `my-node`, in the `default` namespace:
 
 ```json
 {
   "aud": [
-    "https://kubernetes.default.svc.cluster.local"
+    "https://my-audience.example.com"
   ],
   "exp": 1729605240,
   "iat": 1729601640,
-  "iss": "https://kubernetes.default.svc.cluster.local",
+  "iss": "https://my-cluster.example.com",
   "jti": "aed34954-b33a-4142-b1ec-389d6bbb4936",
   "kubernetes.io": {
     "namespace": "default",
@@ -201,24 +201,28 @@ to the Node `my-node`, in the `default` namespace:
 ```
 
 {{< note >}}
+The `aud` and `iss` fields in this JWT may differ between different Kubernetes clusters depending
+on your configuration.
+
 The presence of both the `pod` and `node` claim implies that this token is bound
-to a *Pod* object. When verifying Pod bound ServiceAccount tokens, the apiserver **does not**
+to a *Pod* object. When verifying Pod bound ServiceAccount tokens, the API server **does not**
 verify the existence of the referenced Node object.
 {{< /note >}}
 
 Services that run outside of Kubernetes and want to perform offline validation of JWTs may
 use this schema, along with a compliant JWT validator configured with OpenID Discovery information
-from the kube-apiserver, to verify presented JWTs without requiring use of the TokenReview API.
+from the API server, to verify presented JWTs without requiring use of the TokenReview API.
 
 Services that verify JWTs in this way **do not verify** the claims embedded in the JWT token to be
 current and still valid.
 This means if the token is bound to an object, and that object no longer exists, the token will still
-be considered valid (until the configured token expiry).
+be considered valid (until the configured token expires).
 
 Clients that require assurance that a token's bound claims are still valid **MUST** use the TokenReview
 API to present the token to the `kube-apiserver` for it to verify and expand the embedded claims, using
 similar steps to the [Verifying and inspecting private claims](#verifying-and-inspecting-private-claims)
 section above, but with a [supported client library](/docs/reference/using-api/client-libraries/).
+For more information on JWTs and their structure, see the [JSON Web Token RFC](https://datatracker.ietf.org/doc/html/rfc7519).
 
 ## Bound service account token volume mechanism {#bound-service-account-token-volume}
 
