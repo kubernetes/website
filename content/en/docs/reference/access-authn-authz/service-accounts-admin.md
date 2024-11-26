@@ -69,7 +69,7 @@ Supported object types are as follows:
 
 * Pod (used for projected volume mounts, see below)
 * Secret (can be used to allow revoking a token by deleting the Secret)
-* Node (in v1.31, creating new node-bound tokens is beta, using existing node-bound tokens is GA)
+* Node (in v1.32, creating new node-bound tokens is beta, using existing node-bound tokens is GA)
 
 When a token is bound to an object, the object's `metadata.name` and `metadata.uid` are
 stored as extra 'private claims' in the issued JWT.
