@@ -189,11 +189,15 @@ The following policy options exist for the static CPU management policy:
 `align-by-socket` (alpha, hidden by default)
 : Align CPUs by physical package / socket boundary, rather than logical NUMA boundaries (available since Kubernetes v1.25)
 `distribute-cpus-across-cores` (alpha, hidden by default)
-: allocate virtual cores, sometimes called hardware threads, across different physical cores  (available since Kubernetes v1.31)
+: Allocate virtual cores, sometimes called hardware threads, across different physical cores  (available since Kubernetes v1.31)
 `distribute-cpus-across-numa` (alpha, hidden by default)
-: spread CPUs across different NUMA domains, aiming for an even balance between the selected domains (available since Kubernetes v1.23)
+: Spread CPUs across different NUMA domains, aiming for an even balance between the selected domains (available since Kubernetes v1.23)
 `full-pcpus-only` (beta, visible by default)
 : Always allocate full physical cores (available since Kubernetes v1.22)
+`strict-cpu-reservation` (alpha, hidden by default)
+: Prevent all the pods regardless of their Quality of Service class to run on reserved CPUs (available since Kubernetes v1.32)
+`prefer-align-cpus-by-uncorecache` (alpha, hidden by default)
+: Align CPUs  by uncore (Last-Level) cache boundary on a best-effort way (available since Kubernetes v1.32)
 
 You can toggle groups of options on and off based upon their maturity level
 using the following feature gates:
@@ -272,6 +276,24 @@ Since the cpu limit is higher than the request, the default behaviour allows bur
 of `reservedSystemCPUs` and cause host OS services to starve in real life deployments.
 If the `strict-cpu-reservation` policy option is enabled, the static policy will not allow
 any workload to use the CPU cores specified in `reservedSystemCPUs`.
+
+##### `prefer-align-cpus-by-uncorecache`
+
+If the `prefer-align-cpus-by-uncorecache` policy is specified, the static policy
+will allocate CPU resources for individual containers such that all CPUs assigned 
+to a container share the same uncore cache block (also known as the Last-Level Cache 
+or LLC). By default, the `CPUManager` will tightly pack CPU assignments which can 
+result in containers being assigned CPUs from multiple uncore caches. This option 
+enables the `CPUManager` to allocate CPUs in a way that maximizes the efficient use 
+of the uncore cache. Allocation is performed on a best-effort basis, aiming to 
+affine as many CPUs as possible within the same uncore cache. If the container's 
+CPU requirement exceeds the CPU capacity of a single uncore cache, the `CPUManager` 
+minimizes the number of uncore caches used in order to maintain optimal uncore 
+cache alignment. Specific workloads can benefit in performance from the reduction 
+of inter-cache latency and noisy neighbors at the cache level. If the `CPUManager` 
+cannot align optimally while the node has sufficient resources, the container will 
+still be admitted using the default packed behavior.
+
 
 ## Memory Management Policies
 
