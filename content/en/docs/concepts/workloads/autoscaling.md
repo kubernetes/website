@@ -79,7 +79,7 @@ Mode | Description
 
 #### Requirements for in-place resizing
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
 Resizing a workload in-place **without** restarting the {{< glossary_tooltip text="Pods" term_id="pod" >}}
 or its {{< glossary_tooltip text="Containers" term_id="container" >}} requires Kubernetes version 1.27 or later.
