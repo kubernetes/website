@@ -200,6 +200,7 @@ of `kubectl api-resources` to determine if a resource is namespaced.
 如果设置了 `POD_NAMESPACE` 环境变量，对命名空间资源的 CLI 操作对象将使用该变量值作为默认值。
 例如，如果该变量设置为 `seattle`，`kubectl get pods` 将返回 `seattle` 命名空间中的 Pod。
 这是因为 Pod 是一个命名空间资源，且命令中没有提供命名空间。
+请查看 `kubectl api-resources` 的输出，以确定某个资源是否是命名空间资源。
 
 <!--
 Explicit use of `--namespace <value>` overrides this behavior.
@@ -255,7 +256,7 @@ kubectl config set-context --current --namespace=<namespace-name>
 <!--
 The following table includes short descriptions and the general syntax for all of the `kubectl` operations:
 -->
-下表包含所有 kubectl 操作的简短描述和普通语法：
+下表包含所有 `kubectl` 操作的简短描述和普通语法：
 
 <!--
 Operation       | Syntax    |       Description
@@ -664,7 +665,7 @@ kubectl get pods --sort-by=.metadata.name
 <!--
 Use the following set of examples to help you familiarize yourself with running the commonly used `kubectl` operations:
 -->
-使用以下示例集来帮助你熟悉运行常用 kubectl 操作：
+使用以下示例集来帮助你熟悉运行常用 `kubectl` 操作：
 
 <!--
 `kubectl apply` - Apply or Update a resource from a file or stdin.
