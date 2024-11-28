@@ -242,20 +242,12 @@ node, instead of the node labels.
 When scheduling a new Pod, the Kubernetes scheduler evaluates both the incoming Pod's affinity/anti-affinity rules and those of the existing Pods in the cluster. Here's how these rules are processed:
 
 1. Hard Constraints (Node Filtering):
-   - Incoming Pod's `podAffinity.requiredDuringSchedulingIgnoredDuringExecution`:
+   - `podAffinity.requiredDuringSchedulingIgnoredDuringExecution` and `podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution`:
      - The scheduler ensures the new Pod is assigned to nodes that satisfy these required affinity and anti-affinity rules based on existing Pods.
-   - Incoming Pod's `podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution`:
-     - The scheduler ensures the new Pod is assigned to nodes that satisfy these required affinity and anti-affinity rules based on existing Pods.
-   - Existing Pods' `podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution`:
-     - The scheduler treats these as hard constraints, filtering out any nodes that do not comply with the anti-affinity requirements of existing Pods. This ensures that the new Pod does not end up on a node that would violate the anti-affinity rules of existing Pods.
 
 2. Soft Constraints (Scoring):
-   - Incoming Pod's `podAffinity.preferredDuringSchedulingIgnoredDuringExecution`:
+   - `podAffinity.preferredDuringSchedulingIgnoredDuringExecution` and `podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution`:
      - The scheduler scores nodes based on how well they meet these preferred affinity and anti-affinity rules to optimize Pod placement.
-   - Incoming Pod's `podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution`:
-     - Similar to preferred affinity, the scheduler scores nodes to avoid anti-affinity preferences, aiming to minimize conflicts.
-   - Existing Pods' `podAffinity.requiredDuringSchedulingIgnoredDuringExecution`:
-     - The scheduler treats them as soft constraints, and scores nodes based on how well they satisfy the affinity requirements of existing Pods, promoting optimal placement without enforcing strict rules.
 
 3. Ignored Fields:
    - Existing Pods' `podAffinity.preferredDuringSchedulingIgnoredDuringExecution`:
