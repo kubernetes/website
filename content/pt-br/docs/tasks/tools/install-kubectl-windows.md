@@ -36,7 +36,7 @@ Existem os seguintes métodos para instalar o kubectl no Windows:
    [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt).
    {{< /note >}}
 
-2. Validar o binário (opcional)
+2. Validar o binário  (opcional)
 
    Baixe o arquivo de checksum do `kubectl`:
 
@@ -167,7 +167,7 @@ Abaixo estão os procedimentos para configurar o autocompletar no PowerShell.
    curl.exe -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe"
    ```
 
-2. Validar o binario (opcional).
+2. Validar o binário  (opcional).
 
    Baixe o arquivo de checksum do `kubectl-convert`:
 
