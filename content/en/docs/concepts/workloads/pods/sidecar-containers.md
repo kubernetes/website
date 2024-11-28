@@ -97,6 +97,12 @@ maintain sidecar containers without affecting the primary application.
 Sidecar containers share the same network and storage namespaces with the primary
 container. This co-location allows them to interact closely and share resources.
 
+From Kubernetes perspective, sidecars graceful termination is less important. 
+When other containers took all alloted graceful termination time, sidecar containers
+will receive the `SIGTERM` following with `SIGKILL` faster than may be expected. 
+So exit codes different from `0` (`0` indicates successful exit), for sidecar containers are normal
+on Pod termination and should be generally ignored by the external tooling.
+
 ## Differences from init containers
 
 Sidecar containers work alongside the main container, extending its functionality and

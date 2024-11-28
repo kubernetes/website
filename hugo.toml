@@ -218,6 +218,8 @@ url = "https://v1-27.docs.kubernetes.io"
 [params.ui]
 # Enable to show the side bar menu in its compact state.
 sidebar_menu_compact = false
+# Show this many levels in compact mode
+ul_show = 3
 # Show expand/collapse icon for sidebar sections.
 sidebar_menu_foldable = true
 # https://github.com/gohugoio/hugo/issues/8918#issuecomment-903314696

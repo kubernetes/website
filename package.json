@@ -1,7 +1,10 @@
 {
   "private": true,
+  "scripts": {
+    "update:pkgs": "npx npm-check-updates -u"
+  },
   "devDependencies": {
-    "autoprefixer": "^9.8.4",
-    "postcss-cli": "^7.1.1"
+    "autoprefixer": "^10.4.20",
+    "postcss-cli": "^11.0.0"
   }
 }
