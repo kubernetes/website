@@ -36,7 +36,7 @@ Existem os seguintes métodos para instalar o kubectl no Windows:
    [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt).
    {{< /note >}}
 
-2. Validar o binario (opcional)
+2. Validar o binário (opcional)
 
    Baixe o arquivo de checksum do `kubectl`:
 
