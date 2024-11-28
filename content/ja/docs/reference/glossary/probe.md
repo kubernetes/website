@@ -10,9 +10,9 @@ short_description: >
 tags:
 - tool
 ---
-  Pod内で実行中のコンテナに対して、{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}が定期的に実行するチェック。
+Pod内で実行中のコンテナに対して、{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}が定期的に実行するチェック。
 コンテナの状態と正常性を定義し、コンテナのライフサイクルを通知します。
 
 <!--more-->
 
-さらなる情報は[container probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)を参照して下さい。
+さらなる情報は[コンテナのProbe](/ja/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)を参照して下さい。
