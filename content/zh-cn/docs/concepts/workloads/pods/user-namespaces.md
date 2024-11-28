@@ -85,36 +85,24 @@ In addition, the container runtime and its underlying OCI runtime must support
 user namespaces. The following OCI runtimes offer support:
 
 * [crun](https://github.com/containers/crun) version 1.9 or greater (it's recommend version 1.13+).
+* [runc](https://github.com/opencontainers/runc) version 1.2 or greater
 -->
 
 此外，容器运行时及其底层 OCI 运行时必须支持用户命名空间。以下 OCI 运行时提供支持：
 
 * [crun](https://github.com/containers/crun) 1.9 或更高版本（推荐 1.13+ 版本）。
-
-<!-- ideally, update this if a newer minor release of runc comes out, whether or not it includes the idmap support -->
+* [runc](https://github.com/opencontainers/runc) 1.2 或更高版本。
 
 {{< note >}}
 <!--
-Many OCI runtimes do not include the support needed for using user namespaces in
+Some OCI runtimes do not include the support needed for using user namespaces in
 Linux pods. If you use a managed Kubernetes, or have downloaded it from packages
-and set it up, it's likely that nodes in your cluster use a runtime that doesn't
-include this support. For example, the most widely used OCI runtime is `runc`,
-and version `1.1.z` of runc doesn't support all the features needed by the
-Kubernetes implementation of user namespaces.
+and set it up, it's possible that nodes in your cluster use a runtime that doesn't
+include this support.
 -->
-许多 OCI 运行时不包含在 Linux Pod 中使用用户命名空间所需的支持。
+一些 OCI 运行时不包含在 Linux Pod 中使用用户命名空间所需的支持。
 如果你使用托管 Kubernetes，或者使用软件包下载并安装 Kubernetes 集群，
 则集群中的节点可能使用不包含支持此特性的运行时。
-例如，最广泛使用的 OCI 运行时是 `runc`，而 runc 的 `1.1.z`
-版本不支持 Kubernetes 实现用户命名空间所需的所有特性。
-
-<!--
-If there is a newer release of runc than 1.1 available for use, check its
-documentation and release notes for compatibility (look for idmap mounts support
-in particular, because that is the missing feature).
--->
-如果有比 1.1 更新的 runc 版本可供使用，请检查其文档和发行说明以了解兼容性
-（特别寻找 idmap 挂载支持，因为这一特性是缺失的）。
 {{< /note >}}
 
 <!--
@@ -122,32 +110,19 @@ To use user namespaces with Kubernetes, you also need to use a CRI
  {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
  to use this feature with Kubernetes pods:
 
+* containerd: version 2.0 (and later) supports user namespaces for containers.
 * CRI-O: version 1.25 (and later) supports user namespaces for containers.
 -->
 此外，需要在{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}提供支持，
 才能在 Kubernetes Pod 中使用这一功能：
 
+* containerd：2.0（及更高版本）支持容器使用用户命名空间。
 * CRI-O：1.25（及更高）版本支持配置容器的用户命名空间。
 
 <!--
-containerd v1.7 is not compatible with the userns support in Kubernetes v1.27 to v{{< skew latestVersion >}}.
-Kubernetes v1.25 and v1.26 used an earlier implementation that **is** compatible with containerd v1.7,
-in terms of userns support.
-If you are using a version of Kubernetes other than {{< skew currentVersion >}},
-check the documentation for that version of Kubernetes for the most relevant information.
-If there is a newer release of containerd than v1.7 available for use, also check the containerd
-documentation for compatibility information.
-
 You can see the status of user namespaces support in cri-dockerd tracked in an [issue][CRI-dockerd-issue]
 on GitHub.
 -->
-containerd v1.7 与 Kubernetes v1.27 至 v{{< skew currentVersion >}}
-版本中的用户命名空间不兼容。
-Kubernetes v1.25 和 v1.26 使用了早期的实现，在用户命名空间方面与 containerd v1.7 兼容。
-如果你使用的 Kubernetes 版本不是 {{< skew currentVersion >}}，请查看该版本 Kubernetes
-的文档以获取更准确的信息。
-如果有比 v1.7 更新的 containerd 版本可供使用，请检查 containerd 文档以获取兼容性信息。
-
 你可以在 GitHub 上的 [issue][CRI-dockerd-issue] 中查看 cri-dockerd
 中用户命名空间支持的状态。
 

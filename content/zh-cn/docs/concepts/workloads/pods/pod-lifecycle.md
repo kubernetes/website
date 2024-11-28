@@ -71,7 +71,7 @@ assigning a Pod to a specific node is called _binding_, and the process of selec
 which node to use is called _scheduling_.
 Once a Pod has been scheduled and is bound to a node, Kubernetes tries
 to run that Pod on the node. The Pod runs on that node until it stops, or until the Pod
-is [terminated](#pod-termination); if Kubernetes isn't able start the Pod on the selected
+is [terminated](#pod-termination); if Kubernetes isn't able to start the Pod on the selected
 node (for example, if the node crashes before the Pod starts), then that particular Pod
 never starts.
 -->

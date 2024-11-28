@@ -188,18 +188,6 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 | -------------------------- | -------------------------- | -------------------------- |
 | Sreeram Venkitesh                | @sreeram.venkitesh                      | @sreeram-venkitesh              |
 
-## Локалізовані файли README
-
-| Мова                   | Мова                   |
-| -------------------------- | -------------------------- |
-| [Китайська](README-zh.md)    | [Корейська](README-ko.md)     |
-| [Французька](README-fr.md)     | [Польська](README-pl.md)     |
-| [Німецька](README-de.md)     | [Португальська](README-pt.md) |
-| [Хінді](README-hi.md)      | [Російська](README-ru.md)    |
-| [Індонезійська](README-id.md) | [Іспанська](README-es.md)    |
-| [Італійська](README-it.md)    | [Українська](README-uk.md)  |
-| [Японська](README-ja.md)   | [Вʼєтнамська](README-vi.md) |
-
 ## Кодекс поведінки
 
 Участь у спільноті Kubernetes регулюється [Кодексом поведінки CNCF](https://github.com/cncf/foundation/blob/main/code-of-conduct.md).

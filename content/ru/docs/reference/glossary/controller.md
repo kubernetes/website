@@ -20,10 +20,10 @@ tags:
 
 Контроллеры отсллеживают общее состояние вашего кластера через
 {{< glossary_tooltip text="API-сервер" term_id="kube-apiserver" >}} (часть
-{{< glossary_tooltip text="плоскости управления" term_id="control-plane" >}}).
+{{< glossary_tooltip text="управляющего слоя" term_id="control-plane" >}}).
 
-Некоторые контроллеры также работают внутри плоскости управления, обеспечивая
-управляющие циклы, которые являются ядром для операций Kubernetes. Например:
+Некоторые контроллеры также работают внутри управляющего слоя (control plane),
+обеспечивая управляющие циклы, которые являются ядром для операций Kubernetes. Например:
 контроллер развертывания (deployment controller), контроллер daemonset (daemonset controller),
 контроллер пространства имен (namespace controller) и контроллер постоянных томов (persistent volume
 controller) (и другие) работают с {{< glossary_tooltip term_id="kube-controller-manager" >}}.

@@ -14,23 +14,22 @@ feature:
 Note that markdown can be used in the description.
 
  */}}
-<section id="features">
-    <div class="main-section">
-        <h3 class="center">{{ T "main_kubernetes_features" }}</h3>
+<section class="features-container" id="features">
+    {{- with resources.Get "images/wheel.svg" -}}
+    <img class="kubernetes-logo wheel" src="{{ .RelPermalink }}" alt="">
+    {{- end -}}
+
+    <h2 class="k8s-features-heading">{{ T "main_kubernetes_features" }}</h2>
+    <div>
         {{ $pages := where site.Pages ".Params.feature" "!=" nil }}
-        {{range $i, $p := $pages }}
-        {{ if and (gt $i 0) (modBool $i 2) }}</div>{{ end }}
-        {{ if modBool $i 2 }}
-        <div class="feature-box">
-            {{ end }}
-            <div>
+        {{ range $i, $p := $pages }}
+            <div class="feature-box">
                 {{ with .Params.feature }}
-                <h4><a href="{{ $p.RelPermalink}}{{ with .anchor }}#{{ . | anchorize }}{{ end }}">{{ .title }}</a></h4>
+                <h3><a href="{{ $p.RelPermalink}}{{ with .anchor }}#{{ . | anchorize }}{{ end }}">{{ .title }}</a></h3>
                 {{ $description := .description | default $p.Params.description }}
                 {{ $description | markdownify }}
                 {{ end }}
             </div>
-     
         {{ end }}
     </div>
 </section>
