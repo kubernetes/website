@@ -126,7 +126,7 @@ ou remover o `kubectl` do Docker Desktop.
    mkdir .kube
    ```
 
-5. Mude para o diretório `.kube` que você acabou de criar:
+5. Navegue para o diretório `.kube` que você acabou de criar:
 
    ```powershell
    cd .kube
