@@ -136,7 +136,7 @@ Kubernetes uses a finalizer on the ServiceCIDR to track this dependent relations
 kubectl get servicecidr newcidr1 -o yaml
 ```
 ```
-apiVersion: networking.k8s.io/v1alpha1
+apiVersion: networking.k8s.io/v1beta1
 kind: ServiceCIDR
 metadata:
   creationTimestamp: "2023-10-12T15:11:07Z"
