@@ -80,7 +80,7 @@ Existem os seguintes métodos para instalar o kubectl no Windows:
 [Docker Desktop para Windows](https://docs.docker.com/docker-for-windows/#kubernetes)
 adiciona sua própria versão do `kubectl` ao `PATH`. Se você instalou o Docker Desktop anteriormente,
 pode ser necessário colocar sua entrada no `PATH` antes da adicionada pelo instalador do Docker Desktop
-ou remover o `kubectl`do Docker Desktop.
+ou remover o `kubectl` do Docker Desktop.
 {{< /note >}}
 
 ### Instalar no Windows usando Chocolatey, Scoop, ou winget {#install-nonstandard-package-tools}
