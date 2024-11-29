@@ -15,7 +15,7 @@ Existem os seguintes métodos para instalar o kubectl no Windows:
 - [Instale o binário kubectl no Windows (via download direto ou curl)](#install-kubectl-binary-on-windows-via-direct-download-or-curl)
 - [Instale no Windows usando Chocolatey, Scoop ou winget](#install-nonstandard-package-tools)
 
-### Instale o binário kubectl no Windows (via download direto ou curl)
+### Instale o binário kubectl no Windows (via download direto ou curl) {#install-kubectl-binary-on-windows-via-direct-download-or-curl}
 
 1. Você tem duas opções para instalar o kubectl em seu dispositivo Windows
 
