@@ -24,7 +24,8 @@ This document shares how to extend the existing Service IP range assigned to a c
 ## API
 
 Kubernetes clusters with kube-apiservers that have enabled the `MultiCIDRServiceAllocator`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and the `networking.k8s.io/v1beta1` API,
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and have the `networking.k8s.io/v1beta1`
+API group active,
 will create a ServiceCIDR object that takes the well-known name `kubernetes`, and that specifies an IP address range
 based on the value of the `--service-cluster-ip-range` command line argument to kube-apiserver.
 
