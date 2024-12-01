@@ -576,8 +576,7 @@ and for kube-proxy, while <code>registry.k8s.io</code> will be used for all the 
 </td>
 <td>
    <p><code>encryptionAlgorithm</code> holds the type of asymmetric encryption algorithm used for keys and
-certificates. Can be <code>&quot;RSA&quot;</code> (default algorithm, key size is 2048) or <code>&quot;ECDSA&quot;</code> (uses the
-P-256 elliptic curve).</p>
+certificates. Can be one of <code>&quot;RSA-2048&quot;</code> (default), <code>&quot;RSA-3072&quot;</code>, <code>&quot;RSA-4096&quot;</code> or <code>&quot;ECDSA-P256&quot;</code>.</p>
 </td>
 </tr>
 <tr><td><code>certificateValidityPeriod</code><br/>
