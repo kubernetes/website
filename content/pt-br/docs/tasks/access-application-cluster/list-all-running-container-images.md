@@ -7,7 +7,7 @@ weight: 100
 <!-- overview -->
 
 Esta página mostra como usar o kubectl para listar todas as imagens de 
-contêiner dos Pods em execução no cluster
+contêineres dos Pods em execução no cluster.
 
 ## {{% heading "prerequisites" %}}
 
@@ -16,7 +16,7 @@ contêiner dos Pods em execução no cluster
 <!-- steps -->
 
 Neste exercício, você usará o kubectl para buscar todos os Pods 
-em execução no cluster e formatar a saída com uma lista dos conteiners 
+em execução no cluster e formatar a saída com uma lista dos contêineres 
 por imagem.
 
 ## Listar todas as imagens de contêiner de todos os namespaces
@@ -81,7 +81,7 @@ kubectl get pods --namespace kube-system -o jsonpath="{.items[*].spec.containers
 
 ## Listar imagens de contêiner usando go-template ao invés de jsonpath
 
-Como alternativa ao jsonpath, Kubectl suporta o uso de [go-templates](https://pkg.go.dev/text/template)
+Como alternativa ao jsonpath, o kubectl suporta o uso de [go-templates](https://pkg.go.dev/text/template)
 para formatar a saída:
 
 ```shell
