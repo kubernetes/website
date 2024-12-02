@@ -74,13 +74,13 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
   kind: EncryptionConfiguration
   apiVersion: apiserver.config.k8s.io/v1
   resources:
-    - resources:
-        - secrets
-      providers:
-        - aescbc:
-          keys:
-            - name: key1
-              secret: c2VjcmV0IGlzIHNlY3VyZQ==
+  - resources:
+    - secrets
+    providers:
+    - aescbc:
+        keys:
+        - name: key1
+          secret: c2VjcmV0IGlzIHNlY3VyZQ==
   ```
 
   <!--
@@ -113,17 +113,17 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
   kind: EncryptionConfiguration
   apiVersion: apiserver.config.k8s.io/v1
   resources:
-    - resources:
-        - secrets
-      providers:
-        - aescbc:
-          keys:
-            - name: key2
-              secret: c2VjcmV0IGlzIHNlY3VyZSwgaXMgaXQ/
-        - aescbc:
-          keys:
-            - name: key1
-              secret: c2VjcmV0IGlzIHNlY3VyZQ==
+  - resources:
+    - secrets
+    providers:
+    - aescbc:
+        keys:
+        - name: key2
+          secret: c2VjcmV0IGlzIHNlY3VyZSwgaXMgaXQ/
+    - aescbc:
+        keys:
+        - name: key1
+          secret: c2VjcmV0IGlzIHNlY3VyZQ==
   ```
 
 <!--
