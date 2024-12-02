@@ -18,19 +18,19 @@ card:
 
 Một số [components]((/docs/concepts/overview/components/)) của Kubernetes như {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} hoặc {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} có thể được triển khai dưới dạng container images ở trong cluster.
 
-Nếu có thể chúng tôi khuyến khích bạn nên chạy components dưới dạng những container images, Kubernetes sẽ quản lý những components đó. Lưu ý, không bao gồm những components có sử dụng container (đặc biệt là kubelet).
+Chúng tôi khuyến khích bạn thực thi components dưới dạng những container images, Kubernetes sẽ quản lý những components đó. Lưu ý, không bao gồm những components có sử dụng container (đặc biệt là kubelet).
 
-Trong trường hợp bạn không muốn tự quản lý Kubernetes cluster, bạn có thể chọn một service quản lý, bao gồm [certified platforms](/docs/setup/production-environment/turnkey-solutions/). Ngoài ra còn có các giải pháp tiêu chuẩn và tùy chỉnh khác trên nhiều môi trường  toán đám mây (cloud)  và môi trường một máy chủ (bare metal environment) khác nhau.
+Trong trường hợp bạn không muốn tự quản lý Kubernetes cluster, bạn có thể chọn một service quản lý, bao gồm [certified platforms](/docs/setup/production-environment/turnkey-solutions/). Ngoài ra còn có các giải pháp tiêu chuẩn và tùy chỉnh khác trên nhiều môi trường điện toán đám mây (cloud), hay môi trường một máy chủ (bare metal environment) khác nhau.
 
 <!-- body -->
 
 ## Môi trường để học
 
-Nếu bạn đang ở trong giai đoạn học Kubernetes, bạn có thể sử dụng những công cụ (tools) được hỗ trợ bở cộng đồng Kubernetes, hoặc những công cụ trong hệ sinh thái để cài đặt Kubernetes cluster trên máy của bạn. [Xem thêm](/docs/tasks/tools/).
+Nếu bạn đang ở trong giai đoạn học Kubernetes, bạn có thể sử dụng những công cụ (tools) được hỗ trợ bởi cộng đồng Kubernetes, hoặc những công cụ trong hệ sinh thái để cài đặt Kubernetes cluster trên máy của bạn. [Xem thêm](/docs/tasks/tools/).
 
 ## Môi trường sản phẩm
 
-Khi đánh giá một giải pháp dành cho [môi trường sản phẩm](/docs/setup/production-environment/),(/docs/setup/production-environment/), 
+Khi đánh giá một giải pháp dành cho [môi trường sản phẩm](/docs/setup/production-environment/),
 bạn cần xem xét những khía cạnh về việc vận hành Kubernetes cluster (hoặc khái niệm trừu trượng của nó) mà bạn muốn tự quản lý, 
 hoặc những phần nào bạn muốn để cho nhà cung cấp quản lý.
 
