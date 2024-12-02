@@ -1,7 +1,7 @@
 ---
 title: Bộ chọn (Selector)
 id: selector
-date: 2019-29-11
+date: 2019-11-29
 full_link: /docs/concepts/overview/working-with-objects/labels/
 short_description: >
   Bộ chọn cho phép người dùng lọc ra một danh sách tài nguyên dựa trên labels (nhãn).

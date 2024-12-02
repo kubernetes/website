@@ -1,7 +1,7 @@
 ---
 title: Name
 id: name
-date: 2019-15-05
+date: 2019-05-15
 full_link: /docs/concepts/overview/working-with-objects/names
 short_description: >
   String yang dihasilkan oleh klien yang mengacu pada sebuah objek dalam suatu URL resource, seperti `/api/v1/pods/some-name`.
