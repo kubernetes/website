@@ -36,7 +36,7 @@ hoặc những phần nào bạn muốn để cho nhà cung cấp quản lý.
 
 Với cluster bạn tự quản lý, công cụ hỗ trợ chính thức để triển khai (deploy) Kubernetes là [kubeadm](/docs/setup/production-environment/tools/kubeadm/).
 
-{{% heading “whatsnext” %}}
+{{% heading "whatsnext" %}}
 
 - [Tải Kubernetes](/releases/download/)
 - Tải và cài đặt công cụ (tools) bao gồm `kubectl`
