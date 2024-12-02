@@ -10,7 +10,8 @@ tags:
 - fundamental
 - workload
 ---
-{{< glossary_tooltip text="Pod" term_id="pod" >}}のコピーまたは複製、または一連のPodです。Replicaは複数Podの同一インスタンスを維持することで、高い可用性、スケーラビリティ、耐障害性を保証します。
+{{< glossary_tooltip text="Pod" term_id="pod" >}}のコピーまたは複製、または一連のPodです。
+Replicaは複数Podの同一インスタンスを維持することで、高い可用性、スケーラビリティ、耐障害性を保証します。
 
 <!--more-->
 Replicaは望まれるアプリケーションの状態と信頼性を達成するために、Kubernetesで広く使われています。
