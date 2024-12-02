@@ -681,12 +681,12 @@ null `namespaceSelector` matches the namespace of the Pod where the rule is defi
 {{< note >}}
 <!-- UPDATE THIS WHEN PROMOTING TO STABLE -->
 <!--
-The `matchLabelKeys` field is an beta-level field and is disabled by default in
+The `matchLabelKeys` field is a beta-level field and is enabled by default in
 Kubernetes {{< skew currentVersion >}}.
 When you want to disable it, you have to disable it explicitly via the
 `MatchLabelKeysInPodAffinity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
-`matchLabelKeys` 字段是一个 Beta 级别的字段，在 Kubernetes {{< skew currentVersion >}} 中默认被禁用。
+`matchLabelKeys` 字段是一个 Beta 级别的字段，在 Kubernetes {{< skew currentVersion >}} 中默认被启用。
 当你想要禁用此字段时，你必须通过 `MatchLabelKeysInPodAffinity`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)禁用它。
 {{< /note >}}
