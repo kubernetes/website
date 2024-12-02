@@ -7,7 +7,7 @@ weight: 100
 <!-- overview -->
 
 Esta página mostra como usar o kubectl para listar todas as imagens de 
-contêineres dos Pods em execução no cluster.
+contêiner dos Pods em execução no cluster
 
 ## {{% heading "prerequisites" %}}
 
@@ -16,7 +16,7 @@ contêineres dos Pods em execução no cluster.
 <!-- steps -->
 
 Neste exercício, você usará o kubectl para buscar todos os Pods 
-em execução no cluster e formatar a saída com uma lista dos contêineres 
+em execução no cluster e formatar a saída com uma lista dos conteiners 
 por imagem.
 
 ## Listar todas as imagens de contêiner de todos os namespaces
@@ -51,9 +51,9 @@ a parte `.items[*]` do caminho deve ser omitida porque um unico Pod é retornado
 e não uma lista de itens.
 {{< /note >}}
 
-## Listar imagens de conteiner por Pod
+## Listar imagens de contêiner por Pod
 
-O formato de saída pode ser controlado ainda mais usando a operação `range` para
+O formato de saida pode ser controlado ainda mais usando a operação `range` para
 iterar sobre os elementos individualmente.
 
 ```shell
@@ -61,7 +61,7 @@ kubectl get pods --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.metadata
 sort
 ```
 
-## Listar imagens de conteiner filtrando pelo label do Pod
+## Listar imagens de contêiner filtrando pelo label do Pod
 
 Para selecionar apenas os Pods que correspondem a um label específico, use a flag -l.
 O comando a seguir seleciona apenas os Pods com o label `app=nginx`.
@@ -70,7 +70,7 @@ O comando a seguir seleciona apenas os Pods com o label `app=nginx`.
 kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" -l app=nginx
 ```
 
-## Listar imagens de conteiner filtrando pelo namespace do Pod
+## Listar imagens de contêiner filtrando pelo namespace do Pod
 
 Para selecionar apenas os Pods de um namespace específico, use a flag namespace.
 O comando a seguir seleciona apenas os Pods no namespace `kube-system`.
@@ -79,9 +79,9 @@ O comando a seguir seleciona apenas os Pods no namespace `kube-system`.
 kubectl get pods --namespace kube-system -o jsonpath="{.items[*].spec.containers[*].image}"
 ```
 
-## Listar imagens de conteiner usando go-template ao invés de jsonpath
+## Listar imagens de contêiner usando go-template ao invés de jsonpath
 
-Como alternativa ao jsonpath, o kubectl suporta o uso de [go-templates](https://pkg.go.dev/text/template)
+Como alternativa ao jsonpath, Kubectl suporta o uso de [go-templates](https://pkg.go.dev/text/template)
 para formatar a saída:
 
 ```shell
