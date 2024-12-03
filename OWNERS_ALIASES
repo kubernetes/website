@@ -133,8 +133,11 @@ aliases:
     - Okabe-Junya
   sig-docs-ja-reviews: # PR reviews for Japanese content
     - atoato88
+    - b1gb4by
     - bells17
+    - inductor
     - kakts
+    - nasa9084
     - Okabe-Junya
     - t-inu
   sig-docs-ko-owners: # Admins for Korean content
