@@ -56,7 +56,7 @@ non-production-build: module-check ## Build the non-production site, which adds 
 	GOMAXPROCS=1 hugo --cleanDestinationDir --enableGitInfo --environment nonprod
 
 serve: module-check ## Boot the development server.
-	hugo server --buildFuture --environment development
+	hugo server --buildDrafts --buildFuture --environment development
 
 docker-image:
 	@echo -e "$(CCRED)**** The use of docker-image is deprecated. Use container-image instead. ****$(CCEND)"
@@ -107,7 +107,7 @@ container-build: module-check
 container-serve: module-check ## Boot the development server using container.
 	$(CONTAINER_RUN) --cap-drop=ALL --cap-add=AUDIT_WRITE --read-only \
 		--mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 -p 1313:1313 $(CONTAINER_IMAGE) \
-		hugo server --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/public --cleanDestinationDir --noBuildLock
+		hugo server --buildDrafts --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/public --cleanDestinationDir --noBuildLock
 
 test-examples:
 	scripts/test_examples.sh install

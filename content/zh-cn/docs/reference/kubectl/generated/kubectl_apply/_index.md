@@ -24,6 +24,11 @@ Apply a configuration to a resource by file name or stdin. The resource name mus
 基于文件名或标准输入将配置应用于资源。必须指定资源名称。如果资源尚不存在，则资源会被创建。
 若要使用 `apply` 命令，最初创建资源时应始终使用 `apply` 或 `create --save-config`。
 
+支持 JSON 和 YAML 格式。
+
+Alpha 免责声明：--prune 功能尚不完整。除非你了解当前的状态，否则请勿使用此功能。
+参见 https://issues.k8s.io/34274
+
 ```shell
 kubectl apply (-f FILENAME | -k DIRECTORY)
 ```
