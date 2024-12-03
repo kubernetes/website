@@ -261,17 +261,12 @@ serialized to JSON as the body.
 Webhooks can specify what versions of `AdmissionReview` objects they accept
 with the `admissionReviewVersions` field in their configuration:
 
-```json
-{
-  "apiVersion": "admissionregistration.k8s.io/v1",
-  "kind": "ValidatingWebhookConfiguration",
-  "webhooks": [
-    {
-      "name": "my-webhook.example.com",
-      "admissionReviewVersions": ["v1", "v1beta1"]
-    }
-  ]
-}
+```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+webhooks:
+- name: my-webhook.example.com
+  admissionReviewVersions: ["v1", "v1beta1"]
 ```
 
 `admissionReviewVersions` is a required field when creating webhook configurations.
