@@ -63,7 +63,7 @@ Pods to the Unschedulable Pod Pool, multiple scheduling cycles would be wasted o
 
 ## Improvements to retrying Pod scheduling with QueuingHint
 
-Unschedulable Pods only move back into the ActiveQ or BackoffQ components of the scheduler
+Unschedulable Pods only move back into the ActiveQ or BackoffQ components of the scheduling
 queue if changes in the cluster might allow the scheduler to place those Pods on nodes. 
 
 Prior to v1.32, each plugin registered which cluster changes could solve their failures, an object creation, update, or deletion in the cluster (called _cluster events_),
@@ -93,9 +93,10 @@ the Pod affinity specification for `pod-a`.
 the scheduling failure for the Pod. For `pod-a`, the scheduling queue records that the `InterPodAffinity`
 plugin rejected the Pod.
 
-`pod-a` will never be schedulable until the InterPodAffinity failure is resolved. The `InterPodAffinity` plugin's
-`QueuingHint` callback function checks every Pod update that occurs in the cluster. If, for example,
-a Pod gets a label update that matches the Pod affinity requirement of `pod-a`, the `InterPodAffinity`
+`pod-a` will never be schedulable until the InterPodAffinity failure is resolved. 
+There're some scenarios that the failure could be resolved, one example is an existing running pod gets a label update and becomes matching a Pod affinity.
+For this scenario, the `InterPodAffinity` plugin's `QueuingHint` callback function checks every Pod label update that occurs in the cluster. 
+Then, if a Pod gets a label update that matches the Pod affinity requirement of `pod-a`, the `InterPodAffinity`,
 plugin's `QueuingHint` prompts the scheduling queue to move `pod-a` back into the ActiveQ or
 the BackoffQ component.
 
