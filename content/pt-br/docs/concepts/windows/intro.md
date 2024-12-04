@@ -258,7 +258,7 @@ Sua principal fonte de ajuda para solucionar problemas em seu cluster Kubernetes
 
 Alguma ajuda adicional, específica para Windows, está incluída nesta seção. Logs são um elemento importante na solução de problemas no Kubernetes. Certifique-se de incluí-los sempre que buscar assistência de outros colaboradores. Siga as instruções no [guia de contribuição do SIG Windows sobre coleta de logs](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs).
 
-### Relatando problemas e solicitações de recursos
+### Relatando problemas e solicitações de funcionalidades
 
 Se você tiver algo que pareça um bug ou gostaria de fazer uma solicitação de recurso, siga o [guia de contribuição do SIG Windows](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests) para criar um novo problema. Você deve primeiro pesquisar na lista de problemas caso tenha sido relatado anteriormente e comentar com sua experiência no problema e adicionar logs adicionais. O canal SIG Windows no Slack do Kubernetes também é uma ótima maneira de obter suporte inicial e ideias de solução de problemas antes de criar um ticket.
 
