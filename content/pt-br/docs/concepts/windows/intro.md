@@ -21,7 +21,7 @@ Organizações com investimentos em aplicativos baseados em Windows e Linux não
 
 Para habilitar a orquestração de containers Windows no Kubernetes, inclua nós Windows em seu cluster Linux existente. A alocação de contêineres Windows em {{< glossary_tooltip text="Pods" term_id="pod" >}} no Kubernetes é similar à alocação de contêineres baseados em Linux.
 
-Para executar containers Windows, seu cluster Kubernetes deve incluir múltiplos sistemas operacionais. Embora você possa executar o {{< glossary_tooltip text="control plane" term_id="control-plane" >}} apenas no Linux, você pode implantar nós de trabalho executando Windows ou Linux.
+Para executar contêineres Windows, seu cluster Kubernetes deve incluir múltiplos sistemas operacionais. Embora você possa executar a {{< glossary_tooltip text="camada de gerenciamento" term_id="control-plane" >}} apenas no Linux, você pode implantar nós de trabalho executando Windows ou Linux.
 
 {{< glossary_tooltip text="nós" term_id="node" >}}Windows são [suportados](#windows-os-version-support) desde que o sistema operacional seja Windows Server 2019 ou Windows Server 2022.
 
