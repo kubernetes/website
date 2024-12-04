@@ -4,7 +4,7 @@ reviewers:
 - jsturtevant
 - marosset
 - perithompson
-title: Containers Windows no Kubernetes
+title: Contêineres Windows no Kubernetes
 content_type: concept
 weight: 65
 ---
