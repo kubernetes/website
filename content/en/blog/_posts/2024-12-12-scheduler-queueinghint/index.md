@@ -27,11 +27,11 @@ The scheduler stores all unscheduled Pods in an internal component called the _s
 The scheduling queue consists of the following data structures:
 - **ActiveQ**: holds newly created Pods or Pods that are ready to be retried for scheduling.
 - **BackoffQ**: holds Pods that are ready to be retried but are waiting for a backoff period to end. The
-   backoff period depends on the number of times the failed scheduler attempted to schedule the Pod.
+   backoff period depends on the number of unsuccessful scheduling attempts performed by the scheduler on that Pod.
 - **Unschedulable Pod Pool**: holds Pods that the scheduler won't attempt to schedule for one of the
    following reasons:
-   - The scheduler previously attempted, and was unable to, schedule the Pods. Since that attempt, the cluster
-      hasn't changed in a way that makes those Pods schedulable.
+   - The scheduler previously attempted and was unable to schedule the Pods. Since that attempt, the cluster
+      hasn't changed in a way that could make those Pods schedulable.
    - The Pods are blocked from entering the scheduling cycles by PreEnqueue Plugins, 
 for example, they have a [scheduling gate](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/#configuring-pod-schedulinggates),
 and get blocked by the scheduling gate plugin.
@@ -52,13 +52,13 @@ The scheduler processes pending Pods in phases called _cycles_ as follows:
     
     If the scheduler decides that a Pod can't be scheduled, that Pod enters the Unschedulable Pod Pool
     component of the scheduling queue. However, if the scheduler decides to place the Pod on a node, 
-    the next cycle executes for that Pod.
+    the Pod goes to the binding cycle.
     
 1. **Binding cycle**: the scheduler communicates the node placement decision to the Kubernetes API
-    server. The Pod is then bound to the selected node. 
+    server. This operation bounds the Pod to the selected node. 
     
 Aside from some exceptions, most unscheduled Pods enter the unschedulable pod pool after each scheduling
-cycle. The Unschedulable Pod Pool component is crucial because of how the scheduling cycle processes Pods one by one. If the scheduler had to constantly retry placing unschedulable Pods instead of offloading those
+cycle. The Unschedulable Pod Pool component is crucial because of how the scheduling cycle processes Pods one by one. If the scheduler had to constantly retry placing unschedulable Pods, instead of offloading those
 Pods to the Unschedulable Pod Pool, multiple scheduling cycles would be wasted on those Pods.
 
 ## Improvements to retrying Pod scheduling with QueuingHint
@@ -75,9 +75,9 @@ For example, `preCheck` could filter out node-related events when the node statu
 
 However, we had two issues for those approaches:
 - Requeueing with events was too broad, could lead to scheduling retries for no reason.
-  - For example, a new scheduled Pod _might_ solve the `InterPodAffinity`'s failure, but not all of them do, 
-for example, if a new Pod is created, but without a label matching `InterPodAffinity` of the unschedulable pod, the pod wouldn't be schedulable.
-- `preCheck` relied on the logic of in-tree plugins and caused some issues for custom plugins,
+   - A new scheduled Pod _might_ solve the `InterPodAffinity`'s failure, but not all of them do.
+For example, if a new Pod is created, but without a label matching `InterPodAffinity` of the unschedulable pod, the pod wouldn't be schedulable.
+- `preCheck` relied on the logic of in-tree plugins and was not extensible to custom plugins,
 like in issue [#110175](https://github.com/kubernetes/kubernetes/issues/110175). 
 
 Here QueueingHints come into play; 
@@ -87,7 +87,7 @@ For example, consider a Pod named `pod-a` that has a required Pod affinity. `pod
 the scheduling cycle by the `InterPodAffinity` plugin because no node had an existing Pod that matched
 the Pod affinity specification for `pod-a`.
 
-![pod-a got rejected by InterPodAffinity](./queueinghint1.svg)
+{{< figure src="queueinghint1.svg" alt="A diagram showing the scheduling queue and pod-a rejected by InterPodAffinity plugin" caption="A diagram showing the scheduling queue and pod-a rejected by InterPodAffinity plugin" >}}
 
 `pod-a` moves into the Unschedulable Pod Pool. The scheduling queue records which plugin caused
 the scheduling failure for the Pod. For `pod-a`, the scheduling queue records that the `InterPodAffinity`
@@ -100,23 +100,25 @@ Then, if a Pod gets a label update that matches the Pod affinity requirement of 
 plugin's `QueuingHint` prompts the scheduling queue to move `pod-a` back into the ActiveQ or
 the BackoffQ component.
 
-![pod-a is moved by InterPodAffinity QueueingHint](./queueinghint2.svg)
+{{< figure src="queueinghint2.svg" alt="A diagram showing the scheduling queue and pod-a being moved by InterPodAffinity QueueingHint" caption="A diagram showing the scheduling queue and pod-a being moved by InterPodAffinity QueueingHint" >}}
 
 ## QueueingHint's history and what's new in v1.32
 
-Within SIG Scheduling, we have been working on the development of QueueingHint since
+At SIG Scheduling, we have been working on the development of QueueingHint since
 Kubernetes v1.28.
 
 While QueuingHint isn't user-facing, we implemented the `SchedulerQueueingHints` feature gate as a
 safety measure when we originally added this feature. In v1.28, we implemented QueueingHints with a
 few in-tree plugins experimentally, and made the feature gate enabled by default.
 
-However, users reported a memory leak issue, and consequently we disabled the feature gate in a
+However, users reported a memory leak, and consequently we disabled the feature gate in a
 patch release of v1.28.  From v1.28 until v1.31, we kept working on the QueueingHint implementation
 within the rest of the in-tree plugins and fixing bugs.
 
-In v1.32, we will make this feature enabled by default again. We finished implementing QueueingHints
+In v1.32, we made this feature enabled by default again. We finished implementing QueueingHints
 in all plugins and also identified the cause of the memory leak!
+
+We thank all the contributors who participated in the development of this feature and those who reported and investigated the earlier issues.
 
 ## Getting involved
 
