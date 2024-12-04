@@ -49,7 +49,7 @@ while the main container will be a `pause` container, which keeps the Pod runnin
   kubectl exec <pod-name> -- cat /var/log/machine-id.log
   ```
   
-  where `<pod-name>` is the name of one of your Pod.
+  Where `<pod-name>` is the name of one of your Pods.
 
 1. To clean up the Daemonset and its Pods:
 
