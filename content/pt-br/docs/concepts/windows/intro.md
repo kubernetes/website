@@ -31,9 +31,9 @@ Este documento usa o termo *containers Windows* para se referir a containers Win
 
 Alguns recursos do nó estão disponíveis apenas se você usar um [runtime de container](#container-runtime) específico; outros não estão disponíveis em nós Windows, incluindo:
 
-- **HugePages**: não suportado para containers Windows
-- **Containers privilegiados**: não suportados para containers Windows. [HostProcess Containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/) oferecem funcionalidade semelhante.
-- **TerminationGracePeriod**: requer containerD
+- HugePages: não suportado para containers Windows
+- Contêineres privilegiados: não suportados para contêineres Windows. [Contêineres HostProcess](/docs/tasks/configure-pod-container/create-hostprocess-pod/) oferecem funcionalidade semelhante.
+- TerminationGracePeriod: requer containerD
 
 Nem todos os recursos de namespaces compartilhados são suportados. Veja [Compatibilidade da API](#api) para mais detalhes.
 
