@@ -270,7 +270,7 @@ Para configurar o projeto em um cluster recém-criado, consulte as instruções 
 
 ## Ferramentas de implantação
 
-A ferramenta kubeadm ajuda você a implantar um cluster Kubernetes, fornecendo o plano de controle para gerenciá-lo, e nós para executar suas cargas de trabalho.
+A ferramenta kubeadm ajuda você a implantar um cluster Kubernetes, fornecendo a camada de gerenciamento para gerenciá-lo, e nós para executar suas cargas de trabalho.
 
 O projeto [cluster API](https://cluster-api.sigs.k8s.io/) do Kubernetes também fornece meios para automatizar a implantação de nós Windows.
 
