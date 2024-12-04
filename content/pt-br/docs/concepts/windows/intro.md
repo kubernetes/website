@@ -11,7 +11,7 @@ weight: 65
 
 <!-- visão geral -->
 
-Aplicativos Windows constituem uma grande parte dos serviços e aplicações que rodam em muitas organizações. [Containers Windows](https://aka.ms/windowscontainers) fornecem uma maneira de encapsular processos e empacotar dependências, facilitando o uso de práticas DevOps e seguindo padrões nativos da nuvem para aplicativos Windows.
+Aplicativos Windows constituem uma grande parte dos serviços e aplicações que rodam em muitas organizações. [Contêineres Windows](https://aka.ms/windowscontainers) fornecem uma maneira de encapsular processos e empacotar dependências, facilitando o uso de práticas DevOps e seguindo padrões nativos da nuvem para aplicativos Windows.
 
 Organizações com investimentos em aplicativos baseados em Windows e Linux não precisam procurar orquestradores separados para gerenciar suas cargas de trabalho, levando a eficiências operacionais aumentadas em suas implantações, independentemente do sistema operacional.
 
