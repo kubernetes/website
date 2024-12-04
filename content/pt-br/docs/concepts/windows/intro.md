@@ -260,7 +260,7 @@ Alguma ajuda adicional, específica para Windows, está incluída nesta seção.
 
 ### Relatando problemas e solicitações de funcionalidades
 
-Se você tiver algo que pareça um bug ou gostaria de fazer uma solicitação de recurso, siga o [guia de contribuição do SIG Windows](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests) para criar um novo problema. Você deve primeiro pesquisar na lista de problemas caso tenha sido relatado anteriormente e comentar com sua experiência no problema e adicionar logs adicionais. O canal SIG Windows no Slack do Kubernetes também é uma ótima maneira de obter suporte inicial e ideias de solução de problemas antes de criar um ticket.
+Se você tiver algo que pareça um bug ou gostaria de fazer uma solicitação de recurso, siga o [guia de contribuição do SIG Windows](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests) para criar uma nova issue. Você deve primeiro pesquisar na lista de issues existentes caso tenha sido relatado anteriormente e comentar com sua experiência na issue e adicionar logs adicionais. O canal SIG Windows no Slack do Kubernetes também é uma ótima maneira de obter suporte inicial e ideias de solução de problemas antes de criar um ticket.
 
 ### Validando a operabilidade do cluster Windows
 
