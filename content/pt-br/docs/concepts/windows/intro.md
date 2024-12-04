@@ -51,7 +51,7 @@ Elementos-chave do Kubernetes funcionam da mesma forma no Windows como no Linux.
 
   - Único ou múltiplos containers por Pod com isolamento de processo e compartilhamento de volume
   - Campos de `status` do Pod
-  - Probes de readiness (prontidão), liveness (vivacidade) e startup (inicialização)
+  - Verificações de readiness (prontidão), liveness (operacionalidade) e startup (inicialização)
   - Hooks de ciclo de vida do container `postStart` e `preStop`
   - ConfigMap, Secrets: como variáveis de ambiente ou volumes
   - Volumes `emptyDir`
