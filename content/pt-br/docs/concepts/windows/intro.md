@@ -217,7 +217,7 @@ Há uma [limitação conhecida](/pt-br/docs/tasks/configure-pod-container/config
 
 Veja [Instalar MCR em servidores Windows](https://docs.mirantis.com/mcr/20.10/install/mcr-windows.html) para mais informações.
 
-## Compatibilidade de versão do Windows OS {#windows-os-versãos-suporte}
+## Compatibilidade de versão do Windows OS {#windows-os-version-support}
 
 Em nós Windows, aplicam-se regras estritas de compatibilidade onde a versão do SO do host deve corresponder à versão da imagem base do container. Apenas containers Windows com um sistema operacional de container do Windows Server 2019 são totalmente suportados.
 
