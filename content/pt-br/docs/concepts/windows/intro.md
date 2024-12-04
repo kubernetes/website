@@ -264,7 +264,7 @@ Se você tiver algo que pareça um bug ou gostaria de fazer uma solicitação de
 
 ### Validando a operabilidade do cluster Windows
 
-O projeto Kubernetes fornece uma especificação de _Readiness Operacional do Windows_, acompanhada por um conjunto de testes estruturados. Este conjunto é dividido em dois conjuntos de testes, core e extended, cada um contendo categorias destinadas a testar áreas específicas. Pode ser usado para validar todas as funcionalidades de um sistema Windows e híbrido (misturado com nós Linux) com cobertura total.
+O projeto Kubernetes fornece uma especificação de _Windows Operational Readiness_, acompanhada por um conjunto de testes estruturados. Este conjunto é dividido em dois conjuntos de testes, principal (_core_) e estendido (_extended_), cada um contendo categorias destinadas a testar áreas específicas. Pode ser usado para validar todas as funcionalidades de um sistema Windows e híbrido (misturado com nós Linux) com cobertura total.
 
 Para configurar o projeto em um cluster recém-criado, consulte as instruções no [guia do projeto](https://github.com/kubernetes-sigs/windows-operational-readiness/blob/main/README.md).
 
