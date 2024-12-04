@@ -37,7 +37,7 @@ Alguns recursos do nó estão disponíveis apenas se você usar um [runtime de c
 
 Nem todos os recursos de namespaces compartilhados são suportados. Veja [Compatibilidade da API](#api) para mais detalhes.
 
-Veja [Compatibilidade de versão do Windows OS](#windows-os-version-support) para detalhes sobre as versões do Windows nas quais o Kubernetes é testado.
+Veja [Compatibilidade de versão do sistema operacional Windows](#windows-os-version-support) para detalhes sobre as versões do Windows nas quais o Kubernetes é testado.
 
 Do ponto de vista da API e do kubectl, containers Windows se comportam de maneira muito semelhante aos containers baseados em Linux. No entanto, há algumas diferenças notáveis em funcionalidades-chave que são destacadas nesta seção.
 
