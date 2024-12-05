@@ -335,7 +335,7 @@ for a request to update the `scale` subresource of an `apps/v1` `Deployment`:
     # Namespace of the resource being modified, if the resource is namespaced (or is a Namespace object)
     "namespace": "my-namespace",
 
-    # Operation can be CREATE, UPDATE, DELETE, or CONNECT
+    # operation can be CREATE, UPDATE, DELETE, or CONNECT
     "operation": "UPDATE",
 
     "userInfo": {
@@ -361,26 +361,26 @@ for a request to update the `scale` subresource of an `apps/v1` `Deployment`:
       }
     },
 
-    # Object is the new object being admitted. It is null for DELETE operations
+    # object is the new object being admitted. It is null for DELETE operations
     "object": {
       "apiVersion": "autoscaling/v1",
       "kind": "Scale"
     },
 
-    # OldObject is the existing object. It is null for CREATE and CONNECT operations
+    # oldObject is the existing object. It is null for CREATE and CONNECT operations
     "oldObject": {
       "apiVersion": "autoscaling/v1",
       "kind": "Scale"
     },
 
-    # Options contain the options for the operation being admitted, like meta.k8s.io/v1 CreateOptions,
+    # options contain the options for the operation being admitted, like meta.k8s.io/v1 CreateOptions,
     # UpdateOptions, or DeleteOptions. It is null for CONNECT operations
     "options": {
       "apiVersion": "meta.k8s.io/v1",
       "kind": "UpdateOptions"
     },
 
-    # DryRun indicates the API request is running in dry run mode and will not be persisted
+    # dryRun indicates the API request is running in dry run mode and will not be persisted
     # Webhooks with side effects should avoid actuating those side effects when dryRun is true
     "dryRun": false
   }
