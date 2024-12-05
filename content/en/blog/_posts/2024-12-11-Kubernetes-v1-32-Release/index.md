@@ -80,6 +80,31 @@ workload's portability and overall node resource utilization.
 This work was done as a part of [KEP #1967](https://github.com/kubernetes/enhancements/issues/1967), by [SIG
 Node](https://github.com/kubernetes/community/tree/master/sig-node).
 
+### Bound service account token improvement
+
+The inclusion of the node name in the service account token claims allows users to use such information during 
+authorization and admission (Validating Admission Policy). 
+Furthermore this improvement keeps service account credentials from being a privilege escalation path for nodes.
+
+This work was done as part of [KEP #4193](https://github.com/kubernetes/enhancements/issues/4193) by [SIG
+Auth](https://github.com/kubernetes/community/tree/master/sig-auth).
+
+### Structured authorization configuration
+
+Multiple authorizers can be configured in the API server to allow for structured authorization decisions, 
+with support for CEL match conditions in webhooks.
+This work was done as part of [KEP #3221](https://github.com/kubernetes/enhancements/issues/3221) by [SIG
+Auth](https://github.com/kubernetes/community/tree/master/sig-auth).
+
+### Auto remove PVCs created by StatefulSet
+
+PersistentVolumeClaims (PVCs) created by StatefulSets get automatically deleted when no longer needed, 
+while ensuring data persistence during StatefulSet updates and node maintenance. 
+This feature simplifies storage management for StatefulSets and reduces the risk of orphaned PVCs.
+
+This work was done as part of [KEP #1847](https://github.com/kubernetes/enhancements/issues/1847) by [SIG
+Apps](https://github.com/kubernetes/community/tree/master/sig-apps).
+
 ## Highlights of features graduating to Beta
 
 _This is a selection of some of the improvements that are now beta following the v1.32 release._
@@ -140,6 +165,15 @@ This work was done as a part of [KEP #4381](https://github.com/kubernetes/enhanc
 Management (a cross functional team containing [SIG Node](https://github.com/kubernetes/community/tree/master/sig-node),
 [SIG Scheduling](https://github.com/kubernetes/community/tree/master/sig-scheduling) and [SIG
 Autoscaling](https://github.com/kubernetes/community/tree/master/sig-autoscaling)).
+
+### Label and field selector authorization
+
+Label and field selectors can be used in authorization decisions. The node authorizer 
+automatically takes advantage of this to limit nodes to list or watch their pods only.
+Webhook authorizers can be updated to limit requests based on the label or field selector used.
+
+This work was done as part of [KEP #4601](https://github.com/kubernetes/enhancements/issues/4601) 
+by [SIG Auth](https://github.com/kubernetes/community/tree/master/sig-auth).
 
 ## Highlights of new features in Alpha
 
@@ -211,6 +245,42 @@ workloads.
 
 This work was done as part of [KEP #4818](https://github.com/kubernetes/enhancements/issues/4818) by [SIG
 Node](https://github.com/kubernetes/community/tree/master/sig-node).
+
+### DRA: Standardized network interface data for resource claim status
+
+This enhancement adds a new field that allows drivers to report specific device status data for each allocated object 
+in a resource claim. It also establishes a standardized way to represent networking devices information.
+
+This work was done as a part of 
+[KEP #4817](https://github.com/kubernetes/enhancements/issues/4817), by 
+[SIG Network](https://github.com/kubernetes/community/tree/master/sig-network).
+
+### New statusz and flagz endpoints for core components
+
+New `/statusz` and `/flagz` endpoints added for core components (consumable via API only) to enhance debuggability 
+by gaining insight into what versions (e.g. Golang version) that component is running as, along with details 
+about its uptime, and which command line flags that component was executed with; 
+making it easier to diagnose both runtime and configuration issues.
+
+This work was done as part of 
+[KEP #4827](https://github.com/kubernetes/enhancements/issues/4827) 
+and [KEP #4828](https://github.com/kubernetes/enhancements/issues/4828) by 
+[SIG Instrumentation](https://github.com/kubernetes/community/tree/master/sig-instrumentation).
+
+### Windows strikes back!
+
+Support for graceful shutdowns of Windows nodes in Kubernetes clusters has been added. 
+Before this release, Kubernetes provided graceful node shutdown functionality for Linux nodes 
+but lacked equivalent support for Windows. This enhancement enables the kubelet on Windows nodes to handle system 
+shutdown events properly. Doing so, it ensures that Pods running on Windows nodes are gracefully terminated, 
+allowing workloads to be rescheduled without disruption. This improvement enhances the reliability and stability 
+of clusters that include Windows nodes, especially during a planned maintenance or any system updates.
+
+Moreover CPU and memory affinity support has been added for Windows nodes with CPUManager, MemoryManager and TopologyManager.
+
+This work was done respectively as part of [KEP #4802](https://github.com/kubernetes/enhancements/issues/4802) 
+and [KEP #4885](https://github.com/kubernetes/enhancements/issues/4885) by [SIG
+Windows](https://github.com/kubernetes/community/tree/master/sig-windows).
     
     
 ## Graduations, deprecations, and removals in 1.32
@@ -320,8 +390,9 @@ blog reviews and continous collaboration with release Comms and Docs;
 - [SIG k8s Infra](https://github.com/kubernetes/community/tree/master/sig-k8s-infra) and [SIG
 Testing](https://github.com/kubernetes/community/tree/master/sig-testing) - for the outstanding work in keeping the
 testing framework in check, along with all the infra components necessary;
-- [SIG Release](https://github.com/kubernetes/community/tree/master/sig-release) - for the incredible support provided
-throughout the orchestration of the entire release, addressing challenging issues in a graceful and timely manner;
+- [SIG Release](https://github.com/kubernetes/community/tree/master/sig-release) and
+all the release managers - for the incredible support provided throughout the orchestration of the entire release, 
+addressing even the most challenging issues in a graceful and timely manner;
 
 
 ## Project velocity
@@ -406,7 +477,7 @@ Antigua Guatemala, Guatemala
 
 ## Upcoming release webinar
 
-Join members of the Kubernetes v1.32 release team on Thursday, January 9th 2024 at 5:00 PM (UTC), to learn about the
+Join members of the Kubernetes v1.32 release team on **Thursday, January 9th 2024 at 5:00 PM (UTC)**, to learn about the
 release highlights of this release, as well as deprecations and removals to help plan for upgrades.
 For more information and registration, visit the [event
 page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-132-release/)
