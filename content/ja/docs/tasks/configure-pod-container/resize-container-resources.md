@@ -152,7 +152,7 @@ spec:
 
 ## Podのリソースを更新する
 
-要求CPUを0.8CPUに増やしてみます。これは手動でも指定できますし、[VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) (VPA)のようなものを用いて自動的に検出/適用することもできます。
+要求CPUを0.8CPUに増やしてみます。これは手動でも指定できますし、[VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) (VPA)などを用いて自動的に検出/適用することもできます。
 
 {{< note >}}
 Podのリソース要求やリソース制限を変更して希望の容量に合わせることはできますが、Pod作成時に指定したQoSクラスを変更することはできません。
