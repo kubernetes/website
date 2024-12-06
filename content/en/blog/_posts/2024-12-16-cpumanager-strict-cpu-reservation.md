@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: 'Kubernetes v1.32 Adds A New CPU Manager Static Policy Option For Strict CPU Reservation'
-draft: true
-date: 2024-12-11
+date: 2024-12-16
 slug: cpumanager-strict-cpu-reservation
 author: >
   [Jing Zhang](https://github.com/jingczhang) (Nokia)
