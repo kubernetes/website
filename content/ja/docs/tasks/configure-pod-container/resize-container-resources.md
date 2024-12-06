@@ -10,18 +10,19 @@ min-kubernetes-server-version: 1.27
 
 {{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
-このページは[Quality of Service](/docs/tasks/configure-pod-container/quality-service-pod/)に馴染みのある読者を前提としています。
+このページは[Quality of Service](/ja/docs/tasks/configure-pod-container/quality-service-pod/)に馴染みのある読者を前提としています。
 
 このページでは、稼働中のPodやコンテナを再起動することなく、コンテナに割り当てられるCPUやメモリ容量を変更(リサイズ)するための方法を示します。
 Kubernetesノードは、PodのContainerに指定した`requests`に基づいてPodにリソースを割り当て、`limits`に基づいてPodのリソース使用量を制限します。
 
-稼働中のPodのリソース割当を変更するには、 `InPlacePodVerticalScaling` [フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効化する必要があります。代替手法としては、Podを削除した上で、異なるリソース要求を有するPodを[ワークロードコントローラー](/docs/concepts/workloads/controllers/) に作成させることもできます。
+稼働中のPodのリソース割当を変更するには、 `InPlacePodVerticalScaling` [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効化する必要があります。
+代替手法としては、Podを削除した上で、異なるリソース要求を有するPodを[ワークロードコントローラー](/ja/docs/concepts/workloads/controllers/) に作成させることもできます。
 
 稼働中のPodのリソースを変更するために
 
 - Containerの `requests` と `limits` はCPUおよびメモリリソースに対して _可変_ なものとなっています。
 - Podステータスの `containerStatuses` における `allocatedResources` フィールドは、PodのContainerに割り当てられたリソースを反映します。
-- Podステータスの `containerStatuses` における `resources` フィールドは、稼働中Containerに設定済みの実際のリソース要求 (`requests`) と リソース制限 (`limits`) を反映しており、これらの値はコンテナランタイムが通知したものです。
+- Podステータスの `containerStatuses` における `resources` フィールドは、稼働中Containerに設定済みの実際のリソース要求(`requests`)とリソース制限(`limits`)を反映しており、これらの値はコンテナランタイムが通知したものです。
 - Podステータスの `resize` フィールドは直前の適用待ちのリサイズ要求を示します。このフィールドの値には次のようなものがあります。
   - `Proposed`: リサイズ要求の受理を表し、リクエストが検証済みかつ記録済み
      であることを示します。
@@ -39,13 +40,15 @@ Kubernetesノードは、PodのContainerに指定した`requests`に基づいて
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-クラスターのコントロールプレーンを含む全ノードで`InPlacePodVerticalScaling` [フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)が有効化されている必要があります。
+クラスターのコントロールプレーンを含む全ノードで`InPlacePodVerticalScaling` [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効化されている必要があります。
 
 ## コンテナリサイズポリシー
 
-リサイズポリシーはPodにおけるコンテナのCPUやメモリリソースを取り扱うためのきめ細かい制御を可能にします。例えば、アプリケーションを再起動せずにコンテナのCPUリソースのリサイズを行える場合でも、メモリのリサイズについてはアプリケーションとコンテナの再起動が必要となる場合があります。
+リサイズポリシーはPodにおけるコンテナのCPUやメモリリソースを取り扱うためのきめ細かい制御を可能にします。
+例えば、アプリケーションを再起動せずにコンテナのCPUリソースのリサイズを行える場合でも、メモリのリサイズについてはアプリケーションとコンテナの再起動が必要となる場合があります。
 
-これを実現するために、ユーザーはContainerの仕様に `resizePolicy` を指定できるようになっています。以下の再起動ポリシーをCPUやメモリのリサイズの際に指定できます。
+これを実現するために、ユーザーはContainerの仕様に `resizePolicy` を指定できるようになっています。
+以下の再起動ポリシーをCPUやメモリのリサイズの際に指定できます。
 * `NotRequired`: 稼働中のコンテナリソースをリサイズします。
 * `RestartContainer`: コンテナを再起動させ、再起動時に新しいリソースを適用します。
 
@@ -90,7 +93,7 @@ spec:
 
 ## リソース要求やリソース制限のあるPodを作成する
 
-リソース要求やリソース制限をPodのコンテナに指定することで、保証 (Guaranteed) ないしは バースト可能(Burstable) な[Quality of Service](/docs/tasks/configure-pod-container/quality-service-pod/)クラスのPodを作成することができます。
+リソース要求やリソース制限をPodのコンテナに指定することで、保証(Guaranteed)ないしは バースト可能(Burstable)な[Quality of Service](/ja/docs/tasks/configure-pod-container/quality-service-pod/)クラスのPodを作成することができます。
 
 次のような単一のコンテナを含むPodのマニフェストを考えてみましょう。
 
@@ -110,7 +113,8 @@ Podの詳細な情報を見てみましょう。
 ```shell
 kubectl get pod qos-demo-5 --output=yaml --namespace=qos-example
 ```
-`resizePolicy[*].restartPolicy`の値がデフォルトの`NotRequired`になっていることに気づいたでしょうか。これはCPUとメモリがコンテナ稼働中にリサイズできることを示しています。
+`resizePolicy[*].restartPolicy`の値がデフォルトの`NotRequired`になっていることに気づいたでしょうか。
+これはCPUとメモリがコンテナ稼働中にリサイズできることを示しています。
 
 ```yaml
 spec:
@@ -153,7 +157,8 @@ spec:
 
 ## Podのリソースを更新する
 
-要求CPUを0.8CPUに増やしてみます。これは手動でも指定できますし、[VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) (VPA)などを用いて自動的に検出/適用することもできます。
+要求CPUを0.8CPUに増やしてみます。
+これは手動でも指定できますし、[VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)(VPA)などを用いて自動的に検出/適用することもできます。
 
 {{< note >}}
 Podのリソース要求やリソース制限を変更して希望の容量に合わせることはできますが、Pod作成時に指定したQoSクラスを変更することはできません。
@@ -201,9 +206,11 @@ spec:
     started: true
 ```
 
-期待する新しいCPU要求を反映する形で `allocatedResources` の値が更新されていることを確認しておきましょう。これはノードがCPUリソースの追加要求に対応できたことを示しています。
+期待する新しいCPU要求を反映する形で `allocatedResources` の値が更新されていることを確認しておきましょう。
+これはノードがCPUリソースの追加要求に対応できたことを示しています。
 
-Containerの状態においてはCPUリソースの値が更新されており、新しいCPUリソースが適用されたことを示しています。Containerの`restartCount`は変化しておらず、コンテナのCPUリソースがコンテナの再起動なしで変更されたことを示しています。
+Containerの状態においてはCPUリソースの値が更新されており、新しいCPUリソースが適用されたことを示しています。
+Containerの`restartCount`は変化しておらず、コンテナのCPUリソースがコンテナの再起動なしで変更されたことを示しています。
 
 ## クリーンアップ
 
@@ -218,17 +225,17 @@ kubectl delete namespace qos-example
 
 ### アプリケーション開発者向け
 
-* [コンテナおよびPodへのメモリーリソースの割り当て](/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [コンテナおよびPodへのメモリーリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [コンテナおよびPodへのCPUリソースの割り当て](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [コンテナおよびPodへのCPUリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 ### クラスター管理者向け
 
-* [Namespaceのデフォルトのメモリー要求と制限を設定する](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [Namespaceのデフォルトのメモリー要求と制限を設定する](/ja/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
 * [NamespaceのデフォルトのCPU要求と制限を設定する](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Namespaceに対する最小および最大メモリー制約の構成](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [Namespaceに対する最小および最大メモリー制約の構成](/ja/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
 * [Namespaceに対する最小および最大CPU制約の構成](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
