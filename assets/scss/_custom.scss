@@ -1947,13 +1947,23 @@ body.td-search #search {
 
 .code-sample > .copy-code-icon {
   cursor: pointer;
-  text-align: right;
+  display: flex;
+  gap:1rem;
+  justify-content: right;
   padding: 0.2rem;
 }
 
 .includecode .highlight {
   margin-top: 0;
   margin-bottom: 0;
+}
+#toast-container > *{
+  background: $primary;
+}
+
+.toast-success {
+  background-color: $primary !important; 
+  color: #ffffff !important; 
 }
 
 // handle main page features on narrow viewports
