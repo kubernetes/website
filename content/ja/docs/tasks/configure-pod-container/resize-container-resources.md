@@ -12,7 +12,8 @@ min-kubernetes-server-version: 1.27
 
 このページは[Quality of Service](/docs/tasks/configure-pod-container/quality-service-pod/)に馴染みのある読者を前提としています。
 
-このページでは、稼働中のPodやコンテナを再起動することなく、コンテナに割り当てられるCPUやメモリ容量を変更(リサイズ)するための方法を示します。Kubernetesノードは、PodのContainerに指定した`requests`に基づいてPodにリソースを割り当て、`limits`に基づいてPodのリソース使用量を制限します。
+このページでは、稼働中のPodやコンテナを再起動することなく、コンテナに割り当てられるCPUやメモリ容量を変更(リサイズ)するための方法を示します。
+Kubernetesノードは、PodのContainerに指定した`requests`に基づいてPodにリソースを割り当て、`limits`に基づいてPodのリソース使用量を制限します。
 
 稼働中のPodのリソース割当を変更するには、 `InPlacePodVerticalScaling` [フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効化する必要があります。代替手法としては、Podを削除した上で、異なるリソース要求を有するPodを[ワークロードコントローラー](/docs/concepts/workloads/controllers/) に作成させることもできます。
 
