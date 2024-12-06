@@ -1,11 +1,10 @@
 ---
 layout: blog
 title: "Kubernetes v1.32: Memory Manager Goes GA"
-date: 2024-11-11
+date: 2024-12-13
 slug: memory-manager-goes-ga
 author: >
   [Talor Itzhak](https://github.com/Tal-or) (Red Hat)
-draft: true
 ---
 
 With Kubernetes 1.32, the memory manager has officially graduated to General Availability (GA),
