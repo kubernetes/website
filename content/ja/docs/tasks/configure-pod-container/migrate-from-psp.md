@@ -8,13 +8,13 @@ weight: 260
 <!-- overview -->
 
 このページはPodSecurityPolicies からビルトインのPodSecurityアドミッションコントローラーに移行するための手順について説明します。
-これは dry-runと`audit`モードや`warn`モードの組み合わせを用いることで効率的に実施できますが、Podを改変するPSPを利用している場合には難しいものとなります。
+この手順は dry-runと`audit`モードや`warn`モードの組み合わせを用いることで効率的に実施できますが、Podを改変するPSPを利用している場合には難しいものになるかも知れません。
 
 ## {{% heading "prerequisites" %}}
 
 {{% version-check %}}
 
-Kubernetesバージョン{{< skew currentVersion >}} 以外が走っている場合には、実際に走っているKubernetesのバージョンのドキュメントに切り替えて読んだほうが良いかもしれません。
+Kubernetesバージョン{{< skew currentVersion >}} 以外が稼働している場合には、実際に走っているKubernetesのバージョンのドキュメントに切り替えて読んだほうが良いかもしれません。
 
 このページは[Pod Security Admission](/docs/concepts/security/pod-security-admission/)の基本コンセプトに馴染みのある方を対象にしています。
 
@@ -45,7 +45,7 @@ Pod Security Admission は、複数のセキュリティ水準の標準的な集
 - **デフォルトのsecurity constraintsの設定** - Pod Security Admission はPod検証型のアドミッションコントローラー(validating admission controller)であるため、Podを検証する前にPodを改変しません。あなたがPSPにおける default security constraints に依存している場合、ワークロードを修正したり、[Pod改変型のアドミッションWebHook (Mutating Admission WebHook)](/docs/reference/access-authn-authz/extensible-admission-controllers/)を使ったりして、Pod Securityの制約を満たせるような変更を実施することが必要です。
 詳細は、後で述べる[PodSecurityPoliciesをシンプルにして標準化する](#simplify-psps)を参照してください。
 - **ポリシー定義のきめ細やかな制御** - Pod Security Admission は
-  [3つのセキュリティ強度](/docs/concepts/security/pod-security-standards/)のみをサポートします。
+  [3つのセキュリティ水準](/docs/concepts/security/pod-security-standards/)のみをサポートします。
   特定の制約条件についてさらなる制御が必要な場合には、ポリシーを強制するために
   [Pod検証型のアドミッションWebhook (Validating Admission WebHook)](/docs/reference/access-authn-authz/extensible-admission-controllers/)を使う必要があります。
 - **sub-namespaceの粒度のポリシー** - PodSecurityPolicyは、個々のNamespace内部で異なるサービスアカウントやユーザーに対する異なるポリシーの紐付けが可能です。この手法にはいくつもの落とし穴があるため推奨されませんが、どうしてもこの性質が必要な場合は、サードパーティーのWebHookをPSPの代わりに利用する必要があるでしょう。ただし、Pod Security Admissionで[静的な適用除外設定](/docs/concepts/security/pod-security-admission/#exemptions)をしており、特定のユーザーや[RuntimeClasses](/docs/concepts/containers/runtime-class/)を完全に適用除外とする必要がある場合には、サードパーティーWebHookは必要ないかもしれません。
