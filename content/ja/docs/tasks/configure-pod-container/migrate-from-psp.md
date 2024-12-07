@@ -1,5 +1,5 @@
 ---
-title: PodSecurityPolicy からビルトインのPodSecurity アドミッションコントローラーに移行する
+title: PodSecurityPolicyからビルトインのPodSecurityアドミッションコントローラーに移行する
 content_type: task
 min-kubernetes-server-version: v1.22
 weight: 260
@@ -7,25 +7,26 @@ weight: 260
 
 <!-- overview -->
 
-このページはPodSecurityPolicies からビルトインのPodSecurityアドミッションコントローラーに移行するための手順について説明します。
-この手順は dry-runと`audit`モードや`warn`モードの組み合わせを用いることで効率的に実施できますが、Podを改変するPSPを利用している場合には難しいものになるかも知れません。
+このページはPodSecurityPoliciesからビルトインのPodSecurityアドミッションコントローラーに移行するための手順について説明します。
+この手順は、`audit`モードや`warn`モードとdry-runを組み合わせて用いることで効率的に実施できますが、Podを変更するPSPを利用している場合には難しいものになるかも知れません。
 
 ## {{% heading "prerequisites" %}}
 
 {{% version-check %}}
 
-Kubernetesバージョン{{< skew currentVersion >}} 以外が稼働している場合には、実際に走っているKubernetesのバージョンのドキュメントに切り替えて読んだほうが良いかもしれません。
+Kubernetesバージョン{{< skew currentVersion >}}以外が稼働している場合には、実際に走っているKubernetesのバージョンのドキュメントに切り替えて読んだほうが良いかもしれません。
 
 このページは[Pod Security Admission](/docs/concepts/security/pod-security-admission/)の基本コンセプトに馴染みのある方を対象にしています。
 
 <!-- body -->
 
 ## アプローチの全体像
-PodSecurityPolicy を Pod Security Admission に移行する場合、とりうる戦略は複数存在します。
+
+PodSecurityPolicyをPod Security Admissionに移行する場合、とりうる戦略は複数存在します。
 以下のステップは、実運用環境の停止やセキュリティギャップが生じるリスクを最小化することを目標とする場合の、１つの移行手順の例です。
 
 <!-- Keep section header numbering in sync with this list. -->
-0. Pod Security Admission があなたのユースケースに適合するかどうかを判断する
+0. Pod Security Admissionがあなたのユースケースに適合するかどうかを判断する
 1. Namespaceの権限をレビューする
 2. PodSecurityPoliciesをシンプルにして標準化する
 3. Namespaceを更新する
@@ -36,56 +37,53 @@ PodSecurityPolicy を Pod Security Admission に移行する場合、とりう�
 4. Namespaceの作成プロセスをレビューする
 5. PodSecurityPolicyを無効化する
 
-## 0. Pod Security Admission が正しい選択かどうかを判断する {#is-psa-right-for-you}
+## 0. Pod Security Admissionが正しい選択かどうかを判断する {#is-psa-right-for-you}
 
-Pod Security Admission は、複数のセキュリティ水準の標準的な集合をクラスター全体にわたって提供するもので、
-そのまま使うだけでも最も一般的なセキュリティ要求を満たせるように設計されました。
+Pod Security Admissionは、複数のセキュリティ水準の標準的な集合をクラスター全体にわたって提供するもので、そのまま使うだけで最も一般的なセキュリティ要求を満たせるように設計されました。
 しかし、PodSecurityPolicyよりも柔軟性に乏しい作りとなっています。
 特に、以下の機能はPodSecurityPolicyではサポートされているものの、Pod Security Admissionではサポートされていません。
 
-- **デフォルトのsecurity constraintsの設定** - Pod Security Admission はPod検証型のアドミッションコントローラー(validating admission controller)であるため、Podを検証する前にPodを改変しません。
-あなたがPSPにおける default security constraints に依存している場合、ワークロードを修正したり、[Pod改変型のアドミッションWebHook (Mutating Admission WebHook)](/docs/reference/access-authn-authz/extensible-admission-controllers/)を使ったりして、Pod Securityの制約を満たせるような変更を実施することが必要です。
+- **デフォルトのsecurity constraintsの設定** - Pod Security AdmissionはValidating Admission Controllerであるため、Podを検証する前にPodを変更しません。
+あなたがPSPにおけるdefault security constraintsに依存している場合、ワークロードを修正したり、[Mutating Admission WebHook](/docs/reference/access-authn-authz/extensible-admission-controllers/)を使ったりして、Pod Securityの制約を満たせるような変更を実施することが必要です。
 詳細は、後で述べる[PodSecurityPoliciesをシンプルにして標準化する](#simplify-psps)を参照してください。
-- **ポリシー定義のきめ細やかな制御** - Pod Security Admission は
-  [3つのセキュリティ水準](/docs/concepts/security/pod-security-standards/)のみをサポートします。
-  特定の制約条件についてさらなる制御が必要な場合には、ポリシーを強制するために
-  [Pod検証型のアドミッションWebhook (Validating Admission WebHook)](/docs/reference/access-authn-authz/extensible-admission-controllers/)を使う必要があります。
+- **ポリシー定義のきめ細やかな制御** - Pod Security Admissionは[3つのセキュリティ水準](/docs/concepts/security/pod-security-standards/)のみをサポートします。
+特定の制約条件についてさらなる制御が必要な場合には、ポリシーを強制するために[Validating Admission Webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)を使う必要があります。
 - **sub-namespaceの粒度のポリシー** - PodSecurityPolicyは、個々のNamespace内部で異なるサービスアカウントやユーザーに対する異なるポリシーの紐付けが可能です。
 この手法にはいくつもの落とし穴があるため推奨されませんが、どうしてもこの性質が必要な場合は、サードパーティーのWebHookをPSPの代わりに利用する必要があるでしょう。
 ただし、Pod Security Admissionで[静的な適用除外設定](/docs/concepts/security/pod-security-admission/#exemptions)をしており、特定のユーザーや[RuntimeClasses](/docs/concepts/containers/runtime-class/)を完全に適用除外とする必要がある場合には、サードパーティーWebHookは必要ないかもしれません。
 
-あなたの全ての要求を満たせない場合であっても、Pod Security Admission は他のポリシ強制メカニズムに対する _補完的な_ 仕組みとなるよう設計されており、他のアドミッションWebHookと併用する場合にも有益なフォールバック機構を提供します。
+あなたの全ての要求を満たせない場合であっても、Pod Security Admissionは他のポリシ強制メカニズムに対する _補完的な_ 仕組みとなるよう設計されており、他のアドミッションWebHookと併用する場合にも有益なフォールバック機構を提供します。
 
 ## 1. Namespaceの権限をレビューする {#review-namespace-permissions}
 
-Pod Security Admission は[Namespaceのラベル](/docs/concepts/security/pod-security-admission/#pod-security-admission-labels-for-namespaces)で制御します。
+Pod Security Admissionは[Namespaceのラベル](/docs/concepts/security/pod-security-admission/#pod-security-admission-labels-for-namespaces)で制御します。
 これはNamespaceを更新(もしくは作成やパッチ)できる人物が、同じNamespaceのPodセキュリティ基準を修正できることを意味しており、強固な制限ポリシを迂回するために利用される可能性があります。
 ここから先に進む前に、信頼済みの特権的なユーザーのみがNamespaceに関する権限を有することを確実にしておきましょう。
 
 ## 2. PodSecurityPoliciesをシンプルにして標準化する 
 
-この節では、Podを改変するPodSecurityPoliciesの定義を減らしていき、Podセキュリティ基準のスコープ外のオプションを除去します。
+この節では、Podを変更するPodSecurityPoliciesの定義を減らしていき、Podセキュリティ基準のスコープ外のオプションを除去します。
 ポリシーの修正前に、編集対象のオリジナルのPodSecurityPolicyについて、オフラインコピーを作成しておくことを推奨します。
 複製したPSPの名前には異なる文字を追加しておくべきです。
 (例えば名前の先頭に`0`を追加するなど)。
 この段階ではKubernetesに新しいポリシーは作成しないでください。
 ポリシーの作成については、この後の[更新したポリシーをロールアウトする](#psp-update-rollout)で説明します。
 
-### 2.a Podの改変のみを行うフィールドを排除する {#eliminate-mutating-fields}
+### 2.a Podの変更のみを行うフィールドを排除する {#eliminate-mutating-fields}
 
-あるPodSecurityPolicyがPodを改変する場合、最後にPodSecurityPolicyをオフにした時点で、あなたのPodセキュリティ水準の要件に適合しないPodが残ってしまう可能性があります。
-こうした問題を回避するために、PSPを無効化する前に、PSPによるPodの改変処理を排除しておく必要があります。
-残念なことに、PSPはPodを改変してしまう設定項目(mutating field)とPodの検証を行う設定項目(validating field)をきれいに分離できていないため、簡単に移行できるわけではありません。
+あるPodSecurityPolicyがPodを変更する場合、最後にPodSecurityPolicyをオフにした時点で、あなたのPodセキュリティ水準の要件に適合しないPodが残ってしまう可能性があります。
+こうした問題を回避するために、PSPを無効化する前に、PSPによるPodの変更処理を排除しておく必要があります。
+残念なことに、PSPはPodを変更する設定項目(mutating field)とPodの検証を行う設定項目(validating field)をきれいに分離できていないため、簡単に移行できるわけではありません。
 
-手始めに、Podの検証処理を損なわないような形で、Pod改変のみを行う設定項目を除去することができます。
-PSPでPodの改変のみを行うフィールドは次のとおりです。
+手始めに、Podの検証処理を損なわないような形で、Pod変更のみを行う設定項目を除去することができます。
+PSPでPodの変更のみを行うフィールドは次のとおりです。
 ([PodSecurityPoliciesとPodセキュリティ基準の対応関係](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)にも一覧があります)
 
 - `.spec.defaultAllowPrivilegeEscalation`
 - `.spec.runtimeClass.defaultRuntimeClassName`
 - `.metadata.annotations['seccomp.security.alpha.kubernetes.io/defaultProfileName']`
 - `.metadata.annotations['apparmor.security.beta.kubernetes.io/defaultProfileName']`
-- `.spec.defaultAddCapabilities` - 技術的にはPodを改変する設定とPodを検証する設定を兼ねているため、Podを改変せずに同じ検証処理を行える`.spec.allowedCapabilities` にマージすべきです。
+- `.spec.defaultAddCapabilities` - 技術的にはPodを変更する設定とPodを検証する設定を兼ねているため、Podを変更せずに同じ検証処理を行える`.spec.allowedCapabilities`にマージすべきです。
 
 {{< caution >}}
 これらのフィールドを除去することにより、必須のフィールドが設定されないワークロードが生じて、問題が発生する可能性があります。
@@ -95,8 +93,8 @@ PSPでPodの改変のみを行うフィールドは次のとおりです。
 ### 2.b. Podセキュリティ基準 が対応できないオプションを排除する {#eliminate-non-standard-options}
 
 
-PodSecurityPolicy には Podセキュリティ基準 でカバーできない設定項目があります。
-このようなオプションを強制する必要がある場合、(この記事のスコープ外の話題ですが)、Pod Security Admission を[アドミッションWebHook](/docs/reference/access-authn-authz/extensible-admission-controllers/)で補強する必要があるでしょう。
+PodSecurityPolicyには Podセキュリティ基準 でカバーできない設定項目があります。
+このようなオプションを強制する必要がある場合、(この記事のスコープ外の話題ですが)、Pod Security Admissionを[アドミッションWebHook](/docs/reference/access-authn-authz/extensible-admission-controllers/)で補強する必要があるでしょう。
 
 まず、Podセキュリティ基準 がカバーしない、純粋にPodの検証のみを行う設定項目は除去できます。
 この条件に該当するフィールドは以下のとおりです。
@@ -108,10 +106,10 @@ PodSecurityPolicy には Podセキュリティ基準 でカバーできない設
 - `.spec.forbiddenSysctls`
 - `.spec.runtimeClass`
 
-以下のようなPOSIX / UNIX グループの制御に関するフィールドも除去できます。
+以下のようなPOSIX / UNIXグループの制御に関するフィールドも除去できます。
 
 {{< caution >}}
-いずれかのフィールドが`MustRunAs`戦略を使っている場合、Podを改変している可能性があります！
+いずれかのフィールドが`MustRunAs`戦略を使っている場合、Podを変更している可能性があります！
 これらのフィールドを除去することで、必須のグループ設定がなされていないワークロードが生じ、問題が発生する可能性があります。
 [更新したポリシーをロールアウトする](#psp-update-rollout)を参照して、変更を安全にロールアウトするための方法を確認することをお勧めします。
 {{< /caution >}}
@@ -120,30 +118,31 @@ PodSecurityPolicy には Podセキュリティ基準 でカバーできない設
 - `.spec.supplementalGroups`
 - `.spec.fsGroup`
 
-その他のPod改変に関わるフィールドは Podセキュリティ基準 を正確にサポートするためには必要なものであるため、ケースバイケースでの取り扱いが求められるでしょう。
+その他のPod変更に関わるフィールドは Podセキュリティ基準 を正確にサポートするためには必要なものであるため、ケースバイケースでの取り扱いが求められるでしょう。
 
-- `.spec.requiredDropCapabilities` - Restrictedプロフィールで drop `ALL` するために必要です。
-- `.spec.seLinux` - (`MustRunAs`ルールがある場合のみPodを改変) Baseline/RestrictedでSELinux関連の要件を強制するために必要です。
-- `.spec.runAsUser` - (`RunAsAny`ルールがある場合にはPodを改変しない) Restrictedプロフィールで`RunAsNonRoot`を強制するために必要です。
-- `.spec.allowPrivilegeEscalation` - (`false`の場合にはPodを改変) Restrictedプロフィールで必要です。
+- `.spec.requiredDropCapabilities` - Restrictedプロフィールで drop `ALL`するために必要です。
+- `.spec.seLinux` - (`MustRunAs`ルールがある場合のみPodを変更)Baseline/RestrictedでSELinux関連の要件を強制するために必要です。
+- `.spec.runAsUser` - (`RunAsAny`ルールがある場合にはPodを変更しない)Restrictedプロフィールで`RunAsNonRoot`を強制するために必要です。
+- `.spec.allowPrivilegeEscalation` - (`false`の場合にはPodを変更)Restrictedプロフィールで必要です。
 
 
 ### 2.c. 更新したPSPをロールアウトする {#psp-update-rollout}
 
 ここからは、クラスターに対して更新したポリシーをロールアウトしていきます。
-必須のフィールドが設定されないワークロードを発生させるような改変設定を除去した上で、注意深く進めてください。
+必須のフィールドが設定されないワークロードを発生させるような変更設定を除去した上で、注意深く進めてください。
 
 更新する個別のPodSecurityPolicyについては
 
-1. オリジナルのPSPが適用されている稼働中のPodを特定してください。`kubernetes.io/psp`アノテーションを使うとよいでしょう。例えば、kubectlを次のように実行します。
+1. オリジナルのPSPが適用されている稼働中のPodを特定してください。
+`kubernetes.io/psp`アノテーションを使うとよいでしょう。
+例えば、kubectlを次のように実行します。
    
    ```sh
    PSP_NAME="original" # 確認したいPSPの名称を入力します
    kubectl get pods --all-namespaces -o jsonpath="{range .items[?(@.metadata.annotations.kubernetes\.io\/psp=='$PSP_NAME')]}{.metadata.namespace} {.metadata.name}{'\n'}{end}"
    ```
-2. オリジナルのPod specと稼働中のPodを比較して、PodSecurityPolicyがPodを改変したのかどうかを判定してください。
-   [ワークロードリソース](/docs/concepts/workloads/controllers/)が作成したPodについては、
-   Pod specをコントローラーリソースのPodTemplateと比較するとよいでしょう。
+2. オリジナルのPod specと稼働中のPodを比較して、PodSecurityPolicyがPodを変更したのかどうかを判定してください。
+   [ワークロードリソース](/docs/concepts/workloads/controllers/)が作成したPodについては、Pod specをコントローラーリソースのPodTemplateと比較するとよいでしょう。
    変更箇所を特定したら、オリジナルのPodないしはPodTemplateが期待する設定内容となるように更新する必要があります。
    レビューが必要なフィールドは以下のとおりです。
 
@@ -153,7 +152,7 @@ PodSecurityPolicy には Podセキュリティ基準 でカバーできない設
    - `.spec.securityContext.seccompProfile`
    - `.spec.securityContext.seLinuxOptions`
    - `.spec.securityContext.supplementalGroups`
-   - `.spec.containers[*]` ないしは `.spec.initContainers[*]` 配下のコンテナのspecについては次の通り:
+   - `.spec.containers[*]`ないしは `.spec.initContainers[*]`配下のコンテナのspecについては次の通り:
        - `.securityContext.allowPrivilegeEscalation`
        - `.securityContext.capabilities.add`
        - `.securityContext.capabilities.drop`
@@ -163,15 +162,19 @@ PodSecurityPolicy には Podセキュリティ基準 でカバーできない設
        - `.securityContext.runAsUser`
        - `.securityContext.seccompProfile`
        - `.securityContext.seLinuxOptions`
-3. 新しくPodSecurityPoliciesを作成してください。任意のRoleないしはClusterRoleに全てのPSPを`use`する権限を付与すれば、新しいPSPが使われるようになる代わりに、既存のPod改変型のPSPは使われなくなります。
-4. 認可メカニズムを更新し、新しいPSPへのアクセス権限を付与してください。これはRBACの更新を意味しており、オリジナルのPSPに対して`use`権限があるRoleやClusterRoleを更新し、新しいPSPに対する`use`権限を追加付与することにほかなりません。
-5. 設定を検証しましょう。多少の猶予期間を設けて、手順1のコマンドに戻り、まだオリジナルのPSPを使っているPodがあるかどうかを見極めましょう。新規のポリシーのロールアウト後、ポリシーの検証前にPodの再作成が必要となることに注意してください。
+3. 新しくPodSecurityPoliciesを作成してください。
+任意のRoleないしはClusterRoleに全てのPSPを`use`する権限を付与すれば、新しいPSPが使われるようになる代わりに、既存のPod変更型のPSPは使われなくなります。
+4. 認可メカニズムを更新し、新しいPSPへのアクセス権限を付与してください。
+これはRBACの更新を意味しており、オリジナルのPSPに対して`use`権限があるRoleやClusterRoleを更新し、新しいPSPに対する`use`権限を追加付与することにほかなりません。
+5. 設定を検証しましょう。
+多少の猶予期間を設けて、手順1のコマンドに戻り、まだオリジナルのPSPを使っているPodがあるかどうかを見極めましょう。
+新規のポリシーのロールアウト後、ポリシーの検証前にPodの再作成が必要となることに注意してください。
 6. (オプション) オリジナルのPSPがすでに使われていないことがはっきりしたら、削除しておいてもよいでしょう。
 
 ## 3. Namespaceを更新する {#update-namespaces}
 
 以下の手順はクラスターの全てのNamespaceで実施する必要があります。
-この手順に示されている `$NAMESPACE` 変数を使ったコマンドは、更新対象のNamespaceを参照するものです。
+この手順に示されている`$NAMESPACE`変数を使ったコマンドは、更新対象のNamespaceを参照するものです。
 
 ### 3.a. 適切なPodセキュリティの水準を特定する {#identify-appropriate-level}
 
@@ -181,13 +184,14 @@ PSSには3つの異なるセキュリティ水準があることに慣れてお�
 NamespaceにおけるPodセキュリティの水準を決定する方法はいくつかあります。
 
 1. **Namespaceのセキュリティ要求を満たすように決める** - 対象のNamespaceで求められるアクセスレベルについて熟知しているのであれば、新しいクラスターに対して実施するのと同様のやり方で、Namespaceの要件に基づいた適切なアクセス水準を選べるはずです。
-2. **既存のPodSecurityPolicyに基づいて決める**  - [PodSecurityPoliciesとPodセキュリティ基準の対応関係](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)のレファレンスを用いることで、それぞれのPSPをPodセキュリティ基準の各セキュリティ水準に対応させることができます。PSPがPodセキュリティ基準に対応しない場合は、あえて制限の多いレベルにするか、それともPSPと同等程度に許容的なセキュリティ水準に留めておくか、あなたが決定する必要があるかも知れません。
+2. **既存のPodSecurityPolicyに基づいて決める**  - [PodSecurityPoliciesとPodセキュリティ基準の対応関係](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)のレファレンスを用いることで、それぞれのPSPをPodセキュリティ基準の各セキュリティ水準に対応させることができます。
+PSPがPodセキュリティ基準に対応しない場合は、あえて制限の多いレベルにするか、それともPSPと同等程度に許容的なセキュリティ水準に留めておくか、あなたが決定する必要があるかも知れません。
 3. **既存のPodを見て決める** - 下記の[Podセキュリティの水準を検証する](#verify-pss-level)の手順を用いると、BaselineおよびRestrictedレベルの両方について、既存のワークロードに対して十分許容的なものかどうかをテストした上で、妥当で最小特権なセキュリティ水準を選択することが可能です。
 
 
 {{< caution >}}
-上述の選択肢2と3は _既存の_ Pod に基づいて実施するものであるため、現時点で稼働していないワークロードを取りこぼす可能性があります。
-例えば、CronJob や レプリカ数0のワークロード、ロールアウトされていないその他のワークロードなどがこうしたものに該当します。
+上述の選択肢2と3は _既存の_ Podに基づいて実施するものであるため、現時点で稼働していないワークロードを取りこぼす可能性があります。
+例えば、CronJobやレプリカ数0のワークロード、ロールアウトされていないその他のワークロードなどがこうしたものに該当します。
 {{< /caution >}}
 
 ### 3.b. Podセキュリティの水準を検証する {#verify-pss-level}
@@ -200,13 +204,14 @@ Podセキュリティにはプロファイルの安全なロールアウトを�
 新たなポリシーを実際に適用せずに、適用予定のポリシーに対してNamespaceで現在稼働しているPodを評価することができます。
 
 ```sh
-# $LEVEL は dry-run 対象のセキュリティ水準。"baseline" か "restricted" のいずれかの値をとる。
+# $LEVEL は dry-run対象のセキュリティ水準。"baseline" か "restricted" のいずれかの値をとる。
 kubectl label --dry-run=server --overwrite ns $NAMESPACE pod-security.kubernetes.io/enforce=$LEVEL
 ```
-このコマンドは、 _現存する_ Pod がセキュリティ水準の要求に適合しなかった場合、警告を返します。
+このコマンドは、 _現存する_ Podがセキュリティ水準の要求に適合しなかった場合、警告を返します。
 
-次の選択肢である audit モードは、稼働していないワークロードを捕捉する上で有用です。 auditモードは(enforcingモードとは対象的に)、Podがポリシーを侵害した場合、その実行を禁止せずに監査ログに記録するため、いくらかの猶予期間の後でログをレビューすることができます。
-warning モードはこれと同じような動作をしますが、ユーザーに対して即座に警告を返します。
+次の選択肢であるauditモードは、稼働していないワークロードを捕捉する上で有用です。
+auditモードは(enforcingモードとは対象的に)、Podがポリシーを侵害した場合、その実行を禁止せずに監査ログに記録するため、いくらかの猶予期間の後でログをレビューすることができます。
+warningモードはこれと同じような動作をしますが、ユーザーに対して即座に警告を返します。
 Namespaceの監査レベルは次のコマンドで設定できます。
 
 ```sh
@@ -225,7 +230,7 @@ kubectl label --overwrite ns $NAMESPACE pod-security.kubernetes.io/enforce=$LEVE
 
 ### 3.d. PodSecurityPolicyを迂回する {#bypass-psp}
 
-ここまでくれば、{{< example file="policy/privileged-psp.yaml" >}}特権PSP{{< /example >}} をNamespaceの全てのServiceAccountに紐づけて、NamespaceレベルでPodSecurityPolicyを迂回できます。
+ここまでくれば、{{< example file="policy/privileged-psp.yaml" >}}特権PSP{{< /example >}}をNamespaceの全てのServiceAccountに紐づけて、NamespaceレベルでPodSecurityPolicyを迂回できます。
 
 ```sh
 kubectl apply -f privileged-psp.yaml
@@ -235,8 +240,8 @@ kubectl create clusterrole privileged-psp --verb use --resource podsecuritypolic
 kubectl create -n $NAMESPACE rolebinding disable-psp --clusterrole privileged-psp --group system:serviceaccoutns:$NAMESPACE
 ```
 
-特権PSPはPodを改変しません。
-PSPのアドミッションコントローラーはPodを改変しないPSPを優先的に利用するため、PodがPodSecurityPolicyによって改変されたり制限されたりしないことが保証できます。
+特権PSPはPodを変更しません。
+PSPのアドミッションコントローラーはPodを変更しないPSPを優先的に利用するため、PodがPodSecurityPolicyによって変更されたり制限されたりしないことが保証できます。
 
 このようにNamespace単位でPodSecurityPolicyを無効化することの利点としては、問題が発生した際にRoleBindingを削除するだけで変更を簡単にロールバックできることです。
 もちろん、既存のPodSecurityPolicyが残っていることは確認しておきましょう。
@@ -252,16 +257,16 @@ kubectl delete -n $NAMESPACE rolebinding disable-psp
 この時点で、Pod Security Admissionを強制するための既存Namespaceの更新が完了しています。
 新たなNamespaceに対して適切なPodセキュリティプロファイルを確実に適用できるよう、新規にNamespaceを作るための手順とポリシーについても必ず更新しておくべきです。
 
-ラベルのないNamespaceに対するデフォルトの強制、監査、警告レベルを適用するために、Pod Security アドミッションコントローラーを静的に定義することもできます。
+ラベルのないNamespaceに対するデフォルトの強制、監査、警告レベルを適用するために、Pod Securityアドミッションコントローラーを静的に定義することもできます。
 詳しくは[アドミッションコントローラーを設定する](/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)を読んでください。
 
 ## 5. PodSecurityPolicyを無効化する {#disable-psps}
 
 PodSecurityPolicyを無効化する準備が整いました。
 これを実施するには、APIサーバーのアドミッションコントローラー設定を修正する必要があります。
-([アドミッションコントローラーを無効化する方法](/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-off-an-admission-controller).)
+([アドミッションコントローラーを無効化する方法](/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-off-an-admission-controller))
 
-PodSecurityPolicyアドミッションコントローラーが無効化されていることを確認するには、PodSecurityPolicies へのアクセス権限を有しないユーザーになりすましたアクセスや、APIサーバーのログを検証するなどといった、手動のテストを実施するとよいでしょう。
+PodSecurityPolicyアドミッションコントローラーが無効化されていることを確認するには、PodSecurityPoliciesへのアクセス権限を有しないユーザーになりすましたアクセスや、APIサーバーのログを検証するなどといった、手動のテストを実施するとよいでしょう。
 また、APIサーバーの起動時のログには、ロード済みのアドミッションコントローラーの一覧が表示されます。
 
 ```
@@ -269,8 +274,8 @@ I0218 00:59:44.903329      13 plugins.go:158] Loaded 16 mutating admission contr
 I0218 00:59:44.903350      13 plugins.go:161] Loaded 14 validating admission controller(s) successfully in the following order: LimitRanger,ServiceAccount,PodSecurity,Priority,PersistentVolumeClaimResize,RuntimeClass,CertificateApproval,CertificateSigning,CertificateSubjectRestriction,DenyServiceExternalIPs,ValidatingAdmissionWebhook,ResourceQuota.
 ```
 
-(Pod検証型アドミッションコントローラーの中に)`PodSecurity`が確認できるはずです。
+(Validating Admission Controllerの中に)`PodSecurity`が確認できるはずです。
 また、いずれの行もPodSecurityPolicyを含まないはずです。
 
-PSPアドミッションコントローラーを無効化したら、(また、ロールバックが必要ないと判断するのに十分な時間が経過したら)、PodSecurityPolicyと関連するRoleやClusterRole、ClusterRoleBinding を削除してもよいでしょう。
+PSPアドミッションコントローラーを無効化したら、(また、ロールバックが必要ないと判断するのに十分な時間が経過したら)、PodSecurityPolicyと関連するRoleやClusterRole、ClusterRoleBindingを削除してもよいでしょう。
 (他の無関係な権限付与に使われていないことを確認しておいてください)。
