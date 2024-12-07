@@ -10,15 +10,15 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Certificate generation
+Upgrade the default kubeadm addons
 
 ### Synopsis
 
 
-Certificate generation
+Upgrade the default kubeadm addons
 
 ```
-kubeadm init phase certs [flags]
+kubeadm upgrade node phase addon [flags]
 ```
 
 ### Options
@@ -34,7 +34,7 @@ kubeadm init phase certs [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for certs</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for addon</p></td>
 </tr>
 
 </tbody>

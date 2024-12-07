@@ -10,15 +10,15 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Upgrade the kubelet configuration for this node
+Run preflight checks before upgrade
 
 ### Synopsis
 
 
-Upgrade the kubelet configuration for this node by downloading it from the kubelet-config ConfigMap stored in the cluster
+Run preflight checks before upgrade
 
 ```
-kubeadm upgrade node phase kubelet-config [flags]
+kubeadm upgrade apply phase preflight [flags]
 ```
 
 ### Options
@@ -31,6 +31,20 @@ kubeadm upgrade node phase kubelet-config [flags]
 <tbody>
 
 <tr>
+<td colspan="2">--allow-experimental-upgrades</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Show unstable versions of Kubernetes as an upgrade alternative and allow upgrading to an alpha/beta/release candidate versions of Kubernetes.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--allow-release-candidate-upgrades</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Show release candidate versions of Kubernetes as an upgrade alternative and allow upgrading to a release candidate versions of Kubernetes.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--config string</td>
 </tr>
 <tr>
@@ -41,14 +55,28 @@ kubeadm upgrade node phase kubelet-config [flags]
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Do not change any state, just output the actions that would be performed.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Do not change any state, just output what actions would be performed.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-f, --force</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Force upgrading although some requirements might not be met. This also implies non-interactive mode.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for kubelet-config</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for preflight</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--ignore-preflight-errors strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.</p></td>
 </tr>
 
 <tr>
@@ -59,10 +87,10 @@ kubeadm upgrade node phase kubelet-config [flags]
 </tr>
 
 <tr>
-<td colspan="2">--patches string</td>
+<td colspan="2">-y, --yes</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;, &quot;corednsdeployment&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Perform the upgrade and do not prompt for confirmation (non-interactive mode).</p></td>
 </tr>
 
 </tbody>
