@@ -30,9 +30,9 @@ PodSecurityPolicyをPod Security Admissionに移行する場合、とりうる�
 1. Namespaceの権限をレビューする
 2. PodSecurityPoliciesをシンプルにして標準化する
 3. Namespaceを更新する
-   1. 適切なPodセキュリティの水準を特定する
-   2. Podセキュリティの水準を検証する
-   3. Podセキュリティ水準を強制する
+   1. 適切なPodのセキュリティ水準を特定する
+   2. Podのセキュリティ水準を検証する
+   3. Podのセキュリティ水準を強制する
    4. PodSecurityPolicyをバイパスする
 4. Namespaceの作成プロセスをレビューする
 5. PodSecurityPolicyを無効化する
@@ -71,7 +71,7 @@ Pod Security Admissionは[Namespaceのラベル](/docs/concepts/security/pod-sec
 
 ### 2.a Podの変更のみを行うフィールドを排除する {#eliminate-mutating-fields}
 
-あるPodSecurityPolicyがPodを変更する場合、最後にPodSecurityPolicyをオフにした時点で、あなたのPodセキュリティ水準の要件に適合しないPodが残ってしまう可能性があります。
+あるPodSecurityPolicyがPodを変更する場合、最後にPodSecurityPolicyをオフにした時点で、あなたのPodのセキュリティ水準の要件に適合しないPodが残ってしまう可能性があります。
 こうした問題を回避するために、PSPを無効化する前に、PSPによるPodの変更処理を排除しておく必要があります。
 残念なことに、PSPはPodを変更する設定項目(mutating field)とPodの検証を行う設定項目(validating field)をきれいに分離できていないため、簡単に移行できるわけではありません。
 
@@ -176,17 +176,17 @@ PodSecurityPolicyには Podセキュリティ基準 でカバーできない設�
 以下の手順はクラスターの全てのNamespaceで実施する必要があります。
 この手順に示されている`$NAMESPACE`変数を使ったコマンドは、更新対象のNamespaceを参照するものです。
 
-### 3.a. 適切なPodセキュリティの水準を特定する {#identify-appropriate-level}
+### 3.a. 適切なPodのセキュリティ水準を特定する {#identify-appropriate-level}
 
 [Podセキュリティ基準 (Pod Security Standards, PSS)](/docs/concepts/security/pod-security-standards/)のレビューを始めます。
 PSSには3つの異なるセキュリティ水準があることに慣れておきましょう。
 
-NamespaceにおけるPodセキュリティの水準を決定する方法はいくつかあります。
+NamespaceにおけるPodのセキュリティ水準を決定する方法はいくつかあります。
 
 1. **Namespaceのセキュリティ要求を満たすように決める** - 対象のNamespaceで求められるアクセスレベルについて熟知しているのであれば、新しいクラスターに対して実施するのと同様のやり方で、Namespaceの要件に基づいた適切なアクセス水準を選べるはずです。
 2. **既存のPodSecurityPolicyに基づいて決める**  - [PodSecurityPoliciesとPodセキュリティ基準の対応関係](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)のレファレンスを用いることで、それぞれのPSPをPodセキュリティ基準の各セキュリティ水準に対応させることができます。
 PSPがPodセキュリティ基準に対応しない場合は、あえて制限の多いレベルにするか、それともPSPと同等程度に許容的なセキュリティ水準に留めておくか、あなたが決定する必要があるかも知れません。
-3. **既存のPodを見て決める** - 下記の[Podセキュリティの水準を検証する](#verify-pss-level)の手順を用いると、BaselineおよびRestrictedレベルの両方について、既存のワークロードに対して十分許容的なものかどうかをテストした上で、妥当で最小特権なセキュリティ水準を選択することが可能です。
+3. **既存のPodを見て決める** - 下記の[Podのセキュリティ水準を検証する](#verify-pss-level)の手順を用いると、BaselineおよびRestrictedレベルの両方について、既存のワークロードに対して十分許容的なものかどうかをテストした上で、妥当で最小特権なセキュリティ水準を選択することが可能です。
 
 
 {{< caution >}}
@@ -194,9 +194,9 @@ PSPがPodセキュリティ基準に対応しない場合は、あえて制限�
 例えば、CronJobやレプリカ数0のワークロード、ロールアウトされていないその他のワークロードなどがこうしたものに該当します。
 {{< /caution >}}
 
-### 3.b. Podセキュリティの水準を検証する {#verify-pss-level}
+### 3.b. Podのセキュリティ水準を検証する {#verify-pss-level}
 
-Namespaceに対するPodセキュリティの水準を選択したら(ないしは複数検討したら)、まずはテストにかけてみると良いでしょう。
+Namespaceに対するPodのセキュリティ水準を選択したら(ないしは複数検討したら)、まずはテストにかけてみると良いでしょう。
 (Privilegedレベルを用いる場合にはこのステップを省略できます)。
 Podセキュリティにはプロファイルの安全なロールアウトを支援するいくつかのツールがあります。
 
@@ -218,9 +218,9 @@ Namespaceの監査レベルは次のコマンドで設定できます。
 kubectl label --overwrite ns $NAMESPACE pod-security.kubernetes.io/audit=$LEVEL
 ```
 
-上記いずれかのアプローチが予期せぬポリシー侵害をもたらす場合、侵害的なワークロードがポリシー要求を充足するように更新するか、NamespaceのPodセキュリティ水準を引き下げる必要があります。
+上記いずれかのアプローチが予期せぬポリシー侵害をもたらす場合、侵害的なワークロードがポリシー要求を充足するように更新するか、NamespaceのPodのセキュリティ水準を引き下げる必要があります。
 
-### 3.c. Podセキュリティ水準を強制する {#enforce-pod-security-level}
+### 3.c. Podのセキュリティ水準を強制する {#enforce-pod-security-level}
 
 選択済みのセキュリティ水準をNamespaceに対して安全に強制できることの確証がもてたら、セキュリティ水準を強制するためにNamespaceを更新します。
 
