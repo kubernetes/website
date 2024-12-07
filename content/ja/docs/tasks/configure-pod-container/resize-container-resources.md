@@ -23,7 +23,8 @@ Kubernetesノードは、PodのContainerに指定した`requests`に基づいて
 - Containerの `requests` と `limits` はCPUおよびメモリリソースに対して _可変_ なものとなっています。
 - Podステータスの `containerStatuses` における `allocatedResources` フィールドは、PodのContainerに割り当てられたリソースを反映します。
 - Podステータスの `containerStatuses` における `resources` フィールドは、稼働中Containerに設定済みの実際のリソース要求(`requests`)とリソース制限(`limits`)を反映しており、これらの値はコンテナランタイムが通知したものです。
-- Podステータスの `resize` フィールドは直前の適用待ちのリサイズ要求を示します。このフィールドの値には次のようなものがあります。
+- Podステータスの `resize` フィールドは直前の適用待ちのリサイズ要求を示します。
+このフィールドの値には次のようなものがあります。
   - `Proposed`: リサイズ要求の受理を表し、リクエストが検証済みかつ記録済み
      であることを示します。
   - `InProgress`: リサイズ要求がノードによって受理され、Podのコンテナに対する
