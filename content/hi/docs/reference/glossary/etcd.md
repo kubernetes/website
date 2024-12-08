@@ -1,12 +1,12 @@
 ---
-title: etcd
+title: इटीसीडी 
 id: etcd
 date: 2018-04-12
 full_link: /docs/tasks/administer-cluster/configure-upgrade-etcd/
 short_description: >
    सभी क्लस्टर डेटा के लिए कुबेरनेट्स के बैकिंग स्टोर के रूप में उपयोग किया जाने वाला सुसंगत और उच्च उपलब्धता की-वैल्यू स्टोर।
 
-aka: 
+aka: etcd
 tags:
 - architecture
 - storage
