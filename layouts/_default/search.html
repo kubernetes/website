@@ -17,33 +17,16 @@
     </header>
     <div class="td-outer">
       <main role="main" class="td-main">
-        <section class="row td-search-result">
+        <section class="row td-search-query">
           <div class="col-12 col-md-4 offset-md-2">
-            <form class="td-sidebar__search d-flex align-items-center">
-              {{ partial "search-input.html" . }}
-            </form>
+            {{- partial "search-form.html" . }}
           </div>
+        </section>
+        <section class="row td-search-result">
           <div class="col-12 col-md-8 offset-md-2">
-          {{ if .Site.Params.gcs_engine_id }}
-          <script>
-            (function() {
-            var cx = '{{ . }}';
-            var gcse = document.createElement('script');
-            gcse.type = 'text/javascript';
-            gcse.async = true;
-            gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(gcse, s);
-            })();
-          </script>
-          <gcse:searchresults-only></gcse:searchresults-only>
-          {{ else if .Site.Params.k8s_search }}
-          <script src="{{ "js/search.js" | relURL }}"></script>
-          <script src="/pagefind/pagefind-ui.js"></script>
           <gcse:searchresults-only linktarget="_parent">
             <div id="search" style="display:none"></div>
           </gcse:searchresults-only>
-          {{ end }}
           </div>
         </section>
       </main>
