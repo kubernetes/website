@@ -223,7 +223,6 @@ The following table includes a list of all the supported resource types and thei
 | `certificatesigningrequests` | `csr` | certificates.k8s.io/v1 | false | CertificateSigningRequest |
 | `leases` |  | coordination.k8s.io/v1 | true | Lease |
 | `endpointslices` |  | discovery.k8s.io/v1 | true | EndpointSlice |
-| `events` | `ev` | events.k8s.io/v1 | true | Event |
 | `flowschemas` |  | flowcontrol.apiserver.k8s.io/v1beta2 | false | FlowSchema |
 | `prioritylevelconfigurations` |  | flowcontrol.apiserver.k8s.io/v1beta2 | false | PriorityLevelConfiguration |
 | `ingressclasses` |  | networking.k8s.io/v1 | false | IngressClass |
