@@ -207,13 +207,6 @@ Below are the procedures to set up autocompletion for PowerShell.
 
    If you do not see an error, it means the plugin is successfully installed.
 
-1. After installing the plugin, clean up the installation files:
-
-   ```powershell
-   del kubectl-convert.exe
-   del kubectl-convert.exe.sha256
-   ```
-
 ## {{% heading "whatsnext" %}}
 
 {{< include "included/kubectl-whats-next.md" >}}
