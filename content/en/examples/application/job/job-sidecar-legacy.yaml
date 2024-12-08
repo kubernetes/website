@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: myjob
+spec:
+  template:
+    spec:
+      containers:
+        - name: myjob
+          image: alpine:latest
+          command: ['sh', '-c', 'echo "logging" > /opt/logs.txt']
+          volumeMounts:
+            - name: data
+              mountPath: /opt
+        - name: logshipper # legacy-style sidecar container
+          image: alpine:latest
+          command: ['sh', '-c', 'tail -F /opt/logs.txt']
+          volumeMounts:
+            - name: data
+              mountPath: /opt
+      restartPolicy: Never
+      volumes:
+        - name: data
+          emptyDir: {}
