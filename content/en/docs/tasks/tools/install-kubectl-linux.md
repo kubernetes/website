@@ -38,6 +38,7 @@ The following methods exist for installing kubectl on Linux:
    {{< note >}}
    To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
    portion of the command with the specific version.
+   {{< /note >}}
 
    For example, to download version {{< skew currentPatchVersion >}} on Linux x86-64, type:
 
@@ -51,7 +52,6 @@ The following methods exist for installing kubectl on Linux:
    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/arm64/kubectl
    ```
 
-   {{< /note >}}
 
 1. Validate the binary (optional)
 
