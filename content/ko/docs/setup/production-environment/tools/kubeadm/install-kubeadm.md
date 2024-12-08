@@ -4,7 +4,7 @@ content_type: task
 weight: 10
 card:
   name: setup
-  weight: 20
+  weight: 40
   title: kubeadm 설정 도구 설치
 ---
 
@@ -24,9 +24,14 @@ card:
 * 클러스터의 모든 머신에 걸친 전체 네트워크 연결. (공용 또는 사설 네트워크면 괜찮음)
 * 모든 노드에 대해 고유한 호스트 이름, MAC 주소 및 product_uuid. 자세한 내용은 [여기](#verify-mac-address)를 참고한다.
 * 컴퓨터의 특정 포트들 개방. 자세한 내용은 [여기](#check-required-ports)를 참고한다.
-* 스왑의 비활성화. kubelet이 제대로 작동하게 하려면 **반드시** 스왑을 사용하지 않도록 설정한다.
+* 스왑 설정. 기본적으로 kubelet은 노드에서 스왑 메모리가 감지되면 시작에 실패하도록 되어있다. 자세한 내용은 [Swap memory management](/docs/concepts/architecture/nodes/#swap-memory)를 참고한다.
+  * 스왑의 비활성화. kubelet이 제대로 작동하게 하려면 **반드시** 스왑을 사용하지 않도록 설정한다. 예를 들어 `swapoff -a` 명령을 사용하여 스왑을 일시적으로 비활성화 할 수 있다. 이 변경 사항을 재부팅 후에도 지속하려면, `/etc/fstab`, `systemd.swap`과 같은 시스템의 설정 파일에서 스왑을 비활성화해야 한다.
 
+{{< note >}}
+`kubeadm` 설치는 동적 링크를 사용하는 바이너리를 통해 이루어지며, 대상 시스템이 glibc를 제공한다고 가정한다. 이는 많은 Linux 배포판(예: Debian, Ubuntu, Fedora, CentOS 등)에서 합리적인 가정이지만, 기본적으로 `glibc`를 포함하지 않는 커스텀 및 경량 배포판(예: Alpine Linux)에서는 그렇지 않을 수도 있다.
 
+이러한 경우 배포판은 `glibc`를 포함하거나, 예상되는 심볼을 제공하는 [호환 레이어](https://wiki.alpinelinux.org/wiki/Running_glibc_programs)를 포함해야 한다.
+{{< /note >}}
 
 <!-- steps -->
 
@@ -150,19 +155,28 @@ kubeadm은 `kubelet` 또는 `kubectl` 을 설치하거나 관리하지 **않으�
 
    ```shell
    sudo apt-get update
+   # apt-transport-https 는 더미 패키지일수도 있다. 그렇다면 해당 패키지는 생략해도 된다.
    sudo apt-get install -y apt-transport-https ca-certificates curl
    ```
 
-2. 구글 클라우드의 공개 사이닝 키를 다운로드 한다.
+2. 쿠버네티스 패키지 리포지터리의 공개 사이닝 키를 다운로드 한다.
+   모든 저장소에 동일한 서명 키가 사용되므로 URL에 있는 버전은 무시해도 된다.
 
    ```shell
-   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   # 만약 `/etc/apt/keyrings` 디렉토리가 없다면, curl 명령을 실행하기 전에 아래의 노트를 참고하여 해당 디렉토리를 생성해야 한다.
+   # sudo mkdir -p -m 755 /etc/apt/keyrings
+   curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
-3. 쿠버네티스 `apt` 리포지터리를 추가한다.
+{{< note >}}
+Debian 12 및 Ubuntu 22.04 이전 버전에서는, `/etc/apt/keyrings` 디렉토리가 기본적으로 존재하지 않으며, curl 명령어를 실행하기 전에 해당 디렉토리를 생성해야 한다.
+{{< /note >}}
+
+3. 적절한 쿠버네티스 `apt` 리포지터리를 추가한다. 이 저장소에는 오직 {{< skew currentVersion >}} 버전에 대한 패키지만 있음에 유의한다. 다른 쿠버네티스 마이너 버전을 설치하려면 URL에서 쿠버네티스 마이너 버전을 원하는 버전으로 변경해야 한다 (설치하려는 쿠버네티스 버전에 맞는 문서를 읽고 있는지도 확인해야 한다).
 
    ```shell
-   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   # 이 과정은 /etc/apt/sources.list.d/kubernetes.list에 있는 기존 설정을 덮어쓴다.
+   echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
 4. `apt` 패키지 색인을 업데이트하고, kubelet, kubeadm, kubectl을 설치하고 해당 버전을 고정한다.
@@ -172,51 +186,69 @@ kubeadm은 `kubelet` 또는 `kubectl` 을 설치하거나 관리하지 **않으�
    sudo apt-get install -y kubelet kubeadm kubectl
    sudo apt-mark hold kubelet kubeadm kubectl
    ```
-{{< note >}}
-Debian 12 및 Ubuntu 22.04 이전 릴리스에서는 `/etc/apt/keyring`이 기본적으로 존재하지 않는다.
-필요한 경우 이 디렉토리를 생성하여, 누구나 읽을 수 있지만 관리자만 쓸 수 있도록 만들 수 있다.
-{{< /note >}}
+
+5. (선택사항) kubeadm을 실행하기 전에 kubelet 서비스를 활성화 한다.
+
+   ```shell
+   sudo systemctl enable --now kubelet
+   ```
 
 {{% /tab %}}
 {{% tab name="레드햇 기반 배포판" %}}
-```bash
-cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-exclude=kubelet kubeadm kubectl
-EOF
 
-# permissive 모드로 SELinux 설정(효과적으로 비활성화)
-sudo setenforce 0
-sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+1. `permissive` 모드로 SELinux 설정
 
-sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   이 지침은 Kubernetes {{< skew currentVersion >}}을 위한 것이다.
 
-sudo systemctl enable --now kubelet
-```
+   ```shell
+   # Set SELinux in permissive mode (effectively disabling it)
+   sudo setenforce 0
+   sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+   ```
 
-  **참고:**
+{{< caution >}}
+- `setenforce 0` 및 `sed ...`를 실행하여 permissive 모드로 SELinux를 설정하면 SELinux를 비활성화하는 효과가 있다.
+이는 컨테이너가 호스트 파일시스템(예를 들어, 파드 네트워크에 필요한)에 접근하도록 허용하는 데 필요하다.
+kubelet에서 SELinux 지원이 개선될 때까지 이 작업을 수행해야 한다.
+- 구성 방법을 알고 있는 경우 SELinux를 활성화된 상태로 둘 수 있지만 kubeadm에서 지원하지 않는 설정이 필요할 수 있다.
+{{< /caution >}}
 
-  - `setenforce 0` 및 `sed ...` 를 실행하여 permissive 모드로 SELinux를 설정하면 효과적으로 비활성화된다.
-    컨테이너가 호스트 파일시스템(예를 들어, 파드 네트워크에 필요한)에 접근하도록 허용하는 데 필요하다.
-    kubelet에서 SELinux 지원이 개선될 때까지 이 작업을 수행해야 한다.
+2. 쿠버네티스 `yum` 리포지터리를 추가한다. 쿠버네티스를 업그레이드 하려면 특별한 절차가 필요하기 때문에,
+   리포지터리 정의의 `exclude` 매개변수를 이용하여 쿠버네티스 관련 패키지가 `yum update`를 실행할 때 업그레이드 되지 않도록 한다.
+   이 저장소에는 오직 {{< skew currentVersion >}} 버전에 대한 패키지만 있음에 유의한다.
+   다른 쿠버네티스 마이너 버전을 설치하려면 URL에서 쿠버네티스 마이너 버전을 원하는 버전으로 변경해야 한다 (설치하려는 쿠버네티스 버전에 맞는 문서를 읽고 있는지도 확인해야 한다).
 
-  - 구성 방법을 알고 있는 경우 SELinux를 활성화된 상태로 둘 수 있지만 kubeadm에서 지원하지 않는 설정이 필요할 수 있다.
+   ```shell
+   # 이 과정은 /etc/yum.repos.d/kubernetes.repo에 있는 기존 설정을 덮어쓴다.
+   cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+   [kubernetes]
+   name=Kubernetes
+   baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
+   exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
+   EOF
+   ```
 
-  - 사용 중인 레드햇 배포판이 `basearch`를 해석하지 못하여 `baseurl`이 실패하면, `\$basearch`를 당신의 컴퓨터의 아키텍처로 치환한다.
-    `uname -m` 명령을 실행하여 해당 값을 확인한다.
-    예를 들어, `x86_64`에 대한 `baseurl` URL은 `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64` 이다.
+4. kubelet, kubeadm, kubectl을 설치한다.
+
+   ```shell
+   sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   ```
+
+5. (선택사항) kubeadm을 실행하기 전에 kubelet 서비스를 활성화 한다.
+
+   ```shell
+   sudo systemctl enable --now kubelet
+   ```
 
 {{% /tab %}}
 {{% tab name="패키지 매니저를 사용하지 않는 경우" %}}
 CNI 플러그인 설치(대부분의 파드 네트워크에 필요)
 
 ```bash
-CNI_PLUGINS_VERSION="v1.1.1"
+CNI_PLUGINS_VERSION="v1.3.0"
 ARCH="amd64"
 DEST="/opt/cni/bin"
 sudo mkdir -p "$DEST"
@@ -238,7 +270,7 @@ sudo mkdir -p "$DOWNLOAD_DIR"
 crictl 설치(kubeadm / Kubelet 컨테이너 런타임 인터페이스(CRI)에 필요)
 
 ```bash
-CRICTL_VERSION="v1.25.0"
+CRICTL_VERSION="v1.30.0"
 ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
@@ -249,19 +281,25 @@ curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
 ARCH="amd64"
 cd $DOWNLOAD_DIR
-sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
-sudo chmod +x {kubeadm,kubelet,kubectl}
+sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet}
+sudo chmod +x {kubeadm,kubelet}
 
-RELEASE_VERSION="v0.4.0"
-curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
-sudo mkdir -p /etc/systemd/system/kubelet.service.d
-curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+RELEASE_VERSION="v0.16.2"
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubelet/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /usr/lib/systemd/system/kubelet.service
+sudo mkdir -p /usr/lib/systemd/system/kubelet.service.d
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
-`kubelet` 활성화 및 시작
+{{< note >}}
+Linux 배포판이 기본적으로 `glibc`를 포함하지 않는 경우에는 [시작하기 전에](#시작하기-전에) 섹션의 노트를 참고한다.
+{{< /note >}}
+
+[도구 설치](/docs/tasks/tools/#kubectl)의 지침을 따라 `kubectl`을 설치한다.
+
+(선택사항) `kubelet` 활성화 및 시작
 
 ```bash
-systemctl enable --now kubelet
+sudo systemctl enable --now kubelet
 ```
 
 {{< note >}}
