@@ -695,8 +695,8 @@ triggered and all Pod finalizers were removed. However, some Pods would still
 be running or terminating at the moment that the terminal condition was added.
 
 In Kubernetes v1.31 and later, the controller only adds the Job terminal conditions
-_after_ all of the Pods are terminated. You can enable this behavior by using the
-`JobManagedBy` or the `JobPodReplacementPolicy` (enabled by default)
+_after_ all of the Pods are terminated. You can control this behavior by using the
+`JobManagedBy` and the `JobPodReplacementPolicy` (both enabled by default)
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/).
 
 ### Termination of Job pods
@@ -1137,7 +1137,7 @@ status:
 {{< note >}}
 You can only set the `managedBy` field on Jobs if you enable the `JobManagedBy`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-(disabled by default).
+(enabled by default).
 {{< /note >}}
 
 This feature allows you to disable the built-in Job controller, for a specific
