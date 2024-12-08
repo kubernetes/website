@@ -597,6 +597,9 @@ other = "Changelog"
 [seealso_heading]
 other = "See Also"
 
+[sidebar_toggle_nav]
+other = "Toggle section navigation"
+
 [subscribe_button]
 other = "Subscribe"
 
