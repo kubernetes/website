@@ -392,6 +392,6 @@ kubelet может вызывать различные действия:
 
 * [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
 * [Borg](https://research.google.com/pubs/pub43438.html)
-* [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
+* [Marathon](https://github.com/d2iq-archive/marathon)
 * [Omega](https://research.google/pubs/pub41684/)
 * [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/).
