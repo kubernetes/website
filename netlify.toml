@@ -21,8 +21,10 @@ command = "git submodule update --init --recursive --depth 1 && make deploy-prev
 [context.branch-deploy]
 command = "git submodule update --init --recursive --depth 1 && make non-production-build && npx -y pagefind --site public"
 
-[context.main]
-# This context is triggered by the `main` branch and allows search indexing
-# DO NOT REMOVE THIS (contact @kubernetes/sig-docs-leads)
+[context.production]
+# Rather than specifying context.main, which will supersede any of the above
+# context, make a production specific build separately based on the context
+# with the same priority.
+# Ref: https://docs.netlify.com/configure-builds/file-based-configuration/#deploy-contexts
 publish = "public"
 command = "git submodule update --init --recursive --depth 1 && make production-build && npx -y pagefind --site public"
