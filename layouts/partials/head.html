@@ -55,9 +55,9 @@
 {{ partial "css.html" . }}
 <!-- Content for social media sharing previews -->
 <!-- Facebook uses the og: stuff, while Twitter and others use twitter: -->
-<meta name="description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Summary }}{{ end }}">
-<meta property="og:description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Summary }}{{ end }}">
-<meta name="twitter:description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Summary }}{{ end }}">
+<meta name="description" content="{{ template "partials/page-description.html" . }}">
+<meta property="og:description" content="{{ template "partials/page-description.html" . }}">
+<meta name="twitter:description" content="{{ template "partials/page-description.html" . }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:title" content="{{ if .Params.title }}{{ .Title }}{{ else }}{{ .Summary | truncate 10 }}{{ end }}">
 <meta name="twitter:title" content="{{ if .Params.title }}{{ .Title }}{{ else }}{{ .Summary | truncate 10 }}{{ end }}">
