@@ -548,11 +548,11 @@ kubectl -n examplens delete secret/example-automated-thing-token-zyxwv
 
 ### Delete/invalidate a short-lived ServiceAccount token {#delete-short-lived}
 
-Short lived ServiceAccount tokens automatically expire after the amount
+Short lived ServiceAccount tokens automatically expire after the time-limit 
 specified during their creation. There is no central record of tokens issued,
 so there is no way to revoke individual tokens.
 
-If you absolutely have to revoke a short-lived token before its expiration, you
+If you have to revoke a short-lived token before its expiration, you
 can delete and re-create the ServiceAccount it is associated to. This will
 change its UID and hence invalidate **all** ServiceAccount tokens that were
 created for it.
