@@ -14,7 +14,7 @@ translator: >
 Kubernetesコンポーネントは _フィーチャーゲート_ というオン/オフのスイッチを使うことで、新機能を追加する際のリスクを管理しています。
 _フィーチャーゲート_ の仕組みは、Alpha、Beta、GAといった各ステージを通じて、新機能の継続的な品質認定を可能にします。
 
-kube-controller-managerやkube-schedulerのようなKubernetesコンポーネントは、client-goライブラリを使ってAPIと相互作用します。
+kube-controller-managerやkube-schedulerのようなKubernetesコンポーネントは、client-goライブラリを使ってAPIとやりとりします。
 Kubernetesエコシステムは、このライブラリをコントローラーやツール、WebHookその他をビルドするために利用しています。
 最新のclient-goにはそれ自体にフィーチャーゲート機構があり、開発者やクラスター管理者は新たなクライアント機能を受容するかどうかを制御することができます。
 
