@@ -49,7 +49,7 @@ certificates. Only non-CA certificates continue to be renewable by <code>kubeadm
 add version that can be used to convert to v1beta4</li>
 </ul>
 <h2>Basics</h2>
-<p>The preferred way to configure kubeadm is to pass an YAML configuration file with
+<p>The preferred way to configure kubeadm is to pass a YAML configuration file with
 the <code>--config</code> option. Some of the configuration options defined in the kubeadm
 config file are also available as command line flags, but only the most
 common/simple use case are supported with this approach.</p>
