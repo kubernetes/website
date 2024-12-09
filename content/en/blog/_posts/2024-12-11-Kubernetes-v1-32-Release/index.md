@@ -339,13 +339,6 @@ This removal will allow Kubernetes to handle new hardware requirements and resou
 the complexities of back and forth API calls to the kube-apiserver.
 
 See the enhancement issue [#3063](https://github.com/kubernetes/enhancements/issues/3063) to find out more.
-
-#### Deprecation of gitRepo volume types
-
-The [gitRepo](https://kubernetes.io/docs/concepts/storage/volumes/#gitrepo) volume type is deprecated and will be
-removed in a future release, the deprecation has been executed in light of the security advisory encompassing the
-[CVE-2024-10220](https://nvd.nist.gov/vuln/detail/CVE-2024-10220): Arbitrary command execution through gitRepo volume,
-which was reported publicly in [this issue](https://github.com/kubernetes/kubernetes/issues/128885).
     
 #### API removals
 
