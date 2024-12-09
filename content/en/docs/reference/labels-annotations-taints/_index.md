@@ -1423,6 +1423,17 @@ Used on: Ingress
 Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassName`.
 {{< /note >}}
 
+### kubernetes.io/cluster-service (deprecated)
+
+Type: Label
+
+Example: kubernetes.io/cluster-service: "true"
+
+Used on: Service
+
+Addon manager deprecates this label for usage in addon manager. It is not deprecated in general.
+kubectl cluster-info depends on it and this annotation appear there.
+
 ### storageclass.kubernetes.io/is-default-class
 
 Type: Annotation
