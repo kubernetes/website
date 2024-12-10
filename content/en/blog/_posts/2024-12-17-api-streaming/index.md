@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: 'Enhancing Kubernetes API Server Efficiency with API Streaming'
-date: 2024-12-11
-draft: true
+date: 2024-12-17
 slug: kube-apiserver-api-streaming
 author: >
  Stefan Schimanski (Upbound),
