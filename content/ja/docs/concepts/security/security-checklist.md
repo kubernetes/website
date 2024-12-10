@@ -68,7 +68,7 @@ Kubernetes APIサーバーへの外部インターネットアクセスは、API
 
 Kubernetesのホスティングにクラウドプロバイダーを使用する場合、PodからクラウドメタデータAPI`169.254.169.254`へのアクセスも、情報が漏洩する可能性があるため、必要でない場合は制限またはブロックする必要があります。
 
-LoadBalancerおよびExternalIPsの制限付き使用の詳細については[CVE-2020-8554: LoadBalancer または ExternalIPs を使用した中間者攻撃](https://github.com/kubernetes/kubernetes/issues/97076)および[DenyServiceExternalIPs アドミッション コントローラ](/ja/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)を参照してください。
+LoadBalancerおよびExternalIPsの制限付き使用の詳細については[CVE-2020-8554: LoadBalancer または ExternalIPs を使用した中間者攻撃](https://github.com/kubernetes/kubernetes/issues/97076)および[DenyServiceExternalIPs アドミッション コントローラー](/ja/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)を参照してください。
 
 ## Podセキュリティ
 
@@ -96,7 +96,7 @@ Pod Securityアドミッション`restricted`ポリシーは、[Pod Security Sta
 [Pod セキュリティ](/ja/docs/concepts/security/Pod-security-admission/)の実践的なチュートリアルについては、ブログ投稿[Kubernetes 1.23: Pod セキュリティがベータ版に移行](/blog/2021/12/09/Pod-security-admission-beta/)を参照してください。
 
 [メモリと CPU の制限](/ja/docs/concepts/configuration/manage-resources-containers/)を設定して、PodがNodeで消費できるメモリとCPUリソースを制限し、悪意のあるワークロードや侵害されたワークロードによる潜在的なDoS攻撃を防ぐ必要があります。
-このようなポリシーは、アドミッションコントローラによって適用できます。
+このようなポリシーは、アドミッションコントローラーによって適用できます。
 CPU制限により使用が制限されるため、自動スケーリング機能や効率性に意図しない影響が生じる可能性があります
 つまり、利用可能なCPUリソースでベストエフォートでプロセスを実行することです。
 
@@ -159,10 +159,10 @@ Podが誤って同じNodeにデプロイされるのを防ぐために、この�
 
 [Node セレクタ](/ja/docs/concepts/scheduling-eviction/assign-Pod-node/)
 : Pod仕様の一部として、デプロイするNodeを指定するキーと値のペア。
-これらは、[PodNodeSelector](/ja/docs/reference/access-authn-authz/admission-controllers/#Podnodeselector)アドミッションコントローラを使用して、Namespaceとクラスターレベルで実施できます。
+これらは、[PodNodeSelector](/ja/docs/reference/access-authn-authz/admission-controllers/#Podnodeselector)アドミッションコントローラーを使用して、Namespaceとクラスターレベルで実施できます。
 
 [PodTolerationRestriction](/ja/docs/reference/access-authn-authz/admission-controllers/#Podtolerationrestriction)
-: 管理者がNamespace内で許可された[tolerations](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)を制限できるようにするアドミッションコントローラ。
+: 管理者がNamespace内で許可された[tolerations](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)を制限できるようにするアドミッションコントローラー。
 Namespace内のPodは、デフォルトおよび許可された一連のtolerationsを提供するNamespaceオブジェクトアノテーションキーで指定されたtolerationsのみを使用できます。
 
 [RuntimeClass](/ja/docs/concepts/containers/runtime-class/)
@@ -211,25 +211,25 @@ Kubernetes v1.22以降では、時間制限のあるService Accounts認証情報
 タグの後ろにあるイメージはレジストリで簡単に変更できます。
 イメージマニフェストに固有の完全な`sha256`ダイジェストを使用することをお勧めします。
 このポリシーは、[ImagePolicyWebhook](/ja/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook)を介して適用できます。
-イメージ署名は、デプロイ時に[アドミッション コントローラで検証](/ja/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller)して、信頼性と整合性を検証することもできます。
+イメージ署名は、デプロイ時に[アドミッション コントローラーで検証](/ja/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller)して、信頼性と整合性を検証することもできます。
 
 コンテナイメージをスキャンすると、重大な脆弱性がコンテナイメージと一緒にクラスターにデプロイされるのを防ぐことができます。
 イメージスキャンは、コンテナイメージをクラスターにデプロイする前に完了する必要があり、通常はCI/CDパイプラインのDeploymentプロセスの一部として行われます。
 イメージスキャンの目的は、コンテナイメージ内の潜在的な脆弱性とその防止策に関する情報([共通脆弱性評価システム (CVSS)](https://www.first.org/cvss/)スコアなど)を取得することです。
 イメージスキャンの結果をパイプラインのコンプライアンスルールと組み合わせると、適切にパッチが適用されたコンテナイメージのみが本番環境に導入されます。
 
-## アドミッションコントローラ
+## アドミッションコントローラー
 
-- [ ] 適切なアドミッションコントローラの選択を有効にしています。
-- [ ] Podセキュリティポリシーは、Podセキュリティアドミッションまたは、ウェブフックアドミッションコントローラによって適用しています。
+- [ ] 適切なアドミッションコントローラーの選択を有効にしています。
+- [ ] Podセキュリティポリシーは、Podセキュリティアドミッションまたは、ウェブフックアドミッションコントローラーによって適用しています。
 - [ ] アドミッションチェーンプラグインとウェブフックを安全に構成しています。
-アドミッションコントローラは、クラスターのセキュリティの向上に役立ちます。
-ただし、APIサーバーを拡張するため、アドミッションコントローラ自体にリスクが生じる可能性があり、適切に保護する必要があります(/blog/2022/01/19/secure-your-admission-controllers-and-webhooks/)。
+アドミッションコントローラーは、クラスターのセキュリティの向上に役立ちます。
+ただし、APIサーバーを拡張するため、アドミッションコントローラー自体にリスクが生じる可能性があり、適切に保護する必要があります(/blog/2022/01/19/secure-your-admission-controllers-and-webhooks/)。
 
-次のリストは、クラスターとアプリケーションのセキュリティ体制を強化するために検討できるアドミッションコントローラをいくつか示しています。
-このドキュメントの他の部分で参照される可能性のあるコントローラも含まれています。
+次のリストは、クラスターとアプリケーションのセキュリティ体制を強化するために検討できるアドミッションコントローラーをいくつか示しています。
+このドキュメントの他の部分で参照される可能性のあるコントローラーも含まれています。
 
-この最初のアドミッションコントローラグループには、プラグインが含まれます
+この最初のアドミッションコントローラーグループには、プラグインが含まれます
 [デフォルトで有効](/ja/docs/reference/access-authn-authz/admission-controllers/#which-plugins-are-enabled-by-default)
 何をしているのかよくわからない場合は、有効のままにしておくことを検討してください:
 
@@ -246,7 +246,7 @@ Kubernetes v1.22以降では、時間制限のあるService Accounts認証情報
 : LimitRange API制約を適用します。
 
 [`MutatingAdmissionWebhook`](/ja/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
-: Webhookを介してカスタムコントローラの使用を許可します。これらのコントローラは、確認するリクエストを変更する場合があります。
+: Webhookを介してカスタムコントローラーの使用を許可します。これらのコントローラーは、確認するリクエストを変更する場合があります。
 
 [`PodSecurity`](/ja/docs/reference/access-authn-authz/admission-controllers/#Podsecurity)
 : Podセキュリティポリシーの代替で、デプロイされたPodのセキュリティコンテキストを制限します。
@@ -255,7 +255,7 @@ Kubernetes v1.22以降では、時間制限のあるService Accounts認証情報
 : リソースの過剰使用を防ぐためにリソースクォータを適用します。
 
 [`ValidatingAdmissionWebhook`](/ja/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
-: Webhookを介してカスタムコントローラの使用を許可します。これらのコントローラは、レビューするリクエストを変更しません。
+: Webhookを介してカスタムコントローラーの使用を許可します。これらのコントローラーは、レビューするリクエストを変更しません。
 
 2番目のグループには、デフォルトでは有効になっていないが、一般的な可用性状態ではセキュリティ体制を改善するために推奨されるプラグインが含まれます:
 
