@@ -1,0 +1,10 @@
+- source:
+    kind: Service
+    fieldPath: metadata.labels.app
+  targets:
+    - select:
+        kind: Service
+      fieldPaths:
+        - metadata.name
+        - spec.ports.*.name
+        - spec.ports.*.targetPort
