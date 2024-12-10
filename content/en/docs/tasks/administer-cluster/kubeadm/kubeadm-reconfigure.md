@@ -204,16 +204,8 @@ kubectl edit service -n kube-system kube-dns
 
 Once the CoreDNS changes are applied you can delete the CoreDNS Pods:
 
-Obtain the Pod names:
-
 ```shell
-kubectl get po -n kube-system | grep coredns
-```
-
-Delete a Pod with:
-
-```shell
-kubectl delete po -n kube-system <pod-name>
+kubectl delete po -n kube-system -l k8s-app=kube-dns
 ```
 
 New Pods with the updated CoreDNS configuration will be created.
