@@ -1,11 +1,23 @@
 # i18n strings for the Portuguese (main) site.
 # NOTE: Please keep the entries in the same order as the English version (en.toml).
 
+[api_reference_title]
+other = "Referência da API"
+
 [auto_generated_edit_notice]
 other = "(página gerada automaticamente)"
 
 [auto_generated_pageinfo]
 other = """<p>Esta página foi gerada automaticamente.</p><p>Se você planeja relatar um problema nesta página, mencione que esta página é gerada automaticamente na descrição da sua <i>issue</i>. A correção pode necessitar ser efetuada em outra parte do projeto Kubernetes.</p>"""
+
+[blog_post_show_more]
+other = "Mostrar mais postagens"
+
+[banner_acknowledgement]
+other = "Ocultar este aviso"
+
+[case_study_prefix]
+other = "Estudo de caso:"
 
 [caution]
 other = "Cuidado:"
@@ -13,14 +25,26 @@ other = "Cuidado:"
 [cleanup_heading]
 other = "Limpando"
 
-[community_events_calendar]
+[china_icp_license]
+other = "Licença ICP:"
+
+[community_advice_guidelines]
+other = "Você pode ler também sobre nossas {{ .link }}."
+
+[community_calendar_name]
 other = "Calendário de Eventos"
+
+[community_contributor_site_name]
+other = "Site da pessoa contribuidora"
 
 [community_forum_name]
 other = "Fórum"
 
 [community_github_name]
 other = "GitHub"
+
+[community_server_fault_name]
+other = "Server Fault"
 
 [community_slack_name]
 other = "Slack"
@@ -29,13 +53,19 @@ other = "Slack"
 other = "Stack Overflow"
 
 [community_twitter_name]
-other = "Twitter"
+other = "X (antigo Twitter)"
+
+[community_x_name]
+other = "X (antigo Twitter)"
 
 [community_youtube_name]
 other = "YouTube"
 
 [conjunction_1]
 other = "e"
+
+[copy_sample_to_clipboard]
+other = "Copiar {{ .filename }} para a área de transferência"
 
 [cve_id]
 other = "ID da CVE"
@@ -64,6 +94,13 @@ other = " a documentação não é mais mantida ativamente. A versão que você 
 [deprecation_file_warning]
 other = "Descontinuado"
 
+[outdated_content_title]
+other = "Este documento pode estar desatualizado"
+
+[outdated_content_message]
+other = "Este documento possui uma data de atualização mais antiga que o documento original. Portanto, este conteúdo pode estar desatualizado. Se você lê inglês, veja a versão em inglês para acessar a versão mais atualizada: "
+
+
 [dockershim_message]
 other = """O Dockershim foi removido do projeto Kubernetes na versão 1.24. Leia a <a href="/dockershim">seção de Perguntas Frequentes sobre a remoção do Dockershim</a> para mais detalhes."""
 
@@ -78,6 +115,9 @@ other = "Eu sou..."
 
 [docs_label_users]
 other = "Usuários"
+
+[docs_page_versions]
+other = "Este(a) %s cobre a versão %s do Kubernetes. Se você deseja usar uma versão diferente do Kubernetes, consulte as seguintes páginas:"
 
 [docs_version_current]
 other = "(esta documentação)"
@@ -100,8 +140,50 @@ other = "Talvez você estivesse procurando por:"
 [examples_heading]
 other = "Exemplos"
 
+[feature_gate_enabled]
+other = "(habilitado por padrão: {{ .enabled }})"
+
+[feature_gate_stage_alpha]
+other = "Alfa"
+
+[feature_gate_stage_beta]
+other = "Beta"
+
+[feature_gate_stage_stable]
+other = "GA"
+
+[feature_gate_stage_deprecated]
+other = "Descontinuado"
+
+[feature_gate_table_header_default]
+other = "Padrão"
+
+[feature_gate_table_header_feature]
+other = "Funcionalidade"
+
+[feature_gate_table_header_from]
+other = "De"
+
+[feature_gate_table_header_since]
+other = "Até"
+
+[feature_gate_table_header_stage]
+other = "Estágio"
+
+[feature_gate_table_header_to]
+other = "Para"
+
+[feature_gate_table_header_until]
+other = "Até"
+
 [feature_state]
 other = "ESTADO DA FUNCIONALIDADE:"
+
+[feature_state_kubernetes_label]
+other = "Kubernetes"
+
+[feature_state_feature_gate_tooltip]
+other = "Feature Gate:"
 
 [feedback_heading]
 other = "Comentários"
@@ -139,8 +221,8 @@ do Katacoda pela O'Reilly Media em 2019.</p>
 auxílio às pessoas dando seus primeiros passos nas suas jornadas de aprendizagem
 do Kubernetes.</p>
 <p>Os tutoriais encerrarão seu funcionamento no dia <b>31 de março de 2023</b>.
-Para mais informações, leia
-"<a href="/pt-br/blog/2023/02/14/kubernetes-katacoda-tutorials-stop-from-2023-03-31/">os tutoriais gratuitos do Katacoda estão sendo encerrados</a>."</p>"""
+Você está vendo este aviso porque esta página em particular não foi atualizada ainda após
+o encerramento dos tutoriais interativos.</p>"""
 
 [latest_release]
 other = "Versão mais recente:"
@@ -155,7 +237,7 @@ other = "Próximo >>"
 other = "<< Anterior"
 
 [layouts_case_studies_list_tell]
-other = "Conte seu caso"
+other = "Conte sua história"
 
 [layouts_docs_glossary_aka]
 other = "Também conhecido como"
@@ -266,7 +348,15 @@ other = "relatar um problema"
 other = "Obrigado pelo feedback. Se você tiver uma pergunta específica sobre como utilizar o Kubernetes, faça em"
 
 [layouts_docs_search_fetching]
-other = "Buscando resultados.."
+other = "Buscando resultados..."
+
+[legacy_repos_message]
+other = """Os repositórios legados de pacotes (`apt.kubernetes.io` e `yum.kubernetes.io`) foram
+[descontinuados e congelados a partir de 13 de setembro de 2023](/blog/2023/08/31/legacy-package-repository-deprecation/).
+**A utilização dos [novos repositórios de pacotes hospedados em `pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/)
+é fortemente recomendada e requerida para instalar versões do Kubernetes lançadas após 13 de setembro de 2023.**
+Os repositórios legados descontinuados e seus conteúdos podem ser removidos a qualquer momento no futuro e sem
+um período de aviso prévio. Os novos repositórios de pacotes fornecem downloads para versões do Kubernetes a partir da v1.24.0."""
 
 [main_by]
 other = "por"
@@ -286,12 +376,6 @@ other = """The Linux Foundation &reg;. Todos os direitos reservados. A Linux Fou
 [main_documentation_license]
 other = """Os autores do Kubernetes | Documentação Distribuída sob <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
 
-[main_edit_this_page]
-other = "Edite essa página"
-
-[main_github_create_an_issue]
-other = "Abra um bug"
-
 [main_github_invite]
 other = "Interessado em mergulhar na base de código do Kubernetes?"
 
@@ -302,7 +386,7 @@ other = "Veja no Github"
 other = "Recursos do Kubernetes"
 
 [main_kubeweekly_baseline]
-other = "Interessado em receber as últimas novidades sobre Kubernetes? Inscreva-se no KubeWeekly."
+other = "Interessado em receber as últimas novidades sobre o Kubernetes? Inscreva-se no KubeWeekly."
 
 [main_kubernetes_past_link]
 other = "Veja boletins passados"
@@ -311,7 +395,7 @@ other = "Veja boletins passados"
 other = "Inscreva-se"
 
 [main_page_history]
-other ="História da página"
+other ="Histórico da página"
 
 [main_page_last_modified_on]
 other = "Última modificação da página em"
@@ -321,6 +405,9 @@ other = "Ler sobre"
 
 [main_read_more]
 other = "Consulte Mais informação"
+
+[monthly_patch_release]
+other = "Lançamento de Correção Mensal"
 
 [not_applicable]
 other = "Não se aplica"
@@ -349,17 +436,76 @@ other = "Antes de você começar"
 [previous_patches]
 other = "Versões de correção:"
 
-[print_printable_section]
-other = "Essa é a versão completa de impressão dessa seção"
+[release_binary_alternate_links]
+other  = """Você pode encontrar links para baixar os componentes do Kubernetes (e seus arquivos _checksum_) nos arquivos [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG).
+Alternativamente, utilize o website [downloadkubernetes.com](https://www.downloadkubernetes.com/) para filtrar por versão e arquitetura."""
 
-[print_click_to_print]
-other = "Clique aqui para imprimir"
+[release_binary_arch]
+other  = "Arquitetura"
 
-[print_show_regular]
-other = "Retornar à visualização normal"
+[release_binary_arch_option]
+other = "Arquiteturas"
 
-[print_entire_section]
-other = "Imprimir toda essa seção"
+[release_binary_copy_link]
+other = "Copiar Link"
+
+[release_binary_copy_link_certifcate]
+other = "certificado"
+
+[release_binary_copy_link_checksum]
+other = "arquivo checksum"
+
+[release_binary_copy_link_signature]
+other = "assinatura"
+
+[release_binary_copy_link_tooltip]
+other = "copiar para a área de transferência"
+
+[release_binary_download]
+other  = "Baixar Binário"
+
+[release_binary_download_tooltip]
+other = "baixar o arquivo binário"
+
+[release_binary_options]
+other  = "Opções de Download"
+
+[release_binary_os]
+other = "Sistema Operacional"
+
+[release_binary_os_option]
+other = "Sistemas Operacionais"
+
+[release_binary_os_darwin]
+other = "darwin"
+
+[release_binary_os_linux]
+other = "linux"
+
+[release_binary_os_windows]
+other = "windows"
+
+[release_binary_table_caption]
+other = "Baixe os binários dos componentes do Kubernetes"
+
+# NOTA: <current-version> é um placeholder para a versão real preenchida pelo shortcode 'release-binaries'.
+# Não modificar ou localizar o placeholder <current-version>.
+[release_binary_section]
+other = """Você pode encontrar os links para baixar os componentes do Kubernetes na versão <current-version> (junto com seus arquivos _checksum_) abaixo.
+Para acessar downloads de versões mais antigas ainda suportadas, visite o link da documentação respectiva
+para [versões mais antigas](https://kubernetes.io/docs/home/supported-doc-versions/#versions-older) ou utilize [downloadkubernetes.com](https://www.downloadkubernetes.com/)."""
+
+# NOTA: <current-version> e <current-changelog-url> são placeholders preenchidos pelo shortcode 'release-binaries'.
+# Não localize ou modifique os placeholders <current-version> e <current-changelog-url>.
+[release_binary_section_note]
+other = """Para baixar versões de correção mais antigas dos componentes do Kubernetes na versão <current-version> (e seus arquivos _checksum_),
+por favor consulte o arquivo [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md)."""
+
+[release_binary_version]
+other  = "Versão"
+
+[release_binary_version_option]
+other = "Versão Mais Recente"
 
 [release_date_after]
 other = ")"
@@ -368,15 +514,32 @@ other = ")"
 other = "(liberada em "
 
 # See https://gohugo.io/functions/format/#gos-layout-string
-# Use a suitable format for your locale
+# Use a suitable format for your locale. Avoid using :date_short
 [release_date_format]
+# example: other = ":date_medium"
 other = "2006-01-02"
+
+# See https://gohugo.io/functions/format/#gos-layout-string
+# Use a suitable format for your locale.
+[release_date_format_month]
+other = "January 2006"
 
 [release_cherry_pick_deadline]
 other = "Fim do prazo para Cherry-Pick"
 
 [release_end_of_life_date]
 other = "Data de fim da vida útil"
+
+# Also see release_maintenance_and_end_of_life_details_past
+[release_maintenance_and_end_of_life_details_current]
+other = "O Kubernetes {{ .minor_version }} entrará em modo de manutenção em {{ .maintenance_mode_start_date }}; a data de fim da vida útil do Kubernetes {{ .minor_version }} é {{ .release_eol_date }}."
+
+# Used if the maintenance mode date is in the past, otherwise
+# see release_maintenance_and_end_of_life_details_current
+[release_maintenance_and_end_of_life_details_past]
+other = """ℹ️ **O Kubernetes {{ .minor_version }} entrou em modo de manutenção em {{ .maintenance_mode_start_date }}**.
+
+A data de fim da vida útil do Kubernetes {{ .minor_version }} é {{ .release_eol_date }}."""
 
 [release_full_details_initial_text]
 other = "Informações completas da versão"
@@ -390,7 +553,10 @@ other = "Versão menor"
 [release_info_next_patch]
 other = "A próxima versão de correção é **%s**."
 
+# Descontinuado. Utilizar release_maintenance_and_end_of_life_details_current
+# e release_maintenance_and_end_of_life_details_past no lugar desta string de localização.
 [release_info_eol]
+# Marcar com vazio quando todas as referências na localização estiverem usando as novas strings.
 other = "**%s** entra em modo de manutenção em **%s** e o fim da vida útil é em **%s**."
 
 [release_note]
@@ -415,16 +581,21 @@ other = "Inscrever-se"
 other = "Sinopse"
 
 [thirdparty_message]
-other = """Esta seção tem links para projetos de terceiros que fornecem a funcionalidade exigida pelo Kubernetes. Os autores do projeto Kubernetes não são responsáveis por esses projetos. Esta página obedece as <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">diretrizes de conteúdo do site CNCF</a>, listando os itens em ordem alfabética. Para adicionar um projeto a esta lista, leia o <a href="/docs/contribute/style/content-guide/#third-party-content">guia de conteúdo</a> antes de enviar sua alteração."""
+other = """Esta seção contém links para projetos de terceiros que fornecem a funcionalidade exigida pelo Kubernetes. Os autores do projeto Kubernetes não são responsáveis por esses projetos. Esta página obedece as <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">diretrizes de conteúdo do site CNCF</a>, listando os itens em ordem alfabética. Para adicionar um projeto a esta lista, leia o <a href="/docs/contribute/style/content-guide/#third-party-content">guia de conteúdo</a> antes de enviar sua alteração."""
 
 [thirdparty_message_edit_disclaimer]
 other = "Aviso de conteúdo de terceiros"
 
 [thirdparty_message_single_item]
 other = """&#128711; Este item aponta para um projeto ou produto de terceiros que não é parte do Kubernetes. <a class="alert-more-info" href="#third-party-content-disclaimer">Mais informações</a>"""
-
 [thirdparty_message_disclaimer]
 other = """<p>Itens nesta página referem-se a produtos ou projetos de terceiros que fornecem a funcionalidade requerida pelo Kubernetes. Os autores do projeto Kubernetes não são responsáveis por estes produtos ou projetos de terceiros. Veja as <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">diretrizes de conteúdo do site CNCF</a> para mais detalhes.</p><p>Você deve ler o <a href="/pt-br/docs/contribute/style/content-guide/#third-party-content">guia de conteúdo</a> antes de propor alterações que incluam links extras de terceiros.</p>"""
+
+[thirdparty_message_vendor]
+other = """Itens nesta página referem-se a fornecedores externos ao Kubernetes. Os autores do projeto Kubernetes não são responsáveis por estes produtos ou projetos de terceiros. Para adicionar um fornecedor, produto ou projeto a esta lista, consulte o <a href="/docs/contribute/style/content-guide/#third-party-content">guia de conteúdo</a> antes de enviar uma alteração. <a href="#third-party-content-disclaimer">Mais informações.</a>"""
+
+[translated_by]
+other = "Traduzido Por"
 
 [ui_search_placeholder]
 other = "Procurar"

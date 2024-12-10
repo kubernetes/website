@@ -486,6 +486,7 @@ Here are some examples of device plugin implementations:
 * [Akri](https://github.com/project-akri/akri), which lets you easily expose heterogeneous leaf devices (such as IP cameras and USB devices).
 * The [AMD GPU device plugin](https://github.com/ROCm/k8s-device-plugin)
 * The [generic device plugin](https://github.com/squat/generic-device-plugin) for generic Linux devices and USB devices
+* The [HAMi](https://github.com/Project-HAMi/HAMi) for heterogeneous AI computing virtualization middleware (for example, NVIDIA, Cambricon, Hygon, Iluvatar, MThreads, Ascend, Metax)
 * The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for
   Intel GPU, FPGA, QAT, VPU, SGX, DSA, DLB and IAA devices
 * The [KubeVirt device plugins](https://github.com/kubevirt/kubernetes-device-plugins) for
