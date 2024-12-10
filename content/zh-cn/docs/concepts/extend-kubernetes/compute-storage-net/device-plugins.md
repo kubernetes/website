@@ -900,6 +900,7 @@ Here are some examples of device plugin implementations:
 * [Akri](https://github.com/project-akri/akri), which lets you easily expose heterogeneous leaf devices (such as IP cameras and USB devices).
 * The [AMD GPU device plugin](https://github.com/ROCm/k8s-device-plugin)
 * The [generic device plugin](https://github.com/squat/generic-device-plugin) for generic Linux devices and USB devices
+* The [HAMi](https://github.com/Project-HAMi/HAMi) for heterogeneous AI computing virtualization middleware (for example, NVIDIA, Cambricon, Hygon, Iluvatar, MThreads, Ascend, Metax)
 * The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for
   Intel GPU, FPGA, QAT, VPU, SGX, DSA, DLB and IAA devices
 * The [KubeVirt device plugins](https://github.com/kubevirt/kubernetes-device-plugins) for
@@ -918,6 +919,7 @@ Here are some examples of device plugin implementations:
 * [Akri](https://github.com/project-akri/akri)，它可以让你轻松公开异构叶子设备（例如 IP 摄像机和 USB 设备）。
 * [AMD GPU 设备插件](https://github.com/ROCm/k8s-device-plugin)
 * 适用于通用 Linux 设备和 USB 设备的[通用设备插件](https://github.com/squat/generic-device-plugin)
+* 用于异构 AI 计算虚拟化中间件（例如 NVIDIA、Cambricon、Hygon、Iluvatar、MThreads、Ascend、Metax 设备）的 [HAMi](https://github.com/Project-HAMi/HAMi)
 * [Intel 设备插件](https://github.com/intel/intel-device-plugins-for-kubernetes)支持
   Intel GPU、FPGA、QAT、VPU、SGX、DSA、DLB 和 IAA 设备
 * [KubeVirt 设备插件](https://github.com/kubevirt/kubernetes-device-plugins)用于硬件辅助的虚拟化
