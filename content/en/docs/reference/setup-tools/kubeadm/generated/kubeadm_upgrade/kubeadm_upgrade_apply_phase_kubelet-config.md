@@ -18,7 +18,7 @@ Upgrade the kubelet configuration for this node
 Upgrade the kubelet configuration for this node by downloading it from the kubelet-config ConfigMap stored in the cluster
 
 ```
-kubeadm upgrade node phase kubelet-config [flags]
+kubeadm upgrade apply phase kubelet-config [flags]
 ```
 
 ### Options
@@ -41,7 +41,7 @@ kubeadm upgrade node phase kubelet-config [flags]
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Do not change any state, just output the actions that would be performed.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Do not change any state, just output what actions would be performed.</p></td>
 </tr>
 
 <tr>
