@@ -809,7 +809,7 @@ Kubernetes 还实现了一个智能保存策略，
 保证写入标准输出和标准错误流的应用日志不会耗尽本地存储介质。
 
 使用命令 [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands/#logs)
-从一个 Pod 中取回最后 20 行日志。
+从一个 Pod 中获取最后 20 行日志。
 
 ```shell
 kubectl logs zk-0 --tail 20
@@ -1569,7 +1569,7 @@ Use `zkCli.sh` to retrieve the value you entered during the sanity test from `zk
 你不能腾空第三个节点，因为驱逐 `zk-2` 将和 `zk-budget` 冲突。
 然而这个节点仍然处于隔离状态（Cordoned）。
 
-使用 `zkCli.sh` 从 `zk-0` 取回你的健康检查中输入的数值。
+使用 `zkCli.sh` 从 `zk-0` 获取你的健康检查中输入的数值。
 
 ```shell
 kubectl exec zk-0 zkCli.sh get /hello

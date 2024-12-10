@@ -2022,7 +2022,7 @@ managers are running. Valid values include:</p>
    <p><code>configMapAndSecretChangeDetectionStrategy</code> 是 ConfigMap 和 Secret
 管理器的运行模式。合法值包括：</p>
    <ul>
-    <li><code>Get</code>：kubelet 从 API 服务器直接取回必要的对象；</li>
+    <li><code>Get</code>：kubelet 从 API 服务器直接获取必要的对象；</li>
     <li><code>Cache</code>：kubelet 使用 TTL 缓存来管理来自 API 服务器的对象；</li>
     <li><code>Watch</code>：kubelet 使用 watch 操作来观察所关心的对象的变更。</li>
     </ul>

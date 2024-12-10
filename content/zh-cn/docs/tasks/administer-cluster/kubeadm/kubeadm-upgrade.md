@@ -302,7 +302,7 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
    This command checks that your cluster can be upgraded, and fetches the versions you can upgrade to.
    It also shows a table with the component config version states.
    -->
-   此命令检查你的集群是否可被升级，并取回你要升级的目标版本。
+   此命令检查你的集群是否可被升级，并获取你要升级的目标版本。
    命令也会显示一个包含组件配置版本状态的表格。
 
    {{< note >}}
@@ -662,5 +662,5 @@ these backup files will need to be cleared manually.
 - Fetches the kubeadm `ClusterConfiguration` from the cluster.
 - Upgrades the kubelet configuration for this node.
 -->
-- 从集群取回 kubeadm `ClusterConfiguration`。
+- 从集群获取 kubeadm `ClusterConfiguration`。
 - 为本节点升级 kubelet 配置。

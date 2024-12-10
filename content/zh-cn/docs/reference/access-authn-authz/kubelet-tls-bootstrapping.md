@@ -142,7 +142,7 @@ In the bootstrap initialization process, the following occurs:
 3. kubelet 搜索并发现 `bootstrap-kubeconfig` 文件
 4. kubelet 读取该启动引导文件，从中获得 API 服务器的 URL 和用途有限的一个“令牌（Token）”
 5. kubelet 建立与 API 服务器的连接，使用上述令牌执行身份认证
-6. kubelet 现在拥有受限制的凭据来创建和取回证书签名请求（CSR）
+6. kubelet 现在拥有受限制的凭据来创建和获取证书签名请求（CSR）
 7. kubelet 为自己创建一个 CSR，并将其 signerName 设置为 `kubernetes.io/kube-apiserver-client-kubelet`
 8. CSR 被以如下两种方式之一批复：
    * 如果配置了，kube-controller-manager 会自动批复该 CSR
@@ -158,7 +158,7 @@ In the bootstrap initialization process, the following occurs:
 1. The renewed certificate is approved and issued, either automatically or manually, depending on configuration.
 -->
 10. 证书被发放给 kubelet
-11. kubelet 取回该证书
+11. kubelet 获取该证书
 12. kubelet 创建一个合适的 `kubeconfig`，其中包含密钥和已签名的证书
 13. kubelet 开始正常操作
 14. 可选地，如果配置了，kubelet 在证书接近于过期时自动请求更新证书
@@ -427,7 +427,7 @@ group to the cluster role `system:node-bootstrapper`.
 ### 授权 kubelet 创建 CSR    {#authorize-kubelet-to-create-csr}
 
 现在启动引导节点被 **身份认证** 为 `system:bootstrappers` 组的成员，
-它需要被 **授权** 创建证书签名请求（CSR）并在证书被签名之后将其取回。
+它需要被 **授权** 创建证书签名请求（CSR）并在证书被签名之后将其获取。
 幸运的是，Kubernetes 提供了一个 `ClusterRole`，其中精确地封装了这些许可，
 `system:node-bootstrapper`。
 

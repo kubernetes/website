@@ -244,7 +244,7 @@ the exact mechanisms for issuing and refreshing those session tokens.
 你还可以将如上选项的两种或多种进行组合，包括直接使用 Secret 对象本身也是一种选项。
 
 例如：实现（或部署）一个 {{< glossary_tooltip text="operator" term_id="operator-pattern" >}}，
-从外部服务取回生命期很短的会话令牌，之后基于这些生命期很短的会话令牌来创建 Secret。
+从外部服务获取生命期很短的会话令牌，之后基于这些生命期很短的会话令牌来创建 Secret。
 运行在集群中的 Pod 可以使用这些会话令牌，而 Operator 则确保这些令牌是合法的。
 这种责权分离意味着你可以运行那些不了解会话令牌如何发放与刷新的确切机制的 Pod。
 
@@ -940,7 +940,7 @@ for that Pod, including details of the problem fetching the Secret.
 Kubernetes 会检查 Secret 的卷数据源，确保所指定的对象引用确实指向类型为 Secret
 的对象。因此，如果 Pod 依赖于某 Secret，该 Secret 必须先于 Pod 被创建。
 
-如果 Secret 内容无法取回（可能因为 Secret 尚不存在或者临时性地出现 API
+如果 Secret 内容无法获取（可能因为 Secret 尚不存在或者临时性地出现 API
 服务器网络连接问题），kubelet 会周期性地重试 Pod 运行操作。kubelet 也会为该 Pod
 报告 Event 事件，给出读取 Secret 时遇到的问题细节。
 

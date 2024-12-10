@@ -240,7 +240,7 @@ Publish one message to the queue:
 ```shell
 /usr/bin/amqp-publish --url=$BROKER_URL -r foo -p -b Hello
 
-# 然后取回它：
+# 然后获取它：
 
 /usr/bin/amqp-consume --url=$BROKER_URL -q foo -c 1 cat && echo
 ```

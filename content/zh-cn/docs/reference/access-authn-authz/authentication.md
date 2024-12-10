@@ -801,7 +801,7 @@ jwt:
     # discoveryURL（如果指定）将覆盖用于获取发现信息的 URL，而不是使用 “{url}/.well-known/openid-configuration”。
     # 系统会使用所给的配置值，因此如果需要，“/.well-known/openid-configuration” 必须包含在 discoveryURL 中。
     #
-    # 取回的发现信息中的 “issuer” 字段必须与 AuthenticationConfiguration 中的
+    # 获取的发现信息中的 “issuer” 字段必须与 AuthenticationConfiguration 中的
     # “issuer.url” 字段匹配，并被用于验证所呈现的 JWT 中的 “iss” 声明。
     # 这适用于众所周知的端点和 jwks 端点托管在与颁发者不同的位置（例如集群本地）的场景。
     # discoveryURL 必须与 url 不同（如果指定），并且在所有认证组件中必须是唯一的。
