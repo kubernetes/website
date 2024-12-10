@@ -13,7 +13,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.31"
-
+    toVersion: "1.31"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.32"
 ---
 Enables retrying of object creation when the
 {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}

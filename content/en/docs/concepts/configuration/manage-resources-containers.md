@@ -109,6 +109,26 @@ a Pod.
 For a particular resource, a *Pod resource request/limit* is the sum of the
 resource requests/limits of that type for each container in the Pod.
 
+## Pod-level resource specification
+
+{{< feature-state feature_gate_name="PodLevelResources" >}}
+
+Starting in Kubernetes 1.32, you can also specify resource requests and limits at
+the Pod level. the Pod level. At Pod level, Kubernetes {{< skew currentVersion >}}
+only supports resource requests or limits for specific resource types: `cpu` and /
+or `memory`. This feature is currently in alpha and with the feature enabled,
+Kubernetes allows you to declare an overall resource budget for the Pod, which is
+especially helpful when dealing with a large number of containers where it can be
+difficult to accurately gauge individual resource needs. Additionally, it enables
+containers within a Pod to share idle resources with each other, improving resource
+utilization. 
+
+For a Pod, you can specify resource limits and requests for CPU and memory by including the following:
+* `spec.resources.limits.cpu`
+* `spec.resources.limits.memory`
+* `spec.resources.requests.cpu`
+* `spec.resources.requests.memory`
+
 ## Resource units in Kubernetes
 
 ### CPU resource units {#meaning-of-cpu}
@@ -191,6 +211,19 @@ spec:
         memory: "128Mi"
         cpu: "500m"
 ```
+
+## Pod resources example {#example-2}
+
+{{< feature-state feature_gate_name="PodLevelResources" >}}
+
+The following Pod has an explicit request of 1 CPU and 100 MiB of memory, and an
+explicit limit of 1 CPU and 200 MiB of memory. The `pod-resources-demo-ctr-1`
+container has explicit requests and limits set. However, the
+`pod-resources-demo-ctr-2` container will simply share the resources available
+within the Pod resource boundaries, as it does not have explicit requests and limits
+set.
+
+{{% code_sample file="pods/resource/pod-level-resources.yaml" %}}
 
 ## How Pods with resource requests are scheduled
 
