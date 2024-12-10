@@ -1,9 +1,9 @@
 {{ if or .Site.Params.gcs_engine_id .Site.Params.algolia_docsearch }}
 <div class="search-bar">
-  <i class="search-icon fas fa-search"></i>
+  <i class="search-icon fa-solid fa-search"></i>
   <input
     type="search"
-    class="search-input td-search-input" 
+    class="search-input td-search-input"
     placeholder="{{ T "ui_search_placeholder" }}"
     aria-label="{{ T "ui_search_placeholder" }}"
     autocomplete="off"
@@ -11,10 +11,10 @@
 </div>
 {{ else if .Site.Params.offlineSearch }}
 <div class="search-bar" id="search-nav-container">
-  <i class="search-icon fas fa-search"></i>
+  <i class="search-icon fa-solid fa-search"></i>
   <input
     type="search"
-    class="search-input td-search-input" 
+    class="search-input td-search-input"
     id="search-input"
     placeholder="{{ T "ui_search_placeholder" }}"
     aria-label="{{ T "ui_search_placeholder" }}"
@@ -27,7 +27,7 @@
 {{ $searchFile := printf "content/%s/search.md" $lang }}
 
 <div class="search-bar">
-  <i class="search-icon fas fa-search"></i>
+  <i class="search-icon fa-solid fa-search"></i>
   <input
     type="search"
     name="q"
@@ -36,7 +36,7 @@
     {{ else }}
       data-search-page="{{ "search/" | relURL }}"
     {{ end }}
-    class="search-input td-search-input" 
+    class="search-input td-search-input"
     placeholder="{{ T "ui_search_placeholder" }}"
     aria-label="{{ T "ui_search_placeholder" }}"
     autocomplete="off"
