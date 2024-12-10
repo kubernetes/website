@@ -758,6 +758,334 @@ KRM 函数**不应**在输入对象上修改此注解，除非它正在修改引
 KRM 函数**可以**在它所生成的对象上包含这个注解。
 
 <!--
+### kube-scheduler-simulator.sigs.k8s.io/bind-result
+
+Type: Annotation
+
+Example: `kube-scheduler-simulator.sigs.k8s.io/bind-result: '{"DefaultBinder":"success"}'`
+
+Used on: Pod
+
+This annotation records the result of bind scheduler plugins, used by https://sigs.k8s.io/kube-scheduler-simulator.
+-->
+### `kube-scheduler-simulator.sigs.k8s.io/bind-result`
+
+类别：注解
+
+例子：`kube-scheduler-simulator.sigs.k8s.io/bind-result: '{"DefaultBinder":"success"}'`
+
+用于：Pod
+
+此注解记录了 bind 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+
+<!--
+### kube-scheduler-simulator.sigs.k8s.io/filter-result
+
+Type: Annotation
+
+Example: 
+-->
+### kube-scheduler-simulator.sigs.k8s.io/filter-result
+
+类别：注解
+
+例子：
+
+```yaml
+kube-scheduler-simulator.sigs.k8s.io/filter-result: >-
+      {"node-282x7":{"AzureDiskLimits":"passed","EBSLimits":"passed","GCEPDLimits":"passed","InterPodAffinity":"passed","NodeAffinity":"passed","NodeName":"passed","NodePorts":"passed","NodeResourcesFit":"passed","NodeUnschedulable":"passed","NodeVolumeLimits":"passed","PodTopologySpread":"passed","TaintToleration":"passed","VolumeBinding":"passed","VolumeRestrictions":"passed","VolumeZone":"passed"},"node-gp9t4":{"AzureDiskLimits":"passed","EBSLimits":"passed","GCEPDLimits":"passed","InterPodAffinity":"passed","NodeAffinity":"passed","NodeName":"passed","NodePorts":"passed","NodeResourcesFit":"passed","NodeUnschedulable":"passed","NodeVolumeLimits":"passed","PodTopologySpread":"passed","TaintToleration":"passed","VolumeBinding":"passed","VolumeRestrictions":"passed","VolumeZone":"passed"}}
+```
+
+<!--
+Used on: Pod
+
+This annotation records the result of filter scheduler plugins, used by https://sigs.k8s.io/kube-scheduler-simulator.
+-->
+用于：Pod
+
+此注解记录了 filter 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+
+<!--
+### kube-scheduler-simulator.sigs.k8s.io/finalscore-result
+
+Type: Annotation
+
+Example: 
+-->
+### kube-scheduler-simulator.sigs.k8s.io/finalscore-result
+
+类别：注解
+
+例子：
+
+```yaml
+kube-scheduler-simulator.sigs.k8s.io/finalscore-result: >-
+      {"node-282x7":{"ImageLocality":"0","InterPodAffinity":"0","NodeAffinity":"0","NodeNumber":"0","NodeResourcesBalancedAllocation":"76","NodeResourcesFit":"73","PodTopologySpread":"200","TaintToleration":"300","VolumeBinding":"0"},"node-gp9t4":{"ImageLocality":"0","InterPodAffinity":"0","NodeAffinity":"0","NodeNumber":"0","NodeResourcesBalancedAllocation":"76","NodeResourcesFit":"73","PodTopologySpread":"200","TaintToleration":"300","VolumeBinding":"0"}}
+```
+
+<!--
+Used on: Pod
+
+This annotation records the final scores that the scheduler calculates from the scores from score scheduler plugins,
+used by https://sigs.k8s.io/kube-scheduler-simulator.
+-->
+用于：Pod
+
+此注解记录了调度器从 score 调度插件计算出的最终分数，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+
+```yaml
+kube-scheduler-simulator.sigs.k8s.io/finalscore-result: >-
+      {"node-282x7":{"ImageLocality":"0","InterPodAffinity":"0","NodeAffinity":"0","NodeNumber":"0","NodeResourcesBalancedAllocation":"76","NodeResourcesFit":"73","PodTopologySpread":"200","TaintToleration":"300","VolumeBinding":"0"},"node-gp9t4":{"ImageLocality":"0","InterPodAffinity":"0","NodeAffinity":"0","NodeNumber":"0","NodeResourcesBalancedAllocation":"76","NodeResourcesFit":"73","PodTopologySpread":"200","TaintToleration":"300","VolumeBinding":"0"}}
+```
+
+<!--
+### kube-scheduler-simulator.sigs.k8s.io/permit-result
+
+Type: Annotation
+
+Example: `kube-scheduler-simulator.sigs.k8s.io/permit-result: '{"CustomPermitPlugin":"success"}'`
+
+Used on: Pod
+
+This annotation records the result of permit scheduler plugins, used by https://sigs.k8s.io/kube-scheduler-simulator.
+-->
+### kube-scheduler-simulator.sigs.k8s.io/permit-result
+
+类别：注解
+
+例子：`kube-scheduler-simulator.sigs.k8s.io/permit-result: '{"CustomPermitPlugin":"success"}'`
+
+用于：Pod
+
+此注解记录了 permit 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+
+<!--
+### kube-scheduler-simulator.sigs.k8s.io/permit-result-timeout
+
+Type: Annotation
+
+Example: `kube-scheduler-simulator.sigs.k8s.io/permit-result-timeout: '{"CustomPermitPlugin":"10s"}'`
+
+Used on: Pod
+
+This annotation records the timeouts returned from permit scheduler plugins, used by https://sigs.k8s.io/kube-scheduler-simulator.
+-->
+### kube-scheduler-simulator.sigs.k8s.io/permit-result-timeout
+
+类别：注解
+
+例子：`kube-scheduler-simulator.sigs.k8s.io/permit-result-timeout: '{"CustomPermitPlugin":"10s"}'`
+
+用于：Pod
+
+此注解记录了 permit 调度插件返回的超时时间，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+
+<!--
+### kube-scheduler-simulator.sigs.k8s.io/postfilter-result
+
+Type: Annotation
+
+Example: `kube-scheduler-simulator.sigs.k8s.io/postfilter-result: '{"DefaultPreemption":"success"}'`
+
+Used on: Pod
+
+This annotation records the result of postfilter scheduler plugins, used by https://sigs.k8s.io/kube-scheduler-simulator.
+-->
+### kube-scheduler-simulator.sigs.k8s.io/postfilter-result
+
+类别：注解
+
+例子：`kube-scheduler-simulator.sigs.k8s.io/postfilter-result: '{"DefaultPreemption":"success"}'`
+
+用于：Pod
+
+此注解记录了 postfilter 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+
+<!--
+### kube-scheduler-simulator.sigs.k8s.io/prebind-result
+
+Type: Annotation
+
+Example: `kube-scheduler-simulator.sigs.k8s.io/prebind-result: '{"VolumeBinding":"success"}'`
+
+Used on: Pod
+
+This annotation records the result of prebind scheduler plugins, used by https://sigs.k8s.io/kube-scheduler-simulator.
+-->
+### kube-scheduler-simulator.sigs.k8s.io/prebind-result
+
+类别：注解
+
+例子：`kube-scheduler-simulator.sigs.k8s.io/prebind-result: '{"VolumeBinding":"success"}'`
+
+用于：Pod
+
+此注解记录了 prebind 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+
+<!--
+### kube-scheduler-simulator.sigs.k8s.io/prefilter-result
+
+Type: Annotation
+
+Example: `kube-scheduler-simulator.sigs.k8s.io/prebind-result: '{"NodeAffinity":"[\"node-\a"]"}'`
+
+Used on: Pod
+
+This annotation records the PreFilter result of prefilter scheduler plugins, used by https://sigs.k8s.io/kube-scheduler-simulator.
+-->
+### kube-scheduler-simulator.sigs.k8s.io/prefilter-result
+
+类别：注解
+
+例子：`kube-scheduler-simulator.sigs.k8s.io/prebind-result: '{"NodeAffinity":"[\"node-\a"]"}'`
+
+用于：Pod
+
+此注解记录了 prefilter 调度插件的预过滤结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+
+<!--
+### kube-scheduler-simulator.sigs.k8s.io/prefilter-result-status
+
+Type: Annotation
+
+Example: 
+-->
+### kube-scheduler-simulator.sigs.k8s.io/prefilter-result-status
+
+类别：注解
+
+例子：
+
+```yaml
+kube-scheduler-simulator.sigs.k8s.io/prefilter-result-status: >-
+      {"InterPodAffinity":"success","NodeAffinity":"success","NodePorts":"success","NodeResourcesFit":"success","PodTopologySpread":"success","VolumeBinding":"success","VolumeRestrictions":"success"}
+```
+
+<!--
+Used on: Pod
+
+This annotation records the result of prefilter scheduler plugins, used by https://sigs.k8s.io/kube-scheduler-simulator.
+-->
+用于：Pod
+
+此注解记录了 prefilter 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+
+<!--
+### kube-scheduler-simulator.sigs.k8s.io/prescore-result
+
+Type: Annotation
+
+Example: 
+-->
+### kube-scheduler-simulator.sigs.k8s.io/prescore-result
+
+类别：注解
+
+例子：
+
+```yaml
+    kube-scheduler-simulator.sigs.k8s.io/prescore-result: >-
+      {"InterPodAffinity":"success","NodeAffinity":"success","NodeNumber":"success","PodTopologySpread":"success","TaintToleration":"success"}
+```
+
+<!--
+Used on: Pod
+
+This annotation records the result of prefilter scheduler plugins, used by https://sigs.k8s.io/kube-scheduler-simulator.
+-->
+用于：Pod
+
+此注解记录了 prefilter 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator
+
+<!--
+### kube-scheduler-simulator.sigs.k8s.io/reserve-result
+
+Type: Annotation
+
+Example: `kube-scheduler-simulator.sigs.k8s.io/reserve-result: '{"VolumeBinding":"success"}'`
+
+Used on: Pod
+
+This annotation records the result of reserve scheduler plugins, used by https://sigs.k8s.io/kube-scheduler-simulator.
+-->
+### kube-scheduler-simulator.sigs.k8s.io/reserve-result
+
+类别：注解
+
+例子：`kube-scheduler-simulator.sigs.k8s.io/reserve-result: '{"VolumeBinding":"success"}'`
+
+用于：Pod
+
+此注解记录了 reserve 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+
+<!--
+### kube-scheduler-simulator.sigs.k8s.io/result-history
+
+Type: Annotation
+
+Example: `kube-scheduler-simulator.sigs.k8s.io/result-history: '[]'`
+
+Used on: Pod
+
+This annotation records all the past scheduling results from scheduler plugins, used by https://sigs.k8s.io/kube-scheduler-simulator.
+-->
+### kube-scheduler-simulator.sigs.k8s.io/result-history
+
+类别：注解
+
+例子：`kube-scheduler-simulator.sigs.k8s.io/result-history: '[]'`
+
+用于：Pod
+
+此注解记录了所有过去的调度插件的调度结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+
+<!--
+### kube-scheduler-simulator.sigs.k8s.io/score-result
+
+Type: Annotation
+-->
+### kube-scheduler-simulator.sigs.k8s.io/score-result
+
+类别：注解
+
+例子：
+
+```yaml
+    kube-scheduler-simulator.sigs.k8s.io/score-result: >-
+      {"node-282x7":{"ImageLocality":"0","InterPodAffinity":"0","NodeAffinity":"0","NodeNumber":"0","NodeResourcesBalancedAllocation":"76","NodeResourcesFit":"73","PodTopologySpread":"0","TaintToleration":"0","VolumeBinding":"0"},"node-gp9t4":{"ImageLocality":"0","InterPodAffinity":"0","NodeAffinity":"0","NodeNumber":"0","NodeResourcesBalancedAllocation":"76","NodeResourcesFit":"73","PodTopologySpread":"0","TaintToleration":"0","VolumeBinding":"0"}}
+```
+
+<!--
+Used on: Pod
+
+This annotation records the result of score scheduler plugins, used by https://sigs.k8s.io/kube-scheduler-simulator.
+-->
+用于：Pod
+
+此注解记录了 score 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+
+<!--
+### kube-scheduler-simulator.sigs.k8s.io/selected-node
+
+Type: Annotation
+
+Example: `kube-scheduler-simulator.sigs.k8s.io/selected-node: node-282x7`
+
+Used on: Pod
+
+This annotation records the node that is selected by the scheduling cycle, used by https://sigs.k8s.io/kube-scheduler-simulator.
+-->
+### kube-scheduler-simulator.sigs.k8s.io/selected-node
+
+类别：注解
+
+例子：`kube-scheduler-simulator.sigs.k8s.io/selected-node: node-282x7`
+
+用于：Pod
+
+此注解记录了调度周期选择的节点，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+
+<!--
 ### internal.config.kubernetes.io/index
 
 Type: Annotation
