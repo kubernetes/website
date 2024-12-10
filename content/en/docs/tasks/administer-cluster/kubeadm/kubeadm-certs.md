@@ -24,6 +24,8 @@ Following this recommendation helps you to to stay secure.
 
 You should be familiar with [PKI certificates and requirements in Kubernetes](/docs/setup/best-practices/certificates/).
 
+You should be familiar with how to pass a [configuration](/docs/reference/config-api/kubeadm-config.v1beta4/) file to the kubeadm commands.
+
 This guide covers the usage of the `openssl` command (used for manual certificate signing,
 if you choose that approach), but you can use your preferred tools.
 
@@ -44,6 +46,37 @@ If a given certificate and private key pair exists before running `kubeadm init`
 kubeadm does not overwrite them. This means you can, for example, copy an existing
 CA into `/etc/kubernetes/pki/ca.crt` and `/etc/kubernetes/pki/ca.key`,
 and kubeadm will use this CA for signing the rest of the certificates.
+
+## Choosing an encryption algorithm {#choosing-encryption-algorithm}
+
+kubeadm allows you to choose an encryption algorithm that is used for creating
+public and private keys. That can be done by using the `encryptionAlgorithm` field of the
+kubeadm configuration:
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: ClusterConfiguration
+encryptionAlgorithm: <ALGORITHM>
+```
+
+`<ALGORITHM>` can be one of `RSA-2048` (default), `RSA-3072`, `RSA-4096` or `ECDSA-P256`.
+
+## Choosing certificate validity period {#choosing-cert-validity-period}
+
+kubeadm allows you to choose the validity period of CA and leaf certificates.
+That can be done by using the `certificateValidityPeriod` and `caCertificateValidityPeriod`
+fields of the kubeadm configuration:
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: ClusterConfiguration
+certificateValidityPeriod: 8760h # Default: 365 days × 24 hours = 1 year
+caCertificateValidityPeriod: 87600h # Default: 365 days × 24 hours * 10 = 10 years
+```
+
+The values of the fields follow the accepted format for
+[Go's `time.Duration` values](https://pkg.go.dev/time#ParseDuration), with the longest supported
+unit being `h` (hours).
 
 ## External CA mode {#external-ca-mode}
 

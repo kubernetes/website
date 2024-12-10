@@ -10,15 +10,15 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Upgrade the kubelet configuration for this node
+Upgrade all the addons
 
 ### Synopsis
 
 
-Upgrade the kubelet configuration for this node by downloading it from the kubelet-config ConfigMap stored in the cluster
+Upgrade all the addons
 
 ```
-kubeadm upgrade node phase kubelet-config [flags]
+kubeadm upgrade node phase addon all [flags]
 ```
 
 ### Options
@@ -48,7 +48,7 @@ kubeadm upgrade node phase kubelet-config [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for kubelet-config</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for all</p></td>
 </tr>
 
 <tr>
