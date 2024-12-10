@@ -124,13 +124,12 @@ Kubernetesのリソース名や技術用語などは、原則としてそのま�
 
 ページのヘッダーについては、以下の原則に従ってください。
 
----
-title: タイトル（翻訳する）
-description: >
-  説明文（翻訳する）
-content_type: content（翻訳しない）
-weight: 100（翻訳しない）
----
+英語 | 翻訳有無
+--------- | ---------
+title: | タイトル（翻訳する）
+description: | 説明文（翻訳する）
+content_type: | content（翻訳しない）
+weight: | 100（翻訳しない）
 
 ### その他の表記 {#other-notation}
 
