@@ -59,7 +59,7 @@ Kubernetesのセキュリティは「万能」ではないため、チェック�
 さらに、安全に通信するために相互TLS(mTLS)を使用する必要があります。
 この認証局はetcdに固有のものである必要があります。
 
-KubernetesAPIサーバーへの外部インターネットアクセスは、APIが公開されないように制限する必要があります。
+Kubernetes APIサーバーへの外部インターネットアクセスは、APIが公開されないように制限する必要があります。
 多くのマネージドKubernetesディストリビューションは、デフォルトでAPIサーバーを公開しているため注意してください。
 その後、要塞ホストを使用してサーバーにアクセスできます。
 
@@ -112,7 +112,7 @@ Kubernetesを使用すると、Nodeにロードされたseccompプロファイ�
 Seccompを使用すると、コンテナ内で利用可能なLinuxカーネルsyscall攻撃対象領域を減らすことで、ワークロードのセキュリティを向上できます。
 seccompフィルターモードは、BPFを利用して、プロファイルという名前の特定のsyscallの許可または拒否リストを作成します。
 
-Kubernetes1.27以降、すべてのワークロードのデフォルトのseccompプロファイルとして`RuntimeDefault`の使用を有効にできます。
+Kubernetes 1.27以降、すべてのワークロードのデフォルトのseccompプロファイルとして`RuntimeDefault`の使用を有効にできます。
 このトピックに関する[セキュリティ チュートリアル](/ja/docs/tutorials/security/seccomp/)が利用可能です。
 さらに、[Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator)は、クラスターでのseccompの管理と使用を容易にするプロジェクトです。
 
@@ -189,7 +189,7 @@ PodのService AccountsにシークレットへのRBACアクセスを提供する
 
 Service Accountsトークンは、それらを必要としないPodにマウントしないでください。
 これは、Service Accounts内で[`automountServiceAccountToken`](/ja/docs/tasks/configure-Pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)を`false`に設定して、Namespace全体に適用するか、Podに固有の設定にすることで構成できます。
-Kubernetesv1.22以降では、時間制限のあるService Accounts認証情報には[バインドされたサービス アカウント](/ja/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)を使用します。
+Kubernetes v1.22以降では、時間制限のあるService Accounts認証情報には[バインドされたサービス アカウント](/ja/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)を使用します。
 
 ## イメージ
 
