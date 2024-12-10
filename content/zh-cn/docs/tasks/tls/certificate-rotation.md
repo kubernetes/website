@@ -110,7 +110,7 @@ The kubelet will retrieve the signed certificate from the Kubernetes API and
 write that to disk, in the location specified by `--cert-dir`. Then the kubelet
 will use the new certificate to connect to the Kubernetes API.
 -->
-Kubelet 会从 Kubernetes API 取回签署的证书，并将其写入磁盘，存储位置通过 `--cert-dir`
+Kubelet 会从 Kubernetes API 获取签署的证书，并将其写入磁盘，存储位置通过 `--cert-dir`
 参数指定。
 然后 kubelet 会使用新的证书连接到 Kubernetes API。
 
@@ -127,6 +127,6 @@ Kubernetes API to reconnect using the new certificate.
 当签署的证书即将到期时，kubelet 会使用 Kubernetes API，自动发起新的证书签名请求。
 该请求会发生在证书的有效时间剩下 30% 到 10% 之间的任意时间点。
 同样地，控制器管理器会自动批准证书请求，并将签署的证书附加到证书签名请求中。 Kubelet
-会从 Kubernetes API 取回签署的证书，并将其写入磁盘。 然后它会更新与 Kubernetes API
+会从 Kubernetes API 获取签署的证书，并将其写入磁盘。 然后它会更新与 Kubernetes API
 的连接，使用新的证书重新连接到 Kubernetes API。
 

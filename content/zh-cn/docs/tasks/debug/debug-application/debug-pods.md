@@ -244,7 +244,7 @@ version, then this may indicate a problem with your pod spec.
 接下来就要检查的是 API 服务器上的 Pod 与你所期望创建的是否匹配
 （例如，你原本使用本机上的一个 YAML 文件来创建 Pod）。
 例如，运行 `kubectl get pods/mypod -o yaml > mypod-on-apiserver.yaml`，
-之后手动比较 `mypod.yaml` 与从 API 服务器取回的 Pod 描述。
+之后手动比较 `mypod.yaml` 与从 API 服务器获取的 Pod 描述。
 从 API 服务器处获得的 YAML 通常包含一些创建 Pod 所用的 YAML 中不存在的行，这是正常的。
 不过，如果如果源文件中有些行在 API 服务器版本中不存在，则意味着
 Pod 规约是有问题的。
