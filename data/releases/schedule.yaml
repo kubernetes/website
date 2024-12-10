@@ -11,6 +11,8 @@ schedules:
     cherryPickDeadline: "2025-01-10"
     targetDate: "2025-01-14"
   previousPatches:
+  - release: 1.32.0
+    targetDate: "2024-12-11"
   release: "1.32"
   releaseDate: "2024-12-11"
 - endOfLifeDate: "2025-10-28"
