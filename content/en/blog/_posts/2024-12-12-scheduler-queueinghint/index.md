@@ -3,7 +3,6 @@ layout: blog
 title: "Kubernetes v1.32: QueueingHint Brings a New Possibility to Optimize Pod Scheduling"
 date: 2024-12-12
 slug: scheduler-queueinghint
-draft: true
 Author: >
   [Kensei Nakada](https://github.com/sanposhiho) (Tetrate.io)
 ---
