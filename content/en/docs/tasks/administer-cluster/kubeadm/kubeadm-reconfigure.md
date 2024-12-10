@@ -173,16 +173,10 @@ The configuration is located under the `data.config.conf` key.
 
 Once the `kube-proxy` ConfigMap is updated, you can restart all kube-proxy Pods:
 
-Obtain the Pod names:
+Delete the Pods with:
 
 ```shell
-kubectl get po -n kube-system | grep kube-proxy
-```
-
-Delete a Pod with:
-
-```shell
-kubectl delete po -n kube-system <pod-name>
+kubectl delete po -n kube-system -l k8s-app=kube-proxy
 ```
 
 New Pods that use the updated ConfigMap will be created.
