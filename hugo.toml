@@ -3,6 +3,7 @@ title = "Kubernetes"
 
 # Hugo allows theme composition (and inheritance). The precedence is from left to right.
 theme = ["docsy"]
+themesDir = "node_modules"
 
 # Language settings
 contentDir = "content/en"
@@ -248,44 +249,44 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 [[params.links.user]]
 	name_key = "community_youtube_name"
 	url = "https://youtube.com/kubernetescommunity"
-	icon = "fab fa-youtube"
+	icon = "fa-brands fa-youtube"
 
 [[params.links.user]]
 	name_key = "community_forum_name"
 	url = "https://discuss.kubernetes.io"
-	icon = "fa fa-envelope"
+	icon = "fa-solid fa-envelope"
 
 [[params.links.user]]
 	name_key = "community_server_fault_name"
 	url = "https://serverfault.com/questions/tagged/kubernetes"
-	icon = "fab fa-stack-overflow"
+	icon = "fa-brands fa-stack-overflow"
 
 [[params.links.user]]
 	name_key = "community_x_name"
 	url = "https://twitter.com/kubernetesio"
-	icon = "fab fa-twitter"
+	icon = "fa-brands fa-twitter"
 # Replace with fa-x-twitter once available
 
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
 	name_key = "community_contributor_site_name"
 	url = "https://k8s.dev/"
-	icon = "fas fa-laptop-code"
+	icon = "fa-solid fa-laptop-code"
 
 [[params.links.developer]]
 	name_key = "community_github_name"
 	url = "https://github.com/kubernetes/kubernetes"
-	icon = "fab fa-github"
+	icon = "fa-brands fa-github"
 
 [[params.links.developer]]
 	name_key = "community_slack_name"
 	url = "https://slack.k8s.io"
-	icon = "fab fa-slack"
+	icon = "fa-brands fa-slack"
 
 [[params.links.developer]]
 	name_key = "community_calendar_name"
 	url = "https://calendar.google.com/calendar/embed?src=calendar%40kubernetes.io"
-	icon = "fas fa-calendar-alt"
+	icon = "fa-solid fa-calendar-days"
 
 # Language definitions.
 
@@ -357,7 +358,7 @@ languageNameLatinScript = "Deutsch"
 
 [languages.hi]
 title = "Kubernetes"
-languageName = "हिन्दी (Hindi)"  
+languageName = "हिन्दी (Hindi)"
 weight = 6
 contentDir = "content/hi"
 languagedirection = "ltr"
