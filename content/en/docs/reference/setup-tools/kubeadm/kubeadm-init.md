@@ -156,8 +156,8 @@ List of feature gates:
 Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
 `ControlPlaneKubeletLocalMode` | `false` | 1.31 | - | -
-`EtcdLearnerMode` | `true` | 1.27 | 1.29 | -
-`PublicKeysECDSA` | `false` | 1.19 | - | -
+`EtcdLearnerMode` | `true` | 1.27 | 1.29 | 1.32
+`NodeLocalCRISocket` | `false` | 1.32 | - | -
 `WaitForAllControlPlaneComponents` | `false` | 1.30 | - | -
 {{< /table >}}
 
@@ -176,20 +176,26 @@ policy during rolling upgrades.
 : With this feature gate enabled, when joining a new control plane node, a new etcd member will be created
 as a learner and promoted to a voting member only after the etcd data are fully aligned.
 
-`PublicKeysECDSA`
-: Can be used to create a cluster that uses ECDSA certificates instead of the default RSA algorithm.
-Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
-switch between the RSA and ECDSA algorithms on the fly or during upgrades. Kubernetes
-{{< skew currentVersion >}} has a bug where keys in generated kubeconfig files are set use RSA
-despite the feature gate being enabled. Kubernetes versions before v1.31 had a bug where keys in generated kubeconfig files
-were set use RSA, even when you had enabled the `PublicKeysECDSA` feature gate.
+`NodeLocalCRISocket`
+: With this feature gate enabled, kubeadm will read/write the CRI socket for each node from/to the file
+`/var/lib/kubelet/instance-config.yaml` instead of reading/writing it from/to the annotation
+`kubeadm.alpha.kubernetes.io/cri-socket` on the Node object. The new file is applied as an instance
+configuration patch, before any other user managed patches are applied when the `--patches` flag
+is used. It contains a single field `containerRuntimeEndpoint` from the
+[KubeletConfiguration file format](/docs/reference/config-api/kubelet-config.v1beta1/). If the feature gate
+is enabled during upgrade, but the file `/var/lib/kubelet/instance-config.yaml` does not exist yet,
+kubeadm will attempt to read the CRI socket value from the file `/var/lib/kubelet/kubeadm-flags.env`.
 
 `WaitForAllControlPlaneComponents`
-: With this feature gate enabled kubeadm will wait for all control plane components (kube-apiserver,
-kube-controller-manager, kube-scheduler) on a control plane node to report status 200 on their `/healthz`
-endpoints. These checks are performed on `https://127.0.0.1:PORT/healthz`, where `PORT` is taken from
-`--secure-port` of a component. If you specify custom `--secure-port` values in the kubeadm configuration
-they will be respected. Without the feature gate enabled, kubeadm will only wait for the kube-apiserver
+: With this feature gate enabled, kubeadm will wait for all control plane components (kube-apiserver,
+kube-controller-manager, kube-scheduler) on a control plane node to report status 200 on their `/livez`
+or `/healthz` endpoints. These checks are performed on `https://ADDRESS:PORT/ENDPOINT`.
+- `PORT` is taken from `--secure-port` of a component.
+- `ADDRESS` is `--advertise-address` for kube-apiserver and `--bind-address` for the kube-controller-manager
+and kube-scheduler.
+- `ENDPOINT` is only `/healthz` for kube-controller-manager until it supports `/livez` as well.
+If you specify custom `ADDRESS` or `PORT` in the kubeadm configuration they will be respected.
+Without the feature gate enabled, kubeadm will only wait for the kube-apiserver
 on a control plane node to become ready. The wait process starts right after the kubelet on the host
 is started by kubeadm. You are advised to enable this feature gate in case you wish to observe a ready
 state from all control plane components during the `kubeadm init` or `kubeadm join` command execution.
@@ -199,10 +205,19 @@ List of deprecated feature gates:
 {{< table caption="kubeadm deprecated feature gates" >}}
 Feature | Default | Alpha | Beta | GA | Deprecated
 :-------|:--------|:------|:-----|:---|:----------
+`PublicKeysECDSA` | `false` | 1.19 | - | - | 1.31
 `RootlessControlPlane` | `false` | 1.22 | - | - | 1.31
 {{< /table >}}
 
 Feature gate descriptions:
+
+`PublicKeysECDSA`
+: Can be used to create a cluster that uses ECDSA certificates instead of the default RSA algorithm.
+Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
+switch between the RSA and ECDSA algorithms on the fly or during upgrades.Kubernetes versions before v1.31
+had a bug where keys in generated kubeconfig files were set use RSA, even when you had enabled the
+`PublicKeysECDSA` feature gate. This feature gate is deprecated in favor of the `encryptionAlgorithm`
+functionality available in kubeadm v1beta4.
 
 `RootlessControlPlane`
 : Setting this flag configures the kubeadm deployed control plane component static Pod containers

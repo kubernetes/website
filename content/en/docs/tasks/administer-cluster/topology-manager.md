@@ -58,6 +58,13 @@ the pod can be accepted or rejected from the node based on the selected hint.
 The hint is then stored in the Topology Manager for use by the *Hint Providers* when making the
 resource allocation decisions.
 
+## Windows Support
+
+{{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
+
+The Topology Manager support can be enabled on Windows by using the `WindowsCPUAndMemoryAffinity` feature gate and
+it requires support in the container runtime.
+
 ## Topology manager scopes and policies
 
 The Topology Manager currently:
@@ -223,12 +230,11 @@ You can toggle groups of options on and off based upon their maturity level usin
 
 You will still have to enable each option using the `TopologyManagerPolicyOptions` kubelet option.
 
-### `prefer-closest-numa-nodes` (beta) {#policy-option-prefer-closest-numa-nodes}
+### `prefer-closest-numa-nodes` {#policy-option-prefer-closest-numa-nodes}
 
-The `prefer-closest-numa-nodes` option is beta since Kubernetes 1.28. In Kubernetes {{< skew currentVersion >}}
-this policy option is visible by default provided that the `TopologyManagerPolicyOptions` and
-`TopologyManagerPolicyBetaOptions` [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-are enabled.
+The `prefer-closest-numa-nodes` option is GA since Kubernetes 1.32. In Kubernetes {{< skew currentVersion >}}
+this policy option is visible by default provided that the `TopologyManagerPolicyOptions`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
 
 The Topology Manager is not aware by default of NUMA distances, and does not take them into account when making
 Pod admission decisions. This limitation surfaces in multi-socket, as well as single-socket multi NUMA systems,

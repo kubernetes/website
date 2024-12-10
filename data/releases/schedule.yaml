@@ -4,6 +4,17 @@
 # schedule-builder -uc data/releases/schedule.yaml -e data/releases/eol.yaml
 ---
 schedules:
+- endOfLifeDate: "2026-02-28"
+  maintenanceModeStartDate: "2025-12-28"
+  next:
+    release: 1.32.1
+    cherryPickDeadline: "2025-01-10"
+    targetDate: "2025-01-14"
+  previousPatches:
+  - release: 1.32.0
+    targetDate: "2024-12-11"
+  release: "1.32"
+  releaseDate: "2024-12-11"
 - endOfLifeDate: "2025-10-28"
   maintenanceModeStartDate: "2025-08-28"
   next:

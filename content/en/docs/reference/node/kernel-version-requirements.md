@@ -32,6 +32,8 @@ Code: https://github.com/kubernetes/kubernetes/blob/00236ae0d73d2455a2470469ed10
 - `net.ipv4.tcp_keepalive_intvl` (since Kubernetes 1.29, needs kernel 4.5+);
 - `net.ipv4.tcp_keepalive_probes` (since Kubernetes 1.29, needs kernel 4.5+);
 - `net.ipv4.tcp_syncookies` (namespaced since kernel 4.6+).
+- `net.ipv4.tcp_rmem` (since Kubernetes 1.32, needs kernel 4.15+).
+- `net.ipv4.tcp_wmem` (since Kubernetes 1.32, needs kernel 4.15+).
 - `net.ipv4.vs.conn_reuse_mode` (used in `ipvs` proxy mode, needs kernel 4.1+);
 
 ### kube proxy `nftables` proxy mode
