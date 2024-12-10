@@ -482,7 +482,7 @@ suffixes.
 镜像索引可以指向镜像的多个[镜像清单](https://github.com/opencontainers/image-spec/blob/master/manifest.md)，
 提供特定于体系结构版本的容器。
 这背后的理念是让你可以为镜像命名（例如：`pause`、`example/mycontainer`、`kube-apiserver`）
-的同时，允许不同的系统基于它们所使用的机器体系结构取回正确的二进制镜像。
+的同时，允许不同的系统基于它们所使用的机器体系结构获取正确的二进制镜像。
 
 Kubernetes 自身通常在命名容器镜像时添加后缀 `-$(ARCH)`。
 为了向前兼容，请在生成较老的镜像时也提供后缀。

@@ -164,7 +164,7 @@ The versioned directory name follows the pattern of `v<major>_<minor>`.
 ### 创建版本目录并复制 OpenAPI 规范
 
 构建目标 `updateapispec` 负责创建版本化的构建目录。
-目录创建了之后，从 `<k8s-base>` 仓库取回 OpenAPI 规范文件。
+目录创建了之后，从 `<k8s-base>` 仓库获取 OpenAPI 规范文件。
 这些步骤确保配置文件的版本和 Kubernetes OpenAPI 规范的版本与发行版本匹配。
 版本化目录的名称形式为 `v<major>_<minor>`。
 

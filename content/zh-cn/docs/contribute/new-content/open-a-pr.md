@@ -317,7 +317,7 @@ Figure 2. Working from a local fork to make your changes.
 <!--
 1. Fetch commits from your fork's `origin/main` and `kubernetes/website`'s `upstream/main`:
 -->
-4. 从你的克隆副本取回 `origin/main` 分支，从 `kubernetes/website` 取回 `upstream/main`：
+4. 从你的克隆副本获取 `origin/main` 分支，从 `kubernetes/website` 获取 `upstream/main`：
 
    ```shell
    git fetch origin
@@ -744,9 +744,9 @@ Sometimes reviewers commit to your pull request. Before making any other changes
 -->
 #### 来自评阅人的修改   {#changes-from-reviewers}
 
-有时评阅人会向你的 PR 中提交修改。在作出其他修改之前，请先取回这些提交。
+有时评阅人会向你的 PR 中提交修改。在作出其他修改之前，请先获取这些提交。
 
-1. 从你的远程派生副本仓库取回提交，让你的工作分支基于所取回的分支：
+1. 从你的远程派生副本仓库获取提交，让你的工作分支基于所获取的分支：
 
    ```shell
    git fetch origin
@@ -806,7 +806,7 @@ conflict. You must resolve all merge conflicts in your PR.
 <!--
 1. Fetch changes from `kubernetes/website`'s `upstream/main` and rebase your branch:
 -->
-2. 从 `kubernetes/website` 的 `upstream/main` 分支取回更改，然后重设本地分支的基线：
+2. 从 `kubernetes/website` 的 `upstream/main` 分支获取更改，然后重设本地分支的基线：
 
    ```shell
    git fetch upstream
