@@ -1,4 +1,6 @@
 ---
+approvers:
+- chenopis
 title: Документація Kubernetes
 noedit: true
 cid: docsHome
@@ -11,7 +13,7 @@ hide_feedback: true
 menu:
   main:
     title: "Документація"
-    weight: 20
+    weight: 10
 description: >
   Kubernetes — рушій оркестрування контейнерів, створений для автоматичного розгортання, масштабування і управління контейнеризованими застосунками, є проєктом з відкритим вихідним кодом. Цей проєкт знаходиться під егідою Cloud Native Computing Foundation.
 overview: >
@@ -57,7 +59,13 @@ cards:
   description: Встановіть чи оновіть Kubernetes до останньої версії.
   button: Завантажити
   button_path: /releases/download
+  title: Отримання Kubernetes
+  description: Встановіть чи оновіть Kubernetes до останньої версії.
+  button: Завантажити
+  button_path: /releases/download
 - name: about
   title: Про цю документацію
   description: Цей вебсайт містить документацію для поточної та чоторьої попередніх версій Kubernetes.
+  button: "Доступні версії"
+  button_path: "/docs/home/supported-doc-versions"
 ---
