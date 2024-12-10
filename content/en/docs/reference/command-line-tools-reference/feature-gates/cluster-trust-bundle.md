@@ -10,4 +10,9 @@ stages:
     defaultValue: false
     fromVersion: "1.27"
 ---
-Enable ClusterTrustBundle objects and kubelet integration.
+Enable ClusterTrustBundle support, including kubelet integration. Also makes the Kubernetes
+controller manager publish a ClusterTrustBundle for the `kubernetes.io/kube-apiserver-serving`
+signer.
+In order to use the ClusterTrustBundle API in your cluster, you need to enable this feature gate
+and also [enable](/docs/tasks/administer-cluster/enable-disable-api/) the associated alpha API group
+using the `--runtime-config` command line argument to kube-apiserver.
