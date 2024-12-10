@@ -15,7 +15,7 @@ You can specify init containers in the Pod specification alongside the `containe
 array (which describes app containers).
 
 In Kubernetes, a [sidecar container](/docs/concepts/workloads/pods/sidecar-containers/) is a container that
-starts before the main application container and _continues to run_. This document is about init containers:
+starts before the main app container and _continues to run_. This document is about init containers:
 containers that run to completion during Pod initialization.
 
 <!-- body -->
@@ -60,11 +60,11 @@ for further details about sidecar containers.
 If you specify multiple init containers for a Pod, kubelet runs each init
 container sequentially. Each init container must succeed before the next can run.
 When all of the init containers have run to completion, kubelet initializes
-the application containers for the Pod and runs them as usual.
+the app containers for the Pod and runs them as usual.
 
 ### Differences from sidecar containers
 
-Init containers run and complete their tasks before the main application container starts.
+Init containers run and complete their tasks before the main app container starts.
 Unlike [sidecar containers](/docs/concepts/workloads/pods/sidecar-containers),
 init containers are not continuously running alongside the main containers.
 
