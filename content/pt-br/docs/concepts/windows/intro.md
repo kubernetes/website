@@ -57,7 +57,7 @@ Elementos-chave do Kubernetes funcionam da mesma forma no Windows como no Linux.
   - Volumes `emptyDir`
   - Montagens de pipe nomeado do host
   - Limites de recursos
-  - **Campo OS**:
+  - Campo OS:
 
     O campo `.spec.os.name` deve ser definido como `windows` para indicar que o Pod atual usa containers Windows.
 
