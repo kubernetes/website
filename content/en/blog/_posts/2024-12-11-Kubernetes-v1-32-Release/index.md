@@ -19,7 +19,7 @@ Of those enhancements, 13 have graduated to Stable, 12 are entering Beta, and 19
 
 ## Release theme and logo
 
-{{< figure src="/images/blog/2024-12-11-kubernetes-1.32-release/k8s-1.32.png" alt="Kubernetes v1.32 logo: Penelope from the Odyssey, a helm and a purple geometric background"
+{{< figure src="k8s-1.32.png" alt="Kubernetes v1.32 logo: Penelope from the Odyssey, a helm and a purple geometric background"
 class="release-logo" >}}
 
 The Kubernetes v1.32 Release Theme is "Penelope".
