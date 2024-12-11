@@ -27,7 +27,7 @@ before referring to it in a {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 This page provides an outline of the container image concept.
 -->
 容器镜像（Image）所承载的是封装了应用程序及其所有软件依赖的二进制数据。
-容器镜像是可执行的软件包，可以单独运行；该软件包对所处的运行时环境具有良定（Well Defined）的假定。
+容器镜像是可执行的软件包，可以单独运行；该软件包对所处的运行时环境具有明确定义的运行时环境假定。
 
 你通常会创建应用的容器镜像并将其推送到某仓库（Registry），然后在
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 中引用它。
@@ -482,7 +482,7 @@ suffixes.
 镜像索引可以指向镜像的多个[镜像清单](https://github.com/opencontainers/image-spec/blob/master/manifest.md)，
 提供特定于体系结构版本的容器。
 这背后的理念是让你可以为镜像命名（例如：`pause`、`example/mycontainer`、`kube-apiserver`）
-的同时，允许不同的系统基于它们所使用的机器体系结构取回正确的二进制镜像。
+的同时，允许不同的系统基于它们所使用的机器体系结构获取正确的二进制镜像。
 
 Kubernetes 自身通常在命名容器镜像时添加后缀 `-$(ARCH)`。
 为了向前兼容，请在生成较老的镜像时也提供后缀。
@@ -545,7 +545,7 @@ chose to use. You should refer to your solution's documentation for the most acc
 ### 配置 Node 对私有仓库认证  {#configuring-nodes-to-authenticate-to-a-private-registry}
 
 设置凭据的具体说明取决于你选择使用的容器运行时和仓库。
-你应该参考解决方案的文档来获取最准确的信息。
+你应该参考解决方案的文档来查阅最新官方文档以确保配置准确。
 
 <!--
 For an example of configuring a private container image registry, see the
