@@ -224,11 +224,11 @@ Here is an example to illustrate Node Allocatable computation:
 * `evictionHard` is set to `{memory.available: "<500Mi", nodefs.available: "<10%"}`
 
 Under this scenario, 'Allocatable' will be 14.5 CPUs, 28.5Gi of memory and
-`88Gi` of local storage.
+`98Gi` of local storage.
 Scheduler ensures that the total memory `requests` across all pods on this node does
-not exceed 28.5Gi and storage doesn't exceed 88Gi.
+not exceed 28.5Gi and storage doesn't exceed 98Gi.
 Kubelet evicts pods whenever the overall memory usage across pods exceeds 28.5Gi,
-or if overall disk usage exceeds 88Gi. If all processes on the node consume as
+or if overall disk usage exceeds 98Gi. If all processes on the node consume as
 much CPU as they can, pods together cannot consume more than 14.5 CPUs.
 
 If `kubeReserved` and/or `systemReserved` is not enforced and system daemons
