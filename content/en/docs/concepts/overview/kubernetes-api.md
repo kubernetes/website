@@ -193,7 +193,7 @@ request headers as follows:
 </table>
 
 {{< warning >}}
-Please note the validation rules within OpenAPI schemas could be incomplete, and additional validation may occur in the codebase. Therefore, it is always recommended to perform a `kubectl apply --dry-run` for thorough verification.
+Please note the validation rules within OpenAPI schemas are incomplete and additional validation occurs in the code of the kube-apiserver. If precise and complete verification is required,  a `kubectl apply --dry-run` runs all the applicable validation.
 {{< /warning >}}
 
 ### OpenAPI V3
