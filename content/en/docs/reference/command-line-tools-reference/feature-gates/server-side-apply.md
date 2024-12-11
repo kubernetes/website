@@ -17,6 +17,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.22"  
+    toVersion: "1.31"
+
+removed: true
 ---
 Enables the [Sever Side Apply (SSA)](/docs/reference/using-api/server-side-apply/)
 feature on the API Server.

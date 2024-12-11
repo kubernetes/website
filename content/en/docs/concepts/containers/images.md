@@ -214,7 +214,7 @@ behalf of the two different Pods, when parallel image pulls is enabled.
 
 ### Maximum parallel image pulls
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.32" state="beta" >}}
 
 When `serializeImagePulls` is set to false, the kubelet defaults to no limit on the
 maximum number of images being pulled at the same time. If you would like to
