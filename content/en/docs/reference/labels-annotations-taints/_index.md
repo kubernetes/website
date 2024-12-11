@@ -1427,6 +1427,19 @@ Used on: Ingress
 Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassName`.
 {{< /note >}}
 
+### kubernetes.io/cluster-service (deprecated) {#kubernetes-io-cluster-service}
+
+Type: Label
+
+Example: `kubernetes.io/cluster-service: "true"`
+
+Used on: Service
+
+This label indicates that the Service provides a service to the cluster, if the value is set to true.
+When you run `kubectl cluster-info`, the tool queries for Services with this label set to true.
+
+However, setting this label on any Service is deprecated.
+
 ### storageclass.kubernetes.io/is-default-class
 
 Type: Annotation
