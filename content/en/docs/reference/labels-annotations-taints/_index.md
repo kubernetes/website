@@ -804,13 +804,17 @@ Used on: All Objects
 
 This annotation is used for describing specific behaviour of given object.
 
-### kubernetes.io/enforce-mountable-secrets {#enforce-mountable-secrets}
+### kubernetes.io/enforce-mountable-secrets (deprecated) {#enforce-mountable-secrets}
 
 Type: Annotation
 
 Example: `kubernetes.io/enforce-mountable-secrets: "true"`
 
 Used on: ServiceAccount
+
+{{< note >}}
+`kubernetes.io/enforce-mountable-secrets` is deprecated since Kubernetes v1.32. Use separate namespaces to isolate access to mounted secrets.
+{{< /note >}}
 
 The value for this annotation must be **true** to take effect.
 When you set this annotation  to "true", Kubernetes enforces the following rules for
@@ -1778,10 +1782,8 @@ Example: `node.kubernetes.io/out-of-service:NoExecute`
 Used on: Node
 
 A user can manually add the taint to a Node marking it out-of-service.
-If the `NodeOutOfServiceVolumeDetach`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled on `kube-controller-manager`, and a Node is marked out-of-service with this taint,
-the Pods on the node will be forcefully deleted if there are no matching tolerations on it and
+If a Node is marked out-of-service with this taint, the Pods on the node 
+will be forcefully deleted if there are no matching tolerations on it and
 volume detach operations for the Pods terminating on the node will happen immediately.
 This allows the Pods on the out-of-service node to recover quickly on a different node.
 

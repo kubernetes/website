@@ -426,7 +426,6 @@ LoggingBetaOptions=true|false (BETA - default=true)<br/>
 MatchLabelKeysInPodAffinity=true|false (ALPHA - default=false)<br/>
 MatchLabelKeysInPodTopologySpread=true|false (BETA - default=true)<br/>
 MaxUnavailableStatefulSet=true|false (ALPHA - default=false)<br/>
-MemoryManager=true|false (BETA - default=true)<br/>
 MemoryQoS=true|false (ALPHA - default=false)<br/>
 MultiCIDRServiceAllocator=true|false (ALPHA - default=false)<br/>
 MutatingAdmissionPolicy=true|false (ALPHA - default=false)<br/>
@@ -446,7 +445,7 @@ PodReadyToStartContainersCondition=true|false (BETA - default=true)<br/>
 PortForwardWebsockets=true|false (ALPHA - default=false)<br/>
 ProcMountType=true|false (ALPHA - default=false)<br/>
 QOSReserved=true|false (ALPHA - default=false)<br/>
-RecoverVolumeExpansionFailure=true|false (ALPHA - default=false)<br/>
+RecoverVolumeExpansionFailure=true|false (BETA - default=true)<br/>
 RecursiveReadOnlyMounts=true|false (ALPHA - default=false)<br/>
 RelaxedEnvironmentVariableValidation=true|false (ALPHA - default=false)<br/>
 RetryGenerateName=true|false (ALPHA - default=false)<br/>

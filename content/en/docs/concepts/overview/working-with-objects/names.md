@@ -32,6 +32,12 @@ of the same resource. API resources are distinguished by their API group, resour
 In cases when objects represent a physical entity, like a Node representing a physical host, when the host is re-created under the same name without deleting and re-creating the Node, Kubernetes treats the new host as the old one, which may lead to inconsistencies.
 {{< /note >}}
 
+The server may generate a name when `generateName` is provided instead of `name` in a resource create request.
+When `generateName` is used, the provided value is used as a name prefix, which server appends a generated suffix
+to. Even though the name is generated, it may conflict with existing names resulting in a HTTP 409 resopnse. This
+became far less likely to happen in Kubernetes v1.31 and later, since the server will make up to 8 attempt to generate a
+unique name before returning a HTTP 409 response.
+
 Below are four types of commonly used name constraints for resources.
 
 ### DNS Subdomain Names
