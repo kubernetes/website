@@ -192,6 +192,9 @@ request headers as follows:
   </tbody>
 </table>
 
+{{< warning >}}
+Please note the validation rules within OpenAPI schemas could be incomplete, and additional validation may occur in the codebase. Therefore, it is always recommended to perform a `kubectl apply --dry-run` for thorough verification.
+{{< /warning >}}
 
 ### OpenAPI V3
 
