@@ -478,7 +478,7 @@ Antigua Guatemala, Guatemala
 
 ## Upcoming release webinar
 
-Join members of the Kubernetes v1.32 release team on **Thursday, January 9th 2024 at 5:00 PM (UTC)**, to learn about the
+Join members of the Kubernetes v1.32 release team on **Thursday, January 9th 2025 at 5:00 PM (UTC)**, to learn about the
 release highlights of this release, as well as deprecations and removals to help plan for upgrades.
 For more information and registration, visit the [event
 page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-132-release/)
