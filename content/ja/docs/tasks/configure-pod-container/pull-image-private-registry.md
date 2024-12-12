@@ -1,11 +1,11 @@
 ---
-title: イメージをプライベートレジストリからプルする
+title: イメージをプライベートレジストリから取得する
 weight: 130
 ---
 
 <!-- overview -->
 
-このページでは、{{< glossary_tooltip text="Secret" term_id="secret" >}}を用いるPodを作成するためにイメージをプライベートコンテナイメージレジストリもしくはリポジトリからプルする方法について説明します。
+このページでは、{{< glossary_tooltip text="Secret" term_id="secret" >}}を用いるPodを作成するためにイメージをプライベートコンテナイメージレジストリもしくはリポジトリから取得する方法について説明します。
 多くのプライベートレジストリが存在しますが、このタスクでは[Docker Hub](https://www.docker.com/ja-jp/products/docker-hub/)をレジストリの一例として使用します。
 
 {{% thirdparty-content single="true" %}}
@@ -21,7 +21,7 @@ weight: 130
 
 ## Docker Hubにログインする
 
-ラップトップ(ローカル環境)上では、プライベートイメージをプルするためにレジストリに認証する必要があります。
+ラップトップ(ローカル環境)上では、プライベートイメージを取得するためにレジストリに認証する必要があります。
 
 `docker`ツールを使用してDocker Hubにログインしてください。詳細は[Docker IDアカウント](https://docs.docker.com/accounts/create-account/#sign-in)の _Sign in_ セクションを参照してください。
 
@@ -52,14 +52,14 @@ cat ~/.docker/config.json
 ```
 
 {{< note >}}
-Dockerの認証情報ストアを使用している場合、`auth`エントリーの代わりに、ストア名を値とする`credsStore`エントリーが表示されます。
+Dockerの認証情報ストアを使用している場合、`auth`エントリの代わりに、ストア名を値とする`credsStore`エントリが表示されます。
 この場合、Secretを直接作成できます。
 [コマンドライン上で認証情報を入力してSecretを作成する](#create-a-secret-by-providing-credentials-on-the-command-line)を参照してください。
 {{< /note >}}
 
-## 手元の認証情報を用いるSecretを作成する {#registry-secret-existing-credentials}
+## 既存の認証情報を用いるSecretを作成する {#registry-secret-existing-credentials}
 
-Kubernetesクラスターはプライベートイメージをプルするためのレジストリとの認証に`kubernetes.io/dockerconfigjson`タイプのSecretを使用します。
+Kubernetesクラスターはプライベートイメージを取得するためのレジストリとの認証に`kubernetes.io/dockerconfigjson`タイプのSecretを使用します。
 
 既に`docker login`を実行済みの場合、その認証情報をKubernetesにコピーできます:
 
@@ -72,8 +72,8 @@ kubectl create secret generic regcred \
 新しいSecretをカスタマイズする必要がある場合(例えば、新しいSecretにNamespaceやLabelを設定する場合)は、保存する前にSecretをカスタマイズできます。
 必ず以下を行ってください:
 
-- `data`アイテムの名前を`.dockerconfigjson`に設定する
-- Dockerの設定ファイルをbase64エンコードし、その文字列を途切れることなく`data[".dockerconfigjson"]`の値として貼り付ける
+- `data`項目の名前を`.dockerconfigjson`に設定する
+- Dockerの設定ファイルをbase64エンコードし、その文字列を分割せずに`data[".dockerconfigjson"]`の値として貼り付ける
 - `type`を`kubernetes.io/dockerconfigjson`に設定する
 
 Secretをカスタマイズする場合のマニフェストの例:
@@ -172,7 +172,7 @@ Secretの`data`には、ローカルの`~/.docker/config.json`ファイルと同
 
 {{% code_sample file="pods/private-reg-pod.yaml" %}}
 
-上記のファイルをあなたのコンピュータにダウンロードします:
+上記のファイルをあなたのコンピューターにダウンロードします:
 
 ```shell
 curl -L -o my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yaml
@@ -184,7 +184,7 @@ curl -L -o my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.
 your.private.registry.example.com/janedoe/jdoe-private:v1
 ```
 
-プライベートレジストリからイメージをプルするために、Kubernetesは認証情報を必要とします。
+プライベートレジストリからイメージを取得するために、Kubernetesは認証情報を必要とします。
 設定ファイル内の`imagePullSecrets`フィールドは、Kubernetesが`regcred`という名前のSecretから認証情報を取得することを指定します。
 
 以下のようにして作成したSecretを使用するPodを作成し、Podが実行されていることを確認します:
@@ -195,8 +195,8 @@ kubectl get pod private-reg
 ```
 
 {{< note >}}
-イメージプルシークレットをPod(またはDeployment、あるいはPodテンプレートを使用するその他のオブジェクト)で使用するには、適切なSecretが正しいNamespaceに存在する必要があります。
-使用するNamespaceは、Podを作成したNamespaceと同一である必要があります。
+イメージプルシークレットをPod(またはDeployment、あるいはPodテンプレートを使用するその他のオブジェクト)で使用するには、適切なSecretが正しいNamespaceに存在することを確認する必要があります。
+使用するNamespaceは、Podを定義したNamespaceと同一である必要があります。
 {{< /note >}}
 
 また、Podのステータスが`ImagePullBackOff`になり起動に失敗した場合は、Podのイベントを確認してください:
@@ -220,12 +220,12 @@ Events:
 1つのPodは複数のコンテナを持つことができ、各コンテナのイメージは異なるレジストリから取得できます。
 1つのPodで複数の`imagePullSecrets`を使用でき、それぞれに複数の認証情報を含めることができます。
 
-レジストリに一致する各認証情報を使用してイメージのプルが試行されます。
-レジストリに一致する認証情報がない場合、認証なしで、またはカスタムランタイム固有の設定を使用してイメージのプルが試行されます。
+レジストリに一致する各認証情報を使用してイメージの取得が試行されます。
+レジストリに一致する認証情報がない場合、認証なしで、またはカスタムランタイム固有の設定を使用してイメージの取得が試行されます。
 
 ## {{% heading "whatsnext" %}}
 
-* [Secrets](/ja/docs/concepts/configuration/secret/)についてさらに学ぶ。
+* [Secret](/ja/docs/concepts/configuration/secret/)についてさらに学ぶ。
   * または{{< api-reference page="config-and-storage-resources/secret-v1" >}}でAPIリファレンスを読む。
 * [プライベートレジストリを使用する方法](/ja/docs/concepts/containers/images/#プライベートレジストリを使用する方法)についてさらに学ぶ。
 * [イメージプルシークレットをサービスアカウントへ追加する](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)についてさらに学ぶ。
