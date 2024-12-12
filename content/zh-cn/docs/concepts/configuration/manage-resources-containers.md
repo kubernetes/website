@@ -144,7 +144,7 @@ total of 80 MiB), that allocation fails.
 -->
 ## 资源类型  {#resource-types}
 
-**CPU** 和 **内存** 都是 **资源类型**。每种资源类型具有其基本单位。
+**CPU** 和**内存**都是**资源类型**。每种资源类型具有其基本单位。
 CPU 表达的是计算处理能力，其单位是 [Kubernetes CPU](#meaning-of-cpu)。
 内存的单位是字节。
 对于 Linux 负载，则可以指定巨页（Huge Page）资源。
@@ -170,7 +170,7 @@ consumed. They are distinct from
 [Services](/docs/concepts/services-networking/service/) are objects that can be read and modified
 through the Kubernetes API server.
 -->
-CPU 和内存统称为 **计算资源**，或简称为 **资源**。
+CPU 和内存统称为**计算资源**，或简称为**资源**。
 计算资源的数量是可测量的，可以被请求、被分配、被消耗。
 它们与 [API 资源](/zh-cn/docs/concepts/overview/kubernetes-api/)不同。
 API 资源（如 Pod 和 [Service](/zh-cn/docs/concepts/services-networking/service/)）是可通过
@@ -201,7 +201,42 @@ For a particular resource, a *Pod resource request/limit* is the sum of the
 resource requests/limits of that type for each container in the Pod.
 -->
 尽管你只能逐个容器地指定请求和限制值，但考虑 Pod 的总体资源请求和限制也是有用的。
-对特定资源而言，**Pod 的资源请求/限制** 是 Pod 中各容器对该类型资源的请求/限制的总和。
+对特定资源而言，**Pod 的资源请求/限制**是 Pod 中各容器对该类型资源的请求/限制的总和。
+
+<!--
+## Pod-level resource specification
+-->
+## Pod 级资源规约
+
+{{< feature-state feature_gate_name="PodLevelResources" >}}
+
+<!--
+Starting in Kubernetes 1.32, you can also specify resource requests and limits at
+the Pod level. the Pod level. At Pod level, Kubernetes {{< skew currentVersion >}}
+only supports resource requests or limits for specific resource types: `cpu` and /
+or `memory`. This feature is currently in alpha and with the feature enabled,
+Kubernetes allows you to declare an overall resource budget for the Pod, which is
+especially helpful when dealing with a large number of containers where it can be
+difficult to accurately gauge individual resource needs. Additionally, it enables
+containers within a Pod to share idle resources with each other, improving resource
+utilization.
+-->
+从 Kubernetes 1.32 开始，你还可以在 Pod 级别指定资源请求和限制。
+在 Pod 级别，Kubernetes {{< skew currentVersion >}} 仅支持为特定资源类型设置资源请求或限制：
+`cpu` 和/或 `memory`。此特性目前处于 Alpha 阶段。在启用该特性后，Kubernetes
+允许你声明 Pod 的总体资源预算，这在处理大量容器时特别有用，
+因为在这种情况下准确评估单个容器的资源需求可能会很困难。
+此外，它还允许 Pod 内的容器之间共享空闲资源，从而提高资源利用率。
+
+<!--
+For a Pod, you can specify resource limits and requests for CPU and memory by including the following:
+-->
+对于一个 Pod，你可以通过包含以下内容来指定 CPU 和内存的资源限制和请求：
+
+* `spec.resources.limits.cpu`
+* `spec.resources.limits.memory`
+* `spec.resources.requests.cpu`
+* `spec.resources.requests.memory`
 
 <!--
 ## Resource units in Kubernetes
@@ -218,7 +253,7 @@ or a virtual machine running inside a physical machine.
 ### CPU 资源单位    {#meaning-of-cpu}
 
 CPU 资源的限制和请求以 **cpu** 为单位。
-在 Kubernetes 中，一个 CPU 等于 **1 个物理 CPU 核** 或者 **1 个虚拟核**，
+在 Kubernetes 中，一个 CPU 等于 **1 个物理 CPU 核**或者 **1 个虚拟核**，
 取决于节点是一台物理主机还是运行在某物理主机上的虚拟机。
 
 <!--
@@ -275,11 +310,9 @@ Mi, Ki. For example, the following represent roughly the same value:
 -->
 ## 内存资源单位      {#meaning-of-memory}
 
-`memory` 的限制和请求以字节为单位。
-你可以使用普通的整数，或者带有以下
-[数量](/zh-cn/docs/reference/kubernetes-api/common-definitions/quantity/)后缀
-的定点数字来表示内存：E、P、T、G、M、k。
-你也可以使用对应的 2 的幂数：Ei、Pi、Ti、Gi、Mi、Ki。
+`memory` 的限制和请求以字节为单位。你可以使用普通的整数，
+或者带有以下[数量](/zh-cn/docs/reference/kubernetes-api/common-definitions/quantity/)后缀的定点数字来表示内存：
+E、P、T、G、M、k。你也可以使用对应的 2 的幂数：Ei、Pi、Ti、Gi、Mi、Ki。
 例如，以下表达式所代表的是大致相同的值：
 
 ```shell
@@ -337,6 +370,27 @@ spec:
         memory: "128Mi"
         cpu: "500m"
 ```
+
+<!--
+## Pod resources example {#example-2}
+-->
+## Pod 资源示例 {#example-2}
+
+{{< feature-state feature_gate_name="PodLevelResources" >}}
+
+<!--
+The following Pod has an explicit request of 1 CPU and 100 MiB of memory, and an
+explicit limit of 1 CPU and 200 MiB of memory. The `pod-resources-demo-ctr-1`
+container has explicit requests and limits set. However, the
+`pod-resources-demo-ctr-2` container will simply share the resources available
+within the Pod resource boundaries, as it does not have explicit requests and limits
+set.
+-->
+以下 Pod 明确请求了 1 个 CPU 和 100 MiB 的内存，并设置了明确的限制为 1 个 CPU 和 200 MiB 的内存。
+`pod-resources-demo-ctr-1` 容器设置了明确的资源请求和限制。然而，`pod-resources-demo-ctr-2`
+容器没有设置明确的资源请求和限制，因此它将共享 Pod 资源边界内的可用资源。
+
+{{% code_sample file="pods/resource/pod-level-resources.yaml" %}}
 
 <!--
 ## How Pods with resource requests are scheduled
@@ -894,7 +948,7 @@ for ephemeral local storage.
 节点会为自身设置本地存储不足的{{< glossary_tooltip text="污点" term_id="taint" >}}标签。
 这一污点会触发对那些无法容忍该污点的 Pod 的逐出操作。
 
-关于临时性本地存储的配置信息，请参考[这里](#configurations-for-local-ephemeral-storage)
+关于临时性本地存储的配置信息，请参考[这里](#configurations-for-local-ephemeral-storage)。
 {{< /caution >}}
 
 <!--
@@ -1238,8 +1292,8 @@ Examples of _valid_ quantities are `3`, `3000m` and `3Ki`. Examples of
 _invalid_ quantities are `0.5` and `1500m` (because `1500m` would result in `1.5`).
 -->
 API 服务器将扩展资源的数量限制为整数。
-**有效** 数量的示例是 `3`、`3000m` 和 `3Ki`。
-**无效** 数量的示例是 `0.5` 和 `1500m`（因为 `1500m` 结果等同于 `1.5`）。
+**有效**数量的示例是 `3`、`3000m` 和 `3Ki`。
+**无效**数量的示例是 `0.5` 和 `1500m`（因为 `1500m` 结果等同于 `1.5`）。
 
 {{< note >}}
 <!--
@@ -1376,6 +1430,9 @@ You can check node capacities and amounts allocated with the
 kubectl describe nodes e2e-test-node-pool-4lw4
 ```
 
+<!--
+[ ... lines removed for clarity ...]
+-->
 ```
 Name:            e2e-test-node-pool-4lw4
 [ ... 这里忽略了若干行以便阅读 ...]
