@@ -121,17 +121,6 @@ of which are optional:
 * The old [Ingress](/docs/concepts/services-networking/ingress/) API also has many
   implementations, including many third party integrations.
 
-## Terminology
-
-Encapsulation
-: Ability to encapsulate layer 2 or layer 3 packets belonging to an _inner network_ with an _outer network_ header for
-  transport across the _outer network_.
-  This forms a virtual _tunnel_ where the encapsulation function is performed at tunnel ingress and de-encapsulation
-  function is performed at tunnel egress. You can think of pods on nodes as the inner network and nodes networked
-  together as the outer network. [IPIP](https://www.rfc-editor.org/rfc/rfc2003) and
-  [VXLAN](https://www.rfc-editor.org/rfc/rfc7348) are two examples of encapsulation that network plugins use to support
-  cluster networking.
-
 ## Network plugins
 
 [Network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) set up IP
