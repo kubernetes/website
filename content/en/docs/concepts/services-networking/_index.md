@@ -132,14 +132,6 @@ Encapsulation
   [VXLAN](https://www.rfc-editor.org/rfc/rfc7348) are two examples of encapsulation that network plugins use to support
   cluster networking.
 
-kube-proxy
-: Part of Kubernetes, `kube-proxy` is optional component that you run on each Node.
-  The kube-proxy ensures that clients can connect to [Services](/docs/concepts/services-networking/service/),
-  including to any backend Pods that make up the Service. Clients might be other  Pods, or they could be connecting from outside the cluster.
-  Some network plugins provide their own alternative to kube-proxy, which means   you don't need to install it when you use that particular plugin.
-
-  In the diagram, the kube-proxy is the icon top right of each node labelled “k-proxy”.
-
 ## Network plugins
 
 [Network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) set up IP
