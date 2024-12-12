@@ -3,6 +3,8 @@ layout: blog
 title: "Kubernetes 1.29：修改卷之 VolumeAttributesClass"
 date: 2023-12-15
 slug: kubernetes-1-29-volume-attributes-class
+author: >
+  Sunny Song (Google)
 ---
 <!--
 layout: blog
@@ -10,11 +12,6 @@ title: "Kubernetes 1.29: VolumeAttributesClass for Volume Modification"
 date: 2023-12-15
 slug: kubernetes-1-29-volume-attributes-class
 -->
-
-<!--
-**Author**: Sunny Song (Google)
--->
-**作者**：Sunny Song (Google)
 
 **译者**：[Baofa Fan](https://github.com/carlory) (DaoCloud)
 
@@ -119,7 +116,7 @@ If you would like to see the feature in action and verify it works fine in your 
      name: csi-sc-example
    provisioner: pd.csi.storage.gke.io
    parameters:
-     disk-type: "hyperdisk-balanced"
+     type: "hyperdisk-balanced"
    volumeBindingMode: WaitForFirstConsumer
    ```
 

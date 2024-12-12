@@ -466,6 +466,12 @@ jwt:
       expression: 'claims.sub'
     # extra attributes to be added to the UserInfo object. Keys must be domain-prefix path and must be unique.
     extra:
+      # key is a string to use as the extra attribute key.
+      # key must be a domain-prefix path (e.g. example.org/foo). All characters before the first "/" must be a valid
+      # subdomain as defined by RFC 1123. All characters trailing the first "/" must
+      # be valid HTTP Path characters as defined by RFC 3986.
+      # k8s.io, kubernetes.io and their subdomains are reserved for Kubernetes use and cannot be used.
+      # key must be lowercase and unique across all extra attributes.
     - key: 'example.com/tenant'
       # valueExpression is a CEL expression that evaluates to a string or a list of strings.
       valueExpression: 'claims.tenant'
@@ -1087,9 +1093,8 @@ that grant access to the `*` user or `*` group do not include anonymous users.
 {{< feature-state feature_gate_name="AnonymousAuthConfigurableEndpoints" >}}
 
 The `AuthenticationConfiguration` can be used to configure the anonymous
-authenticator. To enable configuring anonymous auth via the config file you need
-enable the `AnonymousAuthConfigurableEndpoints` feature gate. When this feature
-gate is enabled you cannot set the `--anonymous-auth` flag.
+authenticator. If you set the anonymous field in the `AuthenticationConfiguration`
+file then you cannot set the `--anonymous-auth` flag.
 
 The main advantage of configuring anonymous authenticator using the authentication
 configuration file is that in addition to enabling and disabling anonymous authentication
