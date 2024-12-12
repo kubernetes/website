@@ -132,11 +132,6 @@ Encapsulation
   [VXLAN](https://www.rfc-editor.org/rfc/rfc7348) are two examples of encapsulation that network plugins use to support
   cluster networking.
 
-Network namespace
-: Form of isolation used on Linux, where different processes (such as in containers) see a different set of network
-  interfaces and configuration than the host system. The host system is represented by a root network namespace,
-  which is often what network plugins use to set up connectivity between nodes (and between Pods on those nodes).
-
 kube-proxy
 : Part of Kubernetes, `kube-proxy` is optional component that you run on each Node.
   The kube-proxy ensures that clients can connect to [Services](/docs/concepts/services-networking/service/),
