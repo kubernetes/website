@@ -16,5 +16,5 @@ recursively.
 It widens the performance improvements behind the `SELinuxMountReadWriteOncePod`
 feature gate by extending the implementation to all volumes.
 
-Enabling the `SELinuxMount` feature gate requires the feature gate `SELinuxMountReadWriteOncePod` to
-be enabled.
+Enabling the `SELinuxMount` feature gate requires the feature gates `SELinuxMountReadWriteOncePod`
+and `SELinuxChangePolicy` to be enabled.

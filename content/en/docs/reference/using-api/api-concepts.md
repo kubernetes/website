@@ -331,6 +331,36 @@ For example:
 Accept: application/vnd.kubernetes.protobuf, application/json
 ```
 
+### CBOR resource encoding {#cbor-encoding}
+
+{{< feature-state feature_gate_name="CBORServingAndStorage" >}}
+
+With the `CBORServingAndStorage` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled, request and response
+bodies for all built-in resource types and all resources defined by a {{< glossary_tooltip
+term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be encoded to the
+[CBOR](https://www.rfc-editor.org/rfc/rfc8949) binary data format. CBOR is also supported at the {{<
+glossary_tooltip text="aggregation layer" term_id="aggregation-layer" >}} if it is enabled in
+individual aggregated API servers.
+
+Clients should indicate the IANA media type `application/cbor` in the `Content-Type` HTTP request
+header when the request body contains a single CBOR [encoded data
+item](https://www.rfc-editor.org/rfc/rfc8949.html#section-1.2-4.2), and in the `Accept` HTTP request
+header when prepared to accept a CBOR encoded data item in the response. API servers will use
+`application/cbor` in the `Content-Type` HTTP response header when the response body contains a
+CBOR-encoded object.
+
+If an API server encodes its response to a [watch request](#efficient-detection-of-changes) using
+CBOR, the response body will be a [CBOR Sequence](https://www.rfc-editor.org/rfc/rfc8742) and the
+`Content-Type` HTTP response header will use the IANA media type `application/cbor-seq`. Each entry
+of the sequence (if any) is a single CBOR-encoded watch event.
+
+In addition to the existing `application/apply-patch+yaml` media type for YAML-encoded [server-side
+apply configurations](#patch-and-apply), API servers that enable CBOR will accept the
+`application/apply-patch+cbor` media type for CBOR-encoded server-side apply configurations. There
+is no supported CBOR equivalent for `application/json-patch+json` or `application/merge-patch+json`,
+or `application/strategic-merge-patch+json`.
+
 ## Efficient detection of changes
 
 The Kubernetes API allows clients to make an initial request for an object or a
@@ -443,13 +473,11 @@ the API server will send any `BOOKMARK` event even when requested.
 
 On large clusters, retrieving the collection of some resource types may result in
 a significant increase of resource usage (primarily RAM) on the control plane.
-In order to alleviate its impact and simplify the user experience of the **list** + **watch**
-pattern, Kubernetes v1.27 introduces as an alpha feature the support
-for requesting the initial state (previously requested via the **list** request) as part of
-the **watch** request.
+To alleviate the impact and simplify the user experience of the **list** + **watch**
+pattern, Kubernetes v1.32 promotes to beta the feature that allows requesting the initial state 
+(previously requested via the **list** request) as part of the **watch** request.
 
-Provided that the `WatchList` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled, this can be achieved by specifying `sendInitialEvents=true` as query string parameter
+On the client-side the initial state can be requested by specifying `sendInitialEvents=true` as query string parameter
 in a **watch** request. If set, the API server starts the watch stream with synthetic init
 events (of type `ADDED`) to build the whole state of all existing objects followed by a
 [`BOOKMARK` event](/docs/reference/using-api/api-concepts/#watch-bookmarks)
@@ -847,6 +875,41 @@ not vulnerable to ordering changes in the list.
 
 Once the last finalizer is removed, the resource is actually removed from etcd.
 
+### Force deletion
+
+{{< feature-state feature_gate_name="AllowUnsafeMalformedObjectDeletion" >}}
+
+{{< caution >}}
+This may break the workload associated with the resource being force deleted, if it
+relies on the normal deletion flow, so cluster breaking consequences may apply.
+{{< /caution >}}
+
+By enabling the delete option `ignoreStoreReadErrorWithClusterBreakingPotential`, the
+user can perform an unsafe force **delete** operation of an undecryptable/corrupt
+resource. This option is behind an ALPHA feature gate, and it is disabled by
+default. In order to use this option, the cluster operator must enable the feature by
+setting the command line option `--feature-gates=AllowUnsafeMalformedObjectDeletion=true`.
+
+{{< note >}}
+The user performing the force **delete** operation must have the privileges to do both
+the **delete** and **unsafe-delete-ignore-read-errors** verbs on the given resource.
+{{< /note >}}
+
+A resource is considered corrupt if it can not be successfully retrieved from the
+storage due to a) transformation error (for example: decryption failure), or b) the object
+failed to decode. The API server first attempts a normal deletion, and if it fails with
+a _corrupt resource_ error then it triggers the force delete. A force **delete** operation
+is unsafe because it ignores finalizer constraints, and skips precondition checks.
+
+The default value for this option is `false`, this maintains backward compatibility.
+For a **delete** request with `ignoreStoreReadErrorWithClusterBreakingPotential`
+set to `true`, the fields `dryRun`, `gracePeriodSeconds`, `orphanDependents`,
+`preconditions`, and `propagationPolicy` must be left unset.
+
+{{< note >}}
+If the user issues a **delete** request with `ignoreStoreReadErrorWithClusterBreakingPotential`
+set to `true` on an otherwise readable resource, the API server aborts the request with an error.
+{{< /note >}}
 
 ## Single resource API
 
