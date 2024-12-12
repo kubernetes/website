@@ -60,6 +60,10 @@ Before walking through each tutorial, you may want to bookmark the
 
 * [Running Kubelet in Standalone Mode](/docs/tutorials/cluster-management/kubelet-standalone/)
 
+## Dynamic Resource Allocation
+
+* [Comparing Dynamic Resource Allocation to Device Plugins](/docs/tutorials/dynamic-resource-allocation/comparing-dra-device-plugin/)
+
 ## {{% heading "whatsnext" %}}
 
 If you would like to write a tutorial, see
