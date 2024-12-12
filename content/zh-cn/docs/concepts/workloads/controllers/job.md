@@ -1231,7 +1231,7 @@ _after_ all of the Pods are terminated. You can control this behavior by using t
 `JobManagedBy` and the `JobPodReplacementPolicy` (both enabled by default)
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
-在 Kubernetes v1.31 及更高版本中，控制器仅在所有Pod都终止后才会添加作业（Job）的终止条件。
+在 Kubernetes v1.31 及更高版本中，控制器仅在所有 Pod 都终止**之后**才会添加作业（Job）的终止条件。
 你可以通过使用 `JobManagedBy` 和 `JobPodReplacementPolicy`（都默认启用）
 来控制此行为[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
