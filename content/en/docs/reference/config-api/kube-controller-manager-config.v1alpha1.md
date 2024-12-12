@@ -16,33 +16,6 @@ auto_generated: true
     
     
 
-## `NodeControllerConfiguration`     {#NodeControllerConfiguration}
-    
-
-**Appears in:**
-
-- [CloudControllerManagerConfiguration](#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration)
-
-
-<p>NodeControllerConfiguration contains elements describing NodeController.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>ConcurrentNodeSyncs</code> <B>[Required]</B><br/>
-<code>int32</code>
-</td>
-<td>
-   <p>ConcurrentNodeSyncs is the number of workers
-concurrently synchronizing nodes</p>
-</td>
-</tr>
-</tbody>
-</table>
-
 ## `ServiceControllerConfiguration`     {#ServiceControllerConfiguration}
     
 
@@ -105,7 +78,7 @@ both in cloud controller manager and kube-controller manager.</p>
 </td>
 </tr>
 <tr><td><code>NodeController</code> <B>[Required]</B><br/>
-<a href="#NodeControllerConfiguration"><code>NodeControllerConfiguration</code></a>
+<code>k8s.io/cloud-provider/controllers/node/config/v1alpha1.NodeControllerConfiguration</code>
 </td>
 <td>
    <p>NodeController holds configuration for node controller
@@ -1482,7 +1455,8 @@ be unresponsive before marking it unhealthy.</p>
    <p>nodeMontiorGracePeriod is the amount of time which we allow a running node to be
 unresponsive before marking it unhealthy. Must be N times more than kubelet's
 nodeStatusUpdateFrequency, where N means number of retries allowed for kubelet
-to post node status.</p>
+to post node status. This value should also be greater than the sum of
+HTTP2_PING_TIMEOUT_SECONDS and HTTP2_READ_IDLE_TIMEOUT_SECONDS.</p>
 </td>
 </tr>
 <tr><td><code>PodEvictionTimeout</code> <B>[Required]</B><br/>
