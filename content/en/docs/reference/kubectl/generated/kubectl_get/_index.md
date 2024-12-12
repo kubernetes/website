@@ -233,7 +233,7 @@ kubectl get [(-o|--output=)json|yaml|name|go-template|go-template-file|template|
 <td colspan="2">--subresource string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If specified, gets the subresource of the requested object. Must be one of [status scale]. This flag is beta and may change in the future.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If specified, gets the subresource of the requested object. This flag is beta and may change in the future.</p></td>
 </tr>
 
 <tr>
