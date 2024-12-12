@@ -132,7 +132,7 @@ discussed in [Setting up nodes with profiles](#setting-up-nodes-with-profiles).
 
 ```shell
 # This example assumes that node names match host names, and are reachable via SSH.
-NODES=($(kubectl get nodes -o name))
+NODES=($( kubectl get node -o jsonpath='{.items[*].status.addresses[?(.type == "Hostname")].address}' ))
 
 for NODE in ${NODES[*]}; do ssh $NODE 'sudo apparmor_parser -q <<EOF
 #include <tunables/global>

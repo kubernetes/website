@@ -15,7 +15,7 @@ Generate static Pod manifest file for local etcd
 ### Synopsis
 
 
-This command is not meant to be run on its own. See list of available subcommands.
+Generate static Pod manifest file for local etcd
 
 ```
 kubeadm init phase etcd [flags]

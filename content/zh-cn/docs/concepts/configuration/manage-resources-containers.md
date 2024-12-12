@@ -33,8 +33,8 @@ limits so that the running container is not allowed to use more of that resource
 than the limit you set. The kubelet also reserves at least the _request_ amount of 
 that system resource specifically for that container to use.
 -->
-当你定义 {{< glossary_tooltip text="Pod" term_id="pod" >}} 时可以选择性地为每个
-{{< glossary_tooltip text="容器" term_id="container" >}}设定所需要的资源数量。
+当你定义 {{< glossary_tooltip text="Pod" term_id="pod" >}}
+时可以选择性地为每个{{< glossary_tooltip text="容器" term_id="container" >}}设定所需要的资源数量。
 最常见的可设定资源是 CPU 和内存（RAM）大小；此外还有其他类型的资源。
 
 当你为 Pod 中的 Container 指定了资源 **request（请求）** 时，
@@ -51,7 +51,6 @@ kubelet 还会为容器预留所 **request（请求）** 数量的系统资源�
 
 If the node where a Pod is running has enough of a resource available, it's possible (and
 allowed) for a container to use more resource than its `request` for that resource specifies.
-However, a container is not allowed to use more than its resource `limit`.
 
 For example, if you set a `memory` request of 256 MiB for a container, and that container is in
 a Pod scheduled to a Node with 8GiB of memory and no other Pods, then the container can try to use
@@ -60,33 +59,63 @@ more RAM.
 ## 请求和限制  {#requests-and-limits}
 
 如果 Pod 运行所在的节点具有足够的可用资源，容器可能（且可以）使用超出对应资源
-`request` 属性所设置的资源量。不过，容器不可以使用超出其资源 `limit`
-属性所设置的资源量。
+`request` 属性所设置的资源量。
 
 例如，如果你将容器的 `memory` 的请求量设置为 256 MiB，而该容器所处的 Pod
 被调度到一个具有 8 GiB 内存的节点上，并且该节点上没有其他 Pod
 运行，那么该容器就可以尝试使用更多的内存。
 
 <!--
-If you set a `memory` limit of 4GiB for that container, the kubelet (and
-{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}) enforce the limit.
-The runtime prevents the container from using more than the configured resource limit. For example:
-when a process in the container tries to consume more than the allowed amount of memory,
-the system kernel terminates the process that attempted the allocation, with an out of memory
-(OOM) error.
-
-Limits can be implemented either reactively (the system intervenes once it sees a violation)
-or by enforcement (the system prevents the container from ever exceeding the limit). Different
-runtimes can have different ways to implement the same restrictions.
+Limits are a different story. Both `cpu` and `memory` limits are applied by the kubelet (and
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}),
+and are ultimately enforced by the kernel. On Linux nodes, the Linux kernel
+enforces limits with
+{{< glossary_tooltip text="cgroups" term_id="cgroup" >}}.
+The behavior of `cpu` and `memory` limit enforcement is slightly different.
 -->
-如果你将某容器的 `memory` 限制设置为 4 GiB，kubelet
-（和{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}）就会确保该限制生效。
-容器运行时会禁止容器使用超出所设置资源限制的资源。
-例如：当容器中进程尝试使用超出所允许内存量的资源时，系统内核会将尝试申请内存的进程终止，
-并引发内存不足（OOM）错误。
+限制是另一个话题。`cpu` 限制和 `memory` 限制都由 kubelet
+（以及 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}）来应用，
+最终由内核强制执行。在 Linux 节点上，Linux 内核通过
+{{< glossary_tooltip text="CGroup" term_id="cgroup" >}} 来强制执行限制。
+`cpu` 限制和 `memory` 限制的执行行为略有不同。
 
-限制可以以被动方式来实现（系统会在发现违例时进行干预），或者通过强制生效的方式实现
-（系统会避免容器用量超出限制）。不同的容器运行时采用不同方式来实现相同的限制。
+<!--
+`cpu` limits are enforced by CPU throttling. When a container approaches
+its `cpu` limit, the kernel will restrict access to the CPU corresponding to the
+container's limit. Thus, a `cpu` limit is a hard limit the kernel enforces.
+Containers may not use more CPU than is specified in their `cpu` limit.
+-->
+`cpu` 限制通过 CPU 节流机制来强制执行。
+当某容器接近其 `cpu` 限制值时，内核会基于容器的限制值来限制其对 CPU 的访问。
+因此，`cpu` 限制是内核强制执行的一个硬性限制。容器不得使用超出其 `cpu` 限制所指定的 CPU 核数。
+
+<!--
+`memory` limits are enforced by the kernel with out of memory (OOM) kills. When
+a container uses more than its `memory` limit, the kernel may terminate it. However,
+terminations only happen when the kernel detects memory pressure. Thus, a
+container that over allocates memory may not be immediately killed. This means
+`memory` limits are enforced reactively. A container may use more memory than
+its `memory` limit, but if it does, it may get killed.
+-->
+`memory` 限制由内核使用 OOM（内存溢出）终止机制来强制执行。
+当某容器使用的内存超过其 `memory` 限制时，内核可以终止此容器。
+然而，终止只会在内核检测到内存压力时才会发生。
+因此，超配内存的容器可能不会被立即终止。
+这意味着 `memory` 限制是被动执行的。
+某容器可以使用超过其 `memory` 限制的内存，但如果这样做，此容器可能会被终止。
+
+{{< note >}}
+<!--
+There is an alpha feature `MemoryQoS` which attempts to add more preemptive
+limit enforcement for memory (as opposed to reactive enforcement by the OOM
+killer). However, this effort is
+[stalled](https://github.com/kubernetes/enhancements/tree/a47155b340/keps/sig-node/2570-memory-qos#latest-update-stalled)
+due to a potential livelock situation a memory hungry can cause.
+-->
+你可以使用一个 Alpha 特性 `MemoryQoS` 来尝试为内存添加执行更多的抢占限制
+（这与 OOM Killer 的被动执行相反）。然而，由于可能会因内存饥饿造成活锁情形，
+所以这种尝试操作会被[卡滞](https://github.com/kubernetes/enhancements/tree/a47155b340/keps/sig-node/2570-memory-qos#latest-update-stalled)。
+{{< /note >}}
 
 {{< note >}}
 <!--
@@ -153,7 +182,7 @@ Kubernetes API 服务器读取和修改的对象。
 For each container, you can specify resource limits and requests,
 including the following:
 -->
-## Pod 和 容器的资源请求和限制  {#resource-requests-and-limits-of-pod-and-container}
+## Pod 和容器的资源请求和限制  {#resource-requests-and-limits-of-pod-and-container}
 
 针对每个容器，你都可以指定其资源限制和请求，包括如下选项：
 
@@ -171,7 +200,7 @@ a Pod.
 For a particular resource, a *Pod resource request/limit* is the sum of the
 resource requests/limits of that type for each container in the Pod.
 -->
-尽管你只能逐个容器地指定请求和限制值，考虑 Pod 的总体资源请求和限制也是有用的。
+尽管你只能逐个容器地指定请求和限制值，但考虑 Pod 的总体资源请求和限制也是有用的。
 对特定资源而言，**Pod 的资源请求/限制** 是 Pod 中各容器对该类型资源的请求/限制的总和。
 
 <!--
@@ -188,7 +217,7 @@ or a virtual machine running inside a physical machine.
 
 ### CPU 资源单位    {#meaning-of-cpu}
 
-CPU 资源的限制和请求以 “cpu” 为单位。
+CPU 资源的限制和请求以 **cpu** 为单位。
 在 Kubernetes 中，一个 CPU 等于 **1 个物理 CPU 核** 或者 **1 个虚拟核**，
 取决于节点是一台物理主机还是运行在某物理主机上的虚拟机。
 
@@ -201,10 +230,10 @@ expression `100m`, which can be read as "one hundred millicpu". Some people say
 "one hundred millicores", and this is understood to mean the same thing.
 -->
 你也可以表达带小数 CPU 的请求。
-当你定义一个容器，将其 `spec.containers[].resources.requests.cpu` 设置为 0.5 时，
-你所请求的 CPU 是你请求 `1.0` CPU 时的一半。
-对于 CPU 资源单位，[数量](/zh-cn/docs/reference/kubernetes-api/common-definitions/quantity/)
-表达式 `0.1` 等价于表达式 `100m`，可以看作 “100 millicpu”。
+当你定义一个容器，将其 `spec.containers[].resources.requests.cpu` 设置为 `0.5` 时，
+你所请求的 CPU 是你请求 `1.0` CPU 时的一半。对于 CPU 资源单位，
+[数量](/zh-cn/docs/reference/kubernetes-api/common-definitions/quantity/)表达式 `0.1`
+等价于表达式 `100m`，可以看作 “100 millicpu”。
 有些人说成是“一百毫核”，其实说的是同样的事情。
 
 <!--
@@ -213,7 +242,7 @@ CPU resource is always specified as an absolute amount of resource, never as a r
 runs on a single-core, dual-core, or 48-core machine.
 -->
 CPU 资源总是设置为资源的绝对数量而非相对数量值。
-例如，无论容器运行在单核、双核或者 48-核的机器上，`500m` CPU 表示的是大约相同的计算能力。
+例如，无论容器运行在单核、双核或者 48 核的机器上，`500m` CPU 表示的是大约相同的算力。
 
 {{< note >}}
 <!--
@@ -347,7 +376,7 @@ limits you defined.
 当 kubelet 将容器作为 Pod 的一部分启动时，它会将容器的 CPU 和内存请求与限制信息传递给容器运行时。
 
 在 Linux 系统上，容器运行时通常会配置内核
-{{< glossary_tooltip text="CGroups" term_id="cgroup" >}}，负责应用并实施所定义的请求。
+{{< glossary_tooltip text="CGroup" term_id="cgroup" >}}，负责应用并实施所定义的请求。
 
 <!--
 - The CPU limit defines a hard ceiling on how much CPU time the container can use.
@@ -356,13 +385,13 @@ limits you defined.
 -->
 - CPU 限制定义的是容器可使用的 CPU 时间的硬性上限。
   在每个调度周期（时间片）期间，Linux 内核检查是否已经超出该限制；
-  内核会在允许该 cgroup 恢复执行之前会等待。
+  内核会在允许该 CGroup 恢复执行之前会等待。
 <!--
 - The CPU request typically defines a weighting. If several different containers (cgroups)
   want to run on a contended system, workloads with larger CPU requests are allocated more
   CPU time than workloads with small requests.
 -->
-- CPU 请求值定义的是一个权重值。如果若干不同的容器（CGroups）需要在一个共享的系统上竞争运行，
+- CPU 请求值定义的是一个权重值。如果若干不同的容器（CGroup）需要在一个共享的系统上竞争运行，
   CPU 请求值大的负载会获得比请求值小的负载更多的 CPU 时间。
 <!--
 - The memory request is mainly used during (Kubernetes) Pod scheduling. On a node that uses
@@ -378,7 +407,7 @@ limits you defined.
   to allocate memory. If that process is the container's PID 1, and the container is marked
   as restartable, Kubernetes restarts the container.
 -->
-- 内存限制定义的是 cgroup 的内存限制。如果容器尝试分配的内存量超出限制，
+- 内存限制定义的是 CGroup 的内存限制。如果容器尝试分配的内存量超出限制，
   则 Linux 内核的内存不足处理子系统会被激活，并停止尝试分配内存的容器中的某个进程。
   如果该进程在容器中 PID 为 1，而容器被标记为可重新启动，则 Kubernetes
   会重新启动该容器。
@@ -499,9 +528,11 @@ for additional enforcement.
 If you specify a `spec.containers[].resources.limits.memory` for each Pod,
 then the maximum size of an `emptyDir` volume will be the pod's memory limit.
 -->
-如果你在管理集群或命名空间，还可以设置限制内存使用的 [ResourceQuota](/zh-cn/docs/concepts/policy/resource-quotas/)；
-你可能还希望定义一个 [LimitRange](/zh-cn/docs/concepts/policy/limit-range/) 以施加额外的限制。如果为每个 Pod
-指定 `spec.containers[].resources.limits.memory`，那么 `emptyDir` 卷的最大尺寸将是该 Pod 的内存限制。
+如果你在管理集群或命名空间，还可以设置限制内存使用的
+[ResourceQuota](/zh-cn/docs/concepts/policy/resource-quotas/)；
+你可能还希望定义一个 [LimitRange](/zh-cn/docs/concepts/policy/limit-range/)
+以施加额外的限制。如果为每个 Pod 指定 `spec.containers[].resources.limits.memory`，
+那么 `emptyDir` 卷的最大尺寸将是 Pod 的内存限制。
 
 <!--
 As an alternative, a cluster administrator can enforce size limits for
@@ -568,9 +599,9 @@ the resource quota is not enforced on ephemeral-storage.
 为了使临时性存储的资源配额生效，需要完成以下两个步骤：
 
 * 管理员在命名空间中设置临时性存储的资源配额。
-* 用户需要在 Pod spec 中指定临时性存储资源的限制。
+* 用户需要在 Pod 规约中指定临时性存储资源的限制。
 
-如果用户在 Pod spec 中未指定临时性存储资源的限制，
+如果用户在 Pod 规约中未指定临时性存储资源的限制，
 则临时性存储的资源配额不会生效。
 {{< /note >}}
 

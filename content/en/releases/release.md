@@ -3,14 +3,15 @@ title: Kubernetes Release Cycle
 type: docs
 auto_generated: true
 ---
+<!-- THIS CONTENT IS AUTO-GENERATED via https://github.com/kubernetes/website/blob/main/scripts/releng/update-release-info.sh -->
 
-<!-- THIS CONTENT IS AUTO-GENERATED via ./scripts/releng/update-release-info.sh in kubernetes/website -->
+{{% pageinfo color="light" %}}
+This content is auto-generated and links may not function. The source of the document is located
+[here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/release.md).
+{{% /pageinfo %}}
+<!-- Localization note: omit the pageinfo block when localizing -->
 
-{{< warning >}}
-This content is auto-generated and links may not function. The source of the document is located [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/release.md).
-{{< /warning >}}
-
-# Targeting enhancements, Issues and PRs to Release Milestones
+## Targeting enhancements, Issues and PRs to Release Milestones
 
 This document is focused on Kubernetes developers and contributors who need to
 create an enhancement, issue, or pull request which targets a specific release
