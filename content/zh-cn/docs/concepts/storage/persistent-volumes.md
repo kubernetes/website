@@ -833,25 +833,23 @@ administrator intervention.
 
 {{% /tab %}}
 {{% tab name="通过请求扩展为更小尺寸" %}}
-{{% feature-state for_k8s_version="v1.23" state="alpha" %}}
+{{< feature-state feature_gate_name="RecoverVolumeExpansionFailure" >}}
 
 {{< note >}}
 <!--
-Recovery from failing PVC expansion by users is available as an alpha feature
-since Kubernetes 1.23. The `RecoverVolumeExpansionFailure` feature must be
-enabled for this feature to work. Refer to the
+Recovery from failing PVC expansion by users (`RecoverVolumeExpansionFailure`) is available as an beta feature
+since Kubernetes 1.32 and should be enabled by default. Refer to the
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 documentation for more information.
 -->
-Kubernetes 从 1.23 版本开始将允许用户恢复失败的 PVC 扩展这一能力作为
-Alpha 特性支持。`RecoverVolumeExpansionFailure` 必须被启用以允许使用此特性。
+Kubernetes 从 1.32 版本开始将允许用户恢复失败的 PVC 扩展（`RecoverVolumeExpansionFailure`），
+这一特性目前为 Beta 阶段。
 可参考[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 文档了解更多信息。
 {{< /note >}}
 
 <!--
-If the feature gates `RecoverVolumeExpansionFailure` is
-enabled in your cluster, and expansion has failed for a PVC, you can retry expansion with a
+When using `RecoverVolumeExpansionFailure` feature, if expansion has failed for a PVC, you can retry expansion with a
 smaller size than the previously requested value. To request a new expansion attempt with a
 smaller proposed size, edit `.spec.resources` for that PVC and choose a value that is less than the
 value you previously tried.
@@ -860,8 +858,8 @@ If that has happened, or you suspect that it might have, you can retry expansion
 size that is within the capacity limits of underlying storage provider. You can monitor status of
 resize operation by watching `.status.allocatedResourceStatuses` and events on the PVC.
 -->
-如果集群中的特性门控 `RecoverVolumeExpansionFailure`
-已启用，在 PVC 的扩展发生失败时，你可以使用比先前请求的值更小的尺寸来重试扩展。
+使用 `RecoverVolumeExpansionFailure` 特性时，如果 PVC 扩展失败，
+你可以使用比先前请求的值更小的尺寸来重试扩展。
 要使用一个更小的尺寸尝试请求新的扩展，请编辑该 PVC 的 `.spec.resources`
 并选择一个比你之前所尝试的值更小的值。
 如果由于容量限制而无法成功扩展至更高的值，这将很有用。
