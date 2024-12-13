@@ -338,9 +338,9 @@ Kubernetesコミュニティの最新情報を入手し、交流を深めまし�
 
 **2025年3月**
 
-- [**KCD - Kubernetes Community Days: Beijing, China**](https://www.cncf.io/kcds/): 3月 | 北京、中国
-- [**KCD - Kubernetes Community Days: Guadalajara, Mexico**](https://www.cncf.io/kcds/): 2025年3月16日 | グアダラハラ、メキシコ
-- [**KCD - Kubernetes Community Days: Rio de Janeiro, Brazil**](https://www.cncf.io/kcds/): 2025年3月22日 | リオデジャネイロ、ブラジル
+- [**KCD - Kubernetes Community Days: Beijing, China**](https://www.cncf.io/kcds/): 3月 | 北京(中国)
+- [**KCD - Kubernetes Community Days: Guadalajara, Mexico**](https://www.cncf.io/kcds/): 2025年3月16日 | グアダラハラ(メキシコ)
+- [**KCD - Kubernetes Community Days: Rio de Janeiro, Brazil**](https://www.cncf.io/kcds/): 2025年3月22日 | リオデジャネイロ(ブラジル)
 
 **2025年4月**
 
