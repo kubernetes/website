@@ -6,7 +6,8 @@ slug: kubernetes-v1-32-release
 author: >
   [Kubernetes v1.32 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.32/release-team.md)
 translator: >
-  [Taisuke Okamoto](https://github.com/b1gb4by) ([IDC Frontier Inc.](https://www.idcf.jp/))
+  [Taisuke Okamoto](https://github.com/b1gb4by) ([IDC Frontier Inc.](https://www.idcf.jp/)), 
+  [Junya Okabe](https://github.com/Okabe-Junya) (筑波大学)
 ---
 
 **編集者:** Matteo Bianchi, Edith Puclla, William Rizzo, Ryota Sawada, Rashan Smith
