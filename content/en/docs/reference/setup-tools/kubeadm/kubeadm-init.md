@@ -6,7 +6,7 @@ weight: 20
 
 <!-- overview -->
 
-This command initializes a Kubernetes control-plane node.
+This command initializes a Kubernetes control plane node.
 
 <!-- body -->
 
@@ -14,7 +14,7 @@ This command initializes a Kubernetes control-plane node.
 
 ### Init workflow {#init-workflow}
 
-`kubeadm init` bootstraps a Kubernetes control-plane node by executing the
+`kubeadm init` bootstraps a Kubernetes control plane node by executing the
 following steps:
 
 1. Runs a series of pre-flight checks to validate the system state
@@ -25,11 +25,11 @@ following steps:
 1. Generates a self-signed CA to set up identities for each component in the cluster. The user can provide their
    own CA cert and/or key by dropping it in the cert directory configured via `--cert-dir`
    (`/etc/kubernetes/pki` by default).
-   The APIServer certs will have additional SAN entries for any `--apiserver-cert-extra-sans`
+   The API server certs will have additional SAN entries for any `--apiserver-cert-extra-sans`
    arguments, lowercased if necessary.
 
-1. Writes kubeconfig files in `/etc/kubernetes/` for the kubelet, the controller-manager and the
-   scheduler to use to connect to the API server, each with its own identity. Also
+1. Writes kubeconfig files in `/etc/kubernetes/` for the kubelet, the controller-manager, and the
+   scheduler to connect to the API server, each with its own identity. Also
    additional kubeconfig files are written, for kubeadm as administrative entity (`admin.conf`)
    and for a super admin user that can bypass RBAC (`super-admin.conf`).
 
@@ -42,13 +42,13 @@ following steps:
 
    Once control plane Pods are up and running, the `kubeadm init` sequence can continue.
 
-1. Apply labels and taints to the control-plane node so that no additional workloads will
+1. Apply labels and taints to the control plane node so that no additional workloads will
    run there.
 
 1. Generates the token that additional nodes can use to register
-   themselves with a control-plane in the future. Optionally, the user can provide a
+   themselves with a control plane in the future. Optionally, the user can provide a
    token via `--token`, as described in the
-   [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) docs.
+   [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) documents.
 
 1. Makes all the necessary configurations for allowing node joining with the
    [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and
@@ -62,7 +62,7 @@ following steps:
 
    - Configure auto-approval for new CSR requests.
 
-   See [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) for additional info.
+   See [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) for additional information.
 
 1. Installs a DNS server (CoreDNS) and the kube-proxy addon components via the API server.
    In Kubernetes version 1.11 and later CoreDNS is the default DNS server.
@@ -74,7 +74,7 @@ following steps:
 
 ### Using init phases with kubeadm {#init-phases}
 
-Kubeadm allows you to create a control-plane node in phases using the `kubeadm init phase` command.
+kubeadm allows you to create a control plane node in phases using the `kubeadm init phase` command.
 
 To view the ordered list of phases and sub-phases you can call `kubeadm init --help`. The list
 will be located at the top of the help screen and each phase will have a description next to it.
@@ -117,13 +117,13 @@ Alternatively, you can use the `skipPhases` field under `InitConfiguration`.
 ### Using kubeadm init with a configuration file {#config-file}
 
 {{< caution >}}
-The config file is still considered beta and may change in future versions.
+The configuration file is still considered beta and may change in future versions.
 {{< /caution >}}
 
 It's possible to configure `kubeadm init` with a configuration file instead of command
 line flags, and some more advanced features may only be available as
 configuration file options. This file is passed using the `--config` flag and it must
-contain a `ClusterConfiguration` structure and optionally more structures separated by `---\n`
+contain a `ClusterConfiguration` structure and optionally more structures separated by `---\n`.
 Mixing `--config` with others flags may not be allowed in some cases.
 
 The default configuration can be printed out using the
@@ -137,7 +137,7 @@ For more information on the fields and usage of the configuration you can naviga
 
 ### Using kubeadm init with feature gates {#feature-gates}
 
-Kubeadm supports a set of feature gates that are unique to kubeadm and can only be applied
+kubeadm supports a set of feature gates that are unique to kubeadm and can only be applied
 during cluster creation with `kubeadm init`. These features can control the behavior
 of the cluster. Feature gates are removed after a feature graduates to GA.
 
@@ -169,36 +169,38 @@ Feature gate descriptions:
 
 `ControlPlaneKubeletLocalMode`
 : With this feature gate enabled, when joining a new control plane node, kubeadm will configure the kubelet
-to connect to the local kube-apiserver. This ensures that there will not be a violation of the version skew
-policy during rolling upgrades.
+  to connect to the local kube-apiserver. This ensures that there will not be a violation of the version skew
+  policy during rolling upgrades.
 
 `EtcdLearnerMode`
 : With this feature gate enabled, when joining a new control plane node, a new etcd member will be created
-as a learner and promoted to a voting member only after the etcd data are fully aligned.
+  as a learner and promoted to a voting member only after the etcd data are fully aligned.
 
 `NodeLocalCRISocket`
 : With this feature gate enabled, kubeadm will read/write the CRI socket for each node from/to the file
-`/var/lib/kubelet/instance-config.yaml` instead of reading/writing it from/to the annotation
-`kubeadm.alpha.kubernetes.io/cri-socket` on the Node object. The new file is applied as an instance
-configuration patch, before any other user managed patches are applied when the `--patches` flag
-is used. It contains a single field `containerRuntimeEndpoint` from the
-[KubeletConfiguration file format](/docs/reference/config-api/kubelet-config.v1beta1/). If the feature gate
-is enabled during upgrade, but the file `/var/lib/kubelet/instance-config.yaml` does not exist yet,
-kubeadm will attempt to read the CRI socket value from the file `/var/lib/kubelet/kubeadm-flags.env`.
+  `/var/lib/kubelet/instance-config.yaml` instead of reading/writing it from/to the annotation
+  `kubeadm.alpha.kubernetes.io/cri-socket` on the Node object. The new file is applied as an instance
+  configuration patch, before any other user managed patches are applied when the `--patches` flag
+  is used. It contains a single field `containerRuntimeEndpoint` from the
+  [KubeletConfiguration file format](/docs/reference/config-api/kubelet-config.v1beta1/). If the feature gate
+  is enabled during upgrade, but the file `/var/lib/kubelet/instance-config.yaml` does not exist yet,
+  kubeadm will attempt to read the CRI socket value from the file `/var/lib/kubelet/kubeadm-flags.env`.
 
 `WaitForAllControlPlaneComponents`
 : With this feature gate enabled, kubeadm will wait for all control plane components (kube-apiserver,
-kube-controller-manager, kube-scheduler) on a control plane node to report status 200 on their `/livez`
-or `/healthz` endpoints. These checks are performed on `https://ADDRESS:PORT/ENDPOINT`.
-- `PORT` is taken from `--secure-port` of a component.
-- `ADDRESS` is `--advertise-address` for kube-apiserver and `--bind-address` for the kube-controller-manager
-and kube-scheduler.
-- `ENDPOINT` is only `/healthz` for kube-controller-manager until it supports `/livez` as well.
-If you specify custom `ADDRESS` or `PORT` in the kubeadm configuration they will be respected.
-Without the feature gate enabled, kubeadm will only wait for the kube-apiserver
-on a control plane node to become ready. The wait process starts right after the kubelet on the host
-is started by kubeadm. You are advised to enable this feature gate in case you wish to observe a ready
-state from all control plane components during the `kubeadm init` or `kubeadm join` command execution.
+  kube-controller-manager, kube-scheduler) on a control plane node to report status 200 on their `/livez`
+  or `/healthz` endpoints. These checks are performed on `https://ADDRESS:PORT/ENDPOINT`.
+
+  - `PORT` is taken from `--secure-port` of a component.
+  - `ADDRESS` is `--advertise-address` for kube-apiserver and `--bind-address` for the
+     kube-controller-manager and kube-scheduler.
+  - `ENDPOINT` is only `/healthz` for kube-controller-manager until it supports `/livez` as well.
+
+  If you specify custom `ADDRESS` or `PORT` in the kubeadm configuration they will be respected.
+  Without the feature gate enabled, kubeadm will only wait for the kube-apiserver
+  on a control plane node to become ready. The wait process starts right after the kubelet on the host
+  is started by kubeadm. You are advised to enable this feature gate in case you wish to observe a ready
+  state from all control plane components during the `kubeadm init` or `kubeadm join` command execution.
 
 List of deprecated feature gates:
 
@@ -213,17 +215,17 @@ Feature gate descriptions:
 
 `PublicKeysECDSA`
 : Can be used to create a cluster that uses ECDSA certificates instead of the default RSA algorithm.
-Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
-switch between the RSA and ECDSA algorithms on the fly or during upgrades.Kubernetes versions before v1.31
-had a bug where keys in generated kubeconfig files were set use RSA, even when you had enabled the
-`PublicKeysECDSA` feature gate. This feature gate is deprecated in favor of the `encryptionAlgorithm`
-functionality available in kubeadm v1beta4.
+  Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
+  switch between the RSA and ECDSA algorithms on the fly or during upgrades. Kubernetes versions before v1.31
+  had a bug where keys in generated kubeconfig files were set use RSA, even when you had enabled the
+  `PublicKeysECDSA` feature gate. This feature gate is deprecated in favor of the `encryptionAlgorithm`
+  functionality available in kubeadm v1beta4.
 
 `RootlessControlPlane`
 : Setting this flag configures the kubeadm deployed control plane component static Pod containers
-for `kube-apiserver`, `kube-controller-manager`, `kube-scheduler` and `etcd` to run as non-root users.
-If the flag is not set, those components run as root. You can change the value of this feature gate before
-you upgrade to a newer version of Kubernetes.
+  for `kube-apiserver`, `kube-controller-manager`, `kube-scheduler` and `etcd` to run as non-root users.
+  If the flag is not set, those components run as root. You can change the value of this feature gate before
+  you upgrade to a newer version of Kubernetes.
 
 List of removed feature gates:
 
@@ -239,37 +241,41 @@ Feature gate descriptions:
 
 `IPv6DualStack`
 : This flag helps to configure components dual stack when the feature is in progress. For more details on Kubernetes
-dual-stack support see [Dual-stack support with kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/).
+  dual-stack support see [Dual-stack support with kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/).
 
 `UnversionedKubeletConfigMap`
 : This flag controls the name of the {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} where kubeadm stores
-kubelet configuration data. With this flag not specified or set to `true`, the ConfigMap is named `kubelet-config`.
-If you set this flag to `false`, the name of the ConfigMap includes the major and minor version for Kubernetes
-(for example: `kubelet-config-{{< skew currentVersion >}}`). Kubeadm ensures that RBAC rules for reading and writing
-that ConfigMap are appropriate for the value you set. When kubeadm writes this ConfigMap (during `kubeadm init`
-or `kubeadm upgrade apply`), kubeadm respects the value of `UnversionedKubeletConfigMap`. When reading that ConfigMap
-(during `kubeadm join`, `kubeadm reset`, `kubeadm upgrade ...`), kubeadm attempts to use unversioned ConfigMap name first;
-if that does not succeed, kubeadm falls back to using the legacy (versioned) name for that ConfigMap.
+  kubelet configuration data. With this flag not specified or set to `true`, the ConfigMap is named `kubelet-config`.
+  If you set this flag to `false`, the name of the ConfigMap includes the major and minor version for Kubernetes
+  (for example: `kubelet-config-{{< skew currentVersion >}}`). Kubeadm ensures that RBAC rules for reading and writing
+  that ConfigMap are appropriate for the value you set. When kubeadm writes this ConfigMap (during `kubeadm init`
+  or `kubeadm upgrade apply`), kubeadm respects the value of `UnversionedKubeletConfigMap`. When reading that ConfigMap
+  (during `kubeadm join`, `kubeadm reset`, `kubeadm upgrade`...), kubeadm attempts to use unversioned ConfigMap name first.
+  If that does not succeed, kubeadm falls back to using the legacy (versioned) name for that ConfigMap.
 
 `UpgradeAddonsBeforeControlPlane`
-: This feature gate has been removed. It was introduced in v1.28 as a deprecated feature and then removed in v1.31. For documentation on older versions, please switch to the corresponding website version.
+: This feature gate has been removed. It was introduced in v1.28 as a deprecated feature and then removed in v1.31.
+  For documentation on older versions, please switch to the corresponding website version.
 
 ### Adding kube-proxy parameters {#kube-proxy}
 
 For information about kube-proxy parameters in the kubeadm configuration see:
+
 - [kube-proxy reference](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 
 For information about enabling IPVS mode with kubeadm see:
+
 - [IPVS](https://github.com/kubernetes/kubernetes/blob/master/pkg/proxy/ipvs/README.md)
 
 ### Passing custom flags to control plane components {#control-plane-flags}
 
 For information about passing flags to control plane components see:
+
 - [control-plane-flags](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)
 
 ### Running kubeadm without an Internet connection {#without-internet-connection}
 
-For running kubeadm without an Internet connection you have to pre-pull the required control-plane images.
+For running kubeadm without an Internet connection you have to pre-pull the required control plane images.
 
 You can list and pull the images using the `kubeadm config images` sub-command:
 
@@ -307,26 +313,24 @@ can consume, you must:
 
 * Pull images from the defaults paths at `registry.k8s.io` using `kubeadm config images {list|pull}`.
 * Push images to the paths from `kubeadm config images list --config=config.yaml`,
-where `config.yaml` contains the custom `imageRepository`, and/or `imageTag`
-for etcd and CoreDNS.
+  where `config.yaml` contains the custom `imageRepository`, and/or `imageTag` for etcd and CoreDNS.
 * Pass the same `config.yaml` to `kubeadm init`.
 
 #### Custom sandbox (pause) images {#custom-pause-image}
 
 To set a custom image for these you need to configure this in your
-{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
-to use the image.
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}} to use the image.
 Consult the documentation for your container runtime to find out how to change this setting;
 for selected container runtimes, you can also find advice within the
 [Container Runtimes](/docs/setup/production-environment/container-runtimes/) topic.
 
-### Uploading control-plane certificates to the cluster
+### Uploading control plane certificates to the cluster
 
 By adding the flag `--upload-certs` to `kubeadm init` you can temporary upload
-the control-plane certificates to a Secret in the cluster. Please note that this Secret
+the control plane certificates to a Secret in the cluster. Please note that this Secret
 will expire automatically after 2 hours. The certificates are encrypted using
 a 32byte key that can be specified using `--certificate-key`. The same key can be used
-to download the certificates when additional control-plane nodes are joining, by passing
+to download the certificates when additional control plane nodes are joining, by passing
 `--control-plane` and `--certificate-key` to `kubeadm join`.
 
 The following phase command can be used to re-upload the certificates after expiration:
@@ -334,6 +338,7 @@ The following phase command can be used to re-upload the certificates after expi
 ```shell
 kubeadm init phase upload-certs --upload-certs --config=SOME_YAML_FILE
 ```
+
 {{< note >}}
 A predefined `certificateKey` can be provided in `InitConfiguration` when passing the
 [configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/) with `--config`.
@@ -366,12 +371,12 @@ For further information, see
 
 ### Use kubeadm with CRI runtimes
 
-By default kubeadm attempts to detect your container runtime. For more details on this detection,
+By default, kubeadm attempts to detect your container runtime. For more details on this detection,
 see the [kubeadm CRI installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
 
 ### Setting the node name
 
-By default, `kubeadm` assigns a node name based on a machine's host address.
+By default, kubeadm assigns a node name based on a machine's host address.
 You can override this setting with the `--node-name` flag.
 The flag passes the appropriate [`--hostname-override`](/docs/reference/command-line-tools-reference/kubelet/#options)
 value to the kubelet.
@@ -384,24 +389,23 @@ Be aware that overriding the hostname can
 Rather than copying the token you obtained from `kubeadm init` to each node, as
 in the [basic kubeadm tutorial](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/),
 you can parallelize the token distribution for easier automation. To implement this automation,
-you must know the IP address that the control-plane node will have after it is started, or use a
+you must know the IP address that the control plane node will have after it is started, or use a
 DNS name or an address of a load balancer.
 
-1. Generate a token. This token must have the form  `<6 character string>.<16
-   character string>`. More formally, it must match the regex:
-   `[a-z0-9]{6}\.[a-z0-9]{16}`.
+1. Generate a token. This token must have the form `<6 character string>.<16 character string>`.
+   More formally, it must match the regex: `[a-z0-9]{6}\.[a-z0-9]{16}`.
 
    kubeadm can generate a token for you:
 
    ```shell
-    kubeadm token generate
+   kubeadm token generate
    ```
 
-1. Start both the control-plane node and the worker nodes concurrently with this token.
-   As they come up they should find each other and form the cluster.  The same
+1. Start both the control plane node and the worker nodes concurrently with this token.
+   As they come up they should find each other and form the cluster. The same
    `--token` argument can be used on both `kubeadm init` and `kubeadm join`.
 
-1. Similar can be done for `--certificate-key` when joining additional control-plane
+1. Similar can be done for `--certificate-key` when joining additional control plane
    nodes. The key can be generated using:
 
    ```shell
@@ -409,13 +413,13 @@ DNS name or an address of a load balancer.
    ```
 
 Once the cluster is up, you can use the `/etc/kubernetes/admin.conf` file from
-a control-plane node to talk to the cluster with administrator credentials or
+a control plane node to talk to the cluster with administrator credentials or
 [Generating kubeconfig files for additional users](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users).
 
 Note that this style of bootstrap has some relaxed security guarantees because
 it does not allow the root CA hash to be validated with
-`--discovery-token-ca-cert-hash` (since it's not generated when the nodes are
-provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/).
+`--discovery-token-ca-cert-hash` (since it's not generated when the nodes are provisioned).
+For details, see the [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/).
 
 ## {{% heading "whatsnext" %}}
 
@@ -427,4 +431,3 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
   cluster to a newer version
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made
   to this host by `kubeadm init` or `kubeadm join`
-
