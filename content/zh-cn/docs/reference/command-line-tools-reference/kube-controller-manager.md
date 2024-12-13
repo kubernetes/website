@@ -41,9 +41,9 @@ kube-controller-manager [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Should CIDRs for Pods be allocated and set on the cloud provider.
+Should CIDRs for Pods be allocated and set on the cloud provider. Requires --cluster-cidr.
 -->
-基于云驱动来为 Pod 分配和设置子网掩码。
+基于云驱动来为 Pod 分配和设置子网掩码。需要 <code>--cluster-cidr</code>。
 </td>
 </tr>
 
@@ -281,9 +281,11 @@ The provider for cloud services. Empty string for no provider.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-CIDR Range for Pods in cluster. Requires --allocate-node-cidrs to be true
+CIDR Range for Pods in cluster. Only used when --allocate-node-cidrs=true; if false, this option will be ignored.
 -->
-集群中 Pod 的 CIDR 范围。要求 <code>--allocate-node-cidrs</code> 标志为 true。
+集群中 Pod 的 CIDR 范围。仅当 <code>--allocate-node-cidrs=true</code> 时此选项才会被使用；
+如果为 false，此选项将被忽略。
+
 </td>
 </tr>
 
@@ -460,6 +462,19 @@ Filename containing a PEM-encoded RSA or ECDSA private key used to sign certific
 The number of cron job objects that are allowed to sync concurrently. Larger number = more responsive jobs, but more CPU (and network) load
 -->
 可以并发同步的 CronJob 对象个数。数值越大意味着对 CronJob 的响应越及时，
+同时也意味着更大的 CPU（和网络带宽）压力。
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--concurrent-daemonset-syncs int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：2</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!--
+The number of daemonset objects that are allowed to sync concurrently. Larger number = more responsive daemonsets, but more CPU (and network) load
+-->
+可以并发同步的 DaemonSet 对象个数。数值越大意味着对 DaemonSet 的响应越及时，
 同时也意味着更大的 CPU（和网络带宽）压力。
 </p></td>
 </tr>
@@ -714,7 +729,7 @@ Interval between starting controller managers.
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-A list of controllers to enable. '*' enables all on-by-default controllers, 'foo' enables the controller named 'foo', '-foo' disables the controller named 'foo'.<br/>All controllers: bootstrap-signer-controller, certificatesigningrequest-approving-controller, certificatesigningrequest-cleaner-controller, certificatesigningrequest-signing-controller, cloud-node-lifecycle-controller, clusterrole-aggregation-controller, cronjob-controller, daemonset-controller, deployment-controller, disruption-controller, endpoints-controller, endpointslice-controller, endpointslice-mirroring-controller, ephemeral-volume-controller, garbage-collector-controller, horizontal-pod-autoscaler-controller, job-controller, legacy-serviceaccount-token-cleaner-controller, namespace-controller, node-ipam-controller, node-lifecycle-controller, node-route-controller, persistentvolume-attach-detach-controller, persistentvolume-binder-controller, persistentvolume-expander-controller, persistentvolume-protection-controller, persistentvolumeclaim-protection-controller, pod-garbage-collector-controller, replicaset-controller, replicationcontroller-controller, resourceclaim-controller, resourcequota-controller, root-ca-certificate-publisher-controller, service-cidr-controller, service-lb-controller, serviceaccount-controller, serviceaccount-token-controller, statefulset-controller, storage-version-migrator-controller, storageversion-garbage-collector-controller, taint-eviction-controller, token-cleaner-controller, ttl-after-finished-controller, ttl-controller, validatingadmissionpolicy-status-controller<br/>Disabled-by-default controllers: bootstrap-signer-controller, token-cleaner-controller
+A list of controllers to enable. '*' enables all on-by-default controllers, 'foo' enables the controller named 'foo', '-foo' disables the controller named 'foo'.<br/>All controllers: bootstrap-signer-controller, certificatesigningrequest-approving-controller, certificatesigningrequest-cleaner-controller, certificatesigningrequest-signing-controller, cloud-node-lifecycle-controller, clusterrole-aggregation-controller, cronjob-controller, daemonset-controller, deployment-controller, disruption-controller, endpoints-controller, endpointslice-controller, endpointslice-mirroring-controller, ephemeral-volume-controller, garbage-collector-controller, horizontal-pod-autoscaler-controller, job-controller, kube-apiserver-serving-clustertrustbundle-publisher-controller, legacy-serviceaccount-token-cleaner-controller, namespace-controller, node-ipam-controller, node-lifecycle-controller, node-route-controller, persistentvolume-attach-detach-controller, persistentvolume-binder-controller, persistentvolume-expander-controller, persistentvolume-protection-controller, persistentvolumeclaim-protection-controller, pod-garbage-collector-controller, replicaset-controller, replicationcontroller-controller, resourceclaim-controller, resourcequota-controller, root-ca-certificate-publisher-controller, selinux-warning-controller, service-cidr-controller, service-lb-controller, serviceaccount-controller, serviceaccount-token-controller, statefulset-controller, storage-version-migrator-controller, storageversion-garbage-collector-controller, taint-eviction-controller, token-cleaner-controller, ttl-after-finished-controller, ttl-controller, validatingadmissionpolicy-status-controller, volumeattributesclass-protection-controller<br/>Disabled-by-default controllers: bootstrap-signer-controller, selinux-warning-controller, token-cleaner-controller
 -->
 要启用的控制器列表。<code>*</code> 表示启用所有默认启用的控制器；
 <code>foo</code> 启用名为 foo 的控制器；
@@ -724,18 +739,17 @@ certificatesigningrequest-cleaner-controller、certificatesigningrequest-signing
 cloud-node-lifecycle-controller、clusterrole-aggregation-controller、cronjob-controller、
 daemonset-controller、deployment-controller、disruption-controller、endpoints-controller、
 endpointslice-controller、endpointslice-mirroring-controller、ephemeral-volume-controller、
-garbage-collector-controller、horizontal-pod-autoscaler-controller、job-controller、
-legacy-serviceaccount-token-cleaner-controller、namespace-controller、node-ipam-controller、
-node-lifecycle-controller、node-route-controller、persistentvolume-attach-detach-controller、
-persistentvolume-binder-controller、persistentvolume-expander-controller、
-persistentvolume-protection-controller、persistentvolumeclaim-protection-controller、
-pod-garbage-collector-controller、replicaset-controller、replicationcontroller-controller、
-resourceclaim-controller、resourcequota-controller、root-ca-certificate-publisher-controller、
-service-cidr-controller、service-lb-controller、serviceaccount-controller、serviceaccount-token-controller、
-statefulset-controller、storage-version-migrator-controller、storageversion-garbage-collector-controller、
-taint-eviction-controller、token-cleaner-controller、ttl-after-finished-controller、ttl-controller、
-validatingadmissionpolicy-status-controller<br/>
-默认禁用的控制器有： bootstrap-signer-controller、token-cleaner-controller。
+garbage-collector-controller、horizontal-pod-autoscaler-controller、job-controller、kube-apiserver-serving-clustertrustbundle-publisher-controller、legacy-serviceaccount-token-cleaner-controller、
+namespace-controller、node-ipam-controller、node-lifecycle-controller、node-route-controller、
+persistentvolume-attach-detach-controller、persistentvolume-binder-controller、persistentvolume-expander-controller、
+persistentvolume-protection-controller、persistentvolumeclaim-protection-controller、pod-garbage-collector-controller、
+replicaset-controller、replicationcontroller-controller、resourceclaim-controller、resourcequota-controller、
+root-ca-certificate-publisher-controller、selinux-warning-controller、service-cidr-controller、service-lb-controller、
+serviceaccount-controller、serviceaccount-token-controller、statefulset-controller、storage-version-migrator-controller、
+storageversion-garbage-collector-controller、taint-eviction-controller、token-cleaner-controller、
+ttl-after-finished-controller、ttl-controller、validatingadmissionpolicy-status-controller、
+volumeattributesclass-protection-controller<br/>
+默认禁用的控制器有： bootstrap-signer-controller、selinux-warning-controller、token-cleaner-controller
 </p>
 </td>
 </tr>
@@ -800,12 +814,12 @@ This flag provides an escape hatch for misbehaving metrics. You must provide the
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-The versions different components emulate their capabilities (APIs, features, ...) of.<br/>If set, the component will emulate the behavior of this version instead of the underlying binary version.<br/>Version format could only be major.minor, for example: '--emulated-version=wardle=1.2,kube=1.31'. Options are:<br/>kube=1.31..1.31 (default=1.31)If the component is not specified, defaults to &quot;kube&quot;
+The versions different components emulate their capabilities (APIs, features, ...) of.<br/>If set, the component will emulate the behavior of this version instead of the underlying binary version.<br/>Version format could only be major.minor, for example: '--emulated-version=wardle=1.2,kube=1.31'. Options are:<br/>kube=1.32..1.32 (default=1.32)If the component is not specified, defaults to &quot;kube&quot;
 -->
 不同组件所模拟的能力（API、特性等）的版本。<br/>
 如果设置了该选项，组件将模拟此版本的行为，而不是下层可执行文件版本的行为。<br/>
 版本格式只能是 major.minor，例如 “--emulated-version=wardle=1.2,kube=1.31”。
-选项包括：<br/>kube=1.31..1.31（默认值=1.31）。如果组件未被指定，默认为 “kube”。
+选项包括：<br/>kube=1.32..1.32（默认值=1.32）。如果组件未被指定，默认为 “kube”。
 </p></td>
 </tr>
 
@@ -910,41 +924,47 @@ The plugin to use when cloud provider is set to external. Can be empty, should o
 <p>
 <!--
 Comma-separated list of component:key=value pairs that describe feature gates for alpha/experimental features of different components.<br/>
-If the component is not specified, defaults to &quot;kube&quot;. This flag can be repeatedly invoked. For example: --feature-gates 'wardle:featureA=true,wardle:featureB=false' --feature-gates 'kube:featureC=true'Options are:<br/>
+If the component is not specified, defaults to &quot;kube&quot;. This flag can be repeatedly invoked.
+For example: --feature-gates 'wardle:featureA=true,wardle:featureB=false' --feature-gates 'kube:featureC=true'Options are:<br/>
 kube:APIResponseCompression=true|false (BETA - default=true)<br/>
 kube:APIServerIdentity=true|false (BETA - default=true)<br/>
 kube:APIServerTracing=true|false (BETA - default=true)<br/>
 kube:APIServingWithRoutine=true|false (ALPHA - default=false)<br/>
 kube:AllAlpha=true|false (ALPHA - default=false)<br/>
 kube:AllBeta=true|false (BETA - default=false)<br/>
-kube:AnonymousAuthConfigurableEndpoints=true|false (ALPHA - default=false)<br/>
+kube:AllowUnsafeMalformedObjectDeletion=true|false (ALPHA - default=false)<br/>
+kube:AnonymousAuthConfigurableEndpoints=true|false (BETA - default=true)<br/>
 kube:AnyVolumeDataSource=true|false (BETA - default=true)<br/>
-kube:AuthorizeNodeWithSelectors=true|false (ALPHA - default=false)<br/>
-kube:AuthorizeWithSelectors=true|false (ALPHA - default=false)<br/>
+kube:AuthorizeNodeWithSelectors=true|false (BETA - default=true)<br/>
+kube:AuthorizeWithSelectors=true|false (BETA - default=true)<br/>
+kube:BtreeWatchCache=true|false (BETA - default=true)<br/>
+kube:CBORServingAndStorage=true|false (ALPHA - default=false)<br/>
 kube:CPUManagerPolicyAlphaOptions=true|false (ALPHA - default=false)<br/>
 kube:CPUManagerPolicyBetaOptions=true|false (BETA - default=true)<br/>
 kube:CPUManagerPolicyOptions=true|false (BETA - default=true)<br/>
 kube:CRDValidationRatcheting=true|false (BETA - default=true)<br/>
 kube:CSIMigrationPortworx=true|false (BETA - default=true)<br/>
 kube:CSIVolumeHealth=true|false (ALPHA - default=false)<br/>
+kube:ClientsAllowCBOR=true|false (ALPHA - default=false)<br/>
+kube:ClientsPreferCBOR=true|false (ALPHA - default=false)<br/>
 kube:CloudControllerManagerWebhook=true|false (ALPHA - default=false)<br/>
 kube:ClusterTrustBundle=true|false (ALPHA - default=false)<br/>
 kube:ClusterTrustBundleProjection=true|false (ALPHA - default=false)<br/>
-kube:ComponentSLIs=true|false (BETA - default=true)<br/>
+kube:ComponentFlagz=true|false (ALPHA - default=false)<br/>
+kube:ComponentStatusz=true|false (ALPHA - default=false)<br/>
 kube:ConcurrentWatchObjectDecode=true|false (BETA - default=false)<br/>
 kube:ConsistentListFromCache=true|false (BETA - default=true)<br/>
 kube:ContainerCheckpoint=true|false (BETA - default=true)<br/>
 kube:ContextualLogging=true|false (BETA - default=true)<br/>
 kube:CoordinatedLeaderElection=true|false (ALPHA - default=false)<br/>
-kube:CronJobsScheduledAnnotation=true|false (BETA - default=true)<br/>
 kube:CrossNamespaceVolumeDataSource=true|false (ALPHA - default=false)<br/>
 kube:CustomCPUCFSQuotaPeriod=true|false (ALPHA - default=false)<br/>
-kube:CustomResourceFieldSelectors=true|false (BETA - default=true)<br/>
-kube:DRAControlPlaneController=true|false (ALPHA - default=false)<br/>
+kube:DRAAdminAccess=true|false (ALPHA - default=false)<br/>
+kube:DRAResourceClaimDeviceStatus=true|false (ALPHA - default=false)<br/>
 kube:DisableAllocatorDualWrite=true|false (ALPHA - default=false)<br/>
-kube:DisableNodeKubeProxyVersion=true|false (BETA - default=true)<br/>
-kube:DynamicResourceAllocation=true|false (ALPHA - default=false)<br/>
+kube:DynamicResourceAllocation=true|false (BETA - default=false)<br/>
 kube:EventedPLEG=true|false (ALPHA - default=false)<br/>
+kube:ExternalServiceAccountTokenSigner=true|false (ALPHA - default=false)<br/>
 kube:GracefulNodeShutdown=true|false (BETA - default=true)<br/>
 kube:GracefulNodeShutdownBasedOnPodPriority=true|false (BETA - default=true)<br/>
 kube:HPAScaleToZero=true|false (ALPHA - default=false)<br/>
@@ -952,26 +972,28 @@ kube:HonorPVReclaimPolicy=true|false (BETA - default=true)<br/>
 kube:ImageMaximumGCAge=true|false (BETA - default=true)<br/>
 kube:ImageVolume=true|false (ALPHA - default=false)<br/>
 kube:InPlacePodVerticalScaling=true|false (ALPHA - default=false)<br/>
+kube:InPlacePodVerticalScalingAllocatedStatus=true|false (ALPHA - default=false)<br/>
+kube:InPlacePodVerticalScalingExclusiveCPUs=true|false (ALPHA - default=false)<br/>
 kube:InTreePluginPortworxUnregister=true|false (ALPHA - default=false)<br/>
 kube:InformerResourceVersion=true|false (ALPHA - default=false)<br/>
 kube:JobBackoffLimitPerIndex=true|false (BETA - default=true)<br/>
-kube:JobManagedBy=true|false (ALPHA - default=false)<br/>
+kube:JobManagedBy=true|false (BETA - default=true)<br/>
 kube:JobPodReplacementPolicy=true|false (BETA - default=true)<br/>
 kube:JobSuccessPolicy=true|false (BETA - default=true)<br/>
 kube:KubeletCgroupDriverFromCRI=true|false (BETA - default=true)<br/>
+kube:KubeletCrashLoopBackOffMax=true|false (ALPHA - default=false)<br/>
+kube:KubeletFineGrainedAuthz=true|false (ALPHA - default=false)<br/>
 kube:KubeletInUserNamespace=true|false (ALPHA - default=false)<br/>
 kube:KubeletPodResourcesDynamicResources=true|false (ALPHA - default=false)<br/>
 kube:KubeletPodResourcesGet=true|false (ALPHA - default=false)<br/>
 kube:KubeletSeparateDiskGC=true|false (BETA - default=true)<br/>
 kube:KubeletTracing=true|false (BETA - default=true)<br/>
-kube:LoadBalancerIPMode=true|false (BETA - default=true)<br/>
 kube:LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (BETA - default=false)<br/>
 kube:LoggingAlphaOptions=true|false (ALPHA - default=false)<br/>
 kube:LoggingBetaOptions=true|false (BETA - default=true)<br/>
 kube:MatchLabelKeysInPodAffinity=true|false (BETA - default=true)<br/>
 kube:MatchLabelKeysInPodTopologySpread=true|false (BETA - default=true)<br/>
 kube:MaxUnavailableStatefulSet=true|false (ALPHA - default=false)<br/>
-kube:MemoryManager=true|false (BETA - default=true)<br/>
 kube:MemoryQoS=true|false (ALPHA - default=false)<br/>
 kube:MultiCIDRServiceAllocator=true|false (BETA - default=false)<br/>
 kube:MutatingAdmissionPolicy=true|false (ALPHA - default=false)<br/>
@@ -982,47 +1004,45 @@ kube:NodeSwap=true|false (BETA - default=true)<br/>
 kube:OpenAPIEnums=true|false (BETA - default=true)<br/>
 kube:PodAndContainerStatsFromCRI=true|false (ALPHA - default=false)<br/>
 kube:PodDeletionCost=true|false (BETA - default=true)<br/>
-kube:PodIndexLabel=true|false (BETA - default=true)<br/>
+kube:PodLevelResources=true|false (ALPHA - default=false)<br/>
 kube:PodLifecycleSleepAction=true|false (BETA - default=true)<br/>
+kube:PodLifecycleSleepActionAllowZero=true|false (ALPHA - default=false)<br/>
+kube:PodLogsQuerySplitStreams=true|false (ALPHA - default=false)<br/>
 kube:PodReadyToStartContainersCondition=true|false (BETA - default=true)<br/>
 kube:PortForwardWebsockets=true|false (BETA - default=true)<br/>
 kube:ProcMountType=true|false (BETA - default=false)<br/>
 kube:QOSReserved=true|false (ALPHA - default=false)<br/>
-kube:RecoverVolumeExpansionFailure=true|false (ALPHA - default=false)<br/>
+kube:RecoverVolumeExpansionFailure=true|false (BETA - default=true)<br/>
 kube:RecursiveReadOnlyMounts=true|false (BETA - default=true)<br/>
-kube:RelaxedEnvironmentVariableValidation=true|false (ALPHA - default=false)<br/>
+kube:RelaxedDNSSearchValidation=true|false (ALPHA - default=false)<br/>
+kube:RelaxedEnvironmentVariableValidation=true|false (BETA - default=true)<br/>
 kube:ReloadKubeletServerCertificateFile=true|false (BETA - default=true)<br/>
+kube:RemoteRequestHeaderUID=true|false (ALPHA - default=false)<br/>
 kube:ResilientWatchCacheInitialization=true|false (BETA - default=true)<br/>
 kube:ResourceHealthStatus=true|false (ALPHA - default=false)<br/>
-kube:RetryGenerateName=true|false (BETA - default=true)<br/>
 kube:RotateKubeletServerCertificate=true|false (BETA - default=true)<br/>
 kube:RuntimeClassInImageCriApi=true|false (ALPHA - default=false)<br/>
+kube:SELinuxChangePolicy=true|false (ALPHA - default=false)<br/>
 kube:SELinuxMount=true|false (ALPHA - default=false)<br/>
 kube:SELinuxMountReadWriteOncePod=true|false (BETA - default=true)<br/>
-kube:SchedulerQueueingHints=true|false (BETA - default=false)<br/>
+kube:SchedulerAsyncPreemption=true|false (ALPHA - default=false)<br/>
+kube:SchedulerQueueingHints=true|false (BETA - default=true)<br/>
 kube:SeparateCacheWatchRPC=true|false (BETA - default=true)<br/>
 kube:SeparateTaintEvictionController=true|false (BETA - default=true)<br/>
-kube:ServiceAccountTokenJTI=true|false (BETA - default=true)<br/>
+kube:ServiceAccountNodeAudienceRestriction=true|false (BETA - default=true)<br/>
 kube:ServiceAccountTokenNodeBinding=true|false (BETA - default=true)<br/>
-kube:ServiceAccountTokenNodeBindingValidation=true|false (BETA - default=true)<br/>
-kube:ServiceAccountTokenPodNodeInfo=true|false (BETA - default=true)<br/>
 kube:ServiceTrafficDistribution=true|false (BETA - default=true)<br/>
 kube:SidecarContainers=true|false (BETA - default=true)<br/>
-kube:SizeMemoryBackedVolumes=true|false (BETA - default=true)<br/>
-kube:StatefulSetAutoDeletePVC=true|false (BETA - default=true)<br/>
 kube:StorageNamespaceIndex=true|false (BETA - default=true)<br/>
 kube:StorageVersionAPI=true|false (ALPHA - default=false)<br/>
 kube:StorageVersionHash=true|false (BETA - default=true)<br/>
 kube:StorageVersionMigrator=true|false (ALPHA - default=false)<br/>
-kube:StrictCostEnforcementForVAP=true|false (BETA - default=false)<br/>
-kube:StrictCostEnforcementForWebhooks=true|false (BETA - default=false)<br/>
 kube:StructuredAuthenticationConfiguration=true|false (BETA - default=true)<br/>
-kube:StructuredAuthorizationConfiguration=true|false (BETA - default=true)<br/>
 kube:SupplementalGroupsPolicy=true|false (ALPHA - default=false)<br/>
+kube:SystemdWatchdog=true|false (BETA - default=true)<br/>
 kube:TopologyAwareHints=true|false (BETA - default=true)<br/>
 kube:TopologyManagerPolicyAlphaOptions=true|false (ALPHA - default=false)<br/>
 kube:TopologyManagerPolicyBetaOptions=true|false (BETA - default=true)<br/>
-kube:TopologyManagerPolicyOptions=true|false (BETA - default=true)<br/>
 kube:TranslateStreamCloseWebsocketRequests=true|false (BETA - default=true)<br/>
 kube:UnauthenticatedHTTP2DOSMitigation=true|false (BETA - default=true)<br/>
 kube:UnknownVersionInteroperabilityProxy=true|false (ALPHA - default=false)<br/>
@@ -1032,10 +1052,12 @@ kube:VolumeAttributesClass=true|false (BETA - default=false)<br/>
 kube:VolumeCapacityPriority=true|false (ALPHA - default=false)<br/>
 kube:WatchCacheInitializationPostStartHook=true|false (BETA - default=false)<br/>
 kube:WatchFromStorageWithoutResourceVersion=true|false (BETA - default=false)<br/>
-kube:WatchList=true|false (ALPHA - default=false)<br/>
-kube:WatchListClient=true|false (BETA - default=false)<br/>
+kube:WatchList=true|false (BETA - default=true)<br/>
+kube:WatchListClient=true|false (BETA - default=true)<br/>
 kube:WinDSR=true|false (ALPHA - default=false)<br/>
 kube:WinOverlay=true|false (BETA - default=true)<br/>
+kube:WindowsCPUAndMemoryAffinity=true|false (ALPHA - default=false)<br/>
+kube:WindowsGracefulNodeShutdown=true|false (ALPHA - default=false)<br/>
 kube:WindowsHostNetwork=true|false (ALPHA - default=true)
 -->
 逗号分隔的组件列表，这些 key=value 对用来描述不同组件测试性/试验性特性的特性门控。<br/>
@@ -1048,34 +1070,39 @@ kube:APIServerTracing=true|false (BETA - 默认值=true)<br/>
 kube:APIServingWithRoutine=true|false (ALPHA - 默认值=false)<br/>
 kube:AllAlpha=true|false (ALPHA - 默认值=false)<br/>
 kube:AllBeta=true|false (BETA - 默认值=false)<br/>
-kube:AnonymousAuthConfigurableEndpoints=true|false (ALPHA - 默认值=false)<br/>
+kube:AllowUnsafeMalformedObjectDeletion=true|false (ALPHA - 默认值=false)<br/>
+kube:AnonymousAuthConfigurableEndpoints=true|false (BETA - 默认值=true)<br/>
 kube:AnyVolumeDataSource=true|false (BETA - 默认值=true)<br/>
-kube:AuthorizeNodeWithSelectors=true|false (ALPHA - 默认值=false)<br/>
-kube:AuthorizeWithSelectors=true|false (ALPHA - 默认值=false)<br/>
+kube:AuthorizeNodeWithSelectors=true|false (BETA - 默认值=true)<br/>
+kube:AuthorizeWithSelectors=true|false (BETA - 默认值=true)<br/>
+kube:BtreeWatchCache=true|false (BETA - 默认值=true)<br/>
+kube:CBORServingAndStorage=true|false (ALPHA - 默认值=false)<br/>
 kube:CPUManagerPolicyAlphaOptions=true|false (ALPHA - 默认值=false)<br/>
 kube:CPUManagerPolicyBetaOptions=true|false (BETA - 默认值=true)<br/>
 kube:CPUManagerPolicyOptions=true|false (BETA - 默认值=true)<br/>
 kube:CRDValidationRatcheting=true|false (BETA - 默认值=true)<br/>
 kube:CSIMigrationPortworx=true|false (BETA - 默认值=true)<br/>
 kube:CSIVolumeHealth=true|false (ALPHA - 默认值=false)<br/>
+kube:ClientsAllowCBOR=true|false (ALPHA - 默认值=false)<br/>
+kube:ClientsPreferCBOR=true|false (ALPHA - 默认值=false)<br/>
 kube:CloudControllerManagerWebhook=true|false (ALPHA - 默认值=false)<br/>
 kube:ClusterTrustBundle=true|false (ALPHA - 默认值=false)<br/>
 kube:ClusterTrustBundleProjection=true|false (ALPHA - 默认值=false)<br/>
-kube:ComponentSLIs=true|false (BETA - 默认值=true)<br/>
+kube:ComponentFlagz=true|false (ALPHA - 默认值=false)<br/>
+kube:ComponentStatusz=true|false (ALPHA - 默认值=false)<br/>
 kube:ConcurrentWatchObjectDecode=true|false (BETA - 默认值=false)<br/>
 kube:ConsistentListFromCache=true|false (BETA - 默认值=true)<br/>
 kube:ContainerCheckpoint=true|false (BETA - 默认值=true)<br/>
 kube:ContextualLogging=true|false (BETA - 默认值=true)<br/>
 kube:CoordinatedLeaderElection=true|false (ALPHA - 默认值=false)<br/>
-kube:CronJobsScheduledAnnotation=true|false (BETA - 默认值=true)<br/>
 kube:CrossNamespaceVolumeDataSource=true|false (ALPHA - 默认值=false)<br/>
 kube:CustomCPUCFSQuotaPeriod=true|false (ALPHA - 默认值=false)<br/>
-kube:CustomResourceFieldSelectors=true|false (BETA - 默认值=true)<br/>
-kube:DRAControlPlaneController=true|false (ALPHA - 默认值=false)<br/>
+kube:DRAAdminAccess=true|false (ALPHA - 默认值=false)<br/>
+kube:DRAResourceClaimDeviceStatus=true|false (ALPHA - 默认值=false)<br/>
 kube:DisableAllocatorDualWrite=true|false (ALPHA - 默认值=false)<br/>
-kube:DisableNodeKubeProxyVersion=true|false (BETA - 默认值=true)<br/>
-kube:DynamicResourceAllocation=true|false (ALPHA - 默认值=false)<br/>
+kube:DynamicResourceAllocation=true|false (BETA - 默认值=false)<br/>
 kube:EventedPLEG=true|false (ALPHA - 默认值=false)<br/>
+kube:ExternalServiceAccountTokenSigner=true|false (ALPHA - 默认值=false)<br/>
 kube:GracefulNodeShutdown=true|false (BETA - 默认值=true)<br/>
 kube:GracefulNodeShutdownBasedOnPodPriority=true|false (BETA - 默认值=true)<br/>
 kube:HPAScaleToZero=true|false (ALPHA - 默认值=false)<br/>
@@ -1083,26 +1110,28 @@ kube:HonorPVReclaimPolicy=true|false (BETA - 默认值=true)<br/>
 kube:ImageMaximumGCAge=true|false (BETA - 默认值=true)<br/>
 kube:ImageVolume=true|false (ALPHA - 默认值=false)<br/>
 kube:InPlacePodVerticalScaling=true|false (ALPHA - 默认值=false)<br/>
+kube:InPlacePodVerticalScalingAllocatedStatus=true|false (ALPHA - 默认值=false)<br/>
+kube:InPlacePodVerticalScalingExclusiveCPUs=true|false (ALPHA - 默认值=false)<br/>
 kube:InTreePluginPortworxUnregister=true|false (ALPHA - 默认值=false)<br/>
 kube:InformerResourceVersion=true|false (ALPHA - 默认值=false)<br/>
 kube:JobBackoffLimitPerIndex=true|false (BETA - 默认值=true)<br/>
-kube:JobManagedBy=true|false (ALPHA - 默认值=false)<br/>
+kube:JobManagedBy=true|false (BETA - 默认值=true)<br/>
 kube:JobPodReplacementPolicy=true|false (BETA - 默认值=true)<br/>
 kube:JobSuccessPolicy=true|false (BETA - 默认值=true)<br/>
 kube:KubeletCgroupDriverFromCRI=true|false (BETA - 默认值=true)<br/>
+kube:KubeletCrashLoopBackOffMax=true|false (ALPHA - 默认值=false)<br/>
+kube:KubeletFineGrainedAuthz=true|false (ALPHA - 默认值=false)<br/>
 kube:KubeletInUserNamespace=true|false (ALPHA - 默认值=false)<br/>
 kube:KubeletPodResourcesDynamicResources=true|false (ALPHA - 默认值=false)<br/>
 kube:KubeletPodResourcesGet=true|false (ALPHA - 默认值=false)<br/>
 kube:KubeletSeparateDiskGC=true|false (BETA - 默认值=true)<br/>
 kube:KubeletTracing=true|false (BETA - 默认值=true)<br/>
-kube:LoadBalancerIPMode=true|false (BETA - 默认值=true)<br/>
 kube:LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (BETA - 默认值=false)<br/>
 kube:LoggingAlphaOptions=true|false (ALPHA - 默认值=false)<br/>
 kube:LoggingBetaOptions=true|false (BETA - 默认值=true)<br/>
 kube:MatchLabelKeysInPodAffinity=true|false (BETA - 默认值=true)<br/>
 kube:MatchLabelKeysInPodTopologySpread=true|false (BETA - 默认值=true)<br/>
 kube:MaxUnavailableStatefulSet=true|false (ALPHA - 默认值=false)<br/>
-kube:MemoryManager=true|false (BETA - 默认值=true)<br/>
 kube:MemoryQoS=true|false (ALPHA - 默认值=false)<br/>
 kube:MultiCIDRServiceAllocator=true|false (BETA - 默认值=false)<br/>
 kube:MutatingAdmissionPolicy=true|false (ALPHA - 默认值=false)<br/>
@@ -1113,47 +1142,45 @@ kube:NodeSwap=true|false (BETA - 默认值=true)<br/>
 kube:OpenAPIEnums=true|false (BETA - 默认值=true)<br/>
 kube:PodAndContainerStatsFromCRI=true|false (ALPHA - 默认值=false)<br/>
 kube:PodDeletionCost=true|false (BETA - 默认值=true)<br/>
-kube:PodIndexLabel=true|false (BETA - 默认值=true)<br/>
+kube:PodLevelResources=true|false (ALPHA - 默认值=false)<br/>
 kube:PodLifecycleSleepAction=true|false (BETA - 默认值=true)<br/>
+kube:PodLifecycleSleepActionAllowZero=true|false (ALPHA - 默认值=false)<br/>
+kube:PodLogsQuerySplitStreams=true|false (ALPHA - 默认值=false)<br/>
 kube:PodReadyToStartContainersCondition=true|false (BETA - 默认值=true)<br/>
 kube:PortForwardWebsockets=true|false (BETA - 默认值=true)<br/>
 kube:ProcMountType=true|false (BETA - 默认值=false)<br/>
 kube:QOSReserved=true|false (ALPHA - 默认值=false)<br/>
-kube:RecoverVolumeExpansionFailure=true|false (ALPHA - 默认值=false)<br/>
+kube:RecoverVolumeExpansionFailure=true|false (BETA - 默认值=true)<br/>
 kube:RecursiveReadOnlyMounts=true|false (BETA - 默认值=true)<br/>
-kube:RelaxedEnvironmentVariableValidation=true|false (ALPHA - 默认值=false)<br/>
+kube:RelaxedDNSSearchValidation=true|false (ALPHA - 默认值=false)<br/>
+kube:RelaxedEnvironmentVariableValidation=true|false (BETA - 默认值=true)<br/>
 kube:ReloadKubeletServerCertificateFile=true|false (BETA - 默认值=true)<br/>
+kube:RemoteRequestHeaderUID=true|false (ALPHA - 默认值=false)<br/>
 kube:ResilientWatchCacheInitialization=true|false (BETA - 默认值=true)<br/>
 kube:ResourceHealthStatus=true|false (ALPHA - 默认值=false)<br/>
-kube:RetryGenerateName=true|false (BETA - 默认值=true)<br/>
 kube:RotateKubeletServerCertificate=true|false (BETA - 默认值=true)<br/>
 kube:RuntimeClassInImageCriApi=true|false (ALPHA - 默认值=false)<br/>
+kube:SELinuxChangePolicy=true|false (ALPHA - 默认值=false)<br/>
 kube:SELinuxMount=true|false (ALPHA - 默认值=false)<br/>
 kube:SELinuxMountReadWriteOncePod=true|false (BETA - 默认值=true)<br/>
-kube:SchedulerQueueingHints=true|false (BETA - 默认值=false)<br/>
+kube:SchedulerAsyncPreemption=true|false (ALPHA - 默认值=false)<br/>
+kube:SchedulerQueueingHints=true|false (BETA - 默认值=true)<br/>
 kube:SeparateCacheWatchRPC=true|false (BETA - 默认值=true)<br/>
 kube:SeparateTaintEvictionController=true|false (BETA - 默认值=true)<br/>
-kube:ServiceAccountTokenJTI=true|false (BETA - 默认值=true)<br/>
+kube:ServiceAccountNodeAudienceRestriction=true|false (BETA - 默认值=true)<br/>
 kube:ServiceAccountTokenNodeBinding=true|false (BETA - 默认值=true)<br/>
-kube:ServiceAccountTokenNodeBindingValidation=true|false (BETA - 默认值=true)<br/>
-kube:ServiceAccountTokenPodNodeInfo=true|false (BETA - 默认值=true)<br/>
 kube:ServiceTrafficDistribution=true|false (BETA - 默认值=true)<br/>
 kube:SidecarContainers=true|false (BETA - 默认值=true)<br/>
-kube:SizeMemoryBackedVolumes=true|false (BETA - 默认值=true)<br/>
-kube:StatefulSetAutoDeletePVC=true|false (BETA - 默认值=true)<br/>
 kube:StorageNamespaceIndex=true|false (BETA - 默认值=true)<br/>
 kube:StorageVersionAPI=true|false (ALPHA - 默认值=false)<br/>
 kube:StorageVersionHash=true|false (BETA - 默认值=true)<br/>
 kube:StorageVersionMigrator=true|false (ALPHA - 默认值=false)<br/>
-kube:StrictCostEnforcementForVAP=true|false (BETA - 默认值=false)<br/>
-kube:StrictCostEnforcementForWebhooks=true|false (BETA - 默认值=false)<br/>
 kube:StructuredAuthenticationConfiguration=true|false (BETA - 默认值=true)<br/>
-kube:StructuredAuthorizationConfiguration=true|false (BETA - 默认值=true)<br/>
 kube:SupplementalGroupsPolicy=true|false (ALPHA - 默认值=false)<br/>
+kube:SystemdWatchdog=true|false (BETA - 默认值=true)<br/>
 kube:TopologyAwareHints=true|false (BETA - 默认值=true)<br/>
 kube:TopologyManagerPolicyAlphaOptions=true|false (ALPHA - 默认值=false)<br/>
 kube:TopologyManagerPolicyBetaOptions=true|false (BETA - 默认值=true)<br/>
-kube:TopologyManagerPolicyOptions=true|false (BETA - 默认值=true)<br/>
 kube:TranslateStreamCloseWebsocketRequests=true|false (BETA - 默认值=true)<br/>
 kube:UnauthenticatedHTTP2DOSMitigation=true|false (BETA - 默认值=true)<br/>
 kube:UnknownVersionInteroperabilityProxy=true|false (ALPHA - 默认值=false)<br/>
@@ -1163,10 +1190,12 @@ kube:VolumeAttributesClass=true|false (BETA - 默认值=false)<br/>
 kube:VolumeCapacityPriority=true|false (ALPHA - 默认值=false)<br/>
 kube:WatchCacheInitializationPostStartHook=true|false (BETA - 默认值=false)<br/>
 kube:WatchFromStorageWithoutResourceVersion=true|false (BETA - 默认值=false)<br/>
-kube:WatchList=true|false (ALPHA - 默认值=false)<br/>
-kube:WatchListClient=true|false (BETA - 默认值=false)<br/>
+kube:WatchList=true|false (BETA - 默认值=true)<br/>
+kube:WatchListClient=true|false (BETA - 默认值=true)<br/>
 kube:WinDSR=true|false (ALPHA - 默认值=false)<br/>
 kube:WinOverlay=true|false (BETA - 默认值=true)<br/>
+kube:WindowsCPUAndMemoryAffinity=true|false (ALPHA - 默认值=false)<br/>
+kube:WindowsGracefulNodeShutdown=true|false (ALPHA - 默认值=false)<br/>
 kube:WindowsHostNetwork=true|false (ALPHA - 默认值=true)
 </p></td>
 </tr>
@@ -1385,10 +1414,10 @@ The interval between attempts by the acting master to renew a leadership slot be
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The type of resource object that is used for locking during leader election. Supported options are 'leases', 'endpointsleases' and 'configmapsleases'.
+The type of resource object that is used for locking during leader election. Supported options are 'leases'.
 -->
 在领导者选举期间用于锁定的资源对象的类型。 支持的选项为
-<code>leases</code>、<code>endpointsleases</code> 和 <code>configmapsleases</code>。
+<code>leases</code>。
 </td>
 </tr>
 
@@ -1662,16 +1691,17 @@ Number of nodes per second on which pods are deleted in case of node failure whe
 </tr>
 
 <tr>
-<td colspan="2">--node-monitor-grace-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：40s</td>
+<td colspan="2">--node-monitor-grace-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：50s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Amount of time which we allow running Node to be unresponsive before marking it unhealthy. Must be N times more than kubelet's nodeStatusUpdateFrequency, where N means number of retries allowed for kubelet to post node status.
+Amount of time which we allow running Node to be unresponsive before marking it unhealthy. Must be N times more than kubelet's nodeStatusUpdateFrequency, where N means number of retries allowed for kubelet to post node status. This value should also be greater than the sum of HTTP2_PING_TIMEOUT_SECONDS and HTTP2_READ_IDLE_TIMEOUT_SECONDS
 -->
 在将一个 Node 标记为不健康之前允许其无响应的时长上限。
 必须比 kubelet 的 nodeStatusUpdateFrequency 大 N 倍；
 这里 N 指的是 kubelet 发送节点状态的重试次数。
+此值也应大于 HTTP2_PING_TIMEOUT_SECONDS 与 HTTP2_READ_IDLE_TIMEOUT_SECONDS 之和。
 </td>
 </tr>
 
@@ -1865,7 +1895,7 @@ Root certificate bundle to use to verify client certificates on incoming request
 <!--
 List of request header prefixes to inspect. X-Remote-Extra- is suggested.
 -->
-要插入的请求头部前缀。建议使用 <code>X-Remote-Exra-</code>。
+要检查的请求头前缀的列表。建议使用 <code>X-Remote-Exra-</code>。
 </td>
 </tr>
 
@@ -1877,8 +1907,21 @@ List of request header prefixes to inspect. X-Remote-Extra- is suggested.
 <!--
 List of request headers to inspect for groups. X-Remote-Group is suggested.
 -->
-用来检查用户组名的请求头部名称列表。建议使用 <code>X-Remote-Group</code>。
+用来检查用户组名的请求头的列表。建议使用 <code>X-Remote-Group</code>。
 </td>
+</tr>
+
+<tr>
+<td colspan="2">--requestheader-uid-headers strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!--
+List of request headers to inspect for UIDs. X-Remote-Uid is suggested. Requires the RemoteRequestHeaderUID feature to be enabled.
+-->
+用来检查 UID 的请求头的列表。建议使用 <code>X-Remote-Uid</code>。
+要求 RemoteRequestHeaderUID 特性被启用。
+</p></td>
 </tr>
 
 <tr>
@@ -1889,7 +1932,7 @@ List of request headers to inspect for groups. X-Remote-Group is suggested.
 <!--
 List of request headers to inspect for usernames. X-Remote-User is common.
 -->
-用来检查用户名的请求头部名称列表。建议使用 <code>X-Remote-User</code>。
+用来检查用户名的请求头的列表。建议使用 <code>X-Remote-User</code>。
 </td>
 </tr>
 
@@ -1964,8 +2007,9 @@ The port on which to serve HTTPS with authentication and authorization. If 0, do
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Filename containing a PEM-encoded private RSA or ECDSA key used to sign service account tokens.
+Enables legacy secret-based tokens when set. Filename containing a PEM-encoded private RSA or ECDSA key used to sign service account tokens.
 -->
+设置此项后将启用传统的基于 Secret 的令牌。
 包含 PEM 编码的 RSA 或 ECDSA 私钥数据的文件名，这些私钥用来对服务账号令牌签名。
 </td>
 </tr>
@@ -1976,9 +2020,10 @@ Filename containing a PEM-encoded private RSA or ECDSA key used to sign service 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-CIDR Range for Services in cluster. Requires --allocate-node-cidrs to be true
+CIDR Range for Services in cluster. Only used when --allocate-node-cidrs=true; if false, this option will be ignored.
 -->
-集群中 Service 对象的 CIDR 范围。要求 <code>--allocate-node-cidrs</code> 标志为 true。
+集群中 Service 对象的 CIDR 范围。仅当 <code>--allocate-node-cidrs=true</code> 时此选项才会被使用。
+如果为 false，此选项将被忽略。
 </td>
 </tr>
 
