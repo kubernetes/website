@@ -72,7 +72,7 @@ _これは、v1.32のリリースに伴いGAとなった改善点の一部です
 
 ### SizeMemoryBackedVolumesのサポート
 
-この機能により、Podのリソース制限に基づいてメモリーバックアップボリュームを動的にサイズ設定できるようになり、ワークロードの移植性とノードのリソース使用率の全体的な向上を実現します。
+この機能により、Podのリソース制限に基づいてメモリバックアップボリュームを動的にサイズ設定できるようになり、ワークロードの移植性とノードのリソース使用率の全体的な向上を実現します。
 
 この作業は、[SIG Node](https://github.com/kubernetes/community/tree/master/sig-node)により[KEP #1967](https://github.com/kubernetes/enhancements/issues/1967)の一部として実施されました。
 
