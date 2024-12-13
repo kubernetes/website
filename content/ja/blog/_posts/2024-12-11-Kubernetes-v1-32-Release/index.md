@@ -91,9 +91,9 @@ APIサーバーに複数の認可機能を設定できるようになり、webho
 
 ### StatefulSetによって作成されたPVCの自動削除
 
-StatefulSetによって作成されたPersistentVolumeClaim(PVC)は、不要になった時点で自動的に削除されるようになりました。
-これは、StatefulSetの更新とノードのメンテナンス中のデータ永続性を確保しながら実現されています。
-この機能により、StatefulSetのストレージ管理が簡素化され、PVCが取り残されるリスクが軽減されます。
+StatefulSetが作成したPersistentVolumeClaim(PVC)は、不要になると自動的に削除されるようになりました。
+これはStatefulSetの更新やノードのメンテナンス時にもデータを確実に保持したまま削除処理を行います。
+この機能により、StatefulSetのストレージ管理が容易になり、PVCが残されたままになるリスクも減少します。
 
 この作業は、[SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps)により[KEP #1847](https://github.com/kubernetes/enhancements/issues/1847)の一部として実施されました。
 
