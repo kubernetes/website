@@ -361,12 +361,12 @@ Kubernetesコミュニティの最新情報を入手し、交流を深めまし�
 
 **2025年6月**
 
-- [**KCD - Kubernetes Community Days: Bratislava, Slovakia**](https://www.cncf.io/kcds/): 2025年6月5日 | ブラチスラバ、スロバキア
-- [**KCD - Kubernetes Community Days: Bangalore, India**](https://www.cncf.io/kcds/): 2025年6月6日 | バンガロール、インド
+- [**KCD - Kubernetes Community Days: Bratislava, Slovakia**](https://www.cncf.io/kcds/): 2025年6月5日 | ブラチスラバ(スロバキア)
+- [**KCD - Kubernetes Community Days: Bangalore, India**](https://www.cncf.io/kcds/): 2025年6月6日 | バンガロール(インド)
 - [**KubeCon + CloudNativeCon China 2025**](https://events.linuxfoundation.org/kubecon-cloudnativecon-china/): 2025年6月10日-11日 | 香港
-- [**KCD - Kubernetes Community Days: Antigua Guatemala, Guatemala**](https://www.cncf.io/kcds/): 2025年6月14日 | アンティグア グアテマラ、グアテマラ
-- [**KubeCon + CloudNativeCon Japan 2025**](https://events.linuxfoundation.org/kubecon-cloudnativecon-japan): 2025年6月16日-17日 | 東京、日本
-- [**KCD - Kubernetes Community Days: Nigeria, Africa**](https://www.cncf.io/kcds/): 2025年6月19日 | ナイジェリア、アフリカ
+- [**KCD - Kubernetes Community Days: Antigua Guatemala, Guatemala**](https://www.cncf.io/kcds/): 2025年6月14日 | アンティグア グアテマラ(グアテマラ)
+- [**KubeCon + CloudNativeCon Japan 2025**](https://events.linuxfoundation.org/kubecon-cloudnativecon-japan): 2025年6月16日-17日 | 東京(日本)
+- [**KCD - Kubernetes Community Days: Nigeria, Africa**](https://www.cncf.io/kcds/): 2025年6月19日 | ナイジェリア
 
 ## 次期リリースに関するウェビナーのお知らせ
 
