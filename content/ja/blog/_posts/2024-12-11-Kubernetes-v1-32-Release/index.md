@@ -259,7 +259,7 @@ Kubernetesの開発と成熟に伴い、プロジェクト全体の健全性の�
 
 #### 古いDRA実装の廃止
 
-機能強化[#3063](https://github.com/kubernetes/enhancements/issues/3063)により、Kubernetes 1.26でDynamic Resource Allocation(DRA)が導入されました。
+[KEP #3063](https://github.com/kubernetes/enhancements/issues/3063)により、Kubernetes 1.26でDynamic Resource Allocation(DRA)が導入されました。
 
 しかし、Kubernetes v1.32では、このDRAのアプローチが大幅に変更されます。元の実装に関連するコードは削除され、[KEP #4381](https://github.com/kubernetes/enhancements/issues/4381)が「新しい」基本機能として残ります。
 
