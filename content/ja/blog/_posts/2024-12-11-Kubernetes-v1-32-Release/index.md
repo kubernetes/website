@@ -98,8 +98,6 @@ StatefulSetによって作成されたPersistentVolumeClaim(PVC)は、不要に�
 
 ## ベータに昇格した機能のハイライト
 
-_This is a selection of some of the improvements that are now beta following the v1.32 release._
-
 _これは、v1.32のリリースに伴いベータとなった改善点の一部です。_
 
 ### JobのAPI管理メカニズム
