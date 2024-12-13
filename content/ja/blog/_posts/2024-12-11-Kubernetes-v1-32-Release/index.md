@@ -49,7 +49,7 @@ DRAはKubernetesのリソース管理システムの主要なコンポーネン�
 1. kubeletの健全性チェックが失敗した際にkubeletを再起動するために、systemdのwatchdog機能が使用されるようになりました。
 また、一定時間内の最大再起動回数も制限されます。
 これによりkubeletの信頼性が向上します。
-詳細については、プルリクエストの[#127566](https://github.com/kubernetes/kubernetes/pull/127566)をご覧ください。
+詳細についてはPull Requestの[#127566](https://github.com/kubernetes/kubernetes/pull/127566)をご覧ください。
 
 2. イメージプルのバックオフエラーが発生した場合、Podのステータスに表示されるメッセージが改善され、より分かりやすくなり、Podがこの状態にある理由の詳細が示されるようになりました。
 イメージプルのバックオフが発生すると、エラーはPod仕様の`status.containerStatuses[*].state.waiting.message`フィールドに追加され、`reason`フィールドには`ImagePullBackOff`の値が設定されます。
