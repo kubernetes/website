@@ -344,10 +344,10 @@ Kubernetesコミュニティの最新情報を入手し、交流を深めまし�
 
 **2025年4月**
 
-- [**KubeCon + CloudNativeCon Europe 2025**](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe): 2025年4月1日-4日 | ロンドン、イギリス
-- [**KCD - Kubernetes Community Days: Budapest, Hungary**](https://www.cncf.io/kcds/): 2025年4月23日 | ブダペスト、ハンガリー
-- [**KCD - Kubernetes Community Days: Chennai, India**](https://www.cncf.io/kcds/): 2025年4月26日 | チェンナイ、インド
-- [**KCD - Kubernetes Community Days: Auckland, New Zealand**](https://www.cncf.io/kcds/): 2025年4月28日 | オークランド、ニュージーランド、
+- [**KubeCon + CloudNativeCon Europe 2025**](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe): 2025年4月1日-4日 | ロンドン(イギリス)
+- [**KCD - Kubernetes Community Days: Budapest, Hungary**](https://www.cncf.io/kcds/): 2025年4月23日 | ブダペスト(ハンガリー)
+- [**KCD - Kubernetes Community Days: Chennai, India**](https://www.cncf.io/kcds/): 2025年4月26日 | チェンナイ(インド)
+- [**KCD - Kubernetes Community Days: Auckland, New Zealand**](https://www.cncf.io/kcds/): 2025年4月28日 | オークランド(ニュージーランド)
 
 **2025年5月**
 
