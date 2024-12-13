@@ -1,11 +1,13 @@
 aliases:
   sig-docs-blog-owners: # Approvers for blog content
     - mrbobbytables
+    - natalisucks
     - nate-double-u
     - sftim
   sig-docs-blog-reviewers: # Reviewers for blog content
     - Gauravpadam
     - mrbobbytables
+    - natalisucks
     - nate-double-u
     - sftim
   sig-docs-website-owners: # Admins for overall website
