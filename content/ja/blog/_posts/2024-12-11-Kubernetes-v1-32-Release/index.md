@@ -45,32 +45,17 @@ DRAはKubernetesのリソース管理システムの主要なコンポーネン�
 
 [SIG Node](https://github.com/kubernetes/community/tree/master/sig-node)では、KEPの範囲を超えて以下のような改善が行われています:
 
-1. The systemd watchdog capability is now used to restart the kubelet when its health check fails, while also limiting
-the maximum number of restarts within a given time period. This enhances the reliability of the kubelet. For more
-details, see pull request [#127566](https://github.com/kubernetes/kubernetes/pull/127566).
-
-2. In cases when an image pull back-off error is encountered, the message displayed in the Pod status has been improved
-to be more human-friendly and to indicate details about why the Pod is in this condition.
-When an image pull back-off occurs, the error is appended to the `status.containerStatuses[*].state.waiting.message`
-field in the Pod specification with an `ImagePullBackOff` value in the `reason` field. This change provides you with
-more context and helps you to identify the root cause of the issue. For more details, see pull request
-[#127918](https://github.com/kubernetes/kubernetes/pull/127918).
-
-3. The sidecar containers feature is targeting graduation to Stable in v1.33. To view the remaining work items and
-feedback from users, see comments in the issue
-[#753](https://github.com/kubernetes/enhancements/issues/753#issuecomment-2350136594).
-
 1. kubeletの健全性チェックが失敗した際にkubeletを再起動するために、systemdのwatchdog機能が使用されるようになりました。
 また、一定時間内の最大再起動回数も制限されます。
 これによりkubeletの信頼性が向上します。
 詳細については、プルリクエストの[#127566](https://github.com/kubernetes/kubernetes/pull/127566)をご覧ください。
 
-2. イメージプルのバックオフエラーが発生した場合、Podのステータスに表示されるメッセージが改善され、より分かりやすくなり、Podがこの状態にある理由の詳細が示されるようになりました。
+1. イメージプルのバックオフエラーが発生した場合、Podのステータスに表示されるメッセージが改善され、より分かりやすくなり、Podがこの状態にある理由の詳細が示されるようになりました。
 イメージプルのバックオフが発生すると、エラーはPod仕様の`status.containerStatuses[*].state.waiting.message`フィールドに追加され、`reason`フィールドには`ImagePullBackOff`の値が設定されます。
 この変更により、より多くのコンテキストが提供され、問題の根本原因を特定するのに役立ちます。
 詳細については、プルリクエストの[#127918](https://github.com/kubernetes/kubernetes/pull/127918)をご覧ください。
 
-3. サイドカーコンテナ機能は、v1.33でStableへの昇格を目指しています。
+1. サイドカーコンテナ機能は、v1.33でStableへの昇格を目指しています。
 残りの作業項目とユーザーからのフィードバックについては、Issueの[#753](https://github.com/kubernetes/enhancements/issues/753#issuecomment-2350136594)のコメントをご覧ください。
 
 ## GAに昇格した機能のハイライト
@@ -228,7 +213,7 @@ Goの`time.After`関数の機能に合わせることで、この更新はKubern
 
 ### コアコンポーネントの新しいstatuszとflagzエンドポイント
 
-コアコンポーネントに対して、2つの新しいHTTPエンドポイント（`/statusz`と`/flagz`）を有効にできるようになりました。
+コアコンポーネントに対して、2つの新しいHTTPエンドポイント(`/statusz`と`/flagz`)を有効にできるようになりました。
 これらのエンドポイントは、コンポーネントが実行されているバージョン(Golangのバージョンなど)や、稼働時間、そのコンポーネントが実行された際のコマンドラインフラグの詳細を把握することで、クラスターのデバッグ性を向上させます。
 これにより、実行時および設定の問題の診断が容易になります。
 
@@ -317,7 +302,7 @@ Kubernetesは、そのコミュニティのサポート、献身、そして懸�
 私たちは、Kubernetes v1.32リリースをコミュニティに提供するために多くの時間を費やしてくださった[リリースチーム](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.32/release-team.md)全体に感謝の意を表します。
 リリースチームのメンバーは、初めてShadowとして参加する人から、複数のリリースサイクルを経験したベテランのチームリーダーまで多岐にわたります。
 リリースリードのFrederico Muñozには、リリースチームを見事に率いて、あらゆる事柄を細心の注意を払って処理し、このリリースを円滑かつ効率的に実行してくれたことに、特別な感謝の意を表します。
-最後になりましたが、すべてのリリースメンバー（リードとシャドウの双方）、そして14週間のリリース作業期間中に素晴らしい仕事と成果を上げてくれた以下のSIGsに、大きな感謝の意を表します：
+最後になりましたが、すべてのリリースメンバー(リードとシャドウの双方)、そして14週間のリリース作業期間中に素晴らしい仕事と成果を上げてくれた以下のSIGsに、大きな感謝の意を表します：
 
 - [SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs) - ドキュメントとブログのレビューにおける基本的なサポートを提供し、リリースのコミュニケーションとドキュメントチームとの継続的な協力を行ってくれました。
 - [SIG k8s Infra](https://github.com/kubernetes/community/tree/master/sig-k8s-infra)と[SIG Testing](https://github.com/kubernetes/community/tree/master/sig-testing) - 必要なすべてのインフラコンポーネントと共に、テストフレームワークを確実に維持するための素晴らしい仕事を行ってくれました。
