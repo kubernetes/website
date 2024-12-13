@@ -1220,23 +1220,18 @@ Unprefixed names are reserved for end-users.
 没有前缀的名字是保留给最终用户的。
 
 <!--
-#### Specifying IPMode of load balancer status {#load-balancer-ip-mode}
+#### Load balancer IP address mode {#load-balancer-ip-mode}
 -->
-#### 指定负载均衡器状态的 IPMode    {#load-balancer-ip-mode}
+#### 负载均衡器 IP 地址模式    {#load-balancer-ip-mode}
 
 {{< feature-state feature_gate_name="LoadBalancerIPMode" >}}
 
 <!--
-As a Beta feature in Kubernetes 1.30,
-a [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
-named `LoadBalancerIPMode` allows you to set the `.status.loadBalancer.ingress.ipMode` 
-for a Service with `type` set to `LoadBalancer`. 
+For a Service of `type: LoadBalancer`, a controller can set `.status.loadBalancer.ingress.ipMode`. 
 The `.status.loadBalancer.ingress.ipMode` specifies how the load-balancer IP behaves. 
 It may be specified only when the `.status.loadBalancer.ingress.ip` field is also specified.
 -->
-作为 Kubernetes 1.30 中的 Beta 级别特性，通过名为 `LoadBalancerIPMode`
-的[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)允许你为
-`type` 为 `LoadBalancer` 的服务设置 `.status.loadBalancer.ingress.ipMode`。
+对于 `type: LoadBalancer` 的 Service，控制器可以设置 `.status.loadBalancer.ingress.ipMode`。
 `.status.loadBalancer.ingress.ipMode` 指定负载均衡器 IP 的行为方式。
 此字段只能在 `.status.loadBalancer.ingress.ip` 字段也被指定时才能指定。
 
