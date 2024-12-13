@@ -1,7 +1,7 @@
 ---
 title: Comparing Dynamic Resource Allocation to Device Plugins
 content_type: tutorial
-weight: 10
+weight: 20
 ---
 
 <!-- overview -->

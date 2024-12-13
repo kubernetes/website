@@ -62,7 +62,8 @@ Before walking through each tutorial, you may want to bookmark the
 
 ## Dynamic Resource Allocation
 
-* [Comparing Dynamic Resource Allocation to Device Plugins](/docs/tutorials/dynamic-resource-allocation/comparing-dra-device-plugin/)
+* [Example Dynamic Resource Allocation Configurations](/docs/tutorials/dynamic-resource-allocation/example-dra-configurations/)
+* [Comparing Dynamic Resource Allocation to Device Plugins](/docs/tutorials/dynamic-resource-allocation/comapring-dra-device-plugin/)
 
 ## {{% heading "whatsnext" %}}
 
