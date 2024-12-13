@@ -54,7 +54,7 @@ DRAはKubernetesのリソース管理システムの主要なコンポーネン�
 2. イメージプルのバックオフエラーが発生した場合、Podのステータスに表示されるメッセージが改善され、より分かりやすくなり、Podがこの状態にある理由の詳細が示されるようになりました。
 イメージプルのバックオフが発生すると、エラーはPod仕様の`status.containerStatuses[*].state.waiting.message`フィールドに追加され、`reason`フィールドには`ImagePullBackOff`の値が設定されます。
 この変更により、より多くのコンテキストが提供され、問題の根本原因を特定するのに役立ちます。
-詳細については、プルリクエストの[#127918](https://github.com/kubernetes/kubernetes/pull/127918)をご覧ください。
+詳細については、Pull Requestの[#127918](https://github.com/kubernetes/kubernetes/pull/127918)をご覧ください。
 
 3. サイドカーコンテナ機能は、v1.33でStableへの昇格を目指しています。
 残りの作業項目とユーザーからのフィードバックについては、Issueの[#753](https://github.com/kubernetes/enhancements/issues/753#issuecomment-2350136594)のコメントをご覧ください。
