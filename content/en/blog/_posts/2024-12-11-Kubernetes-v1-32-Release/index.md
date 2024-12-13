@@ -30,7 +30,7 @@ each release cycle is a journey, and just like Penelope, in "The Odyssey",
 weaved for 10 years -- each night removing parts of what she had done during the day -- 
 so does each release add new features and removes others, albeit here with a much 
 clearer purpose of constantly improving Kubernetes. 
-With v1.32 being the last release in the year Kubernetes marks it's first decade anniversary, 
+With v1.32 being the last release in the year Kubernetes marks its first decade anniversary, 
 we wanted to honour all of those that have been part of the global Kubernetes crew 
 that roams the cloud-native seas through perils and challanges: 
 may we continue to weave the future of Kubernetes together.
