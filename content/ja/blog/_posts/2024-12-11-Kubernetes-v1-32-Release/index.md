@@ -304,7 +304,7 @@ Kubernetesは、そのコミュニティのサポート、献身、そして懸�
 最後になりましたが、すべてのリリースメンバー(リードとシャドウの双方)、そして14週間のリリース作業期間中に素晴らしい仕事と成果を上げてくれた以下のSIGsに、大きな感謝の意を表します：
 
 - [SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs) - ドキュメントとブログのレビューにおける基本的なサポートを提供し、リリースのコミュニケーションとドキュメントチームとの継続的な協力を行ってくれました。
-- [SIG k8s Infra](https://github.com/kubernetes/community/tree/master/sig-k8s-infra)と[SIG Testing](https://github.com/kubernetes/community/tree/master/sig-testing) - 必要なすべてのインフラコンポーネントと共に、テストフレームワークを確実に維持するための素晴らしい仕事を行ってくれました。
+- [SIG K8s Infra](https://github.com/kubernetes/community/tree/master/sig-k8s-infra)と[SIG Testing](https://github.com/kubernetes/community/tree/master/sig-testing) - 必要なすべてのインフラコンポーネントと共に、テストフレームワークを確実に維持するための素晴らしい仕事を行ってくれました。
 - [SIG Release](https://github.com/kubernetes/community/tree/master/sig-release)とすべてのリリースマネージャー - リリース全体の調整を通じて素晴らしいサポートを提供し、最も困難な課題でも適切かつタイムリーに対応してくれました。
 
 ## プロジェクトの進捗速度
