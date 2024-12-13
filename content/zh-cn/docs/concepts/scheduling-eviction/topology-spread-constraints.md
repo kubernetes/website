@@ -185,12 +185,13 @@ your cluster. Those fields are:
   {{< note >}}
   <!--
   Before Kubernetes v1.30, the `minDomains` field was only available if the
-  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates-removed/)
   was enabled (default since v1.28). In older Kubernetes clusters it might be explicitly
   disabled or the field might not be available.
   -->
   在 Kubernetes v1.30 之前，`minDomains` 字段只有在启用 `MinDomainsInPodTopologySpread`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时才可用（自 v1.28 起默认启用）
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/)时才可用
+ （自 v1.28 起默认启用）。
   在早期的 Kubernetes 集群中，此特性门控可能被显式禁用或此字段可能不可用。
   {{< /note >}}
 
