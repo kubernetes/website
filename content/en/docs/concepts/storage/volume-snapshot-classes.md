@@ -51,7 +51,7 @@ deletionPolicy: Delete
 parameters:
 ```
 
-Administrators can specify a default VolumeSnapshotClass for VolumeSnapshots
+Administrators can specify a default VolumeSnapshotClass per CSI driver for VolumeSnapshots
 that don't request any particular class to bind to by adding the
 `snapshot.storage.kubernetes.io/is-default-class: "true"` annotation:
 
@@ -66,6 +66,9 @@ driver: hostpath.csi.k8s.io
 deletionPolicy: Delete
 parameters:
 ```
+
+If more than one default annotation per CSI driver is found, the snapshot
+will fail.
 
 ### Driver
 
