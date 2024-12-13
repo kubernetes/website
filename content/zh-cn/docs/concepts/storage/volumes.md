@@ -443,18 +443,10 @@ overlays), the `emptyDir` may run out of capacity before this limit.
 如果来自其他来源（如日志文件或镜像分层数据）的数据占满了存储，`emptyDir`
 可能会在达到此限制之前发生存储容量不足的问题。
 
-{{< note >}}
 <!--
-You can specify a size for memory backed volumes, provided that the `SizeMemoryBackedVolumes`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled in your cluster (this has been beta, and active by default, since the Kubernetes 1.22 release).
-If you don't specify a volume size, memory backed volumes are sized to node allocatable memory.
+If no size is specified, memory backed volumes are sized to node allocatable memory.
 -->
-你可以指定内存作为介质的卷的大小，前提是集群中启用了 `SizeMemoryBackedVolumes`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-（自 Kubernetes 1.22 发布以来，此特性一直处于 Beta 阶段，并且默认启用）。
-如果你未指定大小，内存作为介质的卷的大小根据节点可分配内存进行调整。
-{{< /note>}}
+如果未指定大小，内存支持的卷将被设置为节点可分配内存的大小。
 
 {{< caution >}}
 <!--
@@ -487,6 +479,30 @@ spec:
   - name: cache-volume
     emptyDir:
       sizeLimit: 500Mi
+```
+
+<!--
+#### emptyDir memory configuration example
+-->
+#### emptyDir 内存配置示例
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pd
+spec:
+  containers:
+  - image: registry.k8s.io/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /cache
+      name: cache-volume
+  volumes:
+  - name: cache-volume
+    emptyDir:
+      sizeLimit: 500Mi
+      medium: Memory
 ```
 
 <!--
@@ -1448,7 +1464,7 @@ must be installed on the cluster.
 （Portworx 的 CSI 迁移自 Kubernetes v1.23 版本以来一直可用，但从 v1.31 版本开始才默认启用）。
 如果你想禁用自动迁移，可以将 `CSIMigrationPortworx`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 设置为 `false`；
-你需要在 kube-controller-manager **和** 每个相关的 kubelet 上进行此更改。
+你需要在 kube-controller-manager **和**每个相关的 kubelet 上进行此更改。
 
 它将所有插件操作不再指向树内插件（In-Tree Plugin），转而指向
 `pxd.portworx.com` 容器存储接口（Container Storage Interface，CSI）驱动。
@@ -1813,7 +1829,7 @@ CSI 和 FlexVolume 都允许独立于 Kubernetes 代码库开发卷插件，并�
 (CSI) defines a standard interface for container orchestration systems (like
 Kubernetes) to expose arbitrary storage systems to their container workloads.
 -->
-[容器存储接口](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI)
+[容器存储接口](https://github.com/container-storage-interface/spec/blob/master/spec.md)（CSI）
 为容器编排系统（如 Kubernetes）定义标准接口，以将任意存储系统暴露给它们的容器工作负载。
 
 <!--
@@ -1929,7 +1945,7 @@ persistent volume:
   该映射必须与 CSI 驱动程序返回的 `CreateVolumeResponse` 中的 `volume.attributes`
   字段的映射相对应；
   [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume)中有相应的定义。
-  该映射通过`ControllerPublishVolumeRequest`、`NodeStageVolumeRequest` 和
+  该映射通过 `ControllerPublishVolumeRequest`、`NodeStageVolumeRequest` 和
   `NodePublishVolumeRequest` 中的 `volume_context` 字段传递给 CSI 驱动。
 
 <!--
@@ -1969,8 +1985,8 @@ persistent volume:
   当你为节点初始化的卷扩展配置 Secret 数据时，kubelet 会通过 `NodeExpandVolume()`
   调用将该数据传递给 CSI 驱动。所有受支持的 Kubernetes 版本都提供 `nodeExpandSecretRef` 字段，
   并且默认可用。Kubernetes v1.25 之前的版本不包括此支持。
-  为每个 kube-apiserver 和每个节点上的 kubelet 启用名为 `CSINodeExpandSecret` 的
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/)。
+  为每个 kube-apiserver 和每个节点上的 kubelet 启用名为 `CSINodeExpandSecret`
+  的[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/)。
   自 Kubernetes 1.27 版本起，此特性已默认启用，无需显式启用特性门控。
   在节点初始化的存储大小调整操作期间，你还必须使用支持或需要 Secret 数据的 CSI 驱动。
 
@@ -2165,8 +2181,9 @@ Pod 通过 `flexvolume` 树内插件与 FlexVolume 驱动程序交互。
 The following FlexVolume [plugins](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows),
 deployed as PowerShell scripts on the host, support Windows nodes:
 -->
-下面的 FlexVolume [插件](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows)
-以 PowerShell 脚本的形式部署在宿主机系统上，支持 Windows 节点：
+下面的 FlexVolume
+[插件](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows)以
+PowerShell 脚本的形式部署在宿主机系统上，支持 Windows 节点：
 
 * [SMB](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~smb.cmd)
 * [iSCSI](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~iscsi.cmd)
@@ -2190,12 +2207,12 @@ FlexVolume 用户应迁移工作负载以使用对等的 CSI 驱动。
 ## 挂载卷的传播   {#mount-propagation}
 
   {{< caution >}}
-<!--
+  <!--
   Mount propagation is a low-level feature that does not work consistently on all
   volume types. It is recommended to use only with `hostPath` or in-memory `emptyDir`
   volumes. See [this discussion](https://github.com/kubernetes/kubernetes/issues/95049)
   for more context.
--->
+  -->
   挂载卷的传播是一项底层功能，不能在所有类型的卷中以一致的方式工作。
   建议只在 `hostPath` 或基于内存的 `emptyDir` 卷中使用。
   详情请参考[讨论](https://github.com/kubernetes/kubernetes/issues/95049)。
@@ -2235,7 +2252,7 @@ in `containers[*].volumeMounts`. Its values are:
 
   然而，当 `rprivate` 传播选项不适用时，CRI 运行时可以转为选择 `rslave` 挂载传播选项
   （即 `HostToContainer`）。当挂载源包含 Docker 守护进程的根目录（`/var/lib/docker`）时，
-  cri-dockerd (Docker) 已知可以选择 `rslave` 挂载传播选项。
+  cri-dockerd（Docker）已知可以选择 `rslave` 挂载传播选项。
 
 <!--
 * `HostToContainer` - This volume mount will receive all subsequent mounts
