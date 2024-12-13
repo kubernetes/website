@@ -261,7 +261,7 @@ Kubernetesの開発と成熟に伴い、プロジェクト全体の健全性の�
 
 機能強化[#3063](https://github.com/kubernetes/enhancements/issues/3063)により、Kubernetes 1.26でDynamic Resource Allocation(DRA)が導入されました。
 
-しかし、Kubernetes v1.32では、このDRAのアプローチが大幅に変更されます。元の実装に関連するコードは削除され、KEP [#4381](https://github.com/kubernetes/enhancements/issues/4381)が「新しい」基本機能として残ります。
+しかし、Kubernetes v1.32では、このDRAのアプローチが大幅に変更されます。元の実装に関連するコードは削除され、[KEP #4381](https://github.com/kubernetes/enhancements/issues/4381)が「新しい」基本機能として残ります。
 
 既存のアプローチを変更する決定は、リソースの可用性が不透明であったことによるクラスターオートスケーリングとの非互換性に起因しており、これによりCluster Autoscalerとコントローラーの両方の意思決定が複雑化していました。
 新しく追加されたStructured Parameterモデルがその機能を置き換えます。
