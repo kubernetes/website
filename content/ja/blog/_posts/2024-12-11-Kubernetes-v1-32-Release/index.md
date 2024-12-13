@@ -351,13 +351,13 @@ Kubernetesコミュニティの最新情報を入手し、交流を深めまし�
 
 **2025年5月**
 
-- [**KCD - Kubernetes Community Days: Helsinki, Finland**](https://www.cncf.io/kcds/): 2025年5月6日 | ヘルシンキ、フィンランド
-- [**KCD - Kubernetes Community Days: San Francisco, USA**](https://www.cncf.io/kcds/): 2025年5月8日 | サンフランシスコ、アメリカ
-- [**KCD - Kubernetes Community Days: Austin, USA**](https://community.cncf.io/events/details/cncf-kcd-texas-presents-kcd-texas-austin-2025/): 2025年5月15日 | オースティン、アメリカ
-- [**KCD - Kubernetes Community Days: Seoul, South Korea**](https://www.cncf.io/kcds/): 2025年5月22日 | ソウル、韓国
-- [**KCD - Kubernetes Community Days: Istanbul, Turkey**](https://www.cncf.io/kcds/): 2025年5月23日 | イスタンブール、トルコ
-- [**KCD - Kubernetes Community Days: Heredia, Costa Rica**](https://www.cncf.io/kcds/): 2025年5月31日 | エレディア、コスタリカ
-- [**KCD - Kubernetes Community Days: New York, USA**](https://www.cncf.io/kcds/): 2025年5月 | ニューヨーク、アメリカ
+- [**KCD - Kubernetes Community Days: Helsinki, Finland**](https://www.cncf.io/kcds/): 2025年5月6日 | ヘルシンキ(フィンランド)
+- [**KCD - Kubernetes Community Days: San Francisco, USA**](https://www.cncf.io/kcds/): 2025年5月8日 | サンフランシスコ(アメリカ)
+- [**KCD - Kubernetes Community Days: Austin, USA**](https://community.cncf.io/events/details/cncf-kcd-texas-presents-kcd-texas-austin-2025/): 2025年5月15日 | オースティン(アメリカ)
+- [**KCD - Kubernetes Community Days: Seoul, South Korea**](https://www.cncf.io/kcds/): 2025年5月22日 | ソウル(韓国)
+- [**KCD - Kubernetes Community Days: Istanbul, Turkey**](https://www.cncf.io/kcds/): 2025年5月23日 | イスタンブール(トルコ)
+- [**KCD - Kubernetes Community Days: Heredia, Costa Rica**](https://www.cncf.io/kcds/): 2025年5月31日 | エレディア(コスタリカ)
+- [**KCD - Kubernetes Community Days: New York, USA**](https://www.cncf.io/kcds/): 2025年5月 | ニューヨーク(アメリカ)
 
 **2025年6月**
 
