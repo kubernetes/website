@@ -46,7 +46,7 @@ DRAはKubernetesのリソース管理システムの主要なコンポーネン�
 
 [SIG Node](https://github.com/kubernetes/community/tree/master/sig-node)では、KEPの範囲を超えて以下のような改善が行われています:
 
-1. kubeletの健全性チェックが失敗した際にkubeletを再起動するために、systemdのwatchdog機能が使用されるようになりました。
+1. kubeletのヘルスチェックが失敗した際にkubeletを再起動するために、systemdのwatchdog機能が使用されるようになりました。
 また、一定時間内の最大再起動回数も制限されます。
 これによりkubeletの信頼性が向上します。
 詳細についてはPull Requestの[#127566](https://github.com/kubernetes/kubernetes/pull/127566)をご覧ください。
