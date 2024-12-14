@@ -239,7 +239,7 @@ node, instead of the node labels.
 
 #### Existing Pods' Affinity and Anti-Affinity Considerations
 
-When scheduling a new Pod, the Kubernetes scheduler evaluates both the incoming Pod's affinity/anti-affinity rules and those of the existing Pods in the cluster. Here's how these rules are processed:
+When scheduling a new Pod, the Kubernetes scheduler evaluates the Pod's affinity/anti-affinity rules in the context of the current cluster state.
 
 1. Hard Constraints (Node Filtering):
    - `podAffinity.requiredDuringSchedulingIgnoredDuringExecution` and `podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution`:
@@ -305,33 +305,15 @@ spec.
 
 #### Existing Pods' Affinity and Anti-Affinity Considerations
 
-When scheduling a new Pod, the Kubernetes scheduler evaluates both the incoming Pod's affinity/anti-affinity rules and those of existing Pods in the cluster. Here's how these rules are processed:
+When scheduling a new Pod, the Kubernetes scheduler evaluates the Pod's affinity/anti-affinity rules in the context of the current cluster state. Here's how these rules are processed:
 
 1. Hard Constraints (Node Filtering):
-   - Incoming Pod's `podAffinity` or `podAntiAffinity` with `requiredDuringSchedulingIgnoredDuringExecution`:
+   - Incoming Pod's `podAffinity.requiredDuringSchedulingIgnoredDuringExecution` and `podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution`:
      The scheduler ensures the new Pod is assigned to nodes that satisfy these required affinity and anti-affinity rules based on existing Pods.
-   - Existing Pods' `podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution`:
-     Treated as hard constraints, filtering out nodes that violate existing Pods' required anti-affinity rules.
-   - Incoming Pod's `podAffinity` or `podAntiAffinity` with `requiredDuringSchedulingIgnoredDuringExecution`:
-     The scheduler ensures the new Pod is assigned to nodes that satisfy these required affinity and anti-affinity rules based on existing Pods.
-   - Existing Pods' `podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution`:**
-     The scheduler treats these as hard constraints, filtering out nodes that violate existing Pods' required anti-affinity rules.
 
 2. Soft Constraints (Node Scoring):
    - Incoming Pod's `podAffinity.preferredDuringSchedulingIgnoredDuringExecution` and `podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution`:
-     Scores nodes based on how well they meet these preferred affinity and anti-affinity rules to optimize Pod placement.
-   - Existing Pods' `podAffinity.requiredDuringSchedulingIgnoredDuringExecution`:
-     Treated as soft constraints, scoring nodes based on how well they satisfy existing Pods' required affinity rules.
-   - Incoming Pod's `podAffinity` or `podAntiAffinity` with `preferredDuringSchedulingIgnoredDuringExecution`:
      The scheduler scores nodes based on how well they meet these preferred affinity and anti-affinity rules to optimize Pod placement.
-   - Existing Pods' `podAffinity.requiredDuringSchedulingIgnoredDuringExecution`:
-     The scheduler treats these as soft constraints, scoring nodes based on how well they satisfy existing Pods' required affinity rules.
-
-3. Ignored Fields:
-   - Existing Pods' `podAffinity.preferredDuringSchedulingIgnoredDuringExecution` and `podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution`:
-     Not considered during scheduling.
-   - Existing Pods' `podAffinity.preferredDuringSchedulingIgnoredDuringExecution` and `podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution`:
-   - The scheduler does not consider these preferred affinity and anti-affinity rules during scheduling.
 
 #### Scheduling a Group of Pods with Inter-pod Affinity to Themselves
 
