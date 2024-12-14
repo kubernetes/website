@@ -1258,17 +1258,17 @@ body.cid-partners {
     /*  GRID OF THREE  */
     .span_3_of_3 {
         width: 35%;
-        background-color: #f9f9f9;
+        background-color: $light-grey;
         padding: 20px;
     }
     .span_2_of_3 {
         width: 35%;
-        background-color: #f9f9f9;
+        background-color: $light-grey;
         padding: 20px;
     }
     .span_1_of_3 {
         width: 35%;
-        background-color: #f9f9f9;
+        background-color: $light-grey;
         padding: 20px;
     }
 
@@ -1281,7 +1281,7 @@ body.cid-partners {
     .col-nav {
         display: table-cell; /* Make elements inside the container behave like table cells */
             width: 18%;
-            background-color: #f9f9f9;
+            background-color: $light-grey;
             padding: 20px;
             border: 5px solid white;
     }
@@ -1322,7 +1322,7 @@ body.cid-partners {
 
     #usersGrid a {
         display: inline-block;
-        background-color: #f9f9f9;
+        background-color: $light-grey;
     }
 
     #ktpContainer, #distContainer, #kcspContainer, #isvContainer, #servContainer {
@@ -1363,7 +1363,7 @@ body.cid-partners {
     }
 
     .partner-box img {
-        background-color: #f9f9f9;
+        background-color: $light-grey;
     }
 
     .partner-box > div {
