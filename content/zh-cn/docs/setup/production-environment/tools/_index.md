@@ -24,8 +24,8 @@ For example:
   providing declarative APIs and tooling to simplify provisioning, upgrading, and operating
   multiple Kubernetes clusters.
 -->
-- [Cluster API](https://cluster-api.sigs.k8s.io/): 
-  一个 Kubernetes 子项目，专注于提供声明式 API 和工具，以简化多个 Kubernetes 集群的配置、升级和操作。
+- [Cluster API](https://cluster-api.sigs.k8s.io/)：
+  一个 Kubernetes 子项目，专注于提供声明式 API 和工具，以简化多个 Kubernetes 集群的安装、升级和操作。
 
 <!--
 - [kops](https://kops.sigs.k8s.io/): An automated cluster provisioning tool.
@@ -33,20 +33,20 @@ For example:
   reaching out to the community, please check the
   [`kOps` website](https://kops.sigs.k8s.io/) for details.
 -->
-- [kops](https://kops.sigs.k8s.io/)：自动化集群制备工具。
+- [kOps](https://kops.sigs.k8s.io/)：自动化集群制备工具。
   有关教程、最佳实践、配置选项和社区联系信息，请查阅
   [`kOps` 网站](https://kops.sigs.k8s.io/)。
 
 <!--
 - [kubespray](https://kubespray.io/):
   A composition of [Ansible](https://docs.ansible.com/) playbooks,
-  [inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md#inventory),
+  [inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible/inventory.md),
   provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration
   management tasks. You can reach out to the community on Slack channel
   [#kubespray](https://kubernetes.slack.com/messages/kubespray/).
 -->
-- [kubespray](https://kubespray.io/)：
+- [Kubespray](https://kubespray.io/)：
   提供了 [Ansible](https://docs.ansible.com/) Playbook、
-  [清单（inventory）](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md#inventory)、
-  制备工具和通用 OS/Kubernetes 集群配置管理任务领域的知识。
+  [清单（Inventory）](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible/inventory.md)、
+  制备工具和通用操作系统及 Kubernetes 集群配置管理任务领域的知识。
   你可以通过 Slack 频道 [#kubespray](https://kubernetes.slack.com/messages/kubespray/) 联系此社区。

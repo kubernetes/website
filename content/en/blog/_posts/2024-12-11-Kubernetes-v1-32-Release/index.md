@@ -1,16 +1,15 @@
 ---
 layout: blog
-title: 'Kubernetes v1.32: {release-name}'
+title: 'Kubernetes v1.32: Penelope'
 date: 2024-12-11
 slug: kubernetes-v1-32-release
 author: >
   [Kubernetes v1.32 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.32/release-team.md)
-draft: true
 ---
 
 **Editors:** Matteo Bianchi, Edith Puclla, William Rizzo, Ryota Sawada, Rashan Smith
 
-Announcing the release of Kubernetes v1.32: {release-name}!
+Announcing the release of Kubernetes v1.32: Penelope!
 
 In line with previous releases, the release of Kubernetes v1.32 introduces new stable, beta, and alpha features.
 The consistent delivery of high-quality releases underscores the strength of our development cycle and the vibrant
@@ -19,14 +18,22 @@ This release consists of 44 enhancements in total.
 Of those enhancements, 13 have graduated to Stable, 12 are entering Beta, and 19 have entered in Alpha.
 
 ## Release theme and logo
-{{< figure src="/images/blog/2024-12-11-kubernetes-1.32-release/k8s-1.32.png" alt="Kubernetes v1.32 logo"
+
+{{< figure src="k8s-1.32.png" alt="Kubernetes v1.32 logo: Penelope from the Odyssey, a helm and a purple geometric background"
 class="release-logo" >}}
 
-<TODO upload image to static/images/blog/2024-12-11-kubernetes-1.32-release/k8s-1.32.png>
+The Kubernetes v1.32 Release Theme is "Penelope".
 
-The Kubernetes v1.32 Release Theme is "{release-name}".
-
-Kubernetes v1.32's {release-story}
+If Kubernetes is Ancient Greek for "pilot", in this release we start from that origin 
+and reflect on the last 10 years of Kubernetes and our accomplishments: 
+each release cycle is a journey, and just like Penelope, in "The Odyssey",  
+weaved for 10 years -- each night removing parts of what she had done during the day -- 
+so does each release add new features and removes others, albeit here with a much 
+clearer purpose of constantly improving Kubernetes. 
+With v1.32 being the last release in the year Kubernetes marks its first decade anniversary, 
+we wanted to honour all of those that have been part of the global Kubernetes crew 
+that roams the cloud-native seas through perils and challanges: 
+may we continue to weave the future of Kubernetes together.
 
 ## Updates to recent key features
 
@@ -332,13 +339,6 @@ This removal will allow Kubernetes to handle new hardware requirements and resou
 the complexities of back and forth API calls to the kube-apiserver.
 
 See the enhancement issue [#3063](https://github.com/kubernetes/enhancements/issues/3063) to find out more.
-
-#### Deprecation of gitRepo volume types
-
-The [gitRepo](https://kubernetes.io/docs/concepts/storage/volumes/#gitrepo) volume type is deprecated and will be
-removed in a future release, the deprecation has been executed in light of the security advisory encompassing the
-[CVE-2024-10220](https://nvd.nist.gov/vuln/detail/CVE-2024-10220): Arbitrary command execution through gitRepo volume,
-which was reported publicly in [this issue](https://github.com/kubernetes/kubernetes/issues/128885).
     
 #### API removals
 
@@ -478,7 +478,7 @@ Antigua Guatemala, Guatemala
 
 ## Upcoming release webinar
 
-Join members of the Kubernetes v1.32 release team on **Thursday, January 9th 2024 at 5:00 PM (UTC)**, to learn about the
+Join members of the Kubernetes v1.32 release team on **Thursday, January 9th 2025 at 5:00 PM (UTC)**, to learn about the
 release highlights of this release, as well as deprecations and removals to help plan for upgrades.
 For more information and registration, visit the [event
 page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-132-release/)

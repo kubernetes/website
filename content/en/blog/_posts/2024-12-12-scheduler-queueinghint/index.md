@@ -3,7 +3,6 @@ layout: blog
 title: "Kubernetes v1.32: QueueingHint Brings a New Possibility to Optimize Pod Scheduling"
 date: 2024-12-12
 slug: scheduler-queueinghint
-draft: true
 Author: >
   [Kensei Nakada](https://github.com/sanposhiho) (Tetrate.io)
 ---
@@ -13,7 +12,7 @@ component that selects the nodes on which new Pods run. The scheduler processes
 these new Pods **one by one**. Therefore, the larger your clusters, the more important
 the throughput of the scheduler becomes.
 
-Over the years, the Kubernetes project (and SIG Scheduling in particular) has improved the throughput
+Over the years, Kubernetes SIG Scheduling has improved the throughput
 of the scheduler in multiple enhancements. This blog post describes a major improvement to the
 scheduler in Kubernetes v1.32: a 
 [scheduling context element](/docs/concepts/scheduling-eviction/scheduling-framework/#extension-points)
