@@ -86,7 +86,7 @@ Can be used to create all required certificates by kubeadm.
 <!--
 You can create all required kubeconfig files by calling the `all` subcommand or call them individually.
 -->
-可以通过调用 `all` 子命令来创建所有必需的 kubeconfig 文件，或者分别调用它们。
+你可以通过调用 `all` 子命令来创建所有必需的 kubeconfig 文件，或者分别调用它们。
 
 {{< tabs name="tab-kubeconfig" >}}
 {{< tab name="kubeconfig" include="generated/kubeadm_init/kubeadm_init_phase_kubeconfig.md" />}}
@@ -106,7 +106,7 @@ You can create all required kubeconfig files by calling the `all` subcommand or 
 <!--
 Using this phase you can create all required static Pod files for the control plane components.
 -->
-使用此阶段，可以为控制平面组件创建所有必需的静态 Pod 文件。
+使用此阶段，你可以为控制平面组件创建所有必需的静态 Pod 文件。
 
 {{< tabs name="tab-control-plane" >}}
 {{< tab name="control-plane" include="generated/kubeadm_init/kubeadm_init_phase_control-plane.md" />}}
@@ -140,7 +140,7 @@ Use the following phase to create a local etcd instance based on a static Pod fi
 You can use this command to upload the kubeadm configuration to your cluster.
 Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/).
 -->
-可以使用此命令将 kubeadm 配置上传到集群。或者使用
+你可以使用此命令将 kubeadm 配置上传到集群，或者使用
 [kubeadm config](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)。
 
 {{< tabs name="upload-config" >}}
@@ -173,8 +173,7 @@ By default the certs and encryption key expire after two hours.
 <!--
 Use the following phase to label and taint the node as a control plane node.
 -->
-使用以下阶段来给作为控制平面的节点
-打标签（label）和记录污点（taint）。
+使用以下阶段来给作为控制平面的节点打标签（label）和记录污点（taint）。
 
 {{< tabs name="tab-mark-control-plane" >}}
 {{< tab name="mark-control-plane" include="generated/kubeadm_init/kubeadm_init_phase_mark-control-plane.md" />}}
@@ -207,7 +206,7 @@ phases.
 {{< tabs name="tab-kubelet-finalize" >}}
 {{< tab name="kubelet-finalize" include="generated/kubeadm_init/kubeadm_init_phase_kubelet-finalize.md" />}}
 {{< tab name="kubelet-finalize-all" include="generated/kubeadm_init/kubeadm_init_phase_kubelet-finalize_all.md" />}}
-{{< tab name="kubelet-finalize-cert-rotation" include="generated/kubeadm_init/kubeadm_init_phase_kubelet-finalize_experimental-cert-rotation.md" />}}
+{{< tab name="kubelet-finalize-enable-client-cert-rotation" include="generated/kubeadm_init/kubeadm_init_phase_kubelet-finalize_enable-client-cert-rotation.md" />}}
 {{< /tabs >}}
 
 <!--
@@ -219,7 +218,7 @@ phases.
 You can install all the available addons with the `all` subcommand, or
 install them selectively.
 -->
-可以使用 `all` 子命令安装所有可用的插件，或者有选择性地安装它们。
+你可以使用 `all` 子命令安装所有可用的插件，或者有选择性地安装它们。
 
 {{< tabs name="tab-addon" >}}
 {{< tab name="addon" include="generated/kubeadm_init/kubeadm_init_phase_addon.md" />}}
