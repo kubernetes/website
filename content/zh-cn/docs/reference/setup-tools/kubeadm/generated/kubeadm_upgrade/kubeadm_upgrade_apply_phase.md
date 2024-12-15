@@ -1,7 +1,7 @@
 <!--
-Upgrade the default kubeadm addons
+Use this command to invoke single phase of the "apply" workflow
 -->
-升级默认的 kubeadm 插件
+使用此命令来调用 "apply" 工作流的单个阶段
 
 <!--
 ### Synopsis
@@ -9,12 +9,12 @@ Upgrade the default kubeadm addons
 ### 概要
 
 <!--
-Upgrade the default kubeadm addons
+Use this command to invoke single phase of the "apply" workflow
 -->
-升级默认的 kubeadm 插件
+使用此命令来调用 "apply" 工作流的单个阶段
 
 ```shell
-kubeadm upgrade apply phase addon [flags]
+kubeadm upgrade apply phase [flags]
 ```
 
 <!--
@@ -36,9 +36,9 @@ kubeadm upgrade apply phase addon [flags]
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-help for addon
+help for phase
 -->
-addon 操作的帮助命令。
+phase 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -66,7 +66,7 @@ addon 操作的帮助命令。
 <!--
 The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
-到“真实”主机根文件系统的路径。设置此参数将导致 kubeadm 切换到所提供的路径。
+到“真实”主机根文件系统的路径。配置此参数将导致 kubeadm 切换到所提供的路径。
 </p>
 </td>
 </tr>
