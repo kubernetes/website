@@ -13,8 +13,40 @@ Upgrade your Kubernetes cluster to the specified version
 -->
 将 Kubernetes 集群升级到指定版本。
 
-```
+```shell
 kubeadm upgrade apply [version]
+```
+
+<!--
+The "apply [version]" command executes the following phases:
+```
+preflight        Run preflight checks before upgrade
+control-plane    Upgrade the control plane
+upload-config    Upload the kubeadm and kubelet configurations to ConfigMaps
+  /kubeadm         Upload the kubeadm ClusterConfiguration to a ConfigMap
+  /kubelet         Upload the kubelet configuration to a ConfigMap
+kubelet-config   Upgrade the kubelet configuration for this node
+bootstrap-token  Configures bootstrap token and cluster-info RBAC rules
+addon            Upgrade the default kubeadm addons
+  /coredns         Upgrade the CoreDNS addon
+  /kube-proxy      Upgrade the kube-proxy addon
+post-upgrade     Run post upgrade tasks
+```
+-->
+`apply [version]` 命令执行以下阶段：
+
+```
+preflight        在升级前运行预检
+control-plane    升级控制平面
+upload-config    将 kubeadm 和 kubelet 配置上传到 ConfigMap
+  /kubeadm         将 kubeadm ClusterConfiguration 上传到 ConfigMap
+  /kubelet         将 kubelet 配置上传到 ConfigMap
+kubelet-config   升级此节点的 kubelet 配置
+bootstrap-token  配置启动引导令牌和 cluster-info RBAC 规则
+addon            升级默认的 kubeadm 插件
+  /coredns         升级 CoreDNS 插件
+  /kube-proxy      升级 kube-proxy 插件
+post-upgrade     运行升级后的任务
 ```
 
 <!--
@@ -22,7 +54,7 @@ kubeadm upgrade apply [version]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
