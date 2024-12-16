@@ -502,7 +502,7 @@ each exec credential provider. Kubelet reads this configuration from disk and en
 each provider as specified by the CredentialProvider type.
 -->
 CredentialProviderConfig 包含有关每个 exec 凭据提供者的配置信息。
-Kubelet 从磁盘上读取这些配置信息，并根据 CredentialProvider 类型启用各个提供者。
+kubelet 从磁盘上读取这些配置信息，并根据 CredentialProvider 类型启用各个提供者。
 </p>
 
 <table class="table">
@@ -540,7 +540,7 @@ auth keys, the value from the provider earlier in this list is used.
 <!--
 KubeletConfiguration contains the configuration for the Kubelet
 -->
-KubeletConfiguration 中包含 Kubelet 的配置。
+KubeletConfiguration 中包含 kubelet 的配置。
 </p>
 
 <table class="table">
@@ -1295,6 +1295,32 @@ Default: &quot;None&quot;
 </td>
 </tr>
 
+<tr><td><code>singleProcessOOMKill</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>
+   <!--
+   singleProcessOOMKill, if true, will prevent the <code>memory.oom.group</code> flag from being set for container
+cgroups in cgroups v2. This causes processes in the container to be OOM killed individually instead of as
+a group. It means that if true, the behavior aligns with the behavior of cgroups v1.
+The default value is determined automatically when you don't specify.
+On non-linux such as windows, only null / absent is allowed.
+On cgroup v1 linux, only null / absent and true are allowed.
+On cgroup v2 linux, null / absent, true and false are allowed. The default value is false.
+-->
+如果 <code>singleProcessOOMKill</code> 为 true，将阻止在 cgroup v2 中为容器 cgroup
+设置 <code>memory.oom.group</code> 标志。
+这会导致容器中的单个进程因 OOM 被单独杀死，而不是作为一个组被杀死。
+这意味着如果为 true，其行为与 cgroup v1 的行为一致。
+当你未指定值时，默认值将被自动确定。
+在 Windows 这类非 Linux 系统上，仅允许 null（或不设置）。
+在 cgroup v1 Linux 上，仅允许 null（或不设置）和 true。
+在 cgroup v2 Linux 上，允许 null（或不设置）、true 和 false。默认值为 false。
+</p>
+</td>
+</tr>
+
 <tr><td><code>cpuManagerPolicyOptions</code><br/>
 <code>map[string]string</code>
 </td>
@@ -1681,8 +1707,8 @@ This field cannot be set if SerializeImagePulls is true.
 Setting it to nil means no limit.
 Default: nil
    -->
-   <p>maxParallelImagePulls 设置并行拉取镜像的最大数量。
-如果 serializeImagePulls 为 true，则无法设置此字段。
+   <p><code>maxParallelImagePulls</code> 设置并行拉取镜像的最大数量。
+如果 <code>serializeImagePulls</code> 为 true，则无法设置此字段。
 把它设置为 nil 意味着没有限制。</p>
    <p>默认值：nil</p>
 </td>
@@ -1767,17 +1793,11 @@ Default: &quot;5m&quot;
    evictionMaxPodGracePeriod is the maximum allowed grace period (in seconds) to use
 when terminating pods in response to a soft eviction threshold being met. This value
 effectively caps the Pod's terminationGracePeriodSeconds value during soft evictions.
-Note: Due to issue #64530, the behavior has a bug where this value currently just
-overrides the grace period during soft eviction, which can increase the grace
-period from what is set on the Pod. This bug will be fixed in a future release.
 Default: 0
    -->
    <p><code>evictionMaxPodGracePeriod</code> 是指达到软性逐出阈值而引起 Pod 终止时，
 可以赋予的宽限期限最大值（按秒计）。这个值本质上限制了软性逐出事件发生时，
 Pod 可以获得的 <code>terminationGracePeriodSeconds</code>。</p>
-   <p>注意：由于 Issue #64530 的原因，系统中存在一个缺陷，即此处所设置的值会在软性逐出时覆盖
-Pod 的宽限期设置，从而有可能增加 Pod 上原本设置的宽限期限时长。
-这个缺陷会在未来版本中修复。</p>
    <p>默认值：0</p>
 </td>
 </tr>
@@ -1981,7 +2001,7 @@ for performing the log rotate operations. Set this count to 1 for disabling the
 concurrent log rotation workflows
 Default: 1</p>
 -->
-   <p>containerLogMaxWorkers 指定执行日志轮换操作所需的并发工作程序的最大数量。
+   <p><code>containerLogMaxWorkers</code> 指定执行日志轮换操作所需的并发工作程序的最大数量。
 将此计数设置为 1，以禁用并发日志轮换工作流程。
 默认值：1</p>
 </td>
@@ -1998,7 +2018,7 @@ customized to a smaller value based on the log generation rate and the size requ
 rotated against
 Default: 10s</p>
 -->
-   <p>ContainerLogMonitorInterval 指定监视容器日志以执行日志轮转操作的持续时间。
+   <p><code>containerLogMonitorInterval</code> 指定监视容器日志以执行日志轮转操作的持续时间。
 默认为 10s，但可以根据日志生成率和需要轮换的大小定制为较小的值。
 默认值：10s
 </p>
@@ -2038,13 +2058,13 @@ managers are running. Valid values include:</p>
    systemReserved is a set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=150G)
 pairs that describe resources reserved for non-kubernetes components.
 Currently only cpu and memory are supported.
-See http://kubernetes.io/docs/user-guide/compute-resources for more detail.
+See https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources for more detail.
 Default: nil
    -->
    <p><code>systemReserved</code> 是一组<code>资源名称=资源数量</code>对，
 用来描述为非 Kubernetes 组件预留的资源（例如：'cpu=200m,memory=150G'）。</p>
    <p>目前仅支持 CPU 和内存。更多细节可参见
-   https://kubernetes.io/zh-cn/docs/concepts/configuration/manage-resources-containers/ 。</p>
+   https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources</p>
    <p>默认值：Nil</p>
 </td>
 </tr>
@@ -2057,14 +2077,14 @@ Default: nil
    kubeReserved is a set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=150G) pairs
 that describe resources reserved for kubernetes system components.
 Currently cpu, memory and local storage for root file system are supported.
-See https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+See https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources
 for more details.
 Default: nil
    -->
    <p><code>kubeReserved</code> 是一组<code>资源名称=资源数量</code>对，
 用来描述为 Kubernetes 系统组件预留的资源（例如：'cpu=200m,memory=150G'）。
 目前支持 CPU、内存和根文件系统的本地存储。
-更多细节可参见 https://kubernetes.io/zh-cn/docs/concepts/configuration/manage-resources-containers/。</p>
+更多细节可参见 https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources</p>
    <p>默认值：Nil</p>
 </td>
 </tr>
@@ -2371,6 +2391,20 @@ Default: nil
 </td>
 </tr>
 
+<tr><td><code>crashLoopBackOff</code><br/>
+<a href="#kubelet-config-k8s-io-v1beta1-CrashLoopBackOffConfig"><code>CrashLoopBackOffConfig</code></a>
+</td>
+<td>
+   <p>
+   <!--
+   CrashLoopBackOff contains config to modify node-level parameters for
+container restart behavior
+-->
+   <code>crashLoopBackOff</code> 包含修改节点级别参数的配置，用于容器重启行为。
+   </p>
+</td>
+</tr>
+
 <tr><td><code>reservedMemory</code><br/>
 <a href="#kubelet-config-k8s-io-v1beta1-MemoryReservation"><code>[]MemoryReservation</code></a>
 </td>
@@ -2486,7 +2520,7 @@ Default: 0.8
 </tr>
 
 <tr><td><code>registerWithTaints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/zh-cn/docs/reference/generated/kubernetes-api/v1.32/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <!--
@@ -2620,7 +2654,7 @@ SerializedNodeConfigSource 允许对 `v1.NodeConfigSource` 执行序列化操作
 <tr><td><code>kind</code><br/>string</td><td><code>SerializedNodeConfigSource</code></td></tr>
 
 <tr><td><code>source</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
+<a href="https://kubernetes.io/zh-cn/docs/reference/generated/kubernetes-api/v1.32/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
 </td>
 <td>
    <!--
@@ -2630,6 +2664,37 @@ SerializedNodeConfigSource 允许对 `v1.NodeConfigSource` 执行序列化操作
 </td>
 </tr>
 
+</tbody>
+</table>
+
+## `CrashLoopBackOffConfig`     {#kubelet-config-k8s-io-v1beta1-CrashLoopBackOffConfig}
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+
+<tr><td><code>maxContainerRestartPeriod</code><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>
+   <!--
+   maxContainerRestartPeriod is the maximum duration the backoff delay can accrue
+to for container restarts, minimum 1 second, maximum 300 seconds. If not set,
+defaults to the internal crashloopbackoff maximum (300s).
+-->
+<code>maxContainerRestartPeriod</code> 是容器重启时回退延迟可以累积的最长持续时间，最短为 1 秒，最长为 300 秒。
+如果不设置，则默认为内部 crashloopbackoff 的最大值（300 秒）。
+</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -3104,7 +3169,7 @@ MemoryReservation 为每个 NUMA 节点设置不同类型的内存预留。
 </tr>
 
 <tr><td><code>limits</code> <B><!-- [Required] -->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="https://kubernetes.io/zh-cn/docs/reference/generated/kubernetes-api/v1.32/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <!--span class="text-muted">No description provided.</span-->
