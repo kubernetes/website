@@ -9,16 +9,18 @@ weight: 50
 
 <!-- overview -->
 
-In order to support latency-critical and high-throughput workloads, Kubernetes offers a suite of Resource Managers. The managers aim to co-ordinate and optimise node's resources alignment for pods configured with a specific requirement for CPUs, devices, and memory (hugepages) resources. 
+In order to support latency-critical and high-throughput workloads, Kubernetes offers a suite of
+Resource Managers. The managers aim to co-ordinate and optimise the alignment of node's resources for pods
+configured with a specific requirement for CPUs, devices, and memory (hugepages) resources.
 
 <!-- body -->
 
 ## Hardware topology alignment policies
 
 _Topology Manager_ is a kubelet component that aims to coordinate the set of components that are
-responsible for these optimizations. The the overall resource management process is governed using
-the policy you specify.
-To learn more, read [Control Topology Management Policies on a Node](/docs/tasks/administer-cluster/topology-manager/).
+responsible for these optimizations. The overall resource management process is governed using
+the policy you specify. To learn more, read
+[Control Topology Management Policies on a Node](/docs/tasks/administer-cluster/topology-manager/).
 
 ## Policies for assigning CPUs to Pods
 
@@ -29,27 +31,30 @@ hardware (for example, sharing CPUs across multiple Pods) or allocate hardware b
 resource (for example, assigning one of more CPUs for a Pod's exclusive use).
 
 By default, the kubelet uses [CFS quota](https://en.wikipedia.org/wiki/Completely_Fair_Scheduler)
-to enforce pod CPU limits.  When the node runs many CPU-bound pods, the workload can move to different CPU cores depending on
-whether the pod is throttled and which CPU cores are available at scheduling time. Many workloads are not sensitive to this migration and thus
+to enforce pod CPU limits.  When the node runs many CPU-bound pods, the workload can move to
+different CPU cores depending on whether the pod is throttled and which CPU cores are available
+at scheduling time. Many workloads are not sensitive to this migration and thus
 work fine without any intervention.
 
-However, in workloads where CPU cache affinity and scheduling latency significantly affect workload performance, the kubelet allows alternative CPU
+However, in workloads where CPU cache affinity and scheduling latency significantly affect
+workload performance, the kubelet allows alternative CPU
 management policies to determine some placement preferences on the node.
 This is implemented using the _CPU Manager_ and its policy.
 There are two available policies:
 
 - `none`: the `none` policy explicitly enables the existing default CPU
-affinity scheme, providing no affinity beyond what the OS scheduler does
-automatically.  Limits on CPU usage for
-[Guaranteed pods](/docs/concepts/workloads/pods/pod-qos/) and
-[Burstable pods](/docs/concepts/workloads/pods/pod-qos/)
-are enforced using CFS quota.
+  affinity scheme, providing no affinity beyond what the OS scheduler does
+  automatically.  Limits on CPU usage for
+  [Guaranteed pods](/docs/concepts/workloads/pods/pod-qos/) and
+  [Burstable pods](/docs/concepts/workloads/pods/pod-qos/)
+  are enforced using CFS quota.
 - `static`: the `static` policy allows containers in `Guaranteed` pods with integer CPU
-`requests` access to exclusive CPUs on the node. This exclusivity is enforced
-using the [cpuset cgroup controller](https://www.kernel.org/doc/Documentation/cgroup-v2.txt).
+  `requests` access to exclusive CPUs on the node. This exclusivity is enforced
+  using the [cpuset cgroup controller](https://www.kernel.org/doc/Documentation/cgroup-v2.txt).
 
 {{< note >}}
-System services such as the container runtime and the kubelet itself can continue to run on these exclusive CPUs.  The exclusivity only extends to other pods.
+System services such as the container runtime and the kubelet itself can continue to run on
+these exclusive CPUs.  The exclusivity only extends to other pods.
 {{< /note >}}
 
 CPU Manager doesn't support offlining and onlining of CPUs at runtime.
@@ -64,12 +69,12 @@ CPUs reserved by these options are taken, in integer quantity, from the initial 
 core ID.  This shared pool is the set of CPUs on which any containers in
 `BestEffort` and `Burstable` pods run. Containers in `Guaranteed` pods with fractional
 CPU `requests` also run on CPUs in the shared pool. Only containers that are
-both part of a `Guaranteed` pod and have integer CPU `requests` are assigned
+part of a `Guaranteed` pod and have integer CPU `requests` are assigned
 exclusive CPUs.
 
 {{< note >}}
 The kubelet requires a CPU reservation greater than zero when the static policy is enabled.
-This is because zero CPU reservation would allow the shared pool to become empty.
+This is because a zero CPU reservation would allow the shared pool to become empty.
 {{< /note >}}
 
 As `Guaranteed` pods whose containers fit the requirements for being statically
@@ -144,7 +149,6 @@ The pod above runs in the `Guaranteed` QoS class because `requests` are equal to
 And the container's resource limit for the CPU resource is an integer greater than
 or equal to one. The `nginx` container is granted 2 exclusive CPUs.
 
-
 ```yaml
 spec:
   containers:
@@ -162,7 +166,6 @@ spec:
 The pod above runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
 But the container's resource limit for the CPU resource is a fraction. It runs in
 the shared pool.
-
 
 ```yaml
 spec:
@@ -182,27 +185,38 @@ equal to one. The `nginx` container is granted 2 exclusive CPUs.
 
 #### Static policy options {#cpu-policy-static--options}
 
-The behavior of the static policy can be fine-tuned using the CPU Manager policy options.
-The following policy options exist for the static CPU management policy:
-{{/* options in alphabetical order */}}
+Here are the available policy options for the static CPU management policy,
+listed in alphabetical order:
 
 `align-by-socket` (alpha, hidden by default)
-: Align CPUs by physical package / socket boundary, rather than logical NUMA boundaries (available since Kubernetes v1.25)
+: Align CPUs by physical package / socket boundary, rather than logical NUMA boundaries
+  (available since Kubernetes v1.25)
+
 `distribute-cpus-across-cores` (alpha, hidden by default)
-: Allocate virtual cores, sometimes called hardware threads, across different physical cores  (available since Kubernetes v1.31)
+: Allocate virtual cores, sometimes called hardware threads, across different physical cores
+  (available since Kubernetes v1.31)
+
 `distribute-cpus-across-numa` (alpha, hidden by default)
-: Spread CPUs across different NUMA domains, aiming for an even balance between the selected domains (available since Kubernetes v1.23)
+: Spread CPUs across different NUMA domains, aiming for an even balance between the selected domains
+  (available since Kubernetes v1.23)
+
 `full-pcpus-only` (beta, visible by default)
 : Always allocate full physical cores (available since Kubernetes v1.22)
+
 `strict-cpu-reservation` (alpha, hidden by default)
-: Prevent all the pods regardless of their Quality of Service class to run on reserved CPUs (available since Kubernetes v1.32)
+: Prevent all the pods regardless of their Quality of Service class to run on reserved CPUs
+  (available since Kubernetes v1.32)
+
 `prefer-align-cpus-by-uncorecache` (alpha, hidden by default)
-: Align CPUs  by uncore (Last-Level) cache boundary on a best-effort way (available since Kubernetes v1.32)
+: Align CPUs by uncore (Last-Level) cache boundary on a best-effort way
+  (available since Kubernetes v1.32)
 
 You can toggle groups of options on and off based upon their maturity level
 using the following feature gates:
+
 * `CPUManagerPolicyBetaOptions` (default enabled). Disable to hide beta-level options.
 * `CPUManagerPolicyAlphaOptions` (default disabled). Enable to show alpha-level options.
+
 You will still have to enable each option using the `cpuManagerPolicyOptions` field in the
 kubelet configuration file.
 
@@ -253,10 +267,10 @@ than number of NUMA nodes.
 
 If the `distribute-cpus-across-cores` policy option is specified, the static policy
 will attempt to allocate virtual cores (hardware threads) across different physical cores.
-By default, the `CPUManager` tends to pack cpus onto as few physical cores as possible,
-which can lead to contention among cpus on the same physical core and result
+By default, the `CPUManager` tends to pack CPUs onto as few physical cores as possible,
+which can lead to contention among CPUs on the same physical core and result
 in performance bottlenecks. By enabling the `distribute-cpus-across-cores` policy,
-the static policy ensures that cpus are distributed across as many physical cores
+the static policy ensures that CPUs are distributed across as many physical cores
 as possible, reducing the contention on the same physical core and thereby
 improving overall performance. However, it is important to note that this strategy
 might be less effective when the system is heavily loaded. Under such conditions,
@@ -268,11 +282,11 @@ better performance under high load conditions.
 
 The `reservedSystemCPUs` parameter in [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/),
 or the deprecated kubelet command line option `--reserved-cpus`, defines an explicit CPU set for OS system daemons
-and kubernetes system daemons.  More details of this parameter can be found on the
+and kubernetes system daemons. More details of this parameter can be found on the
 [Explicitly Reserved CPU List](/docs/tasks/administer-cluster/reserve-compute-resources/#explicitly-reserved-cpu-list) page.
-By default this isolation is implemented only for guaranteed pods with integer CPU requests not for burstable and best-effort pods
-(and guaranteed pods with fractional CPU requests). Admission is only comparing the cpu requests against the allocatable cpus.
-Since the cpu limit is higher than the request, the default behaviour allows burstable and best-effort pods to use up the capacity
+By default, this isolation is implemented only for guaranteed pods with integer CPU requests not for burstable and best-effort pods
+(and guaranteed pods with fractional CPU requests). Admission is only comparing the CPU requests against the allocatable CPUs.
+Since the CPU limit is higher than the request, the default behaviour allows burstable and best-effort pods to use up the capacity
 of `reservedSystemCPUs` and cause host OS services to starve in real life deployments.
 If the `strict-cpu-reservation` policy option is enabled, the static policy will not allow
 any workload to use the CPU cores specified in `reservedSystemCPUs`.
@@ -280,20 +294,19 @@ any workload to use the CPU cores specified in `reservedSystemCPUs`.
 ##### `prefer-align-cpus-by-uncorecache`
 
 If the `prefer-align-cpus-by-uncorecache` policy is specified, the static policy
-will allocate CPU resources for individual containers such that all CPUs assigned 
-to a container share the same uncore cache block (also known as the Last-Level Cache 
-or LLC). By default, the `CPUManager` will tightly pack CPU assignments which can 
-result in containers being assigned CPUs from multiple uncore caches. This option 
-enables the `CPUManager` to allocate CPUs in a way that maximizes the efficient use 
-of the uncore cache. Allocation is performed on a best-effort basis, aiming to 
-affine as many CPUs as possible within the same uncore cache. If the container's 
-CPU requirement exceeds the CPU capacity of a single uncore cache, the `CPUManager` 
-minimizes the number of uncore caches used in order to maintain optimal uncore 
-cache alignment. Specific workloads can benefit in performance from the reduction 
-of inter-cache latency and noisy neighbors at the cache level. If the `CPUManager` 
-cannot align optimally while the node has sufficient resources, the container will 
+will allocate CPU resources for individual containers such that all CPUs assigned
+to a container share the same uncore cache block (also known as the Last-Level Cache
+or LLC). By default, the `CPUManager` will tightly pack CPU assignments which can
+result in containers being assigned CPUs from multiple uncore caches. This option
+enables the `CPUManager` to allocate CPUs in a way that maximizes the efficient use
+of the uncore cache. Allocation is performed on a best-effort basis, aiming to
+affine as many CPUs as possible within the same uncore cache. If the container's
+CPU requirement exceeds the CPU capacity of a single uncore cache, the `CPUManager`
+minimizes the number of uncore caches used in order to maintain optimal uncore
+cache alignment. Specific workloads can benefit in performance from the reduction
+of inter-cache latency and noisy neighbors at the cache level. If the `CPUManager`
+cannot align optimally while the node has sufficient resources, the container will
 still be admitted using the default packed behavior.
-
 
 ## Memory Management Policies
 
