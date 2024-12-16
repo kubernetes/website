@@ -206,12 +206,22 @@ On Windows the default CRI endpoint is `npipe://./pipe/containerd-containerd`.
 
 To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`, set
 
+{{< tabs name="containerd config" >}}
+{{< tab name="containerd 2.x" codelang="toml" >}}
 ```
-[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
-  ...
-  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
-    SystemdCgroup = true
+version = 3
+[plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
+  SystemdCgroup = true
 ```
+{{< /tab >}}
+{{< tab name="containerd 1.x" codelang="toml" >}}
+```
+version = 2
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+  SystemdCgroup = true
+```
+{{< /tab >}}
+{{< /tabs >}}
 
 The `systemd` cgroup driver is recommended if you use [cgroup v2](/docs/concepts/architecture/cgroups).
 
@@ -249,10 +259,20 @@ for more details.
 In your [containerd config](https://github.com/containerd/containerd/blob/main/docs/cri/config.md) you can overwrite the
 sandbox image by setting the following config:
 
-```toml
+{{< tabs name="containerd config" >}}
+{{< tab name="containerd 2.x" codelang="toml" >}}
+```
 [plugins."io.containerd.grpc.v1.cri"]
   sandbox_image = "registry.k8s.io/pause:3.2"
 ```
+{{< /tab >}}
+{{< tab name="containerd 1.x" codelang="toml" >}}
+```
+[plugins.'io.containerd.cri.v1.runtime']
+  sandbox_image = "registry.k8s.io/pause:3.2"
+```
+{{< /tab >}}
+{{< /tabs >}}
 
 You might need to restart `containerd` as well once you've updated the config file: `systemctl restart containerd`.
 
