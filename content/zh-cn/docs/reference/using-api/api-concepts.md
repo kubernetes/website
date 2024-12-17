@@ -599,6 +599,64 @@ Accept: application/vnd.kubernetes.protobuf, application/json
 ```
 
 <!--
+### CBOR resource encoding {#cbor-encoding}
+-->
+### CBOR 资源编码   {#cbor-encoding}
+
+{{< feature-state feature_gate_name="CBORServingAndStorage" >}}
+
+<!--
+With the `CBORServingAndStorage` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled, request and response
+bodies for all built-in resource types and all resources defined by a {{< glossary_tooltip
+term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be encoded to the
+[CBOR](https://www.rfc-editor.org/rfc/rfc8949) binary data format. CBOR is also supported at the {{<
+glossary_tooltip text="aggregation layer" term_id="aggregation-layer" >}} if it is enabled in
+individual aggregated API servers.
+-->
+启用 `CBORServingAndStorage` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)后，
+所有内置资源类型及所有由 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+所定义的资源的请求体和响应体都可以被编码为 [CBOR](https://www.rfc-editor.org/rfc/rfc8949) 二进制数据格式。
+如果在各个聚合 API 服务器中启用了 CBOR，
+则在{{< glossary_tooltip text="聚合层" term_id="aggregation-layer" >}}中也支持 CBOR。
+
+<!--
+Clients should indicate the IANA media type `application/cbor` in the `Content-Type` HTTP request
+header when the request body contains a single CBOR [encoded data
+item](https://www.rfc-editor.org/rfc/rfc8949.html#section-1.2-4.2), and in the `Accept` HTTP request
+header when prepared to accept a CBOR encoded data item in the response. API servers will use
+`application/cbor` in the `Content-Type` HTTP response header when the response body contains a
+CBOR-encoded object.
+-->
+当请求体包含单个 CBOR [编码数据项](https://www.rfc-editor.org/rfc/rfc8949.html#section-1.2-4.2)时，
+客户端应在 `Content-Type` HTTP 请求头中指明 IANA 媒体类型 `application/cbor`，
+当准备接受响应中以 CBOR 编码的数据项时，客户端应在 `Accept` HTTP 请求头中指明 IANA 媒体类型 `application/cbor`。
+API 服务器将在响应体包含以 CBOR 编码的对象时在 `Content-Type` HTTP 响应头中使用 `application/cbor`。
+
+<!--
+If an API server encodes its response to a [watch request](#efficient-detection-of-changes) using
+CBOR, the response body will be a [CBOR Sequence](https://www.rfc-editor.org/rfc/rfc8742) and the
+`Content-Type` HTTP response header will use the IANA media type `application/cbor-seq`. Each entry
+of the sequence (if any) is a single CBOR-encoded watch event.
+-->
+如果 API 服务器使用 CBOR 对 [watch 请求](#efficient-detection-of-changes)的响应进行编码，
+则响应体将是一个 [CBOR 序列](https://www.rfc-editor.org/rfc/rfc8742)，
+而 `Content-Type` HTTP 响应头将使用 IANA 媒体类型 `application/cbor-seq`。
+此序列的每个条目（如果有的话）是一个以 CBOR 编码的 watch 事件。
+
+<!--
+In addition to the existing `application/apply-patch+yaml` media type for YAML-encoded [server-side
+apply configurations](#patch-and-apply), API servers that enable CBOR will accept the
+`application/apply-patch+cbor` media type for CBOR-encoded server-side apply configurations. There
+is no supported CBOR equivalent for `application/json-patch+json` or `application/merge-patch+json`,
+or `application/strategic-merge-patch+json`.
+-->
+除了以 YAML 编码的[服务器端应用配置](#patch-and-apply)所用的现有 `application/apply-patch+yaml` 媒体类型之外，
+启用 CBOR 的 API 服务器将接受 `application/apply-patch+cbor` 媒体类型用于以 CBOR 编码的服务器端应用配置。
+对于 `application/json-patch+json`、`application/merge-patch+json` 或
+`application/strategic-merge-patch+json`，没有支持的 CBOR 等效类型。
+
+<!--
 ## Efficient detection of changes
 
 The Kubernetes API allows clients to make an initial request for an object or a
@@ -767,15 +825,13 @@ the API server will send any `BOOKMARK` event even when requested.
 <!--
 On large clusters, retrieving the collection of some resource types may result in
 a significant increase of resource usage (primarily RAM) on the control plane.
-In order to alleviate its impact and simplify the user experience of the **list** + **watch**
-pattern, Kubernetes v1.27 introduces as an alpha feature the support
-for requesting the initial state (previously requested via the **list** request) as part of
-the **watch** request.
+To alleviate the impact and simplify the user experience of the **list** + **watch**
+pattern, Kubernetes v1.32 promotes to beta the feature that allows requesting the initial state 
+(previously requested via the **list** request) as part of the **watch** request.
 -->
 在大型集群检索某些资源类型的集合可能会导致控制平面的资源使用量（主要是 RAM）显著增加。
 为了减轻其影响并简化 **list** + **watch** 模式的用户体验，
-Kubernetes 1.27 版本引入了一个 alpha 功能，支持在 **watch** 请求中请求初始状态
-（之前在 **list** 请求中请求）。
+Kubernetes v1.32 将在 **watch** 请求中请求初始状态（之前在 **list** 请求中请求）的特性进阶至 Beta。
 
 <!--
 Provided that the `WatchList` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
@@ -786,9 +842,15 @@ events (of type `ADDED`) to build the whole state of all existing objects follow
 (if requested via `allowWatchBookmarks=true` option). The bookmark event includes the resource version
 to which is synced. After sending the bookmark event, the API server continues as for any other **watch**
 request.
+On the client-side the initial state can be requested by specifying `sendInitialEvents=true` as query string parameter
+in a **watch** request. If set, the API server starts the watch stream with synthetic init
+events (of type `ADDED`) to build the whole state of all existing objects followed by a
+[`BOOKMARK` event](/docs/reference/using-api/api-concepts/#watch-bookmarks)
+(if requested via `allowWatchBookmarks=true` option). The bookmark event includes the resource version
+to which is synced. After sending the bookmark event, the API server continues as for any other **watch**
+request.
 -->
-如果启用了 `WatchList` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-可以通过在 **watch** 请求中指定 `sendInitialEvents=true` 作为查询字符串参数来实现这一功能。
+在客户端，可以通过在 **watch** 请求中指定 `sendInitialEvents=true` 作为查询字符串参数来请求初始状态。
 如果指定了这个参数，API 服务器将使用合成的初始事件（类型为 `ADDED`）来启动监视流，
 以构建所有现有对象的完整状态；如果请求还带有 `allowWatchBookmarks=true` 选项，
 则继续发送 [`BOOKMARK` 事件](/zh-cn/docs/reference/using-api/api-concepts/#watch-bookmarks)。
@@ -1359,6 +1421,77 @@ Once the last finalizer is removed, the resource is actually removed from etcd.
 如果没有强制排序，终结者可以在它们之间自由排序，并且不易受到列表中排序变化的影响。
 
 当最后一个终结器也被移除时，资源才真正从 etcd 中移除。
+
+<!--
+### Force deletion
+-->
+### 强制删除    {#force-deletion}
+
+{{< feature-state feature_gate_name="AllowUnsafeMalformedObjectDeletion" >}}
+
+{{< caution >}}
+<!--
+This may break the workload associated with the resource being force deleted, if it
+relies on the normal deletion flow, so cluster breaking consequences may apply.
+-->
+如果强制删除依赖于正常的删除流程，这可能会破坏与正强制删除的资源关联的工作负载，因此可能会导致集群出现严重后果。
+{{< /caution >}}
+
+<!--
+By enabling the delete option `ignoreStoreReadErrorWithClusterBreakingPotential`, the
+user can perform an unsafe force **delete** operation of an undecryptable/corrupt
+resource. This option is behind an ALPHA feature gate, and it is disabled by
+default. In order to use this option, the cluster operator must enable the feature by
+setting the command line option `--feature-gates=AllowUnsafeMalformedObjectDeletion=true`.
+-->
+通过启用删除选项 `ignoreStoreReadErrorWithClusterBreakingPotential`，
+用户可以对无法解密或损坏的资源执行不安全的强制**删除**操作。
+使用此选项需要先启用一个 Alpha 特性门控，默认是禁用的。
+要使用此选项，集群操作员必须通过设置命令行选项
+`--feature-gates=AllowUnsafeMalformedObjectDeletion=true` 来启用此特性。
+
+{{< note >}}
+<!--
+The user performing the force **delete** operation must have the privileges to do both
+the **delete** and **unsafe-delete-ignore-read-errors** verbs on the given resource.
+-->
+执行强制**删除**操作的用户必须拥有对给定资源执行 **delete** 和 **unsafe-delete-ignore-read-errors** 动作的权限。
+{{< /note >}}
+
+<!--
+A resource is considered corrupt if it can not be successfully retrieved from the
+storage due to a) transformation error (for example: decryption failure), or b) the object
+failed to decode. The API server first attempts a normal deletion, and if it fails with
+a _corrupt resource_ error then it triggers the force delete. A force **delete** operation
+is unsafe because it ignores finalizer constraints, and skips precondition checks.
+-->
+如果某资源由于
+
+1. 转换错误（例如解密失败）或
+1. 对象解码失败
+
+导致无法从存储中成功检索，则该资源被视为已损坏。
+API 服务器会先尝试正常删除，如果由于**资源损坏**的错误而删除失败，则触发强制删除。
+强制 **delete** 操作是不安全的，因为它会忽略终结器（Finalizer）约束，并跳过前置条件检查。
+
+<!--
+The default value for this option is `false`, this maintains backward compatibility.
+For a **delete** request with `ignoreStoreReadErrorWithClusterBreakingPotential`
+set to `true`, the fields `dryRun`, `gracePeriodSeconds`, `orphanDependents`,
+`preconditions`, and `propagationPolicy` must be left unset.
+-->
+此选项的默认值为 `false`，这是为了保持向后兼容性。对于将
+`ignoreStoreReadErrorWithClusterBreakingPotential` 设置为 `true` 的 **delete** 请求，
+`dryRun`、`gracePeriodSeconds`、`orphanDependents`、`preconditions` 和 `propagationPolicy` 字段必须保持不设置。
+
+{{< note >}}
+<!--
+If the user issues a **delete** request with `ignoreStoreReadErrorWithClusterBreakingPotential`
+set to `true` on an otherwise readable resource, the API server aborts the request with an error.
+-->
+如果用户对一个可以以其他方式读取的资源发出将 `ignoreStoreReadErrorWithClusterBreakingPotential`
+设置为 `true` 的 **delete** 请求，API 服务器将中止此请求并报错。
+{{< /note >}}
 
 <!--
 ## Single resource API
