@@ -19,6 +19,8 @@ To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+
+TODO: this file should be under "workload-resources".
 -->
 
 `apiVersion: resource.k8s.io/v1alpha3`

@@ -139,6 +139,8 @@ The following sysctls are supported in the _safe_ set:
 - `net.ipv4.tcp_fin_timeout` (since Kubernetes 1.29, needs kernel 4.6+);
 - `net.ipv4.tcp_keepalive_intvl` (since Kubernetes 1.29, needs kernel 4.5+);
 - `net.ipv4.tcp_keepalive_probes` (since Kubernetes 1.29, needs kernel 4.5+).
+- `net.ipv4.tcp_rmem` (since Kubernetes 1.32, needs kernel 4.15+).
+- `net.ipv4.tcp_wmem` (since Kubernetes 1.32, needs kernel 4.15+).
 -->
 - `kernel.shm_rmid_forced`；
 - `net.ipv4.ip_local_port_range`；
@@ -149,7 +151,9 @@ The following sysctls are supported in the _safe_ set:
 - `net.ipv4.tcp_keepalive_time`（从 Kubernetes 1.29 开始，需要 kernel 4.5+）；
 - `net.ipv4.tcp_fin_timeout`（从 Kubernetes 1.29 开始，需要 kernel 4.6+）；
 - `net.ipv4.tcp_keepalive_intvl`（从 Kubernetes 1.29 开始，需要 kernel 4.5+）；
-- `net.ipv4.tcp_keepalive_probes`（从 Kubernetes 1.29 开始，需要 kernel 4.5+）。
+- `net.ipv4.tcp_keepalive_probes`（从 Kubernetes 1.29 开始，需要 kernel 4.5+）；
+- `net.ipv4.tcp_rmem`（从 Kubernetes 1.32 开始，需要 kernel 4.15+）；
+- `net.ipv4.tcp_wmem`（从 Kubernetes 1.32 开始，需要 kernel 4.15+）。
 
 {{< note >}}
 <!--
