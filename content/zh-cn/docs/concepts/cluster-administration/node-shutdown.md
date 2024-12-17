@@ -505,6 +505,52 @@ via the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure ment
 - 偏离上述步骤可能会导致数据损坏。
 {{< /note >}}
 
+<!--
+## Windows Graceful node shutdown {#windows-graceful-node-shutdown}
+-->
+{{< feature-state feature_gate_name="WindowsGracefulNodeShutdown" >}}
+## Windows节点体面关闭说明
+
+<!--
+The Windows graceful node shutdown feature depends on kubelet running as a Windows service, 
+it will then have a registered [service control handler](https://learn.microsoft.com/en-us/windows/win32/services/service-control-handler-function) 
+to delay the  presshutdown event with a given duration.
+-->
+Windows节点体面关闭功能依赖于kubelet作为Windows服务运行。
+在这种情况下，
+kubelet会注册一个[Service控制处理器](https://learn.microsoft.com/zh-cn/windows/win32/api/winsvc/ns-winsvc-service_preshutdown_info)，
+以在发生预关闭事件时延迟关闭操作一段指定时间。
+
+<!--
+Windows graceful node shutdown is controlled with the `WindowsGracefulNodeShutdown` 
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
+which is introduced in 1.32 as an alpha feature.
+-->
+此功能由`WindowsGracefulNodeShutdown`[特性门控](/docs/reference/command-line-tools-reference/feature-gates/)控制，
+作为Alpha功能在Kubernetes 1.32中引入。
+
+<!--
+Windows graceful node shutdown can not be cancelled.
+-->
+Windows节点体面关闭过程一旦启动，无法取消。
+
+<!--
+If Kubelet is not running as a Windows service, it will not be able to set and monitor 
+the [Preshutdown](https://learn.microsoft.com/en-us/windows/win32/api/winsvc/ns-winsvc-service_preshutdown_info) event,
+the node will have to go through the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure mentioned above.
+-->
+如果kubelet未作为Windows服务运行，
+它将无法设置和监控[预关闭事件(Preshutdown)](https://learn.microsoft.com/zh-cn/windows/win32/api/winsvc/ns-winsvc-service_preshutdown_info)。
+此时，节点将执行[非体面节点关闭](#non-graceful-node-shutdown)流程。
+
+<!--
+In the case where the Windows graceful node shutdown feature is enabled, but the kubelet is not 
+running as a Windows service, the kubelet will continue running instead of failing. However, 
+it will log an error indicating that it needs to be run as a Windows service.
+-->
+即使启用了Windows节点体面关闭功能，但kubelet未作为Windows服务运行时，
+kubelet仍会继续运行，而不会立即失败。然而，它会记录一条错误日志，提示需要将kubelet作为Windows服务运行。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
