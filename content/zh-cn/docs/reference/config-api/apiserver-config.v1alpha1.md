@@ -1916,13 +1916,58 @@ Required, if connectionInfo.Type is KubeConfig
 CEL expressions have access to the contents of the SubjectAccessReview in v1 version.
 If version specified by subjectAccessReviewVersion in the request variable is v1beta1,
 the contents would be converted to the v1 version before evaluating the CEL expression.</p>
-<p>Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/</p>
 -->
    <p>表达式表示将由 CEL 求值的表达式。求值结果必须为布尔值。
 CEL 表达式可以访问 v1 版本中的 SubjectAccessReview 的内容。
 如果请求变量中 subjectAccessReviewVersion 指定的版本是 v1beta1，
 在计算 CEL 表达式之前，内容将被转换为 v1 版本。</p>
-<p>关于 CEL 文档: https://kubernetes.io/zh-cn/docs/reference/using-api/cel/</p>
+<ul>
+<li>
+<!--
+'resourceAttributes' describes information for a resource access request and is unset for non-resource requests. e.g. has(request.resourceAttributes) &amp;&amp; request.resourceAttributes.namespace == 'default'
+-->
+`resourceAttributes` 描述了资源访问请求的信息，并且在非资源请求中未设置。
+例如：`has(request.resourceAttributes) && request.resourceAttributes.namespace == 'default'`
+</li>
+<li>
+<!--
+'nonResourceAttributes' describes information for a non-resource access request and is unset for resource requests. e.g. has(request.nonResourceAttributes) &amp;&amp; request.nonResourceAttributes.path == '/healthz'.
+-->
+`nonResourceAttributes` 描述了非资源访问请求的信息，并且在资源请求中未设置。
+例如：`has(request.nonResourceAttributes) && request.nonResourceAttributes.path == '/healthz'`
+</li>
+<li>
+<!--
+'user' is the user to test for. e.g. request.user == 'alice'
+-->
+`user` 是要测试的用户。例如：`request.user == 'alice'`
+</li>
+<li>
+<!--
+'groups' is the groups to test for. e.g. ('group1' in request.groups)
+-->
+`groups` 是要测试的用户组。例如：`'group1' in request.groups`
+</li>
+<li>
+<!--
+'extra' corresponds to the user.Info.GetExtra() method from the authenticator.
+-->
+`extra` 对应于认证器中的 `user.Info.GetExtra()` 方法。
+</li>
+<li>
+<!--
+'uid' is the information about the requesting user. e.g. request.uid == '1'
+-->
+`uid` 是关于请求用户的标识信息。例如：`request.uid == '1'`
+</li>
+</ul>
+
+<p>
+<!--
+Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+-->
+关于 CEL 文档：https://kubernetes.io/zh-cn/docs/reference/using-api/cel/
+</p>
 </td>
 </tr>
 </tbody>
