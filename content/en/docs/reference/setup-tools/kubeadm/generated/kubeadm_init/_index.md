@@ -53,7 +53,6 @@ mark-control-plane            Mark a node as a control-plane
 bootstrap-token               Generates bootstrap tokens used to join a node to a cluster
 kubelet-finalize              Updates settings relevant to the kubelet after TLS bootstrap
   /enable-client-cert-rotation  Enable kubelet client certificate rotation
-  /experimental-cert-rotation   Enable kubelet client certificate rotation (DEPRECATED: use 'enable-client-cert-rotation' instead)
 addon                         Install required addons for passing conformance tests
   /coredns                      Install the CoreDNS addon to a Kubernetes cluster
   /kube-proxy                   Install the kube-proxy addon to a Kubernetes cluster
@@ -141,7 +140,7 @@ kubeadm init [flags]
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of key=value pairs that describe feature gates for various features. Options are:<br/>ControlPlaneKubeletLocalMode=true|false (ALPHA - default=false)<br/>EtcdLearnerMode=true|false (BETA - default=true)<br/>PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of key=value pairs that describe feature gates for various features. Options are:<br/>ControlPlaneKubeletLocalMode=true|false (ALPHA - default=false)<br/>EtcdLearnerMode=true|false (default=true)<br/>NodeLocalCRISocket=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)</p></td>
 </tr>
 
 <tr>
