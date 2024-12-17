@@ -202,13 +202,11 @@ kubectl edit service -n kube-system kube-dns
 
 #### Reflecting the CoreDNS changes
 
-Once the CoreDNS changes are applied you can delete the CoreDNS Pods:
+Once the CoreDNS changes are applied you can restart the CoreDNS deployment:
 
 ```shell
-kubectl delete po -n kube-system -l k8s-app=kube-dns
+kubectl rollout restart deployment -n kube-system coredns
 ```
-
-New Pods with the updated CoreDNS configuration will be created.
 
 {{< note >}}
 kubeadm does not allow CoreDNS configuration during cluster creation and upgrade.
