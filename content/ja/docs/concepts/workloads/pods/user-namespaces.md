@@ -52,7 +52,7 @@ Linux 6.3でidmapマウントをサポートするポピュラーなファイル
 Kubernetesでユーザー名前空間を利用する際、Podでこの機能を使うためにはCRI{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}} も必要です。
 
 * containerd: バージョン2.0以上ではコンテナのユーザー名前空間をサポート。
-* CRI-O: バージョン1.25以上でンテナのユーザー名前空間をサポート。
+* CRI-O: バージョン1.25以上でコンテナのユーザー名前空間をサポート。
 
 ユーザー名前空間のサポート状況については、GitHubの[issue][CRI-dockerd-issue]で確認できます。
 
