@@ -321,8 +321,8 @@ to the built-in `cluster-admin` ClusterRole.
 ### Authorization mode configuration {#choice-of-authz-config}
 
 You can configure the Kubernetes API server's authorizer chain using either
-[command line arguments](#using-flags-for-your-authorization-module) only or, as a beta feature,
-using a [configuration file](#using-configuration-file-for-authorization).
+a [configuration file](#using-configuration-file-for-authorization) only or
+[command line arguments](#using-flags-for-your-authorization-module).
 
 You have to pick one of the two configuration approaches; setting both `--authorization-config`
 path and configuring an authorization webhook using the `--authorization-mode` and
@@ -331,66 +331,13 @@ If you try this, the API server reports an error message during startup, then ex
 -->
 ### 鉴权模式配置 {#choice-of-authz-config}
 
-你可以仅使用[命令行参数](#using-flags-for-your-authorization-module)，
-或使用[配置文件](#using-configuration-file-for-authorization)来配置 Kubernetes API
-服务器的鉴权链，后者目前是 Beta 特性。
+你可以仅使用[配置文件](#using-configuration-file-for-authorization)，
+或使用[命令行参数](#using-flags-for-your-authorization-module)来配置
+Kubernetes API 服务器的鉴权链。
 
 你必须选择两种配置方法之一；不允许同时设置 `--authorization-config` 路径并使用
 `--authorization-mode` 和 `--authorization-webhook-*` 命令行参数配置鉴权 Webhook。
 如果你尝试这样做，API 服务器会在启动期间报告错误消息，然后立即退出。
-
-<!--
-### Command line authorization mode configuration {#using-flags-for-your-authorization-module}
--->
-### 命令行鉴权模式配置  {#using-flags-for-your-authorization-module}
-
-{{< feature-state state="stable" for_k8s_version="v1.8" >}}
-
-<!--
-You can use the following modes:
-
-* `--authorization-mode=ABAC` (Attribute-based access control mode)
-* `--authorization-mode=RBAC` (Role-based access control mode)
-* `--authorization-mode=Node` (Node authorizer)
-* `--authorization-mode=Webhook` (Webhook authorization mode)
-* `--authorization-mode=AlwaysAllow` (always allows requests; carries [security risks](#warning-always-allow))
-* `--authorization-mode=AlwaysDeny` (always denies requests)
-
-You can choose more than one authorization mode; for example:
-`--authorization-mode=Node,Webhook`
--->
-你可以使用以下模式：
-
-* `--authorization-mode=ABAC`（基于属性的访问控制模式）
-* `--authorization-mode=RBAC`（基于角色的访问控制模式）
-* `--authorization-mode=Node`（节点鉴权组件）
-* `--authorization-mode=Webhook`（Webhook 鉴权模式）
-* `--authorization-mode=AlwaysAllow`（始终允许请求；存在[安全风险](#warning-always-allow))
-* `--authorization-mode=AlwaysDeny`（始终拒绝请求）
-
-你可以选择多种鉴权模式；例如：`--authorization-mode=Node,Webhook`
-
-<!--
-Kubernetes checks authorization modules based on the order that you specify them
-on the API server's command line, so an earlier module has higher priority to allow
-or deny a request.
-
-You cannot combine the `--authorization-mode` command line argument with the
-`--authorization-config` command line argument used for
-[configuring authorization using a local file](#using-configuration-file-for-authorization-mode).
--->
-Kubernetes 根据你在 API 服务器的命令行上指定鉴权模块的顺序来检查鉴权模块，
-因此较早的模块具有更高的优先级来允许或拒绝请求。
-
-你不能将 `--authorization-mode` 命令行参数与用于[使用本地文件配置鉴权](#using-configuration-file-for-authorization-mode)的
-`--authorization-config` 命令行参数结合使用。
-
-<!--
-For more information on command line arguments to the API server, read the
-[`kube-apiserver` reference](/docs/reference/command-line-tools-reference/kube-apiserver/).
--->
-有关 API 服务器命令行参数的更多信息，请阅读
-[`kube-apiserver` 参考](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)。
 
 <!-- keep legacy hyperlinks working -->
 <a id="configuring-the-api-server-using-an-authorization-config-file" />
@@ -403,7 +350,7 @@ For more information on command line arguments to the API server, read the
 {{< feature-state feature_gate_name="StructuredAuthorizationConfiguration" >}}
 
 <!--
-As a beta feature, Kubernetes lets you configure authorization chains that can include multiple
+Kubernetes lets you configure authorization chains that can include multiple
 webhooks. The authorization items in that chain can have well-defined parameters that validate
 requests in a particular order, offering you fine-grained control, such as explicit Deny on failures.
 
@@ -412,7 +359,7 @@ The configuration file approach even allows you to specify
 to webhooks, helping you to prevent unnecessary invocations. The API server also automatically
 reloads the authorizer chain when the configuration file is modified.
 -->
-作为一项 Beta 级别特性，Kubernetes 允许你配置可包含多个 Webhook 的鉴权链。
+Kubernetes 允许你配置可包含多个 Webhook 的鉴权链。
 该链中的鉴权项可以具有明确定义的参数，这些参数可以按特定顺序检查请求，
 从而为你提供细粒度的控制，例如在失败时明确拒绝。
 
@@ -443,7 +390,7 @@ are only available if you use an authorization configuration file.
 #
 # DO NOT USE THE CONFIG AS IS. THIS IS AN EXAMPLE.
 #
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: AuthorizationConfiguration
 authorizers:
   - type: Webhook
@@ -544,7 +491,7 @@ authorizers:
 #
 # 请勿按原样使用配置，这只是一个示例。
 #
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: AuthorizationConfiguration
 authorizers:
   - type: Webhook
@@ -668,6 +615,57 @@ but cannot be added or removed).
 
 重新加载**不能**添加或删除节点或 RBAC 鉴权组件（可以重新排序，但不能添加或删除）。
 {{< /note >}}
+
+<!--
+### Command line authorization mode configuration {#using-flags-for-your-authorization-module}
+-->
+### 命令行鉴权模式配置  {#using-flags-for-your-authorization-module}
+
+<!--
+You can use the following modes:
+
+* `--authorization-mode=ABAC` (Attribute-based access control mode)
+* `--authorization-mode=RBAC` (Role-based access control mode)
+* `--authorization-mode=Node` (Node authorizer)
+* `--authorization-mode=Webhook` (Webhook authorization mode)
+* `--authorization-mode=AlwaysAllow` (always allows requests; carries [security risks](#warning-always-allow))
+* `--authorization-mode=AlwaysDeny` (always denies requests)
+
+You can choose more than one authorization mode; for example:
+`--authorization-mode=Node,Webhook`
+-->
+你可以使用以下模式：
+
+* `--authorization-mode=ABAC`（基于属性的访问控制模式）
+* `--authorization-mode=RBAC`（基于角色的访问控制模式）
+* `--authorization-mode=Node`（节点鉴权组件）
+* `--authorization-mode=Webhook`（Webhook 鉴权模式）
+* `--authorization-mode=AlwaysAllow`（始终允许请求；存在[安全风险](#warning-always-allow))
+* `--authorization-mode=AlwaysDeny`（始终拒绝请求）
+
+你可以选择多种鉴权模式；例如：`--authorization-mode=Node,Webhook`
+
+<!--
+Kubernetes checks authorization modules based on the order that you specify them
+on the API server's command line, so an earlier module has higher priority to allow
+or deny a request.
+
+You cannot combine the `--authorization-mode` command line argument with the
+`--authorization-config` command line argument used for
+[configuring authorization using a local file](#using-configuration-file-for-authorization-mode).
+-->
+Kubernetes 根据你在 API 服务器的命令行上指定鉴权模块的顺序来检查鉴权模块，
+因此较早的模块具有更高的优先级来允许或拒绝请求。
+
+你不能将 `--authorization-mode` 命令行参数与用于[使用本地文件配置鉴权](#using-configuration-file-for-authorization-mode)的
+`--authorization-config` 命令行参数结合使用。
+
+<!--
+For more information on command line arguments to the API server, read the
+[`kube-apiserver` reference](/docs/reference/command-line-tools-reference/kube-apiserver/).
+-->
+有关 API 服务器命令行参数的更多信息，请阅读
+[`kube-apiserver` 参考](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)。
 
 <!--
 ## Privilege escalation via workload creation or edits {#privilege-escalation-via-pod-creation}
