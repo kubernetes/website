@@ -179,11 +179,11 @@ spec:
         name: log-config
         items:
           - key: log_level
-            path: log_level
+            path: log_level.conf
 ```
 
 The `log-config` ConfigMap is mounted as a volume, and all contents stored in
-its `log_level` entry are mounted into the Pod at path `/etc/config/log_level`.
+its `log_level` entry are mounted into the Pod at path `/etc/config/log_level.conf`.
 Note that this path is derived from the volume's `mountPath` and the `path`
 keyed with `log_level`.
 
