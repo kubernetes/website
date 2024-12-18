@@ -472,7 +472,7 @@ object, those Endpoints objects could get quite large. For Services that stayed
 stable (the same set of endpoints over a long period of time) the impact was
 less noticeable; even then, some use cases of Kubernetes weren't well served.
 -->
-由于任一 Service 的所有网络端点都保存在同一个 Endpoints 对象中，这些 Endpoints
+由于一个 Service 的所有网络端点都保存在同一个 Endpoints 对象中，这些 Endpoints
 对象可能变得非常巨大。对于保持稳定的服务（长时间使用同一组端点），影响不太明显；
 即便如此，Kubernetes 的一些使用场景也没有得到很好的服务。
 
