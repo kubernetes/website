@@ -15,14 +15,14 @@ Esta página contém informações sobre o processo de localização em portugu�
 * Leia os guias [de conteúdo](https://kubernetes.io/pt-br/docs/contribute/style/content-guide/)
   e [de estilo](https://kubernetes.io/pt-br/docs/contribute/style/style-guide/) do website do Kubernetes.
 * Familiarize-se com o [código de conduta](https://kubernetes.io/community/code-of-conduct/) do Projeto Kubernetes.
-* (Opcional) Abra um _pull request_ de teste no repositório [contributor-playground](https://github.com/kubernetes-sigs/contributor-playground).
+* (Opcional) Abra um Pull Request de teste no repositório [contributor-playground](https://github.com/kubernetes-sigs/contributor-playground).
 
 ### Prepare seu ambiente de desenvolvimento
 
 * Instale as [ferramentas necessárias](https://github.com/kubernetes/website/blob/main/content/pt-br/README.md#pr%C3%A9-requisitos).
-* Crie um _fork_ do repositório [kubernetes/website](https://github.com/kubernetes/website) na sua conta do GitHub
+* Crie um fork do repositório [kubernetes/website](https://github.com/kubernetes/website) na sua conta do GitHub
   ([instruções](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo)).
-* Clone o _fork_ do repositório em sua máquina local ([instruções](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository)).
+* Clone o fork do repositório em sua máquina local ([instruções](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository)).
 * (Opcional, recomendado) Verifique que você consegue rodar a visualização prévia
   do website em sua máquina local seguindo as [instruções do repositório](https://github.com/kubernetes/website/blob/main/content/pt-br/README.md#executando-o-website-usando-um-container).
 
@@ -32,14 +32,14 @@ Esta página contém informações sobre o processo de localização em portugu�
 2. Verifique se já existe uma issue no repositório ([kubernetes/website]) aberta para a página que escolheu.
     * Caso não exista, crie uma nova issue com título no formato `[pt-br] Localize <caminho>`.
       Cole o link da issue no canal [`#kubernetes-docs-pt`] do Slack do Kubernetes
-      para que um dos mantenedores possa fazer a triagem e adicionar os _labels_ corretos.
+      para que um dos mantenedores possa fazer a triagem e adicionar os labels corretos.
 3. Crie uma branch no seu fork e faça a localização da página.
 4. Execute o check de links quebrados (os detalhes de como executar estão nessa página).
 5. Abra o Pull Request. Caso ainda não tenha assinado o [CLA](https://github.com/kubernetes/community/blob/master/CLA.md), haverá instruções no Pull Request.
 6. Verifique se as checagens no Pull Requests não estão quebradas e se foi gerado um preview da sua localização.
    {{< note >}}
    A geração da pré-visualização da página é uma verificação **obrigatória** do
-   _pull request_. _Pull requests_ que não passarem nesta verificação não podem
+   Pull Request. Pull Requests que não passarem nesta verificação não podem
    ser mesclados.
    {{< /note >}}
 7. Por fim, recomendamos que envie o pull request no canal do slack do time [`#kubernetes-docs-pt`].
@@ -58,7 +58,7 @@ onde `content/pt-br/<caminho-da-pagina>` é o caminho da página que está sendo
 
 Este dicionário de termos contém traduções que foram previamente utilizadas em
 páginas localizadas. Caso não se encaixe no contexto por algum motivo, sugerimos
-trazer para discussão no canal [`#kubernetes-docs-pt`] do Slack antes do _pull request_
+trazer para discussão no canal [`#kubernetes-docs-pt`] do Slack antes do Pull Request
 ser aberto.
 
 {{< note >}}
@@ -120,7 +120,7 @@ da tabela.
 ## Dicionário de termos não traduzidos
 
 Via de regra, nomes de APIs do Kubernetes permanecem no original utilizando
-_camel case_ conforme o nome da API. Alguns exemplos (lista não-exaustiva):
+camel case conforme o nome da API. Alguns exemplos (lista não-exaustiva):
 * ClusterRole
 * ConfigMap
 * Deployment
