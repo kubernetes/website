@@ -1,0 +1,19 @@
+---
+title: Інтерфейс середовища виконання контейнера (CRI)
+id: cri
+date: 2021-11-24
+full_link: /uk/docs/concepts/architecture/cri
+short_description: >
+  Протокол для звʼязку між kubelet та локальним середовищем виконання контейнера.
+
+aka:
+tags:
+  - fundamental
+---
+
+Основний протокол для взаємодії між {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} та середовищем виконання контейнерів.
+
+<!--more-->
+
+Інтерфейс виконання контейнерів Kubernetes (CRI) визначає основний [gRPC](https://grpc.io) протокол для звʼязку між
+[компонентами вузла](/docs/concepts/architecture/#node-components) {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} та {{< glossary_tooltip text="середовищем виконання контейнерів" term_id="container-runtime" >}}.
