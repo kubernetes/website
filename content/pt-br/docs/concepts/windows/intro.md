@@ -99,7 +99,7 @@ Pods, recursos de carga de trabalho e Services são elementos críticos para ger
 * Métricas de Pod e container
 * {{< glossary_tooltip text="Escalonamento horizontal de pods" term_id="horizontal-pod-autoscaler" >}}
 * {{< glossary_tooltip text="Quotas de recursos" term_id="resource-quota" >}}
-* Pré-empção do schedule*
+* Preempção do scheduler
 
 ### Opções de linha de comando para o kubelet {#kubelet-compatibility}
 
