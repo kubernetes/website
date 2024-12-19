@@ -176,7 +176,7 @@ Apenas `securityContext.runAsNonRoot` e `securityContext.windowsOptions` dos cam
 
 ## Detector de problemas do nó
 
-O detector de problemas do nó (veja [Monitorando a integridade do nó](/docs/tasks/debug/debug-cluster/monitor-node-health/) tem suporte preliminar para Windows. Para mais informações, visite a [página do GitHub](https://github.com/kubernetes/node-problem-detector#windows) do projeto.
+O detector de problemas do nó (veja [Monitorando a integridade do nó](/docs/tasks/debug/debug-cluster/monitor-node-health/)) tem suporte preliminar para Windows. Para mais informações, visite a [página do GitHub](https://github.com/kubernetes/node-problem-detector#windows) do projeto.
 
 ## Container de pausa
 
