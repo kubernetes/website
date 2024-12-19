@@ -28,11 +28,13 @@ description: |-
                 <h3>Kubernetes Deployments</h3>
 
                 {{< note >}}
-                <p>This tutorial uses a container that requires the AMD64 architecture. If you are using
-                minikube on a computer with a different CPU architecture, you could try using minikube with
-                a driver that can emulate AMD64. For example, the Docker Desktop driver can do this. You can
-                make sure Docker Deskstop is running when you issue your first `minikube start` command. If
-                you already have other Minikube instances you can create a one with `minikube start driver=docker`.</p>
+                <p>This tutorial uses a container that requires the AMD64 architecture. If you are
+                using minikube on a computer with a different CPU architecture, you could try using
+                minikube with a driver that can emulate AMD64. For example, the Docker Desktop
+                 <a href="https://minikube.sigs.k8s.io/docs/drivers/">driver</a> can do this after
+                you install Docker Desktop. You can either make sure Docker Desktop is running when
+                you issue your first `minikube start` comman; or, if you already have a Minikube
+                instance, you can create a new one with `minikube start driver=docker`.</p>
                 {{< /note >}}
 
                 <p>
