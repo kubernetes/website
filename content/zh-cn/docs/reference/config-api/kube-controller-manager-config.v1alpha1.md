@@ -10,45 +10,9 @@ auto_generated: true
 -->
 ## 资源类型  {#resource-types}
 
-
 - [CloudControllerManagerConfiguration](#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration)
 - [LeaderMigrationConfiguration](#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration)
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
-
-## `NodeControllerConfiguration`     {#NodeControllerConfiguration}
-
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [CloudControllerManagerConfiguration](#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration)
-
-<p>
-<!-- 
-NodeControllerConfiguration contains elements describing NodeController.
--->
-NodeControllerConfiguration 包含描述 NodeController 的元素。
-</p>
-
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>ConcurrentNodeSyncs</code> <B><!--[Required]-->[必需]</B><br/>
-<code>int32</code>
-</td>
-<td>
-   <p>
-   <!-- ConcurrentNodeSyncs is the number of workers concurrently synchronizing nodes -->
-   ConcurrentNodeSyncs 是并发执行以进行节点同步的工作程序的数量。
-   </p>
-</td>
-</tr>
-</tbody>
-</table>
 
 ## `ServiceControllerConfiguration`     {#ServiceControllerConfiguration}
 
@@ -66,12 +30,10 @@ NodeControllerConfiguration 包含描述 NodeController 的元素。
 ServiceControllerConfiguration 包含描述 ServiceController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>ConcurrentServiceSyncs</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
@@ -97,15 +59,13 @@ ServiceControllerConfiguration 包含描述 ServiceController 的元素。
 CloudControllerManagerConfiguration 包含描述云控制器管理器的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
     
 <tr><td><code>apiVersion</code><br/>string</td><td><code>cloudcontrollermanager.config.k8s.io/v1alpha1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>CloudControllerManagerConfiguration</code></td></tr>
-    
-  
+
 <tr><td><code>Generic</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration"><code>GenericControllerManagerConfiguration</code></a>
 </td>
@@ -130,7 +90,7 @@ CloudControllerManagerConfiguration 包含描述云控制器管理器的元素�
 </td>
 </tr>
 <tr><td><code>NodeController</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="#NodeControllerConfiguration"><code>NodeControllerConfiguration</code></a>
+<code>k8s.io/cloud-provider/controllers/node/config/v1alpha1.NodeControllerConfiguration</code>
 </td>
 <td>
    <p>
@@ -173,7 +133,6 @@ CloudControllerManagerConfiguration 包含描述云控制器管理器的元素�
 </table>
 
 ## `CloudProviderConfiguration`     {#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudProviderConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -182,18 +141,15 @@ CloudControllerManagerConfiguration 包含描述云控制器管理器的元素�
 
 - [KubeCloudSharedConfiguration](#cloudcontrollermanager-config-k8s-io-v1alpha1-KubeCloudSharedConfiguration)
 
-
 <p>
 <!-- CloudProviderConfiguration contains basically elements about cloud provider. -->
 CloudProviderConfiguration 包含有关云提供商的一些基本元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>Name</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -218,7 +174,6 @@ CloudProviderConfiguration 包含有关云提供商的一些基本元素。
 </table>
 
 ## `KubeCloudSharedConfiguration`     {#cloudcontrollermanager-config-k8s-io-v1alpha1-KubeCloudSharedConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -238,12 +193,10 @@ and cloud-controller manager, but not genericconfig.
 KubeCloudSharedConfiguration 包含 kube-controller 管理器和云控制器管理器共享的元素，但不包含通用配置。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>CloudProvider</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudProviderConfiguration"><code>CloudProviderConfiguration</code></a>
 </td>
@@ -388,7 +341,6 @@ KubeCloudSharedConfiguration 包含 kube-controller 管理器和云控制器管�
 </table>
 
 ## `WebhookConfiguration`     {#cloudcontrollermanager-config-k8s-io-v1alpha1-WebhookConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -397,18 +349,15 @@ KubeCloudSharedConfiguration 包含 kube-controller 管理器和云控制器管�
 
 - [CloudControllerManagerConfiguration](#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration)
 
-
 <p>
 <!-- WebhookConfiguration contains configuration related to cloud-controller-manager hosted webhooks -->
 WebhookConfiguration 包含与云控制器管理器托管的 webhook 相关的配置。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>Webhooks</code> <B><!--[Required]-->[必需]</B><br/>
 <code>[]string</code>
 </td>
@@ -431,11 +380,8 @@ WebhookConfiguration 包含与云控制器管理器托管的 webhook 相关的�
 </tr>
 </tbody>
 </table>
-  
-  
 
 ## `LeaderMigrationConfiguration`     {#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -444,12 +390,10 @@ WebhookConfiguration 包含与云控制器管理器托管的 webhook 相关的�
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
-
 <p>
 <!-- LeaderMigrationConfiguration provides versioned configuration for all migrating leader locks. -->
 LeaderMigrationConfiguration 为所有迁移中的领导者锁提供了版本化配置。
 </p>
-
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -457,8 +401,7 @@ LeaderMigrationConfiguration 为所有迁移中的领导者锁提供了版本化
     
 <tr><td><code>apiVersion</code><br/>string</td><td><code>controllermanager.config.k8s.io/v1alpha1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>LeaderMigrationConfiguration</code></td></tr>
-    
-  
+
 <tr><td><code>leaderName</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -498,7 +441,6 @@ E.g. 1-20-KCM-to-1-21-CCM -->
 </table>
 
 ## `ControllerLeaderConfiguration`     {#controllermanager-config-k8s-io-v1alpha1-ControllerLeaderConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -507,18 +449,15 @@ E.g. 1-20-KCM-to-1-21-CCM -->
 
 - [LeaderMigrationConfiguration](#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration)
 
-
 <p>
 <!-- ControllerLeaderConfiguration provides the configuration for a migrating leader lock. -->
 ControllerLeaderConfiguration 提供迁移中领导者锁的配置。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>name</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -551,7 +490,6 @@ ControllerLeaderConfiguration 提供迁移中领导者锁的配置。
 </table>
 
 ## `GenericControllerManagerConfiguration`     {#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -562,18 +500,15 @@ ControllerLeaderConfiguration 提供迁移中领导者锁的配置。
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- GenericControllerManagerConfiguration holds configuration for a generic controller-manager. -->
 GenericControllerManagerConfiguration 保存通用控制器管理器的配置。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>Port</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
@@ -692,18 +627,13 @@ GenericControllerManagerConfiguration 保存通用控制器管理器的配置。
 </tr>
 </tbody>
 </table>
-  
-  
 
 ## `KubeControllerManagerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration}
-    
-
 
 <p>
 <!-- KubeControllerManagerConfiguration contains elements describing kube-controller manager. -->
 KubeControllerManagerConfiguration 包含描述 kube-controller 管理器的元素。
 </p>
-
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -711,8 +641,7 @@ KubeControllerManagerConfiguration 包含描述 kube-controller 管理器的元�
     
 <tr><td><code>apiVersion</code><br/>string</td><td><code>kubecontrollermanager.config.k8s.io/v1alpha1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>KubeControllerManagerConfiguration</code></td></tr>
-    
-  
+
 <tr><td><code>Generic</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration"><code>GenericControllerManagerConfiguration</code></a>
 </td>
@@ -1009,7 +938,6 @@ both in cloud controller manager and kube-controller manager. -->
 </table>
 
 ## `AttachDetachControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-AttachDetachControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -1018,18 +946,15 @@ both in cloud controller manager and kube-controller manager. -->
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- AttachDetachControllerConfiguration contains elements describing AttachDetachController. -->
 AttachDetachControllerConfiguration 包含描述 AttachDetachController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>DisableAttachDetachReconcilerSync</code> <B><!--[Required]-->[必需]</B><br/>
 <code>bool</code>
 </td>
@@ -1078,7 +1003,6 @@ AttachDetachControllerConfiguration 包含描述 AttachDetachController 的元�
 </table>
 
 ## `CSRSigningConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-CSRSigningConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -1087,18 +1011,15 @@ AttachDetachControllerConfiguration 包含描述 AttachDetachController 的元�
 
 - [CSRSigningControllerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-CSRSigningControllerConfiguration)
 
-
 <p>
 <!-- CSRSigningConfiguration holds information about a particular CSR signer -->
 CSRSigningConfiguration 保存有关特定 CSR 签名者的信息。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>CertFile</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -1123,28 +1044,23 @@ CSRSigningConfiguration 保存有关特定 CSR 签名者的信息。
 </table>
 
 ## `CSRSigningControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-CSRSigningControllerConfiguration}
-    
 
 <!--
 **Appears in:**
 -->
 **出现在：**
 
-
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
-
 
 <p>
 <!-- CSRSigningControllerConfiguration contains elements describing CSRSigningController. -->
 CSRSigningControllerConfiguration 包含描述 CSRSigningController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>ClusterSigningCertFile</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -1230,7 +1146,6 @@ CSRSigningControllerConfiguration 包含描述 CSRSigningController 的元素。
 </table>
 
 ## `CronJobControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-CronJobControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -1239,18 +1154,15 @@ CSRSigningControllerConfiguration 包含描述 CSRSigningController 的元素。
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- CronJobControllerConfiguration contains elements describing CrongJob2Controller. -->
 CronJobControllerConfiguration 包含描述 CrongJob2Controller 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>ConcurrentCronJobSyncs</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
@@ -1270,7 +1182,6 @@ CronJobControllerConfiguration 包含描述 CrongJob2Controller 的元素。
 </table>
 
 ## `DaemonSetControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-DaemonSetControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -1279,18 +1190,15 @@ CronJobControllerConfiguration 包含描述 CrongJob2Controller 的元素。
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- DaemonSetControllerConfiguration contains elements describing DaemonSetController. -->
 DaemonSetControllerConfiguration 包含描述 DaemonSetController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>ConcurrentDaemonSetSyncs</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
@@ -1310,24 +1218,20 @@ DaemonSetControllerConfiguration 包含描述 DaemonSetController 的元素。
 </table>
 
 ## `DeploymentControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-DeploymentControllerConfiguration}
-    
 
 **Appears in:**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
-
 
 <p>
 <!-- DeploymentControllerConfiguration contains elements describing DeploymentController. -->
 DeploymentControllerConfiguration 包含描述 DeploymentController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>ConcurrentDeploymentSyncs</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
@@ -1347,7 +1251,6 @@ DeploymentControllerConfiguration 包含描述 DeploymentController 的元素。
 </table>
 
 ## `DeprecatedControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-DeprecatedControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -1355,18 +1258,13 @@ DeploymentControllerConfiguration 包含描述 DeploymentController 的元素。
 **出现在：**
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
-
 
 <p>
 <!-- DeprecatedControllerConfiguration contains elements be deprecated. -->
 DeprecatedControllerConfiguration 包含被弃用的元素。
 </p>
 
-
-
-
 ## `EndpointControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-EndpointControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -1375,18 +1273,15 @@ DeprecatedControllerConfiguration 包含被弃用的元素。
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- EndpointControllerConfiguration contains elements describing EndpointController. -->
 EndpointControllerConfiguration 包含描述 EndpointController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>ConcurrentEndpointSyncs</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
@@ -1421,7 +1316,6 @@ EndpointControllerConfiguration 包含描述 EndpointController 的元素。
 </table>
 
 ## `EndpointSliceControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-EndpointSliceControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -1430,18 +1324,15 @@ EndpointControllerConfiguration 包含描述 EndpointController 的元素。
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- EndpointSliceControllerConfiguration contains elements describing EndpointSliceController. -->
 EndpointSliceControllerConfiguration 包含描述 EndpointSliceController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>ConcurrentServiceEndpointSyncs</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
@@ -1491,7 +1382,6 @@ EndpointSliceControllerConfiguration 包含描述 EndpointSliceController 的元
 </table>
 
 ## `EndpointSliceMirroringControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-EndpointSliceMirroringControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -1500,18 +1390,15 @@ EndpointSliceControllerConfiguration 包含描述 EndpointSliceController 的元
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- EndpointSliceMirroringControllerConfiguration contains elements describing EndpointSliceMirroringController. -->
 EndpointSliceMirroringControllerConfiguration 包含描述 EndpointSliceMirroringController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>MirroringConcurrentServiceEndpointSyncs</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
@@ -1562,7 +1449,6 @@ will be mirrored to an EndpointSlice for an EndpointSubset. -->
 </table>
 
 ## `EphemeralVolumeControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-EphemeralVolumeControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -1571,18 +1457,15 @@ will be mirrored to an EndpointSlice for an EndpointSubset. -->
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- EphemeralVolumeControllerConfiguration contains elements describing EphemeralVolumeController. -->
 EphemeralVolumeControllerConfiguration 包含描述 EphemeralVolumeController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>ConcurrentEphemeralVolumeSyncs</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
@@ -1602,7 +1485,6 @@ EphemeralVolumeControllerConfiguration 包含描述 EphemeralVolumeController �
 </table>
 
 ## `GarbageCollectorControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-GarbageCollectorControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -1611,18 +1493,15 @@ EphemeralVolumeControllerConfiguration 包含描述 EphemeralVolumeController �
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- GarbageCollectorControllerConfiguration contains elements describing GarbageCollectorController. -->
 GarbageCollectorControllerConfiguration 包含描述 GarbageCollectorController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>EnableGarbageCollector</code> <B><!--[Required]-->[必需]</B><br/>
 <code>bool</code>
 </td>
@@ -1662,7 +1541,6 @@ GarbageCollectorControllerConfiguration 包含描述 GarbageCollectorController 
 </table>
 
 ## `GroupResource`     {#kubecontrollermanager-config-k8s-io-v1alpha1-GroupResource}
-    
 
 <!--
 **Appears in:**
@@ -1671,18 +1549,15 @@ GarbageCollectorControllerConfiguration 包含描述 GarbageCollectorController 
 
 - [GarbageCollectorControllerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-GarbageCollectorControllerConfiguration)
 
-
 <p>
 <!-- GroupResource describes an group resource. -->
 GroupResource 描述组资源。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>Group</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -1707,7 +1582,6 @@ GroupResource 描述组资源。
 </table>
 
 ## `HPAControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-HPAControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -1716,18 +1590,15 @@ GroupResource 描述组资源。
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- HPAControllerConfiguration contains elements describing HPAController. -->
 HPAControllerConfiguration 包含描述 HPAController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>ConcurrentHorizontalPodAutoscalerSyncs</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
@@ -1806,7 +1677,6 @@ HPAControllerConfiguration 包含描述 HPAController 的元素。
 </table>
 
 ## `JobControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-JobControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -1815,18 +1685,15 @@ HPAControllerConfiguration 包含描述 HPAController 的元素。
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- JobControllerConfiguration contains elements describing JobController. -->
 JobControllerConfiguration 包含描述 JobController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>ConcurrentJobSyncs</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
@@ -1846,7 +1713,6 @@ JobControllerConfiguration 包含描述 JobController 的元素。
 </table>
 
 ## `LegacySATokenCleanerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-LegacySATokenCleanerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -1855,18 +1721,15 @@ JobControllerConfiguration 包含描述 JobController 的元素。
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- LegacySATokenCleanerConfiguration contains elements describing LegacySATokenCleaner -->
 LegacySATokenCleanerConfiguration 包含描述 LegacySATokenCleaner 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>CleanUpPeriod</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
@@ -2071,10 +1934,12 @@ Nodelifecyclecontrolerconfiguration 包含描述 NodeLifecycleController 的元�
    nodeMontiorGracePeriod is the amount of time which we allow a running node to be
    unresponsive before marking it unhealthy. Must be N times more than kubelet's
    nodeStatusUpdateFrequency, where N means number of retries allowed for kubelet
-   to post node status. 
+   to post node status. This value should also be greater than the sum of
+   HTTP2_PING_TIMEOUT_SECONDS and HTTP2_READ_IDLE_TIMEOUT_SECONDS.
    -->
    nodeMontiorGracePeriod 是在将运行中的节点标记为不健康之前允许其无响应的时长。
    必须是 kubelet 的 nodeStatusUpdateFrequency 的 N 倍，其中 N 表示允许 kubelet 发布节点状态的重试次数。
+   此值还应大于 HTTP2_PING_TIMEOUT_SECONDS 和 HTTP2_READ_IDLE_TIMEOUT_SECONDS 的总和。
    </p>
 </td>
 </tr>
@@ -2083,7 +1948,9 @@ Nodelifecyclecontrolerconfiguration 包含描述 NodeLifecycleController 的元�
 </td>
 <td>
    <p>
-   <!-- podEvictionTimeout is the grace period for deleting pods on failed nodes. -->
+   <!--
+   podEvictionTimeout is the grace period for deleting pods on failed nodes.
+   -->
    podEvictionTimeout 为删除故障节点上的 Pod 的宽限时间。
    </p>
 </td>
@@ -2108,7 +1975,7 @@ Nodelifecyclecontrolerconfiguration 包含描述 NodeLifecycleController 的元�
    unhealthyZoneThreshold (no less than 3) of Nodes in the zone are NotReady 
    -->
    当区域中至少有 unhealthyZoneThreshold（不少于 3 个）的节点处于 NotReady 状态时，
-   nodeEvctionRate 和 secondaryNodeEvictionRate 两个属性的判定逻辑会将区域视为不健康。
+   nodeEvictionRate 和 secondaryNodeEvictionRate 两个属性的判定逻辑会将区域视为不健康。
    </p>
 </td>
 </tr>
@@ -2125,18 +1992,17 @@ Nodelifecyclecontrolerconfiguration 包含描述 NodeLifecycleController 的元�
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
-<!-- PersistentVolumeBinderControllerConfiguration contains elements describing PersistentVolumeBinderController. -->
+<!--
+PersistentVolumeBinderControllerConfiguration contains elements describing PersistentVolumeBinderController.
+-->
 PersistentVolumeBinderControllerConfiguration 包含描述 PersistentVolumeBinderController 的元素。
 </p>
-
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>PVClaimBinderSyncPeriod</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
@@ -2161,7 +2027,6 @@ PersistentVolumeBinderControllerConfiguration 包含描述 PersistentVolumeBinde
 </table>
 
 ## `PersistentVolumeRecyclerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-PersistentVolumeRecyclerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -2175,12 +2040,10 @@ PersistentVolumeBinderControllerConfiguration 包含描述 PersistentVolumeBinde
 PersistentVolumeRecyclerConfiguration 包含描述持久卷插件的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>MaximumRetry</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
@@ -2271,7 +2134,6 @@ PersistentVolumeRecyclerConfiguration 包含描述持久卷插件的元素。
 </table>
 
 ## `PodGCControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-PodGCControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -2280,18 +2142,15 @@ PersistentVolumeRecyclerConfiguration 包含描述持久卷插件的元素。
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- PodGCControllerConfiguration contains elements describing PodGCController. -->
 PodGCControllerConfiguration 包含描述 PodGCController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>TerminatedPodGCThreshold</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
@@ -2312,7 +2171,6 @@ PodGCControllerConfiguration 包含描述 PodGCController 的元素。
 </table>
 
 ## `ReplicaSetControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-ReplicaSetControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -2321,18 +2179,15 @@ PodGCControllerConfiguration 包含描述 PodGCController 的元素。
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- ReplicaSetControllerConfiguration contains elements describing ReplicaSetController. -->
 ReplicaSetControllerConfiguration 包含描述 ReplicaSetController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>ConcurrentRSSyncs</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
@@ -2352,7 +2207,6 @@ ReplicaSetControllerConfiguration 包含描述 ReplicaSetController 的元素。
 </table>
 
 ## `ReplicationControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-ReplicationControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -2361,18 +2215,15 @@ ReplicaSetControllerConfiguration 包含描述 ReplicaSetController 的元素。
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- ReplicationControllerConfiguration contains elements describing ReplicationController. -->
 ReplicationControllerConfiguration 包含描述 ReplicationController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>ConcurrentRCSyncs</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
@@ -2392,7 +2243,6 @@ ReplicationControllerConfiguration 包含描述 ReplicationController 的元素�
 </table>
 
 ## `ResourceQuotaControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-ResourceQuotaControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -2401,18 +2251,15 @@ ReplicationControllerConfiguration 包含描述 ReplicationController 的元素�
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- ResourceQuotaControllerConfiguration contains elements describing ResourceQuotaController. -->
 ResourceQuotaControllerConfiguration 包含描述 ResourceQuotaController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>ResourceQuotaSyncPeriod</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
@@ -2442,7 +2289,6 @@ ResourceQuotaControllerConfiguration 包含描述 ResourceQuotaController 的元
 </table>
 
 ## `SAControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-SAControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -2451,18 +2297,15 @@ ResourceQuotaControllerConfiguration 包含描述 ResourceQuotaController 的元
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- SAControllerConfiguration contains elements describing ServiceAccountController. -->
 SAControllerConfiguration 包含描述 ServiceAccountController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>ServiceAccountKeyFile</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -2501,7 +2344,6 @@ SAControllerConfiguration 包含描述 ServiceAccountController 的元素。
 </table>
 
 ## `StatefulSetControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-StatefulSetControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -2510,18 +2352,15 @@ SAControllerConfiguration 包含描述 ServiceAccountController 的元素。
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- StatefulSetControllerConfiguration contains elements describing StatefulSetController. -->
 StatefulSetControllerConfiguration 包含描述 StatefulSetController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>ConcurrentStatefulSetSyncs</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
@@ -2541,7 +2380,6 @@ StatefulSetControllerConfiguration 包含描述 StatefulSetController 的元素�
 </table>
 
 ## `TTLAfterFinishedControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-TTLAfterFinishedControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -2550,18 +2388,15 @@ StatefulSetControllerConfiguration 包含描述 StatefulSetController 的元素�
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- TTLAfterFinishedControllerConfiguration contains elements describing TTLAfterFinishedController. -->
 TTLAfterFinishedControllerConfiguration 包含描述 TTLAfterFinishedController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>ConcurrentTTLSyncs</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
@@ -2576,7 +2411,6 @@ TTLAfterFinishedControllerConfiguration 包含描述 TTLAfterFinishedController 
 </table>
 
 ## `ValidatingAdmissionPolicyStatusControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-ValidatingAdmissionPolicyStatusControllerConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -2585,18 +2419,15 @@ TTLAfterFinishedControllerConfiguration 包含描述 TTLAfterFinishedController 
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
-
 <p>
 <!-- ValidatingAdmissionPolicyStatusControllerConfiguration contains elements describing ValidatingAdmissionPolicyStatusController. -->
 ValidatingAdmissionPolicyStatusControllerConfiguration 包含描述 ValidatingAdmissionPolicyStatusController 的元素。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>ConcurrentPolicySyncs</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
@@ -2618,7 +2449,6 @@ ValidatingAdmissionPolicyStatusControllerConfiguration 包含描述 ValidatingAd
 </table>
 
 ## `VolumeConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-VolumeConfiguration}
-    
 
 <!--
 **Appears in:**
@@ -2626,7 +2456,6 @@ ValidatingAdmissionPolicyStatusControllerConfiguration 包含描述 ValidatingAd
 **出现在：**
 
 - [PersistentVolumeBinderControllerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-PersistentVolumeBinderControllerConfiguration)
-
 
 <p>
 <!-- 
@@ -2642,12 +2471,10 @@ VolumeConfiguration 包含<em>所有</em>用于配置各个卷插件的所有参
 控制器管理器可执行文件是代码中唯一知道支持哪些插件以及每个插件对应哪些标志的部分。
 </p>
 
-
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>EnableHostPathProvisioning</code> <B><!--[Required]-->[必需]</B><br/>
 <code>bool</code>
 </td>
