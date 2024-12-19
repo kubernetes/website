@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: NAME
+spec:
+  containers:
+    - name: NAME
+      image: IMAGE
+      imagePullPolicy: Never
+      ports:
+        - name: PORT
+          containerPort: 8080
+          protocol: TCP
+      readinessProbe:
+        httpGet:
+          path: /readiness
+          port: 8080
+        initialDelaySeconds: 2
+        periodSeconds: 10
+

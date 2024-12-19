@@ -1,0 +1,29 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base/
+
+secretGenerator:
+  - name: demo-secret
+    envs:
+      - secrets/default.env
+    options:
+      disableNameSuffixHash: true
+
+images:
+  - name: IMAGE
+    newName: demo-secret
+    newTag: baseline
+
+patches:
+- target:
+    kind: Pod
+  patch: |-
+    - op: add
+      path: "/spec/containers/0/envFrom"
+      value:
+        - secretRef:
+            name: demo-secret
+
