@@ -1,16 +1,25 @@
-{{- $class := .Get "class" -}}
+{{- $_hugo_config := `{ "version": 1 }` -}}
+{{- $col_id := .Get "color" | default .Ordinal -}}
+{{- $height := .Get "height" | default "auto"  -}}
+{{- $type   := .Get "type" | default "" -}}
 {{- $style := .Get "style" -}}
-{{- $id := .Get "id" | default (printf "section-%d" .Ordinal) -}}
-{{- $bg := .Get "background-image" -}}
+{{- $id_fallback := ( printf "td-block-%d" .Ordinal ) -}}
+{{- $id := .Get "id" | default (printf "%s%s" $id_fallback "-section" ) -}}
+{{- $class := .Get "class" -}}
 {{/* special case Kubernetes overview */}}
 {{- if eq $class "k8s-overview" -}}
-	{{- partial "kubernetes-overview.html" (dict "id" $id "class" $class "inner" $.Inner ) -}}
+ {{- partial "kubernetes-overview.html" (dict "id" $id "class" $class "inner" $.Inner ) -}}
 {{- else -}}
-{{- if $bg -}}
-	{{ template "shortcodes-blocks_getimage" (dict "name" $bg "ctx" . "target" "bg") }}
-{{- end -}}
-{{- $image := $.Scratch.Get "bg" -}}
-<section id="{{ $id }}"{{ with $class }} class="{{ . }}"{{ end }} style="{{ with $image }}background-image: url({{ .Permalink }}); {{ end }}{{ with $style }}{{ . | safeCSS }}{{ end }}">
-	{{ $.Inner }}
+<a id="{{ $id_fallback }}" class="td-offset-anchor"></a>
+<section id="{{ $id }}" class="row td-box td-box--{{ $col_id }} td-box--gradient td-box--height-{{ $height }}{{ with $class }} {{ . }}{{ end }}" style="{{ if isset .Params "background-image"  }}background-image: url({{ printf "/images/%s.jpg" (.Get "background-image") }}); {{ end }}{{ with $style }}{{ . | safeCSS }}{{ end }}">
+	<div class="col">
+		<div class="row {{ $type }}">
+			{{ if eq .Page.File.Ext "md" }}
+				{{ .Inner | markdownify }}
+			{{ else }}
+				{{ .Inner | htmlUnescape | safeHTML }}
+			{{ end }}
+		</div>
+	</div>
 </section>
 {{- end -}}
