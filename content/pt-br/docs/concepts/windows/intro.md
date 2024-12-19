@@ -136,7 +136,7 @@ A lista a seguir documenta as diferenças entre como as especificações de cont
 * `requests.cpu` e `requests.memory` - as solicitações são subtraídas dos recursos disponíveis do nó, para que possam ser usadas para evitar o superprovisionamento de um nó. No entanto, elas não podem ser usadas para garantir recursos em um nó superprovisionado. Elas devem ser aplicadas a todos os contêineres como uma boa prática se o operador quiser evitar o superprovisionamento completamente.
 * `securityContext.allowPrivilegeEscalation` - não é possível no Windows; nenhuma das capacidades está conectada
 * `securityContext.capabilities` - capacidades POSIX não são implementadas no Windows
-* `securityContext.privileged` - o Windows não suporta contêineres privilegiados, use [HostProcess contêineres](/docs/tasks/configure-pod-container/create-hostprocess-pod/) em vez disso
+* `securityContext.privileged` - o Windows não suporta contêineres privilegiados, use [contêineres HostProcess](/docs/tasks/configure-pod-container/create-hostprocess-pod/) em vez disso
 * `securityContext.procMount` - o Windows não possui um sistema de arquivos `/proc`
 * `securityContext.readOnlyRootFilesystem` - não é possível no Windows; acesso de gravação é necessário para que o registro e processos do sistema rodem dentro do container
 * `securityContext.runAsGroup` - não é possível no Windows, pois não há suporte para GID
