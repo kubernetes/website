@@ -53,6 +53,10 @@
   <link rel="stylesheet" href="{{ "css/training.css" | relURL }}">
 {{- end }}
 
+{{- if eq .Params.class "scale-intro" }}
+  <link rel="stylesheet" href="{{ "css/scale_intro.css" | relURL }}">
+{{- end }}
+
 {{- if .Params.new_case_study_styles }}
   <link rel="stylesheet" href="{{ "css/new-case-studies.css" | relURL }}">
 {{- end}}
