@@ -384,7 +384,7 @@ other = "Возможности Kubernetes"
 [main_kubeweekly_baseline]
 other = "Интересуетесь последними новостями Kubernetes? Подпишитесь на KubeWeekly."
 
-[main_kubernetes_past_link]
+[main_kubeweekly_past_link]
 other = "Посмотреть последние новостные выпуски"
 
 [main_kubeweekly_signup]
