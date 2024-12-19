@@ -15,6 +15,6 @@ tags:
 
 <!--more--> 
 
-Minikube runs a single-node cluster inside a VM on your computer.
+Minikube runs an all-in-one or a multi-node local Kubernetes cluster inside a VM on your computer.
 You can use Minikube to
 [try Kubernetes in a learning environment](/docs/setup/learning-environment/).
