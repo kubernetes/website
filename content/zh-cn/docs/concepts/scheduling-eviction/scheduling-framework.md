@@ -141,7 +141,7 @@ Pod。实现 PreEnqueue、PreFilter、Filter、Reserve 或 Permit 的插件应�
 
 ### QueueingHint
 
-{{< feature-state for_k8s_version="v1.28" state="beta" >}}
+{{< feature-state for_k8s_version="v1.32" state="beta" >}}
 
 <!--
 QueueingHint is a callback function for deciding whether a Pod can be requeued to the active queue or backoff queue.
@@ -157,22 +157,14 @@ QueueingHint 作为一个回调函数，用于决定是否将 Pod 重新排队�
 
 {{< note >}}
 <!--
-QueueingHint evaluation during scheduling is a beta-level feature.
-The v1.28 release series initially enabled the associated feature gate; however, after the
-discovery of an excessive memory footprint, the Kubernetes project set that feature gate
-to be disabled by default. In Kubernetes {{< skew currentVersion >}}, this feature gate is
-disabled and you need to enable it manually.
-You can enable it via the
+In Kubernetes {{< skew currentVersion >}}, this feature gate is enabled by default,
+and you can disable it via the
 `SchedulerQueueingHints` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
-在调度过程中对 QueueingHint 求值是一个 Beta 级别的特性。
-v1.28 的系列小版本最初都开启了这个特性的门控；但是发现了内存占用过多的问题，
-于是 Kubernetes 项目将该特性门控设置为默认禁用。
-在 Kubernetes 的 {{< skew currentVersion >}} 版本中，这个特性门控被禁用，你需要手动开启它。
+在 Kubernetes 的 {{< skew currentVersion >}} 版本中，此特性门控默认启用，
 你可以通过 `SchedulerQueueingHints`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来启用它。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用它。
 {{< /note >}}
-
 
 <!--
 ### QueueSort {#queue-sort}
