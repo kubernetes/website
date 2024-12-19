@@ -352,7 +352,7 @@ other = "Tính năng Kubernetes"
 [main_kubeweekly_baseline]
 other = "Muốn nhận tin tức Kubernetes mới nhất không? Đăng ký KubeWeekly."
 
-[main_kubernetes_past_link]
+[main_kubeweekly_past_link]
 other = "Xem những bản tin trước đó"
 
 [main_kubeweekly_signup]
