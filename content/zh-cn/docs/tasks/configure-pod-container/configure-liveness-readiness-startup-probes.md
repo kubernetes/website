@@ -642,9 +642,8 @@ liveness and readiness checks:
 <!--
 * `initialDelaySeconds`: Number of seconds after the container has started before startup,
   liveness or readiness probes are initiated. If a startup  probe is defined, liveness and
-  readiness probe delays do not begin until the startup probe has succeeded. If the value of
-  `periodSeconds` is greater than `initialDelaySeconds` then the `initialDelaySeconds` will be
-  ignored. Defaults to 0 seconds. Minimum value is 0.
+  readiness probe delays do not begin until the startup probe has succeeded. Defaults to 0
+  seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10 seconds.
   The minimum value is 1.
   While a container is not Ready, the `ReadinessProbe` may be executed at times other than
@@ -657,8 +656,7 @@ liveness and readiness checks:
 -->
 * `initialDelaySeconds`：容器启动后要等待多少秒后才启动启动、存活和就绪探针。
   如果定义了启动探针，则存活探针和就绪探针的延迟将在启动探针已成功之后才开始计算。
-  如果 `periodSeconds` 的值大于 `initialDelaySeconds`，则 `initialDelaySeconds`
-  将被忽略。默认是 0 秒，最小值是 0。
+  默认是 0 秒，最小值是 0。
 * `periodSeconds`：执行探测的时间间隔（单位是秒）。默认是 10 秒。最小值是 1。
   当容器未就绪时，`ReadinessProbe` 可能会在除配置的 `periodSeconds`
   间隔以外的时间执行。这是为了让 Pod 更快地达到可用状态。
