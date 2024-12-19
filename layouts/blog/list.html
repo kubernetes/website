@@ -12,7 +12,6 @@ have blog posts -->
 {{ $pageGroups := $pag.PageGroups}}
 {{ if eq $pag.PageNumber 1 }}
 {{ end }}
-{{ partial "deprecation-warning.html" . }}
 <div class="row">
 	<div class="col-12">
 		{{ range $pageGroups }}
