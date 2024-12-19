@@ -191,23 +191,20 @@ For the use cases require parameter configuration, we recommend to add a param c
 
 #### Optional parameters
 
-It can be convenient to be able to have optional parameters as part of a parameter resource, and
-only validate them if present. CEL provides `has()`, which checks if the key passed to it exists.
-CEL also implements Boolean short-circuiting. If the first half of a logical OR evaluates to true,
-it won’t evaluate the other half (since the result of the entire OR will be true regardless). 
+You can add optional parameters to a parameter resource. After you add an optional parameter to this resource, you must check the parameter. 
 
-Combining the two, we can provide a way to validate optional parameters:
+The Common Expression Language (CEL) implementation includes a `has()` macro. You can use this macro in CEL expressions to check if a field of a dynamically typed variable is accessible before attempting to access the field's value.
+
+CEL can implement Boolean _short-circuiting_ evaluation. If the first operand in a logical `OR` statement evaluates to `true`, the statement does not evaluate the second operand because the result of the evaluation remains as `true`.
+
+Combining the `has()` macro with the _short-circuiting_ evaluation feature, you can provide a way to check optional parameters as demonstrated in the following example:
 
 `!has(params.optionalNumber) || (params.optionalNumber >= 5 && params.optionalNumber <= 10)`
 
-Here, we first check that the optional parameter is present with `!has(params.optionalNumber)`. 
+The `!has(params.optionalNumber)` statement in the previous example checks the optional paremeter. Consider the following situations for this check operation:
 
-- If `optionalNumber` hasn’t been defined, then the expression short-circuits since
-  `!has(params.optionalNumber)` will evaluate to true. 
-- If `optionalNumber` has been defined, then the latter half of the CEL expression will be
-  evaluated, and optionalNumber will be checked to ensure that it contains a value between 5 and
-  10 inclusive.
-
+- If you did define the `optionalNumber` parameter, the second operand in the logical OR CEL expression is evaluated and the parameter is checked to ensure that it contains a value between 5 and 10.
+- If you did not define the `optionalNumber` parameter, the expression short-circuits because `!has(params.optionalNumber)` evaluates to `true`. 
 
 #### Per-namespace Parameters
 
