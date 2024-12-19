@@ -32,3 +32,10 @@ function copyCode(elem){
 }
 </script>
 {{- end -}}
+
+{{- if eq .Layout "search" -}}
+{{- $searchJs := resources.Get "js/search.js" | minify | fingerprint -}}
+<script src="{{ $searchJs.RelPermalink }}" integrity="{{ $searchJs.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- $googleSearchJs := resources.Get "js/search-google.js" -}}
+<script src="{{ $googleSearchJs.RelPermalink }}"></script>
+{{- end -}}
