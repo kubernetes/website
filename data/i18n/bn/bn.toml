@@ -384,7 +384,7 @@ other = "কুবারনেটিস ফিচার"
 [main_kubeweekly_baseline]
 other = "সর্বশেষ কুবারনেটিস খবর পেতে আগ্রহী? KubeWeekly এর জন্য সাইন আপ করুন"
 
-[main_kubernetes_past_link]
+[main_kubeweekly_past_link]
 other = "অতীতের নিউজলেটার দেখুন"
 
 [main_kubeweekly_signup]
