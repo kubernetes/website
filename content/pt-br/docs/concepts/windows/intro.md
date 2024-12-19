@@ -98,7 +98,7 @@ Pods, recursos de carga de trabalho e Services são elementos críticos para ger
 * `kubectl exec`
 * Métricas de Pod e container
 * {{< glossary_tooltip text="Escalonamento horizontal de pods" term_id="horizontal-pod-autoscaler" >}}
-* {{< glossary_tooltip text="Quotas de recursos" term_id="resource*quota" >}}
+* {{< glossary_tooltip text="Quotas de recursos" term_id="resource-quota" >}}
 * Pré-empção do schedule*
 
 ### Opções de linha de comando para o kubelet {#kubelet-compatibility}
