@@ -1,4 +1,4 @@
-{{/* The blog nav organizes posts grouped by year, which represents a customized version of the 
+{{/* The blog nav organizes posts grouped by year, which represents a customized version of the
 sidebar-tree in use elsewhere on the site. */}}
 
 {{/* We cache this partial for bigger sites and set the active class client side. */}}
@@ -8,10 +8,10 @@ sidebar-tree in use elsewhere on the site. */}}
 
   <form class="td-sidebar__search d-flex align-items-center">
     {{ partial "search-input.html" . }}
-    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fa-solid fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
     </button>
   </form>
-  
+
   <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
     <!-- {{ if  (gt (len .Site.Home.Translations) 0) }}
     <div class="nav-item dropdown d-block d-lg-none">
