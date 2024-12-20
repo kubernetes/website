@@ -317,7 +317,7 @@ kubectl patch deployment nginx-deployment --subresource='scale' --type='merge' -
 
 ## Modification des ressources
 
-Modifiez toute ressource API avec votre éditeur préféré
+Modifiez toutes ressources API de votre choix avec votre éditeur préféré
 
 ```bash
 kubectl edit svc/docker-registry                      # Edit the service named docker-registry
