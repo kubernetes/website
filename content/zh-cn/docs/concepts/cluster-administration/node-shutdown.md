@@ -70,7 +70,7 @@ To activate the feature, the two kubelet config settings should be configured ap
 set to non-zero values.
 -->
 注意，默认情况下，下面描述的两个配置选项，`shutdownGracePeriod` 和
-`shutdownGracePeriodCriticalPods` 都是被设置为 0 的，因此不会激活节点体面关闭功能。
+`shutdownGracePeriodCriticalPods` 都是被设置为 0 的，因此不会激活节点体面关闭特性。
 要激活此功能特性，这两个 kubelet 配置选项要适当配置，并设置为非零值。
 
 <!--
@@ -110,7 +110,7 @@ During a graceful shutdown, kubelet terminates pods in two phases:
 2. Terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
    running on the node.
 -->
-在体面关闭节点过程中，kubelet 分两个阶段来终止 Pod：
+在体面关闭过程中，kubelet 分两个阶段来终止 Pod：
 
 1. 终止在节点上运行的常规 Pod。
 2. 终止在节点上运行的[关键 Pod](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
@@ -158,8 +158,7 @@ for gracefully terminating normal pods, and the last 10 seconds would be
 reserved for terminating [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
 -->
 例如，如果设置了 `shutdownGracePeriod=30s` 和 `shutdownGracePeriodCriticalPods=10s`，
-则 kubelet 将延迟 30 秒关闭节点。
-在关闭期间，将保留前 20（30 - 10）秒用于体面终止常规 Pod，
+则 kubelet 将延迟 30 秒关闭节点。在关闭期间，将保留前 20（30 - 10）秒用于体面终止常规 Pod，
 而保留最后 10 秒用于终止[关键 Pod](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
 
 {{< note >}}
@@ -295,7 +294,7 @@ example, you could instead use these settings:
 上面的表格表明，所有 `priority` 值大于等于 100000 的 Pod 停止期限只有 10 秒，
 所有 `priority` 值介于 10000 和 100000 之间的 Pod 停止期限是 180 秒，
 所有 `priority` 值介于 1000 和 10000 之间的 Pod 停止期限是 120 秒，
-其他所有 Pod  停止期限是 60 秒。
+其他所有 Pod 停止期限是 60 秒。
 
 用户不需要为所有的优先级类都设置数值。例如，你也可以使用下面这种配置：
 
@@ -341,8 +340,8 @@ their respective shutdown periods.
 
 使用此功能特性需要启用 `GracefulNodeShutdownBasedOnPodPriority`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-并将 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
-中的 `shutdownGracePeriodByPodPriority` 设置为期望的配置，
+并将 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中的
+`shutdownGracePeriodByPodPriority` 设置为期望的配置，
 其中包含 Pod 的优先级类数值以及对应的关闭期限。
 
 {{< note >}}
@@ -351,8 +350,8 @@ The ability to take Pod priority into account during graceful node shutdown was 
 as an Alpha feature in Kubernetes v1.23. In Kubernetes {{< skew currentVersion >}}
 the feature is Beta and is enabled by default.
 -->
-在节点体面关闭期间考虑 Pod 优先级的能力是作为 Kubernetes v1.23 中的 Alpha 功能引入的。
-在 Kubernetes {{< skew currentVersion >}} 中该功能是 Beta 版，默认启用。
+在节点体面关闭期间考虑 Pod 优先级的能力是作为 Kubernetes v1.23 中的 Alpha 特性引入的。
+在 Kubernetes {{< skew currentVersion >}} 中此特性处于 Beta 阶段，默认启用。
 {{< /note >}}
 
 <!--
@@ -406,21 +405,17 @@ these pods will be stuck in terminating status on the shutdown node forever.
 如果原来的已关闭节点没有被恢复，那些在已关闭节点上的 Pod 将永远滞留在终止状态。
 
 <!--
-To mitigate the above situation, a user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute`
-or `NoSchedule` effect to a Node marking it out-of-service.
-If the `NodeOutOfServiceVolumeDetach`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled on {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}, and a Node is marked out-of-service with this taint, the
-pods on the node will be forcefully deleted if there are no matching tolerations on it and volume
-detach operations for the pods terminating on the node will happen immediately. This allows the
-Pods on the out-of-service node to recover quickly on a different node.
+To mitigate the above situation, a user can manually add the taint `node.kubernetes.io/out-of-service`
+with either `NoExecute` or `NoSchedule` effect to a Node marking it out-of-service.
+If a Node is marked out-of-service with this taint, the pods on the node will be forcefully deleted
+if there are no matching tolerations on it and volume detach operations for the pods terminating on
+the node will happen immediately. This allows the Pods on the out-of-service node to recover quickly
+on a different node.
 -->
 为了缓解上述情况，用户可以手动将具有 `NoExecute` 或 `NoSchedule` 效果的
 `node.kubernetes.io/out-of-service` 污点添加到节点上，标记其无法提供服务。
-如果在 {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}
-上启用了 `NodeOutOfServiceVolumeDetach`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-并且节点被污点标记为无法提供服务，如果节点 Pod 上没有设置对应的容忍度，
-那么这样的 Pod 将被强制删除，并且该在节点上被终止的 Pod 将立即进行卷分离操作。
+如果 Node 被污点标记为无法提供服务，且节点上的 Pod 没有设置对应的容忍度，
+那么这样的 Pod 将被强制删除，并且在节点上被终止的 Pod 将立即进行卷分离操作。
 这样就允许那些在无法提供服务节点上的 Pod 能在其他节点上快速恢复。
 
 <!--
@@ -504,6 +499,50 @@ via the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure ment
 - 使用[非体面节点关闭](#non-graceful-node-shutdown)过程时必须小心。
 - 偏离上述步骤可能会导致数据损坏。
 {{< /note >}}
+
+<!--
+## Windows Graceful node shutdown {#windows-graceful-node-shutdown}
+-->
+## Windows 体面节点关闭   {#windows-graceful-node-shutdown}
+
+{{< feature-state feature_gate_name="WindowsGracefulNodeShutdown" >}}
+
+<!--
+The Windows graceful node shutdown feature depends on kubelet running as a Windows service, 
+it will then have a registered [service control handler](https://learn.microsoft.com/en-us/windows/win32/services/service-control-handler-function) 
+to delay the  presshutdown event with a given duration.
+-->
+此服务会使用一个注册的[服务控制处理程序函数](https://learn.microsoft.com/zh-cn/windows/win32/services/service-control-handler-function)将
+preshutdown 事件延迟一段时间。
+
+<!--
+Windows graceful node shutdown is controlled with the `WindowsGracefulNodeShutdown` 
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
+which is introduced in 1.32 as an alpha feature.
+
+Windows graceful node shutdown can not be cancelled.
+-->
+Windows 体面节点关闭是通过 1.32 中作为 Alpha 特性所引入的 `WindowsGracefulNodeShutdown`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)进行控制的。
+
+Windows 体面节点关闭无法被取消。
+
+<!--
+If Kubelet is not running as a Windows service, it will not be able to set and monitor 
+the [Preshutdown](https://learn.microsoft.com/en-us/windows/win32/api/winsvc/ns-winsvc-service_preshutdown_info) event,
+the node will have to go through the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure mentioned above.
+-->
+如果 kubelet 不是作为 Windows 服务运行，它将不能设置和监控
+[Preshutdown](https://learn.microsoft.com/zh-cn/windows/win32/api/winsvc/ns-winsvc-service_preshutdown_info)
+事件，对应节点将不得不跑完上述[非体面节点关闭](#non-graceful-node-shutdown)的流程。
+
+<!--
+In the case where the Windows graceful node shutdown feature is enabled, but the kubelet is not 
+running as a Windows service, the kubelet will continue running instead of failing. However, 
+it will log an error indicating that it needs to be run as a Windows service.
+-->
+在启用 Windows 体面节点关闭特性但 kubelet 未作为 Windows 服务运行的情况下，kubelet 将继续运行而不会失败。
+但是，kubelet 将在日志中记录一个错误，表明它需要作为一个 Windows 服务来运行。
 
 ## {{% heading "whatsnext" %}}
 
