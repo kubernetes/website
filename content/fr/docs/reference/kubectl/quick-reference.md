@@ -443,7 +443,7 @@ kubectl api-resources --api-group=extensions # All resources in the "extensions"
 
 ### Formatage de la sortie 
 
-Pour afficher les détails dans votre terminal aevc un format spécifique, ajoutez l'option `-o` (ou `--output`) à une commande kubectl prise en charge.
+Pour afficher les détails dans votre terminal avec un format spécifique, ajoutez l'option `-o` (ou `--output`) à une commande kubectl prise en charge.
 
 Format de sortie | Description
 --------------| -----------
