@@ -169,7 +169,7 @@ EOF
 
 ```
 
-## Viewing and finding resources
+## Consultez et trouvez les ressources
 
 ```bash
 # Get commands with basic output
@@ -263,7 +263,7 @@ for pod in $(kubectl get po --output=jsonpath={.items..metadata.name}); do echo 
 kubectl get deployment nginx-deployment --subresource=status
 ```
 
-## Updating resources
+## Mise à jour des ressources
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Rolling update "www" containers of "frontend" deployment, updating the image
