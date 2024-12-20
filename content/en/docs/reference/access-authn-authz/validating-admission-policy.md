@@ -32,14 +32,14 @@ A policy is generally made up of three resources:
 - The `ValidatingAdmissionPolicy` describes the abstract logic of a policy
   (think: "this policy makes sure a particular label is set to a particular value").
 
-- A `ValidatingAdmissionPolicyBinding` links the above resources together and provides scoping.
-  If you only want to require an `owner` label to be set for `Pods`, the binding is where you would
-  specify this restriction.
-
 - A parameter resource provides information to a ValidatingAdmissionPolicy to make it a concrete
   statement (think "the `owner` label must be set to something that ends in `.company.com`").
   A native type such as ConfigMap or a CRD defines the schema of a parameter resource.
   `ValidatingAdmissionPolicy` objects specify what Kind they are expecting for their parameter resource.
+
+- A `ValidatingAdmissionPolicyBinding` links the above resources together and provides scoping.
+  If you only want to require an `owner` label to be set for `Pods`, the binding is where you would
+  specify this restriction.
 
 At least a `ValidatingAdmissionPolicy` and a corresponding  `ValidatingAdmissionPolicyBinding`
 must be defined for a policy to have an effect.
