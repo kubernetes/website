@@ -24,7 +24,7 @@ source <(kubectl completion bash) # set up autocomplete in bash into the current
 echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
 ```
 
-Vous pouvez également utiliser un alias abrégé pour kubectl qui fonctionne aussi avec l'autocomplétion.
+Vous pouvez également utiliser un alias pour kubectl qui fonctionne aussi avec l'autocomplétion.
 
 ```bash
 alias k=kubectl
