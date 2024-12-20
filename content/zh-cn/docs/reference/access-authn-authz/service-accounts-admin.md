@@ -29,13 +29,15 @@ For an introduction to service accounts, read [configure service accounts](/docs
 
 This task guide explains some of the concepts behind ServiceAccounts. The
 guide also explains how to obtain or revoke tokens that represent
-ServiceAccounts.
+ServiceAccounts, and how to (optionally) bind a ServiceAccount's validity to
+the lifetime of an API object.
 -->
 有关服务账号的介绍，
 请参阅[配置服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)。
 
 本任务指南阐述有关 ServiceAccount 的几个概念。
-本指南还讲解如何获取或撤销代表 ServiceAccount 的令牌。
+本指南还讲解如何获取或撤销代表 ServiceAccount 的令牌，
+以及如何将 ServiceAccount 的有效期与某个 API 对象的生命期绑定（可选）。
 
 <!-- body -->
 
@@ -118,7 +120,7 @@ Supported object types are as follows:
 
 * Pod (used for projected volume mounts, see below)
 * Secret (can be used to allow revoking a token by deleting the Secret)
-* Node (in v1.30, creating new node-bound tokens is alpha, using existing node-bound tokens is beta)
+* Node (in v1.32, creating new node-bound tokens is beta, using existing node-bound tokens is GA)
 -->
 ServiceAccount 令牌可以被绑定到 kube-apiserver 中存在的 API 对象。
 这可用于将令牌的有效性与另一个 API 对象的存在与否关联起来。
@@ -126,7 +128,7 @@ ServiceAccount 令牌可以被绑定到 kube-apiserver 中存在的 API 对象�
 
 * Pod（用于投射卷的挂载，见下文）
 * Secret（可用于允许通过删除 Secret 来撤销令牌）
-* 节点（在 v1.30 中，创建新的节点绑定令牌是 Alpha 特性，使用现有的节点绑定特性是 Beta 特性）
+* 节点（在 v1.32 中，创建新的节点绑定令牌是 Beta 特性，使用现有的节点绑定令牌是 GA 特性）
 
 <!--
 When a token is bound to an object, the object's `metadata.name` and `metadata.uid` are
@@ -263,6 +265,102 @@ Hence `kubectl get tokenreview` is not a valid command.
 kube-apiserver 实际上并不将 TokenReview 对象持久保存到 etcd 中。
 因此 `kubectl get tokenreview` 不是一个有效的命令。
 {{< /note >}}
+
+<!--
+#### Schema for service account private claims
+
+The schema for the Kubernetes-specific claims within JWT tokens is not currently documented,
+however the relevant code area can be found in
+[the serviceaccount package](https://github.com/kubernetes/kubernetes/blob/d8919343526597e0788a1efe133c70d9a0c07f69/pkg/serviceaccount/claims.go#L56-L68)
+in the Kubernetes codebase.
+-->
+#### 服务账号私有声明的模式
+
+目前在 JWT 令牌中特定于 Kubernetes 的声明模式尚未文档化，但相关代码段可以在 Kubernetes 代码库的
+[serviceaccount 包](https://github.com/kubernetes/kubernetes/blob/d8919343526597e0788a1efe133c70d9a0c07f69/pkg/serviceaccount/claims.go#L56-L68)中找到。
+
+<!--
+You can inspect a JWT using standard JWT decoding tool. Below is an example of a JWT for the
+`my-serviceaccount` ServiceAccount, bound to a Pod object named `my-pod` which is scheduled
+to the Node `my-node`, in the `my-namespace` namespace:
+-->
+你可以使用标准的 JWT 解码工具检查 JWT。
+下面是一个关于 `my-serviceaccount` 服务账号的 JWT 示例，
+该服务账号绑定到了一个被调度到 `my-node` 节点、位于 `my-namespace` 命名空间中且名为 `my-pod` 的 Pod 对象：
+
+```json
+{
+  "aud": [
+    "https://my-audience.example.com"
+  ],
+  "exp": 1729605240,
+  "iat": 1729601640,
+  "iss": "https://my-cluster.example.com",
+  "jti": "aed34954-b33a-4142-b1ec-389d6bbb4936",
+  "kubernetes.io": {
+    "namespace": "my-namespace",
+    "node": {
+      "name": "my-node",
+      "uid": "646e7c5e-32d6-4d42-9dbd-e504e6cbe6b1"
+    },
+    "pod": {
+      "name": "my-pod",
+      "uid": "5e0bd49b-f040-43b0-99b7-22765a53f7f3"
+    },
+    "serviceaccount": {
+      "name": "my-serviceaccount",
+      "uid": "14ee3fa4-a7e2-420f-9f9a-dbc4507c3798"
+    }
+  },
+  "nbf": 1729601640,
+  "sub": "system:serviceaccount:my-namespace:my-serviceaccount"
+}
+```
+
+{{< note >}}
+<!--
+The `aud` and `iss` fields in this JWT may differ between different Kubernetes clusters depending
+on your configuration.
+
+The presence of both the `pod` and `node` claim implies that this token is bound
+to a *Pod* object. When verifying Pod bound ServiceAccount tokens, the API server **does not**
+verify the existence of the referenced Node object.
+-->
+此 JWT 中的 `aud` 和 `iss` 字段可能因你的配置而在不同的 Kubernetes 集群之间有所差异。
+
+同时存在 `pod` 和 `node` 声明意味着此令牌被绑定到了 **Pod** 对象。
+在验证 Pod 绑定的服务账号令牌时，API 服务器**不**验证所引用的 Node 对象是否存在。
+{{< /note >}}
+
+<!--
+Services that run outside of Kubernetes and want to perform offline validation of JWTs may
+use this schema, along with a compliant JWT validator configured with OpenID Discovery information
+from the API server, to verify presented JWTs without requiring use of the TokenReview API.
+-->
+在 Kubernetes 外部运行且想要对 JWT 进行离线校验的服务可以使用此模式，
+结合以 API 服务器的 OpenID Discovery 信息所配置的合规 JWT 校验器，
+可以在不需要使用 TokenReview API 的情况下验证呈现的 JWT。
+
+<!--
+Services that verify JWTs in this way **do not verify** the claims embedded in the JWT token to be
+current and still valid.
+This means if the token is bound to an object, and that object no longer exists, the token will still
+be considered valid (until the configured token expires).
+-->
+以这种方式验证 JWT 的服务**不验证**嵌入在 JWT 令牌中的声明是否当前正使用且仍然有效。
+这意味着如果令牌被绑定到某个对象，且该对象不再存在，此令牌仍将被视为有效（直到配置的令牌过期）。
+
+<!--
+Clients that require assurance that a token's bound claims are still valid **MUST** use the TokenReview
+API to present the token to the `kube-apiserver` for it to verify and expand the embedded claims, using
+similar steps to the [Verifying and inspecting private claims](#verifying-and-inspecting-private-claims)
+section above, but with a [supported client library](/docs/reference/using-api/client-libraries/).
+For more information on JWTs and their structure, see the [JSON Web Token RFC](https://datatracker.ietf.org/doc/html/rfc7519).
+-->
+需要确保令牌的绑定声明仍然有效的客户端**必须**使用 TokenReview API 将令牌呈现给 `kube-apiserver`，
+以便其验证并扩展嵌入的声明，具体步骤类似于上文所述的[验证和检查私有声明](#verifying-and-inspecting-private-claims)，
+但会使用[支持的客户端库](/zh-cn/docs/reference/using-api/client-libraries/)。
+有关 JWT 及其结构的细节，参见 [JSON Web Token RFC](https://datatracker.ietf.org/doc/html/rfc7519)。
 
 <!--
 ## Bound service account token volume mechanism {#bound-service-account-token-volume}
@@ -565,6 +663,18 @@ verify the tokens during authentication.
 该私钥用于为所生成的服务账号令牌签名。同样地，你需要通过
 `--service-account-key-file` 标志将对应的公钥通知给
 kube-apiserver。公钥用于在身份认证过程中校验令牌。
+
+{{< feature-state feature_gate_name="ExternalServiceAccountTokenSigner" >}}
+
+<!--
+An alternate setup to setting `--service-account-private-key-file` and `--service-account-key-file` flags is
+to configure an external JWT signer for [external ServiceAccount token signing and key management](#external-serviceaccount-token-signing-and-key-management). 
+Note that these setups are mutually exclusive and cannot be configured together.
+-->
+设置 `--service-account-private-key-file` 和 `--service-account-key-file`
+标志的替代方案是配置一个外部 JWT 签名程序，
+用于[外部服务账户令牌签名和密钥管理](#external-serviceaccount-token-signing-and-key-management)。
+请注意，这些设置是互斥的，不能同时配置。
 
 <!--
 ### ServiceAccount admission controller
@@ -939,6 +1049,43 @@ Then, delete the Secret you now know the name of:
 ```shell
 kubectl -n examplens delete secret/example-automated-thing-token-zyxwv
 ```
+
+<!--
+## External ServiceAccount token signing and key management
+-->
+## 外部 ServiceAccount 令牌签名和密钥管理    {#external-serviceaccount-token-signing-and-key-management}
+
+{{< feature-state feature_gate_name="ExternalServiceAccountTokenSigner" >}}
+
+<!--
+The kube-apiserver can be configured to use external signer for token signing and token verifying key management.
+This feature enables kubernetes distributions to integrate with key management solutions of their choice (eg: HSMs, cloud KMSes) for service account credential signing and verification.
+To configure kube-apiserver to use external-jwt-signer set the `--service-account-signing-endpoint` flag to the location of a Unix domain socket (UDS) on a filesystem, or be prefixed with an @ symbol and name a UDS in the abstract socket namespace.
+At the configured UDS, shall be an RPC server which implements [ExternalJWTSigner](https://github.com/kubernetes/kubernetes/blob/release-1.32/staging/src/k8s.io/externaljwt/apis/v1alpha1/api.proto).
+The external-jwt-signer must be healthy and be ready to serve supported service account keys for the kube-apiserver to start.
+-->
+kube-apiserver 可以被配置为使用外部签名程序进行令牌签名和令牌验证密钥管理。
+此特性允许各种 Kubernetes 发行版集成自己选择的密钥管理解决方案（例如 HSM、云上 KMS）来进行服务账户凭证签名和验证。
+要配置 kube-apiserver 使用 external-jwt-signer，将 `--service-account-signing-endpoint`
+标志设置为文件系统上 Unix 域套接字 (UDS) 所在的位置，或者以 @ 符号开头并在抽象套接字命名空间中命名 UDS。
+在配置的 UDS 上，需要有一个实现
+[ExternalJWTSigner](https://github.com/kubernetes/kubernetes/blob/release-1.32/staging/src/k8s.io/externaljwt/apis/v1alpha1/api.proto)
+的 RPC 服务器。external-jwt-signer 必须处于健康状态，并准备好为 kube-apiserver 启动提供支持的服务账户密钥。
+
+<!--
+Check out [KEP-740](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/740-service-account-external-signing) for more details on ExternalJWTSigner.
+-->
+有关 ExternalJWTSigner 的细节，查阅
+[KEP-740](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/740-service-account-external-signing)。
+
+{{< note >}}
+<!--
+The kube-apiserver flags `--service-account-key-file` and `--service-account-signing-key-file` will continue to be used for reading from files unless `--service-account-signing-endpoint` is set; they are mutually exclusive ways of supporting JWT signing and authentication.
+-->
+kube-apiserver 的 `--service-account-key-file` 和 `--service-account-signing-key-file`
+标志将继续被用于从文件中读取，除非设置了 `--service-account-signing-endpoint`；
+它们在支持 JWT 签名和身份验证方面是互斥的。
+{{< /note >}}
 
 <!--
 ## Clean up
