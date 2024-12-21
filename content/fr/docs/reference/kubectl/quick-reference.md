@@ -50,7 +50,7 @@ echo 'kubectl completion fish | source' > ~/.config/fish/completions/kubectl.fis
 
 ### Remarque concernant `--all-namespaces`
 
-L'utilisation de `--all-namespaces` est assez fréquente, alors sachez qu'il existe un raccourci pour cela :
+L'utilisation de `--all-namespaces` (tous les espaces de nommage) est assez fréquente, alors sachez qu'il existe un raccourci pour cela :
 
 ```kubectl -A```
 
