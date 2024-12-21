@@ -381,9 +381,19 @@ You can also use TokenRequest to obtain short-lived tokens for your external app
 {{< /note >}}
 
 <!--
-### Restricting access to Secrets {#enforce-mountable-secrets}
+### Restricting access to Secrets (deprecated) {#enforce-mountable-secrets}
 -->
-### 限制对 Secret 的访问   {#enforce-mountable-secrets}
+### 限制对 Secret 的访问（已弃用）  {#enforce-mountable-secrets}
+
+{{< feature-state for_k8s_version="v1.32" state="deprecated" >}}
+
+{{< note >}}
+<!--
+`kubernetes.io/enforce-mountable-secrets` is deprecated since Kubernetes v1.32. Use separate namespaces to isolate access to mounted secrets.
+-->
+`kubernetes.io/enforce-mountable-secrets` 自 Kubernetes v1.32 起已弃用。
+你可以使用单独的命名空间来隔离对挂载 Secret 的访问。
+{{< /note >}}
 
 <!--
 Kubernetes provides an annotation called `kubernetes.io/enforce-mountable-secrets`
@@ -425,7 +435,8 @@ the Secrets from this ServiceAccount are subject to certain mounting restriction
 1. The name of each Secret referenced using `envFrom` in a Pod must also appear in the `secrets`
    field of the Pod's ServiceAccount.
 -->
-2. 在 Pod 中使用 `envFrom` 引用的每个 Secret 的名称也必须列在该 Pod 中 ServiceAccount 的 `secrets` 字段中。
+2. 在 Pod 中使用 `envFrom` 引用的每个 Secret 的名称也必须列在该 Pod 中
+   ServiceAccount 的 `secrets` 字段中。
 
 <!--
 1. The name of each Secret referenced using `imagePullSecrets` in a Pod must also appear in the `secrets`
@@ -456,7 +467,7 @@ acting as a ServiceAccount tries to communicate with the Kubernetes API server,
 the client includes an `Authorization: Bearer <token>` header with the HTTP
 request. The API server checks the validity of that bearer token as follows:
 -->
-ServiceAccount 使用签名的 JSON Web Token (JWT) 来向 Kubernetes API
+ServiceAccount 使用签名的 JSON Web Token（JWT）来向 Kubernetes API
 服务器以及任何其他存在信任关系的系统进行身份认证。根据令牌的签发方式
 （使用 `TokenRequest` 限制时间或使用传统的 Secret 机制），ServiceAccount
 令牌也可能有到期时间、受众和令牌**开始**生效的时间点。
@@ -577,8 +588,8 @@ used in your application and nowhere else.
   * [Use the CertificateSigningRequest API with client certificates](/docs/tasks/tls/managing-tls-in-a-cluster/).
 -->
 * 从集群外部向 API 服务器进行身份认证，而不使用服务账号令牌：
-  * [配置 API 服务器接受来自你自己的身份驱动的 OpenID Connect (OIDC) 令牌](/zh-cn/docs/reference/access-authn-authz/authentication/#openid-connect-tokens)。
-  * 使用来自云提供商等外部身份和访问管理 (IAM) 服务创建的服务账号或用户账号向集群进行身份认证。
+  * [配置 API 服务器接受来自你自己的身份驱动的 OpenID Connect（OIDC）令牌](/zh-cn/docs/reference/access-authn-authz/authentication/#openid-connect-tokens)。
+  * 使用来自云提供商等外部身份和访问管理（IAM）服务创建的服务账号或用户账号向集群进行身份认证。
   * [使用 CertificateSigningRequest API 和客户端证书](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)。
 
 <!--
@@ -587,7 +598,7 @@ used in your application and nowhere else.
   then allows authentication using a private key.
 -->
 * [配置 kubelet 从镜像仓库中获取凭据](/zh-cn/docs/tasks/administer-cluster/kubelet-credential-provider/)。
-* 使用设备插件访问虚拟的可信平台模块 (TPM)，进而可以使用私钥进行身份认证。
+* 使用设备插件访问虚拟的可信平台模块（TPM），进而可以使用私钥进行身份认证。
 
 ## {{% heading "whatsnext" %}}
 
