@@ -396,8 +396,8 @@ happily, [Mike Morris] has returned to the role. We're grateful for everything
 Keith has done, and excited to have Mattia and Mike on board.
 
 [Mattia Lavacca]: https://github.com/mlavacca
-[Keith Mattix]: https://github.com/@keithmattix
-[Mike Morris]: https://github.com/@mikemorris
+[Keith Mattix]: https://github.com/keithmattix
+[Mike Morris]: https://github.com/mikemorris
 
 ## Try it out
 
