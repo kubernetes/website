@@ -539,22 +539,37 @@ please install corresponding CSI drivers.
 * [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
   (**migration on by default** starting v1.25)
 
+The following PersistentVolume types support `CSIMigration` and require the corresponding CSI driver to be installed in the cluster. Kubernetes offers built-in APIs to facilitate their use.
+
+* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
+  &mdash; but for Kubernetes version 1.25 and onwards, this volume type is **only** available via a separate CSI driver 
+  as Kubernetes' core no longer provides built-in support. The Kubernetes project provides an equivalent
+  CSI driver, [AWS EBS](https://github.com/kubernetes-sigs/aws-ebs-csi-driver).
+* [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
+  &mdash; but for Kubernetes version 1.24 and onwards, this volume type is **only** available via a separate CSI driver
+  as Kubernetes' core no longer provides built-in support. The Kubernetes project provides an equivalent
+  CSI driver,
+  [Azure Disk](https://github.com/kubernetes-sigs/azuredisk-csi-driver).
+* [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
+    &mdash; but for Kubernetes version 1.26 and onwards, this volume type is **only** available via a separate CSI driver 
+    as Kubernetes' core no longer provides built-in support. The Kubernetes project provides an equivalent
+    CSI driver,
+    [OpenStack Cinder](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/).
+* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk &mdash; but for Kubernetes version 1.25 and onwards, this volume type is **only** available via a separate CSI driver 
+  as Kubernetes' core no longer provides built-in support. The CSI driver you need to install and configure is
+  [GCE Persistent Disk](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver).
+
 Older versions of Kubernetes also supported the following in-tree PersistentVolume types:
 
 * [`cephfs`](/docs/concepts/storage/volumes/#cephfs)
   (**not available** starting v1.31)
-* `flocker` - Flocker storage.
-  (**not available** starting v1.25)
-* `photonPersistentDisk` - Photon controller persistent disk.
-  (**not available** starting v1.15)
-* `quobyte` - Quobyte volume.
-  (**not available** starting v1.25)
+* `flocker` - Flocker storage &mdash; **not available** starting with v1.25. The Kubernetes project does not provide a CSI driver for this volume type.
+* `photonPersistentDisk` - Photon controller persistent disk &mdash; **not available** starting with v1.15. The Kubernetes project does not provide a CSI driver for this volume type.
+* `quobyte` - Quobyte volume &mdash; **not available** starting with v1.25. The Kubernetes project does not provide a CSI driver for this volume type, however a third party CSI driver is available, [Quobyte](https://github.com/quobyte/quobyte-csi-driver).
 * [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume 
   (**not available** starting v1.31)
-* `scaleIO` - ScaleIO volume.
-  (**not available** starting v1.21)
-* `storageos` - StorageOS volume.
-  (**not available** starting v1.25)
+* `scaleIO` - ScaleIO volume &mdash; **not available** starting with v1.21. The Kubernetes project does not provide a CSI driver for this volume type.
+* `storageos` - StorageOS volume &mdash; **not available** starting with v1.25. The Kubernetes project does not provide a CSI driver for this volume type, however a third party CSI driver is available, [StorageOS](https://docs.storageos.com/docs/install/kubernetes/).
 
 ## Persistent Volumes
 
