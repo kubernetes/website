@@ -2,22 +2,19 @@
 title: Deployment
 id: deployment
 date: 2018-04-12
-full_link: /docs/concepts/workloads/controllers/deployment/
-# short_description: >
-#  An API object that manages a replicated application.
+full_link: /uk/docs/concepts/workloads/controllers/deployment/
 short_description: >
-  Об'єкт API, що керує реплікованим застосунком.
+  Керує реплікованим застосунком у вашому кластері.
 
-aka:
+aka: 
 tags:
 - fundamental
 - core-object
 - workload
 ---
-<!-- An API object that manages a replicated application. -->
-Об'єкт API, що керує реплікованим застосунком.
 
-<!--more-->
+Обʼєкт API, який керує реплікованим застосунком, зазвичай, запускаючи Podʼи без збереження стану.
 
-<!-- Each replica is represented by a {{< glossary_tooltip term_id="pod" >}}, and the Pods are distributed among the nodes of a cluster. -->
-Кожна репліка являє собою {{< glossary_tooltip term_id="pod" text="Pod" >}}; Pod'и розподіляються між вузлами кластера.
+<!--more--> 
+
+Кожна репліка представлена {{< glossary_tooltip term_id="pod" text="Podʼом" >}}; Podʼи розподіляються серед {{< glossary_tooltip text="вузлів" term_id="node" >}} кластера. Для робочих навантажень, які дійсно вимагають збереження стану, розгляньте використання {{< glossary_tooltip term_id="StatefulSet" >}}.
