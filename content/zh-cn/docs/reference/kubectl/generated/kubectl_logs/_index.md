@@ -16,10 +16,6 @@ no_list: true
 
 <!--
 Print the logs for a container in a pod or specified resource. If the pod has only one container, the container name is optional.
-
-```
-kubectl logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]
-```
 -->
 打印 Pod 或指定资源中某个容器的日志。如果 Pod 只有一个容器，则容器名称是可选的。
 
@@ -33,76 +29,118 @@ kubectl logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]
 ```
   # Return snapshot logs from pod nginx with only one container
   kubectl logs nginx
+
+  # Return snapshot logs from pod nginx, prefixing each line with the source pod and container name
+  kubectl logs nginx --prefix
   
+  # Return snapshot logs from pod nginx, limiting output to 500 bytes
+  kubectl logs nginx --limit-bytes=500
+  
+  # Return snapshot logs from pod nginx, waiting up to 20 seconds for it to start running.
+  kubectl logs nginx --pod-running-timeout=20s
+
   # Return snapshot logs from pod nginx with multi containers
   kubectl logs nginx --all-containers=true
-  
+
+  # Return snapshot logs from all pods in the deployment nginx
+  kubectl logs deployment/nginx --all-pods=true
+
   # Return snapshot logs from all containers in pods defined by label app=nginx
   kubectl logs -l app=nginx --all-containers=true
-  
+
+  # Return snapshot logs from all pods defined by label app=nginx, limiting concurrent log requests to 10 pods
+  kubectl logs -l app=nginx --max-log-requests=10
+
   # Return snapshot of previous terminated ruby container logs from pod web-1
   kubectl logs -p -c ruby web-1
-  
+
+  # Begin streaming the logs from pod nginx, continuing even if errors occur
+  kubectl logs nginx -f --ignore-errors=true
+
   # Begin streaming the logs of the ruby container in pod web-1
   kubectl logs -f -c ruby web-1
-  
+
   # Begin streaming the logs from all containers in pods defined by label app=nginx
   kubectl logs -f -l app=nginx --all-containers=true
-  
+
   # Display only the most recent 20 lines of output in pod nginx
   kubectl logs --tail=20 nginx
-  
+
   # Show all logs from pod nginx written in the last hour
   kubectl logs --since=1h nginx
-  
+
+  # Show all logs with timestamps from pod nginx starting from August 30, 2024, at 06:00:00 UTC
+  kubectl logs nginx --since-time=2024-08-30T06:00:00Z --timestamps=true
+
   # Show logs from a kubelet with an expired serving certificate
   kubectl logs --insecure-skip-tls-verify-backend nginx
-  
+
   # Return snapshot logs from first container of a job named hello
   kubectl logs job/hello
-  
+
   # Return snapshot logs from container nginx-1 of a deployment named nginx
   kubectl logs deployment/nginx -c nginx-1
 ```
 -->
 ```shell
-  # 返回只有一个容器的 nginx Pod 中的快照日志
-  kubectl logs nginx
-  
-  # 返回有多个容器的 nginx Pod 中的快照日志
-  kubectl logs nginx --all-containers=true
-  
-  # 返回带 app=nginx 标签定义的 Pod 中所有容器的快照日志
-  kubectl logs -l app=nginx --all-containers=true
-  
-  # 返回 web-1 Pod 中之前终止的 ruby 容器日志的日志
-  kubectl logs -p -c ruby web-1
-  
-  # 开始流式传输 web-1 Pod 中 ruby 容器的日志
-  kubectl logs -f -c ruby web-1
-  
-  # 开始流式传输带 app=nginx 标签定义的 Pod 中所有容器的日志
-  kubectl logs -f -l app=nginx --all-containers=true
-  
-  # 仅显示 nginx Pod 的最近 20 行输出
-  kubectl logs --tail=20 nginx
-  
-  # 显示 nginx Pod 在过去一小时内写入的所有日志
-  kubectl logs --since=1h nginx
-  
-  # 显示所提供证书过期的 kubelet 的日志
-  kubectl logs --insecure-skip-tls-verify-backend nginx
-  
-  # 返回名为 hello 的 Job 的第一个容器的快照日志
-  kubectl logs job/hello
-  
-  # 返回 nginx Deployment 的 nginx-1 容器的快照日志
-  kubectl logs deployment/nginx -c nginx-1
+# 返回只有一个容器的 nginx Pod 中的快照日志
+kubectl logs nginx
+
+# 从 nginx Pod 返回快照日志，每行前面加上来源的 Pod 和容器名称
+kubectl logs nginx --prefix
+
+# 从 nginx Pod 返回快照日志，限制输出为 500 字节
+kubectl logs nginx --limit-bytes=500
+
+# 从 nginx Pod 返回快照日志，等待其启动运行最多 20 秒
+kubectl logs nginx --pod-running-timeout=20s
+
+# 返回有多个容器的 nginx Pod 中的快照日志
+kubectl logs nginx --all-containers=true
+
+# 从 nginx Deployment 中的所有 Pod 返回快照日志
+kubectl logs deployment/nginx --all-pods=true 
+ 
+# 返回带 app=nginx 标签定义的 Pod 中所有容器的快照日志
+kubectl logs -l app=nginx --all-containers=true
+
+# 返回带 app=nginx 标签定义的 Pod 中容器的快照日志，限制并发日志请求为 10 个 Pod
+kubectl logs -l app=nginx --max-log-requests=10
+
+# 返回 web-1 Pod 中之前终止的 ruby 容器日志的日志
+kubectl logs -p -c ruby web-1
+
+# 开始从 nginx Pod 流式传输日志，即使发生错误也继续
+kubectl logs nginx -f --ignore-errors=true
+ 
+# 开始流式传输 web-1 Pod 中 ruby 容器的日志
+kubectl logs -f -c ruby web-1
+
+# 开始流式传输带 app=nginx 标签定义的 Pod 中所有容器的日志
+kubectl logs -f -l app=nginx --all-containers=true
+
+# 仅显示 nginx Pod 的最近 20 行输出
+kubectl logs --tail=20 nginx
+
+# 显示 nginx Pod 在过去一小时内写入的所有日志
+kubectl logs --since=1h nginx
+
+# 显示从 2024 年 8 月 30 日 06:00:00 UTC 开始 nginx Pod 中所有带时间戳的日志
+kubectl logs nginx --since-time=2024-08-30T06:00:00Z --timestamps=true
+
+# 显示所提供证书过期的 kubelet 的日志
+kubectl logs --insecure-skip-tls-verify-backend nginx
+
+# 返回名为 hello 的 Job 的第一个容器的快照日志
+kubectl logs job/hello
+
+# 返回 nginx Deployment 的 nginx-1 容器的快照日志
+kubectl logs deployment/nginx -c nginx-1
 ```
 
 ## {{% heading "options" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -325,7 +363,7 @@ Include timestamps on each line in the log output
 
 ## {{% heading "parentoptions" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
