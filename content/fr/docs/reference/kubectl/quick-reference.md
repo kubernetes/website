@@ -1,5 +1,5 @@
 ---
-title: Référence rapide de kubectl
+title: Aide-mémoire de kubectl
 content_type: concept
 weight: 10 # highlight it
 card:
