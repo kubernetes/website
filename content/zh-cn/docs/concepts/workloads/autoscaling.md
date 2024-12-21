@@ -164,7 +164,7 @@ Mode | Description
 -->
 #### 就地调整的要求
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
 <!--
 Resizing a workload in-place **without** restarting the {{< glossary_tooltip text="Pods" term_id="pod" >}}
