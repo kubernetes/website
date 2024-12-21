@@ -1,8 +1,6 @@
-<script src="/js/jquery-3.6.0.min.js" integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" crossorigin="anonymous"></script>
-<script src="/js/popper-1.16.1.min.js" intregrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="/js/bootstrap-4.6.1.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
 <script src="{{ "js/script.js" | relURL }}"></script>
 
+{{ $jsBs := resources.Get "vendor/bootstrap/dist/js/bootstrap.bundle.js" -}}
 {{ $jsBase := resources.Get "js/base.js" }}
 {{ $jsAnchor := resources.Get "js/anchor.js" }}
 {{ $jsSearch := resources.Get "js/search.js" | resources.ExecuteAsTemplate "js/search.js" .Site.Home }}
@@ -10,17 +8,25 @@
 {{ if .Site.Params.offlineSearch }}
 {{ $jsSearch = resources.Get "js/offline-search.js" }}
 {{ end }}
-{{ $js := (slice $jsBase $jsAnchor $jsSearch $jsMermaid) | resources.Concat "js/main.js" }}
-{{ if hugo.IsServer }}
-<script src="{{ $js.RelPermalink }}"></script>
-{{ else }}
-{{ $js := $js | minify | fingerprint }}
-<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>
-{{ end }}
-{{ with .Site.Params.prism_syntax_highlighting }}
-<!-- scripts for prism -->
-<script src='/js/prism.js'></script>
-{{ end }}
+{{ $js := (slice $jsBs $jsBase $jsAnchor $jsSearch $jsMermaid) | resources.Concat "js/main.js" -}}
+{{ if hugo.IsProduction -}}
+  {{ $js := $js | minify | fingerprint -}}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>
+{{ else -}}
+  <script src="{{ $js.RelPermalink }}"></script>
+{{ end -}}
+
+{{ if .Site.Params.prism_syntax_highlighting -}}
+  <script src='{{ "js/prism.js" | relURL }}'></script>
+{{ else if false -}}
+  {{ $c2cJS := resources.Get "js/click-to-copy.js" -}}
+  {{ if hugo.IsProduction -}}
+    {{ $c2cJS = $c2cJS | minify | fingerprint -}}
+  {{ end -}}
+  <script defer src="{{ $c2cJS.RelPermalink }}" {{ with $c2cJS.Data.Integrity -}}
+    integrity="{{ . }}" {{ end -}}
+    crossorigin="anonymous"></script>
+{{ end -}}
 
 <!--for the splitter-->
 <script>
@@ -50,6 +56,5 @@
     screenWidthMediaQuery.addListener(enableSplitter);
   }
 </script>
-
 
 {{ partial "hooks/body-end.html" . }}
