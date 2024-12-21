@@ -14,21 +14,32 @@ weight: 10
 
 <!-- overview -->
 
-On-disk files in a container are ephemeral, which presents some problems for
+Kubernetes volumes provide a way for containers in a Pod to retain
+data beyond a container's lifecycle. They act as directories that can store data
+and are accessible across containers in the Pod.
+
+## Why volumes are important
+
+- **Data persistence:** On-disk files in a container are ephemeral, which presents some problems for
 non-trivial applications when running in containers. One problem occurs when 
-a container crashes or is stopped. Container state is not saved so all of the 
+a container crashes or is stopped, the container state is not saved so all of the 
 files that were created or modified during the lifetime of the container are lost. 
-During a crash, kubelet restarts the container with a clean state. 
-Another problem occurs when multiple containers are running in a `Pod` and 
+During a crash, kubelet restarts the container with a clean state.
+
+- **Shared storage:** Another problem occurs when multiple containers are running in a `Pod` and 
 need to share files. It can be challenging to setup 
 and access a shared filesystem across all of the containers.
+
 The Kubernetes {{< glossary_tooltip text="volume" term_id="volume" >}} abstraction
 solves both of these problems.
-Familiarity with [Pods](/docs/concepts/workloads/pods/) is suggested.
 
+{{< note >}}
+Familiarity with [Pods](/docs/concepts/workloads/pods/) is suggested.
+{{< /note >}}
+  
 <!-- body -->
 
-## Background
+## How volumes work
 
 Kubernetes supports many types of volumes. A {{< glossary_tooltip term_id="pod" text="Pod" >}}
 can use any number of volume types simultaneously.
@@ -45,14 +56,15 @@ volume type used.
 
 To use a volume, specify the volumes to provide for the Pod in `.spec.volumes`
 and declare where to mount those volumes into containers in `.spec.containers[*].volumeMounts`.
-A process in a container sees a filesystem view composed from the initial contents of
+
+When a pod is launched, a process in the container sees a filesystem view composed from the initial contents of
 the {{< glossary_tooltip text="container image" term_id="image" >}}, plus volumes
 (if defined) mounted inside the container.
 The process sees a root filesystem that initially matches the contents of the container
 image.
 Any writes to within that filesystem hierarchy, if allowed, affect what that process views
 when it performs a subsequent filesystem access.
-Volumes mount at the [specified paths](#using-subpath) within
+Volumes are mounted at [specified paths](#using-subpath) within
 the image.
 For each container defined within a Pod, you must independently specify where
 to mount each volume that the container uses.
