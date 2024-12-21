@@ -120,7 +120,7 @@ kubectl apply -f ./dir                              # create resource(s) in all 
 kubectl apply -f https://example.com/manifest.yaml  # create resource(s) from url (Note: this is an example domain and does not contain a valid manifest)
 kubectl create deployment nginx --image=nginx       # start a single instance of nginx
 
-# create a Job which prints "Hello World"
+# créer un Job qui imprime « Hello World » (bonjour le monde)
 kubectl create job hello --image=busybox:1.28 -- echo "Hello World"
 
 # create a CronJob that prints "Hello World" every minute
