@@ -282,98 +282,109 @@ This example shows the data contained in an `AdmissionReview` object
 for a request to update the `scale` subresource of an `apps/v1` `Deployment`:
 
 ```yaml
-apiVersion: admission.k8s.io/v1
-kind: AdmissionReview
-request:
-  # Random uid uniquely identifying this admission call
-  uid: 705ab4f5-6393-11e8-b7cc-42010a800002
+{
+  "apiVersion": "admission.k8s.io/v1",
+  "kind": "AdmissionReview",
+  "request": {
+    # Random uid uniquely identifying this admission call
+    "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
 
-  # Fully-qualified group/version/kind of the incoming object
-  kind:
-    group: autoscaling
-    version: v1
-    kind: Scale
+    # Fully-qualified group/version/kind of the incoming object
+    "kind": {
+      "group": "autoscaling",
+      "version": "v1",
+      "kind": "Scale"
+    },
 
-  # Fully-qualified group/version/kind of the resource being modified
-  resource:
-    group: apps
-    version: v1
-    resource: deployments
+    # Fully-qualified group/version/kind of the resource being modified
+    "resource": {
+      "group": "apps",
+      "version": "v1",
+      "resource": "deployments"
+    },
 
-  # subresource, if the request is to a subresource
-  subResource: scale
+    # Subresource, if the request is to a subresource
+    "subResource": "scale",
 
-  # Fully-qualified group/version/kind of the incoming object in the original request to the API server.
-  # This only differs from `kind` if the webhook specified `matchPolicy: Equivalent` and the
-  # original request to the API server was converted to a version the webhook registered for.
-  requestKind:
-    group: autoscaling
-    version: v1
-    kind: Scale
+    # Fully-qualified group/version/kind of the incoming object in the original request to the API server
+    # This only differs from `kind` if the webhook specified `matchPolicy: Equivalent` and the original
+    # request to the API server was converted to a version the webhook registered for
+    "requestKind": {
+      "group": "autoscaling",
+      "version": "v1",
+      "kind": "Scale"
+    },
 
-  # Fully-qualified group/version/kind of the resource being modified in the original request to the API server.
-  # This only differs from `resource` if the webhook specified `matchPolicy: Equivalent` and the
-  # original request to the API server was converted to a version the webhook registered for.
-  requestResource:
-    group: apps
-    version: v1
-    resource: deployments
+    # Fully-qualified group/version/kind of the resource being modified in the original request to the API server
+    # This only differs from `resource` if the webhook specified `matchPolicy: Equivalent` and the original
+    # request to the API server was converted to a version the webhook registered for
+    "requestResource": {
+      "group": "apps",
+      "version": "v1",
+      "resource": "deployments"
+    },
 
-  # subresource, if the request is to a subresource
-  # This only differs from `subResource` if the webhook specified `matchPolicy: Equivalent` and the
-  # original request to the API server was converted to a version the webhook registered for.
-  requestSubResource: scale
+    # Subresource, if the request is to a subresource
+    # This only differs from `subResource` if the webhook specified `matchPolicy: Equivalent` and the original
+    # request to the API server was converted to a version the webhook registered for
+    "requestSubResource": "scale",
 
-  # Name of the resource being modified
-  name: my-deployment
+    # Name of the resource being modified
+    "name": "my-deployment",
 
-  # Namespace of the resource being modified, if the resource is namespaced (or is a Namespace object)
-  namespace: my-namespace
+    # Namespace of the resource being modified, if the resource is namespaced (or is a Namespace object)
+    "namespace": "my-namespace",
 
-  # operation can be CREATE, UPDATE, DELETE, or CONNECT
-  operation: UPDATE
+    # operation can be CREATE, UPDATE, DELETE, or CONNECT
+    "operation": "UPDATE",
 
-  userInfo:
-    # Username of the authenticated user making the request to the API server
-    username: admin
+    "userInfo": {
+      # Username of the authenticated user making the request to the API server
+      "username": "admin",
 
-    # UID of the authenticated user making the request to the API server
-    uid: 014fbff9a07c
+      # UID of the authenticated user making the request to the API server
+      "uid": "014fbff9a07c",
 
-    # Group memberships of the authenticated user making the request to the API server
-    groups:
-      - system:authenticated
-      - my-admin-group
-    # Arbitrary extra info associated with the user making the request to the API server.
-    # This is populated by the API server authentication layer and should be included
-    # if any SubjectAccessReview checks are performed by the webhook.
-    extra:
-      some-key:
-        - some-value1
-        - some-value2
+      # Group memberships of the authenticated user making the request to the API server
+      "groups": [
+        "system:authenticated",
+        "my-admin-group"
+      ],
 
-  # object is the new object being admitted.
-  # It is null for DELETE operations.
-  object:
-    apiVersion: autoscaling/v1
-    kind: Scale
+      # Arbitrary extra info associated with the user making the request to the API server
+      # This is populated by the API server authentication layer
+      "extra": {
+        "some-key": [
+          "some-value1",
+          "some-value2"
+        ]
+      }
+    },
 
-  # oldObject is the existing object.
-  # It is null for CREATE and CONNECT operations.
-  oldObject:
-    apiVersion: autoscaling/v1
-    kind: Scale
+    # object is the new object being admitted. It is null for DELETE operations
+    "object": {
+      "apiVersion": "autoscaling/v1",
+      "kind": "Scale"
+    },
 
-  # options contains the options for the operation being admitted, like meta.k8s.io/v1 CreateOptions, UpdateOptions, or DeleteOptions.
-  # It is null for CONNECT operations.
-  options:
-    apiVersion: meta.k8s.io/v1
-    kind: UpdateOptions
+    # oldObject is the existing object. It is null for CREATE and CONNECT operations
+    "oldObject": {
+      "apiVersion": "autoscaling/v1",
+      "kind": "Scale"
+    },
 
-  # dryRun indicates the API request is running in dry run mode and will not be persisted.
-  # Webhooks with side effects should avoid actuating those side effects when dryRun is true.
-  # See http://k8s.io/docs/reference/using-api/api-concepts/#make-a-dry-run-request for more details.
-  dryRun: False
+    # options contain the options for the operation being admitted, like meta.k8s.io/v1 CreateOptions,
+    # UpdateOptions, or DeleteOptions. It is null for CONNECT operations
+    "options": {
+      "apiVersion": "meta.k8s.io/v1",
+      "kind": "UpdateOptions"
+    },
+
+    # dryRun indicates the API request is running in dry run mode and will not be persisted
+    # Webhooks with side effects should avoid actuating those side effects when dryRun is true
+    "dryRun": false
+  }
+}
 ```
 
 ### Response
