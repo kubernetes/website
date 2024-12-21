@@ -56,7 +56,7 @@ L'utilisation de `--all-namespaces` (tous les espaces de nommage) est assez fré
 
 ## Contexte et configuration de Kubectl
 
-Définissez quel cluster Kubernetes doit être utilisé avec `kubectl`, et modifiez les paramètres de configuration. Pour plus de détails sur le fichier de configuration, consultez la documentation [Configurer l'accès à plusieurs clusters](https://kubernetes.io/fr/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
+Définissez quel cluster Kubernetes doit être utilisé avec `kubectl`, et modifiez les paramètres de configuration. Pour plus de détails sur le fichier de configuration, consultez la documentation [Configurer l'accès à plusieurs clusters](/fr/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
 
 ```bash
 kubectl config view # Show Merged kubeconfig settings.
