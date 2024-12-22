@@ -322,17 +322,17 @@ spec:
         name: log-config
         items:
           - key: log_level
-            path: log_level
+            path: log_level.conf
 ```
 
 <!--
 The `log-config` ConfigMap is mounted as a volume, and all contents stored in
-its `log_level` entry are mounted into the Pod at path `/etc/config/log_level`.
+its `log_level` entry are mounted into the Pod at path `/etc/config/log_level.conf`.
 Note that this path is derived from the volume's `mountPath` and the `path`
 keyed with `log_level`.
 -->
 `log-config` ConfigMap 以卷的形式挂载，并且存储在 `log_level`
-条目中的所有内容都被挂载到 Pod 的 `/etc/config/log_level` 路径下。
+条目中的所有内容都被挂载到 Pod 的 `/etc/config/log_level.conf` 路径下。
 请注意，这个路径来源于卷的 `mountPath` 和 `log_level` 键对应的 `path`。
 
 {{< note >}}
