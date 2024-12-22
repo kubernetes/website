@@ -15,6 +15,269 @@ auto_generated: true
 - [LeaderMigrationConfiguration](#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration)
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 
+## `ClientConnectionConfiguration`     {#ClientConnectionConfiguration}
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
+
+<p>
+<!--
+ClientConnectionConfiguration contains details for constructing a client.
+-->
+ClientConnectionConfiguration 包含构建客户端的详细信息。
+</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+  
+<tr><td><code>kubeconfig</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+<p>
+<!--
+kubeconfig is the path to a KubeConfig file.
+-->
+kubeconfig 是指向 KubeConfig 文件的路径。
+</p>
+</td>
+</tr>
+<tr><td><code>acceptContentTypes</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+<p>
+<!--
+acceptContentTypes defines the Accept header sent by clients when connecting to a server, overriding the
+default value of 'application/json'. This field will control all connections to the server used by a particular
+client.
+-->
+acceptContentTypes 定义了客户端在连接服务器时发送的 Accept 请求头，
+覆盖默认值 application/json。此字段将控制特定客户端与服务器之间的所有连接。
+</p>
+</td>
+</tr>
+<tr><td><code>contentType</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+<p>
+<!--
+contentType is the content type used when sending data to the server from this client.
+-->
+contentType 是此客户端向服务器发送数据时使用的内容类型。
+</p>
+</td>
+</tr>
+<tr><td><code>qps</code> <B><!--[Required]-->[必需]</B><br/>
+<code>float32</code>
+</td>
+<td>
+<p>
+<!--
+qps controls the number of queries per second allowed for this connection.
+-->
+qps 控制此连接每秒允许的查询数量。
+</p>
+</td>
+</tr>
+<tr><td><code>burst</code> <B><!--[Required]-->[必需]</B><br/>
+<code>int32</code>
+</td>
+<td>
+<p>
+<!--
+burst allows extra queries to accumulate when a client is exceeding its rate.
+-->
+burst 允许在客户端超出其速率限制时累积额外的查询。
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `DebuggingConfiguration`     {#DebuggingConfiguration}
+    
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
+
+<p>
+<!--
+DebuggingConfiguration holds configuration for Debugging related features.
+-->
+DebuggingConfiguration 包含与调试相关功能的配置。
+</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+
+<tr><td><code>enableProfiling</code> <B><!--[Required]-->[必需]</B><br/>
+<code>bool</code>
+</td>
+<td>
+<p>
+<!--
+enableProfiling enables profiling via web interface host:port/debug/pprof/
+-->
+enableProfiling 启用通过 Web 接口 host:port/debug/pprof/ 进行性能分析（profiling）。
+</p>
+</td>
+</tr>
+<tr><td><code>enableContentionProfiling</code> <B><!--[Required]-->[必需]</B><br/>
+<code>bool</code>
+</td>
+<td>
+<p>
+<!--
+enableContentionProfiling enables block profiling, if
+enableProfiling is true.
+-->
+如果 enableProfiling 为 true，enableContentionProfiling 启用阻塞分析（block profiling）。
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `LeaderElectionConfiguration`     {#LeaderElectionConfiguration}
+    
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
+
+<p>
+<!--
+LeaderElectionConfiguration defines the configuration of leader election
+clients for components that can run with leader election enabled.
+-->
+LeaderElectionConfiguration 定义了启用 leader 选举的组件的 leader 选举客户端配置。
+</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+
+<tr><td><code>leaderElect</code> <B><!--[Required]-->[必需]</B><br/>
+<code>bool</code>
+</td>
+<td>
+<p>
+<!--
+leaderElect enables a leader election client to gain leadership
+before executing the main loop. Enable this when running replicated
+components for high availability.
+-->
+leaderElect 启用 leader 选举客户端在执行主循环之前获取领导权。
+在为了高可用性而运行组件副本时启用此特性。
+</p>
+</td>
+</tr>
+<tr><td><code>leaseDuration</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+<p>
+<!--
+leaseDuration is the duration that non-leader candidates will wait
+after observing a leadership renewal until attempting to acquire
+leadership of a led but unrenewed leader slot. This is effectively the
+maximum duration that a leader can be stopped before it is replaced
+by another candidate. This is only applicable if leader election is
+enabled.
+-->
+leaseDuration 是非领导者候选人在观察到领导权更新后，等待尝试获取领导权的时间。
+这实际上是领导者在被另一个候选人取代之前可以停止的最大时长。
+此设置仅在启用了 leader 选举时适用。
+</p>
+</td>
+</tr>
+<tr><td><code>renewDeadline</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+<p>
+<!--
+renewDeadline is the interval between attempts by the acting master to
+renew a leadership slot before it stops leading. This must be less
+than or equal to the lease duration. This is only applicable if leader
+election is enabled.
+-->
+renewDeadline 是当前领导者尝试刷新领导权的时间间隔，如果在此时间内未能成功刷新，
+它将停止担任领导者。此值必须小于或等于 leaseDuration。
+此设置仅在启用了 leader 选举时适用。
+</p>
+</td>
+</tr>
+<tr><td><code>retryPeriod</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+<p>
+<!--
+retryPeriod is the duration the clients should wait between attempting
+acquisition and renewal of a leadership. This is only applicable if
+leader election is enabled.
+-->
+retryPeriod 是客户端在尝试获取和刷新领导权之间应等待的时间间隔。
+此设置仅在启用了 leader 选举时适用。
+</p>
+</td>
+</tr>
+<tr><td><code>resourceLock</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+<p>
+<!--
+resourceLock indicates the resource object type that will be used to lock
+during leader election cycles.
+-->
+resourceLock 指示在 leader 选举周期中用于锁定的资源对象类型。
+</p>
+</td>
+</tr>
+<tr><td><code>resourceName</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+<p>
+<!--
+resourceName indicates the name of resource object that will be used to lock
+during leader election cycles.
+-->
+resourceName 指示在 leader 选举周期中用于锁定的资源对象的名称。
+</p>
+</td>
+</tr>
+<tr><td><code>resourceNamespace</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+<p>
+<!--
+resourceName indicates the namespace of resource object that will be used to lock
+during leader election cycles.
+-->
+resourceNamespace 指示在 leader 选举周期中用于锁定的资源对象所在的命名空间。
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+
 ## `NodeControllerConfiguration`     {#NodeControllerConfiguration}
 
 <!--
@@ -2071,10 +2334,12 @@ Nodelifecyclecontrolerconfiguration 包含描述 NodeLifecycleController 的元�
    nodeMontiorGracePeriod is the amount of time which we allow a running node to be
    unresponsive before marking it unhealthy. Must be N times more than kubelet's
    nodeStatusUpdateFrequency, where N means number of retries allowed for kubelet
-   to post node status. 
+   to post node status. This value should also be greater than the sum of
+   HTTP2_PING_TIMEOUT_SECONDS and HTTP2_READ_IDLE_TIMEOUT_SECONDS.
    -->
    nodeMontiorGracePeriod 是在将运行中的节点标记为不健康之前允许其无响应的时长。
    必须是 kubelet 的 nodeStatusUpdateFrequency 的 N 倍，其中 N 表示允许 kubelet 发布节点状态的重试次数。
+   此值还应大于 `HTTP2_PING_TIMEOUT_SECONDS` 和 `HTTP2_READ_IDLE_TIMEOUT_SECONDS` 之和。
    </p>
 </td>
 </tr>
