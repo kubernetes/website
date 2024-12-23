@@ -46,8 +46,9 @@ that has a different resource requirement.
 A resize request is made through the pod `/resize` subresource, which takes the full updated pod for
 an update request, or a patch on the pod object for a patch request.
 -->
-resize 请求通过 Pod 的 `/resize` 子资源发出，
-它会通过已完整更新的 Pod 来发出 update 请求，或对此 Pod 对象打补丁发出 patch 请求。
+resize 请求是通过 Pod 的 `/resize` 子资源处理的。
+对于 update 请求，请求体是更新后的完整 Pod；
+对于 patch 请求，请求体是对 Pod 对象的补丁。
 
 <!--
 For in-place resize of pod resources:
@@ -61,10 +62,10 @@ For in-place resize of pod resources:
 对于原地调整 Pod 资源而言：
 
 - 针对 CPU 和内存资源的容器的 `requests` 和 `limits` 是**可变更的**。
-  这些字段表示容器所用的**预期**资源。
+  这些字段表示容器**所预期**使用的资源。
 - Pod 状态中 `containerStatuses` 的 `resources` 字段反映了分配给 Pod 容器的资源。
-  对于正运行的容器，这反映了基于容器运行时的报告所配置的实际资源 `requests` 和 `limits`。
-  对于未运行的容器，这些是启动时为容器分配的资源。
+  对于正运行的容器，这个字段反映了实际配置的资源 `requests` 和 `limits`，
+  字段值是容器运行时所报告的。对于未运行的容器，字段值是容器启动时为其分配的资源。
 
 <!--
 - The `resize` field in the Pod's status shows the status of the last requested
@@ -83,7 +84,7 @@ For in-place resize of pod resources:
     case if the resources in the container spec match the resources in the container status.
 -->
 - Pod 状态中 `resize` 字段显示上次请求待处理的调整状态。此字段可以具有以下值：
-  - `Proposed`：此值表示 Pod 大小已被调整，但 kubelet 还未处理此调整请求。
+  - `Proposed`：此值表示 Pod 大小的规约已被调整，但 kubelet 还未处理此调整请求。
   - `InProgress`：此值表示节点已接受调整请求，并正在将其应用于 Pod 的容器。
   - `Deferred`：此值意味着在此时无法批准请求的调整，节点将继续重试。
     当其他 Pod 被移除并释放节点资源时，调整可能会被真正实施。
@@ -195,6 +196,8 @@ In-place resize of pod resources currently has the following limitations:
 -->
 ## 限制   {#limitations}
 
+目前就地调整 Pod 资源大小存在以下限制：
+
 <!--
 - Only CPU and memory resources can be changed.
 - Pod QoS Class cannot change. This means that requests must continue to equal limits for Guaranteed
@@ -207,13 +210,13 @@ In-place resize of pod resources currently has the following limitations:
   feasible.
 - Windows pods cannot be resized.
 -->
-- 仅 CPU 和内存资源可以被更改。
+- 只能更改 CPU 和内存资源。
 - Pod QoS 类不能更改。这意味着 Guaranteed Pod 的 requests 必须继续等于其 limits，
   Burstable Pod 对于 CPU 和内存的 requests 不能设为等于其 limits，
   并且你不能给 BestEffort Pod 添加资源要求。
 - Init 容器和临时容器不能调整大小。
 - 资源请求和限制一旦被设置就不能移除。
-- 容器的内存限制不可以低于其使用量。如果某请求将容器置于此状态，
+- 容器的内存限制不能降到比其当前用量更低的值。如果某请求将容器置于此状态，
   调整的状态将停留在 `InProgress`，直到预期的内存限制成为可行为止。
 - Windows Pod 不能被调整大小。
 
