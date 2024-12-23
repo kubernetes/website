@@ -128,7 +128,7 @@ Existen los siguientes métodos para instalar kubectl en Linux:
    ```shell
    sudo apt-get update
    # apt-transport-https may be a dummy package; if so, you can skip that package
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
    ```
 
 2. Descarga la llave pública firmada para los repositorios de Kubernetes. La misma llave firmada es usada para todos los repositorios por lo que se puede obviar la versión en la URL:

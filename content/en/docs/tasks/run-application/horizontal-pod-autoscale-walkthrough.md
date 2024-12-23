@@ -79,9 +79,9 @@ service/php-apache created
 
 ## Create the HorizontalPodAutoscaler {#create-horizontal-pod-autoscaler}
 
-Now that the server is running, create the autoscaler using `kubectl`. There is
+Now that the server is running, create the autoscaler using `kubectl`. The
 [`kubectl autoscale`](/docs/reference/generated/kubectl/kubectl-commands#autoscale) subcommand,
-part of `kubectl`, that helps you do this.
+part of `kubectl`, helps you do this.
 
 You will shortly run a command that creates a HorizontalPodAutoscaler that maintains
 between 1 and 10 replicas of the Pods controlled by the php-apache Deployment that

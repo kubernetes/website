@@ -51,7 +51,7 @@ Automatisierung die Informationen aus den `OWNERS`-Dateien.
 ### OWNERS Dateien und Front-Matter
 
 Das Kubernetes-Projekt verwendet ein Automatisierungstool namens prow für die Automatisierung im Zusammenhang mit GitHub-Issues und Pull-Requests. 
-Das [Kubernetes-Website-Repository](https://github.com/kubernetes/website) verwendet zwei [prow-Plugins](https://github.com/kubernetes/test-infra/tree/master/prow/plugins):
+Das [Kubernetes-Website-Repository](https://github.com/kubernetes/website) verwendet zwei [prow-Plugins](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins):
 
 - blunderbuss
 - approve
@@ -74,7 +74,7 @@ Entweder durch Auflistung einzelner GitHub-Benutzernamen oder GitHub-Gruppen.
 Die Kombination aus OWNERS-Dateien und Front-Matter in Markdown-Dateien bestimmt, welche Empfehlungen PR-Eigentümer von automatisierten Systemen erhalten, und wen sie um eine technische und redaktionelle Überprüfung ihres PRs bitten sollen.
 ## So funktioniert das Zusammenführen
 
-Wenn ein Pull Request mit der Branch (Ast) zusammengeführt wird, in dem der Inhalt bereitgestellt werden soll, wird dieser Inhalt auf http://kubernetes.io veröffentlicht. Um sicherzustellen, dass die Qualität der veröffentlichten Inhalte hoch ist, beschränken wir das Zusammenführen von Pull Requests auf
+Wenn ein Pull Request mit der Branch (Ast) zusammengeführt wird, in dem der Inhalt bereitgestellt werden soll, wird dieser Inhalt auf https://kubernetes.io veröffentlicht. Um sicherzustellen, dass die Qualität der veröffentlichten Inhalte hoch ist, beschränken wir das Zusammenführen von Pull Requests auf
 SIG Docs Freigabeberechtigte. So funktioniert es:
 
 - Wenn eine Pull-Anfrage sowohl das `lgtm`- als auch das `approve`-Label hat, kein `hold`-Label hat, 

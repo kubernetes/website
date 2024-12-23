@@ -120,19 +120,19 @@ _audit level_ of the event. The defined audit levels are:
 
 <!--
 - `None` - don't log events that match this rule.
-- `Metadata` - log request metadata (requesting user, timestamp, resource,
+- `Metadata` - log events with metadata (requesting user, timestamp, resource,
   verb, etc.) but not request or response body.
-- `Request` - log event metadata and request body but not response body.
+- `Request` - log events with request metadata and body but not response body.
   This does not apply for non-resource requests.
-- `RequestResponse` - log event metadata, request and response bodies.
+- `RequestResponse` - log events with request metadata, request body and response body.
   This does not apply for non-resource requests.
 -->
 - `None` - 符合这条规则的日志将不会记录。
 - `Metadata` - 记录请求的元数据（请求的用户、时间戳、资源、动词等等），
   但是不记录请求或者响应的消息体。
-- `Request` - 记录事件的元数据和请求的消息体，但是不记录响应的消息体。
+- `Request` - 记录请求的元数据和请求的消息体，但是不记录响应的消息体。
   这不适用于非资源类型的请求。
-- `RequestResponse` - 记录事件的元数据，请求和响应的消息体。这不适用于非资源类型的请求。
+- `RequestResponse` - 记录请求的元数据、请求正文和响应正文。这不适用于非资源类型的请求。
 
 <!--
 You can pass a file with the policy to `kube-apiserver`

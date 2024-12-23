@@ -170,6 +170,12 @@ Kubernetes cluster. To make the `hello-node` Container accessible from outside t
 Kubernetes virtual network, you have to expose the Pod as a
 Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
+{{< warning >}}
+The agnhost container has a `/shell` endpoint, which is useful for
+debugging, but dangerous to expose to the public internet. Do not run this on an
+internet-facing cluster, or a production cluster.
+{{< /warning >}}
+
 1. Expose the Pod to the public internet using the `kubectl expose` command:
 
     ```shell

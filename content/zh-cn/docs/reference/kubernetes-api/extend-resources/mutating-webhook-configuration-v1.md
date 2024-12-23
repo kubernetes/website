@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可在更改对象的情况下接受或拒绝对象请求"
 title: "MutatingWebhookConfiguration"
-weight: 2
+weight: 3
 ---
 
 <!-- 
@@ -50,7 +50,9 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 - **webhooks** ([]MutatingWebhook)
 
   *Patch strategy: merge on key `name`*
-  
+
+  *Map: unique values on key name will be kept during a merge*
+
   Webhooks is a list of webhooks and the affected resources and operations.
 
   <a name="MutatingWebhook"></a>
@@ -61,6 +63,8 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
   **补丁策略：根据 `name` 键执行合并操作**
 
+  **映射：基于 `name` 键的唯一值将在合并期间被保留**
+
   webhooks 是 Webhook 及其所影响的资源和操作的列表。
 
   <a name="MutatingWebhook"></a>
@@ -69,10 +73,14 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
   <!-- 
   - **webhooks.admissionReviewVersions** ([]string), required
 
+    *Atomic: will be replaced during a merge*  
+  
     AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. 
   -->
 
   - **webhooks.admissionReviewVersions** ([]string), 必需
+
+    **原子性：将在合并期间被替换**
 
     admissionReviewVersions 是 Webhook 期望的 `AdmissionReview` 版本的优选顺序列表。
     API 服务器将尝试使用它所支持的版本列表中的第一个版本。如果 API 服务器不支持此列表中设置的任何版本，则此对象将验证失败。
@@ -264,7 +272,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
         - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
     -->
     
-    精确匹配逻辑是（按顺序）:
+    精确匹配逻辑是（按顺序）：
     1. 如果任一 matchCondition 的计算结果为 FALSE，则跳过该 webhook。
     2. 如果所有 matchConditions 的计算结果为 TRUE，则调用该 webhook。
     3. 如果任一 matchCondition 的计算结果为错误（但都不是 FALSE）：
@@ -272,13 +280,9 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
        - 如果 failurePolicy=Ignore，忽略错误并跳过该 webhook。
 
     <!--
-    This is an beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
-  
     <a name="MatchCondition"></a>
     *MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.*
     -->
-    
-    这是一个 Beta 功能特性，由 AdmissionWebhookMatchConditions 特性门控管理。
 
     <a name="MatchCondition"></a>
     **MatchCondition 表示将请求发送到 Webhook 之前必须满足的条件。**
@@ -383,7 +387,8 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     如果对象是其他集群作用域资源，则永远不会跳过 Webhook 的匹配动作。
 
     例如，为了针对 “runlevel” 不为 “0” 或 “1” 的名字空间中的所有对象运行 Webhook；
-    你可以按如下方式设置 selector :
+    你可以按如下方式设置 selector：
+
     ```
     "namespaceSelector": {
       "matchExpressions": [
@@ -398,12 +403,14 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
       ]
     }
     ```
+
     <!-- 
     If instead you want to only run the webhook on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows: "namespaceSelector": {
     -->
     
     相反，如果你只想针对 “environment” 为 “prod” 或 “staging” 的名字空间中的对象运行 Webhook；
-    你可以按如下方式设置 selector:
+    你可以按如下方式设置 selector：
+
     ```
     "namespaceSelector": {
       "matchExpressions": [
@@ -418,6 +425,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
       ]
     }
     ```
+
     <!-- 
     See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
 
@@ -462,16 +470,18 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     - Never: 在一次录取评估中，Webhook 被调用的次数不会超过一次。
     - IfNeeded：如果被录取的对象在被最初的 Webhook 调用后又被其他录取插件修改，
       那么该 Webhook 将至少被额外调用一次作为录取评估的一部分。
-      指定此选项的 Webhook  **必须**是幂等的，能够处理它们之前承认的对象。
+      指定此选项的 Webhook **必须**是幂等的，能够处理它们之前承认的对象。
       注意：**不保证额外调用的次数正好为1。**
       如果额外的调用导致对对象的进一步修改，Webhook 不保证会再次被调用。
       **使用该选项的 Webhook 可能会被重新排序，以最小化额外调用的数量。**
       在保证所有的变更都完成后验证一个对象，使用验证性质的准入 Webhook 代替。
 
-    默认值为 “Never” 。
+    默认值为 “Never”。
 
   <!-- 
   - **webhooks.rules** ([]RuleWithOperations)
+
+    *Atomic: will be replaced during a merge*
 
     Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
 
@@ -481,7 +491,9 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
   - **webhooks.rules** ([]RuleWithOperations)
 
-    rules 描述了 Webhook 关心的资源/子资源上有哪些操作。Webhook 关心操作是否匹配**任何**rules。
+    **原子性：将在合并期间被替换**
+
+    rules 描述了 Webhook 关心的资源/子资源上有哪些操作。Webhook 关心操作是否匹配**任何** rules。
     但是，为了防止 ValidatingAdmissionWebhooks 和 MutatingAdmissionWebhooks 将集群置于只能完全禁用插件才能恢复的状态，
     ValidatingAdmissionWebhooks 和 MutatingAdmissionWebhooks 永远不会在处理 ValidatingWebhookConfiguration
     和 MutatingWebhookConfiguration 对象的准入请求时被调用。
@@ -499,7 +511,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
     - **webhooks.rules.apiGroups** ([]string)
 
-      **Atomic: 将在合并期间被替换**
+      **Atomic：将在合并期间被替换**
       
       apiGroups 是资源所属的 API 组列表。`*` 是所有组。
       如果存在 `*`，则列表的长度必须为 1。必需。

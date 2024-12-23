@@ -91,7 +91,7 @@ Użycie Deploymentu to rekomendowana metoda zarządzania tworzeniem i skalowanie
 wykorzystując podany obraz Dockera.
 
     ```shell
-    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=808
+    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
     ```
 
 2. Sprawdź stan Deploymentu:

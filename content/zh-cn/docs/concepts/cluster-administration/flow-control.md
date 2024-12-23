@@ -125,7 +125,7 @@ API Priority and Fairness feature.
 ## Recursive server scenarios
 
 API Priority and Fairness must be used carefully in recursive server
-scenarios. These are sccenarios in which some server A, while serving
+scenarios. These are scenarios in which some server A, while serving
 a request, issues a subsidiary request to some server B. Perhaps
 server B might even make a further subsidiary call back to server
 A. In situations where Priority and Fairness control is applied to
@@ -133,7 +133,7 @@ both the original request and some subsidiary ones(s), no matter how
 deep in the recursion, there is a danger of priority inversions and/or
 deadlocks.
 -->
-## 递归服务器场景     {#Recursive server scenarios}
+## 递归服务器场景     {#recursive-server-scenarios}
 
 在递归服务器场景中，必须谨慎使用 API 优先级和公平性。这些场景指的是服务器 A 在处理一个请求时，
 会向服务器 B 发出一个辅助请求。服务器 B 可能会进一步向服务器 A 发出辅助请求。

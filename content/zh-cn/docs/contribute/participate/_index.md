@@ -123,13 +123,13 @@ GitHub 上有两类 SIG Docs 团队：
 The Kubernetes project uses an automation tool called prow for automation
 related to GitHub issues and pull requests. The
 [Kubernetes website repository](https://github.com/kubernetes/website) uses
-two [prow plugins](https://github.com/kubernetes/test-infra/tree/master/prow/plugins):
+two [prow plugins](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins):
 -->
 ### OWNERS 文件和扉页   {#owners-files-and-front-matter}
 
 Kubernetes 项目使用名为 prow 的自动化工具来自动处理 GitHub issue 和 PR。
 [Kubernetes website 仓库](https://github.com/kubernetes/website) 使用了两个
-[prow 插件](https://github.com/kubernetes/test-infra/tree/master/prow/plugins)：
+[prow 插件](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins)：
 
 - blunderbuss
 - approve
@@ -178,7 +178,7 @@ and editorial review of their PR.
 ## How merging works
 
 When a pull request is merged to the branch used to publish content, that content
-is published to http://kubernetes.io. To ensure that
+is published to https://kubernetes.io. To ensure that
 the quality of our published content is high, we limit merging pull requests to
 SIG Docs approvers. Here's how it works.
 
@@ -195,7 +195,7 @@ SIG Docs approvers. Here's how it works.
 -->
 ## PR 是怎样被合并的 {#how-merging-works}
 
-当某个拉取请求（PR）被合并到用来发布内容的分支，对应的内容就会被发布到 http://kubernetes.io。
+当某个拉取请求（PR）被合并到用来发布内容的分支，对应的内容就会被发布到 https://kubernetes.io。
 为了确保我们所发布的内容的质量足够好，合并 PR 的权限仅限于
 SIG Docs 批准人。下面是合并的工作机制：
 

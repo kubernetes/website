@@ -3,9 +3,9 @@ layout: blog
 title: "SIG Releaseスポットライト(リリース・チーム・サブプロジェクト)"
 date: 2024-01-15
 slug: sig-release-spotlight-2023
+author: >
+  Nitish Kumar
 ---
-
-**筆者:** Nitish Kumar
 
 リリース・スペシャル・インタレスト・グループ(SIG Release)は、Kubernetesが4ヶ月ごとに最先端の機能とバグ修正でその刃を研ぐ場所です。Kubernetesのような大きなプロジェクトが、新バージョンをリリースするまでのタイムラインをどのように効率的に管理しているのか、またリリースチームの内部はどのようになっているのか、考えたことはありますか？このような疑問に興味がある方、もっと知りたい方、SIG Releaseの仕事に関わりたい方は、ぜひ読んでみてください！
 

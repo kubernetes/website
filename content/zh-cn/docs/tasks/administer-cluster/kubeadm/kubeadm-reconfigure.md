@@ -1,14 +1,14 @@
 ---
 title: 重新配置 kubeadm 集群
 content_type: task
-weight: 30
+weight: 90
 ---
 <!--
 reviewers:
 - sig-cluster-lifecycle
 title: Reconfiguring a kubeadm cluster
 content_type: task
-weight: 30
+weight: 90
 -->
 
 <!-- overview -->
@@ -102,7 +102,7 @@ ConfigMap 的内容时不会执行验证。 你必须小心遵循特定组件配
 #### Updating the `ClusterConfiguration`
 
 During cluster creation and upgrade, kubeadm writes its
-[`ClusterConfiguration`](/docs/reference/config-api/kubeadm-config.v1beta3/)
+[`ClusterConfiguration`](/docs/reference/config-api/kubeadm-config.v1beta4/)
 in a ConfigMap called `kubeadm-config` in the `kube-system` namespace.
 
 To change a particular option in the `ClusterConfiguration` you can edit the ConfigMap with this command:
@@ -156,15 +156,15 @@ kubeadm 将控制平面组件作为位于 `/etc/kubernetes/manifests`
 <!--
 Such changes may include:
 - `extraArgs` - requires updating the list of flags passed to a component container
-- `extraMounts` - requires updated the volume mounts for a component container
-- `*SANs` - requires writing new certificates with updated Subject Alternative Names.
+- `extraVolumes` - requires updating the volume mounts for a component container
+- `*SANs` - requires writing new certificates with updated Subject Alternative Names
 
 Before proceeding with these changes, make sure you have backed up the directory `/etc/kubernetes/`.
 -->
 
 此类更改可能包括:
 - `extraArgs` - 需要更新传递给组件容器的标志列表
-- `extraMounts` - 需要更新组件容器的卷挂载
+- `extraVolumes` - 需要更新组件容器的卷挂载
 - `*SANs` - 需要使用更新的主题备用名称编写新证书
 
 在继续进行这些更改之前，请确保你已备份目录 `/etc/kubernetes/`。
@@ -324,27 +324,18 @@ The configuration is located under the `data.config.conf` key.
 #### Reflecting the kube-proxy changes
 
 Once the `kube-proxy` ConfigMap is updated, you can restart all kube-proxy Pods:
-
-Obtain the Pod names:
-
 -->
 #### 反映 kube-proxy 的更改
 
 更新 `kube-proxy` ConfigMap 后，你可以重新启动所有 kube-proxy Pod：
 
-获取 Pod 名称：
-
-```shell
-kubectl get po -n kube-system | grep kube-proxy
-```
-
 <!--
-Delete a Pod with:
+Delete the Pods with:
 -->
 使用以下命令删除 Pod：
 
 ```shell
-kubectl delete po -n kube-system <pod-name>
+kubectl delete po -n kube-system -l k8s-app=kube-proxy
 ```
 
 <!--
@@ -388,34 +379,15 @@ kubectl edit service -n kube-system kube-dns
 <!--
 #### Reflecting the CoreDNS changes
 
-Once the CoreDNS changes are applied you can delete the CoreDNS Pods:
-
-Obtain the Pod names:
-
+Once the CoreDNS changes are applied you can restart the CoreDNS deployment:
 -->
 #### 反映 CoreDNS 的更改
 
-应用 CoreDNS 更改后，你可以删除 CoreDNS Pod。
-
-获取 Pod 名称：
+一旦应用了 CoreDNS 更改，你就可以重新启动 CoreDNS Deployment：
 
 ```shell
-kubectl get po -n kube-system | grep coredns
+kubectl rollout restart deployment -n kube-system coredns
 ```
-
-<!--
-Delete a Pod with:
--->
-使用以下命令删除 Pod：
-
-```shell
-kubectl delete po -n kube-system <pod-name>
-```
-
-<!--
-New Pods with the updated CoreDNS configuration will be created.
--->
-将创建具有更新的 CoreDNS 配置的新 Pod。
 
 {{< note >}}
 <!--

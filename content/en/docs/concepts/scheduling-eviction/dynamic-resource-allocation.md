@@ -5,6 +5,15 @@ reviewers:
 title: Dynamic Resource Allocation
 content_type: concept
 weight: 65
+api_metadata:
+- apiVersion: "resource.k8s.io/v1beta1"
+  kind: "ResourceClaim"
+- apiVersion: "resource.k8s.io/v1beta1"
+  kind: "ResourceClaimTemplate"
+- apiVersion: "resource.k8s.io/v1beta1"
+  kind: "DeviceClass"
+- apiVersion: "resource.k8s.io/v1beta1"
+  kind: "ResourceSlice"
 ---
 
 <!-- overview -->
@@ -13,84 +22,62 @@ weight: 65
 
 Dynamic resource allocation is an API for requesting and sharing resources
 between pods and containers inside a pod. It is a generalization of the
-persistent volumes API for generic resources. Third-party resource drivers are
-responsible for tracking and allocating resources, with additional support
-provided by Kubernetes via _structured parameters_ (introduced in Kubernetes 1.30).
-When a driver uses structured parameters, Kubernetes handles scheduling
-and resource allocation without having to communicate with the driver.
+persistent volumes API for generic resources. Typically those resources
+are devices like GPUs.
+
+Third-party resource drivers are
+responsible for tracking and preparing resources, with allocation of
+resources handled by Kubernetes via _structured parameters_ (introduced in Kubernetes 1.30).
 Different kinds of resources support arbitrary parameters for defining requirements and
 initialization.
+
+Kubernetes v1.26 through to 1.31 included an (alpha) implementation of _classic DRA_,
+which is no longer supported. This documentation, which is for Kubernetes
+v{{< skew currentVersion >}}, explains the current approach to dynamic resource
+allocation within Kubernetes.
 
 ## {{% heading "prerequisites" %}}
 
 Kubernetes v{{< skew currentVersion >}} includes cluster-level API support for
-dynamic resource allocation, but it [needs to be
-enabled](#enabling-dynamic-resource-allocation) explicitly.  You also must
-install a resource driver for specific resources that are meant to be managed
-using this API.  If you are not running Kubernetes v{{< skew currentVersion>}},
-check the documentation for that version of Kubernetes.
+dynamic resource allocation, but it [needs to be enabled](#enabling-dynamic-resource-allocation)
+explicitly. You also must install a resource driver for specific resources that
+are meant to be managed using this API. If you are not running Kubernetes
+v{{< skew currentVersion>}}, check the documentation for that version of Kubernetes.
 
 <!-- body -->
 
 ## API
 
-The `resource.k8s.io/v1alpha2` {{< glossary_tooltip text="API group"
-term_id="api-group" >}} provides these types:
-
-ResourceClass
-: Defines which resource driver handles a certain kind of
-  resource and provides common parameters for it. ResourceClasses
-  are created by a cluster administrator when installing a resource
-  driver.
+The `resource.k8s.io/v1beta1`
+{{< glossary_tooltip text="API group" term_id="api-group" >}} provides these types:
 
 ResourceClaim
-: Defines a particular resource instance that is required by a
-  workload. Created by a user (lifecycle managed manually, can be shared
-  between different Pods) or for individual Pods by the control plane based on
-  a ResourceClaimTemplate (automatic lifecycle, typically used by just one
-  Pod).
+: Describes a request for access to resources in the cluster,
+  for use by workloads. For example, if a workload needs an accelerator device
+  with specific properties, this is how that request is expressed. The status
+  stanza tracks whether this claim has been satisfied and what specific
+  resources have been allocated.
 
 ResourceClaimTemplate
 : Defines the spec and some metadata for creating
   ResourceClaims. Created by a user when deploying a workload.
+  The per-Pod ResourceClaims are then created and removed by Kubernetes
+  automatically.
 
-PodSchedulingContext
-: Used internally by the control plane and resource drivers
-  to coordinate pod scheduling when ResourceClaims need to be allocated
-  for a Pod.
+DeviceClass
+: Contains pre-defined selection criteria for certain devices and
+  configuration for them. DeviceClasses are created by a cluster administrator
+  when installing a resource driver. Each request to allocate a device
+  in a ResourceClaim must reference exactly one DeviceClass.
 
 ResourceSlice
-: Used with structured parameters to publish information about resources
+: Used by DRA drivers to publish information about resources
   that are available in the cluster.
 
-ResourceClaimParameters
-: Contain the parameters for a ResourceClaim which influence scheduling,
-  in a format that is understood by Kubernetes (the "structured parameter
-  model"). Additional parameters may be embedded in an opaque
-  extension, for use by the vendor driver when setting up the underlying
-  resource.
-
-ResourceClassParameters
-: Similar to ResourceClaimParameters, the ResourceClassParameters provides
-  a type for ResourceClass parameters which is understood by Kubernetes.
-
-Parameters for ResourceClass and ResourceClaim are stored in separate objects,
-typically using the type defined by a {{< glossary_tooltip
-term_id="CustomResourceDefinition" text="CRD" >}} that was created when
-installing a resource driver.
-
-The developer of a resource driver decides whether they want to handle these
-parameters in their own external controller or instead rely on Kubernetes to
-handle them through the use of structured parameters. A
-custom controller provides more flexibility, but cluster autoscaling is not
-going to work reliably for node-local resources. Structured parameters enable
-cluster autoscaling, but might not satisfy all use-cases.
-
-When a driver uses structured parameters, it is still possible to let the
-end-user specify parameters with vendor-specific CRDs. When doing so, the
-driver needs to translate those
-custom parameters into the in-tree types. Alternatively, a driver may also
-document how to use the in-tree types directly.
+All parameters that select devices are defined in the ResourceClaim and
+DeviceClass with in-tree types. Configuration parameters can be embedded there.
+Which configuration parameters are valid depends on the DRA driver -- Kubernetes
+only passes them through without interpreting them.
 
 The `core/v1` `PodSpec` defines ResourceClaims that are needed for a Pod in a
 `resourceClaims` field. Entries in that list reference either a ResourceClaim
@@ -107,29 +94,29 @@ Here is an example for a fictional resource driver. Two ResourceClaim objects
 will get created for this Pod and each container gets access to one of them.
 
 ```yaml
-apiVersion: resource.k8s.io/v1alpha2
-kind: ResourceClass
+apiVersion: resource.k8s.io/v1beta1
+kind: DeviceClass
 name: resource.example.com
-driverName: resource-driver.example.com
----
-apiVersion: cats.resource.example.com/v1
-kind: ClaimParameters
-name: large-black-cat-claim-parameters
 spec:
-  color: black
-  size: large
+  selectors:
+  - cel:
+      expression: device.driver == "resource-driver.example.com"
 ---
-apiVersion: resource.k8s.io/v1alpha2
+apiVersion: resource.k8s.io/v1beta1
 kind: ResourceClaimTemplate
 metadata:
   name: large-black-cat-claim-template
 spec:
   spec:
-    resourceClassName: resource.example.com
-    parametersRef:
-      apiGroup: cats.resource.example.com
-      kind: ClaimParameters
-      name: large-black-cat-claim-parameters
+    devices:
+      requests:
+      - name: req-0
+        deviceClassName: resource.example.com
+        selectors:
+        - cel:
+           expression: |-
+              device.attributes["resource-driver.example.com"].color == "black" &&
+              device.attributes["resource-driver.example.com"].size == "large"
 –--
 apiVersion: v1
 kind: Pod
@@ -151,74 +138,27 @@ spec:
       - name: cat-1
   resourceClaims:
   - name: cat-0
-    source:
-      resourceClaimTemplateName: large-black-cat-claim-template
+    resourceClaimTemplateName: large-black-cat-claim-template
   - name: cat-1
-    source:
-      resourceClaimTemplateName: large-black-cat-claim-template
+    resourceClaimTemplateName: large-black-cat-claim-template
 ```
 
 ## Scheduling
 
-### Without structured parameters
-
-In contrast to native resources (CPU, RAM) and extended resources (managed by a
-device plugin, advertised by kubelet), without structured parameters
-the scheduler has no knowledge of what
-dynamic resources are available in a cluster or how they could be split up to
-satisfy the requirements of a specific ResourceClaim. Resource drivers are
-responsible for that. They mark ResourceClaims as "allocated" once resources
-for it are reserved. This also then tells the scheduler where in the cluster a
-ResourceClaim is available.
-
-ResourceClaims can get allocated as soon as they are created ("immediate
-allocation"), without considering which Pods will use them. The default is to
-delay allocation until a Pod gets scheduled which needs the ResourceClaim
-(i.e. "wait for first consumer").
-
-In that mode, the scheduler checks all ResourceClaims needed by a Pod and
-creates a PodScheduling object where it informs the resource drivers
-responsible for those ResourceClaims about nodes that the scheduler considers
-suitable for the Pod. The resource drivers respond by excluding nodes that
-don't have enough of the driver's resources left. Once the scheduler has that
-information, it selects one node and stores that choice in the PodScheduling
-object. The resource drivers then allocate their ResourceClaims so that the
-resources will be available on that node. Once that is complete, the Pod
-gets scheduled.
-
-As part of this process, ResourceClaims also get reserved for the
-Pod. Currently ResourceClaims can either be used exclusively by a single Pod or
-an unlimited number of Pods.
-
-One key feature is that Pods do not get scheduled to a node unless all of
-their resources are allocated and reserved. This avoids the scenario where a Pod
-gets scheduled onto one node and then cannot run there, which is bad because
-such a pending Pod also blocks all other resources like RAM or CPU that were
-set aside for it.
-
-{{< note >}}
-
-Scheduling of pods which use ResourceClaims is going to be slower because of
-the additional communication that is required. Beware that this may also impact
-pods that don't use ResourceClaims because only one pod at a time gets
-scheduled, blocking API calls are made while handling a pod with
-ResourceClaims, and thus scheduling the next pod gets delayed.
-
-{{< /note >}}
-
-### With structured parameters
-
-When a driver uses structured parameters, the scheduler takes over the
-responsibility of allocating resources to a ResourceClaim whenever a pod needs
+The scheduler is responsible for allocating resources to a ResourceClaim whenever a pod needs
 them. It does so by retrieving the full list of available resources from
 ResourceSlice objects, tracking which of those resources have already been
 allocated to existing ResourceClaims, and then selecting from those resources
-that remain.  The exact resources selected are subject to the constraints
-provided in any ResourceClaimParameters or ResourceClassParameters associated
-with the ResourceClaim.
+that remain.
+
+The only kind of supported resources at the moment are devices. A device
+instance has a name and several attributes and capacities. Devices get selected
+through CEL expressions which check those attributes and capacities. In
+addition, the set of selected devices also can be restricted to sets which meet
+certain constraints.
 
 The chosen resource is recorded in the ResourceClaim status together with any
-vendor-specific parameters, so when a pod is about to start on a node, the
+vendor-specific configuration, so when a pod is about to start on a node, the
 resource driver on the node has all the information it needs to prepare the
 resource.
 
@@ -245,14 +185,9 @@ later.
 Such a situation can also arise when support for dynamic resource allocation
 was not enabled in the scheduler at the time when the Pod got scheduled
 (version skew, configuration, feature gate, etc.). kube-controller-manager
-detects this and tries to make the Pod runnable by triggering allocation and/or
-reserving the required ResourceClaims.
-
-{{< note >}}
-
-This only works with resource drivers that don't use structured parameters.
-
-{{< /note >}}
+detects this and tries to make the Pod runnable by reserving the required
+ResourceClaims. However, this only works if those were allocated by
+the scheduler for some other pod.
 
 It is better to avoid bypassing the scheduler because a Pod that is assigned to a node
 blocks normal resources (RAM, CPU) that then cannot be used for other Pods
@@ -274,26 +209,143 @@ spec:
 You may also be able to mutate the incoming Pod, at admission time, to unset
 the `.spec.nodeName` field and to use a node selector instead.
 
+## Admin access
+
+{{< feature-state feature_gate_name="DRAAdminAccess" >}}
+
+You can mark a request in a ResourceClaim or ResourceClaimTemplate as having privileged features.
+A request with admin access grants access to devices which are in use and
+may enable additional permissions when making the device available in a
+container:
+
+```yaml
+apiVersion: resource.k8s.io/v1beta1
+kind: ResourceClaimTemplate
+metadata:
+  name: large-black-cat-claim-template
+spec:
+  spec:
+    devices:
+      requests:
+      - name: req-0
+        deviceClassName: resource.example.com
+        adminAccess: true
+```
+
+If this feature is disabled, the `adminAccess` field will be removed
+automatically when creating such a ResourceClaim.
+
+Admin access is a privileged mode which should not be made available to normal
+users in a multi-tenant cluster. Cluster administrators can restrict usage of
+this feature by installing a validating admission policy similar to the following
+example. Cluster administrators need to adapt at least the names and replace
+"dra.example.com".
+
+```yaml
+# Permission to use admin access is granted only in namespaces which have the
+# "admin-access.dra.example.com" label. Other ways of making that decision are
+# also possible.
+
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: resourceclaim-policy.dra.example.com
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["resource.k8s.io"]
+      apiVersions: ["v1alpha3", "v1beta1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["resourceclaims"]
+  validations:
+    - expression: '! object.spec.devices.requests.exists(e, has(e.adminAccess) && e.adminAccess)'
+      reason: Forbidden
+      messageExpression: '"admin access to devices not enabled"'
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: resourceclaim-binding.dra.example.com
+spec:
+  policyName:  resourceclaim-policy.dra.example.com
+  validationActions: [Deny]
+  matchResources:
+    namespaceSelector:
+      matchExpressions:
+      - key: admin-access.dra.example.com
+        operator: DoesNotExist
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: resourceclaimtemplate-policy.dra.example.com
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["resource.k8s.io"]
+      apiVersions: ["v1alpha3", "v1beta1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["resourceclaimtemplates"]
+  validations:
+    - expression: '! object.spec.spec.devices.requests.exists(e, has(e.adminAccess) && e.adminAccess)'
+      reason: Forbidden
+      messageExpression: '"admin access to devices not enabled"'
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: resourceclaimtemplate-binding.dra.example.com
+spec:
+  policyName:  resourceclaimtemplate-policy.dra.example.com
+  validationActions: [Deny]
+  matchResources:
+    namespaceSelector:
+      matchExpressions:
+      - key: admin-access.dra.example.com
+        operator: DoesNotExist
+```
+
+## ResourceClaim Device Status
+
+{{< feature-state feature_gate_name="DRAResourceClaimDeviceStatus" >}}
+
+The drivers can report driver-specific device status data for each allocated device
+in a resource claim. For example, IPs assigned to a network interface device can be 
+reported in the ResourceClaim status.
+
+The drivers setting the status, the accuracy of the information depends on the implementation 
+of those DRA Drivers. Therefore, the reported status of the device may not always reflect the 
+real time changes of the state of the device.
+
+When the feature is disabled, that field automatically gets cleared when storing the ResourceClaim. 
+
+A ResourceClaim device status is supported when it is possible, from a DRA driver, to update an 
+existing ResourceClaim where the `status.devices` field is set. 
+
 ## Enabling dynamic resource allocation
 
-Dynamic resource allocation is an *alpha feature* and only enabled when the
-`DynamicResourceAllocation` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
-`resource.k8s.io/v1alpha2` {{< glossary_tooltip text="API group"
-term_id="api-group" >}} are enabled. For details on that, see the
-`--feature-gates` and `--runtime-config` [kube-apiserver
-parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
+Dynamic resource allocation is a *beta feature* which is off by default and only enabled when the
+`DynamicResourceAllocation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+and the `resource.k8s.io/v1beta1` {{< glossary_tooltip text="API group" term_id="api-group" >}}
+are enabled. For details on that, see the `--feature-gates` and `--runtime-config`
+[kube-apiserver parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
 kube-scheduler, kube-controller-manager and kubelet also need the feature gate.
 
+When a resource driver reports the status of the devices, then the
+`DRAResourceClaimDeviceStatus` feature gate has to be enabled in addition to
+`DynamicResourceAllocation`.
+
 A quick check whether a Kubernetes cluster supports the feature is to list
-ResourceClass objects with:
+DeviceClass objects with:
 
 ```shell
-kubectl get resourceclasses
+kubectl get deviceclasses
 ```
 
 If your cluster supports dynamic resource allocation, the response is either a
-list of ResourceClass objects or:
+list of DeviceClass objects or:
 
 ```
 No resources found
@@ -302,7 +354,7 @@ No resources found
 If not supported, this error is printed instead:
 
 ```
-error: the server doesn't have a resource type "resourceclasses"
+error: the server doesn't have a resource type "deviceclasses"
 ```
 
 The default configuration of kube-scheduler enables the "DynamicResources"
@@ -313,8 +365,21 @@ include it.
 In addition to enabling the feature in the cluster, a resource driver also has to
 be installed. Please refer to the driver's documentation for details.
 
+### Enabling admin access
+
+[Admin access](#admin-access) is an *alpha feature* and only enabled when the
+`DRAAdminAccess` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kube-apiserver and kube-scheduler.
+
+### Enabling Device Status
+
+[ResourceClaim Device Status](#resourceclaim-device-status) is an *alpha feature* 
+and only enabled when the `DRAResourceClaimDeviceStatus` 
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kube-apiserver.
+
 ## {{% heading "whatsnext" %}}
 
- - For more information on the design, see the
-[Dynamic Resource Allocation KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md)
-   and the [Structured Parameters KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4381-dra-structured-parameters).
+- For more information on the design, see the
+  [Dynamic Resource Allocation with Structured Parameters](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4381-dra-structured-parameters)
+  KEP.

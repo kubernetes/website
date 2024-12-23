@@ -56,7 +56,7 @@ non-production-build: module-check ## Build the non-production site, which adds 
 	GOMAXPROCS=1 hugo --cleanDestinationDir --enableGitInfo --environment nonprod
 
 serve: module-check ## Boot the development server.
-	hugo server --buildFuture --environment development
+	hugo server --buildDrafts --buildFuture --environment development
 
 docker-image:
 	@echo -e "$(CCRED)**** The use of docker-image is deprecated. Use container-image instead. ****$(CCEND)"
@@ -81,7 +81,7 @@ container-push: container-image ## Push container image for the preview of the w
 
 PLATFORMS ?= linux/arm64,linux/amd64
 docker-push: ## Build a multi-architecture image and push that into the registry
-	docker run --rm --privileged tonistiigi/binfmt:qemu-v6.2.0-26@sha256:5bf63a53ad6222538112b5ced0f1afb8509132773ea6dd3991a197464962854e --install all
+	docker run --rm --privileged tonistiigi/binfmt:qemu-v8.1.5-43@sha256:46c5a036f13b8ad845d6703d38f8cce6dd7c0a1e4d42ac80792279cabaeff7fb --install all
 	docker version
 	$(DOCKER_BUILDX) version
 	$(DOCKER_BUILDX) inspect image-builder > /dev/null 2>&1 || $(DOCKER_BUILDX) create --name image-builder --use
@@ -97,11 +97,17 @@ docker-push: ## Build a multi-architecture image and push that into the registry
 	rm Dockerfile.cross
 
 container-build: module-check
-	$(CONTAINER_RUN) --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 $(CONTAINER_IMAGE) sh -c "npm ci && hugo --minify --environment development"
+	mkdir -p public
+	$(CONTAINER_RUN) --read-only \
+		--mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 \
+		--mount type=bind,source=$(CURDIR)/public,target=/src/public $(CONTAINER_IMAGE) \
+		hugo --cleanDestinationDir --buildDrafts --buildFuture --environment preview --noBuildLock
 
 # no build lock to allow for read-only mounts
 container-serve: module-check ## Boot the development server using container.
-	$(CONTAINER_RUN) --cap-drop=ALL --cap-add=AUDIT_WRITE --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 -p 1313:1313 $(CONTAINER_IMAGE) hugo server --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/hugo --cleanDestinationDir --noBuildLock
+	$(CONTAINER_RUN) --cap-drop=ALL --cap-add=AUDIT_WRITE --read-only \
+		--mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 -p 1313:1313 $(CONTAINER_IMAGE) \
+		hugo server --buildDrafts --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/public --cleanDestinationDir --noBuildLock
 
 test-examples:
 	scripts/test_examples.sh install

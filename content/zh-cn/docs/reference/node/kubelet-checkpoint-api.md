@@ -4,7 +4,7 @@ title: Kubelet Checkpoint API
 weight: 10
 ---
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state feature_gate_name="ContainerCheckpoint" >}}
 
 <!--
 Checkpointing a container is the functionality to create a stateful copy of a

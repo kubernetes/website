@@ -1,5 +1,5 @@
 {{ if not .page.Params.notitle }}
-  <h1>{{ .page.Title }}</h1>
+  <h1 data-pagefind-weight="10">{{ .page.Title }}</h1>
   {{ $desc := .page.Description }}
   {{ with .page.Params.description }}<div class="lead">{{ $desc | markdownify }}</div>{{ end }}
 {{ end }}

@@ -56,7 +56,7 @@ resize exceeds the maximum resources the node can ever allocate for a pod.
 
 Here are a few examples where this feature may be useful:
 - Pod is running on node but with either too much or too little resources.
-- Pods are not being scheduled do to lack of sufficient CPU or memory in a
+- Pods are not being scheduled due to lack of sufficient CPU or memory in a
 cluster that is underutilized by running pods that were overprovisioned.
 - Evicting certain stateful pods that need more resources to schedule them
 on bigger nodes is an expensive or disruptive operation when other lower

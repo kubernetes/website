@@ -1,17 +1,20 @@
 aliases:
   sig-docs-blog-owners: # Approvers for blog content
     - mrbobbytables
+    - natalisucks
     - nate-double-u
     - sftim
   sig-docs-blog-reviewers: # Reviewers for blog content
     - Gauravpadam
     - mrbobbytables
+    - natalisucks
     - nate-double-u
     - sftim
   sig-docs-website-owners: # Admins for overall website
     - divya-mohan0209
     - katcosgrove
     - natalisucks
+    - nate-double-u
     - reylejano
     - salaxander
     - sftim
@@ -63,7 +66,7 @@ aliases:
     - salaxander
     - sftim
     - tengqm
-    - Princesso # RT 1.31 Docs Lead
+    - chanieljdan # RT 1.32 Docs Lead
   sig-docs-en-reviews: # PR reviews for English content
     - dipesh-rawat
     - divya-mohan0209
@@ -79,7 +82,8 @@ aliases:
     - shannonxtreme
     - tengqm
     - windsonsea
-    - Princesso # RT 1.31 Docs Lead
+    - Princesso
+    - drewhagen
   sig-docs-es-owners: # Admins for Spanish content
     - electrocucaracha
     - krol3
@@ -105,6 +109,7 @@ aliases:
     - bishal7679
     - dipesh-rawat
     - divya-mohan0209
+    - niranjandarshann
   sig-docs-id-owners: # Admins for Indonesian content
     - ariscahyadi
     - danninov
@@ -127,10 +132,14 @@ aliases:
     - bells17
     - inductor
     - nasa9084
+    - Okabe-Junya
   sig-docs-ja-reviews: # PR reviews for Japanese content
     - atoato88
+    - b1gb4by
     - bells17
+    - inductor
     - kakts
+    - nasa9084
     - Okabe-Junya
     - t-inu
   sig-docs-ko-owners: # Admins for Korean content
@@ -223,12 +232,12 @@ aliases:
     - MaxymVlasov
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
   committee-steering: # provide PR approvals for announcements
-    - bentheelder
+    - aojea
+    - BenTheElder
     - justaugustus
-    - mrbobbytables
     - pacoxu
-    - palnabarun
     - pohly
+    - saschagrunert
     - soltysh
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
   sig-release-leads:

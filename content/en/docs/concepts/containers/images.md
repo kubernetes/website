@@ -214,7 +214,7 @@ behalf of the two different Pods, when parallel image pulls is enabled.
 
 ### Maximum parallel image pulls
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.32" state="beta" >}}
 
 When `serializeImagePulls` is set to false, the kubelet defaults to no limit on the
 maximum number of images being pulled at the same time. If you would like to
@@ -261,7 +261,7 @@ Credentials can be provided in several ways:
   - all pods can use any images cached on a node
   - requires root access to all nodes to set up
 - Specifying ImagePullSecrets on a Pod
-  - only pods which provide own keys can access the private registry
+  - only pods which provide their own keys can access the private registry
 - Vendor-specific or local extensions
   - if you're using a custom node configuration, you (or your cloud
     provider) can implement your mechanism for authenticating the node

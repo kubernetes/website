@@ -3,11 +3,15 @@ layout: blog
 title: 'Kubernetes史上最大の移行作業を完了'
 date: 2024-05-20
 slug: completing-cloud-provider-migration
+author: >
+  Andrew Sy Kim (Google),
+  Michelle Au (Google),
+  Walter Fender (Google),
+  Michael McCune (Red Hat)
+translator: >
+  Taisuke Okamoto (IDCフロンティア),
+  [Junya Okabe](https://github.com/Okabe-Junya) (筑波大学)
 ---
-
-**著者:** Andrew Sy Kim (Google), Michelle Au (Google), Walter Fender (Google), Michael McCune (Red Hat)
-
-**翻訳者:** Taisuke Okamoto (IDC Frontier Inc), [Junya Okabe](https://github.com/Okabe-Junya) (University of Tsukuba)
 
 Kubernetes v1.7以降、Kubernetesプロジェクトは、クラウドプロバイダーとの統合機能をKubernetesのコアコンポーネントから分離するという野心的な目標を追求してきました([KEP-2395](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cloud-provider/2395-removing-in-tree-cloud-providers/README.md))。
 この統合機能はKubernetesの初期の開発と成長に重要な役割を果たしつつも、２つの重要な要因によってその分離が推進されました。

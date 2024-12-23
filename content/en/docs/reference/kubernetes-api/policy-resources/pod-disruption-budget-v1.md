@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods."
 title: "PodDisruptionBudget"
-weight: 4
+weight: 5
 auto_generated: true
 ---
 

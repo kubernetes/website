@@ -466,6 +466,12 @@ jwt:
       expression: 'claims.sub'
     # extra attributes to be added to the UserInfo object. Keys must be domain-prefix path and must be unique.
     extra:
+      # key is a string to use as the extra attribute key.
+      # key must be a domain-prefix path (e.g. example.org/foo). All characters before the first "/" must be a valid
+      # subdomain as defined by RFC 1123. All characters trailing the first "/" must
+      # be valid HTTP Path characters as defined by RFC 3986.
+      # k8s.io, kubernetes.io and their subdomains are reserved for Kubernetes use and cannot be used.
+      # key must be lowercase and unique across all extra attributes.
     - key: 'example.com/tenant'
       # valueExpression is a CEL expression that evaluates to a string or a list of strings.
       valueExpression: 'claims.tenant'
@@ -1081,6 +1087,40 @@ is used, and can be disabled by passing the `--anonymous-auth=false` option to t
 Starting in 1.6, the ABAC and RBAC authorizers require explicit authorization of the
 `system:anonymous` user or the `system:unauthenticated` group, so legacy policy rules
 that grant access to the `*` user or `*` group do not include anonymous users.
+
+### Anonymous Authenticator Configuration
+
+{{< feature-state feature_gate_name="AnonymousAuthConfigurableEndpoints" >}}
+
+The `AuthenticationConfiguration` can be used to configure the anonymous
+authenticator. If you set the anonymous field in the `AuthenticationConfiguration`
+file then you cannot set the `--anonymous-auth` flag.
+
+The main advantage of configuring anonymous authenticator using the authentication
+configuration file is that in addition to enabling and disabling anonymous authentication
+you can also configure which endpoints support anonymous authentication.
+
+A sample authentication configuration file is below:
+
+```yaml
+---
+#
+# CAUTION: this is an example configuration.
+#          Do not use this for your own cluster!
+#
+apiVersion: apiserver.config.k8s.io/v1beta1
+kind: AuthenticationConfiguration
+anonymous:
+  enabled: true
+  conditions:
+  - path: /livez
+  - path: /readyz
+  - path: /healthz
+```
+
+In the configuration above only the `/livez`, `/readyz` and `/healthz` endpoints
+are reachable by anonymous requests. Any other endpoints will not be reachable
+even if it is allowed by RBAC configuration.
 
 ## User impersonation
 

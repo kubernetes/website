@@ -9,6 +9,11 @@ stages:
   - stage: alpha 
     defaultValue: false
     fromVersion: "1.29"
+    toVersion: "1.30"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.31"
 ---
-Enable kubelet to garbage collect container images and containers
-even when those are on a separate filesystem.
+The split image filesystem feature enables kubelet to perform garbage collection
+of images (read-only layers) and/or containers (writeable layers) deployed on
+separate filesystems.

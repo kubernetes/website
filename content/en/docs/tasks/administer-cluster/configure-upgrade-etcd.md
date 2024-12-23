@@ -447,7 +447,9 @@ either be a snapshot file from a previous backup operation, or from a remaining
    ```
 
    If `<data-dir-location>` is the same folder as before, delete it and stop the etcd process before restoring the cluster. 
-   Otherwise, change etcd configuration and restart the etcd process after restoration to have it use the new data directory.
+   Otherwise, change etcd configuration and restart the etcd process after restoration to have it use the new data directory:
+   first change  `/etc/kubernetes/manifests/etcd.yaml`'s `volumes.hostPath.path` for `name: etcd-data`  to `<data-dir-location>`,
+   then execute `kubectl -n kube-system delete pod <name-of-etcd-pod>` or `systemctl restart kubelet.service` (or both).
 
 {{% /tab %}}
 {{< /tabs >}}

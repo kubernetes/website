@@ -52,6 +52,19 @@ Read operations:
 * pods
 * 与绑定到 kubelet 节点的 Pod 相关的 Secret、ConfigMap、PersistentVolumeClaim 和持久卷
 
+{{< feature-state feature_gate_name="AuthorizeNodeWithSelectors" >}}
+
+<!--
+When the `AuthorizeNodeWithSelectors` feature is enabled
+(along with the pre-requisite `AuthorizeWithSelectors` feature),
+kubelets are only allowed to read their own Node objects,
+and are only allowed to read pods bound to their node.
+-->
+当启用 `AuthorizeNodeWithSelectors` 特性
+（以及作为先决条件的 `AuthorizeWithSelectors` 特性）时，
+kubelet 只允许读取它们自己的 Node 对象，
+并且只允许读取绑定到其节点的 Pod。
+
 <!--
 Write operations:
 -->
@@ -65,7 +78,7 @@ Write operations:
 * events
 -->
 * 节点和节点状态（启用 `NodeRestriction` 准入插件以限制 kubelet 只能修改自己的节点）
-* Pod 和 Pod 状态 (启用 `NodeRestriction` 准入插件以限制 kubelet 只能修改绑定到自身的 Pod)
+* Pod 和 Pod 状态（启用 `NodeRestriction` 准入插件以限制 kubelet 只能修改绑定到自身的 Pod）
 * 事件
 
 <!--
@@ -116,16 +129,39 @@ For specifics about how the kubelet determines the hostname, see the
 -->
 `<nodeName>` 的值**必须**与 kubelet 注册的节点名称精确匹配。默认情况下，节点名称是由
 `hostname` 提供的主机名，或者通过 kubelet `--hostname-override`
-[选项](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) 覆盖。
+[选项](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)覆盖。
 但是，当使用 `--cloud-provider` kubelet 选项时，具体的主机名可能由云提供商确定，
 忽略本地的 `hostname` 和 `--hostname-override` 选项。有关
 kubelet 如何确定主机名的详细信息，请参阅
 [kubelet 选项参考](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)。
 
 <!--
-To enable the Node authorizer, start the apiserver with `--authorization-mode=Node`.
+To enable the Node authorizer, start the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
+with the `--authorization-config` flag set to a file that includes the `Node` authorizer; for example:
 -->
-要启用节点鉴权器，请使用 `--authorization-mode=Node` 启动 API 服务器。
+要启用 Node 鉴权器，启动 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}时将
+`--authorization-config` 参数设置为包含 `Node` 鉴权器的某个文件；例如：
+
+```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AuthorizationConfiguration
+authorizers:
+  ...
+  - type: Node
+  ...
+```
+
+<!--
+Or, start the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} with
+the `--authorization-mode` flag set to a comma-separated list that includes `Node`;
+for example:
+-->
+或者，在启动 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}时将
+`--authorization-mode` 参数设置为一个包含 `Node` 的逗号分隔的列表；例如：
+
+```shell
+kube-apiserver --authorization-mode=...,Node --other-options --more-options
+```
 
 <!--
 To limit the API objects kubelets are able to write, enable the

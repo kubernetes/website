@@ -113,12 +113,11 @@ kubectl edit SampleDB/example-database # 일부 설정을 수동으로 변경하
 {{% thirdparty-content %}}
 
 * [Charmed Operator Framework](https://juju.is/)
-* [Java Operator SDK](https://github.com/java-operator-sdk/java-operator-sdk)
+* [Java Operator SDK](https://github.com/operator-framework/java-operator-sdk)
 * [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
 * [kube-rs](https://kube.rs/) (Rust)
 * [kubebuilder](https://book.kubebuilder.io/) 사용하기
 * [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET 오퍼레이터 SDK)
-* [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
 * 웹훅(WebHook)과 함께 [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html)를
   사용하여 직접 구현하기
 * [오퍼레이터 프레임워크](https://operatorframework.io)

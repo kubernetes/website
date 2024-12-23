@@ -304,7 +304,7 @@ other = "Funkcjonalności Kubernetesa"
 [main_kubeweekly_baseline]
 other = "Chcesz być na bieżąco z wiadomościami o Kubernetesie? Zapisz się do KubeWeekly."
 
-[main_kubernetes_past_link]
+[main_kubeweekly_past_link]
 other = "Zobacz poprzednie newslettery"
 
 [main_kubeweekly_signup]

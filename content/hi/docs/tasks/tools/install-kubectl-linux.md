@@ -103,7 +103,7 @@ Linux पर kubectl संस्थापित करने के लिए �
 
    ```shell
    sudo apt-get update
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
    ```
 
 2. गूगल क्लाउड पब्लिक साइनिंग कुंजी (key) डाउनलोड करें:

@@ -230,7 +230,7 @@ consider these steps:
   也可以运行在不同的机器上以获得更好的安全性和可用性。
   因为 etcd 存储着集群的配置数据，应该经常性地对 etcd 数据库进行备份，
   以确保在需要的时候你可以修复该数据库。与配置和使用 etcd 相关的细节可参阅
-  [etcd FAQ](/https://etcd.io/docs/v3.5/faq/)。
+  [etcd FAQ](https://etcd.io/docs/v3.5/faq/)。
   更多的细节可参阅[为 Kubernetes 运维 etcd 集群](/zh-cn/docs/tasks/administer-cluster/configure-upgrade-etcd/)
   和[使用 kubeadm 配置高可用的 etcd 集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)。
 <!--
@@ -323,10 +323,10 @@ simply as *nodes*).
 - *Configure nodes*: Nodes can be physical or virtual machines. If you want to
   create and manage your own nodes, you can install a supported operating system,
   then add and run the appropriate
-  [Node services](/docs/concepts/overview/components/#node-components). Consider:
+  [Node services](/docs/concepts/architecture/#node-components). Consider:
 -->
 - **配置节点**：节点可以是物理机或者虚拟机。如果你希望自行创建和管理节点，
-  你可以安装一个受支持的操作系统，之后添加并运行合适的[节点服务](/zh-cn/docs/concepts/overview/components/#node-components)。考虑：
+  你可以安装一个受支持的操作系统，之后添加并运行合适的[节点服务](/zh-cn/docs/concepts/architecture/#node-components)。考虑：
   <!--
   - The demands of your workloads when you set up nodes by having appropriate memory, CPU, and disk speed and storage capacity available.
   - Whether generic computer systems will do or you have workloads that need GPU processors, Windows nodes, or VM isolation.
@@ -462,12 +462,12 @@ As someone setting up authentication and authorization on your production Kubern
 <!--
 - *Set the authorization mode*: When the Kubernetes API server
   ([kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/))
-  starts, the supported authentication modes must be set using the *--authorization-mode*
+  starts, supported authorization modes must be set using an *--authorization-config* file or the *--authorization-mode*
   flag. For example, that flag in the *kube-adminserver.yaml* file (in */etc/kubernetes/manifests*)
   could be set to Node,RBAC. This would allow Node and RBAC authorization for authenticated requests.
 -->
 - **设置鉴权模式**：当 Kubernetes API 服务器（[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)）启动时，
-  所支持的鉴权模式必须使用 `--authorization-mode` 标志配置。
+  所支持的鉴权模式必须使用 `*--authorization-config` 文件或 `--authorization-mode` 标志配置。
   例如，`kube-apiserver.yaml`（位于 `/etc/kubernetes/manifests` 下）中对应的标志可以设置为 `Node,RBAC`。
   这样就会针对已完成身份认证的请求执行 Node 和 RBAC 鉴权。
 <!--

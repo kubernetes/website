@@ -3,6 +3,8 @@ title: " The Distributed System ToolKit: Patterns for Composite Containers "
 date: 2015-06-29
 slug: the-distributed-system-toolkit-patterns
 url: /blog/2015/06/The-Distributed-System-Toolkit-Patterns
+author: >
+   Brendan Burns (Google)
 ---
 Having had the privilege of presenting some ideas from Kubernetes at DockerCon 2015, I thought I would make a blog post to share some of these ideas for those of you who couldn’t be there.  
 
@@ -41,6 +43,4 @@ Adapter containers standardize and normalize output. &nbsp;Consider the task of 
 ![Adapter Containers](/images/blog/2015-06-00-The-Distributed-System-Toolkit-Patterns/adapter-containers.png)
 
 
-In all of these cases, we've used the container boundary as an encapsulation/abstraction boundary that allows us to build modular, reusable components that we combine to build out applications. &nbsp;This reuse enables us to more effectively share containers between different developers, reuse our code across multiple applications, and generally build more reliable, robust distributed systems more quickly. &nbsp;I hope you’ve seen how Pods and composite container patterns can enable you to build robust distributed systems more quickly, and achieve container code re-use. &nbsp;To try these patterns out yourself in your own applications. I encourage you to go check out open source Kubernetes or Google Container Engine.  
-
- - Brendan Burns, Software Engineer at Google
+In all of these cases, we've used the container boundary as an encapsulation/abstraction boundary that allows us to build modular, reusable components that we combine to build out applications. &nbsp;This reuse enables us to more effectively share containers between different developers, reuse our code across multiple applications, and generally build more reliable, robust distributed systems more quickly. &nbsp;I hope you’ve seen how Pods and composite container patterns can enable you to build robust distributed systems more quickly, and achieve container code re-use. &nbsp;To try these patterns out yourself in your own applications. I encourage you to go check out open source Kubernetes or Google Container Engine.

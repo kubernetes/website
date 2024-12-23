@@ -10,4 +10,5 @@ approvers:
 - sig-docs-bn-owners
 
 labels:
+- area/localization
 - language/bn

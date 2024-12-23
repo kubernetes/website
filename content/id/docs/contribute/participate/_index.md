@@ -65,7 +65,7 @@ otomatisasi menggunakan informasi dari berkas `OWNERS`.
 Proyek Kubernetes menggunakan perangkat otomatisasi yang disebut prow untuk melakukan automatisasi
 yang terkait dengan isu dan _pull request_ dalam GitHub.
 [Repositori situs web Kubernetes](https://github.com/kubernetes/website) menggunakan
-dua buah [prow _plugin_](https://github.com/kubernetes/test-infra/tree/master/prow/plugins):
+dua buah [prow _plugin_](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins)):
 
 - blunderbuss
 - approve
@@ -91,7 +91,7 @@ dan ulasan editorial untuk PR mereka.
 
 ## Cara menggabungkan pekerjaan
 
-Ketika _pull request_ digabungkan ke cabang (_branch_) yang digunakan untuk mempublikasikan konten, konten itu dipublikasikan di http://kubernetes.io. Untuk memastikan bahwa
+Ketika _pull request_ digabungkan ke cabang (_branch_) yang digunakan untuk mempublikasikan konten, konten itu dipublikasikan di https://kubernetes.io. Untuk memastikan bahwa
 kualitas konten yang kita terbitkan bermutu tinggi, kita membatasi penggabungan _pull request_ bagi para pemberi persetujuan
 SIG Docs. Beginilah cara kerjanya.
 

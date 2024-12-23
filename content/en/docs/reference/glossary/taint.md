@@ -8,7 +8,6 @@ short_description: >
 
 aka:
 tags:
-- core-object
 - fundamental
 ---
  A core object consisting of three required properties: key, value, and effect. Taints prevent the scheduling of {{< glossary_tooltip text="Pods" term_id="pod" >}} on {{< glossary_tooltip text="nodes" term_id="node" >}} or node groups.

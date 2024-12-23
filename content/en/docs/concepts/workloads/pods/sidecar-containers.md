@@ -68,6 +68,12 @@ next init container from the ordered `.spec.initContainers` list.
 That status either becomes true because there is a process running in the
 container and no startup probe defined, or as a result of its `startupProbe` succeeding.
 
+Upon Pod [termination](/docs/concepts/workloads/pods/pod-lifecycle/#termination-with-sidecars),
+the kubelet postpones terminating sidecar containers until the main application container has fully stopped.
+The sidecar containers are then shut down in the opposite order of their appearance in the Pod specification.
+This approach ensures that the sidecars remain operational, supporting other containers within the Pod,
+until their service is no longer required.
+
 ### Jobs with sidecar containers
 
 If you define a Job that uses sidecar using Kubernetes-style init containers,
@@ -90,6 +96,12 @@ maintain sidecar containers without affecting the primary application.
 
 Sidecar containers share the same network and storage namespaces with the primary
 container. This co-location allows them to interact closely and share resources.
+
+From Kubernetes perspective, sidecars graceful termination is less important. 
+When other containers took all alloted graceful termination time, sidecar containers
+will receive the `SIGTERM` following with `SIGKILL` faster than may be expected. 
+So exit codes different from `0` (`0` indicates successful exit), for sidecar containers are normal
+on Pod termination and should be generally ignored by the external tooling.
 
 ## Differences from init containers
 
@@ -143,6 +155,7 @@ request and limit, the same as the scheduler.
 
 ## {{% heading "whatsnext" %}}
 
+* Learn how to [Adopt Sidecar Containers](/docs/tutorials/configuration/pod-sidecar-containers/)
 * Read a blog post on [native sidecar containers](/blog/2023/08/25/native-sidecar-containers/).
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container).
 * Learn about the [types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.
