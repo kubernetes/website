@@ -6,9 +6,8 @@ api_metadata:
 content_type: "api_reference"
 description: "PodDisruptionBudget 是一个对象，用于定义可能对一组 Pod 造成的最大干扰。"
 title: "PodDisruptionBudget"
-weight: 4
+weight: 5
 ---
-
 <!--
 api_metadata:
   apiVersion: "policy/v1"
@@ -17,7 +16,8 @@ api_metadata:
 content_type: "api_reference"
 description: "PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods."
 title: "PodDisruptionBudget"
-weight: 4
+weight: 5
+auto_generated: true
 -->
 
 `apiVersion: policy/v1`
@@ -61,7 +61,6 @@ PodDisruptionBudget 是一个对象，用于定义可能对一组 Pod 造成的�
 
   Most recently observed status of the PodDisruptionBudget.
 -->
-
 - **status** (<a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudgetStatus" >}}">PodDisruptionBudgetStatus</a>)
 
   此 PodDisruptionBudget 的最近观测状态。
@@ -83,7 +82,6 @@ PodDisruptionBudgetSpec 是对 PodDisruptionBudget 的描述。
   <a name="IntOrString"></a>
   *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
 -->
-
 - **maxUnavailable** (IntOrString)
 
   如果 “selector” 所选中的 Pod 中最多有 “maxUnavailable” Pod 在驱逐后不可用（即去掉被驱逐的 Pod 之后），则允许驱逐。
@@ -101,7 +99,6 @@ PodDisruptionBudgetSpec 是对 PodDisruptionBudget 的描述。
   <a name="IntOrString"></a>
   *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
 -->
-
 - **minAvailable** (IntOrString)
 
   如果 “selector” 所选中的 Pod 中，至少 “minAvailable” 个 Pod 在驱逐后仍然可用（即去掉被驱逐的 Pod 之后），则允许驱逐。
@@ -116,7 +113,6 @@ PodDisruptionBudgetSpec 是对 PodDisruptionBudget 的描述。
 
   Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
 -->
-
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
   标签查询，用来选择其驱逐由干扰预算来管理的 Pod 集合。
@@ -171,8 +167,7 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
 
   current number of healthy pods
 -->
-
-- **currentHealthy** (int32), 必需
+- **currentHealthy** (int32)，必需
 
   当前健康 Pod 的数量。
 
@@ -181,8 +176,7 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
 
   minimum desired number of healthy pods
 -->
-
-- **desiredHealthy** (int32), 必需
+- **desiredHealthy** (int32)，必需
 
   健康 Pod 的最小期望值。
 
@@ -191,8 +185,7 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
 
   Number of pod disruptions that are currently allowed.
 -->
-
-- **disruptionsAllowed** (int32), 必需
+- **disruptionsAllowed** (int32)，必需
 
   当前允许的 Pod 干扰计数。
 
@@ -201,8 +194,7 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
 
   total number of pods counted by this disruption budget
 -->
-
-- **expectedPods** (int32), 必需
+- **expectedPods** (int32)，必需
 
   此干扰预算计入的 Pod 总数
 
@@ -255,7 +247,7 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
   -->
 
-  - **conditions.lastTransitionTime** (Time), 必需
+  - **conditions.lastTransitionTime** (Time)，必需
 
     lastTransitionTime 是状况最近一次从一种状态转换到另一种状态的时间。
     这种变化通常出现在下层状况发生变化的时候。如果无法了解下层状况变化，使用 API 字段更改的时间也是可以接受的。
@@ -270,7 +262,7 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
     message is a human readable message indicating details about the transition. This may be an empty string.
   -->
 
-  - **conditions.message** (string), 必需
+  - **conditions.message** (string)，必需
 
     message 是一条人类可读的消息，指示有关转换的详细信息。它可能是一个空字符串。
 
@@ -280,7 +272,7 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
     reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.
   -->
 
-  - **conditions.reason** (string), 必需
+  - **conditions.reason** (string)，必需
 
     reason 包含一个程序标识符，指示状况最后一次转换的原因。
     特定状况类型的生产者可以定义该字段的预期值和含义，以及这些值是否可被视为有保证的 API。
@@ -292,7 +284,7 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
     status of the condition, one of True, False, Unknown.
   -->
 
-  - **conditions.status** (string), 必需
+  - **conditions.status** (string)，必需
 
     状况的状态为 True、False、Unknown 之一。
 
@@ -302,7 +294,7 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
     type of condition in CamelCase or in foo.example.com/CamelCase.
   -->
 
-  - **conditions.type** (string), 必需
+  - **conditions.type** (string)，必需
 
     CamelCase 或 foo.example.com/CamelCase 形式的状况类型。
 
@@ -323,7 +315,6 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
 
   DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
 -->
-
 - **disruptedPods** (map[string]Time)
 
   disruptedPods 包含有关 Pod 的一些信息，这些 Pod 的驱逐操作已由 API 服务器上的 eviction 子资源处理程序处理,
@@ -345,7 +336,6 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
 
   Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
 -->
-
 - **observedGeneration** (int64)
 
   更新此 PDB 状态时观察到的最新一代。
@@ -356,7 +346,6 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
 <!--
 PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
 -->
-
 PodDisruptionBudgetList 是 PodDisruptionBudget 的集合。
 
 <hr>
@@ -370,7 +359,6 @@ PodDisruptionBudgetList 是 PodDisruptionBudget 的集合。
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 -->
-
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
   标准的对象元数据。
@@ -381,15 +369,13 @@ PodDisruptionBudgetList 是 PodDisruptionBudget 的集合。
 
   Items is a list of PodDisruptionBudgets
 -->
-
-- **items** ([]<a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>), 必需
+- **items** ([]<a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>)，必需
 
   items 是 PodDisruptionBudgets 的列表。
 
 <!--
 ## Operations {#Operations}
 -->
-
 ## 操作 {#Operations}
 
 <hr>
@@ -399,7 +385,6 @@ PodDisruptionBudgetList 是 PodDisruptionBudget 的集合。
 
 #### HTTP Request
 -->
-
 ### `get` 读取指定的 PodDisruptionBudget
 
 #### HTTP 请求
@@ -416,7 +401,7 @@ GET /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}
 
   name of the PodDisruptionBudget
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   PodDisruptionBudget 的名称。
 
@@ -425,7 +410,7 @@ GET /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -468,7 +453,7 @@ GET /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}/status
 
   name of the PodDisruptionBudget
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   PodDisruptionBudget 的名称。
 
@@ -477,7 +462,7 @@ GET /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -493,7 +478,7 @@ GET /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}/status
 <!--
 #### Response
 -->
-响应
+#### 响应
 
 200 (<a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): OK
 
@@ -520,7 +505,7 @@ GET /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -752,6 +737,7 @@ GET /apis/policy/v1/poddisruptionbudgets
 #### HTTP Request
 -->
 ### `create` 创建一个 PodDisruptionBudget
+
 #### HTTP 请求
 
 POST /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets
@@ -766,15 +752,14 @@ POST /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 <!--
 - **body**: <a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>, required
 -->
-- **body**: <a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>,
-  必需
+- **body**: <a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
@@ -846,7 +831,7 @@ PUT /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}
 
   name of the PodDisruptionBudget
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   PodDisruptionBudget 的名称。
 
@@ -855,15 +840,14 @@ PUT /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 <!--
 - **body**: <a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>, required
 -->
-- **body**: <a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>,
-  必需
+- **body**: <a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
@@ -929,7 +913,7 @@ PUT /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}/status
 
   name of the PodDisruptionBudget
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   PodDisruptionBudget 的名称。
 
@@ -938,15 +922,14 @@ PUT /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 <!--
 - **body**: <a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>, required
 -->
-- **body**: <a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>,
-  必需
+- **body**: <a href="{{< ref "../policy-resources/pod-disruption-budget-v1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
@@ -1013,7 +996,7 @@ PATCH /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}
 
   name of the PodDisruptionBudget
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   PodDisruptionBudget 的名称
 
@@ -1022,7 +1005,7 @@ PATCH /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -1030,7 +1013,7 @@ PATCH /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}
 <!--
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 -->
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
@@ -1109,7 +1092,7 @@ PATCH /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}/status
 
   name of the PodDisruptionBudget
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   PodDisruptionBudget 的名称。
 
@@ -1118,14 +1101,14 @@ PATCH /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 <!--
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 -->
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
@@ -1204,7 +1187,7 @@ DELETE /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}
 
   name of the PodDisruptionBudget
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   PodDisruptionBudget 的名称。
 
@@ -1213,7 +1196,7 @@ DELETE /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -1287,7 +1270,7 @@ DELETE /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 

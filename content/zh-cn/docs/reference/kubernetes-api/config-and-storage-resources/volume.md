@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进行访问。"
 title: "Volume"
-weight: 3
+weight: 10
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Volume represents a named volume in a pod that may be accessed by any container in the pod."
 title: "Volume"
-weight: 3
+weight: 10
 auto_generated: true
 -->
 
@@ -80,11 +80,14 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 <!--
 ### Projections
+
 - **configMap** (ConfigMapVolumeSource)
+
   configMap represents a configMap that should populate this volume
 
   <a name="ConfigMapVolumeSource"></a>
   *Adapts a ConfigMap into a volume.
+  
   The contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.*
 -->
 ### 投射 {#projections}
@@ -100,14 +103,17 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **configMap.name** (string)
-    Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+
+    Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 
   - **configMap.optional** (boolean)
+
     optional specify whether the ConfigMap or its keys must be defined
   -->
   - **configMap.name** (string)
 
-    被引用资源的名称。更多信息：
+    被引用资源的名称。此字段实际上是必需的，但由于向后兼容性，可以允许为空。
+    此类型的实例如果将此字段的值设为空，几乎可以肯定是错误的。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#names
 
   - **configMap.optional** (boolean)
@@ -121,6 +127,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **configMap.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
+    *Atomic: will be replaced during a merge*
+    
     items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
   -->
 
@@ -133,6 +141,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **configMap.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
+    **原子：将在合并期间被替换**
+
     如果未指定 items，则所引用的 ConfigMap 的 data 字段中的每个键值对将作为一个文件被投射到卷中，
     这个文件的名称是键名，而文件的内容是键的取值。
     如果指定 items，则所列出的键将被投射到指定的路径中，且不会显示未列出的键。
@@ -141,10 +151,12 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 <!--
 - **secret** (SecretVolumeSource)
+
   secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
 
   <a name="SecretVolumeSource"></a>
   *Adapts a Secret into a volume.
+  
   The contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.*
 -->
 - **secret** (SecretVolumeSource)
@@ -163,6 +175,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     secretName is the name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
 
   - **secret.optional** (boolean)
+
     optional field specify whether the Secret or its keys must be defined
   -->
 
@@ -182,6 +195,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **secret.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
+    *Atomic: will be replaced during a merge*
+    
     items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
   -->
 
@@ -195,6 +210,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **secret.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
+    **原子：将在合并期间被替换**
+
     如果未指定 items，则所引用的 Secret 的 data 字段中的每个键值对将作为一个文件被投射到卷中，
     这个文件的名称是键名，而文件的内容是键的取值。
     如果指定 items，则所列出的键将被投射到指定的路径中，且不会显示未列出的键。
@@ -203,6 +220,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 <!--
 - **downwardAPI** (DownwardAPIVolumeSource)
+
   downwardAPI represents downward API about the pod that should populate this volume
 
   <a name="DownwardAPIVolumeSource"></a>
@@ -221,6 +239,9 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 
   - **downwardAPI.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
+
+    *Atomic: will be replaced during a merge*
+    
     Items is a list of downward API volume file
   -->
 
@@ -234,16 +255,20 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **downwardAPI.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
 
+    **原子：将在合并期间被替换**
+
     items 是 Downward API 卷文件的列表。
 
 <!--
 - **projected** (ProjectedVolumeSource)
+
   projected items for all in one resources secrets, configmaps, and downward API
 
   <a name="ProjectedVolumeSource"></a>
   *Represents a projected volume source*
 
   - **projected.defaultMode** (int32)
+
     defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 -->
 - **projected** (ProjectedVolumeSource)
@@ -263,26 +288,113 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **projected.sources** ([]VolumeProjection)
-    sources is the list of volume projections
+
+    *Atomic: will be replaced during a merge*
+    
+    sources is the list of volume projections. Each entry in this list handles one source.
 
     <a name="VolumeProjection"></a>
-    *Projection that may be projected along with other supported volume types*
+    *Projection that may be projected along with other supported volume types. Exactly one of these fields must be set.*
+  -->
 
+  - **projected.sources** ([]VolumeProjection)
+
+    **原子：将在合并期间被替换**
+
+    sources 是卷投射的列表。此列表中的每个条目处理一个数据源。
+
+    <a name="VolumeProjection"></a>
+    **这里的投射项目可能与其他受支持的卷类型一起进行投射。这些字段中必须且仅能设置一个。**
+
+    <!--
+    - **projected.sources.clusterTrustBundle** (ClusterTrustBundleProjection)
+
+      ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+      
+      Alpha, gated by the ClusterTrustBundleProjection feature gate.
+      
+      ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+    -->
+
+    - **projected.sources.clusterTrustBundle**（ClusterTrustBundleProjection）
+
+      clusterTrustBundle 允许 Pod 访问一个自动更新的文件中 ClusterTrustBundle 对象的 `.spec.trustBundle` 字段。
+
+      处于 Alpha 阶段，由 ClusterTrustBundleProjection 特性门控进行控制。
+
+      ClusterTrustBundle 对象可以通过名称选择，也可以通过签名者名称和标签选择算符的组合进行选择。
+
+      <!--
+      Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+
+      <a name="ClusterTrustBundleProjection"></a>
+      *ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.*
+      -->
+
+      kubelet 对写入 Pod 文件系统的 PEM 内容进行了严格的规范化。
+      像跨块注释和块头这类冷门 PEM 特性被剥离。证书被去重。文件内证书的顺序是任意的，kubelet 可能会随着时间改变其顺序。
+
+      <a name="ClusterTrustBundleProjection"></a>
+      **ClusterTrustBundleProjection 描述如何选择一组 ClusterTrustBundle 对象并将其内容投射到 Pod 文件系统中。**
+
+      <!--
+      - **projected.sources.clusterTrustBundle.path** (string), required
+
+        Relative path from the volume root to write the bundle.
+
+      - **projected.sources.clusterTrustBundle.labelSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+
+        Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
+      -->
+
+      - **projected.sources.clusterTrustBundle.path** (string)，必需
+
+        相对于卷根的路径，用于写入信任包。
+
+      - **projected.sources.clusterTrustBundle.labelSelector**（<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>）
+
+        选择所有匹配此标签选择算符的 ClusterTrustBundle。仅在 signerName 被设置时有效。
+        与 name 互斥。如果不设置，则解释为“没有匹配项”。如果设置但为空，则解释为“匹配所有”。
+
+      <!--
+      - **projected.sources.clusterTrustBundle.name** (string)
+
+        Select a single ClusterTrustBundle by object name.  Mutually-exclusive with signerName and labelSelector.
+
+      - **projected.sources.clusterTrustBundle.optional** (boolean)
+
+        If true, don't block pod startup if the referenced ClusterTrustBundle(s) aren't available.  If using name, then the named ClusterTrustBundle is allowed not to exist.  If using signerName, then the combination of signerName and labelSelector is allowed to match zero ClusterTrustBundles.
+
+      - **projected.sources.clusterTrustBundle.signerName** (string)
+
+        Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
+      -->
+
+      - **projected.sources.clusterTrustBundle.name** (string)
+
+        通过对象名称选择单个 clusterTrustBundle。与 signerName 和 labelSelector 互斥。
+
+      - **projected.sources.clusterTrustBundle.optional** (boolean)
+
+        如果为 true，若引用的 ClusterTrustBundle 不可用，则不会阻止 Pod 启动。
+        如果使用 name，则允许指定的 ClusterTrustBundle 不存在。
+        如果使用 signerName，则 signerName 和 labelSelector 的组合被允许以匹配零个 ClusterTrustBundle。
+
+      - **projected.sources.clusterTrustBundle.signerName** (string)
+
+        选择所有与此签名者名称匹配的 ClusterTrustBundle。此字段与 name 互斥。
+        所有选定的 ClusterTrustBundle 的内容将被统一并去重。
+
+    <!--
     - **projected.sources.configMap** (ConfigMapProjection)
 
       configMap information about the configMap data to project
 
       <a name="ConfigMapProjection"></a>
       *Adapts a ConfigMap into a projected volume.
+      
       The contents of the target ConfigMap's Data field will be presented in a projected volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. Note that this is identical to a configmap volume source without the default mode.*
-  -->
-
-  - **projected.sources** ([]VolumeProjection)
-
-    sources 是卷投射的列表。
-
-    <a name="VolumeProjection"></a>
-    **这里的投射项目可能与其他受支持的卷类型一起进行投射。**
+    -->
 
     - **projected.sources.configMap** (ConfigMapProjection)
 
@@ -297,15 +409,17 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
       <!--
       - **projected.sources.configMap.name** (string)
 
-        Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 
       - **projected.sources.configMap.optional** (boolean)
+
         optional specify whether the ConfigMap or its keys must be defined
       -->
 
       - **projected.sources.configMap.name** (string)
 
-        被引用资源的名称。更多信息：
+        被引用资源的名称。此字段实际上是必需的，但由于向后兼容性，可以允许为空。
+        此类型的实例如果将此字段的值设置为空，几乎可以肯定是错误的。更多信息：
         https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#names
 
       - **projected.sources.configMap.optional** (boolean)
@@ -315,10 +429,14 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
       <!--
       - **projected.sources.configMap.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
+        *Atomic: will be replaced during a merge*
+
         items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
       -->
 
       - **projected.sources.configMap.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
+
+        **原子：将在合并期间被替换**
 
         如果未指定 items，则所引用的 ConfigMap 的 data 字段中的每个键值对将作为一个文件被投射到卷中，
         这个文件的名称是键名，而文件的内容是键的取值。
@@ -328,28 +446,35 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
     <!--
     - **projected.sources.downwardAPI** (DownwardAPIProjection)
+
       downwardAPI information about the downwardAPI data to project
 
       <a name="DownwardAPIProjection"></a>
       *Represents downward API info for projecting into a projected volume. Note that this is identical to a downwardAPI volume source without the default mode.*
 
       - **projected.sources.downwardAPI.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
+
+        *Atomic: will be replaced during a merge*
+        
         Items is a list of DownwardAPIVolume file
     -->
 
     - **projected.sources.downwardAPI** (DownwardAPIProjection)
 
-      与要投射的 downward API 数据有关的 downward API 信息。
+      与要投射的 downwardAPI 数据有关的 downwardAPI 信息。
 
       <a name="DownwardAPIProjection"></a>
       **表示投射到投射卷的 Downward API 信息。请注意，这等同于没有默认模式的 downwardAPI 卷源。**
 
       - **projected.sources.downwardAPI.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
 
+        **原子：将在合并期间被替换**
+
         items 是 DownwardAPIVolume 文件的列表。
 
     <!--
     - **projected.sources.secret** (SecretProjection)
+
       secret information about the secret data to project
 
       <a name="SecretProjection"></a>
@@ -358,7 +483,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
       The contents of the target Secret's Data field will be presented in a projected volume as files using the keys in the Data field as the file names. Note that this is identical to a secret volume source without the default mode.*
 
       - **projected.sources.secret.name** (string)
-        Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+
+        Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
       -->
 
     - **projected.sources.secret** (SecretProjection)
@@ -372,14 +498,19 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
       - **projected.sources.secret.name** (string)
 
-        被引用资源的名称。更多信息：
+        被引用资源的名称。此字段实际上是必需的，但由于向后兼容性，可以允许为空。
+        此类型的实例如果将此字段的值设置为空，几乎可以肯定是错误的。更多信息：
         https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#names
 
       <!--
       - **projected.sources.secret.optional** (boolean)
+
         optional field specify whether the Secret or its key must be defined
 
       - **projected.sources.secret.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
+
+        *Atomic: will be replaced during a merge*
+        
         items if unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
       -->
 
@@ -389,6 +520,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
       - **projected.sources.secret.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
+        **原子：将在合并期间被替换**
+
         如果未指定 items，则所引用的 Secret 的 data 字段中的每个键值对将作为一个文件被投射到卷中，
         这个文件的名称是键名，而文件的内容是键的取值。
         如果指定 items，则所列出的键将被投射到指定的路径中，且不会显示未列出的键。
@@ -397,12 +530,14 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
     <!--
     - **projected.sources.serviceAccountToken** (ServiceAccountTokenProjection)
+
       serviceAccountToken is information about the serviceAccountToken data to project
 
       <a name="ServiceAccountTokenProjection"></a>
       *ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).*
 
       - **projected.sources.serviceAccountToken.path** (string), required
+
         path is the path relative to the mount point of the file to project the token into.
     -->
 
@@ -420,9 +555,11 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
       <!--
       - **projected.sources.serviceAccountToken.audience** (string)
+
         audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
 
       - **projected.sources.serviceAccountToken.expirationSeconds** (int64)
+
         expirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
       -->
 
@@ -450,6 +587,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   *Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.*
 
   - **emptyDir.medium** (string)
+
     medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 -->
 ### 本地/临时目录 {#local-temporary-directory}
@@ -471,7 +609,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   <!--
   - **emptyDir.sizeLimit** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/concepts/storage/volumes#emptydir
+    sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
   -->
 
   - **emptyDir.sizeLimit** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -479,10 +617,11 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     sizeLimit 是这个 EmptyDir 卷所需的本地存储总量。这个大小限制也适用于内存介质。
     EmptyDir 的内存介质最大使用量将是此处指定的 sizeLimit 与 Pod 中所有容器内存限制总和这两个值之间的最小值。
     默认为 nil，这意味着限制未被定义。更多信息：
-    https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/#emptydir
+    https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#emptydir
 
 <!--
 - **hostPath** (HostPathVolumeSource)
+
   hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 
   <a name="HostPathVolumeSource"></a>
@@ -499,9 +638,11 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **hostPath.path** (string), required
+
     path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 
   - **hostPath.type** (string)
+
     type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
   -->
 
@@ -519,6 +660,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 ### Persistent volumes
 
 - **awsElasticBlockStore** (AWSElasticBlockStoreVolumeSource)
+
   awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 
   <a name="AWSElasticBlockStoreVolumeSource"></a>
@@ -540,9 +682,11 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **awsElasticBlockStore.volumeID** (string), required
+
     volumeID is unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 
   - **awsElasticBlockStore.fsType** (string)
+
     fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
   -->
 
@@ -563,6 +707,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
 
   - **awsElasticBlockStore.readOnly** (boolean)
+
     readOnly value true will force the readOnly setting in VolumeMounts. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
   -->
 
@@ -578,6 +723,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 <!--
 - **azureDisk** (AzureDiskVolumeSource)
+
   azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
 
   <a name="AzureDiskVolumeSource"></a>
@@ -592,12 +738,15 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **azureDisk.diskName** (string), required
+
     diskName is the Name of the data disk in the blob storage
 
   - **azureDisk.diskURI** (string), required
+
     diskURI is the URI of data disk in the blob storage
 
   - **azureDisk.cachingMode** (string)
+
     cachingMode is the Host Caching mode: None, Read Only, Read Write.
   -->
 
@@ -615,12 +764,15 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **azureDisk.fsType** (string)
+
     fsType is Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 
   - **azureDisk.kind** (string)
+
     kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
 
   - **azureDisk.readOnly** (boolean)
+
     readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
   -->
 
@@ -660,12 +812,15 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **azureFile.secretName** (string), required
+
     secretName is the  name of secret that contains Azure Storage Account Name and Key
 
   - **azureFile.shareName** (string), required
+
     shareName is the azure share Name
 
   - **azureFile.readOnly** (boolean)
+
     readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
   -->
 
@@ -683,12 +838,16 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 <!--
 - **cephfs** (CephFSVolumeSource)
+
   cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
 
   <a name="CephFSVolumeSource"></a>
   *Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.*
 
   - **cephfs.monitors** ([]string), required
+
+    *Atomic: will be replaced during a merge*
+    
     monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 -->
 - **cephfs** (CephFSVolumeSource)
@@ -700,14 +859,18 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **cephfs.monitors** ([]string)，必需
 
+    **原子：将在合并期间被替换**
+
     monitors 是必需的。monitors 是 Ceph 监测的集合。更多信息：
     https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
   <!--
   - **cephfs.path** (string)
+
     path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
 
   - **cephfs.readOnly** (boolean)
+
     readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
   -->
 
@@ -723,12 +886,15 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **cephfs.secretFile** (string)
+
     secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
   - **cephfs.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
+
     secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
   - **cephfs.user** (string)
+
     user is optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
   -->
 
@@ -749,12 +915,14 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 <!--
 - **cinder** (CinderVolumeSource)
+
   cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 
   <a name="CinderVolumeSource"></a>
   *Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.*
 
   - **cinder.volumeID** (string), required
+
     volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 -->
 - **cinder** (CinderVolumeSource)
@@ -773,12 +941,15 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **cinder.fsType** (string)
+
     fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 
   - **cinder.readOnly** (boolean)
+
     readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 
   - **cinder.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
+
     secretRef is optional: points to a secret object containing parameters used to connect to OpenStack.
   -->
 
@@ -799,15 +970,18 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 <!--
 - **csi** (CSIVolumeSource)
+
   csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
 
   <a name="CSIVolumeSource"></a>
   *Represents a source location of a volume to mount, managed by an external CSI driver*
 
   - **csi.driver** (string), required
+
     driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
 
   - **csi.fsType** (string)
+
     fsType to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
 -->
 - **csi** (CSIVolumeSource)
@@ -828,12 +1002,15 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **csi.nodePublishSecretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
+
     nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
 
   - **csi.readOnly** (boolean)
+
     readOnly specifies a read-only configuration for the volume. Defaults to false (read/write).
 
   - **csi.volumeAttributes** (map[string]string)
+
     volumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
   -->
 
@@ -996,9 +1173,15 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 
   - **fc.targetWWNs** ([]string)
+
+    *Atomic: will be replaced during a merge*
+    
     targetWWNs is Optional: FC target worldwide names (WWNs)
 
   - **fc.wwids** ([]string)
+
+    *Atomic: will be replaced during a merge*
+    
     wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
   -->
 
@@ -1008,24 +1191,31 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **fc.targetWWNs** ([]string)
 
+    **原子：将在合并期间被替换**
+
     targetWWNs 是可选的。FC 目标全球名称（WWN）。
 
   - **fc.wwids** ([]string)
+
+    **原子：将在合并期间被替换**
 
     wwids 是可选的。FC 卷全球识别号（wwids）。
     必须设置 wwids 或 targetWWNs 及 lun 的组合，但不能同时设置两者。
 
 <!--
 - **flexVolume** (FlexVolumeSource)
+
   flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
 
   <a name="FlexVolumeSource"></a>
   *FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.*
 
   - **flexVolume.driver** (string), required
+
     driver is the name of the driver to use for this volume.
 
   - **flexVolume.fsType** (string)
+
     fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
 -->
 - **flexVolume** (FlexVolumeSource)
@@ -1046,12 +1236,15 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **flexVolume.options** (map[string]string)
+
     options is Optional: this field holds extra command options if any.
 
   - **flexVolume.readOnly** (boolean)
+
     readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 
   - **flexVolume.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
+
     secretRef is Optional: secretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
   -->
 
@@ -1070,15 +1263,18 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 <!--
 - **flocker** (FlockerVolumeSource)
+
   flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
 
   <a name="FlockerVolumeSource"></a>
   *Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.*
 
   - **flocker.datasetName** (string)
+
     datasetName is Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
 
   - **flocker.datasetUUID** (string)
+
     datasetUUID is the UUID of the dataset. This is unique identifier of a Flocker dataset
 -->
 - **flocker** (FlockerVolumeSource)
@@ -1099,6 +1295,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 <!--
 - **gcePersistentDisk** (GCEPersistentDiskVolumeSource)
+
   gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 
   <a name="GCEPersistentDiskVolumeSource"></a>
@@ -1118,9 +1315,11 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **gcePersistentDisk.pdName** (string), required
+
     pdName is unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 
   - **gcePersistentDisk.fsType** (string)
+
     fsType is filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
   -->
 
@@ -1160,6 +1359,9 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 - **glusterfs** (GlusterfsVolumeSource)
 
   glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+
+  <a name="GlusterfsVolumeSource"></a>
+  *Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.*
 -->
 
 - **glusterfs** （GlusterfsVolumeSource）
@@ -1168,10 +1370,6 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   https://examples.k8s.io/volumes/glusterfs/README.md
 
   <a name="GlusterfsVolumeSource"></a>
-
-  <!--
-  *Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.*
-  -->
   **表示在 Pod 生命周期内一直存在的 Glusterfs 挂载卷。Glusterfs 卷不支持属主管理或 SELinux 重标记。**
   
   <!--
@@ -1206,6 +1404,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 <!--
 - **iscsi** (ISCSIVolumeSource)
+
   iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
 
   <a name="ISCSIVolumeSource"></a>
@@ -1292,6 +1491,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **iscsi.portals** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     portals is the iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
   -->
 
@@ -1300,6 +1501,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     iscsiInterface 是使用 iSCSI 传输的接口名称。默认为 “default”（tcp）。
 
   - **iscsi.portals** ([]string)
+
+    **原子：将在合并期间被替换**
 
     portals 是 iSCSI 目标门户列表（iSCSI Target Portal List）。
     如果不是默认端口（通常是 TCP 端口 860 和 3260），则 Portal 为 IP 或 ip_addr:port。
@@ -1323,13 +1526,80 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     secretRef 是 iSCSI 目标和发起程序身份认证所用的 CHAP Secret。
 
 <!--
+- **image** (ImageVolumeSource)
+
+  image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine. The volume is resolved at pod startup depending on which PullPolicy value is provided:
+-->
+- **image** (ImageVolumeSource)
+
+  image 表示一个在 kubelet 的主机上拉取并挂载的 OCI 对象（容器镜像或工件）。
+  其卷在 Pod 启动时根据提供的 PullPolicy 值进行解析：
+
+  <!--
+  - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
+  -->
+
+  - Always：kubelet 始终尝试拉取此引用。如果拉取失败，容器创建将失败。
+  - Never：kubelet 从不拉取此引用，只使用本地镜像或工件。如果引用不存在，容器创建将失败。
+  - IfNotPresent：如果磁盘上尚不存在此引用，kubelet 执行拉取操作。若此引用不存在且拉取失败，则容器创建将失败。
+
+  <!--
+  The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+  -->
+
+  如果 Pod 被删除并重新创建，此卷会被重新解析，这意味着在 Pod 重新创建时将可以访问新的远程内容。
+  在 Pod 启动期间解析或拉取镜像失败将导致容器无法启动，并可能显著增加延迟。
+  如果失败，将使用正常的卷回退机制进行重试，并输出 Pod 失败的原因和相关消息。
+  此卷可以挂载的对象类型由主机上的容器运行时实现负责定义，至少必须包含容器镜像字段所支持的所有有效类型。
+  OCI 对象将以只读方式被挂载到单个目录（`spec.containers[*].volumeMounts.mountPath`）中。
+  在 Linux 上，容器运行时通常还会挂载阻止文件执行（`noexec`）的卷。
+  不支持容器使用子路径挂载（`spec.containers[*].volumeMounts.subpath`）。
+  `spec.securityContext.fsGroupChangePolicy` 字段对这种卷没有效果。
+
+  <!--
+  <a name="ImageVolumeSource"></a>
+  *ImageVolumeSource represents a image volume resource.*
+
+  - **image.pullPolicy** (string)
+
+    Policy for pulling OCI objects. Possible values are: Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise.
+  -->
+
+  <a name="ImageVolumeSource"></a>
+  **ImageVolumeSource 表示一个镜像卷资源。**
+
+  - **image.pullPolicy**（字符串）
+
+    OCI 对象的拉取策略。可能的值有：
+
+    - Always：kubelet 始终尝试拉取此引用。如果拉取失败，容器创建将失败。
+    - Never：kubelet 从不拉取此引用，只使用本地镜像或工件。如果引用不存在，容器创建将失败。
+    - IfNotPresent：如果磁盘上尚不存在此引用，kubelet 执行拉取操作。
+      如果引用不存在且拉取失败，容器创建将失败。
+      如果指定了 `:latest` 标签，则默认为 Always，否则默认为 IfNotPresent。
+
+  - **image.reference** (string)
+
+    <!--
+    Required: Image or artifact reference to be used. Behaves in the same way as pod.spec.containers[*].image. Pull secrets will be assembled in the same way as for the container image by looking up node credentials, SA image pull secrets, and pod spec image pull secrets. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
+    -->
+  
+    必需：要使用的镜像或工件引用。行为与 pod.spec.containers[*].image 相同。
+    拉取 Secret 的组装方式与容器镜像所用的方式相同，
+    都是通过查找节点凭据、服务账户（SA）镜像拉取 Secret 和 Pod 规约镜像拉取 Secret。更多信息：
+    https://kubernetes.io/zh-cn/docs/concepts/containers/images
+    此字段是可选的，以允许更高层次的配置管理在 Deployment 和 StatefulSet 这类工作负载控制器中默认或覆盖容器镜像。
+
+<!--
 - **nfs** (NFSVolumeSource)
+
   nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 
   <a name="NFSVolumeSource"></a>
   *Represents an NFS mount that lasts the lifetime of a pod. NFS volumes do not support ownership management or SELinux relabeling.*
 
   - **nfs.path** (string), required
+
     path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 -->
 - **nfs** (NFSVolumeSource)
@@ -1347,6 +1617,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **nfs.server** (string), required
+
     server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 
   - **nfs.readOnly** (boolean)
@@ -1366,15 +1637,18 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 <!--
 - **photonPersistentDisk** (PhotonPersistentDiskVolumeSource)
+
   photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
 
   <a name="PhotonPersistentDiskVolumeSource"></a>
   *Represents a Photon Controller persistent disk resource.*
 
   - **photonPersistentDisk.pdID** (string), required
+
     pdID is the ID that identifies Photon Controller persistent disk
 
   - **photonPersistentDisk.fsType** (string)
+
     fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 -->
 - **photonPersistentDisk** (PhotonPersistentDiskVolumeSource)
@@ -1395,12 +1669,14 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 <!--
 - **portworxVolume** (PortworxVolumeSource)
+
   portworxVolume represents a portworx volume attached and mounted on kubelets host machine
 
   <a name="PortworxVolumeSource"></a>
   *PortworxVolumeSource represents a Portworx volume resource.*
 
   - **portworxVolume.volumeID** (string), required
+
     volumeID uniquely identifies a Portworx volume
 -->
 - **portworxVolume** (PortworxVolumeSource)
@@ -1416,9 +1692,11 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **portworxVolume.fsType** (string)
+
     fSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
 
   - **portworxVolume.readOnly** (boolean)
+
     readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
   -->
 
@@ -1433,6 +1711,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 <!--
 - **quobyte** (QuobyteVolumeSource)
+
   quobyte represents a Quobyte mount on the host that shares a pod's lifetime
 
   <a name="QuobyteVolumeSource"></a>
@@ -1447,9 +1726,11 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **quobyte.registry** (string), required
+
     registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes
 
   - **quobyte.volume** (string), required
+
     volume is a string that references an already created Quobyte volume by name.
 
   - **quobyte.group** (string)
@@ -1472,12 +1753,15 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **quobyte.readOnly** (boolean)
+
     readOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.
 
   - **quobyte.tenant** (string)
+
     tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin
 
   - **quobyte.user** (string)
+
     user to map volume access to Defaults to serivceaccount user
   -->
 
@@ -1495,12 +1779,14 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 <!--
 - **rbd** (RBDVolumeSource)
+
   rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
 
   <a name="RBDVolumeSource"></a>
   *Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.*
 
   - **rbd.image** (string), required
+
     image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 -->
 
@@ -1519,13 +1805,19 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **rbd.monitors** ([]string), required
+
+    *Atomic: will be replaced during a merge*
+    
     monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   - **rbd.fsType** (string)
+
     fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
   -->
 
   - **rbd.monitors** ([]string)，必需
+
+    **原子：将在合并期间被替换**
 
     monitors 是 Ceph 监测的集合。更多信息：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
@@ -1538,12 +1830,15 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **rbd.keyring** (string)
+
     keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   - **rbd.pool** (string)
+
     pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   - **rbd.readOnly** (boolean)
+
     readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
   -->
 
@@ -1564,9 +1859,11 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **rbd.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
+
     secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   - **rbd.user** (string)
+
     user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
   -->
 
@@ -1582,12 +1879,14 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 <!--
 - **scaleIO** (ScaleIOVolumeSource)
+
   scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
 
   <a name="ScaleIOVolumeSource"></a>
   *ScaleIOVolumeSource represents a persistent ScaleIO volume*
 
   - **scaleIO.gateway** (string), required
+
     gateway is the host address of the ScaleIO API Gateway.
 -->
 - **scaleIO** (ScaleIOVolumeSource)
@@ -1603,12 +1902,15 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **scaleIO.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>), required
+
     secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
 
   - **scaleIO.system** (string), required
+
     system is the name of the storage system as configured in ScaleIO.
 
   - **scaleIO.fsType** (string)
+
     fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
   -->
 
@@ -1626,12 +1928,15 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **scaleIO.protectionDomain** (string)
+
     protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
 
   - **scaleIO.readOnly** (boolean)
+
     readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 
   - **scaleIO.sslEnabled** (boolean)
+
     sslEnabled Flag enable/disable SSL communication with Gateway, default false
   -->
 
@@ -1675,12 +1980,14 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 <!--
 - **storageos** (StorageOSVolumeSource)
+
   storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
 
   <a name="StorageOSVolumeSource"></a>
   *Represents a StorageOS persistent volume resource.*
 
   - **storageos.fsType** (string)
+
     fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 -->
 - **storageos** (StorageOSVolumeSource)
@@ -1697,9 +2004,11 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **storageos.readOnly** (boolean)
+
     readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 
   - **storageos.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
+
     secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
   -->
 
@@ -1713,9 +2022,11 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **storageos.volumeName** (string)
+
     volumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
 
   - **storageos.volumeNamespace** (string)
+
     volumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
   -->
 
@@ -1732,12 +2043,14 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 <!--
 - **vsphereVolume** (VsphereVirtualDiskVolumeSource)
+
   vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
 
   <a name="VsphereVirtualDiskVolumeSource"></a>
   *Represents a vSphere volume resource.*
 
   - **vsphereVolume.volumePath** (string), required
+
     volumePath is the path that identifies vSphere volume vmdk
 -->
 - **vsphereVolume** (VsphereVirtualDiskVolumeSource)
@@ -1753,12 +2066,15 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **vsphereVolume.fsType** (string)
+
     fsType is filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 
   - **vsphereVolume.storagePolicyID** (string)
+
     storagePolicyID is the storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
 
   - **vsphereVolume.storagePolicyName** (string)
+
     storagePolicyName is the storage Policy Based Management (SPBM) profile name.
   -->
 
@@ -1777,7 +2093,9 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 <!--
 ### Deprecated
+
 - **gitRepo** (GitRepoVolumeSource)
+
   gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
 
   <a name="GitRepoVolumeSource"></a>
@@ -1799,12 +2117,15 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   <!--
   - **gitRepo.repository** (string), required
+
     repository is the URL
 
   - **gitRepo.directory** (string)
+
     directory is the target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
 
   - **gitRepo.revision** (string)
+
     revision is the commit hash for the specified revision.
   -->
 
@@ -1822,6 +2143,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     revision 是指定修订版本的提交哈希值。
 
 ## DownwardAPIVolumeFile {#DownwardAPIVolumeFile}
+
 <!--
 DownwardAPIVolumeFile represents information to create the file containing the pod field
 
@@ -1833,7 +2155,7 @@ DownwardAPIVolumeFile represents information to create the file containing the p
 
 - **fieldRef** (<a href="{{< ref "../common-definitions/object-field-selector#ObjectFieldSelector" >}}">ObjectFieldSelector</a>)
 
-  Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+  Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
 -->
 DownwardAPIVolumeFile 表示创建包含 Pod 字段的文件的信息。
 
@@ -1846,13 +2168,15 @@ DownwardAPIVolumeFile 表示创建包含 Pod 字段的文件的信息。
 
 - **fieldRef** (<a href="{{< ref "../common-definitions/object-field-selector#ObjectFieldSelector" >}}">ObjectFieldSelector</a>)
 
-  必需。选择 Pod 的字段：仅支持注解、标签、名称和名字空间。
+  必需。选择 Pod 的字段：仅支持注解、标签、名称、名字空间和 uid。
 
 <!--
 - **mode** (int32)
+
   Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 
 - **resourceFieldRef** (<a href="{{< ref "../common-definitions/resource-field-selector#ResourceFieldSelector" >}}">ResourceFieldSelector</a>)
+
   Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
 -->
 - **mode** (int32)

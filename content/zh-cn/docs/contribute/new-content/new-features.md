@@ -24,7 +24,9 @@ card:
 <!-- overview -->
 
 <!--
-Each major Kubernetes release introduces new features that require documentation. New releases also bring updates to existing features and documentation (such as upgrading a feature from alpha to beta).
+Each major Kubernetes release introduces new features that require documentation.
+New releases also bring updates to existing features and documentation
+(such as upgrading a feature from alpha to beta).
 
 Generally, the SIG responsible for a feature submits draft documentation of the
 feature as a pull request to the appropriate development branch of the
@@ -33,8 +35,7 @@ editorial feedback or edits the draft directly. This section covers the branchin
 conventions and process used during a release by both groups.
 -->
 Kubernetes 的每个主要版本发布都会包含一些需要文档说明的新功能。
-新的发行版本也会对已有功能特性和文档（例如将某功能特性从 Alpha 升级为
-Beta）进行更新。
+新的发行版本也会更新已有的功能特性和文档（例如将某功能特性从 Alpha 升级为 Beta）。
 
 通常，负责某功能特性的 SIG 要为功能特性的文档草拟文档，并针对 `kubernetes/website`
 仓库的合适的开发分支发起拉取请求。
@@ -182,21 +183,21 @@ Kubernetes Slack 上的 `#sig-release` 频道，检查时间安排的细节以�
 ### Open a placeholder PR
 
 1. Open a **draft** pull request against the
-`dev-{{< skew nextMinorVersion >}}` branch in the `kubernetes/website` repository, with a small
-commit that you will amend later. To create a draft pull request, use the
-Create Pull Request drop-down and select **Create Draft Pull Request**,
-then click **Draft Pull Request**.
-2. Edit the pull request description to include links to [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes)
-PR(s) and [kubernetes/enhancements](https://github.com/kubernetes/enhancements) issue(s).
-3. Leave a comment on the related [kubernetes/enhancements](https://github.com/kubernetes/enhancements)
-issue with a link to the PR to notify the docs person managing this release that
-the feature docs are coming and should be tracked for the release.
+   `dev-{{< skew nextMinorVersion >}}` branch in the `kubernetes/website` repository, with a small
+   commit that you will amend later. To create a draft pull request, use the
+   **Create Pull Request** drop-down and select **Create Draft Pull Request**,
+   then click **Draft Pull Request**.
+1. Edit the pull request description to include links to [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes)
+   PR(s) and [kubernetes/enhancements](https://github.com/kubernetes/enhancements) issue(s).
+1. Leave a comment on the related [kubernetes/enhancements](https://github.com/kubernetes/enhancements)
+   issue with a link to the PR to notify the docs person managing this release that
+   the feature docs are coming and should be tracked for the release.
 -->
 ### 提交占位 PR {#open-a-placeholder-pr}
 
 1. 在 `kubernetes/website` 仓库上针对 `dev-{{< skew nextMinorVersion >}}`
    分支提交一个**draft** PR，其中包含较少的、待以后慢慢补齐的提交内容。
-   要创建一个草案（draft）状态的 PR，可以在 Create Pull Request 下拉菜单中选择
+   要创建一个草案（draft）状态的 PR，可以在 **Create Pull Request** 下拉菜单中选择
    **Create Draft Pull Request**，然后点击 **Draft Pull Request**。
 1. 编辑拉取请求描述以包括指向 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) PR
    和 [kubernetes/enhancements](https://github.com/kubernetes/enhancements) 问题的链接。  
@@ -223,7 +224,8 @@ When ready, populate your placeholder PR with feature documentation and change
 the state of the PR from draft to **ready for review**. To mark a pull request
 as ready for review, navigate to the merge box and click **Ready for review**.
 
-Do your best to describe your feature and how to use it. If you need help structuring your documentation, ask in the `#sig-docs` Slack channel.
+Do your best to describe your feature and how to use it. If you need help
+structuring your documentation, ask in the `#sig-docs` Slack channel.
 
 When you complete your content, the documentation person assigned to your feature reviews it.
 To ensure technical accuracy, the content may also require a technical review from corresponding SIG(s).
@@ -270,10 +272,11 @@ add documentation elsewhere and link to that.
 通常一段话就够了；若要长篇阐述，请在其他地方添加文档，并为其添加链接。
 
 <!--
-Also,
-to ensure your feature gate appears in the [Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table, include the following details 
-in the [front matter](https://gohugo.io/content-management/front-matter/) of your Markdown
-description file:
+Also, to ensure your feature gate appears in the
+[Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
+table, include the following details in the
+[front matter](https://gohugo.io/content-management/front-matter/)
+of your Markdown description file:
 -->
 此外，为了确保你的特性门控出现在
 [Alpha/Beta 特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)表格中，
@@ -307,7 +310,7 @@ inside `content/en/docs/reference/command-line-tools-reference/feature-gates/`
 目录中创建一个新的 Markdown 文件（把其他文件用作模板）。
 
 <!--
-When you change a feature gate to disabled-by-default to enabled-by-default,
+When you change a feature gate from disabled-by-default to enabled-by-default,
 you may also need to change other documentation (not just the list of
 feature gates). Watch out for language such as ”The `exampleSetting` field
 is a beta field and disabled by default. You can enable it by enabling the
@@ -318,12 +321,13 @@ is a beta field and disabled by default. You can enable it by enabling the
 你可以通过启用 `ProcessExampleThings` 特性门控来启用此字段。”
 
 <!--
-If your feature is GA'ed or deprecated, 
-include an additional `stage` entry within the `stages` block in the description file. 
-Ensure that the Alpha and Beta stages remain intact. 
-This step transitions the feature gate from the 
-[Feature gates for Alpha/Feature](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table
-to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features) table. For example:
+If your feature is GA'ed or deprecated, include an additional `stage` entry within
+the `stages` block in the description file.
+Ensure that the Alpha and Beta stages remain intact. This step transitions the
+feature gate from the
+[Feature gates for Alpha/Beta](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table
+to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
+table. For example:
 -->
 如果你的特性已经是 GA（正式发布）或已弃用的，请在描述文件的 `stages` 块中包含一个额外的 `stage` 条目。
 确保 Alpha 和 Beta 阶段保持不变。这一步将特性门控从
@@ -331,9 +335,7 @@ to [Feature gates for graduated or deprecated features](/docs/reference/command-
 表格移到[已毕业或已弃用的特性门控](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)表格。例如：
 
 <!--
-# Added 'stable' stage block to existing stages.
--->
-{{< highlight yaml "linenos=false,hl_lines=10-15" >}}
+{{< highlight yaml "linenos=false,hl_lines=10-17" >}}
 stages:
   - stage: alpha 
     defaultValue: false
@@ -342,33 +344,55 @@ stages:
   - stage: beta 
     defaultValue: true
     fromVersion: "1.13"
-    toVersion: "1.18"    
-  # 将 'stable' stage 代码块添加到了 stages 下 
-  - stage: stable     
+  # Added a `toVersion` to the previous stage.
+    toVersion: "1.18"
+  # Added 'stable' stage block to existing stages.
+  - stage: stable
     defaultValue: true
     fromVersion: "1.19"
-    toVersion: "1.27"   
+    toVersion: "1.27"
+{{< / highlight >}}
+-->
+{{< highlight yaml "linenos=false,hl_lines=10-17" >}}
+stages:
+  - stage: alpha 
+    defaultValue: false
+    fromVersion: "1.12"
+    toVersion: "1.12"
+  - stage: beta 
+    defaultValue: true
+    fromVersion: "1.13"
+  # 将 `toVersion` 添加到了前一个 stage
+    toVersion: "1.18"    
+  # 将 'stable' stage 代码块添加到了 stages 下 
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.19"
+    toVersion: "1.27"
 {{< / highlight >}}
 
 <!--
-Eventually, Kubernetes will stop including the feature gate at all. To signify the removal of a feature gate, 
-include `removed: true` in the front matter of the respective description file.
-This action triggers the transition of the feature gate 
-from [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed) section to a dedicated page titled 
-[Feature Gates (removed)](/docs/reference/command-line-tools-reference/feature-gates-removed/), including its description.
+Eventually, Kubernetes will stop including the feature gate at all.
+To signify the removal of a feature gate, include `removed: true` in
+the front matter of the respective description file.
+Making that change means that the feature gate information moves from the
+[Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed)
+section to a dedicated page titled
+[Feature Gates (removed)](/docs/reference/command-line-tools-reference/feature-gates-removed/),
+including its description.
 -->
 最终，Kubernetes 将完全停止包含此特性门控。为了表示某特性门控已被移除，
 请在相应描述文件的 Front Matter 中包括 `removed: true`。
-此操作将使特性门控及其描述从[已毕业或已弃用的特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed)
+这种变更意味着特性门控及其描述从[已毕业或已弃用的特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed)
 部分移到名为[特性门控（已移除）](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/)的专用页面。
 
 <!--
 ### All PRs reviewed and ready to merge
 
-If your PR has not yet been merged into the `dev-{{< skew nextMinorVersion >}}` branch by the release deadline, work with the
-docs person managing the release to get it in by the deadline. If your feature needs
-documentation and the docs are not ready, the feature may be removed from the
-milestone.
+If your PR has not yet been merged into the `dev-{{< skew nextMinorVersion >}}`
+branch by the release deadline, work with the docs person managing the release
+to get it in by the deadline. If your feature needs documentation and the docs
+are not ready, the feature may be removed from the milestone.
 -->
 ### 所有 PR 均经过评审且合并就绪   {#all-prs-reviewd-and-ready-to-merge}
 

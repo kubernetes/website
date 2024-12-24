@@ -77,8 +77,12 @@ TokenReviewPec 是对令牌身份验证请求的描述。
 - **audiences** ([]string)
 
   <!--
+  *Atomic: will be replaced during a merge*
+  
   Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
   -->
+  **原子性：将在合并期间被替换**  
+
   audiences 是带有令牌的资源服务器标识为受众的标识符列表。
   受众感知令牌身份验证器将验证令牌是否适用于此列表中的至少一个受众。
   如果未提供受众，受众将默认为 Kubernetes API 服务器的受众。
@@ -102,8 +106,13 @@ TokenReviewStatus 是令牌认证请求的结果。
 - **audiences** ([]string)
 
   <!--
+  *Atomic: will be replaced during a merge*
+  
   Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
   -->
+
+  **原子性：将在合并期间被替换**
+
   audiences 是身份验证者选择的与 TokenReview 和令牌兼容的受众标识符。标识符是
   TokenReviewSpec 受众和令牌受众的交集中的任何标识符。设置 spec.audiences
   字段的 TokenReview API 的客户端应验证在 status.audiences 字段中返回了兼容的受众标识符，
@@ -145,6 +154,12 @@ TokenReviewStatus 是令牌认证请求的结果。
    验证者提供的任何附加信息。
 
   - **user.groups** ([]string)
+
+    <!--
+    Atomic: will be replaced during a merg
+    -->
+    
+    **Atomic：将在合并期间被替换**
 
     <!--
     The names of groups this user is a part of.

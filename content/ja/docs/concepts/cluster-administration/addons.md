@@ -41,7 +41,6 @@ weight: 120
 ## 可視化と制御 {#visualization-amp-control}
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard)はKubernetes向けのダッシュボードを提供するウェブインターフェースです。
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s)は、コンテナ、Pod、Serviceなどをグラフィカルに可視化するツールです。[Weave Cloud account](https://cloud.weave.works/)と組み合わせて使うか、UIを自分でホストして使います。
 
 ## インフラストラクチャ {#infrastructure}
 

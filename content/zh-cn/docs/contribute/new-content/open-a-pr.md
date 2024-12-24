@@ -524,13 +524,13 @@ variable to override this behaviour.
    ```
 
 <!--
-1. In a web browser, navigate to `https://localhost:1313`. Hugo watches the
+1. In a web browser, navigate to `http://localhost:1313`. Hugo watches the
    changes and rebuilds the site as needed.
 
 1. To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,
    or close the terminal window.
 -->
-3. 启动浏览器，浏览 `https://localhost:1313`。
+3. 启动浏览器，浏览 `http://localhost:1313`。
    Hugo 会监测文件的变更并根据需要重新构建网站。
 
 4. 要停止本地 Hugo 实例，可返回到终端并输入 `Ctrl+C`，或者关闭终端窗口。
@@ -572,13 +572,13 @@ Alternately, install and use the `hugo` command on your computer:
    ```
 
 <!--
-1. In a web browser, navigate to `https://localhost:1313`. Hugo watches the
+1. In a web browser, navigate to `http://localhost:1313`. Hugo watches the
    changes and rebuilds the site as needed.
 
 1. To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,
    or close the terminal window.
 -->
-4. 在浏览器的地址栏输入： `https://localhost:1313`。
+4. 在浏览器的地址栏输入： `http://localhost:1313`。
    Hugo 会监测文件的变更并根据需要重新构建网站。
 
 5. 要停止本地 Hugo 实例，返回到终端窗口并输入 `Ctrl+C` 或者关闭终端窗口。

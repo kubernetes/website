@@ -275,3 +275,4 @@ page for more on how to report vulnerabilities.
 ## What's next
 
 - [Security Checklist](/docs/concepts/security/security-checklist/) for additional information on Kubernetes security guidance.
+- [Seccomp Node Reference](/docs/reference/node/seccomp/)

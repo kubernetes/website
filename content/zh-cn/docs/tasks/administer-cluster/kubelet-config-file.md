@@ -272,9 +272,9 @@ they can follow these steps to inspect the kubelet configuration:
 他们可以按照以下步骤检查 kubelet 配置：
 
 <!--
-1. Start a proxy server using [`kubectl proxy`](/docs/reference/kubectl/generated/kubectl-commands#proxy) in your terminal.
+1. Start a proxy server using [`kubectl proxy`](/docs/reference/kubectl/generated/kubectl_proxy/) in your terminal.
 -->
-1. 在终端中使用 [`kubectl proxy`](/docs/reference/kubectl/generated/kubectl-commands#proxy) 启动代理服务器。
+1. 在终端中使用 [`kubectl proxy`](/zh-cn/docs/reference/kubectl/generated/kubectl_proxy/) 启动代理服务器。
 
    ```bash
    kubectl proxy

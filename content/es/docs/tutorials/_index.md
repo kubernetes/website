@@ -1,6 +1,7 @@
 ---
 title: Tutoriales
 main_menu: true
+no_list: true
 weight: 60
 content_type: concept
 ---
@@ -31,6 +32,10 @@ Antes de recorrer cada tutorial, recomendamos añadir un marcador a
 * [Ejemplo: Configurando un Microservicio en Java](/docs/tutorials/configuration/configure-java-microservice/)
 * [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
+## Creación de Pods
+
+* [Adoptando Contenedores Sidecar](/docs/tutorials/configuration/pod-sidecar-containers/)
+
 ## Aplicaciones Stateless
 
 * [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
@@ -38,19 +43,22 @@ Antes de recorrer cada tutorial, recomendamos añadir un marcador a
 
 ## Aplicaciones Stateful
 
-* [StatefulSet Basics](/docs/tutorials/stateful-application/basic-stateful-set/)
-* [Example: WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
-* [Example: Deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/)
-* [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
-
-## Clústers
-
-* [AppArmor](/docs/tutorials/clusters/apparmor/)
-* [Seccomp](/docs/tutorials/clusters/seccomp/)
+* [Conceptos Básicos de StatefulSet](/docs/tutorials/stateful-application/basic-stateful-set/)
+* [Ejemplo: WordPress y MySQL con Volúmenes Persistentes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
+* [Ejemplo: Implementación de Cassandra con StatefulSets](/docs/tutorials/stateful-application/cassandra/)
+* [Ejecución de ZooKeeper, un Sistema Distribuido CP](/docs/tutorials/stateful-application/zookeeper/)
 
 ## Servicios
 
-* [Using Source IP](/docs/tutorials/services/source-ip/)
+* [Conectando Aplicaciones con Servicios](/docs/tutorials/services/connect-applications-service/)
+* [Uso de la IP de Origen](/docs/tutorials/services/source-ip/)
+
+## Seguridad
+
+* [Aplicar Estándares de Seguridad de Pods a Nivel de Clúster](/docs/tutorials/security/cluster-level-pss/)
+* [Aplicar Estándares de Seguridad de Pods a Nivel de Namespace](/docs/tutorials/security/ns-level-pss/)
+* [Restringir el Acceso de un Contenedor a Recursos con AppArmor](/docs/tutorials/security/apparmor/)
+* [Seccomp](/docs/tutorials/security/seccomp/)
 
 ## {{% heading "whatsnext" %}}
 

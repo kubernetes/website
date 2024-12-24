@@ -2,6 +2,9 @@
 title: কন্টেইনার
 weight: 40
 description: রানটাইম নির্ভরতা সহ একটি অ্যাপ্লিকেশন প্যাকেজ করার প্রযুক্তি।
+# reviewers: ( The list of approvers is not necessary for the localized version. However, it is included because it helps maintain a certain line break, which further aids in updating a file.That's why it's kept in comment form. )
+# - erictune
+# - thockin
 content_type: concept
 card:
   name: concepts
@@ -9,6 +12,10 @@ card:
 ---
 
 <!-- overview -->
+
+এই পৃষ্ঠাটি কন্টেইনার এবং কন্টেইনার ইমেজ, সেইসাথে অপারেশন এবং সমাধান ডেভেলপমেন্টে তাদের ব্যবহার নিয়ে আলোচনা করবে।
+
+_কন্টেইনার_ শব্দটি একটি ওভারলোডেড শব্দ। আপনি যখনই শব্দটি ব্যবহার করেন, আপনার শ্রোতা একই সংজ্ঞা ব্যবহার করেন কিনা তা চেক করুন।
 
 আপনার চালানো প্রতিটি কন্টেইনার পুনরাবৃত্তিযোগ্য;
 নির্ভরতা অন্তর্ভুক্ত করা থেকে প্রমিতকরণের (standardization) অর্থ হলো আপনি যেখানেই এটি চালান 

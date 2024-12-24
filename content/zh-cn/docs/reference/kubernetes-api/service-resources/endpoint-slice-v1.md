@@ -268,7 +268,7 @@ EndpointSlice 是实现某 Service 的端点的子集。一个 Service 可以有
   - **ports.name** (string)
 
     <!--
-    name represents the name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
+    name represents the name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is derived from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
     -->
     
     name 表示此端口的名称。EndpointSlice 中所有端口的名称都不得重复。
@@ -288,7 +288,7 @@ EndpointSlice 是实现某 Service 的端点的子集。一个 Service 可以有
     * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
     
     * Kubernetes-defined prefixed names:
-      * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+      * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
       * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
       * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455    
     
@@ -301,7 +301,7 @@ EndpointSlice 是实现某 Service 的端点的子集。一个 Service 可以有
     * 不带前缀的协议名 - 是 IANA 标准服务的保留名称（参见 RFC-6335 和 https://www.iana.org/assignments/service-names）。
 
     * Kubernetes 定义的前缀名称：
-      * 'kubernetes.io/h2c' - 使用明文的 HTTP/2 协议，详见 https://www.rfc-editor.org/rfc/rfc7540
+      * 'kubernetes.io/h2c' - HTTP/2 通过明文预先了解知识，如 https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior- 中所述。
       * 'kubernetes.io/ws' - 通过明文传输的 WebSocket，详见 https://www.rfc-editor.org/rfc/rfc6455
       * 'kubernetes.io/wss' - 通过 TLS 传输的 WebSocket，详见 https://www.rfc-editor.org/rfc/rfc6455
 

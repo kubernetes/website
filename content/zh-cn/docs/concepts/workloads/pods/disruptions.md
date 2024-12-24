@@ -443,25 +443,16 @@ can happen, according to:
 -->
 ## Pod 干扰状况 {#pod-disruption-conditions}
 
-{{< feature-state for_k8s_version="v1.26" state="beta" >}}
-
-{{< note >}}
-<!-- 
-In order to use this behavior, you must have the `PodDisruptionConditions`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled in your cluster.
--->
-要使用此行为，你必须在集群中启用 `PodDisruptionConditions`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-{{< /note >}}
+{{< feature-state feature_gate_name="PodDisruptionConditions" >}}
 
 <!--
-When enabled, a dedicated Pod `DisruptionTarget` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions) is added to indicate
+A dedicated Pod `DisruptionTarget` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
+is added to indicate
 that the Pod is about to be deleted due to a {{<glossary_tooltip term_id="disruption" text="disruption">}}.
 The `reason` field of the condition additionally
 indicates one of the following reasons for the Pod termination:
 -->
-启用后，会给 Pod 添加一个 `DisruptionTarget`
+Pod 会被添加一个 `DisruptionTarget`
 [状况](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)，
 用来表明该 Pod 因为发生{{<glossary_tooltip term_id="disruption" text="干扰">}}而被删除。
 状况中的 `reason` 字段进一步给出 Pod 终止的原因，如下：
@@ -501,11 +492,15 @@ Taint Manager（`kube-controller-manager` 中节点生命周期控制器的一�
 
 <!--
 `TerminationByKubelet`
-: Pod has been terminated by the kubelet, because of either {{<glossary_tooltip term_id="node-pressure-eviction" text="node pressure eviction">}} or the [graceful node shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown).
+: Pod has been terminated by the kubelet, because of either {{<glossary_tooltip term_id="node-pressure-eviction" text="node pressure eviction">}},
+  the [graceful node shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown),
+  or preemption for [system critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
 -->
 `TerminationByKubelet`
 : Pod
-由于{{<glossary_tooltip term_id="node-pressure-eviction" text="节点压力驱逐">}}或[节点体面关闭](/zh-cn/docs/concepts/architecture/nodes/#graceful-node-shutdown)而被
+由于{{<glossary_tooltip term_id="node-pressure-eviction" text="节点压力驱逐">}}、
+[节点体面关闭](/zh-cn/docs/concepts/architecture/nodes/#graceful-node-shutdown)
+或[系统关键 Pod](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)的抢占而被
 kubelet 终止。
 
 <!--
@@ -533,11 +528,10 @@ Pod 的干扰可能会被中断。控制平面可能会重新尝试继续干扰�
 {{< /note >}}
 
 <!--
-When the `PodDisruptionConditions` feature gate is enabled,
-along with cleaning up the pods, the Pod garbage collector (PodGC) will also mark them as failed if they are in a non-terminal
+Along with cleaning up the pods, the Pod garbage collector (PodGC) will also mark them as failed if they are in a non-terminal
 phase (see also [Pod garbage collection](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)).
 -->
-当 `PodDisruptionConditions` 特性门控被启用时，在清理 Pod 的同时，如果这些 Pod 处于非终止阶段，
+在清理 Pod 的同时，如果这些 Pod 处于非终止阶段，
 则 Pod 垃圾回收器 (PodGC) 也会将这些 Pod 标记为失效
 （另见 [Pod 垃圾回收](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)）。
 

@@ -148,7 +148,7 @@ service/my-nginx exposed
 ```
 
 <!--
-This is equivalent to `kubectl apply -f` the following yaml:
+This is equivalent to `kubectl apply -f` in the following yaml:
 -->
 这等价于使用 `kubectl create -f` 命令及如下的 yaml 文件创建：
 

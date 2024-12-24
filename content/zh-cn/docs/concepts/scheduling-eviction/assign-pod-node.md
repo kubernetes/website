@@ -30,8 +30,8 @@ or to co-locate Pods from two different services that communicate a lot into the
 -->
 你可以约束一个 {{< glossary_tooltip text="Pod" term_id="pod" >}}
 以便**限制**其只能在特定的{{< glossary_tooltip text="节点" term_id="node" >}}上运行，
-或优先在特定的节点上运行。有几种方法可以实现这点，推荐的方法都是用
-[标签选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)来进行选择。
+或优先在特定的节点上运行。有几种方法可以实现这点，
+推荐的方法都是用[标签选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)来进行选择。
 通常这样的约束不是必须的，因为调度器将自动进行合理的放置（比如，将 Pod 分散到节点上，
 而不是将 Pod 放置在可用资源不足的节点上等等）。但在某些情况下，你可能需要进一步控制
 Pod 被部署到哪个节点。例如，确保 Pod 最终落在连接了 SSD 的机器上，
@@ -679,16 +679,16 @@ null `namespaceSelector` matches the namespace of the Pod where the rule is defi
 {{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
 
 {{< note >}}
-<!-- UPDATE THIS WHEN PROMOTING TO BETA -->
+<!-- UPDATE THIS WHEN PROMOTING TO STABLE -->
 <!--
-The `matchLabelKeys` field is an alpha-level field and is disabled by default in
+The `matchLabelKeys` field is a beta-level field and is enabled by default in
 Kubernetes {{< skew currentVersion >}}.
-When you want to use it, you have to enable it via the
+When you want to disable it, you have to disable it explicitly via the
 `MatchLabelKeysInPodAffinity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
-`matchLabelKeys` 字段是一个 Alpha 级别的字段，在 Kubernetes {{< skew currentVersion >}} 中默认被禁用。
-当你想要使用此字段时，你必须通过 `MatchLabelKeysInPodAffinity`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)启用它。
+`matchLabelKeys` 字段是一个 Beta 级别的字段，在 Kubernetes {{< skew currentVersion >}} 中默认被启用。
+当你想要禁用此字段时，你必须通过 `MatchLabelKeysInPodAffinity`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)禁用它。
 {{< /note >}}
 
 <!--
@@ -753,16 +753,16 @@ spec:
 {{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
 
 {{< note >}}
-<!-- UPDATE THIS WHEN PROMOTING TO BETA -->
+<!-- UPDATE THIS WHEN PROMOTING TO STABLE -->
 <!--
-The `mismatchLabelKeys` field is an alpha-level field and is disabled by default in
+The `mismatchLabelKeys` field is an beta-level field and is disabled by default in
 Kubernetes {{< skew currentVersion >}}.
-When you want to use it, you have to enable it via the
+When you want to disable it, you have to disable it explicitly via the
 `MatchLabelKeysInPodAffinity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
-`mismatchLabelKeys` 字段是一个 Alpha 级别的字段，在 Kubernetes {{< skew currentVersion >}} 中默认被禁用。
-当你想要使用此字段时，你必须通过 `MatchLabelKeysInPodAffinity`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)启用它。
+`mismatchLabelKeys` 字段是一个 Beta 级别的字段，在 Kubernetes {{< skew currentVersion >}} 中默认被禁用。
+当你想要禁用此字段时，你必须通过 `MatchLabelKeysInPodAffinity`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)禁用它。
 {{< /note >}}
 
 <!--
@@ -1118,8 +1118,8 @@ The following operators can only be used with `nodeAffinity`.
 -->
 | 操作符 | 行为 |
 | :------------: | :-------------: |
-| `Gt` | 字段值将被解析为整数，并且该整数小于通过解析此选择算符命名的标签的值所得到的整数  | 
-| `Lt` | 字段值将被解析为整数，并且该整数大于通过解析此选择算符命名的标签的值所得到的整数 | 
+| `Gt` | 字段值将被解析为整数，并且该整数小于通过解析此选择算符命名的标签的值所得到的整数 |
+| `Lt` | 字段值将被解析为整数，并且该整数大于通过解析此选择算符命名的标签的值所得到的整数 |
 
 {{<note>}}
 <!--

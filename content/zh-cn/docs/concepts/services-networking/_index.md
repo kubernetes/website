@@ -1,117 +1,183 @@
 ---
 title: "服务、负载均衡和联网"
 weight: 60
-description: Kubernetes 网络背后的概念和资源。
+description: >
+  Kubernetes 网络背后的概念和资源。
 ---
+<!--
+title: "Services, Load Balancing, and Networking"
+weight: 60
+description: >
+  Concepts and resources behind networking in Kubernetes.
+-->
 
 <!--
 ## The Kubernetes network model
 
-Every [`Pod`](/docs/concepts/workloads/pods/) in a cluster gets its own unique cluster-wide IP address
-(one address per IP address family).
-This means you do not need to explicitly create links between `Pods` and you
-almost never need to deal with mapping container ports to host ports.  
-This creates a clean, backwards-compatible model where `Pods` can be treated
-much like VMs or physical hosts from the perspectives of port allocation,
-naming, service discovery, [load balancing](/docs/concepts/services-networking/ingress/#load-balancing),
-application configuration, and migration.
+The Kubernetes network model is built out of several pieces:
+
+* Each [pod](/docs/concepts/workloads/pods/) in a cluster gets its
+  own unique cluster-wide IP address.
+
+  * A pod has its own private network namespace which is shared by
+    all of the containers within the pod. Processes running in
+    different containers in the same pod can communicate with each
+    other over `localhost`.
 -->
 ## Kubernetes 网络模型   {#the-kubernetes-network-model}
 
-集群中每一个 [`Pod`](/zh-cn/docs/concepts/workloads/pods/) 都会获得自己的、
-独一无二的 IP 地址（每个 IP 地址族一个地址），
-这就意味着你不需要显式地在 `Pod` 之间创建链接，你几乎不需要处理容器端口到主机端口之间的映射。
-这将形成一个干净的、向后兼容的模型；在这个模型里，从端口分配、命名、服务发现、
-[负载均衡](/zh-cn/docs/concepts/services-networking/ingress/#load-balancing)、
-应用配置和迁移的角度来看，`Pod` 可以被视作虚拟机或者物理主机。
+Kubernetes 网络模型由几个部分构成：
+
+* 集群中的每个 [Pod](/zh-cn/docs/concepts/workloads/pods/)
+  都会获得自己的、独一无二的集群范围 IP 地址。
+
+  * Pod 有自己的私有网络命名空间，Pod 内的所有容器共享这个命名空间。
+    运行在同一个 Pod 中的不同容器的进程彼此之间可以通过 `localhost` 进行通信。
 
 <!--
-Kubernetes imposes the following fundamental requirements on any networking
-implementation (barring any intentional network segmentation policies):
+* The _pod network_ (also called a cluster network) handles communication
+  between pods. It ensures that (barring intentional network segmentation):
+
+  * All pods can communicate with all other pods, whether they are
+    on the same [node](/docs/concepts/architecture/nodes/) or on
+    different nodes. Pods can communicate with each other
+    directly, without the use of proxies or address translation (NAT).
+
+    On Windows, this rule does not apply to host-network pods.
+
+  * Agents on a node (such as system daemons, or kubelet) can
+    communicate with all pods on that node.
 -->
-Kubernetes 强制要求所有网络设施都满足以下基本要求（从而排除了有意隔离网络的策略）：
+* **Pod 网络**（也称为集群网络）处理 Pod 之间的通信。它确保（除非故意进行网络分段）：
+
+  * 所有 Pod 可以与所有其他 Pod 进行通信，
+    无论它们是在同一个[节点](/zh-cn/docs/concepts/architecture/nodes/)还是在不同的节点上。
+    Pod 可以直接相互通信，而无需使用代理或地址转换（NAT）。
+
+    在 Windows 上，这条规则不适用于主机网络 Pod。
+
+  * 节点上的代理（例如系统守护进程或 kubelet）可以与该节点上的所有 Pod 进行通信。
 
 <!--
-* pods can communicate with all other pods on any other [node](/docs/concepts/architecture/nodes/) 
-  without NAT
-* agents on a node (e.g. system daemons, kubelet) can communicate with all
-  pods on that node
+* The [Service](/docs/concepts/services-networking/service/) API
+  lets you provide a stable (long lived) IP address or hostname for a service implemented
+  by one or more backend pods, where the individual pods making up
+  the service can change over time.
+
+  * Kubernetes automatically manages
+    [EndpointSlice](/docs/concepts/services-networking/endpoint-slices/)
+    objects to provide information about the pods currently backing a Service.
+
+  * A service proxy implementation monitors the set of Service and
+    EndpointSlice objects, and programs the data plane to route
+    service traffic to its backends, by using operating system or
+    cloud provider APIs to intercept or rewrite packets.
 -->
-* Pod 能够与所有其他[节点](/zh-cn/docs/concepts/architecture/nodes/)上的 Pod 通信，
-  且不需要网络地址转译（NAT）
-* 节点上的代理（比如：系统守护进程、kubelet）可以和节点上的所有 Pod 通信
+* [Service](/zh-cn/docs/concepts/services-networking/service/) API
+  允许你为由一个或多个后端 Pod 实现的服务提供一个稳定（长效）的 IP 地址或主机名，
+  其中组成服务的各个 Pod 可以随时变化。
+
+  * Kubernetes 会自动管理
+    [EndpointSlice](/zh-cn/docs/concepts/services-networking/endpoint-slices/)
+    对象，以提供有关当前用来提供 Service 的 Pod 的信息。
+
+  * 服务代理实现通过使用操作系统或云平台 API 来拦截或重写数据包，
+    监视 Service 和 EndpointSlice 对象集，并在数据平面编程将服务流量路由到其后端。
 
 <!--
-For those platforms that support `Pods` running in the host network (such as Linux), when pods are attached to the host network of a node they can still communicate with all pods on all nodes without NAT.
+* The [Gateway](/docs/concepts/services-networking/gateway/) API
+  (or its predecessor, [Ingress](/docs/concepts/services-networking/ingress/))
+  allows you to make Services accessible to clients that are outside the cluster.
+
+  * A simpler, but less-configurable, mechanism for cluster
+    ingress is available via the Service API's
+    [`type: LoadBalancer`](/docs/concepts/services-networking/service/#loadbalancer),
+    when using a supported {{< glossary_tooltip term_id="cloud-provider">}}.
+
+* [NetworkPolicy](/docs/concepts/services-networking/network-policies) is a built-in
+  Kubernetes API that allows you to control traffic between pods, or between pods and
+  the outside world.
 -->
-对于支持在主机网络中运行 `Pod` 的平台（比如：Linux），
-当 Pod 挂接到节点的宿主网络上时，它们仍可以不通过 NAT 和所有节点上的 Pod 通信。
+* [Gateway](/zh-cn/docs/concepts/services-networking/gateway/) API
+  （或其前身 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
+  使得集群外部的客户端能够访问 Service。
+
+  * 当使用受支持的 {{< glossary_tooltip term_id="cloud-provider">}} 时，通过 Service API 的
+    [`type: LoadBalancer`](/zh-cn/docs/concepts/services-networking/service/#loadbalancer)
+    可以使用一种更简单但可配置性较低的集群 Ingress 机制。
+
+* [NetworkPolicy](/zh-cn/docs/concepts/services-networking/network-policies)
+  是一个内置的 Kubernetes API，允许你控制 Pod 之间的流量或 Pod 与外部世界之间的流量。
 
 <!--
-This model is not only less complex overall, but it is principally compatible
-with the desire for Kubernetes to enable low-friction porting of apps from VMs
-to containers.  If your job previously ran in a VM, your VM had an IP and could
-talk to other VMs in your project.  This is the same basic model.
-
-Kubernetes IP addresses exist at the `Pod` scope - containers within a `Pod`
-share their network namespaces - including their IP address and MAC address.
-This means that containers within a `Pod` can all reach each other's ports on
-`localhost`. This also means that containers within a `Pod` must coordinate port
-usage, but this is no different from processes in a VM.  This is called the
-"IP-per-pod" model.
+In older container systems, there was no automatic connectivity
+between containers on different hosts, and so it was often necessary
+to explicitly create links between containers, or to map container
+ports to host ports to make them reachable by containers on other
+hosts. This is not needed in Kubernetes; Kubernetes's model is that
+pods can be treated much like VMs or physical hosts from the
+perspectives of port allocation, naming, service discovery, load
+balancing, application configuration, and migration.
 -->
-这个模型不仅不复杂，而且还和 Kubernetes 的实现从虚拟机向容器平滑迁移的初衷相符，
-如果你的任务开始是在虚拟机中运行的，你的虚拟机有一个 IP，
-可以和项目中其他虚拟机通信。这里的模型是基本相同的。
-
-Kubernetes 的 IP 地址存在于 `Pod` 范围内 —— 容器共享它们的网络命名空间 ——
-包括它们的 IP 地址和 MAC 地址。
-这就意味着 `Pod` 内的容器都可以通过 `localhost` 到达对方端口。
-这也意味着 `Pod` 内的容器需要相互协调端口的使用，但是这和虚拟机中的进程似乎没有什么不同，
-这也被称为“一个 Pod 一个 IP”模型。
+在早期的容器系统中，不同主机上的容器之间没有自动连通，
+因此通常需要显式创建容器之间的链路，或将容器端口映射到主机端口，以便其他主机上的容器能够访问。
+在 Kubernetes 中并不需要如此操作；在 Kubernetes 的网络模型中，
+从端口分配、命名、服务发现、负载均衡、应用配置和迁移的角度来看，Pod 可以被视作虚拟机或物理主机。
 
 <!--
-How this is implemented is a detail of the particular container runtime in use.
+Only a few parts of this model are implemented by Kubernetes itself.
+For the other parts, Kubernetes defines the APIs, but the
+corresponding functionality is provided by external components, some
+of which are optional:
 
-It is possible to request ports on the `Node` itself which forward to your `Pod`
-(called host ports), but this is a very niche operation. How that forwarding is
-implemented is also a detail of the container runtime. The `Pod` itself is
-blind to the existence or non-existence of host ports.
+* Pod network namespace setup is handled by system-level software implementing the
+  [Container Runtime Interface](/docs/concepts/architecture/cri.md).
 -->
-如何实现以上需求是所使用的特定容器运行时的细节。
+这个模型只有少部分是由 Kubernetes 自身实现的。
+对于其他部分，Kubernetes 定义 API，但相应的功能由外部组件提供，其中一些是可选的：
 
-也可以在 `Node` 本身请求端口，并用这类端口转发到你的 `Pod`（称之为主机端口），
-但这是一个很特殊的操作。转发方式如何实现也是容器运行时的细节。
-`Pod` 自己并不知道这些主机端口的存在。
+* Pod 网络命名空间的设置由实现[容器运行时接口（CRI）](/zh-cn/docs/concepts/architecture/cri.md)的系统层面软件处理。
 
 <!--
-Kubernetes networking addresses four concerns:
-- Containers within a Pod [use networking to communicate](/docs/concepts/services-networking/dns-pod-service/) via loopback.
-- Cluster networking provides communication between different Pods.
-- The [Service](/docs/concepts/services-networking/service/) API lets you
-  [expose an application running in Pods](/docs/tutorials/services/connect-applications-service/)
-  to be reachable from outside your cluster.
-  - [Ingress](/docs/concepts/services-networking/ingress/) provides extra functionality
-    specifically for exposing HTTP applications, websites and APIs.
-  - [Gateway API](/docs/concepts/services-networking/gateway/) is an {{<glossary_tooltip text="add-on" term_id="addons">}}
-    that provides an expressive, extensible, and role-oriented family of API kinds for modeling service networking.
-- You can also use Services to
-  [publish services only for consumption inside your cluster](/docs/concepts/services-networking/service-traffic-policy/).
--->
-Kubernetes 网络解决四方面的问题：
+* The pod network itself is managed by a
+  [pod network implementation](/docs/concepts/cluster-administration/addons/#networking-and-network-policy).
+  On Linux, most container runtimes use the
+  {{< glossary_tooltip text="Container Networking Interface (CNI)" term_id="cni" >}}
+  to interact with the pod network implementation, so these
+  implementations are often called _CNI plugins_.
 
-- 一个 Pod 中的容器之间[通过本地回路（loopback）通信](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
-- 集群网络在不同 Pod 之间提供通信。
-- [Service](/zh-cn/docs/concepts/services-networking/service/) API
-  允许你[向外暴露 Pod 中运行的应用](/zh-cn/docs/tutorials/services/connect-applications-service/)，
-  以支持来自于集群外部的访问。
-  - [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
-    提供专门用于暴露 HTTP 应用程序、网站和 API 的额外功能。
-  - [Gateway API](/zh-cn/docs/concepts/services-networking/gateway/)
-    是一个{{<glossary_tooltip text="插件" term_id="addons">}}，
-    为服务网络建模提供富有表现力、可扩展和面向角色的 API 系列类别。
-- 你也可以使用 Service
-  来[发布仅供集群内部使用的服务](/zh-cn/docs/concepts/services-networking/service-traffic-policy/)。
+* Kubernetes provides a default implementation of service proxying,
+  called {{< glossary_tooltip term_id="kube-proxy">}}, but some pod
+  network implementations instead use their own service proxy that
+  is more tightly integrated with the rest of the implementation.
+-->
+* Pod 网络本身由
+  [Pod 网络实现](/zh-cn/docs/concepts/cluster-administration/addons/#networking-and-network-policy)管理。
+  在 Linux 上，大多数容器运行时使用{{< glossary_tooltip text="容器网络接口 (CNI)" term_id="cni" >}}
+  与 Pod 网络实现进行交互，因此这些实现通常被称为 **CNI 插件**。
+
+* Kubernetes 提供了一个默认的服务代理实现，称为 {{< glossary_tooltip term_id="kube-proxy">}}，
+  但某些 Pod 网络实现使用其自己的服务代理，以便与实现的其余组件集成得更紧密。
+
+<!--
+* NetworkPolicy is generally also implemented by the pod network
+  implementation. (Some simpler pod network implementations don't
+  implement NetworkPolicy, or an administrator may choose to
+  configure the pod network without NetworkPolicy support. In these
+  cases, the API will still be present, but it will have no effect.)
+
+* There are many [implementations of the Gateway API](https://gateway-api.sigs.k8s.io/implementations/),
+  some of which are specific to particular cloud environments, some more
+  focused on "bare metal" environments, and others more generic.
+-->
+* NetworkPolicy 通常也由 Pod 网络实现提供支持。
+  （某些更简单的 Pod 网络实现不支持 NetworkPolicy，或者管理员可能会选择在不支持 NetworkPolicy
+  的情况下配置 Pod 网络。在这些情况下，API 仍然存在，但将没有效果。）
+
+* [Gateway API 的实现](https://gateway-api.sigs.k8s.io/implementations/)有很多，
+  其中一些特定于某些云环境，还有一些更专注于“裸金属”环境，而其他一些则更加通用。
+
+## {{% heading "whatsnext" %}}
 
 <!--
 The [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)

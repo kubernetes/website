@@ -50,34 +50,21 @@ In addition, the container runtime and its underlying OCI runtime must support
 user namespaces. The following OCI runtimes offer support:
 
 * [crun](https://github.com/containers/crun) version 1.9 or greater (it's recommend version 1.13+).
+* [runc](https://github.com/opencontainers/runc) version 1.2 or greater
 
-<!-- ideally, update this if a newer minor release of runc comes out, whether or not it includes the idmap support -->
 {{< note >}}
-Many OCI runtimes do not include the support needed for using user namespaces in
+Some OCI runtimes do not include the support needed for using user namespaces in
 Linux pods. If you use a managed Kubernetes, or have downloaded it from packages
-and set it up, it's likely that nodes in your cluster use a runtime that doesn't
-include this support. For example, the most widely used OCI runtime is `runc`,
-and version `1.1.z` of runc doesn't support all the features needed by the
-Kubernetes implementation of user namespaces.
-
-If there is a newer release of runc than 1.1 available for use, check its
-documentation and release notes for compatibility (look for idmap mounts support
-in particular, because that is the missing feature).
+and set it up, it's possible that nodes in your cluster use a runtime that doesn't
+include this support.
 {{< /note >}}
 
 To use user namespaces with Kubernetes, you also need to use a CRI
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 to use this feature with Kubernetes pods:
 
+* containerd: version 2.0 (and later) supports user namespaces for containers.
 * CRI-O: version 1.25 (and later) supports user namespaces for containers.
-
-containerd v1.7 is not compatible with the userns support in Kubernetes v1.27 to v{{< skew latestVersion >}}.
-Kubernetes v1.25 and v1.26 used an earlier implementation that **is** compatible with containerd v1.7,
-in terms of userns support.
-If you are using a version of Kubernetes other than {{< skew currentVersion >}},
-check the documentation for that version of Kubernetes for the most relevant information.
-If there is a newer release of containerd than v1.7 available for use, also check the containerd
-documentation for compatibility information.
 
 You can see the status of user namespaces support in cri-dockerd tracked in an [issue][CRI-dockerd-issue]
 on GitHub.

@@ -3,7 +3,6 @@ title: Kubernetes 系统组件指标
 content_type: concept
 weight: 70
 ---
-
 <!--
 title: Metrics For Kubernetes System Components
 reviewers:
@@ -96,6 +95,7 @@ Alpha metric →  Stable metric →  Deprecated metric →  Hidden metric → De
 Alpha metrics have no stability guarantees. These metrics can be modified or deleted at any time.
 
 Stable metrics are guaranteed to not change. This means:
+
 * A stable metric without a deprecated signature will not be deleted or renamed
 * A stable metric's type will not be modified
 
@@ -263,6 +263,7 @@ lack of resources, and compare actual usage to the pod's request.
 The kube-scheduler identifies the resource [requests and limits](/docs/concepts/configuration/manage-resources-containers/)
 configured for each Pod; when either a request or limit is non-zero, the kube-scheduler reports a
 metrics timeseries. The time series is labelled by:
+
 - namespace
 - pod name
 - the node where the pod is scheduled or an empty string if not yet scheduled
@@ -275,6 +276,7 @@ kube-scheduler 组件能够辩识各个 Pod 所配置的资源
 [请求和约束](/zh-cn/docs/concepts/configuration/manage-resources-containers/)。
 在 Pod 的资源请求值或者约束值非零时，kube-scheduler 会以度量值时间序列的形式
 生成报告。该时间序列值包含以下标签：
+
 - 名字空间
 - Pod 名称
 - Pod 调度所处节点，或者当 Pod 未被调度时用空字符串表示
@@ -291,7 +293,7 @@ The two metrics are called `kube_pod_resource_request` and `kube_pod_resource_li
 
 The metrics are exposed at the HTTP endpoint `/metrics/resources` and require the same
 authorization as the `/metrics` endpoint on the scheduler. You must use the
-`-show-hidden-metrics-for-version=1.20` flag to expose these alpha stability metrics.
+`--show-hidden-metrics-for-version=1.20` flag to expose these alpha stability metrics.
 -->
 一旦 Pod 进入完成状态（其 `restartPolicy` 为 `Never` 或 `OnFailure`，且
 其处于 `Succeeded` 或 `Failed` Pod 阶段，或者已经被删除且所有容器都具有
@@ -320,12 +322,19 @@ disabled metrics (i.e. `--disabled-metrics=metric1,metric2`).
 ## Metric cardinality enforcement
 
 Metrics with unbounded dimensions could cause memory issues in the components they instrument. To
-limit resource use, you can use the `--allow-label-value` command line option to dynamically
+limit resource use, you can use the `--allow-metric-labels` command line option to dynamically
 configure an allow-list of label values for a metric.
+
+In alpha stage, the flag can only take in a series of mappings as metric label allow-list.
+Each mapping is of the format `<metric_name>,<label_name>=<allowed_labels>` where 
+`<allowed_labels>` is a comma-separated list of acceptable label names.
 -->
 ## 指标顺序性保证    {#metric-cardinality-enforcement}
 
-在 Alpha 阶段，标志只能接受一组映射值作为可以使用的指标标签。
+具有无限维度的指标可能会在其监控的组件中引起内存问题。
+为了限制资源使用，你可以使用 `--allow-metric-labels` 命令行选项来为指标动态配置允许的标签值列表。
+
+在 Alpha 阶段，此选项只能接受一组映射值作为可以使用的指标标签。
 每个映射值的格式为`<指标名称>,<标签名称>=<可用标签列表>`，其中
 `<可用标签列表>` 是一个用逗号分隔的、可接受的标签名的列表。
 
@@ -333,13 +342,13 @@ configure an allow-list of label values for a metric.
 The overall format looks like:
 
 ```
---allow-label-value <metric_name>,<label_name>='<allow_value1>, <allow_value2>...', <metric_name2>,<label_name>='<allow_value1>, <allow_value2>...', ...
+--allow-metric-labels <metric_name>,<label_name>='<allow_value1>, <allow_value2>...', <metric_name2>,<label_name>='<allow_value1>, <allow_value2>...', ...
 ```
 -->
 最终的格式看起来会是这样：
 
 ```
---allow-label-value <指标名称>,<标签名称>='<可用值1>,<可用值2>...', <指标名称2>,<标签名称>='<可用值1>, <可用值2>...', ...
+--allow-metric-labels <指标名称>,<标签名称>='<可用值1>,<可用值2>...', <指标名称2>,<标签名称>='<可用值1>, <可用值2>...', ...
 ```
 
 <!--
@@ -348,7 +357,7 @@ Here is an example:
 下面是一个例子：
 
 ```none
---allow-label-value number_count_metric,odd_number='1,3,5', number_count_metric,even_number='2,4,6', date_gauge_metric,weekend='Saturday,Sunday'
+--allow-metric-labels number_count_metric,odd_number='1,3,5', number_count_metric,even_number='2,4,6', date_gauge_metric,weekend='Saturday,Sunday'
 ```
 
 <!--
@@ -361,9 +370,8 @@ line argument to a component. Here's an example of the contents of that configur
 以下是该配置文件的内容示例：
 
 ```yaml
-allow-list:
-- "metric1,label2": "v1,v2,v3"
-- "metric2,label1": "v1,v2,v3"
+"metric1,label2": "v1,v2,v3"
+"metric2,label1": "v1,v2,v3"
 ```
 
 <!--
@@ -379,7 +387,9 @@ is encountered that is not allowed with respect to the allow-list constraints.
 <!--
 * Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format)
   for metrics
+* See the list of [stable Kubernetes metrics](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
 * Read about the [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)
 -->
 * 阅读有关指标的 [Prometheus 文本格式](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format)
+* 参阅[稳定的 Kubernetes 指标](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)的列表
 * 阅读有关 [Kubernetes 弃用策略](/zh-cn/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)

@@ -50,9 +50,9 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
     - secrets
     providers:
     - aescbc:
-      keys:
-      - name: key1
-        secret: c2VjcmV0IGlzIHNlY3VyZQ==
+        keys:
+        - name: key1
+          secret: c2VjcmV0IGlzIHNlY3VyZQ==
   ```
 
   Make sure to enable automatic reload of encryption
@@ -77,13 +77,13 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
     - secrets
     providers:
     - aescbc:
-      keys:
-      - name: key2
-        secret: c2VjcmV0IGlzIHNlY3VyZSwgaXMgaXQ/
+        keys:
+        - name: key2
+          secret: c2VjcmV0IGlzIHNlY3VyZSwgaXMgaXQ/
     - aescbc:
-      keys:
-      - name: key1
-        secret: c2VjcmV0IGlzIHNlY3VyZQ==
+        keys:
+        - name: key1
+          secret: c2VjcmV0IGlzIHNlY3VyZQ==
   ```
 
 - To ensure that previously created secret `my-secret` is re-encrypted

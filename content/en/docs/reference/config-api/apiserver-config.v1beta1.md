@@ -1197,6 +1197,14 @@ Required, if connectionInfo.Type is KubeConfig</p>
 CEL expressions have access to the contents of the SubjectAccessReview in v1 version.
 If version specified by subjectAccessReviewVersion in the request variable is v1beta1,
 the contents would be converted to the v1 version before evaluating the CEL expression.</p>
+<ul>
+<li>'resourceAttributes' describes information for a resource access request and is unset for non-resource requests. e.g. has(request.resourceAttributes) &amp;&amp; request.resourceAttributes.namespace == 'default'</li>
+<li>'nonResourceAttributes' describes information for a non-resource access request and is unset for resource requests. e.g. has(request.nonResourceAttributes) &amp;&amp; request.nonResourceAttributes.path == '/healthz'.</li>
+<li>'user' is the user to test for. e.g. request.user == 'alice'</li>
+<li>'groups' is the groups to test for. e.g. ('group1' in request.groups)</li>
+<li>'extra' corresponds to the user.Info.GetExtra() method from the authenticator.</li>
+<li>'uid' is the information about the requesting user. e.g. request.uid == '1'</li>
+</ul>
 <p>Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/</p>
 </td>
 </tr>

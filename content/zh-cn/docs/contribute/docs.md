@@ -159,7 +159,7 @@ roles and permissions.
 ## Your first contribution
 
 You can prepare for your first contribution by reviewing several steps beforehand.
-Figure 2 outlines the steps and the details follow. 
+Figure 2 outlines the steps and the details follow.
 -->
 ## 第一次贡献 {#your-first-contribution}
 
@@ -294,7 +294,7 @@ SIG Docs 的几种沟通方式：
   You'll need to download the [Zoom client](https://zoom.us/download) or dial in using a phone.
 - Join the SIG Docs async Slack standup meeting on those weeks when the in-person Zoom
   video meeting does not take place. Meetings are always announced on `#sig-docs`.
-  You can contribute to any one of the threads up to 24 hours after meeting announcement. 
+  You can contribute to any one of the threads up to 24 hours after meeting announcement.
 -->
 - [加入 Kubernetes 在 Slack 上的 `#sig-docs` 频道](https://slack.k8s.io/)。
   一定记得自我介绍!

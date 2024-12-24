@@ -74,6 +74,9 @@ SubjectAccessReview 和 LocalAccessReview 是遵从 API 服务器所做鉴权决
   - **status.incomplete** (boolean), required
     Incomplete is true when the rules returned by this call are incomplete. This is most commonly encountered when an authorizer, such as an external authorizer, doesn't support rules evaluation.
   - **status.nonResourceRules** ([]NonResourceRule), required
+ 
+    *Atomic: will be replaced during a merge*
+  
     NonResourceRules is the list of actions the subject is allowed to perform on non-resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
     <a name="NonResourceRule"></a>
     *NonResourceRule holds information that describes a rule for the non-resource*
@@ -85,7 +88,9 @@ SubjectAccessReview 和 LocalAccessReview 是遵从 API 服务器所做鉴权决
     这种情况常见于 Authorizer（例如外部 Authorizer）不支持规则评估时。
   
   - **status.nonResourceRules** ([]NonResourceRule)，必需
-    
+
+    **原子性：合并期间将被替换**
+   
     nonResourceRules 是允许主体对非资源执行路径执行的操作列表。
     该列表顺序不重要，可以包含重复项，还可能不完整。
     
@@ -94,12 +99,15 @@ SubjectAccessReview 和 LocalAccessReview 是遵从 API 服务器所做鉴权决
 
     <!--
     - **status.nonResourceRules.verbs** ([]string), required
+      *Atomic: will be replaced during a merge*
       Verb is a list of kubernetes non-resource API verbs, like: get, post, put, delete, patch, head, options.  "*" means all.
     - **status.nonResourceRules.nonResourceURLs** ([]string)
       NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path.  "*" means all. 
     -->
 
     - **status.nonResourceRules.verbs** ([]string)，必需
+
+      **原子性：合并期间将被替换**
       
       verb 是 kubernetes 非资源 API 动作的列表，例如 get、post、put、delete、patch、head、options。
       `*` 表示所有动作。
@@ -112,15 +120,19 @@ SubjectAccessReview 和 LocalAccessReview 是遵从 API 服务器所做鉴权决
       
   <!--
   - **status.resourceRules** ([]ResourceRule), required
+    *Atomic: will be replaced during a merge*
     ResourceRules is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
     <a name="ResourceRule"></a>
     *ResourceRule is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.*
     - **status.resourceRules.verbs** ([]string), required
-    Verb is a list of kubernetes resource API verbs, like: get, list, watch, create, update, delete, proxy.  "*" means all. 
+      *Atomic: will be replaced during a merge*
+      Verb is a list of kubernetes resource API verbs, like: get, list, watch, create, update, delete, proxy.  "*" means all. 
   -->
 
   - **status.resourceRules** ([]ResourceRule)，必需
-    
+  
+    **原子性：合并期间将被替换**
+  
     resourceRules 是允许主体对资源执行的操作的列表。
     该列表顺序不重要，可以包含重复项，还可能不完整。
     
@@ -128,33 +140,44 @@ SubjectAccessReview 和 LocalAccessReview 是遵从 API 服务器所做鉴权决
     **resourceRule 是允许主体对资源执行的操作的列表。该列表顺序不重要，可以包含重复项，还可能不完整。**
     
     - **status.resourceRules.verbs** ([]string)，必需
+
+      **原子性：合并期间将被替换**
       
       verb 是 kubernetes 资源 API 动作的列表，例如 get、list、watch、create、update、delete、proxy。
       `*` 表示所有动作。
 
     <!--
     - **status.resourceRules.apiGroups** ([]string)
+      *Atomic: will be replaced during a merge*
       APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.  "*" means all.
     - **status.resourceRules.resourceNames** ([]string)
+      *Atomic: will be replaced during a merge*
       ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.  "*" means all.
     - **status.resourceRules.resources** ([]string)
+      *Atomic: will be replaced during a merge*
       Resources is a list of resources this rule applies to.  "*" means all in the specified apiGroups.
        "*/foo" represents the subresource 'foo' for all resources in the specified apiGroups.
     -->
 
     - **status.resourceRules.apiGroups** ([]string)
+
+      **原子性：合并期间将被替换**
       
       apiGroups 是包含资源的 APIGroup 的名称。
       如果指定了多个 API 组，则允许对任何 API 组中枚举的资源之一请求任何操作。
       `*` 表示所有 APIGroup。
     
     - **status.resourceRules.resourceNames** ([]string)
+
+      **原子性：合并期间将被替换**
       
       resourceNames 是此规则所适用的资源名称白名单，可选。
       空集合意味着允许所有资源。
       `*` 表示所有资源。
     
     - **status.resourceRules.resources** ([]string)
+
+      **原子性：合并期间将被替换**
       
       resources 是此规则所适用的资源的列表。
       `*` 表示指定 APIGroup 中的所有资源。

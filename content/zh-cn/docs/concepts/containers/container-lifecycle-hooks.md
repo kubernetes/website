@@ -108,6 +108,14 @@ Resources consumed by the command are counted against the Container.
   这是由 `PodLifecycleSleepAction`
   [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)默认启用的 Beta 级特性。
 
+{{< note >}}
+<!--
+Enable the `PodLifecycleSleepActionAllowZero` feature gate if you want to set a sleep duration of zero seconds (effectively a no-op) for your Sleep lifecycle hooks.
+-->
+如果你想为 Sleep 生命周期回调设置零秒的睡眠持续时间（实际上是一个 no-op），
+可以启用 `PodLifecycleSleepActionAllowZero` 特性门控。
+{{< /note >}}
+
 <!--
 ### Hook handler execution
 

@@ -217,7 +217,7 @@ Learn about related Kubernetes security topics:
 -->
 了解相关的 Kubernetes 安全主题：
 
-* [保护集群](/zh-cn/docs/tasks/administer-cluster/secure-a-cluster/)
+* [保护集群](/zh-cn/docs/tasks/administer-cluster/securing-a-cluster/)
 * Kubernetes 中的[已知漏洞](/zh-cn/docs/reference/issues-security/official-cve-feed/)（以及更多信息的链接）
 * [传输中的数据加密](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)（针对控制平面）
 * [静态数据加密](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)

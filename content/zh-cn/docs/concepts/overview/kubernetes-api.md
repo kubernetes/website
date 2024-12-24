@@ -121,7 +121,7 @@ Kubernetes 通过 Discovery API 发布集群所支持的所有组版本和资源
 - 组、版本、类别
 
 <!--
-The API is available both aggregated and unaggregated form. The aggregated
+The API is available in both aggregated and unaggregated form. The aggregated
 discovery serves two endpoints while the unaggregated discovery serves a
 separate endpoint for each group version.
 -->

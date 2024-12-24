@@ -39,62 +39,95 @@ Role 是一个按命名空间划分的 PolicyRule 逻辑分组，可以被 RoleB
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  标准的对象元数据。
-<!--
-Standard object's metadata.
+  <!--
+  Standard object's metadata.
+  -->
 
+  标准的对象元数据。
+
+<!--
 - **rules** ([]PolicyRule)
+
+  *Atomic: will be replaced during a merge*
+
   Rules holds all the PolicyRules for this Role
 
   <a name="PolicyRule"></a>
   *PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.*
 
   - **rules.apiGroups** ([]string)
+
+    *Atomic: will be replaced during a merge*
+
     APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
 
   - **rules.resources** ([]string)
+
+    *Atomic: will be replaced during a merge*
+
     Resources is a list of resources this rule applies to. '*' represents all resources.
 
   - **rules.verbs** ([]string), required
+
+    *Atomic: will be replaced during a merge*
+
     Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
 
   - **rules.resourceNames** ([]string)
+
+    *Atomic: will be replaced during a merge*
+
     ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 
   - **rules.nonResourceURLs** ([]string)
+
+    *Atomic: will be replaced during a merge*
+
     NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
 -->  
 
 - **rules** ([]PolicyRule)
-  
+
+  **原子：将在合并期间被替换**
+
   rules 包含了这个 Role 的所有 PolicyRule。
-  
+
   <a name="PolicyRule"></a>
   **PolicyRule 包含描述一个策略规则的信息，但不包含该规则适用于哪个主体或适用于哪个命名空间的信息。**
-  
+
   - **rules.apiGroups** ([]string)
-    
+
+    **原子：将在合并期间被替换**
+  
     apiGroups 是包含资源的 apiGroup 的名称。
     如果指定了多个 API 组，则允许对任何 API 组中的其中一个枚举资源来请求任何操作。
     "" 表示核心 API 组，“*” 表示所有 API 组。
   
   - **rules.resources** ([]string)
-    
+
+    **原子：将在合并期间被替换**
+
     resources 是此规则所适用的资源的列表。
     “*” 表示所有资源。
 
   - **rules.verbs** ([]string)，必需
-    
+
+    **原子：将在合并期间被替换**
+
     verbs 是适用于此规则中所包含的所有 ResourceKinds 的动作。
     “*” 表示所有动作。
   
   - **rules.resourceNames** ([]string)
-    
+
+    **原子：将在合并期间被替换**
+  
     resourceNames 是此规则所适用的资源名称白名单，可选。
     空集合意味着允许所有资源。
   
   - **rules.nonResourceURLs** ([]string)
-    
+
+    **原子：将在合并期间被替换**
+  
     nonResourceURLs 是用户应有权访问的一组部分 URL。
     允许使用 “*”，但仅能作为路径中最后一段且必须用于完整的一段，
     因为非资源 URL 没有划分命名空间。

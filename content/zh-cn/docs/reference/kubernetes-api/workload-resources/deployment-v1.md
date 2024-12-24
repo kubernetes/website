@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Deployment 使得 Pod 和 ReplicaSet 能够进行声明式更新。"
 title: "Deployment"
-weight: 5
+weight: 6
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Deployment enables declarative updates for Pods and ReplicaSets."
 title: "Deployment"
-weight: 5
+weight: 6
 auto_generated: true
 -->
 
@@ -291,7 +291,9 @@ DeploymentStatus 是最近观测到的 Deployment 状态。
 - **conditions** ([]DeploymentCondition)
 
   *Patch strategy: merge on key `type`*
-  
+
+  *Map: unique values on key type will be kept during a merge*
+
   Represents the latest available observations of a deployment's current state.
 
   <a name="DeploymentCondition"></a>
@@ -300,7 +302,9 @@ DeploymentStatus 是最近观测到的 Deployment 状态。
 - **conditions** ([]DeploymentCondition)
   
   **补丁策略：按照键 `type` 合并**
-  
+
+  **Map：键 `type` 的唯一值将在合并期间保留**  
+
   表示 Deployment 当前状态的最新可用观测值。
   
   <a name="DeploymentCondition"></a>

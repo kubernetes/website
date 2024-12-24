@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Namespace 为名字提供作用域。"
 title: "Namespace"
-weight: 2
+weight: 7
 ---
 
 <!--
@@ -17,7 +17,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Namespace provides a scope for Names."
 title: "Namespace"
-weight: 2
+weight: 7
 auto_generated: true
 -->
 
@@ -69,6 +69,12 @@ NamespaceSpec 用于描述 Namespace 的属性。
 
   finalizers 是一个不透明的值列表，只有此列表为空时才能从存储中永久删除对象。 更多信息： https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/namespaces/
 
+  <!--
+  *Atomic: will be replaced during a merge*
+  -->
+
+  **原子性：将在合并期间被替换**
+
 ## NamespaceStatus {#NamespaceStatus}
 <!--
 NamespaceStatus is information about the current status of a Namespace.
@@ -79,11 +85,15 @@ NamespaceStatus 表示 Namespace 的当前状态信息。
 - **conditions** ([]NamespaceCondition)
   <!--
   *Patch strategy: merge on key `type`*
+
+  *Map: unique values on key type will be kept during a merge*
   
   Represents the latest available observations of a namespace's current state.
   -->
   **补丁策略：基于 `type` 健合并**
-  
+
+  **Map：键 `type` 的唯一值将在合并期间保留**
+
   表示命名空间当前状态的最新可用状况。
 
   <a name="NamespaceCondition"></a>

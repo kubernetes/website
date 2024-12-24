@@ -12,7 +12,6 @@ stages:
 ---
 
 <!--
-Enable [configurable endpoints for anonymous auth](/docs/reference/access-authn-authz/authentication/#anonymous-authenticator-configuration)
-for the API server.
+Enable configuring anonymous authentication / authorization for only certain API server endpoints.
 -->
-为 API 服务器启用[可配置的匿名身份认证端点](/zh-cn/docs/reference/access-authn-authz/authentication/#anonymous-authenticator-configuration)。
+允许只对特定 API 服务器端点来配置匿名身份验证/鉴权。

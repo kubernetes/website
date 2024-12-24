@@ -22,6 +22,10 @@ card:
 
 <!-- overview -->
 <!--
+This page will discuss containers and container images, as well as their use in operations and solution development.
+
+The word _container_ is an overloaded term. Whenever you use the word, check whether your audience uses the same definition.
+
 Each container that you run is repeatable; the standardization from having
 dependencies included means that you get the same behavior wherever you
 run it.
@@ -34,6 +38,10 @@ cluster runs the containers that form the
 [Pods](/docs/concepts/workloads/pods/) assigned to that node.
 Containers in a Pod are co-located and co-scheduled to run on the same node.
 -->
+本页将讨论容器和容器镜像，以及它们在运维和解决方案开发中的应用。
+
+**容器**是一个多义词。每当你使用这个词时，请确认你的受众是否使用相同的定义。
+
 每个运行的容器都是可重复的；
 包含依赖环境在内的标准，意味着无论你在哪里运行它都会得到相同的行为。
 

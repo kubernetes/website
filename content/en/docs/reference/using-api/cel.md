@@ -24,9 +24,8 @@ control plane's API server component remains available.
 
 ## Language overview
 
-The [CEL
-language](https://github.com/google/cel-spec/blob/master/doc/langdef.md) has a
-straightforward syntax that is similar to the expressions in C, C++, Java,
+The [CEL language](https://github.com/google/cel-spec/blob/master/doc/langdef.md)
+has a straightforward syntax that is similar to the expressions in C, C++, Java,
 JavaScript and Go.
 
 CEL was designed to be embedded into applications. Each CEL "program" is a
@@ -67,21 +66,21 @@ Example CEL expressions:
 
 CEL is configured with the following options, libraries and language features, introduced at the specified Kubernetes versions:
 
-| CEL option, library or language feature                                                                                | Included                                                                                                                                  | Availablity               |
-|------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
-| [Standard macros](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)                                | `has`, `all`, `exists`, `exists_one`, `map`, `filter`                                                                                     | All Kubernetes versions   |
-| [Standard functions](https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions)       | See [official list of standard definitions](https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions)   | All Kubernetes versions   |
-| [Homogeneous Aggregate Literals](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#HomogeneousAggregateLiterals) |                                                                                                                                           | All Kubernetes versions   |
-| [Default UTC Time Zone](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#DefaultUTCTimeZone)                    |                                                                                                                                           | All Kubernetes versions   |
-| [Eagerly Validate Declarations](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#EagerlyValidateDeclarations)   |                                                                                                                                           | All Kubernetes versions   |
-| [extended strings library](https://pkg.go.dev/github.com/google/cel-go/ext#Strings), Version 1                         | `charAt`, `indexOf`, `lastIndexOf`, `lowerAscii`, `upperAscii`, `replace`, `split`, `join`, `substring`, `trim`                           | All Kubernetes versions   |
-| Kubernetes list library                                                                                                | See [Kubernetes list library](#kubernetes-list-library)                                                                                   | All Kubernetes versions   |
-| Kubernetes regex library                                                                                               | See [Kubernetes regex library](#kubernetes-regex-library)                                                                                 | All Kubernetes versions   |
-| Kubernetes URL library                                                                                                 | See [Kubernetes URL library](#kubernetes-url-library)                                                                                     | All Kubernetes versions   |
-| Kubernetes authorizer library                                                                                          | See [Kubernetes authorizer library](#kubernetes-authorizer-library)                                                                       | All Kubernetes versions   |
-| Kubernetes quantity library                                                                                            | See [Kubernetes quantity library](#kubernetes-quantity-library)                                                                           | Kubernetes versions 1.29+ |
-| CEL optional types                                                                                                     | See [CEL optional types](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes)                                           | Kubernetes versions 1.29+ |
-| CEL CrossTypeNumericComparisons                                                                                        | See [CEL CrossTypeNumericComparisons](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#CrossTypeNumericComparisons)                | Kubernetes versions 1.29+ |
+| CEL option, library or language feature | Included | Availablity |
+|-----------------------------------------|----------|-------------|
+| [Standard macros](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros) | `has`, `all`, `exists`, `exists_one`, `map`, `filter` | All Kubernetes versions |
+| [Standard functions](https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions) | See [official list of standard definitions](https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions) | All Kubernetes versions |
+| [Homogeneous Aggregate Literals](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#HomogeneousAggregateLiterals) | | All Kubernetes versions |
+| [Default UTC Time Zone](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#DefaultUTCTimeZone) | | All Kubernetes versions |
+| [Eagerly Validate Declarations](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#EagerlyValidateDeclarations) | | All Kubernetes versions |
+| [Extended strings library](https://pkg.go.dev/github.com/google/cel-go/ext#Strings), Version 1 | `charAt`, `indexOf`, `lastIndexOf`, `lowerAscii`, `upperAscii`, `replace`, `split`, `join`, `substring`, `trim` | All Kubernetes versions |
+| Kubernetes list library | See [Kubernetes list library](#kubernetes-list-library) | All Kubernetes versions |
+| Kubernetes regex library | See [Kubernetes regex library](#kubernetes-regex-library) | All Kubernetes versions |
+| Kubernetes URL library | See [Kubernetes URL library](#kubernetes-url-library) | All Kubernetes versions |
+| Kubernetes authorizer library | See [Kubernetes authorizer library](#kubernetes-authorizer-library) | All Kubernetes versions |
+| Kubernetes quantity library | See [Kubernetes quantity library](#kubernetes-quantity-library) | Kubernetes versions 1.29+ |
+| CEL optional types | See [CEL optional types](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes) | Kubernetes versions 1.29+ |
+| CEL CrossTypeNumericComparisons | See [CEL CrossTypeNumericComparisons](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#CrossTypeNumericComparisons) | Kubernetes versions 1.29+ |
 
 CEL functions, features and language settings support Kubernetes control plane
 rollbacks. For example, _CEL Optional Values_ was introduced at Kubernetes 1.29
@@ -144,8 +143,8 @@ godoc for more information.
 
 To make it easier and safer to process URLs, the following functions have been added:
 
-- `isURL(string)` checks if a string is a valid URL according to the [Go's
-  net/url](https://pkg.go.dev/net/url#URL) package. The string must be an
+- `isURL(string)` checks if a string is a valid URL according to the
+  [Go's net/url](https://pkg.go.dev/net/url#URL) package. The string must be an
   absolute URL.
 - `url(string) URL` converts a string to a URL or results in an error if the
   string is not a valid URL.
@@ -158,7 +157,7 @@ Examples:
 {{< table caption="Examples of CEL expressions using URL library functions" >}}
 | CEL Expression                                                  | Purpose                                        |
 |-----------------------------------------------------------------|------------------------------------------------|
-| `url('https://example.com:80/').getHost()`                      | Get the 'example.com:80' host part of the URL. |
+| `url('https://example.com:80/').getHost()`                      | Gets the 'example.com:80' host part of the URL |
 | `url('https://example.com/path with spaces/').getEscapedPath()` | Returns '/path%20with%20spaces/'               |
 {{< /table >}}
 
@@ -174,17 +173,17 @@ the authorizer may be used to perform authorization checks for the principal
 API resource checks are performed as follows:
 
 1. Specify the group and resource to check: `Authorizer.group(string).resource(string) ResourceCheck`
-2. Optionally call any combination of the following builder functions to further narrow the authorization check.
+1. Optionally call any combination of the following builder functions to further narrow the authorization check.
    Note that these functions return the receiver type and can be chained:
-  - `ResourceCheck.subresource(string) ResourceCheck`
-  - `ResourceCheck.namespace(string) ResourceCheck`
-  - `ResourceCheck.name(string) ResourceCheck` 
-3. Call `ResourceCheck.check(verb string) Decision` to perform the authorization check.
-4. Call `allowed() bool` or `reason() string` to inspect the result of the authorization check.
+   - `ResourceCheck.subresource(string) ResourceCheck`
+   - `ResourceCheck.namespace(string) ResourceCheck`
+   - `ResourceCheck.name(string) ResourceCheck`
+1. Call `ResourceCheck.check(verb string) Decision` to perform the authorization check.
+1. Call `allowed() bool` or `reason() string` to inspect the result of the authorization check.
 
 Non-resource authorization performed are used as follows:
 
-1. specify only a path: `Authorizer.path(string) PathCheck`
+1. Specify only a path: `Authorizer.path(string) PathCheck`
 1. Call `PathCheck.check(httpVerb string) Decision` to perform the authorization check.
 1. Call `allowed() bool` or `reason() string` to inspect the result of the authorization check.
 
@@ -193,10 +192,10 @@ To perform an authorization check for a service account:
 - `Authorizer.serviceAccount(namespace string, name string) Authorizer`
 
 {{< table caption="Examples of CEL expressions using URL library functions" >}}
-| CEL Expression                                                                                               | Purpose                                        |
-|--------------------------------------------------------------------------------------------------------------|------------------------------------------------|
-| `authorizer.group('').resource('pods').namespace('default').check('create').allowed()`                       | Returns true if the principal (user or service account) is allowed create pods in the 'default' namespace. |
-| `authorizer.path('/healthz').check('get').allowed()`                                                         | Checks if the principal (user or service account) is authorized to make HTTP GET requests to the /healthz API path. |
+| CEL Expression | Purpose |
+|----------------|---------|
+| `authorizer.group('').resource('pods').namespace('default').check('create').allowed()` | Returns true if the principal (user or service account) is allowed create pods in the 'default' namespace. |
+| `authorizer.path('/healthz').check('get').allowed()` | Checks if the principal (user or service account) is authorized to make HTTP GET requests to the /healthz API path. |
 | `authorizer.serviceAccount('default', 'myserviceaccount').resource('deployments').check('delete').allowed()` | Checks if the service account is authorized to delete deployments. |
 {{< /table >}}
 
@@ -205,9 +204,9 @@ To perform an authorization check for a service account:
 With the alpha `AuthorizeWithSelectors` feature enabled, field and label selectors can be added to authorization checks.
 
 {{< table caption="Examples of CEL expressions using selector authorization functions" >}}
-| CEL Expression                                                                                               | Purpose                                        |
-|--------------------------------------------------------------------------------------------------------------|------------------------------------------------|
-| `authorizer.group('').resource('pods').fieldSelector('spec.nodeName=mynode').check('list').allowed()`        | Returns true if the principal (user or service account) is allowed to list pods with the field selector `spec.nodeName=mynode`. |
+| CEL Expression | Purpose |
+|----------------|---------|
+| `authorizer.group('').resource('pods').fieldSelector('spec.nodeName=mynode').check('list').allowed()` | Returns true if the principal (user or service account) is allowed to list pods with the field selector `spec.nodeName=mynode`. |
 | `authorizer.group('').resource('pods').labelSelector('example.com/mylabel=myvalue').check('list').allowed()` | Returns true if the principal (user or service account) is allowed to list pods with the label selector `example.com/mylabel=myvalue`. |
 {{< /table >}}
 
@@ -219,28 +218,28 @@ godoc for more information.
 
 Kubernetes 1.28 adds support for manipulating quantity strings (ex 1.5G, 512k, 20Mi)
 
-- `isQuantity(string)` checks if a string is a valid Quantity according to [Kubernetes'
-  resource.Quantity](https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#Quantity). 
+- `isQuantity(string)` checks if a string is a valid Quantity according to
+  [Kubernetes' resource.Quantity](https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#Quantity).
 - `quantity(string) Quantity` converts a string to a Quantity or results in an error if the
   string is not a valid quantity.
 
-Once parsed via the `quantity` function, the resulting Quantity object has the 
+Once parsed via the `quantity` function, the resulting Quantity object has the
 following library of member functions:
 
 {{< table caption="Available member functions of a Quantity" >}}
-| Member Function               | CEL Return Value  | Description                                                                                                                                                          |
-|-------------------------------|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `isInteger()`                 | bool              | returns true if and only if asInteger is safe to call without an error                                                                                               |
-| `asInteger()`                 | int               | returns a representation of the current value as an int64 if possible or results in an error if conversion would result in overflow or loss of precision.             |
-| `asApproximateFloat()`        | float              | returns a float64 representation of the quantity which may lose precision. If the value of the quantity is outside the range of a float64 +Inf/-Inf will be returned.  |
-| `sign()`                      | int               | Returns `1` if the quantity is positive, `-1` if it is negative. `0` if it is zero                                                                                   |
-| `add(<Quantity>)`             | Quantity          | Returns sum of two quantities                                                                                                                                        |
-| `add(<int>)`                  | Quantity          | Returns sum of quantity and an integer                                                                                                                               | 
-| `sub(<Quantity>)`             | Quantity          | Returns difference between two quantities                                                                                                                            |
-| `sub(<int>)`                  | Quantity          | Returns difference between a quantity and an integer                                                                                                                 |
-| `isLessThan(<Quantity>)`      | bool              | Returns true if and only if the receiver is less than the operand                                                                                                    |
-| `isGreaterThan(<Quantity>)`   | bool              | Returns true if and only if the receiver is greater than the operand                                                                                                 |
-| `compareTo(<Quantity>)`       | int               | Compares receiver to operand and returns 0 if they are equal, 1 if the receiver is greater, or -1 if the receiver is less than the operand                           |
+| Member Function             | CEL Return Value | Description |
+|-----------------------------|------------------|-------------|
+| `isInteger()`               | bool             | Returns true if and only if asInteger is safe to call without an error |
+| `asInteger()`               | int              | Returns a representation of the current value as an int64 if possible or results in an error if conversion would result in overflow or loss of precision. |
+| `asApproximateFloat()`      | float            | Returns a float64 representation of the quantity which may lose precision. If the value of the quantity is outside the range of a float64 +Inf/-Inf will be returned. |
+| `sign()`                    | int              | Returns `1` if the quantity is positive, `-1` if it is negative. `0` if it is zero |
+| `add(<Quantity>)`           | Quantity         | Returns sum of two quantities |
+| `add(<int>)`                | Quantity         | Returns sum of quantity and an integer | 
+| `sub(<Quantity>)`           | Quantity         | Returns difference between two quantities |
+| `sub(<int>)`                | Quantity         | Returns difference between a quantity and an integer |
+| `isLessThan(<Quantity>)`    | bool             | Returns true if and only if the receiver is less than the operand |
+| `isGreaterThan(<Quantity>)` | bool             | Returns true if and only if the receiver is greater than the operand |
+| `compareTo(<Quantity>)`     | int              | Compares receiver to operand and returns 0 if they are equal, 1 if the receiver is greater, or -1 if the receiver is less than the operand |
 {{< /table >}}
 
 Examples:
@@ -263,9 +262,8 @@ Examples:
 
 CEL is a [gradually typed language](https://github.com/google/cel-spec/blob/master/doc/langdef.md#gradual-type-checking).
 
-Some Kubernetes API fields contain fully type checked CEL expressions. For
-example, [CustomResourceDefinitions Validation
-Rules](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)
+Some Kubernetes API fields contain fully type checked CEL expressions. For example,
+[CustomResourceDefinitions Validation Rules](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)
 are fully type checked.
 
 Some Kubernetes API fields contain partially type checked CEL expressions. A
@@ -290,26 +288,26 @@ has(object.namex) ? object.namex == 'special' : request.name == 'special'
 ## Type system integration
 
 {{< table caption="Table showing the relationship between OpenAPIv3 types and CEL types" >}}
-| OpenAPIv3 type                                     | CEL type                                                                                                                     |
-|----------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
-| 'object' with Properties                           | object / "message type" (`type(<object>)` evaluates to `selfType<uniqueNumber>.path.to.object.from.self`                     |
-| 'object' with AdditionalProperties                 | map                                                                                                                          |
+| OpenAPIv3 type                                     | CEL type |
+|----------------------------------------------------|----------|
+| 'object' with Properties                           | object / "message type" (`type(<object>)` evaluates to `selfType<uniqueNumber>.path.to.object.from.self`) |
+| 'object' with AdditionalProperties                 | map |
 | 'object' with x-kubernetes-embedded-type           | object / "message type", 'apiVersion', 'kind', 'metadata.name' and 'metadata.generateName' are implicitly included in schema |
-| 'object' with x-kubernetes-preserve-unknown-fields | object / "message type", unknown fields are NOT accessible in CEL expression                                                 |
-| x-kubernetes-int-or-string                         | union of int or string,  `self.intOrString < 100 \|\| self.intOrString == '50%'` evaluates to true for both `50` and `"50%"` |
-| 'array                                             | list                                                                                                                         |
-| 'array' with x-kubernetes-list-type=map            | list with map based Equality & unique key guarantees                                                                         |
-| 'array' with x-kubernetes-list-type=set            | list with set based Equality & unique entry guarantees                                                                       |
-| 'boolean'                                          | boolean                                                                                                                      |
-| 'number' (all formats)                             | double                                                                                                                       |
-| 'integer' (all formats)                            | int (64)                                                                                                                     |
-| _no equivalent_                                    | uint (64)                                                                                                                    |
-| 'null'                                             | null_type                                                                                                                    |
-| 'string'                                           | string                                                                                                                       |
-| 'string' with format=byte (base64 encoded)         | bytes                                                                                                                        |
-| 'string' with format=date                          | timestamp (google.protobuf.Timestamp)                                                                                        |
-| 'string' with format=datetime                      | timestamp (google.protobuf.Timestamp)                                                                                        |
-| 'string' with format=duration                      | duration (google.protobuf.Duration)                                                                                          |
+| 'object' with x-kubernetes-preserve-unknown-fields | object / "message type", unknown fields are NOT accessible in CEL expression |
+| x-kubernetes-int-or-string                         | union of int or string, `self.intOrString < 100 \|\| self.intOrString == '50%'` evaluates to true for both `50` and `"50%"` |
+| 'array'                                            | list |
+| 'array' with x-kubernetes-list-type=map            | list with map based Equality & unique key guarantees |
+| 'array' with x-kubernetes-list-type=set            | list with set based Equality & unique entry guarantees |
+| 'boolean'                                          | boolean |
+| 'number' (all formats)                             | double |
+| 'integer' (all formats)                            | int (64) |
+| _no equivalent_                                    | uint (64) |
+| 'null'                                             | null_type |
+| 'string'                                           | string |
+| 'string' with format=byte (base64 encoded)         | bytes |
+| 'string' with format=date                          | timestamp (google.protobuf.Timestamp) |
+| 'string' with format=datetime                      | timestamp (google.protobuf.Timestamp) |
+| 'string' with format=duration                      | duration (google.protobuf.Duration) |
 {{< /table >}}
 
 Also see: [CEL types](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#values),
@@ -322,10 +320,13 @@ order. For example `[1, 2] == [2, 1]` if the arrays represent Kubernetes `set` v
 Concatenation on arrays with `x-kubernetes-list-type` use the semantics of the
 list type:
 
-- `set`: `X + Y` performs a union where the array positions of all elements in
+`set`
+: `X + Y` performs a union where the array positions of all elements in
   `X` are preserved and non-intersecting elements in `Y` are appended, retaining
   their partial order.
-- `map`: `X + Y` performs a merge where the array positions of all keys in `X`
+
+`map`
+: `X + Y` performs a merge where the array positions of all keys in `X`
   are preserved but the values are overwritten by values in `Y` when the key
   sets of `X` and `Y` intersect. Elements in `Y` with non-intersecting keys are
   appended, retaining their partial order.
@@ -411,6 +412,5 @@ estimated running time of CEL expressions would be prohibitively expensive to
 execute. If so, the API server prevent the CEL expression from being written to
 API resources by rejecting create or update operations containing the CEL
 expression to the API resources. This feature offers a stronger assurance that
-CEL expressions written to the API resource will be evaluate at runtime without
+CEL expressions written to the API resource will be evaluated at runtime without
 exceeding the runtime cost budget.
-

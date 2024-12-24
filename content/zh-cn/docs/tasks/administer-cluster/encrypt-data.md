@@ -368,10 +368,10 @@ to give it precedence.
 
 <!--
 For more detailed information about the `EncryptionConfiguration` struct, please refer to the
-[encryption configuration API](/docs/reference/config-api/apiserver-encryption.v1/).
+[encryption configuration API](/docs/reference/config-api/apiserver-config.v1/)).
 -->
 有关 `EncryptionConfiguration` 结构体的更多详细信息，
-请参阅[加密配置 API](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/)。
+请参阅[加密配置 API](/zh-cn/docs/reference/config-api/apiserver-config.v1/)。
 
 {{< caution >}}
 <!--

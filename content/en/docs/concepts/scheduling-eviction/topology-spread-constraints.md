@@ -99,7 +99,7 @@ your cluster. Those fields are:
   <!-- OK to remove this note once v1.29 Kubernetes is out of support -->
   {{< note >}}
   Before Kubernetes v1.30, the `minDomains` field was only available if the
-  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates-removed/)
   was enabled (default since v1.28). In older Kubernetes clusters it might be explicitly
   disabled or the field might not be available.
   {{< /note >}}
@@ -477,8 +477,8 @@ There are some implicit conventions worth noting here:
 
 - Only the Pods holding the same namespace as the incoming Pod can be matching candidates.
 
-- The scheduler bypasses any nodes that don't have any `topologySpreadConstraints[*].topologyKey`
-  present. This implies that:
+- The scheduler only considers nodes that have all `topologySpreadConstraints[*].topologyKey` present at the same time.
+  Nodes missing any of these `topologyKeys` are bypassed. This implies that:
 
   1. any Pods located on those bypassed nodes do not impact `maxSkew` calculation - in the
      above [example](#example-conflicting-topologyspreadconstraints), suppose the node `node1`

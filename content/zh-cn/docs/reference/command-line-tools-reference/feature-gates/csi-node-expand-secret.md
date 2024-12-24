@@ -15,9 +15,12 @@ stages:
     fromVersion: "1.27"  
     toVersion: "1.28" 
   - stage: stable
-    defaultValue: true
-    fromVersion: "1.29"  
+    fromVersion: "1.29"
+    toVersion: "1.30"
+
+removed: true
 ---
+
 <!--
 Enable passing secret authentication data to a CSI driver for use
  during a `NodeExpandVolume` CSI operation.

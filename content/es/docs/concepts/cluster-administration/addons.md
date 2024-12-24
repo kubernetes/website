@@ -88,10 +88,6 @@ En esta página se listan algunos de los complementos disponibles con sus respec
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard)
   es un panel de control con una interfaz web para Kubernetes.
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s)
-  es una herramienta para visualizar gráficamente tus contenedores, Pods, Services, etc. 
-  Utilícela junto con una [cuenta de Weave Cloud](https://cloud.weave.works/)
-  o aloje la interfaz de usuario usted mismo.
 
 ## Infraestructura
 

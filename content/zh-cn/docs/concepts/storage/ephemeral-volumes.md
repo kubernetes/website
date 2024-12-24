@@ -72,6 +72,8 @@ different purposes:
   [downwardAPI](/docs/concepts/storage/volumes/#downwardapi),
   [secret](/docs/concepts/storage/volumes/#secret): inject different
   kinds of Kubernetes data into a Pod
+- [image](/docs/concepts/storage/volumes/#image): allows mounting container image files or artifacts,
+  directly to a Pod.
 - [CSI ephemeral volumes](#csi-ephemeral-volumes):
   similar to the previous volume kinds, but provided by special {{< glossary_tooltip text="CSI" term_id="csi" >}} drivers
   which specifically [support this feature](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
@@ -85,6 +87,8 @@ Kubernetes 为了不同的用途，支持几种不同类型的临时卷：
   [downwardAPI](/zh-cn/docs/concepts/storage/volumes/#downwardapi)、
   [secret](/zh-cn/docs/concepts/storage/volumes/#secret)：
   将不同类型的 Kubernetes 数据注入到 Pod 中
+- [镜像](/zh-cn/docs/concepts/storage/volumes/#image)：
+  允许将容器镜像文件或制品直接挂载到 Pod。
 - [CSI 临时卷](#csi-ephemeral-volumes)：
   类似于前面的卷类型，但由专门[支持此特性](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
   的指定 {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动程序提供

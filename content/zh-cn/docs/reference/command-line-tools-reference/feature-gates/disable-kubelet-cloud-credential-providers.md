@@ -13,10 +13,16 @@ stages:
   - stage: beta 
     defaultValue: true
     fromVersion: "1.29" 
+    toVersion: "1.30"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.31"
+
 ---
 <!--
-Disable the in-tree functionality in kubelet
-to authenticate to a cloud provider container registry for image pull credentials.
+Enabling the feature gate deactivated the legacy in-tree functionality within the
+kubelet, that allowed the kubelet to to authenticate to a cloud provider container registry
+for container image pulls.
 -->
-禁用 kubelet 中为拉取镜像内置的凭据机制，
-该凭据用于向云提供商的容器镜像仓库进行身份认证。
+启用此特性门控将停用 kubelet 中旧版的树内功能，
+该功能原本允许 kubelet 对云提供商的容器仓库进行身份验证以拉取容器镜像。

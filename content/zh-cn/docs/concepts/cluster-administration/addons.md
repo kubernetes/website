@@ -181,14 +181,10 @@ Add-on 扩展了 Kubernetes 的功能。
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard)
   is a dashboard web interface for Kubernetes.
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s) is a
-  tool for visualizing your containers, Pods, Services and more.
 -->
 ## 可视化管理   {#visualization-and-control}
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard) 是一个 Kubernetes 的 Web 控制台界面。
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s)
-  是一个可视化工具，用于查看你的容器、Pod、服务等。
 
 <!--
 ## Infrastructure

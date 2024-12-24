@@ -16,7 +16,7 @@ spec:
         - name: logshipper
           image: alpine:latest
           restartPolicy: Always
-          command: ['sh', '-c', 'tail /opt/logs.txt']
+          command: ['sh', '-c', 'tail -F /opt/logs.txt']
           volumeMounts:
             - name: data
               mountPath: /opt

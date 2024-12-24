@@ -7,7 +7,6 @@ content_type: "api_reference"
 description: "ClusterRoleBinding 引用 ClusterRole，但不包含它。"
 title: "ClusterRoleBinding"
 weight: 6
-auto_generated: false
 ---
 <!-- 
 ---
@@ -87,11 +86,17 @@ ClusterRoleBinding 引用 ClusterRole，但不包含它。
     name 是被引用的资源的名称
 <!-- 
 - **subjects** ([]Subject)
+
+  *Atomic: will be replaced during a merge*
+
   Subjects holds references to the objects the role applies to.
+
   <a name="Subject"></a>
   *Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.*
 -->
 - **subjects** ([]Subject)
+
+  **原子性：将在合并期间被替换**
 
   Subjects 包含角色所适用的对象的引用。
   

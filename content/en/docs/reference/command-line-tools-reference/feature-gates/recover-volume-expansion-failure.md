@@ -9,6 +9,10 @@ stages:
   - stage: alpha 
     defaultValue: false
     fromVersion: "1.23"
+    toVersion: "1.31"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.32"
 ---
 Enables users to edit their PVCs to smaller
 sizes so as they can recover from previously issued volume expansion failures.

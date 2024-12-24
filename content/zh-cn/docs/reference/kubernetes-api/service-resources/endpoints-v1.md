@@ -29,7 +29,7 @@ auto_generated: true
 <!--
 Endpoints is a collection of endpoints that implement the actual service. Example:
 -->
-Endpoints 是实现实际服务的端点的集合。举例:
+Endpoints 是实现实际服务的端点的集合。举例：
 
 	 Name: "mysvc",
 	 Subsets: [
@@ -60,8 +60,13 @@ Endpoints 是实现实际服务的端点的集合。举例:
 - **subsets** ([]EndpointSubset)
 
   <!--
+  *Atomic: will be replaced during a merge*
+  
   The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.
   -->
+  
+  **Atomic：将在合并期间被替换**
+
   所有端点的集合是所有 subsets 的并集。不同地址会根据其 IP 地址被放入不同子集。
   对于具有多个端口的单个地址，如果其中一些端口已就绪，而另一些端口未就绪（因为它们来自不同的容器），
   将导致地址显示在不同端口的不同子集中。
@@ -82,7 +87,7 @@ Endpoints 是实现实际服务的端点的集合。举例:
   <!--
   The resulting set of endpoints can be viewed as:
   -->
-  则最终的端点集可以看作:
+  则最终的端点集可以看作：
 
 
   	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
@@ -92,8 +97,12 @@ Endpoints 是实现实际服务的端点的集合。举例:
   - **subsets.addresses** ([]EndpointAddress)
   
     <!--
+    *Atomic: will be replaced during a merge*
+    
     IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
     -->
+
+    **Atomic：将在合并期间被替换**
 
     提供标记为就绪的相关端口的 IP 地址。
     这些端点应该被认为是负载均衡器和客户端可以安全使用的。
@@ -145,11 +154,14 @@ Endpoints 是实现实际服务的端点的集合。举例:
   - **subsets.notReadyAddresses** ([]EndpointAddress)
 
     <!--
+    *Atomic: will be replaced during a merge*
+    
     IP addresses which offer the related ports but are not currently marked as ready because they have not yet finished starting, have recently failed a readiness check, or have recently failed a liveness check.
 
     <a name="EndpointAddress"></a>
     *EndpointAddress is a tuple that describes single IP address.*
     -->
+    **Atomic：将在合并期间被替换**
 
     提供相关端口但由于尚未完成启动、最近未通过就绪态检查或最近未通过活跃性检查而被标记为当前未就绪的 IP 地址。
     <a name="EndpointAddress"></a>
@@ -194,9 +206,13 @@ Endpoints 是实现实际服务的端点的集合。举例:
   - **subsets.ports** ([]EndpointPort)
 
     <!--
+    *Atomic: will be replaced during a merge*
+    
     Port numbers available on the related IP addresses.
     -->
 
+    **Atomic：将在合并期间被替换**
+ 
     相关 IP 地址上可用的端口号。
     
     <!--
@@ -248,6 +264,7 @@ Endpoints 是实现实际服务的端点的集合。举例:
      
       * Kubernetes-defined prefixed names:
         * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+        * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
         * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
         * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
      
@@ -258,6 +275,7 @@ Endpoints 是实现实际服务的端点的集合。举例:
       
       * Kubernetes 定义的前缀名称
         * 'kubernetes.io/h2c' - HTTP/2 明文，如 https://www.rfc-editor.org/rfc/rfc7540 中所述
+        * HTTP/2 通过明文预先了解知识，如 https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior- 中所述
         * 'kubernetes.io/ws'  - WebSocket 明文，如 https://www.rfc-editor.org/rfc/rfc6455 中所述
         * 'kubernetes.io/wss' - WebSocket TLS 传输方式，如 https://www.rfc-editor.org/rfc/rfc6455 中所述
     

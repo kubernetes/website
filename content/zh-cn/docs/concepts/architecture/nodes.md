@@ -32,7 +32,7 @@ and contains the services necessary to run
 Typically you have several nodes in a cluster; in a learning or resource-limited
 environment, you might have only one node.
 
-The [components](/docs/concepts/overview/components/#node-components) on a node include the
+The [components](/docs/concepts/architecture/#node-components) on a node include the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, a
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}, and the
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}.
@@ -45,7 +45,7 @@ Kubernetes 通过将容器放入在节点（Node）上运行的 Pod
 
 通常集群中会有若干个节点；而在一个学习所用或者资源受限的环境中，你的集群中也可能只有一个节点。
 
-节点上的[组件](/zh-cn/docs/concepts/overview/components/#node-components)包括
+节点上的[组件](/zh-cn/docs/concepts/architecture/#node-components)包括
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}、
 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}以及
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}。
@@ -665,7 +665,7 @@ see the blog-post about [Kubernetes 1.28: NodeSwap graduates to Beta1](/blog/202
 
 <!--
 Learn more about the following:
-* [Components](/docs/concepts/overview/components/#node-components) that make up a node.
+* [Components](/docs/concepts/architecture/#node-components) that make up a node.
 * [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 * [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) section of the architecture design document.
 * [Cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/) to
@@ -676,7 +676,7 @@ Learn more about the following:
 -->
 进一步了解以下资料：
 
-* 构成节点的[组件](/zh-cn/docs/concepts/overview/components/#node-components)。
+* 构成节点的[组件](/zh-cn/docs/concepts/architecture/#node-components) 。
 * [Node 的 API 定义](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)。
 * 架构设计文档中有关
   [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)

@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "CSIStorageCapacity 存储一个 CSI GetCapacity 调用的结果。"
 title: "CSIStorageCapacity"
-weight: 10
+weight: 5
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "CSIStorageCapacity stores the result of one CSI GetCapacity call."
 title: "CSIStorageCapacity"
-weight: 10
+weight: 5
 -->
 
 `apiVersion: storage.k8s.io/v1`
@@ -159,8 +159,6 @@ CSIStorageCapacityList 是 CSIStorageCapacity 对象的集合。
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>), required
 
-  *Map: unique values on key name will be kept during a merge*
-
   items is the list of CSIStorageCapacity objects.
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
@@ -170,8 +168,6 @@ CSIStorageCapacityList 是 CSIStorageCapacity 对象的集合。
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>)，必需
-
-  **映射：有关键名称的唯一值将在合并期间被保留**
 
   items 是 CSIStorageCapacity 对象的列表。
 

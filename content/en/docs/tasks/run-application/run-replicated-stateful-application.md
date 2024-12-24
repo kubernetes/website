@@ -37,6 +37,7 @@ on general patterns for running stateful applications in Kubernetes.
 - Some familiarity with MySQL helps, but this tutorial aims to present
   general patterns that should be useful for other systems.
 - You are using the default namespace or another namespace that does not contain any conflicting objects.
+- You need to have a AMD64-compatible CPU.
 
 ## {{% heading "objectives" %}}
 

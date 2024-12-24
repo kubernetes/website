@@ -232,7 +232,7 @@ As someone setting up authentication and authorization on your production Kubern
 
 - *Set the authorization mode*: When the Kubernetes API server
   ([kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/))
-  starts, the supported authentication modes must be set using the *--authorization-mode*
+  starts, supported authorization modes must be set using an *--authorization-config* file or the *--authorization-mode*
   flag. For example, that flag in the *kube-adminserver.yaml* file (in */etc/kubernetes/manifests*)
   could be set to Node,RBAC. This would allow Node and RBAC authorization for authenticated requests.
 - *Create user certificates and role bindings (RBAC)*: If you are using RBAC

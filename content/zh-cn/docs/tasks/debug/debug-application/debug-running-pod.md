@@ -699,7 +699,7 @@ root@myapp-debug:/#
   works, see [Share Process Namespace between Containers in a Pod](
   /docs/tasks/configure-pod-container/share-process-namespace/).
 -->
-* 如果你没有使用 `--container` 指定新的容器名，`kubectl debug` 会自动生成的。
+* 如果你没有使用 `--container` 标志指定新的容器名，`kubectl debug` 会自动生成的。
 * 默认情况下，`-i` 标志使 `kubectl debug` 附加到新容器上。
   你可以通过指定 `--attach=false` 来防止这种情况。
   如果你的会话断开连接，你可以使用 `kubectl attach` 重新连接。
@@ -896,22 +896,30 @@ kubectl delete pod node-debugger-mynode-pdx84
 ```
 
 <!--
-## Debugging Profiles {#debugging-profiles}
+## Debugging a Pod or Node while applying a profile {#debugging-profiles}
 
 When using `kubectl debug` to debug a node via a debugging Pod, a Pod via an ephemeral container, 
-or a copied Pod, you can apply a debugging profile to them using the `--profile` flag.
+or a copied Pod, you can apply a profile to them.
 By applying a profile, specific properties such as [securityContext](/docs/tasks/configure-pod-container/security-context/)
 are set, allowing for adaptation to various scenarios.
-
-The available profiles are as follows:
+There are two types of profiles, static profile and custom profile.
 -->
-## 调试配置   {#debugging-profiles}
+## 指定应用配置来调试 Pod 或节点   {#debugging-profiles}
 
 使用 `kubectl debug` 通过调试 Pod 来调试节点、通过临时容器来调试 Pod 或者调试复制的 Pod 时，
-你可以使用 `--profile` 标志为其应用调试配置（Debugging Profile）。通过应用配置，可以设置特定的属性（如
+你可以为其应用配置。通过应用配置，可以设置特定的属性（如
 [securityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)），
-以适应各种场景。
+以适应各种场景。有两种配置：静态配置和自定义配置。
 
+<!--
+### Applying a Static Profile {#static-profile}
+
+A static profile is a set of predefined properties, and you can apply them using the `--profile` flag.
+The available profiles are as follows:
+-->
+### 应用静态配置   {#static-profile}
+
+静态配置是预定义的属性集，你可以使用 `--profile` 标志来应用这些属性。
 可用的配置如下：
 
 <!--
@@ -1011,6 +1019,100 @@ kubectl get pod myapp -o jsonpath='{.spec.ephemeralContainers[0].securityContext
 Clean up the Pod when you're finished with it:
 -->
 你在完成上述操作后，可运行以下命令清理 Pod：
+
+```shell
+kubectl delete pod myapp
+```
+
+<!--
+### Applying Custom Profile {#custom-profile}
+-->
+### 应用自定义配置   {#custom-profile}
+
+{{< feature-state for_k8s_version="v1.31" state="beta" >}}
+
+<!--
+You can define a partial container spec for debugging as a custom profile in either YAML or JSON format, 
+and apply it using the `--custom` flag.
+-->
+你可以以 YAML 或 JSON 格式定义部分容器规约作为自定义配置，
+并使用 `--custom` 标志来应用自定义配置。
+
+{{< note >}}
+<!--
+Custom profile only supports the modification of the container spec, 
+but modifications to `name`, `image`, `command`, `lifecycle` and `volumeDevices` fields of the container spec 
+are not allowed.
+It does not support the modification of the Pod spec.
+-->
+自定义配置仅支持修改容器规约，但不允许修改容器规约中的
+`name`、`image`、`command`、`lifecycle` 和 `volumeDevices` 字段。
+自定义配置不支持修改 Pod 规约。
+{{< /note >}}
+
+<!--
+Create a Pod named myapp as an example:
+-->
+创建一个名为 myapp 的 Pod 作为示例：
+
+```shell
+kubectl run myapp --image=busybox:1.28 --restart=Never -- sleep 1d
+```
+
+<!--
+Create a custom profile in YAML or JSON format.
+Here, create a YAML format file named `custom-profile.yaml`:
+-->
+以 YAML 或 JSON 格式创建自定义配置。
+以下创建一个名为 `custom-profile.yaml` 的 YAML 格式文件：
+
+```yaml
+env:
+- name: ENV_VAR_1
+  value: value_1
+- name: ENV_VAR_2
+  value: value_2
+securityContext:
+  capabilities:
+    add:
+    - NET_ADMIN
+    - SYS_TIME
+```
+
+<!--
+Run this command to debug the Pod using an ephemeral container with the custom profile:
+-->
+运行以下命令，使用带自定义配置的临时容器来调试 Pod：
+
+```shell
+kubectl debug -it myapp --image=busybox:1.28 --target=myapp --profile=general --custom=custom-profile.yaml
+```
+
+<!--
+You can check that the ephemeral container has been added to the target Pod with the custom profile applied:
+-->
+你可以检查临时容器和应用的自定义配置是否已被添加到目标 Pod：
+
+```shell
+kubectl get pod myapp -o jsonpath='{.spec.ephemeralContainers[0].env}'
+```
+
+```
+[{"name":"ENV_VAR_1","value":"value_1"},{"name":"ENV_VAR_2","value":"value_2"}]
+```
+
+```shell
+kubectl get pod myapp -o jsonpath='{.spec.ephemeralContainers[0].securityContext}'
+```
+
+```
+{"capabilities":{"add":["NET_ADMIN","SYS_TIME"]}}
+```
+
+<!--
+Clean up the Pod when you're finished with it:
+-->
+你在完成上述任务后，可以执行以下命令清理 Pod：
 
 ```shell
 kubectl delete pod myapp

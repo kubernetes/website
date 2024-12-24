@@ -8,7 +8,6 @@ short_description: >
 
 aka: 
 tags:
-- core-object
 - fundamental
 - architecture
 related:
