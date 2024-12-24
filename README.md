@@ -21,7 +21,7 @@ To use this repository, you need the following installed locally:
 - A container runtime, like [Docker](https://www.docker.com/).
 
 > [!NOTE]
-Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L11) file.
+Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](./netlify.toml) file.
 
 Before you start, install the dependencies. Clone the repository and navigate to the directory:
 
