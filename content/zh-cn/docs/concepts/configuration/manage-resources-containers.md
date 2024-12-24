@@ -212,7 +212,7 @@ resource requests/limits of that type for each container in the Pod.
 
 <!--
 Starting in Kubernetes 1.32, you can also specify resource requests and limits at
-the Pod level. the Pod level. At Pod level, Kubernetes {{< skew currentVersion >}}
+the Pod level. At Pod level, Kubernetes {{< skew currentVersion >}}
 only supports resource requests or limits for specific resource types: `cpu` and /
 or `memory`. This feature is currently in alpha and with the feature enabled,
 Kubernetes allows you to declare an overall resource budget for the Pod, which is
