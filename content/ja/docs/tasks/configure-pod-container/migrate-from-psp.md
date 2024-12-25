@@ -7,7 +7,7 @@ weight: 260
 
 <!-- overview -->
 
-このページはPodSecurityPoliciesからビルトインのPodSecurityアドミッションコントローラーに移行するための手順について説明します。
+このページはPodSecurityPolicyからビルトインのPodSecurityアドミッションコントローラーに移行するための手順について説明します。
 この手順は、`audit`モードや`warn`モードとdry-runを組み合わせて用いることで効率的に実施できますが、Podを変更するPSPを利用している場合には難しいものになるかも知れません。
 
 ## {{% heading "prerequisites" %}}
@@ -23,7 +23,7 @@ Kubernetesバージョン{{< skew currentVersion >}}以外が稼働している�
 ## アプローチの全体像
 
 PodSecurityPolicyをPod Security Admissionに移行する場合、とりうる戦略は複数存在します。
-以下のステップは、実運用環境の停止やセキュリティギャップが生じるリスクを最小化することを目標とする場合の、１つの移行手順の例です。
+以下のステップは、実運用環境の停止やセキュリティギャップが生じるリスクを最小化することを目標とする場合の、1つの移行手順の例です。
 
 <!-- Keep section header numbering in sync with this list. -->
 0. Pod Security Admissionがあなたのユースケースに適合するかどうかを判断する
@@ -50,9 +50,9 @@ Pod Security Admissionは、複数のセキュリティ水準の標準的な集�
 特定の制約条件についてさらなる制御が必要な場合には、ポリシーを強制するために[Validating Admission Webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)を使う必要があります。
 - **sub-namespaceの粒度のポリシー** - PodSecurityPolicyは、個々のNamespace内部で異なるサービスアカウントやユーザーに対する異なるポリシーの紐付けが可能です。
 この手法にはいくつもの落とし穴があるため推奨されませんが、どうしてもこの性質が必要な場合は、サードパーティーのWebHookをPSPの代わりに利用する必要があるでしょう。
-ただし、Pod Security Admissionで[静的な適用除外設定](/docs/concepts/security/pod-security-admission/#exemptions)をしており、特定のユーザーや[RuntimeClasses](/docs/concepts/containers/runtime-class/)を完全に適用除外とする必要がある場合には、サードパーティーWebHookは必要ないかもしれません。
+ただし、Pod Security Admissionで[静的な適用除外設定](/docs/concepts/security/pod-security-admission/#exemptions)をしており、特定のユーザーや[RuntimeClass](/docs/concepts/containers/runtime-class/)を完全に適用除外とする必要がある場合には、サードパーティーWebHookは必要ないかもしれません。
 
-あなたの全ての要求を満たせない場合であっても、Pod Security Admissionは他のポリシ強制メカニズムに対する _補完的な_ 仕組みとなるよう設計されており、他のアドミッションWebHookと併用する場合にも有益なフォールバック機構を提供します。
+あなたの全ての要求を満たせない場合であっても、Pod Security Admissionは他のポリシー強制メカニズムに対する _補完的な_ 仕組みとなるよう設計されており、他のアドミッションWebHookと併用する場合にも有益なフォールバック機構を提供します。
 
 ## 1. Namespaceの権限をレビューする {#review-namespace-permissions}
 
@@ -90,15 +90,15 @@ PSPでPodの変更のみを行うフィールドは次のとおりです。
 [更新したポリシーをロールアウトする](#psp-update-rollout)を参照して変更を安全にロールアウトするための方法を確認することをお勧めします。
 {{< /caution >}}
 
-### 2.b. Podセキュリティ基準 が対応できないオプションを排除する {#eliminate-non-standard-options}
+### 2.b. Podセキュリティ基準が対応できないオプションを排除する {#eliminate-non-standard-options}
 
 
-PodSecurityPolicyには Podセキュリティ基準 でカバーできない設定項目があります。
+PodSecurityPolicyにはPodセキュリティ基準でカバーできない設定項目があります。
 このようなオプションを強制する必要がある場合、(この記事のスコープ外の話題ですが)、Pod Security Admissionを[アドミッションWebHook](/docs/reference/access-authn-authz/extensible-admission-controllers/)で補強する必要があるでしょう。
 
-まず、Podセキュリティ基準 がカバーしない、純粋にPodの検証のみを行う設定項目は除去できます。
+まず、Podセキュリティ基準がカバーしない、純粋にPodの検証のみを行う設定項目は除去できます。
 この条件に該当するフィールドは以下のとおりです。
-([PodSecurityPoliciesとPodセキュリティ基準の対応関係](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)には "no opinion" と表記されています)
+([PodSecurityPoliciesとPodセキュリティ基準の対応関係](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)には"no opinion"と表記されています)
 
 - `.spec.allowedHostPaths`
 - `.spec.allowedFlexVolumes`
@@ -118,7 +118,7 @@ PodSecurityPolicyには Podセキュリティ基準 でカバーできない設�
 - `.spec.supplementalGroups`
 - `.spec.fsGroup`
 
-その他のPod変更に関わるフィールドは Podセキュリティ基準 を正確にサポートするためには必要なものであるため、ケースバイケースでの取り扱いが求められるでしょう。
+その他のPod変更に関わるフィールドは Podセキュリティ基準を正確にサポートするためには必要なものであるため、ケースバイケースでの取り扱いが求められるでしょう。
 
 - `.spec.requiredDropCapabilities` - Restrictedプロフィールで drop `ALL`するために必要です。
 - `.spec.seLinux` - (`MustRunAs`ルールがある場合のみPodを変更)Baseline/RestrictedでSELinux関連の要件を強制するために必要です。
@@ -196,8 +196,7 @@ PSPがPodセキュリティ基準に対応しない場合は、あえて制限�
 
 ### 3.b. Podのセキュリティ水準を検証する {#verify-pss-level}
 
-Namespaceに対するPodのセキュリティ水準を選択したら(ないしは複数検討したら)、まずはテストにかけてみると良いでしょう。
-(Privilegedレベルを用いる場合にはこのステップを省略できます)。
+Namespaceに対するPodのセキュリティ水準を選択したら(ないしは複数検討したら)、まずはテストにかけてみると良いでしょう(Privilegedレベルを用いる場合にはこのステップを省略できます)。
 Podセキュリティにはプロファイルの安全なロールアウトを支援するいくつかのツールがあります。
 
 まず紹介するのは、ポリシーのdry-runです。
@@ -237,7 +236,7 @@ kubectl apply -f privileged-psp.yaml
 kubectl create clusterrole privileged-psp --verb use --resource podsecuritypolicies.policy --resource-name privileged
 
 # Namespace単位での無効化
-kubectl create -n $NAMESPACE rolebinding disable-psp --clusterrole privileged-psp --group system:serviceaccoutns:$NAMESPACE
+kubectl create -n $NAMESPACE rolebinding disable-psp --clusterrole privileged-psp --group system:serviceaccounts:$NAMESPACE
 ```
 
 特権PSPはPodを変更しません。
