@@ -780,7 +780,7 @@ Access the service.
 
 ```shell
 # 此命令将在后台运行
-kubectl port-forward service/configmap-sidecar-service 8081:80 &
+kubectl port-forward service/configmap-sidecar-service 8081:8081 &
 ```
 
 访问服务：
