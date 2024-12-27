@@ -64,6 +64,19 @@ In cases when objects represent a physical entity, like a Node representing a ph
 {{< /note >}}
 
 <!--
+The server may generate a name when `generateName` is provided instead of `name` in a resource create request.
+When `generateName` is used, the provided value is used as a name prefix, which server appends a generated suffix
+to. Even though the name is generated, it may conflict with existing names resulting in a HTTP 409 resopnse. This
+became far less likely to happen in Kubernetes v1.31 and later, since the server will make up to 8 attempt to generate a
+unique name before returning a HTTP 409 response.
+-->
+当在资源创建请求中提供 `generateName` 而不是 `name` 时，服务器可能会生成一个名称。
+使用 `generateName` 时，所提供的值将作为名称前缀，服务器会在其后附加一个生成的后缀。
+即使名称是自动生成的，它仍可能与现有名称冲突，从而导致 HTTP 409 响应。
+从 Kubernetes v1.31 及更高版本开始，这种情况发生的概率大大降低，
+因为服务器会尝试最多 8 次生成唯一名称，然后才返回 HTTP 409 响应。
+
+<!--
 Below are four types of commonly used name constraints for resources.
 -->
 以下是比较常见的四种资源命名约束。

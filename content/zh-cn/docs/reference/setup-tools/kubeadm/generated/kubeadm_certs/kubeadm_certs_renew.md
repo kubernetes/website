@@ -9,9 +9,9 @@ Renew certificates for a Kubernetes cluster
 ### 概要
 
 <!--
-This command is not meant to be run on its own. See list of available subcommands.
+Renew certificates for a Kubernetes cluster
 -->
-此命令并非设计用来单独运行。请参阅可用子命令列表。
+为 Kubernetes 集群更新证书
 
 ```
 kubeadm certs renew [flags]

@@ -1,5 +1,5 @@
 <!--
-Use this command to invoke single phase of the node workflow
+Use this command to invoke single phase of the "node" workflow
 -->
 使用此命令调用 node 工作流的某个阶段。
 
@@ -9,9 +9,13 @@ Use this command to invoke single phase of the node workflow
 ### 概要
 
 <!--
-Use this command to invoke single phase of the node workflow
+Use this command to invoke single phase of the "node" workflow
 -->
 使用此命令调用 node 工作流的某个阶段。
+
+```shell
+kubeadm upgrade node phase [flags]
+```
 
 <!--
 ### Options

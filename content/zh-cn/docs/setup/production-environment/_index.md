@@ -462,12 +462,12 @@ As someone setting up authentication and authorization on your production Kubern
 <!--
 - *Set the authorization mode*: When the Kubernetes API server
   ([kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/))
-  starts, the supported authentication modes must be set using the *--authorization-mode*
+  starts, supported authorization modes must be set using an *--authorization-config* file or the *--authorization-mode*
   flag. For example, that flag in the *kube-adminserver.yaml* file (in */etc/kubernetes/manifests*)
   could be set to Node,RBAC. This would allow Node and RBAC authorization for authenticated requests.
 -->
 - **设置鉴权模式**：当 Kubernetes API 服务器（[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)）启动时，
-  所支持的鉴权模式必须使用 `--authorization-mode` 标志配置。
+  所支持的鉴权模式必须使用 `*--authorization-config` 文件或 `--authorization-mode` 标志配置。
   例如，`kube-apiserver.yaml`（位于 `/etc/kubernetes/manifests` 下）中对应的标志可以设置为 `Node,RBAC`。
   这样就会针对已完成身份认证的请求执行 Node 和 RBAC 鉴权。
 <!--

@@ -37,19 +37,37 @@ RBAC 鉴权机制使用 `rbac.authorization.k8s.io`
 
 <!--
 To enable RBAC, start the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
-with the `--authorization-mode` flag set to a comma-separated list that includes `RBAC`;
-for example:
+with the `--authorization-config` flag set to a file that includes the `RBAC` authorizer; for example:
 -->
 要启用 RBAC，在启动 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}时将
-`--authorization-mode` 参数设置为一个逗号分隔的列表并确保其中包含 `RBAC`。
+`--authorization-config` 标志设置为包含 `RBAC` 授权者的文件；
+例如：
+
+```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AuthorizationConfiguration
+authorizers:
+  ...
+  - type: RBAC
+  ...
+```
+
+<!--
+Or, start the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} with
+the `--authorization-mode` flag set to a comma-separated list that includes `RBAC`;
+for example:
+-->
+或者，启动 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}时，
+将 `--authorization-mode` 标志设置为包含 `RBAC` 的逗号分隔列表；
+例如：
 
 <!--
 ```shell
-kube-apiserver --authorization-mode=Example,RBAC --other-options --more-options
+kube-apiserver --authorization-mode=...,RBAC --other-options --more-options
 ```
 -->
 ```shell
-kube-apiserver --authorization-mode=Example,RBAC --<其他选项> --<其他选项>
+kube-apiserver --authorization-mode=...,RBAC --<其他选项> --<其他选项>
 ```
 
 <!--
@@ -573,6 +591,19 @@ This is similar to the built-in `cluster-admin` role.
 下面的示例对 `example.com` API 组中所有当前和未来资源执行所有动作。
 这类似于内置的 `cluster-admin`。
 
+<!--
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: example.com-superuser # DO NOT USE THIS ROLE, IT IS JUST AN EXAMPLE
+rules:
+- apiGroups: ["example.com"]
+  resources: ["*"]
+  verbs: ["*"]
+```
+-->
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
