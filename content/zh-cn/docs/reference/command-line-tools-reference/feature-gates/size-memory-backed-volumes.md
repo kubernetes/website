@@ -13,6 +13,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.22"
+    toVersion: "1.31"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.32"
 ---
 <!--
 Enable kubelets to determine the size limit for
