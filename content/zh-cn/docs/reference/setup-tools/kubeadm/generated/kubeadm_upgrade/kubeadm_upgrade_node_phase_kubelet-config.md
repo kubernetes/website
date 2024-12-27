@@ -9,11 +9,11 @@ Upgrade the kubelet configuration for this node
 ### 概要
 
 <!--
-Download the kubelet configuration from the kubelet-config ConfigMap stored in the cluster
+Upgrade the kubelet configuration for this node by downloading it from the kubelet-config ConfigMap stored in the cluster
 -->
-从集群中 ConfigMap kubelet-config 下载 kubelet 配置。
+从集群中的 `kubelet-config` ConfigMap 下载以升级该节点的 kubelet 配置
 
-```
+```shell
 kubeadm upgrade node phase kubelet-config [flags]
 ```
 
@@ -28,6 +28,19 @@ kubeadm upgrade node phase kubelet-config [flags]
 <col span="1" />
 </colgroup>
 <tbody>
+
+<tr>
+<td colspan="2">--config string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Path to a kubeadm configuration file.
+-->
+kubeadm 配置文件的路径。
+</p></td>
+</tr>
 
 <tr>
 <td colspan="2">--dry-run</td>
