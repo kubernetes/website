@@ -47,7 +47,7 @@ O jsonpath é interpretado da seguinte forma:
 
 {{< note >}}
 Quando você busca um único Pod pelo nome, por exemplo `kubectl get pod nginx`,
-a parte `.items[*]` do caminho deve ser omitida porque um unico Pod é retornado
+a parte `.items[*]` do caminho deve ser omitida porque um único Pod é retornado
 e não uma lista de itens.
 {{< /note >}}
 
