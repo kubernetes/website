@@ -25,7 +25,7 @@ por imagem.
 - Formate a saida incluindo apenas a lista de nomes das imagens de contêiner
   usando `-o jsonpath={.items[*].spec['initContainers', 'containers'][*].image}`.
   Isso irá analisar recursivamente o campo `image` do JSON retornado.
-  - Consulte [jsonpath reference](/docs/reference/kubectl/jsonpath/)
+  - Consulte a [referência de jsonpath](/docs/reference/kubectl/jsonpath/)
     para obter mais informações sobre como usar o jsonpath.
 - Formate a saída usando as ferramentas: `tr`, `sort`, `uniq`
   - Use `tr` para substituir espaços por quebras de linha
