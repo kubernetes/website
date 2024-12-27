@@ -22,7 +22,7 @@ por imagem.
 ## Listar todas as imagens de contêiner de todos os namespaces
 
 - Busque todos os Pods em todos os namespaces usando `kubectl get pods --all-namespaces`
-- Formate a saida incluindo apenas a lista de nomes das imagens de contêiner
+- Formate a saída incluindo apenas a lista de nomes das imagens de contêiner
   usando `-o jsonpath={.items[*].spec['initContainers', 'containers'][*].image}`.
   Isso irá analisar recursivamente o campo `image` do JSON retornado.
   - Consulte a [referência de jsonpath](/docs/reference/kubectl/jsonpath/)
