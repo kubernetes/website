@@ -42,7 +42,7 @@ O jsonpath é interpretado da seguinte forma:
 
 - `.items[*]`:  para cada valor retornado
 - `.spec`: coleta a especificação do recurso informado
-- `['initContainers', 'containers'][*]`: especificação do tipo de Pod
+- `['initContainers', 'containers'][*]`: para cada contêiner
 - `.image`: coleta o nome da imagem
 
 {{< note >}}
