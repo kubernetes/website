@@ -78,7 +78,7 @@ la ressource de découverte agrégée :
 Sans indiquer le type de ressource à l'aide de l'en-tête `Accept`, la réponse par défaut
 pour les endpoints `/api` et `/apis` est un document de découverte non agrégé.
 
-Le [document de découverte](https://github.com/kubernetes/kubernetes/blob/release-{{< skew currentVersion >}}/api/discovery/aggregated_v2beta1.json)
+Le [document de découverte](https://github.com/kubernetes/kubernetes/blob/release-{{< skew currentVersion >}}/api/discovery/aggregated_v2.json)
 pour les ressources intégrées peut être trouvé dans le référentiel GitHub de Kubernetes.
 Ce document GitHub peut être utilisé comme référence pour l'ensemble de base des ressources disponibles
 si un cluster Kubernetes n'est pas disponible pour la requête.
