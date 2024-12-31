@@ -36,7 +36,7 @@
 
 {{- if .Params.case_study_styles }}
   {{ $cssOutput := "css/case-studies.css" }}
-  {{ $caseStudiesCSS := resources.Get "scss/_case-studies.scss" | resources.ToCSS }}
+  {{ $caseStudiesCSS := resources.Get "scss/_case-studies.scss" | css.Sass }}
   {{ if $inServerMode }}
     <link rel="stylesheet" href="{{ $caseStudiesCSS.RelPermalink }}">
   {{ else }}
