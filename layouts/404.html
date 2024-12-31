@@ -1,5 +1,6 @@
 {{ define "main" }}
 {{ partial "handle-version-switch-404.html" . }}
+<div class="td-content">
 <section id="error-404" class="error-details">
     <p>
     {{ T "error_404_were_you_looking_for" }}
@@ -11,4 +12,5 @@
         {{ end }}
     </ul>
 </section>
+</div>
 {{ end }}

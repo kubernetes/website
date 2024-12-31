@@ -34,7 +34,7 @@
             ><!-- inside main element -->
             {{ with .CurrentSection.OutputFormats.Get "rss" -}}
             <a class="btn btn-lg -bg-orange td-rss-button d-none d-lg-block" href="{{ .Permalink | safeURL }}" target="_blank">
-              RSS <i class="fa fa-rss ml-2 "></i>
+              RSS <i class="fa-solid fa-rss ml-2 "></i>
             </a>
             {{ end -}}
             {{ block "main" . }}{{ end }}
