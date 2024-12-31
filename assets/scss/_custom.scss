@@ -1978,3 +1978,8 @@ section.k8s-birthday-override:has(div.k8s-birthday-override.revert-to-previous i
     }
   }
 }
+
+// Work around issue surfaced in k/website PR #49031
+body.cid-partners .td-outer, body.cid-community .td-outer {
+  height: initial;
+}
