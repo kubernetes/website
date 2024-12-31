@@ -7,7 +7,7 @@ NETLIFY_FUNC      = $(NODE_BIN)/netlify-lambda
 # CONTAINER_ENGINE=podman make container-image
 CONTAINER_ENGINE ?= docker
 IMAGE_REGISTRY ?= gcr.io/k8s-staging-sig-docs
-IMAGE_VERSION=$(shell scripts/hash-files.sh Dockerfile Makefile | cut -c 1-12)
+IMAGE_VERSION=$(shell scripts/hash-files.sh Dockerfile Makefile package.json package-lock.json | cut -c 1-12)
 CONTAINER_IMAGE   = $(IMAGE_REGISTRY)/k8s-website-hugo:v$(HUGO_VERSION)-$(IMAGE_VERSION)
 # Mount read-only to allow use with tools like Podman in SELinux mode
 # Container targets don't need to write into /src
