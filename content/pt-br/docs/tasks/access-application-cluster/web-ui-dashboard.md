@@ -1,7 +1,7 @@
 ---
-title: Implementação e Acesso ao Painel do Kubernetes
+title: Instalação e Acesso ao Painel do Kubernetes
 description: >-
-  Implemente a interface web (Painel do Kubernetes) e acesse-a.
+  Instale a interface web (Painel do Kubernetes) e acesse-a.
 content_type: concept
 weight: 10
 card:
@@ -14,25 +14,25 @@ card:
 
 O Painel é uma interface de usuário web para o Kubernetes. Através do Painel, você pode implantar aplicações containerizadas em um cluster Kubernetes, solucionar problemas em suas aplicações e gerenciar os recursos do cluster.
 
-O Painel oferece uma visão geral das aplicações em execução no seu cluster, além de permitir a criação ou modificação de recursos individuais do Kubernetes (como Deployments, Jobs, DaemonSets, etc.). Por exemplo, você pode escalar um Deployment, iniciar uma atualização contínua (rolling update), reiniciar um pod ou implantar novas aplicações utilizando um assistente de implantação.
+O Painel oferece uma visão geral das aplicações em execução no seu cluster, além de permitir a criação ou modificação de recursos individuais do Kubernetes (como Deployments, Jobs, DaemonSets, etc.). Por exemplo, você pode escalar um Deployment, iniciar uma atualização contínua (_rolling update_), reiniciar um pod ou implantar novas aplicações utilizando um assistente de implantação.
 
 O Painel também fornece informações sobre o estado dos recursos do Kubernetes em seu cluster e sobre quaisquer erros que possam ter ocorrido.
 ![Kubernetes Dashboard UI](/images/docs/ui-dashboard.png)
 
 <!-- body -->
 
-## Implementando o Kubernetes Dashboard
+## Instalando o Kubernetes Dashboard
 
 {{< note >}}
-"Atualmente, o Painel do Kubernetes suporta apenas a instalação baseada em Helm, pois é mais rápida e nos oferece melhor controle sobre todas as dependências necessárias para a execução do Painel.
+Atualmente, o Painel do Kubernetes suporta apenas a instalação baseada em Helm, pois é mais rápida e nos oferece melhor controle sobre todas as dependências necessárias para a execução do Painel.
 {{< /note >}}
 
 A interface de usuário do Painel não é implantada por padrão. Para implantá-la, execute o seguinte comando:
 
 ```shell
-# Add kubernetes-dashboard repository
+# Adicionando o repositório do kubernetes-dashboard
 helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
-# Deploy a Helm Release named "kubernetes-dashboard" using the kubernetes-dashboard chart
+# Instale o "kubernetes-dashboard" usando helm chart
 helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
 ```
 
@@ -73,7 +73,7 @@ Além disso, você pode visualizar quais aplicações do sistema estão em execu
 
 ![Página de boas-vindas do painel do Kubernetes](/images/docs/ui-dashboard-zerostate.png)
 
-## Implementando aplicações containerizadas
+## Instalando aplicações containerizadas
 
 O Painel permite criar e implantar uma aplicação containerizada como um Deployment e um Service opcional através de um assistente simples. Você pode especificar os detalhes da aplicação manualmente ou carregar um arquivo de _manifesto_ em YAML ou JSON contendo a configuração da aplicação.
 
@@ -83,27 +83,27 @@ Clique no botão **CRIAR** no canto superior direito de qualquer página para in
 
 O assistente de implantação espera que você forneça as seguintes informações:
 
-- **Nome da aplicação** (mandatory): Nome para a sua aplicação.
+- **Nome da aplicação** (obrigatório): Nome para a sua aplicação.
   A [label](/docs/concepts/overview/working-with-objects/labels/) com o nome será adicionado ao Deployment e ao Service (se houver) que serão implantados.
 
 O nome da aplicação deve ser único dentro do [namespace](/docs/tasks/administer-cluster/namespaces/) do Kubernetes selecionado. Ele deve começar com uma letra minúscula, terminar com uma letra minúscula ou um número e conter apenas letras minúsculas, números e hífens (-). O limite é de 24 caracteres. Espaços à esquerda e à direita são ignorados.
 
-- **Imagem do container** (mandatory):
-  A URL pública de uma imagem de container Docker [container image](/docs/concepts/containers/images/) em qualquer registry público ou uma imagem privada (comumente hospedada no Google Container Registry ou Docker Hub). A especificação da imagem do container deve terminar com dois pontos (:).
+- **Imagem do container** (obrigatório):
+  A URL pública de uma [imagem de contêiner](/docs/concepts/containers/images/) Docker em qualquer registro de imagens público ou uma imagem privada (comumente hospedada no Google Container Registry ou Docker Hub). A especificação da imagem do container deve terminar com dois pontos (:).
 
-- **Número de pods** (mandatory): O número desejado de Pods nos quais você deseja que sua aplicação implantada. O valor deve ser um número inteiro positivo.
+- **Número de pods** (obrigatório): O número desejado de Pods nos quais você deseja que sua aplicação implantada. O valor deve ser um número inteiro positivo.
 
   Um [Deployment](/docs/concepts/workloads/controllers/deployment/) será criado para manter o número desejado de Pods em seu cluster.
 
-- **Service** (optional): Para algumas partes da sua aplicação (por exemplo, frontends), você pode querer expor um [Service](/docs/concepts/services-networking/service/) em um endereço de IP externo, possivelmente público, fora do seu cluster (external Service).
+- **Service** (opcional): Para algumas partes da sua aplicação (por exemplo, frontends), você pode querer expor um [Service](/docs/concepts/services-networking/service/) em um endereço de IP externo, possivelmente público, fora do seu cluster (external Service).
 
   {{< note >}}
-  Para Serviços externos, você pode precisar abrir uma ou mais portas para fazê-lo.
+  Para Services externos, você pode precisar abrir uma ou mais portas para fazê-lo.
   {{< /note >}}
 
-  Outros  Serviços que são visíveis apenas de dentro do cluster são chamados de Services internos.
+  Outros Services que são visíveis apenas de dentro do cluster são chamados de Services internos.
 
-  Independentemente do tipo de Service, se você optar por criá-lo e seu container escutar em uma porta (entrada), será necessário especificar duas portas. O Serviço será criado mapeando a porta (entrada) para a porta de destino vista pelo container. Este Service direcionará o tráfego para seus Pods implantados. Os protocolos suportados são TCP e UDP. O nome de DNS interno para este Service será o valor especificado como nome da aplicação acima.
+  Independentemente do tipo de Service, se você optar por criá-lo e seu contêiner escutar em uma porta (entrada), será necessário especificar duas portas. O Serviço será criado mapeando a porta (entrada) para a porta de destino vista pelo contêiner. Este Service direcionará o tráfego para seus Pods implantados. Os protocolos suportados são TCP e UDP. O nome de DNS interno para este Service será o valor especificado como nome da aplicação acima.
 
 Se necessário, você pode expandir a seção **Opções avançadas** onde você pode especificar mais configurações:
 
@@ -111,7 +111,7 @@ Se necessário, você pode expandir a seção **Opções avançadas** onde você
   [annotation](/docs/concepts/overview/working-with-objects/annotations/)
   ao Deployment e exibido nos detalhes da aplicação.
 
-- **Labels**: Por padrão as [labels](/docs/concepts/overview/working-with-objects/labels/) usadas para sua aplicação são o nome e a versão da aplicação. Você pode especificar labels adicionais para serem aplicados ao Deployment, ao Service (se houver) e aos Pods, como release, tier, environment e track.
+- **Labels**: Por padrão as [labels](/docs/concepts/overview/working-with-objects/labels/) usadas para sua aplicação são o nome e a versão da aplicação. Você pode especificar labels adicionais para serem aplicadas ao Deployment, ao Service (se houver) e aos Pods, como release, tier, environment e track.
 
   Exemplo:
 
@@ -150,17 +150,17 @@ Se necessário, você pode expandir a seção **Opções avançadas** onde você
 
 - **CPU requirement (cores)** and **Memory requirement (MiB)**:
   Você pode especificar os [resource limits](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-  para o container. Por padrão, os Pods são executados com limits de CPU e memória ilimitados.
+  para o contêiner. Por padrão, os Pods são executados com limits de CPU e memória ilimitados.
 
 - **Run command** and **Run command arguments**:
-  Por padrão, seus containers executam a imagem Docker especificada por padrão
+  Por padrão, seus contêiners executam a imagem Docker especificada por padrão
   [entrypoint command](/docs/tasks/inject-data-application/define-command-argument-container/).
   Você pode usar as opções e argumentos de comando para substituir o padrão.
 
 - **Run as privileged**: Esta configuração determina se os processos em
   [privileged containers](/docs/concepts/workloads/pods/#privileged-mode-for-containers)
   são equivalentes a processos executados como root no host.
-  Containers privilegiados podem fazer uso de capacidades como manipular stack de rede e acessar dispositivos.
+  Contêiners privilegiados podem fazer uso de capacidades como manipular stack de rede e acessar dispositivos.
 
 - **Environment variables**: O Kubernetes expõe Services por meio
   de [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
@@ -227,7 +227,7 @@ A visualização permite editar e gerenciar objetos de configuração e exibe se
 #### Visualizador de logs
 
 Listas de Pods e páginas de detalhes vinculam a um visualizador de logs integrado ao Dashboard.
-O visualizador permite explorar logs de containers pertencentes a um único Pod.
+O visualizador permite explorar logs de contêiners pertencentes a um único Pod.
 
 ![Logs viewer](/images/docs/ui-dashboard-logs-view.png)
 
