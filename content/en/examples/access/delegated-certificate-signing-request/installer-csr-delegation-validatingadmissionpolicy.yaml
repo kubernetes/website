@@ -1,0 +1,31 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "installer-csr-delegation-policy"
+spec:
+  failurePolicy: Fail
+  paramKind:
+    apiVersion: v1
+    kind: ConfigMap
+  matchConditions:
+    - name: "userIsController"
+      expression: "request.userInfo.username == 'system:serviceaccount:'+params.data.controllerNamespace+':'+params.data.controllerServiceAccountName"
+  matchConstraints:
+    resourceRules:
+      - apiGroups:   ["rbac.authorization.k8s.io"]
+        apiVersions: ["v1"]
+        operations:  ["CREATE"] # rules are immutable, so no need to handle UPDATE
+        resources:   ["clusterroles"]
+  variables:
+    - name: "certificateRules"
+      expression: "object.?rules.orValue([]).filter(rule, rule.apiGroups.exists(group, group == 'certificates.k8s.io'))"
+    - name: "signerRules"
+      expression: "variables.certificateRules.filter(rule, rule.resources.exists(resource, resource == 'signers'))"
+    - name: "approvalOrSigningRules"
+      expression: "variables.signerRules.filter(rule, rule.verbs.exists(verb, verb == 'approve' || verb == 'sign'))"
+    - name: "signerNameInDomain"
+      expression: "variables.approvalOrSigningRules.all(rule, rule.resourceNames.all(name, name.startsWith(params.data.domain + '/')))"
+  validations:
+    - expression: "variables.signerNameInDomain == true" # if the expression evaluates to false, the validation check is enforced according to the failurePolicy
+      messageExpression: "string(params.data.controllerServiceAccountName)  + ' has failed to delegate ' +  string(request.operation) + ' ' + string(request.name) + ' certificate signing request in the ' + string(request.namespace) + ' namespace. Check the configuration.'"
+      reason: "Forbidden"
