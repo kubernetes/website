@@ -152,10 +152,10 @@ kubectl delete pod qos-demo-2 --namespace=qos-example
 
 ## BestEffort QoS 클래스가 할당되는 파드 생성
 
-파드에 QoS 클래스 BestEffort를 제공하려면, 파드의 컨테이너에
-메모리 또는 CPU의 상한이나 요청량이 없어야 한다.
+파드에 BestEffort QoS 클래스를 부여하려면, 파드의 컨테이너에 
+메모리와 CPU에 대한 상한이나 요청량이 없어야 한다.
 
-컨테이너가 하나인 파드의 구성 파일이다. 해당 컨테이너는 메모리 또는 CPU의
+다음은 컨테이너가 하나인 파드의 구성 파일이다. 해당 컨테이너는 메모리와 CPU의
 상한이나 요청량을 갖지 않는다.
 
 {{< codenew file="pods/qos/qos-pod-3.yaml" >}}

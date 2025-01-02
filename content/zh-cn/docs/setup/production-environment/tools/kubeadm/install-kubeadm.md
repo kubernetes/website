@@ -68,7 +68,8 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 The `kubeadm` installation is done via binaries that use dynamic linking and assumes that your target system provides `glibc`.
 This is a reasonable assumption on many Linux distributions (including Debian, Ubuntu, Fedora, CentOS, etc.)
 but it is not always the case with custom and lightweight distributions which don't include `glibc` by default, such as Alpine Linux.
-The expectation is that the distribution either includes `glibc` or a [compatibility layer](https://wiki.alpinelinux.org/wiki/Running_glibc_programs)
+The expectation is that the distribution either includes `glibc` or a
+[compatibility layer](https://wiki.alpinelinux.org/wiki/Running_glibc_programs)
 that provides the expected symbols.
 -->
 `kubeadm` 的安装是通过使用动态链接的二进制文件完成的，安装时假设你的目标系统提供 `glibc`。
@@ -369,7 +370,8 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
 
 {{< note >}}
 <!--
-In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
+In releases older than Debian 12 and Ubuntu 22.04, directory `/etc/apt/keyrings` does not
+exist by default, and it should be created before the curl command.
 -->
 在低于 Debian 12 和 Ubuntu 22.04 的发行版本中，`/etc/apt/keyrings` 默认不存在。
 应在 curl 命令之前创建它。
@@ -387,6 +389,12 @@ In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` do
    对于其他 Kubernetes 次要版本，则需要更改 URL 中的 Kubernetes 次要版本以匹配你所需的次要版本
   （你还应该检查正在阅读的安装文档是否为你计划安装的 Kubernetes 版本的文档）。
 
+   <!--
+   ```shell
+   # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
+   echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   ```
+   -->
    ```shell
    # 此操作会覆盖 /etc/apt/sources.list.d/kubernetes.list 中现存的所有配置。
    echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
