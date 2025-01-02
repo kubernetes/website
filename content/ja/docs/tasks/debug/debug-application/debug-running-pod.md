@@ -649,12 +649,16 @@ root@ek8s:/#
 kubectl delete pod node-debugger-mynode-pdx84
 ```
 
-## デバッグプロファイルの使用 {#debugging-profiles}
+## デバッグプロファイルを使用したPodやNodeのデバッグ {#debugging-profiles}
+`kubectl debug`でノードやPodをデバッグする場合、デバッグ用のPod、エフェメラルコンテナ、またはコピーされたPodにデバッグプロファイルを適用できます。
+デバッグプロファイルを適用することで、[securityContext](/ja/docs/tasks/configure-pod-container/security-context/)など特定のプロパティが設定され、
+さまざまなシナリオに適応できるようになります。
+デバッグプロファイルにはスタティックプロファイルとカスタムプロファイルの2種類があります。
 
-`kubectl debug`でノードやPodをデバッグする場合、デバッグ用のPod、エフェメラルコンテナ、またはコピーされたPodに`--profile`フラグを使用してデバッグプロファイルを適用できます。
-デバッグプロファイルを適用することで、[securityContext](/ja/docs/tasks/configure-pod-container/security-context/)など特定のプロパティが設定され、さまざまなシナリオに適応できるようになります。
+### スタティックプロファイルの適用 {#static-profiles}
+スタティックプロファイルは事前に定義されたプロパティの組み合わせで構成され、`--profile`フラグを使用して適用できます。
+使用可能なスタティックプロファイルは以下の通りです:
 
-使用可能なデバッグプロファイルは以下の通りです:
 
 | Profile      | Description                                                     |
 | ------------ | --------------------------------------------------------------- |
@@ -715,6 +719,71 @@ kubectl get pod myapp -o jsonpath='{.spec.ephemeralContainers[0].securityContext
 
 ```
 {"privileged":true}
+```
+
+確認が終わったらPodを削除します:
+
+```shell
+kubectl delete pod myapp
+```
+
+### カスタムプロファイルの適用 {#custom-profiles}
+
+{{< feature-state for_k8s_version="v1.31" state="beta" >}}
+
+デバッグに使用するコンテナのspecをYAMLまたはJSON形式でカスタムプロファイルとして定義し、`--custom`フラグを使用して適用できます。
+
+{{< note >}}
+カスタムプロファイルはコンテナのspecの変更のみをサポートしていますが、`name`, `image`, `command`, `lifecycle` 
+および `volumeDevices`フィールドの変更は許可されません。
+また、Podのspecの変更もサポートされていません。
+{{< /note >}}
+
+例えば、`myapp`という名前のPodを作成します:
+
+```shell
+kubectl run myapp --image=busybox:1.28 --restart=Never -- sleep 1d
+```
+
+YAMLまたはJSON形式でカスタムプロファイルを作成します。
+ここでは、`custom-profile.yaml`という名前のYAML形式のファイルを作成します:
+
+```yaml
+env:
+- name: ENV_VAR_1
+  value: value_1
+- name: ENV_VAR_2
+  value: value_2
+securityContext:
+  capabilities:
+    add:
+    - NET_ADMIN
+    - SYS_TIME
+
+```
+
+次のコマンドを実行することで、エフェメラルコンテナにカスタムプロファイルを適用し、Podをデバッグします:
+
+```shell
+kubectl debug -it myapp --image=busybox:1.28 --target=myapp --profile=general --custom=custom-profile.yaml
+```
+
+Podにカスタムプロファイルが適用された状態のエフェメラルコンテナが追加されたことを確認できます:
+
+```shell
+kubectl get pod myapp -o jsonpath='{.spec.ephemeralContainers[0].env}'
+```
+
+```
+[{"name":"ENV_VAR_1","value":"value_1"},{"name":"ENV_VAR_2","value":"value_2"}]
+```
+
+```shell
+kubectl get pod myapp -o jsonpath='{.spec.ephemeralContainers[0].securityContext}'
+```
+
+```
+{"capabilities":{"add":["NET_ADMIN","SYS_TIME"]}}
 ```
 
 確認が終わったらPodを削除します:

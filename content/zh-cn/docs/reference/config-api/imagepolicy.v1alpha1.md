@@ -26,7 +26,7 @@ package: imagepolicy.k8s.io/v1alpha1
 <tr><td><code>kind</code><br/>string</td><td><code>ImageReview</code></td></tr>
 
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.31/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
 </td>
 <td>
   <!--
@@ -75,7 +75,6 @@ Refer to the Kubernetes API documentation for the fields of the <code>metadata</
 <p>ImageReviewContainerSpec is a description of a container within the pod creation request.</p>
 -->
 <p>ImageReviewContainerSpec 是对 Pod 创建请求中的某容器的描述。</p>
-
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>

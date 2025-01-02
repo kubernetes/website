@@ -6,14 +6,12 @@ weight: 150
 ---
 <!--
 title: Control Topology Management Policies on a node
-
 reviewers:
 - ConnorDoyle
 - klueska
 - lmdaly
 - nolancon
 - bg-chun
-
 content_type: task
 min-kubernetes-server-version: v1.18
 weight: 150
@@ -42,7 +40,7 @@ disjoint set of components.
 但是，在 Kubernetes 中，这些优化由各自独立的组件集合来处理。
 
 <!--
-_Topology Manager_ is a Kubelet component that aims to coordinate the set of components that are
+_Topology Manager_ is a kubelet component that aims to coordinate the set of components that are
 responsible for these optimizations.
 -->
 **拓扑管理器（Topology Manager）** 是一个 kubelet 组件，旨在协调负责这些优化的一组组件。
@@ -60,42 +58,42 @@ responsible for these optimizations.
 
 <!--
 Prior to the introduction of Topology Manager, the CPU and Device Manager in Kubernetes make
-resource allocation decisions independently of each other.  This can result in undesirable
-allocations on multiple-socketed systems, performance/latency sensitive applications will suffer
-due to these undesirable allocations.  Undesirable in this case meaning for example, CPUs and
-devices being allocated from different NUMA Nodes thus, incurring additional latency.
+resource allocation decisions independently of each other. This can result in undesirable
+allocations on multiple-socketed systems, and performance/latency sensitive applications will suffer
+due to these undesirable allocations. Undesirable in this case meaning, for example, CPUs and
+devices being allocated from different NUMA Nodes, thus incurring additional latency.
 -->
 在引入拓扑管理器之前，Kubernetes 中的 CPU 和设备管理器相互独立地做出资源分配决策。
 这可能会导致在多处理系统上出现不符合期望的资源分配情况；由于这些与期望相左的分配，对性能或延迟敏感的应用将受到影响。
 这里的不符合期望意指，例如，CPU 和设备是从不同的 NUMA 节点分配的，因此会导致额外的延迟。
 
 <!--
-The Topology Manager is a Kubelet component, which acts as a source of truth so that other Kubelet
+The Topology Manager is a kubelet component, which acts as a source of truth so that other kubelet
 components can make topology aligned resource allocation choices.
 -->
-拓扑管理器是一个 Kubelet 组件，扮演信息源的角色，以便其他 Kubelet 组件可以做出与拓扑结构相对应的资源分配决定。
+拓扑管理器是一个 kubelet 组件，扮演信息源的角色，以便其他 kubelet 组件可以做出与拓扑结构相对应的资源分配决定。
 
 <!--
 The Topology Manager provides an interface for components, called *Hint Providers*, to send and
-receive topology information. Topology Manager has a set of node level policies which are
+receive topology information. The Topology Manager has a set of node level policies which are
 explained below.
 -->
 拓扑管理器为组件提供了一个称为 **建议提供者（Hint Provider）** 的接口，以发送和接收拓扑信息。
 拓扑管理器具有一组节点级策略，具体说明如下。
 
 <!--
-The Topology manager receives Topology information from the *Hint Providers* as a bitmask denoting
+The Topology Manager receives topology information from the *Hint Providers* as a bitmask denoting
 NUMA Nodes available and a preferred allocation indication. The Topology Manager policies perform
 a set of operations on the hints provided and converge on the hint determined by the policy to
-give the optimal result, if an undesirable hint is stored the preferred field for the hint will be
+give the optimal result. If an undesirable hint is stored, the preferred field for the hint will be
 set to false. In the current policies preferred is the narrowest preferred mask.
-The selected hint is stored as part of the Topology Manager. Depending on the policy configured
+The selected hint is stored as part of the Topology Manager. Depending on the policy configured,
 the pod can be accepted or rejected from the node based on the selected hint.
 The hint is then stored in the Topology Manager for use by the *Hint Providers* when making the
 resource allocation decisions.
 -->
 拓扑管理器从 **建议提供者** 接收拓扑信息，作为表示可用的 NUMA 节点和首选分配指示的位掩码。
-拓扑管理器策略对所提供的建议执行一组操作，并根据策略对提示进行约减以得到最优解；
+拓扑管理器策略对所提供的建议执行一组操作，并根据策略对提示进行约减以得到最优解。
 如果存储了与预期不符的建议，则该建议的优选字段将被设置为 false。
 在当前策略中，首选是最窄的优选掩码。
 所选建议将被存储为拓扑管理器的一部分。
@@ -107,8 +105,8 @@ resource allocation decisions.
 
 The Topology Manager currently:
 
-- Aligns Pods of all QoS classes.
-- Aligns the requested resources that Hint Provider provides topology hints for.
+- aligns Pods of all QoS classes.
+- aligns the requested resources that Hint Provider provides topology hints for.
 -->
 ## 拓扑管理器作用域和策略 {#topology-manager-scopes-and-policies}
 
@@ -120,38 +118,38 @@ The Topology Manager currently:
 <!--
 If these conditions are met, the Topology Manager will align the requested resources.
 
-In order to customise how this alignment is carried out, the Topology Manager provides two
-distinct knobs: `scope` and `policy`.
+In order to customize how this alignment is carried out, the Topology Manager provides two
+distinct options: `scope` and `policy`.
 -->
 如果满足这些条件，则拓扑管理器将对齐请求的资源。
 
-为了定制如何进行对齐，拓扑管理器提供了两种不同的方式：`scope` 和 `policy`。
+为了定制如何进行对齐，拓扑管理器提供了两个不同的选项：`scope` 和 `policy`。
 
 <!--
-The `scope` defines the granularity at which you would like resource alignment to be performed
-(e.g. at the `pod` or `container` level). And the `policy` defines the actual strategy used to
-carry out the alignment (e.g. `best-effort`, `restricted`, `single-numa-node`, etc.).
+The `scope` defines the granularity at which you would like resource alignment to be performed,
+for example, at the `pod` or `container` level. And the `policy` defines the actual policy used to
+carry out the alignment, for example, `best-effort`, `restricted`, and `single-numa-node`.
 Details on the various `scopes` and `policies` available today can be found below.
 -->
-`scope` 定义了你希望的资源对齐粒度（例如，是在 `pod` 还是 `container` 层级上对齐）。
-`policy` 定义了对齐时实际使用的策略（例如，`best-effort`、`restricted`、`single-numa-node` 等等）。
+`scope` 定义了你希望的资源对齐粒度，例如是在 `pod` 还是 `container` 层级上对齐。
+`policy` 定义了对齐时实际使用的策略，例如 `best-effort`、`restricted` 和 `single-numa-node`。
 可以在下文找到现今可用的各种 `scopes` 和 `policies` 的具体信息。
 
 {{< note >}}
 <!--
 To align CPU resources with other requested resources in a Pod spec, the CPU Manager should be
 enabled and proper CPU Manager policy should be configured on a Node.
-See [control CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
+See [Control CPU Management Policies on the Node](/docs/tasks/administer-cluster/cpu-management-policies/).
 -->
 为了将 Pod 规约中的 CPU 资源与其他请求资源对齐，需要启用 CPU
 管理器并在节点上配置适当的 CPU 管理器策略。
-参看[控制 CPU 管理策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/).
+参见[控制节点上的 CPU 管理策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/)。
 {{< /note >}}
 
 {{< note >}}
 <!--
 To align memory (and hugepages) resources with other requested resources in a Pod spec, the Memory
-Manager should be enabled and proper Memory Manager policy should be configured on a Node. Examine
+Manager should be enabled and proper Memory Manager policy should be configured on a Node. Refer to
 [Memory Manager](/docs/tasks/administer-cluster/memory-manager/) documentation.
 -->
 为了将 Pod 规约中的内存（和 hugepages）资源与所请求的其他资源对齐，需要启用内存管理器，
@@ -215,7 +213,8 @@ scope, for example the `pod` scope.
 <!--
 ### `pod` scope
 
-To select the `pod` scope, set `topologyManagerScope` in the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/) to `pod`.
+To select the `pod` scope, set `topologyManagerScope` in the
+[kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/) to `pod`.
 -->
 ### `pod` 作用域 {#pod-scope}
 
@@ -228,9 +227,9 @@ Topology Manager treats a pod as a whole and attempts to allocate the entire pod
 to either a single NUMA node or a common set of NUMA nodes. The following examples illustrate the
 alignments produced by the Topology Manager on different occasions:
 -->
-该作用域允许把一个 Pod 里的所有容器作为一个分组，分配到一个共同的 NUMA 节点集。
+此作用域允许把一个 Pod 里的所有容器作为一个分组，分配到一个共同的 NUMA 节点集。
 也就是，拓扑管理器会把一个 Pod 当成一个整体，
-并且试图把整个 Pod（所有容器）分配到一个单个的 NUMA 节点或者一个共同的 NUMA 节点集。
+并且尝试把整个 Pod（所有容器）分配到单一的 NUMA 节点或者一个共同的 NUMA 节点集。
 以下的例子说明了拓扑管理器在不同的场景下使用的对齐方式：
 
 <!--
@@ -242,8 +241,8 @@ alignments produced by the Topology Manager on different occasions:
 
 <!--
 The total amount of particular resource demanded for the entire pod is calculated according to
-[effective requests/limits](/docs/concepts/workloads/pods/init-containers/#resources) formula, and
-thus, this total value is equal to the maximum of:
+[effective requests/limits](/docs/concepts/workloads/pods/init-containers/#resource-sharing-within-containers)
+formula, and thus, this total value is equal to the maximum of:
 
 * the sum of all app container requests,
 * the maximum of init container requests,
@@ -251,7 +250,7 @@ thus, this total value is equal to the maximum of:
 for a resource.
 -->
 整个 Pod 所请求的某种资源总量是根据
-[有效 request/limit](/zh-cn/docs/concepts/workloads/pods/init-containers/#resources)
+[有效 request/limit](/zh-cn/docs/concepts/workloads/pods/init-containers/#resource-sharing-within-containers)
 公式来计算的，因此，对某一种资源而言，该总量等于以下数值中的最大值：
 
 * 所有应用容器请求之和；
@@ -265,7 +264,7 @@ node; hence, the inter-NUMA communication overhead can be eliminated for that po
 -->
 `pod` 作用域与 `single-numa-node` 拓扑管理器策略一起使用，
 对于延时敏感的工作负载，或者对于进行 IPC 的高吞吐量应用程序，都是特别有价值的。
-把这两个选项组合起来，你可以把一个 Pod 里的所有容器都放到一个单个的 NUMA 节点，
+把这两个选项组合起来，你可以把一个 Pod 里的所有容器都放到单一的 NUMA 节点，
 使得该 Pod 消除了 NUMA 之间的通信开销。
 
 <!--
@@ -285,7 +284,7 @@ is present among possible allocations. Reconsider the example above:
   （因为满足该分配方案需要两个或以上的 NUMA 节点，而不是单个 NUMA 节点）。
 
 <!--
-To recap, Topology Manager first computes a set of NUMA nodes and then tests it against Topology
+To recap, the Topology Manager first computes a set of NUMA nodes and then tests it against the Topology
 Manager policy, which either leads to the rejection or admission of the pod.
 -->
 简要地说，拓扑管理器首先计算出 NUMA 节点集，然后使用拓扑管理器策略来测试该集合，
@@ -297,7 +296,7 @@ Manager policy, which either leads to the rejection or admission of the pod.
 ## 拓扑管理器策略 {#topology-manager-policies}
 
 <!--
-Topology Manager supports four allocation policies. You can set a policy via a Kubelet flag,
+The Topology Manager supports four allocation policies. You can set a policy via a kubelet flag,
 `--topology-manager-policy`. There are four supported policies:
 
 * `none` (default)
@@ -306,7 +305,7 @@ Topology Manager supports four allocation policies. You can set a policy via a K
 * `single-numa-node`
 -->
 拓扑管理器支持四种分配策略。
-你可以通过 Kubelet 标志 `--topology-manager-policy` 设置策略。
+你可以通过 kubelet 标志 `--topology-manager-policy` 设置策略。
 所支持的策略有四种：
 
 * `none`（默认）
@@ -316,7 +315,7 @@ Topology Manager supports four allocation policies. You can set a policy via a K
 
 {{< note >}}
 <!--
-If Topology Manager is configured with the **pod** scope, the container, which is considered by
+If the Topology Manager is configured with the **pod** scope, the container, which is considered by
 the policy, is reflecting requirements of the entire pod, and thus each container from the pod
 will result with **the same** topology alignment decision.
 -->
@@ -340,7 +339,7 @@ This is the default policy and does not perform any topology alignment.
 For each container in a Pod, the kubelet, with `best-effort` topology management policy, calls
 each Hint Provider to discover their resource availability. Using this information, the Topology
 Manager stores the preferred NUMA Node affinity for that container. If the affinity is not
-preferred, Topology Manager will store this and admit the pod to the node anyway.
+preferred, the Topology Manager will store this and admit the pod to the node anyway.
 -->
 ### `best-effort` 策略 {#policy-best-effort}
 
@@ -359,9 +358,9 @@ resource allocation decision.
 ### `restricted` policy {#policy-restricted}
 
 For each container in a Pod, the kubelet, with `restricted` topology management policy, calls each
-Hint Provider to discover their resource availability.  Using this information, the Topology
+Hint Provider to discover their resource availability. Using this information, the Topology
 Manager stores the preferred NUMA Node affinity for that container. If the affinity is not
-preferred, Topology Manager will reject this pod from the node. This will result in a pod in a
+preferred, the Topology Manager will reject this pod from the node. This will result in a pod entering a
 `Terminated` state with a pod admission failure.
 -->
 ### `restricted` 策略 {#policy-restricted}
@@ -370,11 +369,11 @@ preferred, Topology Manager will reject this pod from the node. This will result
 调用每个建议提供者以确定其资源可用性。
 使用此信息，拓扑管理器存储该容器的首选 NUMA 节点亲和性。
 如果亲和性不是首选，则拓扑管理器将从节点中拒绝此 Pod。
-这将导致 Pod 处于 `Terminated` 状态，且 Pod 无法被节点接受。
+这将导致 Pod 进入 `Terminated` 状态，且 Pod 无法被节点接受。
 
 <!--
 Once the pod is in a `Terminated` state, the Kubernetes scheduler will **not** attempt to
-reschedule the pod. It is recommended to use a ReplicaSet or Deployment to trigger a redeploy of
+reschedule the pod. It is recommended to use a ReplicaSet or Deployment to trigger a redeployment of
 the pod. An external control loop could be also implemented to trigger a redeployment of pods that
 have the `Topology Affinity` error.
 -->
@@ -392,10 +391,10 @@ resource allocation decision.
 ### `single-numa-node` policy {#policy-single-numa-node}
 
 For each container in a Pod, the kubelet, with `single-numa-node` topology management policy,
-calls each Hint Provider to discover their resource availability.  Using this information, the
-Topology Manager determines if a single NUMA Node affinity is possible.  If it is, Topology
+calls each Hint Provider to discover their resource availability. Using this information, the
+Topology Manager determines if a single NUMA Node affinity is possible. If it is, Topology
 Manager will store this and the *Hint Providers* can then use this information when making the
-resource allocation decision.  If, however, this is not possible then the Topology Manager will
+resource allocation decision. If, however, this is not possible then the Topology Manager will
 reject the pod from the node. This will result in a pod in a `Terminated` state with a pod
 admission failure.
 -->
@@ -410,8 +409,8 @@ kubelet 调用每个建议提供者以确定其资源可用性。
 
 <!--
 Once the pod is in a `Terminated` state, the Kubernetes scheduler will **not** attempt to
-reschedule the pod. It is recommended to use a Deployment with replicas to trigger a redeploy of
-the Pod.An external control loop could be also implemented to trigger a redeployment of pods
+reschedule the pod. It is recommended to use a Deployment with replicas to trigger a redeployment of
+the Pod. An external control loop could be also implemented to trigger a redeployment of pods
 that have the `Topology Affinity` error.
 -->
 一旦 Pod 处于 `Terminated` 状态，Kubernetes 调度器将不会尝试重新调度该 Pod。
@@ -432,6 +431,7 @@ Support for the Topology Manager policy options requires `TopologyManagerPolicyO
 
 <!--
 You can toggle groups of options on and off based upon their maturity level using the following feature gates:
+
 * `TopologyManagerPolicyBetaOptions` default enabled. Enable to show beta-level options.
 * `TopologyManagerPolicyAlphaOptions` default disabled. Enable to show alpha-level options.
 -->
@@ -461,10 +461,10 @@ are enabled.
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，此策略选项默认可见。
 
 <!--
-The topology manager is not aware by default of NUMA distances, and does not take them into account when making
+The Topology Manager is not aware by default of NUMA distances, and does not take them into account when making
 Pod admission decisions. This limitation surfaces in multi-socket, as well as single-socket multi NUMA systems,
 and can cause significant performance degradation in latency-critical execution and high-throughput applications
-if the topology manager decides to align resources on non-adjacent NUMA nodes.
+if the Topology Manager decides to align resources on non-adjacent NUMA nodes.
 
 If you specify the `prefer-closest-numa-nodes` policy option, the `best-effort` and `restricted`
 policies favor sets of NUMA nodes with shorter distance between them when making admission decisions.
@@ -479,7 +479,7 @@ policies favor sets of NUMA nodes with shorter distance between them when making
 <!--
 You can enable this option by adding `prefer-closest-numa-nodes=true` to the Topology Manager policy options.
 
-By default (without this option), Topology Manager aligns resources on either a single NUMA node or,
+By default (without this option), the Topology Manager aligns resources on either a single NUMA node or,
 in the case where more than one NUMA node is required, using the minimum number of NUMA nodes.
 -->
 你可以通过将 `prefer-closest-numa-nodes=true` 添加到拓扑管理器策略选项来启用此选项。
@@ -489,7 +489,7 @@ in the case where more than one NUMA node is required, using the minimum number 
 <!--
 ### `max-allowable-numa-nodes` (beta) {#policy-option-max-allowable-numa-nodes}
 
-The `max-allowable-numa-nodes` option is beta since Kubernetes 1.31. In Kubernetes {{< skew currentVersion >}}
+The `max-allowable-numa-nodes` option is beta since Kubernetes 1.31. In Kubernetes {{< skew currentVersion >}},
 this policy option is visible by default provided that the `TopologyManagerPolicyOptions` and
 `TopologyManagerPolicyBetaOptions` [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
 are enabled.
@@ -503,7 +503,7 @@ are enabled.
 
 <!--
 The time to admit a pod is tied to the number of NUMA nodes on the physical machine.
-By default, Kubernetes does not run a kubelet with the topology manager enabled, on any (Kubernetes) node where
+By default, Kubernetes does not run a kubelet with the Topology Manager enabled, on any (Kubernetes) node where
 more than 8 NUMA nodes are detected.
 -->
 Pod 被准入的时间与物理机上的 NUMA 节点数量相关。
@@ -512,9 +512,9 @@ Pod 被准入的时间与物理机上的 NUMA 节点数量相关。
 
 {{< note >}}
 <!--
-If you select the the `max-allowable-numa-nodes` policy option, nodes with more than 8 NUMA nodes can
-be allowed to run with the topology manager enabled. The Kubernetes project only has limited data on the impact
-of using the topology manager on (Kubernetes) nodes with more than 8 NUMA nodes. Because of that
+If you select the `max-allowable-numa-nodes` policy option, nodes with more than 8 NUMA nodes can
+be allowed to run with the Topology Manager enabled. The Kubernetes project only has limited data on the impact
+of using the Topology Manager on (Kubernetes) nodes with more than 8 NUMA nodes. Because of that
 lack of data, using this policy option with Kubernetes {{< skew currentVersion >}} is **not** recommended and is
 at your own risk.
 -->
@@ -527,7 +527,7 @@ Kubernetes 项目对在有 8 个以上 NUMA 节点的（Kubernetes）节点上�
 You can enable this option by adding `max-allowable-numa-nodes=true` to the Topology Manager policy options.
 
 Setting a value of `max-allowable-numa-nodes` does not (in and of itself) affect the
-latency of pod admission, but binding a Pod to a (Kubernetes) node with many NUMA does does have an impact.
+latency of pod admission, but binding a Pod to a (Kubernetes) node with many NUMA does have an impact.
 Future, potential improvements to Kubernetes may improve Pod admission performance and the high
 latency that happens as the number of NUMA nodes increases.
 -->
@@ -576,10 +576,10 @@ This pod runs in the `Burstable` QoS class because requests are less than limits
 由于 `requests` 数少于 `limits`，因此该 Pod 以 `Burstable` QoS 类运行。
 
 <!--
-If the selected policy is anything other than `none`, Topology Manager would consider these Pod
+If the selected policy is anything other than `none`, the Topology Manager would consider these Pod
 specifications. The Topology Manager would consult the Hint Providers to get topology hints.
 In the case of the `static`, the CPU Manager policy would return default topology hint, because
-these Pods do not have explicitly request CPU resources.
+these Pods do not explicitly request CPU resources.
 -->
 如果选择的策略是 `none` 以外的任何其他策略，拓扑管理器都会评估这些 Pod 的规范。
 拓扑管理器会咨询建议提供者，获得拓扑建议。
@@ -695,12 +695,12 @@ assignments.
 <!--
 ## Known limitations
 
-1. The maximum number of NUMA nodes that Topology Manager allows is 8. With more than 8 NUMA nodes
+1. The maximum number of NUMA nodes that Topology Manager allows is 8. With more than 8 NUMA nodes,
    there will be a state explosion when trying to enumerate the possible NUMA affinities and
    generating their hints. See [`max-allowable-numa-nodes`](#policy-option-max-allowable-numa-nodes)
    (beta) for more options.
 
-2. The scheduler is not topology-aware, so it is possible to be scheduled on a node and then fail
+1. The scheduler is not topology-aware, so it is possible to be scheduled on a node and then fail
    on the node due to the Topology Manager.
 -->
 ## 已知的局限性 {#known-limitations}
