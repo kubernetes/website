@@ -316,6 +316,27 @@ The cluster autoscaler never evicts Pods that have this annotation explicitly se
 `"false"`; you could set that on an important Pod that you want to keep running.
 If this annotation is not set then the cluster autoscaler follows its Pod-level behavior.
 
+### config.kubernetes.io/apply-time-mutation {#config-kubernetes-io-apply-time-mutation}
+
+Type: Annotation
+
+Example:
+```yaml
+    # Set $CONFIG_MANAGED_BY based on an annotation of a related ConfigMap
+    # Source annotation key is app.kubernetes.io/managed-by
+    config.kubernetes.io/apply-time-mutation: |
+      - sourceRef:
+          kind: ConfigMap
+          name: example-config
+        sourcePath: $.metadata.annotations.app\.kubernetes\.io/managed-by
+        targetPath: $.spec.containers[?(@.name=="example")].env[?(@.name=="CONFIG_MANAGED_BY")].value
+```
+Used on: All objects
+
+This annotation is used on the target object to be modified to configure [Apply-Time Mutation](https://kpt.dev/reference/annotations/apply-time-mutation/).
+The annotation may specify one or more substitutions at apply time using dependencies as input. Each substitution
+includes a source object, a source field path, and a target field path, with an optional token.
+
 ### config.kubernetes.io/local-config
 
 Type: Annotation
