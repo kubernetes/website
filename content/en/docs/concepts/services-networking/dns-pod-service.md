@@ -77,7 +77,7 @@ depending on the IP family or families of the Service, with a name of the form
 of the Service.
 
 [Headless Services](/docs/concepts/services-networking/service/#headless-services) 
-(without a cluster IP) Services are also assigned DNS A and/or AAAA records,
+(without a cluster IP) are also assigned DNS A and/or AAAA records,
 with a name of the form `my-svc.my-namespace.svc.cluster-domain.example`.  Unlike normal
 Services, this resolves to the set of IPs of all of the Pods selected by the Service.
 Clients are expected to consume the set or else use standard round-robin
