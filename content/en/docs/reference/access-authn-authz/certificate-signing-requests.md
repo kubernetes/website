@@ -613,6 +613,249 @@ To test it, change the context to `myuser`:
 kubectl config use-context myuser
 ```
 
+<!-- TODO this should become a task page -->
+## How to delegate signer permissions within a domain {#custom-domain-delegation}
+
+{{< feature-state feature_gate_name="ValidatingAdmissionPolicy" >}}
+
+When working with [custom signers](#custom-signers) that approve, deny and sign 
+[CertificateSigningRequests](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/) 
+using the [Kubernetes API](#signer-api), the signer's identity may be given [privileges](#authorization)
+over the entire domain by using trailing wild-cards in the `resourceNames`:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: top-level-csr-approver
+rules:
+- apiGroups:     ["certificates.k8s.io"]
+  resourceNames: ["example.com/*"]
+  resources:     ["signers"]
+  verbs:         ["approve", "sign"]
+```
+
+As `resourceNames` are opaque to the RBAC authorizer, however, an entity with permission
+to approve and sign for an entire domain cannot delegate specific paths to other entities.
+Applications which install signers therefore require `approve` and `sign` permissions for all
+signers, which is an over-broad permissions set and leads to a poor security posture as the
+credentials for such installers are good targets for actors wishing to escalate their privileges.
+
+On clusters with [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/),
+these installers may have their privileges restricted to the minimal set required for their function.
+
+### Set up a service account for the installer
+
+In this example, we will assume some application that installs CSR signers on a Kubernetes cluster.
+First, create the service account for this application:
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: csr-signer-installer
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: installer
+  namespace: csr-signer-installer
+```
+
+### Provide permissions to the installer
+
+The application installing other signers will need to be granted over-broad permissions via RBAC to
+approve and sign certificate signing requests, as well as to create cluster roles for delegating these
+permissions:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: installer-role
+rules:
+- apiGroups: ["rbac.authorization.k8s.io"]
+  resources: ["clusterroles"]
+  verbs:     ["create"]
+- apiGroups:     ["certificates.k8s.io"]
+  resources:     ["signers"]
+  verbs:         ["approve", "sign"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: insaller-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: installer-role
+subjects:
+- kind: ServiceAccount
+  name: installer
+  namespace: csr-signer-installer
+```
+
+### Restrict the installer's permissions over CSRs
+
+As our installer only needs the ability to act on CSRs for a specific domain,
+we can restrict it's permissions using ValidatingAdmissionPolicies:
+
+<!-- TODO validate best posture here, signer names are opaque and don't need to be domains? -->
+
+```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "installer-csr-policy"
+spec:
+  failurePolicy: Fail
+  paramKind:
+    apiVersion: v1
+    kind: ConfigMap
+  matchConditions:
+    - name: "userIsController"
+      expression: "request.userInfo.username == 'system:serviceaccount:'+params.data.controllerNamespace+':'+params.data.controllerServiceAccountName"
+  matchConstraints:
+    resourceRules:
+      - apiGroups:   ["certificates.k8s.io"]
+        apiVersions: ["v1"]
+        operations:  ["UPDATE"]
+        resources:   ["certificatesigningrequests"]
+  variables:
+    - name: signerNameInDomain
+      expression: "oldObject.spec.signerName.startsWith(params.data.domain + '/')"
+  validations:
+    - expression: "variables.signerNameInDomain == true" # if the expression evaluates to false, the validation check is enforced according to the failurePolicy
+      messageExpression: "string(params.data.controllerServiceAccountName)  + ' has failed to delegate ' +  string(request.operation) + ' ' + string(request.name) + ' certificate signing request in the ' + string(request.namespace) + ' namespace. Check the configuration.'"
+      reason: "Forbidden"
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: "installer-csr-policy-binding"
+spec:
+  policyName: "installer-csr-policy"
+  validationActions: [Deny]
+  paramRef:
+    name: "admission-policies-installer-csr-config"
+    namespace: "csr-signer-installer"
+    parameterNotFoundAction: "Deny"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "admission-policies-installer-csr-config"
+  namespace: csr-signer-installer
+data:
+  controllerServiceAccountName: "installer"
+  controllerNamespace: "csr-signer-installer"
+  domain: "example.com"
+```
+
+### Restrict the installer's permissions to delegate
+
+As our installer only needs the ability to act on CSRs for a specific domain,
+we can restrict it's permissions to delegate CSR approval and signing using
+ValidatingAdmissionPolicies:
+
+<!-- TODO validate best posture here, signer names are opaque and don't need to be domains? -->
+
+```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "installer-csr-delegation-policy"
+spec:
+  failurePolicy: Fail
+  paramKind:
+    apiVersion: v1
+    kind: ConfigMap
+  matchConditions:
+    - name: "userIsController"
+      expression: "request.userInfo.username == 'system:serviceaccount:'+params.data.controllerNamespace+':'+params.data.controllerServiceAccountName"
+  matchConstraints:
+    resourceRules:
+      - apiGroups:   ["rbac.authorization.k8s.io"]
+        apiVersions: ["v1"]
+        operations:  ["CREATE"] # rules are immutable, so no need to handle UPDATE
+        resources:   ["clusterroles"]
+  variables:
+    - name: "certificateRules"
+      expression: "object.?rules.orValue([]).filter(rule, rule.apiGroups.exists(group, group == 'certificates.k8s.io'))"
+    - name: "signerRules"
+      expression: "variables.certificateRules.filter(rule, rule.resources.exists(resource, resource == 'signers'))"
+    - name: "approvalOrSigningRules"
+      expression: "variables.signerRules.filter(rule, rule.verbs.exists(verb, verb == 'approve' || verb == 'sign'))"
+    - name: "signerNameInDomain"
+      expression: "variables.approvalOrSigningRules.all(rule, rule.resourceNames.all(name, name.startsWith(params.data.domain + '/')))"
+  validations:
+    - expression: "variables.signerNameInDomain == true" # if the expression evaluates to false, the validation check is enforced according to the failurePolicy
+      messageExpression: "string(params.data.controllerServiceAccountName)  + ' has failed to delegate ' +  string(request.operation) + ' ' + string(request.name) + ' certificate signing request in the ' + string(request.namespace) + ' namespace. Check the configuration.'"
+      reason: "Forbidden"
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: "installer-csr-delegation-policy-binding"
+spec:
+  policyName: "installer-csr-delegation-policy"
+  validationActions: [Deny]
+  paramRef:
+    name: "admission-policies-installer-csr-config"
+    namespace: "csr-signer-installer"
+    parameterNotFoundAction: "Deny"
+```
+
+### Test it out
+
+With these validating admission policies in place, the installer service account may delegate
+CSR approval and signing for some specific part of the domain:
+
+```shell
+$ cat <<EOF | kubectl --as system:serviceaccount:csr-signer-installer:installer create -f
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: specific-csr-approver
+rules:
+- apiGroups:
+  - certificates.k8s.io
+  resourceNames:
+  - example.com/specific
+  resources:
+  - signers
+  verbs:
+  - approve
+EOF
+clusterrole.rbac.authorization.k8s.io/specific-csr-approver created
+```
+
+However, delegating some unrelated domain is forbidden:
+```shell
+$ cat <<EOF | kubectl --as system:serviceaccount:csr-signer-installer:installer create -f
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: specific-csr-approver
+rules:
+- apiGroups:
+  - certificates.k8s.io
+  resourceNames:
+  - kubernetes.io/*
+  resources:
+  - signers
+  verbs:
+  - approve
+EOF
+Error from server (Forbidden): error when creating "-": clusterroles.rbac.authorization.k8s.io "specific-csr-approver" is forbidden: ValidatingAdmissionPolicy 'installer-csr-delegation-policy' with binding 'installer-csr-delegation-policy-binding' denied request: failed expression: variables.signerNameInDomain == true
+```
+
+TODO: why don't we get the message? from the VAP??
+
+TODO: installer can't approve system:masters
+
+TODO: validate that domain parameter is not empty or startsWith is useless?
+
 ## {{% heading "whatsnext" %}}
 
 * Read [Manage TLS Certificates in a Cluster](/docs/tasks/tls/managing-tls-in-a-cluster/)
