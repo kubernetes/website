@@ -404,8 +404,10 @@ uses packet processing logic (such as Linux iptables) to define _virtual_ IP
 addresses which are transparently redirected as needed.
 
 When clients connect to the VIP, their traffic is automatically transported to an
-appropriate endpoint. The environment variables and DNS for Services are actually
-populated in terms of the Service's virtual IP address (and port).
+appropriate endpoint. The `kubelet` running on that node set up environment variables
+for each active Service based on the Service's virtual IP address and port. Similarly,
+DNS creates set of DNS records for each Service by watching the Kubernetes API.
+Either of two ways can be responsible for discovery of service.
 
 ### Avoiding collisions
 
