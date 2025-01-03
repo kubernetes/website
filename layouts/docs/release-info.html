@@ -1,16 +1,16 @@
-{{ define "main" }}
+{{- define "main" -}}
+{{- partial "deprecation-warning.html" . -}}
 {{ if not .Site.Params.deprecated }}
-  {{ .Content }}
+  {{- .Render "content" -}}
 {{ else }}
-{{ partial "deprecation-warning.html" . }}
-<div class="section-index">
+<div class="td-content">
   {{ range where .Site.Pages "Section" "releases" }}
     {{ if not .IsNode }}
       <div class="entry">
         <h5><a href="{{ .RelPermalink }}">{{ .Title }}</a></h5>
       </div>
-    {{ end }}
-  {{ end }}
+    {{- end -}}
+  {{- end -}}
 </div>
-{{ end }}
-{{ end }}
+{{- end -}}
+{{- end -}}

@@ -1,0 +1,15 @@
+{{- $lang := .Site.Language.Lang -}}
+{{- $searchFile := printf "content/%s/search.md" $lang -}}
+<div class="search-bar">
+  <form
+   {{- if fileExists $searchFile }}
+     action="{{ "search/" | relLangURL  }}"
+     data-search-page="{{ "search/" | relLangURL  }}"
+   {{- else }}
+     action="{{ "search/" | relURL }}"
+     data-search-page="{{ "search/" | relURL }}"
+   {{- end -}}
+    method="get">
+  {{- partial "search-input.html" . }}
+  </form>
+</div>

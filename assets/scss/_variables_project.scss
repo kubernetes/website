@@ -2,12 +2,23 @@
 Override variables from the theme here. */
 
 $primary: #326ce5;
-$secondary: #495057;
+$secondary: #4c4c4c;
 
 $light-grey: #f7f7f7;
 $medium-grey: #4c4c4c;
 $dark-grey: #303030;
 $white: #ffffff;
+
+$feature: #daeaf9;
+$feature-inset: #eeeeee;
+
+$td-sidebar-bg-color: rgba($secondary, 0.05);
+
+$link-color: $primary;
+
+$link-hover-decoration: underline;
+
+$info: lighten($primary, 5%);
 
 // tooltip
 $tooltip-bg: #555;
