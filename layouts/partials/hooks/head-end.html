@@ -61,3 +61,7 @@
   {{- $bannerDismissJs := resources.Get "js/banner-dismiss.js" -}}
 <script defer src="{{ $bannerDismissJs.RelPermalink }}"></script>
 {{- end -}}
+
+{{- if or (.HasShortcode "code_sample") (.HasShortcode "code") (.HasShortcode "codenew") -}}
+    <link rel="stylesheet" href="/css/toastr-2.1.4.min.css">
+{{- end -}}
