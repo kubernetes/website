@@ -407,7 +407,7 @@ in the Pod Lifecycle documentation.
 To understand the context for why Kubernetes wraps a common Pod API in other resources (such as {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} or {{< glossary_tooltip text="Deployments" term_id="deployment" >}}), you can read about the prior art, including:
 
 * [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
-* [Borg](https://research.google.com/pubs/pub43438.html)
+* [Borg](https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/)
 * [Marathon](https://github.com/d2iq-archive/marathon)
 * [Omega](https://research.google/pubs/pub41684/)
 * [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/).
