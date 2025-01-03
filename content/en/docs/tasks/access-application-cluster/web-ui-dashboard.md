@@ -68,7 +68,7 @@ by running the following command:
 kubectl proxy
 ```
 
-Kubectl will make Dashboard available at [http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/).
+Kubectl will make Dashboard available at [http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard-kong-proxy:kong-proxy-tls/proxy/](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard-kong-proxy:kong-proxy-tls/proxy/).
 
 The UI can _only_ be accessed from the machine where the command is executed. See `kubectl proxy --help` for more options.
 
