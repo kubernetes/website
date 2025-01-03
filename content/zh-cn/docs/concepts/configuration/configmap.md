@@ -556,7 +556,7 @@ nor to mutate the contents of the `data` or the `binaryData` field. You can
 only delete and recreate the ConfigMap. Because existing Pods maintain a mount point
 to the deleted ConfigMap, it is recommended to recreate these pods.
 -->
-一旦某 ConfigMap 被标记为不可变更，则 _无法_ 逆转这一变化，，也无法更改
+一旦某 ConfigMap 被标记为不可变更，则 **无法** 逆转这一变化，也无法更改
 `data` 或 `binaryData` 字段的内容。你只能删除并重建 ConfigMap。
 因为现有的 Pod 会维护一个已被删除的 ConfigMap 的挂载点，建议重新创建这些 Pods。
 
