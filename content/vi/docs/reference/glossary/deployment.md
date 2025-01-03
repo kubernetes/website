@@ -1,7 +1,7 @@
 ---
 title: Deployment
 id: deployment
-date: 2019-29-11
+date: 2019-11-29
 full_link: /docs/concepts/workloads/controllers/deployment/
 short_description: >
   Một API object quản lý việc nhân rộng bản sao của ứng dụng.
