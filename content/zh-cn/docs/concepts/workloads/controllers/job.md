@@ -273,7 +273,7 @@ Job 的名字必须是合法的 [DNS 子域名](/zh-cn/docs/concepts/overview/wo
 [DNS 标签](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)规则。
 即使该名字被要求遵循 DNS 子域名规则，也不得超过 63 个字符。
 
-Job 配置还需要一个 [`.spec` 节](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
+Job 配置还需要一个 [`.spec` 部分](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
 
 <!--
 ### Job Labels
