@@ -3,9 +3,12 @@
   "scripts": {
     "update:pkgs": "npx npm-check-updates -u"
   },
+  "dependencies": {
+    "docsy": "github:google/docsy#v0.7.2"
+  },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
-    "docsy": "github:google/docsy#v0.5.x",
+    "docsy": "github:google/docsy#v0.7.2",
     "postcss-cli": "^11.0.0"
   },
   "spelling": "cSpell:ignore docsy pkgs -"
