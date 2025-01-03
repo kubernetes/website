@@ -520,6 +520,24 @@ section.
 {{% code_sample file="service/networking/tls-example-ingress.yaml" %}}
 
 {{< note >}}
+As an alternative to make TLS work on the default rule or when faced with specific 
+Subject Alternative Name requirements (e.g mandatory IPs instead of FQDN), user can update the 
+Ingress Controller to set as default certificate a custom Secret that satifies those requirements.
+
+If using Nginx Ingress:
+
+kubectl -n ingress-nginx edit deployment ingress-controller
+
+Edit the args section as follows:
+
+args:
+ - /nginx-ingress-controller
+ - '--publish-service=$(POD_NAMESPACE)/ingress-nginx-controller'
+ - '--default-ssl-certificate=default/testsecret-tls'
+ - ...
+{{< /note >}}
+
+{{< note >}}
 There is a gap between TLS features supported by various Ingress
 controllers. Please refer to documentation on
 [nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/),
