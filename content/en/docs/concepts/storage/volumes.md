@@ -14,21 +14,47 @@ weight: 10
 
 <!-- overview -->
 
-On-disk files in a container are ephemeral, which presents some problems for
+Kubernetes _volumes_ provide a way for containers in a {{< glossary_tooltip text="pods" term_id="pod" >}}
+to access and share data via the filesystem. There are different kinds of volume that you can use for different purposes,
+such as:
+
+- populating a configuration file based on a {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}
+  or a {{< glossary_tooltip text="Secret" term_id="secret" >}}
+- providing some temporary scratch space for a pod
+- sharing a filesystem between two different containers in the same pod
+- sharing a filesystem between two different pods (even if those Pods run on different nodes)
+- durably storing data so that it stays available even if the Pod restarts or is replaced
+- passing configuration information to an app running in a container, based on details of the Pod
+  the container is in
+  (for example: telling a {{< glossary_tooltip text="sidecar container" term_id="sidecar-container" >}}
+  what namespace the Pod is running in)
+- providing read-only access to data in a different container image
+
+Data sharing can be between different local processes within a container, or between different containers,
+or between Pods.
+
+## Why volumes are important
+
+- **Data persistence:** On-disk files in a container are ephemeral, which presents some problems for
 non-trivial applications when running in containers. One problem occurs when 
-a container crashes or is stopped. Container state is not saved so all of the 
+a container crashes or is stopped, the container state is not saved so all of the 
 files that were created or modified during the lifetime of the container are lost. 
-During a crash, kubelet restarts the container with a clean state. 
-Another problem occurs when multiple containers are running in a `Pod` and 
+During a crash, kubelet restarts the container with a clean state.
+
+- **Shared storage:** Another problem occurs when multiple containers are running in a `Pod` and 
 need to share files. It can be challenging to setup 
 and access a shared filesystem across all of the containers.
-The Kubernetes {{< glossary_tooltip text="volume" term_id="volume" >}} abstraction
-solves both of these problems.
-Familiarity with [Pods](/docs/concepts/workloads/pods/) is suggested.
 
+The Kubernetes {{< glossary_tooltip text="volume" term_id="volume" >}} abstraction
+can help you to solve both of these problems.
+
+Before you learn about volumes, PersistentVolumes and PersistentVolumeClaims, you should read up
+about {{< glossary_tooltip term_id="Pod" text="Pods" >}} and make sure that you understand how
+Kubernetes uses Pods to run containers.
+  
 <!-- body -->
 
-## Background
+## How volumes work
 
 Kubernetes supports many types of volumes. A {{< glossary_tooltip term_id="pod" text="Pod" >}}
 can use any number of volume types simultaneously.
@@ -45,14 +71,15 @@ volume type used.
 
 To use a volume, specify the volumes to provide for the Pod in `.spec.volumes`
 and declare where to mount those volumes into containers in `.spec.containers[*].volumeMounts`.
-A process in a container sees a filesystem view composed from the initial contents of
+
+When a pod is launched, a process in the container sees a filesystem view composed from the initial contents of
 the {{< glossary_tooltip text="container image" term_id="image" >}}, plus volumes
 (if defined) mounted inside the container.
 The process sees a root filesystem that initially matches the contents of the container
 image.
 Any writes to within that filesystem hierarchy, if allowed, affect what that process views
 when it performs a subsequent filesystem access.
-Volumes mount at the [specified paths](#using-subpath) within
+Volumes are mounted at [specified paths](#using-subpath) within
 the image.
 For each container defined within a Pod, you must independently specify where
 to mount each volume that the container uses.
