@@ -106,6 +106,29 @@ kube-proxy on the nodes in your cluster.
 
 {{< glossary_definition term_id="container-runtime" length="all" >}}
 
+## Ability to self-heal
+
+The idea behind self-healing Kubernetes is simple: If a container fails, Kubernetes automatically redeploys the afflicted 
+container to its desired state to restore operations
+
+Self-healing Kubernetes has four capabilities :
+
+ - restart failed containers.
+ - replace containers that require updates, such as a new software version.
+ - disable containers that don't respond to predefined health checks.
+ - prevent containers from appearing to users or other containers until they are ready.
+
+Ideally, container detection and restoration should be seamless and immediate, minimize application disruption and mitigate negative UX.
+Organizations can specify how Kubernetes performs health checks and what actions it should take after it detects a problem.
+
+How does self-healing work with Kubernetes? :
+ 
+- Pending. The pod has been created but is not running.
+- Running. The pod and its containers are running without issue
+- Succeeded. The pod completes its container lifecycle properly -- it runs and stops normally.
+- Failed. At least one container within the pod has failed, and the pod is terminated.
+- Unknown. The pod's state and disposition cannot be determined.
+
 ## Addons
 
 Addons use Kubernetes resources ({{< glossary_tooltip term_id="daemonset" >}},
