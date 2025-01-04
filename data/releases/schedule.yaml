@@ -7,8 +7,8 @@ schedules:
 - endOfLifeDate: "2026-02-28"
   maintenanceModeStartDate: "2025-12-28"
   next:
-    release: 1.32.1
     cherryPickDeadline: "2025-01-10"
+    release: 1.32.1
     targetDate: "2025-01-14"
   previousPatches:
   - release: 1.32.0
