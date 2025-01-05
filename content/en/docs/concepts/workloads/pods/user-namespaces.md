@@ -177,6 +177,8 @@ to the `kubelet` user:
   configuration.
 
 * The subordinate ID count must be a multiple of 65536
+  (for Kubernetes {{< skew currentVersion >}} the subordinate ID count for each Pod is hard-coded
+  to 65536).
 
 * The subordinate ID count must be at least `65536 x <maxPods>` where `<maxPods>`
   is the maximum number of pods that can run on the node.
