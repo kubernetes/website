@@ -57,12 +57,12 @@ Pod Security Admissionは、複数のセキュリティ水準の標準的な集�
 ## 1. Namespaceの権限をレビューする {#review-namespace-permissions}
 
 Pod Security Admissionは[Namespaceのラベル](/docs/concepts/security/pod-security-admission/#pod-security-admission-labels-for-namespaces)で制御します。
-これはNamespaceを更新(もしくは作成やパッチ)できる人物が、同じNamespaceのPodセキュリティ基準を修正できることを意味しており、強固な制限ポリシーを迂回するために利用される可能性があります。
+これはNamespaceを更新(もしくは作成やパッチ)できる人物が、同じNamespaceのPodセキュリティ標準を修正できることを意味しており、強固な制限ポリシーを迂回するために利用される可能性があります。
 ここから先に進む前に、信頼済みの特権的なユーザーのみがNamespaceに関する権限を有することを確実にしておきましょう。
 
 ## 2. PodSecurityPolicyをシンプルにして標準化する 
 
-この節では、Podを変更するPodSecurityPolicyの定義を減らしていき、Podセキュリティ基準のスコープ外のオプションを除去します。
+この節では、Podを変更するPodSecurityPolicyの定義を減らしていき、Podセキュリティ標準のスコープ外のオプションを除去します。
 ポリシーの修正前に、編集対象のオリジナルのPodSecurityPolicyについて、オフラインコピーを作成しておくことを推奨します。
 複製したPSPの名前には異なる文字を追加しておくべきです。
 (例えば名前の先頭に`0`を追加するなど)。
@@ -77,7 +77,7 @@ Pod Security Admissionは[Namespaceのラベル](/docs/concepts/security/pod-sec
 
 手始めに、Podの検証処理を損なわないような形で、Pod変更のみを行う設定項目を除去することができます。
 PSPでPodの変更のみを行うフィールドは次のとおりです。
-([PodSecurityPolicyとPodセキュリティ基準の対応関係](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)にも一覧があります)
+([PodSecurityPolicyとPodセキュリティ標準の対応関係](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)にも一覧があります)
 
 - `.spec.defaultAllowPrivilegeEscalation`
 - `.spec.runtimeClass.defaultRuntimeClassName`
@@ -90,15 +90,15 @@ PSPでPodの変更のみを行うフィールドは次のとおりです。
 [更新したポリシーをロールアウトする](#psp-update-rollout)を参照して変更を安全にロールアウトするための方法を確認することをお勧めします。
 {{< /caution >}}
 
-### 2.b. Podセキュリティ基準が対応できないオプションを排除する {#eliminate-non-standard-options}
+### 2.b. Podセキュリティ標準が対応できないオプションを排除する {#eliminate-non-standard-options}
 
 
-PodSecurityPolicyにはPodセキュリティ基準でカバーできない設定項目があります。
+PodSecurityPolicyにはPodセキュリティ標準でカバーできない設定項目があります。
 このようなオプションを強制する必要がある場合、(この記事のスコープ外の話題ですが)、Pod Security Admissionを[アドミッションWebHook](/docs/reference/access-authn-authz/extensible-admission-controllers/)で補強する必要があるでしょう。
 
-まず、Podセキュリティ基準がカバーしない、純粋にPodの検証のみを行う設定項目は除去できます。
+まず、Podセキュリティ標準がカバーしない、純粋にPodの検証のみを行う設定項目は除去できます。
 この条件に該当するフィールドは以下のとおりです。
-([PodSecurityPolicyとPodセキュリティ基準の対応関係](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)には"no opinion"と表記されています)
+([PodSecurityPolicyとPodセキュリティ標準の対応関係](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)には"no opinion"と表記されています)
 
 - `.spec.allowedHostPaths`
 - `.spec.allowedFlexVolumes`
@@ -118,7 +118,7 @@ PodSecurityPolicyにはPodセキュリティ基準でカバーできない設定
 - `.spec.supplementalGroups`
 - `.spec.fsGroup`
 
-その他のPod変更に関わるフィールドはPodセキュリティ基準を正確にサポートするためには必要なものであるため、ケースバイケースでの取り扱いが求められるでしょう。
+その他のPod変更に関わるフィールドはPodセキュリティ標準を正確にサポートするためには必要なものであるため、ケースバイケースでの取り扱いが求められるでしょう。
 
 - `.spec.requiredDropCapabilities` - Restrictedプロフィールでdrop `ALL`するために必要です。
 - `.spec.seLinux` - (`MustRunAs`ルールがある場合のみPodを変更)Baseline/RestrictedでSELinux関連の要件を強制するために必要です。
@@ -178,14 +178,14 @@ PodSecurityPolicyにはPodセキュリティ基準でカバーできない設定
 
 ### 3.a. 適切なPodのセキュリティ水準を特定する {#identify-appropriate-level}
 
-[Podセキュリティ基準(Pod Security Standards, PSS)](/docs/concepts/security/pod-security-standards/)のレビューを始めます。
+[Podセキュリティ標準(Pod Security Standards, PSS)](/docs/concepts/security/pod-security-standards/)のレビューを始めます。
 PSSには3つの異なるセキュリティ水準があることに慣れておきましょう。
 
 NamespaceにおけるPodのセキュリティ水準を決定する方法はいくつかあります。
 
 1. **Namespaceのセキュリティ要求を満たすように決める** - 対象のNamespaceで求められるアクセスレベルについて熟知しているのであれば、新しいクラスターに対して実施するのと同様のやり方で、Namespaceの要件に基づいた適切なアクセス水準を選べるはずです。
-2. **既存のPodSecurityPolicyに基づいて決める**  - [PodSecurityPolicyとPodセキュリティ基準の対応関係](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)のレファレンスを用いることで、それぞれのPSPをPodセキュリティ基準の各セキュリティ水準に対応させることができます。
-PSPがPodセキュリティ基準に対応しない場合は、あえて制限の多いレベルにするか、それともPSPと同等程度に許容的なセキュリティ水準に留めておくか、あなたが決定する必要があるかも知れません。
+2. **既存のPodSecurityPolicyに基づいて決める**  - [PodSecurityPolicyとPodセキュリティ標準の対応関係](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)のレファレンスを用いることで、それぞれのPSPをPodセキュリティ標準の各セキュリティ水準に対応させることができます。
+PSPがPodセキュリティ標準に対応しない場合は、あえて制限の多いレベルにするか、それともPSPと同等程度に許容的なセキュリティ水準に留めておくか、あなたが決定する必要があるかも知れません。
 3. **既存のPodを見て決める** - 下記の[Podのセキュリティ水準を検証する](#verify-pss-level)の手順を用いると、BaselineおよびRestrictedレベルの両方について、既存のワークロードに対して十分許容的なものかどうかをテストした上で、妥当で最小特権なセキュリティ水準を選択することが可能です。
 
 
