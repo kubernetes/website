@@ -198,7 +198,9 @@ these entries for the `kubelet` user:
 #   name:firstID:count of IDs
 # where
 # - firstID is 65536 (the minimum value possible)
-# - count of IDs is 110 (default limit for number of) * 65536
+# - count of IDs is 110 * 65536
+#   (110 is the default limit for number of pods on the node)
+
 kubelet:65536:7208960
 ```
 
