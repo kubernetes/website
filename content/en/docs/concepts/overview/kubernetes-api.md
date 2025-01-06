@@ -193,7 +193,10 @@ request headers as follows:
 </table>
 
 {{< warning >}}
-Please note the validation rules within OpenAPI schemas are incomplete and additional validation occurs in the code of the kube-apiserver. If precise and complete verification is required,  a `kubectl apply --dry-run` runs all the applicable validation.
+The validation rules published as part of OpenAPI schemas may not be complete, and usually aren't.
+Additional validation occurs within the API server. If you want precise and complete verification,
+a `kubectl apply --dry-run=server` runs all the applicable validation (and also activates admission-time
+checks).
 {{< /warning >}}
 
 ### OpenAPI V3
