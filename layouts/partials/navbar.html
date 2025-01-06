@@ -1,6 +1,6 @@
 {{ $cover := .HasShortcode "blocks/cover" }}
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark {{ if $cover}} td-navbar-cover {{ end }} flex-column flex-md-row td-navbar" data-auto-burger="primary">
-        <a class="navbar-brand img-fluid" href="{{ .Site.Home.RelPermalink }}"></a>
+        <a class="navbar-brand img-fluid" href="{{ .Site.Home.RelPermalink }}" aria-label="Link to home page"></a>
 	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
 		
 		<ul class="navbar-nav mt-2 mt-lg-0">
