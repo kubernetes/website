@@ -251,7 +251,7 @@ sandbox image by setting the following config:
 
 ```toml
 [plugins."io.containerd.grpc.v1.cri"]
-  sandbox_image = "registry.k8s.io/pause:3.2"
+  sandbox_image = "registry.k8s.io/pause:3.10"
 ```
 
 You might need to restart `containerd` as well once you've updated the config file: `systemctl restart containerd`.
@@ -293,7 +293,7 @@ config value:
 
 ```toml
 [crio.image]
-pause_image="registry.k8s.io/pause:3.6"
+pause_image="registry.k8s.io/pause:3.10"
 ```
 
 This config option supports live configuration reload to apply this change: `systemctl reload crio` or by sending
