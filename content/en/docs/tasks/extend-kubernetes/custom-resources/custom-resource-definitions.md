@@ -506,7 +506,7 @@ In [Validation Schema Publishing](#publish-validation-schema-in-openapi),
 
 ### RawExtension
 
-RawExtensions (as in [`runtime.RawExtension`](/docs/reference//kubernetes-api/workload-resources/controller-revision-v1#RawExtension))
+RawExtensions (as in [`runtime.RawExtension`](/docs/reference/kubernetes-api/workload-resources/controller-revision-v1#RawExtension))
 holds complete Kubernetes objects, i.e. with `apiVersion` and `kind` fields.
 
 It is possible to specify those embedded objects (both completely without constraints or partially specified)
