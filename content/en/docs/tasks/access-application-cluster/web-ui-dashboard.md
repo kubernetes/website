@@ -65,12 +65,12 @@ You can enable access to the Dashboard using the `kubectl` command-line tool,
 by running the following command:
 
 ```
-kubectl proxy
+kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443
 ```
 
-Kubectl will make Dashboard available at [http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/).
+Kubectl will make Dashboard available at [https://localhost:8443](https://localhost:8443).
 
-The UI can _only_ be accessed from the machine where the command is executed. See `kubectl proxy --help` for more options.
+The UI can _only_ be accessed from the machine where the command is executed. See `kubectl port-forward --help` for more options.
 
 {{< note >}}
 The kubeconfig authentication method does **not** support external identity providers
