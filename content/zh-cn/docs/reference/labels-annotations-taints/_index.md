@@ -4938,6 +4938,215 @@ Starting in v1.16, this annotation was removed in favor of
 [Pod 优先级](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)。
 {{< /note >}}
 
+### jobset.sigs.k8s.io/jobset-name
+
+<!--
+Type: Label, Annotation
+
+Example:  `jobset.sigs.k8s.io/jobset-name: "my-jobset"`
+
+Used on: Jobs, Pods
+
+This label/annotation is used to store the name of the JobSet that a Job or Pod belongs to.
+[JobSet](https://jobset.sigs.k8s.io) is an extension API that you can deploy into your Kubernetes cluster.
+-->
+类别：标签、注解
+
+例子：`jobset.sigs.k8s.io/jobset-name: "my-jobset"`
+
+用于：Job、Pod
+
+此标签/注解用于存储 Job 或 Pod 所属的 JobSet 的名称。
+[JobSet](https://jobset.sigs.k8s.io) 是一个你可以部署到 Kubernetes 集群中的扩展 API。
+
+### jobset.sigs.k8s.io/replicatedjob-replicas
+
+<!--
+Type: Label, Annotation
+
+Example: `jobset.sigs.k8s.io/replicatedjob-replicas: "5"`
+
+Used on: Jobs, Pods
+
+This label/annotation specifies the number of replicas for a ReplicatedJob.
+-->
+类别：标签、注解
+
+例子：`jobset.sigs.k8s.io/replicatedjob-replicas: "5"`
+
+用于：Job、Pod
+
+此标签/注解指定 ReplicatedJob 副本的数量。
+
+### jobset.sigs.k8s.io/replicatedjob-name
+
+<!--
+Type: Label, Annotation
+
+Example: `jobset.sigs.k8s.io/replicatedjob-name: "my-replicatedjob"`
+
+Used on: Jobs, Pods
+
+This label or annotation stores the name of the replicated job that this Job or Pod is part of.
+-->
+类别：标签、注解
+
+例子：`jobset.sigs.k8s.io/replicatedjob-name: "my-replicatedjob"`
+
+用于：Job、Pod
+
+此标签或注解存储属于 Job 或 Pod 一部分的作业副本的名称。
+
+### jobset.sigs.k8s.io/job-index
+
+<!--
+Type: Label, Annotation
+
+Example: `jobset.sigs.k8s.io/job-index: "0"`
+
+Used on: Jobs, Pods
+
+This label/annotation is set by the JobSet controller on child Jobs and Pods. It contains the index of the Job replica within its parent ReplicatedJob.
+-->
+类别：标签、注解
+
+例子：`jobset.sigs.k8s.io/job-index: "0"`
+
+用于：Job、Pod
+
+此标签/注解由子 Job 和 Pod 上的 JobSet 控制器进行设置。
+它包含 Job 副本在其父 ReplicatedJob 中的索引。
+
+### jobset.sigs.k8s.io/job-key
+
+<!--
+Type: Label, Annotation
+
+Example: `jobset.sigs.k8s.io/job-key: "0f1e93893c4cb372080804ddb9153093cb0d20cefdd37f653e739c232d363feb"`
+
+Used on: Jobs, Pods
+
+The JobSet controller sets this label (and also an annotation with the same key)  on child Jobs and
+Pods of a JobSet. The value is the SHA256 hash of the namespaced Job name.
+-->
+类别：标签、注解
+
+例子：`jobset.sigs.k8s.io/job-key: "0f1e93893c4cb372080804ddb9153093cb0d20cefdd37f653e739c232d363feb"`
+
+用于：Job、Pod
+
+JobSet 控制器在 JobSet 的子 Job 和 Pod 上设置此标签（以及具有相同键的注解）。
+取值为命名空间内 Job 名称的 SHA256 哈希。
+
+### alpha.jobset.sigs.k8s.io/exclusive-topology
+
+<!--
+Type: Annotation
+
+Example: `alpha.jobset.sigs.k8s.io/exclusive-topology: "zone"`
+
+Used on: JobSets, Jobs
+
+You can set this label/annotation on a [JobSet](https://jobset.sigs.k8s.io) to ensure exclusive Job
+placement per topology group. You can also define this label or annotation on a replicated job
+template. Read the documentation for JobSet to learn more.
+-->
+类别：注解
+
+例子：`alpha.jobset.sigs.k8s.io/exclusive-topology: "zone"`
+
+用于：JobSet、Job
+
+你可以在 [JobSet](https://jobset.sigs.k8s.io) 上设置此标签/注解，以确保每个拓扑组的独占 Job 调度。
+你也可以在作业副本模板上定义此标签或注解。有关细节查阅 JobSet 文档。
+
+### alpha.jobset.sigs.k8s.io/node-selector
+
+<!--
+Type: Annotation
+
+Example: `alpha.jobset.sigs.k8s.io/node-selector: "true"`
+
+Used on: Jobs, Pods
+
+This label/annotation can be applied to a JobSet. When it's set, the JobSet controller modifies the Jobs and their corresponding Pods by adding node selectors and tolerations. This ensures exclusive job placement per topology domain, restricting the scheduling of these Pods to specific nodes based on the strategy.
+-->
+类别：注解
+
+例子：`alpha.jobset.sigs.k8s.io/node-selector: "true"`
+
+用于：Job、Pod
+
+此标签/注解可以被应用到 JobSet。当此字段被设置时，
+JobSet 控制器通过添加节点选择算符和容忍度来修改 Job 及其对应的 Pod。
+这确保了每个拓扑域的作业独占调度，基于策略限制这些 Pod 调度到特定节点上。
+
+### alpha.jobset.sigs.k8s.io/namespaced-job
+
+<!--
+Type: Label
+
+Example: `alpha.jobset.sigs.k8s.io/namespaced-job: "default_myjobset-replicatedjob-0"`
+
+Used on: Nodes
+
+This label is either set manually or automatically (for example, a cluster autoscaler) on the nodes. When `alpha.jobset.sigs.k8s.io/node-selector` is set to  `"true"`, the  JobSet controller adds a nodeSelector to this node label (along with the toleration to the taint `alpha.jobset.sigs.k8s.io/no-schedule` disucssed next).
+-->
+类别：标签
+
+例子：`alpha.jobset.sigs.k8s.io/namespaced-job: "default_myjobset-replicatedjob-0"`
+
+用于：Node
+
+此标签在节点上手动或自动设置（例如，集群自动扩缩器）。
+当 `alpha.jobset.sigs.k8s.io/node-selector` 被设置为 `"true"` 时，
+JobSet 控制器会向此节点标签添加 nodeSelector
+（以及下一节讨论的针对 `alpha.jobset.sigs.k8s.io/no-schedule` 污点的容忍度）。
+
+### alpha.jobset.sigs.k8s.io/no-schedule
+
+<!--
+Type: Taint
+
+Example: `alpha.jobset.sigs.k8s.io/no-schedule: "NoSchedule"`
+
+Used on: Nodes
+
+This taint is either set manually or automatically (for example, a cluster autoscaler) on the nodes. When `alpha.jobset.sigs.k8s.io/node-selector` is set to  `"true"`, the  JobSet controller adds a toleration to this node taint (along with the node selector to the label `alpha.jobset.sigs.k8s.io/namespaced-job` disucssed previously).
+-->
+类别：污点
+
+例子：`alpha.jobset.sigs.k8s.io/no-schedule: "NoSchedule"`
+
+用于：Node
+
+此污点在节点上手动或自动设置（例如，集群自动扩缩器）。
+当 `alpha.jobset.sigs.k8s.io/node-selector` 设置为 `"true"` 时，
+JobSet 控制器会向此节点污点添加容忍度
+（以及上一节讨论的针对 `alpha.jobset.sigs.k8s.io/namespaced-job` 标签的节点选择算符）。
+
+### jobset.sigs.k8s.io/coordinator
+
+<!--
+Type: Annotation, Label
+
+Example: `jobset.sigs.k8s.io/coordinator: "myjobset-workers-0-0.headless-svc"`
+
+Used on: Jobs, Pods
+
+This annotation/label is used on Jobs and Pods to store a stable network endpoint where the coordinator
+pod can be reached if the [JobSet](https://jobset.sigs.k8s.io) spec defines the `.spec.coordinator` field.
+-->
+类别：注解、标签
+
+例子：`jobset.sigs.k8s.io/coordinator: "myjobset-workers-0-0.headless-svc"`
+
+用于：Job、Pod
+
+此注解/标签在 Job 和 Pod 上用于存储一个稳定的网络端点，
+以便在 [JobSet](https://jobset.sigs.k8s.io) 规约定义 `.spec.coordinator` 字段时，
+可以访问 `coordinator` Pod。
+
 <!--
 ## Annotations used for audit
 -->
