@@ -1,11 +1,11 @@
 ---
 reviewers:
-  - lavalamp
-  - davidopp
-  - derekwaynecarr
-  - erictune
-  - janetkuo
-  - thockin
+- lavalamp
+- davidopp
+- derekwaynecarr
+- erictune
+- janetkuo
+- thockin
 title: Admission Control in Kubernetes
 linkTitle: Admission Control
 content_type: concept
@@ -13,20 +13,13 @@ weight: 40
 ---
 
 <!-- overview -->
-
 This page provides an overview of _admission controllers_.
 
 An admission controller is a piece of code that intercepts requests to the
 Kubernetes API server prior to persistence of the resource, but after the request
 is authenticated and authorized.
 
-Several important features of Kubernetes require an admission controller to be enabled in order
-to properly support the feature. As a result, a Kubernetes API server that is not properly
-configured with the right set of admission controllers is an incomplete server that will not
-support all the features you expect.
-
 <!-- body -->
-
 ## What are they?
 
 Admission controllers are code within the Kubernetes
@@ -198,14 +191,14 @@ of `system:masters`.
 **Type**: Mutating.
 
 This admission controller observes creation of `Ingress` objects that do not request any specific
-ingress class and automatically adds a default ingress class to them. This way, users that do not
+ingress class and automatically adds a default ingress class to them.  This way, users that do not
 request any special ingress class do not need to care about them at all and they will get the
 default one.
 
 This admission controller does not do anything when no default ingress class is configured. When more than one ingress
 class is marked as default, it rejects any creation of `Ingress` with an error and an administrator
 must revisit their `IngressClass` objects and mark only one as default (with the annotation
-"ingressclass.kubernetes.io/is-default-class"). This admission controller ignores any `Ingress`
+"ingressclass.kubernetes.io/is-default-class").  This admission controller ignores any `Ingress`
 updates; it acts only on creation.
 
 See the [Ingress](/docs/concepts/services-networking/ingress/) documentation for more about ingress
@@ -243,11 +236,11 @@ The default value for `default-not-ready-toleration-seconds` and `default-unreac
 
 **Type**: Validating.
 
-This admission controller rejects all net-new usage of the `Service` field `externalIPs`. This
+This admission controller rejects all net-new usage of the `Service` field `externalIPs`.  This
 feature is very powerful (allows network traffic interception) and not well
-controlled by policy. When enabled, users of the cluster may not create new
+controlled by policy.  When enabled, users of the cluster may not create new
 Services which use `externalIPs` and may not add new values to `externalIPs` on
-existing `Service` objects. Existing uses of `externalIPs` are not affected,
+existing `Service` objects.  Existing uses of `externalIPs` are not affected,
 and users may remove values from `externalIPs` on existing `Service` objects.
 
 Most users do not need this feature at all, and cluster admins should consider disabling it.
@@ -265,8 +258,8 @@ This admission controller is disabled by default.
 This admission controller mitigates the problem where the API server gets flooded by
 requests to store new Events. The cluster admin can specify event rate limits by:
 
-- Enabling the `EventRateLimit` admission controller;
-- Referencing an `EventRateLimit` configuration file from the file provided to the API
+* Enabling the `EventRateLimit` admission controller;
+* Referencing an `EventRateLimit` configuration file from the file provided to the API
   server's command line flag `--admission-control-config-file`:
 
 ```yaml
@@ -279,10 +272,10 @@ plugins:
 
 There are four types of limits that can be specified in the configuration:
 
-- `Server`: All Event requests (creation or modifications) received by the API server share a single bucket.
-- `Namespace`: Each namespace has a dedicated bucket.
-- `User`: Each user is allocated a bucket.
-- `SourceAndObject`: A bucket is assigned by each combination of source and
+* `Server`: All Event requests (creation or modifications) received by the API server share a single bucket.
+* `Namespace`: Each namespace has a dedicated bucket.
+* `User`: Each user is allocated a bucket.
+* `SourceAndObject`: A bucket is assigned by each combination of source and
   involved object of the event.
 
 Below is a sample `eventconfig.yaml` for such a configuration:
