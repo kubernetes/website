@@ -1,11 +1,11 @@
 ---
 reviewers:
-  - lavalamp
-  - davidopp
-  - derekwaynecarr
-  - erictune
-  - janetkuo
-  - thockin
+- lavalamp
+- davidopp
+- derekwaynecarr
+- erictune
+- janetkuo
+- thockin
 title: Admission Control in Kubernetes
 linkTitle: Admission Control
 content_type: concept
