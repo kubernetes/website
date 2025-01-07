@@ -3,9 +3,10 @@ title: Kubernetes z-pages
 content_type: reference
 weight: 60
 reviewers:
-- dashpole
+  - dashpole
+description: >-
+  Provides runtime diagnostics for Kubernetes components, offering insights into traces, stats, and debugging information.
 ---
-
 
 <!-- overview -->
 
