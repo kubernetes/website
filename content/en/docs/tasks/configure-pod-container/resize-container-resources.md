@@ -259,6 +259,25 @@ Delete your namespace:
 kubectl delete namespace qos-example
 ```
 
+## Troubleshooting
+
+{{% thirdparty-content %}}
+
+If updating the pod spec returns an `invalid spec` error, ensure that the feature is enabled on all of the following components:
+
+- API server
+- Controller manager
+- Scheduler
+- All kubelets (across all worker nodes, and all control plane nodes if your cluster has them)
+
+
+If the updated spec is accepted, but pods are stuck in the `InProgress` state or otherwise unable to run,
+ensure that your environment is configured to use a [container runtime](/docs/setup/production-environment/container-runtimes/)
+that supports in-place changes to container resources. For example:
+
+- [containerd](https://containerd.io/) (version 1.6.9 or greater)
+- [cri-o](https://cri-o.io/) (any version)
+
 
 ## {{% heading "whatsnext" %}}
 
