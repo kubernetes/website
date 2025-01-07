@@ -235,14 +235,6 @@ Used on: All Objects (typically used on
 [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
 The current version of the application.
-
-Common forms of values include:
-
-- [semantic version](https://semver.org/spec/v1.0.0.html)
-- the Git [revision hash](https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection#_single_revisions)
-  for the source code.
-
-One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 -->
 ### app.kubernetes.io/version {#app-kubernetes-io-version}
 
@@ -252,6 +244,15 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 用于：所有对象（通常用于[工作负载资源](/zh-cn/docs/reference/kubernetes-api/workload-resources/)）。
 
+<!--
+Common forms of values include:
+
+- [semantic version](https://semver.org/spec/v1.0.0.html)
+- the Git [revision hash](https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection#_single_revisions)
+  for the source code.
+
+One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
+-->
 值的常见形式包括：
 
 - [语义版本](https://semver.org/spec/v1.0.0.html)
@@ -315,14 +316,6 @@ Use of this annotation is Alpha.
 For Kubernetes version {{< skew currentVersion >}}, you can use this annotation on Secrets, ConfigMaps,
 or custom resources if the CustomResourceDefinition
 defining them has the `applyset.kubernetes.io/is-parent-type` label.
-
-Part of the specification used to implement
-[ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune).
-This annotation is applied to the parent object used to track an ApplySet to optimize listing of
-ApplySet member objects. It is optional in the ApplySet specification, as tools can perform discovery
-or use a different optimization. However, as of Kubernetes version {{< skew currentVersion >}},
-it is required by kubectl. When present, the value of this annotation must be a comma separated list
-of the group-kinds, in the fully-qualified name format, i.e. `<resource>.<group>`.
 -->
 ### applyset.kubernetes.io/contains-group-resources (alpha) {#applyset-kubernetes-io-contains-group-resources}
 
@@ -338,6 +331,15 @@ of the group-kinds, in the fully-qualified name format, i.e. `<resource>.<group>
 打了 `applyset.kubernetes.io/is-parent-type` 标签，
 那么你可以在 Secret、ConfigMap 或自定义资源上使用此注解。
 
+<!--
+Part of the specification used to implement
+[ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune).
+This annotation is applied to the parent object used to track an ApplySet to optimize listing of
+ApplySet member objects. It is optional in the ApplySet specification, as tools can perform discovery
+or use a different optimization. However, as of Kubernetes version {{< skew currentVersion >}},
+it is required by kubectl. When present, the value of this annotation must be a comma separated list
+of the group-kinds, in the fully-qualified name format, i.e. `<resource>.<group>`.
+-->
 规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
 此注解应用于父对象，这些父对象用于跟踪 ApplySet 以优化 ApplySet 成员对象列表。
 它在 ApplySet 规范中是可选的，因为工具可以执行发现或使用不同的优化。
@@ -406,15 +408,6 @@ Use of this label is Alpha.
 For Kubernetes version {{< skew currentVersion >}}, you can use this label on Secrets, ConfigMaps,
 or custom resources if the CustomResourceDefinition
 defining them has the `applyset.kubernetes.io/is-parent-type` label.
-
-Part of the specification used to implement
-[ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune).
-This label is what makes an object an ApplySet parent object.
-Its value is the unique ID of the ApplySet, which is derived from the identity of the parent
-object itself. This ID **must** be the base64 encoding (using the URL safe encoding of RFC4648) of
-the hash of the group-kind-name-namespace of the object it is on, in the form:
-`<base64(sha256(<name>.<namespace>.<kind>.<group>))>`.
-There is no relation between the value of this label and object UID.
 -->
 ### applyset.kubernetes.io/id (alpha) {#applyset-kubernetes-io-id}
 
@@ -429,6 +422,16 @@ There is no relation between the value of this label and object UID.
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
 打了 `applyset.kubernetes.io/is-parent-type` 标签，那么你可以在 Secret、ConfigMap 或自定义资源上使用此注解。
 
+<!--
+Part of the specification used to implement
+[ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune).
+This label is what makes an object an ApplySet parent object.
+Its value is the unique ID of the ApplySet, which is derived from the identity of the parent
+object itself. This ID **must** be the base64 encoding (using the URL safe encoding of RFC4648) of
+the hash of the group-kind-name-namespace of the object it is on, in the form:
+`<base64(sha256(<name>.<namespace>.<kind>.<group>))>`.
+There is no relation between the value of this label and object UID.
+-->
 规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
 此标签使对象成为 ApplySet 父对象。
 它的值是 ApplySet 的唯一 ID，该 ID 派生自父对象本身的标识。
@@ -463,8 +466,8 @@ not being a valid parent for ApplySets, omit this label.
 
 此注解处于 Alpha 阶段。
 规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
-你可以在 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} (CRD) 上设置这个标签，
-以将它定义的自定义资源类型（而不是 CRD 本身）标识为 ApplySet 的允许父类。
+你可以在 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} (CRD)
+上设置这个标签，以将它定义的自定义资源类型（而不是 CRD 本身）标识为 ApplySet 的允许父类。
 这个标签唯一允许的值是 `"true"`；如果你想将一个 CRD 标记为不是 ApplySet 的有效父级，请省略这个标签。
 
 <!--
@@ -509,12 +512,6 @@ Use of this annotation is Alpha.
 For Kubernetes version {{< skew currentVersion >}}, you can use this annotation on Secrets,
 ConfigMaps, or custom resources if the CustomResourceDefinitiondefining them has the
 `applyset.kubernetes.io/is-parent-type` label.
-
-Part of the specification used to implement
-[ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune).
-This annotation is applied to the parent object used to track an ApplySet to indicate which
-tooling manages that ApplySet. Tooling should refuse to mutate ApplySets belonging to other tools.
-The value must be in the format `<toolname>/<semver>`.
 -->
 ### applyset.kubernetes.io/tooling (alpha) {#applyset-kubernetes-io-tooling}
 
@@ -529,6 +526,13 @@ The value must be in the format `<toolname>/<semver>`.
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
 打了 `applyset.kubernetes.io/is-parent-type` 标签，那么你可以在 Secret、ConfigMap 或自定义资源上使用此注解。
 
+<!--
+Part of the specification used to implement
+[ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune).
+This annotation is applied to the parent object used to track an ApplySet to indicate which
+tooling manages that ApplySet. Tooling should refuse to mutate ApplySets belonging to other tools.
+The value must be in the format `<toolname>/<semver>`.
+-->
 规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
 此注解应用于父对象，这些父对象用于跟踪 ApplySet 以指示哪个工具管理 ApplySet。
 工具应该拒绝改变属于其他工具 ApplySets。
@@ -630,16 +634,6 @@ Used on: All objects
 
 This annotation is used in manifests to mark an object as local configuration that
 should not be submitted to the Kubernetes API.
-
-A value of `"true"` for this annotation declares that the object is only consumed by
-client-side tooling and should not be submitted to the API server.
-
-A value of `"false"` can be used to declare that the object should be submitted to
-the API server even when it would otherwise be assumed to be local.
-
-This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification,
-which is used by Kustomize and similar third-party tools.
-For example, Kustomize removes objects with this annotation from its final build output.
 -->
 ### config.kubernetes.io/local-config {#config-kubernetes-io-local-config}
 
@@ -651,6 +645,17 @@ For example, Kustomize removes objects with this annotation from its final build
 
 该注解用于清单中的对象，表示某对象是本地配置，不应提交到 Kubernetes API。
 
+<!--
+A value of `"true"` for this annotation declares that the object is only consumed by
+client-side tooling and should not be submitted to the API server.
+
+A value of `"false"` can be used to declare that the object should be submitted to
+the API server even when it would otherwise be assumed to be local.
+
+This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification,
+which is used by Kustomize and similar third-party tools.
+For example, Kustomize removes objects with this annotation from its final build output.
+-->
 对于这个注解，当值为 `"true"` 时，表示该对象仅被客户端工具使用，不应提交到 API 服务器。
 
 当值为 `"false"` 时，可以用来声明该对象应提交到 API 服务器，即使它是本地对象。
@@ -697,7 +702,14 @@ adhere to. This helps enforce security policies and isolation for your container
 Type: Annotation
 
 Used on: All objects
+-->
+### internal.config.kubernetes.io/*（保留的前缀） {#internal.config.kubernetes.io-reserved-wildcard}
 
+类别：注解
+
+用于：所有对象
+
+<!--
 This prefix is reserved for internal use by tools that act as orchestrators in accordance
 with the Kubernetes Resource Model (KRM) Functions Specification.
 Annotations with this prefix are internal to the orchestration process and are not persisted to
@@ -709,12 +721,6 @@ A KRM function **must not** modify annotations with this prefix, unless otherwis
 given annotation. This enables orchestrator tools to add additional internal annotations, without
 requiring changes to existing functions.
 -->
-### internal.config.kubernetes.io/*（保留的前缀） {#internal.config.kubernetes.io-reserved-wildcard}
-
-类别：注解
-
-用于：所有对象
-
 该前缀被保留，供遵从 Kubernetes 资源模型（KRM）函数规范的编排工具内部使用。
 带有该前缀的注解仅在编排过程中使用，不会持久化到文件系统。
 换句话说，编排工具应从本地文件系统读取文件时设置这些注解，并在将函数输出写回文件系统时删除它们。
@@ -734,12 +740,6 @@ Used on: All objects
 This annotation records the slash-delimited, OS-agnostic, relative path to the manifest file the
 object was loaded from. The path is relative to a fixed location on the filesystem, determined by
 the orchestrator tool.
-
-This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification, which is
-used by Kustomize and similar third-party tools.
-
-A KRM Function **should not** modify this annotation on input objects unless it is modifying the
-referenced files. A KRM Function **may** include this annotation on objects it generates.
 -->
 ### internal.config.kubernetes.io/path {#internal-config-kubernetes-io-path}
 
@@ -752,6 +752,13 @@ referenced files. A KRM Function **may** include this annotation on objects it g
 此注解记录了加载对象清单文件的（斜线分隔、与操作系统无关）相对路径。
 该路径相对于文件系统上由编排工具确定的固定位置。
 
+<!--
+This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification, which is
+used by Kustomize and similar third-party tools.
+
+A KRM Function **should not** modify this annotation on input objects unless it is modifying the
+referenced files. A KRM Function **may** include this annotation on objects it generates.
+-->
 该注解是 Kubernetes 资源模型（KRM）函数规范的一部分，被 Kustomize 和其他类似的第三方工具使用。
 
 KRM 函数**不应**在输入对象上修改此注解，除非它正在修改引用的文件。
@@ -1098,12 +1105,6 @@ This annotation records the zero-indexed position of the YAML document that cont
 within the manifest file the object was loaded from. Note that YAML documents are separated by
 three dashes (`---`) and can each contain one object. When this annotation is not specified, a
 value of 0 is implied.
-
-This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification,
-which is used by Kustomize and similar third-party tools.
-
-A KRM Function **should not** modify this annotation on input objects unless it is modifying the
-referenced files. A KRM Function **may** include this annotation on objects it generates.
 -->
 ### internal.config.kubernetes.io/index {#internal-config-kubernetes-io-index}
 
@@ -1117,6 +1118,13 @@ referenced files. A KRM Function **may** include this annotation on objects it g
 请注意，YAML 文档由三个破折号（---）分隔，每个文档可以包含一个对象。
 如果未指定此注解，则该值为 0。
 
+<!--
+This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification,
+which is used by Kustomize and similar third-party tools.
+
+A KRM Function **should not** modify this annotation on input objects unless it is modifying the
+referenced files. A KRM Function **may** include this annotation on objects it generates.
+-->
 该注解是 Kubernetes 资源模型（KRM）函数规范的一部分，被 Kustomize 和其他类似的第三方工具使用。
 
 KRM 函数**不应**在输入对象上修改此注解，除非它正在修改引用的文件。
@@ -1155,16 +1163,6 @@ Used on: Node, Pod
 
 For nodes, the kubelet populates this with `runtime.GOOS` as defined by Go. This can be handy if you are
 mixing operating systems in your cluster (for example: mixing Linux and Windows nodes).
-
-You can also set this label on a Pod. Kubernetes allows you to set any value for this label;
-if you use this label, you should nevertheless set it to the Go `runtime.GOOS` string for the operating
-system that this Pod actually works with.
-
-When the `kubernetes.io/os` label value for a Pod does not match the label value on a Node,
-the kubelet on the node will not admit the Pod. However, this is not taken into account by
-the kube-scheduler. Alternatively, the kubelet refuses to run a Pod where you have specified a Pod OS, if
-this isn't the same as the operating system for the node where that kubelet is running. Just
-look for [Pods OS](/docs/concepts/workloads/pods/#pod-os) for more details.
 -->
 ### kubernetes.io/os {#kubernetes-io-os}
 
@@ -1177,6 +1175,17 @@ look for [Pods OS](/docs/concepts/workloads/pods/#pod-os) for more details.
 对于节点，kubelet 会根据 Go 定义的 `runtime.GOOS` 填充这个值。
 你可以很方便地在集群中混合使用操作系统（例如：混合使用 Linux 和 Windows 节点）。
 
+<!--
+You can also set this label on a Pod. Kubernetes allows you to set any value for this label;
+if you use this label, you should nevertheless set it to the Go `runtime.GOOS` string for the operating
+system that this Pod actually works with.
+
+When the `kubernetes.io/os` label value for a Pod does not match the label value on a Node,
+the kubelet on the node will not admit the Pod. However, this is not taken into account by
+the kube-scheduler. Alternatively, the kubelet refuses to run a Pod where you have specified a Pod OS, if
+this isn't the same as the operating system for the node where that kubelet is running. Just
+look for [Pods OS](/docs/concepts/workloads/pods/#pod-os) for more details.
+-->
 你还可以在 Pod 上设置这个标签。
 Kubernetes 允许你为此标签设置任何值；如果你使用此标签，
 你应该将其设置为与该 Pod 实际使用的操作系统相对应的 Go `runtime.GOOS` 字符串。
@@ -1184,7 +1193,7 @@ Kubernetes 允许你为此标签设置任何值；如果你使用此标签，
 当 Pod 的 kubernetes.io/os 标签值与节点上的标签值不匹配时，节点上的 kubelet 不会运行该 Pod。
 但是，kube-scheduler 并未考虑这一点。
 另外，如果你为 Pod 指定的操作系统与运行该 kubelet 的节点操作系统不相同，那么 kubelet 会拒绝运行该 Pod。
-请查看 [Pod 操作系统](/zh-cn/docs/concepts/workloads/pods/#pod-os) 了解更多详情。
+请查看 [Pod 操作系统](/zh-cn/docs/concepts/workloads/pods/#pod-os)了解更多详情。
 
 <!--
 ### kubernetes.io/metadata.name
@@ -1246,7 +1255,7 @@ Kubernetes 默认不提供任何资源限制，这意味着除非你明确定义
 你可以为 Pod 定义默认请求或默认限制。为此，你可以在相关命名空间中创建一个 LimitRange。
 在你定义 LimitRange 后部署的 Pod 将受到这些限制。
 注解 `kubernetes.io/limit-ranger` 记录了为 Pod 指定的资源默认值，以及成功应用这些默认值。
-有关更多详细信息，请阅读 [LimitRanges](/zh-cn/docs/concepts/policy/limit-range)。
+有关更多详细信息，请阅读 [LimitRange](/zh-cn/docs/concepts/policy/limit-range)。
 
 ### kubernetes.io/config.hash
 
@@ -1361,7 +1370,19 @@ Used on: All objects
 
 To specify how an add-on should be managed, you can use the `addonmanager.kubernetes.io/mode` label.
 This label can have one of three values: `Reconcile`, `EnsureExists`, or `Ignore`.
+-->
+### addonmanager.kubernetes.io/mode
 
+类别：标签
+
+示例：`addonmanager.kubernetes.io/mode: "Reconcile"`
+
+用于：所有对象
+
+要指定如何管理外接插件，你可以使用 `addonmanager.kubernetes.io/mode` 标签。
+这个标签可以有三个标签之一：`Reconcile`、`EnsureExists` 或者 `Ignore`。
+
+<!--
 - `Reconcile`: Addon resources will be periodically reconciled with the expected state.
   If there are any differences, the add-on manager will recreate, reconfigure or delete
   the resources as needed. This is the default mode if no label is specified.
@@ -1373,17 +1394,6 @@ This label can have one of three values: `Reconcile`, `EnsureExists`, or `Ignore
 
 For more details, see [Addon-manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md).
 -->
-### addonmanager.kubernetes.io/mode
-
-类别：标签
-
-示例：`addonmanager.kubernetes.io/mode: "Reconcile"`
-
-用于：所有对象。
-
-要指定如何管理外接插件，你可以使用 `addonmanager.kubernetes.io/mode` 标签。
-这个标签可以有三个标签之一：`Reconcile`，`EnsureExists`，或者 `Ignore`。
-
 - `Reconcile`：插件资源将定期与预期状态协调。如果有任何差异，插件管理器将根据需要重新创建、重新配置或删除资源。
   如果没有指定标签，此值是默认值。
 - `EnsureExists`：插件资源将仅检查是否存在，但在创建后不会修改。当没有具有该名称的资源实例时，
@@ -2773,8 +2783,8 @@ limited permissions being able to retrieve all Secrets in the cluster.
 
 用于：Ingress
 
-你可以使用此注解在使用 [NGINX Ingress Controller](https://github.com/kubernetes/ingress-nginx/) 的 Ingress 上设置额外配置。
-自 Ingress 控制器 1.9.0 版本以来，`configuration-snippet` 注解默认会被忽略。
+你可以使用此注解在使用 [NGINX Ingress Controller](https://github.com/kubernetes/ingress-nginx/)
+的 Ingress 上设置额外配置。自 Ingress 控制器 1.9.0 版本以来，`configuration-snippet` 注解默认会被忽略。
 要使用此注解，必须显式启用 NGINX Ingress 控制器的 `allow-snippet-annotations` 设置。
 在多租户集群中启用该注解可能是危险的，因为这可能导致权限受限的用户能够获取集群中的所有 Secret。
 
@@ -4995,7 +5005,7 @@ This label or annotation stores the name of the replicated job that this Job or 
 
 用于：Job、Pod
 
-此标签或注解存储属于 Job 或 Pod 一部分的作业副本的名称。
+此标签或注解保存 Job 或 Pod 所属的 ReplicatedJob 的名称。
 
 ### jobset.sigs.k8s.io/job-index
 
@@ -5014,7 +5024,7 @@ This label/annotation is set by the JobSet controller on child Jobs and Pods. It
 
 用于：Job、Pod
 
-此标签/注解由子 Job 和 Pod 上的 JobSet 控制器进行设置。
+此标签/注解由 JobSet 控制器设置在其子 Job 和 Pod 上。
 它包含 Job 副本在其父 ReplicatedJob 中的索引。
 
 ### jobset.sigs.k8s.io/job-key
@@ -5035,7 +5045,7 @@ Pods of a JobSet. The value is the SHA256 hash of the namespaced Job name.
 
 用于：Job、Pod
 
-JobSet 控制器在 JobSet 的子 Job 和 Pod 上设置此标签（以及具有相同键的注解）。
+JobSet 控制器在 JobSet 的子 Job 和 Pod 上设置此标签（以及键名相同的注解）。
 取值为命名空间内 Job 名称的 SHA256 哈希。
 
 ### alpha.jobset.sigs.k8s.io/exclusive-topology
@@ -5057,8 +5067,9 @@ template. Read the documentation for JobSet to learn more.
 
 用于：JobSet、Job
 
-你可以在 [JobSet](https://jobset.sigs.k8s.io) 上设置此标签/注解，以确保每个拓扑组的独占 Job 调度。
-你也可以在作业副本模板上定义此标签或注解。有关细节查阅 JobSet 文档。
+你可以在 [JobSet](https://jobset.sigs.k8s.io) 上设置此标签/注解，
+以确保在拓扑组层面实现互斥性的 Job 调度。
+你也可以在 ReplicatedJob 模板中定义此标签或注解。有关细节查阅 JobSet 文档。
 
 ### alpha.jobset.sigs.k8s.io/node-selector
 
@@ -5077,9 +5088,10 @@ This label/annotation can be applied to a JobSet. When it's set, the JobSet cont
 
 用于：Job、Pod
 
-此标签/注解可以被应用到 JobSet。当此字段被设置时，
+此注解可以被应用到 JobSet 上。当此注解被设置时，
 JobSet 控制器通过添加节点选择算符和容忍度来修改 Job 及其对应的 Pod。
-这确保了每个拓扑域的作业独占调度，基于策略限制这些 Pod 调度到特定节点上。
+这一设置可以确保在拓扑域层面实现作业的排斥性调度，
+基于策略设置，禁止这些 Pod 被调度到特定节点上。
 
 ### alpha.jobset.sigs.k8s.io/namespaced-job
 
@@ -5098,7 +5110,7 @@ This label is either set manually or automatically (for example, a cluster autos
 
 用于：Node
 
-此标签在节点上手动或自动设置（例如，集群自动扩缩器）。
+此标签可以被自动或手动设置到节点上（例如，集群自动扩缩器）。
 当 `alpha.jobset.sigs.k8s.io/node-selector` 被设置为 `"true"` 时，
 JobSet 控制器会向此节点标签添加 nodeSelector
 （以及下一节讨论的针对 `alpha.jobset.sigs.k8s.io/no-schedule` 污点的容忍度）。
@@ -5120,7 +5132,7 @@ This taint is either set manually or automatically (for example, a cluster autos
 
 用于：Node
 
-此污点在节点上手动或自动设置（例如，集群自动扩缩器）。
+此污点可以被自动或手动设置在节点上（例如，集群自动扩缩器）。
 当 `alpha.jobset.sigs.k8s.io/node-selector` 设置为 `"true"` 时，
 JobSet 控制器会向此节点污点添加容忍度
 （以及上一节讨论的针对 `alpha.jobset.sigs.k8s.io/namespaced-job` 标签的节点选择算符）。
@@ -5144,7 +5156,7 @@ pod can be reached if the [JobSet](https://jobset.sigs.k8s.io) spec defines the 
 用于：Job、Pod
 
 此注解/标签在 Job 和 Pod 上用于存储一个稳定的网络端点，
-以便在 [JobSet](https://jobset.sigs.k8s.io) 规约定义 `.spec.coordinator` 字段时，
+以便在 [JobSet](https://jobset.sigs.k8s.io) 规约定义了 .spec.coordinator 字段时，
 可以访问 `coordinator` Pod。
 
 <!--
@@ -5176,7 +5188,7 @@ See more details on [Audit Annotations](/docs/reference/labels-annotations-taint
 
 在[审计注解](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/)页面上查看更多详细信息。
 
-## kubeadm  {#kubeadm}
+## kubeadm
 
 ### kubeadm.alpha.kubernetes.io/cri-socket  {#cri-socket}
 
