@@ -19,6 +19,11 @@ An admission controller is a piece of code that intercepts requests to the
 Kubernetes API server prior to persistence of the resource, but after the request
 is authenticated and authorized.
 
+Several important features of Kubernetes require an admission controller to be enabled in order
+to properly support the feature.  As a result, a Kubernetes API server that is not properly
+configured with the right set of admission controllers is an incomplete server that will not
+support all the features you expect.
+
 <!-- body -->
 ## What are they?
 
@@ -268,6 +273,7 @@ kind: AdmissionConfiguration
 plugins:
   - name: EventRateLimit
     path: eventconfig.yaml
+...
 ```
 
 There are four types of limits that can be specified in the configuration:
@@ -276,7 +282,7 @@ There are four types of limits that can be specified in the configuration:
  * `Namespace`: Each namespace has a dedicated bucket.
  * `User`: Each user is allocated a bucket.
  * `SourceAndObject`: A bucket is assigned by each combination of source and
-  involved object of the event.
+   involved object of the event.
 
 Below is a sample `eventconfig.yaml` for such a configuration:
 
@@ -852,3 +858,4 @@ Yes. The recommended admission controllers are enabled by default
 so you do not need to explicitly specify them.
 You can enable additional admission controllers beyond the default set using the
 `--enable-admission-plugins` flag (**order doesn't matter**).
+
