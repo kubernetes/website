@@ -1142,9 +1142,10 @@ Pod 终止流程，如下例所示：
    -->
 
    1. 如果 Pod 中的容器之一定义了 `preStop`
-      [回调](/zh-cn/docs/concepts/containers/container-lifecycle-hooks)，
-      `kubelet` 开始在容器内运行该回调逻辑。如果超出体面终止限期时，
-      `preStop` 回调逻辑仍在运行，`kubelet` 会请求给予该 Pod 的宽限期一次性增加 2 秒钟。
+      [回调](/zh-cn/docs/concepts/containers/container-lifecycle-hooks)
+      且 Pod 规约中的 `terminationGracePeriodSeconds` 未设为 0，
+      `kubelet` 开始在容器内运行该回调逻辑。默认的 `terminationGracePeriodSeconds`
+      设置为 30 秒.
 
       如果 `preStop` 回调在体面期结束后仍在运行，kubelet 将请求短暂的、一次性的体面期延长 2 秒。
 
