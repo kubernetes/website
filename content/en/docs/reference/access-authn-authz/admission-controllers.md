@@ -272,10 +272,10 @@ plugins:
 
 There are four types of limits that can be specified in the configuration:
 
-* `Server`: All Event requests (creation or modifications) received by the API server share a single bucket.
-* `Namespace`: Each namespace has a dedicated bucket.
-* `User`: Each user is allocated a bucket.
-* `SourceAndObject`: A bucket is assigned by each combination of source and
+ * `Server`: All Event requests (creation or modifications) received by the API server share a single bucket.
+ * `Namespace`: Each namespace has a dedicated bucket.
+ * `User`: Each user is allocated a bucket.
+ * `SourceAndObject`: A bucket is assigned by each combination of source and
   involved object of the event.
 
 Below is a sample `eventconfig.yaml` for such a configuration:
@@ -556,7 +556,7 @@ This admission controller also prevents deletion of three system reserved namesp
 `kube-system`, `kube-public`.
 
 A `Namespace` deletion kicks off a sequence of operations that remove all objects (pods, services,
-etc.) in that namespace. In order to enforce integrity of that process, we strongly recommend
+etc.) in that namespace.  In order to enforce integrity of that process, we strongly recommend
 running this admission controller.
 
 ### NodeRestriction {#noderestriction}
