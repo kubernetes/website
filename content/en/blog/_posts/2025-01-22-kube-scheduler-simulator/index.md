@@ -51,7 +51,7 @@ filter nodes (Filter phase), score nodes (Score phase), and ultimately determine
 The simulator allows users to create Kubernetes resources and observe how each plugin influences the scheduling decisions for Pods.
 This visibility helps users understand the scheduler’s workings and define appropriate scheduling constraints.
 
-{{< figure src="/images/blog/2024-07-xx-kube-scheduler-simulator/simulator.png" alt="Screenshot of the simulator web frontend" title="The simulator web frontend" >}}
+{{< figure src="/images/blog/2025-01-22-kube-scheduler-simulator/simulator.png" alt="Screenshot of the simulator web frontend" title="The simulator web frontend" >}}
 
 Inside the simulator, a debuggable scheduler runs instead of the vanilla scheduler. 
 This debuggable scheduler outputs the results of each scheduler plugin at every extension point to the Pod’s annotations 
@@ -133,4 +133,5 @@ The simulator has been maintained by dedicated volunteer engineers, overcoming m
 
 A big shout out to all [the awesome contributors](https://github.com/kubernetes-sigs/kube-scheduler-simulator/graphs/contributors)!
 
-![Screenshot of the contributor list](./contributors.png)
+![Screenshot of the contributor list]
+{{< figure src="/images/blog/2025-01-22-kube-scheduler-simulator/contributors.png" alt="Screenshot of the contributors" title="The simulator contributors" >}}
