@@ -39,6 +39,3 @@ package-lock.json
 # Generated files when building with make container-build
 .config/
 .npm/
-
-# Obsidian files
-.obsidian/
