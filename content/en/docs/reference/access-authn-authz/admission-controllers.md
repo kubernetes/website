@@ -272,10 +272,10 @@ plugins:
 
 There are four types of limits that can be specified in the configuration:
 
-- `Server`: All Event requests (creation or modifications) received by the API server share a single bucket.
-- `Namespace`: Each namespace has a dedicated bucket.
-- `User`: Each user is allocated a bucket.
-- `SourceAndObject`: A bucket is assigned by each combination of source and
+* `Server`: All Event requests (creation or modifications) received by the API server share a single bucket.
+* `Namespace`: Each namespace has a dedicated bucket.
+* `User`: Each user is allocated a bucket.
+* `SourceAndObject`: A bucket is assigned by each combination of source and
   involved object of the event.
 
 Below is a sample `eventconfig.yaml` for such a configuration:
@@ -522,7 +522,7 @@ group/version via the `--runtime-config` flag, both are on by default.
   what they get back.
 * Built in control loops may break when the objects they try to create are
   different when read back.
-  - Setting originally unset fields is less likely to cause problems than
+  * Setting originally unset fields is less likely to cause problems than
     overwriting fields set in the original request. Avoid doing the latter.
 * Future changes to control loops for built-in resources or third-party resources
   may break webhooks that work well today. Even when the webhook installation API
@@ -601,7 +601,7 @@ This admission controller protects the access to the `metadata.ownerReferences` 
 so that only users with **delete** permission to the object can change it.
 This admission controller also protects the access to `metadata.ownerReferences[x].blockOwnerDeletion`
 of an object, so that only users with **update** permission to the `finalizers`
-subresource of the referenced _owner_ can change it.
+subresource of the referenced *owner* can change it.
 
 ### PersistentVolumeClaimResize {#persistentvolumeclaimresize}
 
@@ -614,7 +614,7 @@ This admission controller implements additional validations for checking incomin
 
 Enabling the `PersistentVolumeClaimResize` admission controller is recommended.
 This admission controller prevents resizing of all claims by default unless a claim's `StorageClass`
-explicitly enables resizing by setting `allowVolumeExpansion` to `true`.
+ explicitly enables resizing by setting `allowVolumeExpansion` to `true`.
 
 For example: all `PersistentVolumeClaim`s created from the following `StorageClass` support volume expansion:
 
@@ -665,8 +665,8 @@ command line flag `--admission-control-config-file`:
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
 plugins:
-  - name: PodNodeSelector
-    path: podnodeselector.yaml
+- name: PodNodeSelector
+  path: podnodeselector.yaml
 ...
 ```
 
@@ -824,7 +824,7 @@ conditions.
 
 **Type**: Validating.
 
-[This admission controller](/docs/reference/access-authn-authz/validating-admission-policy/) implements the CEL validation for incoming matched requests.
+[This admission controller](/docs/reference/access-authn-authz/validating-admission-policy/) implements the CEL validation for incoming matched requests. 
 It is enabled when both feature gate `validatingadmissionpolicy` and `admissionregistration.k8s.io/v1alpha1` group/version are enabled.
 If any of the ValidatingAdmissionPolicy fails, the request fails.
 
