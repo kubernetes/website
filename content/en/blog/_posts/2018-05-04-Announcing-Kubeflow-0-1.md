@@ -42,7 +42,7 @@ NAMESPACE=kubeflow
 kubectl create namespace ${NAMESPACE}
 VERSION=v0.1.3
 
-# Initialize a ksonnet app. Set the namespace for it's default environment.
+# Initialize a ksonnet app. Set the namespace for its default environment.
 APP_NAME=my-kubeflow
 ks init ${APP_NAME}
 cd ${APP_NAME}

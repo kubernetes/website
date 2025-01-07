@@ -13,6 +13,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.30"
+    toVersion: "1.31"
+
+removed: true
 ---
 Enables less load balancer re-configurations by
 the service controller (KCCM) as an effect of changing node state.

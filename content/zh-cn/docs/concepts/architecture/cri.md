@@ -27,7 +27,7 @@ CRI 是一个插件接口，它使 kubelet 能够使用各种容器运行时，�
 这样 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 能启动
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 及其容器。
 
-{{< glossary_definition prepend="容器运行时接口（CRI）是" term_id="container-runtime-interface" length="all" >}}
+{{< glossary_definition prepend="容器运行时接口（CRI）是" term_id="cri" length="all" >}}
 
 <!-- body -->
 <!--
@@ -44,7 +44,7 @@ runtime, which can be configured separately within the kubelet by using the
 `--image-service-endpoint` [command line flags](/docs/reference/command-line-tools-reference/kubelet).
 -->
 当通过 gRPC 连接到容器运行时，kubelet 将充当客户端。运行时和镜像服务端点必须在容器运行时中可用，
-可以使用 `--image-service-endpoint` 
+可以使用 `--image-service-endpoint`
 [命令行标志](/zh-cn/docs/reference/command-line-tools-reference/kubelet)在 kubelet 中单独配置。
 
 <!-- 

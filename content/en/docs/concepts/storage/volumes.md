@@ -179,11 +179,11 @@ spec:
         name: log-config
         items:
           - key: log_level
-            path: log_level
+            path: log_level.conf
 ```
 
 The `log-config` ConfigMap is mounted as a volume, and all contents stored in
-its `log_level` entry are mounted into the Pod at path `/etc/config/log_level`.
+its `log_level` entry are mounted into the Pod at path `/etc/config/log_level.conf`.
 Note that this path is derived from the volume's `mountPath` and the `path`
 keyed with `log_level`.
 
@@ -242,19 +242,12 @@ the `emptyDir.medium` field to `"Memory"`, Kubernetes mounts a tmpfs (RAM-backed
 filesystem) for you instead.  While tmpfs is very fast be aware that, unlike
 disks, files you write count against the memory limit of the container that wrote them.
 
-
 A size limit can be specified for the default medium, which limits the capacity
 of the `emptyDir` volume. The storage is allocated from [node ephemeral
 storage](/docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage).
 If that is filled up from another source (for example, log files or image
 overlays), the `emptyDir` may run out of capacity before this limit.
-
-{{< note >}}
-You can specify a size for memory backed volumes, provided that the `SizeMemoryBackedVolumes`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled in your cluster (this has been beta, and active by default, since the Kubernetes 1.22 release).
-If you don't specify a volume size, memory backed volumes are sized to node allocatable memory.
-{{< /note>}}
+If no size is specified, memory backed volumes are sized to node allocatable memory.
 
 {{< caution >}}
 Please check [here](/docs/concepts/configuration/manage-resources-containers/#memory-backed-emptydir)
@@ -279,6 +272,27 @@ spec:
   - name: cache-volume
     emptyDir:
       sizeLimit: 500Mi
+```
+
+#### emptyDir memory configuration example
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pd
+spec:
+  containers:
+  - image: registry.k8s.io/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /cache
+      name: cache-volume
+  volumes:
+  - name: cache-volume
+    emptyDir:
+      sizeLimit: 500Mi
+      medium: Memory
 ```
 
 ### fc (fibre channel) {#fc}
@@ -325,7 +339,7 @@ You can restrict the use of `gitRepo` volumes in your cluster using
 [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/).
 You can use the following Common Expression Language (CEL) expression as
 part of a policy to reject use of `gitRepo` volumes:
-`has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`.
+`!has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`.
 
 {{< /warning >}}
 

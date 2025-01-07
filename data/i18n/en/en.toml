@@ -407,7 +407,7 @@ other = "Kubernetes Features"
 [main_kubeweekly_baseline]
 other = "Interested in receiving the latest Kubernetes news? Sign up for KubeWeekly."
 
-[main_kubernetes_past_link]
+[main_kubeweekly_past_link]
 other = "View past newsletters"
 
 [main_kubeweekly_signup]

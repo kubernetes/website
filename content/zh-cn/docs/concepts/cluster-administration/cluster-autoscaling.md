@@ -221,5 +221,7 @@ Cluster Proportional Autoscaler 扩缩工作负载的副本数量，而 Cluster 
 
 <!--
 - Read about [workload-level autoscaling](/docs/concepts/workloads/autoscaling/)
+- Read about [node overprovisioning](/docs/tasks/administer-cluster/node-overprovisioning/)
 -->
 - 参阅[工作负载级别自动扩缩容](/zh-cn/docs/concepts/workloads/autoscaling/)
+- 参阅[节点超分配](/zh-cn/docs/tasks/administer-cluster/node-overprovisioning/)

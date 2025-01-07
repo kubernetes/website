@@ -58,6 +58,10 @@ Resources consumed by the command are counted against the Container.
 * Sleep - Pauses the container for a specified duration. 
   This is a beta-level feature default enabled by the `PodLifecycleSleepAction` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). 
 
+{{< note >}}
+Enable the `PodLifecycleSleepActionAllowZero` feature gate if you want to set a sleep duration of zero seconds (effectively a no-op) for your Sleep lifecycle hooks.
+{{< /note >}}
+
 ### Hook handler execution
 
 When a Container lifecycle management hook is called,

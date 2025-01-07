@@ -278,7 +278,7 @@ other = "Kubernetesの機能"
 [main_kubeweekly_baseline]
 other = "最新のKubernetesのニュースを受け取りたいですか？ KubeWeeklyにサインアップしてください。"
 
-[main_kubernetes_past_link]
+[main_kubeweekly_past_link]
 other = "過去のニュースレターを見る"
 
 [main_kubeweekly_signup]

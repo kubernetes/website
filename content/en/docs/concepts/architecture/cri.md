@@ -15,7 +15,7 @@ each Node in your cluster, so that the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} can launch
 {{< glossary_tooltip text="Pods" term_id="pod" >}} and their containers.
 
-{{< glossary_definition prepend="The Container Runtime Interface (CRI) is" term_id="container-runtime-interface" length="all" >}}
+{{< glossary_definition prepend="The Container Runtime Interface (CRI) is" term_id="cri" length="all" >}}
 
 <!-- body -->
 

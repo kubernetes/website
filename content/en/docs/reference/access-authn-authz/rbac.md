@@ -20,10 +20,22 @@ RBAC authorization uses the `rbac.authorization.k8s.io`
 decisions, allowing you to dynamically configure policies through the Kubernetes API.
 
 To enable RBAC, start the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
-with the `--authorization-mode` flag set to a comma-separated list that includes `RBAC`;
+with the `--authorization-config` flag set to a file that includes the `RBAC` authorizer; for example:
+
+```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AuthorizationConfiguration
+authorizers:
+  ...
+  - type: RBAC
+  ...
+```
+
+Or, start the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} with
+the `--authorization-mode` flag set to a comma-separated list that includes `RBAC`;
 for example:
 ```shell
-kube-apiserver --authorization-mode=Example,RBAC --other-options --more-options
+kube-apiserver --authorization-mode=...,RBAC --other-options --more-options
 ```
 
 ## API objects {#api-overview}

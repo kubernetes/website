@@ -1,0 +1,33 @@
+apiVersion: admissionregistration.k8s.io/v1alpha1
+kind: MutatingAdmissionPolicy
+metadata:
+  name: "sidecar-policy.example.com"
+spec:
+  paramKind:
+    kind: Sidecar
+    apiVersion: mutations.example.com/v1
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   [""]
+      apiVersions: ["v1"]
+      operations:  ["CREATE"]
+      resources:   ["pods"]
+  matchConditions:
+    - name: does-not-already-have-sidecar
+      expression: "!object.spec.initContainers.exists(ic, ic.name == \"mesh-proxy\")"
+  failurePolicy: Fail
+  reinvocationPolicy: IfNeeded
+  mutations:
+    - patchType: "JSONPatch"
+      jsonPatch:
+        expression: >
+          [
+            JSONPatch{
+              op: "add", path: "/spec/initContainers/-",
+              value: Object.spec.initContainers{
+                name: "mesh-proxy",
+                image: "mesh-proxy/v1.0.0",
+                restartPolicy: "Always"
+              }
+            }
+          ]

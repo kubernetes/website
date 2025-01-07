@@ -252,13 +252,13 @@ the StatefulSet.
 
 ### Pod index label
 
-{{< feature-state for_k8s_version="v1.28" state="beta" >}}
+{{< feature-state feature_gate_name="PodIndexLabel" >}}
 
 When the StatefulSet {{<glossary_tooltip text="controller" term_id="controller">}} creates a Pod,
 the new Pod is labelled with `apps.kubernetes.io/pod-index`. The value of this label is the ordinal index of
 the Pod. This label allows you to route traffic to a particular pod index, filter logs/metrics
-using the pod index label, and more. Note the feature gate `PodIndexLabel` must be enabled for this
-feature, and it is enabled by default.
+using the pod index label, and more. Note the feature gate `PodIndexLabel` is enabled and locked by default for this
+feature, in order to disable it, users will have to use server emulated version v1.31.
 
 ## Deployment and Scaling Guarantees
 
@@ -386,7 +386,7 @@ StatefulSet will then begin to recreate the Pods using the reverted template.
 
 ## PersistentVolumeClaim retention
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state feature_gate_name="StatefulSetAutoDeletePVC" >}}
 
 The optional `.spec.persistentVolumeClaimRetentionPolicy` field controls if
 and how PVCs are deleted during the lifecycle of a StatefulSet. You must enable the

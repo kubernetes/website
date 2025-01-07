@@ -1,18 +1,22 @@
 ---
-title: Container runtime interface (CRI)
+title: Container Runtime Interface (CRI)
 id: cri
-date: 2019-03-07
-full_link: /docs/concepts/architecture/#container-runtime
+date: 2021-11-24
+full_link: /docs/concepts/architecture/cri
 short_description: >
-    An API for container runtimes to integrate with kubelet
-
+  Protocol for communication between the kubelet and the local container runtime.
 
 aka:
 tags:
-- fundamental
+  - fundamental
 ---
-The container runtime interface (CRI) is an API for container runtimes
-to integrate with the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} on a node.
+
+The main protocol for the communication between the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and Container Runtime.
+
 <!--more-->
 
-For more information, see the [CRI](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md) API and specifications.
+The Kubernetes Container Runtime Interface (CRI) defines the main
+[gRPC](https://grpc.io) protocol for the communication between the
+[node components](/docs/concepts/architecture/#node-components)
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.

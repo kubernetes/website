@@ -29,8 +29,7 @@ RUN apk add --no-cache \
     git \
     openssh-client \
     rsync \
-    npm && \
-    npm install -D autoprefixer postcss-cli
+    npm
 
 RUN mkdir -p /var/hugo && \
     addgroup -Sg 1000 hugo && \
@@ -41,6 +40,8 @@ RUN mkdir -p /var/hugo && \
 COPY --from=0 /go/bin/hugo /usr/local/bin/hugo
 
 WORKDIR /src
+COPY package.json package-lock.json ./
+RUN npm ci
 
 USER hugo:hugo
 

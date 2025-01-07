@@ -322,17 +322,17 @@ spec:
         name: log-config
         items:
           - key: log_level
-            path: log_level
+            path: log_level.conf
 ```
 
 <!--
 The `log-config` ConfigMap is mounted as a volume, and all contents stored in
-its `log_level` entry are mounted into the Pod at path `/etc/config/log_level`.
+its `log_level` entry are mounted into the Pod at path `/etc/config/log_level.conf`.
 Note that this path is derived from the volume's `mountPath` and the `path`
 keyed with `log_level`.
 -->
 `log-config` ConfigMap 以卷的形式挂载，并且存储在 `log_level`
-条目中的所有内容都被挂载到 Pod 的 `/etc/config/log_level` 路径下。
+条目中的所有内容都被挂载到 Pod 的 `/etc/config/log_level.conf` 路径下。
 请注意，这个路径来源于卷的 `mountPath` 和 `log_level` 键对应的 `path`。
 
 {{< note >}}
@@ -443,18 +443,10 @@ overlays), the `emptyDir` may run out of capacity before this limit.
 如果来自其他来源（如日志文件或镜像分层数据）的数据占满了存储，`emptyDir`
 可能会在达到此限制之前发生存储容量不足的问题。
 
-{{< note >}}
 <!--
-You can specify a size for memory backed volumes, provided that the `SizeMemoryBackedVolumes`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled in your cluster (this has been beta, and active by default, since the Kubernetes 1.22 release).
-If you don't specify a volume size, memory backed volumes are sized to node allocatable memory.
+If no size is specified, memory backed volumes are sized to node allocatable memory.
 -->
-你可以指定内存作为介质的卷的大小，前提是集群中启用了 `SizeMemoryBackedVolumes`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-（自 Kubernetes 1.22 发布以来，此特性一直处于 Beta 阶段，并且默认启用）。
-如果你未指定大小，内存作为介质的卷的大小根据节点可分配内存进行调整。
-{{< /note>}}
+如果未指定大小，内存支持的卷将被设置为节点可分配内存的大小。
 
 {{< caution >}}
 <!--
@@ -490,6 +482,30 @@ spec:
 ```
 
 <!--
+#### emptyDir memory configuration example
+-->
+#### emptyDir 内存配置示例
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pd
+spec:
+  containers:
+  - image: registry.k8s.io/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /cache
+      name: cache-volume
+  volumes:
+  - name: cache-volume
+    emptyDir:
+      sizeLimit: 500Mi
+      medium: Memory
+```
+
+<!--
 ### fc (fibre channel) {#fc}
 
 An `fc` volume type allows an existing fibre channel block storage volume
@@ -497,7 +513,7 @@ to mount in a Pod. You can specify single or multiple target world wide names (W
 using the parameter `targetWWNs` in your Volume configuration. If multiple WWNs are specified,
 targetWWNs expect that those WWNs are from multi-path connections.
 -->
-### fc (光纤通道) {#fc}
+### fc（光纤通道） {#fc}
 
 `fc` 卷类型允许将现有的光纤通道块存储卷挂载到 Pod 中。
 可以使用卷配置中的参数 `targetWWNs` 来指定单个或多个目标 WWN（World Wide Names）。
@@ -580,7 +596,7 @@ clones the repo using Git, then mount the
 `gitRepo` 卷类型已经被弃用。
 
 如果需要制备已挂载 Git 仓库的 Pod，你可以将
-[EmptyDir](#emptydir) 卷挂载到 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/) 中，
+[EmptyDir](#emptydir) 卷挂载到 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)中，
 使用 Git 命令完成仓库的克隆操作，然后将 [EmptyDir](#emptydir) 卷挂载到 Pod 的容器中。
 
 ---
@@ -591,12 +607,12 @@ You can restrict the use of `gitRepo` volumes in your cluster using
 [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/).
 You can use the following Common Expression Language (CEL) expression as
 part of a policy to reject use of `gitRepo` volumes:
-`has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`.
+`!has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`.
 -->
 你可以使用 [ValidatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)
 这类[策略](/zh-cn/docs/concepts/policy/)来限制在你的集群中使用 `gitRepo` 卷。
 你可以使用以下通用表达语言（CEL）表达式作为策略的一部分，以拒绝使用 `gitRepo` 卷：
-`has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`。
+`!has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`。
 {{< /warning >}}
 
 <!--
@@ -788,19 +804,38 @@ root 身份运行进程，或者修改主机上的文件权限，以便能够从
 -->
 #### hostPath 配置示例
 
+{{< tabs name="hostpath_examples" >}}
+
 <!--
 Linux node
+---
 # This manifest mounts /data/foo on the host as /foo inside the
 # single container that runs within the hostpath-example-linux Pod.
 #
 # The mount into the container is read-only.
-
-# mount /data/foo, but only if that directory already exists
-
-# directory location on host
-# this field is optional
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostpath-example-linux
+spec:
+  os: { name: linux }
+  nodeSelector:
+    kubernetes.io/os: linux
+  containers:
+  - name: example-container
+    image: registry.k8s.io/test-webserver
+    volumeMounts:
+    - mountPath: /foo
+      name: example-volume
+      readOnly: true
+  volumes:
+  - name: example-volume
+    # mount /data/foo, but only if that directory already exists
+    hostPath:
+      path: /data/foo # directory location on host
+      type: Directory # this field is optional
 -->
-{{< tabs name="hostpath_examples" >}}
+
 {{< tab name="Linux 节点" codelang="yaml" >}}
 ---
 # 此清单将主机上的 /data/foo 挂载为 hostpath-example-linux Pod 中运行的单个容器内的 /foo
@@ -831,15 +866,32 @@ spec:
 
 <!--
 Windows node
+---
 # This manifest mounts C:\Data\foo on the host as C:\foo, inside the
 # single container that runs within the hostpath-example-windows Pod.
 #
 # The mount into the container is read-only.
-
-# mount C:\Data\foo from the host, but only if that directory already exists
-
-# directory location on host
-# this field is optional
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostpath-example-windows
+spec:
+  os: { name: windows }
+  nodeSelector:
+    kubernetes.io/os: windows
+  containers:
+  - name: example-container
+    image: microsoft/windowsservercore:1709
+    volumeMounts:
+    - name: example-volume
+      mountPath: "C:\\foo"
+      readOnly: true
+  volumes:
+    # mount C:\Data\foo from the host, but only if that directory already exists
+  - name: example-volume
+    hostPath:
+      path: "C:\\Data\\foo" # directory location on host
+      type: Directory       # this field is optional
 -->
 {{< tab name="Windows 节点" codelang="yaml" >}}
 ---
@@ -899,7 +951,34 @@ Here's the example manifest:
 以下是清单示例：
 
 <!--
-# Ensure the file directory is created.
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-webserver
+spec:
+  os: { name: linux }
+  nodeSelector:
+    kubernetes.io/os: linux
+  containers:
+  - name: test-webserver
+    image: registry.k8s.io/test-webserver:latest
+    volumeMounts:
+    - mountPath: /var/local/aaa
+      name: mydir
+    - mountPath: /var/local/aaa/1.txt
+      name: myfile
+  volumes:
+  - name: mydir
+    hostPath:
+      # Ensure the file directory is created.
+      path: /var/local/aaa
+      type: DirectoryOrCreate
+  - name: myfile
+    hostPath:
+      path: /var/local/aaa/1.txt
+      type: FileOrCreate
+```
 -->
 ```yaml
 apiVersion: v1
@@ -1307,7 +1386,25 @@ Here is an example Pod referencing a pre-provisioned Portworx volume:
 下面是一个引用预先配备的 Portworx 卷的示例 Pod：
 
 <!--
-# This Portworx volume must already exist.
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-portworx-volume-pod
+spec:
+  containers:
+  - image: registry.k8s.io/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /mnt
+      name: pxvol
+  volumes:
+  - name: pxvol
+    # This Portworx volume must already exist.
+    portworxVolume:
+      volumeID: "pxvol"
+      fsType: "<fs-type>"
+```
 -->
 ```yaml
 apiVersion: v1
@@ -1367,7 +1464,7 @@ must be installed on the cluster.
 （Portworx 的 CSI 迁移自 Kubernetes v1.23 版本以来一直可用，但从 v1.31 版本开始才默认启用）。
 如果你想禁用自动迁移，可以将 `CSIMigrationPortworx`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 设置为 `false`；
-你需要在 kube-controller-manager **和** 每个相关的 kubelet 上进行此更改。
+你需要在 kube-controller-manager **和**每个相关的 kubelet 上进行此更改。
 
 它将所有插件操作不再指向树内插件（In-Tree Plugin），转而指向
 `pxd.portworx.com` 容器存储接口（Container Storage Interface，CSI）驱动。
@@ -1432,7 +1529,7 @@ receive Secret updates.
 <!--
 For more details, see [Configuring Secrets](/docs/concepts/configuration/secret/).
 -->
-更多详情请参考[配置 Secrets](/zh-cn/docs/concepts/configuration/secret/)。
+更多详情请参考[配置 Secret](/zh-cn/docs/concepts/configuration/secret/)。
 
 <!--
 ### vsphereVolume (deprecated) {#vspherevolume}
@@ -1612,7 +1709,33 @@ The host directory `/var/log/pods/pod1` is mounted at `/logs` in the container.
 宿主机目录 `/var/log/pods/pod1` 被挂载到容器的 `/logs` 中。
 
 <!--
-# The variable expansion uses round brackets (not curly brackets).
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod1
+spec:
+  containers:
+  - name: container1
+    env:
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.name
+    image: busybox:1.28
+    command: [ "sh", "-c", "while [ true ]; do echo 'Hello'; sleep 10; done | tee -a /logs/hello.txt" ]
+    volumeMounts:
+    - name: workdir1
+      mountPath: /logs
+      # The variable expansion uses round brackets (not curly brackets).
+      subPathExpr: $(POD_NAME)
+  restartPolicy: Never
+  volumes:
+  - name: workdir1
+    hostPath:
+      path: /var/log/pods
+```
 -->
 ```yaml
 apiVersion: v1
@@ -1706,7 +1829,7 @@ CSI 和 FlexVolume 都允许独立于 Kubernetes 代码库开发卷插件，并�
 (CSI) defines a standard interface for container orchestration systems (like
 Kubernetes) to expose arbitrary storage systems to their container workloads.
 -->
-[容器存储接口](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI)
+[容器存储接口](https://github.com/container-storage-interface/spec/blob/master/spec.md)（CSI）
 为容器编排系统（如 Kubernetes）定义标准接口，以将任意存储系统暴露给它们的容器工作负载。
 
 <!--
@@ -1822,7 +1945,7 @@ persistent volume:
   该映射必须与 CSI 驱动程序返回的 `CreateVolumeResponse` 中的 `volume.attributes`
   字段的映射相对应；
   [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume)中有相应的定义。
-  该映射通过`ControllerPublishVolumeRequest`、`NodeStageVolumeRequest` 和
+  该映射通过 `ControllerPublishVolumeRequest`、`NodeStageVolumeRequest` 和
   `NodePublishVolumeRequest` 中的 `volume_context` 字段传递给 CSI 驱动。
 
 <!--
@@ -1862,8 +1985,8 @@ persistent volume:
   当你为节点初始化的卷扩展配置 Secret 数据时，kubelet 会通过 `NodeExpandVolume()`
   调用将该数据传递给 CSI 驱动。所有受支持的 Kubernetes 版本都提供 `nodeExpandSecretRef` 字段，
   并且默认可用。Kubernetes v1.25 之前的版本不包括此支持。
-  为每个 kube-apiserver 和每个节点上的 kubelet 启用名为 `CSINodeExpandSecret` 的
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/)。
+  为每个 kube-apiserver 和每个节点上的 kubelet 启用名为 `CSINodeExpandSecret`
+  的[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/)。
   自 Kubernetes 1.27 版本起，此特性已默认启用，无需显式启用特性门控。
   在节点初始化的存储大小调整操作期间，你还必须使用支持或需要 Secret 数据的 CSI 驱动。
 
@@ -2058,8 +2181,9 @@ Pod 通过 `flexvolume` 树内插件与 FlexVolume 驱动程序交互。
 The following FlexVolume [plugins](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows),
 deployed as PowerShell scripts on the host, support Windows nodes:
 -->
-下面的 FlexVolume [插件](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows)
-以 PowerShell 脚本的形式部署在宿主机系统上，支持 Windows 节点：
+下面的 FlexVolume
+[插件](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows)以
+PowerShell 脚本的形式部署在宿主机系统上，支持 Windows 节点：
 
 * [SMB](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~smb.cmd)
 * [iSCSI](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~iscsi.cmd)
@@ -2083,12 +2207,12 @@ FlexVolume 用户应迁移工作负载以使用对等的 CSI 驱动。
 ## 挂载卷的传播   {#mount-propagation}
 
   {{< caution >}}
-<!--
+  <!--
   Mount propagation is a low-level feature that does not work consistently on all
   volume types. It is recommended to use only with `hostPath` or in-memory `emptyDir`
   volumes. See [this discussion](https://github.com/kubernetes/kubernetes/issues/95049)
   for more context.
--->
+  -->
   挂载卷的传播是一项底层功能，不能在所有类型的卷中以一致的方式工作。
   建议只在 `hostPath` 或基于内存的 `emptyDir` 卷中使用。
   详情请参考[讨论](https://github.com/kubernetes/kubernetes/issues/95049)。
@@ -2128,7 +2252,7 @@ in `containers[*].volumeMounts`. Its values are:
 
   然而，当 `rprivate` 传播选项不适用时，CRI 运行时可以转为选择 `rslave` 挂载传播选项
   （即 `HostToContainer`）。当挂载源包含 Docker 守护进程的根目录（`/var/lib/docker`）时，
-  cri-dockerd (Docker) 已知可以选择 `rslave` 挂载传播选项。
+  cri-dockerd（Docker）已知可以选择 `rslave` 挂载传播选项。
 
 <!--
 * `HostToContainer` - This volume mount will receive all subsequent mounts

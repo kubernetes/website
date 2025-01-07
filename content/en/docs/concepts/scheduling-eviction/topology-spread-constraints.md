@@ -99,7 +99,7 @@ your cluster. Those fields are:
   <!-- OK to remove this note once v1.29 Kubernetes is out of support -->
   {{< note >}}
   Before Kubernetes v1.30, the `minDomains` field was only available if the
-  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates-removed/)
   was enabled (default since v1.28). In older Kubernetes clusters it might be explicitly
   disabled or the field might not be available.
   {{< /note >}}

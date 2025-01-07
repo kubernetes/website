@@ -248,6 +248,8 @@ Here is an example StorageClass for the AWS EBS CSI driver:
 
 {{% code_sample language="yaml" file="storage/storageclass/storageclass-aws-ebs.yaml" %}}
 
+`tagSpecification`: Tags with this prefix are applied to dynamically provisioned EBS volumes.
+
 ### AWS EFS
 
 To configure AWS EFS storage, you can use the out-of-tree [AWS_EFS_CSI_DRIVER](https://github.com/kubernetes-sigs/aws-efs-csi-driver).

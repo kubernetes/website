@@ -406,12 +406,16 @@ kubectl delete namespace cpu-example
 
 * [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
+* [Assign Pod-level CPU and memory resources](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
+
 * [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 
 -->
 ### 针对应用开发者 {#for-app-developers}
 
 * [将内存资源分配给容器和 Pod](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)
+
+* [分配 Pod 级别的 CPU 和内存资源](/zh-cn/docs/tasks/configure-pod-container/assign-pod-level-resources/)
 
 * [配置 Pod 服务质量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
 

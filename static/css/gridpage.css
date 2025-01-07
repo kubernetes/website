@@ -39,6 +39,10 @@
     font-weight: 300 !important;
 }
 
+.gridPage .case-study .quote{
+    color: rgb(26,26,26);
+ }
+
 .gridPage #mainContent {
     padding: 0;
 }

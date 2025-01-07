@@ -1,11 +1,13 @@
 aliases:
   sig-docs-blog-owners: # Approvers for blog content
     - mrbobbytables
+    - natalisucks
     - nate-double-u
     - sftim
   sig-docs-blog-reviewers: # Reviewers for blog content
     - Gauravpadam
     - mrbobbytables
+    - natalisucks
     - nate-double-u
     - sftim
   sig-docs-website-owners: # Admins for overall website
@@ -133,8 +135,11 @@ aliases:
     - Okabe-Junya
   sig-docs-ja-reviews: # PR reviews for Japanese content
     - atoato88
+    - b1gb4by
     - bells17
+    - inductor
     - kakts
+    - nasa9084
     - Okabe-Junya
     - t-inu
   sig-docs-ko-owners: # Admins for Korean content
@@ -153,10 +158,10 @@ aliases:
     - ysyukr
   sig-docs-leads: # Website chairs and tech leads
     - divya-mohan0209
+    - katcosgrove
     - natalisucks
     - reylejano
     - salaxander
-    - sftim
     - tengqm
   sig-docs-zh-owners: # Admins for Chinese content
     - chenrui333

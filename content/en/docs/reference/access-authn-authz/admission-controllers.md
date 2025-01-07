@@ -1,36 +1,45 @@
 ---
 reviewers:
-  - lavalamp
-  - davidopp
-  - derekwaynecarr
-  - erictune
-  - janetkuo
-  - thockin
-title: Admission Controllers Reference
-linkTitle: Admission Controllers
+- lavalamp
+- davidopp
+- derekwaynecarr
+- erictune
+- janetkuo
+- thockin
+title: Admission Control in Kubernetes
+linkTitle: Admission Control
 content_type: concept
 weight: 40
 ---
 
 <!-- overview -->
+This page provides an overview of _admission controllers_.
 
-This page provides an overview of Admission Controllers.
+An admission controller is a piece of code that intercepts requests to the
+Kubernetes API server prior to persistence of the resource, but after the request
+is authenticated and authorized.
+
+Several important features of Kubernetes require an admission controller to be enabled in order
+to properly support the feature.  As a result, a Kubernetes API server that is not properly
+configured with the right set of admission controllers is an incomplete server that will not
+support all the features you expect.
 
 <!-- body -->
 
 ## What are they?
 
-An _admission controller_ is a piece of code that intercepts requests to the
-Kubernetes API server prior to persistence of the object, but after the request
-is authenticated and authorized.
+Admission controllers are code within the Kubernetes
+{{< glossary_tooltip term_id="kube-apiserver" text="API server" >}} that check the
+data arriving in a request to modify a resource.
 
-Admission controllers may be _validating_, _mutating_, or both. Mutating
-controllers may modify objects related to the requests they admit; validating controllers may not.
+Admission controllers apply to requests that create, delete, or modify objects.
+Admission controllers can also block custom verbs, such as a request to connect to a
+pod via an API server proxy. Admission controllers do _not_ (and cannot) block requests
+to read (**get**, **watch** or **list**) objects, because reads bypass the admission
+control layer.
 
-Admission controllers limit requests to create, delete, modify objects. Admission
-controllers can also block custom verbs, such as a request connect to a Pod via
-an API server proxy. Admission controllers do _not_ (and cannot) block requests
-to read (**get**, **watch** or **list**) objects.
+Admission control mechanisms may be _validating_, _mutating_, or both. Mutating
+controllers may modify the data for the resource being modified; validating controllers may not.
 
 The admission controllers in Kubernetes {{< skew currentVersion >}} consist of the
 [list](#what-does-each-admission-controller-do) below, are compiled into the
@@ -41,7 +50,23 @@ mutating and validating (respectively)
 [admission control webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
 which are configured in the API.
 
-## Admission control phases
+### Admission control extension points
+
+Within the full [list](#what-does-each-admission-controller-do), there are three
+special controllers:
+[MutatingAdmissionWebhook](#mutatingadmissionwebhook),
+[ValidatingAdmissionWebhook](#validatingadmissionwebhook), and
+[ValidatingAdmissionPolicy](#validatingadmissionpolicy).
+The two webhook controllers execute the mutating and validating (respectively)
+[admission control webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
+which are configured in the API. ValidatingAdmissionPolicy provides a way to embed
+declarative validation code within the API, without relying on any external HTTP
+callouts.
+
+You can use these three admission controllers to customize cluster behavior at
+admission time.
+
+### Admission control phases
 
 The admission control process proceeds in two phases. In the first phase,
 mutating admission controllers are run. In the second phase, validating
@@ -109,13 +134,6 @@ In Kubernetes {{< skew currentVersion >}}, the default ones are:
 ```shell
 CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, PodSecurity, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook
 ```
-
-{{< note >}}
-The [`ValidatingAdmissionPolicy`](#validatingadmissionpolicy) admission plugin is enabled
-by default, but is only active if you enable the `ValidatingAdmissionPolicy`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) **and**
-the `admissionregistration.k8s.io/v1alpha1` API.
-{{< /note >}}
 
 ## What does each admission controller do?
 
@@ -787,9 +805,7 @@ The Kubernetes project strongly recommends enabling this admission controller.
 You should enable this admission controller if you intend to make any use of Kubernetes
 `ServiceAccount` objects.
 
-Regarding the annotation `kubernetes.io/enforce-mountable-secrets`: While the annotation's name suggests it only concerns the mounting of Secrets,
-its enforcement also extends to other ways Secrets are used in the context of a Pod.
-Therefore, it is crucial to ensure that all the referenced secrets are correctly specified in the ServiceAccount.
+To enhance the security measures around Secrets, use separate namespaces to isolate access to mounted secrets.
 
 ### StorageObjectInUseProtection
 

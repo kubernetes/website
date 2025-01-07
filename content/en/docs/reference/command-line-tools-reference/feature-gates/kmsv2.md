@@ -16,6 +16,9 @@ stages:
     toVersion: "1.28" 
   - stage: stable
     defaultValue: true
-    fromVersion: "1.29"  
+    fromVersion: "1.29"
+    toVersion: "1.31"
+
+removed: true
 ---
 Enables KMS v2 API for encryption at rest. See [Using a KMS Provider for data encryption](/docs/tasks/administer-cluster/kms-provider) for more details.

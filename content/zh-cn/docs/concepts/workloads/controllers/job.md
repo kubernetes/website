@@ -1227,13 +1227,14 @@ Pod 终结器，Job 控制器就会给 Job 添加 `Complete` 或 `Failed` 终止
 
 <!--
 In Kubernetes v1.31 and later, the controller only adds the Job terminal conditions
-_after_ all of the Pods are terminated. You can enable this behavior by using the
-`JobManagedBy` or the `JobPodReplacementPolicy` (enabled by default)
+_after_ all of the Pods are terminated. You can control this behavior by using the
+`JobManagedBy` and the `JobPodReplacementPolicy` (both enabled by default)
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
-在 Kubernetes v1.31 及更高版本中，控制器仅在所有 Pod 终止后添加 Job 终止状况。
-你可以使用 `JobManagedBy` 或 `JobPodReplacementPolicy`（默认启用）
-启用此行为的[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+在 Kubernetes v1.31 及更高版本中，控制器仅在所有 Pod 都终止**之后**才会添加作业（Job）的终止条件。
+你可以通过使用 `JobManagedBy` 和 `JobPodReplacementPolicy`（都默认启用）
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+来控制这一行为。
 
 <!--
 ### Termination of Job pods
@@ -1975,10 +1976,10 @@ status:
 <!--
 You can only set the `managedBy` field on Jobs if you enable the `JobManagedBy`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-(disabled by default).
+(enabled by default).
 -->
 你只有在启用了 `JobManagedBy`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（默认禁用）时，
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（默认开启）时，
 才可以在 Job 上设置 `managedBy` 字段。
 {{< /note >}}
 

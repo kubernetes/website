@@ -21,6 +21,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.30"
+    toVersion: "1.31"
+
+removed: true
 ---
 Enable `minDomains` in
 [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/).

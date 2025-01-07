@@ -1,5 +1,5 @@
 ---
-title: Overprovision Node Capacity For A Cluster 
+title: Overprovision Node Capacity For A Cluster
 content_type: task
 weight: 10
 ---
@@ -7,24 +7,29 @@ weight: 10
 
 <!-- overview -->
 
-This page guides you through configuring {{< glossary_tooltip text="Node" term_id="node" >}} overprovisioning in your Kubernetes cluster. Node overprovisioning is a strategy that proactively reserves a portion of your cluster's compute resources. This reservation helps reduce the time required to schedule new pods during scaling events, enhancing your cluster's responsiveness to sudden spikes in traffic or workload demands. 
+This page guides you through configuring {{< glossary_tooltip text="Node" term_id="node" >}}
+overprovisioning in your Kubernetes cluster. Node overprovisioning is a strategy that proactively
+reserves a portion of your cluster's compute resources. This reservation helps reduce the time
+required to schedule new pods during scaling events, enhancing your cluster's responsiveness
+to sudden spikes in traffic or workload demands.
 
-By maintaining some unused capacity, you ensure that resources are immediately available when new pods are created, preventing them from entering a pending state while the cluster scales up.
+By maintaining some unused capacity, you ensure that resources are immediately available when
+new pods are created, preventing them from entering a pending state while the cluster scales up.
 
 ## {{% heading "prerequisites" %}}
 
-- You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with 
+- You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with
   your cluster.
 - You should already have a basic understanding of
   [Deployments](/docs/concepts/workloads/controllers/deployment/),
-  Pod {{<glossary_tooltip text="priority" term_id="pod-priority">}},
-  and [PriorityClasses](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass).
+  Pod {{< glossary_tooltip text="priority" term_id="pod-priority" >}},
+  and {{< glossary_tooltip text="PriorityClasses" term_id="priority-class" >}}.
 - Your cluster must be set up with an [autoscaler](/docs/concepts/cluster-administration/cluster-autoscaling/)
   that manages nodes based on demand.
 
 <!-- steps -->
 
-## Create a placeholder Deployment
+## Create a PriorityClass
 
 Begin by defining a PriorityClass for the placeholder Pods. First, create a PriorityClass with a
 negative priority value, that you will shortly assign to the placeholder pods.
@@ -43,14 +48,24 @@ When you add this to your cluster, Kubernetes runs those placeholder pods to res
 is a capacity shortage, the control plane will pick one these placeholder pods as the first candidate to
 {{< glossary_tooltip text="preempt" term_id="preemption" >}}.
 
+## Run Pods that request node capacity
+
 Review the sample manifest:
 
 {{% code_sample language="yaml" file="deployments/deployment-with-capacity-reservation.yaml" %}}
 
+### Pick a namespace for the placeholder pods
+
+You should select, or create, a {{< glossary_tooltip term_id="namespace" text="namespace">}}
+that the placeholder Pods will go into.
+
+### Create the placeholder deployment
+
 Create a Deployment based on that manifest:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/deployments/deployment-with-capacity-reservation.yaml
+# Change the namespace name "example"
+kubectl --namespace example apply -f https://k8s.io/examples/deployments/deployment-with-capacity-reservation.yaml
 ```
 
 ## Adjust placeholder resource requests
@@ -61,7 +76,13 @@ To edit the Deployment, modify the `resources` section in the Deployment manifes
 to set appropriate requests and limits. You can download that file locally and then edit it
 with whichever text editor you prefer.
 
-For example, to reserve 500m CPU and 1Gi memory across 5 placeholder pods,
+You can also edit the Deployment using kubectl:
+
+```shell
+kubectl edit deployment capacity-reservation
+```
+
+For example, to reserve a total of a 0.5 CPU and 1GiB of memory across 5 placeholder pods,
 define the resource requests and limits for a single placeholder pod as follows:
 
 ```yaml
@@ -77,10 +98,10 @@ define the resource requests and limits for a single placeholder pod as follows:
 
 ### Calculate the total reserved resources
 
-For example, with 5 replicas each reserving 0.1 CPU and 200MiB of memory:
-
-Total CPU reserved: 5 × 0.1 = 0.5 (in the Pod specification, you'll write the quantity `500m`)
-Total Memory reserved: 5 × 200MiB = 1GiB (in the Pod specification, you'll write `1 Gi`)
+<!-- trailing whitespace in next paragraph is significant -->
+For example, with 5 replicas each reserving 0.1 CPU and 200MiB of memory:  
+Total CPU reserved: 5 × 0.1 = 0.5 (in the Pod specification, you'll write the quantity `500m`)  
+Total memory reserved: 5 × 200MiB = 1GiB (in the Pod specification, you'll write `1 Gi`)  
 
 To scale the Deployment, adjust the number of replicas based on your cluster's size and expected workload:
 
