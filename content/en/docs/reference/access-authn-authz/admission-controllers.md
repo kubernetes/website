@@ -1,11 +1,11 @@
 ---
 reviewers:
-- lavalamp
-- davidopp
-- derekwaynecarr
-- erictune
-- janetkuo
-- thockin
+  - lavalamp
+  - davidopp
+  - derekwaynecarr
+  - erictune
+  - janetkuo
+  - thockin
 title: Admission Control in Kubernetes
 linkTitle: Admission Control
 content_type: concept
@@ -13,6 +13,7 @@ weight: 40
 ---
 
 <!-- overview -->
+
 This page provides an overview of _admission controllers_.
 
 An admission controller is a piece of code that intercepts requests to the
@@ -20,7 +21,7 @@ Kubernetes API server prior to persistence of the resource, but after the reques
 is authenticated and authorized.
 
 Several important features of Kubernetes require an admission controller to be enabled in order
-to properly support the feature.  As a result, a Kubernetes API server that is not properly
+to properly support the feature. As a result, a Kubernetes API server that is not properly
 configured with the right set of admission controllers is an incomplete server that will not
 support all the features you expect.
 
@@ -282,10 +283,10 @@ plugins:
 
 There are four types of limits that can be specified in the configuration:
 
-- `Server`: All Event requests (creation or modifications) received by the API server share a single bucket.
-- `Namespace`: Each namespace has a dedicated bucket.
-- `User`: Each user is allocated a bucket.
-- `SourceAndObject`: A bucket is assigned by each combination of source and
+* `Server`: All Event requests (creation or modifications) received by the API server share a single bucket.
+* `Namespace`: Each namespace has a dedicated bucket.
+* `User`: Each user is allocated a bucket.
+* `SourceAndObject`: A bucket is assigned by each combination of source and
   involved object of the event.
 
 Below is a sample `eventconfig.yaml` for such a configuration:
@@ -478,9 +479,9 @@ accept different information.
 
 Examples of information you might put here are:
 
-- request to "break glass" to override a policy, in case of emergency.
-- a ticket number from a ticket system that documents the break-glass request
-- provide a hint to the policy server as to the imageID of the image being provided, to save it a lookup
+* request to "break glass" to override a policy, in case of emergency.
+* a ticket number from a ticket system that documents the break-glass request
+* provide a hint to the policy server as to the imageID of the image being provided, to save it a lookup
 
 In any case, the annotations are provided by the user and are not validated by Kubernetes in any way.
 
@@ -518,7 +519,7 @@ webhooks are called in serial; each one may modify the object if it desires.
 This admission controller (as implied by the name) only runs in the mutating phase.
 
 If a webhook called by this has side effects (for example, decrementing quota) it
-_must_ have a reconciliation system, as it is not guaranteed that subsequent
+*must* have a reconciliation system, as it is not guaranteed that subsequent
 webhooks or validating admission controllers will permit the request to finish.
 
 If you disable the MutatingAdmissionWebhook, you must also disable the
@@ -580,21 +581,21 @@ kubelets are not allowed to update or remove taints from their `Node` API object
 The `NodeRestriction` admission plugin prevents kubelets from deleting their `Node` API object,
 and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.io/` prefixes as follows:
 
-- **Prevents** kubelets from adding/removing/updating labels with a `node-restriction.kubernetes.io/` prefix.
+* **Prevents** kubelets from adding/removing/updating labels with a `node-restriction.kubernetes.io/` prefix.
   This label prefix is reserved for administrators to label their `Node` objects for workload isolation purposes,
   and kubelets will not be allowed to modify labels with that prefix.
-- **Allows** kubelets to add/remove/update these labels and label prefixes:
-  - `kubernetes.io/hostname`
-  - `kubernetes.io/arch`
-  - `kubernetes.io/os`
-  - `beta.kubernetes.io/instance-type`
-  - `node.kubernetes.io/instance-type`
-  - `failure-domain.beta.kubernetes.io/region` (deprecated)
-  - `failure-domain.beta.kubernetes.io/zone` (deprecated)
-  - `topology.kubernetes.io/region`
-  - `topology.kubernetes.io/zone`
-  - `kubelet.kubernetes.io/`-prefixed labels
-  - `node.kubernetes.io/`-prefixed labels
+* **Allows** kubelets to add/remove/update these labels and label prefixes:
+  * `kubernetes.io/hostname`
+  * `kubernetes.io/arch`
+  * `kubernetes.io/os`
+  * `beta.kubernetes.io/instance-type`
+  * `node.kubernetes.io/instance-type`
+  * `failure-domain.beta.kubernetes.io/region` (deprecated)
+  * `failure-domain.beta.kubernetes.io/zone` (deprecated)
+  * `topology.kubernetes.io/region`
+  * `topology.kubernetes.io/zone`
+  * `kubelet.kubernetes.io/`-prefixed labels
+  * `node.kubernetes.io/`-prefixed labels
 
 Use of any other labels under the `kubernetes.io` or `k8s.io` prefixes by kubelets is reserved,
 and may be disallowed or allowed by the `NodeRestriction` admission plugin in the future.
@@ -610,7 +611,7 @@ This admission controller protects the access to the `metadata.ownerReferences` 
 so that only users with **delete** permission to the object can change it.
 This admission controller also protects the access to `metadata.ownerReferences[x].blockOwnerDeletion`
 of an object, so that only users with **update** permission to the `finalizers`
-subresource of the referenced _owner_ can change it.
+subresource of the referenced *owner* can change it.
 
 ### PersistentVolumeClaimResize {#persistentvolumeclaimresize}
 
@@ -846,7 +847,7 @@ fails. This admission controller only runs in the validation phase; the webhooks
 mutate the object, as opposed to the webhooks called by the `MutatingAdmissionWebhook` admission controller.
 
 If a webhook called by this has side effects (for example, decrementing quota) it
-_must_ have a reconciliation system, as it is not guaranteed that subsequent
+*must* have a reconciliation system, as it is not guaranteed that subsequent
 webhooks or other validating admission controllers will permit the request to finish.
 
 If you disable the ValidatingAdmissionWebhook, you must also disable the
