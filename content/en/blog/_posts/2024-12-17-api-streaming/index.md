@@ -19,7 +19,7 @@ This can be explained by the differing nature of resource consumption by a singl
 This situation poses a genuine risk, potentially overwhelming and crashing any kube-apiserver within seconds due to out-of-memory (OOM) conditions. To better visualize the issue, let's consider the below graph.
 
 
-{{< figure src="kube-apiserver-memory_usage.png" alt="Monitoring graph showing kube-apiserver memory usage" >}}
+{{< figure src="kube-apiserver-memory_usage.png" alt="Monitoring graph showing kube-apiserver memory usage" class="diagram-large" clicktozoom="true" >}}
 
 The graph shows the memory usage of a kube-apiserver during a synthetic test.
 (see the [synthetic test](#the-synthetic-test) section for more details).

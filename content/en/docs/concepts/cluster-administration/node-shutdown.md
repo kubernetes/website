@@ -5,25 +5,27 @@ weight: 10
 ---
 
 <!-- overview -->
+
 In a Kubernetes cluster, a {{< glossary_tooltip text="node" term_id="node" >}}
-can be shutdown in a planned graceful way or unexpectedly because of reasons such
+can be shut down in a planned graceful way or unexpectedly because of reasons such
 as a power outage or something else external. A node shutdown could lead to workload
 failure if the node is not drained before the shutdown. A node shutdown can be
 either **graceful** or **non-graceful**.
 
 <!-- body -->
+
 ## Graceful node shutdown {#graceful-node-shutdown}
 
 {{< feature-state feature_gate_name="GracefulNodeShutdown" >}}
 
 The kubelet attempts to detect node system shutdown and terminates pods running on the node.
 
-Kubelet ensures that pods follow the normal
+kubelet ensures that pods follow the normal
 [pod termination process](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
 during the node shutdown. During node shutdown, the kubelet does not accept new
 Pods (even if those Pods are already bound to the node).
 
-The Graceful node shutdown feature depends on systemd since it takes advantage of
+The graceful node shutdown feature depends on systemd since it takes advantage of
 [systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/) to
 delay the node shutdown with a given duration.
 
@@ -32,12 +34,12 @@ Graceful node shutdown is controlled with the `GracefulNodeShutdown`
 enabled by default in 1.21.
 
 Note that by default, both configuration options described below,
-`shutdownGracePeriod` and `shutdownGracePeriodCriticalPods` are set to zero,
+`shutdownGracePeriod` and `shutdownGracePeriodCriticalPods`, are set to zero,
 thus not activating the graceful node shutdown functionality.
-To activate the feature, the two kubelet config settings should be configured appropriately and
+To activate the feature, both options should be configured appropriately and
 set to non-zero values.
 
-Once systemd detects or notifies node shutdown, the kubelet sets a `NotReady` condition on
+Once systemd detects or is notified of a node shutdown, the kubelet sets a `NotReady` condition on
 the Node, with the `reason` set to `"node is shutting down"`. The kube-scheduler honors this condition
 and does not schedule any Pods onto the affected node; other third-party schedulers are
 expected to follow the same logic. This means that new Pods won't be scheduled onto that node
@@ -48,26 +50,29 @@ node shutdown has been detected, so that even Pods with a
 {{< glossary_tooltip text="toleration" term_id="toleration" >}} for
 `node.kubernetes.io/not-ready:NoSchedule` do not start there.
 
-At the same time when kubelet is setting that condition on its Node via the API,
+When kubelet is setting that condition on its Node via the API,
 the kubelet also begins terminating any Pods that are running locally.
 
 During a graceful shutdown, kubelet terminates pods in two phases:
 
 1. Terminate regular pods running on the node.
-2. Terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
+1. Terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
    running on the node.
 
-Graceful node shutdown feature is configured with two
+The graceful node shutdown feature is configured with two
 [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) options:
 
-* `shutdownGracePeriod`:
-  * Specifies the total duration that the node should delay the shutdown by. This is the total
-    grace period for pod termination for both regular and
-    [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
-* `shutdownGracePeriodCriticalPods`:
-  * Specifies the duration used to terminate
-    [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
-    during a node shutdown. This value should be less than `shutdownGracePeriod`.
+- `shutdownGracePeriod`:
+
+  Specifies the total duration that the node should delay the shutdown by. This is the total
+  grace period for pod termination for both regular and
+  [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
+
+- `shutdownGracePeriodCriticalPods`:
+
+  Specifies the duration used to terminate
+  [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
+  during a node shutdown. This value should be less than `shutdownGracePeriod`.
 
 {{< note >}}
 
@@ -122,22 +127,22 @@ Assuming the following custom pod
 [priority classes](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
 in a cluster,
 
-|Pod priority class name|Pod priority class value|
-|-------------------------|------------------------|
-|`custom-class-a`         | 100000                 |
-|`custom-class-b`         | 10000                  |
-|`custom-class-c`         | 1000                   |
-|`regular/unset`          | 0                      |
+| Pod priority class name | Pod priority class value |
+| ----------------------- | ------------------------ |
+| `custom-class-a`        | 100000                   |
+| `custom-class-b`        | 10000                    |
+| `custom-class-c`        | 1000                     |
+| `regular/unset`         | 0                        |
 
 Within the [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
 the settings for `shutdownGracePeriodByPodPriority` could look like:
 
-|Pod priority class value|Shutdown period|
-|------------------------|---------------|
-| 100000                 |10 seconds     |
-| 10000                  |180 seconds    |
-| 1000                   |120 seconds    |
-| 0                      |60 seconds     |
+| Pod priority class value | Shutdown period |
+| ------------------------ | --------------- |
+| 100000                   | 10 seconds      |
+| 10000                    | 180 seconds     |
+| 1000                     | 120 seconds     |
+| 0                        | 60 seconds      |
 
 The corresponding kubelet config YAML configuration would be:
 
@@ -154,18 +159,18 @@ shutdownGracePeriodByPodPriority:
 ```
 
 The above table implies that any pod with `priority` value >= 100000 will get
-just 10 seconds to stop, any pod with value >= 10000 and < 100000 will get 180
-seconds to stop, any pod with value >= 1000 and < 10000 will get 120 seconds to stop.
-Finally, all other pods will get 60 seconds to stop.
+just 10 seconds to shut down, any pod with value >= 10000 and < 100000 will get 180
+seconds to shut down, any pod with value >= 1000 and < 10000 will get 120 seconds to shut down.
+Finally, all other pods will get 60 seconds to shut down.
 
 One doesn't have to specify values corresponding to all of the classes. For
 example, you could instead use these settings:
 
-|Pod priority class value|Shutdown period|
-|------------------------|---------------|
-| 100000                 |300 seconds    |
-| 1000                   |120 seconds    |
-| 0                      |60 seconds     |
+| Pod priority class value | Shutdown period |
+| ------------------------ | --------------- |
+| 100000                   | 300 seconds     |
+| 1000                     | 120 seconds     |
+| 0                        | 60 seconds      |
 
 In the above case, the pods with `custom-class-b` will go into the same bucket
 as `custom-class-c` for shutdown.
@@ -225,14 +230,16 @@ on a different node.
 During a non-graceful shutdown, Pods are terminated in the two phases:
 
 1. Force delete the Pods that do not have matching `out-of-service` tolerations.
-2. Immediately perform detach volume operation for such pods.
+1. Immediately perform detach volume operation for such pods.
 
 {{< note >}}
+
 - Before adding the taint `node.kubernetes.io/out-of-service`, it should be verified
   that the node is already in shutdown or power off state (not in the middle of restarting).
 - The user is required to manually remove the out-of-service taint after the pods are
   moved to a new node and the user has checked that the shutdown node has been
   recovered since the user was the one who originally added the taint.
+
 {{< /note >}}
 
 ### Forced storage detach on timeout {#storage-force-detach-on-timeout}
@@ -256,39 +263,41 @@ its associated
 [VolumeAttachment](/docs/reference/kubernetes-api/config-and-storage-resources/volume-attachment-v1/)
 deleted.
 
-After this setting has been applied, unhealthy pods still attached to a volumes must be recovered
+After this setting has been applied, unhealthy pods still attached to volumes must be recovered
 via the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure mentioned above.
 
 {{< note >}}
+
 - Caution must be taken while using the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure.
 - Deviation from the steps documented above can result in data corruption.
-{{< /note >}}
 
+{{< /note >}}
 
 ## Windows Graceful node shutdown {#windows-graceful-node-shutdown}
 
 {{< feature-state feature_gate_name="WindowsGracefulNodeShutdown" >}}
 
-The Windows graceful node shutdown feature depends on kubelet running as a Windows service, 
-it will then have a registered [service control handler](https://learn.microsoft.com/en-us/windows/win32/services/service-control-handler-function) 
-to delay the  presshutdown event with a given duration.
+The Windows graceful node shutdown feature depends on kubelet running as a Windows service,
+it will then have a registered [service control handler](https://learn.microsoft.com/en-us/windows/win32/services/service-control-handler-function)
+to delay the preshutdown event with a given duration.
 
-Windows graceful node shutdown is controlled with the `WindowsGracefulNodeShutdown` 
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
+Windows graceful node shutdown is controlled with the `WindowsGracefulNodeShutdown`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 which is introduced in 1.32 as an alpha feature.
 
 Windows graceful node shutdown can not be cancelled.
 
-If Kubelet is not running as a Windows service, it will not be able to set and monitor 
+If kubelet is not running as a Windows service, it will not be able to set and monitor
 the [Preshutdown](https://learn.microsoft.com/en-us/windows/win32/api/winsvc/ns-winsvc-service_preshutdown_info) event,
 the node will have to go through the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure mentioned above.
 
-In the case where the Windows graceful node shutdown feature is enabled, but the kubelet is not 
-running as a Windows service, the kubelet will continue running instead of failing. However, 
+In the case where the Windows graceful node shutdown feature is enabled, but the kubelet is not
+running as a Windows service, the kubelet will continue running instead of failing. However,
 it will log an error indicating that it needs to be run as a Windows service.
 
 ## {{% heading "whatsnext" %}}
 
 Learn more about the following:
-* Blog: [Non-Graceful Node Shutdown](/blog/2023/08/16/kubernetes-1-28-non-graceful-node-shutdown-ga/).
-* Cluster Architecture: [Nodes](/docs/concepts/architecture/nodes/).
+
+- Blog: [Non-Graceful Node Shutdown](/blog/2023/08/16/kubernetes-1-28-non-graceful-node-shutdown-ga/).
+- Cluster Architecture: [Nodes](/docs/concepts/architecture/nodes/).

@@ -363,7 +363,7 @@ andere Ressourcen, wie z. B.
 oder {{< glossary_tooltip text="Deployments" term_id="deployment" >}} einbindet, 
 kannst du Artikel zu früheren Technologien lesen, unter anderem: 
  * [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
- * [Borg](https://research.google.com/pubs/pub43438.html)
+ * [Borg](https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/)
  * [Marathon](https://github.com/d2iq-archive/marathon)
  * [Omega](https://research.google/pubs/pub41684/)
  * [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/).

@@ -818,6 +818,14 @@ storage with specific access modes.
 Claims use [the same convention as volumes](#volume-mode) to indicate the
 consumption of the volume as either a filesystem or block device.
 
+### Volume Name
+
+Claims can use the `volumeName` field to explicitly bind to a specific PersistentVolume. You can also leave
+`volumeName` unset, indicating that you'd like Kubernetes to set up a new PersistentVolume
+that matches the claim.
+If the specified PV is already bound to another PVC, the binding will be stuck
+in a pending state.
+
 ### Resources
 
 Claims, like Pods, can request specific quantities of a resource. In this case,

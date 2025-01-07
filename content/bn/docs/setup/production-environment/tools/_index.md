@@ -16,7 +16,7 @@ no_list: true
 
 - [Kubespray](https://kubespray.io/):
   [Ansible](https://docs.ansible.com/) প্লেবুকের একটি রচনা,
-  [ইনভেন্টরি](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md#inventory),
+  [ইনভেন্টরি](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible/inventory.md),
   প্রভিশনিং টুলস, এবং জেনেরিক ওস/কুবারনেটিস ক্লাস্টার কনফিগারেশন ব্যবস্থাপনা কাজের
   জন্য ডোমেন জ্ঞান । আপনি স্ল্যাক চ্যানেলে সম্প্রদায়ের সাথে যোগাযোগ করতে পারেন
   [#kubespray](https://kubernetes.slack.com/messages/kubespray/)।
