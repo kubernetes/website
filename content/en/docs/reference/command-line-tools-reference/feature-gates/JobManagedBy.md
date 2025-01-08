@@ -12,7 +12,7 @@ stages:
     fromVersion: "1.30"
     toVersion: "1.31"
   - stage: beta
-    defaultValue: false
+    defaultValue: true
     fromVersion: "1.32"
 ---
 Allows to delegate reconciliation of a Job object to an external controller.
