@@ -2739,7 +2739,7 @@ ignores that node while calculating Topology Aware Hints.
 
 Type: Taint
 
-Example: `node-role.kubernetes.io/control-plane:NoSchedule`
+Example: `node-role.kubernetes.io/*:NoSchedule`
 
 Used on: Node
 
@@ -2751,7 +2751,7 @@ be scheduled onto them. You can manually remove this taint with the following
 command on a specific node.
 
 ```shell
-kubectl taint nodes <node-name> node-role.kubernetes.io/control-plane:NoSchedule-
+kubectl taint nodes <node-name> node-role.kubernetes.io/*:NoSchedule-
 ```
 
 ### node-role.kubernetes.io/master (deprecated) {#node-role-kubernetes-io-master-taint}
@@ -2760,7 +2760,7 @@ Type: Taint
 
 Used on: Node
 
-Example: `node-role.kubernetes.io/master:NoSchedule`
+Example: `node-role.kubernetes.io/*:NoSchedule`
 
 Taint that kubeadm previously applied on control plane nodes to allow only critical
 workloads to schedule on them. Replaced by the
