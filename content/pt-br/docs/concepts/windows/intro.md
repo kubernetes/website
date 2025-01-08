@@ -47,7 +47,7 @@ Elementos-chave do Kubernetes funcionam da mesma forma no Windows como no Linux.
   * Único ou múltiplos contêineres por Pod com isolamento de processo e compartilhamento de volume
   * Campos de `status` do Pod
   * Verificações de readiness (prontidão), liveness (operacionalidade) e startup (inicialização)
-  * Hooks de ciclo de vida do container `postStart` e `preStop`
+  * Hooks de ciclo de vida do Contêiner `postStart` e `preStop`
   * ConfigMap, Secrets: como variáveis de ambiente ou volumes
   * Volumes `emptyDir`
   * Montagens de pipe nomeado do host
@@ -79,7 +79,7 @@ Elementos-chave do Kubernetes funcionam da mesma forma no Windows como no Linux.
     * `spec.containers[*].securityContext.runAsUser`
     * `spec.containers[*].securityContext.runAsGroup`
 
-    Na lista acima, curingas (`*`) indicam todos os elementos em uma lista. Por exemplo, `spec.containers[*].securityContext` refere*se ao objeto SecurityContext para todos os containers. Se qualquer um desses campos for especificado, o Pod não será admitido pelo servidor API.
+    Na lista acima, curingas (`*`) indicam todos os elementos em uma lista. Por exemplo, `spec.containers[*].securityContext` refere*se ao objeto SecurityContext para todos os contêineres. Se qualquer um desses campos for especificado, o Pod não será admitido pelo servidor API.
 
 * [Recursos de carga de trabalho](/pt-br/docs/concepts/workloads/controllers/) incluindo:
   * ReplicaSet
@@ -96,7 +96,7 @@ Elementos-chave do Kubernetes funcionam da mesma forma no Windows como no Linux.
 Pods, recursos de carga de trabalho e Services são elementos críticos para gerenciar cargas de trabalho Windows no Kubernetes. No entanto, por si só, eles não são suficientes para habilitar o gerenciamento adequado do ciclo de vida de cargas de trabalho Windows em um ambiente nativo da nuvem dinâmico.
 
 * `kubectl exec`
-* Métricas de Pod e container
+* Métricas de Pod e Contêiner
 * {{< glossary_tooltip text="Escalonamento horizontal de pods" term_id="horizontal-pod-autoscaler" >}}
 * {{< glossary_tooltip text="Quotas de recursos" term_id="resource-quota" >}}
 * Preempção do scheduler
@@ -120,17 +120,17 @@ Em um nível alto, esses conceitos de SO são diferentes:
 
 * Identidade: Linux usa userID (UID) e groupID (GID) que são representados como tipos inteiros. Nomes de usuário e grupo não são canônicos - eles são apenas um alias em `/etc/groups` ou `/etc/passwd` de volta para UID+GID. O Windows usa um [identificador de segurança](https://docs.microsoft.com/pt-br/windows/security/identity-protection/access-control/security-identifiers) (SID) binário maior que é armazenado no banco de dados Windows Security Access Manager (SAM). Este banco de dados não é compartilhado entre o host e os contêineres, ou entre os contêineres.
 * Permissões de arquivo: o Windows usa uma lista de controle de acesso baseada em SIDs, enquanto sistemas POSIX como Linux usam uma máscara de bits baseada em permissões de objeto e UID+GID, além de listas de controle de acesso _opcionais_.
-* Caminhos de arquivo: a convenção no Windows é usar `\` em vez de `/`. As bibliotecas Go IO normalmente aceitam ambos e simplesmente funcionam, mas quando você está definindo um caminho ou linha de comando que é interpretada dentro de um container, pode ser necessário usar `\`.
+* Caminhos de arquivo: a convenção no Windows é usar `\` em vez de `/`. As bibliotecas Go IO normalmente aceitam ambos e simplesmente funcionam, mas quando você está definindo um caminho ou linha de comando que é interpretada dentro de um Contêiner, pode ser necessário usar `\`.
 * Sinais: Aplicativos interativos do Windows lidam com a terminação de maneira diferente e podem implementar um ou mais destes:
   * Uma thread de interface do usuário manipula mensagens bem definidas, incluindo `WM_CLOSE`.
   * Aplicativos de console lidam com Ctrl-C ou Ctrl-break usando um Manipulador de Controle.
   * Serviços registram uma função Manipuladora de Controle de Serviço que pode aceitar códigos de controle `SERVICE_CONTROL_STOP`.
 
-Códigos de saída de container seguem a mesma convenção onde 0 é sucesso e diferente de zero é falha. Os códigos de erro específicos podem diferir entre Windows e Linux. No entanto, códigos de saída passados dos componentes do Kubernetes (kubelet, kube-proxy) são inalterados.
+Códigos de saída de Contêiner seguem a mesma convenção onde 0 é sucesso e diferente de zero é falha. Os códigos de erro específicos podem diferir entre Windows e Linux. No entanto, códigos de saída passados dos componentes do Kubernetes (kubelet, kube-proxy) são inalterados.
 
-#### Compatibilidade de campos para especificações de container {#compatibility-v1-pod-spec-containers}
+#### Compatibilidade de campos para especificações de Contêiner {#compatibility-v1-pod-spec-containers}
 
-A lista a seguir documenta as diferenças entre como as especificações de container do Pod funcionam entre Windows e Linux:
+A lista a seguir documenta as diferenças entre como as especificações de Contêiner do Pod funcionam entre Windows e Linux:
 
 * Huge pages não são implementadas no agente de execução de contêiner do Windows e não estão disponíveis. Elas requerem [afirmação de um privilégio de usuário](https://docs.microsoft.com/pt-br/windows/desktop/Memory/large-page-support) que não é configurável para contêineres.
 * `requests.cpu` e `requests.memory` - as solicitações são subtraídas dos recursos disponíveis do nó, para que possam ser usadas para evitar o superprovisionamento de um nó. No entanto, elas não podem ser usadas para garantir recursos em um nó superprovisionado. Elas devem ser aplicadas a todos os contêineres como uma boa prática se o operador quiser evitar o superprovisionamento completamente.
@@ -138,7 +138,7 @@ A lista a seguir documenta as diferenças entre como as especificações de cont
 * `securityContext.capabilities` - capacidades POSIX não são implementadas no Windows
 * `securityContext.privileged` - o Windows não suporta contêineres privilegiados, use [contêineres HostProcess](/docs/tasks/configure-pod-container/create-hostprocess-pod/) em vez disso
 * `securityContext.procMount` - o Windows não possui um sistema de arquivos `/proc`
-* `securityContext.readOnlyRootFilesystem` - não é possível no Windows; acesso de gravação é necessário para que o registro e processos do sistema rodem dentro do container
+* `securityContext.readOnlyRootFilesystem` - não é possível no Windows; acesso de gravação é necessário para que o registro e processos do sistema rodem dentro do Contêiner
 * `securityContext.runAsGroup` - não é possível no Windows, pois não há suporte para GID
 * `securityContext.runAsNonRoot` - esta configuração impedirá que contêineres sejam executados como `ContainerAdministrator`, que é o equivalente mais próximo a um usuário root no Windows.
 * `securityContext.runAsUser` - use [`runAsUserName`](/pt-br/docs/tasks/configure-pod-container/configure-runasusername/) em vez disso
@@ -151,10 +151,10 @@ A lista a seguir documenta as diferenças entre como as especificações de Pod 
 
 * `hostIPC` e `hostPID` - compartilhamento de namespace do host não é possível no Windows
 * `hostNetwork` - [veja abaixo](#compatibility-v1-pod-spec-containers-hostnetwork)
-* `dnsPolicy` - definir o `dnsPolicy` do Pod como `ClusterFirstWithHostNet` não é suportado no Windows porque a rede do host não é fornecida. Pods sempre rodam com uma rede de container.
+* `dnsPolicy` - definir o `dnsPolicy` do Pod como `ClusterFirstWithHostNet` não é suportado no Windows porque a rede do host não é fornecida. Pods sempre rodam com uma rede de Contêiner.
 * `podSecurityContext` [veja abaixo](#compatibility-v1-pod-spec-containers-securitycontext)
-* `shareProcessNamespace` - este é um recurso beta e depende de namespaces Linux que não estão implementados no Windows. O Windows não pode compartilhar namespaces de processos ou o sistema de arquivos raiz do container. Apenas a rede pode ser compartilhada.
-* `terminationGracePeriodSeconds` - isso não está totalmente implementado no Docker no Windows, veja o [issue no GitHub](https://github.com/moby/moby/issues/25982). O comportamento atual é que o processo ENTRYPOINT recebe CTRL_SHUTDOWN_EVENT, então o Windows espera 5 segundos por padrão e finalmente encerra todos os processos usando o comportamento normal de desligamento do Windows. O padrão de 5 segundos está na verdade no registro do Windows [dentro do container](https://github.com/moby/moby/issues/25982#issuecomment-426441183), então pode ser substituído quando o container é construído.
+* `shareProcessNamespace` - este é um recurso beta e depende de namespaces Linux que não estão implementados no Windows. O Windows não pode compartilhar namespaces de processos ou o sistema de arquivos raiz do Contêiner. Apenas a rede pode ser compartilhada.
+* `terminationGracePeriodSeconds` - isso não está totalmente implementado no Docker no Windows, veja o [issue no GitHub](https://github.com/moby/moby/issues/25982). O comportamento atual é que o processo ENTRYPOINT recebe CTRL_SHUTDOWN_EVENT, então o Windows espera 5 segundos por padrão e finalmente encerra todos os processos usando o comportamento normal de desligamento do Windows. O padrão de 5 segundos está na verdade no registro do Windows [dentro do Contêiner](https://github.com/moby/moby/issues/25982#issuecomment-426441183), então pode ser substituído quando o Contêiner é construído.
 * `volumeDevices` - este é um recurso beta e não está implementado no Windows. O Windows não pode anexar dispositivos de bloco bruto a pods.
 * `volumes`
   * Se você definir um volume `emptyDir`, não pode definir sua fonte de volume para `memory`.
@@ -178,9 +178,9 @@ Apenas `securityContext.runAsNonRoot` e `securityContext.windowsOptions` dos cam
 
 O detector de problemas do nó (veja [Monitorando a integridade do nó](/docs/tasks/debug/debug-cluster/monitor-node-health/)) tem suporte preliminar para Windows. Para mais informações, visite a [página do GitHub](https://github.com/kubernetes/node-problem-detector#windows) do projeto.
 
-## Container de pausa
+## Contêiner de pausa
 
-Em um Pod Kubernetes, um container de infraestrutura ou "pausa" é criado primeiro para hospedar o container. No Linux, os cgroups e namespaces que compõem um pod precisam de um processo para manter sua existência contínua; o processo de pausa fornece isso. Contêineres que pertencem ao mesmo pod, incluindo infraestrutura e contêineres de trabalho, compartilham um endpoint de rede comum (mesmo endereço IPv4 e/ou IPv6, mesmos espaços de porta de rede). O Kubernetes usa contêineres de pausa para permitir que contêineres de trabalho falhem ou reiniciem sem perder qualquer configuração de rede.
+Em um Pod Kubernetes, um Contêiner de infraestrutura ou "pausa" é criado primeiro para hospedar o Contêiner. No Linux, os cgroups e namespaces que compõem um pod precisam de um processo para manter sua existência contínua; o processo de pausa fornece isso. Contêineres que pertencem ao mesmo pod, incluindo infraestrutura e contêineres de trabalho, compartilham um endpoint de rede comum (mesmo endereço IPv4 e/ou IPv6, mesmos espaços de porta de rede). O Kubernetes usa contêineres de pausa para permitir que contêineres de trabalho falhem ou reiniciem sem perder qualquer configuração de rede.
 O detector de problemas do nó (veja [Monitorando a integridade do nó](/docs/tasks/debug/debug-cluster/monitor-node-health/)) tem suporte preliminar para Windows. Para mais informações, visite a [página do GitHub](https://github.com/kubernetes/node-problem-detector#windows) do projeto.
 O Kubernetes mantém uma imagem multi-arquitetura que inclui suporte para Windows. Para o Kubernetes v{{< skew currentPatchVersion >}} a imagem de pausa recomendada é `registry.k8s.io/pause:3.6`. O [código fonte](https://github.com/kubernetes/kubernetes/tree/master/build/pause) está disponível no GitHub.
 
@@ -190,7 +190,7 @@ A Microsoft mantém uma imagem multi-arquitetura diferente, com suporte para Win
 
 Você precisa instalar um {{< glossary_tooltip text="agente de execução de contêiner" term_id="container-runtime" >}} em cada nó do cluster para que os Pods possam ser executados lá.
 
-Os seguintes runtimes de container funcionam com Windows:
+Os seguintes runtimes de Contêiner funcionam com Windows:
 
 {{% thirdparty-content %}}
 
@@ -200,13 +200,13 @@ Os seguintes runtimes de container funcionam com Windows:
 
 Você pode usar {{< glossary_tooltip term_id="containerd" text="ContainerD" >}} 1.4.0+ como o agente de execução de contêiner para nós Kubernetes que executam Windows.
 
-Aprenda como [instalar o ContainerD em um nó Windows](/docs/setup/production-environment/container-runtimes/#containerd).
+Aprenda como [instalar o ContêinerD em um nó Windows](/docs/setup/production-environment/container-runtimes/#containerd).
 
 {{< note >}}
 Há uma [limitação conhecida](pt-br/docs/tasks/configure-pod-container/configure-gmsa/) ao usar GMSA com containerd para acessar compartilhamentos de rede do Windows, o que requer um patch no kernel.
 {{< /note >}}
 
-### Mirantis Container Runtime {#mcr}
+### Mirantis Contêiner Runtime {#mcr}
 
 [Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) está disponível como um agente de execução de contêiner para todas as versões do Windows Server 2019 e posteriores.
 
@@ -214,7 +214,7 @@ Veja [Instalar MCR em servidores Windows](https://docs.mirantis.com/mcr/20.10/in
 
 ## Compatibilidade de versão do sistema operacional Windows{#windows-os-version-support}
 
-Em nós Windows, aplicam-se regras estritas de compatibilidade onde a versão do SO do host deve corresponder à versão da imagem base do container. Apenas contêineres Windows com um sistema operacional de container do Windows Server 2019 são totalmente suportados.
+Em nós Windows, aplicam-se regras estritas de compatibilidade onde a versão do SO do host deve corresponder à versão da imagem base do Contêiner. Apenas contêineres Windows com um sistema operacional de Contêiner do Windows Server 2019 são totalmente suportados.
 
 Para o Kubernetes v{{< skew currentVersion >}}, a compatibilidade do sistema operacional para nós Windows (e Pods) é a seguinte:
 
@@ -245,7 +245,7 @@ Consulte [Requisitos de hardware para o Windows Server na documentação da Micr
 
 Para otimizar os recursos do sistema, se uma interface gráfica de usuário não for necessária, pode ser preferível usar uma instalação do Windows Server que exclua a opção de instalação [Windows Desktop Experience](https://learn.microsoft.com/pt-br/windows-server/get-started/install-options-server-core-desktop-experience), já que esta configuração normalmente libera mais recursos do sistema.
 
-Ao avaliar o espaço em disco para nós de trabalho Windows, observe que as imagens de container do Windows são tipicamente maiores que as imagens de container do Linux, com tamanhos de imagem de container variando de [300MB a mais de 10GB](https://techcommunity.microsoft.com/t5/containers/nano-server-x-server-core-x-server-which-base-image-is-the-right/ba-p/2835785) para uma única imagem. Além disso, observe que a unidade `C:` em contêineres Windows representa um tamanho virtual livre de 20GB por padrão, que não é o espaço consumido real, mas sim o tamanho do disco para o qual um único container pode crescer ao ocupar quando usa armazenamento local no host. Veja [Contêineres no Windows - Documentação de Armazenamento de Container](https://learn.microsoft.com/pt-br/virtualization/windowscontainers/manage-containers/container-storage#storage-limits) para mais detalhes.
+Ao avaliar o espaço em disco para nós de trabalho Windows, observe que as imagens de Contêiner do Windows são tipicamente maiores que as imagens de Contêiner do Linux, com tamanhos de imagem de Contêiner variando de [300MB a mais de 10GB](https://techcommunity.microsoft.com/t5/containers/nano-server-x-server-core-x-server-which-base-image-is-the-right/ba-p/2835785) para uma única imagem. Além disso, observe que a unidade `C:` em contêineres Windows representa um tamanho virtual livre de 20GB por padrão, que não é o espaço consumido real, mas sim o tamanho do disco para o qual um único Contêiner pode crescer ao ocupar quando usa armazenamento local no host. Veja [Contêineres no Windows - Documentação de Armazenamento de Contêiner](https://learn.microsoft.com/pt-br/virtualization/windowscontainers/manage-containers/container-storage#storage-limits) para mais detalhes.
 
 ## Obtendo ajuda e solucionando problemas {#troubleshooting}
 
