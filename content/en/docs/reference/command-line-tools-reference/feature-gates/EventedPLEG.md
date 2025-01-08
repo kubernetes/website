@@ -8,7 +8,7 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
-    fromVersion: "1.25"
+    fromVersion: "1.26"
 ---
 Enable support for the kubelet to receive container life cycle events from the
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}} via
