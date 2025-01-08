@@ -392,7 +392,7 @@ init কন্টেইনারগুলির জন্য আপনাকে 
 কুবারনেটিস কেন অন্যান্য রিসোর্সগুলিতে মোড়ানোর প্রসঙ্গটি বোঝার জন্য একটি সাধারণ পড API (যেমন {{< glossary_tooltip text="স্টেটফুল সেট" term_id="statefulset" >}}) বা {{< glossary_tooltip text="ডিপলয়মেন্ট" term_id="deployment">}}) তে , আপনি পূর্ববর্তী আর্ট সম্পর্কে পড়তে পারেন, যার মধ্যে রয়েছে:
 
 * [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
-* [Borg](https://research.google.com/pubs/pub43438.html)
+* [Borg](https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/)
 * [Marathon](https://github.com/d2iq-archive/marathon)
 * [Omega](https://research.google/pubs/pub41684/)
 * [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/)।
