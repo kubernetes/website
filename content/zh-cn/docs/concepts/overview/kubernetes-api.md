@@ -340,7 +340,6 @@ checks).
 可以使用`kubectl apply --dry-run=server`，这将运行所有适用的验证规则（同时也会触发准入时的检查）。
 {{< /warning >}}
 
-
 ### OpenAPI v3
 
 {{< feature-state feature_gate_name="OpenAPIV3" >}}
