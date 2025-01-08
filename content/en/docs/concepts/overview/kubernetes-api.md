@@ -201,6 +201,8 @@ checks).
 
 ### OpenAPI V3
 
+{{< feature-state feature_gate_name="OpenAPIV3" >}}
+
 Kubernetes supports publishing a description of its APIs as OpenAPI v3.
 
 A discovery endpoint `/openapi/v3` is provided to see a list of all

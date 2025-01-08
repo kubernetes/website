@@ -42,6 +42,10 @@
         {{- end -}}
       {{- end -}}
 
+      {{- if not $featureGateFound -}}
+        {{- errorf "Invalid feature gate: '%s' is not recognized or lacks a matching description file in '%s'" $feature_gate_name (print "en" $featureGateDescriptionFilesPath) -}}
+      {{- end -}}
+
     {{- end -}}
   {{- end -}}
 {{ end }}
