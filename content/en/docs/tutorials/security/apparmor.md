@@ -8,8 +8,6 @@ weight: 30
 
 <!-- overview -->
 
-{{< feature-state feature_gate_name="AppArmor" >}}
-
 This page shows you how to load AppArmor profiles on your nodes and enforce
 those profiles in Pods. To learn more about how Kubernetes can confine Pods using
 AppArmor, see
