@@ -62,11 +62,11 @@ aliases:
     - katcosgrove
     - natalisucks
     - nate-double-u
+    - rayandas # RT 1.33 Docs Lead
     - reylejano
     - salaxander
     - sftim
     - tengqm
-    - chanieljdan # RT 1.32 Docs Lead
   sig-docs-en-reviews: # PR reviews for English content
     - dipesh-rawat
     - divya-mohan0209
