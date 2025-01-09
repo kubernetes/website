@@ -105,7 +105,7 @@ iptables
 You can test source IP preservation by creating a Service over the source IP app:
 
 ```shell
-kubectl expose deployment source-ip-app --name=clusterip --port=80 --target-port=8080
+kubectl expose deployment source-ip-app --name=clusterip --port=80
 ```
 The output is:
 ```
