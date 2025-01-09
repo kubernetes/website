@@ -259,6 +259,8 @@ milestone on GitHub artifacts.
 This group is [maintained](https://git.k8s.io/sig-release/release-team/README.md#milestone-maintainers)
 by SIG Release and has representation from the various SIGs' leadership.
 
+Adding the in-progress release milestone to pull requests after the Code Freeze is strictly prohibited, as it can compromise the stability of the release. Prior to making such changes, approval must be obtained from both the Release Team Lead and the Emeritus Advisor(s).
+
 ### Feature additions
 
 Feature planning and definition takes many forms today, but a typical example
