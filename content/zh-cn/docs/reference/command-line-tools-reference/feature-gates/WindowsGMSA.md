@@ -1,6 +1,6 @@
 ---
 # Removed from Kubernetes
-title: ExpandCSIVolumes
+title: WindowsGMSA
 content_type: feature_gate
 
 _build:
@@ -15,15 +15,16 @@ stages:
   - stage: beta 
     defaultValue: true
     fromVersion: "1.16"
-    toVersion: "1.23"    
+    toVersion: "1.17"
   - stage: stable
     defaultValue: true
-    fromVersion: "1.24"
-    toVersion: "1.26"    
+    fromVersion: "1.18"
+    toVersion: "1.18"
 
-removed: true  
+removed: true
 ---
+
 <!--
-Enable the expanding of CSI volumes.
+Enables passing of GMSA credential specs from pods to container runtimes.
 -->
-启用 CSI 卷的扩展。
+允许从 Pod 传递 GMSA 凭据规范到容器运行时。

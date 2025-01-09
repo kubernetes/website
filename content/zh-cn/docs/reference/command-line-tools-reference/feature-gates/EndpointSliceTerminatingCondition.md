@@ -21,6 +21,7 @@ stages:
 
 removed: true  
 ---
+
 <!--
 Enables EndpointSlice `terminating` and `serving`
  condition fields.

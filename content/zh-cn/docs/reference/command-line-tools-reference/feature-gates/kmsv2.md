@@ -16,11 +16,16 @@ stages:
     toVersion: "1.28" 
   - stage: stable
     defaultValue: true
-    fromVersion: "1.29"  
+    fromVersion: "1.29"
+    toVersion: "1.31"
+
+removed: true
 ---
 
 <!--
-Enables KMS v2 API for encryption at rest. See [Using a KMS Provider for data encryption](/docs/tasks/administer-cluster/kms-provider) for more details.
+Enables KMS v2 API for encryption at rest. See
+[Using a KMS Provider for data encryption](/docs/tasks/administer-cluster/kms-provider)
+for more details.
 -->
 启用 KMS v2 API 以实现静态加密。
 详情参见[使用 KMS 驱动进行数据加密](/zh-cn/docs/tasks/administer-cluster/kms-provider/)。
