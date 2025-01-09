@@ -46,12 +46,10 @@ Kubernetes 文档的这一部分包含教程。
 <!--
 ## Configuration
 
-* [Example: Configuring a Java Microservice](/docs/tutorials/configuration/configure-java-microservice/)
 * [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 -->
 ## 配置  {#configuration}
 
-* [示例：配置 Java 微服务](/zh-cn/docs/tutorials/configuration/configure-java-microservice/)
 * [使用 ConfigMap 配置 Redis](/zh-cn/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 <!--
