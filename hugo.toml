@@ -248,21 +248,25 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 # End user relevant links. These will show up on left side of footer and in the community page if you have one.
 [[params.links.user]]
 	name_key = "community_youtube_name"
+  name = "Kubernetes Community YouTube channel"
 	url = "https://youtube.com/kubernetescommunity"
 	icon = "fa-brands fa-youtube"
 
 [[params.links.user]]
 	name_key = "community_forum_name"
+  name = "Kubernetes Discussion Forum"
 	url = "https://discuss.kubernetes.io"
 	icon = "fa-solid fa-envelope"
 
 [[params.links.user]]
 	name_key = "community_server_fault_name"
+  name = "Kubernetes Server Fault"
 	url = "https://serverfault.com/questions/tagged/kubernetes"
 	icon = "fa-brands fa-stack-overflow"
 
 [[params.links.user]]
 	name_key = "community_x_name"
+  name = "Kubernetes Twitter"
 	url = "https://twitter.com/kubernetesio"
 	icon = "fa-brands fa-twitter"
 # Replace with fa-x-twitter once available
@@ -270,21 +274,25 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
 	name_key = "community_contributor_site_name"
+  name = "Kubernetes Contributor site"
 	url = "https://k8s.dev/"
 	icon = "fa-solid fa-laptop-code"
 
 [[params.links.developer]]
 	name_key = "community_github_name"
+  name = "Kubernetes GitHub Repository"
 	url = "https://github.com/kubernetes/kubernetes"
 	icon = "fa-brands fa-github"
 
 [[params.links.developer]]
 	name_key = "community_slack_name"
+  name = "Kubernetes Slack Community"
 	url = "https://slack.k8s.io"
 	icon = "fa-brands fa-slack"
 
 [[params.links.developer]]
 	name_key = "community_calendar_name"
+  name = "Kubernetes Community Calendar"
 	url = "https://calendar.google.com/calendar/embed?src=calendar%40kubernetes.io"
 	icon = "fa-solid fa-calendar-days"
 
