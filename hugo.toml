@@ -264,8 +264,7 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 [[params.links.user]]
 	name_key = "community_x_name"
 	url = "https://twitter.com/kubernetesio"
-	icon = "fa-brands fa-twitter"
-# Replace with fa-x-twitter once available
+	icon = "fa-brands fa-x-twitter"
 
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
