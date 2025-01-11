@@ -151,11 +151,19 @@ should be allowed as ingress sources or egress destinations.
 ingress sources or egress destinations.
 
 **namespaceSelector** *and* **podSelector**: A single `to`/`from` entry that specifies both
-`namespaceSelector` and `podSelector` selects particular Pods within particular namespaces. Be
+`namespaceSelector` and `podSelector`. It selects particular Pods within particular namespaces. Be
 careful to use correct YAML syntax. For example:
 
 ```yaml
   ...
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          user: bob
+      podSelector:
+        matchLabels:
+          role: server
   ingress:
   - from:
     - namespaceSelector:
@@ -167,11 +175,24 @@ careful to use correct YAML syntax. For example:
   ...
 ```
 
-This policy contains a single `from` element allowing connections from Pods with the label
-`role=client` in namespaces with the label `user=alice`. But the following policy is different:
+This policy contains a single `to` and `from` element.
+- The `to` element allows outgoing connections to Pods with the label
+`role=server`, *and* in namespaces with the label `user=bob`.
+- The `from` element allows incoming connections from Pods with the label
+`role=client`, *and* in namespaces with the label `user=alice`.
+
+But the following policy is different:
 
 ```yaml
   ...
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          user: bob
+    - podSelector:
+        matchLabels:
+          role: server
   ingress:
   - from:
     - namespaceSelector:
@@ -183,7 +204,11 @@ This policy contains a single `from` element allowing connections from Pods with
   ...
 ```
 
-It contains two elements in the `from` array, and allows connections from Pods in the local
+It contains two elements in the `to` and `from` array.
+- The `to` array allows outgoing connections to Pods in the local
+Namespace with the label `role=server`, *or* from any Pod in any namespace with the label
+`user=bob`.
+- The `from` array allows incoming connections from Pods in the local
 Namespace with the label `role=client`, *or* from any Pod in any namespace with the label
 `user=alice`.
 
