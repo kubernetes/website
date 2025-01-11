@@ -151,7 +151,7 @@ should be allowed as ingress sources or egress destinations.
 ingress sources or egress destinations.
 
 **namespaceSelector** *and* **podSelector**: A single `to`/`from` entry that specifies both
-`namespaceSelector` and `podSelector` selects particular Pods within particular namespaces. Be
+`namespaceSelector` and `podSelector`, selects particular Pods within particular namespaces. Be
 careful to use correct YAML syntax. For example:
 
 ```yaml
@@ -167,8 +167,8 @@ careful to use correct YAML syntax. For example:
   ...
 ```
 
-This policy contains a single `from` element allowing connections from Pods with the label
-`role=client` in namespaces with the label `user=alice`. But the following policy is different:
+This policy contains a single `from` element that allows incoming connections from Pods with the label
+ `role=client`, *and* in namespaces with the label `user=alice`. But the following policy is different:
 
 ```yaml
   ...
@@ -183,9 +183,12 @@ This policy contains a single `from` element allowing connections from Pods with
   ...
 ```
 
-It contains two elements in the `from` array, and allows connections from Pods in the local
-Namespace with the label `role=client`, *or* from any Pod in any namespace with the label
-`user=alice`.
+It contains two elements in the `from` array that and allows incoming connections from Pods in the local
+Namespace with the label `role=client`, *or* from any Pod in any namespace with the label `user=alice`.
+
+{{< note >}}
+Be careful of hyphens when using a combined namespace-and-pod-selector rules.
+{{< /note >}}
 
 When in doubt, use `kubectl describe` to see how Kubernetes has interpreted the policy.
 
@@ -207,9 +210,19 @@ cluster-external IPs may or may not be subject to `ipBlock`-based policies.
 
 ## Default policies
 
-By default, if no policies exist in a namespace, then all ingress and egress traffic is allowed to
-and from pods in that namespace. The following examples let you change the default behavior
-in that namespace.
+By default, if no policies are created in a namespace, then all ingress and egress traffic is allowed to
+and from pods in that namespace. However, when a policy is created in a namespace, Kubernetes only
+accepts a list of `spec.ingress` and `spec.egress` rules.
+
+* A list with an empty object, `[{}]`, means match everything (no restriction).
+* An empty list, `[]`, means match nothing (explicit restriction).
+
+In your manifest, you may choose to specify a rule, `spec.egress` or `spec.ingress`, after specifying a
+policy type, `spec.policyTypes`. However, if you choose not to specify any rules, Kubernetes assumes
+that you have specified an empty list, `[]`, which results in a default deny, meaning all traffic
+is blocked for that policy type.
+
+The following examples let you change the default behavior in a namespace.
 
 ### Default deny all ingress traffic
 
@@ -260,6 +273,13 @@ creating the following NetworkPolicy in that namespace.
 
 This ensures that even pods that aren't selected by any other NetworkPolicy will not be allowed
 ingress or egress traffic.
+
+### Allow all egress and deny all ingress traffic
+
+If you want to allow all outgoing egress connections from all pods in a namespace, but deny all incoming
+connection to these pods, you can create a policy that explicitly does that.
+
+{{% code_sample file="service/networking/network-policy-allow-all-egress-deny-all-ingress.yaml" %}}
 
 ## Network traffic filtering
 
