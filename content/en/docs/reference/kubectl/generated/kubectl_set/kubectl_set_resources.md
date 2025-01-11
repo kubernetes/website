@@ -45,6 +45,10 @@ kubectl set resources (-f FILENAME | TYPE NAME)  ([--limits=LIMITS & --requests=
   
   # Print the result (in yaml format) of updating nginx container limits from a local, without hitting the server
   kubectl set resources -f path/to/file.yaml --limits=cpu=200m,memory=512Mi --local -o yaml
+
+  # Set resource requests while creating a deployment
+  kubectl create deployment my-dep --image=nginx  -o yaml --dry-run=client  | kubectl set resources -f - --limits=cpu=200m,memory=512Mi --requests=cpu=100m,memory=256Mi --local -o yaml | kubectl 
+  create -f -
 ```
 
 ## {{% heading "options" %}}
