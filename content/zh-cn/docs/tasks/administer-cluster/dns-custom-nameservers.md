@@ -39,12 +39,12 @@ Your cluster must be running the CoreDNS add-on.
 ## Introduction
 
 DNS is a built-in Kubernetes service launched automatically
-using the _addon manager_ [cluster add-on](http://releases.k8s.io/master/cluster/addons/README.md).
+using the _addon manager_ [cluster add-on](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md).
 -->
 ## 介绍   {#introduction}
 
 DNS 是使用 **插件管理器**
-[集群插件](http://releases.k8s.io/master/cluster/addons/README.md)自动启动的 Kubernetes 内置服务。
+[集群插件](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md)自动启动的 Kubernetes 内置服务。
 
 {{< note >}}
 <!--
