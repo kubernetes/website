@@ -1475,6 +1475,21 @@ consumption of the volume as either a filesystem or block device.
 申领使用[与卷相同的约定](#volume-mode)来表明是将卷作为文件系统还是块设备来使用。
 
 <!--
+### Volume Name
+
+Claims can use the `volumeName` field to explicitly bind to a specific PersistentVolume. You can also leave
+`volumeName` unset, indicating that you'd like Kubernetes to set up a new PersistentVolume
+that matches the claim.
+If the specified PV is already bound to another PVC, the binding will be stuck
+in a pending state.
+-->
+### 卷名称 {#volume-mame}
+
+声明可以使用 `volumeName` 字段显式绑定到特定的持久卷（PersistentVolume）。
+你也可以不设置 `volumeName`，表示希望 Kubernetes 创建一个与声明匹配的新持久卷。
+如果指定的持久卷已经绑定到另一个 PVC，绑定将处于挂起状态。
+
+<!--
 ### Resources
 
 Claims, like Pods, can request specific quantities of a resource. In this case,
