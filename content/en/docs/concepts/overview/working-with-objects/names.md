@@ -47,7 +47,6 @@ as defined in [RFC 1123](https://tools.ietf.org/html/rfc1123).
 This means the name must:
 
 - contain no more than 253 characters
-- contain only lowercase alphanumeric characters, '-' or '.'
 - start with an alphanumeric character
 - end with an alphanumeric character
 
@@ -58,7 +57,6 @@ label standard as defined in [RFC 1123](https://tools.ietf.org/html/rfc1123).
 This means the name must:
 
 - contain at most 63 characters
-- contain only lowercase alphanumeric characters or '-'
 - start with an alphanumeric character
 - end with an alphanumeric character
 
