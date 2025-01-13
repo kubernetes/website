@@ -6,29 +6,54 @@
 {{ end }}
 {{/* copy-and-paste helper for codenew shortcode */}}
 {{- if or (.HasShortcode "code_sample") (.HasShortcode "code") (.HasShortcode "codenew") -}}
+  {{- $toastrJs := resources.Get "js/toastr-2.1.4.min.js" | minify | fingerprint -}}
   {{- if hugo.IsProduction -}}
-    {{- $sweetAlert :=  resources.Get "js/sweetalert-2.1.2.min.js" | minify | fingerprint -}}
-<script async src="{{ $sweetAlert.RelPermalink }}" integrity="{{ $sweetAlert.Data.Integrity }}" crossorigin="anonymous"></script>
+    <script async src="{{ $toastrJs.RelPermalink }}"></script>
   {{- else -}}
-    {{- $sweetAlert := resources.Get "js/sweetalert-2.1.2.min.js" -}}
-<script async src="{{ $sweetAlert.RelPermalink }}"></script>
+    <script async src="{{ $toastrJs.RelPermalink }}"></script>
   {{- end -}}
+
 <script type="text/javascript">
-function copyCode(elem){
+function copyCode(elem) {
   if (document.getElementById(elem)) {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(document.getElementById(elem).textContent).then(
         function () {
-          swal("Copied to clipboard: ",elem);
+          toastr.options = {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-bottom-center", 
+            timeOut: 2000, 
+            preventDuplicates: true,   
+            newestOnTop: true          
+          };
+          toastr.success("{{i18n "toast_success_copycode"}}" + elem, "{{i18n "success_copy_to_clipboard"}}");
         },
         function () {
-          swal("Oh, no…","Failed to copy to clipboard: ",elem);
-        },
+          toastr.options = {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-bottom-center", 
+            timeOut: 2000, 
+            preventDuplicates: true,  
+            newestOnTop: true         
+          };
+          toastr.error("{{i18n "toast_failure_copycode"}}" + elem, "{{i18n "error_copy_to_clipboard"}}");
+        }
       );
     } else {
-      swal("Oh, no…","Sorry, your browser doesn't support copying this example to your clipboard.");
+      toastr.options = {
+        closeButton: true,
+        progressBar: true,
+        positionClass: "toast-bottom-center", 
+        timeOut: 2000,
+        preventDuplicates: true,  
+        newestOnTop: true         
+      };
+      toastr.warning("{{i18n "browser_clipboard_support_warning"}}", "{{i18n "warning_copy_to_clipboard"}}");
     }
   }
 }
 </script>
+
 {{- end -}}
