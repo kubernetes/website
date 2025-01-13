@@ -234,7 +234,7 @@ Feature | Alpha | Beta | GA | Removed
 Feature gate descriptions:
 
 `EtcdLearnerMode`
-: With this feature gate enabled, when joining a new control plane node, a new etcd member will be created
+: When joining a new control plane node, a new etcd member will be created
 as a learner and promoted to a voting member only after the etcd data are fully aligned.
 
 `IPv6DualStack`
