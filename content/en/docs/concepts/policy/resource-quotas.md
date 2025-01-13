@@ -36,7 +36,7 @@ Resource quotas work like this:
 - If creating or updating a resource violates a quota constraint, the request will fail with HTTP
   status code `403 FORBIDDEN` with a message explaining the constraint that would have been violated.
 
-- If quota is enabled in a namespace for compute resources like `cpu` and `memory`, users must specify
+- If quotas are enabled in a namespace for compute resources like `cpu` and `memory`, users must specify
   requests or limits for those values; otherwise, the quota system may reject pod creation. Hint: Use
   the `LimitRanger` admission controller to force defaults for pods that make no compute resource requirements.
 
@@ -222,8 +222,8 @@ Resources specified on the quota outside of the allowed set results in a validat
 
 | Scope | Description |
 | ----- | ----------- |
-| `Terminating` | Match pods where `.spec.activeDeadlineSeconds >= 0` |
-| `NotTerminating` | Match pods where `.spec.activeDeadlineSeconds is nil` |
+| `Terminating` | Match pods where `.spec.activeDeadlineSeconds` >= `0` |
+| `NotTerminating` | Match pods where `.spec.activeDeadlineSeconds` is `nil` |
 | `BestEffort` | Match pods that have best effort quality of service. |
 | `NotBestEffort` | Match pods that do not have best effort quality of service. |
 | `PriorityClass` | Match pods that references the specified [priority class](/docs/concepts/scheduling-eviction/pod-priority-preemption). |
@@ -308,60 +308,14 @@ works as follows:
 - Pods in the cluster have one of the three priority classes, "low", "medium", "high".
 - One quota object is created for each priority.
 
-Save the following YAML to a file `quota.yml`.
+Save the following YAML to a file `quota.yaml`.
 
-```yaml
-apiVersion: v1
-kind: List
-items:
-- apiVersion: v1
-  kind: ResourceQuota
-  metadata:
-    name: pods-high
-  spec:
-    hard:
-      cpu: "1000"
-      memory: 200Gi
-      pods: "10"
-    scopeSelector:
-      matchExpressions:
-      - operator : In
-        scopeName: PriorityClass
-        values: ["high"]
-- apiVersion: v1
-  kind: ResourceQuota
-  metadata:
-    name: pods-medium
-  spec:
-    hard:
-      cpu: "10"
-      memory: 20Gi
-      pods: "10"
-    scopeSelector:
-      matchExpressions:
-      - operator : In
-        scopeName: PriorityClass
-        values: ["medium"]
-- apiVersion: v1
-  kind: ResourceQuota
-  metadata:
-    name: pods-low
-  spec:
-    hard:
-      cpu: "5"
-      memory: 10Gi
-      pods: "10"
-    scopeSelector:
-      matchExpressions:
-      - operator : In
-        scopeName: PriorityClass
-        values: ["low"]
-```
+{{% code_sample file="policy/quota.yaml" %}}
 
 Apply the YAML using `kubectl create`.
 
 ```shell
-kubectl create -f ./quota.yml
+kubectl create -f ./quota.yaml
 ```
 
 ```
@@ -405,33 +359,14 @@ pods        0     10
 ```
 
 Create a pod with priority "high". Save the following YAML to a
-file `high-priority-pod.yml`.
+file `high-priority-pod.yaml`.
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: high-priority
-spec:
-  containers:
-  - name: high-priority
-    image: ubuntu
-    command: ["/bin/sh"]
-    args: ["-c", "while true; do echo hello; sleep 10;done"]
-    resources:
-      requests:
-        memory: "10Gi"
-        cpu: "500m"
-      limits:
-        memory: "10Gi"
-        cpu: "500m"
-  priorityClassName: high
-```
+{{% code_sample file="policy/high-priority-pod.yaml" %}}
 
 Apply it with `kubectl create`.
 
 ```shell
-kubectl create -f ./high-priority-pod.yml
+kubectl create -f ./high-priority-pod.yaml
 ```
 
 Verify that "Used" stats for "high" priority quota, `pods-high`, has changed and that
@@ -550,9 +485,9 @@ metadata:
 spec:
   hard:
     requests.cpu: "1"
-    requests.memory: 1Gi
+    requests.memory: "1Gi"
     limits.cpu: "2"
-    limits.memory: 2Gi
+    limits.memory: "2Gi"
     requests.nvidia.com/gpu: 4
 EOF
 ```
