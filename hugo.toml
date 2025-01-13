@@ -22,15 +22,6 @@ ignoreFiles = [ "(?:^|/)OWNERS$", "README[-]+[a-z]*\\.md", "^node_modules$", "co
 
 timeout = "180s"
 
-# Highlighting config.
-pygmentsCodeFences = true
-pygmentsUseClasses = false
-# Use the new Chroma Go highlighter in Hugo.
-pygmentsUseClassic = false
-#pygmentsOptions = "linenos=table"
-# See https://help.farbox.com/pygments.html
-pygmentsStyle = "emacs"
-
 # Enable Git variables like commit, lastmod
 enableGitInfo = true
 
@@ -115,7 +106,7 @@ notAlternative = true
 
 # Image processing configuration.
 [imaging]
-resampleFilter = "CatmullRom"
+resampleFilter = "CatmullRom" # cSpell:disable-line
 quality = 75
 anchor = "smart"
 
@@ -165,7 +156,7 @@ k8s_search = true
 # The following search parameters are specific to Docsy's implementation. Kubernetes implementes its own search-related partials and scripts.
 
 # Google Custom Search Engine ID. Remove or comment out to disable search.
-#gcs_engine_id = "011737558837375720776:fsdu1nryfng"
+#gcs_engine_id = "011737558837375720776:fsdu1nryfng" # cSpell:disable-line
 
 # Enable Algolia DocSearch
 algolia_docsearch = false
