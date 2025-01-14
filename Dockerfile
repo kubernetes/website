@@ -27,6 +27,7 @@ FROM docker.io/library/golang:1.23.0-alpine3.20
 RUN apk add --no-cache \
     runuser \
     git \
+    gcompat \
     openssh-client \
     rsync \
     npm
