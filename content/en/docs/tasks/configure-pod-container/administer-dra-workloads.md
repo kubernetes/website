@@ -19,15 +19,21 @@ access devices.
 
 <!-- steps -->
 
-## Troubleshooting unscheduled Pods
+## Troubleshooting
 
-### DRA feature gate is not enabled
+### Unscheduled Pods
 
-### No corresponding DRA driver is installed
+#### DRA feature gate is not enabled
 
-### The requested device is out of capacity
+#### No corresponding DRA driver is installed
+
+#### The requested device is out of capacity
 
 - Including how to check the total and allocated capacity of devices
+
+### Pod stuck in Terminating Phase
+
+- DRA driver for allocated claim may have stopped: https://github.com/kubernetes/kubernetes/issues/129402
 
 
 ## {{% heading "whatsnext" %}}
