@@ -6,6 +6,7 @@ title: kubelet 이미지 자격 증명 공급자 구성하기
 description: kubelet의 이미지 자격 증명 공급자 플러그인을 구성한다.
 content_type: task
 min-kubernetes-server-version: v1.26
+weight: 120
 ---
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
@@ -53,7 +54,7 @@ kubelet은 플러그인을 통해 정적 자격 증명을 디스크에 저장하
 
 kubelet은 `--image-credential-provider-config`로 전달된 구성 파일을 읽고,
 컨테이너 이미지에 대해 어떤 exec 플러그인을 호출할지 결정한다.
-[ECR](https://aws.amazon.com/ecr/)-based 플러그인을 사용하는 경우 사용하게 될 수 있는 구성 파일의 예:
+[ECR-based 플러그인](https://github.com/kubernetes/cloud-provider-aws/tree/master/cmd/ecr-credential-provider)을 사용하는 경우 사용하게 될 수 있는 구성 파일의 예시는 다음과 같다.
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1
@@ -67,7 +68,7 @@ providers:
   # name 필드는 자격 증명 공급자를 구분하기 위한 필수 필드이다. 
   # 이 이름은 kubelet이 인식하는 공급자 실행 파일의 이름과 일치해야 한다. 
   # 해당 실행 파일은 kubelet의 bin 디렉토리에 존재해야 한다(--image-credential-provider-bin-dir 플래그로 설정).
-  - name: ecr
+  - name: ecr-credential-provider
     # matchImages 필드는 각 이미지에 대해 이 공급자가 활성화되어야 하는지를 
     # 판단하기 위한 문자열의 목록을 나타내는 필수 필드이다. 
     # kubelet이 요청한 이미지가 다음 문자열 중 하나와 매치되면, 
@@ -82,8 +83,8 @@ providers:
     #
     # 다음 사항이 모두 만족될 때에만 image와 matchImage가 매치되었다고 판단한다.
     # - 양쪽의 도메인 파트 수가 동일하고, 각 파트가 매치됨
-    # - imageMatch의 URL 경로가 타겟 이미지 URL 경로의 접두사임
-    # - imageMatch가 포트를 포함하면, 이미지 쪽에 기재된 포트와 매치됨
+    # - matchImages의 URL 경로가 타겟 이미지 URL 경로의 접두사임
+    # - matchImages가 포트를 포함하면, 이미지 쪽에 기재된 포트와 매치됨
     #
     # matchImages 예시는 다음과 같다.
     # - 123456789.dkr.ecr.us-east-1.amazonaws.com
@@ -93,7 +94,7 @@ providers:
     # - registry.io:8080/path
     matchImages:
       - "*.dkr.ecr.*.amazonaws.com"
-      - "*.dkr.ecr.*.amazonaws.cn"
+      - "*.dkr.ecr.*.amazonaws.com.cn"
       - "*.dkr.ecr-fips.*.amazonaws.com"
       - "*.dkr.ecr.us-iso-east-1.c2s.ic.gov"
       - "*.dkr.ecr.us-isob-east-1.sc2s.sgov.gov"
@@ -106,8 +107,8 @@ providers:
     apiVersion: credentialprovider.kubelet.k8s.io/v1
     # args 필드는 커맨드를 실행할 때 전달할 인자를 지정하는 필드이다.
     # 이 필드는 선택사항이다.
-    args:
-      - get-credentials
+    # args:
+      # - --example-argument
     # env 필드는 프로세스에 노출할 추가적인 환경 변수를 기재하는 필드이다. 
     # 이들은 호스트의 환경 변수 및 
     # client-go가 플러그인에 인자를 전달하기 위해 사용하는 변수와 합산된다.
@@ -142,7 +143,7 @@ Glob은 `*.k8s.io`이나 `k8s.*.io` 같은 서브도메인과 `k8s.*`와 같은 
 
 * 둘 다 동일한 수의 도메인 파트를 포함하고 있으며 각 파트가 매치한다.
 * 매치 이미지의 URL 경로는 대상 이미지 URL 경로의 접두사여야 한다.
-* imageMatch에 포트가 포함되어 있으면 해당 포트는 이미지에서도 매치해야 한다.
+* matchImages에 포트가 포함되어 있으면 해당 포트는 이미지에서도 매치해야 한다.
 
 `matchImages` 패턴의 예시 값은 아래와 같다.
 
