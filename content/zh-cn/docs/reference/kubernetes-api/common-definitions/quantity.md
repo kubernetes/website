@@ -36,34 +36,42 @@ The serialization format is:
 序列化格式如下：
 
 <!-- 
-\<quantity>        ::= \<signedNumber>\<suffix>
+```
+ \<quantity>        ::= \<signedNumber>\<suffix>
+
   (Note that \<suffix> may be empty, from the "" case in \<decimalSI>.)
-\<digit>           ::= 0 | 1 | ... | 9 
-\<digits>          ::= \<digit> | \<digit>\<digits> 
-\<number>          ::= \<digits> | \<digits>.\<digits> | \<digits>. | .\<digits> 
-\<sign>            ::= "+" | "-" 
-\<signedNumber>    ::= \<number> | \<sign>\<number> 
-\<suffix>          ::= \<binarySI> | \<decimalExponent> | \<decimalSI> 
-\<binarySI>        ::= Ki | Mi | Gi | Ti | Pi | Ei
+
+\<digit>           ::= 0 | 1 | ... | 9 \<digits>          ::= \<digit> | \<digit>\<digits> \<number>          ::= \<digits> | \<digits>.\<digits> | \<digits>. | .\<digits> \<sign>            ::= "+" | "-" \<signedNumber>    ::= \<number> | \<sign>\<number> \<suffix>          ::= \<binarySI> | \<decimalExponent> | \<decimalSI> \<binarySI>        ::= Ki | Mi | Gi | Ti | Pi | Ei
+
   (International System of units; See: http://physics.nist.gov/cuu/Units/binary.html)
+
 \<decimalSI>       ::= m | "" | k | M | G | T | P | E
+
   (Note that 1024 = 1Ki but 1000 = 1k; I didn't choose the capitalization.)
-\<decimalExponent> ::= "e" \<signedNumber> | "E" \<signedNumber>
+
+\<decimalExponent> ::= "e" \<signedNumber> | "E" \<signedNumber> 
+```
 -->
 ```
 <quantity>        ::= <signedNumber><suffix>
-  (注意 <suffix> 可能为空，例如 <decimalSI> 的 "" 情形。) </br>
-<digit>           ::= 0 | 1 | ... | 9 </br>
-<digits>          ::= <digit> | <digit><digits> </br>
-<number>          ::= <digits> | <digits>.<digits> | <digits>. | .<digits> </br>
-<sign>            ::= "+" | "-" </br>
-<signedNumber>    ::= <number> | <sign><number> </br>
-<suffix>          ::= <binarySI> | <decimalExponent> | <decimalSI> </br>
-<binarySI>        ::= Ki | Mi | Gi | Ti | Pi | Ei 
-  (国际单位制度；查阅： http://physics.nist.gov/cuu/Units/binary.html)</br>
-<decimalSI>       ::= m | "" | k | M | G | T | P | E 
-  (注意，1024 = 1ki 但 1000 = 1k；我没有选择大写。) </br>
-<decimalExponent> ::= "e" <signedNumber> | "E" <signedNumber> </br>
+
+（注意 <suffix> 可能为空，例如 <decimalSI> 的 "" 情形。）
+
+<digit>           ::= 0 | 1 | ... | 9
+<digits>          ::= <digit> | <digit><digits>
+<number>          ::= <digits> | <digits>.<digits> | <digits>. | .<digits>
+<sign>            ::= "+" | "-"
+<signedNumber>    ::= <number> | <sign><number>
+<suffix>          ::= <binarySI> | <decimalExponent> | <decimalSI>
+<binarySI>        ::= Ki | Mi | Gi | Ti | Pi | Ei
+
+（国际单位制度；查阅： http://physics.nist.gov/cuu/Units/binary.html）
+
+<decimalSI>       ::= m | "" | k | M | G | T | P | E
+
+（注意，1024 = 1ki 但 1000 = 1k；我没有选择大写。）
+
+<decimalExponent> ::= "e" <signedNumber> | "E" <signedNumber>
 ```
 
 <!-- 

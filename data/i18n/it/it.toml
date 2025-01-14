@@ -157,7 +157,7 @@ other = "Caratteristiche di Kubernetes"
 [main_kubeweekly_baseline]
 other = "Sei interessato a ricevere le ultime notizie su Kubernetes? Registrati alla newsletter KubeWeekly."
 
-[main_kubernetes_past_link]
+[main_kubeweekly_past_link]
 other = "Vedi le precedenti mail della newsletter"
 
 [main_kubeweekly_signup]

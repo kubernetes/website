@@ -213,10 +213,10 @@ spec:
         name: log-config
         items:
           - key: log_level
-            path: log_level
+            path: log_level.conf
 ```
 
-`log-config`ConfigMapはボリュームとしてマウントされ、その`log_level`エントリに格納されているすべてのコンテンツは、パス`/etc/config/log_level`のPodにマウントされます。
+`log-config`ConfigMapはボリュームとしてマウントされ、その`log_level`エントリに格納されているすべてのコンテンツは、パス`/etc/config/log_level.conf`のPodにマウントされます。
 このパスはボリュームの`mountPath`と`log_level`をキーとする`path`から派生することに注意してください。
 
 

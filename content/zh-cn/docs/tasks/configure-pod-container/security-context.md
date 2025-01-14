@@ -922,11 +922,8 @@ Valid options for `type` include `RuntimeDefault`, `Unconfined`, and
 indicates the path of the pre-configured profile on the node, relative to the
 kubelet's configured Seccomp profile location (configured with the `--root-dir`
 flag).
-
-Here is an example that sets the Seccomp profile to the node's container runtime
-default profile:
 -->
-## 为容器设置 Seccomp 配置 
+## 为容器设置 Seccomp 配置
 
 若要为容器设置 Seccomp 配置（Profile），可在你的 Pod 或 Container 清单的
 `securityContext` 节中包含 `seccompProfile` 字段。该字段是一个 
@@ -937,6 +934,10 @@ default profile:
 该字段标明节点上预先设定的配置的路径，路径是相对于 kubelet 所配置的
 Seccomp 配置路径（使用 `--root-dir` 设置）而言的。
 
+<!--
+Here is an example that sets the Seccomp profile to the node's container runtime
+default profile:
+-->
 下面是一个例子，设置容器使用节点上容器运行时的默认配置作为 Seccomp 配置：
 
 ```yaml
@@ -1088,16 +1089,15 @@ Kubernetes v1.27 引入了此行为的早期受限形式，仅适用于使用 `R
 访问模式的卷（和 PersistentVolumeClaim）。
 
 <!--
-As an alpha feature, you can enable the `SELinuxMount`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to widen that
+As an alpha feature, you can enable the `SELinuxMount` and `SELinuxChangePolicy`
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/) to widen that
 performance improvement to other kinds of PersistentVolumeClaims, as explained in detail
 below.
 -->
-作为一项 Alpha 特性，你可以启用 `SELinuxMount`
+作为一项 Alpha 特性，你可以启用 `SELinuxMount` 和 `SELinuxChangePolicy`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 将性能改进扩展到其他类型的 PersistentVolumeClaim，如下文详细解释。
 {{< /note >}}
-
 
 <!--
 By default, the container runtime recursively assigns SELinux label to all
@@ -1123,12 +1123,16 @@ To benefit from this speedup, all these conditions must be met:
 <!--
 * Pod must use PersistentVolumeClaim with applicable `accessModes` and [feature gates](/docs/reference/command-line-tools-reference/feature-gates/):
   * Either the volume has `accessModes: ["ReadWriteOncePod"]`, and feature gate `SELinuxMountReadWriteOncePod` is enabled.
-  * Or the volume can use any other access modes and both feature gates `SELinuxMountReadWriteOncePod` and `SELinuxMount` must be enabled.
+  * Or the volume can use any other access modes and both feature gates
+    `SELinuxMountReadWriteOncePod`, `SELinuxChangePolicy` and `SELinuxMount` must be enabled
+    and the Pod has `spec.securityContext.seLinuxChangePolicy` either nil (default) or `MountOption`. 
 -->
 * Pod 必须使用带有对应的 `accessModes` 和[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
   的 PersistentVolumeClaim。
   * 卷具有 `accessModes: ["ReadWriteOncePod"]`，并且 `SELinuxMountReadWriteOncePod` 特性门控已启用。
-  * 或者卷可以使用任何其他访问模式，并且必须启用 `SELinuxMountReadWriteOncePod` 和 `SELinuxMount` 特性门控。
+  * 或者卷可以使用任何其他访问模式，并且必须启用 `SELinuxMountReadWriteOncePod`、`SELinuxChangePolicy`
+    和 `SELinuxMount` 特性门控，且 Pod 已将 `spec.securityContext.seLinuxChangePolicy` 设置为
+    nil（默认值）或 `MountOption`。
 
 <!--
 * Pod (or all its Containers that use the PersistentVolumeClaim) must
@@ -1152,7 +1156,7 @@ To benefit from this speedup, all these conditions must be met:
 -->
 * 对应的 PersistentVolume 必须是：
   * 使用传统树内（In-Tree） `iscsi`、`rbd` 或 `fs` 卷类型的卷。
-  * 或者是使用 {< glossary_tooltip text="CSI" term_id="csi" >}} 驱动程序的卷
+  * 或者是使用 {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动程序的卷
     CSI 驱动程序必须能够通过在 CSIDriver 实例中设置 `spec.seLinuxMount: true`
     以支持 `-o context` 挂载。
 
@@ -1160,11 +1164,116 @@ To benefit from this speedup, all these conditions must be met:
 For any other volume types, SELinux relabelling happens another way: the container
 runtime  recursively changes the SELinux label for all inodes (files and directories)
 in the volume.
-The more files and directories in the volume, the longer that relabelling takes.
 -->
 对于所有其他卷类型，重打 SELinux 标签的方式有所不同：
 容器运行时为卷中的所有节点（文件和目录）递归地修改 SELinux 标签。
-卷中的文件和目录越多，重打标签需要耗费的时间就越长。
+
+{{< feature-state feature_gate_name="SELinuxChangePolicy" >}}
+
+<!--
+For Pods that want to opt-out from relabeling using mount options, they can set
+`spec.securityContext.seLinuxChangePolicy` to `Recursive`. This is required
+when multiple pods share a single volume on the same node, but they run with
+different SELinux labels that allows simultaneous access to the volume. For example, a privileged pod
+running with label `spc_t` and an unprivileged pod running with the default label `container_file_t`.
+With unset `spec.securityContext.seLinuxChangePolicy` (or with the default value `MountOption`),
+only one of such pods is able to run on a node, the other one gets ContainerCreating with error
+`conflicting SELinux labels of volume <name of the volume>: <label of the running pod> and <label of the pod that can't start>`.
+-->
+对于不希望使用挂载选项来重新打标签的 Pod，可以将
+`spec.securityContext.seLinuxChangePolicy` 设置为 `Recursive`。
+当多个 Pod 共享同一节点上的单个卷，但使用不同的 SELinux 标签以允许同时访问此卷时，
+此配置是必需的。例如，一个特权 Pod 运行时使用 `spc_t` 标签，
+而一个非特权 Pod 运行时使用默认标签 `container_file_t`。
+在不设置 `spec.securityContext.seLinuxChangePolicy`（或使用默认值 `MountOption`）的情况下，
+这样的多个 Pod 中只能有一个在节点上运行，其他 Pod 会在 ContainerCreating 时报错
+`conflicting SELinux labels of volume <卷名称>: <正运行的 Pod 的标签> and <未启动的 Pod 的标签>`。
+
+<!--
+#### SELinuxWarningController
+To make it easier to identify Pods that are affected by the change in SELinux volume relabeling,
+a new controller called `SELinuxWarningController` has been introduced in kube-controller-manager.
+It is disabled by default and can be enabled by either setting the `--controllers=*,selinux-warning-controller`
+[command line flag](/docs/reference/command-line-tools-reference/kube-controller-manager/),
+or by setting `genericControllerManagerConfiguration.controllers`
+[field in KubeControllerManagerConfiguration](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration).
+This controller requires `SELinuxChangePolicy` feature gate to be enabled.
+-->
+#### SELinuxWarningController
+
+为了更容易识别受 SELinux 卷重新打标签的变化所影响的 Pod，一个名为
+`SELinuxWarningController` 的新控制器已被添加到 kube-controller-manager 中。
+这个控制器默认是被禁用的，你可以通过设置 `--controllers=*,selinux-warning-controller`
+[命令行标志](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)或通过在
+[KubeControllerManagerConfiguration 中设置 `genericControllerManagerConfiguration.controllers` 字段](/zh-cn/docs/reference/config-api/kube-controller-manager-config.v1alpha1/#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)来启用。
+此控制器需要启用 `SELinuxChangePolicy` 特性门控。
+
+<!--
+When enabled, the controller observes running Pods and when it detects that two Pods use the same volume
+with different SELinux labels:
+1. It emits an event to both of the Pods. `kubectl describe pod <pod-name>` the shows
+  `SELinuxLabel "<label on the pod>" conflicts with pod <the other pod name> that uses the same volume as this pod
+  with SELinuxLabel "<the other pod label>". If both pods land on the same node, only one of them may access the volume`.
+2. Raise `selinux_warning_controller_selinux_volume_conflict` metric. The metric has both pod
+  names + namespaces as labels to identify the affected pods easily.
+-->
+当此控制器被启用时，它会观察运行中的 Pod。
+当控制器检测到两个 Pod 使用相同的卷但具有不同的 SELinux 标签时：
+
+1. 它会向这两个 Pod 发出一个事件。通过 `kubectl describe pod <Pod 名称>` 可以看到：
+
+   ```
+   SELinuxLabel "<Pod 上的标签>" conflicts with pod <另一个 Pod 名称> that uses the same volume as this pod with SELinuxLabel "<另一个 Pod 标签>". If both pods land on the same node, only one of them may access the volume.
+   ```
+
+2. 增加 `selinux_warning_controller_selinux_volume_conflict` 指标值。
+   此指标将两个 Pod 的名称 + 命名空间作为标签，以便轻松识别受影响的 Pod。
+
+<!--
+A cluster admin can use this information to identify pods affected by the planning change and
+proactively opt-out Pods from the optimization (i.e. set `spec.securityContext.seLinuxChangePolicy: Recursive`).
+-->
+集群管理员可以使用此信息识别受规划变更所影响的 Pod，并主动筛选出不需优化的 Pod
+（即设置 `spec.securityContext.seLinuxChangePolicy: Recursive`）。
+
+<!--
+#### Feature gates
+
+The following feature gates control the behavior of SELinux volume relabeling:
+
+* `SELinuxMountReadWriteOncePod`: enables the optimization for volumes with `accessModes: ["ReadWriteOncePod"]`.
+  This is a very safe feature gate to enable, as it cannot happen that two pods can share one single volume with
+  this access mode. This feature gate is enabled by default sine v1.28.
+-->
+#### 特性门控
+
+以下特性门控可以控制 SELinux 卷重新打标签的行为：
+
+* `SELinuxMountReadWriteOncePod`：为具有 `accessModes: ["ReadWriteOncePod"]` 的卷启用优化。
+  启用此特性门控是非常安全的，因为在这种访问模式下，不会出现两个 Pod 共享同一卷的情况。
+  此特性门控自 v1.28 起默认被启用。
+
+<!--
+* `SELinuxChangePolicy`: enables `spec.securityContext.seLinuxChangePolicy` field in Pod and related SELinuxWarningController
+  in kube-controller-manager. This feature can be used before enabling `SELinuxMount` to check Pods running on a cluster,
+  and to pro-actively opt-out Pods from the optimization.
+  This feature gate requires `SELinuxMountReadWriteOncePod` enabled. It is alpha and disabled by default in 1.32.
+-->
+* `SELinuxChangePolicy`：在 Pod 中启用 `spec.securityContext.seLinuxChangePolicy` 字段，
+  并在 kube-controller-manager 中启用相关的 SELinuxWarningController。
+  你可以在启用 `SELinuxMount` 之前使用此特性来检查集群中正在运行的 Pod，并主动筛选出不需优化的 Pod。
+  此特性门控需要启用 `SELinuxMountReadWriteOncePod`。它在 1.32 中是 Alpha 阶段，并默认被禁用。
+
+<!--
+* `SELinuxMount` enables the optimization for all eligible volumes. Since it can break existing workloads, we recommend
+  enabling `SELinuxChangePolicy` feature gate + SELinuxWarningController first to check the impact of the change.
+  This feature gate requires `SELinuxMountReadWriteOncePod` and `SELinuxChangePolicy` enabled. It is alpha and disabled
+  by default in 1.32.
+-->
+* `SELinuxMount`：为所有符合条件的卷启用优化。由于可能会破坏现有的工作负载，所以我们建议先启用
+  `SELinuxChangePolicy` 特性门控和 SELinuxWarningController，以检查这种更改的影响。
+  此特性门控要求启用 `SELinuxMountReadWriteOncePod` 和 `SELinuxChangePolicy`。
+  它在 1.32 中是 Alpha 阶段，并默认被禁用。
 
 <!--
 ## Managing access to the `/proc` filesystem {#proc-access}

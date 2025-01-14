@@ -115,3 +115,4 @@ in the cluster.
 ## {{% heading "whatsnext" %}}
 
 - Read about [workload-level autoscaling](/docs/concepts/workloads/autoscaling/)
+- Read about [node overprovisioning](/docs/tasks/administer-cluster/node-overprovisioning/)

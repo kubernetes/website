@@ -1,5 +1,5 @@
 <!-- 
-Use this command to invoke single phase of the join workflow 
+Use this command to invoke single phase of the "join" workflow 
 -->
 使用此命令来调用 `join` 工作流程的某个阶段。
 
@@ -9,9 +9,13 @@ Use this command to invoke single phase of the join workflow
 ### 概要
 
 <!--
-Use this command to invoke single phase of the join workflow
+Use this command to invoke single phase of the "join" workflow
 -->
 使用此命令来调用 `join` 工作流程的某个阶段。
+
+```
+kubeadm join phase [flags]
+```
 
 <!--
 ### Options

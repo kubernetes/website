@@ -85,3 +85,38 @@ flags passed to the apiserver is authorized for the following attributes:
 * verb=\*, resource=nodes, subresource=log
 * verb=\*, resource=nodes, subresource=spec
 * verb=\*, resource=nodes, subresource=metrics
+
+### Fine-grained authorization
+
+{{< feature-state feature_gate_name="KubeletFineGrainedAuthz" >}}
+
+When the feature gate `KubeletFineGrainedAuthz` is enabled kubelet performs a
+fine-grained check before falling back to the `proxy` subresource for the `/pods`,
+`/runningPods`, `/configz` and `/healthz` endpoints. The resource and subresource 
+are determined from the incoming request's path:
+
+Kubelet API   | resource | subresource
+--------------|----------|------------
+/stats/\*     | nodes    | stats
+/metrics/\*   | nodes    | metrics
+/logs/\*      | nodes    | log
+/spec/\*      | nodes    | spec
+/pods         | nodes    | pods, proxy
+/runningPods/ | nodes    | pods, proxy
+/healthz      | nodes    | healthz, proxy
+/configz      | nodes    | configz, proxy 
+*all others*  | nodes    | proxy
+
+
+When the feature-gate `KubeletFineGrainedAuthz` is enabled, ensure the user
+identified by the `--kubelet-client-certificate` and `--kubelet-client-key`
+flags passed to the API server is authorized for the following attributes:
+
+* verb=\*, resource=nodes, subresource=proxy
+* verb=\*, resource=nodes, subresource=stats
+* verb=\*, resource=nodes, subresource=log
+* verb=\*, resource=nodes, subresource=spec
+* verb=\*, resource=nodes, subresource=metrics
+* verb=\*, resource=nodes, subresource=configz
+* verb=\*, resource=nodes, subresource=healthz
+* verb=\*, resource=nodes, subresource=pods

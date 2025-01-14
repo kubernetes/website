@@ -262,3 +262,18 @@ announcements:
     <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/register/?utm_source=kubernetes&utm_medium=homepage&utm_campaign=KubeCon-NA-2024&utm_content=top-banner">
     Buy your ticket now! 12 - 15 November | Salt Lake City
     </a> 
+
+- name: KubeCon 2024 India
+  startTime: 2024-11-26T00:00:00  #Added in https://github.com/kubernetes/website/pull/48862
+  endTime: 2024-12-12T18:00:00
+  style: >-
+    background: linear-gradient(90deg, rgba(217,54,73,1) 35%, rgba(81,0,116,1) 100%);
+    color: #fffff;
+  title: |
+    <img src ="/images/announcements/kccnc-india-2024-white.svg" style="float: right; height: 100px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-india/">KubeCon + CloudNativeCon 2024</a>
+  message: |
+    Join us for two days of incredible opportunities to collaborate, learn and share with the cloud native community.<br/> 
+    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-india/register/?utm_source=kubernetes&utm_medium=homepage&utm_campaign=KubeCon-India-2024&utm_content=top-banner">
+    Buy your ticket now! 11 - 12 December | Delhi, India
+    </a> 
