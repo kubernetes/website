@@ -1,5 +1,5 @@
 ---
-title: Visualizando Analítica do Site
+title: Visualizando Analytics do Site
 content_type: concept
 weight: 120
 card:
@@ -9,7 +9,7 @@ card:
 
 <!-- overview -->
 
-Esta página contém informações sobre o painel de analítica do kubernetes.io.
+Esta página contém informações sobre o painel de analytics do kubernetes.io.
 
 <!-- body -->
 
