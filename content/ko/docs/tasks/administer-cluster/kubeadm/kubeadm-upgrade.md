@@ -3,7 +3,7 @@
 # - sig-cluster-lifecycle
 title: kubeadm 클러스터 업그레이드
 content_type: task
-weight: 20
+weight: 40
 ---
 
 <!-- overview -->
@@ -58,15 +58,19 @@ OS 패키지 관리자를 사용하여 쿠버네티스의 최신 패치 릴리�
 
 {{< tabs name="k8s_install_versions" >}}
 {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
-    apt update
-    apt-cache madison kubeadm
-    # 목록에서 최신 버전({{< skew currentVersion >}})을 찾는다
-    # {{< skew currentVersion >}}.x-00과 같아야 한다. 여기서 x는 최신 패치이다.
+```shell
+# 목록에서 최신 버전({{< skew currentVersion >}})을 찾는다
+# {{< skew currentVersion >}}.x-00과 같아야 한다. 여기서 x는 최신 패치이다.
+apt update
+apt-cache madison kubeadm
+```
 {{% /tab %}}
 {{% tab name="CentOS, RHEL 또는 Fedora" %}}
-    yum list --showduplicates kubeadm --disableexcludes=kubernetes
-    # 목록에서 최신 버전({{< skew currentVersion >}})을 찾는다
-    # {{< skew currentVersion >}}.x-0과 같아야 한다. 여기서 x는 최신 패치이다.
+```shell
+# 목록에서 최신 버전({{< skew currentVersion >}})을 찾는다
+# {{< skew currentVersion >}}.x-0과 같아야 한다. 여기서 x는 최신 패치이다.
+yum list --showduplicates kubeadm --disableexcludes=kubernetes
+```
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -79,75 +83,74 @@ OS 패키지 관리자를 사용하여 쿠버네티스의 최신 패치 릴리�
 
 **첫 번째 컨트롤 플레인 노드의 경우**
 
-- kubeadm 업그레이드
+1. kubeadm 업그레이드
 
-  {{< tabs name="k8s_install_kubeadm_first_cp" >}}
-  {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
-  ```shell
+   {{< tabs name="k8s_install_kubeadm_first_cp" >}}
+   {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
+   ```shell
    # {{< skew currentVersion >}}.x-00에서 x를 최신 패치 버전으로 바꾼다.
    apt-mark unhold kubeadm && \
    apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
    apt-mark hold kubeadm
-  ```
-  {{% /tab %}}
-  {{% tab name="CentOS, RHEL 또는 Fedora" %}}
-  ```shell
-  # {{< skew currentVersion >}}.x-0에서 x를 최신 패치 버전으로 바꾼다.
-  yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
-  ```
-  {{% /tab %}}
-  {{< /tabs >}}
-<br />
+   ```
+   {{% /tab %}}
+   {{% tab name="CentOS, RHEL 또는 Fedora" %}}
+   ```shell
+   # {{< skew currentVersion >}}.x-0에서 x를 최신 패치 버전으로 바꾼다.
+   yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
+   ```
+   {{% /tab %}}
+   {{< /tabs >}}
 
-- 다운로드하려는 버전이 잘 받아졌는지 확인한다.
+1. 다운로드하려는 버전이 잘 받아졌는지 확인한다.
 
   ```shell
   kubeadm version
   ```
 
-- 업그레이드 계획을 확인한다.
+1. 업그레이드 계획을 확인한다.
 
-  ```shell
-  kubeadm upgrade plan
-  ```
+   ```shell
+   kubeadm upgrade plan
+   ```
 
-  이 명령은 클러스터를 업그레이드할 수 있는지를 확인하고, 업그레이드할 수 있는 버전을 가져온다.
-  또한 컴포넌트 구성 버전 상태가 있는 표를 보여준다.
+   이 명령은 클러스터를 업그레이드할 수 있는지를 확인하고, 업그레이드할 수 있는 버전을 가져온다.
+   또한 컴포넌트 구성 버전 상태가 있는 표를 보여준다.
 
-  {{< note >}}
-  또한 `kubeadm upgrade` 는 이 노드에서 관리하는 인증서를 자동으로 갱신한다.
-  인증서 갱신을 하지 않으려면 `--certificate-renewal=false` 플래그를 사용할 수 있다.
-  자세한 내용은 [인증서 관리 가이드](/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)를 참고한다.
-  {{</ note >}}
+   {{< note >}}
+   또한 `kubeadm upgrade` 는 이 노드에서 관리하는 인증서를 자동으로 갱신한다.
+   인증서 갱신을 하지 않으려면 `--certificate-renewal=false` 플래그를 사용할 수 있다.
+   자세한 내용은 [인증서 관리 가이드](/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)를 참고한다.
+   {{</ note >}}
 
-  {{< note >}}
-  `kubeadm upgrade plan` 이 수동 업그레이드가 필요한 컴포넌트 구성을 표시하는 경우, 사용자는
-  `--config` 커맨드 라인 플래그를 통해 대체 구성이 포함된 구성 파일을 `kubeadm upgrade apply` 에 제공해야 한다.
-  그렇게 하지 않으면 `kubeadm upgrade apply` 가 오류와 함께 종료되고 업그레이드를 수행하지 않는다.
-  {{</ note >}}
+   {{< note >}}
+   `kubeadm upgrade plan` 이 수동 업그레이드가 필요한 컴포넌트 구성을 표시하는 경우, 사용자는
+   `--config` 커맨드 라인 플래그를 통해 대체 구성이 포함된 구성 파일을 `kubeadm upgrade apply` 에 제공해야 한다.
+   그렇게 하지 않으면 `kubeadm upgrade apply` 가 오류와 함께 종료되고 업그레이드를 수행하지 않는다.
+   {{</ note >}}
 
-- 업그레이드할 버전을 선택하고, 적절한 명령을 실행한다. 예를 들면 다음과 같다.
+1. 업그레이드할 버전을 선택하고, 적절한 명령을 실행한다. 예를 들면 다음과 같다.
 
-  ```shell
-  # 이 업그레이드를 위해 선택한 패치 버전으로 x를 바꾼다.
-  sudo kubeadm upgrade apply v{{< skew currentVersion >}}.x
-  ```
+   ```shell
+   # 이 업그레이드를 위해 선택한 패치 버전으로 x를 바꾼다.
+   sudo kubeadm upgrade apply v{{< skew currentVersion >}}.x
+   ```
 
-  명령이 완료되면 다음을 확인해야 한다.
+   명령이 완료되면 다음을 확인해야 한다.
 
-  ```
-  [upgrade/successful] SUCCESS! Your cluster was upgraded to "v{{< skew currentVersion >}}.x". Enjoy!
+   ```
+   [upgrade/successful] SUCCESS! Your cluster was upgraded to "v{{< skew currentVersion >}}.x". Enjoy!
 
-  [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets if you haven't already done so.
-  ```
+   [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets if you haven't already done so.
+   ```
 
-- CNI 제공자 플러그인을 수동으로 업그레이드한다.
+1. CNI 제공자 플러그인을 수동으로 업그레이드한다.
 
-  CNI(컨테이너 네트워크 인터페이스) 제공자는 자체 업그레이드 지침을 따를 수 있다.
-  [애드온](/ko/docs/concepts/cluster-administration/addons/) 페이지에서
-  사용하는 CNI 제공자를 찾고 추가 업그레이드 단계가 필요한지 여부를 확인한다.
+   CNI(컨테이너 네트워크 인터페이스) 제공자는 자체 업그레이드 지침을 따를 수 있다.
+   [애드온](/ko/docs/concepts/cluster-administration/addons/) 페이지에서
+   사용하는 CNI 제공자를 찾고 추가 업그레이드 단계가 필요한지 여부를 확인한다.
 
-  CNI 제공자가 데몬셋(DaemonSet)으로 실행되는 경우 추가 컨트롤 플레인 노드에는 이 단계가 필요하지 않다.
+   CNI 제공자가 데몬셋(DaemonSet)으로 실행되는 경우 추가 컨트롤 플레인 노드에는 이 단계가 필요하지 않다.
 
 **다른 컨트롤 플레인 노드의 경우**
 
@@ -167,45 +170,44 @@ sudo kubeadm upgrade apply
 
 ### 노드 드레인
 
-- 스케줄 불가능(unschedulable)으로 표시하고 워크로드를 축출하여 유지 보수할 노드를 준비한다.
+스케줄 불가능(unschedulable)으로 표시하고 워크로드를 축출하여 유지 보수할 노드를 준비한다.
 
-  ```shell
-  # <node-to-drain>을 드레인하는 노드의 이름으로 바꾼다.
-  kubectl drain <node-to-drain> --ignore-daemonsets
-  ```
+```shell
+# <node-to-drain>을 드레인하는 노드의 이름으로 바꾼다.
+kubectl drain <node-to-drain> --ignore-daemonsets
+```
 
 ### kubelet과 kubectl 업그레이드
 
-- 모든 컨트롤 플레인 노드에서 kubelet 및 kubectl을 업그레이드한다.
+1. kubelet 및 kubectl을 업그레이드한다.
 
-  {{< tabs name="k8s_install_kubelet" >}}
-  {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
-  ```shell
-  # replace x in {{< skew currentVersion >}}.x-00의 x를 최신 패치 버전으로 바꾼다
-  apt-mark unhold kubelet kubectl && \
-  apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
-  apt-mark hold kubelet kubectl
-  ```
-  {{% /tab %}}
-  {{% tab name="CentOS, RHEL 또는 Fedora" %}}
-  ```shell
-  # {{< skew currentVersion >}}.x-0에서 x를 최신 패치 버전으로 바꾼다
-  yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
-  ```
-  {{% /tab %}}
-  {{< /tabs >}}
-<br />
+   {{< tabs name="k8s_install_kubelet" >}}
+   {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
+   ```shell
+   # replace x in {{< skew currentVersion >}}.x-00의 x를 최신 패치 버전으로 바꾼다
+   apt-mark unhold kubelet kubectl && \
+   apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
+   apt-mark hold kubelet kubectl
+   ```
+   {{% /tab %}}
+   {{% tab name="CentOS, RHEL 또는 Fedora" %}}
+   ```shell
+   # {{< skew currentVersion >}}.x-0에서 x를 최신 패치 버전으로 바꾼다
+   yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
+   ```
+   {{% /tab %}}
+   {{< /tabs >}}
 
-- kubelet을 다시 시작한다.
+1. kubelet을 다시 시작한다.
 
-  ```shell
-  sudo systemctl daemon-reload
-  sudo systemctl restart kubelet
-  ```
+   ```shell
+   sudo systemctl daemon-reload
+   sudo systemctl restart kubelet
+   ```
 
 ### 노드 uncordon
 
-- 노드를 스케줄 가능(schedulable)으로 표시하여 노드를 다시 온라인 상태로 전환한다.
+노드를 스케줄 가능(schedulable)으로 표시하여 노드를 다시 온라인 상태로 전환한다.
 
   ```shell
   # <node-to-uncordon>을 드레인하려는 노드의 이름으로 바꾼다.
@@ -217,81 +219,10 @@ sudo kubeadm upgrade apply
 워커 노드의 업그레이드 절차는 워크로드를 실행하는 데 필요한 최소 용량을 보장하면서,
 한 번에 하나의 노드 또는 한 번에 몇 개의 노드로 실행해야 한다.
 
-### kubeadm 업그레이드
+다음 페이지에서는 리눅스 및 윈도우 워커 노드를 업그레이드하는 방법을 보여준다.
 
-- 모든 워커 노드에서 kubeadm을 업그레이드한다.
-
-  {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
-  {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
-  ```shell
-  # {{< skew currentVersion >}}.x-00의 x를 최신 패치 버전으로 바꾼다
-  apt-mark unhold kubeadm && \
-  apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
-  apt-mark hold kubeadm
-  ```
-  {{% /tab %}}
-  {{% tab name="CentOS, RHEL 또는 Fedora" %}}
-  ```shell
-  # {{< skew currentVersion >}}.x-0에서 x를 최신 패치 버전으로 바꾼다
-  yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
-  ```
-  {{% /tab %}}
-  {{< /tabs >}}
-
-### "kubeadm upgrade" 호출
-
-- 워커 노드의 경우 로컬 kubelet 구성을 업그레이드한다.
-
-  ```shell
-  sudo kubeadm upgrade node
-  ```
-
-### 노드 드레인
-
-- 스케줄 불가능(unschedulable)으로 표시하고 워크로드를 축출하여 유지 보수할 노드를 준비한다.
-
-  ```shell
-  # <node-to-drain>을 드레인하려는 노드 이름으로 바꾼다.
-  kubectl drain <node-to-drain> --ignore-daemonsets
-  ```
-
-### kubelet과 kubectl 업그레이드
-
-- kubelet 및 kubectl을 업그레이드한다.
-
-  {{< tabs name="k8s_kubelet_and_kubectl" >}}
-  {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
-  ```shell
-  # {{< skew currentVersion >}}.x-00의 x를 최신 패치 버전으로 바꾼다
-  apt-mark unhold kubelet kubectl && \
-  apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
-  apt-mark hold kubelet kubectl
-  ```
-  {{% /tab %}}
-  {{% tab name="CentOS, RHEL 또는 Fedora" %}}
-  ```shell
-  # {{< skew currentVersion >}}.x-0에서 x를 최신 패치 버전으로 바꾼다
-  yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
-  ```
-  {{% /tab %}}
-  {{< /tabs >}}
-<br />
-
-- kubelet을 다시 시작한다.
-
-  ```shell
-  sudo systemctl daemon-reload
-  sudo systemctl restart kubelet
-  ```
-
-### 노드에 적용된 cordon 해제
-
--  스케줄 가능(schedulable)으로 표시하여 노드를 다시 온라인 상태로 만든다.
-
-  ```shell
-  # <node-to-uncordon>을 노드의 이름으로 바꾼다.
-  kubectl uncordon <node-to-uncordon>
-  ```
+* [리눅스 노드 업그레이드](/ko/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/)
+* [윈도우 노드 업그레이드](/ko//docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes/)
 
 ## 클러스터 상태 확인
 

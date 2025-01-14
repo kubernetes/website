@@ -2,17 +2,14 @@
 title: 윈도우 노드 업그레이드
 min-kubernetes-server-version: 1.17
 content_type: task
-weight: 40
+weight: 110
 ---
 
 <!-- overview -->
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-이 페이지는 [kubeadm으로 생성된](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 윈도우 노드를 업그레이드하는 방법을 설명한다.
-
-
-
+이 페이지는 kubeadm으로 생성된 윈도우 노드를 업그레이드하는 방법을 설명한다.
 
 ## {{% heading "prerequisites" %}}
 
@@ -20,9 +17,6 @@ weight: 40
 * [남은 kubeadm 클러스터를 업그레이드하는 프로세스](/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)에
 익숙해져야 한다. 윈도우 노드를
 업그레이드하기 전에 컨트롤 플레인 노드를 업그레이드해야 한다.
-
-
-
 
 <!-- steps -->
 
@@ -81,7 +75,8 @@ weight: 40
     ```
 
 {{< note >}}
-만약 kube-proxy를 윈도우 서비스로 실행중이지 않고 파드 내의 HostProcess 컨테이너에서 실행중이라면, 새로운 버전의 kube-proxy 매니페스트를 적용함으로써 업그레이드할 수 있다.
+만약 kube-proxy를 윈도우 서비스로 실행중이지 않고 파드 내의 HostProcess 컨테이너에서 실행 중이라면,
+새로운 버전의 kube-proxy 매니페스트를 적용함으로써 업그레이드할 수 있다.
 {{< /note >}}
 
 ### 노드에 적용된 cordon 해제
@@ -93,3 +88,7 @@ weight: 40
     # <node-to-drain>을 노드의 이름으로 바꾼다
     kubectl uncordon <node-to-drain>
     ```
+
+## {{% heading "whatsnext" %}}
+
+* [리눅스 노드 업그레이드](/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)에 대해 알아본다.

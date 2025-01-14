@@ -1,6 +1,6 @@
 ---
 title: "도커 엔진 노드를 도커심에서 cri-dockerd로 마이그레이션하기"
-weight: 9
+weight: 20
 content_type: task 
 ---
 

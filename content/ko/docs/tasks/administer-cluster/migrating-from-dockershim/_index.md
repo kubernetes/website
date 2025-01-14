@@ -1,6 +1,6 @@
 ---
 title: "도커심으로부터 마이그레이션"
-weight: 10
+weight: 20
 content_type: task
 no_list: true
 ---
@@ -19,10 +19,14 @@ no_list: true
 컨테이너 런타임으로 도커 엔진을 통한 도커심을 사용하는 상황에서 v1.24로
 업그레이드하려는 경우, 다른 런타임으로 마이그레이션하거나 다른 방법을 찾아 도커 엔진 지원을 받는 것이 좋다.
 선택 가능한 옵션은 [컨테이너 런타임](/ko/docs/setup/production-environment/container-runtimes/) 섹션에서 확인한다.
+
+도커심이 포함된 쿠버네티스 버전(1.23)은 지원이 종료되었으며, v1.24는 [곧](/releases/#release-v1-24) 지원이 종료될 예정이다.
 마이그레이션 중 문제를 마주한다면
 [문제를 보고](https://github.com/kubernetes/kubernetes/issues)하면 좋다. 이를 통해 문제를 시기적절하게
 해결할 수 있으며, 클러스터도 도커심 제거에
-대비할 수 있다.
+대비할 수 있다. 1.24의 지원이 종료된 후에는 쿠버네티스 프로바이더에
+지원을 요청하거나 클러스터에 영향을 미치는 중요한 문제가 있는 경우
+여러 버전을 한 번에 업그레이드해야 한다.
 
 클러스터는 두 종류 이상의 노드들을 포함할 수 있지만
 이는 일반적인 구성은 아니다.
@@ -35,11 +39,8 @@ no_list: true
 
 ## {{% heading "whatsnext" %}}
 
-- 컨테이너 런타임에 대한 옵션을 이해하기 위해
-  [컨테이너 런타임](/ko/docs/setup/production-environment/container-runtimes/)을 확인한다.
-* 도커심의
-  사용 중단 및 제거에 대한 논의를 추적하는
-  [깃허브 이슈](https://github.com/kubernetes/kubernetes/issues/106917)가 있다.
+* [컨테이너 런타임](/ko/docs/setup/production-environment/container-runtimes/)을
+  확인하여 대안 옵션을 이해한다.
 * 도커심에서 마이그레이션하는 것에 관한
   결함이나 다른 기술적 문제를 발견한다면,
   쿠버네티스 프로젝트에 [이슈를 남길 수 있다.](https://github.com/kubernetes/kubernetes/issues/new/choose)

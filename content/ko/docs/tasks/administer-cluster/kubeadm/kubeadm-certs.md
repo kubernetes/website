@@ -53,13 +53,13 @@ CA 키없이 진행한다.
 
 `check-expiration` 하위 명령을 사용하여 인증서가 만료되는 시기를 확인할 수 있다.
 
-```
+```shell
 kubeadm certs check-expiration
 ```
 
 출력 결과는 다음과 비슷하다.
 
-```
+```console
 CERTIFICATE                EXPIRES                  RESIDUAL TIME   CERTIFICATE AUTHORITY   EXTERNALLY MANAGED
 admin.conf                 Dec 30, 2020 23:36 UTC   364d                                    no
 apiserver                  Dec 30, 2020 23:36 UTC   364d            ca                      no
@@ -78,9 +78,12 @@ etcd-ca                 Dec 28, 2029 23:36 UTC   9y              no
 front-proxy-ca          Dec 28, 2029 23:36 UTC   9y              no
 ```
 
-이 명령은 `/etc/kubernetes/pki` 폴더의 클라이언트 인증서와 kubeadm이 사용하는 KUBECONFIG 파일(`admin.conf`, `controller-manager.conf` 및 `scheduler.conf`)에 포함된 클라이언트 인증서의 만료/잔여 기간을 표시한다.
+이 명령은 `/etc/kubernetes/pki` 폴더의 클라이언트 인증서와 kubeadm이 사용하는
+kubeconfig 파일(`admin.conf`, `controller-manager.conf` 및 `scheduler.conf`)에 포함된 클라이언트 인증서의
+만료/잔여 기간을 표시한다.
 
-또한, kubeadm은 인증서가 외부에서 관리되는지를 사용자에게 알린다. 이 경우 사용자는 수동으로 또는 다른 도구를 사용해서 인증서 갱신 관리를 해야 한다.
+또한, kubeadm은 인증서가 외부에서 관리되는지를 사용자에게 알린다. 이 경우 사용자는
+수동으로 또는 다른 도구를 사용해서 인증서 갱신 관리를 해야 한다.
 
 {{< warning >}}
 `kubeadm` 은 외부 CA가 서명한 인증서를 관리할 수 없다.
@@ -96,8 +99,10 @@ kubeadm이 [자동 인증서 갱신](/ko/docs/tasks/tls/certificate-rotation/)�
 
 {{< warning >}}
 kubeadm 1.17 이전의 버전에서 `kubeadm init` 으로 작성된 노드에는
-`kubelet.conf` 의 내용을 수동으로 수정해야 하는 [버그](https://github.com/kubernetes/kubeadm/issues/1753)가 있다. `kubeadm init` 수행 완료 후, `client-certificate-data` 및 `client-key-data` 를 다음과 같이 교체하여,
-로테이트된 kubelet 클라이언트 인증서를 가리키도록 `kubelet.conf` 를 업데이트해야 한다.
+`kubelet.conf` 의 내용을 수동으로 수정해야 하는 [버그](https://github.com/kubernetes/kubeadm/issues/1753)가
+있다. `kubeadm init` 수행 완료 후, `client-certificate-data` 및 `client-key-data` 를 다음과 같이 교체하여,
+로테이트된 kubelet 클라이언트 인증서를 가리키도록 `kubelet.conf` 를
+업데이트해야 한다.
 
 ```yaml
 client-certificate: /var/lib/kubelet/pki/kubelet-client-current.pem
@@ -107,16 +112,21 @@ client-key: /var/lib/kubelet/pki/kubelet-client-current.pem
 
 ## 자동 인증서 갱신
 
-kubeadm은 컨트롤 플레인 [업그레이드](/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/) 동안 모든 인증서를 갱신한다.
+kubeadm은 컨트롤 플레인 [업그레이드](/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/) 동안
+모든 인증서를 갱신한다.
 
 이 기능은 가장 간단한 유스케이스를 해결하기 위해 설계되었다.
-인증서 갱신에 대해 특별한 요구 사항이 없고 쿠버네티스 버전 업그레이드를 정기적으로(매 1년 이내 업그레이드 수행) 수행하는 경우, kubeadm은 클러스터를 최신 상태로 유지하고 합리적으로 보안을 유지한다.
+인증서 갱신에 대해 특별한 요구 사항이 없고 쿠버네티스 버전 업그레이드를
+정기적으로(매 1년 이내 업그레이드 수행) 수행하는 경우,kubeadm은 클러스터를 최신 상태로
+유지하고 합리적으로 보안을 유지한다.
 
 {{< note >}}
 보안을 유지하려면 클러스터를 자주 업그레이드하는 것이 가장 좋다.
 {{< /note >}}
 
-인증서 갱신에 대해 보다 복잡한 요구 사항이 있는 경우, `--certificate-renewal=false` 를 `kubeadm upgrade apply` 또는 `kubeadm upgrade node` 와 함께 사용하여 기본 동작이 수행되지 않도록 할 수 있다.
+인증서 갱신에 대해 보다 복잡한 요구 사항이 있는 경우, `--certificate-renewal=false` 를
+`kubeadm upgrade apply` 또는 `kubeadm upgrade node` 와 함께 사용하여
+기본 동작이 수행되지 않도록 할 수 있다.
 
 {{< warning >}}
 kubeadm 1.17 이전 버전에는 `kubeadm upgrade node` 명령에서
@@ -145,14 +155,18 @@ HA 클러스터를 실행 중인 경우, 모든 컨트롤 플레인 노드에서
 {{< /warning >}}
 
 {{< note >}}
-`certs renew` 는 기존 인증서를 kubeadm-config 컨피그맵(ConfigMap) 대신 속성(공통 이름, 조직, SAN 등)의 신뢰할 수 있는 소스로 사용한다. 둘 다 동기화 상태를 유지하는 것을 강력히 권장한다.
+`certs renew` 는 기존 인증서를 kubeadm-config 컨피그맵(ConfigMap) 대신
+속성(공통 이름, 조직, SAN 등)의 신뢰할 수 있는 소스로 사용한다. 둘 다 동기화 상태를
+유지하는 것을 강력히 권장한다.
 {{< /note >}}
 
 `kubeadm certs renew` 는 다음의 옵션을 제공한다.
 
-쿠버네티스 인증서는 일반적으로 1년 후 만료일에 도달한다.
+- 쿠버네티스 인증서는 일반적으로 1년 후 만료일에 도달한다.
 
-- `--csr-only` 는 실제로 인증서를 갱신하지 않고 인증서 서명 요청을 생성하여 외부 CA로 인증서를 갱신하는 데 사용할 수 있다. 자세한 내용은 다음 단락을 참고한다.
+- `--csr-only` 는 실제로 인증서를 갱신하지 않고 인증서 서명 요청을
+  생성하여 외부 CA로 인증서를 갱신하는 데 사용할 수 있다. 자세한 내용은 다음 단락을
+  참고한다.
 
 - 모든 인증서 대신 단일 인증서를 갱신할 수도 있다.
 
@@ -161,19 +175,24 @@ HA 클러스터를 실행 중인 경우, 모든 컨트롤 플레인 노드에서
 이 섹션에서는 쿠버네티스 인증서 API를 사용하여 수동 인증서 갱신을 실행하는 방법에 대한 자세한 정보를 제공한다.
 
 {{< caution >}}
-조직의 인증서 인프라를 kubeadm으로 생성된 클러스터에 통합해야 하는 사용자를 위한 고급 주제이다. 기본 kubeadm 구성이 요구 사항을 충족하면 kubeadm이 인증서를 대신 관리하도록 해야 한다.
+조직의 인증서 인프라를 kubeadm으로 생성된 클러스터에 통합해야 하는 사용자를 위한
+고급 주제이다. 기본 kubeadm 구성이 요구 사항을 충족하면 kubeadm이 인증서를 대신
+관리하도록 해야 한다.
 {{< /caution >}}
 
 ### 서명자 설정
 
 쿠버네티스 인증 기관(Certificate Authority)은 기본적으로 작동하지 않는다.
-[cert-manager](https://cert-manager.io/docs/configuration/ca/)와 같은 외부 서명자를 설정하거나, 빌트인 서명자를 사용할 수 있다.
+[cert-manager](https://cert-manager.io/docs/configuration/ca/)와 같은 외부 서명자를 설정하거나,
+빌트인 서명자를 사용할 수 있다.
 
 빌트인 서명자는 [`kube-controller-manager`](/docs/reference/command-line-tools-reference/kube-controller-manager/)의 일부이다.
 
-빌트인 서명자를 활성화하려면, `--cluster-signing-cert-file` 와 `--cluster-signing-key-file` 플래그를 전달해야 한다.
+빌트인 서명자를 활성화하려면, `--cluster-signing-cert-file` 와
+`--cluster-signing-key-file` 플래그를 전달해야 한다.
 
-새 클러스터를 생성하는 경우, kubeadm [구성 파일](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3)을 사용할 수 있다.
+새 클러스터를 생성하는 경우, kubeadm
+[구성 파일](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3)을 사용할 수 있다.
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
@@ -186,7 +205,8 @@ controllerManager:
 
 ### 인증서 서명 요청(CSR) 생성
 
-쿠버네티스 API로 CSR을 작성하려면 [CertificateSigningRequest 생성](/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatesigningrequest)을 본다.
+쿠버네티스 API로 CSR을 작성하려면
+[CertificateSigningRequest 생성](/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatesigningrequest)을 본다.
 
 ## 외부 CA로 인증서 갱신
 
@@ -194,7 +214,8 @@ controllerManager:
 
 외부 CA와 보다 효과적으로 통합하기 위해 kubeadm은 인증서 서명 요청(CSR)을 생성할 수도 있다.
 CSR은 클라이언트의 서명된 인증서에 대한 CA 요청을 나타낸다.
-kubeadm 관점에서, 일반적으로 온-디스크(on-disk) CA에 의해 서명되는 모든 인증서는 CSR로 생성될 수 있다. 그러나 CA는 CSR로 생성될 수 없다.
+kubeadm 관점에서, 일반적으로 온-디스크(on-disk) CA에 의해 서명되는 모든 인증서는
+CSR로 생성될 수 있다. 그러나 CA는 CSR로 생성될 수 없다.
 
 ### 인증서 서명 요청(CSR) 생성
 
@@ -216,7 +237,8 @@ CSR에는 인증서 이름, 도메인 및 IP가 포함되지만, 용도를 지�
 * `cfssl` 의 경우
   [설정 파일에 용도](https://github.com/cloudflare/cfssl/blob/master/doc/cmd/cfssl.txt#L170)를 지정한다.
 
-선호하는 방법으로 인증서에 서명한 후, 인증서와 개인 키를 PKI 디렉터리(기본적으로 `/etc/kubernetes/pki`)에 복사해야 한다.
+선호하는 방법으로 인증서에 서명한 후, 인증서와 개인 키를
+PKI 디렉터리(기본적으로 `/etc/kubernetes/pki`)에 복사해야 한다.
 
 ## 인증 기관(CA) 순환(rotation) {#certificate-authority-rotation}
 
@@ -246,7 +268,7 @@ serverTLSBootstrap: true
 만약 이미 클러스터를 생성했다면 다음을 따라 이를 조정해야 한다.
  - `kube-system` 네임스페이스에서 `kubelet-config-{{< skew currentVersion >}}` 컨피그맵을 찾아서 수정한다.
 해당 컨피그맵에는 `kubelet` 키가
-[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)
 문서를 값으로 가진다. `serverTLSBootstrap: true` 가 되도록 KubeletConfiguration 문서를 수정한다.
 - 각 노드에서, `serverTLSBootstrap: true` 필드를 `/var/lib/kubelet/config.yaml` 에 추가한다.
 그리고 `systemctl restart kubelet` 로 kubelet을 재시작한다.
@@ -262,6 +284,8 @@ serverTLSBootstrap: true
 
 ```shell
 kubectl get csr
+```
+```console
 NAME        AGE     SIGNERNAME                        REQUESTOR                      CONDITION
 csr-9wvgt   112s    kubernetes.io/kubelet-serving     system:node:worker-1           Pending
 csr-lz97v   1m58s   kubernetes.io/kubelet-serving     system:node:control-plane-1    Pending
@@ -301,10 +325,10 @@ kubelet 인증서(클라이언트 인증)를 사용하여 아무 IP나 도메인
 `admin.conf`를 추가 사용자와 공유하는 것은 **권장하지 않는다**!
 
 대신, [`kubeadm kubeconfig user`](/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig) 
-명령어를 사용하여 추가 사용자를 위한 kubeconfig 파일을 생성할 수 있다. 
-이 명령어는 명령줄 플래그와 
-[kubeadm 환경 설정](/docs/reference/config-api/kubeadm-config.v1beta3/) 옵션을 모두 인식한다. 
-생성된 kubeconfig는 stdout으로 출력되며, 
+명령어를 사용하여 추가 사용자를 위한 kubeconfig 파일을 생성할 수 있다.
+이 명령어는 명령줄 플래그와
+[kubeadm 환경 설정](/docs/reference/config-api/kubeadm-config.v1beta3/) 옵션을 모두 인식한다.
+생성된 kubeconfig는 stdout으로 출력되며,
 `kubeadm kubeconfig user ... > somefile.conf` 명령어를 사용하여 파일에 기록될 수 있다.
 
 다음은 `--config` 플래그와 함께 사용될 수 있는 환경 설정 파일 예시이다.

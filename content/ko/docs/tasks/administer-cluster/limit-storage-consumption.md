@@ -1,6 +1,7 @@
 ---
 title: 스토리지 사용량 제한
 content_type: task
+weight: 240
 ---
 
 <!-- overview -->

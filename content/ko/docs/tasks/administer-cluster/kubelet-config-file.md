@@ -4,6 +4,7 @@
 # - dawnchen
 title: 구성 파일을 통해 Kubelet 파라미터 설정하기
 content_type: task
+weight: 330
 ---
 
 <!-- overview -->
@@ -45,7 +46,7 @@ evictionHard:
 ## 구성 파일을 통해 구성된 Kubelet 프로세스 시작하기
 
 {{< note >}}
-kubeadm을 사용하여 클러스터를 초기화하는 경우 `kubeadmin init`으로 클러스터를 생성하는 동안 kubelet-config를 사용해야 한다.
+kubeadm을 사용하여 클러스터를 초기화하는 경우 `kubeadm init`으로 클러스터를 생성하는 동안 kubelet-config를 사용해야 한다.
 자세한 내용은 [kubeadm을 사용하여 kubelet 구성하기](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/)를 참고한다.
 {{< /note >}}
 
