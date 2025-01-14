@@ -327,6 +327,8 @@ to the `kubelet` user:
 
 <!--
 * The subordinate ID count must be a multiple of 65536
+(for Kubernetes {{< skew currentVersion >}} the subordinate ID count for each Pod is hard-coded
+to 65536).
 
 * The subordinate ID count must be at least `65536 x <maxPods>` where `<maxPods>`
   is the maximum number of pods that can run on the node.
@@ -335,7 +337,8 @@ to the `kubelet` user:
   matter if other users have user ID ranges that don't align with the group ID
   ranges.
 -->
-* 从属 ID 计数必须是 65536 的倍数
+* 从属 ID 计数必须是 65536 的倍数（对于 Kubernetes {{< skew currentVersion >}}，
+  每个 Pod 的从属 ID 数量被硬编码为 65536）。
 
 * 从属 ID 计数必须至少为 `65536 x <maxPods>`，其中 `<maxPods>` 是节点上可以运行的最大 Pod 数量。
 
@@ -362,15 +365,17 @@ these entries for the `kubelet` user:
 #   name:firstID:count of IDs
 # where
 # - firstID is 65536 (the minimum value possible)
-# - count of IDs is 110 (default limit for number of) * 65536
+# - count of IDs is 110 * 65536
+#   (110 is the default limit for number of pods on the node)
 ```
 -->
 ```
 # 格式为：
 #   name:firstID:count of IDs
-# 在哪里：
+# 其中：
 # - firstID 是 65536 （可能的最小值）
-# - IDs 的数量是 110（默认数量限制）* 65536
+# - ID 的数量是 110 * 65536（110 是节点上 Pod 数量的默认限制）
+
 kubelet:65536:7208960
 ```
 
