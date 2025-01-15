@@ -200,7 +200,7 @@ Os seguintes runtimes de Contêiner funcionam com Windows:
 
 Você pode usar {{< glossary_tooltip term_id="containerd" text="ContainerD" >}} 1.4.0+ como o agente de execução de contêiner para nós Kubernetes que executam Windows.
 
-Aprenda como [instalar o ContêinerD em um nó Windows](/docs/setup/production-environment/container-runtimes/#containerd).
+Aprenda como [instalar o ContainerD em um nó Windows](/docs/setup/production-environment/container-runtimes/#containerd).
 
 {{< note >}}
 Há uma [limitação conhecida](pt-br/docs/tasks/configure-pod-container/configure-gmsa/) ao usar GMSA com containerd para acessar compartilhamentos de rede do Windows, o que requer um patch no kernel.
