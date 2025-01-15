@@ -52,8 +52,11 @@ To build the site in a container, run the following:
 
 ```bash
 # You can set $CONTAINER_ENGINE to the name of any Docker-like container tool
+make container-image
 make container-serve
 ```
+
+The first command (`make container-image`) is required only for the first-time build OR if one of `Dockerfile`, `Makefile`, `package.json`, `package-lock.json` was changed.
 
 If you see errors, it probably means that the hugo container did not have enough computing resources available. To solve it, increase the amount of allowed CPU and memory usage for Docker on your machine ([MacOS](https://docs.docker.com/desktop/settings/mac/) and [Windows](https://docs.docker.com/desktop/settings/windows/)).
 
