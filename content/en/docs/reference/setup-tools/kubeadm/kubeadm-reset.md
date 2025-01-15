@@ -34,6 +34,36 @@ etcdctl del "" --prefix
 
 See the [etcd documentation](https://github.com/coreos/etcd/tree/master/etcdctl) for more information.
 
+### CNI configuration cleanup
+
+CNI plugins use the directory `/etc/cni/net.d` to store their configuration.
+The `kubeadm reset` command does not cleanup that directory. Backup the directory if needed.
+Then to remove it, execute the following command:
+
+```bash
+sudo rm -rf /etc/cni/net.d
+```
+
+### Network traffic rules cleanup
+
+The `kubeadm reset` command does not clean any iptables, nftables or IPVS rules applied
+to the host by kube-proxy. If you wish to perform this cleanup, you can use the same
+kube-proxy container which was used in your cluster and the `--cleanup` flag of the
+kube-proxy binary:
+
+```bash
+docker run --privileged --rm registry.k8s.io/kube-proxy:v{{< skew currentPatchVersion >}} sh -c "kube-proxy --cleanup && echo DONE"
+```
+
+The output of the above command should print `DONE` at the end.
+Instead of Docker, you can use your preferred container runtime to start the container.
+
+### Cleanup of kubeconfig files
+
+The `kubeadm reset` command does not clean kubeconfig files that you manually copied to
+`$HOME/.kube/config`. Please, check the contents of the `$HOME/.kube/config` file. Backup
+the file and remove it, if needed.
+
 ### Graceful kube-apiserver shutdown
 
 If you have your `kube-apiserver` configured with the `--shutdown-delay-duration` flag,
