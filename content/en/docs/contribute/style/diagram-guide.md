@@ -325,7 +325,7 @@ the `.svg` image file and add a caption.
 For more details on diagram captions, see [How to use captions](#how-to-use-captions).
 
 {{< note >}}
-The `{{</* figure */>}}` shortcode is the preferred method for adding `.svg` image files
+The figure shortcode is the preferred method for adding `.svg` image files
 to your documentation. You can also use the standard markdown image syntax like so:
 `![my boxnet diagram](static/images/boxnet.svg)`.
 And you will need to add a caption below the diagram. 
@@ -658,7 +658,7 @@ You should pass the `src`, `alt`, `class` and `caption` values into the
 `diagram-large`, `diagram-medium` and `diagram-small` classes.  
 
 {{< note >}}
-Diagrams created using the `Inline` method don't use the `{{</* figure */>}}`
+Diagrams created using the `Inline` method don't use the figure
 shortcode. The Mermaid code defines how the diagram will render on your page.
 {{< /note >}}
 
