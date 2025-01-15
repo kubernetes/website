@@ -136,7 +136,7 @@ without a finalizer, to a terminal phase (`Failed` or `Succeeded` depending on
 the exit statuses of the pod containers) before their deletion from the API server.
 
 If a node dies or is disconnected from the rest of the cluster, Kubernetes
-applies a policy for setting the `phase` of all Pods on the lost node to Failed.
+applies a policy for setting the `phase` of all Pods on the lost node to `Failed`.
 
 ## Container states
 
