@@ -101,7 +101,7 @@ y gestión de despliegue.
 Otros controladores como los [StatefulSet](/es/docs/concepts/workloads/controllers/statefulset/)
 pueden tambien proporcionar soporte para Pods que necesiten persistir el estado.
 
-El uso de API colectivas como la principal primitiva de cara al usuario es relativamente común entre los sistemas de planificación de clúster, incluyendo [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://github.com/d2iq-archive/marathon), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema), y [Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997).
+El uso de API colectivas como la principal primitiva de cara al usuario es relativamente común entre los sistemas de planificación de clúster, incluyendo [Borg](https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/), [Marathon](https://github.com/d2iq-archive/marathon), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema), y [Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997).
 
 El Pod se expone como primitiva para facilitar:
 
