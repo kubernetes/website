@@ -201,9 +201,21 @@ p.attrib {
 }
 
 .tell-your-story {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    background-color: white; 
+    color: #0071f7;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 18px;
     border: 1px solid #dddddd;
     border-radius: 6px;
     box-shadow: 1px 2px 2px #dddddd;
+    text-align: center; 
+    line-height: 120px; 
+    padding: 0 20px;
 }
 
 .gridPage .feature {
