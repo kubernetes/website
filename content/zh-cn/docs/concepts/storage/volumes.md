@@ -23,41 +23,93 @@ weight: 10
 <!-- overview -->
 
 <!--
-On-disk files in a container are ephemeral, which presents some problems for
+Kubernetes _volumes_ provide a way for containers in a {{< glossary_tooltip text="pods" term_id="pod" >}}
+to access and share data via the filesystem. There are different kinds of volume that you can use for different purposes,
+such as:
+-->
+Kubernetes **卷**为 {{< glossary_tooltip text="Pod" term_id="pod" >}}
+中的容器提供了一种通过文件系统访问和共享数据的方式。存在不同类别的卷，你可以将其用于各种用途，例如：
+
+<!--
+- populating a configuration file based on a {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}
+  or a {{< glossary_tooltip text="Secret" term_id="secret" >}}
+- providing some temporary scratch space for a pod
+- sharing a filesystem between two different containers in the same pod
+- sharing a filesystem between two different pods (even if those Pods run on different nodes)
+- durably storing data so that it stays available even if the Pod restarts or is replaced
+-->
+- 基于 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} 或
+  {{< glossary_tooltip text="Secret" term_id="secret" >}} 填充配置文件
+- 为 Pod 提供一些临时的涂销空间
+- 在同一个 Pod 中的两个不同容器之间共享文件系统
+- 在两个不同的 Pod 之间共享文件系统（即使这些 Pod 运行在不同的节点上）
+- 持久化存储数据，这样即使 Pod 重启或被替换，存储的数据仍然可用
+<!--
+- passing configuration information to an app running in a container, based on details of the Pod
+  the container is in
+  (for example: telling a {{< glossary_tooltip text="sidecar container" term_id="sidecar-container" >}}
+  what namespace the Pod is running in)
+- providing read-only access to data in a different container image
+-->
+- 基于容器所在 Pod 的详细信息，将配置信息传递给运行在容器中的应用
+  （例如告诉{{< glossary_tooltip text="边车容器" term_id="sidecar-container" >}}：Pod 运行在哪个命名空间）
+- 以只读权限访问另一个容器镜像中的数据
+
+<!--
+Data sharing can be between different local processes within a container, or between different containers,
+or between Pods.
+-->
+数据共享可以发生在容器内不同本地进程之间，或在不同容器之间，或在多个 Pod 之间。
+
+<!--
+## Why volumes are important
+
+- **Data persistence:** On-disk files in a container are ephemeral, which presents some problems for
 non-trivial applications when running in containers. One problem occurs when 
-a container crashes or is stopped. Container state is not saved so all of the 
+a container crashes or is stopped, the container state is not saved so all of the 
 files that were created or modified during the lifetime of the container are lost. 
-During a crash, kubelet restarts the container with a clean state. 
-Another problem occurs when multiple containers are running in a `Pod` and 
+During a crash, kubelet restarts the container with a clean state.
+-->
+## 为什么卷很重要   {#why-volumes-are-important}
+
+- **数据持久性：** 容器中的文件在磁盘上是临时存放的，这给在容器中运行较重要的应用带来一些问题。
+  当容器崩溃或被停止时，容器的状态不会被保存，因此在容器生命期内创建或修改的所有文件都将丢失。
+  在崩溃期间，kubelet 会以干净的状态重启容器。
+
+<!--
+- **Shared storage:** Another problem occurs when multiple containers are running in a `Pod` and 
 need to share files. It can be challenging to setup 
 and access a shared filesystem across all of the containers.
+
 The Kubernetes {{< glossary_tooltip text="volume" term_id="volume" >}} abstraction
-solves both of these problems.
-Familiarity with [Pods](/docs/concepts/workloads/pods/) is suggested.
+can help you to solve both of these problems.
 -->
-容器中的文件在磁盘上是临时存放的，这给在容器中运行较重要的应用带来一些问题。
-当容器崩溃或停止时会出现一个问题。此时容器状态未保存，
-因此在容器生命周期内创建或修改的所有文件都将丢失。
-在崩溃期间，kubelet 会以干净的状态重新启动容器。
-当多个容器在一个 Pod 中运行并且需要共享文件时，会出现另一个问题。
-跨所有容器设置和访问共享文件系统具有一定的挑战性。
+- **共享存储：** 当多个容器在一个 Pod 中运行并需要共享文件时，会出现另一个问题。
+  那就是在所有容器之间设置和访问共享文件系统可能会很有难度。
 
 Kubernetes {{< glossary_tooltip text="卷（Volume）" term_id="volume" >}}
 这一抽象概念能够解决这两个问题。
 
-阅读本文前建议你熟悉一下 [Pod](/zh-cn/docs/concepts/workloads/pods)。
+<!--
+Before you learn about volumes, PersistentVolumes and PersistentVolumeClaims, you should read up
+about {{< glossary_tooltip term_id="Pod" text="Pods" >}} and make sure that you understand how
+Kubernetes uses Pods to run containers.
+-->
+在你学习卷、持久卷（PersistentVolume）和持久卷申领（PersistentVolumeClaim）之前，
+你应该先了解 {{< glossary_tooltip term_id="Pod" text="Pods" >}}，
+确保你理解 Kubernetes 如何使用 Pod 来运行容器。
 
 <!-- body -->
 
 <!--
-## Background
+## How volumes work
 -->
-## 背景  {#background}
+## 卷是如何工作的   {#how-volumes-work}
 
 <!--
 Kubernetes supports many types of volumes. A {{< glossary_tooltip term_id="pod" text="Pod" >}}
 can use any number of volume types simultaneously.
-[Ephemeral volume](/docs/concepts/storage/ephemeral-volumes/) types have a lifetime of a pod,
+[Ephemeral volume](/docs/concepts/storage/ephemeral-volumes/) types have a lifetime of a pod, 
 but [persistent volumes](/docs/concepts/storage/persistent-volumes/) exist beyond
 the lifetime of a pod. When a pod ceases to exist, Kubernetes destroys ephemeral volumes;
 however, Kubernetes does not destroy persistent volumes.
@@ -82,7 +134,12 @@ volume type used.
 <!--
 To use a volume, specify the volumes to provide for the Pod in `.spec.volumes`
 and declare where to mount those volumes into containers in `.spec.containers[*].volumeMounts`.
-A process in a container sees a filesystem view composed from the initial contents of
+-->
+使用卷时, 在 `.spec.volumes` 字段中设置为 Pod 提供的卷，并在
+`.spec.containers[*].volumeMounts` 字段中声明卷在容器中的挂载位置。
+
+<!--
+When a pod is launched, a process in the container sees a filesystem view composed from the initial contents of
 the {{< glossary_tooltip text="container image" term_id="image" >}}, plus volumes
 (if defined) mounted inside the container.
 The process sees a root filesystem that initially matches the contents of the container
@@ -90,15 +147,13 @@ image.
 Any writes to within that filesystem hierarchy, if allowed, affect what that process views
 when it performs a subsequent filesystem access.
 -->
-使用卷时, 在 `.spec.volumes` 字段中设置为 Pod 提供的卷，并在
-`.spec.containers[*].volumeMounts` 字段中声明卷在容器中的挂载位置。
-容器中的进程看到的文件系统视图是由它们的{{< glossary_tooltip text="容器镜像" term_id="image" >}}
+当 Pod 被启动时，容器中的进程看到的文件系统视图是由它们的{{< glossary_tooltip text="容器镜像" term_id="image" >}}
 的初始内容以及挂载在容器中的卷（如果定义了的话）所组成的。
 其中根文件系统同容器镜像的内容相吻合。
 任何在该文件系统下的写入操作，如果被允许的话，都会影响接下来容器中进程访问文件系统时所看到的内容。
 
 <!--
-Volumes mount at the [specified paths](#using-subpath) within
+Volumes are mounted at [specified paths](#using-subpath) within
 the image.
 For each container defined within a Pod, you must independently specify where
 to mount each volume that the container uses.
@@ -107,7 +162,7 @@ Volumes cannot mount within other volumes (but see [Using subPath](#using-subpat
 for a related mechanism). Also, a volume cannot contain a hard link to anything in
 a different volume.
 -->
-卷挂载在镜像中的[指定路径](#using-subpath)下。
+卷被挂载在镜像中的[指定路径](#using-subpath)下。
 Pod 配置中的每个容器必须独立指定各个卷的挂载位置。
 
 卷不能挂载到其他卷之上（不过存在一种[使用 subPath](#using-subpath) 的相关机制），也不能与其他卷有硬链接。
@@ -365,11 +420,11 @@ data as read-only files in plain text format.
 `downwardAPI` 卷用于为应用提供 {{< glossary_tooltip term_id="downward-api" text="downward API" >}} 数据。
 在这类卷中，所公开的数据以纯文本格式的只读文件形式存在。
 
+{{< note >}}
 <!--
 A container using the downward API as a [`subPath`](#using-subpath) volume mount does not
 receive updates when field values change.
 -->
-{{< note >}}
 容器以 [subPath](#using-subpath) 卷挂载方式使用 downward API 时，在字段值更改时将不能接收到它的更新。
 {{< /note >}}
 
