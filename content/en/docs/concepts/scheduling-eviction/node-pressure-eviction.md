@@ -223,11 +223,11 @@ The kubelet has the following default hard eviction thresholds:
 - `nodefs.inodesFree<5%` (Linux nodes)
 - `imagefs.inodesFree<5%` (Linux nodes)
 
-These default values of hard eviction thresholds will only be set if none
-of the parameters is changed. If you change the value of any parameter,
-then the values of other parameters will not be inherited as the default
-values and will be set to zero. In order to provide custom values, you
-should provide all the thresholds respectively.
+If you change the value of any parameter, then the values of other parameters will be 
+inherited as their default values. In order to provide custom values, you
+should provide all the thresholds respectively. If you disable the feature gate 
+InheritDefaultEvictionValues and then you change any of the parameters then the other 
+parameter will be set to zero.
 
 The `containerfs.available` and `containerfs.inodesFree` (Linux nodes) default
 eviction thresholds will be set as follows:
