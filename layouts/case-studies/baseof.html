@@ -1,7 +1,10 @@
 <!doctype html>
-<html lang="{{ .Site.Language.Lang }}" class="no-js">
+<html lang="{{ .Site.Language.Lang }}" class="no-js {{ .Params.class }}" id="{{ .Params.cid}}" >
   <head>
     {{ partial "head.html" . }}
+    {{- with resources.Get "scss/case_studies.scss" | toCSS | minify | fingerprint -}}
+    <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+    {{- end -}}
   </head>
   <body class="td-{{ .Kind }}{{ with .Page.Params.body_class }} {{ . }}{{ end }}">
     <header>
