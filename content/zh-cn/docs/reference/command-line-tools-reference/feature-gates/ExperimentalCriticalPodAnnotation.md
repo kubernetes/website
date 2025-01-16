@@ -19,6 +19,7 @@ stages:
 
 removed: true  
 ---
+
 <!--
 Enable annotating specific pods as *critical*
 so that their [scheduling is guaranteed](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
