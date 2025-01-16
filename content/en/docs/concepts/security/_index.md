@@ -79,6 +79,7 @@ Huawei Cloud | https://www.huaweicloud.com/intl/en-us/securecenter/overallsafety
 IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
 Oracle Cloud Infrastructure | https://www.oracle.com/security |
+Tencent Cloud | https://www.tencentcloud.com/solutions/data-security-and-information-protection |
 VMware vSphere | https://www.vmware.com/security/hardening-guides |
 
 {{< /table >}}
