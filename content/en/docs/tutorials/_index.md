@@ -59,6 +59,10 @@ Before walking through each tutorial, you may want to bookmark the
 
 * [Running Kubelet in Standalone Mode](/docs/tutorials/cluster-management/kubelet-standalone/)
 
+## Volume Backup
+
+* [Volume Backup Delete and restore](/docs/tutorials/volume-backup/volume-backup-restore/)
+
 ## {{% heading "whatsnext" %}}
 
 If you would like to write a tutorial, see
