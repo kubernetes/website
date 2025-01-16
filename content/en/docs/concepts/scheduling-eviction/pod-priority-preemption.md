@@ -65,8 +65,12 @@ and it cannot be prefixed with `system-`.
 A PriorityClass object can have any 32-bit integer value smaller than or equal
 to 1 billion. This means that the range of values for a PriorityClass object is
 from -2147483648 to 1000000000 inclusive. Larger numbers are reserved for
-built-in PriorityClasses that represent critical system Pods. A cluster
-admin should create one PriorityClass object for each such mapping that they want.
+built-in PriorityClasses such as `system-cluster-critical` (this Pod is critically 
+important to the cluster) and `system-node-critical` (the node critically relies on this Pod). 
+`system-node-critical` is a higher priority than `system-cluster-critical`, because a 
+cluster-critical Pod can only work well if the node where it is running has all its 
+node-level critical requirements met. A cluster admin should create one PriorityClass 
+object for each such mapping that they want.
 
 PriorityClass also has two optional fields: `globalDefault` and `description`.
 The `globalDefault` field indicates that the value of this PriorityClass should
