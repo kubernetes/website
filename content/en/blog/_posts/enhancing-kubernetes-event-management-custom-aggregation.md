@@ -3,6 +3,8 @@ layout: blog
 title: "Enhancing Kubernetes Event Management with Custom Aggregation"
 date: 2025-01-15
 slug: enhancing-kubernetes-event-management-custom-aggregation
+Author: >
+  [Rez Moss](https://github.com/rezmoss)
 ---
 
 Kubernetes events provide crucial insights into cluster operations, but as clusters grow, managing and analyzing these events becomes increasingly challenging. This blog post explores how to build custom event aggregation systems that help operators better understand cluster behavior and troubleshoot issues more effectively.
