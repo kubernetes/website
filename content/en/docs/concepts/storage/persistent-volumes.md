@@ -632,7 +632,7 @@ The access modes are:
 
 `ReadWriteOnce`
 : the volume can be mounted as read-write by a single node. ReadWriteOnce access
-  mode still can allow multiple pods to access the volume when the pods are
+  mode still can allow multiple pods to access (read from or write to) that volume when the pods are
   running on the same node. For single pod access, please see ReadWriteOncePod.
 
 `ReadOnlyMany`
