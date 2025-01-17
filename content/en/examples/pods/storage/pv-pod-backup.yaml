@@ -7,6 +7,18 @@ spec:
     - name: task-pv-storage
       persistentVolumeClaim:
         claimName: task-pv-claim
+  initContainers:
+  - name: init-volume
+    image: httpd:2.4
+    command: ["/bin/bash", "-c"]
+    args: 
+      - |
+        echo "Initializing the mounted volume...";
+        echo "Initialized at: $(date)" >> /usr/local/apache2/htdocs/index.html;
+
+    volumeMounts:
+      - mountPath: "/mnt/data"
+        name: task-pv-storage
   containers:
     - name: task-pv-container
       image: httpd:2.4

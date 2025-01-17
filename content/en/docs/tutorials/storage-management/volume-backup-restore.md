@@ -5,30 +5,36 @@ weight: 10
 ---
 
 <!-- overview -->
-This tutorial provides an introduction to taking backups of a volume and restoring it. It demonstrates how to create, delete, and restore the volume using [gzip](https://www.gnu.org/software/gzip/).
+This tutorial provides an introduction for taking backups of a volume and restoring it. It demonstrates how to create, delete, and restore the volume using [gzip](https://www.gnu.org/software/gzip/).
 
 ## {{% heading "prerequisites" %}}
-Before you begin this tutorial, you should familiarize yourself with the following Kubernetes concepts:
+Before you begin this tutorial, you should be familiar with the following Kubernetes concepts:
 
 * [Pods](/docs/concepts/workloads/pods/)
 * [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
 * The [kubectl](/docs/reference/kubectl/kubectl/) command line tool
 
-{{% include "task-tutorial-prereqs.md" %}}
+## {{% heading "prerequisites" %}}
 
-You should configure kubectl to use a context that uses the default namespace. If you are
-using an existing cluster, make sure it's okay to use that cluster's default namespace to
-practice. Ideally, practice in a cluster that doesn't run any real workloads.
+* You need to have a Kubernetes cluster that has only one Node, and the
+  {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
+  command-line tool must be configured to communicate with your cluster. If you
+  do not already have a single-node cluster, you can create one by using
+  [Minikube](https://minikube.sigs.k8s.io/docs/).
+
+* Familiarize yourself with the material in
+  [Persistent Volumes](/docs/concepts/storage/persistent-volumes/).
 
 ## {{% heading "objectives" %}}
-After this tutorial, you will be familiar with the following.
+After this tutorial, you will be familiar with the following:
 1. Understanding the importance of volume backups
 1. Backing up kubernetes volumes
 1. Deleting and recreating volumes
 1. Restoring applications with backed-up data
 1. Practical workflow for backup and restore
 
-Use the existing yaml file from the [Configure a Pod to Use a PersistentVolume for Storage](/tasks/configure-pod-container/configure-persistent-volume-storage/) task, to configure PersistentVolume (PV) and PersistentVolumeClaim (PVC). Then follow the steps from the beginning, to create a `hostpath` and `index.html` file as well.
+## Configure Persistent Volume and Persistent Volume Claim
+Use the existing yaml file from the [Configure a Pod to Use a PersistentVolume for Storage](/tasks/configure-pod-container/configure-persistent-volume-storage/) task to configure PersistentVolume (PV) and PersistentVolumeClaim (PVC). Then follow the steps from the beginning, to create a `hostpath` and `index.html` file as well.
 
 View information about the PersistentVolume:
 
@@ -44,9 +50,9 @@ NAME             CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS      CLAIM     
 task-pv-volume   10Gi       RWO           Retain          Available             manual                   4s
 ```
 
-After you create the PersistentVolumeClaim, the Kubernetes control plane looks
-for a PersistentVolume that satisfies the claim's requirements. If the control
-plane finds a suitable PersistentVolume with the same StorageClass, it binds the
+After you create the PersistentVolumeClaim, the Kubernetes controlplane looks
+for a PersistentVolume that satisfies the claim's requirements. If the controlplane finds a
+suitable PersistentVolume with the same StorageClass, it binds the
 claim to the volume.
 
 Look again at the PersistentVolume:
@@ -124,11 +130,11 @@ Hello from Kubernetes storage
 If you see that message, you have successfully configured a Pod to
 use storage from a PersistentVolumeClaim.
 
-## Backup, Delete and Restore Volumes
+## {{% heading "backup" %}}
 
 ### Create Backup
 
-The process involves accessing the pod to interact with its file system, navigating to the mounted volume directory ```(/usr/local/apache2/htdocs)``` containing the data to be backed up, and compressing the directory contents into a ```.tar.gz``` file stored in the pod's temporary directory ```(/tmp)```. After exiting the pod shell, the backup file is transferred to the local machine using ```kubectl cp```, ensuring the data is securely saved outside the pod environment for restoration or safekeeping.
+The process involves accessing the pod to interact with its file system, navigating to the mounted volume directory ```(/usr/local/apache2/htdocs)``` containing the data to be backed-up, and compressing the directory contents into a ```.tar.gz``` file stored in the pod's temporary directory ```(/tmp)```. After exiting the pod shell, the backup file is transferred to the local machine using ```kubectl cp```, ensuring the data is securely saved outside the pod environment for restoration or safekeeping.
 
 **Access the Pod:** 
 To start the backup process, first, access the pod that has the volume you want to back up:
@@ -144,7 +150,7 @@ Once inside the pod, navigate to the directory where the volume is mounted:
 ```shell
 cd /usr/local/apache2/htdocs
 ```
-This directory contains the data you wish to back up.
+This directory contains the data you wish to backup.
 
 **Create a Compressed Backup File (gzip):**
 Use the tar command to create a compressed backup file of the directory's contents:
@@ -182,7 +188,7 @@ Delete all files and subdirectories in the volume:
 rm -rf *
 ```
 **Verify the Deletion:**
-List the contents of the directory to confirm it is empty:
+List the contents of the directory to confirm if it is empty:
 ```shell
 ls -l
 ```
@@ -195,10 +201,10 @@ exit
 ```
 
 ### Restore the Backup Data
-The process involves copying the backup file (volume-backup.tar.gz) from the local machine to the pod's temporary directory using kubectl cp. Then, access the pod shell, navigate to the mounted volume directory (/usr/local/apache2/htdocs), and extract the backup using tar. Finally, verify the restored files with ls -l and exit the pod shell.
+The process involves copying the backup file (volume-backup.tar.gz) from the local machine to the pod's temporary directory using ```kubectl cp```. Then, access the pod shell, navigate to the mounted volume directory ```/usr/local/apache2/htdocs```, and extract the backup using ```tar```. Finally, verify the restored files with ```ls -l``` and exit the pod shell.
 
 **Copy the Backup File to the Pod:**
-Transfer the backup file from your local machine back to the pod:
+Transfer the backup file from your local machine, back to the pod:
 ```shell
 kubectl cp ./volume-backup.tar.gz pv-pod-backup:/tmp/volume-backup.tar.gz
 ```
@@ -248,6 +254,6 @@ Some key points about importance of volume backup are:
 1. Backups keep your data safe if it's accidentally deleted, corrupted, or lost due to  hardware failure.
 1. If your system crashes or faces an attack, backups help restore data and reduce downtime.
 1. Backups let you transfer data between environments or cloud platforms without losing it.
-1. Losing data can stop your work. Backups help avoid this.
+1. Losing data can stop your work. Backups help avoiding this.
 1. Migrate data from development to testing or production environments.
-1. Backups allow you to create a safe copy of your production data for Testing new features or bug fixes.Training new team members on real-world data.
+1. Backups allow you to create a safe copy of your production data for Testing new features or bug fixes.
