@@ -1114,7 +1114,7 @@ The access modes are:
 
 `ReadWriteOnce`
 : the volume can be mounted as read-write by a single node. ReadWriteOnce access
-  mode still can allow multiple pods to access the volume when the pods are
+  mode still can allow multiple pods to access (read from or write to) that volume when the pods are
   running on the same node. For single pod access, please see ReadWriteOncePod.
 
 `ReadOnlyMany`
@@ -1133,7 +1133,7 @@ The access modes are:
 
 `ReadWriteOnce`
 : 卷可以被一个节点以读写方式挂载。
-  ReadWriteOnce 访问模式仍然可以在同一节点上运行的多个 Pod 访问该卷。
+  ReadWriteOnce 访问模式仍然可以在同一节点上运行的多个 Pod 访问（读取或写入）该卷。
   对于单个 Pod 的访问，请参考 ReadWriteOncePod 访问模式。
 
 `ReadOnlyMany`
