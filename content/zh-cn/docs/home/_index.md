@@ -55,7 +55,7 @@ cards:
 #   button: "View Tasks"
 #   button_path: "/docs/tasks"
 - name: setup
-  title: "安裝 K8s 集群"
+  title: "安装 K8s 集群"
   description: "基于你的资源情况和需要运行 Kubernetes。"
   button: "安装 Kubernetes"
   button_path: "/zh-cn/docs/setup"
