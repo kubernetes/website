@@ -1114,7 +1114,7 @@ The access modes are:
 
 `ReadWriteOnce`
 : the volume can be mounted as read-write by a single node. ReadWriteOnce access
-  mode still can allow multiple pods to access the volume when the pods are
+  mode still can allow multiple pods to access (read from or write to) that volume when the pods are
   running on the same node. For single pod access, please see ReadWriteOncePod.
 
 `ReadOnlyMany`
@@ -1133,7 +1133,7 @@ The access modes are:
 
 `ReadWriteOnce`
 : 卷可以被一个节点以读写方式挂载。
-  ReadWriteOnce 访问模式仍然可以在同一节点上运行的多个 Pod 访问该卷。
+  ReadWriteOnce 访问模式仍然可以在同一节点上运行的多个 Pod 访问（读取或写入）该卷。
   对于单个 Pod 的访问，请参考 ReadWriteOncePod 访问模式。
 
 `ReadOnlyMany`
@@ -1475,6 +1475,23 @@ consumption of the volume as either a filesystem or block device.
 申领使用[与卷相同的约定](#volume-mode)来表明是将卷作为文件系统还是块设备来使用。
 
 <!--
+### Volume Name
+
+Claims can use the `volumeName` field to explicitly bind to a specific PersistentVolume. You can also leave
+`volumeName` unset, indicating that you'd like Kubernetes to set up a new PersistentVolume
+that matches the claim.
+If the specified PV is already bound to another PVC, the binding will be stuck
+in a pending state.
+-->
+
+### 卷名称    {#volume-name}
+
+申领可以使用 `volumeName` 字段显式绑定到特定的 PersistentVolume。
+你也可以不设置 `volumeName` 字段，这表示你希望 Kubernetes 设置一个与申领匹配的新 PersistentVolume。
+如果指定的 PV 已经绑定到另一个 PVC，则绑定操作将卡在 Pending 状态。
+
+<!--
+
 ### Resources
 
 Claims, like Pods, can request specific quantities of a resource. In this case,
