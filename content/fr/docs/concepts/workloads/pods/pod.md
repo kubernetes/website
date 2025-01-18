@@ -138,7 +138,7 @@ Les contrôleurs fournissent l'auto-guérison à l'échelle du cluster, ainsi qu
 Les contrôleurs comme [StatefulSet](/docs/concepts/workloads/controllers/statefulset.md)
 peuvent aussi prendre en charge des pods avec état (stateful).
 
-L'utilisation d'APIs collectives comme principale primitive exposée à l'utilisateur est courante dans les systèmes d'ordonnancement de clusters, comme [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://github.com/d2iq-archive/marathon), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema), et [Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997).
+L'utilisation d'APIs collectives comme principale primitive exposée à l'utilisateur est courante dans les systèmes d'ordonnancement de clusters, comme [Borg](https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/), [Marathon](https://github.com/d2iq-archive/marathon), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema), et [Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997).
 
 Un Pod est exposé en tant que primitive afin de faciliter :
 
