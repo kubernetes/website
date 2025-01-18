@@ -2,9 +2,6 @@
 title: "Monitoramento, Registro de Logs e Depuração"
 description: Configure o monitoramento e os logs para solucionar problemas em um cluster ou depurar uma aplicação containerizada.
 weight: 40
-reviewers:
-- brendandburns
-- davidopp
 content_type: concept
 no_list: true
 card:
