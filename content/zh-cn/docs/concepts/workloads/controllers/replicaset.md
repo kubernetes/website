@@ -391,8 +391,7 @@ A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contrib
 [DNS 标签](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)规则。
 
 ReplicaSet 也需要
-[`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
-部分。
+[`.spec` 部分](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
 
 <!--
 ### Pod Template
