@@ -43,11 +43,13 @@ SIG Docs 团队会提供文字方面的反馈意见，或者直接编辑文档�
 本节讨论两个小组在分支方面和发行期间所遵从的流程方面的约定。
 
 <!-- body -->
+
 <!--
 ## For documentation contributors
 
 In general, documentation contributors don't write content from scratch for a release.
-Instead, they work with the SIG creating a new feature to refine the draft documentation and make it release ready.
+Instead, they work with the SIG creating a new feature to refine the draft documentation
+and make it release ready.
 
 After you've chosen a feature to document or assist, ask about it in the `#sig-docs`
 Slack channel, in a weekly SIG Docs meeting, or directly on the PR filed by the
@@ -103,7 +105,7 @@ release.
 其中也包含关于发行版本的目标列表、时间线，以及当前发行版本中就绪的特殊流程的信息。
 文档末尾附近定义了若干与该发行版本有关的术语。
 
-此文档也包含到 **功能特性跟踪清单** 的链接。
+此文档也包含到**功能特性跟踪清单**的链接。
 这一清单是了解哪些功能特性计划进入某发行版本的正式途径。
 
 <!--
@@ -139,7 +141,7 @@ merged. Keep the following in mind:
 
 针对[给定 Kubernetes 发行版本](https://github.com/kubernetes/sig-release/tree/master/releases)
 特性跟踪清单中列举的是计划包含于该版本中的每个功能特性。
-每一行中都包含特性的名称、特性对应的主要 GitHub Issue，其稳定性级别（ALpha、
+每一行中都包含特性的名称、特性对应的主要 GitHub Issue，其稳定性级别（Alpha、
 Beta 或 Stable）、负责实现该特性的 SIG 和个人、是否该特性需要文档、
 该特性的发行说明草稿以及该特性是否已经被合并等等。阅读此清单时请注意：
 
@@ -206,11 +208,9 @@ Kubernetes Slack 上的 `#sig-release` 频道，检查时间安排的细节以�
    了解特性的文档正在被撰写，在新的发行版本中要跟踪其进展。
 
 <!--
-If your feature does not need
-any documentation changes, make sure the sig-release team knows this, by
-mentioning it in the `#sig-release` Slack channel. If the feature does need
-documentation but the PR is not created, the feature may be removed from the
-milestone.
+If your feature does not need any documentation changes, make sure the sig-release team knows this,
+by mentioning it in the `#sig-release` Slack channel. If the feature does need
+documentation but the PR is not created, the feature may be removed from the milestone.
 -->
 如果对应的功能特性不需要任何类型的文档变更，请通过在 `#sig-release` Slack
 频道声明这一点以确保 sig-release 团队了解。
@@ -259,15 +259,14 @@ content is not received, the feature may be removed from the milestone.
 If your feature is an Alpha or Beta feature and is behind a feature gate,
 you need a feature gate file for it inside
 `content/en/docs/reference/command-line-tools-reference/feature-gates/`.
-The name of the file should be the feature gate, converted from `UpperCamelCase`
-to `kebab-case`, with `.md` as the suffix.
+The name of the file should be the name of the feature gate with `.md` as the suffix.
 You can look at other files already in the same directory for a hint about what yours
 should look like. Usually a single paragraph is enough; for longer explanations,
 add documentation elsewhere and link to that.
 -->
 如果你在处理的特性处于 Alpha 或 Beta 阶段并由某特性门控控制，
 你需要在 `content/en/docs/reference/command-line-tools-reference/feature-gates/` 目录中为其创建一个特性门控文件。
-此文件的名称应该是特性门控的名称，此名称的式样从 `UpperCamelCase` 转换为 `kebab-case`，并以 `.md` 作为后缀。
+文件名应为特性门控的名称，并以 `.md` 作为后缀。
 你可以参照同一目录中已存在的其他文件，以了解你的文件应该是什么样子的。
 通常一段话就够了；若要长篇阐述，请在其他地方添加文档，并为其添加链接。
 
@@ -300,9 +299,8 @@ stages:
 ```
 
 <!--
-With net new feature gates, a separate
-description of the feature gate is also required; create a new Markdown file
-inside `content/en/docs/reference/command-line-tools-reference/feature-gates/`
+With net new feature gates, a separate description of the feature gate is also required;
+create a new Markdown file inside `content/en/docs/reference/command-line-tools-reference/feature-gates/`
 (use other files as a template).
 -->
 对于全新的特性门控，还需要一个单独的特性门控描述；在
@@ -332,7 +330,8 @@ table. For example:
 如果你的特性已经是 GA（正式发布）或已弃用的，请在描述文件的 `stages` 块中包含一个额外的 `stage` 条目。
 确保 Alpha 和 Beta 阶段保持不变。这一步将特性门控从
 [Alpha/Beta 特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
-表格移到[已毕业或已弃用的特性门控](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)表格。例如：
+表格移到[已毕业或已弃用的特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)表格。
+例如：
 
 <!--
 {{< highlight yaml "linenos=false,hl_lines=10-17" >}}
