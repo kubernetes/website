@@ -14,6 +14,7 @@ stages:
     defaultValue: true
     fromVersion: "1.24"
 ---
+
 <!--
 Enables the kubelet to check Pod priorities
 when shutting down a node gracefully.
