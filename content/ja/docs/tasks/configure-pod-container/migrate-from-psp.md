@@ -44,15 +44,15 @@ Pod Security Admissionは、複数のセキュリティ水準の標準的な集�
 特に、以下の機能はPodSecurityPolicyではサポートされているものの、Pod Security Admissionではサポートされていません。
 
 - **デフォルトのsecurity constraintsの設定** - Pod Security AdmissionはValidating Admission Controllerであるため、Podを検証する前にPodを変更しません。
-あなたがPSPにおけるdefault security constraintsに依存している場合、ワークロードを修正したり、[Mutating Admission WebHook](/docs/reference/access-authn-authz/extensible-admission-controllers/)を使ったりして、Pod Securityの制約を満たせるような変更を実施することが必要です。
+あなたがPSPにおけるdefault security constraintsに依存している場合、ワークロードを修正したり、[Mutating Admission Webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)を使ったりして、Pod Securityの制約を満たせるような変更を実施することが必要です。
 詳細は、後で述べる[PodSecurityPolicyをシンプルにして標準化する](#simplify-psps)を参照してください。
 - **ポリシー定義のきめ細やかな制御** - Pod Security Admissionは[3つのセキュリティ水準](/docs/concepts/security/pod-security-standards/)のみをサポートします。
 特定の制約条件についてさらなる制御が必要な場合には、ポリシーを強制するために[Validating Admission Webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)を使う必要があります。
 - **sub-namespaceの粒度のポリシー** - PodSecurityPolicyは、個々のNamespace内部で異なるサービスアカウントやユーザーに対する異なるポリシーの紐付けが可能です。
-この手法にはいくつもの落とし穴があるため推奨されませんが、どうしてもこの性質が必要な場合は、サードパーティーのWebHookをPSPの代わりに利用する必要があるでしょう。
-ただし、Pod Security Admissionで[静的な適用除外設定](/docs/concepts/security/pod-security-admission/#exemptions)をしており、特定のユーザーや[RuntimeClass](/docs/concepts/containers/runtime-class/)を完全に適用除外とする必要がある場合には、サードパーティーWebHookは必要ないかもしれません。
+この手法にはいくつもの落とし穴があるため推奨されませんが、どうしてもこの性質が必要な場合は、サードパーティーのWebhookをPSPの代わりに利用する必要があるでしょう。
+ただし、Pod Security Admissionで[静的な適用除外設定](/docs/concepts/security/pod-security-admission/#exemptions)をしており、特定のユーザーや[RuntimeClass](/docs/concepts/containers/runtime-class/)を完全に適用除外とする必要がある場合には、サードパーティーWebhookは必要ないかもしれません。
 
-あなたの全ての要求を満たせない場合であっても、Pod Security Admissionは他のポリシー強制メカニズムに対する _補完的な_ 仕組みとなるよう設計されており、他のアドミッションWebHookと併用する場合にも有益なフォールバック機構を提供します。
+あなたの全ての要求を満たせない場合であっても、Pod Security Admissionは他のポリシー強制メカニズムに対する _補完的な_ 仕組みとなるよう設計されており、他のアドミッションWebhookと併用する場合にも有益なフォールバック機構を提供します。
 
 ## 1. Namespaceの権限をレビューする {#review-namespace-permissions}
 
@@ -94,7 +94,7 @@ PSPでPodの変更のみを行うフィールドは次のとおりです。
 
 
 PodSecurityPolicyにはPodセキュリティ標準でカバーできない設定項目があります。
-このようなオプションを強制する必要がある場合、(この記事のスコープ外の話題ですが)、Pod Security Admissionを[アドミッションWebHook](/docs/reference/access-authn-authz/extensible-admission-controllers/)で補強する必要があるでしょう。
+このようなオプションを強制する必要がある場合、(この記事のスコープ外の話題ですが)、Pod Security Admissionを[アドミッションWebhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)で補強する必要があるでしょう。
 
 まず、Podセキュリティ標準がカバーしない、純粋にPodの検証のみを行う設定項目は除去できます。
 この条件に該当するフィールドは以下のとおりです。
