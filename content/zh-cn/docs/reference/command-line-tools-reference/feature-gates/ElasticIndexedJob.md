@@ -14,6 +14,7 @@ stages:
     defaultValue: true
     fromVersion: "1.31"
 ---
+
 <!--
 Enables Indexed Jobs to be scaled up or down by mutating both
 `spec.completions` and `spec.parallelism` together such that `spec.completions == spec.parallelism`.
