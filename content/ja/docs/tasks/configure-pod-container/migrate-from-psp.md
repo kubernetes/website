@@ -1,5 +1,5 @@
 ---
-title: PodSecurityPolicyからビルトインのPodSecurityアドミッションコントローラーに移行する
+title: PodSecurityPolicyからビルトインのPodセキュリティアドミッションコントローラーに移行する
 content_type: task
 min-kubernetes-server-version: v1.22
 weight: 260
