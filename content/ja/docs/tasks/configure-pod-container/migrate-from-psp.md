@@ -77,7 +77,7 @@ Pod Security Admissionは[Namespaceのラベル](/docs/concepts/security/pod-sec
 
 手始めに、Podの検証処理を損なわないような形で、Pod変更のみを行う設定項目を除去することができます。
 PSPでPodの変更のみを行うフィールドは次のとおりです。
-([PodSecurityPolicyとPodセキュリティ標準の対応関係](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)にも一覧があります)
+([PodSecurityPolicyとPodセキュリティ標準の対応関係](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)にも一覧があります)。
 
 - `.spec.defaultAllowPrivilegeEscalation`
 - `.spec.runtimeClass.defaultRuntimeClassName`
@@ -98,7 +98,7 @@ PodSecurityPolicyにはPodセキュリティ標準でカバーできない設定
 
 まず、Podセキュリティ標準がカバーしない、純粋にPodの検証のみを行う設定項目は除去できます。
 この条件に該当するフィールドは以下のとおりです。
-([PodSecurityPolicyとPodセキュリティ標準の対応関係](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)には"no opinion"と表記されています)
+([PodSecurityPolicyとPodセキュリティ標準の対応関係](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)には"no opinion"と表記されています)。
 
 - `.spec.allowedHostPaths`
 - `.spec.allowedFlexVolumes`
