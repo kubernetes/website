@@ -40,7 +40,7 @@ Use "kubectl api-resources" for a complete list of supported resources.
 使用 "kubectl api-resources" 获取受支持的资源的完整列表。
 
 ```shell
-kubectl explain TYPE [--recursive=FALSE|TRUE] [--api-version=api-version-group] [--output=plaintext|plaintext-openapiv2]
+kubectl explain TYPE [--recursive=FALSE|TRUE] [--api-version=api-version-group] [-o|--output=plaintext|plaintext-openapiv2]
 ```
 
 ## {{% heading "examples" %}}
@@ -114,7 +114,7 @@ explain 操作的帮助命令。
 </tr>
 
 <tr>
-<td colspan="2">--output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："plaintext"</td>
+<td colspan="2">-o, --output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："plaintext"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
