@@ -7,7 +7,7 @@ weight: 260
 
 <!-- overview -->
 
-このページはPodSecurityPolicyからビルトインのPodSecurityアドミッションコントローラーに移行するための手順について説明します。
+このページはPodSecurityPolicyからビルトインのPodセキュリティアドミッションコントローラーに移行するための手順について説明します。
 この手順は、`audit`モードや`warn`モードとdry-runを組み合わせて用いることで効率的に実施できますが、Podを変更するPSPを利用している場合には難しいものになるかも知れません。
 
 ## {{% heading "prerequisites" %}}
