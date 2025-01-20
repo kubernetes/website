@@ -13,7 +13,7 @@ Generates the kube-apiserver static Pod manifest
 -->
 生成 kube-apiserver 静态 Pod 清单。
 
-```
+```shell
 kubeadm init phase control-plane apiserver [flags]
 ```
 
@@ -22,7 +22,7 @@ kubeadm init phase control-plane apiserver [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -87,10 +87,10 @@ A set of extra flags to pass to the API Server or override default ones in form 
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The path where to save and store the certificates.
 -->
-<p>
 保存和存储证书的路径。
 </p>
 </td>
@@ -101,10 +101,10 @@ The path where to save and store the certificates.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a kubeadm configuration file.
 -->
-<p>
 kubeadm 配置文件的路径。
 </p>
 </td>
@@ -115,10 +115,10 @@ kubeadm 配置文件的路径。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Specify a stable IP address or DNS name for the control plane.
 -->
-<p>
 为控制平面指定一个稳定的 IP 地址或 DNS 名称。
 </p>
 </td>
@@ -135,7 +135,7 @@ Don't apply any changes; just output what would be done.
 不做任何更改；只输出将要执行的操作。
 </p>
 </td>
- </tr>
+</tr>
 
 <tr>
 <td colspan="2">--feature-gates string</td>
@@ -144,18 +144,20 @@ Don't apply any changes; just output what would be done.
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-EtcdLearnerMode=true|false (BETA - default=true)<br/>
+ControlPlaneKubeletLocalMode=true|false (ALPHA - default=false)<br/>
+EtcdLearnerMode=true|false (default=true)<br/>
+NodeLocalCRISocket=true|false (ALPHA - default=false)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)<br/>
 WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
 -->
 <p>
 一组键值对，用于描述各种功能特性的特性门控。选项是：<br/>
-EtcdLearnerMode=true|false (BETA - 默认值=true)<br/>
+ControlPlaneKubeletLocalMode=true|false (ALPHA - 默认值=false)<br/>
+EtcdLearnerMode=true|false (默认值=true)<br/>
+NodeLocalCRISocket=true|false (ALPHA - 默认值=false)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)<br/>
 WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
 </p>
 </td>
@@ -261,7 +263,7 @@ Use alternative range of IP address for service VIPs.
 -->
 ### 继承于父命令的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -277,7 +279,7 @@ Use alternative range of IP address for service VIPs.
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
 <p>
-[实验] 到 '真实' 主机根文件系统路径。
+[实验] 到'真实'主机根文件系统路径。
 </p>
 </td>
 </tr>
