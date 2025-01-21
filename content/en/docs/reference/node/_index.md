@@ -6,6 +6,8 @@ no_list: true
 
 This section contains the following reference topics about nodes:
 
+* Policies on [Kubernetes feature development and Container runtimes](content/en/docs/reference/node/cri-api-development-policies.md)
+
 * the kubelet's [checkpoint API](/docs/reference/node/kubelet-checkpoint-api/)
 * a list of [Articles on dockershim Removal and on Using CRI-compatible Runtimes](/docs/reference/node/topics-on-dockershim-and-cri-compatible-runtimes/)
 
