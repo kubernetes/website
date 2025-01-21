@@ -23,4 +23,6 @@ A static pod marked as critical can't be evicted. However, non-static pods marke
 
 ### Marking pod as critical
 
-To mark a Pod as critical, set priorityClassName for that Pod to `system-cluster-critical` or `system-node-critical`. `system-node-critical` is the highest available priority, even higher than `system-cluster-critical`.
+To mark a Pod as critical, set priorityClassName for that Pod to `system-cluster-critical` or 
+`system-node-critical`. `system-node-critical` is the highest available priority, even higher 
+than `system-cluster-critical`. For more detailed information on priority classes, [refer here.](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
