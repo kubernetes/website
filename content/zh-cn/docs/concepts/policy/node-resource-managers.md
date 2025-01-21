@@ -4,20 +4,20 @@ content_type: concept
 weight: 50
 ---
 <!-- 
----
 reviewers:
 - derekwaynecarr
 - klueska
 title: Node Resource Managers 
 content_type: concept
 weight: 50
----
 -->
 
 <!-- overview -->
 
 <!-- 
-In order to support latency-critical and high-throughput workloads, Kubernetes offers a suite of Resource Managers. The managers aim to co-ordinate and optimise node's resources alignment for pods configured with a specific requirement for CPUs, devices, and memory (hugepages) resources. 
+In order to support latency-critical and high-throughput workloads, Kubernetes offers a suite of
+Resource Managers. The managers aim to co-ordinate and optimise the alignment of node's resources for pods
+configured with a specific requirement for CPUs, devices, and memory (hugepages) resources.
 -->
 Kubernetes 提供了一组资源管理器，用于支持延迟敏感的、高吞吐量的工作负载。
 资源管理器的目标是协调和优化节点资源，以支持对 CPU、设备和内存（巨页）等资源有特殊需求的 Pod。
@@ -31,9 +31,9 @@ Kubernetes 提供了一组资源管理器，用于支持延迟敏感的、高吞
 
 <!--
 _Topology Manager_ is a kubelet component that aims to coordinate the set of components that are
-responsible for these optimizations. The the overall resource management process is governed using
-the policy you specify.
-To learn more, read [Control Topology Management Policies on a Node](/docs/tasks/administer-cluster/topology-manager/).
+responsible for these optimizations. The overall resource management process is governed using
+the policy you specify. To learn more, read
+[Control Topology Management Policies on a Node](/docs/tasks/administer-cluster/topology-manager/).
 -->
 **拓扑管理器（Topology Manager）**是一个 kubelet 组件，旨在协调负责这些优化的组件集。
 整体资源管理过程通过你指定的策略进行管理。
@@ -42,7 +42,7 @@ To learn more, read [Control Topology Management Policies on a Node](/docs/tasks
 <!-- 
 ## Policies for assigning CPUs to Pods
 -->
-## 为 Pod 分配 CPU 的策略
+## 为 Pod 分配 CPU 的策略   {#policies-for-assigning-cpus-to-pods}
 
 {{< feature-state feature_gate_name="CPUManager" >}}
 
@@ -56,7 +56,9 @@ resource (for example, assigning one of more CPUs for a Pod's exclusive use).
 
 <!-- 
 By default, the kubelet uses [CFS quota](https://en.wikipedia.org/wiki/Completely_Fair_Scheduler)
-to enforce pod CPU limits.  When the node runs many CPU-bound pods, the workload can move to different CPU cores depending on whether the pod is throttled and which CPU cores are available at scheduling time. Many workloads are not sensitive to this migration and thus
+to enforce pod CPU limits.  When the node runs many CPU-bound pods, the workload can move to
+different CPU cores depending on whether the pod is throttled and which CPU cores are available
+at scheduling time. Many workloads are not sensitive to this migration and thus
 work fine without any intervention.
 -->
 默认情况下，kubelet 使用 [CFS 配额](https://en.wikipedia.org/wiki/Completely_Fair_Scheduler)
@@ -65,7 +67,8 @@ work fine without any intervention.
 许多工作负载对这种迁移不敏感，因此无需任何干预即可正常工作。
 
 <!--
-However, in workloads where CPU cache affinity and scheduling latency significantly affect workload performance, the kubelet allows alternative CPU
+However, in workloads where CPU cache affinity and scheduling latency significantly affect
+workload performance, the kubelet allows alternative CPU
 management policies to determine some placement preferences on the node.
 This is implemented using the _CPU Manager_ and its policy.
 There are two available policies:
@@ -77,11 +80,11 @@ kubelet 允许使用不同的 CPU 管理策略来确定节点上的一些放置�
 
 <!--
 - `none`: the `none` policy explicitly enables the existing default CPU
-affinity scheme, providing no affinity beyond what the OS scheduler does
-automatically.  Limits on CPU usage for
-[Guaranteed pods](/docs/concepts/workloads/pods/pod-qos/) and
-[Burstable pods](/docs/concepts/workloads/pods/pod-qos/)
-are enforced using CFS quota.
+  affinity scheme, providing no affinity beyond what the OS scheduler does
+  automatically.  Limits on CPU usage for
+  [Guaranteed pods](/docs/concepts/workloads/pods/pod-qos/) and
+  [Burstable pods](/docs/concepts/workloads/pods/pod-qos/)
+  are enforced using CFS quota.
 -->
 - `none`：`none` 策略显式启用现有的默认 CPU 亲和性方案，除了操作系统调度器自动执行的操作外，不提供任何亲和性。
   使用 CFS 配额强制为 [Guaranteed Pod](/zh-cn/docs/concepts/workloads/pods/pod-qos/) 
@@ -89,8 +92,8 @@ are enforced using CFS quota.
 
 <!--
 - `static`: the `static` policy allows containers in `Guaranteed` pods with integer CPU
-`requests` access to exclusive CPUs on the node. This exclusivity is enforced
-using the [cpuset cgroup controller](https://www.kernel.org/doc/Documentation/cgroup-v2.txt).
+  `requests` access to exclusive CPUs on the node. This exclusivity is enforced
+  using the [cpuset cgroup controller](https://www.kernel.org/doc/Documentation/cgroup-v2.txt).
 -->
 - `static`：`static` 策略允许具有整数 CPU `requests` 的 `Guaranteed` Pod 中的容器访问节点上的独占 CPU。
   这种独占性是使用 [cpuset cgroup 控制器](https://www.kernel.org/doc/Documentation/cgroup-v2.txt)
@@ -98,11 +101,12 @@ using the [cpuset cgroup controller](https://www.kernel.org/doc/Documentation/cg
 
 {{< note >}}
 <!--
-System services such as the container runtime and the kubelet itself can continue to run on these exclusive CPUs.  The exclusivity only extends to other pods.
+System services such as the container runtime and the kubelet itself can continue to run on these exclusive CPUs.  The System services such as the container runtime and the kubelet itself can continue to run on
+these exclusive CPUs.  The exclusivity only extends to other pods.
 -->
 诸如容器运行时和 kubelet 本身之类的系统服务可以继续在这些独占 CPU 上运行。
 独占性仅针对其他 Pod。
-{{< /note >}}    
+{{< /note >}}
 
 <!--
 CPU Manager doesn't support offlining and onlining of CPUs at runtime.
@@ -120,10 +124,10 @@ This policy manages a shared pool of CPUs that initially contains all CPUs in th
 node. The amount of exclusively allocatable CPUs is equal to the total
 number of CPUs in the node minus any CPU reservations set by the kubelet configuration.
 CPUs reserved by these options are taken, in integer quantity, from the initial shared pool in ascending order by physical
-core ID.  This shared pool is the set of CPUs on which any containers in
+core ID.  This shared pool is the set of CPUs on which any containers in
 `BestEffort` and `Burstable` pods run. Containers in `Guaranteed` pods with fractional
 CPU `requests` also run on CPUs in the shared pool. Only containers that are
-both part of a `Guaranteed` pod and have integer CPU `requests` are assigned
+part of a `Guaranteed` pod and have integer CPU `requests` are assigned
 exclusive CPUs.
 -->
 静态策略可实现更精细的 CPU 管理和独占性的 CPU 分配。
@@ -137,7 +141,7 @@ CPU `requests` 为小数值的 `Guaranteed` Pod 中的容器也在共享池中�
 {{< note >}}
 <!--
 The kubelet requires a CPU reservation greater than zero when the static policy is enabled.
-This is because zero CPU reservation would allow the shared pool to become empty.
+This is because a zero CPU reservation would allow the shared pool to become empty.
 -->
 当启用静态策略时，kubelet 要求 CPU 预留个数大于零。
 这是因为预留 CPU 个数为零意味着将允许共享池变空。
@@ -149,7 +153,7 @@ assigned are scheduled to the node, CPUs are removed from the shared pool and
 placed in the cpuset for the container. CFS quota is not used to bound
 the CPU usage of these containers as their usage is bound by the scheduling domain
 itself. In others words, the number of CPUs in the container cpuset is equal to the integer
-CPU `limit` specified in the pod spec. This static assignment increases CPU
+CPU `limit` specified in the pod spec. This static assignment increases CPU
 affinity and decreases context switches due to throttling for the CPU-bound
 workload.
 -->
@@ -168,6 +172,20 @@ spec:
   containers:
   - name: nginx
     image: nginx
+```
+
+<!--
+The pod above runs in the `BestEffort` QoS class because no resource `requests` or
+`limits` are specified. It runs in the shared pool.
+-->
+上面的 Pod 以 `BestEffort` QoS 类运行，因为它没有指定资源 `requests` 或 `limits`。
+它在共享池中运行。
+
+```yaml
+spec:
+  containers:
+  - name: nginx
+    image: nginx
     resources:
       limits:
         memory: "200Mi"
@@ -180,7 +198,28 @@ The pod above runs in the `Burstable` QoS class because resource `requests` do n
 equal `limits` and the `cpu` quantity is not specified. It runs in the shared
 pool.
 -->
-上面的 Pod 以 BestEffort QoS 类运行，因为它没有指定资源 `requests` 或 `limits`。
+上面的 Pod 以 `Burstable` QoS 类运行，因为 `requests` 资源不等于 `limits` 且 `cpu` 数量未被指定。
+它在共享池中运行。
+
+```yaml
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    resources:
+      limits:
+        memory: "200Mi"
+        cpu: "2"
+      requests:
+        memory: "100Mi"
+        cpu: "1"
+```
+
+<!--
+The pod above runs in the `Burstable` QoS class because resource `requests` do not
+equal `limits`. It runs in the shared pool.
+-->
+上面的 Pod 以 `Burstable` QoS 类运行，因为 `requests` 资源不等于 `limits`。
 它在共享池中运行。
 
 ```yaml
@@ -202,7 +241,7 @@ The pod above runs in the `Guaranteed` QoS class because `requests` are equal to
 And the container's resource limit for the CPU resource is an integer greater than
 or equal to one. The `nginx` container is granted 2 exclusive CPUs.
 -->
-上面的 Pod 以 Guaranteed QoS 类运行，因为其 `requests` 等于 `limits`。
+上面的 Pod 以 `Guaranteed` QoS 类运行，因为其 `requests` 等于 `limits`。
 并且 CPU 资源的容器资源限制是大于或等于 1 的整数。
 nginx 容器被授予 2 个独占 CPU。
 
@@ -225,8 +264,9 @@ The pod above runs in the `Guaranteed` QoS class because `requests` are equal to
 But the container's resource limit for the CPU resource is a fraction. It runs in
 the shared pool.
 -->
-上面的 Pod 以 Guaranteed QoS 类运行，因为其 `requests` 等于 `limits`。
-但 CPU 资源的容器资源限制是一个小数。它在共享池中运行。
+上面的 Pod 以 `Guaranteed` QoS 类运行，因为 `requests` 等于 `limits`。
+但是 CPU 资源的容器资源限制是一个小数。
+它在共享池中运行。
 
 ```yaml
 spec:
@@ -245,37 +285,34 @@ and `requests` are set equal to `limits` when not explicitly specified. And the
 container's resource limit for the CPU resource is an integer greater than or
 equal to one. The `nginx` container is granted 2 exclusive CPUs.
 -->
-上面的 Pod 以 Guaranteed QoS 类运行，因为仅指定了 `limits`，并且在未显式指定时 `requests` 会被设置为等于 `limits`。
+上面的 Pod 以 `Guaranteed` QoS 类运行，因为仅指定了 `limits`，
+并且在未显式指定时 `requests` 会被设置为等于 `limits`。
 并且 CPU 资源的容器资源限制是大于或等于 1 的整数。
 nginx 容器被授予 2 个独占 CPU。
 
 <!--
 #### Static policy options {#cpu-policy-static--options}
 -->
-#### 策略选项  {#cpu-policy-static--options}
+#### 静态策略选项  {#cpu-policy-static--options}
 
 <!--
-The behavior of the static policy can be fine-tuned using the CPU Manager policy options.
-The following policy options exist for the static CPU management policy:
-{{/* options in alphabetical order */}}
+Here are the available policy options for the static CPU management policy,
+listed in alphabetical order:
 -->
-你可以使用 CPU 管理器策略选项微调 static 策略的行为。
-static CPU 管理策略存在以下策略选项：
-{{/* options in alphabetical order */}}
+以下是静态 CPU 管理策略可用的策略选项，以字母顺序列出：
 
 <!--
 `align-by-socket` (alpha, hidden by default)
-: Align CPUs by physical package / socket boundary, rather than logical NUMA boundaries (available since Kubernetes v1.25)
+: Align CPUs by physical package / socket boundary, rather than logical NUMA boundaries
+  (available since Kubernetes v1.25)
+
 `distribute-cpus-across-cores` (alpha, hidden by default)
-: Allocate virtual cores, sometimes called hardware threads, across different physical cores  (available since Kubernetes v1.31)
+: Allocate virtual cores, sometimes called hardware threads, across different physical cores
+  (available since Kubernetes v1.31)
+
 `distribute-cpus-across-numa` (alpha, hidden by default)
-: Spread CPUs across different NUMA domains, aiming for an even balance between the selected domains (available since Kubernetes v1.23)
-`full-pcpus-only` (beta, visible by default)
-: Always allocate full physical cores (available since Kubernetes v1.22)
-`strict-cpu-reservation` (alpha, hidden by default)
-: Prevent all the pods regardless of their Quality of Service class to run on reserved CPUs (available since Kubernetes v1.32)
-`prefer-align-cpus-by-uncorecache` (alpha, hidden by default)
-: Align CPUs  by uncore (Last-Level) cache boundary on a best-effort way (available since Kubernetes v1.32)
+: Spread CPUs across different NUMA domains, aiming for an even balance between the selected domains
+  (available since Kubernetes v1.23)
 -->
 `align-by-socket`（Alpha，默认隐藏）：
 : 以物理芯片/插槽为边界（而不是逻辑 NUMA 边界）对齐 CPU（自 Kubernetes v1.25 起可用）
@@ -286,6 +323,18 @@ static CPU 管理策略存在以下策略选项：
 `distribute-cpus-across-numa`（Alpha，默认隐藏）：
 : 跨多个不同的 NUMA 域分配 CPU，力求在所选域之间实现均匀平衡（自 Kubernetes v1.23 起可用）
 
+<!--
+`full-pcpus-only` (beta, visible by default)
+: Always allocate full physical cores (available since Kubernetes v1.22)
+
+`strict-cpu-reservation` (alpha, hidden by default)
+: Prevent all the pods regardless of their Quality of Service class to run on reserved CPUs
+  (available since Kubernetes v1.32)
+
+`prefer-align-cpus-by-uncorecache` (alpha, hidden by default)
+: Align CPUs by uncore (Last-Level) cache boundary on a best-effort way
+  (available since Kubernetes v1.32)
+-->
 `full-pcpus-only`（Beta，默认可见）：
 : 始终分配完整的物理核心（自 Kubernetes v1.22 起可用）
 
@@ -300,21 +349,23 @@ You can toggle groups of options on and off based upon their maturity level
 using the following feature gates:
 -->
 你可以使用以下特性门控根据选项组的成熟度级别来启用或禁止它们：
+
 <!--
 * `CPUManagerPolicyBetaOptions` (default enabled). Disable to hide beta-level options.
 * `CPUManagerPolicyAlphaOptions` (default disabled). Enable to show alpha-level options.
+
 You will still have to enable each option using the `cpuManagerPolicyOptions` field in the
 kubelet configuration file.
 -->
 * `CPUManagerPolicyBetaOptions`（默认启用）。禁用以隐藏 Beta 级选项。
 * `CPUManagerPolicyAlphaOptions`（默认禁用）。启用以显示 Alpha 级选项。
+
 你仍然必须使用 kubelet 配置文件中的 cpuManagerPolicyOptions 字段启用每个选项。
 
 <!--
 For more detail about the individual options you can configure, read on.
 -->
 有关可以配置的各个选项的更多详细信息，请继续阅读。
-
 
 ##### `full-pcpus-only`
 
@@ -354,7 +405,8 @@ other, improving the overall performance of these types of applications.
 如果指定了 `distribute-cpus-across-numa` 策略选项，则在需要多个 NUMA 节点来满足分配的情况下，
 static 策略将跨多个 NUMA 节点均匀分配 CPU。
 默认情况下，CPUManager 会将 CPU 打包到一个 NUMA 节点上，直到它被填满，剩余的所有 CPU 会溢出到下一个 NUMA 节点。
-这可能会导致依赖于障碍（和类似的同步原语）的并行代码出现不希望的瓶颈，、因为这种类型的代码往往只会以其最慢的工作程序的速度运行（这一工作程序因为至少一个 NUMA 节点上的可用 CPU 较少而被减速）。
+这可能会导致依赖于障碍（和类似的同步原语）的并行代码出现不希望的瓶颈，
+因为这种类型的代码往往只会以其最慢的工作程序的速度运行（这一工作程序因为至少一个 NUMA 节点上的可用 CPU 较少而被减速）。
 通过在跨多个 NUMA 节点均匀分配 CPU，应用程序开发人员可以更轻松地确保没有单个工作程序比所有其他工作程序受
 NUMA 影响更严重，从而提高这些类型的应用的整体性能。
 
@@ -381,16 +433,15 @@ than number of NUMA nodes.
 请注意，此策略选项与 TopologyManager 的 `single-numa-node` 策略不兼容，
 并且不适用于插槽数量大于 NUMA 节点数量的硬件。
 
-
 ##### `distribute-cpus-across-cores`
 
 <!--
 If the `distribute-cpus-across-cores` policy option is specified, the static policy
 will attempt to allocate virtual cores (hardware threads) across different physical cores.
-By default, the `CPUManager` tends to pack cpus onto as few physical cores as possible,
-which can lead to contention among cpus on the same physical core and result
+By default, the `CPUManager` tends to pack CPUs onto as few physical cores as possible,
+which can lead to contention among CPUs on the same physical core and result
 in performance bottlenecks. By enabling the `distribute-cpus-across-cores` policy,
-the static policy ensures that cpus are distributed across as many physical cores
+the static policy ensures that CPUs are distributed across as many physical cores
 as possible, reducing the contention on the same physical core and thereby
 improving overall performance. However, it is important to note that this strategy
 might be less effective when the system is heavily loaded. Under such conditions,
@@ -413,11 +464,11 @@ better performance under high load conditions.
 <!--
 The `reservedSystemCPUs` parameter in [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/),
 or the deprecated kubelet command line option `--reserved-cpus`, defines an explicit CPU set for OS system daemons
-and kubernetes system daemons.  More details of this parameter can be found on the
+and kubernetes system daemons. More details of this parameter can be found on the
 [Explicitly Reserved CPU List](/docs/tasks/administer-cluster/reserve-compute-resources/#explicitly-reserved-cpu-list) page.
-By default this isolation is implemented only for guaranteed pods with integer CPU requests not for burstable and best-effort pods
-(and guaranteed pods with fractional CPU requests). Admission is only comparing the cpu requests against the allocatable cpus.
-Since the cpu limit is higher than the request, the default behaviour allows burstable and best-effort pods to use up the capacity
+By default, this isolation is implemented only for guaranteed pods with integer CPU requests not for burstable and best-effort pods
+(and guaranteed pods with fractional CPU requests). Admission is only comparing the CPU requests against the allocatable CPUs.
+Since the CPU limit is higher than the request, the default behaviour allows burstable and best-effort pods to use up the capacity
 of `reservedSystemCPUs` and cause host OS services to starve in real life deployments.
 If the `strict-cpu-reservation` policy option is enabled, the static policy will not allow
 any workload to use the CPU cores specified in `reservedSystemCPUs`.
@@ -425,7 +476,8 @@ any workload to use the CPU cores specified in `reservedSystemCPUs`.
 KubeletConfiguration 中的 `reservedSystemCPUs` 参数
 或已弃用的 kubelet 命令行选项 `--reserved-cpus` 定义显式的 CPU 集合，
 用来运行操作系统系统守护进程和 Kubernetes 系统守护进程。
-有关此参数的更多详细信息，请参见[显式预留 CPU 列表](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#explicitly-reserved-cpu-list)页面。
+有关此参数的更多详细信息，
+请参见[显式预留 CPU 列表](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#explicitly-reserved-cpu-list)页面。
 默认情况下，此隔离仅针对 CPU 请求数量为整数的 Guaranteed 类的 Pod 实现，
 而不适用于 Burstable 和 BestEffort 类的 Pod
 （以及具有小数 CPU 请求的保证型 Pod）。准入仅将 CPU 请求与可分配的 CPU 进行比较。
@@ -438,18 +490,18 @@ KubeletConfiguration 中的 `reservedSystemCPUs` 参数
 
 <!--
 If the `prefer-align-cpus-by-uncorecache` policy is specified, the static policy
-will allocate CPU resources for individual containers such that all CPUs assigned 
-to a container share the same uncore cache block (also known as the Last-Level Cache 
-or LLC). By default, the `CPUManager` will tightly pack CPU assignments which can 
-result in containers being assigned CPUs from multiple uncore caches. This option 
-enables the `CPUManager` to allocate CPUs in a way that maximizes the efficient use 
-of the uncore cache. Allocation is performed on a best-effort basis, aiming to 
-affine as many CPUs as possible within the same uncore cache. If the container's 
-CPU requirement exceeds the CPU capacity of a single uncore cache, the `CPUManager` 
-minimizes the number of uncore caches used in order to maintain optimal uncore 
-cache alignment. Specific workloads can benefit in performance from the reduction 
-of inter-cache latency and noisy neighbors at the cache level. If the `CPUManager` 
-cannot align optimally while the node has sufficient resources, the container will 
+will allocate CPU resources for individual containers such that all CPUs assigned
+to a container share the same uncore cache block (also known as the Last-Level Cache
+or LLC). By default, the `CPUManager` will tightly pack CPU assignments which can
+result in containers being assigned CPUs from multiple uncore caches. This option
+enables the `CPUManager` to allocate CPUs in a way that maximizes the efficient use
+of the uncore cache. Allocation is performed on a best-effort basis, aiming to
+affine as many CPUs as possible within the same uncore cache. If the container's
+CPU requirement exceeds the CPU capacity of a single uncore cache, the `CPUManager`
+minimizes the number of uncore caches used in order to maintain optimal uncore
+cache alignment. Specific workloads can benefit in performance from the reduction
+of inter-cache latency and noisy neighbors at the cache level. If the `CPUManager`
+cannot align optimally while the node has sufficient resources, the container will
 still be admitted using the default packed behavior.
 -->
 如果指定了 `prefer-align-cpus-by-uncorecache` 策略，则 static 策略为各个容器分配 CPU 资源时，
@@ -465,7 +517,7 @@ still be admitted using the default packed behavior.
 <!--
 ## Memory Management Policies
 -->
-## 内存管理策略
+## 内存管理策略   {#memory-management-policies}
 
 {{< feature-state feature_gate_name="MemoryManager" >}}
 
@@ -474,8 +526,9 @@ The Kubernetes *Memory Manager* enables the feature of guaranteed memory (and hu
 allocation for pods in the `Guaranteed` {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}.
 -->
 Kubernetes 内存管理器（Memory Manager） 为 Guaranteed
-{{< glossary_tooltip text="QoS 类" term_id="qos-class" >}} 中的 Pod
+{{< glossary_tooltip text="QoS 类" term_id="qos-class" >}}中的 Pod
 启用有保证的内存（和巨页）分配能力。
+
 <!--
 The Memory Manager employs hint generation protocol to yield the most suitable NUMA affinity for a pod.
 The Memory Manager feeds the central manager (*Topology Manager*) with these affinity hints.
@@ -494,10 +547,12 @@ is allocated from a minimum number of NUMA nodes.
 <!--
 ## Other resource managers
 -->
-## 其他资源管理器
+## 其他资源管理器   {#other-resource-managers}
 
 <!--
 The configuration of individual managers is elaborated in dedicated documents:
+
+- [Device Manager](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager)
 -->
 各个管理器的配置方式会在专项文档中详细阐述：
 
