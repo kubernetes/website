@@ -453,7 +453,7 @@ spec:
                  # tenant is running.
         labelSelector:
           # We have to have the labelSelector which selects only Pods with the tenant label,
-          # otherwise this Pod would hate Pods from daemonsets as well, for example,
+          # otherwise this Pod would have Pods from daemonsets as well, for example,
           # which aren't supposed to have the tenant label.
           matchExpressions:
           - key: tenant
