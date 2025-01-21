@@ -1,96 +1,213 @@
 ---
+title: 蚂蚁金服案例研究
+linkTitle: ant-financial
+case_study_styles: true
+cid: caseStudies
+featured: false
+
+new_case_study_styles: true
+heading_background: /images/case-studies/antfinancial/banner1.jpg
+heading_title_logo: /images/antfinancial_logo.png
+subheading: >
+  蚂蚁金服使用 Kubernetes 实现超高速增长战略
+case_study_details:
+  - Company: 蚂蚁金服
+  - Location: 中国杭州
+  - Industry: 金融服务
+---
+<!--
 title: Ant Financial Case Study
 linkTitle: ant-financial
 case_study_styles: true
 cid: caseStudies
-css: /css/style_case_studies.css
 featured: false
----
 
-<div class="banner1" style="background-image: url('/images/case-studies/antfinancial/banner1.jpg')">
-  <h1> CASE STUDY:<img src="/images/antfinancial_logo.png" class="header_logo" style="width:20%;margin-bottom:-2.5%"><br> <div class="subhead" style="margin-top:1%">Ant Financial’s Hypergrowth Strategy Using Kubernetes
+new_case_study_styles: true
+heading_background: /images/case-studies/antfinancial/banner1.jpg
+heading_title_logo: /images/antfinancial_logo.png
+subheading: >
+  Ant Financial's Hypergrowth Strategy Using Kubernetes
+case_study_details:
+  - Company: Ant Financial
+  - Location: Hangzhou, China
+  - Industry: Financial Services
+-->
 
-</div></h1>
+<!--
+<h2>Challenge</h2>
 
-</div>
+<p>Officially founded in October 2014, <a href="https://www.antfin.com/index.htm?locale=en_us">Ant Financial</a> originated from <a href="https://global.alipay.com/">Alipay</a>, the world's largest online payment platform that launched in 2004. The company also offers numerous other services leveraging technology innovation. With the volume of transactions Alipay handles for its 900+ million users worldwide (through its local and global partners)—256,000 transactions per second at the peak of Double 11 Singles Day 2017, and total gross merchandise value of $31 billion for Singles Day 2018—not to mention that of its other services, Ant Financial faces "data processing challenge in a whole new way," says Haojie Hang, who is responsible for Product Management for the Storage and Compute Group. "We see three major problems of operating at that scale: how to provide real-time compute, storage, and processing capability, for instance to make real-time recommendations for fraud detection; how to provide intelligence on top of this data, because there's too much data and then we're not getting enough insight; and how to apply security in the application level, in the middleware level, the system level, even the chip level." In order to provide reliable and consistent services to its customers, Ant Financial embraced containers in early 2014, and soon needed an orchestration solution for the tens-of-thousands-of-node clusters in its data centers.</p>
+-->
+<h2>挑战</h2>
 
-<div class="details">
-    Company &nbsp;<b>Ant Financial</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location &nbsp;<b>Hangzhou, China</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Industry &nbsp;<b>Financial Services</b>
-</div>
+<p><a href="https://www.antfin.com/">蚂蚁金服</a>正式成立于 2014 年 10 月，
+源自于 2004 年推出的全球最大在线支付平台<a href="https://global.alipay.com/">支付宝</a>。
+该公司还利用技术创新提供众多其他服务。支付宝（通过其本地和全球合作伙伴）为其全球 9 亿多用户处理海量的交易。
+2017 年双十一峰值时每秒 25.6 万笔交易，2018 年双十一的商品交易总额达到 310 亿美元，还有其他各类服务的交易量。
+蚂蚁金服面临着“全新的数据处理挑战，”负责存储和计算组产品管理的杭浩杰表示，“我们发现在这种规模下运营存在三个主要问题：
+如何提供实时计算、存储和处理能力，例如为欺诈检测提供实时建议；
+如何基于这些数据提供智能处理，因为数据量太大，我们无法获得足够的洞察；如何在应用层、中间件层、系统层甚至芯片层应用安全性。”
+为了向客户提供可靠和一致的服务，蚂蚁金服在 2014 年年初开始采用容器技术，
+很快发展为需要为其数据中心内的数万个节点构成的集群提供一个编排解决方案。</p>
 
-<hr>
-<section class="section1">
-<div class="cols">
-  <div class="col1" style="width:100%"">
-    <h2>Challenge</h2>
-    Officially founded in October 2014, <a href="https://www.antfin.com/index.htm?locale=en_us">Ant Financial</a> originated from <a href="https://global.alipay.com/">Alipay</a>, the world’s largest online payment platform that launched in 2004. The company also offers numerous other services leveraging technology innovation. With the volume of transactions Alipay handles for its 900+ million users worldwide (through its local and global partners)—256,000 transactions per second at the peak of Double 11 Singles Day 2017, and total gross merchandise value of $31 billion for Singles Day 2018—not to mention that of its other services, Ant Financial faces “data processing challenge in a whole new way,” says Haojie Hang, who is responsible for Product Management for the Storage and Compute Group. “We see three major problems of operating at that scale: how to provide real-time compute, storage, and processing capability, for instance to make real-time recommendations for fraud detection; how to provide intelligence on top of this data, because there’s too much data and then we’re not getting enough insight; and how to apply security in the application level, in the middleware level, the system level, even the chip level.” In order to provide reliable and consistent services to its customers, Ant Financial embraced containers in early 2014, and soon needed an orchestration solution for the tens-of-thousands-of-node clusters in its data centers.
+<!--
+<h2>Solution</h2>
 
-    <h2>Solution</h2>
-    After investigating several technologies, the team chose <a href="https://kubernetes.io/">Kubernetes</a> for orchestration, as well as a number of other CNCF projects, including <a href="https://prometheus.io/">Prometheus</a>, <a href="https://opentracing.io/">OpenTracing</a>, <a href="https://coreos.com/etcd/">etcd</a> and <a href="https://coredns.io/">CoreDNS</a>. “In late 2016, we decided that Kubernetes will be the de facto standard,” says Hang. “Looking back, we made the right bet on the right technology. But then we needed to move the production workload from the legacy infrastructure to the latest Kubernetes-enabled platform, and that took some time, because we are very careful in terms of reliability and consistency.” All core financial systems were containerized by November 2017, and the migration to Kubernetes is ongoing.
-<br>
+<p>After investigating several technologies, the team chose <a href="https://kubernetes.io/">Kubernetes</a> for orchestration, as well as a number of other CNCF projects, including <a href="https://prometheus.io/">Prometheus</a>, <a href="https://opentracing.io/">OpenTracing</a>, <a href="https://coreos.com/etcd/">etcd</a> and <a href="https://coredns.io/">CoreDNS</a>. "In late 2016, we decided that Kubernetes will be the de facto standard," says Hang. "Looking back, we made the right bet on the right technology. But then we needed to move the production workload from the legacy infrastructure to the latest Kubernetes-enabled platform, and that took some time, because we are very careful in terms of reliability and consistency." All core financial systems were containerized by November 2017, and the migration to Kubernetes is ongoing.</p>
+-->
+<h2>解决方案</h2>
+
+<p>蚂蚁团队在调研了若干技术之后，最终选择了 <a href="https://kubernetes.io/">Kubernetes</a>
+作为编排工具，配合使用 <a href="https://prometheus.io/">Prometheus</a>、
+<a href="https://opentracing.io/">OpenTracing</a>、<a href="https://coreos.com/etcd/">etcd</a>
+和 <a href="https://coredns.io/">CoreDNS</a> 等其他一些云原生计算基金会（CNCF）的项目。
+“2016 年末，我们认定 Kubernetes 将成为事实上的标准。”杭浩杰表示，“回顾过去，我们在正确的技术上押对了宝。
+之后我们需要将生产负载从传统基础设施迁移到最新支持 Kubernetes 的平台上，这花了一些时间，
+因为我们对可靠性和一致性非常谨慎。”截至 2017 年 11 月，所有核心金融系统都已容器化，而向 Kubernetes 的迁移工作仍在进行中。</p>
+
+<!--
 <h2>Impact</h2>
-    “We’ve seen at least tenfold in improvement in terms of the operations with cloud native technology, which means you can have tenfold increase in terms of output,” says Hang. Ant also provides its fully integrated financial cloud platform to business partners around the world, and hopes to power the next generation of digital banking with deep experience in service innovation and technology expertise. Hang says the team hasn’t begun to focus on optimizing the Kubernetes platform, either: “Because we’re still in the hyper growth stage, we’re not in a mode where we do cost saving yet.”
-</div>
 
-</div>
-</section>
-<div class="banner2">
-  <div class="banner2text">
-    "In late 2016, we decided that Kubernetes will be the de facto standard. Looking back, we made the right bet on the right technology."
-<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- HAOJIE HANG, PRODUCT MANAGEMENT, ANT FINANCIAL</span>
-  </div>
-</div>
-<section class="section2">
-<div class="fullcol">
-  <h2>A spinoff of the multinational conglomerate Alibaba, Ant Financial boasts a $150+ billion valuation and the scale to match. The fintech startup, launched in 2014, is comprised of Alipay, the world’s largest online payment platform, and numerous other services leveraging technology innovation.</h2>
-  And the volume of transactions that Alipay handles for over 900 million users worldwide (through its local and global partners) is staggering: 256,000 per second at the peak of Double 11 Singles Day 2017, and total gross merchandise value of $31 billion for Singles Day 2018. With the mission of “bringing the world equal opportunities,” Ant Financial is dedicated to creating an open, shared credit system and financial services platform through technology innovations.
-<br><br>
-  Combine that with the operations of its other properties—such as the Huabei online credit system, Jiebei lending service, and the 350-million-user <a href="https://en.wikipedia.org/wiki/Ant_Forest">Ant Forest</a> green energy mobile app—and Ant Financial faces “data processing challenge in a whole new way,” says Haojie Hang, who is responsible for Product Management for the Storage and Compute Group. “We see three major problems of operating at that scale: how to provide real-time compute, storage, and processing capability, for instance to make real-time recommendations for fraud detection; how to provide intelligence on top of this data, because there’s too much data and we’re not getting enough insight; and how to apply security in the application level, in the middleware level, the system level, even the chip level.”
-<br><br>
-  To address those challenges and provide reliable and consistent services to its customers, Ant Financial embraced <a href="https://www.docker.com/">Docker</a> containerization in 2014. But they soon realized that they needed an orchestration solution for some tens-of-thousands-of-node clusters in the company’s data centers.
-</div>
-</section>
-<div class="banner3" style="background-image: url('/images/case-studies/antfinancial/banner3.jpg')">
-  <div class="banner3text">
-    "On Double 11 this year, we had plenty of nodes on Kubernetes, but compared to the whole scale of our infrastructure, this is still in progress."<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- RANGER YU, GLOBAL TECHNOLOGY PARTNERSHIP & DEVELOPMENT, ANT FINANCIAL</span>
+<p>"We've seen at least tenfold in improvement in terms of the operations with cloud native technology, which means you can have tenfold increase in terms of output," says Hang. Ant also provides its fully integrated financial cloud platform to business partners around the world, and hopes to power the next generation of digital banking with deep experience in service innovation and technology expertise. Hang says the team hasn't begun to focus on optimizing the Kubernetes platform, either: "Because we're still in the hyper growth stage, we're not in a mode where we do cost saving yet."</p>
+-->
+<h2>影响</h2>
 
-  </div>
-</div>
-<section class="section3">
-<div class="fullcol">
-  The team investigated several technologies, including Docker Swarm and Mesos. “We did a lot of POCs, but we’re very careful in terms of production systems, because we want to make sure we don’t lose any data,” says Hang. “You cannot afford to have a service downtime for one minute; even one second has a very, very big impact. We operate every day under pressure to provide reliable and consistent services to consumers and businesses in China and globally.”
-<br><br>
-  Ultimately, Hang says Ant chose Kubernetes because it checked all the boxes: a strong community, technology that “will be relevant in the next three to five years,” and a good match for the company’s engineering talent. “In late 2016, we decided that Kubernetes will be the de facto standard,” says Hang. “Looking back, we made the right bet on the right technology. But then we needed to move the production workload from the legacy infrastructure to the latest Kubernetes-enabled platform. We spent a lot of time learning and then training our people to build applications on Kubernetes well.”
-<br><br>
-  All core financial systems were containerized by November 2017, and the migration to Kubernetes is ongoing. Ant’s platform also leverages a number of other CNCF projects, including <a href="https://prometheus.io/">Prometheus</a>, <a href="https://opentracing.io/">OpenTracing</a>, <a href="https://coreos.com/etcd/">etcd</a> and <a href="https://coredns.io/">CoreDNS</a>.  “On Double 11 this year, we had plenty of nodes on Kubernetes, but compared to the whole scale of our infrastructure, this is still in progress,” says Ranger Yu, Global Technology Partnership & Development.
-</div>
-</section>
-<div class="banner4" style="background-image: url('/images/case-studies/antfinancial/banner4.jpg')">
-  <div class="banner4text">
-  "We’re very grateful for CNCF and this amazing technology, which we need as we continue to scale globally. We’re definitely embracing the community and open source more in the future." <br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- HAOJIE HANG, PRODUCT MANAGEMENT, ANT FINANCIAL</span>
-  </div>
-</div>
+<p>“使用云原生技术之后，我们看到运营效率至少提升了十倍，这意味着产出可以增加十倍。”杭浩杰说。
+蚂蚁还向全球范围内的业务合作伙伴提供其完全集成的金融云平台，并希望凭借其在服务创新和技术专长方面的深厚经验为下一代数字银行提供支持。
+杭浩杰还表示，团队尚未开始专注于优化 Kubernetes 平台：“因为我们仍处于高速增长阶段，还没有进入成本节约的模式。”</p>
 
-<section class="section5" style="padding:0px !important">
-<div class="fullcol">
-  Still, there has already been an impact. “Cloud native technology has benefited us greatly in terms of efficiency,” says Hang. “In general, we want to make sure our infrastructure is nimble and flexible enough for the work that could happen tomorrow. That’s the goal. And with cloud native technology, we’ve seen at least tenfold improvement in operations, which means you can have tenfold increase in terms of output. Let’s say you are operating 10 nodes with one person. With cloud native, tomorrow you can have 100 nodes.”
-<br><br>
-  Ant also provides its financial cloud platform to partners around the world, and hopes to power the next generation of digital banking with deep experience in service innovation and technology expertise. Hang says the team hasn’t begun to focus on optimizing the Kubernetes platform, either: “Because we’re still in the hyper growth stage, we’re not in a mode where we do cost-saving yet.”
-<br><br>
-  The CNCF community has also been a valuable asset during Ant Financial’s move to cloud native. “If you are applying a new technology, it’s very good to have a community to discuss technical problems with other users,” says Hang. “We’re very grateful for CNCF and this amazing technology, which we need as we continue to scale globally. We’re definitely embracing the community and open sourcing more in the future.”
-</div>
+{{< case-studies/quote author="杭浩杰，蚂蚁金服产品管理部门" >}}
+<!--
+"In late 2016, we decided that Kubernetes will be the de facto standard. Looking back, we made the right bet on the right technology."
+-->
+“2016 年末，我们认定 Kubernetes 将成为事实上的标准。回顾过去，我们在正确的技术上押对了宝。”
+{{< /case-studies/quote >}}
 
-<div class="banner5" >
-  <div class="banner5text">
-"In China, we are the North Star in terms of innovation in financial and other related services,” says Hang. “We definitely want to make sure we’re still leading in the next 5 to 10 years with our investment in technology."<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- RANGER YU, GLOBAL TECHNOLOGY PARTNERSHIP & DEVELOPMENT, ANT FINANCIAL</span></div>
-</div>
+{{< case-studies/lead >}}
+<!--
+A spinoff of the multinational conglomerate Alibaba, Ant Financial boasts a $150+ billion valuation and the scale to match. The fintech startup, launched in 2014, is comprised of Alipay, the world's largest online payment platform, and numerous other services leveraging technology innovation.
+-->
+作为跨国企业集团阿里巴巴的一家衍生公司，蚂蚁金服拥有超过 1500 亿美元的估值以及与之相匹配的规模。
+这家金融科技初创公司成立于 2014 年，由世界最大的在线支付平台支付宝和众多以技术创新为己任的其他各类服务组成。
+{{< /case-studies/lead >}}
 
-<div class="fullcol">
-  In fact, the company has already started to open source some of its <a href="https://github.com/alipay">cloud native middleware</a>. “We are going to be very proactive about that,” says Yu. “CNCF provided a platform so everyone can plug in or contribute components. This is very good open source governance.”
-<br><br>
-  Looking ahead, the Ant team will continue to evaluate many other CNCF projects. Building a service mesh community in China, the team has brought together many China-based companies and developers to discuss the potential of that technology. “Service mesh is very attractive for Chinese developers and end users because we have a lot of legacy systems running now, and it’s an ideal mid-layer to glue everything together, both new and legacy,” says Hang. “For new technologies, we look very closely at whether they will last.”
-<br><br>
-  At Ant, Kubernetes passed that test with flying colors, and the team hopes other companies will follow suit. “In China, we are the North Star in terms of innovation in financial and other related services,” says Hang. “We definitely want to make sure we’re still leading in the next 5 to 10 years with our investment in technology.”
+<!--
+<p>And the volume of transactions that Alipay handles for over 900 million users worldwide (through its local and global partners) is staggering: 256,000 per second at the peak of Double 11 Singles Day 2017, and total gross merchandise value of $31 billion for Singles Day 2018. With the mission of "bringing the world equal opportunities," Ant Financial is dedicated to creating an open, shared credit system and financial services platform through technology innovations.</p>
+-->
+<p>支付宝（通过其本地和全球合作伙伴）为其全球 9 亿多用户处理的交易量令人震惊：
+2017 年双十一峰值时每秒 25.6 万笔交易，2018 年双十一的商品交易总额达到 310 亿美元。
+蚂蚁金服以“为世界带来平等机会”为使命，致力于通过技术创新创建一个开放、共享的信用体系和金融服务平台。</p>
 
-</div>
-</section>
+<!--
+<p>Combine that with the operations of its other properties—such as the Huabei online credit system, Jiebei lending service, and the 350-million-user <a href="https://en.wikipedia.org/wiki/Ant_Forest">Ant Forest</a> green energy mobile app—and Ant Financial faces "data processing challenge in a whole new way," says Haojie Hang, who is responsible for Product Management for the Storage and Compute Group. "We see three major problems of operating at that scale: how to provide real-time compute, storage, and processing capability, for instance to make real-time recommendations for fraud detection; how to provide intelligence on top of this data, because there's too much data and we're not getting enough insight; and how to apply security in the application level, in the middleware level, the system level, even the chip level."</p>
+-->
+<p>蚂蚁金服运营的其他业务还有花呗在线信贷系统、借呗借贷服务以及拥有 3.5
+亿用户的<a href="https://zh.wikipedia.org/zh-cn/%E8%9A%82%E8%9A%81%E6%A3%AE%E6%9E%97">蚂蚁森林</a>绿色能源手机应用。
+蚂蚁金服面临着“全新的数据处理挑战”，负责存储和计算组产品管理的杭浩杰表示，“我们看到在这种规模下运营存在三个主要问题：
+如何提供实时计算、存储和处理能力，例如为欺诈检测提供实时建议；
+如何基于这些数据提供智能处理，因为数据量太大，我们无法获得足够的洞察力；
+以及如何在应用层、中间件层、系统层甚至芯片层应用安全性。”</p>
+
+<!--
+<p>To address those challenges and provide reliable and consistent services to its customers, Ant Financial embraced <a href="https://www.docker.com/">Docker</a> containerization in 2014. But they soon realized that they needed an orchestration solution for some tens-of-thousands-of-node clusters in the company's data centers.</p>
+-->
+<p>为了应对这些挑战并向客户提供可靠和一致的服务，蚂蚁金服在 2014 年开始采用
+<a href="https://www.docker.com/">Docker</a> 容器化技术。
+但他们很快意识到，他们需要一个针对公司数据中心内数万个节点集群的编排解决方案。</p>
+
+{{< case-studies/quote 
+  image="/images/case-studies/antfinancial/banner3.jpg"
+  author="余兰杰，蚂蚁金服全球技术合作与开发部门"
+>}}
+<!--
+"On Double 11 this year, we had plenty of nodes on Kubernetes, but compared to the whole scale of our infrastructure, this is still in progress."
+-->
+“今年双十一，我们在 Kubernetes 上部署了大量节点，但与我们整个基础设施的规模相比，仍然还需努力。”
+{{< /case-studies/quote >}}
+
+<!--
+<p>The team investigated several technologies, including Docker Swarm and Mesos. "We did a lot of POCs, but we're very careful in terms of production systems, because we want to make sure we don't lose any data," says Hang. "You cannot afford to have a service downtime for one minute; even one second has a very, very big impact. We operate every day under pressure to provide reliable and consistent services to consumers and businesses in China and globally."</p>
+-->
+<p>蚂蚁团队调研了 Docker Swarm 和 Mesos 等若干技术。
+“我们做了很多概念验证（POC），但对于生产系统我们非常谨慎，因为我们要确保不丢失任何数据。”
+杭浩杰说，“一分钟的服务中断都承受不起，哪怕一秒钟的中断都会产生非常非常大的影响。
+我们每天都在高负载下运营，为中国及全球消费者和企业提供可靠、一致的服务。”</p>
+
+<!--
+<p>Ultimately, Hang says Ant chose Kubernetes because it checked all the boxes: a strong community, technology that "will be relevant in the next three to five years," and a good match for the company's engineering talent. "In late 2016, we decided that Kubernetes will be the de facto standard," says Hang. "Looking back, we made the right bet on the right technology. But then we needed to move the production workload from the legacy infrastructure to the latest Kubernetes-enabled platform. We spent a lot of time learning and then training our people to build applications on Kubernetes well."</p>
+-->
+<p>最终，杭浩杰表示蚂蚁选择 Kubernetes 是因为它满足了所有要求：
+强大的社区、“在未来三到五年内会影响世界”的技术以及与公司工程人才的良好匹配。
+“2016 年末，我们认定 Kubernetes 将成为事实上的标准，”杭浩杰说，“回顾过去，我们在正确的技术上押对了宝。
+但随后我们需要将生产负载从传统基础设施迁移到最新支持 Kubernetes 的平台。
+我们花了大量时间学习，之后培训相关人员在 Kubernetes 上顺畅构建应用。”</p>
+
+<!--
+<p>All core financial systems were containerized by November 2017, and the migration to Kubernetes is ongoing. Ant's platform also leverages a number of other CNCF projects, including <a href="https://prometheus.io/">Prometheus</a>, <a href="https://opentracing.io/">OpenTracing</a>, <a href="https://coreos.com/etcd/">etcd</a> and <a href="https://coredns.io/">CoreDNS</a>.  "On Double 11 this year, we had plenty of nodes on Kubernetes, but compared to the whole scale of our infrastructure, this is still in progress," says Ranger Yu, Global Technology Partnership & Development.</p>
+-->
+<p>截至 2017 年 11 月，所有核心金融系统都已容器化，但向 Kubernetes 的迁移仍在进行中。
+蚂蚁的平台还使用了许多其他 CNCF 项目，包括 <a href="https://prometheus.io/">Prometheus</a>、
+<a href="https://opentracing.io/">OpenTracing</a>、<a href="https://coreos.com/etcd/">etcd</a>
+和 <a href="https://coredns.io/">CoreDNS</a>。蚂蚁金服全球技术合作与开发部门的余兰杰说：
+“今年双十一，我们在 Kubernetes 上部署了大量节点，但与我们整个基础设施的规模相比，仍然需要努力。”</p>
+
+{{< case-studies/quote 
+  image="/images/case-studies/antfinancial/banner4.jpg"
+  author="杭浩杰，蚂蚁金服产品管理部门"
+>}}
+<!--
+"We're very grateful for CNCF and this amazing technology, which we need as we continue to scale globally. We're definitely embracing the community and open source more in the future."
+-->
+“我们非常感谢 CNCF 和这项了不起的技术，这正是我们继续保持全球扩张所需的技术。我们未来肯定会更多地拥抱社区和开源。”
+{{< /case-studies/quote >}}
+
+<!--
+<p>Still, there has already been an impact. "Cloud native technology has benefited us greatly in terms of efficiency," says Hang. "In general, we want to make sure our infrastructure is nimble and flexible enough for the work that could happen tomorrow. That's the goal. And with cloud native technology, we've seen at least tenfold improvement in operations, which means you can have tenfold increase in terms of output. Let's say you are operating 10 nodes with one person. With cloud native, tomorrow you can have 100 nodes."</p>
+-->
+<p>迄今为止已产生了明显的影响。“云原生技术让运营效率提升了至少十倍。”
+杭浩杰说：“总的来说，我们希望确保我们的基础设施足够灵敏，以应对未来可能需要的作业。这就是目标。
+使用云原生技术后，我们发现运营效率至少提升了十倍，这意味着产出可以增加十倍。
+假设你一个人可以运维 10 个节点。那使用云原生技术后，你可以运维 100 个节点。”</p>
+
+<!--
+<p>Ant also provides its financial cloud platform to partners around the world, and hopes to power the next generation of digital banking with deep experience in service innovation and technology expertise. Hang says the team hasn't begun to focus on optimizing the Kubernetes platform, either: "Because we're still in the hyper growth stage, we're not in a mode where we do cost-saving yet."</p>
+-->
+<p>蚂蚁还向全球合作伙伴提供其金融云平台，并希望凭借其在服务创新和技术专长方面的深厚经验为下一代数字银行提供支持。
+杭浩杰表示，团队尚未开始专注于优化 Kubernetes 平台：“因为我们仍处于高速增长阶段，还没有进入成本节约的模式。”</p>
+
+<!--
+<p>The CNCF community has also been a valuable asset during Ant Financial's move to cloud native. "If you are applying a new technology, it's very good to have a community to discuss technical problems with other users," says Hang. "We're very grateful for CNCF and this amazing technology, which we need as we continue to scale globally. We're definitely embracing the community and open sourcing more in the future."</p>
+-->
+<p>在蚂蚁金服向云原生转型的过程中，CNCF 社区也是一项宝贵的资产。
+“如果你正在应用一项新技术，有一个可以与其他用户讨论技术问题的社区是非常好的。”杭浩杰说：
+“我们非常感谢 CNCF 和这项了不起的技术，这正是我们继续保持全球扩张所需的技术。我们未来肯定会更多地拥抱社区和开源。”</p>
+
+{{< case-studies/quote 
+  image="/images/case-studies/antfinancial/banner4.jpg"
+  author="余兰杰，蚂蚁金服全球技术合作与开发部门"
+>}}
+<!--
+"In China, we are the North Star in terms of innovation in financial and other related services," says Hang. "We definitely want to make sure we're still leading in the next 5 to 10 years with our investment in technology."
+-->
+“在中国，我们是金融创新和其他相关服务创新的行业标杆。”杭浩杰说：“我们当然希望通过在技术上的投资确保在未来 5 到 10 年继续保持领先地位。”
+{{< /case-studies/quote >}}
+
+<!--
+<p>In fact, the company has already started to open source some of its <a href="https://github.com/alipay">cloud native middleware</a>. "We are going to be very proactive about that," says Yu. "CNCF provided a platform so everyone can plug in or contribute components. This is very good open source governance."</p>
+-->
+<p>事实上，该公司已经开始将其部分<a href="https://github.com/alipay">云原生中间件</a>开源。
+余兰杰说：“我们对此非常积极主动，CNCF 提供了一个平台，这样每个人都可以介入或贡献组件。这是非常良好的开源治理模式。”</p>
+
+<!--
+<p>Looking ahead, the Ant team will continue to evaluate many other CNCF projects. Building a service mesh community in China, the team has brought together many China-based companies and developers to discuss the potential of that technology. "Service mesh is very attractive for Chinese developers and end users because we have a lot of legacy systems running now, and it's an ideal mid-layer to glue everything together, both new and legacy," says Hang. "For new technologies, we look very closely at whether they will last."</p>
+-->
+<p>展望未来，蚂蚁团队将继续评估许多其他 CNCF 的项目。
+在建立中国的服务网格社区方面，该团队已召集了许多中国境内公司和开发者来讨论该技术的潜力。
+“服务网格对中国开发者和终端用户非常有吸引力，因为我们现在有许多旧的系统在运行，它是将新旧系统粘合在一起的理想中间层。”
+杭浩杰说：“对于新技术，我们会密切关注它们是否具有持久的生命力。”</p>
+
+<!--
+<p>At Ant, Kubernetes passed that test with flying colors, and the team hopes other companies will follow suit. "In China, we are the North Star in terms of innovation in financial and other related services," says Hang. "We definitely want to make sure we're still leading in the next 5 to 10 years with our investment in technology."</p>
+-->
+<p>在蚂蚁金服，Kubernetes 出色地通过了实践测试，蚂蚁团队希望其他公司也能效仿。
+“在中国，我们是金融创新和其他相关服务创新的行业标杆。”杭浩杰说：“我们当然希望通过在技术上的投资确保在未来 5 到 10 年继续保持领先地位。”</p>
