@@ -316,6 +316,17 @@ The cluster autoscaler never evicts Pods that have this annotation explicitly se
 `"false"`; you could set that on an important Pod that you want to keep running.
 If this annotation is not set then the cluster autoscaler follows its Pod-level behavior.
 
+### config.kubernetes.io/depends-on
+
+Type: Annotation
+
+Example: `config.kubernetes.io/depends-on: /namespaces/default/Pod/pod-c`
+
+Used On: All Objects
+
+This annotation is used to specify dependencies between objects. It ensures that the they are applied and deleted in correct order. For example, If a MongoDB should be up and running before a WordPress deployment , this annotation can be used to ensure that task. To learn more, see the [Explicit Dependency Ordering](https://github.com/kubernetes-sigs/cli-utils/blob/8c2dae2da75c87b7c9567f5aa3186dedff1a5d68/README.md?plain=1#L110).
+
+
 ### config.kubernetes.io/local-config
 
 Type: Annotation
