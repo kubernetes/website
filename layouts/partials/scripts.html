@@ -1,23 +1,90 @@
-<script src="{{ "js/script.js" | relURL }}"></script>
+{{/* based on layouts/partials/scripts.html from Docsy 0.6 */}}
+{{/* customisations are for legacy mermaid shortcode */}}
 
-{{/* Handle legacy Kubernetes shortcode for Mermaid diagrams */}}
-{{- if (.HasShortcode "mermaid") -}}
-{{ .Page.Store.Set "hasmermaid" true -}}
-{{- end -}}
+{{ $needKaTeX  := or .Site.Params.katex.enable .Params.math .Params.chem -}}
+{{ $needmhchem := or .Site.Params.katex.mhchem.enable .Params.chem -}}
+{{ $needmermaid := .Site.Params.mermaid.enable -}}
+{{ if ge hugo.Version "0.93.0" -}}
+    {{ with .Site.Params.mermaid }}
+        {{ $needmermaid = true }}
+    {{ end }}
+  {{ $needmermaid = or $needmermaid (.Page.Store.Get "hasmermaid") -}}
+  {{/* Handle legacy Kubernetes shortcode for Mermaid diagrams */}}
+  {{ $needmermaid = or $needmermaid (.HasShortcode "mermaid") -}}
+{{ else -}}
+  {{ if or $needKaTeX $needmhchem $needmermaid -}}
+    {{ warnf "Outdated Hugo version %s, consider upgrading to make full use of all theme features" hugo.Version  }}
+  {{ end -}}
+{{ end -}}
 
-{{/* future Docsy versions move this to partials/mermaid.html */}}
-{{- if .Page.Store.Get "hasmermaid" -}}
-<script src="https://cdn.jsdelivr.net/npm/mermaid@9.2.2/dist/mermaid.min.js" integrity="sha512-IX+bU+wShHqfqaMHLMrtwi4nK6W/Z+QdZoL4kPNtRxI2wCLyHPMAdl3a43Fv1Foqv4AP+aiW6hg1dcrTt3xc+Q==" crossorigin="anonymous"></script>
-{{- end }}
+{{ if .Site.Params.markmap.enable -}}
+<style>
+.markmap > svg {
+  width: 100%;
+  height: 300px;
+}
+</style>
+<script>
+window.markmap = {
+  autoLoader: {
+      manual: true,
+      onReady() {
+        const { autoLoader, builtInPlugins } = window.markmap;
+        autoLoader.transformPlugins = builtInPlugins.filter(plugin => plugin.name !== 'prism');
+      },
+  },
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/markmap-autoloader"></script>
+{{ end -}}
+
+{{ if .Site.Params.plantuml.enable -}}
+  <script src='{{ "js/deflate.js" | relURL }}'></script>
+{{ end -}}
+
+{{ if  $needKaTeX -}}
+{{/* load stylesheet and scripts for KaTeX support */ -}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.css"
+      integrity="sha512-6VMVcy7XQNyarhVuiL50FzpgCFKsyTd6YO93aaQEyET+BNaWvj0IgKR86Bf6+AmWczxAcSnL+JGjo+iStgO1gQ==" crossorigin="anonymous">
+  {{/* The loading of KaTeX is deferred to speed up page rendering */ -}}
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.js"
+        integrity="sha512-b9IKj4LCNrtCPBhceRcoYOHWW/S2q9fpl7iAJlyxYpykRj1SKM7FE9+E0NEnJ8g8ni47LBr2GuX9qzg/xeuwzQ=="
+        crossorigin="anonymous">
+</script>
+  {{ if $needmhchem -}}
+  {{/* To add support for displaying chemical equations and physical units, load the mhchem extension: */ -}}
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/contrib/mhchem.min.js"
+        integrity="sha512-V1hl0fnOXW6Cdqe5ZVqtw8TBpJVpu3XRDRQti96j/04+tMarPrCdXEUE3UdfvfKYTpOn9DV4zEZBVr0HhDiuiQ=="
+        crossorigin="anonymous">
+</script>
+  {{ end -}}
+  {{/* To automatically render math in text elements, include the auto-render extension: */ -}}
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/contrib/auto-render.min.js"
+       integrity="sha512-iWiuBS5nt6r60fCz26Nd0Zqe0nbk1ZTIQbl3Kv7kYsX+yKMUFHzjaH2+AnM6vp2Xs+gNmaBAVWJjSmuPw76Efg==" crossorigin="anonymous"
+       {{ printf "onload='renderMathInElement(%s, %s);'" (( $.Page.Site.Params.katex.html_dom_element | default "document.body" ) | safeJS ) ( printf "%s" ( $.Page.Site.Params.katex.options | jsonify )) | safeHTMLAttr }}>
+</script>
+{{ end -}}
 
 {{ $jsBs := resources.Get "vendor/bootstrap/dist/js/bootstrap.bundle.js" -}}
-{{ $jsBase := resources.Get "js/base.js" }}
-{{ $jsAnchor := resources.Get "js/anchor.js" }}
-{{ $jsSearch := resources.Get "js/search.js" | resources.ExecuteAsTemplate "js/search.js" .Site.Home }}
-{{ if .Site.Params.offlineSearch }}
-{{ $jsSearch = resources.Get "js/offline-search.js" }}
-{{ end }}
-{{ $js := (slice $jsBs $jsBase $jsAnchor $jsSearch) | resources.Concat "js/main.js" -}}
+{{ $jsBase := resources.Get "js/base.js" -}}
+{{ $jsAnchor := resources.Get "js/anchor.js" -}}
+{{ $jsSearch := resources.Get "js/search.js" | resources.ExecuteAsTemplate "js/search.js" .Site.Home -}}
+{{ $jsMermaid := resources.Get "js/mermaid.js" | resources.ExecuteAsTemplate "js/mermaid.js" . -}}
+{{ $jsMarkmap := resources.Get "js/markmap.js" | resources.ExecuteAsTemplate "js/markmap.js" . -}}
+{{ $jsPlantuml := resources.Get "js/plantuml.js" | resources.ExecuteAsTemplate "js/plantuml.js" . -}}
+{{ $jsDrawio := resources.Get "js/drawio.js" | resources.ExecuteAsTemplate "js/drawio.js" . -}}
+{{ if .Site.Params.offlineSearch -}}
+  {{ $jsSearch = resources.Get "js/offline-search.js" -}}
+{{ end -}}
+
+{{ $jsArray := slice $jsBs $jsBase $jsAnchor $jsSearch $jsPlantuml $jsMarkmap $jsDrawio -}}
+
+{{ if $needmermaid -}}
+{{ $jsArray = $jsArray | append $jsMermaid -}}
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.2.2/dist/mermaid.min.js" integrity="sha512-IX+bU+wShHqfqaMHLMrtwi4nK6W/Z+QdZoL4kPNtRxI2wCLyHPMAdl3a43Fv1Foqv4AP+aiW6hg1dcrTt3xc+Q==" crossorigin="anonymous"></script>
+{{ end -}}
+
+{{ $js := $jsArray | resources.Concat "js/main.js" -}}
 {{ if hugo.IsProduction -}}
   {{ $js := $js | minify | fingerprint -}}
   <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>
@@ -37,33 +104,5 @@
     crossorigin="anonymous"></script>
 {{ end -}}
 
-<!--for the splitter-->
-<script>
-  let splitInstance = null;
-
-  function enableSplitter(mediaQuery) {
-    if (mediaQuery.matches) {
-      if (!splitInstance) {
-        splitInstance = Split(["#sidebarnav", "#maindoc"], {
-          sizes: [20, 80],
-          minSize: 100,
-        });
-      }
-    } else {
-      if (splitInstance) {
-        splitInstance.destroy();
-        splitInstance = null;
-      }
-    }
-  }
-
-  const screenWidthMediaQuery = window.matchMedia("(min-width: 768px)");
-
-  const eleNav = document.getElementById("sidebarnav");
-  if (eleNav !== null) {
-    enableSplitter(screenWidthMediaQuery);
-    screenWidthMediaQuery.addListener(enableSplitter);
-  }
-</script>
-
-{{ partial "hooks/body-end.html" . }}
+<script src='{{ "js/tabpane-persist.js" | relURL }}'></script>
+{{ partial "hooks/body-end.html" . -}}
