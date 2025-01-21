@@ -64,13 +64,6 @@ In this example, the kubelet is configured with the following settings:
    - When the image filesystem's available space is less than 15%.
    - When more than 95% of the node's main filesystem's inodes are in use.
 
-{{< note >}}
-In the example, by changing the default value of only one parameter for
-evictionHard, the default values of other parameters will not be inherited and
-will be set to zero. In order to provide custom values, you should provide all
-the threshold values respectively.
-{{< /note >}}
-
 The `imagefs` is an optional filesystem that container runtimes use to store container
 images and container writable layers.
 
