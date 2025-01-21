@@ -60,7 +60,7 @@ The `.spec.schedule` field is required. The value of that field follows the [Cro
 # │ │ │ ┌───────────── month (1 - 12)
 # │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday)
 # │ │ │ │ │                                   OR sun, mon, tue, wed, thu, fri, sat
-# │ │ │ │ │ 
+# │ │ │ │ │
 # │ │ │ │ │
 # * * * * *
 ```
@@ -194,7 +194,11 @@ A time zone database from the Go standard library is included in the binaries an
 Specifying a timezone using `CRON_TZ` or `TZ` variables inside `.spec.schedule`
 is **not officially supported** (and never has been).
 
-Starting with Kubernetes 1.29 if you try to set a schedule that includes `TZ` or `CRON_TZ`
+Starting with Kubernetes 1.33 if you try to set a schedule that includes `TZ` or `CRON_TZ`
+timezone specification, Kubernetes will fail to create or update the resource with a validation
+error.
+
+In Kubernetes versions 1.29 until 1.32 if you try to set a schedule that includes `TZ` or `CRON_TZ`
 timezone specification, Kubernetes will fail to create the resource with a validation
 error.
 Updates to CronJobs already using `TZ` or `CRON_TZ` will continue to report a
