@@ -500,3 +500,19 @@ The error message is similar to this.
 ```console
 error: failed to create deployment: deployments.apps "invalid" is forbidden: ValidatingAdmissionPolicy 'image-matches-namespace-environment.policy.example.com' with binding 'demo-binding-test.example.com' denied request: only prod images are allowed in namespace default
 ```
+
+## Resources exempt from admission validation/mutation
+
+There are certain resources which are exempt from admission validation/mutation which means they can't be targeted by an admission/mutation policy. For example you cant create a Validating Admission Policy to validate
+the creation of other Validating Admission Policies/Policy Bindings.
+
+The list of exempt resources includes:
+* `validatingadmissionpolicies` (API group: `admissionregistration.k8s.io`)
+* `validatingadmissionpolicybindings` (API group: `admissionregistration.k8s.io`)
+* `mutatingadmissionpolicies` (API group: `admissionregistration.k8s.io`)
+* `mutatingadmissionpolicybindings` (API group: `admissionregistration.k8s.io`)
+* `selfsubjectreviews` (API group: `authentication.k8s.io`)
+* `tokenreviews` (API group: `authentication.k8s.io`)
+* `localsubjectaccessreviews` (API group: `authentication.k8s.io`)
+* `selfsubjectaccessreviews` (API group: `authentication.k8s.io`)
+* `subjectaccessreviews` (API group: `authentication.k8s.io`)
