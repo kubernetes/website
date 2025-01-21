@@ -29,6 +29,22 @@ Kubernetes requires PKI for the following operations:
   for each kubelet (every {{< glossary_tooltip text="node" term_id="node" >}} runs a kubelet)
 * Optional server certificate for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
 
+#### Loopback Certificate in kube-apiserver
+
+The loopback certificate is used by the kube-apiserver to establish privileged loopback connections. 
+This certificate is stored in memory and has a validity period of one year. 
+However, it does not renew automatically. If the certificate expires, the kube-apiserver will cease to function.
+
+The kube-apiserver is supported by the Kubernetes community for a [standard period](/releases/patch-releases/#support-period) of 12 months, 
+which aligns with the validity duration of its loopback certificate. 
+To maintain compatibility with community support timelines, it's recommended to ensure your kube-apiserver is upgraded within this support window. 
+The loopback certificate will be automatically renewed during the kube-apiserver upgrade process.
+
+{{< note >}}
+Restarting the kube-apiserver is another way to renew the loopback certificate.
+{{< /note >}}
+
+
 ### Client certificates
 
 * Client certificates for each kubelet, used to authenticate to the API server as a client of
