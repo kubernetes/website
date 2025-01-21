@@ -12,7 +12,8 @@ weight: 5
 <!-- overview -->
 
 <!--
-This page demonstrates how to build a basic {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}} that runs a Pod on every node in a Kubernetes cluster.
+This page demonstrates how to build a basic {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
+that runs a Pod on every node in a Kubernetes cluster.
 It covers a simple use case of mounting a file from the host, logging its contents using
 an [init container](/docs/concepts/workloads/pods/init-containers/), and utilizing a pause container.
 -->
@@ -27,7 +28,8 @@ an [init container](/docs/concepts/workloads/pods/init-containers/), and utilizi
 {{< include "task-tutorial-prereqs.md" >}}
 
 <!--
-A Kubernetes cluster with at least two nodes (one control plane node and one worker node) to demonstrate the behavior of DaemonSets.
+A Kubernetes cluster with at least two nodes (one control plane node and one worker node)
+to demonstrate the behavior of DaemonSets.
 -->
 为了演示 DaemonSet 的行为，Kubernetes 集群至少需包含两个节点（一个控制平面节点和一个工作节点）。
 
@@ -77,7 +79,8 @@ while the main container will be a `pause` container, which keeps the Pod runnin
    ```
 
 <!--
-1. You can inspect the contents of the logged `/etc/machine-id` file by checking the log directory mounted from the host:
+1. You can inspect the contents of the logged `/etc/machine-id` file by checking
+   the log directory mounted from the host:
 -->
 3. 你可以通过检查从主机挂载的日志目录来查看 `/etc/machine-id` 文件的日志内容：
 
@@ -93,6 +96,11 @@ while the main container will be a `pause` container, which keeps the Pod runnin
 
 ## {{% heading "cleanup" %}}
 
+<!--
+To delete the DaemonSet, run this command:
+-->
+要删除 DaemonSet，请运行以下命令：
+
 ```shell
 kubectl delete --cascade=foreground --ignore-not-found --now daemonsets/example-daemonset
 ```
@@ -105,3 +113,12 @@ which can be expanded upon for more advanced use cases. For more details refer t
 这个简单的 DaemonSet 例子介绍了 Init 容器和主机路径卷这类关键组件，
 你可以在此基础上扩展以应对更高级的使用场景。有关细节参阅
 [DaemonSet](/zh-cn/docs/concepts/workloads/controllers/daemonset/)。
+
+## {{% heading "whatsnext" %}}
+
+<!--
+* See [Performing a rolling update on a DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/)
+* See [Creating a DaemonSet to adopt existing DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
+-->
+* 参阅[在 DaemonSet 上执行滚动更新](/zh-cn/docs/tasks/manage-daemon/update-daemon-set/)
+* 参见[创建 DaemonSet 以收养现有 DaemonSet Pod](/zh-cn/docs/concepts/workloads/controllers/daemonset/)
