@@ -6,7 +6,6 @@ api_metadata:
 content_type: concept
 weight: 20
 ---
-
 <!--
 reviewers:
 - derekwaynecarr
@@ -54,7 +53,7 @@ Resource quotas work like this:
   tracks usage to ensure it does not exceed hard resource limits defined in a ResourceQuota.
 - If creating or updating a resource violates a quota constraint, the request will fail with HTTP
   status code `403 FORBIDDEN` with a message explaining the constraint that would have been violated.
-- If quota is enabled in a namespace for compute resources like `cpu` and `memory`, users must specify
+- If quotas are enabled in a namespace for compute resources like `cpu` and `memory`, users must specify
   requests or limits for those values; otherwise, the quota system may reject pod creation. Hint: Use
   the `LimitRanger` admission controller to force defaults for pods that make no compute resource requirements.
 
@@ -405,9 +404,9 @@ exhausts the cluster's supply of Pod IPs.
 从而耗尽集群所能提供的 Pod IP 地址。
 
 <!--
-您可以在[查看和设置配额](#viewing-and-setting-quotas) 上找到更多示例。
+You can find more examples on [Viewing and Setting Quotas](#viewing-and-setting-quotas).
 -->
-你可以在[查看和设置配额](#viewing-and-setting-quotas)节查看更多示例。
+你可以在[查看和设置配额](#viewing-and-setting-quotas)一节查看更多示例。
 
 <!--
 ## Quota Scopes
@@ -429,9 +428,9 @@ Resources specified on the quota outside of the allowed set results in a validat
 
 <!--
 | Scope | Description |
-| ----- | ------------ |
-| `Terminating` | Match pods where `.spec.activeDeadlineSeconds >= 0` |
-| `NotTerminating` | Match pods where `.spec.activeDeadlineSeconds is nil` |
+| ----- | ----------- |
+| `Terminating` | Match pods where `.spec.activeDeadlineSeconds` >= `0` |
+| `NotTerminating` | Match pods where `.spec.activeDeadlineSeconds` is `nil` |
 | `BestEffort` | Match pods that have best effort quality of service. |
 | `NotBestEffort` | Match pods that do not have best effort quality of service. |
 | `PriorityClass` | Match pods that references the specified [priority class](/docs/concepts/scheduling-eviction/pod-priority-preemption). |
@@ -538,7 +537,7 @@ Pod 可以创建为特定的[优先级](/zh-cn/docs/concepts/scheduling-eviction
 <!--
 A quota is matched and consumed only if `scopeSelector` in the quota spec selects the pod.
 -->
-仅当配额规范中的 `scopeSelector` 字段选择到某 Pod 时，配额机制才会匹配和计量 Pod 的资源消耗。
+仅当配额规约中的 `scopeSelector` 字段选择到某 Pod 时，配额机制才会匹配和计量 Pod 的资源消耗。
 
 <!--
 When quota is scoped for priority class using `scopeSelector` field, quota object
@@ -572,57 +571,11 @@ works as follows:
 - 为每个优先级创建一个配额对象。
 
 <!--
-Save the following YAML to a file `quota.yml`.
+Save the following YAML to a file `quota.yaml`.
 -->
-将以下 YAML 保存到文件 `quota.yml` 中。
+将以下 YAML 保存到文件 `quota.yaml` 中。
 
-```yaml
-apiVersion: v1
-kind: List
-items:
-- apiVersion: v1
-  kind: ResourceQuota
-  metadata:
-    name: pods-high
-  spec:
-    hard:
-      cpu: "1000"
-      memory: 200Gi
-      pods: "10"
-    scopeSelector:
-      matchExpressions:
-      - operator: In
-        scopeName: PriorityClass
-        values: ["high"]
-- apiVersion: v1
-  kind: ResourceQuota
-  metadata:
-    name: pods-medium
-  spec:
-    hard:
-      cpu: "10"
-      memory: 20Gi
-      pods: "10"
-    scopeSelector:
-      matchExpressions:
-      - operator: In
-        scopeName: PriorityClass
-        values: ["medium"]
-- apiVersion: v1
-  kind: ResourceQuota
-  metadata:
-    name: pods-low
-  spec:
-    hard:
-      cpu: "5"
-      memory: 10Gi
-      pods: "10"
-    scopeSelector:
-      matchExpressions:
-      - operator: In
-        scopeName: PriorityClass
-        values: ["low"]
-```
+{{% code_sample file="policy/quota.yaml" %}}
 
 <!--
 Apply the YAML using `kubectl create`.
@@ -630,7 +583,7 @@ Apply the YAML using `kubectl create`.
 使用 `kubectl create` 命令运行以下操作。
 
 ```shell
-kubectl create -f ./quota.yml
+kubectl create -f ./quota.yaml
 ```
 
 ```
@@ -678,31 +631,12 @@ pods        0     10
 
 <!--
 Create a pod with priority "high". Save the following YAML to a
-file `high-priority-pod.yml`.
+file `high-priority-pod.yaml`.
 -->
 创建优先级为 "high" 的 Pod。
-将以下 YAML 保存到文件 `high-priority-pod.yml` 中。
+将以下 YAML 保存到文件 `high-priority-pod.yaml` 中。
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: high-priority
-spec:
-  containers:
-  - name: high-priority
-    image: ubuntu
-    command: ["/bin/sh"]
-    args: ["-c", "while true; do echo hello; sleep 10;done"]
-    resources:
-      requests:
-        memory: "10Gi"
-        cpu: "500m"
-      limits:
-        memory: "10Gi"
-        cpu: "500m"
-  priorityClassName: high
-```
+{{% code_sample file="policy/high-priority-pod.yaml" %}}
 
 <!--
 Apply it with `kubectl create`.
@@ -710,7 +644,7 @@ Apply it with `kubectl create`.
 使用 `kubectl create` 运行以下操作。
 
 ```shell
-kubectl create -f ./high-priority-pod.yml
+kubectl create -f ./high-priority-pod.yaml
 ```
 
 <!--
@@ -877,9 +811,9 @@ metadata:
 spec:
   hard:
     requests.cpu: "1"
-    requests.memory: 1Gi
+    requests.memory: "1Gi"
     limits.cpu: "2"
-    limits.memory: 2Gi
+    limits.memory: "2Gi"
     requests.nvidia.com/gpu: 4
 EOF
 ```
