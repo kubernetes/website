@@ -7,7 +7,7 @@ metadata:
 spec:
   containers:
   - name: liveness
-    image: registry.k8s.io/busybox
+    image: registry.k8s.io/busybox:1.27.2
     args:
     - /bin/sh
     - -c
