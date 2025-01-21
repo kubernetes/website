@@ -239,17 +239,21 @@ To investigate the root cause of a `CrashLoopBackOff` issue, a user can:
 The `spec` of a Pod has a `restartPolicy` field with possible values Always, OnFailure,
 and Never. The default value is Always.
 
+* `Always`: Automatically restarts the container after any termination.
+* `OnFailure`: Only restarts the container if it exits with an error (non-zero exit status).
+* `Never`: Does not automatically restart the terminated container.
+
 The `restartPolicy` for a Pod applies to {{< glossary_tooltip text="app containers" term_id="app-container" >}}
 in the Pod and to regular [init containers](/docs/concepts/workloads/pods/init-containers/).
 [Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/)
 ignore the Pod-level `restartPolicy` field: in Kubernetes, a sidecar is defined as an
 entry inside `initContainers` that has its container-level `restartPolicy` set to `Always`.
-For init containers that exit with an error, the kubelet restarts the init container if
-the Pod level `restartPolicy` is either `OnFailure` or `Always`:
 
-* `Always`: Automatically restarts the container after any termination.
-* `OnFailure`: Only restarts the container if it exits with an error (non-zero exit status).
-* `Never`: Does not automatically restart the terminated container.
+The main container waits until all _regular init containers_ succeed.
+For init containers that exit with an error, the kubelet restarts the init container if
+the Pod level `restartPolicy` is either `OnFailure` or `Always`.
+However, if any _regular init container_ fails and the Pod level `restartPolicy` is set to `Never`, 
+the Pod fails with the status `Init:Error`. 
 
 When the kubelet is handling container restarts according to the configured restart
 policy, that only applies to restarts that make replacement containers inside the
