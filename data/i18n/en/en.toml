@@ -15,6 +15,9 @@ other = """<p>This page is automatically generated.</p><p>If you plan to report 
 [blog_post_show_more]
 other = "Show More Posts..."
 
+[backup_heading]
+other = "Backup, Delete and Restore Volumes"
+
 [banner_acknowledgement]
 other = "Hide this notice"
 
