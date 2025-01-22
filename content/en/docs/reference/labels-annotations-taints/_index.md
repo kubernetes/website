@@ -2739,12 +2739,17 @@ ignores that node while calculating Topology Aware Hints.
 
 Type: Label
 
-Example: `node-role.kubernetes.io/*: *`
+Example: `node-role.kubernetes.io/gpu: gpu`
 
 Used on: Node
 
-This label is applied to a node when we want to register a custom node role. 
-Here `*` can be any node role that satisfies the [syntax](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) rules for labels.
+This optional label is applied to a node when you want to mark a node role. 
+The node role (text following `/` in the label key) can be set, as long as the overall key follows the
+[syntax](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) rules for
+object labels.
+
+Kubernetes defines one specific node role, **control-plane**. A label you can use to mark that node
+role is [`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane).
 
 ### node-role.kubernetes.io/control-plane {#node-role-kubernetes-io-control-plane-taint}
 
