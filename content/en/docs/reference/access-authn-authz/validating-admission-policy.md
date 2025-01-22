@@ -503,8 +503,7 @@ error: failed to create deployment: deployments.apps "invalid" is forbidden: Val
 
 ## API kinds exempt from admission validation
 
-There are certain resources which are exempt from admission validation/mutation which means they can't be targeted by an admission/mutation policy. For example you cant create a Validating Admission Policy to validate
-the creation of other Validating Admission Policies/Policy Bindings.
+There are certain API kinds that are exempt from admission-time validation checks. For example, you can't create a ValidatingAdmissionPolicy that prevents changes to ValidatingAdmissionPolicyBindings.
 
 The list of exempt resources includes:
 * `validatingadmissionpolicies` (API group: `admissionregistration.k8s.io`)
