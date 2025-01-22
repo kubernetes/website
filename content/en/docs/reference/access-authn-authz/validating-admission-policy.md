@@ -505,7 +505,8 @@ error: failed to create deployment: deployments.apps "invalid" is forbidden: Val
 
 There are certain API kinds that are exempt from admission-time validation checks. For example, you can't create a ValidatingAdmissionPolicy that prevents changes to ValidatingAdmissionPolicyBindings.
 
-The list of exempt resources includes:
+The list of exempt API kinds is:
+
 * `validatingadmissionpolicies` (API group: `admissionregistration.k8s.io`)
 * `validatingadmissionpolicybindings` (API group: `admissionregistration.k8s.io`)
 * `mutatingadmissionpolicies` (API group: `admissionregistration.k8s.io`)
