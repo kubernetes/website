@@ -2735,11 +2735,22 @@ only onto these nodes, or to avoid running Pods on the control plane.
 If this label is set, the [EndpointSlice controller](/docs/concepts/services-networking/topology-aware-routing/#implementation-control-plane)
 ignores that node while calculating Topology Aware Hints.
 
+### node-role.kubernetes.io/*
+
+Type: Label
+
+Example: `node-role.kubernetes.io/*: *`
+
+Used on: Node
+
+This label is applied to a node when we want to register a custom node role. 
+Here `*` can be any node role that satisfies the [syntax](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) rules for labels.
+
 ### node-role.kubernetes.io/control-plane {#node-role-kubernetes-io-control-plane-taint}
 
 Type: Taint
 
-Example: `node-role.kubernetes.io/*:NoSchedule`
+Example: `node-role.kubernetes.io/control-plane:NoSchedule`
 
 Used on: Node
 
@@ -2751,7 +2762,7 @@ be scheduled onto them. You can manually remove this taint with the following
 command on a specific node.
 
 ```shell
-kubectl taint nodes <node-name> node-role.kubernetes.io/*:NoSchedule-
+kubectl taint nodes <node-name> node-role.kubernetes.io/control-plane:NoSchedule-
 ```
 
 ### node-role.kubernetes.io/master (deprecated) {#node-role-kubernetes-io-master-taint}
@@ -2760,7 +2771,7 @@ Type: Taint
 
 Used on: Node
 
-Example: `node-role.kubernetes.io/*:NoSchedule`
+Example: `node-role.kubernetes.io/master:NoSchedule`
 
 Taint that kubeadm previously applied on control plane nodes to allow only critical
 workloads to schedule on them. Replaced by the
