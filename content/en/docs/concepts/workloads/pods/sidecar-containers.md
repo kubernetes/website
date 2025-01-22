@@ -91,7 +91,7 @@ execute the primary application logic; instead, they provide supporting function
 the main application.
 
 Sidecar containers have their own independent lifecycles. They can be started, stopped,
-and restarted independently of app containers. This means you can update, scale, or
+and restarted independently of app containers. This means you can update or
 maintain sidecar containers without affecting the primary application.
 
 Sidecar containers share the same network and storage namespaces with the primary
