@@ -24,6 +24,7 @@ This feature gate was previously known as `PodHasNetworkCondition`, and the asso
 named `PodHasNetwork`.
 -->
 使得 kubelet 能在 Pod 上标记
-[PodReadyToStartContainers](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-has-network) 状况。
+[PodReadyToStartContainers](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-has-network)
+状况。
 
 此特性门控先前称为 `PodHasNetworkCondition`，关联的状况称为 `PodHasNetwork`。
