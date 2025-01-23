@@ -13,7 +13,7 @@ Pull images used by kubeadm.
 -->
 拉取 kubeadm 使用的镜像。
 
-```
+```shell
 kubeadm config images pull [flags]
 ```
 
@@ -22,7 +22,7 @@ kubeadm config images pull [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -34,10 +34,10 @@ kubeadm config images pull [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a kubeadm configuration file.
 -->
-<p>
 kubeadm 配置文件的路径。
 </p>
 </td>
@@ -48,10 +48,10 @@ kubeadm 配置文件的路径。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.
 -->
-<p>
 要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；仅当安装了多个 CRI 或具有非标准 CRI 插槽时，才使用此选项。
 </p>
 </td>
@@ -62,20 +62,22 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
+ControlPlaneKubeletLocalMode=true|false (ALPHA - default=false)<br/>
 EtcdLearnerMode=true|false (BETA - default=true)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)<br/>
 WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
 -->
 一系列键值对（key=value），用于描述各种特性。可选项是：<br/>
+ControlPlaneKubeletLocalMode=true|false (ALPHA - 默认值=false)<br/>
 EtcdLearnerMode=true|false (BETA - 默认值=true)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)<br/>
 WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
+</p>
 </td>
 </tr>
 
@@ -84,10 +86,10 @@ WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for pull
 -->
-<p>
 pull 操作的帮助命令。
 </p>
 </td>
@@ -103,10 +105,10 @@ pull 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Choose a container registry to pull control plane images from
 -->
-<p>
 选择用于拉取控制平面镜像的容器仓库。
 </p>
 </td>
@@ -122,10 +124,10 @@ Choose a container registry to pull control plane images from
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Choose a specific Kubernetes version for the control plane.
 -->
-<p>
 为控制平面选择一个特定的 Kubernetes 版本。
 </p>
 </td>
@@ -139,7 +141,7 @@ Choose a specific Kubernetes version for the control plane.
 -->
 ### 从父命令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -156,11 +158,12 @@ Choose a specific Kubernetes version for the control plane.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-<p>
-用于和集群通信的 kubeconfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 kubeconfig 文件。
+用于和集群通信的 kubeconfig 文件。如果它没有被设置，那么 kubeadm
+将会搜索一个已经存在于标准路径的 kubeconfig 文件。
 </p>
 </td>
 </tr>
@@ -170,11 +173,11 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>
-[实验] 到 '真实' 主机根文件系统的路径。
+[实验] 到'真实'主机根文件系统的路径。
 </p>
 </td>
 </tr>
