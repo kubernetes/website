@@ -52,11 +52,8 @@ other = "স্ল্যাক"
 [community_stack_overflow_name]
 other = "স্ট্যাক ওভারফ্লো"
 
-[community_twitter_name]
-other = "X (আগে টুইটার)"
-
-[community_x_name]
-other = "X (আগে টুইটার)"
+[community_bluesky_name]
+other = "Bluesky"
 
 [community_youtube_name]
 other = "ইউটিউব"
