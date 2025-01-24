@@ -1,7 +1,4 @@
 ---
-reviewers:
-- thockin
-- dwinship
 min-kubernetes-server-version: v1.29
 title: 扩展 Service IP 范围
 content_type: task
@@ -22,7 +19,7 @@ content_type: task
 <!--
 This document shares how to extend the existing Service IP range assigned to a cluster.
 -->
-本文将介绍如何扩展分配给集群的现有 Service IP 范围。
+本文介绍如何扩展分配给集群的现有 Service IP 范围。
 
 ## {{% heading "prerequisites" %}}
 
@@ -92,7 +89,7 @@ The ServiceCIDRs are protected with {{<glossary_tooltip text="finalizers" term_i
 to avoid leaving Service ClusterIPs orphans; the finalizer is only removed if there is another subnet
 that contains the existing IPAddresses or there are no IPAddresses belonging to the subnet.
 -->
-ServiceCIDR 受到 {{<glossary_tooltip text="终结器" term_id="finalizer">}} 的保护，
+ServiceCIDR 受到{{<glossary_tooltip text="终结器" term_id="finalizer">}}的保护，
 以避免留下孤立的 Service ClusterIP；只有在存在包含现有 IPAddress 的另一个子网或者没有属于此子网的
 IPAddress 时，才会移除终结器。
 

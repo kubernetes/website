@@ -349,7 +349,7 @@ If the cloud provider supports the provisioning of IPv6 enabled external load ba
 create the following Service with `PreferDualStack` in `.spec.ipFamilyPolicy`, `IPv6` as
 the first element of the `.spec.ipFamilies` array and the `type` field set to `LoadBalancer`.
 -->
-### 创建双协议栈负载均衡服务   {#create-a-dualstack-load-balanced-service}
+### 创建双协议栈负载均衡服务   {#create-a-dual-stack-load-balanced-service}
 
 如果云提供商支持配置启用 IPv6 的外部负载均衡器，则创建如下 Service 时将
 `.spec.ipFamilyPolicy` 设置为 `PreferDualStack`, 并将 `spec.ipFamilies` 字段
