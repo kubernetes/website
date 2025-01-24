@@ -1,5 +1,5 @@
 ---
-title: アプリケーションにDisruptionBudget指定する
+title: アプリケーションにDisruption Budget指定する
 content_type: task
 weight: 110
 min-kubernetes-server-version: v1.21
