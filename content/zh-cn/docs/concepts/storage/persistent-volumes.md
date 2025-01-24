@@ -833,25 +833,23 @@ administrator intervention.
 
 {{% /tab %}}
 {{% tab name="通过请求扩展为更小尺寸" %}}
-{{% feature-state for_k8s_version="v1.23" state="alpha" %}}
+{{< feature-state feature_gate_name="RecoverVolumeExpansionFailure" >}}
 
 {{< note >}}
 <!--
-Recovery from failing PVC expansion by users is available as an alpha feature
-since Kubernetes 1.23. The `RecoverVolumeExpansionFailure` feature must be
-enabled for this feature to work. Refer to the
+Recovery from failing PVC expansion by users (`RecoverVolumeExpansionFailure`) is available as an beta feature
+since Kubernetes 1.32 and should be enabled by default. Refer to the
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 documentation for more information.
 -->
-Kubernetes 从 1.23 版本开始将允许用户恢复失败的 PVC 扩展这一能力作为
-Alpha 特性支持。`RecoverVolumeExpansionFailure` 必须被启用以允许使用此特性。
+Kubernetes 从 1.32 版本开始将允许用户恢复失败的 PVC 扩展（`RecoverVolumeExpansionFailure`），
+这一特性目前为 Beta 阶段。
 可参考[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 文档了解更多信息。
 {{< /note >}}
 
 <!--
-If the feature gates `RecoverVolumeExpansionFailure` is
-enabled in your cluster, and expansion has failed for a PVC, you can retry expansion with a
+When using `RecoverVolumeExpansionFailure` feature, if expansion has failed for a PVC, you can retry expansion with a
 smaller size than the previously requested value. To request a new expansion attempt with a
 smaller proposed size, edit `.spec.resources` for that PVC and choose a value that is less than the
 value you previously tried.
@@ -860,8 +858,8 @@ If that has happened, or you suspect that it might have, you can retry expansion
 size that is within the capacity limits of underlying storage provider. You can monitor status of
 resize operation by watching `.status.allocatedResourceStatuses` and events on the PVC.
 -->
-如果集群中的特性门控 `RecoverVolumeExpansionFailure`
-已启用，在 PVC 的扩展发生失败时，你可以使用比先前请求的值更小的尺寸来重试扩展。
+使用 `RecoverVolumeExpansionFailure` 特性时，如果 PVC 扩展失败，
+你可以使用比先前请求的值更小的尺寸来重试扩展。
 要使用一个更小的尺寸尝试请求新的扩展，请编辑该 PVC 的 `.spec.resources`
 并选择一个比你之前所尝试的值更小的值。
 如果由于容量限制而无法成功扩展至更高的值，这将很有用。
@@ -1116,7 +1114,7 @@ The access modes are:
 
 `ReadWriteOnce`
 : the volume can be mounted as read-write by a single node. ReadWriteOnce access
-  mode still can allow multiple pods to access the volume when the pods are
+  mode still can allow multiple pods to access (read from or write to) that volume when the pods are
   running on the same node. For single pod access, please see ReadWriteOncePod.
 
 `ReadOnlyMany`
@@ -1135,7 +1133,7 @@ The access modes are:
 
 `ReadWriteOnce`
 : 卷可以被一个节点以读写方式挂载。
-  ReadWriteOnce 访问模式仍然可以在同一节点上运行的多个 Pod 访问该卷。
+  ReadWriteOnce 访问模式仍然可以在同一节点上运行的多个 Pod 访问（读取或写入）该卷。
   对于单个 Pod 的访问，请参考 ReadWriteOncePod 访问模式。
 
 `ReadOnlyMany`
@@ -1477,6 +1475,23 @@ consumption of the volume as either a filesystem or block device.
 申领使用[与卷相同的约定](#volume-mode)来表明是将卷作为文件系统还是块设备来使用。
 
 <!--
+### Volume Name
+
+Claims can use the `volumeName` field to explicitly bind to a specific PersistentVolume. You can also leave
+`volumeName` unset, indicating that you'd like Kubernetes to set up a new PersistentVolume
+that matches the claim.
+If the specified PV is already bound to another PVC, the binding will be stuck
+in a pending state.
+-->
+
+### 卷名称    {#volume-name}
+
+申领可以使用 `volumeName` 字段显式绑定到特定的 PersistentVolume。
+你也可以不设置 `volumeName` 字段，这表示你希望 Kubernetes 设置一个与申领匹配的新 PersistentVolume。
+如果指定的 PV 已经绑定到另一个 PVC，则绑定操作将卡在 Pending 状态。
+
+<!--
+
 ### Resources
 
 Claims, like Pods, can request specific quantities of a resource. In this case,

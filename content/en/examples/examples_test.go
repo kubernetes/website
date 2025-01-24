@@ -156,7 +156,6 @@ func getCodecForObject(obj runtime.Object) (runtime.Codec, error) {
 
 func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	podValidationOptions := validation.PodValidationOptions{
-		AllowImageVolumeSource:          true,
 		AllowInvalidPodDeletionCost:     false,
 		AllowIndivisibleHugePagesValues: true,
 	}
@@ -567,6 +566,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"configmaps":              {&api.ConfigMap{}, &api.ConfigMap{}},
 			"configmap-multikeys":     {&api.ConfigMap{}},
 			"configure-pod":           {&api.Pod{}},
+			"env-configmap":           {&api.Pod{}},
 			"immutable-configmap":     {&api.ConfigMap{}},
 			"new-immutable-configmap": {&api.ConfigMap{}},
 		},
@@ -592,6 +592,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"debug": {
 			"counter-pod":                     {&api.Pod{}},
+			"counter-pod-err":                 {&api.Pod{}},
 			"event-exporter":                  {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &apps.Deployment{}},
 			"fluentd-gcp-configmap":           {&api.ConfigMap{}},
 			"fluentd-gcp-ds":                  {&apps.DaemonSet{}},
@@ -662,13 +663,16 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"qos-pod-5": {&api.Pod{}},
 		},
 		"pods/resource": {
-			"cpu-request-limit":       {&api.Pod{}},
-			"cpu-request-limit-2":     {&api.Pod{}},
-			"extended-resource-pod":   {&api.Pod{}},
-			"extended-resource-pod-2": {&api.Pod{}},
-			"memory-request-limit":    {&api.Pod{}},
-			"memory-request-limit-2":  {&api.Pod{}},
-			"memory-request-limit-3":  {&api.Pod{}},
+			"cpu-request-limit":              {&api.Pod{}},
+			"cpu-request-limit-2":            {&api.Pod{}},
+			"extended-resource-pod":          {&api.Pod{}},
+			"extended-resource-pod-2":        {&api.Pod{}},
+			"memory-request-limit":           {&api.Pod{}},
+			"memory-request-limit-2":         {&api.Pod{}},
+			"memory-request-limit-3":         {&api.Pod{}},
+			"pod-level-cpu-request-limit":    {&api.Pod{}},
+			"pod-level-memory-request-limit": {&api.Pod{}},
+			"pod-level-resources":            {&api.Pod{}},
 		},
 		"pods/security": {
 			"hello-apparmor":     {&api.Pod{}},
@@ -789,7 +793,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"restricted-psp": true,
 		},
 	}
-	capabilities.SetForTests(capabilities.Capabilities{
+	capabilities.Initialize(capabilities.Capabilities{
 		AllowPrivileged: true,
 	})
 

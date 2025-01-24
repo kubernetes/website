@@ -224,6 +224,9 @@ Init containers stop before the main containers start up, so init containers can
 exchange messages with the app container in a Pod. Any data passing is one-way
 (for example, an init container can put information inside an `emptyDir` volume).
 
+Changing the image of a sidecar container will not cause the Pod to restart, but will
+trigger a container restart.
+
 ## Resource sharing within containers
 -->
 边车容器可以直接与主应用容器交互，因为与 Init 容器一样，
@@ -231,6 +234,8 @@ exchange messages with the app container in a Pod. Any data passing is one-way
 
 Init 容器在主容器启动之前停止，因此 Init 容器无法与 Pod 中的应用容器交换消息。
 所有数据传递都是单向的（例如，Init 容器可以将信息放入 `emptyDir` 卷中）。
+
+变更边车容器的镜像不会导致 Pod 重启，但会触发容器重启。
 
 ## 容器内的资源共享   {#resource-sharing-within-containers}
 

@@ -339,6 +339,7 @@
 /docs/tutorials/kubernetes-basics/scale-interactive/     /docs/tutorials/kubernetes-basics/scale/scale-interactive/ 301
 /docs/tutorials/kubernetes-basics/scale-intro/     /docs/tutorials/kubernetes-basics/scale/scale-intro/ 301
 /docs/tutorials/clusters/apparmor/     /docs/tutorials/security/apparmor/   301
+/ja/docs/tutorials/clusters/apparmor/     /ja/docs/tutorials/security/apparmor/ 301
 /docs/tutorials/clusters/seccomp/      /docs/tutorials/security/seccomp/    301
 /ja/docs/tutorials/kubernetes-basics/scale-intro/     /ja/docs/tutorials/kubernetes-basics/scale/scale-intro/ 301
 /ko/docs/tutorials/kubernetes-basics/scale-intro/     /ko/docs/tutorials/kubernetes-basics/scale/scale-intro/ 301

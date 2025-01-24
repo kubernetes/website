@@ -724,7 +724,7 @@ kubectl delete pod myapp
 
 ### Applying Custom Profile {#custom-profile}
 
-{{< feature-state for_k8s_version="v1.31" state="beta" >}}
+{{< feature-state for_k8s_version="v1.32" state="stable" >}}
 
 You can define a partial container spec for debugging as a custom profile in either YAML or JSON format, 
 and apply it using the `--custom` flag.

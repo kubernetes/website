@@ -1,11 +1,13 @@
 aliases:
   sig-docs-blog-owners: # Approvers for blog content
     - mrbobbytables
+    - natalisucks
     - nate-double-u
     - sftim
   sig-docs-blog-reviewers: # Reviewers for blog content
     - Gauravpadam
     - mrbobbytables
+    - natalisucks
     - nate-double-u
     - sftim
   sig-docs-website-owners: # Admins for overall website
@@ -60,11 +62,11 @@ aliases:
     - katcosgrove
     - natalisucks
     - nate-double-u
+    - rayandas # RT 1.33 Docs Lead
     - reylejano
     - salaxander
     - sftim
     - tengqm
-    - chanieljdan # RT 1.32 Docs Lead
   sig-docs-en-reviews: # PR reviews for English content
     - dipesh-rawat
     - divya-mohan0209
@@ -156,10 +158,10 @@ aliases:
     - ysyukr
   sig-docs-leads: # Website chairs and tech leads
     - divya-mohan0209
+    - katcosgrove
     - natalisucks
     - reylejano
     - salaxander
-    - sftim
     - tengqm
   sig-docs-zh-owners: # Admins for Chinese content
     - chenrui333

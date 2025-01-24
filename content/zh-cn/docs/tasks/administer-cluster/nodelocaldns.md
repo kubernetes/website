@@ -239,7 +239,7 @@ This feature can be enabled using the following steps:
 -->
 * 运行 `kubectl create -f nodelocaldns.yaml`
 
-* 如果 kube-proxy 运行在 IPVS 模式，需要修改 kubelet 的 `--cluster-dns` 参数
+* 如果 kube-proxy 运行在 IPVS 模式，需要修改 kubelet 的 `--cluster-dns` 参数为
   NodeLocal DNSCache 正在侦听的 `<node-local-address>` 地址。
   否则，不需要修改 `--cluster-dns` 参数，因为 NodeLocal DNSCache 会同时侦听
   kube-dns 服务的 IP 地址和 `<node-local-address>` 的地址。

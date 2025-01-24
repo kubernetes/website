@@ -151,7 +151,7 @@ kubectl patch (-f FILENAME | TYPE NAME) [-p PATCH|--patch-file FILE]
 <td colspan="2">--subresource string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If specified, patch will operate on the subresource of the requested object. Must be one of [status scale]. This flag is beta and may change in the future.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If specified, patch will operate on the subresource of the requested object. This flag is beta and may change in the future.</p></td>
 </tr>
 
 <tr>

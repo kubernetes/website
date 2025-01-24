@@ -92,13 +92,27 @@ the pod can be accepted or rejected from the node based on the selected hint.
 The hint is then stored in the Topology Manager for use by the *Hint Providers* when making the
 resource allocation decisions.
 -->
-拓扑管理器从 **建议提供者** 接收拓扑信息，作为表示可用的 NUMA 节点和首选分配指示的位掩码。
+拓扑管理器从**建议提供者**接收拓扑信息，作为表示可用的 NUMA 节点和首选分配指示的位掩码。
 拓扑管理器策略对所提供的建议执行一组操作，并根据策略对提示进行约减以得到最优解。
 如果存储了与预期不符的建议，则该建议的优选字段将被设置为 false。
 在当前策略中，首选是最窄的优选掩码。
 所选建议将被存储为拓扑管理器的一部分。
 取决于所配置的策略，所选建议可用来决定节点接受或拒绝 Pod。
-之后，建议会被存储在拓扑管理器中，供 **建议提供者** 在作资源分配决策时使用。
+之后，建议会被存储在拓扑管理器中，供**建议提供者**在作资源分配决策时使用。
+
+<!--
+## Windows Support
+-->
+## Windows 支持
+
+{{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
+
+<!--
+The Topology Manager support can be enabled on Windows by using the `WindowsCPUAndMemoryAffinity` feature gate and
+it requires support in the container runtime.
+-->
+拓扑管理器支持可以通过使用 `WindowsCPUAndMemoryAffinity` 特性门控在 Windows 上启用，
+并且需要容器运行时的支持。
 
 <!--
 ## Topology manager scopes and policies
@@ -321,7 +335,7 @@ will result with **the same** topology alignment decision.
 -->
 如果拓扑管理器配置使用 **pod** 作用域，
 那么在策略评估一个容器时，该容器反映的是整个 Pod 的要求，
-所以该 Pod 里的每个容器都会应用 **相同的** 拓扑对齐决策。
+所以该 Pod 里的每个容器都会应用**相同的**拓扑对齐决策。
 {{< /note >}}
 
 <!--
@@ -403,7 +417,7 @@ admission failure.
 对于 Pod 中的每个容器，配置了 `single-numa-node` 拓扑管理策略的
 kubelet 调用每个建议提供者以确定其资源可用性。
 使用此信息，拓扑管理器确定是否支持单 NUMA 节点亲和性。
-如果支持，则拓扑管理器将存储此信息，然后 **建议提供者** 可以在做出资源分配决定时使用此信息。
+如果支持，则拓扑管理器将存储此信息，然后**建议提供者**可以在做出资源分配决定时使用此信息。
 如果不支持，则拓扑管理器将拒绝 Pod 运行于该节点。
 这将导致 Pod 处于 `Terminated` 状态，且 Pod 无法被节点接受。
 
@@ -446,19 +460,18 @@ You will still have to enable each option using the `TopologyManagerPolicyOption
 你仍然需要使用 `TopologyManagerPolicyOptions` kubelet 选项来启用每个选项。
 
 <!--
-### `prefer-closest-numa-nodes` (beta) {#policy-option-prefer-closest-numa-nodes}
+### `prefer-closest-numa-nodes` {#policy-option-prefer-closest-numa-nodes}
 
-The `prefer-closest-numa-nodes` option is beta since Kubernetes 1.28. In Kubernetes {{< skew currentVersion >}}
-this policy option is visible by default provided that the `TopologyManagerPolicyOptions` and
-`TopologyManagerPolicyBetaOptions` [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-are enabled.
+The `prefer-closest-numa-nodes` option is GA since Kubernetes 1.32. In Kubernetes {{< skew currentVersion >}}
+this policy option is visible by default provided that the `TopologyManagerPolicyOptions`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
 -->
-### `prefer-closest-numa-nodes`（Beta） {#policy-option-prefer-closest-numa-nodes}
+### `prefer-closest-numa-nodes`   {#policy-option-prefer-closest-numa-nodes}
 
-自 Kubernetes 1.28 起，`prefer-closest-numa-nodes` 选项进入 Beta 阶段。
+自 Kubernetes 1.32 起，`prefer-closest-numa-nodes` 选项进入 GA 阶段。
 在 Kubernetes {{< skew currentVersion >}} 中，只要启用了
-`TopologyManagerPolicyOptions` 和 `TopologyManagerPolicyBetaOptions`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，此策略选项默认可见。
+`TopologyManagerPolicyOptions` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+此策略选项默认可见。
 
 <!--
 The Topology Manager is not aware by default of NUMA distances, and does not take them into account when making

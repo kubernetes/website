@@ -432,6 +432,14 @@ CronJob 根据其计划编排，在每次该执行任务的时候大约会创建
 我们试图使这些情况尽量少发生，但不能完全杜绝。因此，Job 应该是 **幂等的**。
 
 <!--
+Starting with Kubernetes v1.32, CronJobs apply an annotation
+`batch.kubernetes.io/cronjob-scheduled-timestamp` to their created Jobs. This annotation
+indicates the originally scheduled creation time for the Job and is formatted in RFC3339.
+-->
+从 Kubernetes v1.32 开始，CronJob 为其创建的 Job 添加一个注解 `batch.kubernetes.io/cronjob-scheduled-timestamp`。
+此注解表示 Job 最初计划的创建时间，采用 RFC3339 格式。
+
+<!--
 If `startingDeadlineSeconds` is set to a large value or left unset (the default)
 and if `concurrencyPolicy` is set to `Allow`, the Jobs will always run
 at least once.

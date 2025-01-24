@@ -21,21 +21,25 @@ $(document).ready(function() {
 
   /* Check the presence of a cookie */
   let announcement = document.querySelector("#announcement");
-  let token = `announcement_ack_${announcement.getAttribute('data-announcement-name').replace(/\s/g, '_')}`; // Generate the unique token for announcement
-  let acknowledged = getCookie(token);
-  if (acknowledged === "true") {
-    announcement.remove(); // Remove the announcement if the cookie is set
-  }
-  else {
-    announcement.classList.add('display-announcement') // Display the announcement if the cookie is not set
+  if (announcement) {
+    let token = `announcement_ack_${announcement.getAttribute('data-announcement-name').replace(/\s/g, '_')}`; // Generate the unique token for announcement
+    let acknowledged = getCookie(token);
+    if (acknowledged === "true") {
+      announcement.remove(); // Remove the announcement if the cookie is set
+    }
+    else {
+      announcement.classList.add('display-announcement') // Display the announcement if the cookie is not set
+    }
   }
 
   /* Driver code to set the cookie */
   let button = document.querySelector('#banner-dismiss');
-  button.removeAttribute('style');
-  button.addEventListener('click', function() {
-    setCookie(token, "true", 
-    button.getAttribute('data-ttl')); // Set a cookie with time to live parameter
-    announcement.remove();
-  });
+  if (button) {
+    button.removeAttribute('style');
+    button.addEventListener('click', function() {
+      setCookie(token, "true",
+      button.getAttribute('data-ttl')); // Set a cookie with time to live parameter
+      announcement.remove();
+    });
+  }
 });

@@ -23,41 +23,93 @@ weight: 10
 <!-- overview -->
 
 <!--
-On-disk files in a container are ephemeral, which presents some problems for
+Kubernetes _volumes_ provide a way for containers in a {{< glossary_tooltip text="pods" term_id="pod" >}}
+to access and share data via the filesystem. There are different kinds of volume that you can use for different purposes,
+such as:
+-->
+Kubernetes **卷**为 {{< glossary_tooltip text="Pod" term_id="pod" >}}
+中的容器提供了一种通过文件系统访问和共享数据的方式。存在不同类别的卷，你可以将其用于各种用途，例如：
+
+<!--
+- populating a configuration file based on a {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}
+  or a {{< glossary_tooltip text="Secret" term_id="secret" >}}
+- providing some temporary scratch space for a pod
+- sharing a filesystem between two different containers in the same pod
+- sharing a filesystem between two different pods (even if those Pods run on different nodes)
+- durably storing data so that it stays available even if the Pod restarts or is replaced
+-->
+- 基于 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} 或
+  {{< glossary_tooltip text="Secret" term_id="secret" >}} 填充配置文件
+- 为 Pod 提供一些临时的涂销空间
+- 在同一个 Pod 中的两个不同容器之间共享文件系统
+- 在两个不同的 Pod 之间共享文件系统（即使这些 Pod 运行在不同的节点上）
+- 持久化存储数据，这样即使 Pod 重启或被替换，存储的数据仍然可用
+<!--
+- passing configuration information to an app running in a container, based on details of the Pod
+  the container is in
+  (for example: telling a {{< glossary_tooltip text="sidecar container" term_id="sidecar-container" >}}
+  what namespace the Pod is running in)
+- providing read-only access to data in a different container image
+-->
+- 基于容器所在 Pod 的详细信息，将配置信息传递给运行在容器中的应用
+  （例如告诉{{< glossary_tooltip text="边车容器" term_id="sidecar-container" >}}：Pod 运行在哪个命名空间）
+- 以只读权限访问另一个容器镜像中的数据
+
+<!--
+Data sharing can be between different local processes within a container, or between different containers,
+or between Pods.
+-->
+数据共享可以发生在容器内不同本地进程之间，或在不同容器之间，或在多个 Pod 之间。
+
+<!--
+## Why volumes are important
+
+- **Data persistence:** On-disk files in a container are ephemeral, which presents some problems for
 non-trivial applications when running in containers. One problem occurs when 
-a container crashes or is stopped. Container state is not saved so all of the 
+a container crashes or is stopped, the container state is not saved so all of the 
 files that were created or modified during the lifetime of the container are lost. 
-During a crash, kubelet restarts the container with a clean state. 
-Another problem occurs when multiple containers are running in a `Pod` and 
+During a crash, kubelet restarts the container with a clean state.
+-->
+## 为什么卷很重要   {#why-volumes-are-important}
+
+- **数据持久性：** 容器中的文件在磁盘上是临时存放的，这给在容器中运行较重要的应用带来一些问题。
+  当容器崩溃或被停止时，容器的状态不会被保存，因此在容器生命期内创建或修改的所有文件都将丢失。
+  在崩溃期间，kubelet 会以干净的状态重启容器。
+
+<!--
+- **Shared storage:** Another problem occurs when multiple containers are running in a `Pod` and 
 need to share files. It can be challenging to setup 
 and access a shared filesystem across all of the containers.
+
 The Kubernetes {{< glossary_tooltip text="volume" term_id="volume" >}} abstraction
-solves both of these problems.
-Familiarity with [Pods](/docs/concepts/workloads/pods/) is suggested.
+can help you to solve both of these problems.
 -->
-容器中的文件在磁盘上是临时存放的，这给在容器中运行较重要的应用带来一些问题。
-当容器崩溃或停止时会出现一个问题。此时容器状态未保存，
-因此在容器生命周期内创建或修改的所有文件都将丢失。
-在崩溃期间，kubelet 会以干净的状态重新启动容器。
-当多个容器在一个 Pod 中运行并且需要共享文件时，会出现另一个问题。
-跨所有容器设置和访问共享文件系统具有一定的挑战性。
+- **共享存储：** 当多个容器在一个 Pod 中运行并需要共享文件时，会出现另一个问题。
+  那就是在所有容器之间设置和访问共享文件系统可能会很有难度。
 
 Kubernetes {{< glossary_tooltip text="卷（Volume）" term_id="volume" >}}
 这一抽象概念能够解决这两个问题。
 
-阅读本文前建议你熟悉一下 [Pod](/zh-cn/docs/concepts/workloads/pods)。
+<!--
+Before you learn about volumes, PersistentVolumes and PersistentVolumeClaims, you should read up
+about {{< glossary_tooltip term_id="Pod" text="Pods" >}} and make sure that you understand how
+Kubernetes uses Pods to run containers.
+-->
+在你学习卷、持久卷（PersistentVolume）和持久卷申领（PersistentVolumeClaim）之前，
+你应该先了解 {{< glossary_tooltip term_id="Pod" text="Pods" >}}，
+确保你理解 Kubernetes 如何使用 Pod 来运行容器。
 
 <!-- body -->
 
 <!--
-## Background
+## How volumes work
 -->
-## 背景  {#background}
+## 卷是如何工作的   {#how-volumes-work}
 
 <!--
 Kubernetes supports many types of volumes. A {{< glossary_tooltip term_id="pod" text="Pod" >}}
 can use any number of volume types simultaneously.
-[Ephemeral volume](/docs/concepts/storage/ephemeral-volumes/) types have a lifetime of a pod,
+[Ephemeral volume](/docs/concepts/storage/ephemeral-volumes/) types have a lifetime of a pod, 
 but [persistent volumes](/docs/concepts/storage/persistent-volumes/) exist beyond
 the lifetime of a pod. When a pod ceases to exist, Kubernetes destroys ephemeral volumes;
 however, Kubernetes does not destroy persistent volumes.
@@ -82,7 +134,12 @@ volume type used.
 <!--
 To use a volume, specify the volumes to provide for the Pod in `.spec.volumes`
 and declare where to mount those volumes into containers in `.spec.containers[*].volumeMounts`.
-A process in a container sees a filesystem view composed from the initial contents of
+-->
+使用卷时, 在 `.spec.volumes` 字段中设置为 Pod 提供的卷，并在
+`.spec.containers[*].volumeMounts` 字段中声明卷在容器中的挂载位置。
+
+<!--
+When a pod is launched, a process in the container sees a filesystem view composed from the initial contents of
 the {{< glossary_tooltip text="container image" term_id="image" >}}, plus volumes
 (if defined) mounted inside the container.
 The process sees a root filesystem that initially matches the contents of the container
@@ -90,15 +147,13 @@ image.
 Any writes to within that filesystem hierarchy, if allowed, affect what that process views
 when it performs a subsequent filesystem access.
 -->
-使用卷时, 在 `.spec.volumes` 字段中设置为 Pod 提供的卷，并在
-`.spec.containers[*].volumeMounts` 字段中声明卷在容器中的挂载位置。
-容器中的进程看到的文件系统视图是由它们的{{< glossary_tooltip text="容器镜像" term_id="image" >}}
+当 Pod 被启动时，容器中的进程看到的文件系统视图是由它们的{{< glossary_tooltip text="容器镜像" term_id="image" >}}
 的初始内容以及挂载在容器中的卷（如果定义了的话）所组成的。
 其中根文件系统同容器镜像的内容相吻合。
 任何在该文件系统下的写入操作，如果被允许的话，都会影响接下来容器中进程访问文件系统时所看到的内容。
 
 <!--
-Volumes mount at the [specified paths](#using-subpath) within
+Volumes are mounted at [specified paths](#using-subpath) within
 the image.
 For each container defined within a Pod, you must independently specify where
 to mount each volume that the container uses.
@@ -107,7 +162,7 @@ Volumes cannot mount within other volumes (but see [Using subPath](#using-subpat
 for a related mechanism). Also, a volume cannot contain a hard link to anything in
 a different volume.
 -->
-卷挂载在镜像中的[指定路径](#using-subpath)下。
+卷被挂载在镜像中的[指定路径](#using-subpath)下。
 Pod 配置中的每个容器必须独立指定各个卷的挂载位置。
 
 卷不能挂载到其他卷之上（不过存在一种[使用 subPath](#using-subpath) 的相关机制），也不能与其他卷有硬链接。
@@ -322,17 +377,17 @@ spec:
         name: log-config
         items:
           - key: log_level
-            path: log_level
+            path: log_level.conf
 ```
 
 <!--
 The `log-config` ConfigMap is mounted as a volume, and all contents stored in
-its `log_level` entry are mounted into the Pod at path `/etc/config/log_level`.
+its `log_level` entry are mounted into the Pod at path `/etc/config/log_level.conf`.
 Note that this path is derived from the volume's `mountPath` and the `path`
 keyed with `log_level`.
 -->
 `log-config` ConfigMap 以卷的形式挂载，并且存储在 `log_level`
-条目中的所有内容都被挂载到 Pod 的 `/etc/config/log_level` 路径下。
+条目中的所有内容都被挂载到 Pod 的 `/etc/config/log_level.conf` 路径下。
 请注意，这个路径来源于卷的 `mountPath` 和 `log_level` 键对应的 `path`。
 
 {{< note >}}
@@ -365,11 +420,11 @@ data as read-only files in plain text format.
 `downwardAPI` 卷用于为应用提供 {{< glossary_tooltip term_id="downward-api" text="downward API" >}} 数据。
 在这类卷中，所公开的数据以纯文本格式的只读文件形式存在。
 
+{{< note >}}
 <!--
 A container using the downward API as a [`subPath`](#using-subpath) volume mount does not
 receive updates when field values change.
 -->
-{{< note >}}
 容器以 [subPath](#using-subpath) 卷挂载方式使用 downward API 时，在字段值更改时将不能接收到它的更新。
 {{< /note >}}
 
@@ -443,18 +498,10 @@ overlays), the `emptyDir` may run out of capacity before this limit.
 如果来自其他来源（如日志文件或镜像分层数据）的数据占满了存储，`emptyDir`
 可能会在达到此限制之前发生存储容量不足的问题。
 
-{{< note >}}
 <!--
-You can specify a size for memory backed volumes, provided that the `SizeMemoryBackedVolumes`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled in your cluster (this has been beta, and active by default, since the Kubernetes 1.22 release).
-If you don't specify a volume size, memory backed volumes are sized to node allocatable memory.
+If no size is specified, memory backed volumes are sized to node allocatable memory.
 -->
-你可以指定内存作为介质的卷的大小，前提是集群中启用了 `SizeMemoryBackedVolumes`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-（自 Kubernetes 1.22 发布以来，此特性一直处于 Beta 阶段，并且默认启用）。
-如果你未指定大小，内存作为介质的卷的大小根据节点可分配内存进行调整。
-{{< /note>}}
+如果未指定大小，内存支持的卷将被设置为节点可分配内存的大小。
 
 {{< caution >}}
 <!--
@@ -487,6 +534,30 @@ spec:
   - name: cache-volume
     emptyDir:
       sizeLimit: 500Mi
+```
+
+<!--
+#### emptyDir memory configuration example
+-->
+#### emptyDir 内存配置示例
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pd
+spec:
+  containers:
+  - image: registry.k8s.io/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /cache
+      name: cache-volume
+  volumes:
+  - name: cache-volume
+    emptyDir:
+      sizeLimit: 500Mi
+      medium: Memory
 ```
 
 <!--
@@ -1448,7 +1519,7 @@ must be installed on the cluster.
 （Portworx 的 CSI 迁移自 Kubernetes v1.23 版本以来一直可用，但从 v1.31 版本开始才默认启用）。
 如果你想禁用自动迁移，可以将 `CSIMigrationPortworx`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 设置为 `false`；
-你需要在 kube-controller-manager **和** 每个相关的 kubelet 上进行此更改。
+你需要在 kube-controller-manager **和**每个相关的 kubelet 上进行此更改。
 
 它将所有插件操作不再指向树内插件（In-Tree Plugin），转而指向
 `pxd.portworx.com` 容器存储接口（Container Storage Interface，CSI）驱动。
@@ -1813,7 +1884,7 @@ CSI 和 FlexVolume 都允许独立于 Kubernetes 代码库开发卷插件，并�
 (CSI) defines a standard interface for container orchestration systems (like
 Kubernetes) to expose arbitrary storage systems to their container workloads.
 -->
-[容器存储接口](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI)
+[容器存储接口](https://github.com/container-storage-interface/spec/blob/master/spec.md)（CSI）
 为容器编排系统（如 Kubernetes）定义标准接口，以将任意存储系统暴露给它们的容器工作负载。
 
 <!--
@@ -1929,7 +2000,7 @@ persistent volume:
   该映射必须与 CSI 驱动程序返回的 `CreateVolumeResponse` 中的 `volume.attributes`
   字段的映射相对应；
   [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume)中有相应的定义。
-  该映射通过`ControllerPublishVolumeRequest`、`NodeStageVolumeRequest` 和
+  该映射通过 `ControllerPublishVolumeRequest`、`NodeStageVolumeRequest` 和
   `NodePublishVolumeRequest` 中的 `volume_context` 字段传递给 CSI 驱动。
 
 <!--
@@ -1969,8 +2040,8 @@ persistent volume:
   当你为节点初始化的卷扩展配置 Secret 数据时，kubelet 会通过 `NodeExpandVolume()`
   调用将该数据传递给 CSI 驱动。所有受支持的 Kubernetes 版本都提供 `nodeExpandSecretRef` 字段，
   并且默认可用。Kubernetes v1.25 之前的版本不包括此支持。
-  为每个 kube-apiserver 和每个节点上的 kubelet 启用名为 `CSINodeExpandSecret` 的
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/)。
+  为每个 kube-apiserver 和每个节点上的 kubelet 启用名为 `CSINodeExpandSecret`
+  的[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/)。
   自 Kubernetes 1.27 版本起，此特性已默认启用，无需显式启用特性门控。
   在节点初始化的存储大小调整操作期间，你还必须使用支持或需要 Secret 数据的 CSI 驱动。
 
@@ -2165,8 +2236,9 @@ Pod 通过 `flexvolume` 树内插件与 FlexVolume 驱动程序交互。
 The following FlexVolume [plugins](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows),
 deployed as PowerShell scripts on the host, support Windows nodes:
 -->
-下面的 FlexVolume [插件](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows)
-以 PowerShell 脚本的形式部署在宿主机系统上，支持 Windows 节点：
+下面的 FlexVolume
+[插件](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows)以
+PowerShell 脚本的形式部署在宿主机系统上，支持 Windows 节点：
 
 * [SMB](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~smb.cmd)
 * [iSCSI](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~iscsi.cmd)
@@ -2190,12 +2262,12 @@ FlexVolume 用户应迁移工作负载以使用对等的 CSI 驱动。
 ## 挂载卷的传播   {#mount-propagation}
 
   {{< caution >}}
-<!--
+  <!--
   Mount propagation is a low-level feature that does not work consistently on all
   volume types. It is recommended to use only with `hostPath` or in-memory `emptyDir`
   volumes. See [this discussion](https://github.com/kubernetes/kubernetes/issues/95049)
   for more context.
--->
+  -->
   挂载卷的传播是一项底层功能，不能在所有类型的卷中以一致的方式工作。
   建议只在 `hostPath` 或基于内存的 `emptyDir` 卷中使用。
   详情请参考[讨论](https://github.com/kubernetes/kubernetes/issues/95049)。
@@ -2235,7 +2307,7 @@ in `containers[*].volumeMounts`. Its values are:
 
   然而，当 `rprivate` 传播选项不适用时，CRI 运行时可以转为选择 `rslave` 挂载传播选项
   （即 `HostToContainer`）。当挂载源包含 Docker 守护进程的根目录（`/var/lib/docker`）时，
-  cri-dockerd (Docker) 已知可以选择 `rslave` 挂载传播选项。
+  cri-dockerd（Docker）已知可以选择 `rslave` 挂载传播选项。
 
 <!--
 * `HostToContainer` - This volume mount will receive all subsequent mounts
