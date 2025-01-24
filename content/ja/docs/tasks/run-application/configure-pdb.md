@@ -237,7 +237,7 @@ status:
 
 ビルトインのワークロードリソース(Deployment, ReplicaSet, StatefulSet and ReplicationController)のみでPDB、または`scale`[サブリソース](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/#advanced-features-and-flexibility)を実装した{{< glossary_tooltip term_id="CustomResourceDefinition" text="カスタムリソース" >}}でのみPDBを使用し、PDBセレクターがPodを所有するリソースのセレクターと完全に一致する場合に、このセクションをスキップできます。
 
-他のリソース、"オペレーター"、ベアPodによって制御されるPodでPDBを使用することができますが、次の制限があります:
+他のリソースや"オペレーター"に制御されるPodまたはベアPodにおいてもPDBを使用することができますが、次の制限があります:
 
 - `.spec.minAvailable`のみ使用でき、`.spec.maxUnavailable`は使用できません
 - `.spec.minAvailable`は整数値のみ使用でき、パーセンテージは使用できません
