@@ -158,7 +158,7 @@ To configure etcd with secure peer communication, specify flags
 the URL schema.
 
 Similarly, to configure etcd with secure client communication, specify flags
-`--key-file=k8sclient.key` and `--cert-file=k8sclient.cert`, and use HTTPS as
+`--key=k8sclient.key` and `--cert=k8sclient.cert`, and use HTTPS as
 the URL schema. Here is an example on a client command that uses secure
 communication:
 
