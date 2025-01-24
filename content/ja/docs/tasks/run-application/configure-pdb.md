@@ -199,7 +199,7 @@ status:
   observedGeneration: 1
 ```
 
-### Podの健全
+### Podの健全性
 
 現在の実装では、`type="Ready"`および`status="True"`の`.status.conditions`項目を持つPodが健全なPodと見なされます。
 これらのPodは、PDBステータスの`.status.currentHealthy`フィールドで追跡されます。
