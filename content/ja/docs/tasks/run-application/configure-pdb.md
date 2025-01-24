@@ -66,7 +66,7 @@ min-kubernetes-server-version: v1.21
     - 可能な解決策1: maxUnavailableを1に設定する(アプリケーションの規模が変化する場合に機能する)
     - 可能な解決策2: minAvailableをクォーラムサイズ(スケールが5の場合は3)に設定する(一度により多くのDisruptionを許可する)
 - 再起動可能なバッチジョブ:
-  - 留意事項: 任意のDisruptionの場合にジョブが完了する必要がある
+  - 留意事項: 自発的なDisruptionの場合にジョブが完了する必要がある
     - 可能な解決策: PDBを作成しない。
       Jobコントローラーが代替Podを作成する
 
