@@ -144,12 +144,14 @@ aliases:
     - t-inu
   sig-docs-ko-owners: # Admins for Korean content
     - gochist
+    - ianychoi
     - jihoon-seo
     - seokho-son
     - yoonian
     - ysyukr
   sig-docs-ko-reviews: # PR reviews for Korean content
     - gochist
+    - ianychoi
     - jihoon-seo
     - jmyung
     - jongwooo
