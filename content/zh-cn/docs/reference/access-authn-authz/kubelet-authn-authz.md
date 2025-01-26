@@ -1,5 +1,5 @@
 ---
-title: Kubelet 认证/鉴权
+title: kubelet 认证/鉴权
 weight: 110
 ---
 <!--
@@ -18,8 +18,7 @@ weight: 110
 A kubelet's HTTPS endpoint exposes APIs which give access to data of varying sensitivity,
 and allow you to perform operations with varying levels of power on the node and within containers.
 -->
-kubelet 的 HTTPS 端点公开了 API，
-这些 API 可以访问敏感度不同的数据，
+kubelet 的 HTTPS 端点公开了一些 API，这些 API 可以访问敏感度不同的数据，
 并允许你在节点上和容器内以不同级别的权限执行操作。
 
 <!--
@@ -30,7 +29,7 @@ This document describes how to authenticate and authorize access to the kubelet'
 <!--
 ## Kubelet authentication
 -->
-## Kubelet 身份认证   {#kubelet-authentication}
+## kubelet 身份认证   {#kubelet-authentication}
 
 <!--
 By default, requests to the kubelet's HTTPS endpoint that are not rejected by other configured
@@ -63,12 +62,12 @@ To enable X509 client certificate authentication to the kubelet's HTTPS endpoint
 * 带 `--client-ca-file` 标志启动 kubelet，提供一个 CA 证书包以供验证客户端证书
 * 带 `--kubelet-client-certificate` 和 `--kubelet-client-key` 标志启动 API 服务器
 * 有关更多详细信息，请参见
-  [API 服务器身份验证文档](/zh-cn/docs/reference/access-authn-authz/authentication/#x509-client-certificates)
+  [API 服务器身份认证文档](/zh-cn/docs/reference/access-authn-authz/authentication/#x509-client-certificates)
 
 <!--
 To enable API bearer tokens (including service account tokens) to be used to authenticate to the kubelet's HTTPS endpoint:
 -->
-要启用 API 持有者令牌（包括服务帐户令牌）以对 kubelet 的 HTTPS 端点进行身份验证，请执行以下操作：
+要启用 API 持有者令牌（包括服务账号令牌）以对 kubelet 的 HTTPS 端点进行身份认证，请执行以下操作：
 
 <!--
 * ensure the `authentication.k8s.io/v1beta1` API group is enabled in the API server
@@ -82,12 +81,12 @@ To enable API bearer tokens (including service account tokens) to be used to aut
 <!--
 ## Kubelet authorization
 -->
-## Kubelet 鉴权   {#kubelet-authorization}
+## kubelet 鉴权   {#kubelet-authorization}
 
 <!--
 Any request that is successfully authenticated (including an anonymous request) is then authorized. The default authorization mode is `AlwaysAllow`, which allows all requests.
 -->
-任何成功通过身份验证的请求（包括匿名请求）之后都会被鉴权。
+任何成功通过身份认证的请求（包括匿名请求）之后都会被鉴权。
 默认的鉴权模式为 `AlwaysAllow`，它允许所有请求。
 
 <!--
@@ -100,9 +99,9 @@ There are many possible reasons to subdivide access to the kubelet API:
 * bearer token auth is enabled, but arbitrary API users' (like service accounts) ability to call the kubelet API should be limited
 * client certificate auth is enabled, but only some of the client certificates signed by the configured CA should be allowed to use the kubelet API
 -->
-* 启用了匿名身份验证，但是应限制匿名用户调用 kubelet API 的能力
-* 启用了持有者令牌认证，但应限制任意 API 用户（如服务帐户）调用 kubelet API 的能力
-* 启用了客户端证书身份验证，但仅应允许已配置的 CA 签名的某些客户端证书使用 kubelet API
+* 启用了匿名身份认证，但是应限制匿名用户调用 kubelet API 的能力
+* 启用了持有者令牌认证，但应限制任意 API 用户（如服务账号）调用 kubelet API 的能力
+* 启用了客户端证书身份认证，但仅应允许已配置的 CA 签名的某些客户端证书使用 kubelet API
 
 <!--
 To subdivide access to the kubelet API, delegate authorization to the API server:
@@ -122,9 +121,9 @@ To subdivide access to the kubelet API, delegate authorization to the API server
 <!--
 The kubelet authorizes API requests using the same [request attributes](/docs/reference/access-authn-authz/authorization/#review-your-request-attributes) approach as the apiserver.
 -->
-kubelet 使用与 API 服务器相同的
-[请求属性](/zh-cn/docs/reference/access-authn-authz/authorization/#review-your-request-attributes)
-方法对 API 请求执行鉴权。
+kubelet 使用与 API
+服务器相同的[请求属性](/zh-cn/docs/reference/access-authn-authz/authorization/#review-your-request-attributes)方法对
+API 请求执行鉴权。
 
 <!--
 The verb is determined from the incoming request's HTTP verb:
@@ -157,7 +156,7 @@ Kubelet API         | resource | subresource
 /checkpoint/\*      | nodes    | checkpoint
 *all others*        | nodes    | proxy
 -->
-Kubelet API  | 资源 | 子资源
+kubelet API  | 资源 | 子资源
 -------------|----------|------------
 /stats/\*     | nodes    | stats
 /metrics/\*   | nodes    | metrics
@@ -185,3 +184,62 @@ flags passed to the apiserver is authorized for the following attributes:
 * verb=\*, resource=nodes, subresource=log
 * verb=\*, resource=nodes, subresource=spec
 * verb=\*, resource=nodes, subresource=metrics
+
+<!--
+### Fine-grained authorization
+-->
+### 细粒度鉴权   {#fine-grained-authorization}
+
+{{< feature-state feature_gate_name="KubeletFineGrainedAuthz" >}}
+
+<!--
+When the feature gate `KubeletFineGrainedAuthz` is enabled kubelet performs a
+fine-grained check before falling back to the `proxy` subresource for the `/pods`,
+`/runningPods`, `/configz` and `/healthz` endpoints. The resource and subresource 
+are determined from the incoming request's path:
+-->
+当特性门控 `KubeletFineGrainedAuthz` 被启用时，kubelet 处理对
+`/pods`、`/runningPods`、`/configz` 和 `/healthz` 等端点的请求时，在回退到 `proxy` 子资源之前，
+会执行一次细粒度的检查。资源和子资源是根据传入请求的路径确定的：
+
+<!--
+Kubelet API   | resource | subresource
+--------------|----------|------------
+/stats/\*     | nodes    | stats
+/metrics/\*   | nodes    | metrics
+/logs/\*      | nodes    | log
+/spec/\*      | nodes    | spec
+/pods         | nodes    | pods, proxy
+/runningPods/ | nodes    | pods, proxy
+/healthz      | nodes    | healthz, proxy
+/configz      | nodes    | configz, proxy
+*all others*  | nodes    | proxy
+-->
+kubelet API   | 资源      | 子资源
+--------------|----------|------------
+/stats/\*     | nodes    | stats
+/metrics/\*   | nodes    | metrics
+/logs/\*      | nodes    | log
+/spec/\*      | nodes    | spec
+/pods         | nodes    | pods, proxy
+/runningPods/ | nodes    | pods, proxy
+/healthz      | nodes    | healthz, proxy
+/configz      | nodes    | configz, proxy
+**其他所有**   | nodes    | proxy
+
+<!--
+When the feature-gate `KubeletFineGrainedAuthz` is enabled, ensure the user
+identified by the `--kubelet-client-certificate` and `--kubelet-client-key`
+flags passed to the API server is authorized for the following attributes:
+-->
+当特性门控 `KubeletFineGrainedAuthz` 被启用时，请确保经传递给 API 服务器的
+`--kubelet-client-certificate` 和 `--kubelet-client-key` 标志所鉴别的用户被授权了以下属性：
+
+* verb=\*, resource=nodes, subresource=proxy
+* verb=\*, resource=nodes, subresource=stats
+* verb=\*, resource=nodes, subresource=log
+* verb=\*, resource=nodes, subresource=spec
+* verb=\*, resource=nodes, subresource=metrics
+* verb=\*, resource=nodes, subresource=configz
+* verb=\*, resource=nodes, subresource=healthz
+* verb=\*, resource=nodes, subresource=pods

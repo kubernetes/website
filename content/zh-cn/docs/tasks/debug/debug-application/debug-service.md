@@ -811,20 +811,8 @@ I1027 22:14:54.040223    5063 proxier.go:294] Adding new service "kube-system/ku
 <!--
 If you see error messages about not being able to contact the master, you
 should double-check your Node configuration and installation steps.
-
-One of the possible reasons that `kube-proxy` cannot run correctly is that the
-required `conntrack` binary cannot be found. This may happen on some Linux
-systems, depending on how you are installing the cluster, for example, you are
-installing Kubernetes from scratch. If this is the case, you need to manually
-install the `conntrack` package (e.g. `sudo apt install conntrack` on Ubuntu)
-and then retry.
 -->
 如果你看到有关无法连接主节点的错误消息，则应再次检查节点配置和安装步骤。
-
-`kube-proxy` 无法正确运行的可能原因之一是找不到所需的 `conntrack` 二进制文件。
-在一些 Linux 系统上，这也是可能发生的，这取决于你如何安装集群，
-例如，你是手动开始一步步安装 Kubernetes。如果是这样的话，你需要手动安装
-`conntrack` 包（例如，在 Ubuntu 上使用 `sudo apt install conntrack`），然后重试。
 
 <!--
 Kube-proxy can run in one of a few modes.  In the log listed above, the

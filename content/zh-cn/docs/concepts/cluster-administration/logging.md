@@ -123,6 +123,57 @@ kubectl logs counter -c count
 ```
 
 <!--
+### Container log streams
+-->
+### 容器日志流  {#container-log-streams}
+
+{{< feature-state feature_gate_name="PodLogsQuerySplitStreams" >}}
+
+<!--
+As an alpha feature, the kubelet can split out the logs from the two standard streams produced
+by a container: [standard output](https://en.wikipedia.org/wiki/Standard_streams#Standard_output_(stdout))
+and [standard error](https://en.wikipedia.org/wiki/Standard_streams#Standard_error_(stderr)).
+To use this behavior, you must enable the `PodLogsQuerySplitStreams`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+With that feature gate enabled, Kubernetes {{< skew currentVersion >}} allows access to these
+log streams directly via the Pod API. You can fetch a specific stream by specifying the stream name (either `Stdout` or `Stderr`),
+using the `stream` query string. You must have access to read the `log` subresource of that Pod.
+-->
+作为一种 Alpha 特性，kubelet 可以将容器产生的两个标准流的日志分开：
+[标准输出](https://en.wikipedia.org/wiki/Standard_streams#Standard_output_(stdout))和
+[标准错误](https://en.wikipedia.org/wiki/Standard_streams#Standard_error_(stderr))输出。
+要使用此行为，你必须启用 `PodLogsQuerySplitStreams`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+启用该特性门控后，Kubernetes {{< skew currentVersion >}} 允许通过 Pod API 直接访问这些日志流。
+你可以通过指定流名称（`Stdout` 或 `Stderr`）使用 `stream` 查询字符串来获取特定的流。
+你必须具有读取该 Pod 的 `log` 子资源的权限。
+
+<!--
+To demonstrate this feature, you can create a Pod that periodically writes text to both the standard output and error stream.
+-->
+要演示此特性，你可以创建一个定期向标准输出和标准错误流中写入文本的 Pod。
+
+{{% code_sample file="debug/counter-pod-err.yaml" %}}
+
+<!--
+To run this pod, use the following command:
+-->
+要运行此 Pod，使用以下命令：
+
+```shell
+kubectl apply -f https://k8s.io/examples/debug/counter-pod-err.yaml
+```
+
+<!--
+To fetch only the stderr log stream, you can run:
+-->
+要仅获取 stderr 日志流，你可以运行以下命令：
+
+```shell
+kubectl get --raw "/api/v1/namespaces/default/pods/counter-err/log?stream=Stderr"
+```
+
+<!--
 See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs)
 for more details.
 -->
@@ -161,7 +212,7 @@ kubelet 通过 Kubernetes API 的特殊功能将日志提供给客户端访问�
 <!--
 ### Log rotation
 -->
-### 日志轮转   {#log-rotation}
+### 日志轮换   {#log-rotation}
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
@@ -218,7 +269,7 @@ after 10 MiB, running `kubectl logs` returns at most 10MiB of data.
 -->
 只有最新的日志文件的内容可以通过 `kubectl logs` 获得。
 
-例如，如果 Pod 写入 40 MiB 的日志，并且 kubelet 在 10 MiB 之后轮转日志，
+例如，如果 Pod 写入 40 MiB 的日志，并且 kubelet 在 10 MiB 之后轮换日志，
 则运行 `kubectl logs` 将最多返回 10 MiB 的数据。
 {{< /note >}}
 
@@ -384,12 +435,12 @@ Some deploy tools account for that log rotation and automate it; others leave th
 as your responsibility.
 -->
 如果你部署 Kubernetes 集群组件（例如调度器）以将日志记录到从父节点共享的卷中，
-则需要考虑并确保这些日志被轮转。**Kubernetes 不管理这种日志轮转**。
+则需要考虑并确保这些日志被轮换。**Kubernetes 不管理这种日志轮换**。
 
-你的操作系统可能会自动实现一些日志轮转。例如，如果你将目录 `/var/log` 共享到一个组件的静态 Pod 中，
-则节点级日志轮转会将该目录中的文件视同为 Kubernetes 之外的组件所写入的文件。
+你的操作系统可能会自动实现一些日志轮换。例如，如果你将目录 `/var/log` 共享到一个组件的静态 Pod 中，
+则节点级日志轮换会将该目录中的文件视同为 Kubernetes 之外的组件所写入的文件。
 
-一些部署工具会考虑日志轮转并将其自动化；而其他一些工具会将此留给你来处理。
+一些部署工具会考虑日志轮换并将其自动化；而其他一些工具会将此留给你来处理。
 {{< /note >}}
 
 <!--
@@ -588,9 +639,9 @@ the application itself. An example of this approach is a small container running
 However, it's more straightforward to use `stdout` and `stderr` directly, and
 leave rotation and retention policies to the kubelet.
 -->
-边车容器还可用于轮转应用程序本身无法轮转的日志文件。
+边车容器还可用于轮换应用程序本身无法轮换的日志文件。
 这种方法的一个例子是定期运行 `logrotate` 的小容器。
-但是，直接使用 `stdout` 和 `stderr` 更直接，而将轮转和保留策略留给 kubelet。
+但是，直接使用 `stdout` 和 `stderr` 更直接，而将轮换和保留策略留给 kubelet。
 
 <!--
 The node-level agent installed in your cluster picks up those log streams
@@ -619,9 +670,9 @@ rotated by the application itself. An example of this approach is a small contai
 However, it's recommended to use `stdout` and `stderr` directly and leave rotation
 and retention policies to the kubelet.
 -->
-如果应用程序本身不能轮转日志文件，则可以通过边车容器实现。
-这种方式的一个例子是运行一个小的、定期轮转日志的容器。
-然而，还是推荐直接使用 `stdout` 和 `stderr`，将日志的轮转和保留策略交给 kubelet。
+如果应用程序本身不能轮换日志文件，则可以通过边车容器实现。
+这种方式的一个例子是运行一个小的、定期轮换日志的容器。
+然而，还是推荐直接使用 `stdout` 和 `stderr`，将日志的轮换和保留策略交给 kubelet。
 
 <!--
 #### Sidecar container with a logging agent
@@ -675,7 +726,7 @@ The second manifest describes a pod that has a sidecar container running fluentd
 The pod mounts a volume where fluentd can pick up its configuration data.
 -->
 第二个清单描述了一个运行 fluentd 边车容器的 Pod。
-该 Pod 挂载一个卷，flutend 可以从这个卷上拣选其配置数据。
+该 Pod 挂载一个卷，fluentd 可以从这个卷上拣选其配置数据。
 
 {{% code_sample file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" %}}
 

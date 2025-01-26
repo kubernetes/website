@@ -478,18 +478,17 @@ administrator intervention.
 
 {{% /tab %}}
 {{% tab name="By requesting expansion to smaller size" %}}
-{{% feature-state for_k8s_version="v1.23" state="alpha" %}}
+{{< feature-state feature_gate_name="RecoverVolumeExpansionFailure" >}}
 
 {{< note >}}
-Recovery from failing PVC expansion by users is available as an alpha feature
-since Kubernetes 1.23. The `RecoverVolumeExpansionFailure` feature must be
-enabled for this feature to work. Refer to the
+Recover from failing PVC expansion by users (`RecoverVolumeExpansionFailure`) is available as an beta feature
+since Kubernetes 1.32 and should be enabled by default. Refer to the
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 documentation for more information.
 {{< /note >}}
 
-If the feature gates `RecoverVolumeExpansionFailure` is
-enabled in your cluster, and expansion has failed for a PVC, you can retry expansion with a
+
+When using `RecoverVolumeExpansionFailure` feature, if expansion has failed for a PVC, you can retry expansion with a
 smaller size than the previously requested value. To request a new expansion attempt with a
 smaller proposed size, edit `.spec.resources` for that PVC and choose a value that is less than the
 value you previously tried.
@@ -633,7 +632,7 @@ The access modes are:
 
 `ReadWriteOnce`
 : the volume can be mounted as read-write by a single node. ReadWriteOnce access
-  mode still can allow multiple pods to access the volume when the pods are
+  mode still can allow multiple pods to access (read from or write to) that volume when the pods are
   running on the same node. For single pod access, please see ReadWriteOncePod.
 
 `ReadOnlyMany`
@@ -818,6 +817,14 @@ storage with specific access modes.
 
 Claims use [the same convention as volumes](#volume-mode) to indicate the
 consumption of the volume as either a filesystem or block device.
+
+### Volume Name
+
+Claims can use the `volumeName` field to explicitly bind to a specific PersistentVolume. You can also leave
+`volumeName` unset, indicating that you'd like Kubernetes to set up a new PersistentVolume
+that matches the claim.
+If the specified PV is already bound to another PVC, the binding will be stuck
+in a pending state.
 
 ### Resources
 

@@ -804,13 +804,17 @@ Used on: All Objects
 
 This annotation is used for describing specific behaviour of given object.
 
-### kubernetes.io/enforce-mountable-secrets {#enforce-mountable-secrets}
+### kubernetes.io/enforce-mountable-secrets (deprecated) {#enforce-mountable-secrets}
 
 Type: Annotation
 
 Example: `kubernetes.io/enforce-mountable-secrets: "true"`
 
 Used on: ServiceAccount
+
+{{< note >}}
+`kubernetes.io/enforce-mountable-secrets` is deprecated since Kubernetes v1.32. Use separate namespaces to isolate access to mounted secrets.
+{{< /note >}}
 
 The value for this annotation must be **true** to take effect.
 When you set this annotation  to "true", Kubernetes enforces the following rules for
@@ -1423,6 +1427,19 @@ Used on: Ingress
 Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassName`.
 {{< /note >}}
 
+### kubernetes.io/cluster-service (deprecated) {#kubernetes-io-cluster-service}
+
+Type: Label
+
+Example: `kubernetes.io/cluster-service: "true"`
+
+Used on: Service
+
+This label indicates that the Service provides a service to the cluster, if the value is set to true.
+When you run `kubectl cluster-info`, the tool queries for Services with this label set to true.
+
+However, setting this label on any Service is deprecated.
+
 ### storageclass.kubernetes.io/is-default-class
 
 Type: Annotation
@@ -1778,10 +1795,8 @@ Example: `node.kubernetes.io/out-of-service:NoExecute`
 Used on: Node
 
 A user can manually add the taint to a Node marking it out-of-service.
-If the `NodeOutOfServiceVolumeDetach`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled on `kube-controller-manager`, and a Node is marked out-of-service with this taint,
-the Pods on the node will be forcefully deleted if there are no matching tolerations on it and
+If a Node is marked out-of-service with this taint, the Pods on the node 
+will be forcefully deleted if there are no matching tolerations on it and
 volume detach operations for the Pods terminating on the node will happen immediately.
 This allows the Pods on the out-of-service node to recover quickly on a different node.
 
@@ -2535,6 +2550,111 @@ so that the descheduler will not remove this Pod.
 Starting in v1.16, this annotation was removed in favor of
 [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
 {{< /note >}}
+
+### jobset.sigs.k8s.io/jobset-name
+
+Type: Label, Annotation
+
+Example:  `jobset.sigs.k8s.io/jobset-name: "my-jobset"`
+
+Used on: Jobs, Pods
+
+This label/annotation is used to store the name of the JobSet that a Job or Pod belongs to.
+[JobSet](https://jobset.sigs.k8s.io) is an extension API that you can deploy into your Kubernetes cluster.
+
+### jobset.sigs.k8s.io/replicatedjob-replicas
+
+Type: Label, Annotation
+
+Example: `jobset.sigs.k8s.io/replicatedjob-replicas: "5"`
+
+Used on: Jobs, Pods
+
+This label/annotation specifies the number of replicas for a ReplicatedJob.
+
+### jobset.sigs.k8s.io/replicatedjob-name
+
+Type: Label, Annotation
+
+Example: `jobset.sigs.k8s.io/replicatedjob-name: "my-replicatedjob"`
+
+Used on: Jobs, Pods
+
+This label or annotation stores the name of the replicated job that this Job or Pod is part of.
+
+### jobset.sigs.k8s.io/job-index
+
+Type: Label, Annotation
+
+Example: `jobset.sigs.k8s.io/job-index: "0"`
+
+Used on: Jobs, Pods
+
+This label/annotation is set by the JobSet controller on child Jobs and Pods. It contains the index of the Job replica within its parent ReplicatedJob.
+
+### jobset.sigs.k8s.io/job-key
+
+Type: Label, Annotation
+
+Example: `jobset.sigs.k8s.io/job-key: "0f1e93893c4cb372080804ddb9153093cb0d20cefdd37f653e739c232d363feb"`
+
+Used on: Jobs, Pods
+
+The JobSet controller sets this label (and also an annotation with the same key)  on child Jobs and
+Pods of a JobSet. The value is the SHA256 hash of the namespaced Job name.
+
+### alpha.jobset.sigs.k8s.io/exclusive-topology
+
+Type: Annotation
+
+Example: `alpha.jobset.sigs.k8s.io/exclusive-topology: "zone"`
+
+Used on: JobSets, Jobs
+
+You can set this label/annotation on a [JobSet](https://jobset.sigs.k8s.io) to ensure exclusive Job
+placement per topology group. You can also define this label or annotation on a replicated job
+template. Read the documentation for JobSet to learn more.
+
+### alpha.jobset.sigs.k8s.io/node-selector
+
+Type: Annotation
+
+Example: `alpha.jobset.sigs.k8s.io/node-selector: "true"`
+
+Used on: Jobs, Pods
+
+This label/annotation can be applied to a JobSet. When it's set, the JobSet controller modifies the Jobs and their corresponding Pods by adding node selectors and tolerations. This ensures exclusive job placement per topology domain, restricting the scheduling of these Pods to specific nodes based on the strategy.
+
+### alpha.jobset.sigs.k8s.io/namespaced-job
+
+Type: Label
+
+Example: `alpha.jobset.sigs.k8s.io/namespaced-job: "default_myjobset-replicatedjob-0"`
+
+Used on: Nodes
+
+This label is either set manually or automatically (for example, a cluster autoscaler) on the nodes. When `alpha.jobset.sigs.k8s.io/node-selector` is set to  `"true"`, the  JobSet controller adds a nodeSelector to this node label (along with the toleration to the taint `alpha.jobset.sigs.k8s.io/no-schedule` disucssed next).
+
+### alpha.jobset.sigs.k8s.io/no-schedule
+
+Type: Taint
+
+Example: `alpha.jobset.sigs.k8s.io/no-schedule: "NoSchedule"`
+
+Used on: Nodes
+
+This taint is either set manually or automatically (for example, a cluster autoscaler) on the nodes. When `alpha.jobset.sigs.k8s.io/node-selector` is set to  `"true"`, the  JobSet controller adds a toleration to this node taint (along with the node selector to the label `alpha.jobset.sigs.k8s.io/namespaced-job` disucssed previously).
+
+### jobset.sigs.k8s.io/coordinator
+
+Type: Annotation, Label
+
+Example: `jobset.sigs.k8s.io/coordinator: "myjobset-workers-0-0.headless-svc"`
+
+Used on: Jobs, Pods
+
+This annotation/label is used on Jobs and Pods to store a stable network endpoint where the coordinator
+pod can be reached if the [JobSet](https://jobset.sigs.k8s.io) spec defines the `.spec.coordinator` field.
 
 ## Annotations used for audit
 

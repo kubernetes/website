@@ -90,7 +90,7 @@ other = """Somos un proyecto graduado de la <a href="https://cncf.io/">CNCF</a><
 [main_kubeweekly_baseline]
 other = "¿Interesado en recibir las últimas noticias de Kubernetes? Suscríbase a KubeWeekly."
 
-[main_kubernetes_past_link]
+[main_kubeweekly_past_link]
 other = "Ver boletines anteriores"
 
 [main_kubeweekly_signup]

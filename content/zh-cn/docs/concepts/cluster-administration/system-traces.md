@@ -23,12 +23,12 @@ System component traces record the latency of and relationships between operatio
 
 <!-- 
 Kubernetes components emit traces using the
-[OpenTelemetry Protocol](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#opentelemetry-protocol-specification)
+[OpenTelemetry Protocol](https://opentelemetry.io/docs/specs/otlp/)
 with the gRPC exporter and can be collected and routed to tracing backends using an
 [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector#-opentelemetry-collector).
 -->
 Kubernetes 组件基于 gRPC 导出器的
-[OpenTelemetry 协议](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#opentelemetry-protocol-specification)
+[OpenTelemetry 协议](https://opentelemetry.io/docs/specs/otlp/)
 发送追踪信息，并用
 [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector#-opentelemetry-collector)
 收集追踪信息，再将其转交给追踪系统的后台。

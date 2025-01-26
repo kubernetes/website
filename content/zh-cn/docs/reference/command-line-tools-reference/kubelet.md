@@ -6,7 +6,6 @@ weight: 20
 
 ## {{% heading "synopsis" %}}
 
-
 <!--
 The kubelet is the primary "node agent" that runs on each node. It can
 register the node with the apiserver using one of: the hostname; a flag to
@@ -722,6 +721,18 @@ When set to <code>true</code>, hard eviction thresholds will be ignored while ca
 </tr>
 
 <tr>
+<td colspan="2">--fail-cgroupv1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- Default: <code>true</code> -->默认值：<code>true</code></td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Prevent the kubelet from starting on the host using cgroup v1.
+-->
+禁止 kubelet 在使用 CGroup v1 的主机上启动。
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--fail-swap-on&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>true</code>-->默认值：<code>true</code></td>
 </tr>
 <tr>
@@ -749,129 +760,132 @@ APIServerTracing=true|false (BETA - default=true)<br/>
 APIServingWithRoutine=true|false (BETA - default=true)<br/>
 AllAlpha=true|false (ALPHA - default=false)<br/>
 AllBeta=true|false (BETA - default=false)<br/>
+AllowUnsafeMalformedObjectDeletion=true|false (ALPHA - default=false)<br/>
+AnonymousAuthConfigurableEndpoints=true|false (BETA - default=true)<br/>
 AnyVolumeDataSource=true|false (BETA - default=true)<br/>
-AppArmor=true|false (BETA - default=true)<br/>
-AppArmorFields=true|false (BETA - default=true)<br/>
+AuthorizeNodeWithSelectors=true|false (BETA - default=true)<br/>
+AuthorizeWithSelectors=true|false (BETA - default=true)<br/>
+BtreeWatchCache=true|false (BETA - default=true)<br/>
+CBORServingAndStorage=true|false (ALPHA - default=false)<br/>
 CPUManagerPolicyAlphaOptions=true|false (ALPHA - default=false)<br/>
 CPUManagerPolicyBetaOptions=true|false (BETA - default=true)<br/>
 CPUManagerPolicyOptions=true|false (BETA - default=true)<br/>
 CRDValidationRatcheting=true|false (BETA - default=true)<br/>
 CSIMigrationPortworx=true|false (BETA - default=false)<br/>
 CSIVolumeHealth=true|false (ALPHA - default=false)<br/>
+ClientsAllowCBOR=true|false (ALPHA - default=false)<br/>
+ClientsPreferCBOR=true|false (ALPHA - default=false)<br/>
 CloudControllerManagerWebhook=true|false (ALPHA - default=false)<br/>
 ClusterTrustBundle=true|false (ALPHA - default=false)<br/>
 ClusterTrustBundleProjection=true|false (ALPHA - default=false)<br/>
-ComponentSLIs=true|false (BETA - default=true)<br/>
-ConsistentListFromCache=true|false (ALPHA - default=false)<br/>
+ComponentFlagz=true|false (ALPHA - default=false)<br/>
+ComponentStatusz=true|false (ALPHA - default=false)<br/>
+ConcurrentWatchObjectDecode=true|false (BETA - default=false)<br/>
+ConsistentListFromCache=true|false (BETA - default=true)<br/>
 ContainerCheckpoint=true|false (BETA - default=true)<br/>
 ContextualLogging=true|false (BETA - default=true)<br/>
-CronJobsScheduledAnnotation=true|false (BETA - default=true)<br/>
+CoordinatedLeaderElection=true|false (ALPHA - default=false)<br/>
 CrossNamespaceVolumeDataSource=true|false (ALPHA - default=false)<br/>
 CustomCPUCFSQuotaPeriod=true|false (ALPHA - default=false)<br/>
-CustomResourceFieldSelectors=true|false (ALPHA - default=false)<br/>
-DevicePluginCDIDevices=true|false (BETA - default=true)<br/>
-DisableCloudProviders=true|false (BETA - default=true)<br/>
-DisableKubeletCloudCredentialProviders=true|false (BETA - default=true)<br/>
-DisableNodeKubeProxyVersion=true|false (ALPHA - default=false)<br/>
-DynamicResourceAllocation=true|false (ALPHA - default=false)<br/>
-ElasticIndexedJob=true|false (BETA - default=true)<br/>
+DRAAdminAccess=true|false (ALPHA - default=false)<br/>
+DRAResourceClaimDeviceStatus=true|false (ALPHA - default=false)<br/>
+DisableAllocatorDualWrite=true|false (ALPHA - default=false)
+DynamicResourceAllocation=true|false (BETA - default=false)<br/>
 EventedPLEG=true|false (ALPHA - default=false)<br/>
+ExternalServiceAccountTokenSigner=true|false (ALPHA - default=false)<br/>
 GracefulNodeShutdown=true|false (BETA - default=true)<br/>
 GracefulNodeShutdownBasedOnPodPriority=true|false (BETA - default=true)<br/>
 HPAScaleToZero=true|false (ALPHA - default=false)<br/>
-HonorPVReclaimPolicy=true|false (ALPHA - default=false)<br/>
+HonorPVReclaimPolicy=true|false (BETA - default=true)<br/>
 ImageMaximumGCAge=true|false (BETA - default=true)<br/>
+ImageVolume=true|false (ALPHA - default=false)<br/>
 InPlacePodVerticalScaling=true|false (ALPHA - default=false)<br/>
-InTreePluginAWSUnregister=true|false (ALPHA - default=false)<br/>
-InTreePluginAzureDiskUnregister=true|false (ALPHA - default=false)<br/>
-InTreePluginAzureFileUnregister=true|false (ALPHA - default=false)<br/>
-InTreePluginGCEUnregister=true|false (ALPHA - default=false)<br/>
-InTreePluginOpenStackUnregister=true|false (ALPHA - default=false)<br/>
+InPlacePodVerticalScalingAllocatedStatus=true|false (ALPHA - default=false)<br/>
+InPlacePodVerticalScalingExclusiveCPUs=true|false (ALPHA - default=false)<br/>
 InTreePluginPortworxUnregister=true|false (ALPHA - default=false)<br/>
-InTreePluginvSphereUnregister=true|false (ALPHA - default=false)<br/>
 InformerResourceVersion=true|false (ALPHA - default=false)<br/>
 JobBackoffLimitPerIndex=true|false (BETA - default=true)<br/>
 JobManagedBy=true|false (ALPHA - default=false)<br/>
-JobPodFailurePolicy=true|false (BETA - default=true)<br/>
 JobPodReplacementPolicy=true|false (BETA - default=true)<br/>
-JobSuccessPolicy=true|false (ALPHA - default=false)<br/>
-KubeProxyDrainingTerminatingNodes=true|false (BETA - default=true)<br/>
-KubeletCgroupDriverFromCRI=true|false (ALPHA - default=false)<br/>
+JobSuccessPolicy=true|false (BETA - default=true)<br/>
+KubeletCgroupDriverFromCRI=true|false (BETA - default=true)<br/>
+KubeletCrashLoopBackOffMax=true|false (ALPHA - default=false)<br/>
+KubeletFineGrainedAuthz=true|false (ALPHA - default=false)<br/>
 KubeletInUserNamespace=true|false (ALPHA - default=false)<br/>
 KubeletPodResourcesDynamicResources=true|false (ALPHA - default=false)<br/>
 KubeletPodResourcesGet=true|false (ALPHA - default=false)<br/>
-KubeletSeparateDiskGC=true|false (ALPHA - default=false)<br/>
+KubeletSeparateDiskGC=true|false (BETA - default=true)<br/>
 KubeletPodResourcesGetAllocatable=true|false (BETA - default=true)<br/>
 KubeletTracing=true|false (BETA - default=true)<br/>
-LoadBalancerIPMode=true|false (BETA - default=true)<br/>
-LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - default=false)<br/>
-LogarithmicScaleDown=true|false (BETA - default=true)<br/>
+LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (BETA - default=true)<br/>
 LoggingAlphaOptions=true|false (ALPHA - default=false)<br/>
 LoggingBetaOptions=true|false (BETA - default=true)<br/>
-MatchLabelKeysInPodAffinity=true|false (ALPHA - default=false)<br/>
+MatchLabelKeysInPodAffinity=true|false (BETA - default=true)<br/>
 MatchLabelKeysInPodTopologySpread=true|false (BETA - default=true)<br/>
 MaxUnavailableStatefulSet=true|false (ALPHA - default=false)<br/>
-MemoryManager=true|false (BETA - default=true)<br/>
 MemoryQoS=true|false (ALPHA - default=false)<br/>
-MultiCIDRServiceAllocator=true|false (ALPHA - default=false)<br/>
+MultiCIDRServiceAllocator=true|false (BETA - default=false)<br/>
 MutatingAdmissionPolicy=true|false (ALPHA - default=false)<br/>
-NFTablesProxyMode=true|false (ALPHA - default=false)<br/>
+NFTablesProxyMode=true|false (BETA - default=true)<br/>
 NodeInclusionPolicyInPodTopologySpread=true|false (BETA - default=true)<br/>
 NodeLogQuery=true|false (BETA - default=false)<br/>
 NodeSwap=true|false (BETA - default=true)<br/>
 OpenAPIEnums=true|false (BETA - default=true)<br/>
-PDBUnhealthyPodEvictionPolicy=true|false (BETA - default=true)<br/>
-PersistentVolumeLastPhaseTransitionTime=true|false (BETA - default=true)<br/>
 PodAndContainerStatsFromCRI=true|false (ALPHA - default=false)<br/>
 PodDeletionCost=true|false (BETA - default=true)<br/>
-PodDisruptionConditions=true|false (BETA - default=true)<br/>
-PodIndexLabel=true|false (BETA - default=true)<br/>
+PodLevelResources=true|false (ALPHA - default=false)<br/>
 PodLifecycleSleepAction=true|false (BETA - default=true)<br/>
+PodLifecycleSleepActionAllowZero=true|false (ALPHA - default=false)<br/>
+PodLogsQuerySplitStreams=true|false (ALPHA - default=false)<br/>
 PodReadyToStartContainersCondition=true|false (BETA - default=true)<br/>
-PortForwardWebsockets=true|false (ALPHA - default=false)<br/>
-ProcMountType=true|false (ALPHA - default=false)<br/>
+PortForwardWebsockets=true|false (BETA - default=true)<br/>
+ProcMountType=true|false (BETA - default=true)<br/>
 QOSReserved=true|false (ALPHA - default=false)<br/>
-RecoverVolumeExpansionFailure=true|false (ALPHA - default=false)<br/>
-RecursiveReadOnlyMounts=true|false (ALPHA - default=false)<br/>
-RelaxedEnvironmentVariableValidation=true|false (ALPHA - default=false)<br/>
-RetryGenerateName=true|false (ALPHA - default=false)<br/>
+RecoverVolumeExpansionFailure=true|false (BETA - default=true)<br/>
+RecursiveReadOnlyMounts=true|false (BETA - default=true)<br/>
+RelaxedDNSSearchValidation=true|false (ALPHA - default=false)<br/>
+RelaxedEnvironmentVariableValidation=true|false (BETA - default=true)<br/>
+ReloadKubeletServerCertificateFile=true|false (BETA - default=true)<br/>
+RemoteRequestHeaderUID=true|false (ALPHA - default=false)<br/>
+ResilientWatchCacheInitialization=true|false (BETA - default=true)<br/>
+ResourceHealthStatus=true|false (ALPHA - default=false)<br/>
 RotateKubeletServerCertificate=true|false (BETA - default=true)<br/>
 RuntimeClassInImageCriApi=true|false (ALPHA - default=false)<br/>
+SELinuxChangePolicy=true|false (ALPHA - default=false)<br/>
 SELinuxMount=true|false (ALPHA - default=false)<br/>
 SELinuxMountReadWriteOncePod=true|false (BETA - default=true)<br/>
-SchedulerQueueingHints=true|false (BETA - default=false)<br/>
+SchedulerAsyncPreemption=true|false (ALPHA - default=false)<br/>
+SchedulerQueueingHints=true|false (BETA - default=true)<br/>
 SeparateCacheWatchRPC=true|false (BETA - default=true)<br/>
 SeparateTaintEvictionController=true|false (BETA - default=true)<br/>
-ServiceAccountTokenJTI=true|false (BETA - default=true)<br/>
-ServiceAccountTokenNodeBinding=true|false (ALPHA - default=false)<br/>
-ServiceAccountTokenNodeBindingValidation=true|false (BETA - default=true)<br/>
-ServiceAccountTokenPodNodeInfo=true|false (BETA - default=true)<br/>
-ServiceTrafficDistribution=true|false (ALPHA - default=false)<br/>
+ServiceAccountNodeAudienceRestriction=true|false (BETA - default=true)<br/>
+ServiceAccountTokenNodeBinding=true|false (BETA - default=true)<br/>
+ServiceTrafficDistribution=true|false (BETA - default=true)<br/>
 SidecarContainers=true|false (BETA - default=true)<br/>
-SizeMemoryBackedVolumes=true|false (BETA - default=true)<br/>
-StatefulSetAutoDeletePVC=true|false (BETA - default=true)<br/>
-StatefulSetStartOrdinal=true|false (BETA - default=true)<br/>
 StorageNamespaceIndex=true|false (BETA - default=true)<br/>
 StorageVersionAPI=true|false (ALPHA - default=false)<br/>
 StorageVersionMigrator=true|false (ALPHA - default=false)<br/>
 StructuredAuthenticationConfiguration=true|false (BETA - default=true)<br/>
-StructuredAuthorizationConfiguration=true|false (BETA - default=true)<br/>
+SupplementalGroupsPolicy=true|false (ALPHA - default=false)<br/>
+SystemdWatchdog=true|false (BETA - default=true)<br/>
 TopologyAwareHints=true|false (BETA - default=true)<br/>
 TopologyManagerPolicyAlphaOptions=true|false (ALPHA - default=false)<br/>
 TopologyManagerPolicyBetaOptions=true|false (BETA - default=true)<br/>
-TopologyManagerPolicyOptions=true|false (BETA - default=true)<br/>
 TranslateStreamCloseWebsocketRequests=true|false (BETA - default=true)<br/>
 UnauthenticatedHTTP2DOSMitigation=true|false (BETA - default=true)<br/>
 UserNamespacesPodSecurityStandards=true|false (ALPHA - default=false)<br/>
 UnknownVersionInteroperabilityProxy=true|false (ALPHA - default=false)<br/>
 UserNamespacesSupport=true|false (BETA - default=false)<br/>
-VolumeAttributesClass=true|false (ALPHA - default=false)<br/>
+VolumeAttributesClass=true|false (BETA - default=false)<br/>
 VolumeCapacityPriority=true|false (ALPHA - default=false)<br/>
+WatchCacheInitializationPostStartHook=true|false (BETA - default=false)<br/>
 WatchFromStorageWithoutResourceVersion=true|false (BETA - default=false)<br/>
-WatchList=true|false (ALPHA - default=false)<br/>
+WatchList=true|false (BETA - default=true)<br/>
 WatchListClient=true|false (BETA - default=false)<br/>
 WinDSR=true|false (ALPHA - default=false)<br/>
 WinOverlay=true|false (BETA - default=true)<br/>
+WindowsCPUAndMemoryAffinity=true|false (ALPHA - default=false)<br/>
+WindowsGracefulNodeShutdown=true|false (ALPHA - default=false)<br/>
 WindowsHostNetwork=true|false (ALPHA - default=true)<br/>
 (DEPRECATED: This parameter should be set via the config file specified by the kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 -->
@@ -883,130 +897,134 @@ APIServerTracing=true|false (BETA - 默认值为 true)<br/>
 APIServingWithRoutine=true|false (BETA - 默认值为 true)<br/>
 AllAlpha=true|false (ALPHA - 默认值为 false)<br/>
 AllBeta=true|false (BETA - 默认值为 false)<br/>
+AllowUnsafeMalformedObjectDeletion=true|false (ALPHA - 默认值为 false)<br/>
+AnonymousAuthConfigurableEndpoints=true|false (BETA - 默认值为 true)<br/>
 AnyVolumeDataSource=true|false (BETA - 默认值为 true)<br/>
-AppArmor=true|false (BETA - 默认值为 true)<br/>
-AppArmorFields=true|false (BETA - 默认值为 true)<br/>
+AuthorizeNodeWithSelectors=true|false (BETA - 默认值为 true)<br/>
+AuthorizeWithSelectors=true|false (BETA - 默认值为 true)<br/>
+BtreeWatchCache=true|false (BETA - 默认值为 true)<br/>
+CBORServingAndStorage=true|false (ALPHA - 默认值为 false)<br/>
 CPUManagerPolicyAlphaOptions=true|false (ALPHA - 默认值为 false)<br/>
 CPUManagerPolicyBetaOptions=true|false (BETA - 默认值为 true)<br/>
 CPUManagerPolicyOptions=true|false (BETA - 默认值为 true)<br/>
 CRDValidationRatcheting=true|false (BETA - 默认值为 true)<br/>
 CSIMigrationPortworx=true|false (BETA - 默认值为 false)<br/>
 CSIVolumeHealth=true|false (ALPHA - 默认值为 false)<br/>
+ClientsAllowCBOR=true|false (ALPHA - 默认值为 false)<br/>
+ClientsPreferCBOR=true|false (ALPHA - 默认值为 false)<br/>
 CloudControllerManagerWebhook=true|false (ALPHA - 默认值为 false)<br/>
 ClusterTrustBundle=true|false (ALPHA - 默认值为 false)<br/>
 ClusterTrustBundleProjection=true|false (ALPHA - 默认值为 false)<br/>
-ComponentSLIs=true|false (BETA - 默认值为 true)<br/>
-ConsistentListFromCache=true|false (ALPHA - 默认值为 false)<br/>
+ComponentFlagz=true|false (ALPHA - 默认值为 false)<br/>
+ComponentStatusz=true|false (ALPHA - 默认值为 false)<br/>
+ConcurrentWatchObjectDecode=true|false (BETA - 默认值为 false)<br/>
+ConsistentListFromCache=true|false (BETA - 默认值为 true)<br/>
 ContainerCheckpoint=true|false (BETA - 默认值为 true)<br/>
 ContextualLogging=true|false (BETA - 默认值为 true)<br/>
-CronJobsScheduledAnnotation=true|false (BETA - 默认值为 true)<br/>
+CoordinatedLeaderElection=true|false (ALPHA - 默认值为 false)<br/>
 CrossNamespaceVolumeDataSource=true|false (ALPHA - 默认值为 false)<br/>
 CustomCPUCFSQuotaPeriod=true|false (ALPHA - 默认值为 false)<br/>
 CustomResourceFieldSelectors=true|false (ALPHA - 默认值为 false)<br/>
-DevicePluginCDIDevices=true|false (BETA - 默认值为 true)<br/>
-DisableCloudProviders=true|false (BETA - 默认值为 true)<br/>
-DisableKubeletCloudCredentialProviders=true|false (BETA - 默认值为 true)<br/>
-DisableNodeKubeProxyVersion=true|false (ALPHA - 默认值为 false)<br/>
-DynamicResourceAllocation=true|false (ALPHA - 默认值为 false)<br/>
-ElasticIndexedJob=true|false (BETA - 默认值为 true)<br/>
+DRAAdminAccess=true|false (ALPHA - 默认值为 false)<br/>
+DRAResourceClaimDeviceStatus=true|false (ALPHA - 默认值为 false)<br/>
+DisableAllocatorDualWrite=true|false (ALPHA - 默认值为 false)
+DynamicResourceAllocation=true|false (BETA - 默认值为 false)<br/>
 EventedPLEG=true|false (ALPHA - 默认值为 false)<br/>
+ExternalServiceAccountTokenSigner=true|false (ALPHA - 默认值为 false)<br/>
 GracefulNodeShutdown=true|false (BETA - 默认值为 true)<br/>
 GracefulNodeShutdownBasedOnPodPriority=true|false (BETA - 默认值为 true)<br/>
 HPAScaleToZero=true|false (ALPHA - 默认值为 false)<br/>
-HonorPVReclaimPolicy=true|false (ALPHA - 默认值为 false)<br/>
+HonorPVReclaimPolicy=true|false (BETA - 默认值为 true)<br/>
 ImageMaximumGCAge=true|false (BETA - 默认值为 true)<br/>
+ImageVolume=true|false (ALPHA - 默认值为 false)<br/>
 InPlacePodVerticalScaling=true|false (ALPHA - 默认值为 false)<br/>
-InTreePluginAWSUnregister=true|false (ALPHA - 默认值为 false)<br/>
-InTreePluginAzureDiskUnregister=true|false (ALPHA - 默认值为 false)<br/>
-InTreePluginAzureFileUnregister=true|false (ALPHA - 默认值为 false)<br/>
-InTreePluginGCEUnregister=true|false (ALPHA - 默认值为 false)<br/>
-InTreePluginOpenStackUnregister=true|false (ALPHA - 默认值为 false)<br/>
+InPlacePodVerticalScalingAllocatedStatus=true|false (ALPHA - 默认值为 false)<br/>
+InPlacePodVerticalScalingExclusiveCPUs=true|false (ALPHA - 默认值为 false)<br/>
 InTreePluginPortworxUnregister=true|false (ALPHA - 默认值为 false)<br/>
-InTreePluginvSphereUnregister=true|false (ALPHA - 默认值为 false)<br/>
 InformerResourceVersion=true|false (ALPHA - 默认值为 false)<br/>
 JobBackoffLimitPerIndex=true|false (BETA - 默认值为 true)<br/>
 JobManagedBy=true|false (ALPHA - 默认值为 false)<br/>
-JobPodFailurePolicy=true|false (BETA - 默认值为 true)<br/>
 JobPodReplacementPolicy=true|false (BETA - 默认值为 true)<br/>
-JobSuccessPolicy=true|false (ALPHA - 默认值为 false)<br/>
-KubeProxyDrainingTerminatingNodes=true|false (BETA - 默认值为 true)<br/>
-KubeletCgroupDriverFromCRI=true|false (ALPHA - 默认值为 false)<br/>
+JobSuccessPolicy=true|false (BETA - 默认值为 true)<br/>
+KubeletCgroupDriverFromCRI=true|false (BETA - 默认值为 true)<br/>
+KubeletCrashLoopBackOffMax=true|false (ALPHA - 默认值为 false)<br/>
+KubeletFineGrainedAuthz=true|false (ALPHA - 默认值为 false)<br/>
 KubeletInUserNamespace=true|false (ALPHA - 默认值为 false)<br/>
 KubeletPodResourcesDynamicResources=true|false (ALPHA - 默认值为 false)<br/>
 KubeletPodResourcesGet=true|false (ALPHA - 默认值为 false)<br/>
-KubeletSeparateDiskGC=true|false (ALPHA - 默认值为 false)<br/>
+KubeletSeparateDiskGC=true|false (BETA - 默认值为 true)<br/>
 KubeletPodResourcesGetAllocatable=true|false (BETA - 默认值为 true)<br/>
 KubeletTracing=true|false (BETA - 默认值为 true)<br/>
-LoadBalancerIPMode=true|false (BETA - 默认值为 true)<br/>
-LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - 默认值为 false)<br/>
-LogarithmicScaleDown=true|false (BETA - 默认值为 true)<br/>
+LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (BETA - 默认值为 true)<br/>
 LoggingAlphaOptions=true|false (ALPHA - 默认值为 false)<br/>
 LoggingBetaOptions=true|false (BETA - 默认值为 true)<br/>
-MatchLabelKeysInPodAffinity=true|false (ALPHA - 默认值为 false)<br/>
+MatchLabelKeysInPodAffinity=true|false (BETA - 默认值为 true)<br/>
 MatchLabelKeysInPodTopologySpread=true|false (BETA - 默认值为 true)<br/>
 MaxUnavailableStatefulSet=true|false (ALPHA - 默认值为 false)<br/>
-MemoryManager=true|false (BETA - 默认值为 true)<br/>
 MemoryQoS=true|false (ALPHA - 默认值为 false)<br/>
-MultiCIDRServiceAllocator=true|false (ALPHA - 默认值为 false)<br/>
+MultiCIDRServiceAllocator=true|false (BETA - 默认值为 false)<br/>
 MutatingAdmissionPolicy=true|false (ALPHA - 默认值为 false)<br/>
-NFTablesProxyMode=true|false (ALPHA - 默认值为 false)<br/>
+NFTablesProxyMode=true|false (BETA - 默认值为 true)<br/>
 NodeInclusionPolicyInPodTopologySpread=true|false (BETA - 默认值为 true)<br/>
 NodeLogQuery=true|false (BETA - 默认值为 false)<br/>
 NodeSwap=true|false (BETA - 默认值为 true)<br/>
 OpenAPIEnums=true|false (BETA - 默认值为 true)<br/>
-PDBUnhealthyPodEvictionPolicy=true|false (BETA - 默认值为 true)<br/>
-PersistentVolumeLastPhaseTransitionTime=true|false (BETA - 默认值为 true)<br/>
 PodAndContainerStatsFromCRI=true|false (ALPHA - 默认值为 false)<br/>
 PodDeletionCost=true|false (BETA - 默认值为 true)<br/>
-PodDisruptionConditions=true|false (BETA - 默认值为 true)<br/>
-PodIndexLabel=true|false (BETA - 默认值为 true)<br/>
+PodLevelResources=true|false (ALPHA - 默认值为 false)<br/>
 PodLifecycleSleepAction=true|false (BETA - 默认值为 true)<br/>
+PodLifecycleSleepActionAllowZero=true|false (ALPHA - 默认值为 false)<br/>
+PodLogsQuerySplitStreams=true|false (ALPHA - 默认值为 false)<br/>
 PodReadyToStartContainersCondition=true|false (BETA - 默认值为 true)<br/>
-PortForwardWebsockets=true|false (ALPHA - 默认值为 false)<br/>
-ProcMountType=true|false (ALPHA - 默认值为 false)<br/>
+PortForwardWebsockets=true|false (BETA - 默认值为 true)<br/>
+ProcMountType=true|false (BETA - 默认值为 true)<br/>
 QOSReserved=true|false (ALPHA - 默认值为 false)<br/>
-RecoverVolumeExpansionFailure=true|false (ALPHA - 默认值为 false)<br/>
-RecursiveReadOnlyMounts=true|false (ALPHA - 默认值为 false)<br/>
-RelaxedEnvironmentVariableValidation=true|false (ALPHA - 默认值为 false)<br/>
-RetryGenerateName=true|false (ALPHA - 默认值为 false)<br/>
+RecoverVolumeExpansionFailure=true|false (BETA - 默认值为 true)<br/>
+RecursiveReadOnlyMounts=true|false (BETA - 默认值为 true)<br/>
+RelaxedDNSSearchValidation=true|false (ALPHA - 默认值为 false)<br/>
+RelaxedEnvironmentVariableValidation=true|false (BETA - 默认值为 true)<br/>
+ReloadKubeletServerCertificateFile=true|false (BETA - 默认值为 true)<br/>
+RemoteRequestHeaderUID=true|false (ALPHA - 默认值为 false)<br/>
+ResilientWatchCacheInitialization=true|false (BETA - 默认值为 true)<br/>
+ResourceHealthStatus=true|false (ALPHA - 默认值为 false)<br/>
 RotateKubeletServerCertificate=true|false (BETA - 默认值为 true)<br/>
 RuntimeClassInImageCriApi=true|false (ALPHA - 默认值为 false)<br/>
+SELinuxChangePolicy=true|false (ALPHA - 默认值为 false)<br/>
 SELinuxMount=true|false (ALPHA - 默认值为 false)<br/>
 SELinuxMountReadWriteOncePod=true|false (BETA - 默认值为 true)<br/>
-SchedulerQueueingHints=true|false (BETA - 默认值为 false)<br/>
-SeparateCacheWatchRPC=true|false (BETA - 默认值为 true)<br/>
+SchedulerAsyncPreemption=true|false (ALPHA - 默认值为 false)<br/>
+SchedulerQueueingHints=true|false (BETA - 默认值为 true)<br/>
 SeparateTaintEvictionController=true|false (BETA - 默认值为 true)<br/>
-ServiceAccountTokenJTI=true|false (BETA - 默认值为 true)<br/>
-ServiceAccountTokenNodeBinding=true|false (ALPHA - 默认值为 false)<br/>
-ServiceAccountTokenNodeBindingValidation=true|false (BETA - 默认值为 true)<br/>
-ServiceAccountTokenPodNodeInfo=true|false (BETA - 默认值为 true)<br/>
-ServiceTrafficDistribution=true|false (ALPHA - 默认值为 false)<br/>
+ServiceAccountNodeAudienceRestriction=true|false (BETA - 默认值为 true)<br/>
+ServiceAccountTokenNodeBinding=true|false (BETA - 默认值为 true)<br/>
+ServiceTrafficDistribution=true|false (BETA - 默认值为 true)<br/>
 SidecarContainers=true|false (BETA - default=true)<br/>
-SizeMemoryBackedVolumes=true|false (BETA - 默认值为 true)<br/>
-StatefulSetAutoDeletePVC=true|false (BETA - 默认值为 true)<br/>
-StatefulSetStartOrdinal=true|false (BETA - 默认值为 true)<br/>
 StorageNamespaceIndex=true|false (BETA - 默认值为 true)<br/>
 StorageVersionAPI=true|false (ALPHA - 默认值为 false)<br/>
 StorageVersionHash=true|false (BETA - 默认值为 true)<br/>
 StorageVersionMigrator=true|false (ALPHA - 默认值为 false)<br/>
 StructuredAuthenticationConfiguration=true|false (BETA - 默认值为 true)<br/>
-StructuredAuthorizationConfiguration=true|false (BETA - 默认值为 true)<br/>
+SupplementalGroupsPolicy=true|false (ALPHA - 默认值为 false)<br/>
+SystemdWatchdog=true|false (BETA - 默认值为 true)<br/>
 TopologyAwareHints=true|false (BETA - 默认值为 true)<br/>
 TopologyManagerPolicyAlphaOptions=true|false (ALPHA - 默认值为 false)<br/>
 TopologyManagerPolicyBetaOptions=true|false (BETA - 默认值为 true)<br/>
-TopologyManagerPolicyOptions=true|false (BETA - 默认值为 true)<br/>
 TranslateStreamCloseWebsocketRequests=true|false (BETA - 默认值为 true)<br/>
 UnauthenticatedHTTP2DOSMitigation=true|false (BETA - 默认值为 true)<br/>
 UnknownVersionInteroperabilityProxy=true|false (ALPHA - 默认值为 false)<br/>
 UserNamespacesPodSecurityStandards=true|false (ALPHA - 默认值为 false)<br/>
 UserNamespacesSupport=true|false (BETA - 默认值为 false)<br/>
-VolumeAttributesClass=true|false (ALPHA - 默认值为 false)<br/>
+VolumeAttributesClass=true|false (BETA - 默认值为 false)<br/>
 VolumeCapacityPriority=true|false (ALPHA - 默认值为 false)<br/>
+WatchCacheInitializationPostStartHook=true|false (BETA - 默认值为 false)<br/>
 WatchFromStorageWithoutResourceVersion=true|false (BETA - 默认值为 false)<br/>
 WatchList=true|false (ALPHA - 默认值为 false)<br/>
+WatchList=true|false (BETA - 默认值为 true)<br/>
 WatchListClient=true|false (BETA - 默认值为 false)<br/>
 WinDSR=true|false (ALPHA - 默认值为 false)<br/>
 WinOverlay=true|false (BETA - 默认值为 true)<br/>
+WindowsCPUAndMemoryAffinity=true|false (ALPHA - 默认值为 false)<br/>
+WindowsGracefulNodeShutdown=true|false (ALPHA - 默认值为 false)<br/>
 WindowsHostNetwork=true|false (ALPHA - 默认值为 true)<br/>
 已弃用: 应在 <code>--config</code> 所给的配置文件中进行设置。
 （<a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file">进一步了解</a>）
@@ -1192,19 +1210,6 @@ The bit of the <code>fwmark</code> space to mark packets for SNAT. Must be withi
 请将此参数与 <code>kube-proxy</code> 中的相应参数匹配。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--keep-terminated-pod-volumes</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-Keep terminated pod volumes mounted to the node after the pod terminates. Can be useful for debugging volume related issues. (DEPRECATED: will be removed in a future version)
--->
-设置为 true 表示 Pod 终止后仍然保留之前挂载过的卷，常用于调试与卷有关的问题。
-已弃用：将未来版本中移除。
 </td>
 </tr>
 
@@ -1710,9 +1715,9 @@ The CIDR to use for pod IP addresses, only used in standalone mode. In cluster m
 <tr>
 <td colspan="2">--pod-infra-container-image string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <!--
-Default: <code>registry.k8s.io/pause:3.9
+Default: <code>registry.k8s.io/pause:3.10
 -->
-默认值: <code>registry.k8s.io/pause:3.9
+默认值: <code>registry.k8s.io/pause:3.10
 </code></td>
 </tr>
 <tr>

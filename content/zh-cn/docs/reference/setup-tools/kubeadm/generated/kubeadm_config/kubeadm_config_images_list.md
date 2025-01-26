@@ -13,7 +13,7 @@ Print a list of images kubeadm will use. The configuration file is used in case 
 -->
 打印 kubeadm 要使用的镜像列表。配置文件用于自定义镜像或镜像存储库。
 
-```
+```shell
 kubeadm config images list [flags]
 ```
 
@@ -22,7 +22,7 @@ kubeadm config images list [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -37,10 +37,10 @@ kubeadm config images list [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!-- 
 If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
 -->
-<p>
 如果设置为 true，则在模板中缺少字段或哈希表的键时忽略模板中的任何错误。
 仅适用于 golang 和 jsonpath 输出格式。
 </p>
@@ -52,10 +52,10 @@ If true, ignore any errors in templates when a field or map key is missing in th
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a kubeadm configuration file.
 -->
-<p>
 kubeadm 配置文件的路径。
 </p>
 </td>
@@ -82,20 +82,20 @@ Output format. One of: text|json|yaml|go-template|go-template-file|template|temp
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
+ControlPlaneKubeletLocalMode=true|false (ALPHA - default=false)<br/>
 EtcdLearnerMode=true|false (BETA - default=true)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)<br/>
-WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
+WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)</p>
 -->
-<p>
 一组键值对（key=value），用于描述各种特性。这些选项是：<br/>
+ControlPlaneKubeletLocalMode=true|false (ALPHA - 默认值=false)<br/>
 EtcdLearnerMode=true|false (BETA - 默认值=true)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)<br/>
 WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
 </p>
 </td>
@@ -106,10 +106,10 @@ WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for list
 -->
-<p>
 list 操作的帮助命令。
 </p>
 </td>
@@ -125,10 +125,10 @@ list 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Choose a container registry to pull control plane images from
 -->
-<p>
 选择要从中拉取控制平面镜像的容器仓库。
 </p>
 </td>
@@ -144,10 +144,10 @@ Choose a container registry to pull control plane images from
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Choose a specific Kubernetes version for the control plane.
 -->
-<p>
 为控制平面选择一个特定的 Kubernetes 版本。
 </p>
 </td>
@@ -163,10 +163,10 @@ Choose a specific Kubernetes version for the control plane.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
-<p>
 如果为 true，则在以 JSON 或 YAML 格式打印对象时保留 managedFields。
 </p>
 </td>
@@ -180,7 +180,7 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
 ### 从父命令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -197,11 +197,12 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-<p>
-用于和集群通信的 kubeconfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 kubeconfig 文件。
+用于和集群通信的 kubeconfig 文件。如果它没有被设置，那么 kubeadm
+将会搜索一个已经存在于标准路径的 kubeconfig 文件。
 </p>
 </td>
 </tr>
@@ -211,10 +212,10 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>
 [实验] 到“真实”主机根文件系统的路径。
 </p>
 </td>

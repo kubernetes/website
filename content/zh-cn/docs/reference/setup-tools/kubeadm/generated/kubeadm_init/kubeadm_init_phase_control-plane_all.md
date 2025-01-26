@@ -31,7 +31,7 @@ kubeadm init phase control-plane all --config config.yaml
 -->
 ### 示例
 
-```
+```shell
 # 为控制平面组件生成静态 Pod 清单文件，其功能等效于 kubeadm init 生成的文件。
 kubeadm init phase control-plane all
 
@@ -44,7 +44,7 @@ kubeadm init phase control-plane all --config config.yaml
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -176,18 +176,20 @@ Don't apply any changes; just output what would be done.
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-EtcdLearnerMode=true|false (BETA - default=true)<br/>
+ControlPlaneKubeletLocalMode=true|false (ALPHA - default=false)<br/>
+EtcdLearnerMode=true|false (default=true)<br/>
+NodeLocalCRISocket=true|false (ALPHA - default=false)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)<br/>
 WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
 -->
 <p>
 一组用来描述各种特性门控的键值（key=value）对。选项是：<br/>
-EtcdLearnerMode=true|false (BETA - 默认值=true)<br/>
+ControlPlaneKubeletLocalMode=true|false (ALPHA - 默认值=false)<br/>
+EtcdLearnerMode=true|false (默认值=true)<br/>
+NodeLocalCRISocket=true|false (ALPHA - 默认值=false)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)
 WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
 </p>
 </td>
@@ -255,7 +257,7 @@ Path to a directory that contains files named &quot;target[suffix][+patchtype].e
 -->
 <p>
 包含名为 &quot;target[suffix][+patchtype].extension&quot; 的文件的目录的路径。
-例如，&quot;kube-apiserver0+merge.yaml&quot;或是简单的 &quot;etcd.json&quot;。
+例如，&quot;kube-apiserver0+merge.yaml&quot; 或是简单的 &quot;etcd.json&quot;。
 &quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、&quot;kube-scheduler&quot;、&quot;etcd&quot;、&quot;kubeletconfiguration&quot; 之一。
 &quot;patchtype&quot; 可以是 &quot;strategic&quot;、&quot;merge&quot; 或者 &quot;json&quot; 之一，
 并且它们与 kubectl 支持的补丁格式相匹配。
@@ -322,7 +324,7 @@ Use alternative range of IP address for service VIPs.
 -->
 ### 从父指令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />

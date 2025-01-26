@@ -233,7 +233,7 @@ discussed in [Setting up nodes with profiles](#setting-up-nodes-with-profiles).
 -->
 ```shell
 # 此示例假设节点名称与主机名称匹配，并且可通过 SSH 访问。
-NODES=($(kubectl get nodes -o name))
+NODES=($( kubectl get node -o jsonpath='{.items[*].status.addresses[?(.type == "Hostname")].address}' ))
 for NODE in ${NODES[*]}; do ssh $NODE 'sudo apparmor_parser -q <<EOF
 #include <tunables/global>
 
