@@ -85,7 +85,7 @@ Você é bem-vindo para participar do fórum oficial do Kubernetes: [discuss.kub
 
 ### Relatórios de bugs e solicitações de recursos
 
-Se você encontrou o que parece ser um bug ou deseja fazer uma solicitação de recurso, use o [sistema de rastreamento de problemas no GitHub](https://github.com/kubernetes/kubernetes/issues).
+Se você encontrou o que parece ser um bug ou deseja solicitar uma nova funcionalidade, use o [sistema de rastreamento de problemas no GitHub](https://github.com/kubernetes/kubernetes/issues).
 
 Antes de registrar um problema, pesquise os problemas existentes para verificar se sua questão já foi abordada.
 
