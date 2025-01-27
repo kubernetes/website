@@ -60,7 +60,7 @@ ServiceCIDRは{{<glossary_tooltip text="ファイナライザー" term_id="final
 
 ### 新しいServiceCIDRを追加する
 
-Service用として10.96.0.0/28の範囲が設定されたクラスタでは、2^(32-28) - 2 = 14個のIPアドレスしか使用できません。`kubernetes.default`Serviceは常に作成されるため、この例では実質的に13個しかServiceを作れません。
+Service用として10.96.0.0/28の範囲が設定されたクラスターでは、2^(32-28) - 2 = 14個のIPアドレスしか使用できません。`kubernetes.default`Serviceは常に作成されるため、この例では最大13個しかServiceを作れません。
 
 ```sh
 for i in $(seq 1 13); do kubectl create service clusterip "test-$i" --tcp 80 -o json | jq -r .spec.clusterIP; done
