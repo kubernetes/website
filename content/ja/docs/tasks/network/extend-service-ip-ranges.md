@@ -30,7 +30,7 @@ NAME         CIDRS          AGE
 kubernetes   10.96.0.0/28   17d
 ```
 
-APIサーバーのエンドポイントをPodに公開するwell-knownな`kubernetes`というServiceは、デフォルトのServiceCIDRの範囲の最初のIPアドレスを算出し、そのIPアドレスをCluster IPとして使用します。
+APIサーバーのエンドポイントをPodに公開する`kubernetes`という特別なServiceは、デフォルトのServiceCIDRの範囲の最初のIPアドレスを算出し、そのIPアドレスをCluster IPとして使用します。
 
 ```sh
 kubectl get service kubernetes
