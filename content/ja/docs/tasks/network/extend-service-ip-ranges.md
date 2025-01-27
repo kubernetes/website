@@ -19,7 +19,7 @@ content_type: task
 
 ## API
 
-APIサーバーで`MultiCIDRServiceAllocator`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効にし、`networking.k8s.io/v1beta1`APIグループをアクティブにしているKubernetesクラスターは、`kubernetes`という名前のwell-knownなServiceCIDRオブジェクトを作成します。このオブジェクトには、APIサーバーのコマンドライン引数`--service-cluster-ip-range`の値に基づいたIPアドレス範囲が指定されます。
+APIサーバーで`MultiCIDRServiceAllocator`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効にし、`networking.k8s.io/v1beta1`APIグループをアクティブにしているKubernetesクラスターは、`kubernetes`という名前の特別なServiceCIDRオブジェクトを作成します。このオブジェクトには、APIサーバーのコマンドライン引数`--service-cluster-ip-range`の値に基づいたIPアドレス範囲が指定されます。
 
 ```sh
 kubectl get servicecidr
