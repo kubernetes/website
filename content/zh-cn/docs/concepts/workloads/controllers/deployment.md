@@ -137,18 +137,18 @@ In this example:
   {{< /note >}}
 
 <!--
-* The `template` field contains the following sub-fields:
+* The `.spec.template` field contains the following sub-fields:
   * The Pods are labeled `app: nginx`using the `.metadata.labels` field.
-  * The Pod template's specification, or `.template.spec` field, indicates that
+  * The Pod template's specification, or `.spec` field, indicates that
     the Pods run one container, `nginx`, which runs the `nginx`
     [Docker Hub](https://hub.docker.com/) image at version 1.14.2.
-  * Create one container and name it `nginx` using the `.spec.template.spec.containers[0].name` field.
+  * Create one container and name it `nginx` using the `.spec.containers[0].name` field.
 -->
-* `template` 字段包含以下子字段：
+* `.spec.template` 字段包含以下子字段：
   * Pod 被使用 `.metadata.labels` 字段打上 `app: nginx` 标签。
-  * Pod 模板规约（即 `.template.spec` 字段）指示 Pod 运行一个 `nginx` 容器，
+  * Pod 模板规约（即 `.spec` 字段）指示 Pod 运行一个 `nginx` 容器，
     该容器运行版本为 1.14.2 的 `nginx` [Docker Hub](https://hub.docker.com/) 镜像。
-  * 创建一个容器并使用 `.spec.template.spec.containers[0].name` 字段将其命名为 `nginx`。
+  * 创建一个容器并使用 `.spec.containers[0].name` 字段将其命名为 `nginx`。
 
 <!--
 Before you begin, make sure your Kubernetes cluster is up and running.
