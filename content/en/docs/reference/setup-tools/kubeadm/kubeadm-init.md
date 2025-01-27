@@ -155,7 +155,7 @@ List of feature gates:
 {{< table caption="kubeadm feature gates" >}}
 Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
-`ControlPlaneKubeletLocalMode` | `false` | 1.31 | - | -
+`ControlPlaneKubeletLocalMode` | `true` | 1.31 | 1.33 | -
 `NodeLocalCRISocket` | `false` | 1.32 | - | -
 `WaitForAllControlPlaneComponents` | `false` | 1.30 | - | -
 {{< /table >}}
