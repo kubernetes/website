@@ -26,4 +26,4 @@ Kubernetes was designed from the start to make these capabilities available to e
 Mesosphere, one of the earliest supporters of the Kubernetes project, has been working closely with the core Kubernetes team to create a natural experience for users looking to get the best of both worlds, adding Kubernetes to every Mesos deployment they instantiate, whether it be in the public cloud, private cloud, or in a hybrid deployment model.  This is well aligned with the overall Kubernetes vision of creating ubiquitous management framework that runs anywhere a container can.  It will be interesting to see how you blend together the old world and the new on a commercially supported, versatile platform.
 
 [1]: https://mesosphere.com/product/
-[2]: http://research.google.com/pubs/pub43438.html
+[2]: https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/
