@@ -296,12 +296,12 @@ the URL schema.
 
 <!--
 Similarly, to configure etcd with secure client communication, specify flags
-`--key-file=k8sclient.key` and `--cert-file=k8sclient.cert`, and use HTTPS as
+`--key=k8sclient.key` and `--cert=k8sclient.cert`, and use HTTPS as
 the URL schema. Here is an example on a client command that uses secure
 communication:
 -->
-类似地，要使用安全客户端通信对 etcd 进行配置，请指定参数 `--key-file=k8sclient.key`
-和 `--cert-file=k8sclient.cert`，并使用 HTTPS 作为 URL 模式。
+类似地，要使用安全客户端通信对 etcd 进行配置，请指定参数 `--key=k8sclient.key`
+和 `--cert=k8sclient.cert`，并使用 HTTPS 作为 URL 模式。
 使用安全通信的客户端命令的示例：
 
 ```
