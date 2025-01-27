@@ -806,18 +806,11 @@ before using it in the Pod.
 For more details, see the [Portworx volume](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md) examples.
 
 #### Portworx CSI migration
-{{< feature-state for_k8s_version="v1.25" state="beta" >}}
+{{< feature-state feature_gate_name="CSIMigrationPortworx" >}}
 
-By default, Kubernetes {{% skew currentVersion %}} attempts to migrate legacy
-Portworx volumes to use CSI. (CSI migration for Portworx has been available since
-Kubernetes v1.23, but was only turned on by default since the v1.31 release).
-If you want to disable automatic migration, you can set the `CSIMigrationPortworx`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to `false`; you need to make that change for the kube-controller-manager **and** on
-every relevant kubelet.
-
-It redirects all plugin operations from the existing in-tree plugin to the
-`pxd.portworx.com` Container Storage Interface (CSI) Driver.
+In Kubernetes {{% skew currentVersion %}}, all operations for the in-tree
+Portworx volumes are redirected to the `pxd.portworx.com` 
+Container Storage Interface (CSI) Driver by default.  
 [Portworx CSI Driver](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi)
 must be installed on the cluster.
 
