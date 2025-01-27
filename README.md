@@ -13,6 +13,7 @@ You can run the website locally using [Hugo (Extended version)](https://gohugo.i
 
 ## Prerequisites
 
+
 To use this repository, you need the following installed locally:
 
 - [npm](https://www.npmjs.com/)
