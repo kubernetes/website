@@ -52,7 +52,7 @@ NAME        PARENTREF
 10.96.0.1   services/default/kubernetes
 ```
 
-ServiceCIDRは{{<glossary_tooltip text="ファイナライザー" term_id="finalizer">}}で保護されることで、ServiceのClusterIPが孤立することを防ぎます。ファイナライザーが削除されるのは、既存の全IPAddressを含む別のサブネットがある場合またはサブネットに属するIPAddressがない場合のみです。
+ServiceCIDRは{{<glossary_tooltip text="ファイナライザー" term_id="finalizer">}}によって保護されており、ServiceのClusterIPが孤立することを防ぎます。ファイナライザーが削除されるのは、既存の全IPAddressを含む別のサブネットがある場合またはサブネットに属するIPAddressがない場合のみです。
 
 ## Serviceに使用できるIPアドレスの個数を拡張する
 
