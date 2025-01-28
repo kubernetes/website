@@ -10,9 +10,13 @@ delete this element for pagefind/China users
 */}}
 
 {{/* From shortcodes/site-searchbar.html which is used in the home page */}}
+<section class="row search-query">
 <div id="search-results-search" class="col-sm-6 col-md-6 col-lg-6 mx-auto py-3">
-  {{partial "search-input" .}}
+  <form action="{{ partial "search-url-path.html" | relURL }}">
+    {{ partial "search-input" . }}
+  </form>
 </div>
+</section>
 <section class="row td-search-result">
   <div class="col-12 col-md-8 offset-md-2">
     <h2 class="ml-4">{{ .Title }}</h2>
