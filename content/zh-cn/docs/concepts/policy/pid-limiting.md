@@ -99,7 +99,7 @@ Pod 级别的限制也无法保护节点代理任务自身不会受到 PID 耗�
 这些任务都在 Pod 及其所包含的容器之外运行。
 
 <!--
-PID limiting is a an important sibling to [compute
+PID limiting is an important sibling to [compute
 resource](/docs/concepts/configuration/manage-resources-containers/) requests
 and limits. However, you specify it in a different way: rather than defining a
 Pod's resource limit in the `.spec` for a Pod, you configure the limit as a

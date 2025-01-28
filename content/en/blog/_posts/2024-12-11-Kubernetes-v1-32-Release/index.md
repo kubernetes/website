@@ -30,7 +30,7 @@ each release cycle is a journey, and just like Penelope, in "The Odyssey",
 weaved for 10 years -- each night removing parts of what she had done during the day -- 
 so does each release add new features and removes others, albeit here with a much 
 clearer purpose of constantly improving Kubernetes. 
-With v1.32 being the last release in the year Kubernetes marks it's first decade anniversary, 
+With v1.32 being the last release in the year Kubernetes marks its first decade anniversary, 
 we wanted to honour all of those that have been part of the global Kubernetes crew 
 that roams the cloud-native seas through perils and challanges: 
 may we continue to weave the future of Kubernetes together.
@@ -478,7 +478,7 @@ Antigua Guatemala, Guatemala
 
 ## Upcoming release webinar
 
-Join members of the Kubernetes v1.32 release team on **Thursday, January 9th 2024 at 5:00 PM (UTC)**, to learn about the
+Join members of the Kubernetes v1.32 release team on **Thursday, January 9th 2025 at 5:00 PM (UTC)**, to learn about the
 release highlights of this release, as well as deprecations and removals to help plan for upgrades.
 For more information and registration, visit the [event
 page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-132-release/)

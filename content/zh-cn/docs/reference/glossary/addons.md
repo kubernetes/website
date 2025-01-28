@@ -23,10 +23,10 @@ tags:
 - tool
 -->
 
-  <!--
-  Resources that extend the functionality of Kubernetes.
-  -->
-  扩展 Kubernetes 功能的资源。
+<!--
+Resources that extend the functionality of Kubernetes.
+-->
+扩展 Kubernetes 功能的资源。
 
 <!--more-->
 
