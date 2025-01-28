@@ -545,16 +545,27 @@ section#cncf {
     margin-bottom: 20px;
   }
 
-  #desktopKCButton {
-    position: absolute;
+  // All #desktopKCButton blocks are left for back compatibility and
+  // should be removed later, leaving .desktopKCButton only
+  // See https://github.com/kubernetes/website/pull/49167 for details
+  #desktopKCButton, .desktopKCButton {
+    display: inline-block;
     font-size: 18px;
     background-color: $dark-grey;
     border-radius: 8px;
     color: $white;
+    padding: 2px 8px;
+    margin: 5px;
+  }
+  
+  #desktopKCButton {
+    display: inline;
+    position: absolute;
     padding: 20px 10px 20px 10px;
+    margin: 0;
   }
 
-  #desktopKCButton:hover{
+  #desktopKCButton:hover, .desktopKCButton:hover{
     background-color: #ffffff;
     color: #326ce5;
     transition: 150ms;
@@ -567,7 +578,7 @@ section#cncf {
     border-radius: 8px;
     color: $primary;
     padding: 15px 30px 15px 80px;
-    margin-bottom: 15px;
+    margin-bottom: 35px;
 
     &:before {
       content: "";

@@ -66,12 +66,12 @@ In this example:
   All of the requirements, from both `matchLabels` and `matchExpressions`, must be satisfied in order to match.
   {{< /note >}}
 
-* The `template` field contains the following sub-fields:
+* The `.spec.template` field contains the following sub-fields:
   * The Pods are labeled `app: nginx`using the `.metadata.labels` field.
-  * The Pod template's specification, or `.template.spec` field, indicates that
-  the Pods run one container, `nginx`, which runs the `nginx`
-  [Docker Hub](https://hub.docker.com/) image at version 1.14.2.
-  * Create one container and name it `nginx` using the `.spec.template.spec.containers[0].name` field.
+  * The Pod template's specification, or `.spec` field, indicates that
+    the Pods run one container, `nginx`, which runs the `nginx`
+    [Docker Hub](https://hub.docker.com/) image at version 1.14.2.
+  * Create one container and name it `nginx` using the `.spec.containers[0].name` field.
 
 Before you begin, make sure your Kubernetes cluster is up and running.
 Follow the steps given below to create the above Deployment:
