@@ -534,12 +534,10 @@ processing its startup data, you might prefer a readiness probe.
 
 {{< note >}}
 If you want to be able to drain requests when the Pod is deleted, you do not
-necessarily need a readiness probe; on deletion, the Pod automatically puts itself
-into an unready state regardless of whether the readiness probe exists.
-The Pod remains in the unready state while it waits for the containers in the Pod
-to stop. If liveness probe is successful or not defined, the `Ready` condition
-in the Pod status remains true, and `.status.phase`remains Running until the Pod
-is fully terminated.
+necessarily need a readiness probe; when the POD is deleted, the corresponding endpoint
+will have its `ready` status as `false`, so load balancers will not use it for regular
+traffic. The endpoint remains in the unready state while it waits for the containers
+in the Pod to stop.
 {{< /note >}}
 
 #### When should you use a startup probe?
