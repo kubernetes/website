@@ -279,7 +279,7 @@ announcements:
     </a> 
     
 - name: KubeCon 2025 EU
-  startTime: 2024-02-04T00:00:00  #Added in https://github.com/kubernetes/website/pull/44828
+  startTime: 2025-02-04T00:00:00  #Added in https://github.com/kubernetes/website/pull/49577
   endTime: 2025-04-04T18:00:00
   style: >-
     background: linear-gradient(90deg, rgb(177, 71, 154) 0%, rgb(106, 44, 136) 100%);
