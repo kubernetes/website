@@ -63,6 +63,21 @@ In this scenario, there are two approaches for certificate usage:
 
 etcd also implements mutual TLS to authenticate clients and peers.
 
+### Loopback Certificate in kube-apiserver
+
+The loopback certificate is used by the kube-apiserver to establish privileged loopback connections. 
+This certificate is stored in memory and has a validity period of one year. 
+However, it does not renew automatically. If the certificate expires, the kube-apiserver will cease to function.
+
+The kube-apiserver is supported by the Kubernetes community for one year, 
+aligning with the validity of the loopback certificate. This means that to maintain community support, 
+you should upgrade the kube-apiserver within one year. The loopback certificate is automatically renewed during the kube-apiserver upgrade process.
+
+{{< note >}}
+Restarting the kube-apiserver is another way to renew the loopback certificate.
+{{< /note >}}
+
+
 ## Where certificates are stored
 
 If you install Kubernetes with kubeadm, most certificates are stored in `/etc/kubernetes/pki`.
