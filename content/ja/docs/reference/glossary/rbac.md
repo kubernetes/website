@@ -15,4 +15,18 @@ tags:
 
 <!--more--> 
 
-RBACは、権限を含む*Role*と、Roleで定義された権限を一連のユーザーに付与する*RoleBinding*を使用します。
+RBACは、以下の4種類のKubernetesオブジェクトを使用します:
+
+Role
+: 特定のNamespaceの権限を定義します。
+
+ClusterRole
+: クラスター全体の権限を定義します。
+
+RoleBinding
+: 特定のNamespaceにおいて、Roleで定義された権限を一連のユーザーに付与します。
+
+ClusterRoleBinding
+: クラスター全体において、Roleで定義された権限を一連のユーザーに付与します。
+
+詳細については、[RBAC](/ja/docs/reference/access-authn-authz/rbac/)を参照して下さい。
