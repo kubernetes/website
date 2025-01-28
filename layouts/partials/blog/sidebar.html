@@ -6,7 +6,7 @@ sidebar-tree in use elsewhere on the site. */}}
 
 <div id="td-sidebar-menu" class="td-sidebar__inner{{ if $shouldDelayActive }} d-none{{ end }}">
 
-  <form class="td-sidebar__search d-flex align-items-center">
+  <form class="td-sidebar__search d-flex align-items-center" action="{{ partial "search-url-path.html" | relURL }}">
     {{ partial "search-input.html" . }}
     <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fa-solid fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
     </button>
