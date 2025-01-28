@@ -83,10 +83,7 @@ declarative way to easily create identical child-jobs to run on different island
 without resorting to scripting or Helm charts to generate many versions of the same job but with
 different names.
 
-<figure>
-  <img src="jobset_diagram.svg">
-  <figcaption><h4>JobSet Architecture</h4></figcaption>
-</figure>
+{{< figure src="jobset_diagram.svg" alt="JobSet Architecture" class="diagram-large" clicktozoom="true" >}}
 
 Some other key JobSet features which address the problems described above include:
 
