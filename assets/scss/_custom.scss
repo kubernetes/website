@@ -340,6 +340,30 @@ input[type="search"]{
 }
 
 
+.cncf-logo-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  p {
+    text-align: center;
+  }
+
+  a {
+    color: inherit;
+    background: transparent;
+    text-decoration: underline; // exception from usual convention
+  }
+
+  picture {
+    display: block;
+    > * {
+      min-height: 4em;
+      width: calc(clamp(20em,18em + 20mm,100vw));
+    }
+  }
+}
+
 /* FOOTER */
 footer {
   background-color: #202020;
