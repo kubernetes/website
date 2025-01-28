@@ -106,19 +106,7 @@ For example, suppose you have a set of Pods that each listen on TCP port 9376
 and are labelled as `app.kubernetes.io/name=MyApp`. You can define a Service to
 publish that TCP listener:
 
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-service
-spec:
-  selector:
-    app.kubernetes.io/name: MyApp
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
-```
+{{% code_sample file="service/simple-service.yaml" %}}
 
 Applying this manifest creates a new Service named "my-service" with the default
 ClusterIP [service type](#publishing-services-service-types). The Service
