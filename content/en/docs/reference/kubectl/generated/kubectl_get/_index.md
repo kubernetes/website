@@ -18,9 +18,7 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-
 ## {{% heading "synopsis" %}}
-
 
 Display one or many resources.
 
@@ -82,7 +80,7 @@ kubectl get [(-o|--output=)json|yaml|name|go-template|go-template-file|template|
 
 ## {{% heading "options" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -260,11 +258,9 @@ kubectl get [(-o|--output=)json|yaml|name|go-template|go-template-file|template|
 </tbody>
 </table>
 
-
-
 ## {{% heading "parentoptions" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -511,8 +507,6 @@ kubectl get [(-o|--output=)json|yaml|name|go-template|go-template-file|template|
 
 </tbody>
 </table>
-
-
 
 ## {{% heading "seealso" %}}
 
