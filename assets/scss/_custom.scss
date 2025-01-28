@@ -469,6 +469,35 @@ footer {
   }
 }
 
+// Home page dark-mode
+@media (prefers-color-scheme: dark) {
+  .cid-home main {
+    background-color: $dark-bg-color-2;
+        color:$dark-text-color-1;
+  }
+
+  .cid-home main section:not(#video) {
+    background-color: $dark-bg-color-1;
+    color:$dark-text-color-1;
+  }
+
+  .cid-home .feature-box div {
+    background-color: $dark-bg-color-2;
+    color:$dark-text-color-1;
+  }
+
+  .cid-home main section:is(#video) #desktopShowVideoButton {
+    background-color: $dark-bg-color-1;
+  }
+
+  .cid-home main section:is(#video) #desktopShowVideoButton:hover {
+    color: $dark-text-color-2;
+  }
+
+  .cid-home main section:is(#video) #desktopKCButton:hover {
+    background-color: $dark-bg-color-1;
+  }
+}
 
 /* COMMUNITY */
 
