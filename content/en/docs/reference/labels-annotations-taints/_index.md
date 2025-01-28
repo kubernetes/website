@@ -2735,6 +2735,22 @@ only onto these nodes, or to avoid running Pods on the control plane.
 If this label is set, the [EndpointSlice controller](/docs/concepts/services-networking/topology-aware-routing/#implementation-control-plane)
 ignores that node while calculating Topology Aware Hints.
 
+### node-role.kubernetes.io/*
+
+Type: Label
+
+Example: `node-role.kubernetes.io/gpu: gpu`
+
+Used on: Node
+
+This optional label is applied to a node when you want to mark a node role. 
+The node role (text following `/` in the label key) can be set, as long as the overall key follows the
+[syntax](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) rules for
+object labels.
+
+Kubernetes defines one specific node role, **control-plane**. A label you can use to mark that node
+role is [`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane).
+
 ### node-role.kubernetes.io/control-plane {#node-role-kubernetes-io-control-plane-taint}
 
 Type: Taint
