@@ -235,7 +235,7 @@ and allow Kubernetes to add more temporary replicas during a rollout, by setting
 100%:
 
 ```shell
-kubectl patch --type='merge' -p '{"spec":{"strategy":{"rollingUpdate":{"maxSurge": "100%" }}}}'
+kubectl patch deployments/my-nginx --type='merge' -p '{"spec":{"strategy":{"rollingUpdate":{"maxSurge": "100%" }}}}'
 ```
 
 ```none
