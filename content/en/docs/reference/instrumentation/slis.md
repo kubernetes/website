@@ -5,6 +5,8 @@ title: Kubernetes Component SLI Metrics
 linkTitle: Service Level Indicator Metrics
 content_type: reference
 weight: 20
+description: >-
+    Service Level Indicator (SLI) is a measurable quantity of some relevant element of the service.
 ---
 
 <!-- overview -->
