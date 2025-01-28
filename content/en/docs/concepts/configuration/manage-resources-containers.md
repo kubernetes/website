@@ -216,7 +216,8 @@ spec:
 
 {{< feature-state feature_gate_name="PodLevelResources" >}}
 
-The following Pod has an explicit request of 1 CPU and 100 MiB of memory, and an
+This feature can be enabled by setting the `PodLevelResources` [feature
+gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/). The following Pod has an explicit request of 1 CPU and 100 MiB of memory, and an
 explicit limit of 1 CPU and 200 MiB of memory. The `pod-resources-demo-ctr-1`
 container has explicit requests and limits set. However, the
 `pod-resources-demo-ctr-2` container will simply share the resources available
