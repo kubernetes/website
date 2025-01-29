@@ -30,8 +30,6 @@ Antes de iniciar um tutorial, é interessante que você salve a página do
 
 ## Configuração
 
-* [Exemplo: Configurando um Microsserviço Java](/docs/tutorials/configuration/configure-java-microservice/)
-
 * [Configurando o Redis usando um ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## Aplicações sem estado (_stateless_)

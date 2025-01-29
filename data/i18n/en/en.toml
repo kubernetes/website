@@ -12,11 +12,14 @@ other = "(auto-generated page)"
 [auto_generated_pageinfo]
 other = """<p>This page is automatically generated.</p><p>If you plan to report an issue with this page, mention that the page is auto-generated in your issue description. The fix may need to happen elsewhere in the Kubernetes project.</p>"""
 
+[banner_acknowledgement]
+other = "Hide this notice"
+
 [blog_post_show_more]
 other = "Show More Posts..."
 
-[banner_acknowledgement]
-other = "Hide this notice"
+[browser_clipboard_support_warning]
+other = "Sorry, your browser doesn't support copying this example to your clipboard."
 
 [case_study_prefix]
 other = "Case study:"
@@ -157,6 +160,9 @@ other = "Environment variables"
 
 [error_404_were_you_looking_for]
 other = "Were you looking for:"
+
+[error_copy_to_clipboard]
+other = "Error"
 
 [examples_heading]
 other = "Examples"
@@ -407,7 +413,7 @@ other = "Kubernetes Features"
 [main_kubeweekly_baseline]
 other = "Interested in receiving the latest Kubernetes news? Sign up for KubeWeekly."
 
-[main_kubernetes_past_link]
+[main_kubeweekly_past_link]
 other = "View past newsletters"
 
 [main_kubeweekly_signup]
@@ -597,8 +603,14 @@ other = "Changelog"
 [seealso_heading]
 other = "See Also"
 
+[sidebar_toggle_nav]
+other = "Toggle section navigation"
+
 [subscribe_button]
 other = "Subscribe"
+
+[success_copy_to_clipboard]
+other = "Success"
 
 [synopsis_heading]
 other = "Synopsis"
@@ -617,6 +629,12 @@ other = """<p>Items on this page refer to third party products or projects that 
 
 [thirdparty_message_vendor]
 other = """Items on this page refer to vendors external to Kubernetes. The Kubernetes project authors aren't responsible for those third-party products or projects. To add a vendor, product or project to this list, read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change. <a href="#third-party-content-disclaimer">More information.</a>"""
+
+[toast_failure_copycode]
+other="Failed to copy to clipboard: "
+
+[toast_success_copycode]
+other = "Copied to clipboard: "
 
 [translated_by]
 other = "Translated By"
@@ -639,7 +657,8 @@ other = "Versions"
 [warning]
 other = "Warning:"
 
+[warning_copy_to_clipboard]
+other = "Warning"
+
 [whatsnext_heading]
 other = "What's next"
-
-

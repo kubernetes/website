@@ -33,7 +33,7 @@ Describe fields and structure of various resources.
 Use "kubectl api-resources" for a complete list of supported resources.
 
 ```
-kubectl explain TYPE [--recursive=FALSE|TRUE] [--api-version=api-version-group] [--output=plaintext|plaintext-openapiv2]
+kubectl explain TYPE [--recursive=FALSE|TRUE] [--api-version=api-version-group] [-o|--output=plaintext|plaintext-openapiv2]
 ```
 
 ## {{% heading "examples" %}}
@@ -79,7 +79,7 @@ kubectl explain TYPE [--recursive=FALSE|TRUE] [--api-version=api-version-group] 
 </tr>
 
 <tr>
-<td colspan="2">--output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "plaintext"</td>
+<td colspan="2">-o, --output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "plaintext"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Format in which to render the schema. Valid values are: (plaintext, plaintext-openapiv2).</p></td>
