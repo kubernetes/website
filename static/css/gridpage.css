@@ -161,9 +161,19 @@ p.attrib {
 }
 
 .tell-your-story {
-    border: 1px solid #dddddd;
-    border-radius: 6px;
-    box-shadow: 1px 2px 2px #dddddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 50px;
+    font-weight: 1000;
+    font-size: x-large;
+    background: #847f7f33;
+}
+.tell-your-story:hover {
+    background: #847f7f66;
+    transform: perspective(1000px) rotateY(10deg);
+    transition: transform 0.5s;
 }
 
 .gridPage .feature {
