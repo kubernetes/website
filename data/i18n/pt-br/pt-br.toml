@@ -388,7 +388,7 @@ other = "Recursos do Kubernetes"
 [main_kubeweekly_baseline]
 other = "Interessado em receber as últimas novidades sobre o Kubernetes? Inscreva-se no KubeWeekly."
 
-[main_kubernetes_past_link]
+[main_kubeweekly_past_link]
 other = "Veja boletins passados"
 
 [main_kubeweekly_signup]

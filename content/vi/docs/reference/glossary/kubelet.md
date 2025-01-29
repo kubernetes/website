@@ -1,7 +1,7 @@
 ---
 title: Kubelet
 id: kubelet
-date: 2019-29-11
+date: 2019-11-29
 full_link: /docs/reference/generated/kubelet
 short_description: >
   Một agent chạy trên mỗi node nằm trong cluster. Nó giúp đảm bảo rằng các containers đã chạy trong một pod.

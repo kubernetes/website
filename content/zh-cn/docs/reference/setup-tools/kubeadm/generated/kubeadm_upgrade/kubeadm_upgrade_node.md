@@ -23,12 +23,20 @@ The "node" command executes the following phases:
 preflight       Run upgrade node pre-flight checks
 control-plane   Upgrade the control plane instance deployed on this node, if any
 kubelet-config  Upgrade the kubelet configuration for this node
+addon           Upgrade the default kubeadm addons
+  /coredns        Upgrade the CoreDNS addon
+  /kube-proxy     Upgrade the kube-proxy addon
+post-upgrade    Run post upgrade tasks
 ```
 -->
 ```
 preflight       执行节点升级前检查
 control-plane   如果存在的话，升级部署在该节点上的管理面实例
 kubelet-config  更新该节点上的 kubelet 配置
+addon           # 升级默认的 kubeadm 插件
+  /coredns        # 升级 CoreDNS 插件
+  /kube-proxy     # 升级 kube-proxy 插件
+post-upgrade    # 运行升级后的任务
 ```
 
 ```

@@ -162,8 +162,8 @@ bisa memberikan dukungan terhadap Pod yang _stateful_.
 Penggunaan API kolektif sebagai _user-facing primitive_ utama adalah hal yang
 relatif umum diantara sistem penjadwalan kluster, seperti 
 
-[Borg](https://research.google.com/pubs/pub43438.html), 
-[Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), 
+[Borg](https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/), 
+[Marathon](https://github.com/d2iq-archive/marathon), 
 [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema), dan
 [Tupperware](https://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997).
 
