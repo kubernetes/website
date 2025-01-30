@@ -1,16 +1,30 @@
 ---
-title: kubeadm upgrade phase
-weight: 90
+title: kubeadm upgrade phases
+weight: 40
 content_type: concept
 ---
 
 <!--
-In v1.15.0, kubeadm introduced preliminary support for `kubeadm upgrade node` phases.
-Phases for other `kubeadm upgrade` sub-commands such as `apply`, could be added in the
-following releases.
+## kubeadm upgrade apply phase {#cmd-apply-phase}
+
+Using the phases of `kubeadm upgrade apply`, you can choose to execute the separate steps of the initial upgrade
+of a control plane node.
 -->
-在 Kubernetes v1.15.0 版本中，kubeadm 引入了对 `kubeadm upgrade node` 阶段的初步支持。
-其他 `kubeadm upgrade` 子命令如 `apply` 等阶段将在未来发行版中添加。
+## kubeadm upgrade apply 阶段   {#cmd-apply-phase}
+
+使用 `kubeadm upgrade apply` 的各个阶段，
+你可以选择执行控制平面节点初始升级的单独步骤。
+
+{{< tabs name="tab-phase" >}}
+{{< tab name="phase" include="generated/kubeadm_upgrade/kubeadm_upgrade_apply_phase.md" />}}
+{{< tab name="preflight" include="generated/kubeadm_upgrade/kubeadm_upgrade_apply_phase_preflight.md" />}}
+{{< tab name="control-plane" include="generated/kubeadm_upgrade/kubeadm_upgrade_apply_phase_control-plane.md" />}}
+{{< tab name="upload-config" include="generated/kubeadm_upgrade/kubeadm_upgrade_apply_phase_upload-config.md" />}}
+{{< tab name="kubelet-config" include="generated/kubeadm_upgrade/kubeadm_upgrade_apply_phase_kubelet-config.md" />}}
+{{< tab name="bootstrap-token" include="generated/kubeadm_upgrade/kubeadm_upgrade_apply_phase_bootstrap-token.md" />}}
+{{< tab name="addon" include="generated/kubeadm_upgrade/kubeadm_upgrade_apply_phase_addon.md" />}}
+{{< tab name="post-upgrade" include="generated/kubeadm_upgrade/kubeadm_upgrade_apply_phase_post-upgrade.md" />}}
+{{< /tabs >}}
 
 <!--
 ## kubeadm upgrade node phase {#cmd-node-phase}
@@ -18,18 +32,18 @@ following releases.
 ## kubeadm upgrade node 阶段    {#cmd-node-phase}
 
 <!--
-Using this phase you can choose to execute the separate steps of the upgrade of
-secondary control-plane or worker nodes. Please note that `kubeadm upgrade apply` still has to
-be called on a primary control-plane node.
+Using the phases of `kubeadm upgrade node` you can choose to execute the separate steps of the upgrade of
+secondary control-plane or worker nodes.
 -->
-使用此阶段，你可以选择执行辅助控制平面或工作节点升级的单独步骤。
-请注意，`kubeadm upgrade apply` 命令仍然必须在主控制平面节点上调用。
+使用 `kubeadm upgrade node` 的各个阶段，你可以选择执行次要控制平面节点或工作节点升级的单独步骤。
 
 {{< tabs name="tab-phase" >}}
 {{< tab name="phase" include="generated/kubeadm_upgrade/kubeadm_upgrade_node_phase.md" />}}
 {{< tab name="preflight" include="generated/kubeadm_upgrade/kubeadm_upgrade_node_phase_preflight.md" />}}
 {{< tab name="control-plane" include="generated/kubeadm_upgrade/kubeadm_upgrade_node_phase_control-plane.md" />}}
 {{< tab name="kubelet-config" include="generated/kubeadm_upgrade/kubeadm_upgrade_node_phase_kubelet-config.md" />}}
+{{< tab name="addon" include="generated/kubeadm_upgrade/kubeadm_upgrade_node_phase_addon.md" />}}
+{{< tab name="post-upgrade" include="generated/kubeadm_upgrade/kubeadm_upgrade_node_phase_post-upgrade.md" />}}
 {{< /tabs >}}
 
 ## {{% heading "whatsnext" %}}

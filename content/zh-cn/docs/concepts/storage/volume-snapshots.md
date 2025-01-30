@@ -118,6 +118,13 @@ Users need to be aware of the following when using this feature:
 - Kubernetes 负责 CRD 和快照控制器的安装。
 
 <!--
+For advanced use cases, such as creating group snapshots of multiple volumes, see the external
+[CSI Volume Group Snapshot documentation](https://kubernetes-csi.github.io/docs/group-snapshot-restore-feature.html).
+-->
+对于高级用例，例如创建多个卷的组快照，请参阅外部
+[CSI 卷组快照文档](https://kubernetes-csi.github.io/docs/group-snapshot-restore-feature.html)。
+
+<!--
 ## Lifecycle of a volume snapshot and volume snapshot content
 
 `VolumeSnapshotContents` are resources in the cluster. `VolumeSnapshots` are requests

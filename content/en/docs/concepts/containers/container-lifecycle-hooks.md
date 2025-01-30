@@ -66,7 +66,7 @@ Enable the `PodLifecycleSleepActionAllowZero` feature gate if you want to set a 
 
 When a Container lifecycle management hook is called,
 the Kubernetes management system executes the handler according to the hook action,
-`httpGet` , `tcpSocket` and `sleep` are executed by the kubelet process, and `exec` is executed in the container.
+`httpGet`, `tcpSocket` ([deprecated](/docs/reference/generated/kubernetes-api/v1.31/#lifecyclehandler-v1-core)) and `sleep` are executed by the kubelet process, and `exec` is executed in the container.
 
 The `PostStart` hook handler call is initiated when a container is created,
 meaning the container ENTRYPOINT and the `PostStart` hook are triggered simultaneously. 
