@@ -724,11 +724,11 @@ restoration, critical components will lose leader lock and restart themselves.
 
 <!--
 etcd supports restoring from snapshots that are taken from an etcd process of
-the [major.minor](http://semver.org/) version. Restoring a version from a
+the [major.minor](https://semver.org/) version. Restoring a version from a
 different patch version of etcd is also supported. A restore operation is
 employed to recover the data of a failed cluster.
 -->
-etcd 支持从 [major.minor](http://semver.org/) 或其他不同 patch 版本的 etcd 进程中获取的快照进行恢复。
+etcd 支持从 [major.minor](https://semver.org/) 或其他不同 patch 版本的 etcd 进程中获取的快照进行恢复。
 还原操作用于恢复失败的集群的数据。
 
 <!--

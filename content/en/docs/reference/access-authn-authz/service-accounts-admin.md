@@ -96,69 +96,70 @@ and uid when inspecting a JWT.
 
 ### Verifying and inspecting private claims
 
-The `TokenReview` API can be used to verify and extract private claims from a token:
+The TokenReview API can be used to verify and extract private claims from a token:
 
 1. First, assume you have a pod named `test-pod` and a service account named `my-sa`.
-2. Create a token that is bound to this Pod:
+1. Create a token that is bound to this Pod:
 
-```shell
-kubectl create token my-sa --bound-object-kind="Pod" --bound-object-name="test-pod"
-```
+   ```shell
+   kubectl create token my-sa --bound-object-kind="Pod" --bound-object-name="test-pod"
+   ```
 
-3. Copy this token into a new file named `tokenreview.yaml`:
+1. Copy this token into a new file named `tokenreview.yaml`:
 
-```yaml
-apiVersion: authentication.k8s.io/v1
-kind: TokenReview
-spec:
-  token: <token from step 2>
-```
+   ```yaml
+   apiVersion: authentication.k8s.io/v1
+   kind: TokenReview
+   spec:
+     token: <token from step 2>
+   ```
 
-4. Submit this resource to the apiserver for review:
+1. Submit this resource to the apiserver for review:
 
-```shell
-kubectl create -o yaml -f tokenreview.yaml # we use '-o yaml' so we can inspect the output
-```
+   ```shell
+   # use '-o yaml' to inspect the output
+   kubectl create -o yaml -f tokenreview.yaml
+   ```
 
-You should see an output like below:
+   You should see an output like below:
 
-```yaml
-apiVersion: authentication.k8s.io/v1
-kind: TokenReview
-metadata:
-  creationTimestamp: null
-spec:
-  token: <token>
-status:
-  audiences:
-  - https://kubernetes.default.svc.cluster.local
-  authenticated: true
-  user:
-    extra:
-      authentication.kubernetes.io/credential-id:
-      - JTI=7ee52be0-9045-4653-aa5e-0da57b8dccdc
-      authentication.kubernetes.io/node-name:
-      - kind-control-plane
-      authentication.kubernetes.io/node-uid:
-      - 497e9d9a-47aa-4930-b0f6-9f2fb574c8c6
-      authentication.kubernetes.io/pod-name:
-      - test-pod
-      authentication.kubernetes.io/pod-uid:
-      - e87dbbd6-3d7e-45db-aafb-72b24627dff5
-    groups:
-    - system:serviceaccounts
-    - system:serviceaccounts:default
-    - system:authenticated
-    uid: f8b4161b-2e2b-11e9-86b7-2afc33b31a7e
-    username: system:serviceaccount:default:my-sa
-```
+   ```yaml
+   apiVersion: authentication.k8s.io/v1
+   kind: TokenReview
+   metadata:
+     creationTimestamp: null
+   spec:
+     token: <token>
+   status:
+     audiences:
+     - https://kubernetes.default.svc.cluster.local
+     authenticated: true
+     user:
+       extra:
+         authentication.kubernetes.io/credential-id:
+         - JTI=7ee52be0-9045-4653-aa5e-0da57b8dccdc
+         authentication.kubernetes.io/node-name:
+         - kind-control-plane
+         authentication.kubernetes.io/node-uid:
+         - 497e9d9a-47aa-4930-b0f6-9f2fb574c8c6
+         authentication.kubernetes.io/pod-name:
+         - test-pod
+         authentication.kubernetes.io/pod-uid:
+         - e87dbbd6-3d7e-45db-aafb-72b24627dff5
+       groups:
+       - system:serviceaccounts
+       - system:serviceaccounts:default
+       - system:authenticated
+       uid: f8b4161b-2e2b-11e9-86b7-2afc33b31a7e
+       username: system:serviceaccount:default:my-sa
+   ```
 
-{{< note >}}
-Despite using `kubectl create -f` to create this resource, and defining it similar to
-other resource types in Kubernetes, TokenReview is a special type and the kube-apiserver
-does not actually persist the TokenReview object into etcd.
-Hence `kubectl get tokenreview` is not a valid command.
-{{< /note >}}
+   {{< note >}}
+   Despite using `kubectl create -f` to create this resource, and defining it similar to
+   other resource types in Kubernetes, TokenReview is a special type and the kube-apiserver
+   does not actually persist the TokenReview object into etcd.
+   Hence `kubectl get tokenreview` is not a valid command.
+   {{< /note >}}
 
 #### Schema for service account private claims
 
@@ -229,7 +230,7 @@ For more information on JWTs and their structure, see the [JSON Web Token RFC](h
 {{< feature-state feature_gate_name="BoundServiceAccountTokenVolume" >}}
 
 By default, the Kubernetes control plane (specifically, the
-[ServiceAccount admission controller](#serviceaccount-admission-controller)) 
+[ServiceAccount admission controller](#serviceaccount-admission-controller))
 adds a [projected volume](/docs/concepts/storage/projected-volumes/) to Pods,
 and this volume includes a token for Kubernetes API access.
 
@@ -292,9 +293,11 @@ and are mounted into Pods using a projected volume.
 The tokens obtained using this method have bounded lifetimes, and are automatically
 invalidated when the Pod they are mounted into is deleted.
 
-You can still [manually create](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount) a Secret to hold a service account token; for example, if you need a token that never expires.
+You can still [manually create](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount)
+a Secret to hold a service account token; for example, if you need a token that never expires.
 
-Once you manually create a Secret and link it to a ServiceAccount, the Kubernetes control plane automatically populates the token into that Secret.
+Once you manually create a Secret and link it to a ServiceAccount,
+the Kubernetes control plane automatically populates the token into that Secret.
 
 {{< note >}}
 Although the manual mechanism for creating a long-lived ServiceAccount token exists,
@@ -318,7 +321,7 @@ metadata:
   name: build-robot
   namespace: default
 secrets:
-  - name: build-robot-secret # usually NOT present for a manually generated token                         
+  - name: build-robot-secret # usually NOT present for a manually generated token
 ```
 
 Beginning from version 1.29, legacy ServiceAccount tokens that were generated
@@ -387,7 +390,7 @@ verify the tokens during authentication.
 {{< feature-state feature_gate_name="ExternalServiceAccountTokenSigner" >}}
 
 An alternate setup to setting `--service-account-private-key-file` and `--service-account-key-file` flags is
-to configure an external JWT signer for [external ServiceAccount token signing and key management](#external-serviceaccount-token-signing-and-key-management). 
+to configure an external JWT signer for [external ServiceAccount token signing and key management](#external-serviceaccount-token-signing-and-key-management).
 Note that these setups are mutually exclusive and cannot be configured together.
 
 ### ServiceAccount admission controller
@@ -512,7 +515,7 @@ That manifest snippet defines a projected volume that combines information from 
    either when the pod is deleted or after a defined lifespan (by default, that is 1 hour).
    The token is bound to the specific Pod and has the kube-apiserver as its audience.
 1. A `configMap` source. The ConfigMap contains a bundle of certificate authority data. Pods can use these
-   certificates to make sure that they are connecting to your cluster's kube-apiserver (and not to middlebox
+   certificates to make sure that they are connecting to your cluster's kube-apiserver (and not to a middlebox
    or an accidentally misconfigured peer).
 1. A `downwardAPI` source. This `downwardAPI` volume makes the name of the namespace containing the Pod available
    to application code running inside the Pod.
@@ -620,15 +623,21 @@ kubectl -n examplens delete secret/example-automated-thing-token-zyxwv
 {{< feature-state feature_gate_name="ExternalServiceAccountTokenSigner" >}}
 
 The kube-apiserver can be configured to use external signer for token signing and token verifying key management.
-This feature enables kubernetes distributions to integrate with key management solutions of their choice (eg: HSMs, cloud KMSes) for service account credential signing and verification.
-To configure kube-apiserver to use external-jwt-signer set the `--service-account-signing-endpoint` flag to the location of a Unix domain socket (UDS) on a filesystem, or be prefixed with an @ symbol and name a UDS in the abstract socket namespace.
-At the configured UDS, shall be an RPC server which implements [ExternalJWTSigner](https://github.com/kubernetes/kubernetes/blob/release-1.32/staging/src/k8s.io/externaljwt/apis/v1alpha1/api.proto).
+This feature enables kubernetes distributions to integrate with key management solutions of their choice
+(for example, HSMs, cloud KMSes) for service account credential signing and verification.
+To configure kube-apiserver to use external-jwt-signer set the `--service-account-signing-endpoint` flag
+to the location of a Unix domain socket (UDS) on a filesystem, or be prefixed with an @ symbol and name
+a UDS in the abstract socket namespace. At the configured UDS, shall be an RPC server which implements
+[ExternalJWTSigner](https://github.com/kubernetes/kubernetes/blob/release-1.32/staging/src/k8s.io/externaljwt/apis/v1alpha1/api.proto).
 The external-jwt-signer must be healthy and be ready to serve supported service account keys for the kube-apiserver to start.
 
-Check out [KEP-740](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/740-service-account-external-signing) for more details on ExternalJWTSigner.
+Check out [KEP-740](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/740-service-account-external-signing)
+for more details on ExternalJWTSigner.
 
 {{< note >}}
-The kube-apiserver flags `--service-account-key-file` and `--service-account-signing-key-file` will continue to be used for reading from files unless `--service-account-signing-endpoint` is set; they are mutually exclusive ways of supporting JWT signing and authentication.
+The kube-apiserver flags `--service-account-key-file` and `--service-account-signing-key-file` will continue
+to be used for reading from files unless `--service-account-signing-endpoint` is set; they are mutually
+exclusive ways of supporting JWT signing and authentication.
 {{< /note >}}
 
 ## Clean up

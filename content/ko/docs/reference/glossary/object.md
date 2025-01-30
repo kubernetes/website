@@ -1,7 +1,7 @@
 ---
 title: 오브젝트(Object)
 id: object
-date: 2020-12-1
+date: 2020-01-12
 full_link: https://kubernetes.io/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects
 short_description: >
    클러스터 상태의 일부를 나타내는 쿠버네티스 시스템의 엔티티이다.

@@ -53,24 +53,24 @@ A policy is generally made up of three resources:
 - The `ValidatingAdmissionPolicy` describes the abstract logic of a policy
   (think: "this policy makes sure a particular label is set to a particular value").
 
-- A `ValidatingAdmissionPolicyBinding` links the above resources together and provides scoping.
-  If you only want to require an `owner` label to be set for `Pods`, the binding is where you would
-  specify this restriction.
-
 - A parameter resource provides information to a ValidatingAdmissionPolicy to make it a concrete
   statement (think "the `owner` label must be set to something that ends in `.company.com`").
   A native type such as ConfigMap or a CRD defines the schema of a parameter resource.
   `ValidatingAdmissionPolicy` objects specify what Kind they are expecting for their parameter resource.
+
+- A `ValidatingAdmissionPolicyBinding` links the above resources together and provides scoping.
+  If you only want to require an `owner` label to be set for `Pods`, the binding is where you would
+  specify this restriction.
 -->
 - `ValidatingAdmissionPolicy` 描述策略的抽象逻辑（想想看：“这个策略确保一个特定标签被设置为一个特定值”）。
-
-- 一个 `ValidatingAdmissionPolicyBinding` 将上述资源联系在一起，并提供作用域。
-  如果你只想为 `Pods` 设置一个 `owner` 标签，你就需要在这个绑定中指定这个限制。
 
 - 参数资源为 `ValidatingAdmissionPolicy` 提供信息，使其成为一个具体的声明
   （想想看：“`owner` 标签必须被设置为以 `.company.com` 结尾的形式"）。
   参数资源的模式（Schema）使用诸如 ConfigMap 或 CRD 这类原生类型定义。
   `ValidatingAdmissionPolicy` 对象指定它们期望参数资源所呈现的类型。
+
+- 一个 `ValidatingAdmissionPolicyBinding` 将上述资源联系在一起，并提供作用域。
+  如果你只想为 `Pods` 设置一个 `owner` 标签，你就需要在这个绑定中指定这个限制。
 
 <!--
 At least a `ValidatingAdmissionPolicy` and a corresponding `ValidatingAdmissionPolicyBinding`
@@ -180,6 +180,7 @@ validation failures, use:
 ```yaml
 validationActions: [Warn, Audit]
 ```
+
 <!--
 `Deny` and `Warn` may not be used together since this combination
 needlessly duplicates the validation failure both in the
@@ -709,7 +710,7 @@ When an API request is validated with this admission policy, the resulting audit
 In this example the annotation will only be included if the `spec.replicas` of the Deployment is more than
 50, otherwise the CEL expression evaluates to null and the annotation will not be included.
 
-Note that audit annotation keys are prefixed by the name of the `ValidatingAdmissionWebhook` and a `/`. If
+Note that audit annotation keys are prefixed by the name of the `ValidatingAdmissionPolicy` and a `/`. If
 another admission controller, such as an admission webhook, uses the exact same audit annotation key, the 
 value of the first admission controller to include the audit annotation will be included in the audit
 event and all other values will be ignored.
@@ -717,7 +718,7 @@ event and all other values will be ignored.
 在此示例中，只有 Deployment 的 `spec.replicas` 大于 50 时才会包含注解，
 否则 CEL 表达式将求值为 null，并且不会包含注解。
 
-请注意，审计注解键以 `ValidatingAdmissionWebhook` 的名称和 `/` 为前缀。
+请注意，审计注解键以 `ValidatingAdmissionPolicy` 的名称和 `/` 为前缀。
 如果另一个准入控制器（例如准入 Webhook）使用完全相同的审计注解键，
 则第一个包括审计注解值的准入控制器将出现在审计事件中，而所有其他值都将被忽略。
 
@@ -750,7 +751,7 @@ when we try to create a deployment with 5 replicas, we will receive the followin
 在创建限制副本为 3 的 Params 对象并设置绑定之后，当我们尝试创建具有 5 个副本的 Deployment
 时，我们将收到以下消息：
 
-```
+```shell
 $ kubectl create deploy --image=nginx nginx --replicas=5
 error: failed to create deployment: deployments.apps "nginx" is forbidden: ValidatingAdmissionPolicy 'deploy-replica-policy.example.com' with binding 'demo-binding-test.example.com' denied request: object.spec.replicas must be no greater than 3
 ```

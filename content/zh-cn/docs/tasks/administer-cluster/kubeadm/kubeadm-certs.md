@@ -36,13 +36,19 @@ Kubernetes 项目建议及时升级到最新的补丁版本，并确保你正在
 <!--
 You should be familiar with [PKI certificates and requirements in Kubernetes](/docs/setup/best-practices/certificates/).
 
+You should be familiar with how to pass a [configuration](/docs/reference/config-api/kubeadm-config.v1beta4/) file to the kubeadm commands.
+-->
+你应该熟悉 [Kubernetes 中的 PKI 证书和要求](/zh-cn/docs/setup/best-practices/certificates/)。
+
+你应该熟悉如何将一个[配置](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)文件传递给
+kubeadm 命令。
+
+<!--
 This guide covers the usage of the `openssl` command (used for manual certificate signing,
 if you choose that approach), but you can use your preferred tools.
 
 Some of the steps here use `sudo` for administrator access. You can use any equivalent tool.
 -->
-你应该熟悉 [Kubernetes 中的 PKI 证书和要求](/zh-cn/docs/setup/best-practices/certificates/)。
-
 本指南将介绍如何使用 `openssl` 命令（用于手动证书签名），但你可以使用你喜欢的工具。
 
 这里的一些步骤使用 `sudo` 来获取管理员访问权限。你可以使用任何等效的工具。
@@ -77,6 +83,66 @@ and kubeadm will use this CA for signing the rest of the certificates.
 如果在运行 `kubeadm init` 之前存在给定的证书和私钥对，kubeadm 将不会重写它们。
 例如，这意味着你可以将现有的 CA 复制到 `/etc/kubernetes/pki/ca.crt` 和
 `/etc/kubernetes/pki/ca.key` 中，而 kubeadm 将使用此 CA 对其余证书进行签名。
+
+<!--
+## Choosing an encryption algorithm {#choosing-encryption-algorithm}
+
+kubeadm allows you to choose an encryption algorithm that is used for creating
+public and private keys. That can be done by using the `encryptionAlgorithm` field of the
+kubeadm configuration:
+-->
+## 选择加密算法    {#choosing-encryption-algorithm}
+
+kubeadm 允许你选择用于创建公钥和私钥的加密算法。这可以通过使用
+kubeadm 配置中的 `encryptionAlgorithm` 字段来实现。
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: ClusterConfiguration
+encryptionAlgorithm: <ALGORITHM>
+```
+
+<!--
+`<ALGORITHM>` can be one of `RSA-2048` (default), `RSA-3072`, `RSA-4096` or `ECDSA-P256`.
+-->
+`<ALGORITHM>` 可以是 `RSA-2048`（默认）、`RSA-3072`、`RSA-4096`
+或 `ECDSA-P256` 之一。
+
+<!--
+## Choosing certificate validity period {#choosing-cert-validity-period}
+
+kubeadm allows you to choose the validity period of CA and leaf certificates.
+That can be done by using the `certificateValidityPeriod` and `caCertificateValidityPeriod`
+fields of the kubeadm configuration:
+-->
+## 选择证书有效期  {#choosing-cert-validity-period}
+
+kubeadm 允许你选择 CA 和 leaf 证书的有效期。
+这可以通过使用 kubeadm 配置的 `certificateValidityPeriod` 和 `caCertificateValidityPeriod`
+字段来完成：
+
+<!--
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: ClusterConfiguration
+certificateValidityPeriod: 8760h # Default: 365 days × 24 hours = 1 year
+caCertificateValidityPeriod: 87600h # Default: 365 days × 24 hours * 10 = 10 years
+```
+-->
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: ClusterConfiguration
+certificateValidityPeriod: 8760h # 默认：365 天 × 24 小时 = 1 年
+caCertificateValidityPeriod: 87600h # 默认：365 天 × 24 小时 * 10 = 10 年
+```
+
+<!--
+The values of the fields follow the accepted format for
+[Go's `time.Duration` values](https://pkg.go.dev/time#ParseDuration), with the longest supported
+unit being `h` (hours).
+-->
+字段的值遵循 [Go 语言的 `time.Duration` 格式](https://pkg.go.dev/time#ParseDuration)，
+支持的最长单位为 `h`（小时）。
 
 <!--
 ## External CA mode {#external-ca-mode}
@@ -178,7 +244,8 @@ Alternatively, it is possible to use kubeadm phase commands to automate this pro
   仅在将执行 `kubeadm init` 的第一个节点上需要此文件。
 - 请注意，一些文件如 `pki/sa.*`、`pki/front-proxy-ca.*` 和 `pki/etc/ca.*`
   在控制平面各节点上是相同的，你可以一次性生成它们并[手动将其分发](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/#manual-certs)到将执行
-  `kubeadm join` 的节点，或者你可以使用 `kubeadm init` 的 [`--upload-certs`](/zh-cn/docs/setup/product-environment/tools/kubeadm/high-availability/#stacked-control-plane-and-etcd-nodes)
+  `kubeadm join` 的节点，或者你可以使用 `kubeadm init` 的
+  [`--upload-certs`](/zh-cn/docs/setup/product-environment/tools/kubeadm/high-availability/#stacked-control-plane-and-etcd-nodes)
   和 `kubeadm join` 的 `--certificate-key` 特性来执行自动分发。
 
 <!--
@@ -443,7 +510,7 @@ If you're creating a new cluster, you can use a kubeadm
 [configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/):
 -->
 如果你正在创建一个新的集群，你可以使用 kubeadm
-的[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)。
+的[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)：
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -459,7 +526,7 @@ controllerManager:
 <!--
 ### Create certificate signing requests (CSR)
 -->
-### 创建证书签名请求 (CSR) {#create-certificate-signing-requests-csr}
+### 创建证书签名请求（CSR） {#create-certificate-signing-requests-csr}
 
 <!--
 See [Create CertificateSigningRequest](/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatessigningrequest)
@@ -618,9 +685,8 @@ If you are looking for a solution for automatic approval of these CSRs it is rec
 that you contact your cloud provider and ask if they have a CSR signer that verifies
 the node identity with an out of band mechanism.
 -->
-如果你在寻找一种能够自动批准这些 CSR 的解决方案，建议你与你的云提供商
-联系，询问他们是否有 CSR 签名组件，用来以带外（out-of-band）的方式检查
-节点的标识符。
+如果你在寻找一种能够自动批准这些 CSR 的解决方案，建议你与你的云提供商联系，
+询问他们是否有 CSR 签名组件，用来以带外（out-of-band）的方式检查节点的标识符。
 
 {{% thirdparty-content %}}
 
@@ -911,7 +977,8 @@ on secondary control plane and on workers nodes (all nodes that call `kubeadm jo
 That is because the active kube-controller-manager will be responsible
 for signing new kubelet client certificates.
 -->
-请注意，这也意味着自动 [kubelet 客户端证书轮换](/zh-cn/docs/tasks/tls/certificate-rotation/#enabling-client-certificate-rotation)将被禁用。
+请注意，这也意味着自动
+[kubelet 客户端证书轮换](/zh-cn/docs/tasks/tls/certificate-rotation/#enabling-client-certificate-rotation)将被禁用。
 如果是这样，在证书即将到期时，你必须生成新的 `kubelet.conf.csr`，签署证书，
 将其嵌入到 `kubelet.conf` 中并重新启动 kubelet。
 
@@ -959,8 +1026,8 @@ Based on the explanation in
 [Considerations for kubelet.conf](#considerations-kubelet-conf) keep or delete
 the `kubelet.conf` and `kubelet.conf.csr` files.
 -->
-如果要使用外部 etcd，请阅读 [kubeadm 使用外部 etcd](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/#external-etcd-nodes)指南了解
-kubeadm 和 etcd 节点上需要哪些 CSR 文件。
+如果要使用外部 etcd，请阅读 [kubeadm 使用外部 etcd](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/#external-etcd-nodes)
+指南了解 kubeadm 和 etcd 节点上需要哪些 CSR 文件。
 你可以删除 `/etc/kubernetes/pki/etcd` 下的其他 `.csr` 和 `.key` 文件。
 
 根据 [kubelet.conf 的注意事项](#considerations-kubelet-conf)中的说明，
@@ -1034,12 +1101,45 @@ present in the `/etc/kubernetes` tree.
 
 <!--
 ```bash
+#!/bin/bash
+
 # Set certificate expiration time in days
+DAYS=365
+
 # Process all CSR files except those for front-proxy and etcd
-# Trim the extension
+find ./ -name "*.csr" | grep -v "pki/etcd" | grep -v "front-proxy" | while read -r FILE;
+do
+    echo "* Processing ${FILE} ..."
+    FILE=${FILE%.*} # Trim the extension
+    if [ -f "./pki/ca.srl" ]; then
+        SERIAL_FLAG="-CAserial ./pki/ca.srl"
+    else
+        SERIAL_FLAG="-CAcreateserial"
+    fi
+    openssl x509 -req -days "${DAYS}" -CA ./pki/ca.crt -CAkey ./pki/ca.key ${SERIAL_FLAG} \
+        -in "${FILE}.csr" -out "${FILE}.crt"
+    sleep 2
+done
+
 # Process all etcd CSRs
-# Trim the extension
+find ./pki/etcd -name "*.csr" | while read -r FILE;
+do
+    echo "* Processing ${FILE} ..."
+    FILE=${FILE%.*} # Trim the extension
+    if [ -f "./pki/etcd/ca.srl" ]; then
+        SERIAL_FLAG=-CAserial ./pki/etcd/ca.srl
+    else
+        SERIAL_FLAG=-CAcreateserial
+    fi
+    openssl x509 -req -days "${DAYS}" -CA ./pki/etcd/ca.crt -CAkey ./pki/etcd/ca.key ${SERIAL_FLAG} \
+        -in "${FILE}.csr" -out "${FILE}.crt"
+done
+
 # Process front-proxy CSRs
+echo "* Processing ./pki/front-proxy-client.csr ..."
+openssl x509 -req -days "${DAYS}" -CA ./pki/front-proxy-ca.crt -CAkey ./pki/front-proxy-ca.key -CAcreateserial \
+    -in ./pki/front-proxy-client.csr -out ./pki/front-proxy-client.crt
+```
 -->
 ```bash
 #!/bin/bash

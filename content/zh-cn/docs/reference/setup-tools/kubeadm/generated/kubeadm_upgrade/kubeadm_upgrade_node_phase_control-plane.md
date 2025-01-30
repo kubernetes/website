@@ -44,6 +44,20 @@ Perform the renewal of certificates used by component changed during upgrades.
 </tr>
 
 <tr>
+<td colspan="2">--config string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Path to a kubeadm configuration file.
+-->
+kubeadm 配置文件的路径。
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>

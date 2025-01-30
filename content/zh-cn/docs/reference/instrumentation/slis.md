@@ -15,7 +15,7 @@ weight: 20
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.29" state="stable" >}}
+{{< feature-state feature_gate_name="ComponentSLIs" >}}
 
 <!--
 By default, Kubernetes {{< skew currentVersion >}} publishes Service Level Indicator (SLI) metrics 
