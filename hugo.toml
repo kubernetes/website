@@ -253,9 +253,14 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 	icon = "fa-brands fa-stack-overflow"
 
 [[params.links.user]]
-	name_key = "community_x_name"
-	url = "https://twitter.com/kubernetesio"
-	icon = "fa-brands fa-twitter"
+  name_key = "community_linkedin_name"
+  url = "https://www.linkedin.com/company/kubernetes/"
+  icon = "fa-brands fa-linkedin"
+
+#[[params.links.user]]
+#	name_key = "community_x_name"
+#	url = "https://twitter.com/kubernetesio"
+#	icon = "fa-brands fa-twitter"
 # Replace with fa-x-twitter once available
 
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
