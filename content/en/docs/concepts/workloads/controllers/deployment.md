@@ -227,7 +227,7 @@ Get more details on your updated Deployment:
 * After the rollout succeeds, you can view the Deployment by running `kubectl get deployments`.
   The output is similar to this:
 
-  ```ini
+  ```
   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
   nginx-deployment   3/3     3            3           36s
   ```
