@@ -40,6 +40,9 @@ other = "ICP license:"
 [community_advice_guidelines]
 other = "You can also read about our {{ .link }}."
 
+[community_bluesky_name]
+other = "Bluesky"
+
 [community_calendar_name]
 other = "Events Calendar"
 
