@@ -81,7 +81,7 @@ min-kubernetes-server-version: v1.21
 
 パーセンテージを指定すろと、Podの数には性格にマッピングされない場合があります。
 例えば、7個のPodがあり`minAvailable`が`"50%"`に設定されている場合、利用可能である必要があるPodの数が3個か4個かはすぐにはわかりません。
-Kubernetesは最も近い整数に丸めるため、このケースでは4個ののPodが利用可能である必要があります。
+Kubernetesは最も近い整数に切り上げるため、このケースでは4個のPodが利用可能である必要があります。
 パーセンテージとして`maxUnavailable`の値を指定すると、KubernetesはDisruptionされるPodの数を切り上げます。
 その結果、定義された`maxUnavailable`のパーセンテージを超えるDisruptionが発生する可能性があります。
 この挙動を制御する[コード](https://github.com/kubernetes/kubernetes/blob/23be9587a0f8677eb8091464098881df939c44a9/pkg/controller/disruption/disruption.go#L539)を確認できます。
