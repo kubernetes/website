@@ -45,7 +45,7 @@ min-kubernetes-server-version: v1.21
 
 バージョン1.15以降では、PDBは[scale subresource](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource)が有効になっているカスタムコントローラーをサポートします。
 
-上記のコントローラーのいずれかによって制御されていないPodや、任意のPodグループでPDBを使用することもできますが、[任意のワークロードと任意のセレクター]で(#arbitrary-controllers-and-selectors)で説明されているように、いくつかの制限があります。
+上記のコントローラーのいずれかによって制御されていないPodや、任意のPodグループでPDBを使用することもできますが、[任意のワークロードと任意のセレクター](#arbitrary-controllers-and-selectors)で説明されているように、いくつかの制限があります。
 
 ## アプリケーションがDisruptionにどのように反応するかを検討する
 
