@@ -377,8 +377,11 @@ when satisfying the Pod (anti)affinity.
 The keys are used to look up values from the pod labels; those key-value labels are combined
 (using `AND`) with the match restrictions defined using the `labelSelector` field. The combined
 filtering selects the set of existing pods that will be taken into Pod (anti)affinity calculation.
+
+{{< warning >}}
 It's not recommended to use `matchLabelKeys` with labels that might be updated 
-because the update of the label isn't reflected onto the merged `LabelSelector`.
+because the update of the label isn't reflected onto the merged `labelSelector`.
+{{< /warning >}}
 
 A common use case is to use `matchLabelKeys` with `pod-template-hash` (set on Pods
 managed as part of a Deployment, where the value is unique for each revision).
@@ -426,8 +429,11 @@ When you want to disable it, you have to disable it explicitly via the
 Kubernetes includes an optional `mismatchLabelKeys` field for Pod affinity
 or anti-affinity. The field specifies keys for the labels that should **not** match with the incoming Pod's labels,
 when satisfying the Pod (anti)affinity.
-It's not recommended to use `mismatchLabelKeys` with labels that might be updated 
-because the update of the label isn't reflected onto the merged `LabelSelector`.
+
+{{< warning >}}
+It's not recommended to use `matchLabelKeys` with labels that might be updated 
+because the update of the label isn't reflected onto the merged `labelSelector`.
+{{< /warning >}}
 
 One example use case is to ensure Pods go to the topology domain (node, zone, etc) where only Pods from the same tenant or team are scheduled in.
 In other words, you want to avoid running Pods from two different tenants on the same topology domain at the same time.
