@@ -18,8 +18,8 @@ min-kubernetes-server-version: v1.21
 
 - あなたは、高可用性を必要とするKubernetesクラスター上で実行されているアプリケーションの所有者です。
 - [レプリケートされたステートレスアプリケーション](/ja/docs/tasks/run-application/run-stateless-application-deployment/)および/または[レプリケートされたステートフルアプリケーション](/ja/docs/tasks/run-application/run-replicated-stateful-application/)のデプロイ方法を知っておく必要があります。
-- [Pod Disruptions](/ja/docs/concepts/workloads/pods/disruptions/)について読んでいることが望ましいです。
-- クラスターの所有者またはサービスプロバイダーが、Pod Disruption Budgetsを重んじていることを確認してください。
+- [Pod Disruption](/ja/docs/concepts/workloads/pods/disruptions/)について読んでいることが望ましいです。
+- クラスターの所有者またはサービスプロバイダーが、Pod Disruption Budgetを重んじていることを確認してください。
 
 <!-- steps -->
 
