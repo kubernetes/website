@@ -104,7 +104,7 @@ policy/v1beta1では空のセレクターは0個のPodにマッチしますが�
 
 単一の`PodDisruptionBudget`には、`maxUnavailable`と`minAvailable`のいずれか1つだけを指定できます。
 `maxUnavailable`は、そのセットのコントローラーによって管理されているPodの退避を制御する目的のみに使用できます。
-以下の例において"必要なレプリカ数"は、`PodDisruptionBudget`によって選択されるPodを管理しているコントローラーの`scale`です。
+以下の例において"理想的なレプリカ数"は、`PodDisruptionBudget`によって選択されるPodを管理しているコントローラーの`scale`です。
 
 
 例 1: `minAvailable`が5に設定されている場合、PodDisruptionBudgetの`selector`によって選択されたPodの中で、少なくとも5つ以上の[健全](#healthiness-of-a-pod)なPodが残る限り、退避が許可されます。
