@@ -210,7 +210,7 @@ status:
 
 アプリケーションを保護するPodDisruptionBudgetは、健全なPodの退避を許可しないことで、`.status.currentHealthy`のPod数が`.status.desiredHealthy`で指定された数を下回らないようにします。
 `.spec.unhealthyPodEvictionPolicy`を使用すると、不健全なPodを退避する基準を定義できます。
-ポリシーが指定されていない場合のデフォルトの動作は、`IfHealthyBudget`ポリシーに対応します。
+ポリシーが指定されていない場合のデフォルトの動作は、`IfHealthyBudget`ポリシーに準じます。
 
 ポリシー:
 
