@@ -235,7 +235,7 @@ status:
 
 ## 任意のワークロードと任意のセレクター {#arbitrary-controllers-and-selectors}
 
-ビルトインのワークロードリソース(Deployment, ReplicaSet, StatefulSet and ReplicationController)のみでPDB、または`scale`[サブリソース](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/#advanced-features-and-flexibility)を実装した{{< glossary_tooltip term_id="CustomResourceDefinition" text="カスタムリソース" >}}でのみPDBを使用し、PDBセレクターがPodを所有するリソースのセレクターと完全に一致する場合に、このセクションをスキップできます。
+ビルトインのワークロードリソース(Deployment、ReplicaSet、StatefulSet、ReplicationController)、または`scale`[サブリソース](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/#advanced-features-and-flexibility)を実装した{{< glossary_tooltip term_id="CustomResourceDefinition" text="カスタムリソース" >}}でのみPDBを使用し、PDBセレクターがPodを所有するリソースのセレクターと完全に一致する場合は、このセクションをスキップできます。
 
 他のリソースや"オペレーター"に制御されるPodまたはベアPodにおいてもPDBを使用することができますが、次の制限があります:
 
