@@ -140,7 +140,7 @@ maxUnavailableを使用した例:
 
 {{% code_sample file="policy/zookeeper-pod-disruption-budget-maxunavailable.yaml" %}}
 
-例えば、上記の`zk-pdb`オブジェクトがサイズ3のStatefulSetのPodを選択する場合、両方の使用はまったく同じ意味を持ちます。
+例えば、上記の`zk-pdb`オブジェクトがサイズ3のStatefulSetのPodを選択する場合、どちらの仕様もまったく同じ意味を持ちます。
 `maxUnavailable`の使用が推奨されており、これは対応するコントローラーのレプリカ数の変更に自動的に対応するためです。
 
 ## PDBオブジェクトを作成する
