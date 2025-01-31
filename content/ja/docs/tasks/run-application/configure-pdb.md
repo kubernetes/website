@@ -164,7 +164,7 @@ NAME     MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
 zk-pdb   2               N/A               0                     7s
 ```
 
-一致するPod(例えば3つ)、次のように表示されます:
+一致するPod(例えば3つ)があれば、次のように表示されます:
 
 ```shell
 kubectl get poddisruptionbudgets
