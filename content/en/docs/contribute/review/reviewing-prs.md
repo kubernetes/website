@@ -168,13 +168,13 @@ When reviewing, use the following as a starting point.
 - Early feedback on blog posts is welcome via a Google Doc or HackMD. Please request input early from the [#sig-docs-blog Slack channel](https://kubernetes.slack.com/archives/CJDHVD54J).
 - Before reviewing blog PRs, be familiar with [Submitting blog posts and case studies](/docs/contribute/new-content/blogs-case-studies/).
 - We are willing to mirror any blog article that was published to https://kubernetes.dev/blog/ (the contributor blog) provided that:
-- the mirrored article has the same publication date as the original (it should have the same publication time too, but you can also set a time stamp up to 12 hours later for special cases)
+  - the mirrored article has the same publication date as the original (it should have the same publication time too, but you can also set a time stamp up to 12 hours later for special cases)
   - for PRs that arrive the original article was merged to https://kubernetes.dev/, there haven't been 
   (and won't be) any articles published to the main blog between time that the original and mirrored article 
   [will] publish. 
   This is because we don't want to add articles to people's feeds, such as RSS, except at the very end of their feed.
   - the original article doesn't contravene any strongly recommended review guidelines or community norms.
-  - You should set the canonical URL for the mirrored article, to the URL of the original article 
+- You should set the canonical URL for the mirrored article, to the URL of the original article 
   (you can use a preview to predict the URL and fill this in ahead of actual publication). Use the `canonicalUrl` 
   field in [front matter](https://gohugo.io/content-management/front-matter/) for this.
 - Consider the target audience and whether the blog post is appropriate for kubernetes.io 
