@@ -107,9 +107,9 @@ and the domain name for your cluster is `cluster.local`, then the Pod has a DNS 
 
 `172-17-0-3.default.pod.cluster.local`.
 
-Any Pods exposed by a Service have the following DNS resolution available:
+Some cluster DNS mechanisms, like [CoreDNS], also provide `A` records for:
 
-`pod-ipv4-address.service-name.my-namespace.svc.cluster-domain.example`.
+<tt><em>pod-ipv4-address</em>.<em>service-name</em>.<em>my-namespace</em>.svc.<em>cluster-domain.example</em>.</tt>
 
 ### Pod's hostname and subdomain fields
 
@@ -363,3 +363,5 @@ this problem.
 
 For guidance on administering DNS configurations, check
 [Configure DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers/)
+
+[CoreDNS]: https://coredns.io/
