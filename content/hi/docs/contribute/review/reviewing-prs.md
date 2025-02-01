@@ -16,7 +16,7 @@ weight: 10
 
 समीक्षा करने से पहले, यह एक अच्छा विचार है:
 
-- [विषय मार्गदर्शिका](/docs/contribute/style/content-guide/) और [शैली मार्गदर्शिका](/docs/contribute/style/style-guide/) पढ़ें ताकि आप सूचित टिप्पणियाँ लिख सकें।
+- [विषय मार्गदर्शिका](/docs/contribute/style/content-guide/) और [शैली मार्गदर्शिका](/docs/contribute/style/style-guide/) पढ़ें ताकि आप सूचित टिप्पणियाँ छोड़ सकते है ।
 - कुबेरनेट्स प्रलेखन समुदाय की विविध [भूमिकाओं और जिम्मेदारियों](/docs/contribute/participate/roles-and-responsibilities/) को समझें।
 
 <!-- body -->
