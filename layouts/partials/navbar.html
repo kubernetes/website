@@ -1,33 +1,32 @@
 {{ $cover := .HasShortcode "blocks/cover" }}
-<nav class="js-navbar-scroll navbar navbar-expand navbar-dark {{ if $cover}} td-navbar-cover {{ end }} flex-column flex-md-row td-navbar" data-auto-burger="primary">
-        <a class="navbar-brand img-fluid" href="{{ .Site.Home.RelPermalink }}"></a>
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark {{ if $cover}} td-navbar-cover {{ end }}flex-column flex-md-row td-navbar" data-auto-burger="primary">
+        <a class="navbar-brand" href="{{ .Site.Home.RelPermalink }}">
+		<span class="navbar-logo">{{ if .Site.Params.ui.navbar_logo }}{{ with resources.Get "icons/logo.svg" }}{{ ( . | minify).Content | safeHTML }}{{ end }}{{ end }}</span><span class="navbar-site-title font-weight-bold">{{ .Site.Title }}</span>
+	</a>
 	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
-		
 		<ul class="navbar-nav mt-2 mt-lg-0">
 			{{ $p := . }}
 			{{ $sections := slice "docs" "blog" "training" "partners" "community" "case-studies" }}
 			{{ range $sections }}
 			{{ with site.GetPage "section" . }}
-			<li class="nav-item mr-2 mb-lg-0">
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
 				{{ $active := eq .Section $.Section }}
 				<a class="nav-link{{if $active }} active{{end}}" href="{{ .RelPermalink }}" >{{ .Title }}</a>
 			</li>
 			{{ end }}
 			{{ end }}
 			{{ if  .Site.Params.versions }}
-			<li class="nav-item mr-n3 mr-lg-0 dropdown">
+			<li class="nav-item dropdown mr-4 d-none d-lg-block">
 				{{ partial "navbar-version-selector.html" . }}
 			</li>
 			{{ end }}
 			{{ if  (gt (len .Site.Home.Translations) 0) }}
-			<li class="nav-item mr-n4 mr-lg-0  dropdown">
+			<li class="nav-item dropdown mr-4 d-none d-lg-block">
 				{{ partial "navbar-lang-selector.html" . }}
 			</li>
 			{{ end }}
-			<li class="search-item nav-item mr-n4 mr-lg-0">
-				{{ partial "search-input.html" . }}
-			</li>
 		</ul>
 	</div>
+	<div class="navbar-nav d-none d-lg-block">{{ partial "search-input.html" . }}</div>
 	<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
 </nav>
