@@ -141,8 +141,9 @@ your cluster. Those fields are:
   A null or empty list means only match against the `labelSelector`.
 
   {{< caution >}}
-  It's not recommended to use `matchLabelKeys` with labels that might be updated 
-  because the update of the label isn't reflected onto the merged `labelSelector`.
+  It's not recommended to use `matchLabelKeys` with labels that might be updated directly on pods.
+  Even if you edit the pod's label that is specified at `matchLabelKeys` **directly**, (that is, not via a deployment),
+  kube-apiserver doesn't reflect the label update onto the merged `labelSelector`.
   {{< /caution >}}
 
   With `matchLabelKeys`, you don't need to update the `pod.spec` between different revisions.
