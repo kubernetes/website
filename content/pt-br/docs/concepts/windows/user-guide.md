@@ -86,7 +86,7 @@ a porta 80 do contêiner diretamente para o Service.
     kubectl get nodes
     ```
 
-2. Implemente o serviço e monitore as atualizações do pod:
+2. Implante o serviço e monitore as atualizações do pod:
 
     ```bash
     kubectl apply -f win-webserver.yaml
