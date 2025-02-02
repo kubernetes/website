@@ -93,7 +93,7 @@ a porta 80 do contêiner diretamente para o Service.
     kubectl get pods -o wide -w
     ```
 
-    Quando o serviço for implementado corretamente, ambos os Pods serão marcados como prontos. Para sair do comando de monitoramento, pressione Ctrl+C.
+    Quando o serviço for implantado corretamente, ambos os Pods serão marcados como prontos. Para sair do comando de monitoramento, pressione Ctrl+C.
 
 3. Verifique se a implantação foi bem-sucedida. Para verificar:
 
