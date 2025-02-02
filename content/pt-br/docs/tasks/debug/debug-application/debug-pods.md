@@ -1,0 +1,189 @@
+---
+title: Depuração de Pods
+content_type: task
+weight: 10
+---
+
+<!-- overview -->
+
+Este guia foi criado para ajudar os usuários a depurar aplicações implantadas no Kubernetes
+que não estão se comportando corretamente. Este *não* é um guia para quem deseja depurar seu cluster.
+Para isso, você deve conferir [este guia](/docs/tasks/debug/debug-cluster).
+
+<!-- body -->
+
+## Diagnosticando o problema
+
+O primeiro passo na solução de problemas é a triagem. Qual é o problema?
+São seus Pods, seu Replication Controller ou seu Service?
+
+   * [Depurando Pods](#debugging-pods)
+   * [Depurando Replication Controllers](#debugging-replication-controllers)
+   * [Depurando Services](#debugging-services)
+
+### Depurando Pods
+
+O primeiro passo para depurar um Pod é examiná-lo. Verifique o estado atual
+do Pod e eventos recentes com o seguinte comando:
+
+```shell
+kubectl describe pods ${POD_NAME}
+```
+
+Observe o estado dos containers no Pod. Todos estão em `Running`?
+Houve reinicializações recentes?
+
+Continue a depuração dependendo do estado dos Pods.
+
+#### Meu Pod fica em estado pending
+
+Se um Pod estiver preso em `Pending`, significa que ele não pode ser agendado em um nó.
+Geralmente, isso ocorre porque há recursos insuficientes de algum tipo, impedindo o agendamento.
+Verifique a saída do comando `kubectl describe ...` mencionado acima.
+Deve haver mensagens do scheduler explicando por que o Pod não pode ser agendado. As razões incluem:
+
+* **Você não tem recursos suficientes**: Pode ser que você tenha esgotado a capacidade de CPU ou Memória no seu cluster.
+  Nesse caso, você precisa excluir Pods, ajustar as solicitações de recursos ou adicionar novos nós ao cluster.
+  Consulte o documento [Recursos de Computação](/docs/concepts/configuration/manage-resources-containers/) para mais informações.
+
+* **Você está usando `hostPort`**: Quando você vincula um Pod a um `hostPort`, há um número limitado de locais onde esse Pod pode ser agendado.
+  Na maioria dos casos, `hostPort` é desnecessário; tente usar um objeto Service para expor seu Pod.
+  Se você realmente precisar de `hostPort`, então só poderá agendar tantos Pods quanto o número de nós no seu cluster Kubernetes.
+
+
+#### Meu Pod fica em estado waiting
+
+Se um Pod estiver preso no estado `Waiting`, significa que ele foi agendado para um nó de trabalho,
+mas não pode ser executado nessa máquina. Novamente, as informações do comando `kubectl describe ...`
+devem fornecer detalhes úteis.
+
+A causa mais comum para Pods em estado `Waiting` é a falha ao puxar a imagem.
+Há três coisas que você deve verificar:
+
+* Certifique-se de que o nome da imagem está correto.
+* Você enviou a imagem para o registro?
+* Tente puxar a imagem manualmente para verificar se ela pode ser baixada. Por exemplo,
+  se você usa Docker no seu PC, execute `docker pull <image>`.
+
+#### Meu Pod fica em estado terminating
+
+Se um Pod estiver preso no estado `Terminating`, significa que uma solicitação de exclusão foi emitida,
+mas o control plane não conseguiu remover o objeto do Pod.
+
+Isso geralmente ocorre se o Pod possui um [finalizer](/docs/concepts/overview/working-with-objects/finalizers/)
+e há um [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+instalado no cluster que impede o control plane de remover o finalizer.
+
+Para identificar esse cenário, verifique se seu cluster possui alguma
+ValidatingWebhookConfiguration ou MutatingWebhookConfiguration que tenha como alvo
+operações `UPDATE` para recursos `pods`.
+
+Se o webhook for fornecido por um terceiro:
+- Certifique-se de estar usando a versão mais recente.
+- Desative o webhook para operações `UPDATE`.
+- Relate um problema ao provedor correspondente.
+
+Se você for o autor do webhook:
+- Para um webhook mutante, certifique-se de que ele nunca altera campos imutáveis
+  em operações `UPDATE`. Por exemplo, mudanças em containers geralmente não são permitidas.
+- Para um webhook validador, garanta que suas regras de validação se apliquem apenas a novas alterações.
+  Em outras palavras, você deve permitir que Pods com violações existentes passem pela validação.
+  Isso permite que Pods criados antes da instalação do webhook continuem em execução.
+
+#### Meu Pod está falhando ou não está saudável
+
+Depois que seu Pod for agendado, você pode usar os métodos descritos em
+[Depurando Pods em Execução](/docs/tasks/debug/debug-application/debug-running-pod/) para depuração.
+
+#### Meu Pod está em execução, mas não faz o que eu defini
+
+Se o seu Pod não está se comportando como esperado, pode haver um erro na descrição do Pod
+(por exemplo, no arquivo `mypod.yaml` em sua máquina local) que foi ignorado silenciosamente
+ao criar o Pod. Muitas vezes, uma seção da descrição do Pod pode estar aninhada incorretamente
+ou um nome de chave pode ter sido digitado incorretamente, fazendo com que a chave seja ignorada.
+Por exemplo, se você digitou `commnd` em vez de `command`, o Pod será criado,
+mas não usará o comando que você pretendia.
+
+A primeira coisa a fazer é excluir seu Pod e tentar criá-lo novamente usando a opção `--validate`.
+Por exemplo, execute `kubectl apply --validate -f mypod.yaml`.
+Se você digitou `command` incorretamente como `commnd`, verá um erro como este:
+
+```shell
+I0805 10:43:25.129850   46757 schema.go:126] unknown field: commnd
+I0805 10:43:25.129973   46757 schema.go:129] this may be a false alarm, see https://github.com/kubernetes/kubernetes/issues/6842
+pods/mypod
+```
+
+<!-- TODO: Now that #11914 is merged, this advice may need to be updated -->
+
+A próxima coisa a verificar é se o Pod no apiserver corresponde ao Pod que você pretendia criar
+(por exemplo, no arquivo YAML em sua máquina local).
+Por exemplo, execute `kubectl get pods/mypod -o yaml > mypod-on-apiserver.yaml` em seguida,
+compare manualmente a descrição original do Pod (`mypod.yaml`) com a versão obtida do apiserver (`mypod-on-apiserver.yaml`).  
+Normalmente, a versão do "apiserver" terá algumas linhas extras que não estão na versão original,
+o que é esperado. No entanto, se houver linhas na versão original que não aparecem na versão do apiserver, 
+isso pode indicar um problema na especificação do seu Pod.
+
+### Depurando Replication Controllers
+
+Replication Controllers são relativamente simples. Eles podem criar Pods ou não.
+Se não conseguirem criar Pods, consulte as
+[instruções acima](#debugging-pods) para depurar seus Pods.
+
+You can also use `kubectl describe rc ${CONTROLLER_NAME}` to introspect events
+related to the replication controller.
+
+### Depurando Services
+
+Os Services fornecem balanceamento de carga entre um conjunto de Pods.
+Existem vários problemas comuns que podem fazer com que os Services não funcionem corretamente.
+As instruções a seguir devem ajudar na depuração de problemas com Services.
+
+Primeiro, verifique se há endpoints para o Service.
+Para cada objeto Service, o apiserver disponibiliza um recurso `endpoints`.
+
+Você pode visualizar esse recurso com o seguinte comando:
+
+```shell
+kubectl get endpoints ${SERVICE_NAME}
+```
+
+Certifique-se de que os endpoints correspondem ao número de Pods que você espera que sejam membros do seu Service.
+Por exemplo, se seu Service estiver associado a um container Nginx com 3 réplicas,
+você deve esperar ver três endereços IP diferentes nos endpoints do Service.
+
+#### Meu Service não possui endpoints
+
+Se os endpoints estiverem ausentes, tente listar os Pods usando os rótulos que o Service utiliza.
+Por exemplo, imagine que você tenha um Service com os seguintes rótulos:
+
+```yaml
+...
+spec:
+  - selector:
+     name: nginx
+     type: frontend
+```
+
+Você pode usar:
+
+```shell
+kubectl get pods --selector=name=nginx,type=frontend
+```
+
+para listar os pods que correspondem a esse seletor. Verifique se a lista corresponde aos pods que você espera que forneçam seu service.  
+Além disso, certifique-se de que o `containerPort` do pod corresponde ao `targetPort` do service.
+
+#### O tráfego de rede não está sendo encaminhado
+
+Consulte [Depurando Services](/docs/tasks/debug/debug-application/debug-service/) para mais informações.
+
+## {{% heading "whatsnext" %}}
+
+Se nenhuma das soluções acima resolver seu problema, siga as instruções no
+[documento de Depuração de Services](/docs/tasks/debug/debug-application/debug-service/)
+para garantir que seu `Service` está em execução, possui `Endpoints` e que seus `Pods`
+estão realmente respondendo; além disso, verifique se o DNS está funcionando,
+as regras do iptables estão configuradas corretamente e se o kube-proxy não está com problemas.
+
+Você também pode consultar o [documento de solução de problemas](/docs/tasks/debug/) para mais informações.
