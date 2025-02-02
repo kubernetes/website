@@ -80,7 +80,7 @@ Mapeamento de portas também é suportado, mas para simplicidade este exemplo ex
 a porta 80 do contêiner diretamente para o Service.
 {{< /note >}}
 
-1. Verifique se todos os nós estão saudáveis:
+1. Verifique se todos os nós estão íntegros:
 
     ```bash
     kubectl get nodes
