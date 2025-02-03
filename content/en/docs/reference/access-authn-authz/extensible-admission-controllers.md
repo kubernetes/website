@@ -1176,6 +1176,10 @@ apiserver_admission_webhook_rejection_count{error_type="no_error",name="deny-unw
 
 ## Best practices and warnings
 
+For recommendations and considerations when writing mutating admission webhooks,
+see
+[Mutating Webhooks Good Practices](/docs/concepts/security/mutating-webhooks-good-practices).
+
 ### Idempotence
 
 An idempotent mutating admission webhook is able to successfully process an object it has already admitted
