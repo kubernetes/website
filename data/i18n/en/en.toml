@@ -451,7 +451,7 @@ other = "Options"
 other = "This article is more than one year old. Older articles may contain outdated content. Check that the information in the page has not become incorrect since its publication."
 
 [parentoptions_heading]
-other="Parent Options"
+other = "Parent Options"
 
 [patch_release]
 other = "Patch Release"
