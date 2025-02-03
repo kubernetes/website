@@ -82,7 +82,7 @@ kubectl get [(-o|--output=)json|yaml|name|go-template|go-template-file|template|
 
 ## {{% heading "options" %}}
 
-  <table style="width: 100%; table-layout: fixed;">
+   <table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -264,7 +264,7 @@ kubectl get [(-o|--output=)json|yaml|name|go-template|go-template-file|template|
 
 ## {{% heading "parentoptions" %}}
 
-  <table style="width: 100%; table-layout: fixed;">
+   <table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -517,3 +517,4 @@ kubectl get [(-o|--output=)json|yaml|name|go-template|go-template-file|template|
 ## {{% heading "seealso" %}}
 
 * [kubectl](../kubectl/)	 - kubectl controls the Kubernetes cluster manager
+
