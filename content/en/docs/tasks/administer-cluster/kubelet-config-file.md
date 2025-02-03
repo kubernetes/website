@@ -146,7 +146,7 @@ and replaces every field present in a higher priority file.
 Since the configuration could now be spread over multiple files with this feature, if someone wants to inspect the final actuated configuration,
 they can follow these steps to inspect the kubelet configuration:
 
-1. Start a proxy server using [`kubectl proxy`](/docs/reference/kubectl/generated/kubectl-commands#proxy) in your terminal.
+1. Start a proxy server using [`kubectl proxy`](/docs/reference/kubectl/generated/kubectl_proxy/) in your terminal.
 
    ```bash
    kubectl proxy

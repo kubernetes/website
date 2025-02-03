@@ -677,8 +677,8 @@ To assign SELinux labels, the SELinux security module must be loaded on the host
 Kubernetes v1.27 introduced an early limited form of this behavior that was only applicable
 to volumes (and PersistentVolumeClaims) using the `ReadWriteOncePod` access mode.
 
-As an alpha feature, you can enable the `SELinuxMount`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to widen that
+As an alpha feature, you can enable the `SELinuxMount` and `SELinuxChangePolicy`
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/) to widen that
 performance improvement to other kinds of PersistentVolumeClaims, as explained in detail
 below.
 {{< /note >}}
@@ -694,7 +694,9 @@ To benefit from this speedup, all these conditions must be met:
   and `SELinuxMountReadWriteOncePod` must be enabled.
 * Pod must use PersistentVolumeClaim with applicable `accessModes` and [feature gates](/docs/reference/command-line-tools-reference/feature-gates/):
   * Either the volume has `accessModes: ["ReadWriteOncePod"]`, and feature gate `SELinuxMountReadWriteOncePod` is enabled.
-  * Or the volume can use any other access modes and both feature gates `SELinuxMountReadWriteOncePod` and `SELinuxMount` must be enabled.
+  * Or the volume can use any other access modes and both feature gates
+    `SELinuxMountReadWriteOncePod`, `SELinuxChangePolicy` and `SELinuxMount` must be enabled
+    and the Pod has `spec.securityContext.seLinuxChangePolicy` either nil (default) or `MountOption`. 
 * Pod (or all its Containers that use the PersistentVolumeClaim) must
   have `seLinuxOptions` set.
 * The corresponding PersistentVolume must be either:
@@ -706,7 +708,52 @@ To benefit from this speedup, all these conditions must be met:
 For any other volume types, SELinux relabelling happens another way: the container
 runtime  recursively changes the SELinux label for all inodes (files and directories)
 in the volume.
-The more files and directories in the volume, the longer that relabelling takes.
+
+{{< feature-state feature_gate_name="SELinuxChangePolicy" >}}
+For Pods that want to opt-out from relabeling using mount options, they can set
+`spec.securityContext.seLinuxChangePolicy` to `Recursive`. This is required
+when multiple pods share a single volume on the same node, but they run with
+different SELinux labels that allows simultaneous access to the volume. For example, a privileged pod
+running with label `spc_t` and an unprivileged pod running with the default label `container_file_t`.
+With unset `spec.securityContext.seLinuxChangePolicy` (or with the default value `MountOption`),
+only one of such pods is able to run on a node, the other one gets ContainerCreating with error
+`conflicting SELinux labels of volume <name of the volume>: <label of the running pod> and <label of the pod that can't start>`.
+
+#### SELinuxWarningController
+To make it easier to identify Pods that are affected by the change in SELinux volume relabeling,
+a new controller called `SELinuxWarningController` has been introduced in kube-controller-manager.
+It is disabled by default and can be enabled by either setting the `--controllers=*,selinux-warning-controller`
+[command line flag](/docs/reference/command-line-tools-reference/kube-controller-manager/),
+or by setting `genericControllerManagerConfiguration.controllers`
+[field in KubeControllerManagerConfiguration](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration).
+This controller requires `SELinuxChangePolicy` feature gate to be enabled.
+
+When enabled, the controller observes running Pods and when it detects that two Pods use the same volume
+with different SELinux labels:
+1. It emits an event to both of the Pods. `kubectl describe pod <pod-name>` the shows
+  `SELinuxLabel "<label on the pod>" conflicts with pod <the other pod name> that uses the same volume as this pod
+  with SELinuxLabel "<the other pod label>". If both pods land on the same node, only one of them may access the volume`.
+2. Raise `selinux_warning_controller_selinux_volume_conflict` metric. The metric has both pod
+  names + namespaces as labels to identify the affected pods easily.
+
+A cluster admin can use this information to identify pods affected by the planning change and
+proactively opt-out Pods from the optimization (i.e. set `spec.securityContext.seLinuxChangePolicy: Recursive`).
+
+#### Feature gates
+
+The following feature gates control the behavior of SELinux volume relabeling:
+
+* `SELinuxMountReadWriteOncePod`: enables the optimization for volumes with `accessModes: ["ReadWriteOncePod"]`.
+  This is a very safe feature gate to enable, as it cannot happen that two pods can share one single volume with
+  this access mode. This feature gate is enabled by default sine v1.28.
+* `SELinuxChangePolicy`: enables `spec.securityContext.seLinuxChangePolicy` field in Pod and related SELinuxWarningController
+  in kube-controller-manager. This feature can be used before enabling `SELinuxMount` to check Pods running on a cluster,
+  and to pro-actively opt-out Pods from the optimization.
+  This feature gate requires `SELinuxMountReadWriteOncePod` enabled. It is alpha and disabled by default in 1.32.
+* `SELinuxMount` enables the optimization for all eligible volumes. Since it can break existing workloads, we recommend
+  enabling `SELinuxChangePolicy` feature gate + SELinuxWarningController first to check the impact of the change.
+  This feature gate requires `SELinuxMountReadWriteOncePod` and `SELinuxChangePolicy` enabled. It is alpha and disabled
+  by default in 1.32.
 
 ## Managing access to the `/proc` filesystem {#proc-access}
 

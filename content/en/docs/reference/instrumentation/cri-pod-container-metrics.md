@@ -14,7 +14,7 @@ description: >-
 The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) collects pod and
 container metrics via [cAdvisor](https://github.com/google/cadvisor). As an alpha feature,
 Kubernetes lets you configure the collection of pod and container
-metrics via the {{< glossary_tooltip term_id="container-runtime-interface" text="Container Runtime Interface">}} (CRI). You
+metrics via the {{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI). You
 must enable the `PodAndContainerStatsFromCRI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and
 use a compatible CRI implementation (containerd >= 1.6.0, CRI-O >= 1.23.0) to
 use the CRI based collection mechanism.

@@ -6,8 +6,6 @@
 
 FROM docker.io/library/golang:1.23.0-alpine3.20
 
-LABEL maintainer="Luc Perkins <lperkins@linuxfoundation.org>"
-
 RUN apk add --no-cache \
     curl \
     gcc \
@@ -29,10 +27,10 @@ FROM docker.io/library/golang:1.23.0-alpine3.20
 RUN apk add --no-cache \
     runuser \
     git \
+    gcompat \
     openssh-client \
     rsync \
-    npm && \
-    npm install -D autoprefixer postcss-cli
+    npm
 
 RUN mkdir -p /var/hugo && \
     addgroup -Sg 1000 hugo && \
@@ -43,6 +41,8 @@ RUN mkdir -p /var/hugo && \
 COPY --from=0 /go/bin/hugo /usr/local/bin/hugo
 
 WORKDIR /src
+COPY package.json package-lock.json ./
+RUN npm ci
 
 USER hugo:hugo
 

@@ -121,7 +121,7 @@ Kubernetes 通过 Discovery API 发布集群所支持的所有组版本和资源
 - 组、版本、类别
 
 <!--
-The API is available both aggregated and unaggregated form. The aggregated
+The API is available in both aggregated and unaggregated form. The aggregated
 discovery serves two endpoints while the unaggregated discovery serves a
 separate endpoint for each group version.
 -->
@@ -326,6 +326,19 @@ Kubernetes API 服务器通过 `/openapi/v2` 端点提供聚合的 OpenAPI v2 �
      </tr>
   </tbody>
 </table>
+
+{{< warning >}}
+<!--
+The validation rules published as part of OpenAPI schemas may not be complete, and usually aren't.
+Additional validation occurs within the API server. If you want precise and complete verification,
+a `kubectl apply --dry-run=server` runs all the applicable validation (and also activates admission-time
+checks).
+-->
+
+作为 OpenAPI 模式的一部分发布的校验规则可能不完整，而且通常也确实不完整。
+在 API 服务器内部会进行额外的校验。如果你希望进行精确且完整的验证，
+可以使用 `kubectl apply --dry-run=server`，这条命令将运行所有适用的校验（同时也会触发准入时检查）。
+{{< /warning >}}
 
 ### OpenAPI v3
 

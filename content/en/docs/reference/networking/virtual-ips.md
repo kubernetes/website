@@ -249,6 +249,18 @@ these are:
   waiting for a fast one; if all servers are busy, the algorithm falls back to the `sed`
   behavior.
 
+* `mh` (Maglev Hashing): Assigns incoming jobs based on
+  [Google's Maglev hashing algorithm](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/44824.pdf),
+  This scheduler has two flags: `mh-fallback`, which enables fallback to a different
+  server if the selected server is unavailable, and `mh-port`, which adds the source port number to
+  the hash computation. When using `mh`, kube-proxy always sets the `mh-port` flag and does not
+  enable the `mh-fallback` flag.
+  In proxy-mode=ipvs `mh` will work as source-hashing (`sh`), but with ports.
+
+These scheduling algorithms are configured through the
+[`ipvs.scheduler`](/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPVSConfiguration)
+field in the kube-proxy configuration.
+
 {{< note >}}
 To run kube-proxy in IPVS mode, you must make IPVS available on
 the node before starting kube-proxy.

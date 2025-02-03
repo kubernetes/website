@@ -4,7 +4,7 @@ id: replica-set
 date: 2018-04-12
 full_link: /zh-cn/docs/concepts/workloads/controllers/replicaset/
 short_description: >
-  ReplicaSet 是下一代副本控制器。
+  ReplicaSet 确保一次运行指定数量的 Pod 副本。
 
 aka: 
 tags:
@@ -12,34 +12,32 @@ tags:
 - core-object
 - workload
 ---
-
 <!--
----
 title: ReplicaSet
 id: replica-set
 date: 2018-04-12
-full_link: /zh-cn/docs/concepts/workloads/controllers/replicaset/
+full_link: /docs/concepts/workloads/controllers/replicaset/
 short_description: >
-  ReplicaSet is the next-generation Replication Controller.
+ ReplicaSet ensures that a specified number of Pod replicas are running at one time
 
 aka: 
 tags:
 - fundamental
 - core-object
 - workload
----
 -->
 
 <!--
- ReplicaSet is the next-generation Replication Controller.
+ A ReplicaSet (aims to) maintain a set of replica Pods running at any given time.
 -->
+ReplicaSet（旨在）在任何给定时间确保运行一组 Pod 副本。
 
-ReplicaSet 是下一代副本控制器。
-
-<!--more--> 
+<!--more-->
 
 <!--
-ReplicaSet, like ReplicationController, ensures that a specified number of pods replicas are running at one time. ReplicaSet supports the new set-based selector requirements as described in the labels user guide, whereas a Replication Controller only supports equality-based selector requirements.
+Workload objects such as {{< glossary_tooltip term_id="deployment" >}} make use of ReplicaSets
+to ensure that the configured number of {{< glossary_tooltip term_id="pod" text="Pods" >}} are
+running in your cluster, based on the spec of that ReplicaSet.
 -->
-
-ReplicaSet 就像 ReplicationController 那样，确保一次运行指定数量的 Pod 副本。ReplicaSet 支持新的基于集合的选择器需求（在标签的用户指南中有相关描述），而副本控制器只支持基于等值的选择器需求。
+像 {{< glossary_tooltip term_id="deployment" >}} 这类工作负载对象利用 ReplicaSet
+基于其规约来确保集群中运行的 {{< glossary_tooltip term_id="pod" text="Pod" >}} 数量符合配置要求。

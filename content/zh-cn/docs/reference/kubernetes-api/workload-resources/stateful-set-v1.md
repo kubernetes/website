@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "StatefulSet 表示一组具有一致身份的 Pod"
 title: "StatefulSet"
-weight: 6
+weight: 7
 auto_generated: true
 ---
 
@@ -18,7 +18,7 @@ api_metadata:
 content_type: "api_reference"
 description: "StatefulSet represents a set of pods with consistent identities."
 title: "StatefulSet"
-weight: 6
+weight: 7
 auto_generated: true
 -->
 
@@ -209,12 +209,16 @@ StatefulSetSpec 是 StatefulSet 的规约。
 
   <!-- 
   revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10. 
+
+  *Atomic: will be replaced during a merge*
   -->
 
   revisionHistoryLimit 是在 StatefulSet 的修订历史中维护的修订个数上限。
   修订历史中包含并非由当前所应用的 StatefulSetSpec 版本未表示的所有修订版本。默认值为 10。
 
 - **volumeClaimTemplates** ([]<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>)
+
+  **原子：将在合并期间被替换**
 
   <!-- 
   volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
@@ -237,13 +241,13 @@ StatefulSetSpec 是 StatefulSet 的规约。
 - **persistentVolumeClaimRetentionPolicy** (StatefulSetPersistentVolumeClaimRetentionPolicy)
 
   <!--
-  persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional 
+  persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is beta.
   -->
 
   persistentVolumeClaimRetentionPolicy 描述从 VolumeClaimTemplates 创建的持久卷申领的生命周期。
   默认情况下，所有持久卷申领都根据需要创建并被保留到手动删除。
   此策略允许更改申领的生命周期，例如在 StatefulSet 被删除或其中 Pod 集合被缩容时删除持久卷申领。
-  此属性需要启用 StatefulSetAutoDeletePVC 特性门控。特性处于 Alpha 阶段。可选。
+  此属性需要启用 StatefulSetAutoDeletePVC 特性门控。特性处于 Beta 阶段。
 
   <a name="StatefulSetPersistentVolumeClaimRetentionPolicy"></a>
 
@@ -274,11 +278,10 @@ StatefulSetSpec 是 StatefulSet 的规约。
 - **ordinals** (StatefulSetOrdinals)
 
   <!--
-  ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is beta.
+  ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested.
   -->
   ordinals 控制 StatefulSet 中副本索引的编号。
   默认序数行为是将索引 "0" 设置给第一个副本，对于每个额外请求的副本，该索引加一。
-  使用 ordinals 字段需要启用 Beta 级别的 StatefulSetStartOrdinal 特性门控。
 
   <!--
   <a name="StatefulSetOrdinals"></a>
@@ -357,8 +360,12 @@ StatefulSetStatus 表示 StatefulSet 的当前状态。
 - **conditions** ([]StatefulSetCondition)
 
   <!-- 
-  *Patch strategy: merge on key `type`* 
+  *Patch strategy: merge on key `type`*
+  
+  *Map: unique values on key type will be kept during a merge*
   -->
+  **补丁策略：根据 `type` 键执行合并操作**
+
   **补丁策略：根据 `type` 键执行合并操作**
 
   <!-- 

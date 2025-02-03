@@ -17,7 +17,8 @@ cluster using kubeadm:
   control plane nodes and etcd members are separated.
 
 Before proceeding, you should carefully consider which approach best meets the needs of your applications
-and environment. [Options for Highly Available topology](/docs/setup/production-environment/tools/kubeadm/ha-topology/) outlines the advantages and disadvantages of each.
+and environment. [Options for Highly Available topology](/docs/setup/production-environment/tools/kubeadm/ha-topology/)
+outlines the advantages and disadvantages of each.
 
 If you encounter issues with setting up the HA cluster, please report these
 in the kubeadm [issue tracker](https://github.com/kubernetes/kubeadm/issues/new).
@@ -85,6 +86,7 @@ You need:
 <!-- end of shared prerequisites -->
 
 And you also need:
+
 - Three or more additional machines, that will become etcd cluster members.
   Having an odd number of members in the etcd cluster is a requirement for achieving
   optimal voting quorum.
@@ -97,8 +99,10 @@ _See [External etcd topology](/docs/setup/production-environment/tools/kubeadm/h
 
 ### Container images
 
-Each host should have access read and fetch images from the Kubernetes container image registry, `registry.k8s.io`.
-If you want to deploy a highly-available cluster where the hosts do not have access to pull images, this is possible. You must ensure by some other means that the correct container images are already available on the relevant hosts.
+Each host should have access read and fetch images from the Kubernetes container image registry,
+`registry.k8s.io`. If you want to deploy a highly-available cluster where the hosts do not have
+access to pull images, this is possible. You must ensure by some other means that the correct
+container images are already available on the relevant hosts.
 
 ### Command line interface {#kubectl}
 
@@ -288,7 +292,6 @@ in the kubeadm config file.
 
 1. Create a file called `kubeadm-config.yaml` with the following contents:
 
-
    ```yaml
    ---
    apiVersion: kubeadm.k8s.io/v1beta4
@@ -366,13 +369,13 @@ SSH is required if you want to control all nodes from a single machine.
 1. Enable ssh-agent on your main device that has access to all other nodes in
    the system:
 
-   ```
+   ```shell
    eval $(ssh-agent)
    ```
 
 1. Add your SSH identity to the session:
 
-   ```
+   ```shell
    ssh-add ~/.ssh/path_to_private_key
    ```
 
@@ -382,14 +385,14 @@ SSH is required if you want to control all nodes from a single machine.
      have logged into via SSH to access the SSH agent on your PC. Consider alternative
      methods if you do not fully trust the security of your user session on the node.
 
-     ```
+     ```shell
      ssh -A 10.0.0.7
      ```
 
    - When using sudo on any node, make sure to preserve the environment so SSH
      forwarding works:
 
-     ```
+     ```shell
      sudo -E -s
      ```
 
@@ -399,6 +402,7 @@ SSH is required if you want to control all nodes from a single machine.
 
    In the following example, replace `CONTROL_PLANE_IPS` with the IP addresses of the
    other control plane nodes.
+
    ```sh
    USER=ubuntu # customizable
    CONTROL_PLANE_IPS="10.0.0.7 10.0.0.8"
@@ -413,7 +417,7 @@ SSH is required if you want to control all nodes from a single machine.
        # Skip the next line if you are using external etcd
        scp /etc/kubernetes/pki/etcd/ca.key "${USER}"@$host:etcd-ca.key
    done
-    ```
+   ```
 
    {{< caution >}}
    Copy only the certificates in the above list. kubeadm will take care of generating the rest of the certificates

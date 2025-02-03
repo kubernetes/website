@@ -771,6 +771,12 @@ jwt:
       expression: 'claims.sub'
     # extra attributes to be added to the UserInfo object. Keys must be domain-prefix path and must be unique.
     extra:
+      # key is a string to use as the extra attribute key.
+      # key must be a domain-prefix path (e.g. example.org/foo). All characters before the first "/" must be a valid
+      # subdomain as defined by RFC 1123. All characters trailing the first "/" must
+      # be valid HTTP Path characters as defined by RFC 3986.
+      # k8s.io, kubernetes.io and their subdomains are reserved for Kubernetes use and cannot be used.
+      # key must be lowercase and unique across all extra attributes.
     - key: 'example.com/tenant'
       # valueExpression is a CEL expression that evaluates to a string or a list of strings.
       valueExpression: 'claims.tenant'
@@ -869,6 +875,12 @@ jwt:
       expression: 'claims.sub'
     # 要添加到 UserInfo 对象的其他属性，键必须是域前缀路径并且必须是唯一的。
     extra:
+      # key 是用作额外属性键的字符串。
+      # key 必须是域名前缀路径（例如 example.org/foo）。
+      # 第一个 "/" 之前的所有字符必须是 RFC 1123 定义的有效子域名。
+      # 第一个 "/" 之后的所有字符必须是 RFC 3986 定义的有效 HTTP 路径字符。
+      # k8s.io, kubernetes.io 及其子域名保留供 Kubernetes 使用，不能使用。
+      # key 必须是小写，并且在所有额外属性中唯一。
     - key: 'example.com/tenant'
       # valueExpression 是一个计算结果为字符串或字符串列表的 CEL 表达式。
       valueExpression: 'claims.tenant'
@@ -1901,13 +1913,12 @@ that grant access to the `*` user or `*` group do not include anonymous users.
 
 <!--
 The `AuthenticationConfiguration` can be used to configure the anonymous
-authenticator. To enable configuring anonymous auth via the config file you need
-enable the `AnonymousAuthConfigurableEndpoints` feature gate. When this feature
-gate is enabled you cannot set the `--anonymous-auth` flag.
+authenticator. If you set the anonymous field in the `AuthenticationConfiguration`
+file then you cannot set the `--anonymous-auth` flag.
 -->
 `AuthenticationConfiguration` 可用于配置匿名身份认证模块。
-要通过配置文件启用匿名身份认证配置，你需要启用 `AnonymousAuthConfigurableEndpoints` 特性门控。
-当此特性门控被启用时，你不能设置 `--anonymous-auth` 标志。
+如果你在 `AuthenticationConfiguration` 文件中设置了 anonymous 字段，
+那么你不能设置 `--anonymous-auth` 标志。
 
 <!--
 The main advantage of configuring anonymous authenticator using the authentication
@@ -2132,6 +2143,19 @@ for UIDs, a user should be granted the following role:
 附加字段会被作为 `userextras` 资源的子资源来执行权限评估。
 如果要允许用户为附加字段 “scopes” 和 UID 设置伪装头部，该用户需要被授予以下角色：
 
+<!--
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: scopes-and-uid-impersonator
+rules:
+# Can set "Impersonate-Extra-scopes" header and the "Impersonate-Uid" header.
+- apiGroups: ["authentication.k8s.io"]
+  resources: ["userextras/scopes", "uids"]
+  verbs: ["impersonate"]
+```
+-->
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -2150,6 +2174,38 @@ of `resourceNames` a resource can take.
 -->
 你也可以通过约束资源可能对应的 `resourceNames` 限制伪装头部的取值：
 
+<!--
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: limited-impersonator
+rules:
+# Can impersonate the user "jane.doe@example.com"
+- apiGroups: [""]
+  resources: ["users"]
+  verbs: ["impersonate"]
+  resourceNames: ["jane.doe@example.com"]
+
+# Can impersonate the groups "developers" and "admins"
+- apiGroups: [""]
+  resources: ["groups"]
+  verbs: ["impersonate"]
+  resourceNames: ["developers","admins"]
+
+# Can impersonate the extras field "scopes" with the values "view" and "development"
+- apiGroups: ["authentication.k8s.io"]
+  resources: ["userextras/scopes"]
+  verbs: ["impersonate"]
+  resourceNames: ["view", "development"]
+
+# Can impersonate the uid "06f6ce97-e2c5-4ab8-7ba5-7654dd08d52b"
+- apiGroups: ["authentication.k8s.io"]
+  resources: ["uids"]
+  verbs: ["impersonate"]
+  resourceNames: ["06f6ce97-e2c5-4ab8-7ba5-7654dd08d52b"]
+```
+-->
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -2574,6 +2630,17 @@ the binary `/home/jane/bin/example-client-go-exec-plugin` is executed.
 `./bin/example-client-go-exec-plugin`，则要执行的可执行文件为
 `/home/jane/bin/example-client-go-exec-plugin`。
 
+<!--
+```yaml
+- name: my-user
+  user:
+    exec:
+      # Path relative to the directory of the kubeconfig
+      command: "./bin/example-client-go-exec-plugin"
+      apiVersion: "client.authentication.k8s.io/v1"
+      interactiveMode: Never
+```
+-->
 ```yaml
 - name: my-user
   user:

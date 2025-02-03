@@ -34,13 +34,10 @@ LocalObjectReference 包含足够的信息，可以让你在同一命名空间�
 <!--
 - **name** (string)
 
-  Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+  Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 -->
 - **name** (string)
 
-  被引用者的名称。
-  更多信息: https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#names。
-
-
-
-
+  被引用者的名称。该字段实际上是必需的，但由于向后兼容性允许为空。
+  这种类型的实例如果此处具有空值，几乎肯定是错误的。
+  更多信息：https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/#names。

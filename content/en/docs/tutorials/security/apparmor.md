@@ -126,13 +126,13 @@ profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
 }
 ```
 
-The profile needs to loaded onto all nodes, since you don't know where the pod will be scheduled.
+The profile needs to be loaded onto all nodes, since you don't know where the pod will be scheduled.
 For this example you can use SSH to install the profiles, but other approaches are
 discussed in [Setting up nodes with profiles](#setting-up-nodes-with-profiles).
 
 ```shell
 # This example assumes that node names match host names, and are reachable via SSH.
-NODES=($(kubectl get nodes -o name))
+NODES=($( kubectl get node -o jsonpath='{.items[*].status.addresses[?(.type == "Hostname")].address}' ))
 
 for NODE in ${NODES[*]}; do ssh $NODE 'sudo apparmor_parser -q <<EOF
 #include <tunables/global>

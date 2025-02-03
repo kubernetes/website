@@ -13,7 +13,7 @@ spec:
       readOnly: true
   serviceAccountName: default
   volumes:
-  - name: root-certificates-vol
+  - name: token-vol
     projected:
       sources:
       - clusterTrustBundle:

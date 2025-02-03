@@ -579,7 +579,7 @@ deleted by Kubernetes.
 ### Validation
 
 Custom resources are validated via
-[OpenAPI v3 schemas](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject),
+[OpenAPI v3.0 schemas](https://github.com/OAI/OpenAPI-Specification/blob/3.0.0/versions/3.0.0.md#schema-object),
 by x-kubernetes-validations when the [Validation Rules feature](#validation-rules) is enabled, and you
 can add additional validation using
 [admission webhooks](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook).
@@ -727,7 +727,7 @@ enable the `CRDValidationRatcheting`
 use this behavior, which then applies to all CustomResourceDefinitions in your
 cluster. 
 
-Provided you enabled the feature gate, Kubernetes implements _validation racheting_
+Provided you enabled the feature gate, Kubernetes implements _validation ratcheting_
 for CustomResourceDefinitions. The API server is willing to accept updates to resources that
 are not valid after the update, provided that each part of the resource that failed to validate
 was not changed by the update operation. In other words, any invalid part of the resource
@@ -1685,10 +1685,6 @@ may also be used with field selectors when included in the `spec.versions[*].sel
 
 {{< feature-state feature_gate_name="CustomResourceFieldSelectors" >}}
 
-For Kubernetes {{< skew currentVersion >}} the ability to define field selectors for
-custom resources is available by default (enabled by default since Kubernetes v1.31);
-you can disable it for your cluster  by turning off the `CustomResourceFieldSelectors`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 The `spec.versions[*].selectableFields` field of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be used to
 declare which other fields in a custom resource may be used in field selectors
 with the feature of `CustomResourceFieldSelectors`

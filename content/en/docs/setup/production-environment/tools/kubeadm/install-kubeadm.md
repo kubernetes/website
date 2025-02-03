@@ -22,7 +22,7 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions
   based on Debian and Red Hat, and those distributions without a package manager.
 * 2 GB or more of RAM per machine (any less will leave little room for your apps).
-* 2 CPUs or more.
+* 2 CPUs or more for control plane machines.
 * Full network connectivity between all machines in the cluster (public or private network is fine).
 * Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-mac-address) for more details.
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
@@ -31,7 +31,8 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 The `kubeadm` installation is done via binaries that use dynamic linking and assumes that your target system provides `glibc`.
 This is a reasonable assumption on many Linux distributions (including Debian, Ubuntu, Fedora, CentOS, etc.)
 but it is not always the case with custom and lightweight distributions which don't include `glibc` by default, such as Alpine Linux.
-The expectation is that the distribution either includes `glibc` or a [compatibility layer](https://wiki.alpinelinux.org/wiki/Running_glibc_programs)
+The expectation is that the distribution either includes `glibc` or a
+[compatibility layer](https://wiki.alpinelinux.org/wiki/Running_glibc_programs)
 that provides the expected symbols.
 {{< /note >}}
 
@@ -197,7 +198,8 @@ These instructions are for Kubernetes v{{< skew currentVersion >}}.
    ```
 
 {{< note >}}
-In releases older than Debian 12 and Ubuntu 22.04, directory `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
+In releases older than Debian 12 and Ubuntu 22.04, directory `/etc/apt/keyrings` does not
+exist by default, and it should be created before the curl command.
 {{< /note >}}
 
 3. Add the appropriate Kubernetes `apt` repository. Please note that this repository have packages
@@ -240,11 +242,11 @@ In releases older than Debian 12 and Ubuntu 22.04, directory `/etc/apt/keyrings`
 
 {{< caution >}}
 - Setting SELinux in permissive mode by running `setenforce 0` and `sed ...`
-effectively disables it. This is required to allow containers to access the host
-filesystem; for example, some cluster network plugins require that. You have to
-do this until SELinux support is improved in the kubelet.
+  effectively disables it. This is required to allow containers to access the host
+  filesystem; for example, some cluster network plugins require that. You have to
+  do this until SELinux support is improved in the kubelet.
 - You can leave SELinux enabled if you know how to configure it but it may require
-settings that are not supported by kubeadm.
+  settings that are not supported by kubeadm.
 {{< /caution >}}
 
 2. Add the Kubernetes `yum` repository. The `exclude` parameter in the

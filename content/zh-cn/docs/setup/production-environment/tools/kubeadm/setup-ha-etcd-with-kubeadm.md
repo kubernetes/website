@@ -13,18 +13,6 @@ weight: 70
 
 <!-- overview -->
 
-{{< note >}}
-<!--
-While kubeadm is being used as the management tool for external etcd nodes
-in this guide, please note that kubeadm does not plan to support certificate rotation
-or upgrades for such nodes. The long-term plan is to empower the tool
-[etcdadm](https://github.com/kubernetes-sigs/etcdadm) to manage these
-aspects.
--->
-在本指南中，使用 kubeadm 作为外部 etcd 节点管理工具，请注意 kubeadm 不计划支持此类节点的证书更换或升级。
-对于长期规划是使用 [etcdadm](https://github.com/kubernetes-sigs/etcdadm) 增强工具来管理这些方面。
-{{< /note >}}
-
 <!--
 By default, kubeadm runs a local etcd instance on each control plane node.
 It is also possible to treat the etcd cluster as external and provision

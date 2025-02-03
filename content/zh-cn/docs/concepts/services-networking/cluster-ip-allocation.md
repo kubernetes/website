@@ -97,9 +97,9 @@ spec:
   type: ClusterIP
 ```
 <!--
-but as it was explained before, the IP address 10.96.0.10 has not been reserved; if other Services are created
-before or in parallel with dynamic allocation, there is a chance they can allocate this IP, hence,
-you will not be able to create the DNS Service because it will fail with a conflict error.
+But, as it was explained before, the IP address 10.96.0.10 has not been reserved.
+If other Services are created before or in parallel with dynamic allocation, there is a chance they can allocate this IP.
+Hence, you will not be able to create the DNS Service because it will fail with a conflict error.
 -->
 但如前所述，IP 地址 10.96.0.10 尚未被保留。如果在 DNS 启动之前或同时采用动态分配机制创建其他 Service，
 则它们有可能被分配此 IP，因此，你将无法创建 DNS Service，因为它会因冲突错误而失败。

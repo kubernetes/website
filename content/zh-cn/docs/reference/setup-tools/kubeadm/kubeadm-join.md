@@ -14,10 +14,9 @@ weight: 30
 
 <!-- overview -->
 <!--
-This command initializes a Kubernetes worker node and joins it to the cluster.
+This command initializes a new Kubernetes node and joins it to the cluster.
 -->
-此命令用来初始化 Kubernetes 工作节点并将其加入集群。
-
+此命令用来初始化新的 Kubernetes 节点并将其加入集群。
 
 <!-- body -->
 {{< include "generated/kubeadm_join/_index.md" >}}
@@ -183,7 +182,7 @@ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outfor
 <!--
 **Example `kubeadm join` commands:**
 -->
-**`kubeadm join` 命令示例**
+**`kubeadm join` 命令示例：**
 
 <!--
 For worker nodes:

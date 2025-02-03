@@ -368,7 +368,7 @@ Depending on the requirements for your workload these values may need to be adju
 Refer to
 [Hardware requirements for Windows Server Microsoft documentation](https://learn.microsoft.com/en-us/windows-server/get-started/hardware-requirements)
 for the most up-to-date information on minimum hardware requirements. For guidance on deciding on resources for
-production worker nodes refer to [Production worker nodes Kubernetes documentation](https://kubernetes.io/docs/setup/production-environment/#production-worker-nodes).
+production worker nodes refer to [Production worker nodes Kubernetes documentation](/docs/setup/production-environment/#production-worker-nodes).
 
 To optimize system resources, if a graphical user interface is not required,
 it may be preferable to use a Windows Server OS installation that excludes

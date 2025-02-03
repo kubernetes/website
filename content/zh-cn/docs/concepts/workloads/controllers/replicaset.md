@@ -218,7 +218,7 @@ You can also verify that the owner reference of these pods is set to the fronten
 To do this, get the yaml of one of the Pods running:
 -->
 你也可以查看 Pod 的属主引用被设置为前端的 ReplicaSet。
-要实现这点，可取回运行中的某个 Pod 的 YAML：
+要实现这点，可获取运行中的某个 Pod 的 YAML：
 
 ```shell
 kubectl get pods frontend-gbgfx -o yaml
@@ -296,7 +296,7 @@ Fetching the Pods:
 新的 Pod 会被该 ReplicaSet 获取，并立即被 ReplicaSet 终止，
 因为它们的存在会使得 ReplicaSet 中 Pod 个数超出其期望值。
 
-取回 Pod：
+获取 Pod：
 
 
 ```shell
@@ -341,7 +341,7 @@ number of its new Pods and the original matches its desired count. As fetching t
 -->
 你会看到 ReplicaSet 已经获得了该 Pod，并仅根据其规约创建新的 Pod，
 直到新的 Pod 和原来的 Pod 的总数达到其预期个数。
-这时取回 Pod 列表：
+这时获取 Pod 列表：
 
 ```shell
 kubectl get pods

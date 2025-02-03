@@ -41,9 +41,12 @@ is observed as not-ready for some period of time before it is hard killed.
 
 <!--
 The kubelet uses readiness probes to know when a container is ready to start
-accepting traffic. A Pod is considered ready when all of its containers are ready.
-One use of this signal is to control which Pods are used as backends for Services.
-When a Pod is not ready, it is removed from Service load balancers.
+accepting traffic. One use of this signal is to control which Pods are used as
+backends for Services. A Pod is considered ready when its `Ready` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
+is true. When a Pod is not ready, it is removed from Service load balancers.
+A Pod's `Ready` condition is false when its Node's `Ready` condition is not true,
+when one of the Pod's `readinessGates` is false, or when at least one of its containers
+is not ready.
 
 The kubelet uses startup probes to know when a container application has started.
 If such a probe is configured, liveness and readiness probes do not start until
@@ -51,10 +54,12 @@ it succeeds, making sure those probes don't interfere with the application start
 This can be used to adopt liveness checks on slow starting containers, avoiding them
 getting killed by the kubelet before they are up and running.
 -->
-kubelet 使用就绪探针可以知道容器何时准备好接受请求流量，当一个 Pod
-内的所有容器都就绪时，才能认为该 Pod 就绪。
+kubelet 使用就绪探针可以知道容器何时准备好接受请求流量。
 这种信号的一个用途就是控制哪个 Pod 作为 Service 的后端。
-若 Pod 尚未就绪，会被从 Service 的负载均衡器中剔除。
+当 Pod 的 `Ready` [状况](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions) 为
+true 时，Pod 被认为是就绪的。若 Pod 未就绪，会被从 Service 的负载均衡器中剔除。
+当 Pod 所在节点的 `Ready` 状况不为 true 时、当 Pod 的某个 `readinessGates` 为 false
+时，或者当 Pod 中有任何一个容器未就绪时，Pod 的 `Ready` 状况为 false。
 
 kubelet 使用启动探针来了解应用容器何时启动。
 如果配置了这类探针，存活探针和就绪探针在启动探针成功之前不会启动，从而确保存活探针或就绪探针不会影响应用的启动。
@@ -642,6 +647,8 @@ liveness and readiness checks:
   ignored. Defaults to 0 seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10 seconds.
   The minimum value is 1.
+  While a container is not Ready, the `ReadinessProbe` may be executed at times other than
+  the configured `periodSeconds` interval. This is to make the Pod ready faster.
 * `timeoutSeconds`: Number of seconds after which the probe times out.
   Defaults to 1 second. Minimum value is 1.
 * `successThreshold`: Minimum consecutive successes for the probe to be considered successful
@@ -653,6 +660,8 @@ liveness and readiness checks:
   如果 `periodSeconds` 的值大于 `initialDelaySeconds`，则 `initialDelaySeconds`
   将被忽略。默认是 0 秒，最小值是 0。
 * `periodSeconds`：执行探测的时间间隔（单位是秒）。默认是 10 秒。最小值是 1。
+  当容器未就绪时，`ReadinessProbe` 可能会在除配置的 `periodSeconds`
+  间隔以外的时间执行。这是为了让 Pod 更快地达到可用状态。
 * `timeoutSeconds`：探测的超时后等待多少秒。默认值是 1 秒。最小值是 1。
 * `successThreshold`：探针在失败后，被视为成功的最小连续成功数。默认值是 1。
   存活和启动探测的这个值必须是 1。最小值是 1。
@@ -796,7 +805,7 @@ startupProbe:
 
 {{< note >}}
 <!--
-When the kubelet probes a Pod using HTTP, it only follows redirects if the redirect   
+When the kubelet probes a Pod using HTTP, it only follows redirects if the redirect
 is to the same host. If the kubelet receives 11 or more redirects during probing, the probe is considered successful
 and a related Event is created:
 -->
@@ -812,7 +821,7 @@ Events:
   Normal   Pulled        24m                     kubelet            Successfully pulled image "docker.io/kennethreitz/httpbin" in 5m12.402735213s
   Normal   Created       24m                     kubelet            Created container httpbin
   Normal   Started       24m                     kubelet            Started container httpbin
- Warning  ProbeWarning  4m11s (x1197 over 24m)  kubelet            Readiness probe warning: Probe terminated redirects  
+ Warning  ProbeWarning  4m11s (x1197 over 24m)  kubelet            Readiness probe warning: Probe terminated redirects
 ```
 
 <!--

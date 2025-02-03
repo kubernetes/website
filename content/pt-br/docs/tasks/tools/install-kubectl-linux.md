@@ -10,7 +10,7 @@ card:
 
 ## {{% heading "prerequisites" %}}
 
-Você deve usar uma versão do kubectl que esteja próxima da versão do seu cluster. Por exemplo, um cliente v1.26 pode se comunicar com as versões v1.25, v1.26 e v1.27 da camada de gerenciamento. Usar a versão compatível mais recente do kubectl ajuda a evitar problemas inesperados.
+Você deve usar uma versão do kubectl que esteja próxima da versão do seu cluster. Por exemplo, um cliente v{{< skew currentVersion >}} pode se comunicar com as versões v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}} e v{{< skew currentVersionAddMinor 1 >}} da camada de gerenciamento. Usar a versão compatível mais recente do kubectl ajuda a evitar problemas inesperados.
 
 ## Instale o kubectl no Linux
 
@@ -25,27 +25,43 @@ Existem os seguintes métodos para instalar o kubectl no Linux:
 
 1. Faça download da versão mais recente com o comando:
 
-   ```bash
-   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-   ```
+	{{< tabs name="download_binary_linux" >}}
+	{{< tab name="x86-64" codelang="bash" >}}
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+	{{< /tab >}}
+	{{< tab name="ARM64" codelang="bash" >}}
+	curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl"
+	{{< /tab >}}
+	{{< /tabs >}}
 
    {{< note >}}
 Para fazer o download de uma versão específica, substitua a parte `$(curl -L -s https://dl.k8s.io/release/stable.txt)` do comando pela versão específica.
 
-Por exemplo, para fazer download da versão {{< skew currentPatchVersion >}} no Linux, digite:
+Por exemplo, para fazer download da versão {{< skew currentPatchVersion >}} no Linux x86-64, digite:
 
    ```bash
    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
+   ```
+   
+   E para Linux ARM64, digite:
+   
+   ```bash
+   curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/arm64/kubectl
    ```
    {{< /note >}}
 
 1. Valide o binário (opcional)
 
    Faça download do arquivo checksum de verificação do kubectl:
-
-   ```bash
+   
+   {{< tabs name="download_checksum_linux" >}}
+   {{< tab name="x86-64" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-   ```
+   {{< /tab >}}
+   {{< tab name="ARM64" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl.sha256"
+   {{< /tab >}}
+   {{< /tabs >}}
 
    Valide o binário kubectl em relação ao arquivo de verificação:
 
@@ -109,25 +125,35 @@ Por exemplo, para fazer download da versão {{< skew currentPatchVersion >}} no 
 
    ```shell
    sudo apt-get update
-   sudo apt-get install -y ca-certificates curl
+   # apt-transport-https pode ser um pacote simbólico; se for o caso, você pode ignorá-lo
+   sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
    ```
    
-   Se você usa o Debian 9 (stretch) ou anterior, também precisará instalar o `apt-transport-https`:
-   ```shell
-   sudo apt-get install -y apt-transport-https
-   ```
-
-2. Faça download da chave de assinatura pública do Google Cloud:
+2. Faça download da chave de assinatura pública para os  repositórios de pacote do Kubernetes. A mesma chave de assinatura é usada para todos os repositórios, então você pode desconsiderar a versão na URL:
 
    ```shell
-   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+   # Se a pasta `/etc/apt/keyrings` não existir, ela deve ser criada antes do comando curl, leia a nota abaixo.
+   # sudo mkdir -p -m 755 /etc/apt/keyrings
+   curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+   sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg # permitir que programas APT sem acesso privilegiado leiam este keyring
    ```
 
-3. Adicione o repositório `apt` do Kubernetes:
+{{< note >}}
+Em releases mais antigos que o Debian 12 e Ubuntu 22.04, a pasta `/etc/apt/keyrings` não existe por padrão, e ela deve ser criada antes do comando curl.
+{{< /note >}}
+
+3. Adicione o repositório `apt` do Kubernetes. Se você quiser usar uma versão do Kubernetes diferente de {{< param "version" >}},
+   substitua {{< param "version" >}} com a versão menor desejada no comando a seguir:
 
    ```shell
-   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   # Isto substitui qualquer configuração existente na pasta /etc/apt/sources.list.d/kubernetes.list
+   echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list # ajuda ferramentas tais como command-not-found a funcionar corretamente
    ```
+   
+{{< note >}}
+Para atualizar o kubectl para outra versão menor, você vai precisar atualizar a versão no arquivo `/etc/apt/sources.list.d/kubernetes.list` antes de rodar `apt-get update` e `apt-get upgrade`. Este procedimento está descrito com mais detalhes em [Mudando o Repositório de Pacotes do Kubernetes](/docs/tasks/administer-cluster/kubeadm/change-package-repository/) (em inglês).
+{{< /note >}}
 
 4. Atualize o índice do `apt` com o novo repositório e instale o kubectl:
 
@@ -135,26 +161,98 @@ Por exemplo, para fazer download da versão {{< skew currentPatchVersion >}} no 
    sudo apt-get update
    sudo apt-get install -y kubectl
    ```
-{{< note >}}
-Em versões anteriores ao Debian 12 e Ubuntu 22.04, o `/etc/apt/keyrings` não existe por padrão. 
-Você pode criar este diretório se precisar, tornando-o visível para todos, mas com permissão de escrita apenas aos administradores.
-{{< /note >}}
 
 {{% /tab %}}
 
 {{% tab name="Distribuições baseadas no Red Hat" %}}
-```bash
-cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-EOF
-sudo yum install -y kubectl
-```
 
+1. Adicione o repositório `yum` do Kubernetes. Se você quiser usar uma versão do 
+   Kubernetes diferente de {{< param "version" >}}, substitua {{< param "version" >}} 
+   pela versão menor desejada no comando a seguir.
+
+	```bash
+	# Isto substitui qualquer configuração existente na pasta /etc/yum.repos.d/kubernetes.repo
+	cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+	[kubernetes]
+	name=Kubernetes
+	baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
+	enabled=1
+	gpgcheck=1
+	gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
+	EOF
+	```
+
+{{< note >}}
+Para atualizar o kubectl para outra versão menor, você vai precisar atualizar a versão no arquivo `/etc/yum.repos.d/kubernetes.repo` antes de rodar `yum update`. Este procedimento está descrito com mais detalhes em [Mudando o Repositório de Pacotes do Kubernetes](/docs/tasks/administer-cluster/kubeadm/change-package-repository/) (em inglês).
+{{< /note >}}
+
+2. Instale o kubectl usando `yum`:
+
+	```bash
+	sudo yum install -y kubectl
+	```
+
+{{% /tab %}}
+
+{{% tab name="Distribuições baseadas em SUSE" %}}
+
+1. Adicione o repositório `zypper` do Kubernetes. Se você quiser instalar uma versão
+   diferente de {{< param "version" >}}, substitua {{< param "version" >}} pela versão
+   menor desejada no comando a seguir.
+   
+   ```bash
+   # Isto substitui qualquer configuração existente no arquivo /etc/zypp/repos.d/kubernetes.repo
+   cat <<EOF | sudo tee /etc/zypp/repos.d/kubernetes.repo
+   [kubernetes]
+   name=Kubernetes
+   baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
+   EOF
+   ```
+{{< note >}}
+Para atualizar o kubectl para outra versão menor, você vai precisar atualizar a versão no arquivo `/etc/zypp/repos.d/kubernetes.repo`
+antes de rodar `zypper update`. Este procedimento está descrito com mais detalhes em [Mudando o Repositório de Pacotes do Kubernetes](/docs/tasks/administer-cluster/kubeadm/change-package-repository/) (em inglês).
+{{< /note >}}
+
+2. Atualize o `zypper` e confirme a adição do novo repositório:
+
+	```bash
+	sudo zypper update
+	```
+	
+	Quando esta mensagem aparecer, pressione 't' ou 'a':
+	
+   ```
+   New repository or package signing key received:
+
+   Repository:       Kubernetes
+   Key Fingerprint:  1111 2222 3333 4444 5555 6666 7777 8888 9999 AAAA
+   Key Name:         isv:kubernetes OBS Project <isv:kubernetes@build.opensuse.org>
+   Key Algorithm:    RSA 2048
+   Key Created:      Thu 25 Aug 2022 01:21:11 PM -03
+   Key Expires:      Sat 02 Nov 2024 01:21:11 PM -03 (expires in 85 days)
+   Rpm Name:         gpg-pubkey-9a296436-6307a177
+
+   Note: Signing data enables the recipient to verify that no modifications occurred after the data
+   were signed. Accepting data with no, wrong or unknown signature can lead to a corrupted system
+   and in extreme cases even to a system compromise.
+
+   Note: A GPG pubkey is clearly identified by its fingerprint. Do not rely on the key's name. If
+   you are not sure whether the presented key is authentic, ask the repository provider or check
+   their web site. Many providers maintain a web page showing the fingerprints of the GPG keys they
+   are using.
+
+   Do you want to reject the key, trust temporarily, or trust always? [r/t/a/?] (r): a
+   ```
+
+3. Instale o kubectl usando `zypper`:
+
+	```bash
+	sudo zypper install -y kubectl
+	```
+	
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -162,7 +260,9 @@ sudo yum install -y kubectl
 
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
-Se você estiver no Ubuntu ou em outra distribuição Linux que suporte o gerenciador de pacotes [snap](https://snapcraft.io/docs/core/install), o kubectl está disponível como um aplicativo [snap](https://snapcraft.io/).
+Se você estiver no Ubuntu ou em outra distribuição Linux que suporte o gerenciador de 
+pacotes [snap](https://snapcraft.io/docs/core/install), o kubectl está disponível como 
+um aplicativo [snap](https://snapcraft.io/).
 
 ```shell
 snap install kubectl --classic
@@ -172,7 +272,9 @@ kubectl version --client
 {{% /tab %}}
 
 {{% tab name="Homebrew" %}}
-Se você estiver no Linux e usando o gerenciador de pacotes [Homebrew](https://docs.brew.sh/Homebrew-on-Linux), o kubectl está disponível para [instalação](https://docs.brew.sh/Homebrew-on-Linux#install).
+Se você estiver no Linux e usando o gerenciador de pacotes
+[Homebrew](https://docs.brew.sh/Homebrew-on-Linux), o kubectl está disponível para
+[instalação](https://docs.brew.sh/Homebrew-on-Linux#install).
 
 ```shell
 brew install kubectl
@@ -188,9 +290,11 @@ kubectl version --client
 {{< include "included/verify-kubectl.md" >}}
 
 ## Configurações e plugins opcionais do kubectl 
+
 ### Ative o autocompletar no shell 
 
-O kubectl oferece recursos de autocompletar para Bash, Zsh, Fish e PowerShell, o que pode economizar muita digitação.
+O kubectl oferece recursos de autocompletar para Bash, Zsh, Fish e PowerShell,
+o que pode economizar muita digitação.
 
 Abaixo estão os procedimentos para configurar o autocompletar para Bash, Fish e Zsh.
 
@@ -206,17 +310,27 @@ Abaixo estão os procedimentos para configurar o autocompletar para Bash, Fish e
 
 1. Faça download da versão mais recente com o comando:
 
-   ```bash
-   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert"
-   ```
-
+	{{< tabs name="download_convert_binary_linux" >}}
+	{{< tab name="x86-64" codelang="bash" >}}
+	curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert"
+    {{< /tab >}}
+	{{< tab name="ARM64" codelang="bash" >}}
+	curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl-convert"
+	{{< /tab >}}
+	{{< /tabs >}}
+	
 1. Valide o binário (opcional)
 
    Faça download do arquivo checksum de verificação do kubectl-convert:
 
-   ```bash
+   {{< tabs name="download_convert_checksum_linux" >}}
+   {{< tab name="x86-64" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
-   ```
+   {{< /tab >}}
+   {{< tab name="ARM64" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl-convert.sha256"
+   {{< /tab >}}
+   {{< /tabs >}}
 
    Valide o binário kubectl-convert com o arquivo de verificação:
 
@@ -254,6 +368,12 @@ Abaixo estão os procedimentos para configurar o autocompletar para Bash, Fish e
    ```
 
    Se não for exibido um erro, isso significa que o plugin foi instalado com sucesso.
+
+1. Depois de instalar o plugin, remova os arquivos de instalação:
+
+	```bash
+	rm kubectl-convert kubectl-convert.sha256
+	```
 
 ## {{% heading "whatsnext" %}}
 

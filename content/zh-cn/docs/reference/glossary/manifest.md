@@ -9,7 +9,8 @@ aka:
 tags:
 - fundamental
 ---
- JSON 或 YAML 格式的 Kubernetes API 对象规范。
+ [JSON](https://www.json.org/json-en.html)
+ 或 [YAML](https://yaml.org/) 格式的 Kubernetes API 对象规约。
 
 <!--
 title: Manifest
@@ -21,12 +22,15 @@ short_description: >
 aka:
 tags:
 - fundamental
- Specification of a Kubernetes API object in JSON or YAML format.
+ Specification of a Kubernetes API object in [JSON](https://www.json.org/json-en.html)
+or [YAML](https://yaml.org/) format.
 -->
 
 <!--more-->
 
 <!-- 
-A manifest specifies the desired state of an object that Kubernetes will maintain when you apply the manifest. Each configuration file can contain multiple manifests.
+A manifest specifies the desired state of an object that Kubernetes will maintain when you apply the manifest.
+For YAML format, each file can contain multiple manifests.
  -->
-清单指定了在应用该清单时 kubernetes 将维护的对象的期望状态。每个配置文件可包含多个清单。
+清单指定在应用该清单时 kubernetes 将维护的对象的期望状态。
+对于 YAML 格式，每个文件可包含多个清单。

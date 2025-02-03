@@ -563,7 +563,7 @@ the Deployment and / or StatefulSet be removed from their
 a change to that object is applied, for example via `kubectl apply -f
 deployment.yaml`, this will instruct Kubernetes to scale the current number of Pods
 to the value of the `spec.replicas` key. This may not be
-desired and could be troublesome when an HPA is active.
+desired and could be troublesome when an HPA is active, resulting in thrashing or flapping behavior.
 
 Keep in mind that the removal of `spec.replicas` may incur a one-time
 degradation of Pod counts as the default value of this key is 1 (reference

@@ -413,7 +413,7 @@ restoration, critical components will lose leader lock and restart themselves.
 {{< /caution >}}
 
 etcd supports restoring from snapshots that are taken from an etcd process of
-the [major.minor](http://semver.org/) version. Restoring a version from a
+the [major.minor](https://semver.org/) version. Restoring a version from a
 different patch version of etcd is also supported. A restore operation is
 employed to recover the data of a failed cluster.
 

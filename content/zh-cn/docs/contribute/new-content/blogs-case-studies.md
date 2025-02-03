@@ -286,6 +286,10 @@ SIG Docs
     date: YYYY-MM-DD
     slug: text-for-URL-link-here-no-spaces
     ---
+    author: >
+      Author-1 (Affiliation),
+      Author-2 (Affiliation),
+      Author-3 (Affiliation)
     ```
 
   <!--
@@ -361,15 +365,15 @@ To mirror a blog post from the [Kubernetes contributor blog](https://www.kuberne
 <!--
 - Keep the blog content the same. If there are changes, they should be made to the original article first, and then to the mirrored article.
 - The mirrored blog should have a `canonicalUrl`, that is, essentially the url of the original blog after it has been published.
-- [Kubernetes contributor blogs](https://kubernetes.dev/blog) have their authors mentioned in the YAML header, while the Kubernetes blog posts mention authors in the blog content itself. This should be changed when mirroring the content.
+- Same as [Kubernetes contributor blogs](https://kubernetes.dev/blog), Kubernetes blog posts also mention authors in the YAML header as per the new guidelines. This should be ensured.
 - Publication dates stay the same as the original blog.
 
 All of the other guidelines and expectations detailed above apply as well.
 -->
 - 保持博客内容不变。如有变更，应该先在原稿上进行更改，然后再更改到镜像的文章上。
 - 镜像博客应该有一个 `canonicalUrl`，即基本上是原始博客发布后的网址。
-- [Kubernetes 贡献者博客](https://kubernetes.dev/blog)在 YAML 头部中提及作者，
-  而 Kubernetes 博文在博客内容中提及作者。你在镜像内容时应修改这一点。
+- 与 [Kubernetes 贡献者博客](https://kubernetes.dev/blog)相同，Kubernetes
+  博客文章也按照新指南在 YAML 标头中提及作者。应确保这一点。
 - 发布日期与原博客保持一致。
 
 在制作镜像博客时，你也需遵守本文所述的所有其他指导原则和期望。

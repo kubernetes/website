@@ -116,7 +116,7 @@ authenticate to the API server as a bearer token.
 
 The `expiration` field controls the expiry of the token. Expired tokens are
 rejected when used for authentication and ignored during ConfigMap signing.
-The expiry value is encoded as an absolute UTC time using RFC3339. Enable the
+The expiry value is encoded as an absolute UTC time using [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339). Enable the
 `tokencleaner` controller to automatically delete expired tokens.
 
 ## Token Management with kubeadm

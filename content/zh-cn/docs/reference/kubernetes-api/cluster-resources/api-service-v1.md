@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "APIService 是用来表示一个特定的 GroupVersion 的服务器"
 title: "APIService"
-weight: 4
+weight: 1
 ---
 
 <!--
@@ -17,7 +17,7 @@ api_metadata:
 content_type: "api_reference"
 description: "APIService represents a server for a particular GroupVersion."
 title: "APIService"
-weight: 4
+weight: 1
 auto_generated: true
 -->
 
@@ -68,10 +68,10 @@ APIServiceSpec 包含用于定位和与服务器通信的信息。仅支持 HTTP
 
 - **groupPriorityMinimum** (int32)， <!--required-->必需
   <!--
-  GroupPriorityMininum is the priority this group should have at least. Higher priority means that the group is preferred by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMininum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s
+  GroupPriorityMinimum is the priority this group should have at least. Higher priority means that the group is preferred by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMinimum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s
   -->
-  groupPriorityMininum 是这个组至少应该具有的优先级。优先级高表示客户端优先选择该组。
-  请注意，该组的其他版本可能会指定更高的 groupPriorityMininum 值，使得整个组获得更高的优先级。
+  groupPriorityMinimum 是这个组至少应该具有的优先级。优先级高表示客户端优先选择该组。
+  请注意，该组的其他版本可能会指定更高的 groupPriorityMinimum 值，使得整个组获得更高的优先级。
   主排序基于 groupPriorityMinimum 值，从高到低排序（20 在 10 之前）。
   次要排序基于对象名称的字母顺序（v1.bar 在 v1.foo 之前）。
   我们建议这样配置：`*.k8s.io`（扩展除外）值设置为 18000，PaaS（OpenShift、Deis）建议值为 2000 左右。

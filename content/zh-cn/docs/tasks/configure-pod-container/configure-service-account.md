@@ -315,13 +315,10 @@ token might be shorter, or could even be longer).
 {{< feature-state feature_gate_name="ServiceAccountTokenNodeBinding" >}}
 
 <!--
-When the `ServiceAccountTokenNodeBinding` and `ServiceAccountTokenNodeBindingValidation`
-features are enabled, and using `kubectl` v1.31 or later, it is possible to create a service 
+Using `kubectl` v1.31 or later, it is possible to create a service
 account token that is directly bound to a Node:
 -->
-当启用了 `ServiceAccountTokenNodeBinding` 和 `ServiceAccountTokenNodeBindingValidation`
-特性，并使用 v1.31 或更高版本的 `kubectl` 时，
-可以创建一个直接绑定到 `Node` 的服务账号令牌：
+使用 kubectl v1.31 或更高版本，可以创建一个直接绑定到 Node 的服务账号令牌：
 
 ```shell
 kubectl create token build-robot --bound-object-kind Node --bound-object-name node-001 --bound-object-uid 123...456
@@ -711,10 +708,10 @@ The JSON payload of this token follows a well defined schema - an example payloa
   "exp": 1731613413,
   "iat": 1700077413,
   "iss": "https://kubernetes.default.svc",  # matches the first value passed to the --service-account-issuer flag
-  "jti": "ea28ed49-2e11-4280-9ec5-bc3d1d84661a",  # ServiceAccountTokenJTI feature must be enabled for the claim to be present
+  "jti": "ea28ed49-2e11-4280-9ec5-bc3d1d84661a", 
   "kubernetes.io": {
     "namespace": "kube-system",
-    "node": {  # ServiceAccountTokenPodNodeInfo feature must be enabled for the API server to add this node reference claim
+    "node": {
       "name": "127.0.0.1",
       "uid": "58456cb0-dd00-45ed-b797-5578fdceaced"
     },
@@ -741,10 +738,10 @@ The JSON payload of this token follows a well defined schema - an example payloa
   "exp": 1731613413,
   "iat": 1700077413,
   "iss": "https://kubernetes.default.svc",  # 匹配传递到 --service-account-issuer 标志的第一个值
-  "jti": "ea28ed49-2e11-4280-9ec5-bc3d1d84661a",  # ServiceAccountTokenJTI 特性必须被启用才能出现此申领
+  "jti": "ea28ed49-2e11-4280-9ec5-bc3d1d84661a",
   "kubernetes.io": {
     "namespace": "kube-system",
-    "node": {  # ServiceAccountTokenPodNodeInfo 特性必须被启用，API 服务器才会添加此节点引用申领
+    "node": {
       "name": "127.0.0.1",
       "uid": "58456cb0-dd00-45ed-b797-5578fdceaced"
     },

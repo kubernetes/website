@@ -45,7 +45,7 @@ Pembagian _namespace_ proses (_Process Namespace Sharing_) diaktifkan menggunaka
 2. Tempelkan kontainer `shell` dan jalankan perintah `ps`:
 
     ```shell
-    kubectl attach -it nginx -c shell
+    kubectl exec -it nginx -c shell -- /bin/sh
     ```
 
     Jika kamu tidak melihat _prompt_ perintah, kamu dapat menekan tombol enter:

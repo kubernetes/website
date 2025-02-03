@@ -39,7 +39,6 @@ content_type: concept
 ## Визуализация и контроль
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard) - это веб-интерфейс панели инструментов для Kubernetes.
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s) - это инструмент для графической визуализации ваших контейнеров, подов, сервисов и т.д. Используйте его вместе с [учетной записью Weave Cloud](https://cloud.weave.works/) или разместите пользовательский интерфейс самостоятельно.
 
 ## Инфраструктура
 

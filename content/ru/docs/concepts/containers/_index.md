@@ -30,4 +30,4 @@ no_list: true
 ## {{% heading "whatsnext" %}}
 
 * Раздел об [образах контейнеров](/docs/concepts/containers/images/).
-* Раздел о [Pod'ах](/docs/concepts/workloads/pods/).
+* Раздел о [Подах](/ru/docs/concepts/workloads/pods/).

@@ -8,7 +8,6 @@ short_description: >
 
 aka: 
 tags:
-- core-object
 - architecture
 - operation
 ---
@@ -22,7 +21,6 @@ short_description: >
 
 aka: 
 tags:
-- core-object
 - architecture
 - operation
 -->

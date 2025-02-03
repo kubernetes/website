@@ -320,7 +320,7 @@ variable to override this behaviour.
    make container-serve
    ```
 
-1. In a web browser, navigate to `https://localhost:1313`. Hugo watches the
+1. In a web browser, navigate to `http://localhost:1313`. Hugo watches the
    changes and rebuilds the site as needed.
 
 1. To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,
@@ -348,7 +348,7 @@ Alternately, install and use the `hugo` command on your computer:
    hugo server --buildFuture
    ```
 
-1. In a web browser, navigate to `https://localhost:1313`. Hugo watches the
+1. In a web browser, navigate to `http://localhost:1313`. Hugo watches the
    changes and rebuilds the site as needed.
 
 1. To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,

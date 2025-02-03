@@ -182,7 +182,7 @@ pembuatannya akan ditolak oleh API server. Lihat
 
 {{< glossary_tooltip term_id="label" text="Label" >}} dari Pod statis
 akan dibuat juga pada Pod _mirror_. Kamu dapat menggunakan label tersebut
-seperti biasa menggunakan {{< glossary_tooltip term_id="selector" text="selector-selector" >}},
+seperti biasa menggunakan {{< glossary_tooltip term_id="selector" text="selector" >}},
 atau yang lainnya.
 
 Kamu dapat mencoba untuk menggunakan kubelet untuk menghapus Pod _mirror_ tersebut pada API server,

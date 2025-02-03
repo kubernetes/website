@@ -14,12 +14,19 @@ weight: 350
 This page provides an overview of the steps you should follow to upgrade a
 Kubernetes cluster.
 
+The Kubernetes project recommends upgrading to the latest patch releases promptly, and
+to ensure that you are running a supported minor release of Kubernetes.
+Following this recommendation helps you to to stay secure.
+
 The way that you upgrade a cluster depends on how you initially deployed it
 and on any subsequent changes.
 
 At a high level, the steps you perform are:
 -->
 本页概述升级 Kubernetes 集群的步骤。
+
+Kubernetes 项目建议及时升级到最新的补丁版本，并确保使用受支持的 Kubernetes 版本。
+遵循这一建议有助于保障安全。
 
 升级集群的方式取决于你最初部署它的方式、以及后续更改它的方式。
 

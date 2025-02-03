@@ -128,9 +128,9 @@ The `.spec.schedule` field is required. The value of that field follows the [Cro
 ```
 
 <!--
-For example, `0 0 13 * 5` states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight.
+For example, `0 3 * * 1` means this task is scheduled to run weekly on a Monday at 3 AM.
 -->
-例如 `0 0 13 * 5` 表示此任务必须在每个星期五的午夜以及每个月的 13 日的午夜开始。
+例如 `0 3 * * 1` 表示此任务计划于每周一凌晨 3 点运行。
 
 <!--
 The format also includes extended "Vixie cron" step values. As explained in the
@@ -430,6 +430,14 @@ the Jobs that you define should be _idempotent_.
 CronJob 根据其计划编排，在每次该执行任务的时候大约会创建一个 Job。
 我们之所以说 "大约"，是因为在某些情况下，可能会创建两个 Job，或者不会创建任何 Job。
 我们试图使这些情况尽量少发生，但不能完全杜绝。因此，Job 应该是 **幂等的**。
+
+<!--
+Starting with Kubernetes v1.32, CronJobs apply an annotation
+`batch.kubernetes.io/cronjob-scheduled-timestamp` to their created Jobs. This annotation
+indicates the originally scheduled creation time for the Job and is formatted in RFC3339.
+-->
+从 Kubernetes v1.32 开始，CronJob 为其创建的 Job 添加一个注解 `batch.kubernetes.io/cronjob-scheduled-timestamp`。
+此注解表示 Job 最初计划的创建时间，采用 RFC3339 格式。
 
 <!--
 If `startingDeadlineSeconds` is set to a large value or left unset (the default)

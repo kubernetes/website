@@ -138,12 +138,12 @@ It creates a [headless Service](/docs/concepts/services-networking/service/#head
 
 <!--
 You will need to use at least two terminal windows. In the first terminal, use
-[`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to watch the creation
+[`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to {{< glossary_tooltip text="watch" term_id="watch" >}} the creation
 of the StatefulSet's Pods.
 -->
 你需要使用至少两个终端窗口。在第一个终端中，使用
 [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get)
-来监视 StatefulSet 的 Pod 的创建情况。
+来{{< glossary_tooltip text="监视" term_id="watch" >}} StatefulSet 的 Pod 的创建情况。
 
 <!--
 # use this terminal to run commands that specify --watch

@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ControllerRevision 实现了状态数据的不可变快照。"
 title: "ControllerRevision"
-weight: 7
+weight: 8
 ---
 
 <!--
@@ -17,7 +17,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ControllerRevision implements an immutable snapshot of state data."
 title: "ControllerRevision"
-weight: 7
+weight: 8
 auto_generated: true
 -->
 

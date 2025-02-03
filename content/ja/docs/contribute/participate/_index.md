@@ -83,7 +83,7 @@ OWNERSファイルとMarkdownファイルのfront-matterの組み合わせによ
 
 ## マージの仕組み
 
-Pull Requestがコンテンツの公開に使用されるブランチにマージされると、そのコンテンツは http://kubernetes.io に公開されます。
+Pull Requestがコンテンツの公開に使用されるブランチにマージされると、そのコンテンツは https://kubernetes.io に公開されます。
 公開されたコンテンツの品質を高くするために、Pull RequestのマージはSIG Docsの承認者に限定しています。仕組みは次のとおりです。
 
 - Pull Requestに`lgtm`ラベルと`approve`ラベルの両方があり、`hold`ラベルがなく、すべてのテストに合格すると、Pull Requestは自動的にマージされます。

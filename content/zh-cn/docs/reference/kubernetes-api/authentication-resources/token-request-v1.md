@@ -70,10 +70,14 @@ TokenRequestSpec 包含客户端提供的令牌请求参数。
 <!--
 - **audiences** ([]string), required
 
+  *Atomic: will be replaced during a merge*
+
   Audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
 -->
 - **audiences** ([]string)，必需
-  
+
+  **原子：将在合并期间被替换**
+
   audiences 是令牌预期的受众。
   令牌的接收方必须在令牌的受众列表中用一个标识符来标识自己，否则应拒绝该令牌。
   为多个受众签发的令牌可用于认证所列举的任意受众的身份，但这意味着目标受众彼此之间的信任程度较高。

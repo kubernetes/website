@@ -21,18 +21,21 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
 
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/validation/field"
 	"k8s.io/apimachinery/pkg/util/yaml"
 	"k8s.io/kubernetes/pkg/api/legacyscheme"
+
+	"k8s.io/kubernetes/pkg/apis/admissionregistration"
+	admreg_validation "k8s.io/kubernetes/pkg/apis/admissionregistration/validation"
 
 	"k8s.io/kubernetes/pkg/apis/apps"
 	apps_validation "k8s.io/kubernetes/pkg/apis/apps/validation"
@@ -45,6 +48,9 @@ import (
 
 	api "k8s.io/kubernetes/pkg/apis/core"
 	"k8s.io/kubernetes/pkg/apis/core/validation"
+
+	// "k8s.io/kubernetes/pkg/apis/flowcontrol"
+	// flowcontrol_validation "k8s.io/kubernetes/pkg/apis/flowcontrol/validation"
 
 	"k8s.io/kubernetes/pkg/apis/networking"
 	networking_validation "k8s.io/kubernetes/pkg/apis/networking/validation"
@@ -59,9 +65,9 @@ import (
 	storage_validation "k8s.io/kubernetes/pkg/apis/storage/validation"
 
 	"k8s.io/kubernetes/pkg/capabilities"
-	"k8s.io/kubernetes/pkg/registry/batch/job"
 
 	// 初始化安装包
+	_ "k8s.io/kubernetes/pkg/apis/admissionregistration/install"
 	_ "k8s.io/kubernetes/pkg/apis/apps/install"
 	_ "k8s.io/kubernetes/pkg/apis/autoscaling/install"
 	_ "k8s.io/kubernetes/pkg/apis/batch/install"
@@ -99,6 +105,7 @@ func (g TestGroup) Codec() runtime.Codec {
 func initGroups() {
 	Groups = make(map[string]TestGroup)
 	groupNames := []string{
+		admissionregistration.GroupName,
 		api.GroupName,
 		apps.GroupName,
 		autoscaling.GroupName,
@@ -149,20 +156,24 @@ func getCodecForObject(obj runtime.Object) (runtime.Codec, error) {
 
 func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	podValidationOptions := validation.PodValidationOptions{
-		AllowDownwardAPIHugePages:       true,
 		AllowInvalidPodDeletionCost:     false,
 		AllowIndivisibleHugePagesValues: true,
-		AllowWindowsHostProcessField:    true,
-		AllowExpandedDNSConfig:          true,
+	}
+	netValidationOptions := networking_validation.NetworkPolicyValidationOptions{
+		AllowInvalidLabelValueInSelector: false,
+	}
+	pdbValidationOptions := policy_validation.PodDisruptionBudgetValidationOptions{
+		AllowInvalidLabelValueInSelector: false,
+	}
+	clusterroleValidationOptions := rbac_validation.ClusterRoleValidationOptions{
+		AllowInvalidLabelValueInSelector: false,
 	}
 
-	quotaValidationOptions := validation.ResourceQuotaValidationOptions{
-		AllowPodAffinityNamespaceSelector: true,
-	}
-
-	// 为测试启用 CustomPodDNS
-	// feature.DefaultFeatureGate.Set("CustomPodDNS=true")
 	switch t := obj.(type) {
+	case *admissionregistration.ValidatingWebhookConfiguration:
+		errors = admreg_validation.ValidateValidatingWebhookConfiguration(t)
+	case *admissionregistration.ValidatingAdmissionPolicy:
+		errors = admreg_validation.ValidateValidatingAdmissionPolicy(t)
 	case *api.ConfigMap:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -181,17 +192,13 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	case *api.Namespace:
 		errors = validation.ValidateNamespace(t)
 	case *api.PersistentVolume:
-		opts := validation.PersistentVolumeSpecValidationOptions{
-			AllowReadWriteOncePod: true,
-		}
+		opts := validation.PersistentVolumeSpecValidationOptions{}
 		errors = validation.ValidatePersistentVolume(t, opts)
 	case *api.PersistentVolumeClaim:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		opts := validation.PersistentVolumeClaimSpecValidationOptions{
-			AllowReadWriteOncePod: true,
-		}
+		opts := validation.PersistentVolumeClaimSpecValidationOptions{}
 		errors = validation.ValidatePersistentVolumeClaim(t, opts)
 	case *api.Pod:
 		if t.Namespace == "" {
@@ -220,7 +227,7 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = validation.ValidateResourceQuota(t, quotaValidationOptions)
+		errors = validation.ValidateResourceQuota(t)
 	case *api.Secret:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -249,22 +256,6 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = apps_validation.ValidateStatefulSet(t, podValidationOptions)
-	case *autoscaling.HorizontalPodAutoscaler:
-		if t.Namespace == "" {
-			t.Namespace = api.NamespaceDefault
-		}
-		errors = autoscaling_validation.ValidateHorizontalPodAutoscaler(t)
-	case *batch.Job:
-		if t.Namespace == "" {
-			t.Namespace = api.NamespaceDefault
-		}
-		// Job 需要在校验前调用 generateSelector，然后 job.Validate 执行校验。
-		// 请参阅：https://github.com/kubernetes/kubernetes/issues/20951#issuecomment-187787040
-		t.ObjectMeta.UID = types.UID("fakeuid")
-		if strings.Index(t.ObjectMeta.Name, "$") > -1 {
-			t.ObjectMeta.Name = "skip-for-good"
-		}
-		errors = job.Strategy.Validate(nil, t)
 	case *apps.DaemonSet:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -275,51 +266,78 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = apps_validation.ValidateDeployment(t, podValidationOptions)
+	case *apps.ReplicaSet:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = apps_validation.ValidateReplicaSet(t, podValidationOptions)
+	case *autoscaling.HorizontalPodAutoscaler:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = autoscaling_validation.ValidateHorizontalPodAutoscaler(t)
+	case *batch.CronJob:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = batch_validation.ValidateCronJobCreate(t, podValidationOptions)
+	case *batch.Job:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+
+		// Job 需要在校验前调用 generateSelector，然后 job.Validate 执行校验
+		if strings.Index(t.ObjectMeta.Name, "$") > -1 {
+			t.ObjectMeta.Name = "skip-for-good"
+		}
+		t.ObjectMeta.UID = types.UID("fakeuid")
+		if t.Spec.Template.ObjectMeta.Labels == nil {
+			t.Spec.Template.ObjectMeta.Labels = make(map[string]string)
+		}
+		t.Spec.Template.ObjectMeta.Labels["controller-uid"] = "fakeuid"
+		t.Spec.Template.ObjectMeta.Labels["job-name"] = t.ObjectMeta.Name
+		if t.Spec.Selector == nil {
+			t.Spec.Selector = &metav1.LabelSelector{
+				MatchLabels: map[string]string{
+					"controller-uid": "fakeuid",
+					"job-name":       t.ObjectMeta.Name,
+				},
+			}
+		}
+		opts := batch_validation.JobValidationOptions{
+			RequirePrefixedLabels: false,
+		}
+		errors = batch_validation.ValidateJob(t, opts)
+
+	// case *flowcontrol.FlowSchema:
+	// TODO：这仍然失败
+	// errors = flowcontrol_validation.ValidateFlowSchema(t)
+
 	case *networking.Ingress:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = networking_validation.ValidateIngressCreate(t)
 	case *networking.IngressClass:
-		/*
-			if t.Namespace == "" {
-				t.Namespace = api.NamespaceDefault
-			}
-			gv := schema.GroupVersion{
-				Group:   networking.GroupName,
-				Version: legacyscheme.Scheme.PrioritizedVersionsForGroup(networking.GroupName)[0].Version,
-			}
-		*/
 		errors = networking_validation.ValidateIngressClass(t)
-
-	case *policy.PodSecurityPolicy:
-		errors = policy_validation.ValidatePodSecurityPolicy(t)
-	case *apps.ReplicaSet:
-		if t.Namespace == "" {
-			t.Namespace = api.NamespaceDefault
-		}
-		errors = apps_validation.ValidateReplicaSet(t, podValidationOptions)
-	case *batch.CronJob:
-		if t.Namespace == "" {
-			t.Namespace = api.NamespaceDefault
-		}
-		errors = batch_validation.ValidateCronJob(t, podValidationOptions)
 	case *networking.NetworkPolicy:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = networking_validation.ValidateNetworkPolicy(t)
+		errors = networking_validation.ValidateNetworkPolicy(t, netValidationOptions)
 	case *policy.PodDisruptionBudget:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = policy_validation.ValidatePodDisruptionBudget(t)
+		errors = policy_validation.ValidatePodDisruptionBudget(t, pdbValidationOptions)
 	case *rbac.ClusterRole:
 		// ClusterRole 不接受名字空间
-		errors = rbac_validation.ValidateClusterRole(t)
+		errors = rbac_validation.ValidateClusterRole(t, clusterroleValidationOptions)
 	case *rbac.ClusterRoleBinding:
 		// ClusterRoleBinding 不接受名字空间
 		errors = rbac_validation.ValidateClusterRoleBinding(t)
+	case *rbac.RoleBinding:
+		errors = rbac_validation.ValidateRoleBinding(t)
 	case *storage.StorageClass:
 		// StorageClass 不接受名字空间
 		errors = storage_validation.ValidateStorageClass(t)
@@ -344,7 +362,7 @@ func walkConfigFiles(inDir string, t *testing.T, fn func(name, path string, data
 
 		file := filepath.Base(path)
 		if ext := filepath.Ext(file); ext == ".json" || ext == ".yaml" {
-			data, err := ioutil.ReadFile(path)
+			data, err := os.ReadFile(path)
 			if err != nil {
 				return err
 			}
@@ -387,6 +405,18 @@ func TestExampleObjectSchemas(t *testing.T) {
 
 	// 请帮助保持映射图中的 alphabeta 顺序
 	cases := map[string]map[string][]runtime.Object{
+		"access": {
+			"deployment-replicas-policy":                   {&admissionregistration.ValidatingAdmissionPolicy{}},
+			"endpoints-aggregated":                         {&rbac.ClusterRole{}},
+			"image-matches-namespace-environment.policy":   {&admissionregistration.ValidatingAdmissionPolicy{}},
+			"validating-admission-policy-audit-annotation": {&admissionregistration.ValidatingAdmissionPolicy{}},
+			"validating-admission-policy-match-conditions": {&admissionregistration.ValidatingAdmissionPolicy{}},
+		},
+		"access/certificate-signing-request": {
+			"clusterrole-approve": {&rbac.ClusterRole{}},
+			"clusterrole-create":  {&rbac.ClusterRole{}},
+			"clusterrole-sign":    {&rbac.ClusterRole{}},
+		},
 		"admin": {
 			"namespace-dev":        {&api.Namespace{}},
 			"namespace-prod":       {&api.Namespace{}},
@@ -400,6 +430,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"dns-horizontal-autoscaler": {&api.ServiceAccount{}, &rbac.ClusterRole{}, &rbac.ClusterRoleBinding{}, &apps.Deployment{}},
 			"dnsutils":                  {&api.Pod{}},
 		},
+		// TODO："admin/konnectivity" 还未被包括进来
 		"admin/logging": {
 			"fluentd-sidecar-config":                  {&api.ConfigMap{}},
 			"two-files-counter-pod":                   {&api.Pod{}},
@@ -445,7 +476,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"admin/sched": {
 			"clusterrole":  {&rbac.ClusterRole{}},
-			"my-scheduler": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &rbac.ClusterRoleBinding{}, &api.ConfigMap{}, &apps.Deployment{}},
+			"my-scheduler": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &rbac.ClusterRoleBinding{}, &rbac.RoleBinding{}, &api.ConfigMap{}, &apps.Deployment{}},
 			"pod1":         {&api.Pod{}},
 			"pod2":         {&api.Pod{}},
 			"pod3":         {&api.Pod{}},
@@ -455,6 +486,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"deployment-patch":      {&apps.Deployment{}},
 			"deployment-retainkeys": {&apps.Deployment{}},
 			"deployment-scale":      {&apps.Deployment{}},
+			"deployment-sidecar":    {&apps.Deployment{}},
 			"deployment-update":     {&apps.Deployment{}},
 			"nginx-app":             {&api.Service{}, &apps.Deployment{}},
 			"nginx-with-request":    {&apps.Deployment{}},
@@ -478,23 +510,26 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"application/hpa": {
 			"php-apache": {&autoscaling.HorizontalPodAutoscaler{}},
 		},
-		"application/nginx": {
-			"nginx-deployment": {&apps.Deployment{}},
-			"nginx-svc":        {&api.Service{}},
-		},
 		"application/job": {
 			"cronjob":         {&batch.CronJob{}},
+			"job-sidecar":     {&batch.Job{}},
 			"job-tmpl":        {&batch.Job{}},
 			"indexed-job":     {&batch.Job{}},
 			"indexed-job-vol": {&batch.Job{}},
 		},
 		"application/job/rabbitmq": {
-			"job": {&batch.Job{}},
+			"job":                  {&batch.Job{}},
+			"rabbitmq-statefulset": {&apps.StatefulSet{}},
+			"rabbitmq-service":     {&api.Service{}},
 		},
 		"application/job/redis": {
 			"job":           {&batch.Job{}},
 			"redis-pod":     {&api.Pod{}},
 			"redis-service": {&api.Service{}},
+		},
+		"application/mongodb": {
+			"mongo-deployment": {&apps.Deployment{}},
+			"mongo-service":    {&api.Service{}},
 		},
 		"application/mysql": {
 			"mysql-configmap":   {&api.ConfigMap{}},
@@ -502,6 +537,14 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"mysql-pv":          {&api.PersistentVolume{}, &api.PersistentVolumeClaim{}},
 			"mysql-services":    {&api.Service{}, &api.Service{}},
 			"mysql-statefulset": {&apps.StatefulSet{}},
+		},
+		"application/nginx": {
+			"nginx-deployment": {&apps.Deployment{}},
+			"nginx-svc":        {&api.Service{}},
+		},
+		"application/ssa": {
+			"nginx-deployment":             {&apps.Deployment{}},
+			"nginx-deployment-no-replicas": {&apps.Deployment{}},
 		},
 		"application/web": {
 			"web":          {&api.Service{}, &apps.StatefulSet{}},
@@ -514,25 +557,42 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"application/zookeeper": {
 			"zookeeper": {&api.Service{}, &api.Service{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
 		},
+		"concepts/policy/limit-range": {
+			"example-conflict-with-limitrange-cpu":    {&api.Pod{}},
+			"problematic-limit-range":                 {&api.LimitRange{}},
+			"example-no-conflict-with-limitrange-cpu": {&api.Pod{}},
+		},
 		"configmap": {
-			"configmaps":          {&api.ConfigMap{}, &api.ConfigMap{}},
-			"configmap-multikeys": {&api.ConfigMap{}},
+			"configmaps":              {&api.ConfigMap{}, &api.ConfigMap{}},
+			"configmap-multikeys":     {&api.ConfigMap{}},
+			"configure-pod":           {&api.Pod{}},
+			"env-configmap":           {&api.Pod{}},
+			"immutable-configmap":     {&api.ConfigMap{}},
+			"new-immutable-configmap": {&api.ConfigMap{}},
 		},
 		"controllers": {
-			"daemonset":                {&apps.DaemonSet{}},
-			"fluentd-daemonset":        {&apps.DaemonSet{}},
-			"fluentd-daemonset-update": {&apps.DaemonSet{}},
-			"frontend":                 {&apps.ReplicaSet{}},
-			"hpa-rs":                   {&autoscaling.HorizontalPodAutoscaler{}},
-			"job":                      {&batch.Job{}},
-			"replicaset":               {&apps.ReplicaSet{}},
-			"replication":              {&api.ReplicationController{}},
-			"replication-nginx-1.14.2": {&api.ReplicationController{}},
-			"replication-nginx-1.16.1": {&api.ReplicationController{}},
-			"nginx-deployment":         {&apps.Deployment{}},
+			"daemonset":                           {&apps.DaemonSet{}},
+			"daemonset-label-selector":            {&apps.DaemonSet{}},
+			"fluentd-daemonset":                   {&apps.DaemonSet{}},
+			"fluentd-daemonset-update":            {&apps.DaemonSet{}},
+			"frontend":                            {&apps.ReplicaSet{}},
+			"hpa-rs":                              {&autoscaling.HorizontalPodAutoscaler{}},
+			"job":                                 {&batch.Job{}},
+			"job-backoff-limit-per-index-example": {&batch.Job{}},
+			"job-pod-failure-policy-config-issue": {&batch.Job{}},
+			"job-pod-failure-policy-example":      {&batch.Job{}},
+			"job-pod-failure-policy-failjob":      {&batch.Job{}},
+			"job-pod-failure-policy-ignore":       {&batch.Job{}},
+			"job-success-policy":                  {&batch.Job{}},
+			"replicaset":                          {&apps.ReplicaSet{}},
+			"replication":                         {&api.ReplicationController{}},
+			"replication-nginx-1.14.2":            {&api.ReplicationController{}},
+			"replication-nginx-1.16.1":            {&api.ReplicationController{}},
+			"nginx-deployment":                    {&apps.Deployment{}},
 		},
 		"debug": {
 			"counter-pod":                     {&api.Pod{}},
+			"counter-pod-err":                 {&api.Pod{}},
 			"event-exporter":                  {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &apps.Deployment{}},
 			"fluentd-gcp-configmap":           {&api.ConfigMap{}},
 			"fluentd-gcp-ds":                  {&apps.DaemonSet{}},
@@ -542,6 +602,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"pods": {
 			"commands":                            {&api.Pod{}},
+			"image-volumes":                       {&api.Pod{}},
 			"init-containers":                     {&api.Pod{}},
 			"lifecycle-events":                    {&api.Pod{}},
 			"pod-configmap-env-var-valueFrom":     {&api.Pod{}},
@@ -556,14 +617,17 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"pod-projected-svc-token":             {&api.Pod{}},
 			"pod-rs":                              {&api.Pod{}, &api.Pod{}},
 			"pod-single-configmap-env-variable":   {&api.Pod{}},
-			"pod-with-affinity-anti-affinity":     {&api.Pod{}},
+			"pod-with-affinity-preferred-weight":  {&api.Pod{}},
 			"pod-with-node-affinity":              {&api.Pod{}},
 			"pod-with-pod-affinity":               {&api.Pod{}},
+			"pod-with-scheduling-gates":           {&api.Pod{}},
 			"pod-with-toleration":                 {&api.Pod{}},
+			"pod-without-scheduling-gates":        {&api.Pod{}},
 			"private-reg-pod":                     {&api.Pod{}},
 			"share-process-namespace":             {&api.Pod{}},
 			"simple-pod":                          {&api.Pod{}},
 			"two-container-pod":                   {&api.Pod{}},
+			"user-namespaces-stateless":           {&api.Pod{}},
 		},
 		"pods/config": {
 			"redis-pod":            {&api.Pod{}},
@@ -596,15 +660,19 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"qos-pod-2": {&api.Pod{}},
 			"qos-pod-3": {&api.Pod{}},
 			"qos-pod-4": {&api.Pod{}},
+			"qos-pod-5": {&api.Pod{}},
 		},
 		"pods/resource": {
-			"cpu-request-limit":       {&api.Pod{}},
-			"cpu-request-limit-2":     {&api.Pod{}},
-			"extended-resource-pod":   {&api.Pod{}},
-			"extended-resource-pod-2": {&api.Pod{}},
-			"memory-request-limit":    {&api.Pod{}},
-			"memory-request-limit-2":  {&api.Pod{}},
-			"memory-request-limit-3":  {&api.Pod{}},
+			"cpu-request-limit":              {&api.Pod{}},
+			"cpu-request-limit-2":            {&api.Pod{}},
+			"extended-resource-pod":          {&api.Pod{}},
+			"extended-resource-pod-2":        {&api.Pod{}},
+			"memory-request-limit":           {&api.Pod{}},
+			"memory-request-limit-2":         {&api.Pod{}},
+			"memory-request-limit-3":         {&api.Pod{}},
+			"pod-level-cpu-request-limit":    {&api.Pod{}},
+			"pod-level-memory-request-limit": {&api.Pod{}},
+			"pod-level-resources":            {&api.Pod{}},
 		},
 		"pods/security": {
 			"hello-apparmor":     {&api.Pod{}},
@@ -612,6 +680,8 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"security-context-2": {&api.Pod{}},
 			"security-context-3": {&api.Pod{}},
 			"security-context-4": {&api.Pod{}},
+			"security-context-5": {&api.Pod{}},
+			"security-context-6": {&api.Pod{}},
 		},
 		"pods/storage": {
 			"projected":                                    {&api.Pod{}},
@@ -623,19 +693,37 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"pv-pod":                                       {&api.Pod{}},
 			"pv-volume":                                    {&api.PersistentVolume{}},
 			"redis":                                        {&api.Pod{}},
+			"projected-clustertrustbundle":                 {&api.Pod{}},
+		},
+		"pods/topology-spread-constraints": {
+			"one-constraint":                   {&api.Pod{}},
+			"one-constraint-with-nodeaffinity": {&api.Pod{}},
+			"two-constraints":                  {&api.Pod{}},
 		},
 		"policy": {
-			"baseline-psp":                 {&policy.PodSecurityPolicy{}},
-			"example-psp":                  {&policy.PodSecurityPolicy{}},
-			"priority-class-resourcequota": {&api.ResourceQuota{}},
-			"privileged-psp":               {&policy.PodSecurityPolicy{}},
-			"restricted-psp":               {&policy.PodSecurityPolicy{}},
+			"priority-class-resourcequota":                   {&api.ResourceQuota{}},
 			"zookeeper-pod-disruption-budget-maxunavailable": {&policy.PodDisruptionBudget{}},
 			"zookeeper-pod-disruption-budget-minavailable":   {&policy.PodDisruptionBudget{}},
 		},
+		/* TODO：这还不起作用
+		"priority-and-fairness": {
+			"health-for-strangers": {&flowcontrol.FlowSchema{}},
+		},
+		*/
+		"secret/serviceaccount": {
+			"mysecretname": {&api.Secret{}},
+		},
+		"security": {
+			"example-baseline-pod":   {&api.Pod{}},
+			"podsecurity-baseline":   {&api.Namespace{}},
+			"podsecurity-privileged": {&api.Namespace{}},
+			"podsecurity-restricted": {&api.Namespace{}},
+		},
 		"service": {
-			"nginx-service":         {&api.Service{}},
-			"load-balancer-example": {&apps.Deployment{}},
+			"nginx-service":                      {&api.Service{}},
+			"load-balancer-example":              {&apps.Deployment{}},
+			"pod-with-graceful-termination":      {&apps.Deployment{}},
+			"explore-graceful-termination-nginx": {&api.Service{}},
 		},
 		"service/access": {
 			"backend-deployment":  {&apps.Deployment{}},
@@ -664,6 +752,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"name-virtual-host-ingress-no-third-host": {&networking.Ingress{}},
 			"namespaced-params":                       {&networking.IngressClass{}},
 			"networkpolicy":                           {&networking.NetworkPolicy{}},
+			"networkpolicy-multiport-egress":          {&networking.NetworkPolicy{}},
 			"network-policy-allow-all-egress":         {&networking.NetworkPolicy{}},
 			"network-policy-allow-all-ingress":        {&networking.NetworkPolicy{}},
 			"network-policy-default-deny-egress":      {&networking.NetworkPolicy{}},
@@ -696,8 +785,15 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"audit": {
 			"audit-policy": true,
 		},
+		// PSP 在 v1.29 中被移除，不校验它们
+		"policy": {
+			"baseline-psp":   true,
+			"example-psp":    true,
+			"privileged-psp": true,
+			"restricted-psp": true,
+		},
 	}
-	capabilities.SetForTests(capabilities.Capabilities{
+	capabilities.Initialize(capabilities.Capabilities{
 		AllowPrivileged: true,
 	})
 

@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "NetworkPolicy 描述针对一组 Pod 所允许的网络流量。"
 title: "NetworkPolicy"
-weight: 3
+weight: 4
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "NetworkPolicy describes what network traffic is allowed for a set of Pods."
 title: "NetworkPolicy"
-weight: 3
+weight: 4
 auto_generated: true
 -->
 
@@ -74,19 +74,25 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 <!--
 - **policyTypes** ([]string)
 
+  *Atomic: will be replaced during a merge*
+
   policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 -->
 - **policyTypes** ([]string)
+
+  **原子：将在合并期间被替换**
 
   policyTypes 是 NetworkPolicy 相关的规则类型列表。有效选项为 `[“Ingress”]`、`[“Egress”]` 或 `[“Ingress”， “Egress”]`。
   如果不指定此字段，则默认值取决是否存在 Ingress 或 Egress 规则；规则里包含 Egress 部分的策略将会影响出站流量，
   并且所有策略（无论它们是否包含 Ingress 部分）都将会影响 入站流量。
   如果要仅定义出站流量策略，则必须明确指定 `[ "Egress" ]`。
-  同样，如果要定义一个指定拒绝所有出站流量的策略，则必须指定一个包含 “Egress” 的 policyTypes 值
+  同样，如果要定义一个指定拒绝所有出站流量的策略，则必须指定一个包含 `Egress` 的 policyTypes 值
   （因为这样不包含 Egress 部分的策略，将会被默认为只有 [ "Ingress" ] )。此字段在 1.8 中为 Beta。
 
 <!--
 - **ingress** ([]NetworkPolicyIngressRule)
+
+  *Atomic: will be replaced during a merge*
 
   ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
 
@@ -94,6 +100,8 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
   *NetworkPolicyIngressRule describes a particular set of traffic that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.*
 -->
 - **ingress** ([]NetworkPolicyIngressRule)
+
+  **原子：将在合并期间被替换**
 
   ingress 是应用到所选 Pod 的入站规则列表。在没有被任何 NetworkPolicy 选择到 Pod 的情况下（同时假定集群策略允许对应流量），
   或者如果流量源是 Pod 的本地节点，或者流量与所有 NetworkPolicy 中的至少一个入站规则（Ingress) 匹配，
@@ -107,6 +115,8 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
   <!--
   - **ingress.from** ([]NetworkPolicyPeer)
 
+    *Atomic: will be replaced during a merge*
+  
     from is a list of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
 
     <a name="NetworkPolicyPeer"></a>
@@ -114,6 +124,8 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
   -->
 
   - **ingress.from** ([]NetworkPolicyPeer)
+
+    **原子：将在合并期间被替换**
 
     from 是流量来源列表，列表中的来源可以访问被此规则选中的 Pod。此列表中的流量来源使用逻辑或操作进行组合。
     如果此字段为空值或缺失（未设置），
@@ -147,6 +159,8 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
         cidr is a string representing the IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 
       - **ingress.from.ipBlock.except** ([]string)
+      
+        *Atomic: will be replaced during a merge*
 
         except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
       -->
@@ -156,6 +170,8 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
         cidr 是表示 IP 组块的字符串，例如 `"192.168.1.0/24"` 或 `"2001:db8::/64"`。
 
       - **ingress.from.ipBlock.except** ([]string)
+
+        **原子：将在合并期间被替换**
 
         except 是一个由 CIDR 范围组成的列表，其中指定的 CIDR 都应排除在此 IP 区块范围之外。
         例如 `"192.168.1.0/24"` 或 `"2001:db8::/64"`。
@@ -197,6 +213,8 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
   <!--
   - **ingress.ports** ([]NetworkPolicyPort)
 
+    *Atomic: will be replaced during a merge*
+  
     ports is a list of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
 
     <a name="NetworkPolicyPort"></a>
@@ -204,6 +222,8 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
   -->
 
   - **ingress.ports** ([]NetworkPolicyPort)
+
+    **原子：将在合并期间被替换**
 
     ports 是在此规则选中的 Pod 上应可访问的端口列表。此列表中的个项目使用逻辑或操作组合。如果此字段为空或缺失，
     则此规则匹配所有端口（进入流量可访问任何端口）。
@@ -253,12 +273,16 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 <!--
 - **egress** ([]NetworkPolicyEgressRule)
 
+  *Atomic: will be replaced during a merge*
+
   egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
 
   <a name="NetworkPolicyEgressRule"></a>
   *NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8*
 -->
 - **egress** ([]NetworkPolicyEgressRule)
+
+  **原子：将在合并期间被替换**
 
   egress 是应用到所选 Pod 的出站规则的列表。如果没有 NetworkPolicy 选中指定 Pod（并且其他集群策略也允许出口流量），
   或者在所有通过 podSelector 选中了某 Pod 的 NetworkPolicy 中，至少有一条出站规则与出站流量匹配，
@@ -273,6 +297,8 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
   <!--
   - **egress.to** ([]NetworkPolicyPeer)
 
+    *Atomic: will be replaced during a merge*
+  
     to is a list of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
 
     <a name="NetworkPolicyPeer"></a>
@@ -280,6 +306,8 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
   -->
 
   - **egress.to** ([]NetworkPolicyPeer)
+
+    **原子：将在合并期间被替换**
 
     to 是针对此规则所选择的 Pod 的出口流量的目的地列表。此列表中的目的地使用逻辑或操作进行组合。如果此字段为空或缺失，
     则此规则匹配所有目的地（流量不受目的地限制）。如果此字段存在且至少包含一项目的地，则仅当流量与目标列表中的至少一个匹配时，
@@ -312,6 +340,8 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
         cidr is a string representing the IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 
       - **egress.to.ipBlock.except** ([]string)
+      
+        *Atomic: will be replaced during a merge*
 
         except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
       -->
@@ -321,6 +351,8 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
         cidr 是用来表达 IP 组块的字符串，例如 `"192.168.1.0/24"` 或 `"2001:db8::/64"`。
 
       - **egress.to.ipBlock.except** ([]string)
+      
+        **原子：将在合并期间被替换**
 
         except 定义不应包含在 ipBlock 内的 CIDR 范围列表。例如 `"192.168.1.0/24"` 或 `"2001:db8::/64"`。
         如果 except 的值超出 ipBlock.cidr 的范围则被拒绝。
@@ -362,6 +394,8 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
   <!--
   - **egress.ports** ([]NetworkPolicyPort)
 
+    *Atomic: will be replaced during a merge*
+  
     ports is a list of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
 
     <a name="NetworkPolicyPort"></a>
@@ -369,6 +403,8 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
   -->
 
   - **egress.ports** ([]NetworkPolicyPort)
+
+    **原子：将在合并期间被替换**
 
     ports 是出站流量目的地的端口列表。此列表中的各个项目使用逻辑或操作进行组合。如果此字段为空或缺失，
     则此规则匹配所有端口（可访问出口流量目的地的任何端口）。如果此字段存在并且包含至少一个有效值，

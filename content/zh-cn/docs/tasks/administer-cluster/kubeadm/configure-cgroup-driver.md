@@ -1,12 +1,12 @@
 ---
 title: 配置 cgroup 驱动
 content_type: task
-weight: 20
+weight: 50
 ---
 <!-- 
 title: Configuring a cgroup driver
 content_type: task
-weight: 10
+weight: 50
 -->
 
 <!-- overview -->

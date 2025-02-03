@@ -1,22 +1,24 @@
 aliases:
   sig-docs-blog-owners: # Approvers for blog content
     - mrbobbytables
+    - natalisucks
     - nate-double-u
     - sftim
   sig-docs-blog-reviewers: # Reviewers for blog content
     - Gauravpadam
     - mrbobbytables
+    - natalisucks
     - nate-double-u
     - sftim
   sig-docs-website-owners: # Admins for overall website
     - divya-mohan0209
     - katcosgrove
     - natalisucks
+    - nate-double-u
     - reylejano
     - salaxander
     - sftim
     - tengqm
-    - drewhagen # RT 1.31 temp acting Docs lead
   sig-docs-localization-owners: # Admins for localization content
     - a-mccarthy
     - divya-mohan0209
@@ -60,12 +62,11 @@ aliases:
     - katcosgrove
     - natalisucks
     - nate-double-u
+    - rayandas # RT 1.33 Docs Lead
     - reylejano
     - salaxander
     - sftim
     - tengqm
-    - Princesso # RT 1.31 Docs Lead
-    - drewhagen # RT 1.31 temp acting Docs lead
   sig-docs-en-reviews: # PR reviews for English content
     - dipesh-rawat
     - divya-mohan0209
@@ -81,8 +82,8 @@ aliases:
     - shannonxtreme
     - tengqm
     - windsonsea
-    - Princesso # RT 1.31 Docs Lead
-    - drewhagen # RT 1.31 temp acting Docs lead
+    - Princesso
+    - drewhagen
   sig-docs-es-owners: # Admins for Spanish content
     - electrocucaracha
     - krol3
@@ -134,8 +135,11 @@ aliases:
     - Okabe-Junya
   sig-docs-ja-reviews: # PR reviews for Japanese content
     - atoato88
+    - b1gb4by
     - bells17
+    - inductor
     - kakts
+    - nasa9084
     - Okabe-Junya
     - t-inu
   sig-docs-ko-owners: # Admins for Korean content
@@ -154,10 +158,10 @@ aliases:
     - ysyukr
   sig-docs-leads: # Website chairs and tech leads
     - divya-mohan0209
+    - katcosgrove
     - natalisucks
     - reylejano
     - salaxander
-    - sftim
     - tengqm
   sig-docs-zh-owners: # Admins for Chinese content
     - chenrui333
@@ -228,12 +232,12 @@ aliases:
     - MaxymVlasov
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
   committee-steering: # provide PR approvals for announcements
-    - bentheelder
+    - aojea
+    - BenTheElder
     - justaugustus
-    - mrbobbytables
     - pacoxu
-    - palnabarun
     - pohly
+    - saschagrunert
     - soltysh
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
   sig-release-leads:

@@ -49,7 +49,7 @@ weight: 40
 작은 nginx 웹 서버를 이용한다. 다음과 같이 생성할 수 있다.
 
 ```shell
-kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.4
+kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.10
 ```
 출력은 다음과 같다.
 ```

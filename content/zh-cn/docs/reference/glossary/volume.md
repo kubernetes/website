@@ -8,7 +8,6 @@ short_description: >
 
 aka: 
 tags:
-- core-object
 - fundamental
 ---
 <!--
@@ -21,18 +20,14 @@ short_description: >
 
 aka:
 tags:
-- core-object
 - fundamental
 -->
 
-
 <!--
- A directory containing data, accessible to the {{< glossary_tooltip text="containers" term_id="container" >}} in a {{< glossary_tooltip term_id="pod" >}}.
+A directory containing data, accessible to the {{< glossary_tooltip text="containers" term_id="container" >}} in a {{< glossary_tooltip term_id="pod" >}}.
 -->
 包含可被 {{< glossary_tooltip text="Pod" term_id="pod" >}}
 中{{< glossary_tooltip text="容器" term_id="container" >}}访问的数据的目录。
-
-		   
 
 <!--
 A Kubernetes volume lives as long as the Pod that encloses it. Consequently, a volume outlives any containers that run within the Pod, and data in the volume is preserved across container restarts.
