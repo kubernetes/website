@@ -283,11 +283,27 @@ Consider the following when modifying arrays:
 
 ### Avoid side effects {#avoid-side-effects}
 
-TODO: https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#side-effects-1
+It is recommended that admission webhooks should avoid side effects if possible, which means the webhooks operate only on the
+content of the `AdmissionReview` sent to them, and do not make out-of-band changes. The `.webhooks[].sideEffects` field should
+be set to `None` if a webhook doesn't have any side effect.
+
+If side effects are required during the admission evaluation, they must be suppressed when processing an
+`AdmissionReview` object with `dryRun` set to `true`, and the `.webhooks[].sideEffects` field should be
+set to `NoneOnDryRun`. See [Side effects](#side-effects) for more detail.
 
 ### Avoid self-mutations {#avoid-self-mutation}
 
-TODO: https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#avoiding-deadlocks-in-self-hosted-webhooks 
+A webhook running inside the cluster might cause deadlocks for its own deployment if it is configured
+to intercept resources required to start its own pods.
+
+For example, a mutating admission webhook is configured to admit `CREATE` pod requests only if a certain label is set in the
+pod (e.g. `"env": "prod"`). The webhook server runs in a deployment which doesn't set the `"env"` label.
+When a node that runs the webhook server pods
+becomes unhealthy, the webhook deployment will try to reschedule the pods to another node. However the requests will
+get rejected by the existing webhook server since the `"env"` label is unset, and the migration cannot happen.
+
+It is recommended to exclude the namespace where your webhook is running with a
+[namespaceSelector](#matching-requests-namespaceselector).
 
 ### Fail open and validate the final state {#fail-open-validate-final-state}
 
@@ -386,7 +402,39 @@ challenging. The following recommendations might help:
   multiple times by the same webhook. 
 * Ensure that the scope of each mutating webhook is specific and limited.
 
-TODO: bring examples from https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#idempotence
+#### Example of idempotent mutating admission webhooks:
+
+1. For a `CREATE` pod request, set the field `.spec.securityContext.runAsNonRoot` of the
+   pod to true, to enforce security best practices.
+
+2. For a `CREATE` pod request, if the field `.spec.containers[].resources.limits`
+   of a container is not set, set default resource limits.
+
+3. For a `CREATE` pod request, inject a sidecar container with name `foo-sidecar` if no container
+   with the name `foo-sidecar` already exists.
+
+In the cases above, the webhook can be safely reinvoked, or admit an object that already has the fields set.
+
+#### Example of non-idempotent mutating admission webhooks:
+
+1. For a `CREATE` pod request, inject a sidecar container with name `foo-sidecar`
+   suffixed with the current timestamp (e.g. `foo-sidecar-19700101-000000`).
+
+2. For a `CREATE`/`UPDATE` pod request, reject if the pod has label `"env"` set,
+   otherwise add an `"env": "prod"` label to the pod.
+
+3. For a `CREATE` pod request, blindly append a sidecar container named
+   `foo-sidecar` without looking to see if there is already a `foo-sidecar`
+   container in the pod.
+
+In the first case above, reinvoking the webhook can result in the same sidecar being injected multiple times to a pod, each time
+with a different container name. Similarly the webhook can inject duplicated containers if the sidecar already exists in
+a user-provided pod.
+
+In the second case above, reinvoking the webhook will result in the webhook failing on its own output.
+
+In the third case above, reinvoking the webhook will result in duplicated containers in the pod spec, which makes
+the request invalid and rejected by the API server.
 
 ## Mutation testing and validation {#mutation-testing-validation}
 
@@ -492,6 +540,15 @@ rerouted as quickly as you need.
 Consider situations like the preceding example when writing your webhooks.
 Exclude operations that are a result of Kubernetes responding to unavoidable
 incidents.
+
+It is recommended that admission webhooks should evaluate as quickly as possible (typically in
+milliseconds), since they add to API request latency.
+It is encouraged to use a small timeout for webhooks. See [Timeouts](#timeouts) for more detail.
+
+It is recommended that admission webhooks should leverage some format of load-balancing, to
+provide high availability and performance benefits. If a webhook is running within the cluster,
+you can run multiple webhook backends behind a service to leverage the load-balancing that service
+supports.
 
 ## Examples of good implementations {#example-good-implementations}
 
