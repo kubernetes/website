@@ -293,7 +293,6 @@ languageName = "English"
 # Weight used for sorting.
 weight = 1
 languagedirection = "ltr"
-i18nDir = "./data/i18n"
 
 [languages.en.params]
 description = "Production-Grade Container Orchestration"
