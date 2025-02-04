@@ -6,7 +6,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
-    "docsy": "github:google/docsy#semver:0.6.0",
+    "docsy": "github:google/docsy#v0.6.x",
     "postcss-cli": "^11.0.0"
   },
   "spelling": "cSpell:ignore docsy pkgs -"

@@ -121,7 +121,7 @@ Another strategy for scaling your workloads is to **schedule** the scaling opera
 reduce resource consumption during off-peak hours.
 
 Similar to event driven autoscaling, such behavior can be achieved using KEDA in conjunction with
-its [`Cron` scaler](https://keda.sh/docs/2.13/scalers/cron/). The `Cron` scaler allows you to define schedules
+its [`Cron` scaler](https://keda.sh/docs/latest/scalers/cron/). The `Cron` scaler allows you to define schedules
 (and time zones) for scaling your workloads in or out.
 
 ## Scaling cluster infrastructure

@@ -1,3 +1,40 @@
+{{/* reference page-specific open graph image */}}
+{{- if ( eq .Section "blog" ) -}}
+{{ with findRE "<img.*?>" .Content 1 }}
+<meta property="og:image" content="{{ index . 0 | replaceRE ".*src=\"(.+?)\".*" "$1" }}">
+{{ end }}
+{{- else -}}
+{{- with resources.Get "images/kubernetes-horizontal-color.png" -}}
+{{- with resources.Copy "images/kubernetes-open-graph.png" . -}}
+<meta property="og:image" content="{{ .RelPermalink }}">
+{{- else -}}
+{{- warnf "No image. Boo." -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+<link rel="manifest" href="/manifest.webmanifest">
+{{ range .Translations -}}
+<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
+{{ end -}}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": "https://kubernetes.io",
+    "logo": "https://kubernetes.io/images/favicon.png",
+{{- if not .Site.Params.deprecated }}
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {{ printf "%s%s" ("search/" | absURL) "?q={search_term_string}" }},
+      "query-input": "required name=search_term_string"
+    }
+{{ end }}
+  }
+</script>
+
+<meta name="theme-color" content="#326ce5">
+
 <link rel="manifest" href="/manifest.webmanifest">
 
 {{- if or (.HasShortcode "table")  (.HasShortcode "feature-gate-table") -}}
@@ -55,3 +92,9 @@
 {{- if or (.HasShortcode "code_sample") (.HasShortcode "code") (.HasShortcode "codenew") -}}
     <link rel="stylesheet" href="/css/toastr-2.1.4.min.css">
 {{- end -}}
+
+{{- if eq (lower .Params.cid) "community" -}}
+<script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+{{- end -}}
+{{ with .Params.js }}{{ range (split . ",") }}<script src="{{ (trim . " ") | relURL }}"></script><!-- custom js added -->
+{{ end }}{{ else }}<!-- no custom js detected -->{{ end }}

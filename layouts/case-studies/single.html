@@ -1,34 +1,32 @@
-{{ define "main" }}
-{{ with .Params.content_url }}
-<meta http-equiv="refresh" content="0; URL='{{ . }}'" />
-{{ else }}
-	{{ if .Params.new_case_study_styles }}
-		<!-- Heading -->
-		<div class="banner {{ if .Params.use_gradient_overlay }}overlay{{ end }}" {{ if isset .Params "heading_background" }}style="background-image: url({{ .Params.heading_background }});"{{ end }}>
-			<h1>
-				<span class="heading">{{ .Params.title_prefix | default ( T "case_study_prefix" ) }}</span>
-				{{- if isset .Params "heading_title_logo" -}}
-					<img class="heading-logo" src="{{ .Params.heading_title_logo}}" />
-				{{- else if isset .Params "heading_title_text" -}}
-					{{- .Params.heading_title_text -}}
-				{{- end -}}
-				<span class="subheading">{{ .Params.subheading }}</span>
-			</h1>
-		</div>
-		<!-- Details -->
-		<div class="details">
-			{{ range $detail := .Params.case_study_details }}
-				{{ range $key, $value := $detail }}
-					<span class="item">{{ $key }} <strong>{{ $value }}</strong></span>
-				{{ end }}
+{{- define "main" -}}
+<section class="case-study-header">
+	<div class="banner {{ if .Params.use_gradient_overlay }}overlay{{ end }}" {{ if isset .Params "heading_background" }}style="background-image: url({{ .Params.heading_background }});"{{ end }}>
+		<h2>
+			{{ .Params.title_prefix | default ( T "case_study_prefix" ) }}
+			{{- if isset .Params "heading_title_logo" -}}
+				<img class="heading-logo" src="{{ .Params.heading_title_logo}}" />
+			{{- else if isset .Params "heading_title_text" -}}
+				{{- .Params.heading_title_text -}}
+			{{- end -}}
+		</h2>
+		<span class="subheading">{{ .Params.subheading }}</span>
+	</div>
+	<!-- Details -->
+</section>
+<section class="case-study">
+	<div class="details">
+		{{ range $detail := .Params.case_study_details }}
+			{{ range $key, $value := $detail }}
+				<span class="item">{{ $key }} <strong>{{ $value }}</strong></span>
 			{{ end }}
-		</div>
-		<!-- Content -->
-		<div class="content">
-			{{ .Content }}
-		</div>
-	{{ else }}
+		{{ end }}
+	</div>
+	<!-- Content -->
+	<div class="content">
 		{{ .Content }}
-	{{ end }}
-{{ end }}
+	</div>
+</section>
+{{- end -}}
+{{ define "announcement" }}
+<!-- skip announcement -->
 {{ end }}

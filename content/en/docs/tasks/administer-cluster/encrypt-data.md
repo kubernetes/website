@@ -241,7 +241,7 @@ The following table describes each available provider.
   <td>AES-CBC with <a href="https://datatracker.ietf.org/doc/html/rfc2315">PKCS#7</a> padding</td>
   <td>Weak</td>
   <td>Fast</td>
-  <td>32-byte</td>
+  <td>16, 24, or 32-byte</td>
   </tr>
   <tr>
   <td colspan="4">Not recommended due to CBC's vulnerability to padding oracle attacks. Key material accessible from control plane host.</td>

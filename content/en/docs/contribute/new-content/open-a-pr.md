@@ -313,6 +313,13 @@ variable to override this behaviour.
    make container-image
    ```
 
+1. Fetch submodule dependencies in your local repository:
+
+   ```shell
+   # Run this in a terminal
+   make module-init
+   ```
+
 1. Start Hugo in a container:
 
    ```shell

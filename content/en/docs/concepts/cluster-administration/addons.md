@@ -89,7 +89,7 @@ installation instructions. The list does not try to be exhaustive.
 ## Service Discovery
 
 * [CoreDNS](https://coredns.io) is a flexible, extensible DNS server which can
-  be [installed](https://github.com/coredns/deployment/tree/master/kubernetes)
+  be [installed](https://github.com/coredns/helm)
   as the in-cluster DNS for pods.
 
 ## Visualization &amp; Control

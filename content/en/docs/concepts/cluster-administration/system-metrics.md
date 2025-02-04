@@ -170,9 +170,12 @@ Once a pod reaches completion (has a `restartPolicy` of `Never` or `OnFailure` a
 the series is no longer reported since the scheduler is now free to schedule other pods to run.
 The two metrics are called `kube_pod_resource_request` and `kube_pod_resource_limit`.
 
-The metrics are exposed at the HTTP endpoint `/metrics/resources` and require the same
-authorization as the `/metrics` endpoint on the scheduler. You must use the
-`--show-hidden-metrics-for-version=1.20` flag to expose these alpha stability metrics.
+The metrics are exposed at the HTTP endpoint `/metrics/resources`. They require
+authorization for the `/metrics/resources` endpoint, usually granted by a
+ClusterRole with the `get` verb for the `/metrics/resources` non-resource URL.
+
+On Kubernetes 1.21 you must use the `--show-hidden-metrics-for-version=1.20`
+flag to expose these alpha stability metrics.
 
 ## Disabling metrics
 

@@ -1,5 +1,11 @@
-{{- $isBlogPost := eq .Section "blog" }}
-{{- $ogType := cond (.IsHome) "website" "article" }}
+{{/* Adapted from Docsy; changes are to Google Analytics */}}
+{{/* OK to remove once using a modern enough Docsy (eg 0.11.0 or later) */}}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{{ hugo.Generator }}
+{{ range .AlternativeOutputFormats -}}
+<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}">
+{{ end -}}
 
 {{ $outputFormat := partial "outputformat.html" . -}}
 {{ if and hugo.IsProduction (ne $outputFormat "print") -}}
@@ -8,80 +14,38 @@
 <meta name="robots" content="noindex, nofollow">
 {{ end -}}
 
-<!-- alternative translations -->
-{{ range .Translations -}}
-<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
-{{ end -}}
-
-<!-- Docsy head.html begins here -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-{{ hugo.Generator }}
-{{ range .AlternativeOutputFormats -}}
-<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}">
-{{ end -}}
 {{ partialCached "favicons.html" . }}
-<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
-{{- template "_internal/opengraph.html" . -}}
-{{- template "_internal/schema.html" . -}}
-{{- template "_internal/twitter_cards.html" . -}}
-{{- if hugo.IsProduction -}}
-{{ template "_internal/google_analytics.html" . }}
-{{ end }}
-{{ partialCached "head-css.html" . "asdf" }}
-{{ if and (.Site.Params.offlineSearch) (not .Site.Params.gcs_engine_id) }}
-<script src="https://unpkg.com/lunr@2.1.6/lunr.js"></script>
-<script src="/js/offline-search.js"></script>
-{{end}}
-
-<!-- Docsy head.html ends here -->
-
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "url": "https://kubernetes.io",
-    "logo": "https://kubernetes.io/images/favicon.png",
-{{- if not .Site.Params.deprecated }}
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": {{ printf "%s%s" ("search/" | absURL) "?q={search_term_string}" }},
-      "query-input": "required name=search_term_string"
-    }
-{{ end }}
-  }
-</script>
-<meta name="theme-color" content="#326ce5">
-{{ partial "css.html" . }}
-<!-- Content for social media sharing previews -->
-<!-- Facebook uses the og: stuff, while Twitter and others use twitter: -->
+<title>
+  {{- if .IsHome -}}
+    {{ .Site.Title -}}
+  {{ else -}}
+    {{ with .Title }}{{ . }} | {{ end -}}
+    {{ .Site.Title -}}
+  {{ end -}}
+</title>
 <meta name="description" content="{{ template "partials/page-description.html" . }}">
-<meta property="og:description" content="{{ template "partials/page-description.html" . }}">
-<meta name="twitter:description" content="{{ template "partials/page-description.html" . }}">
-<meta property="og:url" content="{{ .Permalink }}">
-<meta property="og:title" content="{{ if .Params.title }}{{ .Title }}{{ else }}{{ .Summary | truncate 10 }}{{ end }}">
-<meta name="twitter:title" content="{{ if .Params.title }}{{ .Title }}{{ else }}{{ .Summary | truncate 10 }}{{ end }}">
-<meta name="twitter:image" content="https://kubernetes.io/images/favicon.png" />
-<!-- Alt text for the site image -->
-<meta name="twitter:image:alt" content="{{ site.Title }}">
-{{ if $isBlogPost }}
-{{ with findRE "<img.*?>" .Content 1 }}
-<meta property="og:image" content="{{ index . 0 | replaceRE ".*src=\"(.+?)\".*" "$1" }}">
-{{ end }}
-{{ else }}
-<meta property="og:image" content="{{ "/images/kubernetes-horizontal-color.png" | relURL }}">
-{{ end }}
-<meta property="og:type" content="{{ $ogType }}">
+{{ template "_internal/opengraph.html" . -}}
+{{ template "_internal/schema.html" . -}}
+{{ template "_internal/twitter_cards.html" . -}}
+{{ partialCached "head-css.html" . "asdf" -}}
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
+  crossorigin="anonymous"></script>
+{{ if .Site.Params.offlineSearch -}}
+<script defer
+  src="https://unpkg.com/lunr@2.3.9/lunr.min.js"
+  integrity="sha384-203J0SNzyqHby3iU6hzvzltrWi/M41wOP5Gu+BiJMz5nwKykbkUx8Kp7iti0Lpli"
+  crossorigin="anonymous"></script>
+{{ end -}}
 
-<script src="/js/jquery-3.6.0.min.js" intregrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" crossorigin="anonymous"></script>
-<!--script src="https://unpkg.com/split.js/dist/split.min.js"></script-->
-<script src="/js/split-1.6.0.js" intregrity="sha384-0blL3GqHy6+9fw0cyY2Aoiwg4onHAtslAs4OkqZY7UQBrR65/K4gI+hxLdWDrjpz"></script>
+{{ if .Site.Params.prism_syntax_highlighting -}}
+<link rel="stylesheet" href="{{ "css/prism.css" | relURL }}"/>
+{{ end -}}
 
-{{- if eq (lower .Params.cid) "community" -}}
-<script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-{{- end -}}
-{{ with .Params.js }}{{ range (split . ",") }}<script src="{{ (trim . " ") | relURL }}"></script><!-- custom js added -->
-{{ end }}{{ else }}<!-- no custom js detected -->{{ end }}
+{{ partial "hooks/head-end.html" . -}}
 
-{{/* make sure that head-end hook comes last */}}
-{{ partial "hooks/head-end.html" . }}
+{{/* To comply with GDPR, cookie consent scripts places in head-end must execute before Google Analytics is enabled */ -}}
+{{ if hugo.IsProduction -}}
+  {{ template "_internal/google_analytics.html" . }}
+{{ end -}}

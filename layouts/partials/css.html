@@ -2,49 +2,6 @@
 
 {{ $inServerMode := hugo.IsServer }}
 
-<!--begin splitter-->
-<style>
-.gutter {
-    background-color: #eee;
-    background-repeat: no-repeat;
-    background-position: 50%;
-}
-
-.gutter.gutter-horizontal {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
-    cursor: col-resize;
-}
-
-#sidebarnav,
-#maindoc {
-  max-width: 100%;
-}
-
-#maindoc {
-  overflow-wrap: break-word;
-}
-
-@media (max-width: 768px) {
-  #sidebarnav {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-}
-</style>
-<!--end splitter-->
-
-{{- if .Params.case_study_styles }}
-  {{ $cssOutput := "css/case-studies.css" }}
-  {{ $caseStudiesCSS := resources.Get "scss/_case-studies.scss" | css.Sass }}
-  {{ if $inServerMode }}
-    <link rel="stylesheet" href="{{ $caseStudiesCSS.RelPermalink }}">
-  {{ else }}
-    {{ $prodCaseStudiesCSS := $caseStudiesCSS | fingerprint }}
-    <link rel="stylesheet" href="{{ $prodCaseStudiesCSS.RelPermalink }}" integrity="{{ $prodCaseStudiesCSS.Data.Integrity }}">
-  {{ end }}
-{{- end }}
-
 {{- if or (eq .Params.class "gridPage") (eq .Params.class "gridPage gridPageHome") }}
   <link rel="stylesheet" href="{{ "css/gridpage.css" | relURL }}">
 {{- end }}
@@ -53,9 +10,18 @@
   <link rel="stylesheet" href="{{ "css/training.css" | relURL }}">
 {{- end }}
 
-{{- if .Params.new_case_study_styles }}
-  <link rel="stylesheet" href="{{ "css/new-case-studies.css" | relURL }}">
+{{- if .Params.case_study_styles }}
+  <link rel="stylesheet" href="{{ "css/case-studies.css" | relURL }}">
 {{- end}}
+{{- if (eq .Section "case-studies") }}
+  {{ $caseStudiesCSS := resources.Get "scss/case_studies.scss" | css.Sass | resources.Copy "/css/case-studies.css" }}
+  {{ if $inServerMode }}
+    <link rel="stylesheet" href="{{ $caseStudiesCSS.RelPermalink }}">
+  {{ else }}
+    {{ $prodCaseStudiesCSS := $caseStudiesCSS | fingerprint }}
+    <link rel="stylesheet" href="{{ $prodCaseStudiesCSS.RelPermalink }}" integrity="{{ $prodCaseStudiesCSS.Data.Integrity }}">
+  {{ end }}
+{{- end }}
 
 {{- with .Params.css }}
   {{- $extraCss := split . "," }}

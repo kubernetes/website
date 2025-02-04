@@ -12,11 +12,11 @@ other = "(auto-generated page)"
 [auto_generated_pageinfo]
 other = """<p>This page is automatically generated.</p><p>If you plan to report an issue with this page, mention that the page is auto-generated in your issue description. The fix may need to happen elsewhere in the Kubernetes project.</p>"""
 
-[blog_post_show_more]
-other = "Show More Posts..."
-
 [banner_acknowledgement]
 other = "Hide this notice"
+
+[blog_post_show_more]
+other = "Show More Posts..."
 
 [browser_clipboard_support_warning]
 other = "Sorry, your browser doesn't support copying this example to your clipboard."
