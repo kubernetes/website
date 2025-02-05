@@ -5,6 +5,7 @@
 {{- end -}}
   <head{{- if hugo.IsProduction}} class="live-site"{{- end -}}>
     {{ partial "head.html" . }}
+    {{ partial "css.html" . }}
   </head>
   <body class="td-{{ .Kind }}{{- if ne (lower .Params.cid) "" -}}{{- printf " cid-%s" (lower .Params.cid) -}}{{- end -}}{{ with .Page.Params.body_class }} {{ . }}{{ end }}">
     <header>
