@@ -127,7 +127,7 @@ Disruption Budgetは、指定された数/パーセンテージのPodが常に�
 `maxUnavailable`を0%または0に設定するか、`minAvailable`を100%またはレプリカ数に設定すると、自発的な退避を一切要求しません。
 この設定をReplicaSetのようなワークロードオブジェクトに適用すると、それらのPodが実行されているノードを正常にドレインできなくなります。
 退避できないPodが実行されているノードをドレインしようしても、ドレインは完了しません。
-これは`PodDisruptionBudget`のセマンティクスに基づいて許容されています。
+これは`PodDisruptionBudget`の仕様上、正しい挙動です。
 
 以下にPodDisruptionBudgetの例を示します。
 これらの例は、ラベル`app: zookeeper`を持つPodに一致します。
