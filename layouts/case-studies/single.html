@@ -2,7 +2,7 @@
 <section class="case-study-header">
 	<div class="banner {{ if .Params.use_gradient_overlay }}overlay{{ end }}" {{ if isset .Params "heading_background" }}style="background-image: url({{ .Params.heading_background }});"{{ end }}>
 		<h2>
-			{{ .Params.title_prefix | default ( T "case_study_prefix" ) }}
+			{{- .Params.title_prefix | default ( T "case_study_prefix" ) -}}&nbsp;
 			{{- if isset .Params "heading_title_logo" -}}
 				<img class="heading-logo" src="{{ .Params.heading_title_logo}}" />
 			{{- else if isset .Params "heading_title_text" -}}
