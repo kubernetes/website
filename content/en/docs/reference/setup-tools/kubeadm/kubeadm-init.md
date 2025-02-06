@@ -157,7 +157,7 @@ Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
 `ControlPlaneKubeletLocalMode` | `false` | 1.31 | - | -
 `NodeLocalCRISocket` | `false` | 1.32 | - | -
-`WaitForAllControlPlaneComponents` | `false` | 1.30 | - | -
+`WaitForAllControlPlaneComponents` | `true` | 1.30 | 1.33 | -
 {{< /table >}}
 
 {{< note >}}
