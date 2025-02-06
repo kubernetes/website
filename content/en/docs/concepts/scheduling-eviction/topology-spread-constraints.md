@@ -529,6 +529,11 @@ profiles:
               whenUnsatisfiable: ScheduleAnyway
           defaultingType: List
 ```
+
+If you are using the default cluster-autoscaler make sure not to use `DoNotSchedule` as it
+[does not know about custom default constraints](https://github.com/kubernetes/autoscaler/issues/3879)
+or you might end up with unschedulable pods.
+
 ### Built-in default constraints {#internal-default-constraints}
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
@@ -621,6 +626,9 @@ section of the enhancement proposal about Pod topology spread constraints.
   You can work around this by using a cluster autoscaling tool that is aware of
   Pod topology spread constraints and is also aware of the overall set of topology
   domains.
+- [cluster-autoscaler does not know about custom default constraints](https://github.com/kubernetes/autoscaler/issues/3879)
+  and will ignore them. If you use `DoNotSchedule` in your constraints this will result
+  in unschedulable pods.
 
 ## {{% heading "whatsnext" %}}
 
