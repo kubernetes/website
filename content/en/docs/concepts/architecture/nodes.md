@@ -140,6 +140,11 @@ When you want to create Node objects manually, set the kubelet flag `--register-
 You can modify Node objects regardless of the setting of `--register-node`.
 For example, you can set labels on an existing Node or mark it unschedulable.
 
+You can set optional node role(s) for nodes by adding one or more `node-role.kubernetes.io/<role>: <role>` labels to the node where characters of `<role>` 
+are limited by the [syntax](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) rules for labels.
+
+Kubernetes ignores the label value for node roles; by convention, you can set it to the same string you used for the node role in the label key.
+
 You can use labels on Nodes in conjunction with node selectors on Pods to control
 scheduling. For example, you can constrain a Pod to only be eligible to run on
 a subset of the available nodes.
