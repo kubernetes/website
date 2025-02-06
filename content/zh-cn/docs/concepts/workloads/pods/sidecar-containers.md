@@ -184,14 +184,14 @@ container. This co-location allows them to interact closely and share resources.
 边车容器与主容器共享相同的网络和存储命名空间。这种共存使它们能够紧密交互并共享资源。
 
 <!--
-From Kubernetes perspective, sidecars graceful termination is less important.
-When other containers took all alloted graceful termination time, sidecar containers
-will receive the `SIGTERM` following with `SIGKILL` faster than may be expected. 
+From a Kubernetes perspective, the sidecar container's graceful termination is less important.
+When other containers take all allotted graceful termination time, the sidecar containers
+will receive the `SIGTERM` signal, followed by the `SIGKILL` signal, before they have time to terminate gracefully.
 So exit codes different from `0` (`0` indicates successful exit), for sidecar containers are normal
 on Pod termination and should be generally ignored by the external tooling.
 -->
 从 Kubernetes 的角度来看，边车容器的体面终止（Graceful Termination）相对不那么重要。
-当其他容器耗尽了分配的体面终止时间后，边车容器将会比预期更快地接收到 `SIGTERM`，随后是 `SIGKILL`。
+当其他容器耗尽了分配的体面终止时间后，边车容器将在尚未完成体面终止时间的情况下接收到 `SIGTERM` 信号，随后是 `SIGKILL` 信号。
 因此，在 Pod 终止时，边车容器退出码不为 `0`（`0` 表示成功退出）是正常的，
 通常应该被外部工具忽略。
 
