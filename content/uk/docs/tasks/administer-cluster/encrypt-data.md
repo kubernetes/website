@@ -178,7 +178,7 @@ resources:
   <td>AES-CBC з використанням <a href="https://datatracker.ietf.org/doc/html/rfc2315">padding PKCS#7</a></td>
   <td>Слабка</td>
   <td>Швидка</td>
-  <td>32 байти</td>
+  <td>16, 24 або 32 байти</td>
   </tr>
   <tr>
   <td colspan="4">Не рекомендується через вразливість CBC до атаки padding oracle attacks. Вміст ключа доступний з хоста панелі управління.</td>

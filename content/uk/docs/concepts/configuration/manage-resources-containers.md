@@ -138,7 +138,7 @@ spec:
 
 {{< feature-state feature_gate_name="PodLevelResources" >}}
 
-Наступний Pod має явний запит на 1 CPU та 100 MiB памʼяті, а також явний ліміт на 1 CPU та 200 MiB памʼяті.  Контейнер `pod-resources-demo-ctr-1` має явні запити та обмеження. Однак, контейнер `pod-resources-demo-ctr-2` буде просто ділити ресурси, доступні в межах ресурсу Pod, оскільки він не має явних запитів і обмежень.
+Цю можливість можна увімкнути встановленням [функціональної можливості](/docs/reference/command-line-tools-reference/feature-gates/) `PodLevelResources`. Наступний Pod має явний запит на 1 CPU та 100 MiB памʼяті, а також явний ліміт на 1 CPU та 200 MiB памʼяті.  Контейнер `pod-resources-demo-ctr-1` має явні запити та обмеження. Однак, контейнер `pod-resources-demo-ctr-2` буде просто ділити ресурси, доступні в межах ресурсу Pod, оскільки він не має явних запитів і обмежень.
 
 {{% code_sample file="pods/resource/pod-level-resources.yaml" %}}
 

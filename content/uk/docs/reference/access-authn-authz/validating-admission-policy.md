@@ -368,3 +368,17 @@ kubectl create deploy --image=dev.example.com/nginx invalid
 error: failed to create deployment: deployments.apps "invalid" is forbidden: ValidatingAdmissionPolicy 'image-matches-namespace-environment.policy.example.com' with binding 'demo-binding-test.example.com' denied request: only prod images are allowed in namespace default
 ```
 
+## Види API, що виключені з перевірки допуску {#api-kinds-exempt-from-admission-validation}
+
+Існують певні типи API, які виключені з перевірки допуску під час валідації. Наприклад, ви не можете створити ValidatingAdmissionPolicy, яка запобігає змінам у ValidatingAdmissionPolicyBindings.
+
+Список типів API, які виключені з перевірки, наведено нижче:
+
+- [ValidatingAdmissionPolicies]({{< relref "/docs/reference/kubernetes-api/policy-resources/validating-admission-policy-v1/" >}})
+- [ValidatingAdmissionPolicyBindings]({{< relref "/docs/reference/kubernetes-api/policy-resources/validating-admission-policy-binding-v1/" >}})
+- MutatingAdmissionPolicies
+- MutatingAdmissionPolicyBindings
+- [TokenReviews]({{< relref "/docs/reference/kubernetes-api/authentication-resources/token-review-v1/" >}})
+- [LocalSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/local-subject-access-review-v1/" >}})
+- [SelfSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/self-subject-access-review-v1/" >}})
+- [SelfSubjectReviews]({{< relref "/docs/reference/kubernetes-api/authentication-resources/self-subject-review-v1/" >}})

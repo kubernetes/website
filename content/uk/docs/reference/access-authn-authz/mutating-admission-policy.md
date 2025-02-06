@@ -167,3 +167,18 @@ CEL-вирази мають доступ до [бібліотек функцій
 - `jsonpatch.escapeKey` — Виконує екранування клавіш JSONPatch. Символи `~` та `/` екрануються як `~0` та `~1` відповідно.
 
 Доступні тільки назви властивостей виду `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*`.
+
+## Види API, на які не поширюється мутаційний допуск {#api-kinds-exempt-from-mitating-admission}
+
+Існують певні типи API, які не підлягають мутації під час надання допуску. Наприклад, ви не можете створити MutatingAdmissionPolicy, яка змінює MutatingAdmissionPolicy.
+
+Список вилучених типів API наведено нижче:
+
+- [ValidatingAdmissionPolicies]({{< relref "/docs/reference/kubernetes-api/policy-resources/validating-admission-policy-v1/" >}})
+- [ValidatingAdmissionPolicyBindings]({{< relref "/docs/reference/kubernetes-api/policy-resources/validating-admission-policy-binding-v1/" >}})
+- MutatingAdmissionPolicies
+- MutatingAdmissionPolicyBindings
+- [TokenReviews]({{< relref "/docs/reference/kubernetes-api/authentication-resources/token-review-v1/" >}})
+- [LocalSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/local-subject-access-review-v1/" >}})
+- [SelfSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/self-subject-access-review-v1/" >}})
+- [SelfSubjectReviews]({{< relref "/docs/reference/kubernetes-api/authentication-resources/self-subject-review-v1/" >}})

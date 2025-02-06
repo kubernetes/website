@@ -83,6 +83,8 @@ sudo yum list --showduplicates kubeadm --disableexcludes=kubernetes
 {{% /tab %}}
 {{< /tabs >}}
 
+Якщо ви не бачите версію, до якої очікуєте оновитися, [перевірте, чи використовуються сховища пакунків Kubernetes.](/docs/tasks/administer-cluster/kubeadm/change-package-repository/#verifying-if-the-kubernetes-package-repositories-are-used)
+
 ## Оновлення вузлів панелі управління {#upgrading-control-plane-nodes}
 
 Процедуру оновлення на вузлах панелі управління слід виконувати по одному вузлу за раз. Виберіть перший вузол панелі управління, який ви хочете оновити. Він повинен мати файл `/etc/kubernetes/admin.conf`.

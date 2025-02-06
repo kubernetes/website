@@ -38,7 +38,7 @@ weight: 150
 
 ## Виявлення служб {#service-discovery}
 
-* [CoreDNS](https://coredns.io) — це гнучкий, розширюваний DNS-сервер, який може бути [встановлений](https://github.com/coredns/deployment/tree/master/kubernetes) як DNS в кластері для Podʼів.
+* [CoreDNS](https://coredns.io) — це гнучкий, розширюваний DNS-сервер, який може бути [встановлений](https://github.com/coredns/helm) як DNS в кластері для Podʼів.
 
 ## Візуалізація та управління {#visualization-amp-control}
 

@@ -63,19 +63,7 @@ Service — це {{< glossary_tooltip text="обʼєкт" term_id="object" >}} 
 Наприклад, припустимо, у вас є набір Podʼів, які слухають TCP-порт 9376 і мають мітку `app.kubernetes.io/name=MyApp`. Ви можете визначити Сервіс, щоб
 опублікувати цього TCP-слухача:
 
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-service
-spec:
-  selector:
-    app.kubernetes.io/name: MyApp
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
-```
+{{% code_sample file="service/simple-service.yaml" %}}
 
 Застосування цього маніфесту створює новий Сервіс з назвою "my-service" зі стандартним [типом служби](#publishing-services-service-types) ClusterIP. Сервіс обслуговує TCP-порт 9376 на будь-якому Podʼі з міткою `app.kubernetes.io/name: MyApp`.
 

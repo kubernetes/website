@@ -10,9 +10,9 @@ weight: 30
 
 <!-- body -->
 
-Для написання застосунків, що використовують [Kubernetes REST API](/uk/docs/reference/using-api/), вам не потрібно самостійно реалізовувати виклики API та типи запитів/відповідей. Ви можете використовувати бібліотеку клієнтів для мови програмування, яку ви використовуєте.
+Для написання застосунків, що використовують [Kubernetes REST API](/docs/reference/using-api/), вам не потрібно самостійно реалізовувати виклики API та типи запитів/відповідей. Ви можете використовувати бібліотеку клієнтів для мови програмування, яку ви використовуєте.
 
-Бібліотеки клієнтів часто виконують загальні завдання, такі як автентифікація. Більшість бібліотек клієнтів можуть знаходити та використовувати Kubernetes Service Account для автентифікації, якщо API клієнт працює всередині кластера Kubernetes, або можуть розуміти формат [kubeconfig файлу](/uk/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) для читання облікових даних та адреси API сервера.
+Бібліотеки клієнтів часто виконують загальні завдання, такі як автентифікація. Більшість бібліотек клієнтів можуть знаходити та використовувати Kubernetes Service Account для автентифікації, якщо API клієнт працює всередині кластера Kubernetes, або можуть розуміти формат [kubeconfig файлу](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) для читання облікових даних та адреси API сервера.
 
 ## Офіційно підтримувані бібліотеки клієнтів Kubernetes {#officially-supported-kubernetes-client-libraries}
 
@@ -57,6 +57,7 @@ weight: 30
 | PHP                 | [github.com/maclof/kubernetes-client](https://github.com/maclof/kubernetes-client) |
 | PHP                 | [github.com/travisghansen/kubernetes-client-php](https://github.com/travisghansen/kubernetes-client-php) |
 | PHP                 | [github.com/renoki-co/php-k8s](https://github.com/renoki-co/php-k8s) |
+| Python              | [github.com/cloudcoil/cloudcoil](https://github.com/cloudcoil/cloudcoil) |
 | Python              | [github.com/fiaas/k8s](https://github.com/fiaas/k8s) |
 | Python              | [github.com/gtsystem/lightkube](https://github.com/gtsystem/lightkube) |
 | Python              | [github.com/kr8s-org/kr8s](https://github.com/kr8s-org/kr8s) |
