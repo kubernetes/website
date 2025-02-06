@@ -192,9 +192,9 @@ and the domain name for your cluster is `cluster.local`, then the Pod has a DNS 
 
 `172-17-0-3.default.pod.cluster.local`.
 
-Any Pods exposed by a Service have the following DNS resolution available:
+Some cluster DNS mechanisms, like [CoreDNS], also provide `A` records for:
 
-`pod-ipv4-address.service-name.my-namespace.svc.cluster-domain.example`.
+<tt><em>pod-ipv4-address</em>.<em>service-name</em>.<em>my-namespace</em>.svc.<em>cluster-domain.example</em>.</tt>
 -->
 ### A/AAAA 记录 {#a-aaaa-records}
 
@@ -208,9 +208,9 @@ Kube-DNS 版本使用以下 DNS 解析：
 
 `172-17-0-3.default.pod.cluster.local`
 
-通过 Service 暴露出来的所有 Pod 都会有如下 DNS 解析名称可用：
+一些集群 DNS 机制（如 [CoreDNS]）还会为以下内容提供 `A` 记录：
 
-`pod-ipv4-address.service-name.my-namespace.svc.cluster-domain.example`
+`<pod-ipv4-address>.<service-name>.<my-namespace>.svc.<cluster-domain.example>.`
 
 <!--
 ### Pod's hostname and subdomain fields
@@ -629,7 +629,10 @@ this problem.
 <!--
 For guidance on administering DNS configurations, check
 [Configure DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers/)
+
+[CoreDNS]: https://coredns.io/
 -->
 有关管理 DNS 配置的指导，
 请查看[配置 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/)
 
+[CoreDNS](https://coredns.io/)
