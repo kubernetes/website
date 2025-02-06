@@ -4,8 +4,8 @@ metadata:
   name: my-scheduler
   namespace: kube-system
 ---
-kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
 metadata:
   name: my-scheduler-as-kube-scheduler
 subjects:
@@ -16,6 +16,47 @@ roleRef:
   kind: ClusterRole
   name: system:kube-scheduler
   apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: my-scheduler-as-volume-scheduler
+subjects:
+- kind: ServiceAccount
+  name: my-scheduler
+  namespace: kube-system
+roleRef:
+  kind: ClusterRole
+  name: system:volume-scheduler
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: my-scheduler-extension-apiserver-authentication-reader
+  namespace: kube-system
+roleRef:
+  kind: Role
+  name: extension-apiserver-authentication-reader
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+- kind: ServiceAccount
+  name: my-scheduler
+  namespace: kube-system
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-scheduler-config
+  namespace: kube-system
+data:
+  my-scheduler-config.yaml: |
+    apiVersion: kubescheduler.config.k8s.io/v1beta2
+    kind: KubeSchedulerConfiguration
+    profiles:
+      - schedulerName: my-scheduler
+    leaderElection:
+      leaderElect: false
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -42,9 +83,7 @@ spec:
       containers:
       - command:
         - /usr/local/bin/kube-scheduler
-        - --address=0.0.0.0
-        - --leader-elect=false
-        - --scheduler-name=my-scheduler
+        - --config=/etc/kubernetes/my-scheduler/my-scheduler-config.yaml
         image: gcr.io/my-gcp-project/my-kube-scheduler:1.0
         livenessProbe:
           httpGet:
@@ -63,7 +102,12 @@ spec:
             cpu: '0.1'
         securityContext:
           privileged: false
-        volumeMounts: []
+        volumeMounts:
+          - name: config-volume
+            mountPath: /etc/kubernetes/my-scheduler
       hostNetwork: false
       hostPID: false
-      volumes: []
+      volumes:
+        - name: config-volume
+          configMap:
+            name: my-scheduler-config
