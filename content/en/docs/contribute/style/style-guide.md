@@ -3,6 +3,7 @@ title: Documentation Style Guide
 linktitle: Style guide
 content_type: concept
 weight: 40
+math: true
 ---
 
 <!-- overview -->
@@ -316,6 +317,18 @@ apiVersion: v1 # earlier versions use...
 kind: Pod
 ...
 ```
+
+## Formulae and equations
+
+You can use the Docsy support for [diagrams and formulae](https://www.docsy.dev/docs/adding-content/diagrams-and-formulae/#latex-support-with-katex).
+
+For example: `\\(\frac{7}{9} \sqrt{K^8 s}\\)`, which renders as \\(\frac{7}{9} \sqrt{K^8 s}\\).
+
+Prefer inline formulae where reasonable, but you can use a `math` block if that's likely to help readers.
+
+Read the Docsy guide to find out what you need to change in your page to activate support;
+if you have problems, add `math: true` to the page [front matter](https://gohugo.io/content-management/front-matter/)
+(you can do this even if you think the automatic activation should be enough).
 
 ## Kubernetes.io word list
 
