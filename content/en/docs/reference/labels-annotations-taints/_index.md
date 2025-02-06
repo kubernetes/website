@@ -907,6 +907,19 @@ configuration file (default `/etc/cni/net.d`) and ensure that the binary is incl
 bin dir (default `/opt/cni/bin`).
 {{< /note >}}
 
+### kubernetes.io/initial-events-list-blueprint
+
+Type: Annotation
+
+Example: `"k8s.io/initial-events-embedded-list":"eyJraW5kIjoiUG9kTGlzdCIsImFwaVZlcnNpb24iOiJ2MSIsIm1ldGFkYXRhIjp7fSwiaXRlbXMiOm51bGx9Cg=="`
+
+Used on: Bookmark Watch Event
+
+This annotation is added to the synthetic "Bookmark" event for the watch stream and
+is used by clients to guarantee the format consistency when reconstructing the list during WatchList processing.
+The annotation will store an empty, versioned list encoded as a base64 string.
+It will be added to the same object the k8s.io/initial-events-end annotation is added.
+
 ### kubernetes.io/egress-bandwidth
 
 Type: Annotation
