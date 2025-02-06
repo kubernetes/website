@@ -2,7 +2,7 @@
 title: KOps (Kubernetes Operations)
 id: kops
 date: 2018-04-12
-full_link: /pt-br/docs/getting-started-guides/kops/
+full_link: /pt-br/docs/setup/production-environment/tools/kops/
 short_description: >
   kOps não só te ajudará a criar, destruir, atualizar e manter clusters Kubernetes em nível de produção e altamente disponíveis, mas também provisionará a infraestrutura de nuvem necessária.
 
@@ -16,7 +16,7 @@ tags:
 <!--more--> 
 
 {{< note >}}
-Atualmente, a AWS (Amazon Web Services) é oficialmente suportada, com o DigitalOcean, GCE e OpenStack em suporte beta e Azure em alfa.
+Os provedores AWS (Amazon Web Services) e GCP (Google Cloud Platform) são oficialmente suportados atualmente, com DigitalOcean, Hetzner e OpenStack em suporte beta e Azure em alfa.
 {{< /note >}}
 
 `kOps` é um sistema de provisionamento automatizado:
