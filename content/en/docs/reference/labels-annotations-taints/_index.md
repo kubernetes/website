@@ -1790,7 +1790,7 @@ to determine if the node condition and taint should be added/removed.
 
 Type: Taint
 
-Example: `node.kubernetes.io/out-of-service:NoExecute`
+Example: `node.kubernetes.io/out-of-service: "NoExecute"`
 
 Used on: Node
 
