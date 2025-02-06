@@ -9,7 +9,6 @@
 {{ end }}
 {{ end }}
 {{ $featured := (where $pages "Params.featured" true).ByWeight | first 4 }}
-	{{ partial "deprecation-warning.html" . }}
 	<section id="case-studies">
 		<h2>{{ .Title }}</h2>
 		<div class="case-studies">
