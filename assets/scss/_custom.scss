@@ -1959,9 +1959,13 @@ div.alert > em.javascript-required {
   font-size: 1.15rem;
 }
 
-body.td-search #search {
-  margin-top: 1rem;
-  margin-bottom: 3rem;
+body.td-search {
+  width: 100%; // avoid confusion with other .td-search elements that have a width set
+
+  #search {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+  }
 }
 
 /* CSS for 'figure' full-screen display */
