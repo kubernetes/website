@@ -144,7 +144,7 @@ This feature can be enabled using the following steps:
 <!--
 * Prepare a manifest similar to the sample
   [`nodelocaldns.yaml`](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml)
-  and save it as `nodelocaldns.yaml.`
+  and save it as `nodelocaldns.yaml`.
 -->
 * 根据示例 [`nodelocaldns.yaml`](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml)
   准备一个清单，把它保存为 `nodelocaldns.yaml`。

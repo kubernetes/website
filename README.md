@@ -30,7 +30,10 @@ git clone https://github.com/kubernetes/website.git
 cd website
 ```
 
-The Kubernetes website uses git submodules. Even if you plan to run the website in a container, we strongly recommend pulling in the submodule and other development dependencies by running the following:
+The Kubernetes website uses the [Docsy Hugo theme](https://github.com/google/docsy#readme),
+which can be installed via npm. You can also download a pre-configured
+development container image that includes Hugo and Docsy. Additionally, a Git
+submodule is used for tools that generate the reference documentation.
 
 ### Windows
 

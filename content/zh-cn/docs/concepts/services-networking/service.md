@@ -196,20 +196,7 @@ publish that TCP listener:
 例如，假定有一组 Pod，每个 Pod 都在侦听 TCP 端口 9376，并且它们还被打上
 `app.kubernetes.io/name=MyApp` 标签。你可以定义一个 Service 来发布该 TCP 侦听器。
 
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-service
-spec:
-  selector:
-    app.kubernetes.io/name: MyApp
-  ports:
-    - name: http
-      protocol: TCP
-      port: 80
-      targetPort: 9376
-```
+{{% code_sample file="service/simple-service.yaml" %}}
 
 <!--
 Applying this manifest creates a new Service named "my-service" with the default

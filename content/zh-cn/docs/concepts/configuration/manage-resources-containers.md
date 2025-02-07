@@ -379,6 +379,8 @@ spec:
 {{< feature-state feature_gate_name="PodLevelResources" >}}
 
 <!--
+This feature can be enabled by setting the `PodLevelResources` 
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates).
 The following Pod has an explicit request of 1 CPU and 100 MiB of memory, and an
 explicit limit of 1 CPU and 200 MiB of memory. The `pod-resources-demo-ctr-1`
 container has explicit requests and limits set. However, the
@@ -386,6 +388,8 @@ container has explicit requests and limits set. However, the
 within the Pod resource boundaries, as it does not have explicit requests and limits
 set.
 -->
+此特性可以通过设置 `PodLevelResources`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates)来启用。
 以下 Pod 明确请求了 1 个 CPU 和 100 MiB 的内存，并设置了明确的限制为 1 个 CPU 和 200 MiB 的内存。
 `pod-resources-demo-ctr-1` 容器设置了明确的资源请求和限制。然而，`pod-resources-demo-ctr-2`
 容器没有设置明确的资源请求和限制，因此它将共享 Pod 资源边界内的可用资源。
