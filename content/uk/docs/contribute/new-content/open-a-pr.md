@@ -149,7 +149,6 @@ class changes,changes2 white
    ```shell
    git clone git@github.com:<github_username>/website.git
    cd website
-   git submodule update --init --recursive --depth 1
    ```
 
 2. Перейдіть до нової теки `website`. Встановіть репозиторій `kubernetes/website` як `upstream` remote:
@@ -304,25 +303,30 @@ class changes,changes2 white
 
 Альтернативно, встановіть і використовуйте команду `hugo` на вашому компʼютері:
 
-1. Встановіть версію [Hugo](https://gohugo.io/getting-started/installing/), вказану у файлі [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/main/netlify.toml).
+1. Встановіть версію [Hugo (Extended edition)](https://gohugo.io/getting-started/installing/) та [Node](https://nodejs.org/en), вказану у файлі [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/main/netlify.toml).
 
-1. Якщо ви не оновили свій репозиторій вебсайту, тека `website/themes/docsy` є порожньою. Сайт не може зібратися без локальної копії теми. Щоб оновити тему вебсайту, виконайте:
+1. Встановіть залежності:
 
    ```shell
-   git submodule update --init --recursive --depth 1
+   npm ci
    ```
 
 1. У терміналі перейдіть до вашого репозиторію вебсайту Kubernetes та запустіть сервер Hugo:
 
    ```shell
    cd <path_to_your_repo>/website
+   make serve
+   ```
+
+   Якщо ви працюєте на компʼютері з Windows або не можете виконати команду `make`, скористайтеся наступною командою:
+
+   ```shell
    hugo server --buildFuture
    ```
 
-1. У вебоглядачі перейдіть на `http://localhost:1313`. Hugo стежить за
-   змінами та перебудовує сайт за потреби.
+1. У вебоглядачі перейдіть на `http://localhost:1313`. Hugo стежить за змінами та перебудовує сайт за потреби.
 
-1. Щоб зупинити локальний екземпляр Hugo, поверніться до термінала та натисніть `Ctrl+C`, або закрийте вікно термінала.
+1. Для того, щоб зупинити локальний екземпляр Hugo, поверніться до термінала та натисніть `Ctrl+C`, або закрийте вікно термінала.
 
 {{% /tab %}}
 {{< /tabs >}}
