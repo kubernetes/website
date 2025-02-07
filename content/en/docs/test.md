@@ -12,7 +12,27 @@ This page serves two purposes:
 ## Heading levels
 
 The above heading is an H2. The page title renders as an H1. The following
-sections show H3-H6.
+sections show H3 - H6.
+
+```markdown
+### H3
+
+This is in an H3 section.
+
+#### H4
+
+This is in an H4 section.
+
+##### H5
+
+This is in an H5 section.
+
+###### H6
+
+This is in an H6 section.
+```
+
+Produces:
 
 ### H3
 
@@ -44,6 +64,23 @@ culpa qui officia deserunt mollit anim id est laborum.
 
 ### Inline text styles
 
+You can use different text styles in markdown like:
+
+```markdown
+- **bold**
+- _italic_
+- ***bold italic***
+- ~~strikethrough~~
+- <u>underline</u>
+- _<u>underline italic</u>_
+- **<u>underline bold</u>**
+- ***<u>underline bold italic</u>***
+- `monospace text`
+- **`monospace bold`**
+```
+
+Produces:
+
 - **bold**
 - _italic_
 - ***bold italic***
@@ -69,6 +106,19 @@ mind:
 
 ### Bullet lists
 
+You can add a bullet list in markdown like:
+
+```markdown
+- This is a list item.
+* This is another list item in the same list.
+- You can mix `-` and `*`.
+  - To make a sub-item, indent two spaces.
+    - This is a sub-sub-item. Indent two more spaces.
+  - Another sub-item.
+```
+
+Produces:
+
 - This is a list item.
 * This is another list item in the same list.
 - You can mix `-` and `*`.
@@ -76,7 +126,7 @@ mind:
     - This is a sub-sub-item. Indent two more spaces.
   - Another sub-item.
 
-<!-- separate lists -->
+Also,
 
 - This is a new list. With Hugo, you need to use a HTML comment to separate two
   consecutive lists. **The HTML comment needs to be at the left margin.**
@@ -98,7 +148,7 @@ mind:
 
 ### Numbered lists
 
-1. This is a list item
+1. This is a list item.
 1. This is another list item in the same list. The number you use in Markdown
    does not necessarily correlate to the number in the final output. By
    convention, we keep them in sync.
@@ -182,7 +232,7 @@ this is a code block created by back-ticks
 
 The back-tick method has some advantages.
 
-- It works nearly every time
+- It works nearly every time.
 - It is more compact when viewing the source code.
 - It allows you to specify what language the code block is in, for syntax
   highlighting.
@@ -234,6 +284,12 @@ character. The square brackets contain the image's alt text. Try to always use
 alt text so that people using screen readers can get some benefit from the
 image.
 
+```markdown
+![pencil icon](/images/pencil.png)
+```
+
+Produces:
+
 ![pencil icon](/images/pencil.png)
 
 To specify extended attributes, such as width, title, caption, etc, use the
@@ -242,15 +298,37 @@ which is preferred to using a HTML `<img>` tag. Also, if you need the image to
 also be a hyperlink, use the `link` attribute, rather than wrapping the whole
 figure in Markdown link syntax as shown below.
 
-{{< figure src="/images/pencil.png" title="Pencil icon" caption="Image used to illustrate the figure shortcode" width="200px" >}}
+```markdown
+<div style="text-align: center;">
+  {{< figure src="/images/pencil.png" title="Pencil icon" caption="An image used to illustrate the figure shortcode" width="200px" >}}
+</div>
+```
+
+Produces:
+
+<div style="text-align: center;">
+  {{< figure src="/images/pencil.png" title="Pencil icon" caption="An image used to illustrate the figure shortcode" width="200px" >}}
+</div>
 
 Even if you choose not to use the figure shortcode, an image can also be a link. This
 time the pencil icon links to the Kubernetes website. Outer square brackets enclose
 the entire image tag, and the link target is in the parentheses at the end.
 
+```markdown
+[![pencil icon](/images/pencil.png)](https://kubernetes.io)
+```
+
+Produces:
+
 [![pencil icon](/images/pencil.png)](https://kubernetes.io)
 
 You can also use HTML for images, but it is not preferred.
+
+```markdown
+<img src="/images/pencil.png" alt="pencil icon" />
+```
+
+Produces:
 
 <img src="/images/pencil.png" alt="pencil icon" />
 
@@ -270,6 +348,25 @@ The header is optional. Any text separated by `|` will render as a table.
 Markdown tables have a hard time with block-level elements within cells, such as
 list items, code blocks, or multiple paragraphs. For complex or very wide
 tables, use HTML instead.
+
+```html
+<table>
+<thead>
+  <tr>
+    <th>Heading cell 1</th>
+    <th>Heading cell 2</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Body cell 1</td>
+    <td>Body cell 2</td>
+  </tr>
+</tbody>
+</table>
+```
+
+Produces:
 
 <table>
 <thead>
@@ -291,7 +388,7 @@ tables, use HTML instead.
 You can use [Mermaid JS](https://mermaidjs.github.io) visualizations.
 The Mermaid JS version is specified in [/layouts/partials/head.html](https://github.com/kubernetes/website/blob/main/layouts/partials/head.html)
 
-```
+```markdown
 {{</* mermaid */>}}
 graph TD;
   A-->B;
@@ -311,7 +408,7 @@ graph TD;
   C-->D;
 {{</ mermaid >}}
 
-```
+```markdown
 {{</* mermaid */>}}
 sequenceDiagram
     Alice ->> Bob: Hello Bob, how are you?

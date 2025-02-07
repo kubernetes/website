@@ -512,11 +512,24 @@ variable to override this behaviour.
    # 在终端窗口中执行（如果有需要）
    make container-image
    ```
+   
+<!--
+1. Fetch submodule dependencies in your local repository:
+-->
+2. 在你的本地存储库中获取子模块依赖项：
+
+   <!--
+   # Run this in a terminal
+   -->
+   ```shell
+   # 在终端窗口中执行
+   make module-init
+   ```
 
 <!--
 1. Start Hugo in a container:
 -->
-2. 在容器中启动 Hugo：
+3. 在容器中启动 Hugo：
 
    ```shell
    # 在终端窗口中执行
@@ -530,10 +543,10 @@ variable to override this behaviour.
 1. To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,
    or close the terminal window.
 -->
-3. 启动浏览器，浏览 `http://localhost:1313`。
+4. 启动浏览器，浏览 `http://localhost:1313`。
    Hugo 会监测文件的变更并根据需要重新构建网站。
 
-4. 要停止本地 Hugo 实例，可返回到终端并输入 `Ctrl+C`，或者关闭终端窗口。
+5. 要停止本地 Hugo 实例，可返回到终端并输入 `Ctrl+C`，或者关闭终端窗口。
 
 {{% /tab %}}
 {{% tab name="在命令行执行 Hugo" %}}

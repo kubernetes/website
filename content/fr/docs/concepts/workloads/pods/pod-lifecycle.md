@@ -112,7 +112,7 @@ en cours d'exécution :
    défaut est `Success`.
 
 * `startupProbe`: Indique si l'application à l'intérieur du conteneur a démarré.
-   Toutes les autres probes sont désactivées si une starup probe est fournie,
+   Toutes les autres probes sont désactivées si une startup probe est fournie,
    jusqu'à ce qu'elle réponde avec succès. Si la startup probe échoue, le kubelet
    tue le conteneur, et le conteneur est assujetti à sa [politique de redémarrage](#politique-de-redemarrage).
    Si un conteneur ne fournit pas de startup probe, l'état par défaut est `Success`.
