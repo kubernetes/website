@@ -298,14 +298,6 @@ which is preferred to using a HTML `<img>` tag. Also, if you need the image to
 also be a hyperlink, use the `link` attribute, rather than wrapping the whole
 figure in Markdown link syntax as shown below.
 
-```markdown
-<div style="text-align: center;">
-  {{< figure src="/images/pencil.png" title="Pencil icon" caption="An image used to illustrate the figure shortcode" width="200px" >}}
-</div>
-```
-
-Produces:
-
 <div style="text-align: center;">
   {{< figure src="/images/pencil.png" title="Pencil icon" caption="An image used to illustrate the figure shortcode" width="200px" >}}
 </div>
