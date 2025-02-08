@@ -1,151 +1,132 @@
 ---
-title: Kubernetes Object Management
+title: Gestión de Objetos en Kubernetes
 content_type: concept
 weight: 20
 ---
 
 <!-- overview -->
-The `kubectl` command-line tool supports several different ways to create and manage
-Kubernetes {{< glossary_tooltip text="objects" term_id="object" >}}. This document provides an overview of the different
-approaches. Read the [Kubectl book](https://kubectl.docs.kubernetes.io) for
-details of managing objects by Kubectl.
+La herramienta de línea de comandos `kubectl` admite varias formas de crear y gestionar
+{{< glossary_tooltip text="objetos" term_id="object" >}} de Kubernetes. Este documento proporciona una visión general de los diferentes
+enfoques. Consulta el [Libro de Kubectl](https://kubectl.docs.kubernetes.io) para
+detalles sobre la gestión de objetos mediante Kubectl.
 
 <!-- body -->
 
-## Management techniques
+## Técnicas de gestión
 
 {{< warning >}}
-A Kubernetes object should be managed using only one technique. Mixing
-and matching techniques for the same object results in undefined behavior.
+Un objeto de Kubernetes debe gestionarse utilizando una única técnica. Mezclar
+técnicas para el mismo objeto puede resultar en comportamientos no definidos.
 {{< /warning >}}
 
-| Management technique             | Operates on          |Recommended environment | Supported writers  | Learning curve |
-|----------------------------------|----------------------|------------------------|--------------------|----------------|
-| Imperative commands              | Live objects         | Development projects   | 1+                 | Lowest         |
-| Imperative object configuration  | Individual files     | Production projects    | 1                  | Moderate       |
-| Declarative object configuration | Directories of files | Production projects    | 1+                 | Highest        |
+| Técnica de gestión                   | Opera sobre              | Entorno recomendado     | Escritores admitidos | Curva de aprendizaje |
+|--------------------------------------|--------------------------|-------------------------|----------------------|----------------------|
+| Comandos imperativos                 | Objetos en vivo          | Proyectos de desarrollo | 1+                   | Más baja             |
+| Configuración imperativa de objetos  | Archivos individuales    | Proyectos en producción | 1                    | Moderada             |
+| Configuración declarativa de objetos | Directorios de archivos  | Proyectos en producción | 1+                   | Más alta             |
 
-## Imperative commands
+## Comandos imperativos
 
-When using imperative commands, a user operates directly on live objects
-in a cluster. The user provides operations to
-the `kubectl` command as arguments or flags.
+Al usar comandos imperativos, un usuario opera directamente sobre objetos en vivo
+en un clúster. El usuario proporciona operaciones al
+comando `kubectl` como argumentos o banderas.
 
-This is the recommended way to get started or to run a one-off task in
-a cluster. Because this technique operates directly on live
-objects, it provides no history of previous configurations.
+Esta es la forma recomendada para comenzar o ejecutar tareas puntuales en
+un clúster. Dado que esta técnica opera directamente sobre objetos
+en vivo, no guarda un historial de configuraciones previas.
 
-### Examples
+### Ejemplos
 
-Run an instance of the nginx container by creating a Deployment object:
+Ejecuta una instancia del contenedor nginx creando un objeto Deployment:
 
 ```sh
 kubectl create deployment nginx --image nginx
 ```
 
-### Trade-offs
+### Ventajas y desventajas
 
-Advantages compared to object configuration:
+**Ventajas en comparación con la configuración de objetos:**
 
-- Commands are expressed as a single action word.
-- Commands require only a single step to make changes to the cluster.
+- Los comandos se expresan como una sola palabra de acción.
+- Los comandos requieren solo un paso para realizar cambios en el clúster.
 
-Disadvantages compared to object configuration:
+**Desventajas en comparación con la configuración de objetos:**
 
-- Commands do not integrate with change review processes.
-- Commands do not provide an audit trail associated with changes.
-- Commands do not provide a source of records except for what is live.
-- Commands do not provide a template for creating new objects.
+- Los comandos no se integran con procesos de revisión de cambios.
+- Los comandos no proporcionan un registro de auditoría asociado a los cambios.
+- Los comandos no ofrecen un registro fuente, excepto para lo que está en vivo.
+- Los comandos no brindan una plantilla para crear nuevos objetos.
 
-## Imperative object configuration
+---
 
-In imperative object configuration, the kubectl command specifies the
-operation (create, replace, etc.), optional flags and at least one file
-name. The file specified must contain a full definition of the object
-in YAML or JSON format.
+## Configuración imperativa de objetos
 
-See the [API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-for more details on object definitions.
+En la configuración imperativa de objetos, el comando `kubectl` especifica la operación (`create`, `replace`, etc.), banderas opcionales y al menos un nombre de archivo. El archivo especificado debe contener una definición completa del objeto en formato YAML o JSON.
+
+Consulta la [referencia de la API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) para obtener más detalles sobre las definiciones de objetos.
 
 {{< warning >}}
-The imperative `replace` command replaces the existing
-spec with the newly provided one, dropping all changes to the object missing from
-the configuration file.  This approach should not be used with resource
-types whose specs are updated independently of the configuration file.
-Services of type `LoadBalancer`, for example, have their `externalIPs` field updated
-independently from the configuration by the cluster.
+El comando imperativo `replace` reemplaza la especificación existente con la nueva proporcionada, descartando todos los cambios en el objeto que no estén en el archivo de configuración. Este enfoque **no debe usarse** con tipos de recursos cuyas especificaciones se actualicen de forma independiente al archivo de configuración. Por ejemplo, los servicios de tipo `LoadBalancer` tienen su campo `externalIPs` actualizado de manera independiente por el clúster.
 {{< /warning >}}
 
-### Examples
+### Ejemplos
 
-Create the objects defined in a configuration file:
+Crear los objetos definidos en un archivo de configuración:
 
 ```sh
 kubectl create -f nginx.yaml
 ```
 
-Delete the objects defined in two configuration files:
+Eliminar los objetos definidos en dos archivos de configuración:
 
 ```sh
 kubectl delete -f nginx.yaml -f redis.yaml
 ```
 
-Update the objects defined in a configuration file by overwriting
-the live configuration:
+Actualizar los objetos definidos en un archivo de configuración sobrescribiendo la configuración en vivo:
 
 ```sh
 kubectl replace -f nginx.yaml
 ```
 
-### Trade-offs
+### Compensaciones
 
-Advantages compared to imperative commands:
+Ventajas en comparación con los comandos imperativos:
 
-- Object configuration can be stored in a source control system such as Git.
-- Object configuration can integrate with processes such as reviewing changes before push and audit trails.
-- Object configuration provides a template for creating new objects.
+- La configuración de objetos puede almacenarse en un sistema de control de versiones como Git.
+- La configuración de objetos puede integrarse con procesos como la revisión de cambios antes de enviarlos y auditorías.
+- La configuración de objetos proporciona una plantilla para crear nuevos objetos.
 
-Disadvantages compared to imperative commands:
+Desventajas en comparación con los comandos imperativos:
 
-- Object configuration requires basic understanding of the object schema.
-- Object configuration requires the additional step of writing a YAML file.
+- La configuración de objetos requiere un conocimiento básico del esquema del objeto.
+- La configuración de objetos requiere el paso adicional de escribir un archivo YAML.
 
-Advantages compared to declarative object configuration:
+Ventajas en comparación con la configuración declarativa de objetos:
 
-- Imperative object configuration behavior is simpler and easier to understand.
-- As of Kubernetes version 1.5, imperative object configuration is more mature.
+- El comportamiento de la configuración imperativa de objetos es más simple y fácil de entender.
+- A partir de la versión 1.5 de Kubernetes, la configuración imperativa de objetos es más madura.
 
-Disadvantages compared to declarative object configuration:
+Desventajas en comparación con la configuración declarativa de objetos:
 
-- Imperative object configuration works best on files, not directories.
-- Updates to live objects must be reflected in configuration files, or they will be lost during the next replacement.
+- La configuración imperativa de objetos funciona mejor con archivos, no con directorios.
+- Las actualizaciones a los objetos en vivo deben reflejarse en los archivos de configuración, o se perderán durante la próxima reemplazo.
 
-## Declarative object configuration
+## Configuración declarativa de objetos
 
-When using declarative object configuration, a user operates on object
-configuration files stored locally, however the user does not define the
-operations to be taken on the files. Create, update, and delete operations
-are automatically detected per-object by `kubectl`. This enables working on
-directories, where different operations might be needed for different objects.
+Cuando se utiliza la configuración declarativa de objetos, un usuario opera sobre archivos de configuración de objetos almacenados localmente, pero no define las operaciones que se realizarán en los archivos. Las operaciones de creación, actualización y eliminación se detectan automáticamente por objeto mediante `kubectl`. Esto permite trabajar con directorios, donde podrían ser necesarias diferentes operaciones para diferentes objetos.
 
 {{< note >}}
-Declarative object configuration retains changes made by other
-writers, even if the changes are not merged back to the object configuration file.
-This is possible by using the `patch` API operation to write only
-observed differences, instead of using the `replace`
-API operation to replace the entire object configuration.
+La configuración declarativa de objetos conserva los cambios realizados por otros escritores, incluso si los cambios no se fusionan de nuevo en el archivo de configuración del objeto. Esto es posible utilizando la operación de API `patch` para escribir solo las diferencias observadas, en lugar de utilizar la operación de API `replace` para reemplazar toda la configuración del objeto.
 {{< /note >}}
 
-### Examples
+### Ejemplos
 
-Process all object configuration files in the `configs` directory, and create or
-patch the live objects. You can first `diff` to see what changes are going to be
-made, and then apply:
+Procesa todos los archivos de configuración de objetos en el directorio `configs`, y crea o aplica parches a los objetos en vivo. Primero puedes usar `diff` para ver qué cambios se van a realizar, y luego aplicar:
 
 ```sh
 kubectl diff -f configs/
 kubectl apply -f configs/
-```
 
 Recursively process directories:
 
@@ -154,25 +135,24 @@ kubectl diff -R -f configs/
 kubectl apply -R -f configs/
 ```
 
-### Trade-offs
+### Compensaciones
 
-Advantages compared to imperative object configuration:
+Ventajas en comparación con la configuración imperativa de objetos:
 
-- Changes made directly to live objects are retained, even if they are not merged back into the configuration files.
-- Declarative object configuration has better support for operating on directories and automatically detecting operation types (create, patch, delete) per-object.
+- Los cambios realizados directamente en los objetos en vivo se conservan, incluso si no se fusionan de nuevo en los archivos de configuración.
+- La configuración declarativa de objetos tiene un mejor soporte para operar en directorios y detectar automáticamente los tipos de operación (crear, aplicar parches, eliminar) por objeto.
 
-Disadvantages compared to imperative object configuration:
+Desventajas en comparación con la configuración imperativa de objetos:
 
-- Declarative object configuration is harder to debug and understand results when they are unexpected.
-- Partial updates using diffs create complex merge and patch operations.
+- La configuración declarativa de objetos es más difícil de depurar y entender los resultados cuando son inesperados.
+- Las actualizaciones parciales utilizando diferencias crean operaciones de fusión y aplicación de parches complejas.
 
 ## {{% heading "whatsnext" %}}
 
-- [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
-- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
-- [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/declarative-config/)
-- [Declarative Management of Kubernetes Objects Using Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/)
-- [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
-- [Kubectl Book](https://kubectl.docs.kubernetes.io)
-- [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-
+- [Gestión de objetos de Kubernetes usando comandos imperativos](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+- [Gestión imperativa de objetos de Kubernetes usando archivos de configuración](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+- [Gestión declarativa de objetos de Kubernetes usando archivos de configuración](/docs/tasks/manage-kubernetes-objects/declarative-config/)
+- [Gestión declarativa de objetos de Kubernetes usando Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/)
+- [Referencia de comandos de Kubectl](/docs/reference/generated/kubectl/kubectl-commands/)
+- [Libro de Kubectl](https://kubectl.docs.kubernetes.io)
+- [Referencia de la API de Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
