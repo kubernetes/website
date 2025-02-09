@@ -84,7 +84,7 @@ RBAC認証は重要ですが、[Podのリソース](/ja/docs/concepts/security/r
 たとえばPodに対する`create`です。
 追加の許可がなければ、これらのリソースを作成する権限によって、クラスターのスケジューリング可能なNodeへの直接的な無制限のアクセスが許可されます。
 
-[Pod セキュリティ標準](/ja/docs/concepts/security/Pod-security-standards/)は、セキュリティに関して`PodSpec`でフィールドを設定する方法を制限する、特権、ベースライン、制限の3つの異なるポリシーを定義します。
+[Podセキュリティ標準](/ja/docs/concepts/security/Pod-security-standards/)は、セキュリティに関して`PodSpec`でフィールドを設定する方法を制限する、特権、ベースライン、制限の3つの異なるポリシーを定義します。
 
 defaultで有効になっている新しい[Pod セキュリティ](/ja/docs/concepts/security/Pod-security-admission/)認証、またはサードパーティの認証Webhookを使用して、Namespaceレベルで適用できます。
 削除され置き換えられたPodSecurityPolicyアドミッションとは異なり、[Pod Security](/ja/docs/concepts/security/Pod-security-admission/)アドミッションは、アドミッションWebhookや外部Serviceと簡単に組み合わせることが可能な点に注意してください。
