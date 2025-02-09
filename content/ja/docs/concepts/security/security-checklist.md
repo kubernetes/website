@@ -162,8 +162,8 @@ Podが誤って同じノードにデプロイされるのを防ぐために、�
 これらは、[PodNodeSelector](/ja/docs/reference/access-authn-authz/admission-controllers/#Podnodeselector)アドミッションコントローラーを使用して、Namespaceとクラスターレベルで実施できます。
 
 [PodTolerationRestriction](/ja/docs/reference/access-authn-authz/admission-controllers/#Podtolerationrestriction)
-: 管理者がNamespace内で許可された[tolerations](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)を制限できるようにするアドミッションコントローラー。
-Namespace内のPodは、デフォルトおよび許可された一連のtolerationsを提供するNamespaceオブジェクトアノテーションキーで指定されたtolerationsのみを使用できます。
+: 管理者がNamespace内で許可された[toleration](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)を制限できるようにするアドミッションコントローラー。
+Namespace内のPodは、デフォルトおよび許可された一連のtolerationを提供するNamespaceオブジェクトアノテーションキーで指定されたtolerationのみを使用できます。
 
 [RuntimeClass](/ja/docs/concepts/containers/runtime-class/)
 : RuntimeClassは、コンテナのランタイム構成を選択するための機能です。
