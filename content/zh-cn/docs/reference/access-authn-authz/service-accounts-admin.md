@@ -176,95 +176,104 @@ and uid when inspecting a JWT.
 <!--
 ### Verifying and inspecting private claims
 
-The `TokenReview` API can be used to verify and extract private claims from a token:
+The TokenReview API can be used to verify and extract private claims from a token:
 -->
 ### 查验和检视私有声明   {#verifying-and-inspecting-private-claims}
 
-`TokenReview` API 可用于校验并从令牌中提取私有声明：
+TokenReview API 可用于校验并从令牌中提取私有声明：
 
 <!--
 1. First, assume you have a pod named `test-pod` and a service account named `my-sa`.
-2. Create a token that is bound to this Pod:
+1. Create a token that is bound to this Pod:
 -->
 1. 首先，假设你有一个名为 `test-pod` 的 Pod 和一个名为 `my-sa` 的服务帐户。
 2. 创建绑定到此 Pod 的令牌：
 
-```shell
-kubectl create token my-sa --bound-object-kind="Pod" --bound-object-name="test-pod"
-```
+   ```shell
+   kubectl create token my-sa --bound-object-kind="Pod" --bound-object-name="test-pod"
+   ```
 
 <!--
-3. Copy this token into a new file named `tokenreview.yaml`:
+1. Copy this token into a new file named `tokenreview.yaml`:
+
+   ```yaml
+   apiVersion: authentication.k8s.io/v1
+   kind: TokenReview
+   spec:
+     token: <token from step 2>
+   ```
 -->
 3. 将此令牌复制到名为 `tokenreview.yaml` 的新文件中：
 
-```yaml
-apiVersion: authentication.k8s.io/v1
-kind: TokenReview
-spec:
-  token: <来自第二步的令牌内容>
-```
+   ```yaml
+   apiVersion: authentication.k8s.io/v1
+   kind: TokenReview
+   spec:
+     token: <第 2 步获取的令牌>
+   ```
 
 <!--
-4. Submit this resource to the apiserver for review:
+1. Submit this resource to the apiserver for review:
+
+   ```shell
+   # use '-o yaml' to inspect the output
+   kubectl create -o yaml -f tokenreview.yaml
+   ```
+
+   You should see an output like below:
 -->
 4. 将此资源提交给 API 服务器进行审核：
 
-<!--
-# we use '-o yaml' so we can inspect the output
--->
-```shell
-kubectl create -o yaml -f tokenreview.yaml # 我们使用 '-o yaml' 以便检视命令输出
-```
+   ```shell
+   # 使用 '-o yaml' 检视命令输出
+   kubectl create -o yaml -f tokenreview.yaml
+   ```
 
-<!--
-You should see an output like below:
--->
-你应该看到如下所示的输出：
+   你应该看到如下所示的输出：
 
-```yaml
-apiVersion: authentication.k8s.io/v1
-kind: TokenReview
-metadata:
-  creationTimestamp: null
-spec:
-  token: <token>
-status:
-  audiences:
-  - https://kubernetes.default.svc.cluster.local
-  authenticated: true
-  user:
-    extra:
-      authentication.kubernetes.io/credential-id:
-      - JTI=7ee52be0-9045-4653-aa5e-0da57b8dccdc
-      authentication.kubernetes.io/node-name:
-      - kind-control-plane
-      authentication.kubernetes.io/node-uid:
-      - 497e9d9a-47aa-4930-b0f6-9f2fb574c8c6
-      authentication.kubernetes.io/pod-name:
-      - test-pod
-      authentication.kubernetes.io/pod-uid:
-      - e87dbbd6-3d7e-45db-aafb-72b24627dff5
-    groups:
-    - system:serviceaccounts
-    - system:serviceaccounts:default
-    - system:authenticated
-    uid: f8b4161b-2e2b-11e9-86b7-2afc33b31a7e
-    username: system:serviceaccount:default:my-sa
-```
+   ```yaml
+   apiVersion: authentication.k8s.io/v1
+   kind: TokenReview
+   metadata:
+     creationTimestamp: null
+   spec:
+     token: <token>
+   status:
+     audiences:
+     - https://kubernetes.default.svc.cluster.local
+     authenticated: true
+     user:
+       extra:
+         authentication.kubernetes.io/credential-id:
+         - JTI=7ee52be0-9045-4653-aa5e-0da57b8dccdc
+         authentication.kubernetes.io/node-name:
+         - kind-control-plane
+         authentication.kubernetes.io/node-uid:
+         - 497e9d9a-47aa-4930-b0f6-9f2fb574c8c6
+         authentication.kubernetes.io/pod-name:
+         - test-pod
+         authentication.kubernetes.io/pod-uid:
+         - e87dbbd6-3d7e-45db-aafb-72b24627dff5
+       groups:
+       - system:serviceaccounts
+       - system:serviceaccounts:default
+       - system:authenticated
+       uid: f8b4161b-2e2b-11e9-86b7-2afc33b31a7e
+       username: system:serviceaccount:default:my-sa
+   ```
 
-{{< note >}}
-<!--
-Despite using `kubectl create -f` to create this resource, and defining it similar to
-other resource types in Kubernetes, TokenReview is a special type and the kube-apiserver
-does not actually persist the TokenReview object into etcd.
-Hence `kubectl get tokenreview` is not a valid command.
--->
-尽管你使用了 `kubectl create -f` 来创建此资源，并与 Kubernetes
-中的其他资源类型类似的方式定义它，但 TokenReview 是一种特殊类别，
-kube-apiserver 实际上并不将 TokenReview 对象持久保存到 etcd 中。
-因此 `kubectl get tokenreview` 不是一个有效的命令。
-{{< /note >}}
+   {{< note >}}
+   <!--
+   Despite using `kubectl create -f` to create this resource, and defining it similar to
+   other resource types in Kubernetes, TokenReview is a special type and the kube-apiserver
+   does not actually persist the TokenReview object into etcd.
+   Hence `kubectl get tokenreview` is not a valid command.
+   -->
+   尽管你使用了 `kubectl create -f` 来创建此资源，并与 Kubernetes
+   中的其他资源类型类似的方式定义它，但 TokenReview 是一种特殊类别，
+   kube-apiserver 实际上并不将 TokenReview 对象持久保存到 etcd 中。
+   因此 `kubectl get tokenreview` 不是一个有效的命令。
+   {{< /note >}}
 
 <!--
 #### Schema for service account private claims
@@ -495,9 +504,11 @@ API [直接获得](#bound-service-account-token-volume) API 凭据，
 当挂载的 Pod 被删除时这些令牌将自动失效。
 
 <!--
-You can still [manually create](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount) a Secret to hold a service account token; for example, if you need a token that never expires.
+You can still [manually create](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount)
+a Secret to hold a service account token; for example, if you need a token that never expires.
 
-Once you manually create a Secret and link it to a ServiceAccount, the Kubernetes control plane automatically populates the token into that Secret.
+Once you manually create a Secret and link it to a ServiceAccount,
+the Kubernetes control plane automatically populates the token into that Secret.
 -->
 你仍然可以[手动创建](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount)
 Secret 来保存服务账号令牌；例如在你需要一个永不过期的令牌的时候。
@@ -668,7 +679,7 @@ kube-apiserver。公钥用于在身份认证过程中校验令牌。
 
 <!--
 An alternate setup to setting `--service-account-private-key-file` and `--service-account-key-file` flags is
-to configure an external JWT signer for [external ServiceAccount token signing and key management](#external-serviceaccount-token-signing-and-key-management). 
+to configure an external JWT signer for [external ServiceAccount token signing and key management](#external-serviceaccount-token-signing-and-key-management).
 Note that these setups are mutually exclusive and cannot be configured together.
 -->
 设置 `--service-account-private-key-file` 和 `--service-account-key-file`
@@ -881,10 +892,9 @@ That manifest snippet defines a projected volume that combines information from 
 1. A `serviceAccountToken` source, that contains a token that the kubelet acquires from kube-apiserver.
    The kubelet fetches time-bound tokens using the TokenRequest API. A token served for a TokenRequest expires
    either when the pod is deleted or after a defined lifespan (by default, that is 1 hour).
-   The kubelet also refreshes that token before the token expires.
    The token is bound to the specific Pod and has the kube-apiserver as its audience.
 1. A `configMap` source. The ConfigMap contains a bundle of certificate authority data. Pods can use these
-   certificates to make sure that they are connecting to your cluster's kube-apiserver (and not to middlebox
+   certificates to make sure that they are connecting to your cluster's kube-apiserver (and not to a middlebox
    or an accidentally misconfigured peer).
 1. A `downwardAPI` source. This `downwardAPI` volume makes the name of the namespace containing the Pod available
    to application code running inside the Pod.
@@ -1059,9 +1069,12 @@ kubectl -n examplens delete secret/example-automated-thing-token-zyxwv
 
 <!--
 The kube-apiserver can be configured to use external signer for token signing and token verifying key management.
-This feature enables kubernetes distributions to integrate with key management solutions of their choice (eg: HSMs, cloud KMSes) for service account credential signing and verification.
-To configure kube-apiserver to use external-jwt-signer set the `--service-account-signing-endpoint` flag to the location of a Unix domain socket (UDS) on a filesystem, or be prefixed with an @ symbol and name a UDS in the abstract socket namespace.
-At the configured UDS, shall be an RPC server which implements [ExternalJWTSigner](https://github.com/kubernetes/kubernetes/blob/release-1.32/staging/src/k8s.io/externaljwt/apis/v1alpha1/api.proto).
+This feature enables kubernetes distributions to integrate with key management solutions of their choice
+(for example, HSMs, cloud KMSes) for service account credential signing and verification.
+To configure kube-apiserver to use external-jwt-signer set the `--service-account-signing-endpoint` flag
+to the location of a Unix domain socket (UDS) on a filesystem, or be prefixed with an @ symbol and name
+a UDS in the abstract socket namespace. At the configured UDS, shall be an RPC server which implements
+[ExternalJWTSigner](https://github.com/kubernetes/kubernetes/blob/release-1.32/staging/src/k8s.io/externaljwt/apis/v1alpha1/api.proto).
 The external-jwt-signer must be healthy and be ready to serve supported service account keys for the kube-apiserver to start.
 -->
 kube-apiserver 可以被配置为使用外部签名程序进行令牌签名和令牌验证密钥管理。
@@ -1073,14 +1086,17 @@ kube-apiserver 可以被配置为使用外部签名程序进行令牌签名和�
 的 RPC 服务器。external-jwt-signer 必须处于健康状态，并准备好为 kube-apiserver 启动提供支持的服务账户密钥。
 
 <!--
-Check out [KEP-740](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/740-service-account-external-signing) for more details on ExternalJWTSigner.
+Check out [KEP-740](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/740-service-account-external-signing)
+for more details on ExternalJWTSigner.
 -->
 有关 ExternalJWTSigner 的细节，查阅
 [KEP-740](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/740-service-account-external-signing)。
 
 {{< note >}}
 <!--
-The kube-apiserver flags `--service-account-key-file` and `--service-account-signing-key-file` will continue to be used for reading from files unless `--service-account-signing-endpoint` is set; they are mutually exclusive ways of supporting JWT signing and authentication.
+The kube-apiserver flags `--service-account-key-file` and `--service-account-signing-key-file` will continue
+to be used for reading from files unless `--service-account-signing-endpoint` is set; they are mutually
+exclusive ways of supporting JWT signing and authentication.
 -->
 kube-apiserver 的 `--service-account-key-file` 和 `--service-account-signing-key-file`
 标志将继续被用于从文件中读取，除非设置了 `--service-account-signing-endpoint`；

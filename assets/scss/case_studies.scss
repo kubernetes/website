@@ -70,6 +70,10 @@ body.cid-casestudies {
     background-repeat: no-repeat;
   }
 
+  .banner h2 {
+	color: #fff;
+  }
+
   .banner * {
     position: relative;
   }
@@ -213,15 +217,16 @@ body.td-section.cid-casestudies {
   }
 
   .video-quote, .case-study-video {
-     max-width: calc(clamp(40em, 50vw + 20em, 100vw - 4em));
-     margin-left: auto;
-     margin-right: auto;
+     width: 50%;
      padding-top: 1em;
      padding-bottom: 1em;
+     box-sizing: border-box;
+     text-align: center;
      iframe {
        display: block;
        margin-left: auto;
-       margin-top: 1.5em;
+       width: 90%;
+       aspect-ratio: 16 / 9;
      }
   }
 
@@ -269,12 +274,17 @@ body.td-section.cid-casestudies {
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   body.td-section.cid-casestudies {
     .case-study {
        width: initial;
        flex-basis: 90vw;
        margin-bottom: 40px;
+    }
+
+    .video-quote, .case-study-video {
+       width: initial;
+       flex-basis: 90%;
     }
   }
 }
