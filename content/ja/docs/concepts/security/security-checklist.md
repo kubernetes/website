@@ -176,7 +176,7 @@ Namespace内のPodは、デフォルトおよび許可された一連のtolerati
 - [ ] Secret APIは保存時に暗号化をしています。
 - [ ] 適切な場合、サードパーティのストレージに保存されているシークレットを挿入する仕組みを導入しており、使用可能です。
 - [ ] Service Accountsトークンは、それらを必要としないPodにはマウントしません。
-- [ ] [バインドされたサービス アカウント トークン ボリューム](/ja/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)は、期限切れのないトークンの代わりに使用しています。
+- [ ] [バインドされたサービスアカウントトークンボリューム](/ja/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)は、期限切れのないトークンの代わりに使用しています。
 
 Podに必要なシークレットは、ConfigMapなどの代替手段ではなく、Kubernetes Secrets内に保存する必要があります。
 etcd内に保存されているシークレットリソースは、[保存時に暗号化](/ja/docs/tasks/administer-cluster/encrypt-data/)する必要があります。
