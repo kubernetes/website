@@ -46,7 +46,7 @@ Kubernetesのセキュリティは「万能」ではないため、チェック�
 - [ ] 適切な場合、サービスメッシュを使用してクラスター内のすべての通信を暗号化しています。
 - [ ] Kubernetes API、kubelet API、およびetcdはインターネット上に公開していません。
 - [ ] ワークロードからクラウドメタデータAPIへのアクセスはフィルターしています。
-- [ ] LoadBalancerおよびExternalIPsの使用は制限しています。
+- [ ] LoadBalancerおよびExternalIPの使用は制限しています。
 
 多数の[コンテナネットワークインターフェース(CNI)プラグイン](/ja/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)は、Podが通信できるネットワークリソースを制限する機能を提供します。
 これは、ルールを定義するためのNamespaceリソースを提供する[ネットワークポリシー](/ja/docs/concepts/services-networking/network-policies/)を通じて最も一般的に行われます。
