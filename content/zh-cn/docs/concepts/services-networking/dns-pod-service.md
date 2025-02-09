@@ -179,7 +179,7 @@ Kubernetes 根据普通 Service 或无头 Service 中的命名端口创建 SRV �
 
 - 每个命名端口，SRV 记录的格式：`_port-name._port-protocol.my-svc.my-namespace.svc.cluster-domain.example`。
 - 对于普通 Service，该记录会被解析成端口号和域名：`my-svc.my-namespace.svc.cluster-domain.example`。
-- 对于无头 Service，该记录会被解析成多个结果，及该 Service 的每个后端 Pod 各一个 SRV 记录，
+- 对于无头 Service，该记录会被解析成多个结果，即该 Service 的每个后端 Pod 各一个 SRV 记录，
   其中包含 Pod 端口号和域名，格式为：`hostname.my-svc.my-namespace.svc.cluster-domain.example`。
 
 <!--
