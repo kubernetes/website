@@ -146,8 +146,11 @@ of the StatefulSet's Pods.
 来{{< glossary_tooltip text="监视" term_id="watch" >}} StatefulSet 的 Pod 的创建情况。
 
 <!--
+```shell
 # use this terminal to run commands that specify --watch
 # end this watch when you are asked to start a new watch
+kubectl get pods --watch -l app=nginx
+```
 -->
 ```shell
 # 使用此终端运行指定 --watch 的命令
@@ -175,7 +178,7 @@ statefulset.apps/web created
 The command above creates two Pods, each running an
 [NGINX](https://www.nginx.com) webserver. Get the `nginx` Service...
 -->
-上面的命令创建了两个 Pod，每个都运行了一个 [NginX](https://www.nginx.com) Web 服务器。
+上面的命令创建了两个 Pod，每个都运行了一个 [NGINX](https://www.nginx.com) Web 服务器。
 获取 `nginx` Service：
 
 ```shell
@@ -219,8 +222,11 @@ look like the example below.
 在第一个终端中使用 `kubectl get` 检查输出。这个输出最终将看起来像下面的样子。
 
 <!--
+```shell
 # Do not start a new watch;
 # this should already be running
+kubectl get pods --watch -l app=nginx
+```
 -->
 ```shell
 # 不要开始一个新的 watch
@@ -392,8 +398,11 @@ In one terminal, watch the StatefulSet's Pods:
 在一个终端中监视 StatefulSet 的 Pod：
 
 <!--
+```shell
 # Start a new watch
 # End this watch when you've seen that the delete is finished
+kubectl get pod --watch -l app=nginx
+```
 -->
 ```shell
 # 启动一个新的 watch
@@ -425,7 +434,10 @@ Running and Ready:
 等待 StatefulSet 重启它们，并且两个 Pod 都变成 Running 和 Ready 状态：
 
 <!--
+```shell
 # This should already be running
+kubectl get pod --watch -l app=nginx
+```
 -->
 ```shell
 # 这应该已经处于 Running 状态
@@ -472,6 +484,12 @@ In that new shell, run:
 -->
 这将启动一个新的 Shell。在新 Shell 中，运行：
 
+<!--
+```shell
+# Run this in the dns-test container shell
+nslookup web-0.nginx
+```
+-->
 ```shell
 # 在 dns-test 容器 Shell 中运行以下命令
 nslookup web-0.nginx
@@ -659,8 +677,12 @@ In a second terminal, delete all of the StatefulSet's Pods:
 在另一个终端删除 StatefulSet 所有的 Pod：
 
 <!--
+```shell
 # End this watch when you've reached the end of the section.
 # At the start of "Scaling a StatefulSet" you'll start a new watch.
+kubectl get pod --watch -l app=nginx
+```
+-->
 -->
 ```shell
 # 当你到达该部分的末尾时结束此 watch
@@ -679,7 +701,10 @@ for all of the Pods to transition to Running and Ready.
 在第一个终端里检查 `kubectl get` 命令的输出，等待所有 Pod 变成 Running 和 Ready 状态。
 
 <!--
+```shell
 # This should already be running
+kubectl get pod --watch -l app=nginx
+```
 -->
 ```shell
 # 这应该已经处于 Running 状态
@@ -734,7 +759,8 @@ This is accomplished by updating the `replicas` field. You can use either
 -->
 扩容/缩容 StatefulSet 指增加或减少它的副本数。这通过更新 `replicas` 字段完成（水平缩放）。
 你可以使用 [`kubectl scale`](/docs/reference/generated/kubectl/kubectl-commands/#scale)
-或者 [`kubectl patch`](/docs/reference/generated/kubectl/kubectl-commands/#patch) 来扩容/缩容一个 StatefulSet。
+或者 [`kubectl patch`](/docs/reference/generated/kubectl/kubectl-commands/#patch)
+来扩容/缩容一个 StatefulSet。
 
 <!--
 ### Scaling up
@@ -755,9 +781,12 @@ In one terminal window, watch the Pods in the StatefulSet:
 在一个终端窗口监视 StatefulSet 的 Pod：
 
 <!--
+```shell
 # If you already have a watch running, you can continue using that.
 # Otherwise, start one.
 # End this watch when there are 5 healthy Pods for the StatefulSet
+kubectl get pods --watch -l app=nginx
+```
 -->
 ```shell
 # 如果你已经有一个正在运行的 wach，你可以继续使用它。
@@ -786,7 +815,10 @@ for the three additional Pods to transition to Running and Ready.
 在第一个 终端中检查 `kubectl get` 命令的输出，等待增加的 3 个 Pod 的状态变为 Running 和 Ready。
 
 <!--
+```shell
 # This should already be running
+kubectl get pod --watch -l app=nginx
+```
 -->
 ```shell
 # 这应该已经处于 Running 状态
@@ -841,7 +873,11 @@ In one terminal, watch the StatefulSet's Pods:
 在一个终端监视 StatefulSet 的 Pod：
 
 <!--
+```shell
+kubectl get pods -w -l app=nginx
 # End this watch when there are only 3 Pods for the StatefulSet
+kubectl get pod --watch -l app=nginx
+```
 -->
 ```shell
 kubectl get pods -w -l app=nginx
@@ -868,7 +904,11 @@ Wait for `web-4` and `web-3` to transition to Terminating.
 等待 `web-4` 和 `web-3` 状态变为 Terminating。
 
 <!--
+```shell
+kubectl get pods -w -l app=nginx
 # This should already be running
+kubectl get pods --watch -l app=nginx
+```
 -->
 ```shell
 kubectl get pods -w -l app=nginx
@@ -973,7 +1013,7 @@ You'll practice that later in this tutorial.
 First, try a simple rolling update.
 -->
 你可以通过指定 `.spec.updateStrategy.rollingUpdate.partition` 将使用 `RollingUpdate`
-策略的 StatefulSet 的更新拆分为多个**分区** 。你将在本教程中稍后练习此操作。
+策略的 StatefulSet 的更新拆分为多个**分区**。你将在本教程中稍后练习此操作。
 
 首先，尝试一个简单的滚动更新。
 
@@ -996,9 +1036,12 @@ In another terminal, watch the Pods in the StatefulSet:
 在另一个终端监控 StatefulSet 中的 Pod：
 
 <!--
+```shell
 # End this watch when the rollout is complete
 #
 # If you're not sure, leave it running one more minute
+kubectl get pod -l app=nginx --watch
+```
 -->
 ```shell
 # 滚动完成后结束此 watch
@@ -1107,7 +1150,7 @@ You can split updates to a StatefulSet that uses the `RollingUpdate` strategy
 into _partitions_, by specifying `.spec.updateStrategy.rollingUpdate.partition`.
 -->
 你可以通过指定 `.spec.updateStrategy.rollingUpdate.partition` 将使用 `RollingUpdate` 策略的
-StatefulSet 的更新拆分为多个**分区** 。
+StatefulSet 的更新拆分为多个**分区**。
 
 <!--
 For more context, you can read [Partitioned rolling updates](/docs/concepts/workloads/controllers/statefulset/#partitions)
@@ -1134,14 +1177,17 @@ First, patch the `web` StatefulSet to add a partition to the `updateStrategy` fi
 对 `web` StatefulSet 执行 Patch 操作，为 `updateStrategy` 字段添加一个分区：
 
 <!--
+```shell
 # The value of "partition" determines which ordinals a change applies to
 # Make sure to use a number bigger than the last ordinal for the
 # StatefulSet
+kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"OnDelete", "rollingUpdate": null}}}'
+```
 -->
 ```shell
 # "partition" 的值决定更改适用于哪些序号
 # 确保使用比 StatefulSet 的最后一个序号更大的数字
-kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":3}}}}'
+kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"OnDelete", "rollingUpdate": null}}}'
 ```
 ```
 statefulset.apps/web patched
@@ -1178,7 +1224,10 @@ Wait for the replacement `web-2` Pod to be Running and Ready:
 等待替代的 Pod 变成 Running 和 Ready。
 
 <!--
+```shell
 # End the watch when you see that web-2 is healthy
+kubectl get pod -l app=nginx --watch
+```
 -->
 ```shell
 # 当你看到 web-2 运行正常时结束 watch
@@ -1236,8 +1285,11 @@ Patch the StatefulSet to decrement the partition:
 通过 patch 命令修改 StatefulSet 来减少分区：
 
 <!--
+```shell
 # The value of "partition" should match the highest existing ordinal for
 # the StatefulSet
+kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":2}}}}'
+```
 -->
 ```shell
 # “partition” 的值应与 StatefulSet 现有的最高序号相匹配
@@ -1253,11 +1305,12 @@ a graceful **delete** followed by creating a new Pod once the deletion
 is complete).
 Wait for the new `web-2` Pod to be Running and Ready.
 -->
-控制平面会触发 `web-2` 的替换（先优雅地 **删除** 现有 Pod，然后在删除完成后创建一个新的 Pod）。
+控制平面会触发 `web-2` 的替换（先优雅地**删除**现有 Pod，然后在删除完成后创建一个新的 Pod）。
 等待新的 `web-2` Pod 变成 Running 和 Ready。
 
 <!--
 # This should already be running
+kubectl get pod -l app=nginx --watch
 -->
 ```shell
 # 这应该已经处于 Running 状态
@@ -1309,7 +1362,10 @@ Wait for the `web-1` Pod to be Running and Ready.
 等待 `web-1` 变成 Running 和 Ready。
 
 <!--
+```shell
 # This should already be running
+kubectl get pod -l app=nginx --watch
+```
 -->
 ```shell
 # 这应该已经处于 Running 状态
@@ -1393,7 +1449,10 @@ Wait for all of the Pods in the StatefulSet to become Running and Ready.
 等待 StatefulSet 中的所有 Pod 变成 Running 和 Ready。
 
 <!--
+```shell
 # This should already be running
+kubectl get pod -l app=nginx --watch
+```
 -->
 ```shell
 # 这应该已经处于 Running 状态
@@ -1506,9 +1565,12 @@ In one terminal window, watch the Pods in the StatefulSet.
 在一个终端窗口监视 StatefulSet 中的 Pod。
 
 <!--
-# End this watch when there are no Pods for the StatefulSet
--->
 ```
+# End this watch when there are no Pods for the StatefulSet
+kubectl get pods --watch -l app=nginx
+```
+-->
+```shell
 # 当 StatefulSet 没有 Pod 时结束此 watch
 kubectl get pods --watch -l app=nginx
 ```
@@ -1549,7 +1611,7 @@ web-2     1/1       Running   0          5m
 Even though `web` has been deleted, all of the Pods are still Running and Ready.
 Delete `web-0`:
 -->
-虽然 `web`  已经被删除了，但所有 Pod 仍然处于 Running 和 Ready 状态。
+虽然 `web` 已经被删除了，但所有 Pod 仍然处于 Running 和 Ready 状态。
 删除 `web-0`：
 
 ```shell
@@ -1584,7 +1646,10 @@ In one terminal, watch the StatefulSet's Pods.
 在一个终端监控 StatefulSet 的 Pod。
 
 <!--
+```shell
 # Leave this watch running until the next time you start a watch
+kubectl get pods --watch -l app=nginx
+```
 -->
 ```shell
 # 让 watch 一直运行到你下次启动 watch 为止
@@ -1620,7 +1685,10 @@ Examine the output of the `kubectl get` command running in the first terminal.
 在第一个终端中运行并检查 `kubectl get` 命令的输出。
 
 <!--
+```shell
 # This should already be running
+kubectl get pods --watch -l app=nginx
+```
 -->
 ```shell
 # 这应该已经处于 Running 状态
@@ -1719,7 +1787,10 @@ and wait for all of the Pods to transition to Terminating.
 在第一个终端检查 `kubectl get` 命令的输出，并等待所有的 Pod 变成 Terminating 状态。
 
 <!--
+```shell
 # This should already be running
+kubectl get pods --watch -l app=nginx
+```
 -->
 ```shell
 # 这应该已经处于 Running 状态
@@ -1925,7 +1996,10 @@ In one terminal, watch the Pods in the StatefulSet.
 在一个终端窗口监视 StatefulSet 中的 Pod。
 
 <!--
+```shell
 # Leave this watch running until the end of the section
+kubectl get pod -l app=nginx --watch
+```
 -->
 ```shell
 # 让 watch 一直运行直到本节结束
@@ -2003,9 +2077,15 @@ part of cleanup.
 -->
 你应该打开两个终端，准备在清理过程中运行 `kubectl` 命令。
 
+<!--
 ```shell
 kubectl delete sts web
 # sts is an abbreviation for statefulset
+```
+-->
+```shell
+kubectl delete sts web
+# sts 是 statefulset 的缩写
 ```
 
 <!--
@@ -2014,7 +2094,10 @@ You can watch `kubectl get` to see those Pods being deleted.
 你可以监视 `kubectl get` 来查看那些 Pod 被删除：
 
 <!--
+```shell
 # end the watch when you've seen what you need to
+kubectl get pod -l app=nginx --watch
+```
 -->
 ```shell
 # 当你看到需要的内容后结束 watch
