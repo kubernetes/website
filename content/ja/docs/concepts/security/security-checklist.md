@@ -63,7 +63,7 @@ Kubernetes APIサーバーへの外部インターネットアクセスは、API
 多くのマネージドKubernetesディストリビューションは、デフォルトでAPIサーバーを公開しているため注意してください。
 その場合、要塞ホストを使用してサーバーにアクセスできます。
 
-[kubelet](/ja/docs/reference/command-line-tools-reference/kubelet/)APIアクセスは制限し、公開しないようにする必要があります。
+[kubelet](/ja/docs/reference/command-line-tools-reference/kubelet/)のAPIアクセスは制限し、公開しないようにする必要があります。
 デフォルトの認証および承認設定は、`--config`フラグで構成ファイルが指定されていない場合は許可されています。
 
 Kubernetesのホスティングにクラウドプロバイダーを使用する場合、PodからクラウドメタデータAPI`169.254.169.254`へのアクセスも、情報が漏洩する可能性があるため、必要でない場合は制限またはブロックする必要があります。
