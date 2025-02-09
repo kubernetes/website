@@ -169,7 +169,6 @@ Figure 2. Working from a local fork to make your changes.
    ```shell
    git clone git@github.com:<github_username>/website
    cd website
-   git submodule update --init --recursive --depth 1
    ```
 
 1. Navigate to the new `website` directory. Set the `kubernetes/website` repository as the `upstream` remote:
@@ -338,20 +337,24 @@ variable to override this behaviour.
 
 Alternately, install and use the `hugo` command on your computer:
 
-1. Install the [Hugo](https://gohugo.io/getting-started/installing/) version specified in
+1. Install the [Hugo (Extended edition)](https://gohugo.io/getting-started/installing/) and [Node](https://nodejs.org/en) version specified in
    [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/main/netlify.toml).
 
-1. If you have not updated your website repository, the `website/themes/docsy` directory is empty.
-   The site cannot build without a local copy of the theme. To update the website theme, run:
+1. Install any dependencies:
 
    ```shell
-   git submodule update --init --recursive --depth 1
+   npm ci
    ```
 
 1. In a terminal, go to your Kubernetes website repository and start the Hugo server:
 
    ```shell
    cd <path_to_your_repo>/website
+   make serve
+   ```
+   If you're on a Windows machine or unable to run the `make` command, use the following command:
+
+   ```
    hugo server --buildFuture
    ```
 

@@ -439,7 +439,7 @@ Get more details on your updated Deployment:
 * 在上线成功后，可以通过运行 `kubectl get deployments` 来查看 Deployment：
   输出类似于：
 
-  ```ini
+  ```
   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
   nginx-deployment   3/3     3            3           36s
   ```
