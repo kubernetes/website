@@ -79,7 +79,7 @@ LoadBalancerおよびExternalIPの制限付き使用の詳細については[CVE
 - [ ] Seccompをサポートしているノードでは、プログラム用の適切なsyscallプロファイルでそれが有効になっています。
 - [ ] AppArmorまたはSELinuxをサポートしているノードでは、プログラム用の適切なプロファイルでそれが有効になっています。
 
-RBAC認証は重要ですが、[Pod のリソース](/ja/docs/concepts/security/rbac-good-practices/#workload-creation)(またはPodを管理する任意のリソース)に対する認証を行うほど細かく設定することはできません。
+RBAC認証は重要ですが、[Podのリソース](/ja/docs/concepts/security/rbac-good-practices/#workload-creation)(またはPodを管理する任意のリソース)に対する認証を行うほど細かく設定することはできません。
 唯一の細分性は、リソース自体に対するAPI動詞です。
 たとえばPodに対する`create`です。
 追加の許可がなければ、これらのリソースを作成する権限によって、クラスターのスケジューリング可能なNodeへの直接的な無制限のアクセスが許可されます。
