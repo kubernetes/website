@@ -76,8 +76,8 @@ LoadBalancerおよびExternalIPの制限付き使用の詳細については[CVE
 - [ ] 適切なPodセキュリティ標準ポリシーをすべてのNamespaceに強制適用しています。
 - [ ] ワークロードのメモリ制限は、リクエストと同等またはそれ以下の制限で設定しています。
 - [ ] 機密性の高いワークロードにはCPU制限を設定する場合があります。
-- [ ] サポートするNodeでは、Seccompがプログラム用の適切なsyscallsプロファイルで有効になっています。
-- [ ] サポートするNodeでは、AppArmorまたはSELinuxがプログラム用の適切なsyscallsプロファイルで有効になっています。
+- [ ] Seccompをサポートしているノードでは、プログラム用の適切なsyscallプロファイルでそれが有効になっています。
+- [ ] AppArmorまたはSELinuxをサポートしているノードでは、プログラム用の適切なプロファイルでそれが有効になっています。
 
 RBAC認証は重要ですが、[Pod のリソース](/ja/docs/concepts/security/rbac-good-practices/#workload-creation)(またはPodを管理する任意のリソース)に対する認証を行うほど細かく設定することはできません。
 唯一の細分性は、リソース自体に対するAPI動詞です。
