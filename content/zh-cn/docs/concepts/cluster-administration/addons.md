@@ -168,13 +168,13 @@ Add-on 扩展了 Kubernetes 的功能。
 ## Service Discovery
 
 * [CoreDNS](https://coredns.io) is a flexible, extensible DNS server which can
-  be [installed](https://github.com/coredns/deployment/tree/master/kubernetes)
+  be [installed](https://github.com/coredns/helm)
   as the in-cluster DNS for pods.
 -->
 ## 服务发现   {#service-discovery}
 
 * [CoreDNS](https://coredns.io) 是一种灵活的，可扩展的 DNS 服务器，可以
-  [安装](https://github.com/coredns/deployment/tree/master/kubernetes)为集群内的 Pod 提供 DNS 服务。
+  [安装](https://github.com/coredns/helm)为集群内的 Pod 提供 DNS 服务。
 
 <!--
 ## Visualization &amp; Control
