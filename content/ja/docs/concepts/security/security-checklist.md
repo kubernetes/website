@@ -68,7 +68,7 @@ Kubernetes APIサーバーへの外部インターネットアクセスは、API
 
 Kubernetesのホスティングにクラウドプロバイダーを使用する場合、PodからクラウドメタデータAPI`169.254.169.254`へのアクセスも、情報が漏洩する可能性があるため、必要でない場合は制限またはブロックする必要があります。
 
-LoadBalancerおよびExternalIPsの制限付き使用の詳細については[CVE-2020-8554: LoadBalancer または ExternalIPs を使用した中間者攻撃](https://github.com/kubernetes/kubernetes/issues/97076)および[DenyServiceExternalIPs アドミッション コントローラー](/ja/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)を参照してください。
+LoadBalancerおよびExternalIPの制限付き使用の詳細については[CVE-2020-8554: Man in the middle using LoadBalancer or ExternalIPs](https://github.com/kubernetes/kubernetes/issues/97076)および[DenyServiceExternalIPsアドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)を参照してください。
 
 ## Podセキュリティ
 
