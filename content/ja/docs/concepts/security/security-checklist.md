@@ -181,9 +181,9 @@ Namespace内のPodは、デフォルトおよび許可された一連のtolerati
 Podに必要なシークレットは、ConfigMapなどの代替手段ではなく、Kubernetes Secret内に保存する必要があります。
 etcd内に保存されているシークレットリソースは、[保存時に暗号化](/ja/docs/tasks/administer-cluster/encrypt-data/)する必要があります。
 
-シークレットを必要とするPodでは、ボリュームを介してシークレットが自動的にマウントされ、できれば[`emptyDir.medium` オプション](/ja/docs/concepts/storage/volumes/#emptydir)のようにメモリ内に保存される必要があります。
-このメカニズムは、[Secrets Store CSI ドライバー](https://secrets-store-csi-driver.sigs.k8s.io/)などのボリュームとしてサードパーティのストレージからシークレットを挿入するためにも使用できます。
-PodのService AccountsにシークレットへのRBACアクセスを提供するよりも、これを優先的に行う必要があります。
+シークレットを必要とするPodでは、ボリュームを介してシークレットが自動的にマウントされ、できれば[`emptyDir.medium`オプション](/ja/docs/concepts/storage/volumes/#emptydir)のようにメモリ内に保存される必要があります。
+このメカニズムは、[Secret Store CSIドライバー](https://secrets-store-csi-driver.sigs.k8s.io/)などのボリュームとしてサードパーティのストレージからシークレットを挿入するためにも使用できます。
+PodのサービスアカウントにシークレットへのRBACアクセスを提供するよりも、これを優先的に行う必要があります。
 これにより、シークレットを環境変数またはファイルとしてPodに追加できます。
 環境変数メソッドは、ファイルの権限メカニズムとは異なり、ログのクラッシュダンプとLinuxの環境変数の非機密性により、漏洩が発生しやすい可能性があることに注意してください。
 
