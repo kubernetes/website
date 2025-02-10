@@ -253,7 +253,7 @@ Kubernetes v1.22以降では、時間制限のあるサービスアカウント�
 : リソースの過剰使用を防ぐためにリソースクォータを適用します。
 
 [`ValidatingAdmissionWebhook`](/ja/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
-: Webhookを介してカスタムコントローラーの使用を許可します。これらのコントローラーは、レビューするリクエストを変更しません。
+: Webhookを介してカスタムコントローラーの使用を許可します。これらのコントローラーは、確認するリクエストを変更しません。
 
 2番目のグループには、デフォルトでは有効になっていないが、一般的な可用性状態ではセキュリティ体制を改善するために推奨されるプラグインが含まれます:
 
