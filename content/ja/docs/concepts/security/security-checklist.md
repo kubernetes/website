@@ -284,7 +284,7 @@ Kubernetes v1.22以降では、時間制限のあるService Accounts認証情報
 : Namespace内およびクラスター全体でノードセレクターを制御できます。
 
 [`PodTolerationRestriction`](/ja/docs/reference/access-authn-authz/admission-controllers/#Podtolerationrestriction)
-: Namespace内のPodに許可されるPod許容を制御できます。 -->
+: Namespace内のPodに許可されるPodの許容範囲を制御できます。 -->
 
 ## 次のステップ
 
