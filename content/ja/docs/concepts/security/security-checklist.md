@@ -116,7 +116,7 @@ Kubernetes 1.27以降、すべてのワークロードのデフォルトのsecco
 さらに、[Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator)は、クラスターでのseccompの管理と使用を容易にするプロジェクトです。
 
 {{< note >}}
-seccompはLinux Nodeでのみ使用できます。
+seccompはLinuxノードでのみ使用できます。
 {{< /note >}}
 
 ### AppArmorまたはSELinuxの有効化
