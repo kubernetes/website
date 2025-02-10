@@ -1265,7 +1265,7 @@ scheduling pods:
   webhook C. This ensures that webhook A can _always_ start, which then allows webhook B's pods 
   to start, which in turn allows webhook C's pods to start.
 
-  If you want to ensure protection for an admission webhook and / or its namespace, [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/)
+  If you want to ensure protection that avoids these risks, [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/)
   can
   provide many protection capabilities without introducing dependency cycles.
 
