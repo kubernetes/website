@@ -207,7 +207,7 @@ Kubernetes v1.22以降では、時間制限のあるサービスアカウント�
 ただし、イメージレイヤーのファイル権限により、イメージを変更せずに新しい権限のないユーザーでプロセスを開始することが不可能になる場合があります。
 
 イメージタグ、特に`latest`タグを使用してイメージを参照することは避けてください。
-タグの後ろにあるイメージはレジストリで簡単に変更できます。
+タグの背後にあるイメージはレジストリで簡単に変更できます。
 イメージマニフェストに固有の完全な`sha256`ダイジェストを使用することをお勧めします。
 このポリシーは、[ImagePolicyWebhook](/ja/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook)を介して適用できます。
 イメージ署名は、デプロイ時に[アドミッション コントローラーで検証](/ja/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller)して、信頼性と整合性を検証することもできます。
