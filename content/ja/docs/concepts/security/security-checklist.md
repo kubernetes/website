@@ -291,5 +291,5 @@ Kubernetes v1.22以降では、時間制限のあるService Accounts認証情報
 - [Pod作成による権限昇格](/ja/docs/reference/access-authn-authz/authorization/#privilege-escalation-via-Pod-creation)は、特定のアクセス制御リスクについて警告しますので、その脅威をどのように管理しているかを確認してください。
   - Kubernetes RBACを使用する場合は、認可に関する詳細について、[RBACのベストプラクティス](/ja/docs/concepts/security/rbac-good-practices/)をお読みください。
 - 偶発的または悪意のあるアクセスからクラスターを保護する方法については、[クラスターのセキュリティ保護](/ja/docs/tasks/administer-cluster/securing-a-cluster/)を参照してください。
-- マルチテナンシーに関する構成オプションの推奨事項とベストプラクティスについては、[クラスター マルチテナンシー ガイド](/ja/docs/concepts/security/multi-tenancy/)を参照してください。
+- マルチテナンシーに関する構成オプションの推奨事項とベストプラクティスについては、[クラスターマルチテナンシーガイド](/ja/docs/concepts/security/multi-tenancy/)を参照してください。
 - Kubernetesクラスターの強化に関する補足リソースについては、[ブログ投稿「NSA/CISA Kubernetes 強化ガイダンスの詳細」](/blog/2021/10/05/nsa-cisa-kubernetes-hardening-guidance/#building-secure-container-images)を参照してください。
