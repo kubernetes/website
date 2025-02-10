@@ -130,7 +130,7 @@ seccompと同様に、AppArmorもプロファイルを通じて構成されま�
 AppArmorプロファイルは、コンテナごとに注釈付きで適用され、プロセスが適切な権限を取得できるようにします。
 
 {{< note >}}
-AppArmorはLinux Nodeでのみ使用可能で、[一部の Linux ディストリビューション](https://gitlab.com/apparmor/apparmor/-/wikis/home#distributions-and-ports)で有効になっています。
+AppArmorはLinuxノードでのみ使用可能で、[一部のLinuxディストリビューション](https://gitlab.com/apparmor/apparmor/-/wikis/home#distributions-and-ports)で有効になっています。
 {{< /note >}}
 
 #### SELinux
