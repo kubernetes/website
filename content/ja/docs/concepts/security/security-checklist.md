@@ -262,8 +262,8 @@ Kubernetes v1.22以降では、時間制限のあるサービスアカウント�
 これは、[CVE-2020-8554: Man in the middle using LoadBalancer or ExternalIPs](https://github.com/kubernetes/kubernetes/issues/97076)の緩和策です。
 
 [`NodeRestriction`](/ja/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
-: kubeletの権限を、所有するPod APIリソースまたは自身を表すNode APIリソースのみを変更するように制限します。
-また、kubeletが`node-restriction.kubernetes.io/`アノテーションを使用するのを防ぎます。これは、kubeletの認証情報にアクセスできる攻撃者が、制御対象NodeへのPodの配置に影響を与えるために使用できます。
+: kubeletの権限を、所有するPod APIリソースまたは自身を表すノードAPIリソースのみを変更するように制限します。
+また、kubeletが`node-restriction.kubernetes.io/`アノテーションを使用するのを防ぎます。このアノテーションは、kubeletの認証情報にアクセスできる攻撃者が、制御対象ノードへのPodの配置に影響を与えるために使用する可能性があります。
 
 3番目のグループには、デフォルトでは有効になっていませんが、特定のユースケースで検討できるプラグインが含まれます:
 
