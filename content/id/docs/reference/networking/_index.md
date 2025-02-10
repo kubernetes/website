@@ -5,6 +5,6 @@ weight: 85
 ---
 
 <!-- overview -->
-Di bagian ini tersedia referensi detail mengenai jaringan komputer di Kubernetes.
+Bagian dari dokumentasi Kubernetes ini menyediakan referensi detail tentang jaringan Kubernetes.
 
 <!-- body -->
