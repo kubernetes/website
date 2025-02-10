@@ -157,8 +157,8 @@ SELinuxはLinux Nodeでのみ使用可能で、[一部の Linux ディストリ�
 Podが誤って同じノードにデプロイされるのを防ぐために、この分離を実施する必要があります。
 これは、次の機能を使用して実施できます。
 
-[Node セレクタ](/ja/docs/concepts/scheduling-eviction/assign-Pod-node/)
-: Pod仕様の一部として、デプロイするNodeを指定するキーと値のペア。
+[ノードセレクター](/ja/docs/concepts/scheduling-eviction/assign-Pod-node/)
+: Pod仕様の一部として、デプロイするノードを指定するキーと値のペア。
 これらは、[PodNodeSelector](/ja/docs/reference/access-authn-authz/admission-controllers/#Podnodeselector)アドミッションコントローラーを使用して、Namespaceとクラスターレベルで実施できます。
 
 [PodTolerationRestriction](/ja/docs/reference/access-authn-authz/admission-controllers/#Podtolerationrestriction)
