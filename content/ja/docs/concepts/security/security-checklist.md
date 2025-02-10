@@ -281,7 +281,7 @@ Kubernetes v1.22以降では、時間制限のあるService Accounts認証情報
 : APIサーバーに新しいイベントを追加するレートを制限します。
 
 [`PodNodeSelector`](/ja/docs/reference/access-authn-authz/admission-controllers/#Podnodeselector)
-: Namespace内およびクラスター全体でNodeセレクターを制御できます。
+: Namespace内およびクラスター全体でノードセレクターを制御できます。
 
 [`PodTolerationRestriction`](/ja/docs/reference/access-authn-authz/admission-controllers/#Podtolerationrestriction)
 : Namespace内のPodに許可されるPod許容を制御できます。 -->
