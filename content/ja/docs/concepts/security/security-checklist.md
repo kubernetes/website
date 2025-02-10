@@ -194,7 +194,7 @@ Kubernetes v1.22以降では、時間制限のあるサービスアカウント�
 
 - [ ] コンテナイメージ内の不要なコンテンツは最小限に抑えています。
 - [ ] コンテナイメージは、権限のないユーザーとして実行されるように構成しています。
-- [ ] コンテナイメージへの参照は、sha256ダイジェストによって行うか、もしくは、デプロイ時に[アドミッション コントロール経由](/ja/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller)でイメージのデジタル署名を検証しています。
+- [ ] コンテナイメージへの参照は、(タグではなく)sha256ダイジェストによって行うか、もしくは、デプロイ時に[アドミッションコントロール経由](/ja/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller)でイメージのデジタル署名を検証しています。
 - [ ] コンテナイメージは、作成中およびDeployment中に定期的にスキャンし、既知の脆弱なソフトウェアにはパッチを適用しています。
 
 コンテナイメージには、パッケージ化されたプログラムを実行するための最小限のものだけが含まれている必要があります。
