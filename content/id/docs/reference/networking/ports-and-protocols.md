@@ -30,4 +30,4 @@ Meskipun *port* Etcd termasuk dalam bagian panel kontrol diatas (sebagai bawaan 
 
 Semua nomor *port* bawaan dapat ditimpa dengan nomor lainnya. Ketika *port* kustom dipilih, *port* tersebut harus dibuka dan dapat diakses oleh komponen Kubernetes lainnya.
 
-Salah satu contoh yang umum adalah *port* API *server* yang terkadang diganti ke 443. Sebagai alternatif, *port* bawaan tetap digunakan dan API *server* dengan menaruhnya di belakang *load balancer* yang dapat diakses melalui *port* 443. Kemudian, *request* yang diterima diteruskan ke API *server* melalui *port* bawaan tersebut.
+Salah satu contoh yang umum adalah *port* API *server* yang terkadang diganti ke 443. Sebagai alternatif, *port* bawaan tetap digunakan dan API *server* tersebut ditempatkan di belakang *load balancer* yang dapat diakses melalui *port* 443. Kemudian, *request* yang diterima diteruskan ke API *server* melalui *port* bawaannya.
