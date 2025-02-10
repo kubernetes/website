@@ -255,7 +255,7 @@ Kubernetes v1.22以降では、時間制限のあるサービスアカウント�
 [`ValidatingAdmissionWebhook`](/ja/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
 : Webhookを介してカスタムコントローラーの使用を許可します。これらのコントローラーは、確認するリクエストを変更しません。
 
-2番目のグループには、デフォルトでは有効になっていないが、一般的な可用性状態ではセキュリティ体制を改善するために推奨されるプラグインが含まれます:
+2番目のグループには、デフォルトでは有効になっていませんが、GAステータスであり、セキュリティ体制を向上させるために推奨されるプラグインが含まれます:
 
 [`DenyServiceExternalIPs`](/ja/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)
 : `Service.spec.externalIPs`フィールドのまったく新しい使用をすべて拒否します。
