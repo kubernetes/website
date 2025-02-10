@@ -95,7 +95,7 @@ Podセキュリティアドミッション`restricted`ポリシーは、[Podセ�
 
 [Pod セキュリティ](/ja/docs/concepts/security/Pod-security-admission/)の実践的なチュートリアルについては、ブログ投稿[Kubernetes 1.23: Pod セキュリティがベータ版に移行](/blog/2021/12/09/Pod-security-admission-beta/)を参照してください。
 
-[メモリと CPU の制限](/ja/docs/concepts/configuration/manage-resources-containers/)を設定して、PodがNodeで消費できるメモリとCPUリソースを制限し、悪意のあるワークロードや侵害されたワークロードによる潜在的なDoS攻撃を防ぐ必要があります。
+[メモリとCPUの制限](/ja/docs/concepts/configuration/manage-resources-containers/)を設定して、Podがノードで消費できるメモリとCPUリソースを制限し、悪意のあるワークロードや侵害されたワークロードによる潜在的なDoS攻撃を防ぐ必要があります。
 このようなポリシーは、アドミッションコントローラーによって適用できます。
 CPU制限により使用が制限されるため、自動スケーリング機能や効率性に意図しない影響が生じる可能性があります
 つまり、利用可能なCPUリソースでベストエフォートでプロセスを実行することです。
