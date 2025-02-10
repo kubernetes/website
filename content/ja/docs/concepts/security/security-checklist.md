@@ -187,9 +187,9 @@ PodのサービスアカウントにシークレットへのRBACアクセスを�
 これにより、シークレットを環境変数またはファイルとしてPodに追加できます。
 環境変数メソッドは、ファイルの権限メカニズムとは異なり、ログのクラッシュダンプとLinuxの環境変数の非機密性により、漏洩が発生しやすい可能性があることに注意してください。
 
-Service Accountsトークンは、それらを必要としないPodにマウントしないでください。
-これは、Service Accounts内で[`automountServiceAccountToken`](/ja/docs/tasks/configure-Pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)を`false`に設定して、Namespace全体に適用するか、Podに固有の設定にすることで構成できます。
-Kubernetes v1.22以降では、時間制限のあるService Accounts認証情報には[バインドされたサービス アカウント](/ja/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)を使用します。
+サービスアカウントトークンは、それらを必要としないPodにマウントしないでください。
+これは、サービスアカウント内で[`automountServiceAccountToken`](/ja/docs/tasks/configure-Pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)を`false`に設定して、Namespace全体に適用するか、Podに固有の設定にすることで構成できます。
+Kubernetes v1.22以降では、時間制限のあるサービスアカウント認証情報には[バインドされたサービスアカウント](/ja/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)を使用します。
 
 ## イメージ
 
