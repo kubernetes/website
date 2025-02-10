@@ -163,6 +163,48 @@ When reviewing, use the following as a starting point.
 - Do the changes show up in the Netlify preview? Be particularly vigilant about lists, code
   blocks, tables, notes and images.
 
+### Blog
+
+- Early feedback on blog posts is welcome via a Google Doc or HackMD. Please request input early from the [#sig-docs-blog Slack channel](https://kubernetes.slack.com/archives/CJDHVD54J).
+- Before reviewing blog PRs, be familiar with [Submitting blog posts and case studies](/docs/contribute/new-content/blogs-case-studies/).
+- We are willing to mirror any blog article that was published to https://kubernetes.dev/blog/ (the contributor blog) provided that:
+- the mirrored article has the same publication date as the original (it should have the same publication time too, but you can also set a time stamp up to 12 hours later for special cases)
+  - for PRs that arrive the original article was merged to https://kubernetes.dev/, there haven't been 
+  (and won't be) any articles published to the main blog between time that the original and mirrored article 
+  [will] publish. 
+  This is because we don't want to add articles to people's feeds, such as RSS, except at the very end of their feed.
+  - the original article doesn't contravene any strongly recommended review guidelines or community norms.
+  - You should set the canonical URL for the mirrored article, to the URL of the original article 
+  (you can use a preview to predict the URL and fill this in ahead of actual publication). Use the `canonicalUrl` 
+  field in [front matter](https://gohugo.io/content-management/front-matter/) for this.
+- Consider the target audience and whether the blog post is appropriate for kubernetes.io 
+  For example, if the target audience are Kubernetes contributors only then kubernetes.dev
+  may be more appropriate, 
+  or if the blog post is on general platform engineering then it may be more suitable on another site.
+
+  This consideration applies to mirrored articles too; although we are willing to consider all valid
+  contributor articles for mirroring if a PR is opened, we don't mirror all of them.
+
+- We only mark blog articles as maintained (`evergreen: true` in front matter) if the Kubernetes project 
+  is happy to commit to maintaining them indefinitely. Some blog articles absolutely merit this, and we 
+  always mark our release announcements evergreen. Check with other contributors if you are not sure 
+  how to review on this point.
+- The [content guide](/docs/contribute/style/content-guide/) applies unconditionally to blog articles
+  and the PRs that add them. Bear in mind that some restrictions in the guide state that they are only relevant to documentation; those restrictions don't apply to blog articles.
+- The [style guide](/docs/contribute/style/style-guide/) largely also applies to blog PRs, but we make some exceptions.
+  
+  - it is OK to use “we“ in a blog article that has multiple authors, or where the article introduction clearly indicates that the author is writing on behalf of a specific group.
+  - we avoid using Kubernetes shortcodes for callouts (such as `{{</* caution */>}}`)
+  - statements about the future are OK, albeit we use them with care in official announcements on
+    behalf of Kubernetes
+  - code samples don't need to use the `{{</* code_sample */>}}` shortcode, and often it is better if they do not
+  - we are OK to have authors write an article in their own writing style, so long as most readers
+    would follow the point being made
+- The [diagram guide](/docs/contribute/style/diagram-guide/) is aimed at Kubernetes documentation,
+  not blog articles. It is still good to align with it but:
+  - we prefer SVG over raster diagram formats, and also over Mermaid (you can still capture the Mermaid source in a comment)
+  - there is no need to caption diagrams as Figure 1, Figure 2 etc
+
 ### Other
 
 - Watch out for [trivial edits](https://www.kubernetes.dev/docs/guide/pull-requests/#trivial-edits);
@@ -181,5 +223,4 @@ This lets the author know that this part of your feedback is non-critical.
 If you are considering a pull request for approval and all the remaining feedback is
 marked as a nit, you can merge the PR anyway. In that case, it's often useful to open
 an issue about the remaining nits. Consider whether you're able to meet the requirements
-for marking that new issue as a [Good First Issue](https://www.kubernetes.dev/docs/guide/help-wanted/#good-first-issue);
-if you can, these are a good source.
+for marking that new issue as a [Good First Issue](https://www.kubernetes.dev/docs/guide/help-wanted/#good-first-issue); if you can, these are a good source.

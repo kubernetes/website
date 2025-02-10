@@ -67,7 +67,7 @@ automation uses information from `OWNERS` files.
 The Kubernetes project uses an automation tool called prow for automation
 related to GitHub issues and pull requests. The
 [Kubernetes website repository](https://github.com/kubernetes/website) uses
-two [prow plugins](https://github.com/kubernetes/test-infra/tree/master/prow/plugins):
+two [prow plugins](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins):
 
 - blunderbuss
 - approve
@@ -93,7 +93,7 @@ and editorial review of their PR.
 
 ## How merging works
 
-When a pull request is merged to the branch used to publish content, that content is published to http://kubernetes.io. To ensure that
+When a pull request is merged to the branch used to publish content, that content is published to https://kubernetes.io. To ensure that
 the quality of our published content is high, we limit merging pull requests to
 SIG Docs approvers. Here's how it works.
 

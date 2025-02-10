@@ -3,6 +3,8 @@ title: " Introducing Kubernetes Service Partners program and a redesigned Partne
 date: 2016-10-31
 slug: kubernetes-service-technology-partners-program
 url: /blog/2016/10/Kubernetes-Service-Technology-Partners-Program
+author: >
+  Allan Naim (Google)
 ---
 Kubernetes has become a leading container orchestration system by being a powerful and flexible way to run distributed systems at scale. Through our very active open source community, equating to hundreds of person years of work, Kubernetes achieved four major releases in just one year to become a critical part of thousands of companies infrastructures. However, even with all that momentum, adopting cloud native computing is a significant transition for many organizations. It can be challenging to adopt a new methodology, and many teams are looking for advice and support through that journey.  
 
@@ -13,7 +15,6 @@ The Service Partners provide hands-on best practice guidance for running your ap
 The list of partners will grow weekly, and we look forward to collaborating with the community to build a vibrant Kubernetes ecosystem.  
 
 
-_--Allan Naim, Product Manager, Google, on behalf of the Kubernetes team._  
 
 
 

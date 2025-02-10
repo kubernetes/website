@@ -65,8 +65,8 @@ the Discovery API. This includes the following for each resource:
 - Alternative names
 - Group, version, kind
 
-The API is available both aggregated and unaggregated form. The aggregated
-discovery serves two endpoints while the unaggregated discovery serves a
+The API is available in both aggregated and unaggregated form. The aggregated
+discovery serves two endpoints, while the unaggregated discovery serves a
 separate endpoint for each group version.
 
 ### Aggregated discovery
@@ -192,6 +192,12 @@ request headers as follows:
   </tbody>
 </table>
 
+{{< warning >}}
+The validation rules published as part of OpenAPI schemas may not be complete, and usually aren't.
+Additional validation occurs within the API server. If you want precise and complete verification,
+a `kubectl apply --dry-run=server` runs all the applicable validation (and also activates admission-time
+checks).
+{{< /warning >}}
 
 ### OpenAPI V3
 

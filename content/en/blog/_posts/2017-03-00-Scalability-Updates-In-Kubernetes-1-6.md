@@ -3,6 +3,8 @@ title: " Scalability updates in Kubernetes 1.6: 5,000 node and 150,000 pod clust
 date: 2017-03-30
 slug: scalability-updates-in-kubernetes-1.6
 url: /blog/2017/03/Scalability-Updates-In-Kubernetes-1-6
+author: >
+   Wojciech Tyczynski (Google)  
 ---
 _Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1-6) on what's new in Kubernetes 1.6_
 
@@ -79,10 +81,6 @@ If you are interested in scalability and performance, please join our community 
 - Chat with us in the Kubernetes Slack [scalability channel](https://kubernetes.slack.com/messages/sig-scale/):&nbsp;
 - Join our Special Interest Group, [SIG-Scalability](https://github.com/kubernetes/community/blob/master/sig-scalability/README.md), which meets every Thursday at 9:00 AM PST
 Thanks for the support and contributions! Read more in-depth posts on what's new in Kubernetes 1.6 [here](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1-6).
-
-_-- Wojciech Tyczynski, Software Engineer, Google_  
-
-
 
 
 [1] We are investigating why 5000-node clusters have better startup time than 2000-node clusters. The current theory is that it is related to running 5000-node experiments using 64-core master and 2000-node experiments using 32-core master.  

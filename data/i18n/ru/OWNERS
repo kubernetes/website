@@ -10,4 +10,5 @@ approvers:
 - sig-docs-ru-owners
 
 labels:
+- area/localization
 - language/ru

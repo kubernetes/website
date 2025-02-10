@@ -90,7 +90,7 @@ kubectl expose deployment/my-nginx
 service/my-nginx exposed
 ```
 
-This is equivalent to `kubectl apply -f` the following yaml:
+This is equivalent to `kubectl apply -f` in the following yaml:
 
 {{% code_sample file="service/networking/nginx-svc.yaml" %}}
 

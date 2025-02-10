@@ -532,9 +532,11 @@ page for more on how to report vulnerabilities.
 ## What's next
 
 - [Security Checklist](/docs/concepts/security/security-checklist/) for additional information on Kubernetes security guidance.
+- [Seccomp Node Reference](/docs/reference/node/seccomp/)
 -->
 ## {{% heading "whatsnext" %}}
 
 - 阅读[安全检查清单](/zh-cn/docs/concepts/security/security-checklist/)了解有关
   Kubernetes 安全指南的更多信息。
+- [Seccomp Node 参考文档](/zh-cn/docs/reference/node/seccomp/)
 

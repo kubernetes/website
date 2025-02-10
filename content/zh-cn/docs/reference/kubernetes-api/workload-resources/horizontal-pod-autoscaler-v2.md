@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "HorizontalPodAutoscaler 是水平 Pod 自动扩缩器的配置，它根据指定的指标自动管理实现 scale 子资源的任何资源的副本数。"
 title: "HorizontalPodAutoscaler"
-weight: 12
+weight: 13
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified."
 title: "HorizontalPodAutoscaler"
-weight: 12
+weight: 13
 auto_generated: true
 -->
 

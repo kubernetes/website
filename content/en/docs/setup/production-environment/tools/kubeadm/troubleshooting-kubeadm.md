@@ -274,7 +274,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
   When using DigitalOcean, it can be the public one (assigned to `eth0`) or
   the private one (assigned to `eth1`) should you want to use the optional
   private network. The `kubeletExtraArgs` section of the kubeadm
-  [`NodeRegistrationOptions` structure](/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions)
+  [`NodeRegistrationOptions` structure](/docs/reference/config-api/kubeadm-config.v1beta4/#kubeadm-k8s-io-v1beta4-NodeRegistrationOptions)
   can be used for this.
 
   Then restart `kubelet`:
@@ -352,7 +352,7 @@ Alternatively, you can try separating the `key=value` pairs like so:
 `--apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`
 but this will result in the key `enable-admission-plugins` only having the value of `NamespaceExists`.
 
-A known workaround is to use the kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/).
+A known workaround is to use the kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/).
 
 ## kube-proxy scheduled before node is initialized by cloud-controller-manager
 
@@ -408,33 +408,36 @@ FlexVolume was deprecated in the Kubernetes v1.23 release.
 {{< /note >}}
 
 To workaround this issue, you can configure the flex-volume directory using the kubeadm
-[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/).
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/).
 
 On the primary control-plane Node (created using `kubeadm init`), pass the following
 file using `--config`:
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: InitConfiguration
 nodeRegistration:
   kubeletExtraArgs:
-    volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
+  - name: "volume-plugin-dir"
+    value: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
 ---
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 controllerManager:
   extraArgs:
-    flex-volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
+  - name: "flex-volume-plugin-dir"
+    value: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
 ```
 
 On joining Nodes:
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: JoinConfiguration
 nodeRegistration:
   kubeletExtraArgs:
-    volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
+  - name: "volume-plugin-dir"
+    value: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
 ```
 
 Alternatively, you can modify `/etc/fstab` to make the `/usr` mount writeable, but please

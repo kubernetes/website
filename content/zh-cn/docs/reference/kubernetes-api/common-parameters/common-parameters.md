@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: ""
 title: "常用参数"
-weight: 11
+weight: 10
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: ""
 title: "Common Parameters"
-weight: 11
+weight: 10
 auto_generated: true
 -->
 
@@ -70,10 +70,10 @@ When present, indicates that modifications should not be persisted. An invalid o
 ## fieldManager {#fieldManager}
 
 <!--
-fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://pkg.go.dev/unicode#IsPrint
+fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.
 -->
 fieldManager 是与进行这些更改的参与者或实体相关联的名称。
-长度小于或128个字符且仅包含可打印字符，如 https://pkg.go.dev/unicode#IsPrint 所定义。
+长度小于或128个字符且仅包含可打印字符，如 https://golang.org/pkg/unicode/#IsPrint 所定义。
 
 <hr>
 
@@ -170,9 +170,10 @@ object name and auth scope, such as for teams and projects
 ## pretty {#pretty}
 
 <!--
-If 'true', then the output is pretty printed.
+If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).
 -->
 如果设置为 'true'，那么输出是规范的打印。
+默认情况下为 false，除非用户代理声明是浏览器或命令行 HTTP 工具（如 curl 和 wget）。
 
 <hr>
 

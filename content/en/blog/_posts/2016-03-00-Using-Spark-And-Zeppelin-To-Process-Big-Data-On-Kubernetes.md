@@ -3,8 +3,10 @@ title: " Using Spark and Zeppelin to process big data on Kubernetes 1.2 "
 date: 2016-03-30
 slug: using-spark-and-zeppelin-to-process-big-data-on-kubernetes
 url: /blog/2016/03/Using-Spark-And-Zeppelin-To-Process-Big-Data-On-Kubernetes
+author: >
+  Zach Loafman (Google)
 ---
-_Editor's note: this is the fifth post in a [series of in-depth posts](https://kubernetes.io/blog/2016/03/five-days-of-kubernetes-12) on what's new in Kubernetes 1.2&nbsp;_  
+_**Editor's note:** this is the fifth post in a [series of in-depth posts](/blog/2016/03/five-days-of-kubernetes-12) on what's new in Kubernetes 1.2_  
 
 With big data usage growing exponentially, many Kubernetes customers have expressed interest in running [Apache Spark](http://spark.apache.org/) on their Kubernetes clusters to take advantage of the portability and flexibility of containers. Fortunately, with Kubernetes 1.2, you can now have a platform that runs Spark and Zeppelin, and your other applications side-by-side.  
 
@@ -133,6 +135,4 @@ Please join our community and help us build the future of Kubernetes! There are 
 - Our [Big Data slack channel](https://kubernetes.slack.com/messages/sig-big-data/)
 - Our [Kubernetes Big Data Special Interest Group email list](https://groups.google.com/forum/#!forum/kubernetes-sig-big-data)
 - The Big Data “Special Interest Group,” which meets every Monday at 1pm (13h00) Pacific Time at [SIG-Big-Data hangout&nbsp;](https://plus.google.com/hangouts/_/google.com/big-data)
-And of course for more information about the project in general, go to [www.kubernetes.io](http://www.kubernetes.io/).  
-
-&nbsp;-- _Zach Loafman, Software Engineer, Google_
+And of course for more information about the project in general, go to [www.kubernetes.io](http://www.kubernetes.io/).

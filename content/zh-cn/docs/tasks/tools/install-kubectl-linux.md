@@ -47,7 +47,7 @@ The following methods exist for installing kubectl on Linux:
 <!--
 ### Install kubectl binary with curl on Linux
 -->
-### 用 curl 在 Linux 系统中安装 kubectl {#install-kubectl-binary-with-curl-on-linux}
+### 用 curl 在 Linux 系统中安装 kubectl  {#install-kubectl-binary-with-curl-on-linux}
 
 <!--
 1. Download the latest release with the command:
@@ -145,7 +145,7 @@ The following methods exist for installing kubectl on Linux:
 <!--
 1. Install kubectl
 -->
-3. 安装 kubectl
+3. 安装 kubectl：
 
    ```bash
    sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
@@ -158,6 +158,9 @@ The following methods exist for installing kubectl on Linux:
    -->
    即使你没有目标系统的 root 权限，仍然可以将 kubectl 安装到目录 `~/.local/bin` 中：
 
+   <!--
+   # and then append (or prepend) ~/.local/bin to $PATH
+   -->
    ```bash
    chmod +x kubectl
    mkdir -p ~/.local/bin
@@ -202,13 +205,13 @@ Or use this for detailed view of version:
    ```shell
    sudo apt-get update
    # apt-transport-https may be a dummy package; if so, you can skip that package
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
    ```
    -->
    ```shell
    sudo apt-get update
    # apt-transport-https 可以是一个虚拟包；如果是这样，你可以跳过这个包
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
    ```
 
 <!--
@@ -259,7 +262,7 @@ In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` do
 {{< note >}}
 <!--
 To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/apt/sources.list.d/kubernetes.list` before running `apt-get update` and `apt-get upgrade`. This procedure is described in more detail in [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
- -->
+-->
 要将 kubectl 升级到别的次要版本，你需要先升级 `/etc/apt/sources.list.d/kubernetes.list` 中的版本，
 再运行 `apt-get update` 和 `apt-get upgrade` 命令。
 更详细的步骤可以在[更改 Kubernetes 软件包存储库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)中找到。
@@ -268,7 +271,6 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
 <!--
 4. Update `apt` package index, then install kubectl:
 -->
-
 4. 更新 `apt` 包索引，然后安装 kubectl：
 
    ```shell
@@ -377,14 +379,51 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
 此过程在[更改 Kubernetes 软件包仓库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)中有更详细的描述。
 {{< /note >}}
 
-  <!--
-	2. Install kubectl using `zypper`:
-  -->
-  2. 使用 `zypper` 安装 kubectl：
+<!--
+2. Update `zypper` and confirm the new repo addition:
+-->
+2. 更新 zypper 并确认新的仓库已添加：
 
-     ```bash
-     sudo zypper install -y kubectl
-     ```
+   ```bash
+   sudo zypper update
+   ```
+
+   <!--
+   When this message appears, press 't' or 'a':
+   -->
+   出现此信息时，按 't' 或 'a''：
+
+   ```
+   New repository or package signing key received:
+
+   Repository:       Kubernetes
+   Key Fingerprint:  1111 2222 3333 4444 5555 6666 7777 8888 9999 AAAA
+   Key Name:         isv:kubernetes OBS Project <isv:kubernetes@build.opensuse.org>
+   Key Algorithm:    RSA 2048
+   Key Created:      Thu 25 Aug 2022 01:21:11 PM -03
+   Key Expires:      Sat 02 Nov 2024 01:21:11 PM -03 (expires in 85 days)
+   Rpm Name:         gpg-pubkey-9a296436-6307a177
+
+   Note: Signing data enables the recipient to verify that no modifications occurred after the data
+   were signed. Accepting data with no, wrong or unknown signature can lead to a corrupted system
+   and in extreme cases even to a system compromise.
+
+   Note: A GPG pubkey is clearly identified by its fingerprint. Do not rely on the key's name. If
+   you are not sure whether the presented key is authentic, ask the repository provider or check
+   their web site. Many providers maintain a web page showing the fingerprints of the GPG keys they
+   are using.
+
+   Do you want to reject the key, trust temporarily, or trust always? [r/t/a/?] (r): a
+   ```
+
+<!--
+3. Install kubectl using `zypper`:
+-->
+3. 使用 `zypper` 安装 kubectl：
+
+   ```bash
+   sudo zypper install -y kubectl
+   ```
 
 {{% /tab %}}
 

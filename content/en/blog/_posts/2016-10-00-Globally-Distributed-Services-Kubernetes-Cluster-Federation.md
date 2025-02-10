@@ -3,8 +3,10 @@ title: " Building Globally Distributed Services using Kubernetes Cluster Federat
 date: 2016-10-14
 slug: globally-distributed-services-kubernetes-cluster-federation
 url: /blog/2016/10/Globally-Distributed-Services-Kubernetes-Cluster-Federation
+author: >
+  Allan Naim (Google),
+  Quinton Hoole (Google)
 ---
-_Editor's note: Today’s post is by Allan Naim, Product Manager, and Quinton Hoole, Staff Engineer at Google, showing how to deploy a multi-homed service behind a global load balancer and have requests sent to the closest cluster._  
 
 In Kubernetes 1.3, we announced Kubernetes Cluster Federation and introduced the concept of Cross Cluster Service Discovery, enabling developers to deploy a service that was sharded across a federation of clusters spanning different zones, regions or cloud providers. This enables developers to achieve higher availability for their applications, without sacrificing quality of service, as detailed in our [previous](https://kubernetes.io/blog/2016/07/cross-cluster-services) blog post.   
 

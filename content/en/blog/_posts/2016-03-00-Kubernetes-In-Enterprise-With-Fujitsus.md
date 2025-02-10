@@ -3,8 +3,9 @@ title: " Kubernetes in the Enterprise with Fujitsu’s Cloud Load Control "
 date: 2016-03-11
 slug: kubernetes-in-enterprise-with-fujitsus
 url: /blog/2016/03/Kubernetes-In-Enterprise-With-Fujitsus
+author: >
+  Florian Walker (FUJITSU)
 ---
-Today’s guest post is by Florian Walker, Product Manager at Fujitsu and working on Cloud Load Control, an offering focused on the usage of Kubernetes in an enterprise context. Florian tells us what potential Fujitsu sees in Kubernetes, and how they make it accessible to enterprises.
 
 Earlier this year, Fujitsu released its Kubernetes-based offering Fujitsu ServerView[Cloud Load Control](http://www.fujitsu.com/software/clc/) (CLC) to the public. Some might be surprised since Fujitsu’s reputation is not necessarily related to software development, but rather to hardware manufacturing and IT services. As a long-time member of the Linux foundation and founding member of the ​Open Container Initiative and the Cloud Native Computing Foundation, Fujitsu does not only build software, but is committed to open source software, and contributes to several projects, including Kubernetes. But we not only believe in Kubernetes as an open source project, we also chose it as the core of our offering, because it provides the best balance of feature set, resource requirements and complexity to run distributed applications at scale.
 
@@ -68,7 +69,3 @@ Acknowledging that container technology and Kubernetes is new territory for a lo
 2014 seems to be light years away, we believe the decision for Kubernetes was the right one. It is built from the ground-up to enable the creation of container-based, distributed applications, and best supports this use case.
 
 With Cloud Load Control, we’re excited to enable enterprises to run Kubernetes in production environments and to help their operators to efficiently use it, so DevOps teams can build awesome applications on top of it.
-
-
-
-_-- Florian Walker, Product Manager, FUJITSU_

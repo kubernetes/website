@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Node 是 Kubernetes 中的工作节点。"
 title: "Node"
-weight: 1
+weight: 8
 ---
 <!-- 
 api_metadata:
@@ -16,7 +16,8 @@ api_metadata:
 content_type: "api_reference"
 description: "Node is a worker node in Kubernetes."
 title: "Node"
-weight: 1
+weight: 8
+auto_generated: true
 -->
 
 `apiVersion: v1`
@@ -173,9 +174,13 @@ NodeSpec 描述了创建节点时使用的属性。
 
 - **podCIDRs** ([]string)
 
-  <!-- 
+  <!--
+  *Set: unique values will be kept during a merge*
+
   podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6. 
   -->
+  **集合：唯一值将在合并期间被保留**
+
   podCIDRs 表示分配给节点以供该节点上的 Pod 使用的 IP 范围。
   如果指定了该字段，则第 0 个条目必须与 podCIDR 字段匹配。
   对于 IPv4 和 IPv6，它最多可以包含 1 个值。
@@ -189,9 +194,13 @@ NodeSpec 描述了创建节点时使用的属性。
 
 - **taints** ([]Taint)
 
-  <!-- 
+  <!--
+  *Atomic: will be replaced during a merge*
+
   If specified, the node's taints. 
   -->
+  **原子：将在合并期间被替换**
+
   如果设置了，则为节点的污点。
 
   <a name="Taint"></a>
@@ -268,9 +277,13 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   *Patch strategy: merge on key `type`*
   
+  *Map: unique values on key type will be kept during a merge*
+
   List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
   -->
   **补丁策略：根据 `type` 键执行合并操作**
+
+  **Map：键 `type` 的唯一值将在合并期间保留**
 
   节点可到达的地址列表。从云提供商处查询（如果有）。
   更多信息： https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/#addresses
@@ -319,19 +332,23 @@ NodeStatus 是有关节点当前状态的信息。
 - **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
   <!--
-  Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity 
+  Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
   -->
-  capacity 代表一个节点的总资源。
-  更多信息： https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/#capacity
+  capacity 代表一个节点的总资源。更多信息：
+  https://kubernetes.io/zh-cn/docs/reference/node/node-status/#capacity
 
 - **conditions** ([]NodeCondition)
 
   <!-- 
   *Patch strategy: merge on key `type`*
+
+  *Map: unique values on key type will be kept during a merge*
   
   Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition 
   -->
   **补丁策略：根据 `type` 键执行合并操作**
+
+  **Map：键 `type` 的唯一值将在合并期间保留**
 
   conditions 是当前观测到的节点状况的数组。
   更多信息： https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/#condition
@@ -604,7 +621,7 @@ NodeStatus 是有关节点当前状态的信息。
     后期发生的错误（例如加载或验证检查点配置）将导致回滚到 LastKnownGood。
     在后一种情况下，通常可以通过修复 spec.sonfigSource 中 assigned 配置来解决错误。
     你可以通过在 Kubelet 日志中搜索错误消息来找到更多的调试信息。
-    error 是错误状态的人类可读描述；机器可以检查 error 是否为空，但不应依赖跨 Kubelet 版本的 error 文本的稳定性。
+    error 是错误状态的人类可读描述；机器可以检查 error 是否为空，但不应依赖跨 kubelet 版本的 error 文本的稳定性。
 
   - **config.lastKnownGood** (NodeConfigSource)
     
@@ -731,11 +748,40 @@ NodeStatus 是有关节点当前状态的信息。
 
       给定端点的端口号。
 
+<!--
+- **features** (NodeFeatures)
+
+  Features describes the set of features implemented by the CRI implementation.
+
+  <a name="NodeFeatures"></a>
+  *NodeFeatures describes the set of features implemented by the CRI implementation. The features contained in the NodeFeatures should depend only on the cri implementation independent of runtime handlers.*
+-->
+- **features** (NodeFeatures)
+
+  features 描述由 CRI 实现所实现的一组特性。
+
+  <a name="NodeFeatures"></a>
+  **NodeFeatures 描述由 CRI 实现所实现的一组特性。
+  NodeFeatures 中包含的特性应仅依赖于 CRI 实现，而与运行时处理程序无关。**
+
+  - **features.supplementalGroupsPolicy** (boolean)
+
+    <!--
+    SupplementalGroupsPolicy is set to true if the runtime supports SupplementalGroupsPolicy and ContainerUser.
+    -->
+
+    如果运行时支持 SupplementalGroupsPolicy 和 ContainerUser，则将 supplementalGroupsPolicy 设置为 true。
+
 - **images** ([]ContainerImage)
 
   <!--
+  *Atomic: will be replaced during a merge*
+
   List of container images on this node 
   -->
+
+  **原子：将在合并期间被替换**
+
   该节点上的容器镜像列表。
 
   <a name="ContainerImage"></a>
@@ -747,8 +793,12 @@ NodeStatus 是有关节点当前状态的信息。
   - **images.names** ([]string)
 
     <!--
+    *Atomic: will be replaced during a merge*
+
     Names by which this image is known. e.g. ["kubernetes.example/hyperkube:v1.0.7", "cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7"]
     -->
+
+    **原子：将在合并期间被替换**
 
     已知此镜像的名称。
     例如 ["kubernetes.example/hyperkube:v1.0.7", "cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7"]
@@ -818,12 +868,12 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   - **nodeInfo.kubeProxyVersion** (string), required
 
-    KubeProxy Version reported by the node. 
+    Deprecated: KubeProxy Version reported by the node.
   -->
 
   - **nodeInfo.kubeProxyVersion** (string), 必需
 
-    节点报告的 KubeProxy 版本。
+    已弃用：节点报告的 KubeProxy 版本。
 
   <!--
   - **nodeInfo.kubeletVersion** (string), required
@@ -833,7 +883,7 @@ NodeStatus 是有关节点当前状态的信息。
 
   - **nodeInfo.kubeletVersion** (string), 必需
 
-    节点报告的 Kubelet 版本。
+    节点报告的 kubelet 版本。
 
   <!--
   - **nodeInfo.machineID** (string), required
@@ -889,11 +939,78 @@ NodeStatus 是有关节点当前状态的信息。
   
   该字段从未填充，现在已被弃用。
 
+<!--
+- **runtimeHandlers** ([]NodeRuntimeHandler)
+
+  *Atomic: will be replaced during a merge*
+  
+  The available runtime handlers.
+
+  <a name="NodeRuntimeHandler"></a>
+  *NodeRuntimeHandler is a set of runtime handler information.*
+-->
+- **runtimeHandlers** ([]NodeRuntimeHandler)
+
+  **原子：将在合并期间被替换**
+
+  可用的运行时处理程序。
+
+  <a name="NodeRuntimeHandler"></a>
+  **NodeRuntimeHandler 是一组运行时处理程序信息。**
+
+  <!--
+  - **runtimeHandlers.features** (NodeRuntimeHandlerFeatures)
+
+    Supported features.
+
+    <a name="NodeRuntimeHandlerFeatures"></a>
+    *NodeRuntimeHandlerFeatures is a set of features implemented by the runtime handler.*
+  -->
+
+  - **runtimeHandlers.features** (NodeRuntimeHandlerFeatures)
+
+    支持的特性。
+
+    <a name="NodeRuntimeHandlerFeatures"></a>
+    **NodeRuntimeHandlerFeatures 是由运行时处理程序所实现的一组特性。**
+
+    <!--
+    - **runtimeHandlers.features.recursiveReadOnlyMounts** (boolean)
+
+      RecursiveReadOnlyMounts is set to true if the runtime handler supports RecursiveReadOnlyMounts.
+
+    - **runtimeHandlers.features.userNamespaces** (boolean)
+
+      UserNamespaces is set to true if the runtime handler supports UserNamespaces, including for volumes.
+    -->
+  
+    - **runtimeHandlers.features.recursiveReadOnlyMounts** (boolean)
+
+      如果运行时处理程序支持 RecursiveReadOnlyMounts，则将 recursiveReadOnlyMounts 设置为 true。
+
+    - **runtimeHandlers.features.userNamespaces** (boolean)
+
+      如果运行时处理程序支持包括数据卷所用的 UserNamespaces，则将 userNamespaces 设置为 true。
+
+  <!--
+  - **runtimeHandlers.name** (string)
+
+    Runtime handler name. Empty for the default runtime handler.
+  -->
+
+  - **runtimeHandlers.name** (string)
+
+    运行时处理程序名称。默认运行时处理程序为空。
+
 - **volumesAttached** ([]AttachedVolume)
 
   <!--
+  *Atomic: will be replaced during a merge*
+
   List of volumes that are attached to the node. 
   -->
+  **原子：将在合并期间被替换**
+
   附加到节点的卷的列表。
 
   <a name="AttachedVolume"></a>

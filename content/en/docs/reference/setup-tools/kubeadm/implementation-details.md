@@ -35,7 +35,7 @@ The cluster that `kubeadm init` and `kubeadm join` set up should be:
 - **User-friendly**: The user should not have to run anything more than a couple of commands:
   - `kubeadm init`
   - `export KUBECONFIG=/etc/kubernetes/admin.conf`
-  - `kubectl apply -f <network-of-choice.yaml>`
+  - `kubectl apply -f <network-plugin-of-choice.yaml>`
   - `kubeadm join --token <token> <endpoint>:<port>`
 - **Extendable**:
   - It should _not_ favor any particular network provider. Configuring the cluster network is out-of-scope
@@ -76,6 +76,23 @@ in a majority of cases, and the most intuitive location; other constant paths an
   - `front-proxy-ca.crt`, `front-proxy-ca.key` for the front proxy certificate authority
   - `front-proxy-client.crt`, `front-proxy-client.key` for the front proxy client
 
+## The kubeadm configuration file format
+
+Most kubeadm commands support a `--config` flag which allows passing a configuration file from
+disk. The configuration file format follows the common Kubernetes API `apiVersion` / `kind` scheme,
+but is considered a component configuration format. Several Kubernetes components, such as the kubelet,
+also support file-based configuration.
+
+Different kubeadm subcommands require a different `kind` of configuration file.
+For example, `InitConfiguration` for `kubeadm init`, `JoinConfiguration` for `kubeadm join`, `UpgradeConfiguration` for `kubeadm upgrade` and `ResetConfiguration`
+for `kubeadm reset`.
+
+The command `kubeadm config migrate` can be used to migrate an older format configuration
+file to a newer (current) configuration format. The kubeadm tool only supports migrating from
+deprecated configuration formats to the current format.
+
+See the [kubeadm configuration reference](/docs/reference/config-api/kubeadm-config.v1beta4/) page for more details.
+
 ## kubeadm init workflow internal design
 
 The `kubeadm init` consists of a sequence of atomic work tasks to perform,
@@ -109,8 +126,8 @@ The user can skip specific preflight checks or all of them with the `--ignore-pr
 - [Error] if API server bindPort or ports 10250/10251/10252 are used
 - [Error] if `/etc/kubernetes/manifest` folder already exists and it is not empty
 - [Error] if swap is on
-- [Error] if `conntrack`, `ip`, `iptables`, `mount`, `nsenter` commands are not present in the command path
-- [Warning] if `ebtables`, `ethtool`, `socat`, `tc`, `touch`, `crictl` commands are not present in the command path
+- [Error] if `ip`, `iptables`, `mount`, `nsenter` commands are not present in the command path
+- [Warning] if `ethtool`, `tc`, `touch` commands are not present in the command path
 - [Warning] if extra arg flags for API server, controller manager, scheduler contains some invalid options
 - [Warning] if connection to https://API.AdvertiseAddress:API.BindPort goes through proxy
 - [Warning] if connection to services subnet goes through proxy (only first address checked)
@@ -188,7 +205,7 @@ Please note that:
 Kubeadm generates kubeconfig files with identities for control plane components:
 
 - A kubeconfig file for the kubelet to use during TLS bootstrap -
-  /etc/kubernetes/bootstrap-kubelet.conf. Inside this file, there is a bootstrap-token or embedded
+  `/etc/kubernetes/bootstrap-kubelet.conf`. Inside this file, there is a bootstrap-token or embedded
   client certificates for authenticating this node with the cluster.
 
   This client certificate should:
@@ -223,7 +240,15 @@ The `super-admin.conf` file must be stored in a safe location and should not be 
 See [RBAC user facing role bindings](/docs/reference/access-authn-authz/rbac/#user-facing-roles)
 for additional information on RBAC and built-in ClusterRoles and groups.
 
-Please note that:
+You can run [`kubeadm kubeconfig user`](/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig/#cmd-kubeconfig-user)
+to generate kubeconfig files for additional users.
+
+{{< caution >}}
+The generated configuration files include an embedded authentication key, and you should treat
+them as confidential.
+{{< /caution >}}
+
+Also note that:
 
 1. `ca.crt` certificate is embedded in all the kubeconfig files.
 1. If a given kubeconfig file exists, and its content is evaluated as compliant with the above specs,
@@ -253,7 +278,7 @@ Static Pod manifests share a set of common properties:
 
 - Leader election is enabled for both the controller-manager and the scheduler
 - Controller-manager and the scheduler will reference kubeconfig files with their respective, unique identities
-- All static Pods get any extra flags specified by the user as described in
+- All static Pods get any extra flags or patches that you specify, as described in
   [passing custom arguments to control plane components](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)
 - All static Pods get any extra Volumes specified by the user (Host path)
 
@@ -344,10 +369,6 @@ the users:
   - `--allocate-node-cidrs=true`
   - `--cluster-cidr` and `--node-cidr-mask-size` flags according to the given CIDR
 
-- If a cloud provider is specified, the corresponding `--cloud-provider` is specified together
-  with the `--cloud-config` path if such configuration file exists (this is experimental, alpha
-  and will be removed in a future version)
-
 Other flags that are set unconditionally are:
 
 - `--controllers` enabling all the default controllers plus `BootstrapSigner` and `TokenCleaner`
@@ -365,7 +386,7 @@ Other flags that are set unconditionally are:
 
 #### Scheduler
 
-The static Pod manifest for the scheduler is not affected by parameters provided by the users.
+The static Pod manifest for the scheduler is not affected by parameters provided by the user.
 
 ### Generate static Pod manifest for local etcd
 
@@ -389,12 +410,10 @@ Please note that:
 
 ### Wait for the control plane to come up
 
-kubeadm waits (upto 4m0s) until `localhost:6443/healthz` (kube-apiserver liveness) returns `ok`.
-However, in order to detect deadlock conditions, kubeadm fails fast if `localhost:10255/healthz`
-(kubelet liveness) or `localhost:10255/healthz/syncloop` (kubelet readiness) don't return `ok`
-within 40s and 60s respectively.
+On control plane nodes, kubeadm waits up to 4 minutes for the control plane components
+and the kubelet to be available. It does that by performing a health check on the respective
+component `/healthz` or `/livez` endpoints.
 
-kubeadm relies on the kubelet to pull the control plane images and run them properly as static Pods.
 After the control plane is up, kubeadm completes the tasks described in following paragraphs.
 
 ### Save the kubeadm ClusterConfiguration in a ConfigMap for later reference
@@ -518,9 +537,8 @@ deployed as a DaemonSet:
 
 #### DNS
 
-- The CoreDNS service is named `kube-dns`. This is done to prevent any interruption
-  in service when the user is switching the cluster DNS from kube-dns to CoreDNS
-  through the `--config` method described [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon).
+- The CoreDNS service is named `kube-dns` for compatibility reasons with the legacy `kube-dns`
+addon.
 
 - A ServiceAccount for CoreDNS is created in the `kube-system` namespace.
 
@@ -534,8 +552,8 @@ You can use CoreDNS with kubeadm even when the related Service is named `kube-dn
 Similarly to `kubeadm init`, also `kubeadm join` internal workflow consists of a sequence of
 atomic work tasks to perform.
 
-This is split into discovery (having the Node trust the Kubernetes Master) and TLS bootstrap
-(having the Kubernetes Master trust the Node).
+This is split into discovery (having the Node trust the Kubernetes API Server) and TLS bootstrap
+(having the Kubernetes API Server trust the Node).
 
 see [Authenticating with Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/)
 or the corresponding [design proposal](https://git.k8s.io/design-proposals-archive/cluster-lifecycle/bootstrap-discovery.md).
@@ -545,12 +563,10 @@ or the corresponding [design proposal](https://git.k8s.io/design-proposals-archi
 `kubeadm` executes a set of preflight checks before starting the join, with the aim to verify
 preconditions and avoid common cluster startup problems.
 
-Please note that:
+Also note that:
 
 1. `kubeadm join` preflight checks are basically a subset of `kubeadm init` preflight checks
-1. Starting from 1.24, kubeadm uses crictl to communicate to all known CRI endpoints.
-1. Starting from 1.9, kubeadm provides support for joining nodes running on Windows; in that case,
-   linux specific controls are skipped.
+1. If you are joining a Windows node, Linux specific controls are skipped.
 1. In any case the user can skip specific preflight checks (or eventually all preflight checks)
    with the `--ignore-preflight-errors` option.
 
@@ -582,9 +598,8 @@ In order to prevent "man in the middle" attacks, several steps are taken:
     compared with the CA retrieved initially
 
 {{< note >}}
-
-Pub key validation can be skipped passing `--discovery-token-unsafe-skip-ca-verification` flag;
-This weakens the kubeadm security model since others can potentially impersonate the Kubernetes Master.
+You can skip CA validation by passing the `--discovery-token-unsafe-skip-ca-verification` flag on the command line.
+This weakens the kubeadm security model since others can potentially impersonate the Kubernetes API server.
 {{< /note >}}
 
 #### File/https discovery
@@ -620,3 +635,88 @@ is deleted.
 - The automatic CSR approval is managed by the csrapprover controller, according to
   the configuration present in the `kubeadm init` process
 {{< /note >}}
+
+## kubeadm upgrade workflow internal design
+
+`kubeadm upgrade` has sub-commands for handling the upgrade of the Kubernets cluster created by kubeadm.
+You must run `kubeadm upgrade apply` on a control plane node (you can choose which one);
+this starts the upgrade process. You then run `kubeadm upgrade node` on all remaining
+nodes (both worker nodes and control plane nodes).
+
+Both `kubeadm upgrade apply` and `kubeadm upgrade node` have a `phase` subcommand which provides access
+to the internal phases of the upgrade process.
+See [`kubeadm upgrade phase`](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade-phase/) for more details.
+
+Additional utility upgrade commands are `kubeadm upgrade plan` and `kubeadm upgrade diff`.
+
+All upgrade sub-commands support passing a configuration file.
+
+### kubeadm upgrade plan
+
+You can optionally run `kubeadm upgrade plan` before you run `kubeadm upgrade apply`.
+The `plan` subcommand checks which versions are available to upgrade
+to and validates whether your current cluster is upgradeable.
+
+### kubeadm upgrade diff
+
+This shows what differences would be applied to existing static pod manifests for control plane nodes.
+A more verbose way to do the same thing is running `kubeadm upgrade apply --dry-run` or
+`kubeadm upgrade node --dry-run`.
+
+### kubeadm upgrade apply
+
+`kubeadm upgrade apply` prepares the cluster for the upgrade of all nodes, and also
+upgrades the control plane node where it's run. The steps it performs are:
+
+- Runs preflight checks similarly to `kubeadm init` and `kubeadm join`, ensuring container images are downloaded
+  and the cluster is in a good state to be upgraded.
+- Upgrades the control plane manifest files on disk in `/etc/kubernetes/manifests` and waits
+  for the kubelet to restart the components if the files have changed.
+- Uploads the updated kubeadm and kubelet configurations to the cluster in the `kubeadm-config`
+  and the `kubelet-config` ConfigMaps (both in the `kube-system` namespace).
+- Writes updated kubelet configuration for this node in `/var/lib/kubelet/config.yaml`.
+- Configures bootstrap token and the `cluster-info` ConfigMap for RBAC rules. This is the same as
+  in the `kubeadm init` stage and ensures that the cluster continues to support nodes joining with bootstrap tokens.
+- Upgrades the kube-proxy and CoreDNS addons conditionally if all existing kube-apiservers in the cluster
+  have already been upgraded to the target version.
+- Performs any post-upgrade tasks, such as, cleaning up deprecated features which are release specific.
+
+### kubeadm upgrade node
+
+`kubeadm upgrade node` upgrades a single control plane or worker node after the cluster upgrade has
+started (by running `kubeadm upgrade apply`). The command detects if the node is a control plane node by checking
+if the file `/etc/kubernetes/manifests/kube-apiserver.yaml` exists. On finding that file, the kubeadm tool
+infers that there is a running kube-apiserver Pod on this node.
+
+- Runs preflight checks similarly to `kubeadm upgrade apply`.
+- For control plane nodes, upgrades the control plane manifest files on disk in `/etc/kubernetes/manifests`
+  and waits for the kubelet to restart the components if the files have changed.
+- Writes the updated kubelet configuration for this node in `/var/lib/kubelet/config.yaml`.
+- (For control plane nodes) upgrades the kube-proxy and CoreDNS
+  {{< glossary_tooltip text="addons" term_id="addons" >}} conditionally, provided that all existing
+  API servers in the cluster have already been upgraded to the target version.
+- Performs any post-upgrade tasks, such as cleaning up deprecated features which are release specific.
+
+## kubeadm reset workflow internal design
+
+You can use the `kubeadm reset` subcommand on a node where kubeadm commands previously executed.
+This subcommand performs a **best-effort** cleanup of the node.
+If certain actions fail you must intervene and perform manual cleanup.
+
+The command supports phases.
+See [`kubeadm reset phase`](/docs/reference/setup-tools/kubeadm/kubeadm-reset-phase/) for more details.
+
+The command supports a configuration file.
+
+Additionally:
+- IPVS, iptables and nftables rules are **not** cleaned up.
+- CNI (network plugin) configuration is **not** cleaned up.
+- `.kube/` in the user's home directory is **not** cleaned up.
+
+The command has the following stages:
+- Runs preflight checks on the node to determine if its healthy.
+- For control plane nodes, removes any local etcd member data.
+- Stops the kubelet.
+- Stops running containers.
+- Unmounts any mounted directories in `/var/lib/kubelet`.
+- Deletes any files and directories managed by kubeadm in `/var/lib/kubelet` and `/etc/kubernetes`.

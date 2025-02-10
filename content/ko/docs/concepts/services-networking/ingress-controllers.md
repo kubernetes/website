@@ -37,7 +37,7 @@ weight: 50
   Citrix 애플리케이션 딜리버리 컨트롤러에서 작동한다.
 * [Contour](https://projectcontour.io/)는 [Envoy](https://www.envoyproxy.io/) 기반 인그레스 컨트롤러다.
 * [EnRoute](https://getenroute.io/)는 인그레스 컨트롤러로 실행할 수 있는 [Envoy](https://www.envoyproxy.io) 기반 API 게이트웨이다.
-* [Easegress IngressController](https://github.com/megaease/easegress/blob/main/doc/reference/ingresscontroller.md)는 인그레스 컨트롤러로서 실행할 수 있는 [Easegress](https://megaease.com/easegress/) 기반 API 게이트웨이다.
+* [Easegress IngressController](https://megaease.com/docs/easegress/04.cloud-native/4.1.kubernetes-ingress-controller/)는 인그레스 컨트롤러로서 실행할 수 있는 [Easegress](https://megaease.com/easegress/) 기반 API 게이트웨이다.
 * F5 BIG-IP [쿠버네티스 용 컨테이너 인그레스 서비스](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)를
   이용하면 인그레스를 사용하여 F5 BIG-IP 가상 서버를 구성할 수 있다.
 * [Gloo](https://gloo.solo.io)는 API 게이트웨이 기능을 제공하는 [Envoy](https://www.envoyproxy.io) 기반의
@@ -58,7 +58,7 @@ weight: 50
 * [Traefik 쿠버네티스 인그레스 제공자](https://doc.traefik.io/traefik/providers/kubernetes-ingress/)는
   [Traefik](https://traefik.io/traefik/) 프록시 용 인그레스 컨트롤러다.
 * [Tyk 오퍼레이터](https://github.com/TykTechnologies/tyk-operator)는 사용자 지정 리소스로 인그레스를 확장하여 API 관리 기능을 인그레스로 가져온다. Tyk 오퍼레이터는 오픈 소스 Tyk 게이트웨이 및 Tyk 클라우드 컨트롤 플레인과 함께 작동한다.
-* [Voyager](https://appscode.com/products/voyager)는
+* [Voyager](https://voyagermesh.com)는
   [HAProxy](https://www.haproxy.org/#desc)의 인그레스 컨트롤러다.
 
 ## 여러 인그레스 컨트롤러 사용

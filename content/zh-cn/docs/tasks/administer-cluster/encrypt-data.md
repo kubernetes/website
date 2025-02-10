@@ -368,10 +368,10 @@ to give it precedence.
 
 <!--
 For more detailed information about the `EncryptionConfiguration` struct, please refer to the
-[encryption configuration API](/docs/reference/config-api/apiserver-encryption.v1/).
+[encryption configuration API](/docs/reference/config-api/apiserver-config.v1/)).
 -->
 有关 `EncryptionConfiguration` 结构体的更多详细信息，
-请参阅[加密配置 API](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/)。
+请参阅[加密配置 API](/zh-cn/docs/reference/config-api/apiserver-config.v1/)。
 
 {{< caution >}}
 <!--
@@ -446,6 +446,7 @@ Kubernetes 静态数据加密的提供程序
   <td><!-- Weak -->弱</td>
   <td><!-- Fast -->快</td>
   <td><!-- 32-byte -->32 字节</td>
+  <td><!-- 16, 24, or 32-byte -->16、24 或 32 字节</td>
   </tr>
   <tr>
   <td colspan="4">
@@ -1294,10 +1295,17 @@ API server.
 
 <!--
 To allow automatic reloading, configure the API server to run with:
-`--encryption-provider-config-automatic-reload=true`
+`--encryption-provider-config-automatic-reload=true`.
+When enabled, file changes are polled every minute to observe the modifications.
+The `apiserver_encryption_config_controller_automatic_reload_last_timestamp_seconds`
+metric identifies when the new config becomes effective. This allows
+encryption keys to be rotated without restarting the API server.
 -->
 要允许自动重新加载，
 可使用 `--encryption-provider-config-automatic-reload=true` 运行 API 服务器。
+该功能启用后，每分钟会轮询文件变化以监测修改情况。
+`apiserver_encryption_config_controller_automatic_reload_last_timestamp_seconds` 指标用于标识新配置生效的时间。
+这种设置可以在不重启 API 服务器的情况下轮换加密密钥。
 
 ## {{% heading "whatsnext" %}}
 

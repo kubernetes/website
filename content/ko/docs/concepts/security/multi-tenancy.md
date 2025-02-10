@@ -463,7 +463,6 @@ CoreDNS 문서에 포함된 해당 사항을 설정하는
 #### 다중 팀 테넌시
 
 * [Capsule](https://github.com/clastix/capsule)
-* [Kiosk](https://github.com/loft-sh/kiosk)
 
 #### 다중 고객 테넌시
 

@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "VolumeAttachment 抓取将指定卷挂接到指定节点或从指定节点解除挂接指定卷的意图。"
 title: "VolumeAttachment"
-weight: 7
+weight: 11
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node."
 title: "VolumeAttachment"
-weight: 7
+weight: 11
 -->
 
 `apiVersion: storage.k8s.io/v1`

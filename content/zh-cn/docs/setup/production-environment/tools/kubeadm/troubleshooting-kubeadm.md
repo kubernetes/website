@@ -470,14 +470,14 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
   When using DigitalOcean, it can be the public one (assigned to `eth0`) or
   the private one (assigned to `eth1`) should you want to use the optional
   private network. The `kubeletExtraArgs` section of the kubeadm
-  [`NodeRegistrationOptions` structure](/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions)
+  [`NodeRegistrationOptions` structure](/docs/reference/config-api/kubeadm-config.v1beta4/#kubeadm-k8s-io-v1beta4-NodeRegistrationOptions)
   can be used for this.
 
   Then restart `kubelet`:
   -->
   解决方法是通知 `kubelet` 使用哪个 `--node-ip`。当使用 DigitalOcean 时，可以是（分配给 `eth0` 的）公网 IP，
   或者是（分配给 `eth1` 的）私网 IP。私网 IP 是可选的。
-  [kubadm `NodeRegistrationOptions` 结构](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions)
+  kubadm [`NodeRegistrationOptions` 结构](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/#kubeadm-k8s-io-v1beta4-NodeRegistrationOptions)
   的 `KubeletExtraArgs` 部分被用来处理这种情况。
 
   然后重启 `kubelet`：
@@ -591,7 +591,7 @@ Alternatively, you can try separating the `key=value` pairs like so:
 `--apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`
 but this will result in the key `enable-admission-plugins` only having the value of `NamespaceExists`.
 
-A known workaround is to use the kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/).
+A known workaround is to use the kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/).
 -->
 ## 无法将以逗号分隔的值列表传递给 `--component-extra-args` 标志内的参数
 
@@ -609,7 +609,7 @@ kube-apiserver 这样的控制平面组件。然而，由于解析 (`mapStringSt
 但这将导致键 `enable-admission-plugins` 仅有值 `NamespaceExists`。
 
 已知的解决方法是使用 kubeadm
-[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)。
+[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)。
 
 <!--
 ## kube-proxy scheduled before node is initialized by cloud-controller-manager
@@ -694,29 +694,31 @@ FlexVolume 在 Kubernetes v1.23 版本中已被弃用。
 
 <!--
 To workaround this issue, you can configure the flex-volume directory using the kubeadm
-[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/).
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/).
 
 On the primary control-plane Node (created using `kubeadm init`), pass the following
 file using `--config`:
 -->
-为了解决这个问题，你可以使用 kubeadm 的[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)来配置
+为了解决这个问题，你可以使用 kubeadm 的[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)来配置
 FlexVolume 的目录。
 
 在（使用 `kubeadm init` 创建的）主控制节点上，使用 `--config`
 参数传入如下文件：
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: InitConfiguration
 nodeRegistration:
   kubeletExtraArgs:
-    volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
+  - name: "volume-plugin-dir"
+    value: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
 ---
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 controllerManager:
   extraArgs:
-    flex-volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
+  - name: "flex-volume-plugin-dir"
+    value: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
 ```
 
 <!--
@@ -725,11 +727,12 @@ On joining Nodes:
 在加入到集群中的节点上，使用下面的文件：
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: JoinConfiguration
 nodeRegistration:
   kubeletExtraArgs:
-    volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
+  - name: "volume-plugin-dir"
+    value: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
 ```
 
 <!--

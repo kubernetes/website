@@ -66,11 +66,11 @@ compared against the list of rules in order. The first matching rule sets the
 _audit level_ of the event. The defined audit levels are:
 
 - `None` - don't log events that match this rule.
-- `Metadata` - log request metadata (requesting user, timestamp, resource,
+- `Metadata` - log events with metadata (requesting user, timestamp, resource,
   verb, etc.) but not request or response body.
-- `Request` - log event metadata and request body but not response body.
+- `Request` - log events with request metadata and body but not response body.
   This does not apply for non-resource requests.
-- `RequestResponse` - log event metadata, request and response bodies.
+- `RequestResponse` - log events with request metadata, request body and response body.
   This does not apply for non-resource requests.
 
 You can pass a file with the policy to `kube-apiserver`

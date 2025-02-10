@@ -172,14 +172,14 @@ VMware vSphere | https://www.vmware.com/security/hardening-guides |
 You can define security policies using Kubernetes-native mechanisms,
 such as [NetworkPolicy](/docs/concepts/services-networking/network-policies/)
 (declarative control over network packet filtering) or
-[ValidatingAdmisisonPolicy](/docs/reference/access-authn-authz/validating-admission-policy/) (declarative restrictions on what changes
+[ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/) (declarative restrictions on what changes
 someone can make using the Kubernetes API).
 -->
 ## 策略
 
 你可以使用 Kubernetes 原生机制定义安全策略，例如
 [NetworkPolicy](/zh-cn/docs/concepts/services-networking/network-policies/)（对网络数据包过滤的声明式控制）
-或 [ValidatingAdmisisonPolicy](/zh-cn/docs/reference/access -authn-authz/validating-admission-policy/)
+或 [ValidatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)
 （对某人可以使用 Kubernetes API 进行哪些更改的声明性限制）。
 
 <!--
@@ -217,7 +217,7 @@ Learn about related Kubernetes security topics:
 -->
 了解相关的 Kubernetes 安全主题：
 
-* [保护集群](/zh-cn/docs/tasks/administer-cluster/secure-a-cluster/)
+* [保护集群](/zh-cn/docs/tasks/administer-cluster/securing-a-cluster/)
 * Kubernetes 中的[已知漏洞](/zh-cn/docs/reference/issues-security/official-cve-feed/)（以及更多信息的链接）
 * [传输中的数据加密](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)（针对控制平面）
 * [静态数据加密](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)

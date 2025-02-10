@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Deployment enables declarative updates for Pods and ReplicaSets."
 title: "Deployment"
-weight: 5
+weight: 6
 auto_generated: true
 ---
 
@@ -159,6 +159,8 @@ DeploymentStatus is the most recently observed status of the Deployment.
 - **conditions** ([]DeploymentCondition)
 
   *Patch strategy: merge on key `type`*
+  
+  *Map: unique values on key type will be kept during a merge*
   
   Represents the latest available observations of a deployment's current state.
 

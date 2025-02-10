@@ -2,12 +2,6 @@
 title: Olá, Minikube!
 content_type: tutorial
 weight: 5
-menu:
-  main:
-    title: "Iniciar"
-    weight: 10
-    post: >
-      <p>Pronto para meter a mão na massa? Vamos criar um cluster Kubernetes simples e executar uma aplicação exemplo.</p>
 card:
   name: tutorials
   weight: 10

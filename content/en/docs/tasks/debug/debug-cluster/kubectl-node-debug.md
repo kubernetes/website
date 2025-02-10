@@ -75,7 +75,8 @@ When creating a debugging session on a Node, keep in mind that:
 * Although the container runs in the host IPC, Network, and PID namespaces,
   the pod isn't privileged. This means that reading some process information might fail
   because access to that information is restricted to superusers. For example, `chroot /host` will fail.
-  If you need a privileged pod, create it manually.
+  If you need a privileged pod, create it manually or use the `--profile=sysadmin` flag.
+* By applying [Debugging Profiles](/docs/tasks/debug/debug-application/debug-running-pod/#debugging-profiles), you can set specific properties such as [securityContext](/docs/tasks/configure-pod-container/security-context/) to a debugging Pod.
 
 ## {{% heading "cleanup" %}}
 

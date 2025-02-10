@@ -3,8 +3,10 @@ title: " Using Deployment objects with Kubernetes 1.2 "
 date: 2016-04-01
 slug: using-deployment-objects-with
 url: /blog/2016/04/Using-Deployment-Objects-With
+author: >
+  Janet Kuo (Google) 
 ---
-_Editor's note: this is the seventh post in a [series of in-depth posts](https://kubernetes.io/blog/2016/03/five-days-of-kubernetes-12) on what's new in Kubernetes 1.2_  
+_**Editor's note:** this is the seventh post in a [series of in-depth posts](/blog/2016/03/five-days-of-kubernetes-12) on what's new in Kubernetes 1.2_  
 
 Kubernetes has made deploying and managing applications very straightforward, with most actions a single API or command line away, including rolling out new applications, canary testing and upgrading. So why would we need Deployments?  
 
@@ -138,7 +140,6 @@ But there’s so much more in Deployment that this article didn’t cover! To di
 - The Configuration “Special Interest Group,” which meets weekly on Wednesdays at 10am (10h00) Pacific Time at [SIG-Config hangout](https://hangouts.google.com/hangouts/_/google.com/kube-sig-config)
 And of course for more information about the project in general, go to [www.kubernetes.io](http://www.kubernetes.io/).  
 
- -- _Janet Kuo, Software Engineer, Google_  
 
 
 **1** “kubectl run” outputs the type and name of the resource(s) it creates. In 1.2, it now creates a deployment resource. You can use that in subsequent commands, such as "kubectl get deployment ", or "kubectl expose deployment ". If you want to write a script to do that automatically, in a forward-compatible manner, use "-o name" flag with "kubectl run", and it will generate short output "deployments/", which can also be used on subsequent command lines. The "--generator" flag can be used with "kubectl run" to generate other types of resources, for example, set it to "run/v1" to create a Replication Controller, which was the default in 1.1 and 1.0, and to "run-pod/v1" to create a Pod, such as for --restart=Never pods.

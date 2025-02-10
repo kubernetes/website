@@ -217,7 +217,7 @@ other = "쿠버네티스 기능"
 [main_kubeweekly_baseline]
 other = "최신 쿠버네티스 뉴스 수신에 관심이 있으십니까? KubeWeekly를 신청하세요."
 
-[main_kubernetes_past_link]
+[main_kubeweekly_past_link]
 other = "과거 뉴스레터 보기"
 
 [main_kubeweekly_signup]

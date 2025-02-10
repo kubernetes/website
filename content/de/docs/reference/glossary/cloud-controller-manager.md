@@ -11,7 +11,7 @@ tags:
 - architecture
 - operation
 ---
- Eine Kubernetes {{< glossary_tooltip text="Control Plane" term_id="control-plane" >}} Komponente, die Cloud spezifische Kontrolllogik einbettet. Der [Cloud Controller Manager](/docs/concepts/architecture/cloud-controller/) lässt Sie Ihr Cluster in die Cloud Provider API einbinden, und trennt die Komponenten die mit der Cloud Platform interagieren von Komponenten, die nur mit Ihrem Cluster interagieren.
+ Eine Kubernetes {{< glossary_tooltip text="Control Plane" term_id="control-plane" >}} Komponente, die Cloud spezifische Kontrolllogik einbettet. Der Cloud Controller Manager lässt Sie Ihr Cluster in die Cloud Provider API einbinden, und trennt die Komponenten die mit der Cloud Platform interagieren von Komponenten, die nur mit Ihrem Cluster interagieren.
 
 <!--more-->
 

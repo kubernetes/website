@@ -124,7 +124,8 @@ When creating a debugging session on a Node, keep in mind that:
 * Although the container runs in the host IPC, Network, and PID namespaces,
   the pod isn't privileged. This means that reading some process information might fail
   because access to that information is restricted to superusers. For example, `chroot /host` will fail.
-  If you need a privileged pod, create it manually.
+  If you need a privileged pod, create it manually or use the `--profile=sysadmin` flag.
+* By applying [Debugging Profiles](/docs/tasks/debug/debug-application/debug-running-pod/#debugging-profiles), you can set specific properties such as [securityContext](/docs/tasks/configure-pod-container/security-context/) to a debugging Pod.
 -->
 当在节点上创建一个调试会话时，需谨记：
 
@@ -132,7 +133,9 @@ When creating a debugging session on a Node, keep in mind that:
 * 节点的根文件系统将被挂载在 `/host`。
 * 尽管容器运行在主机 IPC、Network 和 PID 名字空间中，但 Pod 没有特权。
   这意味着读取某些进程信息可能会失败，这是因为访问这些信息仅限于超级用户 (superuser)。
-  例如，`chroot /host` 将失败。如果你需要一个有特权的 Pod，请手动创建。
+  例如，`chroot /host` 将失败。如果你需要一个有特权的 Pod，请手动创建或使用 `--profile=sysadmin` 标志。
+* 通过应用[调试配置](/zh-cn/docs/tasks/debug/debug-application/debug-running-pod/#debugging-profiles)，
+  你可以为调试 Pod 设置特定的属性，例如 [securityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)。
 
 ## {{% heading "cleanup" %}}
 

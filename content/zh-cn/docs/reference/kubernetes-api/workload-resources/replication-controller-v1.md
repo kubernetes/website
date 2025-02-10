@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ReplicationController 表示一个副本控制器的配置。"
 title: "ReplicationController"
-weight: 3
+weight: 4
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ReplicationController represents the configuration of a replication controller."
 title: "ReplicationController"
-weight: 3
+weight: 4
 auto_generated: true
 -->
 
@@ -168,7 +168,9 @@ ReplicationControllerStatus 表示一个副本控制器的当前状态。
 - **conditions** ([]ReplicationControllerCondition)
 
   *Patch strategy: merge on key `type`*
-  
+
+  *Map: unique values on key type will be kept during a merge*
+
   Represents the latest available observations of a replication controller's current state.
 
   <a name="ReplicationControllerCondition"></a>
@@ -177,7 +179,9 @@ ReplicationControllerStatus 表示一个副本控制器的当前状态。
 - **conditions** ([]ReplicationControllerCondition)
   
   **补丁策略：按照键 `type` 合并**
-  
+
+  **Map：键 `type` 的唯一值将在合并期间保留**
+ 
   表示副本控制器当前状态的最新可用观测值。
   
   <a name="ReplicationControllerCondition"></a>

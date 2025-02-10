@@ -3,6 +3,8 @@ title: " Kubernetes on OpenStack "
 date: 2015-05-19
 slug: kubernetes-on-openstack
 url: /blog/2015/05/Kubernetes-On-Openstack
+author: >
+   Martin Buhr (independent)
 ---
 
 
@@ -41,6 +43,3 @@ This list will grow, and is curated [here](https://opendev.org/x/k8s-docker-suit
 
 
 [The Kubernetes open source project](https://github.com/GoogleCloudPlatform/kubernetes) has continued to see fantastic community adoption and increasing momentum, with over 11,000 commits and 7,648 stars on GitHub. With supporters ranging from Red Hat and Intel to CoreOS and Box.net, it has come to represent a range of customer interests ranging from enterprise IT to cutting edge startups. We encourage you to give it a try, give us your feedback, and get involved in our growing community.
-
-
-- Martin Buhr, Product Manager, Kubernetes Open Source Project

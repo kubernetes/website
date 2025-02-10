@@ -200,7 +200,9 @@ Here is the configuration file for the application Deployment:
    对于请求成功的响应是一个 hello 消息：
 
    ```none
-   Hello Kubernetes!
+   Hello, world!
+   Version: 2.0.0
+   Hostname: hello-world-cdd4458f4-m47c8
    ```
 
 <!--

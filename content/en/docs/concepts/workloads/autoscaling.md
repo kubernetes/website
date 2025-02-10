@@ -79,7 +79,7 @@ Mode | Description
 
 #### Requirements for in-place resizing
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
 Resizing a workload in-place **without** restarting the {{< glossary_tooltip text="Pods" term_id="pod" >}}
 or its {{< glossary_tooltip text="Containers" term_id="container" >}} requires Kubernetes version 1.27 or later.
@@ -121,7 +121,7 @@ Another strategy for scaling your workloads is to **schedule** the scaling opera
 reduce resource consumption during off-peak hours.
 
 Similar to event driven autoscaling, such behavior can be achieved using KEDA in conjunction with
-its [`Cron` scaler](https://keda.sh/docs/2.13/scalers/cron/). The `Cron` scaler allows you to define schedules
+its [`Cron` scaler](https://keda.sh/docs/latest/scalers/cron/). The `Cron` scaler allows you to define schedules
 (and time zones) for scaling your workloads in or out.
 
 ## Scaling cluster infrastructure

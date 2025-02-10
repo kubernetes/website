@@ -3,7 +3,6 @@ title: 垃圾收集
 content_type: concept
 weight: 70
 ---
-
 <!--
 title: Garbage Collection
 content_type: concept
@@ -105,7 +104,7 @@ You can check for that kind of Event by running
 -->
 在 1.20 及更高版本中，如果垃圾收集器检测到非法的跨名字空间 `ownerReference`，
 或者某集群作用域的依赖对象的 `ownerReference` 引用某名字空间作用域的类别，
-系统会生成一个警告事件，其原因为 `OwnerRefInvalidNamespace`，`involvedObject`
+系统会生成一个警告事件，其原因为 `OwnerRefInvalidNamespace` 和 `involvedObject`
 设置为非法的依赖对象。你可以通过运行
 `kubectl get events -A --field-selector=reason=OwnerRefInvalidNamespace`
 来检查是否存在这类事件。
@@ -166,21 +165,27 @@ owner object:
 * 在删除过程完成之前，通过 Kubernetes API 仍然可以看到该对象。
 
 <!--
-After the owner object enters the deletion in progress state, the controller
-deletes the dependents. After deleting all the dependent objects, the controller
-deletes the owner object. At this point, the object is no longer visible in the
+After the owner object enters the *deletion in progress* state, the controller
+deletes dependents it knows about. After deleting all the dependent objects it knows about,
+the controller deletes the owner object. At this point, the object is no longer visible in the
 Kubernetes API.
 
 During foreground cascading deletion, the only dependents that block owner
-deletion are those that have the `ownerReference.blockOwnerDeletion=true` field.
+deletion are those that have the `ownerReference.blockOwnerDeletion=true` field
+and are in the garbage collection controller cache. The garbage collection controller
+cache may not contain objects whose resource type cannot be listed / watched successfully,
+or objects that are created concurrent with deletion of an owner object.
 See [Use foreground cascading deletion](/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)
 to learn more.
 -->
-当属主对象进入删除过程中状态后，控制器删除其依赖对象。控制器在删除完所有依赖对象之后，
-删除属主对象。这时，通过 Kubernetes API 就无法再看到该对象。
+当属主对象进入**删除进行中**状态后，控制器会删除其已知的依赖对象。
+在删除所有已知的依赖对象后，控制器会删除属主对象。
+这时，通过 Kubernetes API 就无法再看到该对象。
 
-在前台级联删除过程中，唯一可能阻止属主对象被删除的是那些带有
-`ownerReference.blockOwnerDeletion=true` 字段的依赖对象。
+在前台级联删除过程中，唯一会阻止属主对象被删除的是那些带有
+`ownerReference.blockOwnerDeletion=true` 字段并且存在于垃圾收集控制器缓存中的依赖对象。
+垃圾收集控制器缓存中可能不包含那些无法成功被列举/监视的资源类型的对象，
+或在属主对象删除的同时创建的对象。
 参阅[使用前台级联删除](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)
 以了解进一步的细节。
 
@@ -188,8 +193,10 @@ to learn more.
 ### Background cascading deletion {#background-deletion}
 
 In background cascading deletion, the Kubernetes API server deletes the owner
-object immediately and the controller cleans up the dependent objects in
-the background. By default, Kubernetes uses background cascading deletion unless
+object immediately and the garbage collector controller (custom or default)
+cleans up the dependent objects in the background.
+If a finalizer exists, it ensures that objects are not deleted until all necessary clean-up tasks are completed.
+By default, Kubernetes uses background cascading deletion unless
 you manually use foreground deletion or choose to orphan the dependent objects.
 
 See [Use background cascading deletion](/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)
@@ -197,12 +204,13 @@ to learn more.
 -->
 ### 后台级联删除 {#background-deletion}
 
-在后台级联删除过程中，Kubernetes 服务器立即删除属主对象，控制器在后台清理所有依赖对象。
+在后台级联删除过程中，Kubernetes 服务器立即删除属主对象，
+而垃圾收集控制器（无论是自定义的还是默认的）在后台清理所有依赖对象。
+如果存在 Finalizers，它会确保所有必要的清理任务完成后对象才被删除。
 默认情况下，Kubernetes 使用后台级联删除方案，除非你手动设置了要使用前台删除，
 或者选择遗弃依赖对象。
 
-参阅[使用后台级联删除](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)
-以了解进一步的细节。
+参阅[使用后台级联删除](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)以了解进一步的细节。
 
 <!--
 ### Orphaned dependents
@@ -214,20 +222,20 @@ to override this behaviour, see [Delete owner objects and orphan dependents](/do
 ### 被遗弃的依赖对象    {#orphaned-dependents}
 
 当 Kubernetes 删除某个属主对象时，被留下来的依赖对象被称作被遗弃的（Orphaned）对象。
-默认情况下，Kubernetes 会删除依赖对象。要了解如何重载这种默认行为，可参阅
-[删除属主对象和遗弃依赖对象](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/#set-orphan-deletion-policy)。
+默认情况下，Kubernetes 会删除依赖对象。要了解如何重载这种默认行为，
+可参阅[删除属主对象和遗弃依赖对象](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/#set-orphan-deletion-policy)。
 
 <!--
 ## Garbage collection of unused containers and images {#containers-images}
 
 The {{<glossary_tooltip text="kubelet" term_id="kubelet">}} performs garbage
-collection on unused images every two minutes and on unused containers every
+collection on unused images every five minutes and on unused containers every
 minute. You should avoid using external garbage collection tools, as these can
 break the kubelet behavior and remove containers that should exist.
 -->
 ## 未使用容器和镜像的垃圾收集     {#containers-images}
 
-{{<glossary_tooltip text="kubelet" term_id="kubelet">}} 会每两分钟对未使用的镜像执行一次垃圾收集，
+{{<glossary_tooltip text="kubelet" term_id="kubelet">}} 会每五分钟对未使用的镜像执行一次垃圾收集，
 每分钟对未使用的容器执行一次垃圾收集。
 你应该避免使用外部的垃圾收集工具，因为外部工具可能会破坏 kubelet
 的行为，移除应该保留的容器。
@@ -239,8 +247,8 @@ and change the parameters related to garbage collection using the
 [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
 resource type.
 -->
-要配置对未使用容器和镜像的垃圾收集选项，可以使用一个
-[配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)，基于
+要配置对未使用容器和镜像的垃圾收集选项，
+可以使用一个[配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)，基于
 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
 资源类型来调整与垃圾收集相关的 kubelet 行为。
 
@@ -288,32 +296,37 @@ regardless of disk usage. This is a kubelet setting that you configure for each 
 这是一个可以为每个节点配置的 kubelet 设置。
 
 <!--
-To configure the setting, enable the `ImageMaximumGCAge`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kubelet,
-and also set a value for the `ImageMaximumGCAge` field in the kubelet configuration file.
+To configure the setting, you need to set a value for the `imageMaximumGCAge`
+field in the kubelet configuration file.
 -->
-请为 kubelet 启用 `ImageMaximumGCAge` 
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-并在 kubelet 配置文件中为 `ImageMaximumGCAge` 字段赋值来配置该设置。
+要配置该设置，你需要在 kubelet 配置文件中为 `imageMaximumGCAge`
+字段设置一个值。
 
 <!--
-The value is specified as a Kubernetes _duration_; for example, you can set the configuration
-field to `3d12h`, which means 3 days and 12 hours.
+The value is specified as a Kubernetes {{< glossary_tooltip text="duration" term_id="duration" >}}; 
+See [duration](/docs/reference/glossary/?all=true#term-duration) in the glossary
+for more details.
 -->
-该值应遵循 Kubernetes __持续时间（Duration）__ 格式；例如，你可以将配置字段设置为 `3d12h`，
-代表 3 天 12 小时。
+该值应遵循 Kubernetes {{< glossary_tooltip text="持续时间（Duration）" term_id="duration" >}}格式；
+有关更多详细信息，请参阅词汇表中的[持续时间（Duration）](/zh-cn/docs/reference/glossary/?all=true#term-duration)。
+
+<!--
+For example, you can set the configuration field to `12h45m`,
+which means 12 hours and 45 minutes.
+-->
+例如，你可以将配置字段设置为 `12h45m`，代表 12 小时 45 分钟。
 
 {{< note >}}
 <!--
 This feature does not track image usage across kubelet restarts. If the kubelet
 is restarted, the tracked image age is reset, causing the kubelet to wait the full
-`ImageMaximumGCAge` duration before qualifying images for garbage collection
+`imageMaximumGCAge` duration before qualifying images for garbage collection
 based on image age.
 -->
 这个特性不会跟踪 kubelet 重新启动后的镜像使用情况。
 如果 kubelet 被重新启动，所跟踪的镜像年龄会被重置，
 导致 kubelet 在根据镜像年龄进行垃圾收集时需要等待完整的
-`ImageMaximumGCAge` 时长。
+`imageMaximumGCAge` 时长。
 {{< /note>}}
 
 <!--
@@ -354,7 +367,7 @@ downgrade `MaxPerPodContainer` to `1` and evict the oldest containers.
 Additionally, containers owned by pods that have been deleted are removed once
 they are older than `MinAge`.
 -->
-除以上变量之外，kubelet 还会垃圾收集除无标识的以及已删除的容器，通常从最近未使用的容器开始。
+除以上变量之外，kubelet 还会垃圾收集除无标识的以及已删除的容器，通常从最长时间未使用的容器开始。
 
 当保持每个 Pod 的最大数量的容器（`MaxPerPodContainer`）会使得全局的已死亡容器个数超出上限
 （`MaxContainers`）时，`MaxPerPodContainer` 和 `MaxContainers` 之间可能会出现冲突。

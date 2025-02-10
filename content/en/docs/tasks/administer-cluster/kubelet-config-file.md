@@ -50,6 +50,7 @@ evictionHard:
     nodefs.available:  "10%"
     nodefs.inodesFree: "5%"
     imagefs.available: "15%"
+    imagefs.inodesFree: "5%"
 ```
 
 In this example, the kubelet is configured with the following settings:
@@ -115,14 +116,13 @@ The suffix of a valid kubelet drop-in configuration file **must** be `.conf`. Fo
 The kubelet processes files in its config drop-in directory by sorting the **entire file name** alphanumerically.
 For instance, `00-kubelet.conf` is processed first, and then overridden with a file named `01-kubelet.conf`.
 
-These files may contain partial configurations and might not be valid config files by themselves.
-Validation is only performed on the final resulting configuration structure
-stored internally in the kubelet.
-This offers you flexibility in how you manage and combine kubelet configuration that comes from different sources.
-However, it's important to note that the behavior varies based on the data type of the configuration fields.
+These files may contain partial configurations but should not be invalid and must include type metadata, specifically `apiVersion` and `kind`. 
+Validation is only performed on the final resulting configuration structure stored internally in the kubelet. 
+This offers flexibility in managing and merging kubelet configurations from different sources while preventing undesirable configurations. 
+However, it is important to note that behavior varies based on the data type of the configuration fields.
 
 Different data types in the kubelet configuration structure merge differently. See the
-[reference document](/docs/reference/node/kubelet-config-directory-merging.md)
+[reference document](/docs/reference/node/kubelet-config-directory-merging/)
 for more information.
 
 ### Kubelet configuration merging order
@@ -147,7 +147,7 @@ and replaces every field present in a higher priority file.
 Since the configuration could now be spread over multiple files with this feature, if someone wants to inspect the final actuated configuration,
 they can follow these steps to inspect the kubelet configuration:
 
-1. Start a proxy server using [`kubectl proxy`](/docs/reference/kubectl/generated/kubectl-commands#proxy) in your terminal.
+1. Start a proxy server using [`kubectl proxy`](/docs/reference/kubectl/generated/kubectl_proxy/) in your terminal.
 
    ```bash
    kubectl proxy

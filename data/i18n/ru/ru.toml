@@ -384,7 +384,7 @@ other = "Возможности Kubernetes"
 [main_kubeweekly_baseline]
 other = "Интересуетесь последними новостями Kubernetes? Подпишитесь на KubeWeekly."
 
-[main_kubernetes_past_link]
+[main_kubeweekly_past_link]
 other = "Посмотреть последние новостные выпуски"
 
 [main_kubeweekly_signup]
@@ -526,7 +526,7 @@ other = "Дедлайн для Cherry Pick"
 other = "Дата конца жизни (EOL)"
 
 [release_full_details_initial_text]
-other = "Полностью"
+other = "Полная информация по релизу"
 
 [release_information_navbar]
 other = "Информация о релизе"
@@ -552,7 +552,7 @@ other = "**%s** переходит в режим поддержки (maintenance
 other = "Примечание"
 
 [release_schedule]
-other = "График"
+other = "План патч-версий"
 
 [release_target_date]
 other = "Планируемая дата"

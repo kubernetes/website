@@ -15,4 +15,4 @@ tags:
 
 <!--more--> 
 
-kubeadmを使用して、コントロールプレーンとワーカーノード{{< glossary_tooltip text="ワーカーノード" term_id="node" >}}コンポーネントの両方をインストールできます。
+kubeadmを使用して、コントロールプレーンと{{< glossary_tooltip text="ワーカーノード" term_id="node" >}}コンポーネントの両方をインストールできます。

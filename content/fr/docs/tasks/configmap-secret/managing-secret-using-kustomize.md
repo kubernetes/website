@@ -102,17 +102,17 @@ kubectl get -k <directory-path> -o jsonpath='{.data}'
 Le résutat est similaire à :
 
 ```
-{ "password": "UyFCXCpkJHpEc2I9", "username": "YWRtaW4=" }
+{ "password": "MWYyZDFlMmU2N2Rm", "username": "YWRtaW4=" }
 ```
 
 ```
-echo 'UyFCXCpkJHpEc2I9' | base64 --decode
+echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 ```
 
 Le résultat est similaire à :
 
 ```
-S!B\*d$zDsb=
+1f2d1e2e67df
 ```
 
 Pour en savor plus, consultez

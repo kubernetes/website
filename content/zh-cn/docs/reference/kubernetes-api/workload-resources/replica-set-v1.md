@@ -164,6 +164,8 @@ ReplicaSetStatus 表示 ReplicaSet 的当前状态。
 - **conditions** ([]ReplicaSetCondition)
 
   *Patch strategy: merge on key `type`*
+
+  *Map: unique values on key type will be kept during a merge*
   
   Represents the latest available observations of a replica set's current state.
 
@@ -173,6 +175,8 @@ ReplicaSetStatus 表示 ReplicaSet 的当前状态。
 - **conditions** ([]ReplicaSetCondition)
   
   **补丁策略：按照键 `type` 合并**
+
+  **Map：键类型的唯一值将在合并期间保留**
   
   表示副本集当前状态的最新可用观测值。
   

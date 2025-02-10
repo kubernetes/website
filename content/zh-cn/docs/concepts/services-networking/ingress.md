@@ -171,7 +171,10 @@ A minimal Ingress resource example:
 An Ingress needs `apiVersion`, `kind`, `metadata` and `spec` fields.
 The name of an Ingress object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
-For general information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/), [managing resources](/docs/concepts/cluster-administration/manage-deployment/).
+For general information about working with config files, see
+[deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/),
+[configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/),
+[managing resources](/docs/concepts/cluster-administration/manage-deployment/).
 Ingress frequently uses annotations to configure some options depending on the Ingress controller, an example of which
 is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md).
 Different [Ingress controllers](/docs/concepts/services-networking/ingress-controllers) support different annotations.
@@ -581,7 +584,7 @@ that is used for a workload. If you used a cluster-scoped parameter then either:
   the application team make changes to the cluster-scoped parameters resource.
 -->
 名字空间作用域的参数帮助集群操作者将对工作负载所需的配置数据（比如：负载均衡设置、
-API 网关定义）的控制权力委派出去。如果你使用集群作用域的参数，那么你将面临一下情况之一：
+API 网关定义）的控制权力委派出去。如果你使用集群作用域的参数，那么你将面临以下情况之一：
 
 - 每次应用一项新的配置变更时，集群操作团队需要批准其他团队所作的修改。
 - 集群操作团队必须定义具体的准入控制规则，比如 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)

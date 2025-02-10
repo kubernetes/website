@@ -3,6 +3,8 @@ title: " How Watson Health Cloud Deploys Applications with Kubernetes "
 date: 2017-07-14
 slug: how-watson-health-cloud-deploys
 url: /blog/2017/07/How-Watson-Health-Cloud-Deploys
+author: >
+   Sandhya Kapoor (IBM)
 ---
 Today’s post is by [Sandhya Kapoor](https://www.linkedin.com/in/sandhyakapoor/), Senior Technologist, Watson Platform for Health, IBM
 
@@ -139,11 +141,6 @@ Exposing services with Ingress:
 
 
 To expose our services to outside the cluster, we used Ingress. In IBM Cloud Kubernetes Service, if we create a paid cluster, an Ingress controller is automatically installed for us to use. We were able to access services through Ingress by creating a YAML resource file that specifies the service path.
-
-
-
-–Sandhya Kapoor, Senior Technologist, Watson Platform for Health, IBM
-
 
 
 - Post questions (or answer questions) on [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)

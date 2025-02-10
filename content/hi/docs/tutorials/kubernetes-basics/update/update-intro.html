@@ -118,14 +118,76 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-                <p>निम्नलिखित इंटरैक्टिव ट्यूटोरियल में हम अपने एप्लिकेशन को एक नए संस्करण में अपडेट और रोलबैक करेंगे। </p>
+                <p>चलिए अगले भाग पर चलते हैं और अपने एप्लिकेशन को एक नए संस्करण में अपडेट और रोलबैक करते है। </p>
             </div>
         </div>
         <br>
 
         <div class="row">
             <div class="col-md-12">
-                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/update/update-interactive/" role="button">इंटरएक्टिव ट्यूटोरियल शुरू करें<span class="btn__next">›</span></a>
+                <h3>ऐप का संस्करण अपडेट करें</h3>
+                <p>अपनी तैनाती को सूचीबद्ध करने के लिए, <code>get deployments</code> उपकमांड चलाएँ:
+                <code><b>kubectl get deployments</b></code></p>
+                <p>चल रहे पॉड्स को सूचीबद्ध करने के लिए, <code>get pods</code> उपकमांड चलाएँ:</p>
+                <p><code><b>kubectl get pods</b></code></p>
+                <p>ऐप का वर्तमान छवि संस्करण देखने के लिए, <code>describe pod</code> उपकमांड चलाएँ
+                और <code>image</code> फ़ील्ड देखें:</p>
+                <p><code><b>kubectl describe pods</b></code></p>
+                <p>एप्लिकेशन की छवि को संस्करण 2 में अद्यतन करने के लिए, <code>set image</code> उपकमांड का उपयोग करें, इसके बाद परिनियोजन नाम और नया छवि संस्करण लिखें:</p>
+                <p><code><b>kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2</b></code></p>
+                <p>कमांड ने आपके ऐप के लिए एक अलग छवि का उपयोग करने के लिए परिनियोजन को सूचित किया और एक रोलिंग अपडेट शुरू किया। नए पॉड्स की स्थिति जांचें, और पुराने पॉड्स को <code>get pods</code> उपकमांड के साथ समाप्त होते हुए देखें:</p>
+                <p><code><b>kubectl get pods</b></code></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>अपडेट सत्यापित करें</h3>
+                <p>सबसे पहले, जांचें कि ऐप चल रहा है या नहीं। उजागर आईपी पते और पोर्ट को खोजने के लिए, <code>describe service</code> कमांड चलाएँ:</p>
+                <p><code><b>kubectl describe services/kubernetes-bootcamp</b></code></p>
+                <p> <tt>NODE_PORT</tt> नामक एक पर्यावरण चर बनाएं जिसमें निर्दिष्ट नोड पोर्ट का मान हो:</p>
+                <p><code><b>export NODE_PORT='$(kubectl getservices/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')'</b> </code><br />
+                   <code><b>echo "NODE_PORT=$NODE_PORT"</b></code></p>
+                <p>इसके बाद, उजागर आईपी और पोर्ट पर <code>curl</code> करें:</p>
+                <p><code><b>curl http://'$(minikube ip):$NODE_PORT'</b></code></p>
+                <p>हर बार जब आप <code>curl</code> कमांड चलाएंगे, तो आप एक अलग पॉड से टकराएंगे। ध्यान दें कि सभी पॉड्स अब नवीनतम संस्करण (v2) चला रहे हैं।</p>
+                <p>आप <code>rollout status</code> उपकमांड चलाकर भी अपडेट की पुष्टि कर सकते हैं:</p>
+                <p><code><b>kubectl rollout status deployments/kubernetes-bootcamp</b></code></p>
+                <p>ऐप का वर्तमान छवि संस्करण देखने के लिए, <code>describe pod</code> उपकमांड चलाएँ:</p>
+                <p><code><b>kubectl describe pods</b></code></p>
+                <p>आउटपुट के <code>image</code> फ़ील्ड में, सत्यापित करें कि आप नवीनतम छवि संस्करण (v2) चला रहे हैं।</p>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>अपडेट वापस रोल करें</h3>
+                <p>आइए एक और अपडेट करें, और <code>v10</code> के साथ टैग की गई छवि को तैनात करने का प्रयास करें:</p>
+                <p><code><b>kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=gcr.io/google-samples/kubernetes-bootcamp:v10</b></code></p>
+                <p>डिप्लॉयमेंट की स्थिति देखने के लिए <code>get deployments</code> का उपयोग करें:</p>
+                <p><code><b>kubectl get deployments</b></code></p>
+                <p>ध्यान दें कि आउटपुट उपलब्ध पॉड्स की वांछित संख्या सूचीबद्ध नहीं करता है। सभी पॉड्स को सूचीबद्ध करने के लिए <code>get pods</code> उपकमांड चलाएँ:</p>
+                <p><code><b>kubectl get pods</b></code></p>
+                <p>ध्यान दें कि कुछ पॉड्स की स्थिति <tt>ImagePullBackOff</tt> है।</p>
+                <p>समस्या के बारे में अधिक जानकारी प्राप्त करने के लिए, <code>describe pod</code> उपकमांड चलाएँ:</p>
+                <p><code><b>kubectl describe pods</b></code></p>
+                <p>प्रभावित पॉड्स के आउटपुट के <code>event</code> अनुभाग में, ध्यान दें कि <code>v10</code> छवि संस्करण रिपॉजिटरी में मौजूद नहीं था।</p>
+                <p>परिनियोजन को अपने अंतिम कार्यशील संस्करण में वापस लाने के लिए, <code>rollout undo</code> उपकमांड का उपयोग करें:</p>
+                <p><code><b>kubectl rollout undo deployment/kubernetes-bootcamp</b></code></p>
+                <p><code>rollout undo</code> कमांड परिनियोजन को पिछली ज्ञात स्थिति (छवि का v2) में वापस कर देता है। अद्यतन संस्करणित हैं और आप परिनियोजन की किसी भी पूर्व ज्ञात स्थिति पर वापस लौट सकते हैं।</p>
+                <p>पॉड्स को फिर से सूचीबद्ध करने के लिए <code>get pods</code> उपकमांड का उपयोग करें:</p>
+                <p><code><b>kubectl get pods</b></code></p>
+                <p>चार पॉड्स चल रहे हैं। इन पॉड्स पर तैनात छवि की जांच करने के लिए, <कोड>describe pods</कोड> उपकमांड का उपयोग करें:</p>
+                <p><code><b>kubectl describe pods</b></code></p>
+                <p>परिनियोजन एक बार फिर ऐप के स्थिर संस्करण (v2) का उपयोग कर रहा है। रोलबैक सफल रहा.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <p>अपने स्थानीय क्लस्टर को साफ़ करना याद रखें</p>
+                <p><code><b>kubectl delete deployments/kubernetes-bootcamp services/kubernetes-bootcamp</b></code></p>
             </div>
         </div>
 

@@ -351,14 +351,6 @@ kubectl [flags]
 </tr>
 
 <tr>
-<td colspan="2">KUBECTL_DEBUG_CUSTOM_PROFILE</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, custom flag will be enabled in kubectl debug. This flag is used to customize the pre-defined profiles.
-</td>
-</tr>
-
-<tr>
 <td colspan="2">KUBECTL_EXPLAIN_OPENAPIV3</td>
 </tr>
 <tr>

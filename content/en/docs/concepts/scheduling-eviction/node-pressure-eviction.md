@@ -6,6 +6,17 @@ weight: 100
 
 {{<glossary_definition term_id="node-pressure-eviction" length="short">}}</br>
 
+{{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
+
+{{<note>}}
+The _split image filesystem_ feature, which enables support for the `containerfs`
+filesystem, adds several new eviction signals, thresholds and metrics. To use
+`containerfs`, the Kubernetes release v{{< skew currentVersion >}} requires the
+`KubeletSeparateDiskGC` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+to be enabled. Currently, only CRI-O (v1.29 or higher) offers the `containerfs`
+filesystem support.
+{{</note>}}
+
 The {{<glossary_tooltip term_id="kubelet" text="kubelet">}} monitors resources
 like memory, disk space, and filesystem inodes on your cluster's nodes.
 When one or more of these resources reach specific consumption levels, the
@@ -61,27 +72,31 @@ The kubelet uses various parameters to make eviction decisions, like the followi
 ### Eviction signals {#eviction-signals}
 
 Eviction signals are the current state of a particular resource at a specific
-point in time. Kubelet uses eviction signals to make eviction decisions by
+point in time. The kubelet uses eviction signals to make eviction decisions by
 comparing the signals to eviction thresholds, which are the minimum amount of
 the resource that should be available on the node.
 
-On Linux, the kubelet uses the following eviction signals:
+The kubelet uses the following eviction signals:
 
-| Eviction Signal      | Description                                                                           |
-|----------------------|---------------------------------------------------------------------------------------|
-| `memory.available`   | `memory.available` := `node.status.capacity[memory]` - `node.stats.memory.workingSet` |
-| `nodefs.available`   | `nodefs.available` := `node.stats.fs.available`                                       |
-| `nodefs.inodesFree`  | `nodefs.inodesFree` := `node.stats.fs.inodesFree`                                     |
-| `imagefs.available`  | `imagefs.available` := `node.stats.runtime.imagefs.available`                         |
-| `imagefs.inodesFree` | `imagefs.inodesFree` := `node.stats.runtime.imagefs.inodesFree`                       |
-| `pid.available`      | `pid.available` := `node.stats.rlimit.maxpid` - `node.stats.rlimit.curproc`           |
+| Eviction Signal          | Description                                                                           | Linux Only |
+|--------------------------|---------------------------------------------------------------------------------------|------------|
+| `memory.available`       | `memory.available` := `node.status.capacity[memory]` - `node.stats.memory.workingSet` |            |
+| `nodefs.available`       | `nodefs.available` := `node.stats.fs.available`                                       |            |
+| `nodefs.inodesFree`      | `nodefs.inodesFree` := `node.stats.fs.inodesFree`                                     |      •     |
+| `imagefs.available`      | `imagefs.available` := `node.stats.runtime.imagefs.available`                         |            |
+| `imagefs.inodesFree`     | `imagefs.inodesFree` := `node.stats.runtime.imagefs.inodesFree`                       |      •     |
+| `containerfs.available`  | `containerfs.available` := `node.stats.runtime.containerfs.available`                 |            |
+| `containerfs.inodesFree` | `containerfs.inodesFree` := `node.stats.runtime.containerfs.inodesFree`               |      •     |
+| `pid.available`          | `pid.available` := `node.stats.rlimit.maxpid` - `node.stats.rlimit.curproc`           |      •     |
 
 In this table, the **Description** column shows how kubelet gets the value of the
-signal. Each signal supports either a percentage or a literal value. Kubelet
+signal. Each signal supports either a percentage or a literal value. The kubelet
 calculates the percentage value relative to the total capacity associated with
 the signal.
 
-The value for `memory.available` is derived from the cgroupfs instead of tools
+#### Memory signals
+
+On Linux nodes, the value for `memory.available` is derived from the cgroupfs instead of tools
 like `free -m`. This is important because `free -m` does not work in a
 container, and if users use the [node allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 feature, out of resource decisions
@@ -93,16 +108,52 @@ reproduces the same set of steps that the kubelet performs to calculate
 file-backed memory on the inactive LRU list) from its calculation, as it assumes that
 memory is reclaimable under pressure.
 
-The kubelet recognizes two specific filesystem identifiers:
+On Windows nodes, the value for `memory.available` is derived from the node's global
+memory commit levels (queried through the [`GetPerformanceInfo()`](https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getperformanceinfo)
+system call) by subtracting the node's global [`CommitTotal`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information) from the node's [`CommitLimit`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information). Please note that `CommitLimit` can change if the node's page-file size changes!
 
-1. `nodefs`: The node's main filesystem, used for local disk volumes, emptyDir
-   volumes not backed by memory, log storage, and more.
-   For example, `nodefs` contains `/var/lib/kubelet/`.
-1. `imagefs`: An optional filesystem that container runtimes use to store container
-   images and container writable layers.
+#### Filesystem signals
 
-Kubelet auto-discovers these filesystems and ignores other node local filesystems. Kubelet
-does not support other configurations.
+The kubelet recognizes three specific filesystem identifiers that can be used with
+eviction signals (`<identifier>.inodesFree` or `<identifier>.available`):
+
+1. `nodefs`: The node's main filesystem, used for local disk volumes,
+    emptyDir volumes not backed by memory, log storage, ephemeral storage,
+    and more. For example, `nodefs` contains `/var/lib/kubelet`.
+
+1. `imagefs`: An optional filesystem that container runtimes can use to store
+   container images (which are the read-only layers) and container writable
+   layers.
+
+1. `containerfs`: An optional filesystem that container runtime can use to
+   store the writeable layers. Similar to the main filesystem (see `nodefs`),
+   it's used to store local disk volumes, emptyDir volumes not backed by memory,
+   log storage, and ephemeral storage, except for the container images. When
+   `containerfs` is used, the `imagefs` filesystem can be split to only store
+   images (read-only layers) and nothing else.
+
+As such, kubelet generally allows three options for container filesystems:
+
+- Everything is on the single `nodefs`, also referred to as "rootfs" or
+  simply "root", and there is no dedicated image filesystem.
+
+- Container storage (see `nodefs`) is on a dedicated disk, and `imagefs`
+  (writable and read-only layers) is separate from the root filesystem.
+  This is often referred to as "split disk" (or "separate disk") filesystem.
+
+- Container filesystem `containerfs` (same as `nodefs` plus writable
+  layers) is on root and the container images (read-only layers) are
+  stored on separate `imagefs`. This is often referred to as "split image"
+  filesystem.
+
+The kubelet will attempt to auto-discover these filesystems with their current
+configuration directly from the underlying container runtime and will ignore
+other local node filesystems.
+
+The kubelet does not support other container filesystems or storage configurations,
+and it does not currently support multiple filesystems for images and containers.
+
+### Deprecated kubelet garbage collection features
 
 Some kubelet garbage collection features are deprecated in favor of eviction:
 
@@ -165,7 +216,8 @@ thresholds like `memory.available<1Gi`.
 
 The kubelet has the following default hard eviction thresholds:
 
-- `memory.available<100Mi`
+- `memory.available<100Mi` (Linux nodes)
+- `memory.available<500Mi` (Windows nodes)
 - `nodefs.available<10%`
 - `imagefs.available<15%`
 - `nodefs.inodesFree<5%` (Linux nodes)
@@ -176,6 +228,19 @@ of the parameters is changed. If you change the value of any parameter,
 then the values of other parameters will not be inherited as the default
 values and will be set to zero. In order to provide custom values, you
 should provide all the thresholds respectively.
+
+The `containerfs.available` and `containerfs.inodesFree` (Linux nodes) default
+eviction thresholds will be set as follows:
+
+- If a single filesystem is used for everything, then `containerfs` thresholds
+  are set the same as `nodefs`.
+
+- If separate filesystems are configured for both images and containers,
+  then `containerfs` thresholds are set the same as `imagefs`.
+
+Setting custom overrides for thresholds related to `containersfs` is currently
+not supported, and a warning will be issued if an attempt to do so is made; any
+provided custom values will, as such, be ignored.
 
 ## Eviction monitoring interval
 
@@ -190,11 +255,11 @@ threshold is met, independent of configured grace periods.
 
 The kubelet maps eviction signals to node conditions as follows:
 
-| Node Condition    | Eviction Signal                                                                       | Description                                                                                                                  |
-|-------------------|---------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
-| `MemoryPressure`  | `memory.available`                                                                    | Available memory on the node has satisfied an eviction threshold                                                             |
-| `DiskPressure`    | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, or `imagefs.inodesFree` | Available disk space and inodes on either the node's root filesystem or image filesystem has satisfied an eviction threshold |
-| `PIDPressure`     | `pid.available`                                                                       | Available processes identifiers on the (Linux) node has fallen below an eviction threshold                                   |
+| Node Condition    | Eviction Signal                                                                       | Description                                                                                |
+|-------------------|---------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| `MemoryPressure`  | `memory.available`                                                                    | Available memory on the node has satisfied an eviction threshold                           |
+| `DiskPressure`    | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, `imagefs.inodesFree`, `containerfs.available`, or `containerfs.inodesFree` | Available disk space and inodes on either the node's root filesystem, image filesystem, or container filesystem has satisfied an eviction threshold              |
+| `PIDPressure`     | `pid.available`                                                                       | Available processes identifiers on the (Linux) node has fallen below an eviction threshold |
 
 The control plane also [maps](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)
 these node conditions to taints.
@@ -219,23 +284,36 @@ The kubelet tries to reclaim node-level resources before it evicts end-user pods
 When a `DiskPressure` node condition is reported, the kubelet reclaims node-level
 resources based on the filesystems on the node.
 
+#### Without `imagefs` or `containerfs`
+
+If the node only has a `nodefs` filesystem that meets eviction thresholds,
+the kubelet frees up disk space in the following order:
+
+1. Garbage collect dead pods and containers.
+1. Delete unused images.
+
 #### With `imagefs`
 
 If the node has a dedicated `imagefs` filesystem for container runtimes to use,
 the kubelet does the following:
 
-- If the `nodefs` filesystem meets the eviction thresholds, the kubelet garbage collects
-  dead pods and containers.
+- If the `nodefs` filesystem meets the eviction thresholds, the kubelet garbage
+  collects dead pods and containers.
+
 - If the `imagefs` filesystem meets the eviction thresholds, the kubelet
   deletes all unused images.
 
-#### Without `imagefs`
+#### With `imagefs` and `containerfs`
 
-If the node only has a `nodefs` filesystem that meets eviction thresholds,
-the kubelet frees up disk space in the following order:
+If the node has a dedicated `containerfs` alongside the `imagefs` filesystem
+configured for the container runtimes to use, then kubelet will attempt to
+reclaim resources as follows:
 
-1. Garbage collect dead pods and containers
-1. Delete unused images
+- If the `containerfs` filesystem meets the eviction thresholds, the kubelet
+  garbage collects dead pods and containers.
+
+- If the `imagefs` filesystem meets the eviction thresholds, the kubelet
+  deletes all unused images.
 
 ### Pod selection for kubelet eviction
 
@@ -253,6 +331,7 @@ As a result, kubelet ranks and evicts pods in the following order:
 1. `BestEffort` or `Burstable` pods where the usage exceeds requests. These pods
    are evicted based on their Priority and then by how much their usage level
    exceeds the request.
+
 1. `Guaranteed` pods and `Burstable` pods where the usage is less than requests
    are evicted last, based on their Priority.
 
@@ -283,22 +362,37 @@ the Pods' relative priority to determine the eviction order, because inodes and 
 requests.
 
 The kubelet sorts pods differently based on whether the node has a dedicated
-`imagefs` filesystem:
+`imagefs` or `containerfs` filesystem:
 
-#### With `imagefs`
+#### Without `imagefs` or `containerfs` (`nodefs` and `imagefs` use the same filesystem) {#without-imagefs}
 
-If `nodefs` is triggering evictions, the kubelet sorts pods based on `nodefs`
-usage (`local volumes + logs of all containers`).
+- If `nodefs` triggers evictions, the kubelet sorts pods based on their
+  total disk usage (`local volumes + logs and a writable layer of all containers`).
 
-If `imagefs` is triggering evictions, the kubelet sorts pods based on the
-writable layer usage of all containers.
+#### With `imagefs` (`nodefs` and `imagefs` filesystems are separate) {#with-imagefs}
 
-#### Without `imagefs`
+- If `nodefs` triggers evictions, the kubelet sorts pods based on `nodefs`
+  usage (`local volumes + logs of all containers`).
 
-If `nodefs` is triggering evictions, the kubelet sorts pods based on their total
-disk usage (`local volumes + logs & writable layer of all containers`)
+- If `imagefs` triggers evictions, the kubelet sorts pods based on the
+  writable layer usage of all containers.
+
+#### With `imagesfs` and `containerfs` (`imagefs` and `containerfs` have been split) {#with-containersfs}
+
+- If `containerfs` triggers evictions, the kubelet sorts pods based on
+  `containerfs` usage (`local volumes + logs and a writable layer of all containers`).
+
+- If `imagefs` triggers evictions, the kubelet sorts pods based on the
+  `storage of images` rank, which represents the disk usage of a given image.
 
 ### Minimum eviction reclaim
+
+{{<note>}}
+As of Kubernetes v{{< skew currentVersion >}}, you cannot set a custom value
+for the `containerfs.available` metric. The configuration for this specific
+metric will be set automatically to reflect values set for either the `nodefs`
+or `imagefs`, depending on the configuration.
+{{</note>}}
 
 In some cases, pod eviction only reclaims a small amount of the starved resource.
 This can lead to the kubelet repeatedly hitting the configured eviction thresholds
@@ -326,7 +420,8 @@ evictionMinimumReclaim:
 
 In this example, if the `nodefs.available` signal meets the eviction threshold,
 the kubelet reclaims the resource until the signal reaches the threshold of 1GiB,
-and then continues to reclaim the minimum amount of 500MiB, until the available nodefs storage value reaches 1.5GiB.
+and then continues to reclaim the minimum amount of 500MiB, until the available
+nodefs storage value reaches 1.5GiB.
 
 Similarly, the kubelet tries to reclaim the `imagefs` resource until the `imagefs.available`
 value reaches `102Gi`, representing 102 GiB of available container image storage. If the amount

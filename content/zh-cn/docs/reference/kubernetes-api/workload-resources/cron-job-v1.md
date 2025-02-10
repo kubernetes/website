@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "CronJob 代表单个定时作业 (Cron Job) 的配置。"
 title: "CronJob"
-weight: 10
+weight: 11
 ---
 
 <!--
@@ -17,7 +17,7 @@ kind: "CronJob"
 content_type: "api_reference"
 description: "CronJob represents the configuration of a single cron job."
 title: "CronJob"
-weight: 10
+weight: 11
 auto_generated: true
 -->
 

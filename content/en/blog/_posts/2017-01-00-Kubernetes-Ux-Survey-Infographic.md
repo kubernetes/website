@@ -3,9 +3,9 @@ title: " Kubernetes UX Survey Infographic "
 date: 2017-01-09
 slug: kubernetes-ux-survey-infographic
 url: /blog/2017/01/Kubernetes-Ux-Survey-Infographic
+author: >
+  Dan Romlein (UX Designer)
 ---
-_Editor's note: Today’s post is by Dan Romlein, UX Designer at Apprenda and member of the SIG-UI, sharing UX survey results from the Kubernetes community.&nbsp;_  
-
 The following infographic summarizes the findings of a survey that the team behind [Dashboard](https://github.com/kubernetes/dashboard), the official web UI for Kubernetes, sent during KubeCon in November 2016. Following the KubeCon launch of the survey, it was promoted on Twitter and various Slack channels over a two week period and generated over 100 responses. We’re delighted with the data it provides us to now make feature and roadmap decisions more in-line with the needs of you, our users.  
 
 **Satisfaction with Dashboard**  

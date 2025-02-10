@@ -292,10 +292,16 @@ If the Pod [restarts](#pod-restart-reasons), or is restarted, all init container
 must execute again.
 
 Changes to the init container spec are limited to the container image field.
-Altering an init container image field is equivalent to restarting the Pod.
+Directly altering the `image` field of  an init container does _not_ restart the
+Pod or trigger its recreation. If the Pod has yet to start, that change may
+have an effect on how the Pod boots up.
+
+For a [pod template](/docs/concepts/workloads/pods/#pod-templates)
+you can typically change any field for an init container; the impact of making
+that change depends on where the pod template is used.
 
 Because init containers can be restarted, retried, or re-executed, init container
-code should be idempotent. In particular, code that writes to files on `EmptyDirs`
+code should be idempotent. In particular, code that writes into any `emptyDir` volume
 should be prepared for the possibility that an output file already exists.
 
 Init containers have all of the fields of an app container. However, Kubernetes

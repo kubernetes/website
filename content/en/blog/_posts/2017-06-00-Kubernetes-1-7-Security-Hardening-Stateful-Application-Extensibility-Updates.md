@@ -3,8 +3,13 @@ title: " Kubernetes 1.7: Security Hardening, Stateful Application Updates and Ex
 date: 2017-06-30
 slug: kubernetes-1.7-security-hardening-stateful-application-extensibility-updates
 url: /blog/2017/06/Kubernetes-1-7-Security-Hardening-Stateful-Application-Extensibility-Updates
+author: >
+   Aparna Sinha (Google),
+   Ihor Dvoretskyi (Mirantis)
 ---
-Today we’re announcing Kubernetes 1.7, a milestone release that adds security, storage and extensibility features motivated by widespread production use of Kubernetes in the most demanding enterprise environments.&nbsp;  
+_This article is by Aparna Sinha and Ihor Dvoretskyi, on behalf of the Kubernetes 1.7 release team._
+
+Today we’re announcing Kubernetes 1.7, a milestone release that adds security, storage and extensibility features motivated by widespread production use of Kubernetes in the most demanding enterprise environments.
 
 At-a-glance, security enhancements in this release include encrypted secrets, network policy for pod-to-pod communication, node authorizer to limit kubelet access and client / server TLS certificate rotation.&nbsp;  
 
@@ -77,5 +82,3 @@ The simplest way to get involved is joining one of the many [Special Interest Gr
 
 Many thanks to our vast community of contributors and supporters in making this and all releases possible.  
 
-
-_-- Aparna Sinha, Group Product Manager, Kubernetes Google and Ihor Dvoretskyi, Program Manager, Kubernetes Mirantis_  

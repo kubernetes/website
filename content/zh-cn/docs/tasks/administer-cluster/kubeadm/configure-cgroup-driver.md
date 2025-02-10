@@ -1,12 +1,12 @@
 ---
 title: 配置 cgroup 驱动
 content_type: task
-weight: 20
+weight: 50
 ---
 <!-- 
 title: Configuring a cgroup driver
 content_type: task
-weight: 10
+weight: 50
 -->
 
 <!-- overview -->
@@ -90,7 +90,7 @@ A minimal example of configuring the field explicitly:
 ```yaml
 # kubeadm-config.yaml
 kind: ClusterConfiguration
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kubernetesVersion: v1.21.0
 ---
 kind: KubeletConfiguration

@@ -3,6 +3,8 @@ title: " Monitoring Kubernetes with Sysdig "
 date: 2015-11-19
 slug: monitoring-kubernetes-with-sysdig
 url: /blog/2015/11/Monitoring-Kubernetes-With-Sysdig
+author: >
+  Chris Crane (Sysdig)
 ---
 _Today we’re sharing a guest post by Chris Crane from Sysdig about their monitoring integration into Kubernetes.&nbsp;_  
 
@@ -223,7 +225,6 @@ I’m pretty confident that what we’re delivering here represents a huge leap 
 
 
 
- Chris Crane, VP Product, Sysdig&nbsp;
 
 
 

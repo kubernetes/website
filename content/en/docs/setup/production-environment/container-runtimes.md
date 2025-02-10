@@ -140,18 +140,18 @@ Starting with v1.22 and later, when creating a cluster with kubeadm, if the user
 the `cgroupDriver` field under `KubeletConfiguration`, kubeadm defaults it to `systemd`.
 {{< /note >}}
 
-In Kubernetes v1.28, with the `KubeletCgroupDriverFromCRI`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled and a container runtime that supports the `RuntimeConfig` CRI RPC,
-the kubelet automatically detects the appropriate cgroup driver from the runtime,
-and ignores the `cgroupDriver` setting within the kubelet configuration.
-
 If you configure `systemd` as the cgroup driver for the kubelet, you must also
 configure `systemd` as the cgroup driver for the container runtime. Refer to
 the documentation for your container runtime for instructions. For example:
 
 *  [containerd](#containerd-systemd)
 *  [CRI-O](#cri-o)
+
+In Kubernetes {{< skew currentVersion >}}, with the `KubeletCgroupDriverFromCRI`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled and a container runtime that supports the `RuntimeConfig` CRI RPC,
+the kubelet automatically detects the appropriate cgroup driver from the runtime,
+and ignores the `cgroupDriver` setting within the kubelet configuration.
 
 {{< caution >}}
 Changing the cgroup driver of a Node that has joined a cluster is a sensitive operation.
@@ -251,21 +251,16 @@ sandbox image by setting the following config:
 
 ```toml
 [plugins."io.containerd.grpc.v1.cri"]
-  sandbox_image = "registry.k8s.io/pause:3.2"
+  sandbox_image = "registry.k8s.io/pause:3.10"
 ```
 
 You might need to restart `containerd` as well once you've updated the config file: `systemctl restart containerd`.
-
-Please note, that it is a best practice for kubelet to declare the matching `pod-infra-container-image`.
-If not configured, kubelet may attempt to garbage collect the `pause` image.
-There is ongoing work in [containerd to pin the pause image](https://github.com/containerd/containerd/issues/6352)
-and not require this setting on kubelet any longer.
 
 ### CRI-O
 
 This section contains the necessary steps to install CRI-O as a container runtime.
 
-To install CRI-O, follow [CRI-O Install Instructions](https://github.com/cri-o/cri-o/blob/main/install.md#readme).
+To install CRI-O, follow [CRI-O Install Instructions](https://github.com/cri-o/packaging/blob/main/README.md#usage).
 
 #### cgroup driver
 
@@ -298,7 +293,7 @@ config value:
 
 ```toml
 [crio.image]
-pause_image="registry.k8s.io/pause:3.6"
+pause_image="registry.k8s.io/pause:3.10"
 ```
 
 This config option supports live configuration reload to apply this change: `systemctl reload crio` or by sending

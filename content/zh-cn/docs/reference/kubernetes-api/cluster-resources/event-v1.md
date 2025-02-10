@@ -147,7 +147,7 @@ Events 应被视为通知性质的、尽最大努力而提供的补充数据。
   <!--
   note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
   -->
-  node 是对该操作状态的可读描述。注释的最大长度是 1kB，但是库应该准备好处理最多 64kB 的值。
+  note 是对该操作状态的可读描述。注释的最大长度是 1kB，但是库应该准备好处理最多 64kB 的值。
 
 - **reason** (string)
 

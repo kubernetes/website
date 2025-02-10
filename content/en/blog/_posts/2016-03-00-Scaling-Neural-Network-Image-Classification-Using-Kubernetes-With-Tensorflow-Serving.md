@@ -3,6 +3,8 @@ title: " Scaling neural network image classification using Kubernetes with Tenso
 date: 2016-03-23
 slug: scaling-neural-network-image-classification-using-kubernetes-with-tensorflow-serving
 url: /blog/2016/03/Scaling-Neural-Network-Image-Classification-Using-Kubernetes-With-Tensorflow-Serving
+author: >
+  Fangwei Li (Google)
 ---
 In 2011, Google developed an internal deep learning infrastructure called [DistBelief](http://research.google.com/pubs/pub40565.html), which allowed Googlers to build ever larger [neural networks](https://en.wikipedia.org/wiki/Artificial_neural_network) and scale training to thousands of cores. Late last year, Google [introduced TensorFlow](http://googleresearch.blogspot.com/2015/11/tensorflow-googles-latest-machine_9.html), its second-generation machine learning system. TensorFlow is general, flexible, portable, easy-to-use and, most importantly, developed with the open source community.
 
@@ -29,6 +31,4 @@ Inference can be very resource intensive. Our server executes the following Tens
 
 Fortunately, this is where Kubernetes can help us. Kubernetes distributes inference request processing across a cluster using its [External Load Balancer](/docs/user-guide/load-balancer/). Each [pod](/docs/user-guide/pods/) in the cluster contains a [TensorFlow Serving Docker image](https://tensorflow.github.io/serving/docker) with the TensorFlow Serving-based gRPC server and a trained Inception-v3 model. The model is represented as a [set of files](https://github.com/tensorflow/serving/blob/master/tensorflow_serving/session_bundle/README.md) describing the shape of the TensorFlow graph, model weights, assets, and so on. Since everything is neatly packaged together, we can dynamically scale the number of replicated pods using the [Kubernetes Replication Controller](/docs/user-guide/replication-controller/operations/) to keep up with the service demands.  
 
-To help you try this out yourself, we’ve written a [step-by-step tutorial](https://tensorflow.github.io/serving/serving_inception), which shows you how to create the TensorFlow Serving Docker container to serve the Inception-v3 image classification model, configure a Kubernetes cluster and run classification requests against it. We hope this will make it easier for you to integrate machine learning into your own applications and scale it with Kubernetes! To learn more about TensorFlow Serving, check out [tensorflow.github.io/serving](http://tensorflow.github.io/serving).&nbsp;  
-
-- _Fangwei Li, Software Engineer, Google_
+To help you try this out yourself, we’ve written a [step-by-step tutorial](https://tensorflow.github.io/serving/serving_inception), which shows you how to create the TensorFlow Serving Docker container to serve the Inception-v3 image classification model, configure a Kubernetes cluster and run classification requests against it. We hope this will make it easier for you to integrate machine learning into your own applications and scale it with Kubernetes! To learn more about TensorFlow Serving, check out [tensorflow.github.io/serving](http://tensorflow.github.io/serving).

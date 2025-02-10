@@ -139,6 +139,8 @@ The following sysctls are supported in the _safe_ set:
 - `net.ipv4.tcp_fin_timeout` (since Kubernetes 1.29, needs kernel 4.6+);
 - `net.ipv4.tcp_keepalive_intvl` (since Kubernetes 1.29, needs kernel 4.5+);
 - `net.ipv4.tcp_keepalive_probes` (since Kubernetes 1.29, needs kernel 4.5+).
+- `net.ipv4.tcp_rmem` (since Kubernetes 1.32, needs kernel 4.15+).
+- `net.ipv4.tcp_wmem` (since Kubernetes 1.32, needs kernel 4.15+).
 -->
 - `kernel.shm_rmid_forced`；
 - `net.ipv4.ip_local_port_range`；
@@ -149,19 +151,21 @@ The following sysctls are supported in the _safe_ set:
 - `net.ipv4.tcp_keepalive_time`（从 Kubernetes 1.29 开始，需要 kernel 4.5+）；
 - `net.ipv4.tcp_fin_timeout`（从 Kubernetes 1.29 开始，需要 kernel 4.6+）；
 - `net.ipv4.tcp_keepalive_intvl`（从 Kubernetes 1.29 开始，需要 kernel 4.5+）；
-- `net.ipv4.tcp_keepalive_probes`（从 Kubernetes 1.29 开始，需要 kernel 4.5+）。
+- `net.ipv4.tcp_keepalive_probes`（从 Kubernetes 1.29 开始，需要 kernel 4.5+）；
+- `net.ipv4.tcp_rmem`（从 Kubernetes 1.32 开始，需要 kernel 4.15+）；
+- `net.ipv4.tcp_wmem`（从 Kubernetes 1.32 开始，需要 kernel 4.15+）。
 
 {{< note >}}
 <!--
 There are some exceptions to the set of safe sysctls:
 
 - The `net.*` sysctls are not allowed with host networking enabled.
-- The `net.ipv4.tcp_syncookies` sysctl is not namespaced on Linux kernel version 4.4 or lower.
+- The `net.ipv4.tcp_syncookies` sysctl is not namespaced on Linux kernel version 4.5 or lower.
 -->
 安全 sysctl 参数有一些例外：
 
 - `net.*` sysctl 参数不允许在启用主机网络的情况下使用。
-- `net.ipv4.tcp_syncookies` sysctl 参数在 Linux 内核 4.4 或更低的版本中是无命名空间的。
+- `net.ipv4.tcp_syncookies` sysctl 参数在 Linux 内核 4.5 或更低的版本中是无命名空间的。
 {{< /note >}}
 
 <!--

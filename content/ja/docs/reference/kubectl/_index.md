@@ -17,7 +17,7 @@ card:
 
 この概要では、`kubectl`の構文を扱い、コマンド操作を説明し、一般的な例を示します。サポートされているすべてのフラグやサブコマンドを含め、各コマンドの詳細については、[kubectl](/docs/reference/generated/kubectl/kubectl-commands/)リファレンスドキュメントを参照してください。
 
-インストール方法については、[kubectlのインストールおよびセットアップ](/ja/docs/tasks/tools/install-kubectl/)をご覧ください。クイックガイドは、[チートシート](/ja/docs/reference/kubectl/cheatsheet/)をご覧ください。`docker`コマンドラインツールに慣れている方は、[`kubectl` for Docker Users](/docs/reference/kubectl/docker-cli-to-kubectl/)でKubernetesの同等のコマンドを説明しています。
+インストール方法については、[kubectlのインストールおよびセットアップ](/ja/docs/tasks/tools/#kubectl)をご覧ください。クイックガイドは、[チートシート](/ja/docs/reference/kubectl/cheatsheet/)をご覧ください。`docker`コマンドラインツールに慣れている方は、[`kubectl` for Docker Users](/docs/reference/kubectl/docker-cli-to-kubectl/)でKubernetesの同等のコマンドを説明しています。
 
 <!-- body -->
 

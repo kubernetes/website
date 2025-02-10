@@ -213,12 +213,11 @@ operator.
 
 <!--
 * [Charmed Operator Framework](https://juju.is/)
-* [Java Operator SDK](https://github.com/java-operator-sdk/java-operator-sdk)
+* [Java Operator SDK](https://github.com/operator-framework/java-operator-sdk)
 * [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
 * [kube-rs](https://kube.rs/) (Rust)
 * [kubebuilder](https://book.kubebuilder.io/)
 * [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET operator SDK)
-* [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
 * [Mast](https://docs.ansi.services/mast/user_guide/operator/)
 * [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) along with WebHooks that
   you implement yourself
@@ -227,12 +226,11 @@ operator.
 -->
 
 * [Charmed Operator Framework](https://juju.is/)
-* [Java Operator SDK](https://github.com/java-operator-sdk/java-operator-sdk)
+* [Java Operator SDK](https://github.com/operator-framework/java-operator-sdk)
 * [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
 * [kube-rs](https://kube.rs/) (Rust)
 * [kubebuilder](https://book.kubebuilder.io/)
 * [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET operator SDK)
-* [KUDO](https://kudo.dev/)（Kubernetes 通用声明式 Operator）
 * [Mast](https://docs.ansi.services/mast/user_guide/operator/)
 * [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html)，可与 Webhook 结合使用，以实现自己的功能。
 * [Operator Framework](https://operatorframework.io)

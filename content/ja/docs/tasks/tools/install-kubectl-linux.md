@@ -124,7 +124,7 @@ Linuxへkubectlをインストールするには、次の方法があります:
    ```shell
    sudo apt-get update
    # apt-transport-httpsはダミーパッケージの可能性があります。その場合、そのパッケージはスキップできます
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
    ```
 
 2. Kubernetesパッケージリポジトリの公開署名キーをダウンロードしてください。

@@ -3,9 +3,9 @@ title: " Bringing End-to-End Kubernetes Testing to Azure (Part 1) "
 date: 2016-06-06
 slug: bringing-end-to-end-testing-to-azure
 url: /blog/2016/06/Bringing-End-To-End-Testing-To-Azure
+author: >
+  Travis Newhouse (AppFormix)
 ---
-
-_Today’s guest post is by Travis Newhouse, Chief Architect at AppFormix, writing about their experiences bringing Kubernetes to Azure._  
 
 At [AppFormix](http://www.appformix.com/), continuous integration testing is part of our culture. We see many benefits to running end-to-end tests regularly, including minimizing regressions and ensuring our software works together as a whole. To ensure a high quality experience for our customers, we require the ability to run end-to-end testing not just for our application, but for the entire orchestration stack. Our customers are adopting Kubernetes as their container orchestration technology of choice, and they demand choice when it comes to where their containers execute, from private infrastructure to public providers, including Azure. After several weeks of work, we are pleased to announce we are contributing a nightly, continuous integration job that executes e2e tests on the Azure platform. After running the e2e tests each night for only a few weeks, we have already found and fixed two issues in Kubernetes. We hope our contribution of an e2e job will help the community maintain support for the Azure platform as Kubernetes evolves.    
 

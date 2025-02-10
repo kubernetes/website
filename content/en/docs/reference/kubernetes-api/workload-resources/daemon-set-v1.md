@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "DaemonSet represents the configuration of a daemon set."
 title: "DaemonSet"
-weight: 8
+weight: 9
 auto_generated: true
 ---
 
@@ -153,6 +153,8 @@ DaemonSetStatus represents the current status of a daemon set.
 - **conditions** ([]DaemonSetCondition)
 
   *Patch strategy: merge on key `type`*
+  
+  *Map: unique values on key type will be kept during a merge*
   
   Represents the latest available observations of a DaemonSet's current state.
 

@@ -15,7 +15,7 @@ spec:
       labels:
         app: cassandra
     spec:
-      terminationGracePeriodSeconds: 1800
+      terminationGracePeriodSeconds: 500
       containers:
       - name: cassandra
         image: gcr.io/google-samples/cassandra:v13

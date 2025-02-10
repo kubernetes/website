@@ -3,8 +3,11 @@ title: " Introducing the Kubernetes OpenStack Special Interest Group "
 date: 2016-04-22
 slug: introducing-kubernetes-openstack-sig
 url: /blog/2016/04/Introducing-Kubernetes-Openstack-Sig
+author: >
+  Steve Gordon (Red Hat),
+  Ihor Dvoretskyi (Mirantis)
 ---
-_Editor’s note: This week we’re featuring [Kubernetes Special Interest Groups](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs)); Today’s post is by the SIG-OpenStack team about their mission to facilitate ideas between the OpenStack and Kubernetes communities.&nbsp;_  
+_**Editor's note:**  This week we’re featuring [Kubernetes Special Interest Groups](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs)); Today’s post is by the SIG-OpenStack team about their mission to facilitate ideas between the OpenStack and Kubernetes communities.&nbsp;_  
 
 
 
@@ -59,7 +62,3 @@ If you’re interested in Kubernetes and OpenStack, there are several ways to pa
 - Email us at the [SIG-OpenStack mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-openstack)
 - Chat with us on the [Kubernetes Slack](http://slack.k8s.io/): [#sig-openstack channel](https://kubernetes.slack.com/messages/sig-openstack/)&nbsp;and #openstack-kubernetes on freenode
 - Join our meeting occurring every second Tuesday at 2 PM PDT; attend via the zoom videoconference found in our [meeting notes](https://docs.google.com/document/d/1iAQ3LSF_Ky6uZdFtEZPD_8i6HXeFxIeW4XtGcUJtPyU/edit#).
-
-
-
-_-- Steve Gordon, Principal Product Manager at Red Hat, and Ihor Dvoretskyi, OpenStack Operations Engineer at Mirantis_

@@ -873,7 +873,7 @@ with the `response` stanza populated, serialized to JSON.
 If conversion succeeds, a webhook should return a `response` stanza containing the following fields:
 * `uid`, copied from the `request.uid` sent to the webhook
 * `result`, set to `{"status":"Success"}`
-* `convertedObjects`, containing all of the objects from `request.objects`, converted to `request.desiredVersion`
+* `convertedObjects`, containing all of the objects from `request.objects`, converted to `request.desiredAPIVersion`
 
 Example of a minimal successful response from a webhook:
 

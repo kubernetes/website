@@ -3,9 +3,10 @@ title: " How we run Kubernetes in Kubernetes aka Kubeception "
 date: 2017-01-20
 slug: how-we-run-kubernetes-in-kubernetes-kubeception
 url: /blog/2017/01/How-We-Run-Kubernetes-In-Kubernetes-Kubeception
+author: >
+  Hector Fernandez (Giant Swarm)
+  Puja Abbassi (Giant Swarm)
 ---
-_Editor's note: Today’s post is by the team at Giant Swarm, showing how they run Kubernetes in Kubernetes._  
-
 [Giant Swarm](https://giantswarm.io/)’s container infrastructure started out with the goal to be an easy way for developers to deploy containerized microservices. Our first generation was extensively using [fleet](https://github.com/coreos/fleet) as a base layer for our infrastructure components as well as for scheduling user containers.  
 
 In order to give our users a more powerful way to manage their containers we introduced Kubernetes into our stack in early 2016. However, as we needed a quick way to flexibly spin up and manage different users’ Kubernetes clusters resiliently we kept the underlying fleet layer.  
@@ -119,6 +120,3 @@ This setup is still in its early days and our roadmap is planning for improvemen
 
 Most importantly, we are working on making the inner Kubernetes clusters a third party resource that can then be managed by a custom controller. The result would be much like the [Operator concept by CoreOS](https://coreos.com/blog/introducing-operators.html). And to ensure that the community at large can benefit from this project we will be open sourcing this in the near future.
 
-
-
-_-- Hector Fernandez, Software Engineer & Puja Abbassi, Developer Advocate, Giant Swarm_

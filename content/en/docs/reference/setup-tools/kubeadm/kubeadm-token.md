@@ -16,16 +16,16 @@ such a token and also to create and manage new ones.
 
 <!-- body -->
 ## kubeadm token create {#cmd-token-create}
-{{< include "generated/kubeadm_token_create.md" >}}
+{{< include "generated/kubeadm_token/kubeadm_token_create.md" >}}
 
 ## kubeadm token delete {#cmd-token-delete}
-{{< include "generated/kubeadm_token_delete.md" >}}
+{{< include "generated/kubeadm_token/kubeadm_token_delete.md" >}}
 
 ## kubeadm token generate {#cmd-token-generate}
-{{< include "generated/kubeadm_token_generate.md" >}}
+{{< include "generated/kubeadm_token/kubeadm_token_generate.md" >}}
 
 ## kubeadm token list {#cmd-token-list}
-{{< include "generated/kubeadm_token_list.md" >}}
+{{< include "generated/kubeadm_token/kubeadm_token_list.md" >}}
 
 ## {{% heading "whatsnext" %}}
 

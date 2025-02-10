@@ -104,6 +104,13 @@ kubectl debug (POD | TYPE[[.VERSION].GROUP]/NAME) [ -- COMMAND [args...] ]
 </tr>
 
 <tr>
+<td colspan="2">--custom string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a JSON or YAML file containing a partial container spec to customize built-in debug profiles.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--env stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: []</td>
 </tr>
 <tr>
@@ -136,6 +143,48 @@ kubectl debug (POD | TYPE[[.VERSION].GROUP]/NAME) [ -- COMMAND [args...] ]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The image pull policy for the container. If left empty, this value will not be specified by the client and defaulted by the server.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--keep-annotations</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, keep the original pod annotations.(This flag only works when used with '--copy-to')</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--keep-init-containers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Run the init containers for the pod. Defaults to true.(This flag only works when used with '--copy-to')</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--keep-labels</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, keep the original pod labels.(This flag only works when used with '--copy-to')</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--keep-liveness</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, keep the original pod liveness probes.(This flag only works when used with '--copy-to')</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--keep-readiness</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, keep the original pod readiness probes.(This flag only works when used with '--copy-to')</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--keep-startup</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, keep the original startup probes.(This flag only works when used with '--copy-to')</p></td>
 </tr>
 
 <tr>
@@ -262,20 +311,6 @@ kubectl debug (POD | TYPE[[.VERSION].GROUP]/NAME) [ -- COMMAND [args...] ]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a client key file for TLS</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks</p></td>
 </tr>
 
 <tr>

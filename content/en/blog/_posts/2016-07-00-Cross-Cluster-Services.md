@@ -3,9 +3,12 @@ title: " Cross Cluster Services - Achieving Higher Availability for your Kuberne
 date: 2016-07-14
 slug: cross-cluster-services
 url: /blog/2016/07/Cross-Cluster-Services
+author: >
+  Quinton Hoole (Google),
+  Allan Naim (Google),
 ---
 
-_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1-3) on what's new in Kubernetes 1.3_
+_**Editor's note:** this post is part of a [series of in-depth articles](/blog/2016/07/five-days-of-kubernetes-1-3) on what's new in Kubernetes 1.3_
 
 As Kubernetes users scale their production deployments we’ve heard a clear desire to deploy services across zone, region, cluster and cloud boundaries. Services that span clusters provide geographic distribution, enable hybrid and multi-cloud scenarios and improve the level of high availability beyond single cluster multi-zone deployments. Customers who want their services to span one or more (possibly remote) clusters, need them to be reachable in a consistent manner from both within and outside their clusters.  
 
@@ -334,9 +337,3 @@ We'd love to hear feedback on Kubernetes Cross Cluster Services. To join the com
 
 
 Please give Cross Cluster Services a try, and let us know how it goes!
-
-
-
-
-
-_-- Quinton Hoole, Engineering Lead, Google and Allan Naim, Product Manager, Google_

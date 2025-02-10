@@ -680,7 +680,7 @@ The `matchPolicy` lets a webhook define how its `rules` are used to match incomi
 Allowed values are `Exact` or `Equivalent`.
 
 * `Exact` means a request should be intercepted only if it exactly matches a specified rule.
-* `Equivalent` means a request should be intercepted if modifies a resource listed in `rules`,
+* `Equivalent` means a request should be intercepted if it modifies a resource listed in `rules`,
   even via another API group or version.
 
 In the example given above, the webhook that only registered for `apps/v1` could use `matchPolicy`:

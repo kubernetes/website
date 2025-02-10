@@ -27,7 +27,7 @@ before referring to it in a {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 This page provides an outline of the container image concept.
 -->
 容器镜像（Image）所承载的是封装了应用程序及其所有软件依赖的二进制数据。
-容器镜像是可执行的软件包，可以单独运行；该软件包对所处的运行时环境具有良定（Well Defined）的假定。
+容器镜像是可执行的软件包，可以单独运行；该软件包对所处的运行时环境具有明确定义的运行时环境假定。
 
 你通常会创建应用的容器镜像并将其推送到某仓库（Registry），然后在
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 中引用它。
@@ -53,10 +53,10 @@ Container images are usually given a name such as `pause`, `example/mycontainer`
 Images can also include a registry hostname; for example: `fictional.registry.example/imagename`,
 and possibly a port number as well; for example: `fictional.registry.example:10443/imagename`.
 
-If you don't specify a registry hostname, Kubernetes assumes that you mean the Docker public registry.
+If you don't specify a registry hostname, Kubernetes assumes that you mean the [Docker public registry](https://hub.docker.com/).
 
-After the image name part you can add a _tag_ (in the same way you would when using with commands
-like `docker` or `podman`).  Tags let you identify different versions of the same series of images.
+You can change this behaviour by setting default image registry in 
+[container runtime](/docs/setup/production-environment/container-runtimes/) configuration.
 -->
 ## 镜像名称    {#image-names}
 
@@ -64,21 +64,69 @@ like `docker` or `podman`).  Tags let you identify different versions of the sam
 镜像名称也可以包含所在仓库的主机名。例如：`fictional.registry.example/imagename`。
 还可以包含仓库的端口号，例如：`fictional.registry.example:10443/imagename`。
 
-如果你不指定仓库的主机名，Kubernetes 认为你在使用 Docker 公共仓库。
+如果你不指定仓库的主机名，Kubernetes 认为你在使用 [Docker 公共仓库](https://hub.docker.com/)。
 
-在镜像名称之后，你可以添加一个**标签（Tag）**（与使用 `docker` 或 `podman` 等命令时的方式相同）。
+你可以通过在[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)
+配置中设置默认镜像仓库来更改此行为。
+
+<!--
+After the image name part you can add a _tag_ or _digest_ (in the same way you would when using with commands
+like `docker` or `podman`). Tags let you identify different versions of the same series of images.
+Digests are a unique identifier for a specific version of an image. Digests are hashes of the image's content,
+and are immutable. Tags can be moved to point to different images, but digests are fixed.
+-->
+
+在镜像名称之后，你可以添加一个**标签（Tag）** 或 **摘要（digest）**
+（与使用 `docker` 或 `podman` 等命令时的方式相同）。
 使用标签能让你辨识同一镜像序列中的不同版本。
+摘要是特定版本镜像的唯一标识符，是镜像内容的哈希值，不可变。
 
 <!--
 Image tags consist of lowercase and uppercase letters, digits, underscores (`_`),
-periods (`.`), and dashes (`-`).
-There are additional rules about where you can place the separator
-characters (`_`, `-`, and `.`) inside an image tag.
+periods (`.`), and dashes (`-`). It can be up to 128 characters long. And must follow the
+next regex pattern: `[a-zA-Z0-9_][a-zA-Z0-9._-]{0,127}`
+You can read more about and find validation regex in the
+[OCI Distribution Specification](https://github.com/opencontainers/distribution-spec/blob/master/spec.md#workflow-categories).
 If you don't specify a tag, Kubernetes assumes you mean the tag `latest`.
 -->
 镜像标签可以包含小写字母、大写字母、数字、下划线（`_`）、句点（`.`）和连字符（`-`）。
-关于在镜像标签中何处可以使用分隔字符（`_`、`-` 和 `.`）还有一些额外的规则。
+它的长度最多为 128 个字符，并且必须遵循正则表达式模式：`[a-zA-Z0-9_][a-zA-Z0-9._-]{0,127}`。
+你可以在 [OCI 分发规范](https://github.com/opencontainers/distribution-spec/blob/master/spec.md#workflow-categories)
+中阅读有关并找到验证正则表达式的更多信息。
 如果你不指定标签，Kubernetes 认为你想使用标签 `latest`。
+
+<!--
+Image digests consists of a hash algorithm (such as `sha256`) and a hash value. For example:
+`sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07`
+You can find more information about digests format in the 
+[OCI Image Specification](https://github.com/opencontainers/image-spec/blob/master/descriptor.md#digests).
+-->
+图像摘要由哈希算法（例如 `sha256`）和哈希值组成，例如：
+`sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07`。
+你可以在 [OCI 镜像规范](https://github.com/opencontainers/image-spec/blob/master/descriptor.md#digests)
+中找到有关摘要格式的更多信息。
+
+<!--
+Some image name examples that Kubernetes can use are:
+-->
+Kubernetes 可以使用的一些镜像名称示例包括：
+
+<!--
+- `busybox` - Image name only, no tag or digest. Kubernetes will use Docker public registry and latest tag. (Same as `docker.io/library/busybox:latest`)
+- `busybox:1.32.0` - Image name with tag. Kubernetes will use Docker public registry. (Same as `docker.io/library/busybox:1.32.0`)
+- `registry.k8s.io/pause:latest` - Image name with a custom registry and latest tag.
+- `registry.k8s.io/pause:3.5` - Image name with a custom registry and non-latest tag.
+- `registry.k8s.io/pause@sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07` - Image name with digest.
+- `registry.k8s.io/pause:3.5@sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07` - Image name with tag and digest. Only digest will be used for pulling.
+-->
+- `busybox` - 仅包含镜像名称，没有标签或摘要，Kubernetes 将使用 Docker 公共镜像仓库和 `latest` 标签。
+  （例如 `docker.io/library/busybox:latest`）
+- `busybox:1.32.0` - 带标签的镜像名称，Kubernetes 将使用 Docker 公共镜像仓库。
+  （例如 `docker.io/library/busybox:1.32.0`）
+- `registry.k8s.io/pause:latest` - 带有自定义镜像仓库和 `latest` 标签的镜像名称。
+- `registry.k8s.io/pause:3.5` - 带有自定义镜像仓库和非 `latest` 标签的镜像名称。
+- `registry.k8s.io/pause@sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07` - 带摘要的镜像名称。
+- `registry.k8s.io/pause:3.5@sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07` - 带有标签和摘要的镜像名称，镜像拉取仅参考摘要。
 
 <!--
 ## Updating images
@@ -143,7 +191,7 @@ these values have:
   否则，kubelet 就会使用解析后的摘要拉取镜像，并使用该镜像来启动容器。
 
 `Never`
-: Kubelet 不会尝试获取镜像。如果镜像已经以某种方式存在本地，
+: kubelet 不会尝试获取镜像。如果镜像已经以某种方式存在本地，
   kubelet 会尝试启动容器；否则，会启动失败。
   更多细节见[提前拉取镜像](#pre-pulled-images)。
 
@@ -176,7 +224,8 @@ replace `<image-name>:<tag>` with `<image-name>@<digest>`
 (for example, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`).
 -->
 为了确保 Pod 总是使用相同版本的容器镜像，你可以指定镜像的摘要；
-将 `<image-name>:<tag>` 替换为 `<image-name>@<digest>`，例如 `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`。
+将 `<image-name>:<tag>` 替换为 `<image-name>@<digest>`，例如
+`image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`。
 
 <!--
 When using image tags, if the image registry were to change the code that the tag on that image
@@ -241,11 +290,11 @@ For example, if you create a Deployment with an image whose tag is _not_
 `imagePullPolicy` field will _not_ change to `Always`. You must manually change
 the pull policy of any object after its initial creation.
 -->
-容器的 `imagePullPolicy` 的值总是在对象初次 _创建_ 时设置的，
+容器的 `imagePullPolicy` 的值总是在对象初次**创建**时设置的，
 如果后来镜像的标签或摘要发生变化，则不会更新。
 
-例如，如果你用一个 **非** `:latest` 的镜像标签创建一个 Deployment，
-并在随后更新该 Deployment 的镜像标签为 `:latest`，则 `imagePullPolicy` 字段 **不会** 变成 `Always`。
+例如，如果你用一个**非** `:latest` 的镜像标签创建一个 Deployment，
+并在随后更新该 Deployment 的镜像标签为 `:latest`，则 `imagePullPolicy` 字段**不会**变成 `Always`。
 你必须手动更改已经创建的资源的拉取策略。
 {{< /note >}}
 
@@ -264,7 +313,7 @@ If you would like to always force a pull, you can do one of the following:
 -->
 #### 必要的镜像拉取   {#required-image-pull}
 
-如果你想总是强制执行拉取，你可以使用下述的一中方式：
+如果你想总是强制执行拉取，你可以使用下述的一种方式：
 
 - 设置容器的 `imagePullPolicy` 为 `Always`。
 - 省略 `imagePullPolicy`，并使用 `:latest` 作为镜像标签；
@@ -379,7 +428,7 @@ kubelet 从不代表一个 Pod 并行地拉取多个镜像。
 -->
 ### 最大并行镜像拉取数量  {#maximum-parallel-image-pulls}
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.32" state="beta" >}}
 
 <!--
 When `serializeImagePulls` is set to false, the kubelet defaults to no limit on the
@@ -391,8 +440,8 @@ until at least one ongoing image pull is complete.
 -->
 当 `serializeImagePulls` 被设置为 false 时，kubelet 默认对同时拉取的最大镜像数量没有限制。
 如果你想限制并行镜像拉取的数量，可以在 kubelet 配置中设置字段 `maxParallelImagePulls`。
-当 `maxParallelImagePulls` 设置为 _n_ 时，只能同时拉取 _n_ 个镜像，
-超过 _n_ 的任何镜像都必须等到至少一个正在进行拉取的镜像拉取完成后，才能拉取。
+当 `maxParallelImagePulls` 设置为 **n** 时，只能同时拉取 **n** 个镜像，
+超过 **n** 的任何镜像都必须等到至少一个正在进行拉取的镜像拉取完成后，才能拉取。
 
 <!--
 Limiting the number parallel image pulls would prevent image pulling from consuming
@@ -433,7 +482,7 @@ suffixes.
 镜像索引可以指向镜像的多个[镜像清单](https://github.com/opencontainers/image-spec/blob/master/manifest.md)，
 提供特定于体系结构版本的容器。
 这背后的理念是让你可以为镜像命名（例如：`pause`、`example/mycontainer`、`kube-apiserver`）
-的同时，允许不同的系统基于它们所使用的机器体系结构取回正确的二进制镜像。
+的同时，允许不同的系统基于它们所使用的机器体系结构获取正确的二进制镜像。
 
 Kubernetes 自身通常在命名容器镜像时添加后缀 `-$(ARCH)`。
 为了向前兼容，请在生成较老的镜像时也提供后缀。
@@ -463,7 +512,7 @@ Credentials can be provided in several ways:
   - all pods can use any images cached on a node
   - requires root access to all nodes to set up
 - Specifying ImagePullSecrets on a Pod
-  - only pods which provide own keys can access the private registry
+  - only pods which provide their own keys can access the private registry
 - Vendor-specific or local extensions
   - if you're using a custom node configuration, you (or your cloud
     provider) can implement your mechanism for authenticating the node

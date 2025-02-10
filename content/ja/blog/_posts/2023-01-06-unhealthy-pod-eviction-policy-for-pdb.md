@@ -3,10 +3,11 @@ layout: blog
 title: "Kubernetes 1.26: PodDisruptionBudgetによって保護された不健全なPodに対する退避ポリシー"
 date: 2023-01-06
 slug: "unhealthy-pod-eviction-policy-for-pdbs"
+author: >
+  Filip Křepinský (Red Hat),
+  Morten Torkildsen (Google),
+  Ravi Gudimetla (Apple)
 ---
-
-**著者:** Filip Křepinský (Red Hat), Morten Torkildsen (Google), Ravi Gudimetla (Apple)
-
 
 アプリケーションの中断がその可用性に影響を与えないようにすることは、簡単な作業ではありません。
 先月リリースされたKubernetes v1.26では、[PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budgets) (PDB) に

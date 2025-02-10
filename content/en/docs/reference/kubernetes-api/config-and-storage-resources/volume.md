@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Volume represents a named volume in a pod that may be accessed by any container in the pod."
 title: "Volume"
-weight: 3
+weight: 10
 auto_generated: true
 ---
 
@@ -70,7 +70,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
   - **configMap.name** (string)
 
-    Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+    Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 
   - **configMap.optional** (boolean)
 
@@ -82,6 +82,8 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
   - **configMap.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
+    *Atomic: will be replaced during a merge*
+    
     items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 
 - **secret** (SecretVolumeSource)
@@ -107,6 +109,8 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
   - **secret.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
+    *Atomic: will be replaced during a merge*
+    
     items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 
 - **downwardAPI** (DownwardAPIVolumeSource)
@@ -122,6 +126,8 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
   - **downwardAPI.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
 
+    *Atomic: will be replaced during a merge*
+    
     Items is a list of downward API volume file
 
 - **projected** (ProjectedVolumeSource)
@@ -137,10 +143,45 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
   - **projected.sources** ([]VolumeProjection)
 
-    sources is the list of volume projections
+    *Atomic: will be replaced during a merge*
+    
+    sources is the list of volume projections. Each entry in this list handles one source.
 
     <a name="VolumeProjection"></a>
-    *Projection that may be projected along with other supported volume types*
+    *Projection that may be projected along with other supported volume types. Exactly one of these fields must be set.*
+
+    - **projected.sources.clusterTrustBundle** (ClusterTrustBundleProjection)
+
+      ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+      
+      Alpha, gated by the ClusterTrustBundleProjection feature gate.
+      
+      ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+      
+      Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+
+      <a name="ClusterTrustBundleProjection"></a>
+      *ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.*
+
+      - **projected.sources.clusterTrustBundle.path** (string), required
+
+        Relative path from the volume root to write the bundle.
+
+      - **projected.sources.clusterTrustBundle.labelSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+
+        Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
+
+      - **projected.sources.clusterTrustBundle.name** (string)
+
+        Select a single ClusterTrustBundle by object name.  Mutually-exclusive with signerName and labelSelector.
+
+      - **projected.sources.clusterTrustBundle.optional** (boolean)
+
+        If true, don't block pod startup if the referenced ClusterTrustBundle(s) aren't available.  If using name, then the named ClusterTrustBundle is allowed not to exist.  If using signerName, then the combination of signerName and labelSelector is allowed to match zero ClusterTrustBundles.
+
+      - **projected.sources.clusterTrustBundle.signerName** (string)
+
+        Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
 
     - **projected.sources.configMap** (ConfigMapProjection)
 
@@ -153,7 +194,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
       - **projected.sources.configMap.name** (string)
 
-        Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 
       - **projected.sources.configMap.optional** (boolean)
 
@@ -161,6 +202,8 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
       - **projected.sources.configMap.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
+        *Atomic: will be replaced during a merge*
+        
         items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 
     - **projected.sources.downwardAPI** (DownwardAPIProjection)
@@ -172,6 +215,8 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
       - **projected.sources.downwardAPI.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
 
+        *Atomic: will be replaced during a merge*
+        
         Items is a list of DownwardAPIVolume file
 
     - **projected.sources.secret** (SecretProjection)
@@ -185,7 +230,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
       - **projected.sources.secret.name** (string)
 
-        Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 
       - **projected.sources.secret.optional** (boolean)
 
@@ -193,6 +238,8 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
       - **projected.sources.secret.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
+        *Atomic: will be replaced during a merge*
+        
         items if unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 
     - **projected.sources.serviceAccountToken** (ServiceAccountTokenProjection)
@@ -334,6 +381,8 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
   - **cephfs.monitors** ([]string), required
 
+    *Atomic: will be replaced during a merge*
+    
     monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
   - **cephfs.path** (string)
@@ -468,10 +517,14 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
   - **fc.targetWWNs** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     targetWWNs is Optional: FC target worldwide names (WWNs)
 
   - **fc.wwids** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
 
 - **flexVolume** (FlexVolumeSource)
@@ -601,6 +654,8 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
   - **iscsi.portals** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     portals is the iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 
   - **iscsi.readOnly** (boolean)
@@ -610,6 +665,25 @@ Volume represents a named volume in a pod that may be accessed by any container 
   - **iscsi.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
 
     secretRef is the CHAP Secret for iSCSI target and initiator authentication
+
+- **image** (ImageVolumeSource)
+
+  image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine. The volume is resolved at pod startup depending on which PullPolicy value is provided:
+  
+  - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
+  
+  The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+
+  <a name="ImageVolumeSource"></a>
+  *ImageVolumeSource represents a image volume resource.*
+
+  - **image.pullPolicy** (string)
+
+    Policy for pulling OCI objects. Possible values are: Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise.
+
+  - **image.reference** (string)
+
+    Required: Image or artifact reference to be used. Behaves in the same way as pod.spec.containers[*].image. Pull secrets will be assembled in the same way as for the container image by looking up node credentials, SA image pull secrets, and pod spec image pull secrets. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
 
 - **nfs** (NFSVolumeSource)
 
@@ -708,6 +782,8 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
   - **rbd.monitors** ([]string), required
 
+    *Atomic: will be replaced during a merge*
+    
     monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   - **rbd.fsType** (string)
@@ -869,7 +945,7 @@ DownwardAPIVolumeFile represents information to create the file containing the p
 
 - **fieldRef** (<a href="{{< ref "../common-definitions/object-field-selector#ObjectFieldSelector" >}}">ObjectFieldSelector</a>)
 
-  Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+  Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
 
 - **mode** (int32)
 

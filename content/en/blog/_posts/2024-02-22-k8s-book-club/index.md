@@ -1,4 +1,4 @@
-------
+---
 layout: blog
 title: "A look into the Kubernetes Book Club"
 slug: k8s-book-club
@@ -106,8 +106,7 @@ Book Club's reach and impact in the community.
 
 **CS**: There are three steps to join:
 
-- First, join the [Kubernetes Book Club
-  Community](https://community.cncf.io/kubernetes-virtual-book-club/)
+- First, join the [Kubernetes Book Club Community](https://community.cncf.io/kubernetes-virtual-book-club/)
 - Then RSVP to the
   [events](https://community.cncf.io/kubernetes-virtual-book-club/)
   on the community page
@@ -117,10 +116,10 @@ Book Club's reach and impact in the community.
 **FSM**: Excellent, thank you! Any final comments you would like to share?
 
 **CS**: The Kubernetes Book Club is more than just a group of professionals discussing books; it's a
-vibrant community and amazing volunteers that help organize and host [Neependra
-Khare](https://www.linkedin.com/in/neependra/), [Eric
-Smalling](https://www.linkedin.com/in/ericsmalling/), [Sevi
-Karakulak](https://www.linkedin.com/in/sevikarakulak/), [Chad
-M. Crowell](https://www.linkedin.com/in/chadmcrowell/), and [Walid (CNJ)
-Shaari](https://www.linkedin.com/in/walidshaari/). Look us up at KubeCon and get your Kubernetes
-Book Club sticker!
+vibrant community and amazing volunteers that help organize and host
+[Neependra Khare](https://www.linkedin.com/in/neependra/),
+[Eric Smalling](https://www.linkedin.com/in/ericsmalling/),
+[Sevi Karakulak](https://www.linkedin.com/in/sevikarakulak/),
+[Chad M. Crowell](https://www.linkedin.com/in/chadmcrowell/),
+and [Walid (CNJ) Shaari](https://www.linkedin.com/in/walidshaari/).
+Look us up at KubeCon and get your Kubernetes Book Club sticker!

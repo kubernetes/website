@@ -3,8 +3,9 @@ title: " Happy Birthday Kubernetes. Oh, the places you’ll go! "
 date: 2016-07-21
 slug: oh-the-places-you-will-go
 url: /blog/2016/07/Oh-The-Places-You-Will-Go
+author: >
+  Justin Santa Barbara (independent)
 ---
-_Editor’s note, Today’s guest post is from an independent Kubernetes contributor, Justin Santa Barbara, sharing his reflection on growth of the project from inception to its future._  
 
 **Dear K8s,**  
 
@@ -32,5 +33,3 @@ So I’m looking forward to seeing more and more growth happen further and furth
 
 So I’m looking forward to your second birthday: I can try to predict what you’ll look like then, but I know you’ll surpass even the most audacious things I can imagine. Oh, the places you’ll go!  
 
-
-_-- Justin Santa Barbara, Independent Kubernetes Contributor_  

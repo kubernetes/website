@@ -8,7 +8,6 @@ short_description: >
 
 aka: 
 tags:
-- core-object
 - fundamental
 - architecture
 related:
@@ -25,7 +24,6 @@ short_description: >
   QoS Class (Quality of Service Class) provides a way for Kubernetes to classify pods within the cluster into several classes and make decisions about scheduling and eviction.
 aka: 
 tags:
-- core-object
 - fundamental
 - architecture
 related:

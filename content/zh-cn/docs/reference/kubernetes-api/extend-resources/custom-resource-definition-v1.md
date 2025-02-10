@@ -113,6 +113,12 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
   - **names.categories** ([]string)
 
     <!--
+    *Atomic: will be replaced during a merge*
+    -->
+
+    **原子：将在合并期间被替换**
+    
+    <!--
     categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
     -->
 
@@ -128,6 +134,12 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     listKind 是此资源列表的序列化类型。默认为 "`kind`List"。
 
   - **names.shortNames** ([]string)
+
+    <!--
+    *Atomic: will be replaced during a merge*
+    -->
+
+    **原子：将在合并期间被替换**
 
     <!--
     shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get \<shortname>`. It must be all lowercase.
@@ -156,10 +168,14 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 <!--
 - **versions** ([]CustomResourceDefinitionVersion), required
 
+  *Atomic: will be replaced during a merge*
+
   versions is the list of all API versions of the defined custom resource. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
 -->
 
 - **versions** ([]CustomResourceDefinitionVersion)，必需
+
+  **原子：将在合并期间被替换**
 
   versions 是自定义资源的所有 API 版本的列表。版本名称用于计算服务版本在 API 发现中列出的顺序。
   如果版本字符串与 Kubernetes 的版本号形式类似，则它将被排序在非 Kubernetes 形式版本字符串之前。
@@ -204,6 +220,12 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     storage 表示在将自定义资源持久保存到存储时，应使用此版本。有且仅有一个版本的 storage=true。
 
   - **versions.additionalPrinterColumns** ([]CustomResourceColumnDefinition)
+
+    <!--
+    *Atomic: will be replaced during a merge*
+    -->
+
+    **原子：将在合并期间被替换**
 
     <!--
     additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
@@ -316,6 +338,40 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
       openAPIV3Schema 是用于验证和精简的 OpenAPI v3 模式。
 
+  - **versions.selectableFields** ([]SelectableField)
+
+    <!--
+    *Atomic: will be replaced during a merge*
+    -->
+
+    **原子：将在合并期间被替换**
+
+    <!--
+    selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+    -->
+
+    selectableFields 指定可用作字段选择器的字段路径，最多允许 8 个可选字段。
+    请参阅：https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/field-selectors
+  
+    <a name="SelectableField"></a>
+    
+    <!--
+    *SelectableField specifies the JSON path of a field that may be used with field selectors.*
+    -->
+  
+    **SelectableField 指定可与字段选择器一起使用的字段的 JSON 路径。**
+
+  - **versions.selectableFields.jsonPath** (string), required
+
+    <!--
+    jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+    -->
+  
+    jsonPath 是一个简单的 JSON 路径，它会根据每个自定义资源进行求值以生成字段选择器值。
+    只允许使用不带数组符号的 JSON 路径。必须指向字符串、布尔值或整数类型的字段。
+    允许使用枚举值类型和带格式的字符串。如果 jsonPath 引用资源中不存在的字段，则 jsonPath
+    的求值结果为空字符串。不得指向元数据字段。必需。
+  
   - **versions.subresources** (CustomResourceSubresources)
 
     <!--
@@ -443,12 +499,16 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     <!--
     *WebhookConversion describes how to call a conversion webhook*
 
+    *Atomic: will be replaced during a merge*
+    
     - **conversion.webhook.conversionReviewVersions** ([]string), required
 
       conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.
     -->
 
     **WebhookConversion 描述了如何调用转换 Webhook**
+
+    **原子：将在合并期间被替换**
 
     - **conversion.webhook.conversionReviewVersions** ([]string)，必需
 
@@ -616,7 +676,19 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
 
 - **allOf** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
 
+    <!--
+    *Atomic: will be replaced during a merge*
+    -->
+
+    **原子：将在合并期间被替换**
+
 - **anyOf** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
+
+    <!--
+    *Atomic: will be replaced during a merge*
+    -->
+
+    **原子：将在合并期间被替换**
 
 - **default** (JSON)
 
@@ -645,6 +717,12 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
 - **description** (string)
 
 - **enum** ([]JSON)
+
+  <!--
+  *Atomic: will be replaced during a merge*
+  -->
+
+  **原子：将在合并期间被替换**
 
   <a name="JSON"></a>
   <!--
@@ -746,6 +824,12 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
 
 - **oneOf** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
 
+  <!--
+  *Atomic: will be replaced during a merge*
+  -->
+
+  **原子：将在合并期间被替换**
+
 - **pattern** (string)
 
 - **patternProperties** (map[string]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
@@ -753,6 +837,12 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
 - **properties** (map[string]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
 
 - **required** ([]string)
+
+  <!--
+  *Atomic: will be replaced during a merge*
+  -->
+
+  **原子：将在合并期间被替换**
 
 - **title** (string)
 
@@ -792,6 +882,12 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
      - （可以有选择地包含其他类型）
 
 - **x-kubernetes-list-map-keys** ([]string)
+
+  <!--
+  *Atomic: will be replaced during a merge*
+  -->
+
+  **原子：将在合并期间被替换**
 
   <!--
   x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
@@ -877,7 +973,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   
   *Map: unique values on key rule will be kept during a merge*
   
-  x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+  x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
   -->
 
   **补丁策略：基于键 `rule` 合并**
@@ -885,7 +981,6 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   **Map：合并时将保留 rule 键的唯一值**
 
   x-kubernetes-validations 描述了用 CEL 表达式语言编写的验证规则列表。此字段是 Alpha 级别。
-  使用此字段需要启用 `CustomResourceValidationExpressions` 特性门控。
 
   <a name="ValidationRule"></a>
   <!--
@@ -991,6 +1086,25 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
     - 'map'：`X + Y` 执行合并，保留 `X` 中所有键的数组位置，但当 `X` 和 `Y` 的键集相交时，会被 `Y` 中的值覆盖。
       添加 `Y` 中具有不相交键的元素，保持其局顺序。
 
+    <!--
+    If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
+  
+    By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
+     variable whose value() is the same type as `self`.
+    See the documentation for the `optionalOldSelf` field for details.
+   
+    Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
+    -->
+
+    如果 `rule` 使用 `oldSelf` 变量，则隐式地将其视为一个 `转换规则（transition rule）`。
+
+    默认情况下，`oldSelf` 变量与 `self` 类型相同。当 `optionalOldSelf` 为 `true` 时，`oldSelf`
+    变量是 CEL 可选变量，其 `value()` 与 `self` 类型相同。  
+    有关详细信息，请参阅 `optionalOldSelf` 字段的文档。
+
+    默认情况下，转换规则仅适用于 UPDATE 请求，如果找不到旧值，则会跳过转换规则。
+    你可以通过将 `optionalOldSelf` 设置为 `true` 来使转换规则进行无条件求值。
+
   - **x-kubernetes-validations.fieldPath** (string)
 
     <!--
@@ -1048,6 +1162,27 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
     并记录 messageExpression 生成空字符串/只包含空格的字符串/包含换行符的字符串的事实。
     messageExpression 可以访问的变量与规则相同；唯一的区别是返回类型。
     例如："x must be less than max ("+string(self.max)+")"。
+
+  - **x-kubernetes-validations.optionalOldSelf** (boolean)
+
+    <!--
+    optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
+   
+    When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
+
+    You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+   
+    May not be set unless `oldSelf` is used in `rule`.
+    -->
+  
+    即使在对象首次创建时，或者旧对象无值时，也可以使用 `optionalOldSelf` 来使用转换规则求值。
+    
+    当启用了 `optionalOldSelf` 时，`oldSelf` 将是 CEL 可选项，如果没有旧值或最初创建对象时，其值将为 `None`。
+
+    你可以使用 `oldSelf.hasValue()` 检查 oldSelf 是否存在，并在检查后使用 `oldSelf.value()` 将其解包。
+    更多的信息可查看 CEL 文档中的 Optional 类型：https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+
+    除非在 `rule` 中使用了 `oldSelf`，否则不可以设置。
 
   - **x-kubernetes-validations.reason** (string)
 
@@ -1113,9 +1248,13 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
   - **acceptedNames.categories** ([]string)
 
     <!--
+    *Atomic: will be replaced during a merge*
+    
     categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
     -->
 
+    **原子：将在合并期间被替换**
+  
     categories 是此自定义资源所属的分组资源列表（例如 'all'）。
     它在 API 发现文档中发布，并被客户端用于支持像 `kubectl get all` 这样的调用。
 
@@ -1130,9 +1269,13 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
   - **acceptedNames.shortNames** ([]string)
 
     <!--
+    *Atomic: will be replaced during a merge*
+    
     shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get \<shortname>`. It must be all lowercase.
     -->
 
+    **原子：将在合并期间被替换**
+  
     shortNames 是资源的短名称，在 API 发现文档中公开，并支持客户端调用，如 `kubectl get <shortname>`。必须全部小写。
 
   - **acceptedNames.singular** (string)
@@ -1214,8 +1357,12 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 - **storedVersions** ([]string)
 
   <!--
+  *Atomic: will be replaced during a merge*
+  
   storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
   -->
+
+  **原子：将在合并期间被替换**
 
   storedVersions 列出了曾经被持久化的所有 CustomResources 版本。跟踪这些版本可以为 etcd 中的存储版本提供迁移路径。
   该字段是可变的，因此迁移控制器可以完成到另一个版本的迁移（确保存储中没有遗留旧对象），然后从该列表中删除其余版本。

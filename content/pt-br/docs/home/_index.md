@@ -14,8 +14,6 @@ menu:
   main:
     title: "Documentação"
     weight: 20
-    post: >
-      <p>Aprenda a usar o Kubernetes com documentação conceitual, tutorial e de referência. Você também pode <a href="/editdocs/" data-auto-burger-exclude>ajudar a contribuir para a documentação</a>!</p>
 overview: >
   O Kubernetes é uma engine de orquestração de contêineres Open Source utilizado para automatizar a implantação, dimensionamento e gerenciamento de aplicativos em contêiner. O projeto é hospedado por the Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
 cards:

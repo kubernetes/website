@@ -42,7 +42,6 @@ Laman ini akan menjabarkan beberapa *add-ons* yang tersedia serta tautan instruk
 ## Visualisasi &amp; Kontrol
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard) merupakan antarmuka web dasbor untuk Kubernetes.
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s) merupakan perangkat untuk visualisasi grafis dari kontainer, pod, *service* dll milikmu. Gunakan bersama dengan [akun Weave Cloud](https://cloud.weave.works/) atau *host* UI-mu sendiri.
 
 ## *Add-ons* Terdeprekasi
 

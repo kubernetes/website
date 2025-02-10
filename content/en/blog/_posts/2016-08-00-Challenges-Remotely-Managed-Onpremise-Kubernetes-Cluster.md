@@ -3,9 +3,9 @@ title: " Challenges of a Remotely Managed, On-Premises, Bare-Metal Kubernetes Cl
 date: 2016-08-02
 slug: challenges-remotely-managed-onpremise-kubernetes-cluster
 url: /blog/2016/08/Challenges-Remotely-Managed-Onpremise-Kubernetes-Cluster
+author: >
+  Bich Le (Platform9)
 ---
-
-_Today's post is written by Bich Le, chief architect at Platform9, describing how their engineering team overcame challenges in remotely managing bare-metal Kubernetes clusters.&nbsp;_  
 
 **Introduction**  
 
@@ -53,7 +53,4 @@ We faced complex challenges in other areas that deserve their own posts: (1) _Au
 
 **Conclusion**  
 
-[Platform9 Managed Kubernetes](https://platform9.com/products/docker/) uses a SaaS-managed model to try to hide the complexity of deploying, operating and maintaining bare-metal&nbsp;Kubernetes&nbsp;clusters in customers’ data centers.&nbsp;These requirements led to the development of a unique cluster deployment and management architecture, which in turn led to unique technical challenges.This article described an overview of some of those challenges and how we solved them. For more information on the motivation behind PMK, feel free to view Madhura Maskasky's [blog post](https://platform9.com/blog/containers-as-a-service-kubernetes-docker/).  
-
-
-_--Bich Le, Chief Architect, Platform9_  
+[Platform9 Managed Kubernetes](https://platform9.com/products/docker/) uses a SaaS-managed model to try to hide the complexity of deploying, operating and maintaining bare-metal&nbsp;Kubernetes&nbsp;clusters in customers’ data centers.&nbsp;These requirements led to the development of a unique cluster deployment and management architecture, which in turn led to unique technical challenges.This article described an overview of some of those challenges and how we solved them. For more information on the motivation behind PMK, feel free to view Madhura Maskasky's [blog post](https://platform9.com/blog/containers-as-a-service-kubernetes-docker/).

@@ -3,6 +3,8 @@ title: " Kubernetes 1.4: Making it easy to run on Kubernetes anywhere "
 date: 2016-09-26
 slug: kubernetes-1.4-making-it-easy-to-run-on-kuberentes-anywhere
 url: /blog/2016/09/Kubernetes-1-4-Making-It-Easy-To-Run-On-Kuberentes-Anywhere
+author: >
+  Aparna Sinha (Google)
 ---
 Today we’re happy to announce the release of Kubernetes 1.4.  
   
@@ -77,6 +79,4 @@ We’re very grateful to our community of over 900 contributors who contributed 
 - Connect with the community on [Slack](http://slack.k8s.io/)
 - Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates
   
-Thank you for your support!&nbsp;  
-  
-_-- Aparna Sinha, Product Manager, Google_  
+Thank you for your support!

@@ -38,9 +38,8 @@ kubectl auth can-i VERB [TYPE | TYPE/NAME | NONRESOURCEURL]
   # Check to see if I can list deployments in my current namespace
   kubectl auth can-i list deployments.apps
   
-  # Check to see if service account "foo" of namespace "dev" can list pods
-  # in the namespace "prod".
-  # You must be allowed to use impersonation for the global option "--as".
+  # Check to see if service account "foo" of namespace "dev" can list pods in the namespace "prod"
+  # You must be allowed to use impersonation for the global option "--as"
   kubectl auth can-i list pods --as=system:serviceaccount:dev:foo -n prod
   
   # Check to see if I can do everything in my current namespace ("*" means all)
@@ -54,6 +53,9 @@ kubectl auth can-i VERB [TYPE | TYPE/NAME | NONRESOURCEURL]
   
   # Check to see if I can access the URL /logs/
   kubectl auth can-i get /logs/
+  
+  # Check to see if I can approve certificates.k8s.io
+  kubectl auth can-i approve certificates.k8s.io
   
   # List all allowed actions in namespace "foo"
   kubectl auth can-i --list --namespace=foo
@@ -171,20 +173,6 @@ kubectl auth can-i VERB [TYPE | TYPE/NAME | NONRESOURCEURL]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a client key file for TLS</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks</p></td>
 </tr>
 
 <tr>

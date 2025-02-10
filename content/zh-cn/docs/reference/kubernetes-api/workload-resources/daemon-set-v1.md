@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "DaemonSet 表示守护进程集的配置。"
 title: "DaemonSet"
-weight: 8
+weight: 9
 ---
 
 <!--
@@ -17,7 +17,7 @@ kind: "DaemonSet"
 content_type: "api_reference"
 description: "DaemonSet represents the configuration of a daemon set."
 title: "DaemonSet"
-weight: 8
+weight: 9
 auto_generated: true
 -->
 
@@ -308,10 +308,14 @@ DaemonSetStatus 表示守护进程集的当前状态。
 - **conditions** ([]DaemonSetCondition)
 
   *Patch strategy: merge on key `type`*
+
+  *Map: unique values on key type will be kept during a merge*
 -->
 - **conditions** ([]DaemonSetCondition)
 
   **补丁策略：根据 `type` 键合并**
+
+  **Map：键 `type` 的唯一值将在合并期间保留**
 
   <!-- 
   Represents the latest available observations of a DaemonSet's current state.

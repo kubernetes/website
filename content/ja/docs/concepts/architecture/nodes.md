@@ -176,7 +176,7 @@ CapacityとAllocatableについて深く知りたい場合は、ノード上で�
 この情報はノードからkubeletを通じて取得され、Kubernetes APIに公開されます。
 
 
-## ハートビート {#heartbeats}
+## ノードのハートビート {#node-heartbeats}
 ハートビートは、Kubernetesノードから送信され、ノードが利用可能か判断するのに役立ちます。
 以下の２つのハートビートがあります：
 * Nodeの`.status`の更新

@@ -66,12 +66,12 @@ In this example:
   All of the requirements, from both `matchLabels` and `matchExpressions`, must be satisfied in order to match.
   {{< /note >}}
 
-* The `template` field contains the following sub-fields:
+* The `.spec.template` field contains the following sub-fields:
   * The Pods are labeled `app: nginx`using the `.metadata.labels` field.
-  * The Pod template's specification, or `.template.spec` field, indicates that
-  the Pods run one container, `nginx`, which runs the `nginx`
-  [Docker Hub](https://hub.docker.com/) image at version 1.14.2.
-  * Create one container and name it `nginx` using the `.spec.template.spec.containers[0].name` field.
+  * The Pod template's specification, or `.spec` field, indicates that
+    the Pods run one container, `nginx`, which runs the `nginx`
+    [Docker Hub](https://hub.docker.com/) image at version 1.14.2.
+  * Create one container and name it `nginx` using the `.spec.containers[0].name` field.
 
 Before you begin, make sure your Kubernetes cluster is up and running.
 Follow the steps given below to create the above Deployment:
@@ -227,7 +227,7 @@ Get more details on your updated Deployment:
 * After the rollout succeeds, you can view the Deployment by running `kubectl get deployments`.
   The output is similar to this:
 
-  ```ini
+  ```
   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
   nginx-deployment   3/3     3            3           36s
   ```
@@ -813,9 +813,9 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
   ```
   deployment.apps/nginx-deployment resumed
   ```
-* Watch the status of the rollout until it's done.
+* {{< glossary_tooltip text="Watch" term_id="watch" >}} the status of the rollout until it's done.
   ```shell
-  kubectl get rs -w
+  kubectl get rs --watch
   ```
 
   The output is similar to this:
@@ -1083,7 +1083,7 @@ thus that Deployment will not be able to roll back.
 
 If you want to roll out releases to a subset of users or servers using the Deployment, you
 can create multiple Deployments, one for each release, following the canary pattern described in
-[managing resources](/docs/concepts/cluster-administration/manage-deployment/#canary-deployments).
+[managing resources](/docs/concepts/workloads/management/#canary-deployments).
 
 ## Writing a Deployment Spec
 

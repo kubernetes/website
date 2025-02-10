@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可在不更改对象的情况下接受或拒绝对象请求"
 title: "ValidatingWebhookConfiguration"
-weight: 3
+weight: 4
 ---
 
 <!-- 
@@ -17,7 +17,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it."
 title: "ValidatingWebhookConfiguration"
-weight: 3
+weight: 4
 -->
 
 `apiVersion: admissionregistration.k8s.io/v1`
@@ -51,6 +51,8 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
 - **webhooks** ([]ValidatingWebhook)
 
   *Patch strategy: merge on key `name`*
+
+  *Map: unique values on key name will be kept during a merge*
   
   Webhooks is a list of webhooks and the affected resources and operations.
 
@@ -61,6 +63,8 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
 - **webhooks** ([]ValidatingWebhook)
 
   **补丁策略：根据 `name` 键执行合并操作**
+
+  **Map：name 键的唯一值将在合并期间保留**
   
   webhooks 是 Webhook 以及受影响的资源和操作的列表。
 
@@ -69,11 +73,15 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
 
   <!-- 
   - **webhooks.admissionReviewVersions** ([]string), required
+  
+    *Atomic: will be replaced during a merge*
 
     AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. 
   -->
 
   - **webhooks.admissionReviewVersions** ([]string), 必需
+
+    **Atomic：将在合并期间被替换**
 
     admissionReviewVersions 是 Webhook 期望的首选 `AdmissionReview` 版本的有序列表。 
     API 服务器将尝试使用它支持的列表中的第一个版本。如果 API 服务器不支持此列表中指定的版本，则此对象将验证失败。 
@@ -266,13 +274,9 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
      - 如果 failurePolicy=Ignore，忽略错误并跳过该 webhook。
 
   <!--
-  This is an beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
-  
   <a name="MatchCondition"></a>
   *MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.*
   -->
-  这是一个 Beta 功能特性，由 AdmissionWebhookMatchConditions 特性门控管理。
-
   <a name="MatchCondition"></a>
   **MatchCondition 表示将请求发送到 Webhook 之前必须满足的条件。**
 
@@ -432,6 +436,8 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
 
   <!-- 
   - **webhooks.rules** ([]RuleWithOperations)
+  
+    *Atomic: will be replaced during a merge*
 
     Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects. 
 
@@ -440,6 +446,8 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
   -->
 
   - **webhooks.rules** ([]RuleWithOperations)
+
+    **Atomic：将在合并期间被替换**
 
     rules 描述了 Webhook 关心的资源/子资源上有哪些操作。Webhook 关心操作是否匹配**任何**rules。
     但是，为了防止 ValidatingAdmissionWebhooks 和 MutatingAdmissionWebhooks 将集群置于只能完全禁用插件才能恢复的状态，
@@ -559,29 +567,46 @@ ValidatingWebhookConfigurationList 是 ValidatingWebhookConfiguration 的列表�
 
 <hr>
 
-- **apiVersion**: admissionregistration.k8s.io/v1
-
-- **kind**: ValidatingWebhookConfigurationList
-
-<!-- 
-- **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
-
-  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds 
--->
-
-- **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
-
-  标准的对象元数据，更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds。
-
-<!-- 
+<!--
 - **items** ([]<a href="{{< ref "../extend-resources/validating-webhook-configuration-v1#ValidatingWebhookConfiguration" >}}">ValidatingWebhookConfiguration</a>), required
-
-  List of ValidatingWebhookConfiguration. 
+ 
+  List of ValidatingWebhookConfiguration.
 -->
 
 - **items** ([]<a href="{{< ref "../extend-resources/validating-webhook-configuration-v1#ValidatingWebhookConfiguration" >}}">ValidatingWebhookConfiguration</a>), 必需
-
+ 
   ValidatingWebhookConfiguration 列表。
+  
+<!--
+- **apiVersion** (string)
+
+  APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+-->
+
+  apiVersion 定义对象表示的版本化模式。服务器应将已识别的模式转换为最新的内部值，并可能拒绝未识别的值。
+  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+
+<!--
+- **kind** (string)
+
+  Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+-->
+- **kind**（string）
+
+  kind 是一个字符串值，表示此对象表示的 REST 资源。服务器可以从客户端提交请求的端点推断出资源类别。
+  无法更新。采用驼峰式命名。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+
+
+<!--
+- **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
+
+  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+-->
+- **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
+
+  标准的列表元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!-- 
 ## Operations {#Operations}  

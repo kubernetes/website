@@ -8,6 +8,7 @@ short_description: >
 
 aka:
 tags:
+- core-object
 - fundamental
 ---
  A node is a worker machine in Kubernetes.

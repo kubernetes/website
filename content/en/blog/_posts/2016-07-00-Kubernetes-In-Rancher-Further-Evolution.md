@@ -3,8 +3,9 @@ title: " Kubernetes in Rancher: the further evolution "
 date: 2016-07-12
 slug: kubernetes-in-rancher-further-evolution
 url: /blog/2016/07/Kubernetes-In-Rancher-Further-Evolution
+author: >
+  [Alena Prokharchyk](https://github.com/alena1108) (Rancher Labs)
 ---
-_Editor’s note: today's guest post is from Alena Prokharchyk, Principal Software Engineer at Rancher Labs, who’ll share how they are incorporating new Kubernetes features into their platform._  
 
 Kubernetes was the first external orchestration platform supported by [Rancher](http://rancher.com/kubernetes), and since its release, it has become one of the most widely used among our users, and continues to grow rapidly in adoption. As Kubernetes has evolved, so has Rancher in terms of adapting new Kubernetes features. We’ve started with supporting Kubernetes version 1.1, then switched to 1.2 as soon as it was released, and now we’re working on supporting the exciting new features in 1.3. I’d like to walk you through the features that we’ve been adding support for during each of these stages.  
 
@@ -178,18 +179,6 @@ So we’ve decided to eliminate the need of Rancher Kubernetes distribution, and
 - Enhanced UI to represent even more Kubernetes objects like: Deployment, Ingress, Daemonset.
 
 All of that is to make Kubernetes experience even more powerful and user intuitive. We’re so excited by all of the progress in the Kubernetes community, and thrilled to be participating. Kubernetes 1.3 is an incredibly significant release, and you’ll be able to upgrade to it very soon within Rancher.
-
-
-
-
-
-_-- Alena Prokharchyk, Principal Software Engineer, Rancher Labs. [Twitter @lemonjet](https://twitter.com/Lemonjet) & [GitHub alena1108](https://github.com/alena1108)_
-
-
-
-
-
-
 
 
  ![Rancher-and-Kubernetes.png](https://lh4.googleusercontent.com/isAt46fnmGerA0uPoTUlUS7y5MtmOYfMvKoTC52CK0ckUfFKVO_coY78jgLoQuxe4J3GVf3N2_IWCuKwxpRT6q_h4ek4yepfyWBmN_WSqyB2v7rRaZrpG4hPpuH0hIbIcmTDgUul)

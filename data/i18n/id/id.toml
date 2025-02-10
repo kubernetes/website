@@ -160,7 +160,7 @@ other = "Fitur Kubernetes"
 [main_kubeweekly_baseline]
 other = "Tertarik untuk mendapatkan info terbaru tentang Kubernetes? Daftarkan dirimu ke KubeWeekly."
 
-[main_kubernetes_past_link]
+[main_kubeweekly_past_link]
 other = "Lihat buletin edisi sebelumnya"
 
 [main_kubeweekly_signup]

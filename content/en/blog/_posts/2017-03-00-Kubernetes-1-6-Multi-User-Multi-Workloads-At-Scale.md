@@ -3,8 +3,12 @@ title: " Kubernetes 1.6: Multi-user, Multi-workloads at Scale "
 date: 2017-03-28
 slug: kubernetes-1.6-multi-user-multi-workloads-at-scale
 url: /blog/2017/03/Kubernetes-1-6-Multi-User-Multi-Workloads-At-Scale
+author: >
+  Aparna Sinha (Google)
 ---
-Today we’re announcing the release of Kubernetes 1.6.  
+_This article is by Aparna Sinha on behalf of the Kubernetes 1.6 release team._
+
+Today we’re announcing the release of Kubernetes 1.6. 
 
 In this release the community’s focus is on scale and automation, to help you deploy multiple workloads to multiple users on a cluster. We are announcing that 5,000 node clusters are supported. We moved dynamic storage provisioning to _stable_. Role-based access control ([RBAC](/docs/reference/access-authn-authz/rbac/)), [kubefed](/docs/tutorials/federation/set-up-cluster-federation-kubefed/), [kubeadm](/docs/getting-started-guides/kubeadm/), and several scheduling features are moving to _beta_. We have also added intelligent defaults throughout to enable greater automation out of the box.  
 
@@ -105,8 +109,5 @@ Share your voice at our weekly [community meeting](https://github.com/kubernetes
 
 Many thanks for your contributions and advocacy!
 
-
-
-_-- Aparna Sinha, Senior Product Manager,&nbsp;Kubernetes, Google_  
 
 _**PS: read this [series of in-depth articles](https://kubernetes.io/blog/2017/03/five-days-of-kubernetes-1-6) on what's new in Kubernetes 1.6**_

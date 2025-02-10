@@ -12,11 +12,14 @@ other = "(auto-generated page)"
 [auto_generated_pageinfo]
 other = """<p>This page is automatically generated.</p><p>If you plan to report an issue with this page, mention that the page is auto-generated in your issue description. The fix may need to happen elsewhere in the Kubernetes project.</p>"""
 
+[banner_acknowledgement]
+other = "Hide this notice"
+
 [blog_post_show_more]
 other = "Show More Posts..."
 
-[banner_acknowledgement]
-other = "Hide this notice"
+[browser_clipboard_support_warning]
+other = "Sorry, your browser doesn't support copying this example to your clipboard."
 
 [case_study_prefix]
 other = "Case study:"
@@ -34,14 +37,30 @@ other = "Cleaning up"
 [china_icp_license]
 other = "ICP license:"
 
-[community_events_calendar]
+[community_advice_guidelines]
+other = "You can also read about our {{ .link }}."
+
+[community_calendar_name]
 other = "Events Calendar"
+
+# Also cover [community_contribute] if localizing this site
+
+[community_contributor_site_name]
+other = "Contributor website"
+
+# Also cover [community_develop] if localizing this site
 
 [community_forum_name]
 other = "Forum"
 
 [community_github_name]
 other = "GitHub"
+
+# Also cover [community_introduce] if localizing this site
+
+# Also cover [community_join] if localizing this site
+
+# Also cover [community_learn] if localizing this site
 
 [community_server_fault_name]
 other = "Server Fault"
@@ -54,6 +73,8 @@ other = "Stack Overflow"
 
 [community_twitter_name]
 other = "X (formerly Twitter)"
+
+# Also cover [community_using] if localizing this site
 
 [community_x_name]
 other = "X (formerly Twitter)"
@@ -140,8 +161,14 @@ other = "Environment variables"
 [error_404_were_you_looking_for]
 other = "Were you looking for:"
 
+[error_copy_to_clipboard]
+other = "Error"
+
 [examples_heading]
 other = "Examples"
+
+[feature_gate_enabled]
+other = "(enabled by default: {{ .enabled }})"
 
 [feature_gate_stage_alpha]
 other = "Alpha"
@@ -211,17 +238,16 @@ other = "JavaScript must be [enabled](https://www.enable-javascript.com/) to vie
 
 [katacoda_message]
 other = """<h4>Shutdown of interactive tutorials</h4>
-<p>The interactive tutorials on this website are being shut down. The Kubernetes
-project hopes to reinstate a similar interactive learning option in the long
-term.</p>
-<p>The shutdown follows O'Reilly Media's 2019 <a
-href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">acquisition</a>
-of Katacoda.</p>
+<p>The interactive tutorials previously on this website have been shut down.</p>
 <p>Kubernetes is grateful to O'Reilly and Katacoda for many years of helping
 people take their first steps in learning Kubernetes.</p>
-<p>The tutorials will cease to function after the <b>31<sup>st</sup> of March,
-2023</b>. For more information, see "<a href="/blog/2023/02/14/kubernetes-katacoda-tutorials-stop-from-2023-03-31/">Free Katacoda Kubernetes Tutorials Are Shutting
-Down</a>."</p>"""
+<p>The shutdown followed O'Reilly Media's 2019
+<a href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">acquisition</a>
+of Katacoda.</p>
+<hr />
+<p>The tutorials ceased to function after the <b>31<sup>st</sup> of March,
+2023</b>. You are seeing this notice because this particular page has not yet been updated
+following that shutdown.</p>"""
 
 [latest_release]
 other = "Latest Release:"
@@ -387,7 +413,7 @@ other = "Kubernetes Features"
 [main_kubeweekly_baseline]
 other = "Interested in receiving the latest Kubernetes news? Sign up for KubeWeekly."
 
-[main_kubernetes_past_link]
+[main_kubeweekly_past_link]
 other = "View past newsletters"
 
 [main_kubeweekly_signup]
@@ -515,10 +541,13 @@ other = ")"
 other = "(released: "
 
 # See https://gohugo.io/functions/format/#gos-layout-string
-# Use a suitable format for your locale
+# Use a suitable format for your locale. Avoid using :date_short
 [release_date_format]
+# example: other = ":date_medium"
 other = "2006-01-02"
 
+# See https://gohugo.io/functions/format/#gos-layout-string
+# Use a suitable format for your locale.
 [release_date_format_month]
 other = "January 2006"
 
@@ -527,6 +556,17 @@ other = "Cherry Pick Deadline"
 
 [release_end_of_life_date]
 other = "End Of Life Date"
+
+# Also see release_maintenance_and_end_of_life_details_past
+[release_maintenance_and_end_of_life_details_current]
+other = "Kubernetes {{ .minor_version }} enters maintenance mode on {{ .maintenance_mode_start_date }}; the End of Life date for Kubernetes {{ .minor_version }} is {{ .release_eol_date }}."
+
+# Used if the maintenance mode date is in the past, otherwise
+# see release_maintenance_and_end_of_life_details_current
+[release_maintenance_and_end_of_life_details_past]
+other = """ℹ️ **Kubernetes {{ .minor_version }} entered maintenance mode on {{ .maintenance_mode_start_date }}**.
+
+The End of Life date for Kubernetes {{ .minor_version }} is {{ .release_eol_date }}."""
 
 [release_full_details_initial_text]
 other = "Complete"
@@ -540,16 +580,13 @@ other = "Minor Version"
 [release_info_next_patch]
 other = "Next patch release is **%s**."
 
-# Localization note: You can use Markdown here.
-# The three placeholders (in order) are:
-#   Kubernetes minor version
-#   maintenance mode date
-#   end of life date
-#
-# Keep this order. It is OK to use more than one sentence, and it's also OK to change the
-# tense of the text so long as the meaning is clear.
+
+# Deprecated. Set release_maintenance_and_end_of_life_details_current
+# and release_maintenance_and_end_of_life_details_past instead.
+# OK to remove once all localizations have switched to the new strings.
 [release_info_eol]
-other = "**%s** enters maintenance mode on **%s** and End of Life is on **%s**."
+# Set this to "" if your localization implements the new strings.
+other = ""
 
 [release_note]
 other = "Note"
@@ -566,8 +603,14 @@ other = "Changelog"
 [seealso_heading]
 other = "See Also"
 
+[sidebar_toggle_nav]
+other = "Toggle section navigation"
+
 [subscribe_button]
 other = "Subscribe"
+
+[success_copy_to_clipboard]
+other = "Success"
 
 [synopsis_heading]
 other = "Synopsis"
@@ -587,6 +630,14 @@ other = """<p>Items on this page refer to third party products or projects that 
 [thirdparty_message_vendor]
 other = """Items on this page refer to vendors external to Kubernetes. The Kubernetes project authors aren't responsible for those third-party products or projects. To add a vendor, product or project to this list, read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change. <a href="#third-party-content-disclaimer">More information.</a>"""
 
+[toast_failure_copycode]
+other="Failed to copy to clipboard: "
+
+[toast_success_copycode]
+other = "Copied to clipboard: "
+
+[translated_by]
+other = "Translated By"
 
 [ui_search_placeholder]
 other = "Search this site"
@@ -606,7 +657,8 @@ other = "Versions"
 [warning]
 other = "Warning:"
 
+[warning_copy_to_clipboard]
+other = "Warning"
+
 [whatsnext_heading]
 other = "What's next"
-
-

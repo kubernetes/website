@@ -193,11 +193,13 @@ traffic to the API server.
 
 <!--
 ## TLS problems
+* Additional tools required - `base64` and `openssl` version 3.0 or above.
 
 The Kubernetes API server only serves HTTPS requests by default. In that case TLS problems
 may occur due to various reasons, such as certificate expiry or chain of trust validity.
 -->
 ## TLS 问题   {#tls-problems}
+* 需要额外的工具 - `base64` 和 `openssl` v3.0 或更高版本。
 
 Kubernetes API 服务器默认只为 HTTPS 请求提供服务。在这种情况下，
 TLS 问题可能会因各种原因而出现，例如证书过期或信任链有效性。
@@ -215,7 +217,7 @@ Verify the expiry of these certificates:
 验证这些证书的到期时间：
 
 ```shell
-openssl x509 -noout -dates -in $(kubectl config view --minify --output 'jsonpath={.clusters[0].cluster.certificate-authority}')
+kubectl config view --flatten --output 'jsonpath={.clusters[0].cluster.certificate-authority-data}' | base64 -d | openssl x509 -noout -dates
 ```
 
 <!--
@@ -224,12 +226,12 @@ output:
 输出为：
 
 ```console
-notBefore=Sep  2 08:34:12 2023 GMT
-notAfter=Aug 31 08:34:12 2033 GMT
+notBefore=Feb 13 05:57:47 2024 GMT
+notAfter=Feb 10 06:02:47 2034 GMT
 ```
 
 ```shell
-openssl x509 -noout -dates -in $(kubectl config view --minify --output 'jsonpath={.users[0].user.client-certificate}')
+kubectl config view --flatten --output 'jsonpath={.users[0].user.client-certificate-data}'| base64 -d | openssl x509 -noout -dates
 ```
 
 <!--
@@ -238,8 +240,8 @@ output:
 输出为：
 
 ```console
-notBefore=Sep  2 08:34:12 2023 GMT
-notAfter=Sep  2 08:34:12 2026 GMT
+notBefore=Feb 13 05:57:47 2024 GMT
+notAfter=Feb 12 06:02:50 2025 GMT
 ```
 
 <!--
@@ -264,6 +266,6 @@ kubectl config view
 
 <!--
 If you previously used a helper tool (for example, `kubectl-oidc-login`), ensure that it is still
-installed and configured correctly.
+installed and configured correctly. 
 -->
 如果你之前使用了辅助工具（例如 `kubectl-oidc-login`），确保它仍然安装和配置正确。

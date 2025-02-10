@@ -3,8 +3,9 @@ title: " Citrix + Kubernetes = A Home Run "
 date: 2016-07-14
 slug: citrix-netscaler-and-kubernetes
 url: /blog/2016/07/Citrix-Netscaler-And-Kubernetes
+author: >
+  Mikko Disini (Citrix Systems)
 ---
-_Editor’s note: today’s guest post is by Mikko Disini, a Director of Product Management at Citrix Systems, sharing their collaboration experience on a Kubernetes integration.&nbsp;_  
 
 Technical collaboration is like sports. If you work together as a team, you can go down the homestretch and pull through for a win. That’s our experience with the Google Cloud Platform team.  
 
@@ -23,7 +24,4 @@ Next, NetScaler CPX needed to be inserted in the data path of GCP ingress load b
 
 NetScaler CPX use case is supported in [Kubernetes 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1-3-bridging-cloud-native-and-enterprise-workloads/). Citrix customers and the broader enterprise market will have the opportunity to leverage NetScaler with Kubernetes, thereby lowering the friction to move workloads to the cloud.&nbsp;
 
-You can learn more about&nbsp;NetScaler CPX [here](https://www.citrix.com/networking/microservices.html).  
-
-
-_&nbsp;-- Mikko Disini, Director of Product Management - NetScaler, Citrix Systems_
+You can learn more about&nbsp;NetScaler CPX [here](https://www.citrix.com/networking/microservices.html).

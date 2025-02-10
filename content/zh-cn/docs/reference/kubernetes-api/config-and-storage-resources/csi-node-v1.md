@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "CSINode 包含节点上安装的所有 CSI 驱动有关的信息。"
 title: "CSINode"
-weight: 9
+weight: 4
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "CSINode holds information about all CSI drivers installed on a node."
 title: "CSINode"
-weight: 9
+weight: 4
 -->
 
 `apiVersion: storage.k8s.io/v1`
@@ -68,6 +68,8 @@ CSINodeSpec 包含一个节点上安装的所有 CSI 驱动规约有关的信息
 
   *Patch strategy: merge on key `name`*
 
+  *Map: unique values on key name will be kept during a merge*
+
   drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
 
   <a name="CSINodeDriver"></a>
@@ -80,6 +82,8 @@ CSINodeSpec 包含一个节点上安装的所有 CSI 驱动规约有关的信息
 - **drivers** ([]CSINodeDriver)，必需
 
   **补丁策略：按照键 `name` 合并**
+
+  **映射：键 `name` 的唯一值将在合并过程中保留**
 
   drivers 是节点上存在的所有 CSI 驱动的信息列表。如果列表中的所有驱动均被卸载，则此字段可以为空。
 
@@ -136,10 +140,14 @@ CSINodeSpec 包含一个节点上安装的所有 CSI 驱动规约有关的信息
   <!--
   - **drivers.topologyKeys** ([]string)
 
+    *Atomic: will be replaced during a merge*
+  
     topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
   -->
 
   - **drivers.topologyKeys** ([]string)
+
+    **原子性：合并期间将被替换**
 
     topologyKeys 是驱动支持的键的列表。
     在集群上初始化一个驱动时，该驱动将提供一组自己理解的拓扑键

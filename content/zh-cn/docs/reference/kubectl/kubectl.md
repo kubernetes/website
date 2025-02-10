@@ -19,7 +19,7 @@ kubectl 管理控制 Kubernetes 集群。
 <!--
 Find more information in [Command line tool](/docs/reference/kubectl/) (`kubectl`).
 -->
-更多信息请查阅[命令行工具](/zh-cn/docs/kubectl/)（`kubectl`）。
+更多信息请查阅[命令行工具](/zh-cn/docs/reference/kubectl/)（`kubectl`）。
 
 ```shell
 kubectl [flags]
@@ -515,18 +515,6 @@ kubectl 的配置 ("kubeconfig") 文件的路径。默认值："$HOME/.kube/conf
 When set to false, turns off extra HTTP headers detailing invoked kubectl command (Kubernetes version v1.22 or later)
 -->
 设置为 false 时，将关闭额外的 HTTP 标头，不再详细说明被调用的 kubectl 命令（此变量适用于 Kubernetes v1.22 或更高版本）
-</td>
-</tr>
-
-<tr>
-<td colspan="2">KUBECTL_DEBUG_CUSTOM_PROFILE</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-When set to true, custom flag will be enabled in kubectl debug. This flag is used to customize the pre-defined profiles.
--->
-设置为 true 时，将在 kubectl 调试中启用自定义标志，该标志用于自定义预定义的配置文件。
 </td>
 </tr>
 

@@ -20,8 +20,11 @@ para que os Pods com maior prioridade possam ser escalonados nos nós. Remoção
 - [Restrições de Propagação da Topologia do Pod](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 - [Taints e Tolerâncias](/pt-br/docs/concepts/scheduling-eviction/taint-and-toleration/)
 - [Framework do Escalonador](/docs/concepts/scheduling-eviction/scheduling-framework)
+- [Alocação Dinâmica de Recursos](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
 - [Refinando a Performance do Escalonador](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 - [Empacotamento de Recursos para Recursos Estendidos](/docs/concepts/scheduling-eviction/resource-bin-packing/)
+- [Prontidão para Escalonamento de Pods](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
+- [Descheduler](https://github.com/kubernetes-sigs/descheduler#descheduler-for-kubernetes)
 
 ## Disrupção do Pod
 

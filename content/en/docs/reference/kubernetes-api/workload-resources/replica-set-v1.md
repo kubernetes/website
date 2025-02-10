@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ReplicaSet ensures that a specified number of pod replicas are running at any given time."
 title: "ReplicaSet"
-weight: 4
+weight: 5
 auto_generated: true
 ---
 
@@ -105,6 +105,8 @@ ReplicaSetStatus represents the current status of a ReplicaSet.
 - **conditions** ([]ReplicaSetCondition)
 
   *Patch strategy: merge on key `type`*
+  
+  *Map: unique values on key type will be kept during a merge*
   
   Represents the latest available observations of a replica set's current state.
 

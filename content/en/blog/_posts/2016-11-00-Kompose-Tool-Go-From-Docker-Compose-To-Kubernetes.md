@@ -3,8 +3,9 @@ title: " Kompose: a tool to go from Docker-compose to Kubernetes "
 date: 2016-11-22
 slug: kompose-tool-go-from-docker-compose-to-kubernetes
 url: /blog/2016/11/Kompose-Tool-Go-From-Docker-Compose-To-Kubernetes
+author: >
+  Sebastien Goasguen (Skippbox)
 ---
-_Editor's note: Today’s post is by Sebastien Goasguen, Founder of Skippbox, showing a new tool to move from ‘docker-compose’ to Kubernetes._  
 
 At [Skippbox](http://www.skippbox.com/), we developed **kompose** a tool to automatically transform your Docker Compose application into Kubernetes manifests. Allowing you to start a Compose application on a Kubernetes cluster with a single kompose up command. We’re extremely happy to have donated kompose to the [Kubernetes Incubator](https://github.com/kubernetes-incubator). So here’s a quick introduction about it and some motivating factors that got us to develop it.  
 

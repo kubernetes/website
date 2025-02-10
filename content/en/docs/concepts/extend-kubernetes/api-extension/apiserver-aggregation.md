@@ -16,7 +16,7 @@ The additional APIs can either be ready-made solutions such as a
 [metrics server](https://github.com/kubernetes-sigs/metrics-server), or APIs that you develop yourself.
 
 The aggregation layer is different from
-[Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/),
+[Custom Resource Definitions](/docs/concepts/extend-kubernetes/api-extension/custom-resources/),
 which are a way to make the {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
 recognise new kinds of object.
 

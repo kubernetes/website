@@ -8,7 +8,6 @@ short_description: >
 
 aka: 
 tags:
-- core-object
 - storage
 ---
  Allows users to request automatic creation of storage  {{< glossary_tooltip text="Volumes" term_id="volume" >}}.

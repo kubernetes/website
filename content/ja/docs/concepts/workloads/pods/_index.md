@@ -174,7 +174,7 @@ Linuxでは、Pod内のどんなコンテナも、`privileged`フラグをコン
 
 ## static Pod
 
-*static Pod*は、{{< glossary_tooltip text="APIサーバー" term_id="kube-apiserver" >}}には管理されない、特定のノード上でkubeletデーモンによって直接管理されるPodのことです。大部分のPodはコントロープレーン(たとえば{{< glossary_tooltip text="Deployment" term_id="deployment" >}})によって管理されますが、static Podの場合はkubeletが各static Podを直接管理します(障害時には再起動します)。
+*static Pod*は、{{< glossary_tooltip text="APIサーバー" term_id="kube-apiserver" >}}には管理されない、特定のノード上でkubeletデーモンによって直接管理されるPodのことです。大部分のPodはコントロールプレーン(たとえば{{< glossary_tooltip text="Deployment" term_id="deployment" >}})によって管理されますが、static Podの場合はkubeletが各static Podを直接管理します(障害時には再起動します)。
 
 static Podは常に特定のノード上の1つの{{< glossary_tooltip term_id="kubelet" >}}に紐付けられます。static Podの主な用途は、セルフホストのコントロールプレーンを実行すること、言い換えると、kubeletを使用して個別の[コントロールプレーンコンポーネント](/ja/docs/concepts/overview/components/#control-plane-components)を管理することです。
 
@@ -209,7 +209,7 @@ _Probe_ はkubeletがコンテナに対して行う定期診断です。診断�
 Kubernetesが共通のPod APIを他のリソース内(たとえば{{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}や{{< glossary_tooltip text="Deployment" term_id="deployment" >}}など)にラッピングしている理由の文脈を理解するためには、Kubernetes以前から存在する以下のような既存技術について読むのが助けになります。
 
   * [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
-  * [Borg](https://research.google.com/pubs/pub43438.html)
-  * [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
+  * [Borg](https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/)
+  * [Marathon](https://github.com/d2iq-archive/marathon)
   * [Omega](https://research.google/pubs/pub41684/)
   * [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/)

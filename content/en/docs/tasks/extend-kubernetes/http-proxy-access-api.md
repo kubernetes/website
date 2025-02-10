@@ -17,7 +17,7 @@ If you do not already have an application running in your cluster, start
 a Hello world application by entering this command:
 
 ```shell
-kubectl create deployment node-hello --image=gcr.io/google-samples/node-hello:1.0 --port=8080
+kubectl create deployment hello-app --image=gcr.io/google-samples/hello-app:2.0 --port=8080
 ```
 
 <!-- steps -->
