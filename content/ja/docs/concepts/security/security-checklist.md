@@ -210,7 +210,7 @@ Kubernetes v1.22以降では、時間制限のあるサービスアカウント�
 タグの背後にあるイメージはレジストリで簡単に変更できます。
 イメージマニフェストに固有の完全な`sha256`ダイジェストを使用することをお勧めします。
 このポリシーは、[ImagePolicyWebhook](/ja/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook)を介して適用できます。
-イメージ署名は、デプロイ時に[アドミッション コントローラーで検証](/ja/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller)して、信頼性と整合性を検証することもできます。
+イメージ署名は、デプロイ時に自動的に[アドミッションコントローラーで検証](/ja/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller)して、信頼性と整合性を検証することもできます。
 
 コンテナイメージをスキャンすると、重大な脆弱性がコンテナイメージと一緒にクラスターにデプロイされるのを防ぐことができます。
 イメージスキャンは、コンテナイメージをクラスターにデプロイする前に完了する必要があり、通常はCI/CDパイプラインのDeploymentプロセスの一部として行われます。
