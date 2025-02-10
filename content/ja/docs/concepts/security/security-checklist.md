@@ -275,7 +275,7 @@ Kubernetes v1.22以降では、時間制限のあるService Accounts認証情報
 [`ImagePolicyWebhook`](/ja/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook)
 : Webhookを通じてイメージの追加制御を強制できるようにします。
 
-<!-- 4番目のグループには、デフォルトでは有効になっていないプラグインが含まれます。まだアルファ状態ですが、特定のユースケースで検討できます。
+<!-- 4番目のグループには、デフォルトでは有効になっていないプラグインが含まれます。まだアルファ状態ですが、特定のユースケースで検討できます:
 
 [`EventRateLimit`](/ja/docs/reference/access-authn-authz/admission-controllers/#eventratelimit)
 : APIサーバーに新しいイベントを追加するレートを制限します。
