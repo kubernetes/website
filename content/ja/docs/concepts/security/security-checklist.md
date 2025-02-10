@@ -139,7 +139,7 @@ AppArmorはLinuxノードでのみ使用可能で、[一部のLinuxディスト�
 SELinuxラベルは、コンテナまたはPodに[`securityContext`セクションを介して](/ja/docs/tasks/configure-Pod-container/security-context/#assign-selinux-labels-to-a-container)割り当てることができます。
 
 {{< note >}}
-SELinuxはLinux Nodeでのみ使用可能で、[一部の Linux ディストリビューション](https://en.wikipedia.org/wiki/Security-Enhanced_Linux#Implementations)で有効になっています。
+SELinuxはLinuxノードでのみ使用可能で、[一部のLinuxディストリビューション](https://en.wikipedia.org/wiki/Security-Enhanced_Linux#Implementations)で有効になっています。
 {{< /note >}}
 
 ## ログと監査
