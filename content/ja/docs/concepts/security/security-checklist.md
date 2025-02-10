@@ -112,7 +112,7 @@ Seccompを使用すると、コンテナ内で利用可能なLinuxカーネルsy
 seccompフィルターモードは、BPFを利用して、プロファイルという名前の特定のsyscallの許可または拒否リストを作成します。
 
 Kubernetes 1.27以降、すべてのワークロードのデフォルトのseccompプロファイルとして`RuntimeDefault`の使用を有効にできます。
-このトピックに関する[セキュリティ チュートリアル](/ja/docs/tutorials/security/seccomp/)が利用可能です。
+このトピックに関する[セキュリティチュートリアル](/ja/docs/tutorials/security/seccomp/)が利用可能です。
 さらに、[Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator)は、クラスターでのseccompの管理と使用を容易にするプロジェクトです。
 
 {{< note >}}
