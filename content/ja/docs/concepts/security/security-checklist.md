@@ -87,7 +87,7 @@ RBAC認証は重要ですが、[Podのリソース](/ja/docs/concepts/security/r
 [Podセキュリティ標準](/ja/docs/concepts/security/Pod-security-standards/)は、セキュリティに関して`PodSpec`でフィールドを設定する方法を制限する、特権、ベースライン、制限の3つの異なるポリシーを定義します。
 
 デフォルトで有効になっている新しい[Podセキュリティ](/ja/docs/concepts/security/Pod-security-admission/)アドミッション、またはサードパーティのアドミッションWebhookを使用して、Namespaceレベルで適用できます。
-削除され置き換えられたPodSecurityPolicyアドミッションとは異なり、[Pod Security](/ja/docs/concepts/security/Pod-security-admission/)アドミッションは、アドミッションWebhookや外部Serviceと簡単に組み合わせることが可能な点に注意してください。
+削除され置き換えられたPodSecurityPolicyアドミッションとは異なり、[Podセキュリティ](/ja/docs/concepts/security/Pod-security-admission/)アドミッションは、アドミッションWebhookや外部サービスと簡単に組み合わせることが可能な点に注意してください。
 
 Pod Securityアドミッション`restricted`ポリシーは、[Pod Security Standards](/ja/docs/concepts/security/Pod-security-standards/)セットの中で最も制限の厳しいポリシーで、[複数のモードで動作可能](/ja/docs/concepts/security/Pod-security-admission/#Pod-security-admission-labels-for-namespaces)です。
 `warn`、`audit`、または`enforce`を使用して、セキュリティのベストプラクティスに従って、最も適切な[セキュリティ コンテキスト](/ja/docs/tasks/configure-Pod-container/security-context/)を段階的に適用します。
