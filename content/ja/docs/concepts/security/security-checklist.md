@@ -178,7 +178,7 @@ Namespace内のPodは、デフォルトおよび許可された一連のtolerati
 - [ ] サービスアカウントトークンは、それらを必要としないPodにはマウントしません。
 - [ ] [バインドされたサービスアカウントトークンボリューム](/ja/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)は、期限切れのないトークンの代わりに使用しています。
 
-Podに必要なシークレットは、ConfigMapなどの代替手段ではなく、Kubernetes Secrets内に保存する必要があります。
+Podに必要なシークレットは、ConfigMapなどの代替手段ではなく、Kubernetes Secret内に保存する必要があります。
 etcd内に保存されているシークレットリソースは、[保存時に暗号化](/ja/docs/tasks/administer-cluster/encrypt-data/)する必要があります。
 
 シークレットを必要とするPodでは、ボリュームを介してシークレットが自動的にマウントされ、できれば[`emptyDir.medium` オプション](/ja/docs/concepts/storage/volumes/#emptydir)のようにメモリ内に保存される必要があります。
