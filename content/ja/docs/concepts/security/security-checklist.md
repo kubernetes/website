@@ -265,7 +265,7 @@ Kubernetes v1.22以降では、時間制限のあるサービスアカウント�
 : kubeletの権限を、所有するPod APIリソースまたは自身を表すNode APIリソースのみを変更するように制限します。
 また、kubeletが`node-restriction.kubernetes.io/`アノテーションを使用するのを防ぎます。これは、kubeletの認証情報にアクセスできる攻撃者が、制御対象NodeへのPodの配置に影響を与えるために使用できます。
 
-3番目のグループには、デフォルトでは有効になっていませんが、特定のユースケースで検討できるプラグインが含まれます。
+3番目のグループには、デフォルトでは有効になっていませんが、特定のユースケースで検討できるプラグインが含まれます:
 
 [`AlwaysPullImages`](/ja/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
 : タグ付けされたイメージの最新バージョンの使用を強制し、デプロイヤーがイメージを使用する権限を持っていることを確認します。
