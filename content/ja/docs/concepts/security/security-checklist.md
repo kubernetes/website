@@ -228,9 +228,8 @@ Kubernetes v1.22以降では、時間制限のあるサービスアカウント�
 次のリストは、クラスターとアプリケーションのセキュリティ体制を強化するために検討できるアドミッションコントローラーをいくつか示しています。
 このドキュメントの他の部分で参照される可能性のあるコントローラーも含まれています。
 
-この最初のアドミッションコントローラーグループには、プラグインが含まれます
-[デフォルトで有効](/ja/docs/reference/access-authn-authz/admission-controllers/#which-plugins-are-enabled-by-default)
-何をしているのかよくわからない場合は、有効のままにしておくことを検討してください:
+この最初のアドミッションコントローラーグループには、[デフォルトで有効](/ja/docs/reference/access-authn-authz/admission-controllers/#which-plugins-are-enabled-by-default)になっているプラグインがあります。
+何をしているのかよくわからない場合は、有効のままにしておいてください:
 
 [`CertificateApproval`](/ja/docs/reference/access-authn-authz/admission-controllers/#certificateapproval)
 : 承認ユーザーが証明書要求を承認する権限を持っていることを確認するために、追加の承認チェックを実行します。
