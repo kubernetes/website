@@ -136,7 +136,7 @@ AppArmorはLinuxノードでのみ使用可能で、[一部のLinuxディスト�
 #### SELinux
 
 [SELinux](https://github.com/SELinuxProject/selinux-notebook/blob/main/src/selinux_overview.md)も、強制アクセス制御(MAC)などのアクセス制御セキュリティポリシーをサポートするLinuxカーネルセキュリティモジュールです。
-SELinuxラベルは、コンテナまたはPodに[`securityContext` セクションを介して](/ja/docs/tasks/configure-Pod-container/security-context/#assign-selinux-labels-to-a-container)割り当てることができます。
+SELinuxラベルは、コンテナまたはPodに[`securityContext`セクションを介して](/ja/docs/tasks/configure-Pod-container/security-context/#assign-selinux-labels-to-a-container)割り当てることができます。
 
 {{< note >}}
 SELinuxはLinux Nodeでのみ使用可能で、[一部の Linux ディストリビューション](https://en.wikipedia.org/wiki/Security-Enhanced_Linux#Implementations)で有効になっています。
