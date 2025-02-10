@@ -258,8 +258,8 @@ Kubernetes v1.22以降では、時間制限のあるサービスアカウント�
 2番目のグループには、デフォルトでは有効になっていませんが、GAステータスであり、セキュリティ体制を向上させるために推奨されるプラグインが含まれます:
 
 [`DenyServiceExternalIPs`](/ja/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)
-: `Service.spec.externalIPs`フィールドのまったく新しい使用をすべて拒否します。
-これは、[CVE-2020-8554: LoadBalancer または ExternalIPs を使用した中間者攻撃](https://github.com/kubernetes/kubernetes/issues/97076)の緩和策です。
+: `Service.spec.externalIPs`フィールドの新規使用をすべて拒否します。
+これは、[CVE-2020-8554: Man in the middle using LoadBalancer or ExternalIPs](https://github.com/kubernetes/kubernetes/issues/97076)の緩和策です。
 
 [`NodeRestriction`](/ja/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
 : kubeletの権限を、所有するPod APIリソースまたは自身を表すNode APIリソースのみを変更するように制限します。
