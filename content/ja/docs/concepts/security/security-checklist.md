@@ -200,10 +200,10 @@ Kubernetes v1.22以降では、時間制限のあるサービスアカウント�
 コンテナイメージには、パッケージ化されたプログラムを実行するための最小限のものだけが含まれている必要があります。
 できれば、プログラムとその依存関係のみで、最小限のベースからイメージを構築します。
 特に、本番環境で使用するイメージには、シェルやデバッグユーティリティを含めないでください。
-[一時的なデバッグ コンテナ](/ja/docs/tasks/debug/debug-application/debug-running-Pod/#ephemeral-container)をトラブルシューティングに使用できます。
+[エフェメラル(一時的)なデバッグコンテナ](/ja/docs/tasks/debug/debug-application/debug-running-Pod/#ephemeral-container)をトラブルシューティングに使用できます。
 
-[Dockerfile の `USER` 命令](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user)を使用して、権限のないユーザーで直接起動するイメージを構築します。
-[セキュリティ コンテキスト](/ja/docs/tasks/configure-Pod-container/security-context/#set-the-security-context-for-a-Pod)を使用すると、イメージマニフェストで指定されていない場合でも、`runAsUser`および`runAsGroup`を使用して特定のユーザーとグループでコンテナイメージを開始できます。
+[Dockerfileの`USER`命令](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user)を使用して、権限のないユーザーで直接起動するイメージを構築します。
+[セキュリティコンテキスト](/ja/docs/tasks/configure-Pod-container/security-context/#set-the-security-context-for-a-Pod)を使用すると、イメージマニフェストで指定されていない場合でも、`runAsUser`および`runAsGroup`を使用して特定のユーザーとグループでコンテナイメージを開始できます。
 ただし、イメージレイヤーのファイル権限により、イメージを変更せずに新しい権限のないユーザーでプロセスを開始することが不可能になる場合があります。
 
 イメージタグ、特に`latest`タグを使用してイメージを参照することは避けてください。
