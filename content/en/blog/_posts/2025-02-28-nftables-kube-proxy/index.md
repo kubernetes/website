@@ -2,7 +2,6 @@
 layout: blog
 title: "NFTables mode for kube-proxy"
 date: 2025-02-28
-draft: true
 slug: nftables-kube-proxy
 author: >
   Dan Winship (Red Hat)
