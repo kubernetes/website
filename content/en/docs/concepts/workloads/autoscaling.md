@@ -110,7 +110,7 @@ in the cluster.
 
 It is also possible to scale workloads based on concurrent HTTP requests.
 [Knative](https://knative.dev/) uses this approach to dynamically scale workloads
-including dynamically including scale to zero.
+including scale to zero.
 
 Knative is a CNCF incubating project.
 
