@@ -106,6 +106,14 @@ While the Cluster Proportional Autoscaler scales the number of replicas of a wor
 adjusts the resource requests for a workload (for example a Deployment or DaemonSet) based on the number of nodes and/or cores
 in the cluster.
 
+### HTTP request based autoscaling
+
+It is also possible to scale workloads based on concurrent HTTP requests.
+[Knative](https://knative.dev/) uses this approach to dynamically scale workloads
+including dynamically including scale to zero.
+
+Knative is a CNCF incubating project.
+
 ### Event driven Autoscaling
 
 It is also possible to scale workloads based on events, for example using the
