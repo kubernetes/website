@@ -35,7 +35,7 @@ Esta página lista alguns dos complementos disponíveis e links com suas respect
 
 ## Descoberta de Serviço
 
-* [CoreDNS](https://coredns.io) é um servidor DNS flexível e extensível que pode ser [instalado](https://github.com/coredns/deployment/tree/master/kubernetes) como o serviço de DNS dentro do cluster para ser utilizado por pods.
+* [CoreDNS](https://coredns.io) é um servidor DNS flexível e extensível que pode ser [instalado](https://github.com/coredns/helm) como o serviço de DNS dentro do cluster para ser utilizado por pods.
 
 ## Visualização &amp; Controle
 
