@@ -1,19 +1,38 @@
+{{- $lang := .Site.Language.Lang -}}
+{{- $searchFile := printf "content/%s/search.md" $lang -}}
 {{/* Always cache this partial; set the active class client side. */}}
 {{ $shouldDelayActive := true }}
 <div id="td-sidebar-menu" class="td-sidebar__inner{{ if $shouldDelayActive }} d-none{{ end }}">
   {{ if not .Site.Params.ui.sidebar_search_disable -}}
-  <div class="td-sidebar__search d-flex align-items-center">
-    {{ partial "search-form.html" . }}
-    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fa-solid fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="{{ T "sidebar_toggle_nav" }}">
+    {{/* custom search form */}}
+    <form class="td-sidebar__search d-flex align-items-center"
+     {{- if fileExists $searchFile }}
+       action="{{ "search/" | relLangURL  }}"
+       data-search-page="{{ "search/" | relLangURL  }}"
+     {{- else }}
+       action="{{ "search/" | relURL }}"
+       data-search-page="{{ "search/" | relURL }}"
+     {{- end -}}
+      method="get">
+    {{- partial "search-input.html" . }}
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
     </button>
-  </div>
+  </form>
   {{ else -}}
   <div id="content-mobile">
-  <div class="td-sidebar__search d-flex align-items-center">
-    {{ partial "search-form.html" . }}
-    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fa-solid fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="{{ T "sidebar_toggle_nav" }}">
+    <form class="td-sidebar__search d-flex align-items-center"
+     {{- if fileExists $searchFile }}
+       action="{{ "search/" | relLangURL  }}"
+       data-search-page="{{ "search/" | relLangURL  }}"
+     {{- else }}
+       action="{{ "search/" | relURL }}"
+       data-search-page="{{ "search/" | relURL }}"
+     {{- end -}}
+      method="get">
+    {{- partial "search-input.html" . }}
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
     </button>
-  </div>
+  </form>
   </div>
   <div id="content-desktop"></div>
   {{ end -}}

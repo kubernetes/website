@@ -5,7 +5,7 @@
     {{ partial "css.html" . }}
   </head>
   </head>
-  <body class="td-search {{- if ne (lower .Params.cid) "" -}}{{- printf " cid-%s" (lower .Params.cid) -}}{{- end -}}">
+  <body class="td-search-results {{- if ne (lower .Params.cid) "" -}}{{- printf " cid-%s" (lower .Params.cid) -}}{{- end -}}">
     <header>
       {{ partial "navbar.html" . }}
       {{ block "announcement" . }}
