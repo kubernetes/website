@@ -203,9 +203,11 @@ aliases:
     - shurup
   sig-docs-pl-owners: # Admins for Polish content
     - mfilocha
+    - nvtkaszpir
   sig-docs-pl-reviews: # PR reviews for Polish content
     - kpucynski
     - mfilocha
+    - nvtkaszpir
   sig-docs-uk-owners: # Admins for Ukrainian content
     - Arhell
     - MaxymVlasov
