@@ -82,17 +82,6 @@ Kubernetesのリソース名や技術用語などは、原則としてそのま�
 またこれらの単語は、複数形ではなく単数形を用います。
 例えば、原文に"pods"と表記されている場合でも、日本語訳では"Pod"と表記してください。
 
-- そのままの表記を使用する単語リスト
-  - Kubernetes
-  - Pod
-  - Service
-  - Deployment
-  - Node
-  - Namespace
-  - etcd
-  - LoadBalancer
-
-
 ### 頻出表記(日本語) {#frequent-phrases}
 
 よくある表記 | あるべき形
