@@ -1,45 +1,43 @@
-{{ if or .Site.Params.gcs_engine_id .Site.Params.algolia_docsearch }}
-<div class="search-bar">
-  <i class="search-icon fa-solid fa-search"></i>
-  <input
-    type="search"
-    class="search-input td-search-input"
-    placeholder="{{ T "ui_search_placeholder" }}"
-    aria-label="{{ T "ui_search_placeholder" }}"
-    autocomplete="off"
-  >
+{{/*
+Copied from Docsy with the addition of the customSearch block.
+This can be deleted once https://github.com/google/docsy/issues/2194 and https://github.com/google/docsy/pull/1512 are closed
+and the site has been updated to incorporate the upstream change.
+*/}}
+{{ if .Site.Params.gcs_engine_id -}}
+<div class="td-search">
+  <div class="td-search__icon"></div>
+  <input type="search" class="td-search__input form-control td-search-input" placeholder="{{ T "ui_search" }}" aria-label="{{ T "ui_search" }}" autocomplete="off">
 </div>
-{{ else if .Site.Params.offlineSearch }}
-<div class="search-bar" id="search-nav-container">
-  <i class="search-icon fa-solid fa-search"></i>
-  <input
-    type="search"
-    class="search-input td-search-input"
-    id="search-input"
-    placeholder="{{ T "ui_search_placeholder" }}"
-    aria-label="{{ T "ui_search_placeholder" }}"
-    autocomplete="off"
-  >
-</div>
-{{ else if .Site.Params.k8s_search }}
+{{ else if .Site.Params.algolia_docsearch -}}
+<div id="docsearch"></div>
+{{ else if .Site.Params.offlineSearch -}}
+{{ $offlineSearchIndex := resources.Get "json/offline-search-index.json" | resources.ExecuteAsTemplate "offline-search-index.json" . -}}
+{{ if hugo.IsProduction -}}
+{{/* Use `md5` as finger print hash function to shorten file name to avoid `file name too long` error. */ -}}
+{{ $offlineSearchIndex = $offlineSearchIndex | fingerprint "md5" -}}
+{{ end -}}
+{{ $offlineSearchLink := $offlineSearchIndex.RelPermalink -}}
 
-{{ $lang := .Site.Language.Lang }}
-{{ $searchFile := printf "content/%s/search.md" $lang }}
-
-<div class="search-bar">
-  <i class="search-icon fa-solid fa-search"></i>
+<div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
   <input
     type="search"
-    name="q"
-    {{ if fileExists $searchFile }}
-      data-search-page="{{ "search/" | relLangURL  }}"
-    {{ else }}
-      data-search-page="{{ "search/" | relURL }}"
-    {{ end }}
-    class="search-input td-search-input"
-    placeholder="{{ T "ui_search_placeholder" }}"
-    aria-label="{{ T "ui_search_placeholder" }}"
+    class="td-search__input form-control"
+    placeholder="{{ T "ui_search" }}"
+    aria-label="{{ T "ui_search" }}"
     autocomplete="off"
+    {{/*
+      The data attribute name of the json file URL must end with `src` since
+      Hugo's absurlreplacer requires `src`, `href`, `action` or `srcset` suffix for the attribute name.
+      If the absurlreplacer is not applied, the URL will start with `/`.
+      It causes the json file loading error when when relativeURLs is enabled.
+      https://github.com/google/docsy/issues/181
+    */}}
+    data-offline-search-index-json-src="{{ $offlineSearchLink }}"
+    data-offline-search-base-href="/"
+    data-offline-search-max-results="{{ .Site.Params.offlineSearchMaxResults | default 10 }}"
   >
 </div>
-{{ end }}
+{{ else if .Site.Params.customSearch -}}
+  {{ partialCached "search-input-custom" . }}
+{{ end -}}
