@@ -10,6 +10,7 @@ feature:
     Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.
 content_type: concept
 weight: 90
+math: true
 ---
 
 <!-- overview -->
@@ -131,14 +132,17 @@ From the most basic perspective, the HorizontalPodAutoscaler controller
 operates on the ratio between desired metric value and current metric
 value:
 
-```
-desiredReplicas = ceil[currentReplicas * ( currentMetricValue / desiredMetricValue )]
+```math
+\begin{equation*}
+desiredReplicas = \left( currentReplicas \times  { currentMetricValue \over desiredMetricValue }  \right)
+\end{equation*}
 ```
 
 For example, if the current metric value is `200m`, and the desired value
-is `100m`, the number of replicas will be doubled, since `200.0 / 100.0 ==
-2.0` If the current value is instead `50m`, you'll halve the number of
-replicas, since `50.0 / 100.0 == 0.5`. The control plane skips any scaling
+is `100m`, the number of replicas will be doubled, since
+\\( { 200.0 \div 100.0 } = 2.0 \\).  
+If the current value is instead `50m`, you'll halve the number of
+replicas, since \\( { 50.0 \div 100.0 } = 0.5 \\). The control plane skips any scaling
 action if the ratio is sufficiently close to 1.0 (within a globally-configurable
 tolerance, 0.1 by default).
 
@@ -173,8 +177,8 @@ since it started. This value is configured with the
 `--horizontal-pod-autoscaler-cpu-initialization-period` flag, and its
 default is 5 minutes.
 
-The `currentMetricValue / desiredMetricValue` base scale ratio is then
-calculated using the remaining pods not set aside or discarded from above.
+The \\( currentMetricValue \over desiredMetricValue \\) base scale ratio is then
+calculated, using the remaining pods not set aside or discarded from above.
 
 If there were any missing metrics, the control plane recomputes the average more
 conservatively, assuming those pods were consuming 100% of the desired
