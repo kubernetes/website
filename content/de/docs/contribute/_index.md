@@ -10,7 +10,7 @@ weight: 80
 
 Wenn Sie an der Dokumentation oder der Website von Kubernetes mitwirken möchten, freuen wir uns über Ihre Hilfe!
 Jeder kann seinen Beitrag leisten, unabhängig davon ob Sie neu im Projekt sind oder schon lange dabei sind, und ob Sie sich als
-Entwickler, Endbenutzer oder einfach jemanden, der es einfach nicht aushält, Tippfehler zu sehen.
+Entwickler, Endbenutzer oder einfach jemanden, der es einfach nicht aushält, Tippfehler zu sehen sehen ;)
 
 Weitere Möglichkeiten, sich in der Kubernetes-Community zu engagieren oder mehr über uns zu erfahren, finden Sie auf der [Kubernetes-Community-Seite](/community/).
 Informationen zum Handbuch zur Dokumentation von Kubernetes finden Sie im [Gestaltungshandbuch](/docs/contribute/style/style-guide/).
