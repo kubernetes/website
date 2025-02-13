@@ -601,7 +601,7 @@ guidelines, which cover this exact use case.
 ## {{% heading "whatsnext" %}}
 
 If you configure autoscaling in your cluster, you may also want to consider using
-[cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
+[node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
 to ensure you are running the right number of nodes.
 
 For more information on HorizontalPodAutoscaler:
