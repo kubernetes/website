@@ -438,10 +438,7 @@ IP addresses that are no longer used by any Services.
 
 {{< feature-state feature_gate_name="MultiCIDRServiceAllocator" >}}
 
-If you enable the `MultiCIDRServiceAllocator`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
-[`networking.k8s.io/v1alpha1` API group](/docs/tasks/administer-cluster/enable-disable-api/),
-the control plane replaces the existing etcd allocator with a revised implementation
+The control plane replaces the existing etcd allocator with a revised implementation
 that uses IPAddress and ServiceCIDR objects instead of an internal global allocation map.
 Each cluster IP address associated to a Service then references an IPAddress object.
 
@@ -495,7 +492,7 @@ Users can create or delete new ServiceCIDR objects to manage the available IP ra
 
 ```shell
 cat <<'EOF' | kubectl apply -f -
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: ServiceCIDR
 metadata:
   name: newservicecidr
@@ -516,6 +513,46 @@ NAME             CIDRS         AGE
 kubernetes       10.96.0.0/28  17m
 newservicecidr   10.96.0.0/24  7m
 ```
+
+Distributions or administrators of Kubernetes clusters may want to control that
+new Service CIDRs added to the cluster does not overlap with other networks on
+the cluster, that only belong to a specific range of IPs or just simple retain
+the existing behavior of only having one ServiceCIDR per cluster.  An example of
+a Validation Admission Policy to achieve this is:
+
+```yaml
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "servicecidrs.default"
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["networking.k8s.io"]
+      apiVersions: ["v1","v1beta1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["servicecidrs"]
+  matchConditions:
+  - name: 'exclude-default-servicecidr'
+    expression: "object.metadata.name != 'kubernetes'"
+  variables:
+  - name: allowed
+    expression: "['10.96.0.0/16','2001:db8::/64']"
+  validations:
+  - expression: "object.spec.cidrs.all(i , variables.allowed.exists(j , cidr(j).containsCIDR(i)))"
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: "servicecidrs-binding"
+spec:
+  policyName: "servicecidrs.default"
+  validationActions: [Deny,Audit]
+---
+```
+
 
 ### IP address ranges for Service virtual IP addresses {#service-ip-static-sub-range}
 

@@ -13,5 +13,8 @@ stages:
   - stage: beta
     defaultValue: false
     fromVersion: "1.31"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.33"
 ---
 Track IP address allocations for Service cluster IPs using IPAddress objects.
