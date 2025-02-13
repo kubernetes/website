@@ -532,29 +532,40 @@ please install corresponding CSI drivers.
   (**migration on by default** starting v1.21)
 * [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
   (**deprecated** starting v1.23, no migration plan and no plan to remove support)
-* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcePersistentDisk) - GCE Persistent Disk
-  (**migration on by default** starting v1.23)
 * [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
   (**migration on by default** starting v1.31)
 * [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
   (**migration on by default** starting v1.25)
 
+The following PersistentVolume types require the corresponding CSI driver to be installed in the cluster. Kubernetes includes code to support defining these volumes using the legacy names of plugins that were
+previous part of Kubernetes itself (“in-tree volume plugins“).
+
+| In-tree Volume Plugin | CSI Driver | Kubernetes Version |
+|--------------------------|:----------------:|--------------------------------:|
+| [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) | [AWS EBS](https://github.com/kubernetes-sigs/aws-ebs-csi-driver) | 1.25+ |
+| [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) | [Azure Disk](https://github.com/kubernetes-sigs/azuredisk-csi-driver) | 1.24+ |
+| [`cinder`](/docs/concepts/storage/volumes/#cinder) | [OpenStack Cinder](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/) | 1.26+ |
+| [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) | [GCE Persistent Disk](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver) | 1.25+ |
+| [`azureFile`](/docs/concepts/storage/volumes/#azurefile) | [Azure File](https://github.com/kubernetes-sigs/azurefile-csi-driver) | 1.26+  |
+| [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) | [vSphere](https://github.com/kubernetes-sigs/vsphere-csi-driver) | 1.26+  |
+
+{{< note >}}
+These volume types are **only** available via a separate CSI driver, as Kubernetes' core no longer provides built-in support. The Kubernetes project recommends specifying these volumes using the
+`csi` volume driver; the legacy support exists to provide API compatibility for workloads that have
+not yet fully switched.
+{{< /note >}}
+
 Older versions of Kubernetes also supported the following in-tree PersistentVolume types:
 
 * [`cephfs`](/docs/concepts/storage/volumes/#cephfs)
   (**not available** starting v1.31)
-* `flocker` - Flocker storage.
-  (**not available** starting v1.25)
-* `photonPersistentDisk` - Photon controller persistent disk.
-  (**not available** starting v1.15)
-* `quobyte` - Quobyte volume.
-  (**not available** starting v1.25)
+* `flocker` - Flocker storage &mdash; **not available** starting with v1.25. The Kubernetes project does not provide a CSI driver for this volume type.
+* `photonPersistentDisk` - Photon controller persistent disk &mdash; **not available** starting with v1.15. The Kubernetes project does not provide a CSI driver for this volume type.
+* `quobyte` - Quobyte volume &mdash; **not available** starting with v1.25. The Kubernetes project does not provide a CSI driver for this volume type, however a third party CSI driver is available, [Quobyte](https://github.com/quobyte/quobyte-csi-driver).
 * [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume 
   (**not available** starting v1.31)
-* `scaleIO` - ScaleIO volume.
-  (**not available** starting v1.21)
-* `storageos` - StorageOS volume.
-  (**not available** starting v1.25)
+* `scaleIO` - ScaleIO volume &mdash; **not available** starting with v1.21. The Kubernetes project does not provide a CSI driver for this volume type.
+* `storageos` - StorageOS volume &mdash; **not available** starting with v1.25. The Kubernetes project does not provide a CSI driver for this volume type, however a third party CSI driver is available, [StorageOS](https://docs.storageos.com/docs/install/kubernetes/).
 
 ## Persistent Volumes
 
