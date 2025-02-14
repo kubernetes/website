@@ -100,13 +100,13 @@ Once the feature gate is enabled, follow the steps below to configure the [CPU m
 这个能力还需要容器运行时的支持。
 
 <!--
-### Configuration
+## Configuration
 
 The CPU Manager policy is set with the `--cpu-manager-policy` kubelet
 flag or the `cpuManagerPolicy` field in [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/).
 There are two supported policies:
 -->
-### 配置   {#configuration}
+## 配置   {#configuration}
 
 CPU 管理策略通过 kubelet 参数 `--cpu-manager-policy`
 或 [KubeletConfiguration](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
@@ -160,13 +160,13 @@ gate for each individual option.
 不同于 Kubernetes 标准，这里是由这些特性门控来管控选项组，因为为每个单独选项都添加一个特性门控过于繁琐。
 
 <!--
-### Changing the CPU Manager Policy
+## Changing the CPU Manager Policy
 
 Since the CPU manager policy can only be applied when kubelet spawns new pods, simply changing from
 "none" to "static" won't apply to existing pods. So in order to properly change the CPU manager
 policy on a node, perform the following steps:
 -->
-### 更改 CPU 管理器策略   {#changing-the-cpu-manager-policy}
+## 更改 CPU 管理器策略   {#changing-the-cpu-manager-policy}
 
 由于 CPU 管理器策略只能在 kubelet 生成新 Pod 时应用，所以简单地从 "none" 更改为 "static"
 将不会对现有的 Pod 起作用。
@@ -209,16 +209,16 @@ state file `cpu_manager_state` in the kubelet root directory.
 {{< /note >}}
 
 <!--
-#### `none` policy configuration
+### `none` policy configuration
 
 This policy has no extra configuration items.
 -->
-#### `none` 策略配置
+### `none` 策略配置
 
 该策略没有额外的配置项。
 
 <!--
-#### `static` policy configuration
+### `static` policy configuration
 
 This policy manages a shared pool of CPUs that initially contains all CPUs in the
 node. The amount of exclusively allocatable CPUs is equal to the total
@@ -234,7 +234,7 @@ CPU `requests` also run on CPUs in the shared pool. Only containers that are
 both part of a `Guaranteed` pod and have integer CPU `requests` are assigned
 exclusive CPUs.
 --->
-#### `static` 策略配置
+### `static` 策略配置
 
 此策略管理一个 CPU 共享池，该共享池最初包含节点上所有的 CPU 资源。
 可独占性 CPU 资源数量等于节点的 CPU 总量减去通过 kubelet `--kube-reserved` 或 `--system-reserved`
@@ -260,7 +260,7 @@ pool to become empty.
 {{< /note >}}
 
 <!--
-#### Static policy options {#cpu-policy-static--options}
+### Static policy options {#cpu-policy-static--options}
 
 You can toggle groups of options on and off based upon their maturity level
 using the following feature gates:
@@ -276,7 +276,7 @@ The following policy options exist for the static `CPUManager` policy:
 * `strict-cpu-reservation` (alpha, hidden by default) (1.32 or higher)
 * `prefer-align-cpus-by-uncorecache` (alpha, hidden by default) (1.32 or higher)
 -->
-#### Static 策略选项  {#cpu-policy-static--options}
+### Static 策略选项  {#cpu-policy-static--options}
 
 你可以使用以下特性门控根据成熟度级别打开或关闭选项组：
 * `CPUManagerPolicyBetaOptions` 默认启用。禁用以隐藏 beta 级选项。
