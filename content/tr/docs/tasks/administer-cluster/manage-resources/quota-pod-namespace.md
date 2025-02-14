@@ -1,18 +1,17 @@
 ---
-title: Configure a Pod Quota for a Namespace
+title: Bir Ad Alanı için Pod Kotası Yapılandırma
 content_type: task
 weight: 60
 description: >-
-  Restrict how many Pods you can create within a namespace.
+  Bir ad alanı içinde oluşturabileceğiniz Pod sayısını sınırlayın.
 ---
 
 
 <!-- overview -->
 
-This page shows how to set a quota for the total number of Pods that can run
-in a {{< glossary_tooltip text="Namespace" term_id="namespace" >}}. You specify quotas in a
+Bu sayfa, bir {{< glossary_tooltip text="Namespace" term_id="namespace" >}} içinde çalıştırılabilecek toplam Pod sayısı için nasıl kota ayarlanacağını gösterir. Kotaları bir
 [ResourceQuota](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
-object.
+nesnesinde belirtirsiniz.
 
 
 
@@ -22,39 +21,37 @@ object.
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-You must have access to create namespaces in your cluster.
+Kümenizde ad alanları oluşturma erişimine sahip olmalısınız.
 
 <!-- steps -->
 
-## Create a namespace
+## Bir ad alanı oluşturun
 
-Create a namespace so that the resources you create in this exercise are
-isolated from the rest of your cluster.
+Bu alıştırmada oluşturduğunuz kaynakların kümenizin geri kalanından izole edilmesi için bir ad alanı oluşturun.
 
 ```shell
 kubectl create namespace quota-pod-example
 ```
 
-## Create a ResourceQuota
+## Bir ResourceQuota oluşturun
 
-Here is an example manifest for a ResourceQuota:
+İşte bir ResourceQuota için örnek bir manifest:
 
 {{% code_sample file="admin/resource/quota-pod.yaml" %}}
 
-Create the ResourceQuota:
+ResourceQuota'yı oluşturun:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/quota-pod.yaml --namespace=quota-pod-example
 ```
 
-View detailed information about the ResourceQuota:
+ResourceQuota hakkında ayrıntılı bilgi görüntüleyin:
 
 ```shell
 kubectl get resourcequota pod-demo --namespace=quota-pod-example --output=yaml
 ```
 
-The output shows that the namespace has a quota of two Pods, and that currently there are
-no Pods; that is, none of the quota is used.
+Çıktı, ad alanının iki Pod kotasına sahip olduğunu ve şu anda hiçbir Pod olmadığını, yani kotanın kullanılmadığını gösterir.
 
 ```yaml
 spec:
@@ -67,27 +64,25 @@ status:
     pods: "0"
 ```
 
-Here is an example manifest for a {{< glossary_tooltip term_id="deployment" >}}:
+İşte bir {{< glossary_tooltip term_id="deployment" >}} için örnek bir manifest:
 
 {{% code_sample file="admin/resource/quota-pod-deployment.yaml" %}}
 
-In that manifest, `replicas: 3` tells Kubernetes to attempt to create three new Pods, all
-running the same application.
+Bu manifestte, `replicas: 3` Kubernetes'e aynı uygulamayı çalıştıran üç yeni Pod oluşturmayı denemesini söyler.
 
-Create the Deployment:
+Deployment'ı oluşturun:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/quota-pod-deployment.yaml --namespace=quota-pod-example
 ```
 
-View detailed information about the Deployment:
+Deployment hakkında ayrıntılı bilgi görüntüleyin:
 
 ```shell
 kubectl get deployment pod-quota-demo --namespace=quota-pod-example --output=yaml
 ```
 
-The output shows that even though the Deployment specifies three replicas, only two
-Pods were created because of the quota you defined earlier:
+Çıktı, Deployment üç replika belirtse bile, daha önce tanımladığınız kota nedeniyle yalnızca iki Pod oluşturulduğunu gösterir:
 
 ```yaml
 spec:
@@ -102,16 +97,13 @@ lastUpdateTime: 2021-04-02T20:57:05Z
       exceeded quota: pod-demo, requested: pods=1, used: pods=2, limited: pods=2'
 ```
 
-### Choice of resource
+### Kaynak seçimi
 
-In this task you have defined a ResourceQuota that limited the total number of Pods, but
-you could also limit the total number of other kinds of object. For example, you
-might decide to limit how many {{< glossary_tooltip text="CronJobs" term_id="cronjob" >}}
-that can live in a single namespace.
+Bu görevde toplam Pod sayısını sınırlayan bir ResourceQuota tanımladınız, ancak başka türdeki nesnelerin toplam sayısını da sınırlayabilirsiniz. Örneğin, tek bir ad alanında kaç tane {{< glossary_tooltip text="CronJobs" term_id="cronjob" >}} bulunabileceğini sınırlamaya karar verebilirsiniz.
 
-## Clean up
+## Temizlik
 
-Delete your namespace:
+Ad alanınızı silin:
 
 ```shell
 kubectl delete namespace quota-pod-example
@@ -122,33 +114,26 @@ kubectl delete namespace quota-pod-example
 ## {{% heading "whatsnext" %}}
 
 
-### For cluster administrators
+### Küme yöneticileri için
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [Bir Ad Alanı için Varsayılan Bellek İsteklerini ve Sınırlarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [Bir Ad Alanı için Varsayılan CPU İsteklerini ve Sınırlarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [Bir Ad Alanı için Minimum ve Maksimum Bellek Kısıtlamalarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [Bir Ad Alanı için Minimum ve Maksimum CPU Kısıtlamalarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [Bir Ad Alanı için Bellek ve CPU Kotalarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+* [API Nesneleri için Kotaları Yapılandırma](/docs/tasks/administer-cluster/quota-api-object/)
 
-### For app developers
+### Uygulama geliştiricileri için
 
-* [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [Kapsayıcılara ve Pod'lara Bellek Kaynakları Atama](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [Kapsayıcılara ve Pod'lara CPU Kaynakları Atama](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [Assign Pod-level CPU and memory resources](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
+* [Pod düzeyinde CPU ve bellek kaynakları atama](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
 
-* [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
-
-
-
-
-
-
-
+* [Pod'lar için Hizmet Kalitesini Yapılandırma](/docs/tasks/configure-pod-container/quality-service-pod/)

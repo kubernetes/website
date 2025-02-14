@@ -1,19 +1,18 @@
 ---
-title: Configure Memory and CPU Quotas for a Namespace
+title: Bir Ad Alanı için Bellek ve CPU Kotalarını Yapılandırma
 content_type: task
 weight: 50
 description: >-
-  Define overall memory and CPU resource limits for a namespace.
+  Bir ad alanı için genel bellek ve CPU kaynak sınırlarını tanımlayın.
 ---
 
 
 <!-- overview -->
 
-This page shows how to set quotas for the total amount memory and CPU that
-can be used by all Pods running in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
-You specify quotas in a
+Bu sayfa, bir {{< glossary_tooltip text="namespace" term_id="namespace" >}} içinde çalışan tüm Pod'lar tarafından kullanılabilecek toplam bellek ve CPU miktarı için kotaların nasıl ayarlanacağını gösterir.
+Kotaları bir
 [ResourceQuota](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
-object.
+nesnesinde belirtirsiniz.
 
 
 
@@ -22,79 +21,76 @@ object.
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-You must have access to create namespaces in your cluster.
+Kümenizde ad alanları oluşturma erişimine sahip olmalısınız.
 
-Each node in your cluster must have at least 1 GiB of memory.
+Kümenizdeki her düğümde en az 1 GiB bellek bulunmalıdır.
 
 
 <!-- steps -->
 
-## Create a namespace
+## Bir ad alanı oluşturun
 
-Create a namespace so that the resources you create in this exercise are
-isolated from the rest of your cluster.
+Bu alıştırmada oluşturduğunuz kaynakların kümenizin geri kalanından izole edilmesi için bir ad alanı oluşturun.
 
 ```shell
 kubectl create namespace quota-mem-cpu-example
 ```
 
-## Create a ResourceQuota
+## Bir ResourceQuota oluşturun
 
-Here is a manifest for an example ResourceQuota:
+İşte bir örnek ResourceQuota için bir manifest:
 
 {{% code_sample file="admin/resource/quota-mem-cpu.yaml" %}}
 
-Create the ResourceQuota:
+ResourceQuota'yı oluşturun:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/quota-mem-cpu.yaml --namespace=quota-mem-cpu-example
 ```
 
-View detailed information about the ResourceQuota:
+ResourceQuota hakkında ayrıntılı bilgi görüntüleyin:
 
 ```shell
 kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example --output=yaml
 ```
 
-The ResourceQuota places these requirements on the quota-mem-cpu-example namespace:
+ResourceQuota, quota-mem-cpu-example ad alanına şu gereksinimleri getirir:
 
-* For every Pod in the namespace, each container must have a memory request, memory limit, cpu request, and cpu limit.
-* The memory request total for all Pods in that namespace must not exceed 1 GiB.
-* The memory limit total for all Pods in that namespace must not exceed 2 GiB.
-* The CPU request total for all Pods in that namespace must not exceed 1 cpu.
-* The CPU limit total for all Pods in that namespace must not exceed 2 cpu.
+* Ad alanındaki her Pod için, her konteynerin bir bellek isteği, bellek sınırı, cpu isteği ve cpu sınırı olmalıdır.
+* O ad alanındaki tüm Pod'lar için bellek isteği toplamı 1 GiB'yi geçmemelidir.
+* O ad alanındaki tüm Pod'lar için bellek sınırı toplamı 2 GiB'yi geçmemelidir.
+* O ad alanındaki tüm Pod'lar için CPU isteği toplamı 1 cpu'yu geçmemelidir.
+* O ad alanındaki tüm Pod'lar için CPU sınırı toplamı 2 cpu'yu geçmemelidir.
 
-See [meaning of CPU](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)
-to learn what Kubernetes means by “1 CPU”.
+Kubernetes'in “1 CPU” ile ne demek istediğini öğrenmek için [CPU anlamı](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu) sayfasına bakın.
 
-## Create a Pod
+## Bir Pod oluşturun
 
-Here is a manifest for an example Pod:
+İşte bir örnek Pod için bir manifest:
 
 {{% code_sample file="admin/resource/quota-mem-cpu-pod.yaml" %}}
 
 
-Create the Pod:
+Pod'u oluşturun:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/quota-mem-cpu-pod.yaml --namespace=quota-mem-cpu-example
 ```
 
-Verify that the Pod is running and that its (only) container is healthy:
+Pod'un çalıştığını ve (tek) konteynerinin sağlıklı olduğunu doğrulayın:
 
 ```shell
 kubectl get pod quota-mem-cpu-demo --namespace=quota-mem-cpu-example
 ```
 
-Once again, view detailed information about the ResourceQuota:
+ResourceQuota hakkında ayrıntılı bilgiye tekrar bakın:
 
 ```shell
 kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example --output=yaml
 ```
 
-The output shows the quota along with how much of the quota has been used.
-You can see that the memory and CPU requests and limits for your Pod do not
-exceed the quota.
+Çıktı, kotayı ve kotanın ne kadarının kullanıldığını gösterir.
+Pod'unuzun bellek ve CPU isteklerinin ve sınırlarının kotayı aşmadığını görebilirsiniz.
 
 ```
 status:
@@ -110,31 +106,29 @@ status:
     requests.memory: 600Mi
 ```
 
-If you have the `jq` tool, you can also query (using [JSONPath](/docs/reference/kubectl/jsonpath/))
-for just the `used` values, **and** pretty-print that that of the output. For example:
+`jq` aracına sahipseniz, ayrıca sadece `used` değerlerini sorgulayabilir (kullanarak [JSONPath](/docs/reference/kubectl/jsonpath/))
+ve çıktının bu kısmını güzelce yazdırabilirsiniz. Örneğin:
 
 ```shell
 kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example -o jsonpath='{ .status.used }' | jq .
 ```
 
-## Attempt to create a second Pod
+## İkinci bir Pod oluşturmayı deneyin
 
-Here is a manifest for a second Pod:
+İşte ikinci bir Pod için bir manifest:
 
 {{% code_sample file="admin/resource/quota-mem-cpu-pod-2.yaml" %}}
 
-In the manifest, you can see that the Pod has a memory request of 700 MiB.
-Notice that the sum of the used memory request and this new memory
-request exceeds the memory request quota: 600 MiB + 700 MiB > 1 GiB.
+Manifestte, Pod'un 700 MiB bellek isteği olduğunu görebilirsiniz.
+Kullanılan bellek isteği toplamı ve bu yeni bellek isteğinin bellek isteği kotasını aştığını fark edin: 600 MiB + 700 MiB > 1 GiB.
 
-Attempt to create the Pod:
+Pod'u oluşturmayı deneyin:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/quota-mem-cpu-pod-2.yaml --namespace=quota-mem-cpu-example
 ```
 
-The second Pod does not get created. The output shows that creating the second Pod
-would cause the memory request total to exceed the memory request quota.
+İkinci Pod oluşturulmaz. Çıktı, ikinci Pod'un oluşturulmasının bellek isteği toplamının bellek isteği kotasını aşmasına neden olacağını gösterir.
 
 ```
 Error from server (Forbidden): error when creating "examples/admin/resource/quota-mem-cpu-pod-2.yaml":
@@ -142,19 +136,17 @@ pods "quota-mem-cpu-demo-2" is forbidden: exceeded quota: mem-cpu-demo,
 requested: requests.memory=700Mi,used: requests.memory=600Mi, limited: requests.memory=1Gi
 ```
 
-## Discussion
+## Tartışma
 
-As you have seen in this exercise, you can use a ResourceQuota to restrict
-the memory request total for all Pods running in a namespace.
-You can also restrict the totals for memory limit, cpu request, and cpu limit.
+Bu alıştırmada gördüğünüz gibi, bir ad alanında çalışan tüm Pod'lar için bellek isteği toplamını sınırlamak için bir ResourceQuota kullanabilirsiniz.
+Ayrıca bellek sınırı, cpu isteği ve cpu sınırı toplamlarını da sınırlayabilirsiniz.
 
-Instead of managing total resource use within a namespace, you might want to restrict
-individual Pods, or the containers in those Pods. To achieve that kind of limiting, use a
-[LimitRange](/docs/concepts/policy/limit-range/).
+Bir ad alanı içindeki toplam kaynak kullanımını yönetmek yerine, bireysel Pod'ları veya bu Pod'lardaki konteynerleri sınırlamak isteyebilirsiniz. Bu tür bir sınırlamayı gerçekleştirmek için bir
+[LimitRange](/docs/concepts/policy/limit-range/) kullanın.
 
-## Clean up
+## Temizlik
 
-Delete your namespace:
+Ad alanınızı silin:
 
 ```shell
 kubectl delete namespace quota-mem-cpu-example
@@ -165,33 +157,26 @@ kubectl delete namespace quota-mem-cpu-example
 ## {{% heading "whatsnext" %}}
 
 
-### For cluster administrators
+### Küme yöneticileri için
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [Bir Ad Alanı için Varsayılan Bellek İsteklerini ve Sınırlarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [Bir Ad Alanı için Varsayılan CPU İsteklerini ve Sınırlarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [Bir Ad Alanı için Minimum ve Maksimum Bellek Kısıtlamalarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [Bir Ad Alanı için Minimum ve Maksimum CPU Kısıtlamalarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+* [Bir Ad Alanı için Pod Kotası Yapılandırma](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
-* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+* [API Nesneleri için Kotaları Yapılandırma](/docs/tasks/administer-cluster/quota-api-object/)
 
-### For app developers
+### Uygulama geliştiriciler için
 
-* [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [Konteynerlere ve Pod'lara Bellek Kaynakları Atama](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [Konteynerlere ve Pod'lara CPU Kaynakları Atama](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [Assign Pod-level CPU and memory resources](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
+* [Pod düzeyinde CPU ve bellek kaynakları atama](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
 
-* [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
-
-
-
-
-
-
-
+* [Pod'lar için Hizmet Kalitesini Yapılandırma](/docs/tasks/configure-pod-container/quality-service-pod/)

@@ -1,15 +1,12 @@
 ---
-title: Communicate Between Containers in the Same Pod Using a Shared Volume
+title: Aynı Pod İçindeki Konteynerler Arasında Paylaşılan Bir Hacim Kullanarak İletişim Kurma
 content_type: task
 weight: 120
 ---
 
 <!-- overview -->
 
-This page shows how to use a Volume to communicate between two Containers running
-in the same Pod. See also how to allow processes to communicate by
-[sharing process namespace](/docs/tasks/configure-pod-container/share-process-namespace/)
-between containers.
+Bu sayfa, aynı Pod'da çalışan iki Konteyner arasında iletişim kurmak için bir Hacim kullanmayı gösterir. Ayrıca, konteynerler arasında [işlem ad alanını paylaşarak](/docs/tasks/configure-pod-container/share-process-namespace/) süreçlerin nasıl iletişim kurmasına izin verileceğini de görebilirsiniz.
 
 ## {{% heading "prerequisites" %}}
 
@@ -17,92 +14,84 @@ between containers.
 
 <!-- steps -->
 
-##  Creating a Pod that runs two Containers
+##  İki Konteyner Çalıştıran Bir Pod Oluşturma
 
-In this exercise, you create a Pod that runs two Containers. The two containers
-share a Volume that they can use to communicate. Here is the configuration file
-for the Pod:
+Bu alıştırmada, iki Konteyner çalıştıran bir Pod oluşturacaksınız. İki konteyner, iletişim kurmak için kullanabilecekleri bir Hacimi paylaşır. İşte Pod için yapılandırma dosyası:
 
 {{% code_sample file="pods/two-container-pod.yaml" %}}
 
-In the configuration file, you can see that the Pod has a Volume named
-`shared-data`.
+Yapılandırma dosyasında, Pod'un `shared-data` adlı bir Hacime sahip olduğunu görebilirsiniz.
 
-The first container listed in the configuration file runs an nginx server. The
-mount path for the shared Volume is `/usr/share/nginx/html`.
-The second container is based on the debian image, and has a mount path of
-`/pod-data`. The second container runs the following command and then terminates.
+Yapılandırma dosyasında listelenen ilk konteyner bir nginx sunucusu çalıştırır. Paylaşılan Hacim için bağlama yolu `/usr/share/nginx/html`'dir.
+İkinci konteyner debian imajına dayanmaktadır ve bağlama yolu `/pod-data`'dır. İkinci konteyner aşağıdaki komutu çalıştırır ve ardından sonlanır.
 
-    echo Hello from the debian container > /pod-data/index.html
+  echo Hello from the debian container > /pod-data/index.html
 
-Notice that the second container writes the `index.html` file in the root
-directory of the nginx server.
+Dikkat edin ki ikinci konteyner, nginx sunucusunun kök dizininde `index.html` dosyasını yazar.
 
-Create the Pod and the two Containers:
+Pod'u ve iki Konteyneri oluşturun:
 
-    kubectl apply -f https://k8s.io/examples/pods/two-container-pod.yaml
+  kubectl apply -f https://k8s.io/examples/pods/two-container-pod.yaml
 
-View information about the Pod and the Containers:
+Pod ve Konteynerler hakkında bilgi görüntüleyin:
 
-    kubectl get pod two-containers --output=yaml
+  kubectl get pod two-containers --output=yaml
 
-Here is a portion of the output:
+İşte çıktının bir kısmı:
 
-    apiVersion: v1
-    kind: Pod
-    metadata:
+  apiVersion: v1
+  kind: Pod
+  metadata:
+    ...
+    name: two-containers
+    namespace: default
+    ...
+  spec:
+    ...
+    containerStatuses:
+
+    - containerID: docker://c1d8abd1 ...
+    image: debian
+    ...
+    lastState:
+      terminated:
       ...
-      name: two-containers
-      namespace: default
-      ...
-    spec:
-      ...
-      containerStatuses:
+    name: debian-container
+    ...
 
-      - containerID: docker://c1d8abd1 ...
-        image: debian
-        ...
-        lastState:
-          terminated:
-            ...
-        name: debian-container
-        ...
+    - containerID: docker://96c1ff2c5bb ...
+    image: nginx
+    ...
+    name: nginx-container
+    ...
+    state:
+      running:
+    ...
 
-      - containerID: docker://96c1ff2c5bb ...
-        image: nginx
-        ...
-        name: nginx-container
-        ...
-        state:
-          running:
-        ...
+Debian Konteynerinin sonlandığını ve nginx Konteynerinin hala çalıştığını görebilirsiniz.
 
-You can see that the debian Container has terminated, and the nginx Container
-is still running.
+nginx Konteynerine bir kabuk alın:
 
-Get a shell to nginx Container:
+  kubectl exec -it two-containers -c nginx-container -- /bin/bash
 
-    kubectl exec -it two-containers -c nginx-container -- /bin/bash
+Kabukta, nginx'in çalıştığını doğrulayın:
 
-In your shell, verify that nginx is running:
+  root@two-containers:/# apt-get update
+  root@two-containers:/# apt-get install curl procps
+  root@two-containers:/# ps aux
 
-    root@two-containers:/# apt-get update
-    root@two-containers:/# apt-get install curl procps
-    root@two-containers:/# ps aux
+Çıktı şu şekilde benzer olacaktır:
 
-The output is similar to this:
+  USER       PID  ...  STAT START   TIME COMMAND
+  root         1  ...  Ss   21:12   0:00 nginx: master process nginx -g daemon off;
 
-    USER       PID  ...  STAT START   TIME COMMAND
-    root         1  ...  Ss   21:12   0:00 nginx: master process nginx -g daemon off;
-
-Recall that the debian Container created the `index.html` file in the nginx root
-directory. Use `curl` to send a GET request to the nginx server:
+Debian Konteynerinin nginx kök dizininde `index.html` dosyasını oluşturduğunu hatırlayın. nginx sunucusuna bir GET isteği göndermek için `curl` kullanın:
 
 ```
 root@two-containers:/# curl localhost
 ```
 
-The output shows that nginx serves a web page written by the debian container:
+Çıktı, nginx'in debian konteyneri tarafından yazılmış bir web sayfası sunduğunu gösterir:
 
 ```
 Hello from the debian container
@@ -110,32 +99,24 @@ Hello from the debian container
 
 <!-- discussion -->
 
-## Discussion
+## Tartışma
 
-The primary reason that Pods can have multiple containers is to support
-helper applications that assist a primary application. Typical examples of
-helper applications are data pullers, data pushers, and proxies.
-Helper and primary applications often need to communicate with each other.
-Typically this is done through a shared filesystem, as shown in this exercise,
-or through the loopback network interface, localhost. An example of this pattern is a
-web server along with a helper program that polls a Git repository for new updates.
+Pod'ların birden fazla konteynere sahip olmasının birincil nedeni, birincil uygulamaya yardımcı olan yardımcı uygulamaları desteklemektir. Yardımcı uygulamaların tipik örnekleri veri çekiciler, veri iticiler ve proxy'lerdir.
+Yardımcı ve birincil uygulamalar genellikle birbirleriyle iletişim kurmak zorundadır. Genellikle bu, bu alıştırmada gösterildiği gibi paylaşılan bir dosya sistemi veya localhost döngüsel ağ arayüzü aracılığıyla yapılır. Bu modelin bir örneği, yeni güncellemeler için bir Git deposunu sorgulayan bir yardımcı program ile birlikte bir web sunucusudur.
 
-The Volume in this exercise provides a way for Containers to communicate during
-the life of the Pod. If the Pod is deleted and recreated, any data stored in
-the shared Volume is lost.
+Bu alıştırmadaki Hacim, Pod'un ömrü boyunca Konteynerlerin iletişim kurması için bir yol sağlar. Pod silinir ve yeniden oluşturulursa, paylaşılan Hacimde saklanan veriler kaybolur.
 
 ## {{% heading "whatsnext" %}}
 
 
-* Learn more about [patterns for composite containers](/blog/2015/06/the-distributed-system-toolkit-patterns/).
+* [Bileşik konteynerler için desenler](/blog/2015/06/the-distributed-system-toolkit-patterns/) hakkında daha fazla bilgi edinin.
 
-* Learn about [composite containers for modular architecture](https://www.slideshare.net/Docker/slideshare-burns).
+* [Modüler mimari için bileşik konteynerler](https://www.slideshare.net/Docker/slideshare-burns) hakkında bilgi edinin.
 
-* See [Configuring a Pod to Use a Volume for Storage](/docs/tasks/configure-pod-container/configure-volume-storage/).
+* [Depolama için bir Hacim kullanacak şekilde bir Pod yapılandırma](/docs/tasks/configure-pod-container/configure-volume-storage/) konusuna bakın.
 
-* See [Configure a Pod to share process namespace between containers in a Pod](/docs/tasks/configure-pod-container/share-process-namespace/)
+* [Bir Pod'daki konteynerler arasında işlem ad alanını paylaşacak şekilde bir Pod yapılandırma](/docs/tasks/configure-pod-container/share-process-namespace/) konusuna bakın.
 
-* See [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core).
+* [Hacim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core) konusuna bakın.
 
-* See [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
-
+* [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core) konusuna bakın.

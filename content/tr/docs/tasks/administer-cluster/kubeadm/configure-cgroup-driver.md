@@ -1,49 +1,37 @@
 ---
-title: Configuring a cgroup driver
+title: Bir cgroup sürücüsünü yapılandırma
 content_type: task
 weight: 50
 ---
 
-<!-- overview -->
+<!-- genel bakış -->
 
-This page explains how to configure the kubelet's cgroup driver to match the container
-runtime cgroup driver for kubeadm clusters.
+Bu sayfa, kubelet'in cgroup sürücüsünü kubeadm kümeleri için konteyner çalışma zamanı cgroup sürücüsüyle eşleştirmeyi açıklar.
 
-## {{% heading "prerequisites" %}}
+## {{% heading "önkoşullar" %}}
 
-You should be familiar with the Kubernetes
-[container runtime requirements](/docs/setup/production-environment/container-runtimes).
+Kubernetes [konteyner çalışma zamanı gereksinimlerine](/docs/setup/production-environment/container-runtimes) aşina olmalısınız.
 
-<!-- steps -->
+<!-- adımlar -->
 
-## Configuring the container runtime cgroup driver
+## Konteyner çalışma zamanı cgroup sürücüsünü yapılandırma
 
-The [Container runtimes](/docs/setup/production-environment/container-runtimes) page
-explains that the `systemd` driver is recommended for kubeadm based setups instead
-of the kubelet's [default](/docs/reference/config-api/kubelet-config.v1beta1) `cgroupfs` driver,
-because kubeadm manages the kubelet as a
-[systemd service](/docs/setup/production-environment/tools/kubeadm/kubelet-integration).
+[Konteyner çalışma zamanları](/docs/setup/production-environment/container-runtimes) sayfası, kubeadm tabanlı kurulumlar için kubelet'in [varsayılan](/docs/reference/config-api/kubelet-config.v1beta1) `cgroupfs` sürücüsü yerine `systemd` sürücüsünün önerildiğini açıklar, çünkü kubeadm kubelet'i bir [systemd hizmeti](/docs/setup/production-environment/tools/kubeadm/kubelet-integration) olarak yönetir.
 
-The page also provides details on how to set up a number of different container runtimes with the
-`systemd` driver by default.
+Sayfa ayrıca varsayılan olarak `systemd` sürücüsüyle bir dizi farklı konteyner çalışma zamanını nasıl kuracağınız hakkında ayrıntılar sağlar.
 
-## Configuring the kubelet cgroup driver
+## Kubelet cgroup sürücüsünü yapılandırma
 
-kubeadm allows you to pass a `KubeletConfiguration` structure during `kubeadm init`.
-This `KubeletConfiguration` can include the `cgroupDriver` field which controls the cgroup
-driver of the kubelet.
+kubeadm, `kubeadm init` sırasında bir `KubeletConfiguration` yapısını geçirmenize izin verir. Bu `KubeletConfiguration`, kubelet'in cgroup sürücüsünü kontrol eden `cgroupDriver` alanını içerebilir.
 
 {{< note >}}
-In v1.22 and later, if the user does not set the `cgroupDriver` field under `KubeletConfiguration`,
-kubeadm defaults it to `systemd`.
+v1.22 ve sonrasında, kullanıcı `KubeletConfiguration` altında `cgroupDriver` alanını ayarlamazsa, kubeadm bunu varsayılan olarak `systemd` yapar.
 
-In Kubernetes v1.28, you can enable automatic detection of the
-cgroup driver as an alpha feature.
-See [systemd cgroup driver](/docs/setup/production-environment/container-runtimes/#systemd-cgroup-driver)
-for more details.
+Kubernetes v1.28'de, cgroup sürücüsünün otomatik algılanmasını alfa özelliği olarak etkinleştirebilirsiniz.
+Daha fazla ayrıntı için [systemd cgroup sürücüsü](/docs/setup/production-environment/container-runtimes/#systemd-cgroup-driver) sayfasına bakın.
 {{< /note >}}
 
-A minimal example of configuring the field explicitly:
+Alanı açıkça yapılandırmanın minimal bir örneği:
 
 ```yaml
 # kubeadm-config.yaml
@@ -56,72 +44,58 @@ apiVersion: kubelet.config.k8s.io/v1beta1
 cgroupDriver: systemd
 ```
 
-Such a configuration file can then be passed to the kubeadm command:
+Böyle bir yapılandırma dosyası daha sonra kubeadm komutuna geçirilebilir:
 
 ```shell
 kubeadm init --config kubeadm-config.yaml
 ```
 
 {{< note >}}
-Kubeadm uses the same `KubeletConfiguration` for all nodes in the cluster.
-The `KubeletConfiguration` is stored in a [ConfigMap](/docs/concepts/configuration/configmap)
-object under the `kube-system` namespace.
+Kubeadm, kümedeki tüm düğümler için aynı `KubeletConfiguration` kullanır.
+`KubeletConfiguration`, `kube-system` ad alanı altında bir [ConfigMap](/docs/concepts/configuration/configmap) nesnesinde saklanır.
 
-Executing the sub commands `init`, `join` and `upgrade` would result in kubeadm
-writing the `KubeletConfiguration` as a file under `/var/lib/kubelet/config.yaml`
-and passing it to the local node kubelet.
+`init`, `join` ve `upgrade` alt komutlarını çalıştırmak, kubeadm'nin `KubeletConfiguration` dosyasını `/var/lib/kubelet/config.yaml` altında bir dosya olarak yazmasına ve yerel düğüm kubelet'ine geçirmesine neden olur.
 {{< /note >}}
 
-## Using the `cgroupfs` driver
+## `cgroupfs` sürücüsünü kullanma
 
-To use `cgroupfs` and to prevent `kubeadm upgrade` from modifying the
-`KubeletConfiguration` cgroup driver on existing setups, you must be explicit
-about its value. This applies to a case where you do not wish future versions
-of kubeadm to apply the `systemd` driver by default.
+`cgroupfs` kullanmak ve mevcut kurulumlarda `KubeletConfiguration` cgroup sürücüsünü değiştirmemesi için `kubeadm upgrade`'i önlemek için, değerini açıkça belirtmelisiniz. Bu, gelecekteki kubeadm sürümlerinin varsayılan olarak `systemd` sürücüsünü uygulamasını istemediğiniz bir duruma uygulanır.
 
-See the below section on "[Modify the kubelet ConfigMap](#modify-the-kubelet-configmap)" for details on
-how to be explicit about the value.
+Değeri açıkça belirtmek için "[Kubelet ConfigMap'i değiştir](#modify-the-kubelet-configmap)" bölümüne bakın.
 
-If you wish to configure a container runtime to use the `cgroupfs` driver,
-you must refer to the documentation of the container runtime of your choice.
+Bir konteyner çalışma zamanını `cgroupfs` sürücüsünü kullanacak şekilde yapılandırmak istiyorsanız, seçtiğiniz konteyner çalışma zamanının belgelerine başvurmalısınız.
 
-## Migrating to the `systemd` driver
+## `systemd` sürücüsüne geçiş
 
-To change the cgroup driver of an existing kubeadm cluster from `cgroupfs` to `systemd` in-place,
-a similar procedure to a kubelet upgrade is required. This must include both
-steps outlined below.
+Mevcut bir kubeadm kümesinin cgroup sürücüsünü `cgroupfs`'den `systemd`'ye yerinde değiştirmek için, bir kubelet yükseltmesine benzer bir prosedür gereklidir. Bu, aşağıda belirtilen her iki adımı da içermelidir.
 
 {{< note >}}
-Alternatively, it is possible to replace the old nodes in the cluster with new ones
-that use the `systemd` driver. This requires executing only the first step below
-before joining the new nodes and ensuring the workloads can safely move to the new
-nodes before deleting the old nodes.
+Alternatif olarak, eski düğümleri `systemd` sürücüsünü kullanan yeni düğümlerle değiştirmek mümkündür. Bu, yalnızca yeni düğümleri katmadan önce aşağıdaki ilk adımı uygulamayı ve iş yüklerinin yeni düğümlere güvenli bir şekilde taşınmasını sağlamayı ve ardından eski düğümleri silmeyi gerektirir.
 {{< /note >}}
 
-### Modify the kubelet ConfigMap
+### Kubelet ConfigMap'i değiştir
 
-- Call `kubectl edit cm kubelet-config -n kube-system`.
-- Either modify the existing `cgroupDriver` value or add a new field that looks like this:
+- `kubectl edit cm kubelet-config -n kube-system` komutunu çalıştırın.
+- Mevcut `cgroupDriver` değerini değiştirin veya aşağıdaki gibi yeni bir alan ekleyin:
 
   ```yaml
   cgroupDriver: systemd
   ```
-  This field must be present under the `kubelet:` section of the ConfigMap.
+  Bu alan, ConfigMap'in `kubelet:` bölümünde bulunmalıdır.
 
-### Update the cgroup driver on all nodes
+### Tüm düğümlerde cgroup sürücüsünü güncelleyin
 
-For each node in the cluster:
+Kümedeki her düğüm için:
 
-- [Drain the node](/docs/tasks/administer-cluster/safely-drain-node) using `kubectl drain <node-name> --ignore-daemonsets`
-- Stop the kubelet using `systemctl stop kubelet`
-- Stop the container runtime
-- Modify the container runtime cgroup driver to `systemd`
-- Set `cgroupDriver: systemd` in `/var/lib/kubelet/config.yaml`
-- Start the container runtime
-- Start the kubelet using `systemctl start kubelet`
-- [Uncordon the node](/docs/tasks/administer-cluster/safely-drain-node) using `kubectl uncordon <node-name>`
+- `kubectl drain <node-name> --ignore-daemonsets` kullanarak [düğümü boşaltın](/docs/tasks/administer-cluster/safely-drain-node)
+- `systemctl stop kubelet` kullanarak kubelet'i durdurun
+- Konteyner çalışma zamanını durdurun
+- Konteyner çalışma zamanı cgroup sürücüsünü `systemd` olarak değiştirin
+- `/var/lib/kubelet/config.yaml` dosyasında `cgroupDriver: systemd` ayarlayın
+- Konteyner çalışma zamanını başlatın
+- `systemctl start kubelet` kullanarak kubelet'i başlatın
+- `kubectl uncordon <node-name>` kullanarak [düğümün kilidini açın](/docs/tasks/administer-cluster/safely-drain-node)
 
-Execute these steps on nodes one at a time to ensure workloads
-have sufficient time to schedule on different nodes.
+Bu adımları düğümler üzerinde tek tek uygulayarak iş yüklerinin farklı düğümlerde zamanlanması için yeterli zaman tanıyın.
 
-Once the process is complete ensure that all nodes and workloads are healthy.
+İşlem tamamlandıktan sonra tüm düğümlerin ve iş yüklerinin sağlıklı olduğundan emin olun.

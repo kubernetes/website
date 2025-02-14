@@ -1,64 +1,62 @@
 ---
-title: Upgrading Windows nodes
+title: Windows düğümlerini yükseltme
 min-kubernetes-server-version: 1.17
 content_type: task
 weight: 41
 ---
 
-<!-- overview -->
+<!-- genel bakış -->
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-This page explains how to upgrade a Windows node created with kubeadm.
+Bu sayfa, kubeadm ile oluşturulan bir Windows düğümünü nasıl yükselteceğinizi açıklar.
 
-## {{% heading "prerequisites" %}}
+## {{% heading "önkoşullar" %}}
  
 {{< include "task-tutorial-prereqs-node-upgrade.md" >}} {{< version-check >}}
-* Familiarize yourself with [the process for upgrading the rest of your kubeadm
-cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want to
-upgrade the control plane nodes before upgrading your Windows nodes.
+* [kubeadm kümenizin geri kalanını yükseltme süreci](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade) ile tanışın. Windows düğümlerinizi yükseltmeden önce kontrol düzlemi düğümlerini yükseltmek isteyeceksiniz.
 
-<!-- steps -->
+<!-- adımlar -->
 
-## Upgrading worker nodes
+## Çalışan düğümleri yükseltme
 
-### Upgrade kubeadm
+### kubeadm'i yükseltme
 
-1.  From the Windows node, upgrade kubeadm:
+1.  Windows düğümünden, kubeadm'i yükseltin:
 
     ```powershell
-    # replace {{< skew currentPatchVersion >}} with your desired version
+    # {{< skew currentPatchVersion >}} ile istediğiniz sürümü değiştirin
     curl.exe -Lo <path-to-kubeadm.exe>  "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubeadm.exe"
     ```
 
-### Drain the node
+### Düğümü boşaltma
 
-1.  From a machine with access to the Kubernetes API,
-    prepare the node for maintenance by marking it unschedulable and evicting the workloads:
+1.  Kubernetes API'sine erişimi olan bir makineden,
+    düğümü bakım için hazırlamak amacıyla planlanamaz olarak işaretleyin ve iş yüklerini tahliye edin:
 
     ```shell
-    # replace <node-to-drain> with the name of your node you are draining
+    # <node-to-drain> ile boşaltmak istediğiniz düğümün adını değiştirin
     kubectl drain <node-to-drain> --ignore-daemonsets
     ```
 
-    You should see output similar to this:
+    Şuna benzer bir çıktı görmelisiniz:
 
     ```
     node/ip-172-31-85-18 cordoned
     node/ip-172-31-85-18 drained
     ```
 
-### Upgrade the kubelet configuration
+### kubelet yapılandırmasını yükseltme
 
-1.  From the Windows node, call the following command to sync new kubelet configuration:
+1.  Windows düğümünden, yeni kubelet yapılandırmasını senkronize etmek için aşağıdaki komutu çağırın:
 
     ```powershell
     kubeadm upgrade node
     ```
 
-### Upgrade kubelet and kube-proxy
+### kubelet ve kube-proxy'yi yükseltme
 
-1.  From the Windows node, upgrade and restart the kubelet:
+1.  Windows düğümünden, kubelet'i yükseltin ve yeniden başlatın:
 
     ```powershell
     stop-service kubelet
@@ -66,7 +64,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
     restart-service kubelet
     ```
 
-2. From the Windows node, upgrade and restart the kube-proxy.
+2. Windows düğümünden, kube-proxy'yi yükseltin ve yeniden başlatın.
 
     ```powershell
     stop-service kube-proxy
@@ -75,19 +73,19 @@ upgrade the control plane nodes before upgrading your Windows nodes.
     ```
 
 {{< note >}}
-If you are running kube-proxy in a HostProcess container within a Pod, and not as a Windows Service,
-you can upgrade kube-proxy by applying a newer version of your kube-proxy manifests.
+Kube-proxy'yi bir Windows Hizmeti olarak değil de bir Pod içindeki bir HostProcess konteynerinde çalıştırıyorsanız,
+kube-proxy'yi daha yeni bir kube-proxy manifesti uygulayarak yükseltebilirsiniz.
 {{< /note >}}
 
-### Uncordon the node
+### Düğümü yeniden çevrimiçi hale getirme
 
-1.  From a machine with access to the Kubernetes API,
-bring the node back online by marking it schedulable:
+1.  Kubernetes API'sine erişimi olan bir makineden,
+düğümü yeniden çevrimiçi hale getirmek için planlanabilir olarak işaretleyin:
 
     ```shell
-    # replace <node-to-drain> with the name of your node
+    # <node-to-drain> ile düğümünüzün adını değiştirin
     kubectl uncordon <node-to-drain>
     ```
- ## {{% heading "whatsnext" %}}
+ ## {{% heading "sonraki adımlar" %}}
 
-* See how to [Upgrade Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/).
+* [Linux düğümlerini yükseltme](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/) konusuna bakın.

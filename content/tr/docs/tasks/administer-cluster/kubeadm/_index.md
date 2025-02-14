@@ -1,13 +1,9 @@
 ---
-title: "Administration with kubeadm"
+title: "kubeadm ile Yönetim"
 weight: 10
 simple_list: true
 ---
 
-If you don't yet have a cluster, visit
-[bootstrapping clusters with `kubeadm`](/docs/setup/production-environment/tools/kubeadm/).
+Henüz bir kümeniz yoksa, [kubeadm ile kümeleri başlatma](/docs/setup/production-environment/tools/kubeadm/) sayfasını ziyaret edin.
 
-The tasks in this section are aimed at people administering an existing cluster:
-
-
-
+Bu bölümdeki görevler, mevcut bir kümeyi yöneten kişiler için hazırlanmıştır:

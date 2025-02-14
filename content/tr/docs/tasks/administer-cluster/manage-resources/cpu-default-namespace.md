@@ -1,87 +1,68 @@
 ---
-title: Configure Default CPU Requests and Limits for a Namespace
+title: Bir Ad Alanı için Varsayılan CPU İsteklerini ve Sınırlarını Yapılandırma
 content_type: task
 weight: 20
 description: >-
-  Define a default CPU resource limits for a namespace, so that every new Pod
-  in that namespace has a CPU resource limit configured.
+  Bir ad alanı için varsayılan CPU kaynak sınırlarını tanımlayın, böylece o ad alanındaki her yeni Pod'un bir CPU kaynak sınırı yapılandırılmış olur.
 ---
 
 <!-- overview -->
 
-This page shows how to configure default CPU requests and limits for a
-{{< glossary_tooltip text="namespace" term_id="namespace" >}}.
+Bu sayfa, bir {{< glossary_tooltip text="ad alanı" term_id="namespace" >}} için varsayılan CPU isteklerini ve sınırlarını nasıl yapılandıracağınızı gösterir.
 
-A Kubernetes cluster can be divided into namespaces. If you create a Pod within a
-namespace that has a default CPU
-[limit](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits), and any container in that Pod does not specify
-its own CPU limit, then the
-{{< glossary_tooltip text="control plane" term_id="control-plane" >}} assigns the default
-CPU limit to that container.
+Bir Kubernetes kümesi ad alanlarına bölünebilir. Bir ad alanı içinde bir Pod oluşturursanız ve bu ad alanında varsayılan bir CPU [sınırı](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) varsa ve bu Pod'daki herhangi bir konteyner kendi CPU sınırını belirtmezse, {{< glossary_tooltip text="kontrol düzlemi" term_id="control-plane" >}} bu konteynere varsayılan CPU sınırını atar.
 
-Kubernetes assigns a default CPU
-[request](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits),
-but only under certain conditions that are explained later in this page.
+Kubernetes varsayılan bir CPU [isteği](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) atar, ancak yalnızca bu sayfada daha sonra açıklanan belirli koşullar altında.
 
-## {{% heading "prerequisites" %}}
-
+## {{% heading "önkoşullar" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-You must have access to create namespaces in your cluster.
+Kümenizde ad alanları oluşturma erişimine sahip olmalısınız.
 
-If you're not already familiar with what Kubernetes means by 1.0 CPU,
-read [meaning of CPU](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu).
+Kubernetes'in 1.0 CPU ile ne demek istediğini zaten bilmiyorsanız, [CPU'nun anlamı](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu) konusunu okuyun.
 
 <!-- steps -->
 
-## Create a namespace
+## Bir ad alanı oluşturun
 
-Create a namespace so that the resources you create in this exercise are
-isolated from the rest of your cluster.
+Bu alıştırmada oluşturduğunuz kaynakların kümenizin geri kalanından izole edilmesi için bir ad alanı oluşturun.
 
 ```shell
 kubectl create namespace default-cpu-example
 ```
 
-## Create a LimitRange and a Pod
+## Bir LimitRange ve bir Pod oluşturun
 
-Here's a manifest for an example {{< glossary_tooltip text="LimitRange" term_id="limitrange" >}}.
-The manifest specifies a default CPU request and a default CPU limit.
+İşte bir örnek {{< glossary_tooltip text="LimitRange" term_id="limitrange" >}} için bir manifest. Manifest, varsayılan bir CPU isteği ve varsayılan bir CPU sınırı belirtir.
 
 {{% code_sample file="admin/resource/cpu-defaults.yaml" %}}
 
-Create the LimitRange in the default-cpu-example namespace:
+default-cpu-example ad alanında LimitRange oluşturun:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults.yaml --namespace=default-cpu-example
 ```
 
-Now if you create a Pod in the default-cpu-example namespace, and any container
-in that Pod does not specify its own values for CPU request and CPU limit,
-then the control plane applies default values: a CPU request of 0.5 and a default
-CPU limit of 1.
+Şimdi default-cpu-example ad alanında bir Pod oluşturursanız ve bu Pod'daki herhangi bir konteyner kendi CPU isteği ve sınır değerlerini belirtmezse, kontrol düzlemi varsayılan değerleri uygular: 0.5 CPU isteği ve 1 CPU sınırı.
 
-Here's a manifest for a Pod that has one container. The container
-does not specify a CPU request and limit.
+İşte bir konteyner içeren bir Pod için bir manifest. Konteyner bir CPU isteği ve sınırı belirtmez.
 
 {{% code_sample file="admin/resource/cpu-defaults-pod.yaml" %}}
 
-Create the Pod.
+Pod'u oluşturun.
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod.yaml --namespace=default-cpu-example
 ```
 
-View the Pod's specification:
+Pod'un spesifikasyonunu görüntüleyin:
 
 ```shell
 kubectl get pod default-cpu-demo --output=yaml --namespace=default-cpu-example
 ```
 
-The output shows that the Pod's only container has a CPU request of 500m `cpu`
-(which you can read as “500 millicpu”), and a CPU limit of 1 `cpu`.
-These are the default values specified by the LimitRange.
+Çıktı, Pod'un tek konteynerinin 500m `cpu` (bu, “500 millicpu” olarak okunabilir) CPU isteğine ve 1 `cpu` CPU sınırına sahip olduğunu gösterir. Bunlar, LimitRange tarafından belirtilen varsayılan değerlerdir.
 
 ```shell
 containers:
@@ -95,29 +76,25 @@ containers:
       cpu: 500m
 ```
 
-## What if you specify a container's limit, but not its request?
+## Bir konteynerin sınırını belirtirseniz, ancak isteğini belirtmezseniz ne olur?
 
-Here's a manifest for a Pod that has one container. The container
-specifies a CPU limit, but not a request:
+İşte bir konteyner içeren bir Pod için bir manifest. Konteyner bir CPU sınırı belirtir, ancak bir istek belirtmez:
 
 {{% code_sample file="admin/resource/cpu-defaults-pod-2.yaml" %}}
 
-Create the Pod:
-
+Pod'u oluşturun:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-2.yaml --namespace=default-cpu-example
 ```
 
-View the [specification](/docs/concepts/overview/working-with-objects/#object-spec-and-status)
-of the Pod that you created:
+Oluşturduğunuz Pod'un [spesifikasyonunu](/docs/concepts/overview/working-with-objects/#object-spec-and-status) görüntüleyin:
 
 ```
 kubectl get pod default-cpu-demo-2 --output=yaml --namespace=default-cpu-example
 ```
 
-The output shows that the container's CPU request is set to match its CPU limit.
-Notice that the container was not assigned the default CPU request value of 0.5 `cpu`:
+Çıktı, konteynerin CPU isteğinin CPU sınırına eşit olarak ayarlandığını gösterir. Konteynere varsayılan CPU istek değeri olan 0.5 `cpu` atanmadığını fark edin:
 
 ```
 resources:
@@ -127,29 +104,25 @@ resources:
     cpu: "1"
 ```
 
-## What if you specify a container's request, but not its limit?
+## Bir konteynerin isteğini belirtirseniz, ancak sınırını belirtmezseniz ne olur?
 
-Here's an example manifest for a Pod that has one container. The container
-specifies a CPU request, but not a limit:
+İşte bir konteyner içeren bir Pod için bir örnek manifest. Konteyner bir CPU isteği belirtir, ancak bir sınır belirtmez:
 
 {{% code_sample file="admin/resource/cpu-defaults-pod-3.yaml" %}}
 
-Create the Pod:
+Pod'u oluşturun:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-3.yaml --namespace=default-cpu-example
 ```
 
-View the specification of the Pod that you created:
+Oluşturduğunuz Pod'un spesifikasyonunu görüntüleyin:
 
 ```
 kubectl get pod default-cpu-demo-3 --output=yaml --namespace=default-cpu-example
 ```
 
-The output shows that the container's CPU request is set to the value you specified at
-the time you created the Pod (in other words: it matches the manifest).
-However, the same container's CPU limit is set to 1 `cpu`, which is the default CPU limit
-for that namespace.
+Çıktı, konteynerin CPU isteğinin Pod'u oluşturduğunuz sırada belirttiğiniz değere ayarlandığını (başka bir deyişle: manifest ile eşleştiğini) gösterir. Ancak, aynı konteynerin CPU sınırı 1 `cpu` olarak ayarlanmıştır, bu da o ad alanı için varsayılan CPU sınırıdır.
 
 ```
 resources:
@@ -159,62 +132,47 @@ resources:
     cpu: 750m
 ```
 
-## Motivation for default CPU limits and requests
+## Varsayılan CPU sınırları ve istekleri için motivasyon
 
-If your namespace has a CPU {{< glossary_tooltip text="resource quota" term_id="resource-quota" >}}
-configured,
-it is helpful to have a default value in place for CPU limit.
-Here are two of the restrictions that a CPU resource quota imposes on a namespace:
+Ad alanınızda bir CPU {{< glossary_tooltip text="kaynak kotası" term_id="resource-quota" >}} yapılandırılmışsa, CPU sınırı için varsayılan bir değerin olması faydalıdır. Bir CPU kaynak kotasının bir ad alanına getirdiği iki kısıtlama şunlardır:
 
-* For every Pod that runs in the namespace, each of its containers must have a CPU limit.
-* CPU limits apply a resource reservation on the node where the Pod in question is scheduled.
-  The total amount of CPU that is reserved for use by all Pods in the namespace must not
-  exceed a specified limit.
+* Ad alanında çalışan her Pod için, her konteynerin bir CPU sınırı olmalıdır.
+* CPU sınırları, ilgili Pod'un planlandığı düğümde bir kaynak rezervasyonu uygular. Ad alanındaki tüm Pod'lar için ayrılan toplam CPU miktarı belirli bir sınırı aşmamalıdır.
 
-When you add a LimitRange:
+Bir LimitRange eklediğinizde:
 
-If any Pod in that namespace that includes a container does not specify its own CPU limit,
-the control plane applies the default CPU limit to that container, and the Pod can be
-allowed to run in a namespace that is restricted by a CPU ResourceQuota.
+O ad alanında herhangi bir Pod, kendi CPU sınırını belirtmeyen bir konteyner içeriyorsa, kontrol düzlemi bu konteynere varsayılan CPU sınırını uygular ve Pod, bir CPU ResourceQuota ile kısıtlanmış bir ad alanında çalışmasına izin verilebilir.
 
+## Temizlik
 
-## Clean up
-
-Delete your namespace:
+Ad alanınızı silin:
 
 ```shell
 kubectl delete namespace default-cpu-example
 ```
 
+## {{% heading "sonraki adımlar" %}}
 
+### Küme yöneticileri için
 
-## {{% heading "whatsnext" %}}
+* [Bir Ad Alanı için Varsayılan Bellek İsteklerini ve Sınırlarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
+* [Bir Ad Alanı için Minimum ve Maksimum Bellek Kısıtlamalarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-### For cluster administrators
+* [Bir Ad Alanı için Minimum ve Maksimum CPU Kısıtlamalarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [Bir Ad Alanı için Bellek ve CPU Kotalarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [Bir Ad Alanı için Pod Kotası Yapılandırma](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [API Nesneleri için Kotaları Yapılandırma](/docs/tasks/administer-cluster/quota-api-object/)
 
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+### Uygulama geliştiricileri için
 
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+* [Konteynerlere ve Pod'lara Bellek Kaynakları Atama](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+* [Konteynerlere ve Pod'lara CPU Kaynakları Atama](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-### For app developers
+* [Pod düzeyinde CPU ve bellek kaynaklarını atama](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
 
-* [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
-
-* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
-
-* [Assign Pod-level CPU and memory resources](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
-
-* [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
-
-
-
-
+* [Pod'lar için Hizmet Kalitesini Yapılandırma](/docs/tasks/configure-pod-container/quality-service-pod/)

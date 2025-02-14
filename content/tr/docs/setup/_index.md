@@ -3,7 +3,7 @@ reviewers:
 - brendandburns
 - erictune
 - mikedanese
-title: Getting started
+title: Başlarken
 main_menu: true
 weight: 20
 content_type: concept
@@ -13,59 +13,46 @@ card:
   weight: 20
   anchors:
   - anchor: "#learning-environment"
-    title: Learning environment
+    title: Öğrenme ortamı
   - anchor: "#production-environment"
-    title: Production environment  
+    title: Üretim ortamı  
 ---
 
 <!-- overview -->
 
-This section lists the different ways to set up and run Kubernetes.
-When you install Kubernetes, choose an installation type based on: ease of maintenance, security,
-control, available resources, and expertise required to operate and manage a cluster.
+Bu bölüm, Kubernetes'i kurmanın ve çalıştırmanın farklı yollarını listeler.
+Kubernetes'i kurarken, bakım kolaylığı, güvenlik, kontrol, mevcut kaynaklar ve bir küme işletme ve yönetme konusunda gereken uzmanlığa dayalı bir kurulum türü seçin.
 
-You can [download Kubernetes](/releases/download/) to deploy a Kubernetes cluster
-on a local machine, into the cloud, or for your own datacenter.
+Bir Kubernetes kümesini yerel bir makineye, buluta veya kendi veri merkezinize dağıtmak için [Kubernetes'i indirin](/releases/download/).
 
-Several [Kubernetes components](/docs/concepts/overview/components/) such as {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} or {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} can also be
-deployed as [container images](/releases/download/#container-images) within the cluster.
+{{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} veya {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} gibi çeşitli [Kubernetes bileşenleri](/docs/concepts/overview/components/) de küme içinde [konteyner görüntüleri](/releases/download/#container-images) olarak dağıtılabilir.
 
-It is **recommended** to run Kubernetes components as container images wherever
-that is possible, and to have Kubernetes manage those components.
-Components that run containers - notably, the kubelet - can't be included in this category.
+Kubernetes bileşenlerini mümkün olduğunda konteyner görüntüleri olarak çalıştırmanız ve bu bileşenleri Kubernetes'in yönetmesini sağlamanız **önerilir**.
+Konteyner çalıştıran bileşenler - özellikle kubelet - bu kategoriye dahil edilemez.
 
-If you don't want to manage a Kubernetes cluster yourself, you could pick a managed service, including
-[certified platforms](/docs/setup/production-environment/turnkey-solutions/).
-There are also other standardized and custom solutions across a wide range of cloud and
-bare metal environments.
+Bir Kubernetes kümesini kendiniz yönetmek istemiyorsanız, [sertifikalı platformlar](/docs/setup/production-environment/turnkey-solutions/) dahil olmak üzere yönetilen bir hizmet seçebilirsiniz.
+Ayrıca, geniş bir bulut ve çıplak metal ortamları yelpazesinde diğer standart ve özel çözümler de mevcuttur.
 
 <!-- body -->
 
-## Learning environment
+## Öğrenme ortamı
 
-If you're learning Kubernetes, use the tools supported by the Kubernetes community,
-or tools in the ecosystem to set up a Kubernetes cluster on a local machine.
-See [Install tools](/docs/tasks/tools/).
+Kubernetes'i öğreniyorsanız, Kubernetes topluluğu tarafından desteklenen araçları veya ekosistemdeki araçları kullanarak yerel bir makinede bir Kubernetes kümesi kurun.
+[Kurulum araçlarını](/docs/tasks/tools/) inceleyin.
 
-## Production environment
+## Üretim ortamı
 
-When evaluating a solution for a
-[production environment](/docs/setup/production-environment/), consider which aspects of
-operating a Kubernetes cluster (or _abstractions_) you want to manage yourself and which you
-prefer to hand off to a provider.
+[Üretim ortamı](/docs/setup/production-environment/) için bir çözüm değerlendirirken, bir Kubernetes kümesini işletmenin (veya _soyutlamaların_) hangi yönlerini kendiniz yönetmek istediğinizi ve hangilerini bir sağlayıcıya devretmeyi tercih ettiğinizi düşünün.
 
-For a cluster you're managing yourself, the officially supported tool
-for deploying Kubernetes is [kubeadm](/docs/setup/production-environment/tools/kubeadm/).
+Kendiniz yönettiğiniz bir küme için, Kubernetes'i dağıtmak için resmi olarak desteklenen araç [kubeadm](/docs/setup/production-environment/tools/kubeadm/)'dir.
 
 ## {{% heading "whatsnext" %}}
 
-- [Download Kubernetes](/releases/download/)
-- Download and [install tools](/docs/tasks/tools/) including `kubectl`
-- Select a [container runtime](/docs/setup/production-environment/container-runtimes/) for your new cluster
-- Learn about [best practices](/docs/setup/best-practices/) for cluster setup
+- [Kubernetes'i indirin](/releases/download/)
+- `kubectl` dahil [kurulum araçlarını](/docs/tasks/tools/) indirin ve kurun
+- Yeni kümeniz için bir [konteyner çalışma zamanı](/docs/setup/production-environment/container-runtimes/) seçin
+- Küme kurulumu için [en iyi uygulamaları](/docs/setup/best-practices/) öğrenin
 
-Kubernetes is designed for its {{< glossary_tooltip term_id="control-plane" text="control plane" >}} to
-run on Linux. Within your cluster you can run applications on Linux or other operating systems, including
-Windows.
+Kubernetes, {{< glossary_tooltip term_id="control-plane" text="kontrol düzlemi" >}}'nin Linux üzerinde çalışması için tasarlanmıştır. Kümeniz içinde Linux veya Windows dahil diğer işletim sistemlerinde uygulamalar çalıştırabilirsiniz.
 
-- Learn to [set up clusters with Windows nodes](/docs/concepts/windows/)
+- Windows düğümleriyle kümeleri kurmayı öğrenin](/docs/concepts/windows/)

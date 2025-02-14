@@ -1,10 +1,10 @@
-To run the tests for a localization, use the following command:
+Testleri bir yerelleştirme için çalıştırmak için aşağıdaki komutu kullanın:
 
 ```
 go test k8s.io/website/content/<lang>/examples
 ```
 
-where `<lang>` is the two character representation of a language. For example:
+burada `<lang>` bir dilin iki karakterli temsilidir. Örneğin:
 
 ```
 go test k8s.io/website/content/en/examples

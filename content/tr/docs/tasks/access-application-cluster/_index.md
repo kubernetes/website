@@ -1,6 +1,7 @@
 ---
-title: "Access Applications in a Cluster"
-description: Configure load balancing, port forwarding, or setup firewall or DNS configurations to access applications in a cluster.
+title: "Kümedeki Uygulamalara Erişim"
+description: Kümedeki uygulamalara erişmek için yük dengeleme, port yönlendirme veya güvenlik duvarı ya da DNS yapılandırmalarını ayarlayın.
 weight: 100
 ---
+
 

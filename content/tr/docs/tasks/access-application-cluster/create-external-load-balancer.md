@@ -1,47 +1,38 @@
 ---
-title: Create an External Load Balancer
+title: Harici Bir Yük Dengeleyici Oluşturma
 content_type: task
 weight: 80
 ---
 
 <!-- overview -->
 
-This page shows how to create an external load balancer.
+Bu sayfa, harici bir yük dengeleyici oluşturmayı gösterir.
 
-When creating a {{< glossary_tooltip text="Service" term_id="service" >}}, you have
-the option of automatically creating a cloud load balancer. This provides an
-externally-accessible IP address that sends traffic to the correct port on your cluster
-nodes,
-_provided your cluster runs in a supported environment and is configured with
-the correct cloud load balancer provider package_.
+Bir {{< glossary_tooltip text="Servis" term_id="service" >}} oluştururken, otomatik olarak bir bulut yük dengeleyici oluşturma seçeneğiniz vardır. Bu, küme düğümlerinizdeki doğru porta trafik gönderen harici olarak erişilebilir bir IP adresi sağlar,
+_ kümenizin desteklenen bir ortamda çalışması ve doğru bulut yük dengeleyici sağlayıcı paketiyle yapılandırılmış olması koşuluyla_.
 
-You can also use an {{< glossary_tooltip term_id="ingress" >}} in place of Service.
-For more information, check the [Ingress](/docs/concepts/services-networking/ingress/)
-documentation.
+Servis yerine bir {{< glossary_tooltip term_id="ingress" >}} de kullanabilirsiniz.
+Daha fazla bilgi için [Ingress](/docs/concepts/services-networking/ingress/) belgelerine bakın.
 
-## {{% heading "prerequisites" %}}
-
+## {{% heading "önkoşullar" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-Your cluster must be running in a cloud or other environment that already has support
-for configuring external load balancers.
-
+Kümeniz, harici yük dengeleyicileri yapılandırmayı zaten destekleyen bir bulut veya başka bir ortamda çalışıyor olmalıdır.
 
 <!-- steps -->
 
-## Create a Service
+## Bir Servis Oluşturma
 
-### Create a Service from a manifest
+### Bir manifestten Servis oluşturma
 
-To create an external load balancer, add the following line to your
-Service manifest:
+Harici bir yük dengeleyici oluşturmak için, Servis manifestinize aşağıdaki satırı ekleyin:
 
 ```yaml
-    type: LoadBalancer
+  type: LoadBalancer
 ```
 
-Your manifest might then look like:
+Manifestiniz şu şekilde görünebilir:
 
 ```yaml
 apiVersion: v1
@@ -50,40 +41,36 @@ metadata:
   name: example-service
 spec:
   selector:
-    app: example
+  app: example
   ports:
-    - port: 8765
-      targetPort: 9376
+  - port: 8765
+    targetPort: 9376
   type: LoadBalancer
 ```
 
-### Create a Service using kubectl
+### kubectl kullanarak bir Servis oluşturma
 
-You can alternatively create the service with the `kubectl expose` command and
-its `--type=LoadBalancer` flag:
+Alternatif olarak, `kubectl expose` komutunu ve `--type=LoadBalancer` bayrağını kullanarak servisi oluşturabilirsiniz:
 
 ```bash
 kubectl expose deployment example --port=8765 --target-port=9376 \
-        --name=example-service --type=LoadBalancer
+    --name=example-service --type=LoadBalancer
 ```
 
-This command creates a new Service using the same selectors as the referenced
-resource (in the case of the example above, a
-{{< glossary_tooltip text="Deployment" term_id="deployment" >}} named `example`).
+Bu komut, referans verilen kaynağın (yukarıdaki örnekte `example` adlı bir
+{{< glossary_tooltip text="Deployment" term_id="deployment" >}}) ile aynı seçicileri kullanarak yeni bir Servis oluşturur.
 
-For more information, including optional flags, refer to the
-[`kubectl expose` reference](/docs/reference/generated/kubectl/kubectl-commands/#expose).
+Daha fazla bilgi ve isteğe bağlı bayraklar için [`kubectl expose` referansına](/docs/reference/generated/kubectl/kubectl-commands/#expose) bakın.
 
-## Finding your IP address
+## IP adresinizi bulma
 
-You can find the IP address created for your service by getting the service
-information through `kubectl`:
+Servisiniz için oluşturulan IP adresini `kubectl` aracılığıyla servis bilgilerini alarak bulabilirsiniz:
 
 ```bash
 kubectl describe services example-service
 ```
 
-which should produce output similar to:
+bu, aşağıdakine benzer bir çıktı üretmelidir:
 
 ```
 Name:                     example-service
@@ -105,41 +92,24 @@ External Traffic Policy:  Cluster
 Events:                   <none>
 ```
 
-The load balancer's IP address is listed next to `LoadBalancer Ingress`.
+Yük dengeleyicinin IP adresi `LoadBalancer Ingress` yanında listelenmiştir.
 
 {{< note >}}
-If you are running your service on Minikube, you can find the assigned IP address and port with:
+Servisinizi Minikube üzerinde çalıştırıyorsanız, atanan IP adresini ve portu şu komutla bulabilirsiniz:
 
 ```bash
 minikube service example-service --url
 ```
 {{< /note >}}
 
-## Preserving the client source IP
+## İstemci kaynak IP'sini koruma
 
-By default, the source IP seen in the target container is *not the original
-source IP* of the client. To enable preservation of the client IP, the following
-fields can be configured in the `.spec` of the Service:
+Varsayılan olarak, hedef kapsayıcıda görülen kaynak IP, istemcinin *orijinal kaynak IP'si değildir*. İstemci IP'sinin korunmasını etkinleştirmek için, Servis'in `.spec` alanında aşağıdaki alanlar yapılandırılabilir:
 
-* `.spec.externalTrafficPolicy` - denotes if this Service desires to route
-  external traffic to node-local or cluster-wide endpoints. There are two available
-  options: `Cluster` (default) and `Local`. `Cluster` obscures the client source
-  IP and may cause a second hop to another node, but should have good overall
-  load-spreading. `Local` preserves the client source IP and avoids a second hop
-  for LoadBalancer and NodePort type Services, but risks potentially imbalanced
-  traffic spreading.
-* `.spec.healthCheckNodePort` - specifies the health check node port
-  (numeric port number) for the service. If you don't specify
-  `healthCheckNodePort`, the service controller allocates a port from your
-  cluster's NodePort range.  
-  You can configure that range by setting an API server command line option,
-  `--service-node-port-range`. The Service will use the user-specified
-  `healthCheckNodePort` value if you specify it, provided that the
-  Service `type` is set to LoadBalancer and `externalTrafficPolicy` is set
-  to `Local`.
+* `.spec.externalTrafficPolicy` - bu Servisin dış trafiği düğüm yerel veya küme genelindeki uç noktalara yönlendirmek isteyip istemediğini belirtir. İki seçenek vardır: `Cluster` (varsayılan) ve `Local`. `Cluster`, istemci kaynak IP'sini gizler ve başka bir düğüme ikinci bir sıçrama yapabilir, ancak genel olarak iyi bir yük dağılımına sahip olmalıdır. `Local`, istemci kaynak IP'sini korur ve LoadBalancer ve NodePort türü Servisler için ikinci bir sıçramayı önler, ancak potansiyel olarak dengesiz trafik dağılımı riski taşır.
+* `.spec.healthCheckNodePort` - servis için sağlık kontrolü düğüm portunu (sayısal port numarası) belirtir. `healthCheckNodePort` belirtmezseniz, servis denetleyicisi kümenizin NodePort aralığından bir port tahsis eder. Bu aralığı, bir API sunucusu komut satırı seçeneği olan `--service-node-port-range` ayarlayarak yapılandırabilirsiniz. Servis `type` LoadBalancer olarak ayarlandığında ve `externalTrafficPolicy` Local olarak ayarlandığında, Servis kullanıcı tarafından belirtilen `healthCheckNodePort` değerini kullanır.
 
-Setting `externalTrafficPolicy` to Local in the Service manifest
-activates this feature. For example:
+Servis manifestinde `externalTrafficPolicy`'yi Local olarak ayarlamak bu özelliği etkinleştirir. Örneğin:
 
 ```yaml
 apiVersion: v1
@@ -148,56 +118,42 @@ metadata:
   name: example-service
 spec:
   selector:
-    app: example
+  app: example
   ports:
-    - port: 8765
-      targetPort: 9376
+  - port: 8765
+    targetPort: 9376
   externalTrafficPolicy: Local
   type: LoadBalancer
 ```
 
-### Caveats and limitations when preserving source IPs
+### Kaynak IP'leri korurken dikkat edilmesi gerekenler ve sınırlamalar
 
-Load balancing services from some cloud providers do not let you configure different weights for each target.
+Bazı bulut sağlayıcılarından yük dengeleme hizmetleri, her hedef için farklı ağırlıklar yapılandırmanıza izin vermez.
 
-With each target weighted equally in terms of sending traffic to Nodes, external
-traffic is not equally load balanced across different Pods. The external load balancer
-is unaware of the number of Pods on each node that are used as a target.
+Her hedefe eşit ağırlık verilmesi durumunda, düğümlere trafik gönderme açısından dış trafik farklı Pod'lar arasında eşit olarak yük dengelenmez. Harici yük dengeleyici, hedef olarak kullanılan her düğümdeki Pod sayısını bilmez.
 
-Where `NumServicePods <<  NumNodes` or `NumServicePods >> NumNodes`, a fairly close-to-equal
-distribution will be seen, even without weights.
+`NumServicePods << NumNodes` veya `NumServicePods >> NumNodes` durumunda, ağırlıklar olmadan bile oldukça eşit bir dağılım görülecektir.
 
-Internal pod to pod traffic should behave similar to ClusterIP services, with equal probability across all pods.
+Pod'dan pod'a iç trafik, tüm pod'lar arasında eşit olasılıkla ClusterIP servislerine benzer şekilde davranmalıdır.
 
-## Garbage collecting load balancers
+## Yük dengeleyicileri çöp toplama
 
 {{< feature-state for_k8s_version="v1.17" state="stable" >}}
 
-In usual case, the correlating load balancer resources in cloud provider should
-be cleaned up soon after a LoadBalancer type Service is deleted. But it is known
-that there are various corner cases where cloud resources are orphaned after the
-associated Service is deleted. Finalizer Protection for Service LoadBalancers was
-introduced to prevent this from happening. By using finalizers, a Service resource
-will never be deleted until the correlating load balancer resources are also deleted.
+Genel durumda, bulut sağlayıcısındaki ilgili yük dengeleyici kaynakları, bir LoadBalancer türü Servis silindikten kısa bir süre sonra temizlenmelidir. Ancak, ilişkili Servis silindikten sonra bulut kaynaklarının yetim kaldığı çeşitli köşe durumlarının olduğu bilinmektedir. Bu durumun önlenmesi için Servis Yük Dengeleyicileri için Sonlandırıcı Koruması tanıtıldı. Sonlandırıcılar kullanılarak, ilgili yük dengeleyici kaynakları da silinene kadar bir Servis kaynağı asla silinmeyecektir.
 
-Specifically, if a Service has `type` LoadBalancer, the service controller will attach
-a finalizer named `service.kubernetes.io/load-balancer-cleanup`.
-The finalizer will only be removed after the load balancer resource is cleaned up.
-This prevents dangling load balancer resources even in corner cases such as the
-service controller crashing.
+Özellikle, bir Servis `type` LoadBalancer ise, servis denetleyicisi `service.kubernetes.io/load-balancer-cleanup` adlı bir sonlandırıcı ekleyecektir.
+Sonlandırıcı, yalnızca yük dengeleyici kaynağı temizlendikten sonra kaldırılacaktır.
+Bu, servis denetleyicisinin çökmesi gibi köşe durumlarında bile yük dengeleyici kaynaklarının asılı kalmasını önler.
 
-## External load balancer providers
+## Harici yük dengeleyici sağlayıcılar
 
-It is important to note that the datapath for this functionality is provided by a load balancer external to the Kubernetes cluster.
+Bu işlevsellik için veri yolu, Kubernetes kümesinin dışındaki bir yük dengeleyici tarafından sağlanır.
 
-When the Service `type` is set to LoadBalancer, Kubernetes provides functionality equivalent to `type` equals ClusterIP to pods
-within the cluster and extends it by programming the (external to Kubernetes) load balancer with entries for the nodes
-hosting the relevant Kubernetes pods. The Kubernetes control plane automates the creation of the external load balancer,
-health checks (if needed), and packet filtering rules (if needed). Once the cloud provider allocates an IP address for the load
-balancer, the control plane looks up that external IP address and populates it into the Service object.
+Servis `type` LoadBalancer olarak ayarlandığında, Kubernetes, küme içindeki pod'lar için `type` eşittir ClusterIP'ye eşdeğer işlevsellik sağlar ve bunu ilgili Kubernetes pod'larını barındıran düğümler için girişler ile (Kubernetes dışındaki) yük dengeleyiciyi programlayarak genişletir. Kubernetes kontrol düzlemi, harici yük dengeleyicinin oluşturulmasını, sağlık kontrollerini (gerekirse) ve paket filtreleme kurallarını (gerekirse) otomatikleştirir. Bulut sağlayıcısı yük dengeleyici için bir IP adresi tahsis ettiğinde, kontrol düzlemi bu harici IP adresini arar ve Servis nesnesine doldurur.
 
-## {{% heading "whatsnext" %}}
+## {{% heading "sonraki adımlar" %}}
 
-* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
-* Read about [Service](/docs/concepts/services-networking/service/)
-* Read about [Ingress](/docs/concepts/services-networking/ingress/)
+* [Uygulamaları Servislerle Bağlama](/docs/tutorials/services/connect-applications-service/) öğreticisini takip edin
+* [Servis](/docs/concepts/services-networking/service/) hakkında okuyun
+* [Ingress](/docs/concepts/services-networking/ingress/) hakkında okuyun

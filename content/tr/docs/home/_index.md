@@ -1,67 +1,67 @@
 ---
 approvers:
 - chenopis
-title: Kubernetes Documentation
+title: Kubernetes Belgeleri
 noedit: true
 cid: docsHome
 layout: docsportal_home
 class: gridPage gridPageHome
-linkTitle: "Documentation"
+linkTitle: "Belgeler"
 main_menu: true
 weight: 10
 hide_feedback: true
 menu:
   main:
-    title: "Documentation"
+    title: "Belgeler"
     weight: 10
 description: >
-  Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation.
+  Kubernetes, kapsayıcı uygulamaların dağıtımını, ölçeklendirilmesini ve yönetimini otomatikleştirmek için açık kaynaklı bir konteyner orkestrasyon motorudur. Açık kaynak projesi, Cloud Native Computing Foundation tarafından barındırılmaktadır.
 overview: >
-  Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
+  Kubernetes, kapsayıcı uygulamaların dağıtımını, ölçeklendirilmesini ve yönetimini otomatikleştirmek için açık kaynaklı bir konteyner orkestrasyon motorudur. Açık kaynak projesi, Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>) tarafından barındırılmaktadır.
 cards:
 - name: concepts
-  title: "Understand Kubernetes"
-  description: "Learn about Kubernetes and its fundamental concepts."
-  button: "View Concepts"
+  title: "Kubernetes'i Anlayın"
+  description: "Kubernetes ve temel kavramları hakkında bilgi edinin."
+  button: "Kavramları Görüntüle"
   button_path: "/docs/concepts"
 - name: tutorials
-  title: "Try Kubernetes"
-  description: "Follow tutorials to learn how to deploy applications in Kubernetes."
-  button: "View Tutorials"
+  title: "Kubernetes'i Deneyin"
+  description: "Kubernetes'te uygulamaları nasıl dağıtacağınızı öğrenmek için eğitimleri takip edin."
+  button: "Eğitimleri Görüntüle"
   button_path: "/docs/tutorials"
 - name: setup
-  title: "Set up a K8s cluster"
-  description: "Get Kubernetes running based on your resources and needs."
-  button: "Set up Kubernetes"
+  title: "Bir K8s kümesi kurun"
+  description: "Kaynaklarınıza ve ihtiyaçlarınıza göre Kubernetes'i çalıştırın."
+  button: "Kubernetes'i Kurun"
   button_path: "/docs/setup"
 - name: tasks
-  title: "Learn how to use Kubernetes"
-  description: "Look up common tasks and how to perform them using a short sequence of steps."
-  button: "View Tasks"
+  title: "Kubernetes'i nasıl kullanacağınızı öğrenin"
+  description: "Kısa adım dizileri kullanarak yaygın görevleri ve nasıl yapılacağını öğrenin."
+  button: "Görevleri Görüntüle"
   button_path: "/docs/tasks"
 - name: reference
-  title: Look up reference information
-  description: Browse terminology, command line syntax, API resource types, and setup tool documentation.
-  button: View Reference
+  title: Referans bilgilerini arayın
+  description: Terminoloji, komut satırı sözdizimi, API kaynak türleri ve kurulum aracı belgelerini gözden geçirin.
+  button: Referansı Görüntüle
   button_path: /docs/reference
 - name: contribute
-  title: Contribute to Kubernetes
-  description: Find out how you can help make Kubernetes better.
-  button: See Ways to Contribute
+  title: Kubernetes'e Katkıda Bulunun
+  description: Kubernetes'i daha iyi hale getirmek için nasıl yardımcı olabileceğinizi öğrenin.
+  button: Katkıda Bulunma Yollarını Görün
   button_path: "/docs/contribute"
 - name: training
-  title: "Training"
-  description: "Get certified in Kubernetes and make your cloud native projects successful!"
-  button: "View training"
+  title: "Eğitim"
+  description: "Kubernetes'te sertifika alın ve bulut yerel projelerinizi başarılı kılın!"
+  button: "Eğitimi Görüntüle"
   button_path: "/training"
 - name: Download
-  title: Download Kubernetes
-  description: Install Kubernetes or upgrade to the newest version.
-  button: "Download Kubernetes"
+  title: Kubernetes'i İndirin
+  description: Kubernetes'i kurun veya en yeni sürüme yükseltin.
+  button: "Kubernetes'i İndirin"
   button_path: "/releases/download"
 - name: about
-  title: About the documentation
-  description: This website contains documentation for the current and previous 4 versions of Kubernetes.
-  button: "See available versions"
+  title: Belgeler hakkında
+  description: Bu web sitesi, Kubernetes'in mevcut ve önceki 4 sürümüne ait belgeleri içermektedir.
+  button: "Mevcut sürümleri görün"
   button_path: "/docs/home/supported-doc-versions"
 ---

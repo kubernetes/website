@@ -1,4 +1,5 @@
 ---
-title: Manage Memory, CPU, and API Resources
+title: Bellek, CPU ve API Kaynaklarını Yönetme
 weight: 40
 ---
+

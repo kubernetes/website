@@ -1,13 +1,12 @@
 ---
-title: List All Container Images Running in a Cluster
+title: Kümede Çalışan Tüm Konteyner Görüntülerini Listele
 content_type: task
 weight: 100
 ---
 
 <!-- overview -->
 
-This page shows how to use kubectl to list all of the Container images
-for Pods running in a cluster.
+Bu sayfa, bir kümede çalışan Pod'lar için tüm Konteyner görüntülerini listelemek üzere kubectl kullanmayı gösterir.
 
 ## {{% heading "prerequisites" %}}
 
@@ -15,22 +14,17 @@ for Pods running in a cluster.
 
 <!-- steps -->
 
-In this exercise you will use kubectl to fetch all of the Pods
-running in a cluster, and format the output to pull out the list
-of Containers for each.
+Bu alıştırmada, bir kümede çalışan tüm Pod'ları fetch etmek ve her biri için Konteyner listesini çıkarmak üzere çıktıyı formatlamak için kubectl kullanacaksınız.
 
-## List all Container images in all namespaces
+## Tüm ad alanlarındaki Konteyner görüntülerini listele
 
-- Fetch all Pods in all namespaces using `kubectl get pods --all-namespaces`
-- Format the output to include only the list of Container image names
-  using `-o jsonpath={.items[*].spec['initContainers', 'containers'][*].image}`.  This will recursively parse out the
-  `image` field from the returned json.
-  - See the [jsonpath reference](/docs/reference/kubectl/jsonpath/)
-    for further information on how to use jsonpath.
-- Format the output using standard tools: `tr`, `sort`, `uniq`
-  - Use `tr` to replace spaces with newlines
-  - Use `sort` to sort the results
-  - Use `uniq` to aggregate image counts
+- `kubectl get pods --all-namespaces` kullanarak tüm ad alanlarındaki Pod'ları fetch edin
+- Çıktıyı yalnızca Konteyner görüntü adlarının listesini içerecek şekilde formatlayın `-o jsonpath={.items[*].spec['initContainers', 'containers'][*].image}` kullanarak. Bu, döndürülen json'dan `image` alanını özyinelemeli olarak ayrıştıracaktır.
+  - jsonpath'i nasıl kullanacağınız hakkında daha fazla bilgi için [jsonpath referansı](/docs/reference/kubectl/jsonpath/) sayfasına bakın.
+- Çıktıyı standart araçları kullanarak formatlayın: `tr`, `sort`, `uniq`
+  - Boşlukları yeni satırlarla değiştirmek için `tr` kullanın
+  - Sonuçları sıralamak için `sort` kullanın
+  - Görüntü sayımlarını toplamak için `uniq` kullanın
 
 ```shell
 kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec['initContainers', 'containers'][*].image}" |\
@@ -38,51 +32,46 @@ tr -s '[[:space:]]' '\n' |\
 sort |\
 uniq -c
 ```
-The jsonpath is interpreted as follows:
+Jsonpath şu şekilde yorumlanır:
 
-- `.items[*]`: for each returned value
-- `.spec`: get the spec
-- `['initContainers', 'containers'][*]`: for each container
-- `.image`: get the image
+- `.items[*]`: döndürülen her değer için
+- `.spec`: spec'i al
+- `['initContainers', 'containers'][*]`: her konteyner için
+- `.image`: görüntüyü al
 
 {{< note >}}
-When fetching a single Pod by name, for example `kubectl get pod nginx`,
-the `.items[*]` portion of the path should be omitted because a single
-Pod is returned instead of a list of items.
+Bir Pod'u adıyla fetch ederken, örneğin `kubectl get pod nginx`,
+tek bir Pod döndürüldüğü için yolun `.items[*]` kısmı çıkarılmalıdır.
 {{< /note >}}
 
-## List Container images by Pod
+## Pod'a göre Konteyner görüntülerini listele
 
-The formatting can be controlled further by using the `range` operation to
-iterate over elements individually.
+Formatlama, elemanlar üzerinde tek tek yineleme yapmak için `range` işlemi kullanılarak daha fazla kontrol edilebilir.
 
 ```shell
 kubectl get pods --all-namespaces -o jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' |\
 sort
 ```
 
-## List Container images filtering by Pod label
+## Pod etiketiyle filtreleme yaparak Konteyner görüntülerini listele
 
-To target only Pods matching a specific label, use the -l flag.  The
-following matches only Pods with labels matching `app=nginx`.
+Yalnızca belirli bir etikete uyan Pod'ları hedeflemek için -l bayrağını kullanın. Aşağıdaki, yalnızca `app=nginx` etiketine uyan Pod'ları eşleştirir.
 
 ```shell
 kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" -l app=nginx
 ```
 
-## List Container images filtering by Pod namespace
+## Pod ad alanına göre filtreleme yaparak Konteyner görüntülerini listele
 
-To target only pods in a specific namespace, use the namespace flag. The
-following matches only Pods in the `kube-system` namespace.
+Yalnızca belirli bir ad alanındaki pod'ları hedeflemek için ad alanı bayrağını kullanın. Aşağıdaki, yalnızca `kube-system` ad alanındaki Pod'ları eşleştirir.
 
 ```shell
 kubectl get pods --namespace kube-system -o jsonpath="{.items[*].spec.containers[*].image}"
 ```
 
-## List Container images using a go-template instead of jsonpath
+## Jsonpath yerine go-template kullanarak Konteyner görüntülerini listele
 
-As an alternative to jsonpath, Kubectl supports using [go-templates](https://pkg.go.dev/text/template)
-for formatting the output:
+Jsonpath'e alternatif olarak, Kubectl çıktıyı formatlamak için [go-templates](https://pkg.go.dev/text/template) kullanmayı destekler:
 
 ```shell
 kubectl get pods --all-namespaces -o go-template --template="{{range .items}}{{range .spec.containers}}{{.image}} {{end}}{{end}}"
@@ -90,7 +79,7 @@ kubectl get pods --all-namespaces -o go-template --template="{{range .items}}{{r
 
 ## {{% heading "whatsnext" %}}
 
-### Reference
+### Referans
 
-* [Jsonpath](/docs/reference/kubectl/jsonpath/) reference guide
-* [Go template](https://pkg.go.dev/text/template) reference guide
+* [Jsonpath](/docs/reference/kubectl/jsonpath/) referans kılavuzu
+* [Go template](https://pkg.go.dev/text/template) referans kılavuzu

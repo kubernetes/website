@@ -1,110 +1,105 @@
 ---
-title: Upgrading Linux nodes
+title: Linux düğümlerini yükseltme
 content_type: task
 weight: 40
 ---
 
 <!-- overview -->
 
-This page explains how to upgrade a Linux Worker Nodes created with kubeadm.
+Bu sayfa, kubeadm ile oluşturulan bir Linux İşçi Düğümünü nasıl yükselteceğinizi açıklar.
 
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs-node-upgrade.md" >}} {{< version-check >}}
-* Familiarize yourself with [the process for upgrading the rest of your kubeadm
-cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want to
-upgrade the control plane nodes before upgrading your Linux Worker nodes.
+* [kubeadm kümenizin geri kalanını yükseltme süreci](docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade) ile tanışın. Linux İşçi düğümlerinizi yükseltmeden önce kontrol düzlemi düğümlerini yükseltmek isteyeceksiniz.
 
 <!-- steps -->
 
-## Changing the package repository
+## Paket deposunu değiştirme
 
-If you're using the community-owned package repositories (`pkgs.k8s.io`), you need to 
-enable the package repository for the desired Kubernetes minor release. This is explained in
-[Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)
-document.
+Topluluk tarafından sahip olunan paket depolarını (`pkgs.k8s.io`) kullanıyorsanız, istenen Kubernetes küçük sürümü için paket deposunu etkinleştirmeniz gerekir. Bu, [Kubernetes paket deposunu değiştirme](/docs/tasks/administer-cluster/kubeadm/change-package-repository/) belgesinde açıklanmıştır.
 
 {{% legacy-repos-deprecation %}}
 
-## Upgrading worker nodes
+## İşçi düğümlerini yükseltme
 
-### Upgrade kubeadm
+### kubeadm'i yükseltme
 
-Upgrade kubeadm:
+kubeadm'i yükseltin:
 
 {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
-{{% tab name="Ubuntu, Debian or HypriotOS" %}}
+{{% tab name="Ubuntu, Debian veya HypriotOS" %}}
 ```shell
-# replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+# {{< skew currentVersion >}}.x-* içindeki x'i en son yama sürümü ile değiştirin
 sudo apt-mark unhold kubeadm && \
 sudo apt-get update && sudo apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
 sudo apt-mark hold kubeadm
 ```
 {{% /tab %}}
-{{% tab name="CentOS, RHEL or Fedora" %}}
+{{% tab name="CentOS, RHEL veya Fedora" %}}
 ```shell
-# replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+# {{< skew currentVersion >}}.x-* içindeki x'i en son yama sürümü ile değiştirin
 sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
 ```
 {{% /tab %}}
 {{< /tabs >}}
 
-### Call "kubeadm upgrade"
+### "kubeadm upgrade" çağırma
 
-For worker nodes this upgrades the local kubelet configuration:
+İşçi düğümleri için bu, yerel kubelet yapılandırmasını yükseltir:
 
 ```shell
 sudo kubeadm upgrade node
 ```
 
-### Drain the node
+### Düğümü boşaltma
 
-Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
+Düğümü bakım için hazırlamak amacıyla planlanamaz olarak işaretleyin ve iş yüklerini tahliye edin:
 
 ```shell
-# execute this command on a control plane node
-# replace <node-to-drain> with the name of your node you are draining
+# bu komutu bir kontrol düzlemi düğümünde çalıştırın
+# <node-to-drain> yerine boşaltmakta olduğunuz düğümün adını yazın
 kubectl drain <node-to-drain> --ignore-daemonsets
 ```
 
-### Upgrade kubelet and kubectl
+### kubelet ve kubectl'i yükseltme
 
-1. Upgrade the kubelet and kubectl:
+1. kubelet ve kubectl'i yükseltin:
 
    {{< tabs name="k8s_kubelet_and_kubectl" >}}
-   {{% tab name="Ubuntu, Debian or HypriotOS" %}}
+   {{% tab name="Ubuntu, Debian veya HypriotOS" %}}
    ```shell
-   # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+   # {{< skew currentVersion >}}.x-* içindeki x'i en son yama sürümü ile değiştirin
    sudo apt-mark unhold kubelet kubectl && \
    sudo apt-get update && sudo apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
    sudo apt-mark hold kubelet kubectl
    ```
    {{% /tab %}}
-   {{% tab name="CentOS, RHEL or Fedora" %}}
+   {{% tab name="CentOS, RHEL veya Fedora" %}}
    ```shell
-   # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+   # {{< skew currentVersion >}}.x-* içindeki x'i en son yama sürümü ile değiştirin
    sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
    {{% /tab %}}
    {{< /tabs >}}
 
-1. Restart the kubelet:
+1. kubelet'i yeniden başlatın:
 
    ```shell
    sudo systemctl daemon-reload
    sudo systemctl restart kubelet
    ```
 
-### Uncordon the node
+### Düğümü yeniden çevrimiçi hale getirme
 
-Bring the node back online by marking it schedulable:
+Düğümü planlanabilir olarak işaretleyerek yeniden çevrimiçi hale getirin:
 
 ```shell
-# execute this command on a control plane node
-# replace <node-to-uncordon> with the name of your node
+# bu komutu bir kontrol düzlemi düğümünde çalıştırın
+# <node-to-uncordon> yerine düğümünüzün adını yazın
 kubectl uncordon <node-to-uncordon>
 ```
 
 ## {{% heading "whatsnext" %}}
 
-* See how to [Upgrade Windows nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes/).
+* [Windows düğümlerini yükseltme](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes/) konusuna bakın.

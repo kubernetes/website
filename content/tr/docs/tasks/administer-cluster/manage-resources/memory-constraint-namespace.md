@@ -1,21 +1,20 @@
 ---
-title: Configure Minimum and Maximum Memory Constraints for a Namespace
+title: Bir Ad Alanı için Minimum ve Maksimum Bellek Kısıtlamalarını Yapılandırma
 content_type: task
 weight: 30
 description: >-
-  Define a range of valid memory resource limits for a namespace, so that every new Pod
-  in that namespace falls within the range you configure.
+  Bir ad alanı için geçerli bellek kaynak sınırlarının bir aralığını tanımlayın, böylece bu ad alanındaki her yeni Pod
+  yapılandırdığınız aralıkta kalır.
 ---
 
 
 <!-- overview -->
 
-This page shows how to set minimum and maximum values for memory used by containers
-running in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}. 
-You specify minimum and maximum memory values in a
+Bu sayfa, bir {{< glossary_tooltip text="namespace" term_id="namespace" >}} içinde çalışan kapsayıcılar tarafından kullanılan bellek için minimum ve maksimum değerlerin nasıl ayarlanacağını gösterir.
+Minimum ve maksimum bellek değerlerini bir
 [LimitRange](/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
-object. If a Pod does not meet the constraints imposed by the LimitRange,
-it cannot be created in the namespace.
+nesnesinde belirtirsiniz. Bir Pod, LimitRange tarafından dayatılan kısıtlamalara uymuyorsa,
+ad alanında oluşturulamaz.
 
 
 
@@ -24,42 +23,40 @@ it cannot be created in the namespace.
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-You must have access to create namespaces in your cluster.
+Kümenizde ad alanları oluşturma erişimine sahip olmalısınız.
 
-Each node in your cluster must have at least 1 GiB of memory available for Pods.
+Kümenizdeki her düğümde Pod'lar için en az 1 GiB bellek bulunmalıdır.
 
 <!-- steps -->
 
-## Create a namespace
+## Bir ad alanı oluşturun
 
-Create a namespace so that the resources you create in this exercise are
-isolated from the rest of your cluster.
+Bu alıştırmada oluşturduğunuz kaynakların kümenizin geri kalanından izole edilmesi için bir ad alanı oluşturun.
 
 ```shell
 kubectl create namespace constraints-mem-example
 ```
 
-## Create a LimitRange and a Pod
+## Bir LimitRange ve bir Pod oluşturun
 
-Here's an example manifest for a LimitRange:
+İşte bir LimitRange için örnek bir manifest:
 
 {{% code_sample file="admin/resource/memory-constraints.yaml" %}}
 
-Create the LimitRange:
+LimitRange'i oluşturun:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-constraints.yaml --namespace=constraints-mem-example
 ```
 
-View detailed information about the LimitRange:
+LimitRange hakkında ayrıntılı bilgi görüntüleyin:
 
 ```shell
 kubectl get limitrange mem-min-max-demo-lr --namespace=constraints-mem-example --output=yaml
 ```
 
-The output shows the minimum and maximum memory constraints as expected. But
-notice that even though you didn't specify default values in the configuration
-file for the LimitRange, they were created automatically.
+Çıktı, minimum ve maksimum bellek kısıtlamalarını beklediğiniz gibi gösterir. Ancak
+LimitRange yapılandırma dosyasında varsayılan değerleri belirtmediğiniz halde, bunların otomatik olarak oluşturulduğunu fark edin.
 
 ```
   limits:
@@ -74,44 +71,40 @@ file for the LimitRange, they were created automatically.
     type: Container
 ```
 
-Now whenever you define a Pod within the constraints-mem-example namespace, Kubernetes
-performs these steps:
+Artık constraints-mem-example ad alanı içinde bir Pod tanımladığınızda, Kubernetes şu adımları gerçekleştirir:
 
-* If any container in that Pod does not specify its own memory request and limit, 
-the control plane assigns the default memory request and limit to that container.
+* Bu Pod'daki herhangi bir kapsayıcı kendi bellek isteğini ve sınırını belirtmezse,
+kontrol düzlemi bu kapsayıcıya varsayılan bellek isteğini ve sınırını atar.
 
-* Verify that every container in that Pod requests at least 500 MiB of memory.
+* Bu Pod'daki her kapsayıcının en az 500 MiB bellek talep ettiğini doğrulayın.
 
-* Verify that every container in that Pod requests no more than 1024 MiB (1 GiB)
-  of memory.
+* Bu Pod'daki her kapsayıcının en fazla 1024 MiB (1 GiB) bellek talep ettiğini doğrulayın.
 
-Here's a manifest for a Pod that has one container. Within the Pod spec, the sole
-container specifies a memory request of 600 MiB and a memory limit of 800 MiB. These satisfy the
-minimum and maximum memory constraints imposed by the LimitRange.
+İşte bir kapsayıcıya sahip bir Pod için bir manifest. Pod spesifikasyonunda, tek
+kapsayıcı 600 MiB bellek isteği ve 800 MiB bellek sınırı belirtir. Bunlar, LimitRange tarafından dayatılan
+minimum ve maksimum bellek kısıtlamalarını karşılar.
 
 {{% code_sample file="admin/resource/memory-constraints-pod.yaml" %}}
 
-Create the Pod:
+Pod'u oluşturun:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-constraints-pod.yaml --namespace=constraints-mem-example
 ```
 
-Verify that the Pod is running and that its container is healthy:
+Pod'un çalıştığını ve kapsayıcısının sağlıklı olduğunu doğrulayın:
 
 ```shell
 kubectl get pod constraints-mem-demo --namespace=constraints-mem-example
 ```
 
-View detailed information about the Pod:
+Pod hakkında ayrıntılı bilgi görüntüleyin:
 
 ```shell
 kubectl get pod constraints-mem-demo --output=yaml --namespace=constraints-mem-example
 ```
 
-The output shows that the container within that Pod has a memory request of 600 MiB and
-a memory limit of 800 MiB. These satisfy the constraints imposed by the LimitRange for
-this namespace:
+Çıktı, bu Pod'daki kapsayıcının 600 MiB bellek isteği ve 800 MiB bellek sınırı olduğunu gösterir. Bunlar, bu ad alanı için LimitRange tarafından dayatılan kısıtlamaları karşılar:
 
 ```yaml
 resources:
@@ -121,75 +114,73 @@ resources:
     memory: 600Mi
 ```
 
-Delete your Pod:
+Pod'unuzu silin:
 
 ```shell
 kubectl delete pod constraints-mem-demo --namespace=constraints-mem-example
 ```
 
-## Attempt to create a Pod that exceeds the maximum memory constraint
+## Maksimum bellek kısıtlamasını aşan bir Pod oluşturmayı deneyin
 
-Here's a manifest for a Pod that has one container. The container specifies a
-memory request of 800 MiB and a memory limit of 1.5 GiB.
+İşte bir kapsayıcıya sahip bir Pod için bir manifest. Kapsayıcı,
+800 MiB bellek isteği ve 1.5 GiB bellek sınırı belirtir.
 
 {{% code_sample file="admin/resource/memory-constraints-pod-2.yaml" %}}
 
-Attempt to create the Pod:
+Pod'u oluşturmayı deneyin:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-constraints-pod-2.yaml --namespace=constraints-mem-example
 ```
 
-The output shows that the Pod does not get created, because it defines a container that
-requests more memory than is allowed:
+Çıktı, Pod'un oluşturulmadığını gösterir, çünkü bu Pod, izin verilenden daha fazla bellek talep eden bir kapsayıcı tanımlar:
 
 ```
 Error from server (Forbidden): error when creating "examples/admin/resource/memory-constraints-pod-2.yaml":
 pods "constraints-mem-demo-2" is forbidden: maximum memory usage per Container is 1Gi, but limit is 1536Mi.
 ```
 
-## Attempt to create a Pod that does not meet the minimum memory request
+## Minimum bellek isteğini karşılamayan bir Pod oluşturmayı deneyin
 
-Here's a manifest for a Pod that has one container. That container specifies a
-memory request of 100 MiB and a memory limit of 800 MiB.
+İşte bir kapsayıcıya sahip bir Pod için bir manifest. Bu kapsayıcı,
+100 MiB bellek isteği ve 800 MiB bellek sınırı belirtir.
 
 {{% code_sample file="admin/resource/memory-constraints-pod-3.yaml" %}}
 
-Attempt to create the Pod:
+Pod'u oluşturmayı deneyin:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-constraints-pod-3.yaml --namespace=constraints-mem-example
 ```
 
-The output shows that the Pod does not get created, because it defines a container
-that requests less memory than the enforced minimum:
+Çıktı, Pod'un oluşturulmadığını gösterir, çünkü bu Pod, dayatılan minimumdan daha az bellek talep eden bir kapsayıcı tanımlar:
 
 ```
 Error from server (Forbidden): error when creating "examples/admin/resource/memory-constraints-pod-3.yaml":
 pods "constraints-mem-demo-3" is forbidden: minimum memory usage per Container is 500Mi, but request is 100Mi.
 ```
 
-## Create a Pod that does not specify any memory request or limit
+## Herhangi bir bellek isteği veya sınırı belirtmeyen bir Pod oluşturun
 
-Here's a manifest for a Pod that has one container. The container does not
-specify a memory request, and it does not specify a memory limit.
+İşte bir kapsayıcıya sahip bir Pod için bir manifest. Kapsayıcı,
+bir bellek isteği belirtmez ve bir bellek sınırı belirtmez.
 
 {{% code_sample file="admin/resource/memory-constraints-pod-4.yaml" %}}
 
-Create the Pod:
+Pod'u oluşturun:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-constraints-pod-4.yaml --namespace=constraints-mem-example
 ```
 
-View detailed information about the Pod:
+Pod hakkında ayrıntılı bilgi görüntüleyin:
 
 ```shell
 kubectl get pod constraints-mem-demo-4 --namespace=constraints-mem-example --output=yaml
 ```
 
-The output shows that the Pod's only container has a memory request of 1 GiB and a memory limit of 1 GiB.
-How did that container get those values?
+Çıktı, Pod'un tek kapsayıcısının 1 GiB bellek isteği ve 1 GiB bellek sınırı olduğunu gösterir.
+Bu kapsayıcı bu değerleri nasıl aldı?
 
 ```
 resources:
@@ -199,53 +190,46 @@ resources:
     memory: 1Gi
 ```
 
-Because your Pod did not define any memory request and limit for that container, the cluster
-applied a
-[default memory request and limit](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-from the LimitRange.
+Pod'unuz bu kapsayıcı için herhangi bir bellek isteği ve sınırı tanımlamadığı için, küme bir
+[varsayılan bellek isteği ve sınırı](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+LimitRange'den uyguladı.
 
-This means that the definition of that Pod shows those values. You can check it using
-`kubectl describe`:
+Bu, o Pod'un tanımının bu değerleri gösterdiği anlamına gelir. Bunu
+`kubectl describe` kullanarak kontrol edebilirsiniz:
 
 ```shell
-# Look for the "Requests:" section of the output
+# Çıktının "Requests:" bölümünü arayın
 kubectl describe pod constraints-mem-demo-4 --namespace=constraints-mem-example
 ```
 
-At this point, your Pod might be running or it might not be running. Recall that a prerequisite
-for this task is that your Nodes have at least 1 GiB of memory. If each of your Nodes has only
-1 GiB of memory, then there is not enough allocatable memory on any Node to accommodate a memory
-request of 1 GiB. If you happen to be using Nodes with 2 GiB of memory, then you probably have
-enough space to accommodate the 1 GiB request.
+Bu noktada, Pod'unuz çalışıyor olabilir veya çalışmıyor olabilir. Bu görevin bir ön koşulu, Düğümlerinizin en az 1 GiB bellek olmasıdır. Her bir Düğümünüzde yalnızca 1 GiB bellek varsa, herhangi bir Düğümde 1 GiB bellek isteğini karşılayacak kadar tahsis edilebilir bellek yoktur. 2 GiB bellekli Düğümler kullanıyorsanız, muhtemelen 1 GiB isteğini karşılayacak kadar alanınız vardır.
 
-Delete your Pod:
+Pod'unuzu silin:
 
 ```shell
 kubectl delete pod constraints-mem-demo-4 --namespace=constraints-mem-example
 ```
 
-## Enforcement of minimum and maximum memory constraints
+## Minimum ve maksimum bellek kısıtlamalarının uygulanması
 
-The maximum and minimum memory constraints imposed on a namespace by a LimitRange are enforced only
-when a Pod is created or updated. If you change the LimitRange, it does not affect
-Pods that were created previously.
+Bir ad alanına bir LimitRange tarafından dayatılan maksimum ve minimum bellek kısıtlamaları yalnızca
+bir Pod oluşturulduğunda veya güncellendiğinde uygulanır. LimitRange'i değiştirirseniz,
+önceden oluşturulmuş Pod'ları etkilemez.
 
-## Motivation for minimum and maximum memory constraints
+## Minimum ve maksimum bellek kısıtlamalarının motivasyonu
 
-As a cluster administrator, you might want to impose restrictions on the amount of memory that Pods can use.
-For example:
+Bir küme yöneticisi olarak, Pod'ların kullanabileceği bellek miktarına kısıtlamalar getirmek isteyebilirsiniz.
+Örneğin:
 
-* Each Node in a cluster has 2 GiB of memory. You do not want to accept any Pod that requests
-more than 2 GiB of memory, because no Node in the cluster can support the request.
+* Bir kümedeki her Düğümde 2 GiB bellek vardır. 2 GiB'den fazla bellek talep eden herhangi bir Pod'u kabul etmek istemezsiniz, çünkü kümedeki hiçbir Düğüm bu isteği destekleyemez.
 
-* A cluster is shared by your production and development departments.
-You want to allow production workloads to consume up to 8 GiB of memory, but
-you want development workloads to be limited to 512 MiB. You create separate namespaces
-for production and development, and you apply memory constraints to each namespace.
+* Bir küme, üretim ve geliştirme departmanlarınız tarafından paylaşılmaktadır.
+Üretim iş yüklerinin 8 GiB'ye kadar bellek tüketmesine izin vermek istiyorsunuz, ancak
+geliştirme iş yüklerinin 512 MiB ile sınırlı olmasını istiyorsunuz. Üretim ve geliştirme için ayrı ad alanları oluşturur ve her ad alanına bellek kısıtlamaları uygularsınız.
 
-## Clean up
+## Temizlik
 
-Delete your namespace:
+Ad alanınızı silin:
 
 ```shell
 kubectl delete namespace constraints-mem-example
@@ -255,33 +239,26 @@ kubectl delete namespace constraints-mem-example
 ## {{% heading "whatsnext" %}}
 
 
-### For cluster administrators
+### Küme yöneticileri için
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [Bir Ad Alanı için Varsayılan Bellek İsteklerini ve Sınırlarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [Bir Ad Alanı için Varsayılan CPU İsteklerini ve Sınırlarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [Bir Ad Alanı için Minimum ve Maksimum CPU Kısıtlamalarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [Bir Ad Alanı için Bellek ve CPU Kotalarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+* [Bir Ad Alanı için Pod Kotasını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
-* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+* [API Nesneleri için Kotaları Yapılandırma](/docs/tasks/administer-cluster/quota-api-object/)
 
-### For app developers
+### Uygulama geliştiriciler için
 
-* [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [Kapsayıcılara ve Pod'lara Bellek Kaynakları Atama](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [Kapsayıcılara ve Pod'lara CPU Kaynakları Atama](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [Assign Pod-level CPU and memory resources](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
+* [Pod düzeyinde CPU ve bellek kaynakları atama](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
 
-* [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
-
-
-
-
-
-
-
+* [Pod'lar için Hizmet Kalitesini Yapılandırma](/docs/tasks/configure-pod-container/quality-service-pod/)

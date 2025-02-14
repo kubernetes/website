@@ -1,13 +1,12 @@
 ---
-title: Configure DNS for a Cluster
+title: Bir Küme için DNS Yapılandırma
 weight: 130
 content_type: concept
 ---
 
 <!-- overview -->
-Kubernetes offers a DNS cluster addon, which most of the supported environments enable by default. In Kubernetes version 1.11 and later, CoreDNS is recommended and is installed by default with kubeadm.
+Kubernetes, çoğu desteklenen ortamın varsayılan olarak etkinleştirdiği bir DNS küme eklentisi sunar. Kubernetes sürüm 1.11 ve sonrasında, CoreDNS önerilir ve kubeadm ile varsayılan olarak yüklenir.
 
 <!-- body -->
-For more information on how to configure CoreDNS for a Kubernetes cluster, see the [Customizing DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers/). An example demonstrating how to use Kubernetes DNS with kube-dns, see the [Kubernetes DNS sample plugin](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns).
-
+Bir Kubernetes kümesi için CoreDNS'in nasıl yapılandırılacağı hakkında daha fazla bilgi için [Özel DNS Hizmeti](/docs/tasks/administer-cluster/dns-custom-nameservers/) sayfasına bakın. Kube-dns ile Kubernetes DNS'in nasıl kullanılacağını gösteren bir örnek için [Kubernetes DNS örnek eklentisi](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns) sayfasına bakın.
 

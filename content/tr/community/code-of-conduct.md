@@ -1,13 +1,13 @@
 ---
-title: Kubernetes Community Code of Conduct
+title: Kubernetes Topluluğu Davranış Kuralları
 body_class: code-of-conduct
 cid: code-of-conduct
 ---
 
-_Kubernetes follows the
-[CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md).
-The text of the CNCF CoC is replicated below, as of
-[commit 71412bb02](https://github.com/cncf/foundation/blob/71412bb029090d42ecbeadb39374a337bfb48a9c/code-of-conduct.md)._
+_Kubernetes,
+[CNCF Davranış Kuralları](https://github.com/cncf/foundation/blob/main/code-of-conduct.md)'nı takip eder.
+CNCF Davranış Kuralları'nın metni aşağıda, 
+[71412bb02 commit'i](https://github.com/cncf/foundation/blob/71412bb029090d42ecbeadb39374a337bfb48a9c/code-of-conduct.md) itibariyle yer almaktadır._
 
 <div id="cncf-code-of-conduct">
 {{< include "static/cncf-code-of-conduct.md" >}}
@@ -15,11 +15,11 @@ The text of the CNCF CoC is replicated below, as of
 
 ---
 
-If you notice a violation of the Code of Conduct at an event or meeting, in
-Slack, or in another communication mechanism, reach out to
-the [Kubernetes Code of Conduct Committee](https://git.k8s.io/community/committee-code-of-conduct)
+Bir etkinlikte veya toplantıda, Slack'te veya başka bir iletişim mekanizmasında Davranış Kuralları ihlali fark ederseniz,
+[Kubernetes Davranış Kuralları Komitesi](https://git.k8s.io/community/committee-code-of-conduct) ile iletişime geçin.
 
-You can reach them by email at [conduct@kubernetes.io](mailto:conduct@kubernetes.io).
-Your anonymity will be protected.
+Onlara [conduct@kubernetes.io](mailto:conduct@kubernetes.io) adresinden e-posta ile ulaşabilirsiniz.
+Anonimliğiniz korunacaktır.
 
-If you notice that this page is out of date, please [file an issue](https://github.com/kubernetes/website/issues/new/choose).
+Bu sayfanın güncel olmadığını fark ederseniz, lütfen [bir sorun bildirin](https://github.com/kubernetes/website/issues/new/choose).
+

@@ -1,64 +1,60 @@
 ---
-title: Connect a Frontend to a Backend Using Services
+title: Hizmetleri Kullanarak Bir Ön Ucu Bir Arka Uca Bağlama
 content_type: tutorial
 weight: 70
 ---
 
 <!-- overview -->
 
-This task shows how to create a _frontend_ and a _backend_ microservice. The backend 
-microservice is a hello greeter. The frontend exposes the backend using nginx and a 
-Kubernetes {{< glossary_tooltip term_id="service" >}} object.
+Bu görev, bir _ön uç_ ve bir _arka uç_ mikro hizmeti oluşturmayı gösterir. Arka uç 
+mikro hizmeti bir merhaba selamlayıcısıdır. Ön uç, arka ucu nginx ve bir 
+Kubernetes {{< glossary_tooltip term_id="service" >}} nesnesi kullanarak sunar.
 
 ## {{% heading "objectives" %}}
 
-* Create and run a sample `hello` backend microservice using a 
-  {{< glossary_tooltip term_id="deployment" >}} object.
-* Use a Service object to send traffic to the backend microservice's multiple replicas.
-* Create and run a `nginx` frontend microservice, also using a Deployment object.
-* Configure the frontend microservice to send traffic to the backend microservice. 
-* Use a Service object of `type=LoadBalancer` to expose the frontend microservice 
-  outside the cluster.
+* Bir {{< glossary_tooltip term_id="deployment" >}} nesnesi kullanarak örnek bir `hello` arka uç mikro hizmeti oluşturun ve çalıştırın.
+* Arka uç mikro hizmetinin birden çok kopyasına trafik göndermek için bir Hizmet nesnesi kullanın.
+* Bir Dağıtım nesnesi kullanarak bir `nginx` ön uç mikro hizmeti oluşturun ve çalıştırın.
+* Ön uç mikro hizmetini, arka uç mikro hizmetine trafik gönderecek şekilde yapılandırın.
+* Ön uç mikro hizmetini küme dışına sunmak için `type=LoadBalancer` türünde bir Hizmet nesnesi kullanın.
 
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-This task uses
-[Services with external load balancers](/docs/tasks/access-application-cluster/create-external-load-balancer/), which
-require a supported environment. If your environment does not support this, you can use a Service of type
-[NodePort](/docs/concepts/services-networking/service/#type-nodeport) instead.
+Bu görev, desteklenen bir ortam gerektiren
+[dış yük dengeleyicilere sahip Hizmetler](/docs/tasks/access-application-cluster/create-external-load-balancer/) kullanır. Ortamınız bunu desteklemiyorsa, bunun yerine
+[NodePort türünde bir Hizmet](/docs/concepts/services-networking/service/#type-nodeport) kullanabilirsiniz.
 
 <!-- lessoncontent -->
 
-## Creating the backend using a Deployment
+## Bir Dağıtım Kullanarak Arka Ucu Oluşturma
 
-The backend is a simple hello greeter microservice. Here is the configuration
-file for the backend Deployment:
+Arka uç, basit bir merhaba selamlayıcı mikro hizmetidir. İşte arka uç Dağıtımı için yapılandırma dosyası:
 
 {{% code_sample file="service/access/backend-deployment.yaml" %}}
 
-Create the backend Deployment:
+Arka uç Dağıtımını oluşturun:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/service/access/backend-deployment.yaml
 ```
 
-View information about the backend Deployment:
+Arka uç Dağıtımı hakkında bilgi görüntüleyin:
 
 ```shell
 kubectl describe deployment backend
 ```
 
-The output is similar to this:
+Çıktı şu şekilde benzer olacaktır:
 
 ```
 Name:                           backend
 Namespace:                      default
 CreationTimestamp:              Mon, 24 Oct 2016 14:21:02 -0700
 Labels:                         app=hello
-                                tier=backend
-                                track=stable
+                tier=backend
+                track=stable
 Annotations:                    deployment.kubernetes.io/revision=1
 Selector:                       app=hello,tier=backend,track=stable
 Replicas:                       3 desired | 3 updated | 3 total | 3 available | 0 unavailable
@@ -67,14 +63,14 @@ MinReadySeconds:                0
 RollingUpdateStrategy:          1 max unavailable, 1 max surge
 Pod Template:
   Labels:       app=hello
-                tier=backend
-                track=stable
+        tier=backend
+        track=stable
   Containers:
    hello:
-    Image:              "gcr.io/google-samples/hello-go-gke:1.0"
-    Port:               80/TCP
-    Environment:        <none>
-    Mounts:             <none>
+  Image:              "gcr.io/google-samples/hello-go-gke:1.0"
+  Port:               80/TCP
+  Environment:        <none>
+  Mounts:             <none>
   Volumes:              <none>
 Conditions:
   Type          Status  Reason
@@ -87,64 +83,48 @@ Events:
 ...
 ```
 
-## Creating the `hello` Service object
+## `hello` Hizmet Nesnesini Oluşturma
 
-The key to sending requests from a frontend to a backend is the backend
-Service. A Service creates a persistent IP address and DNS name entry
-so that the backend microservice can always be reached. A Service uses
-{{< glossary_tooltip text="selectors" term_id="selector" >}} to find
-the Pods that it routes traffic to.
+Bir ön uçtan bir arka uca istek göndermenin anahtarı, arka uç Hizmetidir. Bir Hizmet, kalıcı bir IP adresi ve DNS adı girişi oluşturur, böylece arka uç mikro hizmeti her zaman erişilebilir olur. Bir Hizmet, trafiği yönlendirdiği Pod'ları bulmak için {{< glossary_tooltip text="seçiciler" term_id="selector" >}} kullanır.
 
-First, explore the Service configuration file:
+Öncelikle, Hizmet yapılandırma dosyasını inceleyin:
 
 {{% code_sample file="service/access/backend-service.yaml" %}}
 
-In the configuration file, you can see that the Service, named `hello` routes 
-traffic to Pods that have the labels `app: hello` and `tier: backend`.
+Yapılandırma dosyasında, `hello` adlı Hizmetin `app: hello` ve `tier: backend` etiketlerine sahip Pod'lara trafik yönlendirdiğini görebilirsiniz.
 
-Create the backend Service:
+Arka uç Hizmetini oluşturun:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/service/access/backend-service.yaml
 ```
 
-At this point, you have a `backend` Deployment running three replicas of your `hello`
-application, and you have a Service that can route traffic to them. However, this 
-service is neither available nor resolvable outside the cluster.
+Bu noktada, `hello` uygulamanızın üç kopyasını çalıştıran bir `backend` Dağıtımınız ve onlara trafik yönlendirebilen bir Hizmetiniz var. Ancak, bu hizmet küme dışında ne erişilebilir ne de çözümlenebilir.
 
-## Creating the frontend
+## Ön Ucu Oluşturma
 
-Now that you have your backend running, you can create a frontend that is accessible 
-outside the cluster, and connects to the backend by proxying requests to it.
+Artık arka ucunuzu çalıştırdığınıza göre, küme dışından erişilebilir bir ön uç oluşturabilir ve istekleri ona proxy yaparak arka uca bağlayabilirsiniz.
 
-The frontend sends requests to the backend worker Pods by using the DNS name
-given to the backend Service. The DNS name is `hello`, which is the value
-of the `name` field in the `examples/service/access/backend-service.yaml` 
-configuration file.
+Ön uç, arka uç Hizmetine verilen DNS adını kullanarak arka uç işçi Pod'larına istek gönderir. DNS adı, `examples/service/access/backend-service.yaml` yapılandırma dosyasındaki `name` alanının değeri olan `hello` dur.
 
-The Pods in the frontend Deployment run a nginx image that is configured
-to proxy requests to the `hello` backend Service. Here is the nginx configuration file:
+Ön Uç Dağıtımındaki Pod'lar, `hello` arka uç Hizmetine istekleri proxy yapmak üzere yapılandırılmış bir nginx görüntüsü çalıştırır. İşte nginx yapılandırma dosyası:
 
 {{% code_sample file="service/access/frontend-nginx.conf" %}}
 
-Similar to the backend, the frontend has a Deployment and a Service. An important
-difference to notice between the backend and frontend services, is that the
-configuration for the frontend Service has `type: LoadBalancer`, which means that
-the Service uses a load balancer provisioned by your cloud provider and will be
-accessible from outside the cluster.
+Arka uç ile benzer şekilde, ön uç da bir Dağıtım ve bir Hizmete sahiptir. Arka uç ve ön uç hizmetleri arasındaki önemli bir fark, ön uç Hizmetinin yapılandırmasının `type: LoadBalancer` olmasıdır, bu da Hizmetin bulut sağlayıcınız tarafından sağlanan bir yük dengeleyici kullandığı ve küme dışından erişilebilir olacağı anlamına gelir.
 
 {{% code_sample file="service/access/frontend-service.yaml" %}}
 
 {{% code_sample file="service/access/frontend-deployment.yaml" %}}
 
-Create the frontend Deployment and Service:
+Ön uç Dağıtımını ve Hizmetini oluşturun:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/service/access/frontend-deployment.yaml
 kubectl apply -f https://k8s.io/examples/service/access/frontend-service.yaml
 ```
 
-The output verifies that both resources were created:
+Çıktı, her iki kaynağın da oluşturulduğunu doğrular:
 
 ```
 deployment.apps/frontend created
@@ -152,51 +132,45 @@ service/frontend created
 ```
 
 {{< note >}}
-The nginx configuration is baked into the
-[container image](/examples/service/access/Dockerfile). A better way to do this would
-be to use a
-[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
-so that you can change the configuration more easily.
+nginx yapılandırması
+[kapsayıcı görüntüsüne](/examples/service/access/Dockerfile) gömülüdür. Bunu yapmanın daha iyi bir yolu,
+yapılandırmayı daha kolay değiştirebilmeniz için bir
+[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) kullanmaktır.
 {{< /note >}}
 
-## Interact with the frontend Service
+## Ön Uç Hizmeti ile Etkileşim
 
-Once you've created a Service of type LoadBalancer, you can use this
-command to find the external IP:
+Bir LoadBalancer türünde Hizmet oluşturduktan sonra, bu komutu kullanarak dış IP'yi bulabilirsiniz:
 
 ```shell
 kubectl get service frontend --watch
 ```
 
-This displays the configuration for the `frontend` Service and watches for
-changes. Initially, the external IP is listed as `<pending>`:
+Bu, `frontend` Hizmetinin yapılandırmasını görüntüler ve değişiklikleri izler. Başlangıçta, dış IP `<pending>` olarak listelenir:
 
 ```
 NAME       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)  AGE
 frontend   LoadBalancer   10.51.252.116   <pending>     80/TCP   10s
 ```
 
-As soon as an external IP is provisioned, however, the configuration updates
-to include the new IP under the `EXTERNAL-IP` heading:
+Ancak, bir dış IP sağlanır sağlanmaz, yapılandırma `EXTERNAL-IP` başlığı altında yeni IP'yi içerecek şekilde güncellenir:
 
 ```
 NAME       TYPE           CLUSTER-IP      EXTERNAL-IP        PORT(S)  AGE
 frontend   LoadBalancer   10.51.252.116   XXX.XXX.XXX.XXX    80/TCP   1m
 ```
 
-That IP can now be used to interact with the `frontend` service from outside the
-cluster.
+Bu IP artık küme dışından `frontend` hizmeti ile etkileşimde bulunmak için kullanılabilir.
 
-## Send traffic through the frontend
+## Trafiği Ön Uçtan Geçirin
 
-The frontend and backend are now connected. You can hit the endpoint
-by using the curl command on the external IP of your frontend Service.
+Artık ön uç ve arka uç bağlı. Ön Uç Hizmetinizin dış IP'sini kullanarak curl komutunu kullanarak uç noktaya erişebilirsiniz.
 
 ```shell
-curl http://${EXTERNAL_IP} # replace this with the EXTERNAL-IP you saw earlier
+curl http://${EXTERNAL_IP} # daha önce gördüğünüz EXTERNAL-IP ile değiştirin
 ```
 
-The output shows the message generated by the backend:
+Çıktı, arka uç tarafından oluşturulan mesajı gösterir:
 
 ```json
 {"message":"Hello"}
@@ -204,13 +178,13 @@ The output shows the message generated by the backend:
 
 ## {{% heading "cleanup" %}}
 
-To delete the Services, enter this command:
+Hizmetleri silmek için bu komutu girin:
 
 ```shell
 kubectl delete services frontend backend
 ```
 
-To delete the Deployments, the ReplicaSets and the Pods that are running the backend and frontend applications, enter this command:
+Arka uç ve ön uç uygulamalarını çalıştıran Dağıtımları, ReplicaSet'leri ve Pod'ları silmek için bu komutu girin:
 
 ```shell
 kubectl delete deployment frontend backend
@@ -218,6 +192,6 @@ kubectl delete deployment frontend backend
 
 ## {{% heading "whatsnext" %}}
 
-* Learn more about [Services](/docs/concepts/services-networking/service/)
-* Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
-* Learn more about [DNS for Service and Pods](/docs/concepts/services-networking/dns-pod-service/)
+* [Hizmetler](/docs/concepts/services-networking/service/) hakkında daha fazla bilgi edinin
+* [ConfigMap'ler](/docs/tasks/configure-pod-container/configure-pod-configmap/) hakkında daha fazla bilgi edinin
+* [Hizmetler ve Pod'lar için DNS](/docs/concepts/services-networking/dns-pod-service/) hakkında daha fazla bilgi edinin

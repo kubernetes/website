@@ -1,5 +1,5 @@
 ---
-title: Adding Windows worker nodes
+title: Windows işçi düğümleri ekleme
 content_type: task
 weight: 11
 ---
@@ -8,88 +8,84 @@ weight: 11
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-This page explains how to add Windows worker nodes to a kubeadm cluster.
+Bu sayfa, bir kubeadm kümesine Windows işçi düğümleri eklemeyi açıklar.
 
 ## {{% heading "prerequisites" %}}
 
-* A running [Windows Server 2022](https://www.microsoft.com/cloud-platform/windows-server-pricing)
-(or higher) instance with administrative access.
-* A running kubeadm cluster created by `kubeadm init` and following the steps
-in the document [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
+* Yönetici erişimi olan çalışan bir [Windows Server 2022](https://www.microsoft.com/cloud-platform/windows-server-pricing)
+(veya daha yüksek) örneği.
+* `kubeadm init` tarafından oluşturulan ve belgede yer alan adımları izleyen çalışan bir kubeadm kümesi
+[kubeadm ile bir küme oluşturma](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
 
 <!-- steps -->
 
-## Adding Windows worker nodes
+## Windows işçi düğümleri ekleme
 
 {{< note >}}
-To facilitate the addition of Windows worker nodes to a cluster, PowerShell scripts from the repository
-https://sigs.k8s.io/sig-windows-tools are used.
+Bir kümeye Windows işçi düğümleri eklemeyi kolaylaştırmak için, https://sigs.k8s.io/sig-windows-tools deposundan PowerShell betikleri kullanılır.
 {{< /note >}}
 
-Do the following for each machine:
+Her makine için aşağıdakileri yapın:
 
-1. Open a PowerShell session on the machine.
-1. Make sure you are Administrator or a privileged user.
+1. Makinede bir PowerShell oturumu açın.
+1. Yönetici veya ayrıcalıklı bir kullanıcı olduğunuzdan emin olun.
 
-Then proceed with the steps outlined below.
+Ardından aşağıda belirtilen adımları izleyin.
 
-### Install containerd
+### containerd yükleme
 
 {{% thirdparty-content %}}
 
-To install containerd, first run the following command:
+containerd yüklemek için önce aşağıdaki komutu çalıştırın:
 
   ```PowerShell
   curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/hostprocess/Install-Containerd.ps1
-  ``````
+  ```
 
-Then run the following command, but first replace `CONTAINERD_VERSION` with a recent release
-from the [containerd repository](https://github.com/containerd/containerd/releases).
-The version must not have a `v` prefix. For example, use `1.7.22` instead of `v1.7.22`:
+Ardından aşağıdaki komutu çalıştırın, ancak önce `CONTAINERD_VERSION` değerini [containerd deposundan](https://github.com/containerd/containerd/releases) alınan güncel bir sürümle değiştirin.
+Sürümün `v` öneki olmamalıdır. Örneğin, `v1.7.22` yerine `1.7.22` kullanın:
 
   ```PowerShell
   .\Install-Containerd.ps1 -ContainerDVersion CONTAINERD_VERSION
   ```
 
-* Adjust any other parameters for `Install-Containerd.ps1` such as `netAdapterName` as you need them.
-* Set `skipHypervisorSupportCheck` if your machine does not support Hyper-V and cannot host Hyper-V isolated
-containers.
-* If you change the `Install-Containerd.ps1` optional parameters `CNIBinPath` and/or `CNIConfigPath` you will
-need to configure the installed Windows CNI plugin with matching values.
+* `Install-Containerd.ps1` için `netAdapterName` gibi diğer parametreleri ihtiyacınıza göre ayarlayın.
+* Makineniz Hyper-V'yi desteklemiyorsa ve Hyper-V izole edilmiş kapsayıcıları barındıramıyorsa `skipHypervisorSupportCheck` ayarını yapın.
+* `Install-Containerd.ps1` isteğe bağlı parametrelerini `CNIBinPath` ve/veya `CNIConfigPath` olarak değiştirirseniz, yüklenen Windows CNI eklentisini eşleşen değerlerle yapılandırmanız gerekecektir.
 
-### Install kubeadm and kubelet
+### kubeadm ve kubelet yükleme
 
-Run the following commands to install kubeadm and the kubelet:
+kubeadm ve kubelet yüklemek için aşağıdaki komutları çalıştırın:
 
   ```PowerShell
   curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/hostprocess/PrepareNode.ps1
   .\PrepareNode.ps1 -KubernetesVersion v{{< skew currentVersion >}}
   ```
 
-* Adjust the parameter `KubernetesVersion` of `PrepareNode.ps1` if needed.
+* Gerekirse `PrepareNode.ps1` parametresi `KubernetesVersion`'ı ayarlayın.
 
-### Run `kubeadm join`
+### `kubeadm join` çalıştırma
 
-Run the command that was output by `kubeadm init`. For example:
+`kubeadm init` tarafından çıktılan komutu çalıştırın. Örneğin:
 
   ```bash
   kubeadm join --token <token> <control-plane-host>:<control-plane-port> --discovery-token-ca-cert-hash sha256:<hash>
   ```
 
-#### Additional information about kubeadm join
+#### kubeadm join hakkında ek bilgi
 
 {{< note >}}
-To specify an IPv6 tuple for `<control-plane-host>:<control-plane-port>`, IPv6 address must be enclosed in square brackets, for example: `[2001:db8::101]:2073`.
+`<control-plane-host>:<control-plane-port>` için bir IPv6 çiftini belirtmek için, IPv6 adresi köşeli parantez içine alınmalıdır, örneğin: `[2001:db8::101]:2073`.
 {{< /note >}}
 
-If you do not have the token, you can get it by running the following command on the control plane node:
+Token'ınız yoksa, kontrol düzlemi düğümünde aşağıdaki komutu çalıştırarak alabilirsiniz:
 
 ```bash
-# Run this on a control plane node
+# Bu komutu bir kontrol düzlemi düğümünde çalıştırın
 sudo kubeadm token list
 ```
 
-The output is similar to this:
+Çıktı şu şekilde benzer olacaktır:
 
 ```console
 TOKEN                    TTL  EXPIRES              USAGES           DESCRIPTION            EXTRA GROUPS
@@ -99,69 +95,63 @@ TOKEN                    TTL  EXPIRES              USAGES           DESCRIPTION 
                                                                                            default-node-token
 ```
 
-By default, node join tokens expire after 24 hours. If you are joining a node to the cluster after the
-current token has expired, you can create a new token by running the following command on the
-control plane node:
+Varsayılan olarak, düğüm katılım token'ları 24 saat sonra sona erer. Mevcut token süresi dolduktan sonra kümeye bir düğüm ekliyorsanız, kontrol düzlemi düğümünde aşağıdaki komutu çalıştırarak yeni bir token oluşturabilirsiniz:
 
 ```bash
-# Run this on a control plane node
+# Bu komutu bir kontrol düzlemi düğümünde çalıştırın
 sudo kubeadm token create
 ```
 
-The output is similar to this:
+Çıktı şu şekilde benzer olacaktır:
 
 ```console
 5didvk.d09sbcov8ph2amjw
 ```
 
-If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the
-following commands on the control plane node:
+`--discovery-token-ca-cert-hash` değerine sahip değilseniz, kontrol düzlemi düğümünde aşağıdaki komutları çalıştırarak alabilirsiniz:
 
 ```bash
 sudo cat /etc/kubernetes/pki/ca.crt | openssl x509 -pubkey  | openssl rsa -pubin -outform der 2>/dev/null | \
    openssl dgst -sha256 -hex | sed 's/^.* //'
 ```
 
-The output is similar to:
+Çıktı şu şekilde benzer olacaktır:
 
 ```console
 8cb2de97839780a412b93877f8507ad6c94f73add17d5d7058e91741c9d5ec78
 ```
 
-The output of the `kubeadm join` command should look something like:
+`kubeadm join` komutunun çıktısı şu şekilde görünecektir:
 
 ```
 [preflight] Running pre-flight checks
 
-... (log output of join workflow) ...
+... (katılım iş akışının günlük çıktısı) ...
 
-Node join complete:
-* Certificate signing request sent to control-plane and response
-  received.
-* Kubelet informed of new secure connection details.
+Düğüm katılımı tamamlandı:
+* Sertifika imzalama isteği kontrol düzlemine gönderildi ve yanıt alındı.
+* Kubelet yeni güvenli bağlantı ayrıntıları hakkında bilgilendirildi.
 
-Run 'kubectl get nodes' on control-plane to see this machine join.
+Bu makinenin katıldığını görmek için kontrol düzleminde 'kubectl get nodes' komutunu çalıştırın.
 ```
 
-A few seconds later, you should notice this node in the output from `kubectl get nodes`.
-(for example, run `kubectl` on a  control plane node).
+Birkaç saniye sonra, `kubectl get nodes` çıktısında bu düğümü fark etmelisiniz.
+(örneğin, bir kontrol düzlemi düğümünde `kubectl` çalıştırın).
 
-### Network configuration
+### Ağ yapılandırması
 
-CNI setup on clusters mixed with Linux and Windows nodes requires more steps than just
-running `kubectl apply` on a manifest file. Additionally, the CNI plugin running on control
-plane nodes must be prepared to support the CNI plugin running on Windows worker nodes.
+Linux ve Windows düğümleri ile karışık kümelerde CNI kurulumu, bir manifest dosyasında `kubectl apply` çalıştırmaktan daha fazla adım gerektirir. Ayrıca, kontrol düzlemi düğümlerinde çalışan CNI eklentisi, Windows işçi düğümlerinde çalışan CNI eklentisini destekleyecek şekilde hazırlanmalıdır.
 
 {{% thirdparty-content %}}
 
-Only a few CNI plugins currently support Windows. Below you can find individual setup instructions for them:
+Şu anda yalnızca birkaç CNI eklentisi Windows'u desteklemektedir. Aşağıda bunlar için bireysel kurulum talimatlarını bulabilirsiniz:
 * [Flannel](https://sigs.k8s.io/sig-windows-tools/guides/flannel.md)
 * [Calico](https://docs.tigera.io/calico/latest/getting-started/kubernetes/windows-calico/)
 
-### Install kubectl for Windows (optional) {#install-kubectl}
+### Windows için kubectl yükleme (isteğe bağlı) {#install-kubectl}
 
-See [Install and Set Up kubectl on Windows](/docs/tasks/tools/install-kubectl-windows/).
+Bkz. [Windows'ta kubectl yükleme ve kurma](/docs/tasks/tools/install-kubectl-windows/).
 
 ## {{% heading "whatsnext" %}}
 
-* See how to [add Linux worker nodes](/docs/tasks/administer-cluster/kubeadm/adding-linux-nodes/).
+* [Linux işçi düğümleri ekleme](/docs/tasks/administer-cluster/kubeadm/adding-linux-nodes/) konusuna bakın.

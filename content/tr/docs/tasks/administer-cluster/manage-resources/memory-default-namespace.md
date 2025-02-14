@@ -1,91 +1,78 @@
 ---
-title: Configure Default Memory Requests and Limits for a Namespace
+title: Bir Ad Alanı için Varsayılan Bellek İsteklerini ve Sınırlarını Yapılandırma
 content_type: task
 weight: 10
 description: >-
-  Define a default memory resource limit for a namespace, so that every new Pod
-  in that namespace has a memory resource limit configured.
+  Bir ad alanı için varsayılan bellek kaynak sınırını tanımlayın, böylece o ad alanındaki her yeni Pod
+  için bir bellek kaynak sınırı yapılandırılmış olur.
 ---
 
 <!-- overview -->
 
-This page shows how to configure default memory requests and limits for a
-{{< glossary_tooltip text="namespace" term_id="namespace" >}}.
+Bu sayfa, bir {{< glossary_tooltip text="ad alanı" term_id="namespace" >}} için varsayılan bellek isteklerini ve sınırlarını nasıl yapılandıracağınızı gösterir.
 
-A Kubernetes cluster can be divided into namespaces. Once you have a namespace that
-has a default memory
-[limit](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits),
-and you then try to create a Pod with a container that does not specify its own memory
-limit, then the
-{{< glossary_tooltip text="control plane" term_id="control-plane" >}} assigns the default
-memory limit to that container.
+Bir Kubernetes kümesi ad alanlarına bölünebilir. Bir ad alanına varsayılan bir bellek
+[sınırı](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) tanımladıktan sonra,
+ve ardından bellek sınırını belirtmeyen bir kapsayıcı ile bir Pod oluşturmaya çalışırsanız,
+{{< glossary_tooltip text="kontrol düzlemi" term_id="control-plane" >}} bu kapsayıcıya varsayılan bellek sınırını atar.
 
-Kubernetes assigns a default memory request under certain conditions that are explained later in this topic.
-
-
-
+Kubernetes, bu konunun ilerleyen bölümlerinde açıklanan belirli koşullar altında varsayılan bir bellek isteği atar.
 
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}}
 
-You must have access to create namespaces in your cluster.
+Kümenizde ad alanları oluşturma erişimine sahip olmalısınız.
 
-Each node in your cluster must have at least 2 GiB of memory.
-
-
+Kümenizdeki her düğümde en az 2 GiB bellek bulunmalıdır.
 
 <!-- steps -->
 
-## Create a namespace
+## Bir ad alanı oluşturun
 
-Create a namespace so that the resources you create in this exercise are
-isolated from the rest of your cluster.
+Bu alıştırmada oluşturduğunuz kaynakların kümenizin geri kalanından izole edilmesi için bir ad alanı oluşturun.
 
 ```shell
 kubectl create namespace default-mem-example
 ```
 
-## Create a LimitRange and a Pod
+## Bir LimitRange ve bir Pod oluşturun
 
-Here's a manifest for an example {{< glossary_tooltip text="LimitRange" term_id="limitrange" >}}.
-The manifest specifies a default memory
-request and a default memory limit.
+İşte bir örnek {{< glossary_tooltip text="LimitRange" term_id="limitrange" >}} manifestosu.
+Manifesto, varsayılan bir bellek isteği ve varsayılan bir bellek sınırı belirtir.
 
 {{% code_sample file="admin/resource/memory-defaults.yaml" %}}
 
-Create the LimitRange in the default-mem-example namespace:
+default-mem-example ad alanında LimitRange oluşturun:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults.yaml --namespace=default-mem-example
 ```
 
-Now if you create a Pod in the default-mem-example namespace, and any container
-within that Pod does not specify its own values for memory request and memory limit,
-then the {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
-applies default values: a memory request of 256MiB and a memory limit of 512MiB.
+Şimdi default-mem-example ad alanında bir Pod oluşturursanız ve bu Pod içindeki herhangi bir kapsayıcı
+kendi bellek isteği ve bellek sınırı değerlerini belirtmezse,
+{{< glossary_tooltip text="kontrol düzlemi" term_id="control-plane" >}}
+varsayılan değerleri uygular: 256MiB bellek isteği ve 512MiB bellek sınırı.
 
-
-Here's an example manifest for a Pod that has one container. The container
-does not specify a memory request and limit.
+İşte bir kapsayıcıya sahip bir Pod için örnek bir manifesto. Kapsayıcı
+bellek isteği ve sınırını belirtmez.
 
 {{% code_sample file="admin/resource/memory-defaults-pod.yaml" %}}
 
-Create the Pod.
+Pod'u oluşturun.
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults-pod.yaml --namespace=default-mem-example
 ```
 
-View detailed information about the Pod:
+Pod hakkında ayrıntılı bilgi görüntüleyin:
 
 ```shell
 kubectl get pod default-mem-demo --output=yaml --namespace=default-mem-example
 ```
 
-The output shows that the Pod's container has a memory request of 256 MiB and
-a memory limit of 512 MiB. These are the default values specified by the LimitRange.
+Çıktı, Pod'un kapsayıcısının 256 MiB bellek isteği ve
+512 MiB bellek sınırına sahip olduğunu gösterir. Bunlar, LimitRange tarafından belirtilen varsayılan değerlerdir.
 
 ```shell
 containers:
@@ -99,34 +86,33 @@ containers:
       memory: 256Mi
 ```
 
-Delete your Pod:
+Pod'unuzu silin:
 
 ```shell
 kubectl delete pod default-mem-demo --namespace=default-mem-example
 ```
 
-## What if you specify a container's limit, but not its request?
+## Bir kapsayıcının sınırını belirtirseniz, ancak isteğini belirtmezseniz ne olur?
 
-Here's a manifest for a Pod that has one container. The container
-specifies a memory limit, but not a request:
+İşte bir kapsayıcıya sahip bir Pod için bir manifesto.
+Kapsayıcı bir bellek sınırı belirtir, ancak bir istek belirtmez:
 
 {{% code_sample file="admin/resource/memory-defaults-pod-2.yaml" %}}
 
-Create the Pod:
-
+Pod'u oluşturun:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults-pod-2.yaml --namespace=default-mem-example
 ```
 
-View detailed information about the Pod:
+Pod hakkında ayrıntılı bilgi görüntüleyin:
 
 ```shell
 kubectl get pod default-mem-demo-2 --output=yaml --namespace=default-mem-example
 ```
 
-The output shows that the container's memory request is set to match its memory limit.
-Notice that the container was not assigned the default memory request value of 256Mi.
+Çıktı, kapsayıcının bellek isteğinin bellek sınırına eşit olarak ayarlandığını gösterir.
+Kapsayıcıya varsayılan bellek isteği değeri olan 256Mi atanmadığını fark edin.
 
 ```
 resources:
@@ -136,28 +122,27 @@ resources:
     memory: 1Gi
 ```
 
-## What if you specify a container's request, but not its limit?
+## Bir kapsayıcının isteğini belirtirseniz, ancak sınırını belirtmezseniz ne olur?
 
-Here's a manifest for a Pod that has one container. The container
-specifies a memory request, but not a limit:
+İşte bir kapsayıcıya sahip bir Pod için bir manifesto.
+Kapsayıcı bir bellek isteği belirtir, ancak bir sınır belirtmez:
 
 {{% code_sample file="admin/resource/memory-defaults-pod-3.yaml" %}}
 
-Create the Pod:
+Pod'u oluşturun:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults-pod-3.yaml --namespace=default-mem-example
 ```
 
-View the Pod's specification:
+Pod'un spesifikasyonunu görüntüleyin:
 
 ```shell
 kubectl get pod default-mem-demo-3 --output=yaml --namespace=default-mem-example
 ```
 
-The output shows that the container's memory request is set to the value specified in the
-container's manifest. The container is limited to use no more than 512MiB of
-memory, which matches the default memory limit for the namespace.
+Çıktı, kapsayıcının bellek isteğinin kapsayıcının manifestosunda belirtilen değere ayarlandığını gösterir.
+Kapsayıcı, ad alanı için varsayılan bellek sınırına eşit olan 512MiB'den fazla bellek kullanamaz.
 
 ```
 resources:
@@ -169,69 +154,60 @@ resources:
 
 {{< note >}}
 
-A `LimitRange` does **not** check the consistency of the default values it applies. This means that a default value for the _limit_ that is set by `LimitRange` may be less than the _request_ value specified for the container in the spec that a client submits to the API server. If that happens, the final Pod will not be scheduleable.
-See [Constraints on resource limits and requests](/docs/concepts/policy/limit-range/#constraints-on-resource-limits-and-requests) for more details.
+Bir `LimitRange`, uyguladığı varsayılan değerlerin tutarlılığını **kontrol etmez**. Bu, `LimitRange` tarafından ayarlanan _sınır_ için bir varsayılan değerin, bir istemcinin API sunucusuna gönderdiği spesifikasyonda kapsayıcı için belirtilen _istek_ değerinden daha az olabileceği anlamına gelir. Bu durumda, nihai Pod planlanamaz olacaktır.
+Daha fazla ayrıntı için [Kaynak sınırları ve istekleri üzerindeki kısıtlamalar](/docs/concepts/policy/limit-range/#constraints-on-resource-limits-and-requests) bölümüne bakın.
 
 {{< /note >}}
 
+## Varsayılan bellek sınırları ve istekleri için motivasyon
 
-## Motivation for default memory limits and requests
+Ad alanınızda bir bellek {{< glossary_tooltip text="kaynak kotası" term_id="resource-quota" >}} yapılandırılmışsa,
+bellek sınırı için varsayılan bir değere sahip olmak faydalıdır.
+Bir kaynak kotasının bir ad alanına getirdiği üç kısıtlama şunlardır:
 
-If your namespace has a memory {{< glossary_tooltip text="resource quota" term_id="resource-quota" >}}
-configured,
-it is helpful to have a default value in place for memory limit.
-Here are three of the restrictions that a resource quota imposes on a namespace:
+* Ad alanında çalışan her Pod için, Pod ve her bir kapsayıcısı bir bellek sınırına sahip olmalıdır.
+  (Her kapsayıcı için bir bellek sınırı belirtirseniz, Kubernetes Pod düzeyinde bellek
+  sınırını kapsayıcılarının sınırlarını toplayarak çıkarabilir).
+* Bellek sınırları, ilgili Pod'un planlandığı düğümde bir kaynak rezervasyonu uygular.
+  Ad alanındaki tüm Pod'lar için ayrılan toplam bellek miktarı belirli bir sınırı aşmamalıdır.
+* Ad alanındaki tüm Pod'lar tarafından fiilen kullanılan toplam bellek miktarı da belirli bir sınırı aşmamalıdır.
 
-* For every Pod that runs in the namespace, the Pod and each of its containers must have a memory limit.
-  (If you specify a memory limit for every container in a Pod, Kubernetes can infer the Pod-level memory
-  limit by adding up the limits for its containers).
-* Memory limits apply a resource reservation on the node where the Pod in question is scheduled.
-  The total amount of memory reserved for all Pods in the namespace must not exceed a specified limit.
-* The total amount of memory actually used by all Pods in the namespace must also not exceed a specified limit.
+Bir LimitRange eklediğinizde:
 
-When you add a LimitRange:
+Bu ad alanındaki herhangi bir Pod, kendi bellek sınırını belirtmeyen bir kapsayıcı içeriyorsa,
+kontrol düzlemi bu kapsayıcıya varsayılan bellek sınırını uygular ve Pod,
+bir bellek ResourceQuota ile sınırlı bir ad alanında çalışmasına izin verilebilir.
 
-If any Pod in that namespace that includes a container does not specify its own memory limit,
-the control plane applies the default memory limit to that container, and the Pod can be
-allowed to run in a namespace that is restricted by a memory ResourceQuota.
+## Temizlik
 
-## Clean up
-
-Delete your namespace:
+Ad alanınızı silin:
 
 ```shell
 kubectl delete namespace default-mem-example
 ```
 
-
-
 ## {{% heading "whatsnext" %}}
 
+### Küme yöneticileri için
 
-### For cluster administrators
+* [Bir Ad Alanı için Varsayılan CPU İsteklerini ve Sınırlarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [Bir Ad Alanı için Minimum ve Maksimum Bellek Kısıtlamalarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [Bir Ad Alanı için Minimum ve Maksimum CPU Kısıtlamalarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [Bir Ad Alanı için Bellek ve CPU Kotalarını Yapılandırma](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [Bir Ad Alanı için Pod Kotası Yapılandırma](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+* [API Nesneleri için Kotaları Yapılandırma](/docs/tasks/administer-cluster/quota-api-object/)
 
-* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+### Uygulama geliştiricileri için
 
-### For app developers
+* [Kapsayıcılara ve Pod'lara Bellek Kaynakları Atama](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [Kapsayıcılara ve Pod'lara CPU Kaynakları Atama](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [Pod düzeyinde CPU ve bellek kaynakları atama](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
 
-* [Assign Pod-level CPU and memory resources](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
-
-* [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
-
-
-
-
+* [Pod'lar için Hizmet Kalitesini Yapılandırma](/docs/tasks/configure-pod-container/quality-service-pod/)

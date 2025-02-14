@@ -5,10 +5,8 @@ layout: supported-versions
 weight: 10
 ---
 
-This website contains documentation for the current version of Kubernetes
-and the four previous versions of Kubernetes.
+Bu web sitesi, Kubernetes'in mevcut sürümü ve Kubernetes'in önceki dört sürümü için belgeler içermektedir.
 
-The availability of documentation for a Kubernetes version is separate from whether
-that release is currently supported.
-Read [Support period](/releases/patch-releases/#support-period) to learn about
-which versions of Kubernetes are officially supported, and for how long.
+Bir Kubernetes sürümü için belgelendirmenin kullanılabilirliği, o sürümün şu anda desteklenip desteklenmediğinden ayrı bir konudur.
+Hangi Kubernetes sürümlerinin resmi olarak desteklendiğini ve ne kadar süreyle desteklendiğini öğrenmek için [Destek süresi](/releases/patch-releases/#support-period) bölümünü okuyun.
+

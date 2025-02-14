@@ -1,5 +1,5 @@
 ---
-title: Use Port Forwarding to Access Applications in a Cluster
+title: Kümedeki Uygulamalara Erişmek İçin Port Yönlendirme Kullanma
 content_type: task
 weight: 40
 min-kubernetes-server-version: v1.10
@@ -7,146 +7,143 @@ min-kubernetes-server-version: v1.10
 
 <!-- overview -->
 
-This page shows how to use `kubectl port-forward` to connect to a MongoDB
-server running in a Kubernetes cluster. This type of connection can be useful
-for database debugging.
+Bu sayfa, bir Kubernetes kümesinde çalışan bir MongoDB sunucusuna bağlanmak için `kubectl port-forward` kullanımını gösterir. Bu tür bir bağlantı, veritabanı hata ayıklaması için yararlı olabilir.
 
 ## {{% heading "prerequisites" %}}
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-* Install [MongoDB Shell](https://www.mongodb.com/try/download/shell).
+* [MongoDB Shell](https://www.mongodb.com/try/download/shell)'i yükleyin.
 
 <!-- steps -->
 
-## Creating MongoDB deployment and service
+## MongoDB dağıtımı ve servisi oluşturma
 
-1. Create a Deployment that runs MongoDB:
+1. MongoDB çalıştıran bir Dağıtım oluşturun:
 
    ```shell
    kubectl apply -f https://k8s.io/examples/application/mongodb/mongo-deployment.yaml
    ```
 
-   The output of a successful command verifies that the deployment was created:
+   Başarılı bir komutun çıktısı, dağıtımın oluşturulduğunu doğrular:
 
    ```
    deployment.apps/mongo created
    ```
 
-   View the pod status to check that it is ready:
+   Pod durumunu kontrol ederek hazır olduğunu kontrol edin:
 
    ```shell
    kubectl get pods
    ```
 
-   The output displays the pod created:
+   Çıktı oluşturulan pod'u gösterir:
 
    ```
    NAME                     READY   STATUS    RESTARTS   AGE
    mongo-75f59d57f4-4nd6q   1/1     Running   0          2m4s
    ```
 
-   View the Deployment's status:
+   Dağıtımın durumunu görüntüleyin:
 
    ```shell
    kubectl get deployment
    ```
 
-   The output displays that the Deployment was created:
+   Çıktı, Dağıtımın oluşturulduğunu gösterir:
 
    ```
    NAME    READY   UP-TO-DATE   AVAILABLE   AGE
    mongo   1/1     1            1           2m21s
    ```
 
-   The Deployment automatically manages a ReplicaSet.
-   View the ReplicaSet status using:
+   Dağıtım, bir ReplicaSet'i otomatik olarak yönetir.
+   ReplicaSet durumunu görüntülemek için:
 
    ```shell
    kubectl get replicaset
    ```
 
-   The output displays that the ReplicaSet was created:
+   Çıktı, ReplicaSet'in oluşturulduğunu gösterir:
 
    ```
    NAME               DESIRED   CURRENT   READY   AGE
    mongo-75f59d57f4   1         1         1       3m12s
    ```
 
-2. Create a Service to expose MongoDB on the network:
+2. MongoDB'yi ağda açığa çıkarmak için bir Servis oluşturun:
 
    ```shell
    kubectl apply -f https://k8s.io/examples/application/mongodb/mongo-service.yaml
    ```
 
-   The output of a successful command verifies that the Service was created:
+   Başarılı bir komutun çıktısı, Servisin oluşturulduğunu doğrular:
 
    ```
    service/mongo created
    ```
 
-   Check the Service created:
+   Oluşturulan Servisi kontrol edin:
 
    ```shell
    kubectl get service mongo
    ```
 
-   The output displays the service created:
+   Çıktı, oluşturulan servisi gösterir:
 
    ```
    NAME    TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)     AGE
    mongo   ClusterIP   10.96.41.183   <none>        27017/TCP   11s
    ```
 
-3. Verify that the MongoDB server is running in the Pod, and listening on port 27017:
+3. MongoDB sunucusunun Pod'da çalıştığını ve 27017 numaralı portu dinlediğini doğrulayın:
 
    ```shell
-   # Change mongo-75f59d57f4-4nd6q to the name of the Pod
+   # mongo-75f59d57f4-4nd6q'yi Pod'un adıyla değiştirin
    kubectl get pod mongo-75f59d57f4-4nd6q --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
    ```
 
-   The output displays the port for MongoDB in that Pod:
+   Çıktı, o Pod'daki MongoDB için portu gösterir:
 
    ```
    27017
    ```
 
-   27017 is the official TCP port for MongoDB.
+   27017, MongoDB için resmi TCP portudur.
 
-## Forward a local port to a port on the Pod
+## Yerel bir portu Pod'daki bir porta yönlendirme
 
-1. `kubectl port-forward` allows using resource name, such as a pod name, to select a matching pod to port forward to.
-
+1. `kubectl port-forward`, bir pod adı gibi kaynak adını kullanarak eşleşen bir pod'u seçip bu pod'a port yönlendirme yapmanıza olanak tanır.
 
    ```shell
-   # Change mongo-75f59d57f4-4nd6q to the name of the Pod
+   # mongo-75f59d57f4-4nd6q'yi Pod'un adıyla değiştirin
    kubectl port-forward mongo-75f59d57f4-4nd6q 28015:27017
    ```
 
-   which is the same as
+   bu aynı zamanda
 
    ```shell
    kubectl port-forward pods/mongo-75f59d57f4-4nd6q 28015:27017
    ```
 
-   or
+   veya
 
    ```shell
    kubectl port-forward deployment/mongo 28015:27017
    ```
 
-   or
+   veya
 
    ```shell
    kubectl port-forward replicaset/mongo-75f59d57f4 28015:27017
    ```
 
-   or
+   veya
 
    ```shell
    kubectl port-forward service/mongo 28015:27017
    ```
 
-   Any of the above commands works. The output is similar to this:
+   Yukarıdaki komutlardan herhangi biri çalışır. Çıktı buna benzer:
 
    ```
    Forwarding from 127.0.0.1:28015 -> 27017
@@ -154,39 +151,36 @@ for database debugging.
    ```
 
    {{< note >}}
-   `kubectl port-forward` does not return. To continue with the exercises, you will need to open another terminal.
+   `kubectl port-forward` dönmez. Egzersizlere devam etmek için başka bir terminal açmanız gerekecek.
    {{< /note >}}
 
-2. Start the MongoDB command line interface:
+2. MongoDB komut satırı arayüzünü başlatın:
 
    ```shell
    mongosh --port 28015
    ```
 
-3. At the MongoDB command line prompt, enter the `ping` command:
+3. MongoDB komut satırı isteminde, `ping` komutunu girin:
 
    ```
    db.runCommand( { ping: 1 } )
    ```
 
-   A successful ping request returns:
+   Başarılı bir ping isteği şu şekilde döner:
 
    ```
    { ok: 1 }
    ```
 
-### Optionally let _kubectl_ choose the local port {#let-kubectl-choose-local-port}
+### Yerel portu _kubectl_'in seçmesine izin verme {#let-kubectl-choose-local-port}
 
-If you don't need a specific local port, you can let `kubectl` choose and allocate 
-the local port and thus relieve you from having to manage local port conflicts, with 
-the slightly simpler syntax:
+Belirli bir yerel porta ihtiyacınız yoksa, `kubectl`'in yerel portu seçmesine ve tahsis etmesine izin verebilir ve böylece yerel port çakışmalarını yönetmekten kurtulabilirsiniz, biraz daha basit bir sözdizimi ile:
 
 ```shell
 kubectl port-forward deployment/mongo :27017
 ```
 
-The `kubectl` tool finds a local port number that is not in use (avoiding low ports numbers,
-because these might be used by other applications). The output is similar to:
+`kubectl` aracı, kullanılmayan bir yerel port numarası bulur (diğer uygulamalar tarafından kullanılabilecek düşük port numaralarından kaçınır). Çıktı buna benzer:
 
 ```
 Forwarding from 127.0.0.1:63753 -> 27017
@@ -195,19 +189,15 @@ Forwarding from [::1]:63753 -> 27017
 
 <!-- discussion -->
 
-## Discussion
+## Tartışma
 
-Connections made to local port 28015 are forwarded to port 27017 of the Pod that
-is running the MongoDB server. With this connection in place, you can use your
-local workstation to debug the database that is running in the Pod.
+Yerel port 28015'e yapılan bağlantılar, MongoDB sunucusunu çalıştıran Pod'un 27017 numaralı portuna yönlendirilir. Bu bağlantı kurulduğunda, Pod'da çalışan veritabanını hata ayıklamak için yerel iş istasyonunuzu kullanabilirsiniz.
 
 {{< note >}}
-`kubectl port-forward` is implemented for TCP ports only.
-The support for UDP protocol is tracked in
-[issue 47862](https://github.com/kubernetes/kubernetes/issues/47862).
+`kubectl port-forward` yalnızca TCP portları için uygulanmıştır.
+UDP protokolü desteği [issue 47862](https://github.com/kubernetes/kubernetes/issues/47862) ile takip edilmektedir.
 {{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
-Learn more about [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands/#port-forward).
-
+[kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands/#port-forward) hakkında daha fazla bilgi edinin.

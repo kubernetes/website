@@ -1,94 +1,76 @@
 ---
 reviewers:
 - Random-Liu
-title: Validate node setup
+title: Düğüm kurulumunu doğrulayın
 weight: 30
 ---
 
-## Node Conformance Test
+## Düğüm Uyum Testi
 
-*Node conformance test* is a containerized test framework that provides a system
-verification and functionality test for a node. The test validates whether the
-node meets the minimum requirements for Kubernetes; a node that passes the test
-is qualified to join a Kubernetes cluster.
+*Düğüm uyum testi*, bir düğüm için sistem doğrulama ve işlevsellik testi sağlayan kapsayıcılaştırılmış bir test çerçevesidir. Test, düğümün Kubernetes için minimum gereksinimleri karşılayıp karşılamadığını doğrular; testi geçen bir düğüm, bir Kubernetes kümesine katılmaya hak kazanır.
 
-## Node Prerequisite
+## Düğüm Ön Koşulu
 
-To run node conformance test, a node must satisfy the same prerequisites as a
-standard Kubernetes node. At a minimum, the node should have the following
-daemons installed:
+Düğüm uyum testini çalıştırmak için, bir düğüm standart bir Kubernetes düğümü ile aynı ön koşulları karşılamalıdır. En azından, düğümde aşağıdaki daemonlar kurulmuş olmalıdır:
 
-* CRI-compatible container runtimes such as Docker, containerd and CRI-O
+* Docker, containerd ve CRI-O gibi CRI uyumlu kapsayıcı çalışma zamanları
 * kubelet
 
-## Running Node Conformance Test
+## Düğüm Uyum Testini Çalıştırma
 
-To run the node conformance test, perform the following steps:
+Düğüm uyum testini çalıştırmak için aşağıdaki adımları izleyin:
 
-1. Work out the value of the `--kubeconfig` option for the kubelet; for example:
-   `--kubeconfig=/var/lib/kubelet/config.yaml`.
-    Because the test framework starts a local control plane to test the kubelet,
-    use `http://localhost:8080` as the URL of the API server.
-    There are some other kubelet command line parameters you may want to use:
+1. Kubelet için `--kubeconfig` seçeneğinin değerini belirleyin; örneğin: `--kubeconfig=/var/lib/kubelet/config.yaml`.
+  Test çerçevesi kubeleti test etmek için yerel bir kontrol düzlemi başlattığından, API sunucusunun URL'si olarak `http://localhost:8080` kullanın.
+  Kullanmak isteyebileceğiniz bazı diğer kubelet komut satırı parametreleri şunlardır:
   
-   * `--cloud-provider`: If you are using `--cloud-provider=gce`, you should
-     remove the flag to run the test.
+   * `--cloud-provider`: `--cloud-provider=gce` kullanıyorsanız, testi çalıştırmak için bayrağı kaldırmalısınız.
 
-1. Run the node conformance test with command:
+1. Düğüm uyum testini şu komutla çalıştırın:
 
    ```shell
-   # $CONFIG_DIR is the pod manifest path of your kubelet.
-   # $LOG_DIR is the test output path.
+   # $CONFIG_DIR, kubelet'in pod manifest yoludur.
+   # $LOG_DIR, test çıktısı yoludur.
    sudo docker run -it --rm --privileged --net=host \
-     -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-     registry.k8s.io/node-test:0.2
+   -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
+   registry.k8s.io/node-test:0.2
    ```
 
-## Running Node Conformance Test for Other Architectures
+## Diğer Mimariler İçin Düğüm Uyum Testini Çalıştırma
 
-Kubernetes also provides node conformance test docker images for other
-architectures:
+Kubernetes ayrıca diğer mimariler için düğüm uyum testi docker görüntüleri sağlar:
 
 |  Arch  |       Image       |
-|--------|:-----------------:|
+|--------|:-----------------:| 
 |  amd64 |  node-test-amd64  |
 |  arm   |   node-test-arm   |
 | arm64  |  node-test-arm64  |
 
-## Running Selected Test
+## Seçili Testi Çalıştırma
 
-To run specific tests, overwrite the environment variable `FOCUS` with the
-regular expression of tests you want to run.
-
-```shell
-sudo docker run -it --rm --privileged --net=host \
-  -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-  -e FOCUS=MirrorPod \ # Only run MirrorPod test
-  registry.k8s.io/node-test:0.2
-```
-
-To skip specific tests, overwrite the environment variable `SKIP` with the
-regular expression of tests you want to skip.
+Belirli testleri çalıştırmak için, çalıştırmak istediğiniz testlerin düzenli ifadesi ile `FOCUS` ortam değişkenini geçersiz kılın.
 
 ```shell
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-  -e SKIP=MirrorPod \ # Run all conformance tests but skip MirrorPod test
+  -e FOCUS=MirrorPod \ # Sadece MirrorPod testini çalıştır
   registry.k8s.io/node-test:0.2
 ```
 
-Node conformance test is a containerized version of
-[node e2e test](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md).
-By default, it runs all conformance tests.
+Belirli testleri atlamak için, atlamak istediğiniz testlerin düzenli ifadesi ile `SKIP` ortam değişkenini geçersiz kılın.
 
-Theoretically, you can run any node e2e test if you configure the container and
-mount required volumes properly. But **it is strongly recommended to only run conformance
-test**, because it requires much more complex configuration to run non-conformance test.
+```shell
+sudo docker run -it --rm --privileged --net=host \
+  -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
+  -e SKIP=MirrorPod \ # Tüm uyum testlerini çalıştır ama MirrorPod testini atla
+  registry.k8s.io/node-test:0.2
+```
 
-## Caveats
+Düğüm uyum testi, [düğüm e2e testi](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md)'nin kapsayıcılaştırılmış bir versiyonudur. Varsayılan olarak, tüm uyum testlerini çalıştırır.
 
-* The test leaves some docker images on the node, including the node conformance
-  test image and images of containers used in the functionality
-  test.
-* The test leaves dead containers on the node. These containers are created
-  during the functionality test.
+Teorik olarak, kapsayıcıyı yapılandırıp gerekli birimleri doğru şekilde monte ederseniz herhangi bir düğüm e2e testini çalıştırabilirsiniz. Ancak **yalnızca uyum testini çalıştırmanız şiddetle tavsiye edilir**, çünkü uyum dışı testleri çalıştırmak çok daha karmaşık bir yapılandırma gerektirir.
+
+## Uyarılar
+
+* Test, düğümde bazı docker görüntüleri bırakır, bunlar arasında düğüm uyum testi görüntüsü ve işlevsellik testinde kullanılan kapsayıcıların görüntüleri bulunur.
+* Test, düğümde ölü kapsayıcılar bırakır. Bu kapsayıcılar işlevsellik testi sırasında oluşturulur.

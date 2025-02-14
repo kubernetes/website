@@ -1,79 +1,61 @@
 ---
-title: Changing The Kubernetes Package Repository
+title: Kubernetes Paket Deposu Değiştirme
 content_type: task
 weight: 150
 ---
 
-<!-- overview -->
+<!-- genel bakış -->
 
-This page explains how to enable a package repository for the desired
-Kubernetes minor release upon upgrading a cluster. This is only needed 
-for users of the community-owned package repositories hosted at `pkgs.k8s.io`.
-Unlike the legacy package repositories, the community-owned package
-repositories are structured in a way that there's a dedicated package
-repository for each Kubernetes minor version.
+Bu sayfa, bir kümenin yükseltilmesi sırasında istenen Kubernetes küçük sürümü için bir paket deposunun nasıl etkinleştirileceğini açıklar. Bu yalnızca `pkgs.k8s.io` adresinde barındırılan topluluk tarafından sahip olunan paket depolarını kullanan kullanıcılar için gereklidir. Eski paket depolarının aksine, topluluk tarafından sahip olunan paket depoları, her Kubernetes küçük sürümü için özel bir paket deposu olacak şekilde yapılandırılmıştır.
 
 {{< note >}}
-This guide only covers a part of the Kubernetes upgrade process. Please see the
-[upgrade guide](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/) for
-more information about upgrading Kubernetes clusters.
+Bu kılavuz yalnızca Kubernetes yükseltme sürecinin bir bölümünü kapsar. Kubernetes kümelerini yükseltme hakkında daha fazla bilgi için lütfen [yükseltme kılavuzuna](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/) bakın.
 {{</ note >}}
 
 {{< note >}}
-This step is only needed upon upgrading a cluster to another **minor** release.
-If you're upgrading to another patch release within the same minor release (e.g.
-v{{< skew currentVersion >}}.5 to v{{< skew currentVersion >}}.7), you don't
-need to follow this guide. However, if you're still using the legacy package
-repositories, you'll need to migrate to the new community-owned package
-repositories before upgrading (see the next section for more details on how to
-do this).
+Bu adım yalnızca bir kümeyi başka bir **küçük** sürüme yükseltirken gereklidir. Aynı küçük sürüm içinde başka bir yama sürümüne yükseltiyorsanız (örneğin v{{< skew currentVersion >}}.5'ten v{{< skew currentVersion >}}.7'ye), bu kılavuzu takip etmeniz gerekmez. Ancak, hala eski paket depolarını kullanıyorsanız, yükseltmeden önce topluluk tarafından sahip olunan yeni paket depolarına geçmeniz gerekecektir (bunun nasıl yapılacağı hakkında daha fazla bilgi için bir sonraki bölüme bakın).
 {{</ note >}}
 
-## {{% heading "prerequisites" %}}
+## {{% heading "önkoşullar" %}}
 
-This document assumes that you're already using the community-owned
-package repositories (`pkgs.k8s.io`). If that's not the case, it's strongly
-recommended to migrate to the community-owned package repositories as described
-in the [official announcement](/blog/2023/08/15/pkgs-k8s-io-introduction/).
+Bu belge, topluluk tarafından sahip olunan paket depolarını (`pkgs.k8s.io`) zaten kullandığınızı varsayar. Durum böyle değilse, [resmi duyuruda](/blog/2023/08/15/pkgs-k8s-io-introduction/) açıklandığı gibi topluluk tarafından sahip olunan paket depolarına geçmeniz şiddetle tavsiye edilir.
 
 {{% legacy-repos-deprecation %}}
 
-### Verifying if the Kubernetes package repositories are used
+### Kubernetes paket depolarının kullanılıp kullanılmadığını doğrulama
 
-If you're unsure whether you're using the community-owned package repositories or the
-legacy package repositories, take the following steps to verify:
+Topluluk tarafından sahip olunan paket depolarını mı yoksa eski paket depolarını mı kullandığınızdan emin değilseniz, doğrulamak için aşağıdaki adımları izleyin:
 
 {{< tabs name="k8s_install_versions" >}}
-{{% tab name="Ubuntu, Debian or HypriotOS" %}}
+{{% tab name="Ubuntu, Debian veya HypriotOS" %}}
 
-Print the contents of the file that defines the Kubernetes `apt` repository:
+Kubernetes `apt` deposunu tanımlayan dosyanın içeriğini yazdırın:
 
 ```shell
-# On your system, this configuration file could have a different name
+# Sisteminizde, bu yapılandırma dosyasının farklı bir adı olabilir
 pager /etc/apt/sources.list.d/kubernetes.list
 ```
 
-If you see a line similar to:
+Şuna benzer bir satır görürseniz:
 
 ```
 deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v{{< skew currentVersionAddMinor -1 "." >}}/deb/ /
 ```
 
-**You're using the Kubernetes package repositories and this guide applies to you.**
-Otherwise, it's strongly recommended to migrate to the Kubernetes package repositories
-as described in the [official announcement](/blog/2023/08/15/pkgs-k8s-io-introduction/).
+**Kubernetes paket depolarını kullanıyorsunuz ve bu kılavuz sizin için geçerlidir.**
+Aksi takdirde, [resmi duyuruda](/blog/2023/08/15/pkgs-k8s-io-introduction/) açıklandığı gibi Kubernetes paket depolarına geçmeniz şiddetle tavsiye edilir.
 
 {{% /tab %}}
-{{% tab name="CentOS, RHEL or Fedora" %}}
+{{% tab name="CentOS, RHEL veya Fedora" %}}
 
-Print the contents of the file that defines the Kubernetes `yum` repository:
+Kubernetes `yum` deposunu tanımlayan dosyanın içeriğini yazdırın:
 
 ```shell
-# On your system, this configuration file could have a different name
+# Sisteminizde, bu yapılandırma dosyasının farklı bir adı olabilir
 cat /etc/yum.repos.d/kubernetes.repo
 ```
 
-If you see a `baseurl` similar to the `baseurl` in the output below:
+Çıktıdaki `baseurl`'e benzer bir `baseurl` görürseniz:
 
 ```
 [kubernetes]
@@ -85,22 +67,21 @@ gpgkey=https://pkgs.k8s.io/core:/stable:/v{{< skew currentVersionAddMinor -1 "."
 exclude=kubelet kubeadm kubectl
 ```
 
-**You're using the Kubernetes package repositories and this guide applies to you.**
-Otherwise, it's strongly recommended to migrate to the Kubernetes package repositories
-as described in the [official announcement](/blog/2023/08/15/pkgs-k8s-io-introduction/).
+**Kubernetes paket depolarını kullanıyorsunuz ve bu kılavuz sizin için geçerlidir.**
+Aksi takdirde, [resmi duyuruda](/blog/2023/08/15/pkgs-k8s-io-introduction/) açıklandığı gibi Kubernetes paket depolarına geçmeniz şiddetle tavsiye edilir.
 
 {{% /tab %}}
 
-{{% tab name="openSUSE or SLES" %}}
+{{% tab name="openSUSE veya SLES" %}}
 
-Print the contents of the file that defines the Kubernetes `zypper` repository:
+Kubernetes `zypper` deposunu tanımlayan dosyanın içeriğini yazdırın:
 
 ```shell
-# On your system, this configuration file could have a different name
+# Sisteminizde, bu yapılandırma dosyasının farklı bir adı olabilir
 cat /etc/zypp/repos.d/kubernetes.repo
 ```
 
-If you see a `baseurl` similar to the `baseurl` in the output below:
+Çıktıdaki `baseurl`'e benzer bir `baseurl` görürseniz:
 
 ```
 [kubernetes]
@@ -112,67 +93,59 @@ gpgkey=https://pkgs.k8s.io/core:/stable:/v{{< skew currentVersionAddMinor -1 "."
 exclude=kubelet kubeadm kubectl
 ```
 
-**You're using the Kubernetes package repositories and this guide applies to you.**
-Otherwise, it's strongly recommended to migrate to the Kubernetes package repositories
-as described in the [official announcement](/blog/2023/08/15/pkgs-k8s-io-introduction/).
+**Kubernetes paket depolarını kullanıyorsunuz ve bu kılavuz sizin için geçerlidir.**
+Aksi takdirde, [resmi duyuruda](/blog/2023/08/15/pkgs-k8s-io-introduction/) açıklandığı gibi Kubernetes paket depolarına geçmeniz şiddetle tavsiye edilir.
 
 {{% /tab %}}
 {{< /tabs >}}
 
 {{< note >}}
-The URL used for the Kubernetes package repositories is not limited to `pkgs.k8s.io`,
-it can also be one of:
+Kubernetes paket depoları için kullanılan URL `pkgs.k8s.io` ile sınırlı değildir, aynı zamanda şu adreslerden biri olabilir:
 
 - `pkgs.k8s.io`
 - `pkgs.kubernetes.io`
 - `packages.kubernetes.io`
 {{</ note >}}
 
-<!-- steps -->
+<!-- adımlar -->
 
-## Switching to another Kubernetes package repository
+## Başka bir Kubernetes paket deposuna geçiş
 
-This step should be done upon upgrading from one to another Kubernetes minor
-release in order to get access to the packages of the desired Kubernetes minor
-version.
+Bu adım, istenen Kubernetes küçük sürümünün paketlerine erişim sağlamak için bir Kubernetes küçük sürümünden diğerine yükseltme sırasında yapılmalıdır.
 
 {{< tabs name="k8s_upgrade_versions" >}}
-{{% tab name="Ubuntu, Debian or HypriotOS" %}}
+{{% tab name="Ubuntu, Debian veya HypriotOS" %}}
 
-1. Open the file that defines the Kubernetes `apt` repository using a text editor of your choice:
+1. Bir metin düzenleyici kullanarak Kubernetes `apt` deposunu tanımlayan dosyayı açın:
 
    ```shell
    nano /etc/apt/sources.list.d/kubernetes.list
    ```
 
-   You should see a single line with the URL that contains your current Kubernetes
-   minor version. For example, if you're using v{{< skew currentVersionAddMinor -1 "." >}},
-   you should see this:
+   Mevcut Kubernetes küçük sürümünüzü içeren URL ile tek bir satır görmelisiniz. Örneğin, v{{< skew currentVersionAddMinor -1 "." >}} kullanıyorsanız, şunu görmelisiniz:
 
    ```
    deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v{{< skew currentVersionAddMinor -1 "." >}}/deb/ /
    ```
 
-1. Change the version in the URL to **the next available minor release**, for example:
+1. URL'deki sürümü **bir sonraki mevcut küçük sürüm** olarak değiştirin, örneğin:
 
    ```
    deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /
    ```
 
-1. Save the file and exit your text editor. Continue following the relevant upgrade instructions.
+1. Dosyayı kaydedin ve metin düzenleyicinizden çıkın. İlgili yükseltme talimatlarını izlemeye devam edin.
 
 {{% /tab %}}
-{{% tab name="CentOS, RHEL or Fedora" %}}
+{{% tab name="CentOS, RHEL veya Fedora" %}}
 
-1. Open the file that defines the Kubernetes `yum` repository using a text editor of your choice:
+1. Bir metin düzenleyici kullanarak Kubernetes `yum` deposunu tanımlayan dosyayı açın:
 
    ```shell
    nano /etc/yum.repos.d/kubernetes.repo
    ```
 
-   You should see a file with two URLs that contain your current Kubernetes
-   minor version. For example, if you're using v{{< skew currentVersionAddMinor -1 "." >}},
-   you should see this:
+   Mevcut Kubernetes küçük sürümünüzü içeren iki URL içeren bir dosya görmelisiniz. Örneğin, v{{< skew currentVersionAddMinor -1 "." >}} kullanıyorsanız, şunu görmelisiniz:
 
    ```
    [kubernetes]
@@ -184,7 +157,7 @@ version.
    exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
    ```
 
-1. Change the version in these URLs to **the next available minor release**, for example:
+1. Bu URL'lerdeki sürümü **bir sonraki mevcut küçük sürüm** olarak değiştirin, örneğin:
 
    ```
    [kubernetes]
@@ -196,12 +169,12 @@ version.
    exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
    ```
 
-1. Save the file and exit your text editor. Continue following the relevant upgrade instructions.
+1. Dosyayı kaydedin ve metin düzenleyicinizden çıkın. İlgili yükseltme talimatlarını izlemeye devam edin.
 
 {{% /tab %}}
 {{< /tabs >}}
 
-## {{% heading "whatsnext" %}}
+## {{% heading "sonraki adımlar" %}}
 
-* See how to [Upgrade Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/).
-* See how to [Upgrade Windows nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes/).
+* [Linux düğümlerini yükseltme](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/) hakkında bilgi edinin.
+* [Windows düğümlerini yükseltme](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes/) hakkında bilgi edinin.
