@@ -1,6 +1,6 @@
 ---
 title: Gestión de Objetos en Kubernetes
-content_type: concepto
+content_type: concept
 weight: 20
 ---
 
