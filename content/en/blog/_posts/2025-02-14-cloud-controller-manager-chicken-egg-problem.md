@@ -6,7 +6,6 @@ slug: cloud-controller-manager-chicken-egg-problem
 author: >
   Antonio Ojea,
   Michael McCune
-draft: true
 ---
 
 Kubernetes 1.31
