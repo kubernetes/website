@@ -175,7 +175,6 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/name: cloud-controller-manager
-    kubernetes.io/description: "Cloud controller manager for my infrastructure"
   name: cloud-controller-manager
   namespace: kube-system
 spec:
@@ -189,6 +188,8 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: cloud-controller-manager
+      annotations:
+        kubernetes.io/description: Cloud controller manager for my infrastructure
     spec:
       containers: # the container details will depend on your specific cloud controller manager
       - name: cloud-controller-manager
