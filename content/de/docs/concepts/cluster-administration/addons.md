@@ -36,7 +36,7 @@ Die Add-Ons in den einzelnen Kategorien sind alphabetisch sortiert - Die Reihenf
 
 ## Service-Discovery
 
-* [CoreDNS](https://coredns.io) ist ein flexibler, erweiterbarer DNS-Server der in einem Cluster [installiert](https://github.com/coredns/deployment/tree/master/kubernetes) werden kann und das Cluster-interne DNS für Pods bereitzustellen.
+* [CoreDNS](https://coredns.io) ist ein flexibler, erweiterbarer DNS-Server der in einem Cluster [installiert](https://github.com/coredns/helm) werden kann und das Cluster-interne DNS für Pods bereitzustellen.
 
 ## Visualisierung &amp; Überwachung
 
