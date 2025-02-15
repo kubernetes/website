@@ -44,7 +44,7 @@ Node, Region and Instance type information.
     src="ccm-chicken-egg-problem-sequence-diagram.svg"
     alt="Chicken and egg problem sequence diagram"
     caption="Chicken and egg problem sequence diagram"
-    class="diagram-large"
+    class="diagram-medium"
 >}}
 
 This new initialization process adds some latency to the node readiness. Previously, the kubelet
