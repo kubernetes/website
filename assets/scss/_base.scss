@@ -462,16 +462,6 @@ $video-section-height: 200px;
   }
 }
 
-// Add logo to CNCF section
-section#cncf {
-  padding-top: 60px;
-  padding-bottom: 140px;
-  background-image: url(/images/cncf-color.svg);
-  background-position: center 100px;
-  background-repeat: no-repeat;
-  background-size: 300px;
-}
-
 // OCEAN NODES
 #oceanNodes, .td-home .k8s-overview {
 
