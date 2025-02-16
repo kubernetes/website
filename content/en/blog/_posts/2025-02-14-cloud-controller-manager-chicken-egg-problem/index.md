@@ -25,34 +25,27 @@ The [cloud controller manager is part of the control plane][ccm]. It is a critic
 that replaces some functionality that existed previously in the kube-controller-manager and the
 kubelet.
 
-![Components of Kubernetes](https://kubernetes.io/images/docs/components-of-kubernetes.svg)
+{{< figure
+    src="/images/docs/components-of-kubernetes.svg"
+    alt="Components of Kubernetes"
+    caption="Components of Kubernetes"
+>}}
 
 One of the most critical functionalities of the cloud controller manager is the node controller,
 which is responsible for the initialization of the nodes.
 
-As you can see in the following diagram, when the **kubelet** starts, it registers the `Node`
+As you can see in the following diagram, when the **kubelet** starts, it registers the Node
 object with the apiserver, Tainting the node so it can be processed first by the
-cloud-controller-manager. The initial `Node` is missing the cloud-provider specific information,
+cloud-controller-manager. The initial Node is missing the cloud-provider specific information,
 like the Node Addresses and the Labels with the cloud provider specific information like the
 Node, Region and Instance type information.
 
-```mermaid
-sequenceDiagram
-    autonumber
-    rect rgb(191, 223, 255)
-    Kubelet->>+Kube-apiserver: Create Node
-    Note over Kubelet: Taint:<br/> node.cloudprovider.kubernetes.io
-    Kube-apiserver->>-Kubelet: Node  Created
-    end
-    Note over Kube-apiserver: Node is Not Ready<br/> Tainted, Missing Node Addresses*, ...
-    Note over Kube-apiserver: Send Updates
-    rect rgb(200, 150, 255)
-    Kube-apiserver->>+Cloud-controller-manager: Watch: New Node Created
-    Note over Cloud-controller-manager: Initialize Node:<br/>Cloud Provider Labels, Node Addresses, ...
-    Cloud-controller-manager->>-Kube-apiserver: Update Node
-    end
-    Note over Kube-apiserver: Node is Ready
-```
+{{< figure
+    src="ccm-chicken-egg-problem-sequence-diagram.svg"
+    alt="Chicken and egg problem sequence diagram"
+    caption="Chicken and egg problem sequence diagram"
+    class="diagram-medium"
+>}}
 
 This new initialization process adds some latency to the node readiness. Previously, the kubelet
 was able to initialize the node at the same time it created the node. Since the logic has moved
@@ -100,9 +93,9 @@ The [Kubernetes documentation describes][kubedocs1] the `node.kubernetes.io/not-
 
 > "The Node controller detects whether a Node is ready by monitoring its health and adds or removes this taint accordingly."
 
-One of the conditions that can lead to a `Node` resource having this taint is when the container
+One of the conditions that can lead to a Node resource having this taint is when the container
 network has not yet been initialized on that node. As the cloud-controller-manager is responsible
-for adding the IP addresses to a `Node` resource, and the IP addresses are needed by the container
+for adding the IP addresses to a Node resource, and the IP addresses are needed by the container
 network controllers to properly configure the container network, it is possible in some
 circumstances for a node to become stuck as not ready and uninitialized permanently.
 
