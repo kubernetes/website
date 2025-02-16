@@ -65,3 +65,10 @@ function copyCode(elem) {
   {{- $jsDetect := resources.Get "js/detect-js.js" -}}
 <script defer src="{{ $jsDetect.RelPermalink }}"></script>
 {{- end -}}
+
+{{- if eq .Layout "search" -}}
+{{- $searchJs := resources.Get "js/search.js" | minify | fingerprint -}}
+<script src="{{ $searchJs.RelPermalink }}" integrity="{{ $searchJs.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- $googleSearchJs := resources.Get "js/search-google.js" -}}
+<script src="{{ $googleSearchJs.RelPermalink }}"></script>
+{{- end -}}

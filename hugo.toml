@@ -150,9 +150,6 @@ githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 # GitHub repository link for editing a page and opening issues.
 github_repo = "https://github.com/kubernetes/website"
 
-# Searching
-k8s_search = true
-
 # The following search parameters are specific to Docsy's implementation. Kubernetes implementes its own search-related partials and scripts.
 
 # Google Custom Search Engine ID. Remove or comment out to disable search.
@@ -208,6 +205,8 @@ url = "https://v1-28.docs.kubernetes.io"
 
 # User interface configuration
 [params.ui]
+# Searching (eg via Google / Bing). Customized from Docsy's usual search.
+search = true
 # Enable to show the side bar menu in its compact state.
 sidebar_menu_compact = false
 # Show this many levels in compact mode
@@ -224,6 +223,8 @@ sidebar_search_disable = false
 navbar_logo = true
 # Set to true to disable the About link in the site footer
 footer_about_disable = false
+# Enable searching from the top nav bar
+top_nav_bar_search = true
 
 # Adds a H2 section titled "Feedback" to the bottom of each doc. The responses are sent to Google Analytics as events.
 # This feature depends on [services.googleAnalytics] and will be disabled if "services.googleAnalytics.id" is not set.
