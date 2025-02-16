@@ -31,8 +31,8 @@ endpoints. The control plane automatically creates EndpointSlices
 for any Kubernetes Service that has a {{< glossary_tooltip text="selector"
 term_id="selector" >}} specified. These EndpointSlices include
 references to all the Pods that match the Service selector. EndpointSlices group
-network endpoints together by unique combinations of protocol, port number, and
-Service name.
+network endpoints together by unique combinations of IP family, protocol,
+port number, and Service name.
 The name of a EndpointSlice object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
@@ -73,11 +73,10 @@ how to route internal traffic.
 
 ### Address types
 
-EndpointSlices support three address types:
+EndpointSlices support two address types:
 
 * IPv4
 * IPv6
-* FQDN (Fully Qualified Domain Name)
 
 Each `EndpointSlice` object represents a specific IP address type. If you have
 a Service that is available via IPv4 and IPv6, there will be at least two
@@ -86,42 +85,37 @@ a Service that is available via IPv4 and IPv6, there will be at least two
 ### Conditions
 
 The EndpointSlice API stores conditions about endpoints that may be useful for consumers.
-The three conditions are `ready`, `serving`, and `terminating`.
-
-#### Ready
-
-`ready` is a condition that maps to a Pod's `Ready` condition. A running Pod with the `Ready`
-condition set to `True` should have this EndpointSlice condition also set to `true`. For
-compatibility reasons, `ready` is NEVER `true` when a Pod is terminating. Consumers should refer
-to the `serving` condition to inspect the readiness of terminating Pods. The only exception to
-this rule is for Services with `spec.publishNotReadyAddresses` set to `true`. Endpoints for these
-Services will always have the `ready` condition set to `true`.
+The three conditions are `serving`, `terminating`, and `ready`.
 
 #### Serving
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
-The `serving` condition is almost identical to the `ready` condition. The difference is that
-consumers of the EndpointSlice API should check the `serving` condition if they care about pod readiness while
-the pod is also terminating.
-
-{{< note >}}
-
-Although `serving` is almost identical to `ready`, it was added to prevent breaking the existing meaning
-of `ready`. It may be unexpected for existing clients if `ready` could be `true` for terminating
-endpoints, since historically terminating endpoints were never included in the Endpoints or
-EndpointSlice API to begin with. For this reason, `ready` is _always_ `false` for terminating
-endpoints, and a new condition `serving` was added in v1.20 so that clients can track readiness
-for terminating pods independent of the existing semantics for `ready`.
-
-{{< /note >}}
+The `serving` condition indicates that the endpoint is currently serving responses, and
+so it should be used as a target for Service traffic. For endpoints backed by a Pod, this
+maps to the Pod's `Ready` condition.
 
 #### Terminating
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
-`Terminating` is a condition that indicates whether an endpoint is terminating.
-For pods, this is any pod that has a deletion timestamp set.
+The `terminating` condition indicates that the endpoint is
+terminating. For endpoints backed by a Pod, this condition is set when
+the Pod is first deleted (that is, when it receives a deletion
+timestamp, but most likely before the Pod's containers exit).
+
+Service proxies will normally ignore endpoints that are `terminating`,
+but they may route traffic to endpoints that are both `serving` and
+`terminating` if all available endpoints are `terminating`. (This
+helps to ensure that no Service traffic is lost during rolling updates
+of the underlying Pods.)
+
+#### Ready
+
+The `ready` condition is essentially a shortcut for checking
+"`serving` and not `terminating`" (though it will also always be
+`true` for Services with `spec.publishNotReadyAddresses` set to
+`true`).
 
 ### Topology information {#topology}
 
@@ -132,18 +126,6 @@ per endpoint fields on EndpointSlices:
 
 * `nodeName` - The name of the Node this endpoint is on.
 * `zone` - The zone this endpoint is in.
-
-{{< note >}}
-In the v1 API, the per endpoint `topology` was effectively removed in favor of
-the dedicated fields `nodeName` and `zone`.
-
-Setting arbitrary topology fields on the `endpoint` field of an `EndpointSlice`
-resource has been deprecated and is not supported in the v1 API.
-Instead, the v1 API supports setting individual `nodeName` and `zone` fields.
-These fields are automatically translated between API versions. For example, the
-value of the `"topology.kubernetes.io/zone"` key in the `topology` field in
-the v1beta1 API is accessible as the `zone` field in the v1 API.
-{{< /note >}}
 
 ### Management
 
@@ -243,35 +225,6 @@ important to mention that endpoints may be duplicated in different EndpointSlice
 You can find a reference implementation for how to perform this endpoint aggregation
 and deduplication as part of the `EndpointSliceCache` code within `kube-proxy`.
 {{< /note >}}
-
-## Comparison with Endpoints {#motivation}
-
-The original Endpoints API provided a simple and straightforward way of
-tracking network endpoints in Kubernetes. As Kubernetes clusters
-and {{< glossary_tooltip text="Services" term_id="service" >}} grew to handle
-more traffic and to send more traffic to more backend Pods, the
-limitations of that original API became more visible.
-Most notably, those included challenges with scaling to larger numbers of
-network endpoints.
-
-Since all network endpoints for a Service were stored in a single Endpoints
-object, those Endpoints objects could get quite large. For Services that stayed
-stable (the same set of endpoints over a long period of time) the impact was
-less noticeable; even then, some use cases of Kubernetes weren't well served.
-
-When a Service had a lot of backend endpoints and the workload was either
- scaling frequently, or rolling out new changes frequently, each update to
-the single Endpoints object for that Service meant a lot of traffic between
-Kubernetes cluster components (within the control plane, and also between
-nodes and the API server). This extra traffic also had a cost in terms of
-CPU use.
-
-With EndpointSlices, adding or removing a single Pod triggers the same _number_
-of updates to clients that are watching for changes, but the size of those
-update message is much smaller at large scale.
-
-EndpointSlices also enabled innovation around new features such dual-stack
-networking and topology-aware routing.
 
 ## {{% heading "whatsnext" %}}
 
