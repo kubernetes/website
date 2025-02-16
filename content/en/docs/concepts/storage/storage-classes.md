@@ -221,6 +221,16 @@ supported plugins.
 
 {{% code_sample language="yaml" file="storage/storageclass/storageclass-topology.yaml" %}}
 
+Here's an outline of some important fields within the [StorageClass](/docs/reference/kubernetes-api/config-and-storage-resources/storage-class-v1/) API:
+- `provisioner`: See [`Provisioner`](/docs/concepts/storage/storage-classes/#provisioner) for details.
+- `allowedTopologies`: Defines the constraints for the allowed topologies. In this example, it's based on zone.
+- `matchLabelExpressions`: Specify selectors to enable a node to be considered
+  part of the allowed topology.
+  
+  According to example manifest, PersistentVolumes for this StorageClass must be in one of two allowed zones
+  (`zone1` or `zone2`). Each PersistentVolume can only be in a single topology zone.
+  The label match on `topology.kubernetes.io/zone` specifies this restriction.
+
 ## Parameters
 
 StorageClasses have parameters that describe volumes belonging to the storage
