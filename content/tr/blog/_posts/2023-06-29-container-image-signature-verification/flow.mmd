@@ -1,0 +1,6 @@
+flowchart TD
+    A(Create Policy\ninstance) -->|annotate namespace\nto validate signatures| B(Create Pod)
+    B --> C{policy evaluation}
+    C --> |pass| D[fa:fa-check Admitted]
+    C --> |fail| E[fa:fa-xmark Not admitted]
+    D --> |if necessary| F[Image Pull]

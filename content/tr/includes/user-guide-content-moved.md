@@ -1,0 +1,1 @@
+Kubernetes belgelerinin [Kullanıcı Kılavuzu](/docs/user-guide/) bölümündeki konular, [Görevler](/docs/tasks/), [Eğitimler](/docs/tutorials/) ve [Kavramlar](/docs/concepts) bölümlerine taşınıyor. Bu konudaki içerik şu adrese taşındı:
