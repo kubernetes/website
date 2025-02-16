@@ -25,15 +25,15 @@
 		</section>
 		{{ block "post-hero" . }}
     </header>
-      {{ block "deprecated" . }}
-        {{ if or .IsHome ( eq .Params.cid "partners" ) ( eq .Params.cid "community" ) }}
-          {{ partial "deprecation-warning.html" . }}
-        {{ end }}
-      {{ end }}
     {{ end }}
 		{{ end }}
     <div class="td-outer">
       <main role="main" class="td-main" {{ if (or (ne .FirstSection "case-studies") (not .IsSection) ) }}data-pagefind-body{{ end }}>
+        {{ block "deprecation_warning" . }}
+          {{ if or .IsHome ( eq .Params.cid "partners" ) ( eq .Params.cid "community" ) }}
+            {{ partial "deprecation-warning.html" . }}
+          {{ end }}
+        {{ end }}
         {{ block "main" . }}{{ end }}
       </main>
     </div>
