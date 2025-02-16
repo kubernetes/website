@@ -40,11 +40,11 @@ Podの中からKubernetes APIに接続する推奨された方法として次の
 
 ### REST APIによる直接アクセス
 
-Podの起動中、環境変数`KUBERNETES_SERVICE_HOST`と`KUBERNETES_SERVICE_PORT_HTTPS`を取得することで、Kubernetes APIサーバーのHTTPSのURLを作成することができます。
+Podの実行中、コンテナは環境変数`KUBERNETES_SERVICE_HOST`と`KUBERNETES_SERVICE_PORT_HTTPS`を取得することで、Kubernetes APIサーバーのHTTPSのURLを作成することができます。
 APIサーバーのクラスター内アドレスは、PodがローカルAPIサーバーのDNS名として`kubernetes.default.svc`を参照できるように、`default` Namespaceの`kubernetes`という名前のServiceにも公開されます。
 
 {{< note >}}
-Kubernetesは、APIサーバーがホスト名`kubernetes.default.svc`に対する正しい証明書を持っていることを保証しません。
+Kubernetesは、APIサーバーがホスト名`kubernetes.default.svc`に対する有効な証明書を持っていることを保証しません。
 しかし、コントロールプレーンは`$KUBERNETES_SERVICE_HOST`によって表されるホスト名またはIPアドレスに対する有効な証明書を提示することが期待**されます**。
 {{< /note >}}
 
@@ -58,9 +58,9 @@ APIサーバーに対して認証を行う推奨された方法は、[サービ�
 ### kubectl proxyの使用
 
 公式のクライアントライブラリを使用せずにAPIを呼び出したい場合は、Pod内の新しいサイドカーコンテナの[コマンド](/docs/tasks/inject-data-application/define-command-argument-container/)として`kubectl proxy`を実行することができます。
-こうすることで、`kubectl proxy`がAPIを認証してPodの`localhost`インターフェイスに公開するので、Pod内の他のコンテナが直接使用することができます。
+こうすることで、`kubectl proxy`がAPIを認証してPodの`localhost`インターフェースに公開するため、Pod内の他のコンテナが直接使用することができます。
 
-### proxyを使用しない方法
+### プロキシを使用しない方法
 
 認証トークンを直接APIサーバーに渡すことで、kubectl proxyの使用を避けることも可能です。
 内部の証明書によって接続を保護します。
