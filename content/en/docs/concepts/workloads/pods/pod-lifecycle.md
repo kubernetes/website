@@ -2,6 +2,7 @@
 title: Pod Lifecycle
 content_type: concept
 weight: 30
+math: true
 ---
 
 <!-- overview -->
@@ -547,8 +548,9 @@ come into service. Rather than set a long liveness interval, you can configure
 a separate configuration for probing the container as it starts up, allowing
 a time longer than the liveness interval would allow.
 
+<!-- ensure front matter contains math: true -->
 If your container usually starts in more than
-`initialDelaySeconds + failureThreshold × periodSeconds`, you should specify a
+\\( initialDelaySeconds + failureThreshold \times  periodSeconds \\), you should specify a
 startup probe that checks the same endpoint as the liveness probe. The default for
 `periodSeconds` is 10s. You should then set its `failureThreshold` high enough to
 allow the container to start, without changing the default values of the liveness
