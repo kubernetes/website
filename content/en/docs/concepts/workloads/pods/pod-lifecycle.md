@@ -483,8 +483,8 @@ containers:
 
 `readinessProbe`
 : Indicates whether the container is ready to respond to requests.
-  If the readiness probe fails, the endpoints controller removes the Pod's IP
-  address from the endpoints of all Services that match the Pod. The default
+  If the readiness probe fails, the EndpointSlice controller removes the Pod's IP
+  address from the EndpointSlices of all Services that match the Pod. The default
   state of readiness before the initial delay is `Failure`. If a container does
   not provide a readiness probe, the default state is `Success`.
 
@@ -608,7 +608,7 @@ Pod termination flow, illustrated with an example:
       to synchronize (or switch to using sidecar containers).
 
 1. At the same time as the kubelet is starting graceful shutdown of the Pod, the control plane
-   evaluates whether to remove that shutting-down Pod from EndpointSlice (and Endpoints) objects,
+   evaluates whether to remove that shutting-down Pod from EndpointSlice objects,
    where those objects represent a {{< glossary_tooltip term_id="service" text="Service" >}}
    with a configured {{< glossary_tooltip text="selector" term_id="selector" >}}.
    {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} and other workload resources
@@ -621,7 +621,7 @@ Pod termination flow, illustrated with an example:
 
    Any endpoints that represent the terminating Pods are not immediately removed from
    EndpointSlices, and a status indicating [terminating state](/docs/concepts/services-networking/endpoint-slices/#conditions)
-   is exposed from the EndpointSlice API (and the legacy Endpoints API).
+   is exposed from the EndpointSlice API.
    Terminating endpoints always have their `ready` status as `false` (for backward compatibility
    with versions before 1.26), so load balancers will not use it for regular traffic.
 

@@ -19,8 +19,7 @@ description: >-
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 Kubernetes' _EndpointSlice_ API provides a way to track network endpoints
-within a Kubernetes cluster. EndpointSlices offer a more scalable and extensible
-alternative to [Endpoints](/docs/concepts/services-networking/service/#endpoints).
+within a Kubernetes cluster.
 
 <!-- body -->
 
@@ -67,7 +66,7 @@ more than 100 endpoints each. You can configure this with the
 {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}
 flag, up to a maximum of 1000.
 
-EndpointSlices can act as the source of truth for
+EndpointSlices act as the source of truth for
 {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}} when it comes to
 how to route internal traffic.
 
@@ -177,8 +176,7 @@ subset will be mirrored to EndpointSlices.
 Each EndpointSlice has a set of ports that applies to all endpoints within the
 resource. When named ports are used for a Service, Pods may end up with
 different target port numbers for the same named port, requiring different
-EndpointSlices. This is similar to the logic behind how subsets are grouped
-with Endpoints.
+EndpointSlices.
 
 The control plane tries to fill EndpointSlices as full as possible, but does not
 actively rebalance them. The logic is fairly straightforward:
