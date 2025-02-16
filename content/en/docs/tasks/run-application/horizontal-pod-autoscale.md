@@ -134,7 +134,7 @@ value:
 
 ```math
 \begin{equation*}
-desiredReplicas = \left( currentReplicas \times  { currentMetricValue \over desiredMetricValue }  \right)
+desiredReplicas = ceil\left\lceil currentReplicas \times \frac{currentMetricValue}{desiredMetricValue} \right\rceil
 \end{equation*}
 ```
 
