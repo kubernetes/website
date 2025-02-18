@@ -1,0 +1,83 @@
+---
+title: Pearson Case Study
+linkTitle: Pearson
+case_study_styles: true
+cid: caseStudies
+featured: false
+quote: >
+  We're already seeing tremendous benefits with Kubernetes—improved engineering productivity, faster delivery of applications and a simplified infrastructure. But this is just the beginning. Kubernetes will help transform the way that educational content is delivered online.
+
+new_case_study_styles: true
+heading_background: /images/case-studies/pearson/banner1.jpg
+heading_title_logo: /images/pearson_logo.png
+subheading: >
+  Reinventing the World's Largest Education Company With Kubernetes
+case_study_details:
+  - Company: Pearson
+  - Location: Global
+  - Industry: Education
+---
+
+<h2>Challenge</h2>
+
+<p>A global education company serving 75 million learners, Pearson set a goal to more than double that number, to 200 million, by 2025. A key part of this growth is in digital learning experiences, and Pearson was having difficulty in scaling and adapting to its growing online audience. They needed an infrastructure platform that would be able to scale quickly and deliver products to market faster.</p>
+
+<h2>Solution</h2>
+
+<p>"To transform our infrastructure, we had to think beyond simply enabling automated provisioning," says Chris Jackson, Director for Cloud Platforms & SRE at Pearson. "We realized we had to build a platform that would allow Pearson developers to build, manage and deploy applications in a completely different way." The team chose Docker container technology and Kubernetes orchestration "because of its flexibility, ease of management and the way it would improve our engineers' productivity."</p>
+
+<h2>Impact</h2>
+
+<p>With the platform, there has been substantial improvements in productivity and speed of delivery. "In some cases, we've gone from nine months to provision physical assets in a data center to just a few minutes to provision and get a new idea in front of a customer," says John Shirley, Lead Site Reliability Engineer for the Cloud Platform Team. Jackson estimates they've achieved 15-20% developer productivity savings. Before, outages were an issue during their busiest time of year, the back-to-school period. Now, there's high confidence in their ability to meet aggressive customer SLAs.</p>
+
+{{< case-studies/quote author="Chris Jackson, Director for Cloud Platforms & SRE at Pearson" >}}
+"We're already seeing tremendous benefits with Kubernetes—improved engineering productivity, faster delivery of applications and a simplified infrastructure. But this is just the beginning. Kubernetes will help transform the way that educational content is delivered online."
+{{< /case-studies/quote >}}
+
+<p>In 2015, Pearson was already serving 75 million learners as the world's largest education company, offering curriculum and assessment tools for Pre-K through college and beyond. Understanding that innovating the digital education experience was the key to the future of all forms of education, the company set out to increase its reach to 200 million people by 2025.</p>
+
+<p>That goal would require a transformation of its existing infrastructure, which was in data centers. In some cases, it took nine months to provision physical assets. In order to adapt to the demands of its growing online audience, Pearson needed an infrastructure platform that would be able to scale quickly and deliver business-critical products to market faster. "We had to think beyond simply enabling automated provisioning," says Chris Jackson, Director for Cloud Platforms & SRE at Pearson. "We realized we had to build a platform that would allow Pearson developers to build, manage and deploy applications in a completely different way."</p>
+
+<p>With 400 development groups and diverse brands with varying business and technical needs, Pearson embraced Docker container technology so that each brand could experiment with building new types of content using their preferred technologies, and then deliver it using containers. Jackson chose Kubernetes orchestration "because of its flexibility, ease of management and the way it would improve our engineers' productivity," he says.</p>
+
+<p>The team adopted Kubernetes when it was still version 1.2 and are still going strong now on 1.7; they use Terraform and Ansible to deploy it on to basic AWS primitives. "We were trying to understand how we can create value for Pearson from this technology," says Ben Somogyi, Principal Architect for the Cloud Platforms. "It turned out that Kubernetes' benefits are huge. We're trying to help our applications development teams that use our platform go faster, so we filled that gap with a CI/CD pipeline that builds their images for them, standardizes them, patches everything up, allows them to deploy their different environments onto the cluster, and obfuscating the details of how difficult the work underneath the covers is."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/pearson/banner3.jpg"
+  author="Chris Jackson, Director for Cloud Platforms & SRE at Pearson"
+>}}
+"Your internal customers need to feel like they are choosing the very best option for them. We are experiencing this first hand in the growth of adoption. We are seeing triple-digit, year-on-year growth of the service."
+{{< /case-studies/quote >}}
+
+<p>That work resulted in two tools for building and deploying applications in the cluster that Pearson has open sourced. "We're an education company, so we want to share what we can," says Somogyi.</p>
+
+<p>Now that development teams no longer have to worry about infrastructure, there have been substantial improvements in productivity and speed of delivery. "In some cases, we've gone from nine months to provision physical assets in a data center to just a few minutes to provision and to get a new idea in front of a customer," says John Shirley, Lead Site Reliability Engineer for the Cloud Platform Team.</p>
+
+<p>According to Jackson, the Cloud Platforms team can "provision a new proof-of-concept environment for a development team in minutes, and then they can take that to production as quickly as they are able to. This is the value proposition of all major technology services, and we had to compete like one to become our developers' preferred choice. Just because you work for the same company, you do not have the right to force people into a mediocre service. Your internal customers need to feel like they are choosing the very best option for them. We are experiencing this first hand in the growth of adoption. We are seeing triple-digit, year-on-year growth of the service."</p>
+
+<p>Jackson estimates they've achieved a 15-20% boost in productivity for developer teams who adopt the platform. They also see a reduction in the number of customer-impacting incidents. Plus, says Jackson, "Teams who were previously limited to 1-2 releases per academic year can now ship code multiple times per day!"</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/pearson/banner4.jpg"
+  author="Chris Jackson, Director for Cloud Platforms & SRE at Pearson"
+>}}
+"Teams who were previously limited to 1-2 releases per academic year can now ship code multiple times per day!"
+{{< /case-studies/quote >}}
+
+<p>Availability has also been positively impacted. The back-to-school period is the company's busiest time of year, and "you have to keep applications up," says Somogyi. Before, this was a pain point for the legacy infrastructure. Now, for the applications that have been migrated to the Kubernetes platform, "We have 100% uptime. We're not worried about 9s. There aren't any. It's 100%, which is pretty astonishing for us, compared to some of the existing platforms that have legacy challenges," says Shirley.</p>
+
+<p>"You can't even begin to put a price on how much that saves the company," Jackson explains. "A reduction in the number of support cases takes load out of our operations. The customer sentiment of having a reliable product drives customer retention and growth. It frees us to think about investing more into our digital transformation and taking a better quality of education to a global scale."</p>
+
+<p>The platform itself is also being broken down, "so we can quickly release smaller pieces of the platform, like upgrading our Kubernetes or all the different modules that make up our platform," says Somogyi. "One of the big focuses in 2018 is this scheme of delivery to update the platform itself."</p>
+
+<p>Guided by Pearson's overarching goal of getting to 200 million users, the team has run internal tests of the platform's scalability. "We had a challenge: 28 million requests within a 10 minute period," says Shirley. "And we demonstrated that we can hit that, with an acceptable latency. We saw that we could actually get that pretty readily, and we scaled up in just a few seconds, using open source tools entirely. Shout out to <a href="https://locust.io/">Locust</a>for that one. So that's amazing."</p>
+
+{{< case-studies/quote author="Benjamin Somogyi, Principal Systems Architect at Pearson" >}}
+"We have 100% uptime. We're not worried about 9s. There aren't any. It's 100%, which is pretty astonishing for us, compared to some of the existing platforms that have legacy challenges. You can't even begin to put a price on how much that saves the company."
+{{< /case-studies/quote >}}
+
+<p>In just two years, "We're already seeing tremendous benefits with Kubernetes—improved engineering productivity, faster delivery of applications and a simplified infrastructure," says Jackson. "But this is just the beginning. Kubernetes will help transform the way that educational content is delivered online."</p>
+
+<p>So far, about 15 production products are running on the new platform, including Pearson's new flagship digital education service, the Global Learning Platform. The Cloud Platform team continues to prepare, onboard and support customers that are a good fit for the platform. Some existing products will be refactored into 12-factor apps, while others are being developed so that they can live on the platform from the get-go. "There are challenges with bringing in new customers of course, because we have to help them to see a different way of developing, a different way of building," says Shirley.</p>
+
+<p>But, he adds, "It is our corporate motto: Always Learning. We encourage those teams that haven't started a cloud native journey, to see the future of technology, to learn, to explore. It will pique your interest. Keep learning."</p>

@@ -36,7 +36,7 @@ I componenti aggiuntivi in ogni sezione sono ordinati alfabeticamente - l'ordine
 
 ## Service Discovery
 
-* [CoreDNS](https://coredns.io) è un server DNS flessibile ed estensibile che può essere [installato](https://github.com/coredns/deployment/tree/master/kubernetes) come in-cluster DNS per pod.
+* [CoreDNS](https://coredns.io) è un server DNS flessibile ed estensibile che può essere [installato](https://github.com/coredns/helm) come in-cluster DNS per pod.
 
 ## Visualization & Control
 

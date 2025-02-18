@@ -36,7 +36,7 @@ weight: 120
 
 ## サービスディスカバリー {#service-discovery}
 
-* [CoreDNS](https://coredns.io)は、フレキシブルで拡張可能なDNSサーバーです。Pod向けのクラスター内DNSとして[インストール](https://github.com/coredns/deployment/tree/master/kubernetes)できます。
+* [CoreDNS](https://coredns.io)は、フレキシブルで拡張可能なDNSサーバーです。Pod向けのクラスター内DNSとして[インストール](https://github.com/coredns/helm)できます。
 
 ## 可視化と制御 {#visualization-amp-control}
 

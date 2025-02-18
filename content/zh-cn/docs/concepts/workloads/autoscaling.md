@@ -248,10 +248,10 @@ reduce resource consumption during off-peak hours.
 
 <!--
 Similar to event driven autoscaling, such behavior can be achieved using KEDA in conjunction with
-its [`Cron` scaler](https://keda.sh/docs/2.13/scalers/cron/). The `Cron` scaler allows you to define schedules
+its [`Cron` scaler](https://keda.sh/docs/latest/scalers/cron/). The `Cron` scaler allows you to define schedules
 (and time zones) for scaling your workloads in or out.
 -->
-与事件驱动型自动扩缩相似，这种行为可以使用 KEDA 和 [`Cron` scaler](https://keda.sh/docs/2.13/scalers/cron/) 实现。
+与事件驱动型自动扩缩相似，这种行为可以使用 KEDA 和 [`Cron` scaler](https://keda.sh/docs/latest/scalers/cron/) 实现。
 你可以在计划扩缩器 (Cron scaler) 中定义计划来实现工作负载的横向扩缩。
 
 <!--
