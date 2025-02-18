@@ -63,7 +63,7 @@ Once installed, it allows you to create {{< glossary_tooltip text="CustomResourc
 
 {{< note >}}
 You will need to have the [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
-installed to your cluster for the HPA to work.
+installed to your cluster for the VPA to work.
 {{< /note >}}
 
 At the moment, the VPA can operate in four different modes:
