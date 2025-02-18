@@ -41,6 +41,7 @@ metadata:
     app: win-webserver
 spec:
   ports:
+    # a porta em que este serviço deve rodar
     - port: 80
       targetPort: 80
   selector:
@@ -98,15 +99,15 @@ a porta 80 do contêiner diretamente para o Service.
 3. Verifique se a implantação foi bem-sucedida. Para verificar:
 
     * Vários pods listados a partir do nó de plano de controle Linux, use `kubectl get pods`
-    * Comunicação de nó para pod através da rede, `curl` na porta 80 do IP do seu pod a partir do nó de plano de controle Linux para verificar uma resposta do servidor web
+    * Comunicação de nó para pod através da rede, `execute` na porta 80 do IP do seu pod a partir do nó de plano de controle Linux para verificar uma resposta do servidor web
     * Comunicação entre pods, ping entre pods (e através de hosts, se você tiver mais de um nó Windows) usando `kubectl exec`
-    * Comunicação de serviço para pod, `curl` no IP virtual do serviço (visto em `kubectl get services`) a partir do nó de plano de controle Linux e de pods individuais
-    * Descoberta de serviço, `curl` no nome do serviço com o [sufixo DNS padrão do Kubernetes](/docs/concepts/services-networking/dns-pod-service/#services)
-    * Conectividade de entrada, `curl` no NodePort a partir do nó de plano de controle Linux ou máquinas fora do cluster
-    * Conectividade de saída, `curl` em IPs externos de dentro do pod usando `kubectl exec`
+    * Comunicação de serviço para pod, `execute` no IP virtual do serviço (visto em `kubectl get services`) a partir do nó de plano de controle Linux e de pods individuais
+    * Descoberta de serviço, `execute` no nome do serviço com o [sufixo DNS padrão do Kubernetes](/docs/concepts/services-networking/dns-pod-service/#services)
+    * Conectividade de entrada, `execute` no NodePort a partir do nó de plano de controle Linux ou máquinas fora do cluster
+    * Conectividade de saída, `execute` em IPs externos de dentro do pod usando `kubectl exec`
 
 {{< note >}}
-Os hosts de contêiner Windows não conseguem acessar o IP de serviços agendados neles devido a limitações da pilha de rede do Windows.
+Os hosts de contêiner Windows não conseguem acessar o IP de serviços alocados neles devido a limitações da pilha de rede do Windows.
 Apenas pods Windows conseguem acessar IPs de serviço.
 {{< /note >}}
 
@@ -147,9 +148,9 @@ Você pode (e deve) definir `.spec.os.name` para cada Pod, para indicar o sistem
 Se você estiver executando uma versão do Kubernetes anterior à 1.24, pode ser necessário habilitar o `IdentifyPodOS` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) para definir um valor para `.spec.pod.os`.
 {{< /note >}}
 
-O scheduler não utiliza o valor de `.spec.os.name` ao atribuir Pods a nós. Você deve usar os mecanismos normais do Kubernetes para [atribuir Pods a nós](/docs/concepts/scheduling-eviction/assign-pod-node/) para garantir que o plano de controle do seu cluster coloque os Pods em nós que estão executando o sistema operacional apropriado.
+O escalonador não utiliza o valor de `.spec.os.name` ao atribuir Pods a nós. Você deve usar os mecanismos normais do Kubernetes para [atribuir Pods a nós](/docs/concepts/scheduling-eviction/assign-pod-node/) para garantir que a camada de gerenciamento do seu cluster coloque os Pods em nós que estão executando o sistema operacional apropriado.
 
-O valor de `.spec.os.name` não tem efeito no agendamento dos Pods Windows, então taints e tolerations (ou selectors de nós) ainda são necessários para garantir que os Pods Windows sejam atribuídos aos nós Windows apropriados.
+O valor de `.spec.os.name` não tem efeito na alocação dos Pods Windows, então taints e tolerations (ou selectors de nós) ainda são necessários para garantir que os Pods Windows sejam atribuídos aos nós Windows apropriados.
 
 ### Garantindo que cargas de trabalho específicas de SO sejam atribuídas ao host de contêiner apropriado
 
@@ -160,11 +161,11 @@ Os usuários podem garantir que contêineres Windows sejam agendados no host apr
 
 Se uma especificação de Pod não especificar um `nodeSelector`, como `"kubernetes.io/os": windows`, é possível que o Pod seja agendado em qualquer host, Windows ou Linux. Isso pode ser problemático, já que um contêiner Windows só pode ser executado em Windows e um contêiner Linux só pode ser executado em Linux. A prática recomendada para o Kubernetes {{< skew currentVersion >}} é usar um `nodeSelector`.
 
-No entanto, em muitos casos, os usuários têm um grande número de implantações existentes para contêineres Linux, bem como um ecossistema de configurações prontas para uso, como gráficos Helm da comunidade e casos de geração programática de Pods, como com operadores. Nessas situações, você pode hesitar em fazer a alteração de configuração para adicionar campos `nodeSelector` a todos os Pods e modelos de Pod. A alternativa é usar taints. Como o kubelet pode definir taints durante o registro, ele pode ser facilmente modificado para adicionar automaticamente um taint ao executar apenas em Windows.
+No entanto, em muitos casos, os usuários têm um grande número de implantações existentes para contêineres Linux, bem como um ecossistema de configurações prontas para uso, como chart do Helm da comunidade e casos de geração programática de Pods, como com operadores. Nessas situações, você pode hesitar em fazer a alteração de configuração para adicionar campos `nodeSelector` a todos os Pods e modelos de Pod. A alternativa é usar taints. Como o kubelet pode definir taints durante o registro, ele pode ser facilmente modificado para adicionar automaticamente um taint ao executar apenas em Windows.
 
 Por exemplo: `--register-with-taints='os=windows:NoSchedule'`
 
-Ao adicionar um taint a todos os nós Windows, nada será agendado neles (isso inclui Pods Linux existentes). Para que um Pod Windows seja agendado em um nó Windows, ele precisará tanto do `nodeSelector` quanto da toleration correspondente para escolher Windows.
+Ao adicionar um taint a todos os nós Windows, nada será agendado neles (isso inclui Pods Linux existentes). Para que um Pod Windows seja alocação em um nó Windows, ele precisará tanto do `nodeSelector` quanto da toleration correspondente para escolher Windows.
 
 ```yaml
 nodeSelector:
