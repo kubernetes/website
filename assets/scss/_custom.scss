@@ -343,10 +343,12 @@ input[type="search"]{
 .cncf-logo-details {
   display: flex;
   flex-direction: column;
+  padding: 30px;
   align-items: center;
 
   p {
     text-align: center;
+    font-size: 1.2rem;
   }
 
   a {
