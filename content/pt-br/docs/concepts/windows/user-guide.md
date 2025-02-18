@@ -81,20 +81,20 @@ Mapeamento de portas também é suportado, mas para simplicidade este exemplo ex
 a porta 80 do contêiner diretamente para o Service.
 {{< /note >}}
 
-1. Verifique se todos os nós estão saudáveis:
+1. Verifique se todos os nós estão íntegros:
 
     ```bash
     kubectl get nodes
     ```
 
-2. Implemente o serviço e monitore as atualizações do pod:
+2. Implante o serviço e monitore as atualizações do pod:
 
     ```bash
     kubectl apply -f win-webserver.yaml
     kubectl get pods -o wide -w
     ```
 
-    Quando o serviço for implementado corretamente, ambos os Pods serão marcados como prontos. Para sair do comando de monitoramento, pressione Ctrl+C.
+    Quando o serviço for implantado corretamente, ambos os Pods serão marcados como prontos. Para sair do comando de monitoramento, pressione Ctrl+C.
 
 3. Verifique se a implantação foi bem-sucedida. Para verificar:
 
@@ -145,7 +145,7 @@ Os usuários precisam usar uma combinação de {{<glossary_tooltip text="taint" 
 Você pode (e deve) definir `.spec.os.name` para cada Pod, para indicar o sistema operacional para o qual os contêineres nesse Pod foram projetados. Para Pods que executam contêineres Linux, defina `.spec.os.name` como `linux`. Para Pods que executam contêineres Windows, defina `.spec.os.name` como `windows`.
 
 {{< note >}}
-Se você estiver executando uma versão do Kubernetes anterior à 1.24, pode ser necessário habilitar o `IdentifyPodOS` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) para definir um valor para `.spec.pod.os`.
+Se você estiver executando uma versão do Kubernetes anterior à 1.24, pode ser necessário habilitar o [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `IdentifyPodOS` para definir um valor para `.spec.pod.os`.
 {{< /note >}}
 
 O escalonador não utiliza o valor de `.spec.os.name` ao atribuir Pods a nós. Você deve usar os mecanismos normais do Kubernetes para [atribuir Pods a nós](/docs/concepts/scheduling-eviction/assign-pod-node/) para garantir que a camada de gerenciamento do seu cluster coloque os Pods em nós que estão executando o sistema operacional apropriado.
