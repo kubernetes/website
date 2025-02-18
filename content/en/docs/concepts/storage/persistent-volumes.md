@@ -564,7 +564,7 @@ Older versions of Kubernetes also supported the following in-tree PersistentVolu
 * `quobyte` - Quobyte volume &mdash; **not available** starting with v1.25. The Kubernetes project does not provide a CSI driver for this volume type, however a third party CSI driver is available, [Quobyte](https://github.com/quobyte/quobyte-csi-driver).
 * [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume 
   (**not available** starting v1.31)
-* `scaleIO` - ScaleIO volume &mdash; **not available** starting with v1.21. The Kubernetes project does not provide a CSI driver for this volume type.
+* `scaleIO` - ScaleIO volume &mdash; **not available** starting with v1.22. The Kubernetes project does not provide a CSI driver for this volume type.
 * `storageos` - StorageOS volume &mdash; **not available** starting with v1.25. The Kubernetes project does not provide a CSI driver for this volume type, however a third party CSI driver is available, [StorageOS](https://docs.storageos.com/docs/install/kubernetes/).
 
 ## Persistent Volumes
