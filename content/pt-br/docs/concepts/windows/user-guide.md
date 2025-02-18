@@ -144,7 +144,7 @@ Os usuários precisam usar uma combinação de {{<glossary_tooltip text="taint" 
 Você pode (e deve) definir `.spec.os.name` para cada Pod, para indicar o sistema operacional para o qual os contêineres nesse Pod foram projetados. Para Pods que executam contêineres Linux, defina `.spec.os.name` como `linux`. Para Pods que executam contêineres Windows, defina `.spec.os.name` como `windows`.
 
 {{< note >}}
-Se você estiver executando uma versão do Kubernetes anterior à 1.24, pode ser necessário habilitar o `IdentifyPodOS` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) para definir um valor para `.spec.pod.os`.
+Se você estiver executando uma versão do Kubernetes anterior à 1.24, pode ser necessário habilitar o [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `IdentifyPodOS` para definir um valor para `.spec.pod.os`.
 {{< /note >}}
 
 O scheduler não utiliza o valor de `.spec.os.name` ao atribuir Pods a nós. Você deve usar os mecanismos normais do Kubernetes para [atribuir Pods a nós](/docs/concepts/scheduling-eviction/assign-pod-node/) para garantir que o plano de controle do seu cluster coloque os Pods em nós que estão executando o sistema operacional apropriado.
