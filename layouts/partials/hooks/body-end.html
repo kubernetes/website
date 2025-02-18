@@ -55,5 +55,13 @@ function copyCode(elem) {
   }
 }
 </script>
+{{- end -}}
 
+{{/* JavaScript detector */}}
+{{- if hugo.IsProduction -}}
+  {{- $jsDetect :=  resources.Get "js/detect-js.js" | minify | fingerprint -}}
+<script defer src="{{ $jsDetect.RelPermalink }}" integrity="{{ $jsDetect.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- else -}}
+  {{- $jsDetect := resources.Get "js/detect-js.js" -}}
+<script defer src="{{ $jsDetect.RelPermalink }}"></script>
 {{- end -}}

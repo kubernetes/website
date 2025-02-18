@@ -63,7 +63,7 @@ Once installed, it allows you to create {{< glossary_tooltip text="CustomResourc
 
 {{< note >}}
 You will need to have the [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
-installed to your cluster for the HPA to work.
+installed to your cluster for the VPA to work.
 {{< /note >}}
 
 At the moment, the VPA can operate in four different modes:
@@ -129,7 +129,7 @@ its [`Cron` scaler](https://keda.sh/docs/latest/scalers/cron/). The `Cron` scale
 If scaling workloads isn't enough to meet your needs, you can also scale your cluster infrastructure itself.
 
 Scaling the cluster infrastructure normally means adding or removing {{< glossary_tooltip text="nodes" term_id="node" >}}.
-Read [cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
+Read [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
 for more information.
 
 ## {{% heading "whatsnext" %}}
@@ -139,4 +139,4 @@ for more information.
   - [HorizontalPodAutoscaler Walkthrough](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 - [Resize Container Resources In-Place](/docs/tasks/configure-pod-container/resize-container-resources/)
 - [Autoscale the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
-- Learn about [cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
+- Learn about [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
