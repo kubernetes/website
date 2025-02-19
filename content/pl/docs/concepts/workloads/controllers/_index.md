@@ -9,8 +9,8 @@ zarządzania Twoim
 {{< glossary_tooltip text="workloadem" term_id="workload" >}} oraz jego komponentami.
 
 Twoje aplikacje działają jako kontenery wewnątrz
-{{< glossary_tooltip term_id="Pod" text="Podów" >}}; jednakże zarządzanie pojedynczymi Podami wiąże się z dużym
-wysiłkiem. Na przykład, jeśli Pod ulegnie awarii, prawdopodobnie
+{{< glossary_tooltip term_id="Pod" text="Podów" >}}; jednakże zarządzanie pojedynczymi Podami wiąże się z
+dużym wysiłkiem. Na przykład, jeśli jeden Pod ulegnie awarii, prawdopodobnie
 będziesz chciał uruchomić nowy Pod, aby go zastąpić. Kubernetes może to zrobić za Ciebie.
 
 Używasz API Kubernetesa aby utworzyć {{< glossary_tooltip text="obiekt" term_id="object" >}}
@@ -23,9 +23,9 @@ Wbudowane interfejsy API do zarządzania workloadami to:
 
 [Deployment](/docs/concepts/workloads/controllers/deployment/) (oraz pośrednio
 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)), to najczęstszy
-sposób uruchamiania aplikacji w klastrze. Deployment jest odpowiedni do zarządzania
-obciążeniem aplikacji bezstanowej w klastrze, gdzie każdy Pod w Deployment jest
-wymienny i może być zastąpiony w razie potrzeby. (Deploymenty zastępują przestarzałe
+sposób uruchamiania aplikacji w klastrze. Deployment jest odpowiedni do
+zarządzania aplikacją bezstanową w klastrze, gdzie każdy Pod w Deployment jest wymienny i może
+być zastąpiony w razie potrzeby. (Deploymenty zastępują przestarzałe
 {{< glossary_tooltip text="ReplicationController" term_id="replication-controller" >}} API).
 
 [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) pozwala
