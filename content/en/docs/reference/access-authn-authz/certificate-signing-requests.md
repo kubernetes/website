@@ -111,7 +111,7 @@ To allow signing a CertificateSigningRequest:
 Signers abstractly represent the entity or entities that might sign, or have
 signed, a security certificate.
 
-Any signer that is made available for outside a particular cluster should provide information
+Any signer that is made available to a particular cluster should provide information
 about how the signer works, so that consumers can understand what that means for CertifcateSigningRequests
 and (if enabled) [ClusterTrustBundles](#cluster-trust-bundles).
 This includes:
@@ -124,7 +124,7 @@ This includes:
    when usages different than the signer-determined usages are specified in the CSR.
 1. **Expiration/certificate lifetime**: whether it is fixed by the signer, configurable by the admin, determined by the CSR `spec.expirationSeconds` field, etc
    and the behavior when the signer-determined expiration is different from the CSR `spec.expirationSeconds` field.
-1. **CA bit allowed/disallowed**: and behavior if a CSR contains a request a for a CA certificate when the signer does not permit it.
+1. **CA bit allowed/disallowed**: the behavior if a CSR contains a request for a CA certificate when the signer does not permit it.
 
 Commonly, the `status.certificate` field of a CertificateSigningRequest contains a
 single PEM-encoded X.509 certificate once the CSR is approved and the certificate is issued.
