@@ -34,6 +34,9 @@
 {{ if .Site.Params.offlineSearch }}
 {{ $jsSearch = resources.Get "js/offline-search.js" }}
 {{ end }}
+{{ if .Site.Params.k8s_search }}
+{{ $jsSearch = resources.Get "js/k8s-search.js" }}
+{{ end }}
 {{ $js := (slice $jsBs $jsBase $jsAnchor $jsSearch) | resources.Concat "js/main.js" -}}
 {{ if hugo.IsProduction -}}
   {{ $js := $js | minify | fingerprint -}}
