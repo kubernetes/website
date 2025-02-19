@@ -263,6 +263,11 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 #	icon = "fa-brands fa-twitter"
 # Replace with fa-x-twitter once available
 
+[[params.links.user]]
+  name_key = "community_bluesky_name"
+  url = "https://bsky.app/profile/kubernetes.bsky.social"
+  icon = "fa-brands fa-bluesky"
+
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
 	name_key = "community_contributor_site_name"
