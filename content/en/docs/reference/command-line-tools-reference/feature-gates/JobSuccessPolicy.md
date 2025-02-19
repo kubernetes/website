@@ -14,5 +14,8 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.31"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.33"
 ---
 Allow users to specify when a Job can be declared as succeeded based on the set of succeeded pods.
