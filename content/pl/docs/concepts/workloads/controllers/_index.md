@@ -9,13 +9,13 @@ zarządzania Twoim
 {{< glossary_tooltip text="workloadem" term_id="workload" >}} oraz jego komponentami.
 
 Twoje aplikacje działają jako kontenery wewnątrz
-{{< glossary_tooltip term_id="Pod" text="Podów" >}}; jednakże zarządzanie pojedynczymi Podami byłoby
-dużym wysiłkiem. Na przykład, jeśli Pod ulegnie awarii, prawdopodobnie
+{{< glossary_tooltip term_id="Pod" text="Podów" >}}; jednakże zarządzanie pojedynczymi Podami wiąże się z dużym
+wysiłkiem. Na przykład, jeśli Pod ulegnie awarii, prawdopodobnie
 będziesz chciał uruchomić nowy Pod, aby go zastąpić. Kubernetes może to zrobić za Ciebie.
 
 Używasz API Kubernetesa aby utworzyć {{< glossary_tooltip text="obiekt" term_id="object" >}}
 workloadu, który reprezentuje wyższy poziom abstrakcji niż
-Pod, a następnie {{< glossary_tooltip text="płaszczyzna sterowania" term_id="control-plane" >}}
+Pod, a następnie {{< glossary_tooltip text="warstwa sterowania" term_id="control-plane" >}}
 Kubernetesa automatycznie zarządza obiektami Pod w Twoim
 imieniu, na podstawie specyfikacji zdefiniowanego przez Ciebie obiektu tego workloadu.
 
