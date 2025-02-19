@@ -1,4 +1,9 @@
 body.cid-casestudies {
+  @media screen and (max-width: 1023px) {
+    #users {
+      padding: 15px;
+    }
+  }
   h2 {
     font-size: 3em;
     font-weight: 300;
@@ -25,7 +30,7 @@ body.cid-casestudies {
     color: #606060;
   }
 
-  .quote + h2, 
+  .quote + h2,
   .quote + .lead {
     margin-top: 0;
   }
@@ -200,6 +205,11 @@ body.td-section.cid-casestudies {
     font-size: 3em;
     margin-top: 2em;
     margin-bottom: 2em;
+    @media screen and (max-width: 767px) {
+      font-size: 2.5em;
+      margin-bottom: 1em;
+      margin-top: 1em;
+    }
   }
 
   #case-studies .case-studies {
@@ -214,6 +224,10 @@ body.td-section.cid-casestudies {
   main > section, main > section:first-child {
     padding-left: 10em;
     padding-right: 10em;
+    @media screen and (max-width: 1439px) {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
   }
 
   .video-quote, .case-study-video {
@@ -242,6 +256,9 @@ body.td-section.cid-casestudies {
     padding: 0 40px 0 242px;
     margin-bottom: 60px;
     min-height: 152px;
+    @media screen and (max-width: 767px) {
+      padding: 0;
+    }
 
     .quote {
       color: black;
@@ -257,7 +274,7 @@ body.td-section.cid-casestudies {
   }
 
   .case-study:nth-child(9), .case-study:nth-child(10) {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 
   .case-study img {
@@ -265,6 +282,9 @@ body.td-section.cid-casestudies {
     top: 0;
     left: 0;
     width: 215px;
+    @media screen and (max-width: 767px) {
+      position: relative;
+    }
   }
 
   #usersGrid {
