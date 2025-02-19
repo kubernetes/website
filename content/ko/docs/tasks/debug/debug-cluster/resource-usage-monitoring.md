@@ -68,7 +68,6 @@ CNCF 프로젝트가 아닌 완전한 메트릭 파이프라인 프로젝트는 
 다음과 같은 추가 디버깅 도구에 대해 더 알아본다.
 
 * [로깅](/ko/docs/concepts/cluster-administration/logging/)
-* [모니터링](/ko/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 * [`exec`를 통해 컨테이너에 접속하기](/ko/docs/tasks/debug/debug-application/get-shell-running-container/)
 * [프록시를 통해 컨테이너에 연결하기](/ko/docs/tasks/extend-kubernetes/http-proxy-access-api/)
 * [포트 포워딩을 사용해서 클러스터 내 애플리케이션에 접근하기](/ko/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
