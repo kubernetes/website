@@ -20,7 +20,7 @@ disableKinds = ["taxonomy"]
 
 ignoreFiles = [ "(?:^|/)OWNERS$", "README[-]+[a-z]*\\.md", "^node_modules$", "content/en/docs/doc-contributor-tools" ]
 
-timeout = "180s"
+timeout = "1800s"
 
 # Enable Git variables like commit, lastmod
 enableGitInfo = true
@@ -262,6 +262,11 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 #	url = "https://twitter.com/kubernetesio"
 #	icon = "fa-brands fa-twitter"
 # Replace with fa-x-twitter once available
+
+[[params.links.user]]
+  name_key = "community_bluesky_name"
+  url = "https://bsky.app/profile/kubernetes.bsky.social"
+  icon = "fa-brands fa-bluesky"
 
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
