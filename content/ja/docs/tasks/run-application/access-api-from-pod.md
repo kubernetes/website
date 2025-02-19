@@ -40,7 +40,7 @@ Podの中からKubernetes APIに接続する推奨された方法として次の
 
 ### REST APIによる直接アクセス
 
-Podの実行中、コンテナは環境変数`KUBERNETES_SERVICE_HOST`と`KUBERNETES_SERVICE_PORT_HTTPS`を取得することで、Kubernetes APIサーバーのHTTPSのURLを作成することができます。
+コンテナは、Pod内での実行中に環境変数`KUBERNETES_SERVICE_HOST`と`KUBERNETES_SERVICE_PORT_HTTPS`を取得することで、Kubernetes APIサーバーのHTTPSのURLを作成することができます。
 APIサーバーのクラスター内アドレスは、PodがローカルAPIサーバーのDNS名として`kubernetes.default.svc`を参照できるように、`default` Namespaceの`kubernetes`という名前のServiceにも公開されます。
 
 {{< note >}}
