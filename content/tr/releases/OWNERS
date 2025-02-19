@@ -1,0 +1,17 @@
+# OWNERS belgelerine https://go.k8s.io/owners adresinden bakın
+
+# Bu, İngilizce kaynak içeriği için dizindir.
+# Takımlar ve üyeler https://github.com/orgs/kubernetes/teams adresinde görülebilir.
+
+inceleyenler:
+  - sig-docs-en-reviews
+  - release-engineering-reviewers
+
+onaylayanlar:
+  - sig-docs-en-owners
+  - sig-release-leads
+  - release-engineering-approvers
+
+etiketler:
+- sig/release
+- area/release-eng
