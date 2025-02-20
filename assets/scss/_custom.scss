@@ -1183,38 +1183,27 @@ body.cid-community #cncf-code-of-conduct h2:after {
   }
 }
 
-#caseStudies body > #deprecation-warning, body.cid-casestudies > #deprecation-warning, body.cid-community > #deprecation-warning {
-    display: inline-block;
-    vertical-align: top;
-    position: relative;
-    background-color: $primary;
-    color: #fff;
+body.cid-casestudies, body.cid-community, body.cid-partners {
+  section#deprecation-warning {
     padding: 0;
     margin: 0;
     width: 100%;
+
+    border-top: solid 1em $primary;
+    border-bottom: solid 1em $primary;
+
+    // Center the pageinfo
+    padding-left: calc(max(1rem, (100vw - 60rem) / 2));
+    padding-right: calc(max(1rem, (100vw - 60rem) / 2));
+  }
+  /* Ensure color overrides */
+  section#deprecation-warning, section#deprecation-warning > .pageinfo.deprecation-warning {
+    background-color: $primary;
+    color: #fff;
+  }
 }
-#caseStudies body > #deprecation-warning, body.cid-casestudies > #deprecation-warning {
-    padding-top: 32px;
-}
+
 body.cid-partners {
-    > #deprecation-warning {
-        padding: 0;
-        margin-right: 0;
-        margin-left: 0;
-        margin-top: 0;
-        width: 100vw;
-        > .content {
-            width: 100%;
-            max-width: initial;
-            margin-right: 0;
-            margin-left: 0;
-            margin-top: 0;
-            padding-left: 5vw;
-            padding-right: 5vw;
-            padding-top: 2rem;
-            padding-bottom: 2rem;
-        }
-    }
     /*  SECTIONS  */
     .section {
         clear: both;
