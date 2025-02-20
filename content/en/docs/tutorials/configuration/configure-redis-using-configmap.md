@@ -9,6 +9,8 @@ weight: 30
 
 <!-- overview -->
 
+asdf
+
 This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task. 
 
 
