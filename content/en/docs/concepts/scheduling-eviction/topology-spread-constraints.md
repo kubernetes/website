@@ -618,7 +618,7 @@ section of the enhancement proposal about Pod topology spread constraints.
   because, in this case, those topology domains won't be considered until there is
   at least one node in them.
 
-  You can work around this by using a cluster autoscaling tool that is aware of
+  You can work around this by using a Node autoscaler that is aware of
   Pod topology spread constraints and is also aware of the overall set of topology
   domains.
 

@@ -49,6 +49,13 @@ To use this repository, you need the following installed locally:
 - 容器运行时，比如 [Docker](https://www.docker.com/)。
 
 <!--
+Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L11) file.
+-->
+> [!NOTE]
+请确保安装的是 [`netlify.toml`](netlify.toml#L11) 文件中环境变量 `HUGO_VERSION` 所指定的
+Hugo Extended 版本。
+
+<!--
 Before you start, install the dependencies. Clone the repository and navigate to the directory:
 -->
 开始前，先安装这些依赖。克隆本仓库并进入对应目录：
@@ -59,17 +66,22 @@ cd website
 ```
 
 <!--
-The Kubernetes website uses the [Docsy Hugo theme](https://github.com/google/docsy#readme). Even if you plan to run the website in a container, we strongly recommend pulling in the submodule and other development dependencies by running the following:
+The Kubernetes website uses the [Docsy Hugo theme](https://github.com/google/docsy#readme),
+which can be installed via npm. You can also download a pre-configured
+development container image that includes Hugo and Docsy. Additionally, a Git
+submodule is used for tools that generate the reference documentation.
 -->
-Kubernetes 网站使用的是 [Docsy Hugo 主题](https://github.com/google/docsy#readme)。
-即使你打算在容器中运行网站，我们也强烈建议你通过运行以下命令来引入子模块和其他开发依赖项：
+Kubernetes 网站使用的是 [Docsy Hugo 主题](https://github.com/google/docsy#readme)，
+可以通过 npm 安装。你也可以下载一个预配置的开发容器镜像，其中包含 Hugo 和 Docsy。
+此外，Kubernetes 网站还使用了 Git 子模块来管理生成参考文档的工具。
 
 <!-- 
 ### Windows
+
 ```powershell
 # fetch submodule dependencies
 git submodule update --init --recursive --depth 1
-``` 
+```
 -->
 ### Windows
 
@@ -80,10 +92,11 @@ git submodule update --init --recursive --depth 1
 
 <!-- 
 ### Linux / other Unix
+
 ```bash
 # fetch submodule dependencies
 make module-init
-``` 
+```
 -->
 ### Linux / 其它 Unix
 
@@ -129,14 +142,9 @@ Open up your browser to <http://localhost:1313> to view the website. As you make
 <!--
 ## Running the website locally using Hugo
 
-Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L11) file.
-
 To install dependencies, deploy and test the site locally, run:
 -->
 ## 在本地使用 Hugo 来运行网站
-
-请确保安装的是 [`netlify.toml`](netlify.toml#L11) 文件中环境变量 `HUGO_VERSION` 所指定的
-Hugo Extended 版本。
 
 若要在本地安装依赖，构建和测试网站，运行以下命令：
 
@@ -407,6 +415,7 @@ For more information about contributing to the Kubernetes documentation, see:
 - [Page Content Types](https://kubernetes.io/docs/contribute/style/page-content-types/)
 - [Documentation Style Guide](https://kubernetes.io/docs/contribute/style/style-guide/)
 - [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
+- [Introduction to Kubernetes Docs](https://www.youtube.com/watch?v=pprMgmNzDcw)
 -->
 有关为 Kubernetes 文档做出贡献的更多信息，请参阅：
 
@@ -414,6 +423,7 @@ For more information about contributing to the Kubernetes documentation, see:
 - [页面内容类型](https://kubernetes.io/zh-cn/docs/contribute/style/page-content-types/)
 - [文档风格指南](https://kubernetes.io/zh-cn/docs/contribute/style/style-guide/)
 - [本地化 Kubernetes 文档](https://kubernetes.io/zh-cn/docs/contribute/localization/)
+- [YouTube 视频：Kubernetes 文档介绍](https://www.youtube.com/watch?v=pprMgmNzDcw)
 
 <!--
 ### New contributor ambassadors
@@ -441,8 +451,8 @@ SIG Docs 的当前新贡献者大使：
 
 可以通过以下方式联系中文本地化的维护人员：
 
-* Rui Chen ([GitHub - @chenrui333](https://github.com/chenrui333))
-* He Xiaolong ([GitHub - @markthink](https://github.com/markthink))
+* Qiming Teng ([GitHub - @tengqm](https://github.com/tengqm))
+* Michael Yao ([GitHub - @windsonsea](https://github.com/windsonsea))
 * [Slack 频道](https://kubernetes.slack.com/messages/kubernetes-docs-zh)
 
 <!--
