@@ -46,9 +46,9 @@ Deve haver mensagens do escalonador explicando por que o Pod não pode ser aloca
   Nesse caso, você precisa excluir Pods, ajustar as solicitações de recursos ou adicionar novos nós ao cluster.
   Consulte o documento [Recursos de Computação](/docs/concepts/configuration/manage-resources-containers/) para mais informações.
 
-* **Você está usando `hostPort`**: Quando você vincula um Pod a um `hostPort`, há um número limitado de locais onde esse pod pode ser agendado.
+* **Você está usando `hostPort`**: Quando você vincula um Pod a um `hostPort`, há um número limitado de locais onde esse Pod pode ser alocado.
   Na maioria dos casos, `hostPort` é desnecessário, tente usar um objeto Service para expor seu Pod.
-  Se você realmente precisar de `hostPort`, então só poderá agendar tantos Pods quanto o número de nós no seu cluster Kubernetes.
+  Se você realmente precisar de `hostPort`, então só poderá alocar tantos Pods quanto o número de nós no seu cluster Kubernetes.
 
 
 #### Meu pod fica em estado waiting
