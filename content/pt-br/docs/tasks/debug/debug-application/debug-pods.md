@@ -123,7 +123,7 @@ Normalmente, a versão do "apiserver" terá algumas linhas extras que não estã
 o que é esperado. No entanto, se houver linhas na versão original que não aparecem na versão do apiserver, 
 isso pode indicar um problema na especificação do seu pod.
 
-### Depurando Replication Controllers
+### Depurando Replication Controllers {#debugging-replication-controllers}
 
 Replication Controllers são bastante diretos. Eles podem criar pods ou não.
 Se não conseguirem criar pods, consulte as
