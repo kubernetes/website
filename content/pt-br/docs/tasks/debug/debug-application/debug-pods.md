@@ -129,7 +129,7 @@ Replication Controllers são bastante diretos. Eles podem criar pods ou não.
 Se não conseguirem criar pods, consulte as
 [instruções acima](#debugging-pods) para depurar seus pods.
 
-Você também pode usar `kubectl describe rc ${CONTROLLER_NAME}` para introspectar eventos
+Você também pode usar `kubectl describe rc ${CONTROLLER_NAME}` para examinar eventos
 relacionados ao replication controller.
 
 ### Depurando Services
