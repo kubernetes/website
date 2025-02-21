@@ -11,7 +11,9 @@ tags:
 - core-object
 - storage
 ---
- Claims storage resources defined in a {{< glossary_tooltip text="PersistentVolume" term_id="persistent-volume" >}} so that it can be mounted as a volume in a {{< glossary_tooltip text="container" term_id="container" >}}.
+Claims storage {{< glossary_tooltip text="resources" term_id="infrastructure-resource" >}} defined in a
+{{< glossary_tooltip text="PersistentVolume" term_id="persistent-volume" >}}, so that the storage can be mounted as
+a volume in a {{< glossary_tooltip text="container" term_id="container" >}}.
 
 <!--more--> 
 

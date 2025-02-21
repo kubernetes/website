@@ -12,7 +12,8 @@ tags:
 - operation
 ---
 Finalizers are namespaced keys that tell Kubernetes to wait until specific
-conditions are met before it fully deletes resources marked for deletion.
+conditions are met before it fully deletes {{< glossary_tooltip text="resources" term_id="api-resource" >}}
+that are marked for deletion.
 Finalizers alert {{<glossary_tooltip text="controllers" term_id="controller">}}
 to clean up resources the deleted object owned.
 
@@ -27,5 +28,6 @@ from the target object. When the `metadata.finalizers` field is empty,
 Kubernetes considers the deletion complete and deletes the object.
 
 You can use finalizers to control {{<glossary_tooltip text="garbage collection" term_id="garbage-collection">}}
-of resources. For example, you can define a finalizer to clean up related resources or
-infrastructure before the controller deletes the target resource.
+of resources. For example, you can define a finalizer to clean up related
+{{< glossary_tooltip text="API resources" term_id="api-resource" >}} or infrastructure before the controller
+deletes the object being finalized.
