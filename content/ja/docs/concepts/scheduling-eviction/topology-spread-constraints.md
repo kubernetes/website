@@ -7,7 +7,7 @@ weight: 40
 
 <!-- overview -->
 
-トポロジー分散制約を使用するとリージョン、ゾーン、ノードおよびその他のユーザー定義されたトポロジー領域などの障害ドメインをまたがって、クラスター内の{{< glossary_tooltip text="Pods" term_id="Pod" >}}がどのように分散されるかを制御できます。
+トポロジー分散制約を使用するとリージョン、ゾーン、ノードおよびその他のユーザー定義されたトポロジー領域などの障害ドメインをまたがって、クラスター内の{{< glossary_tooltip text="Pod" term_id="Pod" >}}がどのように分散されるかを制御できます。
 これにより、高可用性と効率的なリソース活用を実現できます。
 
 [クラスターレベルの制約](#cluster-level-default-constraints)をデフォルトとして設定するか、個々のワークロードに対してトポロジー分散制約を設定できます。
@@ -18,12 +18,12 @@ weight: 40
 
 最大20ノードのクラスターがあり、使用するレプリカ数を自動的にスケーリングする{{< glossary_tooltip text="ワークロード" term_id="workload" >}}を実行したいとします。
 このワークロードには、2つのPodが存在する場合もあれば、15のPodが存在する場合もあります
-Podが2つだけソンz内する場合、単一ノードの障害でワークロードがオフラインになるリスクがあるため、同じノードで両方のPodを実行したくありません。
+Podが2つだけ存在する場合、単一ノードの障害でワークロードがオフラインになるリスクがあるため、同じノードで両方のPodを実行したくありません。
 
 この基本的な使用方法に加えて、高可用性とクラスターの利用率を向上させるための高度な使用方法があります。
 
 スケールアップしてより多くのPodを実行すると、異なる懸念が重要になります。
-5つのPodを実行する3つのノードがあるとします
+5つのPodを実行する3つのノードがあるとします。
 ノードはその多くのレプリカを実行するために十分なキャパシティを持っていますが、このワークロードとやり取りするクライアントは3つの異なるデータセンター(またはインフラストラクチャゾーン)に分散されています。
 単一ノードの障害についての懸念は減りましたが、レイテンシーが予想よりも高く、異なるゾーン間でネットワークトラフィックを送信する際にネットワークコストがかかっていることに気づきます。
 
@@ -32,7 +32,7 @@ Podが2つだけソンz内する場合、単一ノードの障害でワークロ
 
 Podトポロジー分散制約は、このようなシナリオに対処するための手段を提供します。
 
-## `topologySpreadConstraints` フィールド
+## `topologySpreadConstraints`フィールド
 
 Pod APIには、`spec.topologySpreadConstraints`フィールドが含まれています。
 このフィールドの使用方法は次のようになります:
@@ -68,7 +68,7 @@ spec:
   このフィールドは必須であり、0より大きい数値を指定する必要があります。
   このフィールドのセマンティクスは、`whenUnsatisfiable`の値によって異なります:
 
-  - `whenUnsatisfiable: DoNotSchedule`を選択した場合、`maxSkew`はターゲットトポロジー内の一致するPodの数と、_グローバル最小値_（適格ドメイン内の一致するポッドの最小数、または適格ドメインの数がMinDomainsより少ない場合は0）の間で許容される最大の差を定義します。
+  - `whenUnsatisfiable: DoNotSchedule`を選択した場合、`maxSkew`はターゲットトポロジー内の一致するPodの数と、_グローバル最小値_(適格ドメイン内の一致するPodの最小数、または適格ドメインの数がMinDomainsより少ない場合は0)の間で許容される最大の差を定義します。
     例えば、3つのゾーンがあり、それぞれ2、2、1つの一致するPodがあり`MaxSkew`が1に設定されている場合、グローバル最小値は1です。
   - `whenUnsatisfiable: ScheduleAnyway`を選択した場合、スケジューラーはスキューの削減に役立つトポロジーを優先します。
 
@@ -79,7 +79,7 @@ spec:
 
   <!-- OK to remove this note once v1.29 Kubernetes is out of support -->
   {{< note >}}
-  Kubernetes v1.30以前では、`minDomains`フィールドは、`MinDomainsInPodTopologySpread`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates-removed/)が有効になっている場合のみ利用可能でした（v1.28以降はデフォルト）。
+  Kubernetes v1.30以前では、`minDomains`フィールドは、`MinDomainsInPodTopologySpread`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates-removed/)が有効になっている場合のみ利用可能でした(v1.28以降はデフォルト)。
   より古いKubernetesクラスターでは、明示的に無効になっているか、フィールドが利用できない場合があります。
   {{< /note >}}
 
@@ -87,12 +87,12 @@ spec:
     `minDomains`は、`whenUnsatisfiable: DoNotSchedule`と組み合わせてのみ指定できます。
   - トポロジーキーに一致する適格ドメインの数が`minDomains`より少ない場合、Podトポロジー分散はグローバル最小値を0として扱い、`skew`の計算を行います。
     適格ドメインの数が`minDomains`より少ない場合、グローバル最小値は適格ドメイン内の一致するPodの最小数、または0になります。
-  - トポロジーキーに一致する適格ドメインの数が`minDomains`と等しいかそれ以上の場合、こん値はスケジューリングに影響しません。
+  - トポロジーキーに一致する適格ドメインの数が`minDomains`と等しいかそれ以上の場合、この値はスケジューリングに影響しません。
   - `minDomains`を指定しない場合、制約は`minDomains`が1であるかのように動作します。
 
 - **topologyKey**は[ノードラベル](#node-labels)のキーです。
   このキーと同じ値を持つノードは、同じトポロジー内にあると見なされます。
-  トポロジー内の各インスタンス（つまり、<key, value>ペア）をドメインと呼びます。
+  トポロジー内の各インスタンス(つまり、<key, value>ペア)をドメインと呼びます。
   スケジューラーは、各ドメインに均等な数のPodを配置しようとします。
   また、適格ドメインはnodeAffinityPolicyとnodeTaintsPolicyの要件を満たすノードのドメインとして定義します。
 
@@ -110,7 +110,7 @@ spec:
   キーはPodラベルに存在しない場合は無視されます。
   nullまたは空のリストは、`labelSelector`に対してのみ一致します。
 
-  `matchLabelKeys`を使用すると、異なるリビでョン間で`pod.spec`を更新する必要がありません
+  `matchLabelKeys`を使用すると、異なるリビジョン間で`pod.spec`を更新する必要がありません。
   コントローラー/オペレーターは、異なるリビジョンに対して同じラベルキーを異なる値に設定するだけです。
   スケジューラーは、`matchLabelKeys`に基づいて値を自動的に推定します。
   例えばDeploymentを構成する場合、Deploymentコントローラーによって自動的に追加される[pod-template-hash](/ja/docs/concepts/workloads/controllers/deployment/#pod-template-hash-label)をキーとするラベルを使用して、単一のDeployment内の異なるリビジョンを区別できます。
@@ -211,7 +211,7 @@ graph TB
 グループ内のすべてのPodに同じトポロジー分散制約を適用する必要があります。 
 
 通常、Deploymentなどのワークロードコントローラーを使用している場合、Podテンプレートがこれを自動的に処理します。
-異なる分散制約を混在させると、KubernetesはフィールドのAPI定義に従いますが、その動作なは混乱しやすくなりトラブルシューティングがより困難になる可能性があります。
+異なる分散制約を混在させると、KubernetesはフィールドのAPI定義に従いますが、その動作は混乱しやすくなりトラブルシューティングがより困難になる可能性があります。
 
 トポロジードメイン(例えばクラウドプロバイダーのリージョン)内のすべてのノードに、一貫してラベルが付与されていることを保証するメカニズムが必要です。
 手動でノードにラベルを付与する必要がないように、多くのクラスターは`kubernetes.io/hostname`のようなwell-knownラベルを自動的に設定します。
@@ -248,7 +248,7 @@ graph BT
 このマニフェストでは、`topologyKey: zone`は`zone: <任意の値>`というラベルが付いたノードにのみ均等に分散が適用されることを意味します(ラベル`zone`がないノードはスキップされます)。
 `whenUnsatisfiable: DoNotSchedule`フィールドは、スケジューラーが制約を満たせない場合に、新しいPodを保留状態にするようにスケジューラーに指示します。
 
-末毛ジューラーがこの新しいPodをゾーン`A`に配置した場合、Podの分布は`[3, 1]`になります。
+スケジューラーがこの新しいPodをゾーン`A`に配置した場合、Podの分布は`[3, 1]`になります。
 これは実際のスキューが2(`3 - 1`として計算)であることを意味し、`maxSkew: 1`に違反します。
 この例の制約とコンテキストを満たすためには、新しいPodはゾーン`B`のノードにのみ配置される必要があります:
 
@@ -306,7 +306,7 @@ Podの仕様を調整することで、様々な要件に対応できます:
 ### 例: 複数のトポロジー分散制約 {#example-multiple-topologyspreadconstraints}
 
 これは前の例に基づいています。
-4ノードのクラスターがあり、`foo: bar`というラベルの付いた3つのPodがそれぞれ node1、node2、node3 に配置されているとします:
+4ノードのクラスターがあり、`foo: bar`というラベルの付いた3つのPodがそれぞれ node1、node2、node3に配置されているとします:
 
 {{<mermaid>}}
 graph BT
@@ -332,7 +332,7 @@ graph BT
 {{% code_sample file="pods/topology-spread-constraints/two-constraints.yaml" %}}
 
 この場合、最初の制約に一致させるために、新しいPodはゾーン`B`のノードにのみ配置できます。
-一方、2番目の制約に関しては、新しいPodは`nde4`にのみスケジュールできます。
+一方、2番目の制約に関しては、新しいPodは`node4`にのみスケジュールできます。
 スケジューラーは、定義されたすべての制約を満たすオプションのみを考慮するため、有効な配置は`node4`のみです。
 
 ### 例: トポロジー分散制約の競合 {#example-conflicting-topologyspreadconstraints}
@@ -359,12 +359,12 @@ graph BT
     class zoneA,zoneB cluster;
 {{< /mermaid >}}
 
-**この**クラスターに[`two-constraints.yaml`](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/topology-spread-constraints/two-constraints.yaml)(前の例のマニフェスト)を適用すると、Pod`mypod`が`Pending`状態のままであることがわかります。
-これは、最初のの制約を満たすために、Pod`mypod`はゾーン`B`にしか配置できないのに対して、2番目の制約に関しては、Pod`mypod`はノード`node2`にしかスケジュールできないために発生します。
+**この**クラスターに[`two-constraints.yaml`](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/topology-spread-constraints/two-constraints.yaml)(前の例のマニフェスト)を適用すると、Pod `mypod`が`Pending`状態のままであることがわかります。
+これは、最初のの制約を満たすために、Pod `mypod`はゾーン`B`にしか配置できないのに対して、2番目の制約に関しては、Pod `mypod`はノード`node2`にしかスケジュールできないために発生します。
 2つの制約の交差によって空のセットが返され、スケジューラーはPodを配置できません。
 
 この状況を克服するためには、`maxSkew`の値を増やすか、制約の1つを`whenUnsatisfiable: ScheduleAnyway`に変更します。
-状況によっては、バグ修正のロールアウトが進まない理由をトラブルシューティングするために、既存のPodを手動でで削除することもありますj
+状況によっては、バグ修正のロールアウトが進まない理由をトラブルシューティングするために、既存のPodを手動で削除することもあります。
 
 #### ノードアフィニティとノードセレクターとの相互作用
 
@@ -407,7 +407,7 @@ class zoneC cluster;
 {{< /mermaid >}}
 
 ゾーン`C`を除外する必要があることがわかります。
-この場合、以下のようにマニフェストを作成して、Pod`mypod`をゾーン`C`ではなくゾーン`B`に配置することができます。
+この場合、以下のようにマニフェストを作成して、Pod `mypod`をゾーン`C`ではなくゾーン`B`に配置することができます。
 同様に、Kubernetesは`spec.nodeSelector`を尊重します。
 
 {{% code_sample file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" %}}
@@ -425,7 +425,7 @@ class zoneC cluster;
   1. これらのバイパスされたノードにあるPodは`maxSkew`の計算に影響しません。
       上記の[例](#example-conflicting-topologyspreadconstraints)では、ノード`node1`に"ゾーン"ラベルがない場合、2つのPodは無視され、新しいPodはゾーン`A`にスケジュールされます。
   2. 新しいPodがこれらのノードにスケジュールされる可能性はありません。
-     上記の例では、ノード`node5`に **誤字のある**ラベル`zone-typo: zoneC`がある(かつ`zone`ラベルが設定されていない)とします。
+     上記の例では、ノード`node5`に**誤字のある**ラベル`zone-typo: zoneC`がある(かつ`zone`ラベルが設定されていない)とします。
      `node5`がクラスターに参加しても、バイパスされ、このワークロードのPodはそのノードにスケジュールされません。
 
 - 新しいPodの`topologySpreadConstraints[*].labelSelector`が自身のラベルと一致しない場合に何が起こるかに注意してください。
@@ -443,7 +443,7 @@ class zoneC cluster;
 
 デフォルトの制約は、[スケジューリングプロファイル](/ja/docs/reference/scheduling/config/#profiles)の`PodTopologySpread`プラグイン引数の一部として設定できます。
 制約は、[上記のAPI](#topologyspreadconstraints-field)と同じように指定されますが、`labelSelector`は空である必要があります。
-Podが属するServices、ReplicaSets、StatefulSets、またはReplicationControllersから計算されたセレクターが使用されます。
+Podが属するService、ReplicaSet、StatefulSet、またはReplicationControllerから計算されたセレクターが使用されます。
 
 例の設定は次のようになります:
 
@@ -515,7 +515,7 @@ Kubernetesでは、[Pod間のアフィニティとアンチアフィニティ](/
   `requiredDuringSchedulingIgnoredDuringExecution`モードに設定すると、単一のトポロジードメインには1つのPodしかスケジュールできません。
   `preferredDuringSchedulingIgnoredDuringExecution`モードに設定すると、この制約を強制できません。
 
-より細かい制御を行いために、トポロジー分散制約を指定して、異なるトポロジードメインにPodを分散し、高可用性やコスト削減を実現できます。
+より細かい制御を行うには、トポロジー分散制約を指定して、異なるトポロジードメインにPodを分散させることで、高可用性やコスト削減を実現できます。
 またワークロードのローリングアップデートやレプリカのスムーズなスケールアウトにも役立ちます。
 
 詳しくは、Podのトポロジー分散制約に関するエンハンスメントドキュメントの[Motivation](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/895-pod-topology-spread#motivation)セクションを参照してください。
@@ -537,5 +537,5 @@ Kubernetesでは、[Pod間のアフィニティとアンチアフィニティ](/
 
 ## {{% heading "whatsnext" %}}
 
-- ブログ記事[Introducing PodTopologySpread](/blog/2020/05/introducing-podtopologyspread/)では、いくつかの高度な使用例を含め、`maxSkew`について詳しく説明していますj
+- ブログ記事[Introducing PodTopologySpread](/blog/2020/05/introducing-podtopologyspread/)では、いくつかの高度な使用例を含め、`maxSkew`について詳しく説明しています。
 - PodのAPIリファレンスの[scheduling](/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling)セクションを読んでください。
