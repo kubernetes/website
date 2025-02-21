@@ -59,7 +59,7 @@ Resources consumed by the command are counted against the Container.
   This is a beta-level feature default enabled by the `PodLifecycleSleepAction` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). 
 
 {{< note >}}
-Enable the `PodLifecycleSleepActionAllowZero` feature gate if you want to set a sleep duration of zero seconds (effectively a no-op) for your Sleep lifecycle hooks.
+The beta level `PodLifecycleSleepActionAllowZero` feature gate which is enabled by default from v1.33 allows you to set a sleep duration of zero seconds (effectively a no-op) for your Sleep lifecycle hooks.
 {{< /note >}}
 
 ### Hook handler execution
