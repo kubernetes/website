@@ -124,7 +124,7 @@ for policy/v1 an empty selector matches every pod in the namespace.
 
 You can specify only one of `maxUnavailable` and `minAvailable` in a single `PodDisruptionBudget`.
 `maxUnavailable` can only be used to control the eviction of pods
-that have an associated controller managing them. In the examples below, "desired replicas"
+that all have the same associated controller managing them. In the examples below, "desired replicas"
 is the `scale` of the controller managing the pods being selected by the
 `PodDisruptionBudget`.
 
