@@ -229,6 +229,16 @@ incompatible configuration parameters. Consider resetting the containerd configu
 with `containerd config default > /etc/containerd/config.toml` as specified in
 [getting-started.md](https://github.com/containerd/containerd/blob/main/docs/getting-started.md#advanced-topics)
 and then set the configuration parameters specified above accordingly.
+
+ In containerd 2.x ,the latest versions: To configure containerd to use the systemd driver, set the following option in /etc/containerd/config.toml:
+
+ version = 3
+ ```
+[plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
+  SystemdCgroup = true
+```
+ Refer : https://github.com/containerd/containerd/blob/main/docs/cri/config.md#cgroup-driver 
+
 {{< /note >}}
 
 If you apply this change, make sure to restart containerd:
