@@ -53,17 +53,17 @@ Deve haver mensagens do escalonador explicando por que o Pod não pode ser aloca
 
 #### Meu pod fica em estado waiting
 
-Se um Pod estiver preso no estado `Waiting`, significa que ele foi agendado para um nó de trabalho,
+Se um Pod estiver preso no estado `Waiting`, significa que ele foi alocado para um nó de trabalho,
 mas não pode ser executado nessa máquina. Novamente, as informações do comando `kubectl describe ...`
 devem fornecer detalhes úteis.
 
-A causa mais comum para Pods em estado `Waiting` é a falha ao puxar a imagem.
+A causa mais comum para Pods em estado `Waiting` é a falha ao baixar a imagem.
 Há três coisas que você deve verificar:
 
 * Certifique-se de que o nome da imagem está correto.
 * Você enviou a imagem para o registro?
-* Tente puxar a imagem manualmente para verificar se ela pode ser baixada. Por exemplo,
-  se você usa Docker no seu PC, execute `docker pull <image>`.
+* Tente baixar a imagem manualmente para verificar se ela pode ser baixada. Por exemplo,
+  se você usa Docker no seu PC, execute `docker pull `.
 
 #### Meu pod fica em estado terminating
 
