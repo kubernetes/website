@@ -132,7 +132,7 @@ Se não conseguirem criar pods, consulte as
 Você também pode usar `kubectl describe rc ${CONTROLLER_NAME}` para examinar eventos
 relacionados ao replication controller.
 
-### Depurando Services
+### Depurando Services {#debugging-services}
 
 Os Services fornecem balanceamento de carga entre um conjunto de pods.
 Existem vários problemas comuns que podem fazer com que os Services não funcionem corretamente.
