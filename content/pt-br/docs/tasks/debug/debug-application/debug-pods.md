@@ -37,10 +37,10 @@ Continue a depuração dependendo do estado dos pods.
 
 #### Meu pod fica em estado pending
 
-Se um Pod estiver preso em `Pending`, significa que ele não pode ser agendado em um nó.
-Geralmente, isso ocorre porque há recursos insuficientes de algum tipo, impedindo o agendamento.
+Se um Pod estiver preso em `Pending`, significa que ele não pode ser alocado em um nó.
+Geralmente, isso ocorre porque há recursos insuficientes de algum tipo, impedindo a alocação.
 Verifique a saída do comando `kubectl describe ...` mencionado acima.
-Deve haver mensagens do scheduler explicando por que o pod não pode ser agendado. As razões incluem:
+Deve haver mensagens do escalonador explicando por que o Pod não pode ser alocado. As razões incluem:
 
 * **Você não tem recursos suficientes**: Pode ser que você tenha esgotado a capacidade de CPU ou Memória no seu cluster.
   Nesse caso, você precisa excluir Pods, ajustar as solicitações de recursos ou adicionar novos nós ao cluster.
