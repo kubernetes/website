@@ -1,0 +1,19 @@
+---
+# Removed from Kubernetes
+title: EnableAggregatedDiscoveryTimeout
+content_type: feature_gate
+
+_build:
+  list: never
+  render: false
+
+stages:
+  - stage: deprecated
+    defaultValue: true
+    fromVersion: "1.16"
+    toVersion: "1.17"
+
+removed: true
+
+---
+Вмикає пʼятисекундний тайм-аут для агрегованих викликів виявлення.
