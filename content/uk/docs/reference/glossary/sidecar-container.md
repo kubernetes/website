@@ -2,7 +2,7 @@
 title: Sidecar контейнер
 id: sidecar-container
 date: 2018-04-12
-full_link: /uk/docs/concepts/workloads/pods/sidecar-containers/
+full_link: /docs/concepts/workloads/pods/sidecar-containers/
 short_description: >
   Допоміжний контейнер, який зазвичай працює впродовж всього життєвого циклу Podʼа.
 tags:

@@ -17,7 +17,7 @@ weight: 91
 
 ## Чому змінювати типовий StorageClass? {#why-change-the-default-storage-class}
 
-Залежно від методу встановлення, ваш кластер Kubernetes може бути розгорнутий з наявним StorageClass, який позначений як типовий. Цей типовий StorageClass потім використовується для динамічного створення сховищ для PersistentVolumeClaims, які не вимагають будь-якого конкретного класу сховища. Див. [документацію по PersistentVolumeClaim](/uk/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) для деталей.
+Залежно від методу встановлення, ваш кластер Kubernetes може бути розгорнутий з наявним StorageClass, який позначений як типовий. Цей типовий StorageClass потім використовується для динамічного створення сховищ для PersistentVolumeClaims, які не вимагають будь-якого конкретного класу сховища. Див. [документацію по PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) для деталей.
 
 Попередньо встановлений типовий StorageClass може не відповідати вашим очікуваним навантаженням; наприклад, він може створювати занадто дороге сховище. У цьому випадку ви можете змінити типовий StorageClass або повністю вимкнути його, щоб уникнути динамічного створення сховища.
 
@@ -53,7 +53,7 @@ weight: 91
 
    де `standard` — це назва вашого вибраного StorageClass.
 
-2. Позначте StorageClass як типовий:
+1. Позначте StorageClass як типовий:
 
    Аналогічно попередньому кроку, вам потрібно додати/встановити анотацію
    `storageclass.kubernetes.io/is-default-class=true`.
@@ -62,9 +62,9 @@ weight: 91
    kubectl patch storageclass gold -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
    ```
 
-   Зверніть увагу, що максимум один StorageClass може бути позначений як типовий. Якщо два або більше з них позначені як типові, PersistentVolumeClaim без явно вказаного `storageClassName` не може бути створений.
+   Зверніть увагу, що ви можете позначити декілька `StorageClass` як стандартні. Якщо позначено більше одного `StorageClass` як стандартного, `PersistentVolumeClaim` без явно визначеного `storageClassName` буде створено з використанням останнього створеного стандартного `StorageClass`. Коли `PersistentVolumeClaim` створено із зазначеним `volumeName`, він залишається у стані очікування, якщо `storageClassName` статичного тому не збігається з `StorageClass` у `PersistentVolumeClaim`.
 
-3. Перевірте, що ваш вибраний StorageClass є default:
+1. Перевірте, що ваш вибраний StorageClass є default:
 
    ```bash
    kubectl get storageclass
@@ -80,4 +80,4 @@ weight: 91
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся більше про [PersistentVolumes](/uk/docs/concepts/storage/persistent-volumes/).
+* Дізнайтеся більше про [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).

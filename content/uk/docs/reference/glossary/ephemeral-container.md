@@ -2,7 +2,7 @@
 title: Ефемерний Контейнер
 id: ephemeral-container
 date: 2019-08-26
-full_link: /uk/docs/concepts/workloads/pods/ephemeral-containers/
+full_link: /docs/concepts/workloads/pods/ephemeral-containers/
 short_description: >
   Тип контейнера, який можна тимчасово запустити всередині Podʼа.
 

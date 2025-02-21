@@ -2,11 +2,11 @@
 title: Logging
 id: logging
 date: 2019-04-04
-full_link: /uk/docs/concepts/cluster-administration/logging/
+full_link: /docs/concepts/cluster-administration/logging/
 short_description: >
   Логи — це перелік подій, які реєструються кластером або застосунком.
 
-aka: 
+aka:
 tags:
 - architecture
 - fundamental

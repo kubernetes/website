@@ -2,7 +2,7 @@
 title: PriorityClass
 id: priority-class
 date: 2024-03-19
-full_link: /uk/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass
+full_link: /docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass
 short_description: >
   Зіставлення імені класу з пріоритетом планування, який повинен мати Pod.
 aka:

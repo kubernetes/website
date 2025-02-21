@@ -2,11 +2,11 @@
 title: Квоти ресурсів
 id: resource-quota
 date: 2018-04-12
-full_link: /uk/docs/concepts/policy/resource-quotas/
+full_link: /docs/concepts/policy/resource-quotas/
 short_description: >
   Впроваджує обмеження, які обмежують загальне споживання ресурсів для кожного простору імен.
 
-aka: 
+aka:
 tags:
 - fundamental
 - operation

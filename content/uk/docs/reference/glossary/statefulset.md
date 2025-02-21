@@ -2,11 +2,11 @@
 title: StatefulSet
 id: statefulset
 date: 2018-04-12
-full_link: /uk/docs/concepts/workloads/controllers/statefulset/
+full_link: /docs/concepts/workloads/controllers/statefulset/
 short_description: >
   StatefulSet керує розгортанням і масштабуванням групи обʼєктів Pod з постійним сховищем та постійними ідентифікаторами для кожного обʼєкта Pod.
 
-aka: 
+aka:
 tags:
 - fundamental
 - core-object

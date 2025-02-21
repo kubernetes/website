@@ -2,11 +2,11 @@
 title: Kubeadm
 id: kubeadm
 date: 2018-04-12
-full_link: /uk/docs/reference/setup-tools/kubeadm/
+full_link: /docs/reference/setup-tools/kubeadm/
 short_description: >
   Інструмент для швидкого встановлення Kubernetes та налаштування захищеного кластера.
 
-aka: 
+aka:
 tags:
 - tool
 - operation

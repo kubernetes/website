@@ -2,11 +2,11 @@
 title: Завершувач
 id: finalizer
 date: 2021-07-07
-full_link: /uk/docs/concepts/overview/working-with-objects/finalizers/
+full_link: /docs/concepts/overview/working-with-objects/finalizers/
 short_description: >
   Ключ простору імен, який наказує Kubernetes чекати до виконання певних умов перед тим, як повністю видалити обʼєкт, позначений для видалення.
 
-aka: 
+aka:
 - Finalizer
 tags:
 - fundamental

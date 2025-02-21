@@ -2,7 +2,7 @@
 title: Виселення, ініційоване API
 id: api-eviction
 date: 2021-04-27
-full_link: /uk/docs/concepts/scheduling-eviction/api-eviction/
+full_link: /docs/concepts/scheduling-eviction/api-eviction/
 short_description: >
   Виселення, ініційоване API — процес, під час якого використовується Eviction API для створення обʼєкта Eviction, який викликає належне завершення роботи Podʼа.
 aka:

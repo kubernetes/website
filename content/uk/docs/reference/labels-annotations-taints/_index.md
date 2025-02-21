@@ -2158,6 +2158,18 @@ Kubelet перевіряє D-значення розміру `/proc/sys/kernel/p
 
 Ви можете позначити вузли панелі управління цією міткою, щоб спростити розміщення Podʼів лише на цих вузлах або уникнути запуску Podʼів на панелі управління. Якщо ця мітка встановлена, [контролер EndpointSlice](/docs/concepts/services-networking/topology-aware-routing/#implementation-control-plane) ігнорує цей вузол під час розрахунку підказок, що враховують топологію.
 
+### node-role.kubernetes.io/*
+
+Тип: Label
+
+Приклад: `node-role.kubernetes.io/gpu: gpu`
+
+Використовується для: Node
+
+Ця необовʼязкова мітка застосовується до вузла, коли ви хочете позначити роль вузла. Роль вузла (текст після `/` у ключі мітки) можна встановити, якщо загальний ключ відповідає правилам [синтаксису](/docs/concepts/oview/working-with-objects/labels/#syntax-and-character-set) для міток обʼєктів.
+
+У Kubernetes визначено одну специфічну роль вузла, **панель управління**. Мітка, яку ви можете використовувати для позначення цієї ролі вузла, має вигляд [`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane).
+
 ### node-role.kubernetes.io/control-plane {#node-role-kubernetes-io-control-plane-taint}
 
 Тип: Taint

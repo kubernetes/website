@@ -2,11 +2,11 @@
 title: ReplicaSet
 id: replica-set
 date: 2018-04-12
-full_link: /uk/docs/concepts/workloads/controllers/replicaset/
+full_link: /docs/concepts/workloads/controllers/replicaset/
 short_description: >
  ReplicaSet забезпечує наявність певної кількості реплік обʼєкта Pod в поточний момент часу
 
-aka: 
+aka:
 tags:
 - fundamental
 - core-object

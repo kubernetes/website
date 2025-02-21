@@ -48,7 +48,7 @@ weight: 10
 * налаштовувати {{< glossary_tooltip term_id="kube-apiserver" text="API сервер" >}} для використання його для зберігання подій
 
 Деталі з налаштування та управління etcd для великого кластера наведено в розділах
-[Управління кластерами etcd для Kubernetes](/uk/docs/tasks/administer-cluster/configure-upgrade-etcd/) та [Налаштування високодоступного кластера etcd за допомогою kubeadm](/uk/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/).
+[Управління кластерами etcd для Kubernetes](/docs/tasks/administer-cluster/configure-upgrade-etcd/) та [Налаштування високодоступного кластера etcd за допомогою kubeadm](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/).
 
 ## Ресурси надбудов {#addon-resources}
 
@@ -79,6 +79,6 @@ weight: 10
 
 * `VerticalPodAutoscaler` — це власний ресурс, який ви можете розгортати у свій кластер, щоб допомогти управляти запитами та обмеженнями ресурсів для Podʼів. Дізнайтеся більше про [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) та як ви можете використовувати його для масштабування компонентів кластера, включаючи критичні для кластера надбудови.
 
-* [Автомасштабування кластера](/uk/docs/concepts/cluster-administration/cluster-autoscaling/)
+* [Автомасштабування вузлів](/docs/concepts/cluster-administration/node-autoscaling/)
 
 * [Надбудова Resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme) допомагає автоматично змінювати розміри надбудов при зміні масштабу вашого кластера.

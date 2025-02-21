@@ -2,7 +2,7 @@
 title: Secret
 id: secret
 date: 2018-04-12
-full_link: /uk/docs/concepts/configuration/secret/
+full_link: /docs/concepts/configuration/secret/
 short_description: >
   Зберігає конфіденційну інформацію, таку як паролі, токени OAuth та ключі SSH.
 

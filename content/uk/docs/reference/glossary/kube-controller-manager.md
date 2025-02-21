@@ -2,11 +2,11 @@
 title: kube-controller-manager
 id: kube-controller-manager
 date: 2018-04-12
-full_link: /uk/docs/reference/command-line-tools-reference/kube-controller-manager/
+full_link: /docs/reference/command-line-tools-reference/kube-controller-manager/
 short_description: >
   Компонент панелі управління, який запускає процеси контролера.
 
-aka: 
+aka:
 tags:
 - architecture
 - fundamental

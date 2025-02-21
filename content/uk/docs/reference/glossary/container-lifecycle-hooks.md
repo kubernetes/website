@@ -2,7 +2,7 @@
 title: Хуки життєвого циклу контейнера
 id: container-lifecycle-hooks
 date: 2018-10-08
-full_link: /uk/docs/concepts/containers/container-lifecycle-hooks/
+full_link: /docs/concepts/containers/container-lifecycle-hooks/
 short_description: >
   Хуки життєвого циклу надають події в життєвому циклі управління контейнером і дозволяють користувачеві виконувати код при настанні подій.
 

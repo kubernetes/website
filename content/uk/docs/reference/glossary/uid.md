@@ -2,7 +2,7 @@
 title: UID
 id: uid
 date: 2018-04-12
-full_link: /uk/docs/concepts/overview/working-with-objects/names
+full_link: /docs/concepts/overview/working-with-objects/names
 short_description: >
   Рядок, створений системами Kubernetes для унікальної ідентифікації обʼєктів.
 

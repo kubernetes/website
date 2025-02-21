@@ -2,6 +2,7 @@
 content_type: "reference"
 title: Kubelet Systemd Watchdog
 weight: 80
+math: true
 ---
 
 {{< feature-state feature_gate_name="SystemdWatchdog" >}}
@@ -19,7 +20,7 @@ weight: 80
 WatchdogSec=30s
 ```
 
-Встановлення `WatchdogSec=30s` вказує на тайм-аут службового сторожового тайм-ауту у 30 секунд. Усередині kubelet функція `d_notify()` викликається з інтервалом `WatchdogSec` ÷ 2, щоб відправити `WATCHDOG=1` (повідомлення про те, що він живий). Якщо сторожовий таймер не буде запущено протягом тайм-ауту, kubelet буде вбито. Встановлення `Restart` у значення "always", "on-failure", "on-watchdog" або "on-abnormal" забезпечить автоматичний перезапуск сервісу.
+Встановлення `WatchdogSec=30s` вказує на тайм-аут службового сторожового тайм-ауту у 30 секунд. Усередині kubelet функція `d_notify()` викликається з інтервалом \\( WatchdogSec \div 2\\), щоб відправити `WATCHDOG=1` (повідомлення про те, що він живий). Якщо сторожовий таймер не буде запущено протягом тайм-ауту, kubelet буде вбито. Встановлення `Restart` у значення "always", "on-failure", "on-watchdog" або "on-abnormal" забезпечить автоматичний перезапуск сервісу.
 
 Дещо про конфігурацію systemd:
 

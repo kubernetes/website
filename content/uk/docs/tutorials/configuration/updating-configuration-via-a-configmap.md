@@ -5,7 +5,7 @@ weight: 20
 ---
 
 <!-- overview -->
-Ця сторінка містить покроковий приклад оновлення конфігурації всередині Pod за допомогою ConfigMap і базується на завданні [Налаштування Pod для використання ConfigMap](/uk/docs/tasks/configure-pod-container/configure-pod-configmap/). Наприкінці цього посібника ви зрозумієте, як змінити конфігурацію для запущеного застосунку. Цей посібник використовує образи `alpine` та `nginx` як приклади.
+Ця сторінка містить покроковий приклад оновлення конфігурації всередині Pod за допомогою ConfigMap і базується на завданні [Налаштування Pod для використання ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/). Наприкінці цього посібника ви зрозумієте, як змінити конфігурацію для запущеного застосунку. Цей посібник використовує образи `alpine` та `nginx` як приклади.
 
 ## {{% heading "prerequisites" %}}
 
@@ -24,7 +24,7 @@ weight: 20
 
 ## Оновлення конфігурації через ConfigMap, змонтовану як том {#rollout-configmap-volume}
 
-Використовуйте команду `kubectl create configmap` для створення ConfigMap з [літеральних значень](/uk/docs/tasks/configure-pod-container/configure-pod-configmap/#create-configmaps-from-literal-values):
+Використовуйте команду `kubectl create configmap` для створення ConfigMap з [літеральних значень](/docs/tasks/configure-pod-container/configure-pod-configmap/#create-configmaps-from-literal-values):
 
 ```shell
 kubectl create configmap sport --from-literal=sport=football
@@ -123,12 +123,12 @@ Thu Jan  4 14:12:16 UTC 2024 My preferred sport is cricket
 Коли у вас є ConfigMap, змонтований у працюючий Pod, використовуючи або том `configMap`, або `projected` том, і ви оновлюєте цей ConfigMap, працюючий Pod майже миттєво бачить це оновлення. Однак ваш застосунок бачить зміни лише в тому випадку, якщо він запрограмований опитувати зміни або стежити за оновленнями файлів. Застосунок, що завантажує свою конфігурацію лише під час запуску, не помітить змін.
 
 {{< note >}}
-Загальна затримка з моменту оновлення ConfigMap до моменту, коли нові ключі проєцюються у Pod, може бути такою ж довгою, як і період синхронізації kubelet. Також перевірте [Автоматичне оновлення змонтованих ConfigMap](/uk/docs/tasks/configure-pod-container/configure-pod-configmap/#mounted-configmaps-are-updated-automatically).
+Загальна затримка з моменту оновлення ConfigMap до моменту, коли нові ключі проєцюються у Pod, може бути такою ж довгою, як і період синхронізації kubelet. Також перевірте [Автоматичне оновлення змонтованих ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/#mounted-configmaps-are-updated-automatically).
 {{< /note >}}
 
 ## Оновлення змінних середовища Pod за допомогою ConfigMap {#rollout-configmap-env}
 
-Використовуйте команду `kubectl create configmap` для створення ConfigMap з [літеральних значень](/uk/docs/tasks/configure-pod-container/configure-pod-configmap/#create-configmaps-from-literal-values):
+Використовуйте команду `kubectl create configmap` для створення ConfigMap з [літеральних значень](/docs/tasks/configure-pod-container/configure-pod-configmap/#create-configmaps-from-literal-values):
 
 ```shell
 kubectl create configmap fruits --from-literal=fruits=apples
@@ -225,7 +225,7 @@ Thu Jan  4 16:13:26 UTC 2024 The basket is full of apples
 Хоча значення ключа всередині ConfigMap змінилося, змінна середовища в Pod все ще показує попереднє значення. Це тому, що змінні середовища для процесу, що виконується всередині Pod, **не** оновлюються, коли змінюються вихідні дані; якщо ви хочете примусово оновити, вам потрібно змусити Kubernetes замінити наявні Podʼи. Нові Podʼи будуть працювати з оновленою інформацією.
 {{< /note >}}
 
-Ви можете ініціювати таку заміну. Виконайте розгортання для Deployment, використовуючи [`kubectl rollout`](/uk/docs/reference/kubectl/generated/kubectl_rollout/):
+Ви можете ініціювати таку заміну. Виконайте розгортання для Deployment, використовуючи [`kubectl rollout`](/docs/reference/kubectl/generated/kubectl_rollout/):
 
 ```shell
 # Запустіть розгортання
@@ -287,7 +287,7 @@ Thu Jan  4 16:30:55 UTC 2024 The basket is full of mangoes
 
 ## Оновлення конфігурації через ConfigMap у багатоконтейнерному Поді {#rollout-configmap-multiple-containers}
 
-Використовуйте команду `kubectl create configmap`, щоб створити ConfigMap з [літеральних значень](/uk/docs/tasks/configure-pod-container/configure-pod-configmap/#create-configmaps-from-literal-values):
+Використовуйте команду `kubectl create configmap`, щоб створити ConfigMap з [літеральних значень](/docs/tasks/configure-pod-container/configure-pod-configmap/#create-configmaps-from-literal-values):
 
 ```shell
 kubectl create configmap color --from-literal=color=red
@@ -389,9 +389,9 @@ Fri Jan  5 08:15:00 UTC 2024 My preferred color is blue
 
 ## Оновлення конфігурації через ConfigMap у Поді з контейнером sidecar{#rollout-configmap-sidecar}
 
-Вищевказаний сценарій можна відтворити за допомогою [контейнера sidecar](/uk/docs/concepts/workloads/pods/sidecar-containers/) як допоміжного контейнера для запису HTML-файлу. Оскільки контейнер sidecar концептуально є контейнером ініціалізації, гарантується, що він запускається перед головним контейнером вебсервера. Це забезпечує, що файл HTML завжди доступний, коли вебсервер буде готовий його обслуговувати. Будь ласка, дивіться [Увімкнення контейнерів sidecar](/uk/docs/concepts/workloads/pods/sidecar-containers/#enabling-sidecar-containers), щоб скористатися цією функцією.
+Вищевказаний сценарій можна відтворити за допомогою [контейнера sidecar](/docs/concepts/workloads/pods/sidecar-containers/) як допоміжного контейнера для запису HTML-файлу. Оскільки контейнер sidecar концептуально є контейнером ініціалізації, гарантується, що він запускається перед головним контейнером вебсервера. Це забезпечує, що файл HTML завжди доступний, коли вебсервер буде готовий його обслуговувати.
 
-Якщо ви продовжуєте з попереднього сценарію, ви можете використати знову ConfigMap з імʼям `color` для цього сценарію. Якщо ви виконуєте цей сценарій самостійно, використовуйте команду `kubectl create configmap`, щоб створити ConfigMap з [літеральних значень](/uk/docs/tasks/configure-pod-container/configure-pod-configmap/#create-configmaps-from-literal-values):
+Якщо ви продовжуєте з попереднього сценарію, ви можете використати знову ConfigMap з імʼям `color` для цього сценарію. Якщо ви виконуєте цей сценарій самостійно, використовуйте команду `kubectl create configmap`, щоб створити ConfigMap з [літеральних значень](/docs/tasks/configure-pod-container/configure-pod-configmap/#create-configmaps-from-literal-values):
 
 ```shell
 kubectl create configmap color --from-literal=color=blue
@@ -503,7 +503,7 @@ Sat Feb 17 13:13:35 UTC 2024 My preferred color is green
 * перезавантажити kubelet на будь-якому вузлі, де kubelet раніше завантажував старий ConfigMap
 {{< /note >}}
 
-Нижче наведено приклад маніфесту для [незмінного ConfigMap](/uk/docs/concepts/configuration/configmap/#configmap-immutable).
+Нижче наведено приклад маніфесту для [незмінного ConfigMap](/docs/concepts/configuration/configmap/#configmap-immutable).
 
 {{% code_sample file="configmap/immutable-configmap.yaml" %}}
 

@@ -2,7 +2,7 @@
 title: Сертифікат
 id: certificate
 date: 2018-04-12
-full_link: /uk/docs/tasks/tls/managing-tls-in-a-cluster/
+full_link: /docs/tasks/tls/managing-tls-in-a-cluster/
 short_description: >
   Криптографічно захищений файл, який використовується для підтвердження доступу до кластера Kubernetes.
 

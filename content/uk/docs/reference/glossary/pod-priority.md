@@ -2,7 +2,7 @@
 title: Пріоритет Podʼа
 id: pod-priority
 date: 2019-01-31
-full_link: /uk/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority
+full_link: /docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority
 short_description: >
   Пріоритет Podʼа вказує на важливість Podʼа в порівнянні з іншими Podʼами.
 

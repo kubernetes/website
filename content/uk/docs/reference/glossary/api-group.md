@@ -2,7 +2,7 @@
 title: API-група
 id: api-group
 date: 2019-09-02
-full_link: /uk/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning
+full_link: /docs/concepts/overview/kubernetes-api/#api-groups-and-versioning
 short_description: >
   Набір повʼязаних шляхів в API Kubernetes.
 

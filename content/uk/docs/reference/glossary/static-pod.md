@@ -2,11 +2,11 @@
 title: Static Pod
 id: static-pod
 date: 2019-02-12
-full_link: /uk/docs/tasks/configure-pod-container/static-pod/
+full_link: /docs/tasks/configure-pod-container/static-pod/
 short_description: >
   Pod, яким управляє безпосередньо демон kubelet на певному вузлі.
 
-aka: 
+aka:
 tags:
 - fundamental
 ---

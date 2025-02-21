@@ -2,11 +2,11 @@
 title: Функціональні можливості
 id: feature-gate
 date: 2023-01-12
-full_link: /uk/docs/reference/command-line-tools-reference/feature-gates/
+full_link: /docs/reference/command-line-tools-reference/feature-gates/
 short_description: >
   Спосіб перевірки увімкення тих чи інших функцій Kubernetes у вашому кластері.
 
-aka: 
+aka:
 - Feature gate
 tags:
 - fundamental

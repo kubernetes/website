@@ -2,7 +2,7 @@
 title: Динамічне створення томів сховища
 id: dynamicvolumeprovisioning
 date: 2018-04-12
-full_link: /uk/docs/concepts/storage/dynamic-provisioning
+full_link: /docs/concepts/storage/dynamic-provisioning
 short_description: >
   Дозволяє користувачам автоматично створювати томи сховища за запитом.
 

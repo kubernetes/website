@@ -2,7 +2,7 @@
 title: EndpointSlice
 id: endpoint-slice
 date: 2018-04-12
-full_link: /uk/docs/concepts/services-networking/endpoint-slices/
+full_link: /docs/concepts/services-networking/endpoint-slices/
 short_description: >
   Спосіб групування мережевих точок доступу разом із ресурсами Kubernetes.
 

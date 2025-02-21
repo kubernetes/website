@@ -2,11 +2,11 @@
 title: Persistent Volume Claim
 id: persistent-volume-claim
 date: 2018-04-12
-full_link: /uk/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims
+full_link: /docs/concepts/storage/persistent-volumes/#persistentvolumeclaims
 short_description: >
   Запит на використання ресурсів зберігання, визначених у PersistentVolume, для їх монтування як томів в контейнері.
 
-aka: 
+aka:
 tags:
 - core-object
 - storage

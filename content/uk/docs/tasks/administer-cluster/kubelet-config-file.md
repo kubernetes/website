@@ -37,6 +37,7 @@ evictionHard:
     nodefs.available:  "10%"
     nodefs.inodesFree: "5%"
     imagefs.available: "15%"
+    imagefs.inodesFree: "5%"
 ```
 
 У цьому прикладі kubelet налаштовано з наступними параметрами:

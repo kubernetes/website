@@ -87,70 +87,19 @@ RoleBinding може посилатися на будь-яку Role в тому 
 
 Ось приклад RoleBinding, який надає роль "pod-reader" користувачу "jane" в межах простору імен "default". Це дозволяє "jane" читати Podʼи в просторі імен "default".
 
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-# Це рольове звʼязування дозволяє "jane" читати Podʼи в просторі імен "default".
-# Ви повинні вже мати роль з назвою "pod-reader" в цьому просторі імен.
-kind: RoleBinding
-metadata:
-  name: read-pods
-  namespace: default
-subjects:
-# Ви можете вказати більше одного "субʼєкта"
-- kind: User
-  name: jane # "name" чутливе до регістру
-  apiGroup: rbac.authorization.k8s.io
-roleRef:
-  # "roleRef" вказує на звʼязування з Role / ClusterRole
-  kind: Role # має бути Role або ClusterRole
-  name: pod-reader # має збігатися з назвою Role або ClusterRole, з якою ви хочете звʼязати
-  apiGroup: rbac.authorization.k8s.io
-```
+{{% code_sample file="access/simple-rolebinding-with-role.yaml" %}}
 
 RoleBinding також може посилатися на ClusterRole для надання дозволів, визначених у цій ClusterRole, на ресурси в межах простору імен RoleBinding. Такий вид посилання дозволяє визначати набір загальних ролей для всього вашого кластера, а потім використовувати їх у декількох просторах імен.
 
 Наприклад, хоча наступний RoleBinding посилається на ClusterRole, "dave" (субʼєкт, чутливий до регістру) зможе читати Secretʼи лише в просторі імен "development", оскільки простір імен RoleBinding (у його метаданих) — "development".
 
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-# Це рольове звʼязування дозволяє "dave" читати Secretʼи в просторі імен "development".
-# Ви повинні вже мати ClusterRole з назвою "secret-reader".
-kind: RoleBinding
-metadata:
-  name: read-secrets
-  #
-  # Простір імен RoleBinding визначає, де надаються дозволи.
-  # Це надає дозволи лише в просторі імен "development".
-  namespace: development
-subjects:
-- kind: User
-  name: dave # Name чутливе до регістру
-  apiGroup: rbac.authorization.k8s.io
-roleRef:
-  kind: ClusterRole
-  name: secret-reader
-  apiGroup: rbac.authorization.k8s.io
-```
+{{% code_sample file="access/simple-rolebinding-with-clusterrole.yaml" %}}
 
 #### Приклад ClusterRoleBinding {#clusterrolebinding-example}
 
 Щоб надати дозволи на рівні всього кластера, ви можете використовувати ClusterRoleBinding. Наступний ClusterRoleBinding дозволяє будь-якому користувачу з групи "manager" читати Secretʼи в будь-якому просторі імен.
 
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-# Це звʼязування кластерної ролі дозволяє будь-якому користувачу з групи "manager" читати Secretʼи в будь-якому просторі імен.
-kind: ClusterRoleBinding
-metadata:
-  name: read-secrets-global
-subjects:
-- kind: Group
-  name: manager # Name чутливе до регістру
-  apiGroup: rbac.authorization.k8s.io
-roleRef:
-  kind: ClusterRole
-  name: secret-reader
-  apiGroup: rbac.authorization.k8s.io
-```
+{{% code_sample file="access/simple-clusterrolebinding.yaml" %}}
 
 Після створення звʼязування ви не можете змінити Role або ClusterRole, на які вони посилаються. Якщо ви спробуєте змінити `roleRef` звʼязування, ви отримаєте помилку валідації. Якщо ви дійсно хочете змінити `roleRef` для звʼязування, вам потрібно видалити обʼєкт звʼязування і створити новий.
 

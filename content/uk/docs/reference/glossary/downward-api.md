@@ -6,7 +6,7 @@ short_description: >
   Механізм використання Kubernetes для надання значень полів Podʼа та контейнера коду, що працює в контейнері.
 
 aka:
-full_link: /uk/docs/concepts/workloads/pods/downward-api/
+full_link: /docs/concepts/workloads/pods/downward-api/
 tags:
 - architecture
 ---

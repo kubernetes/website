@@ -89,6 +89,10 @@ Podʼи, вже заплановані на Node, можуть погано по
 
 Ви можете змінювати обʼєкти Node незалежно від налаштувань `--register-node`. Наприклад, ви можете встановлювати мітки на наявному Вузлі або позначати його як незапланований.
 
+Ви можете встановити необовʼязкові ролі для вузлів, додавши один або більше `node-role.kubernetes.io/<role>: <role>` міток до вузла, де символи `<role>` обмежуються правилами [синтаксису](/docs/concepts/oview/working-with-objects/labels/#syntax-and-character-set) для міток.
+
+Kubernetes ігнорує значення мітки для ролей вузлів; за домовленістю, ви можете задати для неї той самий рядок, який ви використовували для ролі вузла у ключі мітки.
+
 Ви можете використовувати мітки на Вузлах разом із селекторами вузлів на Podʼах для управління плануванням. Наприклад, ви можете обмежити Pod лише можливістю запуску на
 підмножині доступних вузлів.
 
@@ -228,7 +232,7 @@ Swap підтримується тільки з **cgroup v2**, cgroup v1 не п
 - [Визначення API для вузла](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 - [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) у документі з дизайну архітектури.
 - [Відповідне/невідповідне вимкнення вузлів](/docs/concepts/cluster-administration/node-shutdown/).
-- [Автомасштабування кластера](/docs/concepts/cluster-administration/cluster-autoscaling/) для керування кількістю та розміром вузлів у вашому кластері.
+- [Автомасштабування вузла](/docs/concepts/cluster-administration/node-autoscaling/) для керування кількістю та розміром вузлів у вашому кластері.
 - [Заплямованість та Толерантність](/docs/concepts/scheduling-eviction/taint-and-toleration/).
 - [Менеджери ресурсів вузла](/docs/concepts/policy/node-resource-managers/).
 - [Управління ресурсами для вузлів з операційною системою Windows](/docs/concepts/configuration/windows-resource-management/).

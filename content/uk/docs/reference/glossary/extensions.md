@@ -2,7 +2,7 @@
 title: Розширення
 id: Extensions
 date: 2019-02-01
-full_link: /uk/docs/concepts/extend-kubernetes/#extensions
+full_link: /docs/concepts/extend-kubernetes/#extensions
 short_description: >
   Розширення — це компоненти програмного забезпечення, які розширюють і глибоко інтегруються з Kubernetes для підтримки
   нових типів обладнання.

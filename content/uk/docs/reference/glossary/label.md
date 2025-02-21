@@ -2,11 +2,11 @@
 title: Мітка
 id: label
 date: 2018-04-12
-full_link: /uk/docs/concepts/overview/working-with-objects/labels
+full_link: /docs/concepts/overview/working-with-objects/labels
 short_description: >
   Позначає обʼєкти атрибутами ідентифікації, які мають значення і є важливими для користувачів.
 
-aka: 
+aka:
 - Label
 tags:
 - fundamental
@@ -14,6 +14,6 @@ tags:
 
 Позначає обʼєкти атрибутами ідентифікації, які мають значення і є важливими для користувачів.
 
-<!--more--> 
+<!--more-->
 
 Мітки — це пари ключ/значення, які приєднуються до обʼєктів, таких як {{< glossary_tooltip text="Podʼи" term_id="pod" >}}. Вони використовуються для організації та вибору підмножини обʼєктів.

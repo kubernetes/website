@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
     - name: test-container
-      image: registry.k8s.io/busybox
+      image: registry.k8s.io/busybox:1.27.2
       command: [ "/bin/echo", "$(SPECIAL_LEVEL_KEY) $(SPECIAL_TYPE_KEY)" ]
       env:
         - name: SPECIAL_LEVEL_KEY

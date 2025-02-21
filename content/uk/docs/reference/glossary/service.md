@@ -2,7 +2,7 @@
 title: Service
 id: service
 date: 2018-04-12
-full_link: /uk/docs/concepts/services-networking/service/
+full_link: /docs/concepts/services-networking/service/
 short_description: >
   Спосіб відкрити доступ до застосунку, що запущений на декількох Podʼах у вигляді мережевої служби.
 

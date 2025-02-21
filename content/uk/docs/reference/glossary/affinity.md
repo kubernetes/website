@@ -2,7 +2,7 @@
 title: Спорідненість
 id: affinity
 date: 2019-01-11
-full_link: /uk/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
+full_link: /docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
 short_description: >
     Правила, що використовуються планувальником для визначення місця розташування Podʼів.
 

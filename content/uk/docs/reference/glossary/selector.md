@@ -2,7 +2,7 @@
 title: Селектор
 id: selector
 date: 2018-04-12
-full_link: /uk/docs/concepts/overview/working-with-objects/labels/
+full_link: /docs/concepts/overview/working-with-objects/labels/
 short_description: >
   Дозволяє користувачам фільтрувати ресурси за мітками.
 

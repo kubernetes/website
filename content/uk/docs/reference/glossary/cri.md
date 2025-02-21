@@ -2,7 +2,7 @@
 title: Інтерфейс середовища виконання контейнера
 id: cri
 date: 2021-11-24
-full_link: /uk/docs/concepts/architecture/cri
+full_link: /docs/concepts/architecture/cri
 short_description: >
   Протокол для звʼязку між kubelet та локальним середовищем виконання контейнера.
 

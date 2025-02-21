@@ -14,7 +14,7 @@ weight: 10
 
 - Вам потрібен кластер Kubernetes, і інструмент командного рядка kubectl має бути налаштований для звʼязку з вашим кластером.
 - Ви повинні мати базове розуміння про [Deployments](/docs/concepts/workloads/controllers/deployment/), {{< glossary_tooltip text="пріоритет" term_id="pod-priority" >}} podʼів, та {{< glossary_tooltip text="PriorityClasses" term_id="priority-class" >}}.
-- У вашому кластері має бути налаштований з [автомасштабувальник](/docs/concepts/cluster-administration/cluster-autoscaling/), який керує вузлами на основі попиту.
+- У вашому кластері має бути налаштований з [автомасштабувальник](/docs/concepts/cluster-administration/node-autoscaling/), який керує вузлами на основі попиту.
 
 <!-- steps -->
 
@@ -79,9 +79,9 @@ kubectl edit deployment capacity-reservation
 ### Розрахуйте загальні зарезервовані ресурси{#calculate-the-total-reserved-resources}
 
 <!-- пробіли в кінці рядків в наступних абзацах треба зберегти -->
-Наприклад, з 5 репліками, кожна з яких резервує 0.1 CPU та 200MiB памʼяті:  
-Загальна зарезервована емність CPU: 5 × 0.1 = 0.5 (у специфікації podʼа ви напишете кількість `500m`)  
-Загальна зарезервована памʼять: 5 × 200MiB = 1GiB (у специфікації podʼа ви напишете `1 Gi`)  
+Наприклад, з 5 репліками, кожна з яких резервує 0.1 CPU та 200MiB памʼяті:
+Загальна зарезервована емність CPU: 5 × 0.1 = 0.5 (у специфікації podʼа ви напишете кількість `500m`)
+Загальна зарезервована памʼять: 5 × 200MiB = 1GiB (у специфікації podʼа ви напишете `1 Gi`)
 
 Щоб масштабувати Deployment, налаштуйте кількість реплік відповідно до розміру вашого кластера та очікуваного навантаження:
 
@@ -109,5 +109,5 @@ capacity-reservation   5/5     5            5           2m
 ## {{% heading "whatsnext" %}}
 
 - Дізнайтеся більше про [PriorityClasses](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass) та як вони впливають на планування podʼів.
-- Дізнайтеся більше про [автомасштабування вузлів](/docs/concepts/cluster-administration/cluster-autoscaling/), щоб динамічно налаштовувати розмір вашого кластера на основі навантаження.
+- Дізнайтеся більше про [автомасштабування вузлів](/docs/concepts/cluster-administration/node-autoscaling/), щоб динамічно налаштовувати розмір вашого кластера на основі навантаження.
 - Зрозумійте [Випередження podʼів](/docs/concepts/scheduling-eviction/pod-priority-preemption/), ключовий механізм Kubernetes для обробки конфліктів ресурсів. Та ж сторінка охоплює поняття _виселення_, що менш актуально для підходу з podʼами-заповнювачами, але також є механізмом для Kubernetes для реагування на конфлікти ресурсів.

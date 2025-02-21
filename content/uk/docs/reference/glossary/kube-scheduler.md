@@ -2,7 +2,7 @@
 title: kube-scheduler
 id: kube-scheduler
 date: 2018-04-12
-full_link: /uk/docs/reference/generated/kube-scheduler/
+full_link: /docs/reference/generated/kube-scheduler/
 short_description: >
   Компонент панелі управління, що відстежує створені Podʼи, які ще не розподілені по вузлах, і обирає вузол, на якому вони працюватимуть.
 

@@ -2,11 +2,11 @@
 title: CronJob
 id: cronjob
 date: 2018-04-12
-full_link: /uk/docs/concepts/workloads/controllers/cron-jobs/
+full_link: /docs/concepts/workloads/controllers/cron-jobs/
 short_description: >
   Повторювана задача (Job), яка виконується за встановленим розкладом.
 
-aka: 
+aka:
 tags:
 - core-object
 - workload

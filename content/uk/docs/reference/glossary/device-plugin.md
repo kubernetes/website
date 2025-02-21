@@ -2,7 +2,7 @@
 title: Втулок пристрою
 id: device-plugin
 date: 2019-02-02
-full_link: /uk/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/
+full_link: /docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/
 short_description: >
   Програмні розширення для надання Podʼам доступу до пристроїв, які потребують вендор-специфічної ініціалізації чи налаштувань.
 aka:
@@ -18,4 +18,4 @@ tags:
 
 Втулки пристроїв оголошують ресурси для {{< glossary_tooltip term_id="kubelet" text="kubelet" >}}, щоб робочі {{< glossary_tooltip term_id="pod" text="Podʼи" >}} мали доступ до апаратних можливостей, повʼязаних з вузлом, на якому запущений цей Pod. Ви можете розгортати втулок пристрою як {{< glossary_tooltip term_id="daemonset" >}}, або встановлювати програмне забезпечення втулка пристрою безпосередньо на кожний відповідний вузол.
 
-Докладніше дивіться в розділі [Втулки пристроїв](/uk/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/).
+Докладніше дивіться в розділі [Втулки пристроїв](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/).

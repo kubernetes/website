@@ -2,7 +2,7 @@
 title: sysctl
 id: sysctl
 date: 2019-02-12
-full_link: /uk/docs/tasks/administer-cluster/sysctl-cluster/
+full_link: /docs/tasks/administer-cluster/sysctl-cluster/
 short_description: >
   Інтерфейс для отримання та встановлення параметрів ядра Unix.
 

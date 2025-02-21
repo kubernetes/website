@@ -2,7 +2,7 @@
 title: Контекст Безпеки
 id: security-context
 date: 2018-04-12
-full_link: /uk/docs/tasks/configure-pod-container/security-context/
+full_link: /docs/tasks/configure-pod-container/security-context/
 short_description: >
   Поле `securityContext` визначає налаштування привілеїв та контролю доступу для Podʼа або контейнера.
 

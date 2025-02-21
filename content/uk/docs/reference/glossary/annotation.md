@@ -2,7 +2,7 @@
 title: Анотація
 id: annotation
 date: 2018-04-12
-full_link: /uk/docs/concepts/overview/working-with-objects/annotations
+full_link: /docs/concepts/overview/working-with-objects/annotations
 short_description: >
   Ключ-значення, які використовуються для додавання довільних невизначених метаданих до обʼєктів.
 

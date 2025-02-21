@@ -2,7 +2,7 @@
 title: API server
 id: kube-apiserver
 date: 2018-04-12
-full_link: /uk/docs/concepts/architecture/#kube-apiserver
+full_link: /docs/concepts/architecture/#kube-apiserver
 short_description: >
   Компонент панелі управління, що обслуговує API Kubernetes.
 

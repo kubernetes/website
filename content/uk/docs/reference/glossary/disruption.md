@@ -2,7 +2,7 @@
 title: Розлад
 id: розлад
 date: 2019-09-10
-full_link: /uk/docs/concepts/workloads/pods/disruptions/
+full_link: /docs/concepts/workloads/pods/disruptions/
 short_description: >
   Подія, що призводить до виходу з ладу Pod(ів)
 aka:

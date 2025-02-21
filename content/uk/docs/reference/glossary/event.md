@@ -2,11 +2,11 @@
 title: Подія
 id: event
 date: 2022-01-16
-full_link: /uk/docs/reference/kubernetes-api/cluster-resources/event-v1/
+full_link: /docs/reference/kubernetes-api/cluster-resources/event-v1/
 short_description: >
    Події — це обʼєкти Kubernetes, які описують зміну стану в системі.
 
-aka: 
+aka:
 - Event
 tags:
 - core-object

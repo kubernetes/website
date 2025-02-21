@@ -2,12 +2,12 @@
 title: Storage Class
 id: storageclass
 date: 2018-04-12
-full_link: /uk/docs/concepts/storage/storage-classes
+full_link: /docs/concepts/storage/storage-classes
 short_description: >
   StorageClass надає можливість адміністраторам описати різні доступні типи сховищ.
 
-aka: 
-- Клас сховища 
+aka:
+- Клас сховища
 tags:
 - core-object
 - storage

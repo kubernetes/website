@@ -2,11 +2,11 @@
 title: Політики безпеки Podʼа
 id: pod-security-policy
 date: 2018-04-12
-full_link: /uk/docs/concepts/security/pod-security-policy/
+full_link: /docs/concepts/security/pod-security-policy/
 short_description: >
   Дозволяють деталізовану авторизацію створення та оновлення Podʼів.
 
-aka: 
+aka:
 - Pod Security Policy
 tags:
 - core-object

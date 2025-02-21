@@ -2,7 +2,7 @@
 title: kube-proxy
 id: kube-proxy
 date: 2018-04-12
-full_link: /uk/docs/reference/command-line-tools-reference/kube-proxy/
+full_link: /docs/reference/command-line-tools-reference/kube-proxy/
 short_description: >
   `kube-proxy` — це мережевий проксі, що запущений на кожному вузлі кластера.
 

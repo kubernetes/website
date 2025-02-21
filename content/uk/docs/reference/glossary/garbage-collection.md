@@ -2,11 +2,11 @@
 title: Збирання сміття
 id: garbage-collection
 date: 2021-07-07
-full_link: /uk/docs/concepts/architecture/garbage-collection/
+full_link: /docs/concepts/architecture/garbage-collection/
 short_description: >
   Загальний термін для різних механізмів, які Kubernetes використовує для очищення ресурсів кластера.
 
-aka: 
+aka:
 - Garbage Collection
 tags:
 - fundamental

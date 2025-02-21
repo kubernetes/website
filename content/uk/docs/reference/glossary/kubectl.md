@@ -2,7 +2,7 @@
 title: Kubectl
 id: kubectl
 date: 2018-04-12
-full_link: /uk/docs/reference/kubectl/
+full_link: /docs/reference/kubectl/
 short_description: >
   Інструмент командного рядка для взаємодії із кластером Kubernetes.
 

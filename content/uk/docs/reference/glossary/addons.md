@@ -2,7 +2,7 @@
 title: Надбудови
 id: addons
 date: 2019-12-15
-full_link: /uk/docs/concepts/cluster-administration/addons/
+full_link: /docs/concepts/cluster-administration/addons/
 short_description: >
   Ресурси, які розширюють функціональність Kubernetes.
 

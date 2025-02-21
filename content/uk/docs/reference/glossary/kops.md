@@ -2,11 +2,11 @@
 title: kOps (Kubernetes Operations)
 id: kops
 date: 2018-04-12
-full_link: /uk/docs/setup/production-environment/kops/
+full_link: /docs/setup/production-environment/kops/
 short_description: >
   `kOps` не тільки допомагає створювати, оновлювати та підтримувати кластери Kubernetes промислового рівня з високою доступністю, але й надає необхідну хмарну інфраструктуру.
 
-aka: 
+aka:
 tags:
 - tool
 - operation
@@ -14,7 +14,7 @@ tags:
 
 `kOps` не тільки допомагає створювати, оновлювати та підтримувати кластери Kubernetes промислового рівня з високою доступністю, але й надає необхідну хмарну інфраструктуру.
 
-<!--more--> 
+<!--more-->
 
 {{< note >}}
 На цей час офіційно підтримуються AWS (Amazon Web Services), DigitalOcean, GCE та OpenStack з підтримкою бета-версій, Azure — альфа-версій.

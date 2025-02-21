@@ -2,7 +2,7 @@
 title: Том
 id: volume
 date: 2018-04-12
-full_link: /uk/docs/concepts/storage/volumes/
+full_link: /docs/concepts/storage/volumes/
 short_description: >
   Тека, що містить дані та доступна для контейнерів у Podʼі.
 
