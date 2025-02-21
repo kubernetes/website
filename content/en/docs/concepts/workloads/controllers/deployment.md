@@ -1079,6 +1079,14 @@ Explicitly setting this field to 0, will result in cleaning up all the history o
 thus that Deployment will not be able to roll back.
 {{< /note >}}
 
+{{< note >}}
+The cleanup will ONLY start after a deployment reaches a 
+[complete state](/docs/concepts/workloads/controllers/deployment/#complete-deployment)
+For example, if pods are crash looping, and there are multiple rolling updates
+events triggered over time, you might end up with more ReplicaSets than the 
+`.spec.revisionHistoryLimit` because the deployment never reaches a complete state.
+{{< /note >}}
+
 ## Canary Deployment
 
 If you want to roll out releases to a subset of users or servers using the Deployment, you
