@@ -89,9 +89,9 @@ Se você for o autor do webhook:
   Em outras palavras, você deve permitir que Pods com violações existentes passem pela validação.
   Isso permite que Pods criados antes da instalação do webhook continuem em execução.
 
-#### Meu pod está falhando ou não está saudável
+#### Meu pod está falhando ou não está íntegro
 
-Depois que seu pod for agendado, você pode usar os métodos descritos em
+Depois que seu Pod for alocado, você pode usar os métodos descritos em
 [Depurando Pods em Execução](/docs/tasks/debug/debug-application/debug-running-pod/) para depuração.
 
 #### Meu pod está em execução, mas não faz o que eu defini
