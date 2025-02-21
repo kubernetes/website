@@ -201,8 +201,8 @@ name. By default, batching is enabled in `webhook` and disabled in `log`. Simila
 throttling is enabled in `webhook` and disabled in `log`.
 
 - `--audit-webhook-mode` defines the buffering strategy. One of the following:
-  - `batch` - buffer events and asynchronously process them in batches. This is the default.
-  - `blocking` - block API server responses on processing each individual event.
+  - `batch` - buffer events and asynchronously process them in batches. This is the default mode for `webhook` backend.
+  - `blocking` - block API server responses on processing each individual event. This is the default mode for `log` backend.
   - `blocking-strict` - Same as blocking, but when there is a failure during audit logging at the
      RequestReceived stage, the whole request to the kube-apiserver fails.
 
