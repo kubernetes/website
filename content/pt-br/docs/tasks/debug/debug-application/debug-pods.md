@@ -21,7 +21,7 @@ São seus Pods, seu Replication Controller ou seu Service?
    * [Depurando Replication Controllers](#debugging-replication-controllers)
    * [Depurando Services](#debugging-services)
 
-### Depurando Pods
+### Depurando Pods {#debugging-pods}
 
 O primeiro passo para depurar um Pod é examiná-lo. Verifique o estado atual
 do Pod e eventos recentes com o seguinte comando:
