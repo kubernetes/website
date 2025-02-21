@@ -151,30 +151,7 @@ Here's an example Role in the "default" namespace that can be used to grant read
 下面是一个位于 "default" 名字空间的 Role 的示例，可用来授予对
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 的读访问权限：
 
-<!--
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  namespace: default
-  name: pod-reader
-rules:
-- apiGroups: [""] # "" indicates the core API group
-  resources: ["pods"]
-  verbs: ["get", "watch", "list"]
-```
--->
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  namespace: default
-  name: pod-reader
-rules:
-- apiGroups: [""] # "" 标明 core API 组
-  resources: ["pods"]
-  verbs: ["get", "watch", "list"]
-```
+{{% code_sample file="access/simple-role.yaml" %}}
 
 <!--
 #### ClusterRole example
@@ -210,35 +187,6 @@ or across all namespaces (depending on how it is [bound](#rolebinding-and-cluste
 或者跨名字空间的访问权限（取决于该角色是如何[绑定](#rolebinding-and-clusterrolebinding)的）：
 
 <!--
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  # "namespace" omitted since ClusterRoles are not namespaced
-  name: secret-reader
-rules:
-- apiGroups: [""]
-  #
-  # at the HTTP level, the name of the resource for accessing Secret
-  # objects is "secrets"
-  resources: ["secrets"]
-  verbs: ["get", "watch", "list"]
-```
--->
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  # "namespace" 被忽略，因为 ClusterRoles 不受名字空间限制
-  name: secret-reader
-rules:
-- apiGroups: [""]
-  # 在 HTTP 层面，用来访问 Secret 资源的名称为 "secrets"
-  resources: ["secrets"]
-  verbs: ["get", "watch", "list"]
-```
-
-<!--
 The name of a Role or a ClusterRole object must be a valid
 [path segment name](/docs/concepts/overview/working-with-objects/names#path-segment-names).
 -->
@@ -270,7 +218,7 @@ RoleBinding 在指定的名字空间中执行授权，而 ClusterRoleBinding 在
 一个 RoleBinding 可以引用同一的名字空间中的任何 Role。
 或者，一个 RoleBinding 可以引用某 ClusterRole 并将该 ClusterRole 绑定到
 RoleBinding 所在的名字空间。
-如果你希望将某  ClusterRole 绑定到集群中所有名字空间，你要使用 ClusterRoleBinding。
+如果你希望将某 ClusterRole 绑定到集群中所有名字空间，你要使用 ClusterRoleBinding。
 
 RoleBinding 或 ClusterRoleBinding 对象的名称必须是合法的
 [路径分段名称](/zh-cn/docs/concepts/overview/working-with-objects/names#path-segment-names)。
