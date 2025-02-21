@@ -291,19 +291,24 @@ Once a pod reaches completion (has a `restartPolicy` of `Never` or `OnFailure` a
 the series is no longer reported since the scheduler is now free to schedule other pods to run.
 The two metrics are called `kube_pod_resource_request` and `kube_pod_resource_limit`.
 
-The metrics are exposed at the HTTP endpoint `/metrics/resources` and require the same
-authorization as the `/metrics` endpoint on the scheduler. You must use the
-`--show-hidden-metrics-for-version=1.20` flag to expose these alpha stability metrics.
+The metrics are exposed at the HTTP endpoint `/metrics/resources`. They require
+authorization for the `/metrics/resources` endpoint, usually granted by a
+ClusterRole with the `get` verb for the `/metrics/resources` non-resource URL.
+
+On Kubernetes 1.21 you must use the `--show-hidden-metrics-for-version=1.20`
+flag to expose these alpha stability metrics.
 -->
 一旦 Pod 进入完成状态（其 `restartPolicy` 为 `Never` 或 `OnFailure`，且
 其处于 `Succeeded` 或 `Failed` Pod 阶段，或者已经被删除且所有容器都具有
 终止状态），该时间序列停止报告，因为调度器现在可以调度其它 Pod 来执行。
 这两个指标称作 `kube_pod_resource_request` 和 `kube_pod_resource_limit`。
 
-指标暴露在 HTTP 端点 `/metrics/resources`，与调度器上的 `/metrics` 端点
-一样要求相同的访问授权。你必须使用
-`--show-hidden-metrics-for-version=1.20` 标志才能暴露那些稳定性为 Alpha
-的指标。
+这些指标通过 HTTP 端点 `/metrics/resources` 公开出来。
+访问 `/metrics/resources` 端点需要鉴权，通常通过对
+`/metrics/resources` 非资源 URL 的 `get` 访问授予访问权限。  
+
+在 Kubernetes 1.21 中，你必须使用 `--show-hidden-metrics-for-version=1.20`
+标志来公开 Alpha 级稳定性的指标。
 
 <!--
 ## Disabling metrics

@@ -102,14 +102,14 @@ broken states, and cannot recover except by being restarted. Kubernetes provides
 liveness probes to detect and remedy such situations.
 
 In this exercise, you create a Pod that runs a container based on the
-`registry.k8s.io/busybox` image. Here is the configuration file for the Pod:
+`registry.k8s.io/busybox:1.27.2` image. Here is the configuration file for the Pod:
 -->
 ## 定义存活命令 {#define-a-liveness-command}
 
 许多长时间运行的应用最终会进入损坏状态，除非重新启动，否则无法被恢复。
 Kubernetes 提供了存活探针来发现并处理这种情况。
 
-在本练习中，你会创建一个 Pod，其中运行一个基于 `registry.k8s.io/busybox` 镜像的容器。
+在本练习中，你会创建一个 Pod，其中运行一个基于 `registry.k8s.io/busybox:1.27.2` 镜像的容器。
 下面是这个 Pod 的配置文件。
 
 {{% code_sample file="pods/probe/exec-liveness.yaml" %}}
@@ -174,8 +174,8 @@ The output indicates that no liveness probes have failed yet:
 Type    Reason     Age   From               Message
 ----    ------     ----  ----               -------
 Normal  Scheduled  11s   default-scheduler  Successfully assigned default/liveness-exec to node01
-Normal  Pulling    9s    kubelet, node01    Pulling image "registry.k8s.io/busybox"
-Normal  Pulled     7s    kubelet, node01    Successfully pulled image "registry.k8s.io/busybox"
+Normal  Pulling    9s    kubelet, node01    Pulling image "registry.k8s.io/busybox:1.27.2"
+Normal  Pulled     7s    kubelet, node01    Successfully pulled image "registry.k8s.io/busybox:1.27.2"
 Normal  Created    7s    kubelet, node01    Created container liveness
 Normal  Started    7s    kubelet, node01    Started container liveness
 ```
@@ -199,8 +199,8 @@ probes have failed, and the failed containers have been killed and recreated.
 Type     Reason     Age                From               Message
 ----     ------     ----               ----               -------
 Normal   Scheduled  57s                default-scheduler  Successfully assigned default/liveness-exec to node01
-Normal   Pulling    55s                kubelet, node01    Pulling image "registry.k8s.io/busybox"
-Normal   Pulled     53s                kubelet, node01    Successfully pulled image "registry.k8s.io/busybox"
+Normal   Pulling    55s                kubelet, node01    Pulling image "registry.k8s.io/busybox:1.27.2"
+Normal   Pulled     53s                kubelet, node01    Successfully pulled image "registry.k8s.io/busybox:1.27.2"
 Normal   Created    53s                kubelet, node01    Created container liveness
 Normal   Started    53s                kubelet, node01    Started container liveness
 Warning  Unhealthy  10s (x3 over 20s)  kubelet, node01    Liveness probe failed: cat: can't open '/tmp/healthy': No such file or directory

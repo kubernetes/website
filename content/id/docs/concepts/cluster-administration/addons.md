@@ -37,7 +37,7 @@ Laman ini akan menjabarkan beberapa *add-ons* yang tersedia serta tautan instruk
 
 ## _Service Discovery_
 
-* [CoreDNS](https://coredns.io) merupakan server DNS yang fleksibel, mudah diperluas yang dapat [diinstal](https://github.com/coredns/deployment/tree/master/kubernetes) sebagai *in-cluster* DNS untuk pod.
+* [CoreDNS](https://coredns.io) merupakan server DNS yang fleksibel, mudah diperluas yang dapat [diinstal](https://github.com/coredns/helm) sebagai *in-cluster* DNS untuk pod.
 
 ## Visualisasi &amp; Kontrol
 

@@ -4,7 +4,8 @@
 
 このリポジトリには、[KubernetesのWebサイトとドキュメント](https://kubernetes.io/)をビルドするために必要な全アセットが格納されています。あなたの貢献をお待ちしています！
 
-- [ドキュメントに貢献する](#contributing-to-the-docs)
+- [ドキュメントに貢献する](#ドキュメントに貢献する)
+- [ローカライゼーションのREADME](#ローカライゼーションreadme)
 
 ## リポジトリの使い方
 
@@ -38,7 +39,7 @@ KubernetesのWebサイトでは[DocsyというHugoテーマ](https://github.com/
 git submodule update --init --recursive --depth 1
 ```
 
-### Linux / other Unix
+### Linux/その他のUnix
 
 ```bash
 # サブモジュールの依存関係を取得
@@ -62,14 +63,14 @@ make container-serve
 
 ローカルで依存関係をインストールし、サイトを構築してテストするには、次のコマンドを実行します。
 
-- For macOS and Linux
+- macOSおよびLinuxの場合
 
   ```bash
   npm ci
   make serve
   ```
-  
-- For Windows (PowerShell)
+
+- Windows (PowerShell)の場合
 
   ```powershell
   npm ci
@@ -78,7 +79,7 @@ make container-serve
   
 これで、Hugoのサーバーが1313番ポートを使って起動します。使用しているブラウザで<http://localhost:1313>にアクセスしてください。リポジトリ内のソースファイルに変更を加えると、HugoがWebサイトの内容を更新してブラウザに反映します。
 
-## API reference pagesをビルドする
+## APIリファレンスページをビルドする
 
 `content/ja/docs/reference/kubernetes-api`に配置されているAPIリファレンスページは<https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>を使ってSwagger Specification (OpenAPI Specification)からビルドされています。
 
@@ -107,7 +108,6 @@ make container-serve
    コンテナイメージからサイトを作成、サーブする事でローカルで結果をテストすることができます:
 
    ```bash
-   make container-image
    make container-serve
    ```
 
@@ -166,7 +166,7 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 - [Slack #kubernetes-docs-ja チャンネル](https://kubernetes.slack.com/messages/kubernetes-docs-ja)
 - [メーリングリスト](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
-## ドキュメントに貢献する {#contributing-to-the-docs}
+## ドキュメントに貢献する
 
 GitHubの画面右上にある**Fork**ボタンをクリックすると、GitHubアカウントに紐付いた本リポジトリのコピーが作成されます。このコピーのことを*フォーク*と呼びます。フォークリポジトリの中では好きなように変更を加えることができます。加えた変更をこのリポジトリに反映したい好きなタイミングで、フォークリポジトリからPull Requestを作成してください。
 
@@ -188,6 +188,7 @@ Kubernetesのドキュメントへの貢献に関する詳細については以�
 * [ページコンテントタイプ](https://kubernetes.io/docs/contribute/style/page-content-types/)
 * [ドキュメントのスタイルガイド](https://kubernetes.io/docs/contribute/style/style-guide/)
 * [Kubernetesドキュメントの翻訳方法](https://kubernetes.io/docs/contribute/localization/)
+* [Kubernetesドキュメントの紹介](https://www.youtube.com/watch?v=pprMgmNzDcw)
 
 ### 新たなコントリビューターのためのアンバサダー
 
@@ -196,9 +197,22 @@ Kubernetesのドキュメントへの貢献に関する詳細については以�
 
 コントリビュートする時に何か助けが必要なら、[New Contributor Ambassadors](https://kubernetes.io/docs/contribute/advanced/#serve-as-a-new-contributor-ambassador)に聞いてみると良いでしょう。彼らはSIG Docsのapproverで、最初の数回のPull Requestを通して新しいコントリビューターを指導し助けることを責務としています。New Contributors Ambassadorsにコンタクトするには、[Kubernetes Slack](https://slack.k8s.io)が最適な場所です。現在のSIG DocsのNew Contributor Ambassadorは次の通りです:
 
-| 名前                       | Slack                      | GitHub                     |                   
+| 名前                        | Slack                      | GitHub                     |
 | -------------------------- | -------------------------- | -------------------------- |
-| Sreeram Venkitesh                | @sreeram.venkitesh                      | @sreeram-venkitesh              |
+| Sreeram Venkitesh          | @sreeram.venkitesh         | @sreeram-venkitesh         |
+
+## ローカライゼーションREADME
+
+| 言語                         | 言語                         |
+| -------------------------- | -------------------------- |
+| [ベンガル語](../bn/README.md)  | [韓国語](../ko/README.md)    |
+| [中国語](../zh-cn/README.md)  | [ポーランド語](../pl/README.md)  |
+| [フランス語](../fr/README.md) | [ポルトガル語](../pt-br/README.md) |
+| [ドイツ語](../de/README.md)  | [ロシア語](../ru/README.md)   |
+| [ヒンディー語](../hi/README.md)  | [スペイン語](../es/README.md)  |
+| [インドネシア語](../id/README.md) | [ウクライナ語](../uk/README.md) |
+| [イタリア語](../it/README.md)  | [ベトナム語](../vi/README.md) |
+| [英語](../../README.md)   | |
 
 ### 行動規範
 

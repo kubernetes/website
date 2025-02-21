@@ -6,6 +6,7 @@ feature:
     使用一个简单的命令、一个 UI 或基于 CPU 使用情况自动对应用程序进行扩缩。
 content_type: concept
 weight: 90
+math: true
 ---
 <!--
 reviewers:
@@ -19,6 +20,7 @@ feature:
     Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.
 content_type: concept
 weight: 90
+math: true
 -->
 
 <!-- overview -->
@@ -224,25 +226,30 @@ value:
 从最基本的角度来看，Pod 水平自动扩缩控制器根据当前指标和期望指标来计算扩缩比例。
 
 <!--
-```
-desiredReplicas = ceil[currentReplicas * ( currentMetricValue / desiredMetricValue )]
+```math
+\begin{equation*}
+desiredReplicas = \left( currentReplicas \times  { currentMetricValue \over desiredMetricValue }  \right)
+\end{equation*}
 ```
 -->
-```
-期望副本数 = ceil[当前副本数 * (当前指标 / 期望指标)]
+```math
+\begin{equation*}
+期望副本数 = \left( 当前副本数 \times  { 当前指标 \over 期望指标 }  \right)
+\end{equation*}
 ```
 
 <!--
 For example, if the current metric value is `200m`, and the desired value
-is `100m`, the number of replicas will be doubled, since `200.0 / 100.0 ==
-2.0` If the current value is instead `50m`, you'll halve the number of
-replicas, since `50.0 / 100.0 == 0.5`. The control plane skips any scaling
+is `100m`, the number of replicas will be doubled, since
+\\( { 200.0 \div 100.0 } = 2.0 \\).  
+If the current value is instead `50m`, you'll halve the number of
+replicas, since \\( { 50.0 \div 100.0 } = 0.5 \\). The control plane skips any scaling
 action if the ratio is sufficiently close to 1.0 (within a globally-configurable
 tolerance, 0.1 by default).
 -->
 例如，如果当前指标值为 `200m`，而期望值为 `100m`，则副本数将加倍，
-因为 `200.0 / 100.0 == 2.0` 如果当前值为 `50m`，则副本数将减半，
-因为 `50.0 / 100.0 == 0.5`。如果比率足够接近 1.0（在全局可配置的容差范围内，默认为 0.1），
+因为 \\( { 200.0 \div 100.0 } = 2.0 \\)。如果当前值为 `50m`，则副本数将减半，
+因为  \\( { 50.0 \div 100.0 } = 0.5 \\)。如果比率足够接近 1.0（在全局可配置的容差范围内，默认为 0.1），
 则控制平面会跳过扩缩操作。
 
 <!--
@@ -302,10 +309,10 @@ default is 5 minutes.
 该值由 `-horizontal-pod-autoscaler-cpu-initialization-period` 标志配置，默认为 5 分钟。
 
 <!--
-The `currentMetricValue / desiredMetricValue` base scale ratio is then
-calculated using the remaining pods not set aside or discarded from above.
+The \\( currentMetricValue \over desiredMetricValue \\) base scale ratio is then
+calculated, using the remaining pods not set aside or discarded from above.
 -->
-在排除掉被搁置的 Pod 后，扩缩比例就会根据 `currentMetricValue/desiredMetricValue`
+在排除掉被搁置的 Pod 后，扩缩比例就会根据 \\( 当前指标 \over 预期指标 \\)
 计算出来。
 
 <!--

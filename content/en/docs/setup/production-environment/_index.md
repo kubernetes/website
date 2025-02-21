@@ -183,7 +183,7 @@ simply as *nodes*).
   to help determine how many nodes you need, based on the number of pods and
   containers you need to run. If you are managing nodes yourself, this can mean
   purchasing and installing your own physical equipment.
-- *Autoscale nodes*: Read [Cluster Autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling) to learn about the
+- *Autoscale nodes*: Read [Node Autoscaling](/docs/concepts/cluster-administration/node-autoscaling) to learn about the
   tools available to automatically manage your nodes and the capacity they
   provide.
 - *Set up node health checks*: For important workloads, you want to make sure

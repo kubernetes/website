@@ -24,6 +24,9 @@
           <!--main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main"-->
           <main role="main" class="col-xl-8" {{ if ne .Params.cid "docsHome" }}data-pagefind-body{{ end }}{{ if (and .IsPage .Params.description ) }} data-pagefind-meta="description:{{ .Params.description }}"{{ end }}>
               {{ if not .Site.Params.ui.breadcrumb_disable }}{{ partial "breadcrumb.html" . }}{{ end }}
+              {{ block "deprecation_warning" . }}
+                {{ partial "deprecation-warning.html" . }}
+              {{ end }}
               {{ block "outdated_content" . }}
                 {{ partial "docs/outdated_content.html" . }}
               {{ end }}

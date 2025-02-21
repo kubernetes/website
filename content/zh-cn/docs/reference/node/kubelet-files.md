@@ -180,14 +180,14 @@ The name of a checkpoint file is `kubelet_internal_checkpoint` for [Device Manag
 If your cluster has  
 [in-place Pod vertical scaling](/docs/concepts/workloads/autoscaling/#in-place-resizing)  
 enabled ([feature gate](/docs/reference/command-line-tools-reference/feature-gates/)  
-name `InPlacePodVerticalScaling`), then the kubelet stores a local record of Pod status.  
+name `InPlacePodVerticalScaling`), then the kubelet stores a local record of allocated Pod resources. 
 
 The file name is `pod_status_manager_state` within the kubelet base directory
 (`/var/lib/kubelet` by default on Linux; configurable using `--root-dir`).
 -->
 如果你的集群启用了[就地 Pod 垂直扩缩容](/zh-cn/docs/concepts/workloads/autoscaling/#in-place-resizing)
 （[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)名称为 `InPlacePodVerticalScaling`），
-则 kubelet 会在本地存储 Pod 状态。
+则 kubelet 会在本地存储为 Pod 分配资源的记录。
 
 文件名为 `pod_status_manager_state`，位于 kubelet 基础目录内
 （在 Linux 上默认为 `/var/lib/kubelet`；你可以使用 `--root-dir` 进行配置）。

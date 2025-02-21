@@ -4,10 +4,6 @@ content_type: concept
 weight: 220
 ---
 <!--
-reviewers:
-- davidopp
-- filipg
-- piosz
 title: Guaranteed Scheduling For Critical Add-On Pods
 content_type: concept
 weight: 220

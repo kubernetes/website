@@ -3,12 +3,14 @@ title: 文档样式指南
 linktitle: 样式指南
 content_type: concept
 weight: 40
+math: true
 ---
 <!--
 title: Documentation Style Guide
 linktitle: Style guide
 content_type: concept
 weight: 40
+math: true
 -->
 
 <!-- overview -->
@@ -658,6 +660,34 @@ apiVersion: v1 # 早期版本使用...
 kind: Pod
 ...
 ```
+
+<!--
+## Formulae and equations
+
+You can use the Docsy support for [diagrams and formulae](https://www.docsy.dev/docs/adding-content/diagrams-and-formulae/#latex-support-with-katex).
+
+For example: `\\(\frac{7}{9} \sqrt{K^8 s}\\)`, which renders as \\(\frac{7}{9} \sqrt{K^8 s}\\).
+-->
+## 公式与方程
+
+你可以使用 Docsy
+对[图表和公式](https://www.docsy.dev/docs/adding-content/diagrams-and-formulae/#latex-support-with-katex)的支持。
+
+例如：`\$\frac{7}{9} \sqrt{K^8 s}\$`，渲染结果为 \\(\frac{7}{9} \sqrt{K^8 s}\\)。
+
+<!--
+Prefer inline formulae where reasonable, but you can use a `math` block if that's likely to help readers.
+
+Read the Docsy guide to find out what you need to change in your page to activate support;
+if you have problems, add `math: true` to the page [front matter](https://gohugo.io/content-management/front-matter/)
+(you can do this even if you think the automatic activation should be enough).
+-->
+尽可能使用行内公式，但在有助于读者理解的情况下，也可以使用 `math` 块。
+
+请阅读 Docsy 指南，了解需要在页面中进行哪些更改以激活支持；如果遇到问题，
+请在页面的[前置元数据](https://gohugo.io/content-management/front-matter/)中添加
+`math: true`（即使你认为自动激活已足够，也可以这样做）。
+
 <!--
 ## Kubernetes.io word list
 

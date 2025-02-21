@@ -73,9 +73,13 @@ for details about addon manager and how to disable individual addons.
    kubectl patch storageclass gold -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
    ```
 
-   Please note that at most one StorageClass can be marked as default. If two
-   or more of them are marked as default, a `PersistentVolumeClaim` without
-   `storageClassName` explicitly specified cannot be created.
+   Please note you can have multiple `StorageClass` marked as default. If more 
+   than one `StorageClass` is marked as default, a `PersistentVolumeClaim` without 
+   an explicitly defined `storageClassName` will be created using the most recently 
+   created default `StorageClass`.
+   When a `PersistentVolumeClaim` is created with a specified `volumeName`, it remains 
+   in a pending state if the static volume's `storageClassName` does not match the 
+   `StorageClass` on the `PersistentVolumeClaim`.
 
 1. Verify that your chosen StorageClass is default:
 

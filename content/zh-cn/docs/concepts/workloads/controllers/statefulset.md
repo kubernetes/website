@@ -49,7 +49,7 @@ following.
 -->
 ## 使用 StatefulSet   {#using-statefulsets}
 
-StatefulSet 对于需要满足以下一个或多个需求的应用程序很有价值：
+StatefulSet 对于需要满足以下一个或多个需求的应用程序很有价值。
 
 <!--
 * Stable, unique network identifiers.
@@ -514,8 +514,8 @@ feature, in order to disable it, users will have to use server emulated version 
 -->
 ## 部署和扩缩保证   {#deployment-and-scaling-guarantees}
 
-* 对于包含 N 个 副本的 StatefulSet，当部署 Pod 时，它们是依次创建的，顺序为 `0..N-1`。
-* 当删除 Pod 时，它们是逆序终止的，顺序为 `N-1..0`。
+* 对于包含 N 个 副本的 StatefulSet，当部署 Pod 时，它们是依次创建的，顺序为 {0..N-1}。
+* 当删除 Pod 时，它们是逆序终止的，顺序为 {N-1..0}。
 * 在将扩缩操作应用到 Pod 之前，它前面的所有 Pod 必须是 Running 和 Ready 状态。
 * 在一个 Pod 终止之前，所有的继任者必须完全关闭。
 
@@ -687,7 +687,7 @@ by rounding it up. This field cannot be 0. The default setting is 1.
 -->
 你可以通过指定 `.spec.updateStrategy.rollingUpdate.maxUnavailable`
 字段来控制更新期间不可用的 Pod 的最大数量。
-该值可以是绝对值（例如，“5”）或者是期望 Pod 个数的百分比（例如，`10%`）。
+该值可以是绝对值（例如，`"5"`）或者是期望 Pod 个数的百分比（例如，`"10%"`）。
 绝对值是根据百分比值四舍五入计算的。
 该字段不能为 0。默认设置为 1。
 
@@ -915,7 +915,7 @@ the `.spec.replicas` field automatically.
 如果 [HorizontalPodAutoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
 （或任何类似的水平扩缩 API）正在管理 StatefulSet 的扩缩，
 请不要设置 `.spec.replicas`。
-相反，允许 Kubernetes 控制平面自动管理 `.spec.replicas` 字段。
+相反，允许 Kubernetes {{<glossary_tooltip text="控制平面" term_id="control-plane" >}}自动管理 `.spec.replicas` 字段。
 
 ## {{% heading "whatsnext" %}}
 

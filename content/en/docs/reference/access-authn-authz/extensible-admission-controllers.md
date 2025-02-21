@@ -282,98 +282,109 @@ This example shows the data contained in an `AdmissionReview` object
 for a request to update the `scale` subresource of an `apps/v1` `Deployment`:
 
 ```yaml
-apiVersion: admission.k8s.io/v1
-kind: AdmissionReview
-request:
-  # Random uid uniquely identifying this admission call
-  uid: 705ab4f5-6393-11e8-b7cc-42010a800002
+{
+  "apiVersion": "admission.k8s.io/v1",
+  "kind": "AdmissionReview",
+  "request": {
+    # Random uid uniquely identifying this admission call
+    "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
 
-  # Fully-qualified group/version/kind of the incoming object
-  kind:
-    group: autoscaling
-    version: v1
-    kind: Scale
+    # Fully-qualified group/version/kind of the incoming object
+    "kind": {
+      "group": "autoscaling",
+      "version": "v1",
+      "kind": "Scale"
+    },
 
-  # Fully-qualified group/version/kind of the resource being modified
-  resource:
-    group: apps
-    version: v1
-    resource: deployments
+    # Fully-qualified group/version/kind of the resource being modified
+    "resource": {
+      "group": "apps",
+      "version": "v1",
+      "resource": "deployments"
+    },
 
-  # subresource, if the request is to a subresource
-  subResource: scale
+    # Subresource, if the request is to a subresource
+    "subResource": "scale",
 
-  # Fully-qualified group/version/kind of the incoming object in the original request to the API server.
-  # This only differs from `kind` if the webhook specified `matchPolicy: Equivalent` and the
-  # original request to the API server was converted to a version the webhook registered for.
-  requestKind:
-    group: autoscaling
-    version: v1
-    kind: Scale
+    # Fully-qualified group/version/kind of the incoming object in the original request to the API server
+    # This only differs from `kind` if the webhook specified `matchPolicy: Equivalent` and the original
+    # request to the API server was converted to a version the webhook registered for
+    "requestKind": {
+      "group": "autoscaling",
+      "version": "v1",
+      "kind": "Scale"
+    },
 
-  # Fully-qualified group/version/kind of the resource being modified in the original request to the API server.
-  # This only differs from `resource` if the webhook specified `matchPolicy: Equivalent` and the
-  # original request to the API server was converted to a version the webhook registered for.
-  requestResource:
-    group: apps
-    version: v1
-    resource: deployments
+    # Fully-qualified group/version/kind of the resource being modified in the original request to the API server
+    # This only differs from `resource` if the webhook specified `matchPolicy: Equivalent` and the original
+    # request to the API server was converted to a version the webhook registered for
+    "requestResource": {
+      "group": "apps",
+      "version": "v1",
+      "resource": "deployments"
+    },
 
-  # subresource, if the request is to a subresource
-  # This only differs from `subResource` if the webhook specified `matchPolicy: Equivalent` and the
-  # original request to the API server was converted to a version the webhook registered for.
-  requestSubResource: scale
+    # Subresource, if the request is to a subresource
+    # This only differs from `subResource` if the webhook specified `matchPolicy: Equivalent` and the original
+    # request to the API server was converted to a version the webhook registered for
+    "requestSubResource": "scale",
 
-  # Name of the resource being modified
-  name: my-deployment
+    # Name of the resource being modified
+    "name": "my-deployment",
 
-  # Namespace of the resource being modified, if the resource is namespaced (or is a Namespace object)
-  namespace: my-namespace
+    # Namespace of the resource being modified, if the resource is namespaced (or is a Namespace object)
+    "namespace": "my-namespace",
 
-  # operation can be CREATE, UPDATE, DELETE, or CONNECT
-  operation: UPDATE
+    # operation can be CREATE, UPDATE, DELETE, or CONNECT
+    "operation": "UPDATE",
 
-  userInfo:
-    # Username of the authenticated user making the request to the API server
-    username: admin
+    "userInfo": {
+      # Username of the authenticated user making the request to the API server
+      "username": "admin",
 
-    # UID of the authenticated user making the request to the API server
-    uid: 014fbff9a07c
+      # UID of the authenticated user making the request to the API server
+      "uid": "014fbff9a07c",
 
-    # Group memberships of the authenticated user making the request to the API server
-    groups:
-      - system:authenticated
-      - my-admin-group
-    # Arbitrary extra info associated with the user making the request to the API server.
-    # This is populated by the API server authentication layer and should be included
-    # if any SubjectAccessReview checks are performed by the webhook.
-    extra:
-      some-key:
-        - some-value1
-        - some-value2
+      # Group memberships of the authenticated user making the request to the API server
+      "groups": [
+        "system:authenticated",
+        "my-admin-group"
+      ],
 
-  # object is the new object being admitted.
-  # It is null for DELETE operations.
-  object:
-    apiVersion: autoscaling/v1
-    kind: Scale
+      # Arbitrary extra info associated with the user making the request to the API server
+      # This is populated by the API server authentication layer
+      "extra": {
+        "some-key": [
+          "some-value1",
+          "some-value2"
+        ]
+      }
+    },
 
-  # oldObject is the existing object.
-  # It is null for CREATE and CONNECT operations.
-  oldObject:
-    apiVersion: autoscaling/v1
-    kind: Scale
+    # object is the new object being admitted. It is null for DELETE operations
+    "object": {
+      "apiVersion": "autoscaling/v1",
+      "kind": "Scale"
+    },
 
-  # options contains the options for the operation being admitted, like meta.k8s.io/v1 CreateOptions, UpdateOptions, or DeleteOptions.
-  # It is null for CONNECT operations.
-  options:
-    apiVersion: meta.k8s.io/v1
-    kind: UpdateOptions
+    # oldObject is the existing object. It is null for CREATE and CONNECT operations
+    "oldObject": {
+      "apiVersion": "autoscaling/v1",
+      "kind": "Scale"
+    },
 
-  # dryRun indicates the API request is running in dry run mode and will not be persisted.
-  # Webhooks with side effects should avoid actuating those side effects when dryRun is true.
-  # See http://k8s.io/docs/reference/using-api/api-concepts/#make-a-dry-run-request for more details.
-  dryRun: False
+    # options contain the options for the operation being admitted, like meta.k8s.io/v1 CreateOptions,
+    # UpdateOptions, or DeleteOptions. It is null for CONNECT operations
+    "options": {
+      "apiVersion": "meta.k8s.io/v1",
+      "kind": "UpdateOptions"
+    },
+
+    # dryRun indicates the API request is running in dry run mode and will not be persisted
+    # Webhooks with side effects should avoid actuating those side effects when dryRun is true
+    "dryRun": false
+  }
+}
 ```
 
 ### Response
@@ -1236,17 +1247,52 @@ object.
 
 ### Avoiding deadlocks in self-hosted webhooks
 
-A webhook running inside the cluster might cause deadlocks for its own deployment if it is configured
-to intercept resources required to start its own pods.
+There are several ways that webhooks can cause deadlocks, where the cluster cannot make progress in
+scheduling pods:
 
-For example, a mutating admission webhook is configured to admit `CREATE` pod requests only if a certain label is set in the
-pod (e.g. `"env": "prod"`). The webhook server runs in a deployment which doesn't set the `"env"` label.
-When a node that runs the webhook server pods
-becomes unhealthy, the webhook deployment will try to reschedule the pods to another node. However the requests will
-get rejected by the existing webhook server since the `"env"` label is unset, and the migration cannot happen.
+* A webhook running inside the cluster might cause deadlocks for its own deployment if it is configured
+  to intercept resources required to start its own pods.
 
-It is recommended to exclude the namespace where your webhook is running with a
-[namespaceSelector](#matching-requests-namespaceselector).
+  For example, a mutating admission webhook is configured to admit **create** Pod requests only if a certain label is set in the
+  pod (such as `env: "prod"`). However, the webhook server runs as a Deployment that doesn't set the `env` label.
+  When a node that runs the webhook server pods
+  becomes unhealthy, the webhook deployment will try to reschedule the pods to another node. However the requests will
+  get rejected by the existing webhook server since the `env` label is unset, and the replacement Pod
+  cannot be created. Eventually, the entire Deployment for the webhook server may become unhealthy.
+
+  If you use admission webhooks to check Pods, consider excluding the namespace where your webhook
+  listener is running, by specifying a
+  [namespaceSelector](#matching-requests-namespaceselector).
+
+* If the cluster has multiple webhooks configured (possibly from independent applications deployed on
+  the cluster), they can form a cycle.  Webhook A must be called to process startup of webhook B's
+  pods and vice versa. If both webhook A and webhook B ever become unavailable at the same time (for
+  example, due to a cluster-wide outage or a node failure where both pods run on the same node)
+  deadlock occurs because neither webhook pod can be recreated without the other already running.
+
+  One way to prevent this is to exclude webhook A's pods from being acted on be webhook B. This
+  allows webhook A's pods to start, which in turn allows webhook B's pods to start. If you had a 
+  third webhook, webhook C, you'd need to exclude both webhook A and webhook B's pods from 
+  webhook C. This ensures that webhook A can _always_ start, which then allows webhook B's pods 
+  to start, which in turn allows webhook C's pods to start.
+
+  If you want to ensure protection that avoids these risks, [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/)
+  can
+  provide many protection capabilities without introducing dependency cycles.
+
+* Admission webhooks can intercept resources used by critical cluster add-ons, such as CoreDNS,
+  network plugins, or storage plugins. These add-ons may be required to schedule or successfully run the
+  pods for a particular admission webhook on the cluster. This can cause a deadlock if both the 
+  webhook and critical add-on is unavailable at the same time.
+
+  You may wish to exclude cluster infrastructure namespaces from webhooks, or make sure that
+  the webhook does not depend on the particular add-on that it acts on.  For exmaple, running
+  a webhook as a host-networked pod ensures that it does not depend on a networking plugin.
+
+  If you want to ensure protection for a core add-on / or its namespace,
+  [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/)
+  can
+  provide many protection capabilities without any dependency on worker nodes and Pods.
 
 ### Side effects
 

@@ -650,7 +650,7 @@ Here is the `{{</* figure */>}}` shortcode for the diagram defined in an
 `.svg` image file saved to `/images/docs/components-of-kubernetes.svg`:
 
 ```none
-{{</* figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetes pod running inside a cluster" class="diagram-large" caption="Figure 4. Kubernetes Architecture Components */>}}
+{{</* figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetes pod running inside a cluster" class="diagram-large" caption="Figure 4. Kubernetes Architecture Components" */>}}
 ```
 
 You should pass the `src`, `alt`, `class` and `caption` values into the

@@ -81,7 +81,7 @@ En esta página se listan algunos de los complementos disponibles con sus respec
 ## Detección de Servicios 
 
 * [CoreDNS](https://coredns.io) es un servidor de DNS flexible y extensible que  
-  puede [instalarse](https://github.com/coredns/deployment/tree/master/kubernetes)
+  puede [instalarse](https://github.com/coredns/helm)
   como DNS dentro del clúster para los Pods.
 
 ## Visualización y Control

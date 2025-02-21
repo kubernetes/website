@@ -278,7 +278,6 @@ Figure 2. Working from a local fork to make your changes.
    ```shell
    git clone git@github.com:<github_username>/website
    cd website
-   git submodule update --init --recursive --depth 1
    ```
 
 <!--
@@ -557,21 +556,19 @@ Alternately, install and use the `hugo` command on your computer:
 另一种方式是，在你的本地计算机上安装并使用 `hugo` 命令：
 
 <!--
-1. Install the [Hugo](https://gohugo.io/getting-started/installing/) version specified in
+1. Install the [Hugo (Extended edition)](https://gohugo.io/getting-started/installing/) and [Node](https://nodejs.org/en) version specified in
    [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/main/netlify.toml).
 
-1. If you have not updated your website repository, the `website/themes/docsy` directory is empty.
-   The site cannot build without a local copy of the theme. To update the website theme, run:
+1. Install any dependencies:
 -->
 1. 安装 [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/main/netlify.toml)
-   文件中指定的 [Hugo](https://gohugo.io/getting-started/installing/) 版本。
+   文件中指定的 [Hugo（扩展版）](https://gohugo.io/getting-started/installing/)
+   和 [Node](https://nodejs.org/zh-cn) 版本。
 
-2.  如果你尚未更新你的网站仓库，则 `website/themes/docsy` 目录是空的。
-    如果本地缺少主题的副本，则该站点无法构建。
-    要更新网站主题，运行以下命令：
+2. 安装所有依赖项：
 
    ```shell
-   git submodule update --init --recursive --depth 1
+   npm ci
    ```
 
 <!--
@@ -581,6 +578,15 @@ Alternately, install and use the `hugo` command on your computer:
 
    ```shell
    cd <path_to_your_repo>/website
+   make server
+   ```
+
+   <!--
+   If you're on a Windows machine or unable to run the `make` command, use the following command:
+   -->
+   如果你使用的是 Windows 机器或无法运行 `make` 命令，请使用以下命令：
+
+   ```
    hugo server --buildFuture
    ```
 

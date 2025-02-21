@@ -34,7 +34,7 @@ content_type: concept
 
 ## Обнаружение служб
 
-* [CoreDNS](https://coredns.io) - это гибкий, расширяемый DNS-сервер, который может быть [установлен](https://github.com/coredns/deployment/tree/master/kubernetes) в качестве внутрикластерного DNS для подов.
+* [CoreDNS](https://coredns.io) - это гибкий, расширяемый DNS-сервер, который может быть [установлен](https://github.com/coredns/helm) в качестве внутрикластерного DNS для подов.
 
 ## Визуализация и контроль
 
