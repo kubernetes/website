@@ -1,5 +1,5 @@
 ---
-title: Overprovision Node Capacity For A Cluster
+title: Overprovision Node Capacity for a Cluster
 content_type: task
 weight: 10
 ---
@@ -45,7 +45,7 @@ kubectl apply -f https://k8s.io/examples/priorityclass/low-priority-class.yaml
 
 You will next define a Deployment that uses the negative-priority PriorityClass and runs a minimal container.
 When you add this to your cluster, Kubernetes runs those placeholder pods to reserve capacity. Any time there
-is a capacity shortage, the control plane will pick one these placeholder pods as the first candidate to
+is a capacity shortage, the control plane will pick one of these placeholder pods as the first candidate to
 {{< glossary_tooltip text="preempt" term_id="preemption" >}}.
 
 ## Run Pods that request node capacity
