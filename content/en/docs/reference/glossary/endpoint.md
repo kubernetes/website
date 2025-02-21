@@ -10,8 +10,9 @@ aka:
 tags:
 - networking
 ---
- Endpoints track the IP addresses of Pods with matching  {{< glossary_tooltip text="selectors" term_id="selector" >}}.
+Legacy {{< glossary_tooltip text="API resource" term_id="api-resource" >}} for tracking the IP addresses of Pods that back
+{{< glossary_tooltip text="Services" term_id="service" >}}
 
 <!--more-->
-Endpoints can be configured manually for {{< glossary_tooltip text="Services" term_id="service" >}} without selectors specified.
-The {{< glossary_tooltip text="EndpointSlice" term_id="endpoint-slice" >}} resource provides a scalable and extensible alternative to Endpoints.
+The {{< glossary_tooltip text="EndpointSlice" term_id="endpoint-slice" >}} object kind provides a scalable and extensible
+alternative to Endpoints.
