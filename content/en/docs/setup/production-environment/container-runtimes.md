@@ -62,7 +62,7 @@ To manually enable IPv4 packet forwarding:
 
 ```bash
 # sysctl params required by setup, params persist across reboots
-cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+sudo tee /etc/sysctl.d/k8s.conf <<EOF
 net.ipv4.ip_forward = 1
 EOF
 
