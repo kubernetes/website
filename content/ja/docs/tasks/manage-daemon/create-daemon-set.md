@@ -1,5 +1,5 @@
 ---
-title: 基本的なDaemonsetの構築
+title: 基本的なDaemonsetを構築する
 content_type: task  
 weight: 5  
 ---
@@ -62,5 +62,5 @@ kubectl delete --cascade=foreground --ignore-not-found --now daemonsets/example-
 
 ## {{% heading "whatsnext" %}}
 
-* [DaemonSet上でローリングアップデートを実行する](/docs/tasks/manage-daemon/update-daemon-set/)を参照
+* [DaemonSet上でローリングアップデートを実施する](/docs/tasks/manage-daemon/update-daemon-set/)を参照
 * [既存のDaemonSetのPodを再利用してDaemonSetを作成する](/ja/docs/concepts/workloads/controllers/daemonset/)を参照
