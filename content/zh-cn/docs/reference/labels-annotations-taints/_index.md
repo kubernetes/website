@@ -5312,6 +5312,42 @@ ignores that node while calculating Topology Aware Hints.
 [EndpointSlice 控制器](/zh-cn/docs/concepts/services-networking/topology-aware-routing/#implementation-control-plane)在计算拓扑感知提示时将忽略该节点。
 
 <!--
+### node-role.kubernetes.io/*
+
+Type: Label
+
+Example: `node-role.kubernetes.io/gpu: gpu`
+
+Used on: Node
+-->
+### node-role.kubernetes.io/*
+
+类别：标签
+
+示例：`node-role.kubernetes.io/control-plane:NoSchedule`
+
+用于：Node
+
+<!--
+This optional label is applied to a node when you want to mark a node role. 
+The node role (text following `/` in the label key) can be set, as long as the overall key follows the
+[syntax](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) rules for
+object labels.
+-->
+当你希望标记节点角色时，可以为 Node 添加此可选标签。
+只要标签的整体键名符合对象标签的  
+[语法和字符集规则](/zh-cn/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)，
+就可以用此标签设置节点的角色（标签键 `/` 后面的文本为节点角色名）。
+
+<!--
+Kubernetes defines one specific node role, **control-plane**. A label you can use to mark that node
+role is [`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane).
+-->
+Kubernetes 定义了一个特定的节点角色：**control-plane（控制平面）**。你可以使用标签
+[`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane)
+来标记节点的这一角色。
+
+<!--
 ### node-role.kubernetes.io/control-plane {#node-role-kubernetes-io-control-plane-taint}
 
 Type: Taint
