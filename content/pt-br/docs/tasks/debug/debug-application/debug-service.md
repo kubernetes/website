@@ -131,7 +131,7 @@ hostnames-632524106-tlaok
 ```
 
 Se você não estiver recebendo as respostas esperadas neste ponto, seus Pods 
-podem não estar saudáveis ou podem não estar ouvindo na porta que você pensa 
+podem não estar íntegro ou podem não estar ouvindo na porta que você pensa 
 que estão. Você pode achar útil usar `kubectl logs` para ver o que está 
 acontecendo ou, talvez, seja necessário executar `kubectl exec` diretamente 
 em seus Pods e depurar a partir daí.
