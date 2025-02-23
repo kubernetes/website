@@ -112,7 +112,7 @@ kubectl get pods -l app=hostnames \
 
 O contêiner de exemplo usado neste passo a passo serve seu próprio hostname 
 via HTTP na porta 9376, mas se você estiver depurando sua própria aplicação, 
-deverá usar o número da porta na qual seus Pods estão ouvindo.
+deverá usar o número da porta na qual seus Pods estão escutando.
 
 De dentro de um Pod:
 
