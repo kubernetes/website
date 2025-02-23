@@ -693,5 +693,5 @@ Entre em contato conosco pelo
 
 ## {{% heading "whatsnext" %}}
 
-Visite o documento de [visão geral de troubleshooting](/docs/tasks/debug/) 
+Visite o documento de [visão geral de solução de problemas](/docs/tasks/debug/) 
 para mais informações.
