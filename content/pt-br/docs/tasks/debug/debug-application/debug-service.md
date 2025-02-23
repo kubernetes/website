@@ -336,7 +336,7 @@ Address 1: 10.0.0.1 kubernetes.default.svc.cluster.local
 
 Se isso falhar, consulte a seção [kube-proxy](#is-the-kube-proxy-working) deste 
 documento ou até volte ao início e comece novamente, mas, em vez de depurar seu 
-próprio Service, depure o Service DNS.
+próprio Service, depure o Service de DNS.
 
 ## O Service funciona pelo IP?
 
