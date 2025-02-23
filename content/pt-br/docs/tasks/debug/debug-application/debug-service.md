@@ -320,7 +320,7 @@ DNS que ele gera.
 
 Se as etapas anteriores ainda falharem, as consultas DNS não estão funcionando 
 para seu Service. Você pode dar um passo atrás e verificar o que mais não está 
-funcionando. O Service do Kubernetes master deve sempre funcionar. De dentro 
+funcionando. O Service principal do Kubernetes deve sempre funcionar. De dentro 
 de um Pod:
 
 ```shell
