@@ -68,11 +68,11 @@ Há três coisas que você deve verificar:
 #### Meu pod fica em estado terminating
 
 Se um Pod estiver preso no estado `Terminating`, significa que uma solicitação de exclusão foi emitida,
-mas o control plane não conseguiu remover o objeto do Pod.
+mas a camada de gerenciamento não conseguiu remover o objeto do Pod.
 
 Isso geralmente ocorre se o Pod possui um [finalizer](/docs/concepts/overview/working-with-objects/finalizers/)
 e há um [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
-instalado no cluster que impede o control plane de remover o finalizer.
+instalado no cluster que impede a camada de gerenciamento de remover o finalizer.
 
 Para identificar esse cenário, verifique se seu cluster possui algum ValidatingWebhookConfiguration ou MutatingWebhookConfiguration que tenha como alvo
 operações `UPDATE` para recursos `pods`.
@@ -83,9 +83,9 @@ Se o webhook for fornecido por um terceiro:
 - Relate um problema ao provedor correspondente.
 
 Se você for o autor do webhook:
-- Para um webhook mutante, certifique-se de que ele nunca altere campos imutáveis
-  em operações `UPDATE`. Por exemplo, mudanças em containers geralmente não são permitidas.
-- Para um webhook validador, garanta que suas regras de validação se apliquem apenas a novas alterações.
+- Para um webhook de mutação, certifique-se de que ele nunca altere campos imutáveis
+  em operações `UPDATE`. Por exemplo, mudanças em contêineres geralmente não são permitidas.
+- Para um webhook de validação, garanta que suas regras de validação se apliquem apenas a novas alterações.
   Em outras palavras, você deve permitir que Pods com violações existentes passem pela validação.
   Isso permite que Pods criados antes da instalação do webhook continuem em execução.
 
