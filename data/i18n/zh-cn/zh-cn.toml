@@ -10,11 +10,11 @@ other = "(自动生成的页面)"
 [auto_generated_pageinfo]
 other = """<p>该页面是自动生成的。</p><p>如果你打算报告此页面的问题，请在问题描述中提及该页面是自动生成的。修复可能需要在 Kubernetes 项目的其他地方进行。</p>"""
 
-[blog_post_show_more]
-other = "显示更多文章..."
-
 [banner_acknowledgement]
 other = "隐藏此通知"
+
+[blog_post_show_more]
+other = "显示更多文章..."
 
 [case_study_prefix]
 other = "案例分析："
@@ -487,7 +487,7 @@ other = """你可以从下表找到下载 <current-version> Kubernetes 组件（
 [release_binary_section_note]
 other = """要下载 <current-version> Kubernetes 组件更早的补丁版本（及其校验和），请参阅
 [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md)
-文件。""" 
+文件。"""
 
 [release_binary_version]
 other  = "版本"
