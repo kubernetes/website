@@ -492,7 +492,7 @@ Você espera que cada Pod na lista de Endpoints retorne seu próprio hostname.
 Se isso não acontecer (ou se o comportamento correto for diferente para seus 
 próprios Pods), você deve investigar o que está acontecendo.
 
-## O kube-proxy está funcionando?
+## O kube-proxy está funcionando? {#is-the-kube-proxy-working}
 
 Se você chegou até aqui, seu Service está em execução, possui Endpoints e seus 
 Pods estão realmente respondendo. Neste ponto, todo o mecanismo de proxy do 
