@@ -38,16 +38,21 @@ Angularなどのコンポーネントライフサイクルフックを持つ多�
 ### フックハンドラーの実装
 
 コンテナは、フックのハンドラーを実装して登録することでそのフックにアクセスできます。
-コンテナに実装できるフックハンドラーは2種類あります。
+コンテナに実装できるフックハンドラーは3種類あります。
 
 * Exec - コンテナのcgroupsと名前空間の中で、 `pre-stop.sh`のような特定のコマンドを実行します。
 コマンドによって消費されたリソースはコンテナに対してカウントされます。
 * HTTP - コンテナ上の特定のエンドポイントに対してHTTP要求を実行します。
+* Sleep - 指定された期間コンテナを一時停止します。これは、`PodLifecycleSleepAction`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)によりデフォルトで有効になっているベータ機能です。
+
+{{< note >}}
+Sleepライフサイクルフックのスリープ時間を0秒（実質的なno-op）に設定したい場合は、`PodLifecycleSleepActionAllowZero`フィーチャーゲートを有効にしてください。
+{{< /note >}}
 
 ### フックハンドラーの実行
 
 コンテナライフサイクル管理フックが呼び出されると、Kubernetes管理システムはフックアクションにしたがってハンドラーを実行します。
-`httpGet`と`tcpSocket`はkubeletプロセスによって実行され、`exec`はコンテナの中で実行されます。
+`httpGet`、`tcpSocket`([非推奨です](/docs/reference/generated/kubernetes-api/v1.31/#lifecyclehandler-v1-core))、および`sleep`はkubeletプロセスによって実行され、`exec`はコンテナの中で実行されます。
 
 フックハンドラーの呼び出しは、コンテナを含むPodのコンテキスト内で同期しています。
 これは、`PostStart`フックの場合、コンテナのENTRYPOINTとフックは非同期に起動することを意味します。
