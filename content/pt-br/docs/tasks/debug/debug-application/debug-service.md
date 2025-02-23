@@ -7,7 +7,7 @@ weight: 20
 <!-- overview -->
 Um problema que surge com bastante frequência em novas instalações do Kubernetes 
 é que um Service não está funcionando corretamente. Você implantou seus Pods 
-através de um Deployment (ou outro controlador de workload) e criou um Service, 
+através de um Deployment (ou outro controlador de carga de trabalho) e criou um Service, 
 mas não recebe nenhuma resposta ao tentar acessá-lo. Este documento, 
 esperançosamente, ajudará você a descobrir o que está errado.
 
