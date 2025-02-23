@@ -52,7 +52,7 @@ Sleepライフサイクルフックのスリープ時間を0秒（実質的なno
 ### フックハンドラーの実行
 
 コンテナライフサイクル管理フックが呼び出されると、Kubernetes管理システムはフックアクションにしたがってハンドラーを実行します。
-`httpGet`、`tcpSocket`（[非推奨です](/docs/reference/generated/kubernetes-api/v1.31/#lifecyclehandler-v1-core)）、および`sleep`はkubeletプロセスによって実行され、`exec`はコンテナの中で実行されます。
+`httpGet`、`tcpSocket`([非推奨です](/docs/reference/generated/kubernetes-api/v1.31/#lifecyclehandler-v1-core))、および`sleep`はkubeletプロセスによって実行され、`exec`はコンテナの中で実行されます。
 
 フックハンドラーの呼び出しは、コンテナを含むPodのコンテキスト内で同期しています。
 これは、`PostStart`フックの場合、コンテナのENTRYPOINTとフックは非同期に起動することを意味します。
