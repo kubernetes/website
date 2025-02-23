@@ -115,12 +115,12 @@ pods/mypod
 
 <!-- TODO: Now that #11914 is merged, this advice may need to be updated -->
 
-A próxima coisa a verificar é se o pod no apiserver corresponde ao pod que você pretendia criar
+A próxima coisa a verificar é se o pod no servidor da API corresponde ao pod que você pretendia criar
 (por exemplo, no arquivo yaml em sua máquina local).
 Por exemplo, execute `kubectl get pods/mypod -o yaml > mypod-on-apiserver.yaml` em seguida,
-compare manualmente a descrição original do pod, `mypod.yaml` com a versão obtida do apiserver, `mypod-on-apiserver.yaml`.  
-Normalmente, a versão do "apiserver" terá algumas linhas extras que não estão na versão original,
-o que é esperado. No entanto, se houver linhas na versão original que não aparecem na versão do apiserver, 
+compare manualmente a descrição original do pod, `mypod.yaml` com a versão obtida do servidor da API, `mypod-on-apiserver.yaml`.  
+Normalmente, a versão do "servidor da API" terá algumas linhas extras que não estão na versão original,
+o que é esperado. No entanto, se houver linhas na versão original que não aparecem na versão do servidor da API, 
 isso pode indicar um problema na especificação do seu pod.
 
 ### Depurando Replication Controllers {#debugging-replication-controllers}
@@ -139,7 +139,7 @@ Existem vários problemas comuns que podem fazer com que os Services não funcio
 As instruções a seguir devem ajudar na depuração de problemas com Services.
 
 Primeiro, verifique se há endpoints para o Service.
-Para cada objeto Service, o apiserver disponibiliza um recurso `endpoints`.
+Para cada objeto Service, o servidor da API disponibiliza um recurso `endpoints`.
 
 Você pode visualizar esse recurso com o seguinte comando:
 
