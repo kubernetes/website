@@ -409,7 +409,7 @@ kubectl get service hostnames -o json
 
 * A porta do Service que você está tentando acessar está listada em `spec.ports[]`?
 * O `targetPort` está correto para seus Pods (alguns Pods usam uma porta diferente da do Service)?
-* Se você pretende usar uma porta numérica, ela está como um número (`9376`) ou como uma string (`"9376"`)?
+* Se você pretende usar uma porta numérica, ela está especificada como um número (9376) ou como uma string ("9376")?
 * Se você pretende usar uma porta nomeada, seus Pods expõem uma porta com o mesmo nome?
 * O `protocol` da porta está correto para seus Pods?
 
