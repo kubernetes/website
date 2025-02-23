@@ -303,11 +303,11 @@ para o `kubelet` com a flag `--cluster-dns`.
 
 A linha `search` deve incluir um sufixo apropriado para que o nome do Service 
 seja encontrado. Neste caso, ele está procurando Services no Namespace local 
-(`"default.svc.cluster.local"`), Services em todos os Namespaces (`"svc.cluster.local"`), 
-e, por último, nomes no cluster (`"cluster.local"`). Dependendo da sua instalação, 
+("default.svc.cluster.local"), Services em todos os Namespaces ("svc.cluster.local"), 
+e, por último, nomes no cluster ("cluster.local"). Dependendo da sua instalação, 
 você pode ter registros adicionais depois disso (até um total de 6). O sufixo 
 do cluster é passado para o `kubelet` com a flag `--cluster-domain`. Ao longo 
-deste documento, assumimos que o sufixo do cluster é `"cluster.local"`. Seu 
+deste documento, assumimos que o sufixo do cluster é "cluster.local". Seu 
 cluster pode estar configurado de forma diferente, e, nesse caso, você deve 
 ajustar isso em todos os comandos anteriores.
 
