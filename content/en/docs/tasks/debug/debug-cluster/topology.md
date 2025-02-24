@@ -9,7 +9,7 @@ content_type: task
 Kubernetes keeps many aspects of how pods execute on nodes abstracted
 from the user. This is by design.  However, some workloads require
 stronger guarantees in terms of latency and/or performance in order to operate
-acceptably. The kubelet provides methods to enable more complex workload
+acceptably. The `kubelet` provides methods to enable more complex workload
 placement policies while keeping the abstraction free from explicit placement
 directives.
 
