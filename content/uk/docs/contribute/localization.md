@@ -104,11 +104,16 @@ SIG Docs може допомогти вам з роботою в окремій 
 ```toml
 [languages.de]
 title = "Kubernetes"
-description = "Produktionsreife Container-Verwaltung"
 languageName = "Deutsch (German)"
-languageNameLatinScript = "Deutsch"
+weight = 5
 contentDir = "content/de"
-weight = 8
+languagedirection = "ltr"
+
+[languages.de.params]
+time_format_blog = "02.01.2006"
+language_alternatives = ["en"]
+description = "Produktionsreife Container-Orchestrierung"
+languageNameLatinScript = "Deutsch"
 ```
 
 Змінна `languageName` містить назву мови, яка показується в панелі вибору мови. Вкажіть у `languageName` назву в форматі "назва мови вашою мовою (назва мови англійською мовою)". Наприклад, `languageName = "한국어 (Korean)"` або `languageName = "Deutsch (German)"`.
@@ -127,9 +132,9 @@ weight = 8
 mkdir content/de
 ```
 
-Також потрібно створити теку всередині `data/i18n` для [локалізованих рядків](#site-strings-in-i18n); перегляньте наявні локалізації для прикладу. Для використання цих нових рядків, вам також потрібно створити символічне посилання з `i18n/<код-мови>.toml` на фактичну конфігурацію рядків у `data/i18n/<код-мови>/<код-мови>.toml` (не забудьте додати символічне посилання в коміт).
+Також потрібно створити теку всередині теки `i18n` для [локалізованих рядків](#site-strings-in-i18n); перегляньте наявні локалізації для прикладу.
 
-Наприклад, для німецької мови рядки знаходяться в `data/i18n/de/de.toml`, і `i18n/de.toml` — це символічне посилання на `data/i18n/de/de.toml`.
+Наприклад, для німецької мови рядки знаходяться в `i18n/de/de.toml`.
 
 ### Локалізуйте community code of conduct {#localize-community-code-of-conduct}
 
@@ -162,6 +167,7 @@ approvers:
 - sig-docs-es-owners
 
 labels:
+- area/localization
 - language/es
 ```
 
@@ -285,13 +291,13 @@ cp -ra content/en/docs/tutorials/kubernetes-basics/ content/de/docs/tutorials/
 
 ### Рядки сайту в i18n {#site-strings-in-i18n}
 
-Локалізація має включати вміст [`data/i18n/en/en.toml`](https://github.com/kubernetes/website/blob/main/data/i18n/en/en.toml) у новому файлі для відповідної мови. Наприклад, для німецької мови: `data/i18n/de/de.toml`.
+Локалізація має включати вміст [`i18n/en/en.toml`](https://github.com/kubernetes/website/blob/main/i18n/en/en.toml) у новому файлі для відповідної мови. Наприклад, для німецької мови: `i18n/de/de.toml`.
 
-Додайте нову теку для локалізації та файл до `data/i18n/`. Наприклад, для німецької мови (`de`):
+Додайте нову теку для локалізації та файл до `i18n/`. Наприклад, для німецької мови (`de`):
 
 ```bash
-mkdir -p data/i18n/de
-cp data/i18n/en/en.toml data/i18n/de/de.toml
+mkdir -p i18n/de
+cp i18n/en/en.toml i18n/de/de.toml
 ```
 
 Ознайомтесь з коментарями вгорі файлу, щоб зрозуміти, які рядки потрібно локалізувати. Наприклад, це німецькомовний текст-заповнювач для поля пошуку:

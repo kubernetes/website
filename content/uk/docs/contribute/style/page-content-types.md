@@ -53,16 +53,16 @@ weight: 80
 ## {{%/* heading "prerequisites" */%}}
 ```
 
-Shortcode `heading` очікує один строковий параметр. Рядок заголовка відповідає префіксу змінної у файлах `i18n/<lang>.toml`. Наприклад:
+Shortcode `heading` очікує один строковий параметр. Рядок заголовка відповідає префіксу змінної у файлах `i18n/<lang>/<lang>.toml`. Наприклад:
 
-`i18n/en.toml`:
+`i18n/en/en.toml`:
 
 ```toml
 [whatsnext_heading]
 other = "What's next"
 ```
 
-`i18n/ko.toml`:
+`i18n/ko/ko.toml`:
 
 ```toml
 [whatsnext_heading]
