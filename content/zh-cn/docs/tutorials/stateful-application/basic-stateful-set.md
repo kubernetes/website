@@ -1518,7 +1518,7 @@ Patch the `web` StatefulSet to use the `OnDelete` update strategy:
 对 `web` StatefulSet 执行 patch 操作，以使用 `OnDelete` 更新策略：
 
 ```shell
-kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"OnDelete"}}}'
+kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"OnDelete", "rollingUpdate": null}}}'
 ```
 ```
 statefulset.apps/web patched

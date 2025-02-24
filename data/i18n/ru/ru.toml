@@ -12,11 +12,11 @@ other = "(автоматически сгенерированная страни
 [auto_generated_pageinfo]
 other = """<p>Эта страница сгенерирована автоматически.</p><p>Если вы планируете сообщить о проблеме на этой странице, в описании своего issue укажите, что она автоматически сгенерирована. Возможно, исправление потребуется сделать в других репозиториях проекта Kubernetes.</p>"""
 
-[blog_post_show_more]
-other = "Показать больше публикаций..."
-
 [banner_acknowledgement]
 other = "Скрыть это уведомление"
+
+[blog_post_show_more]
+other = "Показать больше публикаций..."
 
 [case_study_prefix]
 other = "Кейс:"
@@ -491,13 +491,13 @@ other = "Скачать бинарники компонентов Kubernetes"
 [release_binary_section]
 other = """Ниже представлены ссылки для загрузки компонентов Kubernetes <current-version> (и их контрольные суммы).
 Чтобы скачать более старые поддерживаемые версии, перейдите на соответствующую страницу документации
-для [предыдущих версий](https://kubernetes.io/ru/docs/home/supported-doc-versions/#versions-older) или используйте [downloadkubernetes.com](https://www.downloadkubernetes.com/).""" 
+для [предыдущих версий](https://kubernetes.io/ru/docs/home/supported-doc-versions/#versions-older) или используйте [downloadkubernetes.com](https://www.downloadkubernetes.com/)."""
 
 # NOTE: <current-version> and <current-changelog-url> are placeholders set by 'release-binaries' shortcode.
 # Please do not localize or modify <current-version> and <current-changelog-url>  placeholders.
 [release_binary_section_note]
 other = """Чтобы скачать более ранние патч-версии компонентов Kubernetes <current-version> (и их контрольные суммы),
-смотрите файл [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md).""" 
+смотрите файл [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md)."""
 
 [release_binary_version]
 other  = "Версия"
