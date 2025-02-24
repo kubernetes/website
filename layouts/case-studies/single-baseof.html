@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html id="{{ .Params.cid }}" lang="{{ .Language }}" class="{{ .Params.class }}">
+	<head>
+		{{ partial "head.html" . }}
+	</head>
+        <body{{ with .Page.Params.body_class }} class="{{ . }}"{{ end }}>
+		{{ partial "navbar.html" . }}
+		{{ block "deprecation_warning.html" . }}
+		{{ partial "deprecation-warning.html" . }}
+		{{ end }}
+		<div data-pagefind-body>
+		{{ block "main" . }}{{ end }}
+		</div>
+		{{ partialCached "footer.html" . }}
+    {{ partialCached "scripts.html" . }}
+
+	</body>
+</html>
