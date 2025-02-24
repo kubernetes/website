@@ -10,11 +10,6 @@ command = "git submodule update --init --recursive --depth 1 && make non-product
 NODE_VERSION = "20.17.0"
 HUGO_VERSION = "0.133.0"
 
-[context.production.environment]
-HUGO_BASEURL = "https://kubernetes.io/"
-HUGO_ENV = "production"
-HUGO_ENABLEGITINFO = "true"
-
 [context.deploy-preview]
 command = "git submodule update --init --recursive --depth 1 && make deploy-preview && npx -y pagefind --site public"
 
@@ -28,3 +23,8 @@ command = "git submodule update --init --recursive --depth 1 && make non-product
 # Ref: https://docs.netlify.com/configure-builds/file-based-configuration/#deploy-contexts
 publish = "public"
 command = "git submodule update --init --recursive --depth 1 && make production-build && npx -y pagefind --site public"
+
+[context.production.environment]
+HUGO_BASEURL = "https://kubernetes.io/"
+HUGO_ENV = "production"
+HUGO_ENABLEGITINFO = "true"

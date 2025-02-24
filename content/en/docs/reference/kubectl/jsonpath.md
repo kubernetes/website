@@ -2,29 +2,33 @@
 title: JSONPath Support
 content_type: concept
 weight: 40
+math: true
 ---
 
 <!-- overview -->
-Kubectl supports JSONPath template.
+The {{< glossary_tooltip term_id="kubectl" text="kubectl" >}} tool supports JSONPath templates as an output format.
 
 
 <!-- body -->
 
-JSONPath template is composed of JSONPath expressions enclosed by curly braces {}.
+A _JSONPath template_ is composed of JSONPath expressions enclosed by curly braces: `{` and `}`.
 Kubectl uses JSONPath expressions to filter on specific fields in the JSON object and format the output.
 In addition to the original JSONPath template syntax, the following functions and syntax are valid:
 
 1. Use double quotes to quote text inside JSONPath expressions.
 2. Use the `range`, `end` operators to iterate lists.
-3. Use negative slice indices to step backwards through a list. Negative indices do not "wrap around" a list and are valid as long as `-index + listLength >= 0`.
+3. Use negative slice indices to step backwards through a list.  
+   Negative indices do _not_ "wrap around" a list and are valid as long as \\( ( - index + listLength ) \ge 0 \\).
 
 {{< note >}}
 
 - The `$` operator is optional since the expression always starts from the root object by default.
 
-- The result object is printed as its String() function.
+- The result object is printed as its `String()` function.
 
 {{< /note >}}
+
+## Functions in Kubernetes JSONPath {#functions}
 
 Given the JSON input:
 
@@ -70,6 +74,7 @@ Given the JSON input:
 }
 ```
 
+{{< table caption="Functions, their parameters, an example invocation, and the result" >}}
 Function            | Description                  | Example                                                         | Result
 --------------------|------------------------------|-----------------------------------------------------------------|------------------
 `text`              | the plain text               | `kind is {.kind}`                                               | `kind is List`
@@ -83,6 +88,9 @@ Function            | Description                  | Example                    
 `range`, `end`      | iterate list                 | `{range .items[*]}[{.metadata.name}, {.status.capacity}] {end}` | `[127.0.0.1, map[cpu:4]] [127.0.0.2, map[cpu:8]]`
 `''`                | quote interpreted string     | `{range .items[*]}{.metadata.name}{'\t'}{end}`                  | `127.0.0.1      127.0.0.2`
 `\`                 | escape termination character | `{.items[0].metadata.labels.kubernetes\.io/hostname}`           | `127.0.0.1`
+{{< /table >}}
+
+## Using JSONPath expressions with kubectl {#use-with-kubectl}
 
 Examples using `kubectl` and JSONPath expressions:
 
@@ -105,7 +113,7 @@ kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{\"\t\"}{.status.
 ```
 {{< /note >}}
 
-{{< note >}}
+## Regular expressions in JSONPath
 
 JSONPath regular expressions are not supported. If you want to match using regular expressions, you can use a tool such as `jq`.
 
@@ -117,4 +125,3 @@ kubectl get pods -o jsonpath='{.items[?(@.metadata.name=~/^test$/)].metadata.nam
 # The following command achieves the desired result
 kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-")).metadata.name'
 ```
-{{< /note >}}

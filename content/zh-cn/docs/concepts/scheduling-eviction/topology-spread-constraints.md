@@ -981,7 +981,7 @@ section of the enhancement proposal about Pod topology spread constraints.
   because, in this case, those topology domains won't be considered until there is
   at least one node in them.
 
-  You can work around this by using a cluster autoscaling tool that is aware of
+  You can work around this by using a Node autoscaler that is aware of
   Pod topology spread constraints and is also aware of the overall set of topology
   domains.
 -->
@@ -990,7 +990,7 @@ section of the enhancement proposal about Pod topology spread constraints.
   而用户正期望其扩容时，可能会导致调度出现问题。
   因为在这种情况下，调度器不会考虑这些拓扑域，直至这些拓扑域中至少包含有一个节点。
 
-  你可以通过使用感知 Pod 拓扑分布约束并感知整个拓扑域集的集群自动扩缩工具来解决此问题。
+  你可以通过使用感知 Pod 拓扑分布约束并感知整个拓扑域集的节点自动扩缩工具来解决此问题。
 
 ## {{% heading "whatsnext" %}}
 

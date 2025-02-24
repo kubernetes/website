@@ -170,11 +170,16 @@ existing `[languages]` block. The German block, for example, looks like:
 ```toml
 [languages.de]
 title = "Kubernetes"
-description = "Produktionsreife Container-Verwaltung"
 languageName = "Deutsch (German)"
-languageNameLatinScript = "Deutsch"
+weight = 5
 contentDir = "content/de"
-weight = 8
+languagedirection = "ltr"
+
+[languages.de.params]
+time_format_blog = "02.01.2006"
+language_alternatives = ["en"]
+description = "Produktionsreife Container-Orchestrierung"
+languageNameLatinScript = "Deutsch"
 ```
 
 The language selection bar lists the value for `languageName`. Assign "language
@@ -206,15 +211,11 @@ the repository. For example, the two-letter code for German is `de`:
 mkdir content/de
 ```
 
-You also need to create a directory inside `data/i18n` for
+You also need to create a directory inside `i18n` for
 [localized strings](#site-strings-in-i18n); look at existing localizations
-for an example. To use these new strings, you must also create a symbolic link
-from `i18n/<localization>.toml` to the actual string configuration in
-`data/i18n/<localization>/<localization>.toml` (remember to commit the symbolic
-link).
+for an example.
 
-For example, for German the strings live in `data/i18n/de/de.toml`, and
-`i18n/de.toml` is a symbolic link to `data/i18n/de/de.toml`.
+For example, for German the strings live in `i18n/de/de.toml`.
 
 ### Localize the community code of conduct
 
@@ -253,6 +254,7 @@ approvers:
 - sig-docs-es-owners
 
 labels:
+- area/localization
 - language/es
 ```
 
@@ -431,16 +433,16 @@ release: v{{< skew nextMinorVersion >}}.
 ### Site strings in i18n
 
 Localizations must include the contents of
-[`data/i18n/en/en.toml`](https://github.com/kubernetes/website/blob/main/data/i18n/en/en.toml)
+[`i18n/en/en.toml`](https://github.com/kubernetes/website/blob/main/i18n/en/en.toml)
 in a new language-specific file. Using German as an example:
-`data/i18n/de/de.toml`.
+`i18n/de/de.toml`.
 
-Add a new localization directory and file to `data/i18n/`. For example, with
+Add a new localization directory and file to `i18n/`. For example, with
 German (`de`):
 
 ```bash
-mkdir -p data/i18n/de
-cp data/i18n/en/en.toml data/i18n/de/de.toml
+mkdir -p i18n/de
+cp i18n/en/en.toml i18n/de/de.toml
 ```
 
 Revise the comments at the top of the file to suit your localization, then

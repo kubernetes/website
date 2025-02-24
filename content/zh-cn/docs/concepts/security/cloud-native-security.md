@@ -131,7 +131,7 @@ To achieve this, you can:
 1. Adopt and follow processes to update dependencies when updates are
    available, especially in response to security announcements.
 -->
-3. 在有更新，尤其时安全公告时，采用并遵循更新依赖项的流程。
+3. 在有更新，尤其是安全公告时，采用并遵循更新依赖项的流程。
 <!--
 1. Use validation mechanisms such as digital certificates for supply
    chain assurance.

@@ -5,9 +5,6 @@ weight: 90
 ---
 
 <!--
-reviewers:
-- davidopp
-- wojtek-t
 title: Pod Priority and Preemption
 content_type: concept
 weight: 90

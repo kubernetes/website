@@ -293,7 +293,6 @@ languageName = "English"
 # Weight used for sorting.
 weight = 1
 languagedirection = "ltr"
-i18nDir = "./data/i18n"
 
 [languages.en.params]
 description = "Production-Grade Container Orchestration"
@@ -517,3 +516,75 @@ languagedirection = "ltr"
 languageNameLatinScript = "Tiếng Việt"
 description = "Giải pháp điều phối container trong môi trường production"
 
+# Ensure that the correct file names are in the correct directory. For e.g. i18n/en should contain en.toml and never de.toml
+[[module.mounts]]
+source = "i18n/bn"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/de"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/en"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/es"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/fr"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/hi"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/id"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/it"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/ja"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/ko"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/nl"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/no"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/pl"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/pt-br"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/ru"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/uk"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/vi"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/zh-cn"
+target = "i18n"

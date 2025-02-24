@@ -10,11 +10,11 @@ other = "(página gerada automaticamente)"
 [auto_generated_pageinfo]
 other = """<p>Esta página foi gerada automaticamente.</p><p>Se você planeja relatar um problema nesta página, mencione que esta página é gerada automaticamente na descrição da sua <i>issue</i>. A correção pode necessitar ser efetuada em outra parte do projeto Kubernetes.</p>"""
 
-[blog_post_show_more]
-other = "Mostrar mais postagens"
-
 [banner_acknowledgement]
 other = "Ocultar este aviso"
+
+[blog_post_show_more]
+other = "Mostrar mais postagens"
 
 [case_study_prefix]
 other = "Estudo de caso:"
