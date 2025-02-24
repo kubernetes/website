@@ -12,16 +12,17 @@ weight: 20
 <!-- overview -->
 <!--
 This page provides a step-by-step example of updating configuration within a Pod via a ConfigMap
-and builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task.  
-At the end of this tutorial, you will understand how to change the configuration for a running application.  
+and builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task.
+At the end of this tutorial, you will understand how to change the configuration for a running application.
 This tutorial uses the `alpine` and `nginx` images as examples.
 -->
 本页提供了通过 ConfigMap 更新 Pod 中配置信息的分步示例，
-本教程的前置任务是[配置 Pod 以使用 ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)。  
+本教程的前置任务是[配置 Pod 以使用 ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 在本教程结束时，你将了解如何变更运行中应用的配置。
 本教程以 `alpine` 和 `nginx` 镜像为例。
 
 ## {{% heading "prerequisites" %}}
+
 {{< include "task-tutorial-prereqs.md" >}}
 
 <!--
@@ -85,7 +86,8 @@ kubectl apply -f https://k8s.io/examples/deployments/deployment-with-configmap-a
 Check the pods for this Deployment to ensure they are ready (matching by
 {{< glossary_tooltip text="selector" term_id="selector" >}}):
 -->
-检查此 Deployment 的 Pod 以确保它们已就绪（通过{{< glossary_tooltip text="选择算符" term_id="selector" >}}进行匹配）：
+检查此 Deployment 的 Pod 以确保它们已就绪
+（通过{{< glossary_tooltip text="选择算符" term_id="selector" >}}进行匹配）：
 
 ```shell
 kubectl get pods --selector=app.kubernetes.io/name=configmap-volume
@@ -161,8 +163,20 @@ Here's an example of how that manifest could look after you edit it:
 以下是你编辑后该清单可能的样子：
 
 <!--
+```yaml
+apiVersion: v1
+data:
+  sport: cricket
+kind: ConfigMap
 # You can leave the existing metadata as they are.
 # The values you'll see won't exactly match these.
+metadata:
+  creationTimestamp: "2024-01-04T14:05:06Z"
+  name: sport
+  namespace: default
+  resourceVersion: "1743935"
+  uid: 024ee001-fe72-487e-872e-34d6464a8a23
+```
 -->
 ```yaml
 apiVersion: v1
@@ -213,23 +227,23 @@ Thu Jan  4 14:12:16 UTC 2024 My preferred sport is cricket
 <!--
 When you have a ConfigMap that is mapped into a running Pod using either a
 `configMap` volume or a `projected` volume, and you update that ConfigMap,
-the running Pod sees the update almost immediately.  
+the running Pod sees the update almost immediately.
 However, your application only sees the change if it is written to either poll for changes,
-or watch for file updates.  
+or watch for file updates.
 An application that loads its configuration once at startup will not notice a change.
 -->
 当你有一个 ConfigMap 通过 `configMap` 卷或 `projected` 卷映射到运行中的 Pod，
-并且你更新了该 ConfigMap 时，运行中的 Pod 几乎会立即更新。  
-但是，你的应用只有在编写为轮询变更或监视文件更新时才能看到变更。  
+并且你更新了该 ConfigMap 时，运行中的 Pod 几乎会立即更新。
+但是，你的应用只有在编写为轮询变更或监视文件更新时才能看到变更。
 启动时一次性加载其配置的应用将不会注意到变更。
 
 {{< note >}}
 <!--
 The total delay from the moment when the ConfigMap is updated to the moment when
-new keys are projected to the Pod can be as long as kubelet sync period.  
+new keys are projected to the Pod can be as long as kubelet sync period.
 Also check [Mounted ConfigMaps are updated automatically](/docs/tasks/configure-pod-container/configure-pod-configmap/#mounted-configmaps-are-updated-automatically).
 -->
-从更新 ConfigMap 的那一刻到将新的键投射到 Pod 的那一刻，整个延迟可能与 kubelet 同步周期相同。 
+从更新 ConfigMap 的那一刻到将新的键投射到 Pod 的那一刻，整个延迟可能与 kubelet 同步周期相同。
 另请参阅[挂载的 ConfigMap 会被自动更新](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/#mounted-configmaps-are-updated-automatically)。
 {{< /note >}}
 
@@ -331,8 +345,19 @@ Here's an example of how that manifest could look after you edit it:
 以下是你编辑后该清单可能的样子：
 
 <!--
+```yaml
+apiVersion: v1
+data:
+  fruits: mangoes
+kind: ConfigMap
 # You can leave the existing metadata as they are.
 # The values you'll see won't exactly match these.
+metadata:
+  creationTimestamp: "2024-01-04T16:04:19Z"
+  name: fruits
+  namespace: default
+  resourceVersion: "1749472"
+```
 -->
 ```yaml
 apiVersion: v1
@@ -632,8 +657,20 @@ Here's an example of how that manifest could look after you edit it:
 以下是你编辑后该清单可能的样子：
 
 <!--
+```yaml
+apiVersion: v1
+data:
+  color: blue
+kind: ConfigMap
 # You can leave the existing metadata as they are.
 # The values you'll see won't exactly match these.
+metadata:
+  creationTimestamp: "2024-01-05T08:12:05Z"
+  name: color
+  namespace: configmap
+  resourceVersion: "1801272"
+  uid: 80d33e4a-cbb4-4bc9-ba8c-544c68e425d6
+```
 -->
 ```yaml
 apiVersion: v1
@@ -663,7 +700,7 @@ You should see the output change as follows:
 循环访问服务 URL 几秒钟。
 
 ```shell
-# 当你满意时可以取消此操作 (Ctrl-C)
+# 当你满意时可以取消此操作（Ctrl-C）
 while true; do curl --connect-timeout 7.5 http://localhost:8080; sleep 10; done
 ```
 
@@ -683,24 +720,22 @@ Fri Jan  5 08:15:00 UTC 2024 My preferred color is blue
 ## Update configuration via a ConfigMap in a Pod possessing a sidecar container {#rollout-configmap-sidecar}
 
 The above scenario can be replicated by using a [Sidecar Container](/docs/concepts/workloads/pods/sidecar-containers/)
-as a helper container to write the HTML file.  
-As a Sidecar Container is conceptually an Init Container, it is guaranteed to start before the main web server container.  
-This ensures that the HTML file is always available when the web server is ready to serve it.  
-Please see [Enabling sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/#enabling-sidecar-containers) to utilize this feature.
+as a helper container to write the HTML file.
+As a Sidecar Container is conceptually an Init Container, it is guaranteed to start before the main web server container.
+This ensures that the HTML file is always available when the web server is ready to serve it.
 -->
 ## 在包含边车容器的 Pod 中通过 ConfigMap 更新配置    {#rollout-configmap-sidecar}
 
-要重现上述场景，可以使用[边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)作为辅助容器来写入 HTML 文件。  
-由于边车容器在概念上是一个 Init 容器，因此保证会在主要 Web 服务器容器启动之前启动。  
-这确保了当 Web 服务器准备好提供服务时，HTML 文件始终可用。  
-请参阅[启用边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/#enabling-sidecar-containers)以使用此特性。
+要重现上述场景，可以使用[边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)作为辅助容器来写入
+HTML 文件。由于边车容器在概念上是一个 Init 容器，因此保证会在主要 Web 服务器容器启动之前启动。
+这确保了当 Web 服务器准备好提供服务时，HTML 文件始终可用。
 
 <!--
-If you are continuing from the previous scenario, you can reuse the ConfigMap named `color` for this scenario.  
+If you are continuing from the previous scenario, you can reuse the ConfigMap named `color` for this scenario.
 If you are executing this scenario independently, use the `kubectl create configmap` command to create a ConfigMap
 from [literal values](/docs/tasks/configure-pod-container/configure-pod-configmap/#create-configmaps-from-literal-values):
 -->
-如果你从前一个场景继续操作，你可以在此场景中重用名为 `color` 的 ConfigMap。  
+如果你从前一个场景继续操作，你可以在此场景中重用名为 `color` 的 ConfigMap。
 如果你是独立执行此场景，请使用 `kubectl create configmap`
 命令基于[字面值](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/#create-configmaps-from-literal-values)创建一个
 ConfigMap：
@@ -819,8 +854,20 @@ Here's an example of how that manifest could look after you edit it:
 以下是你编辑后该清单可能的样子：
 
 <!--
+```yaml
+apiVersion: v1
+data:
+  color: green
+kind: ConfigMap
 # You can leave the existing metadata as they are.
 # The values you'll see won't exactly match these.
+metadata:
+  creationTimestamp: "2024-02-17T12:20:30Z"
+  name: color
+  namespace: default
+  resourceVersion: "1054"
+  uid: e40bb34c-58df-4280-8bea-6ed16edccfaa
+```
 -->
 ```yaml
 apiVersion: v1
@@ -979,12 +1026,12 @@ Wed Mar 20 03:52:54 UTC 2024 The name of the company is ACME, Inc.
 {{< note >}}
 <!--
 Once a ConfigMap is marked as immutable, it is not possible to revert this change
-nor to mutate the contents of the data or the binaryData field.  
+nor to mutate the contents of the data or the binaryData field.
 In order to modify the behavior of the Pods that use this configuration,
 you will create a new immutable ConfigMap and edit the Deployment
 to define a slightly different pod template, referencing the new ConfigMap.
 -->
-一旦 ConfigMap 被标记为不可变，就无法撤销此变更，也无法修改 `data` 或 `binaryData` 字段的内容。  
+一旦 ConfigMap 被标记为不可变，就无法撤销此变更，也无法修改 `data` 或 `binaryData` 字段的内容。
 为了修改使用此配置的 Pod 的行为，你需要创建一个新的不可变 ConfigMap，并编辑 Deployment
 以定义一个稍有不同的 Pod 模板，引用新的 ConfigMap。
 {{< /note >}}
@@ -1180,7 +1227,13 @@ Delete the resources created during the tutorial:
 删除以上教程中所创建的资源：
 
 <!--
-# In case it was not handled during the task execution
+```shell
+kubectl delete deployment configmap-volume configmap-env-var configmap-two-containers configmap-sidecar-container immutable-configmap-volume
+kubectl delete service configmap-service configmap-sidecar-service
+kubectl delete configmap sport fruits color company-name-20240312
+
+kubectl delete configmap company-name-20150801 # In case it was not handled during the task execution
+```
 -->
 ```shell
 kubectl delete deployment configmap-volume configmap-env-var configmap-two-containers configmap-sidecar-container immutable-configmap-volume
