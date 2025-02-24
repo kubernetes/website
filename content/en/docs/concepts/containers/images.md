@@ -367,7 +367,31 @@ you must ensure all nodes in the cluster have the same pre-pulled images.
 This can be used to preload certain images for speed or as an alternative to authenticating to a
 private registry.
 
-All pods will have read access to any pre-pulled images.
+All pods will have read access to any pre-pulled images, unless the 
+[KubeletEnsureSecretPulledImages](#kubeletensuresecretpulledimages) feature gate
+is enabled.
+
+#### Pre-pulled image authentication {#prepulledimageauthentication}
+
+{{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
+
+If the `KubeletEnsureSecretPulledImages` 
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled, Kubernetes will require valid authentication credentials for every pod
+image, even if that image is already present on the node. This is controlled by the
+`ImagePullcredentialsVerificationPolicy` option in the
+[Kubelet config](/docs/reference/config-api/kubelet-config.v1beta1#ImagePullCredentialsVerificationPolicy).
+
+This configuration controls when image pull credentials must be verified if the
+image is already present on the node. The `NeverVerify` setting mimics the behavior
+of having this feature gate disabled, while the `NeverVerifyPreloadedImages` setting
+is the default behavior when the feature gate is enabled. The default behavior allows
+images already present in the node, but not those previously pulled by the Kubelet, to
+be pulled without verification. All other images, including those pulled by other pods,
+will have their image pull credentials verified against the registry. Image pulls
+which reuse the same credentials (in the case of a restarted container, for example)
+will be securely verified locally by the Kubelet without needing to authenticate to
+the registry again.
 
 ### Specifying imagePullSecrets on a Pod
 
