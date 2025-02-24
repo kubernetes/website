@@ -62,6 +62,9 @@ other = "GitHub"
 
 # Also cover [community_learn] if localizing this site
 
+[community_linkedin_name]
+other = "LinkedIn"
+
 [community_server_fault_name]
 other = "Server Fault"
 
