@@ -72,8 +72,11 @@ other = "Приєднуйтесь до спільноти {{ .Site.Title }}"
 [community_learn]
 other = "Вивчай та спілкуйся"
 
+[community_linkedin_name]
+other = "LinkedIn"
+
 [community_server_fault_name]
-other = "Помилки сервера"
+other = "Server Fault"
 
 [community_slack_name]
 other = "Slack"
