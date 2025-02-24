@@ -38,7 +38,7 @@ helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dash
 
 ## Acessando o painel do Kubernetes
 
-Para proteger os dados do seu cluster, o Painel é implantado com uma configuração RBAC mínima por padrão. Atualmente, o Painel oferece suporte apenas ao login com um Bearer Token. Para criar um token para esta demonstração, você pode seguir nosso guia sobre criação de um usuário de exemplo.
+Para proteger os dados do seu cluster, o Painel é implantado com uma configuração RBAC mínima por padrão. Atualmente, o Painel oferece suporte apenas ao login com um Bearer Token. Para criar um token para esta demonstração, você pode seguir nosso guia de [criação de um usuário de exemplo](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md).
 
 Acesse o nosso guia sobre [criação de um usuário de exemplo](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md) para gerar um token de acesso.
 
@@ -55,12 +55,12 @@ executando o seguinte comando:
 kubectl proxy
 ```
 
-O kubectl disponibilizará o Painel em [http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/).
+O kubectl disponibilizará o Painel em [http://localhost:8443/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/](http://localhost:8443/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/).
 
 O acesso à interface é _restrito_ à máquina onde o comando é executado. Consulte `kubectl proxy --help` para mais opções.
 
 {{< note >}}
-O método de autenticação kubeconfig **não** oferece suporte a provedores de identidade externos ou autenticação baseada em certificados X.509."
+O método de autenticação kubeconfig **não** oferece suporte a provedores de identidade externos ou autenticação baseada em certificados X.509.
 {{< /note >}}
 
 ## Visualização de boas-vindas
@@ -88,7 +88,7 @@ O assistente de implantação espera que você forneça as seguintes informaçõ
 
 O nome da aplicação deve ser único dentro do [namespace](/docs/tasks/administer-cluster/namespaces/) do Kubernetes selecionado. Ele deve começar com uma letra minúscula, terminar com uma letra minúscula ou um número e conter apenas letras minúsculas, números e hífens (-). O limite é de 24 caracteres. Espaços à esquerda e à direita são ignorados.
 
-- **Imagem do container** (obrigatório):
+- **Imagem do contêiner** (obrigatório):
   A URL pública de uma [imagem de contêiner](/docs/concepts/containers/images/) Docker em qualquer registro de imagens público ou uma imagem privada (comumente hospedada no Google Container Registry ou Docker Hub). A especificação da imagem do container deve terminar com dois pontos (:).
 
 - **Número de pods** (obrigatório): O número desejado de Pods nos quais você deseja que sua aplicação implantada. O valor deve ser um número inteiro positivo.
@@ -168,7 +168,7 @@ Se necessário, você pode expandir a seção **Opções avançadas** onde você
   Eles podem ser usados em aplicativos para encontrar um Service.
   Os valores podem referenciar outras variáveis usando a sintaxe `$(VAR_NAME)`.
 
-### upload de um arquivo YAML ou JSON
+### Upload de um arquivo YAML ou JSON
 
 O Kubernetes suporta configuração declarativa.
 Nesse estilo, toda a configuração é armazenada em manifestos (arquivos de configuração YAML ou JSON).
