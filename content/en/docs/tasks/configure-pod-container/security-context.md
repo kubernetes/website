@@ -336,6 +336,25 @@ status:
   features:
     supplementalGroupsPolicy: true
 ```
+{{<note>}}
+At this alpha release(from v1.31 to v1.32), when a pod with `SupplementalGroupsPolicy=Strict` are scheduled to a node that does NOT support this feature(i.e. `.status.features.supplementalGroupsPolicy=false`), the pod's supplemental groups policy gets fallback-ed to the `Merge` policy _silently_.
+
+However, since the beta release (v1.33), to enforce the policy more strictly, __such pod creation will be rejected by kubelet because the node can not ensure the specified policy__. When your pod is rejected, you will see warning events with `reason=SupplementalGroupsPolicyNotSupported` like below:
+
+```yaml
+apiVersion: v1
+kind: Event
+...
+type: Warning
+reason: SupplementalGroupsPolicyNotSupported
+message: "SupplementalGroupsPolicy=Strict is not supported in this node"
+involvedObject:
+  apiVersion: v1
+  kind: Pod
+  ...
+```
+{{</note>}}
+
 
 ## Configure volume permission and ownership change policy for Pods
 
