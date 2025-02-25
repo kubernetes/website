@@ -7,7 +7,7 @@ content_type: concept
 
 <!-- overview -->
 
-Minikubeはローカル環境でKubernetesを簡単に実行するためのツールです。Kubernetesを試したり日々の開発への使用を検討するユーザー向けに、PC上のVM内でシングルノードのKubernetesクラスターを実行することができます。
+Minikubeはローカル環境でKubernetesを簡単に実行するためのツールです。Kubernetesを試したり日々の開発への使用を検討するユーザー向けに、PC上のVM内でオールインワンまたはマルチノードのKubernetesクラスターを実行することができます。
 
 
 <!-- body -->
@@ -111,13 +111,13 @@ MinikubeのサポートするKubernetesの機能:
 
    ```
    Hostname: hello-minikube-7c77b68cff-8wdzq
-   
+
    Pod Information:
     -no pod information available-
-   
+
    Server values:
     server_version=nginx: 1.13.3 - lua: 10008
-   
+
    Request Information:
     client_address=172.17.0.1
     method=GET
@@ -126,12 +126,12 @@ MinikubeのサポートするKubernetesの機能:
     request_version=1.1
     request_scheme=http
     request_uri=http://192.168.99.100:8080/
-   
+
    Request Headers:
    	accept=*/*
    	host=192.168.99.100:30674
    	user-agent=curl/7.47.0
-   
+
    Request Body:
    	-no body in request-
    ```
@@ -501,15 +501,11 @@ minikube start --docker-env http_proxy=http://$YOURPROXY:PORT \
 export no_proxy=$no_proxy,$(minikube ip)
 ```
 
-## 既知の問題
-
-複数ノードを必要とする機能はMinikubeでは動作しません。
-
 ## 設計
 
 MinikubeはVMのプロビジョニングに[libmachine](https://github.com/docker/machine/tree/master/libmachine)を使用し、[kubeadm](https://github.com/kubernetes/kubeadm)をKubernetesクラスターのプロビジョニングに使用します。
 
-Minikubeの詳細については、[proposal](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/local-cluster-ux.md)を参照してください。
+Minikubeの詳細については、[proposal](https://github.com/kubernetes/design-proposals-archive/blob/main/cluster-lifecycle/local-cluster-ux.md)を参照してください。
 
 ## 追加リンク集
 
