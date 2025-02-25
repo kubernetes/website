@@ -233,7 +233,7 @@ work between Windows and Linux:
 The following list documents differences between how Pod specifications work between Windows and Linux:
 
 * `hostIPC` and `hostpid` - host namespace sharing is not possible on Windows
-* `hostNetwork` - [see below](#compatibility-v1-pod-spec-containers-hostnetwork)
+* `hostNetwork` - host network namespace is not possible on Windows
 * `dnsPolicy` - setting the Pod `dnsPolicy` to `ClusterFirstWithHostNet` is
    not supported on Windows because host networking is not provided. Pods always
    run with a container network.
@@ -255,17 +255,6 @@ The following list documents differences between how Pod specifications work bet
   * If you define an `emptyDir` volume, you cannot set its volume source to `memory`.
 * You cannot enable `mountPropagation` for volume mounts as this is not
   supported on Windows.
-
-#### Field compatibility for hostNetwork {#compatibility-v1-pod-spec-containers-hostnetwork}
-
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
-
-The kubelet can now request that pods running on Windows nodes use the host's network namespace instead
-of creating a new pod network namespace. To enable this functionality pass `--feature-gates=WindowsHostNetwork=true` to the kubelet.
-
-{{< note >}}
-This functionality requires a container runtime that supports this functionality.
-{{< /note >}}
 
 #### Field compatibility for Pod security context {#compatibility-v1-pod-spec-containers-securitycontext}
 
