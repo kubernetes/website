@@ -3,12 +3,15 @@
 # Localized strings for Bahasa.
 # Teams and members are visible at https://github.com/orgs/kubernetes/teams.
 
-reviewers:
-- sig-docs-id-reviews
+filters:
+  "\\.toml$":
 
-approvers:
-- sig-docs-id-owners
+    reviewers:
+    - sig-docs-id-reviews
 
-labels:
-- area/localization
-- language/id
+    approvers:
+    - sig-docs-id-owners
+
+    labels:
+    - area/localization
+    - language/id
