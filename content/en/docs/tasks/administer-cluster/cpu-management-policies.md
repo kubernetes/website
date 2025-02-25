@@ -151,7 +151,7 @@ using the following feature gates:
 You will still have to enable each option using the `CPUManagerPolicyOptions` kubelet option.
 
 The following policy options exist for the static `CPUManager` policy:
-* `full-pcpus-only` (beta, visible by default) (1.22 or higher)
+* `full-pcpus-only` (GA, visible by default) (1.33 or higher)
 * `distribute-cpus-across-numa` (beta, visible by default) (1.33 or higher)
 * `align-by-socket` (alpha, hidden by default) (1.25 or higher)
 * `distribute-cpus-across-cores` (alpha, hidden by default) (1.31 or higher)
