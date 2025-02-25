@@ -155,6 +155,13 @@ kube-proxy [flags]
 </tr>
 
 <tr>
+<td colspan="2">--enable-dsr</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, enables support for Direct Server Retrun (DSR) on Windows.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--feature-gates &lt;comma-separated 'key=True|False' pairs&gt;</td>
 </tr>
 <tr>
