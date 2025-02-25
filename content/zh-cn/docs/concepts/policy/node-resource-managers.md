@@ -327,7 +327,7 @@ listed in alphabetical order:
 `full-pcpus-only` (beta, visible by default)
 : Always allocate full physical cores (available since Kubernetes v1.22)
 
-`strict-cpu-reservation` (alpha, hidden by default)
+`strict-cpu-reservation` (beta, visible by default)
 : Prevent all the pods regardless of their Quality of Service class to run on reserved CPUs
   (available since Kubernetes v1.32)
 
@@ -338,7 +338,7 @@ listed in alphabetical order:
 `full-pcpus-only`（Beta，默认可见）：
 : 始终分配完整的物理核心（自 Kubernetes v1.22 起可用）
 
-`strict-cpu-reservation`（Alpha，默认隐藏）：
+`strict-cpu-reservation`（Beta，默认可见）：
 : 阻止所有 Pod（无论其服务质量类别如何）在预留的 CPU 上运行（自 Kubernetes v1.32 起可用）
 
 `prefer-align-cpus-by-uncorecache`（Alpha，默认隐藏）：
