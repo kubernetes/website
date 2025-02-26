@@ -80,7 +80,7 @@ IaaS প্রদায়ক        | লিঙ্ক |
 মাইক্রোসফট আজওর | https://docs.microsoft.com/en-us/azure/security/azure-security |
 অরাকেল ক্লাউড ইন্ফ্রাস্ট্রাকচার | https://www.oracle.com/security |
 টেনসেন্ট ক্লাউড | https://www.tencentcloud.com/solutions/data-security-and-information-protection |
-ভিএমওয়্যার ভিস্ফিয়ার | https://www.vmware.com/security/hardening-guides |
+ভিএমওয়্যার ভিস্ফিয়ার | https://www.vmware.com/solutions/security/hardening-guides |
 
 {{< /table >}}
 
