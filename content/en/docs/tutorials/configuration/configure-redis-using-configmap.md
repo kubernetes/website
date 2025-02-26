@@ -9,7 +9,7 @@ weight: 30
 
 <!-- overview -->
 
-This tutorial builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task. In it, you'll learn how to configure Redis cache using data stored in a ConfigMap.
+This tutorial builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task. In it, you'll learn how to configure a Redis cache using data stored in a ConfigMap.
 
 
 ## What you'll learn
@@ -27,8 +27,8 @@ In this tutorial, you'll learn how to do the following tasks:
 
 You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with your cluster. Ideally, run this tutorial on a cluster with at least two nodes that are not acting as control plane hosts. If you do not already have a cluster, you can create one by using [minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/), or you can use one of these Kubernetes playgrounds:
 
-* [Killercoda]([https://minikube.sigs.k8s.io/docs/tutorials/multi_node/](https://killercoda.com/playgrounds/scenario/kubernetes))
-* [Play with Kubernetes](https://labs.play-with-k8s.com/))
+* [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
+* [Play with Kubernetes](https://labs.play-with-k8s.com/)
 
 To check the version, enter `kubectl` version.
 
