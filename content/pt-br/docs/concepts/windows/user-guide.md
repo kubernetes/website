@@ -116,8 +116,8 @@ Apenas pods Windows conseguem acessar IPs de serviço.
 ### Capturando logs de cargas de trabalho
 
 Os logs são um elemento importante da observabilidade; eles permitem que os usuários obtenham insights sobre o aspecto operacional das cargas de trabalho e são um componente essencial na solução de problemas. Como os contêineres Windows e as cargas de trabalho dentro de contêineres Windows se comportam de maneira diferente dos contêineres Linux, os usuários enfrentaram dificuldades na coleta de logs, limitando a visibilidade operacional. 
-
-As cargas de trabalho Windows, por exemplo, geralmente são configuradas para registrar logs no ETW (Event Tracing for Windows) ou enviar entradas para o log de eventos de aplicativos. O [LogMonitor](https://github.com/microsoft/windows-container-tools/tree/master/LogMonitor), uma ferramenta de código aberto da Microsoft, é a maneira recomendada para monitorar as fontes de logs configuradas dentro de um contêiner Windows. O LogMonitor oferece suporte para monitorar logs de eventos, provedores ETW e logs personalizados de aplicativos, canalizando-os para o STDOUT para consumo pelo comando `kubectl logs <pod>`.
+As cargas de trabalho Windows, por exemplo, geralmente são configuradas para registrar logs no ETW (Event Tracing for Windows) ou enviar entradas para o log de eventos de aplicativos. 
+O [LogMonitor](https://github.com/microsoft/windows-container-tools/tree/master/LogMonitor), uma ferramenta de código aberto da Microsoft, é a maneira recomendada para monitorar as fontes de logs configuradas dentro de um contêiner Windows. O LogMonitor oferece suporte para monitorar logs de eventos, provedores ETW e logs personalizados de aplicativos, canalizando-os para o STDOUT para consumo pelo comando `kubectl logs <pod>`.
 
 Siga as instruções na página do GitHub do LogMonitor para copiar seus binários e arquivos de configuração para todos os seus contêineres e adicionar os entrypoints necessários para que o LogMonitor envie seus logs para o STDOUT.
 
