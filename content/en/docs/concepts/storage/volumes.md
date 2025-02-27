@@ -628,8 +628,10 @@ volume with file execution blocked (`noexec`).
 
 Besides that:
 
-- Sub path mounts for containers are not supported
-  (`spec.containers[*].volumeMounts.subpath`).
+- [`subPath`](/docs/concepts/storage/volumes/#using-subpath) or
+  [`subPathExpr`](/docs/concepts/storage/volumes/#using-subpath-expanded-environment)
+  mounts for containers (`spec.containers[*].volumeMounts.[subPath,subPathExpr]`)
+  are only supported from Kubernetes v1.33.
 - The field `spec.securityContext.fsGroupChangePolicy` has no effect on this
   volume type.
 - The [`AlwaysPullImages` Admission Controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
