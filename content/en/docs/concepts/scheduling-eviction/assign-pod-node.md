@@ -443,6 +443,7 @@ spec:
       # ensure that pods associated with this tenant land on the correct node pool
       - matchLabelKeys:
           - tenant
+        labelSelector: {}
         topologyKey: node-pool
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
