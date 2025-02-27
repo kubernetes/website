@@ -352,7 +352,9 @@ third party storage driver instead.
 ### gitRepo (deprecated) {#gitrepo}
 
 {{< warning >}}
-The `gitRepo` volume type is deprecated.
+The `gitRepo` volume plugin has been disabled by default.
+
+The plugin can be enabled by setting feature-gate GitRepoVolumeDriver=true.
 
 To provision a Pod that has a Git repository mounted, you can mount an
 [`emptyDir`](#emptydir) volume into an [init container](/docs/concepts/workloads/pods/init-containers/)
