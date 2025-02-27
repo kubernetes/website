@@ -98,13 +98,13 @@ a porta 80 do contêiner diretamente para o Service.
 
 3. Verifique se a implantação foi bem-sucedida. Para verificar:
 
-    * Vários pods listados a partir do nó de plano de controle Linux, use `kubectl get pods`
-    * Comunicação de nó para pod através da rede, `execute` na porta 80 do IP do seu pod a partir do nó de plano de controle Linux para verificar uma resposta do servidor web
-    * Comunicação entre pods, ping entre pods (e através de hosts, se você tiver mais de um nó Windows) usando `kubectl exec`
-    * Comunicação de serviço para pod, `execute` no IP virtual do serviço (visto em `kubectl get services`) a partir do nó de plano de controle Linux e de pods individuais
-    * Descoberta de serviço, `execute` no nome do serviço com o [sufixo DNS padrão do Kubernetes](/docs/concepts/services-networking/dns-pod-service/#services)
-    * Conectividade de entrada, `execute` no NodePort a partir do nó de plano de controle Linux ou máquinas fora do cluster
-    * Conectividade de saída, `execute` em IPs externos de dentro do pod usando `kubectl exec`
+    * Vários pods listados a partir do nó de camada de gerenciamento Linux, use `kubectl get pods`
+    * Comunicação de nó para pod através da rede, execute `curl` na porta 80 do IP do seu pod a partir do nó de plano de controle Linux para verificar uma resposta do servidor web
+    * Comunicação entre pods, utilize ping entre pods (e através de hosts, se você tiver mais de um nó Windows) usando `kubectl exec`
+    * Comunicação de serviço para pod, execute `curl` no IP virtual do serviço (visto em `kubectl get services`) a partir do nó de camada de gerenciamento Linux e de pods individuais
+    * Descoberta de serviço, execute `curl` no nome do serviço com o [sufixo DNS padrão do Kubernetes](/docs/concepts/services-networking/dns-pod-service/#services)
+    * Conectividade de entrada, execute `curl` no NodePort a partir do nó de plano de controle Linux ou máquinas fora do cluster
+    * Conectividade de saída, execute `curl` em IPs externos de dentro do pod usando `kubectl exec`
 
 {{< note >}}
 Os hosts de contêiner Windows não conseguem acessar o IP de serviços alocados neles devido a limitações da pilha de rede do Windows.
