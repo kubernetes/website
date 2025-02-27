@@ -67,6 +67,39 @@ to a valid reference and consuming it in the `volumeMounts` of the container. Fo
    2
    ```
 
+## Use `subPath` (or `subPathExpr`)
+
+It is possible to utilize
+[`subPath`](/docs/concepts/storage/volumes/#using-subpath) or
+[`subPathExpr`](/docs/concepts/storage/volumes/#using-subpath-expanded-environment)
+from Kubernetes v1.33 when using the image volume feature.
+
+{{% code_sample file="pods/image-volumes-subpath.yaml" %}}
+
+1. Create the pod on your cluster:
+
+   ```shell
+   kubectl apply -f https://k8s.io/examples/pods/image-volumes-subpath.yaml
+   ```
+
+1. Attach to the container:
+
+   ```shell
+   kubectl attach -it image-volume bash
+   ```
+
+1. Check the content of the file from the `dir` sub path in the volume:
+
+   ```shell
+   cat /volume/file
+   ```
+
+   The output is similar to:
+
+   ```none
+   1
+   ```
+
 ## Further reading
 
 - [`image` volumes](/docs/concepts/storage/volumes/#image)
