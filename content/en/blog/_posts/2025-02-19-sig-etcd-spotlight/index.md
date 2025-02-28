@@ -3,7 +3,7 @@ layout: blog
 title: "Spotlight on SIG etcd"
 slug: sig-etcd-spotlight
 canonicalUrl: https://www.kubernetes.dev/blog/2025/02/19/sig-etcd-spotlight
-date: 2025-02-19
+date: 2025-03-04
 author: "Frederico Muñoz (SAS Institute)"
 ---
 
