@@ -72,7 +72,7 @@ During this process, the Memory Manager updates its internal counters stored in
 
 The memory manager activates during kubelet startup if a node administrator configures
 `reservedMemory` for the kubelet (section [Reserved memory configuration](#reserved-memory-flag)).
-In this case, the kubelet updates its node map  to reflect this reservation.
+In this case, the kubelet updates its node map to reflect this reservation.
 
 When the `Static` policy is configured, you **must** configure reserved memory for the node
 (for example, with the `reservedMemory` configuration field in the kubelet configuration).
@@ -132,7 +132,7 @@ This policy is only supported on Linux.
 On Windows, NUMA node assignment works differently than Linux.
 There is no mechanism to ensure that Memory access only comes from a specific NUMA node.
 Instead the Windows operating system scheduler selects the most optimal NUMA node based on the CPU(s) assignments.
-It is possible that Windows might use other NUMA nodes if deemed optimal by the Windows scheduler.
+It is possible that Windows might use other NUMA nodes if the Windows scheduler deems them optimal.
 
 The policy does track the amount of memory available and requested through the internal _node map_.
 The memory manager makes a best effort at ensuring that enough memory is available on a NUMA node before making
