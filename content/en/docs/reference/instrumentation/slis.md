@@ -5,6 +5,7 @@ title: Kubernetes Component SLI Metrics
 linkTitle: Service Level Indicator Metrics
 content_type: reference
 weight: 20
+description: Key Performance Indicators that measure the reliability and performance of individual Kubernetes components.
 ---
 
 <!-- overview -->
