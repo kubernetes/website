@@ -244,7 +244,8 @@ they can follow these steps to inspect the kubelet configuration:
          "imagefs.available": "15%",
          "memory.available": "100Mi",
          "nodefs.available": "10%",
-         "nodefs.inodesFree": "5%"
+         "nodefs.inodesFree": "5%",
+         "imagefs.inodesFree": "5%"
        },
        "evictionPressureTransitionPeriod": "1m0s",
        "enableControllerAttachDetach": true,
