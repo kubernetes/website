@@ -707,7 +707,7 @@ built-in [Pod Security Admission Controller](/docs/concepts/security/pod-securit
 <!--
 ### What about sandboxed Pods?
 
-There is not currently an API standard that controls whether a Pod is considered sandboxed or
+There is currently no API standard that controls whether a Pod is considered sandboxed or
 not. Sandbox Pods may be identified by the use of a sandboxed runtime (such as gVisor or Kata
 Containers), but there is no standard definition of what a sandboxed runtime is.
 -->

@@ -106,14 +106,10 @@ routes appropriately. It requires Get access to Node objects.
 ### Service controller {#authorization-service-controller}
 
 The service controller watches for Service object **create**, **update** and **delete** events and then
-configures Endpoints for those Services appropriately (for EndpointSlices, the
-kube-controller-manager manages these on demand).
+configures load balancers for those Services appropriately.
 
 To access Services, it requires **list**, and **watch** access. To update Services, it requires
-**patch** and **update** access.
-
-To set up Endpoints resources for the Services, it requires access to **create**, **list**,
-**get**, **watch**, and **update**.
+**patch** and **update** access to the `status` subresource.
 
 `v1/Service`:
 
@@ -173,9 +169,14 @@ rules:
   - services
   verbs:
   - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - services/status
+  verbs:
   - patch
   - update
-  - watch
 - apiGroups:
   - ""
   resources:
@@ -191,16 +192,6 @@ rules:
   - list
   - update
   - watch
-- apiGroups:
-  - ""
-  resources:
-  - endpoints
-  verbs:
-  - create
-  - get
-  - list
-  - watch
-  - update
 ```
 
 
