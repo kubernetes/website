@@ -2,11 +2,13 @@
 title: Pod 的生命周期
 content_type: concept
 weight: 30
+math: true
 ---
 <!--
 title: Pod Lifecycle
 content_type: concept
 weight: 30
+math: true
 -->
 
 <!-- overview -->
