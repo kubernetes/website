@@ -182,15 +182,15 @@ more information.
 
 ### Are DNS endpoints exposed?
 
-You can verify that DNS endpoints are exposed by using the `kubectl get endpoints`
+You can verify that DNS endpoints are exposed by using the `kubectl get endpointslice`
 command.
 
 ```shell
-kubectl get endpoints kube-dns --namespace=kube-system
+kubectl get endpointslices -l k8s.io/service-name=kube-dns --namespace=kube-system
 ```
 ```
-NAME       ENDPOINTS                       AGE
-kube-dns   10.180.3.17:53,10.180.3.17:53    1h
+NAME             ADDRESSTYPE   PORTS   ENDPOINTS                  AGE
+kube-dns-zxoja   IPv4          53      10.180.3.17,10.180.3.17    1h
 ```
 
 If you do not see the endpoints, see the endpoints section in the
@@ -256,8 +256,8 @@ linux/amd64, go1.10.3, 2e322f6
 ### Does CoreDNS have sufficient permissions?
 
 CoreDNS must be able to list {{< glossary_tooltip text="service"
-term_id="service" >}} and {{< glossary_tooltip text="endpoint"
-term_id="endpoint" >}} related resources to properly resolve service names.
+term_id="service" >}} and {{< glossary_tooltip text="endpointslice"
+term_id="endpoint-slice" >}} related resources to properly resolve service names.
 
 Sample error message:
 ```
