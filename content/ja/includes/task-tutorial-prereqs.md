@@ -5,3 +5,5 @@ Kubernetesクラスターが必要、かつそのクラスターと通信する�
 
 * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
 * [Play with Kubernetes](https://labs.play-with-k8s.com/)
+* [KodeKloud](https://kodekloud.com/public-playgrounds)
+

@@ -6,3 +6,5 @@ atau kamu juga dapat menggunakan salah satu dari tempat mencoba Kubernetes berik
 
 * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
 * [Bermain dengan Kubernetes](https://labs.play-with-k8s.com/)
+* [KodeKloud](https://kodekloud.com/public-playgrounds)
+

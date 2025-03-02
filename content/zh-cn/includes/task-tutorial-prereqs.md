@@ -12,7 +12,10 @@ or you can use one of these Kubernetes playgrounds:
 
 <!--
 * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
+* [KodeKloud](https://kodekloud.com/public-playgrounds)
 * [Play with Kubernetes](https://labs.play-with-k8s.com/)
 -->
 * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
 * [玩转 Kubernetes](https://labs.play-with-k8s.com/)
+* [KodeKloud](https://kodekloud.com/public-playgrounds)
+

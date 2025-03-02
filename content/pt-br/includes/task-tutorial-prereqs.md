@@ -2,3 +2,5 @@ Você precisa ter um cluster do Kubernetes e a ferramenta de linha de comando ku
 
 * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
 * [Play with Kubernetes](https://labs.play-with-k8s.com/)
+* [KodeKloud](https://kodekloud.com/public-playgrounds)
+
