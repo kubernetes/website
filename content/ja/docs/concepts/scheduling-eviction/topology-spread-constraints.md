@@ -423,7 +423,7 @@ class zoneC cluster;
   これは次のことを意味します:
 
   1. これらのバイパスされたノードにあるPodは`maxSkew`の計算に影響しません。
-      上記の[例](#example-conflicting-topologyspreadconstraints)では、ノード`node1`に"ゾーン"ラベルがない場合、2つのPodは無視され、新しいPodはゾーン`A`にスケジュールされます。
+      上記の[例](#example-conflicting-topologyspreadconstraints)では、ノード`node1`に"zone"ラベルがない場合、2つのPodは無視され、新しいPodはゾーン`A`にスケジュールされます。
   2. 新しいPodがこれらのノードにスケジュールされる可能性はありません。
      上記の例では、ノード`node5`に**誤字のある**ラベル`zone-typo: zoneC`がある(かつ`zone`ラベルが設定されていない)とします。
      `node5`がクラスターに参加しても、バイパスされ、このワークロードのPodはそのノードにスケジュールされません。
@@ -445,7 +445,7 @@ class zoneC cluster;
 制約は、[上記のAPI](#topologyspreadconstraints-field)と同じように指定されますが、`labelSelector`は空である必要があります。
 Podが属するService、ReplicaSet、StatefulSet、またはReplicationControllerから計算されたセレクターが使用されます。
 
-例の設定は次のようになります:
+設定例は次のようになります:
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1beta3
@@ -482,9 +482,9 @@ defaultConstraints:
 
 {{< note >}}
 `PodTopologySpread`プラグインは、分散制約で指定されていないトポロジーキーを持つノードにスコアをつけません。
-これにより、従来の`SelectorSpread`プラグインと比較して、デフォルトの動作が異なる場合があります。
+これにより、デフォルトのトポロジー制約を使用する場合、従来の`SelectorSpread`プラグインと比較して、デフォルトの動作が異なる場合があります。
 
-ノードに`kubernetes.io/hostname`と`topology.kubernetes.io/zone`ラベルが**両方**設定されることが期待されない場合、Kubernetesのデフォルトを使用する代わりに独自の制約を定義します。
+ノードに`kubernetes.io/hostname`と`topology.kubernetes.io/zone`ラベルの**両方**が設定されることを想定していない場合、Kubernetesのデフォルトを使用する代わりに独自の制約を定義してください。
 {{< /note >}}
 
 クラスターにデフォルトのPod分散制約を使用したくない場合は、`PodTopologySpread`プラグイン構成の`defaultingType`を`List`に設定し、`defaultConstraints`を空のままにすることで、これらのデフォルトを無効にできます:
@@ -502,7 +502,7 @@ profiles:
           defaultingType: List
 ```
 
-## PodアフィニティとPodアンチアフィニティ {#comparison-with-podaffinity-podantiaffinity}
+## podAffinityとpodAntiAffinityとの比較 {#comparison-with-podaffinity-podantiaffinity}
 
 Kubernetesでは、[Pod間のアフィニティとアンチアフィニティ](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)によって、Podがより密集させるか分散させるかといった、Podが互いにどのようにスケジュールされるかを制御できます。
 
@@ -518,7 +518,7 @@ Kubernetesでは、[Pod間のアフィニティとアンチアフィニティ](/
 より細かい制御を行うには、トポロジー分散制約を指定して、異なるトポロジードメインにPodを分散させることで、高可用性やコスト削減を実現できます。
 またワークロードのローリングアップデートやレプリカのスムーズなスケールアウトにも役立ちます。
 
-詳しくは、Podのトポロジー分散制約に関するエンハンスメントドキュメントの[Motivation](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/895-pod-topology-spread#motivation)セクションを参照してください。
+詳しくは、Podのトポロジー分散制約に関する機能強化提案の[Motivation](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/895-pod-topology-spread#motivation)セクションを参照してください。
 
 ## 既知の制限
 
@@ -533,7 +533,7 @@ Kubernetesでは、[Pod間のアフィニティとアンチアフィニティ](/
   オートスケールされるクラスターでは、ノードプール(またはノードグループ)が0ノードにスケールされ、クラスターがスケールアップすることを期待している場合に問題が発生する可能性があります。
   この場合、トポロジードメインはその中に少なくとも1つのノードが存在するまで考慮されないためです。
 
-  これを回避するためには、Podのトポロジー分散制約を認識し、全体のトポロジードメインセットを認識しているノードオートスケーラーを使用することができます。
+  これを回避するためには、Podのトポロジー分散制約を認識し、全体のトポロジードメインの集合も認識しているノードオートスケーラーを使用することができます。
 
 ## {{% heading "whatsnext" %}}
 
