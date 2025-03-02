@@ -383,3 +383,5 @@ is enabled in the kube-apiserver.
 - For more information on the design, see the
   [Dynamic Resource Allocation with Structured Parameters](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4381-dra-structured-parameters)
   KEP.
+- For more examples showing different ways DRA can be configured for workloads,
+  see [Assign Resources to Containers and Pods with Dynamic Resource Allocation](/docs/tasks/configure-pod-container/assign-dra-resource/).
