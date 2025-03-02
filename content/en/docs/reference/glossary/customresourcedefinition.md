@@ -12,8 +12,10 @@ tags:
 - operation
 - extension
 ---
- Custom code that defines a resource to add to your Kubernetes API server without building a complete custom server.
+A kind of {{< glossary_tooltip text="API object" term_id="object" >}} that defines a new custom API to add
+to your Kubernetes API server, without building a complete custom server.
 
 <!--more-->
 
-Custom Resource Definitions let you extend the Kubernetes API for your environment if the publicly supported API resources can't meet your needs.
+CustomResourceDefinitions let you extend the Kubernetes API for your environment if the built-in
+{{< glossary_tooltip text="API resources" term_id="api-resource" >}} can't meet your needs.
