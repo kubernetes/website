@@ -726,6 +726,7 @@ enable the `CRDValidationRatcheting`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
 use this behavior, which then applies to all CustomResourceDefinitions in your
 cluster. 
+<!-- TODO: 1.33 doc update-->
 
 Provided you enabled the feature gate, Kubernetes implements _validation ratcheting_
 for CustomResourceDefinitions. The API server is willing to accept updates to resources that
