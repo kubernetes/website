@@ -17,7 +17,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.31"
+    toVersion: "1.32"
 
+removed: true
 ---
 Enabling the feature gate deactivated the legacy in-tree functionality within the
 kubelet, that allowed the kubelet to to authenticate to a cloud provider container registry
