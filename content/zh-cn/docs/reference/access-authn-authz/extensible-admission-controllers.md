@@ -515,194 +515,219 @@ API 服务器将发送的是 `admissionReviewVersions` 列表中所支持的第�
 此示例显示了 `AdmissionReview` 对象中包含的数据，该数据用于请求更新 `apps/v1` `Deployment` 的 `scale` 子资源：
 
 <!--
-```yaml
-apiVersion: admission.k8s.io/v1
-kind: AdmissionReview
-request:
-  # Random uid uniquely identifying this admission call
-  uid: 705ab4f5-6393-11e8-b7cc-42010a800002
+```
+{
+  "apiVersion": "admission.k8s.io/v1",
+  "kind": "AdmissionReview",
+  "request": {
+    # Random uid uniquely identifying this admission call
+    "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
 
-  # Fully-qualified group/version/kind of the incoming object
-  kind:
-    group: autoscaling
-    version: v1
-    kind: Scale
+    # Fully-qualified group/version/kind of the incoming object
+    "kind": {
+      "group": "autoscaling",
+      "version": "v1",
+      "kind": "Scale"
+    },
 
-  # Fully-qualified group/version/kind of the resource being modified
-  resource:
-    group: apps
-    version: v1
-    resource: deployments
+    # Fully-qualified group/version/kind of the resource being modified
+    "resource": {
+      "group": "apps",
+      "version": "v1",
+      "resource": "deployments"
+    },
 
-  # subresource, if the request is to a subresource
-  subResource: scale
+    # Subresource, if the request is to a subresource
+    "subResource": "scale",
 
-  # Fully-qualified group/version/kind of the incoming object in the original request to the API server.
-  # This only differs from `kind` if the webhook specified `matchPolicy: Equivalent` and the
-  # original request to the API server was converted to a version the webhook registered for.
-  requestKind:
-    group: autoscaling
-    version: v1
-    kind: Scale
+    # Fully-qualified group/version/kind of the incoming object in the original request to the API server
+    # This only differs from `kind` if the webhook specified `matchPolicy: Equivalent` and the original
+    # request to the API server was converted to a version the webhook registered for
+    "requestKind": {
+      "group": "autoscaling",
+      "version": "v1",
+      "kind": "Scale"
+    },
 
-  # Fully-qualified group/version/kind of the resource being modified in the original request to the API server.
-  # This only differs from `resource` if the webhook specified `matchPolicy: Equivalent` and the
-  # original request to the API server was converted to a version the webhook registered for.
-  requestResource:
-    group: apps
-    version: v1
-    resource: deployments
+    # Fully-qualified group/version/kind of the resource being modified in the original request to the API server
+    # This only differs from `resource` if the webhook specified `matchPolicy: Equivalent` and the original
+    # request to the API server was converted to a version the webhook registered for
+    "requestResource": {
+      "group": "apps",
+      "version": "v1",
+      "resource": "deployments"
+    },
 
-  # subresource, if the request is to a subresource
-  # This only differs from `subResource` if the webhook specified `matchPolicy: Equivalent` and the
-  # original request to the API server was converted to a version the webhook registered for.
-  requestSubResource: scale
+    # Subresource, if the request is to a subresource
+    # This only differs from `subResource` if the webhook specified `matchPolicy: Equivalent` and the original
+    # request to the API server was converted to a version the webhook registered for
+    "requestSubResource": "scale",
 
-  # Name of the resource being modified
-  name: my-deployment
+    # Name of the resource being modified
+    "name": "my-deployment",
 
-  # Namespace of the resource being modified, if the resource is namespaced (or is a Namespace object)
-  namespace: my-namespace
+    # Namespace of the resource being modified, if the resource is namespaced (or is a Namespace object)
+    "namespace": "my-namespace",
 
-  # operation can be CREATE, UPDATE, DELETE, or CONNECT
-  operation: UPDATE
+    # operation can be CREATE, UPDATE, DELETE, or CONNECT
+    "operation": "UPDATE",
 
-  userInfo:
-    # Username of the authenticated user making the request to the API server
-    username: admin
+    "userInfo": {
+      # Username of the authenticated user making the request to the API server
+      "username": "admin",
 
-    # UID of the authenticated user making the request to the API server
-    uid: 014fbff9a07c
+      # UID of the authenticated user making the request to the API server
+      "uid": "014fbff9a07c",
 
-    # Group memberships of the authenticated user making the request to the API server
-    groups:
-      - system:authenticated
-      - my-admin-group
-    # Arbitrary extra info associated with the user making the request to the API server.
-    # This is populated by the API server authentication layer and should be included
-    # if any SubjectAccessReview checks are performed by the webhook.
-    extra:
-      some-key:
-        - some-value1
-        - some-value2
+      # Group memberships of the authenticated user making the request to the API server
+      "groups": [
+        "system:authenticated",
+        "my-admin-group"
+      ],
 
-  # object is the new object being admitted.
-  # It is null for DELETE operations.
-  object:
-    apiVersion: autoscaling/v1
-    kind: Scale
+      # Arbitrary extra info associated with the user making the request to the API server
+      # This is populated by the API server authentication layer
+      "extra": {
+        "some-key": [
+          "some-value1",
+          "some-value2"
+        ]
+      }
+    },
 
-  # oldObject is the existing object.
-  # It is null for CREATE and CONNECT operations.
-  oldObject:
-    apiVersion: autoscaling/v1
-    kind: Scale
+    # object is the new object being admitted. It is null for DELETE operations
+    "object": {
+      "apiVersion": "autoscaling/v1",
+      "kind": "Scale"
+    },
 
-  # options contains the options for the operation being admitted, like meta.k8s.io/v1 CreateOptions, UpdateOptions, or DeleteOptions.
-  # It is null for CONNECT operations.
-  options:
-    apiVersion: meta.k8s.io/v1
-    kind: UpdateOptions
+    # oldObject is the existing object. It is null for CREATE and CONNECT operations
+    "oldObject": {
+      "apiVersion": "autoscaling/v1",
+      "kind": "Scale"
+    },
 
-  # dryRun indicates the API request is running in dry run mode and will not be persisted.
-  # Webhooks with side effects should avoid actuating those side effects when dryRun is true.
-  # See http://k8s.io/docs/reference/using-api/api-concepts/#make-a-dry-run-request for more details.
-  dryRun: False
+    # options contain the options for the operation being admitted, like meta.k8s.io/v1 CreateOptions,
+    # UpdateOptions, or DeleteOptions. It is null for CONNECT operations
+    "options": {
+      "apiVersion": "meta.k8s.io/v1",
+      "kind": "UpdateOptions"
+    },
+
+    # dryRun indicates the API request is running in dry run mode and will not be persisted
+    # Webhooks with side effects should avoid actuating those side effects when dryRun is true
+    "dryRun": false
+  }
+}
 ```
 -->
-```yaml
-apiVersion: admission.k8s.io/v1
-kind: AdmissionReview
-request:
-  # 唯一标识此准入回调的随机 uid
-  uid: 705ab4f5-6393-11e8-b7cc-42010a800002
+```
+{
+  "apiVersion": "admission.k8s.io/v1",
+  "kind": "AdmissionReview",
+  "request": {
+    # 唯一标识此准入回调的随机 uid
+    "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
 
-  # 传入完全限定的 group/version/kind 对象
-  kind:
-    group: autoscaling
-    version: v1
-    kind: Scale
+    # 传入完全限定的 group/version/kind 对象
+    "kind": {
+      "group": "autoscaling",
+      "version": "v1",
+      "kind": "Scale"
+    },
 
-  # 修改 resource 的完全限定 group/version/kind
-  resource:
-    group: apps
-    version: v1
-    resource: deployments
+    # 修改 resource 的完全限定 group/version/kind
+    "resource": {
+      "group": "apps",
+      "version": "v1",
+      "resource": "deployments"
+    },
 
-  # subResource（如果请求是针对 subResource 的）
-  subResource: scale
+    # subResource（如果请求是针对 subResource 的）
+    "subResource": "scale",
 
-  # 在对 API 服务器的原始请求中，传入对象的标准 group/version/kind
-  # 仅当 Webhook 指定 `matchPolicy: Equivalent` 且将对 API 服务器的原始请求
-  # 转换为 Webhook 注册的版本时，这才与 `kind` 不同。
-  requestKind:
-    group: autoscaling
-    version: v1
-    kind: Scale
+    # 在对 API 服务器的原始请求中，传入对象的标准 group/version/kind
+    # 仅当 Webhook 指定 `matchPolicy: Equivalent` 且将对 API 服务器的原始请求
+    # 转换为 Webhook 注册的版本时，这一字段的取值才会与 `kind` 不同。
+    "requestKind": {
+      "group": "autoscaling",
+      "version": "v1",
+      "kind": "Scale"
+    },
 
-  # 在对 API 服务器的原始请求中正在修改的资源的标准 group/version/kind
-  # 仅当 Webhook 指定了 `matchPolicy：Equivalent` 并且将对 API 服务器的原始请求转换为
-  # Webhook 注册的版本时，这才与 `resource` 不同。
-  requestResource:
-    group: apps
-    version: v1
-    resource: deployments
+    # 在原始请求中向 API 服务器修改的资源的标准 group/version/kind
+    # 如果 Webhook 指定了 `matchPolicy: Equivalent`，且原始请求被转换为
+    # Webhook 注册的版本，则此值与 `resource` 不同。
+    "requestResource": {
+      "group": "apps",
+      "version": "v1",
+      "resource": "deployments"
+    },
 
-  # subResource（如果请求是针对 subResource 的）
-  # 仅当 Webhook 指定了 `matchPolicy：Equivalent` 并且将对
-  # API 服务器的原始请求转换为该 Webhook 注册的版本时，这才与 `subResource` 不同。
-  requestSubResource: scale
+    # subResource（如果请求是针对 subResource 的）
+    # 仅当 Webhook 指定了 `matchPolicy：Equivalent` 并且将对
+    # API 服务器的原始请求转换为该 Webhook 注册的版本时，此值才与 `subResource` 不同。
+    "requestSubResource": "scale",
 
-  # 被修改资源的名称
-  name: my-deployment
+    # 被修改资源的名称
+    "name": "my-deployment",
 
-  # 如果资源是属于名字空间（或者是名字空间对象），则这是被修改的资源的名字空间
-  namespace: my-namespace
+    # 如果资源名字空间作用域的（或者是名字空间对象），则这是被修改资源的名字空间
+    "namespace": "my-namespace",
 
-  # 操作可以是 CREATE、UPDATE、DELETE 或 CONNECT
-  operation: UPDATE
+    # operation 可以是 CREATE、UPDATE、DELETE 或 CONNECT
+    "operation": "UPDATE",
 
-  userInfo:
-    # 向 API 服务器发出请求的经过身份验证的用户的用户名
-    username: admin
+    "userInfo": {
+      # 向 API 服务器发出请求的经过身份验证的用户的用户名
+      "username": "admin",
 
-    # 向 API 服务器发出请求的经过身份验证的用户的 UID
-    uid: 014fbff9a07c
+      # 向 API 服务器发出请求的经过身份验证的用户的 UID
+      "uid": "014fbff9a07c",
 
-    # 向 API 服务器发出请求的经过身份验证的用户的组成员身份
-    groups:
-      - system:authenticated
-      - my-admin-group
-    # 向 API 服务器发出请求的用户相关的任意附加信息
-    # 该字段由 API 服务器身份验证层填充，并且如果 webhook 执行了任何
-    # SubjectAccessReview 检查，则应将其包括在内。
-    extra:
-      some-key:
-        - some-value1
-        - some-value2
+      # 向 API 服务器发出请求的经过身份验证的用户的组成员身份
+      "groups": [
+        "system:authenticated",
+        "my-admin-group"
+      ],
 
-  # object 是被接纳的新对象。
-  # 对于 DELETE 操作，它为 null。
-  object:
-    apiVersion: autoscaling/v1
-    kind: Scale
+      # 向 API 服务器发出请求的用户相关的任意附加信息
+      # 该字段由 API 服务器身份验证层填充，并且如果 webhook 执行了任何
+      # SubjectAccessReview 检查，则应将其包括在内。
+      "extra": {
+        "some-key": [
+          "some-value1",
+          "some-value2"
+        ]
+      }
+    },
 
-  # oldObject 是现有对象。
-  # 对于 CREATE 和 CONNECT 操作，它为 null。
-  oldObject:
-    apiVersion: autoscaling/v1
-    kind: Scale
+    # object 是被接纳的新对象。
+    # 对于 DELETE 操作，它为 null。
+    "object": {
+      "apiVersion": "autoscaling/v1",
+      "kind": "Scale"
+    },
 
-  # options 包含要接受的操作的选项，例如 meta.k8s.io/v CreateOptions、UpdateOptions 或 DeleteOptions。
-  # 对于 CONNECT 操作，它为 null。
-  options:
-    apiVersion: meta.k8s.io/v1
-    kind: UpdateOptions
+    # oldObject 是现有对象。
+    # 对于 CREATE 和 CONNECT 操作，它为 null。
+    "oldObject": {
+      "apiVersion": "autoscaling/v1",
+      "kind": "Scale"
+    },
 
-  # dryRun 表示 API 请求正在以 `dryrun` 模式运行，并且将不会保留。
-  # 带有副作用的 Webhook 应该避免在 dryRun 为 true 时激活这些副作用。
-  # 有关更多详细信息，请参见 http://k8s.io/zh-cn/docs/reference/using-api/api-concepts/#make-a-dry-run-request
-  dryRun: False
+    # options 包含要接受的操作的选项，例如 meta.k8s.io/v CreateOptions、UpdateOptions 或 DeleteOptions。
+    # 对于 CONNECT 操作，它为 null。
+    "options": {
+      "apiVersion": "meta.k8s.io/v1",
+      "kind": "UpdateOptions"
+    },
+
+    # dryRun 表示 API 请求正在以 `dryrun` 模式运行，并且被持久化。
+    # 带有副作用的 Webhook 应该避免在 dryRun 为 true 时激活这些副作用。
+    "dryRun": false
+  }
+}
 ```
 
 <!--
