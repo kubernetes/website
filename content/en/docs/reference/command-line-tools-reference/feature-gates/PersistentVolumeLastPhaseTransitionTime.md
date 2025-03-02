@@ -17,6 +17,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.31"
+    toVersion: "1.32"
+
+removed: true
 ---
 Adds a new field to PersistentVolume
 which holds a timestamp of when the volume last transitioned its phase.
