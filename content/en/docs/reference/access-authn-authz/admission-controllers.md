@@ -654,6 +654,8 @@ by reading a namespace annotation and a global configuration.
 
 This admission controller is disabled by default.
 
+### PodTopologyLabels {#podtopologylabels}
+
 #### Configuration file format
 
 `PodNodeSelector` uses a configuration file to set options for the behavior of the backend.
