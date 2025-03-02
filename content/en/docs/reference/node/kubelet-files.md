@@ -141,6 +141,13 @@ The types of plugins that can place socket files into that directory are:
 
 (typically `/var/lib/kubelet/plugins_registry`).
 
+### Graceful node shutdown
+
+{{< feature-state feature_gate_name="GracefulNodeShutdown" >}}
+
+[Graceful node shutdown](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown)
+stores state locally at `/var/lib/kubelet/graceful_node_shutdown_state`.
+
 ## Security profiles & configuration
 
 ### Seccomp
