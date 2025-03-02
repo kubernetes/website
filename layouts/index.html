@@ -1,11 +1,7 @@
 {{ define "main" }}
 {{ .Content }}
 <section id="cncf">
-    <div class="main-section">
-        <center>
-        <p style="font-size: 20px">{{ T "main_cncf_project" | safeHTML }}
-        </center>
-    </div>
+    {{ partial "cncf.html" . }}
 </section>
 
 {{/* legacy kubeweekly support */}}
