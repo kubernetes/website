@@ -200,7 +200,7 @@ listed in alphabetical order:
 : Spread CPUs across different NUMA domains, aiming for an even balance between the selected domains
   (available since Kubernetes v1.23)
 
-`full-pcpus-only` (beta, visible by default)
+`full-pcpus-only` (GA, visible by default)
 : Always allocate full physical cores (available since Kubernetes v1.22)
 
 `strict-cpu-reservation` (alpha, hidden by default)
