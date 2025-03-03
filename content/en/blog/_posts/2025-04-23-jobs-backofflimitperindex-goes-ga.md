@@ -1,8 +1,8 @@
 ---
 layout: blog
-title: "Kubernetes 1.33: Backoff Limit Per Index for Jobs Goes GA"
+title: "Kubernetes 1.33: Job's Backoff Limit Per Index Goes GA"
 date: 2025-04-23
-slug: kubernetes-1-33-backoff-limit-per-index-for-jobs-goes-ga
+slug: kubernetes-1-33-jobs-backoff-limit-per-index-goes-ga
 author: >
   [Michał Woźniak](https://github.com/mimowo) (Google)
 ---
