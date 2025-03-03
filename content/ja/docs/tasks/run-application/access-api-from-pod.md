@@ -6,7 +6,7 @@ weight: 120
 
 <!-- overview -->
 
-このガイドでは、Pod内からKuberenetes APIにアクセスする方法を示します。
+このガイドでは、Pod内からKubernetes APIにアクセスする方法を示します。
 
 ## {{% heading "prerequisites" %}}
 
@@ -16,7 +16,7 @@ weight: 120
 
 ## Pod内からAPIへのアクセス
 
-Podの中からAPIにアクセスする時、APIサーバーの場所の特定と認証は、外部クライアントの場合とは若干異なります。
+Podの中からAPIにアクセスする時、APIサーバーの場所の検出と認証は、外部クライアントの場合とは若干異なります。
 
 PodからKubernetes APIを使用する最も簡単な方法は、公式の[クライアントライブラリ](/docs/reference/using-api/client-libraries/)を使用することです。
 これらのライブラリは自動的にAPIサーバーを検出して認証できます。
