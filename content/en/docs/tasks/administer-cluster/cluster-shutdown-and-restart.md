@@ -86,4 +86,4 @@ kubectl get no,po --all-namespaces
 
 ### Caveats
 
-1. Pre-shutdown pod scheduling may not be preserved after restart. Making the nodes schedulable again happens sequentially. Kube-scheduler will only schedule the pods to `Ready` and `Schedulable` nodes. In case that there are many nodes that need to be made schedulable again, the pod scheduling may end up imbalanced in favor of the first nodes that become schedulable.
+1. Pre-shutdown pod scheduling may not be preserved after restart. Making the nodes schedulable again happens sequentially. Kube-scheduler will only schedule the pods to `Ready` and `Schedulable` nodes polled at an instance. In case that there are many nodes that need to be made schedulable again, the pod scheduling may end up imbalanced in favor of the first nodes that become schedulable at that instance.
