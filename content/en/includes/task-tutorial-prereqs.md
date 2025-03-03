@@ -6,3 +6,4 @@ or you can use one of these Kubernetes playgrounds:
 
 * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
 * [Play with Kubernetes](https://labs.play-with-k8s.com/)
+* [KodeKloud](https://kodekloud.com/public-playgrounds)
