@@ -59,6 +59,9 @@ accounts in the API server.
 
 {{< /table >}}
 
+ServiceAccounts authenticate with the username `system:serviceaccount:<NAMESPACE>:<SERVICEACCOUNT>`,
+and are assigned to the groups `system:serviceaccounts` and `system:serviceaccounts:<NAMESPACE>`.
+
 ### Default service accounts {#default-service-accounts}
 
 When you create a cluster, Kubernetes automatically creates a ServiceAccount
