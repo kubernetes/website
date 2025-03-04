@@ -1691,7 +1691,7 @@ Kubernetes 提供的使用虚拟 IP 地址公开服务的机制。
 <!--
 ### Traffic distribution
 -->
-### 流量分发
+### 流量分发   {#traffic-policies}
 
 <!--
 The `.spec.trafficDistribution` field provides another way to influence traffic
