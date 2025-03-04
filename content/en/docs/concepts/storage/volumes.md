@@ -352,7 +352,7 @@ third party storage driver instead.
 ### gitRepo (deprecated) {#gitrepo}
 
 {{< warning >}}
-The `gitRepo` volume type is deprecated.
+The `gitRepo` volume plugin is deprecated and is disabled by default.
 
 To provision a Pod that has a Git repository mounted, you can mount an
 [`emptyDir`](#emptydir) volume into an [init container](/docs/concepts/workloads/pods/init-containers/)
@@ -371,6 +371,10 @@ part of a policy to reject use of `gitRepo` volumes:
 ```
 
 {{< /warning >}}
+
+You can use this deprecated storage plugin in your cluster if you explicitly
+enable the `GitRepoVolumeDriver`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
 A `gitRepo` volume is an example of a volume plugin. This plugin
 mounts an empty directory and clones a git repository into this directory
