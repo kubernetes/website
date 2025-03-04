@@ -1885,6 +1885,7 @@ or an [authenticating proxy](/docs/reference/access-authn-authz/authentication/#
 
 ## {{% heading "whatsnext" %}}
 
+* Read about [authorization](/docs/reference/access-authn-authz/authorization/) in Kubernetes
 * To learn about issuing certificates for users, read [Issue a Certificate for a Kubernetes API Client Using A CertificateSigningRequest](/docs/tasks/tls/certificate-issue-client-csr/)
 * Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)
 * Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
