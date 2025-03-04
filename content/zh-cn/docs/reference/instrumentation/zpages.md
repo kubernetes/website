@@ -2,6 +2,8 @@
 title: Kubernetes z-pages
 content_type: reference
 weight: 60
+description: >-
+  为 Kubernetes 组件提供运行时诊断，展示组件运行状态和配置标志的监测信息。
 ---
 <!--
 title: Kubernetes z-pages
@@ -9,6 +11,8 @@ content_type: reference
 weight: 60
 reviewers:
 - dashpole
+description: >-
+  Provides runtime diagnostics for Kubernetes components, offering insights into component runtime status and configuration flags.
 -->
 
 <!-- overview -->
