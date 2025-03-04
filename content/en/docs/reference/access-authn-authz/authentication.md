@@ -1884,5 +1884,6 @@ or an [authenticating proxy](/docs/reference/access-authn-authz/authentication/#
 
 ## {{% heading "whatsnext" %}}
 
+* Read about [authorization](/docs/reference/access-authn-authz/authorization/) in Kubernetes
 * Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)
 * Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
