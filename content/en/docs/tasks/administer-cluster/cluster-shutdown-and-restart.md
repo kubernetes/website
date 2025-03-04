@@ -66,7 +66,7 @@ If the cluster fails to recover, you restore the cluster to its previous state u
 
 2. Start all cluster machines. Use the appropriate method best-fit for your cluster to turn on the machines, like using the cloud provider's web console. 
 
-3. Allow a few minutes for the cluster's control plane nodes and worker nodes become ready. Verify that all nodes are ready. 
+3. Allow a few minutes for the cluster's control plane nodes and worker nodes to become ready. Verify that all nodes are ready. 
 
 ```
 $ kubectl get nodes --all-namespaces
