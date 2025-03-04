@@ -242,6 +242,62 @@ kubectl delete jobs/job-pod-failure-policy-config-issue
 
 The cluster automatically cleans up the Pods.
 
+## Using Pod Failure Policy to avoid unnecessary Pod retries per index
+
+With the following example, you can learn how to use Pod failure policy and
+Backoff limit per index features to avoid unnecessary Pod restarts per index.
+
+1. First, create a Job based on the config:
+
+  {{% code_sample file="/controllers/job-backoff-limit-per-index-failindex.yaml" %}}
+
+  by running:
+
+  ```sh
+  kubectl create -f job-backoff-limit-per-index-failindex.yaml
+  ```
+
+2. After a while inspect the status of the job's Pods by running:
+
+  ```sh
+  kubectl get pods -l job-name=job-backoff-limit-per-index-failindex -o yaml
+  ```
+
+  You will see output similar to this:
+  ```yaml
+NAME                                            READY   STATUS      RESTARTS   AGE
+job-backoff-limit-per-index-failindex-0-4g4cm   0/1     Error       0          4s
+job-backoff-limit-per-index-failindex-0-fkdzq   0/1     Error       0          15s
+job-backoff-limit-per-index-failindex-1-2bgdj   0/1     Error       0          15s
+job-backoff-limit-per-index-failindex-2-vs6lt   0/1     Completed   0          11s
+job-backoff-limit-per-index-failindex-3-s7s47   0/1     Completed   0          6s
+  ```
+
+  Note that there are two Pods with index 0, because the backoff limit allowed
+  for one retry of the index. At the same time, there is only one Pod with index
+  1, because the exit code of the failed Pod matched the Pod failure policy with
+  the FailIndex action.
+
+3. Inspect the status of the Job by running:
+
+  ```sh
+  kubectl get jobs -l job-name=job-backoff-limit-per-index-failindex -o yaml
+  ```
+
+  In the Job status, see the `failedIndexes` field shows "0,1", because both
+  indexes failed. Since the index 1 was not retried the number of failed Pods,
+  indicated by the status field "failed" equals 3.
+
+### Cleaning up
+
+Delete the Job you created:
+
+```sh
+kubectl delete jobs/job-backoff-limit-per-index-failindex
+```
+
+The cluster automatically cleans up the Pods.
+
 ## Alternatives
 
 You could rely solely on the
