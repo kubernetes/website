@@ -1,17 +1,24 @@
 ---
 layout: blog
-title: "Horizontal Autoscaling Configurable Tolerance"
+title: "Kubernetes v1.33 and Horizontal Autoscaling Configurable Tolerance"
 slug: hpa-configurable-tolerance
+# after the v1.33 release, set a future publication date and remove the draft marker
+# the release comms team can confirm which date has been assigned
+#
+# PRs to remove the draft marker should be opened BEFORE release day
+draft: true 
+math: true # for formulae
 date: XXXX-XX-XX
 author: "Jean-Marc François"
 ---
 
-This post describes _Configurable Tolerance for Pod Horizontal Autoscaling_,
+This post describes _configurable tolerance for horizontal Pod autoscaling_,
 a new alpha feature first available in Kubernetes 1.33.
 
 ## What is it?
 
-Horizontal Pod Autoscaling (HPA) is a well-known Kubernetes feature that
+[Horizontal Pod autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale/) (HPA) is a
+well-known Kubernetes feature that
 allows your workload to automatically resize by adding or removing replicas
 based on resource utilization.
 
@@ -23,16 +30,18 @@ replicas, the CPU utilization is 88%, and the desired utilization is 80%, the
 HPA will ask for `100 * (88/80)` replicas).
 
 In order to avoid replicas being created or deleted whenever a small metric
-fluctuation occurs, Kubernetes require that the current and desired metrics
+fluctuation occurs, Kubernetes applies a form of hysteresis: it only changes the number of replicas
+when the the current and desired metric values
 differ by more than 10%.
 
-This tolerance of 10% is cluster-wide and typically cannot be fine-tuned. It's
+This default tolerance of 10% is cluster-wide; in older Kubernetes releases, it could not be fine-tuned. It's
 a suitable value for most usage, but too coarse for large deployments, where a
 10% tolerance represents tens of pods. As a result,
-[users have long asked](https://github.com/kubernetes/kubernetes/issues/116984)
+users have long [asked](https://github.com/kubernetes/kubernetes/issues/116984)
 to be able to tune this value.
 
-Thanks to the _Configurable Tolerance for Pod Horizontal Autoscaling_ feature,
+In Kubernetes v1.33,
+``
 this is now possible.
 
 ## How do I use it?
@@ -50,11 +59,12 @@ For example, an HPA with a tolerance of 5% on scale-down, and no
 tolerance on scale-up, would look like the following:
 
 ```yaml
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: my-app
 spec:
+   …
   behavior:
     scaleDown:
       tolerance: 0.05
