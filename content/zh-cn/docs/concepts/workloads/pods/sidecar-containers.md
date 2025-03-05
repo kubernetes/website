@@ -56,7 +56,7 @@ Provided that your cluster has the `SidecarContainers`
 for containers listed in a Pod's `initContainers` field.
 These restartable _sidecar_ containers are independent from other init containers and from
 the main application container(s) within the same pod.
-These can be started, stopped, or restarted without effecting the main application container
+These can be started, stopped, or restarted without affecting the main application container
 and other init containers.
 -->
 如果你的集群启用了 `SidecarContainers`

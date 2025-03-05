@@ -228,13 +228,13 @@ value:
 <!--
 ```math
 \begin{equation*}
-desiredReplicas = \left( currentReplicas \times  { currentMetricValue \over desiredMetricValue }  \right)
+desiredReplicas = ceil\left\lceil currentReplicas \times \frac{currentMetricValue}{desiredMetricValue} \right\rceil
 \end{equation*}
 ```
 -->
 ```math
 \begin{equation*}
-期望副本数 = \left( 当前副本数 \times  { 当前指标 \over 期望指标 }  \right)
+期望副本数 = ceil\left\lceil 当前副本数 \times \frac{当前指标}{期望指标} \right\rceil
 \end{equation*}
 ```
 
@@ -1052,13 +1052,13 @@ guidelines, which cover this exact use case.
 
 <!--
 If you configure autoscaling in your cluster, you may also want to consider using
-[cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
+[node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
 to ensure you are running the right number of nodes.
 
 For more information on HorizontalPodAutoscaler:
 -->
 如果你在集群中配置自动扩缩，
-你可能还需要考虑使用[集群自动扩缩](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/)来确保所运行的节点数目合适。
+你可能还需要考虑使用[节点自动扩缩](/doc/concepts/cluster-administration/node-autoscaling/)来确保所运行的节点数目合适。
 
 有关 HorizontalPodAutoscaler 的更多信息：
 

@@ -13,7 +13,7 @@ tags:
 - fundamental
 ---
  API-сервер — компонент {{< glossary_tooltip text="управляющего слоя" term_id="control-plane" >}} Kubernetes,
-который делаает доступным Kubernetes API. API-сервер — это фронтенд управляющего слоя Kubernetes.
+который делает доступным Kubernetes API. API-сервер — это фронтенд управляющего слоя Kubernetes.
 
 <!--more-->
 

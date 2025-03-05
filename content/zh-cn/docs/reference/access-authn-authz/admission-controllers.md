@@ -144,6 +144,34 @@ other admission controllers.
 此类用法都需要相应的回收或回调过程，因为任一准入控制器都无法确定某个请求能否通过所有其它准入控制器。
 
 <!--
+The ordering of these calls can be seen below.
+-->
+这些调用的顺序如下所示。
+
+<!--
+Sequence diagram for kube-apiserver handling requests during the admission phase
+showing mutation webhooks, followed by validatingadmissionpolicies and finally
+validating webhooks. It shows that the continue until the first rejection,
+or being accepted by all of them. It also shows that mutations by mutating
+webhooks cause all previously called webhooks to be called again.
+-->
+{{< figure src="/zh-cn/docs/reference/access-authn-authz/admission-control-phases.svg" alt="kube-apiserver 在准入阶段处理请求的时序图，展示了变更性 Webhook，随后是验证准入策略（ValidatingAdmissionPolicies），最后是验证性 Webhook。此时序图表明，请求会持续经过这些步骤，直到遇到第一个被拒绝的情况，或者被所有检查接受。此外，此图还显示，变更性 Webhook 所做的变更会导致所有之前调用过的 Webhook 被重新调用。" class="diagram-large" link="[https://mermaid.live/edit#pako:eNqtVm1r3DgQ_iuDj9CUc3aPlBa6HIFeSu_CEQhNr4XiL7I9a6srSz5J3mQb9r93RrK9jjcp9-H8xdZoXh7N80jyQ1KYEpNV4vDfDnWB76WorGgynemTE_hLbBG8AYce1kb7W_kdoVImF0rtQDjwtXQgnX7hwaJrsfBYQtmFoNr71q2Wy0r6ussXhWmWDdpGyPLsmxs-l9K5Dt3y1du3v3HJB6mlXz1kia-xwSxZZYnGzluhsiTNkgEETUCWnJ-392SmrwE-2ym4kdYa-67wxjoyedvhPs000NNn_iysFLlCFyPCVJwWHPXHpgq1f3l1_qbA11x77vIJ7_2lUcYGx7taepy5KWPaqRc8l08bj1Rx4ldZ3M2cnlp6pvf7_ckJsxVdibNPkRKiBkEof-YJAZFnQRQFOidzqaTfpSB0Ca42nSohR-jaUjB3uEW7Ay8bDAnKKAfKt4gFKMl7dIWd9uy2b_7ozdU2XY5nopUOLaWEmsopqSuSCTk770gllscBZtmQDKTR0NbCIcO647mm88Kz-Q7z2piNSym1UuaOgOY72AolCTV5jglao2Qh0YXVraUOOj34jYkWcIB_5UNB7pjwAU9BrZaaVNzRWwXTWlrHGv9GEqc6KdASc-SU3NbWR0RUDsyaA5pZBaGcmZYZluY4LA4m8KAQncOQrrW4laZztI6CxlRndKI9Rsz1VlEJqXuS9oMcWmE99aMV2sM_xARv2fA-nn53c8WzfxNtVqOnFrLlNrD3hHfna3bnN1KTisjTr8FgrPwexqMmH4WWzaW3KkSPvF9Sx61RMSA39_Anrcblxho49oLfc3txGZcdGZqxc4z3uu_wl9g7Lj6YoLedupfHcZ9H6dyYAPlgmOC66VX3s_hJ5UmOeW3U5WEzB6bOLi4CEyv4GHcOnOKiWqRQWKQdCwJaU77sCWXHEEAsrKbkkJQD_bQruHlFjcUmmlo6h-My3FCXzy34wCcG6W_eJneQdRABl5t1dwVXems2-LPYOSEH1NemlOsd76_IJ5g8vE7lGjRiieW0V0d4J819TMuI9hGnI9Zn4x5L4IDz439ER3J4CtzQEpCaXVjN6lmg88Y-kef_ATvWJiWRgPisnTDRn92DToLa2JmFyjVcSypCGBTqunDjcALk-5iKJWnSX_z0zxGukMNNT5-lsJtwq5Gf6Ly53ekiXt9pYk1X1clqTScpjeJ91f-tjFYsJd3M1_GXJvzZpAntw6_GDD77H6uICLI](https://mermaid.live/edit#pako:eNqtVm1r3DgQ_iuDj9CUc3aPlBa6HIFeSu_CEQhNr4XiL7I9a6srSz5J3mQb9r93RrK9jjcp9-H8xdZoXh7N80jyQ1KYEpNV4vDfDnWB76WorGgynemTE_hLbBG8AYce1kb7W_kdoVImF0rtQDjwtXQgnX7hwaJrsfBYQtmFoNr71q2Wy0r6ussXhWmWDdpGyPLsmxs-l9K5Dt3y1du3v3HJB6mlXz1kia-xwSxZZYnGzluhsiTNkgEETUCWnJ-392SmrwE-2ym4kdYa-67wxjoyedvhPs000NNn_iysFLlCFyPCVJwWHPXHpgq1f3l1_qbA11x77vIJ7_2lUcYGx7taepy5KWPaqRc8l08bj1Rx4ldZ3M2cnlp6pvf7_ckJsxVdibNPkRKiBkEof-YJAZFnQRQFOidzqaTfpSB0Ca42nSohR-jaUjB3uEW7Ay8bDAnKKAfKt4gFKMl7dIWd9uy2b_7ozdU2XY5nopUOLaWEmsopqSuSCTk770gllscBZtmQDKTR0NbCIcO647mm88Kz-Q7z2piNSym1UuaOgOY72AolCTV5jglao2Qh0YXVraUOOj34jYkWcIB_5UNB7pjwAU9BrZaaVNzRWwXTWlrHGv9GEqc6KdASc-SU3NbWR0RUDsyaA5pZBaGcmZYZluY4LA4m8KAQncOQrrW4laZztI6CxlRndKI9Rsz1VlEJqXuS9oMcWmE99aMV2sM_xARv2fA-nn53c8WzfxNtVqOnFrLlNrD3hHfna3bnN1KTisjTr8FgrPwexqMmH4WWzaW3KkSPvF9Sx61RMSA39_Anrcblxho49oLfc3txGZcdGZqxc4z3uu_wl9g7Lj6YoLedupfHcZ9H6dyYAPlgmOC66VX3s_hJ5UmOeW3U5WEzB6bOLi4CEyv4GHcOnOKiWqRQWKQdCwJaU77sCWXHEEAsrKbkkJQD_bQruHlFjcUmmlo6h-My3FCXzy34wCcG6W_eJneQdRABl5t1dwVXems2-LPYOSEH1NemlOsd76_IJ5g8vE7lGjRiieW0V0d4J819TMuI9hGnI9Zn4x5L4IDz439ER3J4CtzQEpCaXVjN6lmg88Y-kef_ATvWJiWRgPisnTDRn92DToLa2JmFyjVcSypCGBTqunDjcALk-5iKJWnSX_z0zxGukMNNT5-lsJtwq5Gf6Ly53ekiXt9pYk1X1clqTScpjeJ91f-tjFYsJd3M1_GXJvzZpAntw6_GDD77H6uICLI)" >}}
+
+<!--
+## Why do I need them?
+
+Several important features of Kubernetes require an admission controller to be enabled in order
+to properly support the feature. As a result, a Kubernetes API server that is not properly
+configured with the right set of admission controllers is an incomplete server and will not
+support all the features you expect.
+-->
+## 为什么需要准入控制器？  {#why-do-i-need-them}
+
+Kubernetes 的多个重要特性需要按顺序启用某个准入控制器才能正确支持对应的特性。
+因此，如果 Kubernetes API 服务器未正确配置相应的准入控制器集，
+那么这种 API 服务器将是不完整的，并且无法支持你所期望的所有特性。
+
+<!--
 ## How do I turn on an admission controller?
 
 The Kubernetes API server flag `enable-admission-plugins` takes a comma-delimited list of admission control plugins to invoke prior to modifying objects in the cluster.
@@ -377,14 +405,20 @@ will get the default one.
 这样，没有任何特殊存储类需求的用户根本不需要关心它们，它们将被设置为使用默认存储类。
 
 <!--
-This admission controller does not do anything when no default storage class is configured. When more than one storage
-class is marked as default, it rejects any creation of `PersistentVolumeClaim` with an error and an administrator
-must revisit their `StorageClass` objects and mark only one as default.
+This admission controller does nothing when no default `StorageClass` exists. When more than one storage
+class is marked as default, and you then create a `PersistentVolumeClaim` with no `storageClassName` set, 
+Kubernetes uses the most recently created default `StorageClass`.
+When a `PersistentVolumeClaim` is created with a specified `volumeName`, it remains in a pending state 
+if the static volume's `storageClassName` does not match the `storageClassName` on the `PersistentVolumeClaim`
+after any default StorageClass is applied to it.
 This admission controller ignores any `PersistentVolumeClaim` updates; it acts only on creation.
 -->
-当未配置默认存储类时，此准入控制器不执行任何操作。如果将多个存储类标记为默认存储类，
-此控制器将拒绝所有创建 `PersistentVolumeClaim` 的请求，并返回错误信息。
-要修复此错误，管理员必须重新检查其 `StorageClass` 对象，并仅将其中一个标记为默认。
+当默认的 `StorageClass` 不存在时，此准入控制器不执行任何操作。如果将多个存储类标记为默认存储类，
+而且你之后在未设置 `storageClassName` 的情况下创建 `PersistentVolumeClaim`，
+Kubernetes 将使用最近创建的默认 `StorageClass`。
+当使用指定的 `volumeName` 创建 `PersistentVolumeClaim` 时，如果在应用任意默认的 StorageClass 之后，
+静态卷的 `storageClassName` 与 `PersistentVolumeClaim` 上的 `storageClassName` 不匹配，
+则 `PersistentVolumeClaim` 保持在 Pending 状态。
 此准入控制器会忽略所有 `PersistentVolumeClaim` 更新操作，仅处理创建操作。
 
 <!--

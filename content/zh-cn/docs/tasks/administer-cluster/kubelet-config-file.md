@@ -101,8 +101,9 @@ In this example, the kubelet is configured with the following settings:
 2. `port`：kubelet 将在 `20250` 端口上提供服务。
 3. `serializeImagePulls`：并行拉取镜像。
 4. `evictionHard`：kubelet 将在以下情况之一驱逐 Pod：
+
    - 当节点的可用内存降至 100MiB 以下时。
-   - 当节点主文件系统的已使用 inode 超过 95%。
+   - 当节点主文件系统的可用空间小于 10% 时。
    - 当镜像文件系统的可用空间小于 15% 时。
    - 当节点主文件系统的 inode 超过 95% 正在使用时。
 
@@ -113,8 +114,8 @@ evictionHard, the default values of other parameters will not be inherited and
 will be set to zero. In order to provide custom values, you should provide all
 the threshold values respectively.
 -->
-在示例中，通过只更改 evictionHard 的一个参数的默认值，
-其他参数的默认值将不会被继承，他们会被设置为零。如果要提供自定义值，你应该分别设置所有阈值。
+在此示例中，只更改 evictionHard 的一个参数的默认值，
+这样其他参数的默认值将不会被继承，其他参数会被设置为零。如果要提供自定义值，你应该分别设置所有阈值。
 {{< /note >}}
 
 <!--
@@ -134,7 +135,7 @@ If you use kubeadm to initialize your cluster, use the kubelet-config while crea
 See [configuring kubelet using kubeadm](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/) for details.
 -->
 如果你使用 kubeadm 初始化你的集群，在使用 `kubeadm init` 创建你的集群的时候请使用 kubelet-config。
-更多细节请阅读[使用 kubeadm 配置 kubelet](/zh-cn/docs/setup/production-environment/tools/kubeadm/kubelet-integration/)
+更多细节请阅读[使用 kubeadm 配置 kubelet](/zh-cn/docs/setup/production-environment/tools/kubeadm/kubelet-integration/)。
 {{< /note >}}
 
 <!--
@@ -379,7 +380,8 @@ they can follow these steps to inspect the kubelet configuration:
          "imagefs.available": "15%",
          "memory.available": "100Mi",
          "nodefs.available": "10%",
-         "nodefs.inodesFree": "5%"
+         "nodefs.inodesFree": "5%",
+         "imagefs.inodesFree": "5%"
        },
        "evictionPressureTransitionPeriod": "1m0s",
        "enableControllerAttachDetach": true,

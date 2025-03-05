@@ -302,7 +302,6 @@ When reviewing, use the following as a starting point.
 - 欢迎通过 Google Doc 或 HackMD 对博客文章提供早期反馈。请尽早通过
   [#sig-docs-blog Slack 频道](https://kubernetes.slack.com/archives/CJDHVD54J)请求输入。
 - 在审查博客的拉取请求（PR）之前，请熟悉[提交博客文章和案例研究](/zh-cn/docs/contribute/new-content/blogs-case-studies/)的相关指南。
-
 <!--
 - We are willing to mirror any blog article that was published to https://kubernetes.dev/blog/ (the contributor blog) provided that:
   - the mirrored article has the same publication date as the original (it should have the same publication time too, but you can also set a time stamp up to 12 hours later for special cases)
@@ -311,9 +310,9 @@ When reviewing, use the following as a starting point.
     [will] publish. 
     This is because we don't want to add articles to people's feeds, such as RSS, except at the very end of their feed.
   - the original article doesn't contravene any strongly recommended review guidelines or community norms.
-  - You should set the canonical URL for the mirrored article, to the URL of the original article 
-    (you can use a preview to predict the URL and fill this in ahead of actual publication). Use the `canonicalUrl` 
-    field in [front matter](https://gohugo.io/content-management/front-matter/) for this.
+- You should set the canonical URL for the mirrored article, to the URL of the original article
+  (you can use a preview to predict the URL and fill this in ahead of actual publication). Use the `canonicalUrl`
+  field in [front matter](https://gohugo.io/content-management/front-matter/) for this.
 -->
 - 我们愿意镜像任何发布到 https://kubernetes.dev/blog/（贡献者博客）的博客文章，前提是：
   - 镜像的文章应与原文有相同的发布日期（理想情况下，发布时间也应相同，但在特殊情况下，
@@ -321,8 +320,8 @@ When reviewing, use the following as a starting point.
   - 对于那些原始文章已被合并到 https://kubernetes.dev/ 的拉取请求（PR），在原始文章和镜像文章发布之间，
     主博客上没有（也不会有）任何文章发布。这是因为我们不希望除了在 RSS 等订阅源的末端之外添加新的文章到人们的订阅源中。
   - 原始文章不应违反任何强烈推荐的审核指南或社区规范。
-  - 应为镜像文章设置规范URL（canonical URL），指向原始文章的URL（你可以使用预览来预测URL并在实际发布前填写）。
-    为此，请在[前置元数据](https://gohugo.io/content-management/front-matter/)中使用 `canonicalUrl` 字段。
+- 应为镜像文章设置规范URL（canonical URL），指向原始文章的URL（你可以使用预览来预测URL并在实际发布前填写）。
+  为此，请在[前置元数据](https://gohugo.io/content-management/front-matter/)中使用 `canonicalUrl` 字段。
 <!--
 - Consider the target audience and whether the blog post is appropriate for kubernetes.io 
   For example, if the target audience are Kubernetes contributors only then kubernetes.dev
