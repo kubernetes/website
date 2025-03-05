@@ -3,7 +3,6 @@ layout: blog
 title: "Introducing JobSet"
 date: 2025-02-03
 slug: introducing-jobset
-draft: true
 ---
 
 **Authors**: Daniel Vega-Myhre (Google), Abdullah Gharaibeh (Google), Kevin Hannon (Red Hat)
