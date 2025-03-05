@@ -602,6 +602,8 @@ and may be disallowed or allowed by the `NodeRestriction` admission plugin in th
 Future versions may add additional restrictions to ensure kubelets have the minimal set of
 permissions required to operate correctly.
 
+`ServiceAccountNodeAudienceRestriction`: *Add details about the feature gate, effect and rbac roles to dynamically configure service account/audience*
+
 ### OwnerReferencesPermissionEnforcement {#ownerreferencespermissionenforcement}
 
 **Type**: Validating.
