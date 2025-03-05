@@ -106,6 +106,12 @@ Kubelet шукає сокет-файли, створені втулками пр
 
 (зазвичай `/var/lib/kubelet/plugins_registry`).
 
+### Належне вимкнення вузлів {#graceful-node-shutdown}
+
+{{< feature-state feature_gate_name="GracefulNodeShutdown" >}}
+
+[Належне вимкнення вузлів](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown) зберігає стан локально за адресою `/var/lib/kubelet/graceful_node_shutdown_state`.
+
 ## Профілі безпеки та конфігурація {#security-profiles-configuration}
 
 ### Seccomp {#seccomp}

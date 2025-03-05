@@ -3,6 +3,8 @@ title: Метрики SLI компонентів Kubernetes
 linkTitle: Метрики Індикаторів Рівня Обслуговування
 content_type: reference
 weight: 20
+description: >-
+  Високорівневі показники для вимірювання надійності та продуктивності компонентів Kubernetes.
 ---
 
 <!-- overview -->

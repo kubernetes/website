@@ -2,6 +2,8 @@
 title: Kubernetes z-pages
 content_type: reference
 weight: 60
+description: >-
+  Забезпечують діагностику під час роботи компонентів Kubernetes, надаючи інформацію про стан роботи компонентів та прапорці конфігурації.
 ---
 
 

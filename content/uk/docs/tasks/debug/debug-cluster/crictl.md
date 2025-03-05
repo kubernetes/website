@@ -217,4 +217,3 @@ crictl logs --tail=1 87d3992f84f74
 ## {{% heading "whatsnext" %}}
 
 * [Дізнайтеся більше про `crictl`](https://github.com/kubernetes-sigs/cri-tools).
-* [Зіставлення команд `docker` CLI з `crictl`](/uk/docs/reference/tools/map-crictl-dockercli/).
