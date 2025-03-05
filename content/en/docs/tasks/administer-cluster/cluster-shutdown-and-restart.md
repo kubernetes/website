@@ -40,7 +40,7 @@ $ kubectl get secrets
 $  kubectl drain --ignore-daemonsets node1 node2 node3
 ```
 
-3. Shut down all of the nodes in the cluster. You can do this in ways that best fit your cluster; such as thru your cloud provider's web console, or a script, or playbook. 
+3. Shut down all of the nodes in the cluster. You can do this in ways that best fit your cluster; such as through your cloud provider's web console, or a script, or playbook. 
 
 #### Example
 ```
