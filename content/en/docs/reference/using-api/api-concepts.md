@@ -1350,6 +1350,8 @@ Not older than
   `resourceVersion`, but does not make any guarantee about the `.metadata.resourceVersion` of any
   of the items in that collection.
 
+TODO: Document reads from snapshot
+
 Exact
 : Return data at the exact resource version provided. If the provided `resourceVersion` is
   unavailable, the server responds with HTTP `410 Gone`. For **list** requests to servers that honor the
