@@ -536,9 +536,9 @@ processing its startup data, you might prefer a readiness probe.
 If you want to be able to drain requests when the Pod is deleted, you do not
 necessarily need a readiness probe; when the Pod is deleted, the corresponding endpoint
 will update its [conditions](/docs/concepts/services-networking/endpoint-slices/#conditions).
-Namely, the `ready` condition will be set to `false`, so load balancers
-will not use the Pod for regular traffic. The `serving` condition will reflect
-the Pod's ready status.
+Namely, the endpoint `ready` condition will be set to `false`, so load balancers
+will not use the Pod for regular traffic. The endpoint `serving` condition will
+reflect the Pod's `Ready` condition.
 {{< /note >}}
 
 #### When should you use a startup probe?
