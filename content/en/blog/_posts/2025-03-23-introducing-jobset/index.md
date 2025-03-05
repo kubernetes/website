@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Introducing JobSet"
-date: 2025-02-03
+date: 2025-03-23
 slug: introducing-jobset
 ---
 
