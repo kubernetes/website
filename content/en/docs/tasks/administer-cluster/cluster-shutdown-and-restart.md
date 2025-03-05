@@ -12,15 +12,15 @@ This page provides an overview of the steps you should follow when shutting down
 
 ## Background
 
-As cluster administrators, you may need to suspend you running cluster and restart if for later use. There are different reasons why you may need to perform this shutdown, such as cluster maintenance or saving on resource costs.
+As cluster administrators, you may need to suspend your running cluster and restart it for later use. There are different reasons why you may need to perform this shutdown, such as cluster maintenance or saving on operation/resource costs.
 
 ## Backup your cluster
 
-If the cluster has etcd, create an [etcd backup](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster). This backup may be useful in restoring the cluster if restarting the cluster didn't work properly.
+If the cluster has etcd, create an [etcd backup](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster). This backup may be useful in restoring the cluster if restarting the cluster didn't work as intended.
 
 ## Shutting Down Clusters
 
-You can shut down your cluster in a graceful manner so you can restart it for later use.
+You can shut down your cluster in a graceful manner but gracefully shutting down its nodes. This will allow you to restart it for later use.
 
 ### Prerequisites
 
@@ -34,20 +34,20 @@ You can shut down your cluster in a graceful manner so you can restart it for la
 $ kubectl get secrets
 ``` 
 
-2. Make all nodes in the cluster unschedulable and evacuate all the pods using `kubectl drain`
+2. Make all nodes in the cluster unschedulable while evicting all the pods using `kubectl drain`
 
 ```
 $  kubectl drain --ignore-daemonsets node1 node2 node3
 ```
 
-3. Shut down all of the nodes in the cluster. You can do this in ways that best fit your cluster, such as thru your cloud provider's web console, or a script, or playbook. 
+3. Shut down all of the nodes in the cluster. You can do this in ways that best fit your cluster; such as thru your cloud provider's web console, or a script, or playbook. 
 
 #### Example
 ```
-[user@worker ~]# systemctl poweroff
+[user@node1 ~]# systemctl poweroff
 ```
 
-4. Shut down any other cluster dependencies that are no longer needed, such as external storages. Consult your vendor's documentation to see if some resources are okay to shut down, suspend, or delete.
+4. After all nodes have successfully shut down, shut down any other cluster dependencies that are no longer needed, such as external storages. Consult your vendor's documentation to see if some resources are okay to shut down, suspend, or delete.
 
 ## Restarting Clusters
 
@@ -57,16 +57,16 @@ If the cluster fails to recover, you restore the cluster to its previous state u
 
 ### Prerequisite
 
-- Cluster must be gracefully shut down.
+- Cluster must be gracefully shut down and is currently powered off.
 - You have access to the cluster as a user with the cluster admin role.
 
 ### Procedure
 
 1. Power on any cluster dependencies you need for your cluster, such as external storages.
 
-2. Start all cluster machines. Use the appropriate method best-fit for your cluster to turn on the machines, like using the cloud provider's web console. 
+2. Start all cluster machines. Use the method best-fit for your cluster to turn on the machines, like using the cloud provider's web console. 
 
-3. Allow a few minutes for the cluster's control plane nodes and worker nodes to become ready. Verify that all nodes are ready. 
+3. Allow a few minutes for the cluster's control plane nodes and worker nodes to become `Ready`. Verify that all nodes are `Ready`. 
 
 ```
 $ kubectl get nodes --all-namespaces
