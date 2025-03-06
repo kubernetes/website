@@ -1,0 +1,85 @@
+---
+title: BlaBlaCar Case Study
+case_study_styles: true
+cid: caseStudies
+
+new_case_study_styles: true
+heading_background: /images/case-studies/blablacar/banner1.jpg
+heading_title_logo: /images/blablacar_logo.png
+subheading: >
+  Turning to Containerization to Support Millions of Rideshares
+case_study_details:
+  - Company: BlaBlaCar
+  - Location: Paris, France
+  - Industry: Ridesharing Company
+---
+
+<h2>Challenge</h2>
+
+<p>The world's largest long-distance carpooling community, <a href="https://www.blablacar.com/">BlaBlaCar</a>, connects 40 million members across 22 countries. The company has been experiencing exponential growth since 2012 and needed its infrastructure to keep up. "When you're thinking about doubling the number of servers, you start thinking, 'What should I do to be more efficient?'" says Simon Lallemand, Infrastructure Engineer at BlaBlaCar. "The answer is not to hire more and more people just to deal with the servers and installation." The team knew they had to scale the platform, but wanted to stay on their own bare metal servers.</p>
+
+<h2>Solution</h2>
+
+<p>Opting not to shift to cloud virtualization or use a private cloud on their own servers, the BlaBlaCar team became early adopters of containerization, using the CoreOs runtime <a href="https://coreos.com/rkt">rkt</a>, initially deployed using <a href="https://coreos.com/fleet/docs/latest/launching-containers-fleet.html">fleet</a> cluster manager. Last year, the company switched to <a href="http://kubernetes.io/">Kubernetes</a> orchestration, and now also uses <a href="https://prometheus.io/">Prometheus</a> for monitoring.</p>
+
+<h2>Impact</h2>
+
+<p>"Before using containers, it would take sometimes a day, sometimes two, just to create a new service," says Lallemand. "With all the tooling that we made around the containers, copying a new service now is a matter of minutes. It's really a huge gain. We are better at capacity planning in our data center because we have fewer constraints due to this abstraction between the services and the hardware we run on. For the developers, it also means they can focus only on the features that they're developing, and not on the infrastructure."</p>
+
+{{< case-studies/quote author="Simon Lallemand, Infrastructure Engineer at BlaBlaCar" >}}
+"When you're switching to this cloud-native model and running everything in containers, you have to make sure that at any moment you can reboot without any downtime and without losing traffic. [With Kubernetes] our infrastructure is much more resilient and we have better availability than before."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+For the 40 million users of <a href="https://www.blablacar.com/">BlaBlaCar</a>, it's easy to find strangers headed in the same direction to share rides and costs. You can even choose how much "bla bla" chatter you want from a long-distance ride mate.
+{{< /case-studies/lead >}}
+
+<p>Behind the scenes, though, the infrastructure was falling woefully behind the rider community's exponential growth. Founded in 2006, the company hit its current stride around 2012. "Our infrastructure was very traditional," says Infrastructure Engineer Simon Lallemand, who began working at the company in 2014. "In the beginning, it was a bit chaotic because we had to [grow] fast. But then comes the time when you have to design things to make it manageable."</p>
+
+<p>By 2015, the company had about 50 bare metal servers. The team was using a <a href="https://www.mysql.com/">MySQL</a> database and <a href="http://php.net/">PHP</a>, but, Lallemand says, "it was a very static way." They also utilized the configuration management system, <a href="https://www.chef.io/chef/">Chef</a>, but had little automation in its process. "When you're thinking about doubling the number of servers, you start thinking, 'What should I do to be more efficient?'" says Lallemand. "The answer is not to hire more and more people just to deal with the servers and installation."</p>
+
+<p>Instead, BlaBlaCar began its cloud-native journey but wasn't sure which route to take. "We could either decide to go into cloud virtualization or even use a private cloud on our own servers," says Lallemand. "But going into the cloud meant we had to make a lot of changes in our application work, and we were just not ready to make the switch from on premise to the cloud." They wanted to keep the great performance they got on bare metal, so they didn't want to go to virtualization on premise.</p>
+
+<p>The solution: containerization. This was early 2015 and containers were still relatively new. "It was a bold move at the time," says Lallemand. "We decided that the next servers that we would buy in the new data center would all be the same model, so we could outsource the maintenance of the servers. And we decided to go with containers and with <a href="https://coreos.com/">CoreOS</a> Container Linux as an abstraction for this hardware. It seemed future-proof to go with containers because we could see what companies were already doing with containers."</p>
+
+{{< case-studies/quote image="/images/case-studies/blablacar/banner3.jpg">}}
+"With all the tooling that we made around the containers, copying a new service is a matter of minutes. It's a huge gain. For the developers, it means they can focus only on the features that they're developing and not on the infrastructure or the hour they would test their code, or the hour that it would get deployed."
+{{< /case-studies/quote >}}
+
+<p>Next, they needed to choose a runtime for the containers, but "there were very few deployments in production at that time," says Lallemand. They experimented with <a href="https://www.docker.com/">Docker</a> but decided to go with <a href="https://coreos.com/rkt">rkt</a>. Lallemand explains that for BlaBlaCar, it was "much simpler to integrate things that are on rkt." At the time,  the project was still pre-v1.0, so "we could speak with the developers of rkt and give them feedback. It was an advantage." Plus, he notes, rkt was very stable, even at this early stage.</p>
+
+<p>Once those decisions were made that summer, the company came up with a plan for implementation. First, they formed a task force to create a workflow that would be tested by three of the 10 members on Lallemand's team. But they took care to run regular workshops with all 10 members to make sure everyone was on board. "When you're focused on your product sometimes you forget if it's really user friendly, whether other people can manage to create containers too," Lallemand says. "So we did a lot of iterations to find a good workflow."</p>
+
+<p>After establishing the workflow, Lallemand says with a smile that "we had this strange idea that we should try the most difficult thing first. Because if it works, it will work for everything." So the first project the team decided to containerize was the database. "Nobody did that at the time, and there were really no existing tools for what we wanted to do, including building container images," he says. So the team created their own tools, such as <a href="https://github.com/blablacar/dgr">dgr</a>, which builds container images so that the whole team has a common framework to build on the same images with the same standards. They also revamped the service-discovery tools <a href="https://github.com/airbnb/nerve">Nerve</a> and <a href="http://airbnb.io/projects/synapse/">Synapse</a>; their versions, <a href="https://github.com/blablacar/go-nerve">Go-Nerve</a> and <a href="https://github.com/blablacar/go-synapse">Go-Synapse</a>, were written in Go and built to be more efficient and include new features. All of these tools were open-sourced.</p>
+
+<p>At the same time, the company was working to migrate its entire platform to containers with a deadline set for Christmas 2015. With all the work being done in parallel, BlaBlaCar was able to get about 80 percent of its production into containers by its deadline with live traffic running on containers during December. (It's now at 100 percent.) "It's a really busy time for traffic," says Lallemand. "We knew that by using those new servers with containers, it would help us handle the traffic."</p>
+
+<p>In the middle of that peak season for carpooling, everything worked well. "The biggest impact that we had was for the deployment of new services," says Lallemand. "Before using containers, we had to first deploy a new server and create configurations with Chef. It would take sometimes a day, sometimes two, just to create a new service. And with all the tooling that we made around the containers, copying a new service is a matter of minutes. So it's really a huge gain. For the developers, it means they can focus only on the features that they're developing and not on the infrastructure or the hour they would test their code, or the hour that it would get deployed."</p>
+
+{{< case-studies/quote image="/images/case-studies/blablacar/banner4.jpg" >}}
+"We realized that there was a really strong community around it [Kubernetes], which meant we would not have to maintain a lot of tools of our own," says Lallemand. "It was better if we could contribute to some bigger project like Kubernetes."
+{{< /case-studies/quote >}}
+
+<p>In order to meet their self-imposed deadline, one of the decisions they made was to not do any "orchestration magic" for containers in the first production alignment. Instead, they used the basic <a href="https://coreos.com/fleet/docs/latest/launching-containers-fleet.html">fleet</a> tool from CoreOS to deploy their containers. (They did build a tool called <a href="https://github.com/blablacar/ggn">GGN</a>, which they've open-sourced, to make it more manageable for their system engineers to use.)</p>
+
+<p>Still, the team knew that they'd want more orchestration. "Our tool was doing a pretty good job, but at some point you want to give more autonomy to the developer team," Lallemand says. "We also realized that we don't want to be the single point of contact for developers when they want to launch new services." By the summer of 2016, they found their answer in <a href="http://kubernetes.io/">Kubernetes</a>, which had just begun supporting rkt implementation.</p>
+
+<p>After discussing their needs with their contacts at CoreOS and Google, they were convinced that Kubernetes would work for BlaBlaCar. "We realized that there was a really strong community around it, which meant we would not have to maintain a lot of tools of our own," says Lallemand. "It was better if we could contribute to some bigger project like Kubernetes." They also started using <a href="https://prometheus.io/">Prometheus</a>, as they were looking for "service-oriented monitoring that could be updated nightly." Production on Kubernetes began in December 2016. "We like to do crazy stuff around Christmas," he adds with a laugh.</p>
+
+<p>BlaBlaCar now has about 3,000 pods, with 1200 of them running on Kubernetes. Lallemand leads a "foundations team" of 25 members who take care of the networks, databases and systems for about 100 developers. There have been some challenges getting to this point. "The rkt implementation is still not 100 percent finished," Lallemand points out. "It's really good, but there are some features still missing. We have questions about how we do things with stateful services, like databases. We know how we will be migrating some of the services; some of the others are a bit more complicated to deal with. But the Kubernetes community is making a lot of progress on that part."</p>
+
+<p>The team is particularly happy that they're now able to plan capacity better in the company's data center. "We have fewer constraints since we have this abstraction between the services and the hardware we run on," says Lallemand. "If we lose a server because there's a hardware problem on it, we just move the containers onto another server. It's much more efficient. We do that by just changing a line in the configuration file. And with Kubernetes, it should be automatic, so we would have nothing to do."</p>
+
+{{< case-studies/quote >}}
+"If we lose a server because there's a hardware problem on it, we just move the containers onto another server. It's much more efficient. We do that by just changing a line in the configuration file. With Kubernetes, it should be automatic, so we would have nothing to do."
+{{< /case-studies/quote >}}
+
+<p>And these advances ultimately trickle down to BlaBlaCar's users. "We have improved availability overall on our website," says Lallemand. "When you're switching to this cloud-native model with running everything in containers, you have to make sure that you can at any moment reboot a server or a data container without any downtime, without losing traffic. So now our infrastructure is much more resilient and we have better availability than before."</p>
+
+<p>Within BlaBlaCar's technology department, the cloud-native journey has created some profound changes. Lallemand thinks that the regular meetings during the conception stage and the training sessions during implementation helped. "After that everybody took part in the migration process," he says. "Then we split the organization into different 'tribes'—teams that gather developers, product managers, data analysts, all the different jobs, to work on a specific part of the product. Before, they were organized by function. The idea is to give all these tribes access to the infrastructure directly in a self-service way without having to ask. These people are really autonomous. They have responsibility of that part of the product, and they can make decisions faster."</p>
+
+<p>This DevOps transformation turned out to be a positive one for the company's staffers. "The team was very excited about the DevOps transformation because it was new, and we were working to make things more reliable, more future-proof," says Lallemand. "We like doing things that very few people are doing, other than the internet giants."</p>
+
+<p>With these changes already making an impact, BlaBlaCar is looking to split up more and more of its application into services. "I don't say microservices because they're not so micro," Lallemand says. "If we can split the responsibilities between the development teams, it would be easier to manage and more reliable, because we can easily add and remove services if one fails. You can handle it easily, instead of adding a big monolith that we still have."</p>
+
+<p>When Lallemand speaks to other European companies curious about what BlaBlaCar has done with its infrastructure, he tells them to come along for the ride. "I tell them that it's such a pleasure to deal with the infrastructure that we have today compared to what we had before," he says. "They just need to keep in mind their real motive, whether it's flexibility in development or reliability or so on, and then go step by step towards reaching those objectives. That's what we've done. It's important not to do technology for the sake of technology. Do it for a purpose. Our focus was on helping the developers."</p>
