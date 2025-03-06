@@ -1,18 +1,18 @@
 ---
-title: 基本的なDaemonsetを構築する
+title: 基本的なDaemonSetを構築する
 content_type: task  
 weight: 5  
 ---
 <!-- overview -->
 
 このページでは、Kubernetesクラスターの全てのノード上でPodを実行する、基本的な{{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}を構築する方法について示します。
-ホストからファイルをマウントし、[init container](/ja/docs/concepts/workloads/pods/init-containers/)を使用してその内容をログに記録して、pauseコンテナを利用するという単純なユースケースを取り上げます。
+ホストからファイルをマウントし、[Initコンテナ](/ja/docs/concepts/workloads/pods/init-containers/)を使用してその内容をログに記録して、pauseコンテナを利用するという単純なユースケースを取り上げます。
 
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-Daemonsetの動作を示すために、少なくとも2つのノードを持つKubernetesクラスター(1つのコントロールプレーンと1つのワーカーノード)を用意します。
+DaemonSetの動作を示すために、少なくとも2つのノード(1つのコントロールプレーンと1つのワーカーノード)を持つKubernetesクラスターを用意します。
 
 ## DaemonSetの定義
 
