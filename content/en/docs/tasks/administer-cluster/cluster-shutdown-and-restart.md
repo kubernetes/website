@@ -20,7 +20,7 @@ If the cluster has etcd, create an [etcd backup](/docs/tasks/administer-cluster/
 
 ## Shutting Down Clusters
 
-You can shut down your cluster in a graceful manner but gracefully shutting down its nodes. This will allow you to restart it for later use.
+You can shut down your cluster in a graceful manner by gracefully shutting down its nodes. This will allow you to gracefully restart the cluster it for later use.
 
 ### Prerequisites
 
