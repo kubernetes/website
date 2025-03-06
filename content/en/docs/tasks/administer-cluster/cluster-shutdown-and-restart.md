@@ -28,21 +28,29 @@ You can shut down your cluster in a graceful manner but gracefully shutting down
 
 ### Procedure
 
-1. (Optional) If you are shutting the cluster down for an extended period, determine the date on which certificates expire.
-
+1. (Optional) If you are shutting the cluster down for an extended period, identify the date on which certificates expire.
 ```
-$ kubectl get secrets
+$ openssl x509 -in /etc/kubernetes/pki/apiserver.crt -noout -enddate
+```
+- Output
+```
+notAfter=Mar  3 09:18:19 2026 GMT
 ``` 
+- To ensure that the cluster can restart gracefully after this shut down, plan to restart it on or before the specified date. 
 
-2. Make all nodes in the cluster unschedulable while evicting all the pods using `kubectl drain`
+2. Make all nodes in the cluster unschedulable while evicting all the pods using `kubectl cordon` and `kubectl drain`
 
 ```
-$  kubectl drain --ignore-daemonsets node1 node2 node3
+$ kubectl cordon node1 node2 node3
+```
+- while `kubectl drain` should basically be enough due to it capable of making the specified nodes unschedulable before pod eviction, larger clusters may need to make sure all nodes are properly cordoned first before draining. You can check the nodes' schedulability using `kubectl get nodes`
+```
+$ kubectl drain --ignore-daemonsets node1 node2 node3
 ```
 
 3. Shut down all of the nodes in the cluster. You can do this in ways that best fit your cluster; such as through your cloud provider's web console, or a script, or playbook. 
 
-#### Example
+- Example
 ```
 [user@node1 ~]# systemctl poweroff
 ```
@@ -69,7 +77,7 @@ If the cluster fails to recover, you restore the cluster to its previous state u
 3. Allow a few minutes for the cluster's control plane nodes and worker nodes to become `Ready`. Verify that all nodes are `Ready`. 
 
 ```
-$ kubectl get nodes --all-namespaces
+$ kubectl get nodes
 ```
 
 4. Once the nodes are `Ready`, mark all the nodes in the cluster schedulable using `kubectl uncordon`
@@ -81,7 +89,7 @@ $ kubectl uncordon node1 node2 node3
 5. Wait until all pods are back in operation. Verify that the pods are `Running`
 
 ```
-kubectl get no,po --all-namespaces
+kubectl get pods --all-namespaces
 ```
 
 ### Caveats
