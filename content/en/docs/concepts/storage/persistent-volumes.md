@@ -519,17 +519,11 @@ PersistentVolume types are implemented as plugins. Kubernetes currently supports
 * [`nfs`](/docs/concepts/storage/volumes/#nfs) - Network File System (NFS) storage
 
 The following types of PersistentVolume are deprecated but still available.
-If you are using these volume types except for `flexVolume`, `cephfs` and `rbd`,
+If you are using these volume types except for `flexVolume`,
 please install corresponding CSI drivers.
 
-* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
-  (**migration on by default** starting v1.23)
-* [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
-  (**migration on by default** starting v1.23)
 * [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
   (**migration on by default** starting v1.24)
-* [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
-  (**migration on by default** starting v1.21)
 * [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
   (**deprecated** starting v1.23, no migration plan and no plan to remove support)
 * [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
@@ -540,13 +534,13 @@ please install corresponding CSI drivers.
 The following PersistentVolume types require the corresponding CSI driver to be installed in the cluster. Kubernetes includes code to support defining these volumes using the legacy names of plugins that were
 previous part of Kubernetes itself (“in-tree volume plugins“).
 
-| In-tree Volume Plugin | CSI Driver | Kubernetes Version |
+| In-tree Volume Plugin | CSI Driver | Kubernetes Version(CSI migration GA) |
 |--------------------------|:----------------:|--------------------------------:|
 | [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) | [AWS EBS](https://github.com/kubernetes-sigs/aws-ebs-csi-driver) | 1.25+ |
 | [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) | [Azure Disk](https://github.com/kubernetes-sigs/azuredisk-csi-driver) | 1.24+ |
-| [`cinder`](/docs/concepts/storage/volumes/#cinder) | [OpenStack Cinder](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/) | 1.26+ |
-| [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) | [GCE Persistent Disk](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver) | 1.25+ |
 | [`azureFile`](/docs/concepts/storage/volumes/#azurefile) | [Azure File](https://github.com/kubernetes-sigs/azurefile-csi-driver) | 1.26+  |
+| [`cinder`](/docs/concepts/storage/volumes/#cinder) | [OpenStack Cinder](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/) | 1.24+ |
+| [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) | [GCE Persistent Disk](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver) | 1.25+ |
 | [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) | [vSphere](https://github.com/kubernetes-sigs/vsphere-csi-driver) | 1.26+  |
 
 {{< note >}}
@@ -557,13 +551,11 @@ not yet fully switched.
 
 Older versions of Kubernetes also supported the following in-tree PersistentVolume types:
 
-* [`cephfs`](/docs/concepts/storage/volumes/#cephfs)
-  (**not available** starting v1.31)
+* [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume &mdash; **not available** starting with v1.31. The Kubernetes project does not provide a CSI driver for this volume type, however a third party CSI driver is available, [CephFS](https://github.com/ceph/ceph-csi).
 * `flocker` - Flocker storage &mdash; **not available** starting with v1.25. The Kubernetes project does not provide a CSI driver for this volume type.
 * `photonPersistentDisk` - Photon controller persistent disk &mdash; **not available** starting with v1.15. The Kubernetes project does not provide a CSI driver for this volume type.
 * `quobyte` - Quobyte volume &mdash; **not available** starting with v1.25. The Kubernetes project does not provide a CSI driver for this volume type, however a third party CSI driver is available, [Quobyte](https://github.com/quobyte/quobyte-csi-driver).
-* [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume 
-  (**not available** starting v1.31)
+* [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume mdash; **not available** starting with v1.31. The Kubernetes project does not provide a CSI driver for this volume type, however a third party CSI driver is available, [RBD](https://github.com/ceph/ceph-csi).
 * `scaleIO` - ScaleIO volume &mdash; **not available** starting with v1.22. The Kubernetes project does not provide a CSI driver for this volume type.
 * `storageos` - StorageOS volume &mdash; **not available** starting with v1.25. The Kubernetes project does not provide a CSI driver for this volume type, however a third party CSI driver is available, [StorageOS](https://docs.storageos.com/docs/install/kubernetes/).
 
