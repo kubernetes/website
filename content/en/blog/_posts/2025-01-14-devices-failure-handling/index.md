@@ -296,7 +296,7 @@ detection and third party tooling for remediation of these situations.
 
 Typically, these failures are detected based on observed workload
 characteristics. For example, the expected speed of AI/ML training steps on
-particular hardware.
+particular hardware. Remediation for those issues is highly depend on a workload needs.
 
 ## Roadmap
 
