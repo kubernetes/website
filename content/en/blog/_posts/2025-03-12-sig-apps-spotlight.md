@@ -2,8 +2,8 @@
 layout: blog
 title: "Spotlight on SIG Apps"
 slug: sig-apps-spotlight-2025
-canonicalUrl: https://www.kubernetes.dev/blog/2025/03/05/sig-apps-spotlight-2025
-date: 2025-03-05
+canonicalUrl: https://www.kubernetes.dev/blog/2025/03/12/sig-apps-spotlight-2025
+date: 2025-03-12
 author: "Sandipan Panda (DevZero)"
 ---
 
