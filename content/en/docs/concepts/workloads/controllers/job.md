@@ -383,6 +383,8 @@ from failed Jobs is not lost inadvertently.
 
 ### Backoff limit per index {#backoff-limit-per-index}
 
+{{< feature-state feature_gate_name="JobBackoffLimitPerIndex" >}}
+
 When you run an [indexed](#completion-mode) Job, you can choose to handle retries
 for pod failures independently for each index. To do so, set the
 `.spec.backoffLimitPerIndex` to specify the maximal number of pod failures

@@ -12,10 +12,10 @@ spec:
       restartPolicy: Never
       containers:
       - name: main
-        image: python
+        image: docker.io/library/python:3
         command:
           # The script:
-          # - fails the Pod with index 0 with exit code 1 which result in retry,
+          # - fails the Pod with index 0 with exit code 1, which results in one retry;
           # - fails the Pod with index 1 with exit code 42 which results
           #   in failing the index without retry.
           # - succeeds Pods with any other index.
