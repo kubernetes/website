@@ -26,7 +26,7 @@ significantly impact performance and lead to frustrating interruptions. As
 highlighted in the 2024 [Llama
 paper](https://ai.meta.com/research/publications/the-llama-3-herd-of-models/),
 hardware issues, particularly GPU failures, are a major cause of disruption in
-AI/ML training. You can also learn how much effort NVIDIA spend on handing
+AI/ML training. You can also learn how much effort NVIDIA spends on handling
 devices failures and maintenance in the KubeCon talk by [Ryan Hallisey and Piotr
 Prokop All-Your-GPUs-Are-Belong-to-Us: An Inside Look at NVIDIA's Self-Healing
 GeForce NOW
@@ -36,19 +36,19 @@ remediation requests per 1000 nodes a day!
 We also see data centers offering spot consumption models and overcommit on
 power, making device failures commonplace and a part of the business model.
 
-However Kubernetes’s view on resources is still very static. The resource is
+However, Kubernetes’s view on resources is still very static. The resource is
 either there or not. And if it is there, the assumption is that it will stay
 there fully functional - Kubernetes lacks good support for handling full or partial
-hardware failures. These long existing assumptions combined with the overall complexity of a set up, leads
+hardware failures. These long-existing assumptions combined with the overall complexity of a setup lead
 to a variety of failure modes, which we discuss here.
 
 ### Understanding AI/ML workloads
 
-Generally, all AI/ML workloads need specialized hardware, have challenging
+Generally, all AI/ML workloads require specialized hardware, have challenging 
 scheduling requirements, and are expensive when idle. AI/ML workloads typically
 fall into two categories - training and inference. Here is an oversimplified
-view on those categories’ characteristics, which are different traditional,
-workloads like web services:
+view of those categories’ characteristics, which are different from traditional workloads
+like web services:
 
 Training
 : These workloads are resource-intensive, often consuming entire
@@ -58,8 +58,8 @@ Training
 
 Inference
 : These workloads are usually long-running or run indefinitely,
-  and can be small enough to consume a subset of a Node’s devices or large to
-  span multiple nodes. They often require downloading huge files with the model
+  and can be small enough to consume a subset of a Node’s devices or large enough to span
+  multiple nodes. They often require downloading huge files with the model
   weights.
 
 These workload types specifically break many past assumptions:
@@ -69,7 +69,7 @@ These workload types specifically break many past assumptions:
 | :---- | :---- |
 | Can get a better CPU and the app will work faster. | Require a **specific** device (or **class of devices**) to run. |
 | When something doesn’t work, just recreate it. | Allocation or reallocation is expensive. |
-| Any node will work. No need to coordinate between Pods. | Scheduled in a special way - devices often connected in a cross nodes topology. |
+| Any node will work. No need to coordinate between Pods. | Scheduled in a special way - devices often connected in a cross-node topology. |
 | Each Pod can be plug-and-play replaced if failed. | Pods are a part of a larger task. Lifecycle of an entire task depends on each Pod. |
 | Container images are slim and easily available. | Container images may be so big that they require special handling. |
 | Long initialization can be offset by slow rollout. | Initialization may be long and should be optimized, sometimes across many Pods together. |
@@ -123,7 +123,7 @@ interruptions:
 
 * Pods failing admission at various stages of its lifecycle  
 * Pods unable to run on perfectly fine hardware  
-* Scheduling taking unusually long time
+* Scheduling taking unexpectedly long time
 
 {{< figure src="k8s-infra-failures.svg" alt="The same diagram as one above it, however it has an overlayed orange bang drawings over individual components with the text indicating what can break in that component. Over the kubelet text reads: 'kubelet restart: looses all devices info before re-Watch'. Over the Device plugin text reads: 'device plugin update, evictIon, restart: kubelet cannot Allocate devices or loses all devices state'. Over the user Pod text reads: 'slow pod termination: devices are unavailable'." >}}
 
@@ -142,7 +142,7 @@ only work when these best practices are followed:
 * Configure and code graceful termination logic carefully to not block devices
   for too long.
 
-Another class of Kubernetes infra-related issues are driver-related. With
+Another class of Kubernetes infra-related issues is driver-related. With
 traditional resources like CPU and memory, no compatibility checks between the
 application and hardware were needed. With special devices like hardware
 accelerators, there are new failure modes. Device drivers installed on the node:
@@ -152,7 +152,7 @@ accelerators, there are new failure modes. Device drivers installed on the node:
 * Must work with other drivers (like [nccl](https://developer.nvidia.com/nccl),
   etc.)
 
-Best practices handling driver versions:
+Best practices for handling driver versions:
 
 * Monitor driver installer health  
 * Plan upgrades of infrastructure and Pods to match the version  
@@ -310,7 +310,7 @@ readily available over implementing automatic remediations for those failures
 that might only be suitable for a subset of workloads.
 
 This approach ensures there are no drastic changes for workload handling which
-may break existing well-oiled DIY solutions, or experiences with the existing
+may break existing, well-oiled DIY solutions or experiences with the existing
 more traditional workloads.
 
 Many error handling techniques used today work for AI/ML, but are very
@@ -326,7 +326,7 @@ The area of Kubernetes infrastructure is the easiest to understand and very
 important to make right for the upcoming transition from Device Plugins to DRA.
 SIG Node is tracking many work items in this area, most notably the following:
 
-* **Done:** [integrate kubelet with the systemd watchdog · Issue
+* [integrate kubelet with the systemd watchdog · Issue
   #127460](https://github.com/kubernetes/kubernetes/issues/127460)
 * [DRA: detect stale DRA plugin sockets · Issue
  #128696](https://github.com/kubernetes/kubernetes/issues/128696)  
@@ -339,7 +339,7 @@ SIG Node is tracking many work items in this area, most notably the following:
 * [Retry pod admission on device plugin grpc failures · Issue
   #128043](https://github.com/kubernetes/kubernetes/issues/128043)
 
-Basically, every interaction of of Kubernetes components must be reliable via
+Basically, every interaction of Kubernetes components must be reliable via
 either the kubelet improvements or the best practices in plugins development
 and deployment.
 
