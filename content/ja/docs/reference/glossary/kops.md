@@ -5,7 +5,7 @@ date: 2018-04-12
 full_link: /docs/setup/production-environment/kops/
 短い説明: >
   kOps は、運用グレードの高可用性 Kubernetes クラスターの作成、破棄、アップグレード、維持を支援するだけでなく、必要なクラウド インフラストラクチャのプロビジョニングも行います。
-別名: 
+aka: 
 tags:
 - tool
 - operation
