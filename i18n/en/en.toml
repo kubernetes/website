@@ -648,7 +648,7 @@ other = "Copied to clipboard: "
 [translated_by]
 other = "Translated By"
 
-[ui_search_placeholder]
+[ui_search]
 other = "Search this site"
 
 [version_check_mustbe]
