@@ -818,7 +818,7 @@ placeholder text for the search form:
 例如，这是搜索表单的德语占位符文本：
 
 ```toml
-[ui_search_placeholder]
+[ui_search]
 other = "Suchen"
 ```
 

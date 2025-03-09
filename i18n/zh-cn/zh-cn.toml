@@ -577,7 +577,7 @@ other = """本页面中的条目引用了 Kubernetes 外部的供应商。Kubern
 [translated_by]
 other = "译者"
 
-[ui_search_placeholder]
+[ui_search]
 other = "搜索"
 
 [version_check_mustbe]
