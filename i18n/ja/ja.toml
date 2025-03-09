@@ -317,7 +317,7 @@ other = "(リリース日: "
 [subscribe_button]
 other = "購読する"
 
-[ui_search_placeholder]
+[ui_search]
 other = "検索"
 
 [thirdparty_message]

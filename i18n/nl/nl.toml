@@ -193,5 +193,5 @@ other = "Evenementenkalender"
 other = "YouTube"
 
 # UI elements
-[ui_search_placeholder]
+[ui_search]
 other = "Zoeken"
