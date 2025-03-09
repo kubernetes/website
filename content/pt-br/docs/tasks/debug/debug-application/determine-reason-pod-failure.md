@@ -9,7 +9,7 @@ weight: 30
 Esta página mostra como escrever e ler uma mensagem de término do contêiner.
 
 Mensagens de término fornecem uma maneira para os contêineres registrarem informações sobre eventos fatais em um local onde possam ser facilmente recuperadas e exibidas por ferramentas como painéis e softwares de monitoramento. Na maioria dos casos, as informações incluídas em uma mensagem de término também devem ser registradas nos
-[Logs do Kubernetes](/docs/concepts/cluster-administration/logging/).
+[logs do Kubernetes](/docs/concepts/cluster-administration/logging/).
 
 ## {{% heading "prerequisites" %}}
 
