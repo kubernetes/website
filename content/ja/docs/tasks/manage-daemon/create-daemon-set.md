@@ -17,7 +17,7 @@ DaemonSetの動作を示すために、少なくとも2つのノード(1つの�
 ## DaemonSetの定義
 
 このタスクでは、Podのコピーが全てのノード上でスケジュールされるようにする、基本的なDaemonSetが作成されます。
-Podはinitコンテナを使用してホストから`/etc/machine-id`の内容を読み込んでログに記録し、メインのコンテナはPodを実行し続ける`pause`コンテナとなります。
+PodはInitコンテナを使用してホストから`/etc/machine-id`の内容を読み込んでログに記録し、メインのコンテナはPodを実行し続ける`pause`コンテナとなります。
 
 {{% code_sample file="application/basic-daemonset.yaml" %}}
 
@@ -27,7 +27,7 @@ Podはinitコンテナを使用してホストから`/etc/machine-id`の内容�
    kubectl apply -f https://k8s.io/examples/application/basic-daemonset.yaml
    ```
 
-1. 適用すると、DaemonSetがクラスタ内の全てのノードでPodを実行していることを確認できます:
+1. 適用すると、DaemonSetがクラスター内の全てのノードでPodを実行していることを確認できます:
 
    ```shell
    kubectl get pods -o wide
@@ -57,7 +57,7 @@ DaemonSetを削除するためには、次のコマンドを実行します:
 kubectl delete --cascade=foreground --ignore-not-found --now daemonsets/example-daemonset
 ```
 
-この単純なDaemonSetの例では、initコンテナやホストパスボリュームなどの主要なコンポーネントを紹介しており、より高度なユースケースに応じて拡張することができます。
+この単純なDaemonSetの例では、Initコンテナやホストパスボリュームなどの主要なコンポーネントを紹介しており、より高度なユースケースに応じて拡張することができます。
 詳細については[DaemonSet](/ja/docs/concepts/workloads/controllers/daemonset/)を参照してください。
 
 ## {{% heading "whatsnext" %}}
