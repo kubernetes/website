@@ -124,11 +124,9 @@ A saída do log é limitada a 2048 bytes ou 80 linhas, o que for menor.
 
 ## {{% heading "whatsnext" %}}
 
-* Veja o campo `terminationMessagePath` em  
-  [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).
+* Veja o campo `terminationMessagePath` em [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).
 * Consulte [ImagePullBackOff](/docs/concepts/containers/images/#imagepullbackoff) em [Imagens](/docs/concepts/containers/images/).
 * Saiba mais sobre [recuperação de logs](/docs/concepts/cluster-administration/logging/).
 * Aprenda sobre [templates Go](https://pkg.go.dev/text/template).
-* Conheça mais sobre [status do Pod](/docs/tasks/debug/debug-application/debug-init-containers/#understanding-pod-status)  
-  e [fase do Pod](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase).
+* Conheça mais sobre [status do Pod](/docs/tasks/debug/debug-application/debug-init-containers/#understanding-pod-status) e [fase do Pod](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase).
 * Entenda os [estados do contêiner](/docs/concepts/workloads/pods/pod-lifecycle/#container-states).
