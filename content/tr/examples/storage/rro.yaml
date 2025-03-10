@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rro
+spec:
+  volumes:
+    - name: mnt
+      hostPath:
+        # tmpfs is mounted on /mnt/tmpfs
+        path: /mnt
+  containers:
+    - name: busybox
+      image: busybox
+      args: ["sleep", "infinity"]
+      volumeMounts:
+        # /mnt-rro/tmpfs is not writable
+        - name: mnt
+          mountPath: /mnt-rro
+          readOnly: true
+          mountPropagation: None
+          recursiveReadOnly: Enabled
+        # /mnt-ro/tmpfs is writable
+        - name: mnt
+          mountPath: /mnt-ro
+          readOnly: true
+        # /mnt-rw/tmpfs is writable
+        - name: mnt
+          mountPath: /mnt-rw

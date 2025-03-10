@@ -1,0 +1,1 @@
+Kümeye iletişim kuracak şekilde yapılandırılmış kubectl komut satırı aracına ve tüm düğümlere kabuk erişimine sahip olmanız gerekir. Bu öğreticiyi, kontrol düzlemi ana bilgisayarları olarak hareket etmeyen en az iki düğüme sahip bir kümede çalıştırmanız önerilir.
