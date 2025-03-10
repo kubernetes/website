@@ -7,6 +7,7 @@
 | `test_examples.sh`      | This script tests whether a change affects example files bundled in the website.                                                      |
 | `check-headers-file.sh` | This script checks the headers if you are in a production environment.                                                                |
 | `diff_l10n_branches.py` | This script generates a report of outdated contents in `content/<l10n-lang>` directory by comparing two l10n team milestone branches. |
+| `report-outdated-by-mod.py` | This script generates a report of outdated contents in `content/<l10n-lang>` based on modification date differences. |
 | `hash-files.sh`         | This script emits as hash for the files listed in $@                                                                                  |
 | `linkchecker.py`        | This a link checker for Kubernetes documentation website.                                                                             |
 | `lsync.sh`              | This script checks if the English version of a page has changed since a localized page has been committed.                            |
@@ -93,6 +94,36 @@ Usage: diff_l10n_branches.py [OPTIONS] L10N_LANG L_COMMIT R_COMMIT
 Options:
   --src-lang TEXT  Source language
   --help           Show this message and exit.
+```
+
+## report-outdated-by-mod.py
+
+```
+$ python ./scripts/report-outdated-by-mod.py --help
+Usage: report-outdated-by-mod.py [-h] [--path PATH] [target_lang ...]
+
+    This script compares markdown files across different language directories
+    to identify and report localized documents that may be outdated,
+    based on modification date differences.
+
+    It focuses primarily on:
+    1. Reporting outdated documents based on modification date differences.
+    2. Estimating false alerts.
+    3. Calculating the similarity between the English version and localized versions of documents.
+    (similarity analysis includes line counts, special character patterns, and English word usage patterns.)
+
+    Users can specify target languages for comparison against the English base.
+    If no languages are specified, all directories will be compared.
+
+    The path to the content directory can be specified using the --path parameter; 
+    if not provided, './content' or '../content' is used as the default.
+
+positional arguments:
+  target_lang  Target language directories (e.g., ko ja fr). If empty, all directories will be compared.
+
+options:
+  -h, --help   show this help message and exit
+  --path PATH  Base content directory. Default is './content'
 ```
 
 ## hash-files.sh
