@@ -29,12 +29,8 @@ runtime, which can be configured separately within the kubelet by using the
 `--image-service-endpoint` [command line flags](/docs/reference/command-line-tools-reference/kubelet).
 
 For Kubernetes v{{< skew currentVersion >}}, the kubelet prefers to use CRI `v1`.
-If a container runtime does not support `v1` of the CRI, then the kubelet tries to
-negotiate any older supported version.
-The v{{< skew currentVersion >}} kubelet can also negotiate CRI `v1alpha2`, but
-this version is considered as deprecated.
-If the kubelet cannot negotiate a supported CRI version, the kubelet gives up
-and doesn't register as a node.
+If a container runtime does not support `v1` of the CRI, then the kubelet cannot register as a node.
+The v{{< skew currentVersion >}} kubelet only supports CRI `v1`. The deprecated `v1alpha2` API is no longer supported. If the kubelet cannot connect to a container runtime using CRI `v1`, it will give up and will not register as a node.
 
 ## Upgrading
 
@@ -47,4 +43,4 @@ requires a restart of the kubelet.
 
 ## {{% heading "whatsnext" %}}
 
-- Learn more about the CRI [protocol definition](https://github.com/kubernetes/cri-api/blob/c75ef5b/pkg/apis/runtime/v1/api.proto)
+- Learn more about the CRI [protocol definition](https://github.com/kubernetes/cri-api/blob/{{< skew currentVersion >}}/pkg/apis/runtime/v1/api.proto)
