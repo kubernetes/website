@@ -58,12 +58,12 @@ _디플로이먼트(Deployment)_ 는 {{< glossary_tooltip text="파드" term_id=
   매칭을 위해서는 `matchLabels` 와 `matchExpressions` 의 모든 요건이 충족되어야 한다.
   {{< /note >}}
 
-* `template` 필드에는 다음 하위 필드가 포함되어 있다.
+* `.spec.template` 필드에는 다음 하위 필드가 포함되어 있다.
   * 파드는 `.metadata.labels` 필드를 사용해서 `app: nginx` 라는 레이블을 붙인다.
-  * 파드 템플릿의 사양 또는 `.template.spec` 필드는
+  * 파드 템플릿의 사양 또는 `.spec` 필드는
   파드가 [도커 허브](https://hub.docker.com/)의 `nginx` 1.14.2 버전 이미지를 실행하는
   `nginx` 컨테이너 1개를 실행하는 것을 나타낸다.
-  * 컨테이너 1개를 생성하고, `.spec.template.spec.containers[0].name` 필드를 사용해서 `nginx` 이름을 붙인다.
+  * 컨테이너 1개를 생성하고, `.spec.containers[0].name` 필드를 사용해서 `nginx` 이름을 붙인다.
 
 시작하기 전에, 쿠버네티스 클러스터가 시작되고 실행 중인지 확인한다.
 위의 디플로이먼트를 생성하려면 다음 단계를 따른다.
