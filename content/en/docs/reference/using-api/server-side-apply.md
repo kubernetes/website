@@ -85,7 +85,7 @@ from the live object or reset to its default value, if it has one.
 The same rule applies to associative list or map items.
 
 Compared to the (legacy)
-[`kubectl.kubernetes.io/last-applied-configuration`](/docs/reference/labels-annotations-taints/#kubectl-kubernetes-io-last-applied-configuration)
+[`kubectl.kubernetes.io/last-applied-configuration`](/docs/reference/labels-annotations-taints/annotations/#kubectl-kubernetes-io-last-applied-configuration)
 annotation managed by `kubectl`, Server-Side Apply uses a more declarative
 approach, that tracks a user's (or client's) field management, rather than
 a user's last applied state. As a side effect of using Server-Side Apply,

@@ -134,7 +134,7 @@ In Kubernetes v{{< skew currentVersion >}}, the value of `.spec.os.name` does no
 how the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
 picks a node for the Pod to run on. In any cluster where there is more than one operating system for
 running nodes, you should set the
-[kubernetes.io/os](/docs/reference/labels-annotations-taints/#kubernetes-io-os)
+[kubernetes.io/os](/docs/reference/labels-annotations-taints/labels/#kubernetes-io-os)
 label correctly on each node, and define pods with a `nodeSelector` based on the operating system
 label. The kube-scheduler assigns your pod to a node based on other criteria and may or may not
 succeed in picking a suitable node placement where the node OS is right for the containers in that Pod.

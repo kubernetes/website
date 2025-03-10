@@ -260,7 +260,7 @@ as a destination.
 
 For an EndpointSlice that you create yourself, or in your own code,
 you should also pick a value to use for the label
-[`endpointslice.kubernetes.io/managed-by`](/docs/reference/labels-annotations-taints/#endpointslicekubernetesiomanaged-by).
+[`endpointslice.kubernetes.io/managed-by`](/docs/reference/labels-annotations-taints/labels/#endpointslice-kubernetes-io-managed-by).
 If you create your own controller code to manage EndpointSlices, consider using a
 value similar to `"my-domain.example/name-of-controller"`. If you are using a third
 party tool, use the name of the tool in all-lowercase and change spaces and other
@@ -327,7 +327,7 @@ affects the legacy Endpoints API.
 In that case, Kubernetes selects at most 1000 possible backend endpoints to store
 into the Endpoints object, and sets an
 {{< glossary_tooltip text="annotation" term_id="annotation" >}} on the Endpoints:
-[`endpoints.kubernetes.io/over-capacity: truncated`](/docs/reference/labels-annotations-taints/#endpoints-kubernetes-io-over-capacity).
+[`endpoints.kubernetes.io/over-capacity: truncated`](/docs/reference/labels-annotations-taints/annotations/#endpoints-kubernetes-io-over-capacity).
 The control plane also removes that annotation if the number of backend Pods drops below 1000.
 
 Traffic is still sent to backends, but any load balancing mechanism that relies on the
