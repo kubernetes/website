@@ -2,10 +2,6 @@
 title: Instale e configure o kubectl no Linux
 content_type: task
 weight: 10
-card:
-  name: tasks
-  weight: 20
-  title: Install kubectl on Linux
 ---
 
 ## {{% heading "prerequisites" %}}
