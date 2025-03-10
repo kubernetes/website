@@ -506,7 +506,7 @@ In [Validation Schema Publishing](#publish-validation-schema-in-openapi),
 
 ### RawExtension
 
-RawExtensions (as in [`runtime.RawExtension`](/docs/reference//kubernetes-api/workload-resources/controller-revision-v1#RawExtension))
+RawExtensions (as in [`runtime.RawExtension`](/docs/reference/kubernetes-api/workload-resources/controller-revision-v1#RawExtension))
 holds complete Kubernetes objects, i.e. with `apiVersion` and `kind` fields.
 
 It is possible to specify those embedded objects (both completely without constraints or partially specified)
@@ -1076,7 +1076,7 @@ Here is the declarations type mapping between OpenAPIv3 and CEL type:
 | 'object' with x-kubernetes-embedded-type           | object / "message type", 'apiVersion', 'kind', 'metadata.name' and 'metadata.generateName' are implicitly included in schema |
 | 'object' with x-kubernetes-preserve-unknown-fields | object / "message type", unknown fields are NOT accessible in CEL expression                                                 |
 | x-kubernetes-int-or-string                         | dynamic object that is either an int or a string, `type(value)` can be used to check the type                                |
-| 'array                                             | list                                                                                                                         |
+| 'array'                                            | list                                                                                                                         |
 | 'array' with x-kubernetes-list-type=map            | list with map based Equality & unique key guarantees                                                                         |
 | 'array' with x-kubernetes-list-type=set            | list with set based Equality & unique entry guarantees                                                                       |
 | 'boolean'                                          | boolean                                                                                                                      |
@@ -1204,7 +1204,7 @@ Example Usage:
 
 | CEL                                     | Description |
 |-----------------------------------------|-------------|
-| `self.foo == "foo" || (oldSelf.hasValue() && oldSelf.value().foo != "foo")` | Ratcheted rule. Once a value is set to "foo", it must stay foo. But if it existed before the "foo" constraint was introduced, it may use any value |
+| self.foo == "foo" || (oldSelf.hasValue() && oldSelf.value().foo != "foo")` | Ratcheted rule. Once a value is set to "foo", it must stay foo. But if it existed before the "foo" constraint was introduced, it may use any value |
 | [oldSelf.orValue(""), self].all(x, ["OldCase1", "OldCase2"].exists(case, x == case)) || ["NewCase1", "NewCase2"].exists(case, self == case) || ["NewCase"].has(self)` | "Ratcheted validation for removed enum cases if oldSelf used them" |
 | oldSelf.optMap(o, o.size()).orValue(0) < 4 || self.size() >= 4 | Ratcheted validation of newly increased minimum map or list size |
 
