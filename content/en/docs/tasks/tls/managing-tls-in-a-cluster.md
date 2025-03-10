@@ -260,11 +260,24 @@ This produces a signed serving certificate file, `ca-signed-server.pem`.
 
 Finally, populate the signed certificate in the API object's status:
 
-```shell
+{{< tabs name="Upload the signed certificate" >}}
+{{< tab name="Linux" codelang="bash" >}}
 kubectl get csr my-svc.my-namespace -o json | \
   jq '.status.certificate = "'$(base64 ca-signed-server.pem | tr -d '\n')'"' | \
   kubectl replace --raw /apis/certificates.k8s.io/v1/certificatesigningrequests/my-svc.my-namespace/status -f -
-```
+{{< /tab >}}
+{{< tab name="macOS" codelang="bash" >}}
+kubectl get csr my-svc.my-namespace -o json | \
+  jq '.status.certificate = "'$(base64 -i ca-signed-server.pem | tr -d '\n')'"' | \
+  kubectl replace --raw /apis/certificates.k8s.io/v1/certificatesigningrequests/my-svc.my-namespace/status -f -
+{{< /tab >}}
+{{< tab name="Windows" codelang="powershell" >}}
+kubectl get csr my-svc.my-namespace -o json | \
+  jq '.status.certificate = "'$(base64 ca-signed-server.pem | tr -d '\n')'"' | \
+  kubectl replace --raw /apis/certificates.k8s.io/v1/certificatesigningrequests/my-svc.my-namespace/status -f -
+{{< /tab >}}
+{{< /tabs >}}
+
 
 {{< note >}}
 This uses the command line tool [`jq`](https://jqlang.github.io/jq/) to populate the base64-encoded
