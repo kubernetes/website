@@ -9,7 +9,7 @@ weight: 30
 
 <!-- overview -->
 
-This page provides a real-world example of how to configure Redis and its memory requirements, using a ConfigMap. It builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task. 
+This page provides a real-world example of how to configure Redis and its memory management, using a ConfigMap. It builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task. 
 
 
 
@@ -269,7 +269,7 @@ It should now reflect the desired value of `allkeys-lru`:
 
 ### Wrap up {#wrap-up}
 
-In this tutorial, you created a basic ConfigMap, applied it to a Redis Pod, and verified the Pod's initial configuration. Next, you updated the ConfigMap with realistic `maxmemory` and `maxmemory-policy` values to support the Redis cache, reapplied the ConfigMap, and restarted the Pod to verify that your configuration took effect.
+In this tutorial, you created a basic ConfigMap, applied it to a Redis Pod, and verified the Pod's initial configuration. Next, you updated the ConfigMap with realistic `maxmemory` and `maxmemory-policy` values to support the Redis cache. You then reapplied the ConfigMap, and restarted the Pod to verify that your configuration took effect.
 
 Now, you can clean up your work by deleting the created resources:
 
