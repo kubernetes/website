@@ -205,7 +205,7 @@ other = "Forum"
 other = "Veranstaltungskalender"
 
 # UI elements
-[ui_search_placeholder]
+[ui_search]
 other = "Suchen"
 
 [input_placeholder_email_address]
