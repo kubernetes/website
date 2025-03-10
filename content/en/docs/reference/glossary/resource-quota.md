@@ -1,5 +1,5 @@
 ---
-title: Resource Quotas
+title: ResourceQuota
 id: resource-quota
 date: 2018-04-12
 full_link: /docs/concepts/policy/resource-quotas/
@@ -12,9 +12,13 @@ tags:
 - operation
 - architecture
 ---
- Provides constraints that limit aggregate resource consumption per {{< glossary_tooltip term_id="namespace" >}}.
+Object that constrains aggregate resource
+consumption, per {{< glossary_tooltip term_id="namespace" >}}.
 
-<!--more--> 
+<!--more-->
 
-Limits the quantity of objects that can be created in a namespace by type, as well as the total amount of compute resources that may be consumed by resources in that project.
+A ResourceQuota can either limits the quantity of {{< glossary_tooltip text="API resources" term_id="api-resource" >}}
+that can be created in a namespace by type, or it can set a limit on the total amount of
+{{< glossary_tooltip text="infrastructure resources" term_id="infrastructure-resource" >}}
+that may be consumed on behalf of the namespace (and the objects within it).
 
