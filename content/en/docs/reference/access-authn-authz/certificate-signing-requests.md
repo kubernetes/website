@@ -15,6 +15,8 @@ content_type: concept
 weight: 60
 ---
 
+<!-- TODO(KEP-4317): Document PodCertificateRequest -->
+
 <!-- overview -->
 
 Kubernetes certificate and trust bundle APIs enable automation of
