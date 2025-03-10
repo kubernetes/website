@@ -1,6 +1,5 @@
 $main-max-width: 1200px;
 $vendor-strip-height: 44px;
-$video-section-height: 580px;
 
 @media screen and (min-width: 1024px) {
 
@@ -50,13 +49,12 @@ $video-section-height: 580px;
   }
 
   #video {
-    height: $video-section-height;
     position: relative;
-    background-position: center center;
+    background-position: top center;
     background-size: cover;
 
     &>.light-text {
-      margin-right: 10%;
+      margin: 0 10% 15px 0;
     }
   }
 
