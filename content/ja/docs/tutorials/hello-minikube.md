@@ -2,60 +2,88 @@
 title: Hello Minikube
 content_type: tutorial
 weight: 5
-card: 
+card:
   name: tutorials
   weight: 10
 ---
 
 <!-- overview -->
 
-このチュートリアルでは、[minikube](/ja/docs/setup/learning-environment/minikube)とKatacodaを使用して、Kubernetes上でサンプルアプリケーションを動かす方法を紹介します。Katacodaはブラウザで無償のKubernetes環境を提供します。
-
-{{< note >}}
-[minikubeをローカルにインストール](https://minikube.sigs.k8s.io/docs/start/)している場合もこのチュートリアルを進めることが可能です。
-{{< /note >}}
-
-
+このチュートリアルでは、[minikube](/ja/docs/tasks/tools/#minikube)を使用して、Kubernetes上でサンプルアプリケーションを動かす方法を紹介します。
+このチュートリアルはNGINXを利用してすべての要求をエコーバックするコンテナイメージを提供します。
 
 ## {{% heading "objectives" %}}
-
 
 * minikubeへのサンプルアプリケーションのデプロイ
 * アプリケーションの実行
 * アプリケーションログの確認
 
-
-
 ## {{% heading "prerequisites" %}}
 
 
-このチュートリアルはNGINXを利用してすべての要求をエコーバックするコンテナイメージを提供します。
+このチュートリアルは、`minikube`がセットアップ済みであることを前提としています。
+インストール手順は[minikube start](https://minikube.sigs.k8s.io/docs/start/)の __Step 1__ を参照してください。
+{{< note >}}
+ __Step 1, Installation__ の手順のみ実行してください。それ以降の手順はこのページで説明します。
+{{< /note >}}
 
-
-
+また、`kubectl`をインストールする必要があります。
+インストール手順は[ツールのインストール](/ja/docs/tasks/tools/#kubectl)を参照してください。
 
 
 <!-- lessoncontent -->
 
 ## minikubeクラスターの作成
 
-1. **Launch Terminal** をクリックしてください
+```shell
+minikube start
+```
 
-    {{< kat-button >}}
+## ダッシュボードを開く
+
+Kubernetesダッシュボードを開きます。これには二通りの方法があります:
+
+{{< tabs name="dashboard" >}}
+{{% tab name="ブラウザを起動" %}}
+**新しい** ターミナルを開き、次のコマンドを実行します:
+```shell
+# 新しいターミナルを起動し、以下を実行したままにします
+minikube dashboard
+```
+
+`minikube start`を実行したターミナルに戻ります。
 
 {{< note >}}
-    minikubeをローカルにインストール済みの場合は、`minikube start`を実行してください。
+`dashboard`コマンドは、ダッシュボードアドオンを有効にし、デフォルトのWebブラウザでプロキシを開きます。
+ダッシュボード上で、DeploymentやServiceなどのKubernetesリソースを作成できます。
+
+ターミナルから直接ブラウザを起動させずに、WebダッシュボードのURLを取得する方法については、「URLをコピー&ペースト」タブを参照してください。
+
+デフォルトでは、ダッシュボードはKubernetesの仮想ネットワーク内部からのみアクセス可能です。
+`dashboard`コマンドは、Kubernetes仮想ネットワークの外部からダッシュボードにアクセス可能にするための一時的なプロキシを作成します。
+
+プロキシを停止するには、`Ctrl+C`を実行してプロセスを終了します。
+`dashboard`コマンドが終了した後も、ダッシュボードはKubernetesクラスタ内で実行を続けます。
+再度`dashboard`コマンドを実行すれば、新しい別のプロキシを作成してダッシュボードにアクセスできます。
 {{< /note >}}
 
-2. ブラウザーでKubernetesダッシュボードを開いてください:
+{{% /tab %}}
+{{% tab name="URLをコピー&ペースト" %}}
 
-    ```shell
-    minikube dashboard
-    ```
+minikubeが自動的にWebブラウザを開くことを望まない場合、`dashboard`サブコマンドを`--url`フラグと共に実行します。
+`minikube`は、お好みのブラウザで開くことができるURLを出力します。
 
-3. Katacoda環境のみ：ターミナルペーン上部の+ボタンをクリックしてから **Select port to view on Host 1** をクリックしてください。
+**新しい** ターミナルを開き、次のコマンドを実行します:
+```shell
+# 新しいターミナルを起動し、以下を実行したままにします
+minikube dashboard --url
+```
 
-4. Katacoda環境のみ：`30000`を入力し、**Display Port**をクリックしてください。
+URLをコピー&ペーストし、ブラウザで開きます。
+`minikube start`を実行したターミナルに戻ります。
+
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Deploymentの作成
 
@@ -137,19 +165,13 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管
     ```
 
     ロードバランサーをサポートするクラウドプロバイダーでは、Serviceにアクセスするための外部IPアドレスが提供されます。
-    minikube では、`LoadBalancer`タイプは`minikube service`コマンドを使用した接続可能なServiceを作成します。    
+    minikube では、`LoadBalancer`タイプは`minikube service`コマンドを使用した接続可能なServiceを作成します。
 
 3. 次のコマンドを実行します:
 
     ```shell
     minikube service hello-node
     ```
-
-4. Katacoda環境のみ：ターミナル画面上部の+ボタンをクリックして **Select port to view on Host 1** をクリックしてください。
-
-5. Katacoda環境のみ：`8080`の反対側のService出力に、5桁のポート番号が表示されます。このポート番号はランダムに生成されるため、ここで使用するポート番号と異なる場合があります。ポート番号テキストボックスに番号を入力し、ポートの表示をクリックしてください。前の例の場合は、`30369`と入力します。
-
-    アプリケーションとその応答が表示されるブラウザーウィンドウが開きます。
 
 ## アドオンの有効化
 
@@ -257,11 +279,14 @@ minikube stop
 minikube delete
 ```
 
-
+## まとめ
+このページでは、minikubeクラスタを立ち上げて実行するための基本的な部分を説明しました。
+これでアプリケーションをデプロイする準備が整いました。
 
 ## {{% heading "whatsnext" %}}
 
 
+* _[kubectlで初めてのアプリケーションをKubernetesにデプロイする](/ja/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)_.
 * [Deploymentオブジェクト](/ja/docs/concepts/workloads/controllers/deployment/)について学ぶ.
 * [アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)について学ぶ.
 * [Serviceオブジェクト](/ja/docs/concepts/services-networking/service/)について学ぶ.
