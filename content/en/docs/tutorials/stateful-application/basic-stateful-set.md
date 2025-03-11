@@ -908,7 +908,7 @@ You select this update strategy for a StatefulSet by setting the
 Patch the `web` StatefulSet to use the `OnDelete` update strategy:
 
 ```shell
-kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"OnDelete"}}}'
+kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"OnDelete", "rollingUpdate": null}}}'
 ```
 ```
 statefulset.apps/web patched

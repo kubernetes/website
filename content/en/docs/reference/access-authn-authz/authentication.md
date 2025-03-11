@@ -1093,9 +1093,8 @@ that grant access to the `*` user or `*` group do not include anonymous users.
 {{< feature-state feature_gate_name="AnonymousAuthConfigurableEndpoints" >}}
 
 The `AuthenticationConfiguration` can be used to configure the anonymous
-authenticator. To enable configuring anonymous auth via the config file you need
-enable the `AnonymousAuthConfigurableEndpoints` feature gate. When this feature
-gate is enabled you cannot set the `--anonymous-auth` flag.
+authenticator. If you set the anonymous field in the `AuthenticationConfiguration`
+file then you cannot set the `--anonymous-auth` flag.
 
 The main advantage of configuring anonymous authenticator using the authentication
 configuration file is that in addition to enabling and disabling anonymous authentication

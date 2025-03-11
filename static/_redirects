@@ -54,6 +54,7 @@
 /docs/concepts/cluster-administration/access-cluster/     /docs/tasks/access-application-cluster/access-cluster/ 301
 /docs/concepts/cluster-administration/audit/     /docs/tasks/debug/debug-cluster/audit/ 301
 /docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig   /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/ 301
+/docs/concepts/cluster-administration/cluster-autoscaling/    /docs/concepts/cluster-administration/node-autoscaling/ 301
 /docs/concepts/cluster-administration/cluster-management/     /docs/tasks/administer-cluster/ 302
 /docs/concepts/cluster-administration/configure-etcd/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
 /docs/concepts/cluster-administration/device-plugins/     /docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/ 301
@@ -339,6 +340,7 @@
 /docs/tutorials/kubernetes-basics/scale-interactive/     /docs/tutorials/kubernetes-basics/scale/scale-interactive/ 301
 /docs/tutorials/kubernetes-basics/scale-intro/     /docs/tutorials/kubernetes-basics/scale/scale-intro/ 301
 /docs/tutorials/clusters/apparmor/     /docs/tutorials/security/apparmor/   301
+/ja/docs/tutorials/clusters/apparmor/     /ja/docs/tutorials/security/apparmor/ 301
 /docs/tutorials/clusters/seccomp/      /docs/tutorials/security/seccomp/    301
 /ja/docs/tutorials/kubernetes-basics/scale-intro/     /ja/docs/tutorials/kubernetes-basics/scale/scale-intro/ 301
 /ko/docs/tutorials/kubernetes-basics/scale-intro/     /ko/docs/tutorials/kubernetes-basics/scale/scale-intro/ 301

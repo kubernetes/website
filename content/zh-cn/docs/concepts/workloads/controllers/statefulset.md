@@ -49,7 +49,7 @@ following.
 -->
 ## 使用 StatefulSet   {#using-statefulsets}
 
-StatefulSet 对于需要满足以下一个或多个需求的应用程序很有价值：
+StatefulSet 对于需要满足以下一个或多个需求的应用程序很有价值。
 
 <!--
 * Stable, unique network identifiers.
@@ -122,6 +122,59 @@ The example below demonstrates the components of a StatefulSet.
 
 下面的示例演示了 StatefulSet 的组件。
 
+<!--
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  ports:
+  - port: 80
+    name: web
+  clusterIP: None
+  selector:
+    app: nginx
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web
+spec:
+  selector:
+    matchLabels:
+      app: nginx # has to match .spec.template.metadata.labels
+  serviceName: "nginx"
+  replicas: 3 # by default is 1
+  minReadySeconds: 10 # by default is 0
+  template:
+    metadata:
+      labels:
+        app: nginx # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: nginx
+        image: registry.k8s.io/nginx-slim:0.24
+        ports:
+        - containerPort: 80
+          name: web
+        volumeMounts:
+        - name: www
+          mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:
+  - metadata:
+      name: www
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "my-storage-class"
+      resources:
+        requests:
+          storage: 1Gi
+```
+-->
 ```yaml
 apiVersion: v1
 kind: Service
@@ -436,19 +489,20 @@ the StatefulSet.
 -->
 ### Pod 索引标签  {#pod-index-label}
 
-{{< feature-state for_k8s_version="v1.28" state="beta" >}}
+{{< feature-state feature_gate_name="PodIndexLabel" >}}
 
 <!--
 When the StatefulSet {{<glossary_tooltip text="controller" term_id="controller">}} creates a Pod,
 the new Pod is labelled with `apps.kubernetes.io/pod-index`. The value of this label is the ordinal index of
 the Pod. This label allows you to route traffic to a particular pod index, filter logs/metrics
-using the pod index label, and more. Note the feature gate `PodIndexLabel` must be enabled for this
-feature, and it is enabled by default.
+using the pod index label, and more. Note the feature gate `PodIndexLabel` is enabled and locked by default for this
+feature, in order to disable it, users will have to use server emulated version v1.31.
 -->
 当 StatefulSet {{<glossary_tooltip text="控制器" term_id="controller">}}创建一个 Pod 时，
 新的 Pod 会被打上 `apps.kubernetes.io/pod-index` 标签。标签的取值为 Pod 的序号索引。
 此标签使你能够将流量路由到特定索引值的 Pod、使用 Pod 索引标签来过滤日志或度量值等等。
-注意要使用这一特性需要启用特性门控 `PodIndexLabel`，而该门控默认是被启用的。
+请注意，默认情况下，特性门 `PodIndexLabel` 已启用并锁定。要禁用它，
+用户需要使用服务器模拟版本 v1.31。
 
 <!--
 ## Deployment and Scaling Guarantees
@@ -460,8 +514,8 @@ feature, and it is enabled by default.
 -->
 ## 部署和扩缩保证   {#deployment-and-scaling-guarantees}
 
-* 对于包含 N 个 副本的 StatefulSet，当部署 Pod 时，它们是依次创建的，顺序为 `0..N-1`。
-* 当删除 Pod 时，它们是逆序终止的，顺序为 `N-1..0`。
+* 对于包含 N 个 副本的 StatefulSet，当部署 Pod 时，它们是依次创建的，顺序为 {0..N-1}。
+* 当删除 Pod 时，它们是逆序终止的，顺序为 {N-1..0}。
 * 在将扩缩操作应用到 Pod 之前，它前面的所有 Pod 必须是 Running 和 Ready 状态。
 * 在一个 Pod 终止之前，所有的继任者必须完全关闭。
 
@@ -633,7 +687,7 @@ by rounding it up. This field cannot be 0. The default setting is 1.
 -->
 你可以通过指定 `.spec.updateStrategy.rollingUpdate.maxUnavailable`
 字段来控制更新期间不可用的 Pod 的最大数量。
-该值可以是绝对值（例如，“5”）或者是期望 Pod 个数的百分比（例如，`10%`）。
+该值可以是绝对值（例如，`"5"`）或者是期望 Pod 个数的百分比（例如，`"10%"`）。
 绝对值是根据百分比值四舍五入计算的。
 该字段不能为 0。默认设置为 1。
 
@@ -698,7 +752,7 @@ StatefulSet 才会开始使用被还原的模板来重新创建 Pod。
 -->
 ## PersistentVolumeClaim 保留  {#persistentvolumeclaim-retention}
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state feature_gate_name="StatefulSetAutoDeletePVC" >}}
 
 <!--
 The optional `.spec.persistentVolumeClaimRetentionPolicy` field controls if
@@ -861,7 +915,7 @@ the `.spec.replicas` field automatically.
 如果 [HorizontalPodAutoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
 （或任何类似的水平扩缩 API）正在管理 StatefulSet 的扩缩，
 请不要设置 `.spec.replicas`。
-相反，允许 Kubernetes 控制平面自动管理 `.spec.replicas` 字段。
+相反，允许 Kubernetes {{<glossary_tooltip text="控制平面" term_id="control-plane" >}}自动管理 `.spec.replicas` 字段。
 
 ## {{% heading "whatsnext" %}}
 

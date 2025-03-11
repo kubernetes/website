@@ -16,5 +16,3 @@ allowedTopologies:
   - key: topology.ebs.csi.aws.com/zone
     values:
     - us-east-2c
-
-# `tagSpecification`: Tags with this prefix are applied to dynamically provisioned EBS volumes.

@@ -1,6 +1,6 @@
 ---
-title: 准入控制器参考
-linkTitle: 准入控制器
+title: Kubernetes 中的准入控制
+linkTitle: 准入控制
 content_type: concept
 weight: 40
 ---
@@ -12,17 +12,32 @@ reviewers:
 - erictune
 - janetkuo
 - thockin
-title: Admission Controllers Reference
-linkTitle: Admission Controllers
+title: Admission Control in Kubernetes
+linkTitle: Admission Control
 content_type: concept
 weight: 40
 -->
 
 <!-- overview -->
 <!--
-This page provides an overview of Admission Controllers.
+This page provides an overview of _admission controllers_.
 -->
-此页面提供准入控制器（Admission Controller）的概述。
+此页面提供**准入控制器（Admission Controller）** 的概述。
+
+<!--
+An admission controller is a piece of code that intercepts requests to the
+Kubernetes API server prior to persistence of the resource, but after the request
+is authenticated and authorized.
+
+Several important features of Kubernetes require an admission controller to be enabled in order
+to properly support the feature.  As a result, a Kubernetes API server that is not properly
+configured with the right set of admission controllers is an incomplete server that will not
+support all the features you expect.
+-->
+准入控制器是一段代码，它会在请求通过认证和鉴权之后、对象被持久化之前拦截到达 API 服务器的请求。
+
+Kubernetes 的若干重要功能都要求启用一个准入控制器，以便正确地支持该特性。
+因此，没有正确配置准入控制器的 Kubernetes API 服务器是不完整的，它无法支持你所期望的所有特性。
 
 <!-- body -->
 
@@ -32,44 +47,70 @@ This page provides an overview of Admission Controllers.
 ## 什么是准入控制插件？  {#what-are-they}
 
 <!--
-An _admission controller_ is a piece of code that intercepts requests to the
-Kubernetes API server prior to persistence of the object, but after the request
-is authenticated and authorized.
+Admission controllers are code within the Kubernetes
+{{< glossary_tooltip term_id="kube-apiserver" text="API server" >}} that check the
+data arriving in a request to modify a resource.
 
-Admission controllers may be _validating_, _mutating_, or both. Mutating
-controllers may modify objects related to the requests they admit; validating controllers may not.
-
-Admission controllers limit requests to create, delete, modify objects. Admission
-controllers can also block custom verbs, such as a request connect to a Pod via
-an API server proxy. Admission controllers do _not_ (and cannot) block requests
-to read (**get**, **watch** or **list**) objects.
+Admission controllers apply to requests that create, delete, or modify objects.
+Admission controllers can also block custom verbs, such as a request to connect to a
+pod via an API server proxy. Admission controllers do _not_ (and cannot) block requests
+to read (**get**, **watch** or **list**) objects, because reads bypass the admission
+control layer.
 -->
-**准入控制器** 是一段代码，它会在请求通过认证和鉴权之后、对象被持久化之前拦截到达 API
-服务器的请求。
+准入控制器是 Kubernetes
+{{< glossary_tooltip term_id="kube-apiserver" text="API 服务器" >}}中的代码，
+用于检查请求中到达的数据，以修改资源。
 
-准入控制器可以执行**验证（Validating）** 和/或**变更（Mutating）** 操作。
-变更（mutating）控制器可以根据被其接受的请求更改相关对象；验证（validating）控制器则不行。
-
-准入控制器限制创建、删除、修改对象的请求。
+准入控制器适用于创建、删除或修改对象的请求。
 准入控制器也可以阻止自定义动作，例如通过 API 服务器代理连接到 Pod 的请求。
-准入控制器**不会** （也不能）阻止读取（**get**、**watch** 或 **list**）对象的请求。
+准入控制器**不会**（也不能）阻止读取（**get**、**watch** 或 **list**）对象的请求，
+这是因为读取操作会绕过准入控制层。
 
 <!--
+Admission control mechanisms may be _validating_, _mutating_, or both. Mutating
+controllers may modify the data for the resource being modified; validating controllers may not.
+
 The admission controllers in Kubernetes {{< skew currentVersion >}} consist of the
 [list](#what-does-each-admission-controller-do) below, are compiled into the
 `kube-apiserver` binary, and may only be configured by the cluster
-administrator. In that list, there are two special controllers:
-MutatingAdmissionWebhook and ValidatingAdmissionWebhook.  These execute the
-mutating and validating (respectively)
-[admission control webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
-which are configured in the API.
+administrator.
 -->
+准入控制器机制可以执行**验证（Validating）** 和/或**变更（Mutating）** 操作。
+变更（Mutating）控制器可以为正在修改的资源修改数据；验证（Validating）控制器则不行。
+
 Kubernetes {{< skew currentVersion >}}
 中的准入控制器由下面的[列表](#what-does-each-admission-controller-do)组成，
 并编译进 `kube-apiserver` 可执行文件，并且只能由集群管理员配置。
-在该列表中，有两个特殊的控制器：MutatingAdmissionWebhook 和 ValidatingAdmissionWebhook。
-它们根据 API 中的配置，
-分别执行变更和验证[准入控制 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)。
+
+<!--
+### Admission control extension points
+
+Within the full [list](#what-does-each-admission-controller-do), there are three
+special controllers:
+[MutatingAdmissionWebhook](#mutatingadmissionwebhook),
+[ValidatingAdmissionWebhook](#validatingadmissionwebhook), and
+[ValidatingAdmissionPolicy](#validatingadmissionpolicy).
+The two webhook controllers execute the mutating and validating (respectively)
+[admission control webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
+which are configured in the API. ValidatingAdmissionPolicy provides a way to embed
+declarative validation code within the API, without relying on any external HTTP
+callouts.
+-->
+### 准入控制扩展点   {#admission-control-extension-points}
+
+在完整的[列表](#what-does-each-admission-controller-do)中，有三个特殊的控制器：
+[MutatingAdmissionWebhook](#mutatingadmissionwebhook)、
+[ValidatingAdmissionWebhook](#validatingadmissionwebhook)
+和 [ValidatingAdmissionPolicy](#validatingadmissionpolicy)。
+前两个 Webhook 控制器分别执行在 API
+中所配置的变更和验证[准入控制 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)。
+而 ValidatingAdmissionPolicy 提供了一种在 API 中嵌入声明式验证代码的方式，无需依赖任何外部 HTTP 调用。
+
+<!--
+You can use these three admission controllers to customize cluster behavior at
+admission time.
+-->
+你可以使用这三个准入控制器来定制准入时的集群行为。
 
 <!--
 ## Admission control phases
@@ -103,17 +144,32 @@ other admission controllers.
 此类用法都需要相应的回收或回调过程，因为任一准入控制器都无法确定某个请求能否通过所有其它准入控制器。
 
 <!--
+The ordering of these calls can be seen below.
+-->
+这些调用的顺序如下所示。
+
+<!--
+Sequence diagram for kube-apiserver handling requests during the admission phase
+showing mutation webhooks, followed by validatingadmissionpolicies and finally
+validating webhooks. It shows that the continue until the first rejection,
+or being accepted by all of them. It also shows that mutations by mutating
+webhooks cause all previously called webhooks to be called again.
+-->
+{{< figure src="/zh-cn/docs/reference/access-authn-authz/admission-control-phases.svg" alt="kube-apiserver 在准入阶段处理请求的时序图，展示了变更性 Webhook，随后是验证准入策略（ValidatingAdmissionPolicies），最后是验证性 Webhook。此时序图表明，请求会持续经过这些步骤，直到遇到第一个被拒绝的情况，或者被所有检查接受。此外，此图还显示，变更性 Webhook 所做的变更会导致所有之前调用过的 Webhook 被重新调用。" class="diagram-large" link="[https://mermaid.live/edit#pako:eNqtVm1r3DgQ_iuDj9CUc3aPlBa6HIFeSu_CEQhNr4XiL7I9a6srSz5J3mQb9r93RrK9jjcp9-H8xdZoXh7N80jyQ1KYEpNV4vDfDnWB76WorGgynemTE_hLbBG8AYce1kb7W_kdoVImF0rtQDjwtXQgnX7hwaJrsfBYQtmFoNr71q2Wy0r6ussXhWmWDdpGyPLsmxs-l9K5Dt3y1du3v3HJB6mlXz1kia-xwSxZZYnGzluhsiTNkgEETUCWnJ-392SmrwE-2ym4kdYa-67wxjoyedvhPs000NNn_iysFLlCFyPCVJwWHPXHpgq1f3l1_qbA11x77vIJ7_2lUcYGx7taepy5KWPaqRc8l08bj1Rx4ldZ3M2cnlp6pvf7_ckJsxVdibNPkRKiBkEof-YJAZFnQRQFOidzqaTfpSB0Ca42nSohR-jaUjB3uEW7Ay8bDAnKKAfKt4gFKMl7dIWd9uy2b_7ozdU2XY5nopUOLaWEmsopqSuSCTk770gllscBZtmQDKTR0NbCIcO647mm88Kz-Q7z2piNSym1UuaOgOY72AolCTV5jglao2Qh0YXVraUOOj34jYkWcIB_5UNB7pjwAU9BrZaaVNzRWwXTWlrHGv9GEqc6KdASc-SU3NbWR0RUDsyaA5pZBaGcmZYZluY4LA4m8KAQncOQrrW4laZztI6CxlRndKI9Rsz1VlEJqXuS9oMcWmE99aMV2sM_xARv2fA-nn53c8WzfxNtVqOnFrLlNrD3hHfna3bnN1KTisjTr8FgrPwexqMmH4WWzaW3KkSPvF9Sx61RMSA39_Anrcblxho49oLfc3txGZcdGZqxc4z3uu_wl9g7Lj6YoLedupfHcZ9H6dyYAPlgmOC66VX3s_hJ5UmOeW3U5WEzB6bOLi4CEyv4GHcOnOKiWqRQWKQdCwJaU77sCWXHEEAsrKbkkJQD_bQruHlFjcUmmlo6h-My3FCXzy34wCcG6W_eJneQdRABl5t1dwVXems2-LPYOSEH1NemlOsd76_IJ5g8vE7lGjRiieW0V0d4J819TMuI9hGnI9Zn4x5L4IDz439ER3J4CtzQEpCaXVjN6lmg88Y-kef_ATvWJiWRgPisnTDRn92DToLa2JmFyjVcSypCGBTqunDjcALk-5iKJWnSX_z0zxGukMNNT5-lsJtwq5Gf6Ly53ekiXt9pYk1X1clqTScpjeJ91f-tjFYsJd3M1_GXJvzZpAntw6_GDD77H6uICLI](https://mermaid.live/edit#pako:eNqtVm1r3DgQ_iuDj9CUc3aPlBa6HIFeSu_CEQhNr4XiL7I9a6srSz5J3mQb9r93RrK9jjcp9-H8xdZoXh7N80jyQ1KYEpNV4vDfDnWB76WorGgynemTE_hLbBG8AYce1kb7W_kdoVImF0rtQDjwtXQgnX7hwaJrsfBYQtmFoNr71q2Wy0r6ussXhWmWDdpGyPLsmxs-l9K5Dt3y1du3v3HJB6mlXz1kia-xwSxZZYnGzluhsiTNkgEETUCWnJ-392SmrwE-2ym4kdYa-67wxjoyedvhPs000NNn_iysFLlCFyPCVJwWHPXHpgq1f3l1_qbA11x77vIJ7_2lUcYGx7taepy5KWPaqRc8l08bj1Rx4ldZ3M2cnlp6pvf7_ckJsxVdibNPkRKiBkEof-YJAZFnQRQFOidzqaTfpSB0Ca42nSohR-jaUjB3uEW7Ay8bDAnKKAfKt4gFKMl7dIWd9uy2b_7ozdU2XY5nopUOLaWEmsopqSuSCTk770gllscBZtmQDKTR0NbCIcO647mm88Kz-Q7z2piNSym1UuaOgOY72AolCTV5jglao2Qh0YXVraUOOj34jYkWcIB_5UNB7pjwAU9BrZaaVNzRWwXTWlrHGv9GEqc6KdASc-SU3NbWR0RUDsyaA5pZBaGcmZYZluY4LA4m8KAQncOQrrW4laZztI6CxlRndKI9Rsz1VlEJqXuS9oMcWmE99aMV2sM_xARv2fA-nn53c8WzfxNtVqOnFrLlNrD3hHfna3bnN1KTisjTr8FgrPwexqMmH4WWzaW3KkSPvF9Sx61RMSA39_Anrcblxho49oLfc3txGZcdGZqxc4z3uu_wl9g7Lj6YoLedupfHcZ9H6dyYAPlgmOC66VX3s_hJ5UmOeW3U5WEzB6bOLi4CEyv4GHcOnOKiWqRQWKQdCwJaU77sCWXHEEAsrKbkkJQD_bQruHlFjcUmmlo6h-My3FCXzy34wCcG6W_eJneQdRABl5t1dwVXems2-LPYOSEH1NemlOsd76_IJ5g8vE7lGjRiieW0V0d4J819TMuI9hGnI9Zn4x5L4IDz439ER3J4CtzQEpCaXVjN6lmg88Y-kef_ATvWJiWRgPisnTDRn92DToLa2JmFyjVcSypCGBTqunDjcALk-5iKJWnSX_z0zxGukMNNT5-lsJtwq5Gf6Ly53ekiXt9pYk1X1clqTScpjeJ91f-tjFYsJd3M1_GXJvzZpAntw6_GDD77H6uICLI)" >}}
+
+<!--
 ## Why do I need them?
 
 Several important features of Kubernetes require an admission controller to be enabled in order
-to properly support the feature.  As a result, a Kubernetes API server that is not properly
+to properly support the feature. As a result, a Kubernetes API server that is not properly
 configured with the right set of admission controllers is an incomplete server and will not
 support all the features you expect.
 -->
-## 为什么需要准入控制器？    {#why-do-i-need-them}
+## 为什么需要准入控制器？  {#why-do-i-need-them}
 
-Kubernetes 的若干重要功能都要求启用一个准入控制器，以便正确地支持该特性。
-因此，没有正确配置准入控制器的 Kubernetes API 服务器是不完整的，它无法支持你所期望的所有特性。
+Kubernetes 的多个重要特性需要按顺序启用某个准入控制器才能正确支持对应的特性。
+因此，如果 Kubernetes API 服务器未正确配置相应的准入控制器集，
+那么这种 API 服务器将是不完整的，并且无法支持你所期望的所有特性。
 
 <!--
 ## How do I turn on an admission controller?
@@ -181,19 +237,6 @@ In Kubernetes {{< skew currentVersion >}}, the default ones are:
 ```shell
 CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, PodSecurity, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook
 ```
-
-{{< note >}}
-<!--
-The [`ValidatingAdmissionPolicy`](#validatingadmissionpolicy) admission plugin is enabled
-by default, but is only active if you enable the `ValidatingAdmissionPolicy`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) **and**
-the `admissionregistration.k8s.io/v1alpha1` API.
--->
-[`ValidatingAdmissionPolicy`](#validatingadmissionpolicy) 准入插件默认被启用，
-但只有启用 `ValidatingAdmissionPolicy`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) **和**
-`admissionregistration.k8s.io/v1alpha1` API 时才会激活。
-{{< /note >}}
 
 <!--
 ## What does each admission controller do?
@@ -362,14 +405,20 @@ will get the default one.
 这样，没有任何特殊存储类需求的用户根本不需要关心它们，它们将被设置为使用默认存储类。
 
 <!--
-This admission controller does not do anything when no default storage class is configured. When more than one storage
-class is marked as default, it rejects any creation of `PersistentVolumeClaim` with an error and an administrator
-must revisit their `StorageClass` objects and mark only one as default.
+This admission controller does nothing when no default `StorageClass` exists. When more than one storage
+class is marked as default, and you then create a `PersistentVolumeClaim` with no `storageClassName` set, 
+Kubernetes uses the most recently created default `StorageClass`.
+When a `PersistentVolumeClaim` is created with a specified `volumeName`, it remains in a pending state 
+if the static volume's `storageClassName` does not match the `storageClassName` on the `PersistentVolumeClaim`
+after any default StorageClass is applied to it.
 This admission controller ignores any `PersistentVolumeClaim` updates; it acts only on creation.
 -->
-当未配置默认存储类时，此准入控制器不执行任何操作。如果将多个存储类标记为默认存储类，
-此控制器将拒绝所有创建 `PersistentVolumeClaim` 的请求，并返回错误信息。
-要修复此错误，管理员必须重新检查其 `StorageClass` 对象，并仅将其中一个标记为默认。
+当默认的 `StorageClass` 不存在时，此准入控制器不执行任何操作。如果将多个存储类标记为默认存储类，
+而且你之后在未设置 `storageClassName` 的情况下创建 `PersistentVolumeClaim`，
+Kubernetes 将使用最近创建的默认 `StorageClass`。
+当使用指定的 `volumeName` 创建 `PersistentVolumeClaim` 时，如果在应用任意默认的 StorageClass 之后，
+静态卷的 `storageClassName` 与 `PersistentVolumeClaim` 上的 `storageClassName` 不匹配，
+则 `PersistentVolumeClaim` 保持在 Pending 状态。
 此准入控制器会忽略所有 `PersistentVolumeClaim` 更新操作，仅处理创建操作。
 
 <!--

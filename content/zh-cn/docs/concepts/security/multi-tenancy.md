@@ -973,12 +973,14 @@ listed below.
 -->
 #### 多团队租户 {#multi-team-tenancy}
 
+{{% thirdparty-content %}}
+
 <!--
 * [Capsule](https://github.com/clastix/capsule)
-* [Kiosk](https://github.com/loft-sh/kiosk)
+* [Multi Tenant Operator](https://docs.stakater.com/mto/)
 -->
 * [Capsule](https://github.com/clastix/capsule)
-* [Kiosk](https://github.com/loft-sh/kiosk)
+* [Multi Tenant Operator](https://docs.stakater.com/mto/)
 
 <!--
 #### Multi-customer tenancy

@@ -16,12 +16,13 @@ description: >
 Kubernetesのバージョンは**x.y.z**の形式で表現され、**x**はメジャーバージョン、**y**はマイナーバージョン、**z**はパッチバージョンを指します。これは[セマンティック バージョニング](https://semver.org/)に従っています。詳細は、[Kubernetesのリリースバージョニング](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning)を参照してください。
 
 Kubernetesプロジェクトでは、最新の3つのマイナーリリースについてリリースブランチを管理しています ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}})。
+Kubernetes 1.19 以降では、パッチリリースに対して[約1年間のサポート](/releases/patch-releases/#support-period)が提供されます。Kubernetes 1.18 以前のバージョンは約9ヶ月間のパッチサポートを受け付けていました。
 
-セキュリティフィックスを含む適用可能な修正は、重大度や実行可能性によってはこれら3つのリリースブランチにバックポートされることもあります。パッチリリースは、これらのブランチから [定期的に](https://kubernetes.io/releases/patch-releases/#cadence) 切り出され、必要に応じて追加の緊急リリースも行われます。
+セキュリティフィックスを含む適用可能な修正は、重大度や実行可能性によってはこれら3つのリリースブランチにバックポートされることもあります。パッチリリースは、これらのブランチから [定期的に](/releases/patch-releases/#cadence) 切り出され、必要に応じて追加の緊急リリースも行われます。
 
- [リリースマネージャー](https://git.k8s.io/sig-release/release-managers.md)グループがこれを決定しています。
+ [リリースマネージャー](/releases/release-managers/)グループがこれを決定しています。
 
-詳細は、[Kubernetesパッチリリース](https://github.com/kubernetes/sig-release/blob/master/releases/patch-releases.md)ページを参照してください。
+詳細は、[Kubernetesパッチリリース](/releases/patch-releases/)ページを参照してください。
 
 
 ## サポートされるバージョンの差異

@@ -8,25 +8,27 @@ type: docs
 auto_generated: true
 -->
 
-<!-- THIS CONTENT IS AUTO-GENERATED via ./scripts/releng/update-release-info.sh in kubernetes/website -->
+<!-- THIS CONTENT IS AUTO-GENERATED via https://github.com/kubernetes/website/blob/main/scripts/releng/update-release-info.sh -->
 
-{{< warning >}}
+{{% pageinfo color="light" %}}
 <!-- 
-This content is auto-generated and links may not function. The source of the document
-is located [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/release.md).
+This content is auto-generated and links may not function. The source of the document is located
+[here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/release.md).
 -->
 此内容原文是自动生成的，链接可能无法正常访问。
 文档的来源在[这里](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/release.md)。
-{{< /warning >}}
+{{% /pageinfo %}}
+
+<!-- Localization note: omit the pageinfo block when localizing -->
 
 <!-- 
-# Targeting enhancements, Issues and PRs to Release Milestones
+## Targeting enhancements, Issues and PRs to Release Milestones
 
 This document is focused on Kubernetes developers and contributors who need to
 create an enhancement, issue, or pull request which targets a specific release
 milestone.
 -->
-# 针对发布里程碑的特性增强、Issue 和 PR  {#targeting-enhancements-issues-and-prs-to-release-milestones}
+## 针对发布里程碑的特性增强、Issue 和 PR  {#targeting-enhancements-issues-and-prs-to-release-milestones}
 
 本文档重点是面向于那些需要创建针对特定发布里程碑的特性增强、问题或拉取请求的 Kubernetes 开发人员和贡献者。
 
@@ -466,6 +468,12 @@ GitHub 团队的成员负责在 GitHub 工件上指定发布里程碑。
 
 该小组由 SIG Release
 [维护](https://git.k8s.io/sig-release/release-team/README.md#milestone-maintainers)，并有来自各个 SIG 负责人的代表。
+
+<!--
+Adding the in-progress release milestone to pull requests after the Code Freeze is strictly prohibited, as it can compromise the stability of the release. Prior to making such changes, approval must be obtained from both the Release Team Lead and the Emeritus Advisor(s).
+-->
+严禁在 Code Freeze（代码冻结）后将正在开发的版本里程碑任务添加到 PR，因为这可能会影响当前发布版本的稳定性。
+在实施此类变更之前，必须获得 Release Team Lead（发布团队负责人）和 Emeritus Advisor（荣誉顾问）的批准。
 
 <!-- 
 ### Feature additions

@@ -1,5 +1,5 @@
 <!--
-Use this command to invoke single phase of the reset workflow
+Use this command to invoke single phase of the "reset" workflow
 -->
 使用此命令来调用 `reset` 工作流程的某个阶段。
 
@@ -9,9 +9,13 @@ Use this command to invoke single phase of the reset workflow
 ### 概要
 
 <!--
-Use this command to invoke single phase of the reset workflow
+Use this command to invoke single phase of the "reset" workflow
 -->
-使用此命令来调用 `reset` 工作流程的某个阶段。
+使用此命令来调用 `reset` 工作流程的某个阶段：
+
+```shell
+kubeadm reset phase [flags]
+```
 
 <!--
 ### Options

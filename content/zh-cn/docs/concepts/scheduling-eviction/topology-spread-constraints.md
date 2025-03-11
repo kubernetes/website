@@ -185,12 +185,13 @@ your cluster. Those fields are:
   {{< note >}}
   <!--
   Before Kubernetes v1.30, the `minDomains` field was only available if the
-  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates-removed/)
   was enabled (default since v1.28). In older Kubernetes clusters it might be explicitly
   disabled or the field might not be available.
   -->
   在 Kubernetes v1.30 之前，`minDomains` 字段只有在启用 `MinDomainsInPodTopologySpread`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时才可用（自 v1.28 起默认启用）
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/)时才可用
+ （自 v1.28 起默认启用）。
   在早期的 Kubernetes 集群中，此特性门控可能被显式禁用或此字段可能不可用。
   {{< /note >}}
 
@@ -980,7 +981,7 @@ section of the enhancement proposal about Pod topology spread constraints.
   because, in this case, those topology domains won't be considered until there is
   at least one node in them.
 
-  You can work around this by using a cluster autoscaling tool that is aware of
+  You can work around this by using a Node autoscaler that is aware of
   Pod topology spread constraints and is also aware of the overall set of topology
   domains.
 -->
@@ -989,7 +990,7 @@ section of the enhancement proposal about Pod topology spread constraints.
   而用户正期望其扩容时，可能会导致调度出现问题。
   因为在这种情况下，调度器不会考虑这些拓扑域，直至这些拓扑域中至少包含有一个节点。
 
-  你可以通过使用感知 Pod 拓扑分布约束并感知整个拓扑域集的集群自动扩缩工具来解决此问题。
+  你可以通过使用感知 Pod 拓扑分布约束并感知整个拓扑域集的节点自动扩缩工具来解决此问题。
 
 ## {{% heading "whatsnext" %}}
 

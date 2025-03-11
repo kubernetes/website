@@ -1,0 +1,84 @@
+---
+title: Amadeus Case Study
+case_study_styles: true
+cid: caseStudies
+
+new_case_study_styles: true
+heading_background: /images/case-studies/amadeus/banner1.jpg
+heading_title_logo: /images/amadeus_logo.png
+subheading: >
+  Another Technical Evolution for a 30-Year-Old Company
+case_study_details:
+  - Company: Amadeus IT Group
+  - Location: Madrid, Spain
+  - Industry: Travel Technology
+---
+
+<h2>Challenge</h2>
+
+<p>In the past few years, Amadeus, which provides IT solutions to the travel industry around the world, found itself in need of a new platform for the 5,000 services supported by its service-oriented architecture. The 30-year-old company operates its own data center in Germany, and there were growing demands internally and externally for solutions that needed to be geographically dispersed. And more generally, "we had objectives of being even more highly available," says Eric Mountain, Senior Expert, Distributed Systems at Amadeus. Among the company's goals: to increase automation in managing its infrastructure, optimize the distribution of workloads, use data center resources more efficiently, and adopt new technologies more easily.</p>
+
+<h2>Solution</h2>
+
+<p>Mountain has been overseeing the company's migration to <a href="https://kubernetes.io/">Kubernetes</a>, using <a href="https://www.openshift.org/">OpenShift</a> Container Platform, <a href="https://www.redhat.com/en">Red Hat</a>'s enterprise container platform.</p>
+
+<h2>Impact</h2>
+
+<p>One of the first projects the team deployed in Kubernetes was the Amadeus Airline Cloud Availability solution, which helps manage ever-increasing flight-search volume. "It's now handling in production several thousand transactions per second, and it's deployed in multiple data centers throughout the world," says Mountain. "It's not a migration of an existing workload; it's a whole new workload that we couldn't have done otherwise. [This platform] gives us access to market opportunities that we didn't have before."</p>
+
+{{< case-studies/quote author="Eric Mountain, Senior Expert, Distributed Systems at Amadeus IT Group" >}}
+"We want multi-data center capabilities, and we want them for our mainstream system as well. We didn't think that we could achieve them with our existing system. We need new automation, things that Kubernetes and OpenShift bring."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+In his two decades at Amadeus, Eric Mountain has been the migrations guy.
+{{< /case-studies/lead >}}
+
+<p>Back in the day, he worked on the company's move from Unix to Linux, and now he's overseeing the journey to cloud native. "Technology just keeps changing, and we embrace it," he says. "We are celebrating our 30 years this year, and we continue evolving and innovating to stay cost-efficient and enhance everyone's travel experience, without interrupting workflows for the customers who depend on our technology."</p>
+
+<p>That was the challenge that Amadeus—which provides IT solutions to the travel industry around the world, from flight searches to hotel bookings to customer feedback—faced in 2014. The technology team realized it was in need of a new platform for the 5,000 services supported by its service-oriented architecture.</p>
+
+<p>The tipping point occurred when they began receiving many requests, internally and externally, for solutions that needed to be geographically outside the company's main data center in Germany. "Some requests were for running our applications on customer premises," Mountain says. "There were also new services we were looking to offer that required response time to the order of a few hundred milliseconds, which we couldn't achieve with transatlantic traffic. Or at least, not without eating into a considerable portion of the time available to our applications for them to process individual queries."</p>
+
+<p>More generally, the company was interested in leveling up on high availability, increasing automation in managing infrastructure, optimizing the distribution of workloads and using data center resources more efficiently. "We have thousands and thousands of servers," says Mountain. "These servers are assigned roles, so even if the setup is highly automated, the machine still has a given role. It's wasteful on many levels. For instance, an application doesn't necessarily use the machine very optimally. Virtualization can help a bit, but it's not a silver bullet. If that machine breaks, you still want to repair it because it has that role and you can't simply say, 'Well, I'll bring in another machine and give it that role.' It's not fast. It's not efficient. So we wanted the next level of automation."</p>
+
+{{< case-studies/quote image="/images/case-studies/amadeus/banner3.jpg" >}}
+"We hope that if we build on what others have built, what we do might actually be upstream-able. As Kubernetes and OpenShift progress, we see that we are indeed able to remove some of the additional layers we implemented to compensate for gaps we perceived earlier."
+{{< /case-studies/quote >}}
+
+<p>While mainly a C++ and Java shop, Amadeus also wanted to be able to adopt new technologies more easily. Some of its developers had started using languages like <a href="https://www.python.org/">Python</a> and databases like <a href="https://www.couchbase.com/">Couchbase</a>, but Mountain wanted still more options, he says, "in order to better adapt our technical solutions to the products we offer, and open up entirely new possibilities to our developers." Working with recent technologies and cool new things would also make it easier to attract new talent.</p>
+
+<p>All of those needs led Mountain and his team on a search for a new platform. "We did a set of studies and proofs of concept over a fairly short period, and we considered many technologies," he says. "In the end, we were left with three choices: build everything on premise, build on top of <a href="https://kubernetes.io/">Kubernetes</a> whatever happens to be missing from our point of view, or go with <a href="https://www.openshift.com/">OpenShift</a> and build whatever remains there."</p>
+
+<p>The team decided against building everything themselves—though they'd done that sort of thing in the past—because "people were already inventing things that looked good," says Mountain.</p>
+
+<p>Ultimately, they went with OpenShift Container Platform, <a href="https://www.redhat.com/en">Red Hat</a>'s Kubernetes-based enterprise offering, instead of building on top of Kubernetes because "there was a lot of synergy between what we wanted and the way Red Hat was anticipating going with OpenShift," says Mountain. "They were clearly developing Kubernetes, and developing certain things ahead of time in OpenShift, which were important to us, such as more security."</p>
+
+<p>The hope was that those particular features would eventually be built into Kubernetes, and, in the case of security, Mountain feels that has happened. "We realize that there's always a certain amount of automation that we will probably have to develop ourselves to compensate for certain gaps," says Mountain. "The less we do that, the better for us. We hope that if we build on what others have built, what we do might actually be upstream-able. As Kubernetes and OpenShift progress, we see that we are indeed able to remove some of the additional layers we implemented to compensate for gaps we perceived earlier."</p>
+
+{{< case-studies/quote image="/images/case-studies/amadeus/banner4.jpg" >}}
+"It's not a migration of an existing workload; it's a whole new workload that we couldn't have done otherwise. [This platform] gives us access to market opportunities that we didn't have before."
+{{< /case-studies/quote >}}
+
+<p>The first project the team tackled was one that they knew had to run outside the data center in Germany. Because of the project's needs, "We couldn't rely only on the built-in Kubernetes service discovery; we had to layer on top of that an extra service discovery level that allows us to load balance at the operation level within our system," says Mountain. They also built a stream dedicated to monitoring, which at the time wasn't offered in the Kubernetes or OpenShift ecosystem. Now that <a href="https://www.prometheus.io/">Prometheus</a> and other products are available, Mountain says the company will likely re-evaluate their monitoring system: "We obviously always like to leverage what Kubernetes and OpenShift can offer."
+</p>
+
+<p>The second project ended up going into production first: the Amadeus Airline Cloud Availability solution, which helps manage ever-increasing flight-search volume and was deployed in public cloud. Launched in early 2016, it is "now handling in production several thousand transactions per second, and it's deployed in multiple data centers throughout the world," says Mountain. "It's not a migration of an existing workload; it's a whole new workload that we couldn't have done otherwise. [This platform] gives us access to market opportunities that we didn't have before."</p>
+
+<p>Having been through this kind of technical evolution more than once, Mountain has advice on how to handle the cultural changes. "That's one aspect that we can tackle progressively," he says. "We have to go on supplying our customers with new features on our pre-existing products, and we have to keep existing products working. So we can't simply do absolutely everything from one day to the next. And we mustn't sell it that way."</p>
+
+<p>The first order of business, then, is to pick one or two applications to demonstrate that the technology works. Rather than choosing a high-impact, high-risk project, Mountain's team selected a smaller application that was representative of all the company's other applications in its complexity: "We just made sure we picked something that's complex enough, and we showed that it can be done."</p>
+
+{{< case-studies/quote >}}
+"The bottom line is we want these multi-data center capabilities, and we want them as well for our mainstream system," he says. "And we don't think that we can implement them with our previous system. We need the new automation, homogeneity, and scale that Kubernetes and OpenShift bring."
+{{< /case-studies/quote >}}
+
+<p>Next comes convincing people. "On the operations side and on the R&D side, there will be people who say quite rightly, 'There is a system, and it works, so why change?'" Mountain says. "The only thing that really convinces people is showing them the value." For Amadeus, people realized that the Airline Cloud Availability product could not have been made available on the public cloud with the company's existing system. The question then became, he says, "Do we go into a full-blown migration? Is that something that is justified?"</p>
+
+<p>"The bottom line is we want these multi-data center capabilities, and we want them as well for our mainstream system," he says. "And we don't think that we can implement them with our previous system. We need the new automation, homogeneity, and scale that Kubernetes and OpenShift bring."</p>
+
+<p>So how do you get everyone on board? "Make sure you have good links between your R&D and your operations," he says. "Also make sure you're going to talk early on to the investors and stakeholders. Figure out what it is that they will be expecting from you, that will convince them or not, that this is the right way for your company."</p>
+
+<p>His other advice is simply to make the technology available for people to try it. "Kubernetes and OpenShift Origin are open source software, so there's no complicated license key for the evaluation period and you're not limited to 30 days," he points out. "Just go and get it running." Along with that, he adds, "You've got to be prepared to rethink how you do things. Of course making your applications as cloud native as possible is how you'll reap the most benefits: 12 factors, CI/CD, which is continuous integration, continuous delivery, but also continuous deployment."</p>
+
+<p>And while they explore that aspect of the technology, Mountain and his team will likely be practicing what he preaches to others taking the cloud native journey. "See what happens when you break it, because it's important to understand the limits of the system," he says. Or rather, he notes, the advantages of it. "Breaking things on Kube is actually one of the nice things about it—it recovers. It's the only real way that you'll see that you might be able to do things."</p>

@@ -1,42 +1,43 @@
 ---
 title: 容器运行时接口（Container Runtime Interface；CRI）
 id: cri
-date: 2019-03-07
-full_link: /zh-cn/docs/concepts/architecture/#container-runtime
+date: 2021-11-24
+full_link: /zh-cn/docs/concepts/architecture/cri
 short_description: >
-  一组与 kubelet 集成的容器运行时 API 
-
+  在 kubelet 和本地容器运行时之间通讯的协议 
 
 aka:
 tags:
-- fundamental
+  - fundamental
 ---
 <!--
-title: Container runtime interface (CRI)
+title: Container Runtime Interface (CRI)
 id: cri
-date: 2019-03-07
-full_link: /docs/concepts/architecture/#container-runtime
+date: 2021-11-24
+full_link: /docs/concepts/architecture/cri
 short_description: >
-    An API for container runtimes to integrate with kubelet
-
+  Protocol for communication between the kubelet and the local container runtime.
 
 aka:
 tags:
-- fundamental
+  - fundamental
 -->
 
 <!--
-The container runtime interface (CRI) is an API for container runtimes
-to integrate with {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} on a node.
+The main protocol for the communication between the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and Container Runtime.
 -->
-容器运行时接口（Container Runtime Interface；CRI）是一组让容器运行时与节点上
-{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 集成的 API。
+在 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 与容器运行时之间通信的主要协议。
 
 <!--more-->
 
 <!--
-For more information, see the [CRI](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md) API and specifications.
+The Kubernetes Container Runtime Interface (CRI) defines the main
+[gRPC](https://grpc.io) protocol for the communication between the
+[node components](/docs/concepts/architecture/#node-components)
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
 -->
-更多信息，请参考[容器运行时接口（CRI）](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md)
-API 与规范。
-
+Kubernetes 容器运行时接口（CRI）定义了在[节点组件](/zh-cn/docs/concepts/architecture/#node-components)
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
+和{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}之间通信的主要
+[gRPC](https://grpc.io) 协议。

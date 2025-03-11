@@ -25,7 +25,6 @@ Before walking through each tutorial, you may want to bookmark the
 
 ## Configuration
 
-* [Example: Configuring a Java Microservice](/docs/tutorials/configuration/configure-java-microservice/)
 * [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## Authoring Pods
@@ -55,6 +54,11 @@ Before walking through each tutorial, you may want to bookmark the
 * [Apply Pod Security Standards at Namespace level](/docs/tutorials/security/ns-level-pss/)
 * [Restrict a Container's Access to Resources with AppArmor](/docs/tutorials/security/apparmor/)
 * [Seccomp](/docs/tutorials/security/seccomp/)
+
+## Cluster Management
+
+* [Running Kubelet in Standalone Mode](/docs/tutorials/cluster-management/kubelet-standalone/)
+
 ## {{% heading "whatsnext" %}}
 
 If you would like to write a tutorial, see

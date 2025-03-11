@@ -67,6 +67,9 @@ kubectl delete ([-f FILENAME] | [-k DIRECTORY] | TYPE [(NAME | -l label | --all)
   
   # Delete all pods
   kubectl delete pods --all
+  
+  # Delete all pods only if the user confirms the deletion
+  kubectl delete pods --all --interactive
 ```
 
 ## {{% heading "options" %}}

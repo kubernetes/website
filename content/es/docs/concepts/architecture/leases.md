@@ -45,7 +45,7 @@ La existencia de los objetos leases de kube-apiserver permite futuras capacidade
 cada kube-apiserver.
 
 Puedes inspeccionar los leases de cada kube-apiserver buscando objetos leases en el namespace `kube-system`
-con el nombre `kube-apiserver-<sha256-hash>`. También puedes utilizar el selector de etiquetas `apiserver.kubernetes.io/identity=kube-apiserver`:
+con el nombre `apiserver-<sha256-hash>`. También puedes utilizar el selector de etiquetas `apiserver.kubernetes.io/identity=kube-apiserver`:
 
 ```shell
 kubectl -n kube-system get lease -l apiserver.kubernetes.io/identity=kube-apiserver

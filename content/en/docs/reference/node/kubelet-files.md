@@ -94,7 +94,7 @@ The name of a checkpoint file is `kubelet_internal_checkpoint` for [Device Manag
 If your cluster has  
 [in-place Pod vertical scaling](/docs/concepts/workloads/autoscaling/#in-place-resizing)  
 enabled ([feature gate](/docs/reference/command-line-tools-reference/feature-gates/)  
-name `InPlacePodVerticalScaling`), then the kubelet stores a local record of Pod status.  
+name `InPlacePodVerticalScaling`), then the kubelet stores a local record of allocated Pod resources.
 
 The file name is `pod_status_manager_state` within the kubelet base directory
 (`/var/lib/kubelet` by default on Linux; configurable using `--root-dir`).
@@ -140,6 +140,13 @@ The types of plugins that can place socket files into that directory are:
 - Device Manager plugins
 
 (typically `/var/lib/kubelet/plugins_registry`).
+
+### Graceful node shutdown
+
+{{< feature-state feature_gate_name="GracefulNodeShutdown" >}}
+
+[Graceful node shutdown](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown)
+stores state locally at `/var/lib/kubelet/graceful_node_shutdown_state`.
 
 ## Security profiles & configuration
 

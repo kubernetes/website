@@ -150,9 +150,6 @@ An empty `effect` matches all effects with key `key1`.
 如果 `key` 为空，那么 `operator` 必须是 `Exists`，匹配所有 key 和 value。
 注意，同时 `effect` 仍然需要匹配。
 
-如果一个容忍度的 `key` 为空且 `operator` 为 `Exists`，
-表示这个容忍度与任意的 key、value 和 effect 都匹配，即这个容忍度能容忍任何污点。
-
 如果 `effect` 为空，则可以与所有键名 `key1` 的效果相匹配。
 {{< /note >}}
 
@@ -282,7 +279,7 @@ to the node after the taint is added. For example,
 则任何不能容忍这个污点的 Pod 都会马上被驱逐，任何可以容忍这个污点的 Pod 都不会被驱逐。
 但是，如果 Pod 存在一个 effect 值为 `NoExecute` 的容忍度指定了可选属性
 `tolerationSeconds` 的值，则表示在给节点添加了上述污点之后，
-Pod 还能继续在节点上运行的时间。例如，
+Pod 还能继续在节点上运行的时间。例如：
 
 ```yaml
 tolerations:

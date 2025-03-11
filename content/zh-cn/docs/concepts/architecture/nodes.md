@@ -246,6 +246,12 @@ When you want to create Node objects manually, set the kubelet flag `--register-
 
 You can modify Node objects regardless of the setting of `--register-node`.
 For example, you can set labels on an existing Node or mark it unschedulable.
+
+You can set optional node role(s) for nodes by adding one or more
+`node-role.kubernetes.io/<role>: <role>` labels to the node where characters of `<role>` are limited by the
+[syntax](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) rules for labels.
+
+Kubernetes ignores the label value for node roles; by convention, you can set it to the same string you used for the node role in the label key.
 -->
 ### 手动节点管理 {#manual-node-administration}
 
@@ -256,6 +262,12 @@ For example, you can set labels on an existing Node or mark it unschedulable.
 
 你可以修改 Node 对象（忽略 `--register-node` 设置）。
 例如，你可以修改节点上的标签或并标记其为不可调度。
+
+你可以通过在节点上添加一个或多个 `node-role.kubernetes.io/<role>: <role>` 标签，
+来为节点设置可选的节点角色。其中，`<role>`
+的字符受[标签键名格式](/zh-cn/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)规则限制。
+
+Kubernetes 会忽略节点角色标签的值；按照惯例，你可以将其设置为与标签键中的 `<role>` 相同的字符串。
 
 <!--
 You can use labels on Nodes in conjunction with node selectors on Pods to control
@@ -668,7 +680,7 @@ Learn more about the following:
 * [Components](/docs/concepts/architecture/#node-components) that make up a node.
 * [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 * [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) section of the architecture design document.
-* [Cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/) to
+* [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/) to
   manage the number and size of nodes in your cluster.
 * [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
 * [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
@@ -681,7 +693,7 @@ Learn more about the following:
 * 架构设计文档中有关
   [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
   的章节。
-* [集群自动扩缩](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
+* [节点自动扩缩](/zh-cn/docs/concepts/cluster-administration/node-autoscaling/)
   以管理集群中节点的数量和规模。
 * [污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 * [节点资源管理器](/zh-cn/docs/concepts/policy/node-resource-managers/)。

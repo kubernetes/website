@@ -404,6 +404,11 @@ supported plugins.
 {{% code_sample language="yaml" file="storage/storageclass/storageclass-topology.yaml" %}}
 
 <!--
+`tagSpecification`: Tags with this prefix are applied to dynamically provisioned EBS volumes.
+-->
+`tagSpecification`：具有此前缀的标签适用于动态配置的 EBS 卷。
+
+<!--
 ## Parameters
 
 StorageClasses have parameters that describe volumes belonging to the storage

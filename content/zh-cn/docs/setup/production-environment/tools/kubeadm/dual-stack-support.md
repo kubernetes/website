@@ -40,12 +40,55 @@ following the steps from [Installing kubeadm](/docs/setup/production-environment
 
 <!--
 For each server that you want to use as a {{< glossary_tooltip text="node" term_id="node" >}},
-make sure it allows IPv6 forwarding. On Linux, you can set this by running run
-`sysctl -w net.ipv6.conf.all.forwarding=1` as the root user on each server.
+make sure it allows IPv6 forwarding.
 -->
 针对你要作为{{< glossary_tooltip text="节点" term_id="node" >}}使用的每台服务器，
-确保其允许 IPv6 转发。在 Linux 节点上，你可以通过以 root 用户在每台服务器上运行
-`sysctl -w net.ipv6.conf.all.forwarding=1` 来完成设置。
+确保其允许 IPv6 转发。
+
+<!--
+### Enable IPv6 packet forwarding {#prerequisite-ipv6-forwarding}
+
+To check if IPv6 packet forwarding is enabled:
+-->
+### 启用 IPv6 数据包转发   {#prerequisite-ipv6-forwarding}
+
+检查 IPv6 数据包转发是否已被启用：
+
+```bash
+sysctl net.ipv6.conf.all.forwarding
+```
+
+<!--
+If the output is `net.ipv6.conf.all.forwarding = 1` it is already enabled. 
+Otherwise it is not enabled yet.
+
+To manually enable IPv6 packet forwarding:
+-->
+如果输出为 `net.ipv6.conf.all.forwarding = 1`，IPv6 数据包转发已被启用。
+否则，IPv6 数据包转发尚未被启用。
+
+手动启用 IPv6 数据包转发：
+
+<!--
+```bash
+# sysctl params required by setup, params persist across reboots
+cat <<EOF | sudo tee -a /etc/sysctl.d/k8s.conf
+net.ipv6.conf.all.forwarding = 1
+EOF
+
+# Apply sysctl params without reboot
+sudo sysctl --system
+```
+-->
+```bash
+# 设置所需的 sysctl 参数，这些参数在重启后仍然有效
+cat <<EOF | sudo tee -a /etc/sysctl.d/k8s.conf
+net.ipv6.conf.all.forwarding = 1
+EOF
+
+# 应用 sysctl 参数而无需重启
+sudo sysctl --system
+```
 
 <!--
 You need to have an IPv4 and and IPv6 address range to use. Cluster operators typically
@@ -56,8 +99,8 @@ You don't have to route the cluster's IP address ranges to the public internet.
 The size of the IP address allocations should be suitable for the number of Pods and
 Services that you are planning to run.
 -->
-你需要一个可以使用的 IPv4 和 IPv6 地址范围。集群操作人员通常对于 IPv4 使用
-私有地址范围。对于 IPv6，集群操作人员通常会基于分配给该操作人员的地址范围，
+你需要一个可以使用的 IPv4 和 IPv6 地址范围。集群操作人员通常对 IPv4 使用
+私有的地址范围。对于 IPv6，集群操作人员通常会基于分配给他自己的地址范围，
 从 `2000::/3` 中选择一个全局的单播地址块。你不需要将集群的 IP 地址范围路由到公众互联网。
 
 所分配的 IP 地址数量应该与你计划运行的 Pod 和 Service 的数量相适应。
@@ -69,7 +112,7 @@ If you are upgrading an existing cluster with the `kubeadm upgrade` command,
 (“cluster CIDR”) nor to the cluster's Service address range (“Service CIDR”).
 -->
 如果你在使用 `kubeadm upgrade` 命令升级现有的集群，`kubeadm` 不允许更改 Pod
-的 IP 地址范围（“集群 CIDR”），也不允许更改集群的服务地址范围（“Service CIDR”）。
+的 IP 地址范围（“集群 CIDR”），也不允许更改集群的 Service 地址范围（“Service CIDR”）。
 {{< /note >}}
 
 <!--
@@ -91,8 +134,8 @@ kubeadm init --pod-network-cidr=10.244.0.0/16,2001:db8:42:0::/56 --service-cidr=
 ```
 
 <!--
-To make things clearer, here is an example kubeadm 
-[configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/) 
+To make things clearer, here is an example kubeadm
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/)
 `kubeadm-config.yaml` for the primary dual-stack control plane node.
 -->
 为了更便于理解，参看下面的名为 `kubeadm-config.yaml` 的 kubeadm
@@ -162,14 +205,27 @@ Here is an example kubeadm [configuration file](/docs/reference/config-api/kubea
 在添加节点之前，请确保该节点具有 IPv6 可路由的网络接口并且启用了 IPv6 转发。
 
 下面的名为 `kubeadm-config.yaml` 的 kubeadm
-[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)
-示例用于向集群中添加工作节点。
+[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)示例用于向集群中添加工作节点。
 
 <!--
-# change auth info above to match the actual token and CA certificate hash for your cluster
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: JoinConfiguration
+discovery:
+  bootstrapToken:
+    apiServerEndpoint: 10.100.0.1:6443
+    token: "clvldh.vjjwg16ucnhp94qr"
+    caCertHashes:
+    - "sha256:a4863cde706cfc580a439f842cc65d5ef112b7b2be31628513a9881cf0d9fe0e"
+    # change auth info above to match the actual token and CA certificate hash for your cluster
+nodeRegistration:
+  kubeletExtraArgs:
+  - name: "node-ip"
+    value: "10.100.0.2,fd00:1:2:3::3"
+```
 -->
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: JoinConfiguration
 discovery:
   bootstrapToken:
@@ -189,11 +245,28 @@ Also, here is an example kubeadm [configuration file](/docs/reference/config-api
 `kubeadm-config.yaml` for joining another control plane node to the cluster.
 -->
 下面的名为 `kubeadm-config.yaml` 的 kubeadm
-[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)
-示例用于向集群中添加另一个控制面节点。
+[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)示例用于向集群中添加另一个控制面节点。
 
 <!--
-# change auth info above to match the actual token and CA certificate hash for your cluster
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: JoinConfiguration
+controlPlane:
+  localAPIEndpoint:
+    advertiseAddress: "10.100.0.2"
+    bindPort: 6443
+discovery:
+  bootstrapToken:
+    apiServerEndpoint: 10.100.0.1:6443
+    token: "clvldh.vjjwg16ucnhp94qr"
+    caCertHashes:
+    - "sha256:a4863cde706cfc580a439f842cc65d5ef112b7b2be31628513a9881cf0d9fe0e"
+    # change auth info above to match the actual token and CA certificate hash for your cluster
+nodeRegistration:
+  kubeletExtraArgs:
+  - name: "node-ip"
+    value: "10.100.0.2,fd00:1:2:3::4"
+```
 -->
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4

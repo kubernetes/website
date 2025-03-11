@@ -43,8 +43,8 @@ where you can say hello.
 -->
 ## 为现有的本地化做出贡献 {#contribute-to-an-existing-localization}
 
-你可以帮助添加或改进现有本地化的内容。在 [Kubernetes Slack](https://slack.k8s.io/) 中，
-你能找到每个本地化的频道。还有一个通用的
+你可以帮助添加或改进现有本地化的内容。在 [Kubernetes Slack](https://slack.k8s.io/)
+中，你能找到每个本地化的频道。还有一个通用的
 [SIG Docs Localizations Slack 频道](https://kubernetes.slack.com/messages/sig-docs-localizations)，
 你可以在这里打个招呼。
 
@@ -113,13 +113,6 @@ Create or update your chosen localized page based on the English original. See
 If you notice a technical inaccuracy or other problem with the upstream
 (English) documentation, you should fix the upstream documentation first and
 then repeat the equivalent fix by updating the localization you're working on.
-
-Limit changes in a pull requests to a single localization. Reviewing pull
-requests that change content in multiple localizations is problematic.
-
-Follow [Suggesting Content Improvements](/docs/contribute/suggesting-improvements/)
-to propose changes to that localization. The process is similar to proposing
-changes to the upstream (English) content.
 -->
 ### 建议更改 {#suggest-changes}
 
@@ -129,6 +122,14 @@ changes to the upstream (English) content.
 如果你发现上游（英文）文档存在技术错误或其他问题，
 你应该先修复上游文档，然后通过更新你正在处理的本地化来重复等效的修复。
 
+<!--
+Limit changes in a pull requests to a single localization. Reviewing pull
+requests that change content in multiple localizations is problematic.
+
+Follow [Suggesting Content Improvements](/docs/contribute/suggesting-improvements/)
+to propose changes to that localization. The process is similar to proposing
+changes to the upstream (English) content.
+-->
 请将 PR 限制为单个语言版本，因为多语言的 PR 内容修改可能难以审查。
 
 按照[内容改进建议](/zh-cn/docs/contribute/suggesting-improvements/)提出对该本地化的更改。
@@ -201,8 +202,8 @@ questions.
 ### 找到社区 {#find-community}
 
 让 Kubernetes SIG Docs 知道你有兴趣创建本地化！
-加入 [SIG Docs Slack 频道](https://kubernetes.slack.com/messages/sig-docs)
-和 [SIG Docs Localizations Slack 频道](https://kubernetes.slack.com/messages/sig-docs-localizations)。
+加入 [SIG Docs Slack 频道](https://kubernetes.slack.com/messages/sig-docs)和
+[SIG Docs Localizations Slack 频道](https://kubernetes.slack.com/messages/sig-docs-localizations)。
 其他本地化团队很乐意帮助你入门并回答你的问题。
 
 <!--
@@ -240,7 +241,7 @@ GitHub organization. Each person on the team needs to create their own
 [Organization Membership Request](https://github.com/kubernetes/org/issues/new/choose)
 in the `kubernetes/org` repository.
 -->
-### 加入到 Kubernetes GitHub 组织 {#join-the-kubernetes-github-organization}
+### 加入到 Kubernetes GitHub 组织   {#join-the-kubernetes-github-organization}
 
 提交本地化 PR 后，你可以成为 Kubernetes GitHub 组织的成员。
 团队中的每个人都需要在 `kubernetes/org`
@@ -253,7 +254,14 @@ Next, add your Kubernetes localization team to
 [`sig-docs/teams.yaml`](https://github.com/kubernetes/org/blob/main/config/kubernetes/sig-docs/teams.yaml).
 For an example of adding a localization team, see the PR to add the
 [Spanish localization team](https://github.com/kubernetes/org/pull/685).
+-->
+### 在 GitHub 中添加你的本地化团队   {#add-your-localization-team-in-github}
 
+接下来，将你的 Kubernetes 本地化团队添加到
+[`sig-docs/teams.yaml`](https://github.com/kubernetes/org/blob/main/config/kubernetes/sig-docs/teams.yaml)。
+有关添加本地化团队的示例，请参见添加[西班牙本地化团队](https://github.com/kubernetes/org/pull/685)的 PR。
+
+<!--
 Members of `@kubernetes/sig-docs-**-owners` can approve PRs that change content
 within (and only within) your localization directory: `/content/**/`. For each
 localization, The `@kubernetes/sig-docs-**-reviews` team automates review
@@ -262,12 +270,6 @@ new localization branches to coordinate translation efforts. Members of
 `@kubernetes/website-milestone-maintainers` can use the `/milestone`
 [Prow command](https://prow.k8s.io/command-help) to assign a milestone to issues or PRs.
 -->
-### 在 GitHub 中添加你的本地化团队 {#add-your-localization-team-in-github}
-
-接下来，将你的 Kubernetes 本地化团队添加到
-[`sig-docs/teams.yaml`](https://github.com/kubernetes/org/blob/main/config/kubernetes/sig-docs/teams.yaml)。
-有关添加本地化团队的示例，请参见添加[西班牙本地化团队](https://github.com/kubernetes/org/pull/685)的 PR。
-
 `@kubernetes/sig-docs-**-owners` 成员可以批准更改对应本地化目录 `/content/**/` 中内容的 PR，并仅限这类 PR。
 对于每个本地化，`@kubernetes/sig-docs-**-reviews` 团队被自动分派新 PR 的审阅任务。
 `@kubernetes/website-maintainers` 成员可以创建新的本地化分支来协调翻译工作。
@@ -314,11 +316,16 @@ Kubernetes 网站使用 Hugo 作为其 Web 框架。网站的 Hugo 配置位于
 ```toml
 [languages.de]
 title = "Kubernetes"
-description = "Produktionsreife Container-Verwaltung"
 languageName = "Deutsch (German)"
-languageNameLatinScript = "Deutsch"
+weight = 5
 contentDir = "content/de"
-weight = 8
+languagedirection = "ltr"
+
+[languages.de.params]
+time_format_blog = "02.01.2006"
+language_alternatives = ["en"]
+description = "Produktionsreife Container-Orchestrierung"
+languageNameLatinScript = "Deutsch"
 ```
 
 <!--
@@ -377,24 +384,16 @@ mkdir content/de
 ```
 
 <!--
-You also need to create a directory inside `data/i18n` for
+You also need to create a directory inside `i18n` for
 [localized strings](#site-strings-in-i18n); look at existing localizations
-for an example. To use these new strings, you must also create a symbolic link
-from `i18n/<localization>.toml` to the actual string configuration in
-`data/i18n/<localization>/<localization>.toml` (remember to commit the symbolic
-link).
+for an example.
 
-For example, for German the strings live in `data/i18n/de/de.toml`, and
-`i18n/de.toml` is a symbolic link to `data/i18n/de/de.toml`.
+For example, for German the strings live in `i18n/de/de.toml`.
 -->
-你还需要在 `data/i18n` 中为[本地化字符串](#site-strings-in-i18n)创建一个目录；
-以现有的本地化为例。要使用这些新字符串，
-你还必须创建从 `i18n/<localization>.toml`
-到 `data/i18n/<localization>/<localization>.toml`
-中实际字符串配置的符号链接（记得提交符号链接关联）。
+你还需要在 `i18n` 中为[本地化字符串](#site-strings-in-i18n)创建一个目录；
+以现有的本地化为例。
 
-例如，对于德语，字符串位于 `data/i18n/de/de.toml` 中，
-而 `i18n/de.toml` 是指向 `data/i18n/de/de.toml` 的符号链接。
+例如，对于德语，字符串位于 `i18n/de/de.toml`。
 
 <!--
 ### Localize the community code of conduct
@@ -446,13 +445,25 @@ language code `es`, looks like this:
 语言代码为 `es` 的[西班牙语 OWNERS 文件](https://git.k8s.io/website/content/es/OWNERS)看起来像：
 
 <!--
+```yaml
 # See the OWNERS docs at https://go.k8s.io/owners
 
 # This is the localization project for Spanish.
 # Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+reviewers:
+- sig-docs-es-reviews
+
+approvers:
+- sig-docs-es-owners
+
+labels:
+- area/localization
+- language/es
+```
 -->
 ```yaml
-# 参见 OWNERS 文档，位于 https://go.k8s.io/owners
+# 参见 OWNERS 文档：https://go.k8s.io/owners
 
 # 这是西班牙语的本地化项目
 # 各团队和成员名单位于 https://github.com/orgs/kubernetes/teams
@@ -464,6 +475,7 @@ approvers:
 - sig-docs-es-owners
 
 labels:
+- area/localization
 - language/es
 ```
 
@@ -479,7 +491,8 @@ in alphabetical order.
 -->
 添加了特定语言的 OWNERS 文件之后，使用新的 Kubernetes 本地化团队、
 `sig-docs-**-owners` 和 `sig-docs-**-reviews`
-列表更新[根目录下的 OWNERS_ALIAES](https://git.k8s.io/website/OWNERS_ALIASES) 文件。
+列表更新[根目录下的 OWNERS_ALIAES](https://git.k8s.io/website/OWNERS_ALIASES)
+文件。
 
 对于每个团队，
 请按字母顺序添加[在 GitHub 中添加你的本地化团队](#add-your-localization-team-in-github)中所请求的
@@ -613,7 +626,7 @@ Releases | [All heading and subheading URLs](/releases)
 -----|-----
 主页 | [所有标题和副标题网址](/zh-cn/docs/home/)
 安装 | [所有标题和副标题网址](/zh-cn/docs/setup/)
-教程 | [Kubernetes 基础](/zh-cn/docs/tutorials/kubernetes-basics/), [Hello Minikube](/zh-cn/docs/tutorials/hello-minikube/)
+教程 | [Kubernetes 基础](/zh-cn/docs/tutorials/kubernetes-basics/)、[Hello Minikube](/zh-cn/docs/tutorials/hello-minikube/)
 网站字符串 | [所有网站字符串](#site-strings-in-i18n)
 发行版本 | [所有标题和副标题 URL](/zh-cn/releases)
 
@@ -776,24 +789,24 @@ release: v{{< skew nextMinorVersion >}}.
 ### Site strings in i18n
 
 Localizations must include the contents of
-[`data/i18n/en/en.toml`](https://github.com/kubernetes/website/blob/main/data/i18n/en/en.toml)
+[`i18n/en/en.toml`](https://github.com/kubernetes/website/blob/main/i18n/en/en.toml)
 in a new language-specific file. Using German as an example:
-`data/i18n/de/de.toml`.
+`i18n/de/de.toml`.
 
-Add a new localization directory and file to `data/i18n/`. For example, with
+Add a new localization directory and file to `i18n/`. For example, with
 German (`de`):
 -->
 ### i18n/ 中的网站字符串 {#site-strings-in-i18n}
 
 本地化必须在新的语言特定文件中包含
-[`data/i18n/en/en.toml`](https://github.com/kubernetes/website/blob/main/data/i18n/en/en.toml)
-的内容。以德语为例：`data/i18n/de/de.toml`。
+[`i18n/en/en.toml`](https://github.com/kubernetes/website/blob/main/i18n/en/en.toml)
+的内容。以德语为例：`i18n/de/de.toml`。
 
-将新的本地化文件和目录添加到 `data/i18n/`。例如德语（`de`）：
+将新的本地化文件和目录添加到 `i18n/`。例如德语（`de`）：
 
 ```bash
-mkdir -p data/i18n/de
-cp data/i18n/en/en.toml data/i18n/de/de.toml
+mkdir -p i18n/de
+cp i18n/en/en.toml i18n/de/de.toml
 ```
 
 <!--

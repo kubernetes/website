@@ -1,0 +1,12 @@
+{{- $summary := "" -}}
+{{- if .IsNamedParams -}}
+  {{- $summary = .Get "summary" -}}
+{{- end -}}
+<details>
+  {{- if ne $summary "" -}}
+    <summary>{{ $summary }}</summary>
+  {{- end -}}
+  <div class="details-inner">
+    {{ .Inner | markdownify }}
+  </div>
+</details>

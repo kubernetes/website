@@ -53,14 +53,13 @@ upload-certs                 Upload certificates to kubeadm-certs
 mark-control-plane           Mark a node as a control-plane
 bootstrap-token              Generates bootstrap tokens used to join a node to a cluster
 kubelet-finalize             Updates settings relevant to the kubelet after TLS bootstrap
-  /experimental-cert-rotation  Enable kubelet client certificate rotation
 addon                        Install required addons for passing conformance tests
   /coredns                     Install the CoreDNS addon to a Kubernetes cluster
   /kube-proxy                  Install the kube-proxy addon to a Kubernetes cluster
 show-join-command            Show the join command for control-plane and worker node
 ```
 -->
-```
+```shell
 preflight                    预检
 certs                        生成证书
   /ca                          生成自签名根 CA 用于配置其他 kubernetes 组件
@@ -94,14 +93,13 @@ upload-certs                 将证书上传到 kubeadm-certs
 mark-control-plane           将节点标记为控制面
 bootstrap-token              生成用于将节点加入集群的引导令牌
 kubelet-finalize             在 TLS 引导后更新与 kubelet 相关的设置
-  /experimental-cert-rotation  启用 kubelet 客户端证书轮换
 addon                        安装用于通过一致性测试所需的插件
   /coredns                     将 CoreDNS 插件安装到 Kubernetes 集群
   /kube-proxy                  将 kube-proxy 插件安装到 Kubernetes 集群
 show-join-command            显示控制平面和工作节点的加入命令
 ```
 
-```
+```shell
 kubeadm init [flags]
 ```
 
@@ -262,17 +260,19 @@ Don't apply any changes; just output what would be done.
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-EtcdLearnerMode=true|false (BETA - default=true)<br/>
+ControlPlaneKubeletLocalMode=true|false (ALPHA - default=false)<br/>
+EtcdLearnerMode=true|false (default=true)<br/>
+NodeLocalCRISocket=true|false (ALPHA - default=false)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)<br/>
 WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
 -->
 一组用来描述各种功能特性的键值（key=value）对。选项是：<br/>
-EtcdLearnerMode=true|false (BETA - 默认值=true)<br/>
+ControlPlaneKubeletLocalMode=true|false (ALPHA - 默认值=false)<br/>
+EtcdLearnerMode=true|false (默认值=true)<br/>
+NodeLocalCRISocket=true|false (ALPHA - 默认值=false)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)<br/>
 WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
 </td>
 </tr>
@@ -367,12 +367,12 @@ Path to a directory that contains files named &quot;target[suffix][+patchtype].e
 -->
 <p>
 它包含名为 &quot;target[suffix][+patchtype].extension&quot; 的文件的目录的路径。
-例如，&quot;kube-apiserver0+merge.yaml&quot;或仅仅是 &quot;etcd.json&quot;。
+例如，&quot;kube-apiserver0+merge.yaml&quot; 或仅仅是 &quot;etcd.json&quot;。
 &quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、&quot;kube-scheduler&quot;、&quot;etcd&quot;、&quot;kubeletconfiguration&quot; 之一。
 &quot;patchtype&quot; 可以是 &quot;strategic&quot;、&quot;merge&quot; 或者 &quot;json&quot; 之一，
 并且它们与 kubectl 支持的补丁格式相同。
 默认的 &quot;patchtype&quot; 是 &quot;strategic&quot;。
-&quot;extension&quot; 必须是&quot;json&quot; 或&quot;yaml&quot;。
+&quot;extension&quot; 必须是 &quot;json&quot; 或 &quot;yaml&quot;。
 &quot;suffix&quot; 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。
 </p>
 </td>
@@ -526,7 +526,7 @@ Upload control-plane certificates to the kubeadm-certs Secret.
 -->
 ### 从父命令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -542,7 +542,7 @@ Upload control-plane certificates to the kubeadm-certs Secret.
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
 <p>
-[实验] 到 '真实' 主机根文件系统的路径。
+[实验] 到'真实'主机根文件系统的路径。
 </p>
 </td>
 </tr>

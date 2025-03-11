@@ -105,21 +105,21 @@ You can declare a `prerequisites` heading as follows:
 
 <!--
 The `heading` shortcode expects one string parameter.
-The heading string parameter matches the prefix of a variable in the `i18n/<lang>.toml` files.
+The heading string parameter matches the prefix of a variable in the `i18n/<lang>/<lang>.toml` files.
 For example:
 -->
 短代码 `heading` 需要一个字符串参数。
-该字符串参数要与 `i18n/<语言>.toml` 文件中以其为前缀的某个变量匹配。
+该字符串参数要与 `i18n/<语言>/<语言>.toml` 文件中以其为前缀的某个变量匹配。
 例如：
 
-`i18n/en.toml`:
+`i18n/en/en.toml`:
 
 ```toml
 [whatsnext_heading]
 other = "What's next"
 ```
 
-`i18n/ko.toml`:
+`i18n/ko/ko.toml`:
 
 ```toml
 [whatsnext_heading]

@@ -1,5 +1,5 @@
 <!--
-Commands related to handling kubernetes certificates
+Commands related to handling Kubernetes certificates
 -->
 处理 Kubernetes 证书的相关命令。
 
@@ -9,7 +9,7 @@ Commands related to handling kubernetes certificates
 ### 概要
 
 <!--
-Commands related to handling kubernetes certificates
+Commands related to handling Kubernetes certificates
 -->
 处理 Kubernetes 证书相关的命令。
 

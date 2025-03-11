@@ -468,6 +468,30 @@ IPVS 为将流量均衡到后端 Pod 提供了更多选择：
 * `nq`（永不排队）：流量被发送到一台空闲服务器（如果有的话），而不是等待一台快速服务器；
   如果所有服务器都忙碌，算法将退回到 `sed` 行为。
 
+<!--
+* `mh` (Maglev Hashing): Assigns incoming jobs based on
+  [Google's Maglev hashing algorithm](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/44824.pdf),
+  This scheduler has two flags: `mh-fallback`, which enables fallback to a different
+  server if the selected server is unavailable, and `mh-port`, which adds the source port number to
+  the hash computation. When using `mh`, kube-proxy always sets the `mh-port` flag and does not
+  enable the `mh-fallback` flag.
+  In proxy-mode=ipvs `mh` will work as source-hashing (`sh`), but with ports.
+
+These scheduling algorithms are configured through the
+[`ipvs.scheduler`](/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPVSConfiguration)
+field in the kube-proxy configuration.
+-->
+* `mh`（Maglev Hashing）：基于 [Google 的 Maglev 哈希算法](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/44824.pdf)
+  来分配接收的任务。此调度器有两个标志：
+  `mh-fallback` 允许在选定的服务器不可用时回退到另一台服务器；
+  `mh-port` 将源端口号添加到哈希计算中。
+  在使用 `mh` 时，`kube-proxy` 始终会设置 `mh-port` 标志，但不会启用 `mh-fallback` 标志。
+  在代理模式为 ipvs 时，`mh` 的工作方式与源哈希（`sh`）类似，但会包含端口信息。
+
+这些调度算法是通过 kube-proxy 配置中的
+[ipvs.scheduler](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPVSConfiguration)
+字段进行配置的。
+
 {{< note >}}
 <!--
 To run kube-proxy in IPVS mode, you must make IPVS available on

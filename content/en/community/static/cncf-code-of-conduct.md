@@ -81,5 +81,5 @@ Consistent with the CNCF Charter, any substantive changes to this Code of Conduc
 ## Acknowledgements
 
 This Code of Conduct is adapted from the Contributor Covenant
-(http://contributor-covenant.org), version 2.0 available at
-http://contributor-covenant.org/version/2/0/code_of_conduct/
+(https://contributor-covenant.org), version 2.0 available at
+https://contributor-covenant.org/version/2/0/code_of_conduct/

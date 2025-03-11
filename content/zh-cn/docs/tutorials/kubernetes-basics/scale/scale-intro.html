@@ -289,7 +289,20 @@ kubernetes-bootcamp   1/1     1            1           11m
                <p>We hit a different Pod with every request. This demonstrates that the load-balancing is working.</p>
                -->
                <p>我们每个请求都命中了不同的 Pod，这证明负载均衡正在工作。</p>
-              <!--
+               <p>
+               <!--
+               The output should be similar to:
+               -->
+               输出应该类似于：
+               </p>
+                  <pre>
+Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-wp67j | v=1
+Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-hs9dj | v=1
+Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-4hjvf | v=1
+Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-wp67j | v=1
+Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-644c5687f4-4hjvf | v=1
+                  </pre>            
+               <!--
                 <p>If you're running minikube with Docker Desktop as the container driver, a minikube tunnel is needed. This is because containers inside Docker Desktop are isolated from your host computer.<br>
                 <p>In a separate terminal window, execute:<br>
                   <code><b>minikube service kubernetes-bootcamp --url</b></code></p>

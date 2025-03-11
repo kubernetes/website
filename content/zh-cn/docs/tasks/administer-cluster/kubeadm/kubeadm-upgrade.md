@@ -218,6 +218,12 @@ sudo yum list --showduplicates kubeadm --disableexcludes=kubernetes
 {{< /tabs >}}
 
 <!--
+If you don't see the version you expect to upgrade to, [verify if the Kubernetes package repositories are used.](/docs/tasks/administer-cluster/kubeadm/change-package-repository/#verifying-if-the-kubernetes-package-repositories-are-used)
+-->
+如果你没有看到预期要升级到的版本，
+请[验证是否使用了 Kubernetes 软件包仓库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/#verifying-if-the-kubernetes-package-repositories-are-used)。
+
+<!--
 ## Upgrading control plane nodes
 -->
 ## 升级控制平面节点  {#upgrading-control-plane-nodes}

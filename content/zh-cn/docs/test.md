@@ -23,7 +23,52 @@ This page serves two purposes:
 ## Heading levels
 
 The above heading is an H2. The page title renders as an H1. The following
-sections show H3-H6.
+sections show H3 - H6.
+-->
+## 标题级别   {#heading-levels}
+
+上面的标题是 H2 级别。页面标题（Title）会渲染为 H1。以下各节分别展示 H3-H6
+的渲染结果。
+
+<!--
+```markdown
+### H3
+
+This is in an H3 section.
+
+#### H4
+
+This is in an H4 section.
+
+##### H5
+
+This is in an H5 section.
+
+###### H6
+
+This is in an H6 section.
+```
+-->
+```markdown
+### H3
+
+此处为 H3 节内容。
+
+#### H4
+
+此处为 H4 节内容。
+
+##### H5
+
+此处为 H5 节内容。
+
+###### H6
+
+此处为 H6 节内容。
+```
+
+<!--
+Produces:
 
 ### H3
 
@@ -41,10 +86,7 @@ This is in an H5 section.
 
 This is in an H6 section.
 -->
-## 标题级别   {#heading-levels}
-
-上面的标题是 H2 级别。页面标题（Title）会渲染为 H1。以下各节分别展示 H3-H6
-的渲染结果。
+渲染后的结果为：
 
 ### H3
 
@@ -81,10 +123,41 @@ culpa qui officia deserunt mollit anim id est laborum.
 
 <!--
 ### Inline text styles
+
+You can use different text styles in markdown like:
+
+```markdown
+- **bold**
+- _italic_
+- ***bold italic***
+- ~~strikethrough~~
+- <u>underline</u>
+- _<u>underline italic</u>_
+- **<u>underline bold</u>**
+- ***<u>underline bold italic</u>***
+- `monospace text`
+- **`monospace bold`**
+```
 -->
 ### 内联文本风格   {#inline-text-styles}
 
+你可以在 Markdown 中如下使用不同的文本风格：
+
+```markdown
+- **粗体字**
+- _斜体字_
+- ***粗斜体字***
+- ~~删除线~~
+- <u>下划线</u>
+- _<u>带下划线的斜体</u>_
+- ***<u>带下划线的粗斜体</u>***
+- `monospace text`  <- 等宽字体
+- **`monospace bold`**    <- 粗等宽字体
+```
+
 <!--
+Produces:
+
 - **bold**
 - _italic_
 - ***bold italic***
@@ -96,6 +169,8 @@ culpa qui officia deserunt mollit anim id est laborum.
 - `monospace text`
 - **`monospace bold`**
 -->
+渲染后的结果为：
+
 - **粗体字**
 - _斜体字_
 - ***粗斜体字***
@@ -133,6 +208,33 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
 <!--
 ### Bullet lists
 
+You can add a bullet list in markdown like:
+
+```markdown
+- This is a list item.
+* This is another list item in the same list.
+- You can mix `-` and `*`.
+  - To make a sub-item, indent two spaces.
+    - This is a sub-sub-item. Indent two more spaces.
+  - Another sub-item.
+```
+-->
+### 项目符号列表   {#bullet-lists}
+
+你可以在 Markdown 中如下添加项目符号列表：
+
+```markdown
+- 此为列表条目。
+* 此为另一列表条目，位于同一列表中。
+- 你可以将 `-` 和 `*` 混合使用。
+  - 要开始子列表，缩进两个空格。
+    - 这是另一个子子条目。进一步多缩进两个空格。
+  - 另一个子条目。
+```
+
+<!--
+Produces:
+
 - This is a list item.
 * This is another list item in the same list.
 - You can mix `-` and `*`.
@@ -140,7 +242,7 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
     - This is a sub-sub-item. Indent two more spaces.
   - Another sub-item.
 -->
-### 项目符号列表   {#bullet-lists}
+渲染后的结果为：
 
 - 此为列表条目。
 * 此为另一列表条目，位于同一列表中。
@@ -149,9 +251,9 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
     - 这是另一个子子条目。进一步多缩进两个空格。
   - 另一个子条目。
 
-<!-- separate lists -->
-
 <!--
+Also,
+
 - This is a new list. With Hugo, you need to use a HTML comment to separate two
   consecutive lists. **The HTML comment needs to be at the left margin.**
 - Bullet lists can have paragraphs or block elements within them.
@@ -160,6 +262,8 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
   **This paragraph and the code block line up with the first `B` in `Bullet`
   above.**
 -->
+另外，
+
 - 这是一个新的列表。使用 Hugo 时，你需要用一行 HTML 注释将两个紧挨着的列表分开。
   **这里的 HTML 注释需要按左侧顶边对齐。**
 - 项目符号列表可以中包含文字段落或块元素。
@@ -194,17 +298,17 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
 <!--
 ### Numbered lists
 
-1. This is a list item
+1. This is a list item.
 1. This is another list item in the same list. The number you use in Markdown
    does not necessarily correlate to the number in the final output. By
    convention, we keep them in sync.
 -->
 ### 编号列表  {#numbered-lists}
 
-1. 此为列表条目
-1. 此为列表中的第二个条目。在 Markdown 源码中所给的编号数字与最终输出的数字
-   可能不同。建议在紧凑列表中编号都使用 1。如果条目之间有其他内容（比如注释
-   掉的英文）存在，则需要显式给出编号。
+1. 此为列表条目。
+1. 此为列表中的第二个条目。在 Markdown 源码中所给的编号数字与最终输出的数字可能不同。
+   建议在紧凑列表中编号都使用 1。
+   如果条目之间有其他内容（比如注释掉的英文）存在，则需要显式给出编号。
 
 {{<note>}}
 <!--
@@ -409,7 +513,7 @@ this is a code block created by back-ticks
 <!--
 The back-tick method has some advantages.
 
-- It works nearly every time
+- It works nearly every time.
 - It is more compact when viewing the source code.
 - It allows you to specify what language the code block is in, for syntax
   highlighting.
@@ -418,9 +522,9 @@ The back-tick method has some advantages.
 -->
 反引号标记代码段的方式有以下优点：
 
-- 这种方式几乎总是能正确工作
-- 在查看源代码时，内容相对紧凑
-- 允许你指定代码块的编程语言，以便启用语法加亮
+- 这种方式几乎总是能正确工作。
+- 在查看源代码时，内容相对紧凑。
+- 允许你指定代码块的编程语言，以便启用语法加亮。
 - 代码段的结束位置有明确标记。有时候，采用缩进空格的方式会使得一些对空格很敏感的语言（如 Python、YAML）很难处理。
 
 <!--
@@ -561,6 +665,15 @@ image.
 方括号中给出的是图片的替代文本。
 请坚持为图片设定替代文本，这样使用屏幕阅读器的人也能够了解图片中包含的是什么。
 
+```markdown
+![pencil icon](/images/pencil.png)
+```
+
+<!--
+Produces:
+-->
+渲染后的结果为：
+
 ![pencil icon](/images/pencil.png)
 
 <!--
@@ -577,27 +690,58 @@ figure in Markdown link syntax as shown below.
 而不是将整个图片放到 Markdown 的链接语法之内。下面是一个例子：
 
 <!--
-{{</* figure src="/static/images/pencil.png" title="Pencil icon" caption="Image used to illustrate the figure shortcode" width="200px" */>}}
+<div style="text-align: center;">
+  {{< figure src="/images/pencil.png" title="Pencil icon" caption="An image used to illustrate the figure shortcode" width="200px" >}}
+</div>
 -->
-{{< figure src="/images/pencil.png" title="铅笔图标" caption="用来展示 figure 短代码的图片" width="200px" >}}
+<div style="text-align: center;">
+  {{< figure src="/images/pencil.png" title="铅笔图标" caption="用来展示 figure 短代码的图片" width="200px" >}}
+</div>
 
 <!--
 Even if you choose not to use the figure shortcode, an image can also be a link. This
 time the pencil icon links to the Kubernetes website. Outer square brackets enclose
 the entire image tag, and the link target is in the parentheses at the end.
-
-[![pencil icon](/images/pencil.png)](https://kubernetes.io)
-
-You can also use HTML for images, but it is not preferred.
-
-<img src="/images/pencil.png" alt="pencil icon" />
 -->
 即使你不想使用 figure 短代码，图片也可以展示为链接。这里，铅笔图标指向
 Kubernetes 网站。外层的方括号将整个 image 标签封装起来，链接目标在末尾的圆括号之间给出。
 
+<!--
+```markdown
+[![pencil icon](/images/pencil.png)](https://kubernetes.io)
+```
+
+Produces:
+
+[![pencil icon](/images/pencil.png)](https://kubernetes.io)
+-->
+```markdown
+[![铅笔图标](/images/pencil.png)](https://kubernetes.io)
+```
+
+渲染后的结果为：
+
 [![铅笔图标](/images/pencil.png)](https://kubernetes.io)
 
+<!--
+You can also use HTML for images, but it is not preferred.
+-->
 你也可以使用 HTML 来嵌入图片，不过这种方式是不推荐的。
+
+<!--
+```markdown
+<img src="/images/pencil.png" alt="pencil icon" />
+```
+
+Produces:
+
+<img src="/images/pencil.png" alt="pencil icon" />
+-->
+```markdown
+<img src="/images/pencil.png" alt="铅笔图标" />
+```
+
+渲染后的结果为：
 
 <img src="/images/pencil.png" alt="铅笔图标" />
 
@@ -639,6 +783,46 @@ Markdown 表格在处理块级元素方面还很笨拙。例如在单元格中�
 或者在其中划分多个段落方面的能力都比较差。对于复杂的或者很宽的表格，可以使用
 HTML。
 
+<!--
+```html
+<table>
+<thead>
+  <tr>
+    <th>Heading cell 1</th>
+    <th>Heading cell 2</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Body cell 1</td>
+    <td>Body cell 2</td>
+  </tr>
+</tbody>
+</table>
+```
+-->
+```html
+<table>
+<thead>
+  <tr>
+    <th>标题单元格 1</th>
+    <th>标题单元格 2</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>内容单元格 1</td>
+    <td>内容单元格 2</td>
+  </tr>
+</tbody>
+</table>
+```
+
+<!--
+Produces:
+-->
+渲染后的结果为：
+
 <table>
 <thead>
   <tr>
@@ -670,16 +854,7 @@ The Mermaid JS version is specified in [/layouts/partials/head.html](https://git
 Mermaid JS 版本在 [/layouts/partials/head.html](https://github.com/kubernetes/website/blob/main/layouts/partials/head.html)
 中设置。
 
-<!--
-{{</* mermaid */>}}
-graph TD;
-  A->B;
-  A->C;
-  B->D;
-  C->D;
-{{</* mermaid */>}}
--->
-```
+```markdown
 {{</* mermaid */>}}
 graph TD;
   甲-->乙;
@@ -692,7 +867,7 @@ graph TD;
 <!--
 Produces:
 -->
-会产生：
+渲染后的结果为：
 
 <!--
 {{</* mermaid */>}}
@@ -712,7 +887,7 @@ graph TD;
 {{</ mermaid >}}
 
 <!--
-```
+```markdown
 {{</* mermaid */>}}
 sequenceDiagram
     Alice ->> Bob: Hello Bob, how are you?
@@ -726,8 +901,7 @@ sequenceDiagram
 {{</*/ mermaid */>}}
 ```
 -->
-
-```
+```markdown
 {{</* mermaid */>}}
 sequenceDiagram
     张三 ->> 李四: 李四，锄禾日当午？
@@ -744,7 +918,7 @@ sequenceDiagram
 <!--
 Produces:
 -->
-会产生：
+渲染后的结果为：
 
 <!--
 {{< mermaid >}}

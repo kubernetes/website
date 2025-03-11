@@ -183,7 +183,7 @@ simply as *nodes*).
   to help determine how many nodes you need, based on the number of pods and
   containers you need to run. If you are managing nodes yourself, this can mean
   purchasing and installing your own physical equipment.
-- *Autoscale nodes*: Read [Cluster Autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling) to learn about the
+- *Autoscale nodes*: Read [Node Autoscaling](/docs/concepts/cluster-administration/node-autoscaling) to learn about the
   tools available to automatically manage your nodes and the capacity they
   provide.
 - *Set up node health checks*: For important workloads, you want to make sure
@@ -232,7 +232,7 @@ As someone setting up authentication and authorization on your production Kubern
 
 - *Set the authorization mode*: When the Kubernetes API server
   ([kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/))
-  starts, the supported authentication modes must be set using the *--authorization-mode*
+  starts, supported authorization modes must be set using an *--authorization-config* file or the *--authorization-mode*
   flag. For example, that flag in the *kube-adminserver.yaml* file (in */etc/kubernetes/manifests*)
   could be set to Node,RBAC. This would allow Node and RBAC authorization for authenticated requests.
 - *Create user certificates and role bindings (RBAC)*: If you are using RBAC

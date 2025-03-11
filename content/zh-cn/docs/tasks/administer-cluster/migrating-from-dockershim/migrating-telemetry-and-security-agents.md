@@ -26,8 +26,8 @@ alternative runtimes.
 -->
 Kubernetes 对与 Docker Engine 直接集成的支持已被弃用且已经被删除。
 大多数应用程序不直接依赖于托管容器的运行时。但是，仍然有大量的遥测和监控代理依赖
-docker 来收集容器元数据、日志和指标。
-本文汇总了一些信息和链接：信息用于阐述如何探查这些依赖，链接用于解释如何迁移这些代理去使用通用的工具或其他容器运行。
+Docker 来收集容器元数据、日志和指标。
+本文汇总了一些如何探查这些依赖的信息以及如何迁移这些代理去使用通用工具或其他容器运行时的参考链接。
 
 <!-- 
 ## Telemetry and security agents 
@@ -49,13 +49,14 @@ directly on nodes.
 
 <!-- 
 Historically, Kubernetes was written to work specifically with Docker Engine.
-Kubernetes took care of networking and scheduling, relying on Docker Engine for launching
-and running containers (within Pods) on a node. Some information that is relevant to telemetry,
-such as a pod name, is only available from Kubernetes components. Other data, such as container
-metrics, is not the responsibility of the container runtime. Early telemetry agents needed to query the
-container runtime **and** Kubernetes to report an accurate picture. Over time, Kubernetes gained
-the ability to support multiple runtimes, and now supports any runtime that is compatible with
-the [container runtime interface](/docs/concepts/architecture/cri/).
+Kubernetes took care of networking and scheduling, relying on Docker Engine for
+launching and running containers (within Pods) on a node. Some information that
+is relevant to telemetry, such as a pod name, is only available from Kubernetes
+components. Other data, such as container metrics, is not the responsibility of
+the container runtime. Early telemetry agents needed to query the container
+runtime *and* Kubernetes to report an accurate picture. Over time, Kubernetes
+gained the ability to support multiple runtimes, and now supports any runtime
+that is compatible with the [container runtime interface](/docs/concepts/architecture/cri/).
 -->
 从历史上看，Kubernetes 是专门为与 Docker Engine 一起工作而编写的。
 Kubernetes 负责网络和调度，依靠 Docker Engine
@@ -124,13 +125,13 @@ kubectl get pods --all-namespaces \
 | grep '/var/run/docker.sock'
 ```
 
+{{< note >}}
 <!-- 
 There are alternative ways for a pod to access Docker on the host. For instance, the parent
 directory `/var/run` may be mounted instead of the full path (like in [this
 example](https://gist.github.com/itaysk/7bc3e56d69c4d72a549286d98fd557dd)).
 The script above only detects the most common uses.
 -->
-{{< note >}}
 对于 Pod 来说，访问宿主机上的 Docker 还有其他方式。
 例如，可以挂载 `/var/run` 的父目录而非其完整路径
 （就像[这个例子](https://gist.github.com/itaysk/7bc3e56d69c4d72a549286d98fd557dd)）。
@@ -165,8 +166,7 @@ Please contact the vendor to get up to date instructions for migrating from dock
 -->
 本节旨在汇总有关可能依赖于容器运行时的各种遥测和安全代理的信息。
 
-我们通过
-[谷歌文档](https://docs.google.com/document/d/1ZFi4uKit63ga5sxEiZblfb-c23lFhvy6RXVPikS8wf0/edit#)
+我们通过[谷歌文档](https://docs.google.com/document/d/1ZFi4uKit63ga5sxEiZblfb-c23lFhvy6RXVPikS8wf0/edit#)
 提供了为各类遥测和安全代理供应商准备的持续更新的迁移指导。
 请与供应商联系，获取从 dockershim 迁移的最新说明。
 
@@ -193,8 +193,8 @@ The pod that accesses Docker Engine may have a name containing any of:
 - `datadog`
 - `dd-agent`
 -->
-如何迁移： 
-[Kubernetes 中对于 Docker 的弃用](https://docs.datadoghq.com/agent/guide/docker-deprecation/) 
+如何迁移：
+[Kubernetes 中对于 Docker 的弃用](https://docs.datadoghq.com/agent/guide/docker-deprecation/)。
 名字中包含以下字符串的 Pod 可能访问 Docker Engine：
 
 - `datadog-agent`
@@ -219,10 +219,12 @@ The pod accessing Docker may have name containing:
 如何迁移：
 [在 Dynatrace 上从 Docker-only 迁移到通用容器指标](https://community.dynatrace.com/t5/Best-practices/Migrating-from-Docker-only-to-generic-container-metrics-in/m-p/167030#M49)
 
-Containerd 支持公告：[在基于 containerd 的 Kubernetes 环境的获取容器的自动化全栈可见性](https://www.dynatrace.com/news/blog/get-automated-full-stack-visibility-into-containerd-based-kubernetes-environments/)
+containerd 支持公告：[在基于 containerd 的 Kubernetes 环境的获取容器的自动化全栈可见性](https://www.dynatrace.com/news/blog/get-automated-full-stack-visibility-into-containerd-based-kubernetes-environments/)
+
 CRI-O 支持公告：[在基于 CRI-O 的 Kubernetes 环境获取容器的自动化全栈可见性（测试版）](https://www.dynatrace.com/news/blog/get-automated-full-stack-visibility-into-your-cri-o-kubernetes-containers-beta/)
 
 名字中包含以下字符串的 Pod 可能访问 Docker：
+
 - `dynatrace-oneagent`
 
 ### [Falco](https://falco.org)
@@ -236,12 +238,12 @@ The pod accessing Docker may have name containing:
 - `falco`
 -->
 如何迁移：
-[迁移 Falco 从 dockershim](https://falco.org/docs/getting-started/deployment/#docker-deprecation-in-kubernetes)
+[迁移 Falco 从 dockershim](https://falco.org/docs/getting-started/deployment/#docker-deprecation-in-kubernetes)。
 Falco 支持任何与 CRI 兼容的运行时（默认配置中使用 containerd）；该文档解释了所有细节。
 
 名字中包含以下字符串的 Pod 可能访问 Docker：
-- `falco`
 
+- `falco`
 
 ### [Prisma Cloud Compute](https://docs.paloaltonetworks.com/prisma/prisma-cloud.html)
 
@@ -258,7 +260,6 @@ The pod accessing Docker may be named like:
 
 - `twistlock-defender-ds`
 
-
 ### [SignalFx (Splunk)](https://www.splunk.com/en_us/investor-relations/acquisitions/signalfx.html)
 
 <!--
@@ -267,20 +268,6 @@ The SignalFx Smart Agent (deprecated) uses several different monitors for Kubern
 The `kubelet-stats` monitor was previously deprecated by the vendor, in favor of `kubelet-metrics`.
 The `docker-container-stats` monitor is the one affected by dockershim removal.
 Do not use the `docker-container-stats` with container runtimes other than Docker Engine.
-
-How to migrate from dockershim-dependent agent:
-1. Remove `docker-container-stats` from the list of [configured monitors](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitor-config.md).
-   Note, keeping this monitor enabled with non-dockershim runtime will result in incorrect metrics
-   being reported when docker is installed on node and no metrics when docker is not installed.
-2. [Enable and configure `kubelet-metrics`](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitors/kubelet-metrics.md) monitor.
-
-{{< note >}}
-The set of collected metrics will change. Review your alerting rules and dashboards.
-{{< /note >}}
-
-The Pod accessing Docker may be named something like:
-
-- `signalfx-agent`
 -->
 SignalFx Smart Agent（已弃用）在 Kubernetes 集群上使用了多种不同的监视器，
 包括 `kubernetes-cluster`，`kubelet-stats/kubelet-metrics`，`docker-container-stats`。
@@ -288,17 +275,29 @@ SignalFx Smart Agent（已弃用）在 Kubernetes 集群上使用了多种不同
 `docker-container-stats` 监视器受 dockershim 移除的影响。
 不要为 `docker-container-stats` 监视器使用 Docker Engine 之外的运行时。
 
+<!--
+How to migrate from dockershim-dependent agent:
+1. Remove `docker-container-stats` from the list of [configured monitors](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitor-config.md).
+   Note, keeping this monitor enabled with non-dockershim runtime will result in incorrect metrics
+   being reported when docker is installed on node and no metrics when docker is not installed.
+2. [Enable and configure `kubelet-metrics`](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitors/kubelet-metrics.md) monitor.
+-->
 如何从依赖 dockershim 的代理迁移：
+
 1. 从[所配置的监视器](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitor-config.md)中移除 `docker-container-stats`。
    注意，若节点上已经安装了 Docker，在非 dockershim 环境中启用此监视器后会导致报告错误的指标；
    如果节点未安装 Docker，则无法获得指标。
 2. [启用和配置 `kubelet-metrics`](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitors/kubelet-metrics.md) 监视器。
 
 {{< note >}}
+<!--
+The set of collected metrics will change. Review your alerting rules and dashboards.
+-->
 收集的指标会发生变化。具体请查看你的告警规则和仪表盘。
 {{< /note >}}
 
 名字中包含以下字符串的 Pod 可能访问 Docker：
+
 - `signalfx-agent`
 
 ### Yahoo Kubectl Flame
@@ -307,5 +306,5 @@ SignalFx Smart Agent（已弃用）在 Kubernetes 集群上使用了多种不同
 Flame does not support container runtimes other than Docker. See
 [https://github.com/yahoo/kubectl-flame/issues/51](https://github.com/yahoo/kubectl-flame/issues/51)
 -->
-Flame 不支持 Docker 以外的容器运行时，具体可见 [https://github.com/yahoo/kubectl-flame/issues/51](https://github.com/yahoo/kubectl-flame/issues/51)
-
+Flame 不支持 Docker 以外的容器运行时，具体参见
+[https://github.com/yahoo/kubectl-flame/issues/51](https://github.com/yahoo/kubectl-flame/issues/51)
