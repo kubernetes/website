@@ -1,5 +1,5 @@
 ---
-title: Dokumentowanie funkcji dla nowego wydania
+title: Dokumentowanie funkcji nowego wydania
 linktitle: Dokumentowanie nowego wydania
 content_type: concept
 main_menu: true
@@ -7,7 +7,7 @@ weight: 20
 card:
   name: contribute
   weight: 45
-  title: Dokumentowanie funkcji dla nowego wydania
+  title: Dokumentowanie funkcji nowego wydania
 ---
 <!-- overview -->
 
@@ -56,14 +56,14 @@ Ten dokument zawiera również link do
 **Arkusza śledzenia funkcji**, który jest oficjalnym sposobem na poznanie
 wszystkich nowych funkcji planowanych do wprowadzenia w wydaniu.
 
-Dokumentacja zespołu wydania zawiera listę osób odpowiedzialnych za każdą rolę wydania.
-Jeśli nie jest jasne, do kogo się zwrócić w sprawie konkretnej funkcji lub pytania, które
-masz, możesz skorzystać z jednego z dwóch rozwiązań: weź udział w spotkaniu zespołu, aby
-zadać swoje pytanie, lub skontaktuj się z liderem wydania, aby mógł Cię odpowiednio skierować.
+Dokumentacja zespołu odpowiadającego za kolejne wydanie zawiera listę osób do przypisanych do
+różnych ról. Jeśli nie jest jasne, do kogo się zwrócić w sprawie konkretnej funkcji lub
+pytania, które masz, możesz skorzystać z jednego z dwóch rozwiązań: weź udział w spotkaniu zespołu,
+aby zadać swoje pytanie, lub skontaktuj się z liderem wydania, aby mógł Cię odpowiednio skierować.
 
 Szkic notatek z wydania to dobre miejsce, aby dowiedzieć się o specyficznych
-funkcjach, zmianach, przestarzałych elementach i innych kwestiach dotyczących wydania.
-Zawartość nie jest finalizowana do późnej fazy cyklu wydania, więc należy zachować ostrożność.
+funkcjach, zmianach, przestarzałych elementach i innych kwestiach dotyczących
+wydania. Ponieważ treść nie jest ostateczna aż do późnego etapu, warto zachować ostrożność.
 
 ### Arkusz śledzenia funkcji {#feature-tracking-sheet}
 
@@ -96,9 +96,9 @@ Kubernetes `#sig-release`, aby zweryfikować szczegóły harmonogramu i terminy.
 
 ### Otwórz tymczasowy PR {#open-a-placeholder-pr}
 
-1. Otwórz **szkic** pull requestu wobec gałęzi
-   `dev-{{< skew nextMinorVersion >}}` w repozytorium `kubernetes/website`, z
-   małym commitem, który później zmienisz. Aby utworzyć szkic pull
+1. Otwórz **szkic** pull requestu do gałęzi
+   `dev-{{< skew nextMinorVersion >}}` w repozytorium `kubernetes/website`, z małym
+   commitem, który później zmienisz. Aby utworzyć szkic pull
    requestu, użyj rozwijanego menu **Create Pull Request** i wybierz
    **Create Draft Pull Request**, następnie kliknij **Draft Pull Request**.
 1. Edytuj opis pull requesta, aby zawierał linki do PR-ów w
@@ -129,16 +129,16 @@ dostarczona, funkcja może zostać usunięta z kamienia milowego.
 
 #### Bramki funkcji (ang. feature gates) {#ready-for-review-feature-gates}
 
-Jeśli Twoja funkcja jest funkcją Alfa lub Beta i znajduje się za bramką
-funkcji (ang. feature gate), potrzebujesz dla niej pliku bramki funkcji
-wewnątrz `content/en/docs/reference/command-line-tools-reference/feature-gates/`.
-Nazwa pliku powinna być nazwą bramki funkcji z sufiksem `.md`. Możesz
-spojrzeć na inne pliki już znajdujące się w tym samym katalogu, aby
+Jeśli Twoja funkcja jest funkcją Alfa lub Beta i jest włączana warunkowo
+bramką funkcji (ang. feature gate), potrzebujesz dla niej pliku bramki
+funkcji wewnątrz `content/en/docs/reference/command-line-tools-reference/feature-gates/`.
+Nazwa pliku powinna być nazwą bramki funkcji z sufiksem `.md`.
+Możesz spojrzeć na inne pliki już znajdujące się w tym samym katalogu, aby
 uzyskać wskazówkę, jak powinien wyglądać Twój plik. Zwykle wystarczy jeden
 akapit; dla dłuższych wyjaśnień dodaj dokumentację w innym miejscu i dodaj do niej link.
 
 Aby upewnić się, że twój feature gate pojawi się w tabeli
-[Bramy funkcji Alpha/Beta](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features),
+[Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features),
 dodaj następujące
 informacje do sekcji
 [front matter](https://gohugo.io/content-management/front-matter/) w pliku Markdown z opisem:
@@ -161,13 +161,13 @@ dokumentacji (nie tylko listy bramek funkcji). Uważaj na zwroty takie jak „Po
 `exampleSetting` jest polem beta i jest domyślnie
 wyłączone. Możesz je włączyć, włączając bramkę funkcji `ProcessExampleThings`.”
 
-Jeśli Twoja funkcja osiągnęła status GA lub została oznaczona jako przestarzała,
-dodaj dodatkowy wpis `stage` w ramach bloku `stages` w pliku opisu. Upewnij się,
-że etapy Alpha i Beta pozostają nienaruszone. Ten krok przenosi bramkę funkcji z
-[tabeli Bram funkcji dla Alpha/Beta](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) do
-[tabeli Bram funkcji dla funkcji ukończonych lub przestarzałych](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features).
-Na
-przykład:
+Jeśli Twoja funkcja osiągnęła status GA lub została oznaczona jako
+przestarzała, dodaj dodatkowy wpis `stage` w ramach bloku `stages` w pliku opisu. Upewnij się,
+że etapy Alpha i Beta pozostają nienaruszone. Ten krok przenosi bramkę
+funkcji z [Feature gates for Alpha/Beta](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
+do
+[Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features).
+Na przykład:
 
 {{< highlight yaml "linenos=false,hl_lines=10-17" >}}
 stages:
@@ -187,7 +187,7 @@ stages:
     toVersion: "1.27"
 {{< / highlight >}}
 
-Ostatecznie Kubernetesy przestaną w ogóle uwzględniać bramę funkcji.
+Ostatecznie Kubernetes przestanie w ogóle uwzględniać bramę funkcji.
 Aby zasygnalizować usunięcie bramy funkcji, uwzględnij `removed: true` w
 przedniej części odpowiedniego pliku opisu. Wprowadzenie tej zmiany
 oznacza, że informacje o bramie funkcji przenoszą się z
@@ -198,7 +198,7 @@ zatytułowanej [Skróty funkcji (usunięte)](/docs/reference/command-line-tools-
 
 ### Wszystkie PR-y zostały zrecenzowane i są gotowe do scalenia {#all-prs-reviewed-and-ready-to-merge}
 
-Jeśli Twój PR nie został jeszcze scalony z gałęzią
-`dev-{{< skew nextMinorVersion >}}` przed terminem wydania, współpracuj z osobą odpowiedzialną za dokumentację i
-zarządzającą wydaniem, aby dodać je przed terminem. Jeśli Twoja funkcja potrzebuje
-dokumentacji, a dokumentacja nie jest gotowa, funkcja może zostać usunięta z kamienia milowego.
+Jeśli Twój PR nie został jeszcze scalony z gałęzią `dev-{{< skew nextMinorVersion >}}`
+przed terminem wydania, współpracuj z osobą odpowiedzialną za dokumentację i zarządzającą wydaniem,
+aby dodać go przed terminem. Jeśli Twoja funkcja potrzebuje dokumentacji, a
+dokumentacja nie jest gotowa, funkcja może zostać usunięta z bieżącego planu (**milestone**).
