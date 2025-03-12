@@ -82,7 +82,7 @@ CertificateSigningRequest 资源类型允许客户端基于签名请求申请发
 CertificateSigningRequest 对象在 `spec.request` 字段中包含一个 PEM 编码的 PKCS#10 签名请求。
 CertificateSigningRequest 使用 `spec.signerName` 字段标示签名者（请求的接收方）。
 注意，`spec.signerName` 在 `certificates.k8s.io/v1` 之后的 API 版本是必填项。
-在 Kubernetes v1.22 和以后的版本，客户可以设置 `spec.expirationSeconds`
+在 Kubernetes v1.22 及更高版本中，客户可以设置 `spec.expirationSeconds`
 字段（可选）来为颁发的证书设定一个特定的有效期。该字段的最小有效值是 `600`，也就是 10 分钟。
 
 <!--
@@ -878,206 +878,11 @@ See the [clusterTrustBundle projected volume source](/docs/concepts/storage/proj
 ClusterTrustBundle 的内容可以注入到容器文件系统，这与 ConfigMap 和 Secret 类似。
 更多细节参阅 [ClusterTrustBundle 投射卷源](/zh-cn/docs/concepts/storage/projected-volumes#clustertrustbundle)。
 
-<!-- TODO this should become a task page -->
-
-<!--
-## How to issue a certificate for a user {#normal-user}
-
-A few steps are required in order to get a normal user to be able to
-authenticate and invoke an API. First, this user must have a certificate issued
-by the Kubernetes cluster, and then present that certificate to the Kubernetes API.
--->
-## 如何为用户签发证书   {#normal-user}
-
-为了让普通用户能够通过认证并调用 API，需要执行几个步骤。
-首先，该用户必须拥有 Kubernetes 集群签发的证书，
-然后将该证书提供给 Kubernetes API。
-
-<!--
-### Create private key
-
-The following scripts show how to generate PKI private key and CSR. It is
-important to set CN and O attribute of the CSR. CN is the name of the user and
-O is the group that this user will belong to. You can refer to
-[RBAC](/docs/reference/access-authn-authz/rbac/) for standard groups.
--->
-### 创建私钥 {#create-private-key}
-
-下面的脚本展示了如何生成 PKI 私钥和 CSR。
-设置 CSR 的 CN 和 O 属性很重要。CN 是用户名，O 是该用户归属的组。
-你可以参考 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/) 了解标准组的信息。
-
-```shell
-openssl genrsa -out myuser.key 2048
-openssl req -new -key myuser.key -out myuser.csr -subj "/CN=myuser"
-```
-
-<!--
-### Create a CertificateSigningRequest {#create-certificatessigningrequest}
-
-Create a [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)
-and submit it to a Kubernetes Cluster via kubectl. Below is a script to generate the
-CertificateSigningRequest. a CertificateSigningRequest and submit it to a Kubernetes Cluster via kubectl. Below is a script to generate the CertificateSigningRequest.
--->
-### 创建 CertificateSigningRequest {#create-certificatesigningrequest}
-
-创建一个 [CertificateSigningRequest](/zh-cn/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)，
-并通过 kubectl 将其提交到 Kubernetes 集群。
-下面是生成 CertificateSigningRequest 的脚本。
-
-```shell
-cat <<EOF | kubectl apply -f -
-apiVersion: certificates.k8s.io/v1
-kind: CertificateSigningRequest
-metadata:
-  name: myuser
-spec:
-  request: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZqQ0NBVDRDQVFBd0VURVBNQTBHQTFVRUF3d0dZVzVuWld4aE1JSUJJakFOQmdrcWhraUc5dzBCQVFFRgpBQU9DQVE4QU1JSUJDZ0tDQVFFQTByczhJTHRHdTYxakx2dHhWTTJSVlRWMDNHWlJTWWw0dWluVWo4RElaWjBOCnR2MUZtRVFSd3VoaUZsOFEzcWl0Qm0wMUFSMkNJVXBGd2ZzSjZ4MXF3ckJzVkhZbGlBNVhwRVpZM3ExcGswSDQKM3Z3aGJlK1o2MVNrVHF5SVBYUUwrTWM5T1Nsbm0xb0R2N0NtSkZNMUlMRVI3QTVGZnZKOEdFRjJ6dHBoaUlFMwpub1dtdHNZb3JuT2wzc2lHQ2ZGZzR4Zmd4eW8ybmlneFNVekl1bXNnVm9PM2ttT0x1RVF6cXpkakJ3TFJXbWlECklmMXBMWnoyalVnald4UkhCM1gyWnVVV1d1T09PZnpXM01LaE8ybHEvZi9DdS8wYk83c0x0MCt3U2ZMSU91TFcKcW90blZtRmxMMytqTy82WDNDKzBERHk5aUtwbXJjVDBnWGZLemE1dHJRSURBUUFCb0FBd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBR05WdmVIOGR4ZzNvK21VeVRkbmFjVmQ1N24zSkExdnZEU1JWREkyQTZ1eXN3ZFp1L1BVCkkwZXpZWFV0RVNnSk1IRmQycVVNMjNuNVJsSXJ3R0xuUXFISUh5VStWWHhsdnZsRnpNOVpEWllSTmU3QlJvYXgKQVlEdUI5STZXT3FYbkFvczFqRmxNUG5NbFpqdU5kSGxpT1BjTU1oNndLaTZzZFhpVStHYTJ2RUVLY01jSVUyRgpvU2djUWdMYTk0aEpacGk3ZnNMdm1OQUxoT045UHdNMGM1dVJVejV4T0dGMUtCbWRSeEgvbUNOS2JKYjFRQm1HCkkwYitEUEdaTktXTU0xMzhIQXdoV0tkNjVoVHdYOWl4V3ZHMkh4TG1WQzg0L1BHT0tWQW9FNkpsYWFHdTlQVmkKdjlOSjVaZlZrcXdCd0hKbzZXdk9xVlA3SVFjZmg3d0drWm89Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=
-  signerName: kubernetes.io/kube-apiserver-client
-  expirationSeconds: 86400  # one day
-  usages:
-  - client auth
-EOF
-```
-
-<!--
-Some points to note:
-
-- `usages` has to be '`client auth`'
-- `expirationSeconds` could be made longer (i.e. `864000` for ten days) or shorter (i.e. `3600` for one hour)
-- `request` is the base64 encoded value of the CSR file content.
-  You can get the content using this command: 
--->
-需要注意的几点：
-
-- `usage` 字段必须是 '`client auth`'
-- `expirationSeconds` 可以设置为更长（例如 `864000` 是十天）或者更短（例如 `3600` 是一个小时）
-- `request` 字段是 CSR 文件内容的 base64 编码值，
-  要得到该值，可以执行命令：
-
-  ```shell
-  cat myuser.csr | base64 | tr -d "\n"
-  ```
-
-<!--
-### Approve the CertificateSigningRequest {#approve-certificate-signing-request}
-
-Use kubectl to create a CSR and approve it.
-
-Get the list of CSRs:
--->
-### 批准 CertificateSigningRequest    {#approve-certificate-signing-request}
-
-使用 kubectl 创建 CSR 并批准。
-
-获取 CSR 列表：
-
-```shell
-kubectl get csr
-```
-
-<!--
-Approve the CSR:
--->
-批准 CSR：
-
-```shell
-kubectl certificate approve myuser
-```
-
-<!--
-### Get the certificate
-
-Retrieve the certificate from the CSR:
--->
-### 取得证书 {#get-the-certificate}
-
-从 CSR 取得证书：
-
-```shell
-kubectl get csr/myuser -o yaml
-```
-
-<!--
-The certificate value is in Base64-encoded format under `status.certificate`.
-
-Export the issued certificate from the CertificateSigningRequest.
--->
-证书的内容使用 base64 编码，存放在字段 `status.certificate`。
-
-从 CertificateSigningRequest 导出颁发的证书：
-
-```shell
-kubectl get csr myuser -o jsonpath='{.status.certificate}'| base64 -d > myuser.crt
-```
-
-<!--
-### Create Role and RoleBinding
-
-With the certificate created it is time to define the Role and RoleBinding for
-this user to access Kubernetes cluster resources.
-
-This is a sample command to create a Role for this new user:
--->
-### 创建角色和角色绑定 {#create-role-and-role-binding}
-
-创建了证书之后，为了让这个用户能访问 Kubernetes 集群资源，现在就要创建
-Role 和 RoleBinding 了。
-
-下面是为这个新用户创建 Role 的示例命令：
-
-```shell
-kubectl create role developer --verb=create --verb=get --verb=list --verb=update --verb=delete --resource=pods
-```
-
-<!--
-This is a sample command to create a RoleBinding for this new user:
--->
-下面是为这个新用户创建 RoleBinding 的示例命令：
-
-```shell
-kubectl create rolebinding developer-binding-myuser --role=developer --user=myuser
-```
-
-<!--
-### Add to kubeconfig
-
-The last step is to add this user into the kubeconfig file.
-
-First, you need to add new credentials:
--->
-### 添加到 kubeconfig   {#add-to-kubeconfig}
-
-最后一步是将这个用户添加到 kubeconfig 文件。
-
-首先，你需要添加新的凭据：
-
-```shell
-kubectl config set-credentials myuser --client-key=myuser.key --client-certificate=myuser.crt --embed-certs=true
-```
-
-<!--
-Then, you need to add the context:
--->
-然后，你需要添加上下文：
-
-```shell
-kubectl config set-context myuser --cluster=kubernetes --user=myuser
-```
-
-<!--
-To test it, change the context to `myuser`:
--->
-来测试一下，把上下文切换为 `myuser`：
-
-```shell
-kubectl config use-context myuser
-```
-
 ## {{% heading "whatsnext" %}}
 
 <!--
 * Read [Manage TLS Certificates in a Cluster](/docs/tasks/tls/managing-tls-in-a-cluster/)
+* Read [Issue a Certificate for a Kubernetes API Client Using A CertificateSigningRequest](/docs/tasks/tls/certificate-issue-client-csr/)
 * View the source code for the kube-controller-manager built in
   [signer](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/signer/cfssl_signer.go)
 * View the source code for the kube-controller-manager built in
@@ -1088,6 +893,7 @@ kubectl config use-context myuser
   * {{< page-api-reference kind="ClusterTrustBundle" >}}
 -->
 * 参阅[管理集群中的 TLS 认证](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)
+* 参阅[使用 CertificateSigningRequest 为 Kubernetes API 客户端颁发证书](/zh-cn/docs/tasks/tls/certificate-issue-client-csr/)
 * 查看 kube-controller-manager 中[签名者](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/signer/cfssl_signer.go)部分的源代码
 * 查看 kube-controller-manager 中[批准者](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/approver/sarapprove.go)部分的源代码
 * 有关 X.509 本身的详细信息，请参阅 [RFC 5280](https://tools.ietf.org/html/rfc5280#section-3.1) 第 3.1 节
