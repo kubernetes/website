@@ -1,6 +1,6 @@
 ---
 title: Dokumentowanie funkcji dla nowego wydania
-linktitle: Dokumentowanie dla nowego wydania
+linktitle: Dokumentowanie nowego wydania
 content_type: concept
 main_menu: true
 weight: 20
