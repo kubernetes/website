@@ -556,7 +556,7 @@ is enabled in the kube-apiserver, kube-controller-manager and kube-scheduler. To
 
 ### Enabling Device Binding Conditions
 
-[Device Binding Status](#device-binding-conditions) is an *alpha feature* and only enabled when the 
+[Device Binding Conditions](#device-binding-conditions) is an *alpha feature* and only enabled when the 
 `DRADeviceBindingConditions` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled in the kube-scheduler.
 
