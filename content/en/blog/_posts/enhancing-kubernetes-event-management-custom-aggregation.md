@@ -8,7 +8,7 @@ Author: >
   [Rez Moss](https://github.com/rezmoss)
 ---
 
-Kubernetes events provide crucial insights into cluster operations, but as clusters grow, managing and analyzing these events becomes increasingly challenging. This blog post explores how to build custom event aggregation systems that help operators better understand cluster behavior and troubleshoot issues more effectively.
+Kubernetes events provide crucial insights into cluster operations, but as clusters grow, managing and analyzing these events becomes increasingly challenging. This blog post explores how to build custom event aggregation systems that help devops/engineers better understand cluster behavior and troubleshoot issues more effectively.
 
 ## The Challenge with Kubernetes Events
 
@@ -19,6 +19,8 @@ In a Kubernetes cluster, events are generated for various operations - from pod 
 3. **Correlation**: Related events from different components are not automatically linked
 4. **Classification**: Events lack standardized severity or category classifications
 5. **Aggregation**: Similar events are not automatically grouped
+
+More info about [events](https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/event-v1/)
 
 ## Building an Event Aggregation System
 
@@ -216,7 +218,71 @@ func (d *PatternDetector) Detect(events []ProcessedEvent) []Pattern {
     
     return patterns
 }
+
+func groupSimilarEvents(events []ProcessedEvent) map[string][]ProcessedEvent {
+    groups := make(map[string][]ProcessedEvent)
+    
+    for _, event := range events {
+        // Create similarity key based on event characteristics
+        similarityKey := fmt.Sprintf("%s:%s:%s",
+            event.Event.Reason,
+            event.Event.InvolvedObject.Kind,
+            event.Event.InvolvedObject.Namespace,
+        )
+        
+        // Group events with the same key
+        groups[similarityKey] = append(groups[similarityKey], event)
+    }
+    
+    return groups
+}
+
+
+func identifyPatterns(groups map[string][]ProcessedEvent) []Pattern {
+    var patterns []Pattern
+    
+    for key, events := range groups {
+        // Only consider groups with enough events to form a pattern
+        if len(events) < 3 {
+            continue
+        }
+        
+        // Sort events by time
+        sort.Slice(events, func(i, j int) bool {
+            return events[i].Event.LastTimestamp.Time.Before(events[j].Event.LastTimestamp.Time)
+        })
+        
+        // Calculate time range and frequency
+        firstSeen := events[0].Event.FirstTimestamp.Time
+        lastSeen := events[len(events)-1].Event.LastTimestamp.Time
+        duration := lastSeen.Sub(firstSeen).Minutes()
+        
+        var frequency float64
+        if duration > 0 {
+            frequency = float64(len(events)) / duration
+        }
+        
+        // Create a pattern if it meets threshold criteria
+        if frequency > 0.5 { // More than 1 event per 2 minutes
+            pattern := Pattern{
+                Type:         key,
+                Count:        len(events),
+                FirstSeen:    firstSeen,
+                LastSeen:     lastSeen,
+                Frequency:    frequency,
+                EventSamples: events[:min(3, len(events))], // Keep up to 3 samples
+            }
+            patterns = append(patterns, pattern)
+        }
+    }
+    
+    return patterns
+}
+
+
 ```
+
+With this implementation, the system can identify recurring patterns such as node pressure events, pod scheduling failures, or networking issues that occur with a specific frequency.
 
 ### Real-time Alerts
 
