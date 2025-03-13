@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes 1.32: Fresh Swap Features for Linux Users"
+title: "Fresh Swap Features for Linux Users in Kubernetes 1.32"
 date: 2025-03-24T10:00:00-08:00
 slug: swap-linux-improvements
 author: >
