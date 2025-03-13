@@ -456,6 +456,9 @@ other = "This article is more than one year old. Older articles may contain outd
 [page_deprecated]
 other = "(stale page)"
 
+[parentoptions_heading]
+other = "Parent Options Inherited"
+
 [patch_release]
 other = "Patch Release"
 

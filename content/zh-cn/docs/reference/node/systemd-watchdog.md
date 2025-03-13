@@ -2,11 +2,13 @@
 content_type: "reference"
 title: kubelet systemd 看门狗
 weight: 80
+math: true # 用以表示下面除以 2 的表达式
 ---
 <!--
 content_type: "reference"
 title: Kubelet Systemd Watchdog
 weight: 80
+math: true # for a division by 2
 -->
 
 {{< feature-state feature_gate_name="SystemdWatchdog" >}}
@@ -52,14 +54,14 @@ WatchdogSec=30s
 
 <!--
 Setting `WatchdogSec=30s` indicates a service watchdog timeout of 30 seconds.
-Within the kubelet, the `sd_notify()` function is invoked, at intervals of `WatchdogSec` ÷ 2, to send
+Within the kubelet, the `sd_notify()` function is invoked, at intervals of \\( WatchdogSec \div 2\\). to send
 `WATCHDOG=1` (a keep-alive message). If the watchdog is not fed
 within the timeout period, the kubelet will be killed. Setting `Restart`
 to "always", "on-failure", "on-watchdog", or "on-abnormal" will ensure that the service
 is automatically restarted.
 -->
 设置 `WatchdogSec=30s` 表示服务看门狗超时时限为 30 秒。
-在 kubelet 内，`sd_notify()` 函数被调用，以 `WatchdogSec` ÷ 2 的时间间隔，
+在 kubelet 内，`sd_notify()` 函数被调用，以 \\( WatchdogSec \div 2\\) 的时间间隔，
 发送 `WATCHDOG=1`（保持活跃的消息）。如果在超时时限内看门狗未被“投喂”此信号，kubelet 将被杀死。
 将 `Restart` 设置为 "always"、"on-failure"、"on-watchdog" 或 "on-abnormal"
 将确保服务被自动重启。

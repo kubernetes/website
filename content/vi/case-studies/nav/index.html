@@ -1,0 +1,81 @@
+---
+title: Nav Case Study
+linkTitle: Nav
+case_study_styles: true
+cid: caseStudies
+featured: false
+
+new_case_study_styles: true
+heading_background: /images/case-studies/nav/banner1.jpg
+heading_title_logo: /images/nav_logo.png
+subheading: >
+  How A Startup Reduced Its Infrastructure Costs by 50% With Kubernetes
+case_study_details:
+  - Company: Nav
+  - Location: Salt Lake City, Utah, and San Mateo, California
+  - Industry: Financial services for businesses
+---
+
+<h2>Challenge</h2>
+
+<p>Founded in 2012, <a href="https://www.nav.com/">Nav</a> provides small business owners with access to their business credit scores from all three major commercial credit bureaus—Equifax, Experian and Dun & Bradstreet—and financing options that best fit their needs. Five years in, the startup was growing rapidly, and "our cloud environments were getting very large, and our usage of those environments was extremely low, like under 1%," says Director of Engineering Travis Jeppson. "We wanted our usage of cloud environments to be more tightly coupled with what we actually needed, so we started looking at containerization and orchestration to help us be able to run workloads that were distinct from one another but could share a similar resource pool."</p>
+
+<h2>Solution</h2>
+
+<p>After evaluating a number of orchestration solutions, the Nav team decided to adopt <a href="https://kubernetes.io/">Kubernetes</a> running on <a href="https://aws.amazon.com/">AWS</a>. The strength of the community around Kubernetes was a strong draw, as well as its Google provenance. Plus, "the other solutions tended to be fairly heavy-handed, really complex, really large, and really hard to manage just off the bat," says Jeppson. "Kubernetes gave us a very simple way to be able to step into an orchestration solution that fit our needs at the time, but also the extensibility of it allowed us to be able to grow with it and be able to build in more features and functionality later on."</p>
+
+<h2>Impact</h2>
+
+<p>The four-person team got Kubernetes up and running in six months, and the full migration of Nav's 25 microservices was completed in another six months. The results have been impressive: Resource utilization, which led the company on this path in the first place, has increased from 1% to 40%. Launching a new service used to take two developers two weeks; now it takes only one developer less than 10 minutes. Deployments have increased 5x. And the company is saving 50% in infrastructure costs.</p>
+
+{{< case-studies/quote author="Travis Jeppson, Director of Engineering, Nav" >}}
+<iframe width="500" height="320" src="https://www.youtube.com/embed/0IbOk1_H-f0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<br>
+"Kubernetes gave us a very simple way to be able to step into an orchestration solution that fit our needs at the time, but also the extensibility of it allowed us to be able to grow with it and be able to build in more features and functionality later on."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+Founded in 2012, <a href="https://www.nav.com/">Nav</a> provides small business owners with access to their business credit scores from all three major commercial credit bureaus—Equifax, Experian and Dun & Bradstreet—as well as details on their businesses' financial health and financing options that best fit their needs. Its mission boils down to this, says Director of Engineering Travis Jeppson: "to increase the success rate of small businesses."
+{{< /case-studies/lead >}}
+
+<p>A couple of years ago, Nav recognized an obstacle in its own path to success. The business was growing rapidly, and "our cloud environments were getting very large, and our usage of those environments was extremely low, like under 1%," says Jeppson. "Most of the problem was around the ability to scale. We were just throwing money at it. 'Let's just spin up more servers. Let's just do more things in order to handle an increased load.' And with us being a startup, that could lead to our demise. We don't have the money to burn on that kind of stuff."</p>
+
+<p>Plus, every new service had to go through 10 different people, taking an unacceptably long two weeks to launch. "All of the patch management and the server management was done very manually, and so we all had to watch it and maintain it really well," adds Jeppson. "It was just a very troublesome system."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/nav/banner3.jpg"
+  author="Travis Jeppson, Director of Engineering, Nav"
+>}}
+"The community is absolutely vital: being able to pass ideas around, talk about a lot of the similar challenges that we're all facing, and just get help. I like that we're able to tackle the same problems for different reasons but help each other along the way."
+{{< /case-studies/quote >}}
+
+<p>Jeppson had worked with containers at his previous job, and pitched that technology to Nav's management as a solution to these problems. He got the green light in early 2017. "We wanted our usage of cloud environments to be more tightly coupled with what we actually needed, so we started looking at containerization and orchestration to help us be able to run workloads that were distinct from one another but could share a similar resource pool," he says.</p>
+
+<p>After evaluating a number of orchestration solutions, the company decided to adopt <a href="https://kubernetes.io/">Kubernetes</a> running on <a href="https://aws.amazon.com/">AWS</a>. The strength of the community around Kubernetes was a strong draw, as was its Google origins. Additionally, "the other solutions tended to be fairly heavy-handed, really complex, really large, and really hard to manage just off the bat," says Jeppson. "Kubernetes gave us a very simple way to be able to step into an orchestration solution that fit our needs at the time, but the extensibility of it would also allow us to grow with it and build in more features and functionality later on."</p>
+
+<p>Jeppson's four-person Engineering Services team got Kubernetes up and running in six months (they decided to use <a href="http://kubespray.io/">Kubespray</a> to spin up clusters), and the full migration of Nav's 25 microservices and one primary monolith was completed in another six months. "We couldn't rewrite everything; we couldn't stop," he says. "We had to stay up, we had to stay available, and we had to have minimal amount of downtime. So we got really comfortable around our building pipeline, our metrics and logging, and then around Kubernetes itself: how to launch it, how to upgrade it, how to service it. And we moved little by little."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/nav/banner4.jpg"
+  author="Travis Jeppson, Director of Engineering, Nav"
+>}}
+"Kubernetes has brought so much value to Nav by allowing all of these new freedoms that we had just never had before."
+{{< /case-studies/quote >}}
+
+<p>A crucial part of the process involved educating Nav's 50 engineers and being transparent regarding the new workflow as well as the roadmap for the migration. Jeppson did regular presentations along the way, and a week of four-hours-a-day labs for the entire staff of engineers. He then created a repository in <a href="https://gitlab.com/">GitLab</a> to house all of the information. "We showed all the frontend and backend developers how to go in, create their own namespace using <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">kubectl</a>, all themselves," he says. "Now, a lot of times, they just come to us and say, 'This is ready.' We click a little button in GitLab to allow it to release into production, and they're off to the races."</p>
+
+<p>Since the migration was completed in early 2018, the results have been impressive: Resource utilization, which led the company on this path in the first place, has increased from 1% to 40%. Launching a new service used to take two developers two weeks; now it takes only one developer less than 10 minutes. Deployments have increased 5x, from 10 a day to 50 a day. And the company is saving 50% in infrastructure costs on the computational side. "Next we want to go in to address the database side, and once we do that, then we're going to continue to drop that cost quite a bit more," says Jeppson.</p>
+
+<p>Kubernetes has also helped Nav with its compliance needs. Before, "we had to map one application to one server, mostly due to different compliance regulations around data," Jeppson says. "With the Kubernetes API, we could add in network policies and segregate that data and restrict it if needed." The company segregates its cluster into an unrestricted zone and a restricted zone, which has its own set of nodes where data protection happens. The company also uses the <a href="https://www.twistlock.com/">Twistlock</a> tool to ensure security, "and that makes it a lot easier to sleep at night," he adds.</p>
+
+{{< case-studies/quote author="Travis Jeppson, Director of Engineering, Nav" >}}
+"We're talking four to 10 times the amount of traffic that we handle now, and it's just like, 'Oh, yeah. We're good. Kubernetes handles this for us.'"
+{{< /case-studies/quote >}}
+
+<p>With Kubernetes in place, the Nav team also started improving the system's metrics and logging by adopting <a href="https://prometheus.io/">Prometheus</a>. "Prometheus created a standard around metrics that was really easy for a developer to adopt," says Jeppson. "They have the freedom to display what they want, to do what they need, and keep their codebase clean, and that to us was absolutely a must."</p>
+
+<p>Next up for Nav in the coming year: looking at tracing, storage, and service mesh. They're currently evaluating <a href="https://www.envoyproxy.io/">Envoy</a>, <a href="https://opentracing.io/">OpenTracing</a>, and <a href="https://www.jaegertracing.io/">Jaeger</a> after spending much of KubeCon talking to other companies. "The community is absolutely vital: being able to pass ideas around, talk about a lot of the similar challenges that we're all facing, and just get help. I like that we're able to tackle the same problems for different reasons but help each other along the way," says Jeppson. "There's still so, so much to do around scalability, around being able to really fully adopt a cloud native solution."</p>
+
+<p>Of course, it all starts with Kubernetes. With that technology, Jeppson's team has built a platform that allows Nav to scale, and that "has brought so much value to Nav by allowing all of these new freedoms that we had just never had before," he says.</p>
+
+<p>Conversations about new products used to be bogged down by the fact they'd have to wait six months to get an environment set up with isolation and then figure out how to handle spikes of traffic. "But now it's just nothing to us," says Jeppson. "We're talking four to 10 times the amount of traffic that we handle now, and it's just like, 'Oh, yeah. We're good. Kubernetes handles this for us.'"</p>
