@@ -71,7 +71,7 @@ spec:
 ```
 
 {{< note >}}
-There can only be one topologySpreadConstraint for a given topologyKey and whenUnsatisfiable value. For example, if you have defined a topologySpreadConstraint that uses the topologyKey "kubernetes.io/hostname" and whenUnsatisfiable value "DoNotSchedule", you can only add another topologySpreadConstraint for the topologyKey "kubernetes.io/hostname" if you use a different whenUnsatisfiable value.
+There can only be one `topologySpreadConstraint` for a given `topologyKey` and `whenUnsatisfiable` value. For example, if you have defined a `topologySpreadConstraint` that uses the `topologyKey` "kubernetes.io/hostname" and `whenUnsatisfiable` value "DoNotSchedule", you can only add another `topologySpreadConstraint` for the `topologyKey` "kubernetes.io/hostname" if you use a different `whenUnsatisfiable` value.
 {{< /note >}}
 
 You can read more about this field by running `kubectl explain Pod.spec.topologySpreadConstraints` or
