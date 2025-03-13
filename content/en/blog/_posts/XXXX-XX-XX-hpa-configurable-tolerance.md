@@ -45,7 +45,7 @@ In Kubernetes v1.33, this is now possible.
 
 ## How do I use it?
 
-Enable the `HPAConfigurableTolerance` feature flag in your Kubernetes 1.33
+Enable the `HPAConfigurableTolerance` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) in your Kubernetes 1.33
 cluster, then add the tolerance you want an HPA to use to your
 HorizontalPodAutoscaler object.
 
