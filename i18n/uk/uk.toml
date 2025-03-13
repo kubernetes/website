@@ -458,6 +458,9 @@ other = "Цій статті вже більше одного року. Стар
 [page_deprecated]
 other = "(застаріла сторінка)"
 
+[parentoptions_heading]
+other = "Успадковані батьківські параметри"
+
 [patch_release]
 other = "Патч"
 
