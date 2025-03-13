@@ -155,13 +155,15 @@ When reviewing, use the following as a starting point.
 
 - Does the PR introduce a new page? If so:
 
-  - Is the page using the right [page content type](/docs/contribute/style/page-content-types/)
-    and associated Hugo shortcodes?
+  - Is the page using the right [page content type](/docs/contribute/new-content/page-content-types/)?
   - Does the page appear correctly in the section's side navigation (or at all)?
   - Should the page appear on the [Docs Home](/docs/home/) listing?
 
+- Do any new headings use the right shortcodes? See [content sections](/docs/contribute/new-content/page-content-types/#content-sections).
+
 - Do the changes show up in the Netlify preview? Be particularly vigilant about lists, code
   blocks, tables, notes and images.
+
 
 ### Blog
 

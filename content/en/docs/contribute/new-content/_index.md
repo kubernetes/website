@@ -61,7 +61,7 @@ prior to submitting new content. The information details follow.
   Kubernetes documentation at `/content/en/docs/`. Some of the reference
   documentation is automatically generated from scripts in
   the `update-imported-docs/` directory.
-- [Page content types](/docs/contribute/style/page-content-types/) describe the
+- [Page content types](/docs/contribute/new-content/page-content-types/) help to declare the
   presentation of documentation content in Hugo.
 - You can use [Docsy shortcodes](https://www.docsy.dev/docs/adding-content/shortcodes/) or [custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) to contribute to Kubernetes documentation.
 - In addition to the standard Hugo shortcodes, we use a number of
