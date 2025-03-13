@@ -23,9 +23,9 @@ management within the Kubernetes ecosystem.
 **Sandipan: Hello, could you start by telling us a bit about yourself, your role, and your journey
 within the Kubernetes community that led to your current roles in SIG Apps?**
 
-**Maciej**: Hey, my name is Maciej, and I’m one of the leads for SIG-Apps. Aside from this role, you
+**Maciej**: Hey, my name is Maciej, and I’m one of the leads for SIG Apps. Aside from this role, you
 can also find me helping
-[SIG-CLI](https://github.com/kubernetes/community/tree/master/sig-cli#readme) and also being one of
+[SIG CLI](https://github.com/kubernetes/community/tree/master/sig-cli#readme) and also being one of
 the Steering Committee members. I’ve been contributing to Kubernetes since late 2014 in various
 areas, including controllers, apiserver, and kubectl.
 
@@ -34,7 +34,7 @@ with the Kubernetes project since its early days, even before the 1.0 launch in 
 amazing journey!
 
 My current role within the Kubernetes community is one of the chairs and tech leads of SIG Apps. My
-journey with SIG Apps started organically. I started with building the ``Deployment`` API and adding
+journey with SIG Apps started organically. I started with building the Deployment API and adding
 rolling update functionalities. I naturally gravitated towards SIG Apps and became increasingly
 involved. Over time, I took on more responsibilities, culminating in my current leadership roles.
 
@@ -58,9 +58,9 @@ At this point in time, the main factors driving the development of our controlle
 challenges coming from running various AI-related workloads. It’s worth giving credit here to two
 working groups we’ve sponsored over the past years:
 
-1. [The batch work group](https://github.com/kubernetes/community/tree/master/wg-batch), which is
+1. [The Batch Working Group](https://github.com/kubernetes/community/tree/master/wg-batch), which is
    looking at running HPC, AI/ML, and data analytics jobs on top of Kubernetes.
-2. [The serving work group](https://github.com/kubernetes/community/tree/master/wg-serving), which
+2. [The Serving Working Group](https://github.com/kubernetes/community/tree/master/wg-serving), which
    is focusing on hardware-accelerated AI/ML inference.
 
 ## Best practices and challenges
@@ -69,18 +69,18 @@ working groups we’ve sponsored over the past years:
 Kubernetes. Can you share some of these best practices and how they help improve application
 lifecycle management?**
 
-1. Implementing [health checks and readiness probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
+1. Implementing [health checks and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 ensures that your applications are healthy and ready to serve traffic, leading to improved
 reliability and uptime. The above, combined with comprehensive logging, monitoring, and tracing
 solutions, will provide insights into your application's behavior, enabling you to identify and
 resolve issues quickly.
 
-2. [Auto-scale your application](https://kubernetes.io/docs/concepts/workloads/autoscaling/) based
+2. [Auto-scale your application](/docs/concepts/workloads/autoscaling/) based
    on resource utilization or custom metrics, optimizing resource usage and ensuring your
    application can handle varying loads.
 
-3. Use ``Deployment`` for stateless applications, ``StatefulSet`` for stateful applications, ``Job``
-   and ``CronJob`` for batch workloads, and ``DaemonSet`` for running a daemon on each node. Use
+3. Use Deployment for stateless applications, StatefulSet for stateful applications, Job
+   and CronJob for batch workloads, and DaemonSet for running a daemon on each node. Use
    Operators and CRDs to extend the Kubernetes API to automate the deployment, management, and
    lifecycle of complex applications, making them easier to operate and reducing manual
    intervention.
@@ -123,7 +123,7 @@ successful with one controller, you’ll need to repeat that same process with o
 integrated into your work?**
 
 We always encourage everyone to show up and present their problems and solutions during our
-bi-weekly [meetings](https://github.com/kubernetes/community/tree/master/sig-cli#meetings). As long
+bi-weekly [meetings](https://github.com/kubernetes/community/tree/master/sig-apps#meetings). As long
 as you’re solving an interesting problem on top of Kubernetes and you can provide valuable feedback
 about any of the core controllers, we’re always happy to hear from everyone.
 
@@ -138,7 +138,7 @@ groups, each covering a different aspect of it.
 **Sandipan: What are some of your favorite things about this SIG?**
 
 Without a doubt, the people that participate in our meetings and on
-[Slack](https://kubernetes.slack.com/messages/sig-cli), who tirelessly help triage issues, pull
+[Slack](https://kubernetes.slack.com/messages/sig-apps), who tirelessly help triage issues, pull
 requests and invest a lot of their time (very frequently their private time) into making kubernetes
 great!
 
@@ -151,8 +151,7 @@ modern application developers and operators. Whether you’re a new contributor 
 developer, there’s always an opportunity to get involved and make an impact.
 
 If you’re interested in learning more or contributing to SIG Apps, be sure to check out their [SIG
-README](https://github.com/kubernetes/community/tree/master/sig-apps) and join their bi-weekly
-meetings:
+README](https://github.com/kubernetes/community/tree/master/sig-apps) and join their bi-weekly [meetings](https://github.com/kubernetes/community/tree/master/sig-apps#meetings).
 
-- [Mailing List](https://groups.google.com/a/kubernetes.io/g/sig-apps)
-- [Slack Channel](https://kubernetes.slack.com/messages/sig-apps)
+- [SIG Apps Mailing List](https://groups.google.com/a/kubernetes.io/g/sig-apps)
+- [SIG Apps on Slack](https://kubernetes.slack.com/messages/sig-apps)
