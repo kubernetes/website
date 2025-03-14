@@ -1,7 +1,7 @@
 ---
 title: Traces For Kubernetes System Components
 reviewers:
-- logicalhan
+- dashpole
 - lilic
 content_type: concept
 weight: 90
@@ -9,7 +9,7 @@ weight: 90
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state for_k8s_version="v1.33" feature_gate_name="APIServerTracing" state="stable" >}}
 
 System component traces record the latency of and relationships between operations in the cluster.
 
@@ -77,7 +77,7 @@ with `--tracing-config-file=<path-to-config>`. This is an example config that re
 spans for 1 in 10000 requests, and uses the default OpenTelemetry endpoint:
 
 ```yaml
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: TracingConfiguration
 # default value
 #endpoint: localhost:4317
@@ -85,11 +85,11 @@ samplingRatePerMillion: 100
 ```
 
 For more information about the `TracingConfiguration` struct, see
-[API server config API (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-TracingConfiguration).
+[API server config API (v1)](/docs/reference/config-api/apiserver-config.v1/#apiserver-k8s-io-v1-TracingConfiguration).
 
 ### kubelet traces
 
-{{< feature-state feature_gate_name="KubeletTracing" >}}
+{{< feature-state for_k8s_version="v1.33" feature_gate_name="KubeletTracing" state="stable" >}}
 
 The kubelet CRI interface and authenticated http servers are instrumented to generate
 trace spans. As with the apiserver, the endpoint and sampling rate are configurable.
@@ -103,7 +103,7 @@ To enable tracing, apply the [tracing configuration](https://github.com/kubernet
 This is an example snippet of a kubelet config that records spans for 1 in 10000 requests, and uses the default OpenTelemetry endpoint:
 
 ```yaml
-apiVersion: kubelet.config.k8s.io/v1beta1
+apiVersion: kubelet.config.k8s.io/v1
 kind: KubeletConfiguration
 featureGates:
   KubeletTracing: true
