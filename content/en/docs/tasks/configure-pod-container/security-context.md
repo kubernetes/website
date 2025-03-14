@@ -336,6 +336,23 @@ status:
   features:
     supplementalGroupsPolicy: true
 ```
+{{<note>}}
+Since the feature is beta (i.e. v1.33), if a pod with `supplementalGroupsPolicy=Strict` are scheduled to a node which does not support this feature (i.e. `.status.features.supplementalGroupsPolicy=false`), a pod creation will be reject by the kubelet because the node can not ensure the specified policy. When your pod is rejected, you will see an warning events with `reason=SupplementalGroupsPolicyNotSupported` like below:
+
+```yaml
+apiVersion: v1
+kind: Event
+...
+type: Warning
+reason: SupplementalGroupsPolicyNotSupported
+message: "SupplementalGroupsPolicy=Strict is not supported in this node"
+involvedObject:
+  apiVersion: v1
+  kind: Pod
+  ...
+```
+{{</note>}}
+
 
 ## Configure volume permission and ownership change policy for Pods
 
