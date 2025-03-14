@@ -1637,6 +1637,13 @@ option is explicitly enabled.
 Default: false</p>
 </td>
 </tr>
+<tr><td><code>userNamespaces</code><br/>
+<a href="#kubelet-config-k8s-io-v1beta1-UserNamespaces"><code>UserNamespaces</code></a>
+</td>
+<td>
+   <p>UserNamespaces contains config for the pod user namespaces</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -2126,4 +2133,31 @@ managers (secret, configmap) are discovering object changes.</p>
 </tr>
 </tbody>
 </table>
-  
+
+## `UserNamespaces`     {#kubelet-config-k8s-io-v1beta1-UserNamespaces}
+
+
+**Appears in:**
+
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+
+<p>UserNamespaces specifies the config for user namespaces</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+
+
+<tr><td><code>idsPerPod</code><br/>
+<code>uint32</code>
+</td>
+<td>
+   <p>idsPerPod is the mapping length of UIDs and GIDs.
+The length must be multiple of 65536.
+Default: 65536</p>
+</td>
+</tr>
+</tbody>
+</table>
