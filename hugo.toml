@@ -268,7 +268,6 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 	url = "https://bsky.app/profile/kubernetes.io"
 	icon = "fa-solid fa-cloud"
 
-
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
 	name_key = "community_contributor_site_name"
@@ -340,7 +339,6 @@ languagedirection = "ltr"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
-description = "Solution professionnelle d'orchestration de conteneurs"
 languageNameLatinScript = "Français"
 
 [languages.de]
