@@ -203,7 +203,7 @@ listed in alphabetical order:
 `full-pcpus-only` (beta, visible by default)
 : Always allocate full physical cores (available since Kubernetes v1.22)
 
-`strict-cpu-reservation` (alpha, hidden by default)
+`strict-cpu-reservation` (beta, visible by default)
 : Prevent all the pods regardless of their Quality of Service class to run on reserved CPUs
   (available since Kubernetes v1.32)
 
