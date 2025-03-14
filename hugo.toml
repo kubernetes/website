@@ -257,11 +257,17 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
   url = "https://www.linkedin.com/company/kubernetes/"
   icon = "fa-brands fa-linkedin"
 
-#[[params.links.user]]
-#	name_key = "community_x_name"
-#	url = "https://twitter.com/kubernetesio"
-#	icon = "fa-brands fa-twitter"
+[[params.links.user]]
+	name_key = "community_x_name"
+	url = "https://twitter.com/kubernetesio"
+	icon = "fa-brands fa-twitter"
 # Replace with fa-x-twitter once available
+
+[[params.links.user]]
+	name_key = "community_bluesky_name"
+	url = "https://bsky.app/profile/kubernetes.io"
+	icon = "fa-solid fa-cloud"
+
 
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
@@ -334,7 +340,7 @@ languagedirection = "ltr"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
-description = "Solution professionnelle d’orchestration de conteneurs"
+description = "Solution professionnelle d'orchestration de conteneurs"
 languageNameLatinScript = "Français"
 
 [languages.de]
