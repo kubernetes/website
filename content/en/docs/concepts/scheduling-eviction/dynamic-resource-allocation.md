@@ -236,7 +236,11 @@ If this feature is disabled, the `adminAccess` field will be removed
 automatically when creating such a ResourceClaim.
 
 Admin access is a privileged mode which should not be made available to normal
-users in a multi-tenant cluster. Cluster administrators can restrict usage of
+users in a multi-tenant cluster. Access to use the `adminAccess` field is restricted to users authorized to create ResourceClaim or ResourceClaimTemplate objects in namespaces marked with
+the DRA admin label, ensuring that non-administrative users cannot misuse this
+feature.
+
+Prior to Kubernetes v1.33, cluster administrators can restrict usage of
 this feature by installing a validating admission policy similar to the following
 example. Cluster administrators need to adapt at least the names and replace
 "dra.example.com".
