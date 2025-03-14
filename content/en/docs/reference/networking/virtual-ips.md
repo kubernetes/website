@@ -138,7 +138,7 @@ iptables:
 The `minSyncPeriod` parameter sets the minimum duration between
 attempts to resynchronize iptables rules with the kernel. If it is
 `0s`, then kube-proxy will always immediately synchronize the rules
-every time any Service or Endpoint changes. This works fine in very
+every time any Service or EndpointSlice changes. This works fine in very
 small clusters, but it results in a lot of redundant work when lots of
 things change in a small time period. For example, if you have a
 Service backed by a {{< glossary_tooltip term_id="deployment" text="Deployment" >}}
