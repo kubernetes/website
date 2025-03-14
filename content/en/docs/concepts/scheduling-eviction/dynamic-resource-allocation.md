@@ -324,6 +324,14 @@ When the feature is disabled, that field automatically gets cleared when storing
 A ResourceClaim device status is supported when it is possible, from a DRA driver, to update an 
 existing ResourceClaim where the `status.devices` field is set. 
 
+## Admin-controlled Device Attributes
+
+TODO
+
+## Device Taints and Tolerations
+
+TODO
+
 ## Enabling dynamic resource allocation
 
 Dynamic resource allocation is a *beta feature* which is off by default and only enabled when the
