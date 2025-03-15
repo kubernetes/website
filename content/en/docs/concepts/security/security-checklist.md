@@ -51,7 +51,7 @@ an admin user.
 
 ## Network security
 
-- [ ] CNI plugins in-use supports network policies.
+- [ ] CNI plugins in use support network policies.
 - [ ] Ingress and egress network policies are applied to all workloads in the
   cluster.
 - [ ] Default network policies within each namespace, selecting all pods, denying
@@ -66,9 +66,8 @@ plugins provide the functionality to
 restrict network resources that pods may communicate with. This is most commonly done
 through [Network Policies](/docs/concepts/services-networking/network-policies/)
 which provide a namespaced resource to define rules. Default network policies
-blocking everything egress and ingress, in each namespace, selecting all the
-pods, can be useful to adopt an allow list approach, ensuring that no workloads
-is missed.
+that block all egress and ingress, in each namespace, selecting all pods, can be
+useful to adopt an allow list approach to ensure that no workloads are missed.
 
 Not all CNI plugins provide encryption in transit. If the chosen plugin lacks this
 feature, an alternative solution could be to use a service mesh to provide that
@@ -80,12 +79,12 @@ be used to communicate securely with it. The certificate authority for this
 should be unique to etcd.
 
 External Internet access to the Kubernetes API server should be restricted to
-not expose the API publicly. Be careful as many managed Kubernetes distribution
+not expose the API publicly. Be careful, as many managed Kubernetes distributions
 are publicly exposing the API server by default. You can then use a bastion host
 to access the server.
 
 The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) API access
-should be restricted and not publicly exposed, the defaults authentication and
+should be restricted and not exposed publicly, the default authentication and
 authorization settings, when no configuration file specified with the `--config`
 flag, are overly permissive.
 
@@ -325,7 +324,7 @@ Production.
   webhook admission controller.
 - [ ] The admission chain plugins and webhooks are securely configured.
 
-Admission controllers can help to improve the security of the cluster. However,
+Admission controllers can help improve the security of the cluster. However,
 they can present risks themselves as they extend the API server and
 [should be properly secured](/blog/2022/01/19/secure-your-admission-controllers-and-webhooks/).
 
@@ -350,11 +349,11 @@ permission to sign certificate requests.
 attribute') of `system:masters`.
 
 [`LimitRanger`](/docs/reference/access-authn-authz/admission-controllers/#limitranger)
-: Enforce the LimitRange API constraints.
+: Enforces the LimitRange API constraints.
 
 [`MutatingAdmissionWebhook`](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
 : Allows the use of custom controllers through webhooks, these controllers may
-mutate requests that it reviews.
+mutate requests that they review.
 
 [`PodSecurity`](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
 : Replacement for Pod Security Policy, restricts security contexts of deployed
@@ -367,8 +366,8 @@ Pods.
 : Allows the use of custom controllers through webhooks, these controllers do
 not mutate requests that it reviews.
 
-The second group includes plugin that are not enabled by default but in general
-availability state and recommended to improve your security posture:
+The second group includes plugins that are not enabled by default but are in general
+availability state and are recommended to improve your security posture:
 
 [`DenyServiceExternalIPs`](/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)
 : Rejects all net-new usage of the `Service.spec.externalIPs` field. This is a mitigation for
