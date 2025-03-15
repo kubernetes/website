@@ -16,6 +16,8 @@ Các phiên bản Kubernetes trước 1.18 được hỗ trợ bản vá trong k
 Phiên bản Kubernetes được biểu thị dưới dạng **x.y.z**.
 Ở đây, **x** chỉ phiên bản chính (major), **y** chỉ phiên bản phụ (minor) và **z** chỉ phiên bản vá (patch), theo thuật ngữ Phiên bản ngữ nghĩa.
 
+Bạn có thể tìm thấy thông tin chi tiết hơn về độ lệch phiên bản (version skew) trong tài liệu [Chính sách về độ lệch phiên bản](/releases/version-skew-policy/).
+
 <!-- body -->
 
 ## Lịch sử phát hành các phiên bản
