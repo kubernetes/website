@@ -326,16 +326,15 @@ for resource usage apply:
   containers is the *effective init request/limit*. If any resource has no
   resource limit specified this is considered as the highest limit.
 * The Pod's *effective request/limit* for a resource is the higher of:
-  * the sum of all app containers request/limit for a resource
+  * the sum request/limit for a resource for all app containers and sidecar containers 
   * the effective init request/limit for a resource
 * Scheduling is done based on effective requests/limits, which means
   init containers can reserve resources for initialization that are not used
   during the life of the Pod.
 * The QoS (quality of service) tier of the Pod's *effective QoS tier* is the
-  QoS tier for init containers and app containers alike.
+  QoS tier for the app containers.
 
-Quota and limits are applied based on the effective Pod request and
-limit.
+Quota and limits are applied based on the effective Pod request and limit.
 
 ### Init containers and Linux cgroups {#cgroups}
 
