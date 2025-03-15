@@ -149,6 +149,10 @@
 /docs/contribute/intermediate/        /docs/contribute/ 301
 /docs/contribute/new-content/overview/        /docs/contribute/new-content/ 301
 
+# Previous page is now /docs/contribute/blog/ and /docs/contribute/new-content/case-studies
+# No direct redirect is correct to make
+/docs/contribute/new-content/blogs-case-studies/ /docs/contribute/new-content/ 302
+
 /docs/deprecate/     /docs/reference/using-api/deprecation-policy/ 301
 /docs/deprecated/     /docs/reference/using-api/deprecation-policy/ 301
 /docs/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
