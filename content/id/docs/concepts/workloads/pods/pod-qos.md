@@ -42,7 +42,7 @@ Pod diberi kelas QoS *`Burstable`* jika:
 
 Pod dalam kelas QoS *`BestEffort`* dapat menggunakan sumber daya *Node* yang tidak secara khusus ditetapkan ke Pod dalam kelas QoS lainnya. Misalnya, jika Anda memiliki *Node* dengan 16 inti CPU yang tersedia untuk kubelet, dan Anda menetapkan 4 inti CPU ke Pod `Guaranteed`, maka Pod dalam kelas QoS *`BestEffort`* dapat mencoba menggunakan sejumlah dari 12 inti CPU yang tersisa.
 
-Kubelet lebih memilih mengusir Pod *`BestEffort`* jika node mengalami tekanan sumber daya.
+Kubelet lebih memilih mengusir Pod *`BestEffort`* jika *Node* mengalami tekanan sumber daya.
 
 #### Kriteria
 
@@ -63,7 +63,7 @@ Perilaku tertentu independen dari kelas QoS yang ditetapkan oleh Kubernetes. Mis
 
 * Setiap Kontainer yang melampaui batas sumber daya akan dihentikan dan dimulai ulang oleh kubelet tanpa memengaruhi Kontainer lain dalam Pod tersebut.
 
-* Jika Kontainer melampaui permintaan sumber dayanya dan node yang dijalankannya menghadapi tekanan sumber daya, Pod yang menjadi tempatnya menjadi kandidat untuk [pengusiran](/docs/concepts/scheduling-eviction/node-pressure-eviction/). Jika ini terjadi, semua Kontainer dalam Pod akan dihentikan. Kubernetes dapat membuat Pod pengganti, biasanya pada node yang berbeda.
+* Jika Kontainer melampaui permintaan sumber dayanya dan *Node* yang dijalankannya menghadapi tekanan sumber daya, Pod yang menjadi tempatnya menjadi kandidat untuk [pengusiran](/docs/concepts/scheduling-eviction/node-pressure-eviction/). Jika ini terjadi, semua Kontainer dalam Pod akan dihentikan. Kubernetes dapat membuat Pod pengganti, biasanya pada *Node* yang berbeda.
 
 * Permintaan sumber daya Pod sama dengan jumlah permintaan sumber daya dari Kontainer komponennya, dan batas sumber daya Pod sama dengan jumlah batas sumber daya dari Kontainer komponennya.
 
@@ -75,6 +75,6 @@ Perilaku tertentu independen dari kelas QoS yang ditetapkan oleh Kubernetes. Mis
 * Pelajari tentang [Node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 * Pelajari tentang [Pod priority and preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
 * Pelajari tentang [Pod disruptions](/docs/concepts/workloads/pods/disruptions/).
-* Pelajari bagaimana untuk [menetapkan sumber daya memori untuk Container dan Pod](/docs/tasks/configure-pod-container/assign-memory-resource/).
+* Pelajari bagaimana untuk [menetapkan sumber daya memori untuk Kontainer dan Pod](/docs/tasks/configure-pod-container/assign-memory-resource/).
 * Pelajari bagaimana untuk [assign CPU resources to containers and pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 * Pelajari bagaimana untuk [konfigurasi Quality of Service untuk Pods](/id/docs/tasks/configure-pod-container/quality-service-pod/).
