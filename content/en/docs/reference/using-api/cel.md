@@ -355,12 +355,12 @@ use the underscore escaping
 Examples on escaping:
 
 {{< table caption="Examples escaped CEL identifiers" >}}
-| property name | rule with escaped property name   |
-|---------------|-----------------------------------|
-| `namespace`   | `self.__namespace__ > 0`          |
-| `x-prop`      | `self.x__dash__prop > 0`          |
-| `redact__d`   | `self.redact__underscores__d > 0` |
-| `string`      | `self.startsWith('kube')`         |
+| property name | rule with escaped property name        |
+|---------------|----------------------------------------|
+| `namespace`   | `self.__namespace__ > 0`               |
+| `x-prop`      | `self.x__dash__prop > 0`               |
+| `redact__d`   | `self.redact__underscores__d > 0`      |
+| `string`      | `self.__{string}__.startsWith('kube')` |
 {{< /table >}}
 
 ## Resource constraints
