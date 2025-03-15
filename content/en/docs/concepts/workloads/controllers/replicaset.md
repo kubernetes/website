@@ -347,7 +347,7 @@ If all of the above match, then selection is random.
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
-Using the [`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/labels-annotations-taints/#pod-deletion-cost)
+Using the [`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/labels-annotations-taints/annotations/#pod-deletion-cost)
 annotation, users can set a preference regarding which pods to remove first when downscaling a ReplicaSet.
 
 The annotation should be set on the pod, the range is [-2147483648, 2147483647]. It represents the cost of
