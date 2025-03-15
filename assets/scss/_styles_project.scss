@@ -1,12 +1,5 @@
 /* This file is provided by Docsy as an extension point for styling.
 Add styles or import other files. */
 
-@import "reset";
-
-//K8S-Docsy integration
-@import "custom";
-
-//Media queries
-@import "base";
-@import "tablet";
-@import "desktop";
+@import "custom";        // site-wide styling
+@import "documentation"; // documentation-only styling
