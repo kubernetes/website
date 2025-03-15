@@ -4,13 +4,13 @@ id: helm-chart
 date: 2018-04-12
 full_link: https://helm.sh/docs/topics/charts/
 short_description: >
-  A package of pre-configured Kubernetes resources that can be managed with the Helm tool.
+  A package of pre-configured Kubernetes configurations that can be managed with the Helm tool.
 
 aka: 
 tags:
 - tool
 ---
- A package of pre-configured Kubernetes resources that can be managed with the Helm tool.
+A package of pre-configured Kubernetes configurations that can be managed with the Helm tool.
 
 <!--more--> 
 
