@@ -74,7 +74,7 @@ Perilaku tertentu independen dari kelas QoS yang ditetapkan oleh Kubernetes. Mis
 * Pelajari tentang [resource management for Pods and Containers](/docs/concepts/configuration/manage-resources-containers/).
 * Pelajari tentang [Node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 * Pelajari tentang [Pod priority and preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
-* Pelajari tentang [Pod disruptions](/docs/concepts/workloads/pods/disruptions/).
+* Pelajari tentang [disrupsi Pod](/id/docs/concepts/workloads/pods/disruptions/).
 * Pelajari bagaimana untuk [menetapkan sumber daya memori untuk Kontainer dan Pod](/docs/tasks/configure-pod-container/assign-memory-resource/).
 * Pelajari bagaimana untuk [assign CPU resources to containers and pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 * Pelajari bagaimana untuk [konfigurasi Quality of Service untuk Pods](/id/docs/tasks/configure-pod-container/quality-service-pod/).
