@@ -72,6 +72,15 @@ violated from the PodSecurity enforcement.
 See [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
 for more information.
 
+## apiserver.latency.k8s.io/total
+
+Example: `apiserver.latency.k8s.io/total: "573.018706ms"`
+
+This annotation records total latency incurred in components within the API server.
+The API server only adds this audit annotation for requests where the total latency for handling
+and responding to that request exceeds a threshold; in Kubernetes {{< skew currentVersion >}}
+that threshold is 500ms (half a second).
+
 ## authorization.k8s.io/decision
 
 Example: `authorization.k8s.io/decision: "forbid"`
