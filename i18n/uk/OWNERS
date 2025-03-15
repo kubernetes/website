@@ -3,12 +3,15 @@
 # Localized strings for Ukrainian.
 # Teams and members are visible at https://github.com/orgs/kubernetes/teams.
 
-reviewers:
-- sig-docs-uk-reviews
+filters:
+  "\\.toml$":
 
-approvers:
-- sig-docs-uk-owners
+    reviewers:
+    - sig-docs-uk-reviews
 
-labels:
-- area/localization
-- language/uk
+    approvers:
+    - sig-docs-uk-owners
+
+    labels:
+    - area/localization
+    - language/uk

@@ -3,12 +3,15 @@
 # Localized strings for Bengali.
 # Teams and members are visible at https://github.com/orgs/kubernetes/teams.
 
-reviewers:
-- sig-docs-bn-reviews
+filters:
+  "\\.toml$":
 
-approvers:
-- sig-docs-bn-owners
+    reviewers:
+    - sig-docs-bn-reviews
 
-labels:
-- area/localization
-- language/bn
+    approvers:
+    - sig-docs-bn-owners
+
+    labels:
+    - area/localization
+    - language/bn
