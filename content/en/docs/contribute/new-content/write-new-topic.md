@@ -1,7 +1,7 @@
 ---
 title: Writing a new topic
 content_type: task
-weight: 70
+weight: 60
 ---
 
 <!-- overview -->
@@ -30,7 +30,7 @@ Tutorial | A tutorial page shows how to accomplish a goal that ties together sev
 
 ### Creating a new page
 
-Use a [content type](/docs/contribute/style/page-content-types/) for each new page
+Use a [content type](/docs/contribute/new-content/page-content-types/) for each new page
 that you write. The docs site provides templates or
 [Hugo archetypes](https://gohugo.io/content-management/archetypes/) to create
 new content pages. To create a new type of page, run `hugo new` with the path to the file
@@ -165,6 +165,6 @@ image format is SVG.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [using page content types](/docs/contribute/style/page-content-types/).
+* Learn about [using page content types](/docs/contribute/new-content/page-content-types/).
 * Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).
 
