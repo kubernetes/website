@@ -148,7 +148,7 @@ IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
 Oracle Cloud Infrastructure | https://www.oracle.com/security |
 Tencent Cloud | https://www.tencentcloud.com/solutions/data-security-and-information-protection |
-VMware vSphere | https://www.vmware.com/security/hardening-guides |
+VMware vSphere | https://www.vmware.com/solutions/security/hardening-guides |
 
 {{< /table >}}
 -->
@@ -164,7 +164,7 @@ IBM 云 | https://www.ibm.com/cloud/security |
 微软 Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
 Oracle 云基础设施| https://www.oracle.com/security |
 腾讯云 | https://www.tencentcloud.com/solutions/data-security-and-information-protection |
-VMware vSphere | https://www.vmware.com/security/hardening-guides |
+VMware vSphere | https://www.vmware.com/solutions/security/hardening-guides |
 
 {{< /table >}}
 

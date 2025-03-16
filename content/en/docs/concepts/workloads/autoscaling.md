@@ -63,7 +63,7 @@ Once installed, it allows you to create {{< glossary_tooltip text="CustomResourc
 
 {{< note >}}
 You will need to have the [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
-installed to your cluster for the HPA to work.
+installed to your cluster for the VPA to work.
 {{< /note >}}
 
 At the moment, the VPA can operate in four different modes:
@@ -111,7 +111,7 @@ in the cluster.
 It is also possible to scale workloads based on events, for example using the
 [_Kubernetes Event Driven Autoscaler_ (**KEDA**)](https://keda.sh/).
 
-KEDA is a CNCF graduated enabling you to scale your workloads based on the number
+KEDA is a CNCF-graduated project enabling you to scale your workloads based on the number
 of events to be processed, for example the amount of messages in a queue. There exists
 a wide range of adapters for different event sources to choose from.
 

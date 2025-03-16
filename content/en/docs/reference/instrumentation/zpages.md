@@ -4,6 +4,8 @@ content_type: reference
 weight: 60
 reviewers:
 - dashpole
+description: >-
+  Provides runtime diagnostics for Kubernetes components, offering insights into component runtime status and configuration flags.
 ---
 
 

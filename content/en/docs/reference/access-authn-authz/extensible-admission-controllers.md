@@ -1247,17 +1247,52 @@ object.
 
 ### Avoiding deadlocks in self-hosted webhooks
 
-A webhook running inside the cluster might cause deadlocks for its own deployment if it is configured
-to intercept resources required to start its own pods.
+There are several ways that webhooks can cause deadlocks, where the cluster cannot make progress in
+scheduling pods:
 
-For example, a mutating admission webhook is configured to admit `CREATE` pod requests only if a certain label is set in the
-pod (e.g. `"env": "prod"`). The webhook server runs in a deployment which doesn't set the `"env"` label.
-When a node that runs the webhook server pods
-becomes unhealthy, the webhook deployment will try to reschedule the pods to another node. However the requests will
-get rejected by the existing webhook server since the `"env"` label is unset, and the migration cannot happen.
+* A webhook running inside the cluster might cause deadlocks for its own deployment if it is configured
+  to intercept resources required to start its own pods.
 
-It is recommended to exclude the namespace where your webhook is running with a
-[namespaceSelector](#matching-requests-namespaceselector).
+  For example, a mutating admission webhook is configured to admit **create** Pod requests only if a certain label is set in the
+  pod (such as `env: "prod"`). However, the webhook server runs as a Deployment that doesn't set the `env` label.
+  When a node that runs the webhook server pods
+  becomes unhealthy, the webhook deployment will try to reschedule the pods to another node. However the requests will
+  get rejected by the existing webhook server since the `env` label is unset, and the replacement Pod
+  cannot be created. Eventually, the entire Deployment for the webhook server may become unhealthy.
+
+  If you use admission webhooks to check Pods, consider excluding the namespace where your webhook
+  listener is running, by specifying a
+  [namespaceSelector](#matching-requests-namespaceselector).
+
+* If the cluster has multiple webhooks configured (possibly from independent applications deployed on
+  the cluster), they can form a cycle.  Webhook A must be called to process startup of webhook B's
+  pods and vice versa. If both webhook A and webhook B ever become unavailable at the same time (for
+  example, due to a cluster-wide outage or a node failure where both pods run on the same node)
+  deadlock occurs because neither webhook pod can be recreated without the other already running.
+
+  One way to prevent this is to exclude webhook A's pods from being acted on be webhook B. This
+  allows webhook A's pods to start, which in turn allows webhook B's pods to start. If you had a 
+  third webhook, webhook C, you'd need to exclude both webhook A and webhook B's pods from 
+  webhook C. This ensures that webhook A can _always_ start, which then allows webhook B's pods 
+  to start, which in turn allows webhook C's pods to start.
+
+  If you want to ensure protection that avoids these risks, [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/)
+  can
+  provide many protection capabilities without introducing dependency cycles.
+
+* Admission webhooks can intercept resources used by critical cluster add-ons, such as CoreDNS,
+  network plugins, or storage plugins. These add-ons may be required to schedule or successfully run the
+  pods for a particular admission webhook on the cluster. This can cause a deadlock if both the 
+  webhook and critical add-on is unavailable at the same time.
+
+  You may wish to exclude cluster infrastructure namespaces from webhooks, or make sure that
+  the webhook does not depend on the particular add-on that it acts on.  For exmaple, running
+  a webhook as a host-networked pod ensures that it does not depend on a networking plugin.
+
+  If you want to ensure protection for a core add-on / or its namespace,
+  [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/)
+  can
+  provide many protection capabilities without any dependency on worker nodes and Pods.
 
 ### Side effects
 
