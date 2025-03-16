@@ -578,8 +578,8 @@ Apply can send partially specified objects as YAML as the body of a `PATCH` requ
 to the URI of a resource.  When applying a configuration, you should always include all the
 fields that are important to the outcome (such as a desired state) that you want to define.
 
-All JSON messages are valid YAML. Some clients specify Server-Side Apply requests using YAML
-request bodies that are also valid JSON.
+All JSON messages are valid YAML. Some clients specify Server-Side Apply requests using JSON
+request bodies that are also valid YAML.
 
 ### Access control and permissions {#rbac-and-permissions}
 
