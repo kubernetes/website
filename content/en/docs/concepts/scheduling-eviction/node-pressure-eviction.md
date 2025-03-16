@@ -227,8 +227,8 @@ These default values of hard eviction thresholds will only be set if none
 of the parameters is changed. If you change the value of any parameter,
 then the values of other parameters will not be inherited as the default
 values and will be set to zero. In order to provide custom values, you
-should provide all the thresholds respectively Or you can set the Kubelet Config
-MergeDefaultEvictionSettings to true in the Kubelet Configuration file.
+should provide all the thresholds respectively. You can also set the kubelet config
+MergeDefaultEvictionSettings to true in the kubelet configuration file.
 If set to true and any paramater is changed, then the other parameters will
 inherit their default values instead of 0.
 
