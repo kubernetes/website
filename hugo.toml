@@ -266,7 +266,7 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 [[params.links.user]]
 	name_key = "community_bluesky_name"
 	url = "https://bsky.app/profile/kubernetes.io"
-	icon = "fa-brands fa-bluesky"
+	icon = "fa-solid fa-cloud"
 
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
