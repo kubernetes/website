@@ -130,9 +130,9 @@ Once installed, it allows you to create {{< glossary_tooltip text="CustomResourc
 {{< note >}}
 <!--
 You will need to have the [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
-installed to your cluster for the HPA to work.
+installed to your cluster for the VPA to work.
 -->
-你需要在集群中安装 [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)，这样，你的 HPA 才能正常工作。
+你需要在集群中安装 [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)，这样，你的 VPA 才能正常工作。
 {{< /note >}}
 
 <!--
@@ -228,7 +228,7 @@ It is also possible to scale workloads based on events, for example using the
 例如使用 [Kubernetes Event Driven Autoscaler (**KEDA**)](https://keda.sh/)。
 
 <!--
-KEDA is a CNCF graduated enabling you to scale your workloads based on the number
+KEDA is a CNCF-graduated project enabling you to scale your workloads based on the number
 of events to be processed, for example the amount of messages in a queue. There exists
 a wide range of adapters for different event sources to choose from.
 -->
@@ -270,10 +270,10 @@ Scaling the cluster infrastructure normally means adding or removing {{< glossar
 扩缩集群基础设施通常是指增加或移除{{< glossary_tooltip text="节点" term_id="node" >}}。
 
 <!--
-Read [cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
+Read [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
 for more information.
 -->
-阅读[集群自动扩缩](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/)了解更多信息。
+阅读[节点自动扩缩](/zh-cn/docs/concepts/cluster-administration/node-autoscaling/)了解更多信息。
 
 ## {{% heading "whatsnext" %}}
 
@@ -283,11 +283,11 @@ for more information.
   - [HorizontalPodAutoscaler Walkthrough](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 - [Resize Container Resources In-Place](/docs/tasks/configure-pod-container/resize-container-resources/)
 - [Autoscale the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
-- Learn about [cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
+- Learn about [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
 -->
 - 了解有关横向扩缩的更多信息
   - [扩缩 StatefulSet](/zh-cn/docs/tasks/run-application/scale-stateful-set/)
   - [HorizontalPodAutoscaler 演练](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 - [调整分配给容器的 CPU 和内存资源](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)
 - [自动扩缩集群 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
-- 了解[集群自动扩缩]((/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/))
+- 了解[节点自动扩缩]((/zh-cn/docs/concepts/cluster-administration/node-autoscaling/))
