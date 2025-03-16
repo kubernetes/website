@@ -11,11 +11,11 @@ hide_feedback: true
 menu:
   main:
     title: "प्रलेखन"
-    weight: 20
-    post: >
-      <p>वैचारिक, ट्यूटोरियल और संदर्भ प्रलेखन के साथ कुबेरनेट्स का उपयोग करना सीखें| आप <a href="/editdocs/" data-auto-burger-exclude data-proofer-ignore>डॉक्स में योगदान करने में मदद भी कर सकते हैं</a>!</p>
+    weight: 10
 description: >
   कुबेरनेट्स कंटेनरीकृत एप्लीकेशन के परिनियोजन, स्केलिंग और प्रबंधन को स्वचालित करने के लिए एक ओपन सोर्स कंटेनर ऑर्केस्ट्रेशन इंजन है| यह ओपन सोर्स प्रोजेक्ट Cloud Native Computing Foundation द्वारा होस्ट किया गया है।
+button: "उपलब्ध संस्करण देखें"
+button_path: "/docs/home/supported-doc-versions"
 overview: >
   कुबेरनेट्स कंटेनरीकृत एप्लीकेशन के डिप्लॉयमेंट, स्केलिंग और प्रबंधन को स्वचालित करने के लिए एक ओपन सोर्स कंटेनर ऑर्केस्ट्रेशन इंजन है। यह ओपन सोर्स प्रोजेक्ट Cloud Native Computing Foundation द्वारा होस्ट किया गया है|(<a href="https://www.cncf.io/about">CNCF</a>).
 cards:
