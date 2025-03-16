@@ -344,8 +344,7 @@ kubectl logs --previous ${POD_NAME} ${CONTAINER_NAME}
 
 ## Depuração com execução dentro do contêiner {#container-exec}
 
-Se a {{< glossary_tooltip text="imagem do contêiner" term_id="image" >}} incluir ferramentas de depuração, 
-como é o caso de imagens baseadas nos sistemas operacionais Linux e Windows, você pode executar comandos dentro de um contêiner específico usando `kubectl exec`:
+Se a {{< glossary_tooltip text="imagem do contêiner" term_id="image" >}} incluir ferramentas de depuração, como é o caso de imagens baseadas nos sistemas operacionais Linux e Windows, você pode executar comandos dentro de um contêiner específico usando `kubectl exec`:
 
 ```shell
 kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${ARGN}
@@ -373,8 +372,8 @@ Para mais detalhes, veja [Obter um Shell em um Contêiner em Execução](/docs/t
 
 {{< feature-state state="stable" for_k8s_version="v1.25" >}}
 
-{{< glossary_tooltip text="Contêineres efêmeros" term_id="ephemeral-container" >}} são úteis para uma solução de problemas 
-interativa quando `kubectl exec` não é suficiente, como no caso de um contêiner que falhou ou uma imagem de contêiner 
+{{< glossary_tooltip text="Contêineres efêmeros" term_id="ephemeral-container" >}} são úteis para uma solução de problemas
+interativa quando `kubectl exec` não é suficiente, como no caso de um contêiner que falhou ou uma imagem de contêiner
 que não inclui ferramentas de depuração, como ocorre com [imagens distroless](https://github.com/GoogleContainerTools/distroless).
 
 ### Exemplo de depuração usando contêineres efêmeros {#ephemeral-container-example}
@@ -415,8 +414,7 @@ Este comando adiciona um novo contêiner `busybox` e o anexa. O parâmetro `--ta
 Ele é necessário aqui porque `kubectl run` não habilita o [compartilhamento do namespace de processo](/docs/tasks/configure-pod-container/share-process-namespace/) no Pod que ele cria.
 
 {{< note >}}
-O parâmetro `--target` deve ser suportado pelo {{< glossary_tooltip  
-text="Agente de execução do Contêiner" term_id="container-runtime" >}}. Quando não for suportado, o Contêiner Efêmero pode não ser iniciado ou pode ser iniciado com um namespace de processo isolado, de modo que `ps` não revelará processos em outros contêineres.
+O parâmetro `--target` deve ser suportado pelo {{< glossary_tooltip text="Agente de execução do Contêiner" term_id="container-runtime" >}}. Quando não for suportado, o Contêiner Efêmero pode não ser iniciado ou pode ser iniciado com um namespace de processo isolado, de modo que `ps` não revelará processos em outros contêineres.
 {{< /note >}}
 
 Você pode visualizar o estado do contêiner efêmero recém-criado usando `kubectl describe`:
@@ -459,11 +457,11 @@ modificados para facilitar a depuração.
 
 ### Copiando um Pod enquanto adiciona um novo contêiner
 
-Adicionar um novo contêiner pode ser útil quando sua aplicação está em execução,  
-mas não se comporta como esperado e você deseja adicionar ferramentas adicionais  
+Adicionar um novo contêiner pode ser útil quando sua aplicação está em execução,
+mas não se comporta como esperado e você deseja adicionar ferramentas adicionais
 de depuração ao Pod.
 
-Por exemplo, talvez as imagens do contêiner da sua aplicação sejam baseadas em `busybox`, mas você precise de ferramentas de depuração que não estão incluídas no `busybox`.  
+Por exemplo, talvez as imagens do contêiner da sua aplicação sejam baseadas em `busybox`, mas você precise de ferramentas de depuração que não estão incluídas no `busybox`.
 Você pode simular esse cenário usando `kubectl run`:
 
 ```shell
@@ -485,8 +483,8 @@ root@myapp-debug:/#
 {{< note >}}
 * `kubectl debug` gera automaticamente um nome para o contêiner caso você não escolha um usando a opção `--container`.
 * A opção `-i` faz com que `kubectl debug` anexe ao novo contêiner por padrão.
-  Você pode impedir isso especificando `--attach=false`. Se sua sessão for desconectada, você pode se reconectar usando `kubectl attach`.  
-* A opção `--share-processes` permite que os contêineres deste Pod visualizem processos  
+  Você pode impedir isso especificando `--attach=false`. Se sua sessão for desconectada, você pode se reconectar usando `kubectl attach`.
+* A opção `--share-processes` permite que os contêineres deste Pod visualizem processos
   de outros contêineres no mesmo Pod. Para mais informações sobre como isso funciona, veja [Compartilhar o Namespace de Processos entre Contêineres em um Pod](/docs/tasks/configure-pod-container/share-process-namespace/).
 {{< /note >}}
 
@@ -565,7 +563,7 @@ Agora use `kubectl debug` para criar uma cópia e alterar a imagem do contêiner
 kubectl debug myapp --copy-to=myapp-debug --set-image=*=ubuntu
 ```
 
-A sintaxe de `--set-image` usa o mesmo formato `container_name=image` que `kubectl set image`. 
+A sintaxe de `--set-image` usa o mesmo formato `container_name=image` que `kubectl set image`.
 `*=ubuntu` significa alterar a imagem de todos os contêineres para `ubuntu`.
 
 Não se esqueça de limpar o Pod de depuração quando terminar de usá-lo:
@@ -576,7 +574,7 @@ kubectl delete pod myapp myapp-debug
 
 ## Depuração via shell no Nó {#node-shell-session}
 
-Se nenhuma dessas abordagens funcionar, você pode identificar o Nó onde o Pod está sendo executado e criar um Pod nesse Nó. 
+Se nenhuma dessas abordagens funcionar, você pode identificar o Nó onde o Pod está sendo executado e criar um Pod nesse Nó.
 Para criar um shell interativo em um Nó usando `kubectl debug`, execute:
 
 ```shell
@@ -593,8 +591,8 @@ Ao criar uma sessão de depuração em um Nó, tenha em mente que:
 
 * `kubectl debug` gera automaticamente o nome do novo Pod com base no nome do Nó.
 * O sistema de arquivos raiz do Nó será montado em `/host`.
-* O contêiner é executado nos namespaces de IPC, Rede e PID do host,  
-  embora o Pod não seja privilegiado, então a leitura de algumas informações de  
+* O contêiner é executado nos namespaces de IPC, Rede e PID do host,
+  embora o Pod não seja privilegiado, então a leitura de algumas informações de
   processos pode falhar, e `chroot /host` pode não funcionar.
 * Se você precisar de um Pod privilegiado, crie-o manualmente ou use a opção `--profile=sysadmin`.
 
@@ -606,13 +604,13 @@ kubectl delete pod node-debugger-mynode-pdx84
 
 ## Depuração de um Pod ou Nó aplicando um perfil {#debugging-profiles}
 
-Ao usar `kubectl debug` para depurar um Nó por meio de um Pod de depuração, um Pod por meio de um Contêiner Efêmero ou um Pod copiado, você pode aplicar um perfil a eles.  
-Ao aplicar um perfil, propriedades específicas, como [securityContext](/docs/tasks/configure-pod-container/security-context/), são definidas, permitindo a adaptação a diferentes cenários.  
+Ao usar `kubectl debug` para depurar um Nó por meio de um Pod de depuração, um Pod por meio de um Contêiner Efêmero ou um Pod copiado, você pode aplicar um perfil a eles.
+Ao aplicar um perfil, propriedades específicas, como [securityContext](/docs/tasks/configure-pod-container/security-context/), são definidas, permitindo a adaptação a diferentes cenários.
 Existem dois tipos de perfis: perfil estático e perfil personalizado.
 
 ### Aplicando um Perfil Estático {#static-profile}
 
-Um perfil estático é um conjunto de propriedades predefinidas que podem ser aplicadas usando a opção `--profile`.  
+Um perfil estático é um conjunto de propriedades predefinidas que podem ser aplicadas usando a opção `--profile`.
 Os perfis disponíveis são os seguintes:
 
 | Profile      | Description                                                     |
@@ -626,12 +624,12 @@ Os perfis disponíveis são os seguintes:
 
 
 {{< note >}}
-Se você não especificar `--profile`, o perfil `legacy` será usado por padrão, mas há planos para sua descontinuação em um futuro próximo.  
+Se você não especificar `--profile`, o perfil `legacy` será usado por padrão, mas há planos para sua descontinuação em um futuro próximo.
 Portanto, é recomendável usar outros perfis, como `general`.
 {{< /note >}}
 
 
-Suponha que você crie um Pod e queira depurá-lo.  
+Suponha que você crie um Pod e queira depurá-lo.
 Primeiro, crie um Pod chamado `myapp` como exemplo:
 
 ```shell
@@ -688,12 +686,12 @@ kubectl delete pod myapp
 
 {{< feature-state for_k8s_version="v1.32" state="stable" >}}
 
-Você pode definir uma especificação parcial de contêiner para depuração como um perfil personalizado,  
+Você pode definir uma especificação parcial de contêiner para depuração como um perfil personalizado,
 em formato YAML ou JSON, e aplicá-lo usando a opção `--custom`.
 
 {{< note >}}
-O perfil personalizado suporta apenas a modificação da especificação do contêiner, 
-mas não permite alterações nos campos `name`, `image`, `command`, `lifecycle` e `volumeDevices` da especificação do contêiner.  
+O perfil personalizado suporta apenas a modificação da especificação do contêiner,
+mas não permite alterações nos campos `name`, `image`, `command`, `lifecycle` e `volumeDevices` da especificação do contêiner.
 Ele também não suporta a modificação da especificação do Pod.
 {{< /note >}}
 
