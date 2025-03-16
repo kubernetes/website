@@ -19,7 +19,7 @@ Mensagens de término fornecem uma maneira para os contêineres registrarem info
 
 ## Escrevendo e lendo uma mensagem de término
 
-Neste exercício, você cria um Pod que executa um único contêiner.  
+Neste exercício, você cria um Pod que executa um único contêiner.
 O manifesto para esse Pod especifica um comando que é executado quando o contêiner é iniciado:
 
 {{% code_sample file="debug/termination.yaml" %}}
@@ -30,9 +30,9 @@ O manifesto para esse Pod especifica um comando que é executado quando o contê
     kubectl apply -f https://k8s.io/examples/debug/termination.yaml
     ```
     
-    No arquivo YAML, nos campos `command` e `args`, é possível ver que o  
-    contêiner dorme por 10 segundos e, em seguida, escreve "Sleep expired"  
-    no arquivo `/dev/termination-log`. Após escrever a mensagem "Sleep expired",  
+    No arquivo YAML, nos campos `command` e `args`, é possível ver que o
+    contêiner dorme por 10 segundos e, em seguida, escreve "Sleep expired"
+    no arquivo `/dev/termination-log`. Após escrever a mensagem "Sleep expired",
     o contêiner é encerrado.
 
 1. Exiba informações sobre o Pod:
@@ -71,8 +71,8 @@ O manifesto para esse Pod especifica um comando que é executado quando o contê
     kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"
     ```
 
-Se você estiver executando um Pod com vários contêineres, pode usar um template Go  
-para incluir o nome do contêiner.  
+Se você estiver executando um Pod com vários contêineres, pode usar um template Go
+para incluir o nome do contêiner.
 Dessa forma, você pode descobrir qual dos contêineres está falhando:
 
 ```shell
@@ -81,24 +81,24 @@ kubectl get pod multi-container-pod -o go-template='{{range .status.containerSta
 
 ## Personalizando a mensagem de término
 
-O Kubernetes recupera mensagens de término do arquivo especificado no campo  
-`terminationMessagePath` de um contêiner, que tem o valor padrão de `/dev/termination-log`.  
-Ao personalizar esse campo, você pode instruir o Kubernetes a usar um arquivo diferente.  
-O Kubernetes usa o conteúdo do arquivo especificado para preencher a mensagem de status  
+O Kubernetes recupera mensagens de término do arquivo especificado no campo
+`terminationMessagePath` de um contêiner, que tem o valor padrão de `/dev/termination-log`.
+Ao personalizar esse campo, você pode instruir o Kubernetes a usar um arquivo diferente.
+O Kubernetes usa o conteúdo do arquivo especificado para preencher a mensagem de status
 do contêiner, tanto em casos de sucesso quanto de falha.
 
-A mensagem de término deve ser um breve status final, como uma mensagem de falha de asserção.  
+A mensagem de término deve ser um breve status final, como uma mensagem de falha de asserção.
 O kubelet trunca mensagens que excedam 4096 bytes.
 
-O tamanho total da mensagem entre todos os contêineres é limitado a 12KiB,  
-sendo dividido igualmente entre cada contêiner.  
-Por exemplo, se houver 12 contêineres (`initContainers` ou `containers`),  
+O tamanho total da mensagem entre todos os contêineres é limitado a 12KiB,
+sendo dividido igualmente entre cada contêiner.
+Por exemplo, se houver 12 contêineres (`initContainers` ou `containers`),
 cada um terá 1024 bytes disponíveis para a mensagem de término.
 
-O caminho padrão para a mensagem de término é `/dev/termination-log`.  
+O caminho padrão para a mensagem de término é `/dev/termination-log`.
 Não é possível definir o caminho da mensagem de término após o lançamento de um Pod.
 
-No exemplo a seguir, o contêiner grava mensagens de término em  
+No exemplo a seguir, o contêiner grava mensagens de término em
 `/tmp/my-log` para que o Kubernetes possa recuperá-las:
 
 ```yaml
@@ -113,13 +113,13 @@ spec:
     terminationMessagePath: "/tmp/my-log"
 ```
 
-Além disso, os usuários podem definir o campo `terminationMessagePolicy` de um contêiner  
-para uma personalização adicional. Esse campo tem como valor padrão "`File`",  
-o que significa que as mensagens de término são recuperadas apenas do arquivo  
-de mensagem de término.  
-Ao definir `terminationMessagePolicy` como "`FallbackToLogsOnError`", você instrui  
-o Kubernetes a usar o último trecho do log de saída do contêiner caso o arquivo  
-de mensagem de término esteja vazio e o contêiner tenha encerrado com erro.  
+Além disso, os usuários podem definir o campo `terminationMessagePolicy` de um contêiner
+para uma personalização adicional. Esse campo tem como valor padrão "`File`",
+o que significa que as mensagens de término são recuperadas apenas do arquivo
+de mensagem de término.
+Ao definir `terminationMessagePolicy` como "`FallbackToLogsOnError`", você instrui
+o Kubernetes a usar o último trecho do log de saída do contêiner caso o arquivo
+de mensagem de término esteja vazio e o contêiner tenha encerrado com erro.
 A saída do log é limitada a 2048 bytes ou 80 linhas, o que for menor.
 
 ## {{% heading "whatsnext" %}}
