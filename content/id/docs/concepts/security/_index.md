@@ -19,7 +19,7 @@ dan aplikasi yang berjalan di atasnya.
 
 ## Mekanisme keamanan Kubernetes {#security-mechanisms}
 
-### Proteksi control plane
+### Proteksi *control plane*
 
 Kunci penting pada apapun varian klaster Kubernetes adalah
 [kontrol akses ke Kubernetes API](/docs/concepts/security/controlling-access).
@@ -35,7 +35,7 @@ menggunanakan *encryption at rest* untuk data anda di workload.
 
 [Secret](/docs/concepts/configuration/secret/) API menyediakan perlindungan dasar untuk variabel konfigurasi yang konfidensial.
 
-### Perlinungan Workload
+### Perlindungan Workload
 
 Terapkan [Pod security standards](/docs/concepts/security/pod-security-standards/) untuk memastikan Pods dan containers terisolasi dengan baik.
 Anda juga dapat menggunakan [RuntimeClasses](/docs/concepts/containers/runtime-class) untuk mendefinisikan isolasi *custom* jika dibutuhkan.
@@ -64,7 +64,7 @@ penyedia jasa komputasi awan:
 
 {{< table caption="Keamanan cloud provider" >}}
 
-IaaS Provider        | Link |
+Penyedia IaaS | Tautan |
 -------------------- | ------------ |
 Alibaba Cloud | https://www.alibabacloud.com/trust-center |
 Amazon Web Services | https://aws.amazon.com/security |
@@ -92,17 +92,17 @@ akses kontrol API, jaringan dan lain-lain.
 Untuk informasi lebih lanjut mengenai mekanisme *policy* dan Kubernetes, silakan
 baca  [Policies](/docs/concepts/policy/).
 
-## {{% heading "whatsnext" %}}##
+## {{% heading "whatsnext" %}}
 
 Pelajari lebih lanjut topik terkait keamanan Kubernetes:
 
 * [Securing your cluster](/docs/tasks/administer-cluster/securing-a-cluster/)
 * [Known vulnerabilities](/docs/reference/issues-security/official-cve-feed/)
-  in Kubernetes (and links to further information)
-* [Data encryption in transit](/docs/tasks/tls/managing-tls-in-a-cluster/) for the control plane
+  in Kubernetes (dan tautan untuk informasi lebih lanjut)
+* [Data encryption in transit](/docs/tasks/tls/managing-tls-in-a-cluster/) untuk *control plane*
 * [Data encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)
 * [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access)
-* [Network policies](/docs/concepts/services-networking/network-policies/) for Pods
+* [Network policies](/docs/concepts/services-networking/network-policies/) untuk Pods
 * [Secrets in Kubernetes](/docs/concepts/configuration/secret/)
 * [Pod security standards](/docs/concepts/security/pod-security-standards/)
 * [RuntimeClasses](/docs/concepts/containers/runtime-class)
