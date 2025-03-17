@@ -36,7 +36,7 @@ If the cluster has etcd, create an [etcd backup](/docs/tasks/administer-cluster/
 
 ## Shut Down Clusters
 
-You can shut down your cluster in a graceful manner by gracefully shutting down its nodes. This will allow you to gracefully restart the cluster it for later use.
+You can shut down your cluster in a graceful manner by gracefully shutting down its nodes. This will allow you to gracefully restart the cluster it for later use. While [node shutdown](https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown) allows you to safely evict the pods of the node to another available node, cluster shutdowns do not need the evicted pods be rescheduled anywhere else until the cluster is restarted. Thus, this procedure suppresses any pod rescheduling from the nodes being shutdown until cluster restart.
 
 ### (Optional) Checking for certificate expiration
 
