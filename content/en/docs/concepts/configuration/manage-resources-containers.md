@@ -64,6 +64,8 @@ due to a potential livelock situation a memory hungry can cause.
 If you specify a limit for a resource, but do not specify any request, and no admission-time
 mechanism has applied a default request for that resource, then Kubernetes copies the limit
 you specified and uses it as the requested value for the resource.
+In this scenario, the request is equal to the limit for the resource, but Kubernetes
+won't treat the Pod's QoS class as [`Guaranteed`](/docs/concepts/workloads/pods/pod-qos/#guaranteed).
 {{< /note >}}
 
 ## Resource types
