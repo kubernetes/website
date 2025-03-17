@@ -1,7 +1,7 @@
 ---
 title: エフェメラルコンテナ
 content_type: concept
-weight: 80
+weight: 60
 ---
 
 <!-- overview -->
@@ -31,7 +31,7 @@ weight: 80
 エフェメラルコンテナをPodに追加した後は、通常のコンテナのようにエフェメラルコンテナを変更または削除することはできません。  
 
 {{< note >}}
-エフェメラルコンテナは [static Pod](/docs/tasks/configure-pod-container/static-pod/)ではサポートされていません。  
+エフェメラルコンテナは、[static Pod](/ja/docs/tasks/configure-pod-container/static-pod/)ではサポートされていません。  
 {{< /note >}} 
 
 ## エフェメラルコンテナの用途
@@ -42,6 +42,6 @@ weight: 80
 
 エフェメラルコンテナを利用する場合には、他のコンテナ内のプロセスにアクセスできるように、[プロセス名前空間の共有](/ja/docs/tasks/configure-pod-container/share-process-namespace/)を有効にすると便利です。
 
-## What's next 
+## {{% heading "whatsnext" %}}
 
-エフェメラルコンテナを利用してトラブルシューティングを行う例については、[デバッグ用のエフェメラルコンテナを使用してデバッグする](/ja/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container)を参照してください。
+* [デバッグ用のエフェメラルコンテナを使用してデバッグする](/ja/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container)方法について学ぶ。
