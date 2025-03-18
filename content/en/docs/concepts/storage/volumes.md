@@ -14,7 +14,7 @@ weight: 10
 
 <!-- overview -->
 
-Kubernetes _volumes_ provide a way for containers in a {{< glossary_tooltip text="pods" term_id="pod" >}}
+Kubernetes _volumes_ provide a way for containers in a {{< glossary_tooltip text="pod" term_id="pod" >}}
 to access and share data via the filesystem. There are different kinds of volume that you can use for different purposes,
 such as:
 
