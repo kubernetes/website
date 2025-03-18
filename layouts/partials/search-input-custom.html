@@ -1,0 +1,20 @@
+{{/* Revisit this if / when either of https://github.com/google/docsy/issues/2194 and https://github.com/google/docsy/pull/1512 are closed */}}
+{{ $lang := .Site.Language.Lang }}
+{{ $searchFile := printf "content/%s/search.md" $lang }}
+
+<div class="search-bar">
+  <i class="search-icon fa-solid fa-search"></i>
+  <input
+    type="search"
+    name="q"
+    {{ if fileExists $searchFile }}
+    data-search-page="{{ "search/" | relLangURL  }}"
+    {{ else }}
+    data-search-page="{{ "search/" | relURL }}"
+    {{ end }}
+    class="search-input td-search-input"
+    placeholder="{{ T "ui_search_placeholder" }}"
+    aria-label="{{ T "ui_search_placeholder" }}"
+    autocomplete="off"
+  >
+</div>
