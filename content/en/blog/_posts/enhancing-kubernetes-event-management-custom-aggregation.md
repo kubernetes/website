@@ -8,9 +8,9 @@ Author: >
   [Rez Moss](https://github.com/rezmoss)
 ---
 
-Kubernetes events provide crucial insights into cluster operations, but as clusters grow, managing and analyzing these events becomes increasingly challenging. This blog post explores how to build custom event aggregation systems that help devops/engineers better understand cluster behavior and troubleshoot issues more effectively.
+Kubernetes [Events](/docs/reference/kubernetes-api/cluster-resources/event-v1/) provide crucial insights into cluster operations, but as clusters grow, managing and analyzing these events becomes increasingly challenging. This blog post explores how to build custom event aggregation systems that help engineering teams better understand cluster behavior and troubleshoot issues more effectively.
 
-## The Challenge with Kubernetes Events
+## The challenge with Kubernetes events
 
 In a Kubernetes cluster, events are generated for various operations - from pod scheduling and container starts to volume mounts and network configurations. While these events are invaluable for debugging and monitoring, several challenges emerge in production environments:
 
@@ -20,15 +20,15 @@ In a Kubernetes cluster, events are generated for various operations - from pod 
 4. **Classification**: Events lack standardized severity or category classifications
 5. **Aggregation**: Similar events are not automatically grouped
 
-More info about [events](https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/event-v1/)
+To learn more about Events in Kubernetes, read the [Event](/docs/reference/kubernetes-api/cluster-resources/event-v1/) API reference.
 
 ## Building an Event Aggregation System
 
-Let's explore how to build a custom event aggregation system that addresses these challenges while following Kubernetes best practices.
+I'll explore how to build a custom event aggregation system that addresses these challenges, aligned to Kubernetes good practices. I've picked the Go programming language for my example.
 
 ### Architecture Overview
 
-Our event aggregation system consists of three main components:
+This event aggregation system consists of three main components:
 
 1. **Event Watcher**: Monitors the Kubernetes API for new events
 2. **Event Processor**: Processes, categorizes, and correlates events
@@ -286,7 +286,7 @@ With this implementation, the system can identify recurring patterns such as nod
 
 ### Real-time Alerts
 
-Create an alerting system based on event patterns:
+The following example provides a starting point for building an alerting system based on event patterns. It is not a complete solution but a conceptual sketch to illustrate the approach.
 
 ```go
 type AlertManager struct {
