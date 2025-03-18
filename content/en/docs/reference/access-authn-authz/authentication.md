@@ -33,9 +33,7 @@ presents a valid certificate signed by the cluster's certificate authority
 the username from the common name field in the 'subject' of the cert (e.g.,
 "/CN=bob"). From there, the role based access control (RBAC) sub-system would
 determine whether the user is authorized to perform a specific operation on a
-resource. For more details, refer to the normal users topic in
-[certificate request](/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
-for more details about this.
+resource.
 
 In contrast, service accounts are users managed by the Kubernetes API. They are
 bound to specific namespaces, and created automatically by the API server or
@@ -1815,5 +1813,6 @@ You can only make `SelfSubjectReview` requests if:
 
 ## {{% heading "whatsnext" %}}
 
+* To learn about issuing certificates for users, read [Issue a Certificate for a Kubernetes API Client Using A CertificateSigningRequest](/docs/tasks/tls/certificate-issue-client-csr/)
 * Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
 * Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)

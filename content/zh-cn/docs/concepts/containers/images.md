@@ -868,7 +868,7 @@ common use cases and suggested solutions.
    - Or, run an internal private registry behind your firewall with open read access.
      - No Kubernetes configuration is required.
    - Use a hosted container image registry service that controls image access
-     - It will work better with cluster autoscaling than manual node configuration.
+     - It will work better with Node autoscaling than manual node configuration.
    - Or, on a cluster where changing the node configuration is inconvenient, use `imagePullSecrets`.
 -->
 2. 集群运行一些专有镜像，这些镜像需要对公司外部隐藏，对所有集群用户可见
@@ -877,7 +877,7 @@ common use cases and suggested solutions.
    - 或者，在防火墙内运行一个组织内部的私有仓库，并开放读取权限
      - 不需要配置 Kubernetes
    - 使用控制镜像访问的托管容器镜像仓库服务
-     - 与手动配置节点相比，这种方案能更好地处理集群自动扩缩容
+     - 与手动配置节点相比，这种方案能更好地处理节点自动扩缩容
    - 或者，在不方便更改节点配置的集群中，使用 `imagePullSecrets`
 
 <!--
