@@ -1,54 +1,42 @@
-<!doctype html>
-<html lang="{{ .Site.Language.Lang }}" class="{{.Params.class}} no-js">
-  <head>
-    {{ partial "head.html" . }}
-  </head>
-  <body class="td-search {{- if ne (lower .Params.cid) "" -}}{{- printf " cid-%s" (lower .Params.cid) -}}{{- end -}}">
-    <header>
-      {{ partial "navbar.html" . }}
-      {{ block "announcement" . }}
-        {{ partial "announcement.html" . }}
-      {{ end }}
-      {{ block "hero" . }}
-        <section class="header-hero filler">
-        </section>
-         {{ block "hero-more" . }}{{ end }}
-      {{ end }}
-    </header>
-    <div class="td-outer">
-      <main role="main" class="td-main">
-        <section class="row td-search-result">
-          <div class="col-12 col-md-4 offset-md-2">
-            <form class="td-sidebar__search d-flex align-items-center">
-              {{ partial "search-input.html" . }}
-            </form>
-          </div>
-          <div class="col-12 col-md-8 offset-md-2">
-          {{ if .Site.Params.gcs_engine_id }}
-          <script>
-            (function() {
-            var cx = '{{ . }}';
-            var gcse = document.createElement('script');
-            gcse.type = 'text/javascript';
-            gcse.async = true;
-            gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(gcse, s);
-            })();
-          </script>
-          <gcse:searchresults-only></gcse:searchresults-only>
-          {{ else if .Site.Params.k8s_search }}
-          <script src="{{ "js/search.js" | relURL }}"></script>
-          <script src="/pagefind/pagefind-ui.js"></script>
-          <gcse:searchresults-only linktarget="_parent">
-            <div id="search" style="display:none"></div>
-          </gcse:searchresults-only>
-          {{ end }}
-          </div>
-        </section>
-      </main>
-    </div>
-    {{ partial "footer.html" . }}
-    {{ partialCached "scripts.html" . }}
-  </body>
-</html>
+{{/*
+Copied from Docsy with the addition of the search-input and the customSearch block.
+Revisit this if / when either of https://github.com/google/docsy/issues/2194 and https://github.com/google/docsy/pull/1512 are closed
+*/}}
+{{ define "main" }}
+
+{{/*
+Do not use the `search-results-search` id elsewhere as it is used
+delete this element for pagefind/China users
+*/}}
+
+{{/* From shortcodes/site-searchbar.html which is used in the home page */}}
+<div id="search-results-search" class="col-sm-6 col-md-6 col-lg-6 mx-auto py-3">
+  {{partial "search-input" .}}
+</div>
+<section class="row td-search-result">
+  <div class="col-12 col-md-8 offset-md-2">
+    <h2 class="ml-4">{{ .Title }}</h2>
+    {{ with .Site.Params.gcs_engine_id }}
+    <script>
+      (function() {
+        var cx = '{{ . }}';
+        var gcse = document.createElement('script');
+        gcse.type = 'text/javascript';
+        gcse.async = true;
+        gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(gcse, s);
+      })();
+    </script>
+    <gcse:searchresults-only></gcse:searchresults-only>
+    {{ end }}
+    {{ if .Site.Params.customSearch }}
+      <script src="/pagefind/pagefind-ui.js"></script>
+      <gcse:searchresults-only linktarget="_parent">
+        <div id="search" style="display:none"></div>
+      </gcse:searchresults-only>
+    {{ end }}
+  </div>
+</section>
+
+{{ end }}
