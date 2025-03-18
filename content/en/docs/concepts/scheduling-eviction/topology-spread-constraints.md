@@ -168,6 +168,11 @@ your cluster. Those fields are:
   {{< note >}}
   The `matchLabelKeys` field is a beta-level field and enabled by default in 1.27. You can disable it by disabling the
   `MatchLabelKeysInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+
+  Before v1.33, kube-scheduler just internally handled `matchLabelKeys` before the calculation of scheduling results.
+  Since v1.33, merging selectors built from `matchLabelKeys` into `labelSelector` is enabled by default. 
+  You can disable it and revert to the previous behavior by disabling the `MatchLabelKeysInPodTopologySpreadSelectorMerge` 
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) of kube-apiserver.  
   {{< /note >}}
 
 - **nodeAffinityPolicy** indicates how we will treat Pod's nodeAffinity/nodeSelector
