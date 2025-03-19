@@ -120,34 +120,17 @@ third party storage driver instead.
 
 ### azureFile (deprecated) {#azurefile}
 
-{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
+<!-- maintenance note: OK to remove all mention of azureFile once the v1.30 release of
+Kubernetes has gone out of support -->
 
-The `azureFile` volume type mounts a Microsoft Azure File volume (SMB 2.1 and 3.0)
-into a pod.
+In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `azureFile` type
+are redirected to the `file.csi.azure.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
 
-For more details, see the
-[`azureFile` volume plugin](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_file/README.md).
+The AzureFile  in-tree storage driver was deprecated in the Kubernetes v1.21 release
+and then removed entirely in the v1.30 release.
 
-#### azureFile CSI migration
-
-{{< feature-state for_k8s_version="v1.26" state="stable" >}}
-
-The `CSIMigration` feature for `azureFile`, when enabled, redirects all plugin operations
-from the existing in-tree plugin to the `file.csi.azure.com` Container
-Storage Interface (CSI) Driver. In order to use this feature, the [Azure File CSI
-Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)
-must be installed on the cluster and the `CSIMigrationAzureFile`
-[feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
-
-Azure File CSI driver does not support using the same volume with different fsgroups. If
-`CSIMigrationAzureFile` is enabled, using same volume with different fsgroups won't be supported at all.
-
-#### azureFile CSI migration complete
-
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
-
-To disable the `azureFile` storage plugin from being loaded by the controller manager
-and the kubelet, set the `InTreePluginAzureFileUnregister` flag to `true`.
+The Kubernetes project suggests that you use the [Azure File](https://github.com/kubernetes-sigs/azurefile-csi-driver)
+third party storage driver instead.
 
 ### cephfs (removed) {#cephfs}
 
@@ -895,56 +878,20 @@ For more details, see [Configuring Secrets](/docs/concepts/configuration/secret/
 
 ### vsphereVolume (deprecated) {#vspherevolume}
 
-{{< note >}}
-The Kubernetes project recommends using the [vSphere CSI](https://github.com/kubernetes-sigs/vsphere-csi-driver)
-out-of-tree storage driver instead.
-{{< /note >}}
-
-A `vsphereVolume` is used to mount a vSphere VMDK volume into your Pod. The contents
-of a volume are preserved when it is unmounted. It supports both VMFS and VSAN datastore.
-
-For more information, see the
-[vSphere volume](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere) examples.
-
-#### vSphere CSI migration {#vsphere-csi-migration}
-
-{{< feature-state for_k8s_version="v1.26" state="stable" >}}
+<!-- maintenance note: OK to remove all mention of vsphereVolume once the v1.30 release of
+Kubernetes has gone out of support -->
 
 In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `vsphereVolume` type
 are redirected to the `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
 
-[vSphere CSI driver](https://github.com/kubernetes-sigs/vsphere-csi-driver)
-must be installed on the cluster. You can find additional advice on how to migrate in-tree `vsphereVolume` in VMware's documentation page
-[Migrating In-Tree vSphere Volumes to vSphere Container Storage Plug-in](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html).
-If vSphere CSI Driver is not installed volume operations can not be performed on the PV created with the in-tree `vsphereVolume` type.
+The `vsphereVolume` in-tree storage driver was deprecated in the Kubernetes v1.19 release
+and then removed entirely in the v1.30 release.
 
-You must run vSphere 7.0u2 or later in order to migrate to the vSphere CSI driver.
+The Kubernetes project suggests that you use the
+[vSphere CSI](https://github.com/kubernetes-sigs/vsphere-csi-driver)
+third party storage driver instead.
 
-If you are running a version of Kubernetes other than v{{< skew currentVersion >}}, consult
-the documentation for that version of Kubernetes.
 
-{{< note >}}
-The following StorageClass parameters from the built-in `vsphereVolume` plugin are not supported by the vSphere CSI driver:
-
-* `diskformat`
-* `hostfailurestotolerate`
-* `forceprovisioning`
-* `cachereservation`
-* `diskstripes`
-* `objectspacereservation`
-* `iopslimit`
-
-Existing volumes created using these parameters will be migrated to the vSphere CSI driver,
-but new volumes created by the vSphere CSI driver will not be honoring these parameters.
-{{< /note >}}
-
-#### vSphere CSI migration complete {#vsphere-csi-migration-complete}
-
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
-
-To turn off the `vsphereVolume` plugin from being loaded by the controller manager and the kubelet,
-you need to set `InTreePluginvSphereUnregister` feature flag to `true`. You must install a
-`csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver on all worker nodes.
 
 ## Using subPath {#using-subpath}
 
@@ -1221,12 +1168,6 @@ provisioning/delete, attach/detach, mount/unmount and resizing of volumes.
 
 In-tree plugins that support `CSIMigration` and have a corresponding CSI driver implemented
 are listed in [Types of Volumes](#volume-types).
-
-The following in-tree plugins support persistent storage on Windows nodes:
-
-* [`azureFile`](#azurefile)
-* [`gcePersistentDisk`](#gcepersistentdisk)
-* [`vsphereVolume`](#vspherevolume)
 
 ### flexVolume (deprecated)   {#flexvolume}
 
