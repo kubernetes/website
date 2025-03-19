@@ -17,5 +17,6 @@ stages:
 
 removed: true
 ---
-Allows updating node scheduling directives in
-the pod template of [Job](/docs/concepts/workloads/controllers/job).
+Allows updating the `nodeSelector` property in
+the pod template of a [Job](/docs/concepts/workloads/controllers/job)
+when the Job is not started or suspended.
