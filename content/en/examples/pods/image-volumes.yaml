@@ -13,5 +13,5 @@ spec:
   volumes:
   - name: volume
     image:
-      reference: quay.io/crio/artifact:v1
+      reference: alpine
       pullPolicy: IfNotPresent
