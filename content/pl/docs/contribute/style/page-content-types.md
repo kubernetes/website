@@ -59,16 +59,16 @@ Możesz zadeklarować nagłówek `prerequisites` w następujący sposób:
 
 Kod `heading` oczekuje jednego parametru typu
 string. Ten parametr nagłówka odpowiada prefiksowi zmiennej
-w plikach `i18n/<lang>.toml`. Na przykład:
+w plikach `i18n/<lang>/<lang>.toml`. Na przykład:
 
-`` `i18n/en.toml`:` ``
+`i18n/en/en.toml`:
 
 ```toml
 [whatsnext_heading]
 other = "What's next"
 ```
 
-`i18n/ko.toml`:
+`i18n/ko/ko.toml`:
 
 ```toml
 [whatsnext_heading]
@@ -138,7 +138,7 @@ Każdą sekcję uzupełnij treścią. Użyj następujących wytycznych:
   znakami `#`). Sekcje są automatycznie tytułowane przez szablon.
 - Dla `overview` użyj akapitu, aby ustawić kontekst dla całego tematu.
 - Dla `prerequisites` używaj list punktowanych, kiedy to możliwe. Zaczynaj dodawać dodatkowe
-  wymagania wstępne poniżej `include`. Domyślne wymagania wstępne obejmują działający klaster Kubernetes.
+  wymagania wstępne poniżej `include`. Domyślne wymagania wstępne obejmują działający klaster Kubernetesa.
 - Dla `steps` używaj numerowanych list.
 - Do omówienia użyj standardowej treści, aby rozwinąć
   informacje zawarte w sekcji `steps`.
