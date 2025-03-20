@@ -1,24 +1,24 @@
 ---
 title: Panduan Pengamanan - Mekanisme Autentikasi
 description: >
-  Informasi tentang opsi otentikasi di Kubernetes dan *securit properties*-nya.
+  Informasi tentang opsi autentikasi di Kubernetes dan *security* *properties* -nya.
 content_type: concept
 weight: 90
 ---
 
 <!-- overview -->
 
-Memilih mekanisme otentikasi yang tepat adalah aspek penting dalam mengamankan kluster Anda.
+Memilih mekanisme autentikasi yang tepat adalah aspek penting dalam mengamankan kluster Anda.
 Kubernetes menyediakan beberapa mekanisme bawaan, masing-masing dengan kelebihan dan kekurangannya
-yang harus dipertimbangkan dengan hati-hati saat memilih mekanisme otentikasi terbaik untuk kluster Anda.
+yang harus dipertimbangkan dengan hati-hati saat memilih mekanisme autentikasi terbaik untuk kluster Anda.
 
-Secara umum, disarankan untuk mengaktifkan sesedikit mungkin mekanisme otentikasi untuk menyederhanakan
+Secara umum, disarankan untuk mengaktifkan sesedikit mungkin mekanisme autentikasi untuk menyederhanakan
 manajemen pengguna dan mencegah kasus di mana pengguna tetap memiliki akses ke kluster yang tidak lagi diperlukan.
 
 Penting untuk dicatat bahwa Kubernetes tidak memiliki basis data pengguna bawaan di dalam kluster.
-Sebaliknya, Kubernetes mengambil informasi pengguna dari sistem otentikasi yang dikonfigurasi dan menggunakan
+Sebaliknya, Kubernetes mengambil informasi pengguna dari sistem autentikasi yang dikonfigurasi dan menggunakan
 informasi tersebut untuk membuat keputusan otorisasi. Oleh karena itu, untuk mengaudit akses pengguna, Anda perlu
-meninjau kredensial dari setiap sumber otentikasi yang dikonfigurasi.
+meninjau kredensial dari setiap sumber autentikasi yang dikonfigurasi.
 
 Untuk kluster produksi dengan banyak pengguna yang mengakses API Kubernetes secara langsung, disarankan untuk
 menggunakan sumber autentikasi eksternal seperti OIDC. Mekanisme autentikasi internal, seperti sertifikat klien
