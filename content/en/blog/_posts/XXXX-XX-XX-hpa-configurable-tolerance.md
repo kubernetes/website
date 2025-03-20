@@ -1,7 +1,7 @@
 ---
 layout: blog
-title: "Kubernetes v1.33 and Horizontal Autoscaling Configurable Tolerance"
-slug: hpa-configurable-tolerance
+title: "Kubernetes v1.33: HorizontalPodAutoscaler Configurable Tolerance"
+slug: kubernetes-1-33-hpa-configurable-tolerance
 # after the v1.33 release, set a future publication date and remove the draft marker
 # the release comms team can confirm which date has been assigned
 #
