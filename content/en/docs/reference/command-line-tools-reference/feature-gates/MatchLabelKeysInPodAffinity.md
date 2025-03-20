@@ -13,6 +13,11 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.31"
+    toVersion: "1.32"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.33"
 ---
+
 Enable the `matchLabelKeys` and `mismatchLabelKeys` fields for
 [pod (anti)affinity](/docs/concepts/scheduling-eviction/assign-pod-node/).
