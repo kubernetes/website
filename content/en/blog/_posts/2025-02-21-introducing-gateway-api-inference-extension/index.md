@@ -23,12 +23,13 @@ is missing.
 
 ## Enter Gateway API Inference Extension
 
-[Gateway API Inference Extension](https://gateway-api-inference-extension.sigs.k8s.io/) was created to address this gap by building on the existing [Gateway API](https://gateway-api.sigs.k8s.io/),
-adding inference-specific routing capabilities while retaining the familiar model of Gateways and HTTPRoutes.​
-The goal is to improve and standardize routing to inference workloads across the ecosystem. Key objectives
-include enabling model-aware routing, supporting per-request criticalities, facilitating safe model roll-outs,
-and optimizing load balancing based on real-time model metrics​. By achieving these, the project aims to reduce
-latency and improve accelerator (GPU) utilization for AI workloads.
+[Gateway API Inference Extension](https://gateway-api-inference-extension.sigs.k8s.io/) was created to address
+this gap by building on the existing [Gateway API](https://gateway-api.sigs.k8s.io/), adding inference-specific
+routing capabilities while retaining the familiar model of Gateways and HTTPRoutes.​ The goal is to improve and
+standardize routing to inference workloads across the ecosystem. Key objectives include enabling model-aware
+routing, supporting per-request criticalities, facilitating safe model roll-outs, and optimizing load balancing
+based on real-time model metrics​. By achieving these, the project aims to reduce latency and improve accelerator
+(GPU) utilization for AI workloads.
 
 ## How It Works
 
@@ -64,7 +65,7 @@ steps, e.g. extensions, in the middle. Here’s a high-level example of the requ
    and identifies the matching InferencePool backend.
 
 2. **Endpoint Selection**
-   Instead of simply forwarding to any pod, the Gateway consults an inference-specific routing extension. This
+   Instead of simply forwarding to any pod, the Gateway consults an inference-specific routing extension, e.g. ​endpoint selection extension. This
    extension examines live pod metrics—queue lengths, memory usage, loaded adapters—to pick the best pod for the
    request.
 
@@ -76,6 +77,10 @@ steps, e.g. extensions, in the middle. Here’s a high-level example of the requ
 
 This extra step provides a smarter, model-aware routing mechanism that still feels like a normal single request to
 the client.
+
+## Benachmarks
+
+TODO
 
 ## Roadmap
 
@@ -92,6 +97,11 @@ As the Gateway API Inference Extension heads toward GA, planned features include
 
 ## Summary
 
-By aligning model serving with Kubernetes-native tooling, Gateway API Inference Extension aims to simplify and standardize
-how AI/ML traffic is routed. With model-aware routing, criticality-based prioritization, and more, it helps ops teams deliver
-the right LLM services to the right users—smoothly and efficiently.
+By aligning model serving with Kubernetes-native tooling, Gateway API Inference Extension aims to simplify
+and standardize how AI/ML traffic is routed. With model-aware routing, criticality-based prioritization, and
+more, it helps ops teams deliver the right LLM services to the right users—smoothly and efficiently.
+
+**Ready to learn more?** Visit the [project docs](https://gateway-api-inference-extension.sigs.k8s.io/) to dive deeper,
+give Inference Extension a try with a few [simple steps](https://gateway-api-inference-extension.sigs.k8s.io/guides/),
+and [get involved](https://gateway-api-inference-extension.sigs.k8s.io/contributing/) if you’re interested in
+contributing to the project!
