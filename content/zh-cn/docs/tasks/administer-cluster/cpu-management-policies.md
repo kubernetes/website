@@ -273,7 +273,7 @@ The following policy options exist for the static `CPUManager` policy:
 * `distribute-cpus-across-numa` (alpha, hidden by default) (1.23 or higher)
 * `align-by-socket` (alpha, hidden by default) (1.25 or higher)
 * `distribute-cpus-across-cores` (alpha, hidden by default) (1.31 or higher)
-* `strict-cpu-reservation` (alpha, hidden by default) (1.32 or higher)
+* `strict-cpu-reservation` (beta, visible by default) (1.32 or higher)
 * `prefer-align-cpus-by-uncorecache` (alpha, hidden by default) (1.32 or higher)
 -->
 ### Static 策略选项  {#cpu-policy-static--options}
@@ -288,7 +288,7 @@ The following policy options exist for the static `CPUManager` policy:
 * `distribute-cpus-across-numa`（Alpha，默认隐藏）（1.23 或更高版本）
 * `align-by-socket`（Alpha，默认隐藏）（1.25 或更高版本）
 * `distribute-cpus-across-cores` (Alpha，默认隐藏) (1.31 或更高版本)
-* `strict-cpu-reservation` (Alpha，默认隐藏) (1.32 或更高版本)
+* `strict-cpu-reservation` (Beta，默认可见) (1.32 或更高版本)
 * `prefer-align-cpus-by-uncorecache` (Alpha, 默认隐藏) (1.32 或更高版本)
 
 <!--
