@@ -1,0 +1,8 @@
+---
+layout: blog
+title: 'Kubernetes 1.33: Prevent PersistentVolume Leaks When Deleting out of Order graduates to GA'
+date: XXXX-XX-XX
+slug: kubernetes-1-33-prevent-persistentvolume-leaks-when-deleting-out-of-order-graduate-to-ga
+author: >
+  Deepak Kinni (Broadcom)
+---
