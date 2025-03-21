@@ -148,6 +148,17 @@ The types of plugins that can place socket files into that directory are:
 [Graceful node shutdown](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown)
 stores state locally at `/var/lib/kubelet/graceful_node_shutdown_state`.
 
+### Image Pull Records
+
+{{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
+
+The kubelet stores a record of attempted and successful image pulls, and uses it to
+bypass registry authentication when an image is re-pulled with the same credentials.
+These records are cached and also stored as files in the kubelet's base directory,
+under a subdirectory `image_manager`. This subdirectory has two subdirectories:
+`pulling` and `pulled`, containing information about pull intent and pull image
+names and credential hashes used in [private registries](/docs/concepts/containers/images#prepulledimageauthentication).
+
 ## Security profiles & configuration
 
 ### Seccomp
