@@ -657,16 +657,13 @@ the following types of volumes:
 现在，对扩充 PVC 申领的支持默认处于被启用状态。你可以扩充以下类型的卷：
 
 <!--
-* azureFile (deprecated)
-* {{< glossary_tooltip text="csi" term_id="csi" >}}
+* {{< glossary_tooltip text="csi" term_id="csi" >}} (including some CSI migrated
+volme types)
 * flexVolume (deprecated)
-* rbd (deprecated)
 * portworxVolume (deprecated)
 -->
-* azureFile（已弃用）
-* {{< glossary_tooltip text="csi" term_id="csi" >}}
+* {{< glossary_tooltip text="csi" term_id="csi" >}}（包含一些 CSI 迁移的卷类型）
 * flexVolume（已弃用）
-* rbd（已弃用）
 * portworxVolume（已弃用）
 
 <!--
@@ -959,6 +956,8 @@ Older versions of Kubernetes also supported the following in-tree PersistentVolu
   (**not available** starting v1.31)
 * `flocker` - Flocker storage.
   (**not available** starting v1.25)
+* `glusterfs` - GlusterFS storage.
+  (**not available** starting v1.26)
 * `photonPersistentDisk` - Photon controller persistent disk.
   (**not available** starting v1.15)
 * `quobyte` - Quobyte volume.
@@ -976,6 +975,8 @@ Older versions of Kubernetes also supported the following in-tree PersistentVolu
   （v1.31 之后**不可用**）
 * `flocker` - Flocker 存储。
   （v1.25 之后**不可用**）
+* `glusterfs` - GlusterFS 存储。
+  （v1.26 之后**不可用**）
 * `photonPersistentDisk` - Photon 控制器持久化盘
   （v1.15 之后**不可用**）
 * `quobyte` - Quobyte 卷。
@@ -1307,23 +1308,15 @@ Not all Persistent Volume types support mount options.
 <!--
 The following volume types support mount options:
 
-* `azureFile`
-* `cephfs` (**deprecated** in v1.28)
-* `cinder` (**deprecated** in v1.18)
+* `csi` (including CSI migrated volume types)
 * `iscsi`
 * `nfs`
-* `rbd` (**deprecated** in v1.28)
-* `vsphereVolume`
 -->
 以下卷类型支持挂载选项：
 
-* `azureFile`
-* `cephfs`（于 v1.28 中**弃用**）
-* `cinder`（于 v1.18 中**弃用**）
+* `csi`（包含 CSI 迁移的卷类型）
 * `iscsi`
 * `nfs`
-* `rbd`（于 v1.28 中**弃用**）
-* `vsphereVolume`
 
 <!--
 Mount options are not validated. If a mount option is invalid, the mount fails.
@@ -1491,7 +1484,6 @@ in a pending state.
 如果指定的 PV 已经绑定到另一个 PVC，则绑定操作将卡在 Pending 状态。
 
 <!--
-
 ### Resources
 
 Claims, like Pods, can request specific quantities of a resource. In this case,
@@ -1564,8 +1556,7 @@ PVC 申领不必一定要请求某个类。如果 PVC 的 `storageClassName` 属
 PV 卷（未设置注解或者注解值为 `""` 的 PersistentVolume（PV）对象在系统中不会被删除，
 因为这样做可能会引起数据丢失）。未设置 `storageClassName` 的 PVC 与此大不相同，
 也会被集群作不同处理。具体筛查方式取决于
-[`DefaultStorageClass` 准入控制器插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
-是否被启用。
+[`DefaultStorageClass` 准入控制器插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)是否被启用。
 
 <!--
 * If the admission plugin is turned on, the administrator may specify a
@@ -1750,23 +1741,15 @@ applicable:
 以下卷插件支持原始块卷，包括其动态制备（如果支持的话）的卷：
 
 <!--
-* CSI
+* CSI (including some CSI migrated volume types)
 * FC (Fibre Channel)
 * iSCSI
 * Local volume
-* OpenStack Cinder
-* RBD (deprecated)
-* RBD (Ceph Block Device; deprecated)
-* VsphereVolume
 -->
-* CSI
+* CSI（包含一些 CSI 迁移的卷类型）
 * FC（光纤通道）
 * iSCSI
 * Local 卷
-* OpenStack Cinder
-* RBD（已弃用）
-* RBD（Ceph 块设备，已弃用）
-* VsphereVolume
 
 <!--
 ### PersistentVolume using a Raw Block Volume {#persistent-volume-using-a-raw-block-volume}
@@ -1874,7 +1857,7 @@ not given the combinations: Volume binding matrix for statically provisioned vol
 |   Filesystem  | Block           | NO BIND          |
 |   Filesystem  | unspecified     | BIND             |
 -->
-| PV volumeMode | PVC volumeMode  | Result           |
+| PV volumeMode | PVC volumeMode  | 结果           |
 | --------------|:---------------:| ----------------:|
 |   未指定      | 未指定          | 绑定             |
 |   未指定      | Block           | 不绑定           |
@@ -1994,7 +1977,7 @@ kube-apiserver 和 kube-controller-manager 启用 `AnyVolumeDataSource`
 
 卷填充器利用了 PVC 规约字段 `dataSourceRef`。
 不像 `dataSource` 字段只能包含对另一个持久卷申领或卷快照的引用，
-`dataSourceRef` 字段可以包含对同一命名空间中任何对象的引用（不包含除 PVC 以外的核心资源）。
+`dataSourceRef` 字段可以包含对同一名字空间中任何对象的引用（不包含除 PVC 以外的核心资源）。
 对于启用了特性门控的集群，使用 `dataSourceRef` 比 `dataSource` 更好。
 
 <!--
