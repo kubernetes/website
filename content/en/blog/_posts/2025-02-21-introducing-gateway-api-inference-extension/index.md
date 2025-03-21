@@ -1,13 +1,13 @@
 ---
 layout: blog
 title: "Introducing Gateway API Inference Extension"
-date: 2025-02-20
+date: 2025-02-21
 slug: introducing-gateway-api-inference-extension
 draft: true
 author: >
-  Abdullah Gharaibeh Google),
-  Kellen Swain (Google),
   Daneyon Hansen (Solo.io),
+  Kaushik Mitra (Google),
+  Kellen Swain (Google),
   Jiaxin Shan (Bytedance)
 ---
 
@@ -56,7 +56,7 @@ operators manage where and how it’s served.
 
 The flow of a request builds on the Gateway API model (Gateways and HTTPRoutes) with one or more extra inference-aware
 steps, e.g. extensions, in the middle. Here’s a high-level example of the request flow with the
-[​endpoint selection extension](https://gateway-api-inference-extension.sigs.k8s.io/#endpoint-selection-extension):
+[​Endpoint Selection Extension](https://gateway-api-inference-extension.sigs.k8s.io/#endpoint-selection-extension) (ESE):
 
 {{< figure src="inference-extension-request-flow.png" alt="Request Flow" class="diagram-large" clicktozoom="true" >}}
 
@@ -78,9 +78,30 @@ steps, e.g. extensions, in the middle. Here’s a high-level example of the requ
 This extra step provides a smarter, model-aware routing mechanism that still feels like a normal single request to
 the client.
 
-## Benachmarks
+## Benchmarks
 
-TODO
+We evaluated ​ESE against a standard Kubernetes Service for a [vLLM](https://docs.vllm.ai/en/latest/)‐based serving
+deployment. The test environment consisted of multiple H100 (80 GB) GPU pods running vLLM ([version 1](https://blog.vllm.ai/2025/01/27/v1-alpha-release.html))
+on a Kubernetes cluster, with up to 10 replicas. The [Latency Profile Generator (LPG)](https://github.com/AI-Hypercomputer/inference-benchmark)
+tool was used to generate traffic and measure throughput, latency, and other metrics. The ShareGPT dataset served
+as the workload, and traffic was ramped from 100 Queries per Second (QPS) up to 1000 QPS.
+
+### Key Results
+
+{{< figure src="inference-extension-benchmark.png" alt="Endpoint Extension Scheduling" class="diagram-large" clicktozoom="true" >}}
+
+- **Comparable Throughput**: Throughout the tested QPS range, ESE delivered throughput roughly on par with a standard
+  Kubernetes Service.
+
+- **Lower Latency**:
+  - **Per‐Output‐Token Latency**: ​ESE showed significantly lower p90 latency at higher QPS (500+), indicating that
+  its model-aware routing decisions reduce queueing and resource contention.
+  - **Overall p90 Latency**: Similar trends emerged, with the ​ESE reducing end‐to‐end tail latencies compared to the
+  baseline, particularly as traffic increased beyond 400–500 QPS.
+
+These results suggest that ​ESE’s model‐aware routing significantly reduced latency for GPU‐backed LLM workloads.
+By dynamically selecting the least‐loaded or best‐performing model server, it avoids hotspots that can appear when
+using traditional load balancing methods for large, long‐running inference requests.
 
 ## Roadmap
 
