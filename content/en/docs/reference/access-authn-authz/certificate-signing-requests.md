@@ -228,6 +228,10 @@ then you might use `issuer.open-fictional.example/service-mesh` as a signer name
 
 A custom signer uses the Kubernetes API to issue a certificate. See [API-based signers](#signer-api).
 
+### Pod certificate requests {#pod-certificate-requests}
+
+TBD
+
 ## Signing
 
 ### Control plane signer {#signer-control-plane}
