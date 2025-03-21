@@ -36,11 +36,11 @@ If the cluster has etcd, create an [etcd backup](/docs/tasks/administer-cluster/
 
 ## Shut Down Clusters
 
-You can shut down your cluster in a graceful manner by gracefully shutting down its nodes. This will allow you to gracefully restart the cluster it for later use. While [node shutdown](https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown) allows you to safely evict the pods of the node to another available node, cluster shutdowns do not need the evicted pods be rescheduled anywhere else until the cluster is restarted. Thus, this procedure suppresses any pod rescheduling from the nodes being shutdown until cluster restart.
+You can shut down your cluster in a graceful manner by gracefully shutting down its nodes. This will allow you to gracefully restart the cluster for later use. While [node shutdown](https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown) allows you to safely evict the pods of the node to another available node, cluster shutdowns do not need the evicted pods be rescheduled anywhere else until the cluster is restarted. Thus, this procedure suppresses any pod rescheduling from the nodes being shutdown until cluster restart.
 
 ### (Optional) Checking for certificate expiration
 
-If you are shutting the cluster down for an extended period, identify the date on which certificates expire.
+If you are shutting the cluster down for an extended period, identify the date on which certificates will expire.
 ```
 $ openssl x509 -in /etc/kubernetes/pki/apiserver.crt -noout -enddate
 ```
@@ -53,7 +53,7 @@ notAfter=Mar  3 09:18:19 2026 GMT
 To ensure that the cluster can restart gracefully after this shut down, plan to restart it on or before the specified date. 
 
 ### Making nodes unschedulable
-Make all nodes in the cluster unschedulable using `kubectl cordon`
+Make all nodes in the cluster unschedulable using kubectl cordon
 
 ```
 $ kubectl cordon node1 node2 node3
@@ -62,7 +62,7 @@ $ kubectl cordon node1 node2 node3
 ### Terminating pods in the nodes
 Evict all the pods using `kubectl drain`
 
-While `kubectl drain` should basically be enough due to it capable of internally making the specified nodes unschedulable before pod eviction, larger clusters may need to make sure all nodes are properly cordoned first before draining. You can check the nodes' schedulability using `kubectl get nodes`
+While `kubectl drain` should basically be enough due to it capable of internally making the specified nodes unschedulable before pod eviction, larger clusters may need to make sure all nodes are properly cordoned first before draining. You can check the nodes' schedulability using kubectl get nodes
 ```
 $ kubectl drain --ignore-daemonsets node1 node2 node3
 ```
@@ -97,7 +97,7 @@ $ kubectl get nodes
 ```
 
 ### Making your nodes schedulable again
-Once the nodes are `Ready`, mark all the nodes in the cluster schedulable using `kubectl uncordon`
+Once the nodes are `Ready`, mark all the nodes in the cluster schedulable using kubectl uncordon
 
 ```
 $ kubectl uncordon node1 node2 node3
@@ -111,4 +111,4 @@ kubectl get pods --all-namespaces
 
 ### Caveats
 
-Pre-shutdown pod scheduling may not be preserved after restart. Making the nodes schedulable again happens sequentially. Kube-scheduler will only schedule the pods to `Ready` and `Schedulable` nodes polled at an instance. In case that there are many nodes that need to be made schedulable again, the pod scheduling may end up imbalanced in favor of the first nodes that become schedulable at that instance.
+Pre-shutdown pod scheduling may not be preserved after restart. Making the nodes schedulable again happens sequentially. Kube-scheduler will only schedule the pods to `Ready` and `Schedulable` nodes polled at an instance. In case there are many nodes that need to be made schedulable again, the pod scheduling may end up imbalanced in favor of the first nodes that become schedulable at that instance.
