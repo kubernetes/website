@@ -378,6 +378,8 @@ and only enabled when the `DRAResourceClaimDeviceStatus`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled in the kube-apiserver.
 
+### Enabling Partitionable Devices
+
 ## {{% heading "whatsnext" %}}
 
 - For more information on the design, see the
