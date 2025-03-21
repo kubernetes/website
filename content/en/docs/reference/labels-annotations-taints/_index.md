@@ -1109,6 +1109,7 @@ in a single-zone cluster (to reduce the impact of node failures, see
 With multiple-zone clusters, this spreading behavior also applies to zones (to reduce the impact of zone failures).
 This is achieved via _SelectorSpreadPriority_.
 
+
 _SelectorSpreadPriority_ is a best effort placement. If the zones in your cluster are
 heterogeneous (for example: different numbers of nodes, different types of nodes, or different pod
 resource requirements), this placement might prevent equal spreading of your Pods across zones.

@@ -654,6 +654,8 @@ by reading a namespace annotation and a global configuration.
 
 This admission controller is disabled by default.
 
+### PodTopologyLabels {#podtopologylabels}
+
 #### Configuration file format
 
 `PodNodeSelector` uses a configuration file to set options for the behavior of the backend.
@@ -760,6 +762,25 @@ metadata:
 ```
 
 This admission controller is disabled by default.
+
+### PodTopologyLabels {#podtopologylabels}
+
+{{< feature-state for_k8s_version="v1.33" state="alpha" >}}
+
+**Type**: Mutating
+
+The PodTopologyLabels admission controller mutates the `pods/binding` subresources for all pods bound
+to a Node, adding topology labels matching those of the bound Node. This allows Node topology
+labels to be available as pod labels, which can be surfaced to running containers using the
+[Downward API](/docs/concepts/workloads/pods/downward-api/). The labels available as a result of this
+controller are the 
+[topology.kubernetes.io/region](docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
+[topology.kuberentes.io/zone](docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
+
+If any mutating admission webhook adds or modifies labels of the `pods/binding` subresource, these changes
+will propagate to pod labels as a result of this controller, overwriting labels with conflicting keys.
+
+This admission controller is enabled when the `PodTopologyLabelsAdmission` feature gate is enabled.
 
 ### Priority {#priority}
 
