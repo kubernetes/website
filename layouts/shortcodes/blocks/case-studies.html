@@ -8,16 +8,24 @@
     <h3  style="text-align: center"><a href="/case-studies/" style="color: #3371E3; font-weight: 400">{{ $caseStudiesSection.LinkTitle }}</a></h3>
     <div id="caseStudiesWrapper">
       {{ range $caseStudiesPages }}
-			{{ $logo := .Resources.GetMatch "**{feature,logo}*.svg" }}
+			{{ $dark := .Resources.GetMatch "**{dark_logo}*.svg" }}
+			{{ $logo := .Resources.GetMatch "**{featured_logo}*.svg" }}
+			
 			{{ if not $logo }}
 				{{ $logo = .Resources.GetMatch "**logo*.png" }}
 			{{ end }}
-      <div>
-        {{ with $logo }}<img src="{{ .RelPermalink }}" alt="{{ .Title }}">{{ end }}
+			{{ if not $dark }}
+				{{ $dark =  $logo }}
+			{{ end }}
+	  <div>
+        <picture>
+	  	  <source srcset={{$dark.RelPermalink}} media="(prefers-color-scheme: dark)">
+	  	    <img src="{{ $logo.RelPermalink }}" alt="{{ .Title }}">
+		</picture>
         <p>"{{ .Params.quote | truncate 100 }}"</p>
         <a href="{{ .RelPermalink }}">{{ T "main_read_more" }}</a>
       </div>
-      {{ end }}  
+     {{ end }}  
     </div>
   </div>
 </section>

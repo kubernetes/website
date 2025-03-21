@@ -38,7 +38,13 @@
 	<h3>{{ .Title }}</h3>
 	<div id="usersGrid">
 		{{ range $pages.ByTitle }}
-		{{ $logo := .Resources.GetMatch "**{feature,logo}*.svg" }}
+		{{ $logo := .Resources.GetMatch "**_featured_logo.svg" }}
+		{{ if not $logo }}
+			{{ $logo = .Resources.GetMatch "**_featured_logo.png" }}
+		{{ end }}
+		{{ if not $logo }}
+			{{ $logo = .Resources.GetMatch "**logo*.svg" }}
+		{{ end }}
 		{{ if not $logo }}
 			{{ $logo = .Resources.GetMatch "**logo*.png" }}
 		{{ end }}

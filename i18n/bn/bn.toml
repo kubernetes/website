@@ -43,6 +43,9 @@ other = "ফোরাম"
 [community_github_name]
 other = "গিটহাব"
 
+[community_linkedin_name]
+other = "লিঙ্কডইন"
+
 [community_server_fault_name]
 other = "সার্ভারের ত্রুটি"
 
