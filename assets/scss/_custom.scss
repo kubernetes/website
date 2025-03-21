@@ -340,6 +340,32 @@ input[type="search"]{
 }
 
 
+.cncf-logo-details {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  align-items: center;
+
+  p {
+    text-align: center;
+    font-size: 1.2rem;
+  }
+
+  a {
+    color: inherit;
+    background: transparent;
+    text-decoration: underline; // exception from usual convention
+  }
+
+  picture {
+    display: block;
+    > * {
+      min-height: 4em;
+      width: calc(clamp(20em,18em + 20mm,100vw));
+    }
+  }
+}
+
 /* FOOTER */
 footer {
   background-color: #202020;
@@ -469,6 +495,91 @@ footer {
   }
 }
 
+// Home page dark-mode
+@media (prefers-color-scheme: dark) {
+  body.cid-home {
+    main {
+      background-color: $dark-bg-color-2;
+      color:$dark-text-color-1;
+
+      section:not(#video):not(#cncf) {
+        background-color: $dark-bg-color-1;
+        color:$dark-text-color-1;
+      }
+
+      section#video #desktopShowVideoButton {
+        background-color: $dark-bg-color-1;
+      }
+
+      section#video #desktopShowVideoButton {
+        color: $white;
+        background-color: $primary;
+
+        &:hover {
+          color: $primary;
+          background-color: $white;
+        }
+
+        &::before {
+          border-color: transparent transparent transparent $white;
+        }
+
+        &:hover::before {
+          border-color: transparent transparent transparent $primary;
+        }
+      }
+
+      section#video #desktopKCButton:hover {
+        background-color: $dark-bg-color-1;
+      }
+
+      section#cncf {
+        background-color: $dark-bg-color-2;
+      }
+
+      section.features-container .k8s-features-heading {
+        color: $white;
+        background-color: $dark-bg-color-1;
+      }
+
+      section.features-container > div > .feature-box {
+        background-color: $dark-bg-color-2;
+        color:$dark-text-color-1;
+
+        h3 a, h4 a, h5 a {
+          color: $white;
+          background: transparent;
+        }
+
+        h3 a:hover, h4 a:hover, h5 a:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .search-bar {
+        background-color: #d3d3d3;
+        color: #ffffff;
+        > * {
+          color: #ffffff;
+        }
+      }
+
+      input.search-input, input.email {
+        background-color: #D3D3D3 !important;
+        color: #000 !important;
+      }
+
+      input.search-input::placeholder, input.email::placeholder{
+        color: #000;
+      }
+
+      #mc_embed_signup_scroll input.email {
+        color: #ffffff !important;
+        background-color: #a9a9a9 !important;
+      }
+    }
+  }
+}
 
 /* COMMUNITY */
 
