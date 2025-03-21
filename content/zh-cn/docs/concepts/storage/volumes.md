@@ -23,7 +23,7 @@ weight: 10
 <!-- overview -->
 
 <!--
-Kubernetes _volumes_ provide a way for containers in a {{< glossary_tooltip text="pods" term_id="pod" >}}
+Kubernetes _volumes_ provide a way for containers in a {{< glossary_tooltip text="pod" term_id="pod" >}}
 to access and share data via the filesystem. There are different kinds of volume that you can use for different purposes,
 such as:
 -->
@@ -230,62 +230,26 @@ Kubernetes 项目建议你转为使用 [Azure Disk](https://github.com/kubernete
 -->
 ### azureFile （已弃用）    {#azurefile}
 
-{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
+<!-- maintenance note: OK to remove all mention of azureFile once the v1.30 release of
+Kubernetes has gone out of support -->
 
 <!--
-The `azureFile` volume type mounts a Microsoft Azure File volume (SMB 2.1 and 3.0)
-into a pod.
+In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `azureFile` type
+are redirected to the `file.csi.azure.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
 
-For more details, see the
-[`azureFile` volume plugin](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_file/README.md).
+The AzureFile  in-tree storage driver was deprecated in the Kubernetes v1.21 release
+and then removed entirely in the v1.30 release.
+
+The Kubernetes project suggests that you use the [Azure File](https://github.com/kubernetes-sigs/azurefile-csi-driver)
+third party storage driver instead.
 -->
-`azureFile` 卷类型用来在 Pod 上挂载 Microsoft Azure 文件卷（File Volume）（SMB 2.1 和 3.0）。
+在 Kubernetes {{< skew currentVersion >}} 中，所有针对树内 `azureFile` 类型的操作都会被重定向到
+`file.csi.azure.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动。  
 
-更多详情请参考
-[`azureFile` 卷插件](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_file/README.md)。
+AzureFile 树内存储驱动在 Kubernetes v1.21 版本中被弃用，并在 v1.30 版本中被完全移除。  
 
-<!--
-#### azureFile CSI migration
--->
-#### azureFile CSI 迁移  {#azurefile-csi-migration}
-
-{{< feature-state for_k8s_version="v1.26" state="stable" >}}
-
-<!--
-The `CSIMigration` feature for `azureFile`, when enabled, redirects all plugin operations
-from the existing in-tree plugin to the `file.csi.azure.com` Container
-Storage Interface (CSI) Driver. In order to use this feature, the [Azure File CSI
-Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)
-must be installed on the cluster and the `CSIMigrationAzureFile`
-[feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
--->
-启用 `azureFile` 的 `CSIMigration` 特性后，所有插件操作将从现有的树内插件重定向到
-`file.csi.azure.com` 容器存储接口（CSI）驱动程序。要使用此特性，必须在集群中安装
-[Azure 文件 CSI 驱动程序](https://github.com/kubernetes-sigs/azurefile-csi-driver)，
-并且 `CSIMigrationAzureFile`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-必须被启用。
-
-<!--
-Azure File CSI driver does not support using the same volume with different fsgroups. If
-`CSIMigrationAzureFile` is enabled, using same volume with different fsgroups won't be supported at all.
--->
-Azure 文件 CSI 驱动尚不支持为同一卷设置不同的 fsgroup。
-如果 `CSIMigrationAzureFile` 特性被启用，用不同的 fsgroup 来使用同一卷也是不被支持的。
-
-<!--
-#### azureFile CSI migration complete
--->
-#### azureFile CSI 迁移完成
-
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
-
-<!--
-To disable the `azureFile` storage plugin from being loaded by the controller manager
-and the kubelet, set the `InTreePluginAzureFileUnregister` flag to `true`.
--->
-要禁止控制器管理器和 kubelet 加载 `azureFile` 存储插件，
-请将 `InTreePluginAzureFileUnregister` 标志设置为 `true`。
+Kubernetes 项目建议你改为使用 [Azure File](https://github.com/kubernetes-sigs/azurefile-csi-driver)
+第三方存储驱动。
 
 <!--
 ### cephfs (removed) {#cephfs}
@@ -1579,103 +1543,27 @@ For more details, see [Configuring Secrets](/docs/concepts/configuration/secret/
 -->
 ### vsphereVolume（已弃用） {#vspherevolume}
 
-{{< note >}}
-<!--
-The Kubernetes project recommends using the [vSphere CSI](https://github.com/kubernetes-sigs/vsphere-csi-driver)
-out-of-tree storage driver instead.
--->
-Kubernetes 项目建议转为使用 [vSphere CSI](https://github.com/kubernetes-sigs/vsphere-csi-driver)
-树外存储驱动。
-{{< /note >}}
-
-<!--
-A `vsphereVolume` is used to mount a vSphere VMDK volume into your Pod. The contents
-of a volume are preserved when it is unmounted. It supports both VMFS and VSAN datastore.
--->
-`vsphereVolume` 用来将 vSphere VMDK 卷挂载到你的 Pod 中。
-在卸载卷时，卷的内容会被保留。
-vSphereVolume 卷类型支持 VMFS 和 VSAN 数据仓库。
-
-<!--
-For more information, see the
-[vSphere volume](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere) examples.
--->
-进一步信息可参考
-[vSphere 卷](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere)。
-
-<!--
-#### vSphere CSI migration {#vsphere-csi-migration}
--->
-#### vSphere CSI 迁移  {#vsphere-csi-migration}
-
-{{< feature-state for_k8s_version="v1.26" state="stable" >}}
+<!-- maintenance note: OK to remove all mention of vsphereVolume once the v1.30 release of
+Kubernetes has gone out of support -->
 
 <!--
 In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `vsphereVolume` type
 are redirected to the `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
+
+The `vsphereVolume` in-tree storage driver was deprecated in the Kubernetes v1.19 release
+and then removed entirely in the v1.30 release.
+
+The Kubernetes project suggests that you use the
+[vSphere CSI](https://github.com/kubernetes-sigs/vsphere-csi-driver)
+third party storage driver instead.
 -->
-在 Kubernetes {{< skew currentVersion >}} 中，对树内 `vsphereVolume`
-类的所有操作都会被重定向至 `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动程序。
+在 Kubernetes {{< skew currentVersion >}} 中，所有针对树内 `vsphereVolume` 类型的操作都被重定向到
+`csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动。  
 
-<!--
-[vSphere CSI driver](https://github.com/kubernetes-sigs/vsphere-csi-driver)
-must be installed on the cluster. You can find additional advice on how to migrate in-tree `vsphereVolume` in VMware's documentation page
-[Migrating In-Tree vSphere Volumes to vSphere Container Storage Plug-in](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html).
-If vSphere CSI Driver is not installed volume operations can not be performed on the PV created with the in-tree `vsphereVolume` type.
--->
-[vSphere CSI 驱动](https://github.com/kubernetes-sigs/vsphere-csi-driver)必须安装到集群上。
-你可以在 VMware 的文档页面[迁移树内 vSphere 卷插件到 vSphere 容器存储插件](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html)
-中找到有关如何迁移树内 `vsphereVolume` 的其他建议。
-如果未安装 vSphere CSI 驱动程序，则无法对由树内 `vsphereVolume` 类型创建的 PV 执行卷操作。
+`vsphereVolume` 树内存储驱动在 Kubernetes v1.19 版本中被弃用，并在 v1.30 版本中被完全移除。  
 
-<!--
-You must run vSphere 7.0u2 or later in order to migrate to the vSphere CSI driver.
-
-If you are running a version of Kubernetes other than v{{< skew currentVersion >}}, consult
-the documentation for that version of Kubernetes.
--->
-你必须运行 vSphere 7.0u2 或更高版本才能迁移到 vSphere CSI 驱动程序。
-
-如果你正在运行 Kubernetes v{{< skew currentVersion >}}，请查阅该 Kubernetes 版本的文档。
-
-{{< note >}}
-<!--
-The following StorageClass parameters from the built-in `vsphereVolume` plugin are not supported by the vSphere CSI driver:
--->
-vSphere CSI 驱动不支持内置 `vsphereVolume` 的以下 StorageClass 参数：
-
-* `diskformat`
-* `hostfailurestotolerate`
-* `forceprovisioning`
-* `cachereservation`
-* `diskstripes`
-* `objectspacereservation`
-* `iopslimit`
-
-<!--
-Existing volumes created using these parameters will be migrated to the vSphere CSI driver,
-but new volumes created by the vSphere CSI driver will not be honoring these parameters.
--->
-使用这些参数创建的现有卷将被迁移到 vSphere CSI 驱动，不过使用 vSphere
-CSI 驱动所创建的新卷都不会理会这些参数。
-
-{{< /note >}}
-
-<!--
-#### vSphere CSI migration complete {#vsphere-csi-migration-complete}
--->
-#### vSphere CSI 迁移完成   {#vsphere-csi-migration-complete}
-
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
-
-<!--
-To turn off the `vsphereVolume` plugin from being loaded by the controller manager and the kubelet,
-you need to set `InTreePluginvSphereUnregister` feature flag to `true`. You must install a
-`csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver on all worker nodes.
--->
-为了避免控制器管理器和 kubelet 加载 `vsphereVolume` 插件，你需要将
-`InTreePluginvSphereUnregister` 特性设置为 `true`。你还必须在所有工作节点上安装
-`csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动。
+Kubernetes 项目建议你改为使用 [vSphere CSI](https://github.com/kubernetes-sigs/vsphere-csi-driver)
+第三方存储驱动。
 
 <!--
 ## Using subPath {#using-subpath}
@@ -2191,17 +2079,9 @@ provisioning/delete, attach/detach, mount/unmount and resizing of volumes.
 <!--
 In-tree plugins that support `CSIMigration` and have a corresponding CSI driver implemented
 are listed in [Types of Volumes](#volume-types).
-
-The following in-tree plugins support persistent storage on Windows nodes:
 -->
 上面的[卷类型](#volume-types)节列出了支持 `CSIMigration` 并已实现相应 CSI
 驱动程序的树内插件。
-
-下面是支持 Windows 节点上持久性存储的树内插件：
-
-* [`azureFile`](#azurefile)
-* [`gcePersistentDisk`](#gcepersistentdisk)
-* [`vsphereVolume`](#vspherevolume)
 
 <!--
 ### flexVolume (deprecated)   {#flexvolume}

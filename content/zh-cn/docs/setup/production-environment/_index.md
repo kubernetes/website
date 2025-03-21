@@ -361,11 +361,11 @@ simply as *nodes*).
   这一规模是基于你要运行的 Pod 和容器个数来确定的。
   如果你自行管理集群节点，这可能意味着要购买和安装你自己的物理设备。
 <!--
-- *Autoscale nodes*: Read [Cluster Autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling) to learn about the
+- *Autoscale nodes*: Read [Node Autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling) to learn about the
   tools available to automatically manage your nodes and the capacity they
   provide.
 -->
-- **节点自动扩缩容**：查阅[集群自动扩缩容](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling)，
+- **节点自动扩缩容**：查阅[节点自动扩缩容](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling)，
   了解可以自动管理节点的工具及其提供的能力。
 <!--
 - *Set up node health checks*: For important workloads, you want to make sure

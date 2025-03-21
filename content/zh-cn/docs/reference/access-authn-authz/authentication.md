@@ -56,17 +56,13 @@ presents a valid certificate signed by the cluster's certificate authority
 the username from the common name field in the 'subject' of the cert (e.g.,
 "/CN=bob"). From there, the role based access control (RBAC) sub-system would
 determine whether the user is authorized to perform a specific operation on a
-resource. For more details, refer to the normal users topic in
-[certificate request](/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
-for more details about this.
+resource.
 -->
 尽管无法通过 API 调用来添加普通用户，
 Kubernetes 仍然认为能够提供由集群的证书机构签名的合法证书的用户是通过身份认证的用户。
 基于这样的配置，Kubernetes 使用证书中的 'subject' 的通用名称（Common Name）字段
 （例如，"/CN=bob"）来确定用户名。
 接下来，基于角色访问控制（RBAC）子系统会确定用户是否有权针对某资源执行特定的操作。
-进一步的细节可参阅[证书请求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
-下普通用户主题。
 
 <!--
 In contrast, service accounts are users managed by the Kubernetes API. They are
@@ -2680,7 +2676,6 @@ to run successfully) is declared via the `user.exec.interactiveMode` field in th
 below for valid values). The `user.exec.interactiveMode` field is optional in `client.authentication.k8s.io/v1beta1`
 and required in `client.authentication.k8s.io/v1`.
 -->
-
 在交互式会话（即，某终端）中运行时，`stdin` 是直接暴露给插件使用的。
 插件应该使用来自 `KUBERNETES_EXEC_INFO` 环境变量的 `ExecCredential`
 输入对象中的 `spec.interactive` 字段来确定是否提供了 `stdin`。
@@ -2710,7 +2705,8 @@ and required in `client.authentication.k8s.io/v1`.
 To use bearer token credentials, the plugin returns a token in the status of the
 [`ExecCredential`](/docs/reference/config-api/client-authentication.v1beta1/#client-authentication-k8s-io-v1beta1-ExecCredential)
 -->
-与使用持有者令牌凭据，插件在 [`ExecCredential`](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/#client-authentication-k8s-io-v1beta1-ExecCredential)
+要使用持有者令牌凭据，此插件将在
+[`ExecCredential`](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/#client-authentication-k8s-io-v1beta1-ExecCredential)
 的状态中返回一个令牌：
 
 {{< tabs name="exec_plugin_ExecCredential_example_1" >}}
@@ -3102,8 +3098,11 @@ You can only make `SelfSubjectReview` requests if:
 ## {{% heading "whatsnext" %}}
 
 <!--
+* To learn about issuing certificates for users, read [Issue a Certificate for a Kubernetes API Client Using A CertificateSigningRequest](/docs/tasks/tls/certificate-issue-client-csr/)
 * Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
 * Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)
 -->
+* 要了解为用户颁发证书的有关信息，
+  阅读[使用 CertificateSigningRequest 为 Kubernetes API 客户端颁发证书](/zh-cn/docs/tasks/tls/certificate-issue-client-csr/)。
 * 阅读[客户端认证参考文档（v1beta1）](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/)。
 * 阅读[客户端认证参考文档（v1）](/zh-cn/docs/reference/config-api/client-authentication.v1/)。
