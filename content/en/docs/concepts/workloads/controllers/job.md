@@ -558,14 +558,6 @@ For more details, see [Job termination and cleanup](#job-termination-and-cleanup
 
 ## Success policy {#success-policy}
 
-{{< feature-state feature_gate_name="JobSuccessPolicy" >}}
-
-{{< note >}}
-You can only configure a success policy for an Indexed Job if you have the
-`JobSuccessPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled in your cluster.
-{{< /note >}}
-
 When creating an Indexed Job, you can define when a Job can be declared as succeeded using a `.spec.successPolicy`,
 based on the pods that succeeded.
 
