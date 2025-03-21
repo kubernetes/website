@@ -1,6 +1,5 @@
 ---
 layout: blog
-draft: true
 title: 'Kubernetes v1.33 sneak peek'
 date: 2025-03-24
 slug: kubernetes-v1-33-upcoming-changes
