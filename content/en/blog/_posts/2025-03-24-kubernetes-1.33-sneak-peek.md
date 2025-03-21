@@ -1,6 +1,5 @@
 ---
 layout: blog
-draft: true
 title: 'Kubernetes v1.33 sneak peek'
 date: 2025-03-24
 slug: kubernetes-v1-33-upcoming-changes
@@ -12,7 +11,7 @@ author: >
   Sneha Yadav
 ---
 
-As the release of Kubernetes v1.33 approaches, the project continues to evolve. Features may be deprecated, removed, or replaced to improve the overall health of the project. This blog post outlines some planned changes for the v1.33 release, which the release team believes you should be aware of to ensure the continued smooth operation of your Kubernetes environment and to keep you up-to-date with the latest developments.  The information below is based on the current status of the v1.33 release and is subject to change before the final release date.
+As the release of Kubernetes v1.33 approaches, the Kubernetes project continues to evolve. Features may be deprecated, removed, or replaced to improve the overall health of the project. This blog post outlines some planned changes for the v1.33 release, which the release team believes you should be aware of to ensure the continued smooth operation of your Kubernetes environment and to keep you up-to-date with the latest developments.  The information below is based on the current status of the v1.33 release and is subject to change before the final release date.
 
 ## The Kubernetes API removal and deprecation process
 
@@ -32,7 +31,7 @@ Whether an API is removed as a result of a feature graduating from beta to stabl
 
 The [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/) API has been stable since v1.21, which effectively replaced the original Endpoints API. While the original Endpoints API was simple and straightforward, it also posed some challenges when scaling to large numbers of network endpoints. The EndpointSlices API has introduced new features such as dual-stack networking, making the original Endpoints API ready for deprecation.
 
-This deprecation only impacts those who use the Endpoints API directly from workloads or scripts; these users should migrate to use EndpointSlices instead. You can find more about the deprecation implications and migration plans in a dedicated blog post [Endpoints formally deprecated in favor of EndpointSlices](TBC).
+This deprecation only impacts those who use the Endpoints API directly from workloads or scripts; these users should migrate to use EndpointSlices instead. There will be a dedicated blog post with more details on the deprecation implications and migration plans in the coming weeks.
 
 You can find more in [KEP-4974: Deprecate v1.Endpoints](https://kep.k8s.io/4974).
 
@@ -85,7 +84,6 @@ For example, reporting the interface name, MAC address, and IP addresses of netw
 
 Also, you can find more about the planned enhancement in [KEP-4817: DRA: Resource Claim Status with possible standardized network interface data](https://kep.k8s.io/4817).
 
-
 ### Ordered namespace deletion
 
 This KEP introduces a more structured deletion process for Kubernetes namespaces to ensure secure and deterministic resource removal. The current semi-random deletion order can create security gaps or unintended behaviour, such as Pods persisting after their associated NetworkPolicies are deleted. By enforcing a structured deletion sequence that respects logical and security dependencies, this approach ensures Pods are removed before other resources. The design improves Kubernetes’s security and reliability by mitigating risks associated with non-deterministic deletions.
@@ -102,7 +100,9 @@ You can find more in [KEP-3850: Backoff Limit Per Index For Indexed Jobs](https:
 
 New features and deprecations are also announced in the Kubernetes release notes. We will formally announce what's new in [Kubernetes v1.33](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.33.md) as part of the CHANGELOG for that release.
 
-You can see the announcements of changes in the release notes for:
+Kubernetes v1.33 release is planned for **Wednesday, 23rd April, 2025**. Stay tuned for updates!
+
+You can also see the announcements of changes in the release notes for:
 
 * [Kubernetes v1.32](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md)
 
@@ -117,7 +117,7 @@ The simplest way to get involved with Kubernetes is by joining one of the many [
 - Follow us on Bluesky [@kubernetes.io](https://bsky.app/profile/kubernetes.io) for the latest updates
 - Join the community discussion on [Discuss](https://discuss.kubernetes.io/)
 - Join the community on [Slack](http://slack.k8s.io/)
-- Post questions (or answer questions) on [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)
+- Post questions (or answer questions) on [Server Fault](https://serverfault.com/questions/tagged/kubernetes) or [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)
 - Share your Kubernetes [story](https://docs.google.com/a/linuxfoundation.org/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform)
 - Read more about what’s happening with Kubernetes on the [blog](https://kubernetes.io/blog/)
 - Learn more about the [Kubernetes Release Team](https://github.com/kubernetes/sig-release/tree/master/release-team)
