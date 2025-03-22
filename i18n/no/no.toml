@@ -64,5 +64,5 @@ other = "Forum"
 other = "Kalender"
 
 # UI elements
-[ui_search_placeholder]
+[ui_search]
 other = "Søk"

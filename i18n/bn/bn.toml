@@ -589,7 +589,7 @@ other = """<p>এই পৃষ্ঠার আইটেমগুলি তৃত
 other = """এই পৃষ্ঠার আইটেমগুলি কুবারনেটিসের বাইরের বিক্রেতাদের উল্লেখ করে। কুবারনেটিস প্রকল্পের লেখকরা সেই তৃতীয় পক্ষের পণ্য বা প্রকল্পগুলির জন্য দায়ী নয়৷ এই তালিকায় একটি বিক্রেতা, পণ্য বা প্রকল্প যোগ করতে, একটি পরিবর্তন জমা দেওয়ার আগে <a href="/docs/contribute/style/content-guide/#third-party-content">কন্টেন্ট গাইড</a> পড়ুন। <a href="#third-party-content-disclaimer">আরো তথ্য।</a>"""
 
 
-[ui_search_placeholder]
+[ui_search]
 other = "অনুসন্ধান করুন"
 
 [version_check_mustbe]
