@@ -225,7 +225,7 @@ The Windows Server version used by each pod must match that of the node. If you 
 Server versions in the same cluster, then you should set additional node labels and `nodeSelector` fields.
 
 Kubernetes automatically adds a label,
-[`node.kubernetes.io/windows-build`](/docs/reference/labels-annotations-taints/#nodekubernetesiowindows-build)
+[`node.kubernetes.io/windows-build`](/docs/reference/labels-annotations-taints/labels/#node-kubernetes-io-windows-build)
 to simplify this.
 
 This label reflects the Windows major, minor, and build number that need to match for compatibility.
