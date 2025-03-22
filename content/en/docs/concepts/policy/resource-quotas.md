@@ -372,25 +372,6 @@ count/replicasets.apps        1     4
 count/secrets                 1     4
 ```
 
-## Quota and Cluster Capacity
-
-ResourceQuotas are independent of the cluster capacity. They are
-expressed in absolute units. So, if you add nodes to your cluster, this does *not*
-automatically give each namespace the ability to consume more resources.
-
-Sometimes more complex policies may be desired, such as:
-
-- Proportionally divide total cluster resources among several teams.
-- Allow each tenant to grow resource usage as needed, but have a generous
-  limit to prevent accidental resource exhaustion.
-- Detect demand from one namespace, add nodes, and increase quota.
-
-Such policies could be implemented using `ResourceQuotas` as building blocks, by
-writing a "controller" that watches the quota usage and adjusts the quota
-hard limits of each namespace according to other signals.
-
-Note that resource quota divides up aggregate cluster resources, but it creates no
-restrictions around nodes: pods from several namespaces may run on the same node.
 
 ## Quota scopes
 
@@ -732,6 +713,27 @@ In this case, a pod creation will be allowed if:
 
 A Pod creation request is rejected if its `priorityClassName` is set to `cluster-services`
 and it is to be created in a namespace other than `kube-system`.
+
+## Quota and cluster capacity
+
+ResourceQuotas are independent of the cluster capacity. They are
+expressed in absolute units. So, if you add nodes to your cluster, this does *not*
+automatically give each namespace the ability to consume more resources.
+
+Sometimes more complex policies may be desired, such as:
+
+- Proportionally divide total cluster resources among several teams.
+- Allow each tenant to grow resource usage as needed, but have a generous
+  limit to prevent accidental resource exhaustion.
+- Detect demand from one namespace, add nodes, and increase quota.
+
+Such policies could be implemented using ResourceQuotas as building blocks, by
+writing a  that watches the quota usage and adjusts the quota
+hard limits of each namespace according to other signals.
+
+Note that resource quota divides up aggregate cluster resources, but it creates no
+restrictions around nodes: pods from several namespaces may run on the same node.
+
 
 ## {{% heading "whatsnext" %}}
 
