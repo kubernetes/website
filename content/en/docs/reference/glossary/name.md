@@ -10,7 +10,8 @@ aka:
 tags:
 - fundamental
 ---
- A client-provided string that refers to an object in a resource URL, such as `/api/v1/pods/some-name`.
+A client-provided string that refers to an object in a {{< glossary_tooltip text="resource" term_id="api-resource" >}}
+URL, such as `/api/v1/pods/some-name`.
 
 <!--more--> 
 
