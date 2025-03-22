@@ -37,6 +37,9 @@ other = "论坛"
 [community_github_name]
 other = "GitHub"
 
+[community_linkedin_name]
+other = "LinkedIn"
+
 [community_server_fault_name]
 other = "服务器故障"
 

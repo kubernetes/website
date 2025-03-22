@@ -733,7 +733,7 @@ API 服务器将发送的是 `admissionReviewVersions` 列表中所支持的第�
 <!--
 ### Response
 -->
-### 响应{#response}
+### 响应   {#response}
 
 <!--
 Webhooks respond with a 200 HTTP status code, `Content-Type: application/json`,
@@ -2277,7 +2277,6 @@ admisson webhook should also be configured to intercept `CREATE` pod requests, a
 container with name "foo-sidecar" with the expected configuration exists in the to-be-created
 object.
 -->
-
 ### 确保看到对象的最终状态 {#guaranteeing-the-final-state-of-the-object-is-seen}
 
 如果某准入 Webhook 需要保证自己能够看到对象的最终状态以实施策略，
@@ -2294,31 +2293,107 @@ object.
 <!--
 ### Avoiding deadlocks in self-hosted webhooks
 
-A webhook running inside the cluster might cause deadlocks for its own deployment if it is configured
-to intercept resources required to start its own pods.
+There are several ways that webhooks can cause deadlocks, where the cluster cannot make progress in
+scheduling pods:
 
-For example, a mutating admission webhook is configured to admit `CREATE` pod requests only if a certain label is set in the
-pod (e.g. `"env": "prod"`). The webhook server runs in a deployment which doesn't set the `"env"` label.
-When a node that runs the webhook server pods
-becomes unhealthy, the webhook deployment will try to reschedule the pods to another node. However the requests will
-get rejected by the existing webhook server since the `"env"` label is unset, and the migration cannot happen.
-
-It is recommended to exclude the namespace where your webhook is running with a
-[namespaceSelector](#matching-requests-namespaceselector).
+* A webhook running inside the cluster might cause deadlocks for its own deployment if it is configured
+  to intercept resources required to start its own pods.
 -->
-### 避免自托管的 Webhooks 中出现死锁 {#avoiding-deadlocks-in-self-hosted-webhooks}
+### 避免自托管的 Webhook 中出现死锁 {#avoiding-deadlocks-in-self-hosted-webhooks}
 
-如果集群内的 Webhook 配置能够拦截启动其自己的 Pod 所需的资源，
-则该 Webhook 可能导致其自身部署时发生死锁。
+有几种方式 Webhook 可能导致死锁，即集群无法在调度 Pod 时取得进展：
 
-例如，某变更性质的准入 Webhook 配置为仅当 Pod 中设置了某个标签
-（例如 `"env": "prod"`）时，才接受 `CREATE` Pod 请求。
-Webhook 服务器在未设置 `"env"` 标签的 Deployment 中运行。当运行 Webhook 服务器的
-容器的节点运行不正常时，Webhook 部署尝试将容器重新调度到另一个节点。
-但是，由于未设置 `"env"` 标签，因此请求将被现有的 Webhook 服务器拒绝，并且调度迁移不会发生。
+* 如果集群内的 Webhook 配置能够拦截启动其自己的 Pod 所需的资源，
+  则该 Webhook 可能导致其自身部署时发生死锁。
 
-建议使用 [namespaceSelector](#matching-requests-namespaceselector) 排除
-Webhook 所在的名字空间。
+  <!--
+  For example, a mutating admission webhook is configured to admit **create** Pod requests only if a certain label is set in the
+  pod (such as `env: "prod"`). However, the webhook server runs as a Deployment that doesn't set the `env` label.
+  When a node that runs the webhook server pods
+  becomes unhealthy, the webhook deployment will try to reschedule the pods to another node. However the requests will
+  get rejected by the existing webhook server since the `env` label is unset, and the replacement Pod
+  cannot be created. Eventually, the entire Deployment for the webhook server may become unhealthy.
+  -->
+
+  例如，某变更性质的准入 Webhook 配置为仅当 Pod 中设置了某个标签
+  （例如 `"env": "prod"`）时，才接受 **create** Pod 请求。
+  Webhook 服务器在未设置 `"env"` 标签的 Deployment 中运行。
+  当运行 Webhook 服务器 Pod 的节点运行不正常时，Webhook 部署尝试将容器重新调度到另一个节点。
+  但是，由于未设置 `"env"` 标签，因此请求将被现有的 Webhook 服务器拒绝，并替换 Pod 不会被创建。
+  最终，Webhook 服务器的整个 Deployment 可能变成不健康。
+
+  <!--
+  If you use admission webhooks to check Pods, consider excluding the namespace where your webhook
+  listener is running, by specifying a
+  [namespaceSelector](#matching-requests-namespaceselector).
+  -->
+
+  如果你使用准入 Webhook 来检查 Pod，建议通过指定
+  [namespaceSelector](#matching-requests-namespaceselector) 来排除正在运行 Webhook 侦听器的名字空间。
+
+<!--
+* If the cluster has multiple webhooks configured (possibly from independent applications deployed on
+  the cluster), they can form a cycle.  Webhook A must be called to process startup of webhook B's
+  pods and vice versa. If both webhook A and webhook B ever become unavailable at the same time (for
+  example, due to a cluster-wide outage or a node failure where both pods run on the same node)
+  deadlock occurs because neither webhook pod can be recreated without the other already running.
+-->
+* 如果集群中配置了多个 Webhook（可能来自集群上部署的独立应用），这些 Webhook 可能形成一个循环。
+  Webhook A 必须被调用以处理 Webhook B 的 Pod 启动，反之亦然。
+  如果 Webhook A 和 B 同时变得不可用
+  （例如，由于集群范围的停机故障或两个 Pod 运行在同一个节点上时出现节点故障），
+  将发生死锁，这是因为没有一个 Webhook Pod 可以在另一个已经运行之前被重新创建。
+
+  <!--
+  One way to prevent this is to exclude webhook A's pods from being acted on be webhook B. This
+  allows webhook A's pods to start, which in turn allows webhook B's pods to start. If you had a 
+  third webhook, webhook C, you'd need to exclude both webhook A and webhook B's pods from 
+  webhook C. This ensures that webhook A can _always_ start, which then allows webhook B's pods 
+  to start, which in turn allows webhook C's pods to start.
+  -->
+
+  防止这种情况的一种方法是排除 Webhook B 对 Webhook A 的 Pod 的作用。
+  这允许 Webhook A 的 Pod 启动，进而允许 Webhook B 的 Pod 启动。
+  如果有第三个 Webhook，即 Webhook C，你需要排除 Webhook C 对 Webhook A 和 B 的 Pod 的作用。
+  这确保了 Webhook A 可以始终启动，从而允许 Webhook B 的 Pod 启动，进而允许 Webhook C 的 Pod 启动。
+
+  <!--
+  If you want to ensure protection that avoids these risks, [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/)
+  can
+  provide many protection capabilities without introducing dependency cycles.
+  -->
+
+  如果你想确保避免这些风险，
+  [ValidatingAdmissionPolicies](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)
+  可以提供许多保护能力，而不会引入依赖循环。
+
+<!--
+* Admission webhooks can intercept resources used by critical cluster add-ons, such as CoreDNS,
+  network plugins, or storage plugins. These add-ons may be required to schedule or successfully run the
+  pods for a particular admission webhook on the cluster. This can cause a deadlock if both the 
+  webhook and critical add-on is unavailable at the same time.
+-->
+* 准入 Webhook 可以拦截关键集群附加组件所使用的资源，例如 CoreDNS、网络插件或存储插件。
+  这些附加组件可能是调度或成功运行集群上特定准入 Webhook 的 Pod 所必需的。
+  如果 Webhook 和关键附加组件同时不可用，就可能导致死锁。
+
+  <!--
+  You may wish to exclude cluster infrastructure namespaces from webhooks, or make sure that
+  the webhook does not depend on the particular add-on that it acts on.  For exmaple, running
+  a webhook as a host-networked pod ensures that it does not depend on a networking plugin.
+
+  If you want to ensure protection for a core add-on / or its namespace,
+  [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/)
+  can
+  provide many protection capabilities without any dependency on worker nodes and Pods.
+  -->
+
+  你可能希望从 Webhook 中排除集群基础设施名字空间，或者确保 Webhook 不依赖于其作用的特定附加组件。
+  例如，作为主机网络 Pod 运行 Webhook 可以确保 Webhook 不依赖某个网络插件。
+
+  如果你想确保对核心附加组件或其名字空间的保护，
+  [ValidatingAdmissionPolicies](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)
+  可以提供许多保护能力，而无需依赖于工作节点和 Pod。
 
 <!--
 ### Side effects

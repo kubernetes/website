@@ -381,10 +381,9 @@ to `Retain`, including cases where you are reusing an existing PV.
 Support for expanding PersistentVolumeClaims (PVCs) is enabled by default. You can expand
 the following types of volumes:
 
-* azureFile (deprecated)
-* {{< glossary_tooltip text="csi" term_id="csi" >}}
+* {{< glossary_tooltip text="csi" term_id="csi" >}} (including some CSI migrated
+volme types)
 * flexVolume (deprecated)
-* rbd (deprecated)
 * portworxVolume (deprecated)
 
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
@@ -545,6 +544,8 @@ Older versions of Kubernetes also supported the following in-tree PersistentVolu
   (**not available** starting v1.31)
 * `flocker` - Flocker storage.
   (**not available** starting v1.25)
+* `glusterfs` - GlusterFS storage.
+  (**not available** starting v1.26)
 * `photonPersistentDisk` - Photon controller persistent disk.
   (**not available** starting v1.15)
 * `quobyte` - Quobyte volume.
@@ -727,13 +728,9 @@ Not all Persistent Volume types support mount options.
 
 The following volume types support mount options:
 
-* `azureFile`
-* `cephfs` (**deprecated** in v1.28)
-* `cinder` (**deprecated** in v1.18)
+* `csi` (including CSI migrated volume types)
 * `iscsi`
 * `nfs`
-* `rbd` (**deprecated** in v1.28)
-* `vsphereVolume`
 
 Mount options are not validated. If a mount option is invalid, the mount fails.
 
@@ -966,14 +963,10 @@ network-attached storage. See
 The following volume plugins support raw block volumes, including dynamic provisioning where
 applicable:
 
-* CSI
+* CSI (including some CSI migrated volume types)
 * FC (Fibre Channel)
 * iSCSI
 * Local volume
-* OpenStack Cinder
-* RBD (deprecated)
-* RBD (Ceph Block Device; deprecated)
-* VsphereVolume
 
 ### PersistentVolume using a Raw Block Volume {#persistent-volume-using-a-raw-block-volume}
 
