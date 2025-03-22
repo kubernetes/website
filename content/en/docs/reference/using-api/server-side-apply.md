@@ -579,6 +579,7 @@ to the URI of a resource.  When applying a configuration, you should always incl
 fields that are important to the outcome (such as a desired state) that you want to define.
 
 All JSON messages are valid YAML. Therefore, in addition to using YAML request bodies for Server-Side Apply requests, you can also use JSON request bodies, as they are also valid YAML.
+In either case, use the media type `application/apply-patch+yaml` for the HTTP request.
 
 ### Access control and permissions {#rbac-and-permissions}
 
