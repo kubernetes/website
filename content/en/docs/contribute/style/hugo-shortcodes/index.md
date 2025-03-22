@@ -466,7 +466,7 @@ Renders to:
 ## {{% heading "whatsnext" %}}
 
 * Learn about [Hugo](https://gohugo.io/).
-* Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
-* Learn about [page content types](/docs/contribute/style/page-content-types/).
+* Learn about [writing a new topic](/docs/contribute/new-content/write-new-topic/).
+* Learn about [page content types](/docs/contribute/new-content/page-content-types/).
 * Learn about [opening a pull request](/docs/contribute/new-content/open-a-pr/).
 * Learn about [advanced contributing](/docs/contribute/advanced/).
