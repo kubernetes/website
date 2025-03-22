@@ -5,6 +5,7 @@ reviewers:
 title: Imagens
 content_type: concept
 weight: 10
+hide_summary: true # Listed separately in section index
 ---
 
 <!-- overview -->
@@ -13,7 +14,13 @@ Uma imagem de contêiner representa dados binários que encapsulam uma aplicaç�
 
 Normalmente, você cria uma imagem de contêiner da sua aplicação e a envia para um registro antes de fazer referência a ela em um {{< glossary_tooltip text="Pod" term_id="pod" >}}
 
-Esta página fornece um resumo sobre o conceito de imagem de contêiner.  
+Esta página fornece um resumo sobre o conceito de imagem de contêiner.
+
+{{< note >}}
+Se você está procurando pelas imagens de contêiner de uma versão do Kubernetes
+(como a v{{< skew latestVersion >}}, a versão menor mais recente),
+visite [Download Kubernetes](https://kubernetes.io/releases/download/).
+{{< /note >}}
 
 <!-- body -->
 
@@ -23,37 +30,204 @@ As imagens de contêiner geralmente recebem um nome como `pause`, `exemplo/meuco
 As imagens também podem incluir um hostname de algum registro; por exemplo: `exemplo.registro.ficticio/nomeimagem`,
 e um possível número de porta; por exemplo: `exemplo.registro.ficticio:10443/nomeimagem`.
 
-Se você não especificar um hostname de registro, o Kubernetes presumirá que você se refere ao registro público do Docker.
+Se você não especificar um nome de host do registro, o Kubernetes assume que você está se referindo ao [registro público do Docker](https://hub.docker.com/).
+Você pode alterar esse comportamento definindo um registro de imagem padrão na configuração do [runtime do contêiner](/docs/setup/production-environment/container-runtimes/).
 
-Após a parte do nome da imagem, você pode adicionar uma _tag_ (como também usar com comandos como `docker` e` podman`).
-As tags permitem identificar diferentes versões da mesma série de imagens.
+Após a parte do nome da imagem, você pode adicionar uma _tag_ ou _digest_ (da mesma forma que faria ao usar comandos
+como `docker` ou `podman`). As tags permitem identificar diferentes versões da mesma série de imagens.
+Digests são identificadores únicos para uma versão específica de uma imagem. Digests são hashes do conteúdo da imagem e são imutáveis. As tags podem ser movidas para apontar para imagens diferentes, mas os digests são fixos.
 
-Tags de imagem consistem em letras maiúsculas e minúsculas, dígitos, sublinhados (`_`),
-pontos (`.`) e travessões (` -`).
-Existem regras adicionais sobre onde você pode colocar o separador
-caracteres (`_`,`-` e `.`) dentro de uma tag de imagem.
-Se você não especificar uma tag, o Kubernetes presumirá que você se refere à tag `latest` (mais recente).
+Tags de imagem consistem em letras minúsculas e maiúsculas, dígitos, sublinhados (`_`),
+pontos (`.`) e hifens (`-`). Elas podem ter até 128 caracteres de comprimento e devem seguir
+o seguinte padrão de expressão regular: `[a-zA-Z0-9_][a-zA-Z0-9._-]{0,127}`.
+Você pode ler mais sobre isso e encontrar a expressão regular de validação na
+[Especificação de Distribuição OCI](https://github.com/opencontainers/distribution-spec/blob/master/spec.md#workflow-categories).
+Se você não especificar uma tag, o Kubernetes assume que você está se referindo à tag `latest`.
 
-{{< caution >}}
-Você deve evitar usar a tag `latest` quando estiver realizando o deploy de contêineres em produção,
-pois é mais difícil rastrear qual versão da imagem está sendo executada, além de tornar mais difícil o processo de reversão para uma versão funcional.
+Digests de imagem consistem em um algoritmo de hash (como `sha256`) e um valor de hash. Por exemplo:
+`sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07`
+Você pode encontrar mais informações sobre o formato de digests na
+[Especificação de Imagem OCI](https://github.com/opencontainers/image-spec/blob/master/descriptor.md#digests).
 
-Em vez disso, especifique uma tag significativa, como `v1.42.0`.
-{{< /caution >}}
+Alguns exemplos de nomes de imagem que o Kubernetes pode usar são:
+
+- `busybox` - Nome da imagem apenas, sem tag ou digest. O Kubernetes usará o registro público do Docker e a tag `latest`. (Equivalente a `docker.io/library/busybox:latest`)
+- `busybox:1.32.0` - Nome da imagem com tag. O Kubernetes usará o registro público do Docker. (Equivalente a `docker.io/library/busybox:1.32.0`)
+- `registry.k8s.io/pause:latest` - Nome da imagem com um registro personalizado e tag `latest`.
+- `registry.k8s.io/pause:3.5` - Nome da imagem com um registro personalizado e tag diferente de `latest`.
+- `registry.k8s.io/pause@sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07` - Nome da imagem com digest.
+- `registry.k8s.io/pause:3.5@sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07` - Nome da imagem com tag e digest. Apenas o digest será usado para o download.
 
 ## Atualizando imagens
 
-A política padrão de pull é `IfNotPresent` a qual faz com que o
-{{<glossary_tooltip text = "kubelet" term_id = "kubelet">}} ignore 
-o processo de *pull* da imagem, caso a mesma já exista. Se você prefere sempre forçar o processo de *pull*, 
-você pode seguir uma das opções abaixo:
+Quando você cria um {{< glossary_tooltip text="Deployment" term_id="deployment" >}},
+{{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}, Pod ou outro
+objeto que inclua um template de Pod, por padrão a política para puxar as imagens dos contêineres nesse Pod será definida como `IfNotPresent`, caso não seja especificada explicitamente.
+Essa política faz com que o {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} ignore o download da imagem se ela já existir.
 
-- defina a `imagePullPolicy` do contêiner para` Always`.
-- omita `imagePullPolicy` e use`: latest` como a tag para a imagem a ser usada.
-- omita o `imagePullPolicy` e a tag da imagem a ser usada.
-- habilite o [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) controlador de admissão.
+### Política de puxar a imagem
 
-Quando `imagePullPolicy` é definido sem um valor específico, ele também é definido como` Always`.
+A `imagePullPolicy` de um contêiner e a tag da imagem afetam quando o
+[kubelet](/docs/reference/command-line-tools-reference/kubelet/) tenta puxar (download) a imagem especificada.
+
+Aqui está uma lista dos valores que você pode definir para `imagePullPolicy` e os efeitos
+que esses valores têm:
+
+`IfNotPresent`  
+: a imagem será baixada apenas se não estiver presente localmente.
+
+`Always`  
+: toda vez que o kubelet iniciar um contêiner, ele consultará o registro de imagens
+  de contêiner para resolver o nome para um
+  [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier).
+  Se o kubelet tiver uma imagem de contêiner com exatamente esse digest em cache local, ele usará
+  a imagem em cache; caso contrário, o kubelet fará o download da imagem com o digest resolvido
+  e usará essa imagem para iniciar o contêiner.
+
+`Never`  
+: o kubelet não tenta buscar a imagem. Se a imagem já estiver presente localmente
+  de alguma forma, o kubelet tentará iniciar o contêiner; caso contrário, a inicialização falhará.
+  Veja [imagens pré-baixadas](#pre-pulled-images) para mais detalhes.
+
+A semântica de cache do provedor de imagens subjacente torna mesmo
+`imagePullPolicy: Always` eficiente, desde que o registro esteja acessível de forma confiável.
+Seu agente de execução (runtime) pode perceber que as camadas da imagem já existem no nó,
+evitando que precisem ser baixadas novamente.
+
+{{< note >}}
+Você deve evitar o uso da tag `:latest` ao implantar contêineres em produção,
+pois isso torna mais difícil rastrear qual versão da imagem está em execução
+e também dificulta realizar um rollback corretamente.
+
+Em vez disso, especifique uma tag significativa como `v1.42.0` e/ou um digest.
+{{< /note >}}
+
+Para garantir que o Pod sempre use a mesma versão de uma imagem de contêiner,
+você pode especificar o digest da imagem;
+substitua `<image-name>:<tag>` por `<image-name>@<digest>`
+(por exemplo, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`).
+
+Ao usar tags de imagem, se o registro de imagens alterar o código que a tag representa,
+você pode acabar com uma mistura de Pods executando o código antigo e o novo.
+
+Um digest de imagem identifica de forma única uma versão específica da imagem,
+então o Kubernetes executa o mesmo código sempre que inicia um contêiner com aquele nome
+de imagem e digest especificado. Especificar uma imagem por digest fixa o código que será
+executado, de modo que uma alteração no registro não leve a essa mistura de versões.
+
+Existem [controladores de admissão](/docs/reference/access-authn-authz/admission-controllers/)
+de terceiros que mutam Pods (e templates de Pods) quando eles são criados,
+de forma que a carga de trabalho em execução seja definida com base em um digest de imagem
+em vez de uma tag. Isso pode ser útil se você quiser garantir que toda sua carga de trabalho
+esteja executando o mesmo código, independentemente das mudanças de tags no registro.
+
+#### Política padrão de puxar imagem {#imagepullpolicy-defaulting}
+
+Quando você (ou um controlador) envia um novo Pod para o servidor de API, seu cluster define o campo
+`imagePullPolicy` quando certas condições são atendidas:
+
+- se você omitir o campo `imagePullPolicy` e especificar o digest da imagem do contêiner,
+  o `imagePullPolicy` será automaticamente definido como `IfNotPresent`;
+- se você omitir o campo `imagePullPolicy` e a tag da imagem do contêiner for `:latest`,
+  o `imagePullPolicy` será automaticamente definido como `Always`;
+- se você omitir o campo `imagePullPolicy` e não especificar uma tag para a imagem do contêiner,
+  o `imagePullPolicy` será automaticamente definido como `Always`;
+- se você omitir o campo `imagePullPolicy` e especificar uma tag para a imagem do contêiner
+  que não seja `:latest`, o `imagePullPolicy` será automaticamente definido como `IfNotPresent`.
+
+{{< note >}}
+O valor de `imagePullPolicy` do contêiner é sempre definido quando o objeto é _criado_
+pela primeira vez, e não é atualizado se a tag ou o digest da imagem for alterado posteriormente.
+
+Por exemplo, se você criar um Deployment com uma imagem cuja tag _não_ é `:latest`,
+e mais tarde atualizar a imagem desse Deployment para a tag `:latest`, o campo `imagePullPolicy`
+_NÃO_ será alterado para `Always`. Você deve alterar manualmente a política de puxar imagem de qualquer
+objeto após sua criação inicial.
+{{< /note >}}
+
+#### Download obrigatório da imagem
+
+Se você deseja forçar sempre o download da imagem, pode fazer uma das seguintes opções:
+
+- Defina o `imagePullPolicy` do contêiner como `Always`.
+- Omitir o `imagePullPolicy` e usar `:latest` como a tag da imagem a ser usada;
+  o Kubernetes definirá a política como `Always` ao enviar o Pod.
+- Omitir o `imagePullPolicy` e a tag da imagem a ser usada;
+  o Kubernetes definirá a política como `Always` ao enviar o Pod.
+- Ativar o admission controller [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages).
+
+### ImagePullBackOff
+
+Quando o kubelet começa a criar contêineres para um Pod usando um agente de execução de contêiner,
+é possível que o contêiner esteja no estado [Waiting](/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting) devido a `ImagePullBackOff`.
+
+O status `ImagePullBackOff` significa que um contêiner não pôde ser iniciado porque o Kubernetes
+não conseguiu fazer o download da imagem do contêiner (por motivos como nome de imagem inválido
+ou tentativa de download de um registro privado sem `imagePullSecret`).
+
+A parte `BackOff` indica que o Kubernetes continuará tentando fazer o download da imagem,
+com um atraso incremental entre as tentativas.
+
+O Kubernetes aumenta o intervalo entre cada tentativa até atingir um limite definido no código,
+que é de 300 segundos (5 minutos).
+
+### Download de imagem por classe de agente de execução
+
+{{< feature-state feature_gate_name="RuntimeClassInImageCriApi" >}}
+O Kubernetes inclui suporte em estado alpha para realizar o download de imagens com base na RuntimeClass de um Pod.
+
+Se você habilitar o [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `RuntimeClassInImageCriApi`,
+o kubelet passará a referenciar imagens de contêiner por uma tupla (nome da imagem, manipulador de agente de execução)
+em vez de apenas pelo nome da imagem ou digest.
+
+Seu {{< glossary_tooltip text="runtime do contêiner" term_id="container-runtime" >}} pode adaptar seu comportamento
+com base no manipulador de agente de execução selecionado.
+
+Fazer download de imagens com base na classe de agente de execução será útil para contêineres baseados em máquina virtual, como contêineres do tipo Windows Hyper-V.
+
+## Downloads de imagem em série e em paralelo
+
+Por padrão, o kubelet realiza downloads de imagens de forma sequencial. Em outras palavras,
+o kubelet envia apenas uma solicitação de download de imagem por vez para o serviço de imagens.
+Outras solicitações de download precisam aguardar até que a solicitação em andamento seja concluída.
+
+Os Nós tomam decisões de download de imagem de forma isolada. Mesmo quando você usa downloads de imagem
+em série, dois Nós diferentes podem puxar a mesma imagem em paralelo.
+
+Se você quiser habilitar downloads de imagem em paralelo, pode definir o campo
+`serializeImagePulls` como `false` na [configuração do kubelet](/docs/reference/config-api/kubelet-config.v1beta1/).
+Com `serializeImagePulls` definido como `false`, as solicitações de download de imagem serão enviadas
+imediatamente para o serviço de imagens, permitindo que várias imagens sejam puxadas ao mesmo tempo.
+
+Ao habilitar downloads de imagem em paralelo, certifique-se de que o serviço de imagens do seu
+{{< glossary_tooltip text="runtime do contêiner" term_id="container-runtime" >}} pode lidar com esse tipo de operação.
+
+O kubelet nunca realiza download de múltiplas imagens em paralelo para um único Pod. Por exemplo,
+se você tiver um Pod com um Init Container e um contêiner de aplicação, os downloads de imagem desses
+dois contêineres não serão paralelizados.
+
+No entanto, se você tiver dois Pods que usam imagens diferentes, o kubelet puxará as imagens
+em paralelo para os dois Pods diferentes, quando o download paralelo estiver habilitado.
+
+### Máximo de downloads de imagem em paralelo
+
+{{< feature-state for_k8s_version="v1.32" state="beta" >}}
+
+Quando `serializeImagePulls` está definido como `false`, o kubelet, por padrão, não impõe limite
+ao número máximo de imagens sendo puxadas ao mesmo tempo. Se você quiser limitar a quantidade
+de downloads de imagem paralelos, pode definir o campo `maxParallelImagePulls` na configuração do kubelet.
+
+Com `maxParallelImagePulls` definido como _n_, apenas _n_ imagens podem ser puxadas simultaneamente,
+e qualquer download de imagem além de _n_ terá que aguardar até que pelo menos um download em andamento seja concluído.
+
+Limitar o número de downloads de imagem paralelos ajuda a evitar que o processo de download consuma
+muita largura de banda de rede ou I/O de disco, quando o pull paralelo estiver habilitado.
+
+Você pode definir `maxParallelImagePulls` para um número positivo maior ou igual a 1.
+Se você definir `maxParallelImagePulls` como maior ou igual a 2, também deverá definir
+`serializeImagePulls` como `false`.
+
+O kubelet não iniciará se as configurações de `maxParallelImagePulls` forem inválidas.
 
 ## Multiarquitetura de imagens com índice de imagens
 
@@ -80,91 +254,86 @@ Essas opções são explicadas com mais detalhes abaixo.
 
 ### Configurando nós para autenticação em um registro privado
 
-Se você executar o Docker em seus nós, poderá configurar o contêiner runtime do Docker
-para autenticação em um registro de contêiner privado.
+As instruções específicas para configurar as credenciais dependem do agente de execução de contêiner
+e do registro que você escolheu utilizar. Você deve consultar a documentação da sua solução
+para obter as informações mais precisas.
 
-Essa abordagem é adequada se você puder controlar a configuração do nó.
+Para um exemplo de configuração de um registro de imagens de contêiner privado, veja a tarefa
+[Realizar download de uma Imagem a partir de um Registro Privado](/docs/tasks/configure-pod-container/pull-image-private-registry).
+Esse exemplo utiliza um registro privado no Docker Hub.
 
-{{< note >}}
-O Kubernetes padrão é compatível apenas com as seções `auths` e` HttpHeaders` na configuração do Docker.
-Auxiliares de credencial do Docker (`credHelpers` ou `credsStore`) não são suportados.
-{{< /note >}}
-
-Docker armazena chaves de registros privados no arquivo `$HOME/.dockercfg` ou `$HOME/.docker/config.json`. Se você colocar o mesmo arquivo na lista de caminhos de pesquisa abaixo, o kubelet o usa como provedor de credenciais ao obter imagens.
-
-* `{--root-dir:-/var/lib/kubelet}/config.json`
-* `{cwd of kubelet}/config.json`
-* `${HOME}/.docker/config.json`
-* `/.docker/config.json`
-* `{--root-dir:-/var/lib/kubelet}/.dockercfg`
-* `{cwd of kubelet}/.dockercfg`
-* `${HOME}/.dockercfg`
-* `/.dockercfg`
+### Provedor de credenciais do kubelet para downloads de imagem autenticados {#kubelet-credential-provider}
 
 {{< note >}}
-Você talvez tenha que definir `HOME=/root` explicitamente no ambiente do processo kubelet.
+Essa abordagem é especialmente adequada quando o kubelet precisa buscar credenciais de registro de forma dinâmica.
+É mais comumente usada com registros fornecidos por provedores de nuvem, onde os tokens de autenticação têm vida curta.
 {{< /note >}}
 
-Aqui estão as etapas recomendadas para configurar seus nós para usar um registro privado. Neste
-exemplo, execute-os em seu desktop/laptop:
+Você pode configurar o kubelet para invocar um binário de plugin a fim de buscar dinamicamente
+as credenciais de registro para uma imagem de contêiner.
 
-  1. Execute `docker login [servidor]` para cada conjunto de credenciais que deseja usar. Isso atualiza o `$HOME/.docker/config.json` em seu PC.
-  1. Visualize `$HOME/.docker/config.json` em um editor para garantir que contém apenas as credenciais que você deseja usar.
-  1. Obtenha uma lista de seus nós; por exemplo:
-      - se você quiser os nomes: `nodes=$( kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}' )`
-      - se você deseja obter os endereços IP: `nodes=$( kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}' )`
-  1. Copie seu `.docker/config.json` local para uma das listas de caminhos de busca acima.
-      - por exemplo, para testar isso: `for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
+Essa é a maneira mais robusta e versátil de obter credenciais para registros privados,
+mas também exige uma configuração no nível do kubelet para ser habilitada.
 
-{{< note >}}
-Para clusters de produção, use uma ferramenta de gerenciamento de configuração para que você possa aplicar esta
-configuração em todos os nós que você precisar.
-{{< /note >}}
+Veja [Configurar um provedor de credenciais de imagem no kubelet](/docs/tasks/administer-cluster/kubelet-credential-provider/) para mais detalhes.
 
-Verifique se está funcionando criando um pod que usa uma imagem privada; por exemplo:
+### Interpretação do config.json {#config-json}
 
-```shell
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: Pod
-metadata:
-  name: private-image-test-1
-spec:
-  containers:
-    - name: uses-private-image
-      image: $PRIVATE_IMAGE_NAME
-      imagePullPolicy: Always
-      command: [ "echo", "SUCCESS" ]
-EOF
-```
-```
-pod/private-image-test-1 created
+A interpretação do `config.json` varia entre a implementação original do Docker
+e a interpretação feita pelo Kubernetes. No Docker, as chaves em `auths` podem especificar apenas URLs raiz,
+enquanto o Kubernetes permite URLs com *glob* e também caminhos com correspondência por prefixo.
+
+A única limitação é que os padrões *glob* (`*`) devem incluir o ponto (`.`) para cada subdomínio.
+A quantidade de subdomínios correspondentes deve ser igual à quantidade de padrões glob (`*.`), por exemplo:
+
+- `*.kubernetes.io` *não* corresponderá a `kubernetes.io`, mas corresponderá a `abc.kubernetes.io`
+- `*.*.kubernetes.io` *não* corresponderá a `abc.kubernetes.io`, mas corresponderá a `abc.def.kubernetes.io`
+- `prefix.*.io` corresponderá a `prefix.kubernetes.io`
+- `*-good.kubernetes.io` corresponderá a `prefix-good.kubernetes.io`
+
+Isso significa que um `config.json` como este é válido:
+
+```json
+{
+    "auths": {
+        "my-registry.io/images": { "auth": "…" },
+        "*.my-registry.io/images": { "auth": "…" }
+    }
+}
 ```
 
-Se tudo estiver funcionando, então, após algum tempo, você pode executar:
+As operações de pull de imagem agora passarão as credenciais para o agente de execução de contêiner via CRI
+para cada padrão válido. Por exemplo, os seguintes nomes de imagem de contêiner
+corresponderiam com sucesso:
 
-```shell
-kubectl logs private-image-test-1
-```
-e veja o resultado do comando:
-```
-SUCCESS
+- `my-registry.io/images`
+- `my-registry.io/images/my-image`
+- `my-registry.io/images/another-image`
+- `sub.my-registry.io/images/my-image`
+
+Mas não:
+
+- `a.sub.my-registry.io/images/my-image`
+- `a.b.sub.my-registry.io/images/my-image`
+
+O kubelet realiza downloads de imagem de forma sequencial para cada credencial encontrada.
+Isso significa que múltiplas entradas no `config.json` para caminhos diferentes também são possíveis:
+
+```json
+{
+    "auths": {
+        "my-registry.io/images": {
+            "auth": "…"
+        },
+        "my-registry.io/images/subpath": {
+            "auth": "…"
+        }
+    }
+}
 ```
 
-Se você suspeitar que o comando falhou, você pode executar:
-```shell
-kubectl describe pods/private-image-test-1 | grep 'Failed'
-```
-Em caso de falha, a saída é semelhante a:
-```
-  Fri, 26 Jun 2015 15:36:13 -0700    Fri, 26 Jun 2015 15:39:13 -0700    19    {kubelet node-i2hq}    spec.containers{uses-private-image}    failed        Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
-```
-
-
-Você deve garantir que todos os nós no cluster tenham o mesmo `.docker/config.json`. Caso contrário, os pods serão executados com sucesso em alguns nós e falharão em outros. Por exemplo, se você usar o escalonamento automático de nós, cada modelo de instância precisa incluir o `.docker/config.json` ou montar um drive que o contenha.
-
-Todos os pods terão premissão de leitura às imagens em qualquer registro privado, uma vez que
-as chaves privadas do registro são adicionadas ao `.docker/config.json`.
+Se agora um contêiner especificar uma imagem `my-registry.io/images/subpath/my-image`
+para ser baixada, o kubelet tentará fazer o download utilizando ambas as fontes de autenticação, caso uma delas falhe.
 
 ### Imagens pré-obtidas
 
@@ -192,14 +361,22 @@ Esta é a abordagem recomendada para executar contêineres com base em imagens
 de registros privados.
 {{< /note >}}
 
-O Kubernetes oferece suporte à especificação de chaves de registro de imagem de contêiner em um pod.
+O Kubernetes oferece suporte à especificação de chaves de registro de imagem de contêiner em um Pod.
+Todos os `imagePullSecrets` devem estar no mesmo namespace que o Pod.
+Os Secrets referenciados devem ser do tipo `kubernetes.io/dockercfg` ou `kubernetes.io/dockerconfigjson`.
 
 #### Criando um segredo com Docker config
 
-Execute o seguinte comando, substituindo as palavras em maiúsculas com os valores apropriados:
+Você precisa saber o nome de usuário, a senha do registro, o endereço de e-mail do cliente para autenticação
+no registro, além do nome do host.
+Execute o seguinte comando, substituindo os valores em letras maiúsculas pelos apropriados:
 
 ```shell
-kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
+kubectl create secret docker-registry <name> \
+  --docker-server=DOCKER_REGISTRY_SERVER \
+  --docker-username=DOCKER_USER \
+  --docker-password=DOCKER_PASSWORD \
+  --docker-email=DOCKER_EMAIL
 ```
 
 Se você já tem um arquivo de credenciais do Docker, em vez de usar o
@@ -217,8 +394,9 @@ portanto, esse processo precisa ser feito uma vez por namespace.
 
 #### Referenciando um imagePullSecrets em um pod
 
-Agora, você pode criar pods que fazem referência a esse segredo adicionando uma seção `imagePullSecrets`
-na definição de Pod.
+Agora, você pode criar Pods que referenciam esse Secret adicionando uma seção `imagePullSecrets`
+na definição do Pod. Cada item no array `imagePullSecrets` pode referenciar apenas um Secret
+no mesmo namespace.
 
 Por exemplo:
 
@@ -236,6 +414,7 @@ spec:
   imagePullSecrets:
     - name: myregistrykey
 EOF
+
 cat <<EOF >> ./kustomization.yaml
 resources:
 - pod.yaml
@@ -280,10 +459,24 @@ casos de uso comuns e soluções sugeridas.
     - Gere credenciais de registro para cada locatário, coloque em segredo e preencha o segredo para cada namespace de locatário.
     - O locatário adiciona esse segredo a imagePullSecrets de cada namespace.
 
-
 Se precisar de acesso a vários registros, você pode criar um segredo para cada registro.
-O Kubelet mesclará qualquer `imagePullSecrets` em um único `.docker/config.json` virtual
+
+## Provedor de credenciais legado embutido no kubelet
+
+Em versões mais antigas do Kubernetes, o kubelet tinha uma integração direta com as credenciais de provedores de nuvem.
+Isso permitia buscar dinamicamente as credenciais para registros de imagens.
+
+Havia três implementações embutidas do provedor de credenciais do kubelet:
+ACR (Azure Container Registry), ECR (Elastic Container Registry) e GCR (Google Container Registry).
+
+Para mais informações sobre o mecanismo legado, consulte a documentação da versão do Kubernetes que você está utilizando.
+As versões do Kubernetes da v1.26 até a v{{< skew latestVersion >}} não incluem mais esse mecanismo legado, portanto,
+você precisará:
+- configurar um provedor de credenciais de imagem no kubelet em cada nó
+- ou especificar credenciais de download de imagem usando `imagePullSecrets` e pelo menos um Secret
 
 ## {{% heading "whatsnext" %}}
 
-* Leia a [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md)
+* Leia a [Especificação de Imagem OCI](https://github.com/opencontainers/image-spec/blob/master/manifest.md)
+* Saiba mais sobre [coleta de lixo de imagens de contêiner](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection).
+* Saiba mais sobre [realizar download de uma imagem a partir de um registro privado](/docs/tasks/configure-pod-container/pull-image-private-registry).
