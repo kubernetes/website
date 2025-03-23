@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Kubernetes v1.33 sneak peek'
-date: 2025-03-24T10:30:00-08:00
+date: 2025-03-26T10:30:00-08:00
 slug: kubernetes-v1-33-upcoming-changes
 author: >
   Agustina Barbetta,
