@@ -163,16 +163,6 @@ div.feature-state-notice {
   background-color: rgba(255, 255, 255, 0.25);
 }
 
-/* Sidebar menu */
-#td-sidebar-menu {
-  #m-docs span, small {
-    visibility: hidden;
-  }
-  #m-docs small {
-    visibility: collapse; // if supported
-  }
-}
-
 /* Styles for CVE table */
 table tr.cve-status-open, table tr.cve-status-unknown {
   > td.cve-item-summary {

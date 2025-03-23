@@ -77,6 +77,10 @@ Before choosing a guide, here are some considerations:
   explains plug-ins which intercepts requests to the Kubernetes API server after authentication
   and authorization.
 
+* [Admission Webhook Good Practices](/docs/concepts/cluster-administration/admission-webhooks-good-practices/)
+  provides good practices and considerations when designing mutating admission
+  webhooks and validating admission webhooks.
+
 * [Using Sysctls in a Kubernetes Cluster](/docs/tasks/administer-cluster/sysctl-cluster/)
   describes to an administrator how to use the `sysctl` command-line tool to set kernel parameters
 .
