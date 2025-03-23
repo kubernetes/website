@@ -11,4 +11,4 @@ stages:
     fromVersion: "1.32"
 ---
 
-Дозволяє підтримувати конфігуровані максимальні значення backoff для кожного вузла для перезапуску контейнерів у стані CrashLoopBackOff.
+Дозволяє підтримувати конфігуровані максимальні значення backoff для кожного вузла для перезапуску контейнерів у стані CrashLoopBackOff. Для більш детальної інформації перевірте поле `crashLoopBackOff.maxContainerRestartPeriod` у [kubelet config file](/docs/reference/config-api/kubelet-config.v1beta1/).

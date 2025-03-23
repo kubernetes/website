@@ -272,10 +272,8 @@ spec:
 
 Підтримка розширення PersistentVolumeClaims (PVCs) є типово увімкненою. Ви можете розширити наступні типи томів:
 
-* azureFile (застарілий)
-* {{< glossary_tooltip text="csi" term_id="csi" >}}
+* {{< glossary_tooltip text="csi" term_id="csi" >}} (включно з деякими типами перенесених томів CSI)
 * flexVolume (застарілий)
-* rbd (застарілий)
 * portworxVolume (застарілий)
 
 Ви можете розширити PVC лише в тому випадку, якщо поле `allowVolumeExpansion` його класу сховища має значення true.
@@ -381,6 +379,7 @@ FlexVolumes (застарілий починаючи з Kubernetes v1.23) доз
 
 * [`cephfs`](/docs/concepts/storage/volumes/#cephfs) (**недоступно** починаючи з версії v1.31)
 * `flocker` — Flocker storage. (**недоступно** починаючи з версії v1.25)
+* `glusterfs` - GlusterFS storage. (**недоступно** починаючи з версії v1.26)
 * `photonPersistentDisk` — Photon controller persistent disk. (**недоступно** починаючи з версії v1.15)
 * `quobyte` — Том Quobyte. (**недоступно** починаючи з версії v1.25)
 * [`rbd`](/docs/concepts/storage/volumes/#rbd) — Rados Block Device (RBD) volume  (**недоступно** починаючи з версії v1.31)
@@ -515,13 +514,9 @@ PV може мати клас, який вказується, встановле
 
 Наступні типи томів підтримують параметри монтування:
 
-* `azureFile`
-* `cephfs` (**застаріло** в v1.28)
-* `cinder` (**застаріло** в v1.18)
+* `csi` (включно з деякими типами перенесених томів CSI)
 * `iscsi`
 * `nfs`
-* `rbd` (**застаріло** в v1.28)
-* `vsphereVolume`
 
 Параметри монтування не перевіряються на валідність. Якщо параметр монтування недійсний, монтування не вдасться.
 
@@ -677,14 +672,10 @@ PersistentVolume типу `hostPath` використовує файл або к
 
 Наступні втулки томів підтримують блокові томи, включаючи динамічне надання, де це можливо:
 
-* CSI
+* CSI (включно з деякими типами перенесених томів CSI)
 * FC (Fibre Channel)
 * iSCSI
 * Локальний том
-* OpenStack Cinder
-* RBD (застаріло)
-* RBD (Ceph Block Device; застаріло)
-* VsphereVolume
 
 ### PersistentVolume, що використовує блоковий том {#persistent-volume-using-a-raw-block-volume}
 

@@ -51,26 +51,6 @@ go get -u github.com/kubernetes/kompose
 ```
 
 {{% /tab %}}
-{{% tab name="Пакунок для CentOS" %}}
-
-Kompose є в репозиторії [EPEL](https://fedoraproject.org/wiki/EPEL) для CentOS. Якщо у вас ще немає встановленого та увімкненого репозиторію [EPEL](https://fedoraproject.org/wiki/EPEL), ви можете зробити це, виконавши `sudo yum install epel-release`.
-
-Якщо у вас увімкнений репозиторій [EPEL](https://fedoraproject.org/wiki/EPEL) у вашій системі, ви можете встановити Kompose як будь-який інший пакунок.
-
-```bash
-sudo yum -y install kompose
-```
-
-{{% /tab %}}
-{{% tab name="Пакунок для Fedora" %}}
-
-Kompose є в репозиторіях Fedora 24, 25 та 26. Ви можете встановити його, як і будь-який інший пакунок.
-
-```bash
-sudo dnf -y install kompose
-```
-
-{{% /tab %}}
 {{% tab name="Homebrew (macOS)" %}}
 
 У macOS ви можете встановити останній реліз за допомогою [Homebrew](https://brew.sh):
@@ -195,7 +175,7 @@ brew install kompose
 4. Прибирання.
 
    Після завершення тестування розгортання прикладного застосунку просто запустіть наступну команду в вашій оболонці, щоб видалити використані ресурси.
-   
+
    ```sh
    kubectl delete -f web-tcp-service.yaml,redis-leader-service.yaml,redis-replica-service.yaml,web-deployment.yaml,redis-leader-deployment.yaml,redis-replica-deployment.yaml
    ```
@@ -255,17 +235,17 @@ kompose -f docker-compose.yml -f docker-guestbook.yml convert
 ```
 
 ```none
-INFO Kubernetes file "frontend-service.yaml" created         
-INFO Kubernetes file "mlbparks-service.yaml" created         
-INFO Kubernetes file "mongodb-service.yaml" created          
-INFO Kubernetes file "redis-master-service.yaml" created     
-INFO Kubernetes file "redis-slave-service.yaml" created      
-INFO Kubernetes file "frontend-deployment.yaml" created      
-INFO Kubernetes file "mlbparks-deployment.yaml" created      
-INFO Kubernetes file "mongodb-deployment.yaml" created       
+INFO Kubernetes file "frontend-service.yaml" created
+INFO Kubernetes file "mlbparks-service.yaml" created
+INFO Kubernetes file "mongodb-service.yaml" created
+INFO Kubernetes file "redis-master-service.yaml" created
+INFO Kubernetes file "redis-slave-service.yaml" created
+INFO Kubernetes file "frontend-deployment.yaml" created
+INFO Kubernetes file "mlbparks-deployment.yaml" created
+INFO Kubernetes file "mongodb-deployment.yaml" created
 INFO Kubernetes file "mongodb-claim0-persistentvolumeclaim.yaml" created
-INFO Kubernetes file "redis-master-deployment.yaml" created  
-INFO Kubernetes file "redis-slave-deployment.yaml" created   
+INFO Kubernetes file "redis-master-deployment.yaml" created
+INFO Kubernetes file "redis-slave-deployment.yaml" created
 ```
 
 ```shell
@@ -273,7 +253,7 @@ ls
 ```
 
 ```none
-mlbparks-deployment.yaml  mongodb-service.yaml                       redis-slave-service.jsonmlbparks-service.yaml  
+mlbparks-deployment.yaml  mongodb-service.yaml                       redis-slave-service.jsonmlbparks-service.yaml
 frontend-deployment.yaml  mongodb-claim0-persistentvolumeclaim.yaml  redis-master-service.yaml
 frontend-service.yaml     mongodb-deployment.yaml                    redis-slave-deployment.yaml
 redis-master-deployment.yaml
@@ -289,20 +269,20 @@ kompose --provider openshift --file docker-voting.yml convert
 
 ```none
 WARN [worker] Service cannot be created because of missing port.
-INFO OpenShift file "vote-service.yaml" created             
-INFO OpenShift file "db-service.yaml" created               
-INFO OpenShift file "redis-service.yaml" created            
-INFO OpenShift file "result-service.yaml" created           
-INFO OpenShift file "vote-deploymentconfig.yaml" created    
-INFO OpenShift file "vote-imagestream.yaml" created         
-INFO OpenShift file "worker-deploymentconfig.yaml" created  
-INFO OpenShift file "worker-imagestream.yaml" created       
-INFO OpenShift file "db-deploymentconfig.yaml" created      
-INFO OpenShift file "db-imagestream.yaml" created           
-INFO OpenShift file "redis-deploymentconfig.yaml" created   
-INFO OpenShift file "redis-imagestream.yaml" created        
-INFO OpenShift file "result-deploymentconfig.yaml" created  
-INFO OpenShift file "result-imagestream.yaml" created  
+INFO OpenShift file "vote-service.yaml" created
+INFO OpenShift file "db-service.yaml" created
+INFO OpenShift file "redis-service.yaml" created
+INFO OpenShift file "result-service.yaml" created
+INFO OpenShift file "vote-deploymentconfig.yaml" created
+INFO OpenShift file "vote-imagestream.yaml" created
+INFO OpenShift file "worker-deploymentconfig.yaml" created
+INFO OpenShift file "worker-imagestream.yaml" created
+INFO OpenShift file "db-deploymentconfig.yaml" created
+INFO OpenShift file "db-imagestream.yaml" created
+INFO OpenShift file "redis-deploymentconfig.yaml" created
+INFO OpenShift file "redis-imagestream.yaml" created
+INFO OpenShift file "result-deploymentconfig.yaml" created
+INFO OpenShift file "result-imagestream.yaml" created
 ```
 
 Також підтримує створення buildconfig для директиви build в сервісі. Стандартно використовується віддалений репозиторій для поточної гілки git як джерело репозиторію, та поточну гілку як гілку джерела для збірки. Ви можете вказати інше джерело репозиторію та гілку джерела, використовуючи опції `--build-repo` та `--build-branch` відповідно.
@@ -314,8 +294,8 @@ kompose --provider openshift --file buildconfig/docker-compose.yml convert
 ```none
 WARN [foo] Service cannot be created because of missing port.
 INFO OpenShift Buildconfig using git@github.com:rtnpro/kompose.git::master as source.
-INFO OpenShift file "foo-deploymentconfig.yaml" created     
-INFO OpenShift file "foo-imagestream.yaml" created          
+INFO OpenShift file "foo-deploymentconfig.yaml" created
+INFO OpenShift file "foo-imagestream.yaml" created
 INFO OpenShift file "foo-buildconfig.yaml" created
 ```
 
@@ -325,7 +305,7 @@ INFO OpenShift file "foo-buildconfig.yaml" created
 
 ## Альтернативні конвертації {#alternative-conversions}
 
-Типово `kompose` перетворює файли у форматі yaml на обʼєкти Kubernetes [Deployments](/uk/docs/concepts/workloads/controllers/deployment/) та [Services](/uk/docs/concepts/services-networking/service/). У вас є альтернативна опція для генерації json за допомогою `-j`. Також, ви можете альтернативно згенерувати обʼєкти [Replication Controllers](/uk/docs/concepts/workloads/controllers/replicationcontroller/), [Daemon Sets](/uk/docs/concepts/workloads/controllers/daemonset/), або [Helm](https://github.com/helm/helm) чарти.
+Типово `kompose` перетворює файли у форматі yaml на обʼєкти Kubernetes [Deployments](/docs/concepts/workloads/controllers/deployment/) та [Services](/docs/concepts/services-networking/service/). У вас є альтернативна опція для генерації json за допомогою `-j`. Також, ви можете альтернативно згенерувати обʼєкти [Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/), [Daemon Sets](/docs/concepts/workloads/controllers/daemonset/), або [Helm](https://github.com/helm/helm) чарти.
 
 ```sh
 kompose convert -j

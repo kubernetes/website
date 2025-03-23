@@ -61,6 +61,8 @@ card:
 
 * [Використання admission-контролерів](/docs/reference/access-authn-authz/admission-controllers/) описує втулки, які перехоплюють запити до API Kubernetes після автентифікації та авторизації.
 
+* [Рекомендації щодо використання вебхуків допуску](/docs/concepts/cluster-administration/admission-webhooks-good-practices/) містить найкращі практики та міркування щодо створення мутованих вебхуків допуску та перевірки вебхуків допуску.
+
 * [Використання Sysctls в кластері Kubernetes](/docs/tasks/administer-cluster/sysctl-cluster/) описує, як використовувати інструмент командного рядка `sysctl` для налаштування параметрів ядра.
 
 * [Аудит](/docs/tasks/debug-cluster/audit/) описує, як взаємодіяти з аудитом подій в Kubernetes.

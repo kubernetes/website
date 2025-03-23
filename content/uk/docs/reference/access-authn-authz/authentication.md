@@ -311,7 +311,7 @@ jwt:
     # всі вирази повинні бути true для успішної перевірки.
   - expression: 'claims.hd == "example.com"'
     # Повідомлення налаштовує повідомлення про помилку, яке відображається в логах сервера API, коли перевірка не вдається.
-    message: твердження hd повинно бути встановлено у example.com
+    message: вимога hd має бути встановлена на example.com
   - expression: 'claims.exp - claims.nbf <= 86400'
     message: загальний час життя токена не повинен перевищувати 24 години
   claimMappings:
@@ -329,8 +329,10 @@ jwt:
       #
       # 1.  Якщо у виразі username.expression використовується 'claims.email', то 'claims.email_verified' має бути використано у
       # username.expression або extra[*].valueExpression або claimValidationRules[*].expression.
-      # Приклад виразу правила валідації заявки, який автоматично збігається з валідацією
-      # застосовується, коли username.claim має значення 'email' - 'claims.?email_verified.orValue(true)'.
+      # Приклад виразу правила валідації вимоги, який автоматично збігається з валідацією
+      # застосовується, коли username.claim має значення 'email' - 'claims.?email_verified.orValue(true) == true'.
+      # Явно порівнюючи значення з true, ми дозволяємо перевірці типів побачити, що результат буде булевим, і
+      # щоб переконатися, що небулевий email_verified буде перехоплено під час виконання.
       # 2.  Якщо імʼя користувача, що оцінюється на основі виразу username.expression, є порожнім рядком, запит на автентифікацію
       # запит не буде виконано.
       expression: 'claims.username + ":external-user"'

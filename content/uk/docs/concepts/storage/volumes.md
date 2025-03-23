@@ -73,25 +73,13 @@ Kubernetes перестав підтримуватися -->
 
 ### azureFile (застаріло) {#azurefile}
 
-{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
+<!-- maintenance note: OK to remove all mention of azureFile once the v1.30 release of Kubernetes has gone out of support -->
 
-Тип тому `azureFile` монтує том файлу Microsoft Azure (SMB 2.1 і 3.0) в Pod.
+У Kubernetes {{< skew currentVersion >}} всі операції для типу in-tree `azureFile` перенаправляються на драйвер `file.csi.azure.com` {{< glossary_tooltip text="CSI" term_id="csi" >}}.
 
-Для отримання докладнішої інформації див. [Втулок томів `azureFile`](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_file/README.md).
+Вбудований драйвер сховища AzureFile було визнано застарілим у випуску Kubernetes v1.21, а потім повністю вилучено у випуску v1.30.
 
-#### Міграція до CSI для azureFile {#azurefile-csi-migration}
-
-{{< feature-state for_k8s_version="v1.26" state="stable" >}}
-
-Функція `CSIMigration` для `azureFile`, якщо увімкнена, перенаправляє всі операції втулка з наявного вбудованого втулка до драйвера інтерфейсу зберігання (Container Storage Interface, CSI) `file.csi.azure.com` контейнера. Для використання цієї функції необхідно встановити [Драйвер CSI для Azure File](https://github.com/kubernetes-sigs/azurefile-csi-driver) у кластері, і [функціональна можливість](/docs/reference/command-line-tools-reference/feature-gates/) `CSIMigrationAzureFile` має бути увімкненою.
-
-Драйвер CSI для Azure File не підтримує використання одного й того ж тому з різними fsgroups. Якщо `CSIMigrationAzureFile` увімкнено, використання одного й того ж тому з різними fsgroups взагалі не підтримується.
-
-#### Завершення міграції до CSI для azureFile {#azurefile-csi-migration-complete}
-
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
-
-Щоб вимкнути завантаження втулка сховища `azureFile` контролером і менеджером kubelet, встановіть прапорець `InTreePluginAzureFileUnregister` в значення `true`.
+Проєкт Kubernetes рекомендує замість нього використовувати сторонній драйвер сховища [Azure File](https://github.com/kubernetes-sigs/azurefile-csi-driver).
 
 ### cephfs (видалено) {#cephfs}
 
@@ -654,45 +642,13 @@ Kubernetes {{< skew currentVersion >}} не включає тип тому `rbd`
 
 ### vsphereVolume (застаріло) {#vspherevolume}
 
-{{< note >}}
-Проєкт Kubernetes рекомендує використовувати [vSphere CSI](https://github.com/kubernetes-sigs/vsphere-csi-driver) зовнішній драйвер сховища замість цього.
-{{< /note >}}
-
-`vsphereVolume` використовується для монтування тому vSphere VMDK у ваш Pod. Зміст тому зберігається при його демонтажі. Підтримуються обидва типи сховища VMFS та VSAN.
-
-Для отримання додаткової інформації дивіться [приклади томів vSphere](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere).
-
-### Міграція на vSphere CSI {#vsphere-csi-migration}
-
-{{< feature-state for_k8s_version="v1.26" state="stable" >}}
+<!-- maintenance note: OK to remove all mention of vsphereVolume once the v1.30 release of Kubernetes has gone out of support -->
 
 У Kubernetes {{< skew currentVersion >}}, всі операції для типу `vsphereVolume`, що використовується в інтегрованому стеку, перенаправляються на драйвер `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}}.
 
-Для цього має бути встановлений [драйвер CSI для vSphere](https://github.com/kubernetes-sigs/vsphere-csi-driver) на кластері. Додаткові поради щодо міграції з інтегрованого стеку `vsphereVolume` можна знайти на сторінці документації VMware [Migrating In-Tree vSphere Volumes to vSphere Container Storage Plug-in](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html). Якщо драйвер vSphere CSI не встановлено, не буде можливості виконати операції з томами, створеними за допомогою типу `vsphereVolume` з інтегрованим стеком.
+Драйвер сховища `vsphereVolume` був застарілим у випуску Kubernetes v1.19, а потім повністю видалений у випуску v1.30.
 
-Для успішної міграції до драйвера vSphere CSI вам слід використовувати vSphere версії 7.0u2 або пізніше.
-
-Якщо ви використовуєте версію Kubernetes відмінну від v{{< skew currentVersion >}}, перевірте документацію для цієї версії Kubernetes.
-
-{{< note >}}
-Наступні параметри StorageClass вбудованого втулка `vsphereVolume` не підтримуються драйвером vSphere CSI:
-
-- `diskformat`
-- `hostfailurestotolerate`
-- `forceprovisioning`
-- `cachereservation`
-- `diskstripes`
-- `objectspacereservation`
-- `iopslimit`
-
-Наявні томи, створені з використанням цих параметрів, будуть перенесені на драйвер vSphere CSI, але нові томи, створені драйвером vSphere CSI, не будуть враховувати ці параметри.
-{{< /note >}}
-
-#### Завершення міграція до vSphere CSI {#vsphere-csi-migration-complete}
-
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
-
-Щоб вимкнути завантаження втулка `vsphereVolume` контролер-менеджером та kubelet, потрібно встановити прапорець  `InTreePluginvSphereUnregister` в значення `true`. Драйвер `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} повинен бути встановлений на всіх вузлах робочого навантаження.
+Проєкт Kubernetes пропонує замість цього використовувати драйвер сховища сторонніх розробників [vSphere CSI](https://github.com/kubernetes-sigs/vsphere-csi-driver).
 
 ## Використання subPath {#using-subpath}
 
@@ -862,12 +818,6 @@ spec:
 Підтримувані операції та функції включають: створення/видалення, приєднання/відʼєднання, монтування/розмонтовування та зміна розміру томів.
 
 Вбудовані втулки, які підтримують `CSIMigration` і мають відповідний реалізований драйвер CSI перераховуються в [Типи томів](#volume-types).
-
-Підтримуються також вбудовані втулки, які підтримують постійне сховище на вузлах Windows:
-
-- [`azureFile`](#azurefile)
-- [`gcePersistentDisk`](#gcepersistentdisk)
-- [`vsphereVolume`](#vspherevolume)
 
 ### flexVolume (застаріло) {#flexvolume}
 
