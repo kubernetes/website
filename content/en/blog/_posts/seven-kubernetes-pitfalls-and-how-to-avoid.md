@@ -104,7 +104,8 @@ When resource requests and limits are not set:
 **The Pitfall**: Running containers as `root`, using `latest` images, or granting `cluster-admin` rights to everyone. It’s easy in dev, but you’re essentially leaving the door unlocked if you carry this into production.
 
 **How to Avoid It**:
-- Use [RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) to define clear roles and permissions.
+- Use [RBAC](/docs/reference/access-authn-authz/rbac/) to define clear roles and permissions.
+
 - Pin images to specific versions (no more `:latest`!). This helps you know what’s actually deployed.
 - Look into [Pod Security Admission](https://kubernetes.io/docs/concepts/security/pod-security-admission/) (or other solutions like Kyverno) to enforce non-root containers, read-only filesystems, etc.
 
