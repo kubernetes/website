@@ -196,7 +196,7 @@ Com `serializeImagePulls` definido como `false`, as solicitações de download d
 imediatamente para o serviço de imagens, permitindo que várias imagens sejam puxadas ao mesmo tempo.
 
 Ao habilitar downloads de imagem em paralelo, certifique-se de que o serviço de imagens do seu
-{{< glossary_tooltip text="runtime do contêiner" term_id="container-runtime" >}} pode lidar com esse tipo de operação.
+agente de execução do contêiner pode lidar com esse tipo de operação.
 
 O kubelet nunca realiza download de múltiplas imagens em paralelo para um único Pod. Por exemplo,
 se você tiver um Pod com um Init Container e um contêiner de aplicação, os downloads de imagem desses
