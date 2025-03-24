@@ -110,7 +110,6 @@ When resource requests and limits are not set:
 
 **My Reality Check**: I never had a huge security breach, but i’ve heard plenty of cautionary tales. If you don’t tighten things up, it’s only a matter of time before something goes wrong.
 
----
 
 ## Final Thoughts
 
