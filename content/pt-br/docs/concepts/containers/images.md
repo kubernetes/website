@@ -45,7 +45,7 @@ Você pode ler mais sobre e encontrar a expressão regular de validação na
 Se você não especificar uma tag, o Kubernetes assume que você está se referindo à tag `latest`.
 
 Digests de imagem consistem em um algoritmo de hash (como `sha256`) e um valor de hash. Por exemplo:
-`sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07`
+`sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07`.
 Você pode encontrar mais informações sobre o formato de digests na
 [Especificação de Imagem OCI](https://github.com/opencontainers/image-spec/blob/master/descriptor.md#digests).
 
