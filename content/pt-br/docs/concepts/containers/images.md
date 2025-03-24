@@ -329,7 +329,7 @@ Isso significa que múltiplas entradas no `config.json` para caminhos diferentes
 Se agora um contêiner especificar uma imagem `my-registry.io/images/subpath/my-image`
 para ser baixada, o kubelet tentará fazer o download utilizando ambas as fontes de autenticação, caso uma delas falhe.
 
-### Imagens pré-obtidas
+### Imagens pré-obtidas {#pre-pulled-images}
 
 {{< note >}}
 Essa abordagem é adequada se você puder controlar a configuração do nó. Isto
