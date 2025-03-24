@@ -91,7 +91,7 @@ que esses valores têm:
 
 A semântica de cache do provedor de imagens subjacente torna mesmo
 `imagePullPolicy: Always` eficiente, desde que o registro esteja acessível de forma confiável.
-Seu agente de execução (runtime) pode perceber que as camadas da imagem já existem no nó,
+Seu agente de execução de contêiner pode perceber que as camadas da imagem já existem no nó,
 evitando que precisem ser baixadas novamente.
 
 {{< note >}}
