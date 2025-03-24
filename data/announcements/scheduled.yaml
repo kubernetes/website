@@ -292,3 +292,18 @@ announcements:
     <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/register/?utm_source=kubernetes&utm_medium=all&utm_campaign=KubeCon-EU-2025&utm_content=slim-banner">
     Buy your ticket now! 1 - 4 April | London, England
     </a>     
+
+- name: KubeCon 2025 China
+  startTime: 2025-05-19T00:00:00
+  endTime: 2025-06-17T00:00:00
+  style: >-
+    background: linear-gradient(90deg, rgba(229,64,216,1) 60%, rgba(0,212,255,1) 100%);
+    color: #fffff;
+  title: |
+    <img src ="https://github.com/cncf/artwork/tree/main/other/kubecon-cloudnativecon/2025-china" style="float: right; height: 100px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-china/">KubeCon + CloudNativeCon + Open Source Summit China 2025</a>
+  message: |
+    Join us for two days of incredible opportunities to collaborate, learn and share with the cloud native community.<br/> 
+    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-china/reg/register/">
+    Buy your ticket now! 10 - 11 June | Hong Kong
+    </a>
