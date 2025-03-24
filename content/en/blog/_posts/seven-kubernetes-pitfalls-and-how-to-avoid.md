@@ -38,7 +38,8 @@ When resource requests and limits are not set:
 **The Pitfall**: Deploying containers without telling Kubernetes whether your app is actually ready or alive. If your service “looks” like it’s running but is too slow or stuck, users can get 500 errors without you even knowing.
 
 **How to Avoid It**:
-- Add a simple HTTP `livenessProbe` to check a health endpoint (e.g., `/healthz`) so Kubernetes can restart a hung container.
+- Add a simple HTTP `livenessProbe` to check a health endpoint (for example `/healthz`) so Kubernetes can restart a hung container.
+
 - Use a `readinessProbe` to ensure traffic doesn’t reach your app until it’s warmed up.
 - Keep probes simple. Overly complex checks can create false alarms and unnecessary restarts.
 
