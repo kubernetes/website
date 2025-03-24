@@ -163,7 +163,6 @@ Quando o kubelet começa a criar contêineres para um Pod usando um agente de ex
 O status `ImagePullBackOff` significa que um contêiner não pôde ser iniciado porque o Kubernetes
 não conseguiu fazer o download da imagem do contêiner (por motivos como nome de imagem inválido
 ou tentativa de download de um registro privado sem `imagePullSecret`).
-
 A parte `BackOff` indica que o Kubernetes continuará tentando fazer o download da imagem,
 com um atraso incremental entre as tentativas.
 
