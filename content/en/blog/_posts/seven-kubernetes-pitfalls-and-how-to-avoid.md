@@ -31,7 +31,6 @@ When resource requests and limits are not set:
 **My Reality Check**: Early on, I never thought about memory limits. Things seemed fine on my local cluster. Then, on a larger environment, Pods got *OOMKilled* left and right. Lesson learned.
 
 
----
 
 ## 2. Underestimating Liveness and Readiness Probes
 
