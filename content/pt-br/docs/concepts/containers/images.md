@@ -1,7 +1,4 @@
 ---
-reviewers:
-- femrtnz
-- jcjesus
 title: Imagens
 content_type: concept
 weight: 10
@@ -65,7 +62,7 @@ Quando você cria um {{< glossary_tooltip text="Deployment" term_id="deployment"
 objeto que inclua um template de Pod, por padrão a política utilizada para baixar as imagens dos contêineres nesse Pod será definida como `IfNotPresent` quando não especificada explicitamente.
 Essa política faz com que o {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} ignore o download da imagem se ela já existir.
 
-### Política de puxar a imagem
+### Política de download de imagem
 
 A `imagePullPolicy` de um contêiner e a tag da imagem afetam quando o
 [kubelet](/docs/reference/command-line-tools-reference/kubelet/) tenta puxar (download) a imagem especificada.
@@ -120,7 +117,7 @@ de forma que a carga de trabalho em execução seja definida com base em um dige
 em vez de uma tag. Isso pode ser útil se você quiser garantir que toda sua carga de trabalho
 esteja executando o mesmo código, independentemente das mudanças de tags no registro.
 
-#### Política padrão de puxar imagem {#imagepullpolicy-defaulting}
+#### Política padrão de download de imagem {#imagepullpolicy-defaulting}
 
 Quando você (ou um controlador) envia um novo Pod para o servidor de API, seu cluster define o campo
 `imagePullPolicy` quando certas condições são atendidas:
@@ -149,11 +146,11 @@ objeto após sua criação inicial.
 Se você deseja forçar sempre o download da imagem, pode fazer uma das seguintes opções:
 
 - Defina o `imagePullPolicy` do contêiner como `Always`.
-- Omitir o `imagePullPolicy` e usar `:latest` como a tag da imagem a ser usada;
+- Omita o `imagePullPolicy` e use `:latest` como a tag da imagem a ser usada;
   o Kubernetes definirá a política como `Always` ao enviar o Pod.
-- Omitir o `imagePullPolicy` e a tag da imagem a ser usada;
+- Omita o `imagePullPolicy` e a tag da imagem a ser usada;
   o Kubernetes definirá a política como `Always` ao enviar o Pod.
-- Ativar o admission controller [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages).
+- Ative o controlador de admissão [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages).
 
 ### ImagePullBackOff
 
@@ -201,7 +198,6 @@ agente de execução do contêiner pode lidar com esse tipo de operação.
 O kubelet nunca realiza download de múltiplas imagens em paralelo para um único Pod. Por exemplo,
 se você tiver um Pod com um Init Container e um contêiner de aplicação, os downloads de imagem desses
 dois contêineres não serão paralelizados.
-
 No entanto, se você tiver dois Pods que usam imagens diferentes, o kubelet puxará as imagens
 em paralelo para os dois Pods diferentes, quando o download paralelo estiver habilitado.
 
@@ -265,7 +261,6 @@ Essa abordagem é especialmente adequada quando o kubelet precisa buscar credenc
 
 Você pode configurar o kubelet para invocar um binário de plugin a fim de buscar dinamicamente
 as credenciais de registro para uma imagem de contêiner.
-
 Essa é a maneira mais robusta e versátil de obter credenciais para registros privados,
 mas também exige uma configuração no nível do kubelet para ser habilitada.
 
@@ -276,7 +271,6 @@ Veja [Configurar um provedor de credenciais de imagem no kubelet](/docs/tasks/ad
 A interpretação do `config.json` varia entre a implementação original do Docker
 e a interpretação feita pelo Kubernetes. No Docker, as chaves em `auths` podem especificar apenas URLs raiz,
 enquanto o Kubernetes permite URLs com *glob* e também caminhos com correspondência por prefixo.
-
 A única limitação é que os padrões *glob* (`*`) devem incluir o ponto (`.`) para cada subdomínio.
 A quantidade de subdomínios correspondentes deve ser igual à quantidade de padrões glob (`*.`), por exemplo:
 
