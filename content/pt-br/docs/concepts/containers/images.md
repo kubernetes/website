@@ -9,7 +9,7 @@ hide_summary: true # Listed separately in section index
 
 Uma imagem de contêiner representa dados binários que encapsulam uma aplicação e todas as suas dependências de software. As imagens de contêiner são pacotes de software executáveis que podem ser executados de forma autônoma e que fazem suposições muito bem definidas sobre seu agente de execução do ambiente.
 
-Normalmente, você cria uma imagem de contêiner da sua aplicação e a envia para um registro antes de fazer referência a ela em um {{< glossary_tooltip text="Pod" term_id="pod" >}}
+Normalmente, você cria uma imagem de contêiner da sua aplicação e a envia para um registro antes de fazer referência a ela em um {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 
 Esta página fornece um resumo sobre o conceito de imagem de contêiner.
 
