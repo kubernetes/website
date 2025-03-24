@@ -72,7 +72,6 @@ When resource requests and limits are not set:
 
 **My Reality Check**: One time, I scaled up `replicaCount` from 2 to 10 in a tiny dev environment just to “test.” I promptly ran out of resources and spent half a day cleaning up the aftermath. Oops.
 
----
 
 ## 5. Leaving Old Stuff Floating Around
 
