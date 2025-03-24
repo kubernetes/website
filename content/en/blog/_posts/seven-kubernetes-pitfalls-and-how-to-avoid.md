@@ -24,7 +24,7 @@ When resource requests and limits are not set:
  2. Resource Hoarding: Conversely, without limits, a pod might consume more than its fair share of resources, impacting the performance and stability of other pods on the same node. This can lead to issues such as other pods getting evicted or killed by the Out-Of-Memory (OOM) killer due to lack of available memory.
 
 **How to Avoid It**:
-- Start with modest `requests` (e.g., `100m` CPU, `128Mi` memory) and see how your app behaves.
+- Start with modest `requests` (for example `100m` CPU, `128Mi` memory) and see how your app behaves.
 - Monitor real-world usage and refine your values; the [Horizontal Pod Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) can help automate scaling based on metrics.
 - Keep an eye on `kubectl top pods` or your logging/monitoring tool to confirm you’re not over- or under-provisioning.
 
