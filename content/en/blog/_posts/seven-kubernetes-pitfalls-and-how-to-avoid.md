@@ -66,7 +66,8 @@ When resource requests and limits are not set:
 **The Pitfall**: Deploying the same YAML with the same resources and settings to dev, staging, and production. Different environments have different needs, traffic patterns, and sometimes secrets.
 
 **How to Avoid It**:
-- Use environment overlays or [kustomize](https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/) to maintain a shared base while customizing resource requests, replicas, or config for each environment.
+- Use environment overlays or [kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/) to maintain a shared base while customizing resource requests, replicas, or config for each environment.
+
 - Keep secrets or environment-specific data in separate files, or use a specialized tool (e.g., Sealed Secrets).
 - Plan for scale in production. Your dev cluster can probably get away with minimal CPU/memory, but prod might need significantly more.
 
