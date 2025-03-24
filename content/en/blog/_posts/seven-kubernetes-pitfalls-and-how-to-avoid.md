@@ -98,7 +98,6 @@ When resource requests and limits are not set:
 
 **My Reality Check**: I tried Istio on a small internal app once, then spent more time debugging Istio itself than the actual app. Eventually, I stepped back, removed Istio, and everything worked fine.
 
----
 
 ## 7. Going Too Light on Security and RBAC
 
