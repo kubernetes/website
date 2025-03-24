@@ -87,7 +87,8 @@ When resource requests and limits are not set:
 
 - **Leverage policy automation**: Tools like [Kyverno](https://kyverno.io/) can automatically delete or block stale resources after a certain period, or enforce lifecycle policies so you don’t have to remember every single cleanup step.
 
-**My Reality Check**: After a hackathon, I forgot to tear down a “test-svc” pinned to an external load balancer. Three weeks later, I realized I’d been paying for that LB the entire time. Facepalm.
+**My Reality Check**: After a hackathon, I forgot to tear down a “test-svc” pinned to an external load balancer. Three weeks later, I realized I’d been paying for that load balancer the entire time. Facepalm.
+
 
 
 ## 6. Diving Too Deep into Networking Too Soon
