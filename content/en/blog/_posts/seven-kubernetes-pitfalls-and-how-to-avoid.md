@@ -117,6 +117,7 @@ When resource requests and limits are not set:
 
 Kubernetes is amazing, but it’s not psychic, it won’t magically do the right thing if you don’t tell it what you need. By keeping these pitfalls in mind, you’ll avoid a lot of headaches and wasted time. Mistakes happen (trust me, I’ve made my share), but each one is a chance to learn more about how Kubernetes truly works under the hood.
 
-If you’re curious to dive deeper, the [official docs](https://kubernetes.io/docs/home/) and the [community Slack](http://slack.kubernetes.io/) are excellent next steps. And of course, feel free to share your own horror stories or success tips, because at the end of the day, we’re all in this cloud native adventure together.
+If you’re curious to dive deeper, the [official docs](/docs/home/) and the [community Slack](http://slack.kubernetes.io/) are excellent next steps. And of course, feel free to share your own horror stories or success tips, because at the end of the day, we’re all in this cloud native adventure together.
+
 
 **Happy Shipping!**
