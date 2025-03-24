@@ -28,7 +28,8 @@ When resource requests and limits are not set:
 - Monitor real-world usage and refine your values; the [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) can help automate scaling based on metrics.
 - Keep an eye on `kubectl top pods` or your logging/monitoring tool to confirm you’re not over- or under-provisioning.
 
-**My Reality Check**: Early on, I never thought about memory limits. Things seemed fine on my local cluster. Then, on a larger environment, Pods got OOMKilled left and right. Lesson learned.
+**My Reality Check**: Early on, I never thought about memory limits. Things seemed fine on my local cluster. Then, on a larger environment, Pods got *OOMKilled* left and right. Lesson learned.
+
 
 ---
 
