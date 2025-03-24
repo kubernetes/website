@@ -471,6 +471,6 @@ você precisará:
 
 ## {{% heading "whatsnext" %}}
 
-* Leia a [Especificação de Imagem OCI](https://github.com/opencontainers/image-spec/blob/master/manifest.md)
+* Leia a [Especificação do Manifesto de Imagem OCI](https://github.com/opencontainers/image-spec/blob/master/manifest.md)
 * Saiba mais sobre [coleta de lixo de imagens de contêiner](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection).
 * Saiba mais sobre [realizar download de uma imagem a partir de um registro privado](/docs/tasks/configure-pod-container/pull-image-private-registry).
