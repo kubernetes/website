@@ -58,7 +58,6 @@ When resource requests and limits are not set:
 
 **My Reality Check**: The first time I lost Pod logs to a quick restart, I realized how flimsy “kubectl logs” can be on its own. Since then, I’ve set up a proper pipeline for every cluster to avoid missing vital clues.
 
----
 
 ## 4. Treating Dev and Prod Exactly the Same
 
