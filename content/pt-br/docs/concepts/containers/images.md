@@ -177,10 +177,8 @@ O Kubernetes inclui suporte em estado alpha para realizar o download de imagens 
 Se você habilitar o [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `RuntimeClassInImageCriApi`,
 o kubelet passará a referenciar imagens de contêiner por uma tupla (nome da imagem, manipulador de agente de execução)
 em vez de apenas pelo nome da imagem ou digest.
-
-Seu {{< glossary_tooltip text="runtime do contêiner" term_id="container-runtime" >}} pode adaptar seu comportamento
+Seu {{< glossary_tooltip text="agente de execução do contêiner" term_id="container-runtime" >}} pode adaptar seu comportamento
 com base no manipulador de agente de execução selecionado.
-
 Fazer download de imagens com base na classe de agente de execução será útil para contêineres baseados em máquina virtual, como contêineres do tipo Windows Hyper-V.
 
 ## Downloads de imagem em série e em paralelo
