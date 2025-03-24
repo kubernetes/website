@@ -83,7 +83,8 @@ When resource requests and limits are not set:
 **How to Avoid It**:
 - **Label everything** with a purpose or owner label. That way, you can easily query resources you no longer need.
 - **Regularly audit** your cluster: run `kubectl get all -n <namespace>` to see what’s actually running, and confirm it’s all legit.
-- **Adopt Kubernetes’ Garbage Collection**: [K8s docs](https://kubernetes.io/docs/concepts/workloads/controllers/garbage-collection/) show how to remove dependent objects automatically.
+- **Adopt Kubernetes’ Garbage Collection**: [K8s docs](/docs/concepts/workloads/controllers/garbage-collection/) show how to remove dependent objects automatically.
+
 - **Leverage policy automation**: Tools like [Kyverno](https://kyverno.io/) can automatically delete or block stale resources after a certain period, or enforce lifecycle policies so you don’t have to remember every single cleanup step.
 
 **My Reality Check**: After a hackathon, I forgot to tear down a “test-svc” pinned to an external load balancer. Three weeks later, I realized I’d been paying for that LB the entire time. Facepalm.
