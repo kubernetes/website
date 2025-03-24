@@ -212,17 +212,15 @@ em paralelo para os dois Pods diferentes, quando o download paralelo estiver hab
 Quando `serializeImagePulls` está definido como `false`, o kubelet, por padrão, não impõe limite
 ao número máximo de imagens sendo puxadas ao mesmo tempo. Se você quiser limitar a quantidade
 de downloads de imagem paralelos, pode definir o campo `maxParallelImagePulls` na configuração do kubelet.
-
 Com `maxParallelImagePulls` definido como _n_, apenas _n_ imagens podem ser puxadas simultaneamente,
 e qualquer download de imagem além de _n_ terá que aguardar até que pelo menos um download em andamento seja concluído.
 
 Limitar o número de downloads de imagem paralelos ajuda a evitar que o processo de download consuma
-muita largura de banda de rede ou I/O de disco, quando o pull paralelo estiver habilitado.
+muita largura de banda de rede ou I/O de disco quando esta funcionalidade estiver habilitada.
 
 Você pode definir `maxParallelImagePulls` para um número positivo maior ou igual a 1.
 Se você definir `maxParallelImagePulls` como maior ou igual a 2, também deverá definir
 `serializeImagePulls` como `false`.
-
 O kubelet não iniciará se as configurações de `maxParallelImagePulls` forem inválidas.
 
 ## Multiarquitetura de imagens com índice de imagens
