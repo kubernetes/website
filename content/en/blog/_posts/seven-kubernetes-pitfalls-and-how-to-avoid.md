@@ -38,17 +38,14 @@ When resource requests and limits are not set:
 
 **How to Avoid It**:
 - Add a simple HTTP `livenessProbe` to check a health endpoint (for example `/healthz`) so Kubernetes can restart a hung container.
-
 - Use a `readinessProbe` to ensure traffic doesn’t reach your app until it’s warmed up.
 - Keep probes simple. Overly complex checks can create false alarms and unnecessary restarts.
 
 **My Reality Check**: I once forgot a readiness probe for a web service that took a while to load. Users hit it prematurely, got weird timeouts, and I spent hours scratching my head. A 3-line readiness probe would have saved the day.
 
-
 ## 3. “We’ll Just Look at Container Logs” (Famous Last Words)
 
 **The Pitfall**: Relying solely on ephemeral Pod logs for troubleshooting. Once a Pod restarts or gets replaced, those logs vanish, and you lose critical debugging context.
-
 
 **How to Avoid It**:
 - **Centralize logs** using CNCF tools like [Fluentd](https://kubernetes.io/docs/concepts/cluster-administration/logging/#sidecar-container-with-a-logging-agent) or [Fluent Bit](https://fluentbit.io/) to aggregate output from all Pods.
