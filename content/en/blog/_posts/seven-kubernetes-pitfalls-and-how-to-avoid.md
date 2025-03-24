@@ -44,7 +44,6 @@ When resource requests and limits are not set:
 
 **My Reality Check**: I once forgot a readiness probe for a web service that took a while to load. Users hit it prematurely, got weird timeouts, and I spent hours scratching my head. A 3-line readiness probe would have saved the day.
 
----
 
 ## 3. “We’ll Just Look at Container Logs” (Famous Last Words)
 
