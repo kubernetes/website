@@ -68,7 +68,8 @@ When resource requests and limits are not set:
 **How to Avoid It**:
 - Use environment overlays or [kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/) to maintain a shared base while customizing resource requests, replicas, or config for each environment.
 
-- Keep secrets or environment-specific data in separate files, or use a specialized tool (e.g., Sealed Secrets).
+- Keep secrets or environment-specific data in separate files, or use a specialized tool (like Sealed Secrets).
+
 - Plan for scale in production. Your dev cluster can probably get away with minimal CPU/memory, but prod might need significantly more.
 
 **My Reality Check**: One time, I scaled up `replicaCount` from 2 to 10 in a tiny dev environment just to “test.” I promptly ran out of resources and spent half a day cleaning up the aftermath. Oops.
