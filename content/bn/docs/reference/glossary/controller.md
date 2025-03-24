@@ -4,7 +4,7 @@ id: controller
 date: 2018-04-12
 full_link: /docs/concepts/architecture/controller/
 short_description: >
-  এটি একটি কন্ট্রোল লুপ যা এপিআই সার্ভারের মাধ্যমে ক্লাস্টারের শেয়ার্ড স্টেট পর্যবেক্ষণ করে এবং বর্তমান স্টেটকে কাঙ্ক্ষিত স্টেটের দিকে নিয়ে যাওয়ার জন্য পরিবর্তন করে।
+  এটি একটি কন্ট্রোল লুপ যা apiserver এর মাধ্যমে ক্লাস্টারের শেয়ার্ড স্টেট পর্যবেক্ষণ করে এবং বর্তমান স্টেটকে কাঙ্ক্ষিত স্টেটের দিকে নিয়ে যাওয়ার জন্য পরিবর্তন করে।
 
 aka: 
 tags:
@@ -19,8 +19,8 @@ tags:
 
 <!--more-->
 
-কন্ট্রোলারগুলো {{< glossary_tooltip text="এপিআইসার্ভার" term_id="kube-apiserver" >}} 
-(এপিআইসার্ভার {{< glossary_tooltip term_id="control-plane" >}} এর অংশ) 
+কন্ট্রোলারগুলো {{< glossary_tooltip text="apiserver" term_id="kube-apiserver" >}} 
+(apiserver {{< glossary_tooltip term_id="control-plane" >}} এর অংশ) 
 এর মাধ্যমে আপনার ক্লাস্টারের শেয়ার্ড স্টেট পর্যবেক্ষণ করে।
 
 কিছু কন্ট্রোলার কন্ট্রোল প্লেনের ভিতরেও চলে, 
