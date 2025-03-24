@@ -62,7 +62,7 @@ Alguns exemplos de nomes de imagem que o Kubernetes pode usar são:
 
 Quando você cria um {{< glossary_tooltip text="Deployment" term_id="deployment" >}},
 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}, Pod ou outro
-objeto que inclua um template de Pod, por padrão a política para puxar as imagens dos contêineres nesse Pod será definida como `IfNotPresent`, caso não seja especificada explicitamente.
+objeto que inclua um template de Pod, por padrão a política utilizada para baixar as imagens dos contêineres nesse Pod será definida como `IfNotPresent` quando não especificada explicitamente.
 Essa política faz com que o {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} ignore o download da imagem se ela já existir.
 
 ### Política de puxar a imagem
