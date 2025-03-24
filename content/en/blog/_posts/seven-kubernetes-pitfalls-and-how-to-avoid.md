@@ -64,9 +64,7 @@ For comprehensive instructions on configuring liveness, readiness, and startup p
 
 **How to Avoid It**:
 - Use environment overlays or [kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/) to maintain a shared base while customizing resource requests, replicas, or config for each environment.
-
 - Keep secrets or environment-specific data in separate files, or use a specialized tool (like Sealed Secrets).
-
 - Plan for scale in production. Your dev cluster can probably get away with minimal CPU/memory, but prod might need significantly more.
 
 **My Reality Check**: One time, I scaled up `replicaCount` from 2 to 10 in a tiny dev environment just to “test.” I promptly ran out of resources and spent half a day cleaning up the aftermath. Oops.
@@ -80,7 +78,6 @@ For comprehensive instructions on configuring liveness, readiness, and startup p
 - **Label everything** with a purpose or owner label. That way, you can easily query resources you no longer need.
 - **Regularly audit** your cluster: run `kubectl get all -n <namespace>` to see what’s actually running, and confirm it’s all legit.
 - **Adopt Kubernetes’ Garbage Collection**: [K8s docs](/docs/concepts/workloads/controllers/garbage-collection/) show how to remove dependent objects automatically.
-
 - **Leverage policy automation**: Tools like [Kyverno](https://kyverno.io/) can automatically delete or block stale resources after a certain period, or enforce lifecycle policies so you don’t have to remember every single cleanup step.
 
 **My Reality Check**: After a hackathon, I forgot to tear down a “test-svc” pinned to an external load balancer. Three weeks later, I realized I’d been paying for that load balancer the entire time. Facepalm.
@@ -105,7 +102,6 @@ For comprehensive instructions on configuring liveness, readiness, and startup p
 
 **How to Avoid It**:
 - Use [RBAC](/docs/reference/access-authn-authz/rbac/) to define clear roles and permissions.
-
 - Pin images to specific versions (no more `:latest`!). This helps you know what’s actually deployed.
 - Look into [Pod Security Admission](/docs/concepts/security/pod-security-admission/) (or other solutions like Kyverno) to enforce non-root containers, read-only filesystems, etc.
 
