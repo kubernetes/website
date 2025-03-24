@@ -88,7 +88,6 @@ When resource requests and limits are not set:
 
 **My Reality Check**: After a hackathon, I forgot to tear down a “test-svc” pinned to an external load balancer. Three weeks later, I realized I’d been paying for that LB the entire time. Facepalm.
 
----
 
 ## 6. Diving Too Deep into Networking Too Soon
 
