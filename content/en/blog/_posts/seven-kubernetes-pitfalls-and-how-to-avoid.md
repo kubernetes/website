@@ -30,6 +30,7 @@ When resource requests and limits are not set:
 
 **My Reality Check**: Early on, I never thought about memory limits. Things seemed fine on my local cluster. Then, on a larger environment, Pods got *OOMKilled* left and right. Lesson learned.
 
+For detailed instructions on configuring resource requests and limits for your containers, please refer to the comprehensive guide available in the [official Kubernetes documentation](/docs/tasks/configure-pod-container/assign-memory-resource/).
 
 
 ## 2. Underestimating Liveness and Readiness Probes
@@ -42,6 +43,8 @@ When resource requests and limits are not set:
 - Keep probes simple. Overly complex checks can create false alarms and unnecessary restarts.
 
 **My Reality Check**: I once forgot a readiness probe for a web service that took a while to load. Users hit it prematurely, got weird timeouts, and I spent hours scratching my head. A 3-line readiness probe would have saved the day.
+
+For comprehensive instructions on configuring liveness, readiness, and startup probes for containers, please refer to the official Kubernetes documentation in this [article](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 ## 3. “We’ll Just Look at Container Logs” (Famous Last Words)
 
