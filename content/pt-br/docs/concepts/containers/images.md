@@ -109,7 +109,6 @@ substitua `<image-name>:<tag>` por `<image-name>@<digest>`
 
 Ao usar tags de imagem, se o registro de imagens alterar o código que a tag representa,
 você pode acabar com uma mistura de Pods executando o código antigo e o novo.
-
 Um digest de imagem identifica de forma única uma versão específica da imagem,
 então o Kubernetes executa o mesmo código sempre que inicia um contêiner com aquele nome
 de imagem e digest especificado. Especificar uma imagem por digest fixa o código que será
