@@ -40,7 +40,7 @@ Digests são identificadores únicos para uma versão específica de uma imagem.
 Tags de imagem consistem em letras minúsculas e maiúsculas, dígitos, sublinhados (`_`),
 pontos (`.`) e hifens (`-`). Elas podem ter até 128 caracteres de comprimento e devem seguir
 o seguinte padrão de expressão regular: `[a-zA-Z0-9_][a-zA-Z0-9._-]{0,127}`.
-Você pode ler mais sobre isso e encontrar a expressão regular de validação na
+Você pode ler mais sobre e encontrar a expressão regular de validação na
 [Especificação de Distribuição OCI](https://github.com/opencontainers/distribution-spec/blob/master/spec.md#workflow-categories).
 Se você não especificar uma tag, o Kubernetes assume que você está se referindo à tag `latest`.
 
