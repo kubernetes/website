@@ -31,7 +31,7 @@ As imagens também podem incluir um hostname de algum registro; por exemplo: `ex
 e um possível número de porta; por exemplo: `exemplo.registro.ficticio:10443/nomeimagem`.
 
 Se você não especificar um nome de host do registro, o Kubernetes assume que você está se referindo ao [registro público do Docker](https://hub.docker.com/).
-Você pode alterar esse comportamento definindo um registro de imagem padrão na configuração do [runtime do contêiner](/docs/setup/production-environment/container-runtimes/).
+Você pode alterar esse comportamento definindo um registro de imagem padrão na configuração do [agente de execução do contêiner](/docs/setup/production-environment/container-runtimes/).
 
 Após a parte do nome da imagem, você pode adicionar uma _tag_ ou _digest_ (da mesma forma que faria ao usar comandos
 como `docker` ou `podman`). As tags permitem identificar diferentes versões da mesma série de imagens.
