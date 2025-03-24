@@ -107,7 +107,8 @@ When resource requests and limits are not set:
 - Use [RBAC](/docs/reference/access-authn-authz/rbac/) to define clear roles and permissions.
 
 - Pin images to specific versions (no more `:latest`!). This helps you know what’s actually deployed.
-- Look into [Pod Security Admission](https://kubernetes.io/docs/concepts/security/pod-security-admission/) (or other solutions like Kyverno) to enforce non-root containers, read-only filesystems, etc.
+- Look into [Pod Security Admission](/docs/concepts/security/pod-security-admission/) (or other solutions like Kyverno) to enforce non-root containers, read-only filesystems, etc.
+
 
 **My Reality Check**: I never had a huge security breach, but i’ve heard plenty of cautionary tales. If you don’t tighten things up, it’s only a matter of time before something goes wrong.
 
