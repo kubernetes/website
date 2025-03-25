@@ -8,7 +8,7 @@ weight: 30
 
 이 가이드는 [Kubespray](https://github.com/kubernetes-sigs/kubespray)를 이용하여 GCE, Azure, OpenStack, AWS, vSphere, Equinix Metal(전 Packet), Oracle Cloud infrastructure(실험적) 또는 베어메탈 등에서 운영되는 쿠버네티스 클러스터를 설치하는 과정을 보여준다.
 
-Kubespray는 [Ansible](https://docs.ansible.com/) 플레이북, [인벤토리](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md#inventory), 프로비저닝 도구와 일반적인 운영체제, 쿠버네티스 클러스터의 설정 관리 작업에 대한 도메인 지식의 결합으로 만들어졌다. Kubespray는 아래와 같은 기능을 제공한다.
+Kubespray는 [Ansible](https://docs.ansible.com/) 플레이북, [인벤토리](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible/inventory.md), 프로비저닝 도구와 일반적인 운영체제, 쿠버네티스 클러스터의 설정 관리 작업에 대한 도메인 지식의 결합으로 만들어졌다. Kubespray는 아래와 같은 기능을 제공한다.
 
 Kubespray 지원 사항
 * 고가용성을 지닌 클러스터
