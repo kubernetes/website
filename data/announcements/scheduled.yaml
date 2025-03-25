@@ -300,7 +300,7 @@ announcements:
     background: linear-gradient(90deg, rgba(229,64,216,1) 60%, rgba(0,212,255,1) 100%);
     color: #fffff;
   title: |
-    <img src ="https://github.com/cncf/artwork/tree/main/other/kubecon-cloudnativecon/2025-china" style="float: right; height: 100px;" />
+    <img src ="/images/announcements/kccnc-china-2025-white.svg" style="float: right; height: 100px;" />
     <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-china/">KubeCon + CloudNativeCon + Open Source Summit China 2025</a>
   message: |
     Join us for two days of incredible opportunities to collaborate, learn and share with the cloud native community.<br/> 
