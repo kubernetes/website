@@ -990,6 +990,19 @@ following field value is supported:
 : Indicates a preference for routing traffic to endpoints that are in the same
   zone as the client.
 
+{{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
+
+Two additional values are available when the `PreferSameTrafficDistribution`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
+enabled:
+
+`PreferSameZone`
+: This is an alias for `PreferClose` that is clearer about the intended semantics.
+
+`PreferSameNode`
+: Indicates a preference for routing traffic to endpoints that are on the same
+  node as the client.
+
 If the field is not set, the implementation will apply its default routing strategy.
 
 See [Traffic

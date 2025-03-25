@@ -655,12 +655,33 @@ express preferences for how traffic should be routed to Service endpoints.
   If a client's zone does not have any available endpoints, traffic will be
   routed cluster-wide for that client.
 
+{{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
+
+Two additional values are available when the `PreferSameTrafficDistribution`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
+enabled:
+
+`PreferSameZone`
+: This means the same thing as `PreferClose`, but is more explicit. (Originally,
+  the intention was that `PreferClose` might later include functionality other
+  than just "prefer same zone", but this is no longer planned. In the future,
+  `PreferSameZone` will be the recommended value to use for this functionality,
+  and `PreferClose` will be considered a deprecated alias for it.)
+
+`PreferSameNode`
+: This prioritizes sending traffic to endpoints on the same node as the client.
+  As with `PreferClose`/`PreferSameZone`, the EndpointSlice controller updates
+  EndpointSlices with `hints` indicating that a slice should be used for a
+  particular node. If a client's node does not have any available endpoints,
+  then the service proxy will fall back to "same zone" behavior, or cluster-wide
+  if there are no same-zone endpoints either.
+
 In the absence of any value for `trafficDistribution`, the default strategy is
 to distribute traffic evenly to all endpoints in the cluster.
 
 ### Comparison with `service.kubernetes.io/topology-mode: Auto`
 
-The `trafficDistribution` field with `PreferClose` and the older "Topology-Aware
+The `trafficDistribution` field with `PreferClose`/`PreferSameZone`, and the older "Topology-Aware
 Routing" feature using the `service.kubernetes.io/topology-mode: Auto`
 annotation both aim to prioritize same-zone traffic. However, there is a key
 difference in their approaches:
@@ -692,35 +713,38 @@ interacts with them:
 
 * Precedence of Traffic Policies: For a given Service, if a traffic policy
   (`externalTrafficPolicy` or `internalTrafficPolicy`) is set to `Local`, it
-  takes precedence over `trafficDistribution: PreferClose` for the corresponding
+  takes precedence over `trafficDistribution` for the corresponding
   traffic type (external or internal, respectively).
 
 * `trafficDistribution` Influence: For a given Service, if a traffic policy
   (`externalTrafficPolicy` or `internalTrafficPolicy`) is set to `Cluster` (the
-  default), or if the fields are not set, then `trafficDistribution:
-  PreferClose` guides the routing behavior for the corresponding traffic type
+  default), or if the fields are not set, then `trafficDistribution`
+  guides the routing behavior for the corresponding traffic type
   (external or internal, respectively). This means that an attempt will be made
   to route traffic to an endpoint that is in the same zone as the client.
 
 ### Considerations for using traffic distribution control  
 
-The `PreferClose` heuristic will attempt to route traffic to (healthy) endpoints
-in the same zone, even if this means that endpoints in one zone receive much
-more traffic than endpoints in another zone. If you do not have a sufficient
-number of endpoints within a zone, they may become overloaded. This is
+A Service using `trafficDistribution` will attempt to route traffic to (healthy)
+endpoints within the appropriate topology, even if this means that some
+endpoints receive much more traffic than other endpoints. If you do not have a
+sufficient number of endpoints within the same topology ("same zone", "same
+node", etc.) as the clients, then endpoints may become overloaded. This is
 especially likely if incoming traffic is not proportionally distributed across
-zones. To mitigate this, consider the following strategies:
+the topology. To mitigate this, consider the following strategies:
 
 * [Pod Topology Spread
   Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/):
-  Use Pod Topology Spread Constraints to distribute your pods more evenly
-  across zones.
+  Use Pod Topology Spread Constraints to distribute your pods evenly
+  across zones or nodes.
 
-* Zone-specific Deployments: If you expect to see skewed traffic patterns,
-  you can create a separate Deployment for each zone. This approach allows the
-  separate workloads to scale independently. There are also workload
-  management addons available from the ecosystem, outside the Kubernetes
-  project itself, that can help here.
+* Zone-specific Deployments: If you are using "same zone" traffic
+  distribution, but expect to see different traffic patterns in
+  different zones, you can create a separate Deployment for each zone.
+  This approach allows the separate workloads to scale independently.
+  There are also workload management addons available from the
+  ecosystem, outside the Kubernetes project itself, that can help
+  here.
 
 ## {{% heading "whatsnext" %}}
 
