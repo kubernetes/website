@@ -390,8 +390,8 @@ Secrets must be of type `kubernetes.io/dockercfg` or `kubernetes.io/dockerconfig
 If the `KubeletEnsureSecretPulledImages` feature gate
 is enabled, Kubernetes will require valid authentication credentials for every pod
 image, even if that image is already present on the node. This is controlled by the
-`ImagePullcredentialsVerificationPolicy` option in the
-[Kubelet config](/docs/reference/config-api/kubelet-config.v1beta1#ImagePullCredentialsVerificationPolicy).
+`imagePullCredentialsVerificationPolicy` field in the
+[Kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1#ImagePullCredentialsVerificationPolicy).
 
 This configuration controls when image pull credentials must be verified if the
 image is already present on the node:
@@ -401,7 +401,7 @@ image is already present on the node:
  the registry.
  * `NeverVerifyPreloadedImages`: Pre-pulled images do not need authentication, but all 
  other images will have their credentials verified.
- * `NeverVerifyAllowListedImages`: Only images within the `PreLoadedImagesVerificationAllowList`
+ * `NeverVerifyAllowListedImages`: Only images within the `preloadedImagesVerificationAllowlist`
  specified in the kubelet config will not have their credentials verified.
  * `AlwaysVerify`: All images will have their credentials verified locally before they can
  be used.
