@@ -647,39 +647,36 @@ pool.
 
 The `spec.trafficDistribution` field within a Kubernetes Service allows you to
 express preferences for how traffic should be routed to Service endpoints.
-Implementations like kube-proxy use the `spec.trafficDistribution` field as a
-guideline. The behavior associated with a given preference may subtly differ
-between implementations.
 
-`PreferClose` with kube-proxy
-: For kube-proxy, this means prioritizing sending traffic to endpoints within
-  the same zone as the client. The EndpointSlice controller updates
-  EndpointSlices with `hints` to communicate this preference, which kube-proxy
-  then uses for routing decisions. If a client's zone does not have any
-  available endpoints, traffic will be routed cluster-wide for that client.
+`PreferClose`
+: This prioritizes sending traffic to endpoints in the same zone as the client.
+  The EndpointSlice controller updates EndpointSlices with `hints` to
+  communicate this preference, which kube-proxy then uses for routing decisions.
+  If a client's zone does not have any available endpoints, traffic will be
+  routed cluster-wide for that client.
 
-In the absence of any value for `trafficDistribution`, the default routing
-strategy for kube-proxy is to distribute traffic to any endpoint in the cluster.
+In the absence of any value for `trafficDistribution`, the default strategy is
+to distribute traffic evenly to all endpoints in the cluster.
 
 ### Comparison with `service.kubernetes.io/topology-mode: Auto`
 
-The `trafficDistribution` field with `PreferClose` and the
-`service.kubernetes.io/topology-mode: Auto` annotation both aim to prioritize
-same-zone traffic. However, there are key differences in their approaches:
+The `trafficDistribution` field with `PreferClose` and the older "Topology-Aware
+Routing" feature using the `service.kubernetes.io/topology-mode: Auto`
+annotation both aim to prioritize same-zone traffic. However, there is a key
+difference in their approaches:
 
-* `service.kubernetes.io/topology-mode: Auto`: Attempts to distribute traffic
+* `service.kubernetes.io/topology-mode: Auto` attempts to distribute traffic
   proportionally across zones based on allocatable CPU resources. This heuristic
   includes safeguards (such as the [fallback
   behavior](/docs/concepts/services-networking/topology-aware-routing/#three-or-more-endpoints-per-zone)
-  for small numbers of endpoints) and could lead to the feature being disabled
-  in certain scenarios for load-balancing reasons. This approach sacrifices some
-  predictability in favor of potential load balancing.
+  for small numbers of endpoints), sacrificing some predictability in favor of
+  potentially better load balancing.
 
-* `trafficDistribution: PreferClose`: This approach aims to be slightly simpler
-  and more predictable: "If there are endpoints in the zone, they will receive
-  all traffic for that zone, if there are no endpoints in a zone, the traffic
-  will be distributed to other zones". While the approach may offer more
-  predictability, it does mean that you are in control of managing a [potential
+* `trafficDistribution: PreferClose` aims to be simpler and more predictable:
+  "If there are endpoints in the zone, they will receive all traffic for that
+  zone, if there are no endpoints in a zone, the traffic will be distributed to
+  other zones". This approach offers more predictability, but it means that you
+  are responsible for [avoiding endpoint
   overload](#considerations-for-using-traffic-distribution-control).
 
 If the `service.kubernetes.io/topology-mode` annotation is set to `Auto`, it
@@ -707,29 +704,23 @@ interacts with them:
 
 ### Considerations for using traffic distribution control  
 
-* **Increased Probability of Overloaded Endpoints:** The `PreferClose`
-  heuristic will attempt to route traffic to the closest healthy endpoints
-  instead of spreading that traffic evenly across all endpoints. If you do not
-  have a sufficient number of endpoints within a zone, they may become
-  overloaded. This is especially likely if incoming traffic is not
-  proportionally distributed across zones. To mitigate this, consider the
-  following strategies:
+The `PreferClose` heuristic will attempt to route traffic to (healthy) endpoints
+in the same zone, even if this means that endpoints in one zone receive much
+more traffic than endpoints in another zone. If you do not have a sufficient
+number of endpoints within a zone, they may become overloaded. This is
+especially likely if incoming traffic is not proportionally distributed across
+zones. To mitigate this, consider the following strategies:
 
-    * [Pod Topology Spread
-      Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/):
-      Use Pod Topology Spread Constraints to distribute your pods more evenly
-      across zones.
+* [Pod Topology Spread
+  Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/):
+  Use Pod Topology Spread Constraints to distribute your pods more evenly
+  across zones.
 
-    * Zone-specific Deployments: If you expect to see skewed traffic patterns,
-      create a separate Deployment for each zone. This approach allows the
-      separate workloads to scale independently. There are also workload
-      management addons available from the ecosystem, outside the Kubernetes
-      project itself, that can help here.
-
-* **Implementation-specific behavior:** Each dataplane implementation may handle
-  this field slightly differently. If you're using an implementation other than
-  kube-proxy, refer the documentation specific to that implementation to
-  understand how this field is being handled.
+* Zone-specific Deployments: If you expect to see skewed traffic patterns,
+  you can create a separate Deployment for each zone. This approach allows the
+  separate workloads to scale independently. There are also workload
+  management addons available from the ecosystem, outside the Kubernetes
+  project itself, that can help here.
 
 ## {{% heading "whatsnext" %}}
 
