@@ -324,6 +324,50 @@ When the feature is disabled, that field automatically gets cleared when storing
 A ResourceClaim device status is supported when it is possible, from a DRA driver, to update an 
 existing ResourceClaim where the `status.devices` field is set. 
 
+## Prioritized List
+
+{{< feature-state feature_gate_name="DRAPrioritizedList" >}}
+
+You can provide a prioritized list of subrequests for requests in a ResourceClaim. The
+scheduler will then select the first subrequest that can be allocated. This allows users to
+specify alternative devices that can be used by the workload if the primary choice is not
+available.
+
+In the example above, the ResourceClaimTemplate requested a device with the color black
+and the size large. If a device with those attributes are not available, the pod can not
+be scheduled. With the priotized list feature, a second alternative can be specified, which
+requests two devices with the color white and size small. The large black device will be
+allocated if it is available. But if it is not and two small white devices are available,
+the pod will still be able to run.
+
+```yaml
+apiVersion: resource.k8s.io/v1beta1
+kind: ResourceClaimTemplate
+metadata:
+  name: prioritized-list-claim-template
+spec:
+  spec:
+    devices:
+      requests:
+      - name: req-0
+        firstAvailable:
+        - name: large-black
+          deviceClassName: resource.example.com
+          selectors:
+          - cel:
+              expression: |-
+                device.attributes["resource-driver.example.com"].color == "black" &&
+                device.attributes["resource-driver.example.com"].size == "large"
+        - name: small-white
+          deviceClassName: resource.example.com
+          selectors:
+          - cel:
+              expression: |-
+                device.attributes["resource-driver.example.com"].color == "white" &&
+                device.attributes["resource-driver.example.com"].size == "small"
+          count: 2
+```
+
 ## Enabling dynamic resource allocation
 
 Dynamic resource allocation is a *beta feature* which is off by default and only enabled when the
@@ -379,6 +423,10 @@ and only enabled when the `DRAResourceClaimDeviceStatus`
 is enabled in the kube-apiserver.
 
 ### Enabling Prioritized List
+
+[Prioritized List](#prioritized-list)) is an *alpha feature* and only enabled when the
+`DRAPrioritizedList` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kube-apiserver and kube-scheduler.
 
 ## {{% heading "whatsnext" %}}
 
