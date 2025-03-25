@@ -1,7 +1,5 @@
 ---
 title: "Contoh: Men-deploy WordPress dan MySQL dengan Persistent Volumes"
-reviewers:
-- ahmetb
 content_type: tutorial
 weight: 20
 card: 
