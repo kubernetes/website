@@ -369,7 +369,7 @@ private registry.
 
 {{< note >}}
 {{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
-Read access to images pre-pulled to a node can be authenticated according to [image pull credential verification](#ensureimagepullcredentialverification)
+Access to pre-pulled images can be authorized according to [image pull credential verification](#ensureimagepullcredentialverification)
 {{< /note >}}
 
 ### Specifying imagePullSecrets on a Pod
@@ -387,41 +387,45 @@ Secrets must be of type `kubernetes.io/dockercfg` or `kubernetes.io/dockerconfig
 
 {{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
 
-If the `KubeletEnsureSecretPulledImages` feature gate
-is enabled, Kubernetes will require valid authentication credentials for every pod
-image, even if that image is already present on the node. This is controlled by the
-`imagePullCredentialsVerificationPolicy` field in the
+If the `KubeletEnsureSecretPulledImages` feature gate is enabled, Kubernetes
+will validate image credentials for every image that requires credentials 
+to be pulled, even if that image is already present on the node. This validation
+ensures that images in a pod request which have not been successfully pulled with the
+provided credentials must re-pull the images from the registry.
+Additionally, image pulls that re-use the same credentials which previously resulted 
+in a successful image pull will not need to re-pull from the registry and are instead 
+validated locally without accessing the registry.
+This is controlled by the`imagePullCredentialsVerificationPolicy` field in the
 [Kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1#ImagePullCredentialsVerificationPolicy).
 
 This configuration controls when image pull credentials must be verified if the
 image is already present on the node:
 
  * `NeverVerify`: Mimics the behavior of having this feature gate disabled. If the image
- is present locally, no authentication is verified except by authenticating directly with
- the registry.
- * `NeverVerifyPreloadedImages`: Pre-pulled images do not need authentication, but all 
- other images will have their credentials verified.
- * `NeverVerifyAllowListedImages`: Only images within the `preloadedImagesVerificationAllowlist`
- specified in the kubelet config will not have their credentials verified.
- * `AlwaysVerify`: All images will have their credentials verified locally before they can
+ is present locally, image pull credentials are not verified.
+ * `NeverVerifyPreloadedImages`: Images pulled outside the kubelet are not verified,
+ but all other images will have their credentials verified. This is the default behavior.
+ * `NeverVerifyAllowListedImages`: Images pulled outside the kubelet and mentioned within the 
+ `preloadedImagesVerificationAllowlist` specified in the kubelet config are not verified.
+ * `AlwaysVerify`: All images will have their credentials verified before they can
  be used.
 
-With this feature enabled, image pulls which reuse the same credentials and image digest
-(in the case of a restarted container, for example), will not need to reauthenticate to
+With this feature enabled, image pulls which reuse the same credentials and image
+(in the case of a restarted container, for example), will not need to re-pull from
 the registry if that image is present either through caching or as a pre-pulled image.
 The kubelet verifies this by comparing the secret reference and a hash of the credentials used
-against the digest of the iamge being requested. If the reference, hash, and digest match a
+against the CRI image reference being requested. If the reference, hash, and image match a
 previously successful image pull, and a copy of the image is available locally either
 through pre-pulling or caching, then no call will be made to the registry and the local
-image will be used. Otherwise, the kubelet will authenticate the image pull against the
-registry before allowing the pod to run the image, even if the image is already present.
-This verification applies to [pre-pulled images](#pre-pulled-images), images pulled using
-node-wide secrets, and images pulled using pod-level secrets.
+image will be used. Otherwise, the kubelet will use the provided credentials to re-pull
+the image from the registry before allowing the pod to run the image, even if the image is
+already present. This verification applies to [pre-pulled images](#pre-pulled-images),
+images pulled using node-wide secrets, and images pulled using pod-level secrets.
 
 {{< note >}}
-Image pull credentials which expire will successfully verify if the same credential and image
-digest are used. If expiring pull credentials are a concern, use an `ImagePullPolicy` of
-`Always` to always force kubelet to authenticate against the registry.
+In the case of credential rotation, the credentials used to previously pull the image
+will continue to verify without accessing the registry. New or rotated credentials
+will require the image to be re-pulled from the registry.
 {{< /note >}}
 
 #### Creating a Secret with a Docker config

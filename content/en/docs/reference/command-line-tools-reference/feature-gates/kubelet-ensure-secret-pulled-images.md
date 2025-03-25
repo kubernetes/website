@@ -10,8 +10,6 @@ stages:
     defaultValue: false
     fromVersion: "1.33"
 ---
-Forces the Kubelet to re-verify image pull credentials,
-even for cached or pre-pulled images. Does not require
-authenticating to the registry when pulling an image 
-with the same digest and credentials.
+Ensure that pods using an image are authorized to access the image
+with the provided credentials, even if the image is already present.
  See [Ensure Image Pull Credential Verification](/docs/concepts/containers/images#ensureimagepullcredentialverification).

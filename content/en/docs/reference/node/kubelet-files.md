@@ -153,16 +153,15 @@ stores state locally at `/var/lib/kubelet/graceful_node_shutdown_state`.
 {{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
 
 The kubelet stores records of attempted and successful image pulls, and uses it to
-verify that the image was previously successfully pulled with the same credentials. The 
-image digest, secret reference, and a hash of the secret used are stored to be verified
-against future image pulls.
+verify that the image was previously successfully pulled with the same credentials.
 
-These records are cached and also stored as files in the kubelet's base directory,
-under `/var/lib/kubelet/image_manager`. This subdirectory has two subdirectories:
+These records are cached and also stored as files in the `plugins_registry` within the 
+kubelet base directory, so on a typical Linux node this means `/var/lib/kubelet/image_manager`.
+This subdirectory has two subdirectories:
 * `pulling` - stores records about images the Kubelet is attempting to pull.
-* `pulled` - stores records about images that were successfully pulled by the Kubelet, along with metadata about the credentials used for the pull 
-with the secret reference and a SHA-256 hash of the secret used to authenticate the
-image pull.
+* `pulled` - stores records about images that were successfully pulled by the Kubelet, along with
+metadata about the credentials used, the secret reference and a SHA-256 hash of the secret used 
+to authenticate the image pull.
 
 See [private registries](/docs/concepts/containers/images#ensureimagepullcredentialverification)
 for details.
