@@ -131,14 +131,13 @@ your cluster. Those fields are:
   See [Label Selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
   for more details.
 
-- **matchLabelKeys** is a list of pod label keys to select the group of pods over which 
-  the spreading skew will be calculated. At a pod creation, 
-  the kube-apiserver uses those keys to lookup values from the incoming pod labels,
-  and those key-value labels will be merged with any existing `labelSelector`.
-  The same key is forbidden to exist in both `matchLabelKeys` and `labelSelector`. 
-  `matchLabelKeys` cannot be set when `labelSelector` isn't set. 
-  Keys that don't exist in the pod labels will be ignored. 
-  A null or empty list means only match against the `labelSelector`.
+- **matchLabelKeys** is a list of pod label keys to select the pods over which
+  spreading will be calculated. The keys are used to lookup values from the pod labels,
+  those key-value labels are ANDed with `labelSelector` to select the group of existing
+  pods over which spreading will be calculated for the incoming pod. The same key is
+  forbidden to exist in both `matchLabelKeys` and `labelSelector`. `matchLabelKeys` cannot
+  be set when `labelSelector` isn't set. Keys that don't exist in the pod labels will be
+  ignored. A null or empty list means only match against the `labelSelector`.
 
   {{< caution >}}
   It's not recommended to use `matchLabelKeys` with labels that might be updated directly on pods.
@@ -178,7 +177,8 @@ your cluster. Those fields are:
   If this value is null, the behavior is equivalent to the Honor policy.
 
   {{< note >}}
-  The `nodeAffinityPolicy` is a beta-level field and enabled by default in 1.26. You can disable it by disabling the
+  The `nodeAffinityPolicy` became beta in 1.26 and graduated to GA in 1.33.
+  It's enabled by default in beta, you can disable it by disabling the
   `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
@@ -191,7 +191,8 @@ your cluster. Those fields are:
   If this value is null, the behavior is equivalent to the Ignore policy.
 
   {{< note >}}
-  The `nodeTaintsPolicy` is a beta-level field and enabled by default in 1.26. You can disable it by disabling the
+  The `nodeTaintsPolicy` became beta in 1.26 and graduated to GA in 1.33.
+  It's enabled by default in beta, you can disable it by disabling the
   `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
