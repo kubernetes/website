@@ -1089,11 +1089,19 @@ you configure. For example, if pods are crash looping, and there are multiple ro
 events triggered over time, you might end up with more ReplicaSets than the 
 `.spec.revisionHistoryLimit` because the Deployment never reaches a complete state.
 
-## Canary Deployment
+## Progressive Delivery
 
-If you want to roll out releases to a subset of users or servers using the Deployment, you
-can create multiple Deployments, one for each release, following the canary pattern described in
-[managing resources](/docs/concepts/workloads/management/#canary-deployments).
+The progressive delivery is a approach that allow different strategies in the rollout process. There are different approaches where the principals are: canary deployment, blue-green and A/B testing.
+
+* The canary deployment is the default pattern in Kubernetes, it is the equivalent of `.spec.strategy.type==RollingUpdate`. It's the deployment of a portion of pods that ensure the application is stil available. You can make advanced canary by using different deployments and services as described in [managing resources](/docs/concepts/workloads/management/#canary-deployments).
+
+* The blue-green deployment is the way of progressivley shift from a blue version to a green one. It can be achieve by using two deployments and two services and it requires a traffic management to progressively shift the traffic. You can also rollback to the blue version if needed.
+
+* The A/B testing approach is the ability to deploy two versions of an application to two groups of users, then you control which version has the best result (perf, revenue etc). It can be done by creating two deployments and advanced traffic shiftting.
+
+{{< note >}}
+In canary deployment you are limited by two things : you cannot automatically rollback and you can only rely on readiness probe for pod availablity. 
+{{< /note >}}
 
 ## Writing a Deployment Spec
 
