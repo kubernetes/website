@@ -462,7 +462,7 @@ autoscaler from scaling for changes below that value.
 
 This tolerance is defined as the amount of variation around the desired metric value under
 which no scaling will occur. For example, consider a HorizontalPodAutoscaler configured
-with a target memory consumption of 100Mi and a scale-up tolerance of 5%:
+with a target memory consumption of 100MiB and a scale-up tolerance of 5%:
 
 ```yaml
 behavior:
@@ -471,12 +471,12 @@ behavior:
 ```
 
 With this configuration, the HPA algorithm will only consider scaling up if the memory
-consumption is higher than 105Mi (i.e. 5% above the target).
+consumption is higher than 105MiB (that is: 5% above the target).
 
 If you don't set this field, the HPA applies the default cluster-wide tolerance of 10%. This
 default can be updated for both scale-up and scale-down using the
 [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
-`--horizontal-pod-autoscaler-tolerance` flag. (You can't use the Kubernetes API
+`--horizontal-pod-autoscaler-tolerance` command line argument. (You can't use the Kubernetes API
 to configure this default value.)
 
 ### Default Behavior

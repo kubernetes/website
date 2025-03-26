@@ -11,4 +11,4 @@ stages:
     fromVersion: "1.33"
 ---
 Enables setting a [tolerance threshold](/docs/tasks/run-application/horizontal-pod-autoscale.md#tolerance)
-for `HorizontalPodAutoscaler` metrics.
+for HorizontalPodAutoscaler metrics.
