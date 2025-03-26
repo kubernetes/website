@@ -79,7 +79,7 @@ request specific levels of resources (CPU and Memory). Claims can request specif
 size and access modes (e.g., they can be mounted ReadWriteOnce, ReadOnlyMany,
 ReadWriteMany, or ReadWriteOncePod, see [AccessModes](#access-modes)).
 -->
-**持久卷申领（PersistentVolumeClaim，PVC）** 表达的是用户对存储的请求。概念上与 Pod 类似。
+**持久卷申领（PersistentVolumeClaim，PVC）** 表达的是用户对存储的请求，概念上与 Pod 类似。
 Pod 会耗用节点资源，而 PVC 申领会耗用 PV 资源。Pod 可以请求特定数量的资源（CPU
 和内存）。同样 PVC 申领也可以请求特定的大小和访问模式
 （例如，可以挂载为 ReadWriteOnce、ReadOnlyMany、ReadWriteMany 或 ReadWriteOncePod，
@@ -511,7 +511,8 @@ Events:                 <none>
 The finalizer `external-provisioner.volume.kubernetes.io/finalizer` is added for CSI volumes.
 The following is an example:
 -->
-终结器 `external-provisioner.volume.kubernetes.io/finalizer` 会被添加到 CSI 卷上。下面是一个例子：
+终结器 `external-provisioner.volume.kubernetes.io/finalizer`
+会被添加到 CSI 卷上。下面是一个例子：
 
 ```none
 Name:            pvc-2f0bab97-85a8-4552-8044-eb8be45cf48d
@@ -823,7 +824,7 @@ administrator intervention.
 1. 将绑定到 PVC 申领的 PV 卷标记为 `Retain` 回收策略。
 2. 删除 PVC 对象。由于 PV 的回收策略为 `Retain`，我们不会在重建 PVC 时丢失数据。
 3. 删除 PV 规约中的 `claimRef` 项，这样新的 PVC 可以绑定到该卷。
-   这一操作会使得 PV 卷变为 "可用（Available）"。
+   这一操作会使得 PV 卷变为"可用（Available）"。
 4. 使用小于 PV 卷大小的尺寸重建 PVC，设置 PVC 的 `volumeName` 字段为 PV 卷的名称。
    这一操作将把新的 PVC 对象绑定到现有的 PV 卷。
 5. 不要忘记恢复 PV 卷上设置的回收策略。
@@ -1120,15 +1121,6 @@ The access modes are:
 
 `ReadOnlyMany`
 : the volume can be mounted as read-only by many nodes.
-
-`ReadWriteMany`
-: the volume can be mounted as read-write by many nodes.
-
- `ReadWriteOncePod`
-: {{< feature-state for_k8s_version="v1.29" state="stable" >}}
-  the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod
-  access mode if you want to ensure that only one pod across the whole cluster can
-  read that PVC or write to it.
 -->
 访问模式有：
 
@@ -1140,6 +1132,16 @@ The access modes are:
 `ReadOnlyMany`
 : 卷可以被多个节点以只读方式挂载。
 
+<!--
+`ReadWriteMany`
+: the volume can be mounted as read-write by many nodes.
+
+ `ReadWriteOncePod`
+: {{< feature-state for_k8s_version="v1.29" state="stable" >}}
+  the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod
+  access mode if you want to ensure that only one pod across the whole cluster can
+  read that PVC or write to it.
+-->
 `ReadWriteMany`
 : 卷可以被多个节点以读写方式挂载。
 
@@ -1161,8 +1163,8 @@ to these versions or greater:
 * [csi-attacher:v3.3.0+](https://github.com/kubernetes-csi/external-attacher/releases/tag/v3.3.0)
 * [csi-resizer:v1.3.0+](https://github.com/kubernetes-csi/external-resizer/releases/tag/v1.3.0)
 -->
-`ReadWriteOncePod` 访问模式仅适用于 {{< glossary_tooltip text="CSI" term_id="csi" >}} 卷和 Kubernetes v1.22+。
-要使用此特性，你需要将以下
+`ReadWriteOncePod` 访问模式仅适用于 {{< glossary_tooltip text="CSI" term_id="csi" >}}
+卷和 Kubernetes v1.22+。要使用此特性，你需要将以下
 [CSI 边车](https://kubernetes-csi.github.io/docs/sidecar-containers.html)更新为下列或更高版本：
 
 - [csi-provisioner:v3.0.0+](https://github.com/kubernetes-csi/external-provisioner/releases/tag/v3.0.0)
@@ -1397,7 +1399,8 @@ A PersistentVolume will be in one of the following phases:
 <!--
 You can see the name of the PVC bound to the PV using `kubectl describe persistentvolume <name>`.
 -->
-你可以使用 `kubectl describe persistentvolume <name>` 查看已绑定到 PV 的 PVC 的名称。
+你可以使用 `kubectl describe persistentvolume <name>` 查看已绑定到
+PV 的 PVC 的名称。
 
 <!--
 #### Phase transition timestamp
@@ -1496,13 +1499,27 @@ applies to both volumes and claims.
 申领和 Pod 一样，也可以请求特定数量的资源。在这个上下文中，请求的资源是存储。
 卷和申领都使用相同的[资源模型](https://git.k8s.io/design-proposals-archive/scheduling/resources.md)。
 
+{{< note >}}
+<!--
+For `Filesystem` volumes, the storage request refers to the "outer" volume size
+(i.e. the allocated size from the storage backend).
+This means that the writeable size may be slightly lower for providers that
+build a filesystem on top of a block device, due to filesystem overhead.
+This is especially visible with XFS, where many metadata features are enabled by default.
+-->
+对于 `Filesystem` 类型的卷，存储请求指的是“外部”卷的大小（即从存储后端分配的大小）。  
+这意味着，对于在块设备之上构建文件系统的提供商来说，由于文件系统开销，可写入的大小可能会略小。  
+这种情况在 XFS 文件系统中尤为明显，因为默认启用了许多元数据功能。
+{{< /note >}}
+
 <!--
 ### Selector
 
 Claims can specify a
 [label selector](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
-to further filter the set of volumes. Only the volumes whose labels match the selector
-can be bound to the claim. The selector can consist of two fields:
+to further filter the set of volumes.
+Only the volumes whose labels match the selector can be bound to the claim.
+The selector can consist of two fields:
 -->
 ### 选择算符    {#selector}
 
@@ -1513,15 +1530,15 @@ can be bound to the claim. The selector can consist of two fields:
 <!--
 * `matchLabels` - the volume must have a label with this value
 * `matchExpressions` - a list of requirements made by specifying key, list of values,
-  and operator that relates the key and values. Valid operators include In, NotIn,
-  Exists, and DoesNotExist.
+  and operator that relates the key and values.
+  Valid operators include `In`, `NotIn`, `Exists`, and `DoesNotExist`.
 
 All of the requirements, from both `matchLabels` and `matchExpressions`, are
 ANDed together – they must all be satisfied in order to match.
 -->
 * `matchLabels` - 卷必须包含带有此值的标签
 * `matchExpressions` - 通过设定键（key）、值列表和操作符（operator）
-  来构造的需求。合法的操作符有 In、NotIn、Exists 和 DoesNotExist。
+  来构造的需求。合法的操作符有 `In`、`NotIn`、`Exists` 和 `DoesNotExist`。
 
 来自 `matchLabels` 和 `matchExpressions` 的所有需求都按逻辑与的方式组合在一起。
 这些需求都必须被满足才被视为匹配。
@@ -1532,8 +1549,8 @@ ANDed together – they must all be satisfied in order to match.
 A claim can request a particular class by specifying the name of a
 [StorageClass](/docs/concepts/storage/storage-classes/)
 using the attribute `storageClassName`.
-Only PVs of the requested class, ones with the same `storageClassName` as the PVC, can
-be bound to the PVC.
+Only PVs of the requested class, ones with the same `storageClassName` as the PVC,
+can be bound to the PVC.
 -->
 ### 类      {#class}
 
@@ -1545,8 +1562,8 @@ be bound to the PVC.
 <!--
 PVCs don't necessarily have to request a class. A PVC with its `storageClassName` set
 equal to `""` is always interpreted to be requesting a PV with no class, so it
-can only be bound to PVs with no class (no annotation or one set equal to
-`""`). A PVC with no `storageClassName` is not quite the same and is treated differently
+can only be bound to PVs with no class (no annotation or one set equal to `""`).
+A PVC with no `storageClassName` is not quite the same and is treated differently
 by the cluster, depending on whether the
 [`DefaultStorageClass` admission plugin](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
 is turned on.
@@ -1559,20 +1576,19 @@ PV 卷（未设置注解或者注解值为 `""` 的 PersistentVolume（PV）对�
 [`DefaultStorageClass` 准入控制器插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)是否被启用。
 
 <!--
-* If the admission plugin is turned on, the administrator may specify a
-  default StorageClass. All PVCs that have no `storageClassName` can be bound only to
-  PVs of that default. Specifying a default StorageClass is done by setting the
-  annotation `storageclass.kubernetes.io/is-default-class` equal to `true` in
-  a StorageClass object. If the administrator does not specify a default, the
-  cluster responds to PVC creation as if the admission plugin were turned off. If more than one
-  default StorageClass is specified, the newest default is used when the
-  PVC is dynamically provisioned.
-* If the admission plugin is turned off, there is no notion of a default
-  StorageClass. All PVCs that have `storageClassName` set to `""` can be
-  bound only to PVs that have `storageClassName` also set to `""`.
-  However, PVCs with missing `storageClassName` can be updated later once
-  default StorageClass becomes available. If the PVC gets updated it will no
-  longer bind to PVs that have `storageClassName` also set to `""`.
+* If the admission plugin is turned on, the administrator may specify a default StorageClass.
+  All PVCs that have no `storageClassName` can be bound only to PVs of that default.
+  Specifying a default StorageClass is done by setting the annotation
+  `storageclass.kubernetes.io/is-default-class` equal to `true` in a StorageClass object.
+  If the administrator does not specify a default, the cluster responds to PVC creation
+  as if the admission plugin were turned off.
+  If more than one default StorageClass is specified, the newest default is used when
+  the PVC is dynamically provisioned.
+* If the admission plugin is turned off, there is no notion of a default StorageClass.
+  All PVCs that have `storageClassName` set to `""` can be bound only to PVs
+  that have `storageClassName` also set to `""`.
+  However, PVCs with missing `storageClassName` can be updated later once default StorageClass becomes available.
+  If the PVC gets updated it will no longer bind to PVs that have `storageClassName` also set to `""`.
 -->
 * 如果准入控制器插件被启用，则管理员可以设置一个默认的 StorageClass。
   所有未设置 `storageClassName` 的 PVC 都只能绑定到隶属于默认存储类的 PV 卷。
@@ -1635,7 +1651,8 @@ in your cluster. In this case, the new PVC creates as you defined it, and the
 -->
 你可以创建 PersistentVolumeClaim，而无需为新 PVC 指定 `storageClassName`。
 即使你的集群中不存在默认 StorageClass，你也可以这样做。
-在这种情况下，新的 PVC 会按照你的定义进行创建，并且在默认值可用之前，该 PVC 的 `storageClassName` 保持不设置。
+在这种情况下，新的 PVC 会按照你的定义进行创建，并且在默认值可用之前，该 PVC 的
+`storageClassName` 保持不设置。
 
 <!--
 When a default StorageClass becomes available, the control plane identifies any
@@ -1645,8 +1662,8 @@ updates those PVCs to set `storageClassName` to match the new default StorageCla
 If you have an existing PVC where the `storageClassName` is `""`, and you configure
 a default StorageClass, then this PVC will not get updated.
 -->
-当一个默认的 StorageClass 变得可用时，控制平面会识别所有未设置 `storageClassName` 的现有 PVC。
-对于 `storageClassName` 为空值或没有此主键的 PVC，
+当一个默认的 StorageClass 变得可用时，控制平面会识别所有未设置 `storageClassName`
+的现有 PVC。对于 `storageClassName` 为空值或没有此主键的 PVC，
 控制平面会更新这些 PVC 以设置其 `storageClassName` 与新的默认 StorageClass 匹配。
 如果你有一个现有的 PVC，其中 `storageClassName` 是 `""`，
 并且你配置了默认 StorageClass，则此 PVC 将不会得到更新。
@@ -1928,7 +1945,8 @@ only available for CSI volume plugins.
 -->
 ## 卷克隆     {#volume-cloning}
 
-[卷克隆](/zh-cn/docs/concepts/storage/volume-pvc-datasource/)功能特性仅适用于 CSI 卷插件。
+[卷克隆](/zh-cn/docs/concepts/storage/volume-pvc-datasource/)功能特性仅适用于
+CSI 卷插件。
 
 <!--
 ### Create PersistentVolumeClaim from an existing PVC {#create-persistent-volume-claim-from-an-existing-pvc}
