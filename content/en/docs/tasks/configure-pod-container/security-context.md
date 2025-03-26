@@ -686,7 +686,7 @@ securityContext:
 
 {{< note >}}
 To assign SELinux labels, the SELinux security module must be loaded on the host operating system.
-On Windows and Linux workers without SELinux support, this field and any SELinux feature gates described
+On Windows and Linux worker nodes without SELinux support, this field and any SELinux feature gates described
 below have no effect.
 {{< /note >}}
 
