@@ -77,7 +77,7 @@ for more information.
 Example: `apiserver.latency.k8s.io/validating-webhook: "203.698864ms"`
 
 This annotation shows the measure of the latency incurred in validating webhook(s).
-Validating webhooks is done parallel, hence the latency is aggregated using max duration taken.
+Validating webhooks is done in parallel, hence the latency is aggregated using maximum duration taken.
 
 ## apiserver.latency.k8s.io/mutating-webhook
 
