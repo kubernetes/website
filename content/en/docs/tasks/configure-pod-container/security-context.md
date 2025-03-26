@@ -701,7 +701,7 @@ to volumes (and PersistentVolumeClaims) using the `ReadWriteOncePod` access mode
 Kubernetes v1.33 promotes `SELinuxChangePolicy` and `SELinuxMount`
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
 as beta to widen that performance improvement to other kinds of PersistentVolumeClaims,
-as explained in detail below. While beta, `SELinuxMount` is still disabled by default.
+as explained in detail below. While in beta, `SELinuxMount` is still disabled by default.
 {{< /note >}}
 
 With `SELinuxMount` feature gate disabled (the default in Kubernetes 1.33 and any previous release),
