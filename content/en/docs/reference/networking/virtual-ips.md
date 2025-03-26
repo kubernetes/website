@@ -733,17 +733,17 @@ node", etc.) as the clients, then endpoints may become overloaded. This is
 especially likely if incoming traffic is not proportionally distributed across
 the topology. To mitigate this, consider the following strategies:
 
-    * [Pod Topology Spread
-      Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/):
-      Use Pod Topology Spread Constraints to distribute your pods evenly
-      across zones or nodes.
+* [Pod Topology Spread
+  Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/):
+  Use Pod Topology Spread Constraints to distribute your pods evenly
+  across zones or nodes.
 
-    * Zone-specific Deployments: If you are using "same zone" traffic
-      distribution, but expect to see different traffic patterns in different
-      zones, create a separate Deployment for each zone. This approach allows
-      the separate workloads to scale independently. There are also workload
-      management addons available from the ecosystem, outside the Kubernetes
-      project itself, that can help here.
+* Zone-specific Deployments: If you are using "same zone" traffic
+  distribution, but expect to see different traffic patterns in different
+  zones, create a separate Deployment for each zone. This approach allows
+  the separate workloads to scale independently. There are also workload
+  management addons available from the ecosystem, outside the Kubernetes
+  project itself, that can help here.
 
 ## {{% heading "whatsnext" %}}
 
