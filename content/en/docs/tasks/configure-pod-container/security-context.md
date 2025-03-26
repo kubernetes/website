@@ -698,7 +698,7 @@ below have no effect.
 Kubernetes v1.27 introduced an early limited form of this behavior that was only applicable
 to volumes (and PersistentVolumeClaims) using the `ReadWriteOncePod` access mode.
 
-Kubernetes v1.33 introduced `SELinuxChangePolicy` and `SELinuxMount`
+Kubernetes v1.33 promotes `SELinuxChangePolicy` and `SELinuxMount`
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
 as beta to widen that performance improvement to other kinds of PersistentVolumeClaims,
 as explained in detail below. While beta, `SELinuxMount` is still disabled by default.
