@@ -1,4 +1,10 @@
 ---
+# NOTE TO LOCALIZATION TEAMS
+#
+# If updating front matter for your localization because there is still
+# a "feature" key in this page, then you also need to update
+# content/??/docs/concepts/architecture/self-healing.md (which is where
+# it moved to)
 reviewers:
 - Kashomon
 - bprashanth
