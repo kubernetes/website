@@ -548,7 +548,7 @@ kind: ValidatingAdmissionPolicyBinding
 metadata:
   name: "servicecidrs-binding"
 spec:
-  policyName: "servicecidrs.default"
+  policyName: "servicecidrs-default"
   validationActions: [Deny,Audit]
 ---
 ```
