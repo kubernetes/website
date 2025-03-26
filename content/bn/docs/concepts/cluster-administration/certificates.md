@@ -1,6 +1,6 @@
 ---
 title: সার্টিফিকেট
-content_type: ধারণা
+content_type: concept
 weight: 20
 ---
 
