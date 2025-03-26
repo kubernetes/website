@@ -730,7 +730,7 @@ To benefit from this speedup, all these conditions must be met:
 When any of these conditions is not met, SELinux relabelling happens another way: the container
 runtime  recursively changes the SELinux label for all inodes (files and directories)
 in the volume. Calling out explicitly, this applies to Kubernetes ephemeral volumes like
-`secrets`, `configMaps` and `projected`, and all volumes whose CSIDriver instance does not
+`secret`, `configMap` and `projected`, and all volumes whose CSIDriver instance does not
 explicitly announce mounting with `-o context`.
 
 When this speedup is used, all Pods that use the same applicable volume concurrently on the same node
