@@ -17,9 +17,9 @@ Gateway API menyediakan layanan jaringan dengan menggunakan mekanisme konfiguras
 Prinsip-prinsip berikut membentuk desain dan arsitektur Gateway API:
 
 * __Berorientasi _role_:__ Gateway API dimodelkan sesuai dengan _role_ organisasi yang bertanggung jawab untuk mengelola jaringan layanan Kubernetes:
-  * __Penyedia Infrastruktur:__ Mengelola infrastruktur yang memungkinkan beberapa kluster terisolasi untuk melayani beberapa _tenant_, misalnya penyedia layanan cloud.
-  * __Operator Kluster:__ Mengelola kluster dan biasanya memperhatikan kebijakan, akses jaringan, izin aplikasi, dll.
-  * __Pengembang Aplikasi:__ Mengelola aplikasi yang berjalan di dalam kluster dan biasanya memperhatikan konfigurasi tingkat aplikasi dan komposisi [Service](/docs/concepts/services-networking/service/).
+  * __Penyedia Infrastruktur:__ Mengelola infrastruktur yang memungkinkan beberapa klaster terisolasi untuk melayani beberapa _tenant_, misalnya penyedia layanan _cloud_.
+  * __Operator klaster:__ Mengelola klaster dan biasanya memperhatikan kebijakan, akses jaringan, izin aplikasi, dll.
+  * __Pengembang Aplikasi:__ Mengelola aplikasi yang berjalan di dalam klaster dan biasanya memperhatikan konfigurasi tingkat aplikasi dan komposisi [Service](/docs/concepts/services-networking/service/).
 * __Portabel:__ Spesifikasi Gateway API didefinisikan sebagai [Custom Resource](/docs/concepts/extend-kubernetes/api-extension/custom-resources) dan didukung oleh banyak [implementasi](https://gateway-api.sigs.k8s.io/implementations/).
 * __Ekspresif:__ Jenis-jenis Gateway API mendukung fungsi untuk kasus penggunaan routing trafik pada umumnya, seperti pencocokan berbasis header, pembobotan trafik, dan lainnya yang sebelumnya hanya mungkin dilakukan di [Ingress](/docs/concepts/services-networking/ingress/) dengan menggunakan anotasi kustom.
 * __Dapat diperluas:__ Gateway memungkinkan sumber daya kustom untuk dihubungkan pada berbagai lapisan API. Ini memungkinkan penyesuaian yang lebih detail pada tempat yang tepat dalam struktur API.
@@ -30,19 +30,19 @@ Gateway API memiliki tiga jenis API stabil:
 
 * __GatewayClass:__ Mendefinisikan satu set gateway dengan konfigurasi umum dan dikelola oleh pengendali yang mengimplementasikan kelas tersebut.
 
-* __Gateway:__ Mendefinisikan instans infrastruktur penanganan trafik, seperti penyeimbang beban (_load balancer_) cloud.
+* __Gateway:__ Mendefinisikan instans infrastruktur penanganan trafik, seperti penyeimbang beban (_load balancer_) _cloud_.
 
 * __HTTPRoute:__ Mendefinisikan aturan khusus HTTP untuk memetakan trafik dari pendengar (_listener_) Gateway ke representasi titik akhir (_endpoint_) jaringan backend. Titik akhir ini sering diwakili sebagai sebuah {{<glossary_tooltip text="Service" term_id="service">}}.
 
 Gateway API diatur ke dalam berbagai jenis API yang memiliki hubungan saling ketergantungan untuk mendukung sifat berorientasi _role_ dari organisasi. Objek Gateway dikaitkan dengan tepat satu GatewayClass; GatewayClass menggambarkan pengendali gateway yang bertanggung jawab untuk mengelola Gateway dari kelas ini. Satu atau lebih jenis rute seperti HTTPRoute, kemudian dikaitkan dengan Gateway. Sebuah Gateway dapat memfilter rute yang mungkin akan dilampirkan pada `listeners`-nya, membentuk model kepercayaan dua arah dengan rute.
 
-Gambar berikut mengilustrasikan hubungan dari tiga jenis API Gateway yang stabil:
+Gambar berikut mengilustrasikan hubungan dari tiga jenis Gateway API yang stabil:
 
-{{< figure src="/docs/images/gateway-kind-relationships.svg" alt="Gambar yang mengilustrasikan hubungan dari tiga jenis API Gateway yang stabil" class="diagram-medium" >}}
+{{< figure src="/docs/images/gateway-kind-relationships.svg" alt="Gambar yang mengilustrasikan hubungan dari tiga jenis Gateway API yang stabil" class="diagram-medium" >}}
 
 ### Gateway {#api-kind-gateway}
 
-Gateway menggambarkan sebuah instans infrastruktur penanganan trafik. Ini mendefinisikan titik akhir jaringan yang dapat digunakan untuk memproses trafik, seperti penyaringan (_filter_), penyeimbangan (_balancing_), pemisahan (_splitting_), dll. untuk backend seperti sebuah Service. Sebagai contoh, Gateway dapat mewakili penyeimbang beban (_load balancer_) cloud atau server proksi dalam kluster yang dikonfigurasikan untuk menerima trafik HTTP.
+Gateway menggambarkan sebuah instans infrastruktur penanganan trafik. Ini mendefinisikan titik akhir jaringan yang dapat digunakan untuk memproses trafik, seperti penyaringan (_filter_), penyeimbangan (_balancing_), pemisahan (_splitting_), dll. untuk backend seperti sebuah Service. Sebagai contoh, Gateway dapat mewakili penyeimbang beban (_load balancer_) _cloud_ atau server proksi dalam klaster yang dikonfigurasikan untuk menerima trafik HTTP.
 
 Contoh minimal dari Gateway _resource_:
 
@@ -65,7 +65,7 @@ Lihat [Gateway](https://gateway-api.sigs.k8s.io/references/spec/#gateway.network
 
 ### HTTPRoute {#api-kind-httproute}
 
-Jenis HTTPRoute menentukan perilaku _routing_ dari permintaan HTTP dari _listener_ Gateway ke titik akhir jaringan backend. Untuk backend Service, implementasi dapat mewakili titik akhir jaringan backend sebagai IP Service atau Endpoints pendukung dari Service tersebut. HTTPRoute mewakili konfigurasi yang diterapkan pada implementasi Gateway yang mendasarinya. Sebagai contoh, mendefinisikan HTTPRoute baru dapat mengakibatkan pengaturan rute trafik tambahan pada penyeimbang beban cloud atau server proksi dalam kluster.
+Jenis HTTPRoute menentukan perilaku _routing_ dari permintaan HTTP dari _listener_ Gateway ke titik akhir jaringan backend. Untuk backend Service, implementasi dapat mewakili titik akhir jaringan backend sebagai IP Service atau Endpoints pendukung dari Service tersebut. HTTPRoute mewakili konfigurasi yang diterapkan pada implementasi Gateway yang mendasarinya. Sebagai contoh, mendefinisikan HTTPRoute baru dapat mengakibatkan pengaturan rute trafik tambahan pada penyeimbang beban _cloud_ atau server proksi dalam klaster.
 
 Contoh minimal dari HTTPRoute:
 
@@ -123,7 +123,7 @@ Referensi panduan [migrasi ingress](https://gateway-api.sigs.k8s.io/guides/migra
 ## {{% heading "whatsnext" %}}
 
 Alih-alih sumber daya Gateway API yang diimplementasikan secara natif oleh Kubernetes, spesifikasinya didefinisikan sebagai [Custom Resource Definition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/) yang didukung oleh berbagai [implementasi](https://gateway-api.sigs.k8s.io/implementations/). 
-[Instal](https://gateway-api.sigs.k8s.io/guides/#installing-gateway-api) CRD Gateway API atau ikuti petunjuk instalasi dari implementasi yang Anda pilih. Setelah menginstal sebuah implementasi, gunakan panduan [Memulai](https://gateway-api.sigs.k8s.io/guides/) untuk membantu kamu segera memulai bekerja dengan Gateway API.
+[Instal](https://gateway-api.sigs.k8s.io/guides/#installing-gateway-api) CRD Gateway API atau ikuti petunjuk instalasi dari implementasi yang kamu pilih. Setelah menginstal sebuah implementasi, gunakan panduan [Memulai](https://gateway-api.sigs.k8s.io/guides/) untuk membantu kamu segera memulai bekerja dengan Gateway API.
 
 {{< note >}}
 Pastikan untuk meninjau dokumentasi dari implementasi yang kamu pilih untuk memahami hal-hal yang perlu diperhatikan.
