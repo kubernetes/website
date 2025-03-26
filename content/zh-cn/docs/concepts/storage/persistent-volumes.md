@@ -1405,7 +1405,7 @@ PV 的 PVC 的名称。
 <!--
 #### Phase transition timestamp
 -->
-#### 阶段转换时间戳
+#### 阶段转换时间戳   {#phase-transition-timestamp}
 
 {{< feature-state feature_gate_name="PersistentVolumeLastPhaseTransitionTime" >}}
 
