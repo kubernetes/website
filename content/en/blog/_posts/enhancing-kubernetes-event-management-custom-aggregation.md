@@ -24,7 +24,7 @@ To learn more about Events in Kubernetes, read the [Event](/docs/reference/kuber
 
 ## Building an Event Aggregation System
 
-I'll explore how to build a custom event aggregation system that addresses these challenges, aligned to Kubernetes good practices. I've picked the Go programming language for my example.
+I'll explore how to build a custom event aggregation system that addresses these challenges, aligned to Kubernetes best practices. I've picked the Go programming language for my example.
 
 ### Architecture Overview
 
