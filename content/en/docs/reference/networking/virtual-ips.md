@@ -525,7 +525,7 @@ a Validation Admission Policy to achieve this is:
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicy
 metadata:
-  name: "servicecidrs.default"
+  name: "servicecidrs-default"
 spec:
   failurePolicy: Fail
   matchConstraints:
