@@ -147,7 +147,7 @@ other = "Forum"
 other = "Calendrier"
 
 # UI elements
-[ui_search_placeholder]
+[ui_search]
 other = "Recherche"
 
 [input_placeholder_email_address]
