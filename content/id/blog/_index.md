@@ -8,7 +8,7 @@ menu:
 ---
 {{< comment >}}
 
-For information about contributing to the blog, see
+Untuk informasi lebih lanjut tentang berkontribusi ke blog, lihat
 https://kubernetes.io/docs/contribute/new-content/blogs-case-studies/#write-a-blog-post
 
 {{< /comment >}}
