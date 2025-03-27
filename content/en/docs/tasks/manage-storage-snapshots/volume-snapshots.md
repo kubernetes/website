@@ -20,7 +20,7 @@ Snapshots are useful for backup and disaster recovery.
 ## {{% heading "prerequisites" %}}
 
 - {{< include "task-tutorial-prereqs.md" >}}
-- A Kubernetes cluster with a [CSI-compatible storage provider](/docs/concepts/storage/volumes/#csi).
+- Kubernetes cluster with a [CSI-compatible storage provider](/docs/concepts/storage/volumes/#csi).
 - Volume snapshots only support the out-of-tree CSI volume plugins.
   For details, see [Volume Snapshots](/docs/concepts/storage/volume-snapshots/).
 
