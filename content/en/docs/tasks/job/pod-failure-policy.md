@@ -30,7 +30,7 @@ You should already be familiar with the basic use of [Job](/docs/concepts/worklo
 
 ## Usage scenarios
 
-We consider the following usage scenarios for the Job's _Pod failure policy_ feature:
+Consider the following usage scenarios for Jobs that define a Pod failure policy :
 - [Avoiding unnecessary Pod retries](#pod-failure-policy-failjob)
 - [Ignoring Pod disruptions](#pod-failure-policy-ignore)
 - [Avoiding unnecessary Pod retries based on custom Pod Conditions](#pod-failure-policy-config-issue)
