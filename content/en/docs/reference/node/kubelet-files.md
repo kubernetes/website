@@ -155,13 +155,12 @@ stores state locally at `/var/lib/kubelet/graceful_node_shutdown_state`.
 The kubelet stores records of attempted and successful image pulls, and uses it to
 verify that the image was previously successfully pulled with the same credentials.
 
-These records are cached and also stored as files in the `plugins_registry` within the 
+These records are cached as files in the `image_registry` directory within the 
 kubelet base directory, so on a typical Linux node this means `/var/lib/kubelet/image_manager`.
-This subdirectory has two subdirectories:
+There are two subdirectories to `image_manager`:
 * `pulling` - stores records about images the Kubelet is attempting to pull.
 * `pulled` - stores records about images that were successfully pulled by the Kubelet, along with
-metadata about the credentials used, the secret reference and a SHA-256 hash of the secret used 
-to authenticate the image pull.
+metadata about the credentials used for the pulls.
 
 See [private registries](/docs/concepts/containers/images#ensureimagepullcredentialverification)
 for details.

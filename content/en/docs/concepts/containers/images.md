@@ -369,7 +369,7 @@ private registry.
 
 {{< note >}}
 {{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
-Access to pre-pulled images can be authorized according to [image pull credential verification](#ensureimagepullcredentialverification)
+Access to pre-pulled images may be authorized according to [image pull credential verification](#ensureimagepullcredentialverification)
 {{< /note >}}
 
 ### Specifying imagePullSecrets on a Pod
