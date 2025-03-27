@@ -20,7 +20,7 @@ Deployment ini tidak cocok untuk kasus penggunaan produksi, karena menggunakan P
 {{< /warning >}}
 
 {{< note >}}
-File yang disediakan dalam tutorial ini menggunakan API Deployment GA dan spesifik untuk Kubernetes versi 1.9 dan yang lebih baru. Jika Anda ingin menggunakan tutorial ini dengan versi Kubernetes yang lebih lama, harap perbarui versi API sesuai kebutuhan, atau rujuk ke versi tutorial sebelumnya.
+File yang disediakan dalam tutorial ini menggunakan API Deployment GA dan spesifik untuk Kubernetes versi 1.9 dan yang lebih baru. Jika kamu ingin menggunakan tutorial ini dengan versi Kubernetes yang lebih lama, harap perbarui versi API sesuai kebutuhan, atau rujuk ke versi tutorial sebelumnya.
 {{< /note >}}
 
 ## {{% heading "objectives" %}}
@@ -56,24 +56,24 @@ Banyak lingkungan kluster memiliki StorageClass default yang sudah di-instal. Ke
 Ketika PersistentVolumeClaim dibuat, PersistentVolume akan disediakan secara dinamis berdasarkan konfigurasi StorageClass.
 
 {{< warning >}}
-Di kluster lokal, StorageClass default menggunakan provisioner `hostPath`. Volume `hostPath` hanya cocok untuk pengembangan dan pengujian. Dengan volume `hostPath`, data Anda akan disimpan di `/tmp` pada node tempat Pod dijadwalkan dan tidak akan berpindah antar node. Jika sebuah Pod mati dan dijadwalkan ke node lain di kluster, atau node di-reboot, data akan hilang.
+Di kluster lokal, StorageClass default menggunakan provisioner `hostPath`. Volume `hostPath` hanya cocok untuk pengembangan dan pengujian. Dengan volume `hostPath`, data kamu akan disimpan di `/tmp` pada node tempat Pod dijadwalkan dan tidak akan berpindah antar node. Jika sebuah Pod mati dan dijadwalkan ke node lain di kluster, atau node di-reboot, data akan hilang.
 {{< /warning >}}
 
 {{< note >}}
-Jika Anda menjalankan kluster yang memerlukan provisioner `hostPath`, flag `--enable-hostpath-provisioner` harus diatur pada komponen `controller-manager`.
+Jika kamuu menjalankan kluster yang memerlukan provisioner `hostPath`, flag `--enable-hostpath-provisioner` harus diatur pada komponen `controller-manager`.
 {{< /note >}}
 
 {{< note >}}
-Jika Anda memiliki kluster Kubernetes yang berjalan di Google Kubernetes Engine, silakan ikuti [panduan ini](https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-disk).
+Jika kamu memiliki kluster Kubernetes yang berjalan di Google Kubernetes Engine, silakan ikuti [panduan ini](https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-disk).
 {{< /note >}}
 
 ## Membuat kustomization.yaml
 
 ### Menambahkan Generator Secret
 
-[Secret](/docs/concepts/configuration/secret/) adalah objek yang menyimpan data sensitif seperti kata sandi atau kunci. Sejak versi 1.14, `kubectl` mendukung pengelolaan objek Kubernetes menggunakan file kustomisasi. Anda dapat membuat Secret menggunakan generator di `kustomization.yaml`.
+[Secret](/docs/concepts/configuration/secret/) adalah objek yang menyimpan data sensitif seperti kata sandi atau kunci. Sejak versi 1.14, `kubectl` mendukung pengelolaan objek Kubernetes menggunakan file kustomisasi. kamu dapat membuat Secret menggunakan generator di `kustomization.yaml`.
 
-Tambahkan generator Secret di `kustomization.yaml` dengan perintah berikut. Anda perlu mengganti `KATA_SANDI` dengan kata sandi yang ingin Anda gunakan.
+Tambahkan generator Secret di `kustomization.yaml` dengan perintah berikut. kamu perlu mengganti `KATA_SANDI` dengan kata sandi yang ingin kamu gunakan.
 
 ```shell
 cat <<EOF >./kustomization.yaml
@@ -118,13 +118,13 @@ Manifest berikut menjelaskan Deployment WordPress instance tunggal. Kontainer Wo
 
 ## Terapkan dan Verifikasi
 
-`kustomization.yaml` berisi semua sumber daya untuk mendeploy situs WordPress dan database MySQL. Anda dapat menerapkan direktori dengan
+`kustomization.yaml` berisi semua sumber daya untuk mendeploy situs WordPress dan database MySQL. kamu dapat menerapkan direktori dengan
 
 ```shell
 kubectl apply -k ./
 ```
 
-Sekarang Anda dapat memverifikasi bahwa semua objek ada.
+Sekarang kamu dapat memverifikasi bahwa semua objek ada.
 
 1. Verifikasi bahwa Secret ada dengan menjalankan perintah berikut:
 
@@ -203,20 +203,20 @@ Sekarang Anda dapat memverifikasi bahwa semua objek ada.
    http://1.2.3.4:32406
    ```
 
-6. Salin alamat IP, dan muat halaman di browser Anda untuk melihat situs Anda.
+6. Salin alamat IP, dan muat halaman di browser kamu untuk melihat situs kamu.
 
-   Anda akan melihat halaman pengaturan WordPress yang mirip dengan tangkapan layar berikut.
+   kamu akan melihat halaman pengaturan WordPress yang mirip dengan tangkapan layar berikut.
 
    ![wordpress-init](https://raw.githubusercontent.com/kubernetes/examples/master/mysql-wordpress-pd/WordPress.png)
 
    {{< warning >}}
-   Jangan biarkan instalasi WordPress Anda di halaman ini. Jika pengguna lain menemukannya, mereka dapat mengatur situs web di instance Anda dan menggunakannya untuk menyajikan konten berbahaya.<br/><br/>
-   Instal WordPress dengan membuat nama pengguna dan kata sandi atau hapus instance Anda.
+   Jangan biarkan instalasi WordPress kamu di halaman ini. Jika pengguna lain menemukannya, mereka dapat mengatur situs web di instance kamu dan menggunakannya untuk menyajikan konten berbahaya.<br/><br/>
+   Instal WordPress dengan membuat nama pengguna dan kata sandi atau hapus instance kamu.
    {{< /warning >}}
 
 ## {{% heading "cleanup" %}}
 
-1. Jalankan perintah berikut untuk menghapus Secret, Deployment, Service, dan PersistentVolumeClaim Anda:
+1. Jalankan perintah berikut untuk menghapus Secret, Deployment, Service, dan PersistentVolumeClaim kamu:
 
    ```shell
    kubectl delete -k ./
