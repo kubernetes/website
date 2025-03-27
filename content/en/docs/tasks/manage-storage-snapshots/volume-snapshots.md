@@ -28,12 +28,12 @@ Snapshots are useful for backup and disaster recovery.
 
 [`VolumeSnapshotClass`](/docs/concepts/storage/volume-snapshot-classes/) provides a way to describe the "classes" of storage when provisioning a volume snapshot.
 
-{{% code_sample file="application/volume-snaphot-class.yaml" %}}
+{{% code_sample file="application/volume-snapshot-class.yaml" %}}
 
 1. Apply the `VolumeSnapshotClass` YAML file:
 
    ```shell
-   kubectl apply -f https://k8s.io/examples/application/volume-snaphot-class.yaml
+   kubectl apply -f https://k8s.io/examples/application/volume-snapshot-class.yaml
    ```
 
 1. Verify that the `VolumeSnapshotClass` is created:
@@ -107,9 +107,13 @@ To delete the snapshot and its associated resources:
 
    ```shell
    kubectl delete volumesnapshot example-snapshot
-
-   kubectl delete pvc restored-pvc
+   ```
    
+   ```shell
+   kubectl delete pvc restored-pvc
+   ```
+
+   ```shell
    kubectl delete volumesnapshotclass example-snapshot-class
    ```
 
