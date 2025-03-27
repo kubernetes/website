@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Introducing kube-scheduler-simulator"
-date: 2025-12-31
-draft: true 
+date: 2025-04-07
+draft: false 
 slug: introducing-kube-scheduler-simulator
 author: Kensei Nakada (Tetrate)
 ---
@@ -10,7 +10,7 @@ author: Kensei Nakada (Tetrate)
 The Kubernetes Scheduler is a crucial control plane component that determines which node a Pod will run on. 
 Thus, anyone utilizing Kubernetes relies on a scheduler.
 
-The [Kubernetes Scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/) is a simulator for the Kubernetes scheduler, started as a [Google Summer of Code 2021](https://summerofcode.withgoogle.com/) project developed by me (Kensei Nakada) and later received a lot of contributions.
+[kube-scheduler-simulator](https://github.com/kubernetes-sigs/kube-scheduler-simulator) is a _simulator_ for the Kubernetes scheduler, that started as a [Google Summer of Code 2021](https://summerofcode.withgoogle.com/) project developed by me (Kensei Nakada) and later received a lot of contributions.
 This tool allows users to closely examine the scheduler’s behavior and decisions. 
 
 It is useful for casual users who employ scheduling constraints (for example, [inter-Pod affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity/#affinity-and-anti-affinity))
@@ -51,7 +51,7 @@ filter nodes (Filter phase), score nodes (Score phase), and ultimately determine
 The simulator allows users to create Kubernetes resources and observe how each plugin influences the scheduling decisions for Pods.
 This visibility helps users understand the scheduler’s workings and define appropriate scheduling constraints.
 
-{{< figure src="/images/blog/2025-01-22-kube-scheduler-simulator/simulator.png" alt="Screenshot of the simulator web frontend that shows the detailed scheduling results per node and per extension point" title="The simulator web frontend" >}}
+{{< figure src="/images/blog/2025-04-07-kube-scheduler-simulator/simulator.png" alt="Screenshot of the simulator web frontend that shows the detailed scheduling results per node and per extension point" title="The simulator web frontend" >}}
 
 Inside the simulator, a debuggable scheduler runs instead of the vanilla scheduler. 
 This debuggable scheduler outputs the results of each scheduler plugin at every extension point to the Pod’s annotations like the following manifest shows
