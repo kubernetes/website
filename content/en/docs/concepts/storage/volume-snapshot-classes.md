@@ -104,3 +104,7 @@ then both the underlying snapshot and VolumeSnapshotContent remain.
 Volume snapshot classes have parameters that describe volume snapshots belonging to
 the volume snapshot class. Different parameters may be accepted depending on the
 `driver`.
+
+## {{% heading "whatsnext" %}}
+
+* Follow an example of [Working with volume snapshots and restores]((/docs/tasks/manage-storage-snapshots/volume-snapshots.md))

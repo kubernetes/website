@@ -1,0 +1,6 @@
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotClass
+metadata:
+  name: example-snapshot-class
+driver: csi.example.com
+deletionPolicy: Delete

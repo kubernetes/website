@@ -1291,6 +1291,7 @@ and need persistent storage, it is recommended that you use the following patter
 * Learn more about [Creating a PersistentVolume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
 * Learn more about [Creating a PersistentVolumeClaim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
 * Read the [Persistent Storage design document](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
+* Follow an example of [Working with volume snapshots and restores]((/docs/tasks/manage-storage-snapshots/volume-snapshots.md))
 
 ### API references {#reference}
 
