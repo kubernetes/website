@@ -394,7 +394,7 @@ ensures that images in a pod request which have not been successfully pulled wit
 provided credentials must re-pull the images from the registry.
 Additionally, image pulls that re-use the same credentials which previously resulted 
 in a successful image pull will not need to re-pull from the registry and are instead 
-validated locally without accessing the registry.
+validated locally without accessing the registry (provided the image is available locally).
 This is controlled by the`imagePullCredentialsVerificationPolicy` field in the
 [Kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1#ImagePullCredentialsVerificationPolicy).
 
@@ -410,17 +410,8 @@ image is already present on the node:
  * `AlwaysVerify`: All images will have their credentials verified before they can
  be used.
 
-With this feature enabled, image pulls which reuse the same credentials and image
-(in the case of a restarted container, for example), will not need to re-pull from
-the registry if that image is present either through caching or as a pre-pulled image.
-The kubelet verifies this by comparing the secret reference and a hash of the credentials used
-against the CRI image reference being requested. If the reference, hash, and image match a
-previously successful image pull, and a copy of the image is available locally either
-through pre-pulling or caching, then no call will be made to the registry and the local
-image will be used. Otherwise, the kubelet will use the provided credentials to re-pull
-the image from the registry before allowing the pod to run the image, even if the image is
-already present. This verification applies to [pre-pulled images](#pre-pulled-images),
-images pulled using node-wide secrets, and images pulled using pod-level secrets.
+This verification applies to [pre-pulled images](#pre-pulled-images), images pulled
+using node-wide secrets, and images pulled using pod-level secrets.
 
 {{< note >}}
 In the case of credential rotation, the credentials used to previously pull the image
