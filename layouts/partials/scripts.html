@@ -33,6 +33,9 @@
 {{ $jsSearch := resources.Get "js/search.js" | resources.ExecuteAsTemplate "js/search.js" .Site.Home }}
 {{ if .Site.Params.offlineSearch }}
 {{ $jsSearch = resources.Get "js/offline-search.js" }}
+{{/* Revisit this if / when either of https://github.com/google/docsy/issues/2194 and https://github.com/google/docsy/pull/1512 are closed */}}
+{{ else if .Site.Params.customSearch }}
+{{ $jsSearch = resources.Get "js/custom-search.js" }}
 {{ end }}
 {{ $js := (slice $jsBs $jsBase $jsAnchor $jsSearch) | resources.Concat "js/main.js" -}}
 {{ if hugo.IsProduction -}}
