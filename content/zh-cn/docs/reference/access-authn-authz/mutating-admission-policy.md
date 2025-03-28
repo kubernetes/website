@@ -381,3 +381,26 @@ CEL 表达式可以访问
 - `jsonpatch.escapeKey` - 执行 JSONPatch 键转义。`~` 和 `/` 分别被转义为 `~0` 和 `~1`。
 
 只有格式为 `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` 的属性名称是可访问的。
+
+<!--
+## API kinds exempt from mutating admission
+
+There are certain API kinds that are exempt from admission-time mutation. For example, you can't create a MutatingAdmissionPolicy that changes a MutatingAdmissionPolicy.
+
+The list of exempt API kinds is:
+-->
+## 豁免变更性准入的 API 类别   {#api-kinds-exempt-from-mutating-admission}
+
+某些 API 类别可以豁免准入时变更。例如，你无法创建更改 MutatingAdmissionPolicy
+的 MutatingAdmissionPolicy。
+
+豁免变更性准入的 API 类别列表如下：
+
+* [ValidatingAdmissionPolicies]({{< relref "/docs/reference/kubernetes-api/policy-resources/validating-admission-policy-v1/" >}})
+* [ValidatingAdmissionPolicyBindings]({{< relref "/docs/reference/kubernetes-api/policy-resources/validating-admission-policy-binding-v1/" >}})
+* MutatingAdmissionPolicies
+* MutatingAdmissionPolicyBindings
+* [TokenReviews]({{< relref "/docs/reference/kubernetes-api/authentication-resources/token-review-v1/" >}})
+* [LocalSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/local-subject-access-review-v1/" >}})
+* [SelfSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/self-subject-access-review-v1/" >}})
+* [SelfSubjectReviews]({{< relref "/docs/reference/kubernetes-api/authentication-resources/self-subject-review-v1/" >}})

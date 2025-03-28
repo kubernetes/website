@@ -1,11 +1,14 @@
 {{ define "main" }}
+{{ if .HasShortcode "site-searchbar" }}
+  {{ warnf "The homepage of the language %s is using a deprecated shortcode site-searchbar. Please remove the shortcode. No other step is needed." .Lang }}
+{{ else }}
+<div class="col-sm-6 col-md-6 col-lg-6 mx-auto py-3">
+  {{partial "search-input" .}}
+</div>
+{{ end }}
 {{ .Content }}
 <section id="cncf">
-    <div class="main-section">
-        <center>
-        <p style="font-size: 20px">{{ T "main_cncf_project" | safeHTML }}
-        </center>
-    </div>
+    {{ partial "cncf.html" . }}
 </section>
 
 {{/* legacy kubeweekly support */}}
@@ -27,7 +30,7 @@
             <div class="clear"><input type="submit" value="{{ T "subscribe_button" }}" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
             </div>
         </form>
-        <h5 style="text-align: center"><a href="https://us10.campaign-archive.com/home/?u=3885586f8f1175194017967d6&id=11c1b8bcb2" aria-label="Kube Weekly" style="color: #3371E3; font-weight: 400; font-size: 20px">{{ T "main_kubeweekly_past_link" }}</a></h5>
+        <h5 style="text-align: center"><a href="https://www.cncf.io/kubeweekly/" aria-label="Kube Weekly" style="color: #3371E3; font-weight: 400; font-size: 20px">{{ T "main_kubeweekly_past_link" }}</a></h5>
         </div>
 
         <!--End mc_embed_signup-->

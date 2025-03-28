@@ -123,7 +123,7 @@ You can use tools like [netcat](https://netcat.sourceforge.net) to check if a po
 可以使用 [netcat](https://netcat.sourceforge.net) 之类的工具来检查端口是否开放，例如：
 
 ```shell
-nc 127.0.0.1 6443 -v
+nc 127.0.0.1 6443 -zv -w 2
 ```
 
 <!--
