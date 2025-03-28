@@ -9,11 +9,11 @@ Some things in Kubernetes are surprising, and ImagePullPolicy might be one of th
 
 ## IfNotPresent, Even If I'm Not Supposed to Have It
 
-The gist of the problem is that `ImagePullPolicy: IfNotPresent` enforcement has done exactly its job.  If Pod A in a Namespace X is scheduled to a Node 1, and requires Image Foo, the Kubelet will utilize the credentails of Pod A and pull Image Foo from the registry.  This is exactly what you expect.
+The gist of the problem is that `ImagePullPolicy: IfNotPresent` enforcement has done exactly its job.  If Pod A in a Namespace X is scheduled to a Node 1, and requires Image Foo, the Kubelet will utilize the credentials of Pod A and pull Image Foo from the registry.  This is exactly what you expect.
 
-But, if a Pod B in Namespace Y happens to also be scheduled to Node 1, funny things can happen.  The Kubelet will honor `IfNotPresent`, see that the Image Foo is alread in its local registry, and will provide Image Foo to Pod B.  After all, Pods on the same Node are surely authorized for the same resource, right?
+But, if a Pod B in Namespace Y happens to also be scheduled to Node 1, funny things can happen.  The Kubelet will honor `IfNotPresent`, see that the Image Foo is already in its local registry, and will provide Image Foo to Pod B.  After all, Pods on the same Node are surely authorized for the same resource, right?
 
-Wrong.  While `IfNotPresent` should not pull Image Foo if it is already in the local registry, it is an incorrect security posture to allow all pods scheduled to a node to have access to that image, wether or not they have credentials to pull the image.
+Wrong.  While `IfNotPresent` should not pull Image Foo if it is already in the local registry, it is an incorrect security posture to allow all pods scheduled to a node to have access to that image, whether or not they have credentials to pull the image.
 
 ## IfNotPresent, But Only If I Am Supposed To Have It
 
