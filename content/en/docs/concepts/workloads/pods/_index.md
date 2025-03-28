@@ -241,6 +241,16 @@ have some limitations:
   1. updating the field from a positive number to a smaller, non-negative
      number.
 
+### Pod subresources
+
+The above update rules apply to regular pod updates, but other pod fields can be updated through _subresources_.
+
+- **Resize:** The `resize` subresource allows container resources (`spec.containers[*].resources`) to be updated. See [Resize Container Resources](#resize-container-resources) for more detail.
+- **Ephemeral Containers:** The `ephemeralContainers` subresource allows {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}} to be added to a Pod. See [Ephemeral Containers](/docs/concepts/workloads/pods/ephemeral-containers/) for more detail.
+- **Status:** The `status` subresource allows the pod status to be updated. This is typically only used by the Kubelet and other system controllers.
+- **Binding:** The `binding` subresource allows setting the pod's `spec.nodeName` via a `Binding` request. This is typically only used by the {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}}.
+
+
 ## Resource sharing and communication
 
 Pods enable data sharing and communication among their constituent
