@@ -2,7 +2,6 @@
 title: kubectl
 content_type: tool-reference
 description: Référence kubectl
-notitle: true
 ---
 ## {{% heading "synopsis" %}}
 
