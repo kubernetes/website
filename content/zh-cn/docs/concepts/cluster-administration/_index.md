@@ -10,7 +10,7 @@ card:
   weight: 60
   anchors:
   - anchor: "#securing-a-cluster"
-    title: 保护集群
+    title: 加固集群
 ---
 <!--
 title: Cluster Administration
@@ -132,7 +132,7 @@ Before choosing a guide, here are some considerations:
 * [Auditing](/docs/tasks/debug/debug-cluster/audit/) describes how to interact with Kubernetes'
   audit logs.
 -->
-## 保护集群  {#securing-a-cluster}
+## 加固集群  {#securing-a-cluster}
 
 * [生成证书](/zh-cn/docs/tasks/administer-cluster/certificates/)描述了使用不同的工具链生成证书的步骤。
 * [Kubernetes 容器环境](/zh-cn/docs/concepts/containers/container-environment/)描述了
@@ -157,7 +157,7 @@ Before choosing a guide, here are some considerations:
 * [TLS bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
 * [Kubelet authentication/authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/)
 -->
-### 保护 kubelet   {#securing-the-kubelet}
+### 加固 kubelet   {#securing-the-kubelet}
 
 * [节点与控制面之间的通信](/zh-cn/docs/concepts/architecture/control-plane-node-communication/)
 * [TLS 启动引导](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
@@ -177,4 +177,3 @@ Before choosing a guide, here are some considerations:
   名解析到一个 Kubernetes service。
 * [记录和监控集群活动](/zh-cn/docs/concepts/cluster-administration/logging/)阐述了 Kubernetes
   的日志如何工作以及怎样实现。
-
