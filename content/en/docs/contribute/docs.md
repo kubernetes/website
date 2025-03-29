@@ -148,7 +148,7 @@ Figure 2. Preparation for your first contribution.
   Kubernetes community members for accuracy and language.
 - Read the Kubernetes [content](/docs/contribute/style/content-guide/) and
   [style guides](/docs/contribute/style/style-guide/) so you can leave informed comments.
-- Learn about [page content types](/docs/contribute/style/page-content-types/)
+- Learn about [page content types](/docs/contribute/new-content/page-content-types/)
   and [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/).
 
 ## Getting help when contributing
