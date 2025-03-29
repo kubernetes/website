@@ -1318,4 +1318,5 @@ OCI-level:
 
 ## {{% heading "whatsnext" %}}
 
-Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
+* Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
+* Follow an example of [Working with volume snapshots and restores]((/docs/tasks/manage-storage-snapshots/volume-snapshots.md))
