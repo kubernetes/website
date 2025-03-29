@@ -39,15 +39,15 @@ weight: 30
 kube-apiserver 리스의 존재는 향후 각 kube-apiserver 간의 조정이 필요할 때
 기능을 제공해 줄 수 있다.
 
-각 kube-apiserver가 소유한 리스는 `kube-system` 네임스페이스에서`kube-apiserver-<sha256-hash>`라는 이름의
+각 kube-apiserver가 소유한 리스는 `kube-system` 네임스페이스에서`apiserver-<sha256-hash>`라는 이름의
 리스 오브젝트를 확인하여 볼 수 있다. 또는 `k8s.io/component=kube-apiserver` 레이블 설렉터를 사용하여 볼 수도 있다.
 
 ```shell
 $ kubectl -n kube-system get lease -l k8s.io/component=kube-apiserver
 NAME                                        HOLDER                                                                           AGE
-kube-apiserver-c4vwjftbvpc5os2vvzle4qg27a   kube-apiserver-c4vwjftbvpc5os2vvzle4qg27a_9cbf54e5-1136-44bd-8f9a-1dcd15c346b4   5m33s
-kube-apiserver-dz2dqprdpsgnm756t5rnov7yka   kube-apiserver-dz2dqprdpsgnm756t5rnov7yka_84f2a85d-37c1-4b14-b6b9-603e62e4896f   4m23s
-kube-apiserver-fyloo45sdenffw2ugwaz3likua   kube-apiserver-fyloo45sdenffw2ugwaz3likua_c5ffa286-8a9a-45d4-91e7-61118ed58d2e   4m43s
+apiserver-c4vwjftbvpc5os2vvzle4qg27a   kube-apiserver-c4vwjftbvpc5os2vvzle4qg27a_9cbf54e5-1136-44bd-8f9a-1dcd15c346b4   5m33s
+apiserver-dz2dqprdpsgnm756t5rnov7yka   kube-apiserver-dz2dqprdpsgnm756t5rnov7yka_84f2a85d-37c1-4b14-b6b9-603e62e4896f   4m23s
+apiserver-fyloo45sdenffw2ugwaz3likua   kube-apiserver-fyloo45sdenffw2ugwaz3likua_c5ffa286-8a9a-45d4-91e7-61118ed58d2e   4m43s
 ```
 
 리스 이름에 사용된 SHA256 해시는 kube-apiserver가 보는 OS 호스트 이름을 기반으로 한다.
