@@ -576,6 +576,10 @@ processes, and the Pod is then deleted from the
 container runtime's management service is restarted while waiting for processes to terminate, the
 cluster retries from the start including the full original grace period.
 
+{{% note %}}
+The `ContainerStopSignals` feature gate allows you to configure a custom STOPSIGNAL for your containers from the container Lifecycle. We require the Pod's `spec.os.name` field to be present as a requirement for defining stop signals in the container lifecycle. The list of signals that are valid depends on the OS the Pod is scheduled to. If a stop signal is defined in the lifecycle, this will override the signal defined in the container image. If no stop signal is set in the container lifecycle, the signal defined in the container image or the default signal of the container runtime (SIGTERM) would be used to kill the container.
+{{% /note %}}
+
 Pod termination flow, illustrated with an example:
 
 1. You use the `kubectl` tool to manually delete a specific Pod, with the default grace period

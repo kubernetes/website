@@ -49,8 +49,8 @@ A more detailed description of the termination behavior can be found in
 
 `StopSignal`
 
-The StopSignal hook can be used to define a stop signal which would be sent to the container when it is
-stopped. This is equivalent to the `STOPSIGNAL` instruction that we configure when building container images.
+The StopSignal lifecycle can be used to define a stop signal which would be sent to the container when it is
+stopped. If you set this, it overrides any `STOPSIGNAL` instruction defined within the container image.
 
 ### Hook handler implementations
 
