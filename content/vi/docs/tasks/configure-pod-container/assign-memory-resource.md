@@ -10,6 +10,7 @@ Trang này hướng dẫn cách cấp phát bộ nhớ _request_ (tối thiểu)
 
 ## {{% heading "prerequisites" %}}
 
+
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 Mỗi Node trong Cluster của bạn phải có ít nhất 300 MiB bộ nhớ.
@@ -34,6 +35,8 @@ Nếu hệ thống giám sát tài nguyên có sẵn, kết quả sẽ chứa `m
 NAME
 v1beta1.metrics.k8s.io
 ```
+
+
 
 <!-- steps -->
 
@@ -78,12 +81,13 @@ Kết quả cho thấy Container trong Pod có bộ nhớ tối thiểu là 100 
 và bộ nhớ tối đa là 200 MiB.
 
 ```yaml
----
+...
 resources:
   requests:
     memory: 100Mi
   limits:
     memory: 200Mi
+...
 ```
 
 Chạy lệnh `kubectl top` để xem các thông số của Pod:
@@ -146,12 +150,12 @@ Kết quả cho thấy Container đã dừng hoạt động vì hết bộ nhớ
 
 ```yaml
 lastState:
-  terminated:
-    containerID: 65183c1877aaec2e8427bc95609cc52677a454b56fcb24340dbd22917c23b10f
-    exitCode: 137
-    finishedAt: 2017-06-20T20:52:19Z
-    reason: OOMKilled
-    startedAt: null
+   terminated:
+     containerID: 65183c1877aaec2e8427bc95609cc52677a454b56fcb24340dbd22917c23b10f
+     exitCode: 137
+     finishedAt: 2017-06-20T20:52:19Z
+     reason: OOMKilled
+     startedAt: null
 ```
 
 Container trong phần thực hành này có thể được khởi động lại, vì vậy kubelet sẽ khởi động lại nó. Lặp lại lệnh này vài lần để thấy Container liên tục bị dừng hoạt động và khởi động lại:
@@ -167,7 +171,6 @@ kubectl get pod memory-demo-2 --namespace=mem-example
 NAME            READY     STATUS      RESTARTS   AGE
 memory-demo-2   0/1       OOMKilled   1          37s
 ```
-
 ```
 
 kubectl get pod memory-demo-2 --namespace=mem-example
@@ -288,6 +291,8 @@ Xóa namespace của bạn. Thao tác này sẽ xóa tất cả các Pod bạn �
 ```shell
 kubectl delete namespace mem-example
 ```
+
+
 
 ## {{% heading "whatsnext" %}}
 
