@@ -43,6 +43,12 @@ in your cluster, and you use a container runtime that supports statistics access
 {{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI), then
 the kubelet [fetches Pod- and container-level metric data using CRI](/docs/reference/instrumentation/cri-pod-container-metrics), and not via cAdvisor.
 
+## Pressure Stall Information (PSI) {#psi}
+
+{{< feature-state for_k8s_version="v1.33" state="alpha" >}}
+
+As an alpha feature, Kubernetes lets you configure Kubelet to collect Linux kernel [Pressure Stall Information](https://docs.kernel.org/accounting/psi.html) (PSI) for CPU, memory and IO usage. The information is collected at node, pod and container level. See [Summary API](https://github.com/kubernetes/kubernetes/blob/ef838fcc3fa3b43c2e67b4e43d71b6720fc61898/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go#L281-L300) for detailed schema. You must enable the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to use this feature. The information is also exposed in [Prometheus metrics](/docs/concepts/cluster-administration/system-metrics#psi-metrics).
+
 ## {{% heading "whatsnext" %}}
 
 The task pages for [Troubleshooting Clusters](/docs/tasks/debug/debug-cluster/) discuss
