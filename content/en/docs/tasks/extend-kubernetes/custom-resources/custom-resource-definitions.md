@@ -750,6 +750,7 @@ validations are not supported by ratcheting under the implementation in Kubernet
   - `not`
   -  any validations in a descendent of one of these fields
 - `x-kubernetes-validations`
+
   For Kubernetes 1.28, CRD [validation rules](#validation-rules) are ignored by
   ratcheting. Starting with Alpha 2 in Kubernetes 1.29, `x-kubernetes-validations`
   are ratcheted only if they do not refer to `oldSelf`.
@@ -758,23 +759,35 @@ validations are not supported by ratcheting under the implementation in Kubernet
   use `oldSelf` will be automatically ratcheted if their values are unchanged.
 
   To write custom ratcheting logic for CEL expressions, check out [optionalOldSelf](#field-optional-oldself).
+
 - `x-kubernetes-list-type`
+
   Errors arising from changing the list type of a subschema will not be 
   ratcheted. For example adding `set` onto a list with duplicates will always 
   result in an error.
+
 - `x-kubernetes-map-keys`
+
   Errors arising from changing the map keys of a list schema will not be 
   ratcheted.
+
 - `required`
+
   Errors arising from changing the list of required fields will not be ratcheted.
+
 - `properties`
+
   Adding/removing/modifying the names of properties is not ratcheted, but 
   changes to validations in each properties' schemas and subschemas may be ratcheted
   if the name of the property stays the same.
+
 - `additionalProperties`
+
   To remove a previously specified `additionalProperties` validation will not be
   ratcheted.
+
 - `metadata`
+
   Errors that come from Kubernetes' built-in validation of an object's `metadata` 
   are not ratcheted (such as object name, or characters in a label value). 
   If you specify your own additional rules for the metadata of a custom resource, 
@@ -889,21 +902,21 @@ The compilation failure:
 
 Validation Rules Examples:
 
-| Rule                                                                             | Purpose                                                                           |
-| ----------------                                                                 | ------------                                                                      |
-| `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas`         | Validate that the three fields defining replicas are ordered appropriately        |
-| `'Available' in self.stateCounts`                                                | Validate that an entry with the 'Available' key exists in a map                   |
-| `(size(self.list1) == 0) != (size(self.list2) == 0)`                             | Validate that one of two lists is non-empty, but not both                         |
-| <code>!('MY_KEY' in self.map1) &#124;&#124; self['MY_KEY'].matches('^[a-zA-Z]*$')</code>               | Validate the value of a map for a specific key, if it is in the map               |
-| `self.envars.filter(e, e.name == 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')` | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
-| `has(self.expired) && self.created + self.ttl < self.expired`                    | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration       |
-| `self.health.startsWith('ok')`                                                   | Validate a 'health' string field has the prefix 'ok'                              |
-| `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                             | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
-| `type(self) == string ? self == '100%' : self == 1000`                           | Validate an int-or-string field for both the int and string cases             |
-| `self.metadata.name.startsWith(self.prefix)`                                     | Validate that an object's name has the prefix of another field value              |
-| `self.set1.all(e, !(e in self.set2))`                                            | Validate that two listSets are disjoint                                           |
-| `size(self.names) == size(self.details) && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet           |
-| `size(self.clusters.filter(c, c.name == self.primary)) == 1`                     | Validate that the 'primary' property has one and only one occurrence in the 'clusters' listMap           |
+| Rule | Purpose |
+| ---- | ------- |
+| `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas` | Validate that the three fields defining replicas are ordered appropriately |
+| `'Available' in self.stateCounts` | Validate that an entry with the 'Available' key exists in a map |
+| `(size(self.list1) == 0) != (size(self.list2) == 0)` | Validate that one of two lists is non-empty, but not both |
+| <code>!('MY_KEY' in self.map1) &#124;&#124; self['MY_KEY'].matches('^[a-zA-Z]*$')</code> | Validate the value of a map for a specific key, if it is in the map |
+| `self.envars.filter(e, e.name == 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')` | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV' |
+| `has(self.expired) && self.created + self.ttl < self.expired` | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration |
+| `self.health.startsWith('ok')` | Validate a 'health' string field has the prefix 'ok' |
+| `self.widgets.exists(w, w.key == 'x' && w.foo < 10)` | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
+| `type(self) == string ? self == '100%' : self == 1000` | Validate an int-or-string field for both the int and string cases |
+| `self.metadata.name.startsWith(self.prefix)` | Validate that an object's name has the prefix of another field value |
+| `self.set1.all(e, !(e in self.set2))` | Validate that two listSets are disjoint |
+| `size(self.names) == size(self.details) && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet |
+| `size(self.clusters.filter(c, c.name == self.primary)) == 1` | Validate that the 'primary' property has one and only one occurrence in the 'clusters' listMap |
 
 Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation)
 
@@ -1008,13 +1021,12 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
 
 Examples:
 
-|type of the field rule scoped to    | Rule example             |
-| -----------------------| -----------------------|
-| root object            | `self.status.actual <= self.spec.maxDesired` |
-| map of objects         | `self.components['Widget'].priority < 10` |
-| list of integers       | `self.values.all(value, value >= 0 && value < 100)` |
-| string                 | `self.startsWith('kube')` |
-
+| type of the field rule scoped to | Rule example |
+| -------------------------------- | ------------ |
+| root object | `self.status.actual <= self.spec.maxDesired` |
+| map of objects | `self.components['Widget'].priority < 10` |
+| list of integers | `self.values.all(value, value >= 0 && value < 100)` |
+| string | `self.startsWith('kube')` |
 
 The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
 the root of the object and from any `x-kubernetes-embedded-resource` annotated objects. No other
@@ -1035,25 +1047,24 @@ accessible in CEL expressions. This includes:
 Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
 Accessible property names are escaped according to the following rules when accessed in the expression:
 
-| escape sequence         | property name equivalent  |
+| escape sequence         | property name equivalent |
 | ----------------------- | -----------------------|
 | `__underscores__`       | `__`                  |
 | `__dot__`               | `.`                   |
 |`__dash__`               | `-`                   |
 | `__slash__`             | `/`                   |
-| `__{keyword}__`         | [CEL RESERVED keyword](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax)       |
+| `__{keyword}__`         | [CEL RESERVED keyword](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax) |
 
 Note: CEL RESERVED keyword needs to match the exact property name to be escaped (e.g. int in the word sprint would not be escaped).
 
 Examples on escaping:
 
-|property name    | rule with escaped property name     |
-| ----------------| -----------------------             |
-| namespace       | `self.__namespace__ > 0`            |
-| x-prop          | `self.x__dash__prop > 0`            |
-| redact__d       | `self.redact__underscores__d > 0`   |
-| string          | `self.startsWith('kube')`           |
-
+|property name    | rule with escaped property name |
+| ----------------| ------------------------------- |
+| namespace       | `self.__namespace__ > 0`        |
+| x-prop          | `self.x__dash__prop > 0`        |
+| redact__d       | `self.redact__underscores__d > 0` |
+| string          | `self.startsWith('kube')`       |
 
 Equality on arrays with `x-kubernetes-list-type` of `set` or `map` ignores element order,
 i.e., `[1, 2] == [2, 1]`. Concatenation on arrays with x-kubernetes-list-type use the semantics of
@@ -1066,28 +1077,27 @@ the list type:
   the values are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements
   in `Y` with non-intersecting keys are appended, retaining their partial order.
 
-
 Here is the declarations type mapping between OpenAPIv3 and CEL type:
 
-| OpenAPIv3 type                                     | CEL type                                                                                                                     |
-| -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| 'object' with Properties                           | object / "message type"                                                                                                      |
-| 'object' with AdditionalProperties                 | map                                                                                                                          |
-| 'object' with x-kubernetes-embedded-type           | object / "message type", 'apiVersion', 'kind', 'metadata.name' and 'metadata.generateName' are implicitly included in schema |
-| 'object' with x-kubernetes-preserve-unknown-fields | object / "message type", unknown fields are NOT accessible in CEL expression                                                 |
-| x-kubernetes-int-or-string                         | dynamic object that is either an int or a string, `type(value)` can be used to check the type                                |
-| 'array                                             | list                                                                                                                         |
-| 'array' with x-kubernetes-list-type=map            | list with map based Equality & unique key guarantees                                                                         |
-| 'array' with x-kubernetes-list-type=set            | list with set based Equality & unique entry guarantees                                                                       |
-| 'boolean'                                          | boolean                                                                                                                      |
-| 'number' (all formats)                             | double                                                                                                                       |
-| 'integer' (all formats)                            | int (64)                                                                                                                     |
-| 'null'                                             | null_type                                                                                                                    |
-| 'string'                                           | string                                                                                                                       |
-| 'string' with format=byte (base64 encoded)         | bytes                                                                                                                        |
-| 'string' with format=date                          | timestamp (google.protobuf.Timestamp)                                                                                        |
-| 'string' with format=datetime                      | timestamp (google.protobuf.Timestamp)                                                                                        |
-| 'string' with format=duration                      | duration (google.protobuf.Duration)                                                                                          |
+| OpenAPIv3 type | CEL type |
+| -------------- | -------- |
+| 'object' with Properties | object / "message type" |
+| 'object' with AdditionalProperties | map |
+| 'object' with x-kubernetes-embedded-type | object / "message type", 'apiVersion', 'kind', 'metadata.name' and 'metadata.generateName' are implicitly included in schema |
+| 'object' with x-kubernetes-preserve-unknown-fields | object / "message type", unknown fields are NOT accessible in CEL expression |
+| x-kubernetes-int-or-string | dynamic object that is either an int or a string, `type(value)` can be used to check the type |
+| 'array | list |
+| 'array' with x-kubernetes-list-type=map | list with map based Equality & unique key guarantees |
+| 'array' with x-kubernetes-list-type=set | list with set based Equality & unique entry guarantees |
+| 'boolean' | boolean |
+| 'number' (all formats) | double |
+| 'integer' (all formats) | int (64) |
+| 'null' | null_type |
+| 'string' | string |
+| 'string' with format=byte (base64 encoded) | bytes |
+| 'string' with format=date | timestamp (google.protobuf.Timestamp) |
+| 'string' with format=datetime | timestamp (google.protobuf.Timestamp) |
+| 'string' with format=duration | duration (google.protobuf.Duration) |
 
 xref: [CEL types](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#values),
 [OpenAPI types](https://swagger.io/specification/#data-types),
@@ -1121,7 +1131,9 @@ breaks.
 If one of the above conditions are met and no `message` has been set, then the default validation failure
 message will be used instead.
 
-`messageExpression` is a CEL expression, so the restrictions listed in [Resource use by validation functions](#resource-use-by-validation-functions) apply. If evaluation halts due to resource constraints 
+`messageExpression` is a CEL expression, so the restrictions listed in
+[Resource use by validation functions](#resource-use-by-validation-functions) apply.
+If evaluation halts due to resource constraints
 during `messageExpression` execution, then no further validation rules will be executed.
 
 Setting `messageExpression` is optional.
@@ -1204,10 +1216,9 @@ Example Usage:
 
 | CEL                                     | Description |
 |-----------------------------------------|-------------|
-| `self.foo == "foo" || (oldSelf.hasValue() && oldSelf.value().foo != "foo")` | Ratcheted rule. Once a value is set to "foo", it must stay foo. But if it existed before the "foo" constraint was introduced, it may use any value |
-| [oldSelf.orValue(""), self].all(x, ["OldCase1", "OldCase2"].exists(case, x == case)) || ["NewCase1", "NewCase2"].exists(case, self == case) || ["NewCase"].has(self)` | "Ratcheted validation for removed enum cases if oldSelf used them" |
-| oldSelf.optMap(o, o.size()).orValue(0) < 4 || self.size() >= 4 | Ratcheted validation of newly increased minimum map or list size |
-
+| `self.foo == "foo" \|\| (oldSelf.hasValue() && oldSelf.value().foo != "foo")` | Ratcheted rule. Once a value is set to "foo", it must stay foo. But if it existed before the "foo" constraint was introduced, it may use any value |
+| `[oldSelf.orValue(""), self].all(x, ["OldCase1", "OldCase2"].exists(case, x == case)) \|\| ["NewCase1", "NewCase2"].exists(case, self == case) \|\| ["NewCase"].has(self)` | Ratcheted validation for removed enum cases if oldSelf used them |
+| `oldSelf.optMap(o, o.size()).orValue(0) < 4 \|\| self.size() >= 4` | Ratcheted validation of newly increased minimum map or list size |
 
 #### Validation functions {#available-validation-functions}
 
@@ -1256,13 +1267,13 @@ any `set`or `atomic`array parent schemas make it impossible to unambiguously cor
 Here are some examples for transition rules:
 
 {{< table caption="Transition rules examples" >}}
-| Use Case                                                          | Rule
-| --------                                                          | --------
-| Immutability                                                      | `self.foo == oldSelf.foo`
-| Prevent modification/removal once assigned                        | `oldSelf != 'bar' \|\| self == 'bar'` or `!has(oldSelf.field) \|\| has(self.field)`
-| Append-only set                                                   | `self.all(element, element in oldSelf)`
-| If previous value was X, new value can only be A or B, not Y or Z | `oldSelf != 'X' \|\| self in ['A', 'B']`
-| Monotonic (non-decreasing) counters                               | `self >= oldSelf`
+| Use Case | Rule |
+| -------- | ---- |
+| Immutability | `self.foo == oldSelf.foo` |
+| Prevent modification/removal once assigned | `oldSelf != 'bar' \|\| self == 'bar'` or `!has(oldSelf.field) \|\| has(self.field)` |
+| Append-only set | `self.all(element, element in oldSelf)` |
+| If previous value was X, new value can only be A or B, not Y or Z | `oldSelf != 'X' \|\| self in ['A', 'B']` |
+| Monotonic (non-decreasing) counters | `self >= oldSelf` |
 {{< /table >}}
 
 #### Resource use by validation functions
@@ -1546,9 +1557,9 @@ and therefore won't affect [validation](#validation) in the API server.
 
 1. The following fields are removed as they aren't supported by OpenAPI v2.
 
-   - The fields `allOf`, `anyOf`, `oneOf` and `not` are removed
+   The fields `allOf`, `anyOf`, `oneOf` and `not` are removed
 
-2. If `nullable: true` is set, we drop `type`, `nullable`, `items` and `properties` because OpenAPI v2 is
+1. If `nullable: true` is set, we drop `type`, `nullable`, `items` and `properties` because OpenAPI v2 is
    not able to express nullable. To avoid kubectl to reject good objects, this is necessary.
 
 ### Additional printer columns
@@ -1629,7 +1640,6 @@ my-new-cron-object   * * * * *   1          7s
 {{< note >}}
 The `NAME` column is implicit and does not need to be defined in the CustomResourceDefinition.
 {{< /note >}}
-
 
 #### Priority
 
