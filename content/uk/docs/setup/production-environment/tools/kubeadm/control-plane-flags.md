@@ -8,14 +8,14 @@ weight: 40
 
 Ця сторінка охоплює способи налаштування компонентів, які розгортаються за допомогою kubeadm. Для компонентів панелі управління можна використовувати прапорці у структурі `ClusterConfiguration` або патчі на рівні вузла. Для kubelet і kube-proxy ви можете використовувати `KubeletConfiguration` та `KubeProxyConfiguration`, відповідно.
 
-Всі ці опції можливі за допомогою конфігураційного API kubeadm. Докладніше про кожне поле в конфігурації ви можете дізнатися на наших [довідкових сторінках API](/uk/docs/reference/config-api/kubeadm-config.v1beta3/).
+Всі ці опції можливі за допомогою конфігураційного API kubeadm. Докладніше про кожне поле в конфігурації ви можете дізнатися на наших [довідкових сторінках API](/docs/reference/config-api/kubeadm-config.v1beta3/).
 
 {{< note >}}
-На жаль, наразі не підтримується налаштування розгортання CoreDNS за допомогою kubeadm. Вам слід вручну патчити {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} `kube-system/coredns` та перестворити {{< glossary_tooltip text="Pods" term_id="pod" >}} CoreDNS після цього. Альтернативно, ви можете пропустити типове розгортання CoreDNS та розгорнути свій варіант. Докладніше про це читайте у [Використання фаз ініціалізації з kubeadm](/uk/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases).
+На жаль, наразі не підтримується налаштування розгортання CoreDNS за допомогою kubeadm. Вам слід вручну патчити {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} `kube-system/coredns` та перестворити {{< glossary_tooltip text="Pods" term_id="pod" >}} CoreDNS після цього. Альтернативно, ви можете пропустити типове розгортання CoreDNS та розгорнути свій варіант. Докладніше про це читайте у [Використання фаз ініціалізації з kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases).
 {{< /note >}}
 
 {{< note >}}
-Щоб переконфігурувати кластер, який вже був створений, дивіться [Переконфігурація кластера з kubeadm](/uk/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure).
+Щоб переконфігурувати кластер, який вже був створений, дивіться [Переконфігурація кластера з kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure).
 {{< /note >}}
 
 <!-- body -->
@@ -49,7 +49,7 @@ weight: 40
 
 ### Прапорці APIServer {#apiserver-flags}
 
-Докладну інформацію див. у [довідковій документації для kube-apiserver](/uk/docs/reference/command-line-tools-reference/kube-apiserver/).
+Докладну інформацію див. у [довідковій документації для kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/).
 
 Приклад використання:
 
@@ -67,7 +67,7 @@ apiServer:
 
 ### Прапорці ControllerManager {#controllermanager-flags}
 
-Докладну інформацію див. у [довідковій документації для kube-controller-manager](/uk/docs/reference/command-line-tools-reference/kube-controller-manager/).
+Докладну інформацію див. у [довідковій документації для kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
 
 Приклад використання:
 
@@ -85,7 +85,7 @@ controllerManager:
 
 ### Прапорці планувальника {#scheduler-flags}
 
-Докладну інформацію див. у [довідковій документації для kube-scheduler](/uk/docs/reference/command-line-tools-reference/kube-scheduler/).
+Докладну інформацію див. у [довідковій документації для kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
 
 Приклад використання:
 
@@ -154,29 +154,29 @@ patches:
 
 - `target` може бути одним із `kube-apiserver`, `kube-controller-manager`, `kube-scheduler`, `etcd` та `kubeletconfiguration`.
 - `suffix` — це необовʼязковий рядок, який можна використовувати для визначення порядку застосування патчів за алфавітною послідовністю.
-- `patchtype` може бути одним із `strategic`, `merge` або `json` і вони повинні відповідати форматам патчів, [підтримуваним kubectl](/uk/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch). Типово `patchtype` — `strategic`.
+- `patchtype` може бути одним із `strategic`, `merge` або `json` і вони повинні відповідати форматам патчів, [підтримуваним kubectl](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch). Типово `patchtype` — `strategic`.
 - `extension` повинен бути або `json`, або `yaml`.
 
 {{< note >}}
-Якщо ви використовуєте `kubeadm upgrade` для оновлення ваших вузлів kubeadm, вам слід знову надати ті самі патчі, щоб налаштування залишалося після оновлення. Для цього ви можете використовувати прапорець `--patches`, який повинен вказувати на той самий каталог. `kubeadm upgrade` зараз не підтримує структуру конфігурації API,
+Якщо ви використовуєте `kubeadm upgrade` для оновлення ваших вузлів kubeadm, вам слід знову надати ті самі патчі, щоб налаштування залишалося після оновлення. Для цього ви можете використовувати прапорець `--patches`, який повинен вказувати на ту саму теку. `kubeadm upgrade` зараз не підтримує структуру конфігурації API,
 яка може бути використана для того самого.
 {{< /note >}}
 
 ## Налаштування kubelet {#kubelet}
 
-Щоб налаштувати kubelet, ви можете додати [`KubeletConfiguration`](/uk/docs/reference/config-api/kubelet-config.v1beta1/) поруч із `ClusterConfiguration` або `InitConfiguration`, розділеними `---` у тому самому файлі конфігурації. Цей файл потім можна передати до `kubeadm init`, і kubeadm застосує ту ж саму базову `KubeletConfiguration` для всіх вузлів у кластері.
+Щоб налаштувати kubelet, ви можете додати [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/) поруч із `ClusterConfiguration` або `InitConfiguration`, розділеними `---` у тому самому файлі конфігурації. Цей файл потім можна передати до `kubeadm init`, і kubeadm застосує ту ж саму базову `KubeletConfiguration` для всіх вузлів у кластері.
 
 Для застосування конфігурації, специфічної для екземпляра, понад базовою `KubeletConfiguration`, ви можете використовувати ціль патчу [`kubeletconfiguration`](#patches).
 
-Також ви можете використовувати прапорці kubelet як перевизначення, передаючи їх у поле `nodeRegistration.kubeletExtraArgs`, яке підтримується як `InitConfiguration`, так і `JoinConfiguration`. Деякі прапорці kubelet є застарілими, тому перевірте їх статус у [довідковій документації kubelet](/uk/docs/reference/command-line-tools-reference/kubelet), перш ніж їх використовувати.
+Також ви можете використовувати прапорці kubelet як перевизначення, передаючи їх у поле `nodeRegistration.kubeletExtraArgs`, яке підтримується як `InitConfiguration`, так і `JoinConfiguration`. Деякі прапорці kubelet є застарілими, тому перевірте їх статус у [довідковій документації kubelet](/docs/reference/command-line-tools-reference/kubelet), перш ніж їх використовувати.
 
-Додаткові деталі дивіться в розділі [Налаштування кожного kubelet у вашому кластері за допомогою kubeadm](/uk/docs/setup/production-environment/tools/kubeadm/kubelet-integration)
+Додаткові деталі дивіться в розділі [Налаштування кожного kubelet у вашому кластері за допомогою kubeadm](/docs/setup/production-environment/tools/kubeadm/kubelet-integration)
 
 ## Налаштування kube-proxy {#customizing-kube-proxy}
 
 Щоб налаштувати kube-proxy, ви можете передати `KubeProxyConfiguration` поруч з `ClusterConfiguration` або `InitConfiguration` до `kubeadm init`, розділені `---`.
 
-Для отримання докладнішої інформації ви можете перейти на наші [сторінки API-посилань](/uk/docs/reference/config-api/kubeadm-config.v1beta4/).
+Для отримання докладнішої інформації ви можете перейти на наші [сторінки API-посилань](/docs/reference/config-api/kubeadm-config.v1beta4/).
 
 {{< note >}}
 kubeadm розгортає kube-proxy як {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}, що означає, що `KubeProxyConfiguration` буде застосовуватися до всіх екземплярів kube-proxy в кластері.

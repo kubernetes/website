@@ -7,9 +7,9 @@ no_list: true
 
 <!-- overview -->
 
-Цей документ присвячений усуненню несправностей в кластері; ми передбачаємо, що ви вже виключили свій застосунок з переліку причин проблеми, з якою ви стикаєтеся. Дивіться [посібник Налагодження застосунку](/uk/docs/tasks/debug/debug-application/) для порад з перевірки застосунків. Ви також можете звернутися до [загального документа з усунення несправностей](/uk/docs/tasks/debug/) для отримання додаткової інформації.
+Цей документ присвячений усуненню несправностей в кластері; ми передбачаємо, що ви вже виключили свій застосунок з переліку причин проблеми, з якою ви стикаєтеся. Дивіться [посібник Налагодження застосунку](/docs/tasks/debug/debug-application/) для порад з перевірки застосунків. Ви також можете звернутися до [загального документа з усунення несправностей](/docs/tasks/debug/) для отримання додаткової інформації.
 
-Щодо усунення несправностей інструменту {{<glossary_tooltip text="kubectl" term_id="kubectl">}}, звертайтеся до [Посібника з усунення несправностей kubectl](/uk/docs/tasks/debug/debug-cluster/troubleshoot-kubectl/).
+Щодо усунення несправностей інструменту {{<glossary_tooltip text="kubectl" term_id="kubectl">}}, звертайтеся до [Посібника з усунення несправностей kubectl](/docs/tasks/debug/debug-cluster/troubleshoot-kubectl/).
 
 <!-- body -->
 
@@ -282,10 +282,10 @@ status:
 * Дія: Використовуйте надійне сховище IaaS (наприклад, GCE PD або том AWS EBS) для віртуальних машин з apiserver+etcd
   * Помʼякшує: Втрата даних, на яких ґрунтується API сервер
 
-* Дія: Використовуйте [конфігурацію високої доступності](/uk/docs/setup/production-environment/tools/kubeadm/high-availability/)
+* Дія: Використовуйте [конфігурацію високої доступності](/docs/setup/production-environment/tools/kubeadm/high-availability/)
   * Помʼякшує: Вимкнення вузла керування або аварійне завершення роботи компонентів управління керуванням (планувальник, API сервер, менеджер контролера)
     * Витримає одне або кілька одночасних відмов вузлів або компонентів
-  * Помʼякшує: Втрата сховища даних для API сервера (тобто каталог даних etcd)
+  * Помʼякшує: Втрата сховища даних для API сервера (тобто тека даних etcd)
     * Передбачає конфігурацію HA (highly-available) etcd
 
 * Дія: Регулярно створюйте знімки віртуальних машин або томів PD/EBS, які використовуються apiserver
@@ -304,12 +304,12 @@ status:
 ## {{% heading "whatsnext" %}}
 
 * Дізнайтеся про метрики, доступні в
-  [Resource Metrics Pipeline](/uk/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)
+  [Resource Metrics Pipeline](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)
 * Відкрийте додаткові інструменти для
-  [моніторингу використання ресурсів](/uk/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
+  [моніторингу використання ресурсів](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 * Використовуйте Node Problem Detector для
-  [моніторингу стану вузла](/uk/docs/tasks/debug/debug-cluster/monitor-node-health/)
-* Використовуйте `kubectl debug node` для [налагодження вузлів Kubernetes](/uk/docs/tasks/debug/debug-cluster/kubectl-node-debug) 
-* Використовуйте `crictl` для [налагодження вузлів Kubernetes](/uk/docs/tasks/debug/debug-cluster/crictl/)
-* Отримайте більше інформації про [аудит Kubernetes](/uk/docs/tasks/debug/debug-cluster/audit/)
-* Використовуйте `telepresence` для [розробки та налагодження служб локально](/uk/docs/tasks/debug/debug-cluster/local-debugging/)
+  [моніторингу стану вузла](/docs/tasks/debug/debug-cluster/monitor-node-health/)
+* Використовуйте `kubectl debug node` для [налагодження вузлів Kubernetes](/docs/tasks/debug/debug-cluster/kubectl-node-debug)
+* Використовуйте `crictl` для [налагодження вузлів Kubernetes](/docs/tasks/debug/debug-cluster/crictl/)
+* Отримайте більше інформації про [аудит Kubernetes](/docs/tasks/debug/debug-cluster/audit/)
+* Використовуйте `telepresence` для [розробки та налагодження служб локально](/docs/tasks/debug/debug-cluster/local-debugging/)

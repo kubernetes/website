@@ -290,5 +290,5 @@ kubectl create secret (docker-registry | generic | tls)
 
 * [kubectl create](../) — Створення ресурсу з файлу або зі stdin
 * [kubectl create secret docker-registry](../kubectl_create_secret_docker-registry/) — Створення секрету для використання з реєстром Docker
-* [kubectl create secret generic](../kubectl_create_secret_generic/) — Створення секрету з локального файлу, каталогу або буквеного значення
+* [kubectl create secret generic](../kubectl_create_secret_generic/) — Створення секрету з локального файлу, теки або літерального значення
 * [kubectl create secret tls](../kubectl_create_secret_tls/) — Створення секрету TLS

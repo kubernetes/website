@@ -195,7 +195,7 @@ type PodSpec struct {
   <tr><th>Значення параметра</th><th>Тип злиття</th></tr>
   <tr><td>json</td><td><a href="https://tools.ietf.org/html/rfc6902">JSON Patch, RFC 6902</a></td></tr>
   <tr><td>merge</td><td><a href="https://tools.ietf.org/html/rfc7386">JSON Merge Patch, RFC 7386</a></td></tr>
-  <tr><td>strategic</td><td>Стратегічне патч злиття</td></tr>
+  <tr><td>strategic</td><td>Стратегічний патч злиття</td></tr>
 </table>
 
 Для порівняння JSON patch та JSON merge patch, див. [JSON Patch та JSON Merge Patch](https://erosb.github.io/post/json-patch-vs-merge-patch/).
@@ -471,7 +471,7 @@ status:
 
 ## Підсумки {#summary}
 
-У цій вправі ви використали `kubectl patch`, щоб змінити поточну конфігурацію обʼєкта Deployment. Ви не змінювали файл конфігурації, який ви спочатку використовували для створення обʼєкта Deployment. Інші команди для оновлення обʼєктів API включають [kubectl annotate](/uk/docs/reference/generated/kubectl/kubectl-commands/#annotate), [kubectl edit](/uk/docs/reference/generated/kubectl/kubectl-commands/#edit), [kubectl replace](/uk/docs/reference/generated/kubectl/kubectl-commands/#replace), [kubectl scale](/uk/docs/reference/generated/kubectl/kubectl-commands/#scale), та [kubectl apply](/uk/docs/reference/generated/kubectl/kubectl-commands/#apply).
+У цій вправі ви використали `kubectl patch`, щоб змінити поточну конфігурацію обʼєкта Deployment. Ви не змінювали файл конфігурації, який ви спочатку використовували для створення обʼєкта Deployment. Інші команди для оновлення обʼєктів API включають [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands/#annotate), [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands/#edit), [kubectl replace](/docs/reference/generated/kubectl/kubectl-commands/#replace), [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands/#scale), та [kubectl apply](/docs/reference/generated/kubectl/kubectl-commands/#apply).
 
 {{< note >}}
 Стратегічний патч злиття не підтримується для власних ресурсів.
@@ -479,7 +479,7 @@ status:
 
 ## {{% heading "whatsnext" %}}
 
-- [Управління обʼєктами Kubernetes](/uk/docs/concepts/overview/working-with-objects/object-management/)
-- [Управління обʼєктами Kubernetes за допомогою імперативних команд](/uk/docs/tasks/manage-kubernetes-objects/imperative-command/)
-- [Імперативне управління обʼєктами Kubernetes за допомогою файлів конфігурації](/uk/docs/tasks/manage-kubernetes-objects/imperative-config/)
-- [Декларативне управління обʼєктами Kubernetes за допомогою файлів конфігурації](/uk/docs/tasks/manage-kubernetes-objects/declarative-config/)
+- [Управління обʼєктами Kubernetes](/docs/concepts/overview/working-with-objects/object-management/)
+- [Управління обʼєктами Kubernetes за допомогою імперативних команд](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+- [Імперативне управління обʼєктами Kubernetes за допомогою файлів конфігурації](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+- [Декларативне управління обʼєктами Kubernetes за допомогою файлів конфігурації](/docs/tasks/manage-kubernetes-objects/declarative-config/)

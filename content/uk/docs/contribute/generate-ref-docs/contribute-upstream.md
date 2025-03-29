@@ -10,8 +10,8 @@ weight: 20
 
 Якщо ви хочете відновити довідкову документацію для API Kubernetes або компонентів `kube-*` з коду upstream, перегляньте наступні інструкції:
 
-- [Генерація довідкової документації для API Kubernetes](/uk/docs/contribute/generate-ref-docs/kubernetes-api/)
-- [Генерація довідкової документації для компонентів і інструментів Kubernetes](/uk/docs/contribute/generate-ref-docs/kubernetes-components/)
+- [Генерація довідкової документації для API Kubernetes](/docs/contribute/generate-ref-docs/kubernetes-api/)
+- [Генерація довідкової документації для компонентів і інструментів Kubernetes](/docs/contribute/generate-ref-docs/kubernetes-components/)
 
 ## {{% heading "prerequisites" %}}
 
@@ -48,7 +48,7 @@ go get github.com/kubernetes/kubernetes
 
 Визначте базову теку вашого клону репозиторію [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes). Наприклад, якщо ви слідували попередньому кроку для отримання репозиторію, ваша базова тека — `$GOPATH/src/github.com/kubernetes/kubernetes`. Наступні кроки посилаються на вашу базову теку як `<k8s-base>`.
 
-Визначте базову теку вашого клону репозиторію [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs). Наприклад, якщо ви слідували попередньому кроку для отримання репозиторію, ваша базова тека — `$GOPATH/src/github.com/kubernetes-sigs/reference-docs`. Наступні кроки посилаються на ваш базовий каталог як `<rdocs-base>`.
+Визначте базову теку вашого клону репозиторію [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs). Наприклад, якщо ви слідували попередньому кроку для отримання репозиторію, ваша базова тека — `$GOPATH/src/github.com/kubernetes-sigs/reference-docs`. Наступні кроки посилаються на вашу базову теку як `<rdocs-base>`.
 
 ## Редагування вихідного коду Kubernetes {#edit-the-kubernetes-source-code}
 
@@ -154,10 +154,10 @@ On branch master
 
 Попередній розділ показав, як редагувати вихідний файл і потім згенерувати декілька файлів, включаючи `api/openapi-spec/swagger.json` у репозиторії `kubernetes/kubernetes`. Файл `swagger.json` є файлом визначення OpenAPI, який використовується для генерації документації API.
 
-Тепер ви готові слідувати посібнику [Генерація довідкової документації для API Kubernetes](/uk/docs/contribute/generate-ref-docs/kubernetes-api/), щоб згенерувати [опубліковану довідкову документацію API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
+Тепер ви готові слідувати посібнику [Генерація довідкової документації для API Kubernetes](/docs/contribute/generate-ref-docs/kubernetes-api/), щоб згенерувати [опубліковану довідкову документацію API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
 
 ## {{% heading "whatsnext" %}}
 
-- [Генерація довідкової документації для API Kubernetes](/uk/docs/contribute/generate-ref-docs/kubernetes-api/)
-- [Генерація довідкових документів для компонентів і інструментів Kubernetes](/uk/docs/contribute/generate-ref-docs/kubernetes-components/)
-- [Генерація довідкової документації для команд kubectl](/uk/docs/contribute/generate-ref-docs/kubectl/)
+- [Генерація довідкової документації для API Kubernetes](/docs/contribute/generate-ref-docs/kubernetes-api/)
+- [Генерація довідкових документів для компонентів і інструментів Kubernetes](/docs/contribute/generate-ref-docs/kubernetes-components/)
+- [Генерація довідкової документації для команд kubectl](/docs/contribute/generate-ref-docs/kubectl/)

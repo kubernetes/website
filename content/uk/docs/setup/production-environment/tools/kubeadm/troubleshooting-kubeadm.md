@@ -84,8 +84,8 @@ subjects:
 Це може бути спричинено кількома проблемами. Найбільш поширеними є:
 
 - проблеми з мережевим підключенням. Перш ніж продовжувати, перевірте, чи ваша машина має повне підключення до мережі.
-- драйвер cgroup контейнера відрізняється від драйвера kubelet cgroup. Щоб зрозуміти, як правильно налаштувати це, див. [Налаштування драйвера cgroup](/uk/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
-- контейнери панелі управління впадають в цикл або зупиняються. Ви можете перевірити це, використовуючи `docker ps` та вивчаючи кожен контейнер за допомогою `docker logs`. Для інших середовищ виконання контейнерів, див. [Налагодження вузлів Kubernetes за допомогою crictl](/uk/docs/tasks/debug/debug-cluster/crictl/).
+- драйвер cgroup контейнера відрізняється від драйвера kubelet cgroup. Щоб зрозуміти, як правильно налаштувати це, див. [Налаштування драйвера cgroup](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
+- контейнери панелі управління впадають в цикл або зупиняються. Ви можете перевірити це, використовуючи `docker ps` та вивчаючи кожен контейнер за допомогою `docker logs`. Для інших середовищ виконання контейнерів, див. [Налагодження вузлів Kubernetes за допомогою crictl](/docs/tasks/debug/debug-cluster/crictl/).
 
 ## `kubeadm` блокується під час видалення керованих контейнерів {#kubeadm-blocks-when-removing-managed-containers}
 
@@ -103,7 +103,7 @@ sudo kubeadm reset
 (block)
 ```
 
-Можливий варіант вирішення — перезапустити середовище виконання контейнерів, а потім знову запустити `kubeadm reset`. Ви також можете використовувати `crictl` для налагодження стану середовища виконання контейнерів. Див. [Налагодження вузлів Kubernetes за допомогою crictl](/uk/docs/tasks/debug/debug-cluster/crictl/).
+Можливий варіант вирішення — перезапустити середовище виконання контейнерів, а потім знову запустити `kubeadm reset`. Ви також можете використовувати `crictl` для налагодження стану середовища виконання контейнерів. Див. [Налагодження вузлів Kubernetes за допомогою crictl](/docs/tasks/debug/debug-cluster/crictl/).
 
 ## Podʼи у стані `RunContainerError`, `CrashLoopBackOff` або `Error` {#pods-in-runcontainererror-crashloopbackoff-or-error-state}
 
@@ -114,7 +114,7 @@ sudo kubeadm reset
 
 ## `coredns` застрягає у стані `Pending` {#coredns-is-stuck-in-the-pending-state}
 
-Це **очікувано** і є частиною дизайну. kubeadm є агностичним до мережі, тому адміністратор повинен [встановити вибраний додаток для мережі](/uk/docs/concepts/cluster-administration/addons/) за власним вибором. Вам потрібно встановити Pod Network, перш ніж `coredns` може бути повністю розгорнутим. Таким чином, стан `Pending` перед налаштуванням мережі є нормальним.
+Це **очікувано** і є частиною дизайну. kubeadm є агностичним до мережі, тому адміністратор повинен [встановити вибраний додаток для мережі](/docs/concepts/cluster-administration/addons/) за власним вибором. Вам потрібно встановити Pod Network, перш ніж `coredns` може бути повністю розгорнутим. Таким чином, стан `Pending` перед налаштуванням мережі є нормальним.
 
 ## Сервіси `HostPort` не працюють {#hostport-services-do-not-work}
 
@@ -125,11 +125,11 @@ sudo kubeadm reset
 
 Для отримання додаткової інформації перегляньте [документацію CNI portmap](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md).
 
-Якщо ваш постачальник мережі не підтримує втулок CNI portmap, можливо, вам доведеться використовувати [функцію NodePort для сервісів](/uk/docs/concepts/services-networking/service/#type-nodeport) або використовуйте `HostNetwork=true`.
+Якщо ваш постачальник мережі не підтримує втулок CNI portmap, можливо, вам доведеться використовувати [функцію NodePort для сервісів](/docs/concepts/services-networking/service/#type-nodeport) або використовуйте `HostNetwork=true`.
 
 ## До Podʼів неможливо отримати доступ за їх Service IP {#pods-are-not-accessible-via-their-service-ip}
 
-- Багато додатків для мережі ще не увімкнули [режим hairpin](/uk/docs/tasks/debug/debug-application/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip), який дозволяє Podʼам звертатися до себе за їх Service IP. Це повʼязано з [CNI](https://github.com/containernetworking/cni/issues/476). Будь ласка, звʼяжіться з постачальником додатка для мережі, щоб дізнатися про останній статус підтримки режиму hairpin.
+- Багато додатків для мережі ще не увімкнули [режим hairpin](/docs/tasks/debug/debug-application/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip), який дозволяє Podʼам звертатися до себе за їх Service IP. Це повʼязано з [CNI](https://github.com/containernetworking/cni/issues/476). Будь ласка, звʼяжіться з постачальником додатка для мережі, щоб дізнатися про останній статус підтримки режиму hairpin.
 
 - Якщо ви використовуєте VirtualBox (безпосередньо, або через Vagrant), вам слід переконатися, що `hostname -i` повертає маршрутизовану IP-адресу. Типово перший інтерфейс підключений до немаршрутизованої мережі тільки для хосту. Як тимчасовий варіант, ви можете змінити `/etc/hosts`, подивіться цей [Vagrantfile](https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11) для прикладу.
 
@@ -170,7 +170,7 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
 Стандартно `kubeadm` налаштовує `kubelet` на автоматичну ротацію сертифікатів клієнта за допомогою символічного посилання `/var/lib/kubelet/pki/kubelet-client-current.pem`, вказаного в `/etc/kubernetes/kubelet.conf`. Якщо цей процес ротації завершиться невдачею, ви можете побачити помилки, такі як `x509: certificate has expired or is not yet valid` в журналах `kube-apiserver`. Щоб виправити цю проблему, слід виконати наступні кроки:
 
 1. Зробіть резервну копію та видаліть файли `/etc/kubernetes/kubelet.conf` та `/var/lib/kubelet/pki/kubelet-client*` з несправного вузла.
-2. З робочого вузла контрольної площини кластера, де є `/etc/kubernetes/pki/ca.key`, виконайте `kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`. `$NODE` повинно бути встановлено на імʼя наявного несправного вузла в кластері. Вручну змініть отриманий `kubelet.conf`, щоб відкоригувати імʼя та endpoint сервера, або передайте `kubeconfig user --config` (див. see [Створення файлів kubeconfig для додаткових користувачів](/uk/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubeconfig-additional-users)). Якщо в у вашому кластері немає `ca.key`, ви повинні вручну підписати вбудовані сертифікати в `kubelet.conf`.
+2. З робочого вузла контрольної площини кластера, де є `/etc/kubernetes/pki/ca.key`, виконайте `kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`. `$NODE` повинно бути встановлено на імʼя наявного несправного вузла в кластері. Вручну змініть отриманий `kubelet.conf`, щоб відкоригувати імʼя та endpoint сервера, або передайте `kubeconfig user --config` (див. see [Створення файлів kubeconfig для додаткових користувачів](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubeconfig-additional-users)). Якщо в у вашому кластері немає `ca.key`, ви повинні вручну підписати вбудовані сертифікати в `kubelet.conf`.
 3. Скопіюйте цей отриманий `kubelet.conf` в `/etc/kubernetes/kubelet.conf` на несправному вузлі.
 4. Перезапустіть `kubelet` (`systemctl restart kubelet`) на несправному вузлі та зачекайте, доки `/var/lib/kubelet/pki/kubelet-client-current.pem` буде відновлено.
 5. Вручну відредагуйте `kubelet.conf`, щоб вказати на обертані сертифікати клієнта `kubelet`, замінивши `client-certificate-data` та `client-key-data` на:
@@ -214,7 +214,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
   curl http://169.254.169.254/metadata/v1/interfaces/public/0/anchor_ipv4/address
   ```
 
-  Обхідним рішенням є повідомлення `kubelet`, яку IP використовувати за допомогою `--node-ip`. Коли використовується DigitalOcean, це може бути публічний IP (призначений `eth0`) або приватний IP (призначений `eth1`), якщо ви хочете використовувати додаткову приватну мережу. Розділ `kubeletExtraArgs` структури kubeadm [`NodeRegistrationOptions`](/uk/docs/reference/config-api/kubeadm-config.v1beta4/#kubeadm-k8s-io-v1beta4-NodeRegistrationOptions) може бути використаний для цього.
+  Обхідним рішенням є повідомлення `kubelet`, яку IP використовувати за допомогою `--node-ip`. Коли використовується DigitalOcean, це може бути публічний IP (призначений `eth0`) або приватний IP (призначений `eth1`), якщо ви хочете використовувати додаткову приватну мережу. Розділ `kubeletExtraArgs` структури kubeadm [`NodeRegistrationOptions`](/docs/reference/config-api/kubeadm-config.v1beta4/#kubeadm-k8s-io-v1beta4-NodeRegistrationOptions) може бути використаний для цього.
 
   Потім перезапустіть `kubelet`:
 
@@ -227,7 +227,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 
 Якщо у вас є вузли, які працюють із SELinux та старішою версією Docker, ви можете стикнутися зі сценарієм, де Podʼи `coredns` не запускаються. Щоб вирішити це, ви можете спробувати один з наступних варіантів:
 
-- Оновіться до [новішої версії Docker](/uk/docs/setup/production-environment/container-runtimes/#docker).
+- Оновіться до [новішої версії Docker](/docs/setup/production-environment/container-runtimes/#docker).
 
 - [Вимкніть SELinux](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-enabling_and_disabling_selinux-disabling_selinux).
 
@@ -278,7 +278,7 @@ rpc error: code = 2 desc = oci runtime error: exec failed: container_linux.go:24
 
 У іншому випадку ви можете спробувати розділити пари `key=value` так: `--apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`, але це призведе до того, що ключ `enable-admission-plugins` матиме лише значення `NamespaceExists`.
 
-Відомий обхід цього — використання [файлу конфігурації](/uk/docs/reference/config-api/kubeadm-config.v1beta4/) kubeadm.
+Відомий обхід цього — використання [файлу конфігурації](/docs/reference/config-api/kubeadm-config.v1beta4/) kubeadm.
 
 ## kube-proxy плануєтья до того, як вузол ініціалізовано cloud-controller-manager {#kube-proxy-scheduled-before-node-is-initialized-by-cloud-controller-manager}
 
@@ -324,7 +324,7 @@ kubectl -n kube-system patch ds kube-proxy -p='{
 У випуску Kubernetes v1.23 функцію FlexVolume було визнано застарілою.
 {{< /note >}}
 
-Для усунення цієї проблеми ви можете налаштувати теку flex-volume, використовуючи [файл конфігурації](/uk/docs/reference/config-api/kubeadm-config.v1beta4/) kubeadm.
+Для усунення цієї проблеми ви можете налаштувати теку flex-volume, використовуючи [файл конфігурації](/docs/reference/config-api/kubeadm-config.v1beta4/) kubeadm.
 
 На основному вузлі панелі управління (створеному за допомогою `kubeadm init`) передайте наступний файл, використовуючи параметр `--config`:
 
@@ -367,7 +367,7 @@ nodeRegistration:
 
 Якщо `/var/lib/kubelet` має точку монтування, виконання `kubeadm reset` фактично відмонтує його.
 
-Для уникнення цієї проблеми повторно замонтуйте каталог `/var/lib/kubelet` після виконання операції `kubeadm reset`.
+Для уникнення цієї проблеми повторно замонтуйте теку `/var/lib/kubelet` після виконання операції `kubeadm reset`.
 
 Це вдосконалення було введено в kubeadm 1.15. Проблема виправлена в 1.20.
 
@@ -382,7 +382,7 @@ x509: certificate signed by unknown authority
 x509: certificate is valid for IP-foo not IP-bar
 ```
 
-Дивіться [Увімкнення підписаних службових сертифікатів kubelet](/uk/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs), щоб зрозуміти, як налаштувати kubelet в кластері kubeadm для отримання належно підписаних службових сертифікатів.
+Дивіться [Увімкнення підписаних службових сертифікатів kubelet](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs), щоб зрозуміти, як налаштувати kubelet в кластері kubeadm для отримання належно підписаних службових сертифікатів.
 
 Також перегляньте [Як запустити metrics-server безпечно](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md#how-to-run-metrics-server-securely).
 

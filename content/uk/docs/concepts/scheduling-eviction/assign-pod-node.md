@@ -118,7 +118,7 @@ weight: 20
 При налаштуванні кількох [профілів планування](/docs/reference/scheduling/config/#multiple-profiles) ви можете повʼязати профіль зі спорідненістю вузла, що є корисним, якщо профіль застосовується лише до певного набору вузлів. Для цього додайте `addedAffinity` до поля `args` втулка [`NodeAffinity`](/docs/reference/scheduling/config/#scheduling-plugins) у [конфігурації планувальника](/docs/reference/scheduling/config/). Наприклад:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 
 profiles:

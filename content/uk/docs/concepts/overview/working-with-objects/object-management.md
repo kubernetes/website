@@ -112,7 +112,7 @@ kubectl replace -f nginx.yaml
 
 ### Приклади {#examples-2}
 
-Обробити всі файли конфігурації обʼєктів у каталозі `configs` та створити або внести патчі до живих обʼєктів. Спочатку ви можете використовувати `diff`, щоб побачити, які зміни будуть внесені, а потім застосовувати:
+Обробити всі файли конфігурації обʼєктів у теці `configs` та створити або внести патчі до живих обʼєктів. Спочатку ви можете використовувати `diff`, щоб побачити, які зміни будуть внесені, а потім застосовувати:
 
 ```sh
 kubectl diff -f configs/
@@ -140,10 +140,10 @@ kubectl apply -R -f configs/
 
 ## {{% heading "whatsnext" %}}
 
-- [Управління обʼєктами Kubernetes за допомогою імперативних команд](/uk/docs/tasks/manage-kubernetes-objects/imperative-command/)
-- [Імперативне управління обʼєктами Kubernetes за допомогою файлів конфігурації](/uk/docs/tasks/manage-kubernetes-objects/imperative-config/)
-- [Декларативне управління обʼєктами Kubernetes за допомогою файлів конфігурації](/uk/docs/tasks/manage-kubernetes-objects/declarative-config/)
-- [Декларативне управління обʼєктами Kubernetes за допомогою Kustomize](/uk/docs/tasks/manage-kubernetes-objects/kustomization/)
-- [Довідник команд Kubectl](/uk/docs/reference/generated/kubectl/kubectl-commands/)
+- [Управління обʼєктами Kubernetes за допомогою імперативних команд](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+- [Імперативне управління обʼєктами Kubernetes за допомогою файлів конфігурації](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+- [Декларативне управління обʼєктами Kubernetes за допомогою файлів конфігурації](/docs/tasks/manage-kubernetes-objects/declarative-config/)
+- [Декларативне управління обʼєктами Kubernetes за допомогою Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/)
+- [Довідник команд Kubectl](/docs/reference/generated/kubectl/kubectl-commands/)
 - [Книга Kubectl](https://kubectl.docs.kubernetes.io)
 - [Довідник API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)

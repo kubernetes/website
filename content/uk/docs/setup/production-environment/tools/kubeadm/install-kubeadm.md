@@ -149,7 +149,7 @@ kubeadm **не буде** встановлювати або керувати `ku
 2. Завантажте публічний ключ підпису для репозиторіїв пакунків Kubernetes. Той самий ключ підпису використовується для всіх репозитаріїв, тому ви можете ігнорувати версію в URL:
 
    ```shell
-   # Якщо каталог `/etc/apt/keyrings` не існує, його слід створити до команди curl, прочитайте нижче наведене примітку.
+   # Якщо теки `/etc/apt/keyrings` не існує, її слід створити до виконання команди curl, див примітку нижче.
    # sudo mkdir -p -m 755 /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```

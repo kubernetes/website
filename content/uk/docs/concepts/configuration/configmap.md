@@ -104,14 +104,14 @@ ConfigMap окремо.
 
 1. Створіть ConfigMap або використовуйте наявний. Декілька Podʼів можуть посилатися на один ConfigMap.
 2. Змініть ваше визначення Podʼа, щоб додати том в `.spec.volumes[]`. Назвіть том будь-яким імʼям, та встановіть поле `.spec.volumes[].configMap.name` для посилання на ваш обʼєкт ConfigMap.
-3. Додайте `.spec.containers[].volumeMounts[]` до кожного контейнера, який потребує ConfigMap. Вкажіть `.spec.containers[].volumeMounts[].readOnly = true` та `.spec.containers[].volumeMounts[].mountPath` в невикористану назву каталогу, де ви хочете, щоб зʼявився ConfigMap.
-4. Змініть ваш образ або командний рядок так, щоб програма шукала файли у цьому каталозі. Кожен ключ в ConfigMap `data` стає імʼям файлу в `mountPath`.
+3. Додайте `.spec.containers[].volumeMounts[]` до кожного контейнера, який потребує ConfigMap. Вкажіть `.spec.containers[].volumeMounts[].readOnly = true` та `.spec.containers[].volumeMounts[].mountPath` в невикористану назву теки, де ви хочете, щоб зʼявився ConfigMap.
+4. Змініть ваш образ або командний рядок так, щоб програма шукала файли у цій теці. Кожен ключ в ConfigMap `data` стає імʼям файлу в `mountPath`.
 
 Ось приклад Podʼа, який монтує ConfigMap в том:
 
 ```yaml
 apiVersion: v1
-kind:ʼPod {#configmap-object}
+kind: Pod
 metadata:
   name: mypod
 spec:

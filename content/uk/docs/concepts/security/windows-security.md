@@ -21,8 +21,8 @@ weight: 40
 
 ## Користувачі контейнерів {#container-users}
 
-[RunAsUsername](/uk/docs/tasks/configure-pod-container/configure-runasusername) може бути вказано для Podʼів Windows або контейнерів, щоб виконувати процеси контейнера
-як конкретний користувач. Це приблизно еквівалентно [RunAsUser](/uk/docs/concepts/security/pod-security-policy/#users-and-groups).
+[RunAsUsername](/docs/tasks/configure-pod-container/configure-runasusername) може бути вказано для Podʼів Windows або контейнерів, щоб виконувати процеси контейнера
+як конкретний користувач. Це приблизно еквівалентно [RunAsUser](/docs/concepts/security/pod-security-policy/#users-and-groups).
 
 В контейнерах Windows доступні два типові облікових записів користувачів: ContainerUser та ContainerAdministrator. Різниця між цими двома обліковими записами користувачів описана у [When to use ContainerAdmin and ContainerUser user accounts](https://docs.microsoft.com/virtualization/windowscontainers/manage-containers/container-security#when-to-use-containeradmin-and-containeruser-user-accounts) в документації Microsoft _Secure Windows containers_.
 
@@ -35,10 +35,10 @@ weight: 40
 
 {{< /note >}}
 
-Контейнери Windows також можуть працювати як облікові записи активного каталогу за допомогою [Group Managed Service Accounts](/uk/docs/tasks/configure-pod-container/configure-gmsa/)
+Контейнери Windows також можуть працювати як облікові записи Active Directory за допомогою [Group Managed Service Accounts](/docs/tasks/configure-pod-container/configure-gmsa/)
 
 ## Ізоляція на рівні Podʼа {#pod-level-security-isolation}
 
 Механізми контексту безпеки Podʼів, специфічні для Linux (такі як SELinux, AppArmor, Seccomp або власні POSIX можливості), не підтримуються на вузлах з Windows.
 
-Привілейовані контейнери [не підтримуються](/uk/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext) на вузлах з Windows. Замість цього на вузлах з Windows можна використовувати [HostProcess контейнери](/uk/docs/tasks/configure-pod-container/create-hostprocess-pod) для виконання багатьох завдань, які виконуються привілейованими контейнерами у Linux.
+Привілейовані контейнери [не підтримуються](/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext) на вузлах з Windows. Замість цього на вузлах з Windows можна використовувати [HostProcess контейнери](/docs/tasks/configure-pod-container/create-hostprocess-pod) для виконання багатьох завдань, які виконуються привілейованими контейнерами у Linux.

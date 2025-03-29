@@ -20,7 +20,7 @@ weight: 60
 
 При першому доступі до API Kubernetes використовуйте інструмент командного рядка Kubernetes, `kubectl`.
 
-Для отримання доступу до кластера вам потрібно знати його розташування та мати облікові дані для входу. Зазвичай вони встановлюються автоматично, коли ви користуєтесь настановами зі сторінки [Початок роботи](/uk/docs/setup/), або ж ви вже маєте розгорнутий кластер з налаштованим доступом.
+Для отримання доступу до кластера вам потрібно знати його розташування та мати облікові дані для входу. Зазвичай вони встановлюються автоматично, коли ви користуєтесь настановами зі сторінки [Початок роботи](/docs/setup/), або ж ви вже маєте розгорнутий кластер з налаштованим доступом.
 
 Перевірте місце знаходження та облікові дані, про які знає kubectl, за допомогою цієї команди:
 
@@ -28,7 +28,7 @@ weight: 60
 kubectl config view
 ```
 
-Багато [прикладів](https://github.com/kubernetes/examples/tree/master/) містять введення в користування `kubectl`. Повну документацію ви можете знайти в [довідці kubectl](/uk/docs/reference/kubectl/).
+Багато [прикладів](https://github.com/kubernetes/examples/tree/master/) містять введення в користування `kubectl`. Повну документацію ви можете знайти в [довідці kubectl](/docs/reference/kubectl/).
 
 ### Прямий доступ до REST API {#direct-accessing-the-rest-api}
 
@@ -47,7 +47,7 @@ kubectl використовується для знаходження та ав
 kubectl proxy --port=8080 &
 ```
 
-Дивіться [kubectl proxy](/uk/docs/reference/generated/kubectl/kubectl-commands/#proxy) для отримання додаткової інформації.
+Дивіться [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands/#proxy) для отримання додаткової інформації.
 
 Потім ви можете дослідити API за допомогою curl, wget або вебоглядача, наприклад:
 
@@ -128,13 +128,13 @@ curl -X GET $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 }
 ```
 
-У вищенаведеному прикладі використовується прапорець `--insecure`. Це залишає систему вразливою до атак типу MITM (Man-In-The-Middle). Коли kubectl отримує доступ до кластера, він використовує збережений кореневий сертифікат та сертифікати клієнта для доступу до сервера. (Ці дані встановлені у каталозі `~/.kube`). Оскільки сертифікати кластера зазвичай самопідписні, може знадобитися спеціальна конфігурація, щоб ваш HTTP-клієнт використовував кореневий сертифікат.
+У вищенаведеному прикладі використовується прапорець `--insecure`. Це залишає систему вразливою до атак типу MITM (Man-In-The-Middle). Коли kubectl отримує доступ до кластера, він використовує збережений кореневий сертифікат та сертифікати клієнта для доступу до сервера. (Ці дані знаходяться у теці `~/.kube`). Оскільки сертифікати кластера зазвичай самопідписні, може знадобитися спеціальна конфігурація, щоб ваш HTTP-клієнт використовував кореневий сертифікат.
 
-На деяких кластерах сервер API може не вимагати автентифікації; він може обслуговувати локальний хост або бути захищений фаєрволом. Не існує стандарту для цього. Документ [Керування доступом до API Kubernetes](/uk/docs/concepts/security/controlling-access) описує, як ви можете налаштувати це, як адміністратор кластера.
+На деяких кластерах сервер API може не вимагати автентифікації; він може обслуговувати локальний хост або бути захищений фаєрволом. Не існує стандарту для цього. Документ [Керування доступом до API Kubernetes](/docs/concepts/security/controlling-access) описує, як ви можете налаштувати це, як адміністратор кластера.
 
 ### Програмний доступ до API {#programmatic-access-to-the-api}
 
-Kubernetes офіційно підтримує клієнтські бібліотеки для [Go](#go-client), [Python](#python-client), [Java](#java-client), [dotnet](#dotnet-client), [JavaScript](#javascript-client) та [Haskell](#haskell-client). Існують інші клієнтські бібліотеки, які надаються та підтримуються їхніми авторами, а не командою Kubernetes. Дивіться [бібліотеки клієнтів](/uk/docs/reference/using-api/client-libraries/) для доступу до API з інших мов програмування та їхнього методу автентифікації.
+Kubernetes офіційно підтримує клієнтські бібліотеки для [Go](#go-client), [Python](#python-client), [Java](#java-client), [dotnet](#dotnet-client), [JavaScript](#javascript-client) та [Haskell](#haskell-client). Існують інші клієнтські бібліотеки, які надаються та підтримуються їхніми авторами, а не командою Kubernetes. Дивіться [бібліотеки клієнтів](/docs/reference/using-api/client-libraries/) для доступу до API з інших мов програмування та їхнього методу автентифікації.
 
 #### Go-клієнт {#go-client}
 
@@ -147,7 +147,7 @@ Kubernetes офіційно підтримує клієнтські бібліо
 
 {{< /note >}}
 
-Go-клієнт може використовувати той самий [файл kubeconfig](/uk/docs/concepts/configuration/organize-cluster-access-kubeconfig/),
+Go-клієнт може використовувати той самий [файл kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/),
 як і kubectl CLI, для пошуку та автентифікації на сервері API. Дивіться цей [приклад](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go):
 
 ```golang
@@ -173,13 +173,13 @@ func main() {
 }
 ```
 
-Якщо застосунок розгорнуто як Pod у кластері, дивіться [Доступ до API зсередини Pod](/uk/docs/tasks/access-application-cluster/access-cluster/#accessing-the-api-from-a-pod).
+Якщо застосунок розгорнуто як Pod у кластері, дивіться [Доступ до API зсередини Pod](/docs/tasks/access-application-cluster/access-cluster/#accessing-the-api-from-a-pod).
 
 #### Python-клієнт {#python-client}
 
 Щоб використовувати [Python-клієнт](https://github.com/kubernetes-client/python), виконайте наступну команду: `pip install kubernetes`. Дивіться [сторінку бібліотеки Python-клієнта](https://github.com/kubernetes-client/python) для отримання додаткових варіантів встановлення.
 
-Python-клієнт може використовувати той самий [файл kubeconfig](/uk/docs/concepts/configuration/organize-cluster-access-kubeconfig/), як і kubectl CLI, для пошуку та автентифікації на сервері API. Дивіться цей [приклад](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py):
+Python-клієнт може використовувати той самий [файл kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/), як і kubectl CLI, для пошуку та автентифікації на сервері API. Дивіться цей [приклад](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py):
 
 ```python
 from kubernetes import client, config
@@ -208,7 +208,7 @@ mvn install
 
 Дивіться [https://github.com/kubernetes-client/java/releases](https://github.com/kubernetes-client/java/releases), щоб переглянути підтримувані версії.
 
-Java-клієнт може використовувати той самий [файл kubeconfig](/uk/docs/concepts/configuration/organize-cluster-access-kubeconfig/), що і kubectl CLI, для пошуку та автентифікації на сервері API. Дивіться цей [приклад](https://github.com/kubernetes-client/java/blob/master/examples/examples-release-15/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java):
+Java-клієнт може використовувати той самий [файл kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/), що і kubectl CLI, для пошуку та автентифікації на сервері API. Дивіться цей [приклад](https://github.com/kubernetes-client/java/blob/master/examples/examples-release-15/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java):
 
 ```java
 package io.kubernetes.client.examples;
@@ -261,7 +261,7 @@ public class KubeConfigFileClientExample {
 
 Щоб використовувати [dotnet-клієнт](https://github.com/kubernetes-client/csharp), виконайте наступну команду: `dotnet add package KubernetesClient --version 1.6.1`. Дивіться [сторінку бібліотеки dotnet-клієнта](https://github.com/kubernetes-client/csharp) для отримання додаткових варіантів встановлення. Дивіться [https://github.com/kubernetes-client/csharp/releases](https://github.com/kubernetes-client/csharp/releases), щоб переглянути підтримувані версії.
 
-Dotnet-клієнт може використовувати той самий [файл kubeconfig](/uk/docs/concepts/configuration/organize-cluster-access-kubeconfig/), що і kubectl CLI, для пошуку та автентифікації на сервері API. Дивіться цей [приклад](https://github.com/kubernetes-client/csharp/blob/master/examples/simple/PodList.cs):
+Dotnet-клієнт може використовувати той самий [файл kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/), що і kubectl CLI, для пошуку та автентифікації на сервері API. Дивіться цей [приклад](https://github.com/kubernetes-client/csharp/blob/master/examples/simple/PodList.cs):
 
 ```csharp
 using System;
@@ -295,7 +295,7 @@ namespace simple
 
 Щоб встановити [JavaScript-клієнт](https://github.com/kubernetes-client/javascript), виконайте наступну команду: `npm install @kubernetes/client-node`. Дивіться [сторінку бібліотеки JavaScript-клієнта](https://github.com/kubernetes-client/javascript) для отримання додаткових варіантів встановлення. Дивіться [https://github.com/kubernetes-client/javascript/releases](https://github.com/kubernetes-client/javascript/releases), щоб переглянути підтримувані версії.
 
-JavaScript-клієнт може використовувати той самий [файл kubeconfig](/uk/docs/concepts/configuration/organize-cluster-access-kubeconfig/), що і kubectl CLI, для пошуку та автентифікації на сервері API. Дивіться цей [приклад](https://github.com/kubernetes-client/javascript/blob/master/examples/example.js):
+JavaScript-клієнт може використовувати той самий [файл kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/), що і kubectl CLI, для пошуку та автентифікації на сервері API. Дивіться цей [приклад](https://github.com/kubernetes-client/javascript/blob/master/examples/example.js):
 
 ```javascript
 const k8s = require('@kubernetes/client-node');
@@ -314,7 +314,7 @@ k8sApi.listNamespacedPod('default').then((res) => {
 
 Дивіться [https://github.com/kubernetes-client/haskell/releases](https://github.com/kubernetes-client/haskell/releases), щоб переглянути підтримувані версії.
 
-[Haskell-клієнт](https://github.com/kubernetes-client/haskell) може використовувати той самий [файл kubeconfig](/uk/docs/concepts/configuration/organize-cluster-access-kubeconfig/), що і kubectl CLI, для пошуку та автентифікації на сервері API. Дивіться цей [приклад](https://github.com/kubernetes-client/haskell/blob/master/kubernetes-client/example/App.hs):
+[Haskell-клієнт](https://github.com/kubernetes-client/haskell) може використовувати той самий [файл kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/), що і kubectl CLI, для пошуку та автентифікації на сервері API. Дивіться цей [приклад](https://github.com/kubernetes-client/haskell/blob/master/kubernetes-client/example/App.hs):
 
 ```haskell
 exampleWithKubeConfig :: IO ()
@@ -330,4 +330,4 @@ exampleWithKubeConfig = do
 
 ## {{% heading "whatsnext" %}}
 
-* [Доступ до API Kubernetes із Pod](/uk/docs/tasks/run-application/access-api-from-pod/)
+* [Доступ до API Kubernetes із Pod](/docs/tasks/run-application/access-api-from-pod/)

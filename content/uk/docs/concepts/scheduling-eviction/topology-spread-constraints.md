@@ -8,7 +8,7 @@ weight: 42
 
 Ви можете використовувати _обмеження поширення топології_ для контролю того, як {{< glossary_tooltip text="Podʼи" term_id="Pod" >}} розподіляються по вашому кластеру серед доменів відмов, таких як регіони, зони, вузли та інші користувацькі топологічні домени. Це може допомогти забезпечити високу доступність, а також ефективне використання ресурсів.
 
-Ви можете встановлювати типові [обмеження на рівні кластера](#обмеження-за-замовчуванням-на-рівні-кластера) або налаштовувати обмеження поширення топології для окремих навантажень.
+Ви можете встановлювати типові [обмеження на рівні кластера](#cluster-level-default-constraints) або налаштовувати обмеження поширення топології для окремих навантажень.
 
 <!-- body -->
 
@@ -382,7 +382,7 @@ class zoneC cluster;
 Приклад конфігурації може виглядати наступним чином:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 
 profiles:
@@ -424,7 +424,7 @@ defaultConstraints:
 Якщо ви не хочете використовувати типові обмеження поширення топології Podʼа для вашого кластера, ви можете відключити ці типові значення, встановивши `defaultingType` у `List` і залишивши порожніми `defaultConstraints` у конфігурації втулка `PodTopologySpread`:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 
 profiles:

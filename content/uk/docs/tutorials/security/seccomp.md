@@ -25,7 +25,7 @@ Seccomp походить від secure computing mode (безпечний реж
 
 ## {{% heading "prerequisites" %}}
 
-Для завершення всіх кроків у цьому посібнику вам потрібно встановити [kind](/uk/docs/tasks/tools/#kind) та [kubectl](/uk/docs/tasks/tools/#kubectl).
+Для завершення всіх кроків у цьому посібнику вам потрібно встановити [kind](/docs/tasks/tools/#kind) та [kubectl](/docs/tasks/tools/#kubectl).
 
 Команди, які використовуються в посібнику, передбачають, що ви використовуєте [Docker](https://www.docker.com/) як ваше середовище для виконання контейнерів. (Кластер, який створює `kind`, може використовувати інше контейнерне середовище також). Ви також можете використовувати [Podman](https://podman.io/), але у цьому випадку вам доведеться дотримуватися відповідних [інструкцій](https://kind.sigs.k8s.io/docs/user/rootless/), щоб успішно виконати завдання.
 
@@ -41,7 +41,7 @@ Seccomp походить від secure computing mode (безпечний реж
 
 ## Завантаження прикладів профілів seccomp {#download-profiles}
 
-Вміст цих профілів буде досліджено пізніше, але наразі продовжте та завантажте їх у каталог з назвою `profiles/`, щоб їх можна було завантажити в кластер.
+Вміст цих профілів буде досліджено пізніше, але наразі продовжте та завантажте їх у теку з назвою `profiles/`, щоб їх можна було завантажити в кластер.
 
 {{< tabs name="tab_with_code" >}}
 {{< tab name="audit.json" >}}
@@ -125,7 +125,7 @@ audit.json  fine-grained.json  violation.json
 Більшість контейнерних середовищ надають типовий перелік системних викликів, які дозволені або заборонені. Ви можете використовувати ці стандартні налаштування для вашого робочого навантаження, встановивши тип seccomp у контексті безпеки Pod або контейнера на `RuntimeDefault`.
 
 {{< note >}}
-Якщо у вас увімкнуто параметр [конфігурації](/uk/docs/reference/config-api/kubelet-config.v1beta1/) `seccompDefault`, то Podʼи використовують профіль seccomp `RuntimeDefault`, якщо не вказано жодного іншого профілю seccomp. В іншому випадку, використовується `Unconfined`.
+Якщо у вас увімкнуто параметр [конфігурації](/docs/reference/config-api/kubelet-config.v1beta1/) `seccompDefault`, то Podʼи використовують профіль seccomp `RuntimeDefault`, якщо не вказано жодного іншого профілю seccomp. В іншому випадку, використовується `Unconfined`.
 {{< /note >}}
 
 Ось маніфест Podʼа, який запитує профіль seccomp `RuntimeDefault` для всіх своїх контейнерів:
@@ -373,7 +373,7 @@ kubectl delete pod fine-pod --wait --now
 
 Kubernetes {{< skew currentVersion >}} дозволяє налаштувати профіль seccomp, який застосовується, коли специфікація для Podʼа не визначає конкретний профіль seccomp. Однак, вам все одно потрібно увімкнути це налаштування як типове для кожного вузла, де ви хочете його використовувати.
 
-Якщо ви працюєте у кластері Kubernetes {{< skew currentVersion >}} і хочете увімкнути цю функцію, ви можете запустити kubelet з параметром командного рядка `--seccomp-default` або увімкнути її через [файл конфігурації kubelet](/uk/docs/tasks/administer-cluster/kubelet-config-file/). Щоб увімкнути цю функцію у [kind](https://kind.sigs.k8s.io), переконайтеся, що kind забезпечує мінімально необхідну версію Kubernetes і вмикає функцію `SeccompDefault` [у конфігурації kind](https://kind.sigs.k8s.io/docs/user/quick-start/#enable-feature-gates-in-your-cluster):
+Якщо ви працюєте у кластері Kubernetes {{< skew currentVersion >}} і хочете увімкнути цю функцію, ви можете запустити kubelet з параметром командного рядка `--seccomp-default` або увімкнути її через [файл конфігурації kubelet](/docs/tasks/administer-cluster/kubelet-config-file/). Щоб увімкнути цю функцію у [kind](https://kind.sigs.k8s.io), переконайтеся, що kind забезпечує мінімально необхідну версію Kubernetes і вмикає функцію `SeccompDefault` [у конфігурації kind](https://kind.sigs.k8s.io/docs/user/quick-start/#enable-feature-gates-in-your-cluster):
 
 ```yaml
 kind: Cluster

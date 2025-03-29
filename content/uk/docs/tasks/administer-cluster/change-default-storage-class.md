@@ -35,13 +35,13 @@ weight: 91
 
    ```bash
    NAME                 PROVISIONER               AGE
-   standard (default)   kubernetes.io/gce-pd      1д
-   gold                 kubernetes.io/gce-pd      1д
+   standard (default)   kubernetes.io/gce-pd      1d
+   gold                 kubernetes.io/gce-pd      1d
    ```
 
    Типовий StorageClass позначений як `(default)`.
 
-1. Позначте типовий StorageClass як не типовий:
+1. Зніміть позначку default з типового StorageClass:
 
    У типового StorageClass є анотація `storageclass.kubernetes.io/is-default-class`, встановлена на `true`. Будь-яке інше значення або відсутність анотації розглядається як `false`.
 
@@ -74,8 +74,8 @@ weight: 91
 
    ```bash
    NAME             PROVISIONER               AGE
-   standard         kubernetes.io/gce-pd      1д
-   gold (default)   kubernetes.io/gce-pd      1д
+   standard         kubernetes.io/gce-pd      1d
+   gold (default)   kubernetes.io/gce-pd      1d
    ```
 
 ## {{% heading "whatsnext" %}}

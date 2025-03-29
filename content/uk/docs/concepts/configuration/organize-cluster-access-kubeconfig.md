@@ -16,9 +16,9 @@ weight: 60
 Використовуйте файли kubeconfig лише з надійних джерел. Використання спеціально створеного файлу kubeconfig може призвести до виконання зловмисного коду або розголошення файлів. Якщо вам все ж потрібно використовувати ненадійний файл kubeconfig, уважно перевірте його, так само як ви це зробили б з файлом скрипту оболонки.
 {{< /warning >}}
 
-Типово `kubectl` шукає файл з імʼям `config` у каталозі `$HOME/.kube`. Ви можете вказати інші файли kubeconfig, встановивши змінну середовища `KUBECONFIG` або встановивши прапорець [`--kubeconfig`](/uk/docs/reference/generated/kubectl/kubectl/).
+Типово `kubectl` шукає файл з імʼям `config` у теці `$HOME/.kube`. Ви можете вказати інші файли kubeconfig, встановивши змінну середовища `KUBECONFIG` або встановивши прапорець [`--kubeconfig`](/docs/reference/generated/kubectl/kubectl/).
 
-Для покрокових інструкцій щодо створення та вказівки файлів kubeconfig див. [Налаштування доступу до кількох кластерів](/uk/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
+Для покрокових інструкцій щодо створення та вказівки файлів kubeconfig див. [Налаштування доступу до кількох кластерів](/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
 
 <!-- body -->
 
@@ -69,7 +69,7 @@ kubectl config view
    - Перший файл, що встановлює певне значення або ключ зіставлення, має перевагу.
    - Ніколи не змінюйте значення або ключ зіставлення. Наприклад: Зберігайте контекст першого файлу, який встановлює `current-context`. Наприклад: Якщо два файли вказують на `red-user`, використовуйте лише значення з `red-user` першого файлу. Навіть якщо другий файл має несумісні записи під `red-user`, відкиньте їх.
 
-   Для прикладу встановлення змінної середовища `KUBECONFIG` дивіться [Встановлення змінної середовища KUBECONFIG](/uk/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#set-the-kubeconfig-environment-variable).
+   Для прикладу встановлення змінної середовища `KUBECONFIG` дивіться [Встановлення змінної середовища KUBECONFIG](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#set-the-kubeconfig-environment-variable).
 
    В іншому випадку використовуйте стандартний файл kubeconfig, `$HOME/.kube/config`, без обʼєднання.
 
@@ -103,7 +103,7 @@ kubectl config view
 
 ## Посилання на файли {#file-references}
 
-Посилання на файли та шляхи в файлі kubeconfig є відносними до місця розташування файлу kubeconfig. Посилання на файли в командному рядку є відносними до поточного робочого каталогу. У файлі `$HOME/.kube/config` відносні шляхи зберігаються відносно, абсолютні шляхи зберігаються абсолютно.
+Посилання на файли та шляхи в файлі kubeconfig є відносними до місця розташування файлу kubeconfig. Посилання на файли в командному рядку є відносними до поточної робочої теки. У файлі `$HOME/.kube/config` відносні шляхи зберігаються відносно, абсолютні шляхи зберігаються абсолютно.
 
 ## Проксі {#proxy}
 
@@ -129,5 +129,5 @@ contexts:
 
 ## {{% heading "whatsnext" %}}
 
-- [Налаштування доступу до кількох кластерів](/uk/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
-- [`kubectl config`](/uk/docs/reference/generated/kubectl/kubectl-commands#config)
+- [Налаштування доступу до кількох кластерів](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+- [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
