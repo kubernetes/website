@@ -86,13 +86,16 @@ to guarantee that no two pods on the same node use the same mapping.
 The `runAsUser`, `runAsGroup`, `fsGroup`, etc. fields in the `pod.spec` always
 refer to the user inside the container.
 
-The valid UIDs/GIDs when this feature is enabled is the range 0-65535. This
-applies to files and processes (`runAsUser`, `runAsGroup`, etc.).
+By default, the valid UIDs/GIDs when this feature is enabled is the range 0-65535.
+This applies to files and processes (`runAsUser`, `runAsGroup`, etc.).
 
 Files using a UID/GID outside this range will be seen as belonging to the
 overflow ID, usually 65534 (configured in `/proc/sys/kernel/overflowuid` and
 `/proc/sys/kernel/overflowgid`). However, it is not possible to modify those
 files, even by running as the 65534 user/group.
+
+If the range 0-65535 is extended with a configuration knob, the aforementioned
+restrictions apply to the extended range.
 
 Most applications that need to run as root but don't access other host
 namespaces or resources, should continue to run fine without any changes needed
@@ -177,8 +180,6 @@ to the `kubelet` user:
   configuration.
 
 * The subordinate ID count must be a multiple of 65536
-  (for Kubernetes {{< skew currentVersion >}} the subordinate ID count for each Pod is hard-coded
-  to 65536).
 
 * The subordinate ID count must be at least `65536 x <maxPods>` where `<maxPods>`
   is the maximum number of pods that can run on the node.
@@ -208,6 +209,26 @@ kubelet:65536:7208960
 
 [CVE-2021-25741]: https://github.com/kubernetes/kubernetes/issues/104980
 [shadow-utils]: https://github.com/shadow-maint/shadow
+
+## ID count for each of Pods
+Starting with Kubernetes v1.33, the ID count for each of Pods can be set in
+[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/).
+
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+userNamespaces:
+  idsPerPod: 1048576
+```
+
+The value of `idsPerPod` (uint32) must be a multiple of 65536.
+The default value is 65536.
+This value only applies to containers created after the kubelet was started with
+this `KubeletConfiguration`.
+Running containers are not affected by this config.
+
+In Kubernetes prior to v1.33, the ID count for each of Pods was hard-coded to
+65536.
 
 ## Integration with Pod security admission checks
 
