@@ -213,10 +213,10 @@ the `.spec.nodeName` field and to use a node selector instead.
 
 {{< feature-state feature_gate_name="DRAAdminAccess" >}}
 
-You can mark a request in a ResourceClaim or ResourceClaimTemplate as having privileged features.
-A request with admin access grants access to devices which are in use and
-may enable additional permissions when making the device available in a
-container:
+You can mark a request in a ResourceClaim or ResourceClaimTemplate as having
+privileged features for maintenance and troubleshooting tasks. A request with
+admin access grants access to in-use devices and may enable additional
+permissions when making the device available in a container:
 
 ```yaml
 apiVersion: resource.k8s.io/v1beta1
@@ -235,15 +235,21 @@ spec:
 If this feature is disabled, the `adminAccess` field will be removed
 automatically when creating such a ResourceClaim.
 
-Admin access is a privileged mode which should not be made available to normal
-users in a multi-tenant cluster. Cluster administrators can restrict usage of
+Admin access is a privileged mode and should not be granted to regular users in
+multi-tenant clusters. Starting with Kubernetes v1.33, only users authorized to
+create ResourceClaim or ResourceClaimTemplate objects in namespaces labeled with
+`resource.k8s.io/admin-access: "true"` (case-sensitive) can use the
+`adminAccess` field. This ensures that non-admin users cannot misuse the
+feature. 
+
+Prior to Kubernetes v1.33, cluster administrators can restrict usage of
 this feature by installing a validating admission policy similar to the following
 example. Cluster administrators need to adapt at least the names and replace
 "dra.example.com".
 
 ```yaml
 # Permission to use admin access is granted only in namespaces which have the
-# "admin-access.dra.example.com" label. Other ways of making that decision are
+# "resource.k8s.io/admin-access" label. Other ways of making that decision are
 # also possible.
 
 apiVersion: admissionregistration.k8s.io/v1
@@ -273,7 +279,7 @@ spec:
   matchResources:
     namespaceSelector:
       matchExpressions:
-      - key: admin-access.dra.example.com
+      - key: resource.k8s.io/admin-access
         operator: DoesNotExist
 ---
 apiVersion: admissionregistration.k8s.io/v1
@@ -303,7 +309,7 @@ spec:
   matchResources:
     namespaceSelector:
       matchExpressions:
-      - key: admin-access.dra.example.com
+      - key: resource.k8s.io/admin-access
         operator: DoesNotExist
 ```
 
