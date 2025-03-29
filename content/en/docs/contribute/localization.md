@@ -450,7 +450,7 @@ translate the value of each string. For example, this is the German-language
 placeholder text for the search form:
 
 ```toml
-[ui_search_placeholder]
+[ui_search]
 other = "Suchen"
 ```
 

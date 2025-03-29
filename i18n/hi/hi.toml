@@ -281,7 +281,7 @@ other = """&#128711; यह वस्तु कोई अन्य पक्ष 
 [thirdparty_message_disclaimer]
 other = """<p>इस पृष्ठ की वस्तुओं अन्य पक्ष के उत्पादों या परियोजनाओं से जुड़ा है जो कुबेरनेट्स द्वारा आवश्यक कार्यक्षमता प्रदान करते हैं। कुबेरनेट्स परियोजना के लेखक इन अन्य पक्ष के उत्पादों या परियोजनाओं के लिए जिम्मेदार नहीं हैं। अधिक जानकारी के लिए यह <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF वेबसाइट दिशानिर्देश</a> पृष्ठ पढ़े।"</p><p>कोई नई अतिरिक्त अन्य पक्ष लिंक जोड़ने से पहले यह पृष्ठ <a href="/docs/contribute/style/content-guide/#third-party-content">विषय मार्गदर्शक</a> पृष्ठ पढ़के ही परिवर्तन का प्रस्ताव प्रस्तुत करें।</p>"""
 
-[ui_search_placeholder]
+[ui_search]
 other = "खोजें"
 
 [version_check_mustbe]

@@ -365,7 +365,7 @@ A structural schema is an [OpenAPI v3.0 validation schema](#validation) which:
    * 节点包含属性 `x-kubernetes-int-or-string: true`
    * 节点包含属性 `x-kubernetes-preserve-unknown-fields: true`
 2. 对于 object 的每个字段或 array 中的每个条目，如果其定义中包含 `allOf`、`anyOf`、`oneOf`
-   或 `not`，则模式也要指定这些逻辑组合之外的字段或条目（试比较例 1 和例 2)。
+   或 `not`，则模式也要指定这些逻辑组合之外的字段或条目（试比较例 1 和例 2）。
 3. 在 `allOf`、`anyOf`、`oneOf` 或 `not` 上下文内不设置 `description`、`type`、`default`、
    `additionalProperties` 或者 `nullable`。此规则的例外是
    `x-kubernetes-int-or-string` 的两种模式（见下文）。
@@ -473,8 +473,8 @@ is not a structural schema because of the following violations:
 * `foo` 的 type 缺失（规则 1）
 * `anyOf` 中的 `bar` 未在外部指定（规则 2）
 * `bar` 的 `type` 位于 `anyOf` 中（规则 3）
-* `anyOf` 中设置了 `description` （规则 3）
-* `metadata.finalizers` 不可以被限制 (规则 4）
+* `anyOf` 中设置了 `description`（规则 3）
+* `metadata.finalizers` 不可以被限制（规则 4）
 
 <!--
 In contrast, the following, corresponding schema is structural:
@@ -523,8 +523,7 @@ CustomResourceDefinition 在集群的持久性存储
 {{< glossary_tooltip term_id="etcd" text="etcd">}}
 中保存经过合法性检查的资源数据。
 就像原生的 Kubernetes 资源，例如 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}，
-如果你指定了 API 服务器所无法识别的字段，则该未知字段会在保存资源之前被
-**剪裁（Pruned）** 掉（删除）。
+如果你指定了 API 服务器所无法识别的字段，则该未知字段会在保存资源之前被**剪裁（Pruned）** 掉（删除）。
 
 <!--
 CRDs converted from `apiextensions.k8s.io/v1beta1` to `apiextensions.k8s.io/v1` might lack
@@ -825,9 +824,9 @@ The use of `x-kubernetes-preserve-unknown-fields: true` is optional though.
 
 With `x-kubernetes-embedded-resource: true`, the `apiVersion`, `kind` and `metadata` are implicitly specified and validated.
 -->
-由于字段上设置了 `x-kubernetes-preserve-unknown-fields: true`，其中的内容不会
-被剪裁。不过，在这个语境中，`x-kubernetes-preserve-unknown-fields: true` 的
-使用是可选的。
+由于字段上设置了 `x-kubernetes-preserve-unknown-fields: true`，
+其中的内容不会被剪裁。不过，在这个语境中，`x-kubernetes-preserve-unknown-fields: true`
+的使用是可选的。
 
 设置了 `x-kubernetes-embedded-resource: true` 之后，`apiVersion`、`kind` 和
 `metadata` 都是隐式设定并隐式完成合法性验证。
@@ -1001,6 +1000,9 @@ CustomResourceDefinition 对定制对象执行以下合法性检查：
 
 将此 CustomResourceDefinition 保存到 `resourcedefinition.yaml` 文件中：
 
+<!--
+# openAPIV3Schema is the schema for validating custom objects.
+-->
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -1056,8 +1058,7 @@ In the following example, the custom object contains fields with invalid values:
 
 If you save the following YAML to `my-crontab.yaml`:
 -->
-对于一个创建 CronTab 类别对象的定制对象的请求而言，如果其字段中包含非法值，则
-该请求会被拒绝。
+对于一个创建 CronTab 类别对象的定制对象的请求而言，如果其字段中包含非法值，则该请求会被拒绝。
 在下面的例子中，定制对象中包含带非法值的字段：
 
 - `spec.cronSpec` 与正则表达式不匹配
@@ -1341,10 +1342,10 @@ spec:
   replicas: 20
   maxReplicas: 10
 ```
+
 <!--
 with the response:
 -->
-
 返回响应为：
 
 ```
@@ -1447,21 +1448,21 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
 -->
 验证规则例子：
 
-| 规则                                                                                      | 目的                                                                              |
-| ----------------                                                                         | ------------                                                                      |
-| `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas`                 | 验证定义副本数的三个字段大小顺序是否正确                                                 |
-| `'Available' in self.stateCounts`                                                        | 验证映射中是否存在键名为 `Available`的条目                                             |
-| `(size(self.list1) == 0) != (size(self.list2) == 0)`                                     | 检查两个列表之一是非空的，但不是二者都非空                                               |
-| <code>!('MY_KEY' in self.map1) &#124;&#124; self['MY_KEY'].matches('^[a-zA-Z]*$')</code> | 如果某个特定的键在映射中，验证映射中对应键的取值                                           |
-| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')`         | 验证一个 listMap 中主键 'name' 为 'MY_ENV' 的表项的取值                                 |
-| `has(self.expired) && self.created + self.ttl < self.expired`                            | 验证 'Expired' 日期是否晚于 'Create' 日期加上 'ttl' 时长                                |
-| `self.health.startsWith('ok')`                                                           | 验证 'health' 字符串字段有前缀 'ok'                                                   |
-| `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                                     | 验证键为 'x' 的 listMap 项的 'foo' 属性是否小于 10                                     |
-| `type(self) == string ? self == '100%' : self == 1000`                                   | 在 int 型和 string 型两种情况下验证 int-or-string 字段                                 |
-| `self.metadata.name.startsWith(self.prefix)`                                             | 验证对象的名称是否以另一个字段值为前缀                                                   |
-| `self.set1.all(e, !(e in self.set2))`                                                    | 验证两个 listSet 是否不相交                                                           |
-| `size(self.names) == size(self.details) && self.names.all(n, n in self.details)`         | 验证 'details' 映射中的 'names' 来自于 listSet                                        |
-| `size(self.clusters.filter(c, c.name == self.primary)) == 1`                             | 验证 'primary' 属性在 'clusters' listMap 中出现一次且只有一次                           |
+| 规则 | 目的 |
+| --- | --- |
+| `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas` | 验证定义副本数的三个字段大小顺序是否正确 |
+| `'Available' in self.stateCounts` | 验证映射中是否存在键名为 `Available`的条目 |
+| `(size(self.list1) == 0) != (size(self.list2) == 0)` | 检查两个列表之一是非空的，但不是二者都非空 |
+| <code>!('MY_KEY' in self.map1) &#124;&#124; self['MY_KEY'].matches('^[a-zA-Z]*$')</code> | 如果某个特定的键在映射中，验证映射中对应键的取值 |
+| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')` | 验证一个 listMap 中主键 'name' 为 'MY_ENV' 的表项的取值 |
+| `has(self.expired) && self.created + self.ttl < self.expired` | 验证 'Expired' 日期是否晚于 'Create' 日期加上 'ttl' 时长 |
+| `self.health.startsWith('ok')` | 验证 'health' 字符串字段有前缀 'ok' |
+| `self.widgets.exists(w, w.key == 'x' && w.foo < 10)` | 验证键为 'x' 的 listMap 项的 'foo' 属性是否小于 10 |
+| `type(self) == string ? self == '100%' : self == 1000` | 在 int 型和 string 型两种情况下验证 int-or-string 字段 |
+| `self.metadata.name.startsWith(self.prefix)` | 验证对象的名称是否以另一个字段值为前缀 |
+| `self.set1.all(e, !(e in self.set2))` | 验证两个 listSet 是否不相交 |
+| `size(self.names) == size(self.details) && self.names.all(n, n in self.details)` | 验证 'details' 映射中的 'names' 来自于 listSet |
+| `size(self.clusters.filter(c, c.name == self.primary)) == 1` | 验证 'primary' 属性在 'clusters' listMap 中出现一次且只有一次 |
 
 参考：[CEL 中支持的求值](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation)
 
@@ -1524,7 +1525,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
   are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all
   entries of the map are accessible via CEL macros and functions such as `self.all(...)`.
 -->
-- 如果规则的作用域是一个带有 additionalProperties 的对象（即map），那么 map 的值
+- 如果规则的作用域是一个带有 additionalProperties 的对象（即 map），那么 map 的值
   可以通过 `self[mapKey]` 访问，map 的包含性可以通过 `mapKey in self` 检查，
   map 中的所有条目可以通过 CEL 宏和函数如 `self.all(...)` 访问。
 
@@ -1628,12 +1629,12 @@ accessible in CEL expressions. This includes:
 通过 `x-kubernetes-preserve-unknown-fields` 保存在定制资源中的未知数据在 CEL 表达中无法访问。
 这包括：
 
-  - 使用 `x-kubernetes-preserve-unknown-fields` 的对象模式保留的未知字段值。
-  - 属性模式为"未知类型（Unknown Type）"的对象属性。一个"未知类型"被递归定义为：
+- 使用 `x-kubernetes-preserve-unknown-fields` 的对象模式保留的未知字段值。
+- 属性模式为"未知类型（Unknown Type）"的对象属性。一个"未知类型"被递归定义为：
 
-    - 一个没有类型的模式，`x-kubernetes-preserve-unknown-fields` 设置为 true。
-    - 一个数组，其中项目模式为"未知类型"
-    - 一个 additionalProperties 模式为"未知类型"的对象
+  - 一个没有类型的模式，`x-kubernetes-preserve-unknown-fields` 设置为 true。
+  - 一个数组，其中项目模式为"未知类型"
+  - 一个 additionalProperties 模式为"未知类型"的对象
 
 <!--
 Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
@@ -1732,25 +1733,25 @@ Here is the declarations type mapping between OpenAPIv3 and CEL type:
 | 'string' with format=datetime                      | timestamp (google.protobuf.Timestamp)                                                                                        |
 | 'string' with format=duration                      | duration (google.protobuf.Duration)                                                                                          |
 -->
-| OpenAPIv3 类型                                     | CEL 类型                                                                                                                     |
-| -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| 带有 Properties 的对象                           | 对象 / "消息类型"                                                                                                      |
-| 带有 AdditionalProperties 的对象                 | map                                                                                                                          |
-| 带有 x-kubernetes-embedded-type 的对象           | 对象 / "消息类型"，'apiVersion'、'kind'、'metadata.name' 和 'metadata.generateName' 都隐式包含在模式中 |
-| 带有 x-kubernetes-preserve-unknown-fields 的对象 | 对象 / "消息类型"，未知字段无法从 CEL 表达式中访问                                                 |
-| x-kubernetes-int-or-string                         | 可能是整数或字符串的动态对象，可以用 `type(value)` 来检查类型                                |
-| 数组                                            | list                                                                                                                         |
-| 带有 x-kubernetes-list-type=map 的数组           | 列表，基于集合等值和唯一键名保证的 map 组成                                                                          |
-| 带有 x-kubernetes-list-type=set 的数组            | 列表，基于集合等值和唯一键名保证的 set 组成                                                                        |
-| 布尔值                                          | boolean                                                                                                                      |
-| 数字 (各种格式)                             | double                                                                                                                       |
-| 整数 (各种格式)                            | int (64)                                                                                                                     |
-| 'null'                                             | null_type                                                                                                                    |
-| 字符串                                           | string                                                                                                                       |
-| 带有 format=byte （base64 编码）字符串         | bytes                                                                                                                        |
-| 带有 format=date 字符串                          | timestamp (google.protobuf.Timestamp)                                                                                        |
-| 带有 format=datetime 字符串                      | timestamp (google.protobuf.Timestamp)                                                                                        |
-| 带有 format=duration 字符串                      | duration (google.protobuf.Duration)                                                                                          |
+| OpenAPIv3 类型 | CEL 类型 |
+| ------------- | ------- |
+| 带有 Properties 的对象 | 对象 / "消息类型" |
+| 带有 AdditionalProperties 的对象 | map |
+| 带有 x-kubernetes-embedded-type 的对象 | 对象 / "消息类型"，'apiVersion'、'kind'、'metadata.name' 和 'metadata.generateName' 都隐式包含在模式中 |
+| 带有 x-kubernetes-preserve-unknown-fields 的对象 | 对象 / "消息类型"，未知字段无法从 CEL 表达式中访问 |
+| x-kubernetes-int-or-string | 可能是整数或字符串的动态对象，可以用 `type(value)` 来检查类型 |
+| 数组 | list |
+| 带有 x-kubernetes-list-type=map 的数组 | 列表，基于集合等值和唯一键名保证的 map 组成 |
+| 带有 x-kubernetes-list-type=set 的数组 | 列表，基于集合等值和唯一键名保证的 set 组成 |
+| 布尔值 | boolean |
+| 数字 (各种格式) | double |
+| 整数 (各种格式) | int (64) |
+| 'null' | null_type |
+| 字符串 | string |
+| 带有 format=byte （base64 编码）字符串 | bytes |
+| 带有 format=date 字符串 | timestamp (google.protobuf.Timestamp) |
+| 带有 format=datetime 字符串 | timestamp (google.protobuf.Timestamp) |
+| 带有 format=duration 字符串 | duration (google.protobuf.Duration) |
 
 <!--
 xref: [CEL types](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#values),
@@ -1994,10 +1995,10 @@ Functions available include:
 -->
 可用的函数包括：
 
-  - CEL 标准函数，在[标准定义列表](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#list-of-standard-definitions)中定义
-  - CEL 标准[宏](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)
-  - CEL [扩展字符串函数库](https://pkg.go.dev/github.com/google/cel-go@v0.11.2/ext#Strings)
-  - Kubernetes [CEL 扩展库](https://pkg.go.dev/k8s.io/apiextensions-apiserver@v0.24.0/pkg/apiserver/schema/cel/library#pkg-functions)
+- CEL 标准函数，在[标准定义列表](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#list-of-standard-definitions)中定义
+- CEL 标准[宏](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)
+- CEL [扩展字符串函数库](https://pkg.go.dev/github.com/google/cel-go@v0.11.2/ext#Strings)
+- Kubernetes [CEL 扩展库](https://pkg.go.dev/k8s.io/apiextensions-apiserver@v0.24.0/pkg/apiserver/schema/cel/library#pkg-functions)
 
 <!--
 #### Transition rules
@@ -2288,6 +2289,9 @@ Defaulting allows to specify default values in the [OpenAPI v3 validation schema
 -->
 设置默认值的功能允许在 [OpenAPI v3 合法性检查模式定义](#validation)中设置默认值：
 
+<!--
+# openAPIV3Schema is the schema for validating custom objects.
+-->
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -2371,24 +2375,27 @@ An update request via the API is required to persist those defaults back into et
 
 * 在向 API 服务器发送的请求中，基于请求版本的设定设置默认值；
 * 在从 etcd 读取对象时，使用存储版本来设置默认值；
-* 在 Mutating 准入控制插件执行非空的补丁操作时，基于准入 Webhook 对象
-  版本设置默认值。
+* 在 Mutating 准入控制插件执行非空的补丁操作时，基于准入 Webhook
+  对象版本设置默认值。
 
 从 etcd 中读取数据时所应用的默认值设置不会被写回到 etcd 中。
 需要通过 API 执行更新请求才能将这种方式设置的默认值写回到 etcd。
 
 <!--
-Default values must be pruned (with the exception of defaults for `metadata` fields) and must
-validate against a provided schema.
+Default values for non-leaf fields must be pruned (with the exception of defaults for `metadata` fields) and must
+validate against a provided schema. For example in the above example, a default of `{"replicas": "foo", "badger": 1}`
+for the `spec` field would be invalid, because `badger` is an unknown field, and `replicas` is not a string.
 
 Default values for `metadata` fields of `x-kubernetes-embedded-resources: true` nodes (or parts of
 a default value covering `metadata`) are not pruned during CustomResourceDefinition creation, but
 through the pruning step during handling of requests.
 -->
-默认值一定会被剪裁（除了 `metadata` 字段的默认值设置），且必须通过所提供的模式定义的检查。
+非 leaf（叶子）字段的默认值必须被剪裁（除了 `metadata` 字段的默认值设置），且必须通过所提供的模式定义的检查。
+例如，在上面的示例中，`spec` 字段的默认值 `{"replicas": "foo", "badger": 1}` 是无效的，
+因为 `badger` 是未知字段，而 `replicas` 不是字符串。
 
-针对 `x-kubernetes-embedded-resource: true` 节点（或者包含 `metadata` 字段的结构的默认值）
-的 `metadata` 字段的默认值设置不会在 CustomResourceDefinition 创建时被剪裁，
+针对 `x-kubernetes-embedded-resource: true` 节点（或者包含 `metadata` 字段的结构的默认值）的
+`metadata` 字段的默认值设置不会在 CustomResourceDefinition 创建时被剪裁，
 而是在处理请求的字段剪裁阶段被删除。
 
 <!--
@@ -2869,7 +2876,7 @@ When the status subresource is enabled, the `/status` subresource for the custom
   `.metadata` or `.status`.
 - Only the following constructs are allowed at the root of the CRD OpenAPI validation schema:
 -->
-#### Status 子资源  {#status-subresource}
+#### status 子资源  {#status-subresource}
 
 当启用了 status 子资源时，对应定制资源的 `/status` 子资源会被暴露出来。
 
@@ -2878,7 +2885,7 @@ When the status subresource is enabled, the `/status` subresource for the custom
   status 之外的所有内容。
 - 对 `/status` 子资源的 `PUT` 请求仅对定制资源的 status 内容进行合法性检查。
 - 对定制资源的 `PUT`、`POST`、`PATCH` 请求会忽略 status 内容的改变。
-- 对所有变更请求，除非改变是针对 `.metadata` 或 `.status`，`.metadata.generation`
+- 对所有变更请求，除非改变是针对 `.metadata` 或 `.status` 的，`.metadata.generation`
   的取值都会增加。
 - 在 CRD OpenAPI 合法性检查模式定义的根节点，只允许存在以下结构：
 
@@ -2911,7 +2918,7 @@ The `autoscaling/v1.Scale` object is sent as the payload for `/scale`.
 
 To enable the scale subresource, the following fields are defined in the CustomResourceDefinition.
 -->
-#### Scale 子资源   {#scale-subresource}
+#### scale 子资源   {#scale-subresource}
 
 当启用了 scale 子资源时，定制资源的 `/scale` 子资源就被暴露出来。
 针对 `/scale` 所发送的对象是 `autoscaling/v1.Scale`。
@@ -3131,7 +3138,9 @@ Then new namespaced RESTful API endpoints are created at:
 /apis/stable.example.com/v1/namespaces/*/crontabs/status
 ```
 
-<!-- and -->
+<!--
+and
+-->
 和
 
 ```none
@@ -3183,6 +3192,9 @@ Save the following CustomResourceDefinition to `resourcedefinition.yaml`:
 
 将下面的 CustomResourceDefinition 保存到 `resourcedefinition.yaml` 文件中：
 
+<!--
+# categories is a list of grouped resources the custom resource belongs to.
+-->
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition

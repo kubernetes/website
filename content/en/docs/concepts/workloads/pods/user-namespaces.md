@@ -84,7 +84,18 @@ The kubelet will pick host UIDs/GIDs a pod is mapped to, and will do so in a way
 to guarantee that no two pods on the same node use the same mapping.
 
 The `runAsUser`, `runAsGroup`, `fsGroup`, etc. fields in the `pod.spec` always
-refer to the user inside the container.
+refer to the user inside the container. These users will be used for volume
+mounts (specified in `pod.spec.volumes`) and therefore the host UID/GID will not
+have any effect on writes/reads from volumes the pod can mount. In other words,
+the inodes created/read in volumes mounted by the pod will be the same as if the
+pod wasn't using user namespaces.
+
+This way, a pod can easily enable and disable user namespaces (without affecting
+its volume's file ownerships) and can also share volumes with pods without user
+namespaces by just setting the appropriate users inside the container
+(`RunAsUser`, `RunAsGroup`, `fsGroup`, etc.). This applies to any volume the pod
+can mount, including `hostPath` (if the pod is allowed to mount `hostPath`
+volumes).
 
 The valid UIDs/GIDs when this feature is enabled is the range 0-65535. This
 applies to files and processes (`runAsUser`, `runAsGroup`, etc.).

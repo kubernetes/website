@@ -650,7 +650,8 @@ other = "Скопійовано до буферу обміну: "
 [translated_by]
 other = "Перекладач(і)"
 
-[ui_search_placeholder]
+[ui_search]
+# other = "Search"
 other = "Пошук"
 
 [version_check_mustbe]
@@ -673,5 +674,3 @@ other = "Попередження"
 
 [whatsnext_heading]
 other = "Що далі"
-
-

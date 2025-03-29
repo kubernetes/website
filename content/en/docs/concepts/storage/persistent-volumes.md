@@ -830,17 +830,26 @@ the request is for storage. The same
 [resource model](https://git.k8s.io/design-proposals-archive/scheduling/resources.md)
 applies to both volumes and claims.
 
+{{< note >}}
+For `Filesystem` volumes, the storage request refers to the "outer" volume size
+(i.e. the allocated size from the storage backend).
+This means that the writeable size may be slightly lower for providers that
+build a filesystem on top of a block device, due to filesystem overhead.
+This is especially visible with XFS, where many metadata features are enabled by default.
+{{< /note >}}
+
 ### Selector
 
 Claims can specify a
 [label selector](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
-to further filter the set of volumes. Only the volumes whose labels match the selector
-can be bound to the claim. The selector can consist of two fields:
+to further filter the set of volumes.
+Only the volumes whose labels match the selector can be bound to the claim.
+The selector can consist of two fields:
 
 * `matchLabels` - the volume must have a label with this value
 * `matchExpressions` - a list of requirements made by specifying key, list of values,
-  and operator that relates the key and values. Valid operators include In, NotIn,
-  Exists, and DoesNotExist.
+  and operator that relates the key and values.
+  Valid operators include `In`, `NotIn`, `Exists`, and `DoesNotExist`.
 
 All of the requirements, from both `matchLabels` and `matchExpressions`, are
 ANDed together – they must all be satisfied in order to match.
@@ -850,31 +859,30 @@ ANDed together – they must all be satisfied in order to match.
 A claim can request a particular class by specifying the name of a
 [StorageClass](/docs/concepts/storage/storage-classes/)
 using the attribute `storageClassName`.
-Only PVs of the requested class, ones with the same `storageClassName` as the PVC, can
-be bound to the PVC.
+Only PVs of the requested class, ones with the same `storageClassName` as the PVC,
+can be bound to the PVC.
 
 PVCs don't necessarily have to request a class. A PVC with its `storageClassName` set
 equal to `""` is always interpreted to be requesting a PV with no class, so it
-can only be bound to PVs with no class (no annotation or one set equal to
-`""`). A PVC with no `storageClassName` is not quite the same and is treated differently
+can only be bound to PVs with no class (no annotation or one set equal to `""`).
+A PVC with no `storageClassName` is not quite the same and is treated differently
 by the cluster, depending on whether the
 [`DefaultStorageClass` admission plugin](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
 is turned on.
 
-* If the admission plugin is turned on, the administrator may specify a
-  default StorageClass. All PVCs that have no `storageClassName` can be bound only to
-  PVs of that default. Specifying a default StorageClass is done by setting the
-  annotation `storageclass.kubernetes.io/is-default-class` equal to `true` in
-  a StorageClass object. If the administrator does not specify a default, the
-  cluster responds to PVC creation as if the admission plugin were turned off. If more than one
-  default StorageClass is specified, the newest default is used when the
-  PVC is dynamically provisioned.
-* If the admission plugin is turned off, there is no notion of a default
-  StorageClass. All PVCs that have `storageClassName` set to `""` can be
-  bound only to PVs that have `storageClassName` also set to `""`.
-  However, PVCs with missing `storageClassName` can be updated later once
-  default StorageClass becomes available. If the PVC gets updated it will no
-  longer bind to PVs that have `storageClassName` also set to `""`.
+* If the admission plugin is turned on, the administrator may specify a default StorageClass.
+  All PVCs that have no `storageClassName` can be bound only to PVs of that default.
+  Specifying a default StorageClass is done by setting the annotation
+  `storageclass.kubernetes.io/is-default-class` equal to `true` in a StorageClass object.
+  If the administrator does not specify a default, the cluster responds to PVC creation
+  as if the admission plugin were turned off.
+  If more than one default StorageClass is specified, the newest default is used when
+  the PVC is dynamically provisioned.
+* If the admission plugin is turned off, there is no notion of a default StorageClass.
+  All PVCs that have `storageClassName` set to `""` can be bound only to PVs
+  that have `storageClassName` also set to `""`.
+  However, PVCs with missing `storageClassName` can be updated later once default StorageClass becomes available.
+  If the PVC gets updated it will no longer bind to PVs that have `storageClassName` also set to `""`.
 
 See [retroactive default StorageClass assignment](#retroactive-default-storageclass-assignment) for more details.
 
