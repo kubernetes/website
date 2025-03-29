@@ -417,7 +417,7 @@ kubectl get service hostnames -o json
 * If you meant to use a named port, do your Pods expose a port with the same name?
 * Is the port's `protocol` correct for your Pods?
 
-## Does the Service have any Endpoints?
+## Does the Service have any EndpointSlices?
 
 If you got this far, you have confirmed that your Service is correctly
 defined and is resolved by DNS.  Now let's check that the Pods you ran are
@@ -445,16 +445,16 @@ restarted.  Frequent restarts could lead to intermittent connectivity issues.
 If the restart count is high, read more about how to [debug pods](/docs/tasks/debug/debug-application/debug-pods).
 
 Inside the Kubernetes system is a control loop which evaluates the selector of
-every Service and saves the results into a corresponding Endpoints object.
+every Service and saves the results into one or more EndpointSlice objects.
 
 ```shell
-kubectl get endpoints hostnames
+kubectl get endpointslices -l k8s.io/service-name=hostnames
 
-NAME        ENDPOINTS
-hostnames   10.244.0.5:9376,10.244.0.6:9376,10.244.0.7:9376
+NAME              ADDRESSTYPE   PORTS   ENDPOINTS
+hostnames-ytpni   IPv4          9376    10.244.0.5,10.244.0.6,10.244.0.7
 ```
 
-This confirms that the endpoints controller has found the correct Pods for
+This confirms that the EndpointSlice controller has found the correct Pods for
 your Service.  If the `ENDPOINTS` column is `<none>`, you should check that
 the `spec.selector` field of your Service actually selects for
 `metadata.labels` values on your Pods.  A common mistake is to have a typo or
@@ -490,13 +490,13 @@ hostnames-632524106-ly40y
 hostnames-632524106-tlaok
 ```
 
-You expect each Pod in the Endpoints list to return its own hostname.  If
+You expect each Pod in the endpoints list to return its own hostname.  If
 this is not what happens (or whatever the correct behavior is for your own
 Pods), you should investigate what's happening there.
 
 ## Is the kube-proxy working?
 
-If you get here, your Service is running, has Endpoints, and your Pods
+If you get here, your Service is running, has EndpointSlices, and your Pods
 are actually serving.  At this point, the whole Service proxy mechanism is
 suspect.  Let's confirm it, piece by piece.
 
@@ -681,7 +681,7 @@ UP BROADCAST RUNNING PROMISC MULTICAST  MTU:1460  Metric:1
 ## Seek help
 
 If you get this far, something very strange is happening.  Your Service is
-running, has Endpoints, and your Pods are actually serving.  You have DNS
+running, has EndpointSlices, and your Pods are actually serving.  You have DNS
 working, and `kube-proxy` does not seem to be misbehaving.  And yet your
 Service is not working.  Please let us know what is going on, so we can help
 investigate!
