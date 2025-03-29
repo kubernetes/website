@@ -190,7 +190,7 @@ other = "Prima di cominciare"
 [subscribe_button]
 other = "Iscriviti"
 
-[ui_search_placeholder]
+[ui_search]
 other = "Cerca"
 
 [version_check_mustbe]
