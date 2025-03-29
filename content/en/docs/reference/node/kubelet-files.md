@@ -87,16 +87,18 @@ Names of files:
 Device manager creates checkpoints in the same directory with socket files: `/var/lib/kubelet/device-plugins/`.
 The name of a checkpoint file is `kubelet_internal_checkpoint` for [Device Manager](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager)
 
-### Pod status checkpoint storage {#pod-status-manager-state}
+### Pod resource checkpoints
 
 {{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
-If your cluster has  
-[in-place Pod vertical scaling](/docs/concepts/workloads/autoscaling/#in-place-resizing)  
-enabled ([feature gate](/docs/reference/command-line-tools-reference/feature-gates/)  
-name `InPlacePodVerticalScaling`), then the kubelet stores a local record of allocated Pod resources.
+If a node has the `InPlacePodVerticalScaling`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled, then the kubelet stores a local record of _allocated_ and _actuated_ Pod resources. See [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/) for more details on how these records are used.
 
-The file name is `pod_status_manager_state` within the kubelet base directory
+Names of files:
+
+- `allocated_pods_state` records the resources allocated to each pod running on the node
+- `actuated_pods_state` records the resources that have been accepted by the runtime for each pod pod running on the node
+
+The files are located within the kubelet base directory
 (`/var/lib/kubelet` by default on Linux; configurable using `--root-dir`).
 
 ### Container runtime
