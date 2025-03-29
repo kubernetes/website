@@ -1307,15 +1307,15 @@ This table explains the behavior of **list** requests with various combinations 
 
 {{< table caption="resourceVersionMatch and paging parameters for list" >}}
 
-| resourceVersionMatch param | paging params | resourceVersion not set | resourceVersion="0" | resourceVersion="{value other than 0}" |
-|----------------------------|---------------|-------------------------|---------------------|----------------------------------------|
-| _unset_ | _limit unset_ | Most Recent | Any | Not older than |
-| _unset_ | limit=\<n\>, _continue unset_ | Most Recent | Any | Exact |
-| _unset_ | limit=\<n\>, continue=\<token\>| Continue Token, Exact | Invalid, treated as Continue Token, Exact | Invalid, HTTP `400 Bad Request` |
-| `resourceVersionMatch=Exact` | _limit unset_ | Invalid | Invalid | Exact |
-| `resourceVersionMatch=Exact` | limit=\<n\>, _continue unset_ | Invalid | Invalid | Exact |
-| `resourceVersionMatch=NotOlderThan` | _limit unset_ | Invalid | Any | Not older than |
-| `resourceVersionMatch=NotOlderThan` | limit=\<n\>, _continue unset_ | Invalid | Any | Not older than |
+| resourceVersionMatch param          | paging params                  | resourceVersion not set | resourceVersion="0" | resourceVersion="{value other than 0}" |
+|-------------------------------------|--------------------------------|-------------------------|---------------------|----------------------------------------|
+| _unset_                             | _limit unset_                  | Most Recent             | Any                 | Not older than                         |
+| _unset_                             | limit=\<n\>, _continue unset_  | Most Recent             | Any                 | Exact                                  |
+| _unset_                             | limit=\<n\>, continue=\<token\>| Continuation            | Continuation        | Invalid, HTTP `400 Bad Request`        |
+| `resourceVersionMatch=Exact`        | _limit unset_                  | Invalid                 | Invalid             | Exact                                  |
+| `resourceVersionMatch=Exact`        | limit=\<n\>, _continue unset_  | Invalid                 | Invalid             | Exact                                  |
+| `resourceVersionMatch=NotOlderThan` | _limit unset_                  | Invalid                 | Any                 | Not older than                         |
+| `resourceVersionMatch=NotOlderThan` | limit=\<n\>, _continue unset_  | Invalid                 | Any                 | Not older than                         |
 
 {{< /table >}}
 
@@ -1332,6 +1332,7 @@ Any
   for the request to return data at a much older resource version that the client has previously
   observed, particularly in high availability configurations, due to partitions or stale
   caches. Clients that cannot tolerate this should not use this semantic.
+  Always served from _watch cache_, improving performance and reducing etcd load.
 
 Most recent
 : Return data at the most recent resource version. The returned data must be
@@ -1349,6 +1350,7 @@ Not older than
   guarantees that the collection's `.metadata.resourceVersion` is not older than the requested
   `resourceVersion`, but does not make any guarantee about the `.metadata.resourceVersion` of any
   of the items in that collection.
+  Always served from _watch cache_, improving performance and reducing etcd load.
 
 Exact
 : Return data at the exact resource version provided. If the provided `resourceVersion` is
@@ -1356,11 +1358,19 @@ Exact
   `resourceVersionMatch` parameter, this guarantees that the collection's `.metadata.resourceVersion`
   is the same as the `resourceVersion` you requested in the query string. That guarantee does
   not apply to the `.metadata.resourceVersion` of any items within that collection.
+  By default served from _etcd_, but with the `ListFromCacheSnapshot` feature gate enabled,
+  API server will attempt to serve the response from snapshot if available.
+  This improves performance and reduces etcd load. Cache snapshots are kept by default for 75 seconds,
+  so if the provided `resourceVersion` is unavailable, the server will fallback to etcd.
 
-Continue Token, Exact
-: Return data at the resource version of the initial paginated **list** call. The returned _continue
-  tokens_ are responsible for keeping track of the initially provided resource version for all paginated
-  **list** calls after the initial paginated **list**.
+Continuation
+: Return the next page of data for a paginated list request, ensuring consistency with the exact `resourceVersion` established by the initial request in the sequence.
+  Response to **list** requests with limit include _continue token_, that encodes the  `resourceVersion` and last observed position from which to resume the list.
+  If the `resourceVersion` in the provided _continue token_ is unavailable, the server responds with HTTP `410 Gone`.
+  By default served from _etcd_, but with the `ListFromCacheSnapshot` feature gate enabled,
+  API server will attempt to serve the response from snapshot if available.
+  This improves performance and reduces etcd load. Cache snapshots are kept by default for 75 seconds,
+  so if the `resourceVersion` in provided _continue token_ is unavailable, the server will fallback to etcd.
 
 {{< note >}}
 When you **list** resources and receive a collection response, the response includes the
