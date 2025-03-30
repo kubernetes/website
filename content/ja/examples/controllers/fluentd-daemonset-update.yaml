@@ -20,7 +20,7 @@ spec:
     spec:
       tolerations:
       # これらのTolerationはコントロールプレーンノード上でDaemonSetを実行できるようにするためのものです
-      # コントロールプレーンノードでポッドを実行すべきではない場合は、これらを削除してください
+      # コントロールプレーンノードでPodを実行すべきではない場合は、これらを削除してください
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
         effect: NoSchedule

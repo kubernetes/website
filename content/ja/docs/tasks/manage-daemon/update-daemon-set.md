@@ -31,7 +31,7 @@ DaemonSetに対してローリングアップデートの機能を有効にす�
 
 ### `RollingUpdate`アップデート戦略によるDaemonSetの作成
 
-このYAMLファイルでは、アップデート戦略として'RollingUpdate'が指定されたDaemonSetを定義しています。
+このYAMLファイルでは、アップデート戦略として`RollingUpdate`が指定されたDaemonSetを定義しています。
 
 {{% code_sample file="controllers/fluentd-daemonset.yaml" %}}
 
@@ -61,7 +61,7 @@ kubectl get ds/fluentd-elasticsearch -o go-template='{{.spec.updateStrategy.type
 kubectl apply -f https://k8s.io/examples/controllers/fluentd-daemonset.yaml --dry-run=client -o go-template='{{.spec.updateStrategy.type}}{{"\n"}}'
 ```
 
-両方のコマンドの出力は次のようになります:
+どちらのコマンドも、出力は次のようになります:
 
 ```
 RollingUpdate
@@ -80,7 +80,7 @@ RollingUpdate
 
 #### 宣言型コマンド
 
-[設定ファイル](/docs/tasks/manage-kubernetes-objects/declarative-config/)を使用してDaemonSetを更新する場合は`kubectl apply`を使用します:
+[設定ファイル](/docs/tasks/manage-kubernetes-objects/declarative-config/)を使用してDaemonSetを更新する場合は、`kubectl apply`を使用します:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/fluentd-daemonset-update.yaml
@@ -104,7 +104,7 @@ kubectl set image ds/fluentd-elasticsearch fluentd-elasticsearch=quay.io/fluentd
 
 ### ローリングアップデートのステータスの監視
 
-最後に、最新のDaemonSetのローリングアップデートのロールアウトのステータスを監視します:
+最後に、最新のDaemonSetの、ローリングアップデートのロールアウトステータスを監視します:
 
 ```shell
 kubectl rollout status ds/fluentd-elasticsearch -n kube-system
@@ -154,7 +154,7 @@ DaemonSet内で`.spec.minReadySeconds`が指定されると、マスターとノ
 
 ## クリーンアップ
 
-NamespaceからDaemonSetを削除します。
+NamespaceからDaemonSetを削除します:
 
 ```shell
 kubectl delete ds fluentd-elasticsearch -n kube-system
