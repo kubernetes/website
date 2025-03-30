@@ -23,10 +23,8 @@
 				{{ block "hero-more" . }}{{ end }}
 			</div>
 		</section>
-		{{ block "post-hero" . }}
-    </header>
     {{ end }}
-		{{ end }}
+    </header>
     <div class="td-outer">
       <main role="main" class="td-main" {{ if (or (ne .FirstSection "case-studies") (not .IsSection) ) }}data-pagefind-body{{ end }}>
         {{ block "deprecation_warning" . }}
