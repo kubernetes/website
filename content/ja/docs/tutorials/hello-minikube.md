@@ -109,6 +109,8 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管
     hello-node   1/1     1            1           1m
     ```
 
+    (Podが利用可能になるまで時間がかかる場合があります。"0/1"と表示された場合は、数秒後にもう一度確認してみてください。)
+
 3. Podを確認します:
 
     ```shell
@@ -134,6 +136,23 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管
     kubectl config view
     ```
 
+6. Podで実行されているコンテナのアプリケーションログを確認します(Podの名前は`kubectl get pods`で取得したものに置き換えてください)。
+
+    {{< note >}}
+    `kubectl logs`コマンドの引数`hello-node-5f76cf6ccf-br9b5`は、`kubectl get pods`コマンドで取得したPodの名前に置き換えてください。
+    {{< /note >}}
+
+   ```shell
+   kubectl logs hello-node-5f76cf6ccf-br9b5
+   ```
+
+   出力は下記のようになります:
+
+   ```
+   I0911 09:19:26.677397       1 log.go:195] Started HTTP server on port 8080
+   I0911 09:19:26.677586       1 log.go:195] Started UDP server on port  8081
+   ```
+
 {{< note >}}
 `kubectl`コマンドの詳細な情報は[コマンドラインツール(kubectl)](/ja/docs/reference/kubectl/)を参照してください。
 {{< /note >}}
@@ -142,6 +161,11 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管
 
 通常、PodはKubernetesクラスター内部のIPアドレスからのみアクセスすることができます。`hello-node`コンテナをKubernetesの仮想ネットワークの外部からアクセスするためには、Kubernetesの[*Service*](/ja/docs/concepts/services-networking/service/)としてPodを公開する必要があります。
 
+{{< warning >}}
+agnhostコンテナには`/shell`エンドポイントがあり、デバッグには便利ですが、インターネットに公開するのは危険です。
+インターネットに接続されたクラスターや、プロダクション環境のクラスターで実行しないでください。
+{{< /warning >}}
+
 1. `kubectl expose` コマンドを使用してPodをインターネットに公開します:
 
     ```shell
@@ -149,6 +173,9 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管
     ```
 
     `--type=LoadBalancer`フラグはServiceをクラスター外部に公開したいことを示しています。
+
+    テストイメージ内のアプリケーションコードはTCPの8080番ポートのみを待ち受けます。
+    `kubectl expose`で8080番ポート以外を公開した場合、クライアントはそのポートに接続できません。
 
 2. 作成したServiceを確認します:
 
@@ -214,7 +241,7 @@ minikubeはビルトインの{{< glossary_tooltip text="アドオン" term_id="a
     出力は下記のようになります:
 
     ```
-    metrics-server was successfully enabled
+    The 'metrics-server' addon is enabled
     ```
 
 3. 作成されたPodとサービスを確認します:
@@ -246,7 +273,26 @@ minikubeはビルトインの{{< glossary_tooltip text="アドオン" term_id="a
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
 
-4. `metrics-server`を無効化します:
+4. `metrics-server`の出力を確認します:
+
+    ```shell
+    kubectl top pods
+    ```
+
+    出力は下記のようになります:
+
+    ```
+    NAME                         CPU(cores)   MEMORY(bytes)
+    hello-node-ccf4b9788-4jn97   1m           6Mi
+    ```
+
+    次のメッセージが表示された場合は、しばらく待ってから再度実行してください:
+
+    ```
+    error: Metrics API not available
+    ```
+
+5. `metrics-server`を無効化します:
 
     ```shell
     minikube addons disable metrics-server
@@ -267,7 +313,7 @@ kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-(オプション)minikubeの仮想マシン(VM)を停止します:
+minikubeクラスターを停止します
 
 ```shell
 minikube stop
@@ -276,8 +322,11 @@ minikube stop
 (オプション)minikubeのVMを削除します:
 
 ```shell
+# オプション
 minikube delete
 ```
+
+Kubernetesの学習で再度minikubeを使用したい場合、minikubeのVMを削除する必要はありません。
 
 ## まとめ
 このページでは、minikubeクラスターを立ち上げて実行するための基本的な部分を説明しました。
