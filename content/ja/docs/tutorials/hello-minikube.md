@@ -44,7 +44,7 @@ minikube start
 Kubernetesダッシュボードを開きます。これには二通りの方法があります:
 
 {{< tabs name="dashboard" >}}
-{{% tab name="ブラウザを起動" %}}
+{{% tab name="ブラウザーを起動" %}}
 **新しい** ターミナルを開き、次のコマンドを実行します:
 ```shell
 # 新しいターミナルを起動し、以下を実行したままにします
@@ -54,24 +54,24 @@ minikube dashboard
 `minikube start`を実行したターミナルに戻ります。
 
 {{< note >}}
-`dashboard`コマンドは、ダッシュボードアドオンを有効にし、デフォルトのWebブラウザでプロキシを開きます。
+`dashboard`コマンドは、ダッシュボードアドオンを有効にし、デフォルトのWebブラウザーでプロキシを開きます。
 ダッシュボード上で、DeploymentやServiceなどのKubernetesリソースを作成できます。
 
-ターミナルから直接ブラウザを起動させずに、WebダッシュボードのURLを取得する方法については、「URLをコピー&ペースト」タブを参照してください。
+ターミナルから直接ブラウザーを起動させずに、WebダッシュボードのURLを取得する方法については、「URLをコピー&ペースト」タブを参照してください。
 
 デフォルトでは、ダッシュボードはKubernetesの仮想ネットワーク内部からのみアクセス可能です。
 `dashboard`コマンドは、Kubernetes仮想ネットワークの外部からダッシュボードにアクセス可能にするための一時的なプロキシを作成します。
 
 プロキシを停止するには、`Ctrl+C`を実行してプロセスを終了します。
-`dashboard`コマンドが終了した後も、ダッシュボードはKubernetesクラスタ内で実行を続けます。
+`dashboard`コマンドが終了した後も、ダッシュボードはKubernetesクラスター内で実行を続けます。
 再度`dashboard`コマンドを実行すれば、新しい別のプロキシを作成してダッシュボードにアクセスできます。
 {{< /note >}}
 
 {{% /tab %}}
 {{% tab name="URLをコピー&ペースト" %}}
 
-minikubeが自動的にWebブラウザを開くことを望まない場合、`dashboard`サブコマンドを`--url`フラグと共に実行します。
-`minikube`は、お好みのブラウザで開くことができるURLを出力します。
+minikubeが自動的にWebブラウザーを開くことを望まない場合、`dashboard`サブコマンドを`--url`フラグと共に実行します。
+`minikube`は、お好みのブラウザーで開くことができるURLを出力します。
 
 **新しい** ターミナルを開き、次のコマンドを実行します:
 ```shell
@@ -79,7 +79,7 @@ minikubeが自動的にWebブラウザを開くことを望まない場合、`da
 minikube dashboard --url
 ```
 
-URLをコピー&ペーストし、ブラウザで開きます。
+URLをコピー&ペーストし、ブラウザーで開きます。
 `minikube start`を実行したターミナルに戻ります。
 
 {{% /tab %}}
@@ -280,13 +280,13 @@ minikube delete
 ```
 
 ## まとめ
-このページでは、minikubeクラスタを立ち上げて実行するための基本的な部分を説明しました。
+このページでは、minikubeクラスターを立ち上げて実行するための基本的な部分を説明しました。
 これでアプリケーションをデプロイする準備が整いました。
 
 ## {{% heading "whatsnext" %}}
 
 
-* _[kubectlで初めてのアプリケーションをKubernetesにデプロイする](/ja/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)_.
-* [Deploymentオブジェクト](/ja/docs/concepts/workloads/controllers/deployment/)について学ぶ.
-* [アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)について学ぶ.
-* [Serviceオブジェクト](/ja/docs/concepts/services-networking/service/)について学ぶ.
+* _[kubectlで初めてのアプリケーションをKubernetesにデプロイする](/ja/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)_。
+* [Deploymentオブジェクト](/ja/docs/concepts/workloads/controllers/deployment/)について学ぶ。
+* [アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)について学ぶ。
+* [Serviceオブジェクト](/ja/docs/concepts/services-networking/service/)について学ぶ。
