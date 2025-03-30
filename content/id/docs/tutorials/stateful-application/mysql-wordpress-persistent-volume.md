@@ -2,7 +2,7 @@
 title: "Contoh: Men-deploy WordPress dan MySQL dengan Persistent Volumes"
 content_type: tutorial
 weight: 20
-card: 
+card:
   name: tutorials
   weight: 40
   title: "Contoh Stateful: WordPress dengan Persistent Volumes"
@@ -11,7 +11,7 @@ card:
 <!-- overview -->
 Tutorial ini menunjukkan cara untuk men-deploy situs WordPress dan database MySQL menggunakan Minikube. Kedua aplikasi ini menggunakan PersistentVolumes dan PersistentVolumeClaims untuk menyimpan data.
 
-[PersistentVolume](/docs/concepts/storage/persistent-volumes/) (PV) adalah bagian dari penyimpanan di dalam kluster yang telah disediakan secara manual oleh administrator, atau secara dinamis disediakan oleh Kubernetes menggunakan [StorageClass](/docs/concepts/storage/storage-classes).
+[PersistentVolume](/docs/concepts/storage/persistent-volumes/) (PV) adalah bagian dari penyimpanan di dalam klaster yang telah disediakan secara manual oleh administrator, atau secara dinamis disediakan oleh Kubernetes menggunakan [StorageClass](/docs/concepts/storage/storage-classes).
 
 [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) (PVC) adalah permintaan penyimpanan oleh pengguna yang dapat dipenuhi oleh PV. PersistentVolumes dan PersistentVolumeClaims bersifat independen dari siklus hidup Pod dan mempertahankan data meskipun Pod di-restart, dijadwalkan ulang, atau bahkan dihapus.
 
@@ -51,20 +51,20 @@ Unduh file konfigurasi berikut:
 
 MySQL dan WordPress masing-masing memerlukan PersistentVolume untuk menyimpan data. PersistentVolumeClaims mereka akan dibuat pada langkah deployment.
 
-Banyak lingkungan kluster memiliki StorageClass default yang sudah di-instal. Ketika StorageClass tidak ditentukan dalam PersistentVolumeClaim, StorageClass default kluster akan digunakan.
+Banyak lingkungan klaster memiliki StorageClass default yang sudah di-instal. Ketika StorageClass tidak ditentukan dalam PersistentVolumeClaim, StorageClass default klaster akan digunakan.
 
 Ketika PersistentVolumeClaim dibuat, PersistentVolume akan disediakan secara dinamis berdasarkan konfigurasi StorageClass.
 
 {{< warning >}}
-Di kluster lokal, StorageClass default menggunakan provisioner `hostPath`. Volume `hostPath` hanya cocok untuk pengembangan dan pengujian. Dengan volume `hostPath`, data kamu akan disimpan di `/tmp` pada node tempat Pod dijadwalkan dan tidak akan berpindah antar node. Jika sebuah Pod mati dan dijadwalkan ke node lain di kluster, atau node di-reboot, data akan hilang.
+Di klaster lokal, StorageClass default menggunakan provisioner `hostPath`. Volume `hostPath` hanya cocok untuk pengembangan dan pengujian. Dengan volume `hostPath`, data kamu akan disimpan di `/tmp` pada node tempat Pod dijadwalkan dan tidak akan berpindah antar node. Jika sebuah Pod mati dan dijadwalkan ke node lain di klaster, atau node di-reboot, data akan hilang.
 {{< /warning >}}
 
 {{< note >}}
-Jika kamuu menjalankan kluster yang memerlukan provisioner `hostPath`, flag `--enable-hostpath-provisioner` harus diatur pada komponen `controller-manager`.
+Jika kamuu menjalankan klaster yang memerlukan provisioner `hostPath`, flag `--enable-hostpath-provisioner` harus diatur pada komponen `controller-manager`.
 {{< /note >}}
 
 {{< note >}}
-Jika kamu memiliki kluster Kubernetes yang berjalan di Google Kubernetes Engine, silakan ikuti [panduan ini](https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-disk).
+Jika kamu memiliki klaster Kubernetes yang berjalan di Google Kubernetes Engine, silakan ikuti [panduan ini](https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-disk).
 {{< /note >}}
 
 ## Membuat kustomization.yaml
