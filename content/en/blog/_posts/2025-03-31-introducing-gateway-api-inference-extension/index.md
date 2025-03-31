@@ -7,8 +7,8 @@ draft: true
 author: >
   Daneyon Hansen (Solo.io),
   Kaushik Mitra (Google),
-  Kellen Swain (Google),
-  Jiaxin Shan (Bytedance)
+  Jiaxin Shan (Bytedance),
+  Kellen Swain (Google)
 ---
 
 Modern generative AI and large language model (LLM) services create unique traffic-routing challenges
@@ -81,14 +81,14 @@ steps (extensions) in the middle. Here’s a high-level example of the request f
 This extra step provides a smarter, model-aware routing mechanism that still feels like a normal single request to
 the client. Additionally, the design is extensible—any Inference Gateway can be enhanced with additional inference-specific
 extensions to handle new routing strategies, advanced scheduling logic, or specialized hardware needs. As the project
-continues to grow, contributors can develop new extensions that are fully compatible with the same underlying
+continues to grow, contributors are encouraged to develop new extensions that are fully compatible with the same underlying
 Gateway API model, further expanding the possibilities for efficient and intelligent GenAI/LLM routing.
 
 ## Benchmarks
 
-We evaluated ​this extension against a standard Kubernetes Service for a [vLLM](https://docs.vllm.ai/en/latest/)‐based
+We evaluated ​this extension against a standard Kubernetes Service for a [vLLM](https://docs.vllm.ai/en/latest/)‐based model
 serving deployment. The test environment consisted of multiple H100 (80 GB) GPU pods running vLLM ([version 1](https://blog.vllm.ai/2025/01/27/v1-alpha-release.html))
-on a Kubernetes cluster, with up to 10 replicas. The [Latency Profile Generator (LPG)](https://github.com/AI-Hypercomputer/inference-benchmark)
+on a Kubernetes cluster, with 10 Llama2 model replicas. The [Latency Profile Generator (LPG)](https://github.com/AI-Hypercomputer/inference-benchmark)
 tool was used to generate traffic and measure throughput, latency, and other metrics. The
 [ShareGPT](https://huggingface.co/datasets/anon8231489123/ShareGPT_Vicuna_unfiltered/resolve/main/ShareGPT_V3_unfiltered_cleaned_split.json)
 dataset served as the workload, and traffic was ramped from 100 Queries per Second (QPS) up to 1000 QPS.
@@ -97,11 +97,11 @@ dataset served as the workload, and traffic was ramped from 100 Queries per Seco
 
 {{< figure src="inference-extension-benchmark.png" alt="Endpoint Extension Scheduling" class="diagram-large" clicktozoom="true" >}}
 
-- **Comparable Throughput**: Throughout the tested QPS range, ESE delivered throughput roughly on par with a standard
+- **Comparable Throughput**: Throughout the tested QPS range, the ESE delivered throughput roughly on par with a standard
   Kubernetes Service.
 
 - **Lower Latency**:
-  - **Per‐Output‐Token Latency**: ​ESE showed significantly lower p90 latency at higher QPS (500+), indicating that
+  - **Per‐Output‐Token Latency**: The ​ESE showed significantly lower p90 latency at higher QPS (500+), indicating that
   its model-aware routing decisions reduce queueing and resource contention as GPU memory approaches saturation.
   - **Overall p90 Latency**: Similar trends emerged, with the ​ESE reducing end‐to‐end tail latencies compared to the
   baseline, particularly as traffic increased beyond 400–500 QPS.
@@ -130,6 +130,6 @@ and standardize how AI/ML traffic is routed. With model-aware routing, criticali
 more, it helps ops teams deliver the right LLM services to the right users—smoothly and efficiently.
 
 **Ready to learn more?** Visit the [project docs](https://gateway-api-inference-extension.sigs.k8s.io/) to dive deeper,
-give the Inference Gateway extension a try with a few [simple steps](https://gateway-api-inference-extension.sigs.k8s.io/guides/),
+give an Inference Gateway extension a try with a few [simple steps](https://gateway-api-inference-extension.sigs.k8s.io/guides/),
 and [get involved](https://gateway-api-inference-extension.sigs.k8s.io/contributing/) if you’re interested in
 contributing to the project!
