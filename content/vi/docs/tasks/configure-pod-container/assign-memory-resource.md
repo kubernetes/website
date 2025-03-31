@@ -50,6 +50,7 @@ kubectl create namespace mem-example
 
 ## Cài đặt bộ nhớ tối thiểu và bộ nhớ tối đa
 
+
 Để cài đặt bộ nhớ tối thiểu cho một Container, bạn cần thêm trường `resources:requests` vào phần khai báo trong tệp cấu hình Container. Với bộ nhớ tối đa, bạn hãy thêm `resources:limits`.
 
 Trong phần thực hành này, bạn sẽ tạo một Pod có một Container. Container này có bộ nhớ tối thiểu là 100 MiB và bộ nhớ tối đa là 200 MiB. Đây là file cấu hình cho Pod:
