@@ -14,4 +14,8 @@ tags:
 
 <!--more-->
 
-Kubelet korzysta z dostarczanych (różnymi metodami) _PodSpecs_ i gwarantuje, że kontenery opisane przez te PodSpecs są uruchomione i działają poprawnie. Kubelet nie zarządza kontenerami, które nie zostały utworzone przez Kubernetesa.
+
+[kubelet](/docs/reference/command-line-tools-reference/kubelet/)
+korzysta z dostarczanych (różnymi metodami) _PodSpecs_ i gwarantuje, że
+kontenery opisane przez te PodSpecs są uruchomione i działają poprawnie.
+Kubelet nie zarządza kontenerami, które nie zostały utworzone przez Kubernetesa.
