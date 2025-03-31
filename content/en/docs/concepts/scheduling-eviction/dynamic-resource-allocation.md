@@ -229,6 +229,7 @@ spec:
       requests:
       - name: req-0
         deviceClassName: resource.example.com
+        allocationMode: All
         adminAccess: true
 ```
 
@@ -241,77 +242,6 @@ create ResourceClaim or ResourceClaimTemplate objects in namespaces labeled with
 `resource.k8s.io/admin-access: "true"` (case-sensitive) can use the
 `adminAccess` field. This ensures that non-admin users cannot misuse the
 feature. 
-
-Prior to Kubernetes v1.33, cluster administrators can restrict usage of
-this feature by installing a validating admission policy similar to the following
-example. Cluster administrators need to adapt at least the names and replace
-"dra.example.com".
-
-```yaml
-# Permission to use admin access is granted only in namespaces which have the
-# "resource.k8s.io/admin-access" label. Other ways of making that decision are
-# also possible.
-
-apiVersion: admissionregistration.k8s.io/v1
-kind: ValidatingAdmissionPolicy
-metadata:
-  name: resourceclaim-policy.dra.example.com
-spec:
-  failurePolicy: Fail
-  matchConstraints:
-    resourceRules:
-    - apiGroups:   ["resource.k8s.io"]
-      apiVersions: ["v1alpha3", "v1beta1"]
-      operations:  ["CREATE", "UPDATE"]
-      resources:   ["resourceclaims"]
-  validations:
-    - expression: '! object.spec.devices.requests.exists(e, has(e.adminAccess) && e.adminAccess)'
-      reason: Forbidden
-      messageExpression: '"admin access to devices not enabled"'
----
-apiVersion: admissionregistration.k8s.io/v1
-kind: ValidatingAdmissionPolicyBinding
-metadata:
-  name: resourceclaim-binding.dra.example.com
-spec:
-  policyName:  resourceclaim-policy.dra.example.com
-  validationActions: [Deny]
-  matchResources:
-    namespaceSelector:
-      matchExpressions:
-      - key: resource.k8s.io/admin-access
-        operator: DoesNotExist
----
-apiVersion: admissionregistration.k8s.io/v1
-kind: ValidatingAdmissionPolicy
-metadata:
-  name: resourceclaimtemplate-policy.dra.example.com
-spec:
-  failurePolicy: Fail
-  matchConstraints:
-    resourceRules:
-    - apiGroups:   ["resource.k8s.io"]
-      apiVersions: ["v1alpha3", "v1beta1"]
-      operations:  ["CREATE", "UPDATE"]
-      resources:   ["resourceclaimtemplates"]
-  validations:
-    - expression: '! object.spec.spec.devices.requests.exists(e, has(e.adminAccess) && e.adminAccess)'
-      reason: Forbidden
-      messageExpression: '"admin access to devices not enabled"'
----
-apiVersion: admissionregistration.k8s.io/v1
-kind: ValidatingAdmissionPolicyBinding
-metadata:
-  name: resourceclaimtemplate-binding.dra.example.com
-spec:
-  policyName:  resourceclaimtemplate-policy.dra.example.com
-  validationActions: [Deny]
-  matchResources:
-    namespaceSelector:
-      matchExpressions:
-      - key: resource.k8s.io/admin-access
-        operator: DoesNotExist
-```
 
 ## ResourceClaim Device Status
 
