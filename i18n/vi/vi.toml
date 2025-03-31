@@ -552,7 +552,7 @@ other = """<p>Các mục trên trang này đề cập đến các sản phẩm h
 other = """Các mục trên trang này đề cập đến các nhà cung cấp bên ngoài Kubernetes. Tác giả dự án Kubernetes không chịu trách nhiệm đối với những sản phẩm hoặc dự án của bên thứ ba đó. Để thêm một nhà cung cấp, sản phẩm hoặc dự án vào danh sách này, đọc <a href="/docs/contribute/style/content-guide/#third-party-content">hướng dẫn nội dung</a> trước khi gửi thay đổi. <a href="#third-party-content-disclaimer">Thông tin thêm.</a>"""
 
 
-[ui_search_placeholder]
+[ui_search]
 other = "Tìm kiếm trên trang này"
 
 [version_check_mustbe]
