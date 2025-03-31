@@ -10,7 +10,7 @@ aka:
 tags:
 - architecture
 ---
- The [operator pattern](/docs/concepts/extend-kubernetes/operator/) is a system
+The [operator pattern](/docs/concepts/extend-kubernetes/operator/) is a system
 design that links a {{< glossary_tooltip term_id="controller" >}} to one or more custom
 resources.
 
