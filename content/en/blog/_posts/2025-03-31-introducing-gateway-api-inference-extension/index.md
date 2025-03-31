@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Introducing Gateway API Inference Extension"
-date: 2025-03-36
+date: 2025-03-31
 slug: introducing-gateway-api-inference-extension
 draft: true
 author: >
@@ -102,7 +102,7 @@ dataset served as the workload, and traffic was ramped from 100 Queries per Seco
 
 - **Lower Latency**:
   - **Per‐Output‐Token Latency**: ​ESE showed significantly lower p90 latency at higher QPS (500+), indicating that
-  its model-aware routing decisions reduce queueing and resource contention.
+  its model-aware routing decisions reduce queueing and resource contention as GPU memory approaches saturation.
   - **Overall p90 Latency**: Similar trends emerged, with the ​ESE reducing end‐to‐end tail latencies compared to the
   baseline, particularly as traffic increased beyond 400–500 QPS.
 
