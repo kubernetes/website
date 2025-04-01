@@ -289,83 +289,10 @@ When you are ready to submit a pull request, commit your changes.
 
 ### Preview your changes locally {#preview-locally}
 
-It's a good idea to preview your changes locally before pushing them or opening a pull request.
-A preview lets you catch build errors or markdown formatting problems.
-
-You can either build the website's container image or run Hugo locally. Building the container
-image is slower but displays [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/), which can
-be useful for debugging.
-
-{{< tabs name="tab_with_hugo" >}}
-{{% tab name="Hugo in a container" %}}
-
-{{< note >}}
-The commands below use Docker as default container engine. Set the `CONTAINER_ENGINE` environment
-variable to override this behaviour.
-{{< /note >}}
-
-1. Build the container image locally  
-   _You only need this step if you are testing a change to the Hugo tool itself_
-
-   ```shell
-   # Run this in a terminal (if required)
-   make container-image
-   ```
-
-1. Fetch submodule dependencies in your local repository:
-
-   ```shell
-   # Run this in a terminal
-   make module-init
-   ```
-
-1. Start Hugo in a container:
-
-   ```shell
-   # Run this in a terminal
-   make container-serve
-   ```
-
-1. In a web browser, navigate to `http://localhost:1313`. Hugo watches the
-   changes and rebuilds the site as needed.
-
-1. To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,
-   or close the terminal window.
-
-{{% /tab %}}
-{{% tab name="Hugo on the command line" %}}
-
-Alternately, install and use the `hugo` command on your computer:
-
-1. Install the [Hugo (Extended edition)](https://gohugo.io/getting-started/installing/) and [Node](https://nodejs.org/en) version specified in
-   [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/main/netlify.toml).
-
-1. Install any dependencies:
-
-   ```shell
-   npm ci
-   ```
-
-1. In a terminal, go to your Kubernetes website repository and start the Hugo server:
-
-   ```shell
-   cd <path_to_your_repo>/website
-   make serve
-   ```
-   If you're on a Windows machine or unable to run the `make` command, use the following command:
-
-   ```
-   hugo server --buildFuture
-   ```
-
-1. In a web browser, navigate to `http://localhost:1313`. Hugo watches the
-   changes and rebuilds the site as needed.
-
-1. To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,
-   or close the terminal window.
-
-{{% /tab %}}
-{{< /tabs >}}
+It's a good idea to preview your changes locally before pushing them or
+opening a pull request. The [Previewing locally](/docs/contribute/new-content/preview-locally/)
+article explains how you can run a website locally and preview
+the suggested changes.
 
 ### Open a pull request from your fork to kubernetes/website {#open-a-pr}
 
