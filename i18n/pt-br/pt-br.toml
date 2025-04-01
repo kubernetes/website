@@ -600,7 +600,7 @@ other = """Itens nesta página referem-se a fornecedores externos ao Kubernetes.
 [translated_by]
 other = "Traduzido Por"
 
-[ui_search_placeholder]
+[ui_search]
 other = "Procurar"
 
 [version_check_mustbe]
