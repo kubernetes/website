@@ -15,7 +15,7 @@ Cloud Provider](https://github.com/kubernetes/community/blob/master/sig-cloud-pr
 
 SIG Cloud Providerは、Kubernetesとさまざまなクラウドプロバイダーとのシームレスな統合を実現するために活動しています。彼らの使命は、Kubernetesエコシステムを誰にとっても公平かつオープンなものに保つことです。
 明確な基準と要件を定めることで、どのクラウドプロバイダーもKubernetesと適切に連携できるようにしています。
-クラウドプロバイダーとの連携を可能にするために、クラスタ内の各コンポーネントを適切に構成することも彼らの重要な責務です。
+クラウドプロバイダーとの連携を可能にするために、クラスター内の各コンポーネントを適切に構成することも彼らの重要な責務です。
 
 SIG Spotlightシリーズの本記事では、[Arujjwal Negi](https://twitter.com/arujjval)が[Michael McCune](https://github.com/elmiko)(Red Hat)にインタビューを行いました。McCune氏は _elmiko_ の名でも知られており、SIG Cloud Providerの共同チェアを務めています。このインタビューを通じて、本SIGの活動の実態に迫ります。
 
@@ -33,7 +33,7 @@ project](https://kubernetes.io/docs/tasks/extend-kubernetes/setup-konnectivity/)
 
 **Arujjwal**: プロジェクトの[README](https://github.com/kubernetes/community/blob/master/sig-cloud-provider/README.md)を拝見し、SIG Cloud ProviderがKubernetesとクラウドプロバイダーとの統合に関わっていることを知りました。この統合プロセスは、具体的にどのように進められているのでしょうか？
 
-**Michael**: Kubernetesを実行する最も一般的な方法の一つは、クラウド環境(AWS、Azure、GCPなど)にデプロイすることです。これらのクラウドインフラには、Kubernetesのパフォーマンスを高めるための機能が備わっていることがよくあります。例えば、Serviceオブジェクト向けのエラスティックロードバランシングを提供する機能などです。Kubernetesからクラウド固有のサービスを一貫して利用できるようにするために、Kubernetesコミュニティではクラウドコントローラーという仕組みを導入し、これらの統合ポイントに対応しています。クラウドプロバイダーは、SIGが管理しているフレームワークを利用するか、あるいはKubernetesのコードやドキュメントで定義されているAPIガイドラインに従うことで、独自のコントローラーを作成できます。ここでひとつ強調しておきたいのは、SIG Cloud ProviderはKubernetesクラスタ内のノードのライフサイクル管理は担当していないという点です。このようなトピックについては、SIG Cluster Lifecycleや Cluster APIプロジェクトが適切な議論の場となります。
+**Michael**: Kubernetesを実行する最も一般的な方法の一つは、クラウド環境(AWS、Azure、GCPなど)にデプロイすることです。これらのクラウドインフラには、Kubernetesのパフォーマンスを高めるための機能が備わっていることがよくあります。例えば、Serviceオブジェクト向けのエラスティックロードバランシングを提供する機能などです。Kubernetesからクラウド固有のサービスを一貫して利用できるようにするために、Kubernetesコミュニティではクラウドコントローラーという仕組みを導入し、これらの統合ポイントに対応しています。クラウドプロバイダーは、SIGが管理しているフレームワークを利用するか、あるいはKubernetesのコードやドキュメントで定義されているAPIガイドラインに従うことで、独自のコントローラーを作成できます。ここでひとつ強調しておきたいのは、SIG Cloud ProviderはKubernetesクラスター内のノードのライフサイクル管理は担当していないという点です。このようなトピックについては、SIG Cluster Lifecycleや Cluster APIプロジェクトが適切な議論の場となります。
 
 ## 重要なサブプロジェクト
 **Arujjwal**:このSIGには多くのサブプロジェクトが存在しています。その中でも特に重要なものと、それぞれが担っている役割について教えていただけますか？
@@ -60,7 +60,7 @@ project](https://github.com/kubernetes/community/blob/master/sig-cloud-provider/
 
 **Arujjwal**: 現在、SIG Cloud Providerとして求めているスキルの中で、私たちが特に強調すべきものはありますか？私たちが所属する[SIG ContribEx](https://github.com/kubernetes/community/blob/master/sig-contributor-experience/README.md)から例を挙げると、たとえば[Hugo](https://gohugo.io/)の専門知識がある方であれば、k8s.devの改善で常に力をお借りしたいと考えています！
 
-**Michael**: 現在、SIGはextraction and migrationプロセスの最終段階に取り組んでいます。一方で、今後に向けた計画もすでに始めており、次に何を進めていくかを検討しています。その中でも大きな話題の一つがテストです。現時点では、各クラウドプロバイダーが自分たちのコントローラーマネージャーの動作を確認するために使える、汎用的で共通なテスト群は存在していません。もし、GinkgoやKubetestフレームワークに詳しい方がいれば、新しいテストの設計や実装にあたって、ぜひお力をお借りしたいと思います。
+**Michael**: 現在、SIGはextraction and migrationプロセスの最終段階に取り組んでいます。一方で、今後に向けた計画もすでに始めており、次に何を進めていくかを検討しています。その中でも大きな話題の一つがテストです。現時点では、各クラウドプロバイダーが自分たちのコントローラーマネージャーの動作を確認するために使える、汎用的で共通なテスト群は存在していません。もし、GinkgoやKubetestフレームワークに詳しい方がいれば、新しいテストの設計や実装にあたって、ぜひ力をお借りしたいと思います。
 
 ---
 
