@@ -149,7 +149,18 @@ The kubelet will pick host UIDs/GIDs a pod is mapped to, and will do so in a way
 to guarantee that no two pods on the same node use the same mapping.
 
 The `runAsUser`, `runAsGroup`, `fsGroup`, etc. fields in the `pod.spec` always
-refer to the user inside the container.
+refer to the user inside the container. These users will be used for volume
+mounts (specified in `pod.spec.volumes`) and therefore the host UID/GID will not
+have any effect on writes/reads from volumes the pod can mount. In other words,
+the inodes created/read in volumes mounted by the pod will be the same as if the
+pod wasn't using user namespaces.
+
+This way, a pod can easily enable and disable user namespaces (without affecting
+its volume's file ownerships) and can also share volumes with pods without user
+namespaces by just setting the appropriate users inside the container
+(`RunAsUser`, `RunAsGroup`, `fsGroup`, etc.). This applies to any volume the pod
+can mount, including `hostPath` (if the pod is allowed to mount `hostPath`
+volumes).
 
 The valid UIDs/GIDs when this feature is enabled is the range 0-65535. This
 applies to files and processes (`runAsUser`, `runAsGroup`, etc.).
@@ -158,7 +169,17 @@ kubelet 将挑选 Pod 所映射的主机 UID/GID，
 并以此保证同一节点上没有两个 Pod 使用相同的方式进行映射。
 
 `pod.spec` 中的 `runAsUser`、`runAsGroup`、`fsGroup` 等字段总是指的是容器内的用户。
-启用该功能时，有效的 UID/GID 在 0-65535 范围内。这以限制适用于文件和进程（`runAsUser`、`runAsGroup` 等）。
+这些用户将用于卷挂载（在 `pod.spec.volumes` 中指定），
+因此，主机上的 UID/GID 不会影响 Pod 挂载卷的读写操作。
+换句话说，由 Pod 挂载卷中创建或读取的 inode，将与 Pod 未使用用户命名空间时相同。
+
+通过这种方式，Pod 可以轻松启用或禁用用户命名空间（不会影响其卷中文件的所有权），
+并且可以通过在容器内部设置适当的用户（`runAsUser`、`runAsGroup`、`fsGroup` 等），
+即可与没有用户命名空间的 Pod 共享卷。这一点适用于 Pod 可挂载的任何卷，
+包括 `hostPath`（前提是允许 Pod 挂载 `hostPath` 卷）。
+
+启用该功能时，有效的 UID/GID 在 0-65535 范围内。
+这适用于文件和进程（`runAsUser`、`runAsGroup` 等）。
 
 <!--
 Files using a UID/GID outside this range will be seen as belonging to the
