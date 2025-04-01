@@ -8,6 +8,7 @@ reviewers:
 content_type: task
 min-kubernetes-server-version: v1.32
 weight: 410
+math: true
 ---
 
 <!-- overview -->
@@ -217,16 +218,25 @@ When you specify values for `--reserved-memory` flag, you must comply with the s
 you prior provided via Node Allocatable Feature flags.
 That is, the following rule must be obeyed for each memory type:
 
-`sum(reserved-memory(i)) = kube-reserved + system-reserved + eviction-threshold`,
-
-where `i` is an index of a NUMA node.
+```math
+\begin{equation*}
+\sum_{ \textnormal{i} = 0}^{ \textnormal{node count}} { \textit{reserved-memory} [ \textnormal{i} ]} = \textit{kube-reserved} + \textit{system-reserved} + \textit{eviction-threshold}
+\end{equation*}\\\
+\text{where i is an index of a NUMA node}
+```
 
 If you do not follow the formula above, the Memory Manager will show an error on startup.
 
 In other words, the example above illustrates that for the conventional memory (`type=memory`),
-we reserve `3Gi` in total, i.e.:
+Kubernetes reserves 3GiB in total; that is:
 
-`sum(reserved-memory(i)) = reserved-memory(0) + reserved-memory(1) = 1Gi + 2Gi = 3Gi`
+```math
+\begin{equation*}
+\sum_{ \textnormal{i} = 0}^{ \textnormal{node count}} { \textit{reserved-memory} [ \textnormal{i} ] } = \textit{reserved-memory} [ 0 ] + \textit{reserved-memory} [ 1 ]
+                                          = 1 \textnormal{GiB} + 2 \textnormal{GiB}
+                                          = 3 \textnormal{GiB}
+\end{equation*}
+```
 
 An example of kubelet command-line arguments relevant to the node Allocatable configuration:
 
