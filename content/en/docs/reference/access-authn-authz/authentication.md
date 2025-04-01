@@ -2079,6 +2079,7 @@ standard certificate generation tools.
 
 ## {{% heading "whatsnext" %}}
 
+* Read about [authorization](/docs/reference/access-authn-authz/authorization/) in Kubernetes
 * To learn about issuing certificates for users, read [Issue a Certificate for a Kubernetes API Client Using A CertificateSigningRequest](/docs/tasks/tls/certificate-issue-client-csr/)
 * Read [Managing ServiceAccounts](/docs/reference/access-authn-authz/service-accounts-admin/)
 * Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)
