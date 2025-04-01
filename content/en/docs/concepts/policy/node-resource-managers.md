@@ -322,6 +322,8 @@ Based on both the hints and Topology Manager policy, the pod is rejected or admi
 Moreover, the Memory Manager ensures that the memory which a pod requests
 is allocated from a minimum number of NUMA nodes.
 
+To learn more, read [Control Memory Management Policies on a Node](/docs/tasks/administer-cluster/memory-manager/).
+
 ## Other resource managers
 
 The configuration of individual managers is elaborated in dedicated documents:
