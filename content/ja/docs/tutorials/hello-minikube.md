@@ -87,9 +87,9 @@ URLをコピー&ペーストし、ブラウザーで開きます。
 
 ## Deploymentの作成
 
-Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管理やネットワーキングの目的でまとめられた、1つ以上のコンテナのグループです。このチュートリアルのPodがもつコンテナは1つのみです。Kubernetesの [*Deployment*](/ja/docs/concepts/workloads/controllers/deployment/) はPodの状態を確認し、Podのコンテナが停止した場合には再起動します。DeploymentはPodの作成やスケールを管理するために推奨される方法(手段)です。
+Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/)は、コンテナの管理やネットワーキングの目的でまとめられた、1つ以上のコンテナのグループです。このチュートリアルのPodがもつコンテナは1つのみです。Kubernetesの[*Deployment*](/ja/docs/concepts/workloads/controllers/deployment/)はPodの状態を確認し、Podのコンテナが停止した場合には再起動します。DeploymentはPodの作成やスケールを管理するために推奨される方法(手段)です。
 
-1. `kubectl create` コマンドを使用してPodを管理するDeploymentを作成してください。Podは提供されたDockerイメージを元にコンテナを実行します。
+1. `kubectl create`コマンドを使用してPodを管理するDeploymentを作成してください。Podは提供されたDockerイメージを元にコンテナを実行します。
 
     ```shell
     # Webサーバーを含むテストコンテナイメージを実行する
@@ -130,7 +130,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管
     kubectl get events
     ```
 
-5. `kubectl` で設定を確認します:
+5. `kubectl`で設定を確認します:
 
     ```shell
     kubectl config view
@@ -199,6 +199,8 @@ agnhostコンテナには`/shell`エンドポイントがあり、デバッグ�
     ```shell
     minikube service hello-node
     ```
+
+    アプリケーションとその応答が表示されるブラウザーウィンドウが開きます。
 
 ## アドオンの有効化
 
