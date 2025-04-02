@@ -226,9 +226,13 @@ like
 have some limitations:
 
 - Most of the metadata about a Pod is immutable. For example, you cannot
-  change the `namespace`, `name`, `uid`, or `creationTimestamp` fields;
-  the `generation` field is unique. It only accepts updates that increment the
-  field's current value.
+  change the `namespace`, `name`, `uid`, or `creationTimestamp` fields.
+  - The `generation` field is unique. It will be automatically set by the
+    system such that new pods have a `generation` of 1, and every update to
+    mutable fields in the pod's spec will increment the `generation` by 1. If the
+    alpha feature gate PodObservedGenerationTracking is set, the
+    pod's `status.observedGeneration` will reflect the `metadata.generation` of
+    the pod at the point that the pod status is being reported.
 - If the `metadata.deletionTimestamp` is set, no new entry can be added to the
   `metadata.finalizers` list.
 - Pod updates may not change fields other than `spec.containers[*].image`,
