@@ -166,7 +166,7 @@ agnhostコンテナには`/shell`エンドポイントがあり、デバッグ�
 インターネットに接続されたクラスターや、プロダクション環境のクラスターで実行しないでください。
 {{< /warning >}}
 
-1. `kubectl expose` コマンドを使用してPodをインターネットに公開します:
+1. `kubectl expose`コマンドを使用してPodをインターネットに公開します:
 
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
