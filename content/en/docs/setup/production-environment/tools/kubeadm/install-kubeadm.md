@@ -56,11 +56,12 @@ that provides the expected symbols.
 {{% /tab %}}
 {{< /tabs >}}
 
-{{< note >}}
 A Kubernetes cluster created by kubeadm depends on software that use kernel features.
 This software includes, but is not limited to, the container runtime (such as containerd), kubelet, kube-proxy, and a CNI plugin.
 The software depends on specific kernel features, but does not typically publish a list of these features. Often, the software requires a range of kernel versions.
 To make sure this software runs successfully, kubeadm also requires a range of kernel versions.
+
+{{< note >}}
 
 To help you avoid unexpected errors as a result of an unsupported kernel version, kubeadm runs the `SystemVerification` pre-flight check.
 This check fails if the kernel version is not supported. You may choose to skip the check, if you know that your kernel provides the required features, even though kubeadm does not support its version.
