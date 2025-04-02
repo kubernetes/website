@@ -9,7 +9,7 @@ card:
 
 <!-- overview -->
 
-このチュートリアルでは、[minikube](/ja/docs/tasks/tools/#minikube)を使用して、Kubernetes上でサンプルアプリケーションを動かす方法を紹介します。
+このチュートリアルでは、minikubeを使用して、Kubernetes上でサンプルアプリケーションを動かす方法を紹介します。
 このチュートリアルはNGINXを利用してすべての要求をエコーバックするコンテナイメージを提供します。
 
 ## {{% heading "objectives" %}}
