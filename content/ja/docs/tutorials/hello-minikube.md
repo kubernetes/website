@@ -192,7 +192,7 @@ agnhostコンテナには`/shell`エンドポイントがあり、デバッグ�
     ```
 
     ロードバランサーをサポートするクラウドプロバイダーでは、Serviceにアクセスするための外部IPアドレスが提供されます。
-    minikube では、`LoadBalancer`タイプは`minikube service`コマンドを使用した接続可能なServiceを作成します。
+    minikubeでは、`LoadBalancer`タイプは`minikube service`コマンドを使用した接続可能なServiceを作成します。
 
 3. 次のコマンドを実行します:
 
