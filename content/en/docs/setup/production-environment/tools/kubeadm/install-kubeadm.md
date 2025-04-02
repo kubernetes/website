@@ -38,6 +38,34 @@ that provides the expected symbols.
 
 <!-- steps -->
 
+## Check your OS kernel version
+
+{{< tabs name="container_runtime" >}}
+{{% tab name="Linux" %}}
+
+* The Linux kernel must be 4.19 or newer, 5.x, or 6.x.
+* You can get the kernel version using the command `uname -r`
+
+{{% /tab %}}
+
+{{% tab name="Windows" %}}
+
+* The Windows kernel version must be 10.0.14393 or newer.
+* You can get the kernel version (also called the OS version) using the command `systeminfo`
+
+{{% /tab %}}
+{{< /tabs >}}
+
+{{< note >}}
+A Kubernetes cluster created by kubeadm depends on software that use kernel features.
+This software includes, but is not limited to, the container runtime (such as containerd), kubelet, kube-proxy, and a CNI plugin.
+The software depends on specific kernel features, but does not typically publish a list of these features. Often, the software requires a range of kernel versions.
+To make sure this software runs successfully, kubeadm also requires a range of kernel versions.
+
+To help you avoid unexpected errors as a result of an unsupported kernel version, kubeadm runs the `SystemVerification` pre-flight check.
+This check fails if the kernel version is not supported. You may choose to skip the check, if you know that your kernel provides the required features, even though kubeadm does not support its version.
+{{< /note >}}
+
 ## Verify the MAC address and product_uuid are unique for every node {#verify-mac-address}
 
 * You can get the MAC address of the network interfaces using the command `ip link` or `ifconfig -a`
