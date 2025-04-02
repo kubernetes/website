@@ -138,9 +138,9 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管
 
 6. Podで実行されているコンテナのアプリケーションログを確認します(Podの名前は`kubectl get pods`で取得したものに置き換えてください)。
 
-    {{< note >}}
-    `kubectl logs`コマンドの引数`hello-node-5f76cf6ccf-br9b5`は、`kubectl get pods`コマンドで取得したPodの名前に置き換えてください。
-    {{< /note >}}
+   {{< note >}}
+   `kubectl logs`コマンドの引数`hello-node-5f76cf6ccf-br9b5`は、`kubectl get pods`コマンドで取得したPodの名前に置き換えてください。
+   {{< /note >}}
 
    ```shell
    kubectl logs hello-node-5f76cf6ccf-br9b5
