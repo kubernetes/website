@@ -273,7 +273,7 @@ kubectl delete pod memory-demo-3 --namespace=mem-example
 
 Nếu bạn không cài đặt bộ nhớ tối đa cho một Container, một trong các tình huống sau sẽ xảy ra:
 
-- Container không có giới hạn tối đa về lượng bộ nhớ mà nó sử dụng. Container có thể sử dụng tất cả bộ nhớ có sẵn trên Node nơi nó đang chạy, điều này có thể kích hoạt OOM Killer. Hơn nữa, trong trường hợp OOM Kill, một container không có giới hạn tài nguyên sẽ có khả năng bị kết thúc cao hơn.
+- Container không có giới hạn tối đa về lượng bộ nhớ mà nó sử dụng. Container có thể sử dụng tất cả bộ nhớ có sẵn trên Node nơi nó đang chạy, điều này có thể kích hoạt OOM Killer. Hơn nữa, trong trường hợp OOM Kill, một container không có giới hạn tài nguyên sẽ có khả năng bị dừng hoạt động cao hơn.
 
 * Container đang chạy trong một namespace có bộ nhớ tối đa mặc định, và Container tự động được gán giới hạn mặc định đó. Cluster administrators có thể sử dụng [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core) để chỉ định giá trị mặc định cho bộ nhớ tối đa.
 
