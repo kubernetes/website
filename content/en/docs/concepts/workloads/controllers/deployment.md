@@ -1095,7 +1095,7 @@ The progressive delivery is a approach that allow different strategies in the ro
 
 * The canary deployment is the default pattern in Kubernetes, it is the equivalent of `.spec.strategy.type==RollingUpdate`. It's the deployment of a portion of pods that ensure the application is stil available. You can make advanced canary by using different deployments and services as described in [managing resources](/docs/concepts/workloads/management/#canary-deployments).
 
-* The blue-green deployment is the way of progressivley shift from a blue version to a green one. It can be achieve by using two deployments and two services and it requires a traffic management to progressively shift the traffic. You can also rollback to the blue version if needed.
+* The blue-green deployment is the way of progressivley shift from a blue version to a green one. It can be achieved by using two deployments and two services and it requires a traffic management to progressively shift the traffic. You can also rollback to the blue version if needed.
 
 * The A/B testing approach is the ability to deploy two versions of an application to two groups of users, then you control which version has the best result (perf, revenue etc). It can be done by creating two deployments and advanced traffic shiftting.
 
