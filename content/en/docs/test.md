@@ -1,80 +1,88 @@
 ---
-title: Docs smoke test page
-main_menu: false
+शीर्षक: दस्तावेज़ धूम्रपान परीक्षण पृष्ठ
+मुख्य_मेनू: गलत
 ---
 
-This page serves two purposes:
+यह पृष्ठ दो उद्देश्यों की पूर्ति करता है:
 
-- Demonstrate how the Kubernetes documentation uses Markdown
-- Provide a "smoke test" document we can use to test HTML, CSS, and template
-  changes that affect the overall documentation.
+- दिखाएँ कि Kubernetes दस्तावेज़न Markdown का उपयोग कैसे करता है
+- एक "स्मोक टेस्ट" दस्तावेज़ प्रदान करें जिसका उपयोग हम HTML, CSS और टेम्पलेट का परीक्षण करने के लिए कर सकते हैं
+  परिवर्तन जो समग्र दस्तावेज़ीकरण को प्रभावित करते हैं।
 
-## Heading levels
+## शीर्षक स्तर
 
-The above heading is an H2. The page title renders as an H1. The following
-sections show H3-H6.
+उपरोक्त शीर्षक H2 है। पृष्ठ शीर्षक H1 के रूप में प्रस्तुत किया गया है। निम्नलिखित अनुभाग H3-H6 दिखाते हैं।
 
 ### H3
 
-This is in an H3 section.
+यह H3 अनुभाग में है।
 
 #### H4
 
-This is in an H4 section.
+यह H4 अनुभाग में है।
 
 ##### H5
 
-This is in an H5 section.
+यह H5 अनुभाग में है।
 
 ###### H6
 
-This is in an H6 section.
+यह H6 अनुभाग में है।
 
-## Inline elements
+## इनलाइन तत्व
 
-Inline elements show up within the text of paragraph, list item, admonition, or
-other block-level element.
+इनलाइन तत्व पैराग्राफ, सूची आइटम, चेतावनी या किसी अन्य पाठ के भीतर दिखाई देते हैं।
+अन्य ब्लॉक-स्तरीय तत्व.
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-culpa qui officia deserunt mollit anim id est laborum.
+लोरेम इप्सम डोलर सिट अमेट, कंसेक्टेचर एडिपिसिंग एलीट, सेड डू ईयूसमॉड टेम्पोर
+
+यह काम करना और बहुत अच्छा काम करना है। यूट एनिम एड मिनिम वेनियम, क्विस
+
+नोस्ट्रुड व्यायाम उल्लामको लेबोरिस निसी यूटी एलिक्विप एक्स ईए कमोडो कॉन्सक्वेट।
+
+डुइस अउते इरुरे डोलोर इन रिप्रेहेंडरिट इन वोलुप्टेट वेलिट एस्से सिलम डोलोर ईयू
+
+फुगियाट नल्ला पारियाटुर। एक्सेप्टेउर सिंट ओकैकैट क्यूपिडैटैट नॉन प्रोडेंट, सुंट इन
+
+कल्पा क्वि ऑफिसिया डेसरुंट मोलिट एनिम आईडी इस्ट लेबोरम।
 
 ### Inline text styles
 
 - **bold**
 - _italic_
-- ***bold italic***
+- **_bold italic_**
 - ~~strikethrough~~
 - <u>underline</u>
 - _<u>underline italic</u>_
 - **<u>underline bold</u>**
-- ***<u>underline bold italic</u>***
+- **_<u>underline bold italic</u>_**
 - `monospace text`
 - **`monospace bold`**
 
-## Lists
+## सूचियाँ
 
-Markdown doesn't have strict rules about how to process lists. When we moved
-from Jekyll to Hugo, we broke some lists. To fix them, keep the following in
-mind:
+मार्कडाउन में सूचियों को संसाधित करने के बारे में सख्त नियम नहीं हैं। जब हम चले गए
 
-- Make sure you indent sub-list items **2 spaces**.
+जेकेल से लेकर ह्यूगो तक, हमने कुछ सूचियाँ तोड़ दीं। उन्हें ठीक करने के लिए, निम्नलिखित बातों का ध्यान रखें:
 
-- To end a list and start another, you need an HTML comment block on a new line
-  between the lists, flush with the left-hand border. The first list won't end
-  otherwise, no matter how many blank lines you put between it and the second.
+- सुनिश्चित करें कि आप उप-सूची आइटम को **2 स्पेस** से इंडेंट करें।
 
-### Bullet lists
+- किसी सूची को समाप्त करने और दूसरी सूची शुरू करने के लिए, आपको एक नई पंक्ति पर HTML टिप्पणी ब्लॉक की आवश्यकता होगी
 
-- This is a list item.
-* This is another list item in the same list.
-- You can mix `-` and `*`.
-  - To make a sub-item, indent two spaces.
-    - This is a sub-sub-item. Indent two more spaces.
-  - Another sub-item.
+  सूचियों के बीच, बाएं हाथ की सीमा के साथ फ्लश। पहली सूची समाप्त नहीं होगी
+
+  अन्यथा, इससे कोई फर्क नहीं पड़ता कि आप इसके और दूसरे के बीच कितनी रिक्त पंक्तियाँ डालते हैं।
+
+### बुलेट सूचियाँ
+
+    यह एक सूची आइटम है।
+
+- यह उसी सूची में एक और सूची आइटम है।
+
+* आप `-` और `*` को मिला सकते हैं।
+* उप-आइटम बनाने के लिए, दो रिक्त स्थान इंडेंट करें।
+* यह एक उप-उप-आइटम है। दो और रिक्त स्थान इंडेंट करें।
+* एक और उप-आइटम।
 
 <!-- separate lists -->
 
@@ -262,7 +270,7 @@ but at least three `-` characters. For ease of maintenance, try to keep all the
 cell separators even, even if you heed to use extra space.
 
 | Heading cell 1 | Heading cell 2 |
-|----------------|----------------|
+| -------------- | -------------- |
 | Body cell 1    | Body cell 2    |
 
 The header is optional. Any text separated by `|` will render as a table.
@@ -305,10 +313,10 @@ Produces:
 
 {{< mermaid >}}
 graph TD;
-  A-->B;
-  A-->C;
-  B-->D;
-  C-->D;
+A-->B;
+A-->C;
+B-->D;
+C-->D;
 {{</ mermaid >}}
 
 ```
@@ -329,14 +337,15 @@ Produces:
 
 {{< mermaid >}}
 sequenceDiagram
-    Alice ->> Bob: Hello Bob, how are you?
-    Bob-->>John: How about you John?
-    Bob--x Alice: I am good thanks!
-    Bob-x John: I am good thanks!
-    Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.
+Alice ->> Bob: Hello Bob, how are you?
+Bob-->>John: How about you John?
+Bob--x Alice: I am good thanks!
+Bob-x John: I am good thanks!
+Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.
 
     Bob-->Alice: Checking with John...
     Alice->John: Yes... John, how are you?
+
 {{</ mermaid >}}
 
 You can check more [examples](https://mermaid-js.github.io/mermaid/#/examples) from the official docs.
