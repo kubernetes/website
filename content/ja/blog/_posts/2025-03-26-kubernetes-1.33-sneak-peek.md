@@ -10,7 +10,7 @@ author: >
   Ryota Sawada,
   Sneha Yadav
 translator: >
-  Takuya Kitamura
+  [Takuya Kitamura](https://github.com/kfess)
 ---
 
 Kubernetes v1.33のリリースが近づく中で、Kubernetesプロジェクトは進化を続けています。
@@ -77,7 +77,7 @@ v1.33において、この機能のサポートは完全に削除される見込
 
 ### Linux Podにおけるユーザー名前空間のサポート
 
-現在もオープンなKEPの中で最も古いものの一つが、[KEP-127](https://kep.k8s.io/127)「Pod に対してLinux[ユーザ名前空間](/docs/concepts/workloads/pods/user-namespaces/)を使用することによるセキュリティの改善」です。このKEPは2016年後半に初めて提案され、複数回の改訂を経てv1.25でアルファ版として登場し、v1.30で初めてベータ版が提供されました(この時点ではデフォルトで無効)。そしてv1.33では、この機能がデフォルトで有効な状態で提供される予定です。
+現在もオープンなKEPの中で最も古いものの一つが、[KEP-127](https://kep.k8s.io/127)「Pod に対してLinux[ユーザー名前空間](/docs/concepts/workloads/pods/user-namespaces/)を使用することによるセキュリティの改善」です。このKEPは2016年後半に初めて提案され、複数回の改訂を経てv1.25でアルファ版として登場し、v1.30で初めてベータ版が提供されました(この時点ではデフォルトで無効)。そしてv1.33では、この機能がデフォルトで有効な状態で提供される予定です。
 
 この機能は、明示的に`pod.spec.hostUsers`を指定して有効化しない限り、既存のPodには影響しません。
 [Kubernetes v1.30をそっと覗く](/ja/blog/2024/03/12/kubernetes-v1.30をそっと覗く/)でも触れられているように、この機能は脆弱性の軽減に向けた重要なマイルストーンとなります。
