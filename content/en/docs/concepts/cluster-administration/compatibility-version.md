@@ -6,7 +6,7 @@ reviewers:
 content_type: concept
 weight: 70
 ---
-
+ 
 <!-- overview -->
 
 Since Kubernetes v1.32, configurable version compatibility and emulation options have been introduced for control plane components. These enhancements provide cluster administrators with greater control over upgrades, enabling safer transitions and minimizing compatibility risks.
