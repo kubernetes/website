@@ -112,7 +112,7 @@ kubectl delete pod memory-demo --namespace=mem-example
 
 ## Vượt quá bộ nhớ tối đa của Container
 
-Một Container có thể sử dụng nhiều bộ nhớ hơn mức tối thiểu nếu Node còn bộ nhớ trống. Tuy nhiên, Container không được phép sử dụng bộ nhớ hơn mức tối đa của nó. Nếu Container cấp phát nhiều bộ nhớ hơn mức tối đa, Container đó sẽ có khả năng bị dừng hoạt động. Nếu Container tiếp tục sử dụng bộ nhớ vượt quá giới hạn, nó sẽ được dừng hoàn toàn. Nếu Container đó được khởi động lại, kubelet sẽ khởi động lại nó, giống như với các lỗi runtime khác.
+Một Container có thể sử dụng nhiều bộ nhớ hơn mức tối thiểu nếu Node còn bộ nhớ trống. Tuy nhiên, Container không được phép sử dụng bộ nhớ hơn mức tối đa của nó. Nếu Container cấp phát nhiều bộ nhớ hơn mức tối đa, Container đó sẽ có khả năng bị dừng hoạt động. Nếu Container tiếp tục sử dụng bộ nhớ vượt quá giới hạn, nó sẽ được dừng hoàn toàn. Nếu Container đó có thể khởi động lại, kubelet sẽ khởi động lại nó, lỗi quá bộ nhớ được xử lý giống như đối với các lỗi runtime khác.
 
 Trong phần thực hành này, bạn sẽ tạo một Pod cố gắng cấp phát bộ nhớ nhiều hơn giới hạn của nó.
 Đây là tệp cấu hình cho một Pod có một Container với bộ nhớ tối thiểu là 50 MiB và bộ nhớ tối đa là 100 MiB:
