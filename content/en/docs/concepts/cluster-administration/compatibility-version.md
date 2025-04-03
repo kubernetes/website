@@ -18,7 +18,7 @@ Since Kubernetes v1.32, configurable version compatibility and emulation options
 The `--emulated-version` flag allows a control plane component to emulate the behavior of an earlier Kubernetes version. When set, the component's available capabilities align with the specified emulated version:
 
 * Features introduced after the emulated version are disabled.
-* Features removed after the emulated version are re-enabled.
+* Features that were removed after the emulated version can be configured again based on their default settings.
 
 This enables a binary from a specific Kubernetes release to emulate the behavior of an earlier version with high fidelity, ensuring interoperability with other system components based on the emulated version.
 
@@ -28,8 +28,8 @@ The `--emulated-version` must be <= `binaryVersion`. Refer to the help message o
 
 Using version emulation provides several advantages for cluster administrators:
 
-* **Controlled Upgrades**: Allows administrators to test newer Kubernetes versions incrementally by emulating them in a controlled environment before full deployment.
-* **Extended Component Compatibility**: Ensures that control plane components remain interoperable with older versions, reducing the likelihood of unexpected failures during upgrades.
+* **Controlled Upgrades**: Allows administrators to upgrade the control plane with more granular steps, so that failures are more easily diagnosed and more easily auto-reverted on a failure condition.
+* **Skip Binary Version Upgrade**: It is possible to skip binary versions while still performing a stepwise upgrade of Kubernetes control-plane.
 * **Rollback Flexibility**: Provides an additional safeguard by allowing reversion to a previous emulated version without immediate downgrades, minimizing downtime and operational disruptions.
 
 By leveraging version emulation, administrators can enhance the stability and reliability of Kubernetes clusters while managing upgrades with greater confidence.
