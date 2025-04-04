@@ -15,7 +15,7 @@ using the Kubernetes API.
 The preset labels that Kubernetes sets on nodes are:
 
 * [`kubernetes.io/arch`](/docs/reference/labels-annotations-taints/#kubernetes-io-arch)
-* [`kubernetes.io/hostname`](/docs/reference/labels-annotations-taints/#kubernetes-io-hostname)
+* [`kubernetes.io/hostname`](/docs/reference/labels-annotations-taints/#kubernetesiohostname)
 * [`kubernetes.io/os`](/docs/reference/labels-annotations-taints/#kubernetes-io-os)
 * [`node.kubernetes.io/instance-type`](/docs/reference/labels-annotations-taints/#nodekubernetesioinstance-type)
   (if known to the kubelet &ndash; Kubernetes may not have this information to set the label)
