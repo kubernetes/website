@@ -31,7 +31,7 @@ spec:
 
 `spec.containers[].resources.limits` is passed to the container runtime when the kubelet starts a container. CPU is considered a "compressible" resource. If your app starts hitting your CPU limits, Kubernetes starts throttling your container, giving your app potentially worse performance. However, it won’t be terminated. That is what "compressible" means.
 
-In cgroup v1, and prior to this feature, the container runtime never took into account and effectively ignored spec.containers[].resources.requests["memory"]. This is unlike CPU, in which the container runtime consider both requests and limits. Furthermore, memory actually can't be compressed in cgroup v1. Because there is no way to throttle memory usage, if a container goes past its memory limit it will be terminated by the kernel with an OOM (Out of Memory) kill.
+In cgroup v1, and prior to this feature, the container runtime never took into account and effectively ignored `spec.containers[].resources.requests["memory"]`. This is unlike CPU, in which the container runtime consider both requests and limits. Furthermore, memory actually can't be compressed in cgroup v1. Because there is no way to throttle memory usage, if a container goes past its memory limit it will be terminated by the kernel with an OOM (Out of Memory) kill.
 
 Fortunately, cgroup v2 brings a new design and implementation to achieve full protection on memory. The new feature relies on cgroups v2 which most current operating system releases for Linux already provide. With this experimental feature, [quality-of-service for pods and containers](/docs/tasks/configure-pod-container/quality-service-pod/) extends to cover not just CPU time but memory as well.
 
