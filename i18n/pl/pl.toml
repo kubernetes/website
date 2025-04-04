@@ -488,7 +488,7 @@ other = """&#128711; Ta pozycja przekierowuje do projektu lub produktu, który n
 [thirdparty_message_disclaimer]
 other = """<p>Niektóre elementy na tej stronie odnoszą do zewnętrznych produktów lub projektów, które udostępniają funkcjonalności wymagane przez Kubernetesa. Autorzy Kubernetesa nie ponoszą odpowiedzialności za te produkty i projekty. Po więcej informacji zajrzyj na stronę <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF website guidelines</a>.</p><p>Zanim zaproponujesz dodanie nowego odnośnika, zapoznaj się z <a href="/docs/contribute/style/content-guide/#third-party-content">naszym przewodnikiem</a>.</p>"""
 
-[ui_search_placeholder]
+[ui_search]
 other = "Szukaj"
 
 [version_check_mustbe]
