@@ -97,8 +97,11 @@ The following IPAM options are supported on Windows:
 
 {{< feature-state for_k8s_version="v1.33" state="beta" >}}
 
-Load balancing mode where the IP address fixups and the LBNAT occurs at the container vSwitch port directly; service traffic arrives with the source IP set as the originating pod IP.
-This provides performance optimizations by allowing the return traffic routed through load balancers to bypass the load balancer and respond directly to the client; reducing load on the load balancer and also reducing overall latency.
+Load balancing mode where the IP address fixups and the LBNAT occurs at the container vSwitch port directly;
+service traffic arrives with the source IP set as the originating pod IP.
+This provides performance optimizations by allowing the return traffic routed through load balancers
+to bypass the load balancer and respond directly to the client;
+reducing load on the load balancer and also reducing overall latency.
 For more information, read
 [Direct Server Return (DSR) in a nutshell](https://techcommunity.microsoft.com/blog/networkingblog/direct-server-return-dsr-in-a-nutshell/693710).
 
@@ -139,7 +142,7 @@ The following networking functionality is _not_ supported on Windows nodes:
 * More than 64 backend pods (or unique destination addresses) for a single Service
 * IPv6 communication between Windows pods connected to overlay networks
 * Local Traffic Policy in non-DSR mode
-* Outbound communication using the ICMP protocol via the `win-overlay`, `win-bridge`, or using the Azure-CNI plugin.\
+* Outbound communication using the ICMP protocol via the `win-overlay`, `win-bridge`, or using the Azure-CNI plugin.
   Specifically, the Windows data plane ([VFP](https://www.microsoft.com/research/project/azure-virtual-filtering-platform/))
   doesn't support ICMP packet transpositions, and this means:
   * ICMP packets directed to destinations within the same network (such as pod to pod communication via ping) 
