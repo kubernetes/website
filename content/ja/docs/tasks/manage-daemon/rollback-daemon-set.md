@@ -92,7 +92,7 @@ daemonset "<daemonset-name>" rolled back
 kubectl rollout status ds/<daemonset-name>
 ```
 
-ロールバックが完了すると、次のような出力を得ます:
+ロールバックが完了すると、次のような出力が得られます:
 
 ```
 daemonset "<daemonset-name>" successfully rolled out
