@@ -22,6 +22,16 @@ In a Kubernetes cluster, events are generated for various operations - from pod 
 
 To learn more about Events in Kubernetes, read the [Event](/docs/reference/kubernetes-api/cluster-resources/event-v1/) API reference.
 
+## Real-World Value
+
+Consider a production environment with tens of microservices where the users report intermittent transaction failures:
+
+**Traditional event aggregation process:** Engineers are wasting hours sifting through thousands of standalone events spread across namespaces. By the time they look into it, the older events have long since purged, and correlating pod restarts to node-level issues is practically impossible.
+
+**With its event aggregation in its custom events:** The system groups events across resources, instantly surfacing correlation patterns such as volume mount timeouts before pod restarts. History indicates it occurred during past record traffic spikes, highlighting a storage scalability issue in minutes rather than hours.
+
+The beneﬁt of this approach is that organizations that implement it commonly cut down their troubleshooting time significantly along with increasing the reliability of systems by detecting patterns early.
+
 ## Building an Event Aggregation System
 
 I'll explore how to build a custom event aggregation system that addresses these challenges, aligned to Kubernetes best practices. I've picked the Go programming language for my example.
