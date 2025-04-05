@@ -121,6 +121,12 @@ Some cluster DNS mechanisms, like [CoreDNS](https://coredns.io/), also provide `
 <pod-ipv4-address>.<service-name>.<my-namespace>.svc.<cluster-domain.example>
 ```
 
+For example, if a Pod in the `cafe` namespace has the IP address 172.17.0.3,
+is an Endpoint of a Service named `barista`, and the domain name for your cluster is
+`cluster.local`, then the Pod has this Service-scoped DNS `A` record.
+
+`172-17-0-3.barista.cafe.cluster.local`.
+
 ### Pod's hostname and subdomain fields
 
 Currently when a Pod is created, its hostname (as observed from within the Pod)
