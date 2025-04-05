@@ -85,7 +85,7 @@ set forth in the [Security Release Process][security-release-process].
 
 GitHub Access Controls: [@kubernetes/release-managers](https://github.com/orgs/kubernetes/teams/release-managers)
 
-GitHub Mentions: [@kubernetes/release-engineering](https://github.com/orgs/kubernetes/teams/release-engineering)
+GitHub Mentions: @kubernetes/release-engineering
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
 - Cici Huang ([@cici37](https://github.com/cici37))
