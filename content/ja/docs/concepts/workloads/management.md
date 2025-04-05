@@ -13,7 +13,7 @@ Kubernetesには、スケーリングや更新など、アプリケーション�
 
 ## リソース構成の整理
 
-多くのアプリケーションでは、Serviceに加えてDeploymentなどの複数のリソースを作成する必要があります。複数のリソースを管理しやすくするために、同じファイル内にまとめて記述することができます(YAMLでは---で区切ります)。例えば、以下のように定義します。
+多くのアプリケーションでは、Serviceに加えてDeploymentなどの複数のリソースを作成する必要があります。複数のリソースを管理しやすくするために、同じファイル内にまとめて記述することができます(YAMLでは`---`で区切ります)。例えば、以下のように定義します。
 
 {{% code_sample file="application/nginx-app.yaml" %}}
 
@@ -80,7 +80,7 @@ deployment.apps "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
 
-2つのリソースを対象とする場合、リソース名/名前の構文を使って、両方のリソースをコマンドラインで指定することができます。
+2つのリソースを対象とする場合、resource/nameの構文を使って、両方のリソースをコマンドラインで指定することができます。
 
 ```shell
 kubectl delete deployments/my-nginx services/my-nginx-svc
@@ -199,7 +199,7 @@ kubectl scale --replicas 1 deployments/my-nginx --subresource='scale' --type='me
 deployment.apps/my-nginx scaled
 ```
 
-そして、ロールアウト時に一時的に追加されるレプリカを許可するため、_最大サージ_ を100%に設定します。
+そして、ロールアウト時にKubernetesが一時的なレプリカをより多く追加できるようにするため、_最大サージ_ を100%に設定します。
 
 ```shell
 kubectl patch --type='merge' -p '{"spec":{"strategy":{"rollingUpdate":{"maxSurge": "100%" }}}}'
@@ -230,7 +230,7 @@ kubectl edit deployment/my-nginx
 kubectl apply -f my-deployment.yaml
 
 # ロールアウトの完了を待機
-kubectl rollout status deployment/my-deployment --timeout 10m # 10 分のタイムアウト
+kubectl rollout status deployment/my-deployment --timeout 10m # 10分のタイムアウト
 ```
 
 または、次のように実行できます。
@@ -250,7 +250,7 @@ kubectl rollout status statefulsets/backing-stateful-component --watch=false
 <!--TODO: このセクションをカナリアデプロイのタスクとして作成する (#42786) -->
 
 複数のラベルが必要となる別のシナリオとして、同じコンポーネントの異なるリリースや設定を区別する場合があります。
-一般的な方法として、新しいアプリケーションリリース(Podテンプレート内のイメージタグで指定)を、以前のリリースと並行してカナリアデプロイすることがあります。これにより、新しいリリースが本番環境のトラフィックを受け取りつつ、完全にロールアウトする前に動作を確認できます。
+一般的な方法として、新しいアプリケーションリリース(Podテンプレート内のイメージタグで指定)を、以前のリリースと並行して*カナリア*デプロイすることがあります。これにより、新しいリリースが本番環境のトラフィックを受け取りつつ、完全にロールアウトする前に動作を確認できます。
 
 例えば、`track`ラベルを使用して異なるリリースを区別することができます。
 
@@ -338,10 +338,10 @@ NAME                        READY     STATUS    RESTARTS   AGE
 my-nginx-2035384211-j5fhi   1/1       Running   0          30m
 ```
 
-システムに必要に応じてnginxのレプリカ数(1～3 の範囲)を自動的に選択させるには、次のコマンドを実行します。
+システムに必要に応じてnginxのレプリカ数(1～3の範囲)を自動的に選択させるには、次のコマンドを実行します。
 
 ```shell
-# これには、コンテナおよび Pod のメトリクスの取得元が必要です
+# これには、コンテナおよびPodのメトリクスの取得元が必要です
 kubectl autoscale deployment/my-nginx --min=1 --max=3
 ```
 
@@ -351,7 +351,7 @@ horizontalpodautoscaler.autoscaling/my-nginx autoscaled
 
 これで、nginxのレプリカ数は必要に応じて自動的にスケールアップおよびスケールダウンされます。
 
-詳しくは、[kubectl scale](/docs/reference/kubectl/generated/kubectl_scale/)、[kubectl autoscale](/docs/reference/kubectl/generated/kubectl_autoscale/)、および[horizontal pod autoscaler](/ja/docs/tasks/run-application/horizontal-pod-autoscale/)のドキュメントを参照してください。
+詳しくは、[kubectl scale](/docs/reference/kubectl/generated/kubectl_scale/)、[kubectl autoscale](/docs/reference/kubectl/generated/kubectl_autoscale/)、および[水平Pod自動スケーリング](/ja/docs/tasks/run-application/horizontal-pod-autoscale/)のドキュメントを参照してください。
 
 ## リソースのインプレース更新
 
@@ -382,7 +382,7 @@ deployment.apps/my-nginx configured
 kubectl edit deployment/my-nginx
 ```
 
-これは、まずリソースを`get`で取得し、テキストエディタで編集した後、更新されたバージョンを`apply`で適用するのと同等です。
+これは、まずリソースを`get`で取得し、テキストエディターで編集した後、更新されたバージョンを`apply`で適用するのと同等です。
 
 ```shell
 kubectl get deployment my-nginx -o yaml > /tmp/nginx.yaml
@@ -396,7 +396,7 @@ rm /tmp/nginx.yaml
 ```
 
 これにより、より大きな変更を簡単に行うことができます。
-なお、`EDITOR`または`KUBE_EDITOR`環境変数を指定することで、使用するエディタを設定できます。
+なお、`EDITOR`または`KUBE_EDITOR`環境変数を指定することで、使用するエディターを設定できます。
 
 詳しくは、[kubectl edit](/docs/reference/kubectl/generated/kubectl_edit/)を参照してください。
 
