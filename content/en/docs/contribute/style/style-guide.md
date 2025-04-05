@@ -288,8 +288,8 @@ Code examples and configuration examples that include version information should
 be consistent with the accompanying text.
 
 If the information is version specific, the Kubernetes version needs to be defined
-in the `prerequisites` section of the [Task template](/docs/contribute/style/page-content-types/#task)
-or the [Tutorial template](/docs/contribute/style/page-content-types/#tutorial).
+in the `prerequisites` section of the [Task template](/docs/contribute/new-content/page-content-types/#task)
+or the [Tutorial template](/docs/contribute/new-content/page-content-types/#tutorial).
 Once the page is saved, the `prerequisites` section is shown as **Before you begin**.
 
 To specify the Kubernetes version for a task or tutorial page, include
@@ -711,7 +711,7 @@ the rest of the project. To view the file, refer to
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
-* Learn about [using page templates](/docs/contribute/style/page-content-types/).
-* Learn about [custom hugo shortcodes](/docs/contribute/style/hugo-shortcodes/).
+* Learn about [writing a new topic](/docs/contribute/new-content/write-new-topic/).
+* Learn about [using page templates](/docs/contribute/new-content/page-content-types/).
 * Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).
+* Learn about [custom hugo shortcodes](/docs/contribute/style/hugo-shortcodes/).
