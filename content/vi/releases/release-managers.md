@@ -83,7 +83,7 @@ Nhóm quản lý phát hành cũng làm việc chặt chẽ với [Ủy ban ứn
 
 GitHub Access Controls: [@kubernetes/release-managers](https://github.com/orgs/kubernetes/teams/release-managers)
 
-GitHub Mentions: [@kubernetes/release-engineering](https://github.com/orgs/kubernetes/teams/release-engineering)
+GitHub Mentions: @kubernetes/release-engineering
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
 - Cici Huang ([@cici37](https://github.com/cici37))
@@ -119,7 +119,7 @@ Nhóm dự bị quản lý phát hành được hiểu là người học việc
   - Cập nhật lịch phát hành, đưa ra các mốc thời gian cũng như thông báo về các bản phát hành mới trên [Timeline vòng phát triển][k-sig-release-releases]
 - Thông qua chương trình Buddy, hướng dẫn bước đầu cho những người đóng góp mới và làm việc cùng họ trong các nhiệm vụ
 
-GitHub Mentions: [@kubernetes/release-engineering](https://github.com/orgs/kubernetes/teams/release-engineering)
+GitHub Mentions: @kubernetes/release-engineering
 
 - Arnaud Meukam ([@ameukam](https://github.com/ameukam))
 - Jim Angel ([@jimangel](https://github.com/jimangel))
