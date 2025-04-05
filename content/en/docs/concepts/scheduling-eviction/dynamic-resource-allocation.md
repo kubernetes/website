@@ -324,6 +324,21 @@ When the feature is disabled, that field automatically gets cleared when storing
 A ResourceClaim device status is supported when it is possible, from a DRA driver, to update an 
 existing ResourceClaim where the `status.devices` field is set. 
 
+## Device Binding Conditions
+
+{{< feature-state feature_gate_name="DRADeviceBindingConditions" >}}
+
+Device Binding Conditions allow for the setting of BindingConditions and BindingFailureConditions, which help determine if a device needs preparation before proceeding to the Bind Phase.
+This is particularly useful in systems where devices must be attached to nodes. The DRA driver sets these conditions based on the specific characteristics of the device it manages.
+
+A key feature is the ability to wait for device attachment during the PreBind Phase.
+The scheduler ensures that all conditions in BindingConditions are met before moving forward.
+This involves updating the ResourceClaim with the necessary conditions and monitoring the status of the device. If a device requires preparation, the DRA driver handles these tasks and updates the conditions accordingly.
+Additionally, if any BindingFailureConditions are met, the system identifies an error and terminates the waiting process.
+
+If you want to set a timeout period for waiting during the PreBind phase, you can specify the desired number of seconds in `BindingTimeoutSeconds`.
+Furthermore, by setting `UsageRestrictedToNode` to `true`, you can configure the nodeSelector to match only a single node.
+
 ## Enabling dynamic resource allocation
 
 Dynamic resource allocation is a *beta feature* which is off by default and only enabled when the
@@ -377,6 +392,12 @@ is enabled in the kube-apiserver and kube-scheduler.
 and only enabled when the `DRAResourceClaimDeviceStatus` 
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled in the kube-apiserver.
+
+### Enabling Device Binding Conditions
+
+[Device Binding Conditions](#device-binding-conditions) is an *alpha feature* and only enabled when the 
+`DRADeviceBindingConditions` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kube-scheduler.
 
 ## {{% heading "whatsnext" %}}
 
