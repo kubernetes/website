@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Kubernetes 1.31: SPDY から WebSocket へのストリーミングの移行'
+title: 'Kubernetes 1.31: SPDYからWebSocketへのストリーミングの移行'
 date: 2024-08-20
 slug: websockets-transition
 author: >
@@ -16,7 +16,7 @@ Kubernetes 1.31では、kubectlがストリーミング処理において、SPDY
 
 ## KubernetesのストリーミングAPI
 
-Kubernetesでは、HTTPまたはRESTfulインターフェースとして公開される特定のエンドポイントが、ストリーミング接続にアップグレードされ、ストリーミングプロトコルが必要になります。
+Kubernetesでは、HTTPまたはRESTfulインターフェースとして公開される特定のエンドポイントが、ストリーミングプロトコルが必要な、ストリーミング接続にアップグレードされます。
 リクエスト・レスポンス型プロトコルであるHTTPとは異なり、ストリーミングプロトコルは双方向・低遅延の永続的な接続を提供し、リアルタイムでの対話を可能にします。
 ストリーミングプロトコルは、クライアントとサーバー間で同一の接続を介して、双方向でのデータの読み書きをサポートします。
 このタイプの接続は、例えば、ローカルワークステーションから実行中のコンテナ内にシェルを作成し、そのコンテナ内でコマンドを実行する場合などに役立ちます。
@@ -63,7 +63,7 @@ Response Headers:
 
 ## 新しいWebSocketストリーミングプロトコルの使用方法
 
-クラスターとkubectlがバージョン1.29以降の場合、SPDYではなくWebSocketsの使用を制御するためには、2つのコントロールプレーンフィーチャーゲートと2つのkubectl環境変数があります。
+クラスターとkubectlがバージョン1.29以降の場合、SPDYではなくWebSocketの使用を制御するための、2つのコントロールプレーンフィーチャーゲートと2つのkubectl環境変数があります。
 Kubernetes 1.31では、以下のすべてのフィーチャーゲートがベータ版であり、デフォルトで有効になっています:
 
 - [フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)
