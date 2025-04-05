@@ -37,34 +37,21 @@ to a valid reference and consuming it in the `volumeMounts` of the container. Fo
    kubectl apply -f https://k8s.io/examples/pods/image-volumes.yaml
    ```
 
-1. Attach to the container:
-
-   ```shell
-   kubectl attach -it image-volume bash
-   ```
-
 1. Check the content of a file in the volume:
 
    ```shell
-   cat /volume/dir/file
+   kubectl exec image-volume -- cat /volume/etc/os-release
    ```
 
    The output is similar to:
 
    ```none
-   1
-   ```
-
-   You can also check another file in a different path:
-
-   ```shell
-   cat /volume/file
-   ```
-
-   The output is similar to:
-
-   ```none
-   2
+   NAME="Alpine Linux"
+   ID=alpine
+   VERSION_ID=3.21.3
+   PRETTY_NAME="Alpine Linux v3.21"
+   HOME_URL="https://alpinelinux.org/"
+   BUG_REPORT_URL="https://gitlab.alpinelinux.org/alpine/aports/-/issues"
    ```
 
 ## Further reading
