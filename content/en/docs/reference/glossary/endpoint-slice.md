@@ -4,16 +4,13 @@ id: endpoint-slice
 date: 2018-04-12
 full_link: /docs/concepts/services-networking/endpoint-slices/
 short_description: >
-  A way to group network endpoints together with Kubernetes resources.
+  EndpointSlices track the IP addresses of Pods with matching Service selectors.
 
 aka:
 tags:
 - networking
 ---
- A way to group network endpoints together with Kubernetes resources.
+ EndpointSlices track the IP addresses of Pods with matching  {{< glossary_tooltip text="selectors" term_id="selector" >}}.
 
 <!--more-->
-
-A scalable and extensible way to group network endpoints together. These can be
-used by {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} to
-establish network routes on each {{< glossary_tooltip text="node" term_id="node" >}}.
+EndpointSlices can be configured manually for {{< glossary_tooltip text="Services" term_id="service" >}} without selectors specified.
