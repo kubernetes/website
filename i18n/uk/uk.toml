@@ -236,7 +236,7 @@ other = "Перш ніж ви розпочнете"
 # other = "Subscribe"
 other = "Підписатися"
 
-[ui_search_placeholder]
+[ui_search]
 # other = "Search"
 other = "Пошук"
 

@@ -100,7 +100,6 @@ Kubelet API   | resource | subresource
 /stats/\*     | nodes    | stats
 /metrics/\*   | nodes    | metrics
 /logs/\*      | nodes    | log
-/spec/\*      | nodes    | spec
 /pods         | nodes    | pods, proxy
 /runningPods/ | nodes    | pods, proxy
 /healthz      | nodes    | healthz, proxy
@@ -115,8 +114,12 @@ flags passed to the API server is authorized for the following attributes:
 * verb=\*, resource=nodes, subresource=proxy
 * verb=\*, resource=nodes, subresource=stats
 * verb=\*, resource=nodes, subresource=log
-* verb=\*, resource=nodes, subresource=spec
 * verb=\*, resource=nodes, subresource=metrics
 * verb=\*, resource=nodes, subresource=configz
 * verb=\*, resource=nodes, subresource=healthz
 * verb=\*, resource=nodes, subresource=pods
+
+If [RBAC authorization](/docs/reference/access-authn-authz/rbac/) is used,
+enabling this gate also ensure that the builtin `system:kubelet-api-admin` ClusterRole
+is updated with permissions to access all the above mentioned subresources.
+

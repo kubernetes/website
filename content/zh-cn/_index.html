@@ -1,43 +1,54 @@
 ---
 title: "生产级别的容器编排系统"
-abstract: "自动化的容器部署、扩展和管理"
+abstract: "自动化的容器部署、扩缩和管理"
 cid: home
+sitemap:
+  priority: 1.0
 ---
+<!--
+title: "Production-Grade Container Orchestration"
+abstract: "Automated container deployment, scaling, and management"
+cid: home
+sitemap:
+  priority: 1.0
+-->
 
-{{< site-searchbar >}}
+{{< blocks/section class="k8s-overview" >}}
 
-{{< blocks/section id="oceanNodes" >}}
-{{% blocks/feature image="flower" %}}
+{{% blocks/feature image="flower" id="feature-primary" %}}
 
-<!-- [Kubernetes]({{< relref "/docs/concepts/overview/" >}}), also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications. -->
-[Kubernetes]({{< relref "/docs/concepts/overview/" >}}) 也称为 K8s，是用于自动部署、扩缩和管理容器化应用程序的开源系统。
+<!--
+[Kubernetes]({{< relref "/docs/concepts/overview/" >}}), also known as K8s, is an open source system for automating deployment, scaling, and management of containerized applications.
 
-<!-- It groups containers that make up an application into logical units for easy management and discovery.
-Kubernetes builds upon [15 years of experience of running production workloads at Google](http://queue.acm.org/detail.cfm?id=2898444),
-combined with best-of-breed ideas and practices from the community. -->
+It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon [15 years of experience of running production workloads at Google](https://queue.acm.org/detail.cfm?id=2898444), combined with best-of-breed ideas and practices from the community.
+-->
+[Kubernetes](/zh-cn/docs/concepts/overview/) 也称为
+K8s，是用于自动部署、扩缩和管理容器化应用程序的开源系统。
 
-它将组成应用程序的容器组合成逻辑单元，以便于管理和服务发现。Kubernetes 源自[Google 15 年生产环境的运维经验](http://queue.acm.org/detail.cfm?id=2898444)，同时凝聚了社区的最佳创意和实践。
+它将组成应用程序的容器组合成逻辑单元，以便于管理和服务发现。Kubernetes 源自
+[Google 15 年生产环境的运维经验](http://queue.acm.org/detail.cfm?id=2898444)，同时凝聚了社区的最佳创意和实践。
 
 {{% /blocks/feature %}}
 
 {{% blocks/feature image="scalable" %}}
+<!--
+#### Planet Scale
 
-<!-- #### Planet Scale -->
+Designed on the same principles that allow Google to run billions of containers a week, Kubernetes can scale without increasing your operations team.
+-->
 #### 星际尺度
-
-<!-- Designed on the same principles that allow Google to run billions of containers a week, Kubernetes can scale without increasing your operations team. -->
 
 Google 每周运行数十亿个容器，Kubernetes 基于与之相同的原则来设计，能够在不扩张运维团队的情况下进行规模扩展。
 
 {{% /blocks/feature %}}
 
 {{% blocks/feature image="blocks" %}}
+<!--
+#### Never Outgrow
 
-<!-- #### Never Outgrow -->
+Whether testing locally or running a global enterprise, Kubernetes flexibility grows with you to deliver your applications consistently and easily no matter how complex your need is.
+-->
 #### 永不过时
-
-<!-- Whether testing locally or running a global enterprise, Kubernetes flexibility grows with you to deliver your applications
-consistently and easily no matter how complex your need is. -->
 
 无论是本地测试，还是跨国公司，Kubernetes 的灵活性都能让你在应对复杂系统时得心应手。
 
@@ -45,16 +56,19 @@ consistently and easily no matter how complex your need is. -->
 
 {{% blocks/feature image="suitcase" %}}
 
-<!-- #### Run K8s Anywhere -->
+<!--
+#### Run K8s Anywhere
+-->
 #### 处处适用
 
-<!-- Kubernetes is open source giving you the freedom to take advantage of on-premises, 
-hybrid, or public cloud infrastructure, letting you effortlessly move workloads to where it matters to you.
-To download Kubernetes, visit the [download](/releases/download/) section. -->
+<!--
+Kubernetes is open source giving you the freedom to take advantage of on-premises, hybrid, or public cloud infrastructure, letting you effortlessly move workloads to where it matters to you.
 
+To download Kubernetes, visit the [download](/releases/download/) section.
+-->
 Kubernetes 是开源系统，可以自由地部署在企业内部，私有云、混合云或公有云，让您轻松地做出合适的选择。
 
-请访问[下载](/releases/download/)部分下载 Kubernetes。
+请访问[下载](/zh-cn/releases/download/)部分下载 Kubernetes。
 
 {{% /blocks/feature %}}
 
@@ -63,28 +77,42 @@ Kubernetes 是开源系统，可以自由地部署在企业内部，私有云、
 {{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
 
 <div class="light-text">
-<!-- <h2>The Challenges of Migrating 150+ Microservices to Kubernetes</h2> -->
-<h2>将 150+ 微服务迁移到 Kubernetes 上的挑战</h2>
-        <!-- <p>By Sarah Wells, Technical Director for Operations and Reliability, Financial Times</p> -->
-        <p>Sarah Wells, 运营和可靠性技术总监, 金融时报</p>
+    <!--
+    <h2>The Challenges of Migrating 150+ Microservices to Kubernetes</h2> 
+    -->
+    <h2>将 150+ 微服务迁移到 Kubernetes 上的挑战</h2>
+        <!--
+        <p>By Sarah Wells, Technical Director for Operations and Reliability, Financial Times</p>
+        <button id="desktopShowVideoButton" onclick="kub.showVideo()">Watch Video</button>
+        -->
+        <p>Sarah Wells，运营和可靠性技术总监，金融时报</p>
         <button id="desktopShowVideoButton" onclick="kub.showVideo()">观看视频</button>
-        <br>
-        <br>
-        <!-- <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/" button id="desktopKCButton">Attend KubeCon + CloudNativeCon Europe on March 19-22, 2024</a> -->
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/" button id="desktopKCButton">参加 2024 年 3 月 19-22 日的欧洲 KubeCon + CloudNativeCon</a>
-        <br>
-        <br>
-        <br>
-        <br>
-        <!-- <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2024/" button id="desktopKCButton">Attend KubeCon + CloudNativeCon North America on November 12-15, 2024</a> -->
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2024/" button id="desktopKCButton">参加 2024 年 11 月 12-15 日的北美 KubeCon + CloudNativeCon</a>
+
+    <!--
+    <h3>Attend upcoming KubeCon + CloudNativeCon events</h3>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/" class="desktopKCButton"><strong>Europe</strong> (London, Apr 1-4)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-china/" class="desktopKCButton"><strong>China</strong> (Hong Kong, Jun 10-11)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-japan/" class="desktopKCButton"><strong>Japan</strong> (Tokyo, Jun 16-17)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-india/" class="desktopKCButton"><strong>India</strong> (Hyderabad, Aug 6-7)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2025/" class="desktopKCButton"><strong>North America</strong> (Atlanta, Nov 10-13)</a>
+    -->
+    <h3>参加即将举行的 KubeCon + CloudNativeCon 大会</h3>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/" class="desktopKCButton"><strong>欧洲</strong>（伦敦，4 月 1-4 日）</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-china/" class="desktopKCButton"><strong>中国</strong>（香港，6 月 10-11 日）</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-japan/" class="desktopKCButton"><strong>日本</strong>（东京，6 月 16-17 日）</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-india/" class="desktopKCButton"><strong>印度</strong>（海得拉巴，8 月 6-7 日）</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2025/" class="desktopKCButton"><strong>北美</strong>（亚特兰大，11 月 10-13 日）</a>
 </div>
+
 <div id="videoPlayer">
     <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
     <button id="closeButton"></button>
 </div>
+
 {{< /blocks/section >}}
 
 {{< blocks/kubernetes-features >}}
 
 {{< blocks/case-studies >}}
+
+{{< kubeweekly id="kubeweekly" >}}

@@ -21,7 +21,7 @@ _Plugin_ jaringan di Kubernetes hadir dalam beberapa varian:
 
 ## Instalasi
 
-Kubelet memiliki _plugin_ jaringan bawaan tunggal, dan jaringan bawaan umum untuk seluruh kluster. _Plugin_ ini memeriksa _plugin-plugin_ ketika dijalankan, mengingat apa yang ditemukannya, dan mengeksekusi _plugin_ yang dipilih pada waktu yang tepat dalam siklus pod (ini hanya berlaku untuk Docker, karena rkt mengelola _plugin_ CNI sendiri). Ada dua parameter perintah Kubelet yang perlu diingat saat menggunakan _plugin_:
+Kubelet memiliki _plugin_ jaringan bawaan tunggal, dan jaringan bawaan umum untuk seluruh klaster. _Plugin_ ini memeriksa _plugin-plugin_ ketika dijalankan, mengingat apa yang ditemukannya, dan mengeksekusi _plugin_ yang dipilih pada waktu yang tepat dalam siklus pod (ini hanya berlaku untuk Docker, karena rkt mengelola _plugin_ CNI sendiri). Ada dua parameter perintah Kubelet yang perlu diingat saat menggunakan _plugin_:
 
 * `cni-bin-dir`: Kubelet memeriksa direktori ini untuk _plugin-plugin_ saat _startup_
 * `network-plugin`: _Plugin_ jaringan untuk digunakan dari `cni-bin-dir`. Ini harus cocok dengan nama yang dilaporkan oleh _plugin_ yang diperiksa dari direktori _plugin_. Untuk _plugin_ CNI, ini (nilainya) hanyalah "cni".
