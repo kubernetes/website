@@ -1466,8 +1466,9 @@ Defaulting happens on the object
 Defaults applied when reading data from etcd are not automatically written back to etcd.
 An update request via the API is required to persist those defaults back into etcd.
 
-Default values must be pruned (with the exception of defaults for `metadata` fields) and must
-validate against a provided schema.
+Default values for non-leaf fields must be pruned (with the exception of defaults for `metadata` fields) and must
+validate against a provided schema. For example in the above example, a default of `{"replicas": "foo", "badger": 1}`
+for the `spec` field would be invalid, because `badger` is an unknown field, and `replicas` is not a string.
 
 Default values for `metadata` fields of `x-kubernetes-embedded-resources: true` nodes (or parts of
 a default value covering `metadata`) are not pruned during CustomResourceDefinition creation, but

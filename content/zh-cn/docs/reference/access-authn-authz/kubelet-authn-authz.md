@@ -208,7 +208,6 @@ Kubelet API   | resource | subresource
 /stats/\*     | nodes    | stats
 /metrics/\*   | nodes    | metrics
 /logs/\*      | nodes    | log
-/spec/\*      | nodes    | spec
 /pods         | nodes    | pods, proxy
 /runningPods/ | nodes    | pods, proxy
 /healthz      | nodes    | healthz, proxy
@@ -220,7 +219,6 @@ kubelet API   | 资源      | 子资源
 /stats/\*     | nodes    | stats
 /metrics/\*   | nodes    | metrics
 /logs/\*      | nodes    | log
-/spec/\*      | nodes    | spec
 /pods         | nodes    | pods, proxy
 /runningPods/ | nodes    | pods, proxy
 /healthz      | nodes    | healthz, proxy
@@ -238,8 +236,16 @@ flags passed to the API server is authorized for the following attributes:
 * verb=\*, resource=nodes, subresource=proxy
 * verb=\*, resource=nodes, subresource=stats
 * verb=\*, resource=nodes, subresource=log
-* verb=\*, resource=nodes, subresource=spec
 * verb=\*, resource=nodes, subresource=metrics
 * verb=\*, resource=nodes, subresource=configz
 * verb=\*, resource=nodes, subresource=healthz
 * verb=\*, resource=nodes, subresource=pods
+
+<!--
+If [RBAC authorization](/docs/reference/access-authn-authz/rbac/) is used,
+enabling this gate also ensure that the builtin `system:kubelet-api-admin` ClusterRole
+is updated with permissions to access all the above mentioned subresources.
+-->
+如果使用的是 [RBAC 鉴权](/zh-cn/docs/reference/access-authn-authz/rbac/)，
+那么启用此特性门控时，系统还会自动更新内置的 `system:kubelet-api-admin ClusterRole`，
+确保其具备访问上述所有子资源的权限。
