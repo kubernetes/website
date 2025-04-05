@@ -343,7 +343,7 @@ other = """&#128711; 이 항목은 쿠버네티스에 속하지 않는 써드파
 [thirdparty_message_disclaimer]
 other = """<p>이 페이지는 쿠버네티스가 필요로 하는 기능을 제공하는 써드파티 프로젝트 또는 제품에 대해 언급하고 있습니다. 쿠버네티스 프로젝트 저자들은 이러한 써드파티 프로젝트 또는 제품에 대해 책임지지 않습니다. <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF 웹사이트 가이드라인</a>에서 더 자세한 내용을 확인합니다.</p><p>다른 써드파티 링크를 추가하는 변경을 제안하기 전에, <a href="/docs/contribute/style/content-guide/#third-party-content">컨텐츠 가이드</a>를 확인해야 합니다.</p>"""
 
-[ui_search_placeholder]
+[ui_search]
 other = "검색하기"
 
 [version_check_mustbe]
