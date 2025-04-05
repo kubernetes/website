@@ -6,6 +6,9 @@ Add styles or import other files. */
 //K8S-Docsy integration
 @import "custom";
 
+// Base styles
+@import "k8s_community";
+
 //Media queries
 @import "base";
 @import "tablet";
