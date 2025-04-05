@@ -21,22 +21,22 @@ other = "घटनाक्रम कैलेंडर"
 other = "फोरम"
 
 [community_github_name]
-other = "GitHub"
+other = "गिटहब"
 
 [community_linkedin_name]
-other = "LinkedIn"
+other = "लिंकडिन"
 
 [community_slack_name]
-other = "Slack"
+other = "स्लैक"
 
 [community_stack_overflow_name]
-other = "Stack Overflow"
+other = "स्टैक ओवरफ्लो"
 
 [community_twitter_name]
-other = "Twitter"
+other = "ट्विटर"
 
 [community_youtube_name]
-other = "YouTube"
+other = "यूट्यूब"
 
 [deprecation_title]
 other = "आप इस कुबेरनेट्स संस्करण के लिए प्रलेखन देख रहे हैं:"
