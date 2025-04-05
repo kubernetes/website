@@ -218,10 +218,9 @@ Optionally upgrade `kubelet` instances to **{{< skew currentVersion >}}** (or th
 {{< note >}}
 Before performing a minor version `kubelet` upgrade,
 [drain](/docs/tasks/administer-cluster/safely-drain-node/) pods from the node
-and clear the contents of [kubelet managed
-directories](/docs/reference/node/kubelet-files).
-In-place minor version `kubelet` upgrades, without first draining pods and
-clearing the content of kubelet managed-directories, are not supported.
+and clear the contents of [kubelet managed directories](/docs/reference/node/kubelet-files).
+In-place `kubelet` minor version upgrades without first draining pods and
+clearing the content of kubelet managed-directories are not supported.
 {{</ note >}}
 
 {{< warning >}}
