@@ -123,7 +123,7 @@ Corefile의 구성은 CoreDNS의 아래 [플러그인](https://coredns.io/plugin
   `http://localhost:9153/metrics` 에서 사용 가능하다.
 * [forward](https://coredns.io/plugins/forward/): 쿠버네티스 클러스터 도메인에 없는 쿼리들은
   모두 사전에 정의된 리졸버(/etc/resolv.conf)로 전달된다.
-* [cache](https://coredns.io/plugins/cache/): 프론트 엔드 캐시를 활성화한다.
+* [cache](https://coredns.io/plugins/cache/): 프론트엔드 캐시를 활성화한다.
 * [loop](https://coredns.io/plugins/loop/): 간단한 전달 루프(loop)를 감지하고,
   루프가 발견되면 CoreDNS 프로세스를 중단(halt)한다.
 * [reload](https://coredns.io/plugins/reload): 변경된 Corefile을 자동으로 다시 로드하도록 한다.

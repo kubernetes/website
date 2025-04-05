@@ -4,7 +4,7 @@ id: kubeadm
 date: 2018-04-12
 full_link: /docs/admin/kubeadm/
 short_description: >
-  쿠버네티스를 빠르게 설치하고 안전한(secure) 클러스터를 설정하는 도구
+  쿠버네티스를 빠르게 설치하고 안전한(secure) 클러스터를 설정하는 도구.
 
 aka: 
 tags:

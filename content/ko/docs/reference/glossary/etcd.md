@@ -4,19 +4,17 @@ id: etcd
 date: 2018-04-12
 full_link: /docs/tasks/administer-cluster/configure-upgrade-etcd/
 short_description: >
-  모든 클러스터 데이터를 담는 쿠버네티스 뒷단의 저장소로 사용되는 일관성·고가용성 키-값 저장소.
+  쿠버네티스의 뒷단에서 모든 클러스터 데이터를 담고 있는 일관성과 고가용성을 갖춘 키-값 기반 저장소.
 
 aka: 
 tags:
 - architecture
 - storage
 ---
- 모든 클러스터 데이터를 담는 쿠버네티스 뒷단의 저장소로 사용되는 일관성·고가용성 키-값 저장소.
+etcd는 쿠버네티스의 뒷단에서 모든 클러스터 데이터를 담고 있는 일관성과 고가용성을 갖춘 키-값 기반 저장소이다.
 
 <!--more-->
 
-쿠버네티스 클러스터에서 etcd를 뒷단의 저장소로 사용한다면,
-이 데이터를 [백업](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster)하는 계획은
-필수이다.
+쿠버네티스 클러스터에서 etcd를 뒷단의 저장소로 사용한다면, 해당 데이터를 [백업](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster)하는 계획은 필수이다.
 
 etcd에 대한 자세한 정보는, 공식 [문서](https://etcd.io/docs)를 참고한다.
