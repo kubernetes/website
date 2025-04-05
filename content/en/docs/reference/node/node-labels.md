@@ -14,14 +14,14 @@ using the Kubernetes API.
 
 The preset labels that Kubernetes sets on nodes are:
 
-* [`kubernetes.io/arch`](/docs/reference/labels-annotations-taints/#kubernetes-io-arch)
-* [`kubernetes.io/hostname`](/docs/reference/labels-annotations-taints/#kubernetes-io-hostname)
-* [`kubernetes.io/os`](/docs/reference/labels-annotations-taints/#kubernetes-io-os)
-* [`node.kubernetes.io/instance-type`](/docs/reference/labels-annotations-taints/#nodekubernetesioinstance-type)
+* [`kubernetes.io/arch`](/docs/reference/labels-annotations-taints/labels/#kubernetes-io-arch)
+* [`kubernetes.io/hostname`](/docs/reference/labels-annotations-taints/labels/#kubernetes-io-hostname)
+* [`kubernetes.io/os`](/docs/reference/labels-annotations-taints/labels/#kubernetes-io-os)
+* [`node.kubernetes.io/instance-type`](/docs/reference/labels-annotations-taints/labels/#node-kubernetes-io-instance-type)
   (if known to the kubelet &ndash; Kubernetes may not have this information to set the label)
-* [`topology.kubernetes.io/region`](/docs/reference/labels-annotations-taints/#topologykubernetesioregion)
+* [`topology.kubernetes.io/region`](/docs/reference/labels-annotations-taints/labels/#topology-kubernetes-io-region)
   (if known to the kubelet &ndash; Kubernetes may not have this information to set the label)
-* [`topology.kubernetes.io/zone`](/docs/reference/labels-annotations-taints/#topologykubernetesiozone)
+* [`topology.kubernetes.io/zone`](/docs/reference/labels-annotations-taints/labels/#topology-kubernetes-io-zone)
   (if known to the kubelet &ndash; Kubernetes may not have this information to set the label)
 
 {{<note>}}
@@ -32,6 +32,6 @@ and a different value in other environments.
 
 ## {{% heading "whatsnext" %}}
 
-- See [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/) for a list of common labels.
+- See [Well-Known Labels](/docs/reference/labels-annotations-taints/labels/) for a list of common labels.
 - Learn how to [add a label to a node](/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node).
 

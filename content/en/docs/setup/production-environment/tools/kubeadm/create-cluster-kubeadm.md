@@ -384,7 +384,7 @@ from any nodes that have it, including the control plane nodes, meaning that the
 scheduler will then be able to schedule Pods everywhere.
 
 Additionally, you can execute the following command to remove the
-[`node.kubernetes.io/exclude-from-external-load-balancers`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-exclude-from-external-load-balancers) label
+[`node.kubernetes.io/exclude-from-external-load-balancers`](/docs/reference/labels-annotations-taints/labels/#node-kubernetes-io-exclude-from-external-load-balancers) label
 from the control plane node, which excludes it from the list of backend servers:
 
 ```bash
