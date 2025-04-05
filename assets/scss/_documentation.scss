@@ -1,24 +1,5 @@
 /* DOCUMENTATION */
 
-// nav-tabs and tab-content
-.nav-tabs {
-  border-bottom: none !important;
-
-  .nav-item {
-    margin-bottom: 0;
-  }
-}
-
-.td-content .tab-content .highlight {
-  margin: 0;
-}
-
-//Table Content
-.tab-content table{
-  border-collapse: separate;
-  border-spacing: 6px;
-}
-
 div.feature-state-notice {
   background-color: $feature;
   border-radius: 0.75rem;
@@ -54,7 +35,6 @@ div.feature-state-notice {
   margin-top: 0;
   margin-bottom: 0;
 }
-
 
 // Customize color for warning callouts
 
@@ -378,67 +358,6 @@ body.glossary {
   animation: disclaimer-highlight 1.25s ease;
   background: #f8f9cb;
 }
-
-#mainContent .launch-content {
-
-  .launch-cards {
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    row-gap: 1em;
-    .launch-card {
-      display: flex;
-      padding: 0 30px 0 0;
-      .card-content{
-        width: fit-content;
-        display: flex;
-        flex-direction: column;
-        margin: 0;
-        row-gap: 1em;
-        h2 {
-          font-size: 1.75em;
-          padding: 0.5em 0;
-          margin: 0;
-          a {
-            display: none;
-          }
-        }
-
-        p {
-          margin: 0;
-        }
-
-        ul {
-          list-style: none;
-          height: fit-content;
-          line-height: 1.6;
-          padding: 0;
-          margin-block-end: auto;
-        }
-
-        br {
-          display: none;
-        }
-
-        button {
-          height: min-content;
-          width: auto;
-          padding: .5em 1em;
-          cursor: pointer;
-          box-sizing: border-box;
-        }
-      }
-    }
-
-    @media only screen and (max-width: 1000px) {
-      grid-template-columns: 1fr;
-      .launch-card {
-        width: 100%;
-      }
-    }
-  }
-}
-
 
 /* SCSS related to the list of metrics in Kubernetes */
 main {
