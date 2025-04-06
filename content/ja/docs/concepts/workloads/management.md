@@ -290,7 +290,7 @@ selector:
   tier: frontend
 ```
 
-stableリリースとcanaryリリースのレプリカ数を調整することで、それぞれのリリースが本番トラフィックを受け取る割合(この例では 3:1)を決定できます。新しいリリースに十分な自信が持てたら、stableトラックを新しいアプリケーションリリースに更新し、canaryリリースを削除します。
+stableリリースとcanaryリリースのレプリカ数を調整することで、それぞれのリリースが本番トラフィックを受け取る割合(この例では、3:1)を決定できます。新しいリリースに十分な自信が持てたら、stableトラックを新しいアプリケーションリリースに更新し、canaryリリースを削除します。
 
 ## アノテーションの更新
 
@@ -312,7 +312,7 @@ metadata:
 ...
 ```
 
-詳細については、[annotations](/ja/docs/concepts/overview/working-with-objects/annotations/)および[kubectl annotate](/docs/reference/kubectl/generated/kubectl_annotate/)を参照してください。
+詳細については、[アノテーション](/ja/docs/concepts/overview/working-with-objects/annotations/)および[kubectl annotate](/docs/reference/kubectl/generated/kubectl_annotate/)を参照してください。
 
 ## アプリケーションのスケーリング
 
