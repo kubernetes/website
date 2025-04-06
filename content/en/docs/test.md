@@ -84,7 +84,7 @@
 * यह एक उप-उप-आइटम है। दो और रिक्त स्थान इंडेंट करें।
 * एक और उप-आइटम।
 
-<!-- separate lists -->
+<!-- अलग सूचियाँ -->
 
 - This is a new list. With Hugo, you need to use a HTML comment to separate two
   consecutive lists. **The HTML comment needs to be at the left margin.**
