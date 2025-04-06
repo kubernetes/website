@@ -104,6 +104,14 @@ kubectl get pods -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.st
 kubectl get pods -o=jsonpath='{.items[0].metadata.labels.kubernetes\.io/hostname}'
 ```
 
+Or, with a "my_pod" and "my_namespace" (adjust these names to your environment):
+
+```shell
+kubectl get pod/my_pod -n my_namespace -o=jsonpath='{@}'
+kubectl get pod/my_pod -n my_namespace -o=jsonpath='{.metadata.name}'
+kubectl get pod/my_pod -n my_namespace -o=jsonpath='{.status}'
+```
+
 {{< note >}}
 On Windows, you must _double_ quote any JSONPath template that contains spaces (not single quote as shown above for bash). This in turn means that you must use a single quote or escaped double quote around any literals in the template. For example:
 
