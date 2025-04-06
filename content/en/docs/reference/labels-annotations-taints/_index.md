@@ -2797,6 +2797,5 @@ a namespace. When this label is set on a namespace with the value `"true"`
 `resource.k8s.io` API types. Currently, this permission applies to
 `ResourceClaim` and `ResourceClaimTemplate` objects.
 
-See [Dynamic Resource Allocation Admin
-access](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#enabling-admin-access)
+See [Dynamic Resource Allocation Admin access](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#enabling-admin-access)
 for more information.
