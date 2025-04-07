@@ -54,7 +54,7 @@ HPAと異なり、VPAはデフォルトでKubernetesに付属していません�
 インストールすることにより、管理されたレプリカのリソースを _どのように_ _いつ_ スケールするのかを定義するワークロードの{{< glossary_tooltip text="CustomResourceDefinitions" term_id="customresourcedefinition" >}}(CRDs)を作成できるようになります。
 
 {{< note >}}
-HPAが機能するにはクラスターに[Metrics Server](https://github.com/kubernetes-sigs/metrics-server)がインストールされている必要があります。
+VPAが機能するにはクラスターに[Metrics Server](https://github.com/kubernetes-sigs/metrics-server)がインストールされている必要があります。
 {{< /note >}}
 
 現時点では、VPAは4つの異なるモードで動作できます:　
