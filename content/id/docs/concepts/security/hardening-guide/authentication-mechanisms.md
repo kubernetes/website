@@ -8,19 +8,19 @@ weight: 90
 
 <!-- overview -->
 
-Memilih mekanisme autentikasi yang tepat adalah aspek penting dalam mengamankan kluster Anda.
+Memilih mekanisme autentikasi yang tepat adalah aspek penting dalam mengamankan klaster Anda.
 Kubernetes menyediakan beberapa mekanisme bawaan, masing-masing dengan kelebihan dan kekurangannya
-yang harus dipertimbangkan dengan hati-hati saat memilih mekanisme autentikasi terbaik untuk kluster Anda.
+yang harus dipertimbangkan dengan hati-hati saat memilih mekanisme autentikasi terbaik untuk klaster Anda.
 
 Secara umum, disarankan untuk mengaktifkan sesedikit mungkin mekanisme autentikasi untuk menyederhanakan
-manajemen pengguna dan mencegah kasus di mana pengguna tetap memiliki akses ke kluster yang tidak lagi diperlukan.
+manajemen pengguna dan mencegah kasus di mana pengguna tetap memiliki akses ke klaster yang tidak lagi diperlukan.
 
-Penting untuk dicatat bahwa Kubernetes tidak memiliki basis data pengguna bawaan di dalam kluster.
+Penting untuk dicatat bahwa Kubernetes tidak memiliki basis data pengguna bawaan di dalam klaster.
 Sebaliknya, Kubernetes mengambil informasi pengguna dari sistem autentikasi yang dikonfigurasi dan menggunakan
 informasi tersebut untuk membuat keputusan otorisasi. Oleh karena itu, untuk mengaudit akses pengguna, Anda perlu
 meninjau kredensial dari setiap sumber autentikasi yang dikonfigurasi.
 
-Untuk kluster produksi dengan banyak pengguna yang mengakses API Kubernetes secara langsung, disarankan untuk
+Untuk klaster produksi dengan banyak pengguna yang mengakses API Kubernetes secara langsung, disarankan untuk
 menggunakan sumber autentikasi eksternal seperti OIDC. Mekanisme autentikasi internal, seperti sertifikat klien
 dan token akun layanan yang dijelaskan di bawah ini, tidak cocok untuk kasus penggunaan ini.
 
@@ -36,8 +36,8 @@ untuk autentikasi pengguna, mekanisme ini mungkin tidak cocok untuk penggunaan p
   hingga kedaluwarsa. Untuk mengurangi risiko ini, disarankan untuk mengonfigurasi masa berlaku yang pendek untuk
   kredensial autentikasi pengguna yang dibuat menggunakan sertifikat klien.
 - Jika sertifikat perlu dibatalkan, otoritas sertifikat harus diubah kuncinya, yang dapat memperkenalkan risiko
-  ketersediaan ke kluster.
-- Tidak ada catatan permanen tentang sertifikat klien yang dibuat di kluster. Oleh karena itu, semua sertifikat yang
+  ketersediaan ke klaster.
+- Tidak ada catatan permanen tentang sertifikat klien yang dibuat di klaster. Oleh karena itu, semua sertifikat yang
   diterbitkan harus dicatat jika Anda perlu melacaknya.
 - Kunci privat yang digunakan untuk autentikasi sertifikat klien tidak dapat dilindungi dengan kata sandi. Siapa pun
   yang dapat membaca file yang berisi kunci tersebut akan dapat menggunakannya.
@@ -55,13 +55,13 @@ di disk node control plane, pendekatan ini tidak disarankan untuk server produks
 - Kredensial disimpan dalam teks biasa di disk node control plane, yang dapat menjadi risiko keamanan.
 - Mengubah kredensial apa pun memerlukan restart proses API server agar berlaku, yang dapat memengaruhi ketersediaan.
 - Tidak ada mekanisme yang tersedia untuk memungkinkan pengguna memutar kredensial mereka. Untuk memutar kredensial,
-  administrator kluster harus memodifikasi token di disk dan mendistribusikannya ke pengguna.
+  administrator klaster harus memodifikasi token di disk dan mendistribusikannya ke pengguna.
 - Tidak ada mekanisme penguncian yang tersedia untuk mencegah serangan brute-force.
 
 ## Token bootstrap {#bootstrap-tokens}
 
 [Token bootstrap](/docs/reference/access-authn-authz/bootstrap-tokens/) digunakan untuk menghubungkan
-node ke kluster dan tidak disarankan untuk autentikasi pengguna karena beberapa alasan:
+node ke klaster dan tidak disarankan untuk autentikasi pengguna karena beberapa alasan:
 
 - Mereka memiliki keanggotaan grup yang dikodekan keras yang tidak cocok untuk penggunaan umum, sehingga tidak cocok
   untuk tujuan autentikasi.
@@ -73,12 +73,12 @@ node ke kluster dan tidak disarankan untuk autentikasi pengguna karena beberapa 
 ## Token rahasia ServiceAccount {#serviceaccount-secret-tokens}
 
 [Rahasia akun layanan](/docs/reference/access-authn-authz/service-accounts-admin/#manual-secret-management-for-serviceaccounts)
-tersedia sebagai opsi untuk memungkinkan beban kerja yang berjalan di kluster mengautentikasi ke API server.
+tersedia sebagai opsi untuk memungkinkan beban kerja yang berjalan di klaster mengautentikasi ke API server.
 Di Kubernetes < 1.23, ini adalah opsi default, namun, mereka sedang digantikan dengan token API TokenRequest.
 Meskipun rahasia ini dapat digunakan untuk autentikasi pengguna, mereka umumnya tidak cocok karena beberapa alasan:
 
 - Mereka tidak dapat diatur dengan masa berlaku dan akan tetap berlaku hingga akun layanan terkait dihapus.
-- Token autentikasi terlihat oleh pengguna kluster mana pun yang dapat membaca rahasia di namespace tempat mereka
+- Token autentikasi terlihat oleh pengguna klaster mana pun yang dapat membaca rahasia di namespace tempat mereka
   didefinisikan.
 - Akun layanan tidak dapat ditambahkan ke grup arbitrer, yang mempersulit manajemen RBAC di mana mereka digunakan.
 
@@ -99,7 +99,7 @@ Kubernetes mendukung integrasi layanan autentikasi eksternal dengan API Kubernet
 Ada berbagai macam perangkat lunak yang dapat digunakan untuk mengintegrasikan Kubernetes dengan penyedia identitas.
 Namun, saat menggunakan autentikasi OIDC di Kubernetes, penting untuk mempertimbangkan langkah-langkah penguatan berikut:
 
-- Perangkat lunak yang diinstal di kluster untuk mendukung autentikasi OIDC harus diisolasi dari beban kerja umum
+- Perangkat lunak yang diinstal di klaster untuk mendukung autentikasi OIDC harus diisolasi dari beban kerja umum
   karena akan berjalan dengan hak istimewa tinggi.
 - Beberapa layanan Kubernetes yang dikelola memiliki batasan pada penyedia OIDC yang dapat digunakan.
 - Seperti halnya token TokenRequest, token OIDC harus memiliki masa berlaku yang pendek untuk mengurangi dampak
@@ -109,13 +109,13 @@ Namun, saat menggunakan autentikasi OIDC di Kubernetes, penting untuk mempertimb
 
 [Autentikasi token Webhook](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)
 adalah opsi lain untuk mengintegrasikan penyedia autentikasi eksternal ke Kubernetes. Mekanisme ini memungkinkan
-layanan autentikasi, baik yang berjalan di dalam kluster atau di luar, untuk dihubungi untuk keputusan autentikasi
+layanan autentikasi, baik yang berjalan di dalam klaster atau di luar, untuk dihubungi untuk keputusan autentikasi
 melalui webhook. Penting untuk dicatat bahwa kesesuaian mekanisme ini kemungkinan besar bergantung pada perangkat
 lunak yang digunakan untuk layanan autentikasi, dan ada beberapa pertimbangan khusus Kubernetes yang harus diperhatikan.
 
 Untuk mengonfigurasi autentikasi Webhook, akses ke sistem file server control plane diperlukan. Ini berarti bahwa
 hal ini tidak akan memungkinkan dengan Kubernetes yang dikelola kecuali penyedia secara khusus membuatnya tersedia.
-Selain itu, perangkat lunak apa pun yang diinstal di kluster untuk mendukung akses ini harus diisolasi dari beban
+Selain itu, perangkat lunak apa pun yang diinstal di klaster untuk mendukung akses ini harus diisolasi dari beban
 kerja umum, karena akan berjalan dengan hak istimewa tinggi.
 
 ## Proxy autentikasi {#authenticating-proxy}
