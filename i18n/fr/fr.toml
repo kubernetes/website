@@ -135,6 +135,8 @@ other = "Exemples"
 other = "Twitter"
 [community_github_name]
 other = "GitHub"
+[community_linkedin_name]
+other = "LinkedIn"
 [community_slack_name]
 other = "Slack"
 [community_stack_overflow_name]
@@ -145,7 +147,7 @@ other = "Forum"
 other = "Calendrier"
 
 # UI elements
-[ui_search_placeholder]
+[ui_search]
 other = "Recherche"
 
 [input_placeholder_email_address]
