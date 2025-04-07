@@ -2782,3 +2782,20 @@ Taint that kubeadm previously applied on control plane nodes to allow only criti
 workloads to schedule on them. Replaced by the
 [`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane-taint)
 taint. kubeadm no longer sets or uses this deprecated taint.
+
+### resource.k8s.io/admin-access {resource-k8s-io-admin-access}
+
+Type: Label
+
+Example: `resource.k8s.io/admin-access: "true"`
+
+Used on: Namespace
+
+Used to grant administrative access to certain resource.k8s.io API types within
+a namespace. When this label is set on a namespace with the value `"true"`
+(case-sensitive), it allows the use of `adminAccess: true` in any namespaced
+`resource.k8s.io` API types. Currently, this permission applies to
+`ResourceClaim` and `ResourceClaimTemplate` objects.
+
+See [Dynamic Resource Allocation Admin access](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#enabling-admin-access)
+for more information.
