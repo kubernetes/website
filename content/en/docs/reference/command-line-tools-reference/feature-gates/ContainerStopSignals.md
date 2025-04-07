@@ -10,4 +10,4 @@ stages:
     defaultValue: false
     fromVersion: "1.33"
 ---
-Enables usage of the StopSignal lifecycle hook for containers for configuring custom stop signals using which the containers would be stopped.
+Enables usage of the StopSignal lifecycle for containers for configuring custom stop signals using which the containers would be stopped.
