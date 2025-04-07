@@ -71,21 +71,19 @@ At the moment, the VPA can operate in four different modes:
 {{< table caption="Different modes of the VPA" >}}
 Mode | Description
 :----|:-----------
-`Auto` | Currently, `Recreate` might change to in-place updates in the future
+`Auto` | Currently `Recreate`. This might change to in-place updates in the future.
 `Recreate` | The VPA assigns resource requests on pod creation as well as updates them on existing pods by evicting them when the requested resources differ significantly from the new recommendation
 `Initial` | The VPA only assigns resource requests on pod creation and never changes them later.
 `Off` | The VPA does not automatically change the resource requirements of the pods. The recommendations are calculated and can be inspected in the VPA object.
 {{< /table >}}
 
-#### Requirements for in-place resizing
+#### In-place pod vertical scaling
 
 {{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
-Resizing a workload in-place **without** restarting the {{< glossary_tooltip text="Pods" term_id="pod" >}}
-or its {{< glossary_tooltip text="Containers" term_id="container" >}} requires Kubernetes version 1.27 or later.
-Additionally, the `InPlaceVerticalScaling` feature gate needs to be enabled.
-
-{{< feature-gate-description name="InPlacePodVerticalScaling" >}}
+As of Kubernetes {{< skew currentVersion >}}, VPA does not support resizing pods in-place,
+but this integration is being worked on.
+For manually resizing pods in-place, see [Resize Container Resources In-Place](/docs/tasks/configure-pod-container/resize-container-resources/).
 
 ### Autoscaling based on cluster size
 
@@ -102,9 +100,9 @@ If the number of replicas should stay the same, you can scale your workloads ver
 the [_Cluster Proportional Vertical Autoscaler_](https://github.com/kubernetes-sigs/cluster-proportional-vertical-autoscaler).
 The project is **currently in beta** and can be found on GitHub.
 
-While the Cluster Proportional Autoscaler scales the number of replicas of a workload, the Cluster Proportional Vertical Autoscaler
-adjusts the resource requests for a workload (for example a Deployment or DaemonSet) based on the number of nodes and/or cores
-in the cluster.
+While the Cluster Proportional Autoscaler scales the number of replicas of a workload,
+the Cluster Proportional Vertical Autoscaler adjusts the resource requests for a workload
+(for example a Deployment or DaemonSet) based on the number of nodes and/or cores in the cluster.
 
 ### Event driven Autoscaling
 
@@ -121,8 +119,8 @@ Another strategy for scaling your workloads is to **schedule** the scaling opera
 reduce resource consumption during off-peak hours.
 
 Similar to event driven autoscaling, such behavior can be achieved using KEDA in conjunction with
-its [`Cron` scaler](https://keda.sh/docs/latest/scalers/cron/). The `Cron` scaler allows you to define schedules
-(and time zones) for scaling your workloads in or out.
+its [`Cron` scaler](https://keda.sh/docs/latest/scalers/cron/).
+The `Cron` scaler allows you to define schedules (and time zones) for scaling your workloads in or out.
 
 ## Scaling cluster infrastructure
 
