@@ -17,6 +17,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.24"
+    toVersion: "1.32"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.33"
 ---
 Enables topology aware routing based on topology hints
 in EndpointSlices. See [Topology Aware
