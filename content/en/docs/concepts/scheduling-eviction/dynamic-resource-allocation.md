@@ -333,7 +333,7 @@ scheduler will then select the first subrequest that can be allocated. This allo
 specify alternative devices that can be used by the workload if the primary choice is not
 available.
 
-In the example above, the ResourceClaimTemplate requested a device with the color black
+In the example below, the ResourceClaimTemplate requested a device with the color black
 and the size large. If a device with those attributes are not available, the pod can not
 be scheduled. With the priotized list feature, a second alternative can be specified, which
 requests two devices with the color white and size small. The large black device will be
@@ -426,7 +426,9 @@ is enabled in the kube-apiserver.
 
 [Prioritized List](#prioritized-list)) is an *alpha feature* and only enabled when the
 `DRAPrioritizedList` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled in the kube-apiserver and kube-scheduler.
+is enabled in the kube-apiserver and kube-scheduler. It also requires that the
+`DynamicResourceAllocation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled.
 
 ## {{% heading "whatsnext" %}}
 
