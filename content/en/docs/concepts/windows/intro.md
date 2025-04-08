@@ -256,7 +256,7 @@ The following list documents differences between how Pod specifications work bet
 * You cannot enable `mountPropagation` for volume mounts as this is not
   supported on Windows.
 
-#### Field compatibility for hostNetwork {#compatibility-v1-pod-sec-containers-hostnetwork}
+#### Host network access {#compatibility-v1-pod-sec-containers-hostnetwork}
 
 Kubernetes v1.26 to v1.32  included alpha support for running Windows Pods in the host's network namespace.
 
