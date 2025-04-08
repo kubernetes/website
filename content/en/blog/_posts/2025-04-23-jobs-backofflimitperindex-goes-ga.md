@@ -7,49 +7,50 @@ author: >
   [Michał Woźniak](https://github.com/mimowo) (Google)
 ---
 
-This post describes the Job's _Backoff Limit Per Index_, which graduates to
-stable in Kubernetes 1.33, and how to use it in your Jobs.
+In Kubernetes v1.33, the _Backoff Limit Per Index_ feature reaches general
+availability (GA). This blog describes the Backoff Limit Per Index feature and
+its benefits.
 
-## About
+## About Backoff Limit Per Index
 
-When you run workloads on Kubernetes, you need to account for Pod failures due
-to variety of reasons. Ideally, your workload can tolerate some transient
-failures and continue running to completion.
+When you run workloads on Kubernetes, you must consider scenarios where Pod
+failures can affect the completion of your workloads. Ideally, your workload
+should tolerate transient failures and continue running.
 
-One way to achieve failure tolerance in Kubenetes Job is by setting the
-`spec.backoffLimit` field which specifies the total number of tolerated
+To achieve failure tolerance in Kubernetes Job, you can set the
+`spec.backoffLimit` field. This field specifies the total number of tolerated
 failures.
 
-However, for Indexed Jobs this is often not flexible enough for embarassingly
-parallel workloads, where every index is considered independent, for example
-in case of running integration tests. In that scenario, a fast-failing index is
-likely to consume your entire budget for tolerating Pod failures, and you may
-not be able to run the other indexes.
+However, for workloads where every index is considered independent, like
+[embarassingly parallel](https://en.wikipedia.org/wiki/Embarrassingly_parallel)
+workloads, the `spec.backoffLimit` field is often not flexible enough if you use
+Indexed Jobs. For example, integration tests. In that scenario, a fast-failing
+index is likely to consume your entire budget for tolerating Pod failures, and
+you might not be able to run the other indexes.
 
-In order to address this limitation we introduce the new feature, called
-_Backoff Limit Per Index_, which allows you to control the number of retries
-per index.
+In order to address this limitation, we introduce _Backoff Limit Per Index_,
+which allows you to control the number of retries per index.
 
-## How it works
+## How Backoff Limit Per Index works
 
-You can specify the number of tolerated Pod failures per index with the new
-`spec.backoffLimitPerIndex` field.
+To use Backoff Limit Per Index for Indexed Jobs, configure the following:
+* Specify the number of tolerated Pod failures per index with the
+  `spec.backoffLimitPerIndex` field. When you set this field, the Job executes
+  all indexes by default.
+* Specify the cap on the total number of failed indexes by setting the
+  `spec.maxFailedIndexes` field. When the limit is exceeded the entire Job is
+  terminated.
+* Define a short-circuit to detect a failed index by using the `FailIndex` action in the
+  [Pod Failure Policy](/docs/concepts/workloads/controllers/job/#pod-failure-policy)
+  feature.
 
-When the number of tolerated failures is exceeded the Job considers the index as
-failed, and this index is listed in the Job's `status.failedIndexes` field.
-
-Additionally, you can configure short-circuit for detecting a failed index by
-using the "FailIndex" action in the _Pod Failure Policy_ feature (see the
-example below).
-
-When the `spec.backoffLimitPerIndex` the Job executes all indexes, unless the cap
-of the total number of failed indexes is specified by the `spec.maxFailedIndexes`
-field.
+When the number of tolerated failures is exceeded, the Job marks that index as
+failed and lists it in the Job's `status.failedIndexes` field.
 
 ### Example
 
-The Job spec snippet below demonstrates an example use, combining the feature
-with the _Pod Failure Policy_ feature:
+The following Job spec snippet is an example of how to combine Backoff Limit Per
+Index with the _Pod Failure Policy_ feature:
 
 ```yaml
 completions: 10
@@ -73,16 +74,16 @@ In this example, the Job handles Pod failures as follows:
 - Ignores any failed Pods that have the built-in `DisruptionTarget`
   condition. These Pods don't count towards backoff limits.
 - Fails the index corresponding to the failed Pod if any of the failed Pod's
-  containers exited with the exit code 42 - based on the matching "FailIndex"
+  containers finished with the exit code 42 - based on the matching "FailIndex"
   rule.
-- Retries the first failure of any index, unless the index if failed due to the
-  matching FailIndex rule.
+- Retries the first failure of any index, unless the index failed due to the
+  matching `FailIndex` rule.
 - Fails the entire Job if the number of failed indexes exceeded 5 (set by the
   `spec.maxFailedIndexes` field).
 
 ## Learn more
 
-- Read the blog post on the closely related feature of Pod Failure Policy [Kubernetes 1.31: Pod Failure Policy for Jobs Goes GA](https://kubernetes.io/blog/2024/08/19/kubernetes-1-31-pod-failure-policy-for-jobs-goes-ga/)
+- Read the blog post on the closely related feature of Pod Failure Policy [Kubernetes 1.31: Pod Failure Policy for Jobs Goes GA](/blog/2024/08/19/kubernetes-1-31-pod-failure-policy-for-jobs-goes-ga/)
 - For a hands-on guide to using Pod failure policy, including the use of FailIndex, see
   [Handling retriable and non-retriable pod failures with Pod failure policy](/docs/tasks/job/pod-failure-policy/)
 - Read the documentation for
