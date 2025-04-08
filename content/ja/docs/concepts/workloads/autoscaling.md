@@ -94,7 +94,7 @@ Cluster Proportional Autoscalerがワークロードのレプリカ数をスケ�
 例えば[_Kubernetes Event Driven Autoscaler_
 (**KEDA**)](https://keda.sh/)を使用して、イベントに基づいてワークロードをスケールすることもできます。
 
-KEDAは例えばキューのメッセージ数などの処理するべきイベント数に基づいてワークロードをスケールするCNCF graduatedプロジェクトです。様々なイベントソースに合わせて選択できる幅広いアダプターが存在します。
+KEDAは例えばキューのメッセージ数などの処理するべきイベント数に基づいてワークロードをスケールするCNCF-graduatedプロジェクトです。様々なイベントソースに合わせて選択できる幅広いアダプターが存在します。
 
 ### スケジュールに基づく自動スケーリング {#autoscaling-based-on-schedules}
 
