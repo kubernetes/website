@@ -47,6 +47,14 @@ parameters are passed to the handler.
 A more detailed description of the termination behavior can be found in
 [Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 
+`StopSignal`
+
+The StopSignal lifecycle can be used to define a stop signal which would be sent to the container when it is
+stopped. If you set this, it overrides any `STOPSIGNAL` instruction defined within the container image.
+
+A more detailed description of termination behaviour with custom stop signals can be found in
+[Stop Signals](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-stop-signals).
+
 ### Hook handler implementations
 
 Containers can access a hook by implementing and registering a handler for that hook.
