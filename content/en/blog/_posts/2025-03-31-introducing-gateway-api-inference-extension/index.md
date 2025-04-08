@@ -21,7 +21,7 @@ for these workloads. They also don’t account for model identity or request cri
 chat vs. batch jobs). Organizations often patch together ad-hoc solutions, but a standardized approach
 is missing.
 
-## Enter Gateway API Inference Extension
+## Gateway API Inference Extension
 
 [Gateway API Inference Extension](https://gateway-api-inference-extension.sigs.k8s.io/) was created to address
 this gap by building on the existing [Gateway API](https://gateway-api.sigs.k8s.io/), adding inference-specific
@@ -34,7 +34,7 @@ objectives include enabling model-aware routing, supporting per-request critical
 roll-outs, and optimizing load balancing based on real-time model metrics. By achieving these, the project aims
 to reduce latency and improve accelerator (GPU) utilization for AI workloads.
 
-## How It Works
+## How it works
 
 The design introduces two new Custom Resources (CRDs) with distinct responsibilities, each aligning with a
 specific user persona in the AI/ML serving workflow​:
@@ -55,7 +55,7 @@ specific user persona in the AI/ML serving workflow​:
 In summary, the InferenceModel API lets AI/ML owners manage what is served, while the InferencePool lets platform
 operators manage where and how it’s served.
 
-## Request Flow
+## Request flow
 
 The flow of a request builds on the Gateway API model (Gateways and HTTPRoutes) with one or more extra inference-aware
 steps (extensions) in the middle. Here’s a high-level example of the request flow with the
@@ -93,7 +93,7 @@ tool was used to generate traffic and measure throughput, latency, and other met
 [ShareGPT](https://huggingface.co/datasets/anon8231489123/ShareGPT_Vicuna_unfiltered/resolve/main/ShareGPT_V3_unfiltered_cleaned_split.json)
 dataset served as the workload, and traffic was ramped from 100 Queries per Second (QPS) up to 1000 QPS.
 
-### Key Results
+### Key results
 
 {{< figure src="inference-extension-benchmark.png" alt="Endpoint Extension Scheduling" class="diagram-large" clicktozoom="true" >}}
 
