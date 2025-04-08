@@ -5,10 +5,10 @@ weight: 10
 ---
 
 {{% alert title="Catatan" %}}
-Tutorial ini hanya berlaku untuk kluster baru.
+Tutorial ini hanya berlaku untuk klaster baru.
 {{% /alert %}}
 
-Keamanan Pod adalah pengendali penerimaan (admission controller) yang melakukan pemeriksaan terhadap [Standar Keamanan Pod](/docs/concepts/security/pod-security-standards/) Kubernetes saat pod baru dibuat. Fitur ini telah mencapai status GA di v1.25. Tutorial ini menunjukkan cara menerapkan Standar Keamanan Pod `baseline` di tingkat kluster, yang menerapkan konfigurasi standar ke semua namespace dalam kluster.
+Keamanan Pod adalah pengendali penerimaan (admission controller) yang melakukan pemeriksaan terhadap [Standar Keamanan Pod](/docs/concepts/security/pod-security-standards/) Kubernetes saat pod baru dibuat. Fitur ini telah mencapai status GA di v1.25. Tutorial ini menunjukkan cara menerapkan Standar Keamanan Pod `baseline` di tingkat klaster, yang menerapkan konfigurasi standar ke semua namespace dalam klaster.
 
 Untuk menerapkan Standar Keamanan Pod ke namespace tertentu, lihat [Menerapkan Standar Keamanan Pod di tingkat namespace](/docs/tutorials/security/ns-level-pss).
 
@@ -21,7 +21,7 @@ Pasang alat berikut di workstation kamu:
 - [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/docs/tasks/tools/)
 
-Tutorial ini menunjukkan apa yang dapat kamu konfigurasikan untuk kluster Kubernetes yang sepenuhnya kamu kendalikan. Jika kamu sedang mempelajari cara mengonfigurasi Pod Security Admission untuk kluster terkelola di mana kamu tidak dapat mengonfigurasi control plane, baca [Menerapkan Standar Keamanan Pod di tingkat namespace](/docs/tutorials/security/ns-level-pss).
+Tutorial ini menunjukkan apa yang dapat kamu konfigurasikan untuk klaster Kubernetes yang sepenuhnya kamu kendalikan. Jika kamu sedang mempelajari cara mengonfigurasi Pod Security Admission untuk klaster terkelola di mana kamu tidak dapat mengonfigurasi control plane, baca [Menerapkan Standar Keamanan Pod di tingkat namespace](/docs/tutorials/security/ns-level-pss).
 
 ## Pilih Standar Keamanan Pod yang Tepat untuk Diterapkan
 
@@ -29,7 +29,7 @@ Tutorial ini menunjukkan apa yang dapat kamu konfigurasikan untuk kluster Kubern
 
 Untuk mengumpulkan informasi yang membantu kamu memilih Standar Keamanan Pod yang paling sesuai untuk konfigurasi kamu, lakukan langkah-langkah berikut:
 
-1. Buat kluster tanpa Standar Keamanan Pod yang diterapkan:
+1. Buat klaster tanpa Standar Keamanan Pod yang diterapkan:
 
    ```shell
    kind create cluster --name psa-wo-cluster-pss
@@ -51,7 +51,7 @@ Untuk mengumpulkan informasi yang membantu kamu memilih Standar Keamanan Pod yan
    Thanks for using kind! 😊
    ```
 
-1. Setel konteks kubectl ke kluster baru:
+1. Setel konteks kubectl ke klaster baru:
 
    ```shell
    kubectl cluster-info --context kind-psa-wo-cluster-pss
@@ -66,7 +66,7 @@ Untuk mengumpulkan informasi yang membantu kamu memilih Standar Keamanan Pod yan
    To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
    ```
 
-1. Dapatkan daftar namespace di kluster:
+1. Dapatkan daftar namespace di klaster:
 
    ```shell
    kubectl get ns
@@ -153,7 +153,7 @@ Selain itu, untuk mencegah pod gagal di `kube-system`, kamu akan mengecualikan n
 
 Saat kamu menerapkan Pod Security Admission di lingkungan kamu sendiri, pertimbangkan hal-hal berikut:
 
-1. Berdasarkan postur risiko yang diterapkan pada kluster, Standar Keamanan Pod yang lebih ketat seperti `restricted` mungkin merupakan pilihan yang lebih baik.
+1. Berdasarkan postur risiko yang diterapkan pada klaster, Standar Keamanan Pod yang lebih ketat seperti `restricted` mungkin merupakan pilihan yang lebih baik.
 1. Mengecualikan namespace `kube-system` memungkinkan pod berjalan sebagai `privileged` di namespace ini. Untuk penggunaan di dunia nyata, proyek Kubernetes sangat menyarankan agar kamu menerapkan kebijakan RBAC yang ketat yang membatasi akses ke `kube-system`, mengikuti prinsip hak istimewa paling sedikit.
    Untuk menerapkan standar sebelumnya, lakukan langkah-langkah berikut:
 1. Buat file konfigurasi yang dapat dikonsumsi oleh Pod Security Admission Controller untuk menerapkan Standar Keamanan Pod ini:
@@ -189,7 +189,7 @@ Saat kamu menerapkan Pod Security Admission di lingkungan kamu sendiri, pertimba
    {{< /note >}}
 
 
-1. Konfigurasikan API server untuk mengonsumsi file ini selama pembuatan kluster:
+1. Konfigurasikan API server untuk mengonsumsi file ini selama pembuatan klaster:
 
    ```
    cat <<EOF > /tmp/pss/cluster-config.yaml
@@ -231,7 +231,7 @@ Saat kamu menerapkan Pod Security Admission di lingkungan kamu sendiri, pertimba
    **Preferences > Resources > File Sharing**.
    {{</note>}}
 
-1. Buat kluster yang menggunakan Pod Security Admission untuk menerapkan
+1. Buat klaster yang menggunakan Pod Security Admission untuk menerapkan
    Standar Keamanan Pod ini:
 
    ```shell
@@ -254,7 +254,7 @@ Saat kamu menerapkan Pod Security Admission di lingkungan kamu sendiri, pertimba
    Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂
    ```
 
-1. Arahkan kubectl ke kluster:
+1. Arahkan kubectl ke klaster:
    ```shell
    kubectl cluster-info --context kind-psa-with-cluster-pss
    ```
@@ -282,7 +282,7 @@ Saat kamu menerapkan Pod Security Admission di lingkungan kamu sendiri, pertimba
 
 ## Bersihkan
 
-Sekarang hapus kluster yang kamu buat di atas dengan menjalankan perintah berikut:
+Sekarang hapus klaster yang kamu buat di atas dengan menjalankan perintah berikut:
 
 ```shell
 kind delete cluster --name psa-with-cluster-pss
@@ -294,12 +294,12 @@ kind delete cluster --name psa-wo-cluster-pss
 ## {{% heading "whatsnext" %}}
 
 - Jalankan [skrip shell](/examples/security/kind-with-cluster-level-baseline-pod-security.sh) untuk melakukan semua langkah sebelumnya sekaligus:
-  1. Buat Konfigurasi tingkat kluster berbasis Standar Keamanan Pod
+  1. Buat Konfigurasi tingkat klaster berbasis Standar Keamanan Pod
   2. Buat file untuk membiarkan API server mengonsumsi konfigurasi ini
-  3. Buat kluster yang membuat API server dengan konfigurasi ini
-  4. Setel konteks kubectl ke kluster baru ini
+  3. Buat klaster yang membuat API server dengan konfigurasi ini
+  4. Setel konteks kubectl ke klaster baru ini
   5. Buat file yaml pod minimal
-  6. Terapkan file ini untuk membuat Pod di kluster baru
+  6. Terapkan file ini untuk membuat Pod di klaster baru
 - [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
 - [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
 - [Menerapkan Standar Keamanan Pod di tingkat namespace](/docs/tutorials/security/ns-level-pss/)
