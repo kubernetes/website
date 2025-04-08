@@ -459,5 +459,6 @@
 
 /docs/concepts/overview/what-is-kubernetes/      /docs/concepts/overview/ 301
 /docs/tasks/administer-cluster/verify-signed-images/     /docs/tasks/administer-cluster/verify-signed-artifacts/   301
+/docs/tasks/administer-cluster/namespaces-walkthrough/   /docs/tutorials/cluster-management/namespaces-walkthrough/ 301
 
 /kubertenes     /blog/2024/06/06/10-years-of-kubernetes/ 302
