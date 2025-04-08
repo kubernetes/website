@@ -262,6 +262,20 @@ problems, the kubelet resets the restart backoff timer for that container.
 [Sidecar containers and Pod lifecycle](/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)
 explains the behaviour of `init containers` when specify `restartpolicy` field on it.
 
+### Reduced container restart delay
+
+{{< feature-state
+feature_gate_name="ReduceDefaultCrashLoopBackOffDecay" >}}
+
+With the alpha feature gate `ReduceDefaultCrashLoopBackOffDecay` enabled,
+container start retries across your cluster will be reduced to begin at 1s
+(instead of 10s) and increase exponentially by 2x each restart until a maximum
+delay of 60s (instead of 300s which is 5 minutes).
+
+If you use this feature along with the alpha feature
+`KubeletCrashLoopBackOffMax` (described below), individual nodes may have
+different maximum delays.
+
 ### Configurable container restart delay
 
 {{< feature-state feature_gate_name="KubeletCrashLoopBackOffMax" >}}
@@ -269,14 +283,14 @@ explains the behaviour of `init containers` when specify `restartpolicy` field o
 With the alpha feature gate `KubeletCrashLoopBackOffMax` enabled, you can
 reconfigure the maximum delay between container start retries from the default
 of 300s (5 minutes). This configuration is set per node using kubelet
-configuration. In your [kubelet configuration](/docs/tasks/administer-cluster/kubelet-config-file/),
-under `crashLoopBackOff` set the `maxContainerRestartPeriod` field between
-`"1s"` and `"300s"`. As described above in [Container restart
-policy](#restart-policy), delays on that node will still start at 10s and
-increase exponentially by 2x each restart, but will now be capped at your
-configured maximum. If the `maxContainerRestartPeriod` you configure is less
-than the default initial value of 10s, the initial delay will instead be set to
-the configured maximum.
+configuration. In your [kubelet
+configuration](/docs/tasks/administer-cluster/kubelet-config-file/), under
+`crashLoopBackOff` set the `maxContainerRestartPeriod` field between `"1s"` and
+`"300s"`. As described above in [Container restart policy](#restart-policy),
+delays on that node will still start at 10s and increase exponentially by 2x
+each restart, but will now be capped at your configured maximum. If the
+`maxContainerRestartPeriod` you configure is less than the default initial value
+of 10s, the initial delay will instead be set to the configured maximum.
 
 See the following kubelet configuration examples:
 
@@ -294,6 +308,13 @@ kind: KubeletConfiguration
 crashLoopBackOff:
     maxContainerRestartPeriod: "2s"
 ```
+
+If you use this feature along with the alpha feature
+`ReduceDefaultCrashLoopBackOffDecay` (described above), your cluster defaults
+for initial backoff and maximum backoff will no longer be 10s and 300s, but 1s
+and 60s. Per node configuration takes precedence over the defaults set by
+`ReduceDefaultCrashLoopBackOffDecay`, even if this would result in a node having
+a longer maximum backoff than other nodes in the cluster.
 
 ## Pod conditions
 
