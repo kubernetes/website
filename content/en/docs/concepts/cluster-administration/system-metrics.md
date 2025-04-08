@@ -202,7 +202,10 @@ to use this feature. The information is also exposed in the
 
 #### Requirements
 
-Pressure Stall Information requires [Linux kernel versions 4.20 or later](/docs/reference/node/kernel-version-requirements#requirements-psi).
+Pressure Stall Information requires:
+
+- [Linux kernel versions 4.20 or later](/docs/reference/node/kernel-version-requirements#requirements-psi).
+- [cgroup v2](/docs/concepts/architecture/cgroups)
 
 ## Disabling metrics
 
