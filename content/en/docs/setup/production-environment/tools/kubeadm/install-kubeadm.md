@@ -52,7 +52,7 @@ that provides the expected symbols.
 
 {{% tab name="Windows" %}}
 
-* The kubeadm project supports recent kernel versions. For a list recent kernels, see [Windows Server Release Information](https://learn.microsoft.com/en-us/windows/release-health/windows-server-release-info).
+* The kubeadm project supports recent kernel versions. For a list of recent kernels, see [Windows Server Release Information](https://learn.microsoft.com/en-us/windows/release-health/windows-server-release-info).
 * You can get the kernel version (also called the OS version) using the command `systeminfo`
 
 For more information, see See [Adding Windows Nodes](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/#before-you-begin).
