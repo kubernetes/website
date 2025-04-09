@@ -61,7 +61,9 @@ For more information, see See [Adding Windows Nodes](/docs/tasks/administer-clus
 {{< /tabs >}}
 
 A Kubernetes cluster created by kubeadm depends on software that use kernel features.
-This software includes, but is not limited to, the container runtime (such as containerd), kubelet, kube-proxy, and a CNI plugin.
+This software includes, but is not limited to, the
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}, the kubelet, 
+and a network (CNI) plugin.
 The software depends on specific kernel features, but does not typically publish a list of these features. Often, the software requires a range of kernel versions.
 To make sure this software runs successfully, kubeadm also requires a range of kernel versions.
 
