@@ -42,7 +42,7 @@ that provides the expected symbols.
 
 {{% thirdparty-content %}}
 
-{{< tabs name="container_runtime" >}}
+{{< tabs name="operating_system_version_check" >}}
 {{% tab name="Linux" %}}
 
 * The kubeadm project supports LTS kernels. See [List of LTS kernels](https://www.kernel.org/category/releases.html).
