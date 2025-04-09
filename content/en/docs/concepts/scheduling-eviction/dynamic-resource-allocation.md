@@ -6,6 +6,8 @@ title: Dynamic Resource Allocation
 content_type: concept
 weight: 65
 api_metadata:
+- apiVersion: "resource.k8s.io/v1alpha3"
+  kind: "DeviceTaintRule"
 - apiVersion: "resource.k8s.io/v1beta1"
   kind: "ResourceClaim"
 - apiVersion: "resource.k8s.io/v1beta1"
@@ -13,6 +15,14 @@ api_metadata:
 - apiVersion: "resource.k8s.io/v1beta1"
   kind: "DeviceClass"
 - apiVersion: "resource.k8s.io/v1beta1"
+  kind: "ResourceSlice"
+- apiVersion: "resource.k8s.io/v1beta2"
+  kind: "ResourceClaim"
+- apiVersion: "resource.k8s.io/v1beta2"
+  kind: "ResourceClaimTemplate"
+- apiVersion: "resource.k8s.io/v1beta2"
+  kind: "DeviceClass"
+- apiVersion: "resource.k8s.io/v1beta2"
   kind: "ResourceSlice"
 ---
 
@@ -48,8 +58,8 @@ v{{< skew currentVersion>}}, check the documentation for that version of Kuberne
 
 ## API
 
-The `resource.k8s.io/v1beta1`
-{{< glossary_tooltip text="API group" term_id="api-group" >}} provides these types:
+The `resource.k8s.io/v1beta1` and `resource.k8s.io/v1beta2`
+{{< glossary_tooltip text="API groups" term_id="api-group" >}} provide these types:
 
 ResourceClaim
 : Describes a request for access to resources in the cluster,
@@ -71,8 +81,12 @@ DeviceClass
   in a ResourceClaim must reference exactly one DeviceClass.
 
 ResourceSlice
-: Used by DRA drivers to publish information about resources
+: Used by DRA drivers to publish information about resources (typically devices)
   that are available in the cluster.
+
+DeviceTaintRule
+: Used by admins or control plane components to add device taints
+  to the devices described in ResourceSlices.
 
 All parameters that select devices are defined in the ResourceClaim and
 DeviceClass with in-tree types. Configuration parameters can be embedded there.
@@ -94,15 +108,16 @@ Here is an example for a fictional resource driver. Two ResourceClaim objects
 will get created for this Pod and each container gets access to one of them.
 
 ```yaml
-apiVersion: resource.k8s.io/v1beta1
+apiVersion: resource.k8s.io/v1beta2
 kind: DeviceClass
-name: resource.example.com
+metadata:
+  name: resource.example.com
 spec:
   selectors:
   - cel:
       expression: device.driver == "resource-driver.example.com"
 ---
-apiVersion: resource.k8s.io/v1beta1
+apiVersion: resource.k8s.io/v1beta2
 kind: ResourceClaimTemplate
 metadata:
   name: large-black-cat-claim-template
@@ -111,13 +126,14 @@ spec:
     devices:
       requests:
       - name: req-0
-        deviceClassName: resource.example.com
-        selectors:
-        - cel:
-           expression: |-
-              device.attributes["resource-driver.example.com"].color == "black" &&
-              device.attributes["resource-driver.example.com"].size == "large"
-–--
+        exactly:
+          deviceClassName: resource.example.com
+          selectors:
+          - cel:
+             expression: |-
+                device.attributes["resource-driver.example.com"].color == "black" &&
+                device.attributes["resource-driver.example.com"].size == "large"
+---
 apiVersion: v1
 kind: Pod
 metadata:
@@ -219,7 +235,7 @@ admin access grants access to in-use devices and may enable additional
 permissions when making the device available in a container:
 
 ```yaml
-apiVersion: resource.k8s.io/v1beta1
+apiVersion: resource.k8s.io/v1beta2
 kind: ResourceClaimTemplate
 metadata:
   name: large-black-cat-claim-template
@@ -228,9 +244,10 @@ spec:
     devices:
       requests:
       - name: req-0
-        deviceClassName: resource.example.com
-        allocationMode: All
-        adminAccess: true
+        exactly:
+          deviceClassName: resource.example.com
+          allocationMode: All
+          adminAccess: true
 ```
 
 If this feature is disabled, the `adminAccess` field will be removed
@@ -277,7 +294,7 @@ allocated if it is available. But if it is not and two small white devices are a
 the pod will still be able to run.
 
 ```yaml
-apiVersion: resource.k8s.io/v1beta1
+apiVersion: resource.k8s.io/v1beta2
 kind: ResourceClaimTemplate
 metadata:
   name: prioritized-list-claim-template
@@ -327,7 +344,7 @@ handles this and it is transparent to the consumer as the ResourceClaim API is n
 
 ```yaml
 kind: ResourceSlice
-apiVersion: resource.k8s.io/v1beta1
+apiVersion: resource.k8s.io/v1beta2
 metadata:
   name: resourceslice
 spec:
@@ -347,21 +364,110 @@ spec:
     consumesCounters:
     - counterSet: gpu-1-counters
       counters:
-        memory: 
+        memory:
           value: 6Gi
   - name: device-2
     consumesCounters:
     - counterSet: gpu-1-counters
       counters:
-        memory: 
+        memory:
           value: 6Gi
+```
+
+## Device taints and tolerations
+
+{{< feature-state feature_gate_name="DRADeviceTaints" >}}
+
+Device taints are similar to node taints: a taint has a string key, a string
+value, and an effect. The effect is applied to the ResourceClaim which is
+using a tainted device and to all Pods referencing that ResourceClaim.
+The "NoSchedule" effect prevents scheduling those Pods.
+Tainted devices are ignored when trying to allocate a ResourceClaim
+because using them would prevent scheduling of Pods.
+
+The "NoExecute" effect implies "NoSchedule" and in addition causes eviction
+of all Pods which have been scheduled already. This eviction is implemented
+in the device taint eviction controller in kube-controller-manager by
+deleting affected Pods.
+
+ResourceClaims can tolerate taints. If a taint is tolerated, its effect does
+not apply. An empty toleration matches all taints. A toleration can be limited to
+certain effects and/or match certain key/value pairs. A toleration can check
+that a certain key exists, regardless which value it has, or it can check
+for specific values of a key.
+For more information on this matching see the
+[node taint concepts](/docs/concepts/scheduling-eviction/taint-and-toleration#concepts).
+
+Eviction can be delayed by tolerating a taint for a certain duration.
+That delay starts at the time when a taint gets added to a device, which is recorded in a field
+of the taint.
+
+Taints apply as described above also to ResourceClaims allocating "all" devices on a node.
+All devices must be untainted or all of their taints must be tolerated.
+Allocating a device with admin access (described [above](#admin-access))
+is not exempt either. An admin using that mode must explicitly tolerate all taints
+to access tainted devices.
+
+Taints can be added to devices in two different ways:
+
+### Taints set by the driver
+
+A DRA driver can add taints to the device information that it publishes in ResourceSlices.
+Consult the documentation of a DRA driver to learn whether the driver uses taints and what
+their keys and values are.
+
+### Taints set by an admin
+
+An admin or a control plane component can taint devices without having to tell
+the DRA driver to include taints in its device information in ResourceSlices. They do that by
+creating DeviceTaintRules. Each DeviceTaintRule adds one taint to devices which
+match the device selector. Without such a selector, no devices are tainted. This
+makes it harder to accidentally evict all pods using ResourceClaims when leaving out
+the selector by mistake.
+
+Devices can be selected by giving the name of a DeviceClass, driver, pool,
+and/or device. The DeviceClass selects all devices that are selected by the
+selectors in that DeviceClass. With just the driver name, an admin can taint
+all devices managed by that driver, for example while doing some kind of
+maintenance of that driver across the entire cluster. Adding a pool name can
+limit the taint to a single node, if the driver manages node-local devices.
+
+Finally, adding the device name can select one specific device. The device name
+and pool name can also be used alone, if desired. For example, drivers for node-local
+devices are encouraged to use the node name as their pool name. Then tainting with
+that pool name automatically taints all devices on a node.
+
+Drivers might use stable names like "gpu-0" that hide which specific device is
+currently assigned to that name. To support tainting a specific hardware
+instance, CEL selectors can be used in a DeviceTaintRule to match a vendor-specific
+unique ID attribute, if the driver supports one for its hardware.
+
+The taint applies as long as the DeviceTaintRule exists. It can be modified and
+and removed at any time. Here is one example of a DeviceTaintRule for a fictional
+DRA driver:
+
+```yaml
+apiVersion: resource.k8s.io/v1alpha3
+kind: DeviceTaintRule
+metadata:
+  name: example
+spec:
+  # The entire hardware installation for this
+  # particular driver is broken.
+  # Evict all pods and don't schedule new ones.
+  deviceSelector:
+    driver: dra.example.com
+  taint:
+    key: dra.example.com/unhealthy
+    value: Broken
+    effect: NoExecute
 ```
 
 ## Enabling dynamic resource allocation
 
 Dynamic resource allocation is a *beta feature* which is off by default and only enabled when the
 `DynamicResourceAllocation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-and the `resource.k8s.io/v1beta1` {{< glossary_tooltip text="API group" term_id="api-group" >}}
+and the `resource.k8s.io/v1beta1` and `resource.k8s.io/v1beta2` {{< glossary_tooltip text="API groups" term_id="api-group" >}}
 are enabled. For details on that, see the `--feature-gates` and `--runtime-config`
 [kube-apiserver parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
 kube-scheduler, kube-controller-manager and kubelet also need the feature gate.
@@ -425,6 +531,13 @@ is enabled.
 and only enabled when the `DRAPartitionableDevices` 
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled in the kube-apiserver and kube-scheduler.
+
+### Enabling device taints and tolerations
+
+[Device taints and tolerations](#device-taints-and-tolerations) is an *alpha feature* and only enabled when the
+`DRADeviceTaints` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kube-apiserver, kube-controller-manager and kube-scheduler. To use DeviceTaintRules, the
+`resource.k8s.io/v1alpha3` API version must be enabled.
 
 ## {{% heading "whatsnext" %}}
 
