@@ -12,6 +12,20 @@ The volume populators feature is now entering GA! The `AnyVolumeDataSource` feat
 gate defaults to enabled in Kubernetes v1.33, which means that users can specify any custom resource
 as the data source of a PVC.
 
+An example of how to use dataSourceRef in PVC:
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc1
+spec:
+  ...
+  dataSourceRef:
+    apiGroup: provider.example.com
+    kind: Provider
+    name: provider1
+```
+
 ## What is new
 
 There are four major enhancements from beta.
@@ -25,15 +39,17 @@ To accommodate this, we've introduced three new plugin-based functions:
 * PopulateCompleteFn(): Checks if the data population operation has finished successfully.
 * PopulateCleanupFn(): Cleans up temporary resources created by the provider-specific functions after data population is completed
 
+A provider example is added in [lib-volume-populator/example](https://github.com/kubernetes-csi/lib-volume-populator/tree/master/example).
+
 ### Mutator functions to modify the Kubernetes resources
 
-For GA a MutatorConfig to the Volume Populator Controller is added, allowing the specification of mutator functions to modify Kubernetes resources. This enables customization of the default Kubernetes objects in the volume populator.
+For GA a MutatorConfig to the Volume Populator Controller is added, allowing the specification of mutator functions to modify Kubernetes resources. For example, if the PVC prime is not an exact copy of the PVC and you need provider-specific information for the driver, you can include this information in the optional MutatorConfig. This allows you to customize the default Kubernetes objects in the volume populator.
 
 ### Flexible metric handling for providers
 
 Our beta phase highlighted a new requirement: the need to aggregate metrics not just from lib-volume-populator, but also from other components within the provider's codebase.
 
-To address this, we've introduced a provider metric manager. This enhancement delegates the implementation of metrics logic to the provider itself, rather than relying solely on lib-volume-populator. This shift provides greater flexibility and control over metrics collection and aggregation, enabling a more comprehensive view of provider performance.
+To address this, we've introduced a [provider metric manager](https://github.com/kubernetes-csi/lib-volume-populator/blob/8a922a5302fdba13a6c27328ee50e5396940214b/populator-machinery/controller.go#L122). This enhancement delegates the implementation of metrics logic to the provider itself, rather than relying solely on lib-volume-populator. This shift provides greater flexibility and control over metrics collection and aggregation, enabling a more comprehensive view of provider performance.
 
 ### Clean up temp resources
 
