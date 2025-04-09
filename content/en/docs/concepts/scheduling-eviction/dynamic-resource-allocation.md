@@ -6,6 +6,8 @@ title: Dynamic Resource Allocation
 content_type: concept
 weight: 65
 api_metadata:
+- apiVersion: "resource.k8s.io/v1alpha3"
+  kind: "DeviceTaintRule"
 - apiVersion: "resource.k8s.io/v1beta1"
   kind: "ResourceClaim"
 - apiVersion: "resource.k8s.io/v1beta1"
@@ -13,6 +15,14 @@ api_metadata:
 - apiVersion: "resource.k8s.io/v1beta1"
   kind: "DeviceClass"
 - apiVersion: "resource.k8s.io/v1beta1"
+  kind: "ResourceSlice"
+- apiVersion: "resource.k8s.io/v1beta2"
+  kind: "ResourceClaim"
+- apiVersion: "resource.k8s.io/v1beta2"
+  kind: "ResourceClaimTemplate"
+- apiVersion: "resource.k8s.io/v1beta2"
+  kind: "DeviceClass"
+- apiVersion: "resource.k8s.io/v1beta2"
   kind: "ResourceSlice"
 ---
 
@@ -48,8 +58,8 @@ v{{< skew currentVersion>}}, check the documentation for that version of Kuberne
 
 ## API
 
-The `resource.k8s.io/v1beta1`
-{{< glossary_tooltip text="API group" term_id="api-group" >}} provides these types:
+The `resource.k8s.io/v1beta1` and `resource.k8s.io/v1beta2`
+{{< glossary_tooltip text="API groups" term_id="api-group" >}} provide these types:
 
 ResourceClaim
 : Describes a request for access to resources in the cluster,
@@ -98,15 +108,16 @@ Here is an example for a fictional resource driver. Two ResourceClaim objects
 will get created for this Pod and each container gets access to one of them.
 
 ```yaml
-apiVersion: resource.k8s.io/v1beta1
+apiVersion: resource.k8s.io/v1beta2
 kind: DeviceClass
-name: resource.example.com
+metadata:
+  name: resource.example.com
 spec:
   selectors:
   - cel:
       expression: device.driver == "resource-driver.example.com"
 ---
-apiVersion: resource.k8s.io/v1beta1
+apiVersion: resource.k8s.io/v1beta2
 kind: ResourceClaimTemplate
 metadata:
   name: large-black-cat-claim-template
@@ -115,13 +126,14 @@ spec:
     devices:
       requests:
       - name: req-0
-        deviceClassName: resource.example.com
-        selectors:
-        - cel:
-           expression: |-
-              device.attributes["resource-driver.example.com"].color == "black" &&
-              device.attributes["resource-driver.example.com"].size == "large"
-–--
+        exactly:
+          deviceClassName: resource.example.com
+          selectors:
+          - cel:
+             expression: |-
+                device.attributes["resource-driver.example.com"].color == "black" &&
+                device.attributes["resource-driver.example.com"].size == "large"
+---
 apiVersion: v1
 kind: Pod
 metadata:
@@ -223,7 +235,7 @@ admin access grants access to in-use devices and may enable additional
 permissions when making the device available in a container:
 
 ```yaml
-apiVersion: resource.k8s.io/v1beta1
+apiVersion: resource.k8s.io/v1beta2
 kind: ResourceClaimTemplate
 metadata:
   name: large-black-cat-claim-template
@@ -232,9 +244,10 @@ spec:
     devices:
       requests:
       - name: req-0
-        deviceClassName: resource.example.com
-        allocationMode: All
-        adminAccess: true
+        exactly:
+          deviceClassName: resource.example.com
+          allocationMode: All
+          adminAccess: true
 ```
 
 If this feature is disabled, the `adminAccess` field will be removed
@@ -281,7 +294,7 @@ allocated if it is available. But if it is not and two small white devices are a
 the pod will still be able to run.
 
 ```yaml
-apiVersion: resource.k8s.io/v1beta1
+apiVersion: resource.k8s.io/v1beta2
 kind: ResourceClaimTemplate
 metadata:
   name: prioritized-list-claim-template
@@ -331,7 +344,7 @@ handles this and it is transparent to the consumer as the ResourceClaim API is n
 
 ```yaml
 kind: ResourceSlice
-apiVersion: resource.k8s.io/v1beta1
+apiVersion: resource.k8s.io/v1beta2
 metadata:
   name: resourceslice
 spec:
@@ -351,13 +364,13 @@ spec:
     consumesCounters:
     - counterSet: gpu-1-counters
       counters:
-        memory: 
+        memory:
           value: 6Gi
   - name: device-2
     consumesCounters:
     - counterSet: gpu-1-counters
       counters:
-        memory: 
+        memory:
           value: 6Gi
 ```
 
@@ -454,7 +467,7 @@ spec:
 
 Dynamic resource allocation is a *beta feature* which is off by default and only enabled when the
 `DynamicResourceAllocation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-and the `resource.k8s.io/v1beta1` {{< glossary_tooltip text="API group" term_id="api-group" >}}
+and the `resource.k8s.io/v1beta1` and `resource.k8s.io/v1beta2` {{< glossary_tooltip text="API groups" term_id="api-group" >}}
 are enabled. For details on that, see the `--feature-gates` and `--runtime-config`
 [kube-apiserver parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
 kube-scheduler, kube-controller-manager and kubelet also need the feature gate.
