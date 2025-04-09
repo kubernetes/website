@@ -258,7 +258,7 @@ real time changes of the state of the device.
 When the feature is disabled, that field automatically gets cleared when storing the ResourceClaim. 
 
 A ResourceClaim device status is supported when it is possible, from a DRA driver, to update an 
-existing ResourceClaim where the `status.devices` field is set. 
+existing ResourceClaim where the `status.devices` field is set.
 
 ## Prioritized List
 
@@ -302,6 +302,59 @@ spec:
                 device.attributes["resource-driver.example.com"].color == "white" &&
                 device.attributes["resource-driver.example.com"].size == "small"
           count: 2
+```
+
+## Partitionable Devices
+
+{{< feature-state feature_gate_name="DRAPartitionableDevices" >}}
+
+Devices represented in DRA don't necessarily have to be a single unit connected to a single machine,
+but can also be a logical device comprised of multiple devices connected to multiple machines. These
+devices might consume overlapping resources of the underlying phyical devices, meaning that when one
+logical device is allocated other devices will no longer be available.
+
+In the ResourceSlice API, this is represented as a list of named CounterSets, each of which
+contains a set of named counters. The counters represent the resources available on the physical
+device that are used by the logical devices advertised through DRA.
+
+Logical devices can specify the ConsumesCounters list. Each entry contains a reference to a CounterSet
+and a set of named counters with the amounts they will consume. So for a device to be allocatable,
+the referenced counter sets must have sufficient quantity for the counters referenced by the device.
+
+Here is an example of two devices, each consuming 6Gi of memory from the a shared counter with
+8Gi of memory. Thus, only one of the devices can be allocated at any point in time. The scheduler
+handles this and it is transparent to the consumer as the ResourceClaim API is not affected.
+
+```yaml
+kind: ResourceSlice
+apiVersion: resource.k8s.io/v1beta1
+metadata:
+  name: resourceslice
+spec:
+  nodeName: worker-1
+  pool:
+    name: pool
+    generation: 1
+    resourceSliceCount: 1
+  driver: dra.example.com
+  sharedCounters:
+  - name: gpu-1-counters
+    counters:
+      memory:
+        value: 8Gi
+  devices:
+  - name: device-1
+    consumesCounters:
+    - counterSet: gpu-1-counters
+      counters:
+        memory: 
+          value: 6Gi
+  - name: device-2
+    consumesCounters:
+    - counterSet: gpu-1-counters
+      counters:
+        memory: 
+          value: 6Gi
 ```
 
 ## Enabling dynamic resource allocation
@@ -365,6 +418,13 @@ is enabled in the kube-apiserver.
 is enabled in the kube-apiserver and kube-scheduler. It also requires that the
 `DynamicResourceAllocation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled.
+
+### Enabling Partitionable Devices
+
+[Partitionable Devices](#partitionable-devices) is an *alpha feature* 
+and only enabled when the `DRAPartitionableDevices` 
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kube-apiserver and kube-scheduler.
 
 ## {{% heading "whatsnext" %}}
 
