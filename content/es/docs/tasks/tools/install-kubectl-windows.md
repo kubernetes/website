@@ -47,7 +47,7 @@ Existen los siguientes métodos para instalar kubectl en Windows:
    Descargue el archivo de comprobación de kubectl:
 
    ```powershell
-   curl -LO https://dl.k8s.io/v{{% skew currentPatchVersion %}}/bin/windows/amd64/kubectl.exe.sha256
+   curl.exe -LO https://dl.k8s.io/v{{% skew currentPatchVersion %}}/bin/windows/amd64/kubectl.exe.sha256
    ```
 
    Valide el binario kubectl con el archivo de comprobación:
@@ -65,7 +65,7 @@ Existen los siguientes métodos para instalar kubectl en Windows:
       $(Get-FileHash -Algorithm SHA256 .\kubectl.exe).Hash -eq $(Get-Content .\kubectl.exe.sha256))
      ```
 
-1. Agregue el binario a su `PATH`.
+1. Agregue el binario `kubectl` a su `PATH` en las variables de entorno.
 
 1. Para asegurar que la versión de `kubectl` es la misma que descargada, ejecute:
 
@@ -73,19 +73,19 @@ Existen los siguientes métodos para instalar kubectl en Windows:
    kubectl version --client
    ```
 
-O para obtener una vista detallada de la versión, ejecute:
+O para una vista detallada de la versión, ejecute:
 ```cmd
 kubectl version --client --output=yaml
 ```
 
 {{< note >}}
-[Docker Desktop para Windows](https://docs.docker.com/docker-for-windows/#kubernetes) agrega su propia versión de `kubectl` a el `PATH`.
-Si ha instalado Docker Desktop antes, es posible que deba colocar su entrada en el `PATH` antes de la agregada por el instalador de Docker Desktop o elimine el `kubectl`.
+[Docker Desktop para Windows](https://docs.docker.com/docker-for-windows/#kubernetes) agrega su propia versión de `kubectl` al `PATH`.
+Si ha instalado Docker Desktop antes, es posible que deba colocar su entrada del `PATH` antes de la agregada por el instalador de Docker Desktop o elimine el `kubectl` de Docker Desktop.
 {{< /note >}}
 
-### Instalar en Windows usando Chocolatey, Scoop o winget
+### Instalar en Windows usando Chocolatey, Scoop o winget {#install-nonstandard-package-tools}
 
-1. Para instalar kubectl en Windows, puede usar [Chocolatey](https://chocolatey.org), [Scoop](https://scoop.sh) o [winget](https://docs.microsoft.com/en-us/windows/package-manager/winget/).
+1. Para instalar kubectl en Windows, puede usar el gestor de paquetes [Chocolatey](https://chocolatey.org), el instalador por línea de comandos [Scoop](https://scoop.sh) o el gestor de paquetes [winget](https://docs.microsoft.com/en-us/windows/package-manager/winget/).
 
    {{< tabs name="kubectl_win_install" >}}
    {{% tab name="choco" %}}
@@ -143,17 +143,15 @@ Edite el archivo de configuración con un editor de texto de su elección, como 
 
 ## Verificar la configuración de kubectl
 
-{{< include "verify-kubectl.md" >}}
+{{< include "included/verify-kubectl.md" >}}
 
 ## Plugins y configuraciones opcionales de kubectl
 
 ### Habilitar el autocompletado de shell
 
-kubectl proporciona soporte de autocompletado para Bash y Zsh, lo que puede ahorrarle mucho tiempo al escribir.
+kubectl proporciona soporte de autocompletado para Bash, Zsh, Fish, y PowerShell, lo que puede ahorrarle mucho tiempo al escribir.
 
-A continuación se muestran los procedimientos para configurar el autocompletado para Zsh, si lo está ejecutando en Windows.
-
-Además, si utiliza PowerShell, puede habilitar el autocompletado. A continuación se muestran los procedimientos para configurar el autocompletado en PowerShell:
+A continuación se muestran los procedimientos para configurar el autocompletado para PowerShell.
 
 {{< include "included/optional-kubectl-configs-pwsh.md" >}}
 
