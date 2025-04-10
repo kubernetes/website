@@ -18,7 +18,7 @@ With the rise of microservices, the sidecar pattern became more clearly defined,
 
 In Kubernetes, [sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/) operate within
 the same Pod as the main application, enabling communication and resource sharing.
-Does this sound just like defining multiple containers along each other inside the pod? It actually does, and
+Does this sound just like defining multiple containers along each other inside the Pod? It actually does, and
 this is how sidecar containers had to be implemented before Kubernetes v1.29.0, which introduced
 native support for sidecars.
 Sidecar containers  can now be defined within a Pod manifest using the `spec.initContainers` field. What makes
