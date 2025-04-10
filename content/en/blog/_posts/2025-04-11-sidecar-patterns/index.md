@@ -69,6 +69,7 @@ The **Init container** pattern is used to execute (often critical) setup tasks b
 1. Loading secrets
 1. Verifying dependency availability
 1. Running database migrations
+
 The init container ensures your application starts in a predictable, controlled environment without code modifications.
 
 ### Ambassador pattern
