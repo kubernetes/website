@@ -228,6 +228,7 @@ Resources specified on the quota outside of the allowed set results in a validat
 | `NotBestEffort` | Match pods that do not have best effort quality of service. |
 | `PriorityClass` | Match pods that references the specified [priority class](/docs/concepts/scheduling-eviction/pod-priority-preemption). |
 | `CrossNamespacePodAffinity` | Match pods that have cross-namespace pod [(anti)affinity terms](/docs/concepts/scheduling-eviction/assign-pod-node). |
+| `VolumeAttributesClass` | Match persistentvolumeclaims that references the specified [volume attributes class](/docs/concepts/storage/volume-attributes-classes). |
 
 The `BestEffort` scope restricts a quota to tracking the following resource:
 
@@ -458,6 +459,257 @@ plugins:
 With the above configuration, pods can use `namespaces` and `namespaceSelector` in pod affinity only
 if the namespace where they are created have a resource quota object with
 `CrossNamespacePodAffinity` scope and a hard limit greater than or equal to the number of pods using those fields.
+
+### Resource Quota Per VolumeAttributesClass
+
+{{< feature-state feature_gate_name="VolumeAttributesClass" >}}
+
+PersistentVolumeClaims can be created with a specific [volume attributes class](/docs/concepts/storage/volume-attributes-classes/), and might be modified after creation. You can control a PVC's consumption of storage resources based on the associated volume attributes classes, by using the `scopeSelector` field in the quota spec.
+
+The PVC references the associated volume attributes class by the following fields:
+
+* `spec.volumeAttributesClassName`
+* `status.currentVolumeAttributesClassName`
+* `status.modifyVolumeStatus.targetVolumeAttributesClassName`
+
+A quota is matched and consumed only if `scopeSelector` in the quota spec selects the PVC.
+
+When the quota is scoped for the volume attributes class using the `scopeSelector` field, the quota object is restricted to track only the following resources:
+
+* `persistentvolumeclaims`
+* `requests.storage`
+
+This example creates a quota object and matches it with PVC at specific volume attributes classes. The example works as follows:
+
+- PVCs in the cluster have at least one of the three volume attributes classes, "gold", "silver", "copper".
+- One quota object is created for each volume attributes class.
+
+Save the following YAML to a file `quota-vac.yaml`.
+
+{{% code_sample file="policy/quota-vac.yaml" %}}
+
+Apply the YAML using `kubectl create`.
+
+```shell
+kubectl create -f ./quota-vac.yaml
+```
+
+```
+resourcequota/pvcs-gold created
+resourcequota/pvcs-silver created
+resourcequota/pvcs-copper created
+```
+
+Verify that `Used` quota is `0` using `kubectl describe quota`.
+
+```shell
+kubectl describe quota
+```
+
+```
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     30Gi
+```
+
+Create a pvc with volume attributes class "gold". Save the following YAML to a file `gold-vac-pvc.yaml`.
+
+{{% code_sample file="policy/gold-vac-pvc.yaml" %}}
+
+Apply it with `kubectl create`.
+
+```shell
+kubectl create -f ./gold-vac-pvc.yaml
+```
+
+Verify that "Used" stats for "gold" volume attributes class quota, `pvcs-gold` has changed and that the other two quotas are unchanged.
+
+```shell
+kubectl describe quota
+```
+
+```
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     30Gi
+```
+
+Once the PVC is bound, it is allowed to modify the desired volume attributes class. Let's change it to "silver" with kubectl patch.
+
+```shell
+kubectl patch pvc gold-vac-pvc --type='merge' -p '{"spec":{"volumeAttributesClassName":"silver"}}'
+```
+
+Verify that "Used" stats for "silver" volume attributes class quota, `pvcs-silver` has changed, `pvcs-copper` is unchanged, and `pvcs-gold` might be unchanged or released, which depends on the PVC's status.
+
+```shell
+kubectl describe quota
+```
+
+```
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     30Gi
+```
+
+Let's change it to "copper" with kubectl patch. 
+
+```shell
+kubectl patch pvc gold-vac-pvc --type='merge' -p '{"spec":{"volumeAttributesClassName":"copper"}}'
+```
+
+Verify that "Used" stats for "copper" volume attributes class quota, `pvcs-copper` has changed, `pvcs-silver` and `pvcs-gold` might be unchanged or released, which depends on the PVC's status. 
+
+```shell
+kubectl describe quota
+```
+
+```
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   30Gi
+```
+
+Print the manifest of the PVC using the following command:
+
+```shell
+kubectl get pvc gold-vac-pvc -o yaml
+```
+
+It might show the following output:
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gold-vac-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: default
+  volumeAttributesClassName: copper
+status:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 2Gi
+  currentVolumeAttributesClassName: gold
+  phase: Bound
+  modifyVolumeStatus:
+    status: InProgress
+    targetVolumeAttributesClassName: silver
+  storageClassName: default
+```
+
+Wait a moment for the volume modification to complete, then verify the quota again.
+
+```shell
+kubectl describe quota
+```
+
+```
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   30Gi
+```
 
 ## Requests compared to Limits {#requests-vs-limits}
 
