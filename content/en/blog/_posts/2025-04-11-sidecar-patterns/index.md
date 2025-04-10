@@ -35,7 +35,7 @@ initContainers:
         mountPath: /opt
 ```
 
-That field name, `spec.initContainers` may sound confusing. How come when you want to define a sidecar container, you have to put an entry in the `spec.initContainers` array? `spec.initContainers` are run to completion just before main application starts, so they’re one-off, whereas sidecars often run in parallel to the main app container. It’s the `spec.initContainers` with `restartPolicy:Always` which differs classic init containers from Kubernetes-native sidecar containers and ensures they are always up. 
+That field name, `spec.initContainers` may sound confusing. How come when you want to define a sidecar container, you have to put an entry in the `spec.initContainers` array? `spec.initContainers` are run to completion just before main application starts, so they’re one-off, whereas sidecars often run in parallel to the main app container. It’s the `spec.initContainers` with `restartPolicy:Always` which differs classic [init containers](/docs/concepts/workloads/pods/init-containers/) from Kubernetes-native sidecar containers and ensures they are always up. 
 
 ## When to embrace (or avoid) sidecars
 
