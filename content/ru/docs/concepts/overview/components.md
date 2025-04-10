@@ -11,7 +11,7 @@ card:
 
 <!-- overview -->
 При развёртывании Kubernetes вы имеете дело с кластером.
-{{< glossary_definition term_id="cluster" length="all" prepend="Kubernetes cluster состоит из">}}
+{{< glossary_definition term_id="cluster" length="all" prepend="Kubernetes-кластер состоит из">}}
 
 На этой странице в общих чертах описываются различные компоненты, необходимые для работы кластера Kubernetes.
 
