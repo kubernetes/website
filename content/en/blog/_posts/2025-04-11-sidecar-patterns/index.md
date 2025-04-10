@@ -57,7 +57,6 @@ While the sidecar pattern can be useful in many cases, it is generally not the p
 
 
 ## Four essential multi-container patterns
-```
 
 ### Init container pattern
 
