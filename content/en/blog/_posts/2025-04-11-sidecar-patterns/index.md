@@ -44,7 +44,7 @@ While the sidecar pattern can be useful in many cases, it is generally not the p
 **Deploy a sidecar when:**
 
 1. You need to extend application functionality without touching the original code
-1. Implementing cross-cutting concerns like logging, monitoring, or security
+1. Implementing cross-cutting concerns like logging, monitoring or security
 1. Working with legacy applications requiring modern networking capabilities
 1. Designing microservices that demand independent scaling and updates
 
