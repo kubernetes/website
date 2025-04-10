@@ -3,7 +3,7 @@ layout: blog
 title: "Kubernetes Sidecar Patterns: An Overview"
 date: 2025-04-11
 draft: true
-slug: sidecar-patterns
+slug: kubernetes-sidecar-patterns-overview
 author: Agata Skorupka (The Scale Factory)
 ---
 
