@@ -52,6 +52,16 @@ to the test cluster requires authentication by username and password.
 Create a directory named `config-exercise`. In your
 `config-exercise` directory, create a file named `config-demo` with this content:
 
+## Prerequisites:
+
+Check if you have same user name in all config files for each cluster(default kubernetes-admin) but they use different client-key-data for each cluster (context)
+
+Context uses that user-name so it's not clear which user belongs to which cluster.
+
+Change the user name to diffrent names before merging the files( you can add your environment or department names) as "-" postfix
+
+
+
 ```yaml
 apiVersion: v1
 kind: Config
