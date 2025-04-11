@@ -10,10 +10,3 @@
     {{ partial "docs/api-reference-links" . }}
     </div>
 {{ end }}
-{{ define "hero-more" }}
-{{ if .IsHome }}
-{{ with site.GetPage "section" "docs/tutorials/kubernetes-basics" }}
-<a href="{{ .RelPermalink }}" id="quickstartButton" class="button">{{ .LinkTitle }}</a>
-{{ end }}
-{{ end }}
-{{ end }}
