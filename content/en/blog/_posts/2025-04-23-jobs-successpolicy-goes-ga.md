@@ -7,23 +7,23 @@ authors: >
   [Yuki Iwai](https://github.com/tenzen-y) (CyberAgent, Inc)
 ---
 
-Announcing the graduation to General Availability (GA) of the Job's __Success Policy__, in Kubernetes v1.33.
+We're pleased to announce that Job's __Success Policy__ will  graduate to General Availability (GA) as part of Kubernetes v1.33 release.
 
 ## About Job's Success Policy
 
 When you run batch workloads with leader-worker patterns, you might want to mark it as succeeded
-even if some index failed. On the other hand, the Kubernetes Job without __Success Policy__ requires all Pods succeeded for Job succeeded.
+even if some the indexes failed failed. Unfortunately, the Kubernetes Job without __Success Policy__ requires in most cases all Pods succeeded for Job succeeded.
 
-This Job's __Success Policy__ allows you to specify what is criteria for Job succeeded under the `.spec.successPolicy` 
-opposed to the default success criteria which is all indexes succeeded.
+Job's __Success Policy__ allows you to specify the early exit criteria for a Job using  the `.spec.successPolicy` 
+field. Which describes a set of rules either using a list of succeeded indexes for a job, or defining a minimal required size of succeeded indexes. 
 
 We assume this feature is useful for the scientific simulation workloads and AI/ML or High-Performance computing batch workloads.
 The scientific workloads sometimes perform simulations with different parameters and do not want to care about the number of successful experiments.
-The AI/ML or High-Performance computing workloads sometimes use leader-worker patterns like MPI, in which the leader controls everything, including the workers' lifecycles.
+The AI/ML or High-Performance computing workloads sometimes use leader-follower patterns like MPI, in which the leader controls everything, including the followers' lifecycle.
 In this case, the Job failure criteria are leader index failure, and workers failure do not indicate Job failure.
 Additionally, workers do not know when they can terminate themselves.
 
-After Job meets any __Success Policy__, the Job goes to succeeded state and all Pods are terminated including running Pods.
+After Job meets any __Success Policy__, the Job is marked as succeeded, and all Pods are terminated including running ones.
 
 ## How it works
 
