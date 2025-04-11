@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: example-daemonset
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: example
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: example
+    spec:
+      containers:
+      - name: pause
+        image: registry.k8s.io/pause
+      initContainers:
+      - name: log-machine-id
+        image: busybox:1.37
+        command: ['sh', '-c', 'cat /etc/machine-id > /var/log/machine-id.log']
+        volumeMounts:
+        - name: machine-id
+          mountPath: /etc/machine-id
+          readOnly: true
+        - name: log-dir
+          mountPath: /var/log
+      volumes:
+      - name: machine-id
+        hostPath:
+          path: /etc/machine-id
+          type: File
+      - name: log-dir
+        hostPath:
+          path: /var/log
