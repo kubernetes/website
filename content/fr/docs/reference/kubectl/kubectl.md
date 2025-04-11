@@ -1,24 +1,20 @@
 ---
 title: kubectl
 content_type: tool-reference
-description: Référence kubectl
-notitle: true
+weight: 30
 ---
-## {{% heading "synopsis" %}}
 
+## {{% heading "synopsis" %}}
 
 kubectl contrôle le manager d'un cluster Kubernetes
 
 Vous trouverez plus d'informations ici : https://kubernetes.io/fr/docs/reference/kubectl/overview/
 
-```
+```shell
 kubectl [flags]
 ```
 
-
-
 ## {{% heading "options" %}}
-
 
 <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -42,13 +38,6 @@ kubectl [flags]
 </tr>
 
 <tr>
-<td colspan="2">--application-metrics-count-limit int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : 100</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Nombre max de métriques d'applications à stocker (par conteneur)</td>
-</tr>
-
-<tr>
 <td colspan="2">--as chaîne</td>
 </tr>
 <tr>
@@ -67,13 +56,6 @@ kubectl [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Chemin du fichier contenant les informations de configuration du registre de conteneurs Azure</td>
-</tr>
-
-<tr>
-<td colspan="2">--boot-id-file string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : "/proc/sys/kernel/random/boot_id"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Liste séparée par des virgules de fichiers dans lesquels rechercher le boot-id. Utilise le premier trouvé.</td>
 </tr>
 
 <tr>
@@ -119,27 +101,6 @@ kubectl [flags]
 </tr>
 
 <tr>
-<td colspan="2">--container-hints chaîne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : "/etc/cadvisor/container_hints.json"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">location du fichier hints du conteneur</td>
-</tr>
-
-<tr>
-<td colspan="2">--containerd chaîne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : "/run/containerd/containerd.sock"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Point de terminaison de containerd</td>
-</tr>
-
-<tr>
-<td colspan="2">--containerd-namespace chaîne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : "k8s.io"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">namespace de containerd</td>
-</tr>
-
-<tr>
 <td colspan="2">--context chaîne</td>
 </tr>
 <tr>
@@ -161,108 +122,10 @@ kubectl [flags]
 </tr>
 
 <tr>
-<td colspan="2">--disable-root-cgroup-stats</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Désactive la collecte des stats du Cgroup racine</td>
-</tr>
-
-<tr>
-<td colspan="2">--docker chaîne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : "unix:///var/run/docker.sock"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Point de terminaison docker</td>
-</tr>
-
-<tr>
-<td colspan="2">--docker-env-metadata-whitelist chaîne</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">une liste séparée par des virgules de variables d'environnement qui doivent être collectées pour les conteneurs docker</td>
-</tr>
-
-<tr>
-<td colspan="2">--docker-only</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Remonte uniquement les stats Docker en plus des stats racine</td>
-</tr>
-
-<tr>
-<td colspan="2">--docker-root chaîne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : "/var/lib/docker"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">DÉPRÉCIÉ : la racine de docker est lue depuis docker info (ceci est une solution de secours, défaut : /var/lib/docker)</td>
-</tr>
-
-<tr>
-<td colspan="2">--docker-tls</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">utiliser TLS pour se connecter à docker</td>
-</tr>
-
-<tr>
-<td colspan="2">--docker-tls-ca chaîne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : "ca.pem"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">chemin vers CA de confiance</td>
-</tr>
-
-<tr>
-<td colspan="2">--docker-tls-cert chaîne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : "cert.pem"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">chemin vers le certificat client</td>
-</tr>
-
-<tr>
-<td colspan="2">--docker-tls-key chaîne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : "key.pem"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">chemin vers la clef privée</td>
-</tr>
-
-<tr>
-<td colspan="2">--enable-load-reader</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Activer le lecteur de la charge CPU</td>
-</tr>
-
-<tr>
-<td colspan="2">--event-storage-age-limit chaîne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : "default=0"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Durée maximale pendant laquelle stocker les événements  (par type). La valeur est une liste séparée par des virgules de clefs/valeurs, où les clefs sont des types d'événements (par ex: creation, oom) ou "default" et la valeur est la durée. La valeur par défaut est appliquée à tous les types d'événements non spécifiés</td>
-</tr>
-
-<tr>
-<td colspan="2">--event-storage-event-limit chaîne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : "default=0"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Nombre max d'événements à stocker (par type). La valeur est une liste séparée par des virgules de clefs/valeurs, où les clefs sont les types d'événements (par ex: creation, oom) ou "default" et la valeur est un entier. La valeur par défaut est appliquée à tous les types d'événements non spécifiés</td>
-</tr>
-
-<tr>
-<td colspan="2">--global-housekeeping-interval durée&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : 1m0s</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Intevalle entre ménages globaux</td>
-</tr>
-
-<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">aide pour kubectl</td>
-</tr>
-
-<tr>
-<td colspan="2">--housekeeping-interval durée&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : 10s</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Intervalle entre ménages des conteneurs</td>
 </tr>
 
 <tr>
@@ -284,13 +147,6 @@ kubectl [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">lorsque les logs arrivent à la ligne fichier:N, émet une stack trace</td>
-</tr>
-
-<tr>
-<td colspan="2">--log-cadvisor-usage</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Activer les logs d'usage du conteneur cAdvisor</td>
 </tr>
 
 <tr>
@@ -329,13 +185,6 @@ kubectl [flags]
 </tr>
 
 <tr>
-<td colspan="2">--machine-id-file chaîne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : "/etc/machine-id,/var/lib/dbus/machine-id"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">liste séparée par des virgules de fichiers dans lesquels rechercher le machine-id. Utiliser le premier trouvé.</td>
-</tr>
-
-<tr>
 <td colspan="2">--match-server-version</td>
 </tr>
 <tr>
@@ -347,6 +196,13 @@ kubectl [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Si présent, la portée de namespace pour la requête du CLI</td>
+</tr>
+
+<tr>
+<td colspan="2">--one-output</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Si vrai, écrire uniquement les journaux à leur niveau de gravité natif (au lieu d'écrire également à chaque niveau de gravité inférieur)</td>
 </tr>
 
 <tr>
@@ -406,52 +262,10 @@ kubectl [flags]
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-buffer-duration durée&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : 1m0s</td>
+<td colspan="2">--tls-server-name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Les écritures dans le driver de stockage seront bufferisés pour cette durée, et seront envoyés aux backends non-mémoire en une seule transaction</td>
-</tr>
-
-<tr>
-<td colspan="2">--storage-driver-db chaîne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : "cadvisor"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">nom de la base de données</td>
-</tr>
-
-<tr>
-<td colspan="2">--storage-driver-host chaîne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : "localhost:8086"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">hôte:port de la base de données</td>
-</tr>
-
-<tr>
-<td colspan="2">--storage-driver-password chaîne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : "root"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Mot de passe de la base de données</td>
-</tr>
-
-<tr>
-<td colspan="2">--storage-driver-secure</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">utiliser une connexion sécurisée avec la base de données</td>
-</tr>
-
-<tr>
-<td colspan="2">--storage-driver-table chaîne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : "stats"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Nom de la table dans la base de données</td>
-</tr>
-
-<tr>
-<td colspan="2">--storage-driver-user chaîne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : "root"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">nom d'utilisateur de la base de données</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Nom du serveur à utiliser pour la validation du certificat. S'il n'est pas fourni, le nom d'hôte utilisé pour contacter le serveur est utilisé</td>
 </tr>
 
 <tr>
@@ -459,13 +273,6 @@ kubectl [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Bearer token pour l'authentification auprès de l'API server</td>
-</tr>
-
-<tr>
-<td colspan="2">--update-machine-info-interval durée&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Défaut : 5m0s</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Intevalle entre mises à jour des infos machine.</td>
 </tr>
 
 <tr>
@@ -503,17 +310,76 @@ kubectl [flags]
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Liste de settings pattern=N séparés par des virgules pour le logging filtré par fichiers</td>
 </tr>
 
+<tr>
+<td colspan="2">--warnings-as-errors</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Traiter les avertissements reçus du serveur comme des erreurs et quitter avec un code de sortie différent de zéro</td>
+</tr>
+
 </tbody>
 </table>
 
+## {{% heading "envvars" %}}
 
+<table style="width: 100%; table-layout: fixed;">
+<colgroup>
+<col span="1" style="width: 10px;" />
+<col span="1" />
+</colgroup>
+<tbody>
 
+<tr>
+<td colspan="2">KUBECONFIG</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Chemin d'accès au fichier de configuration kubectl ("kubeconfig"). Défaut: "$HOME/.kube/config"</td>
+</tr>
 
+<tr>
+<td colspan="2">KUBECTL_COMMAND_HEADERS</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Lorsqu'il est défini sur false, désactive les en-têtes HTTP supplémentaires détaillant la commande kubectl invoquée (version Kubernetes v1.22 ou ultérieure)</td>
+</tr>
+
+<tr>
+<td colspan="2">KUBECTL_EXPLAIN_OPENAPIV3</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Active ou désactive l'utilisation de la nouvelle source de données OpenAPIv3 disponible lors des appels à `kubectl explain`. OpenAPIV3 est activé par défaut depuis Kubernetes 1.24.
+</td>
+</tr>
+
+<tr>
+<td colspan="2">KUBECTL_ENABLE_CMD_SHADOW</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Lorsque cette option est définie sur « true », les plugins externes peuvent être utilisés comme sous-commandes pour les commandes intégrées si aucune sous-commande n'existe. En phase alpha, cette fonctionnalité n'est utilisable que pour la commande de création (par exemple, kubectl create networkpolicy). 
+</td>
+</tr>
+
+<tr>
+<td colspan="2">KUBECTL_PORT_FORWARD_WEBSOCKETS</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Lorsqu'elle est définie sur true, la commande kubectl port-forward tentera de diffuser en utilisant le protocole websockets. En cas d'échec de la mise à niveau vers WebSockets, les commandes utilisent le protocole SPDY actuel.
+</td>
+</tr>
+
+<tr>
+<td colspan="2">KUBECTL_REMOTE_COMMAND_WEBSOCKETS</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Lorsqu'elles sont définies sur true, les commandes kubectl exec, cp et attach tenteront de diffuser en utilisant le protocole websockets. En cas d'échec de la mise à niveau vers WebSockets, les commandes utilisent le protocole SPDY actuel.
+</td>
+</tr>
+
+</tbody>
+</table>
 
 ## {{% heading "seealso" %}}
 
-
-* [kubectl alpha](/docs/reference/generated/kubectl/kubectl-commands#alpha)     - Commandes pour fonctionnalités alpha
 * [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands#annotate)	 - Met à jour les annotations d'une ressource
 * [kubectl api-resources](/docs/reference/generated/kubectl/kubectl-commands#api-resources)	 - Affiche les ressources de l'API prises en charge sur le serveur
 * [kubectl api-versions](/docs/reference/generated/kubectl/kubectl-commands#api-versions)	 - Affiche les versions de l'API prises en charge sur le serveur, sous la forme "groupe/version"
@@ -525,15 +391,16 @@ kubectl [flags]
 * [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands#cluster-info)	 - Affiche les informations du cluster
 * [kubectl completion](/docs/reference/generated/kubectl/kubectl-commands#completion)	 - Génère le code de complétion pour le shell spécifié (bash ou zsh)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)	 - Modifie les fichiers kubeconfig
-* [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands#convert)	 - Convertit des fichiers de config entre différentes versions d'API
 * [kubectl cordon](/docs/reference/generated/kubectl/kubectl-commands#cordon)	 - Marque un nœud comme non assignable (unschedulable)
 * [kubectl cp](/docs/reference/generated/kubectl/kubectl-commands#cp)	 - Copie des fichiers et répertoires depuis et vers des conteneurs
 * [kubectl create](/docs/reference/generated/kubectl/kubectl-commands#create)	 - Crée une ressource depuis un fichier ou stdin
+* [kubectl debug](/docs/reference/generated/kubectl/kubectl_commands#debug) - Créer des sessions de débogage pour le dépannage des charges de travail et des nœuds
 * [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands#delete)	 - Supprime des ressources par fichiers ou stdin, par ressource et nom, ou par ressource et sélecteur de label
 * [kubectl describe](/docs/reference/generated/kubectl/kubectl-commands#describe)	 - Affiche les informations d'une ressource spécifique ou d'un groupe de ressources
 * [kubectl diff](/docs/reference/generated/kubectl/kubectl-commands#diff)	 - Différence entre la version live et la version désirée
 * [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands#drain)	 - Draine un nœud en préparation d'une mise en maintenance
 * [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands#edit)	 - Édite une ressource du serveur
+* [kubectl events](/docs/reference/generated/kubectl/kubectl_commands#events)  - Liste des événements
 * [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands#exec)	 - Exécute une commande dans un conteneur
 * [kubectl explain](/docs/reference/generated/kubectl/kubectl-commands#explain)	 - Documentation sur les ressources
 * [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands#expose)	 - Prend un replication controller, service, deployment ou pod et l'expose comme un nouveau Service Kubernetes
@@ -556,5 +423,3 @@ kubectl [flags]
 * [kubectl uncordon](/docs/reference/generated/kubectl/kubectl-commands#uncordon)	 - Marque un nœud comme assignable (schedulable)
 * [kubectl version](/docs/reference/generated/kubectl/kubectl-commands#version)	 - Affiche les informations de version du client et du serveur
 * [kubectl wait](/docs/reference/generated/kubectl/kubectl-commands#wait)	 - Expérimental : Attend une condition particulière sur une ou plusieurs ressources
-
-
