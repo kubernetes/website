@@ -225,10 +225,10 @@ To investigate the root cause of a `CrashLoopBackOff` issue, a user can:
    This is often the most direct way to diagnose the issue causing the crashes.
 1. **Inspect events**: Use `kubectl describe pod <name-of-pod>` to see events
    for the Pod, which can provide hints about configuration or resource issues.
-1. **Review configuration**: Ensure that the Pod configuration, including
+1. **Review configuration**: Use `kubectl get pod <name-of-pod> -o yaml` and ensure that the Pod configuration, including
    environment variables and mounted volumes, is correct and that all required
    external resources are available.
-1. **Check resource limits**: Make sure that the container has enough CPU
+1. **Check resource limits**: Use `kubectl get pod <name-of-pod> -o jsonpath='{.spec.containers[*].resources.limits}'` and make sure that the container has enough CPU
    and memory allocated. Sometimes, increasing the resources in the Pod definition
    can resolve the issue.
 1. **Debug application**: There might exist bugs or misconfigurations in the
