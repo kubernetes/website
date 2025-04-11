@@ -248,6 +248,52 @@ User is expected to have `read` access to the resources referenced by `paramKind
 Note that if a resource in `paramKind` fails resolving via the restmapper, `read` access to all
 resources of groups is required.
 
+#### `paramRef`
+
+The `paramRef` field specifies the parameter resource used by the policy. It has the following fields:
+
+- **name**: The name of the parameter resource.
+- **namespace**: The namespace of the parameter resource.
+- **selector**: A label selector to match multiple parameter resources.
+- **parameterNotFoundAction**: (Required) Controls the behavior when the specified parameters are not found.
+
+  - **Allowed Values**:
+    - **`Allow`**: The absence of matched parameters is treated as a successful validation by the binding.
+    - **`Deny`**: The absence of matched parameters is subject to the `failurePolicy` of the policy.
+
+One of `name` or `selector` must be set, but not both.
+
+{{< note >}}
+The `parameterNotFoundAction` field in `paramRef` is **required**. It specifies the action to take when no parameters are found matching the `paramRef`. If not specified, the policy binding may be considered invalid and will be ignored or could lead to unexpected behavior.
+
+- **`Allow`**: If set to `Allow`, and no parameters are found, the binding treats the absence of parameters as a successful validation, and the policy is considered to have passed.
+- **`Deny`**: If set to `Deny`, and no parameters are found, the binding enforces the `failurePolicy` of the policy. If the `failurePolicy` is `Fail`, the request is rejected.
+
+Make sure to set `parameterNotFoundAction` according to the desired behavior when parameters are missing.
+{{< /note >}}
+
+#### Handling Missing Parameters with `parameterNotFoundAction`
+
+When using `paramRef` with a selector, it's possible that no parameters match the selector. The `parameterNotFoundAction` field determines how the binding behaves in this scenario.
+
+**Example:**
+
+```yaml
+apiVersion: admissionregistration.k8s.io/v1alpha1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: example-binding
+spec:
+  policyName: example-policy
+  paramRef:
+    selector:
+      matchLabels:
+        environment: test
+    parameterNotFoundAction: Allow
+  validationActions:
+  - Deny
+```  
+
 ### Failure Policy
 
 `failurePolicy` defines how mis-configurations and CEL expressions evaluating to error from the
