@@ -6,14 +6,19 @@ api_metadata:
 content_type: "api_reference"
 description: "ResourceClaim describes a request for access to resources in the cluster, for use by workloads."
 title: "ResourceClaim v1beta1"
-weight: 16
+weight: 15
 auto_generated: true
 ---
 
 <!--
-The file was copied and updated manually from the v1alpha3 API.
-The content is not quite up-to-date, which needs to be fixed
-by generating the file automatically.
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
 `apiVersion: resource.k8s.io/v1beta1`
@@ -57,14 +62,6 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
 
 <hr>
 
-- **controller** (string)
-
-  Controller is the name of the DRA driver that is meant to handle allocation of this claim. If empty, allocation is handled by the scheduler while scheduling a pod.
-  
-  Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
-  
-  This is an alpha field and requires enabling the DRAControlPlaneController feature gate.
-
 - **devices** (DeviceClaim)
 
   Devices defines how to request devices.
@@ -99,6 +96,8 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
       - **devices.config.opaque.parameters** (RawExtension), required
 
         Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+        
+        The length of the raw data must be smaller or equal to 10 Ki.
 
         <a name="RawExtension"></a>
         *RawExtension is used to hold extensions in external versions.
@@ -197,6 +196,8 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
     - **devices.requests.adminAccess** (boolean)
 
       AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+      
+      This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 
     - **devices.requests.allocationMode** (string)
 
@@ -263,6 +264,8 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
           For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
           
               cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+          
+          The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 
 
 
@@ -280,14 +283,6 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
 
   <a name="AllocationResult"></a>
   *AllocationResult contains attributes of an allocated resource.*
-
-  - **allocation.controller** (string)
-
-    Controller is the name of the DRA driver which handled the allocation. That driver is also responsible for deallocating the claim. It is empty when the claim can be deallocated without involving a driver.
-    
-    A driver may allocate devices provided by other drivers, so this driver name here can be different from the driver names listed for the results.
-    
-    This is an alpha field and requires enabling the DRAControlPlaneController feature gate.
 
   - **allocation.devices** (DeviceAllocationResult)
 
@@ -329,6 +324,8 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
         - **allocation.devices.config.opaque.parameters** (RawExtension), required
 
           Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+          
+          The length of the raw data must be smaller or equal to 10 Ki.
 
           <a name="RawExtension"></a>
           *RawExtension is used to hold extensions in external versions.
@@ -405,6 +402,12 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
 
         Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
 
+      - **allocation.devices.results.adminAccess** (boolean)
+
+        AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+        
+        This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+
   - **allocation.nodeSelector** (NodeSelector)
 
     NodeSelector defines where the allocated resources are available. If unset, they are available everywhere.
@@ -433,13 +436,137 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
         
         A list of node selector requirements by node's fields.
 
-- **deallocationRequested** (boolean)
+- **devices** ([]AllocatedDeviceStatus)
 
-  Indicates that a claim is to be deallocated. While this is set, no new consumers may be added to ReservedFor.
+  *Map: unique values on keys `driver, device, pool` will be kept during a merge*
   
-  This is only used if the claim needs to be deallocated by a DRA driver. That driver then must deallocate this claim and reset the field together with clearing the Allocation field.
-  
-  This is an alpha field and requires enabling the DRAControlPlaneController feature gate.
+  Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+
+  <a name="AllocatedDeviceStatus"></a>
+  *AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.*
+
+  - **devices.device** (string), required
+
+    Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+
+  - **devices.driver** (string), required
+
+    Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+    
+    Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+
+  - **devices.pool** (string), required
+
+    This name together with the driver name and the device name field identify which device was allocated (`\<driver name>/\<pool name>/\<device name>`).
+    
+    Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+
+  - **devices.conditions** ([]Condition)
+
+    *Map: unique values on key type will be kept during a merge*
+    
+    Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+
+    <a name="Condition"></a>
+    *Condition contains details for one aspect of the current state of this API Resource.*
+
+    - **devices.conditions.lastTransitionTime** (Time), required
+
+      lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+
+      <a name="Time"></a>
+      *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+    - **devices.conditions.message** (string), required
+
+      message is a human readable message indicating details about the transition. This may be an empty string.
+
+    - **devices.conditions.reason** (string), required
+
+      reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.
+
+    - **devices.conditions.status** (string), required
+
+      status of the condition, one of True, False, Unknown.
+
+    - **devices.conditions.type** (string), required
+
+      type of condition in CamelCase or in foo.example.com/CamelCase.
+
+    - **devices.conditions.observedGeneration** (int64)
+
+      observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+
+  - **devices.data** (RawExtension)
+
+    Data contains arbitrary driver-specific data.
+    
+    The length of the raw data must be smaller or equal to 10 Ki.
+
+    <a name="RawExtension"></a>
+    *RawExtension is used to hold extensions in external versions.
+    
+    To use this, make a field which has RawExtension as its type in your external, versioned struct, and Object in your internal struct. You also need to register your various plugin types.
+    
+    // Internal package:
+    
+    	type MyAPIObject struct {
+    		runtime.TypeMeta `json:",inline"`
+    		MyPlugin runtime.Object `json:"myPlugin"`
+    	}
+    
+    	type PluginA struct {
+    		AOption string `json:"aOption"`
+    	}
+    
+    // External package:
+    
+    	type MyAPIObject struct {
+    		runtime.TypeMeta `json:",inline"`
+    		MyPlugin runtime.RawExtension `json:"myPlugin"`
+    	}
+    
+    	type PluginA struct {
+    		AOption string `json:"aOption"`
+    	}
+    
+    // On the wire, the JSON will look something like this:
+    
+    	{
+    		"kind":"MyAPIObject",
+    		"apiVersion":"v1",
+    		"myPlugin": {
+    			"kind":"PluginA",
+    			"aOption":"foo",
+    		},
+    	}
+    
+    So what happens? Decode first uses json or yaml to unmarshal the serialized data into your external MyAPIObject. That causes the raw JSON to be stored, but not unpacked. The next step is to copy (using pkg/conversion) into the internal struct. The runtime package's DefaultScheme has conversion functions installed which will unpack the JSON stored in RawExtension, turning it into the correct object type, and storing it in the Object. (TODO: In the case where the object is of an unknown type, a runtime.Unknown object will be created and stored.)*
+
+  - **devices.networkData** (NetworkDeviceData)
+
+    NetworkData contains network-related information specific to the device.
+
+    <a name="NetworkDeviceData"></a>
+    *NetworkDeviceData provides network-related details for the allocated device. This information may be filled by drivers or other components to configure or identify the device within a network context.*
+
+    - **devices.networkData.hardwareAddress** (string)
+
+      HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
+      
+      Must not be longer than 128 characters.
+
+    - **devices.networkData.interfaceName** (string)
+
+      InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
+      
+      Must not be longer than 256 characters.
+
+    - **devices.networkData.ips** ([]string)
+
+      *Atomic: will be replaced during a merge*
+      
+      IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
 
 - **reservedFor** ([]ResourceClaimConsumerReference)
 
@@ -1046,6 +1173,11 @@ DELETE /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1104,6 +1236,11 @@ DELETE /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string

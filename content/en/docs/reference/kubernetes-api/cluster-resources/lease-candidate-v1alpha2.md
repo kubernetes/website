@@ -1,12 +1,12 @@
 ---
 api_metadata:
-  apiVersion: "batch/v1"
-  import: "k8s.io/api/batch/v1"
-  kind: "CronJob"
+  apiVersion: "coordination.k8s.io/v1alpha2"
+  import: "k8s.io/api/coordination/v1alpha2"
+  kind: "LeaseCandidate"
 content_type: "api_reference"
-description: "CronJob represents the configuration of a single cron job."
-title: "CronJob"
-weight: 11
+description: "LeaseCandidate defines a candidate for a Lease object."
+title: "LeaseCandidate v1alpha2"
+weight: 6
 auto_generated: true
 ---
 
@@ -21,143 +21,94 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: batch/v1`
+`apiVersion: coordination.k8s.io/v1alpha2`
 
-`import "k8s.io/api/batch/v1"`
+`import "k8s.io/api/coordination/v1alpha2"`
 
 
-## CronJob {#CronJob}
+## LeaseCandidate {#LeaseCandidate}
 
-CronJob represents the configuration of a single cron job.
+LeaseCandidate defines a candidate for a Lease object. Candidates are created such that coordinated leader election will pick the best leader from the list of candidates.
 
 <hr>
 
-- **apiVersion**: batch/v1
+- **apiVersion**: coordination.k8s.io/v1alpha2
 
 
-- **kind**: CronJob
+- **kind**: LeaseCandidate
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobSpec" >}}">CronJobSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidateSpec" >}}">LeaseCandidateSpec</a>)
 
-  Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-
-- **status** (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobStatus" >}}">CronJobStatus</a>)
-
-  Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 
 
 
 
-## CronJobSpec {#CronJobSpec}
+## LeaseCandidateSpec {#LeaseCandidateSpec}
 
-CronJobSpec describes how the job execution will look like and when it will actually run.
+LeaseCandidateSpec is a specification of a Lease.
 
 <hr>
 
-- **jobTemplate** (JobTemplateSpec), required
+- **binaryVersion** (string), required
 
-  Specifies the job that will be created when executing a CronJob.
+  BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
 
-  <a name="JobTemplateSpec"></a>
-  *JobTemplateSpec describes the data a Job should have when created from a template*
+- **leaseName** (string), required
 
-  - **jobTemplate.metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+  LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
 
-    Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+- **strategy** (string), required
 
-  - **jobTemplate.spec** (<a href="{{< ref "../workload-resources/job-v1#JobSpec" >}}">JobSpec</a>)
+  Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
 
-    Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+- **emulationVersion** (string)
 
-- **schedule** (string), required
+  EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
 
-  The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
+- **pingTime** (MicroTime)
 
-- **timeZone** (string)
+  PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
 
-  The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones
+  <a name="MicroTime"></a>
+  *MicroTime is version of Time with microsecond level precision.*
 
-- **concurrencyPolicy** (string)
+- **renewTime** (MicroTime)
 
-  Specifies how to treat concurrent executions of a Job. Valid values are:
-  
-  - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+  RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
 
-- **startingDeadlineSeconds** (int64)
-
-  Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
-
-- **suspend** (boolean)
-
-  This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
-
-- **successfulJobsHistoryLimit** (int32)
-
-  The number of successful finished jobs to retain. Value must be non-negative integer. Defaults to 3.
-
-- **failedJobsHistoryLimit** (int32)
-
-  The number of failed finished jobs to retain. Value must be non-negative integer. Defaults to 1.
+  <a name="MicroTime"></a>
+  *MicroTime is version of Time with microsecond level precision.*
 
 
 
 
 
-## CronJobStatus {#CronJobStatus}
+## LeaseCandidateList {#LeaseCandidateList}
 
-CronJobStatus represents the current state of a cron job.
+LeaseCandidateList is a list of Lease objects.
 
 <hr>
 
-- **active** ([]<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
-
-  *Atomic: will be replaced during a merge*
-  
-  A list of pointers to currently running jobs.
-
-- **lastScheduleTime** (Time)
-
-  Information when was the last time the job was successfully scheduled.
-
-  <a name="Time"></a>
-  *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-- **lastSuccessfulTime** (Time)
-
-  Information when was the last time the job successfully completed.
-
-  <a name="Time"></a>
-  *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+- **apiVersion**: coordination.k8s.io/v1alpha2
 
 
-
-
-
-## CronJobList {#CronJobList}
-
-CronJobList is a collection of cron jobs.
-
-<hr>
-
-- **apiVersion**: batch/v1
-
-
-- **kind**: CronJobList
+- **kind**: LeaseCandidateList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>), required
+- **items** ([]<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>), required
 
-  items is the list of CronJobs.
+  items is a list of schema objects.
 
 
 
@@ -174,18 +125,18 @@ CronJobList is a collection of cron jobs.
 
 
 
-### `get` read the specified CronJob
+### `get` read the specified LeaseCandidate
 
 #### HTTP Request
 
-GET /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
+GET /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the CronJob
+  name of the LeaseCandidate
 
 
 - **namespace** (*in path*): string, required
@@ -202,49 +153,16 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>): OK
 
 401: Unauthorized
 
 
-### `get` read status of the specified CronJob
+### `list` list or watch objects of kind LeaseCandidate
 
 #### HTTP Request
 
-GET /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
-
-#### Parameters
-
-
-- **name** (*in path*): string, required
-
-  name of the CronJob
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-
-#### Response
-
-
-200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
-
-401: Unauthorized
-
-
-### `list` list or watch objects of kind CronJob
-
-#### HTTP Request
-
-GET /apis/batch/v1/namespaces/{namespace}/cronjobs
+GET /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates
 
 #### Parameters
 
@@ -313,16 +231,16 @@ GET /apis/batch/v1/namespaces/{namespace}/cronjobs
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobList" >}}">CronJobList</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidateList" >}}">LeaseCandidateList</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind CronJob
+### `list` list or watch objects of kind LeaseCandidate
 
 #### HTTP Request
 
-GET /apis/batch/v1/cronjobs
+GET /apis/coordination.k8s.io/v1alpha2/leasecandidates
 
 #### Parameters
 
@@ -386,16 +304,16 @@ GET /apis/batch/v1/cronjobs
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobList" >}}">CronJobList</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidateList" >}}">LeaseCandidateList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a CronJob
+### `create` create a LeaseCandidate
 
 #### HTTP Request
 
-POST /apis/batch/v1/namespaces/{namespace}/cronjobs
+POST /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates
 
 #### Parameters
 
@@ -405,7 +323,7 @@ POST /apis/batch/v1/namespaces/{namespace}/cronjobs
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>, required
 
   
 
@@ -434,27 +352,27 @@ POST /apis/batch/v1/namespaces/{namespace}/cronjobs
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Created
+201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>): Created
 
-202 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Accepted
+202 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified CronJob
+### `update` replace the specified LeaseCandidate
 
 #### HTTP Request
 
-PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
+PUT /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the CronJob
+  name of the LeaseCandidate
 
 
 - **namespace** (*in path*): string, required
@@ -462,7 +380,7 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>, required
 
   
 
@@ -491,80 +409,25 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Created
+201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>): Created
 
 401: Unauthorized
 
 
-### `update` replace status of the specified CronJob
+### `patch` partially update the specified LeaseCandidate
 
 #### HTTP Request
 
-PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
+PATCH /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the CronJob
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>, required
-
-  
-
-
-- **dryRun** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
-- **fieldValidation** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-
-#### Response
-
-
-200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
-
-201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Created
-
-401: Unauthorized
-
-
-### `patch` partially update the specified CronJob
-
-#### HTTP Request
-
-PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
-
-#### Parameters
-
-
-- **name** (*in path*): string, required
-
-  name of the CronJob
+  name of the LeaseCandidate
 
 
 - **namespace** (*in path*): string, required
@@ -606,85 +469,25 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Created
+201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update status of the specified CronJob
+### `delete` delete a LeaseCandidate
 
 #### HTTP Request
 
-PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
+DELETE /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the CronJob
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
-
-  
-
-
-- **dryRun** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
-- **fieldValidation** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-
-#### Response
-
-
-200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
-
-201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Created
-
-401: Unauthorized
-
-
-### `delete` delete a CronJob
-
-#### HTTP Request
-
-DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
-
-#### Parameters
-
-
-- **name** (*in path*): string, required
-
-  name of the CronJob
+  name of the LeaseCandidate
 
 
 - **namespace** (*in path*): string, required
@@ -733,11 +536,11 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 401: Unauthorized
 
 
-### `deletecollection` delete collection of CronJob
+### `deletecollection` delete collection of LeaseCandidate
 
 #### HTTP Request
 
-DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
+DELETE /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates
 
 #### Parameters
 
