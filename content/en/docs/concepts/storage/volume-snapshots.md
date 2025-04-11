@@ -263,3 +263,7 @@ the _dataSource_ field in the `PersistentVolumeClaim` object.
 
 For more details, see
 [Volume Snapshot and Restore Volume from Snapshot](/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support).
+
+## {{% heading "whatsnext" %}}
+
+* Follow an example of [Working with volume snapshots and restores]((/docs/tasks/manage-storage-snapshots/volume-snapshots.md))
