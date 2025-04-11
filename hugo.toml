@@ -137,8 +137,9 @@ latest = "v1.32"
 version = "v1.32"
 githubbranch = "main"
 docsbranch = "main"
+# Should be changed to Docsy provided `archived_version` in the future.
 deprecated = false
-currentUrl = "https://kubernetes.io/docs/home/"
+url_latest_version = "https://kubernetes.io/docs/home/"
 nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
 
 # See code_sample shortcode
