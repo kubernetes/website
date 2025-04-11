@@ -148,7 +148,7 @@ These examples demonstrate the behavior of various dual-stack Service configurat
 1. This Service specification explicitly defines `IPv6` and `IPv4` in `.spec.ipFamilies` as well
    as defining `PreferDualStack` in `.spec.ipFamilyPolicy`. When Kubernetes assigns an IPv6 and
    IPv4 address in `.spec.clusterIPs`, `.spec.clusterIP` is set to the IPv6 address because that is
-   the first element in the `.spec.clusterIPs` array, overriding the default.
+   the first element in the `.spec.ipFamilies` array, overriding the default.
 
    {{% code_sample file="service/networking/dual-stack-preferred-ipfamilies-svc.yaml" %}}
 
