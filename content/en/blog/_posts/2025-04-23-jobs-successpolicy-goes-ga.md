@@ -17,7 +17,7 @@ even if some the indexes failed failed. Unfortunately, the Kubernetes Job withou
 Job's __Success Policy__ allows you to specify the early exit criteria for a Job using  the `.spec.successPolicy` 
 field. Which describes a set of rules either using a list of succeeded indexes for a job, or defining a minimal required size of succeeded indexes. 
 
-We assume this feature is useful for the scientific simulation workloads and AI/ML or High-Performance computing batch workloads.
+This feature is especially useful for the scientific simulation workloads and AI/ML or High-Performance computing batch workloads.
 The scientific workloads sometimes perform simulations with different parameters and do not want to care about the number of successful experiments.
 The AI/ML or High-Performance computing workloads sometimes use leader-follower patterns like MPI, in which the leader controls everything, including the followers' lifecycle.
 In this case, the Job failure criteria are leader index failure, and workers failure do not indicate Job failure.
