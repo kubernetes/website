@@ -342,6 +342,10 @@ rules:
 The following examples are excerpts from Role or ClusterRole objects, showing only
 the `rules` section.
 
+Note: When specifying resources in a ClusterRole or Role, always use the plural and lowercase form of the resource name.
+For example, use pods instead of pod, services instead of service.
+Incorrect resource names will cause RBAC policies to fail.
+
 Allow reading `"pods"` resources in the core
 {{< glossary_tooltip text="API Group" term_id="api-group" >}}:
 
