@@ -360,8 +360,14 @@ with `phase: "Succeeded"`.
 There are situations where you want to fail a Job after some amount of retries
 due to a logical error in configuration etc.
 To do so, set `.spec.backoffLimit` to specify the number of retries before
-considering a Job as failed. The back-off limit is set by default to 6. Failed
-Pods associated with the Job are recreated by the Job controller with an
+considering a Job as failed.
+
+The `.spec.backoffLimit` is set by default to 6, unless the
+[backoff limit per index](#backoff-limit-per-index) (only Indexed Job) is specified.
+When `.spec.backoffLimitPerIndex` is specified, then `.spec.backoffLimit` defaults
+to 2147483647 (MaxInt32).
+
+Failed Pods associated with the Job are recreated by the Job controller with an
 exponential back-off delay (10s, 20s, 40s ...) capped at six minutes.
 
 The number of retries is calculated in two ways:
