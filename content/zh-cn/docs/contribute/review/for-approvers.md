@@ -384,7 +384,12 @@ other dead link issues `/priority important-longterm`, as they must be manually 
 We expect [Kubernetes Blog](/blog/) entries to become
 outdated over time. Therefore, we only maintain blog entries less than a year old.
 If an issue is related to a blog entry that is more than one year old,
-close the issue without fixing.
+you should typically close the issue without fixing.
+
+You can send a link to [article updates and maintenance](/docs/contribute/blog/#maintenance)
+as part of the message you send when you close the PR.
+
+It is OK to make an exception where a relevant justification applies.
 -->
 ### 失效链接 Issues {#dead-link-issues}
 
@@ -395,10 +400,15 @@ close the issue without fixing.
 
 ### 博客问题  {#blog-issues}
 
-我们预期 [Kubernetes 博客](/zh-cn/blog/)条目随着时间推移都会过期。
-因此，我们只维护一年内的博客条目。
-如果某个 Issue 是与某个超过一年的博客条目有关的，可以直接关闭
-Issue，不必修复。
+我们预期 [Kubernetes 博客](/zh-cn/blog/)中的文章随着时间推移都会过时。
+因此，我们只维护发布时间在一年内的博客文章。
+如果某个 Issue 是与发布时间超过一年的博客文章相关的，
+可以直接关闭此 Issue，不必修复。
+
+你可以在关闭 PR 时，附上[文章更新与维护](/zh-cn/docs/contribute/blog/#maintenance)链接，
+作为回复的一部分。
+
+如果有合理的解释或特殊情况，也可以作为例外酌情处理。
 
 <!--
 ### Support requests or code bug reports
