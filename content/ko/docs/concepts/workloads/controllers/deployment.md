@@ -214,7 +214,7 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 * 롤아웃이 성공하면 `kubectl get deployments` 를 실행해서 디플로이먼트를 볼 수 있다.
     이와 유사하게 출력된다.
 
-  ```ini
+  ```
   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
   nginx-deployment   3/3     3            3           36s
   ```
