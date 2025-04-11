@@ -23,6 +23,7 @@ auto_generated: true
 `import "k8s.io/api/core/v1"`
 
 ## Volume {#Volume}
+
 <!--
 Volume represents a named volume in a pod that may be accessed by any container in the pod.
 -->
@@ -41,7 +42,6 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 <!--
 ### Exposed Persistent volumes
-
 
 - **persistentVolumeClaim** (PersistentVolumeClaimVolumeSource)
   persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
@@ -231,7 +231,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   downwardAPI 表示有关 Pod 的 Downward API，用来填充此卷。
 
   <a name="DownwardAPIVolumeSource"></a>
-  **DownwardAPIVolumeSource 表示包含 Downward API 信息的一个卷。Downward API 卷支持所有权管理和 SELinux 重新打标签。**
+  **DownwardAPIVolumeSource 表示包含 Downward API 信息的一个卷。Downward API
+  卷支持所有权管理和 SELinux 重新打标签。**
 
   <!--
   - **downwardAPI.defaultMode** (int32)
@@ -251,7 +252,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     必须是可选的：默认情况下，模式位用于为已创建的文件设置权限。
     必须是 0000 到 0777 之间的八进制值或 0 到 511 之间的十进制值。
     YAML 既接受八进制值也接受十进制值，JSON 针对模式位需要十进制值。此字段默认为 0644。
-    路径内的目录不受此设置的影响。这可能与影响文件模式的其他选项（如 fsGroup）有冲突，且结果可以是其他模式位也被设置。
+    路径内的目录不受此设置的影响。这可能与影响文件模式的其他选项（如 fsGroup）有冲突，
+    且结果可以是其他模式位也被设置。
 
   - **downwardAPI.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
 
@@ -661,7 +663,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 - **awsElasticBlockStore** (AWSElasticBlockStoreVolumeSource)
 
-  awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+  awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 
   <a name="AWSElasticBlockStoreVolumeSource"></a>
   *Represents a Persistent Disk resource in AWS.
@@ -672,8 +674,10 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 - **awsElasticBlockStore** (AWSElasticBlockStoreVolumeSource)
 
-  awsElasticBlockStore 表示挂接到 kubelet 的主机随后暴露给 Pod 的一个 AWS Disk 资源。更多信息：
-  https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
+  awsElasticBlockStore 表示挂接到 kubelet 的主机随后暴露给 Pod 的一个 AWS Disk 资源。
+  已弃用：AWSElasticBlockStore 已被弃用。所有针对树内 awsElasticBlockStore 类型的操作都被重定向到
+  ebs.csi.aws.com CSI 驱动。
+  更多信息：https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
 
   <a name="AWSElasticBlockStoreVolumeSource"></a>
   **表示 AWS 上的 Persistent Disk 资源。挂载到一个容器之前 AWS EBS 磁盘必须存在。
@@ -724,7 +728,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 <!--
 - **azureDisk** (AzureDiskVolumeSource)
 
-  azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+  azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
 
   <a name="AzureDiskVolumeSource"></a>
   *AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.*
@@ -732,6 +736,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 - **azureDisk** (AzureDiskVolumeSource)
 
   azureDisk 表示挂载到主机上并绑定挂载到 Pod 上的 Azure 数据盘。
+  已弃用：AzureDisk 已被弃用。所有针对树内 azureDisk 类型的操作都被重定向到
+  disk.csi.azure.com CSI 驱动。
 
   <a name="AzureDiskVolumeSource"></a>
   **azureDisk 表示挂载到主机上并绑定挂载到 Pod 上的 Azure 数据盘。**
@@ -798,7 +804,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 <!--
 - **azureFile** (AzureFileVolumeSource)
 
-  azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+  azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
 
   <a name="AzureFileVolumeSource"></a>
   *AzureFile represents an Azure File Service mount on the host and bind mount to the pod.*
@@ -806,6 +812,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 - **azureFile** (AzureFileVolumeSource)
 
   azureDisk 表示挂载到主机上并绑定挂载到 Pod 上的 Azure File Service。
+  已弃用：AzureFile 已被弃用。所有针对 in-tree azureFile 类型的操作都被重定向到
+  file.csi.azure.com CSI 驱动。
 
   <a name="AzureFileVolumeSource"></a>
   **azureFile 表示挂载到主机上并绑定挂载到 Pod 上的 Azure File Service。**
@@ -839,7 +847,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 <!--
 - **cephfs** (CephFSVolumeSource)
 
-  cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+  cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
 
   <a name="CephFSVolumeSource"></a>
   *Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.*
@@ -853,6 +861,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 - **cephfs** (CephFSVolumeSource)
 
   cephfs 表示在主机上挂载的 Ceph FS，该文件系统挂载与 Pod 的生命周期相同。
+  已弃用：CephFS 已被弃用，且不再支持 in-tree cephfs 类型。
 
   <a name="CephFSVolumeSource"></a>
   **表示在 Pod 的生命周期内持续的 Ceph Filesystem 挂载。cephfs 卷不支持所有权管理或 SELinux 重新打标签。**
@@ -916,7 +925,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 <!--
 - **cinder** (CinderVolumeSource)
 
-  cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+  cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 
   <a name="CinderVolumeSource"></a>
   *Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.*
@@ -927,7 +936,10 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 -->
 - **cinder** (CinderVolumeSource)
 
-  cinder 表示 kubelet 主机上挂接和挂载的 Cinder 卷。更多信息：
+  cinder 表示 kubelet 主机上挂接和挂载的 Cinder 卷。
+  **已弃用：** Cinder 已被弃用。所有针对 in-tree Cinder 类型的操作都将重定向到
+  cinder.csi.openstack.org CSI 驱动。
+  更多信息：
   https://examples.k8s.io/mysql-cinder-pd/README.md
 
   <a name="CinderVolumeSource"></a>
@@ -962,7 +974,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **cinder.readOnly** (boolean)
 
     readOnly 默认为 false（读/写）。此处的 readOnly 将强制设置卷挂载中的 readOnly 属性。
-    更多信息： https://examples.k8s.io/mysql-cinder-pd/README.md
+    更多信息：https://examples.k8s.io/mysql-cinder-pd/README.md
 
   - **cinder.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
 
@@ -971,7 +983,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 <!--
 - **csi** (CSIVolumeSource)
 
-  csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+  csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
 
   <a name="CSIVolumeSource"></a>
   *Represents a source location of a volume to mount, managed by an external CSI driver*
@@ -986,7 +998,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 -->
 - **csi** (CSIVolumeSource)
 
-  csi 表示由某个外部容器存储接口（Container Storage Interface，CSI）驱动处理的临时存储（Beta 特性）。
+  csi 表示由某个外部容器存储接口（Container Storage Interface，CSI）驱动处理的临时存储。
 
   <a name="CSIVolumeSource"></a>
   **表示要挂载的卷的源位置，由外部 CSI 驱动进行管理。**
@@ -1094,7 +1106,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
     -->
 
-    如果具有此名称的现有 PVC 不属于此 Pod，则这一 PVC 将 **不会** 被用于此 Pod，以避免错误地使用不相关的卷。
+    如果具有此名称的现有 PVC 不属于此 Pod，则这一 PVC 将**不会**被用于此 Pod，以避免错误地使用不相关的卷。
     如果出现这种情况，Pod 的启动操作会被阻塞直到不相关的 PVC 被移除。
     如果 Pod 准备使用这样一个预先创建的 PVC，那么一旦此 Pod 出现，就必须更新 PVC，
     将其属主引用指向该 Pod。通常没有必要这样做，但这对手动重构损坏的集群时可能很有用。
@@ -1205,7 +1217,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 <!--
 - **flexVolume** (FlexVolumeSource)
 
-  flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+  flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
 
   <a name="FlexVolumeSource"></a>
   *FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.*
@@ -1221,6 +1233,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 - **flexVolume** (FlexVolumeSource)
 
   flexVolume 表示使用基于 exec 的插件制备/挂接的通用卷资源。
+  已弃用：FlexVolume 已被弃用，请考虑使用 CSIDriver 代替。
 
   <a name="FlexVolumeSource"></a>
   **flexVolume 表示使用基于 exec 的插件制备/挂接的通用卷资源。**
@@ -1231,7 +1244,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **flexVolume.fsType** (string)
 
-    fsType 是要挂载的文件系统类型。必须是主机操作系统所支持的文件系统类型之一。例如 “ext4”、“xfs”、“ntfs”。
+    fsType 是要挂载的文件系统类型。必须是主机操作系统所支持的文件系统类型之一。
+    例如 “ext4”、“xfs”、“ntfs”。
     默认的文件系统取决于 flexVolume 脚本。
 
   <!--
@@ -1264,7 +1278,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 <!--
 - **flocker** (FlockerVolumeSource)
 
-  flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+  flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
 
   <a name="FlockerVolumeSource"></a>
   *Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.*
@@ -1279,7 +1293,9 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 -->
 - **flocker** (FlockerVolumeSource)
 
-  flocker 表示挂接到一个 kubelet 主机的 Flocker 卷。Flocker 卷依赖于正在运行的 Flocker 控制服务。
+  flocker 表示挂接到一个 kubelet 主机的 Flocker 卷。Flocker
+  卷依赖于正在运行的 Flocker 控制服务。
+  已弃用：Flocker 已被弃用，且树内 Flocker 类型不再受支持。
 
   <a name="FlockerVolumeSource"></a>
   **表示 Flocker 代理挂载的 Flocker 卷。应设置一个且仅设置 datasetName 和 datasetUUID 中的一个。
@@ -1296,7 +1312,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 <!--
 - **gcePersistentDisk** (GCEPersistentDiskVolumeSource)
 
-  gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+  gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 
   <a name="GCEPersistentDiskVolumeSource"></a>
   *Represents a Persistent Disk resource in Google Compute Engine.
@@ -1305,7 +1321,10 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 -->
 - **gcePersistentDisk** (GCEPersistentDiskVolumeSource)
 
-  gcePersistentDisk 表示挂接到 kubelet 的主机随后暴露给 Pod 的一个 GCE Disk 资源。更多信息：
+  gcePersistentDisk 表示挂接到 kubelet 的主机随后暴露给 Pod 的一个 GCE Disk 资源。
+  已弃用：GCEPersistentDisk 已被弃用。所有针对树内 gcePersistentDisk
+  类型的操作都将重定向至 pd.csi.storage.gke.io CSI 驱动。
+  更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#gcepersistentdisk
 
   <a name="GCEPersistentDiskVolumeSource"></a>
@@ -1358,7 +1377,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 <!--
 - **glusterfs** (GlusterfsVolumeSource)
 
-  glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+  glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 
   <a name="GlusterfsVolumeSource"></a>
   *Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.*
@@ -1366,7 +1385,9 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 - **glusterfs** （GlusterfsVolumeSource）
 
-  glusterfs 表示关联到主机并暴露给 Pod 的 Glusterfs 卷。由管理员配置。更多信息：
+  glusterfs 表示关联到主机并暴露给 Pod 的 Glusterfs 卷。由管理员配置。
+  已弃用：glusterfs 已被弃用，且树内 glusterfs 类型不再受支持。
+  更多信息：
   https://examples.k8s.io/volumes/glusterfs/README.md
 
   <a name="GlusterfsVolumeSource"></a>
@@ -1638,7 +1659,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 <!--
 - **photonPersistentDisk** (PhotonPersistentDiskVolumeSource)
 
-  photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+  photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
 
   <a name="PhotonPersistentDiskVolumeSource"></a>
   *Represents a Photon Controller persistent disk resource.*
@@ -1654,6 +1675,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 - **photonPersistentDisk** (PhotonPersistentDiskVolumeSource)
 
   photonPersistentDisk 表示 kubelet 主机上挂接和挂载的 PhotonController 持久磁盘。
+  已弃用：PhotonPersistentDisk 已被弃用，且树内 photonPersistentDisk 类型不再受支持。
 
   <a name="PhotonPersistentDiskVolumeSource"></a>
   **表示 Photon Controller 持久磁盘资源。**
@@ -1670,7 +1692,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 <!--
 - **portworxVolume** (PortworxVolumeSource)
 
-  portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+  portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
 
   <a name="PortworxVolumeSource"></a>
   *PortworxVolumeSource represents a Portworx volume resource.*
@@ -1682,6 +1704,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 - **portworxVolume** (PortworxVolumeSource)
 
   portworxVolume 表示 kubelet 主机上挂接和挂载的 portworx 卷。
+  已弃用：PortworxVolume 已被弃用。当 CSIMigrationPortworx 特性开关开启时，
+  所有树内 PortworxVolume 类型的操作都将重定向到 pxd.portworx.com CSI 驱动。
 
   <a name="PortworxVolumeSource"></a>
   **PortworxVolumeSource 表示 Portworx 卷资源。**
@@ -1712,7 +1736,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 <!--
 - **quobyte** (QuobyteVolumeSource)
 
-  quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+  quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
 
   <a name="QuobyteVolumeSource"></a>
   *Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.*
@@ -1720,6 +1744,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 - **quobyte** (QuobyteVolumeSource)
 
   quobyte 表示在共享 Pod 生命周期的主机上挂载的 Quobyte。
+  已弃用：quobyte 已被弃用，且树内 quobyte 类型不再受支持。
 
   <a name="QuobyteVolumeSource"></a>
   **表示在 Pod 的生命周期内持续的 Quobyte 挂载。Quobyte 卷不支持所有权管理或 SELinux 重新打标签。**
@@ -1780,7 +1805,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 <!--
 - **rbd** (RBDVolumeSource)
 
-  rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+  rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
 
   <a name="RBDVolumeSource"></a>
   *Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.*
@@ -1792,7 +1817,9 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 - **rbd** (RBDVolumeSource)
 
-  rbd 表示在共享 Pod 生命周期的主机上挂载的 Rados Block Device。更多信息：
+  rbd 表示在共享 Pod 生命周期的主机上挂载的 Rados Block Device。
+  已弃用：RBD 已被弃用，且树内 rbd 类型不再受支持。
+  更多信息：
   https://examples.k8s.io/volumes/rbd/README.md
 
   <a name="RBDVolumeSource"></a>
@@ -1880,7 +1907,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 <!--
 - **scaleIO** (ScaleIOVolumeSource)
 
-  scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+  scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
 
   <a name="ScaleIOVolumeSource"></a>
   *ScaleIOVolumeSource represents a persistent ScaleIO volume*
@@ -1892,6 +1919,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 - **scaleIO** (ScaleIOVolumeSource)
 
   scaleIO 表示 Kubernetes 节点上挂接和挂载的 ScaleIO 持久卷。
+  已弃用：scaleIO 已被弃用，且树内 scaleIO 类型不再受支持。
 
   <a name="ScaleIOVolumeSource"></a>
   **ScaleIOVolumeSource 表示一个 ScaleIO 持久卷。**
@@ -1924,7 +1952,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **scaleIO.fsType** (string)
 
-    fsType 是要挂载的文件系统类型。必须是主机操作系统所支持的文件系统类型之一。例如 “ext4”、“xfs”、“ntfs”。默认为 “xfs”。
+    fsType 是要挂载的文件系统类型。必须是主机操作系统所支持的文件系统类型之一。
+    例如 “ext4”、“xfs”、“ntfs”。默认为 “xfs”。
 
   <!--
   - **scaleIO.protectionDomain** (string)
@@ -1981,7 +2010,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 <!--
 - **storageos** (StorageOSVolumeSource)
 
-  storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+  storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
 
   <a name="StorageOSVolumeSource"></a>
   *Represents a StorageOS persistent volume resource.*
@@ -1993,6 +2022,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 - **storageos** (StorageOSVolumeSource)
 
   storageOS 表示 Kubernetes 节点上挂接和挂载的 StorageOS 卷。
+  已弃用：storageOS 已被弃用，且树内 storageOS 类型不再受支持。
 
   <a name="StorageOSVolumeSource"></a>
   **表示 StorageOS 持久卷资源。**
@@ -2038,13 +2068,13 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
     volumeNamespace 指定 StorageOS 内卷的作用域。如果未指定名字空间，则将使用 Pod 的名字空间。
     这个设置使得 Kubernetes 的名字作用域可以在 StorageOS 内进行映射，实现更紧密的集成。
-    将 volumeName 设为任何名称以重载默认的行为。如果你未在 StorageOS 内使用名字空间，则设为“default”。
+    将 volumeName 设为任何名称以重载默认的行为。如果你未在 StorageOS 内使用名字空间，则设为 “default”。
     将创建 StorageOS 内预先不存在的名字空间。
 
 <!--
 - **vsphereVolume** (VsphereVirtualDiskVolumeSource)
 
-  vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+  vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
 
   <a name="VsphereVirtualDiskVolumeSource"></a>
   *Represents a vSphere volume resource.*
@@ -2056,6 +2086,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 - **vsphereVolume** (VsphereVirtualDiskVolumeSource)
 
   vsphereVolume 表示 kubelet 主机上挂接和挂载的 vSphere 卷。
+  已弃用：VsphereVolume 已被弃用。所有针对树内 vsphereVolume
+  类型的操作都将重定向至 csi.vsphere.vmware.com CSI 驱动。
 
   <a name="VsphereVirtualDiskVolumeSource"></a>
   **表示 vSphere 卷资源。**
@@ -2096,7 +2128,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
 - **gitRepo** (GitRepoVolumeSource)
 
-  gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+  gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
 
   <a name="GitRepoVolumeSource"></a>
   *Represents a volume that is populated with the contents of a git repository. Git repo volumes do not support ownership management. Git repo volumes support SELinux relabeling.
