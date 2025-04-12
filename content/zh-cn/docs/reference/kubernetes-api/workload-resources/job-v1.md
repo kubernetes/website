@@ -87,7 +87,7 @@ JobSpec 描述了任务执行的情况。
 
   Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) \< .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 -->
-- **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), 必需
+- **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)，必需
 
   描述执行任务时将创建的 Pod。template.spec.restartPolicy 可以取的值只能是
   "Never" 或 "OnFailure"。更多信息：
@@ -246,7 +246,7 @@ JobSpec 描述了任务执行的情况。
 
   - **podFailurePolicy.rules** ([]PodFailurePolicyRule)，必需
 
-    **原子: 将在合并期间被替换**
+    **原子性：将在合并期间被替换**
     
     Pod 失效策略规则的列表。这些规则按顺序进行评估。一旦某规则匹配 Pod 失效，则其余规将被忽略。
     当没有规则匹配 Pod 失效时，将应用默认的处理方式：
@@ -382,7 +382,7 @@ JobSpec 描述了任务执行的情况。
 
     - **podFailurePolicy.rules.onPodConditions** ([]PodFailurePolicyOnPodConditionsPattern)，必需
 
-      **原子: 将在合并期间被替换**
+      **原子性：将在合并期间被替换**
 
       <!--
       Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
@@ -504,7 +504,7 @@ JobSpec 描述了任务执行的情况。
   <!--
   ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
  
-  This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+  This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
   -->
 
   `managedBy` 字段标明管理任务的控制器。
@@ -513,7 +513,7 @@ JobSpec 描述了任务执行的情况。
   RFC 1123 定义的有效子域。第一个 / 后面的所有字符必须是 RFC 3986 定义的有效 HTTP 路径字符。
   字段值的长度不能超过 63 个字符。此字段是不可变的。
 
-  此字段处于 Beta 阶段。当启用 `JobManagedBy` 特性门控时（默认情况下禁用），任务控制器接受设置此字段。
+  此字段处于 Beta 阶段。当启用 `JobManagedBy` 特性门控时（默认情况下启用），任务控制器接受设置此字段。
 
 <!--
 - **maxFailedIndexes** (int32)
@@ -653,7 +653,7 @@ JobStatus 表示 Job 的当前状态。
 
   **补丁策略：根据 `type` 键合并**
 
-  **原子: 将在合并期间被替换**
+  **原子性：将在合并期间被替换**
 
   对象当前状态的最新可用观察结果。当任务失败时，其中一个状况的类型为 “Failed”，状态为 true。
   当任务被暂停时，其中一个状况的类型为 “Suspended”，状态为true；当任务被恢复时，该状况的状态将变为 false。
@@ -681,11 +681,11 @@ JobStatus 表示 Job 的当前状态。
     Last time the condition was checked.
   -->
 
-  - **conditions.status** (string), 必需
+  - **conditions.status** (string)，必需
 
     状况的状态：True、False、Unknown 之一。
 
-  - **conditions.type** (string), 必需
+  - **conditions.type** (string)，必需
 
     任务状况的类型：Completed 或 Failed。
 
@@ -919,7 +919,7 @@ GET /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -970,11 +970,11 @@ GET /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   Job 的名称。
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -1015,7 +1015,7 @@ GET /apis/batch/v1/namespaces/{namespace}/jobs
 
 #### 参数
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -1269,11 +1269,11 @@ POST /apis/batch/v1/namespaces/{namespace}/jobs
 
 #### 参数
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>, 必需
+- **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
@@ -1357,15 +1357,15 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 - **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>, required
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   Job 的名称。
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>, 必需
+- **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
@@ -1445,15 +1445,15 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 - **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>, required
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   Job 的名称。
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>, 必需
+- **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
@@ -1533,15 +1533,15 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 -->
 #### 参数
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   Job 的名称。
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
@@ -1630,15 +1630,15 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   Job 的名称。
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
@@ -1722,11 +1722,11 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 #### 参数
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   Job 的名称。
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -1748,6 +1748,15 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+<!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 <!--
 - **pretty** (*in query*): string
@@ -1801,7 +1810,7 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs
 
 #### 参数
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -1840,6 +1849,15 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+<!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 <!--
 - **labelSelector** (*in query*): string
