@@ -108,17 +108,27 @@ Resources consumed by the command are counted against the Container.
   这是由 `PodLifecycleSleepAction`
   [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)默认启用的 Beta 级特性。
 
+{{< note >}}
+<!--
+Enable the `PodLifecycleSleepActionAllowZero` feature gate if you want to set a sleep duration of zero seconds (effectively a no-op) for your Sleep lifecycle hooks.
+-->
+如果你想为 Sleep 生命周期回调设置零秒的睡眠持续时间（实际上是一个 no-op），
+可以启用 `PodLifecycleSleepActionAllowZero` 特性门控。
+{{< /note >}}
+
 <!--
 ### Hook handler execution
 
 When a Container lifecycle management hook is called,
 the Kubernetes management system executes the handler according to the hook action,
-`httpGet` , `tcpSocket` and `sleep` are executed by the kubelet process, and `exec` is executed in the container.
+`httpGet`, `tcpSocket` ([deprecated](/docs/reference/generated/kubernetes-api/v1.31/#lifecyclehandler-v1-core))
+and `sleep` are executed by the kubelet process, and `exec` is executed in the container.
 -->
 ### 回调处理程序执行   {#hook-handler-execution}
 
 当调用容器生命周期管理回调时，Kubernetes 管理系统根据回调动作执行其处理程序，
-`httpGet`、`tcpSocket` 和 `sleep` 由 kubelet 进程执行，而 `exec` 在容器中执行。
+`httpGet`、`tcpSocket`（[已弃用](/docs/reference/generated/kubernetes-api/v1.31/#lifecyclehandler-v1-core)）
+和 `sleep` 由 kubelet 进程执行，而 `exec` 在容器内执行。
 
 <!--
 The `PostStart` hook handler call is initiated when a container is created,

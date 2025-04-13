@@ -1,0 +1,28 @@
+{{/* Revisit this if / when either of https://github.com/google/docsy/issues/2194 and https://github.com/google/docsy/pull/1512 are closed */}}
+{{ $lang := .Site.Language.Lang }}
+{{ $searchFile := printf "content/%s/search.md" $lang }}
+
+{{ $check := "" }}
+{{ if T "ui_search_placeholder" }}
+{{ warnf "The search bar placeholder for the language %s is using a custom \"ui_search_placeholder\" key. Please change the key in the translations to the Docsy provided \"ui_search\"." $lang }}
+{{ $check = T "ui_search_placeholder" }}
+{{ else }}
+{{ $check = T "ui_search" }}
+{{ end }}
+
+<div class="search-bar">
+  <i class="search-icon fa-solid fa-search"></i>
+  <input
+    type="search"
+    name="q"
+    {{ if fileExists $searchFile }}
+    data-search-page="{{ "search/" | relLangURL  }}"
+    {{ else }}
+    data-search-page="{{ "search/" | relURL }}"
+    {{ end }}
+    class="search-input td-search-input"
+    placeholder="{{ $check }}"
+    aria-label="{{ $check }}"
+    autocomplete="off"
+  >
+</div>

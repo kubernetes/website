@@ -21,6 +21,7 @@ auto_generated: true
 ## 资源类型
 
 - [AdmissionConfiguration](#apiserver-config-k8s-io-v1-AdmissionConfiguration)
+- [AuthorizationConfiguration](#apiserver-config-k8s-io-v1-AuthorizationConfiguration)
 - [EncryptionConfiguration](#apiserver-config-k8s-io-v1-EncryptionConfiguration)
 
 ## `AdmissionConfiguration`     {#apiserver-config-k8s-io-v1-AdmissionConfiguration}
@@ -48,6 +49,35 @@ auto_generated: true
 </td>
 </tr>
 
+</tbody>
+</table>
+
+## `AuthorizationConfiguration`     {#apiserver-config-k8s-io-v1-AuthorizationConfiguration}
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+    
+<tr><td><code>apiVersion</code><br/>string</td><td><code>apiserver.config.k8s.io/v1</code></td></tr>
+<tr><td><code>kind</code><br/>string</td><td><code>AuthorizationConfiguration</code></td></tr>
+
+<tr><td><code>authorizers</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#apiserver-config-k8s-io-v1-AuthorizerConfiguration"><code>[]AuthorizerConfiguration</code></a>
+</td>
+<td>
+<p>
+<!--
+Authorizers is an ordered list of authorizers to
+authorize requests against.
+This is similar to the --authorization-modes kube-apiserver flag
+Must be at least one.
+-->
+<code>authorizers</code> 是用于针对请求进行鉴权的鉴权组件的有序列表。
+这类似于 `--authorization-modes` kube-apiserver 标志。
+必须至少包含一个元素。
+</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -108,7 +138,8 @@ resources:
   - aescbc:
       keys:
       - name: key3
-        secret: c2VjcmV0IGlzIHNlY3VyZSwgSSB0aGluaw==</code></pre>
+        secret: c2VjcmV0IGlzIHNlY3VyZSwgSSB0aGluaw==
+</code></pre>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -225,6 +256,75 @@ configuration. If present, it will be used instead of the path to the configurat
 </td>
 </tr>
 
+</tbody>
+</table>
+
+## `AuthorizerConfiguration`     {#apiserver-config-k8s-io-v1-AuthorizerConfiguration}
+   
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [AuthorizationConfiguration](#apiserver-config-k8s-io-v1-AuthorizationConfiguration)
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+
+<tr><td><code>type</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+<p>
+<!--
+Type refers to the type of the authorizer
+&quot;Webhook&quot; is supported in the generic API server
+Other API servers may support additional authorizer
+types like Node, RBAC, ABAC, etc.
+-->
+<code>type</code> 指的是鉴权组件的类型。
+通用 API 服务器支持 &quot;Webhook&quot;。
+其他 API 服务器可能支持额外的鉴权组件类型，如 Node、RBAC、ABAC 等。
+</p>
+</td>
+</tr>
+<tr><td><code>name</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+<p>
+<!--
+Name used to describe the webhook
+This is explicitly used in monitoring machinery for metrics
+Note: Names must be DNS1123 labels like <code>myauthorizername</code> or
+subdomains like <code>myauthorizer.example.domain</code>
+Required, with no default
+-->
+<code>name</code> 用于描述 Webhook。
+此字段的明确用途是供监控机制中的指标使用。
+注意：<code>name</code> 值必须是 DNS1123 标签，如 <code>myauthorizername</code> 或子域名，
+如 <code>myauthorizer.example.domain</code>。
+必需，无默认值。
+</p>
+</td>
+</tr>
+<tr><td><code>webhook</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#apiserver-config-k8s-io-v1-WebhookConfiguration"><code>WebhookConfiguration</code></a>
+</td>
+<td>
+<p>
+<!--
+Webhook defines the configuration for a Webhook authorizer
+Must be defined when Type=Webhook
+Must not be defined when Type!=Webhook
+-->
+<code>webhook</code> 定义 Webhook 鉴权组件的配置。
+当 <code>type</code> 为 Webhook 时，必须定义。
+当 <code>type</code> 不是 Webhook 时，不得定义。
+</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -549,6 +649,309 @@ SecretboxConfiguration 包含 Secretbox 转换器的 API 配置。
    -->
    keys 是一个用于创建 Secretbox 转换器的密钥列表。每个密钥的长度必须为 32 字节。
    </p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `WebhookConfiguration`     {#apiserver-config-k8s-io-v1-WebhookConfiguration}
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [AuthorizerConfiguration](#apiserver-config-k8s-io-v1-AuthorizerConfiguration)
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+
+<tr><td><code>authorizedTTL</code> <B><!-- [Required] -->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+<p>
+<!--
+The duration to cache 'authorized' responses from the webhook
+authorizer.
+Same as setting <code>--authorization-webhook-cache-authorized-ttl</code> flag
+Default: 5m0s
+-->
+用于缓存来自 Webhook 鉴权组件的 'authorized' 响应的持续时间。
+与设置 <code>--authorization-webhook-cache-authorized-ttl</code> 标志效果相同。
+默认值：5m0s。
+</p>
+</td>
+</tr>
+<tr><td><code>unauthorizedTTL</code> <B><!-- [Required] -->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+<p>
+<!--
+The duration to cache 'unauthorized' responses from the webhook
+authorizer.
+Same as setting <code>--authorization-webhook-cache-unauthorized-ttl</code> flag
+Default: 30s
+-->
+用于缓存来自 Webhook 鉴权组件的 'unauthorized' 响应的持续时间。
+与设置 <code>--authorization-webhook-cache-unauthorized-ttl</code> 标志效果相同。
+默认值：30s。
+</p>
+</td>
+</tr>
+<tr><td><code>timeout</code> <B><!-- [Required] -->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+<p>
+<!--
+Timeout for the webhook request
+Maximum allowed value is 30s.
+Required, no default value.
+-->
+Webhook 请求的超时时间。
+最大允许值为 30s。
+必需，无默认值。
+</p>
+</td>
+</tr>
+<tr><td><code>subjectAccessReviewVersion</code> <B><!-- [Required] -->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+<p>
+<!--
+The API version of the authorization.k8s.io SubjectAccessReview to
+send to and expect from the webhook.
+Same as setting <code>--authorization-webhook-version</code> flag
+Valid values: v1beta1, v1
+Required, no default value
+-->
+发送到 Webhook 并期望从 Webhook 接收到的 authorization.k8s.io SubjectAccessReview 的 API 版本。
+与设置 <code>--authorization-webhook-version</code> 标志效果相同。
+有效值：v1beta1、v1。
+必需，无默认值。
+</p>
+</td>
+</tr>
+<tr><td><code>matchConditionSubjectAccessReviewVersion</code> <B><!-- [Required] -->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+<p>
+<!--
+MatchConditionSubjectAccessReviewVersion specifies the SubjectAccessReview
+version the CEL expressions are evaluated against
+Valid values: v1
+Required, no default value
+-->
+<code>matchConditionSubjectAccessReviewVersion</code> 指定了 CEL 表达式求值所用的 SubjectAccessReview 版本。
+有效值：v1。
+必需，无默认值。
+</p>
+</td>
+</tr>
+<tr><td><code>failurePolicy</code> <B><!-- [Required] -->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+<p>
+<!--
+Controls the authorization decision when a webhook request fails to
+complete or returns a malformed response or errors evaluating
+matchConditions.
+Valid values:
+-->
+控制当 Webhook 请求未能完成、返回格式错误的响应或在评估 matchConditions 时发生错误的情况下鉴权决策。
+有效值：
+</p>
+<ul>
+<li>
+<!--
+NoOpinion: continue to subsequent authorizers to see if one of
+them allows the request
+-->
+NoOpinion：继续处理后续的鉴权组件以查看它们中是否有一个允许请求。
+</li>
+<li>
+<!--
+Deny: reject the request without consulting subsequent authorizers
+Required, with no default.
+-->
+Deny：拒绝请求，不咨询后续鉴权组件。
+必需，无默认值。
+</li>
+</ul>
+</td>
+</tr>
+<tr><td><code>connectionInfo</code> <B><!-- [Required] -->[必需]</B><br/>
+<a href="#apiserver-config-k8s-io-v1-WebhookConnectionInfo"><code>WebhookConnectionInfo</code></a>
+</td>
+<td>
+<p>
+<!--
+ConnectionInfo defines how we talk to the webhook
+-->
+<code>connectionInfo</code> 定义了我们如何与 Webhook 进行通信。
+</p>
+</td>
+</tr>
+<tr><td><code>matchConditions</code> <B><!-- [Required] -->[必需]</B><br/>
+<a href="#apiserver-config-k8s-io-v1-WebhookMatchCondition"><code>[]WebhookMatchCondition</code></a>
+</td>
+<td>
+<p>
+<!--
+matchConditions is a list of conditions that must be met for a request to be sent to this
+webhook. An empty list of matchConditions matches all requests.
+There are a maximum of 64 match conditions allowed.
+-->
+<code>matchConditions</code> 是请求发送到此 Webhook 之前必须满足的一系列条件。
+空的 <code>matchConditions</code> 列表匹配所有请求。
+最多允许 64 个匹配条件。
+</p>
+<p>
+<!--
+The exact matching logic is (in order):
+-->
+精确的匹配逻辑（按顺序）是：
+</p>
+<ol>
+<!--
+<li>If at least one matchCondition evaluates to FALSE, then the webhook is skipped.</li>
+<li>If ALL matchConditions evaluate to TRUE, then the webhook is called.</li>
+<li>If at least one matchCondition evaluates to an error (but none are FALSE):
+<ul>
+<li>If failurePolicy=Deny, then the webhook rejects the request</li>
+<li>If failurePolicy=NoOpinion, then the error is ignored and the webhook is skipped</li>
+</ul>
+</li>
+-->
+<li>如果至少一个 <code>matchConditions</code> 元素的计算结果为 FALSE，则跳过此 Webhook。</li>
+<li>如果所有 <code>matchConditions</code> 元素的计算结果都为 TRUE，则调用此 Webhook。</li>
+<li>如果至少一个 <code>matchConditions</code> 元素的计算结果为出错（但没有 FALSE）：
+<ul>
+<li>如果 <code>failurePolicy</code> 为 Deny，则 Webhook 拒绝请求。</li>
+<li>如果 <code>failurePolicy</code> 为 NoOpinion，则忽略错误并跳过此 Webhook。</li>
+</ul>
+</li>
+</ol>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `WebhookConnectionInfo`     {#apiserver-config-k8s-io-v1-WebhookConnectionInfo}
+
+**Appears in:**
+
+- [WebhookConfiguration](#apiserver-config-k8s-io-v1-WebhookConfiguration)
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+
+<tr><td><code>type</code> <B><!-- [Required] -->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+<p>
+<!--
+Controls how the webhook should communicate with the server.
+Valid values:
+-->
+控制 Webhook 应如何与服务器通信。
+有效值：
+</p>
+<ul>
+<!--
+<li>KubeConfigFile: use the file specified in kubeConfigFile to locate the
+server.</li>
+<li>InClusterConfig: use the in-cluster configuration to call the
+SubjectAccessReview API hosted by kube-apiserver. This mode is not
+allowed for kube-apiserver.</li>
+-->
+<ul>
+<li>KubeConfigFile：使用 kubeConfigFile 中指定的文件来定位服务器。</li>
+<li>InClusterConfig：使用集群内配置调用由 kube-apiserver 上的 SubjectAccessReview API。
+此模式不允许用于 kube-apiserver。</li>
+</ul>
+</ul>
+</td>
+</tr>
+<tr><td><code>kubeConfigFile</code> <B><!-- [Required] -->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+<p>
+<!--
+Path to KubeConfigFile for connection info
+Required, if connectionInfo.Type is KubeConfig
+-->
+KubeConfig 文件的路径，用于获取连接信息。
+如果 <code>connectionInfo.type</code> 是 KubeConfig，则必需。
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `WebhookMatchCondition`     {#apiserver-config-k8s-io-v1-WebhookMatchCondition}
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [WebhookConfiguration](#apiserver-config-k8s-io-v1-WebhookConfiguration)
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+
+<tr><td><code>expression</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+<p>
+<!--
+expression represents the expression which will be evaluated by CEL. Must evaluate to bool.
+CEL expressions have access to the contents of the SubjectAccessReview in v1 version.
+If version specified by subjectAccessReviewVersion in the request variable is v1beta1,
+the contents would be converted to the v1 version before evaluating the CEL expression.
+-->
+<code>expression</code> 表示将由 CEL 求值的表达式。求值结果必须是布尔值。
+CEL 表达式可以访问 v1 版本中的 SubjectAccessReview 的内容。
+如果请求变量中指定的 <code>subjectAccessReviewVersion</code> 是 v1beta1，
+则在对 CEL 表达式求值之前，其内容会被转换为 v1 版本。
+</p>
+<ul>
+<!--
+<li>'resourceAttributes' describes information for a resource access request and is unset for non-resource requests. e.g. has(request.resourceAttributes) &amp;&amp; request.resourceAttributes.namespace == 'default'</li>
+<li>'nonResourceAttributes' describes information for a non-resource access request and is unset for resource requests. e.g. has(request.nonResourceAttributes) &amp;&amp; request.nonResourceAttributes.path == '/healthz'.</li>
+<li>'user' is the user to test for. e.g. request.user == 'alice'</li>
+<li>'groups' is the groups to test for. e.g. ('group1' in request.groups)</li>
+<li>'extra' corresponds to the user.Info.GetExtra() method from the authenticator.</li>
+<li>'uid' is the information about the requesting user. e.g. request.uid == '1'</li>
+-->
+<li>'resourceAttributes' 描述了资源访问请求的信息，在非资源请求中未设置。例如：<code>has(request.resourceAttributes) &amp;&amp; request.resourceAttributes.namespace == 'default'</code>。
+</li>
+<li>'nonResourceAttributes' 描述了非资源访问请求的信息，在资源请求中未设置。例如：
+<code>has(request.nonResourceAttributes) &amp;&amp; request.nonResourceAttributes.path == '/healthz'</code>。
+</li>
+<li>'user' 是要测试的用户。例如：<code>request.user == 'alice'</code>。</li>
+<li>'groups' 是要测试的组。例如：<code>('group1' in request.groups)</code>。</li>
+<li>'extra' 对应于身份验证器中的 <code>user.Info.GetExtra()</code> 方法。</li>
+<li>'uid' 是关于请求用户的详细信息。例如：<code>request.uid == '1'</code>。</li>
+</ul>
+<p>
+<!--
+Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+-->
+关于 CEL 的文档：https://kubernetes.io/docs/reference/using-api/cel/
+</p>
 </td>
 </tr>
 </tbody>

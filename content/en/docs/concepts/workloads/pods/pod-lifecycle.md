@@ -2,6 +2,7 @@
 title: Pod Lifecycle
 content_type: concept
 weight: 30
+math: true
 ---
 
 <!-- overview -->
@@ -260,6 +261,38 @@ problems, the kubelet resets the restart backoff timer for that container.
 [Sidecar containers and Pod lifecycle](/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)
 explains the behaviour of `init containers` when specify `restartpolicy` field on it.
 
+### Configurable container restart delay
+
+{{< feature-state feature_gate_name="KubeletCrashLoopBackOffMax" >}}
+
+With the alpha feature gate `KubeletCrashLoopBackOffMax` enabled, you can
+reconfigure the maximum delay between container start retries from the default
+of 300s (5 minutes). This configuration is set per node using kubelet
+configuration. In your [kubelet configuration](/docs/tasks/administer-cluster/kubelet-config-file/),
+under `crashLoopBackOff` set the `maxContainerRestartPeriod` field between
+`"1s"` and `"300s"`. As described above in [Container restart
+policy](#restart-policy), delays on that node will still start at 10s and
+increase exponentially by 2x each restart, but will now be capped at your
+configured maximum. If the `maxContainerRestartPeriod` you configure is less
+than the default initial value of 10s, the initial delay will instead be set to
+the configured maximum.
+
+See the following kubelet configuration examples:
+
+```yaml
+# container restart delays will start at 10s, increasing
+# 2x each time they are restarted, to a maximum of 100s
+kind: KubeletConfiguration
+crashLoopBackOff:
+    maxContainerRestartPeriod: "100s"
+```
+
+```yaml
+# delays between container restarts will always be 2s
+kind: KubeletConfiguration
+crashLoopBackOff:
+    maxContainerRestartPeriod: "2s"
+```
 
 ## Pod conditions
 
@@ -515,8 +548,9 @@ come into service. Rather than set a long liveness interval, you can configure
 a separate configuration for probing the container as it starts up, allowing
 a time longer than the liveness interval would allow.
 
+<!-- ensure front matter contains math: true -->
 If your container usually starts in more than
-`initialDelaySeconds + failureThreshold × periodSeconds`, you should specify a
+\\( initialDelaySeconds + failureThreshold \times  periodSeconds \\), you should specify a
 startup probe that checks the same endpoint as the liveness probe. The default for
 `periodSeconds` is 10s. You should then set its `failureThreshold` high enough to
 allow the container to start, without changing the default values of the liveness
@@ -677,8 +711,7 @@ Additionally, PodGC cleans up any Pods which satisfy any of the following condit
 1. are orphan Pods - bound to a node which no longer exists,
 1. are unscheduled terminating Pods,
 1. are terminating Pods, bound to a non-ready node tainted with
-   [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service),
-   when the `NodeOutOfServiceVolumeDetach` feature gate is enabled.
+   [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service).
 
 Along with cleaning up the Pods, PodGC will also mark them as failed if they are in a non-terminal
 phase. Also, PodGC adds a Pod disruption condition when cleaning up an orphan Pod.

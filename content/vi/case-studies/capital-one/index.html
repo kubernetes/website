@@ -1,0 +1,62 @@
+---
+title: Capital One Case Study
+case_study_styles: true
+cid: caseStudies
+
+new_case_study_styles: true
+heading_background: /images/case-studies/capitalone/banner1.jpg
+heading_title_logo: /images/capitalone-logo.png
+subheading: >
+  Supporting Fast Decisioning Applications with Kubernetes
+case_study_details:
+  - Company: Capital One
+  - Location: McLean, Virginia
+  - Industry: Retail banking
+---
+
+<h2>Challenge</h2>
+
+<p>The team set out to build a provisioning platform for <a href="https://www.capitalone.com/">Capital One</a> applications deployed on AWS that use streaming, big-data decisioning, and machine learning. One of these applications handles millions of transactions a day; some deal with critical functions like fraud detection and credit decisioning. The key considerations: resilience and speed—as well as full rehydration of the cluster from base AMIs.</p>
+
+<h2>Solution</h2>
+
+<p>The decision to run <a href="https://kubernetes.io/">Kubernetes</a> "is very strategic for us," says John Swift, Senior Director Software Engineering. "We use Kubernetes as a substrate or an operating system, if you will. There's a degree of affinity in our product development."</p>
+
+<h2>Impact</h2>
+
+<p>"Kubernetes is a significant productivity multiplier," says Lead Software Engineer Keith Gasser, adding that to run the platform without Kubernetes would "easily see our costs triple, quadruple what they are now for the amount of pure AWS expense." Time to market has been improved as well: "Now, a team can come to us and we can have them up and running with a basic decisioning app in a fortnight, which before would have taken a whole quarter, if not longer." Deployments increased by several orders of magnitude. Plus, the rehydration/cluster-rebuild process, which took a significant part of a day to do manually, now takes a couple hours with Kubernetes automation and declarative configuration.</p>
+
+{{< case-studies/quote author="Jamil Jadallah, Scrum Master" >}}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/UHVW01ksg-s" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<br>
+"With the scalability, the management, the coordination, Kubernetes really empowers us and gives us more time back than we had before."
+{{< /case-studies/quote >}}
+
+<p>As a top 10 U.S. retail bank, Capital One has applications that handle millions of transactions a day. Big-data decisioning—for fraud detection, credit approvals and beyond—is core to the business. To support the teams that build applications with those functions for the bank, the cloud team led by Senior Director Software Engineering John Swift embraced Kubernetes for its provisioning platform. "Kubernetes and its entire ecosystem are very strategic for us," says Swift. "We use Kubernetes as a substrate or an operating system, if you will. There's a degree of affinity in our product development."</p>
+
+<p>Almost two years ago, the team embarked on this journey by first working with Docker. Then came Kubernetes. "We wanted to put streaming services into Kubernetes as one feature of the workloads for fast decisioning, and to be able to do batch alongside it," says Lead Software Engineer Keith Gasser. "Once the data is streamed and batched, there are so many tool sets in <a href="https://flink.apache.org/">Flink</a> that we use for decisioning. We want to provide the tools in the same ecosystem, in a consistent way, rather than have a large custom snowflake ecosystem where every tool needs its own custom deployment. Kubernetes gives us the ability to bring all of these together, so the richness of the open source and even the license community dealing with big data can be corralled."</p>
+
+{{< case-studies/quote image="/images/case-studies/capitalone/banner3.jpg" >}}
+"We want to provide the tools in the same ecosystem, in a consistent way, rather than have a large custom snowflake ecosystem where every tool needs its own custom deployment. Kubernetes gives us the ability to bring all of these together, so the richness of the open source and even the license community dealing with big data can be corralled."
+{{< /case-studies/quote >}}
+
+<p>In this first year, the impact has already been great. "Time to market is really huge for us," says Gasser. "Especially with fraud, you have to be very nimble in the way you respond to threats in the marketplace—being able to add and push new rules, detect new patterns of behavior, detect anomalies in account and transaction flows." With Kubernetes, "a team can come to us and we can have them up and running with a basic decisioning app in a fortnight, which before would have taken a whole quarter, if not longer. Kubernetes is a manifold productivity multiplier."</p>
+
+<p>Teams now have the tools to be autonomous in their deployments, and as a result, deployments have increased by two orders of magnitude. "And that was with just seven dedicated resources, without needing a whole group sitting there watching everything," says Scrum Master Jamil Jadallah. "That's a huge cost savings. With the scalability, the management, the coordination, Kubernetes really empowers us and gives us more time back than we had before."</p>
+
+{{< case-studies/quote image="/images/case-studies/capitalone/banner4.jpg" >}}
+With Kubernetes, "a team can come to us and we can have them up and running with a basic decisioning app in a fortnight, which before would have taken a whole quarter, if not longer. Kubernetes is a manifold productivity multiplier."
+{{< /case-studies/quote >}}
+
+<p>Kubernetes has also been a great time-saver for Capital One's required period "rehydration" of clusters from base AMIs. To minimize the attack vulnerability profile for applications in the cloud, "Our entire clusters get rebuilt from scratch periodically, with new fresh instances and virtual server images that are patched with the latest and greatest security patches," says Gasser. This process used to take the better part of a day, and personnel, to do manually. It's now a quick Kubernetes job.</p>
+
+<p>Savings extend to both capital and operating expenses. "It takes very little to get into Kubernetes because it's all open source," Gasser points out. "We went the DIY route for building our cluster, and we definitely like the flexibility of being able to embrace the latest from the community immediately without waiting for a downstream company to do it. There's capex related to those licenses that we don't have to pay for. Moreover, there's capex savings for us from some of the proprietary software that we get to sunset in our particular domain. So that goes onto our ledger in a positive way as well." (Some of those open source technologies include Prometheus, Fluentd, gRPC, Istio, CNI, and Envoy.)</p>
+
+{{< case-studies/quote >}}
+"If we had to do all of this without Kubernetes, on underlying cloud services, I could easily see our costs triple, quadruple what they are now for the amount of pure AWS expense. That doesn't account for personnel to deploy and maintain all the additional infrastructure."
+{{< /case-studies/quote >}}
+
+
+<p>And on the opex side, Gasser says, the savings are high. "We run dozens of services, we have scores of pods, many daemon sets, and since we're data-driven, we take advantage of EBS-backed volume claims for all of our stateful services. If we had to do all of this without Kubernetes, on underlying cloud services, I could easily see our costs triple, quadruple what they are now for the amount of pure AWS expense. That doesn't account for personnel to deploy and maintain all the additional infrastructure."</p>
+
+<p>The team is confident that the benefits will continue to multiply—without a steep learning curve for the engineers being exposed to the new technology. "As we onboard additional tenants in this ecosystem, I think the need for folks to understand Kubernetes may not necessarily go up. In fact, I think it goes down, and that's good," says Gasser. "Because that really demonstrates the scalability of the technology. You start to reap the benefits, and they can concentrate on all the features they need to build for great decisioning in the business— fraud decisions, credit decisions—and not have to worry about, 'Is my AWS server broken? Is my pod not running?'"</p>

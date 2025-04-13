@@ -1466,8 +1466,9 @@ Defaulting happens on the object
 Defaults applied when reading data from etcd are not automatically written back to etcd.
 An update request via the API is required to persist those defaults back into etcd.
 
-Default values must be pruned (with the exception of defaults for `metadata` fields) and must
-validate against a provided schema.
+Default values for non-leaf fields must be pruned (with the exception of defaults for `metadata` fields) and must
+validate against a provided schema. For example in the above example, a default of `{"replicas": "foo", "badger": 1}`
+for the `spec` field would be invalid, because `badger` is an unknown field, and `replicas` is not a string.
 
 Default values for `metadata` fields of `x-kubernetes-embedded-resources: true` nodes (or parts of
 a default value covering `metadata`) are not pruned during CustomResourceDefinition creation, but
@@ -1685,10 +1686,6 @@ may also be used with field selectors when included in the `spec.versions[*].sel
 
 {{< feature-state feature_gate_name="CustomResourceFieldSelectors" >}}
 
-For Kubernetes {{< skew currentVersion >}} the ability to define field selectors for
-custom resources is available by default (enabled by default since Kubernetes v1.31);
-you can disable it for your cluster  by turning off the `CustomResourceFieldSelectors`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 The `spec.versions[*].selectableFields` field of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be used to
 declare which other fields in a custom resource may be used in field selectors
 with the feature of `CustomResourceFieldSelectors`

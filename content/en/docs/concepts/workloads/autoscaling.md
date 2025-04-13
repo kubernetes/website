@@ -63,7 +63,7 @@ Once installed, it allows you to create {{< glossary_tooltip text="CustomResourc
 
 {{< note >}}
 You will need to have the [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
-installed to your cluster for the HPA to work.
+installed to your cluster for the VPA to work.
 {{< /note >}}
 
 At the moment, the VPA can operate in four different modes:
@@ -79,7 +79,7 @@ Mode | Description
 
 #### Requirements for in-place resizing
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
 Resizing a workload in-place **without** restarting the {{< glossary_tooltip text="Pods" term_id="pod" >}}
 or its {{< glossary_tooltip text="Containers" term_id="container" >}} requires Kubernetes version 1.27 or later.
@@ -111,7 +111,7 @@ in the cluster.
 It is also possible to scale workloads based on events, for example using the
 [_Kubernetes Event Driven Autoscaler_ (**KEDA**)](https://keda.sh/).
 
-KEDA is a CNCF graduated enabling you to scale your workloads based on the number
+KEDA is a CNCF-graduated project enabling you to scale your workloads based on the number
 of events to be processed, for example the amount of messages in a queue. There exists
 a wide range of adapters for different event sources to choose from.
 
@@ -121,7 +121,7 @@ Another strategy for scaling your workloads is to **schedule** the scaling opera
 reduce resource consumption during off-peak hours.
 
 Similar to event driven autoscaling, such behavior can be achieved using KEDA in conjunction with
-its [`Cron` scaler](https://keda.sh/docs/2.13/scalers/cron/). The `Cron` scaler allows you to define schedules
+its [`Cron` scaler](https://keda.sh/docs/latest/scalers/cron/). The `Cron` scaler allows you to define schedules
 (and time zones) for scaling your workloads in or out.
 
 ## Scaling cluster infrastructure
@@ -129,7 +129,7 @@ its [`Cron` scaler](https://keda.sh/docs/2.13/scalers/cron/). The `Cron` scaler 
 If scaling workloads isn't enough to meet your needs, you can also scale your cluster infrastructure itself.
 
 Scaling the cluster infrastructure normally means adding or removing {{< glossary_tooltip text="nodes" term_id="node" >}}.
-Read [cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
+Read [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
 for more information.
 
 ## {{% heading "whatsnext" %}}
@@ -139,4 +139,4 @@ for more information.
   - [HorizontalPodAutoscaler Walkthrough](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 - [Resize Container Resources In-Place](/docs/tasks/configure-pod-container/resize-container-resources/)
 - [Autoscale the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
-- Learn about [cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
+- Learn about [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
