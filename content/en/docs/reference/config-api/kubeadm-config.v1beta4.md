@@ -55,28 +55,27 @@ config file are also available as command line flags, but only the most
 common/simple use case are supported with this approach.</p>
 <p>A kubeadm config file could contain multiple configuration types separated using three dashes (<code>---</code>).</p>
 <p>kubeadm supports the following configuration types:</p>
-<pre><code>apiVersion: kubeadm.k8s.io/v1beta4
-kind: InitConfiguration
-
-apiVersion: kubeadm.k8s.io/v1beta4
-kind: ClusterConfiguration
-
-apiVersion: kubelet.config.k8s.io/v1beta1
-kind: KubeletConfiguration
-
-apiVersion: kubeproxy.config.k8s.io/v1alpha1
-kind: KubeProxyConfiguration
-
-apiVersion: kubeadm.k8s.io/v1beta4
-kind: JoinConfiguration
-
-apiVersion: kubeadm.k8s.io/v1beta4
-kind: ResetConfiguration
-
-apiVersion: kubeadm.k8s.io/v1beta4
-kind: UpgradeConfiguration
-</code></pre>
-<p>To print the defaults for <code>init</code> and <code>join</code> actions use the following commands:</p>
+<pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta4<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>InitConfiguration<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta4<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>ClusterConfiguration<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubelet.config.k8s.io/v1beta1<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>KubeletConfiguration<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeproxy.config.k8s.io/v1alpha1<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>KubeProxyConfiguration<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta4<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>JoinConfiguration<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta4<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>ResetConfiguration<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta4<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>UpgradeConfiguration<span style="color:#bbb">
+</span></pre><p>To print the defaults for <code>init</code> and <code>join</code> actions use the following commands:</p>
 <pre style="background-color:#fff">kubeadm config print init-defaults
 kubeadm config print join-defaults
 kubeadm config print reset-defaults
