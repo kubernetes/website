@@ -7,11 +7,24 @@ NETLIFY_FUNC      = $(NODE_BIN)/netlify-lambda
 # CONTAINER_ENGINE=podman make container-image
 CONTAINER_ENGINE ?= docker
 IMAGE_REGISTRY ?= gcr.io/k8s-staging-sig-docs
-IMAGE_VERSION=$(shell scripts/hash-files.sh Dockerfile Makefile | cut -c 1-12)
+IMAGE_VERSION=$(shell scripts/hash-files.sh Dockerfile Makefile netlify.toml .dockerignore cloudbuild.yaml package.json package-lock.json | cut -c 1-12)
 CONTAINER_IMAGE   = $(IMAGE_REGISTRY)/k8s-website-hugo:v$(HUGO_VERSION)-$(IMAGE_VERSION)
 # Mount read-only to allow use with tools like Podman in SELinux mode
 # Container targets don't need to write into /src
 CONTAINER_RUN     = "$(CONTAINER_ENGINE)" run --rm --interactive --tty --volume "$(CURDIR):/src:ro,Z"
+CONTAINER_RUN_TTY = "$(CONTAINER_ENGINE)" run --rm --interactive --tty
+CONTAINER_HUGO_MOUNTS = \
+	--read-only \
+	--mount type=bind,source=$(CURDIR)/.git,target=/src/.git,readonly \
+	--mount type=bind,source=$(CURDIR)/archetypes,target=/src/archetypes,readonly \
+	--mount type=bind,source=$(CURDIR)/assets,target=/src/assets,readonly \
+	--mount type=bind,source=$(CURDIR)/content,target=/src/content,readonly \
+	--mount type=bind,source=$(CURDIR)/data,target=/src/data,readonly \
+	--mount type=bind,source=$(CURDIR)/i18n,target=/src/i18n,readonly \
+	--mount type=bind,source=$(CURDIR)/layouts,target=/src/layouts,readonly \
+	--mount type=bind,source=$(CURDIR)/static,target=/src/static,readonly \
+	--mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 \
+	--mount type=bind,source=$(CURDIR)/hugo.toml,target=/src/hugo.toml,readonly
 
 CCRED=\033[0;31m
 CCEND=\033[0m
@@ -98,15 +111,13 @@ docker-push: ## Build a multi-architecture image and push that into the registry
 
 container-build: module-check
 	mkdir -p public
-	$(CONTAINER_RUN) --read-only \
-		--mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 \
-		--mount type=bind,source=$(CURDIR)/public,target=/src/public $(CONTAINER_IMAGE) \
-		hugo --cleanDestinationDir --buildDrafts --buildFuture --environment preview --noBuildLock
+	$(CONTAINER_RUN_TTY) $(CONTAINER_HUGO_MOUNTS) $(CONTAINER_IMAGE) \
+		hugo --destination /tmp/public --cleanDestinationDir --buildDrafts --buildFuture --environment preview --noBuildLock
 
 # no build lock to allow for read-only mounts
 container-serve: module-check ## Boot the development server using container.
-	$(CONTAINER_RUN) --cap-drop=ALL --cap-add=AUDIT_WRITE --read-only \
-		--mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 -p 1313:1313 $(CONTAINER_IMAGE) \
+	$(CONTAINER_RUN_TTY) --cap-drop=ALL --cap-add=AUDIT_WRITE $(CONTAINER_HUGO_MOUNTS) \
+		-p 1313:1313 $(CONTAINER_IMAGE) \
 		hugo server --buildDrafts --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/public --cleanDestinationDir --noBuildLock
 
 test-examples:

@@ -50,6 +50,35 @@ body {
   }
 }
 
+/* Gutter for sidebar splitter */
+.gutter {
+    background-color: #eee;
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.gutter.gutter-horizontal {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+    cursor: col-resize;
+}
+
+#sidebarnav,
+#maindoc {
+  max-width: 100%;
+}
+
+#maindoc {
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  #sidebarnav {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+}
+
 /* Complex table layout support */
 
 .td-content, body.td-content {
@@ -96,12 +125,36 @@ body.td-home main[role="main"] > section:first-of-type .content p:first-child {
   }
 }
 
+.section-feature#kubeweekly {
+
+  a.kubeweekly-signup, a.kubeweekly-signup:hover {
+    color: $primary;
+    font-weight: 400;
+    font-size: 1.1rem;
+  }
+  > .kubeweekly-inner {
+    form p {
+      text-align: center;
+      font-size: 1.2rem;
+      color: $black;
+    }
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 2rem;
+  }
+
+  h5 {
+    text-align: center;
+
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 body.td-404 main .error-details {
   max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 4em;
-  margin-bottom: 0;
+  margin: 0 auto;
 }
 
 /* Global - Mermaid.js diagrams */
@@ -287,6 +340,32 @@ input[type="search"]{
 }
 
 
+.cncf-logo-details {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  align-items: center;
+
+  p {
+    text-align: center;
+    font-size: 1.2rem;
+  }
+
+  a {
+    color: inherit;
+    background: transparent;
+    text-decoration: underline; // exception from usual convention
+  }
+
+  picture {
+    display: block;
+    > * {
+      min-height: 4em;
+      width: calc(clamp(20em,18em + 20mm,100vw));
+    }
+  }
+}
+
 /* FOOTER */
 footer {
   background-color: #202020;
@@ -416,6 +495,91 @@ footer {
   }
 }
 
+// Home page dark-mode
+@media (prefers-color-scheme: dark) {
+  body.cid-home {
+    main {
+      background-color: $dark-bg-color-2;
+      color:$dark-text-color-1;
+
+      section:not(#video):not(#cncf) {
+        background-color: $dark-bg-color-1;
+        color:$dark-text-color-1;
+      }
+
+      section#video #desktopShowVideoButton {
+        background-color: $dark-bg-color-1;
+      }
+
+      section#video #desktopShowVideoButton {
+        color: $white;
+        background-color: $primary;
+
+        &:hover {
+          color: $primary;
+          background-color: $white;
+        }
+
+        &::before {
+          border-color: transparent transparent transparent $white;
+        }
+
+        &:hover::before {
+          border-color: transparent transparent transparent $primary;
+        }
+      }
+
+      section#video #desktopKCButton:hover {
+        background-color: $dark-bg-color-1;
+      }
+
+      section#cncf {
+        background-color: $dark-bg-color-2;
+      }
+
+      section.features-container .k8s-features-heading {
+        color: $white;
+        background-color: $dark-bg-color-1;
+      }
+
+      section.features-container > div > .feature-box {
+        background-color: $dark-bg-color-2;
+        color:$dark-text-color-1;
+
+        h3 a, h4 a, h5 a {
+          color: $white;
+          background: transparent;
+        }
+
+        h3 a:hover, h4 a:hover, h5 a:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .search-bar {
+        background-color: #d3d3d3;
+        color: #ffffff;
+        > * {
+          color: #ffffff;
+        }
+      }
+
+      input.search-input, input.email {
+        background-color: #D3D3D3 !important;
+        color: #000 !important;
+      }
+
+      input.search-input::placeholder, input.email::placeholder{
+        color: #000;
+      }
+
+      #mc_embed_signup_scroll input.email {
+        color: #ffffff !important;
+        background-color: #a9a9a9 !important;
+      }
+    }
+  }
+}
 
 /* COMMUNITY */
 
@@ -1130,38 +1294,27 @@ body.cid-community #cncf-code-of-conduct h2:after {
   }
 }
 
-#caseStudies body > #deprecation-warning, body.cid-casestudies > #deprecation-warning, body.cid-community > #deprecation-warning {
-    display: inline-block;
-    vertical-align: top;
-    position: relative;
-    background-color: $primary;
-    color: #fff;
+body.cid-casestudies, body.cid-community, body.cid-partners {
+  section#deprecation-warning {
     padding: 0;
     margin: 0;
-    width: 100vw;
+    width: 100%;
+
+    border-top: solid 1em $primary;
+    border-bottom: solid 1em $primary;
+
+    // Center the pageinfo
+    padding-left: calc(max(1rem, (100vw - 60rem) / 2));
+    padding-right: calc(max(1rem, (100vw - 60rem) / 2));
+  }
+  /* Ensure color overrides */
+  section#deprecation-warning, section#deprecation-warning > .pageinfo.deprecation-warning {
+    background-color: $primary;
+    color: #fff;
+  }
 }
-#caseStudies body > #deprecation-warning, body.cid-casestudies > #deprecation-warning {
-    padding-top: 32px;
-}
+
 body.cid-partners {
-    > #deprecation-warning {
-        padding: 0;
-        margin-right: 0;
-        margin-left: 0;
-        margin-top: 0;
-        width: 100vw;
-        > .content {
-            width: 100%;
-            max-width: initial;
-            margin-right: 0;
-            margin-left: 0;
-            margin-top: 0;
-            padding-left: 5vw;
-            padding-right: 5vw;
-            padding-top: 2rem;
-            padding-bottom: 2rem;
-        }
-    }
     /*  SECTIONS  */
     .section {
         clear: both;
@@ -1591,7 +1744,7 @@ html.no-js body div#announcement {
   // default background is blue; overrides are possible
   color: #fff;
   display: none; // When javascript is available, Let javascript handle the state of the announcement
-  
+
   .announcement-main {
     margin-left: auto;
     margin-right: auto;
@@ -1828,7 +1981,7 @@ div.alert > em.javascript-required {
   align-items: center;
   background-color: #fff;
   border: 1px solid #4c4c4c;
-  border-radius: 20px; 
+  border-radius: 20px;
   vertical-align: middle;
   flex-grow: 1;
   overflow-x: hidden;
@@ -1857,7 +2010,7 @@ div.alert > em.javascript-required {
 #search .pagefind-ui form input  {
   background-color: #fff;
   border: 1px solid #4c4c4c;
-  border-radius: 20px; 
+  border-radius: 20px;
   overflow-x: hidden;
   width: auto;
   padding: 6px 10px !important;
@@ -1906,13 +2059,17 @@ div.alert > em.javascript-required {
   font-size: 1.15rem;
 }
 
-body.td-search #search {
-  margin-top: 1rem;
-  margin-bottom: 3rem;
+body.td-search {
+  width: 100%; // avoid confusion with other .td-search elements that have a width set
+
+  #search {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+  }
 }
 
 /* CSS for 'figure' full-screen display */
- 
+
 /* Define styles for full-screen overlay */
 .figure-fullscreen-overlay {
   position: fixed;
@@ -1941,7 +2098,7 @@ body.td-search #search {
 /* Define styles for close button */
 .figure-close-button {
   position: absolute;
-  top: 1%; 
+  top: 1%;
   right: 2%;
   cursor: pointer;
   font-size: calc(5vw + 10px);
@@ -1950,10 +2107,24 @@ body.td-search #search {
 
 .code-sample > .copy-code-icon {
   cursor: pointer;
-  text-align: right;
+  display: flex;
+  gap:1rem;
+  justify-content: right;
   padding: 0.2rem;
 }
 
+.includecode .highlight {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+#toast-container > *{
+  background: $primary;
+}
+
+.toast-success {
+  background-color: $primary !important; 
+  color: #ffffff !important; 
+}
 
 // handle main page features on narrow viewports
 @media screen and (max-width: 768px) {

@@ -2,11 +2,13 @@
 title: Pod 的生命周期
 content_type: concept
 weight: 30
+math: true
 ---
 <!--
 title: Pod Lifecycle
 content_type: concept
 weight: 30
+math: true
 -->
 
 <!-- overview -->
@@ -213,7 +215,7 @@ Value       | Description
 :-----|:-----------
 `Pending`（悬决）| Pod 已被 Kubernetes 系统接受，但有一个或者多个容器尚未创建亦未运行。此阶段包括等待 Pod 被调度的时间和通过网络下载镜像的时间。
 `Running`（运行中） | Pod 已经绑定到了某个节点，Pod 中所有的容器都已被创建。至少有一个容器仍在运行，或者正处于启动或重启状态。
-`Succeeded`（成功） | Pod 中的所有容器都已成功终止，并且不会再重启。
+`Succeeded`（成功） | Pod 中的所有容器都已成功结束，并且不会再重启。
 `Failed`（失败） | Pod 中的所有容器都已终止，并且至少有一个容器是因为失败终止。也就是说，容器以非 0 状态退出或者被系统终止，且未被设置为自动重启。
 `Unknown`（未知） | 因为某些原因无法取得 Pod 的状态。这种情况通常是因为与 Pod 所在主机通信失败。
 
@@ -315,7 +317,7 @@ data.
 When you use `kubectl` to query a Pod with a container that is `Waiting`, you also see
 a Reason field to summarize why the container is in that state.
 -->
-### `Waiting` （等待）  {#container-state-waiting}
+### `Waiting`（等待）  {#container-state-waiting}
 
 如果容器并不处在 `Running` 或 `Terminated` 状态之一，它就处在 `Waiting` 状态。
 处于 `Waiting` 状态的容器仍在运行它完成启动所需要的操作：例如，
@@ -381,13 +383,12 @@ Kubernetes 通过在 Pod `spec` 中定义的 [`restartPolicy`](#restart-policy) 
    (e.g., 10 minutes), Kubernetes resets the backoff delay, treating any new crash
    as the first one.
 -->
-
 1. **最初的崩溃**：Kubernetes 尝试根据 Pod 的 `restartPolicy` 立即重新启动。
 1. **反复的崩溃**：在最初的崩溃之后，Kubernetes 对于后续重新启动的容器采用指数级回退延迟机制，
-    如 [`restartPolicy`](#restart-policy) 中所述。
-    这一机制可以防止快速、重复的重新启动尝试导致系统过载。
+   如 [`restartPolicy`](#restart-policy) 中所述。
+   这一机制可以防止快速、重复的重新启动尝试导致系统过载。
 1. **CrashLoopBackOff 状态**：这一状态表明，对于一个给定的、处于崩溃循环、反复失效并重启的容器，
-    回退延迟机制目前正在生效。
+   回退延迟机制目前正在生效。
 1. **回退重置**：如果容器成功运行了一定时间（如 10 分钟），
   Kubernetes 会重置回退延迟机制，将新的崩溃视为第一次崩溃。
 <!--
@@ -448,13 +449,13 @@ To investigate the root cause of a `CrashLoopBackOff` issue, a user can:
 要调查 `CrashLoopBackOff` 问题的根本原因，用户可以：
 
 1. **检查日志**：使用 `kubectl logs <pod名称>` 检查容器的日志。
-    这通常是诊断导致崩溃的问题的最直接方法。
+   这通常是诊断导致崩溃的问题的最直接方法。
 1. **检查事件**：使用 `kubectl describe pod <pod名称>` 查看 Pod 的事件，
-    这可以提供有关配置或资源问题的提示。
+   这可以提供有关配置或资源问题的提示。
 1. **审查配置**：确保 Pod 配置正确无误，包括环境变量和挂载卷，并且所有必需的外部资源都可用。
 1. **检查资源限制**： 确保容器被分配了足够的 CPU 和内存。有时，增加 Pod 定义中的资源可以解决问题。
 1. **调试应用程序**：应用程序代码中可能存在错误或配置不当。
-    在本地或开发环境中运行此容器镜像有助于诊断应用程序的特定问题。
+   在本地或开发环境中运行此容器镜像有助于诊断应用程序的特定问题。
 
 <!--
 ### Container restart policy {#restart-policy}
@@ -509,6 +510,71 @@ explains the behaviour of `init containers` when specify `restartpolicy` field o
 kubelet 就会重置该容器的重启延迟计时器。
 [Sidecar 容器和 Pod 生命周期](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)中解释了
 `init containers` 在指定 `restartpolicy` 字段时的行为。
+
+<!--
+### Configurable container restart delay
+-->
+### 可配置的容器重启延迟   {#configurable-container-restart-delay}
+
+{{< feature-state feature_gate_name="KubeletCrashLoopBackOffMax" >}}
+
+<!--
+With the alpha feature gate `KubeletCrashLoopBackOffMax` enabled, you can
+reconfigure the maximum delay between container start retries from the default
+of 300s (5 minutes). This configuration is set per node using kubelet
+configuration. In your [kubelet configuration](/docs/tasks/administer-cluster/kubelet-config-file/),
+under `crashLoopBackOff` set the `maxContainerRestartPeriod` field between
+`"1s"` and `"300s"`. As described above in [Container restart
+policy](#restart-policy), delays on that node will still start at 10s and
+increase exponentially by 2x each restart, but will now be capped at your
+configured maximum. If the `maxContainerRestartPeriod` you configure is less
+than the default initial value of 10s, the initial delay will instead be set to
+the configured maximum.
+-->
+启用 Alpha 特性门控 `KubeletCrashLoopBackOffMax` 后，
+你可以重新配置容器启动重试之间的最大延迟，默认值为 300 秒（5 分钟）。
+此配置是针对每个节点使用 kubelet 配置进行设置的。
+在你的 [kubelet 配置](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中，
+在 `crashLoopBackOff` 下设置 `maxContainerRestartPeriod` 字段，取值范围在 `"1s"` 到 `"300s"` 之间。
+如上文[容器重启策略](#restart-policy)所述，该节点上的延迟仍将从 10 秒开始，并在每次重启后以指数方式增加
+2 倍，但现在其上限将被限制为你所配置的最大值。如果你配置的 `maxContainerRestartPeriod` 小于默认初始值 10 秒，
+则初始延迟将被设置为配置的最大值。
+
+<!--
+See the following kubelet configuration examples:
+
+```yaml
+# container restart delays will start at 10s, increasing
+# 2x each time they are restarted, to a maximum of 100s
+kind: KubeletConfiguration
+crashLoopBackOff:
+    maxContainerRestartPeriod: "100s"
+```
+-->
+参见以下 kubelet 配置示例：
+
+```yaml
+# 容器重启延迟将从 10 秒开始，每次重启增加 2 倍
+# 最高达到 100 秒
+kind: KubeletConfiguration
+crashLoopBackOff:
+    maxContainerRestartPeriod: "100s"
+```
+
+<!--
+```yaml
+# delays between container restarts will always be 2s
+kind: KubeletConfiguration
+crashLoopBackOff:
+    maxContainerRestartPeriod: "2s"
+```
+-->
+```yaml
+# 容器重启之间的延迟将始终为 2 秒
+kind: KubeletConfiguration
+crashLoopBackOff:
+    maxContainerRestartPeriod: "2s"
+```
 
 <!--
 ## Pod conditions
@@ -985,15 +1051,17 @@ a time longer than the liveness interval would allow.
 你不再需要配置一个较长的存活态探测时间间隔，只需要设置另一个独立的配置选定，
 对启动期间的容器执行探测，从而允许使用远远超出存活态时间间隔所允许的时长。
 
+<!-- ensure front matter contains math: true -->
+
 <!--
 If your container usually starts in more than
-`initialDelaySeconds + failureThreshold × periodSeconds`, you should specify a
+\\( initialDelaySeconds + failureThreshold \times  periodSeconds \\), you should specify a
 startup probe that checks the same endpoint as the liveness probe. The default for
 `periodSeconds` is 10s. You should then set its `failureThreshold` high enough to
 allow the container to start, without changing the default values of the liveness
 probe. This helps to protect against deadlocks.
 -->
-如果你的容器启动时间通常超出 `initialDelaySeconds + failureThreshold × periodSeconds`
+如果你的容器启动时间通常超出 \\( initialDelaySeconds + failureThreshold \times  periodSeconds \\)
 总值，你应该设置一个启动探测，对存活态探针所使用的同一端点执行检查。
 `periodSeconds` 的默认值是 10 秒。你应该将其 `failureThreshold` 设置得足够高，
 以便容器有充足的时间完成启动，并且避免更改存活态探针所使用的默认值。
@@ -1078,9 +1146,10 @@ Pod 终止流程，如下例所示：
    -->
 
    1. 如果 Pod 中的容器之一定义了 `preStop`
-      [回调](/zh-cn/docs/concepts/containers/container-lifecycle-hooks)，
-      `kubelet` 开始在容器内运行该回调逻辑。如果超出体面终止限期时，
-      `preStop` 回调逻辑仍在运行，`kubelet` 会请求给予该 Pod 的宽限期一次性增加 2 秒钟。
+      [回调](/zh-cn/docs/concepts/containers/container-lifecycle-hooks)
+      且 Pod 规约中的 `terminationGracePeriodSeconds` 未设为 0，
+      `kubelet` 开始在容器内运行该回调逻辑。默认的 `terminationGracePeriodSeconds`
+      设置为 30 秒.
 
       如果 `preStop` 回调在体面期结束后仍在运行，kubelet 将请求短暂的、一次性的体面期延长 2 秒。
 
@@ -1311,8 +1380,7 @@ Additionally, PodGC cleans up any Pods which satisfy any of the following condit
 1. are orphan Pods - bound to a node which no longer exists,
 1. are unscheduled terminating Pods,
 1. are terminating Pods, bound to a non-ready node tainted with
-   [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service),
-   when the `NodeOutOfServiceVolumeDetach` feature gate is enabled.
+   [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service).
 
 Along with cleaning up the Pods, PodGC will also mark them as failed if they are in a non-terminal
 phase. Also, PodGC adds a Pod disruption condition when cleaning up an orphan Pod.
@@ -1323,8 +1391,8 @@ for more details.
 
 1. 孤儿 Pod - 绑定到不再存在的节点，
 2. 计划外终止的 Pod
-3. 终止过程中的 Pod，当启用 `NodeOutOfServiceVolumeDetach` 特性门控时，
-   绑定到有 [`node.kubernetes.io/out-of-service`](/zh-cn/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service)
+3. 终止过程中的 Pod，绑定到有
+   [`node.kubernetes.io/out-of-service`](/zh-cn/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service)
    污点的未就绪节点。
 
 在清理 Pod 的同时，如果它们处于非终止状态阶段，PodGC 也会将它们标记为失败。

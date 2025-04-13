@@ -84,7 +84,18 @@ The kubelet will pick host UIDs/GIDs a pod is mapped to, and will do so in a way
 to guarantee that no two pods on the same node use the same mapping.
 
 The `runAsUser`, `runAsGroup`, `fsGroup`, etc. fields in the `pod.spec` always
-refer to the user inside the container.
+refer to the user inside the container. These users will be used for volume
+mounts (specified in `pod.spec.volumes`) and therefore the host UID/GID will not
+have any effect on writes/reads from volumes the pod can mount. In other words,
+the inodes created/read in volumes mounted by the pod will be the same as if the
+pod wasn't using user namespaces.
+
+This way, a pod can easily enable and disable user namespaces (without affecting
+its volume's file ownerships) and can also share volumes with pods without user
+namespaces by just setting the appropriate users inside the container
+(`RunAsUser`, `RunAsGroup`, `fsGroup`, etc.). This applies to any volume the pod
+can mount, including `hostPath` (if the pod is allowed to mount `hostPath`
+volumes).
 
 The valid UIDs/GIDs when this feature is enabled is the range 0-65535. This
 applies to files and processes (`runAsUser`, `runAsGroup`, etc.).
@@ -177,6 +188,8 @@ to the `kubelet` user:
   configuration.
 
 * The subordinate ID count must be a multiple of 65536
+  (for Kubernetes {{< skew currentVersion >}} the subordinate ID count for each Pod is hard-coded
+  to 65536).
 
 * The subordinate ID count must be at least `65536 x <maxPods>` where `<maxPods>`
   is the maximum number of pods that can run on the node.
@@ -198,7 +211,9 @@ these entries for the `kubelet` user:
 #   name:firstID:count of IDs
 # where
 # - firstID is 65536 (the minimum value possible)
-# - count of IDs is 110 (default limit for number of) * 65536
+# - count of IDs is 110 * 65536
+#   (110 is the default limit for number of pods on the node)
+
 kubelet:65536:7208960
 ```
 

@@ -539,13 +539,6 @@ I1027 22:14:54.040223    5063 proxier.go:294] Adding new service "kube-system/ku
 If you see error messages about not being able to contact the master, you
 should double-check your Node configuration and installation steps.
 
-One of the possible reasons that `kube-proxy` cannot run correctly is that the
-required `conntrack` binary cannot be found. This may happen on some Linux
-systems, depending on how you are installing the cluster, for example, you are
-installing Kubernetes from scratch. If this is the case, you need to manually
-install the `conntrack` package (e.g. `sudo apt install conntrack` on Ubuntu)
-and then retry.
-
 Kube-proxy can run in one of a few modes.  In the log listed above, the
 line `Using iptables Proxier` indicates that kube-proxy is running in
 "iptables" mode.  The most common other mode is "ipvs".

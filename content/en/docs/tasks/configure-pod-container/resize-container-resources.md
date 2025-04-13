@@ -24,26 +24,33 @@ to be enabled. The alternative is to delete the Pod and let the
 [workload controller](/docs/concepts/workloads/controllers/) make a replacement Pod
 that has a different resource requirement.
 
+A resize request is made through the pod `/resize` subresource, which takes the full updated pod for
+an update request, or a patch on the pod object for a patch request.
+
 For in-place resize of pod resources:
-- Container's resource `requests` and `limits` are _mutable_ for CPU
-  and memory resources.
-- `allocatedResources` field in `containerStatuses` of the Pod's status reflects
-  the resources allocated to the pod's containers.
-- `resources` field in `containerStatuses` of the Pod's status reflects the
-  actual resource `requests` and `limits` that are configured on the running
-  containers as reported by the container runtime.
-- `resize` field in the Pod's status shows the status of the last requested
+- A container's resource `requests` and `limits` are _mutable_ for CPU
+  and memory resources. These fields represent the _desired_ resources for the container.
+- The `resources` field in `containerStatuses` of the Pod's status reflects the resources
+  _allocated_ to the pod's containers. For running containers, this reflects the actual resource
+  `requests` and `limits` that are configured as reported by the container runtime. For non-running
+  containers, these are the resources allocated for the container when it starts.
+- The `resize` field in the Pod's status shows the status of the last requested
   pending resize. It can have the following values:
-  - `Proposed`: This value indicates an acknowledgement of the requested resize
-    and that the request was validated and recorded.
+  - `Proposed`: This value indicates that a pod was resized, but the Kubelet has not yet processed
+    the resize.
   - `InProgress`: This value indicates that the node has accepted the resize
     request and is in the process of applying it to the pod's containers.
   - `Deferred`: This value means that the requested resize cannot be granted at
     this time, and the node will keep retrying. The resize may be granted when
-    other pods leave and free up node resources.
+    other pods are removed and free up node resources.
   - `Infeasible`: is a signal that the node cannot accommodate the requested
     resize. This can happen if the requested resize exceeds the maximum
     resources the node can ever allocate for a pod.
+  - `""`: An empty or unset value indicates that the last resize completed. This should only be the
+    case if the resources in the container spec match the resources in the container status.
+
+If a node has pods with an incomplete resize, the scheduler will compute the pod requests from the
+maximum of a container's desired resource requests, and it's actual requests reported in the status.
 
 
 ## {{% heading "prerequisites" %}}
@@ -107,6 +114,21 @@ have changed, the container will be restarted in order to resize its memory.
 
 <!-- steps -->
 
+## Limitations
+
+In-place resize of pod resources currently has the following limitations:
+
+- Only CPU and memory resources can be changed.
+- Pod QoS Class cannot change. This means that requests must continue to equal limits for Guaranteed
+  pods, Burstable pods cannot set requests and limits to be equal for both CPU & memory, and you
+  cannot add resource requirements to Best Effort pods.
+- Init containers and Ephemeral Containers cannot be resized.
+- Resource requests and limits cannot be removed once set.
+- A container's memory limit may not be reduced below its usage. If a request puts a container in
+  this state, the resize status will remain in `InProgress` until the desired memory limit becomes
+  feasible.
+- Windows pods cannot be resized.
+
 
 ## Create a pod with resource requests and limits
 
@@ -159,9 +181,6 @@ spec:
     name: qos-demo-ctr-5
     ready: true
 ...
-    allocatedResources:
-      cpu: 700m
-      memory: 200Mi
     resources:
       limits:
         cpu: 700m
@@ -190,7 +209,7 @@ resources, you cannot change the QoS class in which the Pod was created.
 Now, patch the Pod's Container with CPU requests & limits both set to `800m`:
 
 ```shell
-kubectl -n qos-example patch pod qos-demo-5 --patch '{"spec":{"containers":[{"name":"qos-demo-ctr-5", "resources":{"requests":{"cpu":"800m"}, "limits":{"cpu":"800m"}}}]}}'
+kubectl -n qos-example patch pod qos-demo-5 --subresource resize --patch '{"spec":{"containers":[{"name":"qos-demo-ctr-5", "resources":{"requests":{"cpu":"800m"}, "limits":{"cpu":"800m"}}}]}}'
 ```
 
 Query the Pod's detailed information after the Pod has been patched.
@@ -215,9 +234,6 @@ spec:
 ...
   containerStatuses:
 ...
-    allocatedResources:
-      cpu: 800m
-      memory: 200Mi
     resources:
       limits:
         cpu: 800m
@@ -229,12 +245,9 @@ spec:
     started: true
 ```
 
-Observe that the `allocatedResources` values have been updated to reflect the new
-desired CPU requests. This indicates that node was able to accommodate the
-increased CPU resource needs.
-
-In the Container's status, updated CPU resource values shows that new CPU
-resources have been applied. The Container's `restartCount` remains unchanged,
+Observe that the `resources` in the `containerStatuses` have been updated to reflect the new desired
+CPU requests. This indicates that node was able to accommodate the increased CPU resource needs,
+and the new CPU resources have been applied. The Container's `restartCount` remains unchanged,
 indicating that container's CPU resources were resized without restarting the container.
 
 
@@ -255,6 +268,8 @@ kubectl delete namespace qos-example
 * [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
 * [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+
+* [Assign Pod-level CPU and memory resources](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
 
 ### For cluster administrators
 

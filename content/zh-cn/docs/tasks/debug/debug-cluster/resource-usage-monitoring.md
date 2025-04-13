@@ -168,7 +168,6 @@ Kubernetes 不推荐任何特定的指标管道；
 Learn about additional debugging tools, including:
 
 * [Logging](/docs/concepts/cluster-administration/logging/)
-* [Monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 * [Getting into containers via `exec`](/docs/tasks/debug/debug-application/get-shell-running-container/)
 * [Connecting to containers via proxies](/docs/tasks/extend-kubernetes/http-proxy-access-api/)
 * [Connecting to containers via port forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
@@ -177,7 +176,6 @@ Learn about additional debugging tools, including:
 了解其他调试工具，包括：
 
 * [日志记录](/zh-cn/docs/concepts/cluster-administration/logging/)
-* [监控](/zh-cn/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 * [通过 `exec` 进入容器](/zh-cn/docs/tasks/debug/debug-application/get-shell-running-container/)
 * [通过代理连接到容器](/zh-cn/docs/tasks/extend-kubernetes/http-proxy-access-api/)
 * [通过端口转发连接到容器](/zh-cn/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)

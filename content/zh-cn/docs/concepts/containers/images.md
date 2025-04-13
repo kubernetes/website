@@ -27,7 +27,7 @@ before referring to it in a {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 This page provides an outline of the container image concept.
 -->
 容器镜像（Image）所承载的是封装了应用程序及其所有软件依赖的二进制数据。
-容器镜像是可执行的软件包，可以单独运行；该软件包对所处的运行时环境具有良定（Well Defined）的假定。
+容器镜像是可执行的软件包，可以单独运行；该软件包对所处的运行时环境具有明确定义的运行时环境假定。
 
 你通常会创建应用的容器镜像并将其推送到某仓库（Registry），然后在
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 中引用它。
@@ -428,7 +428,7 @@ kubelet 从不代表一个 Pod 并行地拉取多个镜像。
 -->
 ### 最大并行镜像拉取数量  {#maximum-parallel-image-pulls}
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.32" state="beta" >}}
 
 <!--
 When `serializeImagePulls` is set to false, the kubelet defaults to no limit on the
@@ -482,7 +482,7 @@ suffixes.
 镜像索引可以指向镜像的多个[镜像清单](https://github.com/opencontainers/image-spec/blob/master/manifest.md)，
 提供特定于体系结构版本的容器。
 这背后的理念是让你可以为镜像命名（例如：`pause`、`example/mycontainer`、`kube-apiserver`）
-的同时，允许不同的系统基于它们所使用的机器体系结构取回正确的二进制镜像。
+的同时，允许不同的系统基于它们所使用的机器体系结构获取正确的二进制镜像。
 
 Kubernetes 自身通常在命名容器镜像时添加后缀 `-$(ARCH)`。
 为了向前兼容，请在生成较老的镜像时也提供后缀。
@@ -868,7 +868,7 @@ common use cases and suggested solutions.
    - Or, run an internal private registry behind your firewall with open read access.
      - No Kubernetes configuration is required.
    - Use a hosted container image registry service that controls image access
-     - It will work better with cluster autoscaling than manual node configuration.
+     - It will work better with Node autoscaling than manual node configuration.
    - Or, on a cluster where changing the node configuration is inconvenient, use `imagePullSecrets`.
 -->
 2. 集群运行一些专有镜像，这些镜像需要对公司外部隐藏，对所有集群用户可见
@@ -877,7 +877,7 @@ common use cases and suggested solutions.
    - 或者，在防火墙内运行一个组织内部的私有仓库，并开放读取权限
      - 不需要配置 Kubernetes
    - 使用控制镜像访问的托管容器镜像仓库服务
-     - 与手动配置节点相比，这种方案能更好地处理集群自动扩缩容
+     - 与手动配置节点相比，这种方案能更好地处理节点自动扩缩容
    - 或者，在不方便更改节点配置的集群中，使用 `imagePullSecrets`
 
 <!--

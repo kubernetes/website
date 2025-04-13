@@ -118,7 +118,7 @@ in systemd unit settings file. Typically it includes:
 - command line arguments to [run kubelet](/docs/reference/command-line-tools-reference/kubelet/)
 - environment variables, used by kubelet or [configuring golang runtime](https://pkg.go.dev/runtime#hdr-Environment_Variables)
 -->
-### Systemd 单元设置    {#systemd-unit-settings}
+### systemd 单元设置    {#systemd-unit-settings}
 
 当 kubelet 作为 systemd 单元运行时，一些 kubelet 配置可以在 systemd 单元设置文件中声明。
 这些配置通常包括：
@@ -180,14 +180,14 @@ The name of a checkpoint file is `kubelet_internal_checkpoint` for [Device Manag
 If your cluster has  
 [in-place Pod vertical scaling](/docs/concepts/workloads/autoscaling/#in-place-resizing)  
 enabled ([feature gate](/docs/reference/command-line-tools-reference/feature-gates/)  
-name `InPlacePodVerticalScaling`), then the kubelet stores a local record of Pod status.  
+name `InPlacePodVerticalScaling`), then the kubelet stores a local record of allocated Pod resources. 
 
 The file name is `pod_status_manager_state` within the kubelet base directory
 (`/var/lib/kubelet` by default on Linux; configurable using `--root-dir`).
 -->
 如果你的集群启用了[就地 Pod 垂直扩缩容](/zh-cn/docs/concepts/workloads/autoscaling/#in-place-resizing)
 （[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)名称为 `InPlacePodVerticalScaling`），
-则 kubelet 会在本地存储 Pod 状态。
+则 kubelet 会在本地存储为 Pod 分配资源的记录。
 
 文件名为 `pod_status_manager_state`，位于 kubelet 基础目录内
 （在 Linux 上默认为 `/var/lib/kubelet`；你可以使用 `--root-dir` 进行配置）。
@@ -279,6 +279,20 @@ The types of plugins that can place socket files into that directory are:
 - 设备管理器插件
 
 （通常是 `/var/lib/kubelet/plugins_registry`）。
+
+<!--
+### Graceful node shutdown
+-->
+### 节点体面关闭   {#graceful-node-shutdown}
+
+{{< feature-state feature_gate_name="GracefulNodeShutdown" >}}
+
+<!--
+[Graceful node shutdown](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown)
+stores state locally at `/var/lib/kubelet/graceful_node_shutdown_state`.
+-->
+[节点体面关闭](/zh-cn/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown)将状态存储在本地目录
+`/var/lib/kubelet/graceful_node_shutdown_state`。
 
 <!--
 ## Security profiles & configuration

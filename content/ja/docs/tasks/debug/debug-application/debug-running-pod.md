@@ -729,7 +729,7 @@ kubectl delete pod myapp
 
 ### カスタムプロファイルの適用 {#custom-profiles}
 
-{{< feature-state for_k8s_version="v1.31" state="beta" >}}
+{{< feature-state for_k8s_version="v1.32" state="stable" >}}
 
 デバッグに使用するコンテナのspecをYAMLまたはJSON形式でカスタムプロファイルとして定義し、`--custom`フラグを使用して適用できます。
 

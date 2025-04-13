@@ -15,7 +15,7 @@ Install required addons for passing conformance tests
 ### Synopsis
 
 
-This command is not meant to be run on its own. See list of available subcommands.
+Install required addons for passing conformance tests
 
 ```
 kubeadm init phase addon [flags]
