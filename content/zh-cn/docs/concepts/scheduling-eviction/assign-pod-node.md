@@ -376,7 +376,7 @@ in the [scheduler configuration](/docs/reference/scheduling/config/). For exampl
 `args` 字段添加 `addedAffinity`。例如：
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 
 profiles:
@@ -730,9 +730,31 @@ to the same revision as the incoming Pod, so that a rolling upgrade won't break 
 确保滚动升级不会破坏亲和性。
 
 <!--
-# Only Pods from a given rollout are taken into consideration when calculating pod affinity.
-# If you update the Deployment, the replacement Pods follow their own affinity rules
-# (if there are any defined in the new Pod template)
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: application-server
+...
+spec:
+  template:
+    spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - database
+            topologyKey: topology.kubernetes.io/zone
+            # Only Pods from a given rollout are taken into consideration when calculating pod affinity.
+            # If you update the Deployment, the replacement Pods follow their own affinity rules
+            # (if there are any defined in the new Pod template)
+            matchLabelKeys:
+            - pod-template-hash
+```
 -->
 ```yaml
 apiVersion: apps/v1
