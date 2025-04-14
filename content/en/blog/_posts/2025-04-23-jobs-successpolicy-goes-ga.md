@@ -60,7 +60,7 @@ successPolicy:
 
 This example shows that the Job is marked as succeeded when one of the indexes; index 0 succeeded.
 
-Once the Job reaches the one of successPolicy rules or `Complete` criteria like `.spec.backoffLimit`,
+Once the Job reaches the one of successPolicy rules or `Complete` criteria based on `.spec.completions`,
 the kube-controller-manager job-controller adds the `SuccessCriteriaMet` condition to the Job condition.
 After that, the job-controller executes terminating processes like terminating running Pods against Jobs with `SuccessCriteriaMet` condition. 
 
