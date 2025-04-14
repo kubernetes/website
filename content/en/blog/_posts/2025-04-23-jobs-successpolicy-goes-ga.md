@@ -17,21 +17,20 @@ which is the leader role process controls a whole batch workload, and the follow
 In this case, you might want to mark it as succeeded
 even if some the indexes failed. Unfortunately, the Kubernetes Job without __Success Policy__ requires in most cases all Pods succeeded for Job succeeded.
 
-Job's __Success Policy__ allows you to specify the early exit criteria for a Job using  the `.spec.successPolicy` 
+Job's __Success Policy__ allows you to specify the early exit criteria using the `.spec.successPolicy` 
 field only for the [Indexed Job](/docs/concept/workloads/controllers/job/#completion-mode). 
 Which describes a set of rules either using a list of succeeded indexes for a job, or defining a minimal required size of succeeded indexes. 
 
-This feature is especially useful for the scientific simulation workloads and AI/ML or High-Performance computing batch workloads.
-The scientific workloads sometimes perform simulations with different parameters and do not want to care about the number of successful experiments.
-The AI/ML or High-Performance computing workloads sometimes use leader-follower patterns like MPI, in which the leader controls everything, including the followers' lifecycle.
+This feature is especially useful for the scientific simulation workloads, AI/ML and High-Performance computing batch workloads. In those workloads users perform various simulations and do not necessarily care about all of the experiments to complete successfully, rather they require only a certain number of them to finish successfully. 
+The AI/ML and High-Performance computing workloads sometimes use leader-follower patterns like [MPI](https://en.wikipedia.org/wiki/Message_Passing_Interface), in which the leader controls the execution, including the followers' lifecycle.
 In this case, the Job failure criteria are leader index failure, and followers failure do not indicate Job failure.
 Additionally, followers do not know when they can terminate themselves.
 
-After Job meets any __Success Policy__, the Job is marked as succeeded, and all Pods are terminated including running ones.
+After Job meets any __Success Policy__, the Job is marked as succeeded, and all Pods are terminated including the running ones.
 
 ## How it works
 
-The below Job spec with `.successPolicy.rules[0].succeededCount` shows the example of __Success Policy__ feature:
+The below Job spec with `.successPolicy.rules[0].succeededCount` shows an example of __Success Policy__ feature:
 
 ```yaml
 parallelism: 10
@@ -42,8 +41,8 @@ successPolicy:
   - succeededCount: 1
 ```
 
-In this example, the Job is marked as succeeded when one index succeeded regardless of index number.
-Additionally, we can add constraints for index numbers against `succeededCount` to `.successPolicy.rules[0].succeededCount`
+Here, the Job is marked as succeeded when one index succeeded regardless of its number.
+Additionally, we can constrain index numbers against `succeededCount` in `.successPolicy.rules[0].succeededCount`
 as shown below:
 
 ```yaml
