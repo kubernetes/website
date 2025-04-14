@@ -25,7 +25,8 @@ Which describes a set of rules either using a list of succeeded indexes for a jo
 This feature is especially useful for the scientific simulation workloads, AI/ML and High-Performance computing batch workloads. 
 In those workloads users perform various simulations and might not necessarily care about all the experiments to complete successfully,
 rather they require only a certain number of them to finish successfully. 
-In this case, the leader index failure is only the Job's failure criteria, and workers results is not relevant.
+In this case, the leader index failure is only the Job's failure criteria, and workers results are relevant
+only indirectly via the status of the leader index.
 Moreover, followers do not know when they can terminate themselves.
 
 After Job meets any __Success Policy__, the Job is marked as succeeded, and all Pods are terminated including the running ones.
