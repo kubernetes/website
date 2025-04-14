@@ -23,7 +23,7 @@ field only for the [Indexed Job](/docs/concept/workloads/controllers/job/#comple
 Which describes a set of rules either using a list of succeeded indexes for a job, or defining a minimal required size of succeeded indexes. 
 
 This feature is especially useful for the scientific simulation workloads, AI/ML and High-Performance computing batch workloads. 
-In those workloads users perform various simulations and do not necessarily care about all the experiments to complete successfully,
+In those workloads users perform various simulations and might not necessarily care about all the experiments to complete successfully,
 rather they require only a certain number of them to finish successfully. 
 In this case, the leader index failure is only the Job's failure criteria, and workers results is not relevant.
 Moreover, followers do not know when they can terminate themselves.
