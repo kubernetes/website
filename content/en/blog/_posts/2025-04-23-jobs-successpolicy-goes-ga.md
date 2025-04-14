@@ -15,17 +15,17 @@ In batch workloads, you might want to use leader-follower patterns like [MPI](ht
 in which the leader controls the execution, including the followers' lifecycle.
 
 In this case, you might want to mark it as succeeded
-even if some the indexes failed. Unfortunately, the Kubernetes Job without __Success Policy__, in most cases,
+even if some of the indexes failed. Unfortunately, the Kubernetes Job without __Success Policy__, in most cases,
 requires all Pods to finish successfully for a Job to reach succeeded state.
 
 Job's __Success Policy__ allows you to specify the early exit criteria using the `.spec.successPolicy` 
-field only for the [Indexed Job](/docs/concept/workloads/controllers/job/#completion-mode). 
+field (only for the [Indexed Job](/docs/concept/workloads/controllers/job/#completion-mode)). 
 Which describes a set of rules either using a list of succeeded indexes for a job, or defining a minimal required size of succeeded indexes. 
 
 This feature is especially useful for the scientific simulation workloads, AI/ML and High-Performance computing batch workloads. 
 In those workloads users perform various simulations and might not necessarily care about all the experiments to complete successfully,
 rather they require only a certain number of them to finish successfully. 
-In this case, the leader index failure is only the Job's failure criteria, and followers results are relevant
+In this case, the leader index failure is the only Job failure criteria, and followers results are relevant
 only indirectly via the status of the leader index.
 Moreover, followers do not know when they can terminate themselves.
 
@@ -58,7 +58,7 @@ successPolicy:
     succeededCount: 1
 ```
 
-This example shows that the Job is marked as succeeded when one of the indexes 0 succeeded.
+This example shows that the Job is marked as succeeded when one of the indexes; index 0 succeeded.
 
 Once the Job reaches the one of successPolicy rules or `Complete` criteria like `.spec.backoffLimit`,
 the kube-controller-manager job-controller adds the `SuccessCriteriaMet` condition to the Job condition.
