@@ -21,7 +21,14 @@ auto_generated: true
 -->
 
 <!--
-The file was copied and updated manually from the v1alpha3 API.
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
 `apiVersion: resource.k8s.io/v1beta1`
@@ -145,6 +152,8 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
 
       Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
 
+      The length of the raw data must be smaller or equal to 10 Ki.
+    
       <a name="RawExtension"></a>
       *RawExtension is used to hold extensions in external versions.
       
@@ -155,6 +164,8 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
 
       parameters 可以包含任意数据。处理校验和版本控制是驱动开发者的责任。
       通常这包括自我标识和版本信息（对 Kubernetes 而言即 "kind" + "apiVersion"），并在不同版本之间进行转换。
+
+      原始数据的长度必须小于或等于 10 Ki。
 
       <a name="RawExtension"></a>
       **RawExtension 用于以外部版本来保存扩展数据。**
@@ -323,77 +334,10 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
       cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
       ```
 
-<!--
-- **suitableNodes** (NodeSelector)
-
-  Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a claim that has not been allocated yet *and* that claim gets allocated through a control plane controller. It is ignored when the claim does not use a control plane controller for allocation.
-  
-  Setting this field is optional. If unset, all Nodes are candidates.
-  
-  This is an alpha field and requires enabling the DRAControlPlaneController feature gate.
-
-  <a name="NodeSelector"></a>
-  *A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.*
--->
-- **suitableNodes** (NodeSelector)
-
-  当 Pod 使用还未分配的申领**且**该申领通过控制平面控制器分配时，如果调度器在尝试查找适合 Pod 的节点，
-  将仅考虑与选择算符匹配的节点。当申领不使用控制平面控制器进行分配时，此字段将被忽略。
-
-  设置此字段是可选的，如果不设置，则所有节点都是候选者。
-  
-  这是一个 Alpha 字段，需要启用 DRAControlPlaneController 特性门控。
-
-  <a name="NodeSelector"></a>
-  **节点选择算符表示针对一组节点执行一个或多个标签查询的结果的并集；
-  也就是说，它表示由节点选择算符条件表示的选择算符的逻辑或计算结果。**
-
-  <!--
-  - **suitableNodes.nodeSelectorTerms** ([]NodeSelectorTerm), required
-
-    *Atomic: will be replaced during a merge*
-    
-    Required. A list of node selector terms. The terms are ORed.
-
-    <a name="NodeSelectorTerm"></a>
-    *A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.*
-  -->
-
-  - **suitableNodes.nodeSelectorTerms** ([]NodeSelectorTerm)，必需
-
-    **原子：将在合并期间被替换**
-    
-    必需。节点选择算符条件的列表。这些条件会按逻辑或的关系来计算。
-
-    <a name="NodeSelectorTerm"></a>
-    **Null 或空的节点选择算符条件不会与任何对象匹配。这些条件会按逻辑与的关系来计算。
-    TopologySelectorTerm 类别实现了 NodeSelectorTerm 的子集。**
-
-    <!--
-    - **suitableNodes.nodeSelectorTerms.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
-
-      *Atomic: will be replaced during a merge*
-      
-      A list of node selector requirements by node's labels.
-
-    - **suitableNodes.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
-
-      *Atomic: will be replaced during a merge*
-      
-      A list of node selector requirements by node's fields.
-    -->
-
-    - **suitableNodes.nodeSelectorTerms.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
-
-      **原子：将在合并期间被替换**
-      
-      基于节点标签所设置的节点选择算符要求的列表。
-
-    - **suitableNodes.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
-
-      **原子：将在合并期间被替换**
-      
-      基于节点字段所设置的节点选择算符要求的列表。
+     <!--
+     The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
+     -->
+     表达式的长度必须小于或等于 10 Ki。根据估计的逻辑步骤数，其评估成本也受到限制。
 
 ## DeviceClassList {#DeviceClassList}
 
@@ -842,6 +786,10 @@ DELETE /apis/resource.k8s.io/v1beta1/deviceclasses/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -863,6 +811,10 @@ DELETE /apis/resource.k8s.io/v1beta1/deviceclasses/{name}
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **pretty** (**查询参数**): string
 
@@ -919,6 +871,10 @@ DELETE /apis/resource.k8s.io/v1beta1/deviceclasses
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **labelSelector** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
@@ -968,6 +924,10 @@ DELETE /apis/resource.k8s.io/v1beta1/deviceclasses
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (**查询参数**): string
 
