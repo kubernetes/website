@@ -127,7 +127,7 @@ to call system calls related to process identity (e.g. [`setuid(2)`](https://man
 
 ## `Strict` Policy requires newer CRI versions
 
-Actually, CRI runtime(e.g. containerd, CRI-O) plays a core role for calculating supplementary group ids to be attached to the containers. Thus, `SupplementalGroupsPolicy=Strict` requires the CRI runtime that support this feature (`SupplementalGroupsPolicy: Merge` can work with the CRI runtime which does not support this feature because this policy is fully backward compatible policy).
+Actually, CRI runtime (e.g. containerd, CRI-O) plays a core role for calculating supplementary group ids to be attached to the containers. Thus, `SupplementalGroupsPolicy=Strict` requires a CRI runtime that support this feature (`SupplementalGroupsPolicy: Merge` can work with the CRI runtime which does not support this feature because this policy is fully backward compatible policy).
 
 Below list is the popular CRI runtimes which supports this feature:
 
@@ -147,7 +147,7 @@ status:
 
 ## The Behavioral Changes Introduced In Beta
 
-At alpha release, when a pod with `SupplementalGroupsPolicy=Strict` are scheduled to a node that does NOT support this feature(i.e. `.status.features.supplementalGroupsPolicy=false`), the pod's supplemental groups policy gets fallback-ed to the `Merge` policy _silently_.
+At alpha release, when a pod with `SupplementalGroupsPolicy=Strict` are scheduled to a node that does NOT support this feature(i.e. `.status.features.supplementalGroupsPolicy=false`), the pod's supplemental groups policy falls back to the `Merge` policy _silently_.
 
 However, since the beta release (v1.33), to enforce the policy more strictly, __such pod creation will be rejected by kubelet because the node can not ensure the specified policy__. When your pod is rejected, you will see warning events with `reason=SupplementalGroupsPolicyNotSupported` like below:
 
