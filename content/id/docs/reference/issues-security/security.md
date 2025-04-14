@@ -23,7 +23,7 @@ untuk menerima email tentang keamanan di Kubernetes.
 
 Kami sangat berterima kasih kepada peneliti keamanan dan pengguna yang melaporkan kerentanan Kubernetes. Semua laporan akan diselidiki secara menyeluruh oleh sekelompok sukarelawan komunitas.
 
-Untuk membuat laporan, kirimkan masalah keamanan kamu ke [program bug bounty Kubernetes](https://hackerone.com/kubernetes).
+Untuk membuat laporan, kirimkan masalah keamanan yang kamu temukan ke [program bug bounty Kubernetes](https://hackerone.com/kubernetes).
 Ini memungkinkan triase dan penanganan kerentanan dengan waktu respons yang terstandardisasi.
 
 Kamu juga dapat mengirim email ke daftar privat [security@kubernetes.io](mailto:security@kubernetes.io)
