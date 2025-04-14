@@ -19,18 +19,18 @@ Pada halaman ini dijelaskan informasi keamanan dan pengungkapan isu keamanan Kub
 Bergabunglah dengan grup [kubernetes-security-announce](https://groups.google.com/forum/#!forum/kubernetes-security-announce)
 untuk menerima email tentang keamanan di Kubernetes.
 
-## Melaporkan Kerentanan
+## Melaporkan Masalah Keamananan
 
 Kami sangat berterima kasih kepada peneliti keamanan dan pengguna yang melaporkan kerentanan Kubernetes. Semua laporan akan diselidiki secara menyeluruh oleh sekelompok sukarelawan komunitas.
 
-Untuk membuat laporan, kirimkan kerentanan kamu ke [program bug bounty Kubernetes](https://hackerone.com/kubernetes).
+Untuk membuat laporan, kirimkan masalah keamanan kamu ke [program bug bounty Kubernetes](https://hackerone.com/kubernetes).
 Ini memungkinkan triase dan penanganan kerentanan dengan waktu respons yang terstandardisasi.
 
-Anda juga dapat mengirim email ke daftar privat [security@kubernetes.io](mailto:security@kubernetes.io)
+Kamu juga dapat mengirim email ke daftar privat [security@kubernetes.io](mailto:security@kubernetes.io)
 dengan rincian keamanan dan detail yang diharapkan untuk
 [semua laporan bug Kubernetes](https://github.com/kubernetes/kubernetes/blob/master/.github/ISSUE_TEMPLATE/bug-report.yaml).
 
-Anda dapat mengenkripsi email Anda ke daftar ini menggunakan kunci GPG dari
+Kamu dapat mengenkripsi email ke daftar ini menggunakan kunci GPG dari
 [anggota Komite Tanggapan Keamanan](https://git.k8s.io/security/README.md#product-security-committee-psc).
 Enkripsi menggunakan GPG TIDAK diperlukan untuk membuat pengungkapan.
 
