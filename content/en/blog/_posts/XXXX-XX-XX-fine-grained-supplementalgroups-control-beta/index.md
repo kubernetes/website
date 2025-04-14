@@ -16,7 +16,7 @@ Please be aware that this beta release contains some behavioral breaking change.
 
 ## Motivation: Implicit group memberships defined in `/etc/group` in the container image
 
-Although this behavior may not be popular with many Kubernetes cluster users/admins, kubernetes, by default, _merges_ group information from the Pod with information defined in `/etc/group` in the container image.
+Although the majority of Kubernetes cluster admins/users may not be aware, kubernetes, by default, _merges_ group information from the Pod with information defined in `/etc/group` in the container image.
 
 Let's see an example, below Pod specifies `runAsUser=1000`, `runAsGroup=3000` and `supplementalGroups=4000` in the Pod's security context.
 
