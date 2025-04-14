@@ -53,11 +53,11 @@ completions: 10
 completionMode: Indexed
 successPolicy:
   rules:
-  - succeededIndexes: 0,2-4
+  - succeededIndexes: 0
     succeededCount: 1
 ```
 
-This example shows that the Job is marked as succeeded when one of the indexes 0, 2, 3, or 4 succeeded.
+This example shows that the Job is marked as succeeded when one of the indexes 0 succeeded.
 
 ## Learn more
 
