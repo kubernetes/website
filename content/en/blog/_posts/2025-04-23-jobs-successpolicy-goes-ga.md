@@ -2,6 +2,7 @@
 layout: blog
 title: "Kubernetes 1.33: Job's SuccessPolicy Goes GA"
 date: 2025-04-23
+draft: true
 slug: kubernetes-1-33-jobs-success-policy-goes-ga
 authors: >
   [Yuki Iwai](https://github.com/tenzen-y) (CyberAgent, Inc)
