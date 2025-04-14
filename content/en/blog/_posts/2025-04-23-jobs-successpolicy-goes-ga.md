@@ -11,8 +11,11 @@ We're pleased to announce that Job's __Success Policy__ will  graduate to Genera
 
 ## About Job's Success Policy
 
-When you run batch workloads with leader-worker patterns, you might want to mark it as succeeded
-even if some the indexes failed failed. Unfortunately, the Kubernetes Job without __Success Policy__ requires in most cases all Pods succeeded for Job succeeded.
+In batch workloads, you might want to use leader-follower pattern
+which is the leader role process controls a whole batch workload, and the follower role processes execute actual batch processing.
+
+In this case, you might want to mark it as succeeded
+even if some the indexes failed. Unfortunately, the Kubernetes Job without __Success Policy__ requires in most cases all Pods succeeded for Job succeeded.
 
 Job's __Success Policy__ allows you to specify the early exit criteria for a Job using  the `.spec.successPolicy` 
 field. Which describes a set of rules either using a list of succeeded indexes for a job, or defining a minimal required size of succeeded indexes. 
@@ -20,8 +23,8 @@ field. Which describes a set of rules either using a list of succeeded indexes f
 This feature is especially useful for the scientific simulation workloads and AI/ML or High-Performance computing batch workloads.
 The scientific workloads sometimes perform simulations with different parameters and do not want to care about the number of successful experiments.
 The AI/ML or High-Performance computing workloads sometimes use leader-follower patterns like MPI, in which the leader controls everything, including the followers' lifecycle.
-In this case, the Job failure criteria are leader index failure, and workers failure do not indicate Job failure.
-Additionally, workers do not know when they can terminate themselves.
+In this case, the Job failure criteria are leader index failure, and followers failure do not indicate Job failure.
+Additionally, followers do not know when they can terminate themselves.
 
 After Job meets any __Success Policy__, the Job is marked as succeeded, and all Pods are terminated including running ones.
 
