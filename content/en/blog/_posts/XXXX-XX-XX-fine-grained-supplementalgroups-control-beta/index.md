@@ -8,9 +8,9 @@ author: >
 
 ---
 
-Kubernetes 1.31 introduced new field `SupplementalGroupsPolicy` in Pod's Security Context to improve supplemental groups handling in containers in Pods.
-
-In Kubernetes 1.33, the feature graduates to beta and the corresponding feature gate (`SupplementalGroupsPolicy`) gets enabled by default.
+The support for `SupplementalGroupsPolicy` in Pod's Security Context goes beta. Read on to learn how it will help your cluster security and how to start using it.
+ 
+The feature was  introduced in Kubernetes 1.31 and graduates to beta in 1.33 - the corresponding feature gate (`SupplementalGroupsPolicy`) is enabled by default.
 
 Please be aware that this beta release contains some behavioral breaking change. See [The Behavioral Changes Introduced In Beta](#the-behavioral-changes-introduced-in-beta) and [Upgrade Considerations](#upgrade-consideration) sections for details.
 
@@ -166,7 +166,7 @@ involvedObject:
 
 ## Upgrade Consideration
 
-If you already used the feature, particularly `SupplementalGroupsPolicy=Strict` policy, we assume your cluster's CRI runtimes already support this feature. In this case, you no need to worry about the pod rejections described in the above section.
+If you already used the feature, particularly `SupplementalGroupsPolicy=Strict` policy, we assume your cluster's CRI runtimes already support this feature. In this case, you do not need to worry about the pod rejections described in the above section.
 
 However, if your cluster:
 
