@@ -11,11 +11,11 @@ We're pleased to announce that Job's __Success Policy__ will  graduate to Genera
 
 ## About Job's Success Policy
 
-In batch workloads, you might want to use leader-follower pattern
-which is the leader role process controls a whole batch workload, and the follower role processes execute actual batch processing.
+In batch workloads, you might want to use leader-follower patterns like [MPI](https://en.wikipedia.org/wiki/Message_Passing_Interface),
+in which the leader controls the execution, including the followers' lifecycle.
 
 In this case, you might want to mark it as succeeded
-even if some the indexes failed failed. Unfortunately, the Kubernetes Job without __Success Policy__, in most cases,
+even if some the indexes failed. Unfortunately, the Kubernetes Job without __Success Policy__, in most cases,
 requires all Pods to finish successfully for a Job to reach succeeded state.
 
 Job's __Success Policy__ allows you to specify the early exit criteria using the `.spec.successPolicy` 
@@ -25,8 +25,6 @@ Which describes a set of rules either using a list of succeeded indexes for a jo
 This feature is especially useful for the scientific simulation workloads, AI/ML and High-Performance computing batch workloads. 
 In those workloads users perform various simulations and do not necessarily care about all the experiments to complete successfully,
 rather they require only a certain number of them to finish successfully. 
-The AI/ML and High-Performance computing workloads sometimes use leader-follower patterns like [MPI](https://en.wikipedia.org/wiki/Message_Passing_Interface),
-in which the leader controls the execution, including the followers' lifecycle.
 In this case, the leader index failure is only the Job's failure criteria, and workers results is not relevant.
 Moreover, followers do not know when they can terminate themselves.
 
