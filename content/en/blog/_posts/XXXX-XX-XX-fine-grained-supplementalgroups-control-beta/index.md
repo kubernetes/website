@@ -8,9 +8,9 @@ author: >
 
 ---
 
-The support for `SupplementalGroupsPolicy` in Pod's Security Context goes beta. Read on to learn how it will help your cluster security and how to start using it.
+Pod supplemental groups policy control for Pods is now beta. Read on to learn how it will help your cluster security, and how to start using it.
  
-The feature was  introduced in Kubernetes 1.31 and graduates to beta in 1.33 - the corresponding feature gate (`SupplementalGroupsPolicy`) is enabled by default.
+The new field was introduced as an opt-in alpha feature for Kubernetes 1.31 and has graduated to beta in 1.33; the corresponding feature gate (`SupplementalGroupsPolicy`) is now enabled by default.
 
 Please be aware that this beta release contains some behavioral breaking change. See [The Behavioral Changes Introduced In Beta](#the-behavioral-changes-introduced-in-beta) and [Upgrade Considerations](#upgrade-consideration) sections for details.
 
@@ -60,7 +60,7 @@ Thus, the group membership defined in `/etc/group` in the container image for th
 
 The _implicitly_ merged group information from `/etc/group` in the container image may cause some concerns particularly in accessing volumes (see [kubernetes/kubernetes#112879](https://issue.k8s.io/112879) for details) because file permission is controlled by uid/gid in Linux. Even worse, the implicit gids from `/etc/group` can not be detected/validated by any policy engines because there is no clue for the implicit group information in the manifest. This can also be a concern for Kubernetes security.
 
-## Fine-grained SupplementalGroups control in a Pod: `SupplementaryGroupsPolicy`
+## Fine-grained supplemental groups control in a Pod: `supplementaryGroupsPolicy`
 
 To tackle the above problem, Pod's `.spec.securityContext` now have `supplementalGroupsPolicy` field.
 
@@ -129,7 +129,8 @@ to call system calls related to process identity (e.g. [`setuid(2)`](https://man
 
 Actually, CRI runtime (e.g. containerd, CRI-O) plays a core role for calculating supplementary group ids to be attached to the containers. Thus, `SupplementalGroupsPolicy=Strict` requires a CRI runtime that support this feature (`SupplementalGroupsPolicy: Merge` can work with the CRI runtime which does not support this feature because this policy is fully backward compatible policy).
 
-Below list is the popular CRI runtimes which supports this feature:
+Here are some CRI runtimes that support this feature, and the versions you need
+to be running:
 
 - containerd: v2.0 or later
 - CRI-O: v1.31 or later
