@@ -23,10 +23,9 @@ Job's __Success Policy__ allows you to specify the early exit criteria using the
 field (only for the [Indexed Job](/docs/concept/workloads/controllers/job/#completion-mode)). 
 Which describes a set of rules either using a list of succeeded indexes for a job, or defining a minimal required size of succeeded indexes. 
 
-This feature is especially useful for the scientific simulation workloads, AI/ML and High-Performance computing batch workloads. 
-In those workloads users perform various simulations and might not necessarily care about all the experiments to complete successfully,
-rather they require only a certain number of them to finish successfully. 
-In this case, the leader index failure is the only Job failure criteria, and followers results are relevant
+This feature is especially valuable for scientific simulation, AI/ML and High-Performance Computing (HPC) batch workloads. 
+Users in these areas often run numerous experiments and may only need a specific number to complete successfully, rather than requiring all of them to succeed. 
+In this case, the leader index failure is the only Job exit criteria, and followers results are relevant
 only indirectly via the status of the leader index.
 Moreover, followers do not know when they can terminate themselves.
 
@@ -61,9 +60,9 @@ successPolicy:
 
 This example shows that the Job is marked as succeeded when one of the indexes; index 0 succeeded.
 
-Once the Job reaches the one of successPolicy rules or `Complete` criteria based on `.spec.completions`,
+Once the Job reaches one of the successPolicy rules or `Complete` criteria based on `.spec.completions`,
 the kube-controller-manager job-controller adds the `SuccessCriteriaMet` condition to the Job condition.
-After that, the job-controller executes terminating processes like terminating running Pods against Jobs with `SuccessCriteriaMet` condition.
+After that, the job-controller initiates cleanup and termination of Pods for Jobs with `SuccessCriteriaMet` condition.
 Eventually, when all terminating processing is finished, the Job gets `Complete` condition.
 
 ## Learn more
