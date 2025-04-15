@@ -18,24 +18,27 @@ Please be aware that this beta release contains some behavioral breaking change.
 
 Although the majority of Kubernetes cluster admins/users may not be aware, kubernetes, by default, _merges_ group information from the Pod with information defined in `/etc/group` in the container image.
 
-Let's see an example, below Pod specifies `runAsUser=1000`, `runAsGroup=3000` and `supplementalGroups=4000` in the Pod's security context.
+Let's see an example, below Pod manifest specifies `runAsUser=1000`, `runAsGroup=3000` and `supplementalGroups=4000` in the Pod's security context.
 
-{{% code_sample file="implicit-groups.yaml" %}}
-
-What is the result of `id` command in the `ctr` container?
-
-```console
-# Create the Pod:
-$ kubectl apply -f https://k8s.io/blog/XXXX/XX/XX/Fine-grained-SupplementalGroups-control/implicit-groups.yaml
-
-# Verify that the Pod's Container is running:
-$ kubectl get pod implicit-groups
-
-# Check the id command
-$ kubectl exec implicit-groups -- id
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: implicit-groups
+spec:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 3000
+    supplementalGroups: [4000]
+  containers:
+  - name: ctr
+    image: registry.k8s.io/e2e-test-images/agnhost:2.45
+    command: [ "sh", "-c", "sleep 1h" ]
+    securityContext:
+      allowPrivilegeEscalation: false
 ```
 
-Then, output should be similar to this:
+What is the result of `id` command in the `ctr` container? The output should be similar to this:
 
 ```none
 uid=1000 gid=3000 groups=3000,4000,50000
@@ -45,9 +48,7 @@ Where does group ID `50000` in supplementary groups (`groups` field) come from, 
 
 Checking the contents of `/etc/group` in the container image should show below:
 
-```console
-$ kubectl exec implicit-groups -- cat /etc/group
-...
+```none
 user-defined-in-image:x:1000:
 group-defined-in-image:x:50000:user-defined-in-image
 ```
@@ -70,22 +71,28 @@ This field provides a way to control how to calculate supplementary groups for t
 
 * _Strict_: it only attaches specified group IDs in `fsGroup`, `supplementalGroups`, or `runAsGroup` fields as the supplementary groups of the container processes. This means no group membership defined in `/etc/group` for the container's primary user will be merged.
 
-Let's see how `Strict` policy works.
+Let's see how `Strict` policy works. Below Pod manifest specifies `supplementalGroupsPolicy: Strict`:
 
-{{% code_sample file="strict-supplementalgroups-policy.yaml" %}}
-
-```console
-# Create the Pod:
-$ kubectl apply -f https://k8s.io/blog/XXXX/XX/XX/Fine-grained-SupplementalGroups-control/strict-supplementalgroups-policy.yaml
-
-# Verify that the Pod's Container is running:
-$ kubectl get pod strict-supplementalgroups-policy
-
-# Check the process identity:
-kubectl exec -it strict-supplementalgroups-policy -- id
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: strict-supplementalgroups-policy
+spec:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 3000
+    supplementalGroups: [4000]
+    supplementalGroupsPolicy: Strict
+  containers:
+  - name: ctr
+    image: registry.k8s.io/e2e-test-images/agnhost:2.45
+    command: [ "sh", "-c", "sleep 1h" ]
+    securityContext:
+      allowPrivilegeEscalation: false
 ```
 
-The output should be similar to this:
+The result of `id` command in the `ctr` container should be similar to this:
 
 ```none
 uid=1000 gid=3000 groups=3000,4000
