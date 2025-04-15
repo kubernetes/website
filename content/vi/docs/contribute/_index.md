@@ -13,7 +13,7 @@ card:
 
 <!-- overview -->
 
-Có rất nhiều cách để đóng góp cho Kubernetes. Bạn có thể làm việc trên thiết kế cho các tính năng mới, bạn có thể viết tài liệu cho mã nguồn hiện có, bạn có thể [viết cho blog của chúng tôi](/docs/contribute/blog/). Còn nhiều hơn nữa: bạn có thể triển khai các tính năng mới hoặc sửa lỗi. Bạn có thể giúp mọi người tham gia vào cộng đồng đóng góp của chúng tôi, hoặc hỗ trợ những người đóng góp hiện tại.
+Có rất nhiều cách để đóng góp cho Kubernetes. Bạn có thể tham gia thiết kế cho các tính năng mới, viết tài liệu cho mã nguồn hiện có, hoặc [viết cho blog của chúng tôi](/docs/contribute/blog/). Còn nhiều hơn nữa: bạn có thể triển khai các tính năng mới hoặc sửa lỗi. Bạn cũng có thể giúp mọi người tham gia vào cộng đồng những người đóng góp của chúng tôi, hoặc hỗ trợ những người đóng góp hiện tại.
 
 Với tất cả những cách khác nhau để tạo ra sự khác biệt cho dự án, chúng tôi - Kubernetes - đã tạo ra một trang web riêng: https://k8s.dev/. Bạn có thể truy cập vào đó để tìm hiểu thêm về việc đóng góp cho Kubernetes.
 
