@@ -9,7 +9,6 @@ title: "PriorityClass"
 weight: 14
 auto_generated: false
 ---
-
 <!--
 api_metadata:
   apiVersion: "scheduling.k8s.io/v1"
@@ -22,34 +21,22 @@ weight: 14
 auto_generated: true
 -->
 
-
 `apiVersion: scheduling.k8s.io/v1`
 
 `import "k8s.io/api/scheduling/v1"`
 
-<!--
-## PriorityClass {#PriorityClass}
--->
 ## PriorityClass {#PriorityClass}
 
 <!-- 
 PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
-
-<hr>
- -->
+-->
 PriorityClass 定义了从优先级类名到优先级数值的映射。
 该值可以是任何有效的整数。
 
 <hr>
 
-<!--
- - **apiVersion**: scheduling.k8s.io/v1
--->
 - **apiVersion**: scheduling.k8s.io/v1
 
-<!-- 
-- **kind**: PriorityClass 
--->
 - **kind**: PriorityClass
 
 <!--
@@ -59,8 +46,8 @@ PriorityClass 定义了从优先级类名到优先级数值的映射。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  标准对象的元数据。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  标准对象的元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--
 - **value** (int32), required
@@ -107,8 +94,6 @@ PriorityClass 定义了从优先级类名到优先级数值的映射。
 ## PriorityClassList {#PriorityClassList}
 
 PriorityClassList is a collection of priority classes.
-
-<hr>
 -->
 ## PriorityClassList {#PriorityClassList}
 
@@ -116,14 +101,8 @@ PriorityClassList 是优先级类的集合。
 
 <hr>
 
-<!-- 
-- **apiVersion**: scheduling.k8s.io/v1 
--->
 - **apiVersion**: scheduling.k8s.io/v1
 
-<!-- 
-- **kind**: PriorityClassList 
--->
 - **kind**: PriorityClassList
 
 <!--
@@ -133,7 +112,8 @@ PriorityClassList 是优先级类的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  标准列表元数据。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  标准列表元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--
 - **items** ([]<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>), required
@@ -142,12 +122,10 @@ PriorityClassList 是优先级类的集合。
 -->
 - **items** ([]<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>)，必需
 
-  items 是 PriorityClasses 的列表
+  items 是 PriorityClasses 的列表。
 
 <!--
 ## Operations {#Operations}
-
-<hr>
 -->
 ## 操作 {#Operations}
 
@@ -162,7 +140,7 @@ PriorityClassList 是优先级类的集合。
 #### HTTP Request
 
 GET /apis/scheduling.k8s.io/v1/priorityclasses/{name}
- -->
+-->
 #### HTTP 请求
 
 GET /apis/scheduling.k8s.io/v1/priorityclasses/{name}
@@ -179,7 +157,7 @@ GET /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 -->
 - **name** （**路径参数**）: string，必需
 
-  PriorityClass 名称
+  PriorityClass 的名称。
 
 <!--
 - **pretty** (*in query*): string
@@ -441,7 +419,7 @@ PUT /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 -->
 - **name** （**路径参数**）: string，必需
 
-  PriorityClass 名称
+  PriorityClass 的名称。
 
 <!--
 - **body**: <a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>, required
@@ -529,7 +507,7 @@ PATCH /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 -->
 - **name** （**路径参数**）: string，必需
 
-  PriorityClass 名称
+  PriorityClass 的名称。
 
 <!--
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
@@ -650,6 +628,15 @@ Parameters
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 <!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+<!--
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -703,7 +690,6 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses
 -->
 #### 参数
 
-<!-- - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a> -->
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
 <!--
@@ -741,6 +727,15 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses
 - **gracePeriodSeconds** （**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+<!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 <!--
 - **labelSelector** (*in query*): string
