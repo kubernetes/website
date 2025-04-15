@@ -1,0 +1,41 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "servicecidrs.default"
+  annotations:
+    kubernetes.io/description: >-2
+      A ValidatingAdmissionPolicy that restricts the IP address ranges that can be
+      used for ClusterIP type Services. Deploying this admission policy and its
+      associated ValidatingAdmissionPolicyBinding prevents creating (or updating)
+      a ServiceCIDR outside the permitted ranges.
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["networking.k8s.io"]
+      apiVersions: ["v1","v1beta1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["servicecidrs"]
+  matchConditions:
+  - name: 'exclude-default-servicecidr'
+    expression: "object.metadata.name != 'kubernetes'"
+  variables:
+  - name: allowed
+    expression: "['10.96.0.0/16','2001:db8::/64']"
+  validations:
+  - expression: "object.spec.cidrs.all(currentCIDR, variables.allowed.exists(allowedCIDR, cidr(allowedCIDR).containsCIDR(currentCIDR)))"
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: "servicecidrs-binding"
+  annotations:
+    kubernetes.io/description: >-2
+      A ValidatingAdmissionPolicyBinding to restricts the IP address ranges that
+      can be used for ClusterIP type Services. Deploying this binding and its
+      associated ValidatingAdmissionPolicy prevents creating (or updating)
+      a ServiceCIDR that falls outside the permitted ranges.
+spec:
+  policyName: "servicecidrs.default"
+  validationActions: [Deny,Audit]
+
