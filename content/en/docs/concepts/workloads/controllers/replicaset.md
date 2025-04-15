@@ -7,13 +7,6 @@ title: ReplicaSet
 api_metadata:
 - apiVersion: "apps/v1"
   kind: "ReplicaSet"
-feature:
-  title: Self-healing
-  anchor: How a ReplicaSet works
-  description: >
-    Restarts containers that fail, replaces and reschedules containers when nodes die,
-    kills containers that don't respond to your user-defined health check,
-    and doesn't advertise them to clients until they are ready to serve.
 content_type: concept
 description: >-
   A ReplicaSet's purpose is to maintain a stable set of replica Pods running at any given time.
