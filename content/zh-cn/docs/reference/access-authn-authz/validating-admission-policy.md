@@ -496,7 +496,7 @@ variables as well as some other useful variables:
 
 `spec.validations[i].expression` 代表将使用 CEL 来计算表达式。
 要了解更多信息，请参阅 [CEL 语言规范](https://github.com/google/cel-spec)。
-CEL 表达式可以访问按 CEL 变量来组织的 Admission 请求/响应的内容，以及其他一些有用的变量 :
+CEL 表达式可以访问按 CEL 变量来组织的 Admission 请求/响应的内容，以及其他一些有用的变量：
 
 <!--
 - 'object' - The object from the incoming request. The value is null for DELETE requests.
@@ -922,3 +922,26 @@ The error message is similar to this.
 ```console
 error: failed to create deployment: deployments.apps "invalid" is forbidden: ValidatingAdmissionPolicy 'image-matches-namespace-environment.policy.example.com' with binding 'demo-binding-test.example.com' denied request: only prod images are allowed in namespace default
 ```
+
+<!--
+## API kinds exempt from admission validation
+
+There are certain API kinds that are exempt from admission-time validation checks. For example, you can't create a ValidatingAdmissionPolicy that prevents changes to ValidatingAdmissionPolicyBindings.
+
+The list of exempt API kinds is:
+-->
+## 免于准入验证的 API 类别
+
+某些 API 类别可以豁免准入时验证检查。例如，你无法创建阻止更改 ValidatingAdmissionPolicyBindings
+的 ValidatingAdmissionPolicy。
+
+豁免准入验证的 API 类别列表如下：
+
+* [ValidatingAdmissionPolicies]({{< relref "/docs/reference/kubernetes-api/policy-resources/validating-admission-policy-v1/" >}})
+* [ValidatingAdmissionPolicyBindings]({{< relref "/docs/reference/kubernetes-api/policy-resources/validating-admission-policy-binding-v1/" >}})
+* MutatingAdmissionPolicies
+* MutatingAdmissionPolicyBindings
+* [TokenReviews]({{< relref "/docs/reference/kubernetes-api/authentication-resources/token-review-v1/" >}})
+* [LocalSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/local-subject-access-review-v1/" >}})
+* [SelfSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/self-subject-access-review-v1/" >}})
+* [SelfSubjectReviews]({{< relref "/docs/reference/kubernetes-api/authentication-resources/self-subject-review-v1/" >}})

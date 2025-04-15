@@ -11,7 +11,14 @@ auto_generated: true
 ---
 
 <!--
-The file was copied and updated manually from the v1alpha3 API.
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
 `apiVersion: resource.k8s.io/v1beta1`
@@ -84,6 +91,8 @@ DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and h
     - **config.opaque.parameters** (RawExtension), required
 
       Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+      
+      The length of the raw data must be smaller or equal to 10 Ki.
 
       <a name="RawExtension"></a>
       *RawExtension is used to hold extensions in external versions.
@@ -170,38 +179,8 @@ DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and h
       For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
       
           cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
-
-- **suitableNodes** (NodeSelector)
-
-  Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a claim that has not been allocated yet *and* that claim gets allocated through a control plane controller. It is ignored when the claim does not use a control plane controller for allocation.
-  
-  Setting this field is optional. If unset, all Nodes are candidates.
-  
-  This is an alpha field and requires enabling the DRAControlPlaneController feature gate.
-
-  <a name="NodeSelector"></a>
-  *A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.*
-
-  - **suitableNodes.nodeSelectorTerms** ([]NodeSelectorTerm), required
-
-    *Atomic: will be replaced during a merge*
-    
-    Required. A list of node selector terms. The terms are ORed.
-
-    <a name="NodeSelectorTerm"></a>
-    *A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.*
-
-    - **suitableNodes.nodeSelectorTerms.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
-
-      *Atomic: will be replaced during a merge*
       
-      A list of node selector requirements by node's labels.
-
-    - **suitableNodes.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
-
-      *Atomic: will be replaced during a merge*
-      
-      A list of node selector requirements by node's fields.
+      The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 
 
 
@@ -524,6 +503,11 @@ DELETE /apis/resource.k8s.io/v1beta1/deviceclasses/{name}
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -577,6 +561,11 @@ DELETE /apis/resource.k8s.io/v1beta1/deviceclasses
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string

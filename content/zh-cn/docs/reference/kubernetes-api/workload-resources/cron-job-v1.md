@@ -8,7 +8,6 @@ description: "CronJob 代表单个定时作业 (Cron Job) 的配置。"
 title: "CronJob"
 weight: 11
 ---
-
 <!--
 api_metadata:
 apiVersion: "batch/v1"
@@ -669,7 +668,6 @@ GET /apis/batch/v1/cronjobs
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 -->
-
 - **watch** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
@@ -681,7 +679,6 @@ GET /apis/batch/v1/cronjobs
 
 401: Unauthorized
 -->
-
 #### 响应
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobList" >}}">CronJobList</a>): OK
@@ -697,7 +694,6 @@ POST /apis/batch/v1/namespaces/{namespace}/cronjobs
 
 #### Parameters
 -->
-
 ### `create` 创建一个 CronJob
 
 #### HTTP 请求
@@ -711,7 +707,6 @@ POST /apis/batch/v1/namespaces/{namespace}/cronjobs
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-
 - **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
@@ -719,7 +714,6 @@ POST /apis/batch/v1/namespaces/{namespace}/cronjobs
 <!--
 - **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>, required
 -->
-
 - **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>, 必需
 
 <!--
@@ -727,7 +721,6 @@ POST /apis/batch/v1/namespaces/{namespace}/cronjobs
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 -->
-
 - **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
@@ -737,7 +730,6 @@ POST /apis/batch/v1/namespaces/{namespace}/cronjobs
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 -->
-
 - **fieldManager** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
@@ -747,7 +739,6 @@ POST /apis/batch/v1/namespaces/{namespace}/cronjobs
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 -->
-
 - **fieldValidation** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
@@ -757,7 +748,6 @@ POST /apis/batch/v1/namespaces/{namespace}/cronjobs
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -773,7 +763,6 @@ POST /apis/batch/v1/namespaces/{namespace}/cronjobs
 
 401: Unauthorized
 -->
-
 #### 响应
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
@@ -793,7 +782,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 #### Parameters
 -->
-
 ### `update` 替换指定的 CronJob
 
 #### HTTP 请求
@@ -807,7 +795,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
   name of the CronJob
 -->
-
 - **name** (**路径参数**): string, 必需
 
   CronJob 的名称
@@ -817,7 +804,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-
 - **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
@@ -825,7 +811,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 <!--
 - **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>, required
 -->
-
 - **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>, 必需
 
 <!--
@@ -842,7 +827,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 -->
-
 - **fieldManager** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
@@ -852,7 +836,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 -->
-
 - **fieldValidation** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
@@ -862,7 +845,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -876,7 +858,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 401: Unauthorized
 -->
-
 #### 响应
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
@@ -894,7 +875,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
 #### Parameters
 -->
-
 ### `update` 替换指定 CronJob 的状态
 
 #### HTTP 请求
@@ -908,7 +888,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
   name of the CronJob
 -->
-
 - **name** (**路径参数**): string, 必需
 
   CronJob 的名称
@@ -918,7 +897,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-
 - **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
@@ -926,7 +904,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 <!--
 - **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>, required
 -->
-
 - **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>, 必需
 
 <!--
@@ -934,7 +911,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 -->
-
 - **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
@@ -944,7 +920,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 -->
-
 - **fieldManager** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
@@ -954,7 +929,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 -->
-
 - **fieldValidation** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
@@ -964,7 +938,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -978,7 +951,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
 401: Unauthorized
 -->
-
 #### 响应
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
@@ -996,7 +968,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 #### Parameters
 -->
-
 ### `patch` 部分更新指定的 CronJob
 
 #### HTTP 请求
@@ -1010,7 +981,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
   name of the CronJob
 -->
-
 - **name** (**路径参数**): string, 必需
 
   CronJob 的名称
@@ -1020,7 +990,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-
 - **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
@@ -1028,7 +997,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 <!--
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 -->
-
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
 
 <!--
@@ -1036,7 +1004,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 -->
-
 - **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
@@ -1046,7 +1013,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 -->
-
 - **fieldManager** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
@@ -1056,7 +1022,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 -->
-
 - **fieldValidation** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
@@ -1066,7 +1031,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 -->
-
 - **force** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -1076,7 +1040,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1090,7 +1053,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 401: Unauthorized
 -->
-
 #### 响应
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
@@ -1108,7 +1070,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
 #### Parameters
 -->
-
 ### `patch` 部分更新指定 CronJob 的状态
 
 #### HTTP 请求
@@ -1122,7 +1083,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
   name of the CronJob
 -->
-
 - **name** (**路径参数**): string, 必需
 
   CronJob 的名称
@@ -1132,7 +1092,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-
 - **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
@@ -1140,7 +1099,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 <!--
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 -->
-
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
 
 <!--
@@ -1158,7 +1116,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 -->
-
 - **fieldManager** (**参数参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
@@ -1168,7 +1125,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 -->
-
 - **fieldValidation** (**参数参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
@@ -1178,7 +1134,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 -->
-
 - **force** (**参数参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -1188,7 +1143,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-
 - **pretty** (**参数参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1202,7 +1156,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
 401: Unauthorized
 -->
-
 #### 响应
 
 200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
@@ -1220,7 +1173,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 #### Parameters
 -->
-
 ### `delete` 删除一个 CronJob
 
 #### HTTP 请求
@@ -1234,7 +1186,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
   name of the CronJob
 -->
-
 - **name** (**路径参数**): string, 必需
 
   CronJob 的名称
@@ -1244,7 +1195,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-
 - **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
@@ -1252,7 +1202,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 <!--
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 -->
-
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
 <!--
@@ -1260,7 +1209,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 -->
-
 - **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
@@ -1270,17 +1218,24 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 -->
-
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+<!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 <!--
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1290,7 +1245,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 -->
-
 - **propagationPolicy** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
@@ -1304,7 +1258,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 401: Unauthorized
 -->
-
 #### 响应
 
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
@@ -1322,7 +1275,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 
 #### Parameters
 -->
-
 ### `deletecollection` 删除一组 CronJob
 
 #### HTTP 请求
@@ -1336,7 +1288,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-
 - **namespace** (**路径参数**): string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
@@ -1344,7 +1295,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 <!--
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 -->
-
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
 <!--
@@ -1352,7 +1302,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 -->
-
 - **continue** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
@@ -1362,7 +1311,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 -->
-
 - **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
@@ -1372,7 +1320,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 -->
-
 - **fieldSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
@@ -1382,17 +1329,24 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 -->
-
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+<!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 <!--
 - **labelSelector** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 -->
-
 - **labelSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
@@ -1402,7 +1356,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 -->
-
 - **limit** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
@@ -1412,7 +1365,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1422,7 +1374,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 -->
-
 - **propagationPolicy** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
@@ -1432,7 +1383,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 -->
-
 - **resourceVersion** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
@@ -1442,7 +1392,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 -->
-
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
@@ -1461,7 +1410,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 -->
-
 - **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -1473,10 +1421,8 @@ DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 
 401: Unauthorized
 -->
-
 #### 响应
 
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
-

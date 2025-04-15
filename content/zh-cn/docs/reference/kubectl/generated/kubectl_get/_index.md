@@ -370,10 +370,10 @@ If non-empty, sort list types using this field specification.  The field specifi
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-If specified, gets the subresource of the requested object. Must be one of [status scale]. This flag is beta and may change in the future.
+If specified, gets the subresource of the requested object. This flag is beta and may change in the future.
 -->
 如果指定，则读取所请求对象的指定子资源。
-必须是 status、scale 之一。此标志处于 Beta 阶段，未来可能会有所变化。
+此标志处于 Beta 阶段，未来可能会有所变化。
 </p></td>
 </tr>
 
@@ -385,7 +385,7 @@ If specified, gets the subresource of the requested object. Must be one of [stat
 <!--
 Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
 -->
-当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
+当 -o=go-template、-o=go-template-file 时所使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
 </p></td>
 </tr>
@@ -819,7 +819,7 @@ Username for basic authentication to the API server
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
---version, --version=raw 打印版本信息并退出；--version=vX.Y.Z... 设置报告的版本。
+--version、--version=raw 打印版本信息并退出；--version=vX.Y.Z... 设置报告的版本。
 </p></td>
 </tr>
 

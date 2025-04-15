@@ -96,7 +96,7 @@ NodeSpec 描述了创建节点时使用的属性。
     ConfigMap is a reference to a Node's ConfigMap
     -->
 
-    configMap 是对 Node 的 ConfigMap 的引用。
+    ConfigMap 是对 Node 的 ConfigMap 的引用。
 
     <a name="ConfigMapNodeConfigSource"></a>
     <!--
@@ -279,14 +279,14 @@ NodeStatus 是有关节点当前状态的信息。
   
   *Map: unique values on key type will be kept during a merge*
 
-  List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
+  List of addresses reachable to the node. Queried from cloud provider, if available. More info:  https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
   -->
   **补丁策略：根据 `type` 键执行合并操作**
 
   **Map：键 `type` 的唯一值将在合并期间保留**
 
   节点可到达的地址列表。从云提供商处查询（如果有）。
-  更多信息： https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/#addresses
+  更多信息：https://kubernetes.io/zh-cn/docs/reference/node/node-status/#addresses
   
   注意：该字段声明为可合并，但合并键不够唯一，合并时可能导致数据损坏。
   调用者应改为使用完全替换性质的补丁操作。
@@ -344,14 +344,14 @@ NodeStatus 是有关节点当前状态的信息。
 
   *Map: unique values on key type will be kept during a merge*
   
-  Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition 
+  Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
   -->
   **补丁策略：根据 `type` 键执行合并操作**
 
   **Map：键 `type` 的唯一值将在合并期间保留**
 
   conditions 是当前观测到的节点状况的数组。
-  更多信息： https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/#condition
+  更多信息：https://kubernetes.io/zh-cn/docs/reference/node/node-status/#condition
 
   <a name="NodeCondition"></a>
   <!--
@@ -432,7 +432,7 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   Status of the config assigned to the node via the dynamic Kubelet config feature. 
   -->
-  通过动态 Kubelet 配置功能分配给节点的配置状态。
+  通过动态 kubelet 配置功能分配给节点的配置状态。
 
   <a name="NodeConfigStatus"></a>
   <!-- 
@@ -470,7 +470,7 @@ NodeStatus 是有关节点当前状态的信息。
       -->
 
       ConfigMapNodeConfigSource 包含引用某 ConfigMap 作为节点配置源的信息。
-      此 API 自 1.22 版本起已被弃用： https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+      此 API 自 1.22 版本起已被弃用：https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
 
       <!--
       - **config.active.configMap.kubeletConfigKey** (string), required
@@ -617,10 +617,10 @@ NodeStatus 是有关节点当前状态的信息。
     可能会发生的情况，例如，尝试将 spec.configSource 通过检查点操作复制到到本地 assigned 记录时，
     尝试对与 spec.configSource 关联的有效负载执行检查点操作，尝试加​​载或验证 assigned 的配置时。
     同步配置时可能会在不同位置发生错误，较早的错误（例如下载或检查点错误）不会导致回滚到 LastKnownGood，
-    并且可能会在 Kubelet 重试后解决。
+    并且可能会在 kubelet 重试后解决。
     后期发生的错误（例如加载或验证检查点配置）将导致回滚到 LastKnownGood。
     在后一种情况下，通常可以通过修复 spec.sonfigSource 中 assigned 配置来解决错误。
-    你可以通过在 Kubelet 日志中搜索错误消息来找到更多的调试信息。
+    你可以通过在 kubelet 日志中搜索错误消息来找到更多的调试信息。
     error 是错误状态的人类可读描述；机器可以检查 error 是否为空，但不应依赖跨 kubelet 版本的 error 文本的稳定性。
 
   - **config.lastKnownGood** (NodeConfigSource)
@@ -729,7 +729,7 @@ NodeStatus 是有关节点当前状态的信息。
     Endpoint on which Kubelet is listening.
     -->
 
-    Kubelet 正在侦听的端点。
+    kubelet 正在侦听的端点。
 
     <a name="DaemonEndpoint"></a>
     <!--
@@ -814,10 +814,10 @@ NodeStatus 是有关节点当前状态的信息。
 - **nodeInfo** (NodeSystemInfo)
 
   <!--
-  Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info 
+  Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
   -->
   用于唯一标识节点的 ids/uuids 集。
-  更多信息： https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/#info
+  更多信息：https://kubernetes.io/zh-cn/docs/reference/node/node-status/#info
 
   <a name="NodeSystemInfo"></a>
   <!--
@@ -1563,6 +1563,7 @@ DELETE /api/v1/nodes/{name}
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 - **dryRun** (*in query*): string
 - **gracePeriodSeconds** (*in query*): integer
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
 - **pretty** (*in query*): string
 - **propagationPolicy** (*in query*): string
 #### Response
@@ -1580,6 +1581,10 @@ DELETE /api/v1/nodes/{name}
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **pretty** (**查询参数**): string
 
@@ -1629,6 +1634,10 @@ DELETE /api/v1/nodes
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **labelSelector** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
@@ -1676,6 +1685,10 @@ DELETE /api/v1/nodes
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (**查询参数**): string
 

@@ -2,66 +2,94 @@
 title: Hello Minikube
 content_type: tutorial
 weight: 5
-card: 
+card:
   name: tutorials
   weight: 10
 ---
 
 <!-- overview -->
 
-このチュートリアルでは、[minikube](/ja/docs/setup/learning-environment/minikube)とKatacodaを使用して、Kubernetes上でサンプルアプリケーションを動かす方法を紹介します。Katacodaはブラウザで無償のKubernetes環境を提供します。
-
-{{< note >}}
-[minikubeをローカルにインストール](https://minikube.sigs.k8s.io/docs/start/)している場合もこのチュートリアルを進めることが可能です。
-{{< /note >}}
-
-
+このチュートリアルでは、minikubeを使用して、Kubernetes上でサンプルアプリケーションを動かす方法を紹介します。
+このチュートリアルはNGINXを利用してすべての要求をエコーバックするコンテナイメージを提供します。
 
 ## {{% heading "objectives" %}}
-
 
 * minikubeへのサンプルアプリケーションのデプロイ
 * アプリケーションの実行
 * アプリケーションログの確認
 
-
-
 ## {{% heading "prerequisites" %}}
 
 
-このチュートリアルはNGINXを利用してすべての要求をエコーバックするコンテナイメージを提供します。
+このチュートリアルは、`minikube`がセットアップ済みであることを前提としています。
+インストール手順は[minikube start](https://minikube.sigs.k8s.io/docs/start/)の __Step 1__ を参照してください。
+{{< note >}}
+ __Step 1, Installation__ の手順のみ実行してください。それ以降の手順はこのページで説明します。
+{{< /note >}}
 
-
-
+また、`kubectl`をインストールする必要があります。
+インストール手順は[ツールのインストール](/ja/docs/tasks/tools/#kubectl)を参照してください。
 
 
 <!-- lessoncontent -->
 
 ## minikubeクラスターの作成
 
-1. **Launch Terminal** をクリックしてください
+```shell
+minikube start
+```
 
-    {{< kat-button >}}
+## ダッシュボードを開く
+
+Kubernetesダッシュボードを開きます。これには二通りの方法があります:
+
+{{< tabs name="dashboard" >}}
+{{% tab name="ブラウザーを起動" %}}
+**新しい**ターミナルを開き、次のコマンドを実行します:
+```shell
+# 新しいターミナルを起動し、以下を実行したままにします
+minikube dashboard
+```
+
+`minikube start`を実行したターミナルに戻ります。
 
 {{< note >}}
-    minikubeをローカルにインストール済みの場合は、`minikube start`を実行してください。
+`dashboard`コマンドは、ダッシュボードアドオンを有効にし、デフォルトのWebブラウザーでプロキシを開きます。
+ダッシュボード上で、DeploymentやServiceなどのKubernetesリソースを作成できます。
+
+ターミナルから直接ブラウザーを起動させずに、WebダッシュボードのURLを取得する方法については、「URLをコピー&ペースト」タブを参照してください。
+
+デフォルトでは、ダッシュボードはKubernetesの仮想ネットワーク内部からのみアクセス可能です。
+`dashboard`コマンドは、Kubernetes仮想ネットワークの外部からダッシュボードにアクセス可能にするための一時的なプロキシを作成します。
+
+プロキシを停止するには、`Ctrl+C`を実行してプロセスを終了します。
+`dashboard`コマンドが終了した後も、ダッシュボードはKubernetesクラスター内で実行を続けます。
+再度`dashboard`コマンドを実行すれば、新しい別のプロキシを作成してダッシュボードにアクセスできます。
 {{< /note >}}
 
-2. ブラウザーでKubernetesダッシュボードを開いてください:
+{{% /tab %}}
+{{% tab name="URLをコピー&ペースト" %}}
 
-    ```shell
-    minikube dashboard
-    ```
+minikubeが自動的にWebブラウザーを開くことを望まない場合、`dashboard`サブコマンドを`--url`フラグと共に実行します。
+`minikube`は、お好みのブラウザーで開くことができるURLを出力します。
 
-3. Katacoda環境のみ：ターミナルペーン上部の+ボタンをクリックしてから **Select port to view on Host 1** をクリックしてください。
+**新しい**ターミナルを開き、次のコマンドを実行します:
+```shell
+# 新しいターミナルを起動し、以下を実行したままにします
+minikube dashboard --url
+```
 
-4. Katacoda環境のみ：`30000`を入力し、**Display Port**をクリックしてください。
+URLをコピー&ペーストし、ブラウザーで開きます。
+`minikube start`を実行したターミナルに戻ります。
+
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Deploymentの作成
 
-Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管理やネットワーキングの目的でまとめられた、1つ以上のコンテナのグループです。このチュートリアルのPodがもつコンテナは1つのみです。Kubernetesの [*Deployment*](/ja/docs/concepts/workloads/controllers/deployment/) はPodの状態を確認し、Podのコンテナが停止した場合には再起動します。DeploymentはPodの作成やスケールを管理するために推奨される方法(手段)です。
+Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/)は、コンテナの管理やネットワーキングの目的でまとめられた、1つ以上のコンテナのグループです。このチュートリアルのPodがもつコンテナは1つのみです。Kubernetesの[*Deployment*](/ja/docs/concepts/workloads/controllers/deployment/)はPodの状態を確認し、Podのコンテナが停止した場合には再起動します。DeploymentはPodの作成やスケールを管理するために推奨される方法(手段)です。
 
-1. `kubectl create` コマンドを使用してPodを管理するDeploymentを作成してください。Podは提供されたDockerイメージを元にコンテナを実行します。
+1. `kubectl create`コマンドを使用してPodを管理するDeploymentを作成してください。Podは提供されたDockerイメージを元にコンテナを実行します。
 
     ```shell
     # Webサーバーを含むテストコンテナイメージを実行する
@@ -80,6 +108,8 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管
     NAME         READY   UP-TO-DATE   AVAILABLE   AGE
     hello-node   1/1     1            1           1m
     ```
+
+    (Podが利用可能になるまで時間がかかる場合があります。"0/1"と表示された場合は、数秒後にもう一度確認してみてください。)
 
 3. Podを確認します:
 
@@ -100,11 +130,28 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管
     kubectl get events
     ```
 
-5. `kubectl` で設定を確認します:
+5. `kubectl`で設定を確認します:
 
     ```shell
     kubectl config view
     ```
+
+6. Podで実行されているコンテナのアプリケーションログを確認します(Podの名前は`kubectl get pods`で取得したものに置き換えてください)。
+
+   {{< note >}}
+   `kubectl logs`コマンドの引数`hello-node-5f76cf6ccf-br9b5`は、`kubectl get pods`コマンドで取得したPodの名前に置き換えてください。
+   {{< /note >}}
+
+   ```shell
+   kubectl logs hello-node-5f76cf6ccf-br9b5
+   ```
+
+   出力は下記のようになります:
+
+   ```
+   I0911 09:19:26.677397       1 log.go:195] Started HTTP server on port 8080
+   I0911 09:19:26.677586       1 log.go:195] Started UDP server on port  8081
+   ```
 
 {{< note >}}
 `kubectl`コマンドの詳細な情報は[コマンドラインツール(kubectl)](/ja/docs/reference/kubectl/)を参照してください。
@@ -114,13 +161,21 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管
 
 通常、PodはKubernetesクラスター内部のIPアドレスからのみアクセスすることができます。`hello-node`コンテナをKubernetesの仮想ネットワークの外部からアクセスするためには、Kubernetesの[*Service*](/ja/docs/concepts/services-networking/service/)としてPodを公開する必要があります。
 
-1. `kubectl expose` コマンドを使用してPodをインターネットに公開します:
+{{< warning >}}
+agnhostコンテナには`/shell`エンドポイントがあり、デバッグには便利ですが、インターネットに公開するのは危険です。
+インターネットに接続されたクラスターや、プロダクション環境のクラスターで実行しないでください。
+{{< /warning >}}
+
+1. `kubectl expose`コマンドを使用してPodをインターネットに公開します:
 
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
 
     `--type=LoadBalancer`フラグはServiceをクラスター外部に公開したいことを示しています。
+
+    テストイメージ内のアプリケーションコードはTCPの8080番ポートのみを待ち受けます。
+    `kubectl expose`で8080番ポート以外を公開した場合、クライアントはそのポートに接続できません。
 
 2. 作成したServiceを確認します:
 
@@ -137,17 +192,13 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管
     ```
 
     ロードバランサーをサポートするクラウドプロバイダーでは、Serviceにアクセスするための外部IPアドレスが提供されます。
-    minikube では、`LoadBalancer`タイプは`minikube service`コマンドを使用した接続可能なServiceを作成します。    
+    minikubeでは、`LoadBalancer`タイプは`minikube service`コマンドを使用した接続可能なServiceを作成します。
 
 3. 次のコマンドを実行します:
 
     ```shell
     minikube service hello-node
     ```
-
-4. Katacoda環境のみ：ターミナル画面上部の+ボタンをクリックして **Select port to view on Host 1** をクリックしてください。
-
-5. Katacoda環境のみ：`8080`の反対側のService出力に、5桁のポート番号が表示されます。このポート番号はランダムに生成されるため、ここで使用するポート番号と異なる場合があります。ポート番号テキストボックスに番号を入力し、ポートの表示をクリックしてください。前の例の場合は、`30369`と入力します。
 
     アプリケーションとその応答が表示されるブラウザーウィンドウが開きます。
 
@@ -192,7 +243,7 @@ minikubeはビルトインの{{< glossary_tooltip text="アドオン" term_id="a
     出力は下記のようになります:
 
     ```
-    metrics-server was successfully enabled
+    The 'metrics-server' addon is enabled
     ```
 
 3. 作成されたPodとサービスを確認します:
@@ -224,7 +275,26 @@ minikubeはビルトインの{{< glossary_tooltip text="アドオン" term_id="a
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
 
-4. `metrics-server`を無効化します:
+4. `metrics-server`の出力を確認します:
+
+    ```shell
+    kubectl top pods
+    ```
+
+    出力は下記のようになります:
+
+    ```
+    NAME                         CPU(cores)   MEMORY(bytes)
+    hello-node-ccf4b9788-4jn97   1m           6Mi
+    ```
+
+    次のメッセージが表示された場合は、しばらく待ってから再度実行してください:
+
+    ```
+    error: Metrics API not available
+    ```
+
+5. `metrics-server`を無効化します:
 
     ```shell
     minikube addons disable metrics-server
@@ -245,7 +315,7 @@ kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-(オプション)minikubeの仮想マシン(VM)を停止します:
+minikubeクラスターを停止します
 
 ```shell
 minikube stop
@@ -254,14 +324,20 @@ minikube stop
 (オプション)minikubeのVMを削除します:
 
 ```shell
+# オプション
 minikube delete
 ```
 
+Kubernetesの学習で再度minikubeを使用したい場合、minikubeのVMを削除する必要はありません。
 
+## まとめ
+このページでは、minikubeクラスターを立ち上げて実行するための基本的な部分を説明しました。
+これでアプリケーションをデプロイする準備が整いました。
 
 ## {{% heading "whatsnext" %}}
 
 
-* [Deploymentオブジェクト](/ja/docs/concepts/workloads/controllers/deployment/)について学ぶ.
-* [アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)について学ぶ.
-* [Serviceオブジェクト](/ja/docs/concepts/services-networking/service/)について学ぶ.
+* _[kubectlで初めてのアプリケーションをKubernetesにデプロイする](/ja/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)_。
+* [Deploymentオブジェクト](/ja/docs/concepts/workloads/controllers/deployment/)について学ぶ。
+* [アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)について学ぶ。
+* [Serviceオブジェクト](/ja/docs/concepts/services-networking/service/)について学ぶ。

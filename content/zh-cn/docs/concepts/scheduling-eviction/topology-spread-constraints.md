@@ -26,7 +26,8 @@ or configure topology spread constraints for individual workloads.
 例如区域（Region）、可用区（Zone）、节点和其他用户自定义拓扑域。
 这样做有助于实现高可用并提升资源利用率。
 
-你可以将[集群级约束](#cluster-level-default-constraints)设为默认值，或为个别工作负载配置拓扑分布约束。
+你可以将[集群级约束](#cluster-level-default-constraints)设为默认值，
+或为个别工作负载配置拓扑分布约束。
 
 <!-- body -->
 
@@ -62,12 +63,6 @@ are split across three different datacenters (or infrastructure zones). Now you
 have less concern about a single node failure, but you notice that latency is
 higher than you'd like, and you are paying for network costs associated with
 sending network traffic between the different zones.
-
-You decide that under normal operation you'd prefer to have a similar number of replicas
-[scheduled](/docs/concepts/scheduling-eviction/) into each infrastructure zone,
-and you'd like the cluster to self-heal in the case that there is a problem.
-
-Pod topology spread constraints offer you a declarative way to configure that.
 -->
 随着你的工作负载扩容，运行的 Pod 变多，将需要考虑另一个重要问题。
 假设你有 3 个节点，每个节点运行 5 个 Pod。这些节点有足够的容量能够运行许多副本；
@@ -75,6 +70,13 @@ Pod topology spread constraints offer you a declarative way to configure that.
 现在你可能不太关注单节点故障问题，但你会注意到延迟高于自己的预期，
 在不同的可用区之间发送网络流量会产生一些网络成本。
 
+<!--
+You decide that under normal operation you'd prefer to have a similar number of replicas
+[scheduled](/docs/concepts/scheduling-eviction/) into each infrastructure zone,
+and you'd like the cluster to self-heal in the case that there is a problem.
+
+Pod topology spread constraints offer you a declarative way to configure that.
+-->
 你决定在正常运营时倾向于将类似数量的副本[调度](/zh-cn/docs/concepts/scheduling-eviction/)
 到每个基础设施可用区，且你想要该集群在遇到问题时能够自愈。
 
@@ -221,7 +223,13 @@ your cluster. Those fields are:
   will try to put a balanced number of pods into each domain.
 	Also, we define an eligible domain as a domain whose nodes meet the requirements of
 	nodeAffinityPolicy and nodeTaintsPolicy.
+-->
+- **topologyKey** 是[节点标签](#node-labels)的键。如果节点使用此键标记并且具有相同的标签值，
+  则将这些节点视为处于同一拓扑域中。我们将拓扑域中（即键值对）的每个实例称为一个域。
+  调度器将尝试在每个拓扑域中放置数量均衡的 Pod。
+  另外，我们将符合条件的域定义为其节点满足 nodeAffinityPolicy 和 nodeTaintsPolicy 要求的域。
 
+<!--
 - **whenUnsatisfiable** indicates how to deal with a Pod if it doesn't satisfy the spread constraint:
   - `DoNotSchedule` (default) tells the scheduler not to schedule it.
   - `ScheduleAnyway` tells the scheduler to still schedule it while prioritizing nodes that minimize the skew.
@@ -232,11 +240,6 @@ your cluster. Those fields are:
   See [Label Selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
   for more details.
 -->
-- **topologyKey** 是[节点标签](#node-labels)的键。如果节点使用此键标记并且具有相同的标签值，
-  则将这些节点视为处于同一拓扑域中。我们将拓扑域中（即键值对）的每个实例称为一个域。
-  调度器将尝试在每个拓扑域中放置数量均衡的 Pod。
-  另外，我们将符合条件的域定义为其节点满足 nodeAffinityPolicy 和 nodeTaintsPolicy 要求的域。
-
 - **whenUnsatisfiable** 指示如果 Pod 不满足分布约束时如何处理：
   - `DoNotSchedule`（默认）告诉调度器不要调度。
   - `ScheduleAnyway` 告诉调度器仍然继续调度，只是根据如何能将偏差最小化来对节点进行排序。
@@ -434,12 +437,6 @@ Usually, if you are using a workload controller such as a Deployment, the pod te
 takes care of this for you. If you mix different spread constraints then Kubernetes
 follows the API definition of the field; however, the behavior is more likely to become
 confusing and troubleshooting is less straightforward.
-
-You need a mechanism to ensure that all the nodes in a topology domain (such as a
-cloud provider region) are labelled consistently.
-To avoid you needing to manually label nodes, most clusters automatically
-populate well-known labels such as `kubernetes.io/hostname`. Check whether
-your cluster supports this.
 -->
 ## 一致性 {#Consistency}
 
@@ -449,6 +446,13 @@ your cluster supports this.
 如果你混合不同的分布约束，则 Kubernetes 会遵循该字段的 API 定义；
 但是，该行为可能更令人困惑，并且故障排除也没那么简单。
 
+<!--
+You need a mechanism to ensure that all the nodes in a topology domain (such as a
+cloud provider region) are labelled consistently.
+To avoid you needing to manually label nodes, most clusters automatically
+populate well-known labels such as `kubernetes.io/hostname`. Check whether
+your cluster supports this.
+-->
 你需要一种机制来确保拓扑域（例如云提供商区域）中的所有节点具有一致的标签。
 为了避免你需要手动为节点打标签，大多数集群会自动填充知名的标签，
 例如 `kubernetes.io/hostname`。检查你的集群是否支持此功能。
@@ -822,7 +826,7 @@ An example configuration might look like follows:
 配置的示例可能看起来像下面这个样子：
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 
 profiles:
@@ -894,7 +898,7 @@ empty `defaultConstraints` in the `PodTopologySpread` plugin configuration:
 并将 `PodTopologySpread` 插件配置中的 `defaultConstraints` 参数置空来禁用默认 Pod 分布约束：
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 
 profiles:

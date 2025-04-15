@@ -23,6 +23,9 @@ other = "फोरम"
 [community_github_name]
 other = "GitHub"
 
+[community_linkedin_name]
+other = "LinkedIn"
+
 [community_slack_name]
 other = "Slack"
 

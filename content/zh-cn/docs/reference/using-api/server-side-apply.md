@@ -1020,8 +1020,8 @@ Apply can send partially specified objects as YAML as the body of a `PATCH` requ
 to the URI of a resource.  When applying a configuration, you should always include all the
 fields that are important to the outcome (such as a desired state) that you want to define.
 
-All JSON messages are valid YAML. Some clients specify Server-Side Apply requests using YAML
-request bodies that are also valid JSON.
+All JSON messages are valid YAML. Therefore, in addition to using YAML request bodies for Server-Side Apply requests, you can also use JSON request bodies, as they are also valid YAML.
+In either case, use the media type `application/apply-patch+yaml` for the HTTP request.
 -->
 ## API 实现 {#api-implementation}
 
@@ -1029,8 +1029,9 @@ request bodies that are also valid JSON.
 服务器端应用的用户可以将部分指定的对象以 YAML 格式作为 `PATCH` 请求的主体发送到资源的 URI。
 应用配置时，你应该始终包含对要定义的结果（如所需状态）重要的所有字段。
 
-所有 JSON 消息都是有效的 YAML。一些客户端使用 YAML 请求体指定服务器端应用请求，
-而这些 YAML 同样是合法的 JSON。
+所有 JSON 消息都是有效的 YAML。因此，除了可以为 Server-Side Apply 请求使用
+YAML 请求体外，你也可以使用 JSON 请求体，因为它们同样是有效的 YAML。
+无论哪种情况，请为 HTTP 请求使用媒体类型 `application/apply-patch+yaml`。
 
 <!--
 ### Access control and permissions {#rbac-and-permissions}

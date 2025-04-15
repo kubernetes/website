@@ -19,6 +19,9 @@ Kubernetes documentation contributors:
 - Translate the documentation
 - Manage and publish the documentation parts of the Kubernetes release cycle
 
+The blog team, part of SIG Docs, helps manage the official blogs. Read
+[contributing to Kubernetes blogs](/docs/contribute/blog/) to learn more.
+
 ---
 
 {{< note >}}
@@ -200,4 +203,5 @@ SIG Docs communicates with different methods:
   to get involved with Kubernetes feature development.
 - Visit the contributor site to learn more about [Kubernetes Contributors](https://www.kubernetes.dev/)
   and [additional contributor resources](https://www.kubernetes.dev/resources/).
-- Submit a [blog post or case study](/docs/contribute/new-content/blogs-case-studies/).
+- Learn how to [contribute to the official blogs](/docs/contribute/blog/)
+- Submit a [case study](/docs/contribute/new-content/case-studies/)

@@ -29,8 +29,6 @@ auto_generated: true
 ## HorizontalPodAutoscaler {#HorizontalPodAutoscaler}
 
 configuration of a horizontal pod autoscaler.
-
-<hr>
 -->
 ## HorizontalPodAutoscaler {#HorizontalPodAutoscaler}
 
@@ -40,7 +38,6 @@ configuration of a horizontal pod autoscaler.
 
 <!--
 - **apiVersion**: autoscaling/v1
-
 
 - **kind**: HorizontalPodAutoscaler
 -->
@@ -81,8 +78,6 @@ configuration of a horizontal pod autoscaler.
 ## HorizontalPodAutoscalerSpec {#HorizontalPodAutoscalerSpec}
 
 specification of a horizontal pod autoscaler.
-
-<hr>
 -->
 ## HorizontalPodAutoscalerSpec {#HorizontalPodAutoscalerSpec}
 
@@ -176,8 +171,6 @@ specification of a horizontal pod autoscaler.
 ## HorizontalPodAutoscalerStatus {#HorizontalPodAutoscalerStatus}
 
 current status of a horizontal pod autoscaler
-
-<hr>
 -->
 ## HorizontalPodAutoscalerStatus {#HorizontalPodAutoscalerStatus}
 
@@ -245,8 +238,6 @@ current status of a horizontal pod autoscaler
 ## HorizontalPodAutoscalerList {#HorizontalPodAutoscalerList}
 
 list of horizontal pod autoscaler objects.
-
-<hr>
 -->
 ## HorizontalPodAutoscalerList {#HorizontalPodAutoscalerList}
 
@@ -283,8 +274,6 @@ list of horizontal pod autoscaler objects.
 
 <!--
 ## Operations {#Operations}
-
-<hr>
 -->
 ## 操作 {#Operations}
 
@@ -1170,6 +1159,15 @@ DELETE /apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers/{nam
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 <!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential**（**查询参数**）: boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+<!--
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1265,6 +1263,15 @@ DELETE /apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers
 - **gracePeriodSeconds** （**查询参数**）: integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+<!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential**（**查询参数**）: boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 <!--
 - **labelSelector** (*in query*): string

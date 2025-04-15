@@ -67,7 +67,7 @@ Perilaku tertentu independen dari kelas QoS yang ditetapkan oleh Kubernetes. Mis
 
 * Permintaan sumber daya Pod sama dengan jumlah permintaan sumber daya dari Kontainer komponennya, dan batas sumber daya Pod sama dengan jumlah batas sumber daya dari Kontainer komponennya.
 
-* kube-scheduler tidak mempertimbangkan kelas QoS saat memilih Pod mana yang akan [didahulukan](/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption). Pendahuluan dapat terjadi saat kluster tidak memiliki cukup sumber daya untuk menjalankan semua Pod yang Anda tentukan.
+* kube-scheduler tidak mempertimbangkan kelas QoS saat memilih Pod mana yang akan [didahulukan](/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption). Pendahuluan dapat terjadi saat klaster tidak memiliki cukup sumber daya untuk menjalankan semua Pod yang Anda tentukan.
 
 ## {{% heading "whatsnext" %}}
 

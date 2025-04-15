@@ -25,9 +25,6 @@ timeout = "180s"
 # Enable Git variables like commit, lastmod
 enableGitInfo = true
 
-# Norwegian ("no") is sometimes but not currently used for testing.
-disableLanguages = ["no"]
-
 [caches]
  [caches.assets]
   dir = ":cacheDir/_gen"
@@ -413,21 +410,6 @@ weight = 10
 contentDir = "content/ko"
 languagedirection = "ltr"
 
-# 'Norsk (Norwegian)' language is disabled via 'disableLanguages' config.
-[languages.no]
-title = "Kubernetes"
-languageName = "Norsk (Norwegian)"
-weight = 7
-contentDir = "content/no"
-languagedirection = "ltr"
-
-[languages.no.params]
-time_format_blog = "02.01.2006"
-# A list of language codes to look for untranslated content, ordered from left to right.
-language_alternatives = ["en"]
-description = "Production-Grade Container Orchestration"
-languageNameLatinScript = "Norsk"
-
 [languages.ko.params]
 time_format_blog = "2006.01.02"
 language_alternatives = ["en"]
@@ -555,14 +537,6 @@ target = "i18n"
 
 [[module.mounts]]
 source = "i18n/ko"
-target = "i18n"
-
-[[module.mounts]]
-source = "i18n/nl"
-target = "i18n"
-
-[[module.mounts]]
-source = "i18n/no"
 target = "i18n"
 
 [[module.mounts]]

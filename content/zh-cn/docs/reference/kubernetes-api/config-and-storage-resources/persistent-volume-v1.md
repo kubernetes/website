@@ -291,7 +291,7 @@ PersistentVolumeSpec 是持久卷的规约。
   local represents directly-attached storage with node affinity
 
   <a name="LocalVolumeSource"></a>
-  *Local represents directly-attached storage with node affinity (Beta feature)*
+  *Local represents directly-attached storage with node affinity*
 
   - **local.path** (string), required
 
@@ -306,7 +306,7 @@ PersistentVolumeSpec 是持久卷的规约。
   local 表示具有节点亲和性的直连式存储。
 
   <a name="LocalVolumeSource"></a>
-  **local 表示具有节点亲和性的直连式存储（Beta 特性）。**
+  **local 表示具有节点亲和性的直连式存储。**
 
   - **local.path** (string)，必需
 
@@ -323,7 +323,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
 - **awsElasticBlockStore** (AWSElasticBlockStoreVolumeSource)
 
-  awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+  awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 
   <a name="AWSElasticBlockStoreVolumeSource"></a>
   *Represents a Persistent Disk resource in AWS.
@@ -335,7 +335,9 @@ PersistentVolumeSpec 是持久卷的规约。
 - **awsElasticBlockStore** (AWSElasticBlockStoreVolumeSource)
 
   awsElasticBlockStore 表示挂接到 kubelet 的主机随后暴露给 Pod 的一个 AWS Disk 资源。
-  更多信息： https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
+  已弃用：AWSElasticBlockStore 已被弃用。所有针对树内 awsElasticBlockStore 类型的操作都被重定向到
+  ebs.csi.aws.com CSI 驱动。
+  更多信息：https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#awselasticblockstore
 
   <a name="AWSElasticBlockStoreVolumeSource"></a>
   **表示 AWS 上的 Persistent Disk 资源。挂载到一个容器之前 AWS EBS 磁盘必须存在。
@@ -385,7 +387,7 @@ PersistentVolumeSpec 是持久卷的规约。
 <!--
 - **azureDisk** (AzureDiskVolumeSource)
 
-  azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+  azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
 
   <a name="AzureDiskVolumeSource"></a>
   *AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.*
@@ -393,6 +395,8 @@ PersistentVolumeSpec 是持久卷的规约。
 - **azureDisk** (AzureDiskVolumeSource)
 
   azureDisk 表示主机上挂载的 Azure Data Disk 并绑定挂载到 Pod 上。
+  已弃用：AzureDisk 已被弃用。所有针对树内 azureDisk 类型的操作都被重定向到
+  disk.csi.azure.com CSI 驱动。
 
   <a name="AzureDiskVolumeSource"></a>
   **azureDisk 表示主机上挂载的 Azure Data Disk 并绑定挂载到 Pod 上。**
@@ -459,7 +463,7 @@ PersistentVolumeSpec 是持久卷的规约。
 <!--
 - **azureFile** (AzureFilePersistentVolumeSource)
 
-  azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+  azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
 
   <a name="AzureFilePersistentVolumeSource"></a>
   *AzureFile represents an Azure File Service mount on the host and bind mount to the pod.*
@@ -467,6 +471,8 @@ PersistentVolumeSpec 是持久卷的规约。
 - **azureFile** (AzureFilePersistentVolumeSource)
 
   azureDisk 表示主机上挂载并绑定挂载到 Pod 上的 Azure File Service。
+  已弃用：AzureFile 已被弃用。所有针对 in-tree azureFile 类型的操作都被重定向到
+  file.csi.azure.com CSI 驱动。
 
   <a name="AzureFilePersistentVolumeSource"></a>
   **azureFile 表示主机上挂载的并绑定挂载到 Pod 上的 Azure File Service。**
@@ -508,7 +514,7 @@ PersistentVolumeSpec 是持久卷的规约。
 <!--
 - **cephfs** (CephFSPersistentVolumeSource)
 
-  cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+  cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
 
   <a name="CephFSPersistentVolumeSource"></a>
   *Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.*
@@ -516,6 +522,7 @@ PersistentVolumeSpec 是持久卷的规约。
 - **cephfs** (CephFSPersistentVolumeSource)
 
   cephfs 表示在主机上挂载的 Ceph FS，该文件系统挂载与 Pod 的生命周期相同。
+  已弃用：CephFS 已被弃用，且不再支持 in-tree cephfs 类型。
 
   <a name="CephFSPersistentVolumeSource"></a>
   **表示在 Pod 的生命周期内持续的 Ceph Filesystem 挂载。cephfs 卷不支持所有权管理或 SELinux 重新打标签。**
@@ -608,14 +615,16 @@ PersistentVolumeSpec 是持久卷的规约。
 <!--
 - **cinder** (CinderPersistentVolumeSource)
 
-  cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+  cinder represents a cinder volume attached and mounted on kubelets host machine. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 
   <a name="CinderPersistentVolumeSource"></a>
   *Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.*
 -->
 - **cinder** (CinderPersistentVolumeSource)
 
-  cinder 表示 kubelet 主机上挂接和挂载的 Cinder 卷。更多信息：
+  cinder 表示 kubelet 主机上挂接和挂载的 Cinder 卷。
+  所有针对树内 cinder 类型的操作都被重定向到 cinder.csi.openstack.org
+  CSI 驱动。更多信息：
   https://examples.k8s.io/mysql-cinder-pd/README.md
 
   <a name="CinderPersistentVolumeSource"></a>
@@ -688,10 +697,10 @@ PersistentVolumeSpec 是持久卷的规约。
 <!--
 - **csi** (CSIPersistentVolumeSource)
 
-  csi represents storage that is handled by an external CSI driver (Beta feature).
+  csi represents storage that is handled by an external CSI driver.
 
   <a name="CSIPersistentVolumeSource"></a>
-  *Represents storage that is managed by an external CSI volume driver (Beta feature)*
+  *Represents storage that is managed by an external CSI volume driver*
 
   - **csi.driver** (string), required
 
@@ -704,10 +713,10 @@ PersistentVolumeSpec 是持久卷的规约。
 
 - **csi** (CSIPersistentVolumeSource)
 
-  csi 表示由一个外部 CSI 驱动处理的存储（Beta 特性）。
+  csi 表示由一个外部 CSI 驱动处理的存储。
 
   <a name="CSIPersistentVolumeSource"></a>
-  **表示由一个外部 CSI 卷驱动管理的存储（Beta 特性）。**
+  **表示由一个外部 CSI 卷驱动管理的存储。**
 
   - **csi.driver** (string)，必需
 
@@ -986,7 +995,7 @@ PersistentVolumeSpec 是持久卷的规约。
 <!--
 - **flexVolume** (FlexPersistentVolumeSource)
 
-  flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+  flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
 
   <a name="FlexPersistentVolumeSource"></a>
   *FlexPersistentVolumeSource represents a generic persistent volume resource that is provisioned/attached using an exec based plugin.*
@@ -994,6 +1003,7 @@ PersistentVolumeSpec 是持久卷的规约。
 - **flexVolume** (FlexPersistentVolumeSource)
 
   flexVolume 表示使用基于 exec 的插件制备/挂接的通用卷资源。
+  已弃用：FlexVolume 已被弃用，请考虑使用 CSIDriver 代替。
 
   <a name="FlexPersistentVolumeSource"></a>
   **FlexPersistentVolumeSource 表示使用基于 exec 的插件制备/挂接的通用持久卷资源。**
@@ -1070,7 +1080,7 @@ PersistentVolumeSpec 是持久卷的规约。
 <!--
 - **flocker** (FlockerVolumeSource)
 
-  flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+  flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
 
   <a name="FlockerVolumeSource"></a>
   *Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.*
@@ -1087,6 +1097,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
   flocker 表示挂接到 kubelet 的主机并暴露给 Pod 供其使用的 Flocker 卷。
   这取决于所运行的 Flocker 控制服务。
+  已弃用：Flocker 已被弃用，且树内 Flocker 类型不再受支持。
 
   <a name="FlockerVolumeSource"></a>
   **表示 Flocker 代理挂载的 Flocker 卷。应设置且仅设置 datasetName 和 datasetUUID 中的一个。
@@ -1103,7 +1114,7 @@ PersistentVolumeSpec 是持久卷的规约。
 <!--
 - **gcePersistentDisk** (GCEPersistentDiskVolumeSource)
 
-  gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+  gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 
   <a name="GCEPersistentDiskVolumeSource"></a>
   *Represents a Persistent Disk resource in Google Compute Engine.
@@ -1113,7 +1124,10 @@ PersistentVolumeSpec 是持久卷的规约。
 - **gcePersistentDisk** (GCEPersistentDiskVolumeSource)
 
   gcePersistentDisk 表示挂接到 kubelet 的主机随后暴露给 Pod 的一个 GCE Disk 资源。
-  由管理员进行制备。更多信息：
+  由管理员进行制备。
+  已弃用：GCEPersistentDisk 已被弃用。所有针对树内 gcePersistentDisk
+  类型的操作都将重定向至 pd.csi.storage.gke.io CSI 驱动。
+  更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#gcepersistentdisk
 
   <a name="GCEPersistentDiskVolumeSource"></a>
@@ -1165,7 +1179,7 @@ PersistentVolumeSpec 是持久卷的规约。
 <!--
 - **glusterfs** (GlusterfsPersistentVolumeSource)
 
-  glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+  glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 
   <a name="GlusterfsPersistentVolumeSource"></a>
   *Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.*
@@ -1173,6 +1187,7 @@ PersistentVolumeSpec 是持久卷的规约。
 - **glusterfs** （GlusterfsPersistentVolumeSource）
 
   glusterfs 表示关联到主机并暴露给 Pod 的 Glusterfs 卷。由管理员配置。
+  已弃用：glusterfs 已被弃用，且树内 glusterfs 类型不再受支持。
   更多信息：https://examples.k8s.io/volumes/glusterfs/README.md
 
   <a name="GlusterfsPersistentVolumeSource"></a>
@@ -1199,24 +1214,24 @@ PersistentVolumeSpec 是持久卷的规约。
   - **glusterfs.endpoints** (string)，必需
 
     endpoints 是详细给出 Glusterfs 拓扑结构的端点的名称。
-    更多信息: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+    更多信息：https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 
   - **glusterfs.path** (string)，必需
 
     path 是 Glusterfs 卷的路径。
-    更多信息: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+    更多信息：https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 
   - **glusterfs.endpointsNamespace** (string)
 
     endpointsNamespace 是 Glusterfs 端点所在的命名空间。
     如果 endpointNamespace 为空，则默认值与所绑定的 PVC 的命名空间相同。
-    更多信息: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+    更多信息：https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 
   - **glusterfs.readOnly** (boolean)
 
     此处的 readOnly 将强制以只读权限挂载 Glusterfs 卷。
     默认为 false。
-    更多信息: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+    更多信息：https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 
 <!--
 - **iscsi** (ISCSIPersistentVolumeSource)
@@ -1407,7 +1422,7 @@ PersistentVolumeSpec 是持久卷的规约。
 <!--
 - **photonPersistentDisk** (PhotonPersistentDiskVolumeSource)
 
-  photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+  photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
 
   <a name="PhotonPersistentDiskVolumeSource"></a>
   *Represents a Photon Controller persistent disk resource.*
@@ -1423,6 +1438,7 @@ PersistentVolumeSpec 是持久卷的规约。
 - **photonPersistentDisk** (PhotonPersistentDiskVolumeSource)
 
   photonPersistentDisk 表示 kubelet 主机上挂接和挂载的 PhotonController 持久磁盘。
+  已弃用：PhotonPersistentDisk 已被弃用，且树内 photonPersistentDisk 类型不再受支持。
 
   <a name="PhotonPersistentDiskVolumeSource"></a>
   **表示 Photon Controller 持久磁盘资源。**
@@ -1439,7 +1455,7 @@ PersistentVolumeSpec 是持久卷的规约。
 <!--
 - **portworxVolume** (PortworxVolumeSource)
 
-  portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+  portworxVolume represents a portworx volume attached and mounted on kubelets host machine Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
 
   <a name="PortworxVolumeSource"></a>
   *PortworxVolumeSource represents a Portworx volume resource.*
@@ -1459,6 +1475,8 @@ PersistentVolumeSpec 是持久卷的规约。
 - **portworxVolume** (PortworxVolumeSource)
 
   portworxVolume 表示 kubelet 主机上挂接和挂载的 portworx 卷。
+  已弃用：PortworxVolume 已被弃用。当 CSIMigrationPortworx 特性开关开启时，
+  所有树内 PortworxVolume 类型的操作都将重定向到 pxd.portworx.com CSI 驱动。
 
   <a name="PortworxVolumeSource"></a>
   **PortworxVolumeSource 表示 Portworx 卷资源。**
@@ -1479,7 +1497,7 @@ PersistentVolumeSpec 是持久卷的规约。
 <!--
 - **quobyte** (QuobyteVolumeSource)
 
-  quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+  quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
 
   <a name="QuobyteVolumeSource"></a>
   *Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.*
@@ -1495,6 +1513,7 @@ PersistentVolumeSpec 是持久卷的规约。
 - **quobyte** (QuobyteVolumeSource)
 
   quobyte 表示在共享 Pod 生命周期的主机上挂载的 Quobyte。
+  已弃用：quobyte 已被弃用，且树内 quobyte 类型不再受支持。
 
   <a name="QuobyteVolumeSource"></a>
   **表示在 Pod 的生命周期内持续的 Quobyte 挂载。Quobyte 卷不支持所有权管理或 SELinux 重新打标签。**
@@ -1545,7 +1564,7 @@ PersistentVolumeSpec 是持久卷的规约。
 <!--
 - **rbd** (RBDPersistentVolumeSource)
 
-  rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+  rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
 
   <a name="RBDPersistentVolumeSource"></a>
   *Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.*
@@ -1563,7 +1582,9 @@ PersistentVolumeSpec 是持久卷的规约。
 
 - **rbd** (RBDPersistentVolumeSource)
 
-  rbd 表示主机上挂载的 Rados 块设备，其生命周期与 Pod 生命周期相同。更多信息：
+  rbd 表示主机上挂载的 Rados 块设备，其生命周期与 Pod 生命周期相同。
+  已弃用：RBD 已被弃用，且树内 rbd 类型不再受支持。
+  更多信息：
   https://examples.k8s.io/volumes/rbd/README.md
 
   <a name="RBDPersistentVolumeSource"></a>
@@ -1589,14 +1610,6 @@ PersistentVolumeSpec 是持久卷的规约。
   - **rbd.keyring** (string)
 
     keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-
-  - **rbd.pool** (string)
-
-    pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-
-  - **rbd.readOnly** (boolean)
-
-    readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
   -->
 
   - **rbd.fsType** (string)
@@ -1609,6 +1622,16 @@ PersistentVolumeSpec 是持久卷的规约。
 
     keyring 是给定用户的密钥环的路径。默认为 /etc/ceph/keyring。更多信息：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+  
+  <!--
+  - **rbd.pool** (string)
+
+    pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+
+  - **rbd.readOnly** (boolean)
+
+    readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+  -->
 
   - **rbd.pool** (string)
 
@@ -1665,7 +1688,7 @@ PersistentVolumeSpec 是持久卷的规约。
 <!--
 - **scaleIO** (ScaleIOPersistentVolumeSource)
 
-  scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+  scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
 
   <a name="ScaleIOPersistentVolumeSource"></a>
   *ScaleIOPersistentVolumeSource represents a persistent ScaleIO volume*
@@ -1678,6 +1701,7 @@ PersistentVolumeSpec 是持久卷的规约。
 - **scaleIO** (ScaleIOPersistentVolumeSource)
 
   scaleIO 表示 Kubernetes 节点上挂接和挂载的 ScaleIO 持久卷。
+  已弃用：scaleIO 已被弃用，且树内 scaleIO 类型不再受支持。
 
   <a name="ScaleIOPersistentVolumeSource"></a>
   **ScaleIOPersistentVolumeSource 表示一个 ScaleIO 持久卷。**
@@ -1791,7 +1815,7 @@ PersistentVolumeSpec 是持久卷的规约。
 <!--
 - **storageos** (StorageOSPersistentVolumeSource)
 
-  storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+  storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
 
   <a name="StorageOSPersistentVolumeSource"></a>
   *Represents a StorageOS persistent volume resource.*
@@ -1806,7 +1830,9 @@ PersistentVolumeSpec 是持久卷的规约。
 -->
 - **storageos** (StorageOSPersistentVolumeSource)
 
-  storageOS 表示一个 StorageOS 卷，该卷被挂接到 kubelet 的主机并挂载到 Pod 中。更多信息：
+  storageOS 表示一个 storageOS 卷，该卷被挂接到 kubelet 的主机并挂载到 Pod 中。
+  已弃用：storageOS 已被弃用，且树内 storageOS 类型不再受支持。
+  更多信息：
   https://examples.k8s.io/volumes/storageos/README.md
 
   <a name="StorageOSPersistentVolumeSource"></a>
@@ -1854,7 +1880,7 @@ PersistentVolumeSpec 是持久卷的规约。
 <!--
 - **vsphereVolume** (VsphereVirtualDiskVolumeSource)
 
-  vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+  vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
 
   <a name="VsphereVirtualDiskVolumeSource"></a>
   *Represents a vSphere volume resource.*
@@ -1878,6 +1904,8 @@ PersistentVolumeSpec 是持久卷的规约。
 - **vsphereVolume** (VsphereVirtualDiskVolumeSource)
 
   vsphereVolume 表示 kubelet 主机上挂接和挂载的 vSphere 卷。
+  已弃用：VsphereVolume 已被弃用。所有针对树内 vsphereVolume
+  类型的操作都将重定向至 csi.vsphere.vmware.com CSI 驱动。
 
   <a name="VsphereVirtualDiskVolumeSource"></a>
   **表示 vSphere 卷资源。**
@@ -2436,6 +2464,7 @@ DELETE /api/v1/persistentvolumes/{name}
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 - **dryRun** (*in query*): string
 - **gracePeriodSeconds** (*in query*): integer
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
 - **pretty** (*in query*): string
 - **propagationPolicy** (*in query*): string
 -->
@@ -2454,6 +2483,10 @@ DELETE /api/v1/persistentvolumes/{name}
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **pretty** (**查询参数**): string
 
@@ -2491,6 +2524,7 @@ DELETE /api/v1/persistentvolumes
 - **dryRun** (*in query*): string
 - **fieldSelector** (*in query*): string
 - **gracePeriodSeconds** (*in query*): integer
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
 - **labelSelector** (*in query*): string
 - **limit** (*in query*): integer
 - **pretty** (*in query*): string
@@ -2518,6 +2552,10 @@ DELETE /api/v1/persistentvolumes
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+  
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (**查询参数**): string
 

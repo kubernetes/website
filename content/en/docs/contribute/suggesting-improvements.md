@@ -1,7 +1,7 @@
 ---
 title: Suggesting content improvements
 content_type: concept
-weight: 10
+weight: 20
 card:
   name: contribute
   weight: 15
