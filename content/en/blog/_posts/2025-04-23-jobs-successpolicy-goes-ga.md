@@ -63,7 +63,7 @@ This example shows that the Job is marked as succeeded when one of the indexes; 
 Once the Job reaches one of the successPolicy rules or `Complete` criteria based on `.spec.completions`,
 the kube-controller-manager job-controller adds the `SuccessCriteriaMet` condition to the Job condition.
 After that, the job-controller initiates cleanup and termination of Pods for Jobs with `SuccessCriteriaMet` condition.
-Eventually, when all terminating processing is finished, the Job gets `Complete` condition.
+Eventually, Jobs obtain `Complete` condition when the job-controller finished cleanup and termination.
 
 ## Learn more
 
