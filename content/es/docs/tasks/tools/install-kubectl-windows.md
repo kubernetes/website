@@ -3,10 +3,6 @@ reviewers:
 title: Instalar y configurar kubectl en Windows
 content_type: task
 weight: 10
-card:
-  name: tasks
-  weight: 20
-  title: Instalar kubectl en Windows
 ---
 
 ## {{% heading "prerequisites" %}}
@@ -42,7 +38,7 @@ Existen los siguientes métodos para instalar kubectl en Windows:
    Para conocer la última versión estable (por ejemplo, para secuencias de comandos), eche un vistazo a [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt).
    {{< /note >}}
 
-1. Validar el binario (opcional)
+2. Validar el binario (opcional)
 
    Descargue el archivo de comprobación de kubectl:
 
@@ -65,9 +61,9 @@ Existen los siguientes métodos para instalar kubectl en Windows:
       $(Get-FileHash -Algorithm SHA256 .\kubectl.exe).Hash -eq $(Get-Content .\kubectl.exe.sha256))
      ```
 
-1. Agregue el binario `kubectl` a su `PATH` en las variables de entorno.
+3. Agregue el binario `kubectl` a su `PATH` en las variables de entorno.
 
-1. Para asegurar que la versión de `kubectl` es la misma que descargada, ejecute:
+4. Para asegurar que la versión de `kubectl` es la misma que descargada, ejecute:
 
    ```cmd
    kubectl version --client
@@ -85,7 +81,9 @@ Si ha instalado Docker Desktop antes, es posible que deba colocar su entrada del
 
 ### Instalar en Windows usando Chocolatey, Scoop o winget {#install-nonstandard-package-tools}
 
-1. Para instalar kubectl en Windows, puede usar el gestor de paquetes [Chocolatey](https://chocolatey.org), el instalador por línea de comandos [Scoop](https://scoop.sh) o el gestor de paquetes [winget](https://docs.microsoft.com/en-us/windows/package-manager/winget/).
+1. Para instalar kubectl en Windows puede usar el gestor de paquetes [Chocolatey](https://chocolatey.org), 
+   el instalador por línea de comandos [Scoop](https://scoop.sh) o 
+   el gestor de paquetes [winget](https://docs.microsoft.com/en-us/windows/package-manager/winget/).
 
    {{< tabs name="kubectl_win_install" >}}
    {{% tab name="choco" %}}
@@ -106,32 +104,32 @@ Si ha instalado Docker Desktop antes, es posible que deba colocar su entrada del
    {{< /tabs >}}
 
 
-1. Para asegurarse de que la versión que instaló esté actualizada, ejecute:
+2. Para asegurarse de que la versión que instaló esté actualizada, ejecute:
 
    ```powershell
    kubectl version --client
    ```
 
-1. Navegue a su directorio de inicio:
+3. Navegue a su directorio de inicio:
 
    ```powershell
    # Si estas usando cmd.exe, correr: cd %USERPROFILE%
    cd ~
    ```
 
-1. Cree el directorio `.kube`:
+4. Cree el directorio `.kube`:
 
    ```powershell
    mkdir .kube
    ```
 
-1. Cambie al directorio `.kube` que acaba de crear:
+5. Cambie al directorio `.kube` que acaba de crear:
 
    ```powershell
    cd .kube
    ```
 
-1. Configure kubectl para usar un clúster de Kubernetes remoto:
+6. Configure kubectl para usar un clúster de Kubernetes remoto:
 
    ```powershell
    New-Item config -type file
@@ -149,7 +147,7 @@ Edite el archivo de configuración con un editor de texto de su elección, como 
 
 ### Habilitar el autocompletado de shell
 
-kubectl proporciona soporte de autocompletado para Bash, Zsh, Fish, y PowerShell, lo que puede ahorrarle mucho tiempo al escribir.
+kubectl proporciona soporte de autocompletado para Bash, Zsh, Fish, y PowerShell, lo que puede ahorrarle mucho tiempo de escritura.
 
 A continuación se muestran los procedimientos para configurar el autocompletado para PowerShell.
 
@@ -160,18 +158,18 @@ A continuación se muestran los procedimientos para configurar el autocompletado
 1. Descargue la última versión con el comando:
 
    ```powershell
-   curl -LO https://dl.k8s.io/release/v{{% skew currentPatchVersion %}}/bin/windows/amd64/kubectl-convert.exe
+   curl.exe -LO "https://dl.k8s.io/release/v{{% skew currentPatchVersion %}}/bin/windows/amd64/kubectl-convert.exe"
    ```
 
-1. Validar el binario (opcional)
+2. Validar el binario (opcional) 
 
-   Descargue el archivo de comprobación kubectl-convert:
+   Descargue el archivo de comprobación `kubectl-convert`:
 
    ```powershell
-   curl -LO https://dl.k8s.io/v{{% skew currentPatchVersion %}}/bin/windows/amd64/kubectl-convert.exe.sha256
+   curl.exe -LO "https://dl.k8s.io/v{{% skew currentPatchVersion %}}/bin/windows/amd64/kubectl-convert.exe.sha256"
    ```
 
-   Valide el binario kubectl-convert con el archivo de comprobación:
+   Valide el binario `kubectl-conver` con el archivo de comprobación:
 
    - Usando la consola del sistema puede comparar manualmente la salida de `CertUtil` con el archivo de comprobación descargado:
 
@@ -180,16 +178,16 @@ A continuación se muestran los procedimientos para configurar el autocompletado
      type kubectl-convert.exe.sha256
      ```
 
-   - Usando PowerShell puede automatizar la verificación usando el operador `-eq` 
-     para obtener un resultado de `True` o `False`:
+   - Usando PowerShell puede automatizar la verificación usando el operador `-eq` para obtener 
+      un resultado de `True` o `False`:
 
      ```powershell
      $($(CertUtil -hashfile .\kubectl-convert.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl-convert.exe.sha256)
      ```
 
-1. Agregue el binario a su `PATH`.
+3. Agregue el binario a su `PATH`.
 
-1. Verifique que el plugin se haya instalado correctamente
+4. Verifique que el plugin se haya instalado correctamente
 
    ```shell
    kubectl convert --help
