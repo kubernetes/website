@@ -4,9 +4,9 @@ api_metadata:
 - apiVersion: "v1"
   kind: "Service"
 feature:
-  title: Khám phá dịch vụ và cân bằng tải
+  title: Service discovery và cân bằng tải
   description: >
-    Không cần phải sửa đổi ứng dụng của bạn để sử dụng cơ chế khám phá dịch vụ không quen thuộc.
+    Không cần phải sửa đổi ứng dụng của bạn để sử dụng cơ chế service discovery không quen thuộc.
     Kubernetes cung cấp cho các Pod địa chỉ IP riêng và một tên DNS duy nhất cho một tập hợp các Pod,
     và có thể cân bằng tải giữa chúng.
 description: >-
