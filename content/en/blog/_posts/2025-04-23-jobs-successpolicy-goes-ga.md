@@ -20,7 +20,7 @@ even if some of the indexes failed. Unfortunately, a leader-follower Kubernetes 
 for that Job to reach an overall succeeded state.
 
 For Kubernetes Jobs, the API allows you to specify the early exit criteria using the `.spec.successPolicy`
-field (only for the [Indexed Job](/docs/concept/workloads/controllers/job/#completion-mode)). 
+field (you can only use the `.spec.successPolicy` field for an [indexed Job](/docs/concept/workloads/controllers/job/#completion-mode)).
 Which describes a set of rules either using a list of succeeded indexes for a job, or defining a minimal required size of succeeded indexes. 
 
 This newly stable field is especially valuable for scientific simulation, AI/ML and High-Performance Computing (HPC) batch workloads.
