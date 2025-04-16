@@ -38,6 +38,41 @@ that provides the expected symbols.
 
 <!-- steps -->
 
+## Check your OS version
+
+{{% thirdparty-content %}}
+
+{{< tabs name="operating_system_version_check" >}}
+{{% tab name="Linux" %}}
+
+* The kubeadm project supports LTS kernels. See [List of LTS kernels](https://www.kernel.org/category/releases.html).
+* You can get the kernel version using the command `uname -r`
+
+For more information, see [Linux Kernel Requirements](/docs/reference/node/kernel-version-requirements/).
+
+{{% /tab %}}
+
+{{% tab name="Windows" %}}
+
+* The kubeadm project supports recent kernel versions. For a list of recent kernels, see [Windows Server Release Information](https://learn.microsoft.com/en-us/windows/release-health/windows-server-release-info).
+* You can get the kernel version (also called the OS version) using the command `systeminfo`
+
+For more information, see [Windows OS version compatibility](/docs/concepts/windows/intro/#windows-os-version-support).
+
+{{% /tab %}}
+{{< /tabs >}}
+
+A Kubernetes cluster created by kubeadm depends on software that use kernel features.
+This software includes, but is not limited to the
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}},
+the {{< glossary_tooltip term_id="kubelet" text="kubelet">}}, and a {{< glossary_tooltip text="Container Network Interface" term_id="cni" >}} plugin.
+
+To help you avoid unexpected errors as a result of an unsupported kernel version, kubeadm runs the `SystemVerification`
+pre-flight check. This check fails if the kernel version is not supported.
+
+You may choose to skip the check, if you know that your kernel
+provides the required features, even though kubeadm does not support its version.
+
 ## Verify the MAC address and product_uuid are unique for every node {#verify-mac-address}
 
 * You can get the MAC address of the network interfaces using the command `ip link` or `ifconfig -a`

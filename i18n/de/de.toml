@@ -195,6 +195,8 @@ other = "Eine Verbesserung vorschlagen"
 other = "Twitter"
 [community_github_name]
 other = "GitHub"
+[community_linkedin_name]
+other = "LinkedIn"
 [community_slack_name]
 other = "Slack"
 [community_stack_overflow_name]
