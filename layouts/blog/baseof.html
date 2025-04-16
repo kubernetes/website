@@ -38,7 +38,7 @@
             </a>
             {{ end -}}
             {{ block "deprecation_warning" . }}
-              {{ partial "deprecation-warning.html" . }}
+              {{ partial "version-banner.html" . }}
             {{ end }}
             {{ block "main" . }}{{ end }}
           </main>
