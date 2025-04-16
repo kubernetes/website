@@ -461,9 +461,9 @@ multi-customer scenarios.
 
 {{% thirdparty-content %}}
 
+* [Accurate](https://github.com/cybozu-go/accurate)
 * [Capsule](https://github.com/clastix/capsule)
 * [Multi Tenant Operator](https://docs.stakater.com/mto/)
-* [Accurate](https://github.com/cybozu-go/accurate)
 
 #### Multi-customer tenancy
 
