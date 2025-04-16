@@ -1,7 +1,8 @@
 ---
 layout: blog
 title: 'Kubernetes 1.33: Fine-grained SupplementalGroups control graduates to beta'
-date: XXXX-XX-XX
+date: 2025-04-23
+draft: true
 slug: fine-grained-supplementalgroups-control-beta
 author: >
   Shingo Omura (LY Corporation)
