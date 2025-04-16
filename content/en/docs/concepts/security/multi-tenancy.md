@@ -451,14 +451,11 @@ customize policies to individual workloads, and secondly, it may be challenging 
 single level of "tenancy" that should be given a namespace. For example, an organization may have
 divisions, teams, and subteams - which should be assigned a namespace?
 
-To solve this, Kubernetes provides the [Hierarchical Namespace Controller (HNC)](https://github.com/kubernetes-sigs/hierarchical-namespaces),
-which allows you to organize your namespaces into hierarchies, and share certain policies and
-resources between them. It also helps you manage namespace labels, namespace lifecycles, and
-delegated management, and share resource quotas across related namespaces. These capabilities can
-be useful in both multi-team and multi-customer scenarios.
-
-Other projects that provide similar capabilities and aid in managing namespaced resources are
-listed below.
+To solve this, you could use a third-party solution listed below which allows you to organize your
+namespaces into hierarchies, and share certain policies and resources between them. These can also
+help you manage namespace labels, namespace lifecycles, and delegated management, and share resource
+quotas across related namespaces. These capabilities can be useful in both multi-team and
+multi-customer scenarios.
 
 #### Multi-team tenancy
 
@@ -466,6 +463,7 @@ listed below.
 
 * [Capsule](https://github.com/clastix/capsule)
 * [Multi Tenant Operator](https://docs.stakater.com/mto/)
+* [Accurate](https://github.com/cybozu-go/accurate)
 
 #### Multi-customer tenancy
 
