@@ -33,7 +33,8 @@ After Job meets any __Success Policy__, the Job is marked as succeeded, and all 
 
 ## How it works
 
-The below Job spec with `.successPolicy.rules[0].succeededCount` shows an example of __Success Policy__ feature:
+The following excerpt from a Job manifest, using `.successPolicy.rules[0].succeededCount`, shows an example of
+using a custom success policy:
 
 ```yaml
   parallelism: 10
