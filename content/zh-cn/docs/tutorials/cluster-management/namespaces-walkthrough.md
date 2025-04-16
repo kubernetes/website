@@ -17,8 +17,8 @@ weight: 260
 Kubernetes {{< glossary_tooltip text="namespaces" term_id="namespace" >}}
 help different projects, teams, or customers to share a Kubernetes cluster.
 -->
-Kubernetes {{< glossary_tooltip text="名字空间" term_id="namespace" >}}
-有助于不同的项目、团队或客户去共享 Kubernetes 集群。
+Kubernetes {{< glossary_tooltip text="名字空间" term_id="namespace" >}}有助于不同的项目、团队或客户去共享
+Kubernetes 集群。
 
 <!--
 It does this by providing the following:
@@ -84,6 +84,7 @@ Assuming you have a fresh cluster, you can inspect the available namespaces by d
 ```shell
 kubectl get namespaces
 ```
+
 ```
 NAME      STATUS    AGE
 default   Active    13m
@@ -139,7 +140,6 @@ Use the file [`namespace-dev.yaml`](/examples/admin/namespace-dev.yaml) which de
 <!--
 Create the `development` namespace using kubectl.
 -->
-
 使用 kubectl 创建 `development` 名字空间。
 
 ```shell
@@ -194,7 +194,7 @@ Kubernetes 名字空间为集群中的 Pod、Service 和 Deployment 提供了作
 
 与一个名字空间交互的用户不会看到另一个名字空间中的内容。
 
-为了演示这一点，让我们在 development 名字空间中启动一个简单的 Deployment 和 Pod。
+为了演示这一点，让我们在 `development` 名字空间中启动一个简单的 Deployment 和 Pod。
 
 <!--
 We first check what is the current context:
@@ -235,13 +235,14 @@ users:
 ```shell
 kubectl config current-context
 ```
+
 ```
 lithe-cocoa-92103_kubernetes
 ```
 
 <!--
 The next step is to define a context for the kubectl client to work in each namespace.
-he value of "cluster" and "user" fields are copied from the current context.
+The value of "cluster" and "user" fields are copied from the current context.
 -->
 下一步是为 kubectl 客户端定义一个上下文，以便在每个名字空间中工作。
 "cluster" 和 "user" 字段的值将从当前上下文中复制。
@@ -272,6 +273,7 @@ To view the new contexts:
 ```shell
 kubectl config view
 ```
+
 ```yaml
 apiVersion: v1
 clusters:
@@ -362,6 +364,7 @@ We have created a deployment whose replica size is 2 that is running the pod cal
 ```shell
 kubectl get deployment
 ```
+
 ```
 NAME         READY   UP-TO-DATE   AVAILABLE   AGE
 snowflake    2/2     2            2           2m
@@ -370,6 +373,7 @@ snowflake    2/2     2            2           2m
 ```shell
 kubectl get pods -l app=snowflake
 ```
+
 ```
 NAME                         READY     STATUS    RESTARTS   AGE
 snowflake-3968820950-9dgr8   1/1       Running   0          2m
@@ -419,6 +423,7 @@ cattle       5/5     5            5           10s
 ```shell
 kubectl get pods -l run=cattle
 ```
+
 ```
 NAME                      READY     STATUS    RESTARTS   AGE
 cattle-2263376956-41xy6   1/1       Running   0          34s
@@ -431,7 +436,7 @@ cattle-2263376956-sxpth   1/1       Running   0          34s
 <!--
 At this point, it should be clear that the resources users create in one namespace are hidden from the other namespace.
 -->
-此时，应该很清楚的展示了用户在一个名字空间中创建的资源对另一个名字空间是不可见的。
+此时，应该很清楚地展示了用户在一个名字空间中创建的资源对另一个名字空间是不可见的。
 
 <!--
 As the policy support in Kubernetes evolves, we will extend this scenario to show how you can provide different
