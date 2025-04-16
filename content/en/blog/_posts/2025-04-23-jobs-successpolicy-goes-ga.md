@@ -16,16 +16,16 @@ In batch workloads, you might want to use leader-follower patterns like [MPI](ht
 in which the leader controls the execution, including the followers' lifecycle.
 
 In this case, you might want to mark it as succeeded
-even if some of the indexes failed. Unfortunately, the Kubernetes Job without __Success Policy__, in most cases,
-requires all Pods to finish successfully for a Job to reach succeeded state.
+even if some of the indexes failed. Unfortunately, a leader-follower Kubernetes Job that didn't use a success policy, in most cases, would have to require **all** Pods to finish successfully
+for that Job to reach an overall succeeded state.
 
-Job's __Success Policy__ allows you to specify the early exit criteria using the `.spec.successPolicy` 
+For Kubernetes Jobs, the API allows you to specify the early exit criteria using the `.spec.successPolicy`
 field (only for the [Indexed Job](/docs/concept/workloads/controllers/job/#completion-mode)). 
 Which describes a set of rules either using a list of succeeded indexes for a job, or defining a minimal required size of succeeded indexes. 
 
-This feature is especially valuable for scientific simulation, AI/ML and High-Performance Computing (HPC) batch workloads. 
+This newly stable field is especially valuable for scientific simulation, AI/ML and High-Performance Computing (HPC) batch workloads.
 Users in these areas often run numerous experiments and may only need a specific number to complete successfully, rather than requiring all of them to succeed. 
-In this case, the leader index failure is the only Job exit criteria, and followers results are relevant
+In this case, the leader index failure is the only relevant Job exit criteria, and the outcomes for individual follower Pods are handled
 only indirectly via the status of the leader index.
 Moreover, followers do not know when they can terminate themselves.
 
@@ -36,12 +36,12 @@ After Job meets any __Success Policy__, the Job is marked as succeeded, and all 
 The below Job spec with `.successPolicy.rules[0].succeededCount` shows an example of __Success Policy__ feature:
 
 ```yaml
-parallelism: 10
-completions: 10
-completionMode: Indexed
-successPolicy:
-  rules:
-  - succeededCount: 1
+  parallelism: 10
+  completions: 10
+  completionMode: Indexed
+  successPolicy:
+    rules:
+    - succeededCount: 1
 ```
 
 Here, the Job is marked as succeeded when one index succeeded regardless of its number.
@@ -54,26 +54,26 @@ completions: 10
 completionMode: Indexed
 successPolicy:
   rules:
-  - succeededIndexes: 0
+  - succeededIndexes: 0 # index of the leader Pod
     succeededCount: 1
 ```
 
-This example shows that the Job is marked as succeeded when one of the indexes; index 0 succeeded.
+This example shows that the Job will be marked as succeeded once a Pod with a specific index (Pod index 0) has succeeded.
 
-Once the Job reaches one of the successPolicy rules or `Complete` criteria based on `.spec.completions`,
-the kube-controller-manager job-controller adds the `SuccessCriteriaMet` condition to the Job condition.
+Once the Job either reaches one of the `successPolicy` rules, or achieves its `Complete` criteria based on `.spec.completions`,
+the Job controller within kube-controller-manager adds the `SuccessCriteriaMet` condition to the Job status.
 After that, the job-controller initiates cleanup and termination of Pods for Jobs with `SuccessCriteriaMet` condition.
 Eventually, Jobs obtain `Complete` condition when the job-controller finished cleanup and termination.
 
 ## Learn more
 
 - Read the documentation for
-  [Success Policy](/docs/concepts/workloads/controllers/job/#success-policy)
+  [success policy](/docs/concepts/workloads/controllers/job/#success-policy).
 - Read the KEP for the [Job success/completion policy](https://github.com/kubernetes/enhancements/tree/master/keps/sig-apps/3998-job-success-completion-policy)
 
 ## Get involved
 
-This work was sponsored by
+This work was led by the Kubernetes
 [batch working group](https://github.com/kubernetes/community/tree/master/wg-batch)
 in close collaboration with the
 [SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps) community.
