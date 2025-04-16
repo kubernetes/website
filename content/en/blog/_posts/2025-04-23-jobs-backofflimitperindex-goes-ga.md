@@ -2,6 +2,7 @@
 layout: blog
 title: "Kubernetes 1.33: Job's Backoff Limit Per Index Goes GA"
 date: 2025-04-23
+draft: true
 slug: kubernetes-1-33-jobs-backoff-limit-per-index-goes-ga
 author: >
   [Michał Woźniak](https://github.com/mimowo) (Google)
@@ -17,16 +18,18 @@ When you run workloads on Kubernetes, you must consider scenarios where Pod
 failures can affect the completion of your workloads. Ideally, your workload
 should tolerate transient failures and continue running.
 
-To achieve failure tolerance in Kubernetes Job, you can set the
+To achieve failure tolerance in a Kubernetes Job, you can set the
 `spec.backoffLimit` field. This field specifies the total number of tolerated
 failures.
 
 However, for workloads where every index is considered independent, like
 [embarassingly parallel](https://en.wikipedia.org/wiki/Embarrassingly_parallel)
-workloads, the `spec.backoffLimit` field is often not flexible enough if you use
-Indexed Jobs. For example, integration tests. In that scenario, a fast-failing
-index is likely to consume your entire budget for tolerating Pod failures, and
-you might not be able to run the other indexes.
+workloads - the `spec.backoffLimit` field is often not flexible enough.
+For example, you may choose to run multiple suites of integration tests by
+representing each suite as an index within an [Indexed Job](https://kubernetes.io/docs/tasks/job/indexed-parallel-processing-static/).
+In that setup, a fast-failing index  (test suite) is likely to consume your
+entire budget for tolerating Pod failures, and you might not be able to run the
+other indexes.
 
 In order to address this limitation, we introduce _Backoff Limit Per Index_,
 which allows you to control the number of retries per index.
@@ -71,8 +74,9 @@ podFailurePolicy:
 
 In this example, the Job handles Pod failures as follows:
 
-- Ignores any failed Pods that have the built-in `DisruptionTarget`
-  condition. These Pods don't count towards backoff limits.
+- Ignores any failed Pods that have the built-in
+  [disruption condition](/docs/concepts/workloads/pods/disruptions/#pod-disruption-conditions),
+  called `DisruptionTarget`. These Pods don't count towards Job backoff limits.
 - Fails the index corresponding to the failed Pod if any of the failed Pod's
   containers finished with the exit code 42 - based on the matching "FailIndex"
   rule.
