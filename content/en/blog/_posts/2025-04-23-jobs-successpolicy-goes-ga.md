@@ -8,7 +8,7 @@ authors: >
   [Yuki Iwai](https://github.com/tenzen-y) (CyberAgent, Inc)
 ---
 
-We're pleased to announce that Job's __Success Policy__ will  graduate to General Availability (GA) as part of Kubernetes v1.33 release.
+On behalf of the Kubernetes project, I'm pleased to announce that Job _success policy_ has graduated to General Availability (GA) as part of the v1.33 release.
 
 ## About Job's Success Policy
 
@@ -45,7 +45,7 @@ The below Job spec with `.successPolicy.rules[0].succeededCount` shows an exampl
 ```
 
 Here, the Job is marked as succeeded when one index succeeded regardless of its number.
-Additionally, we can constrain index numbers against `succeededCount` in `.successPolicy.rules[0].succeededCount`
+Additionally, you can constrain index numbers against `succeededCount` in `.successPolicy.rules[0].succeededCount`
 as shown below:
 
 ```yaml
@@ -78,6 +78,6 @@ This work was led by the Kubernetes
 in close collaboration with the
 [SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps) community.
 
-If you are interested in working on new features in the space we recommend
+If you are interested in working on new features in the space I recommend
 subscribing to our [Slack](https://kubernetes.slack.com/messages/wg-batch)
 channel and attending the regular community meetings.
