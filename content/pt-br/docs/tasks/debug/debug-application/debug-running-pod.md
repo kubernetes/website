@@ -497,7 +497,7 @@ kubectl delete pod myapp myapp-debug
 ### Copiando um Pod enquanto altera seu comando
 
 Às vezes, é útil alterar o comando de um contêiner, por exemplo, para adicionar uma opção de depuração ou porque a aplicação está falhando.
-Para simular uma aplicação com falha, use `kubectl run` para criar um contêiner que saia imediatamente:
+Para simular uma aplicação com falha, use `kubectl run` para criar um contêiner que termine imediatamente:
 
 ```
 kubectl run --image=busybox:1.28 myapp -- false
