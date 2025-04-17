@@ -398,7 +398,7 @@ OCI runtime exec failed: exec failed: container_linux.go:346: starting container
 ```
 
 Em vez disso, você pode adicionar um contêiner de depuração usando `kubectl debug`.
-Se você especificar o argumento `-i`/`--interactive`, o `kubectl` anexará automaticamente ao console do Contêiner Efêmero.
+Se você especificar o argumento `-i`/`--interactive`, o `kubectl` conectará automaticamente ao console do Contêiner Efêmero.
 
 ```shell
 kubectl debug -it ephemeral-demo --image=busybox:1.28 --target=ephemeral-demo
