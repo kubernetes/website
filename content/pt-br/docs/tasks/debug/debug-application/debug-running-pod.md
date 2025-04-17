@@ -120,7 +120,7 @@ Ready informa se o contêiner passou na última verificação de prontidão. (Ne
 
 Restart Count informa quantas vezes o contêiner foi reiniciado; essa informação pode ser útil para detectar loops de falha em contêineres configurados com a política de reinício 'Always'.
 
-Atualmente, a única Condição associada a um Pod é a condição binária Ready, que indica se o Pod pode atender a solicitações e deve ser adicionado aos pools de balanceamento de carga de todos os serviços correspondentes.
+Atualmente, a única condição (campo Condition) associada a um Pod é a condição binária Ready, que indica se o Pod pode atender a solicitações e deve ser adicionado aos pools de balanceamento de carga de todos os serviços correspondentes.
 
 Por fim, você verá um log dos eventos recentes relacionados ao seu Pod. "From" indica o componente que está registrando o evento. "Reason" e "Message" informam o que aconteceu.
 
