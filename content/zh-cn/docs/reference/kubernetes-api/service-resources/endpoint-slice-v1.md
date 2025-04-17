@@ -869,6 +869,15 @@ DELETE /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 <!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**)：boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+<!--
 - **pretty** (*in query*): string
 -->
 - **pretty** (**查询参数**)：string
@@ -948,6 +957,13 @@ DELETE /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 <!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**)：boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+<!--
 - **labelSelector** (*in query*): string
 -->
 - **labelSelector** (**查询参数**)：string
@@ -1008,4 +1024,3 @@ DELETE /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>)：OK
 
 401：Unauthorized
-

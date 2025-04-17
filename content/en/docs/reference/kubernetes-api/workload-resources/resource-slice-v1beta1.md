@@ -6,12 +6,19 @@ api_metadata:
 content_type: "api_reference"
 description: "ResourceSlice represents one or more resources in a pool of similar resources, managed by a common driver."
 title: "ResourceSlice v1beta1"
-weight: 18
+weight: 17
 auto_generated: true
 ---
 
 <!--
-The file was copied and updated manually from the v1alpha3 API.
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
 `apiVersion: resource.k8s.io/v1beta1`
@@ -145,11 +152,18 @@ ResourceSliceSpec contains the information published by the driver in one Resour
 
         VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
 
-    - **devices.basic.capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+    - **devices.basic.capacity** (map[string]DeviceCapacity)
 
       Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
       
       The maximum number of attributes and capacities combined is 32.
+
+      <a name="DeviceCapacity"></a>
+      *DeviceCapacity describes a quantity associated with a device.*
+
+      - **devices.basic.capacity.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>), required
+
+        Value defines how much of a certain device capacity is available.
 
 - **nodeName** (string)
 
@@ -207,13 +221,13 @@ ResourceSliceList is a collection of ResourceSlices.
 - **kind**: ResourceSliceList
 
 
-- **items** ([]<a href="{{< ref "../workload-resources/resource-slice-v1beta1#ResourceSlice" >}}">ResourceSlice</a>), required
-
-  Items is the list of resource ResourceSlices.
-
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
   Standard list metadata
+
+- **items** ([]<a href="{{< ref "../workload-resources/resource-slice-v1beta1#ResourceSlice" >}}">ResourceSlice</a>), required
+
+  Items is the list of resource ResourceSlices.
 
 
 
@@ -512,6 +526,11 @@ DELETE /apis/resource.k8s.io/v1beta1/resourceslices/{name}
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -565,6 +584,11 @@ DELETE /apis/resource.k8s.io/v1beta1/resourceslices
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string
