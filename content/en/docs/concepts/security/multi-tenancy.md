@@ -451,7 +451,7 @@ customize policies to individual workloads, and secondly, it may be challenging 
 single level of "tenancy" that should be given a namespace. For example, an organization may have
 divisions, teams, and subteams - which should be assigned a namespace?
 
-To solve this, you could use a third-party solution listed below which allows you to organize your
+To solve this, you could use a third-party project listed below which allows you to organize your
 namespaces into hierarchies, and share certain policies and resources between them. These can also
 help you manage namespace labels, namespace lifecycles, and delegated management, and share resource
 quotas across related namespaces. These capabilities can be useful in both multi-team and
