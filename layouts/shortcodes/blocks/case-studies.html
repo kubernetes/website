@@ -5,7 +5,7 @@
 {{ $caseStudiesPages := where $caseStudiesSection.Pages "Params.featured" true | first 4 }}
 <section id="talkToUs">
   <div class="main-section">
-    <h3  style="text-align: center"><a href="/case-studies/" style="color: #3371E3; font-weight: 400">{{ $caseStudiesSection.LinkTitle }}</a></h3>
+    <h3  style="text-align: center"><a href="{{ $caseStudiesSection.RelPermalink }}" style="color: #3371E3; font-weight: 400">{{ $caseStudiesSection.LinkTitle }}</a></h3>
     <div id="caseStudiesWrapper">
       {{ range $caseStudiesPages }}
 			{{ $dark := .Resources.GetMatch "**{dark_logo}*.svg" }}

@@ -228,7 +228,7 @@ ServiceSpec 描述用户在服务上创建的属性。
   *Atomic: will be replaced during a merge* 
   -->
 
-  **原子: 将在合并期间被替换**
+  **原子：将在合并期间被替换**
 
   <!--
   IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service. This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail. This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service. Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services. This field will be wiped when updating a Service to type ExternalName. 
@@ -287,7 +287,7 @@ ServiceSpec 描述用户在服务上创建的属性。
   *Atomic: will be replaced during a merge* 
   -->
 
-  **原子: 将在合并期间被替换**
+  **原子：将在合并期间被替换**
 
   <!--
   ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
@@ -490,13 +490,13 @@ ServiceSpec 描述用户在服务上创建的属性。
 <!--
 - **trafficDistribution** (string)
 
-  TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an beta field and requires enabling ServiceTrafficDistribution feature.
+  TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
 -->
 - **trafficDistribution** (string)
 
   trafficDistribution 提供了一种流量如何被分配到 Service 端点的偏好表达方式。
   各个实现可以将此字段用作提示，但不需要严格遵守。如果此字段未设置，实现将应用其默认路由策略。
-  如果设置为“PreferClose”，则实现应优先考虑在拓扑上接近的端点（例如，位于同一区域）。
+  如果设置为 “PreferClose”，则实现应优先考虑在拓扑上接近的端点（例如，位于同一区域）。
   这是一个 Beta 字段，需要启用 ServiceTrafficDistribution 特性。
 
 ## ServiceStatus {#ServiceStatus}
@@ -523,7 +523,7 @@ ServiceStatus 表示 Service 的当前状态。
 
   **补丁策略：基于键 `type` 合并**
 
-  **Map: 键类型的唯一值将在合并期间保留**
+  **Map：键类型的唯一值将在合并期间保留**
 
   服务的当前状态。
 
@@ -688,8 +688,12 @@ ServiceStatus 表示 Service 的当前状态。
       <a name="PortStatus"></a>
 
       <!--
+      *PortStatus represents the error condition of a service port*
+      
       - **loadBalancer.ingress.ports.port** (string), required
       -->
+  
+      **PortStatus 表示服务端口的状态**
 
       - **loadBalancer.ingress.ports.port** (int32)，必需
 
@@ -1534,6 +1538,10 @@ DELETE /api/v1/namespaces/{namespace}/services/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1565,6 +1573,10 @@ DELETE /api/v1/namespaces/{namespace}/services/{name}
 - **pretty**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential**（**查询参数**）：boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **propagationPolicy**（**查询参数**）：string
 
@@ -1616,6 +1628,10 @@ DELETE /api/v1/namespaces/{namespace}/services
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (*in query*): string
 
@@ -1672,6 +1688,10 @@ DELETE /api/v1/namespaces/{namespace}/services
 - **gracePeriodSeconds**（**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential**（**查询参数**）：boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector**（**查询参数**）：string
 

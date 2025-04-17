@@ -299,7 +299,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **awsElasticBlockStore** (AWSElasticBlockStoreVolumeSource)
 
-  awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+  awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 
   <a name="AWSElasticBlockStoreVolumeSource"></a>
   *Represents a Persistent Disk resource in AWS.
@@ -324,7 +324,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **azureDisk** (AzureDiskVolumeSource)
 
-  azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+  azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
 
   <a name="AzureDiskVolumeSource"></a>
   *AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.*
@@ -355,7 +355,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **azureFile** (AzureFileVolumeSource)
 
-  azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+  azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
 
   <a name="AzureFileVolumeSource"></a>
   *AzureFile represents an Azure File Service mount on the host and bind mount to the pod.*
@@ -374,7 +374,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **cephfs** (CephFSVolumeSource)
 
-  cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+  cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
 
   <a name="CephFSVolumeSource"></a>
   *Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.*
@@ -407,7 +407,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **cinder** (CinderVolumeSource)
 
-  cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+  cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 
   <a name="CinderVolumeSource"></a>
   *Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.*
@@ -430,7 +430,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **csi** (CSIVolumeSource)
 
-  csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+  csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
 
   <a name="CSIVolumeSource"></a>
   *Represents a source location of a volume to mount, managed by an external CSI driver*
@@ -529,7 +529,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **flexVolume** (FlexVolumeSource)
 
-  flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+  flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
 
   <a name="FlexVolumeSource"></a>
   *FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.*
@@ -556,7 +556,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **flocker** (FlockerVolumeSource)
 
-  flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+  flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
 
   <a name="FlockerVolumeSource"></a>
   *Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.*
@@ -571,7 +571,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **gcePersistentDisk** (GCEPersistentDiskVolumeSource)
 
-  gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+  gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 
   <a name="GCEPersistentDiskVolumeSource"></a>
   *Represents a Persistent Disk resource in Google Compute Engine.
@@ -596,7 +596,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **glusterfs** (GlusterfsVolumeSource)
 
-  glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+  glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 
   <a name="GlusterfsVolumeSource"></a>
   *Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.*
@@ -706,7 +706,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **photonPersistentDisk** (PhotonPersistentDiskVolumeSource)
 
-  photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+  photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
 
   <a name="PhotonPersistentDiskVolumeSource"></a>
   *Represents a Photon Controller persistent disk resource.*
@@ -721,7 +721,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **portworxVolume** (PortworxVolumeSource)
 
-  portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+  portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
 
   <a name="PortworxVolumeSource"></a>
   *PortworxVolumeSource represents a Portworx volume resource.*
@@ -740,7 +740,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **quobyte** (QuobyteVolumeSource)
 
-  quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+  quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
 
   <a name="QuobyteVolumeSource"></a>
   *Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.*
@@ -771,7 +771,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **rbd** (RBDVolumeSource)
 
-  rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+  rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
 
   <a name="RBDVolumeSource"></a>
   *Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.*
@@ -812,7 +812,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **scaleIO** (ScaleIOVolumeSource)
 
-  scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+  scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
 
   <a name="ScaleIOVolumeSource"></a>
   *ScaleIOVolumeSource represents a persistent ScaleIO volume*
@@ -859,7 +859,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **storageos** (StorageOSVolumeSource)
 
-  storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+  storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
 
   <a name="StorageOSVolumeSource"></a>
   *Represents a StorageOS persistent volume resource.*
@@ -886,7 +886,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **vsphereVolume** (VsphereVirtualDiskVolumeSource)
 
-  vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+  vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
 
   <a name="VsphereVirtualDiskVolumeSource"></a>
   *Represents a vSphere volume resource.*
@@ -912,7 +912,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **gitRepo** (GitRepoVolumeSource)
 
-  gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+  gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
 
   <a name="GitRepoVolumeSource"></a>
   *Represents a volume that is populated with the contents of a git repository. Git repo volumes do not support ownership management. Git repo volumes support SELinux relabeling.

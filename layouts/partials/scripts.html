@@ -30,6 +30,7 @@
 {{ $jsBs := resources.Get "vendor/bootstrap/dist/js/bootstrap.bundle.js" -}}
 {{ $jsBase := resources.Get "js/base.js" }}
 {{ $jsAnchor := resources.Get "js/anchor.js" }}
+{{ $jsNav := resources.Get "js/nav.js" | resources.ExecuteAsTemplate "js/nav.js" .Site.Params }}
 {{ $jsSearch := resources.Get "js/search.js" | resources.ExecuteAsTemplate "js/search.js" .Site.Home }}
 {{ if .Site.Params.offlineSearch }}
 {{ $jsSearch = resources.Get "js/offline-search.js" }}
@@ -37,7 +38,7 @@
 {{ else if .Site.Params.customSearch }}
 {{ $jsSearch = resources.Get "js/custom-search.js" }}
 {{ end }}
-{{ $js := (slice $jsBs $jsBase $jsAnchor $jsSearch) | resources.Concat "js/main.js" -}}
+{{ $js := (slice $jsBs $jsBase $jsAnchor $jsNav $jsSearch) | resources.Concat "js/main.js" -}}
 {{ if hugo.IsProduction -}}
   {{ $js := $js | minify | fingerprint -}}
   <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>
