@@ -53,8 +53,8 @@ are influenced by the following issues:
   [container resources](/docs/concepts/configuration/manage-resources-containers/).
 
 Before building a Kubernetes production environment on your own, consider
-handing off some or all of this job to 
-[Turnkey Cloud Solutions](/docs/setup/production-environment/turnkey-solutions/) 
+handing off some or all of this job to
+[Turnkey Cloud Solutions](/docs/setup/production-environment/turnkey-solutions/)
 providers or other [Kubernetes Partners](/partners/).
 Options include:
 
@@ -109,7 +109,7 @@ consider these steps:
   during deployment or you can generate them using your own certificate authority.
   See [PKI certificates and requirements](/docs/setup/best-practices/certificates/) for details.
 - *Configure load balancer for apiserver*: Configure a load balancer
-  to distribute external API requests to the apiserver service instances running on different nodes. See 
+  to distribute external API requests to the apiserver service instances running on different nodes. See
   [Create an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
   for details.
 - *Separate and backup etcd service*: The etcd services can either run on the
@@ -130,7 +130,7 @@ consider these steps:
   The scheduler should be fault tolerant,
   but not highly available. Some deployment tools set up [Raft](https://raft.github.io/)
   consensus algorithm to do leader election of Kubernetes services. If the
-  primary goes away, another service elects itself and take over. 
+  primary goes away, another service elects itself and take over.
 - *Span multiple zones*: If keeping your cluster available at all times is
   critical, consider creating a cluster that runs across multiple data centers,
   referred to as zones in cloud environments. Groups of zones are referred to as regions.
@@ -163,7 +163,7 @@ Production-quality workloads need to be resilient and anything they rely
 on needs to be resilient (such as CoreDNS). Whether you manage your own
 control plane or have a cloud provider do it for you, you still need to
 consider how you want to manage your worker nodes (also referred to
-simply as *nodes*).  
+simply as *nodes*).
 
 - *Configure nodes*: Nodes can be physical or virtual machines. If you want to
   create and manage your own nodes, you can install a supported operating system,
@@ -260,9 +260,7 @@ needs of your cluster's workloads:
 
 - *Set namespace limits*: Set per-namespace quotas on things like memory and CPU. See
   [Manage Memory, CPU, and API Resources](/docs/tasks/administer-cluster/manage-resources/)
-  for details. You can also set
-  [Hierarchical Namespaces](/blog/2020/08/14/introducing-hierarchical-namespaces/)
-  for inheriting limits.
+  for details.
 - *Prepare for DNS demand*: If you expect workloads to massively scale up,
   your DNS service must be ready to scale up as well. See
   [Autoscale the DNS service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
@@ -299,4 +297,3 @@ needs of your cluster's workloads:
   [resource limits](/docs/tasks/administer-cluster/manage-resources/),
   [DNS autoscaling](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
   and [service accounts](/docs/reference/access-authn-authz/service-accounts-admin/).
-
