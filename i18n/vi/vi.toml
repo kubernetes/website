@@ -396,7 +396,7 @@ other = "Bản Phát hành Patch"
 other = "Tạo một vấn đề"
 
 [prerequisites_heading]
-other = "Trước khi bạn bắt đầu"
+other = "Điều kiện tiên quyết"
 
 [previous_patches]
 other = "Bản Phát hành Patch:"
