@@ -1,8 +1,9 @@
 ---
 layout: blog
 title: "Updates to Container Lifecycle in Kubernetes v1.33"
-date: 2025-03-01
-slug: text-for-URL-link-here-no-spaces
+date: 2025-04-23
+slug: updates-to-container-lifecycle
+draft: true
 author: >
   Sreeram Venkitesh (DigitalOcean)
 ---
@@ -21,7 +22,7 @@ The sleep action when it was added initially didn't have support for a sleep dur
 
 ## Container Stop Signals
 
-Container runtimes like containerd and CRI-O lets you specify a STOPSIGNAL instruction in the container image definition. This can be used to specify a custom stop signal which will be used to kill your containers. Until now, the only way to override the stop signal for containers running in Kubernetes was by rebuilding your container image with the new custom stop signal. Stop signal was not part of the Pod/Container API in Kubernetes. 
+Container runtimes like containerd and CRI-O let you specify a STOPSIGNAL instruction in the container image definition. This can be used to specify a custom stop signal which will be used to kill your containers. Until now, the only way to override the stop signal for containers running in Kubernetes was by rebuilding your container image with the new custom stop signal. Stop signal was not part of the Pod/Container API in Kubernetes. 
 
 The `ContainerStopSignals` feature gate which is newly added in Kubernetes v1.33 adds stop signals to the Kubernetes API. This allows users to specify a custom stop signal in the container spec. Stop signals are added to the API as a new lifecycle along with the existing PreStop and PostStart lifecycle handlers. In order to use this feature, we expect the Pod to have the operating system specified with `spec.os.name`. This is enforced so that we can cross-validate the stop signal against the operating system and make sure that the containers in the Pod are created with a valid stop signal for the operating system the Pod is being scheduled to. For Pods scheduled on Windows nodes, only `SIGTERM` and `SIGKILL` are allowed as valid stop signals. Find the full list of signals supported in Linux nodes [here](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/api/core/v1/types.go#L2985-L3053).
 
@@ -31,7 +32,7 @@ If a container has a custom stop signal defined in its lifecycle, the container 
 
 ### Version skew
 
-For the feature to work as intended, both the versions of Kubernetes and the container runtime should support container stop signals. The changes to the Kuberentes API and kubelet are available in alpha stage from v1.33, which can be enabled with the `ContainerStopSignals` feature gate. The container runtime implemenations for containerd and CRI-O are still a work in progress and will be rolled out soon.
+For the feature to work as intended, both the versions of Kubernetes and the container runtime should support container stop signals. The changes to the Kuberentes API and kubelet are available in alpha stage from v1.33, which can be enabled with the `ContainerStopSignals` feature gate. The container runtime implementations for containerd and CRI-O are still a work in progress and will be rolled out soon.
 
 ### Using container stop signals
 
@@ -52,7 +53,7 @@ spec:
         stopSignal: SIGUSR1
 ```
 
-Do note that the `SIGUSR1` signal in this example can only be used if the container's Pod is scheduled to a linux node. Hence we need to specify `spec.os.name` as `linux` to be able to use the signal. You will only be able to configure `SIGTERM` and `SIGKILL` signals if the Pod is being scheduled to a Windows node. You cannot specify a `containers[*].lifecycle.stopSignal` if the `spec.os.name` field is nil or unset either.
+Do note that the `SIGUSR1` signal in this example can only be used if the container's Pod is scheduled to a Linux node. Hence we need to specify `spec.os.name` as `linux` to be able to use the signal. You will only be able to configure `SIGTERM` and `SIGKILL` signals if the Pod is being scheduled to a Windows node. You cannot specify a `containers[*].lifecycle.stopSignal` if the `spec.os.name` field is nil or unset either.
 
 ## How do I get involved?
 
