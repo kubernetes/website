@@ -6,14 +6,19 @@ api_metadata:
 content_type: "api_reference"
 description: "ResourceClaimTemplate is used to produce ResourceClaim objects."
 title: "ResourceClaimTemplate v1beta1"
-weight: 17
+weight: 16
 auto_generated: true
 ---
 
 <!--
-The file was copied and updated manually from the v1alpha3 API.
-The content is not quite up-to-date, which needs to be fixed
-by generating the file automatically.
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
 `apiVersion: resource.k8s.io/v1beta1`
@@ -61,7 +66,7 @@ ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+  ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
 
 
 
@@ -487,6 +492,11 @@ DELETE /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplat
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -545,6 +555,11 @@ DELETE /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplat
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string
