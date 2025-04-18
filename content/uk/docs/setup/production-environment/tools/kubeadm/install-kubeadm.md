@@ -31,6 +31,36 @@ card:
 
 <!-- steps -->
 
+## Перевірте версію вашої операційної системи {#check-your-os-version}
+
+{{% thirdparty-content %}}
+
+{{< tabs name="operating_system_version_check" >}}
+{{% tab name="Linux" %}}
+
+* Проєкт kubeadm підтримує ядра LTS. Дивіться [Список ядер LTS](https://www.kernel.org/category/releases.html).
+* Ви можете отримати версію ядра за допомогою команди `uname -r`.
+
+Докладнішу інформацію наведено у [Вимоги до ядра Linux](/docs/reference/node/kernel-version-requirements/).
+
+{{% /tab %}}
+
+{{% tab name="Windows" %}}
+
+* Проект kubeadm підтримує останні версії ядра. Список останніх версій ядра наведено у [Windows Server Release Information](https://learn.microsoft.com/en-us/windows/release-health/windows-server-release-info).
+* Ви можете отримати версію ядра (яку також називають версією ОС) за допомогою команди `systeminfo`.
+
+Докладнішу інформацію наведено у статті [Сумісність версій ОС Windows](/docs/concepts/windows/intro/#windows-os-version-support).
+
+{{% /tab %}}
+{{< /tabs >}}
+
+Кластер Kubernetes, створений за допомогою kubeadm, залежить від програмного забезпечення, яке використовує можливості ядра. Це програмне забезпечення включає, але не обмежується {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}, {{< glossary_tooltip term_id="kubelet" text="kubelet">}} та втулка {{< glossary_tooltip text="Container Network Interface" term_id="cni" >}}.
+
+Щоб допомогти вам уникнути несподіваних помилок, спричинених використанням непідтримуваної версії ядра, kubeadm виконує попередню перевірку `SystemVerification`. Ця перевірка не спрацює, якщо версія ядра не підтримується.
+
+Ви можете пропустити перевірку, якщо знаєте, що ваше ядро надає необхідні можливості, навіть якщо kubeadm не підтримує його версію.
+
 ## Перевірка унікальності MAC-адрес та product_uuid для кожного вузла {#verify-mac-address}
 
 * Ви можете отримати MAC-адресу мережевих інтерфейсів за допомогою команди `ip link` або `ifconfig -a`.

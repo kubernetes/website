@@ -187,10 +187,155 @@ Hello from Kubernetes storage
 
 ## Очищення {#clean-up}
 
-Видаліть Pod, PersistentVolumeClaim та PersistentVolume:
+Видаліть Pod:
 
 ```shell
 kubectl delete pod task-pv-pod
+```
+
+## Монтування одного і того ж PersistentVolume у двох місцях {#mounting-the-same-persistentvolume-in-two-places}
+
+Ви зрозуміли, як створити PersistentVolume і PersistentVolumeClaim, а також як змонтувати том в одне місце в контейнері. Розгляньмо, як можна змонтувати один і той самий PersistentVolume у двох різних місцях контейнера. Нижче наведено приклад:
+
+{{% code_sample file="pods/storage/pv-duplicate.yaml" %}}
+
+Nen:
+
+* `subPath`: Це поле дозволяє експонувати певні файли або теки зі змонтованого PersistentVolume у різних місцях контейнера. У цьому прикладі
+  * `subPath: html` монтує теку html.
+  * `subPath: nginx.conf` монтує певний файл, nginx.conf.
+
+Оскільки перший subPath — `html`, на вузлі потрібно створити теку `html` у теці `/mnt/data/`.
+
+Другий subPath `nginx.conf` означає, що буде використано файл у теці `/mnt/data/`. Ніяких інших тек створювати не потрібно.
+
+На вашому контейнері nginx буде виконано два монтування тому:
+
+* `/usr/share/nginx/html` для статичного вебсайту
+* `/etc/nginx/nginx.conf` для файлу налаштувань
+
+### Переміщення файлу index.html на вашому Вузлі в нову теку {#move-the-index-html-file-on-your-node-to-a-new-folder}
+
+Згаданий тут файл `index.html` стосується до файлу, створеного у розділі "[Створіть файл index.html на вашому вузлі](#create-an-index-html-file-on-your-node)".
+
+Відкрийте оболонку на одному з вузлів кластера. Спосіб відкриття оболонки залежить від того, як ви налаштували кластер. Наприклад, якщо ви використовуєте Minikube, ви можете відкрити оболонку на вашому вузлі, скориставшись командою `minikube ssh`.
+
+Створіть теку `/mnt/data/html`:
+
+```shell
+# Це припускає, що ваш вузол використовує "sudo" для запуску команд
+# від імені суперкористувача
+sudo mkdir /mnt/data/html
+```
+
+Перемістіть index.html в теку:
+
+```shell
+# Перемістіть index.html з поточного розташування до теки html
+sudo mv /mnt/data/index.html html
+```
+
+### Створення нового файлу nginx.conf {#create-a-new-nginx-conf-file}
+
+{{% code_sample file="pods/storage/nginx.conf" %}}
+
+Це модифікована версія стандартного файлу `nginx.conf`. Тут стандартне значення `keepalive_timeout` змінено на `60`.
+
+Створіть файл nginx.conf:
+
+```shell
+cat <<EOF > /mnt/data/nginx.conf
+user  nginx;
+worker_processes  auto;
+error_log  /var/log/nginx/error.log notice;
+pid        /var/run/nginx.pid;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '\$remote_addr - \$remote_user [\$time_local] "\$request" '
+                      '\$status \$body_bytes_sent "\$http_referer" '
+                      '"\$http_user_agent" "\$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  60;
+
+    #gzip  on;
+
+    include /etc/nginx/conf.d/*.conf;
+}
+EOF
+```
+
+### Створення Podʼа {#create-a-pod-1}
+
+Тут ми створимо pod, який використовує наявні persistentVolume і persistentVolumeClaim. Однак, він монтує до контейнера лише певний файл `nginx.conf` і теку `html`.
+
+Створіть pod:
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/storage/pv-duplicate.yaml
+```
+
+Перевірте, що контейнер в Pod працює:
+
+```shell
+kubectl get pod test
+```
+
+Отримайте доступ до оболонки контейнера у вашому Podʼі:
+
+```shell
+kubectl exec -it test -- /bin/bash
+```
+
+У вашій оболонці переконайтеся, що nginx обслуговує файл `index.html` з тому hostPath:
+
+```shell
+# Переконайтеся, що ці 3 команди виконано в оболонці root, з якої запущено
+# "kubectl exec" у попередньому кроці
+apt update
+apt install curl
+curl http://localhost/
+```
+
+На виході буде показано текст, який ви записали до файлу `index.html` у томі hostPath:
+
+```console
+Hello from Kubernetes storage
+```
+
+У вашій оболонці також переконайтеся, що nginx обслуговує файл `nginx.conf` з тома hostPath:
+
+```shell
+# Переконайтеся, що ці команди виконано в оболонці root, з якої запущено
+# "kubectl exec" у попередньому кроці
+cat /etc/nginx/nginx.conf | grep keepalive_timeout
+```
+
+На виході буде показано змінений текст, який ви записали до файлу `nginx.conf` на томі hostPath:
+
+```console
+keepalive_timeout  60;
+```
+
+Якщо ви бачите ці повідомлення, це означає, що ви успішно налаштували Pod на використання певного файлу і теки у сховищі з PersistentVolumeClaim.
+
+## Очищення {#clean-up-1}
+
+Видаліть Pod:
+
+```shell
+kubectl delete pod test
 kubectl delete pvc task-pv-claim
 kubectl delete pv task-pv-volume
 ```
@@ -200,22 +345,14 @@ kubectl delete pv task-pv-volume
 У оболонці на вашому вузлі видаліть файл і теку, які ви створили:
 
 ```shell
-# Це передбачає, що ваш вузол використовує "sudo" для виконання команд
+# Це передбачає, що ваш Вузол використовує "sudo" для виконання команд
 # з правами суперкористувача
-sudo rm /mnt/data/index.html
+sudo rm /mnt/data/html/index.html
+sudo rm /mnt/data/nginx.conf
 sudo rmdir /mnt/data
 ```
 
 Тепер ви можете закрити оболонку доступу до вашого вузла.
-
-## Монтування одного PersistentVolume у два місця {#mounting-the-same-persistentvolume-in-two-places}
-
-{{% code_sample file="pods/storage/pv-duplicate.yaml" %}}
-
-Ви можете виконати монтування томуу двох місцях у вашому контейнері nginx:
-
-* `/usr/share/nginx/html` для статичного вебсайту
-* `/etc/nginx/nginx.conf` для стандартної конфігурації
 
 <!-- discussion -->
 

@@ -8,15 +8,15 @@ spec:
     - name: test
       image: nginx
       volumeMounts:
-        # a mount for site-data
+        # монтування site-data
         - name: config
           mountPath: /usr/share/nginx/html
           subPath: html
-        # another mount for nginx config
+        # інше монтування для nginx config
         - name: config
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
   volumes:
     - name: config
       persistentVolumeClaim:
-        claimName: test-nfs-claim
+        claimName: task-pv-storage
