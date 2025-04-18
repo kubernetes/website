@@ -175,5 +175,5 @@ cloud-controller-managerのレプリカを複数実行することは、高可�
 [kep625]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/625-csi-migration/README.md
 [ccm]: /ja/docs/concepts/architecture/cloud-controller/
 [chicken-and-egg]: /ja/docs/tasks/administer-cluster/running-cloud-controller/#chicken-and-egg
-[kubedocs0]: /docs/tasks/administer-cluster/running-cloud-controller/#running-cloud-controller-manager
+[kubedocs0]: /ja/docs/tasks/administer-cluster/running-cloud-controller/#running-cloud-controller-manager
 [kubedocs1]: /docs/reference/labels-annotations-taints/#node-kubernetes-io-not-ready
