@@ -7,10 +7,13 @@ schedules:
 - endOfLifeDate: "2026-02-28"
   maintenanceModeStartDate: "2025-12-28"
   next:
-    cherryPickDeadline: "2025-03-07"
+    cherryPickDeadline: "2025-04-11"
+    release: 1.32.4
+    targetDate: "2025-04-22"
+  previousPatches:
+  - cherryPickDeadline: "2025-03-07"
     release: 1.32.3
     targetDate: "2025-03-11"
-  previousPatches:
   - cherryPickDeadline: "2025-02-07"
     release: 1.32.2
     targetDate: "2025-02-11"
@@ -24,10 +27,13 @@ schedules:
 - endOfLifeDate: "2025-10-28"
   maintenanceModeStartDate: "2025-08-28"
   next:
-    cherryPickDeadline: "2025-03-07"
+    cherryPickDeadline: "2025-04-11"
+    release: 1.31.8
+    targetDate: "2025-04-22"
+  previousPatches:
+  - cherryPickDeadline: "2025-03-07"
     release: 1.31.7
     targetDate: "2025-03-11"
-  previousPatches:
   - cherryPickDeadline: "2025-02-07"
     release: 1.31.6
     targetDate: "2025-02-11"
@@ -53,10 +59,13 @@ schedules:
 - endOfLifeDate: "2025-06-28"
   maintenanceModeStartDate: "2025-04-28"
   next:
-    cherryPickDeadline: "2025-03-07"
+    cherryPickDeadline: "2025-04-11"
+    release: 1.30.12
+    targetDate: "2025-04-22"
+  previousPatches:
+  - cherryPickDeadline: "2025-03-07"
     release: 1.30.11
     targetDate: "2025-03-11"
-  previousPatches:
   - cherryPickDeadline: "2025-02-07"
     release: 1.30.10
     targetDate: "2025-02-11"
@@ -92,9 +101,9 @@ schedules:
   release: "1.30"
   releaseDate: "2024-04-17"
 upcoming_releases:
-- cherryPickDeadline: "2025-03-07"
-  targetDate: "2025-03-11"
 - cherryPickDeadline: "2025-04-11"
-  targetDate: "2025-04-15"
+  targetDate: "2025-04-22"
 - cherryPickDeadline: "2025-05-09"
   targetDate: "2025-05-13"
+- cherryPickDeadline: "2025-06-06"
+  targetDate: "2025-06-10"

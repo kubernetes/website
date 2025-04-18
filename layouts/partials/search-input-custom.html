@@ -2,14 +2,6 @@
 {{ $lang := .Site.Language.Lang }}
 {{ $searchFile := printf "content/%s/search.md" $lang }}
 
-{{ $check := "" }}
-{{ if T "ui_search_placeholder" }}
-{{ warnf "The search bar placeholder for the language %s is using a custom \"ui_search_placeholder\" key. Please change the key in the translations to the Docsy provided \"ui_search\"." $lang }}
-{{ $check = T "ui_search_placeholder" }}
-{{ else }}
-{{ $check = T "ui_search" }}
-{{ end }}
-
 <div class="search-bar">
   <i class="search-icon fa-solid fa-search"></i>
   <input
@@ -21,8 +13,8 @@
     data-search-page="{{ "search/" | relURL }}"
     {{ end }}
     class="search-input td-search-input"
-    placeholder="{{ $check }}"
-    aria-label="{{ $check }}"
+    placeholder="{{ T "ui_search" }}"
+    aria-label="{{ T "ui_search" }}"
     autocomplete="off"
   >
 </div>

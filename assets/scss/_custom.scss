@@ -182,163 +182,6 @@ body.td-404 main .error-details {
   }
 }
 
-/* HEADER */
-
-.td-navbar {
-  position: fixed !important;
-  width: 100%;
-  padding-bottom: 1rem !important;
-  background: transparent !important;
-  transition: 0.3s;
-
-  .navbar-brand {
-    position: absolute;
-    width: 45px;
-    height: 44px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-image: url("/images/logo-header.png");
-  }
-
-  #hamburger {
-    &:focus {
-      outline: none;
-    }
-  }
-
-  @media only screen and (min-width: 768px) {
-    .navbar-brand {
-      background-image: url("/images/nav_logo.svg");
-      top: 1.5rem;
-      width: 180px;
-      margin-left: 1rem;
-    }
-  }
-}
-
-.td-navbar-nav-scroll {
-  overflow: visible !important;
-  display: none;
-
-  .navbar-nav {
-    overflow: visible !important;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-
-    .nav-item {
-      position: relative;
-      height: 10%;
-
-      .active::after {
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        content: "";
-        bottom: -4px;
-        left: 0;
-        background: #fff;
-      }
-    }
-  }
-
-  @media only screen and (min-width: 768px) {
-    display: block;
-    margin-top: 3.5rem !important;
-  }
-
-  @media only screen and (min-width: 1170px) {
-    margin-top: 1rem !important;
-  }
-}
-
-// Flip-Nav
-.flip-nav .td-navbar {
-  background-color: white !important;
-  box-shadow: 0 1px 2px $medium-grey;
-
-  .navbar-nav {
-    .nav-item {
-      &.show .nav-link,
-      .nav-link {
-        color: $dark-grey;
-
-        &:hover {
-          color: $medium-grey;
-        }
-      }
-
-      .dropdown {
-        &:hover {
-          color: $medium-grey;
-        }
-      }
-    }
-  }
-
-  .navbar-nav .nav-item .active {
-    color: $dark-grey;
-
-    &::after {
-      background: $dark-grey;
-    }
-  }
-
-  #hamburger:hover {
-    div,
-    &:before,
-    &:after {
-      background-color: $dark-grey;
-    }
-  }
-
-  @media only screen and (min-width: 768px) {
-    .navbar-brand {
-      background-image: url("/images/nav_logo2.svg");
-    }
-  }
-}
-
-.search-item.nav-item {
-    input, input::placeholder {
-      color: black;
-      width: 200px;
-      box-sizing: border-box;
-      padding: 8px;
-      height: 40px;
-      font-size: 14px;
-      transition: width 0.3s ease-in-out;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-  }
-}
-
-input[type="search"]{
-  -moz-box-sizing: border-box;
-  width: 100%;
-}
-
-.flip-nav .search-item {
-  .td-search-input, .search-bar {
-    background-color: $medium-grey;
-  }
-  input, input::placeholder, .search-icon {
-    color: white;
-  }
-  textarea:focus, input:focus {
-    color: white;
-  }
-}
-
-@media only screen and (max-width: 1500px) {
-  header nav .search-item {
-    display: none;
-  }
-}
-
 
 .cncf-logo-details {
   display: flex;
@@ -1294,26 +1137,6 @@ body.cid-community #cncf-code-of-conduct h2:after {
   }
 }
 
-body.cid-casestudies, body.cid-community, body.cid-partners {
-  section#deprecation-warning {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-
-    border-top: solid 1em $primary;
-    border-bottom: solid 1em $primary;
-
-    // Center the pageinfo
-    padding-left: calc(max(1rem, (100vw - 60rem) / 2));
-    padding-right: calc(max(1rem, (100vw - 60rem) / 2));
-  }
-  /* Ensure color overrides */
-  section#deprecation-warning, section#deprecation-warning > .pageinfo.deprecation-warning {
-    background-color: $primary;
-    color: #fff;
-  }
-}
-
 body.cid-partners {
     /*  SECTIONS  */
     .section {
@@ -1514,16 +1337,6 @@ body.cid-partners {
         }
     }
 }
-body.cid-community > #deprecation-warning > .deprecation-warning {
-    margin-left: 20px;
-    margin-right: 20px;
-    color: #faf5b6;
-    background-color: inherit;
-}
-body.cid-community > #deprecation-warning > .deprecation-warning > * {
-    color: inherit;
-    background-color: inherit;
-}
 
 body.cid-code-of-conduct main {
     max-width: calc(min(90vw, 100em));
@@ -1561,22 +1374,6 @@ body.cid-code-of-conduct main {
     > *:last-child {
       margin-bottom: 4rem;
     }
-}
-
-#caseStudies body > #deprecation-warning > .deprecation-warning, body.cid-casestudies > #deprecation-warning > .deprecation-warning {
-    color: inherit;
-    background: inherit;
-    width: 80%;
-    margin: 0;
-    margin-top: 120px;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: initial;
-}
-#deprecation-warning > .deprecation-warning a {
-    background: transparent;
-    color: inherit;
-    text-decoration: underline;
 }
 
 // search & sidebar
@@ -2122,8 +1919,8 @@ body.td-search {
 }
 
 .toast-success {
-  background-color: $primary !important; 
-  color: #ffffff !important; 
+  background-color: $primary !important;
+  color: #ffffff !important;
 }
 
 // handle main page features on narrow viewports
