@@ -7,7 +7,7 @@ weight: 180
 
 <!-- overview -->
 
-Цей документ допоможе вам розпочати використання API мережевої політики Kubernetes [NetworkPolicy API](/uk/docs/concepts/services-networking/network-policies/), щоб оголосити політики мережі, які керують тим, як Podʼи спілкуються один з одним.
+Цей документ допоможе вам розпочати використання API мережевої політики Kubernetes [NetworkPolicy API](/docs/concepts/services-networking/network-policies/), щоб оголосити політики мережі, які керують тим, як Podʼи спілкуються один з одним.
 
 {{% thirdparty-content %}}
 
@@ -17,12 +17,12 @@ weight: 180
 
 Переконайтеся, що ви налаштували постачальника мережі з підтримкою політики мережі. Існує кілька постачальників мережі, які підтримують NetworkPolicy, включаючи:
 
-* [Antrea](/uk/docs/tasks/administer-cluster/network-policy-provider/antrea-network-policy/)
-* [Calico](/uk/docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/)
-* [Cilium](/uk/docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/)
-* [Kube-router](/uk/docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/)
-* [Romana](/uk/docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/)
-* [Weave Net](/uk/docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/)
+* [Antrea](/docs/tasks/administer-cluster/network-policy-provider/antrea-network-policy/)
+* [Calico](/docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/)
+* [Cilium](/docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/)
+* [Kube-router](/docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/)
+* [Romana](/docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/)
+* [Weave Net](/docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/)
 
 <!-- steps -->
 
@@ -68,7 +68,7 @@ pod/nginx-701339712-e0qfq   1/1           Running       0          35s
 Ви повинні мати можливість звернутися до нового Service `nginx` з інших Podʼів. Щоб отримати доступ до Service `nginx` з іншого Podʼа в просторі імен `default`, запустіть контейнер busybox:
 
 ```console
-kubectl run busybox --rm -ti --image=busybox:1.28 -- /bin/sh
+kubectl run busybox --rm -ti --image=busybox -- /bin/sh
 ```
 
 У вашій оболонці запустіть наступну команду:
@@ -88,7 +88,7 @@ remote file exists
 
 {{% code_sample file="service/networking/nginx-policy.yaml" %}}
 
-Назва обʼєкта NetworkPolicy повинна бути дійсним [піддоменом DNS](/uk/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+Назва обʼєкта NetworkPolicy повинна бути дійсним [піддоменом DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 {{< note >}}
 NetworkPolicy включає `podSelector`, який вибирає групу Podʼів, до яких застосовується політика. Ви можете побачити, що ця політика вибирає Podʼи з міткою `app=nginx`. Мітка автоматично додавалася до Podʼа в Deployment `nginx`. Порожній `podSelector` вибирає всі Podʼи в просторі імен.
@@ -111,7 +111,7 @@ networkpolicy.networking.k8s.io/access-nginx created
 Коли ви намагаєтеся отримати доступ до Service `nginx` з Podʼа без відповідних міток, запит завершується тайм-аутом:
 
 ```console
-kubectl run busybox --rm -ti --image=busybox:1.28 -- /bin/sh
+kubectl run busybox --rm -ti --image=busybox -- /bin/sh
 ```
 
 У вашій оболонці виконайте команду:
@@ -132,7 +132,7 @@ wget: download timed out
 Ви можете створити Pod із відповідними мітками, щоб переконатися, що запит дозволено:
 
 ```console
-kubectl run busybox --rm -ti --labels="access=true" --image=busybox:1.28 -- /bin/sh
+kubectl run busybox --rm -ti --labels="access=true" --image=busybox -- /bin/sh
 ```
 
 У вашій оболонці запустіть команду:

@@ -45,7 +45,7 @@ ServiceAccount повʼязує разом
 
   *Atomic: буде замінено під час злиття*
 
-  imagePullSecrets — це список посилань на Sercretʼи в тому ж просторі імен для використання при завантаженні будь-яких образів у Podʼах, які використовують цей службовий обліковий запис. ImagePullSecrets відрізняються від Secrets тим, що Secrets можуть бути змонтовані в Pod, а ImagePullSecrets доступні лише для kubelet. Докладніше: [https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod](/uk/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
+  imagePullSecrets — це список посилань на Sercretʼи в тому ж просторі імен для використання при завантаженні будь-яких образів у Podʼах, які використовують цей службовий обліковий запис. ImagePullSecrets відрізняються від Secrets тим, що Secrets можуть бути змонтовані в Pod, а ImagePullSecrets доступні лише для kubelet. Докладніше: [https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
 
 - **secrets** ([]<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 
@@ -53,7 +53,7 @@ ServiceAccount повʼязує разом
 
   *Map: унікальні значення ключа name будуть збережені під час злиття*
 
-  secrets — це список секретів у тому ж просторі імен, які Podʼи, що використовують цей службовий обліковий запис, можуть використовувати. Podʼи обмежуються цим списком лише у випадку, якщо цей службовий обліковий запис має анотацію "kubernetes.io/enforce-mountable-secrets" зі значенням "true". Це поле не слід використовувати для пошуку автоматично створених секретів токенів службових облікових записів для використання поза межами Podʼів. Натомість токени можна запитувати безпосередньо за допомогою API TokenRequest або секрети токенів службових облікових записів можна створювати вручну. Докладніше: [https://kubernetes.io/docs/concepts/configuration/secret](/uk/docs/concepts/configuration/secret)
+  secrets — це список секретів у тому ж просторі імен, які Podʼи, що використовують цей службовий обліковий запис, можуть використовувати. Podʼи обмежуються цим списком лише у випадку, якщо цей службовий обліковий запис має анотацію "kubernetes.io/enforce-mountable-secrets" зі значенням "true". Анотацію "kubernetes.io/enforce-mountable-secrets" визнано застарілою, починаючи з версії 1.32. Віддавайте перевагу окремим просторам імен для ізоляції доступу до змонтованих секретів. Це поле не слід використовувати для пошуку автоматично створених секретів токенів службових облікових записів для використання поза межами Podʼів. Натомість токени можна запитувати безпосередньо за допомогою API TokenRequest або секрети токенів службових облікових записів можна створювати вручну. Докладніше: [https://kubernetes.io/docs/concepts/configuration/secret](/docs/concepts/configuration/secret)
 
 ## ServiceAccountList {#ServiceAccountList}
 
@@ -71,7 +71,7 @@ ServiceAccountList — це список обʼєктів ServiceAccount.
 
 - **items** ([]<a href="{{< ref "../authentication-resources/service-account-v1#ServiceAccount" >}}">ServiceAccount</a>), обовʼязково
 
-  Список обʼєктів ServiceAccount. Докладніше: [https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/](/uk/docs/tasks/configure-pod-container/configure-service-account/)
+  Список обʼєктів ServiceAccount. Докладніше: [https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/](/docs/tasks/configure-pod-container/configure-service-account/)
 
 ## Операції {#operations}
 
@@ -377,6 +377,10 @@ DELETE /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -422,6 +426,10 @@ DELETE /api/v1/namespaces/{namespace}/serviceaccounts
 - **gracePeriodSeconds** (*в запиті*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (*в запиті*): string
 

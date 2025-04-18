@@ -10,7 +10,7 @@ Kubernetes {{< glossary_tooltip text="namespaces" term_id="namespace" >}} доп
 
 Вони це роблять, надаючи наступне:
 
-1. Область для [Імен](/uk/docs/concepts/overview/working-with-objects/names/).
+1. Область для [Імен](/docs/concepts/overview/working-with-objects/names/).
 2. Механізм для прикріплення авторизації та політики до підрозділу кластера.
 
 Використання кількох просторів імен є необовʼязковим.
@@ -27,7 +27,7 @@ Kubernetes {{< glossary_tooltip text="namespaces" term_id="namespace" >}} доп
 
 У цьому прикладі передбачається наступне:
 
-1. У вас є [кластер Kubernetes](/uk/docs/setup/).
+1. У вас є [кластер Kubernetes](/docs/setup/).
 2. Ви маєте базове розуміння що таке {{< glossary_tooltip text="Pod" term_id="pod" >}}, {{< glossary_tooltip term_id="service" text="Service" >}} та {{< glossary_tooltip text="Deployment" term_id="deployment" >}} в Kubernetes.
 
 ## Стандартний простір імен {#understand-the-default-namespace}
@@ -59,7 +59,7 @@ default   Active    13m
 
 Створімо два нових простори імен для зберігання нашої роботи.
 
-Використовуйте файл [`namespace-dev.yaml`](/uk/examples/admin/namespace-dev.yaml), який описує простір імен `development`:
+Використовуйте файл [`namespace-dev.yaml`](/examples/admin/namespace-dev.yaml), який описує простір імен `development`:
 
 {{% code_sample language="yaml" file="admin/namespace-dev.yaml" %}}
 
@@ -69,7 +69,7 @@ default   Active    13m
 kubectl create -f https://k8s.io/examples/admin/namespace-dev.yaml
 ```
 
-Збережіть наступний вміст у файл [`namespace-prod.yaml`](/uk/examples/admin/namespace-prod.yaml), який описує простір імен `production`:
+Збережіть наступний вміст у файл [`namespace-prod.yaml`](/examples/admin/namespace-prod.yaml), який описує простір імен `production`:
 
 {{% code_sample language="yaml" file="admin/namespace-prod.yaml" %}}
 
@@ -220,7 +220,7 @@ dev
 
 {{% code_sample file="admin/snowflake-deployment.yaml" %}}
 
-Застосуйте маніфест для створення Deployment 
+Застосуйте маніфест для створення Deployment
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/snowflake-deployment.yaml

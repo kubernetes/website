@@ -6,15 +6,9 @@ api_metadata:
 content_type: "api_reference"
 description: "ResourceClaimTemplate використовується для створення обʼєктів ResourceClaim."
 title: "ResourceClaimTemplate v1beta1"
-weight: 17
+weight: 16
 auto_generated: true
 ---
-
-<!--
-The file was copied and updated manually from the v1alpha3 API.
-The content is not quite up-to-date, which needs to be fixed
-by generating the file automatically.
--->
 
 `apiVersion: resource.k8s.io/v1beta1`
 
@@ -54,7 +48,7 @@ ResourceClaimTemplateSpec містить метадані та поля для R
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  ObjectMeta може містити мітки та анотації, які будуть скопійовані до PVC при створенні його. Інші поля не дозволені і будуть відхилені під час перевірки на валідність.
+  ObjectMeta може містити мітки та анотації, які будуть скопійовані до ResourceClaim при створенні його. Інші поля не дозволені та будуть відхилені під час перевірки на валідність.
 
 ## ResourceClaimTemplateList {#ResourceClaimTemplateList}
 
@@ -380,6 +374,10 @@ DELETE /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplat
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -427,6 +425,10 @@ DELETE /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplat
 - **gracePeriodSeconds** (*в запиті*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (*в запиті*): string
 

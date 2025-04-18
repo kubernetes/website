@@ -53,7 +53,7 @@ StatefulSetSpec — це специфікація StatefulSet.
 
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>), обовʼязково
 
-  selector — це запит міток для Podʼів, які повинні відповідати кількості реплік. Він повинен відповідати міткам шаблону Podʼа. Додаткова інформація: [https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors](/uk/docs/concepts/overview/working-with-objects/labels/#label-selectors)
+  selector — це запит міток для Podʼів, які повинні відповідати кількості реплік. Він повинен відповідати міткам шаблону Podʼа. Додаткова інформація: [https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), обовʼязково
 
@@ -112,7 +112,7 @@ StatefulSetSpec — це специфікація StatefulSet.
 
 - **persistentVolumeClaimRetentionPolicy** (StatefulSetPersistentVolumeClaimRetentionPolicy)
 
-  persistentVolumeClaimRetentionPolicy описує життєвий цикл запитів на постійні томи, створених з volumeClaimTemplates. Стандартно усі запити на постійні томи створюються за необхідності та зберігаються до ручного видалення. Ця політика дозволяє змінювати життєвий цикл, наприклад, видаляючи запити на постійні томи під час видалення їх StatefulSet або при масштабуванні вниз Podʼів. Для цього потрібно включити функцію StatefulSetAutoDeletePVC, яка є бета-рівнем.
+  persistentVolumeClaimRetentionPolicy описує життєвий цикл запитів на постійні томи, створених з volumeClaimTemplates. Стандартно усі запити на постійні томи створюються за необхідності та зберігаються до ручного видалення. Ця політика дозволяє змінювати життєвий цикл, наприклад, видаляючи запити на постійні томи під час видалення їх StatefulSet або при масштабуванні вниз Podʼів.
 
   <a name="StatefulSetPersistentVolumeClaimRetentionPolicy"></a>
 
@@ -175,7 +175,7 @@ StatefulSetStatus представляє поточний стан StatefulSet.
 
 - **conditions** ([]StatefulSetCondition)
 
-  *Patch strategy: злиття за ключем `type`*
+  *Patch strategy: обʼєднання за ключем `type`*
 
   *Map: унікальні значення ключа type будуть збережені під час злиття*
 
@@ -656,6 +656,10 @@ DELETE /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -701,6 +705,10 @@ DELETE /apis/apps/v1/namespaces/{namespace}/statefulsets
 - **gracePeriodSeconds** (*в запиті*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (*в запиті*): string
 

@@ -279,7 +279,7 @@ Volume становить собою іменований том у Pod, до я
 
 - **awsElasticBlockStore** (AWSElasticBlockStoreVolumeSource)
 
-  awsElasticBlockStore представляє ресурс AWS Disk, який підключений до хост-машини kubelet і потім доступний Podʼу. Додаткова інформація: [https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore](/docs/concepts/storage/volumes#awselasticblockstore)
+  awsElasticBlockStore представляє ресурс AWS Disk, який підключений до хост-машини kubelet і потім доступний Podʼу. Застаріло: AWSElasticBlockStore застарів. Всі операції для внутрішнього типу awsElasticBlockStore перенаправляються на CSI-драйвер ebs.csi.aws.com. Додаткова інформація: [https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore](/docs/concepts/storage/volumes#awselasticblockstore)
 
   <a name="AWSElasticBlockStoreVolumeSource"></a>
   *Представляє ресурс Persistent Disk в AWS.
@@ -304,7 +304,7 @@ Volume становить собою іменований том у Pod, до я
 
 - **azureDisk** (AzureDiskVolumeSource)
 
-  azureDisk представляє монтування Azure Data Disk на хості та привʼязує монтування до Podʼа.
+  azureDisk представляє монтування Azure Data Disk на хості та привʼязує монтування до Podʼа. Застаріло: AzureDisk застарів. Усі операції для внутрішнього типу azureDisk переспрямовуються на драйвер CSI disk.csi.azure.com.
 
   <a name="AzureDiskVolumeSource"></a>
   *AzureDisk представляє монтування Azure Data Disk на хості та привʼязане монтування до Podʼа.*
@@ -335,7 +335,7 @@ Volume становить собою іменований том у Pod, до я
 
 - **azureFile** (AzureFileVolumeSource)
 
-  azureFile представляє монтування служби файлів Azure на хості та привʼязане монтування до Podʼа.
+  azureFile представляє монтування служби файлів Azure на хості та привʼязане монтування до Podʼа. Застаріло: AzureFile застарілий. Всі операції для внутрішнього типу azureFile перенаправляються на CSI-драйвер file.csi.azure.com.
 
   <a name="AzureFileVolumeSource"></a>
   *AzureFile представляє монтування служби файлів Azure на хості та привʼязане монтування до Podʼа.*
@@ -354,7 +354,7 @@ Volume становить собою іменований том у Pod, до я
 
 - **cephfs** (CephFSVolumeSource)
 
-  cephFS представляє монтування Ceph FS на хості, яке діє впродовж життєвого циклу Podʼа.
+  cephFS представляє монтування Ceph FS на хості, яке діє впродовж життєвого циклу Podʼа. Застаріло: CephFS застаріла і внутрішній тип cephfs більше не підтримується.
 
   <a name="CephFSVolumeSource"></a>
   *Представляє монтування файлової системи Ceph, яке діє впродовж життєвого циклу Podʼа. Томи cephfs не підтримують управління власністю або перепризначення міток SELinux.*
@@ -387,7 +387,7 @@ Volume становить собою іменований том у Pod, до я
 
 - **cinder** (CinderVolumeSource)
 
-  cinder представляє том Cinder, підключений і змонтований на хост-машині kubelet. Додаткова інформація: https://examples.k8s.io/mysql-cinder-pd/README.md
+  cinder представляє том Cinder, підключений і змонтований на хост-машині kubelet. Застаріло: Cinder застарів. Всі операції для внутрішнього типу cinder перенаправляються на CSI-драйвер cinder.csi.openstack.org. Додаткова інформація: https://examples.k8s.io/mysql-cinder-pd/README.md
 
   <a name="CinderVolumeSource"></a>
   *Представляє ресурс тому Cinder в Openstack. Том Cinder повинен існувати перед монтуванням до контейнера. Том також повинен знаходитися в тому ж регіоні, що і kubelet. Томи Cinder підтримують управління власністю та перепризначення міток SELinux.*
@@ -410,7 +410,7 @@ Volume становить собою іменований том у Pod, до я
 
 - **csi** (CSIVolumeSource)
 
-  csi (Container Storage Interface) представляє ефемерне сховище, яке обробляється певними зовнішніми драйверами CSI (бета-функція).
+  csi (Container Storage Interface) представляє ефемерне сховище, яке обробляється певними зовнішніми драйверами CSI.
 
   <a name="CSIVolumeSource"></a>
   *Представляє джерело розташування тому для монтування, керованого зовнішнім драйвером CSI*
@@ -504,7 +504,7 @@ Volume становить собою іменований том у Pod, до я
 
 - **flexVolume** (FlexVolumeSource)
 
-  flexVolume представляє загальний ресурс тома, що створюється/підключається за допомогою втулка на основі exec.
+  flexVolume представляє загальний ресурс тома, що створюється/підключається за допомогою втулка на основі exec. Застаріло: FlexVolume застарів. Розгляньте можливість використання CSIDriver замість нього.
 
   <a name="FlexVolumeSource"></a>
   *FlexVolume представляє загальний ресурс тома, що створюється/підключається за допомогою втулка на основі exec.*
@@ -531,7 +531,7 @@ Volume становить собою іменований том у Pod, до я
 
 - **flocker** (FlockerVolumeSource)
 
-  flocker представляє том Flocker, приєднаний до хост-машини kubelet. Залежить від роботи служби управління Flocker.
+  flocker представляє том Flocker, приєднаний до хост-машини kubelet. Залежить від роботи служби управління Flocker. Застаріло: Flocker застарів, і внутрішній тип flocker більше не підтримується.
 
   <a name="FlockerVolumeSource"></a>
   *Представляє том Flocker, змонтований агентом Flocker. Повинно бути встановлено тільки щось одне з datasetName і datasetUUID. Томи Flocker не підтримують керування власністю або перепризначення міток SELinux.*
@@ -546,7 +546,7 @@ Volume становить собою іменований том у Pod, до я
 
 - **gcePersistentDisk** (GCEPersistentDiskVolumeSource)
 
-  gcePersistentDisk представляє ресурс диска GCE, який приєднаний до хост-машини kubelet і потім відкривається для доступу у Podʼі. Додаткова інформація: [https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk](/docs/concepts/storage/volumes#gcepersistentdisk)
+  gcePersistentDisk представляє ресурс диска GCE, який приєднаний до хост-машини kubelet і потім відкривається для доступу у Podʼі. Застаріло: GCEPersistentDisk застарів. Усі операції для внутрішнього типу gcePersistentDisk перенаправлено до драйвера CSI pd.csi.storage.gke.io. Додаткова інформація: [https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk](/docs/concepts/storage/volumes#gcepersistentdisk)
 
   <a name="GCEPersistentDiskVolumeSource"></a>
   *Представляє ресурс постійного диска в Google Compute Engine.
@@ -571,7 +571,7 @@ Volume становить собою іменований том у Pod, до я
 
 - **glusterfs** (GlusterfsVolumeSource)
 
-  glusterfs представляє монтування Glusterfs на хості, яке діє впрожовж життєвого циклу Podʼа. Додаткова інформація: https://examples.k8s.io/volumes/glusterfs/README.md
+  glusterfs представляє монтування Glusterfs на хості, яке діє впрожовж життєвого циклу Podʼа. Застаріло: Glusterfs застаріла, а внутрішній тип glusterfs більше не підтримується. Додаткова інформація: https://examples.k8s.io/volumes/glusterfs/README.md
 
   <a name="GlusterfsVolumeSource"></a>
   *Представляє монтування Glusterfs, яке діє впрожовж життєвого циклу Podʼа. Томи Glusterfs не підтримують керування власністю або перепризначення міток SELinux.*
@@ -693,7 +693,7 @@ Volume становить собою іменований том у Pod, до я
 
 - **photonPersistentDisk** (PhotonPersistentDiskVolumeSource)
 
-  photonPersistentDisk представляє постійний диск PhotonController, приєднаний та змонтований на хост-машині kubelets.
+  photonPersistentDisk представляє постійний диск PhotonController, приєднаний та змонтований на хост-машині kubelets. Застаріло: PhotonPersistentDisk застарів і внутрішній тип photonPersistentDisk більше не підтримується.
 
   <a name="PhotonPersistentDiskVolumeSource"></a>
   *Представляє ресурс постійного диска Photon Controller.*
@@ -708,7 +708,7 @@ Volume становить собою іменований том у Pod, до я
 
 - **portworxVolume** (PortworxVolumeSource)
 
-  portworxVolume представляє том Portworx, приєднаний та змонтований на хост-машині kubelets.
+  portworxVolume представляє том Portworx, приєднаний та змонтований на хост-машині kubelets. Застаріло: PortworxVolume застарілв. Всі операції для внутрішнього типу portworxVolume перенаправляються на CSI-драйвер pxd.portworx.com, коли CSIMigrationPortworx функціональну можливість увімкнено.
 
   <a name="PortworxVolumeSource"></a>
   *PortworxVolumeSource представляє ресурс тома Portworx.*
@@ -727,7 +727,7 @@ Volume становить собою іменований том у Pod, до я
 
 - **quobyte** (QuobyteVolumeSource)
 
-  quobyte представляє монтування Quobyte на хості, яке діє впродовж життєвого циклу Podʼа.
+  quobyte представляє монтування Quobyte на хості, яке діє впродовж життєвого циклу Podʼа. Застаріло: Quobyte застарілий і внутрішній тип quobyte більше не підтримується.
 
   <a name="QuobyteVolumeSource"></a>
   *Представляє монтування Quobyte, яке діє впродовж життєвого циклу Podʼа. Томи Quobyte не підтримують керування власністю або перепризначення міток SELinux.*
@@ -758,7 +758,7 @@ Volume становить собою іменований том у Pod, до я
 
 - **rbd** (RBDVolumeSource)
 
-  rbd представляє монтування блочного пристрою Rados на хості, яке діє впродовж життєвого циклу Podʼа. Додаткова інформація: https://examples.k8s.io/volumes/rbd/README.md
+  rbd представляє монтування блочного пристрою Rados на хості, яке діє впродовж життєвого циклу Podʼа. Застаріло: RBD застарів і внутрішній тип rbd більше не підтримується. Додаткова інформація: https://examples.k8s.io/volumes/rbd/README.md
 
   <a name="RBDVolumeSource"></a>
   *Представляє монтування блочного пристрою Rados, яке діє впродовж життєвого циклу Podʼа. Томи RBD підтримують керування власністю та перепризначення міток SELinux.*
@@ -799,7 +799,7 @@ Volume становить собою іменований том у Pod, до я
 
 - **scaleIO** (ScaleIOVolumeSource)
 
-  scaleIO представляє постійний том ScaleIO, приєднаний та змонтований на вузлах Kubernetes.
+  scaleIO представляє постійний том ScaleIO, приєднаний та змонтований на вузлах Kubernetes. Застаріло: ScaleIO застаріла, а внутрішній тип scaleIO більше не підтримується.
 
   <a name="ScaleIOVolumeSource"></a>
   *ScaleIOVolumeSource представляє постійний том ScaleIO*
@@ -846,7 +846,7 @@ Volume становить собою іменований том у Pod, до я
 
 - **storageos** (StorageOSVolumeSource)
 
-  storageos представляє том StorageOS, приєднаний та змонтований на вузлах Kubernetes.
+  storageos представляє том StorageOS, приєднаний та змонтований на вузлах Kubernetes. Застаріло: StorageOS застаріла і внутрішній тип storageos більше не підтримується.
 
   <a name="StorageOSVolumeSource"></a>
   *Представляє постійний ресурс тому StorageOS.*
@@ -873,7 +873,7 @@ Volume становить собою іменований том у Pod, до я
 
 - **vsphereVolume** (VsphereVirtualDiskVolumeSource)
 
-  vsphereVolume представляє том vSphere, приєднаний та змонтований на вузлах kubelet.
+  vsphereVolume представляє том vSphere, приєднаний та змонтований на вузлах kubelet. Застаріло: VsphereVolume застарів. Усі операції для внутрішнього типу vsphereVolume перенаправляються на драйвер CSI csi.vsphere.vmware.com.
 
   <a name="VsphereVirtualDiskVolumeSource"></a>
   *Представляє ресурс тому vSphere.*

@@ -41,18 +41,14 @@ kubeadm підтримує наступні типи конфігурацій:
 apiVersion: kubeadm.k8s.io/v1beta4
 kind: InitConfiguration
 
-
 apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
-
 
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
 
-
 apiVersion: kubeproxy.config.k8s.io/v1alpha1
 kind: KubeProxyConfiguration
-
 
 apiVersion: kubeadm.k8s.io/v1beta4
 kind: JoinConfiguration

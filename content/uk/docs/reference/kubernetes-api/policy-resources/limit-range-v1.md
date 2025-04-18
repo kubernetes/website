@@ -87,7 +87,7 @@ LimitRangeList — це список елементів LimitRange.
 
 - **items** ([]<a href="{{< ref "../policy-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>), обовʼязкове
 
-  Items — це список обʼєктів LimitRange. Докладніше: [https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/](/uk/docs/concepts/configuration/manage-resources-containers/)
+  Items — це список обʼєктів LimitRange. Докладніше: [https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/](/docs/concepts/configuration/manage-resources-containers/)
 
 ## Операції {#operations}
 
@@ -393,6 +393,10 @@ DELETE /api/v1/namespaces/{namespace}/limitranges/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -438,6 +442,10 @@ DELETE /api/v1/namespaces/{namespace}/limitranges
 - **gracePeriodSeconds** (*в запиті*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (*в запиті*): string
 

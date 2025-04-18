@@ -59,7 +59,7 @@ auto_generated: false
 
   - **scaleTargetRef.name** (string), обовʼязково
 
-    name — це імʼя посилання; Додаткова інформація: [https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names](/uk/docs/concepts/overview/working-with-objects/names/#names)
+    name — це імʼя посилання; Додаткова інформація: [https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names](/docs/concepts/overview/working-with-objects/names/#names)
 
   - **scaleTargetRef.apiVersion** (string)
 
@@ -538,6 +538,10 @@ DELETE /apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers/{nam
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -583,6 +587,10 @@ DELETE /apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers
 - **gracePeriodSeconds** (*в запиті*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (*в запиті*): string
 

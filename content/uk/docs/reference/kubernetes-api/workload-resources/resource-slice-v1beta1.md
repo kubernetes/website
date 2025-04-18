@@ -6,13 +6,9 @@ api_metadata:
 content_type: "api_reference"
 description: "ResourceSlice представляє один або декілька ресурсів у пулі подібних ресурсів, керованих спільним драйвером."
 title: "ResourceSlice v1beta1"
-weight: 18
+weight: 17
 auto_generated: true
 ---
-
-<!--
-The file was copied and updated manually from the v1alpha3 API.
--->
 
 `apiVersion: resource.k8s.io/v1beta1`
 
@@ -138,11 +134,18 @@ ResourceSliceSpec містить інформацію, опубліковану 
 
         VersionValue є семантичною версією відповідно до специфікації semver.org 2.0.0. Не повинна перевищувати 64 символи в довжину.
 
-    - **devices.basic.capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+    - **devices.basic.capacity** (map[string]DeviceCapacity)
 
       Capacity визначає набір ємностей для цього пристрою. Імʼя кожної ємності повинно бути унікальним у цьому наборі.
 
       Максимальна кількість атрибутів та ємностей разом — 32.
+
+      <a name="DeviceCapacity"></a>
+      *DeviceCapacity описує кількість, повʼязану з пристроєм.*
+
+      - **devices.basic.capacity.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>), обовʼязково
+
+        Value визначає, яка частина певної ємності пристрою є доступною.
 
 - **nodeName** (string)
 
@@ -194,13 +197,13 @@ ResourceSliceList — колекція класів ResourceSlices.
 
 - **kind**: ResourceSliceList
 
-- **items** ([]<a href="{{< ref "../workload-resources/resource-slice-v1beta1#ResourceSlice" >}}">ResourceSlice</a>), обовʼязково
-
-  Items is the list of resource ResourceSlices.
-
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
   Стандартні метадані списку
+
+- **items** ([]<a href="{{< ref "../workload-resources/resource-slice-v1beta1#ResourceSlice" >}}">ResourceSlice</a>), обовʼязково
+
+  Items is the list of resource ResourceSlices.
 
 ## Операції {#Operations}
 
@@ -424,6 +427,10 @@ DELETE /apis/resource.k8s.io/v1beta1/resourceslices/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -465,6 +472,10 @@ DELETE /apis/resource.k8s.io/v1beta1/resourceslices
 - **gracePeriodSeconds** (*в запиті*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (*в запиті*): string
 

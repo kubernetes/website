@@ -99,6 +99,14 @@ kubectl get pods -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.st
 kubectl get pods -o=jsonpath='{.items[0].metadata.labels.kubernetes\.io/hostname}'
 ```
 
+Або за допомогою "my_pod" і "my_namespace" (налаштуйте ці назви відповідно до вашого середовища):
+
+```shell
+kubectl get pod/my_pod -n my_namespace -o=jsonpath='{@}'
+kubectl get pod/my_pod -n my_namespace -o=jsonpath='{.metadata.name}'
+kubectl get pod/my_pod -n my_namespace -o=jsonpath='{.status}'
+```
+
 {{< note >}}
 У Windows потрібно _подвійні_ лапки для будь-якого шаблону JSONPath, що містить пробіли (не одинарні лапки, як показано вище для bash). Це означає, що потрібно використовувати одинарні лапки або екрановані подвійні лапки для будь-яких літералів у шаблоні. Наприклад:
 

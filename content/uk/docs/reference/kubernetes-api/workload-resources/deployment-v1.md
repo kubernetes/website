@@ -136,7 +136,7 @@ DeploymentStatus — це найостанніший спостережуван
 
 - **conditions** ([]DeploymentCondition)
 
-  *Patch strategy: злиття за ключем `type`*
+  *Patch strategy: обʼєднання за ключем `type`*
 
   *Map: унікальні значення ключа type будуть збережені під час злиття*
 
@@ -265,47 +265,47 @@ GET /apis/apps/v1/namespaces/{namespace}/deployments
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **allowWatchBookmarks** (*у запиті*): boolean
+- **allowWatchBookmarks** (*в запиті*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-- **continue** (*у запиті*): string
+- **continue** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-- **fieldSelector** (*у запиті*): string
+- **fieldSelector** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-- **labelSelector** (*у запиті*): string
+- **labelSelector** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-- **limit** (*у запиті*): integer
+- **limit** (*в запиті*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-- **pretty** (*у запиті*): string
+- **pretty** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **resourceVersion** (*у запиті*): string
+- **resourceVersion** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-- **resourceVersionMatch** (*у запиті*): string
+- **resourceVersionMatch** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-- **sendInitialEvents** (*у запиті*): boolean
+- **sendInitialEvents** (*в запиті*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-- **timeoutSeconds** (*у запиті*): integer
+- **timeoutSeconds** (*в запиті*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-- **watch** (*у запиті*): boolean
+- **watch** (*в запиті*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
@@ -323,47 +323,47 @@ GET /apis/apps/v1/deployments
 
 #### Параметри {#parameters-3}
 
-- **allowWatchBookmarks** (*у запиті*): boolean
+- **allowWatchBookmarks** (*в запиті*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-- **continue** (*у запиті*): string
+- **continue** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-- **fieldSelector** (*у запиті*): string
+- **fieldSelector** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-- **labelSelector** (*у запиті*): string
+- **labelSelector** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-- **limit** (*у запиті*): integer
+- **limit** (*в запиті*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-- **pretty** (*у запиті*): string
+- **pretty** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **resourceVersion** (*у запиті*): string
+- **resourceVersion** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-- **resourceVersionMatch** (*у запиті*): string
+- **resourceVersionMatch** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-- **sendInitialEvents** (*у запиті*): boolean
+- **sendInitialEvents** (*в запиті*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-- **timeoutSeconds** (*у запиті*): integer
+- **timeoutSeconds** (*в запиті*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-- **watch** (*у запиті*): boolean
+- **watch** (*в запиті*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
@@ -387,19 +387,19 @@ POST /apis/apps/v1/namespaces/{namespace}/deployments
 
 - **body**: <a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>, обовʼязково
 
-- **dryRun** (*у запиті*): string
+- **dryRun** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (*у запиті*): string
+- **fieldManager** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (*у запиті*): string
+- **fieldValidation** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **pretty** (*у запиті*): string
+- **pretty** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -431,19 +431,19 @@ PUT /apis/apps/v1/namespaces/{namespace}/deployments/{name}
 
 - **body**: <a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>, обовʼязково
 
-- **dryRun** (*у запиті*): string
+- **dryRun** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (*у запиті*): string
+- **fieldManager** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (*у запиті*): string
+- **fieldValidation** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **pretty** (*у запиті*): string
+- **pretty** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -473,19 +473,19 @@ PUT /apis/apps/v1/namespaces/{namespace}/deployments/{name}/status
 
 - **body**: <a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>, обовʼязково
 
-- **dryRun** (*у запиті*): string
+- **dryRun** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (*у запиті*): string
+- **fieldManager** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (*у запиті*): string
+- **fieldValidation** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **pretty** (*у запиті*): string
+- **pretty** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -515,23 +515,23 @@ PATCH /apis/apps/v1/namespaces/{namespace}/deployments/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, обовʼязково
 
-- **dryRun** (*у запиті*): string
+- **dryRun** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (*у запиті*): string
+- **fieldManager** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (*у запиті*): string
+- **fieldValidation** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **force** (*у запиті*): boolean
+- **force** (*в запиті*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-- **pretty** (*у запиті*): string
+- **pretty** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -561,23 +561,23 @@ PATCH /apis/apps/v1/namespaces/{namespace}/deployments/{name}/status
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, обовʼязково
 
-- **dryRun** (*у запиті*): string
+- **dryRun** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (*у запиті*): string
+- **fieldManager** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (*у запиті*): string
+- **fieldValidation** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **force** (*у запиті*): boolean
+- **force** (*в запиті*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-- **pretty** (*у запиті*): string
+- **pretty** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -607,19 +607,23 @@ DELETE /apis/apps/v1/namespaces/{namespace}/deployments/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-- **dryRun** (*у запиті*): string
+- **dryRun** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **gracePeriodSeconds** (*у запиті*): integer
+- **gracePeriodSeconds** (*в запиті*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-- **pretty** (*у запиті*): string
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+- **pretty** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **propagationPolicy** (*у запиті*): string
+- **propagationPolicy** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
@@ -645,51 +649,55 @@ DELETE /apis/apps/v1/namespaces/{namespace}/deployments
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-- **continue** (*у запиті*): string
+- **continue** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-- **dryRun** (*у запиті*): string
+- **dryRun** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldSelector** (*у запиті*): string
+- **fieldSelector** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-- **gracePeriodSeconds** (*у запиті*): integer
+- **gracePeriodSeconds** (*в запиті*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-- **labelSelector** (*у запиті*): string
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+- **labelSelector** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-- **limit** (*у запиті*): integer
+- **limit** (*в запиті*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-- **pretty** (*у запиті*): string
+- **pretty** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **propagationPolicy** (*у запиті*): string
+- **propagationPolicy** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-- **resourceVersion** (*у запиті*): string
+- **resourceVersion** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-- **resourceVersionMatch** (*у запиті*): string
+- **resourceVersionMatch** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-- **sendInitialEvents** (*у запиті*): boolean
+- **sendInitialEvents** (*в запиті*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-- **timeoutSeconds** (*у запиті*): integer
+- **timeoutSeconds** (*в запиті*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 

@@ -89,7 +89,6 @@ Kubelet API   | ресурс   | підресурс
 /stats/\*     | nodes    | stats
 /metrics/\*   | nodes    | metrics
 /logs/\*      | nodes    | log
-/spec/\*      | nodes    | spec
 /pods         | nodes    | pods, proxy
 /runningPods/ | nodes    | pods, proxy
 /healthz      | nodes    | healthz, proxy
@@ -101,8 +100,9 @@ Kubelet API   | ресурс   | підресурс
 * verb=\*, resource=nodes, subresource=proxy
 * verb=\*, resource=nodes, subresource=stats
 * verb=\*, resource=nodes, subresource=log
-* verb=\*, resource=nodes, subresource=spec
 * verb=\*, resource=nodes, subresource=metrics
 * verb=\*, resource=nodes, subresource=configz
 * verb=\*, resource=nodes, subresource=healthz
 * verb=\*, resource=nodes, subresource=pods
+
+Якщо використовується [RBAC авторизація](/docs/reference/access-authn-authz/rbac/), увімкнення цієї функціональної можливості також гарантує, що вбудована `system:kubelet-api-admin` ClusterRole буде оновлена з дозволами на доступ до всіх вищезгаданих підресурсів.

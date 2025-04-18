@@ -44,11 +44,11 @@ DaemonSetSpec є специфікацією DaemonSet.
 
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>), обовʼязково
 
-  Запит міток для Podʼів, якими керує набір демонів. Має мати збіг з міткам шаблону Pod. Докладніше: [https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors](/uk/docs/concepts/overview/working-with-objects/labels/#label-selectors)
+  Запит міток для Podʼів, якими керує набір демонів. Має мати збіг з міткам шаблону Pod. Докладніше: [https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), обовʼязково
 
-  Обʼєкт, який описує Pod, який буде створено. DaemonSet створює рівно одну копію цього Pod на кожному вузлі, який відповідає селектору вузлів шаблону (або на кожному вузлі, якщо селектор вузлів не вказано). Єдине допустиме значення параметра `restartPolicy` шаблону — "Always". Докладніше: [https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template](/uk/docs/concepts/workloads/controllers/replicationcontroller#pod-template)
+  Обʼєкт, який описує Pod, який буде створено. DaemonSet створює рівно одну копію цього Pod на кожному вузлі, який відповідає селектору вузлів шаблону (або на кожному вузлі, якщо селектор вузлів не вказано). Єдине допустиме значення параметра `restartPolicy` шаблону — "Always". Докладніше: [https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template](/docs/concepts/workloads/controllers/replicationcontroller#pod-template)
 
 - **minReadySeconds** (int32)
 
@@ -110,15 +110,15 @@ DaemonSetStatus представляє поточний стан DaemonSet.
 
 - **numberMisscheduled** (int32), обовʼязково
 
-  Кількість вузлів, на яких запущений Pod демона, але вони не повинні його виконувати. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/](/uk/docs/concepts/workloads/controllers/daemonset/)
+  Кількість вузлів, на яких запущений Pod демона, але вони не повинні його виконувати. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/](/docs/concepts/workloads/controllers/daemonset/)
 
 - **desiredNumberScheduled** (int32), обовʼязково
 
-  Загальна кількість вузлів, на яких має бути запущений Pod демона (включаючи вузли, на яких Pod демона вже правильно запущений). Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/](/uk/docs/concepts/workloads/controllers/daemonset/)
+  Загальна кількість вузлів, на яких має бути запущений Pod демона (включаючи вузли, на яких Pod демона вже правильно запущений). Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/](/docs/concepts/workloads/controllers/daemonset/)
 
 - **currentNumberScheduled** (int32), обовʼязково
 
-  Кількість вузлів, на яких запущено принаймні один Pod демона і які повинні виконувати Pod демона. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/](/uk/docs/concepts/workloads/controllers/daemonset/)
+  Кількість вузлів, на яких запущено принаймні один Pod демона і які повинні виконувати Pod демона. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/](/docs/concepts/workloads/controllers/daemonset/)
 
 - **updatedNumberScheduled** (int32)
 
@@ -130,7 +130,7 @@ DaemonSetStatus представляє поточний стан DaemonSet.
 
 - **conditions** ([]DaemonSetCondition)
 
-  *Patch strategy: злиття за ключем `type`*
+  *Patch strategy: обʼєднання за ключем `type`*
 
   *Map: унікальні значення ключа type будуть збережені під час злиття*
 
@@ -603,6 +603,10 @@ DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -648,6 +652,10 @@ DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets
 - **gracePeriodSeconds** (*в запиті*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (*в запиті*): string
 

@@ -44,15 +44,15 @@ ReplicaSetSpec — це специфікація ReplicaSet.
 
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>), обовʼязково
 
-  Селектор — це запит міток до Podʼів, які повинні відповідати кількості реплік. Ключі міток та їх значення, які повинні відповідати, щоб ними керував цей ReplicaSet. Вони повинні відповідати міткам шаблону Podʼа. Додаткова інформація: [https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors](/uk/docs/concepts/overview/working-with-objects/labels/#label-selectors)
+  Селектор — це запит міток до Podʼів, які повинні відповідати кількості реплік. Ключі міток та їх значення, які повинні відповідати, щоб ними керував цей ReplicaSet. Вони повинні відповідати міткам шаблону Podʼа. Додаткова інформація: [https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)
 
-  Шаблон — це обʼєкт, що описує Pod, який буде створений, якщо виявлено недостатню кількість реплік. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template](/uk/docs/concepts/workloads/controllers/replicationcontroller#pod-template)
+  Шаблон — це обʼєкт, що описує Pod, який буде створений, якщо виявлено недостатню кількість реплік. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template](/docs/concepts/workloads/controllers/replicationcontroller#pod-template)
 
 - **replicas** (int32)
 
-  Replicas — це бажана кількість реплік. Це вказівник для розрізнювання між явною нульовою та невизначеною кількістю. Стандартне значення — 1. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller](/uk/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller)
+  Replicas — це бажана кількість реплік. Це вказівник для розрізнювання між явною нульовою та невизначеною кількістю. Стандартне значення — 1. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller](/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller)
 
 - **minReadySeconds** (int32)
 
@@ -66,7 +66,7 @@ ReplicaSetStatus відображає поточний стан ReplicaSet.
 
 - **replicas** (int32), обовʼязково
 
-  Replicas — це остання зафіксована кількість реплік. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller](/uk/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller)
+  Replicas — це остання зафіксована кількість реплік. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller](/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller)
 
 - **availableReplicas** (int32)
 
@@ -82,7 +82,7 @@ ReplicaSetStatus відображає поточний стан ReplicaSet.
 
 - **conditions** ([]ReplicaSetCondition)
 
-  *Patch strategy: злиття за ключем `type`*
+  *Patch strategy: обʼєднання за ключем `type`*
 
   *Map: унікальні значення ключа type будуть збережені під час злиття*
 
@@ -134,7 +134,7 @@ ReplicaSetList — це колекція ReplicaSets.
 
 - **items** ([]<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>), обовʼязково
 
-  Список ReplicaSets. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller](/uk/docs/concepts/workloads/controllers/replicationcontroller)
+  Список ReplicaSets. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller](/docs/concepts/workloads/controllers/replicationcontroller)
 
 ## Операції {#operations}
 
@@ -554,6 +554,10 @@ DELETE /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -599,6 +603,10 @@ DELETE /apis/apps/v1/namespaces/{namespace}/replicasets
 - **gracePeriodSeconds** (*в запиті*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (*в запиті*): string
 
