@@ -444,38 +444,6 @@ namespace names that are unique across your entire fleet (that is, even if they 
 clusters), as this gives you the flexibility to switch between dedicated and shared clusters in
 the future, or to use multi-cluster tooling such as service meshes.
 
-Conversely, there are also advantages to assigning namespaces at the tenant level, not just the
-workload level, since there are often policies that apply to all workloads owned by a single
-tenant. However, this raises its own problems. Firstly, this makes it difficult or impossible to
-customize policies to individual workloads, and secondly, it may be challenging to come up with a
-single level of "tenancy" that should be given a namespace. For example, an organization may have
-divisions, teams, and subteams - which should be assigned a namespace?
-
-To solve this, you could use a third-party project listed below which allows you to organize your
-namespaces into hierarchies, and share certain policies and resources between them. These can also
-help you manage namespace labels, namespace lifecycles, and delegated management, and share resource
-quotas across related namespaces. These capabilities can be useful in both multi-team and
-multi-customer scenarios.
-
-#### Multi-team tenancy
-
-{{% thirdparty-content %}}
-
-* [Accurate](https://github.com/cybozu-go/accurate)
-* [Capsule](https://github.com/clastix/capsule)
-* [Multi Tenant Operator](https://docs.stakater.com/mto/)
-
-#### Multi-customer tenancy
-
-* [Kubeplus](https://github.com/cloud-ark/kubeplus)
-
-#### Policy engines
-
-Policy engines provide features to validate and generate tenant configurations:
-
-* [Kyverno](https://kyverno.io/)
-* [OPA/Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
-
 ### Virtual control plane per tenant
 
 Another form of control-plane isolation is to use Kubernetes extensions to provide each tenant a
