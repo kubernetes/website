@@ -3,7 +3,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .module {
@@ -17,4 +17,11 @@
 
 .module h5 {
     margin: 10px 0 0;
+}
+
+@media screen and (max-width: 768px) {
+    .module {
+            width: 45%;
+            text-align: center;
+        }
 }

@@ -35,49 +35,45 @@ container orchestration, combined with best-of-breed ideas from the community.
 
 ## Kubernetes Basics Modules
 
-<!-- css code to preserve original format -->
-<link rel="stylesheet" href="/css/style_tutorials.css">
+<!-- For translators, translate only the values of the ‘alt’ and ‘title’ keys -->
+{{< tutorials/modules >}}
+  {{< tutorials/module
+      path="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"
+      image="/docs/tutorials/kubernetes-basics/public/images/module_01.svg?v=1469803628347"
+      alt="Module 1"
+      title="1. Create a Kubernetes cluster" >}}
 
-<div class="tutorials-modules">
-  <div class="module">
-    <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">
-      <img src="/docs/tutorials/kubernetes-basics/public/images/module_01.svg?v=1469803628347" alt="Module 1">
-      <h5>1. Create a Kubernetes cluster</h5>
-    </a>
-  </div>
-  <div class="module">
-    <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">
-      <img src="/docs/tutorials/kubernetes-basics/public/images/module_02.svg?v=1469803628347" alt="Module 2">
-      <h5>2. Deploy an app</h5>
-    </a>
-  </div>
-  <div class="module">
-    <a href="/docs/tutorials/kubernetes-basics/explore/explore-intro/">
-      <img src="/docs/tutorials/kubernetes-basics/public/images/module_03.svg?v=1469803628347" alt="Module 3">
-      <h5>3. Explore your app</h5>
-    </a>
-  </div>
-  <div class="module">
-    <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/">
-      <img src="/docs/tutorials/kubernetes-basics/public/images/module_04.svg?v=1469803628347" alt="Module 4">
-      <h5>4. Expose your app publicly</h5>
-    </a>
-  </div>
-  <div class="module">
-    <a href="/docs/tutorials/kubernetes-basics/scale/scale-intro/">
-      <img src="/docs/tutorials/kubernetes-basics/public/images/module_05.svg?v=1469803628347" alt="Module 5">
-      <h5>5. Scale up your app</h5>
-    </a>
-  </div>
-  <div class="module">
-    <a href="/docs/tutorials/kubernetes-basics/update/update-intro/">
-      <img src="/docs/tutorials/kubernetes-basics/public/images/module_06.svg?v=1469803628347" alt="Module 6">
-      <h5>6. Update your app</h5>
-    </a>
-  </div>
-</div>
+  {{< tutorials/module
+      path="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/"
+      image="/docs/tutorials/kubernetes-basics/public/images/module_02.svg?v=1469803628347"
+      alt="Module 2"
+      title="2. Deploy an app" >}}
+
+  {{< tutorials/module
+      path="/docs/tutorials/kubernetes-basics/explore/explore-intro/"
+      image="/docs/tutorials/kubernetes-basics/public/images/module_03.svg?v=1469803628347"
+      alt="Module 3"
+      title="3. Explore your app" >}}
+
+  {{< tutorials/module
+      path="/docs/tutorials/kubernetes-basics/expose/expose-intro/"
+      image="/docs/tutorials/kubernetes-basics/public/images/module_04.svg?v=1469803628347"
+      alt="Module 4"
+      title="4. Expose your app publicly" >}}
+
+  {{< tutorials/module
+      path="/docs/tutorials/kubernetes-basics/scale/scale-intro/"
+      image="/docs/tutorials/kubernetes-basics/public/images/module_05.svg?v=1469803628347"
+      alt="Module 5"
+      title="5. Scale up your app" >}}
+
+  {{< tutorials/module
+      path="/docs/tutorials/kubernetes-basics/update/update-intro/"
+      image="/docs/tutorials/kubernetes-basics/public/images/module_06.svg?v=1469803628347"
+      alt="Module 6"
+      title="6. Update your app" >}}
+{{< /tutorials/modules >}}
 
 ## {{% heading "whatsnext" %}}
 
-* Tutorial [Using Minikube to Create a
-Cluster](/docs/tutorials/kubernetes-basics/create-cluster/)
+* Tutorial [Using Minikube to Create a Cluster](/docs/tutorials/kubernetes-basics/create-cluster/)
