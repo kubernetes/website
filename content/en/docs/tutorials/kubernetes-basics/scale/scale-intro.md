@@ -44,18 +44,14 @@ kubectl expose deployment/kubernetes-bootcamp --type="LoadBalancer" --port 8080
 ## Scaling overview
 
 <!-- animation -->
-<div class="col-md-8">
-  <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
-    <div class="carousel-inner" role="listbox">
-      <div class="item carousel-item active">
-        <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
-      </div>
-      <div class="item carousel-item">
-        <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
-      </div>
-    </div>
-  </div>
-</div>
+{{< tutorials/carousel id="myCarousel" interval="3000" >}}
+  {{< tutorials/carousel-item
+      image="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg"
+      active="true" >}}
+
+  {{< tutorials/carousel-item
+      image="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg" >}}
+{{< /tutorials/carousel >}}
 
 {{% alert %}}
 _Scaling is accomplished by changing the number of replicas in a Deployment._
