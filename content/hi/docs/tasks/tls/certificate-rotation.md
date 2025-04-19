@@ -2,7 +2,7 @@
 reviewers:
 - divya-mohan0209
 - dipesh-rawat
-title: कुबलेट के लिए प्रमाणपत्र नियमित आवर्तन (rotation) configure करें
+title: क्यूबलेट के लिए प्रमाणपत्र आवर्तन कॉन्फ़िगर करें
 content_type: task
 ---
 
