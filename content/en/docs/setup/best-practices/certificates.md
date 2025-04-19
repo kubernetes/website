@@ -77,6 +77,18 @@ for details on creating your own certificate authority. See
 [Certificate Management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)
 for more on managing certificates.
 
+## Rotating Kubernetes Control Plane TLS Certificates
+
+When updating TLS certificates (e.g., expiration or key rotation), the Kubernetes control plane components do not automatically reload updated certs.
+
+For clusters using static pods, follow these steps:
+
+1. Replace the existing certificate files on disk (e.g., `/etc/kubernetes/pki/apiserver.crt`).
+2. Temporarily move the manifest file for the component (e.g., `/etc/kubernetes/manifests/kube-apiserver.yaml`) to another directory.
+3. Restart the kubelet service:  
+   ```bash
+   systemctl restart kubelet
+
 ### Single root CA
 
 You can create a single root CA, controlled by an administrator. This root CA can then create
