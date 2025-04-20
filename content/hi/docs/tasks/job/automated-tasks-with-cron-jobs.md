@@ -110,4 +110,4 @@ kubectl delete cronjob hello
 ```
 
 क्रॉन जॉब को हटाने से इसके द्वारा बनाए गए सभी जॉब और पॉड हट जाते हैं और यह अतिरिक्त जॉब बनाना बंद कर देता है।
-आप [गारबेज कलेक्शन](/docs/concepts/architecture/garbage-collection/) में जॉब हटाने के बारे में और पढ़ सकते हैं। 
+आप [गारबेज कलेक्शन](/docs/concepts/architecture/garbage-collection/) में जॉब हटाने के बारे में और पढ़ सकते हैं।

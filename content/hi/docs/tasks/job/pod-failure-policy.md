@@ -270,4 +270,4 @@ kubectl delete jobs/job-pod-failure-policy-config-issue
 * [जॉब्स](/docs/concepts/workloads/controllers/job/) के बारे में और जानें
 * [पॉड फेलियर पॉलिसी](/docs/concepts/workloads/controllers/job/#pod-failure-policy) के बारे में और जानें
 * [पॉड्स](/docs/concepts/workloads/pods/) के बारे में और जानें
-* [सेवाएं](/docs/concepts/services-networking/service/) के बारे में और जानें 
+* [सेवाएं](/docs/concepts/services-networking/service/) के बारे में और जानें

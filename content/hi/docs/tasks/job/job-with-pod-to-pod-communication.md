@@ -104,4 +104,4 @@ Successfully pinged pod: example-job-2.headless-svc
 
 #### नोट:
 
-ध्यान रखें कि इस उदाहरण में उपयोग किया गया `<pod-hostname>.<headless-service-name>` नाम फॉर्मेट DNS पॉलिसी को `None` या `Default` पर सेट करने के साथ काम नहीं करेगा। [पॉड की DNS पॉलिसी](/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy) देखें। 
+ध्यान रखें कि इस उदाहरण में उपयोग किया गया `<pod-hostname>.<headless-service-name>` नाम फॉर्मेट DNS पॉलिसी को `None` या `Default` पर सेट करने के साथ काम नहीं करेगा। [पॉड की DNS पॉलिसी](/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy) देखें।

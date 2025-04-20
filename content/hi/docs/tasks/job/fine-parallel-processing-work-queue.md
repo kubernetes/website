@@ -227,4 +227,4 @@ Working on lemon
 
 यदि आपके पास चलाने के लिए पृष्ठभूमि प्रसंस्करण कार्य की एक निरंतर धारा है, तो
 अपने पृष्ठभूमि वर्कर्स को ReplicaSet के साथ चलाने पर विचार करें,
-और [https://github.com/resque/resque](https://github.com/resque/resque) जैसी पृष्ठभूमि प्रसंस्करण लाइब्रेरी चलाने पर विचार करें। 
+और [https://github.com/resque/resque](https://github.com/resque/resque) जैसी पृष्ठभूमि प्रसंस्करण लाइब्रेरी चलाने पर विचार करें।

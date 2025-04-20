@@ -157,4 +157,4 @@ kubectl logs indexed-job-fdhq5 # इसे उस जॉब के एक पॉ
 
 ```
 xuq
-``` 
+```
