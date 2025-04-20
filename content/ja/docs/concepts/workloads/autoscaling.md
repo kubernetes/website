@@ -57,7 +57,7 @@ HPAと異なり、VPAはデフォルトでKubernetesに付属していません�
 VPAが機能するにはクラスターに[Metrics Server](https://github.com/kubernetes-sigs/metrics-server)がインストールされている必要があります。
 {{< /note >}}
 
-現時点では、VPAは4つの異なるモードで動作できます:　
+現時点では、VPAは4つの異なるモードで動作できます:
 
 {{< table caption="VPAの異なるモード" >}}
 モード | 説明
