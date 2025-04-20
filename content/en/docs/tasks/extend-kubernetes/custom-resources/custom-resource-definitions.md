@@ -762,7 +762,7 @@ validations are not supported by ratcheting under the implementation in Kubernet
   Errors arising from changing the list type of a subschema will not be 
   ratcheted. For example adding `set` onto a list with duplicates will always 
   result in an error.
-- `x-kubernetes-map-keys`
+- `x-kubernetes-list-map-keys`
   Errors arising from changing the map keys of a list schema will not be 
   ratcheted.
 - `required`
@@ -1204,9 +1204,9 @@ Example Usage:
 
 | CEL                                     | Description |
 |-----------------------------------------|-------------|
-| `self.foo == "foo" || (oldSelf.hasValue() && oldSelf.value().foo != "foo")` | Ratcheted rule. Once a value is set to "foo", it must stay foo. But if it existed before the "foo" constraint was introduced, it may use any value |
-| [oldSelf.orValue(""), self].all(x, ["OldCase1", "OldCase2"].exists(case, x == case)) || ["NewCase1", "NewCase2"].exists(case, self == case) || ["NewCase"].has(self)` | "Ratcheted validation for removed enum cases if oldSelf used them" |
-| oldSelf.optMap(o, o.size()).orValue(0) < 4 || self.size() >= 4 | Ratcheted validation of newly increased minimum map or list size |
+| <code>self.foo == "foo" &#124;&#124; (oldSelf.hasValue() && oldSelf.value().foo != "foo")</code> | Ratcheted rule. Once a value is set to "foo", it must stay foo. But if it existed before the "foo" constraint was introduced, it may use any value |
+| <code>[oldSelf.orValue(""), self].all(x, ["OldCase1", "OldCase2"].exists(case, x == case)) &#124;&#124; ["NewCase1", "NewCase2"].exists(case, self == case) &#124;&#124; ["NewCase"].has(self)</code> | "Ratcheted validation for removed enum cases if oldSelf used them" |
+| <code>oldSelf.optMap(o, o.size()).orValue(0) < 4 &#124;&#124; self.size() >= 4</code> | Ratcheted validation of newly increased minimum map or list size |
 
 
 #### Validation functions {#available-validation-functions}
@@ -1466,8 +1466,9 @@ Defaulting happens on the object
 Defaults applied when reading data from etcd are not automatically written back to etcd.
 An update request via the API is required to persist those defaults back into etcd.
 
-Default values must be pruned (with the exception of defaults for `metadata` fields) and must
-validate against a provided schema.
+Default values for non-leaf fields must be pruned (with the exception of defaults for `metadata` fields) and must
+validate against a provided schema. For example in the above example, a default of `{"replicas": "foo", "badger": 1}`
+for the `spec` field would be invalid, because `badger` is an unknown field, and `replicas` is not a string.
 
 Default values for `metadata` fields of `x-kubernetes-embedded-resources: true` nodes (or parts of
 a default value covering `metadata`) are not pruned during CustomResourceDefinition creation, but

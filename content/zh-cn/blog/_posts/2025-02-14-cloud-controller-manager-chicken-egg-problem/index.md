@@ -58,7 +58,7 @@ kubelet.
 >}}
 -->
 {{< figure
-    src="/images/docs/components-of-kubernetes.svg"
+    src="/zh-cn/docs/images/components-of-kubernetes.svg"
     alt="Kubernetes 组件"
     caption="Kubernetes 组件"
 >}}
@@ -126,8 +126,8 @@ will schedule properly.
 如上所述，在引导过程中，云控制器管理器可能无法被调度，
 因此集群将无法正确初始化。以下几个具体示例说明此问题的可能表现形式及其根本原因。
 
-这些示例假设你使用 Kubernetes 资源（例如 Deployment、DaemonSet 或类似资源）来控制
-云控制器管理器的生命周期。由于这些方法依赖于 Kubernetes 来调度云控制器管理器，
+这些示例假设你使用 Kubernetes 资源（例如 Deployment、DaemonSet
+或类似资源）来控制云控制器管理器的生命周期。由于这些方法依赖于 Kubernetes 来调度云控制器管理器，
 因此必须确保其能够正确调度。
 
 <!--

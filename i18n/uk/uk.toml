@@ -22,6 +22,9 @@ other = "Форум"
 [community_github_name]
 other = "GitHub"
 
+[community_linkedin_name]
+other = "LinkedIn"
+
 [community_slack_name]
 other = "Slack"
 
@@ -233,7 +236,7 @@ other = "Перш ніж ви розпочнете"
 # other = "Subscribe"
 other = "Підписатися"
 
-[ui_search_placeholder]
+[ui_search]
 # other = "Search"
 other = "Пошук"
 

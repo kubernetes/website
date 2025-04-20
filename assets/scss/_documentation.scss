@@ -1,14 +1,5 @@
 /* DOCUMENTATION */
 
-// nav-tabs and tab-content
-.nav-tabs {
-  border-bottom: none !important;
-
-  .nav-item {
-    margin-bottom: 0;
-  }
-}
-
 .td-content .tab-content .highlight {
   margin: 0;
 }
@@ -161,16 +152,6 @@ div.feature-state-notice {
   font-size: calc(min(5vw + 10px, 4rem));
   color: $primary;
   background-color: rgba(255, 255, 255, 0.25);
-}
-
-/* Sidebar menu */
-#td-sidebar-menu {
-  #m-docs span, small {
-    visibility: hidden;
-  }
-  #m-docs small {
-    visibility: collapse; // if supported
-  }
 }
 
 /* Styles for CVE table */

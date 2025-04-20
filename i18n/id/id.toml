@@ -16,6 +16,9 @@ other = "Forum"
 [community_github_name]
 other = "GitHub"
 
+[community_linkedin_name]
+other = "LinkedIn"
+
 [community_slack_name]
 other = "Slack"
 
@@ -205,7 +208,7 @@ other = "Sinopsis"
 [thirdparty_message]
 other = """Bagian ini tertaut ke proyek-proyek pihak ketiga yang menyediakan fungsionalitas yang dibutuhkan oleh Kubernetes. Pencipta proyek Kubernetes tidak bertanggung jawab atas proyek-proyek tersebut. Laman ini mengikuti <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">pedoman website CNCF</a> dengan membuat daftar proyek menurut abjad. Untuk menambakan proyek ke dalam daftar ini, bacalah <a href="/docs/contribute/style/content-guide/#third-party-content">panduan</a> sebelum mengirimkan perubahan."""
 
-[ui_search_placeholder]
+[ui_search]
 other = "Cari"
 
 [version_check_mustbe]

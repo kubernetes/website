@@ -132,7 +132,8 @@ ClusterTrustBundleSpec 包含签名程序和信任锚。
   
   如果 signerName 为空，则 ClusterTrustBundle 对象的名称不能具有此类前缀。
   
-  针对 ClusterTrustBundles 的列举/监视请求可以使用 `spec.signerName=NAME` 字段选择算符针对此字段进行过滤。
+  针对 ClusterTrustBundles 的列举/监视请求可以使用 `spec.signerName=NAME`
+  字段选择算符针对此字段进行过滤。
 
 ## ClusterTrustBundleList {#ClusterTrustBundleList}
 
@@ -489,6 +490,7 @@ DELETE /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 - **dryRun** (*in query*): string
 - **gracePeriodSeconds** (*in query*): integer
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
 - **pretty** (*in query*): string
 - **propagationPolicy** (*in query*): string
 -->
@@ -507,6 +509,10 @@ DELETE /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 - **gracePeriodSeconds**（**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **pretty**（**查询参数**）：string
 
@@ -546,6 +552,7 @@ DELETE /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
 - **dryRun** (*in query*): string
 - **fieldSelector** (*in query*): string
 - **gracePeriodSeconds** (*in query*): integer
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
 - **labelSelector** (*in query*): string
 - **limit** (*in query*): integer
 - **pretty** (*in query*): string
@@ -574,6 +581,10 @@ DELETE /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
 - **gracePeriodSeconds**（**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential**（**查询参数**）：boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector**（**查询参数**）：string
 

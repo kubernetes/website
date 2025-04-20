@@ -6,7 +6,19 @@ Add styles or import other files. */
 //K8S-Docsy integration
 @import "custom";
 
+// Base styles
+@import "k8s_community";
+@import "k8s_nav";
+
 //Media queries
 @import "base";
 @import "tablet";
 @import "desktop";
+
+// This is based on Bootstrap's grid system with classes like d-lg-block and d-xl-block
+// Bootstrap 5 included in Docsy 0.7 has a breakpoint at 1400px and it can be used once 0.7 upgrade is done
+@media (min-width: 1500px) {
+  .k8s-1500-block {
+    display: block !important;
+  }
+}
