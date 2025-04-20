@@ -1,4 +1,4 @@
-content/hi/docs/tasks/tls/certificate-rotation.md---
+---
 reviewers:
 - divya-mohan0209
 - dipesh-rawat
