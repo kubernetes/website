@@ -115,7 +115,8 @@ Let's run again the get services subcommand:
 ```shell
 kubectl get services
 ```
-We have now a running Service called kubernetes-bootcamp. Here we see that the Service received a unique cluster-IP, an internal port and an external-IP (the IP of the Node).
+We have now a running Service called kubernetes-bootcamp. Here we see that the Service
+received a unique cluster-IP, an internal port and an external-IP (the IP of the Node).
 
 To find out what port was opened externally (for the `type: NodePort` Service) we’ll
 run the `describe service` subcommand:
