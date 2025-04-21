@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Kubernetes 1.33: Fine-grained SupplementalGroups control graduates to beta'
+title: 'Kubernetes v1.33: Fine-grained SupplementalGroups Control Graduates to Beta'
 date: 2025-04-23
 draft: true
 slug: fine-grained-supplementalgroups-control-beta
@@ -11,7 +11,7 @@ author: >
 
 Pod supplemental groups policy control for Pods is now beta. Read on to learn how it will help your cluster security, and how to start using it.
  
-The new field was introduced as an opt-in alpha feature for Kubernetes 1.31 and has graduated to beta in 1.33; the corresponding feature gate (`SupplementalGroupsPolicy`) is now enabled by default.
+The new field, `supplementalGroupsPolicy`, was introduced as an opt-in alpha feature for Kubernetes 1.31 and has graduated to beta in 1.33; the corresponding feature gate (`SupplementalGroupsPolicy`) is now enabled by default.
 
 Please be aware that this beta release contains some behavioral breaking change. See [The Behavioral Changes Introduced In Beta](#the-behavioral-changes-introduced-in-beta) and [Upgrade Considerations](#upgrade-consideration) sections for details.
 
@@ -60,17 +60,17 @@ Thus, the group membership defined in `/etc/group` in the container image for th
 
 ### What's wrong with it?
 
-The _implicitly_ merged group information from `/etc/group` in the container image may cause some concerns particularly in accessing volumes (see [kubernetes/kubernetes#112879](https://issue.k8s.io/112879) for details) because file permission is controlled by uid/gid in Linux. Even worse, the implicit gids from `/etc/group` can not be detected/validated by any policy engines because there is no clue for the implicit group information in the manifest. This can also be a concern for Kubernetes security.
+The _implicitly_ merged group information from `/etc/group` in the container image poses a security risk. These implicit GIDs can't be detected or validated by policy engines because there's no record of them in the Pod manifest. This can lead to unexpected access control issues, particularly when accessing volumes (see [kubernetes/kubernetes#112879](https://issue.k8s.io/112879) for details) because file permission is controlled by UID/GIDs in Linux.
 
 ## Fine-grained supplemental groups control in a Pod: `supplementaryGroupsPolicy`
 
-To tackle the above problem, Pod's `.spec.securityContext` now have `supplementalGroupsPolicy` field.
+To tackle the above problem, Pod's `.spec.securityContext` now includes `supplementalGroupsPolicy` field.
 
-This field provides a way to control how to calculate supplementary groups for the container processes in a Pod. The available policy is below:
+This field lets you control how Kubernetes calculates the supplementary groups for container processes within a Pod. The available policies are:
 
 * _Merge_: The group membership defined in `/etc/group` for the container's primary user will be merged. If not specified, this policy will be applied (i.e. as-is behavior for backward compatibility).
 
-* _Strict_: it only attaches specified group IDs in `fsGroup`, `supplementalGroups`, or `runAsGroup` fields as the supplementary groups of the container processes. This means no group membership defined in `/etc/group` for the container's primary user will be merged.
+* _Strict_: Only the group IDs specified in `fsGroup`, `supplementalGroups`, or `runAsGroup` are attached as supplementary groups to the container processes. Group memberships defined in `/etc/group` for the container's primary user are ignored.
 
 Let's see how `Strict` policy works. Below Pod manifest specifies `supplementalGroupsPolicy: Strict`:
 
@@ -104,7 +104,7 @@ You can see `Strict` policy can exclude group `50000` from `groups`!
 Thus, ensuring `supplementalGroupsPolicy: Strict` (enforced by some policy mechanism) helps prevent the implicit supplementary groups in a Pod.
 
 {{<note>}}
-Actually, this is not enough because container with sufficient privileges / capability can change its process identity. Please see the following section for details.
+Keep in mind: a container with sufficient privileges can still change its process identity. The `supplementalGroupsPolicy` only affect the initial process identity. See the following section for details.
 {{</note>}}
 
 ## Attached process identity in Pod status
@@ -156,9 +156,9 @@ status:
 
 ## The Behavioral Changes Introduced In Beta
 
-At alpha release, when a pod with `SupplementalGroupsPolicy=Strict` are scheduled to a node that does NOT support this feature(i.e. `.status.features.supplementalGroupsPolicy=false`), the pod's supplemental groups policy falls back to the `Merge` policy _silently_.
+In the alpha release, when a Pod with `supplementalGroupsPolicy: Strict` was scheduled to a node that did not support the feature (i.e., `.status.features.supplementalGroupsPolicy=false`), the Pod's supplemental groups policy silently fell back to `Merge`.
 
-However, since the beta release (v1.33), to enforce the policy more strictly, __such pod creation will be rejected by kubelet because the node can not ensure the specified policy__. When your pod is rejected, you will see warning events with `reason=SupplementalGroupsPolicyNotSupported` like below:
+In v1.33, this has entered beta to enforce the policy more strictly, where kubelet rejects pods whose nodes cannot ensure the specified policy. If your pod is rejected, you will see warning events with `reason=SupplementalGroupsPolicyNotSupported` like below:
 
 ```yaml
 apiVersion: v1
@@ -175,12 +175,12 @@ involvedObject:
 
 ## Upgrade Consideration
 
-If you already used the feature, particularly `SupplementalGroupsPolicy=Strict` policy, we assume your cluster's CRI runtimes already support this feature. In this case, you do not need to worry about the pod rejections described in the above section.
+If you're already using this feature, especially the `supplementalGroupsPolicy: Strict` policy, we assume that your cluster's CRI runtimes already support this feature. In that case, you don't need to worry about the pod rejections described above.
 
 However, if your cluster:
 
-- use `SupplementalGroupsPolicy=Strict` policy, but
-- its CRI runtimes do NOT support this feature yet(`.status.features.supplementalGroupsPolicy=false`),
+- uses the `supplementalGroupsPolicy: Strict` policy, but
+- its CRI runtimes do NOT yet support the feature (i.e., `.status.features.supplementalGroupsPolicy=false`),
 
 you need to prepare the behavioral changes (pod rejection) when upgrading your cluster.
 
