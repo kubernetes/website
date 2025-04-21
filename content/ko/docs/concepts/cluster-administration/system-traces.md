@@ -13,7 +13,7 @@ weight: 90
 
 시스템 컴포넌트 추적은 클러스터 내에서 수행된 동작들 간의 지연(latency)과 관계(relationship)를 기록한다.
 
-쿠버네티스 컴포넌트들은 [OpenTelemetry 프로토콜](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#opentelemetry-protocol-specification)과
+쿠버네티스 컴포넌트들은 [OpenTelemetry 프로토콜](https://opentelemetry.io/docs/specs/otlp/)과
 gRPC exporter를 이용하여 추적을 생성하고
 [OpenTelemetry 수집기](https://github.com/open-telemetry/opentelemetry-collector#-opentelemetry-collector)를
 통해 추적 백엔드(tracing backends)로 라우팅되거나 수집될 수 있다.

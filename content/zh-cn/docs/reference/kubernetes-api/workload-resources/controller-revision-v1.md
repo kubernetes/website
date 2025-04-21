@@ -8,7 +8,6 @@ description: "ControllerRevision 实现了状态数据的不可变快照。"
 title: "ControllerRevision"
 weight: 8
 ---
-
 <!--
 api_metadata:
   apiVersion: "apps/v1"
@@ -38,8 +37,6 @@ The API Server will fail validation of all requests that attempt to mutate the D
 ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback,
 this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability.
 It is primarily for internal use by controllers.
-
-<hr>
 -->
 ControllerRevision 实现了状态数据的不可变快照。
 客户端负责序列化和反序列化对象，包含对象内部状态。
@@ -52,14 +49,8 @@ API 服务器将无法成功验证所有尝试改变 data 字段的请求。
 
 <hr>
 
-<!--
-- **apiVersion**: apps/v1
--->
 - **apiVersion**: apps/v1
 
-<!--
-- **kind**: ControllerRevision
--->
 - **kind**: ControllerRevision
 
 <!--
@@ -161,7 +152,7 @@ API 服务器将无法成功验证所有尝试改变 data 字段的请求。
   -->
   
   那么会发生什么？
-  解码首先使用 json 或 yaml 将序列化数据解组到你的外部 MyAPIObject 中。
+  解码首先使用 JSON 或 YAML 将序列化数据解组到你的外部 MyAPIObject 中。
   这会导致原始 JSON 被存储下来，但不会被解包。
   下一步是复制（使用 pkg/conversion）到内部结构中。
   runtime 包的 DefaultScheme 安装了转换函数，它将解析存储在 RawExtension 中的 JSON，
@@ -181,14 +172,8 @@ ControllerRevisionList 是一个包含 ControllerRevision 对象列表的资源�
 
 <hr>
 
-<!--
-- **apiVersion**: apps/v1
--->
 - **apiVersion**: apps/v1
 
-<!--
-- **kind**: ControllerRevisionList
--->
 - **kind**: ControllerRevisionList
 
 <!--
@@ -208,12 +193,10 @@ ControllerRevisionList 是一个包含 ControllerRevision 对象列表的资源�
 -->
 - **items** ([]<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>)，必需
 
-  items 是 ControllerRevisions 的列表
+  items 是 ControllerRevisions 的列表。
 
 <!--
 ## Operations {#Operations}
-
-<hr>
 -->
 ## 操作 {#Operations}
 
@@ -245,7 +228,7 @@ GET /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
 -->
 - **name** （**路径参数**）：string，必需
 
-  ControllerRevision 的名称
+  ControllerRevision 的名称。
 
 <!--
 - **namespace** (*in path*): string, required
@@ -281,7 +264,7 @@ GET /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
 <!--
 ### `list` list or watch objects of kind ControllerRevision
 -->
-### `list` 列出或监视 ControllerRevision 类别的对象
+### `list` 列举或监视 ControllerRevision 类别的对象
 
 <!--
 #### HTTP Request
@@ -347,7 +330,7 @@ GET /apis/apps/v1/namespaces/{namespace}/controllerrevisions
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 -->
-- **limit** (**查询参数**)): integer
+- **limit** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
@@ -421,7 +404,7 @@ GET /apis/apps/v1/namespaces/{namespace}/controllerrevisions
 <!--
 ### `list` list or watch objects of kind ControllerRevision
 -->
-### `list` 列出或监视 ControllerRevision 类别的对象
+### `list` 列举或监视 ControllerRevision 类别的对象
 
 <!--
 #### HTTP Request
@@ -665,7 +648,7 @@ PUT /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
 -->
 - **name** （**路径参数**）：string，必需
 
-  ControllerRevision 的名称
+  ControllerRevision 的名称。
 
 <!--
 - **namespace** (*in path*): string, required
@@ -717,7 +700,6 @@ PUT /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-
 <!--
 #### Response
 
@@ -761,7 +743,7 @@ PATCH /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
 -->
 - **name** （**路径参数**）：string，必需
 
-  ControllerRevision 的名称
+  ControllerRevision 的名称。
 
 <!--
 - **namespace** (*in path*): string, required
@@ -865,7 +847,7 @@ DELETE /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
 -->
 - **name** （**路径参数**）：string，必需
 
-  ControllerRevision 的名称
+  ControllerRevision 的名称。
 
 <!--
 - **namespace** (*in path*): string, required
@@ -898,6 +880,15 @@ DELETE /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
 - **gracePeriodSeconds** （**查询参数**）： integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+<!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 <!--
 - **pretty** (*in query*): string
@@ -1004,6 +995,15 @@ DELETE /apis/apps/v1/namespaces/{namespace}/controllerrevisions
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 <!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+<!--
 - **labelSelector** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
@@ -1087,4 +1087,3 @@ DELETE /apis/apps/v1/namespaces/{namespace}/controllerrevisions
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
-

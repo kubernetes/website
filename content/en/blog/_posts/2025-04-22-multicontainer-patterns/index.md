@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Kubernetes Multicontainer Pods: An Overview"
-date: 2025-04-15
-draft: true
+date: 2025-04-22
+draft: false
 slug: multi-container-pods-overview
 author: Agata Skorupka (The Scale Factory)
 ---
