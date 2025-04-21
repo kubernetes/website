@@ -360,7 +360,11 @@ and want to avoid having it evicted under resource pressure, set the
 The kubelet considers all static pods as critical regardless of their `.spec.priorityClassName`.
 Static pods also pass kubelet admission even if a node does not have enough resources; the kubelet may
 instead evict another Pod (potentially even evicting a different Pod at a higher priority, if there is no better match).
+
+You must ensure that you account for resource use when defining static pods on existing nodes.
+
 {{</note>}}
+
 For example, you might follow the following steps to set the `priorityClassName` for a static pod as `xyz-priority`.
 
 ```none
@@ -391,7 +395,7 @@ spec:
           protocol: TCP
   priorityClassName: xyz-priority
 ```
-	You must ensure that you account for resource use when defining static pods on existing nodes.
+
 When the kubelet evicts pods in response to inode or process ID starvation, it uses
 the Pods' relative priority to determine the eviction order, because inodes and PIDs have no
 requests.
