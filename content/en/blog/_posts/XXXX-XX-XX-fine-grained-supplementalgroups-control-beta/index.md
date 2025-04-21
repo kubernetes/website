@@ -9,9 +9,7 @@ author: >
 
 ---
 
-Pod supplemental groups policy control for Pods is now beta. Read on to learn how it will help your cluster security, and how to start using it.
- 
-The new field, `supplementalGroupsPolicy`, was introduced as an opt-in alpha feature for Kubernetes 1.31 and has graduated to beta in 1.33; the corresponding feature gate (`SupplementalGroupsPolicy`) is now enabled by default.
+The new field, `supplementalGroupsPolicy`, was introduced as an opt-in alpha feature for Kubernetes 1.31 and has graduated to beta in 1.33; the corresponding feature gate (`SupplementalGroupsPolicy`) is now enabled by default. This feature enables to implement more precise control over supplemental groups in containers that can strengthen the security posture, particularly in accessing volumes. Moreover, it also enhances the transparency of UID/GID details in containers, offering improved security oversight.
 
 Please be aware that this beta release contains some behavioral breaking change. See [The Behavioral Changes Introduced In Beta](#the-behavioral-changes-introduced-in-beta) and [Upgrade Considerations](#upgrade-consideration) sections for details.
 
