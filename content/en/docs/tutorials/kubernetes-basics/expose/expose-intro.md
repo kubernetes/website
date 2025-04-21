@@ -104,8 +104,17 @@ Next, let’s list the current Services from our cluster:
 kubectl get services
 ```
 
-We have now a running Service called kubernetes-bootcamp. Here we see that the Service
-received a unique cluster-IP, an internal port and an external-IP (the IP of the Node).
+We have a Service called kubernetes that is created by default when minikube starts the cluster. To create a new service and expose it to external traffic we'll use the expose command with NodePort as parameter.
+
+```shell
+kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080
+```
+Let's run again the get services subcommand:
+
+```shell
+kubectl get services
+```
+We have now a running Service called kubernetes-bootcamp. Here we see that the Service received a unique cluster-IP, an internal port and an external-IP (the IP of the Node).
 
 To find out what port was opened externally (for the `type: NodePort` Service) we’ll
 run the `describe service` subcommand:
