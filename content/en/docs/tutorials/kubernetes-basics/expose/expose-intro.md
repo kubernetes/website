@@ -104,7 +104,8 @@ Next, let’s list the current Services from our cluster:
 kubectl get services
 ```
 
-We have a Service called kubernetes that is created by default when minikube starts the cluster. To create a new service and expose it to external traffic we'll use the expose command with NodePort as parameter.
+We have a Service called kubernetes that is created by default when minikube starts the cluster. 
+To create a new service and expose it to external traffic we'll use the expose command with NodePort as parameter.
 
 ```shell
 kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080
