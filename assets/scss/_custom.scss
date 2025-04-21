@@ -1137,26 +1137,6 @@ body.cid-community #cncf-code-of-conduct h2:after {
   }
 }
 
-body.cid-casestudies, body.cid-community, body.cid-partners {
-  section#deprecation-warning {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-
-    border-top: solid 1em $primary;
-    border-bottom: solid 1em $primary;
-
-    // Center the pageinfo
-    padding-left: calc(max(1rem, (100vw - 60rem) / 2));
-    padding-right: calc(max(1rem, (100vw - 60rem) / 2));
-  }
-  /* Ensure color overrides */
-  section#deprecation-warning, section#deprecation-warning > .pageinfo.deprecation-warning {
-    background-color: $primary;
-    color: #fff;
-  }
-}
-
 body.cid-partners {
     /*  SECTIONS  */
     .section {
@@ -1357,16 +1337,6 @@ body.cid-partners {
         }
     }
 }
-body.cid-community > #deprecation-warning > .deprecation-warning {
-    margin-left: 20px;
-    margin-right: 20px;
-    color: #faf5b6;
-    background-color: inherit;
-}
-body.cid-community > #deprecation-warning > .deprecation-warning > * {
-    color: inherit;
-    background-color: inherit;
-}
 
 body.cid-code-of-conduct main {
     max-width: calc(min(90vw, 100em));
@@ -1404,22 +1374,6 @@ body.cid-code-of-conduct main {
     > *:last-child {
       margin-bottom: 4rem;
     }
-}
-
-#caseStudies body > #deprecation-warning > .deprecation-warning, body.cid-casestudies > #deprecation-warning > .deprecation-warning {
-    color: inherit;
-    background: inherit;
-    width: 80%;
-    margin: 0;
-    margin-top: 120px;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: initial;
-}
-#deprecation-warning > .deprecation-warning a {
-    background: transparent;
-    color: inherit;
-    text-decoration: underline;
 }
 
 // search & sidebar

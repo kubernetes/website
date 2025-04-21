@@ -11,6 +11,7 @@ aliases:
     - nate-double-u
     - sftim
   sig-docs-website-owners: # Admins for overall website
+    - dipesh-rawat
     - divya-mohan0209
     - katcosgrove
     - natalisucks
@@ -141,6 +142,7 @@ aliases:
     - t-inu
   sig-docs-ko-owners: # Admins for Korean content
     - gochist
+    - ianychoi
     - jihoon-seo
     - jongwooo
     - seokho-son
@@ -148,6 +150,7 @@ aliases:
     - ysyukr
   sig-docs-ko-reviews: # PR reviews for Korean content
     - gochist
+    - ianychoi
     - jihoon-seo
     - jmyung
     - jongwooo
