@@ -96,7 +96,7 @@ VolumeAttachmentSpec 是 VolumeAttachment 请求的规约。
   source represents the volume that should be attached.
 
   <a name="VolumeAttachmentSource"></a>
-  *VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.*
+  *VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.*
 
   - **source.inlineVolumeSpec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-v1#PersistentVolumeSpec" >}}">PersistentVolumeSpec</a>)
     inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
@@ -110,21 +110,22 @@ VolumeAttachmentSpec 是 VolumeAttachment 请求的规约。
   source 表示应挂接的卷。
 
   <a name="VolumeAttachmentSource"></a>
-  **VolumeAttachmentSource 表示应挂接的卷。现在只能通过外部挂接器挂接 PersistenVolume，
+  **VolumeAttachmentSource 表示应挂接的卷。现在只能通过外部挂接器挂接 PersistentVolume，
   将来我们可能还允许 Pod 中的内联卷。只能设置一个成员。**
 
   - **source.inlineVolumeSpec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-v1#PersistentVolumeSpec" >}}">PersistentVolumeSpec</a>)
 
     inlineVolumeSpec 包含挂接由 Pod 的内联 VolumeSource 定义的持久卷时所有必需的信息。
-    仅为 CSIMigation 功能填充此字段。
+    仅为 CSIMigation 特性填充此字段。
     它包含从 Pod 的内联 VolumeSource 转换为 PersistentVolumeSpec 的字段。
-    此字段处于 Beta 阶段，且只有启用 CSIMigration 功能的服务器才能使用此字段。
+    此字段处于 Beta 阶段，且只有启用 CSIMigration 特性的服务器才能使用此字段。
 
   - **source.persistentVolumeName** (string)
 
     persistentVolumeName 是要挂接的持久卷的名称。
 
 ## VolumeAttachmentStatus {#VolumeAttachmentStatus}
+
 <!--
 VolumeAttachmentStatus is the status of a VolumeAttachment request.
 
@@ -149,7 +150,16 @@ VolumeAttachmentStatus 是 VolumeAttachment 请求的状态。
 
   <a name="VolumeError"></a>
   *VolumeError captures an error encountered during a volume operation.*
+-->
+- **attachError** (VolumeError)
 
+  attachError 表示挂接操作期间遇到的最后一个错误，如果有。
+  此字段只能由完成挂接操作的实体（例如外部挂接器）进行设置。
+
+  <a name="VolumeError"></a>
+  **VolumeError 抓取卷操作期间遇到的一个错误。**
+
+  <!--
   - **attachError.message** (string)
 
     message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
@@ -160,14 +170,7 @@ VolumeAttachmentStatus 是 VolumeAttachment 请求的状态。
 
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
--->
-- **attachError** (VolumeError)
-
-  attachError 表示挂接操作期间遇到的最后一个错误，如果有。
-  此字段只能由完成挂接操作的实体（例如外部挂接器）进行设置。
-
-  <a name="VolumeError"></a>
-  **VolumeError 抓取卷操作期间遇到的一个错误。**
+  -->
 
   - **attachError.message** (string)
 
@@ -288,7 +291,7 @@ GET /apis/storage.k8s.io/v1/volumeattachments/{name}
 
 - **name** (**路径参数**): string，必需
 
-  VolumeAttachment 的名称
+  VolumeAttachment 的名称。
 
 - **pretty** (**查询参数**): string
 
@@ -323,7 +326,7 @@ GET /apis/storage.k8s.io/v1/volumeattachments/{name}/status
 
 - **name** (**路径参数**): string，必需
 
-  VolumeAttachment 的名称
+  VolumeAttachment 的名称。
 
 - **pretty** (**查询参数**): string
 
@@ -342,7 +345,7 @@ GET /apis/storage.k8s.io/v1/volumeattachments/{name}/status
 ### `list` list or watch objects of kind VolumeAttachment
 #### HTTP Request
 -->
-### `list` 列出或观测类别为 VolumeAttachment 的对象
+### `list` 列举或观测类别为 VolumeAttachment 的对象
 
 #### HTTP 请求
 
@@ -491,7 +494,7 @@ PUT /apis/storage.k8s.io/v1/volumeattachments/{name}
 
 - **name** (**路径参数**): string，必需
 
-  VolumeAttachment 的名称
+  VolumeAttachment 的名称。
 
 - **body**: <a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>，必需
 
@@ -546,7 +549,7 @@ PUT /apis/storage.k8s.io/v1/volumeattachments/{name}/status
 
 - **name** (**路径参数**): string，必需
 
-  VolumeAttachment 的名称
+  VolumeAttachment 的名称。
 
 - **body**: <a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>，必需
 
@@ -602,7 +605,7 @@ PATCH /apis/storage.k8s.io/v1/volumeattachments/{name}
 
 - **name** (**路径参数**): string，必需
 
-  VolumeAttachment 的名称
+  VolumeAttachment 的名称。
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
@@ -662,7 +665,7 @@ PATCH /apis/storage.k8s.io/v1/volumeattachments/{name}/status
 
 - **name** (**路径参数**): string，必需
 
-  VolumeAttachment 的名称
+  VolumeAttachment 的名称。
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
@@ -714,6 +717,7 @@ DELETE /apis/storage.k8s.io/v1/volumeattachments/{name}
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 - **dryRun** (*in query*): string
 - **gracePeriodSeconds** (*in query*): integer
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
 - **pretty** (*in query*): string
 - **propagationPolicy** (*in query*): string
 -->
@@ -721,7 +725,7 @@ DELETE /apis/storage.k8s.io/v1/volumeattachments/{name}
 
 - **name** (**路径参数**): string，必需
 
-  VolumeAttachment 的名称
+  VolumeAttachment 的名称。
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
@@ -732,6 +736,10 @@ DELETE /apis/storage.k8s.io/v1/volumeattachments/{name}
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **pretty** (**查询参数**): string
 
@@ -769,6 +777,7 @@ DELETE /apis/storage.k8s.io/v1/volumeattachments
 - **dryRun** (*in query*): string
 - **fieldSelector** (*in query*): string
 - **gracePeriodSeconds** (*in query*): integer
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
 - **labelSelector** (*in query*): string
 - **limit** (*in query*): integer
 - **pretty** (*in query*): string
@@ -796,6 +805,10 @@ DELETE /apis/storage.k8s.io/v1/volumeattachments
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (**查询参数**): string
 

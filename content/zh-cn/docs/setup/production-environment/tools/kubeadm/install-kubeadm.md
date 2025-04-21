@@ -80,6 +80,69 @@ that provides the expected symbols.
 {{< /note >}}
 
 <!--
+## Check your OS version
+-->
+## 检查你的操作系统版本   {#check-your-os-version}
+
+{{% thirdparty-content %}}
+
+{{< tabs name="operating_system_version_check" >}}
+{{% tab name="Linux" %}}
+
+<!--
+* The kubeadm project supports LTS kernels. See [List of LTS kernels](https://www.kernel.org/category/releases.html).
+* You can get the kernel version using the command `uname -r`
+
+For more information, see [Linux Kernel Requirements](/docs/reference/node/kernel-version-requirements/).
+-->
+* kubeadm 项目支持 LTS 内核。参阅 [LTS 内核列表](https://www.kernel.org/category/releases.html)。
+* 你可以使用命令 `uname -r` 获取内核版本。
+
+欲了解更多信息，参阅 [Linux 内核要求](/zh-cn/docs/reference/node/kernel-version-requirements/)。
+
+{{% /tab %}}
+
+{{% tab name="Windows" %}}
+
+<!--
+* The kubeadm project supports recent kernel versions. For a list of recent kernels, see [Windows Server Release Information](https://learn.microsoft.com/en-us/windows/release-health/windows-server-release-info).
+* You can get the kernel version (also called the OS version) using the command `systeminfo`
+
+For more information, see [Windows OS version compatibility](/docs/concepts/windows/intro/#windows-os-version-support).
+-->
+* kubeadm 项目支持最近的内核版本。有关最新内核的列表，参阅
+  [Windows Server 版本信息](https://learn.microsoft.com/zh-cn/windows/release-health/windows-server-release-info)。
+* 你可以使用命令 `systeminfo` 获取内核版本（也称为操作系统版本）。
+
+欲了解更多信息，参阅 [Windows 操作系统版本兼容性](/zh-cn/docs/concepts/windows/intro/#windows-os-version-support)。
+
+{{% /tab %}}
+{{< /tabs >}}
+
+<!--
+A Kubernetes cluster created by kubeadm depends on software that use kernel features.
+This software includes, but is not limited to the
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}},
+the {{< glossary_tooltip term_id="kubelet" text="kubelet">}}, and a {{< glossary_tooltip text="Container Network Interface" term_id="cni" >}} plugin.
+-->
+由 kubeadm 创建的 Kubernetes 集群依赖于使用内核特性的相关软件。  
+这些软件包括但不限于{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}、  
+{{< glossary_tooltip term_id="kubelet" text="kubelet">}}
+和{{< glossary_tooltip text="容器网络接口（CNI）" term_id="cni" >}}插件。
+
+<!--
+To help you avoid unexpected errors as a result of an unsupported kernel version, kubeadm runs the `SystemVerification`
+pre-flight check. This check fails if the kernel version is not supported.
+
+You may choose to skip the check, if you know that your kernel
+provides the required features, even though kubeadm does not support its version.
+-->
+为帮助你避免因内核版本不受支持而引发的意外错误，kubeadm 运行 `SystemVerification` 执行预检。  
+如果内核版本不受支持，预检将失败。
+
+如果你确认你的内核具备所需特性，尽管其版本不在 kubeadm 支持范围内，你也可以选择跳过此检查。
+
+<!--
 ## Verify the MAC address and product_uuid are unique for every node {#verify-mac-address}
 
 * You can get the MAC address of the network interfaces using the command `ip link` or `ifconfig -a`
@@ -171,8 +234,8 @@ To run containers in Pods, Kubernetes uses a
 -->
 ## 安装容器运行时   {#installing-runtime}
 
-为了在 Pod 中运行容器，Kubernetes 使用
-{{< glossary_tooltip term_id="container-runtime" text="容器运行时（Container Runtime）" >}}。
+为了在 Pod 中运行容器，Kubernetes
+使用{{< glossary_tooltip term_id="container-runtime" text="容器运行时（Container Runtime）" >}}。
 
 <!--
 By default, Kubernetes uses the
@@ -182,8 +245,8 @@ to interface with your chosen container runtime.
 If you don't specify a runtime, kubeadm automatically tries to detect an installed
 container runtime by scanning through a list of known endpoints.
 -->
-默认情况下，Kubernetes 使用
-{{< glossary_tooltip term_id="cri" text="容器运行时接口（Container Runtime Interface，CRI）" >}}
+默认情况下，Kubernetes
+使用{{< glossary_tooltip term_id="cri" text="容器运行时接口（Container Runtime Interface，CRI）" >}}
 来与你所选择的容器运行时交互。
 
 如果你不指定运行时，kubeadm 会自动尝试通过扫描已知的端点列表来检测已安装的容器运行时。
@@ -197,8 +260,7 @@ for more information.
 -->
 如果检测到有多个或者没有容器运行时，kubeadm 将抛出一个错误并要求你指定一个想要使用的运行时。
 
-参阅[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)
-以了解更多信息。
+参阅[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)以了解更多信息。
 
 {{< note >}}
 <!--
@@ -343,6 +405,12 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
 
 <!--
 1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
+
+   ```shell
+   sudo apt-get update
+   # apt-transport-https may be a dummy package; if so, you can skip that package
+   sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+   ```
 -->
 1. 更新 `apt` 包索引并安装使用 Kubernetes `apt` 仓库所需要的包：
 
@@ -355,13 +423,15 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
 <!--
 2. Download the public signing key for the Kubernetes package repositories.
    The same signing key is used for all repositories so you can disregard the version in the URL:
+
+   ```shell
+   # If the directory `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
+   # sudo mkdir -p -m 755 /etc/apt/keyrings
+   curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+   ```
 -->
 2. 下载用于 Kubernetes 软件包仓库的公共签名密钥。所有仓库都使用相同的签名密钥，因此你可以忽略URL中的版本：
 
-   <!--
-   # If the folder `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
-   # sudo mkdir -p -m 755 /etc/apt/keyrings 
-   -->
    ```shell
    # 如果 `/etc/apt/keyrings` 目录不存在，则应在 curl 命令之前创建它，请阅读下面的注释。
    # sudo mkdir -p -m 755 /etc/apt/keyrings
@@ -461,6 +531,19 @@ exist by default, and it should be created before the curl command.
    in the URL to match your desired minor version (you should also check that
    you are reading the documentation for the version of Kubernetes that you
    plan to install).
+
+   ```shell
+   # This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
+   cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+   [kubernetes]
+   name=Kubernetes
+   baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
+   exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
+   EOF
+   ```
 -->
 2. 添加 Kubernetes 的 `yum` 仓库。在仓库定义中的 `exclude` 参数确保了与
    Kubernetes 相关的软件包在运行 `yum update` 时不会升级，因为升级
