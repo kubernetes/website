@@ -218,7 +218,16 @@ Service IP ranges.
 {{< note >}}
 The default "kubernetes" ServiceCIDR is created by the kube-apiserver
 to provide consistency in the cluster and is required for the cluster to work,
-so it always must be allowed.
+so it always must be allowed. You can ensure your `ValidatingAdmissionPolicy`
+doesn't restrict the default ServiceCIDR by adding the clause:
+
+```yaml
+  matchConditions:
+  - name: 'exclude-default-servicecidr'
+    expression: "object.metadata.name != 'kubernetes'"
+```
+
+as in the examples below.
 {{</ note >}}
 
 #### Restrict Service CIDR ranges to some specific ranges
