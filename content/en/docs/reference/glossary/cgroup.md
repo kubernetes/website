@@ -10,7 +10,7 @@ aka:
 tags:
 - fundamental
 ---
-A group of Linux processes with optional resource isolation, accounting and limits.
+A group of Linux processes with optional {{< glossary_tooltip text="resource" term_id="infrastructure-resource" >}} isolation, accounting and limits.
 
 <!--more--> 
 
