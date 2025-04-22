@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.33: User Namespaces enabled by default!"
-date: 2025-04-23
-draft: true
+date: 2025-04-25T10:30:00-08:00
 slug: userns-enabled-by-default
 author: >
   Rodrigo Campos Catelin (Microsoft),
