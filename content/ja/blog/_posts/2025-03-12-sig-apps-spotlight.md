@@ -9,8 +9,8 @@ translator: >
   [Takuya Kitamura](https://github.com/kfess)
 ---
 
-連載のSIG Spotlightシリーズでは、さまざまなSpecial Interest Group(SIG)のリーダーへのインタビューを通じて、Kubernetesプロジェクトの核心に迫ります。
-今回は、Kubernetes上におけるアプリケーションの開発、デプロイ、運用に関連するすべてを担当するグループである **[SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps#apps-special-interest-group)** に注目します。
+SIG Spotlightシリーズでは、さまざまなSpecial Interest Group(SIG)のリーダーへのインタビューを通じて、Kubernetesプロジェクトの核心に迫ります。
+今回は、Kubernetes上におけるアプリケーションの開発、デプロイ、運用に関連するすべてを担当するグループである **[SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps#apps-special-interest-group)** を取り上げます。
 [Sandipan Panda](https://www.linkedin.com/in/sandipanpanda)([DevZero](https://www.devzero.io/))は、SIG Appsのチェアおよびテックリードである[Maciej
 Szulik](https://github.com/soltysh)([Defense Unicorns](https://defenseunicorns.com/))と[Janet
 Kuo](https://github.com/janetkuo)([Google](https://about.google/))にインタビューする機会を得ることができました。
@@ -20,7 +20,7 @@ Kuo](https://github.com/janetkuo)([Google](https://about.google/))にインタ�
 
 **Sandipan: こんにちは。まずはご自身について、現在の役割や、SIG Appsにおける現在の役職に至るまでのKubernetesコミュニティでの歩みについて教えていただけますか？**
 
-**Maciej**: こんにちは。Maciejと申します。私はSIG Appsのリードのひとりです。この役割に加えて、[SIG CLI](https://github.com/kubernetes/community/tree/master/sig-cli#readme)でも活動しており、Steering Committeeメンバーのひとりでもあります。私は2014年後半から、コントローラー、apiserver、kubectlを含むさまざまな領域でKubernetesに貢献してきました。
+**Maciej**: こんにちは。SIG Appsのリードを務めるMaciejです。この役割に加えて、[SIG CLI](https://github.com/kubernetes/community/tree/master/sig-cli#readme)でも活動しており、Steering Committeeメンバーのひとりでもあります。私は2014年後半から、コントローラー、apiserver、kubectlを含むさまざまな領域でKubernetesに貢献してきました。
 
 **Janet**: もちろんです！私はJanetです。Googleでスタッフソフトウェアエンジニアを務めており、Kubernetesプロジェクトには初期の段階、2015年のバージョン1.0のリリース以前から深く関わってきました。これまでの道のりは本当に素晴らしいものでした！
 
@@ -40,12 +40,12 @@ Kubernetesコミュニティにおける私の現在の役割は、SIG Appsの�
 
 **Sandipan: 現在、SIG Appsが取り組んでいる最も重要なプロジェクトやイニシアチブにはどのようなものがありますか？**
 
-現時点において、私たちのコントローラー開発を推進している主な要因は、さまざまなAI関連のワークロードを実行する際に生じる課題です。
+現時点において、私たちのコントローラー開発を推進している主な要素は、さまざまなAI関連のワークロードを実行する際に生じる課題です。
 ここで、私たちが過去数年間に渡って支援してきた2つのワーキンググループについて言及する価値があります。
 
-1. [The Batch Working Group](https://github.com/kubernetes/community/tree/master/wg-batch)：Kubernetes上でHPC、AI/ML、データ分析ジョブを実行することに取り組んでいます。
+1. [The Batch Working Group](https://github.com/kubernetes/community/tree/master/wg-batch): Kubernetes上でHPC、AI/ML、データ分析ジョブを実行することに取り組んでいます。
 
-2. [The Serving Working Group](https://github.com/kubernetes/community/tree/master/wg-serving)：ハードウェアアクセラレーションを用いたAI/ML推論に焦点を当てています。
+2. [The Serving Working Group](https://github.com/kubernetes/community/tree/master/wg-serving): ハードウェアアクセラレーションを用いたAI/ML推論に焦点を当てています。
 
 ## ベストプラクティスと課題
 
@@ -67,6 +67,7 @@ SIG Appsに関わる私たち自身、そしてコミュニティ全体にとっ
 また、ユーザーが組み込みのコントローラーを活用して独自のカスタムコントローラーを構築し、私たちコアメンテナーが考慮していなかった、あるいはKubernetes内で効率的に対応できなかった高度なユースケースを実現できる点も重要です。
 
 ## SIG Appsへの貢献
+
 **Sandipan: SIG Appsに関わりたいと考えている新しいコントリビューターには、どのような機会がありますか？また、どのようなアドバイスがありますか？**
 
 「最初に取り組むのにおすすめのissueはありますか？」という質問はとてもよく寄せられます:-)
