@@ -2,7 +2,6 @@
 layout: blog
 title: 'Kubernetes v1.33: Octarine'
 date: 2025-04-23T10:30:00-08:00
-draft: true
 slug: kubernetes-v1-33-release
 author: >
   [Kubernetes v1.33 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.33/release-team.md)
