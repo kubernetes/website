@@ -257,9 +257,7 @@ nhu cầu của workload trong cụm của bạn:
 
 - *Đặt giới hạn namespace*: Đặt từng namespace quotas lên những thứ như bộ nhớ và CPU. Xem
   [Quản lý Bộ nhớ, CPU, và API Resources](/docs/tasks/administer-cluster/manage-resources/)
-  để biết thêm chi tiết. Bạn cũng có thể thiết lập
-  [Namespaces phân cấp](/vi/blog/2020/08/14/introducing-hierarchical-namespaces/)
-  để kế thừa giới hạn.
+  để biết thêm chi tiết.
 - *Chuẩn bị cho yêu cầu DNS*: Nếu bạn mong đợi workloads mở rộng một cách ồ ạt,
   dịch vụ DNS của bạn phải săn sàng để mở rộng quy mô. Xem
   [Autoscale dịch vụ DNS trong cụm](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
