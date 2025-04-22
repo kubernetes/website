@@ -40,16 +40,16 @@ Marek: もちろんです！SIG etcdは、etcdがKubernetesのデータストア
 
 **Frederico: SIGになったことで、期待どおりの成果は得られましたか？さらに言えば、先ほど挙げられた動機は実際に解消されつつありますか？その達成度についても教えてください。**
 
-**Marek**: 全体としてポジティブな変化でした。SIGになることで、etcdの開発により明確な構造と透明性がもたらされました。私たちは、KEP([Kubernetes Enhancement Proposals](https://github.com/kubernetes/enhancements/blob/master/keps/README.md))やPRR([Production Readiness Reviews](https://github.com/kubernetes/community/blob/master/sig-architecture/production-readiness.md))といったKubernetesのプロセスを取り入れ、それにより機能開発やリリースサイクルが改善されています。
+**Marek**: 全体的に見て非常にポジティブな変化でした。SIGになることで、etcdの開発により明確な構造と透明性がもたらされました。私たちは、KEP([Kubernetes Enhancement Proposals](https://github.com/kubernetes/enhancements/blob/master/keps/README.md))やPRR([Production Readiness Reviews](https://github.com/kubernetes/community/blob/master/sig-architecture/production-readiness.md))といったKubernetesのプロセスを取り入れ、それにより機能開発やリリースサイクルが改善されています。
 
 **Frederico: それらに加えて、SIGになったことによって得られた最大のメリットを一つ選ぶならなんでしょうか？**
 
-**Marek**: 私にとって最大の利点は、[Prow](https://docs.prow.k8s.io/)や[TestGrid](https://testgrid.k8s.io/)といったツールのようなKubernetesのテスト基盤を採用できたことです。etcdのような大規模プロジェクトにとって、GitHub標準のツールだけでは到底太刀打ちできません。使い慣れた、明確で扱いやすいツールがあることは、etcdにとって大きな強化となり、Kubernetesのコントリビューターがetcdにも貢献しやすくなります。
+**Marek**: 私にとって最大の利点は、[Prow](https://docs.prow.k8s.io/)や[TestGrid](https://testgrid.k8s.io/)といったツールのようなKubernetesのテスト基盤を採用できたことです。etcdのような大規模プロジェクトの場合、GitHub標準のツールとは到底比較になりません。使い慣れた、明確で扱いやすいツールがあることは、etcdにとって大きな強化となり、Kubernetesのコントリビューターがetcdにも貢献しやすくなります。
 
-**Wenjia**: まったく同感です。課題は依然として残っていますが、SIGという枠組みがそれらに取り組むための確かな基盤を提供しており、etcdがKubernetesエコシステムの重要なコンポーネントとして今後も成功し続けることを確かなものにしてくれています
+**Wenjia**: まったく同感です。課題は依然として残っていますが、SIGという枠組みがそれらに取り組むための確かな基盤を提供しており、etcdがKubernetesエコシステムの重要なコンポーネントとして今後も成功し続けることを確かなものにしてくれています。
 
 コミュニティへのポジティブな影響もまた、SIG etcdの成功において強調しておきたい重要な側面です。
-KubernetesのSIGという枠組みによって、etcdのコントリビューターが受け入れられやすい環境が整い、より広いKubernetesコミュニティからの参加が増加しました。
+KubernetesのSIGという枠組みによって、etcdのコントリビューターを受け入れやすい環境が整い、より広いKubernetesコミュニティからの参加が増加しました。
 また、[SIG API Machinery](https://github.com/kubernetes/community/blob/master/sig-api-machinery/README.md)、[SIG Scalability](https://github.com/kubernetes/community/tree/master/sig-scalability)、[SIG Testing](https://github.com/kubernetes/community/tree/master/sig-scalability)、[SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle)など、他のSIGとの連携も強化されています。
 
 このような連携のおかげで、etcdの開発が、より広いKubernetesエコシステムのニーズと確実に整合するようになっています。SIG etcdとSIG Cluster Lifecycleの共同の取り組みにより設立された[etcd Operator Working Group](https://github.com/kubernetes/community/blob/master/wg-etcd-operator/README.md)は、このような成功した連携の好例であり、Kubernetesにおけるetcdの運用面を改善しようとする共通の取り組み姿勢を示しています。
@@ -66,11 +66,11 @@ KubernetesのSIGという枠組みによって、etcdのコントリビュータ
 
 ## 今後の展望
 
-**Frederico： 大変興味深い話でした、ありがとうございます。直近の話として、SIG etcdの現在の優先事項にはどのようなものがありますか？**
+**Frederico: 大変興味深い話でした、ありがとうございます。直近の話として、SIG etcdの現在の優先事項にはどのようなものがありますか？**
 
 **Marek**: 信頼性は常に最重要課題です。etcdが堅牢であることを確実にしなければなりません。また、オペレーターにとってetcdをより使いやすく、管理しやすくするための取り組みも進めています。さらに、etcdをKubernetesに限らず、インフラ管理のための現実的に利用可能なスタンドアロンの選択肢とすることも視野に入れています。そしてもちろん、スケーラビリティも重要です。クラウドネイティブの世界で拡大し続ける要求に対応できるようにする必要があります。
 
-**Benjamin**: 信頼性を最優先の原則とすべきだという点には私も同意します。正確性だけでなく、互換性も確保する必要があります。加えて、etcdの理解しやすさと保守性を継続的に改善していくべきです。私たちが注力すべきは、コミュニティが最も関心を寄せている痛点の解消です。
+**Benjamin**: 信頼性を最優先の原則とすべきだという点には私も同意します。正確性だけでなく、互換性も確保する必要があります。加えて、etcdの理解しやすさと保守性を継続的に改善していくべきです。私たちが注力すべきは、コミュニティが最も関心を寄せているペインポイントの解消です。
 
 **Frederico: 特に緊密に連携しているSIGはありますか？**
 
@@ -90,14 +90,14 @@ KubernetesのSIGという枠組みによって、etcdのコントリビュータ
 
 **Wenjia**: この質問はとても嬉しいですね😀。SIG etcdへの貢献に関心のある方が関わり、影響を与える方法は数多くあります。以下は、皆さんが貢献できる主な分野の一部です。
 
-**コードでの貢献**：
+**コードでの貢献**:
 - _バグ修正_: etcdのコードベースの既知の問題に取り組みます。初心者に適したタスクを見つけるには、「good first issue」や「help wanted」とラベル付けされたIssueから始めるのが良いでしょう。
 - _機能開発_: 新機能や機能強化の開発に貢献します。etcdのロードマップやディスカッションを確認し、計画中の内容や自身のスキルが活かせる領域を探してください。
 - _テストとコードレビュー_: テストの作成、コード変更のレビュー、フィードバックの提供を通じて、etcdの品質確保に貢献します。
 - _ドキュメント_: 新しいコンテンツの追加、既存情報の明確化、誤記の修正などを通じて、[etcdのドキュメント](https://etcd.io/docs/)を改善します。明確で包括的なドキュメントは、ユーザーおよびコントリビューターの双方にとって不可欠です。
 - _コミュニティサポート_: フォーラム、メーリングリスト、または[Slackチャンネル](https://kubernetes.slack.com/archives/C3HD8ARJ5)で質問に回答します。etcdの理解と利用を支援することも、価値のある貢献です。
 
-**参加方法**：
+**参加方法**:
 - _コミュニティに参加する_: まずはSlack上のetcdコミュニティに参加し、SIGのミーティングに出席し、メーリングリストをフォローしましょう。プロジェクト、そのプロセス、関わっている人々について理解を深めることができます。
 - _メンターを見つける_: オープンソースやetcdに不慣れな場合は、ガイド役として支援してくれるメンターを見つけることを検討してください。続報にご注目ください！第1期のメンタープログラムは大変成功を収めました。次回のメンタープログラムも近日開始予定です。
 - _小さく始める_: 小さな貢献から始めることを恐れないでください。たとえば、ドキュメントの誤字を修正したり、簡単なバグ修正を提案したりするだけでも、プロジェクトに参加するための素晴らしい第一歩となります。
