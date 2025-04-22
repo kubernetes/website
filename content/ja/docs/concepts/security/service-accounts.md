@@ -159,7 +159,7 @@ metadata:
 ```
 このアノテーションが"true"に設定されている場合、Kubernetesコントロールプレーンは、このServiceAccountのSecretが特定のマウント制限の対象であることを確認します。
 
-1. Pod内のボリュームとしてマウントされる各Secretのな雨は、PodのServiceAccountの`secrets`フィールドに表示される必要があります。
+1. Pod内のボリュームとしてマウントされる各Secretの名前は、PodのServiceAccountの`secrets`フィールドに表示される必要があります。
 1. Pod内の`envFrom`を使用して参照される各Secretの名前は、PodのServiceAccountの`secrets`フィールドに表示される必要があります。
 1. Pod内の`imagePullSecrets`を使用して参照される各Secretの名前は、PodのServiceAccountの`secrets`フィールドに表示される必要があります。  
 
