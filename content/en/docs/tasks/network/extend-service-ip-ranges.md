@@ -239,11 +239,6 @@ or `cidrs: ['2001:db8:0:0:ffff::/80', '10.96.0.0/20']` but would not allow a
 ServiceCIDR with `cidrs: ['172.20.0.0/16']`.) You can copy this policy and change
 the value of `allowed` to something appropriate for you cluster.
 
-...
-
-Consult the [CEL documentation](https://kubernetes.io/docs/reference/using-api/cel/)
-to learn more about CEL if you want to write your own validation `expression`.
-
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicy
@@ -264,11 +259,10 @@ spec:
   - name: allowed
     expression: "['10.96.0.0/16','2001:db8::/64']"
   validations:
-  - expression: "object.spec.cidrs.all(currentCIDR, variables.allowed.exists(allowedCIDR, cidr(allowedCIDR).containsCIDR(currentCIDR)))"
-  # For all CIDRs (i) listed in the spec.cidrs of the submitted ServiceCIDR
-  # object, check if there exists at least one CIDR (j) in the predefined
-  # allowed list such that the allowed CIDR (j) fully contains the submitted
-  # CIDR (i)."
+  - expression: "object.spec.cidrs.all(newCIDR, variables.allowed.exists(allowedCIDR, cidr(allowedCIDR).containsCIDR(newCIDR)))"
+  # For all CIDRs (newCIDR) listed in the spec.cidrs of the submitted ServiceCIDR
+  # object, check if there exists at least one CIDR (allowedCIDR) in the `allowed`
+  # list of the VAP such that the allowedCIDR fully contains the newCIDR.
 ---
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicyBinding
@@ -278,6 +272,9 @@ spec:
   policyName: "servicecidrs.default"
   validationActions: [Deny,Audit]
 ```
+
+Consult the [CEL documentation](https://kubernetes.io/docs/reference/using-api/cel/)
+to learn more about CEL if you want to write your own validation `expression`.
 
 #### Restrict any usage of the ServiceCIDR API
 
