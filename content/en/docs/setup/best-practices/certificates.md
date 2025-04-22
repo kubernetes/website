@@ -77,7 +77,7 @@ for details on creating your own certificate authority. See
 [Certificate Management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)
 for more on managing certificates.
 
-## Rotating Kubernetes Control Plane TLS Certificates
+## Rotating Kubernetes control plane TLS certificates
 
 When updating TLS certificates (e.g., expiration or key rotation), the Kubernetes control plane components do not automatically reload updated certs.
 
