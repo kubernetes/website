@@ -2,13 +2,8 @@
 layout: blog
 title: "Kubernetes v1.33: HorizontalPodAutoscaler Configurable Tolerance"
 slug: kubernetes-1-33-hpa-configurable-tolerance
-# after the v1.33 release, set a future publication date and remove the draft marker
-# the release comms team can confirm which date has been assigned
-#
-# PRs to remove the draft marker should be opened BEFORE release day
-draft: true
 math: true # for formulae
-date: XXXX-XX-XX
+date: 2025-04-29T10:30:00-08:00
 author: "Jean-Marc François (Google)"
 ---
 
