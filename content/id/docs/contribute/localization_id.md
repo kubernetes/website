@@ -6,7 +6,7 @@ content_type: concept
 <!-- overview -->
 
 Panduan khusus untuk bergabung ke komunitas SIG DOC Indonesia dan melakukan
-kontribusi untuk mentranslasikan dokumentasi Kubernetes ke dalam Bahasa
+kontribusi untuk menerjemahkan dokumentasi Kubernetes ke dalam Bahasa
 Indonesia.
 
 <!-- body -->
@@ -34,13 +34,13 @@ dari Komunitas Kubernetes.
 Untuk menerjemahkan satu halaman Bahasa Inggris ke Bahasa Indonesia, lakukan
 langkah-langkah berikut ini:
 
-* Check halaman _issue_ di GitHub dan pastikan tidak ada orang lain yang sudah
+* Periksa halaman _issue_ di GitHub dan pastikan tidak ada orang lain yang sudah
 mengklaim halaman kamu dalam daftar periksa atau komentar-komentar sebelumnya.
 * Klaim halaman kamu pada _issue_ di GitHub dengan memberikan komentar di bawah
 dengan nama halaman yang ingin kamu terjemahkan dan ambillah hanya satu halaman
 dalam satu waktu.
 * _Fork_ [repo ini](https://github.com/kubernetes/website), buat terjemahan
-kamu, dan kirimkan PR (_pull request_) dengan label `language/id`
+kamu, dan kirimkan PR (_pull request_) dengan label `language/id`.
 * Setelah dikirim, pengulas akan memberikan komentar dalam beberapa hari, dan
 tolong untuk menjawab semua komentar. Direkomendasikan juga untuk melakukan
 [_squash_](https://github.com/wprig/wprig/wiki/How-to-squash-commits) _commit_
@@ -53,22 +53,22 @@ Namun, secara umum kita dapat mengikuti panduan gaya bahasa Inggris dengan
 beberapa tambahan untuk kata-kata impor yang dicetak miring.
 
 Harap berkomitmen dengan terjemahan kamu dan pada saat kamu mendapatkan komentar
-dari pengulas, silahkan atasi sebaik-baiknya. Kami berharap halaman yang
+dari pengulas, silakan atasi sebaik-baiknya. Kami berharap halaman yang
 diklaim akan diterjemahkan dalam waktu kurang lebih dua minggu. Jika ternyata
 kamu tidak dapat berkomitmen lagi, beri tahu para pengulas agar mereka dapat
 meberikan halaman tersebut ke orang lain.
 
-Beberapa acuan tambahan dalam melakukan translasi silahkan lihat informasi
+Beberapa acuan tambahan dalam melakukan translasi silakan lihat informasi
 berikut ini:
 
 ### Daftar Glosarium Translasi dari tim SIG DOC Indonesia
-Untuk kata-kata selengkapnya silahkan baca glosariumnya
-[disini](#glosarium-indonesia)
+Untuk kata-kata selengkapnya silakan baca glosariumnya
+di [sini](#glosarium-indonesia).
 
 ### KBBI
-Konsultasikan dengan KBBI (Kamus Besar Bahasa Indonesia)
-[disini](https://kbbi.web.id/) dari
-[Kemendikbud](https://kbbi.kemdikbud.go.id/).
+Konsultasikan dengan situs KBBI (Kamus Besar Bahasa Indonesia)
+di [sini](https://kbbi.web.id/) atau situs dari Kemendikbud di
+[sini](https://kbbi.kemdikbud.go.id/).
 
 ### RSNI Glosarium dari Ivan Lanin
 [RSNI Glosarium](https://github.com/jk8s/sig-docs-id-localization-how-tos/blob/master/resources/RSNI-glossarium.pdf)
@@ -81,15 +81,15 @@ dan khusus Kubernetes.
 
 Untuk kenyamanan pemeliharaan, ikuti lebar teks asli dalam kode bahasa Inggris.
 Dengan kata lain, jika teks asli ditulis dalam baris yang panjang tanpa putus
-atu baris, maka teks tersebut ditulis panjang dalam satu baris meskipun dalam
+satu baris, maka teks tersebut ditulis panjang dalam satu baris meskipun dalam
 bahasa Indonesia. Jagalah agar tetap serupa.
 
-### Hapus nama reviewer di kode asli bahasa Inggris
+### Hapus nama pengulas di kode asli bahasa Inggris
 
-Terkadang _reviewer_ ditentukan di bagian atas kode di teks asli Bahasa Inggris.
-Secara umum, _reviewer-reviewer_ halaman aslinya akan kesulitan untuk meninjau
+Terkadang pengulas ditentukan di bagian atas kode di teks asli Bahasa Inggris.
+Secara umum, pengulas-pengulas halaman aslinya akan kesulitan untuk meninjau
 halaman  dalam bahasa Indonesia, jadi hapus kode yang terkait dengan informasi
-_reviewer_ dari metadata kode tersebut.
+pengulas dari metadata kode tersebut.
 
 ## Panduan Penulisan Kata-kata Translasi
 
@@ -99,12 +99,12 @@ _reviewer_ dari metadata kode tersebut.
 para pembaca dokumentasi.
 * Tulislah miring untuk kata-kata bahasa Inggris yang diimpor jika kamu tidak
 dapat menemukan kata-kata tersebut dalam bahasa Indonesia.
-    * ✅ Benar: _controller_.
-    * ❌ Salah: controller, `controller`.
+    * :white_check_mark: Benar: _controller_.
+    * :x: Salah: controller, `controller`.
 * Selalu rujuk setiap istilah teknis saat pertama kali disebutkan dalam dokumen ke glosarium.
 * Gunakan kalimat aktif bila memungkinkan.
-    * ✅ Benar: "Pod menjalankan satu atau lebih kontainer."
-    * ❌ Salah: "Sebuah Pod menjalankan satu atau lebih kontainer." (terlalu kaku)
+    * :white_check_mark: Benar: "Pod menjalankan satu atau lebih kontainer."
+    * :x: Salah: "Sebuah Pod menjalankan satu atau lebih kontainer." (terlalu kaku)
 * Jangan menerjemahkan perintah CLI atau keluaran perintah CLI (misalnya, `kubectl get pods` harus tetap dalam bahasa Inggris).
 * Ikuti terjemahan di [Glosarium Indonesia](#glosarium-indonesia).
 
@@ -115,14 +115,14 @@ lengkapnya [di sini](/docs/reference/kubernetes-api/).
 Sebagai contoh:
 
 * PersistentVolume
-    * ✅ Benar: PersistentVolume.
-    * ❌ Salah: volume persisten, `PersistentVolume`, persistentVolume
+    * :white_check_mark: Benar: PersistentVolume.
+    * :x: Salah: volume persisten, `PersistentVolume`, persistentVolume.
 
 * Pod
-    * ✅ Benar: Pod.
-    * ❌ Salah: pod, `pod`, "pod"
+    * :white_check_mark: Benar: Pod.
+    * :x: Salah: pod, `pod`, "pod".
 
-*Tips*: Biasanya API objek sudah ditulis dalam huruf kapital pada halaman asli
+:information_source: *Tips*: Biasanya API objek sudah ditulis dalam huruf kapital pada halaman asli
 bahasa Inggris.
 
 ### Panduan untuk kata-kata yang sama dengan API Objek Kubernetes
@@ -130,10 +130,10 @@ bahasa Inggris.
 Ada beberapa kata-kata yang serupa dengan nama API objek dari Kubernetes dan
 dapat mengacu ke arti yang lebih umum (tidak selalu dalam konteks Kubernetes).
 Sebagai contoh: _service_, _container_, _node_ , dan lain sebagainya. Kata-kata
-sebaiknya ditranslasikan ke Bahasa Indonesia sebagai contoh _service_ menjadi
+sebaiknya diterjemahkan ke Bahasa Indonesia sebagai contoh _service_ menjadi
 layanan, _container_ menjadi kontainer.
 
-*Tips*: Biasanya kata-kata yang mengacu ke arti yang lebih umum sudah *tidak*
+:information_source: *Tips*: Biasanya kata-kata yang mengacu ke arti yang lebih umum sudah *tidak*
 ditulis dalam huruf kapital pada halaman asli bahasa Inggris.
 
 ### Panduan untuk "Feature Gate" Kubernetes
@@ -271,7 +271,7 @@ Contoh dari _functional gate_ adalah sebagai berikut:
 | ReplicationController | ReplicationController | Tetap | ... | ... | ... |
 | Resource (infrastructure) | ... | ... | ... | ... | ... |
 | Resource Quotas | ... | ... | ... | ... | ... |
-| Reviewer | ... | ... | ... | ... | ... |
+| Reviewer | Pengulas | Dilokalkan | ... | https://kbbi.kemdikbud.go.id/entri/pengulas | ... |
 | Secret | Secret | Tetap | ... | ... | ... |
 | Security Context | ... | ... | ... | ... | ... |
 | Selector | ... | ... | ... | ... | ... |
