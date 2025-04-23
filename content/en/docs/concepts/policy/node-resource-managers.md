@@ -196,14 +196,14 @@ listed in alphabetical order:
 : Allocate virtual cores, sometimes called hardware threads, across different physical cores
   (available since Kubernetes v1.31)
 
-`distribute-cpus-across-numa` (alpha, hidden by default)
+`distribute-cpus-across-numa` (beta, visible by default)
 : Spread CPUs across different NUMA domains, aiming for an even balance between the selected domains
   (available since Kubernetes v1.23)
 
-`full-pcpus-only` (beta, visible by default)
-: Always allocate full physical cores (available since Kubernetes v1.22)
+`full-pcpus-only` (GA, visible by default)
+: Always allocate full physical cores (available since Kubernetes v1.22, GA since Kubernetes v1.33)
 
-`strict-cpu-reservation` (alpha, hidden by default)
+`strict-cpu-reservation` (beta, visible by default)
 : Prevent all the pods regardless of their Quality of Service class to run on reserved CPUs
   (available since Kubernetes v1.32)
 

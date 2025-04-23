@@ -138,7 +138,7 @@ iptables:
 The `minSyncPeriod` parameter sets the minimum duration between
 attempts to resynchronize iptables rules with the kernel. If it is
 `0s`, then kube-proxy will always immediately synchronize the rules
-every time any Service or Endpoint changes. This works fine in very
+every time any Service or EndpointSlice changes. This works fine in very
 small clusters, but it results in a lot of redundant work when lots of
 things change in a small time period. For example, if you have a
 Service backed by a {{< glossary_tooltip term_id="deployment" text="Deployment" >}}
@@ -438,10 +438,7 @@ IP addresses that are no longer used by any Services.
 
 {{< feature-state feature_gate_name="MultiCIDRServiceAllocator" >}}
 
-If you enable the `MultiCIDRServiceAllocator`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
-[`networking.k8s.io/v1alpha1` API group](/docs/tasks/administer-cluster/enable-disable-api/),
-the control plane replaces the existing etcd allocator with a revised implementation
+The control plane replaces the existing etcd allocator with a revised implementation
 that uses IPAddress and ServiceCIDR objects instead of an internal global allocation map.
 Each cluster IP address associated to a Service then references an IPAddress object.
 
@@ -495,7 +492,7 @@ Users can create or delete new ServiceCIDR objects to manage the available IP ra
 
 ```shell
 cat <<'EOF' | kubectl apply -f -
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: ServiceCIDR
 metadata:
   name: newservicecidr
@@ -516,6 +513,46 @@ NAME             CIDRS         AGE
 kubernetes       10.96.0.0/28  17m
 newservicecidr   10.96.0.0/24  7m
 ```
+
+Distributions or administrators of Kubernetes clusters may want to control that
+new Service CIDRs added to the cluster does not overlap with other networks on
+the cluster, that only belong to a specific range of IPs or just simple retain
+the existing behavior of only having one ServiceCIDR per cluster.  An example of
+a Validation Admission Policy to achieve this is:
+
+```yaml
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "servicecidrs-default"
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["networking.k8s.io"]
+      apiVersions: ["v1","v1beta1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["servicecidrs"]
+  matchConditions:
+  - name: 'exclude-default-servicecidr'
+    expression: "object.metadata.name != 'kubernetes'"
+  variables:
+  - name: allowed
+    expression: "['10.96.0.0/16','2001:db8::/64']"
+  validations:
+  - expression: "object.spec.cidrs.all(i , variables.allowed.exists(j , cidr(j).containsCIDR(i)))"
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: "servicecidrs-binding"
+spec:
+  policyName: "servicecidrs-default"
+  validationActions: [Deny,Audit]
+---
+```
+
 
 ### IP address ranges for Service virtual IP addresses {#service-ip-static-sub-range}
 
@@ -647,39 +684,57 @@ pool.
 
 The `spec.trafficDistribution` field within a Kubernetes Service allows you to
 express preferences for how traffic should be routed to Service endpoints.
-Implementations like kube-proxy use the `spec.trafficDistribution` field as a
-guideline. The behavior associated with a given preference may subtly differ
-between implementations.
 
-`PreferClose` with kube-proxy
-: For kube-proxy, this means prioritizing sending traffic to endpoints within
-  the same zone as the client. The EndpointSlice controller updates
-  EndpointSlices with `hints` to communicate this preference, which kube-proxy
-  then uses for routing decisions. If a client's zone does not have any
-  available endpoints, traffic will be routed cluster-wide for that client.
+`PreferClose`
+: This prioritizes sending traffic to endpoints in the same zone as the client.
+  The EndpointSlice controller updates EndpointSlices with `hints` to
+  communicate this preference, which kube-proxy then uses for routing decisions.
+  If a client's zone does not have any available endpoints, traffic will be
+  routed cluster-wide for that client.
 
-In the absence of any value for `trafficDistribution`, the default routing
-strategy for kube-proxy is to distribute traffic to any endpoint in the cluster.
+{{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
+
+Two additional values are available when the `PreferSameTrafficDistribution`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
+enabled:
+
+`PreferSameZone`
+: This means the same thing as `PreferClose`, but is more explicit. (Originally,
+  the intention was that `PreferClose` might later include functionality other
+  than just "prefer same zone", but this is no longer planned. In the future,
+  `PreferSameZone` will be the recommended value to use for this functionality,
+  and `PreferClose` will be considered a deprecated alias for it.)
+
+`PreferSameNode`
+: This prioritizes sending traffic to endpoints on the same node as the client.
+  As with `PreferClose`/`PreferSameZone`, the EndpointSlice controller updates
+  EndpointSlices with `hints` indicating that a slice should be used for a
+  particular node. If a client's node does not have any available endpoints,
+  then the service proxy will fall back to "same zone" behavior, or cluster-wide
+  if there are no same-zone endpoints either.
+
+In the absence of any value for `trafficDistribution`, the default strategy is
+to distribute traffic evenly to all endpoints in the cluster.
 
 ### Comparison with `service.kubernetes.io/topology-mode: Auto`
 
-The `trafficDistribution` field with `PreferClose` and the
-`service.kubernetes.io/topology-mode: Auto` annotation both aim to prioritize
-same-zone traffic. However, there are key differences in their approaches:
+The `trafficDistribution` field with `PreferClose`/`PreferSameZone`, and the older "Topology-Aware
+Routing" feature using the `service.kubernetes.io/topology-mode: Auto`
+annotation both aim to prioritize same-zone traffic. However, there is a key
+difference in their approaches:
 
-* `service.kubernetes.io/topology-mode: Auto`: Attempts to distribute traffic
+* `service.kubernetes.io/topology-mode: Auto` attempts to distribute traffic
   proportionally across zones based on allocatable CPU resources. This heuristic
   includes safeguards (such as the [fallback
   behavior](/docs/concepts/services-networking/topology-aware-routing/#three-or-more-endpoints-per-zone)
-  for small numbers of endpoints) and could lead to the feature being disabled
-  in certain scenarios for load-balancing reasons. This approach sacrifices some
-  predictability in favor of potential load balancing.
+  for small numbers of endpoints), sacrificing some predictability in favor of
+  potentially better load balancing.
 
-* `trafficDistribution: PreferClose`: This approach aims to be slightly simpler
-  and more predictable: "If there are endpoints in the zone, they will receive
-  all traffic for that zone, if there are no endpoints in a zone, the traffic
-  will be distributed to other zones". While the approach may offer more
-  predictability, it does mean that you are in control of managing a [potential
+* `trafficDistribution: PreferClose` aims to be simpler and more predictable:
+  "If there are endpoints in the zone, they will receive all traffic for that
+  zone, if there are no endpoints in a zone, the traffic will be distributed to
+  other zones". This approach offers more predictability, but it means that you
+  are responsible for [avoiding endpoint
   overload](#considerations-for-using-traffic-distribution-control).
 
 If the `service.kubernetes.io/topology-mode` annotation is set to `Auto`, it
@@ -695,41 +750,38 @@ interacts with them:
 
 * Precedence of Traffic Policies: For a given Service, if a traffic policy
   (`externalTrafficPolicy` or `internalTrafficPolicy`) is set to `Local`, it
-  takes precedence over `trafficDistribution: PreferClose` for the corresponding
+  takes precedence over `trafficDistribution` for the corresponding
   traffic type (external or internal, respectively).
 
 * `trafficDistribution` Influence: For a given Service, if a traffic policy
   (`externalTrafficPolicy` or `internalTrafficPolicy`) is set to `Cluster` (the
-  default), or if the fields are not set, then `trafficDistribution:
-  PreferClose` guides the routing behavior for the corresponding traffic type
+  default), or if the fields are not set, then `trafficDistribution`
+  guides the routing behavior for the corresponding traffic type
   (external or internal, respectively). This means that an attempt will be made
   to route traffic to an endpoint that is in the same zone as the client.
 
 ### Considerations for using traffic distribution control  
 
-* **Increased Probability of Overloaded Endpoints:** The `PreferClose`
-  heuristic will attempt to route traffic to the closest healthy endpoints
-  instead of spreading that traffic evenly across all endpoints. If you do not
-  have a sufficient number of endpoints within a zone, they may become
-  overloaded. This is especially likely if incoming traffic is not
-  proportionally distributed across zones. To mitigate this, consider the
-  following strategies:
+A Service using `trafficDistribution` will attempt to route traffic to (healthy)
+endpoints within the appropriate topology, even if this means that some
+endpoints receive much more traffic than other endpoints. If you do not have a
+sufficient number of endpoints within the same topology ("same zone", "same
+node", etc.) as the clients, then endpoints may become overloaded. This is
+especially likely if incoming traffic is not proportionally distributed across
+the topology. To mitigate this, consider the following strategies:
 
-    * [Pod Topology Spread
-      Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/):
-      Use Pod Topology Spread Constraints to distribute your pods more evenly
-      across zones.
+* [Pod Topology Spread
+  Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/):
+  Use Pod Topology Spread Constraints to distribute your pods evenly
+  across zones or nodes.
 
-    * Zone-specific Deployments: If you expect to see skewed traffic patterns,
-      create a separate Deployment for each zone. This approach allows the
-      separate workloads to scale independently. There are also workload
-      management addons available from the ecosystem, outside the Kubernetes
-      project itself, that can help here.
-
-* **Implementation-specific behavior:** Each dataplane implementation may handle
-  this field slightly differently. If you're using an implementation other than
-  kube-proxy, refer the documentation specific to that implementation to
-  understand how this field is being handled.
+* Zone-specific Deployments: If you are using "same zone" traffic
+  distribution, but expect to see different traffic patterns in
+  different zones, you can create a separate Deployment for each zone.
+  This approach allows the separate workloads to scale independently.
+  There are also workload management addons available from the
+  ecosystem, outside the Kubernetes project itself, that can help
+  here.
 
 ## {{% heading "whatsnext" %}}
 
