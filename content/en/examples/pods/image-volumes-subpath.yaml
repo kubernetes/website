@@ -14,5 +14,5 @@ spec:
   volumes:
   - name: volume
     image:
-      reference: quay.io/crio/artifact:v1
+      reference: quay.io/crio/artifact:v2
       pullPolicy: IfNotPresent
