@@ -372,6 +372,7 @@ kube:PodLifecycleSleepAction=true|false (BETA - default=true)<br/>
 kube:PodLifecycleSleepActionAllowZero=true|false (ALPHA - default=false)<br/>
 kube:PodLogsQuerySplitStreams=true|false (ALPHA - default=false)<br/>
 kube:PodReadyToStartContainersCondition=true|false (BETA - default=true)<br/>
+kube:PodObservedGenerationTracking=true|false (ALPHA - default=false)<br/>
 kube:PortForwardWebsockets=true|false (BETA - default=true)<br/>
 kube:ProcMountType=true|false (BETA - default=false)<br/>
 kube:QOSReserved=true|false (ALPHA - default=false)<br/>
@@ -510,6 +511,7 @@ kube:PodLifecycleSleepAction=true|false (BETA - 默认值=true)<br/>
 kube:PodLifecycleSleepActionAllowZero=true|false (ALPHA - 默认值=false)<br/>
 kube:PodLogsQuerySplitStreams=true|false (ALPHA - 默认值=false)<br/>
 kube:PodReadyToStartContainersCondition=true|false (BETA - 默认值=true)<br/>
+kube:PodObservedGenerationTracking=true|false (ALPHA - 默认值=false)<br/>
 kube:PortForwardWebsockets=true|false (BETA - 默认值=true)<br/>
 kube:ProcMountType=true|false (BETA - 默认值=false)<br/>
 kube:QOSReserved=true|false (ALPHA - 默认值=false)<br/>
