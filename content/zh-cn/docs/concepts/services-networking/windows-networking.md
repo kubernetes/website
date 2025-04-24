@@ -174,6 +174,27 @@ Windows 支持以下 IPAM 选项：
 * [Windows Server IPAM](https://docs.microsoft.com/zh-cn/windows-server/networking/technologies/ipam/ipam-top)（未设置 IPAM 时的回滚选项）
 
 <!--
+## Direct Server Return (DSR) {#dsr}
+-->
+## 直接服务器返回（DSR）{#dsr}
+
+{{< feature-state for_k8s_version="v1.33" state="beta" >}}
+
+<!--
+Load balancing mode where the IP address fixups and the LBNAT occurs at the container vSwitch port directly;
+service traffic arrives with the source IP set as the originating pod IP.
+This provides performance optimizations by allowing the return traffic routed through load balancers
+to bypass the load balancer and respond directly to the client;
+reducing load on the load balancer and also reducing overall latency.
+For more information, read
+[Direct Server Return (DSR) in a nutshell](https://techcommunity.microsoft.com/blog/networkingblog/direct-server-return-dsr-in-a-nutshell/693710).
+-->
+在负载均衡模式中 IP 地址修正和 LBNAT 直接发生在容器 vSwitch 端口；服务流量到达时源 IP 被设置为原始 Pod IP。
+这种模式通过允许返回流量绕过负载均衡器，直接响应客户端，从而实现性能优化；
+这不仅减轻了负载均衡器的压力，还降低了整体延迟。更多信息请参阅
+[Direct Server Return (DSR) 简介](https://techcommunity.microsoft.com/blog/networkingblog/direct-server-return-dsr-in-a-nutshell/693710)。
+
+<!--
 ## Load balancing and Services
 
 A Kubernetes {{< glossary_tooltip text="Service" term_id="service" >}} is an abstraction
@@ -208,7 +229,7 @@ Windows 容器网络与 Linux 网络有着很重要的差异。
 | Feature | Description | Minimum Supported Windows OS build | How to enable |
 | ------- | ----------- | -------------------------- | ------------- |
 | Session affinity | Ensures that connections from a particular client are passed to the same Pod each time. | Windows Server 2022 | Set `service.spec.sessionAffinity` to "ClientIP" |
-| Direct Server Return (DSR) | Load balancing mode where the IP address fixups and the LBNAT occurs at the container vSwitch port directly; service traffic arrives with the source IP set as the originating pod IP. | Windows Server 2019 | Set the following flags in kube-proxy: `--feature-gates="WinDSR=true" --enable-dsr=true` |
+| Direct Server Return (DSR) | See [DSR](#dsr) notes above. | Windows Server 2019 | Set the following command line argument (assuming version {{< skew currentVersion >}}): ` --enable-dsr=true` |
 | Preserve-Destination | Skips DNAT of service traffic, thereby preserving the virtual IP of the target service in packets reaching the backend Pod. Also disables node-node forwarding. | Windows Server, version 1903 | Set `"preserve-destination": "true"` in service annotations and enable DSR in kube-proxy. |
 | IPv4/IPv6 dual-stack networking | Native IPv4-to-IPv4 in parallel with IPv6-to-IPv6 communications to, from, and within a cluster | Windows Server 2019 | See [IPv4/IPv6 dual-stack](/docs/concepts/services-networking/dual-stack/#windows-support) |
 | Client IP preservation | Ensures that source IP of incoming ingress traffic gets preserved. Also disables node-node forwarding. |  Windows Server 2019  | Set `service.spec.externalTrafficPolicy` to "Local" and enable DSR in kube-proxy |
@@ -218,33 +239,11 @@ Windows 容器网络与 Linux 网络有着很重要的差异。
 | 功能特性 | 描述 | 支持的 Windows 操作系统最低版本 | 启用方式 |
 | ------- | ----------- | -------------------------- | ------------- |
 | 会话亲和性 | 确保每次都将来自特定客户端的连接传递到同一个 Pod。 | Windows Server 2022 | 将 `service.spec.sessionAffinity` 设为 “ClientIP” |
-| Direct Server Return (DSR) | 在负载均衡模式中 IP 地址修正和 LBNAT 直接发生在容器 vSwitch 端口；服务流量到达时源 IP 设置为原始 Pod IP。 | Windows Server 2019 | 在 kube-proxy 中设置以下标志：`--feature-gates="WinDSR=true" --enable-dsr=true` |
+| Direct Server Return (DSR) | 参见上文 [DSR](#dsr) 说明。 | Windows Server 2019 | 设置以下命令行参数（假设版本 {{< skew currentVersion >}}）：` --enable-dsr=true` |
 | 保留目标（Preserve-Destination） | 跳过服务流量的 DNAT，从而在到达后端 Pod 的数据包中保留目标服务的虚拟 IP。也会禁用节点间的转发。 | Windows Server，version 1903 | 在服务注解中设置 `"preserve-destination": "true"` 并在 kube-proxy 中启用 DSR。 |
 | IPv4/IPv6 双栈网络 | 进出集群和集群内通信都支持原生的 IPv4 间与 IPv6 间流量 | Windows Server 2019 | 参考 [IPv4/IPv6 双栈](/zh-cn/docs/concepts/services-networking/dual-stack/#windows-support)。 |
 | 客户端 IP 保留 | 确保入站流量的源 IP 得到保留。也会禁用节点间转发。 |  Windows Server 2019  | 将 `service.spec.externalTrafficPolicy` 设置为 “Local” 并在 kube-proxy 中启用 DSR。 |
 {{< /table >}}
-
-<!--
-There are known issue with NodePort Services on overlay networking, if the destination node is running Windows Server 2022.
-To avoid the issue entirely, you can configure the service with `externalTrafficPolicy: Local`.
-
-There are known issues with Pod to Pod connectivity on l2bridge network on Windows Server 2022 with KB5005619 or higher installed.
-To workaround the issue and restore Pod to Pod connectivity, you can disable the WinDSR feature in kube-proxy.
-
-These issues require OS fixes.
-Please follow https://github.com/microsoft/Windows-Containers/issues/204 for updates.
--->
-{{< warning >}} 
-如果目的地节点在运行 Windows Server 2022，则上层网络的 NodePort Service 存在已知问题。
-要完全避免此问题，可以使用 `externalTrafficPolicy: Local` 配置服务。
-
-在安装了 KB5005619 的 Windows Server 2022 或更高版本上，采用 L2bridge 网络时
-Pod 间连接存在已知问题。
-要解决此问题并恢复 Pod 间连接，你可以在 kube-proxy 中禁用 WinDSR 功能。
-
-这些问题需要操作系统修复。
-有关更新，请参考 https://github.com/microsoft/Windows-Containers/issues/204。
-{{< /warning >}}
 
 <!--
 ## Limitations
@@ -268,7 +267,7 @@ Windows 节点**不支持**以下网络功能：
 * 非 DSR 模式中的本地流量策略（Local Traffic Policy）
 
 <!--
-* Outbound communication using the ICMP protocol via the `win-overlay`, `win-bridge`, or using the Azure-CNI plugin.\
+* Outbound communication using the ICMP protocol via the `win-overlay`, `win-bridge`, or using the Azure-CNI plugin.
   Specifically, the Windows data plane ([VFP](https://www.microsoft.com/research/project/azure-virtual-filtering-platform/))
   doesn't support ICMP packet transpositions, and this means:
   * ICMP packets directed to destinations within the same network (such as pod to pod communication via ping) 
