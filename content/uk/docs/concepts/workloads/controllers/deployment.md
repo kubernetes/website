@@ -1253,6 +1253,14 @@ spec:
 
 `.spec.minReadySeconds` — це необовʼязкове поле, яке вказує мінімальну кількість секунд, протягом яких новий створений Pod повинен бути готовим, і жоден з його контейнерів не повинен виходити з ладу, щоб його вважалим доступним. Стандартно  це значення становить 0 (Pod буде вважатися доступним, як тільки він буде готовий). Щоб дізнатися більше про те, коли Pod вважається готовим, див. [Проби контейнерів](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
+### Podʼи, які завершуть роботу {#terminating-pods}
+
+{{< feature-state feature_gate_name="DeploymentReplicaSetTerminatingReplicas" >}}
+
+Ви можете увімкнути цю функцію, встановивши  [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `DeploymentReplicaSetTerminatingReplicas` в [API server](/docs/reference/command-line-tools-reference/kube-apiserver/) та в [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+
+Видалення або зменшення кількості podʼів може зайняти тривалий час, і впродовж цього періоду вони можуть споживати додаткові ресурси. Як наслідок, загальна кількість усіх podʼів може тимчасово перевищити `.spec.replicas`. Закінчення роботи podʼів можна відстежувати за допомогою поля `.status.terminatingReplicas` в Deployment.
+
 ### Ліміт історії ревізій {#revision-history-limit}
 
 Історія ревізій Deployment зберігається в ReplicaSets, якими він керує.

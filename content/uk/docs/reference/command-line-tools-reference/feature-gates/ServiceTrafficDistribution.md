@@ -14,5 +14,9 @@ stages:
 - stage: beta
   defaultValue: true
   fromVersion: "1.31"
+  toVersion: "1.32"
+- stage: stable
+  defaultValue: true
+  fromVersion: "1.33"
 ---
 Дозволяє використовувати необовʼязкове поле `spec.trafficDistribution` у Services. У цьому полі можна вказати параметри розподілу трафіку між точками доступу Service.

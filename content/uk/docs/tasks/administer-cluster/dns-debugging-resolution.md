@@ -24,7 +24,7 @@ weight: 170
 {{% code_sample file="admin/dns/dnsutils.yaml" %}}
 
 {{< note >}}
-У цьому прикладі створюється Pod у просторі імен `default`. Розпізнавання DNS-імені для сервісів залежить від простору імен Podʼа. Для отримання додаткової інформації перегляньте [DNS для Service and Pod](/uk/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names).
+У цьому прикладі створюється Pod у просторі імен `default`. Розпізнавання DNS-імені для сервісів залежить від простору імен Podʼа. Для отримання додаткової інформації перегляньте [DNS для Service and Pod](/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names).
 {{< /note >}}
 
 Використайте цей маніфест, щоб створити Pod:
@@ -66,7 +66,7 @@ Address 1: 10.0.0.1
 
 ### Спочатку перевірте локальну конфігурацію DNS {#check-the-local-dns-configuration-first}
 
-Подивіться всередину файлу resolv.conf. (Див. [Налаштування служби DNS](/uk/docs/tasks/administer-cluster/dns-custom-nameservers) та [Відомі проблеми](#known-issues) нижче для отримання додаткової інформації)
+Подивіться всередину файлу resolv.conf. (Див. [Налаштування служби DNS](/docs/tasks/administer-cluster/dns-custom-nameservers) та [Відомі проблеми](#known-issues) нижче для отримання додаткової інформації)
 
 ```shell
 kubectl exec -ti dnsutils -- cat /etc/resolv.conf
@@ -170,22 +170,22 @@ kube-dns     ClusterIP   10.0.0.10      <none>        53/UDP,53/TCP        1h
 Назва служби — `kube-dns` як для розгортання CoreDNS, так і для kube-dns.
 {{< /note >}}
 
-Якщо ви створили Service або у випадку, якщо вона повинна типово створюватися, але вона не зʼявляється, див. [налагодження Service](/uk/docs/tasks/debug/debug-application/debug-service/) для отримання додаткової інформації.
+Якщо ви створили Service або у випадку, якщо вона повинна типово створюватися, але вона не зʼявляється, див. [налагодження Service](/docs/tasks/debug/debug-application/debug-service/) для отримання додаткової інформації.
 
 ### Чи відкриті точки доступу DNS? {#are-dns-endpoints-exposed}
 
-Ви можете перевірити, чи викриті точки доступу DNS, використовуючи команду `kubectl get endpoints`.
+Ви можете перевірити, чи викриті точки доступу DNS, використовуючи команду `kubectl get endpointslice`.
 
 ```shell
-kubectl get endpoints kube-dns --namespace=kube-system
+kubectl get endpointslices -l k8s.io/service-name=kube-dns --namespace=kube-system
 ```
 
 ```none
-NAME       ENDPOINTS                       AGE
-kube-dns   10.180.3.17:53,10.180.3.17:53    1h
+NAME             ADDRESSTYPE   PORTS   ENDPOINTS                  AGE
+kube-dns-zxoja   IPv4          53      10.180.3.17,10.180.3.17    1h
 ```
 
-Якщо ви не бачите точки доступу, дивіться розділ про точки доступу у документації [налагодження Service](/uk/docs/tasks/debug/debug-application/debug-service/).
+Якщо ви не бачите точки доступу, дивіться розділ про точки доступу у документації [налагодження Service](/docs/tasks/debug/debug-application/debug-service/).
 
 Для додаткових прикладів DNS Kubernetes дивіться [приклади dns в кластері](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns) у репозиторії Kubernetes GitHub.
 
@@ -246,7 +246,7 @@ linux/amd64, go1.10.3, 2e322f6
 
 ### Чи має CoreDNS достатні дозволи? {#does-coredns-have-sufficient-permissions}
 
-CoreDNS повинен мати можливість переглядати повʼязані {{< glossary_tooltip text="Service" term_id="service" >}} та {{< glossary_tooltip text="endpoint" term_id="endpoint" >}} ресурси для правильного розпізнавання імен служб.
+CoreDNS повинен мати можливість переглядати повʼязані {{< glossary_tooltip text="Service" term_id="service" >}} та {{< glossary_tooltip text="endpointslice" term_id="endpoint-slice" >}} ресурси для правильного розпізнавання імен служб.
 
 Приклад повідомлення про помилку:
 
@@ -295,7 +295,7 @@ kubectl edit clusterrole system:coredns -n kube-system
 
 ### Чи ви у правильному просторі імен для служби? {#are-you-in-the-right-namespace-for-the-service}
 
-DNS-запити, які не вказують простір імен, обмежені простором імен Podʼа. 
+DNS-запити, які не вказують простір імен, обмежені простором імен Podʼа.
 
 Якщо простір імен Podʼа та Service відрізняються, DNS-запит повинен включати простір імен Service.
 
@@ -311,7 +311,7 @@ kubectl exec -i -t dnsutils -- nslookup <service-name>
 kubectl exec -i -t dnsutils -- nslookup <service-name>.<namespace>
 ```
 
-Щоб дізнатися більше про розпізнавання імен, дивіться [DNS для Service та Pod](/uk/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names).
+Щоб дізнатися більше про розпізнавання імен, дивіться [DNS для Service та Pod](/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names).
 
 ## Відомі проблеми {#known-issues}
 
@@ -325,5 +325,5 @@ kubectl exec -i -t dnsutils -- nslookup <service-name>.<namespace>
 
 ## {{% heading "whatsnext" %}}
 
-- Дивіться [Автомасштабування служби DNS в кластері](/uk/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
-- Читайте [DNS для Service та Pod](/uk/docs/concepts/services-networking/dns-pod-service/)
+- Дивіться [Автомасштабування служби DNS в кластері](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
+- Читайте [DNS для Service та Pod](/docs/concepts/services-networking/dns-pod-service/)

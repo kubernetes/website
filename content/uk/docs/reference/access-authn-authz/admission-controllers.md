@@ -574,6 +574,20 @@ metadata:
 
 Цей контролер допуску стандатно вимкнено.
 
+### PodTopologyLabels {#podtopologylabels}
+
+{{< feature-state feature_gate="PodTopologyLabelsAdmission" >}}
+
+**Тип**: Модифікуючий
+
+Контролер допуску PodTopologyLabels змінює субресурси `pods/binding` для всіх podʼів, привʼязаних до вузла, додаючи мітки топології, що відповідають міткам привʼязаного вузла. Це дозволяє зробити мітки топології вузла доступними як мітки podʼів, які можуть бути відображені у запущених контейнерах за допомогою [Downward API](docs/concepts/workloads/pods/downward-api/). Мітки, доступні за допомогою цього контролера, — це мітки [topology.kubernetes.io/region](docs/reference/labels-annotations-taints/#topologykubernetesioregion) та [topology.kuberentes.io/zone](docs/reference/labels-annotations-taints/#topologykubernetesiozone).
+
+{{ <note> }}
+Якщо будь-який модифікуючий вебхук допуску додає або змінює мітки субресурсу `pods/binding`, ці зміни поширюватимуться на мітки podʼів в результаті роботи цього контролера, перезаписуючи мітки з конфліктуючими ключами.
+{{ </note> }}
+
+Цей контролер допуску увімкнено, коли увімкнено функціональну можливість `PodTopologyLabelsAdmission`.
+
 ### Priority {#priority}
 
 **Тип**: Модифікуючий та Валідаційний.

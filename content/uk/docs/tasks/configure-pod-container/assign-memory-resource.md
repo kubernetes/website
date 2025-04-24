@@ -297,6 +297,8 @@ kubectl delete namespace mem-example
 
 * [Налаштування якості обслуговування для Podʼів](/docs/tasks/configure-pod-container/quality-service-pod/)
 
+* [Зміна обсягів CPU та памʼяті, призначених для контейнерів](/docs/tasks/configure-pod-container/resize-container-resources/)
+
 ### Для адміністраторів кластера {#for-cluster-administrators}
 
 * [Налаштування стандартних запитів та обмежень памʼяті для простору імен](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)

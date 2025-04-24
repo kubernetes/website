@@ -284,6 +284,26 @@ status:
     supplementalGroupsPolicy: true
 ```
 
+{{<note>}}
+В цьому альфа-випуску (з v1.31 до v1.32), коли pod з `SupplementalGroupsPolicy=Strict` призначений до вузла, який НЕ підтримцє цю фцнкцію (напр. `.status.features.supplementalGroupsPolicy=false`), політика додаткових груп podʼа повернеться до політики `Merge` _мовчки_.
+
+Однак, починаючи з бета-версії (v1.33), для суворішого забезпечення дотримання політики, __таке створення podʼів буде відхилено kubelet, оскільки вузол не може забезпечити дотримання зазначеної політики__. Коли ваш pod буде відхилено, ви побачите попередження `reason=SupplementalGroupsPolicyNotSupported`, як показано нижче:
+
+```yaml
+apiVersion: v1
+kind: Event
+...
+type: Warning
+reason: SupplementalGroupsPolicyNotSupported
+message: "SupplementalGroupsPolicy=Strict is not supported in this node"
+involvedObject:
+  apiVersion: v1
+  kind: Pod
+  ...
+```
+
+{{</note>}}
+
 ## Налаштування політики зміни дозволів та прав власності тому для Pod {#configure-volume-permission-and-ownership-change-policy-for-pods}
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
@@ -539,7 +559,7 @@ securityContext:
 ```
 
 {{< note >}}
-Для призначення міток SELinux модуль безпеки SELinux повинен бути завантажений в операційну систему хосту.
+Для призначення міток SELinux модуль безпеки SELinux повинен бути завантажений в операційну систему хосту. На робочих вузлах Windows та Linux без підтримки SELinux це поле та будь-які описані нижче функціональні можливості SELinux не мають жодного впливу.
 {{< /note >}}
 
 ### Ефективне переозначення обʼєктів SELinux в томах {#efficient-selinux-volume-relabeling}
@@ -549,14 +569,14 @@ securityContext:
 {{< note >}}
 У Kubernetes v1.27 було введено обмежену ранню форму такої поведінки, яка була застосовна тільки до томів (та PersistentVolumeClaims), які використовують режим доступу `ReadWriteOncePod`.
 
-Як альфа-функціонал, ви можете увімкнути [функціональні можливості](/docs/reference/command-line-tools-reference/feature-gates/) `SELinuxMount` та `SELinuxChangePolicy`, щоб розширити це поліпшення продуктивності на інші види PersistentVolumeClaims, як пояснено докладніше нижче.
+Kubernetes v1.33 пропонує [функціональні можливості](/docs/reference/command-line-tools-reference/feature-gates/) `SELinuxChangePolicy` та `SELinuxMount` в стані бета, щоб розширити це поліпшення продуктивності на інші види PersistentVolumeClaims, як пояснено докладніше нижче. Зважаючи на стан бета, `SELinuxMount` станадртно вимкнено.
 {{< /note >}}
 
-Стандартно, контейнерне середовище рекурсивно призначає мітку SELinux для всіх файлів на всіх томах Pod. Щоб прискорити цей процес, Kubernetes може миттєво змінити мітку SELinux тому за допомогою параметра монтування `-o context=<мітка>`.
+З вимкненною функціональною можливістю `SELinuxMount` (стандартно в Kubernetes 1.33 та попередніх виписках), контейнерне середовище стандартно рекурсивно призначає мітку SELinux для всіх файлів на всіх томах Pod. Щоб прискорити цей процес, Kubernetes може миттєво змінити мітку SELinux тому за допомогою параметра монтування `-o context=<мітка>`.
 
 Щоб скористатися цим прискоренням, мають бути виконані всі ці умови:
 
-* [Функціональні можливості](/docs/reference/command-line-tools-reference/feature-gates/) `ReadWriteOncePod` та `SELinuxMountReadWriteOncePod` повинні бути увімкнені.
+* [Функціональна можливість](/docs/reference/command-line-tools-reference/feature-gates/)  `SELinuxMountReadWriteOncePod` має бути увімкнена.
 * Pod повинен використовувати PersistentVolumeClaim з відповідними `accessModes` та [функціональною можливстю](/docs/reference/command-line-tools-reference/feature-gates/):
   * Або том має `accessModes: ["ReadWriteOncePod"]`, і властивість включення `SELinuxMountReadWriteOncePod` увімкнена.
   * Або том може використовувати будь-які інші режими доступу та  `SELinuxMountReadWriteOncePod`, `SELinuxChangePolicy` та `SELinuxMount` повинні бути увімкнені, а Pod мати `spec.securityContext.seLinuxChangePolicy` або nil (стандартно), або `MountOption`.
@@ -565,7 +585,9 @@ securityContext:
   * Том, який використовує старі типи томів `iscsi`, `rbd` або `fc`.
   * Або том, який використовує драйвер CSI {{< glossary_tooltip text="CSI" term_id="csi" >}}. Драйвер CSI повинен оголосити, що він підтримує монтування з `-o context`, встановивши `spec.seLinuxMount: true` у його екземплярі CSIDriver.
 
-Для будь-яких інших типів томів переозначення SELinux відбувається іншим шляхом: контейнерне середовище рекурсивно змінює мітку SELinux для всіх inodes (файлів і тек) у томі.
+Коли будь-яка з цих умов не задовольняється, переозначення SELinux відбувається іншим шляхом: контейнерне середовище рекурсивно змінює мітку SELinux для всіх inodes (файлів і тек) у томі. Якщо вказати явно, це стосується ефемерних томів Kubernetes, таких як `secret`, `configMap` та `projected`, а також усіх томів, екземпляр CSIDriver яких явно не оголошує монтування за допомогою `-o context`.
+
+Коли використовується це прискорення, всі Podʼи, які одночасно використовують той самий відповідний том на одному вузлі, **повинні мати однакову мітку SELinux**. Pod з іншою міткою SELinux не запуститься та буде у стані `ContainerCreating`, доки всі Podʼи з іншими мітками SELinux, що використовують цей том, не будуть видалені.
 
 {{< feature-state feature_gate_name="SELinuxChangePolicy" >}}
 Для Podʼів, які хочуть відмовитися від зміни міток за допомогою параметрів монтування, вони можуть встановити `spec.securityContext.seLinuxChangePolicy` у значення `Recursive`. Це потрібно у випадку, коли декілька podʼів використовують один том на одному вузлі, але вони працюють з різними мітками SELinux, що дозволяє одночасний доступ до тома. Наприклад, привілейований pod працює з міткою `spc_t`, а непривілейований pod працює зі стандартною міткою `container_file_t`. За відсутності значення `spec.securityContext.seLinuxChangePolicy` (або зі стандартним значенням `MountOption`) на вузлі може працювати лише один з таких podʼів, інший отримує ContainerCreating з помилкою `conflicting SELinux labels of volume <назва тома>: <мітка виконуваного тома> і <мітка тома, який не може запуститися>`.
@@ -581,13 +603,17 @@ securityContext:
 
 Адміністратор кластера може використовувати цю інформацію, щоб визначити, на які саме Podʼи впливає зміна планування, і проактивно виключити їх з оптимізації (наприклад, встановити `spec.securityContext.seLinuxChangePolicy: Recursive`).
 
+{{< warning >}}
+Ми наполегливо рекомендуємо кластерам, що використовують SELinux, увімкнути цей контролер і переконатися, що метрика `selinux_warning_controller_selinux_volume_conflict` не повідомляє про жодні конфлікти, перш ніж увімкнути функціональну можливість `SELinuxMount` або оновити його до версії, де `SELinuxMount` стандартно увімкнено.
+{{< /warning >}}
+
 #### Функціональні можливості {#feature-gates}
 
 Наступні функціональні можливості керують поведінкою перепризначення томів SELinux:
 
 * `SELinuxMountReadWriteOncePod`: вмикає оптимізацію для томів з `accessModes: ["ReadWriteOncePod"]`. Це дуже безпечна можливість, оскільки не може статися так, що два пристрої можуть використовувати один том з таким режимом доступу. Стандартно її увімкнено з v1.28.
-* `SELinuxChangePolicy`: вмикає поле `spec.securityContext.seLinuxChangePolicy` у Pod і повʼязаний з ним SELinuxWarningController у kube-controller-manager. Ця функція може бути використана перед увімкненням `SELinuxMount` для перевірки Podʼів, запущених на кластері, і для проактивного виключення Podʼів з оптимізації. Ця функція вимагає увімкнення `SELinuxMountReadWriteOncePod`. Це альфа-версія і стандартно вимкнена у версії 1.32.
-* `SELinuxMount` вмикає оптимізацію для всіх допустимих томів. Оскільки це може порушити роботу наявних робочих навантажень, ми рекомендуємо спочатку увімкнути `SELinuxChangePolicy` + SELinuxWarningController, щоб перевірити вплив змін. Ця функціональна можливість вимагає увімкнення `SELinuxMountReadWriteOncePod` і `SELinuxChangePolicy`. Це альфа-версія і стандартно вимкнена у 1.32.
+* `SELinuxChangePolicy`: вмикає поле `spec.securityContext.seLinuxChangePolicy` у Pod і повʼязаний з ним SELinuxWarningController у kube-controller-manager. Ця функція може бути використана перед увімкненням `SELinuxMount` для перевірки Podʼів, запущених на кластері, і для проактивного виключення Podʼів з оптимізації. Ця функція вимагає увімкнення `SELinuxMountReadWriteOncePod`. Це бета-версія і є стандартно увімкненою у версії 1.33.
+* `SELinuxMount` вмикає оптимізацію для всіх допустимих томів. Оскільки це може порушити роботу наявних робочих навантажень, ми рекомендуємо спочатку увімкнути `SELinuxChangePolicy` + SELinuxWarningController, щоб перевірити вплив змін. Ця функціональна можливість вимагає увімкнення `SELinuxMountReadWriteOncePod` і `SELinuxChangePolicy`. Це бета-версія, однак вона стандартно вимкнена у 1.33.
 
 ## Управління доступом до файлової системи `/proc` {#proc-access}
 

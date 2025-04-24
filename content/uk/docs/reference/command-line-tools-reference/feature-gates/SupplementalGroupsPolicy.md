@@ -9,5 +9,9 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.31"
+    toVersion: "1.32"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.33"
 ---
 Вмикає підтримку детального контролю SupplementalGroups. Докладні відомості див. у статті [Налаштування детального контролю SupplementalGroups для Podʼа](/docs/tasks/configure-pod-container/security-context/#supplementalgroupspolicy).

@@ -212,6 +212,8 @@ kubectl delete namespace cpu-example
 
 * [Налаштування якості обслуговування для Podʼів](/docs/tasks/configure-pod-container/quality-service-pod/)
 
+* [Зміна обсягів CPU та памʼяті, призначених для контейнерів](/docs/tasks/configure-pod-container/resize-container-resources/)
+
 ### Для адміністраторів кластерів {#for-cluster-administrators}
 
 * [Налаштування стандартних запитів та лімітів памʼяті для простору імен](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)

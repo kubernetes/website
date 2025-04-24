@@ -25,7 +25,7 @@ hide_summary: true # Listed separately in section index
 
 ReplicaSet визначається полями, включаючи селектор, який вказує, як ідентифікувати Podʼи, які він може отримати, кількість реплік, що вказує, скільки Podʼів він повинен підтримувати, і шаблон Podʼа, який вказує дані для нових Podʼів, які слід створити для відповідності критеріям кількості реплік. ReplicaSet виконує своє призначення, створюючи та видаляючи Podʼи за необхідності для досягнення їх бажаної кількості. Коли ReplicaSet потребує створення нових Podʼів, він використовує свій шаблон Podʼа.
 
-ReplicaSet повʼязаний зі своїми Podʼами через поле [metadata.ownerReferences](/uk/docs/concepts/architecture/garbage-collection/#owners-dependents) Podʼа, яке вказує, яким ресурсом є власник поточного обʼєкта. Усі Podʼи, які отримав ReplicaSet, мають інформацію про ідентифікацію їхнього власного ReplicaSet у полі ownerReferences. Завдяки цим посиланням ReplicaSet знає про стан Podʼів, які він підтримує, і планує дії відповідно.
+ReplicaSet повʼязаний зі своїми Podʼами через поле [metadata.ownerReferences](/docs/concepts/architecture/garbage-collection/#owners-dependents) Podʼа, яке вказує, яким ресурсом є власник поточного обʼєкта. Усі Podʼи, які отримав ReplicaSet, мають інформацію про ідентифікацію їхнього власного ReplicaSet у полі ownerReferences. Завдяки цим посиланням ReplicaSet знає про стан Podʼів, які він підтримує, і планує дії відповідно.
 
 ReplicaSet визначає нові Podʼи для отримання за допомогою свого селектора. Якщо існує Pod, який не має OwnerReference або OwnerReference не є {{< glossary_tooltip term_id="controller" text="контролером">}}, і він відповідає селектору ReplicaSet, його негайно отримає вказаний ReplicaSet.
 
@@ -204,19 +204,19 @@ pod2             1/1     Running   0          36s
 
 Як і усі інші обʼєкти API Kubernetes, ReplicaSet потребує полів `apiVersion`, `kind` та `metadata`. Для ReplicaSet `kind` завжди є ReplicaSet.
 
-Коли панель управління створює нові Podʼи для ReplicaSet, `.metadata.name` ReplicaSet є частиною основи для найменування цих Podʼів. Назва ReplicaSet повинна бути дійсним значенням [DNS-піддомену](/uk/docs/concepts/overview/working-with-objects/names#dns-subdomain-names), але це може призвести до неочікуваних результатів для імен хостів Podʼа. Для найкращої сумісності назва має відповідати більш обмеженим правилам для [DNS-мітки](/uk/docs/concepts/overview/working-with-objects/names#dns-label-names).
+Коли панель управління створює нові Podʼи для ReplicaSet, `.metadata.name` ReplicaSet є частиною основи для найменування цих Podʼів. Назва ReplicaSet повинна бути дійсним значенням [DNS-піддомену](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names), але це може призвести до неочікуваних результатів для імен хостів Podʼа. Для найкращої сумісності назва має відповідати більш обмеженим правилам для [DNS-мітки](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
 ReplicaSet також потребує розділу [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
 ### Шаблон Podʼа {#pod-template}
 
-`.spec.template` — це [шаблон Podʼа](/uk/docs/concepts/workloads/pods/#pod-templates), який також повинен мати встановлені мітки. У нашому прикладі `frontend.yaml` ми мали одну мітку: `tier: frontend`. Будьте обережні, щоб селектори не перекривалися з селекторами інших контролерів, інакше вони можуть намагатися взяти контроль над Podʼом.
+`.spec.template` — це [шаблон Podʼа](/docs/concepts/workloads/pods/#pod-templates), який також повинен мати встановлені мітки. У нашому прикладі `frontend.yaml` ми мали одну мітку: `tier: frontend`. Будьте обережні, щоб селектори не перекривалися з селекторами інших контролерів, інакше вони можуть намагатися взяти контроль над Podʼом.
 
-Для політики перезапуску шаблону [restart policy](/uk/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy), `.spec.template.spec.restartPolicy`, є допустимим тільки значення `Always`, яке є стандартним значенням.
+Для політики перезапуску шаблону [restart policy](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy), `.spec.template.spec.restartPolicy`, є допустимим тільки значення `Always`, яке є стандартним значенням.
 
 ### Селектор Podʼа {#pod-selector}
 
-Поле `.spec.selector` є [селектором міток](/uk/docs/concepts/overview/working-with-objects/labels/). Як обговорювалося [раніше](#how-a-replicaset-works), це мітки, які використовуються для ідентифікації потенційних Podʼів  для володіння. У нашому прикладі `frontend.yaml` селектор був:
+Поле `.spec.selector` є [селектором міток](/docs/concepts/overview/working-with-objects/labels/). Як обговорювалося [раніше](#how-a-replicaset-works), це мітки, які використовуються для ідентифікації потенційних Podʼів  для володіння. У нашому прикладі `frontend.yaml` селектор був:
 
 ```yaml
 matchLabels:
@@ -238,7 +238,7 @@ Podʼи, створені іншим ReplicaSet.
 
 ### Видалення ReplicaSet та його Podʼів {#deleting-a-replicaset-and-its-pods}
 
-Щоб видалити ReplicaSet і всі його Podʼи, використовуйте [`kubectl delete`](/uk/docs/reference/generated/kubectl/kubectl-commands#delete). Збирач сміття [Garbage collector](/uk/docs/concepts/architecture/garbage-collection/) автоматично видаляє всі
+Щоб видалити ReplicaSet і всі його Podʼи, використовуйте [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete). Збирач сміття [Garbage collector](/docs/concepts/architecture/garbage-collection/) автоматично видаляє всі
 залежні Podʼи.
 
 При використанні REST API або бібліотеки `client-go`, вам потрібно встановити `propagationPolicy` в `Background` або `Foreground` в опції `-d`. Наприклад:
@@ -253,7 +253,7 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
 ### Видалення лише ReplicaSet {#deleting-just-a-replicaset}
 
 Ви можете видалити ReplicaSet, не впливаючи на його Podʼи за допомогою
-[`kubectl delete`](/uk/docs/reference/generated/kubectl/kubectl-commands#delete) з опцією `--cascade=orphan`. При використанні REST API або бібліотеки `client-go`, вам потрібно встановити `propagationPolicy` в `Orphan`. Наприклад:
+[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) з опцією `--cascade=orphan`. При використанні REST API або бібліотеки `client-go`, вам потрібно встановити `propagationPolicy` в `Orphan`. Наприклад:
 
 ```shell
 kubectl proxy --port=8080
@@ -262,7 +262,15 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
   -H "Content-Type: application/json"
 ```
 
-Після видалення оригіналу ви можете створити новий ReplicaSet для заміни. До тих пір поки старий та новий `.spec.selector` однакові, новий прийме старі Podʼи. Однак він не буде намагатися повʼязувати наявні Podʼи з новим, відмінним шаблоном Podʼа. Для оновлення Podʼів до нової специфікації у контрольований спосіб використовуйте [Deployment](/uk/docs/concepts/workloads/controllers/deployment/#creating-a-deployment), оскільки ReplicaSets безпосередньо не підтримують rolling update.
+Після видалення оригіналу ви можете створити новий ReplicaSet для заміни. До тих пір поки старий та новий `.spec.selector` однакові, новий прийме старі Podʼи. Однак він не буде намагатися повʼязувати наявні Podʼи з новим, відмінним шаблоном Podʼа. Для оновлення Podʼів до нової специфікації у контрольований спосіб використовуйте [Deployment](/docs/concepts/workloads/controllers/deployment/#creating-a-deployment), оскільки ReplicaSets безпосередньо не підтримують rolling update.
+
+### Podʼи, які завершуть роботу {#terminating-pods}
+
+{{< feature-state feature_gate_name="DeploymentReplicaSetTerminatingReplicas" >}}
+
+Ви можете увімкнути цю функцію, встановивши  [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `DeploymentReplicaSetTerminatingReplicas` в [API server](/docs/reference/command-line-tools-reference/kube-apiserver/) та в [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+
+Видалення або зменшення кількості podʼів може зайняти тривалий час, і впродовж цього періоду вони можуть споживати додаткові ресурси. Як наслідок, загальна кількість усіх podʼів може тимчасово перевищити `.spec.replicas`. Закінчення роботи podʼів можна відстежувати за допомогою поля `.status.terminatingReplicas` в ReplicaSet.
 
 ### Ізолювання Podʼів від ReplicaSet {#isolating-pods-from-a-replicaset}
 
@@ -285,13 +293,13 @@ ReplicaSet можна легко масштабувати вгору або вн
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
-За допомогою анотації [`controller.kubernetes.io/pod-deletion-cost`](/uk/docs/reference/labels-annotations-taints/#pod-deletion-cost) користувачі можуть встановити вподобання щодо порядку видалення Podʼів під час зменшення масштабу ReplicaSet.
+За допомогою анотації [`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/labels-annotations-taints/#pod-deletion-cost) користувачі можуть встановити вподобання щодо порядку видалення Podʼів під час зменшення масштабу ReplicaSet.
 
 Анотація повинна бути встановлена на Podʼі, діапазон — [-2147483648, 2147483647]. Вона представляє вартість видалення Podʼа порівняно з іншими Podʼами, які належать тому ж ReplicaSet. Podʼи з меншою вартістю видалення видаляються першими на відміну Podʼами з більшою вартістю видалення.
 
 Неявне значення для цієї анотації для Podʼів, які його не мають, — 0; допустимі відʼємні значення. Неприпустимі значення будуть відхилені API-сервером.
 
-Ця функція є бета-версією та увімкнена типово. Ви можете вимкнути її, використовуючи [функціональну можливість](/uk/docs/reference/command-line-tools-reference/feature-gates/) `PodDeletionCost` як в kube-apiserver, так і в kube-controller-manager.
+Ця функція є бета-версією та увімкнена типово. Ви можете вимкнути її, використовуючи [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `PodDeletionCost` як в kube-apiserver, так і в kube-controller-manager.
 
 {{< note >}}
 
@@ -306,7 +314,7 @@ ReplicaSet можна легко масштабувати вгору або вн
 
 ### ReplicaSet як ціль горизонтального автомасштабування Podʼа {#replicaset-as-a-horizontal-pod-autoscaler-target}
 
-ReplicaSet також може бути ціллю для [Горизонтального Автомасштабування Podʼа (HPA)](/uk/docs/tasks/run-application/horizontal-pod-autoscale/). Іншими словами, ReplicaSet може автоматично масштабуватися за допомогою HPA. Ось приклад HPA, який застосовується до ReplicaSet, створеному у попередньому прикладі.
+ReplicaSet також може бути ціллю для [Горизонтального Автомасштабування Podʼа (HPA)](/docs/tasks/run-application/horizontal-pod-autoscale/). Іншими словами, ReplicaSet може автоматично масштабуватися за допомогою HPA. Ось приклад HPA, який застосовується до ReplicaSet, створеному у попередньому прикладі.
 
 {{% code_sample file="controllers/hpa-rs.yaml" %}}
 
@@ -326,7 +334,7 @@ kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 
 ### Deployment (рекомендовано) {#deployment-recommended}
 
-[`Deployment`](/uk/docs/concepts/workloads/controllers/deployment/) — це обʼєкт, який може володіти ReplicaSets і оновлювати їх та їхні Podʼи через декларативні оновлення на стороні сервера. Хоча ReplicaSets можуть використовуватися незалежно, на сьогодні вони головним чином використовуються Deployments як механізм для
+[`Deployment`](/docs/concepts/workloads/controllers/deployment/) — це обʼєкт, який може володіти ReplicaSets і оновлювати їх та їхні Podʼи через декларативні оновлення на стороні сервера. Хоча ReplicaSets можуть використовуватися незалежно, на сьогодні вони головним чином використовуються Deployments як механізм для
 оркестрування створення, видалення та оновлення Podʼів. Коли ви використовуєте Deployments, вам не потрібно турбуватися про керування ReplicaSets, які вони створюють. Deployments володіють і керують своїми ReplicaSets. Таким чином, рекомендується використовувати Deployments, коли вам потрібні ReplicaSets.
 
 ### Чисті Podʼи {#bare-pods}
@@ -335,22 +343,22 @@ kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 
 ### Job
 
-Використовуйте [`Job`](/uk/docs/concepts/workloads/controllers/job/) замість ReplicaSet для Podʼів, які повинні завершитися самостійно (тобто пакетні завдання).
+Використовуйте [`Job`](/docs/concepts/workloads/controllers/job/) замість ReplicaSet для Podʼів, які повинні завершитися самостійно (тобто пакетні завдання).
 
 ### DaemonSet
 
-Використовуйте [`DaemonSet`](/uk/docs/concepts/workloads/controllers/daemonset/) замість ReplicaSet для Podʼів, які надають функції на рівні машини, такі як моніторинг стану машини або реєстрація машини. Ці Podʼи мають термін служби, який повʼязаний з терміном служби машини: Pod повинен працювати на машині перед тим, як інші Podʼи почнуть роботу, і можуть бути безпечно завершені, коли машина готова до перезавантаження/вимкнення.
+Використовуйте [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) замість ReplicaSet для Podʼів, які надають функції на рівні машини, такі як моніторинг стану машини або реєстрація машини. Ці Podʼи мають термін служби, який повʼязаний з терміном служби машини: Pod повинен працювати на машині перед тим, як інші Podʼи почнуть роботу, і можуть бути безпечно завершені, коли машина готова до перезавантаження/вимкнення.
 
 ### ReplicationController
 
-ReplicaSets — є наступниками [ReplicationControllers](/uk/docs/concepts/workloads/controllers/replicationcontroller/). Обидва служать тому ж самому призначенню та поводяться схоже, за винятком того, що ReplicationController не підтримує вимоги
-вибору на основі множини, як описано в [посібнику про мітки](/uk/docs/concepts/overview/working-with-objects/labels/#label-selectors). Таким чином, ReplicaSets має перевагу над ReplicationControllers.
+ReplicaSets — є наступниками [ReplicationControllers](/docs/concepts/workloads/controllers/replicationcontroller/). Обидва служать тому ж самому призначенню та поводяться схоже, за винятком того, що ReplicationController не підтримує вимоги
+вибору на основі множини, як описано в [посібнику про мітки](/docs/concepts/overview/working-with-objects/labels/#label-selectors). Таким чином, ReplicaSets має перевагу над ReplicationControllers.
 
 ## {{% heading "whatsnext" %}}
 
-- Дізнайтеся про [Podʼи](/uk/docs/concepts/workloads/pods).
-- Дізнайтеся про [Deploуments](/uk/docs/concepts/workloads/controllers/deployment/).
-- [Запустіть Stateless Application за допомогою Deployment](/uk/docs/tasks/run-application/run-stateless-application-deployment/), що ґрунтується на роботі ReplicaSets.
+- Дізнайтеся про [Podʼи](/docs/concepts/workloads/pods).
+- Дізнайтеся про [Deploуments](/docs/concepts/workloads/controllers/deployment/).
+- [Запустіть Stateless Application за допомогою Deployment](/docs/tasks/run-application/run-stateless-application-deployment/), що ґрунтується на роботі ReplicaSets.
 - `ReplicaSet` — це ресурс верхнього рівня у Kubernetes REST API. Прочитайте визначення обʼєкта {{< api-reference page="workload-resources/replica-set-v1" >}}, щоб розуміти API для реплік.
-- Дізнайтеся про [PodDisruptionBudget](/uk/docs/concepts/workloads/pods/disruptions/) та як ви можете використовувати його для управління доступністю застосунку під час перебоїв.
+- Дізнайтеся про [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) та як ви можете використовувати його для управління доступністю застосунку під час перебоїв.
 

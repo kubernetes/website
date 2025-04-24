@@ -46,6 +46,10 @@ Code: https://github.com/kubernetes/kubernetes/blob/00236ae0d73d2455a2470469ed10
 
 У документації runc, ядра старіші за 5.2 не рекомендуються через відсутність підтримки freezer.
 
+## Pressure Stall Information (PSI) {#requirements-psi}
+
+[Pressure Stall Information](/docs/reference/instrumentation/node-metrics#psi) підтримується в ядрі Linux версії 4.20 та новіших.
+
 ## Інші вимоги до ядра {#requirements-other}
 
 Деякі функції можуть залежати від нових можливостей ядра і мати конкретні вимоги до ядра:

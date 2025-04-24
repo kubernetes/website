@@ -90,12 +90,12 @@ Kubelet потребує, щоб було зарезервовано не мен
 
 Для політики static `CPUManager` існують наступні параметри:
 
-* `full-pcpus-only` (бета, типово видимий) (1.22 або вище)
-* `distribute-cpus-across-numa` (альфа, типово прихований) (1.23 або вище)
+* `full-pcpus-only` (GA, типово видимий) (1.33 або вище)
+* `distribute-cpus-across-numa` (бета, типово видимий) (1.33 або вище)
 * `align-by-socket` (альфа, типово прихований) (1.25 або вище)
 * `distribute-cpus-across-cores` (альфа, типово прихований) (1.31 або вище)
 
-* `strict-cpu-reservation` (alpha, стандартно приховано) (1.32 або вище)
+* `strict-cpu-reservation` (бета, типово видимий) (1.32 або вище)
 * `prefer-align-cpus-by-uncorecache` (alpha, стандартно приховано) (1.32 або вище)
 
 Параметр `full-pcpus-only` можна включити, додавши `full-pcpus-only=true` до параметрів політики `CPUManager`. Так само параметр `distribute-cpus-across-numa` можна включити, додавши `distribute-cpus-across-numa=true` до параметрів політики `CPUManager`. Якщо обидва встановлені, вони "адитивні" у тому сенсі, що ЦП будуть розподілені по вузлах NUMA в шматках повних фізичних ядер, а не окремих ядер. Параметр політики `align-by-socket` можна увімкнути, додавши `align-by-socket=true` до параметрів політики `CPUManager`. Він також адитивний до параметрів політики `full-pcpus-only` та `distribute-cpus-across-numa`.

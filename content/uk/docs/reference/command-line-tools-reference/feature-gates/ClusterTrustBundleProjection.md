@@ -9,5 +9,9 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.29"
+    toVersion: "1.32"
+  - stage: beta
+    defaultValue: false
+    fromVersion: "1.33"
 ---
 [Джерела спроєцьованих томів `clusterTrustBundle`](/docs/concepts/storage/projected-volumes#clustertrustbundle).

@@ -72,7 +72,7 @@ weight: 40
 
 Контроль доступу GitHub: [@kubernetes/release-managers](https://github.com/orgs/kubernetes/teams/release-managers)
 
-Згадки GitHub: [@kubernetes/release-engineering](https://github.com/orgs/kubernetes/teams/release-engineering)
+Згадки GitHub: @kubernetes/release-engineering
 
 - Адольфо Гарсія Вейтіа [Adolfo García Veytia] ([@puerco](https://github.com/puerco))
 - Сісі Хуанг [Cici Huang] ([@cici37](https://github.com/cici37))

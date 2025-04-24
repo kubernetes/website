@@ -29,5 +29,6 @@ weight: 20
 * Щоб отримати робочий агрегатор у вашому середовищі, [налаштуйте шар агрегації](/docs/tasks/extend-kubernetes/configure-aggregation-layer/).
 * Потім, [налаштуйте розширений API-сервер](/docs/tasks/extend-kubernetes/setup-extension-api-server/) для роботи з шаром агрегації.
 * Прочитайте про [APIService](/docs/reference/kubernetes-api/cluster-resources/api-service-v1/) у довідці API.
+* Дізнайтеся про [Концепції декларативної валідації](/docs/reference/using-api/declarative-validation/), внутрішній механізм визначення правил валідації, який в майбутньому допоможе підтримувати валідацію для розробки серверів API розширень.
 
 Альтернативно: дізнайтеся, як [розширити API Kubernetes, використовуючи визначення власних ресурсів](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/).

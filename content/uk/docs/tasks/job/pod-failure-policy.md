@@ -1,5 +1,6 @@
 ---
 title: Обробка повторюваних і неповторюваних помилок Pod за допомогою політики збоїв Pod
+linkTitle: Обробка помилок Pod за допомогою політики збоїв
 content_type: task
 min-kubernetes-server-version: v1.25
 weight: 60
@@ -9,47 +10,56 @@ weight: 60
 
 <!-- overview -->
 
-Цей документ показує, як використовувати [політику збоїв Pod](/uk/docs/concepts/workloads/controllers/job#pod-failure-policy), у поєднанні з типовою [політикою відмови Podʼа](/uk/docs/concepts/workloads/controllers/job#pod-backoff-failure-policy), для покращення контролю над обробкою збоїв на рівні контейнера або Pod у {{<glossary_tooltip text="Job" term_id="job">}}.
+Цей документ показує, як використовувати [політику збоїв Pod](/docs/concepts/workloads/controllers/job#pod-failure-policy), у поєднанні з типовою [політикою відмови Podʼа](/docs/concepts/workloads/controllers/job#pod-backoff-failure-policy), для покращення контролю над обробкою збоїв на рівні контейнера або Pod у {{<glossary_tooltip text="Job" term_id="job">}}.
 
 Визначення політики збоїв Pod може допомогти вам:
 
-* краще використовувати обчислювальні ресурси, уникаючи непотрібних повторних запусків Pod.
+* краще використовувати обчислювальні ресурси, уникаючи непотрібних повторних запусків Podʼів.
 * уникати збоїв Job через збої Pod (такі як {{<glossary_tooltip text="випередження" term_id="preemption" >}}, {{<glossary_tooltip text="виселення ініційоване API" term_id="api-eviction" >}} або виселення на основі {{<glossary_tooltip text="taint" term_id="taint" >}}).
 
 ## {{% heading "prerequisites" %}}
 
-Ви повинні вже бути знайомі з основним використанням [Job](/uk/docs/concepts/workloads/controllers/job/).
+Ви повинні вже бути знайомі з основним використанням [Job](/docs/concepts/workloads/controllers/job/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-## Використання політики збоїв Pod для уникнення непотрібних повторних запусків Pod {#using-pod-failure-policy-to-avoid-unnecessary-pod-retries}
+## Сценарії використання {#usage-scenarios}
+
+Розглянемо такі сценарії використання для Завдань, які визначають політику збоїв Pod:
+
+* [Уникнення непотрібних повторних спроб запуску Podʼів](#pod-failure-policy-failjob)
+* [Ігнорування розладів у роботі Podʼів](#pod-failure-policy-ignore)
+* [Уникнення непотрібних повторних спроб запуску Podʼів на основі власних станів Podʼів](#pod-failure-policy-config-issue)
+* [Уникнення непотрібних повторних спроб запуску Podʼів за індексами](#backoff-limit-per-index-failindex)
+
+## Використання політики збоїв Pod для уникнення непотрібних повторних запусків Podʼів {#pod-failure-policy-failjob}
 
 В наступному прикладі ви можете навчитися використовувати політику збоїв Pod, щоб уникати непотрібних перезапусків Pod, коли збій Pod вказує на неповторювану помилку програмного забезпечення.
 
-Спочатку створіть Job на основі конфігурації:
+1. Ознайомтесь з наступним маніфестом:
 
-{{% code_sample file="/controllers/job-pod-failure-policy-failjob.yaml" %}}
+   {{% code_sample file="/controllers/job-pod-failure-policy-failjob.yaml" %}}
 
-виконавши команду:
+1. Застосуйте маніфест%
 
-```sh
-kubectl create -f job-pod-failure-policy-failjob.yaml
-```
+   ```sh
+   kubectl create -f https://k8s.io/examples/controllers/job-pod-failure-policy-failjob.yaml
+   ```
 
-Через приблизно 30 секунд весь Job повинен завершитися. Перевірте статус Job, виконавши команду:
+1. Через приблизно 30 секунд весь Job повинен завершитися. Перевірте статус Job, виконавши команду:
 
-```sh
-kubectl get jobs -l job-name=job-pod-failure-policy-failjob -o yaml
-```
+   ```sh
+   kubectl get jobs -l job-name=job-pod-failure-policy-failjob -o yaml
+   ```
 
-У статусі Job відображаються такі умови:
+   У статусі Job відображаються такі умови:
 
-* Умова `FailureTarget`: має поле `reason`, встановлене в `PodFailurePolicy`, і поле `message` з додатковою інформацією про завершення, наприклад, `Container main for pod default/job-pod-failure-policy-failjob-8ckj8 failed with exit code 42 matching FailJob rule at index 0`. Контролер Job додає цю умову, як тільки Job вважається невдалим. Для отримання деталей дивіться [Завершення Job Podʼів](/uk/docs/concepts/workloads/controllers/job/#termination-of-job-pods).
-* Умова `Failed`: те ж саме значення для `reason` і `message`, що й в умови `FailureTarget`. Контролер Job додає цю умову після того, як усі Podʼи Job завершено.
+   * Умова `FailureTarget`: має поле `reason`, встановлене в `PodFailurePolicy`, і поле `message` з додатковою інформацією про завершення, наприклад, `Container main for pod default/job-pod-failure-policy-failjob-8ckj8 failed with exit code 42 matching FailJob rule at index 0`. Контролер Job додає цю умову, як тільки Job вважається невдалим. Для отримання деталей дивіться [Завершення Job Podʼів](/docs/concepts/workloads/controllers/job/#termination-of-job-pods).
+   * Умова `Failed`: те ж саме значення для `reason` і `message`, що й в умови `FailureTarget`. Контролер Job додає цю умову після того, як усі Podʼи Job завершено.
 
-Для порівняння, якщо політика збоїв Pod була вимкнена, це б зайняло 6 спроб повторного запуску Pod, на що треба щонайменше 2 хвилини.
+   Для порівняння, якщо політика збоїв Pod була вимкнена, це б зайняло 6 спроб повторного запуску Pod, на що треба щонайменше 2 хвилини.
 
-### Прибирання {#clean-up}
+#### Прибирання {#clean-up}
 
 Видаліть створений Job:
 
@@ -59,7 +69,7 @@ kubectl delete jobs/job-pod-failure-policy-failjob
 
 Кластер автоматично очищає Pod.
 
-## Використання політики збоїв Pod для ігнорування розладів Pod {#using-pod-failure-policy-to-ignore-pod-disruptions}
+## Використання політики збоїв Pod для ігнорування розладів Pod {#pod-failure-policy-ignore}
 
 На наступному прикладі ви можете навчитися використовувати політику збоїв Pod, щоб ігнорувати розлади Pod, які збільшують лічильник повторних спроб Pod до межі `.spec.backoffLimit`.
 
@@ -67,35 +77,35 @@ kubectl delete jobs/job-pod-failure-policy-failjob
 Час має значення для цього прикладу, тому вам слід прочитати про кроки перед їх виконанням. Щоб викликати розлад Podʼа, важливо запустити очищення вузла, поки Pod працює на ньому (протягом 90 секунд після розміщення Pod).
 {{< /caution >}}
 
-1. Створіть Job на основі конфігурації:
+1. Ознайомтесь з наступним маніфестом:
 
    {{% code_sample file="/controllers/job-pod-failure-policy-ignore.yaml" %}}
 
-   виконавши команду:
+1. Застосуйте маніфест:
 
    ```sh
-   kubectl create -f job-pod-failure-policy-ignore.yaml
+   kubectl create -f https://k8s.io/examples/controllers/job-pod-failure-policy-ignore.yaml
    ```
 
-2. Виконайте цю команду, щоб перевірити `nodeName`, на якому розміщено Pod:
+1. Виконайте цю команду, щоб перевірити `nodeName`, на якому розміщено Pod:
 
    ```sh
    nodeName=$(kubectl get pods -l job-name=job-pod-failure-policy-ignore -o jsonpath='{.items[0].spec.nodeName}')
    ```
 
-3. Запустить очищення вузла, щоб виселити Pod до завершення його роботи (протягом 90 секунд):
+1. Запустить очищення вузла, щоб виселити Pod до завершення його роботи (протягом 90 секунд):
 
    ```sh
    kubectl drain nodes/$nodeName --ignore-daemonsets --grace-period=0
    ```
 
-4. Перевірте `.status.failed`, щоб переконатися, що лічильник для Job не збільшено:
+1. Перевірте `.status.failed`, щоб переконатися, що лічильник для Job не збільшено:
 
    ```sh
    kubectl get jobs -l job-name=job-pod-failure-policy-ignore -o yaml
    ```
 
-5. Зніміть блокування з вузла:
+1. Зніміть блокування з вузла:
 
    ```sh
    kubectl uncordon nodes/$nodeName
@@ -105,7 +115,7 @@ Job відновиться і завершиться успішно.
 
 Для порівняння, якщо політика збоїв Pod була вимкнена, розлад Pod призведе до завершення всього Job (оскільки `.spec.backoffLimit` встановлено на 0).
 
-### Прибирання {#cleaning-up}
+#### Прибирання {#cleaning-up}
 
 Видаліть створений Job:
 
@@ -115,27 +125,27 @@ kubectl delete jobs/job-pod-failure-policy-ignore
 
 Кластер автоматично очищає Pod.
 
-## Використання політики збоїв Pod для уникнення непотрібних повторних запусків Pod на основі власних умов Pod {#using-pod-failure-policy-to-avoid-unnecessary-pod-retries-based-on-custom-pod-conditions}
+## Використання політики збоїв Pod для уникнення непотрібних повторних запусків Pod на основі власних станів Pod {#pod-failure-policy-config-issue}
 
-В наступному прикладі ви можете навчитися використовувати політику збоїв Pod, щоб уникати непотрібних перезапусків Pod на основі власних умов Pod.
+В наступному прикладі ви можете навчитися використовувати політику збоїв Pod, щоб уникати непотрібних перезапусків Pod на основі власних станів Pod.
 
 {{< note >}}
-Наведений нижче приклад працює з версії 1.27, оскільки він базується на переході видалених Pod з фази `Pending` до термінальної фази (див. [Фази Pod](/uk/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)).
+Наведений нижче приклад працює з версії 1.27, оскільки він базується на переході видалених Podʼів з фази `Pending` до термінальної фази (див. [Фази Pod](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)).
 {{< /note >}}
 
-1. Спочатку створіть Job на основі конфігурації:
+1. Ознайомтесь з наступним маніфестом:
 
    {{% code_sample file="/controllers/job-pod-failure-policy-config-issue.yaml" %}}
 
-   виконавши команду:
+1. Застосуйте маніфест:
 
    ```sh
-   kubectl create -f job-pod-failure-policy-config-issue.yaml
+   kubectl create -f https://k8s.io/examples/controllers/job-pod-failure-policy-config-issue.yaml
    ```
 
    Зверніть увагу, що образ налаштоване неправильно, оскільки його не існує.
 
-2. Перевірте статус Pod Job, виконавши команду:
+1. Перевірте статус Pod Job, виконавши команду:
 
    ```sh
    kubectl get pods -l job-name=job-pod-failure-policy-config-issue -o yaml
@@ -157,7 +167,7 @@ kubectl delete jobs/job-pod-failure-policy-ignore
 
    Зверніть увагу, що Pod залишається у фазі `Pending`, оскільки йому не вдається завантажити неправильно налаштований образ. Це, в принципі, може бути тимчасовою проблемою, і образ може бути завантажений. Однак у цьому випадку образу не існує, тому ми вказуємо на цей факт за допомогою власної умови.
 
-3. Додайте власну умову. Спочатку підготуйте патч, виконавши команду:
+1. Додайте власну умову. Спочатку підготуйте патч, виконавши команду:
 
    ```sh
    cat <<EOF > patch.yaml
@@ -188,13 +198,13 @@ kubectl delete jobs/job-pod-failure-policy-ignore
    pod/job-pod-failure-policy-config-issue-k6pvp patched
    ```
 
-4. Видаліть Pod для переходу його до фази `Failed`, виконавши команду:
+1. Видаліть Pod для переходу його до фази `Failed`, виконавши команду:
 
    ```sh
    kubectl delete pods/$podName
    ```
 
-5. Перевірте статус Job, виконавши:
+1. Перевірте статус Job, виконавши:
 
    ```sh
    kubectl get jobs -l job-name=job-pod-failure-policy-config-issue -o yaml
@@ -206,7 +216,7 @@ kubectl delete jobs/job-pod-failure-policy-ignore
 В операційному середовищі кроки 3 та 4 повинні бути автоматизовані контролером, наданим користувачем.
 {{< /note >}}
 
-### Очищення {#cleaning-up-2}
+#### Очищення {#cleaning-up-1}
 
 Видаліть створене вами завдання:
 
@@ -214,8 +224,62 @@ kubectl delete jobs/job-pod-failure-policy-ignore
 kubectl delete jobs/job-pod-failure-policy-config-issue
 ```
 
+The cluster automatically cleans up the Pods.
+
+### Використання політики збоїв Pod для уникнення непотрібних повторних запусків Pod на основі індексів{#backoff-limit-per-index-failindex}
+
+Щоб уникнути непотрібних перезапусків Podʼів для кожного індексу, ви можете використовувати функції _Політики збоїв Podʼа_ та _Ліміт відстрочки для кожного індексу_. У цьому розділі сторінки показано, як використовувати ці функції разом.
+
+1. Ознайомтесь з наступним манфіфестом:
+
+   {{% code_sample file="/controllers/job-backoff-limit-per-index-failindex.yaml" %}}
+
+1. Застосуйте маніфест:
+
+   ```sh
+   kubectl create -f https://k8s.io/examples/controllers/job-backoff-limit-per-index-failindex.yaml
+   ```
+
+1. Приблизно через 15 секунд перевірте стан Podʼів для Job. Ви можете зробити це, виконавши команду:
+
+   ```shell
+   kubectl get pods -l job-name=job-backoff-limit-per-index-failindex -o yaml
+   ```
+
+   Ви побачите результат, подібний до цього:
+
+   ```none
+   NAME                                            READY   STATUS      RESTARTS   AGE
+   job-backoff-limit-per-index-failindex-0-4g4cm   0/1     Error       0          4s
+   job-backoff-limit-per-index-failindex-0-fkdzq   0/1     Error       0          15s
+   job-backoff-limit-per-index-failindex-1-2bgdj   0/1     Error       0          15s
+   job-backoff-limit-per-index-failindex-2-vs6lt   0/1     Completed   0          11s
+   job-backoff-limit-per-index-failindex-3-s7s47   0/1     Completed   0          6s
+   ```
+
+   Зверніть увагу, що вивід показує наступне:
+
+   * Два Podʼа мають індекс 0 через обмеження backoff, дозволене для однієї спроби індексування.
+   * Тільки один Pod має індекс 1, оскільки код виходу невдалого Podʼа збігався з політикою збою podʼа з дією `FailIndex`.
+
+1. Перевірте стан Job виконавши:
+
+   ```sh
+   kubectl get jobs -l job-name=job-backoff-limit-per-index-failindex -o yaml
+   ```
+
+   У статусі Job побачите, що поле `failedIndexes` показує "0,1", оскільки обидва індекси зазнали невдачі. Оскільки індекс 1 не було повторено, кількість збійних Podʼів, зазначена в полі статусу "failed", дорівнює 3.
+
+#### Очищення {#cleaning-up-2}
+
+Вилучить створений Job:
+
+```sh
+kubectl delete jobs/job-backoff-limit-per-index-failindex
+```
+
 Кластер автоматично очищує поди.
 
 ## Альтернативи {#alternatives}
 
-Ви можете покладатись виключно на [політику відмови Pod backoff](/uk/docs/concepts/workloads/controllers/job#pod-backoff-failure-policy), вказавши поле `.spec.backoffLimit` завдання. Однак у багатьох ситуаціях важко знайти баланс між встановленням низького значення для `.spec.backoffLimit` для уникнення непотрібних повторних спроб виконання Podʼів, але достатньо великого, щоб забезпечити, що Job не буде припинено через втручання у роботу Podʼів.
+Ви можете покладатись виключно на [політику відмови Pod backoff](/docs/concepts/workloads/controllers/job#pod-backoff-failure-policy), вказавши поле `.spec.backoffLimit` завдання. Однак у багатьох ситуаціях важко знайти баланс між встановленням низького значення для `.spec.backoffLimit` для уникнення непотрібних повторних спроб виконання Podʼів, але достатньо великого, щоб забезпечити, що Job не буде припинено через втручання у роботу Podʼів.

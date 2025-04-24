@@ -13,5 +13,8 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.31"
+    toVersion: "1.32"
+
+removed: true
 ---
 Вмикає використання примусового контролю доступу AppArmor для Podʼів, що працюють на вузлах Linux. Докладнішу інформацію наведено у [Посібнику з AppArmor](/docs/tutorials/security/apparmor/).

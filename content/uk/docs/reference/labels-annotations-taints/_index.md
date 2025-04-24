@@ -1046,6 +1046,20 @@ Kubernetes асоціює [EndpointSlices](/docs/concepts/services-networking/en
 
 Панель управління автоматично додає цю мітку до автогенерованих Secretʼів з типом `kubernetes.io/service-account-token`, за умови, що у вас увімкнено [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `LegacyServiceAccountTokenCleanUp`. У Kubernetes {{< skew currentVersion >}} ця поведінка включена стандартно. Ця мітка позначає токен на основі Secret як недійсний для автентифікації. Значення цієї мітки записує дату (в форматі ISO 8601, в часовому поясі UTC), коли панель управління виявляє, що автогенерований Secret не використовувався протягом вказаного періоду (стандартно, один рік).
 
+### endpoints.kubernetes.io/managed-by (deprecated) {#endpoints-kubernetes-io-managed-by}
+
+Nbg: Label
+
+Приклад: `endpoints.kubernetes.io/managed-by: endpoint-controller`
+
+Використовується для: Endpoints
+
+Ця мітка використовуюється для позначення обʼєктів Endpoints, які були створені Kubernetes (на відміну до Endpoints, стоврених користувачами чи зовнішніми контролерами).
+
+{{< note >}}
+API [Endpoints](/docs/reference/kubernetes-api/service-resources/endpoints-v1/) є застарілим, використовуйте натомість [EndpointSlice](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/).
+{{< /note >}}
+
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
 Тип: Label
@@ -1054,7 +1068,8 @@ Kubernetes асоціює [EndpointSlices](/docs/concepts/services-networking/en
 
 Використовується для: EndpointSlices
 
-Ця мітка використовується для позначення контролера або сутності, яка керує EndpointSlice. Мета цієї мітки — забезпечити можливість керувати різними обʼєктами EndpointSlice різними контролерами або сутностями в межах одного та самого кластера.
+Ця мітка використовується для позначення контролера або сутності, яка керує EndpointSlice. Мета цієї мітки — забезпечити можливість керувати різними обʼєктами EndpointSlice різними контролерами або сутностями в межах одного та самого кластера. Значення  `endpointslice-controller.k8s.io` вказує на обʼєкт EndpointSlice, який було створено автоматично Kubernetes для потреби Service з
+{{< glossary_tooltip text="селекторами" term_id="selector" >}}.
 
 ### endpointslice.kubernetes.io/skip-mirror {#endpointslicekubernetesioskip-mirror}
 
@@ -2195,3 +2210,15 @@ kubectl taint nodes <node-name> node-role.kubernetes.io/control-plane:NoSchedule
 Приклад: `node-role.kubernetes.io/master:NoSchedule`
 
 Позначення, що раніше kubeadm застосовував на вузли панелі управління, щоб дозволити розміщувати на них лише критичні навантаження. Замінений позначенням [`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane-taint). kubeadm більше не встановлює або не використовує це застаріле позначення.
+
+### resource.k8s.io/admin-access {resource-k8s-io-admin-access}
+
+Тип: Label
+
+Приклад: `resource.k8s.io/admin-access: "true"`
+
+Використовується для:: Namespace
+
+Використовується для надання адміністративного доступу до певних типів API resource.k8s.io у просторі імен. Коли ця мітка встановлена у просторі імен зі значенням `”true"` (чутливою до регістру), вона дозволяє використання `adminAccess: true` для будь-яких типів API у просторі імен `resource.k8s.io`. Наразі цей дозвіл застосовується до обʼєктів `ResourceClaim` та `ResourceClaimTemplate`.
+
+Докладнішу інформацію див. у статті [Доступ адміністратора до динамічного розподілу ресурсів](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#enabling-admin-access).

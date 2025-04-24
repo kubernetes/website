@@ -28,6 +28,12 @@ weight: 40
 
 Докладний опис поведінки припинення роботи Podʼів можна знайти в [Припинення роботи Podʼа](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 
+`StopSignal`
+
+За допомогою хука життєвого циклу StopSignal можна визначити сигнал зупинки, який буде надіслано контейнеру, коли його буде зупинено. Якщо ви встановите цей параметр, він перевизначить будь-яку інструкцію `STOPSIGNAL`, визначену в образі контейнера.
+
+Детальніший опис поведінки завершення за допомогою власних сигналів зупинки можна знайти у [Сигнали зупинки](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-stop-signals).
+
 ### Реалізації обробника хуків {#hook-handler-implementations}
 
 Контейнери можуть мати доступ до хука, реалізувавши та реєструючи обробник для цього хука. Існують три типи обробників хука, які можна реалізувати для контейнерів:
@@ -37,7 +43,7 @@ weight: 40
 * Sleep — Призупиняє контейнер на вказаний час. Обробник "Sleep" є функцією бета-рівня типово увімкненою через [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `PodLifecycleSleepAction`.
 
 {{< note >}}
-Увімкніть функціональну можливість `PodLifecycleSleepActionAllowZero`, якщо ви хочете встановити тривалість сплячого режиму у нуль секунд (фактично бездіяльність) для ваших хуків життєвого циклу Sleep.
+Бета-рівень функціональної можливості `PodLifecycleSleepActionAllowZero`, яка є активною з версії v1.33, дозволяє встановити тривалість сплячого режиму у нуль секунд (фактично бездіяльність) для ваших хуків життєвого циклу Sleep.
 {{< /note >}}
 
 ### Виконання обробника хука {#hook-handler-execution}
@@ -60,7 +66,7 @@ weight: 40
 
 ### Налагодження обробників хуків {#debugging-hook-handlers}
 
-Логи обробника хука не відображаються в подіях Pod. Якщо обробник відмовляється з будь-якої причини, він розсилає подію. Для `PostStart` це подія `FailedPostStartHook`, а для `PreStop` це подія `FailedPreStopHook`. Щоб згенерувати подію `FailedPostStartHook`, змініть [lifecycle-events.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/lifecycle-events.yaml) файл, щоб змінити команду postStart на "badcommand" та застосуйте його. Ось приклад виводу події, який ви побачите після виконання `kubectl describe pod lifecycle-demo`:
+Логи обробника хука не відображаються в подіях Pod. Якщо обробник відмовляється з будь-якої причини, він розсилає подію. Для `PostStart` це подія `FailedPostStartHook`, а для `PreStop` це подія `FailedPreStopHook`. Щоб згенерувати подію `FailedPostStartHook`, змініть [lifecycle-events.yaml](https://k8s.io/examples/pods/lifecycle-events.yaml) файл, щоб змінити команду postStart на "badcommand" та застосуйте його. Ось приклад виводу події, який ви побачите після виконання `kubectl describe pod lifecycle-demo`:
 
 ```none
 Events:

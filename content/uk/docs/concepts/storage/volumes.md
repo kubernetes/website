@@ -238,7 +238,7 @@ spec:
 ### gitRepo (застаріло) {#gitrepo}
 
 {{< warning >}}
-Тип тому `gitRepo` застарів. Щоб стоврити Pod, що має змонтований репозиторій git, ви можете змонтувати том [EmptyDir](#emptydir), який монтується в [init container](/docs/concepts/workloads/pods/init-containers/), що клонує репозиторій за допомогою git, а потім монтує [EmptyDir](#emptydir) в контейнер Podʼа.
+Втулок тому `gitRepo` застарів і стандартно є вимкненим. Щоб стоврити Pod, що має змонтований репозиторій git, ви можете змонтувати том [EmptyDir](#emptydir), який монтується в [init container](/docs/concepts/workloads/pods/init-containers/), що клонує репозиторій за допомогою git, а потім монтує [EmptyDir](#emptydir) в контейнер Podʼа.
 
 ---
 
@@ -249,6 +249,8 @@ spec:
 ```
 
 {{< /warning >}}
+
+Ви можете використовувати цей застарілий втулок сховища у своєму кластері, якщо ви явно увімкнете [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `GitRepoVolumeDriver`.
 
 Том `gitRepo` є прикладом втулка тому. Цей втулок монтує порожню теку і клонує репозиторій git у цю теку для використання вашим Podʼом.
 
@@ -455,7 +457,7 @@ spec:
 
 Крім того:
 
-- Субшляхи монтування контейнерів не підтримуються (`spec.containers[*].volumeMounts.subpath`).
+- [`subPath`](/docs/concepts/storage/volumes/#using-subpath) або [`subPathExpr`](/docs/concepts/storage/volumes/#using-subpath-expanded-environment) монтуються для контейнерів (`spec.containers[*].volumeMounts.[subPath,subPathExpr]`) видтримуються тільки у Kubernetes v1.33.
 - Поле `spec.securityContext.fsGroupChangePolicy` не має жодного ефекту для цього типу тому.
 - [Котролер допуску `AlwaysPullImages`](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) також працює для цього джерела тому, як і для образів контейнерів.
 
@@ -604,11 +606,9 @@ spec:
 
 #### Міграція на Portworx CSI {#portworx-csi-migration}
 
-{{< feature-state for_k8s_version="v1.25" state="beta" >}}
+{{< feature-state feature_gate_name="CSIMigrationPortworx" >}}
 
-Стандартно Kubernetes {{% skew currentVersion %}} намагається мігрувати старі томи Portworx на використання CSI. (Міграція CSI для Portworx була доступна з Kubernetes v1.23, але стала стандатно увімкненою лише з випуску v1.31). Якщо ви хочете вимкнути автоматичну міграцію, ви можете встановити [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `CSIMigrationPortworx` у `false`; це необхідно зробити як для kube-controller-manager, так і для кожного відповідного kubelet.
-
-Це перенаправляє всі операції втулка з існуючого втулка вбудованої системи до драйвера Container Storage Interface (CSI) `pxd.portworx.com`. [Portworx CSI Driver](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi) повинен бути встановлений в кластері.
+У Kubernetes {{% skew currentVersion %}} всі операції для внутрішніх томів Portworx стандартно перенаправляються на драйвер Container Storage Interface (CSI) `pxd.portworx.com`. [Portworx CSI Driver](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi) повинен бути встановлений в кластері.
 
 ### projected
 

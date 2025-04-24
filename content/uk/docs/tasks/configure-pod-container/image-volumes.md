@@ -64,6 +64,36 @@ min-kubernetes-server-version: v1.31
    2
    ```
 
+## Використання `subPath` (або `subPathExpr`) {#use-subpath-or-subpathexpr}
+
+В Kubernetes v1.33 можливо використовувати [`subPath`](/docs/concepts/storage/volumes/#using-subpath) або [`subPathExpr`](/docs/concepts/storage/volumes/#using-subpath-expanded-environment) під час використання функціоналу тому образу.
+
+{{% code_sample file="pods/image-volumes-subpath.yaml" %}}
+
+1. Створіть pod у вашому кластері:
+
+   ```shell
+   kubectl apply -f https://k8s.io/examples/pods/image-volumes-subpath.yaml
+   ```
+
+2. Приєднайтесь до контейнера:
+
+   ```shell
+   kubectl attach -it image-volume bash
+   ```
+
+3. Перевірте вміст фала з шляху `dir` у томі:
+
+   ```shell
+   cat /volume/file
+   ```
+
+   Вивід буде подібним до:
+
+   ```none
+   1
+   ```
+
 ## Додатково {#further-reading}
 
 - [Томи `image`](/docs/concepts/storage/volumes/#image)

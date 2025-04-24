@@ -17,5 +17,8 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.31"
+    toVersion: "1.32"
+
+removed: true
 ---
 Дозволяє користувачам визначати обробку несправностей контейнерів на основі кодів виходу з контейнера та стану контейнерів.

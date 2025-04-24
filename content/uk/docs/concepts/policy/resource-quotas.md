@@ -169,6 +169,7 @@ ResourceQuota.
 | `NotBestEffort` | Відповідає Podʼам, які не мають найкращого рівня якості обслуговування. |
 | `PriorityClass` | Відповідає Podʼам, які посилаються на вказаний [клас пріоритету](/docs/concepts/scheduling-eviction/pod-priority-preemption). |
 | `CrossNamespacePodAffinity` | Відповідає Podʼам, які мають міжпросторові [(anti)affinity](/docs/concepts/scheduling-eviction/assign-pod-node). |
+| `VolumeAttributesClass` | Відповідає persistentvolumeclaims, які посилаються на вказані [класи атрибутів тому](/docs/concepts/storage/volume-attributes-classes). |
 
 Область `BestEffort` обмежує квоту відстеження наступним ресурсом:
 
@@ -378,7 +379,258 @@ plugins:
 
 За такої конфігурації Podʼи можуть використовувати `namespaces` та `namespaceSelector` у термінах спорідненості тільки якщо простір імен, в якому вони створені, має обʼєкт квоти ресурсів з областю `CrossNamespacePodAffinity` та жорстким обмеженням, більшим або рівним кількості Podʼів, що використовують ці поля.
 
-## Запити порівняно з лімітами {#requests-vs-limits}
+### Квота ресурсів на VolumeAttributesClass {#resource-quota-per-volumeattributesclass}
+
+{{< feature-state feature_gate_name="VolumeAttributesClass" >}}
+
+PersistentVolumeClaims можна створити за допомогою певного [класу атрибутів тома](/docs/concepts/storage/volume-attributes-classes/), і їх можна змінювати після створення. Ви можете керувати споживанням PVC ресурсів сховища на основі асоційованих класів атрибутів тома за допомогою поля `scopeSelector` у специфікації квот.
+
+PVC посилається на асоційований клас атрибутів тома за допомогою наступних полів:
+
+- `spec.volumeAttributesClassName`
+- `status.currentVolumeAttributesClassName`
+- `status.modifyVolumeStatus.targetVolumeAttributesClassName`
+
+Квота зіставляється і споживається тільки якщо `scopeSelector` в специфікації квоти вибирає PVC.
+
+Коли квота обмежується для класу атрибутів тому за допомогою поля `scopeSelector`, обʼєкт квоти обмежується для відстеження лише наступних ресурсів:
+
+- `persistentvolumeclaims`
+- `requests.storage`.
+
+Цей приклад створює обʼєкт квоти і зіставляє його з PVC за певними класами атрибутів тома. Приклад працює наступним чином:
+
+- PVC у кластері мають принаймні один з трьох класів атрибутів обсягу: "gold", "silver", "copper".
+- Для кожного класу атрибутів тому створюється один обʼєкт квоти.
+
+Збережіть наступний YAML-файл у файлі `quota-vac.yaml`.
+
+{{% code_sample file="policy/quota-vac.yaml" %}}
+
+Застосуйте YAML за допомогою `kubectl create`.
+
+```shell
+kubectl create -f ./quota-vac.yaml
+```
+
+```console
+resourcequota/pvcs-gold created
+resourcequota/pvcs-silver created
+resourcequota/pvcs-copper created
+```
+
+Переконайтесь, що Використана (`Used`) квота є `0` за допомогою `kubectl describe quota`.
+
+```shell
+kubectl describe quota
+```
+
+```none
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     30Gi
+```
+
+Створіть PVC з отрибутами класу тому "gold". Збережіть наступний YAML у файл `gold-vac-pvc.yaml`.
+
+{{% code_sample file="policy/gold-vac-pvc.yaml" %}}
+
+Застосуйте його командою `kubectl create`.
+
+```shell
+kubectl create -f ./gold-vac-pvc.yaml
+```
+
+Перевірте, що в "Used" вказано квоту отрибуту класу тому "gold", `pvcs-gold` змінився, а інші квоти залишились без змін.
+
+```shell
+kubectl describe quota
+```
+
+```none
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     30Gi
+```
+
+Після того, як PVC привʼязано, можна змінювати бажаний клас атрибутів тому. Давайте змінимо його на "silver" за допомогою kubectl patch.
+
+```shell
+kubectl patch pvc gold-vac-pvc --type='merge' -p '{"spec":{"volumeAttributesClassName":"silver"}}'
+```
+
+Переконайтеся, що значення "Used" для "silver" атрибутів класу тома квоти, `pvcs-silver` змінилося, `pvcs-copper` не змінилося, а `pvcs-gold` може залишитися незмінним або бути вивільненим, що залежить від статусу PVC.
+
+```shell
+kubectl describe quota
+```
+
+```none
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     30Gi
+```
+
+Змінимо її на "copper" за допомогою kubectl patch.
+
+```shell
+kubectl patch pvc gold-vac-pvc --type='merge' -p '{"spec":{"volumeAttributesClassName":"copper"}}'
+```
+
+Перевіримо, що значення "Used" для "copper" атрибутів класу тома квоти, `pvcs-copper` змінилося, `pvcs-silver` та `pvcs-gold` можуть залишитися незмінним або бути вивільненими, що залежить від статусу PVC.
+
+```shell
+kubectl describe quota
+```
+
+```none
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   30Gi
+```
+
+Виведіть маніфест PVC за допомогою наступної команди:
+
+```shell
+kubectl get pvc gold-vac-pvc -o yaml
+```
+
+Результат може бути наступним:
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gold-vac-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: default
+  volumeAttributesClassName: copper
+status:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 2Gi
+  currentVolumeAttributesClassName: gold
+  phase: Bound
+  modifyVolumeStatus:
+    status: InProgress
+    targetVolumeAttributesClassName: silver
+  storageClassName: default
+```
+
+Зачекайте, поки зміни тому завершаться, а потім перевірте квоту ще раз.
+
+```shell
+kubectl describe quota
+```
+
+```none
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   30Gi
+```
+
+## Запити у порівнянні з лімітами {#requests-vs-limits}
 
 При розподілі обчислювальних ресурсів кожен контейнер може вказати значення запиту та ліміту для CPU або памʼяті. Квоту можна налаштувати для обмеження будь-якого значення.
 

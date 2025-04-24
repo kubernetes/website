@@ -63,13 +63,18 @@ weight: 42
 
 Менеджер пристроїв створює контрольні точки в тій самій теці, що й сокет-файли: `/var/lib/kubelet/device-plugins/`. Назва файлу контрольної точки — `kubelet_internal_checkpoint` для [менеджера пристроїв](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager).
 
-### Збереження стану Podʼів {#pod-status-manager-state}
+### Контрольні точки ресурсів Pod {#pod-resource-checkpoints}
 
 {{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
-Якщо ваш кластер має [вертикальне масштабування Podʼа на місці](/docs/concepts/workloads/autoscaling/#in-place-resizing) увімкнено ([функціональна можливість](/docs/reference/command-line-tools-reference/feature-gates/) з назвою `InPlacePodVerticalScaling`), тоді kubelet зберігає локальний запис про виділені Podʼу ресурси.
+Якщо на вузлі увімкнено [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/)  `InPlacePodVerticalScaling`, kubelet зберігає локальний запис про _виділені_ та _активовані_ ресурси Pod. Докладніше про використання цих записів див. у статті [Зміна розміру ресурсів CPU та памʼяті, призначених контейнерам] (/docs/tasks/configure-pod-container/resize-container-resources/).
 
-Імʼя файлу — `pod_status_manager_state` у базовій теці kubelet (`/var/lib/kubelet` стандартно в Linux; налаштовується за допомогою `--root-dir`).
+Назви файлів:
+
+- `allocated_pods_state` записує ресурси, виділені для кожного контейнера, запущеного на вузлі
+- `actuated_pods_state` записує ресурси, які були прийняті виконавчим середовищем для кожного контейнера, запущеного на вузлі
+
+Файли знаходяться у базовій теці kubelet (`/var/lib/kubelet` стандартно у Linux; налаштовується за допомогою `--root-dir`).
 
 ### Середовище виконання контейнерів {#container-runtime}
 
@@ -111,6 +116,19 @@ Kubelet шукає сокет-файли, створені втулками пр
 {{< feature-state feature_gate_name="GracefulNodeShutdown" >}}
 
 [Належне вимкнення вузлів](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown) зберігає стан локально за адресою `/var/lib/kubelet/graceful_node_shutdown_state`.
+
+### Записи отримання образів {#image-pull-records} {{
+
+< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
+
+Kubelet зберігає записи про спроби та успішні отримання образів і використовує їх для перевірки того, що образ вже було успішно отримано з тими самими обліковими даними.
+
+Ці записи зберігаються у вигляді файлів у теці `image_registry` у базовій теці kubelet. На типовому вузлі Linux це означає `/var/lib/kubelet/image_manager`. У `image_manager` є дві вкладених теки:
+
+- `pulling` - зберігає записи про образи, які Kubelet намагається витягнути.
+- `pulled` - зберігає записи про образи, які було успішно отримано Kubelet, разом з метаданими про облікові дані, які було використано для отримання.
+
+Докладні відомості наведено у розділі [Перевірка облікових даних при отриманні образів](/docs/concepts/containers/images#ensureimagepullcredentialverification).
 
 ## Профілі безпеки та конфігурація {#security-profiles-configuration}
 

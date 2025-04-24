@@ -13,5 +13,9 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.31"
+    toVersion: "1.32"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.33"
 ---
 Вмикає підтримку рекурсивних монтувань лише для читання. Докладні відомості наведено у статті [монтування лише для читання](/docs/concepts/storage/volumes/#read-only-mounts).

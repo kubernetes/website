@@ -17,5 +17,8 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.26"
+    toVersion: "1.32"
+
+removed: true
 ---
 Вмикає підтримку спорідненості процесорів на рівні контейнерів, див. [Політики керування процесорами](/docs/tasks/administer-cluster/cpu-management-policies/).

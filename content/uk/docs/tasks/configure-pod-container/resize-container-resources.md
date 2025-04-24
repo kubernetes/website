@@ -1,34 +1,26 @@
 ---
-title: Зміна обсягів CPU та памʼяті, призначених для контейнерів
+title: Зміна розміру CPU та memory, призначених контейнерам
 content_type: task
-weight: 35
-min-kubernetes-server-version: 1.27
+weight: 30
+min-kubernetes-server-version: 1.33
 ---
 
 <!-- overview -->
 
 {{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
-Ця сторінка передбачає, що ви обізнані з [Якістю обслуговування](/docs/tasks/configure-pod-container/quality-service-pod/) для Podʼів Kubernetes.
+Ця сторінка пояснює як змінити запити та обмеження ресурсів CPU та памʼяті повʼязані з контейнером _без перестворення Podʼу_.
 
-Ця сторінка показує, як змінити обсяги CPU та памʼяті, призначені для контейнерів працюючого Podʼа без перезапуску самого Podʼа або його контейнерів. Вузол Kubernetes виділяє ресурси для Podʼа на основі його `запитів`, і обмежує використання ресурсів Podʼа на основі `лімітів`, вказаних у контейнерах Podʼа.
+Зазвичай, зміна ресурсів Podʼа вимагає вилучення наявного Podʼа та створення його заміни, що виконується [контролером робочого навантаження](/docs/concepts/workloads/controllers/). Зміна розміру Podʼа на місці дозволяє змінювати виділені його контейнерам CPU/памʼять уникаючи потенційної перерви в роботі застосунку.
 
-Зміна розподілу ресурсів для запущеного Podʼа вимагає, що [функціональна можливість](/docs/reference/command-line-tools-reference/feature-gates/) `InPlacePodVerticalScaling` має бути увімкнено. Альтернативою може бути видалення Podʼа і ввімкнення параметра, щоб [workload controller](/docs/concepts/workloads/controllers/) створив новий Pod з іншими вимогами до ресурсів.
+**Ключові концепції:**
 
-Запит на зміну розміру виконується через підресурс pod `/resize`, який отримує повністю оновлений pod для запиту на оновлення, або патч на обʼєкті pod для запиту на виправлення.
+* **Бажані ресурси:** Поле `spec.containers[*].resources` контейнера представляє _бажані_ ресурси і є змінюваним для значень CPU та memory.
+* **Поточні ресурси:** Поле `status.containerStatuses[*].resources` показує _поточно налаштовані_ ресурси для запуску контейнера. Для контейнерів, що не були запущені воно показує ресурси виділені для наступного запуску контейнера.
+* **Запуск зміни розміру:** Ви можете запитати зміну розміру оновлюючи відповідні значення `requests` та `limits` в специфікації Podʼа. Це, як правило, робиться з використанням `kubectl patch`, `kubectl apply` або `kubectl edit` для Podʼа залучаючи субресурс `resize`. Коли бажаний ресурс не збігається з виділеними ресурсами, Kubelet намагатиметься змінити розмір контейнера.
+* **Виділені ресурси (Advanced):** Поле `status.containerStatuses[*].allocatedResources` відстежує значення ресурсів, що були підтверджені Kubelet, переважно використовується для внутрішньої логіки планування. Для більшості потреб моніторингу та валідації зосереджуйтесь на `status.containerStatuses[*].resources`.
 
-Для зміни ресурсів Podʼа на місці:
-
-- Ресурси `запитів` та `лімітів` контейнера є _змінними_ для ресурсів CPU та памʼяті. Ці поля представляють _бажані_ ресурси для контейнера.
-- Поле `resources` у `containerStatuses` статусу Podʼа відображає фактичні ресурси `requests` та `limits`, які _виділені_ для контейнерів podʼів. Для запущених контейнерів це відображає фактичні ресурси `requests` і `limits` контейнерів, це ресурси, виділені для контейнера під час його запуску. Для не запущених контейнерів це ресурси, виділені для контейнера під час його запуску.
-- Поле `resize` у статусі Podʼа показує статус останнього запиту очікуваної зміни розміру. Воно може мати наступні значення:
-  - `Proposed`: Це значення вказує на те, що розмір podʼа було змінено, але Kubelet ще не обробив зміну розміру.
-  - `InProgress`: Це значення вказує, що вузол прийняв запит на зміну розміру та знаходиться у процесі застосування його до контейнерів Podʼа.
-  - `Deferred`: Це значення означає, що запитаної зміни розміру наразі не можна виконати, і вузол буде спробувати її виконати пізніше. Зміна розміру може бути виконана, коли інші Podʼи будуть вилучені та звільнять ресурси вузла.
-  - `Infeasible`: це сигнал того, що вузол не може задовольнити запит на зміну розміру. Це може статися, якщо запит на зміну розміру перевищує максимальні ресурси, які вузол може виділити для Podʼа.
-  - `""`: Порожнє або не встановлене значення вказує на те, що останню зміну розміру завершено. Це має відбуватися лише у випадку, якщо ресурси у специфікації контейнера збігаються з ресурсами у статусі контейнера.
-
-Якщо у вузлі є контейнери з незавершеною зміною розміру, планувальник буде обчислювати запити на контейнери на основі максимальних запитів на бажані ресурси контейнера, і це будуть фактичні запити, про які повідомляється у статусі.
+Якщо у вузлі є podʼи з очікуваною або незавершеною зміною розміру (див [Статус Pod Resize](#pod-resize-status) нижче), {{< glossary_tooltip text="планувальник" term_id="kube-scheduler" >}} буде використовувати **максимальні** запити на бажані ресурси контейнера, запити виділення та запити поточних ресурсів зі статусу для прийняття рішення.
 
 ## {{% heading "prerequisites" %}}
 
@@ -36,199 +28,185 @@ min-kubernetes-server-version: 1.27
 
 Має бути увімкнено [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `InPlacePodVerticalScaling` для вашої панелі управління і для всіх вузлів вашого кластера.
 
-## Політики зміни розміру контейнера {#container-resize-policies}
+Версія клієнта `kubectl` має бути принаймні v1.32 для використання прапорця `--subresource=resize`.
 
-Політики зміни розміру дозволяють більш детально керувати тим, як контейнери Podʼа змінюють свої ресурси CPU та памʼяті. Наприклад, застосунок з контейнера може використовувати ресурси CPU, змінені без перезапуску, але зміна памʼяті може вимагати перезапуску застосунку та відповідно контейнерів.
+## Статус Pod resize {#pod-resize-status}
 
-Для активації цього користувачам дозволяється вказати `resizePolicy` у специфікації контейнера. Наступні політики перезапуску можна вказати для зміни розміру CPU та памʼяті:
+Kubelet оновлює умови статусу Pod, щоб вказати стан запиту на зміну розміру:
 
-- `NotRequired`: Змінити ресурси контейнера під час його роботи.
-- `RestartContainer`: Перезапустити контейнер та застосувати нові ресурси після перезапуску.
+* `type: PodResizePending`: Kubelet не в змозі негайно виконати запит. Поле `message` надає пояснення чому.
+  * `reason: Infeasible`: Запитана зміна розміру є неможливою на поточному вузлі (наприклад, запитано ресурсів більше ніж є на вузлі).
+  * `reason: Deferred`: Запитана зміна ресурсу зараз є неможливою, але може стати можливою згодом (наприклад, інший pod буде вилучено). Kubelet спробує змінити розмір.
+* `type: PodResizeInProgress`: Kubelet прийняв зміну розміру та розподілив ресурси, але зміни все ще застосовуються. Зазвичай це швидко, але може зайняти більше часу залежно від типу ресурсу та поведінки під час виконання. Будь-які помилки під час активації повідомляються в полі `message` (разом з `reason: Error`).
 
-Якщо `resizePolicy[*].restartPolicy` не вказано, воно стандартно встановлюється в `NotRequired`.
+## Політики зміни розміру контейнерів {#container-resize-policies}
 
-{{< note >}}
-Якщо `restartPolicy` Podʼа є `Never`, політика зміни розміру контейнера повинна бути встановленою в `NotRequired` для всіх контейнерів у Podʼі.
-{{< /note >}}
-
-У наведеному нижче прикладі Podʼа CPU контейнера може бути змінено без перезапуску, але змінювання памʼяті вимагає перезапуску контейнера.
+Ви можете вказати чи потрібно перезапускати контейнер під час зміни розміру за допомогою поля `resizePolicy` в специфікації контейнера. Це дозволяє докладний контроль за типами ресурсів (CPU чи memory).
 
 ```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: qos-demo-5
-  namespace: qos-example
-spec:
-  containers:
-  - name: qos-demo-ctr-5
-    image: nginx
     resizePolicy:
     - resourceName: cpu
       restartPolicy: NotRequired
     - resourceName: memory
       restartPolicy: RestartContainer
-    resources:
-      limits:
-        memory: "200Mi"
-        cpu: "700m"
-      requests:
-        memory: "200Mi"
-        cpu: "700m"
 ```
 
+* `NotRequired`: (типово) застосовувати зміну ресурсів без перезапуску контейнера.
+* `RestartContainer`: перезапускати контейнер під час зміни ресурсів. Це часто необхідно для зміни memory оскільки багато застосунків та середовищ виконання не можуть підлаштовуватись до динамічної зміни виділення памʼяті.
+
+Якщо `resizePolicy[*].restartPolicy` не вказано для ресурсу, типовим значенням буде `NotRequired`.
+
 {{< note >}}
-У вищенаведеному прикладі, якщо бажані запити або ліміти як для CPU, так і для памʼяті змінилися, контейнер буде перезапущено для зміни його памʼяті.
+Якщо загальний параметр Podʼа `restartPolicy` має значення `Never`, тоді параметр `resizePolicy` кожного контейнера має бути `NotRequired` для всіх ресурсів. Ви не зможете налаштовувати зміну ресурсів, що вимагають перезапуску в таких Podʼах
 {{< /note >}}
 
-<!-- steps -->
+**Приклад сценарію:**
+
+Уявіть контейнер з налаштованими `restartPolicy: NotRequired` для CPU та `restartPolicy: RestartContainer` для memory.
+
+* Якщо тільки ресурс CPU буде змінено, розмір контейнера буде змінено на місці.
+* Якщо тільки ресурс memory буде змінено, контейнер буде перезапущено.
+* Якщо _обидва_ ресурси CPU та memory будуть змінені одночасно, контейнер буде перезапущено (через правило перезапуску для ресурсу memory).
 
 ## Обмеження {#limitations}
 
-Зміна розміру ресурсів на місці наразі має наступні обмеження:
+Для Kubernetes {{< skew currentVersion >}} зміна розміру ресурсів podʼа на місці має наступні обмеження:
 
-- Можна змінити лише ресурси процесора та памʼяті.
-- Клас QoS не може бути змінений. Це означає, що запити повинні продовжувати дорівнювати лімітам для Guaranteed podʼам, Burstable podʼам не можуть встановлювати запити і ліміти рівними для CPU і памʼяті, і ви не можете додавати вимоги до ресурсів для Best Effort podʼів.
-- Init-контейнери та Ефемерні контейнери не можуть бути змінені за розміром.
-- Вимоги до ресурсів та ліміти не можна видалити після встановлення.
-- Ліміт памʼяті контейнера не може бути зменшений нижче рівня його використання. Якщо запит переводить контейнер у цей стан, статус зміни розміру залишатиметься у стані `InProgress` доти, доки бажаний ліміт памʼяті не стане можливим.
-- Розмір Windows-podʼів не може бути змінений.
+* **Типи ресурсів:** Тільки ресурси CPU та memory можуть змінювати розмір.
+* **Зменшення memory:** Ліміт memory _не може бути зменшений_ якщо `resizePolicy` для памʼяті є `RestartContainer`. Запит memory може бути в цілому зменшений.
+* **Клас QoS:** Оригінальний [клас Quality of Service (QoS)](/docs/concepts/workloads/pods/pod-qos/) Podʼа (Guaranteed, Burstable або BestEffort) визначається під час створення і **не може** бути змінений під час зміни розміру. Зміна значень розміру ресурсів все ще має дотримуватись правил оригінальних класів QoS:
+  * _Guaranteed_: Запити мають продовжувати дорівнювати лімітам як для CPU, так і для memory після зміни розміру.
+  * _Burstable_: Запити та ліміти не можуть бути тотожними як для CPU, так і для memory одночасно (оскільки це призведе до їх зміни до Guaranteed).
+  * _BestEffort_: Вимоги до ресурсів (`requests` чи `limits`) не можуть бути додані (оскільки це призведе до зміни до Burstable або Guaranteed).
+* **Типи контейнерів:** {{< glossary_tooltip text="Контейнери init" term_id="init-container" >}}, що не перезапускаються, та {{< glossary_tooltip text="ефемерні контейнери" term_id="ephemeral-container" >}} не можуть змінювати розмір. [Контейнери sidecar](/docs/concepts/workloads/pods/sidecar-containers/) можуть змінювати розмір.
+* **Вилучення ресурсів:** Після встановлення запити та ліміти ресурсів не можуть бути вилучені; їх можна тільки змінити іншими значеннями.
+* **Операційна система:** Podʼи Windows не підтримують зміну розміру ресурсів на місці.
+* **Політики Node:** Podʼи, які керуються [статичними політиками менеджера CPU та Memory](/docs/tasks/administer-cluster/cpu-management-policies/) не можуть змінювати розмір на місці.
+* **Swap:** Podʼи, що використовують [swap-памʼять](/docs/concepts/architecture/nodes/#swap-memory), не можуть змінювати розмір запитів памʼять якщо `resizePolicy` для memory не встановлено у `RestartContainer`.
 
-## Створення Podʼа із запитами та лімітами ресурсів {#create-pod-with-resource-requests-and-limits}
+Ці обмеження можуть бути послаблені в наступних версіях Kubernetes.
 
-Ви можете створити Guaranteed або Burstable [клас якості обслуговування](/docs/tasks/configure-pod-container/quality-service-pod/) Podʼу, вказавши запити та/або ліміти для контейнерів Podʼа.
+## Приклад 1: Зміна розміру CPU без перезапуску {#example-1-resizing-cpu-without-restart}
 
-Розгляньте наступний маніфест для Podʼа, який має один контейнер.
+Спочатку, створіть Pod створений для зміни розміру CPU на місці та такий що вимагає перезапуску під час зміни memory.
 
-{{% code_sample file="pods/qos/qos-pod-5.yaml" %}}
+{{% code_sample file="pods/resource/pod-resize.yaml" %}}
 
-Створіть Pod у просторі імен `qos-example`:
-
-```shell
-kubectl create namespace qos-example
-kubectl create -f https://k8s.io/examples/pods/qos/qos-pod-5.yaml
-```
-
-Цей Pod класифікується як Pod класу якості обслуговування Guaranteed, і має запит 700 мілі CPU та 200 мегабайтів памʼяті.
-
-Перегляньте детальну інформацію про Pod:
+Створіть Pod:
 
 ```shell
-kubectl get pod qos-demo-5 --output=yaml --namespace=qos-example
+kubectl create -f pod-resize.yaml
 ```
 
-Також погляньте, що значення `resizePolicy[*].restartPolicy` типово встановлено в `NotRequired`, що вказує, що CPU та памʼять можна змінити, поки контейнер працює.
+Цей Pod запускається з класом Guaranteed QoS. Перевірте його початковий стан:
 
-```yaml
-spec:
-  containers:
-    ...
-    resizePolicy:
-    - resourceName: cpu
-      restartPolicy: NotRequired
-    - resourceName: memory
-      restartPolicy: NotRequired
-    resources:
-      limits:
-        cpu: 700m
-        memory: 200Mi
-      requests:
-        cpu: 700m
-        memory: 200Mi
-...
-  containerStatuses:
-...
-    name: qos-demo-ctr-5
-    ready: true
-...
-    resources:
-      limits:
-        cpu: 700m
-        memory: 200Mi
-      requests:
-        cpu: 700m
-        memory: 200Mi
-    restartCount: 0
-    started: true
-...
-  qosClass: Guaranteed
+```shell
+# Почекайте трохи доки pod запуститься
+kubectl get pod resize-demo --output=yaml
 ```
 
-## Оновлення ресурсів Podʼа {#updating-the-pod-s-resources}
+Погляньте на `spec.containers[0].resources` та `status.containerStatuses[0].resources`. Вони мають відповідати маніфесту (700m CPU, 200Mi memory). Зверніть увагу на `status.containerStatuses[0].restartCount` (має бути 0).
 
-Скажімо, вимоги до CPU зросли, і тепер потрібно 0.8 CPU. Це можна вказати вручну, або визначити і застосувати програмно, наприклад, за допомогою таких засобів, як [VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) (VPA).
+Тепер збільште запит та ліміт CPU до `800m`. Використовуйте `kubectl patch` з аргументом командного рядка `--subresource resize`.
+
+```shell
+kubectl patch pod resize-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"800m"}, "limits":{"cpu":"800m"}}}]}}'
+
+# Альтерантивні методиs:
+# kubectl -n qos-example edit pod resize-demo --subresource resize
+# kubectl -n qos-example apply -f <updated-manifest> --subresource resize
+```
 
 {{< note >}}
-Хоча ви можете змінити запити та ліміти Podʼа, щоб виразити нові бажані ресурси, ви не можете змінити клас якості обслуговування, в якому був створений Pod.
+Для використання аргументу командного рядка `--subresource resize` у вас має бути версія клієнта `kubectl` не менша ніж v1.32.0.
 {{< /note >}}
 
-Тепер відредагуйте контейнер Podʼа, встановивши як запити, так і ліміти CPU на `800m`:
+Перевірте стан podʼа після накладання латки:
 
 ```shell
-kubectl -n qos-example patch pod qos-demo-5 --subresource resize --patch '{"spec":{"containers":[{"name":"qos-demo-ctr-5", "resources":{"requests":{"cpu":"800m"}, "limits":{"cpu":"800m"}}}]}}'
+kubectl get pod resize-demo --output=yaml --namespace=qos-example
 ```
 
-Отримайте докладну інформацію про Pod після внесення змін.
+Ви мажте побачити:
+
+* `spec.containers[0].resources` тепер показує `cpu: 800m`.
+* `status.containerStatuses[0].resources` також показує `cpu: 800m`, що означає, що зміна розміру на вузлі відбулась.
+* `status.containerStatuses[0].restartCount` залишається `0`, оскільки CPU `resizePolicy` було `NotRequired`.
+
+## Приклад 2: Зміна розміру memory без перезапуску{#example-2-resizing-memory-with-restart}
+
+Тепер змінимо розмір memory в _тому ж_ поді збільшивши її до `300Mi`. Оскільки memory `resizePolicy` має значення `RestartContainer`, контейнер має перезапуститись.
 
 ```shell
-kubectl get pod qos-demo-5 --output=yaml --namespace=qos-example
+kubectl patch pod resize-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"memory":"300Mi"}, "limits":{"memory":"300Mi"}}}]}}'
 ```
 
-Специфікація Podʼа нижче показує оновлені запити та ліміти CPU.
+Перевірте стан podʼа невдовзі після застосування латки:
 
-```yaml
-spec:
-  containers:
-    ...
-    resources:
-      limits:
-        cpu: 800m
-        memory: 200Mi
-      requests:
-        cpu: 800m
-        memory: 200Mi
-...
-  containerStatuses:
-...
-    resources:
-      limits:
-        cpu: 800m
-        memory: 200Mi
-      requests:
-        cpu: 800m
-        memory: 200Mi
-    restartCount: 0
-    started: true
+```shell
+kubectl get pod resize-demo --output=yaml
 ```
 
-Зверніть увагу, що `resources` у `containerStatuses` було оновлено, щоб відобразити нові бажані запити на CPU. Це вказує на те, що вузол зміг задовольнити збільшені потреби у ресурсах CPU, і нові ресурси CPU було застосовано. Параметр `restartCount` контейнера залишився незмінним, що вказує на те, що розмір ресурсів CPU контейнера було змінено без перезапуску контейнера.
+Ви маєте побачити:
+
+* `spec.containers[0].resources` показує `memory: 300Mi`.
+* `status.containerStatuses[0].resources` також показує `memory: 300Mi`.
+* `status.containerStatuses[0].restartCount` збільшився до `1` (або більше, якщо до цього вже відбувались перезапуски), що вказує на те, що контейнер було перезапущено після застосування зміни розміру memory.
+
+## Розвʼязання проблем: Неможливий запит на зміну розміру {#troubleshooting-infeasible-resize-request}
+
+Далі, спробуємо запитати якесь неможливе значення CPU, наприклад 1000 цілих ядер (записується як `"1000"`, в той час, коли йдеться про міліядра це — `"1000m"`), що очевидно перевищує можливості вузла.
+
+```shell
+# Спроба застосувати латку з запитом явно більшої кількістю CPU
+kubectl patch pod resize-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"1000"}, "limits":{"cpu":"1000"}}}]}}'
+```
+
+Запитайте інформацію Podʼа:
+
+```shell
+kubectl get pod resize-demo --output=yaml
+```
+
+Ви побачите зміни, що сповіщають про проблему:
+
+* Поле `spec.containers[0].resources` показує _бажаний_ стан (`cpu: "1000"`).
+* Стан з `type: PodResizePending` та `reason: Infeasible` було додано до Pod.
+* Поле `message` буде містити пояснення (`Node didn't have enough capacity: cpu, requested: 800000, capacity: ...`)
+* Найважливіше, `status.containerStatuses[0].resources` буде _все ще показувати попередні значення_ (`cpu: 800m`, `memory: 300Mi`), тому що неможлива зміна розміру не була застосована Kubelet.
+* Поле `restartCount` не зміниться через невдалу спробу.
+
+Щоб виправити це, вам потрібно застосувати латку до podʼа з прийнятними параметрами.
 
 ## Очищення {#clean-up}
 
-Видаліть ваш простір імен:
+Видаліть ваш pod:
 
 ```shell
-kubectl delete namespace qos-example
+kubectl delete pod resize-demo
 ```
 
 ## {{% heading "щодалі" %}}
 
 ### Для розробників застосунків {#for-app-developers}
 
-- [Призначення ресурсів памʼяті для контейнерів та Podʼів](/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [Призначення ресурсів памʼяті для контейнерів та Podʼів](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-- [Призначення ресурсів CPU для контейнерів та Podʼів](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [Призначення ресурсів CPU для контейнерів та Podʼів](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-- [Призначення ресурсів CPU та памʼяті на рівні Podʼів](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
+* [Призначення ресурсів CPU та памʼяті на рівні Podʼів](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
 
 ### Для адміністраторів кластерів {#for-cluster-administrators}
 
-- [Налаштування стандартних запитів та лімітів памʼяті для простору імен](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [Налаштування стандартних запитів та лімітів памʼяті для простору імен](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-- [Налаштування стандартних запитів та лімітів CPU для простору імен](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [Налаштування стандартних запитів та лімітів CPU для простору імен](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-- [Налаштування мінімальних та максимальних лімітів памʼяті для простору імен](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [Налаштування мінімальних та максимальних лімітів памʼяті для простору імен](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-- [Налаштування мінімальних та максимальних лімітів CPU для простору імен](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [Налаштування мінімальних та максимальних лімітів CPU для простору імен](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-- [Налаштування квот памʼяті та CPU для простору імен](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [Налаштування квот памʼяті та CPU для простору імен](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)

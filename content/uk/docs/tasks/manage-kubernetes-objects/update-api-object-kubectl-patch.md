@@ -391,10 +391,9 @@ kubectl patch deployment patch-demo --patch '{"spec": {"template": {"spec": {"co
 
 ### Оновлення кількості реплік обʼєкта за допомогою `kubectl patch` з `--subresource` {#scale-kubectl-patch}
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+Прапорець `--subresource=[імʼя-субресурсу]` використовується з командами kubectl, такими як `get`, `patch`, `edit`, `apply` і `replace`, для отримання та оновлення субресурсів `status`, `scale` та `resize` cубресурсів вказаних вами ресурсів. Ви можете вказати субресурс для будь-якого ресурсу API Kubernetes (вбудованих та CR), які мають субресурси `status`, `scale` або `resize`.
 
-Прапорець `--subresource=[імʼя-субресурсу]` використовується з командами kubectl, такими як get, patch, edit і replace, для отримання та оновлення субресурсів `status` та `scale` ресурсів
-(застосовується для версії kubectl v1.24 або новішої). Цей прапорець використовується з усіма ресурсами API (вбудованими та CR), які мають субресурси `status` або `scale`. Deployment — один з прикладів, які підтримують ці субресурси.
+Наприклад, Deployment має субресурси `status` та `scale`, тож ви можете використовувати `kubectl` для отримання та зміни субресрусу `status` Deploymentʼа.
 
 Ось маніфест для Deployment, що має дві репліки:
 

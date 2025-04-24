@@ -8,7 +8,7 @@ weight: 30
 
 kubectl керує менеджером кластерів Kubernetes.
 
-Додаткову інформацію можна знайти в розділі [Інструмент командного рядка](/uk/docs/reference/kubectl/) (`kubectl`).
+Додаткову інформацію можна знайти в розділі [Інструмент командного рядка](/docs/reference/kubectl/) (`kubectl`).
 
 ```shell
 kubectl [flags]
@@ -375,51 +375,58 @@ kubectl [flags]
             <td></td><td style="line-height: 130%; word-wrap: break-word;">Якщо встановлено true, команди kubectl exec, cp та attach спробують передавати дані, використовуючи протокол веб-сокетів. Якщо перехід до веб-сокетів не вдасться, команди повернуться до використання поточного протоколу SPDY.
         </td>
         </tr>
+        <tr>
+            <td colspan="2">KUBECTL_KUBERC</td>
+        </tr>
+        <tr>
+            <td></td><td style="line-height: 130%; word-wrap: break-word;">Коли встановлено true, файл kuberc береться до уваги для визначення налаштувань користувача.
+            </td>
+        </tr>
     </tbody>
 </table>
 
 ## {{% heading "seealso" %}}
 
-* [kubectl annotate](/uk/docs/reference/kubectl/generated/kubectl_annotate/) — Оновити анотації на ресурсі
-* [kubectl api-resources](/uk/docs/reference/kubectl/generated/kubectl_api-resources/) — Вивести підтримувані API ресурси на сервері
-* [kubectl api-versions](/uk/docs/reference/kubectl/generated/kubectl_api-versions/) — Вивести підтримувані API версії на сервері у форматі "група/версія"
-* [kubectl apply](/uk/docs/reference/kubectl/generated/kubectl_apply/) — Застосувати конфігурацію до ресурсу за імʼям файлу або через stdin
-* [kubectl attach](/uk/docs/reference/kubectl/generated/kubectl_attach/) — Приєднатися до працюючого контейнера
-* [kubectl auth](/uk/docs/reference/kubectl/generated/kubectl_auth/) — Перевірити авторизацію
-* [kubectl autoscale](/uk/docs/reference/kubectl/generated/kubectl_autoscale/) — Автоматичне масштабування Deployment, ReplicaSet або ReplicationController
-* [kubectl certificate](/uk/docs/reference/kubectl/generated/kubectl_certificate/) — Змінити ресурси сертифікатів
-* [kubectl cluster-info](/uk/docs/reference/kubectl/generated/kubectl_cluster-info/) — Показати інформацію про кластер
-* [kubectl completion](/uk/docs/reference/kubectl/generated/kubectl_completion/) — Вивести код автодоповнення для зазначеної оболонки (bash або zsh)
-* [kubectl config](/uk/docs/reference/kubectl/generated/kubectl_config/) — Змінити kubeconfig файли
-* [kubectl cordon](/uk/docs/reference/kubectl/generated/kubectl_cordon/) — Позначити вузол як недоступний для планування
-* [kubectl cp](/uk/docs/reference/kubectl/generated/kubectl_cp/) — Копіювати файли та теки до і з контейнерів
-* [kubectl create](/uk/docs/reference/kubectl/generated/kubectl_create/) — Створити ресурс з файлу або stdin
-* [kubectl debug](/uk/docs/reference/kubectl/generated/kubectl_debug/) — Створити сесії налагодження для виправлення неполадок з робочими навантаженнями та вузлами
-* [kubectl delete](/uk/docs/reference/kubectl/generated/kubectl_delete/) — Видалити ресурси за допомогою імен файлів, stdin, ресурсів і назв або за допомогою ресурсів і селектора міток
-* [kubectl describe](/uk/docs/reference/kubectl/generated/kubectl_describe/) — Показати деталі конкретного ресурсу або групи ресурсів
-* [kubectl diff](/uk/docs/reference/kubectl/generated/kubectl_diff/) — Порівняти живу версію з потенційною версією, яку може бути застосовано
-* [kubectl drain](/uk/docs/reference/kubectl/generated/kubectl_drain/) — Спорожнити вузол перед обслуговуванням
-* [kubectl edit](/uk/docs/reference/kubectl/generated/kubectl_edit/) — Редагувати ресурс на сервері
-* [kubectl events](/uk/docs/reference/kubectl/generated/kubectl_events/) — Список подій
-* [kubectl exec](/uk/docs/reference/kubectl/generated/kubectl_exec/) — Виконати команду в контейнері
-* [kubectl explain](/uk/docs/reference/kubectl/generated/kubectl_explain/) — Документація по ресурсах
-* [kubectl expose](/uk/docs/reference/kubectl/generated/kubectl_expose/) — Експонувати новий сервіс Kubernetes з replication controller, service, deployment чи pod
-* [kubectl get](/uk/docs/reference/kubectl/generated/kubectl_get/) — Показати один або кілька ресурсів
-* [kubectl kustomize](/uk/docs/reference/kubectl/generated/kubectl_kustomize/) — Створити kustomization з теки або віддаленого URL
-* [kubectl label](/uk/docs/reference/kubectl/generated/kubectl_label/) — Оновити мітки на ресурсі
-* [kubectl logs](/uk/docs/reference/kubectl/generated/kubectl_logs/) — Вивести логи для контейнера в pod
-* [kubectl options](/uk/docs/reference/kubectl/generated/kubectl_options/) — Вивести список прапорців, успадкованих усіма командами
-* [kubectl patch](/uk/docs/reference/kubectl/generated/kubectl_patch/) — Оновити поле(я) ресурсу
-* [kubectl plugin](/uk/docs/reference/kubectl/generated/kubectl_plugin/) — Надає утиліти для взаємодії з dnekrfvb
-* [kubectl port-forward](/uk/docs/reference/kubectl/generated/kubectl_port-forward/) — Gthtyfghfdkznb один або кілька локальних портів до pod
-* [kubectl proxy](/uk/docs/reference/kubectl/generated/kubectl_proxy/) — Запустити проксі до Kubernetes API сервера
-* [kubectl replace](/uk/docs/reference/kubectl/generated/kubectl_replace/) — Замінити ресурс за імʼям файлу або stdin
-* [kubectl rollout](/uk/docs/reference/kubectl/generated/kubectl_rollout/) — Керувати розгортанням ресурсу
-* [kubectl run](/uk/docs/reference/kubectl/generated/kubectl_run/) — Запустити вказаний образ на кластері
-* [kubectl scale](/uk/docs/reference/kubectl/generated/kubectl_scale/) — Встановити новий розмір для Deployment, ReplicaSet або Replication Controller
-* [kubectl set](/uk/docs/reference/kubectl/generated/kubectl_set/) — Встановити конкретні функції на обʼєктах
-* [kubectl taint](/uk/docs/reference/kubectl/generated/kubectl_taint/) — Оновити taint на одному або кількох вузлах
-* [kubectl top](/uk/docs/reference/kubectl/generated/kubectl_top/) — Показати використання ресурсів (CPU/Памʼять/Зберігання)
-* [kubectl uncordon](/uk/docs/reference/kubectl/generated/kubectl_uncordon/) — Позначити вузол як доступний для планування
-* [kubectl version](/uk/docs/reference/kubectl/generated/kubectl_version/) — Вивести інформацію про клієнтську та серверну версії
-* [kubectl wait](/uk/docs/reference/kubectl/generated/kubectl_wait/) — Експериментально: Чекати на конкретну умову для одного або кількох ресурсів
+* [kubectl annotate](/docs/reference/kubectl/generated/kubectl_annotate/) — Оновити анотації на ресурсі
+* [kubectl api-resources](/docs/reference/kubectl/generated/kubectl_api-resources/) — Вивести підтримувані API ресурси на сервері
+* [kubectl api-versions](/docs/reference/kubectl/generated/kubectl_api-versions/) — Вивести підтримувані API версії на сервері у форматі "група/версія"
+* [kubectl apply](/docs/reference/kubectl/generated/kubectl_apply/) — Застосувати конфігурацію до ресурсу за імʼям файлу або через stdin
+* [kubectl attach](/docs/reference/kubectl/generated/kubectl_attach/) — Приєднатися до працюючого контейнера
+* [kubectl auth](/docs/reference/kubectl/generated/kubectl_auth/) — Перевірити авторизацію
+* [kubectl autoscale](/docs/reference/kubectl/generated/kubectl_autoscale/) — Автоматичне масштабування Deployment, ReplicaSet або ReplicationController
+* [kubectl certificate](/docs/reference/kubectl/generated/kubectl_certificate/) — Змінити ресурси сертифікатів
+* [kubectl cluster-info](/docs/reference/kubectl/generated/kubectl_cluster-info/) — Показати інформацію про кластер
+* [kubectl completion](/docs/reference/kubectl/generated/kubectl_completion/) — Вивести код автодоповнення для зазначеної оболонки (bash або zsh)
+* [kubectl config](/docs/reference/kubectl/generated/kubectl_config/) — Змінити kubeconfig файли
+* [kubectl cordon](/docs/reference/kubectl/generated/kubectl_cordon/) — Позначити вузол як недоступний для планування
+* [kubectl cp](/docs/reference/kubectl/generated/kubectl_cp/) — Копіювати файли та теки до і з контейнерів
+* [kubectl create](/docs/reference/kubectl/generated/kubectl_create/) — Створити ресурс з файлу або stdin
+* [kubectl debug](/docs/reference/kubectl/generated/kubectl_debug/) — Створити сесії налагодження для виправлення неполадок з робочими навантаженнями та вузлами
+* [kubectl delete](/docs/reference/kubectl/generated/kubectl_delete/) — Видалити ресурси за допомогою імен файлів, stdin, ресурсів і назв або за допомогою ресурсів і селектора міток
+* [kubectl describe](/docs/reference/kubectl/generated/kubectl_describe/) — Показати деталі конкретного ресурсу або групи ресурсів
+* [kubectl diff](/docs/reference/kubectl/generated/kubectl_diff/) — Порівняти живу версію з потенційною версією, яку може бути застосовано
+* [kubectl drain](/docs/reference/kubectl/generated/kubectl_drain/) — Спорожнити вузол перед обслуговуванням
+* [kubectl edit](/docs/reference/kubectl/generated/kubectl_edit/) — Редагувати ресурс на сервері
+* [kubectl events](/docs/reference/kubectl/generated/kubectl_events/) — Список подій
+* [kubectl exec](/docs/reference/kubectl/generated/kubectl_exec/) — Виконати команду в контейнері
+* [kubectl explain](/docs/reference/kubectl/generated/kubectl_explain/) — Документація по ресурсах
+* [kubectl expose](/docs/reference/kubectl/generated/kubectl_expose/) — Експонувати новий сервіс Kubernetes з replication controller, service, deployment чи pod
+* [kubectl get](/docs/reference/kubectl/generated/kubectl_get/) — Показати один або кілька ресурсів
+* [kubectl kustomize](/docs/reference/kubectl/generated/kubectl_kustomize/) — Створити kustomization з теки або віддаленого URL
+* [kubectl label](/docs/reference/kubectl/generated/kubectl_label/) — Оновити мітки на ресурсі
+* [kubectl logs](/docs/reference/kubectl/generated/kubectl_logs/) — Вивести логи для контейнера в pod
+* [kubectl options](/docs/reference/kubectl/generated/kubectl_options/) — Вивести список прапорців, успадкованих усіма командами
+* [kubectl patch](/docs/reference/kubectl/generated/kubectl_patch/) — Оновити поле(я) ресурсу
+* [kubectl plugin](/docs/reference/kubectl/generated/kubectl_plugin/) — Надає утиліти для взаємодії з dnekrfvb
+* [kubectl port-forward](/docs/reference/kubectl/generated/kubectl_port-forward/) — Gthtyfghfdkznb один або кілька локальних портів до pod
+* [kubectl proxy](/docs/reference/kubectl/generated/kubectl_proxy/) — Запустити проксі до Kubernetes API сервера
+* [kubectl replace](/docs/reference/kubectl/generated/kubectl_replace/) — Замінити ресурс за імʼям файлу або stdin
+* [kubectl rollout](/docs/reference/kubectl/generated/kubectl_rollout/) — Керувати розгортанням ресурсу
+* [kubectl run](/docs/reference/kubectl/generated/kubectl_run/) — Запустити вказаний образ на кластері
+* [kubectl scale](/docs/reference/kubectl/generated/kubectl_scale/) — Встановити новий розмір для Deployment, ReplicaSet або Replication Controller
+* [kubectl set](/docs/reference/kubectl/generated/kubectl_set/) — Встановити конкретні функції на обʼєктах
+* [kubectl taint](/docs/reference/kubectl/generated/kubectl_taint/) — Оновити taint на одному або кількох вузлах
+* [kubectl top](/docs/reference/kubectl/generated/kubectl_top/) — Показати використання ресурсів (CPU/Памʼять/Зберігання)
+* [kubectl uncordon](/docs/reference/kubectl/generated/kubectl_uncordon/) — Позначити вузол як доступний для планування
+* [kubectl version](/docs/reference/kubectl/generated/kubectl_version/) — Вивести інформацію про клієнтську та серверну версії
+* [kubectl wait](/docs/reference/kubectl/generated/kubectl_wait/) — Експериментально: Чекати на конкретну умову для одного або кількох ресурсів

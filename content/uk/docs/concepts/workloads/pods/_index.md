@@ -132,12 +132,22 @@ spec:
 
 Kubernetes не забороняє вам керувати Pod напряму. Ви можете оновлювати деякі поля запущеного Pod, на місці. Однак операції оновлення Pod, такі як [`patch`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#patch-pod-v1-core) та [`replace`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#replace-pod-v1-core), мають деякі обмеження:
 
-* Більшість метаданих про Pod є незмінними. Наприклад, ви не можете змінити поля `namespace`, `name`, `uid` або `creationTimestamp`; поле `generation` є унікальним. Воно приймає лише оновлення, які збільшують поточне значення поля.
+* Більшість метаданих Podʼа є незмінними. Наприклад, ви не можете змінити поля `namespace`, `name`, `uid` або `creationTimestamp`.
+  * Поле `generation` є унікальним. Воно автоматично встановлюється системою таким чином, що нові podʼи матимуть `generation` 1, і кожне оновлення полів, що змінюються, у специфікації podʼа збільшуватиме `generation` на 1. Якщо встановлено функціональну альфа-можливість PodObservedGenerationTracking, то `status.observedGeneration` podʼу відображатиме `metadata.generation` podʼі на момент, коли про стан podʼа повідомляється, тоді `.spec.backoffLimitʼ типово дорівнюватиме 2147483647 (MaxInt32).
 * Якщо `metadata.deletionTimestamp` встановлено, новий запис не може бути доданий до списку `metadata.finalizers`.
 * Оновлення Pod може не змінювати поля, крім `spec.containers[*].image`, `spec.initContainers[*].image`, `spec.activeDeadlineSeconds` або `spec.tolerations`. Для `spec.tolerations` ви можете додавати лише нові записи.
 * Коли ви оновлюєте `spec.activeDeadlineSeconds`, дозволені два типи оновлень:
   1. встановлення непризначеному полю позитивного числа;
   2. оновлення поля з позитивного числа на менше, невідʼємне число.
+
+### Субресурси Podʼів {#pod-subresources}
+
+Наведені вище правила оновлення застосовуються до регулярних оновлень podʼів, але інші поля podʼа можуть бути оновлені за допомогою _subresources_.
+
+* **Resize:** Субресурс `resize` дозволяє оновлювати ресурси контейнерів (`spec.containers[*].resources`). Дивіться [Зміна розміру ресурсів контейнера](/docs/tasks/configure-pod-container/resize-container-resources/) для більш детальної інформації.
+* **Ефемерні контейнери:** Субресурс `ephemeralContainers` дозволяє додавати {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}} до Podʼа. Дивіться [Ефемерні контейнери](/docs/concepts/workloads/pods/ephemeral-containers/) для більш детальної інформації.
+* **Status:** Субресурс `status` дозволяє оновити статус контейнера. Зазвичай він використовується лише Kubelet та іншими системними контролерами.
+* **Binding:** Субресурс `binding` дозволяє встановити `spec.nodeName` podʼів за допомогою запиту `Binding`. Зазвичай це використовується лише {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}}.
 
 ## Спільні ресурси та комунікація {#resource-sharing-and-communication}
 

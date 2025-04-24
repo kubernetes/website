@@ -134,6 +134,30 @@ kube-scheduler ідентифікує ресурсні [запити та обм
 
 В Kubernetes 1.21 вам потрібно використовувати прапорець `--show-hidden-metrics-for-version=1.20`, щоб показати ці альфа-метрики.
 
+### Метрики kubelet Pressure Stall Information (PSI) {#kubelet-pressure-stall-information-psi-metrics}
+
+{{< feature-state for_k8s_version="v1.33" state="alpha" >}}
+
+У альфа-версії Kubernetes дозволяє налаштувати kubelet для збору даних про ядро Linux [Інформація про зупинку тиску](https://docs.kernel.org/accounting/psi.html) (PSI) про використання CPU, памʼяті та вводу-виводу. Інформація збирається на рівні вузлів, podʼів та контейнерів. Метрики виводяться у точці доступу `/metrics/cadvisor` з наступними назвами:
+
+```none
+container_pressure_cpu_stalled_seconds_total
+container_pressure_cpu_waiting_seconds_total
+контейнер_тиск_пам'яті_простій_секунд_всього
+контейнер_тиск_пам'яті_очікування_секунд_всього
+container_pressure_io_stalled_seconds_total
+контейнер_тиск_іо_очікування_секунд_всього
+```
+
+Вам слід увімкнути [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `KubeletPSI` щоб скористатися цією можливістю. Інформацію також наведено у [Summary API](/docs/reference/instrumentation/node-metrics#psi).
+
+#### Вимоги {#requirements}
+
+Pressure Stall Information вимагає:
+
+* [Ядро Linux версії 4.20 або новіше](/docs/reference/node/kernel-version-requirements#requirements-psi).
+* [cgroup v2](/docs/concepts/architecture/cgroups)
+
 ## Вимкнення метрик {#disabling-metrics}
 
 Ви можете явно вимкнути метрики за допомогою прапорця командного рядка `--disabled-metrics`. Це може бути бажано, наприклад, якщо метрика викликає проблеми з продуктивністю. Вхідні дані — це список вимкнених метрик (тобто `--disabled-metrics=метрика1,метрика2`).

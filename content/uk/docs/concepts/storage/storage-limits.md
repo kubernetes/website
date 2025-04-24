@@ -52,3 +52,33 @@ weight: 90
 - Якщо драйвер сховища CSI рекламує максимальну кількість томів для вузла (використовуючи `NodeGetInfo`), {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} дотримується цього обмеження. Див. [специфікації CSI](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) для отримання додаткових деталей.
 
 - Для томів, керованих вбудованими втулками, які були перенесені у драйвер CSI, максимальна кількість томів буде тією, яку повідомив драйвер CSI.
+
+### Mutable CSI Node Allocatable Count {#mutable-csi-node-allocatable-count}
+
+{{< feature-state state="alpha" for_k8s_version="v1.33" >}}
+
+Драйвери CSI можуть динамічно регулювати максимальну кількість томів, які можуть бути приєднані до вузла під час виконання. Це підвищує точність планування та зменшує ймовірність збоїв у плануванні через зміну доступності ресурсів.
+
+Це альфа-версія функції і стандартно вона вимкнена.
+
+Щоб скористатися цією можливістю, вам слід увімкнути функціональну можливість `MutableCSINodeAllocatableCount` в наступних компонентах:
+
+- `kube-apiserver`
+- `kubelet`
+
+#### Періодичні оновлення {#periodic-updates}
+
+Якщо увімкнено, драйвери CSI можуть запитувати періодичні оновлення своїх лімітів томів, встановивши поле `nodeAllocatableUpdatePeriodSeconds` у специфікації `CSIDriver`. Наприклад:
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: CSIDriver
+metadata:
+  name: hostpath.csi.k8s.io
+spec:
+  nodeAllocatableUpdatePeriodSeconds: 60
+```
+
+Kubelet періодично викликатиме точку доступу `NodeGetInfo` відповідного драйвера CSI, щоб оновити максимальну кількість приєднаних томів, використовуючи інтервал, вказаний у полі `nodeAllocatableUpdatePeriodSeconds`. Мінімально допустиме значення для цього поля — 10 секунд.
+
+Крім того, якщо операція приєднання тому завершиться невдало з помилкою `ResourceExhausted` (код gRPC 8), Kubernetes негайно оновить лічильник виділених томів для цього вузла.

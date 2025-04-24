@@ -9,5 +9,8 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.21"
+    toVersion: "1.32"
+
+removed: true
 ---
 Вмикання підтримки пріоритезації вузлів у різних топологіях на основі доступної місткості PV.

@@ -108,7 +108,7 @@ spec:
   Якщо це значення є null, поведінка еквівалентна політиці Honor.
 
   {{< note >}}
-  Поле `nodeAffinityPolicy` є полем на рівні бета-версії та включено стандартно у 1.26. Ви можете відключити його, вимкнувши [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `NodeInclusionPolicyInPodTopologySpread`.
+  Поле `nodeAffinityPolicy` було полем на рівні бета-версії з v1.26 та загальнодоступним з v 1.33. Воно є стандартно увімкеними і ви можете відключити його, вимкнувши [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `NodeInclusionPolicyInPodTopologySpread`.
   {{< /note >}}
 
 - **nodeTaintsPolicy** вказує, як ми будемо обробляти заплямованість вузлів при розрахунку
@@ -119,7 +119,7 @@ spec:
   Якщо це значення є null, поведінка еквівалентна політиці Ignore.
 
   {{< note >}}
-  Поле `nodeTaintsPolicy` є полем на рівні бета-версії та включено стандартно у 1.26. Ви можете відключити його, вимкнувши [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `NodeInclusionPolicyInPodTopologySpread`.
+  Поле `nodeAffinityPolicy` було полем на рівні бета-версії з v1.26 та загальнодоступним з v 1.33. Воно є стандартно увімкеними і ви можете відключити його, вимкнувши [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `NodeInclusionPolicyInPodTopologySpread`.
   {{< /note >}}
 
 Коли Pod визначає більше одного `topologySpreadConstraint`, ці обмеження комбінуються за допомогою операції AND: kube-scheduler шукає вузол для вхідного Podʼа, який задовольняє всі налаштовані обмеження.

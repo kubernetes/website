@@ -17,5 +17,8 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.31"
+    toVersion: "1.32"
+
+removed: true
 ---
 Додає нове поле до PersistentVolume, яке містить мітку часу, коли том востаннє змінював свою фазу.
