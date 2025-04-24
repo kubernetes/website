@@ -4,13 +4,25 @@
 # schedule-builder -uc data/releases/schedule.yaml -e data/releases/eol.yaml
 ---
 schedules:
+- endOfLifeDate: "2026-06-28"
+  maintenanceModeStartDate: "2026-04-28"
+  next:
+    release: 1.33.1
+    cherryPickDeadline: "2025-05-09"
+    targetDate: "2025-05-13"
+  previousPatches: []
+  release: "1.33"
+  releaseDate: "2025-04-23"
 - endOfLifeDate: "2026-02-28"
   maintenanceModeStartDate: "2025-12-28"
   next:
-    cherryPickDeadline: "2025-04-11"
+    cherryPickDeadline: "2025-05-09"
+    release: 1.32.5
+    targetDate: "2025-05-13"
+  previousPatches:
+  - cherryPickDeadline: "2025-04-11"
     release: 1.32.4
     targetDate: "2025-04-22"
-  previousPatches:
   - cherryPickDeadline: "2025-03-07"
     release: 1.32.3
     targetDate: "2025-03-11"
@@ -27,10 +39,13 @@ schedules:
 - endOfLifeDate: "2025-10-28"
   maintenanceModeStartDate: "2025-08-28"
   next:
-    cherryPickDeadline: "2025-04-11"
+    cherryPickDeadline: "2025-05-09"
+    release: 1.31.9
+    targetDate: "2025-05-13"
+  previousPatches:
+  - cherryPickDeadline: "2025-04-11"
     release: 1.31.8
     targetDate: "2025-04-22"
-  previousPatches:
   - cherryPickDeadline: "2025-03-07"
     release: 1.31.7
     targetDate: "2025-03-11"
@@ -59,10 +74,13 @@ schedules:
 - endOfLifeDate: "2025-06-28"
   maintenanceModeStartDate: "2025-04-28"
   next:
-    cherryPickDeadline: "2025-04-11"
+    cherryPickDeadline: "2025-05-09"
+    release: 1.30.13
+    targetDate: "2025-05-13"
+  previousPatches:
+  - cherryPickDeadline: "2025-04-11"
     release: 1.30.12
     targetDate: "2025-04-22"
-  previousPatches:
   - cherryPickDeadline: "2025-03-07"
     release: 1.30.11
     targetDate: "2025-03-11"
@@ -101,9 +119,9 @@ schedules:
   release: "1.30"
   releaseDate: "2024-04-17"
 upcoming_releases:
-- cherryPickDeadline: "2025-04-11"
-  targetDate: "2025-04-22"
 - cherryPickDeadline: "2025-05-09"
   targetDate: "2025-05-13"
 - cherryPickDeadline: "2025-06-06"
   targetDate: "2025-06-10"
+- cherryPickDeadline: "2025-07-11"
+  targetDate: "2025-07-15"

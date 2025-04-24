@@ -28,42 +28,50 @@ You should already be familiar with the basic use of [Job](/docs/concepts/worklo
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-## Using Pod failure policy to avoid unnecessary Pod retries
+## Usage scenarios
+
+Consider the following usage scenarios for Jobs that define a Pod failure policy :
+- [Avoiding unnecessary Pod retries](#pod-failure-policy-failjob)
+- [Ignoring Pod disruptions](#pod-failure-policy-ignore)
+- [Avoiding unnecessary Pod retries based on custom Pod Conditions](#pod-failure-policy-config-issue)
+- [Avoiding unnecessary Pod retries per index](#backoff-limit-per-index-failindex)
+
+### Using Pod failure policy to avoid unnecessary Pod retries {#pod-failure-policy-failjob}
 
 With the following example, you can learn how to use Pod failure policy to
 avoid unnecessary Pod restarts when a Pod failure indicates a non-retriable
 software bug.
 
-First, create a Job based on the config:
+1. Examine the following manifest:
 
-{{% code_sample file="/controllers/job-pod-failure-policy-failjob.yaml" %}}
+   {{% code_sample file="/controllers/job-pod-failure-policy-failjob.yaml" %}}
 
-by running:
+1. Apply the manifest:
 
-```sh
-kubectl create -f job-pod-failure-policy-failjob.yaml
-```
+   ```sh
+   kubectl create -f https://k8s.io/examples/controllers/job-pod-failure-policy-failjob.yaml
+   ```
 
-After around 30s the entire Job should be terminated. Inspect the status of the Job by running:
+1. After around 30 seconds the entire Job should be terminated. Inspect the status of the Job by running:
 
-```sh
-kubectl get jobs -l job-name=job-pod-failure-policy-failjob -o yaml
-```
+   ```sh
+   kubectl get jobs -l job-name=job-pod-failure-policy-failjob -o yaml
+   ```
 
-In the Job status, the following conditions display:
-- `FailureTarget` condition: has a `reason` field set to `PodFailurePolicy` and
-  a `message` field with more information about the termination, like
-  `Container main for pod default/job-pod-failure-policy-failjob-8ckj8 failed with exit code 42 matching FailJob rule at index 0`.
-  The Job controller adds this condition as soon as the Job is considered a failure.
-  For details, see [Termination of Job Pods](/docs/concepts/workloads/controllers/job/#termination-of-job-pods).
-- `Failed` condition: same `reason` and `message` as the `FailureTarget`
-  condition. The Job controller adds this condition after all of the Job's Pods
-  are terminated.
+   In the Job status, the following conditions display:
+   - `FailureTarget` condition: has a `reason` field set to `PodFailurePolicy` and
+     a `message` field with more information about the termination, like
+     `Container main for pod default/job-pod-failure-policy-failjob-8ckj8 failed with exit code 42 matching FailJob rule at index 0`.
+     The Job controller adds this condition as soon as the Job is considered a failure.
+     For details, see [Termination of Job Pods](/docs/concepts/workloads/controllers/job/#termination-of-job-pods).
+   - `Failed` condition: same `reason` and `message` as the `FailureTarget`
+     condition. The Job controller adds this condition after all of the Job's Pods
+     are terminated.
 
-For comparison, if the Pod failure policy was disabled it would take 6 retries
-of the Pod, taking at least 2 minutes.
+   For comparison, if the Pod failure policy was disabled it would take 6 retries
+   of the Pod, taking at least 2 minutes.
 
-### Clean up
+#### Clean up
 
 Delete the Job you created:
 
@@ -73,7 +81,7 @@ kubectl delete jobs/job-pod-failure-policy-failjob
 
 The cluster automatically cleans up the Pods.
 
-## Using Pod failure policy to ignore Pod disruptions
+### Using Pod failure policy to ignore Pod disruptions {#pod-failure-policy-ignore}
 
 With the following example, you can learn how to use Pod failure policy to
 ignore Pod disruptions from incrementing the Pod retry counter towards the
@@ -85,35 +93,35 @@ execution. In order to trigger a Pod disruption it is important to drain the
 node while the Pod is running on it (within 90s since the Pod is scheduled).
 {{< /caution >}}
 
-1. Create a Job based on the config:
+1. Examine the following manifest:
 
    {{% code_sample file="/controllers/job-pod-failure-policy-ignore.yaml" %}}
 
-   by running:
+1. Apply the manifest:
 
    ```sh
-   kubectl create -f job-pod-failure-policy-ignore.yaml
+   kubectl create -f https://k8s.io/examples/controllers/job-pod-failure-policy-ignore.yaml
    ```
 
-2. Run this command to check the `nodeName` the Pod is scheduled to:
+1. Run this command to check the `nodeName` the Pod is scheduled to:
 
    ```sh
    nodeName=$(kubectl get pods -l job-name=job-pod-failure-policy-ignore -o jsonpath='{.items[0].spec.nodeName}')
    ```
 
-3. Drain the node to evict the Pod before it completes (within 90s):
-   
+1. Drain the node to evict the Pod before it completes (within 90s):
+
    ```sh
    kubectl drain nodes/$nodeName --ignore-daemonsets --grace-period=0
    ```
 
-4. Inspect the `.status.failed` to check the counter for the Job is not incremented:
+1. Inspect the `.status.failed` to check the counter for the Job is not incremented:
 
    ```sh
    kubectl get jobs -l job-name=job-pod-failure-policy-ignore -o yaml
    ```
 
-5. Uncordon the node:
+1. Uncordon the node:
 
    ```sh
    kubectl uncordon nodes/$nodeName
@@ -124,7 +132,7 @@ The Job resumes and succeeds.
 For comparison, if the Pod failure policy was disabled the Pod disruption would
 result in terminating the entire Job (as the `.spec.backoffLimit` is set to 0).
 
-### Cleaning up
+#### Cleaning up
 
 Delete the Job you created:
 
@@ -134,7 +142,7 @@ kubectl delete jobs/job-pod-failure-policy-ignore
 
 The cluster automatically cleans up the Pods.
 
-## Using Pod failure policy to avoid unnecessary Pod retries based on custom Pod Conditions
+### Using Pod failure policy to avoid unnecessary Pod retries based on custom Pod Conditions {#pod-failure-policy-config-issue}
 
 With the following example, you can learn how to use Pod failure policy to
 avoid unnecessary Pod restarts based on custom Pod Conditions.
@@ -145,19 +153,19 @@ deleted pods, in the `Pending` phase, to a terminal phase
 (see: [Pod Phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)).
 {{< /note >}}
 
-1. First, create a Job based on the config:
+1. Examine the following manifest:
 
    {{% code_sample file="/controllers/job-pod-failure-policy-config-issue.yaml" %}}
 
-   by running:
+1. Apply the manifest:
 
    ```sh
-   kubectl create -f job-pod-failure-policy-config-issue.yaml
+   kubectl create -f https://k8s.io/examples/controllers/job-pod-failure-policy-config-issue.yaml
    ```
 
    Note that, the image is misconfigured, as it does not exist.
 
-2. Inspect the status of the job's Pods by running:
+1. Inspect the status of the job's Pods by running:
 
    ```sh
    kubectl get pods -l job-name=job-pod-failure-policy-config-issue -o yaml
@@ -181,7 +189,7 @@ deleted pods, in the `Pending` phase, to a terminal phase
    image could get pulled. However, in this case, the image does not exist so
    we indicate this fact by a custom condition.
 
-3. Add the custom condition. First prepare the patch by running:
+1. Add the custom condition. First prepare the patch by running:
 
    ```sh
    cat <<EOF > patch.yaml
@@ -210,13 +218,13 @@ deleted pods, in the `Pending` phase, to a terminal phase
    pod/job-pod-failure-policy-config-issue-k6pvp patched
    ```
 
-4. Delete the pod to transition it to `Failed` phase, by running the command:
+1. Delete the pod to transition it to `Failed` phase, by running the command:
 
    ```sh
    kubectl delete pods/$podName
    ```
 
-5. Inspect the status of the Job by running:
+1. Inspect the status of the Job by running:
 
    ```sh
    kubectl get jobs -l job-name=job-pod-failure-policy-config-issue -o yaml
@@ -232,12 +240,72 @@ In a production environment, the steps 3 and 4 should be automated by a
 user-provided controller.
 {{< /note >}}
 
-### Cleaning up
+#### Cleaning up
 
 Delete the Job you created:
 
 ```sh
 kubectl delete jobs/job-pod-failure-policy-config-issue
+```
+
+The cluster automatically cleans up the Pods.
+
+### Using Pod Failure Policy to avoid unnecessary Pod retries per index {#backoff-limit-per-index-failindex}
+
+To avoid unnecessary Pod restarts per index, you can use the _Pod failure policy_ and
+_backoff limit per index_ features. This section of the page shows how to use these features
+together.
+
+1. Examine the following manifest:
+
+   {{% code_sample file="/controllers/job-backoff-limit-per-index-failindex.yaml" %}}
+
+1. Apply the manifest:
+
+   ```sh
+   kubectl create -f https://k8s.io/examples/controllers/job-backoff-limit-per-index-failindex.yaml
+   ```
+
+1. After around 15 seconds, inspect the status of the Pods for the Job. You can do that by running:
+
+   ```shell
+   kubectl get pods -l job-name=job-backoff-limit-per-index-failindex -o yaml
+   ```
+
+   You will see output similar to this:
+
+   ```none
+   NAME                                            READY   STATUS      RESTARTS   AGE
+   job-backoff-limit-per-index-failindex-0-4g4cm   0/1     Error       0          4s
+   job-backoff-limit-per-index-failindex-0-fkdzq   0/1     Error       0          15s
+   job-backoff-limit-per-index-failindex-1-2bgdj   0/1     Error       0          15s
+   job-backoff-limit-per-index-failindex-2-vs6lt   0/1     Completed   0          11s
+   job-backoff-limit-per-index-failindex-3-s7s47   0/1     Completed   0          6s
+   ```
+
+   Note that the output shows the following:
+
+   * Two Pods have index 0, because of the backoff limit allowed for one retry
+   of the index.
+   * Only one Pod has index 1, because the exit code of the failed Pod matched
+   the Pod failure policy with the `FailIndex` action.
+
+1. Inspect the status of the Job by running:
+
+   ```sh
+   kubectl get jobs -l job-name=job-backoff-limit-per-index-failindex -o yaml
+   ```
+
+   In the Job status, see that the `failedIndexes` field shows "0,1", because
+   both indexes failed. Because the index 1 was not retried the number of failed
+   Pods, indicated by the status field "failed" equals 3.
+
+#### Cleaning up
+
+Delete the Job you created:
+
+```sh
+kubectl delete jobs/job-backoff-limit-per-index-failindex
 ```
 
 The cluster automatically cleans up the Pods.

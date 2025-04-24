@@ -762,7 +762,7 @@ validations are not supported by ratcheting under the implementation in Kubernet
   Errors arising from changing the list type of a subschema will not be 
   ratcheted. For example adding `set` onto a list with duplicates will always 
   result in an error.
-- `x-kubernetes-map-keys`
+- `x-kubernetes-list-map-keys`
   Errors arising from changing the map keys of a list schema will not be 
   ratcheted.
 - `required`

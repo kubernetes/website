@@ -28,10 +28,9 @@ auto_generated: true
 ## Binding {#Binding}
 
 <!--
-Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
+Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
 -->
 Binding 将一个对象与另一个对象绑定在一起；例如，调度程序将一个 Pod 绑定到一个节点。
-1.7 版中已弃用，请使用 Pod 的 Binding 子资源代替。
 
 <hr>
 
@@ -81,11 +80,11 @@ POST /api/v1/namespaces/{namespace}/bindings
 -->
 #### 参数
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/binding-v1#Binding" >}}">Binding</a>, 必需
+- **body**: <a href="{{< ref "../workload-resources/binding-v1#Binding" >}}">Binding</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
@@ -163,18 +162,18 @@ POST /api/v1/namespaces/{namespace}/pods/{name}/binding
 -->
 #### 参数
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   CronJob 的名称
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 <!--
 - **body**: <a href="{{< ref "../workload-resources/binding-v1#Binding" >}}">Binding</a>, required
 -->
-- **body**: <a href="{{< ref "../workload-resources/binding-v1#Binding" >}}">Binding</a>, 必需
+- **body**: <a href="{{< ref "../workload-resources/binding-v1#Binding" >}}">Binding</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
