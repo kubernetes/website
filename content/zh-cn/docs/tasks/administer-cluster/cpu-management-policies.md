@@ -269,8 +269,8 @@ using the following feature gates:
 You will still have to enable each option using the `CPUManagerPolicyOptions` kubelet option.
 
 The following policy options exist for the static `CPUManager` policy:
-* `full-pcpus-only` (beta, visible by default) (1.22 or higher)
-* `distribute-cpus-across-numa` (alpha, hidden by default) (1.23 or higher)
+* `full-pcpus-only` (GA, visible by default) (1.33 or higher)
+* `distribute-cpus-across-numa` (beta, visible by default) (1.33 or higher)
 * `align-by-socket` (alpha, hidden by default) (1.25 or higher)
 * `distribute-cpus-across-cores` (alpha, hidden by default) (1.31 or higher)
 * `strict-cpu-reservation` (beta, visible by default) (1.32 or higher)
@@ -284,8 +284,8 @@ The following policy options exist for the static `CPUManager` policy:
 你仍然必须使用 `CPUManagerPolicyOptions` kubelet 选项启用每个选项。
 
 静态 `CPUManager` 策略存在以下策略选项：
-* `full-pcpus-only`（Beta，默认可见）（1.22 或更高版本）
-* `distribute-cpus-across-numa`（Alpha，默认隐藏）（1.23 或更高版本）
+* `full-pcpus-only`（GA，默认可见）（1.33 或更高版本）
+* `distribute-cpus-across-numa`（Beta，默认可见）（1.33 或更高版本）
 * `align-by-socket`（Alpha，默认隐藏）（1.25 或更高版本）
 * `distribute-cpus-across-cores` (Alpha，默认隐藏) (1.31 或更高版本)
 * `strict-cpu-reservation` (Beta，默认可见) (1.32 或更高版本)
