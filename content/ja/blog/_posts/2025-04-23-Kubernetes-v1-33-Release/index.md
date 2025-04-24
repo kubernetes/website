@@ -62,7 +62,7 @@ Kubernetesはサイドカーを`restartPolicy: Always`を持つ特別なクラ�
 
 この作業はSIG Nodeが主導した[KEP-753: Sidecar Containers](https://kep.k8s.io/753)の一環として行われました。
 
-### ベータ版: Podの垂直スケーリングのためのリソースのインプレースリサイズ
+### ベータ: Podの垂直スケーリングのためのリソースのインプレースリサイズ
 
 ワークロードはDeployment、StatefulSetなどのAPIを使用して定義できます。
 これらはメモリやCPUリソース、また実行すべきPodの数(レプリカ数)を含む、実行されるべきPodのテンプレートを記述します。
@@ -78,7 +78,7 @@ Kubernetesはサイドカーを`restartPolicy: Always`を持つ特別なクラ�
 
 この作業はSIG NodeとSIG Autoscalingが主導した[KEP-1287: In-Place Update of Pod Resources](https://kep.k8s.io/1287)の一環として行われました。
 
-### アルファ版: ユーザー設定のための`.kuberc`によるkubectlの新しい設定オプション
+### アルファ: ユーザー設定のための`.kuberc`によるkubectlの新しい設定オプション
 
 v1.33では、`kubectl`はユーザー設定のためのオプトイン設定ファイル`.kuberc`という新しいアルファ機能を導入しています。
 このファイルには`kubectl`のエイリアスやオーバーライド(例えば[Server-Side Apply](/docs/reference/using-api/server-side-apply/)をデフォルトで使用するなど）を含めることができる一方、クラスター認証情報とホスト情報はkubeconfigに残します。
@@ -123,7 +123,7 @@ _これはv1.33リリース後にGAとなった改善点の一部です。_
 ### kubectlでのサブリソースサポート
 
 `--subresource`引数が現在kubectlのサブコマンド(`get`、`patch`、`edit`、`apply`、`replace`など)で一般提供されるようになり、ユーザーはそれらをサポートするすべてのリソースのサブリソースを取得および更新できるようになりました。
-サポートされているサブリソースの詳細については、[kubectl リファレンス](/docs/reference/kubectl/conventions/#subresources)をご覧ください。
+サポートされているサブリソースの詳細については、[Subresources](/docs/reference/kubectl/conventions/#subresources)をご覧ください。
 
 この作業はSIG CLIが主導した[KEP-2590: Add subresource support to kubectl](https://kep.k8s.io/2590)の一環として行われました。
 
@@ -605,7 +605,7 @@ Kubernetesコミュニティの最新情報を入手し、参加しましょう�
 
 ## ウェビナーのご案内
 
-Kubernetes v1.33リリースチームのメンバーと一緒に**5月16日（金）2025年5月16日午後4時（UTC）**から、このリリースのハイライトやアップグレードの計画に役立つ非推奨事項や削除事項について学びましょう。
+Kubernetes v1.33リリースチームのメンバーと一緒に**5月16日(金)2025年5月16日午後4時(UTC)**から、このリリースのハイライトやアップグレードの計画に役立つ非推奨事項や削除事項について学びましょう。
 詳細および参加登録は、CNCFオンラインプログラム・サイトの[イベントページ](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-133-release/)をご覧ください。
 
 ## 参加方法
