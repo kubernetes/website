@@ -8,7 +8,7 @@ author: >
    Prasad Ghangal (Veeam Kasten)
 ---
 
-We're excited to announce that Kubernetes v1.33 introduces alpha support for the **Changed Block Tracking (CBT) API**. This new feature enhances the Kubernetes storage ecosystem by providing an efficient way to identify changed blocks in volume snapshots, enabling faster and more resource-efficient backup operations.
+We're excited to announce that Kubernetes v1.33 introduces alpha support for the **Changed Block Tracking (CBT) API**. This new feature enhances the Kubernetes storage ecosystem by providing an efficient way to identify changed blocks in block volume snapshots, enabling faster and more resource-efficient backup operations.
 
 ## What is changed block tracking?
 
@@ -18,6 +18,10 @@ The Changed Block Tracking API introduces a new Container Storage Interface (CSI
 - Determine changed blocks between two snapshots of the same volume
 
 For Kubernetes users managing large datasets, this means significantly more efficient backup processes, as backup applications can now focus only on blocks that have actually changed rather than processing entire volumes.
+
+>  NOTE:
+>  As of now, the Changed Block Tracking API is supported only for block volumes and not for file volumes. CSI drivers that manage file-based storage systems will not be able to implement this capability.
+
 
 ## Why add changed block tracking API to Kubernetes
 
@@ -39,11 +43,12 @@ The implementation consists of three primary components:
 
 ## Getting started
 
-To use the Changed Block Tracking API in your cluster:
+To use changed block tracking in your cluster:
 
 1. Ensure your CSI driver supports volume snapshots and implements the snapshot metadata capabilities with the required `external-snapshot-metadata` sidecar
-2. Verify the presence of a SnapshotMetadataService Custom Resource for your CSI driver
-3. Create clients that can access the API using appropriate authentication (via Kubernetes ServiceAccount tokens)
+2. Make sure the `SnapshotMetadataService` custom resource is registered using CRD
+3. Verify the presence of a `SnapshotMetadataService` custom resource for your CSI driver
+4. Create clients that can access the API using appropriate authentication (via Kubernetes ServiceAccount tokens)
 
 The API provides two main functions:
 
