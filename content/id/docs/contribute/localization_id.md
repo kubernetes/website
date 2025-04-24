@@ -294,4 +294,4 @@ Contoh dari _feature gate_ adalah sebagai berikut:
 | Volume Plugin | Volume Plugin | Tetap | ... |
 | Watch | Watch | Tetap | ... |
 | WG (working group) | ... | ... | ... |
-| Workload | ... | ... | ... | ... |
+| Workload | ... | ... | ... |
