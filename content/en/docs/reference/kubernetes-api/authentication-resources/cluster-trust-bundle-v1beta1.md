@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "certificates.k8s.io/v1alpha1"
-  import: "k8s.io/api/certificates/v1alpha1"
+  apiVersion: "certificates.k8s.io/v1beta1"
+  import: "k8s.io/api/certificates/v1beta1"
   kind: "ClusterTrustBundle"
 content_type: "api_reference"
 description: "ClusterTrustBundle is a cluster-scoped container for X."
-title: "ClusterTrustBundle v1alpha1"
+title: "ClusterTrustBundle v1beta1"
 weight: 5
 auto_generated: true
 ---
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: certificates.k8s.io/v1alpha1`
+`apiVersion: certificates.k8s.io/v1beta1`
 
-`import "k8s.io/api/certificates/v1alpha1"`
+`import "k8s.io/api/certificates/v1beta1"`
 
 
 ## ClusterTrustBundle {#ClusterTrustBundle}
@@ -36,7 +36,7 @@ It can be optionally associated with a particular assigner, in which case it con
 
 <hr>
 
-- **apiVersion**: certificates.k8s.io/v1alpha1
+- **apiVersion**: certificates.k8s.io/v1beta1
 
 
 - **kind**: ClusterTrustBundle
@@ -46,7 +46,7 @@ It can be optionally associated with a particular assigner, in which case it con
 
   metadata contains the object metadata.
 
-- **spec** (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundleSpec" >}}">ClusterTrustBundleSpec</a>), required
+- **spec** (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundleSpec" >}}">ClusterTrustBundleSpec</a>), required
 
   spec contains the signer (if any) and trust anchors.
 
@@ -90,7 +90,7 @@ ClusterTrustBundleList is a collection of ClusterTrustBundle objects
 
 <hr>
 
-- **apiVersion**: certificates.k8s.io/v1alpha1
+- **apiVersion**: certificates.k8s.io/v1beta1
 
 
 - **kind**: ClusterTrustBundleList
@@ -100,7 +100,7 @@ ClusterTrustBundleList is a collection of ClusterTrustBundle objects
 
   metadata contains the list metadata.
 
-- **items** ([]<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>), required
+- **items** ([]<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>), required
 
   items is a collection of ClusterTrustBundle objects
 
@@ -123,7 +123,7 @@ ClusterTrustBundleList is a collection of ClusterTrustBundle objects
 
 #### HTTP Request
 
-GET /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
+GET /apis/certificates.k8s.io/v1beta1/clustertrustbundles/{name}
 
 #### Parameters
 
@@ -142,7 +142,7 @@ GET /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
+200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
 
 401: Unauthorized
 
@@ -151,7 +151,7 @@ GET /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 
 #### HTTP Request
 
-GET /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
+GET /apis/certificates.k8s.io/v1beta1/clustertrustbundles
 
 #### Parameters
 
@@ -215,7 +215,7 @@ GET /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
 #### Response
 
 
-200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundleList" >}}">ClusterTrustBundleList</a>): OK
+200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundleList" >}}">ClusterTrustBundleList</a>): OK
 
 401: Unauthorized
 
@@ -224,12 +224,12 @@ GET /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
 
 #### HTTP Request
 
-POST /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
+POST /apis/certificates.k8s.io/v1beta1/clustertrustbundles
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>, required
+- **body**: <a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>, required
 
   
 
@@ -258,11 +258,11 @@ POST /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
 #### Response
 
 
-200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
+200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
 
-201 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Created
+201 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Created
 
-202 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Accepted
+202 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Accepted
 
 401: Unauthorized
 
@@ -271,7 +271,7 @@ POST /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
 
 #### HTTP Request
 
-PUT /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
+PUT /apis/certificates.k8s.io/v1beta1/clustertrustbundles/{name}
 
 #### Parameters
 
@@ -281,7 +281,7 @@ PUT /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
   name of the ClusterTrustBundle
 
 
-- **body**: <a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>, required
+- **body**: <a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>, required
 
   
 
@@ -310,9 +310,9 @@ PUT /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
+200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
 
-201 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Created
+201 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Created
 
 401: Unauthorized
 
@@ -321,7 +321,7 @@ PUT /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 
 #### HTTP Request
 
-PATCH /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
+PATCH /apis/certificates.k8s.io/v1beta1/clustertrustbundles/{name}
 
 #### Parameters
 
@@ -365,9 +365,9 @@ PATCH /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
+200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
 
-201 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Created
+201 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Created
 
 401: Unauthorized
 
@@ -376,7 +376,7 @@ PATCH /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 
 #### HTTP Request
 
-DELETE /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
+DELETE /apis/certificates.k8s.io/v1beta1/clustertrustbundles/{name}
 
 #### Parameters
 
@@ -431,7 +431,7 @@ DELETE /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 
 #### HTTP Request
 
-DELETE /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
+DELETE /apis/certificates.k8s.io/v1beta1/clustertrustbundles
 
 #### Parameters
 

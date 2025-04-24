@@ -106,6 +106,12 @@ VolumeAttachmentStatus is the status of a VolumeAttachment request.
   <a name="VolumeError"></a>
   *VolumeError captures an error encountered during a volume operation.*
 
+  - **attachError.errorCode** (int32)
+
+    errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+    
+    This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+
   - **attachError.message** (string)
 
     message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
@@ -127,6 +133,12 @@ VolumeAttachmentStatus is the status of a VolumeAttachment request.
 
   <a name="VolumeError"></a>
   *VolumeError captures an error encountered during a volume operation.*
+
+  - **detachError.errorCode** (int32)
+
+    errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+    
+    This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
 
   - **detachError.message** (string)
 

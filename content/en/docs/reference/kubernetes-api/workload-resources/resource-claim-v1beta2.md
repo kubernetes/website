@@ -1,12 +1,12 @@
 ---
 api_metadata:
-  apiVersion: "resource.k8s.io/v1beta1"
-  import: "k8s.io/api/resource/v1beta1"
+  apiVersion: "resource.k8s.io/v1beta2"
+  import: "k8s.io/api/resource/v1beta2"
   kind: "ResourceClaim"
 content_type: "api_reference"
 description: "ResourceClaim describes a request for access to resources in the cluster, for use by workloads."
-title: "ResourceClaim v1beta1"
-weight: 15
+title: "ResourceClaim v1beta2"
+weight: 16
 auto_generated: true
 ---
 
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: resource.k8s.io/v1beta1`
+`apiVersion: resource.k8s.io/v1beta2`
 
-`import "k8s.io/api/resource/v1beta1"`
+`import "k8s.io/api/resource/v1beta2"`
 
 
 ## ResourceClaim {#ResourceClaim}
@@ -34,7 +34,7 @@ This is an alpha type and requires enabling the DynamicResourceAllocation featur
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1beta1
+- **apiVersion**: resource.k8s.io/v1beta2
 
 
 - **kind**: ResourceClaim
@@ -44,11 +44,11 @@ This is an alpha type and requires enabling the DynamicResourceAllocation featur
 
   Standard object metadata
 
-- **spec** (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaimSpec" >}}">ResourceClaimSpec</a>), required
+- **spec** (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaimSpec" >}}">ResourceClaimSpec</a>), required
 
   Spec describes what is being requested and how to configure it. The spec is immutable.
 
-- **status** (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaimStatus" >}}">ResourceClaimStatus</a>)
+- **status** (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaimStatus" >}}">ResourceClaimStatus</a>)
 
   Status describes whether the claim is ready to use and what has been allocated.
 
@@ -144,6 +144,8 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
       *Atomic: will be replaced during a merge*
       
       Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
+      
+      References to subrequests must include the name of the main request and may include the subrequest using the format \<main request>[/\<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
 
   - **devices.constraints** ([]DeviceConstraint)
 
@@ -167,6 +169,8 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
       *Atomic: will be replaced during a merge*
       
       Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
+      
+      References to subrequests must include the name of the main request and may include the subrequest using the format \<main request>[/\<subrequest>]. If just the main request is given, the constraint applies to all subrequests.
 
   - **devices.requests** ([]DeviceRequest)
 
@@ -175,97 +179,276 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
     Requests represent individual requests for distinct devices which must all be satisfied. If empty, nothing needs to be allocated.
 
     <a name="DeviceRequest"></a>
-    *DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.
-    
-    A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.*
-
-    - **devices.requests.deviceClassName** (string), required
-
-      DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
-      
-      A class is required. Which classes are available depends on the cluster.
-      
-      Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+    *DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices. With FirstAvailable it is also possible to provide a prioritized list of requests.*
 
     - **devices.requests.name** (string), required
 
       Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.
       
+      References using the name in the DeviceRequest will uniquely identify a request when the Exactly field is set. When the FirstAvailable field is set, a reference to the name of the DeviceRequest will match whatever subrequest is chosen by the scheduler.
+      
       Must be a DNS label.
 
-    - **devices.requests.adminAccess** (boolean)
+    - **devices.requests.exactly** (ExactDeviceRequest)
 
-      AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+      Exactly specifies the details for a single request that must be met exactly for the request to be satisfied.
       
-      This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+      One of Exactly or FirstAvailable must be set.
 
-    - **devices.requests.allocationMode** (string)
+      <a name="ExactDeviceRequest"></a>
+      *ExactDeviceRequest is a request for one or more identical devices.*
 
-      AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
-      
-      - ExactCount: This request is for a specific number of devices.
-        This is the default. The exact number is provided in the
-        count field.
-      
-      - All: This request is for all of the matching devices in a pool.
-        Allocation will fail if some devices are already allocated,
-        unless adminAccess is requested.
-      
-      If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
-      
-      More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+      - **devices.requests.exactly.deviceClassName** (string), required
 
-    - **devices.requests.count** (int64)
+        DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
+        
+        A DeviceClassName is required.
+        
+        Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
 
-      Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+      - **devices.requests.exactly.adminAccess** (boolean)
 
-    - **devices.requests.selectors** ([]DeviceSelector)
+        AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+        
+        This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+
+      - **devices.requests.exactly.allocationMode** (string)
+
+        AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
+        
+        - ExactCount: This request is for a specific number of devices.
+          This is the default. The exact number is provided in the
+          count field.
+        
+        - All: This request is for all of the matching devices in a pool.
+          At least one device must exist on the node for the allocation to succeed.
+          Allocation will fail if some devices are already allocated,
+          unless adminAccess is requested.
+        
+        If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+        
+        More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+
+      - **devices.requests.exactly.count** (int64)
+
+        Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+
+      - **devices.requests.exactly.selectors** ([]DeviceSelector)
+
+        *Atomic: will be replaced during a merge*
+        
+        Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+
+        <a name="DeviceSelector"></a>
+        *DeviceSelector must have exactly one field set.*
+
+        - **devices.requests.exactly.selectors.cel** (CELDeviceSelector)
+
+          CEL contains a CEL expression for selecting a device.
+
+          <a name="CELDeviceSelector"></a>
+          *CELDeviceSelector contains a CEL expression for selecting a device.*
+
+          - **devices.requests.exactly.selectors.cel.expression** (string), required
+
+            Expression is a CEL expression which evaluates a single device. It must evaluate to true when the device under consideration satisfies the desired criteria, and false when it does not. Any other result is an error and causes allocation of devices to abort.
+            
+            The expression's input is an object named "device", which carries the following properties:
+             - driver (string): the name of the driver which defines this device.
+             - attributes (map[string]object): the device's attributes, grouped by prefix
+               (e.g. device.attributes["dra.example.com"] evaluates to an object with all
+               of the attributes which were prefixed by "dra.example.com".
+             - capacity (map[string]object): the device's capacities, grouped by prefix.
+            
+            Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
+            
+                device.driver
+                device.attributes["dra.example.com"].model
+                device.attributes["ext.example.com"].family
+                device.capacity["dra.example.com"].modules
+            
+            The device.driver field can be used to check for a specific driver, either as a high-level precondition (i.e. you only want to consider devices from this driver) or as part of a multi-clause expression that is meant to consider devices from different drivers.
+            
+            The value type of each attribute is defined by the device definition, and users who write these expressions must consult the documentation for their specific drivers. The value type of each capacity is Quantity.
+            
+            If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
+            
+            A robust expression should check for the existence of attributes before referencing them.
+            
+            For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
+            
+                cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+            
+            The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
+
+      - **devices.requests.exactly.tolerations** ([]DeviceToleration)
+
+        *Atomic: will be replaced during a merge*
+        
+        If specified, the request's tolerations.
+        
+        Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+        
+        In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+        
+        The maximum number of tolerations is 16.
+        
+        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+
+        <a name="DeviceToleration"></a>
+        *The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.*
+
+        - **devices.requests.exactly.tolerations.effect** (string)
+
+          Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+
+        - **devices.requests.exactly.tolerations.key** (string)
+
+          Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
+
+        - **devices.requests.exactly.tolerations.operator** (string)
+
+          Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+
+        - **devices.requests.exactly.tolerations.tolerationSeconds** (int64)
+
+          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was adedd> + \<toleration seconds>.
+
+        - **devices.requests.exactly.tolerations.value** (string)
+
+          Value is the taint value the toleration matches to. If the operator is Exists, the value must be empty, otherwise just a regular string. Must be a label value.
+
+    - **devices.requests.firstAvailable** ([]DeviceSubRequest)
 
       *Atomic: will be replaced during a merge*
       
-      Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+      FirstAvailable contains subrequests, of which exactly one will be selected by the scheduler. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one can not be used.
+      
+      DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
 
-      <a name="DeviceSelector"></a>
-      *DeviceSelector must have exactly one field set.*
+      <a name="DeviceSubRequest"></a>
+      *DeviceSubRequest describes a request for device provided in the claim.spec.devices.requests[].firstAvailable array. Each is typically a request for a single resource like a device, but can also ask for several identical devices.
+      
+      DeviceSubRequest is similar to ExactDeviceRequest, but doesn't expose the AdminAccess field as that one is only supported when requesting a specific device.*
 
-      - **devices.requests.selectors.cel** (CELDeviceSelector)
+      - **devices.requests.firstAvailable.deviceClassName** (string), required
 
-        CEL contains a CEL expression for selecting a device.
+        DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
+        
+        A class is required. Which classes are available depends on the cluster.
+        
+        Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
 
-        <a name="CELDeviceSelector"></a>
-        *CELDeviceSelector contains a CEL expression for selecting a device.*
+      - **devices.requests.firstAvailable.name** (string), required
 
-        - **devices.requests.selectors.cel.expression** (string), required
+        Name can be used to reference this subrequest in the list of constraints or the list of configurations for the claim. References must use the format \<main request>/\<subrequest>.
+        
+        Must be a DNS label.
 
-          Expression is a CEL expression which evaluates a single device. It must evaluate to true when the device under consideration satisfies the desired criteria, and false when it does not. Any other result is an error and causes allocation of devices to abort.
-          
-          The expression's input is an object named "device", which carries the following properties:
-           - driver (string): the name of the driver which defines this device.
-           - attributes (map[string]object): the device's attributes, grouped by prefix
-             (e.g. device.attributes["dra.example.com"] evaluates to an object with all
-             of the attributes which were prefixed by "dra.example.com".
-           - capacity (map[string]object): the device's capacities, grouped by prefix.
-          
-          Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
-          
-              device.driver
-              device.attributes["dra.example.com"].model
-              device.attributes["ext.example.com"].family
-              device.capacity["dra.example.com"].modules
-          
-          The device.driver field can be used to check for a specific driver, either as a high-level precondition (i.e. you only want to consider devices from this driver) or as part of a multi-clause expression that is meant to consider devices from different drivers.
-          
-          The value type of each attribute is defined by the device definition, and users who write these expressions must consult the documentation for their specific drivers. The value type of each capacity is Quantity.
-          
-          If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
-          
-          A robust expression should check for the existence of attributes before referencing them.
-          
-          For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
-          
-              cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
-          
-          The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
+      - **devices.requests.firstAvailable.allocationMode** (string)
+
+        AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
+        
+        - ExactCount: This request is for a specific number of devices.
+          This is the default. The exact number is provided in the
+          count field.
+        
+        - All: This subrequest is for all of the matching devices in a pool.
+          Allocation will fail if some devices are already allocated,
+          unless adminAccess is requested.
+        
+        If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
+        
+        More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+
+      - **devices.requests.firstAvailable.count** (int64)
+
+        Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+
+      - **devices.requests.firstAvailable.selectors** ([]DeviceSelector)
+
+        *Atomic: will be replaced during a merge*
+        
+        Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this subrequest. All selectors must be satisfied for a device to be considered.
+
+        <a name="DeviceSelector"></a>
+        *DeviceSelector must have exactly one field set.*
+
+        - **devices.requests.firstAvailable.selectors.cel** (CELDeviceSelector)
+
+          CEL contains a CEL expression for selecting a device.
+
+          <a name="CELDeviceSelector"></a>
+          *CELDeviceSelector contains a CEL expression for selecting a device.*
+
+          - **devices.requests.firstAvailable.selectors.cel.expression** (string), required
+
+            Expression is a CEL expression which evaluates a single device. It must evaluate to true when the device under consideration satisfies the desired criteria, and false when it does not. Any other result is an error and causes allocation of devices to abort.
+            
+            The expression's input is an object named "device", which carries the following properties:
+             - driver (string): the name of the driver which defines this device.
+             - attributes (map[string]object): the device's attributes, grouped by prefix
+               (e.g. device.attributes["dra.example.com"] evaluates to an object with all
+               of the attributes which were prefixed by "dra.example.com".
+             - capacity (map[string]object): the device's capacities, grouped by prefix.
+            
+            Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
+            
+                device.driver
+                device.attributes["dra.example.com"].model
+                device.attributes["ext.example.com"].family
+                device.capacity["dra.example.com"].modules
+            
+            The device.driver field can be used to check for a specific driver, either as a high-level precondition (i.e. you only want to consider devices from this driver) or as part of a multi-clause expression that is meant to consider devices from different drivers.
+            
+            The value type of each attribute is defined by the device definition, and users who write these expressions must consult the documentation for their specific drivers. The value type of each capacity is Quantity.
+            
+            If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
+            
+            A robust expression should check for the existence of attributes before referencing them.
+            
+            For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
+            
+                cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+            
+            The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
+
+      - **devices.requests.firstAvailable.tolerations** ([]DeviceToleration)
+
+        *Atomic: will be replaced during a merge*
+        
+        If specified, the request's tolerations.
+        
+        Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+        
+        In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+        
+        The maximum number of tolerations is 16.
+        
+        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+
+        <a name="DeviceToleration"></a>
+        *The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.*
+
+        - **devices.requests.firstAvailable.tolerations.effect** (string)
+
+          Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+
+        - **devices.requests.firstAvailable.tolerations.key** (string)
+
+          Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
+
+        - **devices.requests.firstAvailable.tolerations.operator** (string)
+
+          Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+
+        - **devices.requests.firstAvailable.tolerations.tolerationSeconds** (int64)
+
+          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was adedd> + \<toleration seconds>.
+
+        - **devices.requests.firstAvailable.tolerations.value** (string)
+
+          Value is the taint value the toleration matches to. If the operator is Exists, the value must be empty, otherwise just a regular string. Must be a label value.
 
 
 
@@ -372,6 +555,8 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
         *Atomic: will be replaced during a merge*
         
         Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.
+        
+        References to subrequests must include the name of the main request and may include the subrequest using the format \<main request>[/\<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
 
     - **allocation.devices.results** ([]DeviceRequestAllocationResult)
 
@@ -400,13 +585,48 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
 
       - **allocation.devices.results.request** (string), required
 
-        Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+        Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format \<main request>/\<subrequest>.
+        
+        Multiple devices may have been allocated per request.
 
       - **allocation.devices.results.adminAccess** (boolean)
 
         AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
         
         This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+
+      - **allocation.devices.results.tolerations** ([]DeviceToleration)
+
+        *Atomic: will be replaced during a merge*
+        
+        A copy of all tolerations specified in the request at the time when the device got allocated.
+        
+        The maximum number of tolerations is 16.
+        
+        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+
+        <a name="DeviceToleration"></a>
+        *The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.*
+
+        - **allocation.devices.results.tolerations.effect** (string)
+
+          Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+
+        - **allocation.devices.results.tolerations.key** (string)
+
+          Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
+
+        - **allocation.devices.results.tolerations.operator** (string)
+
+          Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+
+        - **allocation.devices.results.tolerations.tolerationSeconds** (int64)
+
+          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was adedd> + \<toleration seconds>.
+
+        - **allocation.devices.results.tolerations.value** (string)
+
+          Value is the taint value the toleration matches to. If the operator is Exists, the value must be empty, otherwise just a regular string. Must be a label value.
 
   - **allocation.nodeSelector** (NodeSelector)
 
@@ -466,6 +686,8 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
     *Map: unique values on key type will be kept during a merge*
     
     Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+    
+    Must not contain more than 8 entries.
 
     <a name="Condition"></a>
     *Condition contains details for one aspect of the current state of this API Resource.*
@@ -580,7 +802,7 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
   
   Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
   
-  There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+  There can be at most 256 such reservations. This may get increased in the future, but not reduced.
 
   <a name="ResourceClaimConsumerReference"></a>
   *ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.*
@@ -611,7 +833,7 @@ ResourceClaimList is a collection of claims.
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1beta1
+- **apiVersion**: resource.k8s.io/v1beta2
 
 
 - **kind**: ResourceClaimList
@@ -621,7 +843,7 @@ ResourceClaimList is a collection of claims.
 
   Standard list metadata
 
-- **items** ([]<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaim" >}}">ResourceClaim</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>), required
 
   Items is the list of resource claims.
 
@@ -644,7 +866,7 @@ ResourceClaimList is a collection of claims.
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}
+GET /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}
 
 #### Parameters
 
@@ -668,7 +890,7 @@ GET /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): OK
 
 401: Unauthorized
 
@@ -677,7 +899,7 @@ GET /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}/status
+GET /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}/status
 
 #### Parameters
 
@@ -701,7 +923,7 @@ GET /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}/s
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): OK
 
 401: Unauthorized
 
@@ -710,7 +932,7 @@ GET /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}/s
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims
+GET /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims
 
 #### Parameters
 
@@ -779,7 +1001,7 @@ GET /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaimList" >}}">ResourceClaimList</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaimList" >}}">ResourceClaimList</a>): OK
 
 401: Unauthorized
 
@@ -788,7 +1010,7 @@ GET /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1beta1/resourceclaims
+GET /apis/resource.k8s.io/v1beta2/resourceclaims
 
 #### Parameters
 
@@ -852,7 +1074,7 @@ GET /apis/resource.k8s.io/v1beta1/resourceclaims
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaimList" >}}">ResourceClaimList</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaimList" >}}">ResourceClaimList</a>): OK
 
 401: Unauthorized
 
@@ -861,7 +1083,7 @@ GET /apis/resource.k8s.io/v1beta1/resourceclaims
 
 #### HTTP Request
 
-POST /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims
+POST /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims
 
 #### Parameters
 
@@ -871,7 +1093,7 @@ POST /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaim" >}}">ResourceClaim</a>, required
+- **body**: <a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>, required
 
   
 
@@ -900,11 +1122,11 @@ POST /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaim" >}}">ResourceClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): Created
 
-202 (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaim" >}}">ResourceClaim</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): Accepted
 
 401: Unauthorized
 
@@ -913,7 +1135,7 @@ POST /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims
 
 #### HTTP Request
 
-PUT /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}
+PUT /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}
 
 #### Parameters
 
@@ -928,7 +1150,7 @@ PUT /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaim" >}}">ResourceClaim</a>, required
+- **body**: <a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>, required
 
   
 
@@ -957,9 +1179,9 @@ PUT /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaim" >}}">ResourceClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): Created
 
 401: Unauthorized
 
@@ -968,7 +1190,7 @@ PUT /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}
 
 #### HTTP Request
 
-PUT /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}/status
+PUT /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}/status
 
 #### Parameters
 
@@ -983,7 +1205,7 @@ PUT /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}/s
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaim" >}}">ResourceClaim</a>, required
+- **body**: <a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>, required
 
   
 
@@ -1012,9 +1234,9 @@ PUT /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}/s
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaim" >}}">ResourceClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): Created
 
 401: Unauthorized
 
@@ -1023,7 +1245,7 @@ PUT /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}/s
 
 #### HTTP Request
 
-PATCH /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}
+PATCH /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}
 
 #### Parameters
 
@@ -1072,9 +1294,9 @@ PATCH /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaim" >}}">ResourceClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): Created
 
 401: Unauthorized
 
@@ -1083,7 +1305,7 @@ PATCH /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}
 
 #### HTTP Request
 
-PATCH /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}/status
+PATCH /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}/status
 
 #### Parameters
 
@@ -1132,9 +1354,9 @@ PATCH /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaim" >}}">ResourceClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): Created
 
 401: Unauthorized
 
@@ -1143,7 +1365,7 @@ PATCH /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name}
+DELETE /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}
 
 #### Parameters
 
@@ -1192,9 +1414,9 @@ DELETE /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): OK
 
-202 (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaim" >}}">ResourceClaim</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): Accepted
 
 401: Unauthorized
 
@@ -1203,7 +1425,7 @@ DELETE /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims/{name
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims
+DELETE /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims
 
 #### Parameters
 

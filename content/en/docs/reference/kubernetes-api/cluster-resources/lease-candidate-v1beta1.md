@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "coordination.k8s.io/v1alpha2"
-  import: "k8s.io/api/coordination/v1alpha2"
+  apiVersion: "coordination.k8s.io/v1beta1"
+  import: "k8s.io/api/coordination/v1beta1"
   kind: "LeaseCandidate"
 content_type: "api_reference"
 description: "LeaseCandidate defines a candidate for a Lease object."
-title: "LeaseCandidate v1alpha2"
+title: "LeaseCandidate v1beta1"
 weight: 6
 auto_generated: true
 ---
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: coordination.k8s.io/v1alpha2`
+`apiVersion: coordination.k8s.io/v1beta1`
 
-`import "k8s.io/api/coordination/v1alpha2"`
+`import "k8s.io/api/coordination/v1beta1"`
 
 
 ## LeaseCandidate {#LeaseCandidate}
@@ -32,7 +32,7 @@ LeaseCandidate defines a candidate for a Lease object. Candidates are created su
 
 <hr>
 
-- **apiVersion**: coordination.k8s.io/v1alpha2
+- **apiVersion**: coordination.k8s.io/v1beta1
 
 
 - **kind**: LeaseCandidate
@@ -42,7 +42,7 @@ LeaseCandidate defines a candidate for a Lease object. Candidates are created su
 
   More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidateSpec" >}}">LeaseCandidateSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidateSpec" >}}">LeaseCandidateSpec</a>)
 
   spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
@@ -62,11 +62,11 @@ LeaseCandidateSpec is a specification of a Lease.
 
 - **leaseName** (string), required
 
-  LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
+  LeaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
 
 - **strategy** (string), required
 
-  Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+  Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
 
 - **emulationVersion** (string)
 
@@ -96,7 +96,7 @@ LeaseCandidateList is a list of Lease objects.
 
 <hr>
 
-- **apiVersion**: coordination.k8s.io/v1alpha2
+- **apiVersion**: coordination.k8s.io/v1beta1
 
 
 - **kind**: LeaseCandidateList
@@ -106,7 +106,7 @@ LeaseCandidateList is a list of Lease objects.
 
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>), required
+- **items** ([]<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>), required
 
   items is a list of schema objects.
 
@@ -129,7 +129,7 @@ LeaseCandidateList is a list of Lease objects.
 
 #### HTTP Request
 
-GET /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates/{name}
+GET /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates/{name}
 
 #### Parameters
 
@@ -153,7 +153,7 @@ GET /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates/{n
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
 
 401: Unauthorized
 
@@ -162,7 +162,7 @@ GET /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates/{n
 
 #### HTTP Request
 
-GET /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates
+GET /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates
 
 #### Parameters
 
@@ -231,7 +231,7 @@ GET /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidateList" >}}">LeaseCandidateList</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidateList" >}}">LeaseCandidateList</a>): OK
 
 401: Unauthorized
 
@@ -240,7 +240,7 @@ GET /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates
 
 #### HTTP Request
 
-GET /apis/coordination.k8s.io/v1alpha2/leasecandidates
+GET /apis/coordination.k8s.io/v1beta1/leasecandidates
 
 #### Parameters
 
@@ -304,7 +304,7 @@ GET /apis/coordination.k8s.io/v1alpha2/leasecandidates
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidateList" >}}">LeaseCandidateList</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidateList" >}}">LeaseCandidateList</a>): OK
 
 401: Unauthorized
 
@@ -313,7 +313,7 @@ GET /apis/coordination.k8s.io/v1alpha2/leasecandidates
 
 #### HTTP Request
 
-POST /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates
+POST /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates
 
 #### Parameters
 
@@ -323,7 +323,7 @@ POST /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>, required
 
   
 
@@ -352,11 +352,11 @@ POST /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>): Created
+201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): Created
 
-202 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>): Accepted
+202 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): Accepted
 
 401: Unauthorized
 
@@ -365,7 +365,7 @@ POST /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates
 
 #### HTTP Request
 
-PUT /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates/{name}
+PUT /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates/{name}
 
 #### Parameters
 
@@ -380,7 +380,7 @@ PUT /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates/{n
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>, required
 
   
 
@@ -409,9 +409,9 @@ PUT /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates/{n
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>): Created
+201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): Created
 
 401: Unauthorized
 
@@ -420,7 +420,7 @@ PUT /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates/{n
 
 #### HTTP Request
 
-PATCH /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates/{name}
+PATCH /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates/{name}
 
 #### Parameters
 
@@ -469,9 +469,9 @@ PATCH /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates/
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha2#LeaseCandidate" >}}">LeaseCandidate</a>): Created
+201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): Created
 
 401: Unauthorized
 
@@ -480,7 +480,7 @@ PATCH /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates/
 
 #### HTTP Request
 
-DELETE /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates/{name}
+DELETE /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates/{name}
 
 #### Parameters
 
@@ -540,7 +540,7 @@ DELETE /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates
 
 #### HTTP Request
 
-DELETE /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates
+DELETE /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates
 
 #### Parameters
 

@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "networking.k8s.io/v1beta1"
-  import: "k8s.io/api/networking/v1beta1"
+  apiVersion: "networking.k8s.io/v1"
+  import: "k8s.io/api/networking/v1"
   kind: "ServiceCIDR"
 content_type: "api_reference"
 description: "ServiceCIDR defines a range of IP addresses using CIDR format (e."
-title: "ServiceCIDR v1beta1"
+title: "ServiceCIDR"
 weight: 10
 auto_generated: true
 ---
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: networking.k8s.io/v1beta1`
+`apiVersion: networking.k8s.io/v1`
 
-`import "k8s.io/api/networking/v1beta1"`
+`import "k8s.io/api/networking/v1"`
 
 
 ## ServiceCIDR {#ServiceCIDR}
@@ -32,7 +32,7 @@ ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/
 
 <hr>
 
-- **apiVersion**: networking.k8s.io/v1beta1
+- **apiVersion**: networking.k8s.io/v1
 
 
 - **kind**: ServiceCIDR
@@ -42,11 +42,11 @@ ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDRSpec" >}}">ServiceCIDRSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDRSpec" >}}">ServiceCIDRSpec</a>)
 
   spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
-- **status** (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDRStatus" >}}">ServiceCIDRStatus</a>)
+- **status** (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDRStatus" >}}">ServiceCIDRStatus</a>)
 
   status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
@@ -124,7 +124,7 @@ ServiceCIDRList contains a list of ServiceCIDR objects.
 
 <hr>
 
-- **apiVersion**: networking.k8s.io/v1beta1
+- **apiVersion**: networking.k8s.io/v1
 
 
 - **kind**: ServiceCIDRList
@@ -134,7 +134,7 @@ ServiceCIDRList contains a list of ServiceCIDR objects.
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>), required
+- **items** ([]<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>), required
 
   items is the list of ServiceCIDRs.
 
@@ -157,7 +157,7 @@ ServiceCIDRList contains a list of ServiceCIDR objects.
 
 #### HTTP Request
 
-GET /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
+GET /apis/networking.k8s.io/v1/servicecidrs/{name}
 
 #### Parameters
 
@@ -176,7 +176,7 @@ GET /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
+200 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
 
 401: Unauthorized
 
@@ -185,7 +185,7 @@ GET /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
 
 #### HTTP Request
 
-GET /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
+GET /apis/networking.k8s.io/v1/servicecidrs/{name}/status
 
 #### Parameters
 
@@ -204,7 +204,7 @@ GET /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
+200 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
 
 401: Unauthorized
 
@@ -213,7 +213,7 @@ GET /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
 
 #### HTTP Request
 
-GET /apis/networking.k8s.io/v1beta1/servicecidrs
+GET /apis/networking.k8s.io/v1/servicecidrs
 
 #### Parameters
 
@@ -277,7 +277,7 @@ GET /apis/networking.k8s.io/v1beta1/servicecidrs
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDRList" >}}">ServiceCIDRList</a>): OK
+200 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDRList" >}}">ServiceCIDRList</a>): OK
 
 401: Unauthorized
 
@@ -286,12 +286,12 @@ GET /apis/networking.k8s.io/v1beta1/servicecidrs
 
 #### HTTP Request
 
-POST /apis/networking.k8s.io/v1beta1/servicecidrs
+POST /apis/networking.k8s.io/v1/servicecidrs
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>, required
 
   
 
@@ -320,11 +320,11 @@ POST /apis/networking.k8s.io/v1beta1/servicecidrs
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
+200 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
+201 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
 
-202 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): Accepted
+202 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): Accepted
 
 401: Unauthorized
 
@@ -333,7 +333,7 @@ POST /apis/networking.k8s.io/v1beta1/servicecidrs
 
 #### HTTP Request
 
-PUT /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
+PUT /apis/networking.k8s.io/v1/servicecidrs/{name}
 
 #### Parameters
 
@@ -343,7 +343,7 @@ PUT /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
   name of the ServiceCIDR
 
 
-- **body**: <a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>, required
 
   
 
@@ -372,9 +372,9 @@ PUT /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
+200 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
+201 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
 
 401: Unauthorized
 
@@ -383,7 +383,7 @@ PUT /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
 
 #### HTTP Request
 
-PUT /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
+PUT /apis/networking.k8s.io/v1/servicecidrs/{name}/status
 
 #### Parameters
 
@@ -393,7 +393,7 @@ PUT /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
   name of the ServiceCIDR
 
 
-- **body**: <a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>, required
 
   
 
@@ -422,9 +422,9 @@ PUT /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
+200 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
+201 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
 
 401: Unauthorized
 
@@ -433,7 +433,7 @@ PUT /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
 
 #### HTTP Request
 
-PATCH /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
+PATCH /apis/networking.k8s.io/v1/servicecidrs/{name}
 
 #### Parameters
 
@@ -477,9 +477,9 @@ PATCH /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
+200 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
+201 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
 
 401: Unauthorized
 
@@ -488,7 +488,7 @@ PATCH /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
 
 #### HTTP Request
 
-PATCH /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
+PATCH /apis/networking.k8s.io/v1/servicecidrs/{name}/status
 
 #### Parameters
 
@@ -532,9 +532,9 @@ PATCH /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
+200 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
+201 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
 
 401: Unauthorized
 
@@ -543,7 +543,7 @@ PATCH /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
 
 #### HTTP Request
 
-DELETE /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
+DELETE /apis/networking.k8s.io/v1/servicecidrs/{name}
 
 #### Parameters
 
@@ -598,7 +598,7 @@ DELETE /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
 
 #### HTTP Request
 
-DELETE /apis/networking.k8s.io/v1beta1/servicecidrs
+DELETE /apis/networking.k8s.io/v1/servicecidrs
 
 #### Parameters
 
