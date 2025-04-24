@@ -25,7 +25,7 @@ release; make sure to read about those if you already run an older version of Ku
 {{< figure src="k8s-1.33.svg" alt="Kubernetes v1.33 logo: Octarine" class="release-logo" >}}
 
 The theme for Kubernetes v1.33 is **Octarine: The Color of Magic**<sup>1</sup>, inspired by Terry
-Pratchett’s _Discworld_ series. This release highlights the open-source magic<sup>2</sup> that
+Pratchett’s _Discworld_ series. This release highlights the open source magic<sup>2</sup> that
 Kubernetes enables across the ecosystem.
 
 If you’re familiar with the world of Discworld, you might recognize a small swamp dragon perched
@@ -38,7 +38,7 @@ release is a reminder that, as Pratchett wrote, _“It’s still magic even if y
 Even if you know the ins and outs of the Kubernetes code base, stepping back at the end of the
 release cycle, you’ll realize that Kubernetes remains magical.
 
-Kubernetes v1.33 is a testament to the enduring power of open-source innovation, where hundreds of
+Kubernetes v1.33 is a testament to the enduring power of open source innovation, where hundreds of
 contributors<sup>4</sup> from around the world work together to create something truly
 extraordinary. Behind every new feature, the Kubernetes community works to maintain and improve the
 project, ensuring it remains secure, reliable, and released on time. Each release builds upon the
