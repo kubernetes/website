@@ -372,25 +372,6 @@ count/replicasets.apps        1     4
 count/secrets                 1     4
 ```
 
-## Quota and Cluster Capacity
-
-ResourceQuotas are independent of the cluster capacity. They are
-expressed in absolute units. So, if you add nodes to your cluster, this does *not*
-automatically give each namespace the ability to consume more resources.
-
-Sometimes more complex policies may be desired, such as:
-
-- Proportionally divide total cluster resources among several teams.
-- Allow each tenant to grow resource usage as needed, but have a generous
-  limit to prevent accidental resource exhaustion.
-- Detect demand from one namespace, add nodes, and increase quota.
-
-Such policies could be implemented using `ResourceQuotas` as building blocks, by
-writing a "controller" that watches the quota usage and adjusts the quota
-hard limits of each namespace according to other signals.
-
-Note that resource quota divides up aggregate cluster resources, but it creates no
-restrictions around nodes: pods from several namespaces may run on the same node.
 
 ## Quota scopes
 
@@ -409,8 +390,8 @@ Kubernetes {{< skew currentVersion >}} supports the following scopes:
 | [`NotBestEffort`](#quota-scope-non-best-effort) | Match pods that do not have best effort quality of service. |
 | [`NotTerminating`](#quota-scope-non-terminating) | Match pods where `.spec.activeDeadlineSeconds`]() is `nil`]() |
 | [`PriorityClass`](#resource-quota-per-priorityclass) | Match pods that references the specified [priority class](/docs/concepts/scheduling-eviction/pod-priority-preemption). |
-| [`Terminating`](#quota-scope-terminating) | Match pods where `.spec.activeDeadlineSeconds`]() >= `0`]() |
-| [`VolumeAttributesClass`](#quota-scope-volume-attributes-class) | Match PersistentVolumeClaims that reference the specified [volume attributes class](/docs/concepts/storage/volume-attributes-classes). |
+| [`Terminating`](##quota-scope-terminating) | Match pods where `.spec.activeDeadlineSeconds`]() >= `0`]() |
+| [`VolumeAttributesClass`](#quota-scope-volume-attributes-class) | Match PersistentVolumeClaims that reference the specified [VolumeAttributesClass](/docs/concepts/storage/volume-attributes-classes). |
 
 ResourceQuotas with a scope set can also have a optional `scopeSelector` field. You define one or more _match expressions_
 that specify an `operators` and, if relevant, a set of `values` to match. For example:
@@ -759,6 +740,26 @@ When the quota is scoped for the volume attributes class using the `scopeSelecto
 * `requests.storage`
 
 Read [use a ResourceQuota to limit storage use](/docs/tasks/administer-cluster/quota-storage/) to learn more about this.
+
+## Quota and cluster capacity
+
+ResourceQuotas are independent of the cluster capacity. They are
+expressed in absolute units. So, if you add nodes to your cluster, this does *not*
+automatically give each namespace the ability to consume more resources.
+
+Sometimes more complex policies may be desired, such as:
+
+- Proportionally divide total cluster resources among several teams.
+- Allow each tenant to grow resource usage as needed, but have a generous
+  limit to prevent accidental resource exhaustion.
+- Detect demand from one namespace, add nodes, and increase quota.
+
+Such policies could be implemented using ResourceQuotas as building blocks, by
+writing a  that watches the quota usage and adjusts the quota
+hard limits of each namespace according to other signals.
+
+Note that resource quota divides up aggregate cluster resources, but it creates no
+restrictions around nodes: pods from several namespaces may run on the same node.
 
 
 ## {{% heading "whatsnext" %}}
