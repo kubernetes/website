@@ -314,10 +314,10 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2). Matching objects must satisfy all of the specified label constraints.
+Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.
 -->
-过滤所用的选择算符（标签查询），支持 '='、'==' 和 '！='。
-（例如 -l key1=value1,key2=value2）。匹配的对象必须满足所有指定的标签约束。
+过滤所用的选择算符（标签查询），支持 '='、'=='、'!='、'in' 和 'notin'。
+（例如 -l key1=value1,key2=value2,key3 in (value3)）。匹配的对象必须满足所有指定的标签约束。
 </p></td>
 </tr>
 
@@ -355,10 +355,10 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-If specified, apply will operate on the subresource of the requested object.  Only allowed when using --server-side. This flag is beta and may change in the future.
+If specified, apply will operate on the subresource of the requested object.  Only allowed when using --server-side.
 -->
 如果指定此参数，apply 将对请求对象的子资源进行操作。
-仅在使用 --server-side 时允许指定此参数。此标志为 Beta 级别，将来可能会发生变化。
+仅在使用 --server-side 时允许指定此参数。
 </p>
 </td>
 </tr>
