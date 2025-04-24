@@ -136,10 +136,10 @@ As overcommit is not allowed for extended resources, it makes no sense to specif
 and `limits` for the same extended resource in a quota. So for extended resources, only quota items
 with prefix `requests.` are allowed.
 
-Take the GPU resource as an example, if the resource name is `nvidia.com/gpu`, and you want to
+Take the GPU resource as an example, if the resource name is `vndr.example/gpu`, and you want to
 limit the total number of GPUs requested in a namespace to 4, you can define a quota as follows:
 
-* `requests.nvidia.com/gpu: 4`
+* `requests.vndr.example/gpu: 4`
 
 See [Viewing and Setting Quotas](#viewing-and-setting-quotas) for more details.
 
@@ -294,7 +294,7 @@ spec:
     requests.memory: "1Gi"
     limits.cpu: "2"
     limits.memory: "2Gi"
-    requests.nvidia.com/gpu: 4
+    requests.vndr.example/gpu: 4 # GPU from example vendor
 EOF
 ```
 
@@ -339,15 +339,15 @@ kubectl describe quota compute-resources --namespace=myspace
 ```
 
 ```none
-Name:                    compute-resources
-Namespace:               myspace
-Resource                 Used  Hard
---------                 ----  ----
-limits.cpu               0     2
-limits.memory            0     2Gi
-requests.cpu             0     1
-requests.memory          0     1Gi
-requests.nvidia.com/gpu  0     4
+Name:                      compute-resources
+Namespace:                 myspace
+Resource                   Used  Hard
+--------                   ----  ----
+limits.cpu                 0     2
+limits.memory              0     2Gi
+requests.cpu               0     1
+requests.memory            0     1Gi
+requests.vndr.example/gpu  0     4
 ```
 
 ```shell
