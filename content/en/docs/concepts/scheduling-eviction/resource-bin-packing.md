@@ -55,7 +55,7 @@ highly utilized nodes. This helps prepare for scale-down of the least utilized n
 To learn more about other parameters and their default configuration, see the API documentation for
 [`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs).
 
-## Enabling bin packing using RequestedToCapacityRatio
+## Bin packing using RequestedToCapacityRatio
 
 The `RequestedToCapacityRatio` strategy allows the users to specify the resources along with weights for
 each resource to score nodes based on the request to capacity ratio. This
@@ -167,13 +167,13 @@ The `weight` parameter is optional and is set to 1 if not specified. Also, the
 ### Node scoring for capacity allocation
 
 This section is intended for those who want to understand the internal details
-of this feature.
+of this mechanism.
 Below is an example of how the node score is calculated for a given set of values.
 
 Requested resources:
 
 ```
-intel.com/foo : 2
+intel.com/foo: 2
 memory: 256MB
 cpu: 2
 ```
@@ -181,14 +181,12 @@ cpu: 2
 Resource weights:
 
 ```
-intel.com/foo : 5
+intel.com/foo: 5
 memory: 1
 cpu: 3
 ```
 
-FunctionShapePoint {{0, 0}, {100, 10}}
-
-Node 1 spec:
+#### Scoring example: node 1 {#node-scoring-node1}
 
 ```
 Available:
@@ -202,7 +200,8 @@ Used:
   cpu: 1
 ```
 
-Node score:
+
+##### Foo (example extended resource), node 1 {#node-scoring-n1-example-resource}
 
 ```
 intel.com/foo  = resourceScoringFunction((2+1),4)
@@ -211,13 +210,20 @@ intel.com/foo  = resourceScoringFunction((2+1),4)
                = 75                       # requested + used = 75% * available
                = rawScoringFunction(75)
                = 7                        # floor(75/10)
+```
 
+##### Memory, node 1 {#node-scoring-n1-memory}
+
+```
 memory         = resourceScoringFunction((256+256),1024)
                = (100 -((1024-512)*100/1024))
                = 50                       # requested + used = 50% * available
                = rawScoringFunction(50)
                = 5                        # floor(50/10)
 
+##### CPU, node 1 {#node-scoring-n1-cpu}
+
+```
 cpu            = resourceScoringFunction((2+1),8)
                = (100 -((8-3)*100/8))
                = 37.5                     # requested + used = 37.5% * available
@@ -227,6 +233,8 @@ cpu            = resourceScoringFunction((2+1),8)
 NodeScore   =  ((7 * 5) + (5 * 1) + (3 * 3)) / (5 + 1 + 3)
             =  5
 ```
+
+#### Scoring example: node 2 {#node-scoring-node2}
 
 Node 2 spec:
 
@@ -241,7 +249,7 @@ Used:
   cpu: 6
 ```
 
-Node score:
+##### Foo (example extended resource), node 2 {#node-scoring-n2-example-resource}
 
 ```
 intel.com/foo  = resourceScoringFunction((2+2),8)
@@ -251,12 +259,22 @@ intel.com/foo  = resourceScoringFunction((2+2),8)
                =  rawScoringFunction(50)
                = 5
 
+```
+
+##### Memory, node 2 {#node-scoring-n2-memory}
+
+```
 memory         = resourceScoringFunction((256+512),1024)
                = (100 -((1024-768)*100/1024))
                = 75
                = rawScoringFunction(75)
                = 7
 
+```
+
+##### CPU, node 2 {#node-scoring-n2-cpu}
+
+```
 cpu            = resourceScoringFunction((2+6),8)
                = (100 -((8-8)*100/8))
                = 100
