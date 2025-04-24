@@ -2,8 +2,7 @@
 layout: blog
 title: "Continuing the transition from Endpoints to EndpointSlices"
 slug: endpoints-deprecation
-date: 2025-XX-XX
-draft: true
+date: 2025-04-24T10:30:00-08:00
 author: >
   Dan Winship (Red Hat)
 ---
@@ -22,7 +21,7 @@ As of Kubernetes 1.33, the Endpoints API is now officially deprecated,
 and the API server will return warnings to users who read or write
 Endpoints resources rather than using EndpointSlices.
 
-Eventually, the plan (as documented in [KEP-4794]) is to change the
+Eventually, the plan (as documented in [KEP-4974]) is to change the
 [Kubernetes Conformance] criteria to no longer require that clusters
 run the _Endpoints controller_ (which generates Endpoints objects
 based on Services and Pods), to avoid doing work that is unneeded in
