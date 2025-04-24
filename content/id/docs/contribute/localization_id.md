@@ -152,147 +152,147 @@ Contoh dari _functional gate_ adalah sebagai berikut:
 
 ### Glosarium Indonesia
 
-| **Inggris** | **Bahasa** | **Catatan** | **Tipe Kata** | **Sumber** |**Contoh Kalimat** |
-|-------------|------------|-------------|---------------|------------| ------------------|
-| Add-ons | ... | ... | ... | ... | ... |
-| Admission Controller | ... | ... | ... | ... | ... |
-| Affinity | Afinitas | Ejaan yang disesuaikan | ... | https://kbbi.kemdikbud.go.id/entri/afinitas | ... |
-| Aggregation Layer | Lapisan Agregasi | Dilokalkan | ... | ... | ... |
-| Annotation | Anotasi | Ejaan yang disesuaikan | ... | https://kbbi.kemdikbud.go.id/entri/anotasi | ... |
-| API Group | Grup API | Dilokalkan | ... | ... | ... |
-| API Resource | Sumber Daya API | Dilokalkan | ... | ... | ... |
-| API Server | Server API | Dilokalkan | ... | ... | ... |
-| API-initiated eviction | ... | ... | ... | ... | ... |
-| App Container | Kontainer Aplikasi | Dilokalkan | ... | ... | ... |
-| Application Architect | Aplikasi Arsitek | Dilokalkan | ... | ... | ... |
-| Applications | Aplikasi | Ejaan yang disesuaikan | ... | https://kbbi.kemdikbud.go.id/entri/aplikasi | ... |
-| Approver | Pemberi Persetujuan | Dilokalkan | ... | ... | ... |
-| cAdvisor | cAdvisor | Tetap | ... | ... | ... |
-| Certificate | Sertifikat | Ejaan yang disesuaikan | ... | https://kbbi.kemdikbud.go.id/entri/sertifikat | ... |
-| cgroup (control group) | cgroup (control group) | Tetap | ... | ... | ... |
-| CIDR | CIDR | Tetap | ... | ... | ... |
-| CLA (Contributor License Agreement) | CLA (Contributor License Agreement) | Tetap | ... | ... | ... |
-| Cluster | Klaster | Ejaan yang disesuaikan | ... | https://kbbi.kemdikbud.go.id/entri/klaster | Klaster Kubernetes adalah sekumpulan node yang menjalankan aplikasi dalam Kontainer. |
-| ConfigMap | ConfigMap | Tetap | ... | ... | ... |
-| Container | Kontainer | Ejaan yang disesuaikan | ... | https://kbbi.kemdikbud.go.id/entri/kontainer | ... |
-| Container Environment Variables | ... | ... | ... | ... | ... |
-| Container Lifecycle Hooks | ... | ... | ... | ... | ... |
-| Container Network Interface (CNI) | ... | ... | ... | ... | ... |
-| Container Runtime | ... | ... | ... | ... | ... |
-| Container Runtime Interface (CRI) | ... | ... | ... | ... | ... |
-| Container Storage Interface (CSI) | ... | ... | ... | ... | ... |
-| containerd | containerd | Tetap | ... | ... | ... |
-| Contributor | Kontributor | Ejaan yang disesuaikan | ... | https://kbbi.kemdikbud.go.id/entri/kontributor | ... |
-| Control Plane | ... | ... | ... | ... | ... |
-| Controller | Pengontrol | Dilokalkan | ... | ... | ... |
-| CRI-O | ... | ... | ... | ... | ... |
-| CronJob | CronJob | Tetap | ... | ... | ... |
-| CustomResourceDefinition | ... | ... | ... | ... | ... |
-| DaemonSet | DaemonSet | Tetap | ... | ... | ... |
-| Data Plane | ... | ... | ... | ... | ... |
-| Deployment | Deployment | Tetap | ... | ... | ... |
-| Developer | ... | ... | ... | ... | ... |
-| Device Plugin | ... | ... | ... | ... | ... |
-| Disruption | Disrupsi | Ejaan yang disesuaikan | ... | https://kbbi.kemdikbud.go.id/entri/disrupsi | ... |
-| Docker | Docker | Tetap | ... | ... | ... |
-| Dockershim | Dockershim | Tetap | ... | ... | ... |
-| Downstream | ... | ... | ... | ... | ... |
-| Downward API | ... | ... | ... | ... | ... |
-| Drain | ... | ... | ... | ... | ... |
-| Duration | Durasi | Ejaan yang disesuaikan | ... | https://kbbi.kemdikbud.go.id/entri/durasi | ... |
-| Dynamic Volume Provisioning | ... | ... | ... | ... | ... |
-| Endpoints | ... | ... | ... | ... | ... |
-| EdnpointSlice | ... | ... | ... | ... | ... |
-| Ephemeral Container | Kontainer Sementara | Dilokalkan | ... | ... | ... |
-| etcd | etcd | Tetap | ... | ... | ... |
-| Event | ... | ... | ... | ... | ... |
-| Eviction | Pengusiran | Dilokalkan | ... | ... | ... |
-| Extensions | Ekstensi | Ejaan yang disesuaikan | ... | https://kbbi.kemdikbud.go.id/entri/ekstensi | ... |
-| Feature gate | ... | ... | ... | ... | ... |
-| Finalizer | ... | ... | ... | ... | ... |
-| FlexVolume | FlexVolume | Tetap | ... | ... | ... |
-| Garbage Collection | ... | ... | ... | ... | ... |
-| Gateway API | ... | ... | ... | ... | ... |
-| Group Version Resource | ... | ... | ... | ... | ... |
-| Helm Chart | ... | ... | ... | ... | ... |
-| Horizontal Pod Autoscaler | ... | ... | ... | ... | ... |
-| HostAliases | HostAliases | Tetap | ... | ... | ... |
-| Image | Image | Tetap | ... | ... | ... |
-| Immutable Infrastucture | ... | ... | ... | ... | ... |
-| Ingress | Ingress | Tetap | ... | ... | ... |
-| Init Container | Kontainer Inisiasi | Dilokalkan | ... | ... | ... |
-| Istio | Istio | Tetap | ... | ... | ... |
-| Job | Job | Tetap | ... | ... | ... |
-| JSON Web Token (JWT) | JSON Web Token (JWT) | Tetap | ... | ... | ... |
-| kOps (Kubernetes Operations) | kOps (Operasi Kubernetes) | Dilokalkan | ... | ... | ... |
-| kube-controller-manager | kube-controller-manager | Tetap | ... | ... | ... |
-| kube-proxy | kube-proxy | Tetap | ... | ... | ... |
-| kube-scheduler | kube-scheduler | Tetap | ... | ... | ... |
-| Kubeadm | Kubeadm | Tetap | ... | ... | ... |
-| Kubectl | Kubectl | Tetap | ... | ... | ... |
-| Kubelet | Kubelet | Tetap | ... | ... | ... |
-| Kubernetes API | API Kubernetes | Dilokalkan | ... | ... | ... |
-| Label | Label | Tetap, Label juga adalah Label dalam Bahasa | ... | https://kbbi.kemdikbud.go.id/entri/label | ... |
-| LimitRange | LimitRange | Tetap | ... | ... | ... |
-| Logging | ... | ... | ... | ... | ... |
-| Managed Service | ... | ... | ... | ... | ... |
-| Manifest | Manifes | Ejaan yang disesuaikan | ... | https://kbbi.kemdikbud.go.id/entri/manifes | ... |
-| Master | Master | Tetap, Master juga adalah Master dalam Bahasa | ... | https://kbbi.kemdikbud.go.id/entri/master | ... |
-| Member | Anggota | Dilokalkan | ... | ... | ... |
-| Minikube | Minikube | Tetap | ... | ... | ... |
-| Mirror Pod | ... | ... | ... | ... | ... |
-| Mixed Version Proxy (MVP) | ... | ... | ... | ... | ... |
-| Name | Name | Tetap | ... | ... | ... |
-| Namespace | Namespace | Tetap | ... | ... | ... |
-| Network Policy | ... | ... | ... | ... | ... |
-| Node | Node | Tetap | ... | ... | ... |
-| Node-pressure eviction | ... | ... | ... | ... | ... |
-| Object | Objek | Ejaan yang disesuaikan | ... | https://kbbi.kemdikbud.go.id/entri/objek | ... |
-| Operator pattern | ... | ... | ... | ... | ... |
-| Persistent Volume | Persistent Volume | Tetap | ... | ... | ... |
-| Persistent Volume Claim | Persistent Volume Claim | Tetap | ... | ... | ... |
-| Platform Developer | ... | ... | ... | ... | ... |
-| Pod | Pod | Tetap (widely understood) | ... | ... | ... |
-| Pod Disruption | Disrupsi Pod | Dilokalkan | ... | ... | ... |
-| Pod Disruption Budget | ... | ... | ... | ... | ... |
-| Pod Lifecycle | ... | ... | ... | ... | ... |
-| Pod Priority | Prioritas Pod | Dilokalkan | ... | ... | ... |
-| Pod Security Policy | ... | ... | ... | ... | ... |
-| PodTemplate | PodTemplate | Tetap | ... | ... | ... |
-| Preemption | ... | ... | ... | ... | ... |
-| PriorityClass | PriorityClass | Tetap | ... | ... | ... |
-| Probe | ... | ... | ... | ... | ... |
-| Proxy | ... | ... | ... | ... | ... |
-| QoS Class | Kelas QoS | Dilokalkan | ... | ... | ... |
-| Quantity | Kuantitas | Ejaan yang disesuaikan | ... | https://kbbi.kemdikbud.go.id/entri/kuantitas | ... |
-| RBAC (Role-Based Access Control) | RBAC (Role-Based Access Control) | Tetap | ... | ... | ... |
-| Replica | ... | ... | ... | ... | ... |
-| ReplicaSet | ReplicaSet | Tetap | ... | ... | ... |
-| ReplicationController | ReplicationController | Tetap | ... | ... | ... |
-| Resource (infrastructure) | ... | ... | ... | ... | ... |
-| Resource Quotas | ... | ... | ... | ... | ... |
-| Reviewer | Pengulas | Dilokalkan | ... | https://kbbi.kemdikbud.go.id/entri/pengulas | ... |
-| Secret | Secret | Tetap | ... | ... | ... |
-| Security Context | ... | ... | ... | ... | ... |
-| Selector | ... | ... | ... | ... | ... |
-| Service | Servis | Ejaan yang disesuaikan | ... | https://kbbi.kemdikbud.go.id/entri/servis | ... |
-| Service Catalog | ... | ... | ... | ... | ... |
-| ServiceAccount | ServiceAccount | Tetap | ... | ... | ... |
-| Shuffle-sharding | Shuffle-sharding | Tetap | ... | ... | ... |
-| Sidecar Container | Kontainer Sidecar | Dilokalkan | ... | ... | ... |
-| SIG (special interest group) | SIG (special interest group) | Tetap | ... | ... | ... |
-| Spec | Spec | Tetap | ... | ... | ... |
-| StatefulSet | StatefulSet | Tetap | ... | ... | ... |
-| Static Pod | Pod Statis | Dilokalkan | ... | ... | ... |
-| Storage Class | ... | ... | ... | ... | ... |
-| sysctl | sysctl | Tetap | ... | ... | ... |
-| Taint | ... | ... | ... | ... | ... |
-| Toleration | Toleransi | Ejaan yang disesuaikan | ... | https://kbbi.kemdikbud.go.id/entri/toleransi | ... |
-| UID | UID | Tetap | ... | ... | ... |
-| Upstream | ... | ... | ... | ... | ... |
-| user namespace | ... | ... | ... | ... | ... |
-| Volume | Volume | Tetap | ... | ... | ... |
-| Volume Plugin | Volume Plugin | Tetap | ... | ... | ... |
-| Watch | Watch | Tetap | ... | ... | ... |
-| WG (working group) | ... | ... | ... | ... | ... |
-| Workload | ... | ... | ... | ... | ... |
+| **Inggris** | **Indonesia** | **Catatan** | **Sumber** |
+|-------------|---------------|-------------|------------|
+| Add-ons | ... | ... | ... |
+| Admission Controller | ... | ... | ... |
+| Affinity | Afinitas | Ejaan yang disesuaikan | https://kbbi.kemdikbud.go.id/entri/afinitas |
+| Aggregation Layer | Lapisan Agregasi | Dilokalkan | ... |
+| Annotation | Anotasi | Ejaan yang disesuaikan | https://kbbi.kemdikbud.go.id/entri/anotasi |
+| API Group | Grup API | Dilokalkan | ... |
+| API Resource | Sumber Daya API | Dilokalkan | ... |
+| API Server | Server API | Dilokalkan | ... |
+| API-initiated eviction | ... | ... | ... |
+| App Container | Kontainer Aplikasi | Dilokalkan | ... |
+| Application Architect | Aplikasi Arsitek | Dilokalkan | ... |
+| Applications | Aplikasi | Ejaan yang disesuaikan | https://kbbi.kemdikbud.go.id/entri/aplikasi |
+| Approver | Pemberi Persetujuan | Dilokalkan | ... |
+| cAdvisor | cAdvisor | Tetap | ... |
+| Certificate | Sertifikat | Ejaan yang disesuaikan | https://kbbi.kemdikbud.go.id/entri/sertifikat |
+| cgroup (control group) | cgroup (control group) | Tetap | ... |
+| CIDR | CIDR | Tetap | ... |
+| CLA (Contributor License Agreement) | CLA (Contributor License Agreement) | Tetap | ... |
+| Cluster | Klaster | Ejaan yang disesuaikan | https://kbbi.kemdikbud.go.id/entri/klaster | Klaster Kubernetes adalah sekumpulan node yang menjalankan aplikasi dalam Kontainer. |
+| ConfigMap | ConfigMap | Tetap | ... |
+| Container | Kontainer | Ejaan yang disesuaikan | https://kbbi.kemdikbud.go.id/entri/kontainer |
+| Container Environment Variables | ... | ... | ... |
+| Container Lifecycle Hooks | ... | ... | ... |
+| Container Network Interface (CNI) | ... | ... | ... |
+| Container Runtime | ... | ... | ... |
+| Container Runtime Interface (CRI) | ... | ... | ... |
+| Container Storage Interface (CSI) | ... | ... | ... |
+| containerd | containerd | Tetap | ... |
+| Contributor | Kontributor | Ejaan yang disesuaikan | https://kbbi.kemdikbud.go.id/entri/kontributor |
+| Control Plane | ... | ... | ... |
+| Controller | Pengontrol | Dilokalkan | ... |
+| CRI-O | ... | ... | ... |
+| CronJob | CronJob | Tetap | ... |
+| CustomResourceDefinition | ... | ... | ... |
+| DaemonSet | DaemonSet | Tetap | ... |
+| Data Plane | ... | ... | ... |
+| Deployment | Deployment | Tetap | ... |
+| Developer | ... | ... | ... |
+| Device Plugin | ... | ... | ... |
+| Disruption | Disrupsi | Ejaan yang disesuaikan | https://kbbi.kemdikbud.go.id/entri/disrupsi |
+| Docker | Docker | Tetap | ... |
+| Dockershim | Dockershim | Tetap | ... |
+| Downstream | ... | ... | ... |
+| Downward API | ... | ... | ... |
+| Drain | ... | ... | ... |
+| Duration | Durasi | Ejaan yang disesuaikan | https://kbbi.kemdikbud.go.id/entri/durasi | ... |
+| Dynamic Volume Provisioning | ... | ... | ... |
+| Endpoints | ... | ... | ... |
+| EdnpointSlice | ... | ... | ... |
+| Ephemeral Container | Kontainer Sementara | Dilokalkan | ... |
+| etcd | etcd | Tetap | ... |
+| Event | ... | ... | ... |
+| Eviction | Pengusiran | Dilokalkan | ... |
+| Extensions | Ekstensi | Ejaan yang disesuaikan | https://kbbi.kemdikbud.go.id/entri/ekstensi |
+| Feature gate | ... | ... | ... |
+| Finalizer | ... | ... | ... |
+| FlexVolume | FlexVolume | Tetap | ... |
+| Garbage Collection | ... | ... | ... |
+| Gateway API | ... | ... | ... |
+| Group Version Resource | ... | ... | ... |
+| Helm Chart | ... | ... | ... |
+| Horizontal Pod Autoscaler | ... | ... | ... |
+| HostAliases | HostAliases | Tetap | ... |
+| Image | Image | Tetap | ... |
+| Immutable Infrastucture | ... | ... | ... |
+| Ingress | Ingress | Tetap | ... |
+| Init Container | Kontainer Inisiasi | Dilokalkan | ... |
+| Istio | Istio | Tetap | ... |
+| Job | Job | Tetap | ... |
+| JSON Web Token (JWT) | JSON Web Token (JWT) | Tetap | ... |
+| kOps (Kubernetes Operations) | kOps (Operasi Kubernetes) | Dilokalkan | ... |
+| kube-controller-manager | kube-controller-manager | Tetap | ... |
+| kube-proxy | kube-proxy | Tetap | ... |
+| kube-scheduler | kube-scheduler | Tetap | ... |
+| Kubeadm | Kubeadm | Tetap | ... |
+| Kubectl | Kubectl | Tetap | ... |
+| Kubelet | Kubelet | Tetap | ... |
+| Kubernetes API | API Kubernetes | Dilokalkan | ... |
+| Label | Label | Tetap, Label juga adalah Label dalam Bahasa | https://kbbi.kemdikbud.go.id/entri/label |
+| LimitRange | LimitRange | Tetap | ... |
+| Logging | ... | ... | ... |
+| Managed Service | ... | ... | ... |
+| Manifest | Manifes | Ejaan yang disesuaikan | https://kbbi.kemdikbud.go.id/entri/manifes |
+| Master | Master | Tetap, Master juga adalah Master dalam Bahasa | https://kbbi.kemdikbud.go.id/entri/master |
+| Member | Anggota | Dilokalkan | ... |
+| Minikube | Minikube | Tetap | ... |
+| Mirror Pod | ... | ... | ... |
+| Mixed Version Proxy (MVP) | ... | ... | ... |
+| Name | Name | Tetap | ... |
+| Namespace | Namespace | Tetap | ... |
+| Network Policy | ... | ... | ... |
+| Node | Node | Tetap | ... |
+| Node-pressure eviction | ... | ... | ... |
+| Object | Objek | Ejaan yang disesuaikan | https://kbbi.kemdikbud.go.id/entri/objek |
+| Operator pattern | ... | ... | ... |
+| Persistent Volume | Persistent Volume | Tetap | ... |
+| Persistent Volume Claim | Persistent Volume Claim | Tetap | ... |
+| Platform Developer | ... | ... | ... |
+| Pod | Pod | Tetap (widely understood) | ... |
+| Pod Disruption | Disrupsi Pod | Dilokalkan | ... |
+| Pod Disruption Budget | ... | ... | ... |
+| Pod Lifecycle | ... | ... | ... |
+| Pod Priority | Prioritas Pod | Dilokalkan | ... |
+| Pod Security Policy | ... | ... | ... |
+| PodTemplate | PodTemplate | Tetap | ... |
+| Preemption | ... | ... | ... |
+| PriorityClass | PriorityClass | Tetap | ... |
+| Probe | ... | ... | ... |
+| Proxy | ... | ... | ... |
+| QoS Class | Kelas QoS | Dilokalkan | ... |
+| Quantity | Kuantitas | Ejaan yang disesuaikan | https://kbbi.kemdikbud.go.id/entri/kuantitas |
+| RBAC (Role-Based Access Control) | RBAC (Role-Based Access Control) | Tetap | ... |
+| Replica | ... | ... | ... |
+| ReplicaSet | ReplicaSet | Tetap | ... |
+| ReplicationController | ReplicationController | Tetap | ... |
+| Resource (infrastructure) | ... | ... | ... |
+| Resource Quotas | ... | ... | ... |
+| Reviewer | Pengulas | Dilokalkan | https://kbbi.kemdikbud.go.id/entri/pengulas |
+| Secret | Secret | Tetap | ... |
+| Security Context | ... | ... | ... |
+| Selector | ... | ... | ... |
+| Service | Servis | Ejaan yang disesuaikan | https://kbbi.kemdikbud.go.id/entri/servis |
+| Service Catalog | ... | ... | ... |
+| ServiceAccount | ServiceAccount | Tetap | ... |
+| Shuffle-sharding | Shuffle-sharding | Tetap | ... |
+| Sidecar Container | Kontainer Sidecar | Dilokalkan | ... |
+| SIG (special interest group) | SIG (special interest group) | Tetap | ... |
+| Spec | Spec | Tetap | ... |
+| StatefulSet | StatefulSet | Tetap | ... |
+| Static Pod | Pod Statis | Dilokalkan | ... |
+| Storage Class | ... | ... | ... |
+| sysctl | sysctl | Tetap | ... |
+| Taint | ... | ... | ... |
+| Toleration | Toleransi | Ejaan yang disesuaikan | https://kbbi.kemdikbud.go.id/entri/toleransi |
+| UID | UID | Tetap | ... |
+| Upstream | ... | ... | ... |
+| user namespace | ... | ... | ... |
+| Volume | Volume | Tetap | ... |
+| Volume Plugin | Volume Plugin | Tetap | ... |
+| Watch | Watch | Tetap | ... |
+| WG (working group) | ... | ... | ... |
+| Workload | ... | ... | ... | ... |
