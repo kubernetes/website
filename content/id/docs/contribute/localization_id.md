@@ -99,12 +99,12 @@ pengulas dari metadata kode tersebut.
 para pembaca dokumentasi.
 * Tulislah miring untuk kata-kata bahasa Inggris yang diimpor jika kamu tidak
 dapat menemukan kata-kata tersebut dalam bahasa Indonesia.
-    * :white_check_mark: Benar: _controller_.
-    * :x: Salah: controller, `controller`.
+    * ✅ Benar: _controller_.
+    * ❌ Salah: controller, `controller`.
 * Selalu rujuk setiap istilah teknis saat pertama kali disebutkan dalam dokumen ke glosarium.
 * Gunakan kalimat aktif bila memungkinkan.
-    * :white_check_mark: Benar: "Pod menjalankan satu atau lebih kontainer."
-    * :x: Salah: "Sebuah Pod menjalankan satu atau lebih kontainer." (terlalu kaku)
+    * ✅ Benar: "Pod menjalankan satu atau lebih kontainer."
+    * ❌ Salah: "Sebuah Pod menjalankan satu atau lebih kontainer." (terlalu kaku)
 * Jangan menerjemahkan perintah CLI atau keluaran perintah CLI (misalnya, `kubectl get pods` harus tetap dalam bahasa Inggris).
 * Ikuti terjemahan di [Glosarium Indonesia](#glosarium-indonesia).
 
@@ -115,14 +115,14 @@ lengkapnya [di sini](/docs/reference/kubernetes-api/).
 Sebagai contoh:
 
 * PersistentVolume
-    * :white_check_mark: Benar: PersistentVolume.
-    * :x: Salah: volume persisten, `PersistentVolume`, persistentVolume.
+    * ✅ Benar: PersistentVolume.
+    * ❌ Salah: volume persisten, `PersistentVolume`, persistentVolume.
 
 * Pod
-    * :white_check_mark: Benar: Pod.
-    * :x: Salah: pod, `pod`, "pod".
+    * ✅ Benar: Pod.
+    * ❌ Salah: pod, `pod`, "pod".
 
-:information_source: *Tips*: Biasanya API objek sudah ditulis dalam huruf kapital pada halaman asli
+💡 *Tips*: Biasanya API objek sudah ditulis dalam huruf kapital pada halaman asli
 bahasa Inggris.
 
 ### Panduan untuk kata-kata yang sama dengan API Objek Kubernetes
@@ -133,7 +133,7 @@ Sebagai contoh: _service_, _container_, _node_ , dan lain sebagainya. Kata-kata
 sebaiknya diterjemahkan ke Bahasa Indonesia sebagai contoh _service_ menjadi
 layanan, _container_ menjadi kontainer.
 
-:information_source: *Tips*: Biasanya kata-kata yang mengacu ke arti yang lebih umum sudah *tidak*
+💡 *Tips*: Biasanya kata-kata yang mengacu ke arti yang lebih umum sudah *tidak*
 ditulis dalam huruf kapital pada halaman asli bahasa Inggris.
 
 ### Panduan untuk "Feature Gate" Kubernetes
