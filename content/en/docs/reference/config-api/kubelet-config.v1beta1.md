@@ -373,7 +373,7 @@ each provider as specified by the CredentialProvider type.</p>
 Multiple providers may match against a single image, in which case credentials
 from all providers will be returned to the kubelet. If multiple providers are called
 for a single image, the results are combined. If providers return overlapping
-auth keys, the value from the provider earlier in this list is used.</p>
+auth keys, the value from the provider earlier in this list is attempted first.</p>
 </td>
 </tr>
 </tbody>
@@ -598,6 +598,49 @@ pulls to burst to this number, while still not exceeding registryPullQPS.
 The value must not be a negative number.
 Only used if registryPullQPS is greater than 0.
 Default: 10</p>
+</td>
+</tr>
+<tr><td><code>imagePullCredentialsVerificationPolicy</code><br/>
+<a href="#kubelet-config-k8s-io-v1beta1-ImagePullCredentialsVerificationPolicy"><code>ImagePullCredentialsVerificationPolicy</code></a>
+</td>
+<td>
+   <p>imagePullCredentialsVerificationPolicy determines how credentials should be
+verified when pod requests an image that is already present on the node:</p>
+<ul>
+<li>NeverVerify
+<ul>
+<li>anyone on a node can use any image present on the node</li>
+</ul>
+</li>
+<li>NeverVerifyPreloadedImages
+<ul>
+<li>images that were pulled to the node by something else than the kubelet
+can be used without reverifying pull credentials</li>
+</ul>
+</li>
+<li>NeverVerifyAllowlistedImages
+<ul>
+<li>like &quot;NeverVerifyPreloadedImages&quot; but only node images from
+<code>preloadedImagesVerificationAllowlist</code> don't require reverification</li>
+</ul>
+</li>
+<li>AlwaysVerify
+<ul>
+<li>all images require credential reverification</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr><td><code>preloadedImagesVerificationAllowlist</code><br/>
+<code>[]string</code>
+</td>
+<td>
+   <p>preloadedImagesVerificationAllowlist specifies a list of images that are
+exempted from credential reverification for the &quot;NeverVerifyAllowlistedImages&quot;
+<code>imagePullCredentialsVerificationPolicy</code>.
+The list accepts a full path segment wildcard suffix &quot;/*&quot;.
+Only use image specs without an image tag or digest.</p>
 </td>
 </tr>
 <tr><td><code>eventRecordQPS</code><br/>
@@ -836,7 +879,6 @@ Default: &quot;cgroupfs&quot;</p>
 </td>
 <td>
    <p>cpuManagerPolicy is the name of the policy to use.
-Requires the CPUManager feature gate to be enabled.
 Default: &quot;None&quot;</p>
 </td>
 </tr>
@@ -859,7 +901,6 @@ On cgroup v2 linux, null / absent, true and false are allowed. The default value
 <td>
    <p>cpuManagerPolicyOptions is a set of key=value which 	allows to set extra options
 to fine tune the behaviour of the cpu manager policies.
-Requires  both the &quot;CPUManager&quot; and &quot;CPUManagerPolicyOptions&quot; feature gates to be enabled.
 Default: nil</p>
 </td>
 </tr>
@@ -868,7 +909,6 @@ Default: nil</p>
 </td>
 <td>
    <p>cpuManagerReconcilePeriod is the reconciliation period for the CPU Manager.
-Requires the CPUManager feature gate to be enabled.
 Default: &quot;10s&quot;</p>
 </td>
 </tr>
@@ -1128,6 +1168,7 @@ Default: nil</p>
 <td>
    <p>evictionPressureTransitionPeriod is the duration for which the kubelet has to wait
 before transitioning out of an eviction pressure condition.
+A duration of 0s will be converted to the default value of 5m
 Default: &quot;5m&quot;</p>
 </td>
 </tr>
@@ -1150,6 +1191,20 @@ which describe the minimum amount of a given resource the kubelet will reclaim w
 performing a pod eviction while that resource is under pressure.
 For example: <code>{&quot;imagefs.available&quot;: &quot;2Gi&quot;}</code>.
 Default: nil</p>
+</td>
+</tr>
+<tr><td><code>mergeDefaultEvictionSettings</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>mergeDefaultEvictionSettings indicates that defaults for the evictionHard, evictionSoft, evictionSoftGracePeriod, and evictionMinimumReclaim
+fields should be merged into values specified for those fields in this configuration.
+Signals specified in this configuration take precedence.
+Signals not specified in this configuration inherit their defaults.
+If false, and if any signal is specified in this configuration then other signals that
+are not specified in this configuration will be set to 0.
+It applies to merging the fields for which the default exists, and currently only evictionHard has default values.
+Default: false</p>
 </td>
 </tr>
 <tr><td><code>podsPerCore</code><br/>
@@ -1439,6 +1494,8 @@ Default: true</p>
 <td>
    <p>enableSystemLogQuery enables the node log query feature on the /logs endpoint.
 EnableSystemLogHandler has to be enabled in addition for this feature to work.
+Enabling this feature has security implications. The recommendation is to enable it on a need basis for debugging
+purposes and disabling otherwise.
 Default: false</p>
 </td>
 </tr>
@@ -1567,7 +1624,7 @@ Default: 0.9</p>
 </td>
 </tr>
 <tr><td><code>registerWithTaints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <p>registerWithTaints are an array of taints to add to a node object when
@@ -1637,6 +1694,13 @@ option is explicitly enabled.
 Default: false</p>
 </td>
 </tr>
+<tr><td><code>userNamespaces</code><br/>
+<a href="#kubelet-config-k8s-io-v1beta1-UserNamespaces"><code>UserNamespaces</code></a>
+</td>
+<td>
+   <p>UserNamespaces contains User Namespace configurations.</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -1658,7 +1722,7 @@ It exists in the kubeletconfig API group because it is classified as a versioned
     
   
 <tr><td><code>source</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
 </td>
 <td>
    <p>source is the source that we are serializing.</p>
@@ -1716,7 +1780,8 @@ invoked when an image being pulled matches the images handled by the plugin (see
 <td>
    <p>name is the required name of the credential provider. It must match the name of the
 provider executable as seen by the kubelet. The executable must be in the kubelet's
-bin directory (set by the --image-credential-provider-bin-dir flag).</p>
+bin directory (set by the --image-credential-provider-bin-dir flag).
+Required to be unique across all providers.</p>
 </td>
 </tr>
 <tr><td><code>matchImages</code> <B>[Required]</B><br/>
@@ -1818,6 +1883,21 @@ credential plugin.</p>
 </tr>
 </tbody>
 </table>
+
+## `ImagePullCredentialsVerificationPolicy`     {#kubelet-config-k8s-io-v1beta1-ImagePullCredentialsVerificationPolicy}
+    
+(Alias of `string`)
+
+**Appears in:**
+
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+
+<p>ImagePullCredentialsVerificationPolicy is an enum for the policy that is enforced
+when pod is requesting an image that appears on the system</p>
+
+
+
 
 ## `KubeletAnonymousAuthentication`     {#kubelet-config-k8s-io-v1beta1-KubeletAnonymousAuthentication}
     
@@ -2045,7 +2125,7 @@ and groups corresponding to the Organization in the client certificate.</p>
    <span class="text-muted">No description provided.</span></td>
 </tr>
 <tr><td><code>limits</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <span class="text-muted">No description provided.</span></td>
@@ -2122,6 +2202,36 @@ managers (secret, configmap) are discovering object changes.</p>
 </td>
 <td>
    <p>shutdownGracePeriodSeconds is the shutdown grace period in seconds</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `UserNamespaces`     {#kubelet-config-k8s-io-v1beta1-UserNamespaces}
+    
+
+**Appears in:**
+
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+
+<p>UserNamespaces contains User Namespace configurations.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>idsPerPod</code><br/>
+<code>int64</code>
+</td>
+<td>
+   <p>IDsPerPod is the mapping length of UIDs and GIDs.
+The length must be a multiple of 65536, and must be less than 1&lt;&lt;32.
+On non-linux such as windows, only null / absent is allowed.</p>
+<p>Changing the value may require recreating all containers on the node.</p>
+<p>Default: 65536</p>
 </td>
 </tr>
 </tbody>

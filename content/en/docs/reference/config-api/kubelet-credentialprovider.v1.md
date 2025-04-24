@@ -39,6 +39,26 @@ credential provider plugin request. Plugins may optionally parse the image
 to extract any information required to fetch credentials.</p>
 </td>
 </tr>
+<tr><td><code>serviceAccountToken</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>serviceAccountToken is the service account token bound to the pod for which
+the image is being pulled. This token is only sent to the plugin if the
+tokenAttributes.serviceAccountTokenAudience field is configured in the kubelet's credential
+provider configuration.</p>
+</td>
+</tr>
+<tr><td><code>serviceAccountAnnotations</code> <B>[Required]</B><br/>
+<code>map[string]string</code>
+</td>
+<td>
+   <p>serviceAccountAnnotations is a map of annotations on the service account bound to the
+pod for which the image is being pulled. The list of annotations in the service account
+that need to be passed to the plugin is configured in the kubelet's credential provider
+configuration.</p>
+</td>
+</tr>
 </tbody>
 </table>
 
