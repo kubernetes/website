@@ -1,28 +1,28 @@
 ---
 api_metadata:
-  apiVersion: "certificates.k8s.io/v1alpha1"
-  import: "k8s.io/api/certificates/v1alpha1"
+  apiVersion: "certificates.k8s.io/v1beta1"
+  import: "k8s.io/api/certificates/v1beta1"
   kind: "ClusterTrustBundle"
 content_type: "api_reference"
 description: "ClusterTrustBundle 是一个集群范围的容器，用于存放 X.509 信任锚（根证书）。"
-title: "ClusterTrustBundle v1alpha1"
+title: "ClusterTrustBundle v1beta1"
 weight: 5
 ---
 <!--
 api_metadata:
-  apiVersion: "certificates.k8s.io/v1alpha1"
-  import: "k8s.io/api/certificates/v1alpha1"
+  apiVersion: "certificates.k8s.io/v1beta1"
+  import: "k8s.io/api/certificates/v1beta1"
   kind: "ClusterTrustBundle"
 content_type: "api_reference"
 description: "ClusterTrustBundle is a cluster-scoped container for X."
-title: "ClusterTrustBundle v1alpha1"
+title: "ClusterTrustBundle v1beta1"
 weight: 5
 auto_generated: true
 -->
 
-`apiVersion: certificates.k8s.io/v1alpha1`
+`apiVersion: certificates.k8s.io/v1beta1`
 
-`import "k8s.io/api/certificates/v1alpha1"`
+`import "k8s.io/api/certificates/v1beta1"`
 
 ## ClusterTrustBundle {#ClusterTrustBundle}
 
@@ -48,7 +48,7 @@ ClusterTrustBundle 可以选择与特定的签名程序相关联，此时它包�
 
 <hr>
 
-- **apiVersion**: certificates.k8s.io/v1alpha1
+- **apiVersion**: certificates.k8s.io/v1beta1
 
 - **kind**: ClusterTrustBundle
 
@@ -57,7 +57,7 @@ ClusterTrustBundle 可以选择与特定的签名程序相关联，此时它包�
 
   metadata contains the object metadata.
 
-- **spec** (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundleSpec" >}}">ClusterTrustBundleSpec</a>), required
+- **spec** (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundleSpec" >}}">ClusterTrustBundleSpec</a>), required
 
   spec contains the signer (if any) and trust anchors.
 -->
@@ -65,7 +65,7 @@ ClusterTrustBundle 可以选择与特定的签名程序相关联，此时它包�
 
   metadata 包含对象的元数据。
 
-- **spec** (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundleSpec" >}}">ClusterTrustBundleSpec</a>)，必需
+- **spec** (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundleSpec" >}}">ClusterTrustBundleSpec</a>)，必需
 
   spec 包含签名程序（如果有）和信任锚。
 
@@ -144,7 +144,7 @@ ClusterTrustBundleList 是 ClusterTrustBundle 对象的集合。
 
 <hr>
 
-- **apiVersion**: certificates.k8s.io/v1alpha1
+- **apiVersion**: certificates.k8s.io/v1beta1
 
 - **kind**: ClusterTrustBundleList
 
@@ -153,7 +153,7 @@ ClusterTrustBundleList 是 ClusterTrustBundle 对象的集合。
 
   metadata contains the list metadata.
 
-- **items** ([]<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>), required
+- **items** ([]<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>), required
 
   items is a collection of ClusterTrustBundle objects
 -->
@@ -161,7 +161,7 @@ ClusterTrustBundleList 是 ClusterTrustBundle 对象的集合。
 
   metadata 包含列表的元数据。
 
-- **items** ([]<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>)，必需
+- **items** ([]<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>)，必需
 
   items 是 ClusterTrustBundle 对象的集合。
 
@@ -181,7 +181,7 @@ ClusterTrustBundleList 是 ClusterTrustBundle 对象的集合。
 
 #### HTTP 请求
 
-GET /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
+GET /apis/certificates.k8s.io/v1beta1/clustertrustbundles/{name}
 
 <!--
 #### Parameters
@@ -209,7 +209,7 @@ GET /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 -->
 #### 响应
 
-200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
+200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
 
 401: Unauthorized
 
@@ -222,7 +222,7 @@ GET /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 
 #### HTTP 请求
 
-GET /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
+GET /apis/certificates.k8s.io/v1beta1/clustertrustbundles
 
 <!--
 #### Parameters
@@ -290,7 +290,7 @@ GET /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
 -->
 #### 响应
 
-200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundleList" >}}">ClusterTrustBundleList</a>): OK
+200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundleList" >}}">ClusterTrustBundleList</a>): OK
 
 401: Unauthorized
 
@@ -303,11 +303,11 @@ GET /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
 
 #### HTTP 请求
 
-POST /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
+POST /apis/certificates.k8s.io/v1beta1/clustertrustbundles
 
 <!--
 #### Parameters
-- **body**: <a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>, required
+- **body**: <a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>, required
 - **dryRun** (*in query*): string
 - **fieldManager** (*in query*): string
 - **fieldValidation** (*in query*): string
@@ -315,7 +315,7 @@ POST /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
 -->
 #### 参数
 
-- **body**: <a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>，必需
+- **body**: <a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>，必需
 
 - **dryRun**（**查询参数**）：string
 
@@ -338,11 +338,11 @@ POST /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
 -->
 #### 响应
 
-200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
+200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
 
-201 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Created
+201 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Created
 
-202 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Accepted
+202 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Accepted
 
 401: Unauthorized
 
@@ -355,7 +355,7 @@ POST /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
 
 #### HTTP 请求
 
-PUT /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
+PUT /apis/certificates.k8s.io/v1beta1/clustertrustbundles/{name}
 
 <!--
 #### Parameters
@@ -364,7 +364,7 @@ PUT /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 
   name of the ClusterTrustBundle
 
-- **body**: <a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>, required
+- **body**: <a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>, required
 - **dryRun** (*in query*): string
 - **fieldManager** (*in query*): string
 - **fieldValidation** (*in query*): string
@@ -376,7 +376,7 @@ PUT /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 
   ClusterTrustBundle 的名称。
 
-- **body**: <a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>，必需
+- **body**: <a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>，必需
 
 - **dryRun**（**查询参数**）：string
 
@@ -399,9 +399,9 @@ PUT /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 -->
 #### 响应
 
-200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
+200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
 
-201 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Created
+201 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Created
 
 401: Unauthorized
 
@@ -414,7 +414,7 @@ PUT /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 
 #### HTTP 请求
 
-PATCH /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
+PATCH /apis/certificates.k8s.io/v1beta1/clustertrustbundles/{name}
 
 <!--
 #### Parameters
@@ -463,9 +463,9 @@ PATCH /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 -->
 #### 响应
 
-200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
+200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
 
-201 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Created
+201 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Created
 
 401: Unauthorized
 
@@ -478,7 +478,7 @@ PATCH /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 
 #### HTTP 请求
 
-DELETE /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
+DELETE /apis/certificates.k8s.io/v1beta1/clustertrustbundles/{name}
 
 <!--
 #### Parameters
@@ -542,7 +542,7 @@ DELETE /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 
 #### HTTP 请求
 
-DELETE /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
+DELETE /apis/certificates.k8s.io/v1beta1/clustertrustbundles
 
 <!--
 #### Parameters
