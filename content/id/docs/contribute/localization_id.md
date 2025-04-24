@@ -142,12 +142,11 @@ Istilah [_feature gate_](/docs/reference/command-line-tools-reference/feature-ga
 Kubernetes tidak perlu diterjemahkan ke dalam bahasa Indonesia dan tetap
 dipertahankan dalam bentuk aslinya.
 
-Contoh dari _functional gate_ adalah sebagai berikut:
+Contoh dari _feature gate_ adalah sebagai berikut:
 
-- Akselerator
-- AdvancedAuditing
-- AffinityInAnnotations
-- AllowExtTrafficLocalEndpoints
+- AllowUnsafeMalformedObjectDeletion
+- AnonymousAuthConfigurableEndpoints
+- APIResponseCompression
 - ...
 
 ### Glosarium Indonesia
