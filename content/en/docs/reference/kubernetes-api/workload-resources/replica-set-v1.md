@@ -66,11 +66,11 @@ ReplicaSetSpec is the specification of a ReplicaSet.
 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)
 
-  Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+  Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
 
 - **replicas** (int32)
 
-  Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+  Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 
 - **minReadySeconds** (int32)
 
@@ -88,19 +88,25 @@ ReplicaSetStatus represents the current status of a ReplicaSet.
 
 - **replicas** (int32), required
 
-  Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+  Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 
 - **availableReplicas** (int32)
 
-  The number of available replicas (ready for at least minReadySeconds) for this replica set.
+  The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
 
 - **readyReplicas** (int32)
 
-  readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+  The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
+
+- **terminatingReplicas** (int32)
+
+  The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+  
+  This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
 
 - **fullyLabeledReplicas** (int32)
 
-  The number of pods that have labels matching the labels of the pod template of the replicaset.
+  The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
 
 - **conditions** ([]ReplicaSetCondition)
 
@@ -162,7 +168,7 @@ ReplicaSetList is a collection of ReplicaSets.
 
 - **items** ([]<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>), required
 
-  List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+  List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 
 
 

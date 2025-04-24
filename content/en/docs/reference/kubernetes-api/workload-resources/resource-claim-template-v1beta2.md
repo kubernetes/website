@@ -1,12 +1,12 @@
 ---
 api_metadata:
-  apiVersion: "coordination.k8s.io/v1alpha1"
-  import: "k8s.io/api/coordination/v1alpha1"
-  kind: "LeaseCandidate"
+  apiVersion: "resource.k8s.io/v1beta2"
+  import: "k8s.io/api/resource/v1beta2"
+  kind: "ResourceClaimTemplate"
 content_type: "api_reference"
-description: "LeaseCandidate defines a candidate for a Lease object."
-title: "LeaseCandidate v1alpha1"
-weight: 6
+description: "ResourceClaimTemplate is used to produce ResourceClaim objects."
+title: "ResourceClaimTemplate v1beta2"
+weight: 17
 auto_generated: true
 ---
 
@@ -21,100 +21,76 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: coordination.k8s.io/v1alpha1`
+`apiVersion: resource.k8s.io/v1beta2`
 
-`import "k8s.io/api/coordination/v1alpha1"`
+`import "k8s.io/api/resource/v1beta2"`
 
 
-## LeaseCandidate {#LeaseCandidate}
+## ResourceClaimTemplate {#ResourceClaimTemplate}
 
-LeaseCandidate defines a candidate for a Lease object. Candidates are created such that coordinated leader election will pick the best leader from the list of candidates.
+ResourceClaimTemplate is used to produce ResourceClaim objects.
+
+This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
 
 <hr>
 
-- **apiVersion**: coordination.k8s.io/v1alpha1
+- **apiVersion**: resource.k8s.io/v1beta2
 
 
-- **kind**: LeaseCandidate
+- **kind**: ResourceClaimTemplate
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  Standard object metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidateSpec" >}}">LeaseCandidateSpec</a>)
+- **spec** (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplateSpec" >}}">ResourceClaimTemplateSpec</a>), required
 
-  spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-
-
-
-
-
-## LeaseCandidateSpec {#LeaseCandidateSpec}
-
-LeaseCandidateSpec is a specification of a Lease.
-
-<hr>
-
-- **leaseName** (string), required
-
-  LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
-
-- **preferredStrategies** ([]string), required
-
-  *Atomic: will be replaced during a merge*
+  Describes the ResourceClaim that is to be generated.
   
-  PreferredStrategies indicates the list of strategies for picking the leader for coordinated leader election. The list is ordered, and the first strategy supersedes all other strategies. The list is used by coordinated leader election to make a decision about the final election strategy. This follows as - If all clients have strategy X as the first element in this list, strategy X will be used. - If a candidate has strategy [X] and another candidate has strategy [Y, X], Y supersedes X and strategy Y
-    will be used.
-  - If a candidate has strategy [X, Y] and another candidate has strategy [Y, X], this is a user error and leader
-    election will not operate the Lease until resolved.
-  (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
-
-- **binaryVersion** (string)
-
-  BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required when strategy is "OldestEmulationVersion"
-
-- **emulationVersion** (string)
-
-  EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
-
-- **pingTime** (MicroTime)
-
-  PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
-
-  <a name="MicroTime"></a>
-  *MicroTime is version of Time with microsecond level precision.*
-
-- **renewTime** (MicroTime)
-
-  RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
-
-  <a name="MicroTime"></a>
-  *MicroTime is version of Time with microsecond level precision.*
+  This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
 
 
 
 
 
-## LeaseCandidateList {#LeaseCandidateList}
+## ResourceClaimTemplateSpec {#ResourceClaimTemplateSpec}
 
-LeaseCandidateList is a list of Lease objects.
+ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
 
 <hr>
 
-- **apiVersion**: coordination.k8s.io/v1alpha1
+- **spec** (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaimSpec" >}}">ResourceClaimSpec</a>), required
+
+  Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
+
+- **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+
+  ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
 
 
-- **kind**: LeaseCandidateList
+
+
+
+## ResourceClaimTemplateList {#ResourceClaimTemplateList}
+
+ResourceClaimTemplateList is a collection of claim templates.
+
+<hr>
+
+- **apiVersion**: resource.k8s.io/v1beta2
+
+
+- **kind**: ResourceClaimTemplateList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  Standard list metadata
 
-- **items** ([]<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>), required
 
-  items is a list of schema objects.
+  Items is the list of resource claim templates.
 
 
 
@@ -131,18 +107,18 @@ LeaseCandidateList is a list of Lease objects.
 
 
 
-### `get` read the specified LeaseCandidate
+### `get` read the specified ResourceClaimTemplate
 
 #### HTTP Request
 
-GET /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{name}
+GET /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the LeaseCandidate
+  name of the ResourceClaimTemplate
 
 
 - **namespace** (*in path*): string, required
@@ -159,16 +135,16 @@ GET /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{n
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind LeaseCandidate
+### `list` list or watch objects of kind ResourceClaimTemplate
 
 #### HTTP Request
 
-GET /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
+GET /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates
 
 #### Parameters
 
@@ -237,16 +213,16 @@ GET /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidateList" >}}">LeaseCandidateList</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplateList" >}}">ResourceClaimTemplateList</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind LeaseCandidate
+### `list` list or watch objects of kind ResourceClaimTemplate
 
 #### HTTP Request
 
-GET /apis/coordination.k8s.io/v1alpha1/leasecandidates
+GET /apis/resource.k8s.io/v1beta2/resourceclaimtemplates
 
 #### Parameters
 
@@ -310,16 +286,16 @@ GET /apis/coordination.k8s.io/v1alpha1/leasecandidates
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidateList" >}}">LeaseCandidateList</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplateList" >}}">ResourceClaimTemplateList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a LeaseCandidate
+### `create` create a ResourceClaimTemplate
 
 #### HTTP Request
 
-POST /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
+POST /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates
 
 #### Parameters
 
@@ -329,7 +305,7 @@ POST /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>, required
+- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>, required
 
   
 
@@ -358,27 +334,27 @@ POST /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
 
-202 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified LeaseCandidate
+### `update` replace the specified ResourceClaimTemplate
 
 #### HTTP Request
 
-PUT /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{name}
+PUT /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the LeaseCandidate
+  name of the ResourceClaimTemplate
 
 
 - **namespace** (*in path*): string, required
@@ -386,7 +362,7 @@ PUT /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{n
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>, required
+- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>, required
 
   
 
@@ -415,25 +391,25 @@ PUT /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{n
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified LeaseCandidate
+### `patch` partially update the specified ResourceClaimTemplate
 
 #### HTTP Request
 
-PATCH /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{name}
+PATCH /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the LeaseCandidate
+  name of the ResourceClaimTemplate
 
 
 - **namespace** (*in path*): string, required
@@ -475,25 +451,25 @@ PATCH /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
 
 401: Unauthorized
 
 
-### `delete` delete a LeaseCandidate
+### `delete` delete a ResourceClaimTemplate
 
 #### HTTP Request
 
-DELETE /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{name}
+DELETE /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the LeaseCandidate
+  name of the ResourceClaimTemplate
 
 
 - **namespace** (*in path*): string, required
@@ -516,6 +492,11 @@ DELETE /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -530,18 +511,18 @@ DELETE /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 #### Response
 
 
-200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Accepted
 
 401: Unauthorized
 
 
-### `deletecollection` delete collection of LeaseCandidate
+### `deletecollection` delete collection of ResourceClaimTemplate
 
 #### HTTP Request
 
-DELETE /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
+DELETE /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates
 
 #### Parameters
 
@@ -574,6 +555,11 @@ DELETE /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string

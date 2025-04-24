@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "resource.k8s.io/v1alpha3"
-  import: "k8s.io/api/resource/v1alpha3"
+  apiVersion: "resource.k8s.io/v1beta2"
+  import: "k8s.io/api/resource/v1beta2"
   kind: "ResourceSlice"
 content_type: "api_reference"
 description: "ResourceSlice represents one or more resources in a pool of similar resources, managed by a common driver."
-title: "ResourceSlice v1alpha3"
+title: "ResourceSlice v1beta2"
 weight: 18
 auto_generated: true
 ---
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: resource.k8s.io/v1alpha3`
+`apiVersion: resource.k8s.io/v1beta2`
 
-`import "k8s.io/api/resource/v1alpha3"`
+`import "k8s.io/api/resource/v1beta2"`
 
 
 ## ResourceSlice {#ResourceSlice}
@@ -42,7 +42,7 @@ This is an alpha type and requires enabling the DynamicResourceAllocation featur
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1alpha3
+- **apiVersion**: resource.k8s.io/v1beta2
 
 
 - **kind**: ResourceSlice
@@ -52,7 +52,7 @@ This is an alpha type and requires enabling the DynamicResourceAllocation featur
 
   Standard object metadata
 
-- **spec** (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSliceSpec" >}}">ResourceSliceSpec</a>), required
+- **spec** (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSliceSpec" >}}">ResourceSliceSpec</a>), required
 
   Contains the information published by the driver.
   
@@ -103,7 +103,7 @@ ResourceSliceSpec contains the information published by the driver in one Resour
 
   AllNodes indicates that all nodes have access to the resources in the pool.
   
-  Exactly one of NodeName, NodeSelector and AllNodes must be set.
+  Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 
 - **devices** ([]Device)
 
@@ -120,43 +120,149 @@ ResourceSliceSpec contains the information published by the driver in one Resour
 
     Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
 
-  - **devices.basic** (BasicDevice)
+  - **devices.allNodes** (boolean)
 
-    Basic defines one device instance.
+    AllNodes indicates that all nodes have access to the device.
+    
+    Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
 
-    <a name="BasicDevice"></a>
-    *BasicDevice defines one device instance.*
+  - **devices.attributes** (map[string]DeviceAttribute)
 
-    - **devices.basic.attributes** (map[string]DeviceAttribute)
+    Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
+    
+    The maximum number of attributes and capacities combined is 32.
 
-      Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
+    <a name="DeviceAttribute"></a>
+    *DeviceAttribute must have exactly one field set.*
+
+    - **devices.attributes.bool** (boolean)
+
+      BoolValue is a true/false value.
+
+    - **devices.attributes.int** (int64)
+
+      IntValue is a number.
+
+    - **devices.attributes.string** (string)
+
+      StringValue is a string. Must not be longer than 64 characters.
+
+    - **devices.attributes.version** (string)
+
+      VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
+
+  - **devices.capacity** (map[string]DeviceCapacity)
+
+    Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
+    
+    The maximum number of attributes and capacities combined is 32.
+
+    <a name="DeviceCapacity"></a>
+    *DeviceCapacity describes a quantity associated with a device.*
+
+    - **devices.capacity.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>), required
+
+      Value defines how much of a certain device capacity is available.
+
+  - **devices.consumesCounters** ([]DeviceCounterConsumption)
+
+    *Atomic: will be replaced during a merge*
+    
+    ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+    
+    There can only be a single entry per counterSet.
+    
+    The total number of device counter consumption entries must be \<= 32. In addition, the total number in the entire ResourceSlice must be \<= 1024 (for example, 64 devices with 16 counters each).
+
+    <a name="DeviceCounterConsumption"></a>
+    *DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.*
+
+    - **devices.consumesCounters.counterSet** (string), required
+
+      CounterSet is the name of the set from which the counters defined will be consumed.
+
+    - **devices.consumesCounters.counters** (map[string]Counter), required
+
+      Counters defines the counters that will be consumed by the device.
       
-      The maximum number of attributes and capacities combined is 32.
+      The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
 
-      <a name="DeviceAttribute"></a>
-      *DeviceAttribute must have exactly one field set.*
+      <a name="Counter"></a>
+      *Counter describes a quantity associated with a device.*
 
-      - **devices.basic.attributes.bool** (boolean)
+      - **devices.consumesCounters.counters.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>), required
 
-        BoolValue is a true/false value.
+        Value defines how much of a certain device counter is available.
 
-      - **devices.basic.attributes.int** (int64)
+  - **devices.nodeName** (string)
 
-        IntValue is a number.
+    NodeName identifies the node where the device is available.
+    
+    Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
 
-      - **devices.basic.attributes.string** (string)
+  - **devices.nodeSelector** (NodeSelector)
 
-        StringValue is a string. Must not be longer than 64 characters.
+    NodeSelector defines the nodes where the device is available.
+    
+    Must use exactly one term.
+    
+    Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
 
-      - **devices.basic.attributes.version** (string)
+    <a name="NodeSelector"></a>
+    *A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.*
 
-        VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
+    - **devices.nodeSelector.nodeSelectorTerms** ([]NodeSelectorTerm), required
 
-    - **devices.basic.capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-      Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
+      *Atomic: will be replaced during a merge*
       
-      The maximum number of attributes and capacities combined is 32.
+      Required. A list of node selector terms. The terms are ORed.
+
+      <a name="NodeSelectorTerm"></a>
+      *A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.*
+
+      - **devices.nodeSelector.nodeSelectorTerms.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
+
+        *Atomic: will be replaced during a merge*
+        
+        A list of node selector requirements by node's labels.
+
+      - **devices.nodeSelector.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
+
+        *Atomic: will be replaced during a merge*
+        
+        A list of node selector requirements by node's fields.
+
+  - **devices.taints** ([]DeviceTaint)
+
+    *Atomic: will be replaced during a merge*
+    
+    If specified, these are the driver-defined taints.
+    
+    The maximum number of taints is 4.
+    
+    This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+
+    <a name="DeviceTaint"></a>
+    *The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.*
+
+    - **devices.taints.effect** (string), required
+
+      The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+
+    - **devices.taints.key** (string), required
+
+      The taint key to be applied to a device. Must be a label name.
+
+    - **devices.taints.timeAdded** (Time)
+
+      TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+
+      <a name="Time"></a>
+      *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+    - **devices.taints.value** (string)
+
+      The taint value corresponding to the taint key. Must be a label value.
 
 - **nodeName** (string)
 
@@ -164,7 +270,7 @@ ResourceSliceSpec contains the information published by the driver in one Resour
   
   This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
   
-  Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+  Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
 
 - **nodeSelector** (NodeSelector)
 
@@ -172,7 +278,7 @@ ResourceSliceSpec contains the information published by the driver in one Resour
   
   Must use exactly one term.
   
-  Exactly one of NodeName, NodeSelector and AllNodes must be set.
+  Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 
   <a name="NodeSelector"></a>
   *A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.*
@@ -198,6 +304,44 @@ ResourceSliceSpec contains the information published by the driver in one Resour
       
       A list of node selector requirements by node's fields.
 
+- **perDeviceNodeSelection** (boolean)
+
+  PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+  
+  Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+
+- **sharedCounters** ([]CounterSet)
+
+  *Atomic: will be replaced during a merge*
+  
+  SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+  
+  The names of the SharedCounters must be unique in the ResourceSlice.
+  
+  The maximum number of counters in all sets is 32.
+
+  <a name="CounterSet"></a>
+  *CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+  
+  The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.*
+
+  - **sharedCounters.counters** (map[string]Counter), required
+
+    Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
+    
+    The maximum number of counters in all sets is 32.
+
+    <a name="Counter"></a>
+    *Counter describes a quantity associated with a device.*
+
+    - **sharedCounters.counters.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>), required
+
+      Value defines how much of a certain device counter is available.
+
+  - **sharedCounters.name** (string), required
+
+    Name defines the name of the counter set. It must be a DNS label.
+
 
 
 
@@ -208,19 +352,19 @@ ResourceSliceList is a collection of ResourceSlices.
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1alpha3
+- **apiVersion**: resource.k8s.io/v1beta2
 
 
 - **kind**: ResourceSliceList
 
 
-- **items** ([]<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>), required
-
-  Items is the list of resource ResourceSlices.
-
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
   Standard list metadata
+
+- **items** ([]<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>), required
+
+  Items is the list of resource ResourceSlices.
 
 
 
@@ -241,7 +385,7 @@ ResourceSliceList is a collection of ResourceSlices.
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
+GET /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### Parameters
 
@@ -260,7 +404,7 @@ GET /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
 
 401: Unauthorized
 
@@ -269,7 +413,7 @@ GET /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1alpha3/resourceslices
+GET /apis/resource.k8s.io/v1beta2/resourceslices
 
 #### Parameters
 
@@ -333,7 +477,7 @@ GET /apis/resource.k8s.io/v1alpha3/resourceslices
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSliceList" >}}">ResourceSliceList</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSliceList" >}}">ResourceSliceList</a>): OK
 
 401: Unauthorized
 
@@ -342,12 +486,12 @@ GET /apis/resource.k8s.io/v1alpha3/resourceslices
 
 #### HTTP Request
 
-POST /apis/resource.k8s.io/v1alpha3/resourceslices
+POST /apis/resource.k8s.io/v1beta2/resourceslices
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>, required
+- **body**: <a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>, required
 
   
 
@@ -376,11 +520,11 @@ POST /apis/resource.k8s.io/v1alpha3/resourceslices
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Created
 
-202 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Accepted
 
 401: Unauthorized
 
@@ -389,7 +533,7 @@ POST /apis/resource.k8s.io/v1alpha3/resourceslices
 
 #### HTTP Request
 
-PUT /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
+PUT /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### Parameters
 
@@ -399,7 +543,7 @@ PUT /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
   name of the ResourceSlice
 
 
-- **body**: <a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>, required
+- **body**: <a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>, required
 
   
 
@@ -428,9 +572,9 @@ PUT /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Created
 
 401: Unauthorized
 
@@ -439,7 +583,7 @@ PUT /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
 
 #### HTTP Request
 
-PATCH /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
+PATCH /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### Parameters
 
@@ -483,9 +627,9 @@ PATCH /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Created
 
 401: Unauthorized
 
@@ -494,7 +638,7 @@ PATCH /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
+DELETE /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### Parameters
 
@@ -519,6 +663,11 @@ DELETE /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -533,9 +682,9 @@ DELETE /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
 
-202 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Accepted
 
 401: Unauthorized
 
@@ -544,7 +693,7 @@ DELETE /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1alpha3/resourceslices
+DELETE /apis/resource.k8s.io/v1beta2/resourceslices
 
 #### Parameters
 
@@ -572,6 +721,11 @@ DELETE /apis/resource.k8s.io/v1alpha3/resourceslices
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string
