@@ -6,6 +6,7 @@ reviewers:
 title: Resource Bin Packing
 content_type: concept
 weight: 80
+math: true
 ---
 
 <!-- overview -->
@@ -180,38 +181,59 @@ Used:
 ```
 
 
-##### Foo (example extended resource), node 1 {#node-scoring-n1-example-resource}
+##### Foo _(example extended resource)_, node 1 {#node-scoring-n1-example-resource}
 
-```
-intel.com/foo  = resourceScoringFunction((2+1),4)
-               = (100 - ((4-3)*100/4))
-               = (100 - 25)
-               = 75                       # requested + used = 75% * available
-               = rawScoringFunction(75)
-               = 7                        # floor(75/10)
+```math
+  \begin{align}
+    { \text{intel.com/foo} } &\Longrightarrow { resourceScoringFunction((2 + 1), 4)} \tag*{} \\
+                             &= { 100 - \left( {4 - 3 \over 4} \times 100 \right) } \tag*{} \\
+
+
+                             &= 100 - 25 \tag*{} \\
+                             &= 75 \tag*{requested + used = 0.75 (of available)} \\
+                             & \models { rawScoringFunction(75) } \tag*{} \\
+                             &= \boxed{\bold{\Large 7}}
+  \end{align}
 ```
 
 ##### Memory, node 1 {#node-scoring-n1-memory}
 
+```math
+  \begin{align}
+           { \text{memory} } &\Longrightarrow { resourceScoringFunction((256 + 256), 1024)} \tag*{} \\
+                             &= { 100 - \left( {1024 - 512 \over 1024} \times 100 \right) } \tag*{} \\
+
+                             &= 50 \tag*{requested + used = 0.5 (of available)} \\
+                             &\models { rawScoringFunction(50) } \tag*{} \\
+                             &= \boxed{\bold{\Large 5}}
+  \end{align}
 ```
-memory         = resourceScoringFunction((256+256),1024)
-               = (100 -((1024-512)*100/1024))
-               = 50                       # requested + used = 50% * available
-               = rawScoringFunction(50)
-               = 5                        # floor(50/10)
 
 ##### CPU, node 1 {#node-scoring-n1-cpu}
 
+```math
+  \begin{align}
+           { \text{cpu} } &\Longrightarrow { resourceScoringFunction((2 + 1), 8)} \tag*{} \\
+                             &= { 100 - \left( {8 - 3 \over 8} \times 100 \right) } \tag*{} \\
+                             &= 37.5 \tag*{requested + used = 0.375 (of available)} \\
+                             &\models { rawScoringFunction(37.5) } \tag*{} \\
+                             &= \boxed{\bold{\Large 3}}
+  \end{align}
 ```
-cpu            = resourceScoringFunction((2+1),8)
-               = (100 -((8-3)*100/8))
-               = 37.5                     # requested + used = 37.5% * available
-               = rawScoringFunction(37.5)
-               = 3                        # floor(37.5/10)
 
-NodeScore   =  ((7 * 5) + (5 * 1) + (3 * 3)) / (5 + 1 + 3)
-            =  5
+##### Final scoring (node 1) {#node-scoring-n1-sum}
+
+```math
+{  \begin{align}
+           { \text{NodeScore} } &= \left\lfloor { { (\bold{7} \times 5) + (\bold{5} \times 1) + (\bold{3} \times 3) } \over { 5 + 1 + 3 } } \right\rfloor \tag*{} \\
+                                &= 5 \tag*{}
+  \end{align}
+} \atop \textnormal{numbers in bold come from formula lines 1, 2 and 3}
 ```
+
+<!-- localization note: use any appropriate technique so that the next line does not
+     resemble a heading -->
+\\( \\hspace{3em} \\) **Score for node 1:** \\( \boxed{5} \\)
 
 #### Scoring example: node 2 {#node-scoring-node2}
 
@@ -228,44 +250,54 @@ Used:
   cpu: 6
 ```
 
-##### Foo (example extended resource), node 2 {#node-scoring-n2-example-resource}
+##### Foo _(example extended resource)_, node 2 {#node-scoring-n2-example-resource}
 
-```
-intel.com/foo  = resourceScoringFunction((2+2),8)
-               =  (100 - ((8-4)*100/8)
-               =  (100 - 50)
-               =  50
-               =  rawScoringFunction(50)
-               = 5
-
-```
-
-##### Memory, node 2 {#node-scoring-n2-memory}
-
-```
-memory         = resourceScoringFunction((256+512),1024)
-               = (100 -((1024-768)*100/1024))
-               = 75
-               = rawScoringFunction(75)
-               = 7
-
+```math
+  \begin{align}
+    { \text{intel.com/foo} } &\Longrightarrow { resourceScoringFunction((2 + 2), 8)} \tag*{} \\
+                             &= { 100 - \left( {8 - 4 \over 8} \times 100 \right) } \tag*{} \\
+                             &= 100 - 50 \tag*{} \\
+                             &= 50 \tag*{requested + used = 0.5 (of available)} \\
+                             &\models { rawScoringFunction(50) } \tag*{} \\
+                             &= \boxed{\bold{\Large 5}}
+  \end{align}
 ```
 
-##### CPU, node 2 {#node-scoring-n2-cpu}
+##### Memory, node 2 {#node-scoring-n1-memory}
 
+
+```math
+  \begin{align}
+           { \text{memory} } &\Longrightarrow { resourceScoringFunction((256 + 512), 1024)} \tag*{} \\
+                             &= { 100 - \left( {1024 - 768 \over 1024} \times 100 \right) } \tag*{} \\
+                             &= 75 \tag*{requested + used = 0.75 (of available)} \\
+                             &\models { rawScoringFunction(75) } \tag*{} \\
+                             &= \boxed{\bold{\Large 7}}
+  \end{align}
 ```
-cpu            = resourceScoringFunction((2+6),8)
-               = (100 -((8-8)*100/8))
-               = 100
-               = rawScoringFunction(100)
-               = 10
 
-NodeScore   =  ((5 * 5) + (7 * 1) + (10 * 3)) / (5 + 1 + 3)
-            =  7
+##### CPU, node 2 {#node-scoring-n1-cpu}
 
+```math
+  \begin{align}
+              { \text{cpu} } &\Longrightarrow { resourceScoringFunction((2 + 6), 8)} \tag*{} \\
+                             &= { 100 - \left( {8 - 8 \over 8} \times 100 \right) } \tag*{} \\
+                             &= 100 \tag*{requested + used = 1.0 (of available)} \\
+                             &\models { rawScoringFunction(100) } \tag*{} \\
+                             &= \boxed{\bold{\Large 10}}
+  \end{align}
 ```
 
-## {{% heading "whatsnext" %}}
+##### Final scoring (node 2) {#node-scoring-n2-sum}
 
-- Read more about the [scheduling framework](/docs/concepts/scheduling-eviction/scheduling-framework/)
-- Read more about [scheduler configuration](/docs/reference/scheduling/config/)
+```math
+{ \begin{align}
+           { \text{NodeScore} } &= \left\lfloor { { (\bold{5} \times 5) + (\bold{7} \times 1) + (\bold{10} \times 3) } \over { (5 + 1 + 3) } } \right\rfloor \tag*{} \\
+                                &= 7 \tag*{}
+  \end{align}
+} \atop { \textnormal{numbers in bold come from formula lines 4, 5, and 6}}
+```
+
+<!-- localization note: use any appropriate technique so that the next line does not
+     resemble a heading -->
+\\( \\hspace{3em} \\) **Score for node 2:** \\( \boxed{7} \\)
