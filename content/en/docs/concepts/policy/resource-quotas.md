@@ -117,20 +117,13 @@ for custom types of infrastructure resource, that are not part of core Kubernete
 
 ## Examples
 
-Here's an example ResourceQuota:
+Here's an example ResourceQuota. The example prevents (new) Pods in a namespace from setting
+an aggregate memory limit higher than 1024 GiB. This can be one Pod that tries to use all 1TiB
+of available RAM, or many smaller Pods that use up to the configured limit.
+
 
 ```yaml
 ---
-# Prevent Pods setting an aggregate memory limit higher than 1024 GiB.
-# This can be one Pod that tries to use all 1TiB of available RAM, or many smaller
-# Pods that use up to the configured limit.
-#
-# You can use a LimitRange or ValidatingAdmissionPolicy to ensure that Pods
-# (in the relevant namespace) always have a memory limit either at the overall
-# Pod level, or across each of their containers. However, Kubernetes automatically
-# enforces a limit and rejects Pods that don't set a memory limit, because of
-# the special treatment for resource types "cpu" and "memory".
-
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -139,6 +132,12 @@ spec:
   hard:
     limits.memory: "1024Gi"
 ```
+
+If you apply this ResourceQuota, Kubernetes automatically enforces a limit and rejects Pods that
+don't set a memory limit, because of the special treatment for resource types `cpu` and `memory`.
+To improve ergonomics for people who are using this namespace, You can add a LimitRange to
+ensure that Pods always have a relevant memory limit (either at the overall Pod level, or
+across each of their containers).
 
 ### ResourceQuota as part of an overall enforcement design {#example-overall-enforcement}
 
