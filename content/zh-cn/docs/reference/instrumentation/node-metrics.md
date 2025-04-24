@@ -18,11 +18,11 @@ description: >-
 The [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
 gathers metric statistics at the node, volume, pod and container level,
 and emits this information in the
-[Summary API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go).
+[Summary API](/docs/reference/config-api/kubelet-stats.v1alpha1/).
 -->
 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
-在节点、卷、Pod 和容器级别收集统计信息，并在
-[概要 API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go)
+在节点、卷、Pod 和容器级别收集统计信息，
+并在[概要 API](zh-cn/docs/reference/config-api/kubelet-stats.v1alpha1/)
 中输出这些信息。
 
 <!--
@@ -42,8 +42,11 @@ kubectl get --raw "/api/v1/nodes/minikube/proxy/stats/summary"
 <!--
 Here is the same API call using `curl`:
 
+```shell
 # You need to run "kubectl proxy" first
 # Change 8080 to the port that "kubectl proxy" assigns
+curl http://localhost:8080/api/v1/nodes/minikube/proxy/stats/summary
+```
 -->
 下面是使用 `curl` 所执行的相同 API 调用：
 
@@ -58,8 +61,8 @@ curl http://localhost:8080/api/v1/nodes/minikube/proxy/stats/summary
 Beginning with `metrics-server` 0.6.x, `metrics-server` queries the `/metrics/resource`
 kubelet endpoint, and not `/stats/summary`.
 -->
-从 `metrics-server` 0.6.x 开始，`metrics-server` 查询 `/metrics/resource` kubelet 端点，
-不查询 `/stats/summary`。
+从 `metrics-server` 0.6.x 开始，`metrics-server` 查询 `/metrics/resource`
+kubelet 端点，不查询 `/stats/summary`。
 {{< /note >}}
 
 <!--
@@ -80,6 +83,46 @@ the kubelet [fetches Pod- and container-level metric data using CRI](/docs/refer
 且你通过{{< glossary_tooltip term_id="cri" text="容器运行时接口">}}（CRI）使用支持统计访问的容器运行时，
 则 kubelet [将使用 CRI 来获取 Pod 和容器级别的指标数据](/zh-cn/docs/reference/instrumentation/cri-pod-container-metrics)，
 而不是 cAdvisor 来获取。
+
+<!--
+## Pressure Stall Information (PSI) {#psi}
+-->
+## 压力停滞信息（PSI）
+
+{{< feature-state for_k8s_version="v1.33" state="alpha" >}}
+
+<!--
+As an alpha feature, Kubernetes lets you configure kubelet to collect Linux kernel
+[Pressure Stall Information](https://docs.kernel.org/accounting/psi.html)
+(PSI) for CPU, memory and IO usage. The information is collected at node, pod and container level.
+See [Summary API](/docs/reference/config-api/kubelet-stats.v1alpha1/) for detailed schema.
+You must enable the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+to use this feature. The information is also exposed in
+[Prometheus metrics](/docs/concepts/cluster-administration/system-metrics#psi-metrics).
+-->
+作为 Alpha 级别特性，Kubernetes 允许你配置 kubelet 来收集 Linux
+内核的[压力停滞信息](https://docs.kernel.org/accounting/psi.html)（PSI）
+的 CPU、内存和 IO 使用情况。这些信息是在节点、Pod 和容器级别上收集的。
+详细模式请参见 [Summary API](/zh-cn/docs/reference/config-api/kubelet-stats.v1alpha1/)。
+你必须启用 `KubeletPSI`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)才能使用此特性。
+这些信息也在
+[Prometheus 指标](/zh-cn/docs/concepts/cluster-administration/system-metrics#psi-metrics)中暴露。
+
+<!--
+### Requirements
+
+Pressure Stall Information requires:
+
+- [Linux kernel versions 4.20 or later](/docs/reference/node/kernel-version-requirements#requirements-psi).
+- [cgroup v2](/docs/concepts/architecture/cgroups)
+-->
+### 要求
+
+压力停滞信息要求：
+
+- [Linux 内核版本 4.20 或更新](/zh-cn/docs/reference/node/kernel-version-requirements#requirements-psi)。
+- [CGroup v2](/zh-cn/docs/concepts/architecture/cgroups)
 
 ## {{% heading "whatsnext" %}}
 
