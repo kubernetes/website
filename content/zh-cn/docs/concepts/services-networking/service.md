@@ -359,12 +359,12 @@ spec:
 ```
 
 <!--
-Because this Service has no selector, the corresponding EndpointSlice (and
-legacy Endpoints) objects are not created automatically. You can map the Service
+Because this Service has no selector, the corresponding EndpointSlice
+objects are not created automatically. You can map the Service
 to the network address and port where it's running, by adding an EndpointSlice
 object manually. For example:
 -->
-由于此 Service 没有选择算符，因此不会自动创建对应的 EndpointSlice（和旧版的 Endpoints）对象。
+由于此 Service 没有选择算符，因此不会自动创建对应的 EndpointSlice 对象。
 你可以通过手动添加 EndpointSlice 对象，将 Service 映射到该服务运行位置的网络地址和端口：
 
 <!--
@@ -539,22 +539,35 @@ EndpointSlice 并在其中存储新的端点信息。
 了解有关该 API 的更多信息。
 
 <!--
-### Endpoints
-
-In the Kubernetes API, an
-[Endpoints](/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
-(the resource kind is plural) defines a list of network endpoints, typically
-referenced by a Service to define which Pods the traffic can be sent to.
-
-The EndpointSlice API is the recommended replacement for Endpoints.
+### Endpoints (deprecated) {#endpoints}
 -->
-### Endpoints
+### Endpoints（已弃用）   {#endpoints}
 
-在 Kubernetes API 中，[Endpoints](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
-（该资源类别为复数形式）定义的是网络端点的列表，通常由 Service 引用，
-以定义可以将流量发送到哪些 Pod。
+{{< feature-state for_k8s_version="v1.33" state="deprecated" >}}
 
-推荐使用 EndpointSlice API 替换 Endpoints。
+<!--
+The EndpointSlice API is the evolution of the older
+[Endpoints](/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+API. The deprecated Endpoints API has several problems relative to
+EndpointSlice:
+
+  - It does not support dual-stack clusters.
+  - It does not contain information needed to support newer features, such as
+    [trafficDistribution](/docs/concepts/services-networking/service/#traffic-distribution).
+  - It will truncate the list of endpoints if it is too long to fit in a single object.
+
+Because of this, it is recommended that all clients use the
+EndpointSlice API rather than Endpoints.
+-->
+EndpointSlice API 是旧版 [Endpoints](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+API 的演进版本。与 EndpointSlice 相比，已弃用的 Endpoints API 存在以下几个问题：
+
+- 不支持双栈集群。
+- 不包含支持 [trafficDistribution](/zh-cn/docs/concepts/services-networking/service/#traffic-distribution)
+  等新特性所需的信息。
+- 如果端点列表过长以至于无法放入单个对象中时会被截断。
+
+因此，推荐所有客户端使用 EndpointSlice API 来替换 Endpoints。
 
 <!--
 #### Over-capacity endpoints
@@ -565,7 +578,7 @@ truncates the data in the Endpoints object. Because a Service can be linked
 with more than one EndpointSlice, the 1000 backing endpoint limit only
 affects the legacy Endpoints API.
 -->
-#### 超出容量的端点 {#over-capacity-endpoints}
+#### 超出容量的端点   {#over-capacity-endpoints}
 
 Kubernetes 限制单个 Endpoints 对象中可以容纳的端点数量。
 当一个 Service 拥有 1000 个以上支撑端点时，Kubernetes 会截断 Endpoints 对象中的数据。
@@ -1691,42 +1704,53 @@ Kubernetes 提供的使用虚拟 IP 地址公开服务的机制。
 <!--
 ### Traffic distribution
 -->
-### 流量分发
+### 流量分发   {#traffic-distribution}
+
+{{< feature-state feature_gate_name="ServiceTrafficDistribution" >}}
 
 <!--
 The `.spec.trafficDistribution` field provides another way to influence traffic
 routing within a Kubernetes Service. While traffic policies focus on strict
 semantic guarantees, traffic distribution allows you to express _preferences_
 (such as routing to topologically closer endpoints). This can help optimize for
-performance, cost, or reliability. This optional field can be used if you have
-enabled the `ServiceTrafficDistribution` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) for your
-cluster and all of its nodes. In Kubernetes {{< skew currentVersion >}}, the
-following field value is supported:
+performance, cost, or reliability. In Kubernetes {{< skew currentVersion >}}, the
+following field value is supported: 
 -->
 `.spec.trafficDistribution` 字段提供了另一种影响 Kubernetes Service 内流量路由的方法。
 虽然流量策略侧重于严格的语义保证，但流量分发允许你表达一定的**偏好**（例如路由到拓扑上更接近的端点）。
 这一机制有助于优化性能、成本或可靠性。
-如果你为集群及其所有节点启用了 `ServiceTrafficDistribution`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-则可以使用此可选字段。
 Kubernetes {{< skew currentVersion >}} 支持以下字段值：
 
 <!--
 `PreferClose`
-: Indicates a preference for routing traffic to endpoints that are topologically
-  proximate to the client. The interpretation of "topologically proximate" may
-  vary across implementations and could encompass endpoints within the same
-  node, rack, zone, or even region. Setting this value gives implementations
-  permission to make different tradeoffs, e.g. optimizing for proximity rather
-  than equal distribution of load. Users should not set this value if such
-  tradeoffs are not acceptable.
+: Indicates a preference for routing traffic to endpoints that are in the same
+  zone as the client.
 -->
 `PreferClose`
-: 表示优先将流量路由到拓扑上最接近客户端的端点。
-  “拓扑上邻近”的解释可能因实现而异，并且可能涵盖同一节点、机架、区域甚至区域内的端点。
-  设置此值允许实现进行不同的权衡，例如按距离优化而不是平均分配负载。
-  如果这种权衡不可接受，用户不应设置此值。
+: 表示优先将流量路由到与客户端处于同一区域中的端点。
+
+{{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
+
+<!--
+Two additional values are available when the `PreferSameTrafficDistribution`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
+enabled:
+
+`PreferSameZone`
+: This is an alias for `PreferClose` that is clearer about the intended semantics.
+
+`PreferSameNode`
+: Indicates a preference for routing traffic to endpoints that are on the same
+  node as the client.
+-->
+当 `PreferSameTrafficDistribution`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被启用时，还可以使用两个附加的取值：
+
+`PreferSameZone`  
+: 这是 `PreferClose` 的别名，但它更清晰地表达了预期的语义。
+
+`PreferSameNode`  
+: 表示优先将流量路由到与客户端处于同一节点上的端点。
 
 <!--
 If the field is not set, the implementation will apply its default routing strategy.
