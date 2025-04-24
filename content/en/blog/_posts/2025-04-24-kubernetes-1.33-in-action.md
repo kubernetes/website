@@ -5,6 +5,12 @@ slug: exploring-kubernetes-1-33-hands-on
 date: 2025-04-24T14:00:00-08:00
 author: >
   Abhinav Sharma (KodeKloud)
+categories:
+- feature
+tags:
+- kubernetes
+- release
+- v1.33
 ---
 
 ## Introduction
