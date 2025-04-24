@@ -430,6 +430,17 @@ NodeStatus is information about the current status of a node.
 
     SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
 
+  - **nodeInfo.swap** (NodeSwapStatus)
+
+    Swap Info reported by the node.
+
+    <a name="NodeSwapStatus"></a>
+    *NodeSwapStatus represents swap memory information.*
+
+    - **nodeInfo.swap.capacity** (int64)
+
+      Total amount of swap memory in bytes.
+
 - **phase** (string)
 
   NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.

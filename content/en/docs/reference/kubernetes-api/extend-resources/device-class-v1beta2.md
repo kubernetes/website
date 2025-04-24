@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "resource.k8s.io/v1alpha3"
-  import: "k8s.io/api/resource/v1alpha3"
+  apiVersion: "resource.k8s.io/v1beta2"
+  import: "k8s.io/api/resource/v1beta2"
   kind: "DeviceClass"
 content_type: "api_reference"
 description: "DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors."
-title: "DeviceClass v1alpha3"
+title: "DeviceClass v1beta2"
 weight: 2
 auto_generated: true
 ---
@@ -19,13 +19,11 @@ To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
-
-TODO: this file should be under "workload-resources".
 -->
 
-`apiVersion: resource.k8s.io/v1alpha3`
+`apiVersion: resource.k8s.io/v1beta2`
 
-`import "k8s.io/api/resource/v1alpha3"`
+`import "k8s.io/api/resource/v1beta2"`
 
 
 ## DeviceClass {#DeviceClass}
@@ -36,7 +34,7 @@ This is an alpha type and requires enabling the DynamicResourceAllocation featur
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1alpha3
+- **apiVersion**: resource.k8s.io/v1beta2
 
 
 - **kind**: DeviceClass
@@ -46,7 +44,7 @@ This is an alpha type and requires enabling the DynamicResourceAllocation featur
 
   Standard object metadata
 
-- **spec** (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClassSpec" >}}">DeviceClassSpec</a>), required
+- **spec** (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClassSpec" >}}">DeviceClassSpec</a>), required
 
   Spec defines what can be allocated and how to configure it.
   
@@ -93,6 +91,8 @@ DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and h
     - **config.opaque.parameters** (RawExtension), required
 
       Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+      
+      The length of the raw data must be smaller or equal to 10 Ki.
 
       <a name="RawExtension"></a>
       *RawExtension is used to hold extensions in external versions.
@@ -179,38 +179,8 @@ DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and h
       For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
       
           cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
-
-- **suitableNodes** (NodeSelector)
-
-  Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a claim that has not been allocated yet *and* that claim gets allocated through a control plane controller. It is ignored when the claim does not use a control plane controller for allocation.
-  
-  Setting this field is optional. If unset, all Nodes are candidates.
-  
-  This is an alpha field and requires enabling the DRAControlPlaneController feature gate.
-
-  <a name="NodeSelector"></a>
-  *A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.*
-
-  - **suitableNodes.nodeSelectorTerms** ([]NodeSelectorTerm), required
-
-    *Atomic: will be replaced during a merge*
-    
-    Required. A list of node selector terms. The terms are ORed.
-
-    <a name="NodeSelectorTerm"></a>
-    *A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.*
-
-    - **suitableNodes.nodeSelectorTerms.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
-
-      *Atomic: will be replaced during a merge*
       
-      A list of node selector requirements by node's labels.
-
-    - **suitableNodes.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
-
-      *Atomic: will be replaced during a merge*
-      
-      A list of node selector requirements by node's fields.
+      The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 
 
 
@@ -222,7 +192,7 @@ DeviceClassList is a collection of classes.
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1alpha3
+- **apiVersion**: resource.k8s.io/v1beta2
 
 
 - **kind**: DeviceClassList
@@ -232,7 +202,7 @@ DeviceClassList is a collection of classes.
 
   Standard list metadata
 
-- **items** ([]<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>), required
+- **items** ([]<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>), required
 
   Items is the list of resource classes.
 
@@ -255,7 +225,7 @@ DeviceClassList is a collection of classes.
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
+GET /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 
 #### Parameters
 
@@ -274,7 +244,7 @@ GET /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): OK
 
 401: Unauthorized
 
@@ -283,7 +253,7 @@ GET /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1alpha3/deviceclasses
+GET /apis/resource.k8s.io/v1beta2/deviceclasses
 
 #### Parameters
 
@@ -347,7 +317,7 @@ GET /apis/resource.k8s.io/v1alpha3/deviceclasses
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClassList" >}}">DeviceClassList</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClassList" >}}">DeviceClassList</a>): OK
 
 401: Unauthorized
 
@@ -356,12 +326,12 @@ GET /apis/resource.k8s.io/v1alpha3/deviceclasses
 
 #### HTTP Request
 
-POST /apis/resource.k8s.io/v1alpha3/deviceclasses
+POST /apis/resource.k8s.io/v1beta2/deviceclasses
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>, required
+- **body**: <a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>, required
 
   
 
@@ -390,11 +360,11 @@ POST /apis/resource.k8s.io/v1alpha3/deviceclasses
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): Created
+201 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): Created
 
-202 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): Accepted
+202 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): Accepted
 
 401: Unauthorized
 
@@ -403,7 +373,7 @@ POST /apis/resource.k8s.io/v1alpha3/deviceclasses
 
 #### HTTP Request
 
-PUT /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
+PUT /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 
 #### Parameters
 
@@ -413,7 +383,7 @@ PUT /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
   name of the DeviceClass
 
 
-- **body**: <a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>, required
+- **body**: <a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>, required
 
   
 
@@ -442,9 +412,9 @@ PUT /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): Created
+201 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): Created
 
 401: Unauthorized
 
@@ -453,7 +423,7 @@ PUT /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
 
 #### HTTP Request
 
-PATCH /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
+PATCH /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 
 #### Parameters
 
@@ -497,9 +467,9 @@ PATCH /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): Created
+201 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): Created
 
 401: Unauthorized
 
@@ -508,7 +478,7 @@ PATCH /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
+DELETE /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 
 #### Parameters
 
@@ -533,6 +503,11 @@ DELETE /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -547,9 +522,9 @@ DELETE /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): OK
 
-202 (<a href="{{< ref "../extend-resources/device-class-v1alpha3#DeviceClass" >}}">DeviceClass</a>): Accepted
+202 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): Accepted
 
 401: Unauthorized
 
@@ -558,7 +533,7 @@ DELETE /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1alpha3/deviceclasses
+DELETE /apis/resource.k8s.io/v1beta2/deviceclasses
 
 #### Parameters
 
@@ -586,6 +561,11 @@ DELETE /apis/resource.k8s.io/v1alpha3/deviceclasses
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string

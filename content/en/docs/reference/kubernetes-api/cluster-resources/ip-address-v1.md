@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "networking.k8s.io/v1beta1"
-  import: "k8s.io/api/networking/v1beta1"
+  apiVersion: "networking.k8s.io/v1"
+  import: "k8s.io/api/networking/v1"
   kind: "IPAddress"
 content_type: "api_reference"
 description: "IPAddress represents a single IP of a single IP Family."
-title: "IPAddress v1beta1"
+title: "IPAddress"
 weight: 4
 auto_generated: true
 ---
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: networking.k8s.io/v1beta1`
+`apiVersion: networking.k8s.io/v1`
 
-`import "k8s.io/api/networking/v1beta1"`
+`import "k8s.io/api/networking/v1"`
 
 
 ## IPAddress {#IPAddress}
@@ -32,7 +32,7 @@ IPAddress represents a single IP of a single IP Family. The object is designed t
 
 <hr>
 
-- **apiVersion**: networking.k8s.io/v1beta1
+- **apiVersion**: networking.k8s.io/v1
 
 
 - **kind**: IPAddress
@@ -42,7 +42,7 @@ IPAddress represents a single IP of a single IP Family. The object is designed t
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddressSpec" >}}">IPAddressSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/ip-address-v1#IPAddressSpec" >}}">IPAddressSpec</a>)
 
   spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
@@ -89,7 +89,7 @@ IPAddressList contains a list of IPAddress.
 
 <hr>
 
-- **apiVersion**: networking.k8s.io/v1beta1
+- **apiVersion**: networking.k8s.io/v1
 
 
 - **kind**: IPAddressList
@@ -99,7 +99,7 @@ IPAddressList contains a list of IPAddress.
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>), required
+- **items** ([]<a href="{{< ref "../cluster-resources/ip-address-v1#IPAddress" >}}">IPAddress</a>), required
 
   items is the list of IPAddresses.
 
@@ -122,7 +122,7 @@ IPAddressList contains a list of IPAddress.
 
 #### HTTP Request
 
-GET /apis/networking.k8s.io/v1beta1/ipaddresses/{name}
+GET /apis/networking.k8s.io/v1/ipaddresses/{name}
 
 #### Parameters
 
@@ -141,7 +141,7 @@ GET /apis/networking.k8s.io/v1beta1/ipaddresses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>): OK
+200 (<a href="{{< ref "../cluster-resources/ip-address-v1#IPAddress" >}}">IPAddress</a>): OK
 
 401: Unauthorized
 
@@ -150,7 +150,7 @@ GET /apis/networking.k8s.io/v1beta1/ipaddresses/{name}
 
 #### HTTP Request
 
-GET /apis/networking.k8s.io/v1beta1/ipaddresses
+GET /apis/networking.k8s.io/v1/ipaddresses
 
 #### Parameters
 
@@ -214,7 +214,7 @@ GET /apis/networking.k8s.io/v1beta1/ipaddresses
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddressList" >}}">IPAddressList</a>): OK
+200 (<a href="{{< ref "../cluster-resources/ip-address-v1#IPAddressList" >}}">IPAddressList</a>): OK
 
 401: Unauthorized
 
@@ -223,12 +223,12 @@ GET /apis/networking.k8s.io/v1beta1/ipaddresses
 
 #### HTTP Request
 
-POST /apis/networking.k8s.io/v1beta1/ipaddresses
+POST /apis/networking.k8s.io/v1/ipaddresses
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/ip-address-v1#IPAddress" >}}">IPAddress</a>, required
 
   
 
@@ -257,11 +257,11 @@ POST /apis/networking.k8s.io/v1beta1/ipaddresses
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>): OK
+200 (<a href="{{< ref "../cluster-resources/ip-address-v1#IPAddress" >}}">IPAddress</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>): Created
+201 (<a href="{{< ref "../cluster-resources/ip-address-v1#IPAddress" >}}">IPAddress</a>): Created
 
-202 (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>): Accepted
+202 (<a href="{{< ref "../cluster-resources/ip-address-v1#IPAddress" >}}">IPAddress</a>): Accepted
 
 401: Unauthorized
 
@@ -270,7 +270,7 @@ POST /apis/networking.k8s.io/v1beta1/ipaddresses
 
 #### HTTP Request
 
-PUT /apis/networking.k8s.io/v1beta1/ipaddresses/{name}
+PUT /apis/networking.k8s.io/v1/ipaddresses/{name}
 
 #### Parameters
 
@@ -280,7 +280,7 @@ PUT /apis/networking.k8s.io/v1beta1/ipaddresses/{name}
   name of the IPAddress
 
 
-- **body**: <a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/ip-address-v1#IPAddress" >}}">IPAddress</a>, required
 
   
 
@@ -309,9 +309,9 @@ PUT /apis/networking.k8s.io/v1beta1/ipaddresses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>): OK
+200 (<a href="{{< ref "../cluster-resources/ip-address-v1#IPAddress" >}}">IPAddress</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>): Created
+201 (<a href="{{< ref "../cluster-resources/ip-address-v1#IPAddress" >}}">IPAddress</a>): Created
 
 401: Unauthorized
 
@@ -320,7 +320,7 @@ PUT /apis/networking.k8s.io/v1beta1/ipaddresses/{name}
 
 #### HTTP Request
 
-PATCH /apis/networking.k8s.io/v1beta1/ipaddresses/{name}
+PATCH /apis/networking.k8s.io/v1/ipaddresses/{name}
 
 #### Parameters
 
@@ -364,9 +364,9 @@ PATCH /apis/networking.k8s.io/v1beta1/ipaddresses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>): OK
+200 (<a href="{{< ref "../cluster-resources/ip-address-v1#IPAddress" >}}">IPAddress</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/ip-address-v1beta1#IPAddress" >}}">IPAddress</a>): Created
+201 (<a href="{{< ref "../cluster-resources/ip-address-v1#IPAddress" >}}">IPAddress</a>): Created
 
 401: Unauthorized
 
@@ -375,7 +375,7 @@ PATCH /apis/networking.k8s.io/v1beta1/ipaddresses/{name}
 
 #### HTTP Request
 
-DELETE /apis/networking.k8s.io/v1beta1/ipaddresses/{name}
+DELETE /apis/networking.k8s.io/v1/ipaddresses/{name}
 
 #### Parameters
 
@@ -430,7 +430,7 @@ DELETE /apis/networking.k8s.io/v1beta1/ipaddresses/{name}
 
 #### HTTP Request
 
-DELETE /apis/networking.k8s.io/v1beta1/ipaddresses
+DELETE /apis/networking.k8s.io/v1/ipaddresses
 
 #### Parameters
 
