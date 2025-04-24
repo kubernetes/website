@@ -448,7 +448,7 @@ Podが属するService、ReplicaSet、StatefulSet、またはReplicationControll
 設定例は次のようになります:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 
 profiles:
@@ -490,7 +490,7 @@ defaultConstraints:
 クラスターにデフォルトのPod分散制約を使用したくない場合は、`PodTopologySpread`プラグイン構成の`defaultingType`を`List`に設定し、`defaultConstraints`を空のままにすることで、これらのデフォルトを無効にできます:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 
 profiles:

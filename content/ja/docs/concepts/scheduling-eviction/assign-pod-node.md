@@ -133,7 +133,7 @@ Podの他のスケジューリング要件をすべて満たすノードを見�
 複数の[スケジューリングプロファイル](/ja/docs/reference/scheduling/config/#multiple-profiles)を設定する場合、プロファイルにノードアフィニティを関連付けることができます。これは、プロファイルが特定のノード群にのみ適用される場合に便利です。[スケジューラーの設定](/ja/docs/reference/scheduling/config/)にある[`NodeAffinity`プラグイン](/ja/docs/reference/scheduling/config/#scheduling-plugins)の`args`フィールドに`addedAffinity`を追加すると実現できます。例えば:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 
 profiles:
