@@ -16,7 +16,7 @@ scoring strategies that support the bin packing of resources: `MostAllocated` an
 
 <!-- body -->
 
-## Enabling bin packing using MostAllocated strategy
+## Bin packing using MostAllocated strategy
 The `MostAllocated` strategy scores the nodes based on the utilization of resources, favoring the ones with higher allocation.
 For each resource type, you can set a weight to modify its influence in the node score.
 
