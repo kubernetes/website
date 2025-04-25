@@ -35,7 +35,7 @@ Kubernetes v1.33のテーマは**Octarine: 魔法の色**<sup>1</sup>で、テ�
 
 ディスクワールドの世界に詳しい方なら、"見えざる大学"の塔の上に腰掛けた小さな沼ドラゴンが、アンク・モーポークの街の上に64の星<sup>3</sup>と共に浮かぶKubernetesの月を見上げる様子を思い浮かべていることでしょう。
 
-Kubernetesが10年の節目を迎え新たな10年へ踏み出すにあたり、私たちはメンテナの魔術、新しい貢献者の好奇心、そしてプロジェクトを推進する協力的な精神を祝福します。
+Kubernetesが10年の節目を迎え新たな10年へ踏み出すにあたり、私たちはメンテナの魔術、新しいコントリビューターの好奇心、そしてプロジェクトを推進する協力的な精神を祝福します。
 v1.33リリースは、プラチェットが書いたように、_「やり方を知っていても、それはまだ魔法だ」_ ということを思い出させてくれます。
 Kubernetesのコードベースの詳細をすべて知っていたとしても、リリースサイクルの終わりに立ち止まってみると、Kubernetesはまだ魔法のままであることがわかるでしょう。
 
@@ -324,7 +324,7 @@ Kubernetes 1.29ではPodの`preStop`ライフサイクルフックにSleepアク
 ### Kubernetesネイティブ型の宣言的検証のための内部ツール
 
 ひそかに、Kubernetesの内部はオブジェクトとオブジェクトへの変更を検証するための新しいメカニズムの使用を開始しています。
-Kubernetes v1.33では、Kubernetes貢献者が宣言的な検証ルールを生成するために使用する内部ツール`validation-gen`を導入しています。
+Kubernetes v1.33では、Kubernetesコントリビューターが宣言的な検証ルールを生成するために使用する内部ツール`validation-gen`を導入しています。
 全体的な目標は、開発者が検証制約を宣言的に指定できるようにすることでAPI検証の堅牢性と保守性を向上させ、手動コーディングエラーを減らし、コードベース全体での一貫性を確保することです。
 
 この作業はSIG API Machineryが主導した[KEP-5073: Declarative Validation Of Kubernetes Native Types With validation-gen](https://kep.k8s.io/5073)の一環として行われました。
@@ -536,12 +536,12 @@ CNCF K8sの[DevStats](https://k8s.devstats.cncf.io/d/11/companies-contributing-i
 これには個人の貢献から貢献企業数まで含まれ、このエコシステムの発展に費やされる努力の深さと広さを示しています。
 
 v1.33リリースサイクル(2025年1月13日から4月23日までの15週間)において、Kubernetesには最大121の異なる企業と570人の個人から貢献がありました(執筆時点では、リリース日の数週間前の数値です)。
-より広範なクラウドネイティブエコシステムでは、この数字は435社、合計2400人の貢献者に達しています。
+より広範なクラウドネイティブエコシステムでは、この数字は435社、合計2400人のコントリビューターに達しています。
 データソースは[このダッシュボード](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&var-period=d28&var-repogroup_name=All&var-repo_name=kubernetes%2Fkubernetes&from=1736755200000&to=1745477999000)で確認できます。
 [前回のリリースv1.32の活動データ](/blog/2024/12/11/kubernetes-v1-32-release/#project-velocity)と比較すると、企業や個人からの貢献レベルは同様であり、コミュニティの関心と参加が引き続き強いことを示しています。
 
 なお、「貢献」とはコミットの作成、コードレビュー、コメント、IssueやPRの作成、PRのレビュー(ブログやドキュメントを含む)、またはIssueやPRへのコメントを行うことを指します。
-貢献に興味がある場合は、貢献者ウェブサイトの[はじめに](https://www.kubernetes.dev/docs/guide/#getting-started)をご覧ください。
+貢献に興味がある場合は、公式ドキュメントのコントリビューター向けの[はじめに](https://www.kubernetes.dev/docs/guide/#getting-started)をご覧ください。
 
 Kubernetesプロジェクトとコミュニティの全体的な活動状況についてさらに詳しく知るには、[DevStatsをチェック](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&var-period=m&var-repogroup_name=All)してください。
 
