@@ -1,6 +1,9 @@
 ---
 title: kubectlを使ったDeploymentの作成
 weight: 10
+description: |-
+  アプリケーションのデプロイについて学ぶ。
+  kubectlを使って、Kubernetes上にはじめてのアプリケーションをデプロイする。
 ---
 
 <!DOCTYPE html>
@@ -26,7 +29,7 @@ weight: 10
             <div class="col-md-8">
                 <h3>Kubernetes Deployments</h3>
                 <p>
-                実行中のKubernetesクラスターを入手すると、その上にコンテナ化アプリケーションをデプロイすることができます。そのためには、Kubernetesの<b>Deployment</b> の設定を作成します。DeploymentはKubernetesにあなたのアプリケーションのインスタンスを作成し、更新する方法を指示します。Deploymentを作成すると、KubernetesマスターはDeployment内に含まれるアプリケーションインスタンスをクラスター内の個々のノードで実行するようにスケジュールします。
+                実行中のKubernetesクラスターを入手すると、その上にコンテナ化アプリケーションをデプロイすることができます。そのためには、Kubernetesの<b>Deployment</b> の設定を作成します。DeploymentはKubernetesにあなたのアプリケーションのインスタンスを作成し、更新する方法を指示します。Deploymentを作成すると、KubernetesコントロールプレーンはDeployment内に含まれるアプリケーションインスタンスをクラスター内の個々のノードで実行するようにスケジュールします。
                 </p>
 
                 <p>アプリケーションインスタンスが作成されると、Kubernetes Deploymentコントローラーは、それらのインスタンスを継続的に監視します。インスタンスをホストしているノードが停止、削除された場合、Deploymentコントローラーはそのインスタンスをクラスター内の別のノード上のインスタンスと置き換えます。<b>これは、マシンの故障やメンテナンスに対処するためのセルフヒーリングの仕組みを提供しています。</b></p>
@@ -68,7 +71,7 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
 
-                <p>Kubernetesのコマンドラインインターフェースである<b>kubectl</b>を使用して、Deploymentを作成、管理できます。kubectlはKubernetes APIを使用してクラスターと対話します。このモジュールでは、Kubernetesクラスターでアプリケーションを実行するDeploymentを作成するために必要な、最も一般的なkubectlコマンドについて学びます。</p>
+                <p>Kubernetesのコマンドラインインターフェースである<a href="/docs/reference/kubectl/">kubectl</a>を使用して、Deploymentを作成、管理できます。<code>kubectl</code>はKubernetes APIを使用してクラスターと対話します。このモジュールでは、Kubernetesクラスターでアプリケーションを実行するDeploymentを作成するために必要な、最も一般的な<code>kubectl</code>コマンドについて学びます。</p>
 
                 <p>Deploymentを作成するときは、アプリケーションのコンテナイメージと実行するレプリカの数を指定する必要があります。Deploymentを更新することで、あとでその情報を変更できます。チュートリアルのモジュール<a href="/ja/docs/tutorials/kubernetes-basics/scale/scale-intro/">5</a>と<a href="/ja/docs/tutorials/kubernetes-basics/update/update-intro/">6</a>では、Deploymentをどのようにスケール、更新できるかについて説明します。</p>
 
@@ -83,11 +86,95 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
 
-                <p>最初のDeploymentには、DockerコンテナにパッケージされたNode.jsアプリケーションを使用します。(まだNode.jsアプリケーションを作成してデプロイしていない場合、<a href="/ja/docs/tutorials/hello-minikube/">Hello Minikubeチュートリアル</a>の通りにやってみましょう。)</p>
+                <p>最初のDeploymentには、NGINXを使用して全てのリクエストをエコーバックする、Dockerコンテナにパッケージされたhello-nodeアプリケーションを使用します。(まだhello-nodeアプリケーションを作成して、コンテナを使用してデプロイしていない場合、<a href="/ja/docs/tutorials/hello-minikube/">Hello Minikubeチュートリアル</a>の通りにやってみましょう。)</p>
 
-                <p>Deploymentが何であるかがわかったので、オンラインチュートリアルに行き、最初のアプリケーションをデプロイしましょう！</p>
+                <p>kubectlもインストールされている必要があります。インストールが必要な場合は、<a href="/docs/tasks/tools/#kubectl">ツールをインストール</a>からインストールしてください。</p>
 
+                <p>Deploymentが何であるかがわかったので、最初のアプリケーションをデプロイしましょう！</p>
+                
             </div>
+        </div>
+
+        <div class="col-md-8">
+            <h3>kubectl basic</h3>
+
+            <p>kubectl コマンドの一般的な書式は<code>kubectl action resource</code>です。</p>
+
+            <p>これは指定された_resource_（<code>node</code>, <code>deployment</code>など）に対して指定された_action_（<code>create</code>, <code>describe</code> , <code>delete</code>など）を実行します。指定可能なパラメータに関する追加情報を取得するために、サブコマンドの後に<code>--help</code>を使うこともできます（例:<code>kubectl get nodes --help</code>）。</p>
+
+            <p><code>kubectl version</code>コマンドを実行して、kubectl がクラスタと通信できるように設定されていることを確認してください。</p>
+
+            <p>kubectlがインストールされていて、クライアントとサーバーの両方のバージョンを確認できることを確認してください。</p>
+
+            <p>クラスタ内のノードを表示するには、<code>kubectl get nodes</code>コマンドを実行します。</p>
+
+            <p>利用可能なノードが表示されます。後で、KubernetesはNodeの利用可能なリソースに基づいてアプリケーションをデプロイする場所を選択します。</p>
+
+        </div>
+
+        <div class="col-md-8">
+            <h3>Deploy an app</h3>
+
+            <p>最初のアプリケーションを<code>kubectl create deployment</code>コマンドでKubernetesにデプロイしてみましょう。デプロイ名とアプリケーションイメージの場所を指定する必要があります（Docker Hub外でホストされているイメージはリポジトリの完全なURLを含める必要があります）。</p>
+
+            <pre><code>kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1</code></pre>
+            
+            <p>素晴らしい！deploymentを作成して、最初のアプリケーションをデプロイしました。これによっていくつかのことが実行されました。</p>
+
+            <ul>
+                <li>アプリケーションのインスタンスを実行可能な適切なノードを探しました。</li>
+                <li>アプリケーションをそのノードで実行するためのスケジュールを行いました。</li>
+                <li>必要な場合にインスタンスを新しいノードで再スケジュールするような設定を行いました。</li>
+            </ul>
+
+            <p>deploymentの一覧を得るには<code>kubectl get deployments</code>コマンドを使います。</p>
+            
+            <pre><code>kubectl get deployments</code></pre>
+
+            <p>アプリケーションの単一のインスタンスを実行しているdeploymentが１つあることが分かります。インスタンスはノード上のコンテナ内で実行されています。</p>
+
+        </div>
+
+        <div class="col-md-8">
+            <h3>View the app</h3>
+
+            <p>Kubernetes内部で動作している<a href="/docs/concepts/workloads/pods/">Pod</a>は、プライベートに隔離されたネットワーク上で動作しています。デフォルトでは、同じKubernetesクラスタ内の他のPodやServiceからは見えますが、そのネットワークの外からは見えません。<code>kubectl</code>を使用する場合、アプリケーションと通信するためにAPIエンドポイントを通じてやりとりしています。</p>
+
+            <p>アプリケーションをKubernetesクラスタの外部に公開するための他のオプションについては、後ほどチュートリアルの<a href="/docs/tutorials/kubernetes-basics/expose/">モジュール４</a>で説明します。また、基本的なチュートリアルとして、この章では <code>Pods</code>とは何かについては詳しく説明しません。</p>
+
+            <p><code>kubectl proxy</code>コマンドによって、通信をクラスタ全体のプライベートネットワークに転送するプロキシを作成することができます。プロキシはcontrol-Cキーを押すことで終了させることができ、実行中は何も出力されません。 </p>
+
+            <p><strong>プロキシを実行するにはもう一つターミナルウィンドウを開く必要があります。</strong></p>
+
+            <pre><code>kubectl proxy</code></pre>
+
+            <p>ホスト（端末）とKubernetesクラスタ間の接続ができました。プロキシによって端末からAPIへの直接アクセスが可能となります。 </p>
+
+            <p>プロキシエンドポイントを通してホストされている全てのAPIを確認することができます。例えば、<code>curl</code>コマンドを使って、APIを通じて直接バージョンを調べることができます：</p>
+
+            <pre><code>curl http://localhost:8001/version</code></pre>
+
+            <p>port 8001にアクセスできない場合は、上で起動した<code>kube proxy</code>がもう一つのターミナルで実行されていることを確認してください。</p>
+
+            <p>APIサーバーはPod名に基づいて各Pod用のエンドポイントを自動的に作成し、プロキシからもアクセスできるようにします。</p>
+
+            <p>まずPod名を取得する必要があるので、環境変数<code>POD_NAME</code>に格納しておきます。</p>
+            
+            <pre><code>export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')<br>echo Name of the Pod: $POD_NAME</code></pre>
+            
+            <p>以下を実行することで、プロキシされたAPIを通してPodにアクセスすることができます：</p>
+
+            <pre><code>curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME:8080/proxy/</code></pre>
+
+            <p>プロキシを使わずに新しいdeploymentにアクセスするには、チュートリアルの<a href="/docs/tutorials/kubernetes-basics/expose/">モジュール４</a>で説明するServiceが必要となります。</p>         
+        </div>
+
+        <div class="col-md-8">
+            <h3>次のページ</h3>
+            <ul>
+                <li>チュートリアル <a href="/docs/tutorials/kubernetes-basics/explore/explore-intro/">Podとノードについて</a></li>
+                <li><a href="/docs/concepts/workloads/controllers/deployment/">Deployment</a>について詳しく学ぶ</li>
+            </ul>
         </div>
 
     </main>
