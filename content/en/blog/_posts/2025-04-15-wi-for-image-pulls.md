@@ -47,7 +47,7 @@ for handling private container image pulls:
 Neither approach aligns with the principles of **least privilege**
 or **ephemeral authentication**, leaving Kubernetes with a security gap.
 
-## The Solution: Service Account Token Integration for Kubelet Credential Providers
+## The solution: Service Account token integration for Kubelet credential providers
 
 This new enhancement enables kubelet credential providers
 to use **workload identity** when fetching image registry credentials.
