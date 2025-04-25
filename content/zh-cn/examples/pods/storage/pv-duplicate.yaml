@@ -19,4 +19,4 @@ spec:
   volumes:
     - name: config
       persistentVolumeClaim:
-        claimName: test-nfs-claim
+        claimName: task-pv-storage
