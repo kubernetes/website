@@ -435,6 +435,7 @@ Resources specified on the quota outside of the allowed set results in a validat
 | `NotBestEffort` | Match pods that do not have best effort quality of service. |
 | `PriorityClass` | Match pods that references the specified [priority class](/docs/concepts/scheduling-eviction/pod-priority-preemption). |
 | `CrossNamespacePodAffinity` | Match pods that have cross-namespace pod [(anti)affinity terms](/docs/concepts/scheduling-eviction/assign-pod-node). |
+| `VolumeAttributesClass` | Match persistentvolumeclaims that references the specified [volume attributes class](/docs/concepts/storage/volume-attributes-classes). |
 -->
 | 作用域 | 描述 |
 | ----- | ----------- |
@@ -444,6 +445,7 @@ Resources specified on the quota outside of the allowed set results in a validat
 | `NotBestEffort` | 匹配所有 Qos 不是 BestEffort 的 Pod。 |
 | `PriorityClass` | 匹配所有引用了所指定的[优先级类](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption)的 Pod。 |
 | `CrossNamespacePodAffinity` | 匹配那些设置了跨名字空间[（反）亲和性条件](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node)的 Pod。 |
+| `VolumeAttributesClass` | 匹配引用了指定[卷属性类](/zh-cn/docs/concepts/storage/volume-attributes-classes)的 PersistentVolumeClaim。 |
 
 <!--
 The `BestEffort` scope restricts a quota to tracking the following resource:
@@ -769,6 +771,318 @@ if the namespace where they are created have a resource quota object with
 且硬性约束大于或等于使用 `namespaces` 和 `namespaceSelector` 字段的 Pod
 个数时，才可以在该名字空间中继续创建在其 Pod 亲和性规则中设置 `namespaces`
 或 `namespaceSelector` 的新 Pod。
+
+<!--
+### Resource Quota Per VolumeAttributesClass
+-->
+### 按 VolumeAttributesClass 设置资源配额
+
+{{< feature-state feature_gate_name="VolumeAttributesClass" >}}
+
+<!--
+PersistentVolumeClaims can be created with a specific [volume attributes class](/docs/concepts/storage/volume-attributes-classes/), and might be modified after creation. You can control a PVC's consumption of storage resources based on the associated volume attributes classes, by using the `scopeSelector` field in the quota spec.
+
+The PVC references the associated volume attributes class by the following fields:
+-->
+PersistentVolumeClaim（PVC）可以在创建时指定一个特定的[卷属性类](/zh-cn/docs/concepts/storage/volume-attributes-classes/)，
+并且在创建后也可以进行修改。你可以通过在配额规约中使用 `scopeSelector`
+字段，基于关联的卷属性类来控制 PVC 对存储资源的消耗。
+
+PVC 通过以下字段引用关联的卷属性类：
+
+* `spec.volumeAttributesClassName`
+* `status.currentVolumeAttributesClassName`
+* `status.modifyVolumeStatus.targetVolumeAttributesClassName`
+
+<!--
+A quota is matched and consumed only if `scopeSelector` in the quota spec selects the PVC.
+
+When the quota is scoped for the volume attributes class using the `scopeSelector` field, the quota object is restricted to track only the following resources:
+-->
+仅当配额规约中的 `scopeSelector` 选择 PVC 时，配额才会被匹配并计入消耗。
+
+当使用 `scopeSelector` 字段为卷属性类限定配额范围时，配额对象只会跟踪以下资源：
+
+* `persistentvolumeclaims`
+* `requests.storage`
+
+<!--
+This example creates a quota object and matches it with PVC at specific volume attributes classes. The example works as follows:
+
+- PVCs in the cluster have at least one of the three volume attributes classes, "gold", "silver", "copper".
+- One quota object is created for each volume attributes class.
+
+Save the following YAML to a file `quota-vac.yaml`.
+-->
+以下示例创建一个配额对象，并将其与具有特定卷属性类的 PVC 进行匹配。示例逻辑如下：
+
+- 集群中的 PVC 至少属于三个卷属性类之一：“gold”、“silver”、“copper”。
+- 为每个卷属性类分别创建一个配额对象。
+
+将以下 YAML 保存为文件 `quota-vac.yaml`：
+
+{{% code_sample file="policy/quota-vac.yaml" %}}
+
+<!--
+Apply the YAML using `kubectl create`.
+-->
+使用 `kubectl create` 应用 YAML 文件：
+
+```shell
+kubectl create -f ./quota-vac.yaml
+```
+
+```
+resourcequota/pvcs-gold created
+resourcequota/pvcs-silver created
+resourcequota/pvcs-copper created
+```
+
+<!--
+Verify that `Used` quota is `0` using `kubectl describe quota`.
+-->
+使用 `kubectl describe quota` 验证 `Used` 配额为 `0`：
+
+```shell
+kubectl describe quota
+```
+
+```
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     30Gi
+```
+
+<!--
+Create a pvc with volume attributes class "gold". Save the following YAML to a file `gold-vac-pvc.yaml`.
+-->
+创建一个卷属性类为 "gold" 的 PVC。将以下 YAML 保存为文件 `gold-vac-pvc.yaml`：
+
+{{% code_sample file="policy/gold-vac-pvc.yaml" %}}
+
+<!--
+Apply it with `kubectl create`.
+-->
+使用 `kubectl create` 应用此 YAML：
+
+```shell
+kubectl create -f ./gold-vac-pvc.yaml
+```
+
+<!--
+Verify that "Used" stats for "gold" volume attributes class quota, `pvcs-gold` has changed and that the other two quotas are unchanged.
+-->
+验证 “gold” 卷属性类配额的 "Used" 统计，`pvcs-gold` 已发生了变化，而另外两个配额没有变化：
+
+```shell
+kubectl describe quota
+```
+
+```
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     30Gi
+```
+
+<!--
+Once the PVC is bound, it is allowed to modify the desired volume attributes class. Let's change it to "silver" with kubectl patch.
+-->
+一旦 PVC 被绑定，就允许修改预期卷属性类。使用 `kubectl patch` 将其修改为 "silver"：
+
+```shell
+kubectl patch pvc gold-vac-pvc --type='merge' -p '{"spec":{"volumeAttributesClassName":"silver"}}'
+```
+
+<!--
+Verify that "Used" stats for "silver" volume attributes class quota, `pvcs-silver` has changed, `pvcs-copper` is unchanged, and `pvcs-gold` might be unchanged or released, which depends on the PVC's status.
+-->
+验证 “silver” 卷属性类配额的 “Used” 统计，`pvcs-silver` 已发生变化，
+`pvcs-copper` 没有变化，`pvcs-gold` 可能没有变化或已释放（具体取决于 PVC 的状态）：
+
+```shell
+kubectl describe quota
+```
+
+```
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     30Gi
+```
+
+<!--
+Let's change it to "copper" with kubectl patch.
+-->
+使用 `kubectl patch` 将其修改为 "copper"：
+
+```shell
+kubectl patch pvc gold-vac-pvc --type='merge' -p '{"spec":{"volumeAttributesClassName":"copper"}}'
+```
+
+<!--
+Verify that "Used" stats for "copper" volume attributes class quota, `pvcs-copper` has changed, `pvcs-silver` and `pvcs-gold` might be unchanged or released, which depends on the PVC's status.
+-->
+验证 "copper" 卷属性类配额的 “Used” 统计，`pvcs-copper` 已经发生变化，
+`pvcs-silver` 和 `pvcs-gold` 可能没有变化或已释放（取决于 PVC 的状态）。
+
+```shell
+kubectl describe quota
+```
+
+```
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   30Gi
+```
+
+<!--
+Print the manifest of the PVC using the following command:
+-->
+使用以下命令打印 PVC 的清单：
+
+```shell
+kubectl get pvc gold-vac-pvc -o yaml
+```
+
+<!--
+It might show the following output:
+-->
+可能会显示如下输出：
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gold-vac-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: default
+  volumeAttributesClassName: copper
+status:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 2Gi
+  currentVolumeAttributesClassName: gold
+  phase: Bound
+  modifyVolumeStatus:
+    status: InProgress
+    targetVolumeAttributesClassName: silver
+  storageClassName: default
+```
+
+<!--
+Wait a moment for the volume modification to complete, then verify the quota again.
+-->
+稍等片刻，待卷修改完成后，再次验证配额：
+
+```shell
+kubectl describe quota
+```
+
+```
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   30Gi
+```
 
 <!--
 ## Requests compared to Limits {#requests-vs-limits}
