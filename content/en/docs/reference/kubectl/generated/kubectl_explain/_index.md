@@ -68,7 +68,7 @@ kubectl explain TYPE [--recursive=FALSE|TRUE] [--api-version=api-version-group] 
 <td colspan="2">--api-version string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Use given api-version (group/version) of the resource.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Get different explanations for particular API version (API group/version)</p></td>
 </tr>
 
 <tr>
@@ -79,17 +79,17 @@ kubectl explain TYPE [--recursive=FALSE|TRUE] [--api-version=api-version-group] 
 </tr>
 
 <tr>
-<td colspan="2">-o, --output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "plaintext"</td>
+<td colspan="2">--output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "plaintext"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Format in which to render the schema. Valid values are: (plaintext, plaintext-openapiv2).</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Format in which to render the schema (plaintext, plaintext-openapiv2)</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--recursive</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>When true, print the name of all the fields recursively. Otherwise, print the available fields with their description.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Print the fields of fields (Currently only 1 level deep)</p></td>
 </tr>
 
 </tbody>

@@ -113,9 +113,14 @@ In the example, by changing the default value of only one parameter for
 evictionHard, the default values of other parameters will not be inherited and
 will be set to zero. In order to provide custom values, you should provide all
 the threshold values respectively.
+Alternatively, you can set the MergeDefaultEvictionSettings to true in the kubelet
+configuration file, if any parameter is changed then the other parameters will inherit
+their default values instead of 0.
 -->
 在此示例中，只更改 evictionHard 的一个参数的默认值，
 这样其他参数的默认值将不会被继承，其他参数会被设置为零。如果要提供自定义值，你应该分别设置所有阈值。
+或者，你也可以在 kubelet 配置文件中将 MergeDefaultEvictionSettings 设置为 true，
+这样如果修改了其中某个参数，其他参数将继承其默认值，而不是被设为 0。
 {{< /note >}}
 
 <!--
@@ -384,6 +389,7 @@ they can follow these steps to inspect the kubelet configuration:
          "imagefs.inodesFree": "5%"
        },
        "evictionPressureTransitionPeriod": "1m0s",
+       "mergeDefaultEvictionSettings": false,
        "enableControllerAttachDetach": true,
        "makeIPTablesUtilChains": true,
        "iptablesMasqueradeBit": 14,

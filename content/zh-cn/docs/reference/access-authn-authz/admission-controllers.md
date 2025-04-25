@@ -483,6 +483,47 @@ This admission controller is disabled by default.
 确实需要使用此特性的集群应考虑使用一些自定义策略来管理 `externalIPs` 的使用。
 此准入控制器默认被禁用。
 
+### PodTopologyLabels {#podtopologylabels}
+
+{{< feature-state feature_gate="PodTopologyLabelsAdmission" >}}
+
+<!--
+**Type**: Mutating
+
+The PodTopologyLabels admission controller mutates the `pods/binding` subresources
+for all pods bound to a Node, adding topology labels matching those of the bound Node.
+This allows Node topology labels to be available as pod labels,
+which can be surfaced to running containers using the
+[Downward API](docs/concepts/workloads/pods/downward-api/).
+The labels available as a result of this controller are the
+[topology.kubernetes.io/region](docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
+[topology.kuberentes.io/zone](docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
+-->
+**类型**：变更
+
+PodTopologyLabels 准入控制器变更所有绑定到节点的 pod 的 `pods/binding` 子资源，
+添加与所绑定节点相匹配的拓扑标签。
+这使得节点拓扑标签可以作为 Pod 标签使用，并且可以通过
+[Downward API](/zh-cn/docs/concepts/workloads/pods/downward-api/) 提供给运行中的容器。
+由于此控制器而可用的标签是
+[topology.kubernetes.io/region](/zh-cn/docs/reference/labels-annotations-taints/#topologykubernetesioregion) 和
+[topology.kubernetes.io/zone](/zh-cn/docs/reference/labels-annotations-taints/#topologykubernetesiozone) 标签。
+
+{{ <note> }}
+<!--
+If any mutating admission webhook adds or modifies labels of the `pods/binding` subresource,
+these changes will propagate to pod labels as a result of this controller,
+overwriting labels with conflicting keys.
+-->
+如果有任何变更的准入 Webhook 添加或修改了 `pods/binding` 子资源的标签，
+这些变更将由于此控制器传播到 Pod 标签，覆盖具有冲突键的标签。
+{{ </note> }}
+
+<!--
+This admission controller is enabled when the `PodTopologyLabelsAdmission` feature gate is enabled.
+-->
+当 `PodTopologyLabelsAdmission` 特性门控被启用时，才能启用此准入控制器。
+
 ### EventRateLimit {#eventratelimit}
 
 {{< feature-state for_k8s_version="v1.13" state="alpha" >}}
