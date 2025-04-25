@@ -91,8 +91,11 @@ The results were alarming, only 16 informers were needed to cause the test serve
 
 Special shout out to [@deads2k](https://github.com/deads2k) for his help in shaping this feature.
 
-## 1.33 Update
-Since this feature was started, [Marek Siarkowicz](https://github.com/serathius) integrated a new technology into the kube-apiserver called `StreamingCollectionEncodingToJSON` and `StreamingCollectionEncodingToProtobuf`.
+## Kubernetes 1.33 update
+
+Since this feature was started, [Marek Siarkowicz](https://github.com/serathius) integrated a new technology into the
+Kubernetes API server: _streaming collection encoding_.
+Kubernetes v1.33 introduced two related feature gates, `StreamingCollectionEncodingToJSON` and `StreamingCollectionEncodingToProtobuf`.
 These features encode via a stream and avoid allocating all the memory at once.
 This functionality is bit-for-bit compatible with existing **list** encodings, produces even greater server-side memory savings, and doesn't require any changes to client code.
 In 1.33, the `WatchList` feature gate is disabled by default.
