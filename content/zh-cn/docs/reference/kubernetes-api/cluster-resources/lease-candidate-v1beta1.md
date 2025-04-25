@@ -1,28 +1,28 @@
 ---
 api_metadata:
-  apiVersion: "coordination.k8s.io/v1alpha1"
-  import: "k8s.io/api/coordination/v1alpha1"
+  apiVersion: "coordination.k8s.io/v1beta1"
+  import: "k8s.io/api/coordination/v1beta1"
   kind: "LeaseCandidate"
 content_type: "api_reference"
 description: "LeaseCandidate 定义 Lease 对象的候选者。"
-title: "LeaseCandidate v1alpha1"
+title: "LeaseCandidate v1beta1"
 weight: 6
 ---
 <!--
 api_metadata:
-  apiVersion: "coordination.k8s.io/v1alpha1"
-  import: "k8s.io/api/coordination/v1alpha1"
+  apiVersion: "coordination.k8s.io/v1beta1"
+  import: "k8s.io/api/coordination/v1beta1"
   kind: "LeaseCandidate"
 content_type: "api_reference"
 description: "LeaseCandidate defines a candidate for a Lease object."
-title: "LeaseCandidate v1alpha1"
+title: "LeaseCandidate v1beta1"
 weight: 6
 auto_generated: true
 -->
 
-`apiVersion: coordination.k8s.io/v1alpha1`
+`apiVersion: coordination.k8s.io/v1beta1`
 
-`import "k8s.io/api/coordination/v1alpha1"`
+`import "k8s.io/api/coordination/v1beta1"`
 
 ## LeaseCandidate {#LeaseCandidate}
 
@@ -34,7 +34,7 @@ LeaseCandidate 定义一个 Lease 对象的候选者。
 
 <hr>
 
-- **apiVersion**: coordination.k8s.io/v1alpha1
+- **apiVersion**: coordination.k8s.io/v1beta1
 
 - **kind**: LeaseCandidate
 
@@ -43,7 +43,7 @@ LeaseCandidate 定义一个 Lease 对象的候选者。
 
   More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidateSpec" >}}">LeaseCandidateSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidateSpec" >}}">LeaseCandidateSpec</a>)
 
   spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 -->
@@ -52,7 +52,7 @@ LeaseCandidate 定义一个 Lease 对象的候选者。
   更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidateSpec" >}}">LeaseCandidateSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidateSpec" >}}">LeaseCandidateSpec</a>)
 
   spec 包含 Lease 的规约。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -67,59 +67,44 @@ LeaseCandidateSpec 是 Lease 的规约。
 <hr>
 
 <!--
+- **binaryVersion** (string), required
+
+  BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+
 - **leaseName** (string), required
 
   LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
 -->
+- **binaryVersion** (string)，必需
+
+  binaryVersion 是可执行文件的版本。它必须采用不带前缀 `v` 的语义版本格式。
+  此字段是必需的。
+
 - **leaseName** (string)，必需
 
   leaseName 是此候选者正在争夺的租约的名称。此字段是不可变更的。
 
 <!--
-- **preferredStrategies** ([]string), required
+- **strategy** (string), required
 
-  *Atomic: will be replaced during a merge*
-  
-  PreferredStrategies indicates the list of strategies for picking the leader for coordinated leader election. The list is ordered, and the first strategy supersedes all other strategies. The list is used by coordinated leader election to make a decision about the final election strategy. This follows as - If all clients have strategy X as the first element in this list, strategy X will be used. - If a candidate has strategy [X] and another candidate has strategy [Y, X], Y supersedes X and strategy Y
-    will be used.
-  - If a candidate has strategy [X, Y] and another candidate has strategy [Y, X], this is a user error and leader
-    election will not operate the Lease until resolved.
-  (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+  Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
 -->
-- **preferredStrategies** ([]string)，必需
+- **strategy** (string)，必需
 
-  **原子：将在合并期间被替换**
-  
-  preferredStrategies 表示协同式领导者选举在选择领导者时所用的策略的列表。
-  此列表是有序的，第一个策略优先于所有其他策略。此列表将由协同式领导者选举用于决定最终的选举策略。
-  具体规则为：
-
-  - 如果所有客户端的策略列表的第一个元素为 X，则策略 X 将被使用。
-  - 如果一个候选者的策略为 [X]，而另一个候选者的策略为 [Y, X]，则 Y 优先于 X，策略 Y 将被使用。
-
-  - 如果一个候选者的策略为 [X, Y]，而另一个候选者的策略为 [Y, X]，则这是一个用户错误，
-    并且在解决此错误之前领导者选举将不会操作 Lease。
-  
-  （Alpha）使用此字段需要启用 CoordinatedLeaderElection 特性门控。
+  strategy 是协调式领导者选举中用于选择领导者的策略。
+  如果多个候选者针对同一个 Lease 返回了不同的策略，则将采用 binaryVersion 最新的候选者所提供的策略。
+  如果仍存在冲突，则视为用户错误，协调式领导者选举将不会继续操作此 Lease，直到冲突被解决。
 
 <!--
-- **binaryVersion** (string)
-
-  BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required when strategy is "OldestEmulationVersion"
-
 - **emulationVersion** (string)
 
   EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
 -->
-- **binaryVersion** (string)
-
-  binaryVersion 是可执行文件的版本。它必须采用不带前缀 `v` 的语义版本格式。
-  当策略为 "OldestEmulationVersion" 时，此字段是必需的。
-
 - **emulationVersion** (string)
 
   emulationVersion 是仿真版本。它必须采用不带前缀 `v` 的语义版本格式。
-  emulationVersion 必须小于或等于 binaryVersion。当策略为 "OldestEmulationVersion" 时，此字段是必需的。
+  emulationVersion 必须小于或等于 binaryVersion。
+  当策略为 "OldestEmulationVersion" 时，此字段是必需的。
 
 <!--
 - **pingTime** (MicroTime)
@@ -129,8 +114,6 @@ LeaseCandidateSpec 是 Lease 的规约。
   <a name="MicroTime"></a>
   *MicroTime is version of Time with microsecond level precision.*
 -->
-- **pingTime**（MicroTime）
-
   pingTime 是服务器最近一次请求 LeaseCandidate 续订的时间。
   此操作仅在领导者选举期间进行，用以检查是否有 LeaseCandidates 变得不合格。
   当 pingTime 更新时，LeaseCandidate 会通过更新 renewTime 来响应。
@@ -146,7 +129,7 @@ LeaseCandidateSpec 是 Lease 的规约。
   <a name="MicroTime"></a>
   *MicroTime is version of Time with microsecond level precision.*
 -->
-- **renewTime**（MicroTime）
+- **renewTime** (MicroTime)
 
   renewTime 是 LeaseCandidate 被最近一次更新的时间。每当 Lease 需要进行领导者选举时，
   pingTime 字段会被更新，以向 LeaseCandidate 发出应更新 renewTime 的信号。
@@ -165,7 +148,7 @@ LeaseCandidateList 是 Lease 对象的列表。
 
 <hr>
 
-- **apiVersion**: coordination.k8s.io/v1alpha1
+- **apiVersion**: coordination.k8s.io/v1beta1
 
 - **kind**: LeaseCandidateList
 
@@ -174,7 +157,7 @@ LeaseCandidateList 是 Lease 对象的列表。
 
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>), required
+- **items** ([]<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>), required
 
   items is a list of schema objects.
 -->
@@ -183,7 +166,7 @@ LeaseCandidateList 是 Lease 对象的列表。
   标准的列表元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>)，必需
+- **items** ([]<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>)，必需
 
   items 是模式对象的列表。
 
@@ -204,7 +187,7 @@ LeaseCandidateList 是 Lease 对象的列表。
 
 #### HTTP 请求
 
-GET /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{name}
+GET /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates/{name}
 
 <!--
 #### Parameters
@@ -240,7 +223,7 @@ GET /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{n
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
 
 401: Unauthorized
 
@@ -253,7 +236,7 @@ GET /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{n
 
 #### HTTP 请求
 
-GET /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
+GET /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates
 
 <!--
 #### Parameters
@@ -361,7 +344,7 @@ GET /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidateList" >}}">LeaseCandidateList</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidateList" >}}">LeaseCandidateList</a>): OK
 
 401: Unauthorized
 
@@ -374,7 +357,7 @@ GET /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 
 #### HTTP 请求
 
-GET /apis/coordination.k8s.io/v1alpha1/leasecandidates
+GET /apis/coordination.k8s.io/v1beta1/leasecandidates
 
 <!--
 #### Parameters
@@ -474,7 +457,7 @@ GET /apis/coordination.k8s.io/v1alpha1/leasecandidates
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidateList" >}}">LeaseCandidateList</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidateList" >}}">LeaseCandidateList</a>): OK
 
 401: Unauthorized
 
@@ -487,7 +470,7 @@ GET /apis/coordination.k8s.io/v1alpha1/leasecandidates
 
 #### HTTP 请求
 
-POST /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
+POST /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates
 
 <!--
 #### Parameters
@@ -496,7 +479,7 @@ POST /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>, required
 
 - **dryRun** (*in query*): string
 
@@ -520,7 +503,7 @@ POST /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>，必需
+- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -543,11 +526,11 @@ POST /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): Created
+201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): Created
 
-202 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): Accepted
+202 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): Accepted
 
 401: Unauthorized
 
@@ -560,7 +543,7 @@ POST /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 
 #### HTTP 请求
 
-PUT /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{name}
+PUT /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates/{name}
 
 <!--
 #### Parameters
@@ -573,7 +556,7 @@ PUT /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{n
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>, required
 
 - **dryRun** (*in query*): string
 
@@ -601,7 +584,7 @@ PUT /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{n
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>，必需
+- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -624,9 +607,9 @@ PUT /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{n
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): Created
+201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): Created
 
 401: Unauthorized
 
@@ -639,7 +622,7 @@ PUT /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{n
 
 #### HTTP 请求
 
-PATCH /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{name}
+PATCH /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates/{name}
 
 <!--
 #### Parameters
@@ -711,9 +694,9 @@ PATCH /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): Created
+201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): Created
 
 401: Unauthorized
 
@@ -726,7 +709,7 @@ PATCH /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/
 
 #### HTTP 请求
 
-DELETE /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{name}
+DELETE /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates/{name}
 
 <!--
 #### Parameters
@@ -748,6 +731,10 @@ DELETE /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **pretty** (*in query*): string
 
@@ -777,6 +764,10 @@ DELETE /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -805,7 +796,7 @@ DELETE /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 
 #### HTTP 请求
 
-DELETE /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
+DELETE /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates
 
 <!--
 #### Parameters
@@ -831,6 +822,10 @@ DELETE /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (*in query*): string
 
@@ -887,6 +882,10 @@ DELETE /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (**查询参数**): string
 
