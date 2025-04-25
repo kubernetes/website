@@ -171,7 +171,7 @@ Contoh dari _feature gate_ adalah sebagai berikut:
 | cgroup (control group) | cgroup (control group) | Tetap | ... |
 | CIDR | CIDR | Tetap | ... |
 | CLA (Contributor License Agreement) | CLA (Contributor License Agreement) | Tetap | ... |
-| Cluster | Klaster | Ejaan yang disesuaikan | https://kbbi.kemdikbud.go.id/entri/klaster | Klaster Kubernetes adalah sekumpulan node yang menjalankan aplikasi dalam Kontainer. |
+| Cluster | Klaster | Ejaan yang disesuaikan | https://kbbi.kemdikbud.go.id/entri/klaster |
 | ConfigMap | ConfigMap | Tetap | ... |
 | Container | Kontainer | Ejaan yang disesuaikan | https://kbbi.kemdikbud.go.id/entri/kontainer |
 | Container Environment Variables | ... | ... | ... |
