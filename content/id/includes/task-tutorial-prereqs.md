@@ -5,4 +5,5 @@ belum memiliki klaster, kamu dapat membuatnya dengan menggunakan
 atau kamu juga dapat menggunakan salah satu dari tempat mencoba Kubernetes berikut ini:
 
 * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
+* [KodeKloud](https://kodekloud.com/public-playgrounds)
 * [Bermain dengan Kubernetes](https://labs.play-with-k8s.com/)

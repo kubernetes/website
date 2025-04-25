@@ -27,14 +27,16 @@ On Linux nodes, the kubelet also relies on reading cgroups and various system fi
 On Windows nodes, the kubelet collects metrics via a different mechanism that does not rely on
 paths.
 
-There are also a few other files that are used by the kubelet as well as kubelet communicates using local Unix-domain sockets. Some are sockets that the
+There are also a few other files that are used by the kubelet as well,
+as kubelet communicates using local Unix-domain sockets. Some are sockets that the
 kubelet listens on, and for other sockets the kubelet discovers them and then connects
 as a client.
 
 {{< note >}}
 
 This page lists paths as Linux paths, which map to the Windows paths by adding a root disk
-`C:\` in place of `/` (unless specified otherwise). For example, `/var/lib/kubelet/device-plugins` maps to `C:\var\lib\kubelet\device-plugins`.
+`C:\` in place of `/` (unless specified otherwise).
+For example, `/var/lib/kubelet/device-plugins` maps to `C:\var\lib\kubelet\device-plugins`.
 
 {{< /note >}}
 
@@ -85,18 +87,25 @@ Names of files:
 ### Checkpoint file for device manager {#device-manager-state}
 
 Device manager creates checkpoints in the same directory with socket files: `/var/lib/kubelet/device-plugins/`.
-The name of a checkpoint file is `kubelet_internal_checkpoint` for [Device Manager](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager)
+The name of a checkpoint file is `kubelet_internal_checkpoint` for
+[Device Manager](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager)
 
-### Pod status checkpoint storage {#pod-status-manager-state}
+### Pod resource checkpoints
 
 {{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
-If your cluster has  
-[in-place Pod vertical scaling](/docs/concepts/workloads/autoscaling/#in-place-resizing)  
-enabled ([feature gate](/docs/reference/command-line-tools-reference/feature-gates/)  
-name `InPlacePodVerticalScaling`), then the kubelet stores a local record of allocated Pod resources.
+If a node has enabled the `InPlacePodVerticalScaling`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
+the kubelet stores a local record of _allocated_ and _actuated_ Pod resources.
+See [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/)
+for more details on how these records are used.
 
-The file name is `pod_status_manager_state` within the kubelet base directory
+Names of files:
+
+- `allocated_pods_state` records the resources allocated to each pod running on the node
+- `actuated_pods_state` records the resources that have been accepted by the runtime
+  for each pod pod running on the node
+
+The files are located within the kubelet base directory
 (`/var/lib/kubelet` by default on Linux; configurable using `--root-dir`).
 
 ### Container runtime
@@ -131,7 +140,8 @@ device manager, or storage plugins, and then attempts to connect
 to these sockets. The directory that the kubelet looks in is `plugins_registry` within the kubelet base
 directory, so on a typical Linux node this means `/var/lib/kubelet/plugins_registry`.
 
-Note, for the device plugins there are two alternative registration mechanisms. Only one should be used for a given plugin.
+Note, for the device plugins there are two alternative registration mechanisms
+Only one should be used for a given plugin.
 
 The types of plugins that can place socket files into that directory are:
 
@@ -147,6 +157,23 @@ The types of plugins that can place socket files into that directory are:
 
 [Graceful node shutdown](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown)
 stores state locally at `/var/lib/kubelet/graceful_node_shutdown_state`.
+
+### Image Pull Records
+
+{{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
+
+The kubelet stores records of attempted and successful image pulls, and uses it
+to verify that the image was previously successfully pulled with the same credentials.
+
+These records are cached as files in the `image_registry` directory within
+the kubelet base directory. On a typical Linux node, this means `/var/lib/kubelet/image_manager`.
+There are two subdirectories to `image_manager`:
+* `pulling` - stores records about images the Kubelet is attempting to pull.
+* `pulled` - stores records about images that were successfully pulled by the Kubelet, 
+  along with metadata about the credentials used for the pulls.
+
+See [Ensure Image Pull Credential Verification](/docs/concepts/containers/images#ensureimagepullcredentialverification)
+for details.
 
 ## Security profiles & configuration
 

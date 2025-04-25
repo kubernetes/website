@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    component: rabbitmq
+  name: rabbitmq
+spec:
+  replicas: 1
+  serviceName: rabbitmq-service
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: task-queue
+      app.kubernetes.io/component: rabbitmq
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: task-queue
+        app.kubernetes.io/component: rabbitmq
+    spec:
+      containers:
+      - image: rabbitmq
+        name: rabbitmq
+        ports:
+        - containerPort: 5672
+        resources:
+          requests:
+            memory: 16M
+          limits:
+            cpu: 250m
+            memory: 512M
+        volumeMounts:
+        - mountPath: /var/lib/rabbitmq
+          name: rabbitmq-data
+      volumes:
+      - name: rabbitmq-data
+        emptyDir: {}
