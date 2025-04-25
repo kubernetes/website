@@ -4,7 +4,7 @@ weight: 10
 description: |-
     Dowiedz się, czym jest Service w Kubernetesie.
     Zrozum, jak etykiety (labels) i selektory (selectors) są powiązane z Service.
-    Wystaw aplikację na zewnątrz klastra Kubernetes.
+    Wystaw aplikację na zewnątrz klastra Kubernetesa.
 ---
 
 <!DOCTYPE html>
@@ -160,7 +160,7 @@ description: |-
 				<p>To dowodzi, że aplikacja nie jest już dostępna z zewnątrz klastra.
 Możesz potwierdzić, że aplikacja nadal działa, wykonując <tt>curl</tt> z wewnątrz poda:</p>
 				<p><code><b>kubectl exec -ti $POD_NAME -- curl http://localhost:8080</b></code></p>
-				<p>Widzimy tutaj, że aplikacja jest uruchomiona. Dzieje się tak, ponieważ zarządzanie aplikacją przejmuje Deployment. Aby wyłączyć aplikację, należy również usunąć Deployment.</p>
+				<p>Widzimy tutaj, że aplikacja jest uruchomiona. Dzieje się tak, ponieważ aplikacją zarządza Deployment. Aby wyłączyć aplikację, należy również usunąć Deployment.</p>
 			</div>
 		</div>
 				<div class="row">
