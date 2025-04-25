@@ -46,6 +46,11 @@ kubeadm upgrade plan [version] [flags]
             <td style="line-height: 130%; word-wrap: break-word;"><p>Шлях до файлу конфігурації kubeadm.</p></td>
         </tr>
         <tr>
+        <td colspan="2">--etcd-upgrade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Типово: true</td>
+        </tr>
+        <tr>
+            <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Виконує оновлення etcd.</p></td>
+        </tr>
         <tr>
         <td colspan="2">-h, --help</td>
         </tr>

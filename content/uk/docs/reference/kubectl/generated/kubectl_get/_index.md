@@ -149,7 +149,7 @@ kubectl get pods --all-namespaces
         </tr>
         <tr>
             <td></td>
-            <td style="line-height: 130%; word-wrap: break-word;"><p>Формат виводу. Один з: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file, custom-columns, custom-columns-file, wide).Дивіться нестандартні стовпці [https://kubernetes.io/docs/reference/kubectl/#custom-columns](/uk/docs/reference/kubectl/#custom-columns), шаблон golang [http://golang.org/pkg/text/template/#pkg-overview] та шаблон jsonpath [https://kubernetes.io/docs/reference/kubectl/jsonpath/](/uk/docs/reference/kubectl/jsonpath/).</p></td>
+            <td style="line-height: 130%; word-wrap: break-word;"><p>Формат виводу. Один з: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file, custom-columns, custom-columns-file, wide).Дивіться нестандартні стовпці [https://kubernetes.io/docs/reference/kubectl/#custom-columns](/docs/reference/kubectl/#custom-columns), шаблон golang [http://golang.org/pkg/text/template/#pkg-overview] та шаблон jsonpath [https://kubernetes.io/docs/reference/kubectl/jsonpath/](/docs/reference/kubectl/jsonpath/).</p></td>
         </tr>
         <tr>
             <td colspan="2">--output-watch-events</td>
@@ -177,7 +177,7 @@ kubectl get pods --all-namespaces
         </tr>
         <tr>
             <td></td>
-            <td style="line-height: 130%; word-wrap: break-word;"><p>Селектор (запит на мітки) для фільтрації, що підтримує '=', '==' і '!=' (наприклад, -l key1=value1,key2=value2). Обʼєкти, щоб мати збіг, повинні задовольняти усім зазначеним обмеженням міток.</p></td>
+            <td style="line-height: 130%; word-wrap: break-word;"><p>Селектор (запит на мітки) для фільтрації, що підтримує '=', '==', '!=', 'in', 'notin' (наприклад, -l key1=value1,key2=value2,key3 in (value3)). Обʼєкти, щоб мати збіг, повинні задовольняти усім зазначеним обмеженням міток.</p></td>
         </tr>
         <tr>
             <td colspan="2">--server-print&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Типово: true</td>
@@ -219,7 +219,7 @@ kubectl get pods --all-namespaces
         </tr>
         <tr>
             <td></td>
-            <td style="line-height: 130%; word-wrap: break-word;"><p>Якщо вказано, редагування працюватиме з субресурсом запитуваного обʼєкта. Цей прапорець є бета-версією і може змінюватися у майбутньому.</p></td>
+            <td style="line-height: 130%; word-wrap: break-word;"><p>Якщо вказано, редагування працюватиме з субресурсом запитуваного обʼєкта.</p></td>
         </tr>
         <tr>
             <td colspan="2">--template string</td>

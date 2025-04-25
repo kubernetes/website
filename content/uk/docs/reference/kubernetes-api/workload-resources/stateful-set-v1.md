@@ -47,7 +47,7 @@ StatefulSetSpec — це специфікація StatefulSet.
 
 ---
 
-- **serviceName** (string), обовʼязково
+- **serviceName** (string)
 
   serviceName — це назва Service, який керує цим StatefulSet. Цей сервіс повинен існувати до створення StatefulSet і відповідає за мережеву ідентичність набору. Podʼи отримують DNS/hostnames, які відповідають шаблону: pod-specific-string.serviceName.default.svc.cluster.local, де "pod-specific-string" управляється контролером StatefulSet.
 

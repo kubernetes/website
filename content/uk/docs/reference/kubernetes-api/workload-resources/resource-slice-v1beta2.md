@@ -1,18 +1,18 @@
 ---
 api_metadata:
-  apiVersion: "resource.k8s.io/v1alpha3"
-  import: "k8s.io/api/resource/v1alpha3"
+  apiVersion: "resource.k8s.io/v1beta2"
+  import: "k8s.io/api/resource/v1beta2"
   kind: "ResourceSlice"
 content_type: "api_reference"
 description: "ResourceSlice представляє один або декілька ресурсів у пулі подібних ресурсів, керованих спільним драйвером."
-title: "ResourceSlice v1alpha3"
+title: "ResourceSlice v1beta2"
 weight: 18
-auto_generated: false
+auto_generated: true
 ---
 
-`apiVersion: resource.k8s.io/v1alpha3`
+`apiVersion: resource.k8s.io/v1beta2`
 
-`import "k8s.io/api/resource/v1alpha3"`
+`import "k8s.io/api/resource/v1beta2"`
 
 ## ResourceSlice {#ResourceSlice}
 
@@ -30,7 +30,7 @@ ResourceSlice представляє один або кілька ресурсі
 
 ---
 
-- **apiVersion**: resource.k8s.io/v1alpha3
+- **apiVersion**: resource.k8s.io/v1beta2
 
 - **kind**: ResourceSlice
 
@@ -38,7 +38,7 @@ ResourceSlice представляє один або кілька ресурсі
 
   Стандартні метадані обʼєкта
 
-- **spec** (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSliceSpec" >}}">ResourceSliceSpec</a>), обовʼязково
+- **spec** (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSliceSpec" >}}">ResourceSliceSpec</a>), обовʼязково
 
   Містить інформацію, опубліковану драйвером.
 
@@ -85,7 +85,7 @@ ResourceSliceSpec містить інформацію, опубліковану 
 
   AllNodes вказує на те, що всі вузли мають доступ до ресурсів у пулі.
 
-  Має бути встановлено точно одне з полів NodeName, NodeSelector або AllNodes.
+  Має бути встановлено точно одне з полів NodeName, NodeSelector, AllNodes або PerDeviceNodeSelection.
 
 - **devices** ([]Device)
 
@@ -102,43 +102,149 @@ ResourceSliceSpec містить інформацію, опубліковану 
 
     Name є унікальним ідентифікатором серед усіх пристроїв, які управляються драйвером у пулі. Має бути піддоменом DNS.
 
-  - **devices.basic** (BasicDevice)
+  - **devices.allNodes** (boolean)
 
-    Basic визначає один екземпляр пристрою.
+    AllNodes означає, що всі вузли мають доступ до пристрою.
 
-    <a name="BasicDevice"></a>
-    *BasicDevice визначає один екземпляр пристрою.*
+    Має бути задано тільки якщо Spec.PerDeviceNodeSelection має значення true. Може бути задано не більше одного з NodeName, NodeSelector та AllNodes.
 
-    - **devices.basic.attributes** (map[string]DeviceAttribute)
+  - **devices.attributes** (map[string]DeviceAttribute)
 
-      Attributes визначає набір атрибутів для цього пристрою. Імʼя кожного атрибута повинно бути унікальним у цьому наборі.
+    Attributes визначає набір атрибутів для цього пристрою. Імʼя кожного атрибута повинно бути унікальним у цьому наборі.
 
-      Максимальна кількість атрибутів та ємностей разом — 32.
+    Максимальна кількість атрибутів та ємностей разом — 32.
 
-      <a name="DeviceAttribute"></a>
-      *DeviceAttribute має бути встановлено точно одне поле.*
+    <a name="DeviceAttribute"></a>
+    *DeviceAttribute має бути встановлено точно одне поле.*
 
-      - **devices.basic.attributes.bool** (boolean)
+    - **devices.attributes.bool** (boolean)
 
-        BoolValue є значенням true/false.
+      BoolValue є значенням true/false.
 
-      - **devices.basic.attributes.int** (int64)
+    - **devices.attributes.int** (int64)
 
-        IntValue є числом.
+      IntValue є числом.
 
-      - **devices.basic.attributes.string** (string)
+    - **devices.attributes.string** (string)
 
-        StringValue є рядком. Не повинно бути довше 64 символів.
+      StringValue є рядком. Не повинно бути довше 64 символів.
 
-      - **devices.basic.attributes.version** (string)
+    - **devices.attributes.version** (string)
 
-        VersionValue є семантичною версією відповідно до специфікації semver.org 2.0.0. Не повинна перевищувати 64 символи в довжину.
+      VersionValue є семантичною версією відповідно до специфікації semver.org 2.0.0. Не повинна перевищувати 64 символи в довжину.
 
-    - **devices.basic.capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+  - **devices.capacity** (map[string]DeviceCapacity)
 
-      Capacity визначає набір ємностей для цього пристрою. Імʼя кожної ємності повинно бути унікальним у цьому наборі.
+    Capacity визначає набір ємностей для цього пристрою. Імʼя кожної ємності повинно бути унікальним у цьому наборі.
 
-      Максимальна кількість атрибутів та ємностей разом — 32.
+    Максимальна кількість атрибутів та ємностей разом — 32.
+
+    <a name="DeviceCapacity"></a>
+    *DeviceCapacity описує кількість, повʼязану з пристроєм.*
+
+    - **devices.capacity.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>), обовʼязково
+
+      Value визначає, яка частина певної ємності пристрою є доступною.
+
+  - **devices.consumesCounters** ([]DeviceCounterConsumption)
+
+    *Atomic: буде замінено під час злиття*
+
+    ConsumesCounters визначає список посилань на sharedCounters та набір лічильників, які пристрій буде споживати з цих наборів.
+
+    Для кожного набору лічильників може бути лише один запис.
+
+    Загальна кількість записів про споживання лічильників пристроєм має бути \<= 32. Крім того, загальна кількість у всьому ResourceSlice має бути \<= 1024 (наприклад, 64 пристрої з 16 лічильниками кожен).
+
+    <a name="DeviceCounterConsumption"></a>
+    *DeviceCounterConsumption визначає набір лічильників, які пристрій буде споживати з CounterSet.*
+
+    - **devices.consumesCounters.counterSet** (string), обовʼязково
+
+      CounterSet є назвою множини, з якої будуть використовуватися визначені лічильники.
+
+    - **devices.consumesCounters.counters** (map[string]Counter), обовʼязково
+
+      Counters визначає лічильники, які будуть споживатися пристроєм.
+
+      Максимальна кількість лічильників у пристрої — 32. Крім того, максимальна кількість усіх лічильників у всіх пристроях — 1024 (наприклад, 64 пристрої по 16 лічильників у кожному).
+
+      <a name="Counter"></a>
+      *Counter описує кількість, повʼязану з пристроєм.*
+
+      - **devices.consumesCounters.counters.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>), обовʼязково
+
+        Value визначає, скільки лічильника певного пристрою доступно.
+
+  - **devices.nodeName** (string)
+
+    NodeName визначає вузол, на якому доступний пристрій.
+
+    Має бути задано тільки якщо Spec.PerDeviceNodeSelection має значення true. Може бути задано принаймні одне з NodeName, NodeSelector та AllNodes.
+
+  - **devices.nodeSelector** (NodeSelector)
+
+    NodeSelector визначає вузол, на якому доступний пристрій.
+
+    Повинен використовувати лише один термін.
+
+    Має бути задано тільки якщо Spec.PerDeviceNodeSelection має значення true. Може бути задано принаймні одне з NodeName, NodeSelector та AllNodes.
+
+    <a name="NodeSelector"></a>
+    *Селектор вузлів представляє обʼєднання результатів одного або кількох запитів міток по набору вузлів; тобто, він представляє логічну операцію OR селекторів, представлених термінами селектора вузлів.*
+
+    - **devices.nodeSelector.nodeSelectorTerms** ([]NodeSelectorTerm), обовʼязково
+
+      *Atomic: буде замінено під час злиття*
+
+      Обовʼязково. Список термінів селектора вузлів. Терміни обʼєднуються операцією OR.
+
+      <a name="NodeSelectorTerm"></a>
+      *Null або порожній термін селектора вузла не відповідає жодному об'єкту. Вимоги до них складаються за принципом AND. Тип TopologySelectorTerm реалізує підмножину NodeSelectorTerm.*
+
+      - **devices.nodeSelector.nodeSelectorTerms.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
+
+        *Atomic: буде замінено під час злиття*
+
+        Список вимог до селектора вузлів за мітками вузлів.
+
+      - **devices.nodeSelector.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
+
+        *Atomic: буде замінено під час злиття*
+
+        Список вимог до селектора вузла за полями вузла.
+
+  - **devices.taints** ([]DeviceTaint)
+
+    *Atomic: буде замінено під час злиття*
+
+    Якщо вказано, то це taint, визначені драйвером.
+
+    Максимальна кількість taint — 4.
+
+    Це альфа-поле і вимагає увімкнення функціональної можливості DRADeviceTaints.
+
+    <a name="DeviceTaint"></a>
+    *Пристрій, до якого прикріплено цей taint, має «вплив» на будь-яку заявку, яка не толерує taint, і, через заявку, на podʼи, що використовують цю заявку.*
+
+    - **devices.taints.effect** (string), обовʼязково
+
+      Вплив taint на заявки, які не толерують taint, а через такі заявки на podʼи, які їх використовують. Допустимими ефектами є NoSchedule та NoExecute. PreferNoSchedule, що використовується для вузлів, тут не діє.
+
+    - **devices.taints.key** (string), обовʼязково
+
+      Ключ taint, який буде застосовано до пристрою. Повинна бути назва мітки.
+
+    - **devices.taints.timeAdded** (Time)
+
+      TimeAdded показує час, коли було додано taint. Додається автоматично під час створення або оновлення, якщо не встановлено.
+
+      <a name="Time"></a>
+      *Time — це обгортка навколо time.Time, яка підтримує коректне перетворення у YAML та JSON. Для багатьох з функцій, які пропонує пакет time, надаються обгортки.*
+
+    - **devices.taints.value** (string)
+
+      Значення taint, що відповідає ключу taint. Має бути значенням мітки.
 
 - **nodeName** (string)
 
@@ -146,7 +252,7 @@ ResourceSliceSpec містить інформацію, опубліковану 
 
   Це поле може використовуватися для обмеження доступу з вузлів до ResourceSlices з тим же іменем вузла. Воно також вказує автомасштабувальникам, що додавання нових вузлів того ж типу, що й старий вузол, може також зробити нові ресурси доступними.
 
-  Має бути встановлено точно одне з полів NodeName, NodeSelector або AllNodes. Це поле є незмінним.
+  Має бути встановлено точно одне з полів NodeName, NodeSelector, AllNodes або PerDeviceNodeSelection. Це поле є незмінним.
 
 - **nodeSelector** (NodeSelector)
 
@@ -154,7 +260,7 @@ ResourceSliceSpec містить інформацію, опубліковану 
 
   Має бути використано точно один термін.
 
-  Має бути встановлено точно одне з полів NodeName, NodeSelector або AllNodes.
+  Має бути встановлено точно одне з полів NodeName, NodeSelector, AllNodes або PerDeviceNodeSelection.
 
   <a name="NodeSelector"></a>
   *Селектор вузлів представляє обʼєднання результатів одного або кількох запитів міток по набору вузлів; тобто, він представляє логічну операцію OR селекторів, представлених термінами селектора вузлів.*
@@ -180,23 +286,61 @@ ResourceSliceSpec містить інформацію, опубліковану 
 
       Список вимог до селектора вузла за полями вузла.
 
+- **perDeviceNodeSelection** (boolean)
+
+  PerDeviceNodeSelection визначає, чи доступ з вузлів до ресурсів у пулі встановлюється на рівні ResourceSlice або на рівні кожного пристрою. Якщо встановлено значення true, кожен пристрій, визначений як ResourceSlice, повинен вказати його індивідуально.
+
+  Має бути задано точно одне з значень NodeName, NodeSelector, AllNodes та PerDeviceNodeSelection.
+
+- **sharedCounters** ([]CounterSet)
+
+  *Atomic: буде замінено під час злиття*
+
+  SharedCounters визначає список наборів лічильників, кожен з яких має назву та список доступних лічильників.
+
+  Імена лічильників SharedCounters повинні бути унікальними в ResourceSlice.
+
+  Максимальна кількість лічильників у всіх наборах — 32.
+
+  <a name="CounterSet"></a>
+  *CounterSet визначає іменований набір лічильників, які доступні для використання пристроями, визначеними у ResourceSlice.*
+
+  *Лічильники не можуть бути виділені самі по собі, але на них можуть посилатися пристрої. Коли пристрій виділено, частина лічильників, яку він використовує, більше не буде доступною для використання іншими пристроями.*
+
+  - **sharedCounters.counters** (map[string]Counter), обовʼязково
+
+    Counters визначає набір лічильників для цього CounterSet. Імʼя кожного лічильника має бути унікальним у цьому наборі і має бути DNS-міткою.
+
+    Максимальна кількість лічильників у всіх наборах — 32.
+
+    <a name="Counter"></a>
+    *Counter описує кількість, повʼязану з пристроєм.*
+
+    - **sharedCounters.counters.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>), обовʼязково
+
+      Value визначає, скільки лічильника певного пристрою доступно.
+
+  - **sharedCounters.name** (string), обовʼязково
+
+    Name визначає імʼя набору лічильників. Це має бути мітка DNS.
+
 ## ResourceSliceList {#ResourceSliceList}
 
 ResourceSliceList — колекція класів ResourceSlices.
 
 ---
 
-- **apiVersion**: resource.k8s.io/v1alpha3
+- **apiVersion**: resource.k8s.io/v1beta2
 
 - **kind**: ResourceSliceList
-
-- **items** ([]<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>), обовʼязково
-
-  Items is the list of resource ResourceSlices.
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
   Стандартні метадані списку
+
+- **items** ([]<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>), обовʼязково
+
+  Items is the list of resource ResourceSlices.
 
 ## Операції {#Operations}
 
@@ -206,7 +350,7 @@ ResourceSliceList — колекція класів ResourceSlices.
 
 #### HTTP запит {#http-request}
 
-GET /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
+GET /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### Параметри {#parameters}
 
@@ -220,7 +364,7 @@ GET /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
 
 #### Відповідь {#response}
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
 
 401: Unauthorized
 
@@ -228,7 +372,7 @@ GET /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
 
 #### HTTP запит {#http-request-1}
 
-GET /apis/resource.k8s.io/v1alpha3/resourceslices
+GET /apis/resource.k8s.io/v1beta2/resourceslices
 
 #### Параметри {#parameters-1}
 
@@ -278,7 +422,7 @@ GET /apis/resource.k8s.io/v1alpha3/resourceslices
 
 #### Відповідь {#response-1}
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSliceList" >}}">ResourceSliceList</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSliceList" >}}">ResourceSliceList</a>): OK
 
 401: Unauthorized
 
@@ -286,11 +430,11 @@ GET /apis/resource.k8s.io/v1alpha3/resourceslices
 
 #### HTTP запит {#http-request-2}
 
-POST /apis/resource.k8s.io/v1alpha3/resourceslices
+POST /apis/resource.k8s.io/v1beta2/resourceslices
 
 #### Параметри {#parameters-2}
 
-- **body**: <a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>, обовʼязково
+- **body**: <a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>, обовʼязково
 
 - **dryRun** (*в запиті*): string
 
@@ -310,11 +454,11 @@ POST /apis/resource.k8s.io/v1alpha3/resourceslices
 
 #### Відповідь {#response-2}
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Created
 
-202 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Accepted
 
 401: Unauthorized
 
@@ -322,7 +466,7 @@ POST /apis/resource.k8s.io/v1alpha3/resourceslices
 
 #### HTTP запит {#http-request-3}
 
-PUT /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
+PUT /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### Параметри {#parameters-3}
 
@@ -330,7 +474,7 @@ PUT /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
 
   імʼя ResourceSlice
 
-- **body**: <a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>, обовʼязково
+- **body**: <a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>, обовʼязково
 
 - **dryRun** (*в запиті*): string
 
@@ -350,9 +494,9 @@ PUT /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
 
 #### Відповідь {#response-3}
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Created
 
 401: Unauthorized
 
@@ -360,7 +504,7 @@ PUT /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
 
 #### HTTP запит {#http-request-4}
 
-PATCH /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
+PATCH /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### Параметри {#parameters-4}
 
@@ -392,9 +536,9 @@ PATCH /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
 
 #### Відповідь {#response-4}
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Created
 
 401: Unauthorized
 
@@ -402,7 +546,7 @@ PATCH /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
 
 #### HTTP запит {#http-request-5}
 
-DELETE /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
+DELETE /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### Параметри {#parameters-5}
 
@@ -420,6 +564,10 @@ DELETE /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** (*в запиті*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -430,9 +578,9 @@ DELETE /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
 
 #### Відповідь {#response-5}
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
 
-202 (<a href="{{< ref "../workload-resources/resource-slice-v1alpha3#ResourceSlice" >}}">ResourceSlice</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Accepted
 
 401: Unauthorized
 
@@ -440,7 +588,7 @@ DELETE /apis/resource.k8s.io/v1alpha3/resourceslices/{name}
 
 #### HTTP запит {#http-request-6}
 
-DELETE /apis/resource.k8s.io/v1alpha3/resourceslices
+DELETE /apis/resource.k8s.io/v1beta2/resourceslices
 
 #### Параметри {#parameters-6}
 
@@ -461,6 +609,10 @@ DELETE /apis/resource.k8s.io/v1alpha3/resourceslices
 - **gracePeriodSeconds** (*в запиті*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (*в запиті*): string
 

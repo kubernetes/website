@@ -1,26 +1,26 @@
 ---
 api_metadata:
-  apiVersion: "networking.k8s.io/v1beta1"
-  import: "k8s.io/api/networking/v1beta1"
+  apiVersion: "networking.k8s.io/v1"
+  import: "k8s.io/api/networking/v1"
   kind: "ServiceCIDR"
 content_type: "api_reference"
 description: "ServiceCIDR визначає діапазон IP-адрес у форматі CIDR (наприклад, 192.168.0.0/24 або 2001:db2::/64)."
-title: "ServiceCIDR v1beta1"
+title: "ServiceCIDR"
 weight: 10
 auto_generated: false
 ---
 
-`apiVersion: networking.k8s.io/v1beta1`
+`apiVersion: networking.k8s.io/v1`
 
-`import "k8s.io/api/networking/v1beta1"`
+`import "k8s.io/api/networking/v1"`
 
 ## ServiceCIDR {#ServiceCIDR}
 
 ServiceCIDR визначає діапазон IP-адрес у форматі CIDR (наприклад, 192.168.0.0/24 або 2001:db2::/64). Цей діапазон використовується для виділення ClusterIP для обʼєктів Service.
 
-<hr>
+---
 
-- **apiVersion**: networking.k8s.io/v1beta1
+- **apiVersion**: networking.k8s.io/v1
 
 - **kind**: ServiceCIDR
 
@@ -28,11 +28,11 @@ ServiceCIDR визначає діапазон IP-адрес у форматі CI
 
   Стандартні метадані обʼєкта. Докладніше: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDRSpec" >}}">ServiceCIDRSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDRSpec" >}}">ServiceCIDRSpec</a>)
 
   spec — це бажаний стан ServiceCIDR. Докладніше: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 
-- **status** (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDRStatus" >}}">ServiceCIDRStatus</a>)
+- **status** (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDRStatus" >}}">ServiceCIDRStatus</a>)
 
   status представляє поточний стан ServiceCIDR. Докладніше: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 
@@ -98,7 +98,7 @@ ServiceCIDRList містить список об'єктів ServiceCIDR.
 
 ---
 
-- **apiVersion**: networking.k8s.io/v1beta1
+- **apiVersion**: networking.k8s.io/v1
 
 - **kind**: ServiceCIDRList
 
@@ -106,7 +106,7 @@ ServiceCIDRList містить список об'єктів ServiceCIDR.
 
   Стандартні метадані обʼєкта. Докладніше: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>), обовʼязково
+- **items** ([]<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>), обовʼязково
 
   items — це список ServiceCIDR.
 
@@ -118,7 +118,7 @@ ServiceCIDRList містить список об'єктів ServiceCIDR.
 
 #### HTTP запит {#http-request}
 
-GET /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
+GET /apis/networking.k8s.io/v1/servicecidrs/{name}
 
 #### Параметри {#parameters}
 
@@ -132,7 +132,7 @@ GET /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
 
 #### Відповідь {#response}
 
-200 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
+200 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
 
 401: Unauthorized
 
@@ -140,7 +140,7 @@ GET /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
 
 #### HTTP запит {#http-request-1}
 
-GET /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
+GET /apis/networking.k8s.io/v1/servicecidrs/{name}/status
 
 #### Параметри {#parameters-1}
 
@@ -154,7 +154,7 @@ GET /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
 
 #### Відповідь {#response-1}
 
-200 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
+200 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
 
 401: Unauthorized
 
@@ -162,7 +162,7 @@ GET /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
 
 #### HTTP запит {#http-request-2}
 
-GET /apis/networking.k8s.io/v1beta1/servicecidrs
+GET /apis/networking.k8s.io/v1/servicecidrs
 
 #### Параметри {#parameters-2}
 
@@ -212,7 +212,7 @@ GET /apis/networking.k8s.io/v1beta1/servicecidrs
 
 #### Відповідь {#response-2}
 
-200 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDRList" >}}">ServiceCIDRList</a>): OK
+200 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDRList" >}}">ServiceCIDRList</a>): OK
 
 401: Unauthorized
 
@@ -220,11 +220,11 @@ GET /apis/networking.k8s.io/v1beta1/servicecidrs
 
 #### HTTP запит {#http-request-3}
 
-POST /apis/networking.k8s.io/v1beta1/servicecidrs
+POST /apis/networking.k8s.io/v1/servicecidrs
 
 #### Параметри {#parameters-3}
 
-- **body**: <a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>, обовʼязково
+- **body**: <a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>, обовʼязково
 
 - **dryRun** (*в запиті*): string
 
@@ -244,11 +244,11 @@ POST /apis/networking.k8s.io/v1beta1/servicecidrs
 
 #### Відповідь {#response-3}
 
-200 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
+200 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
+201 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
 
-202 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): Accepted
+202 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): Accepted
 
 401: Unauthorized
 
@@ -256,7 +256,7 @@ POST /apis/networking.k8s.io/v1beta1/servicecidrs
 
 #### HTTP запит {#http-request-4}
 
-PUT /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
+PUT /apis/networking.k8s.io/v1/servicecidrs/{name}
 
 #### Параметри {#parameters-4}
 
@@ -264,7 +264,7 @@ PUT /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
 
   імʼя ServiceCIDR
 
-- **body**: <a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>, обовʼязково
+- **body**: <a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>, обовʼязково
 
 - **dryRun** (*в запиті*): string
 
@@ -284,9 +284,9 @@ PUT /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
 
 #### Відповідь {#response-4}
 
-200 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
+200 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
+201 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
 
 401: Unauthorized
 
@@ -294,7 +294,7 @@ PUT /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
 
 #### HTTP запит {#http-request-5}
 
-PUT /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
+PUT /apis/networking.k8s.io/v1/servicecidrs/{name}/status
 
 #### Параметри {#parameters-5}
 
@@ -302,7 +302,7 @@ PUT /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
 
   імʼя ServiceCIDR
 
-- **body**: <a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>, обовʼязково
+- **body**: <a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>, обовʼязково
 
 - **dryRun** (*в запиті*): string
 
@@ -322,9 +322,9 @@ PUT /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
 
 #### Відповідь {#response-5}
 
-200 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
+200 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
+201 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
 
 401: Unauthorized
 
@@ -332,7 +332,7 @@ PUT /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
 
 #### HTTP запит {#http-request-6}
 
-PATCH /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
+PATCH /apis/networking.k8s.io/v1/servicecidrs/{name}
 
 #### Параметри {#parameters-6}
 
@@ -364,9 +364,9 @@ PATCH /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
 
 #### Відповідь {#response-6}
 
-200 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
+200 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
+201 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
 
 401: Unauthorized
 
@@ -374,7 +374,7 @@ PATCH /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
 
 #### HTTP запит {#http-request-7}
 
-PATCH /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
+PATCH /apis/networking.k8s.io/v1/servicecidrs/{name}/status
 
 #### Параметри {#parameters-7}
 
@@ -406,9 +406,9 @@ PATCH /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
 
 #### Відповідь {#response-7}
 
-200 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
+200 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/service-cidr-v1beta1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
+201 (<a href="{{< ref "../cluster-resources/service-cidr-v1#ServiceCIDR" >}}">ServiceCIDR</a>): Created
 
 401: Unauthorized
 
@@ -416,7 +416,7 @@ PATCH /apis/networking.k8s.io/v1beta1/servicecidrs/{name}/status
 
 #### HTTP запит {#http-request-8}
 
-DELETE /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
+DELETE /apis/networking.k8s.io/v1/servicecidrs/{name}
 
 #### Параметри {#parameters-8}
 
@@ -458,7 +458,7 @@ DELETE /apis/networking.k8s.io/v1beta1/servicecidrs/{name}
 
 #### HTTP запит {#http-request-9}
 
-DELETE /apis/networking.k8s.io/v1beta1/servicecidrs
+DELETE /apis/networking.k8s.io/v1/servicecidrs
 
 #### Параметри {#parameters-9}
 

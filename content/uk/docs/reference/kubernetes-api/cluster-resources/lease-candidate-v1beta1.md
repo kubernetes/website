@@ -1,25 +1,26 @@
 ---
 api_metadata:
-  apiVersion: "coordination.k8s.io/v1alpha1"
-  import: "k8s.io/api/coordination/v1alpha1"
+  apiVersion: "coordination.k8s.io/v1beta1"
+  import: "k8s.io/api/coordination/v1beta1"
   kind: "LeaseCandidate"
 content_type: "api_reference"
-description: "LeaseCandidate визначає кандидата для об'єкта Lease."
-title: "LeaseCandidate v1alpha1"
+description: "LeaseCandidate визначає кандидата для обʼєкта Lease."
+title: "LeaseCandidate v1beta1"
 weight: 6
+auto_generated: true
 ---
 
-`apiVersion: coordination.k8s.io/v1alpha1`
+`apiVersion: coordination.k8s.io/v1beta1`
 
-`import "k8s.io/api/coordination/v1alpha1"`
+`import "k8s.io/api/coordination/v1beta1"`
 
 ## LeaseCandidate {#LeaseCandidate}
 
-LeaseCandidate визначає кандидата для обʼєкта Lease. Кандидати створюються таким чином, щоб координований вибір лідера вибрав найкращого лідера з переліку кандидатів.
+LeaseCandidate визначає кандидата для обʼєкта Lease. Кандидати створюються таким чином, щоб скоординовані вибори лідера обрали найкращого лідера зі списку кандидатів.
 
 ---
 
-- **apiVersion**: coordination.k8s.io/v1alpha1
+- **apiVersion**: coordination.k8s.io/v1beta1
 
 - **kind**: LeaseCandidate
 
@@ -27,81 +28,73 @@ LeaseCandidate визначає кандидата для обʼєкта Lease. 
 
   Докладніше: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidateSpec" >}}">LeaseCandidateSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidateSpec" >}}">LeaseCandidateSpec</a>)
 
-  spec містить специфікацію Lease. Докладніше: <https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status>.
+  spec містить специфікацію Lease. Докладніше: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## LeaseCandidateSpec {#LeaseCandidateSpec}
 
-LeaseCandidateSpec є специфікацією Lease.
+LeaseCandidateSpec — це специфікація Lease.
 
 ---
+
+- **binaryVersion** (string), обовʼязково
+
+  BinaryVersion - це бінарна версія. Вона має бути у форматі semver без символу `v`. Це поле є обовʼязковим.
 
 - **leaseName** (string), обовʼязково
 
-  LeaseName — це імʼя Lease, за який цей кандидат змагається. Це поле є незмінним.
+  LeaseName — імʼя Lease, на який претендує цей кандидат. Обмеження для цього поля такі ж, як і для Lease.name. Кілька кандидатів на оренду можуть посилатися на один і той самий Lease.name. Це поле є незмінним.
 
-- **preferredStrategies** ([]string), обовʼязково
+- **strategy** (string), обовʼязково
 
-  *Atomic: буде замінено під час злиття*
-
-  PreferredStrategies вказує на список стратегій для вибору лідера у координованому виборі лідера. Список упорядкований, і перша стратегія переважає всі інші стратегії. Цей список використовується координованим вибором лідера для прийняття рішення про остаточну стратегію виборів. Це передбачає:
-
-  - Якщо всі клієнти мають стратегію X як перший елемент у цьому списку, буде використана стратегія X.
-  - Якщо кандидат має стратегію [X], а інший кандидат має стратегію [Y, X], Y переважає X, і буде використана стратегія Y.
-  - Якщо кандидат має стратегію [X, Y], а інший кандидат має стратегію [Y, X], це є помилкою користувача, і вибір лідера не буде здійснюватися до вирішення проблеми.
-
-  (Альфа) Для використання цього поля потрібно увімкнути функціональну можливість CoordinatedLeaderElection.
-
-- **binaryVersion** (string)
-
-  BinaryVersion — це бінарна версія. Вона повинна бути у форматі semver без початкової `v`. Це поле є обовʼязковим, коли стратегія "OldestEmulationVersion".
+  Strategy — це стратегія, яку координовані вибори лідера будуть використовувати для вибору лідера. Якщо кілька кандидатів на один і той самий Lease повертають різні стратегії, буде використано стратегію, надану кандидатом з найновішою версією BinaryVersion. Якщо конфлікт все ще існує, це є помилкою користувача, і координовані вибори лідера не будуть керувати Lease, доки не буде вирішено.
 
 - **emulationVersion** (string)
 
-  EmulationVersion —це версія емуляції. Вона повинна бути у форматі semver без початкової `v`. EmulationVersion повинна бути менше або дорівнювати BinaryVersion. Це поле є обовʼязковим, коли стратегія є "OldestEmulationVersion".
+  EmulationVersion — версія емуляції. Вона має бути у форматі semver без початкового `v`. EmulationVersion має бути менше або дорівнювати BinaryVersion. Це поле є обовʼязковим, якщо стратегія має значення "OldestEmulationVersion"
 
 - **pingTime** (MicroTime)
 
-  PingTime — це останній час, коли сервер запитував LeaseCandidate на продовження. Це виконується лише під час вибору лідера, щоб перевірити, чи стали якісь LeaseCandidates недійсними. Коли PingTime оновлюється, LeaseCandidate відповідає, оновлюючи RenewTime.
+  PingTime — це час, коли сервер востаннє запитував LeaseCandidate на поновлення. Це робиться тільки під час виборів лідера, щоб перевірити, чи не став якийсь LeaseCandidate неприйнятним. Коли PingTime буде оновлено, LeaseCandidate відповість оновленням RenewTime.
 
   <a name="MicroTime"></a>
-  *MicroTime — це версія Time з точністю до мікросекунд.*
+  *MicroTime — це версія Time з мікросекундною точністю.*
 
 - **renewTime** (MicroTime)
 
-  RenewTime — це час, коли LeaseCandidate був востаннє оновлений. Щоразу, коли Lease потребує вибору лідера, поле PingTime оновлюється, щоб сигналізувати LeaseCandidate про необхідність оновлення RenewTime. Старі обʼєкти LeaseCandidate також видаляються, якщо пройшло кілька годин з моменту останнього оновлення. Поле PingTime регулярно оновлюється, щоб запобігти видаленню ще активних LeaseCandidates.
+  RenewTime — це час, коли LeaseCandidate востаннє оновлювався. Кожного разу, коли обʼєкту Lease потрібно провести вибори лідера, поле PingTime оновлюється, щоб повідомити обʼєкту LeaseCandidate, що йому слід оновити RenewTime. Старі обʼєкти LeaseCandidate також видаляються, якщо з моменту останнього оновлення пройшло кілька годин. Поле PingTime регулярно оновлюється, щоб запобігти збиранню сміття для все ще активних LeaseCandidates.
 
   <a name="MicroTime"></a>
-  *MicroTime — це версія Time з точністю до мікросекунд.*
+  *MicroTime — це версія Time з мікросекундною точністю.*
 
 ## LeaseCandidateList {#LeaseCandidateList}
 
-LeaseCandidateList — перелік обʼєктів Lease.
+LeaseCandidateList — список обʼєктів Lease.
 
 ---
 
-- **apiVersion**: coordination.k8s.io/v1alpha1
+- **apiVersion**: coordination.k8s.io/v1beta1
 
 - **kind**: LeaseCandidateList
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  Стандартні метадані списку. Докладніше: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  Стандартні метадані списку. Докладніше: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>), обовʼязково
+- **items** ([]<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>), обовʼязково
 
-  items — список обʼєктів схеми.
+  items — список об\єктів схеми.
 
-## Operations {#Operations}
+## Операції {#operations}
 
 ---
 
-### `get` отримати вказаного LeaseCandidate {#get-read-the-specified-leasecandidate}
+### `get` отримати вказаний LeaseCandidate {#get-read-the-specified-leasecandidate}
 
 #### HTTP запит {#http-request}
 
-GET /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{name}
+GET /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates/{name}
 
 #### Параметри {#parameters}
 
@@ -119,7 +112,7 @@ GET /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{n
 
 #### Відповідь {#response}
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
 
 401: Unauthorized
 
@@ -127,7 +120,7 @@ GET /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{n
 
 #### HTTP запит {#http-request-1}
 
-GET /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
+GET /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates
 
 #### Параметри {#parameters-1}
 
@@ -181,7 +174,7 @@ GET /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 
 #### Відповідь {#response-1}
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidateList" >}}">LeaseCandidateList</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidateList" >}}">LeaseCandidateList</a>): OK
 
 401: Unauthorized
 
@@ -189,7 +182,7 @@ GET /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 
 #### HTTP запит {#http-request-2}
 
-GET /apis/coordination.k8s.io/v1alpha1/leasecandidates
+GET /apis/coordination.k8s.io/v1beta1/leasecandidates
 
 #### Параметри {#parameters-2}
 
@@ -239,7 +232,7 @@ GET /apis/coordination.k8s.io/v1alpha1/leasecandidates
 
 #### Відповідь {#response-2}
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidateList" >}}">LeaseCandidateList</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidateList" >}}">LeaseCandidateList</a>): OK
 
 401: Unauthorized
 
@@ -247,7 +240,7 @@ GET /apis/coordination.k8s.io/v1alpha1/leasecandidates
 
 #### HTTP запит {#http-request-3}
 
-POST /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
+POST /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates
 
 #### Параметри {#parameters-3}
 
@@ -255,7 +248,7 @@ POST /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>, обовʼязково
+- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>, обовʼязково
 
 - **dryRun** (*в запиті*): string
 
@@ -275,11 +268,11 @@ POST /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 
 #### Відповідь {#response-3}
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): Created
+201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): Created
 
-202 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): Accepted
+202 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): Accepted
 
 401: Unauthorized
 
@@ -287,19 +280,19 @@ POST /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 
 #### HTTP запит {#http-request-4}
 
-PUT /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{name}
+PUT /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates/{name}
 
 #### Параметри {#parameters-4}
 
 - **name** (*в шляху*): string, обовʼязково
 
-  name of the LeaseCandidate
+  імʼя LeaseCandidate
 
 - **namespace** (*в шляху*): string, обовʼязково
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>, обовʼязково
+- **body**: <a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>, обовʼязково
 
 - **dryRun** (*в запиті*): string
 
@@ -319,9 +312,9 @@ PUT /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{n
 
 #### Відповідь {#response-4}
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): Created
+201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): Created
 
 401: Unauthorized
 
@@ -329,13 +322,13 @@ PUT /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{n
 
 #### HTTP запит {#http-request-5}
 
-PATCH /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{name}
+PATCH /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates/{name}
 
 #### Параметри {#parameters-5}
 
 - **name** (*в шляху*): string, обовʼязково
 
-  name of the LeaseCandidate
+  імʼя LeaseCandidate
 
 - **namespace** (*в шляху*): string, обовʼязково
 
@@ -365,9 +358,9 @@ PATCH /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/
 
 #### Відповідь {#response-5}
 
-200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
+200 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1alpha1#LeaseCandidate" >}}">LeaseCandidate</a>): Created
+201 (<a href="{{< ref "../cluster-resources/lease-candidate-v1beta1#LeaseCandidate" >}}">LeaseCandidate</a>): Created
 
 401: Unauthorized
 
@@ -375,13 +368,13 @@ PATCH /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/
 
 #### HTTP запит {#http-request-6}
 
-DELETE /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{name}
+DELETE /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates/{name}
 
 #### Параметри {#parameters-6}
 
 - **name** (*в шляху*): string, обовʼязково
 
-  name of the LeaseCandidate
+  імʼя LeaseCandidate
 
 - **namespace** (*в шляху*): string, обовʼязково
 
@@ -396,6 +389,10 @@ DELETE /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 - **gracePeriodSeconds** (*в запиті*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **pretty** (*в запиті*): string
 
@@ -413,11 +410,11 @@ DELETE /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 
 401: Unauthorized
 
-### `deletecollection` видалення колекції LeaseCandidate
+### `deletecollection` видалення колекції LeaseCandidate {#deletecollection-delete-collection-of-leasecandidate}
 
 #### HTTP запит {#http-request-7}
 
-DELETE /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
+DELETE /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leasecandidates
 
 #### Параметри {#parameters-7}
 
@@ -442,6 +439,10 @@ DELETE /apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates
 - **gracePeriodSeconds** (*в запиті*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*в запиті*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (*в запиті*): string
 

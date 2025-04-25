@@ -48,11 +48,11 @@ ReplicaSetSpec — це специфікація ReplicaSet.
 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)
 
-  Шаблон — це обʼєкт, що описує Pod, який буде створений, якщо виявлено недостатню кількість реплік. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template](/docs/concepts/workloads/controllers/replicationcontroller#pod-template)
+  Шаблон — це обʼєкт, що описує Pod, який буде створений, якщо виявлено недостатню кількість реплік. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template](/docs/concepts/workloads/controllers/replicaset/#pod-template)
 
 - **replicas** (int32)
 
-  Replicas — це бажана кількість реплік. Це вказівник для розрізнювання між явною нульовою та невизначеною кількістю. Стандартне значення — 1. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller](/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller)
+  Replicas — це бажана кількість podʼів. Це вказівник для розрізнювання між явною нульовою та невизначеною кількістю. Стандартне значення — 1. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/replicaset](/docs/concepts/workloads/controllers/replicaset)
 
 - **minReadySeconds** (int32)
 
@@ -66,19 +66,25 @@ ReplicaSetStatus відображає поточний стан ReplicaSet.
 
 - **replicas** (int32), обовʼязково
 
-  Replicas — це остання зафіксована кількість реплік. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller](/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller)
+  Replicas — це остання зафіксована кількість podʼів, що не завершують роботу. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/replicaset](/docs/concepts/workloads/controllers/replicaset)
 
 - **availableReplicas** (int32)
 
-  Кількість доступних реплік (готових протягом принаймні minReadySeconds) для цього набору реплік.
+  Кількість доступних podʼів, що не завершують роботу (готових протягом принаймні minReadySeconds) для цього набору реплік.
 
 - **readyReplicas** (int32)
 
-  readyReplicas — це кількість Podʼів в стані Ready, на які спрямовується цей ReplicaSet.
+  Кількість podʼів, що не завершують свою роботу, на які націлений цей ReplicaSet зі станом Ready.
+
+- **terminatingReplicas** (int32)
+
+  Кількість podʼів, що завершують свою роботу, для цього набору реплік. Podʼи, що завершуються, мають ненульову мітку часу .metadata.deletionTimestamp і ще не досягли фази Failed або Succeeded .status.phase.
+
+  Це альфа-поле. Увімкніть DeploymentReplicaSetTerminatingReplicas, щоб мати змогу використовувати це поле.
 
 - **fullyLabeledReplicas** (int32)
 
-  Кількість Podʼів, які мають мітки, що відповідають міткам шаблону Podʼа набору реплік.
+  Кількість podʼів, що не завершують свою роботу, які мають мітки, що відповідають міткам шаблону Podʼа набору реплік.
 
 - **conditions** ([]ReplicaSetCondition)
 
@@ -134,7 +140,7 @@ ReplicaSetList — це колекція ReplicaSets.
 
 - **items** ([]<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>), обовʼязково
 
-  Список ReplicaSets. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller](/docs/concepts/workloads/controllers/replicationcontroller)
+  Список ReplicaSets. Додаткова інформація: [https://kubernetes.io/docs/concepts/workloads/controllers/replicaset](/docs/concepts/workloads/controllers/replicaset)
 
 ## Операції {#operations}
 

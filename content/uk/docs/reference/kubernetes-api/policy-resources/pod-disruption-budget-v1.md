@@ -72,8 +72,6 @@ PodDisruptionBudgetSpec — це опис PodDisruptionBudget.
 
   У майбутньому можуть бути додані додаткові політики. Клієнти, які приймають рішення про виселення, повинні забороняти виселення несправних Podʼів, якщо вони стикаються з незнайомою політикою в цьому полі.
 
-  Це поле знаходиться на рівні бета. API виселення використовує це поле, коли функціональні можливості PDBUnhealthyPodEvictionPolicy увімкнені (стандартно увімкнено).
-
 ## PodDisruptionBudgetStatus {#PodDisruptionBudgetStatus}
 
 PodDisruptionBudgetStatus представляє інформацію про стан PodDisruptionBudget. Статус може відставати від фактичного стану системи.

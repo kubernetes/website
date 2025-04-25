@@ -116,11 +116,11 @@ DeploymentStatus — це найостанніший спостережуван
 
 - **availableReplicas** (int32)
 
-  Загальна кількість доступних Podʼів (готових принаймні minReadySeconds), які є ціллю цього Deployment.
+  Загальна кількість доступних, що не завершили роботу, Podʼів (готових принаймні minReadySeconds), які є ціллю цього Deployment.
 
 - **readyReplicas** (int32)
 
-  Кількість Podʼів, які є ціллю цього Deployment в стані Ready.
+  Загальна еількість Podʼів, що не завершили роботу, які є ціллю цього Deployment в стані Ready.
 
 - **unavailableReplicas** (int32)
 
@@ -128,7 +128,13 @@ DeploymentStatus — це найостанніший спостережуван
 
 - **updatedReplicas** (int32)
 
-  Загальна кількість незавершених Podʼів, які є ціллю цього Deployment та мають бажаний шаблон специфікацій.
+  Загальна кількість podʼів, що не завершили роботу, які є ціллю цього Deployment та мають бажаний шаблон специфікацій.
+
+- **terminatingReplicas** (int32)
+
+  Загальна кількість podʼів, що завершають роботу, кі є ціллю цього Deployment. Podʼи, що завершують роботу, мають ненульову позначку часу .metadata.deletionTimestamp і ще не досягли фази .status.phase Failed або Succeeded.
+
+  Це альфа-поле. Увімкніть функціональну можливість DeploymentReplicaSetTerminatingReplicas, щоб мати змогу використовувати це поле.
 
 - **collisionCount** (int32)
 

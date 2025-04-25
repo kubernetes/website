@@ -56,7 +56,7 @@ kubectl explain deployment --output=plaintext-openapiv2
         </tr>
         <tr>
             <td></td>
-            <td style="line-height: 130%; word-wrap: break-word;"><p>Використовувати вказану api-version (group/version) ресурсу.</p></td>
+            <td style="line-height: 130%; word-wrap: break-word;"><p>Отримання різноманітних пояснень для відповідної версії API (API group/version).</p></td>
         </tr>
         <tr>
             <td colspan="2">-h, --help</td>
@@ -66,18 +66,18 @@ kubectl explain deployment --output=plaintext-openapiv2
             <td style="line-height: 130%; word-wrap: break-word;"><p>Довідка explain</p></td>
         </tr>
         <tr>
-            <td colspan="2">-o, --output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Типово: "plaintext"</td>
+            <td colspan="2">--output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Типово: "plaintext"</td>
         </tr>
         <tr>
             <td></td>
-            <td style="line-height: 130%; word-wrap: break-word;"><p>Формат, у якому потрібно показати схему. Допустимими значеннями є: (plaintext, plaintext-openapiv2).</p></td>
+            <td style="line-height: 130%; word-wrap: break-word;"><p>Формат, у якому потрібно показати схему (plaintext, plaintext-openapiv2).</p></td>
         </tr>
         <tr>
             <td colspan="2">--recursive</td>
         </tr>
         <tr>
             <td></td>
-            <td style="line-height: 130%; word-wrap: break-word;"><p>Якщо значення true, вивести назви всіх полів рекурсивно. Інакше, вивести доступні поля з їхнім описом.</p></td>
+            <td style="line-height: 130%; word-wrap: break-word;"><p>Виводить поля полів (Зараз тільки на 1 рівень в глибину)</p></td>
         </tr>
     </tbody>
 </table>

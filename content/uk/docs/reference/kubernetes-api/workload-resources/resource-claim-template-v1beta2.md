@@ -1,18 +1,18 @@
 ---
 api_metadata:
-  apiVersion: "resource.k8s.io/v1beta1"
-  import: "k8s.io/api/resource/v1beta1"
+  apiVersion: "resource.k8s.io/v1beta2"
+  import: "k8s.io/api/resource/v1beta2"
   kind: "ResourceClaimTemplate"
 content_type: "api_reference"
 description: "ResourceClaimTemplate використовується для створення обʼєктів ResourceClaim."
-title: "ResourceClaimTemplate v1beta1"
-weight: 16
+title: "ResourceClaimTemplate v1beta2"
+weight: 17
 auto_generated: true
 ---
 
-`apiVersion: resource.k8s.io/v1beta1`
+`apiVersion: resource.k8s.io/v1beta2`
 
-`import "k8s.io/api/resource/v1beta1"`
+`import "k8s.io/api/resource/v1beta2"`
 
 ## ResourceClaimTemplate {#ResourceClaimTemplate}
 
@@ -22,7 +22,7 @@ ResourceClaimTemplate використовується для створення
 
 ---
 
-- **apiVersion**: resource.k8s.io/v1beta1
+- **apiVersion**: resource.k8s.io/v1beta2
 
 - **kind**: ResourceClaimTemplate
 
@@ -30,7 +30,7 @@ ResourceClaimTemplate використовується для створення
 
   Стандартні метадані обʼєкта.
 
-- **spec** (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta1#ResourceClaimTemplateSpec" >}}">ResourceClaimTemplateSpec</a>), обовʼязково
+- **spec** (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplateSpec" >}}">ResourceClaimTemplateSpec</a>), обовʼязково
 
   Описує ResourceClaim, який буде створений.
 
@@ -42,7 +42,7 @@ ResourceClaimTemplateSpec містить метадані та поля для R
 
 ---
 
-- **spec** (<a href="{{< ref "../workload-resources/resource-claim-v1beta1#ResourceClaimSpec" >}}">ResourceClaimSpec</a>), обовʼязково
+- **spec** (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaimSpec" >}}">ResourceClaimSpec</a>), обовʼязково
 
   Специфікація для ResourceClaim. Весь вміст копіюється без змін в ResourceClaim, який створюється з цього шаблону. Ті ж самі поля, що й в ResourceClaim, є дійсними тут.
 
@@ -56,7 +56,7 @@ ResourceClaimTemplateList є колекцією шаблонів заявок.
 
 ---
 
-- **apiVersion**: resource.k8s.io/v1beta1
+- **apiVersion**: resource.k8s.io/v1beta2
 
 - **kind**: ResourceClaimTemplateList
 
@@ -64,7 +64,7 @@ ResourceClaimTemplateList є колекцією шаблонів заявок.
 
   Стандартні метадані списку.
 
-- **items** ([]<a href="{{< ref "../workload-resources/resource-claim-template-v1beta1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>), обовʼязково
+- **items** ([]<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>), обовʼязково
 
   Items — це список шаблонів заявок на ресурси.
 
@@ -76,7 +76,7 @@ ResourceClaimTemplateList є колекцією шаблонів заявок.
 
 #### HTTP запит {#http-request}
 
-GET /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplates/{name}
+GET /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 #### Параметри {#parameters}
 
@@ -94,7 +94,7 @@ GET /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplates/
 
 #### Відповідь {#response}
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
 401: Unauthorized
 
@@ -102,7 +102,7 @@ GET /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplates/
 
 #### HTTP запит {#http-request-1}
 
-GET /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplates
+GET /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates
 
 #### Параметри {#parameters-1}
 
@@ -156,7 +156,7 @@ GET /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplates
 
 #### Відповідь {#response-1}
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta1#ResourceClaimTemplateList" >}}">ResourceClaimTemplateList</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplateList" >}}">ResourceClaimTemplateList</a>): OK
 
 401: Unauthorized
 
@@ -164,7 +164,7 @@ GET /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplates
 
 #### HTTP запит {#http-request-2}
 
-GET /apis/resource.k8s.io/v1beta1/resourceclaimtemplates
+GET /apis/resource.k8s.io/v1beta2/resourceclaimtemplates
 
 #### Параметри {#parameters-2}
 
@@ -214,7 +214,7 @@ GET /apis/resource.k8s.io/v1beta1/resourceclaimtemplates
 
 #### Відповідь {#response-2}
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta1#ResourceClaimTemplateList" >}}">ResourceClaimTemplateList</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplateList" >}}">ResourceClaimTemplateList</a>): OK
 
 401: Unauthorized
 
@@ -222,7 +222,7 @@ GET /apis/resource.k8s.io/v1beta1/resourceclaimtemplates
 
 #### HTTP запит {#http-request-3}
 
-POST /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplates
+POST /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates
 
 #### Параметри {#parameters-3}
 
@@ -230,7 +230,7 @@ POST /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplates
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1beta1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>, обовʼязково
+- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>, обовʼязково
 
 - **dryRun** (*в запиті*): string
 
@@ -250,11 +250,11 @@ POST /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplates
 
 #### Відповідь {#response-3}
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
 
-202 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Accepted
 
 401: Unauthorized
 
@@ -262,7 +262,7 @@ POST /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplates
 
 #### HTTP запит {#http-request-4}
 
-PUT /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplates/{name}
+PUT /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 #### Параметри {#parameters-4}
 
@@ -274,7 +274,7 @@ PUT /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplates/
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1beta1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>, обовʼязково
+- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>, обовʼязково
 
 - **dryRun** (*в запиті*): string
 
@@ -294,9 +294,9 @@ PUT /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplates/
 
 #### Відповідь {#response-4}
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
 
 401: Unauthorized
 
@@ -304,7 +304,7 @@ PUT /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplates/
 
 #### HTTP запит {#http-request-5}
 
-PATCH /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplates/{name}
+PATCH /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 #### Параметри {#parameters-5}
 
@@ -340,9 +340,9 @@ PATCH /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplate
 
 #### Відповідь {#response-5}
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
 
 401: Unauthorized
 
@@ -350,7 +350,7 @@ PATCH /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplate
 
 #### HTTP запит {#http-request-6}
 
-DELETE /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplates/{name}
+DELETE /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 #### Параметри {#parameters-6}
 
@@ -388,9 +388,9 @@ DELETE /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplat
 
 #### Відповідь {#response-6}
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-202 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Accepted
 
 401: Unauthorized
 
@@ -398,7 +398,7 @@ DELETE /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplat
 
 #### HTTP запит {#http-request-7}
 
-DELETE /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaimtemplates
+DELETE /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates
 
 #### Параметри {#parameters-7}
 

@@ -128,7 +128,7 @@ kubectl edit deployment mydeployment --subresource='status'
         </tr>
         <tr>
             <td></td>
-            <td style="line-height: 130%; word-wrap: break-word;"><p>Якщо вказано, редагування працюватиме з субресурсом запитуваного обʼєкта. Цей прапорець є бета-версією і може змінюватися у майбутньому.</p></td>
+            <td style="line-height: 130%; word-wrap: break-word;"><p>Якщо вказано, редагування працюватиме з субресурсом запитуваного обʼєкта.</p></td>
         </tr>
         <tr>
             <td colspan="2">--template string</td>

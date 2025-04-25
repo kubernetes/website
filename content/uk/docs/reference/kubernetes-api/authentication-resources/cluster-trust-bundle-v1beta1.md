@@ -1,18 +1,18 @@
 ---
 api_metadata:
-  apiVersion: "certificates.k8s.io/v1alpha1"
-  import: "k8s.io/api/certificates/v1alpha1"
+  apiVersion: "certificates.k8s.io/v1beta1"
+  import: "k8s.io/api/certificates/v1beta1"
   kind: "ClusterTrustBundle"
 content_type: "api_reference"
 description: "ClusterTrustBundle — це кластерний контейнер для X."
-title: "ClusterTrustBundle v1alpha1"
+title: "ClusterTrustBundle v1beta1"
 weight: 5
 auto_generated: false
 ---
 
-`apiVersion: certificates.k8s.io/v1alpha1`
+`apiVersion: certificates.k8s.io/v1beta1`
 
-`import "k8s.io/api/certificates/v1alpha1"`
+`import "k8s.io/api/certificates/v1beta1"`
 
 ## ClusterTrustBundle {#ClusterTrustBundle}
 
@@ -24,7 +24,7 @@ ClusterTrustBundle — це кластерний контейнер для до
 
 ---
 
-- **apiVersion**: certificates.k8s.io/v1alpha1
+- **apiVersion**: certificates.k8s.io/v1beta1
 
 - **kind**: ClusterTrustBundle
 
@@ -32,7 +32,7 @@ ClusterTrustBundle — це кластерний контейнер для до
 
   metadata містить метадані обʼєкта.
 
-- **spec** (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundleSpec" >}}">ClusterTrustBundleSpec</a>), обовʼязково
+- **spec** (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundleSpec" >}}">ClusterTrustBundleSpec</a>), обовʼязково
 
   spec містить підписувача (якщо є) та довірчі якорі.
 
@@ -68,7 +68,7 @@ ClusterTrustBundleList — це колекція обʼєктів ClusterTrustB
 
 ---
 
-- **apiVersion**: certificates.k8s.io/v1alpha1
+- **apiVersion**: certificates.k8s.io/v1beta1
 
 - **kind**: ClusterTrustBundleList
 
@@ -76,7 +76,7 @@ ClusterTrustBundleList — це колекція обʼєктів ClusterTrustB
 
   metadata містить метадані списку.
 
-- **items** ([]<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>), обовʼязково
+- **items** ([]<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>), обовʼязково
 
   items — це колекція обʼєктів ClusterTrustBundle.
 
@@ -88,7 +88,7 @@ ClusterTrustBundleList — це колекція обʼєктів ClusterTrustB
 
 #### HTTP запит {#http-request}
 
-GET /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
+GET /apis/certificates.k8s.io/v1beta1/clustertrustbundles/{name}
 
 #### Параметри {#parameters}
 
@@ -102,7 +102,7 @@ GET /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 
 #### Відповідь {#response}
 
-200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
+200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
 
 401: Unauthorized
 
@@ -110,7 +110,7 @@ GET /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 
 #### HTTP запит {#http-request-1}
 
-GET /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
+GET /apis/certificates.k8s.io/v1beta1/clustertrustbundles
 
 #### Параметри {#parameters-1}
 
@@ -160,7 +160,7 @@ GET /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
 
 #### Відповідь {#response-1}
 
-200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundleList" >}}">ClusterTrustBundleList</a>): OK
+200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundleList" >}}">ClusterTrustBundleList</a>): OK
 
 401: Unauthorized
 
@@ -168,11 +168,11 @@ GET /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
 
 #### HTTP запит {#http-request-2}
 
-POST /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
+POST /apis/certificates.k8s.io/v1beta1/clustertrustbundles
 
 #### Параметри {#parameters-2}
 
-- **body**: <a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>, обовʼязково
+- **body**: <a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>, обовʼязково
 
 - **dryRun** (*в запиті*): string
 
@@ -192,11 +192,11 @@ POST /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
 
 #### Відповідь {#response-2}
 
-200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
+200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
 
-201 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Created
+201 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Created
 
-202 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Accepted
+202 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Accepted
 
 401: Unauthorized
 
@@ -204,7 +204,7 @@ POST /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
 
 #### HTTP запит {#http-request-3}
 
-PUT /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
+PUT /apis/certificates.k8s.io/v1beta1/clustertrustbundles/{name}
 
 #### Параметри {#parameters-3}
 
@@ -212,7 +212,7 @@ PUT /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 
   name of the ClusterTrustBundle
 
-- **body**: <a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>, обовʼязково
+- **body**: <a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>, обовʼязково
 
 - **dryRun** (*в запиті*): string
 
@@ -232,9 +232,9 @@ PUT /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 
 #### Відповідь {#response-3}
 
-200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
+200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
 
-201 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Created
+201 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Created
 
 401: Unauthorized
 
@@ -242,7 +242,7 @@ PUT /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 
 #### HTTP запит {#http-request-4}
 
-PATCH /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
+PATCH /apis/certificates.k8s.io/v1beta1/clustertrustbundles/{name}
 
 #### Параметри {#parameters-4}
 
@@ -274,9 +274,9 @@ PATCH /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 
 #### Відповідь {#response-4}
 
-200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
+200 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): OK
 
-201 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1alpha1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Created
+201 (<a href="{{< ref "../authentication-resources/cluster-trust-bundle-v1beta1#ClusterTrustBundle" >}}">ClusterTrustBundle</a>): Created
 
 401: Unauthorized
 
@@ -284,7 +284,7 @@ PATCH /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 
 #### HTTP запит {#http-request-5}
 
-DELETE /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
+DELETE /apis/certificates.k8s.io/v1beta1/clustertrustbundles/{name}
 
 #### Параметри {#parameters-5}
 
@@ -326,7 +326,7 @@ DELETE /apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}
 
 #### HTTP запит {#http-request-6}
 
-DELETE /apis/certificates.k8s.io/v1alpha1/clustertrustbundles
+DELETE /apis/certificates.k8s.io/v1beta1/clustertrustbundles
 
 #### Параметри {#parameters-6}
 
