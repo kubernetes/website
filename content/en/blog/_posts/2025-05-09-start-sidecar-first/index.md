@@ -1,0 +1,225 @@
+---
+layout: blog
+title: "Start Sidecar First: How To Avoid Snags"
+date: 2025-05-05
+draft: true
+slug: start-sidecar-first
+author: Agata Skorupka (The Scale Factory)
+---
+
+From the [previous blog](https://kubernetes.io/blog/2025/04/22/multi-container-pods-overview/) post on sidecars you know what its job is, what are the main architectural patterns, and how it’s implemented in Kubernetes. The main thing I’ll cover in this article is how to ensure that your sidecar containers start before the main app. It’s more complicated than you might think!
+
+## A gentle refresher
+
+Let’s just remind that the [v1.29.0 release of Kubernetes](https://kubernetes.io/blog/2023/12/13/kubernetes-v1-29-release/) added native support for sidecars, which can now be defined within the `spec.initContainers` field, but with `restartPolicy: Always` as in the example below, which is a partial snippet of the full Kubernetes manifest:
+
+```yaml
+initContainers:
+  - name: logshipper
+    image: alpine:latest
+    restartPolicy: Always
+    command: ['sh', '-c', 'tail -F /opt/logs.txt']
+    volumeMounts:
+    - name: data
+        mountPath: /opt
+```
+
+What’s the specifics of defining sidecars with an `spec.initContainers` block, rather than as a regular multi-container pod? `spec.initContainers` are always started first (before the main application) and terminated last (after the main application). Furthermore, when used with Jobs, sidecar would still be alive and potentially restarted after Job is done, and they will not block pod completion (see also [Pod sidecar containers tutorial](https://kubernetes.io/docs/tutorials/configuration/pod-sidecar-containers/)).
+
+## The problem
+
+Now you know that defining a sidecar with this native approach will always start it before the main application. From the kubelet source code, we know that this often means [being started almost in parallel](https://medium.com/@marko.luksa/delaying-application-start-until-sidecar-is-ready-2ec2d21a7b74), and this is not always what we want to achieve. What we are probably more interested in is whether we can delay the start of the main application until the sidecar is not only started but also running and ready.
+It might be a bit tricky because the problem with sidecars is there’s no obvious success signal, contrary to init containers - designed to run only for a specified period of time. With an init container, exit status 0 is unambiguously "I succeeded". With a sidecar, there are lots of points at which you can say "a thing is running".
+Starting one container only after the previous one is ready is part of a graceful deployment strategy, ensuring proper sequencing and stability during startup. It’s also actually how I’d expect sidecar containers to work as well, as it would cover the scenario where the main application is dependent on the sidecar. For example, it may happen that an app errors out if the sidecar isn’t available to serve requests (e.g., logging with DataDog). Sure, we could change the application code (and it would actually be the “best practice” solution), but sometimes we can’t - and this post focuses on this use case.
+
+## Readiness probe
+
+To check whether Kubernetes native sidecar delays the start of the main application until sidecar is ready, let’s simulate a short investigation. Firstly, we’ll simulate a sidecar container which will never be ready by implementing a readiness probe which will never succeed. As a reminder, a readiness probe checks if the container is ready to start accepting traffic and therefore, if the pod can be used as a backend for services. 
+
+(Unlike true init containers, sidecar containers can have [probes](https://kubernetes.io/docs/concepts/configuration/liveness-readiness-startup-probes/) so that the kubelet can supervise the sidecar and intervene if there are problems. For example, restarting a sidecar container if it fails a health check.)
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+  labels:
+    app: myapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp
+          image: alpine:latest
+          command: ["sh", "-c", "sleep 3600"]
+      initContainers:
+        - name: nginx
+          image: nginx:latest
+          restartPolicy: Always
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - exit 1 # this command always fails, keeping the container "Not Ready"
+            periodSeconds: 5
+      volumes:
+        - name: data
+          emptyDir: {}
+```
+
+The result is:
+
+```bash
+controlplane $ kubectl get pods -w
+NAME                    READY   STATUS    RESTARTS   AGE
+myapp-db5474f45-htgw5   1/2     Running   0          9m28s
+
+controlplane $ kubectl describe pod myapp-db5474f45-htgw5 
+Name:             myapp-db5474f45-htgw5
+Namespace:        default
+(...)
+Events:
+  Type     Reason     Age               From               Message
+  ----     ------     ----              ----               -------
+  Normal   Scheduled  17s               default-scheduler  Successfully assigned default/myapp-db5474f45-htgw5 to node01
+  Normal   Pulling    16s               kubelet            Pulling image "nginx:latest"
+  Normal   Pulled     16s               kubelet            Successfully pulled image "nginx:latest" in 163ms (163ms including waiting). Image size: 72080558 bytes.
+  Normal   Created    16s               kubelet            Created container nginx
+  Normal   Started    16s               kubelet            Started container nginx
+  Normal   Pulling    15s               kubelet            Pulling image "alpine:latest"
+  Normal   Pulled     15s               kubelet            Successfully pulled image "alpine:latest" in 159ms (160ms including waiting). Image size: 3652536 bytes.
+  Normal   Created    15s               kubelet            Created container myapp
+  Normal   Started    15s               kubelet            Started container myapp
+  Warning  Unhealthy  1s (x6 over 15s)  kubelet            Readiness probe failed:
+```
+
+From the above findings it’s evident that only one container is ready - and I know it can’t be the sidecar, because I’ve defined it so it’ll never be ready. I also saw that myapp has been started before the sidecar is ready. That was not the result I wanted to achieve; in this case, the main app container has a hard dependency on its sidecar.
+
+## Maybe a startup probe?
+
+To ensure that the sidecar is ready before the main app container starts, I can define a `startupProbe`. It will delay the start of the main container till the successful execution of the command. If you’re wondering why I’ve added it to my `initContainer`, let’s analyse what would happen If I’d added it to myapp container. I wouldn’t have guaranteed the probe would run before the main application code - and this one, can potentially error out without the sidecar being up and running.
+
+```yaml                                                                
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+  labels:
+    app: myapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp
+          image: alpine:latest
+          command: ["sh", "-c", "sleep 3600"]
+      initContainers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          restartPolicy: Always
+          startupProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 30
+            failureThreshold: 10
+            timeoutSeconds: 20
+      volumes:
+        - name: data
+          emptyDir: {}
+```
+
+This resulted in 2/2 containers being ready and running, and from events, it can be inferred that the main application started only after nginx had already been started. But to confirm whether it waited for the sidecar readiness, let’s change the `startupProbe` to the exec type of command: 
+
+```yaml
+startupProbe:
+  exec:
+    command:
+    - /bin/sh
+    - -c
+    - sleep 15
+```
+
+and run `kubectl get pods -w` to watch in real time whether the readiness of both containers only changes after a 15 second delay. Again, events confirm the main application starts after the sidecar.
+That means that using the `startupProbe` with a correct httpGet request helps to delay the main application start until the sidecar is ready. It’s not optimal, but it works (I can hope this functionality will be added to Kubernetes-native sidecar at some point).
+
+## What about the postStart lifecycle hook?
+
+Fun fact: using the `postStart` lifecycle hook block will also do the job, but I’d have to write my own mini-shell script, which is even less efficient.
+
+```yaml
+initContainers:
+  - name: nginx
+    image: nginx:latest
+    restartPolicy: Always
+    ports:
+      - containerPort: 80
+        protocol: TCP
+    lifecycle:
+      postStart:
+        exec:
+          command:
+          - /bin/sh
+          - -c
+          - |
+            echo "Waiting for readiness at http://localhost:80"
+            until curl -sf http://localhost:80; do
+              echo "Still waiting for http://localhost:80..."
+              sleep 5
+            done
+            echo "Service is ready at http://localhost:80"
+```
+
+## Liveness probe
+
+An interesting exercise would be to check the sidecar container behavior with the liveness probe. The liveness probe works and is configured similarly to the readiness probe - just with the difference that it doesn’t affect the readiness of the container but restarts it in case the probe fails. 
+
+```yaml
+livenessProbe:
+  exec:
+    command:
+    - /bin/sh
+    - -c
+    - exit 1 # this command always fails, keeping the container "Not Ready"
+  periodSeconds: 5
+```
+
+After adding the liveness probe configured just as the previous readiness probe and checking events of the pod by `kubectl describe pod` it’s visible that the sidecar has a restart count above 0. Nevertheless, the main application is not restarted nor influenced at all, even though we’re aware that (in our imaginary worst-case scenario) it can error out when the sidecar is not there serving requests.
+What if I’d used a `livenessProbe` without lifecycle `postStart`? Both containers will be immediately ready: at the beginning, this behavior will not be different from the one without any additional probes since the liveness probe doesn’t affect readiness at all. After a while, the sidecar will begin to restart itself, but it won’t influence the main container.
+
+## Findings summary
+
+I’ll summarize the startup behavior in the table below:
+
+| Probe/Hook     | Sidecar starts before the main app?                      | Main app waits for the sidecar to be ready?         | What if the check doesn’t pass?                    |
+|----------------|----------------------------------------------------------|-----------------------------------------------------|----------------------------------------------------|
+| readinessProbe | Yes, but it’s almost in parallel (effectively no)        | No                                                  | Sidecar is not ready, main app is running          |
+| livenessProbe  | Yes, but it’s almost in parallel (effectively no)        | No                                                  | Sidecar is restarted, main app is running          |
+| startupProbe   | Yes, but it’s almost in parallel (effectively no)        | Yes                                                 | Main app is not started                            |
+| postStart      | Yes, sequentially after postStart is executed            | Yes, but you have to provide custom logic for that  | Main app is not started                            |
+
+To wrap up, with sidecars being often dependencies for the main application, you may want to delay the start of the latter till the sidecar is ready. The ideal pattern is to start both containers simultaneously and have the app container logic delay at all levels, but it’s not always possible. In such a case, we have to introduce a bit of custom logic to our resource definition. Thankfully, it’s nice and quick, and you have the recipe ready above. 
+
+Happy deploying!
