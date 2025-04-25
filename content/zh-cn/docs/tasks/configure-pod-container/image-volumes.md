@@ -116,3 +116,56 @@ to a valid reference and consuming it in the `volumeMounts` of the container. Fo
 ## 进一步阅读
 
 - [`image` 卷](/zh-cn/docs/concepts/storage/volumes/#image)
+
+<!--
+## Use `subPath` (or `subPathExpr`)
+
+It is possible to utilize
+[`subPath`](/docs/concepts/storage/volumes/#using-subpath) or
+[`subPathExpr`](/docs/concepts/storage/volumes/#using-subpath-expanded-environment)
+from Kubernetes v1.33 when using the image volume feature.
+-->
+## 使用 `subPath`（或 `subPathExpr`）
+
+从 Kubernetes v1.33 开始，使用 `image` 卷特性时，可以利用
+[`subPath`](/zh-cn/docs/concepts/storage/volumes/#using-subpath) 或
+[`subPathExpr`](/zh-cn/docs/concepts/storage/volumes/#using-subpath-expanded-environment)。
+
+{{% code_sample file="pods/image-volumes-subpath.yaml" %}}
+
+<!--
+1. Create the pod on your cluster:
+-->
+1. 在你的集群上创建 Pod：
+
+   ```shell
+   kubectl apply -f https://k8s.io/examples/pods/image-volumes-subpath.yaml
+   ```
+
+<!--
+1. Attach to the container:
+-->
+2. 挂接到容器：
+
+   ```shell
+   kubectl attach -it image-volume bash
+   ```
+
+<!--
+1. Check the content of the file from the `dir` sub path in the volume:
+-->
+3. 检查卷中 `dir` 子路径下的文件的内容：
+
+   ```shell
+   cat /volume/file
+   ```
+
+  <!--
+  The output is similar to:
+  -->
+
+  输出类似于：
+
+   ```none
+   1
+   ```

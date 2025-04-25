@@ -661,7 +661,7 @@ For example, Kustomize removes objects with this annotation from its final build
 当值为 `"false"` 时，可以用来声明该对象应提交到 API 服务器，即使它是本地对象。
 
 该注解是 Kubernetes 资源模型（KRM）函数规范的一部分，被 Kustomize 和其他类似的第三方工具使用。
-例如，Kustomize 会从其最终构建输出中删除带有此注解的对象。
+例如，Kustomize 会从其最终构建输出中移除带有此注解的对象。
 
 <!--
 ### container.apparmor.security.beta.kubernetes.io/* (deprecated) {#container-apparmor-security-beta-kubernetes-io}
@@ -723,7 +723,7 @@ requiring changes to existing functions.
 -->
 该前缀被保留，供遵从 Kubernetes 资源模型（KRM）函数规范的编排工具内部使用。
 带有该前缀的注解仅在编排过程中使用，不会持久化到文件系统。
-换句话说，编排工具应从本地文件系统读取文件时设置这些注解，并在将函数输出写回文件系统时删除它们。
+换句话说，编排工具应从本地文件系统读取文件时设置这些注解，并在将函数输出写回文件系统时移除这些注解。
 
 除非特定注解另有说明，KRM 函数**不得**修改带有此前缀的注解。
 这使得编排工具可以添加额外的内部注解，而不需要更改现有函数。
@@ -1150,7 +1150,7 @@ This can be handy if you are mixing ARM and x86 nodes.
 
 用于：Node
 
-Kubelet 使用 Go 定义的 `runtime.GOARCH` 填充它。如果你混合使用 ARM 和 X86 节点，这会很方便。
+kubelet 使用 Go 定义的 `runtime.GOARCH` 填充它。如果你混合使用 ARM 和 X86 节点，这会很方便。
 
 <!--
 ### kubernetes.io/os
@@ -1450,7 +1450,7 @@ APIService. You should not add, modify, or remove this label by yourself.
 用于：APIService
 
 `kube-apiserver` 会在由 API 服务器自动创建的所有 APIService 对象上设置这个标签。
-该标签标记了控制平面应如何管理该 APIService。你不应自行添加、修改或删除此标签。
+该标签标记了控制平面应如何管理该 APIService。你不应自行添加、修改或移除此标签。
 
 {{< note >}}
 <!--
@@ -1540,7 +1540,7 @@ See [topology.kubernetes.io/zone](#topologykubernetesiozone) for more informatio
 
 用于：Node
 
-Kubelet 使用主机名填充此标签。请注意，可以通过将 `--hostname-override` 标志传递给 `kubelet` 来替代“实际”主机名。
+kubelet 使用主机名填充此标签。请注意，可以通过将 `--hostname-override` 标志传递给 `kubelet` 来替代“实际”主机名。
 
 此标签也用作拓扑层次结构的一部分。有关详细信息，请参阅 [topology.kubernetes.io/zone](#topologykubernetesiozone)。
 
@@ -1877,7 +1877,7 @@ You should aim to schedule based on properties rather than on instance types
 
 用于：Node
 
-Kubelet 使用云驱动定义的实例类型填充它。
+kubelet 使用云驱动定义的实例类型填充它。
 仅当你使用云驱动时才会设置此项。如果你希望将某些工作负载定位到某些实例类型，
 则此设置非常方便，但通常你希望依靠 Kubernetes 调度程序来执行基于资源的调度。
 你应该基于属性而不是实例类型来调度（例如：需要 GPU，而不是需要 `g2.2xlarge`）。
@@ -2638,6 +2638,41 @@ that the auto-generated Secret has not been used for a specified duration
 Secret 在指定时间段内（默认是一年）未被使用的日期（ISO 8601 格式，UTC 时区）。
 
 <!--
+### endpoints.kubernetes.io/managed-by (deprecated) {#endpoints-kubernetes-io-managed-by}
+
+Type: Label
+
+Example: `endpoints.kubernetes.io/managed-by: endpoint-controller`
+-->
+### endpoints.kubernetes.io/managed-by（已弃用） {#endpoints-kubernetes-io-managed-by}
+
+类别：标签
+
+例子：`endpoints.kubernetes.io/managed-by: endpoint-controller`
+
+<!--
+Used on: Endpoints
+
+This label is used internally to mark Endpoints objects that were created by
+Kubernetes (as opposed to Endpoints created by users or external controllers).
+-->
+用于：Endpoints
+
+此标签用于在内部标记由 Kubernetes 创建的 Endpoints
+对象（与用户或外部控制器所创建的 Endpoints 相对）。
+
+{{< note >}}
+<!--
+The [Endpoints](/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+API is deprecated in favor of
+[EndpointSlice](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/).
+-->
+[Endpoints](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoints-v1/) API
+已被弃用，推荐使用
+[EndpointSlice](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/) 作为替代方案。
+{{< /note >}}
+
+<!--
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
 Type: Label
@@ -2648,7 +2683,9 @@ Used on: EndpointSlices
 
 The label is used to indicate the controller or entity that manages the EndpointSlice. This label
 aims to enable different EndpointSlice objects to be managed by different controllers or entities
-within the same cluster.
+within the same cluster. The value `endpointslice-controller.k8s.io` indicates an
+EndpointSlice object that was created automatically by Kubernetes for a Service with a
+{{< glossary_tooltip text="selectors" term_id="selector" >}}.
 -->
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
@@ -2659,7 +2696,9 @@ within the same cluster.
 用于：EndpointSlice
 
 用于标示管理 EndpointSlice 的控制器或实体。该标签旨在使不同的 EndpointSlice
-对象能够由同一集群内的不同控制器或实体管理。
+对象能够由同一集群内的不同控制器或实体管理。取值 `endpointslice-controller.k8s.io`
+表示某个 EndpointSlice 对象是由 Kubernetes
+自动为具有{{< glossary_tooltip text="选择算符" term_id="selector" >}}的 Service 所创建的。
 
 <!--
 ### endpointslice.kubernetes.io/skip-mirror {#endpointslicekubernetesioskip-mirror}
@@ -2731,7 +2770,7 @@ The annotation is used to run Windows containers with Hyper-V isolation.
 Starting from v1.20, this annotation is deprecated.
 Experimental Hyper-V support was removed in 1.21.
 -->
-从 v1.20 开始，此注解已弃用。1.21 中移除了实验性 Hyper-V 支持。
+从 v1.20 开始，此注解已弃用。v1.21 中移除了实验性 Hyper-V 支持。
 {{</note>}}
 
 <!--
@@ -3203,7 +3242,7 @@ Used on: Jobs and Pods controlled by Jobs
 
 示例：`job-name: "pi"`
 
-用于：由 Jobs 控制的 Jobs 和 Pods
+用于：由 Job 控制的 Job 和 Pod
 
 {{< note >}}
 <!--
@@ -3229,7 +3268,7 @@ Used on: Jobs and Pods controlled by Jobs
 
 示例：`controller-uid: "$UID"`
 
-用于：由 Jobs 控制的 Job 和 Pod
+用于：由 Job 控制的 Job 和 Pod
 
 {{< note >}}
 <!--
@@ -3385,7 +3424,7 @@ and adds or removes this taint accordingly.
 
 用于：Node
 
-Node 控制器通过监控 Node 的健康状况来检测 Node 是否准备就绪，并相应地添加或删除此污点。
+Node 控制器通过监控 Node 的健康状况来检测 Node 是否准备就绪，并相应地添加或移除此污点。
 
 <!--
 ### node.kubernetes.io/unreachable
@@ -3453,7 +3492,7 @@ be set on the kubelet to determine if the Node condition and taint should be add
 用于：Node
 
 kubelet 根据在 Node 上观察到的 `memory.available` 和 `allocatableMemory.available` 检测内存压力。
-然后将观察到的值与可以在 kubelet 上设置的相应阈值进行比较，以确定是否应添加/删除 Node 状况和污点。
+然后将观察到的值与可以在 kubelet 上设置的相应阈值进行比较，以确定是否应添加/移除 Node 状况和污点。
 
 <!--
 ### node.kubernetes.io/disk-pressure
@@ -3479,7 +3518,7 @@ kubelet to determine if the Node condition and taint should be added/removed.
 
 kubelet 根据在 Node 上观察到的 `imagefs.available`、`imagefs.inodesFree`、`nodefs.available`
 和 `nodefs.inodesFree`（仅限 Linux ）检测磁盘压力。
-然后将观察到的值与可以在 kubelet 上设置的相应阈值进行比较，以确定是否应添加/删除 Node 状况和污点。
+然后将观察到的值与可以在 kubelet 上设置的相应阈值进行比较，以确定是否应添加/移除 Node 状况和污点。
 
 <!--
 ### node.kubernetes.io/network-unavailable
@@ -3529,7 +3568,7 @@ to determine if the node condition and taint should be added/removed.
 
 kubelet 检查 `/proc/sys/kernel/pid_max` 大小的 D 值和 Kubernetes 在 Node 上消耗的 PID，
 以获取可用 PID 数量，并将其作为 `pid.available` 指标值。
-然后该指标与在 kubelet 上设置的相应阈值进行比较，以确定是否应该添加/删除 Node 状况和污点。
+然后该指标与在 kubelet 上设置的相应阈值进行比较，以确定是否应该添加/移除 Node 状况和污点。
 
 ### node.kubernetes.io/out-of-service {#out-of-service}
 
@@ -4744,7 +4783,7 @@ for more information.
 值**必须**是与 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards)级别相对应的
 `privileged`、`baseline` 或 `restricted` 之一。特别地，
 `warn` 标签不会阻止在带标签的 Namespace 中创建不符合指示级别概述要求的 Pod，但会在这样做后向用户返回警告。
-请注意，在创建或更新包含 Pod 模板的对象时也会显示警告，例如 Deployment、Jobs、StatefulSets 等。
+请注意，在创建或更新包含 Pod 模板的对象时也会显示警告，例如 Deployment、Job、StatefulSet 等。
 
 请参阅[在名字空间级别实施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)了解更多信息。
 
@@ -5335,8 +5374,7 @@ The node role (text following `/` in the label key) can be set, as long as the o
 object labels.
 -->
 当你希望标记节点角色时，可以为 Node 添加此可选标签。
-只要标签的整体键名符合对象标签的  
-[语法和字符集规则](/zh-cn/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)，
+只要标签的整体键名符合对象标签的[语法和字符集规则](/zh-cn/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)，
 就可以用此标签设置节点的角色（标签键 `/` 后面的文本为节点角色名）。
 
 <!--
@@ -5373,7 +5411,7 @@ command on a specific node.
 
 Kubeadm 应用在控制平面节点上的污点, 用来限制启动 Pod，并且只允许特定 Pod 可调度到这些节点上。
 
-如果应用此污点，则控制平面节点只允许对其进行关键工作负载调度。可以在特定节点上使用以下命令手动删除此污染。
+如果应用此污点，则控制平面节点只允许对其进行关键工作负载调度。可以在特定节点上使用以下命令手动移除此污点。
 
 <!--
 ```shell
@@ -5408,4 +5446,38 @@ taint. kubeadm no longer sets or uses this deprecated taint.
 
 kubeadm 先前应用在控制平面节点上的污点，仅允许在其上调度关键工作负载。
 替换为 [`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane-taint)；
-kubeadm 不再设置或使用这个废弃的污点。
+kubeadm 不再设置或使用这个已弃用的污点。
+
+<!--
+### resource.k8s.io/admin-access {resource-k8s-io-admin-access}
+
+Type: Label
+
+Example: `resource.k8s.io/admin-access: "true"`
+
+Used on: Namespace
+-->
+### resource.k8s.io/admin-access {resource-k8s-io-admin-access}
+
+类别：标签
+
+例子：`resource.k8s.io/admin-access: "true"`
+
+用于：Namespace
+
+<!--
+Used to grant administrative access to certain resource.k8s.io API types within
+a namespace. When this label is set on a namespace with the value `"true"`
+(case-sensitive), it allows the use of `adminAccess: true` in any namespaced
+`resource.k8s.io` API types. Currently, this permission applies to
+`ResourceClaim` and `ResourceClaimTemplate` objects.
+
+See [Dynamic Resource Allocation Admin access](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#enabling-admin-access)
+for more information.
+-->
+用于授予某个命名空间内对特定 `resource.k8s.io` API 类型的管理访问权限。
+当此标签在命名空间上设置为取值 `"true"`（区分大小写）时，允许在任何命名空间作用域下的
+`resource.k8s.io` API 类别中使用 `adminAccess: true`。
+目前，此权限适用于 `ResourceClaim` 和 `ResourceClaimTemplate` 对象。
+
+更多信息请参阅[动态资源分配的管理员访问权限](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#enabling-admin-access)。

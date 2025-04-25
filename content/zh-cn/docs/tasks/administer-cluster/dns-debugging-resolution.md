@@ -290,20 +290,20 @@ more information.
 <!--
 ### Are DNS endpoints exposed?
 
-You can verify that DNS endpoints are exposed by using the `kubectl get endpoints`
+You can verify that DNS endpoints are exposed by using the `kubectl get endpointslice`
 command.
 -->
 ### DNS 的端点公开了吗？    {#are-dns-endpoints-exposed}
 
-你可以使用 `kubectl get endpoints` 命令来验证 DNS 的端点是否公开了。
+你可以使用 `kubectl get endpointslice` 命令来验证 DNS 的端点是否公开了。
 
 ```shell
-kubectl get endpoints kube-dns --namespace=kube-system
+kubectl get endpointslices -l k8s.io/service-name=kube-dns --namespace=kube-system
 ```
 
 ```
-NAME       ENDPOINTS                       AGE
-kube-dns   10.180.3.17:53,10.180.3.17:53    1h
+NAME             ADDRESSTYPE   PORTS   ENDPOINTS                  AGE
+kube-dns-zxoja   IPv4          53      10.180.3.17,10.180.3.17    1h
 ```
 
 <!--
@@ -398,15 +398,15 @@ linux/amd64, go1.10.3, 2e322f6
 ### Does CoreDNS have sufficient permissions?
 
 CoreDNS must be able to list {{< glossary_tooltip text="service"
-term_id="service" >}} and {{< glossary_tooltip text="endpoint"
-term_id="endpoint" >}} related resources to properly resolve service names.
+term_id="service" >}} and {{< glossary_tooltip text="endpointslice"
+term_id="endpoint-slice" >}} related resources to properly resolve service names.
 
 Sample error message:
 -->
 ### CoreDNS 是否有足够的权限？   {#does-coredns-have-sufficient-permissions}
 
 CoreDNS 必须能够列出 {{< glossary_tooltip text="service" term_id="service" >}} 和
-{{< glossary_tooltip text="endpoint" term_id="endpoint" >}} 相关的资源来正确解析服务名称。
+{{< glossary_tooltip text="endpointslice" term_id="endpoint-slice" >}} 相关的资源来正确解析服务名称。
 
 示例错误消息：
 
