@@ -54,10 +54,10 @@ HPAと異なり、VPAはデフォルトでKubernetesに付属していません�
 インストールすることにより、管理されたレプリカのリソースを _どのように_ _いつ_ スケールするのかを定義するワークロードの{{< glossary_tooltip text="CustomResourceDefinitions" term_id="customresourcedefinition" >}}(CRDs)を作成できるようになります。
 
 {{< note >}}
-HPAが機能するにはクラスターに[Metrics Server](https://github.com/kubernetes-sigs/metrics-server)がインストールされている必要があります。
+VPAが機能するにはクラスターに[Metrics Server](https://github.com/kubernetes-sigs/metrics-server)がインストールされている必要があります。
 {{< /note >}}
 
-現時点では、VPAは4つの異なるモードで動作できます:　
+現時点では、VPAは4つの異なるモードで動作できます:
 
 {{< table caption="VPAの異なるモード" >}}
 モード | 説明
@@ -100,7 +100,7 @@ KEDAは例えばキューのメッセージ数などの処理するべきイベ�
 
 ワークロードををスケールするためのもう一つの戦略は、例えばオフピークの時間帯にリソース消費を削減するために、スケーリング操作を**スケジュールする**ことです。
 
-イベント駆動型オートスケーリングと同様に、そのような動作はKEDAを[`Cron`スケーラー](https://keda.sh/docs/2.13/scalers/cron/)と組み合わせて使用することで実現できます。
+イベント駆動型オートスケーリングと同様に、そのような動作はKEDAを[`Cron`スケーラー](https://keda.sh/docs/latest/scalers/cron/)と組み合わせて使用することで実現できます。
 `Cron`スケーラーによりワークロードをスケールインまたはスケールアウトするためのスケジュール（およびタイムゾーン）を定義できます。
 
 ## クラスターのインフラストラクチャーのスケーリング {#scaling-cluster-infrastructure}

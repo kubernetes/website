@@ -380,7 +380,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
   
   - **metrics.type** (string), required
   
-    type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+    type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object.
   -->
 
   **MetricSpec 指定如何基于单个指标进行扩缩容（一次只能设置 `type` 和一个其他匹配字段）**
@@ -388,12 +388,12 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
   - **metrics.type** (string)，必需
 
     type 是指标源的类别。它取值是 “ContainerResource”、“External”、“Object”、“Pods” 或 “Resource” 之一，
-    每个类别映射到对象中的一个对应的字段。注意：“ContainerResource” 类别在特性门控 HPAContainerMetrics 启用时可用。
+    每个类别映射到对象中的一个对应的字段。
 
   <!--
   - **metrics.containerResource** (ContainerResourceMetricSource)
 
-    containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
+    containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
   -->
 
   - **metrics.containerResource** (ContainerResourceMetricSource)
@@ -401,7 +401,6 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
     containerResource 是指 Kubernetes 已知的资源指标（例如在请求和限制中指定的那些），
     描述当前扩缩目标中每个 Pod 中的单个容器（例如 CPU 或内存）。
     此类指标内置于 Kubernetes 中，在使用 “pods” 源的、按 Pod 计算的普通指标之外，还具有一些特殊的扩缩选项。
-    这是一个 Alpha 特性，可以通过 HPAContainerMetrics 特性标志启用。
 
     <a name="ContainerResourceMetricSource"></a>
 
@@ -1080,7 +1079,7 @@ HorizontalPodAutoscalerStatus 描述了水平 Pod 自动扩缩器的当前状态
 
   - **currentMetrics.type** (string), required
 
-    type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+    type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
   -->
 
   **MetricStatus 描述了单个指标的最后读取状态。**
@@ -1088,7 +1087,7 @@ HorizontalPodAutoscalerStatus 描述了水平 Pod 自动扩缩器的当前状态
   - **currentMetrics.type** (string)，必需
 
     type 是指标源的类别。它取值是 “ContainerResource”、“External”、“Object”、“Pods” 或 “Resource” 之一，
-    每个类别映射到对象中的一个对应的字段。注意：“ContainerResource” 类别在特性门控 HPAContainerMetrics 启用时可用。
+    每个类别映射到对象中的一个对应的字段。
 
   <!--
   - **currentMetrics.containerResource** (ContainerResourceMetricStatus)
@@ -2283,6 +2282,10 @@ DELETE /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{nam
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** <!--(*in query*)-->（**查询参数**）: boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** <!--(*in query*)-->（**查询参数**）: string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -2343,6 +2346,10 @@ DELETE /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
 - **gracePeriodSeconds** <!--(*in query*)-->（**查询参数**）: integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** <!--(*in query*)-->（**查询参数**）: boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** <!--(*in query*)-->（**查询参数**）: string
 

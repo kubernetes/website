@@ -46,6 +46,14 @@ Error from server (BadRequest): Unable to find "ingresses" that match label sele
 | Node                      | `spec.unschedulable`                                                                                                                                                                                                                                            |
 | CertificateSigningRequest | `spec.signerName`                                                                                                                                                                                                                                               |
 
+### Custom resources fields
+
+All custom resource types support the `metadata.name` and `metadata.namespace` fields.
+
+Additionally, the `spec.versions[*].selectableFields` field of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+declares which other fields in a custom resource may be used in field selectors. See [selectable fields for custom resources](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#crd-selectable-fields)
+for more information about how to use field selectors with CustomResourceDefinitions.
+
 ## Supported operators
 
 You can use the `=`, `==`, and `!=` operators with field selectors (`=` and `==` mean the same thing). This `kubectl` command, for example, selects all Kubernetes Services that aren't in the `default` namespace:

@@ -446,6 +446,7 @@ Kubernetes 静态数据加密的提供程序
   <td><!-- Weak -->弱</td>
   <td><!-- Fast -->快</td>
   <td><!-- 32-byte -->32 字节</td>
+  <td><!-- 16, 24, or 32-byte -->16、24 或 32 字节</td>
   </tr>
   <tr>
   <td colspan="4">

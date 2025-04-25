@@ -14,7 +14,7 @@ weight: 90
 System component traces record the latency of and relationships between operations in the cluster.
 
 Kubernetes components emit traces using the
-[OpenTelemetry Protocol](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#opentelemetry-protocol-specification)
+[OpenTelemetry Protocol](https://opentelemetry.io/docs/specs/otlp/)
 with the gRPC exporter and can be collected and routed to tracing backends using an
 [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector#-opentelemetry-collector).
 

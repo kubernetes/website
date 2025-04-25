@@ -56,7 +56,7 @@ Provided that your cluster has the `SidecarContainers`
 for containers listed in a Pod's `initContainers` field.
 These restartable _sidecar_ containers are independent from other init containers and from
 the main application container(s) within the same pod.
-These can be started, stopped, or restarted without effecting the main application container
+These can be started, stopped, or restarted without affecting the main application container
 and other init containers.
 -->
 如果你的集群启用了 `SidecarContainers`
@@ -184,14 +184,14 @@ container. This co-location allows them to interact closely and share resources.
 边车容器与主容器共享相同的网络和存储命名空间。这种共存使它们能够紧密交互并共享资源。
 
 <!--
-From Kubernetes perspective, sidecars graceful termination is less important.
-When other containers took all alloted graceful termination time, sidecar containers
-will receive the `SIGTERM` following with `SIGKILL` faster than may be expected. 
+From a Kubernetes perspective, the sidecar container's graceful termination is less important.
+When other containers take all allotted graceful termination time, the sidecar containers
+will receive the `SIGTERM` signal, followed by the `SIGKILL` signal, before they have time to terminate gracefully.
 So exit codes different from `0` (`0` indicates successful exit), for sidecar containers are normal
 on Pod termination and should be generally ignored by the external tooling.
 -->
 从 Kubernetes 的角度来看，边车容器的体面终止（Graceful Termination）相对不那么重要。
-当其他容器耗尽了分配的体面终止时间后，边车容器将会比预期更快地接收到 `SIGTERM`，随后是 `SIGKILL`。
+当其他容器耗尽了分配的体面终止时间后，边车容器将在尚未完成体面终止时间的情况下接收到 `SIGTERM` 信号，随后是 `SIGKILL` 信号。
 因此，在 Pod 终止时，边车容器退出码不为 `0`（`0` 表示成功退出）是正常的，
 通常应该被外部工具忽略。
 
@@ -224,6 +224,9 @@ Init containers stop before the main containers start up, so init containers can
 exchange messages with the app container in a Pod. Any data passing is one-way
 (for example, an init container can put information inside an `emptyDir` volume).
 
+Changing the image of a sidecar container will not cause the Pod to restart, but will
+trigger a container restart.
+
 ## Resource sharing within containers
 -->
 边车容器可以直接与主应用容器交互，因为与 Init 容器一样，
@@ -231,6 +234,8 @@ exchange messages with the app container in a Pod. Any data passing is one-way
 
 Init 容器在主容器启动之前停止，因此 Init 容器无法与 Pod 中的应用容器交换消息。
 所有数据传递都是单向的（例如，Init 容器可以将信息放入 `emptyDir` 卷中）。
+
+变更边车容器的镜像不会导致 Pod 重启，但会触发容器重启。
 
 ## 容器内的资源共享   {#resource-sharing-within-containers}
 

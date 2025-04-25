@@ -238,5 +238,4 @@ The output is similar to this:
 ## {{% heading "whatsnext" %}}
 
 * [Learn more about `crictl`](https://github.com/kubernetes-sigs/cri-tools).
-* [Map `docker` CLI commands to `crictl`](/docs/reference/tools/map-crictl-dockercli/).
 

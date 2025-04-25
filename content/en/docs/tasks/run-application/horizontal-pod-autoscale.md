@@ -10,6 +10,7 @@ feature:
     Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.
 content_type: concept
 weight: 90
+math: true
 ---
 
 <!-- overview -->
@@ -131,16 +132,19 @@ From the most basic perspective, the HorizontalPodAutoscaler controller
 operates on the ratio between desired metric value and current metric
 value:
 
-```
-desiredReplicas = ceil[currentReplicas * ( currentMetricValue / desiredMetricValue )]
+```math
+\begin{equation*}
+desiredReplicas = ceil\left\lceil currentReplicas \times \frac{currentMetricValue}{desiredMetricValue} \right\rceil
+\end{equation*}
 ```
 
 For example, if the current metric value is `200m`, and the desired value
-is `100m`, the number of replicas will be doubled, since `200.0 / 100.0 ==
-2.0` If the current value is instead `50m`, you'll halve the number of
-replicas, since `50.0 / 100.0 == 0.5`. The control plane skips any scaling
-action if the ratio is sufficiently close to 1.0 (within a globally-configurable
-tolerance, 0.1 by default).
+is `100m`, the number of replicas will be doubled, since
+\\( { 200.0 \div 100.0 } = 2.0 \\).  
+If the current value is instead `50m`, you'll halve the number of
+replicas, since \\( { 50.0 \div 100.0 } = 0.5 \\). The control plane skips any scaling
+action if the ratio is sufficiently close to 1.0 (within a
+[configurable tolerance](#tolerance), 0.1 by default).
 
 When a `targetAverageValue` or `targetAverageUtilization` is specified,
 the `currentMetricValue` is computed by taking the average of the given
@@ -173,8 +177,8 @@ since it started. This value is configured with the
 `--horizontal-pod-autoscaler-cpu-initialization-period` flag, and its
 default is 5 minutes.
 
-The `currentMetricValue / desiredMetricValue` base scale ratio is then
-calculated using the remaining pods not set aside or discarded from above.
+The \\( currentMetricValue \over desiredMetricValue \\) base scale ratio is then
+calculated, using the remaining pods not set aside or discarded from above.
 
 If there were any missing metrics, the control plane recomputes the average more
 conservatively, assuming those pods were consuming 100% of the desired
@@ -384,9 +388,10 @@ to configure separate scale-up and scale-down behaviors.
 You specify these behaviours by setting `scaleUp` and / or `scaleDown`
 under the `behavior` field.
 
-You can specify a _stabilization window_ that prevents [flapping](#flapping)
-the replica count for a scaling target. Scaling policies also let you control the
-rate of change of replicas while scaling.
+Scaling policies let you control the rate of change of replicas while scaling.
+Also two settings can be used to prevent [flapping](#flapping): you can specify a
+_stabilization window_ for smoothing replica counts, and a tolerance to ignore
+minor metric fluctuations below a specified threshold.
 
 ### Scaling policies
 
@@ -447,6 +452,32 @@ interval. In the above example, all desired states from the past 5 minutes will 
 
 This approximates a rolling maximum, and avoids having the scaling algorithm frequently
 remove Pods only to trigger recreating an equivalent Pod just moments later.
+
+### Tolerance {#tolerance}
+
+{{< feature-state feature_gate_name="HPAConfigurableTolerance" >}}
+
+The `tolerance` field configures a threshold for metric variations, preventing the
+autoscaler from scaling for changes below that value.
+
+This tolerance is defined as the amount of variation around the desired metric value under
+which no scaling will occur. For example, consider a HorizontalPodAutoscaler configured
+with a target memory consumption of 100MiB and a scale-up tolerance of 5%:
+
+```yaml
+behavior:
+  scaleUp:
+    tolerance: 0.05 # 5% tolerance for scale up
+```
+
+With this configuration, the HPA algorithm will only consider scaling up if the memory
+consumption is higher than 105MiB (that is: 5% above the target).
+
+If you don't set this field, the HPA applies the default cluster-wide tolerance of 10%. This
+default can be updated for both scale-up and scale-down using the
+[kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+`--horizontal-pod-autoscaler-tolerance` command line argument. (You can't use the Kubernetes API
+to configure this default value.)
 
 ### Default Behavior
 
@@ -597,7 +628,7 @@ guidelines, which cover this exact use case.
 ## {{% heading "whatsnext" %}}
 
 If you configure autoscaling in your cluster, you may also want to consider using
-[cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
+[node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
 to ensure you are running the right number of nodes.
 
 For more information on HorizontalPodAutoscaler:

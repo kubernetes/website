@@ -118,7 +118,7 @@ ServiceAccountを標準以外の場所にマウントするための認証情報
 * [TokenRequest API](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
   (推奨): 独自の*アプリケーションコード*から短期間のサービスアカウントトークンをリクエストします。
   トークンは自動的に期限切れになり、期限切れ時にローテーションできます。
-  Kubernetesに対応していないレガシーアプリケーションがある場場合、同じPod内のサイドカーコンテナを使用してこれらのトークンを取得し、アプリケーションワークロードで使用できるようにすることができます。
+  Kubernetesに対応していないレガシーアプリケーションがある場合、同じPod内のサイドカーコンテナを使用してこれらのトークンを取得し、アプリケーションワークロードで使用できるようにすることができます。
 * [トークン投影ボリューム](/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)
   (推奨): Kubernetes v1.20以降では、Podの仕様を使用して、kubeletにサービスアカウントトークンを投影ボリュームとしてPodに追加するように指示します。
   投影トークンは自動的に期限切れになり、kubeletはトークンが期限切れになる前にトークンをローテーションします。
@@ -138,7 +138,7 @@ Kubernetesクラスターの外部で実行されるアプリケーションの�
 代わりとなる手段を検討してください。
 例えば、外部アプリケーションは、十分に保護された秘密鍵 **と** 証明書を使用して認証するか、独自に実装した[Webhook認証](/ja/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)などのカスタムメカニズムを使用して認証することもできます。
 
-また、`TokenRequest`を使用して外部アプリケーションのために有効期間の短いのトークンを取得することもできます。
+また、`TokenRequest`を使用して外部アプリケーションのために有効期間の短いトークンを取得することもできます。
 {{< /note >}}
 
 ### シークレットへのアクセスを制限する {#enforce-mountable-secrets}
@@ -159,7 +159,7 @@ metadata:
 ```
 このアノテーションが"true"に設定されている場合、Kubernetesコントロールプレーンは、このServiceAccountのSecretが特定のマウント制限の対象であることを確認します。
 
-1. Pod内のボリュームとしてマウントされる各Secretのな雨は、PodのServiceAccountの`secrets`フィールドに表示される必要があります。
+1. Pod内のボリュームとしてマウントされる各Secretの名前は、PodのServiceAccountの`secrets`フィールドに表示される必要があります。
 1. Pod内の`envFrom`を使用して参照される各Secretの名前は、PodのServiceAccountの`secrets`フィールドに表示される必要があります。
 1. Pod内の`imagePullSecrets`を使用して参照される各Secretの名前は、PodのServiceAccountの`secrets`フィールドに表示される必要があります。  
 
@@ -179,7 +179,7 @@ APIサーバーは、次のようにしてBearerトークンの有効性を確�
 1. オーディエンス要求を確認します。
 
 TokenRequest APIは、ServiceAccountに _バインドされたトークン_ を生成します。
-このバインディングは、そのServiceAccountとして機能しているクライアント(Podなど)のライフタイムにリンクされています
+このバインディングは、そのServiceAccountとして機能しているクライアント(Podなど)のライフタイムにリンクされています。
 バインドされたPodのサービスアカウントトークンのJWTスキーマとペイロードの例については、[トークンボリューム投影](/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)を参照してください。
 
 `TokenRequest` APIを使用して発行されたトークンの場合、APIサーバーは、そのオブジェクトの {{< glossary_tooltip term_id="uid" text="ユニークID" >}} と一致する、ServiceAccountを使用している特定のオブジェクト参照がまだ存在するかどうかも確認します。

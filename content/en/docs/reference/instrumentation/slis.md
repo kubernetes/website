@@ -5,11 +5,13 @@ title: Kubernetes Component SLI Metrics
 linkTitle: Service Level Indicator Metrics
 content_type: reference
 weight: 20
+description: >-
+  High-level indicators for measuring the reliability and performance of Kubernetes components.
 ---
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.29" state="stable" >}}
+{{< feature-state feature_gate_name="ComponentSLIs" >}}
 
 By default, Kubernetes {{< skew currentVersion >}} publishes Service Level Indicator (SLI) metrics 
 for each Kubernetes component binary. This metric endpoint is exposed on the serving 

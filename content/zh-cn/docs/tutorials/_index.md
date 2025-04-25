@@ -38,7 +38,7 @@ Kubernetes 文档的这一部分包含教程。
 -->
 ## 基础知识  {#basics}
 
-* [Kubernetes 基础知识](/zh-cn/docs/tutorials/Kubernetes-Basics/)
+* [Kubernetes 基础知识](/zh-cn/docs/tutorials/kubernetes-basics/)
   是一个深入的交互式教程，帮助你理解 Kubernetes 系统，并尝试一些基本的 Kubernetes 特性。
 * [Kubernetes 介绍 (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 * [你好 Minikube](/zh-cn/docs/tutorials/hello-minikube/)
@@ -46,12 +46,10 @@ Kubernetes 文档的这一部分包含教程。
 <!--
 ## Configuration
 
-* [Example: Configuring a Java Microservice](/docs/tutorials/configuration/configure-java-microservice/)
 * [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 -->
 ## 配置  {#configuration}
 
-* [示例：配置 Java 微服务](/zh-cn/docs/tutorials/configuration/configure-java-microservice/)
 * [使用 ConfigMap 配置 Redis](/zh-cn/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 <!--

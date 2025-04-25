@@ -93,6 +93,13 @@ kubectl kustomize DIR [flags]
 </tr>
 
 <tr>
+<td colspan="2">--helm-debug</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Enable debug output from the Helm chart inflator generator.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--helm-kube-version string</td>
 </tr>
 <tr>
