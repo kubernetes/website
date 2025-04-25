@@ -47,7 +47,8 @@ On Linux nodes, the kubelet also relies on reading cgroups and various system fi
 On Windows nodes, the kubelet collects metrics via a different mechanism that does not rely on
 paths.
 
-There are also a few other files that are used by the kubelet as well as kubelet communicates using local Unix-domain sockets. Some are sockets that the
+There are also a few other files that are used by the kubelet as well,
+as kubelet communicates using local Unix-domain sockets. Some are sockets that the
 kubelet listens on, and for other sockets the kubelet discovers them and then connects
 as a client.
 -->
@@ -62,7 +63,8 @@ kubelet 所使用的还有其他文件，包括其使用本地 Unix 域套接字
 
 <!--
 This page lists paths as Linux paths, which map to the Windows paths by adding a root disk
-`C:\` in place of `/` (unless specified otherwise). For example, `/var/lib/kubelet/device-plugins` maps to `C:\var\lib\kubelet\device-plugins`.
+`C:\` in place of `/` (unless specified otherwise).
+For example, `/var/lib/kubelet/device-plugins` maps to `C:\var\lib\kubelet\device-plugins`.
 -->
 本页列举的路径为 Linux 路径，若要映射到 Windows，你可以添加根磁盘 `C:\` 替换 `/`（除非另行指定）。
 例如，`/var/lib/kubelet/device-plugins` 映射到 `C:\var\lib\kubelet\device-plugins`。
@@ -162,9 +164,10 @@ Names of files:
 ### Checkpoint file for device manager {#device-manager-state}
 
 Device manager creates checkpoints in the same directory with socket files: `/var/lib/kubelet/device-plugins/`.
-The name of a checkpoint file is `kubelet_internal_checkpoint` for [Device Manager](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager)
+The name of a checkpoint file is `kubelet_internal_checkpoint` for
+[Device Manager](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager)
 
-### Pod status checkpoint storage {#pod-status-manager-state}
+### Pod resource checkpoints
 -->
 ### 设备管理器的检查点文件   {#device-manager-state}
 
@@ -172,25 +175,39 @@ The name of a checkpoint file is `kubelet_internal_checkpoint` for [Device Manag
 对于[设备管理器](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager)，
 检查点文件的名称为 `kubelet_internal_checkpoint`。
 
-### Pod 状态检查点存储   {#pod-status-manager-state}
+### Pod 状态检查点   {#pod-resource-checkpoints}
 
 {{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
 <!--
-If your cluster has  
-[in-place Pod vertical scaling](/docs/concepts/workloads/autoscaling/#in-place-resizing)  
-enabled ([feature gate](/docs/reference/command-line-tools-reference/feature-gates/)  
-name `InPlacePodVerticalScaling`), then the kubelet stores a local record of allocated Pod resources. 
+If a node has enabled the `InPlacePodVerticalScaling`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
+the kubelet stores a local record of _allocated_ and _actuated_ Pod resources.
+See [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/)
+for more details on how these records are used.
+-->
+如果某个节点已启用了 `InPlacePodVerticalScaling`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+则 kubelet 存储有关 Pod 资源**已分配**和**已应用**状态的本地记录。  
+有关如何使用这些记录的更多细节，
+请参阅[调整分配给容器的 CPU 和内存资源](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)。
 
-The file name is `pod_status_manager_state` within the kubelet base directory
+<!--
+Names of files:
+
+- `allocated_pods_state` records the resources allocated to each pod running on the node
+- `actuated_pods_state` records the resources that have been accepted by the runtime
+  for each pod pod running on the node
+
+The files are located within the kubelet base directory
 (`/var/lib/kubelet` by default on Linux; configurable using `--root-dir`).
 -->
-如果你的集群启用了[就地 Pod 垂直扩缩容](/zh-cn/docs/concepts/workloads/autoscaling/#in-place-resizing)
-（[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)名称为 `InPlacePodVerticalScaling`），
-则 kubelet 会在本地存储为 Pod 分配资源的记录。
+文件名称如下：
 
-文件名为 `pod_status_manager_state`，位于 kubelet 基础目录内
-（在 Linux 上默认为 `/var/lib/kubelet`；你可以使用 `--root-dir` 进行配置）。
+- `allocated_pods_state`：记录分配给该节点上每个 Pod 的资源。
+- `actuated_pods_state`：记录运行时已接受并应用于该节点上每个 Pod 的资源。
+
+这些文件位于 kubelet 的基础目录中（在 Linux 系统中默认是 `/var/lib/kubelet`；
+也可以通过 `--root-dir` 参数进行配置）。
 
 <!--
 ### Container runtime
@@ -260,7 +277,8 @@ kubelet 查找的目录是 kubelet 基础目录下的 `plugins_registry`，
 因此在典型的 Linux 节点上这意味着 `/var/lib/kubelet/plugins_registry`。
 
 <!--
-Note, for the device plugins there are two alternative registration mechanisms. Only one should be used for a given plugin.
+Note, for the device plugins there are two alternative registration mechanisms
+Only one should be used for a given plugin.
 
 The types of plugins that can place socket files into that directory are:
 
@@ -293,6 +311,40 @@ stores state locally at `/var/lib/kubelet/graceful_node_shutdown_state`.
 -->
 [节点体面关闭](/zh-cn/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown)将状态存储在本地目录
 `/var/lib/kubelet/graceful_node_shutdown_state`。
+
+<!--
+### Image Pull Records
+-->
+### 镜像拉取记录   {#image-pull-records}
+
+{{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
+
+<!--
+The kubelet stores records of attempted and successful image pulls, and uses it
+to verify that the image was previously successfully pulled with the same credentials.
+-->
+kubelet 存储镜像拉取的尝试记录和成功记录，并使用这些记录来验证镜像是否曾使用相同的凭据被成功拉取过。
+
+<!--
+These records are cached as files in the `image_registry` directory within
+the kubelet base directory. On a typical Linux node, this means `/var/lib/kubelet/image_manager`.
+There are two subdirectories to `image_manager`:
+* `pulling` - stores records about images the Kubelet is attempting to pull.
+* `pulled` - stores records about images that were successfully pulled by the Kubelet, 
+  along with metadata about the credentials used for the pulls.
+-->
+这些记录作为文件缓存在 kubelet 基础目录下的 `image_registry` 目录中。
+在典型的 Linux 节点上，这个路径通常为 `/var/lib/kubelet/image_manager`。  
+`image_manager` 目录下包含两个子目录：
+
+* `pulling`：存储 kubelet 正在尝试拉取的镜像的相关记录。
+* `pulled`：存储 kubelet 成功拉取的镜像记录，以及与拉取所用凭据相关的元数据。
+
+<!--
+See [Ensure Image Pull Credential Verification](/docs/concepts/containers/images#ensureimagepullcredentialverification)
+for details.
+-->
+更多细节请参阅[确保镜像拉取凭据验证](/zh-cn/docs/concepts/containers/images#ensureimagepullcredentialverification)。
 
 <!--
 ## Security profiles & configuration
