@@ -3,11 +3,13 @@ layout: blog
 title: 'Kubernetes v1.33: Octarine'
 date: 2025-04-23T10:30:00-08:00
 slug: kubernetes-v1-33-release
-evergreen: true
 author: >
   [Kubernetes v1.33 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.33/release-team.md)
 translator: >
-  [Taisuke Okamoto](https://github.com/b1gb4by) ([IDC Frontier Inc.](https://www.idcf.jp/))
+  [Taisuke Okamoto](https://github.com/b1gb4by) ([IDC Frontier Inc.](https://www.idcf.jp/)),
+  [Junya Okabe](https://github.com/Okabe-Junya) (筑波大学),
+  [Takuto Nagami](https://github.com/logica0419) (千葉工業大学),
+  [Tim Bannister](https://github.com/lmktfy) (ControlPlane](https://control-plane.io/))
 ---
 
 **編集者:** Agustina Barbetta, Aakanksha Bhende, Udi Hofesh, Ryota Sawada, Sneha Yadav
@@ -15,78 +17,85 @@ translator: >
 前回のリリースと同様に、Kubernetes v1.33リリースでは新しいGA、ベータ、アルファの機能が導入されています。
 高品質なリリースの継続的な提供は、私たちの開発サイクルの強さとコミュニティからの活発なサポートを示しています。
 
-このリリースは64の機能強化で構成されています。
-そのうち18がGAに昇格し、20がベータに移行し、24がアルファに導入され、2つが非推奨または撤回されています。
+このリリースには64個の機能改善が含まれています。
+それらのうち、GAへの昇格が18個、ベータへの移行が20個、アルファとしての導入が24個、機能の非推奨化及び撤回が2個となっています。
 
 また、このリリースにはいくつかの注目すべき[非推奨化と削除](#deprecations-and-removals)があります。
-既に古いバージョンのKubernetesを実行している場合は、それらについて必ず確認してください。
+まだ古いバージョンのKubernetesを実行している場合は、これらに必ず目を通してください。
 
 ## リリースのテーマとロゴ
 
 {{< figure src="k8s-1.33.svg" alt="Kubernetes v1.33 Octarineのロゴ" class="release-logo" >}}
 
-Kubernetes v1.33のテーマは**Octarine: 魔法の色**<sup>1</sup>で、テリー・プラチェットの_ディスクワールド_シリーズにインスパイアされています。
+Kubernetes v1.33のテーマは**Octarine: 魔法の色**<sup>1</sup>で、テリー・プラチェットの_ディスクワールド_シリーズに着想を得ています。
+
+(訳註：Octarineはディスクワールド世界の「8番目の色」で、通常は魔法使いと猫にしか見えない「蛍光の緑がかった黄紫色」と表現される架空の色です。一般人は目を閉じた時のみこの色を感じることができるとされています。)
+
 このリリースは、Kubernetesがエコシステム全体で可能にするオープンソースの魔法<sup>2</sup>を強調しています。
 
-ディスクワールドの世界に詳しい方なら、見えざる大学の塔の上に腰掛けた小さな沼ドラゴンが、背景に64の星<sup>3</sup>がある中、アンク・モーポークの都市の上にあるKubernetesの月を見上げている様子をご認識かもしれません。
+ディスクワールドの世界に詳しい方なら、"見えざる大学"の塔の上に腰掛けた小さな沼ドラゴンが、アンク・モーポークの街の上に64の星<sup>3</sup>と共に浮かぶKubernetesの月を見上げる様子を思い浮かべていることでしょう。
 
-Kubernetesが2番目の10年に入るにあたり、私たちはメンテナの魔術、新しい貢献者の好奇心、そしてプロジェクトを推進する協力的な精神を祝福します。
-v1.33リリースは、プラチェットが書いたように、_「やり方を知っていても、それはまだ魔法だ」_ということを思い出させてくれます。
+Kubernetesが10年の節目を迎え新たな10年へ踏み出すにあたり、私たちはメンテナの魔術、新しい貢献者の好奇心、そしてプロジェクトを推進する協力的な精神を祝福します。
+v1.33リリースは、プラチェットが書いたように、_「やり方を知っていても、それはまだ魔法だ」_ ということを思い出させてくれます。
 Kubernetesのコードベースの詳細をすべて知っていたとしても、リリースサイクルの終わりに立ち止まってみると、Kubernetesはまだ魔法のままであることがわかるでしょう。
 
-Kubernetes v1.33は、世界中の何百人もの貢献者<sup>4</sup>が協力して真に素晴らしいものを作り出すオープンソースイノベーションの持続的な力を示しています。
-あらゆる新機能の背後では、Kubernetesコミュニティがプロジェクトを維持・改善し、安全で信頼性が高く、時間通りにリリースされることを確保するために働いています。
-各リリースは他のリリースの上に構築され、私たちが単独で達成できるよりも偉大なものを作り出しています。
+Kubernetes v1.33は、真に卓越したものを生み出すために世界中の何百人ものコントリビューター<sup>4</sup>が協力する、オープンソースイノベーションの持続的な力の証です。
+あらゆる新機能の背後には、プロジェクトを維持・改善したり、安全性や信頼性を担保したり、計画通りにリリースしたりといったKubernetesコミュニティの働きがあります。
 
 <sub>1. Octarineは神話上の8番目の色で、秘術に調律された人々—魔法使い、魔女、そしてもちろん猫にのみ見えます。
 そして時々、IPtableルールを長時間見つめてきた人にも。</sub>\
-<sub>2. 十分に発達した技術は魔法と区別がつかない…？</sub>\
-<sub>3. v1.33に64のKEP（Kubernetes Enhancement Proposals）が含まれているのは偶然ではありません。</sub>\
+<sub>2. 「十分に発達した技術は魔法と区別がつかない」ですよね…？</sub>\
+<sub>3. v1.33に64のKEP (Kubernetes Enhancement Proposals)が含まれているのは偶然ではありません。</sub>\
 <sub>4. v1.33のプロジェクト活動状況セクションをご覧ください 🚀</sub>
 
 ## 主なアップデート情報
 
-Kubernetes v1.33は新機能と改善点が満載です。以下はリリースチームが特に注目するアップデート内容の一部です！
+Kubernetes v1.33は新機能と改善点が満載です。
+このセクションでは、リリースチームが特に注目して欲しい、選りすぐりのアップデート内容をご紹介します！
 
 ### GA: サイドカーコンテナ
 
 サイドカーパターンは、ネットワーキング、ロギング、メトリクス収集などの分野で追加機能を処理するための補助的なコンテナを別途デプロイすることを含みます。
-サイドカーコンテナはv1.33でStableに昇格しました。
+サイドカーコンテナはv1.33でGAに昇格しました。
 
-Kubernetesはサイドカーを`restartPolicy: Always`を持つ特別なクラスのinitコンテナとして実装しています。
-サイドカーがアプリケーションコンテナより先に起動し、Podのライフサイクル全体を通じて実行され続け、メインアプリケーションコンテナが終了した後に自動的に終了することを保証します。
+Kubernetesでは、`restartPolicy: Always`が設定された、特別な種類のinitコンテナとしてサイドカーを実装しています。
+サイドカーは、アプリケーションコンテナより先に起動し、Podのライフサイクル全体を通じて実行され続け、アプリケーションコンテナの終了を待ってから自動的に終了することが保証されます。
 
-さらに、サイドカーはprobe(起動、準備完了、活性)を使用して動作状態を通知でき、メモリ不足時に早期終了を防ぐため、そのOut-Of-Memory(OOM)スコア調整はプライマリコンテナと同じになっています。
+さらに、サイドカーはprobe(startup, readiness, liveness)を使用して動作状態を通知できる他、メモリ不足時の早期終了を防ぐため、Out-Of-Memory(OOM)スコア調整がプライマリコンテナと揃えられています。
 
 詳細については、[サイドカーコンテナ](/ja/docs/concepts/workloads/pods/sidecar-containers/)をお読みください。
 
 この作業はSIG Nodeが主導した[KEP-753: Sidecar Containers](https://kep.k8s.io/753)の一環として行われました。
 
-### ベータ: Podの垂直スケーリングのためのリソースのインプレースリサイズ
+### ベータ: Podの垂直スケーリングのためのリソースのインプレースなリソースリサイズ
 
 ワークロードはDeployment、StatefulSetなどのAPIを使用して定義できます。
-これらはメモリやCPUリソース、また実行すべきPodの数(レプリカ数)を含む、実行されるべきPodのテンプレートを記述します。
+これらはメモリやCPUリソース、また実行すべきPodの数(レプリカ数)を含む、実行されるべきPodのテンプレートを示しています。
 ワークロードはPodのレプリカ数を更新することで水平方向にスケールしたり、Podのコンテナに必要なリソースを更新することで垂直方向にスケールしたりできます。
-この機能強化以前は、Podの`spec`で定義されたコンテナリソースは不変であり、Podテンプレート内のこれらの詳細を更新するとPodの置き換えがトリガーされていました。
+この機能改善が入る前、Podの`spec`で定義されたコンテナリソースは不変であり、これらの詳細をPodテンプレート内で更新するにはPodの置き換えが必要でした。
 
-しかし、既存のPodを再起動せずにリソース構成を動的に更新できるとしたらどうでしょうか？
+しかし、再起動無しで既存のPodのリソース設定を動的に更新できるとしたらどうでしょうか？
 
 [KEP-1287](https://kep.k8s.io/1287)は、まさにそのようなインプレースPod更新を可能にするためのものです。
 これはv1.27でアルファとしてリリースされ、v1.33でベータに昇格しました。
+これにより、ステートフルなプロセスをダウンタイムなしで垂直方向にスケールアップしたり、トラフィックが少ない時シームレスにスケールダウンすることができます。
+さらには起動時に大きなリソースを割り当てて、初期設定が完了したら削減したりするなど、さまざまな可能性が開かれます。
+
 これにより、ダウンタイムなしでステートフルプロセスを垂直方向にスケールアップしたり、トラフィックが少ないときにシームレスにスケールダウンすることができます。
 さらには起動中により大きなリソースを割り当て、初期設定が完了したら削減したりするなど、さまざまな可能性が開かれます。
 
 この作業はSIG NodeとSIG Autoscalingが主導した[KEP-1287: In-Place Update of Pod Resources](https://kep.k8s.io/1287)の一環として行われました。
 
-### アルファ: ユーザー設定のための`.kuberc`によるkubectlの新しい設定オプション
+### アルファ: ユーザー設定のための`.kuberc`によるkubectlの新しい記述オプション
 
-v1.33では、`kubectl`はユーザー設定のためのオプトイン設定ファイル`.kuberc`という新しいアルファ機能を導入しています。
-このファイルには`kubectl`のエイリアスやオーバーライド(例えば[Server-Side Apply](/docs/reference/using-api/server-side-apply/)をデフォルトで使用するなど）を含めることができる一方、クラスター認証情報とホスト情報はkubeconfigに残します。
-この分離により、対象クラスターや使用するkubeconfigに関係なく、`kubectl`操作に同じユーザー設定を共有できるようになります。
+v1.33にて、`kubectl`は新しいアルファ機能として、ユーザー設定をクラスター設定と分けて明示的に記述するファイル、`.kuberc`を導入します。
+このファイルには`kubectl`のエイリアスや上書き設定(例えば[Server-Side Apply](/docs/reference/using-api/server-side-apply/)をデフォルトで使用するなど)を含めることができますが、クラスター認証情報やホスト情報はkubeconfigに残しておく必要があります。
 
-このアルファ機能を有効にするには、ユーザーは環境変数`KUBECTL_KUBERC=true`を設定し、`.kuberc`設定ファイルを作成できます。
-デフォルトでは、`kubectl`はこのファイルを`~/.kube/kuberc`で探します。
-`--kuberc`フラグを使用して代替の場所を指定することもできます。
+この分離によって、対象クラスターや使用するkubeconfigに関わらず、`kubectl`の操作に関わるユーザー設定は同じ物を使い回せるようになります。
+
+このアルファ機能を有効にするためには、環境変数`KUBECTL_KUBERC=true`を設定し、`.kuberc`設定ファイルを作成して下さい。
+デフォルトの状態だと、`kubectl`は`~/.kube/kuberc`にこのファイルが無いか探します。
+`--kuberc`フラグを使用すると、代わりの場所を指定することもできます。
 
 例: `kubectl --kuberc /var/kube/rc`
 
@@ -96,19 +105,19 @@ v1.33では、`kubectl`はユーザー設定のためのオプトイン設定フ
 
 _これはv1.33リリース後にGAとなった改善点の一部です。_
 
-### インデックス付きジョブのインデックスごとのバックオフ制限
+### インデックス付きJobのインデックスごとのバックオフ制限
 
-このリリースでは、インデックス付きジョブのインデックスごとにバックオフ制限を設定できる機能がGAに昇格しました。
-従来、Kubernetesジョブの`backoffLimit`パラメーターは、ジョブ全体が失敗とみなされる前の再試行回数を指定していました。
-この機能強化により、インデックス付きジョブ内の各インデックスが独自のバックオフ制限を持つことができるようになり、個々のタスクの再試行動作をより細かく制御できるようになりました。
-これにより、特定のインデックスの失敗がジョブ全体を早期に終了させることなく、他のインデックスが独立して処理を継続できるようになります。
+このリリースでは、インデックス付きJobのインデックスごとにバックオフ制限を設定できる機能がGAに昇格しました。
+従来、Kubernetes Jobの`backoffLimit`パラメーターは、Job全体が失敗とみなされる前の再試行回数を指定していました。
+この機能強化により、インデックス付きJob内の各インデックスが独自のバックオフ制限を持つことができるようになり、個々のタスクの再試行動作をより細かく制御できるようになりました。
+これにより、特定のインデックスの失敗がJob全体を早期に終了させることなく、他のインデックスが独立して処理を継続できるようになります。
 
 この作業はSIG Appsが主導した[KEP-3850: Backoff Limit Per Index For Indexed Jobs](https://kep.k8s.io/3850)の一環として行われました。
 
-### ジョブ成功ポリシー
+### Job成功ポリシー
 
 `.spec.successPolicy`を使用してユーザーはどのPodインデックスが成功する必要があるか(`succeededIndexes`)、何個のPodが成功する必要があるか(`succeededCount`)、またはその両方の組み合わせを指定できます。
-この機能は、部分的な完了で十分なシミュレーションやリーダーの成功だけがジョブの全体的な結果を決定するリーダー・ワーカーパターンなど、さまざまなワークロードに利点をもたらします。
+この機能は、部分的な完了で十分なシミュレーションやリーダーの成功だけがJobの全体的な結果を決定するリーダー・ワーカーパターンなど、さまざまなワークロードに利点をもたらします。
 
 この作業はSIG Appsが主導した[[KEP-3998: Job success/completion policy](https://kep.k8s.io/3998)の一環として行われました。
 
@@ -161,8 +170,6 @@ EndpointSliceのTopology Aware Hintによりkube-proxyなどのコンポーネ�
 
 この作業はSIG Nodeが主導した[KEP-2625: node: cpumanager: add options to reject non SMT-aligned workload](https://kep.k8s.io/2625)の一環として行われました。
 
-### Defining Pod affinity or anti-affinity using `matchLabelKeys` and `mismatchLabelKeys`
-
 ### `matchLabelKeys`と`mismatchLabelKeys`を使用したPodアフィニティまたはアンチアフィニティの定義
 
 `matchLabelKeys`と`mismatchLabelKeys`フィールドがPodアフィニティ条件で利用可能になり、ユーザーはPodが共存する(アフィニティ)または共存しない(アンチアフィニティ)べき範囲を細かく制御できるようになりました。
@@ -183,14 +190,14 @@ EndpointSliceのTopology Aware Hintによりkube-proxyなどのコンポーネ�
 
 ### Volume Populators
 
-v1.24でベータとしてリリースされた後、_Volume Populators_はv1.33でGAに昇格しました。
+v1.24でベータとしてリリースされた後、_Volume Populators_ はv1.33でGAに昇格しました。
 この新しく安定化した機能は、ユーザーがPersistentVolumeClaim(PVC)クローンやボリュームスナップショットだけでなく、様々なソースからのデータでボリュームを事前に準備する方法を提供します。
 このメカニズムはPersistentVolumeClaim内の`dataSourceRef`フィールドに依存しています。
 このフィールドは既存の`dataSource`フィールドよりも柔軟性が高く、カスタムリソースをデータソースとして使用することができます。
 
-特別なコントローラである`volume-data-source-validator`は、VolumePopulatorという名前のAPI種別のための新しく安定化したCustomResourceDefinition(CRD)と共に、これらのデータソース参照を検証します。
-VolumePopulator APIにより、ボリュームポピュレータコントローラはサポートするデータソースのタイプを登録できます。
-ボリュームポピュレータを使用するには、適切なCRDでクラスタをセットアップする必要があります。
+特別なコントローラーである`volume-data-source-validator`は、VolumePopulatorという名前のAPI種別のための新しく安定化したCustomResourceDefinition(CRD)と共に、これらのデータソース参照を検証します。
+VolumePopulator APIにより、ボリュームポピュレーターコントローラーはサポートするデータソースのタイプを登録できます。
+ボリュームポピュレーターを使用するには、適切なCRDでクラスターをセットアップする必要があります。
 
 この作業はSIG Storageが主導した[KEP-1495: Generic data populators](https://kep.k8s.io/1495)の一環として行われました。
 
@@ -209,8 +216,8 @@ _これはv1.33リリース後にベータとなった改善点の一部です�
 
 ### Windowsのkube-proxyにおけるDirect Service Return (DSR)のサポート
 
-DSRは、ロードバランサを経由するリターントラフィックがロードバランサーをバイパスしてクライアントに直接応答できるようにすることでパフォーマンスを最適化します。
-これによりロードバランサの負荷が軽減され、全体的なレイテンシーも低減されます。
+DSRは、ロードバランサーを経由するリターントラフィックがロードバランサーをバイパスしてクライアントに直接応答できるようにすることでパフォーマンスを最適化します。
+これによりロードバランサーの負荷が軽減され、全体的なレイテンシーも低減されます。
 Windows上のDSRに関する情報は、[Direct Server Return (DSR) in a nutshell](https://techcommunity.microsoft.com/blog/networkingblog/direct-server-return-dsr-in-a-nutshell/693710)をお読みください。
 
 v1.14で最初に導入されたDSRのサポートは、[KEP-5100: Support for Direct Service Return (DSR) and overlay networking in Windows kube-proxy](https://kep.k8s.io/5100)の一環としてSIG Windowsによりベータに昇格しました。
@@ -218,7 +225,7 @@ v1.14で最初に導入されたDSRのサポートは、[KEP-5100: Support for D
 ### 構造化パラメーターのサポート
 
 構造化パラメーターのサポートはKubernetes v1.33でベータ機能として継続される中、Dynamic Resource Allocation(DRA)のこの中核部分に大幅な改善が見られました。
-新しいv1beta2バージョンは`resource.k8s.io` APIを簡素化し、名前空間クラスタの`edit`ロールを持つ一般ユーザーが現在DRAを使用できるようになりました。
+新しいv1beta2バージョンは`resource.k8s.io` APIを簡素化し、名前空間クラスターの`edit`ロールを持つ一般ユーザーが現在DRAを使用できるようになりました。
 
 `kubelet`は現在シームレスなアップグレードサポートを含み、DaemonSetとしてデプロイされたドライバーがローリングアップデートメカニズムを使用できるようになっています。
 DRA実装では、これによりResourceSliceの削除と再作成が防止され、アップグレード中も変更されないままにすることができます。
@@ -237,7 +244,7 @@ v1.32で導入されたDRAによるネットワークインターフェースデ
 ### スケジューラーが`activeQ`にPodを持たない場合に、スケジュールされていないPodを早期に処理
 
 この機能はキュースケジューリングの動作を改善します。
-裏側では、スケジューラは`activeQ`が空の場合に、エラーによってバックオフされていないPodを`backoffQ`からポップすることでこれを実現しています。
+裏側では、スケジューラーは`activeQ`が空の場合に、エラーによってバックオフされていないPodを`backoffQ`からポップすることでこれを実現しています。
 以前は、`activeQ`が空の場合でもスケジューラーはアイドル状態になってしまいましたが、この機能強化はそれを防止することでスケジューリング効率を向上させます。
 
 この作業はSIG Schedulingが主導した[KEP-5142: Pop pod from backoffQ when activeQ is empty](https://kep.k8s.io/5142)の一環として行われました。
@@ -246,22 +253,22 @@ v1.32で導入されたDRAによるネットワークインターフェースデ
 
 プリエンプションは、優先度の低いPodを退避させることで、優先度の高いPodが必要なリソースを確保できるようにします。
 v1.32でアルファとして導入された非同期プリエンプションがv1.33でベータに昇格しました。
-この機能強化により、Podを削除するためのAPIコールなどの重い操作が並行して処理されるようになり、スケジューラは遅延なく他のPodのスケジューリングを継続できます。
-この改善は特にPodの入れ替わりが激しいクラスタやスケジューリングの失敗が頻繁に発生するクラスタで有益であり、より効率的で回復力のあるスケジューリングプロセスを確保します。
+この機能強化により、Podを削除するためのAPIコールなどの重い操作が並行して処理されるようになり、スケジューラーは遅延なく他のPodのスケジューリングを継続できます。
+この改善は特にPodの入れ替わりが激しいクラスターやスケジューリングの失敗が頻繁に発生するクラスターで有益であり、より効率的で回復力のあるスケジューリングプロセスを確保します。
 
 この作業はSIG Schedulingが主導した[KEP-4832: Asynchronous preemption in the scheduler](https://kep.k8s.io/4832)の一環として行われました。
 
-### ClusterTrustBundles
+### ClusterTrustBundle
 
 X.509トラストアンカー(ルート証明書)を保持するために設計されたクラスタースコープリソースであるClusterTrustBundleがv1.33でベータに昇格しました。
 このAPIにより、クラスター内の証明書署名者がX.509トラストアンカーをクラスターワークロードに公開および通信することが容易になります。
 
 この作業はSIG Authが主導した[KEP-3257: ClusterTrustBundles (previously Trust Anchor Sets)](https://kep.k8s.io/3257)の一環として行われました。
 
-### 細粒度のSupplementalGroups制御
+### きめ細かいSupplementalGroupsの制御
 
 v1.31で導入されたこの機能はv1.33でベータに昇格し、現在はデフォルトで有効になっています。
-クラスタでフィーチャーゲートの`SupplementalGroupsPolicy`が有効になっている場合、Podの`securityContext`内の`supplementalGroupsPolicy`フィールドは2つのポリシーをサポートします：
+クラスターでフィーチャーゲートの`SupplementalGroupsPolicy`が有効になっている場合、Podの`securityContext`内の`supplementalGroupsPolicy`フィールドは2つのポリシーをサポートします:
 デフォルトのMergeポリシーはコンテナイメージの`/etc/group`ファイルからのグループと指定されたグループを結合することで後方互換性を維持し、新しいStrictポリシーは明示的に定義されたグループのみを適用します。
 
 この機能強化は、コンテナイメージからの暗黙的なグループメンバーシップが意図しないファイルアクセス権限につながり、ポリシー制御をバイパスする可能性があるセキュリティ上の懸念に対処するのに役立ちます。
@@ -278,7 +285,7 @@ v1.31で導入されたPodでOpen Container Initiative(OCI)イメージをボリ
 
 ### Linux Podにおけるユーザー名前空間のサポート
 
-執筆時点で最も古いオープンKEPの一つである[KEP-127](https://kep.k8s.io/127)は、Pod用のLinux[ユーザー名前空間](/ja/docs/concepts/workloads/pods/user-namespaces/)を使用したPodセキュリティの改善です。
+執筆時点で最も古いオープンなKEPの1つである[KEP-127](https://kep.k8s.io/127)は、Pod用のLinux[ユーザー名前空間](/ja/docs/concepts/workloads/pods/user-namespaces/)を使用したPodセキュリティの改善です。
 このKEPは2016年後半に最初に提案され、複数の改訂を経て、v1.25でアルファリリース、v1.30で初期ベータ(デフォルトでは無効)となり、v1.33の一部としてデフォルトで有効なベータに移行しました。
 
 このサポートは、手動で`pod.spec.hostUsers`を指定してオプトインしない限り、既存のPodに影響を与えません。
@@ -317,7 +324,7 @@ Kubernetes 1.29ではPodの`preStop`ライフサイクルフックにSleepアク
 ### Kubernetesネイティブ型の宣言的検証のための内部ツール
 
 ひそかに、Kubernetesの内部はオブジェクトとオブジェクトへの変更を検証するための新しいメカニズムの使用を開始しています。
-Kubernetes v1.33では、Kubernetes貢献者が宣言的検証ルールを生成するために使用する内部ツール`validation-gen`を導入しています。
+Kubernetes v1.33では、Kubernetes貢献者が宣言的な検証ルールを生成するために使用する内部ツール`validation-gen`を導入しています。
 全体的な目標は、開発者が検証制約を宣言的に指定できるようにすることでAPI検証の堅牢性と保守性を向上させ、手動コーディングエラーを減らし、コードベース全体での一貫性を確保することです。
 
 この作業はSIG API Machineryが主導した[KEP-5073: Declarative Validation Of Kubernetes Native Types With validation-gen](https://kep.k8s.io/5073)の一環として行われました。
@@ -326,9 +333,9 @@ Kubernetes v1.33では、Kubernetes貢献者が宣言的検証ルールを生成
 
 _これはv1.33リリース後にアルファとなった改善点の一部です。_
 
-### HorizontalPodAutoscalersの設定可能な許容値
+### HorizontalPodAutoscalerの設定可能な許容値
 
-この機能は、HorizontalPodAutoscalersに設定可能な許容値を導入し、小さなメトリクス変動に対するスケーリング反応を抑制します。
+この機能は、HorizontalPodAutoscaler設定可能な許容値を導入し、小さなメトリクス変動に対するスケーリング反応を抑制します。
 
 この作業はSIG Autoscalingが主導した[KEP-4951: Configurable tolerance for Horizontal Pod Autoscalers](https://kep.k8s.io/4951)の一環として行われました。
 
@@ -356,20 +363,16 @@ DRAはPod間およびPod内のコンテナ間でリソースを要求および�
 
 以下はv1.33で導入されたすべてのアルファのDRAのフィーチャーゲートです:
 
-- ノードテイントと同様に、フィーチャーゲートの`DRADeviceTaints`を有効にすることで、デバイスはテイントとトレレーションをサポートします。
+- ノードテイントと同様に、フィーチャーゲートの`DRADeviceTaints`を有効にすることで、デバイスはTaintとTolerationをサポートします。
   管理者またはコントロールプレーンコンポーネントはデバイスにテイントを付けて使用を制限できます。
   テイントが存在する間、それらのデバイスに依存するPodのスケジューリングを一時停止したり、テイントされたデバイスを使用するPodを退避させたりすることができます。
 - フィーチャーゲートの`DRAPrioritizedList`を有効にすることで、DeviceRequestsは`firstAvailable`という新しいフィールドを取得します。
   このフィールドは順序付けられたリストで、ユーザーが特定のハードウェアが利用できない場合に何も割り当てないことを含め、リクエストが異なる方法で満たされる可能性を指定できるようにします。
-- With feature gate `DRAAdminAccess` enabled, only users authorized to create ResourceClaim or
-  ResourceClaimTemplate objects in namespaces labeled with `resource.k8s.io/admin-access: "true"`
-  can use the `adminAccess` field. This ensures that non-admin users cannot misuse the `adminAccess`
-  feature.
 - フィーチャーゲートの`DRAAdminAccess`を有効にすると、`resource.k8s.io/admin-access: "true"`でラベル付けされた名前空間内でResourceClaimまたはResourceClaimTemplateオブジェクトを作成する権限を持つユーザーのみが`adminAccess`フィールドを使用できます。
   これにより、管理者以外のユーザーが`adminAccess`機能を誤用できないようになります。
 - v1.31以降、デバイスパーティションの使用が可能でしたが、ベンダーはデバイスを事前にパーティション分割し、それに応じて通知する必要がありました。
   v1.33でフィーチャーゲートの`DRAPartitionableDevices`を有効にすることで、デバイスベンダーは重複するものを含む複数のパーティションを通知できます。
-  Kubernetesスケジューラはワークロード要求に基づいてパーティションを選択し、競合するパーティションの同時割り当てを防止します。
+  Kubernetesスケジューラーはワークロード要求に基づいてパーティションを選択し、競合するパーティションの同時割り当てを防止します。
   この機能により、ベンダーは割り当て時に動的にパーティションを作成する機能を持ちます。
   割り当てと動的パーティショニングは自動的かつユーザーに透過的に行われ、リソース使用率の向上を可能にします。
 
@@ -381,7 +384,7 @@ DRAはPod間およびPod内のコンテナ間でリソースを要求および�
 [KEP-5018: DRA: AdminAccess for ResourceClaims and ResourceClaimTemplates](https://kep.k8s.io/5018)、
 および[KEP-4815: DRA: Add support for partitionable devices](https://kep.k8s.io/4815)の一環として行われました。
 
-### `IfNotPresent`と`Never`のイメージに対する認証を行う堅牢なイメージPullポリシー
+### `IfNotPresent`と`Never`のイメージに対する認証を行う堅牢なimagePullPolicy
 
 この機能により、ユーザーはイメージがノード上に既に存在するかどうかに関わらず、新しい資格情報セットごとにkubeletがイメージプル認証チェックを要求することを確実にできます。
 
@@ -430,7 +433,7 @@ kubeletのオンディスク認証情報プロバイダが、オプションでK
 これは安定版(一般提供、GA とも呼ばれる)に昇格したすべての機能を一覧にしたものです。
 アルファからベータへの昇格や新機能を含む更新の完全なリストについては、リリースノートをご覧ください。
 
-このリリースには、GAに昇格した合計18の機能強化が含まれています：
+このリリースには、GAに昇格した合計18の機能強化が含まれています:
 
 - [Take taints/tolerations into consideration when calculating PodTopologySpread skew](https://github.com/kubernetes/enhancements/issues/3094)
 - [Introduce `MatchLabelKeys` to Pod Affinity and Pod Anti Affinity](https://github.com/kubernetes/enhancements/issues/3633)
@@ -451,13 +454,7 @@ kubeletのオンディスク認証情報プロバイダが、オプションでK
 - [Traffic Distribution for Services](https://github.com/kubernetes/enhancements/issues/4444)
 - [Recursive Read-only (RRO) mounts](https://github.com/kubernetes/enhancements/issues/3857)
 
-### 非推奨化と削除
-
-As Kubernetes develops and matures, features may be deprecated, removed, or replaced with better
-ones to improve the project's overall health. See the Kubernetes
-[deprecation and removal policy](/docs/reference/using-api/deprecation-policy/) for more details on
-this process. Many of these deprecations and removals were announced in the
-[Deprecations and Removals blog post](/blog/2025/03/26/kubernetes-v1-33-upcoming-changes/).
+### 非推奨化と削除 {#deprecations-and-removals}
 
 Kubernetesの開発と成熟に伴い、プロジェクト全体の健全性を向上させるために機能が非推奨化されたり、削除されたり、より良い機能に置き換えられたりすることがあります。
 このプロセスに関する詳細は、[Kubernetes非推奨ポリシー](/ja/docs/reference/using-api/deprecation-policy/)を参照してください。
@@ -465,12 +462,12 @@ Kubernetesの開発と成熟に伴い、プロジェクト全体の健全性を�
 
 #### Endpoints APIの非推奨化
 
-v1.21以降GAされた[EndpointSlices](/docs/concepts/services-networking/endpoint-slices/) APIは、元のEndpoints APIを事実上置き換えました。
-元のEndpoints APIはシンプルで分かりやすかったものの、多数のネットワークエンドポイントへスケーリングする際にいくつかの課題がありました。
-EndpointSlices APIにはデュアルスタックネットワーキングなどの新機能が導入され、これにより元のEndpoints APIは非推奨化されることになりました。
+v1.21以降GAされた[EndpointSlice](/docs/concepts/services-networking/endpoint-slices/) APIは、元のEndpoint APIを事実上置き換えました。
+元のEndpoint APIはシンプルで分かりやすかったものの、多数のネットワークエンドポイントへスケーリングする際にいくつかの課題がありました。
+EndpointSlices APIにはデュアルスタックネットワーキングなどの新機能が導入され、これにより元のEndpoint APIは非推奨化されることになりました。
 
-この非推奨化は、ワークロードやスクリプトからEndpoints APIを直接使用しているユーザーにのみ影響します。
-これらのユーザーは代わりにEndpointSlicesを使用するように移行する必要があります。
+この非推奨化は、ワークロードやスクリプトからEndpoint APIを直接使用しているユーザーにのみ影響します。
+これらのユーザーは代わりにEndpointSliceを使用するように移行する必要があります。
 非推奨化による影響と移行計画に関する詳細を記載した専用のブログ記事が公開される予定です。
 
 詳細は[KEP-4974: Deprecate v1.Endpoints](https://kep.k8s.io/4974)で確認できます。
