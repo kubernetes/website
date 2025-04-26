@@ -9,7 +9,8 @@ translator: >
   [Taisuke Okamoto](https://github.com/b1gb4by) ([IDC Frontier Inc.](https://www.idcf.jp/)),
   [Junya Okabe](https://github.com/Okabe-Junya) (筑波大学),
   [Takuto Nagami](https://github.com/logica0419) (千葉工業大学),
-  [Tim Bannister](https://github.com/lmktfy) ([ControlPlane](https://control-plane.io/))
+  [Tim Bannister](https://github.com/lmktfy) ([ControlPlane](https://control-plane.io/)),
+  [Toshiaki Inukai](https://github.com/t-inu)
 ---
 
 **編集者:** Agustina Barbetta, Aakanksha Bhende, Udi Hofesh, Ryota Sawada, Sneha Yadav
@@ -80,7 +81,6 @@ Kubernetesでは、`restartPolicy: Always`が設定された、特別な種類�
 これはv1.27でアルファとしてリリースされ、v1.33でベータに昇格しました。
 これにより、ステートフルなプロセスをダウンタイムなしで垂直方向にスケールアップしたり、トラフィックが少ない時シームレスにスケールダウンすることができます。
 さらには起動時に大きなリソースを割り当てて、初期設定が完了したら削減したりするなど、さまざまな可能性が開かれます。
-
 
 この作業はSIG NodeとSIG Autoscalingが主導した[KEP-1287: In-Place Update of Pod Resources](https://kep.k8s.io/1287)の一環として行われました。
 
