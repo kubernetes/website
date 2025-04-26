@@ -25,7 +25,7 @@ và chạy mã nguồn được triển khai trong một trình xử lý khi lif
 
 ## Container hooks
 
-Có 2 hooks:
+Có 2 hooks được exposed cho các Containers:
 
 `PostStart`
 
@@ -35,13 +35,12 @@ Không có tham số nào được truyền cho trình xử lý (handler).
 
 `PreStop`
 
-Hook này được gọi ngay tức thì ngay trước khi một container bị chấm dứt bởi một API request hoặc quản lý sự kiện như liveness probe failure, preemption, tranh chấp tài nguyên và các vấn đề khác. Một lời gọi tới preStop hook thất bại nếu container đã ở trạng thái kết thúc hoặc đã hoàn thành.
-Nó đang chặn (blocking), có nghĩa là nó đồng bộ,
-vì vậy nó phải hoàn thành trước khi lời gọi xóa container có thể được gửi.
+Hook này được gọi tức thì ngay trước khi một container bị chấm dứt bởi một API request hoặc sự kiện quản lý như liveness/startup probe failure, preemption, tranh chấp tài nguyên và các vấn đề khác. Một lời gọi tới `PreStop` hook thất bại nếu container ở trạng thái đã chấm dứt (terminated) hoặc đã hoàn thành (completed) và hook phải hoàn thành trước khi tín hiệu TERM được gửi tới để dừng container.
+Thời gian gia hạn chấm dứt của Pod bắt đầu trước khi hook `PreStop` được chạy, nên Container cuối cùng sẽ chấm dứt trong thời gian gia hạn chấm dứt của Pod bất kể kết quả của handler là gì.
 Không có tham số nào được truyền cho trình xử lý (handler).
 
 Xem thêm chi tiết về hành vi chấm dứt (termination behavior) tại
-[Termination of Pods](/docs/concepts/workloads/pods/pod/#termination-of-pods).
+[Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 
 ### Các cách thực hiện Hook handler (Hook handler implementations)
 
