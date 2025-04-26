@@ -9,7 +9,7 @@ author: >
 
 ---
 
-The new field, `supplementalGroupsPolicy`, was introduced as an opt-in alpha feature for Kubernetes 1.31 and has graduated to beta in 1.33; the corresponding feature gate (`SupplementalGroupsPolicy`) is now enabled by default. This feature enables to implement more precise control over supplemental groups in containers that can strengthen the security posture, particularly in accessing volumes. Moreover, it also enhances the transparency of UID/GID details in containers, offering improved security oversight.
+The new field, `supplementalGroupsPolicy`, was introduced as an opt-in alpha feature for Kubernetes v1.31 and has graduated to beta in v1.33; the corresponding feature gate (`SupplementalGroupsPolicy`) is now enabled by default. This feature enables to implement more precise control over supplemental groups in containers that can strengthen the security posture, particularly in accessing volumes. Moreover, it also enhances the transparency of UID/GID details in containers, offering improved security oversight.
 
 Please be aware that this beta release contains some behavioral breaking change. See [The Behavioral Changes Introduced In Beta](#the-behavioral-changes-introduced-in-beta) and [Upgrade Considerations](#upgrade-consideration) sections for details.
 
@@ -52,7 +52,7 @@ user-defined-in-image:x:1000:
 group-defined-in-image:x:50000:user-defined-in-image
 ```
 
-Aha! The container's primary user `1000` belongs to the group `50000` in the last entry.
+This shows that the container's primary user `1000` belongs to the group `50000` in the last entry.
 
 Thus, the group membership defined in `/etc/group` in the container image for the container's primary user is _implicitly_ merged to the information from the Pod. Please note that this was a design decision the current CRI implementations inherited from Docker, and the community never really reconsidered it until now.
 
@@ -102,7 +102,7 @@ You can see `Strict` policy can exclude group `50000` from `groups`!
 Thus, ensuring `supplementalGroupsPolicy: Strict` (enforced by some policy mechanism) helps prevent the implicit supplementary groups in a Pod.
 
 {{<note>}}
-Keep in mind: a container with sufficient privileges can still change its process identity. The `supplementalGroupsPolicy` only affect the initial process identity. See the following section for details.
+A container with sufficient privileges can change its process identity. The `supplementalGroupsPolicy` only affect the initial process identity. See the following section for details.
 {{</note>}}
 
 ## Attached process identity in Pod status
@@ -152,7 +152,7 @@ status:
     supplementalGroupsPolicy: true
 ```
 
-## The Behavioral Changes Introduced In Beta
+## The behavioral changes introduced in beta
 
 In the alpha release, when a Pod with `supplementalGroupsPolicy: Strict` was scheduled to a node that did not support the feature (i.e., `.status.features.supplementalGroupsPolicy=false`), the Pod's supplemental groups policy silently fell back to `Merge`.
 
@@ -171,7 +171,7 @@ involvedObject:
   ...
 ```
 
-## Upgrade Consideration
+## Upgrade consideration
 
 If you're already using this feature, especially the `supplementalGroupsPolicy: Strict` policy, we assume that your cluster's CRI runtimes already support this feature. In that case, you don't need to worry about the pod rejections described above.
 
