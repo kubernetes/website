@@ -11,7 +11,7 @@ tags:
 - fundamental
 ---
 Một thực thể trong hệ thống Kubernetes. Một object là một
-{{< glossary_tooltip text="tài nguyên API" term_id="api-resource" >}} mà Kubernetes API
+{{< glossary_tooltip text="API resource" term_id="api-resource" >}} mà Kubernetes API
 sử dụng để đại diện cho trạng thái của cluster của bạn.
 <!--more-->
 Một Kubernetes object thường là một "bản ghi ý định"—khi bạn tạo object, 
