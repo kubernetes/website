@@ -61,7 +61,7 @@ Kubernetes v1.33は新機能と改善点が満載です。
 Kubernetesでは、`restartPolicy: Always`が設定された、特別な種類のinitコンテナとしてサイドカーを実装しています。
 サイドカーは、アプリケーションコンテナより先に起動し、Podのライフサイクル全体を通じて実行され続け、アプリケーションコンテナの終了を待ってから自動的に終了することが保証されます。
 
-さらに、サイドカーはprobe(startup, readiness, liveness)を使用して動作状態を通知できる他、メモリ不足時の早期終了を防ぐため、Out-Of-Memory(OOM)スコア調整がプライマリコンテナと揃えられています。
+さらに、サイドカーはprobe(startup、readiness、liveness)を使用して動作状態を通知できる他、メモリ不足時の早期終了を防ぐため、Out-Of-Memory(OOM)スコア調整がプライマリコンテナと揃えられています。
 
 詳細については、[サイドカーコンテナ](/ja/docs/concepts/workloads/pods/sidecar-containers/)をお読みください。
 
