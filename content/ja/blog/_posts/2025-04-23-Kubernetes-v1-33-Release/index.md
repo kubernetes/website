@@ -84,7 +84,7 @@ Kubernetesでは、`restartPolicy: Always`が設定された、特別な種類�
 
 この作業はSIG NodeとSIG Autoscalingが主導した[KEP-1287: In-Place Update of Pod Resources](https://kep.k8s.io/1287)の一環として行われました。
 
-### アルファ: ユーザー設定のための`.kuberc`によるkubectlの新しい記述オプション
+### アルファ: `.kuberc`によるkubectl向けユーザー設定の新しい記述オプション
 
 v1.33にて、`kubectl`は新しいアルファ機能として、ユーザー設定をクラスター設定と分けて明示的に記述するファイル、`.kuberc`を導入します。
 このファイルには`kubectl`のエイリアスや上書き設定(例えば[Server-Side Apply](/docs/reference/using-api/server-side-apply/)をデフォルトで使用するなど)を含めることができますが、クラスター認証情報やホスト情報はkubeconfigに残しておく必要があります。
