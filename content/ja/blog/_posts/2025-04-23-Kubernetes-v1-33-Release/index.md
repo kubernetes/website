@@ -419,8 +419,8 @@ Kubernetes v1.33より前では、基盤となるノードについてKubernetes
 
 ### kubeletによるシークレットレスイメージPull
 
-kubeletのオンディスク認証情報プロバイダが、オプションでKubernetes ServiceAccount(SA)トークンの取得をサポートするようになりました。
-これにより、クラウドプロバイダはOIDC互換のアイデンティティソリューションとより適切に統合でき、イメージレジストリとの認証が簡素化されます。
+kubeletのオンディスク認証情報プロバイダーが、オプションでKubernetes ServiceAccount(SA)トークンの取得をサポートするようになりました。
+これにより、クラウドプロバイダーはOIDC互換のアイデンティティソリューションとより適切に統合でき、イメージレジストリとの認証が簡素化されます。
 
 この作業はSIG Authが主導した[KEP-4412: Projected service account tokens for Kubelet image credential providers](https://kep.k8s.io/4412)の一環として行われました。
 
