@@ -117,7 +117,7 @@ _これはv1.33リリース後にGAとなった改善点の一部です。_
 `.spec.successPolicy`を使用してユーザーはどのPodインデックスが成功する必要があるか(`succeededIndexes`)、何個のPodが成功する必要があるか(`succeededCount`)、またはその両方の組み合わせを指定できます。
 この機能は、部分的な完了で十分なシミュレーションやリーダーの成功だけがJobの全体的な結果を決定するリーダー・ワーカーパターンなど、さまざまなワークロードに利点をもたらします。
 
-この作業はSIG Appsが主導した[[KEP-3998: Job success/completion policy](https://kep.k8s.io/3998)の一環として行われました。
+この作業はSIG Appsが主導した[KEP-3998: Job success/completion policy](https://kep.k8s.io/3998)の一環として行われました。
 
 ### バインドされたServiceAccountトークンのセキュリティ改善
 
