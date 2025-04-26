@@ -600,7 +600,7 @@ Kubernetesコミュニティの最新情報を入手し、参加しましょう�
 
 ## ウェビナーのご案内
 
-Kubernetes v1.33リリースチームのメンバーと一緒に **5月16日(金)2025年5月16日午後4時(UTC)** から、このリリースのハイライトやアップグレードの計画に役立つ非推奨事項や削除事項について学びましょう。
+Kubernetes v1.33リリースチームのメンバーと一緒に **2025年5月16日(金)午後4時(UTC)** から、このリリースのハイライトやアップグレードの計画に役立つ非推奨事項や削除事項について学びましょう。
 詳細および参加登録は、CNCFオンラインプログラム・サイトの[イベントページ](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-133-release/)をご覧ください。
 
 ## 参加方法
