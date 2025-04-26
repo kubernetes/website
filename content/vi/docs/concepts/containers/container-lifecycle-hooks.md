@@ -93,22 +93,25 @@ Log cho một Hook handler không được hiển thị trong các Pod events.
 Nếu một handler thất bại vì lí do nào đó, nó sẽ broadcast một event.
 Đối với `PostStart`, đây là event `FailedPostStartHook`,
 và đối với `PreStop`, đây là event `FailedPreStopHook`.
-Bạn có thể xem những events này bằng cách chạy lệnh `kubectl describe pod <pod_name>`.
-Dưới đây là một số ví dụ output của events từ việc chạy lệnh này:
+Để tự tạo ra một event lỗi `FailedPostStartHook`, bạn có thể điều chỉnh file
+[lifecycle-events.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/lifecycle-events.yaml)
+để thay đổi lệnh postStart thành "badcommand" và áp dụng nó.
+Dưới đây là một số ví dụ output của events từ việc chạy lệnh `kubectl describe pod
+lifecycle-demo`:
 
 ```
 Events:
-  FirstSeen  LastSeen  Count  From                                                   SubObjectPath          Type      Reason               Message
-  ---------  --------  -----  ----                                                   -------------          --------  ------               -------
-  1m         1m        1      {default-scheduler }                                                          Normal    Scheduled            Successfully assigned test-1730497541-cq1d2 to gke-test-cluster-default-pool-a07e5d30-siqd
-  1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Pulling              pulling image "test:1.0"
-  1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Created              Created container with docker id 5c6a256a2567; Security:[seccomp=unconfined]
-  1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Pulled               Successfully pulled image "test:1.0"
-  1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Started              Started container with docker id 5c6a256a2567
-  38s        38s       1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Killing              Killing container with docker id 5c6a256a2567: PostStart handler: Error executing in Docker Container: 1
-  37s        37s       1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Killing              Killing container with docker id 8df9fdfd7054: PostStart handler: Error executing in Docker Container: 1
-  38s        37s       2      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}                         Warning   FailedSync           Error syncing pod, skipping: failed to "StartContainer" for "main" with RunContainerError: "PostStart handler: Error executing in Docker Container: 1"
-  1m         22s       2      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Warning   FailedPostStartHook
+  Type     Reason               Age              From               Message
+  ----     ------               ----             ----               -------
+  Normal   Scheduled            7s               default-scheduler  Successfully assigned default/lifecycle-demo to ip-XXX-XXX-XX-XX.us-east-2...
+  Normal   Pulled               6s               kubelet            Successfully pulled image "nginx" in 229.604315ms
+  Normal   Pulling              4s (x2 over 6s)  kubelet            Pulling image "nginx"
+  Normal   Created              4s (x2 over 5s)  kubelet            Created container lifecycle-demo-container
+  Normal   Started              4s (x2 over 5s)  kubelet            Started container lifecycle-demo-container
+  Warning  FailedPostStartHook  4s (x2 over 5s)  kubelet            Exec lifecycle hook ([badcommand]) for Container "lifecycle-demo-container" in Pod "lifecycle-demo_default(30229739-9651-4e5a-9a32-a8f1688862db)" failed - error: command 'badcommand' exited with 126: , message: "OCI runtime exec failed: exec failed: container_linux.go:380: starting container process caused: exec: \"badcommand\": executable file not found in $PATH: unknown\r\n"
+  Normal   Killing              4s (x2 over 5s)  kubelet            FailedPostStartHook
+  Normal   Pulled               4s               kubelet            Successfully pulled image "nginx" in 215.66395ms
+  Warning  BackOff              2s (x2 over 3s)  kubelet            Back-off restarting failed container
 ```
 
 
