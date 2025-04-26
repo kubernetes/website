@@ -251,6 +251,8 @@ circumstances:
 
 ## Limitations
 
+### Host namespaces
+
 When using a user namespace for the pod, it is disallowed to use other host
 namespaces. In particular, if you set `hostUsers: false` then you are not
 allowed to set any of:
@@ -258,6 +260,14 @@ allowed to set any of:
  * `hostNetwork: true`
  * `hostIPC: true`
  * `hostPID: true`
+
+### Filesystem support
+
+Pods that use a user namespace require the filesystem to support **idmapped mounts**.
+Some filesystems don't support id-mapped mounts, and therefore cannot be used with user namespaces.
+NFS volumes cannot be mounted in a user-namespace pod because the Linux NFS client doesn't yet support idmapped mounts.
+For the current list of supported filesystems, see the Linux kernel’s [`mount_setattr(2)` man page](https://man7.org/linux/man-pages/man2/mount_setattr.2.html).
+For more technical details, see [our blog post](https://kubernetes.io/blog/2025/04/25/userns-enabled-by-default/#everything-you-wanted-to-know-about-user-namespaces-in-kubernetes).
 
 ## {{% heading "whatsnext" %}}
 
