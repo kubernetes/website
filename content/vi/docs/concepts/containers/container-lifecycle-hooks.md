@@ -44,12 +44,15 @@ Xem thêm chi tiết về hành vi chấm dứt (termination behavior) tại
 
 ### Các cách thực hiện Hook handler (Hook handler implementations)
 
-Các container có thể truy cập một hook bằng cách thực hiện và đăng ký một handler cho hook đó.
-Có 2 loại hook handler có thể được triển khai cho các containers:
+Các Containers có thể truy cập một hook bằng cách thực hiện và đăng ký một handler cho hook đó.
+Có 3 loại hook handler có thể được triển khai cho các Containers:
 
 * Exec - Thực thi một lệnh cụ thể, như là `pre-stop.sh` trong cgroups và namespaces của Container.
 Tài nguyên được sử dụng bởi lệnh được tính vào Container.
 * HTTP - Thực thi một HTTP request với một endpoint cụ thể trên Container.
+* Sleep - Dừng container trong một khoảng thời gian. Đây là tính năng đang ở
+beta-level, được tự động bật bởi `PodLifecycleSleepAction`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
 ### Thực thi hook handler (Hook handler execution)
 
