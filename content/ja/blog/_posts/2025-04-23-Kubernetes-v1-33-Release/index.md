@@ -462,7 +462,7 @@ Kubernetesの開発と成熟に伴い、プロジェクト全体の健全性を�
 
 v1.21以降GAされた[EndpointSlice](/docs/concepts/services-networking/endpoint-slices/) APIは、元のEndpoint APIを事実上置き換えました。
 元のEndpoint APIはシンプルで分かりやすかったものの、多数のネットワークエンドポイントへスケーリングする際にいくつかの課題がありました。
-EndpointSlices APIにはデュアルスタックネットワーキングなどの新機能が導入され、これにより元のEndpoint APIは非推奨化されることになりました。
+EndpointSlice APIにはデュアルスタックネットワーキングなどの新機能が導入され、これにより元のEndpoint APIは非推奨化されることになりました。
 
 この非推奨化は、ワークロードやスクリプトからEndpoint APIを直接使用しているユーザーにのみ影響します。
 これらのユーザーは代わりにEndpointSliceを使用するように移行する必要があります。
