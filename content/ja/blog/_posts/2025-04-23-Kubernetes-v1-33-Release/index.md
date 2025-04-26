@@ -67,7 +67,7 @@ Kubernetesでは、`restartPolicy: Always`が設定された、特別な種類�
 
 この作業はSIG Nodeが主導した[KEP-753: Sidecar Containers](https://kep.k8s.io/753)の一環として行われました。
 
-### ベータ: Podの垂直スケーリングのためのリソースのインプレースなリソースリサイズ
+### ベータ: Podの垂直スケーリングのためのインプレースなリソースリサイズ
 
 ワークロードはDeployment、StatefulSetなどのAPIを使用して定義できます。
 これらはメモリやCPUリソース、また実行すべきPodの数(レプリカ数)を含む、実行されるべきPodのテンプレートを示しています。
