@@ -463,7 +463,8 @@ listed below.
 
 #### Multi-team tenancy
 
-* [Capsule](https://github.com/clastix/capsule)
+* [Accurate](https://github.com/cybozu-go/accurate)
+* [Capsule](https://github.com/projectcapsule/capsule)
 * [Multi Tenant Operator](https://docs.stakater.com/mto/)
 
 #### Multi-customer tenancy
