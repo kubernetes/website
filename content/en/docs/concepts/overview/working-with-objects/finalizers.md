@@ -17,9 +17,6 @@ typically lists of keys on a specific resource similar to annotations.
 Kubernetes specifies some finalizers automatically, but you can also specify
 your own.
 
-{{<note>}}
-* Custom finalizer names must be fully qualified names, such as example.com/finalizer-name. Kubernetes enforces this format, and will reject resources that do not use qualified finalizer names.
-{{</note>}}
 ## How finalizers work
 
 When you create a resource using a manifest file, you can specify finalizers in
@@ -56,6 +53,11 @@ list) but you cannot add a new finalizer. You also cannot modify the `deletionTi
 object once it is set.
 
 * After the deletion is requested, you can not resurrect this object. The only way is to delete it and make a new similar object.
+{{</note>}}
+
+{{<note>}}
+Custom finalizer names **must** be publicly qualified finalizer names, such as `example.com/finalizer-name`.
+Kubernetes enforces this format; the API server rejects writes to objects where the change does not use qualified finalizer names for any custom finalizer.
 {{</note>}}
 
 ## Owner references, labels, and finalizers {#owners-labels-finalizers}
