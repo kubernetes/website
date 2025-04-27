@@ -25,7 +25,7 @@ và chạy mã nguồn được triển khai trong một trình xử lý khi lif
 
 ## Container hooks
 
-Có 2 hooks được exposed cho các Containers:
+Có 2 hooks được cung cấp cho các Containers:
 
 `PostStart`
 
@@ -56,18 +56,19 @@ beta-level, được tự động bật bởi `PodLifecycleSleepAction`
 
 ### Thực thi hook handler (Hook handler execution)
 
-Khi một hook quản lý  một Container lifecycle được gọi,
-hệ thống quản lý Kubernetes thực thi trình xử lý (handler) trong Container đã được đăng kí cho hook đó.
+Khi một hook quản lý Container lifecycle được gọi,
+hệ thống quản lý Kubernetes thực thi trình xử lý (handler) dựa trên hành động của hook.
+`httpGet`, `tcpSocket` ([deprecated](/docs/reference/generated/kubernetes-api/v1.31/#lifecyclehandler-v1-core)) và `sleep` được thực thi bởi tiến trình kubelet, còn `exec` được thực thi trong container.
 
-Các lời gọi hook handler là đồng bộ trong ngữ cảnh của Pod chứa Container.
-Điều này có nghĩa là đối với hook `PostStart`,
-Container ENTRYPOINT và hook thực thi/chạy không đồng bộ.
-Tuy nhiên, nếu hook mất quá nhiều thời gian để chạy hoặc treo,
-Container không thể đạt đến trạng thái `running`.
+Lời gọi hook `PostStart` handler được khởi tạo khi một container được tạo,
+nghĩa là container ENTRYPOINT và hook `PostStart` được kích hoạt đồng thời.
+Tuy nhiên, nếu hook `PostStart` mất quá nhiều thời gian để chạy hoặc bị treo,
+container không thể chuyển sang trạng thái `running`.
 
-Behavior là tương tự cho một hook `PreStop`.
-Nếu hook bị treo trong khi thực thi,
-Pod phase ở trạng thái `Terminating` và bị xóa sau khoảng thời gian `terminationGracePeriodSeconds` của pod kết thúc.
+Các hooks `PreStop` không được thực thi bất đồng bộ với tín hiệu dừng Container; hook phải được hoàn thành thực thi trước khi tín hiệu TERM được gửi.
+Nếu hook `PreStop` bị treo khi thực thi, Pod phase ở trạng thái `Terminating` và tiếp tục cho tới khi bị chấm dứt sau `terminationGracePeriodSeconds` hết hạn. Khoảng thời gian gia hạn này bằng tổng thời gian mà cả hook `PreStop` thực thi và Container dừng lại một cách bình thường.
+Ví dụ, nếu `terminationGracePeriodSeconds` là 60, và hook mất 55 giây để hoàn thành, và Container mất thêm 10 giây để dừng lại sau khi nhận được tín hiệu, thì Container sẽ bị chấm dứt trước khi nó kịp dừng bình thường, vì `terminationGracePeriodSeconds` nhỏ hơn tổng thời gian cần thiết để thực hiện hai việc này (55+10).
+
 Nếu hook `PostStart` hoặc `PreStop` thất bại,
 nó sẽ xóa Container.
 
