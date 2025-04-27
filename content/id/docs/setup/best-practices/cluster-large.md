@@ -11,7 +11,7 @@ Klaster adalah kumpulan ({{< glossary_tooltip text="node" term_id="node" >}}) be
 * Jumlah pods tidak lebih dari 110 pods per *node*
 * Jumlah *node* tidak lebih dari 5000
 * Total pods tidak lebih dari 150000
-* Total container tidak lebih dari 300000
+* Total kontainer tidak lebih dari 300000
 
 Kamu dapat mengubah ukuran klaster dengan menambah atau menghapus *node*. Cara yang digunakan untuk pengubahan ukuran ini tergantung dari bagaimana kamu membangun klaster.
 
