@@ -221,7 +221,8 @@ Value       | Description
 
 {{< note >}}
 <!--
-When a pod is failing to start repeatedly, `CrashLoopBackOff` may appear in the `Status` field of some kubectl commands. Similarly, when a pod is being deleted, `Terminating` may appear in the `Status` field of some kubectl commands. 
+When a pod is failing to start repeatedly, `CrashLoopBackOff` may appear in the `Status` field of some kubectl commands.
+Similarly, when a pod is being deleted, `Terminating` may appear in the `Status` field of some kubectl commands.
 
 Make sure not to confuse _Status_, a kubectl display field for user intuition, with the pod's `phase`.
 Pod phase is an explicit part of the Kubernetes data model and of the
@@ -512,6 +513,32 @@ kubelet 就会重置该容器的重启延迟计时器。
 `init containers` 在指定 `restartpolicy` 字段时的行为。
 
 <!--
+### Reduced container restart delay
+
+{{< feature-state
+feature_gate_name="ReduceDefaultCrashLoopBackOffDecay" >}}
+
+With the alpha feature gate `ReduceDefaultCrashLoopBackOffDecay` enabled,
+container start retries across your cluster will be reduced to begin at 1s
+(instead of 10s) and increase exponentially by 2x each restart until a maximum
+delay of 60s (instead of 300s which is 5 minutes).
+
+If you use this feature along with the alpha feature
+`KubeletCrashLoopBackOffMax` (described below), individual nodes may have
+different maximum delays.
+-->
+### 减少容器重启延迟   {#Reduced-container-restart-delay}
+
+{{< feature-state feature_gate_name="ReduceDefaultCrashLoopBackOffDecay" >}}
+
+启用 Alpha 特性开关 `ReduceDefaultCrashLoopBackOffDecay` 后，
+集群中容器启动重试的初始延迟将从 10 秒减少到 1 秒，
+之后每次重启延迟时间按 2 倍指数增长，直到达到最大延迟 60 秒（之前为 300 秒，即 5 分钟）。
+
+如果你同时使用了下面介绍的 Alpha 特性 `KubeletCrashLoopBackOffMax`，
+那么单个节点上可能会有不同的最大延迟值。
+
+<!--
 ### Configurable container restart delay
 -->
 ### 可配置的容器重启延迟   {#configurable-container-restart-delay}
@@ -575,6 +602,19 @@ kind: KubeletConfiguration
 crashLoopBackOff:
     maxContainerRestartPeriod: "2s"
 ```
+
+<!--
+If you use this feature along with the alpha feature
+`ReduceDefaultCrashLoopBackOffDecay` (described above), your cluster defaults
+for initial backoff and maximum backoff will no longer be 10s and 300s, but 1s
+and 60s. Per node configuration takes precedence over the defaults set by
+`ReduceDefaultCrashLoopBackOffDecay`, even if this would result in a node having
+a longer maximum backoff than other nodes in the cluster.
+-->
+如果你将此特性与上文提到的 Alpha 特性 `ReduceDefaultCrashLoopBackOffDecay` 一起使用，
+那么集群的初始退避时间和最大退避时间默认值将不再是 10 秒和 300 秒，而是 1 秒和 60 秒。
+每个节点上的配置优先于 `ReduceDefaultCrashLoopBackOffDecay` 所设置的默认值，
+即使这会导致某些节点的最大退避时间比集群中的其他节点更长。
 
 <!--
 ## Pod conditions
@@ -921,8 +961,8 @@ containers:
 
 `readinessProbe`
 : Indicates whether the container is ready to respond to requests.
-  If the readiness probe fails, the endpoints controller removes the Pod's IP
-  address from the endpoints of all Services that match the Pod. The default
+  If the readiness probe fails, the EndpointSlice controller removes the Pod's IP
+  address from the EndpointSlices of all Services that match the Pod. The default
   state of readiness before the initial delay is `Failure`. If a container does
   not provide a readiness probe, the default state is `Success`.
 
@@ -941,7 +981,7 @@ containers:
 
 `readinessProbe`
 : 指示容器是否准备好为请求提供服务。如果就绪态探测失败，
-  端点控制器将从与 Pod 匹配的所有服务的端点列表中删除该 Pod 的 IP 地址。
+  EndpointSlice 控制器将从与该 Pod 匹配的所有 Service 的 EndpointSlice 中删除该 Pod 的 IP 地址。
   初始延迟之前的就绪态的状态值默认为 `Failure`。
   如果容器不提供就绪态探针，则默认状态为 `Success`。
 
@@ -1094,7 +1134,13 @@ shutdown.
 Pod。
 
 <!--
-Typically, with this graceful termination of the pod, kubelet makes requests to the container runtime to attempt to stop the containers in the pod by first sending a TERM (aka. SIGTERM) signal, with a grace period timeout, to the main process in each container. The requests to stop the containers are processed by the container runtime asynchronously. There is no guarantee to the order of processing for these requests. Many container runtimes respect the `STOPSIGNAL` value defined in the container image and, if different, send the container image configured STOPSIGNAL instead of TERM.
+Typically, with this graceful termination of the pod, kubelet makes requests to the container runtime
+to attempt to stop the containers in the pod by first sending a TERM (aka. SIGTERM) signal,
+with a grace period timeout, to the main process in each container.
+The requests to stop the containers are processed by the container runtime asynchronously.
+There is no guarantee to the order of processing for these requests.
+Many container runtimes respect the `STOPSIGNAL` value defined in the container image and,
+if different, send the container image configured STOPSIGNAL instead of TERM.
 Once the grace period has expired, the KILL signal is sent to any remaining
 processes, and the Pod is then deleted from the
 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}. If the kubelet or the
@@ -1112,6 +1158,71 @@ Pod 就会被从 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserv
 集群会从头开始重试，赋予 Pod 完整的体面终止限期。
 
 <!--
+### Stop Signals {#pod-termination-stop-signals}
+
+The stop signal used to kill the container can be defined in the container image with the `STOPSIGNAL` instruction.
+If no stop signal is defined in the image, the default signal of the container runtime
+(SIGTERM for both containerd and CRI-O) would be used to kill the container.
+-->
+### 停止信号 {#pod-termination-stop-signals}
+
+用于终止容器的停止信号可以通过容器镜像中的 `STOPSIGNAL` 指令进行定义。
+如果镜像中未定义停止信号，容器运行时（containerd 和 CRI-O 都是 SIGTERM）
+会使用默认的停止信号来终止容器。
+
+<!--
+### Defining custom stop signals
+
+{{< feature-state feature_gate_name="ContainerStopSignals" >}}
+
+If the `ContainerStopSignals` feature gate is enabled, you can configure a custom stop signal
+for your containers from the container Lifecycle. We require the Pod's `spec.os.name` field
+to be present as a requirement for defining stop signals in the container lifecycle.
+The list of signals that are valid depends on the OS the Pod is scheduled to.
+For Pods scheduled to Windows nodes, we only support SIGTERM and SIGKILL as valid signals.
+
+Here is an example Pod spec defining a custom stop signal:
+
+```yaml
+spec:
+  os:
+    name: linux
+  containers:
+    - name: my-container
+      image: container-image:latest
+      lifecycle:
+        stopSignal: SIGUSR1
+```
+
+If a stop signal is defined in the lifecycle, this will override the signal defined in the container image.
+If no stop signal is defined in the container spec, the container would fall back to the default behavior.
+-->
+### 定义自定义停止信号  {#Defining-custom-stop-signals}
+
+{{< feature-state feature_gate_name="ContainerStopSignals" >}}
+
+如果启用了 `ContainerStopSignals` 特性门控（feature gate），
+你可以通过容器的生命周期（Lifecycle）配置自定义的停止信号。
+在容器生命周期中定义停止信号时，Pod 的 `spec.os.name` 字段必须存在。
+可用的信号列表取决于 Pod 调度到的操作系统。
+对于调度到 Windows 节点的 Pod，仅支持 SIGTERM 和 SIGKILL 信号。
+
+以下是一个定义了自定义停止信号的 Pod 示例：
+
+```yaml
+spec:
+  os:
+    name: linux
+  containers:
+    - name: my-container
+      image: container-image:latest
+      lifecycle:
+        stopSignal: SIGUSR1
+```
+
+<!--
+### Pod Termination Flow {#pod-termination-flow}
+
 Pod termination flow, illustrated with an example:
 
 1. You use the `kubectl` tool to manually delete a specific Pod, with the default grace period
@@ -1124,6 +1235,8 @@ Pod termination flow, illustrated with an example:
    as terminating (a graceful shutdown duration has been set), the kubelet begins the local Pod
    shutdown process.
 -->
+### Pod 终止流程 {#pod-termination-flow}
+
 Pod 终止流程，如下例所示：
 
 1. 你使用 `kubectl` 工具手动删除某个特定的 Pod，而该 Pod 的体面终止限期是默认值（30 秒）。
@@ -1184,7 +1297,7 @@ Pod 终止流程，如下例所示：
 
 <!--
 1. At the same time as the kubelet is starting graceful shutdown of the Pod, the control plane
-   evaluates whether to remove that shutting-down Pod from EndpointSlice (and Endpoints) objects,
+   evaluates whether to remove that shutting-down Pod from EndpointSlice objects,
    where those objects represent a {{< glossary_tooltip term_id="service" text="Service" >}}
    with a configured {{< glossary_tooltip text="selector" term_id="selector" >}}.
    {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} and other workload resources
@@ -1196,7 +1309,7 @@ Pod 终止流程，如下例所示：
    and completion.
 -->
 3. 在 `kubelet` 启动 Pod 的体面关闭逻辑的同时，控制平面会评估是否将关闭的
-   Pod 从对应的 EndpointSlice（和端点）对象中移除，过滤条件是 Pod
+   Pod 从对应的 EndpointSlice 对象中移除，过滤条件是 Pod
    被对应的{{< glossary_tooltip term_id="service" text="服务" >}}以某
    {{< glossary_tooltip text="选择算符" term_id="selector" >}}选定。
    {{< glossary_tooltip text="ReplicaSet" term_id="replica-set" >}}
@@ -1209,7 +1322,7 @@ Pod 终止流程，如下例所示：
    <!--
    Any endpoints that represent the terminating Pods are not immediately removed from
    EndpointSlices, and a status indicating [terminating state](/docs/concepts/services-networking/endpoint-slices/#conditions)
-   is exposed from the EndpointSlice API (and the legacy Endpoints API).
+   is exposed from the EndpointSlice API.
    Terminating endpoints always have their `ready` status as `false` (for backward compatibility
    with versions before 1.26), so load balancers will not use it for regular traffic.
 
@@ -1218,7 +1331,7 @@ Pod 终止流程，如下例所示：
    tutorial [Pods And Endpoints Termination Flow](/docs/tutorials/services/pods-and-endpoint-termination-flow/)
    -->
    任何正在终止的 Pod 所对应的端点都不会立即从 EndpointSlice
-   中被删除，EndpointSlice API（以及传统的 Endpoints API）会公开一个状态来指示其处于
+   中被删除，EndpointSlice API 会公开一个状态来指示其处于
    [终止状态](/zh-cn/docs/concepts/services-networking/endpoint-slices/#conditions)。
    正在终止的端点始终将其 `ready` 状态设置为 `false`（为了向后兼容 1.26 之前的版本），
    因此负载均衡器不会将其用于常规流量。
