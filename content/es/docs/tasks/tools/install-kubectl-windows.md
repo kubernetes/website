@@ -16,7 +16,7 @@ El uso de la última versión de kubectl ayuda a evitar problemas imprevistos.
 Existen los siguientes métodos para instalar kubectl en Windows:
 
 - [Instalar el binario de kubectl con curl en Windows](#install-kubectl-binary-with-curl-on-windows)
-- [Instalar en Windows usando Chocolatey o Scoop](#install-on-windows-using-chocolatey-or-scoop)
+- [Instalar en Windows usando Chocolatey, Scoop o winget](#install-on-windows-using-chocolatey-o-scoop)
 
 
 ### Instalar el binario de kubectl en Windows (mediante descarga directa o usando curl)
@@ -31,7 +31,7 @@ Existen los siguientes métodos para instalar kubectl en Windows:
      Si tiene `curl` instalado, use este comando:
 
      ```powershell
-     curl.exe -LO https://dl.k8s.io/release/v{{% skew currentPatchVersion %}}/bin/windows/amd64/kubectl.exe
+     curl.exe -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe
      ```
 
    {{< note >}}
@@ -43,7 +43,7 @@ Existen los siguientes métodos para instalar kubectl en Windows:
    Descargue el archivo de comprobación de kubectl:
 
    ```powershell
-   curl.exe -LO https://dl.k8s.io/v{{% skew currentPatchVersion %}}/bin/windows/amd64/kubectl.exe.sha256
+   curl.exe -LO https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe.sha256
    ```
 
    Valide el binario kubectl con el archivo de comprobación:
@@ -58,7 +58,7 @@ Existen los siguientes métodos para instalar kubectl en Windows:
    - Usando PowerShell puede automatizar la verificación usando el operador `-eq` para obtener un resultado de `True` o `False`:
 
      ```powershell
-      $(Get-FileHash -Algorithm SHA256 .\kubectl.exe).Hash -eq $(Get-Content .\kubectl.exe.sha256))
+     $(Get-FileHash -Algorithm SHA256 .\kubectl.exe).Hash -eq $(Get-Content .\kubectl.exe.sha256)
      ```
 
 3. Agregue el binario `kubectl` a su `PATH` en las variables de entorno.
@@ -158,7 +158,7 @@ A continuación se muestran los procedimientos para configurar el autocompletado
 1. Descargue la última versión con el comando:
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/release/v{{% skew currentPatchVersion %}}/bin/windows/amd64/kubectl-convert.exe"
+   curl.exe -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe"
    ```
 
 2. Validar el binario (opcional) 
@@ -166,10 +166,10 @@ A continuación se muestran los procedimientos para configurar el autocompletado
    Descargue el archivo de comprobación `kubectl-convert`:
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/v{{% skew currentPatchVersion %}}/bin/windows/amd64/kubectl-convert.exe.sha256"
+   curl.exe -LO "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
    ```
 
-   Valide el binario `kubectl-conver` con el archivo de comprobación:
+   Valide el binario `kubectl-convert` con el archivo de comprobación:
 
    - Usando la consola del sistema puede comparar manualmente la salida de `CertUtil` con el archivo de comprobación descargado:
 
