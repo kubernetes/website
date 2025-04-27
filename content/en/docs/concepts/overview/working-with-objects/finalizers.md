@@ -17,6 +17,9 @@ typically lists of keys on a specific resource similar to annotations.
 Kubernetes specifies some finalizers automatically, but you can also specify
 your own.
 
+{{<note>}}
+* Custom finalizer names must be fully qualified names, such as example.com/finalizer-name. Kubernetes enforces this format, and will reject resources that do not use qualified finalizer names.
+{{</note>}}
 ## How finalizers work
 
 When you create a resource using a manifest file, you can specify finalizers in
