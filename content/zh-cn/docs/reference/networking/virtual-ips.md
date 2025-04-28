@@ -32,10 +32,10 @@ of `type` other than
 以外的{{< glossary_tooltip term_id="service" text="服务">}}，实现**虚拟 IP** 机制。
 
 <!--
-Each instance of kube-proxy watches the Kubernetes {{< glossary_tooltip
-term_id="control-plane" text="control plane" >}} for the addition and
-removal of Service and EndpointSlice {{< glossary_tooltip
-term_id="object" text="objects" >}}. For each Service, kube-proxy
+Each instance of kube-proxy watches the Kubernetes
+{{< glossary_tooltip term_id="control-plane" text="control plane" >}}
+for the addition and removal of Service and EndpointSlice
+{{< glossary_tooltip term_id="object" text="objects" >}}. For each Service, kube-proxy
 calls appropriate APIs (depending on the kube-proxy mode) to configure
 the node to capture traffic to the Service's `clusterIP` and `port`,
 and redirect that traffic to one of the Service's endpoints
@@ -85,9 +85,9 @@ There are a few reasons for using proxying for Services:
 Later in this page you can read about how various kube-proxy implementations work.
 Overall, you should note that, when running `kube-proxy`, kernel level rules may be modified
 (for example, iptables rules might get created), which won't get cleaned up, in some
-cases until you reboot.  Thus, running kube-proxy is something that should only be done
-by an administrator which understands the consequences of having a low level, privileged
-network proxying service on a computer.  Although the `kube-proxy` executable supports a
+cases until you reboot. Thus, running kube-proxy is something that should only be done
+by an administrator who understands the consequences of having a low level, privileged
+network proxying service on a computer. Although the `kube-proxy` executable supports a
 `cleanup` function, this function is not an official feature and thus is only available
 to use as-is.
 -->
@@ -104,7 +104,7 @@ Some of the details in this reference refer to an example: the backend
 {{< glossary_tooltip term_id="pod" text="Pods" >}} for a stateless
 image-processing workloads, running with
 three replicas. Those replicas are
-fungible&mdash;frontends do not care which backend they use.  While the actual Pods that
+fungible&mdash;frontends do not care which backend they use. While the actual Pods that
 compose the backend set may change, the frontend clients should not need to be aware of that,
 nor should they need to keep track of the set of backends themselves.
 -->
@@ -188,7 +188,7 @@ random.
 As an example, consider the image processing application described [earlier](#example)
 in the page.
 When the backend Service is created, the Kubernetes control plane assigns a virtual
-IP address, for example 10.0.0.1.  For this example, assume that the
+IP address, for example 10.0.0.1. For this example, assume that the
 Service port is 1234.
 All of the kube-proxy instances in the cluster observe the creation of the new
 Service.
@@ -218,10 +218,10 @@ redirected to the backend without rewriting the client IP address.
 会选择一个后端（基于会话亲和性或随机选择），并将数据包重定向到后端，无需重写客户端 IP 地址。
 
 <!--
-This same basic flow executes when traffic comes in through a node-port or
+This same basic flow executes when traffic comes in through a `type: NodePort` Service, or
 through a load-balancer, though in those cases the client IP address does get altered.
 -->
-当流量通过节点端口或负载均衡器进入时，也会执行相同的基本流程，
+当流量通过 `type: NodePort` Service 或负载均衡器进入时，也会执行相同的基本流程，
 只是在这些情况下，客户端 IP 地址会被更改。
 
 <!--
@@ -232,12 +232,13 @@ Service, and a few iptables rules for each endpoint IP address. In
 clusters with tens of thousands of Pods and Services, this means tens
 of thousands of iptables rules, and kube-proxy may take a long time to update the rules
 in the kernel when Services (or their EndpointSlices) change. You can adjust the syncing
-behavior of kube-proxy via options in the [`iptables` section](/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPTablesConfiguration)
-of the
-kube-proxy [configuration file](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+behavior of kube-proxy via options in the
+[`iptables` section](/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPTablesConfiguration)
+of the kube-proxy [configuration file](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 (which you specify via `kube-proxy --config <path>`):
 -->
 #### 优化 iptables 模式性能  {#optimizing-iptables-mode-performance}
+
 在 iptables 模式下，kube-proxy 为每个 Service 创建一些 iptables 规则，并为每个端点
 IP 地址创建一些 iptables 规则。在拥有数万个 Pod 和 Service 的集群中，这意味着数万个
 iptables 规则，当 Service（或其 EndpointSlice）发生变化时，kube-proxy
@@ -266,9 +267,8 @@ Service backed by a {{< glossary_tooltip term_id="deployment" text="Deployment" 
 with 100 pods, and you delete the
 Deployment, then with `minSyncPeriod: 0s`, kube-proxy would end up
 removing the Service's endpoints from the iptables rules one by one,
-for a total of 100 updates. With a larger `minSyncPeriod`, multiple
-Pod deletion events would get aggregated
-together, so kube-proxy might
+resulting in a total of 100 updates. With a larger `minSyncPeriod`, multiple
+Pod deletion events would get aggregated together, so kube-proxy might
 instead end up making, say, 5 updates, each removing 20 endpoints,
 which will be much more efficient in terms of CPU, and result in the
 full set of changes being synchronized faster.
@@ -432,9 +432,9 @@ IPVS 为将流量均衡到后端 Pod 提供了更多选择：
 <!--
 * `lblcr` (Locality Based Least Connection with Replication): Traffic for the same IP
   address is sent to the server with least connections. If all the backing servers are
-  overloaded, it picks up one with fewer connections and add it to the target set.
-  If the target set has not changed for the specified time, the most loaded server
-  is removed from the set, in order to avoid high degree of replication.
+  overloaded, it picks up one with fewer connections and adds it to the target set.
+  If the target set has not changed for the specified time, the server with the highest load
+  is removed from the set, in order to avoid a high degree of replication.
 -->
 * `lblcr`（带副本的基于地域的最少连接）：针对相同 IP 地址的流量被发送到连接数最少的服务器。
   如果所有后端服务器都超载，则选择连接较少的服务器并将其添加到目标集中。
@@ -570,69 +570,70 @@ differently the `nftables` mode:
 `nftables` 模式下，一些特性的工作方式略有不同：
 
 <!--
- - **NodePort interfaces**: In `iptables` mode, by default,
-   [NodePort services](/docs/concepts/services-networking/service/#type-nodeport)
-   are reachable on all local IP addresses. This is usually not what
-   users want, so the `nftables` mode defaults to
-   `--nodeport-addresses primary`, meaning NodePort services are only
-   reachable on the node's primary IPv4 and/or IPv6 addresses. You can
-   override this by specifying an explicit value for that option:
-   e.g., `--nodeport-addresses 0.0.0.0/0` to listen on all (local)
-   IPv4 IPs.
+- **NodePort interfaces**: In `iptables` mode, by default,
+  [NodePort services](/docs/concepts/services-networking/service/#type-nodeport)
+  are reachable on all local IP addresses. This is usually not what
+  users want, so the `nftables` mode defaults to
+  `--nodeport-addresses primary`, meaning Services using `type: NodePort` are only
+  reachable on the node's primary IPv4 and/or IPv6 addresses. You can
+  override this by specifying an explicit value for that option:
+  e.g., `--nodeport-addresses 0.0.0.0/0` to listen on all (local)
+  IPv4 IPs.
 -->
- - **NodePort 接口**：在 `iptables` 模式下，默认情况下，
-  [NodePort 服务](/zh-cn/docs/concepts/services-networking/service/#type-nodeport) 可以在所有本地
+- **NodePort 接口**：在 `iptables` 模式下，默认情况下，
+  [NodePort 服务](/zh-cn/docs/concepts/services-networking/service/#type-nodeport)可以在所有本地
   IP 地址上访问。这通常不是用户想要的，因此 `nftables` 模式默认使用 `--nodeport-addresses primary`，这意味着
-  NodePort 服务只能在节点的主 IPv4 和/或 IPv6 地址上访问。你可以通过为该选项指定一个明确的值来覆盖此设置：例如，使用
+  `type: NodePort` Service 只能通过节点上的主 IPv4 和/或 IPv6 地址进行访问。
+  你可以通过为该选项指定一个明确的值来覆盖此设置：例如，使用
   `--nodeport-addresses 0.0.0.0/0` 以监听所有（本地）IPv4 IP。
 
 <!--
- - **NodePort services on `127.0.0.1`**: In `iptables` mode, if the
-   `--nodeport-addresses` range includes `127.0.0.1` (and the option
-   `--iptables-localhost-nodeports false` option is not passed), then
-   NodePort services are reachable even on "localhost" (`127.0.0.1`).
-   In `nftables` mode (and `ipvs` mode), this will not work. If you
-   are not sure if you are depending on this functionality, you can
-   check kube-proxy's
-   `iptables_localhost_nodeports_accepted_packets_total` metric; if it
-   is non-0, that means that some client has connected to a NodePort
-   service via `127.0.0.1`.
+- `type: NodePort` **Services on `127.0.0.1`**: In `iptables` mode, if the
+  `--nodeport-addresses` range includes `127.0.0.1` (and the option
+  `--iptables-localhost-nodeports false` option is not passed), then
+  Services of `type: NodePort` are reachable even on "localhost" (`127.0.0.1`).
+  In `nftables` mode (and `ipvs` mode), this will not work. If you
+  are not sure if you are depending on this functionality, you can
+  check kube-proxy's
+  `iptables_localhost_nodeports_accepted_packets_total` metric; if it
+  is non-0, that means that some client has connected to a `type: NodePort`
+  Service via localhost/loopback.
 -->
- - **`127.0.0.1` 上的 NodePort 服务**：在 `iptables` 模式下，如果
+- **`127.0.0.1` 上的 `type: NodePort` Service**：在 `iptables` 模式下，如果
   `--nodeport-addresses` 范围包括 `127.0.0.1`（且未传递 `--iptables-localhost-nodeports false` 选项），
-  则 NodePort 服务甚至可以在 "localhost" (`127.0.0.1`) 上访问。
+  则 `type: NodePort` Service 甚至可以在 "localhost" (`127.0.0.1`) 上访问。
   在 `nftables` 模式（和 `ipvs` 模式）下，这将不起作用。如果你不确定是否依赖此功能，
   可以检查 kube-proxy 的 `iptables_localhost_nodeports_accepted_packets_total` 指标；
-  如果该值非 0，则表示某些客户端已通过 `127.0.0.1` 连接到 NodePort 服务。
+  如果该值非 0，则表示某些客户端已通过本地主机或本地回路连接到 `type: NodePort` Service。
 
 <!--
- - **NodePort interaction with firewalls**: The `iptables` mode of
-   kube-proxy tries to be compatible with overly-agressive firewalls;
-   for each NodePort service, it will add rules to accept inbound
-   traffic on that port, in case that traffic would otherwise be
-   blocked by a firewall. This approach will not work with firewalls
-   based on nftables, so kube-proxy's `nftables` mode does not do
-   anything here; if you have a local firewall, you must ensure that
-   it is properly configured to allow Kubernetes traffic through
-   (e.g., by allowing inbound traffic on the entire NodePort range).
+- **NodePort interaction with firewalls**: The `iptables` mode of
+  kube-proxy tries to be compatible with overly-agressive firewalls;
+  for each `type: NodePort` service, it will add rules to accept inbound
+  traffic on that port, in case that traffic would otherwise be
+  blocked by a firewall. This approach will not work with firewalls
+  based on nftables, so kube-proxy's `nftables` mode does not do
+  anything here; if you have a local firewall, you must ensure that
+  it is properly configured to allow Kubernetes traffic through
+  (e.g., by allowing inbound traffic on the entire NodePort range).
 -->
 - **NodePort 与防火墙的交互**：kube-proxy 的 `iptables` 模式尝试与过于激进的防火墙兼容；
-  对于每个 NodePort 服务，它会添加规则以接受该端口的入站流量，以防该流量被防火墙阻止。
+  对于每个 `type: NodePort` Service，它会添加规则以接受该端口的入站流量，以防该流量被防火墙阻止。
   这种方法不适用于基于 nftables 的防火墙，因此 kube-proxy 的 `nftables` 模式在这里不会做任何事情；
   如果你有本地防火墙，必须确保其配置正确以允许 Kubernetes 流量通过（例如，允许整个 NodePort 范围的入站流量）。
 
 <!--
- - **Conntrack bug workarounds**: Linux kernels prior to 6.1 have a
-   bug that can result in long-lived TCP connections to service IPs
-   being closed with the error "Connection reset by peer". The
-   `iptables` mode of kube-proxy installs a workaround for this bug,
-   but this workaround was later found to cause other problems in some
-   clusters. The `nftables` mode does not install any workaround by
-   default, but you can check kube-proxy's
-   `iptables_ct_state_invalid_dropped_packets_total` metric to see if
-   your cluster is depending on the workaround, and if so, you can run
-   kube-proxy with the option `--conntrack-tcp-be-liberal` to work
-   around the problem in `nftables` mode.
+- **Conntrack bug workarounds**: Linux kernels prior to 6.1 have a
+  bug that can result in long-lived TCP connections to service IPs
+  being closed with the error "Connection reset by peer". The
+  `iptables` mode of kube-proxy installs a workaround for this bug,
+  but this workaround was later found to cause other problems in some
+  clusters. The `nftables` mode does not install any workaround by
+  default, but you can check kube-proxy's
+  `iptables_ct_state_invalid_dropped_packets_total` metric to see if
+  your cluster is depending on the workaround, and if so, you can run
+  kube-proxy with the option `--conntrack-tcp-be-liberal` to work
+  around the problem in `nftables` mode.
 -->
 - **Conntrack 错误规避**：6.1 之前的 Linux 内核存在一个错误，可能导致与服务 IP 的长时间
    TCP 连接被关闭，并出现“Connection reset by peer（对方重置连接）”的错误。kube-proxy 的 `iptables`
@@ -753,7 +754,7 @@ On Windows, setting the maximum session sticky time for Services is not supporte
 
 <!--
 Unlike Pod IP addresses, which actually route to a fixed destination,
-Service IPs are not actually answered by a single host.  Instead, kube-proxy
+Service IPs are not actually answered by a single host. Instead, kube-proxy
 uses packet processing logic (such as Linux iptables) to define _virtual_ IP
 addresses which are transparently redirected as needed.
 -->
@@ -995,12 +996,12 @@ spec:
 <!--
 Kubernetes divides the `ClusterIP` range into two bands, based on
 the size of the configured `service-cluster-ip-range` by using the following formula
-`min(max(16, cidrSize / 16), 256)`. That formula paraphrases as _never less than 16 or
+`min(max(16, cidrSize / 16), 256)`. That formula means the result is _never less than 16 or
 more than 256, with a graduated step function between them_.
 -->
 Kubernetes 根据配置的 `service-cluster-ip-range` 的大小使用公式
 `min(max(16, cidrSize / 16), 256)` 将 `ClusterIP` 范围分为两段。
-该公式可以解释为：介于 16 和 256 之间，并在上下界之间存在渐进阶梯函数的分配。
+该公式意味着结果**介于 16 和 256 之间，并在上下界之间存在渐进阶梯函数的分配**。
 
 <!--
 Kubernetes prefers to allocate dynamic IP addresses to Services by choosing from the upper band,
@@ -1053,7 +1054,7 @@ node-local endpoints, traffic is dropped by kube-proxy.
 You can set the `.spec.externalTrafficPolicy` field to control how traffic from
 external sources is routed. Valid values are `Cluster` and `Local`. Set the field
 to `Cluster` to route external traffic to all ready endpoints and `Local` to only
-route to ready node-local endpoints. If the traffic policy is `Local` and there are
+route to ready node-local endpoints. If the traffic policy is `Local` and there
 are no node-local endpoints, the kube-proxy does not forward any traffic for the
 relevant Service.
 -->
@@ -1065,8 +1066,8 @@ relevant Service.
 那么 kube-proxy 不会转发与相关 Service 相关的任何流量。
 
 <!--
-If `Cluster` is specified all nodes are eligible load balancing targets _as long as_
-the node is not being deleted and kube-proxy is healthy. In this mode: load balancer 
+If `Cluster` is specified, all nodes are eligible load balancing targets _as long as_
+the node is not being deleted and kube-proxy is healthy. In this mode: load balancer
 health checks are configured to target the service proxy's readiness port and path.
 In the case of kube-proxy this evaluates to: `${NODE_IP}:10256/healthz`. kube-proxy
 will return either an HTTP code 200 or 503. kube-proxy's load balancer health check
@@ -1079,17 +1080,21 @@ kube-proxy，这个健康检查端点为：`${NODE_IP}:10256/healthz`。kube-pro
 
 <!--
 1. kube-proxy is healthy, meaning:
-   - it's able to progress programming the network and isn't timing out while doing
-     so (the timeout is defined to be: **2 × `iptables.syncPeriod`**); and
-2. the node is not being deleted (there is no deletion timestamp set for the Node).
+
+   it's able to progress programming the network and isn't timing out while doing
+   so (the timeout is defined to be: **2 × `iptables.syncPeriod`**); and
+
+1. the node is not being deleted (there is no deletion timestamp set for the Node).
 -->
 1. kube-proxy 是健康的，意味着：
-    - 它能够继续进行网络编程，并且在此过程中不会超时（超时时间定义为：**2 × `iptables.syncPeriod`**）；并且
+
+   它能够继续进行网络编程，并且在此过程中不会超时（超时时间定义为：**2 × `iptables.syncPeriod`**）；并且
+
 2. 节点没有被删除（Node 对象上没有设置删除时间戳）。
 
 <!--
-The reason why kube-proxy returns 503 and marks the node as not
-eligible when it's being deleted, is because kube-proxy supports connection
+kube-proxy returns 503 and marks the node as not
+eligible when it's being deleted because it supports connection
 draining for terminating nodes. A couple of important things occur from the point
 of view of a Kubernetes-managed load balancer when a node _is being_ / _is_ deleted.
 -->
@@ -1101,16 +1106,15 @@ kube-proxy 对处于终止过程中的节点支持连接腾空。从 Kubernetes 
 While deleting:
 
 * kube-proxy will start failing its readiness probe and essentially mark the
-   node as not eligible for load balancer traffic. The load balancer health
-   check failing causes load balancers which support connection draining to
-   allow existing connections to terminate, and block new connections from
-   establishing.
+  node as not eligible for load balancer traffic. The load balancer health
+  check failing causes load balancers which support connection draining to
+  allow existing connections to terminate, and block new connections from
+  establishing.
 -->
 当节点被删除时：
 
 * kube-proxy 的就绪探针将开始失败，并将该节点标记为不胜任接收负载均衡器流量。
   负载均衡器健康检查失败会导致支持连接排空的负载均衡器允许现有连接终止，并阻止新连接建立。
-
 
 <!--
 When deleted:
@@ -1154,7 +1158,7 @@ metrics publish two series, one with the 200 label and one with the 503 one.
 For `Local` Services: kube-proxy will return 200 if
 
 1. kube-proxy is healthy/ready, and
-2. has a local endpoint on the node in question.
+1. has a local endpoint on the node in question.
 
 Node deletion does **not** have an impact on kube-proxy's return
 code for what concerns load balancer health checks. The reason for this is:
@@ -1207,13 +1211,13 @@ prefer forwarding traffic to endpoints that are not terminating.
 否则，kube-proxy 会始终选择将流量转发到并未处于终止过程中的端点。
 
 <!--
-This forwarding behavior for terminating endpoints exist to allow `NodePort` and `LoadBalancer`
+This forwarding behavior for terminating endpoints exists to allow `NodePort` and `LoadBalancer`
 Services to gracefully drain connections when using `externalTrafficPolicy: Local`.
 
 As a deployment goes through a rolling update, nodes backing a load balancer may transition from
 N to 0 replicas of that deployment. In some cases, external load balancers can send traffic to
 a node with 0 replicas in between health check probes. Routing traffic to terminating endpoints
-ensures that Node's that are scaling down Pods can gracefully receive and drain traffic to
+ensures that Nodes that are scaling down Pods can gracefully receive and drain traffic to
 those terminating Pods. By the time the Pod completes termination, the external load balancer
 should have seen the node's health check failing and fully removed the node from the backend
 pool.
@@ -1346,11 +1350,11 @@ difference in their approaches:
 
 <!--
 If the `service.kubernetes.io/topology-mode` annotation is set to `Auto`, it
-will take precedence over `trafficDistribution`. (The annotation may be deprecated
-in the future in favour of the `trafficDistribution` field).
+will take precedence over `trafficDistribution`. The annotation may be deprecated
+in the future in favor of the `trafficDistribution` field.
 -->
 如果 `service.kubernetes.io/topology-mode` 注解设置为 `Auto`，它将优先于
-`trafficDistribution`。（该注解将来可能会被弃用，取而代之的是 `trafficDistribution` 字段）。
+`trafficDistribution`。该注解将来可能会被弃用，取而代之的是 `trafficDistribution` 字段。
 
 <!--
 ### Interaction with Traffic Policies
@@ -1408,8 +1412,7 @@ the topology. To mitigate this, consider the following strategies:
 如果传入流量在各区域之间分布不均，这种情况更有可能发生。为减轻这种情况，请考虑以下策略：
 
 <!--
-* [Pod Topology Spread
-  Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/):
+* [Pod Topology Spread Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/):
   Use Pod Topology Spread Constraints to distribute your pods evenly
   across zones or nodes.
 
