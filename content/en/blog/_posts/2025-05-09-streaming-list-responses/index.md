@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes v1.33: Streaming List responses for K8s 1.33"
+title: "Kubernetes v1.33: Streaming List responses"
 date: 2025-05-09T10:30:00-08:00
 slug: kubernetes-v1-33-streaming-list-responses
 author: >
