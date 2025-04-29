@@ -41,6 +41,41 @@ The implementation consists of three primary components:
 2. **SnapshotMetadataService Custom Resource**: Advertises the availability of a CSI driver's metadata service along with connection details
 3. **ExternalSnapshotMetadata Sidecar**: Implements the server-side of the API, bridging CSI drivers with backup applications
 
+## Vendor implementation requirements
+
+### Storage vendor responsibilities
+
+Storage vendors who want to support the changed block tracking feature must implement specific requirements:
+
+1. **Implement CSI RPCs**: Storage vendors need to implement the `SnapshotMetadata` service as defined in the [CSI specifications protobuf](https://github.com/container-storage-interface/spec/blob/master/csi.proto). This service requires server-side streaming implementations for the following RPCs:
+
+   - `GetMetadataAllocated`: For identifying allocated blocks in a snapshot
+   - `GetMetadataDelta`: For determining changed blocks between two snapshots
+
+2. **Storage backend capabilities**: Ensure the storage backend has the capability to track and report block-level changes.
+
+3. **Deploy external components**: Integrate with the `external-snapshot-metadata` sidecar to expose the snapshot metadata service.
+
+4. **Register custom resource**: Create and maintain a `SnapshotMetadataService` custom resource that advertises the availability of their metadata service and provides connection details.
+
+5. **Support error handling**: Implement proper error handling for these RPCs according to the CSI specification requirements.
+
+### Backup vendor responsibilities
+
+Backup vendors looking to leverage this feature must:
+
+1. **Setup authentication**: Configure proper authentication for clients accessing the storage system using Kubernetes ServiceAccount tokens.
+
+2. **Implement streaming client-side code**: Develop clients that implement the streaming gRPC APIs defined in the [schema.proto](https://github.com/kubernetes-csi/external-snapshot-metadata/blob/main/proto/schema.proto) file. Specifically:
+   - Implement streaming client code for `GetMetadataAllocated` and `GetMetadataDelta` methods
+   - Handle server-side streaming responses efficiently as the metadata comes in chunks
+   - Process the `SnapshotMetadataResponse` message format with proper error handling
+
+3. **Handle large dataset streaming**: Design clients to efficiently handle large streams of block metadata that could be returned for volumes with significant changes.
+
+4. **Optimize backup processes**: Modify backup workflows to use the changed block metadata to identify and only transfer changed blocks to make backups more efficient, reducing both backup duration and resource consumption.
+
+
 ## Getting started
 
 To use changed block tracking in your cluster:
