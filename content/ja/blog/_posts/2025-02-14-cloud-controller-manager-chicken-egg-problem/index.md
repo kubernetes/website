@@ -32,7 +32,7 @@ kube-controller-managerやkubeletに従来存在していた機能の一部を�
 cloud controller managerの中でも最も重要な機能のひとつがノードコントローラーで、ノードの初期化を担当しています。
 
 以下の図に示すように、**kubelet**が起動すると、NodeオブジェクトをAPIサーバーに登録し、そのノードにTaintを付与することで、最初にcloud-controller-managerによって処理されるようにします。
-初期状態のNodeには、ノードアドレスや、ノード・リージョン・インスタンスタイプなどのクラウドプロバイダー固有の情報を含むラベルといった、クラウドプロバイダー固有の情報が欠けています。
+初期状態のNodeには、ノードアドレスや、ノード、リージョン、インスタンスタイプなどのクラウドプロバイダー固有の情報を含むラベルといった、クラウドプロバイダー固有の情報が欠けています。
 
 {{< figure
     src="ccm-chicken-egg-problem-sequence-diagram.svg"
@@ -42,30 +42,32 @@ cloud controller managerの中でも最も重要な機能のひとつがノー�
 >}}
 
 この新しい初期化プロセスにより、ノードが準備完了となるまでに若干の遅延が発生します。
-従来は、kubele がノードを作成する際、同時にノードの初期化を行うことも可能でした。
+従来は、kubeletがノードを作成する際、同時にノードの初期化を行うことも可能でした。
 しかし、その処理がcloud-controller-managerに移行されたことで、クラスターのブートストラップ時に[鶏が先か卵が先かの問題][chicken-and-egg]が発生する可能性があります。
 これは、cloud-controller-managerを他のコントロールプレーンコンポーネントと同様にデプロイしていないKubernetesアーキテクチャ(たとえば、static Pod、スタンドアロンバイナリ、またはTaintを許容し`hostNetwork`を使用するDaemonSetやDeploymentなど)において特に問題となります(この点については後述します)。
 
 ## 依存関係の問題の具体例
+
 前述のとおり、ブートストラップ時にcloud-controller-managerがスケジューリング不可となり、クラスターが正常に初期化されない可能性があります。
 以下に、この問題がどのように表面化するか、またその原因となり得る根本的な要因の具体例を示します。
 
 これらの例では、cloud-controller-managerをKubernetesリソース(たとえば、DeploymentやDaemonSetなど)として実行し、そのライフサイクルを管理していることを前提としています。
 これらの方法では、cloud-controller-managerのスケジューリングがKubernetesに依存するため、確実にスケジューリングされるように注意が必要です。
 
-### 例： 未初期化のTaintによりcloud-controller-managerがスケジューリングされない
+### 例: 未初期化のTaintによりcloud-controller-managerがスケジューリングされない
 
 [Kubernetesのドキュメントに記載][kubedocs0]されているとおり、`--cloud-provider=external`フラグを付けてkubeletを起動した場合、対応する`Node`オブジェクトには`node.cloudprovider.kubernetes.io/uninitialized`というNo Schedule Taintが追加されます。
 そのNo Schedule Taintを除去するのはcloud-controller-managerの責任であるため、cloud-controller-managerを`Deployment`や`DaemonSet`などのKubernetesリソースで管理している場合、cloud-controller-manager自身がスケジューリングできないという状況が発生する可能性があります。
 
 コントロールプレーンの初期化中にcloud-controller-managerがスケジューリングできないと、結果として作成されるすべての`Node`オブジェクトに`node.cloudprovider.kubernetes.io/uninitialized`というNo Schedule Taintが付与されたままとなります。
-また、このテイントの削除はcloud-controller-managerの責務であるため、cloud-controller-managerが実行されなければテイントは削除されません。
+また、このTaintの削除はcloud-controller-managerの責務であるため、cloud-controller-managerが実行されなければTaintは削除されません。
 このNo Schedule Taintが除去されないと、コンテナネットワークインターフェースのコントローラーなどの重要なワークロードがスケジューリングされず、クラスターは正常な状態になりません。
 
-### 例： Not-Ready Taintによりcloud-controller-managerがスケジューリングされない
-次の例は、コンテナネットワークインターフェース(CNI)がcloud-controller-manager(CCM)からのIPアドレス情報を待っており、かつCCMがCNIによって除去されるはずのTaintを許容していない状況で発生する可能性があります。
+### 例: Not-Ready Taintによりcloud-controller-managerがスケジューリングされない
 
-[Kubernetesのドキュメント][kubedocs1]では、`node.kubernetes.io/not-ready`Taintについて次のように説明されています。
+次の例は、コンテナネットワークインターフェース(CNI)がcloud-controller-manager(CCM)からのIPアドレス情報を待ち受けており、かつCCMがCNIによって除去されるはずのTaintを許容していない状況で発生する可能性があります。
+
+[Kubernetesのドキュメント][kubedocs1]では、`node.kubernetes.io/not-ready` Taintについて次のように説明されています。
 
 > 「Nodeコントローラーは、ノードの正常性を監視することでその状態を判断し、それに応じてこのTaintを追加または削除します。」
 
@@ -73,7 +75,7 @@ cloud controller managerの中でも最も重要な機能のひとつがノー�
 cloud-controller-managerはNodeリソースにIPアドレスを追加する責任があり、コンテナネットワークコントローラーはコンテナネットワークを適切に構成するためにIPアドレスを必要とします。
 したがって、場合によってはノードがNot Readyのまま初期化されず、恒久的にその状態にとどまることがあります。
 
-この状況は最初の例と同様の理由で発生しますが、この場合は`node.kubernetes.io/not-ready`Taintがno executeエフェクトとともに使用されているため、cloud-controller-managerはこのTaintが付与されたノード上で実行されません。
+この状況は最初の例と同様の理由で発生しますが、この場合は`node.kubernetes.io/not-ready` Taintがno executeの効果とともに使用されているため、cloud-controller-managerはこのTaintが付与されたノード上で実行されません。
 cloud-controller-managerが実行できない場合、ノードは初期化されません。
 これはコンテナネットワークコントローラーが正常に動作できないことへと連鎖し、ノードは`node.cloudprovider.kubernetes.io/uninitialized`と`node.kubernetes.io/not-ready`の両方のTaintを保持することになり、クラスターは正常な状態ではなくなります。
 
@@ -87,9 +89,9 @@ cloud-controller-managerが管理対象と同じクラスター内で実行さ�
 
 1. Podネットワークではなく、ホストネットワークモードを使用してください。多くの場合、cloud-controller-managerはインフラストラクチャに関連付けられたAPIサービスエンドポイントと通信する必要があります。"hostNetwork"をtrueに設定することで、cloud-controllerはコンテナネットワークではなくホストのネットワークを使用するようになり、ホストオペレーティングシステムと同じネットワークアクセスを持つことが保証されます。また、ネットワークプラグインへの依存もなくなります。これにより、cloud-controllerがインフラストラクチャのエンドポイントへアクセスできるようになります(ネットワーク構成がインフラストラクチャプロバイダーの指示と一致しているか必ず確認してください)。
 2. スケーラブルなリソースタイプを使用してください。`Deployment`や`DaemonSet`は、cloud-controllerのライフサイクルを管理するのに有用です。これらを使用することで、冗長性のために複数のインスタンスを実行したり、Kubernetesのスケジューリング機能によってクラスター内で適切に配置したりすることが容易になります。これらのプリミティブを使ってcloud-controllerのライフサイクルを管理し、複数のレプリカを実行する場合は、リーダー選出を有効にすることを忘れないでください。そうしないと、各コントローラーが互いに干渉し、クラスター内のノードが初期化されない可能性があります。
-3. controller managerのコンテナをコントロールプレーンに配置してください。他のコントローラー(たとえばAzureのnode manager controllerなど)がコントロールプレーン外で実行される必要がある場合もありますが、controller manager自体はコントロールプレーンにデプロイするべきです。cloud-controllerをコントロールプレーン上で実行するように、nodeSelectorやaffinit スタンザを使用してスケジューリングを制御してください。これにより、cloud-controllerを保護された領域で実行できるようになります。cloud-controllerはKubernetesと物理インフラストラクチャとの間の接続を担い、クラスターへのノードの追加・削除に不可欠です。これらをコントロールプレーン上で実行することで、他のコアのクラスターコントローラーと同等の優先度で実行され、非特権ユーザーのワークロードとは分離されることが確保されます。
+3. controller managerのコンテナをコントロールプレーンに配置してください。他のコントローラー(たとえばAzureのnode manager controllerなど)がコントロールプレーン外で実行される必要がある場合もありますが、controller manager自体はコントロールプレーンにデプロイするべきです。cloud-controllerをコントロールプレーン上で実行するように、nodeSelectorやaffinityスタンザを使用してスケジューリングを制御してください。これにより、cloud-controllerを保護された領域で実行できるようになります。cloud-controllerはKubernetesと物理インフラストラクチャとの間の接続を担い、クラスターへのノードの追加・削除に不可欠です。これらをコントロールプレーン上で実行することで、他のコアのクラスターコントローラーと同等の優先度で実行され、非特権ユーザーのワークロードとは分離されることが確保されます。
     1. cloud-controllerが同一のホスト上で実行されないようにするためのanti-affinityスタンザも、単一ノードの障害によってcloud-controllerのパフォーマンスが低下するのを防ぐうえで非常に有用であることは注目に値します。
-4. 運用が可能となるように、適切なTolerationを設定してください。cloud-controllerコンテナのマニフェストには、適切なノードにスケジューリングされるよう、またノードが初期化中であっても実行できるようにするためのTolerationを記述する必要があります。これは、cloud-controllerが`node.cloudprovider.kubernetes.io/uninitialized`Taintを許容すべきであることを意味します。また、コントロールプレーンに関連付けられたTaint(たとえば`node-role.kubernetes.io/control-plane`や`node-role.kubernetes.io/master`)も許容すべきです。さらに、ノードがまだ正常性監視に対応していない状態でもcloud-controllerが実行できるよう、`node.kubernetes.io/not-ready`Taintを許容することも有用です。
+4. 運用が可能となるように、適切なTolerationを設定してください。cloud-controllerコンテナのマニフェストには、適切なノードにスケジューリングされるよう、またノードが初期化中であっても実行できるようにするためのTolerationを記述する必要があります。これは、cloud-controllerが`node.cloudprovider.kubernetes.io/uninitialized` Taintを許容すべきであることを意味します。また、コントロールプレーンに関連付けられたTaint(たとえば`node-role.kubernetes.io/control-plane`や`node-role.kubernetes.io/master`)も許容すべきです。さらに、ノードがまだ正常性監視の利用ができない状態でもcloud-controllerが実行できるよう、`node.kubernetes.io/not-ready` Taintを許容することも有用です。
 
 cloud-controller-managerを、管理対象のクラスター上ではなく、別のクラスター(たとえば、ホスト型コントロールプレーンを用いた構成)で実行する場合、その運用はcloud-controller-managerを実行しているクラスターの環境に依存するため、より厳しい制約を受けることになります。
 自己管理型クラスター上での運用に関する推奨事項は、競合の種類やネットワーク制約が異なるため、適切でない場合があります。
