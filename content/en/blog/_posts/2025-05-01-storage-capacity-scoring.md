@@ -1,9 +1,8 @@
 ---
 layout: blog
-title: "Kubernetes 1.33: Storage Capacity Scoring of Nodes for Dynamic Provisioning (alpha)"
-date: 2025-04-23
-draft: true
-slug: kubernetes-1-33-storage-capacity-scoring-feature
+title: "Kubernetes v1.33: Storage Capacity Scoring of Nodes for Dynamic Provisioning (alpha)"
+date: 2025-05-01T10:30:00-08:00
+slug: kubernetes-v1-33-storage-capacity-scoring-feature
 author: >
   Yuma Ogami (Cybozu)
 ---

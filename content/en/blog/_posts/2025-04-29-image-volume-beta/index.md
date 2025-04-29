@@ -1,9 +1,8 @@
 ---
 layout: blog
 title: "Kubernetes v1.33: Image Volumes graduate to beta!"
-date: 2025-05-01
-draft: true
-slug: kubernetes-1-33-image-volume-beta
+date: 2025-04-29T10:30:00-08:00
+slug: kubernetes-v1-33-image-volume-beta
 author: Sascha Grunert (Red Hat)
 ---
 

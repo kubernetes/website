@@ -1,9 +1,8 @@
 ---
 layout: blog
-title: "Streaming List responses for K8s 1.33"
-date: YYYY-MM-DD
-draft: true
-slug: streaming-list-responses
+title: "Kubernetes v1.33: Streaming List responses for K8s 1.33"
+date: 2025-05-09
+slug: kubernetes-v1-33-streaming-list-responses
 author: >
   Marek Siarkowicz (Google),
   Wei Fu (Microsoft)
