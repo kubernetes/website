@@ -50,5 +50,4 @@ To validate results Kubernetes has introduced a new **list** benchmark which exe
 
 The benchmark has showed 20x improvement, reducing memory usage from 70-80GB to 3GB.  
 
-{{< figure src="/images/blog/2025-05-09-streaming-list-responses/results.png" alt="Screenshot of a K8s performance dashboard showing memory usage for benchmark list going down from 60GB to 3GB" title="List benchmark memory usage" >}}
-![alt_text](results.png)
+{{< figure src="results.png" alt="Screenshot of a K8s performance dashboard showing memory usage for benchmark list going down from 60GB to 3GB" title="List benchmark memory usage" >}}
