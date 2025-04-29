@@ -54,7 +54,7 @@ Lihat juga [Mengoperasikan klaster etcd untuk Kubernetes](/docs/tasks/administer
 
 ## Resource tambahan
 
-[Batas sumber daya](/docs/concepts/configuration/manage-resources-containers/) Kubernetes membantu untuk meminimalisasi dampak dari kebocoran memori dan hal lainnya yang dapat membuat pods dan *kontainer* memberikan dampak terhadap komponen lainnya. Batasan sumber daya ini berlaku untuk sumber daya *{{< glossary_tooltip text="addon" term_id="addons" >}}* layaknya berlaku untuk *workload* aplikasi.
+[Batas sumber daya](/docs/concepts/configuration/manage-resources-containers/) Kubernetes membantu untuk meminimalisasi dampak dari kebocoran memori dan hal lainnya yang dapat membuat pods dan kontainer memberikan dampak terhadap komponen lainnya. Batasan sumber daya ini berlaku untuk sumber daya *{{< glossary_tooltip text="addon" term_id="addons" >}}* layaknya berlaku untuk *workload* aplikasi.
 
 Sebagai contoh, kamu dapat mengatur batas CPU dan memori untuk komponen *logging* berikut ini:
 
