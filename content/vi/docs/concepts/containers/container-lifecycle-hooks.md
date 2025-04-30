@@ -54,6 +54,12 @@ Tài nguyên được sử dụng bởi lệnh được tính vào Container.
 beta-level, được tự động bật bởi `PodLifecycleSleepAction`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
+{{< note >}}
+Tính năng beta `PodLifecycleSleepActionAllowZero` được bật mặc định từ bản v1.33.
+Tính năng này cho phép bạn thiết lập thời gian sleep là 0 giây (hay không thực hiện hành động
+nào) cho các hooks Sleep lifecycle của bạn.
+{{< /note >}}
+
 ### Thực thi hook handler (Hook handler execution)
 
 Khi một hook quản lý Container lifecycle được gọi,
