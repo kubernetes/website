@@ -144,7 +144,7 @@ At the moment, the VPA can operate in four different modes:
 {{< table caption="Different modes of the VPA" >}}
 Mode | Description
 :----|:-----------
-`Auto` | Currently, `Recreate` might change to in-place updates in the future
+`Auto` | Currently `Recreate`. This might change to in-place updates in the future.
 `Recreate` | The VPA assigns resource requests on pod creation as well as updates them on existing pods by evicting them when the requested resources differ significantly from the new recommendation
 `Initial` | The VPA only assigns resource requests on pod creation and never changes them later.
 `Off` | The VPA does not automatically change the resource requirements of the pods. The recommendations are calculated and can be inspected in the VPA object.
@@ -153,28 +153,26 @@ Mode | Description
 {{< table caption="VPA 的不同模式" >}}
 模式 | 描述
 :----|:-----------
-`Auto` | 目前是 `Recreate`，将来可能改为就地更新
+`Auto` | 目前是 `Recreate`，未来可能会变更为就地更新（in-place updates）
 `Recreate` | VPA 会在创建 Pod 时分配资源请求，并且当请求的资源与新的建议值区别很大时通过驱逐 Pod 的方式来更新现存的 Pod
 `Initial` | VPA 只有在创建时分配资源请求，之后不做更改
 `Off` | VPA 不会自动更改 Pod 的资源需求，建议值仍会计算并可在 VPA 对象中查看
 {{< /table >}}
 
 <!--
-#### Requirements for in-place resizing
+#### In-place pod vertical scaling
 -->
-#### 就地调整的要求
+#### 就地 Pod 垂直扩缩容   {#in-place-pod-vertical-scaling}
 
 {{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
 <!--
-Resizing a workload in-place **without** restarting the {{< glossary_tooltip text="Pods" term_id="pod" >}}
-or its {{< glossary_tooltip text="Containers" term_id="container" >}} requires Kubernetes version 1.27 or later.
-Additionally, the `InPlaceVerticalScaling` feature gate needs to be enabled.
+As of Kubernetes {{< skew currentVersion >}}, VPA does not support resizing pods in-place,
+but this integration is being worked on.
+For manually resizing pods in-place, see [Resize Container Resources In-Place](/docs/tasks/configure-pod-container/resize-container-resources/).
 -->
-在**不**重启 {{< glossary_tooltip text="Pod" term_id="pod" >}} 或其中{{< glossary_tooltip text="容器" term_id="container" >}}就地调整工作负载的情况下要求 Kubernetes 版本大于 1.27。
-此外，特性门控 `InPlaceVerticalScaling` 需要开启。
-
-{{< feature-gate-description name="InPlacePodVerticalScaling" >}}
+截至 Kubernetes {{< skew currentVersion >}}，VPA（垂直 Pod 自动伸缩）尚不支持就地调整 Pod 大小，但该集成正在开发中。
+如需手动进行就地扩缩容，请参阅 [就地调整容器资源](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)。
 
 <!--
 ### Autoscaling based on cluster size
@@ -196,7 +194,7 @@ own project on GitHub.
 The Cluster Proportional Autoscaler watches the number of schedulable {{< glossary_tooltip text="nodes" term_id="node" >}}
 and cores and scales the number of replicas of the target workload accordingly.
 -->
-集群弹性伸缩器 (Cluster Proportional Autoscaler) 会观测可调度 {{< glossary_tooltip text="节点" term_id="node" >}} 和 内核数量，
+集群弹性伸缩器 (Cluster Proportional Autoscaler)会观测可调度 {{< glossary_tooltip text="节点" term_id="node" >}}和处理器核数量，
 并调整目标工作负载的副本数量。
 
 <!--
@@ -204,16 +202,19 @@ If the number of replicas should stay the same, you can scale your workloads ver
 the [_Cluster Proportional Vertical Autoscaler_](https://github.com/kubernetes-sigs/cluster-proportional-vertical-autoscaler).
 The project is **currently in beta** and can be found on GitHub.
 -->
-如果副本的数量需要保持一致，你可以使用 [Cluster Proportional Vertical Autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-vertical-autoscaler) 来根据集群规模进行垂直扩缩。
+如果副本的数量需要保持一致，
+你可以使用 [Cluster Proportional Vertical Autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-vertical-autoscaler)
+来根据集群规模进行垂直扩缩。
 这个项目目前处于 **beta** 阶段，你可以在 GitHub 上找到它。
 
 <!--
-While the Cluster Proportional Autoscaler scales the number of replicas of a workload, the Cluster Proportional Vertical Autoscaler
-adjusts the resource requests for a workload (for example a Deployment or DaemonSet) based on the number of nodes and/or cores
-in the cluster.
+While the Cluster Proportional Autoscaler scales the number of replicas of a workload,
+the Cluster Proportional Vertical Autoscaler adjusts the resource requests for a workload
+(for example a Deployment or DaemonSet) based on the number of nodes and/or cores in the cluster.
 -->
-集群弹性伸缩器会扩缩工作负载的副本数量，垂直集群弹性伸缩器 (Cluster Proportional Vertical Autoscaler) 会根据节点和/或核心的数量
-调整工作负载的资源请求（例如 Deployment 和 DaemonSet）。
+集群弹性伸缩器 (Cluster Proportional Autoscaler) 通过调整工作负载副本数量实现扩缩容，
+而垂直集群弹性伸缩器 (Cluster Proportional Vertical Autoscaler) 则根据集群中的节点数和 / 或 CPU 核心数，
+调整工作负载（例如 Deployment 或 DaemonSet）的资源请求值。
 
 <!--
 ### Event driven Autoscaling
@@ -248,11 +249,12 @@ reduce resource consumption during off-peak hours.
 
 <!--
 Similar to event driven autoscaling, such behavior can be achieved using KEDA in conjunction with
-its [`Cron` scaler](https://keda.sh/docs/latest/scalers/cron/). The `Cron` scaler allows you to define schedules
-(and time zones) for scaling your workloads in or out.
+its [`Cron` scaler](https://keda.sh/docs/latest/scalers/cron/).
+The `Cron` scaler allows you to define schedules (and time zones) for scaling your workloads in or out.
 -->
-与事件驱动型自动扩缩相似，这种行为可以使用 KEDA 和 [`Cron` scaler](https://keda.sh/docs/latest/scalers/cron/) 实现。
-你可以在计划扩缩器 (Cron scaler) 中定义计划来实现工作负载的横向扩缩。
+与事件驱动自动扩缩容类似，
+这种行为可以使用 KEDA 和 [`Cron` scaler](https://keda.sh/docs/latest/scalers/cron/) 实现。
+`Cron` 扩缩器允许你根据预设的时间表（以及时区）对工作负载进行扩容或缩容。
 
 <!--
 ## Scaling cluster infrastructure
