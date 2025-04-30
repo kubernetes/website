@@ -1,7 +1,7 @@
 ---
 layout: blog
-title: "Kubernetes v1.33: Streaming List responses for K8s 1.33"
-date: 2025-05-09
+title: "Kubernetes v1.33: Streaming List responses"
+date: 2025-05-09T10:30:00-08:00
 slug: kubernetes-v1-33-streaming-list-responses
 author: >
   Marek Siarkowicz (Google),
@@ -50,5 +50,4 @@ To validate results Kubernetes has introduced a new **list** benchmark which exe
 
 The benchmark has showed 20x improvement, reducing memory usage from 70-80GB to 3GB.  
 
-{{< figure src="/images/blog/YYYY-MM-DD-streaming-list-responses/results.png" alt="Screenshot of a K8s performance dashboard showing memory usage for benchmark list going down from 60GB to 3GB" title="List benchmark memory usage" >}}
-![alt_text](results.png)
+{{< figure src="results.png" alt="Screenshot of a K8s performance dashboard showing memory usage for benchmark list going down from 60GB to 3GB" caption="List benchmark memory usage" >}}
