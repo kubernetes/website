@@ -19,4 +19,4 @@ Có hai loại affinity:
 
 Các quy tắc được định nghĩa bằng cách sử dụng {{< glossary_tooltip term_id="label" text="labels">}} của Kubernetes,
 và {{< glossary_tooltip term_id="selector" text="selectors">}} được chỉ định trong {{< glossary_tooltip term_id="pod" text="pods" >}},
-và chúng có thể là bắt buộc hoặc ưu tiên, tùy thuộc vào mức độ nghiêm ngặt bạn muốn scheduler thực thi chúng.
+và chúng có thể là bắt buộc hoặc khuyến nghị, tùy thuộc vào mức độ nghiêm ngặt bạn muốn scheduler thực thi chúng.
