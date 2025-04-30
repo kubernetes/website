@@ -18,7 +18,7 @@ Kubernetes 1.33にてEndpoints APIは正式に非推奨となり、Endpointsリ�
 最終的には、「ServiceとPodに基づいてEndpointsオブジェクトを生成する _Endpointsコントローラー_ がクラスタ内で実行されている」という基準を[Kubernetes Conformance]から除外することが[KEP-4974]にて計画されています。
 これの実現によって、Kubernetes Conformance Softwareの運用者は、現代的なほとんどのクラスタにおいて不要な作業を回避することができます。
 
-[Kubernetes非推奨ポリシー]に従うと、Endpointsが完全に廃止されることはおそらくないですが、Endpoints APIを使うワークロードやスクリプトを保有しているユーザーはEndpointSliceへの移行を推奨します。
+[Kubernetes非推奨ポリシー]に従うと、Endpointsが完全に廃止されることはおそらく無いですが、Endpoints APIを使うワークロードやスクリプトを保有しているユーザーはEndpointSliceへ移行が推奨されます。
 
 [EndpointSlice]: /blog/2020/09/02/scaling-kubernetes-networking-with-endpointslices/
 [KEP-752]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/0752-endpointslices/README.md
@@ -32,7 +32,7 @@ Kubernetes 1.33にてEndpoints APIは正式に非推奨となり、Endpointsリ�
 
 ### EndpointSliceを利用する
 
-エンドユーザーにとって、Endpoints APIとEndpointSlice APIの最大の違いは、`selector`を持つ全てのServiceは自身と同じ名前のEndpointsオブジェクトを必ず1つずつ持つのに対し、1つのServiceに紐づけられるEndpointSliceは複数存在する可能性がある、という点です。
+エンドユーザーにとって、Endpoints APIとEndpointSlice APIの最大の違いは、`selector`を持つ全てのServiceが自身と同じ名前のEndpointsオブジェクトを必ず1つずつ持つのに対し、1つのServiceに紐づけられるEndpointSliceは複数存在する可能性がある、という点です。
 
 ```console
 $ kubectl get endpoints myservice
@@ -46,10 +46,10 @@ myservice-7vzhx   IPv4          443     10.180.3.17        21s
 myservice-jcv8s   IPv6          443     2001:db8:0123::5   21s
 ```
 
-この場合、Serviceがデュアルスタックであるため、IPv4アドレス用とIPv6アドレス用、2つのEndpointSliceが存在します。
-(Endpoints APIはデュアルスタックをサポートしていないため、Endpointsオブジェクトにはクラスタのデフォルトアドレスファミリーのアドレスのみが表示されます。)
+この場合、Serviceがデュアルスタックであるため、EndpointSliceがIPv4アドレス用とIPv6アドレス用の2つ存在します。
+(Endpoints APIはデュアルスタックをサポートしていないため、Endpointsオブジェクトにはクラスタのデフォルトアドレスファミリーのアドレスのみが表示されています。)
 
-複数のEndpointSliceを持つ _可能性_ は、複数のエンドポイントが存在するあらゆるServiceにありますが、代表的なケースは3つ存在します。
+複数のEndpointSliceを持つ _可能性_ は、複数のエンドポイントが存在するあらゆるServiceにありますが、代表的なケースが3つ存在します。
 
 - EndpointSliceは単一のIPファミリーのエンドポイントしか表現できないため、デュアルスタックServiceの場合、IPv4用とIPv6用のEndpointSliceがそれぞれ作成されます。
 
