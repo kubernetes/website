@@ -286,7 +286,7 @@ workloads running in a shared cluster. Running workloads in a sandbox environmen
 insulate the host from container escapes, where an attacker exploits a vulnerability to gain
 access to the host system and all the processes/files running on that host.
 
-Virtual machines and userspace kernels are 2 popular approaches to sandboxing. The following
+Virtual machines and userspace kernels are two popular approaches to sandboxing. The following
 sandboxing implementations are available:
 
 * [gVisor](https://gvisor.dev/) intercepts syscalls from containers and runs them through a
@@ -451,19 +451,20 @@ customize policies to individual workloads, and secondly, it may be challenging 
 single level of "tenancy" that should be given a namespace. For example, an organization may have
 divisions, teams, and subteams - which should be assigned a namespace?
 
-To solve this, Kubernetes provides the [Hierarchical Namespace Controller (HNC)](https://github.com/kubernetes-sigs/hierarchical-namespaces),
-which allows you to organize your namespaces into hierarchies, and share certain policies and
-resources between them. It also helps you manage namespace labels, namespace lifecycles, and
-delegated management, and share resource quotas across related namespaces. These capabilities can
+One possible approach is to organize your namespaces into hierarchies, and share certain policies and
+resources between them. This could include managing namespace labels, namespace lifecycles,
+delegated access, and shared resource quotas across related namespaces. These capabilities can
 be useful in both multi-team and multi-customer scenarios.
 
-Other projects that provide similar capabilities and aid in managing namespaced resources are
+Some third-party projects that provide capabilities like this and aid in managing namespaced resources are
 listed below.
+
+{{% thirdparty-content %}}
 
 #### Multi-team tenancy
 
 * [Capsule](https://github.com/clastix/capsule)
-* [Kiosk](https://github.com/loft-sh/kiosk)
+* [Multi Tenant Operator](https://docs.stakater.com/mto/)
 
 #### Multi-customer tenancy
 

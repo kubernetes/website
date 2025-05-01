@@ -36,13 +36,14 @@ This document shares how to extend the existing Service IP range assigned to a c
 
 <!--
 Kubernetes clusters with kube-apiservers that have enabled the `MultiCIDRServiceAllocator`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and the `networking.k8s.io/v1alpha1` API,
-will create a new ServiceCIDR object that takes the well-known name `kubernetes`, and that uses an IP address range
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and have the
+`networking.k8s.io/v1beta1` API group active, will create a ServiceCIDR object that takes
+the well-known name `kubernetes`, and that specifies an IP address range
 based on the value of the `--service-cluster-ip-range` command line argument to kube-apiserver.
 -->
 如果 Kubernetes 集群的 kube-apiserver 启用了 `MultiCIDRServiceAllocator`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)和
-`networking.k8s.io/v1alpha1` API，集群将创建一个新的 ServiceCIDR 对象，
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)且激活了
+`networking.k8s.io/v1beta1` API 组，集群将创建一个新的 ServiceCIDR 对象，
 该对象采用 `kubernetes` 这个众所周知的名称并基于 kube-apiserver 的 `--service-cluster-ip-range`
 命令行参数的值来使用 IP 地址范围。
 
@@ -87,9 +88,9 @@ NAME        PARENTREF
 ```
 
 <!--
-The ServiceCIDRs are protected with {{<glossary_tooltip text="finalizers" term_id="finalizer">}}, to avoid leaving Service ClusterIPs orphans;
-the finalizer is only removed if there is another subnet that contains the existing IPAddresses or
-there are no IPAddresses belonging to the subnet.
+The ServiceCIDRs are protected with {{<glossary_tooltip text="finalizers" term_id="finalizer">}},
+to avoid leaving Service ClusterIPs orphans; the finalizer is only removed if there is another subnet
+that contains the existing IPAddresses or there are no IPAddresses belonging to the subnet.
 -->
 ServiceCIDR 受到 {{<glossary_tooltip text="终结器" term_id="finalizer">}} 的保护，
 以避免留下孤立的 Service ClusterIP；只有在存在包含现有 IPAddress 的另一个子网或者没有属于此子网的
@@ -98,7 +99,9 @@ IPAddress 时，才会移除终结器。
 <!--
 ## Extend the number of available IPs for Services
 
-There are cases that users will need to increase the number addresses available to Services, previously, increasing the Service range was a disruptive operation that could also cause data loss. With this new feature users only need to add a new ServiceCIDR to increase the number of available addresses.
+There are cases that users will need to increase the number addresses available to Services,
+previously, increasing the Service range was a disruptive operation that could also cause data loss.
+With this new feature users only need to add a new ServiceCIDR to increase the number of available addresses.
 -->
 ## 扩展 Service 可用的 IP 数量   {#extend-the-number-of-available-ips-for-services}
 
@@ -109,7 +112,9 @@ There are cases that users will need to increase the number addresses available 
 <!--
 ### Adding a new ServiceCIDR
 
-On a cluster with a 10.96.0.0/28 range for Services, there is only 2^(32-28) - 2 = 14 IP addresses available. The `kubernetes.default` Service is always created; for this example, that leaves you with only 13 possible Services.
+On a cluster with a 10.96.0.0/28 range for Services, there is only 2^(32-28) - 2 = 14
+IP addresses available. The `kubernetes.default` Service is always created; for this example,
+that leaves you with only 13 possible Services.
 -->
 ### 添加新的 ServiceCIDR   {#adding-a-new-servicecidr}
 
@@ -144,7 +149,7 @@ that extends or adds new IP address ranges.
 
 ```sh
 cat <EOF | kubectl apply -f -
-apiVersion: networking.k8s.io/v1alpha1
+apiVersion: networking.k8s.io/v1beta1
 kind: ServiceCIDR
 metadata:
   name: newcidr1
@@ -201,7 +206,7 @@ kubectl get servicecidr newcidr1 -o yaml
 ```
 
 ```yaml
-apiVersion: networking.k8s.io/v1alpha1
+apiVersion: networking.k8s.io/v1beta1
 kind: ServiceCIDR
 metadata:
   creationTimestamp: "2023-10-12T15:11:07Z"

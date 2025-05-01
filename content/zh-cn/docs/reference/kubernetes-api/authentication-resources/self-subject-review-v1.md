@@ -87,8 +87,12 @@ SelfSubjectReviewStatus 由 kube-apiserver 进行填充并发送回用户。
   - **userInfo.groups** ([]string)
 
     <!--
+    *Atomic: will be replaced during a merge*
+    
     The names of groups this user is a part of.
     -->
+    
+    **原子性：合并期间将被替换**
 
     此用户所属的用户组的名称。
 

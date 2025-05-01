@@ -139,7 +139,8 @@ PodSecurity 执行中违反的特定策略及对应字段。
 
 Example: `authorization.k8s.io/decision: "forbid"`
 
-This annotation indicates whether or not a request was authorized in Kubernetes audit logs.
+Value must be **forbid** or **allow**. This annotation indicates whether or not a request
+was authorized in Kubernetes audit logs.
 
 See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
 -->
@@ -147,6 +148,7 @@ See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
 
 例子：`authorization.k8s.io/decision: "forbid"`
 
+值必须是 **forbid** 或者 **allow**。
 此注解在 Kubernetes 审计日志中表示请求是否获得授权。
 
 有关详细信息，请参阅[审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/)。

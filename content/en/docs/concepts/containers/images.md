@@ -214,7 +214,7 @@ behalf of the two different Pods, when parallel image pulls is enabled.
 
 ### Maximum parallel image pulls
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.32" state="beta" >}}
 
 When `serializeImagePulls` is set to false, the kubelet defaults to no limit on the
 maximum number of images being pulled at the same time. If you would like to
@@ -261,7 +261,7 @@ Credentials can be provided in several ways:
   - all pods can use any images cached on a node
   - requires root access to all nodes to set up
 - Specifying ImagePullSecrets on a Pod
-  - only pods which provide own keys can access the private registry
+  - only pods which provide their own keys can access the private registry
 - Vendor-specific or local extensions
   - if you're using a custom node configuration, you (or your cloud
     provider) can implement your mechanism for authenticating the node
@@ -367,7 +367,10 @@ you must ensure all nodes in the cluster have the same pre-pulled images.
 This can be used to preload certain images for speed or as an alternative to authenticating to a
 private registry.
 
-All pods will have read access to any pre-pulled images.
+{{< note >}}
+{{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
+Access to pre-pulled images may be authorized according to [image pull credential verification](#ensureimagepullcredentialverification)
+{{< /note >}}
 
 ### Specifying imagePullSecrets on a Pod
 
@@ -379,6 +382,43 @@ in private registries.
 Kubernetes supports specifying container image registry keys on a Pod.
 `imagePullSecrets` must all be in the same namespace as the Pod. The referenced
 Secrets must be of type `kubernetes.io/dockercfg` or `kubernetes.io/dockerconfigjson`.
+
+#### Ensure Image Pull Credential Verification {#ensureimagepullcredentialverification}
+
+{{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
+
+If the `KubeletEnsureSecretPulledImages` feature gate is enabled, Kubernetes will validate 
+image credentials for every image that requires credentials to be pulled,
+even if that image is already present on the node.
+This validation ensures that images in a pod request which have not been successfully pulled
+with the provided credentials must re-pull the images from the registry.
+Additionally, image pulls that re-use the same credentials
+which previously resulted in a successful image pull will not need to re-pull from the registry
+and are instead validated locally without accessing the registry
+(provided the image is available locally).
+This is controlled by the`imagePullCredentialsVerificationPolicy` field in the
+[Kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1#ImagePullCredentialsVerificationPolicy).
+
+This configuration controls when image pull credentials must be verified if the
+image is already present on the node:
+
+ * `NeverVerify`: Mimics the behavior of having this feature gate disabled.
+   If the image is present locally, image pull credentials are not verified.
+ * `NeverVerifyPreloadedImages`: Images pulled outside the kubelet are not verified,
+ but all other images will have their credentials verified. This is the default behavior.
+ * `NeverVerifyAllowListedImages`: Images pulled outside the kubelet and mentioned within the 
+   `preloadedImagesVerificationAllowlist` specified in the kubelet config are not verified.
+ * `AlwaysVerify`: All images will have their credentials verified
+   before they can be used.
+
+This verification applies to [pre-pulled images](#pre-pulled-images),
+images pulled using node-wide secrets, and images pulled using pod-level secrets.
+
+{{< note >}}
+In the case of credential rotation, the credentials previously used to pull the image
+will continue to verify without the need to access the registry. New or rotated credentials
+will require the image to be re-pulled from the registry.
+{{< /note >}}
 
 #### Creating a Secret with a Docker config
 
@@ -466,7 +506,7 @@ common use cases and suggested solutions.
    - Or, run an internal private registry behind your firewall with open read access.
      - No Kubernetes configuration is required.
    - Use a hosted container image registry service that controls image access
-     - It will work better with cluster autoscaling than manual node configuration.
+     - It will work better with Node autoscaling than manual node configuration.
    - Or, on a cluster where changing the node configuration is inconvenient, use `imagePullSecrets`.
 1. Cluster with proprietary images, a few of which require stricter access control.
    - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)

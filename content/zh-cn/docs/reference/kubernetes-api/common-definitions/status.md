@@ -50,12 +50,16 @@ Status is a return value for calls that don't return other objects.
 - **details** (StatusDetails)
 
   <!--
+  *Atomic: will be replaced during a merge*
+  
   Extended data associated with the reason.  Each reason may define its own extended details. 
   This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
 
   <a name="StatusDetails"></a>
   *StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined.*
   -->
+
+  **原子：将在合并期间被替换**
 
   与原因（Reason）相关的扩展数据。每个原因都可以定义自己的扩展细节。
   此字段是可选的，并且不保证返回的数据符合任何模式，除非由原因类型定义。
@@ -68,12 +72,16 @@ Status is a return value for calls that don't return other objects.
   - **details.causes** ([]StatusCause)
 
     <!--
+    *Atomic: will be replaced during a merge*
+
     The Causes array includes more details associated with the StatusReason failure. 
     Not all StatusReasons may provide detailed causes. 
 
     <a name="StatusCause"></a>
     *StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.*
     -->
+
+    **原子：将在合并期间被替换**
 
     causes 数组包含与 StatusReason 故障相关的更多详细信息。
     并非所有 StatusReasons 都可以提供详细的原因。

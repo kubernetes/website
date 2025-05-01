@@ -43,7 +43,7 @@ The `conditions` field describes the status of all `Running` nodes. Examples of 
 {{< table caption = "Node conditions, and a description of when each condition applies." >}}
 | Node Condition       | Description |
 |----------------------|-------------|
-| `Ready`              | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last `node-monitor-grace-period` (default is 40 seconds) |
+| `Ready`              | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last `node-monitor-grace-period` (default is 50 seconds) |
 | `DiskPressure`       | `True` if pressure exists on the disk size—that is, if the disk capacity is low; otherwise `False` |
 | `MemoryPressure`     | `True` if pressure exists on the node memory—that is, if the node memory is low; otherwise `False` |
 | `PIDPressure`        | `True` if pressure exists on the processes—that is, if there are too many processes on the node; otherwise `False` |
@@ -76,7 +76,7 @@ When problems occur on nodes, the Kubernetes control plane automatically creates
 [taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) that match the conditions
 affecting the node. An example of this is when the `status` of the Ready condition
 remains `Unknown` or `False` for longer than the kube-controller-manager's `NodeMonitorGracePeriod`,
-which defaults to 40 seconds. This will cause either an `node.kubernetes.io/unreachable` taint, for an `Unknown` status,
+which defaults to 50 seconds. This will cause either an `node.kubernetes.io/unreachable` taint, for an `Unknown` status,
 or a `node.kubernetes.io/not-ready` taint, for a `False` status, to be added to the Node.
 
 These taints affect pending pods as the scheduler takes the Node's taints into consideration when

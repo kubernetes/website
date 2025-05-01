@@ -2,7 +2,7 @@
 title: Upgrading Windows nodes
 min-kubernetes-server-version: 1.17
 content_type: task
-weight: 110
+weight: 41
 ---
 
 <!-- overview -->

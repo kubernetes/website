@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it."
 title: "ValidatingWebhookConfiguration"
-weight: 3
+weight: 4
 auto_generated: true
 ---
 
@@ -46,6 +46,8 @@ ValidatingWebhookConfiguration describes the configuration of and admission webh
 
   *Patch strategy: merge on key `name`*
   
+  *Map: unique values on key name will be kept during a merge*
+  
   Webhooks is a list of webhooks and the affected resources and operations.
 
   <a name="ValidatingWebhook"></a>
@@ -53,6 +55,8 @@ ValidatingWebhookConfiguration describes the configuration of and admission webh
 
   - **webhooks.admissionReviewVersions** ([]string), required
 
+    *Atomic: will be replaced during a merge*
+    
     AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
 
   - **webhooks.clientConfig** (WebhookClientConfig), required
@@ -131,8 +135,6 @@ ValidatingWebhookConfiguration describes the configuration of and admission webh
       3. If any matchCondition evaluates to an error (but none are FALSE):
          - If failurePolicy=Fail, reject the request
          - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
-    
-    This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
 
     <a name="MatchCondition"></a>
     *MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.*
@@ -205,6 +207,8 @@ ValidatingWebhookConfiguration describes the configuration of and admission webh
 
   - **webhooks.rules** ([]RuleWithOperations)
 
+    *Atomic: will be replaced during a merge*
+    
     Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
 
     <a name="RuleWithOperations"></a>
@@ -258,19 +262,21 @@ ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
 
 <hr>
 
-- **apiVersion**: admissionregistration.k8s.io/v1
+- **items** ([]<a href="{{< ref "../extend-resources/validating-webhook-configuration-v1#ValidatingWebhookConfiguration" >}}">ValidatingWebhookConfiguration</a>), required
 
+  List of ValidatingWebhookConfiguration.
 
-- **kind**: ValidatingWebhookConfigurationList
+- **apiVersion** (string)
 
+  APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+
+- **kind** (string)
+
+  Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-
-- **items** ([]<a href="{{< ref "../extend-resources/validating-webhook-configuration-v1#ValidatingWebhookConfiguration" >}}">ValidatingWebhookConfiguration</a>), required
-
-  List of ValidatingWebhookConfiguration.
 
 
 
@@ -569,6 +575,11 @@ DELETE /apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/{na
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -622,6 +633,11 @@ DELETE /apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string

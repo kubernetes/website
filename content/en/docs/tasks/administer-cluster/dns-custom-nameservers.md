@@ -26,7 +26,7 @@ Your cluster must be running the CoreDNS add-on.
 ## Introduction
 
 DNS is a built-in Kubernetes service launched automatically
-using the _addon manager_ [cluster add-on](http://releases.k8s.io/master/cluster/addons/README.md).
+using the _addon manager_ [cluster add-on](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md).
 
 {{< note >}}
 The CoreDNS Service is named `kube-dns` in the `metadata.name` field.  

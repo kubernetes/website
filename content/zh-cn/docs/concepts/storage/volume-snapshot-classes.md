@@ -92,6 +92,39 @@ parameters:
 ```
 
 <!--
+If multiple CSI drivers exist, a default VolumeSnapshotClass can be specified
+for each of them.
+-->
+如果存在多个 CSI 驱动程序，可以为每个驱动程序指定一个默认的 VolumeSnapshotClass。
+
+<!--
+### VolumeSnapshotClass dependencies
+
+When you create a VolumeSnapshot without specifying a VolumeSnapshotClass, Kubernetes
+automatically selects a default VolumeSnapshotClass that has a CSI driver matching
+the CSI driver of the PVC’s StorageClass.
+
+This behavior allows multiple default VolumeSnapshotClass objects to coexist in a cluster, as long as
+each one is associated with a unique CSI driver.
+
+Always ensure that there is only one default VolumeSnapshotClass for each CSI driver. If
+multiple default VolumeSnapshotClass objects are created using the same CSI driver,
+a VolumeSnapshot creation will fail because Kubernetes cannot determine which one to use.
+-->
+### VolumeSnapshotClass 依赖关系  {#volumesnapshotclass-dependencies}
+
+当你创建一个 VolumeSnapshot 且未指定 VolumeSnapshotClass 时，
+Kubernetes 会自动选择一个默认的 VolumeSnapshotClass，
+该类与 PVC 的 StorageClass 所使用的 CSI 驱动程序匹配。
+
+这种行为允许多个默认的 VolumeSnapshotClass 对象在集群中共存，
+只要每个默认类都与唯一的 CSI 驱动程序进行关联。
+
+请始终确保每个 CSI 驱动程序只有一个默认的 VolumeSnapshotClass。
+如果使用相同的 CSI 驱动程序创建了多个默认的 VolumeSnapshotClass 对象，
+则创建 VolumeSnapshot 时会失败，因为 Kubernetes 无法确定使用哪个类。
+
+<!--
 ### Driver
 
 Volume snapshot classes have a driver that determines what CSI volume plugin is

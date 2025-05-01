@@ -32,6 +32,8 @@ Debug cluster resources using interactive debugging containers.
   *  Workload: Add an ephemeral container to an already running pod, for example to add debugging utilities without restarting the pod.
   *  Node: Create a new pod that runs in the node's host namespaces and can access the node's filesystem.
 
+ Note: When a non-root user is configured for the entire target Pod, some capabilities granted by debug profile may not work.
+
 ```
 kubectl debug (POD | TYPE[[.VERSION].GROUP]/NAME) [ -- COMMAND [args...] ]
 ```

@@ -19,7 +19,7 @@ Experimental: Wait for a specific condition on one or many resources.
 
  The command takes multiple resources and waits until the specified condition is seen in the Status field of every given resource.
 
- Alternatively, the command can wait for the given set of resources to be deleted by providing the "delete" keyword as the value to the --for flag.
+ Alternatively, the command can wait for the given set of resources to be created or deleted by providing the "create" or "delete" keyword as the value to the --for flag.
 
  A successful message will be printed to stdout indicating when the specified condition has been met. You can use -o option to change to output destination.
 -->
@@ -27,13 +27,12 @@ Experimental: Wait for a specific condition on one or many resources.
 
 - 此命令接受多个资源作为输入，并等待直到在每个给定资源的状态字段中看到所指定的状况。
 
-- 此外，这一命令可以通过提供 "delete" 关键字作为 --for 标志的值来等待给定的一组资源被删除。
+- 或者，这一命令可以通过为 `--for` 标志提供 "create" 或 "delete" 关键字值，来等待给定的一组资源被创建或删除。
 
 - 当指定条件被满足时，命令将向 stdout 打印一条成功消息。你可以使用 -o 选项更改输出目标。
 
-
 ```shell
-kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l label | --all)]) [--for=delete|--for condition=available|--for=jsonpath='{}'[=value]]
+kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l label | --all)]) [--for=create|--for=delete|--for condition=available|--for=jsonpath='{}'[=value]]
 ```
 
 ## {{% heading "examples" %}}
@@ -42,19 +41,23 @@ kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l
 ```
   # Wait for the pod "busybox1" to contain the status condition of type "Ready"
   kubectl wait --for=condition=Ready pod/busybox1
-  
+
   # The default value of status condition is true; you can wait for other targets after an equal delimiter (compared after Unicode simple case folding, which is a more general form of case-insensitivity)
   kubectl wait --for=condition=Ready=false pod/busybox1
-  
+
   # Wait for the pod "busybox1" to contain the status phase to be "Running"
   kubectl wait --for=jsonpath='{.status.phase}'=Running pod/busybox1
-  
+
   # Wait for pod "busybox1" to be Ready
   kubectl wait --for='jsonpath={.status.conditions[?(@.type=="Ready")].status}=True' pod/busybox1
-  
+
   # Wait for the service "loadbalancer" to have ingress
   kubectl wait --for=jsonpath='{.status.loadBalancer.ingress}' service/loadbalancer
-  
+
+  # Wait for the secret "busybox1" to be created, with a timeout of 30s
+  kubectl create secret generic busybox1
+  kubectl wait --for=create secret/busybox1 --timeout=30s
+
   # Wait for the pod "busybox1" to be deleted, with a timeout of 60s, after having issued the "delete" command
   kubectl delete pod/busybox1
   kubectl wait --for=delete pod/busybox1 --timeout=60s
@@ -63,19 +66,23 @@ kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l
 ```shell
 # 等待 Pod "busybox1" 包含 "Ready" 类型的状况值
 kubectl wait --for=condition=Ready pod/busybox1
-  
+
 # 状态状况的默认值为真；可以在等号分隔符后给出其他等待目标（用 Unicode 大小写折叠形式转换之后执行比较，这是更通用的大小写不敏感形式）
 kubectl wait --for=condition=Ready=false pod/busybox1
-  
+
 # 等待 Pod "busybox1" 的状态阶段包含 "Running"
 kubectl wait --for=jsonpath='{.status.phase}'=Running pod/busybox1
-  
+
 # 等待 Pod "busybox1" 状况变为 Ready
 kubectl wait --for='jsonpath={.status.conditions[?(@.type=="Ready")].status}=True' pod/busybox1
 
 # 等待 Service "loadbalancer" 具备入站规则
 kubectl wait --for=jsonpath='{.status.loadBalancer.ingress}' service/loadbalancer
-  
+
+# 等待名为 "busybox1" 的 Secret 被创建，超时时间为 30 秒
+kubectl create secret generic busybox1
+kubectl wait --for=create secret/busybox1 --timeout=30s
+
 # 发出 "delete" 命令后，等待 Pod "busybox1" 被删除，超时时间为 60 秒
 kubectl delete pod/busybox1
 kubectl wait --for=delete pod/busybox1 --timeout=60s
@@ -160,9 +167,9 @@ identifying the resource.
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-The condition to wait on: [delete|condition=condition-name[=condition-value]|jsonpath='{JSONPath expression}'=[JSONPath value]]. The default condition-value is true.  Condition values are compared after Unicode simple case folding, which is a more general form of case-insensitivity.
+The condition to wait on: [create|delete|condition=condition-name[=condition-value]|jsonpath='{JSONPath expression}'=[JSONPath value]]. The default condition-value is true. Condition values are compared after Unicode simple case folding, which is a more general form of case-insensitivity.
 -->
-等待的条件：[delete|condition=condition-name[=condition-value]|jsonpath='{JSONPath expression}'=[JSONPath value]]。
+等待的条件：[create|delete|condition=condition-name[=condition-value]|jsonpath='{JSONPath expression}'=[JSONPath value]]。
 默认的状况值为 true。在执行 Unicode 大小写折叠之后比较条件值，这是更通用的不区分大小写形式。
 </p></td>
 </tr>
@@ -263,7 +270,7 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-The length of time to wait before giving up.  Zero means check once and don't wait, negative means wait for a week.
+The length of time to wait before giving up. Zero means check once and don't wait, negative means wait for a week.
 -->
 放弃前等待的时间长度。0 表示检查一次，不等待，负数表示等待一周。
 </p></td>

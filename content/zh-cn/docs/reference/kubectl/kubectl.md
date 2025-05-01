@@ -519,18 +519,6 @@ When set to false, turns off extra HTTP headers detailing invoked kubectl comman
 </tr>
 
 <tr>
-<td colspan="2">KUBECTL_DEBUG_CUSTOM_PROFILE</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-When set to true, custom flag will be enabled in kubectl debug. This flag is used to customize the pre-defined profiles.
--->
-设置为 true 时，将在 kubectl 调试中启用自定义标志，该标志用于自定义预定义的配置文件。
-</td>
-</tr>
-
-<tr>
 <td colspan="2">KUBECTL_EXPLAIN_OPENAPIV3</td>
 </tr>
 <tr>

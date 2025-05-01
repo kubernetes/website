@@ -20,7 +20,7 @@ Seu cluster deve estar executando o complemento CoreDNS.
 
 ## Introdução
 
-DNS é um serviço integrado do Kubernetes que é iniciado automaticamente usando o _gerenciador de complementos_ [cluster add-on](http://releases.k8s.io/master/cluster/addons/README.md).
+DNS é um serviço integrado do Kubernetes que é iniciado automaticamente usando o _gerenciador de complementos_ [cluster add-on](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md).
 
 {{< note >}}
 O Service CoreDNS é chamado de `kube-dns` no campo `metadata.name`.

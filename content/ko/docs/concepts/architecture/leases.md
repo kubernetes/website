@@ -39,7 +39,7 @@ weight: 30
 kube-apiserver 리스의 존재는 향후 각 kube-apiserver 간의 조정이 필요할 때
 기능을 제공해 줄 수 있다.
 
-각 kube-apiserver가 소유한 리스는 `kube-system` 네임스페이스에서`kube-apiserver-<sha256-hash>`라는 이름의
+각 kube-apiserver가 소유한 리스는 `kube-system` 네임스페이스에서`apiserver-<sha256-hash>`라는 이름의
 리스 오브젝트를 확인하여 볼 수 있다. 또는 `k8s.io/component=kube-apiserver` 레이블 설렉터를 사용하여 볼 수도 있다.
 
 ```shell

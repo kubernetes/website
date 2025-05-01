@@ -87,7 +87,7 @@ IP of requests it receives through an HTTP header. You can create it as follows:
 你可以按如下方式创建它：
 
 ```shell
-kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.4
+kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.10
 ```
 
 <!-- 

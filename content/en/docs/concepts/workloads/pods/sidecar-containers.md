@@ -32,7 +32,7 @@ Provided that your cluster has the `SidecarContainers`
 for containers listed in a Pod's `initContainers` field.
 These restartable _sidecar_ containers are independent from other init containers and from
 the main application container(s) within the same pod.
-These can be started, stopped, or restarted without effecting the main application container
+These can be started, stopped, or restarted without affecting the main application container
 and other init containers.
 
 You can also run a Pod with multiple containers that are not marked as init or sidecar
@@ -68,6 +68,12 @@ next init container from the ordered `.spec.initContainers` list.
 That status either becomes true because there is a process running in the
 container and no startup probe defined, or as a result of its `startupProbe` succeeding.
 
+Upon Pod [termination](/docs/concepts/workloads/pods/pod-lifecycle/#termination-with-sidecars),
+the kubelet postpones terminating sidecar containers until the main application container has fully stopped.
+The sidecar containers are then shut down in the opposite order of their appearance in the Pod specification.
+This approach ensures that the sidecars remain operational, supporting other containers within the Pod,
+until their service is no longer required.
+
 ### Jobs with sidecar containers
 
 If you define a Job that uses sidecar using Kubernetes-style init containers,
@@ -91,6 +97,12 @@ maintain sidecar containers without affecting the primary application.
 Sidecar containers share the same network and storage namespaces with the primary
 container. This co-location allows them to interact closely and share resources.
 
+From a Kubernetes perspective, the sidecar container's graceful termination is less important.
+When other containers take all allotted graceful termination time, the sidecar containers
+will receive the `SIGTERM` signal, followed by the `SIGKILL` signal, before they have time to terminate gracefully. 
+So exit codes different from `0` (`0` indicates successful exit), for sidecar containers are normal
+on Pod termination and should be generally ignored by the external tooling.
+
 ## Differences from init containers
 
 Sidecar containers work alongside the main container, extending its functionality and
@@ -108,6 +120,9 @@ volumes (filesystems).
 Init containers stop before the main containers start up, so init containers cannot
 exchange messages with the app container in a Pod. Any data passing is one-way
 (for example, an init container can put information inside an `emptyDir` volume).
+
+Changing the image of a sidecar container will not cause the Pod to restart, but will
+trigger a container restart.
 
 ## Resource sharing within containers
 
@@ -143,6 +158,7 @@ request and limit, the same as the scheduler.
 
 ## {{% heading "whatsnext" %}}
 
+* Learn how to [Adopt Sidecar Containers](/docs/tutorials/configuration/pod-sidecar-containers/)
 * Read a blog post on [native sidecar containers](/blog/2023/08/25/native-sidecar-containers/).
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container).
 * Learn about the [types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.

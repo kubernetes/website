@@ -37,19 +37,37 @@ RBAC 鉴权机制使用 `rbac.authorization.k8s.io`
 
 <!--
 To enable RBAC, start the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
-with the `--authorization-mode` flag set to a comma-separated list that includes `RBAC`;
-for example:
+with the `--authorization-config` flag set to a file that includes the `RBAC` authorizer; for example:
 -->
 要启用 RBAC，在启动 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}时将
-`--authorization-mode` 参数设置为一个逗号分隔的列表并确保其中包含 `RBAC`。
+`--authorization-config` 标志设置为包含 `RBAC` 授权者的文件；
+例如：
+
+```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AuthorizationConfiguration
+authorizers:
+  ...
+  - type: RBAC
+  ...
+```
+
+<!--
+Or, start the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} with
+the `--authorization-mode` flag set to a comma-separated list that includes `RBAC`;
+for example:
+-->
+或者，启动 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}时，
+将 `--authorization-mode` 标志设置为包含 `RBAC` 的逗号分隔列表；
+例如：
 
 <!--
 ```shell
-kube-apiserver --authorization-mode=Example,RBAC --other-options --more-options
+kube-apiserver --authorization-mode=...,RBAC --other-options --more-options
 ```
 -->
 ```shell
-kube-apiserver --authorization-mode=Example,RBAC --<其他选项> --<其他选项>
+kube-apiserver --authorization-mode=...,RBAC --<其他选项> --<其他选项>
 ```
 
 <!--
@@ -133,30 +151,7 @@ Here's an example Role in the "default" namespace that can be used to grant read
 下面是一个位于 "default" 名字空间的 Role 的示例，可用来授予对
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 的读访问权限：
 
-<!--
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  namespace: default
-  name: pod-reader
-rules:
-- apiGroups: [""] # "" indicates the core API group
-  resources: ["pods"]
-  verbs: ["get", "watch", "list"]
-```
--->
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  namespace: default
-  name: pod-reader
-rules:
-- apiGroups: [""] # "" 标明 core API 组
-  resources: ["pods"]
-  verbs: ["get", "watch", "list"]
-```
+{{% code_sample file="access/simple-role.yaml" %}}
 
 <!--
 #### ClusterRole example
@@ -192,35 +187,6 @@ or across all namespaces (depending on how it is [bound](#rolebinding-and-cluste
 或者跨名字空间的访问权限（取决于该角色是如何[绑定](#rolebinding-and-clusterrolebinding)的）：
 
 <!--
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  # "namespace" omitted since ClusterRoles are not namespaced
-  name: secret-reader
-rules:
-- apiGroups: [""]
-  #
-  # at the HTTP level, the name of the resource for accessing Secret
-  # objects is "secrets"
-  resources: ["secrets"]
-  verbs: ["get", "watch", "list"]
-```
--->
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  # "namespace" 被忽略，因为 ClusterRoles 不受名字空间限制
-  name: secret-reader
-rules:
-- apiGroups: [""]
-  # 在 HTTP 层面，用来访问 Secret 资源的名称为 "secrets"
-  resources: ["secrets"]
-  verbs: ["get", "watch", "list"]
-```
-
-<!--
 The name of a Role or a ClusterRole object must be a valid
 [path segment name](/docs/concepts/overview/working-with-objects/names#path-segment-names).
 -->
@@ -252,7 +218,7 @@ RoleBinding 在指定的名字空间中执行授权，而 ClusterRoleBinding 在
 一个 RoleBinding 可以引用同一的名字空间中的任何 Role。
 或者，一个 RoleBinding 可以引用某 ClusterRole 并将该 ClusterRole 绑定到
 RoleBinding 所在的名字空间。
-如果你希望将某  ClusterRole 绑定到集群中所有名字空间，你要使用 ClusterRoleBinding。
+如果你希望将某 ClusterRole 绑定到集群中所有名字空间，你要使用 ClusterRoleBinding。
 
 RoleBinding 或 ClusterRoleBinding 对象的名称必须是合法的
 [路径分段名称](/zh-cn/docs/concepts/overview/working-with-objects/names#path-segment-names)。
@@ -573,6 +539,19 @@ This is similar to the built-in `cluster-admin` role.
 下面的示例对 `example.com` API 组中所有当前和未来资源执行所有动作。
 这类似于内置的 `cluster-admin`。
 
+<!--
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: example.com-superuser # DO NOT USE THIS ROLE, IT IS JUST AN EXAMPLE
+rules:
+- apiGroups: ["example.com"]
+  resources: ["*"]
+  verbs: ["*"]
+```
+-->
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role

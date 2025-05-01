@@ -19,7 +19,7 @@ Alternatively, you can use kubeadm config.
 -->
 另外，可以使用 kubeadm 配置。
 
-```
+```shell
 kubeadm init phase upload-config kubeadm [flags]
 ```
 
@@ -31,9 +31,9 @@ kubeadm init phase upload-config kubeadm [flags]
 <!--
 # upload the configuration of your cluster
 -->
-```
+```shell
 # 上传集群配置
-kubeadm init phase upload-config --config=myConfig.yaml
+kubeadm init phase upload-config kubeadm --config=myConfig.yaml
 ```
 
 <!--
@@ -41,7 +41,7 @@ kubeadm init phase upload-config --config=myConfig.yaml
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -132,7 +132,7 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 -->
 ### 从父命令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -148,7 +148,7 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
 <p>
-[实验] 到 '真实' 主机根文件系统的路径。
+[实验] 到'真实'主机根文件系统的路径。
 </p>
 </td>
 </tr>

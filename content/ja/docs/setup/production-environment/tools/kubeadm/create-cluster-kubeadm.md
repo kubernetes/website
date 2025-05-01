@@ -170,7 +170,7 @@ as root:
   kubeadm join <control-plane-host>:<control-plane-port> --token <token> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
-kubectlをroot以外のユーザーでも実行できるようにするには、次のコマンドを実行します。これらのコマンドは、`kubectl init`の出力の中にも書かれています。
+kubectlをroot以外のユーザーでも実行できるようにするには、次のコマンドを実行します。これらのコマンドは、`kubeadm init`の出力の中にも書かれています。
 
 ```bash
 mkdir -p $HOME/.kube

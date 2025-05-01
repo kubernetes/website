@@ -91,7 +91,7 @@ dan ulasan editorial untuk PR mereka.
 
 ## Cara menggabungkan pekerjaan
 
-Ketika _pull request_ digabungkan ke cabang (_branch_) yang digunakan untuk mempublikasikan konten, konten itu dipublikasikan di http://kubernetes.io. Untuk memastikan bahwa
+Ketika _pull request_ digabungkan ke cabang (_branch_) yang digunakan untuk mempublikasikan konten, konten itu dipublikasikan di https://kubernetes.io. Untuk memastikan bahwa
 kualitas konten yang kita terbitkan bermutu tinggi, kita membatasi penggabungan _pull request_ bagi para pemberi persetujuan
 SIG Docs. Beginilah cara kerjanya.
 

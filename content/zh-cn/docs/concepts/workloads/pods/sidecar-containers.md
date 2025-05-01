@@ -28,8 +28,8 @@ Typically, you only have one app container in a Pod. For example, if you have a 
 application that requires a local webserver, the local webserver is a sidecar and the
 web application itself is the app container.
 -->
-通常，一个 Pod 中只有一个应用程序容器。
-例如，如果你有一个需要本地 Web 服务器的 Web 应用程序，
+通常，一个 Pod 中只有一个应用容器。
+例如，如果你有一个需要本地 Web 服务器的 Web 应用，
 则本地 Web 服务器以边车容器形式运行，而 Web 应用本身以应用容器形式运行。
 
 <!-- body -->
@@ -56,15 +56,15 @@ Provided that your cluster has the `SidecarContainers`
 for containers listed in a Pod's `initContainers` field.
 These restartable _sidecar_ containers are independent from other init containers and from
 the main application container(s) within the same pod.
-These can be started, stopped, or restarted without effecting the main application container
+These can be started, stopped, or restarted without affecting the main application container
 and other init containers.
 -->
 如果你的集群启用了 `SidecarContainers`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 （该特性自 Kubernetes v1.29 起默认启用），你可以为 Pod 的 `initContainers`
 字段中列出的容器指定 `restartPolicy`。
-这些可重新启动的**边车（Sidecar）** 容器独立于其他 Init 容器以及同一 Pod 内的主应用程序容器，
-这些容器可以启动、停止和重新启动，而不会影响主应用程序容器和其他 Init 容器。
+这些可重新启动的**边车（Sidecar）** 容器独立于其他 Init 容器以及同一 Pod 内的主应用容器，
+这些容器可以启动、停止和重新启动，而不会影响主应用容器和其他 Init 容器。
 
 <!--
 You can also run a Pod with multiple containers that are not marked as init or sidecar
@@ -130,6 +130,17 @@ kubelet 启动 `.spec.initContainers` 这一有序列表中的下一个 Init 容
 要么是其 `startupProbe` 成功而返回的结果。
 
 <!--
+Upon Pod [termination](/docs/concepts/workloads/pods/pod-lifecycle/#termination-with-sidecars),
+the kubelet postpones terminating sidecar containers until the main application container has fully stopped.
+The sidecar containers are then shut down in the opposite order of their appearance in the Pod specification.
+This approach ensures that the sidecars remain operational, supporting other containers within the Pod,
+until their service is no longer required.
+-->
+在 Pod [终止](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#termination-with-sidecars)时，
+kubelet 会推迟终止边车容器，直到主应用容器已完全停止。边车容器随后将按照它们在 Pod 规约中出现的相反顺序被关闭。
+这种方法确保了在不再需要边车服务之前这些边车继续发挥作用，以支持 Pod 内的其他容器。
+
+<!--
 ### Jobs with sidecar containers
 -->
 ### 带边车容器的 Job {#jobs-with-sidecar-containers}
@@ -173,6 +184,18 @@ container. This co-location allows them to interact closely and share resources.
 边车容器与主容器共享相同的网络和存储命名空间。这种共存使它们能够紧密交互并共享资源。
 
 <!--
+From a Kubernetes perspective, the sidecar container's graceful termination is less important.
+When other containers take all allotted graceful termination time, the sidecar containers
+will receive the `SIGTERM` signal, followed by the `SIGKILL` signal, before they have time to terminate gracefully.
+So exit codes different from `0` (`0` indicates successful exit), for sidecar containers are normal
+on Pod termination and should be generally ignored by the external tooling.
+-->
+从 Kubernetes 的角度来看，边车容器的体面终止（Graceful Termination）相对不那么重要。
+当其他容器耗尽了分配的体面终止时间后，边车容器将在尚未完成体面终止时间的情况下接收到 `SIGTERM` 信号，随后是 `SIGKILL` 信号。
+因此，在 Pod 终止时，边车容器退出码不为 `0`（`0` 表示成功退出）是正常的，
+通常应该被外部工具忽略。
+
+<!--
 ## Differences from init containers
 
 Sidecar containers work alongside the main container, extending its functionality and
@@ -201,13 +224,18 @@ Init containers stop before the main containers start up, so init containers can
 exchange messages with the app container in a Pod. Any data passing is one-way
 (for example, an init container can put information inside an `emptyDir` volume).
 
+Changing the image of a sidecar container will not cause the Pod to restart, but will
+trigger a container restart.
+
 ## Resource sharing within containers
 -->
 边车容器可以直接与主应用容器交互，因为与 Init 容器一样，
 它们总是与应用容器共享相同的网络，并且还可以选择共享卷（文件系统）。
 
-Init 容器在主容器启动之前停止，因此 Init 容器无法与 Pod 中的应用程序容器交换消息。
+Init 容器在主容器启动之前停止，因此 Init 容器无法与 Pod 中的应用容器交换消息。
 所有数据传递都是单向的（例如，Init 容器可以将信息放入 `emptyDir` 卷中）。
+
+变更边车容器的镜像不会导致 Pod 重启，但会触发容器重启。
 
 ## 容器内的资源共享   {#resource-sharing-within-containers}
 
@@ -263,18 +291,20 @@ limit.
 On Linux, resource allocations for Pod level control groups (cgroups) are based on the effective Pod
 request and limit, the same as the scheduler.
 -->
-### Sidecar 容器和 Linux Cgroup   {#cgroups}
+### 边车容器和 Linux Cgroup   {#cgroups}
 
 在 Linux 上，Pod Cgroup 的资源分配基于 Pod 级别的有效资源请求和限制，这一点与调度器相同。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
+* Learn how to [Adopt Sidecar Containers](/docs/tutorials/configuration/pod-sidecar-containers/)
 * Read a blog post on [native sidecar containers](/blog/2023/08/25/native-sidecar-containers/).
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container).
 * Learn about the [types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.
 * Learn about [pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/).
 -->
+* 了解如何[采用边车容器](/zh-cn/docs/tutorials/configuration/pod-sidecar-containers/)。
 * 阅读关于[原生边车容器](/zh-cn/blog/2023/08/25/native-sidecar-containers/)的博文。
 * 阅读[如何创建具有 Init 容器的 Pod](/zh-cn/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)。
 * 了解[探针类型](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe)：

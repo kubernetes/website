@@ -10,7 +10,7 @@ weight: 80
 
 Wenn Sie an der Dokumentation oder der Website von Kubernetes mitwirken möchten, freuen wir uns über Ihre Hilfe!
 Jeder kann seinen Beitrag leisten, unabhängig davon ob Sie neu im Projekt sind oder schon lange dabei sind, und ob Sie sich als
-Entwickler, Endbenutzer oder einfach jemanden, der es einfach nicht aushält, Tippfehler zu sehen sehen.
+Entwickler, Endbenutzer oder einfach jemanden, der es einfach nicht aushält, Tippfehler zu sehen sehen ;)
 
 Weitere Möglichkeiten, sich in der Kubernetes-Community zu engagieren oder mehr über uns zu erfahren, finden Sie auf der [Kubernetes-Community-Seite](/community/).
 Informationen zum Handbuch zur Dokumentation von Kubernetes finden Sie im [Gestaltungshandbuch](/docs/contribute/style/style-guide/).
@@ -42,7 +42,7 @@ Dies ist keine vollständige Liste von Möglichkeiten, wie Sie zur Kubernetes-Do
   - Ideen zur Verbesserung in [Slack](http://slack.k8s.io/) oder der [SIG docs Mailingliste](https://groups.google.com/forum/#!forum/kubernetes-sig-docs) einbringen
   - Den Zugriff auf Dokumente verbessern
   - Unverbindliches Feedback zu PRs verfassen
-  - Enen Blogbeitrag oder eine Fallstudie schreiben
+  - Einen Blogbeitrag oder eine Fallstudie schreiben
 - [Reviewer](/docs/contribute/intermediate/)
   - Neue Funktionen dokumentieren
   - Auswerten und Kategorisieren von Problemen

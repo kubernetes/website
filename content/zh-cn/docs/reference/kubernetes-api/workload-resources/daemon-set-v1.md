@@ -6,9 +6,8 @@ api_metadata:
 content_type: "api_reference"
 description: "DaemonSet 表示守护进程集的配置。"
 title: "DaemonSet"
-weight: 8
+weight: 9
 ---
-
 <!--
 api_metadata:
 apiVersion: "apps/v1"
@@ -17,7 +16,7 @@ kind: "DaemonSet"
 content_type: "api_reference"
 description: "DaemonSet represents the configuration of a daemon set."
 title: "DaemonSet"
-weight: 8
+weight: 9
 auto_generated: true
 -->
 
@@ -308,10 +307,14 @@ DaemonSetStatus 表示守护进程集的当前状态。
 - **conditions** ([]DaemonSetCondition)
 
   *Patch strategy: merge on key `type`*
+
+  *Map: unique values on key type will be kept during a merge*
 -->
 - **conditions** ([]DaemonSetCondition)
 
   **补丁策略：根据 `type` 键合并**
+
+  **Map：键 `type` 的唯一值将在合并期间保留**
 
   <!-- 
   Represents the latest available observations of a DaemonSet's current state.
@@ -1326,6 +1329,10 @@ DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 -->
 
 - **dryRun** (**查询参数**): string
@@ -1335,6 +1342,10 @@ DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 <!--
 - **pretty** (*in query*): string
@@ -1427,6 +1438,10 @@ DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 -->
 
 - **fieldSelector** (**查询参数**): string
@@ -1436,6 +1451,10 @@ DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 <!--
 - **labelSelector** (*in query*): string

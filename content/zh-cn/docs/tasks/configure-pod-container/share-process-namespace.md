@@ -67,7 +67,7 @@ Process namespace sharing is enabled using the `shareProcessNamespace` field of
 2. 获取容器 `shell`，执行 `ps`：
 
    ```shell
-   kubectl attach -it nginx -c shell
+   kubectl exec -it nginx -c shell -- /bin/sh
    ```
 
    <!--

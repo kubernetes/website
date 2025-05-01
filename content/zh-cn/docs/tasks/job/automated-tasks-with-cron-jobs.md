@@ -78,9 +78,10 @@ hello   */1 * * * *   False     0        <none>          10s
 ```
 <!--
 As you can see from the results of the command, the cron job has not scheduled or run any jobs yet.
-Watch for the job to be created in around one minute:
+{{< glossary_tooltip text="Watch" term_id="watch" >}} for the job to be created in around one minute:
 -->
-就像你从命令返回结果看到的那样，CronJob 还没有调度或执行任何任务。大约需要一分钟任务才能创建好。
+就像你从命令返回结果看到的那样，CronJob 还没有调度或执行任何任务。
+等待大约一分钟，以{{< glossary_tooltip text="观察" term_id="watch" >}}作业的创建进程：
 
 ```shell
 kubectl get jobs --watch

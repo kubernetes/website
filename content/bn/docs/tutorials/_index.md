@@ -25,7 +25,6 @@ content_type: ধারণা
 
 ## কনফিগারেশন
 
-* [উদাহরণ: একটি জাভা মাইক্রোসার্ভিস কনফিগার কর](/docs/tutorials/configuration/configure-java-microservice/)
 * [কনফিগার ম্যাপ ব্যবহার করে রেডিস কনফিগার কর](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## স্টেটলেস অ্যাপ্লিকেশন

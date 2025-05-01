@@ -65,6 +65,9 @@ Users need to be aware of the following when using this feature:
   the csi-snapshotter. See [CSI Driver documentation](https://kubernetes-csi.github.io/docs/) for details.
 - The CRDs and snapshot controller installations are the responsibility of the Kubernetes distribution.
 
+For advanced use cases, such as creating group snapshots of multiple volumes, see the external
+[CSI Volume Group Snapshot documentation](https://kubernetes-csi.github.io/docs/group-snapshot-restore-feature.html).
+
 ## Lifecycle of a volume snapshot and volume snapshot content
 
 `VolumeSnapshotContents` are resources in the cluster. `VolumeSnapshots` are requests

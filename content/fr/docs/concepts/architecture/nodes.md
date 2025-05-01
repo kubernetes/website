@@ -1,107 +1,43 @@
 ---
-reviewers:
-- sieben
 title: Noeuds
-description: Concept Noeud Kubernetes
+api_metadata:
+- apiVersion: "v1"
+  kind: "Node"
 content_type: concept
 weight: 10
 ---
 
 <!-- overview -->
 
-Un nœud est une machine de travail dans Kubernetes, connue auparavant sous le nom de `minion`.
-Un nœud peut être une machine virtuelle ou une machine physique, selon le cluster.
-Chaque nœud contient les services nécessaires à l'exécution de [pods](/docs/concepts/workloads/pods/pod/) et est géré par les composants du master.
-Les services sur un nœud incluent le [container runtime](/docs/concepts/overview/components/#node-components), kubelet et kube-proxy.
-Consultez la section [Le Nœud Kubernetes](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) dans le document de conception de l'architecture pour plus de détails.
+Kubernetes exécute votre {{< glossary_tooltip text="charge de travail" term_id="workload" >}}
+en plaçant des conteneurs dans des Pods pour s'exécuter sur des _nœuds_.
+Un nœud peut être une machine virtuelle ou physique, selon le cluster. Chaque nœud
+est géré par le
+{{< glossary_tooltip text="plan de contrôle" term_id="control-plane" >}}
+et contient les services nécessaires pour exécuter
+{{< glossary_tooltip text="Pods" term_id="pod" >}}.
 
+Typiquement, vous avez plusieurs nœuds dans un cluster ; dans un environnement d'apprentissage ou limité en ressources,
+vous pourriez n'avoir qu'un seul nœud.
 
+Les [composants](/docs/concepts/architecture/#node-components) sur un nœud incluent le
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, un
+{{< glossary_tooltip text="runtime de conteneur" term_id="container-runtime" >}}, et le
+{{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}.
 
 <!-- body -->
 
-## Statut du nœud
-
-Le statut d'un nœud contient les informations suivantes:
-
-* [Addresses](#addresses)
-* [Condition](#condition)
-* [Capacity](#capacity)
-* [Info](#info)
-
-Chaque section est décrite en détail ci-dessous.
-
-### Adresses
-
-L'utilisation de ces champs varie en fonction de votre fournisseur de cloud ou de votre configuration physique.
-
-* HostName: Le nom d'hôte tel que rapporté par le noyau du nœud. Peut être remplacé via le paramètre kubelet `--hostname-override`.
-* ExternalIP: En règle générale, l'adresse IP du nœud pouvant être routé en externe (disponible de l'extérieur du cluster).
-* InternalIP: En règle générale, l'adresse IP du nœud pouvant être routé uniquement dans le cluster.
-
-### Condition
-
-Le champ `conditions` décrit le statut de tous les nœuds `Running`.
-
-| Node Condition       | Description                                                                                                                                                                                                                                            |
-|----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `OutOfDisk`          | `True` si l'espace disponible sur le nœud est insuffisant pour l'ajout de nouveaux pods, sinon `False`                                                                                                                                                          |
-| `Ready`              | `True` si le noeud est sain et prêt à accepter des pods, `False` si le noeud n'est pas sain et n'accepte pas de pods, et `Unknown` si le contrôleur de noeud n'a pas reçu d'information du noeud depuis `node-monitor-grace-period` (la valeur par défaut est de 40 secondes) |
-| `MemoryPressure`     | `True` s'il existe une pression sur la mémoire du noeud, c'est-à-dire si la mémoire du noeud est faible; autrement `False`                                                                                                                                                  |
-| `PIDPressure`        | `True` s'il existe une pression sur le nombre de processus, c'est-à-dire s'il y a trop de processus sur le nœud; autrement `False`                                                                                                                                  |
-| `DiskPressure`       | `True` s'il existe une pression sur la taille du disque, c'est-à-dire si la capacité du disque est faible; autrement `False`                                                                                                                                                  |
-| `NetworkUnavailable` | `True` si le réseau pour le noeud n'est pas correctement configuré, sinon `False`                                                                                                                                                                      |
-
-La condition de noeud est représentée sous la forme d'un objet JSON.
-Par exemple, la réponse suivante décrit un nœud sain.
-
-```json
-"conditions": [
-  {
-    "type": "Ready",
-    "status": "True"
-  }
-]
-```
-
-Si le statut de l'état Ready reste `Unknown` ou `False` plus longtemps que `pod-eviction-timeout`, un argument est passé au [kube-controller-manager](/docs/admin/kube-controller-manager/) et les pods sur le nœud sont programmés pour être supprimés par le contrôleur du nœud.
-Le délai d’expulsion par défaut est de **cinq minutes**..
-Dans certains cas, lorsque le nœud est inaccessible, l'apiserver est incapable de communiquer avec le kubelet sur le nœud.
-La décision de supprimer les pods ne peut pas être communiquée au kublet tant que la communication avec l'apiserver n'est pas rétablie.
-Entre-temps, les pods dont la suppression est planifiée peuvent continuer à s'exécuter sur le nœud inaccessible.
-
-Dans les versions de Kubernetes antérieures à 1.5, le contrôleur de noeud [forcait la suppression](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods) de ces pods inaccessibles de l'apiserver.
-Toutefois, dans la version 1.5 et ultérieure, le contrôleur de noeud ne force pas la suppression des pods tant qu'il n'est pas confirmé qu'ils ont cessé de fonctionner dans le cluster.
-Vous pouvez voir que les pods en cours d'exécution sur un nœud inaccessible sont dans l'état `Terminating` ou` Unknown`.
-Dans les cas où Kubernetes ne peut pas déduire de l'infrastructure sous-jacente si un nœud a définitivement quitté un cluster, l'administrateur du cluster peut avoir besoin de supprimer l'objet nœud à la main.
-La suppression de l'objet nœud de Kubernetes entraîne la suppression de tous les objets Pod exécutés sur le nœud de l'apiserver et libère leurs noms.
-
-Dans la version 1.12, la fonctionnalité `TaintNodesByCondition` est promue en version bêta, ce qui permet au contrôleur de cycle de vie du nœud de créer automatiquement des [marquages](/docs/concepts/configuration/taint-and-toleration/)  (taints en anglais) qui représentent des conditions.
-De même, l'ordonnanceur ignore les conditions lors de la prise en compte d'un nœud; au lieu de cela, il regarde les taints du nœud et les tolérances d'un pod.
-
-Les utilisateurs peuvent désormais choisir entre l'ancien modèle de planification et un nouveau modèle de planification plus flexible.
-Un pod qui n’a aucune tolérance est programmé selon l’ancien modèle.
-Mais un pod qui tolère les taints d'un nœud particulier peut être programmé sur ce nœud.
-
-{{< caution >}}
-L'activation de cette fonctionnalité crée un léger délai entre le moment où une condition est observée et le moment où une taint est créée.
-Ce délai est généralement inférieur à une seconde, mais il peut augmenter le nombre de pods programmés avec succès mais rejetés par le kubelet.
-{{< /caution >}}
-
-### Capacité
-
-Décrit les ressources disponibles sur le nœud: CPU, mémoire et nombre maximal de pods pouvant être planifiés sur le nœud.
-
-### Info
-
-Informations générales sur le noeud, telles que la version du noyau, la version de Kubernetes (versions de kubelet et kube-proxy), la version de Docker (si utilisée), le nom du système d'exploitation.
-Les informations sont collectées par Kubelet à partir du noeud.
-
 ## Gestion
 
-Contrairement aux [pods](/docs/concepts/workloads/pods/) et aux [services](/docs/concepts/services-networking/service/), un nœud n'est pas créé de manière inhérente par Kubernetes: il est créé de manière externe par un cloud tel que Google Compute Engine, ou bien il existe dans votre pool de machines physiques ou virtuelles.
-Ainsi, lorsque Kubernetes crée un nœud, il crée un objet qui représente le nœud.
-Après la création, Kubernetes vérifie si le nœud est valide ou non.
-Par exemple, si vous essayez de créer un nœud à partir du contenu suivant:
+Il existe deux principales façons d'ajouter des nœuds au
+{{< glossary_tooltip text="serveur API" term_id="kube-apiserver" >}} :
+
+1. Le kubelet sur un nœud s'enregistre automatiquement auprès du plan de contrôle.
+2. Vous (ou un autre utilisateur humain) ajoutez manuellement un objet Nœud.
+
+Après avoir créé un {{< glossary_tooltip text="objet" term_id="object" >}} Nœud,
+ou lorsque le kubelet sur un nœud s'enregistre automatiquement, le plan de contrôle vérifie si le nouvel objet Nœud
+est valide. Par exemple, si vous essayez de créer un Nœud à partir du manifeste JSON suivant :
 
 ```json
 {
@@ -116,119 +52,279 @@ Par exemple, si vous essayez de créer un nœud à partir du contenu suivant:
 }
 ```
 
-Kubernetes crée un objet noeud en interne (la représentation) et valide le noeud en vérifiant son intégrité en fonction du champ `metadata.name`.
-Si le nœud est valide, c'est-à-dire si tous les services nécessaires sont en cours d'exécution, il est éligible pour exécuter un pod.
-Sinon, il est ignoré pour toute activité de cluster jusqu'à ce qu'il devienne valide.
+Kubernetes crée un objet Nœud en interne (la représentation). Kubernetes vérifie
+qu'un kubelet s'est enregistré auprès du serveur API correspondant au champ `metadata.name`
+du Nœud. Si le nœud est en bonne santé (c'est-à-dire que tous les services nécessaires sont en cours d'exécution),
+alors il est éligible pour exécuter un Pod. Sinon, ce nœud est ignoré pour toute activité du cluster
+jusqu'à ce qu'il redevienne en bonne santé.
 
 {{< note >}}
-Kubernetes conserve l'objet pour le nœud non valide et vérifie s'il devient valide.
-Vous devez explicitement supprimer l'objet Node pour arrêter ce processus.
+Kubernetes conserve l'objet pour le Nœud invalide et continue de vérifier s'il devient en bonne santé.
+
+Vous, ou un {{< glossary_tooltip term_id="controller" text="contrôleur">}}, devez explicitement
+supprimer l'objet Nœud pour arrêter cette vérification de santé.
 {{< /note >}}
 
-Actuellement, trois composants interagissent avec l'interface de noeud Kubernetes: le contrôleur de noeud, kubelet et kubectl.
+Le nom d'un objet Nœud doit être un
+[nom de sous-domaine DNS valide](/fr/docs/concepts/overview/working-with-objects/names#noms-de-sous-domaine-dns).
 
-### Contrôleur de nœud
+### Unicité du nom du nœud
 
-Le contrôleur de noeud (node controller en anglais) est un composant du master Kubernetes qui gère divers aspects des noeuds.
-
-Le contrôleur de nœud a plusieurs rôles dans la vie d'un nœud.
-La première consiste à affecter un bloc CIDR au nœud lorsqu’il est enregistré (si l’affectation CIDR est activée).
-
-La seconde consiste à tenir à jour la liste interne des nœuds du contrôleur de nœud avec la liste des machines disponibles du fournisseur de cloud.
-Lorsqu'il s'exécute dans un environnement de cloud, chaque fois qu'un nœud est en mauvaise santé, le contrôleur de nœud demande au fournisseur de cloud si la machine virtuelle de ce nœud est toujours disponible.
-Sinon, le contrôleur de nœud supprime le nœud de sa liste de nœuds.
-
-La troisième est la surveillance de la santé des nœuds.
-Le contrôleur de noeud est responsable de la mise à jour de la condition NodeReady de NodeStatus vers ConditionUnknown lorsqu'un noeud devient inaccessible (le contrôleur de noeud cesse de recevoir des heartbeats pour une raison quelconque, par exemple en raison d'une panne du noeud), puis de l'éviction ultérieure de tous les pods du noeud. (en utilisant une terminaison propre) si le nœud continue d’être inaccessible.
-(Les délais d'attente par défaut sont de 40 secondes pour commencer à signaler ConditionUnknown et de 5 minutes après cela pour commencer à expulser les pods.)
-
-Le contrôleur de nœud vérifie l'état de chaque nœud toutes les `--node-monitor-period` secondes.
-
-Dans les versions de Kubernetes antérieures à 1.13, NodeStatus correspond au heartbeat du nœud.
-À partir de Kubernetes 1.13, la fonctionnalité de bail de nœud (node lease en anglais) est introduite en tant que fonctionnalité alpha (feature gate `NodeLease`, [KEP-0009](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0009-node-heartbeat.md)).
-Lorsque la fonction de node lease est activée, chaque noeud a un objet `Lease` associé dans le namespace `kube-node-lease` qui est renouvelé périodiquement par le noeud, et NodeStatus et le node lease sont traités comme des heartbeat du noeud.
-Les node leases sont renouvelés fréquemment lorsque NodeStatus est signalé de nœud à master uniquement lorsque des modifications ont été apportées ou que suffisamment de temps s'est écoulé (la valeur par défaut est 1 minute, ce qui est plus long que le délai par défaut de 40 secondes pour les nœuds inaccessibles).
-Étant donné qu'un node lease est beaucoup plus léger qu'un NodeStatus, cette fonctionnalité rends le heartbeat d'un nœud nettement moins coûteux, tant du point de vue de l'évolutivité que des performances.
-
-Dans Kubernetes 1.4, nous avons mis à jour la logique du contrôleur de noeud afin de mieux gérer les cas où un grand nombre de noeuds rencontrent des difficultés pour atteindre le master (par exemple parce que le master a un problème de réseau).
-À partir de la version 1.4, le contrôleur de noeud examine l’état de tous les noeuds du cluster lorsqu’il prend une décision concernant l’éviction des pods.
-
-Dans la plupart des cas, le contrôleur de noeud limite le taux d’expulsion à `--node-eviction-rate` (0,1 par défaut) par seconde, ce qui signifie qu’il n’expulsera pas les pods de plus d’un nœud toutes les 10 secondes.
-
-Le comportement d'éviction de noeud change lorsqu'un noeud d'une zone de disponibilité donnée devient défaillant.
-Le contrôleur de nœud vérifie quel pourcentage de nœuds de la zone est défaillant (la condition NodeReady est ConditionUnknown ou ConditionFalse) en même temps.
-Si la fraction de nœuds défaillant est au moins `--unhealthy-zone-threshold` (valeur par défaut de 0,55), le taux d'expulsion est réduit: si le cluster est petit (c'est-à-dire inférieur ou égal à `--large-cluster-size-threshold` noeuds - valeur par défaut 50) puis les expulsions sont arrêtées, sinon le taux d'expulsion est réduit à `--secondary-node-eviction-rate` (valeur par défaut de 0,01) par seconde.
-
-Ces stratégies sont implémentées par zone de disponibilité car une zone de disponibilité peut être partitionnée à partir du master, tandis que les autres restent connectées.
-Si votre cluster ne s'étend pas sur plusieurs zones de disponibilité de fournisseur de cloud, il n'existe qu'une seule zone de disponibilité (la totalité du cluster).
-
-L'une des principales raisons de la répartition de vos nœuds entre les zones de disponibilité est de pouvoir déplacer la charge de travail vers des zones saines lorsqu'une zone entière tombe en panne.
-Par conséquent, si tous les nœuds d’une zone sont défaillants, le contrôleur de nœud expulse à la vitesse normale `--node-eviction-rate`.
-Le cas pathologique se produit lorsque toutes les zones sont complètement défaillantes (c'est-à-dire qu'il n'y a pas de nœuds sains dans le cluster).
-Dans ce cas, le contrôleur de noeud suppose qu'il existe un problème de connectivité au master et arrête toutes les expulsions jusqu'à ce que la connectivité soit restaurée.
-
-À partir de Kubernetes 1.6, NodeController est également responsable de l'expulsion des pods s'exécutant sur des noeuds avec des marques `NoExecute`, lorsque les pods ne tolèrent pas ces marques.
-De plus, en tant que fonctionnalité alpha désactivée par défaut, NodeController est responsable de l'ajout de marques correspondant aux problèmes de noeud tels que les noeuds inaccessibles ou non prêts.
-Voir [cette documentation](/docs/concepts/configuration/taint-and-toleration/) pour plus de détails sur les marques `NoExecute` et cette fonctionnalité alpha.
-
-À partir de la version 1.8, le contrôleur de noeud peut être chargé de créer des tâches représentant les conditions de noeud.
-Ceci est une fonctionnalité alpha de la version 1.8.
+Le [nom](/fr/docs/concepts/overview/working-with-objects/names#noms) identifie un Nœud. Deux Nœuds
+ne peuvent pas avoir le même nom en même temps. Kubernetes suppose également qu'une ressource avec le même
+nom est le même objet. Dans le cas d'un Nœud, on suppose implicitement qu'une instance utilisant le
+même nom aura le même état (par exemple, les paramètres réseau, le contenu du disque racine) et les mêmes attributs tels que
+les étiquettes du nœud. Cela peut entraîner des incohérences si une instance a été modifiée sans changer son nom.
+Si le Nœud doit être remplacé ou mis à jour de manière significative, l'objet Nœud existant doit être
+supprimé du serveur API en premier lieu, puis ré-ajouté après la mise à jour.
 
 ### Auto-enregistrement des nœuds
 
-Lorsque l'indicateur de kubelet `--register-node` est à true (valeur par défaut), le kubelet tente de s'enregistrer auprès du serveur d'API.
-C'est le modèle préféré, utilisé par la plupart des distributions Linux.
+Lorsque le drapeau kubelet `--register-node` est vrai (par défaut), le kubelet tente de
+s'enregistrer auprès du serveur API. C'est le modèle préféré, utilisé par la plupart des distributions.
 
-Pour l'auto-enregistrement (self-registration en anglais), le kubelet est lancé avec les options suivantes:
+Pour l'auto-enregistrement, le kubelet est démarré avec les options suivantes :
 
-  - `--kubeconfig` - Chemin d'accès aux informations d'identification pour s'authentifier auprès de l'apiserver.
-  - `--cloud-provider` - Comment lire les métadonnées d'un fournisseur de cloud sur lui-même.
-  - `--register-node` - Enregistrement automatique avec le serveur API.
-  - `--register-with-taints` - Enregistrez le noeud avec la liste donnée de marques (séparés par des virgules `<key>=<value>:<effect>`). Sans effet si `register-node` est à false.
-  - `--node-ip` - Adresse IP du noeud.
-  - `--node-labels` - Labels à ajouter lors de l’enregistrement du noeud dans le cluster (voir Restrictions des labels appliquées par le [plugin NodeRestriction admission](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) dans les versions 1.13+).
-  - `--node-status-update-frequency` - Spécifie la fréquence à laquelle kubelet publie le statut de nœud sur master.
+- `--kubeconfig` - Chemin vers les informations d'identification pour s'authentifier auprès du serveur API.
+- `--cloud-provider` - Comment communiquer avec un {{< glossary_tooltip text="fournisseur de cloud" term_id="cloud-provider" >}}
+  pour lire les métadonnées à son sujet.
+- `--register-node` - S'enregistrer automatiquement auprès du serveur API.
+- `--register-with-taints` - Enregistrer le nœud avec la liste donnée de
+  {{< glossary_tooltip text="taints" term_id="taint" >}} (séparées par des virgules `<clé>=<valeur>:<effet>`).
 
-Quand le mode [autorisation de nœud](/docs/reference/access-authn-authz/node/) et  [plugin NodeRestriction admission](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) sont activés, les kubelets sont uniquement autorisés à créer / modifier leur propre ressource de noeud.
+  Ne fait rien si `register-node` est faux.
+- `--node-ip` - Liste facultative de adresses IP séparées par des virgules pour le nœud.
+  Vous ne pouvez spécifier qu'une seule adresse pour chaque famille d'adresses.
+  Par exemple, dans un cluster IPv4 à pile unique, vous définissez cette valeur comme l'adresse IPv4 que le
+  kubelet doit utiliser pour le nœud.
+  Consultez [configurer une pile double IPv4/IPv6](/docs/concepts/services-networking/dual-stack/#configure-ipv4-ipv6-dual-stack)
+  pour plus de détails sur l'exécution d'un cluster à double pile.
 
-#### Administration manuelle de noeuds
+  Si vous ne fournissez pas cet argument, le kubelet utilise l'adresse IPv4 par défaut du nœud, le cas échéant ;
+  si le nœud n'a pas d'adresses IPv4, alors le kubelet utilise l'adresse IPv6 par défaut du nœud.
+- `--node-labels` - {{< glossary_tooltip text="Étiquettes" term_id="label" >}} à ajouter lors de l'enregistrement du nœud
+  dans le cluster (voir les restrictions d'étiquettes appliquées par le
+  [plugin d'admission NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)).
+- `--node-status-update-frequency` - Spécifie à quelle fréquence le kubelet envoie son état de nœud au serveur API.
 
-Un administrateur de cluster peut créer et modifier des objets de nœud.
-
-Si l'administrateur souhaite créer des objets de noeud manuellement, définissez l'argument de kubelet: `--register-node=false`.
-
-L'administrateur peut modifier les ressources du nœud (quel que soit le réglage de `--register-node`).
-Les modifications comprennent la définition de labels sur le nœud et son marquage comme non programmable.
-
-Les étiquettes sur les nœuds peuvent être utilisées avec les sélecteurs de nœuds sur les pods pour contrôler la planification. Par exemple, pour contraindre un pod à ne pouvoir s'exécuter que sur un sous-ensemble de nœuds.
-
-Marquer un nœud comme non planifiable empêche la planification de nouveaux pods sur ce nœud, mais n'affecte pas les pods existants sur le nœud.
-Ceci est utile comme étape préparatoire avant le redémarrage d'un nœud, etc. Par exemple, pour marquer un nœud comme non programmable, exécutez la commande suivante:
-
-```shell
-kubectl cordon $NODENAME
-```
+Lorsque le [mode d'autorisation du nœud](/docs/reference/access-authn-authz/node/) et
+[le plugin d'admission NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
+sont activés, les kubelets sont autorisés uniquement à créer/modifier leur propre ressource Nœud.
 
 {{< note >}}
-Les pods créés par un contrôleur DaemonSet contournent le planificateur Kubernetes et ne respectent pas l'attribut unschedulable sur un nœud.
-Cela suppose que les démons appartiennent à la machine même si celle-ci est en cours de vidage des applications pendant qu'elle se prépare au redémarrage.
+Comme mentionné dans la section [Unicité du nom du nœud](#node-name-uniqueness),
+lorsque la configuration du nœud doit être mise à jour, il est recommandé de ré-enregistrer
+le nœud auprès du serveur API. Par exemple, si le kubelet est redémarré avec
+un nouvel ensemble de `--node-labels`, mais le même nom de Nœud est utilisé, le changement ne sera
+pas pris en compte, car les étiquettes sont uniquement définies (ou modifiées) lors de l'enregistrement du Nœud auprès du serveur API.
+
+Les Pods déjà planifiés sur le Nœud peuvent se comporter de manière incorrecte ou causer des problèmes si la configuration du Nœud
+est modifiée lors du redémarrage du kubelet. Par exemple, un Pod déjà en cours d'exécution
+peut être affecté par les nouvelles étiquettes attribuées au Nœud, tandis que d'autres
+Pods, incompatibles avec ce Pod, seront planifiés en fonction de cette nouvelle
+étiquette. La ré-enregistrement du Nœud garantit que tous les Pods seront évacués et correctement
+re-planifiés.
 {{< /note >}}
 
-### Capacité de nœud
+### Administration manuelle des nœuds
 
-La capacité du nœud (nombre de CPU et quantité de mémoire) fait partie de l’objet Node.
-Normalement, les nœuds s'enregistrent et indiquent leur capacité lors de la création de l'objet Node.
-Si vous faites une [administration manuelle de nœud](#manual-node-administration), alors vous devez définir la capacité du nœud lors de l'ajout d'un nœud.
+Vous pouvez créer et modifier des objets Nœud en utilisant
+{{< glossary_tooltip text="kubectl" term_id="kubectl" >}}.
 
-Le scheduler Kubernetes veille à ce qu'il y ait suffisamment de ressources pour tous les pods d'un noeud.
-Il vérifie que la somme des demandes des conteneurs sur le nœud n'est pas supérieure à la capacité du nœud.
-Cela inclut tous les conteneurs lancés par le kubelet, mais pas les conteneurs lancés directement par le [conteneur runtime](/docs/concepts/overview/components/#noeud-composants), ni aucun processus exécuté en dehors des conteneurs.
+Lorsque vous souhaitez créer manuellement des objets Nœud, définissez le drapeau kubelet `--register-node=false`.
 
-Si vous souhaitez réserver explicitement des ressources pour des processus autres que Pod, suivez ce tutoriel pour: [réserver des ressources pour les démons système](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved).
+Vous pouvez modifier des objets Nœud indépendamment du paramètre `--register-node`.
+Par exemple, vous pouvez définir des étiquettes sur un Nœud existant ou le marquer comme non planifiable.
 
-## API Object
+Vous pouvez utiliser des étiquettes sur les Nœuds en conjonction avec des sélecteurs de nœuds sur les Pods pour contrôler
+la planification. Par exemple, vous pouvez restreindre un Pod à s'exécuter uniquement sur
+un sous-ensemble des nœuds disponibles.
 
-L'objet Node est une ressource de niveau supérieur dans l'API REST de Kubernetes.
-Plus de détails sur l'objet API peuvent être trouvés à l'adresse suivante: [Node API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
+Le marquage d'un nœud comme non planifiable empêche le planificateur de placer de nouveaux pods sur
+ce Nœud, mais n'affecte pas les Pods existants sur le Nœud. Cela est utile comme
+étape préparatoire avant un redémarrage du nœud ou une autre opération de maintenance.
 
+Pour marquer un Nœud comme non planifiable, exécutez :
+
+```shell
+kubectl cordon $NOM_DU_NŒUD
+```
+
+Consultez [Évacuation sécurisée d'un nœud](/docs/tasks/administer-cluster/safely-drain-node/)
+pour plus de détails.
+
+{{< note >}}
+Les Pods faisant partie d'un {{< glossary_tooltip term_id="daemonset" >}} tolèrent
+le fait d'être exécutés sur un Nœud non planifiable. Les DaemonSets fournissent généralement des services locaux au nœud
+qui doivent s'exécuter sur le Nœud même s'il est vidé des applications de charge de travail.
+{{< /note >}}
+
+## État du nœud
+
+L'état d'un Nœud contient les informations suivantes :
+
+* [Adresses](/docs/reference/node/node-status/#addresses)
+* [Conditions](/docs/reference/node/node-status/#condition)
+* [Capacité et Allocatable](/docs/reference/node/node-status/#capacity)
+* [Info](/docs/reference/node/node-status/#info)
+
+Vous pouvez utiliser `kubectl` pour afficher l'état d'un Nœud et d'autres détails :
+
+```shell
+kubectl describe node <insérez-le-nom-du-nœud-ici>
+```
+
+Consultez [État du nœud](/docs/reference/node/node-status/) pour plus de détails.
+
+## Battements de cœur du nœud
+
+Les battements de cœur, envoyés par les nœuds Kubernetes, aident votre cluster à déterminer
+la disponibilité de chaque nœud et à prendre des mesures en cas de détection de défaillances.
+
+Pour les nœuds, il existe deux formes de battements de cœur :
+
+* Mises à jour de l'[`.status`](/docs/reference/node/node-status/) d'un Nœud.
+* Objets [Lease](/docs/concepts/architecture/leases/)
+  dans le namespace `kube-node-lease`.
+  Chaque Nœud a un objet Lease associé.
+
+## Contrôleur de nœud
+
+Le {{< glossary_tooltip text="contrôleur" term_id="controller" >}} de nœud est un
+composant du plan de contrôle Kubernetes qui gère différents aspects des nœuds.
+
+Le contrôleur de nœud a plusieurs rôles dans la vie d'un nœud. Le premier est d'attribuer un
+bloc CIDR au nœud lors de son enregistrement (si l'attribution CIDR est activée).
+
+Le deuxième est de maintenir à jour la liste interne des nœuds du contrôleur de nœud avec
+la liste des machines disponibles du fournisseur de cloud. Lorsqu'il s'exécute dans un environnement cloud
+et chaque fois qu'un nœud est en mauvaise santé, le contrôleur de nœud demande au fournisseur de cloud si la VM pour ce nœud est toujours disponible.
+Si ce n'est pas le cas, le contrôleur de nœud supprime le nœud de sa liste de nœuds.
+
+Le troisième est de surveiller la santé des nœuds. Le contrôleur de nœud est
+responsable de :
+
+- Dans le cas où un nœud devient injoignable, mettre à jour la condition `Ready`
+  dans le champ `.status` du Nœud. Dans ce cas, le contrôleur de nœud définit la
+  condition `Ready` à `Unknown`.
+- Si un nœud reste injoignable : déclencher
+  [l'éviction initiée par l'API](/docs/concepts/scheduling-eviction/api-eviction/)
+  pour tous les Pods sur le nœud injoignable. Par défaut, le contrôleur de nœud
+  attend 5 minutes entre le marquage du nœud comme `Unknown` et la soumission
+  de la première demande d'éviction.
+
+Par défaut, le contrôleur de nœud vérifie l'état de chaque nœud toutes les 5 secondes.
+Cette période peut être configurée à l'aide du drapeau `--node-monitor-period` sur le
+composant `kube-controller-manager`.
+
+### Limites de taux sur l'éviction
+
+Dans la plupart des cas, le contrôleur de nœud limite le taux d'éviction à
+`--node-eviction-rate` (par défaut 0,1) par seconde, ce qui signifie qu'il n'évacuera pas les pods
+de plus d'un nœud toutes les 10 secondes.
+
+Le comportement d'éviction des nœuds change lorsqu'un nœud dans une zone de disponibilité donnée
+devient en mauvaise santé. Le contrôleur de nœud vérifie quel pourcentage de nœuds dans la zone
+sont en mauvaise santé (la condition `Ready` est `Unknown` ou `False`) en même temps :
+
+- Si la fraction de nœuds en mauvaise santé est d'au moins `--unhealthy-zone-threshold`
+  (par défaut 0,55), alors le taux d'éviction est réduit.
+- Si le cluster est petit (c'est-à-dire qu'il a moins ou égal à
+  `--large-cluster-size-threshold` nœuds - par défaut 50), alors les évictions sont arrêtées.
+- Sinon, le taux d'éviction est réduit à `--secondary-node-eviction-rate`
+  (par défaut 0,01) par seconde.
+
+La raison pour laquelle ces politiques sont mises en œuvre par zone de disponibilité est que
+une zone de disponibilité peut être isolée du plan de contrôle tandis que les autres restent
+connectées. Si votre cluster ne s'étend pas sur plusieurs zones de disponibilité du fournisseur de cloud,
+alors le mécanisme d'éviction ne prend pas en compte l'indisponibilité par zone.
+
+Une raison clé de répartir vos nœuds sur plusieurs zones de disponibilité est de permettre
+le déplacement de la charge de travail vers des zones saines lorsque toute une zone est hors service.
+Par conséquent, si tous les nœuds d'une zone sont en mauvaise santé, alors le contrôleur de nœud évacue au
+taux normal de `--node-eviction-rate`. Le cas particulier est lorsque toutes les zones sont
+complètement en mauvaise santé (aucun des nœuds du cluster n'est en bonne santé). Dans un tel
+cas, le contrôleur de nœud suppose qu'il y a un problème de connectivité
+entre le plan de contrôle et les nœuds, et n'effectue aucune éviction.
+(S'il y a eu une panne et que certains nœuds réapparaissent, le contrôleur de nœud évacue les pods
+des nœuds restants qui sont en mauvaise santé ou injoignables).
+
+Le contrôleur de nœud est également responsable de l'éviction des pods s'exécutant sur des nœuds avec
+des {{< glossary_tooltip text="taints" term_id="taint" >}} `NoExecute`, sauf si ces pods tolèrent cette taint.
+Le contrôleur de nœud ajoute également des {{< glossary_tooltip text="taints" term_id="taint" >}}
+correspondant aux problèmes du nœud, tels que le nœud injoignable ou non prêt. Cela signifie
+que le planificateur ne placera pas de Pods sur des nœuds en mauvaise santé.
+
+## Suivi de la capacité des ressources du nœud {#node-capacity}
+
+Les objets Nœud suivent des informations sur la capacité des ressources du Nœud : par exemple, la quantité
+de mémoire disponible et le nombre de CPU.
+Les nœuds qui [s'enregistrent automatiquement](#auto-enregistrement-des-nœuds) rapportent leur capacité lors de
+l'enregistrement. Si vous les ajoutez [manuellement](#administration-manuelle-des-nœuds), alors
+vous devez définir les informations de capacité du nœud lors de son ajout.
+Les nœuds qui [s'enregistrent automatiquement](#auto-enregistrement-des-nœuds) rapportent leur capacité lors de l'enregistrement. Si vous les ajoutez [manuellement](#administration-manuelle-des-nœuds), alors vous devez définir les informations de capacité du nœud lors de son ajout.
+
+Le planificateur Kubernetes s'assure qu'il y a suffisamment de ressources pour tous les Pods sur un Nœud. Le planificateur vérifie que la somme des demandes des conteneurs sur le nœud n'est pas supérieure à la capacité du nœud. Cette somme de demandes inclut tous les conteneurs gérés par le kubelet, mais exclut tout conteneur démarré directement par le runtime de conteneur, ainsi que tout processus s'exécutant en dehors du contrôle du kubelet.
+
+{{< note >}}
+Si vous souhaitez réserver explicitement des ressources pour des processus non-Pod, consultez la section [Réserver des ressources pour les démons système](/fr/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved).
+{{< /note >}}
+
+## Topologie du nœud
+
+{{< feature-state feature_gate_name="TopologyManager" >}}
+
+Si vous avez activé la fonctionnalité `TopologyManager` [feature gate](/fr/docs/reference/command-line-tools-reference/feature-gates/), alors le kubelet peut utiliser des indications de topologie lors de la prise de décision d'attribution des ressources. Consultez la section [Contrôler les stratégies de gestion de la topologie sur un nœud](/fr/docs/tasks/administer-cluster/topology-manager/) pour plus d'informations.
+
+## Gestion de la mémoire swap {#swap-memory}
+
+{{< feature-state feature_gate_name="NodeSwap" >}}
+
+Pour activer la mémoire swap sur un nœud, la fonctionnalité `NodeSwap` doit être activée sur le kubelet (par défaut, elle est activée), et le drapeau de ligne de commande `--fail-swap-on` ou le paramètre de configuration `failSwapOn` [setting](/fr/docs/reference/config-api/kubelet-config.v1beta1/) doit être défini sur false. Pour permettre aux Pods d'utiliser la mémoire swap, `swapBehavior` ne doit pas être défini sur `NoSwap` (qui est le comportement par défaut) dans la configuration du kubelet.
+
+{{< warning >}}
+Lorsque la fonctionnalité de mémoire swap est activée, les données Kubernetes telles que le contenu des objets Secret qui ont été écrits dans tmpfs peuvent maintenant être échangées sur le disque.
+{{< /warning >}}
+
+Un utilisateur peut également configurer facultativement `memorySwap.swapBehavior` afin de spécifier comment un nœud utilisera la mémoire swap. Par exemple,
+
+```yaml
+memorySwap:
+  swapBehavior: LimitedSwap
+```
+
+- `NoSwap` (par défaut) : Les charges de travail Kubernetes n'utiliseront pas la mémoire swap.
+- `LimitedSwap` : L'utilisation de la mémoire swap par les charges de travail Kubernetes est soumise à des limitations. Seuls les Pods de QoS Burstable sont autorisés à utiliser la mémoire swap.
+
+Si la configuration pour `memorySwap` n'est pas spécifiée et que la fonctionnalité est activée, par défaut, le kubelet appliquera le même comportement que le paramètre `NoSwap`.
+
+Avec `LimitedSwap`, les Pods qui ne relèvent pas de la classification QoS Burstable (c'est-à-dire les Pods QoS `BestEffort`/`Guaranteed`) sont interdits d'utiliser la mémoire swap. Pour maintenir les garanties de sécurité et de santé du nœud mentionnées ci-dessus, ces Pods ne sont pas autorisés à utiliser la mémoire swap lorsque `LimitedSwap` est en vigueur.
+
+Avant de détailler le calcul de la limite d'échange, il est nécessaire de définir les termes suivants :
+
+* `nodeTotalMemory` : La quantité totale de mémoire physique disponible sur le nœud.
+* `totalPodsSwapAvailable` : La quantité totale de mémoire swap sur le nœud disponible pour une utilisation par les Pods (une partie de la mémoire swap peut être réservée à des fins système).
+* `containerMemoryRequest` : La demande de mémoire du conteneur.
+
+La limitation d'échange est configurée comme suit :
+`(containerMemoryRequest / nodeTotalMemory) * totalPodsSwapAvailable`.
+
+Il est important de noter que, pour les conteneurs dans les Pods de QoS Burstable, il est possible de désactiver l'utilisation de l'échange en spécifiant des demandes de mémoire égales aux limites de mémoire. Les conteneurs configurés de cette manière n'auront pas accès à la mémoire swap.
+
+L'échange est pris en charge uniquement avec **cgroup v2**, cgroup v1 n'est pas pris en charge.
+
+Pour plus d'informations, et pour aider aux tests et fournir des commentaires, veuillez consulter l'article de blog sur [Kubernetes 1.28 : NodeSwap passe en version Beta1](/fr/blog/2023/08/24/swap-linux-beta/), [KEP-2400](https://github.com/kubernetes/enhancements/issues/4128) et sa [proposition de conception](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).
+
+## {{% heading "whatsnext" %}}
+
+En savoir plus sur les éléments suivants :
+
+* [Les composants](/fr/docs/concepts/architecture/#node-components) qui composent un nœud.
+* [Définition de l'API pour le nœud](/fr/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
+* La section [Nœud](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) du document de conception de l'architecture.
+* [Arrêt du nœud en mode normal ou non normal](/fr/docs/concepts/cluster-administration/node-shutdown/).
+* [Mise à l'échelle automatique du cluster](/fr/docs/concepts/cluster-administration/cluster-autoscaling/) pour gérer le nombre et la taille des nœuds de votre cluster.
+* [Taints et Tolerations](/fr/docs/concepts/scheduling-eviction/taint-and-toleration/).
+* [Gestion des ressources du nœud](/fr/docs/concepts/policy/node-resource-managers/).
+* [Gestion des ressources pour les nœuds Windows](/fr/docs/concepts/configuration/windows-resource-management/).
 

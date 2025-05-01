@@ -28,6 +28,9 @@ Kubernetes documentation contributors:
 - Create new content
 - Translate the documentation
 - Manage and publish the documentation parts of the Kubernetes release cycle
+
+The blog team, part of SIG Docs, helps manage the official blogs. Read
+[contributing to Kubernetes blogs](/docs/contribute/blog/) to learn more.
 -->
 本网站由 [Kubernetes SIG Docs](/zh-cn/docs/contribute/#get-involved-with-SIG-Docs)（文档特别兴趣小组）维护。
 Kubernetes 项目欢迎所有贡献者（无论是新手还是经验丰富的贡献者）提供帮助！
@@ -39,6 +42,8 @@ Kubernetes 文档项目的贡献者：
 - 翻译文档
 - 管理并发布 Kubernetes 周期性发行版的文档
 
+博客团队是 SIG Docs 的一部分，负责管理官方博客。
+阅读[参与 Kubernetes 博客贡献](/zh-cn/docs/contribute/blog/)以了解更多信息。
 ---
 
 {{< note >}}
@@ -159,7 +164,7 @@ roles and permissions.
 ## Your first contribution
 
 You can prepare for your first contribution by reviewing several steps beforehand.
-Figure 2 outlines the steps and the details follow. 
+Figure 2 outlines the steps and the details follow.
 -->
 ## 第一次贡献 {#your-first-contribution}
 
@@ -294,7 +299,7 @@ SIG Docs 的几种沟通方式：
   You'll need to download the [Zoom client](https://zoom.us/download) or dial in using a phone.
 - Join the SIG Docs async Slack standup meeting on those weeks when the in-person Zoom
   video meeting does not take place. Meetings are always announced on `#sig-docs`.
-  You can contribute to any one of the threads up to 24 hours after meeting announcement. 
+  You can contribute to any one of the threads up to 24 hours after meeting announcement.
 -->
 - [加入 Kubernetes 在 Slack 上的 `#sig-docs` 频道](https://slack.k8s.io/)。
   一定记得自我介绍!
@@ -317,7 +322,8 @@ SIG Docs 的几种沟通方式：
   to get involved with Kubernetes feature development.
 - Visit the contributor site to learn more about [Kubernetes Contributors](https://www.kubernetes.dev/)
   and [additional contributor resources](https://www.kubernetes.dev/resources/).
-- Submit a [blog post or case study](/docs/contribute/new-content/blogs-case-studies/).
+- Learn how to [contribute to the official blogs](/docs/contribute/blog/)
+- Submit a [case study](/docs/contribute/new-content/case-studies/)
 -->
 ## 其他贡献方式 {#other-ways-to-contribute}
 
@@ -327,4 +333,6 @@ SIG Docs 的几种沟通方式：
   参与 Kubernetes 功能开发。
 - 访问贡献者网站，进一步了解有关 [Kubernetes 贡献者](https://www.kubernetes.dev/)
   和[更多贡献者资源](https://www.kubernetes.dev/resources/)的信息。
-- 提交一篇[博客文章或案例研究](/zh-cn/docs/contribute/new-content/blogs-case-studies/)。
+- 了解如何[参与官方博客的贡献](/zh-cn/docs/contribute/blog/)
+- 提交一份[案例研究](/zh-cn/docs/contribute/new-content/case-studies/)
+

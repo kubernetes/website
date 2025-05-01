@@ -92,8 +92,7 @@ If the API server allows the eviction, the Pod is deleted as follows:
    resource is marked for termination and starts to gracefully shut down the
    local Pod.
 1. While the kubelet is shutting the Pod down, the control plane removes the Pod
-   from {{<glossary_tooltip term_id="endpoint" text="Endpoint">}} and
-   {{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}}
+   from {{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}}
    objects. As a result, controllers no longer consider the Pod as a valid object.
 1. After the grace period for the Pod expires, the kubelet forcefully terminates
    the local Pod.

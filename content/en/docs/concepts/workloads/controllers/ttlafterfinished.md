@@ -57,7 +57,7 @@ You can set the TTL seconds at any time. Here are some examples for setting the
   to detect changes to the `.status` of the Job and only set a TTL when the Job
   is being marked as completed.
 * Write your own controller to manage the cleanup TTL for Jobs that match a particular
-  {{< glossary_tooltip term_id="selector" text="selector-selector" >}}.
+  {{< glossary_tooltip term_id="selector" text="selector" >}}.
 
 ## Caveats
 

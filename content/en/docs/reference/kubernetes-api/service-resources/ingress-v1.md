@@ -203,6 +203,8 @@ IngressStatus describe the current state of the Ingress.
 
   - **loadBalancer.ingress** ([]IngressLoadBalancerIngress)
 
+    *Atomic: will be replaced during a merge*
+    
     ingress is a list containing ingress points for the load-balancer.
 
     <a name="IngressLoadBalancerIngress"></a>
@@ -814,6 +816,11 @@ DELETE /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -872,6 +879,11 @@ DELETE /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string
