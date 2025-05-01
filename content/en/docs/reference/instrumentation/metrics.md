@@ -6,10 +6,10 @@ description: >-
   Details of the metric data that Kubernetes components export.
 ---
 
-## Metrics (v1.32)
+## Metrics (v1.34)
 
-<!-- (auto-generated 2024 Nov 09) -->
-<!-- (auto-generated v1.32) -->
+<!-- (auto-generated 2025 May 01) -->
+<!-- (auto-generated v1.34) -->
 This page details the metrics that different Kubernetes components export. You can query the metrics endpoint for these 
 components using an HTTP scrape, and fetch the current metrics data in Prometheus format.
 
@@ -242,13 +242,6 @@ Stable metrics observe strict API contracts and no labels can be added or remove
 	<li data-type="histogram"><label class="metric_detail">Type:</label> <span class="metric_type">Histogram</span></li>
 	</ul>
 	</div><div class="metric" data-stability="stable">
-	<div class="metric_name">scheduler_pod_scheduling_duration_seconds</div>
-	<div class="metric_help">E2e latency for a pod being scheduled which may include multiple scheduling attempts.</div>
-	<ul>
-	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">STABLE</span></li>
-	<li data-type="histogram"><label class="metric_detail">Type:</label> <span class="metric_type">Histogram</span></li>
-	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">attempts</span></li><li class="metric_deprecated_version"><label class="metric_detail">Deprecated Versions:</label><span>1.29.0</span></li></ul>
-	</div><div class="metric" data-stability="stable">
 	<div class="metric_name">scheduler_preemption_attempts_total</div>
 	<div class="metric_help">Total preemption attempts in the cluster till now</div>
 	<ul>
@@ -368,6 +361,20 @@ Beta metrics observe a looser API contract than its stable counterparts. No labe
 	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
 	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">enforcement_action</span><span class="metric_label">error_type</span><span class="metric_label">policy</span><span class="metric_label">policy_binding</span></li></ul>
 	</div><div class="metric" data-stability="beta">
+	<div class="metric_name">apiserver_validation_declarative_validation_mismatch_total</div>
+	<div class="metric_help">Number of times declarative validation results differed from handwritten validation results for core types.</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">BETA</span></li>
+	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
+	</ul>
+	</div><div class="metric" data-stability="beta">
+	<div class="metric_name">apiserver_validation_declarative_validation_panic_total</div>
+	<div class="metric_help">Number of times declarative validation has panicked during validation.</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">BETA</span></li>
+	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
+	</ul>
+	</div><div class="metric" data-stability="beta">
 	<div class="metric_name">disabled_metrics_total</div>
 	<div class="metric_help">The count of disabled metrics.</div>
 	<ul>
@@ -388,6 +395,13 @@ Beta metrics observe a looser API contract than its stable counterparts. No labe
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">BETA</span></li>
 	<li data-type="gauge"><label class="metric_detail">Type:</label> <span class="metric_type">Gauge</span></li>
 	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">name</span><span class="metric_label">stage</span></li></ul>
+	</div><div class="metric" data-stability="beta">
+	<div class="metric_name">prober_probe_total</div>
+	<div class="metric_help">Cumulative number of a liveness, readiness or startup probe for a container by result.</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">BETA</span></li>
+	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">container</span><span class="metric_label">namespace</span><span class="metric_label">pod</span><span class="metric_label">pod_uid</span><span class="metric_label">probe_type</span><span class="metric_label">result</span></li></ul>
 	</div><div class="metric" data-stability="beta">
 	<div class="metric_name">registered_metrics_total</div>
 	<div class="metric_help">The count of registered metrics broken by stability level and deprecation version.</div>
@@ -1481,6 +1495,20 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 	<li data-type="histogram"><label class="metric_detail">Type:</label> <span class="metric_type">Histogram</span></li>
 	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">driver_name</span><span class="metric_label">grpc_status_code</span><span class="metric_label">method_name</span><span class="metric_label">migrated</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
+	<div class="metric_name">device_taint_eviction_controller_pod_deletion_duration_seconds</div>
+	<div class="metric_help">Latency, in seconds, between the time when a device taint effect has been activated and a Pod's deletion via DeviceTaintEvictionController.</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
+	<li data-type="histogram"><label class="metric_detail">Type:</label> <span class="metric_type">Histogram</span></li>
+	</ul>
+	</div><div class="metric" data-stability="alpha">
+	<div class="metric_name">device_taint_eviction_controller_pod_deletions_total</div>
+	<div class="metric_help">Total number of Pods deleted by DeviceTaintEvictionController since its start.</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
+	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
+	</ul>
+	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">dra_grpc_operations_duration_seconds</div>
 	<div class="metric_help">Duration in seconds of the DRA gRPC operations</div>
 	<ul>
@@ -1922,6 +1950,13 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
 	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">boundary</span><span class="metric_label">scope</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
+	<div class="metric_name">kubelet_container_aligned_compute_resources_failure_count</div>
+	<div class="metric_help">Cumulative number of failures to allocate aligned compute resources to containers by alignment type.</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
+	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">boundary</span><span class="metric_label">scope</span></li></ul>
+	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">kubelet_container_log_filesystem_used_bytes</div>
 	<div class="metric_help">Bytes used by the container's logs on the filesystem.</div>
 	<ul>
@@ -1935,6 +1970,13 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="histogram"><label class="metric_detail">Type:</label> <span class="metric_type">Histogram</span></li>
 	</ul>
+	</div><div class="metric" data-stability="alpha">
+	<div class="metric_name">kubelet_cpu_manager_allocation_per_numa</div>
+	<div class="metric_help">Number of CPUs allocated per NUMA node</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
+	<li data-type="gauge"><label class="metric_detail">Type:</label> <span class="metric_type">Gauge</span></li>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">numa_node</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">kubelet_cpu_manager_exclusive_cpu_allocation_count</div>
 	<div class="metric_help">The total number of CPUs exclusively allocated to containers running on this node</div>
@@ -2082,6 +2124,27 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="histogram"><label class="metric_detail">Type:</label> <span class="metric_type">Histogram</span></li>
 	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">image_size_in_bytes</span></li></ul>
+	</div><div class="metric" data-stability="alpha">
+	<div class="metric_name">kubelet_image_volume_mounted_errors_total</div>
+	<div class="metric_help">Number of failed image volume mounts.</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
+	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
+	</ul>
+	</div><div class="metric" data-stability="alpha">
+	<div class="metric_name">kubelet_image_volume_mounted_succeed_total</div>
+	<div class="metric_help">Number of successful image volume mounts.</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
+	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
+	</ul>
+	</div><div class="metric" data-stability="alpha">
+	<div class="metric_name">kubelet_image_volume_requested_total</div>
+	<div class="metric_help">Number of requested image volumes.</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
+	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
+	</ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">kubelet_lifecycle_handler_http_fallbacks_total</div>
 	<div class="metric_help">The number of times lifecycle handlers successfully fell back to http from https.</div>
@@ -2503,6 +2566,20 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 	<li data-type="gauge"><label class="metric_detail">Type:</label> <span class="metric_type">Gauge</span></li>
 	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">config</span><span class="metric_label">lifecycle</span><span class="metric_label">static</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
+	<div class="metric_name">kubeproxy_conntrack_reconciler_deleted_entries_total</div>
+	<div class="metric_help">Cumulative conntrack flows deleted by conntrack reconciler</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
+	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">ip_family</span></li></ul>
+	</div><div class="metric" data-stability="alpha">
+	<div class="metric_name">kubeproxy_conntrack_reconciler_sync_duration_seconds</div>
+	<div class="metric_help">ReconcileConntrackFlowsLatency latency in seconds</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
+	<li data-type="histogram"><label class="metric_detail">Type:</label> <span class="metric_type">Histogram</span></li>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">ip_family</span></li></ul>
+	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">kubeproxy_iptables_ct_state_invalid_dropped_packets_total</div>
 	<div class="metric_help">packets dropped by iptables to work around conntrack problems</div>
 	<ul>
@@ -2522,7 +2599,7 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 	<ul>
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="histogram"><label class="metric_detail">Type:</label> <span class="metric_type">Histogram</span></li>
-	</ul>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">ip_family</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">kubeproxy_proxy_healthz_total</div>
 	<div class="metric_help">Cumulative proxy healthz HTTP status</div>
@@ -2543,21 +2620,21 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 	<ul>
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="histogram"><label class="metric_detail">Type:</label> <span class="metric_type">Histogram</span></li>
-	</ul>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">ip_family</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">kubeproxy_sync_partial_proxy_rules_duration_seconds</div>
 	<div class="metric_help">SyncProxyRules latency in seconds for partial resyncs</div>
 	<ul>
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="histogram"><label class="metric_detail">Type:</label> <span class="metric_type">Histogram</span></li>
-	</ul>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">ip_family</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">kubeproxy_sync_proxy_rules_duration_seconds</div>
 	<div class="metric_help">SyncProxyRules latency in seconds</div>
 	<ul>
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="histogram"><label class="metric_detail">Type:</label> <span class="metric_type">Histogram</span></li>
-	</ul>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">ip_family</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">kubeproxy_sync_proxy_rules_endpoint_changes_pending</div>
 	<div class="metric_help">Pending proxy rules Endpoint changes</div>
@@ -2578,63 +2655,63 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 	<ul>
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="gauge"><label class="metric_detail">Type:</label> <span class="metric_type">Gauge</span></li>
-	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">table</span></li></ul>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">ip_family</span><span class="metric_label">table</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">kubeproxy_sync_proxy_rules_iptables_partial_restore_failures_total</div>
 	<div class="metric_help">Cumulative proxy iptables partial restore failures</div>
 	<ul>
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
-	</ul>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">ip_family</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">kubeproxy_sync_proxy_rules_iptables_restore_failures_total</div>
 	<div class="metric_help">Cumulative proxy iptables restore failures</div>
 	<ul>
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
-	</ul>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">ip_family</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">kubeproxy_sync_proxy_rules_iptables_total</div>
 	<div class="metric_help">Total number of iptables rules owned by kube-proxy</div>
 	<ul>
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="gauge"><label class="metric_detail">Type:</label> <span class="metric_type">Gauge</span></li>
-	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">table</span></li></ul>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">ip_family</span><span class="metric_label">table</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">kubeproxy_sync_proxy_rules_last_queued_timestamp_seconds</div>
 	<div class="metric_help">The last time a sync of proxy rules was queued</div>
 	<ul>
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="gauge"><label class="metric_detail">Type:</label> <span class="metric_type">Gauge</span></li>
-	</ul>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">ip_family</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">kubeproxy_sync_proxy_rules_last_timestamp_seconds</div>
 	<div class="metric_help">The last time proxy rules were successfully synced</div>
 	<ul>
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="gauge"><label class="metric_detail">Type:</label> <span class="metric_type">Gauge</span></li>
-	</ul>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">ip_family</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">kubeproxy_sync_proxy_rules_nftables_cleanup_failures_total</div>
 	<div class="metric_help">Cumulative proxy nftables cleanup failures</div>
 	<ul>
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
-	</ul>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">ip_family</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">kubeproxy_sync_proxy_rules_nftables_sync_failures_total</div>
 	<div class="metric_help">Cumulative proxy nftables sync failures</div>
 	<ul>
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
-	</ul>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">ip_family</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">kubeproxy_sync_proxy_rules_no_local_endpoints_total</div>
 	<div class="metric_help">Number of services with a Local traffic policy and no endpoints</div>
 	<ul>
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="gauge"><label class="metric_detail">Type:</label> <span class="metric_type">Gauge</span></li>
-	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">traffic_policy</span></li></ul>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">ip_family</span><span class="metric_label">traffic_policy</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">kubeproxy_sync_proxy_rules_service_changes_pending</div>
 	<div class="metric_help">Pending proxy rules Service changes</div>
@@ -2824,13 +2901,6 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="histogram"><label class="metric_detail">Type:</label> <span class="metric_type">Histogram</span></li>
 	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">container</span><span class="metric_label">namespace</span><span class="metric_label">pod</span><span class="metric_label">probe_type</span></li></ul>
-	</div><div class="metric" data-stability="alpha">
-	<div class="metric_name">prober_probe_total</div>
-	<div class="metric_help">Cumulative number of a liveness, readiness or startup probe for a container by result.</div>
-	<ul>
-	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
-	<li data-type="counter"><label class="metric_detail">Type:</label> <span class="metric_type">Counter</span></li>
-	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">container</span><span class="metric_label">namespace</span><span class="metric_label">pod</span><span class="metric_label">pod_uid</span><span class="metric_label">probe_type</span><span class="metric_label">result</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">pv_collector_bound_pv_count</div>
 	<div class="metric_help">Gauge measuring number of persistent volume currently bound</div>
@@ -3035,6 +3105,13 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 	<li data-type="gauge"><label class="metric_detail">Type:</label> <span class="metric_type">Gauge</span></li>
 	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">manager</span><span class="metric_label">name</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
+	<div class="metric_name">scheduler_cache_size</div>
+	<div class="metric_help">Number of nodes, pods, and assumed (bound) pods in the scheduler cache.</div>
+	<ul>
+	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
+	<li data-type="gauge"><label class="metric_detail">Type:</label> <span class="metric_type">Gauge</span></li>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">type</span></li></ul>
+	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">scheduler_event_handling_duration_seconds</div>
 	<div class="metric_help">Event handling latency in seconds.</div>
 	<ul>
@@ -3097,13 +3174,6 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
 	<li data-type="histogram"><label class="metric_detail">Type:</label> <span class="metric_type">Histogram</span></li>
 	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">event</span><span class="metric_label">hint</span><span class="metric_label">plugin</span></li></ul>
-	</div><div class="metric" data-stability="alpha">
-	<div class="metric_name">scheduler_scheduler_cache_size</div>
-	<div class="metric_help">Number of nodes, pods, and assumed (bound) pods in the scheduler cache.</div>
-	<ul>
-	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">ALPHA</span></li>
-	<li data-type="gauge"><label class="metric_detail">Type:</label> <span class="metric_type">Gauge</span></li>
-	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">type</span></li></ul>
 	</div><div class="metric" data-stability="alpha">
 	<div class="metric_name">scheduler_scheduling_algorithm_duration_seconds</div>
 	<div class="metric_help">Scheduling algorithm latency in seconds</div>
