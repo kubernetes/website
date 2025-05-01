@@ -1,9 +1,9 @@
 ---
 layout: blog
-title: "From Secrets to Service Accounts: Kubernetes Image Pulls Evolved"
-date: 2025-04-23
+title: "Kubernetes v1.33: From Secrets to Service Accounts: Kubernetes Image Pulls Evolved"
+date: 2025-05-07
 draft: true
-slug: wi-for-image-pulls
+slug: kubernetes-1-33-wi-for-image-pulls
 author: >
   [Anish Ramasekar](https://github.com/aramase) (Microsoft)
 ---
