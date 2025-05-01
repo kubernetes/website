@@ -49,8 +49,8 @@ kube-scheduler-simulatorのコア機能は、スケジューラーの内部的�
 
 {{< figure src="/images/blog/2025-04-07-kube-scheduler-simulator/simulator.png" alt="ノードごとおよび拡張ポイントごとの詳細なスケジューリング結果を表示する、シミュレーターのWebフロントエンドのスクリーンショット" title="シミュレーターのwebフロントエンド" >}}
 
-このシミュレーターの内部では、通常のスケジューラー(vanilla scheduler)ではなく、デバッグ可能なスケジューラーが動作します。
-このデバッグ可能なスケジューラーは、各拡張ポイントにおける各スケジューラープラグインの結果を、以下のマニフェストに示すようにPodのアノテーションとして出力します。
+このシミュレーターの内部では、通常のスケジューラー(vanilla scheduler)ではなく、Debuggable Schedulerと呼ばれるデバッグを容易にするスケジューラーが動作します。
+このDebuggable Schedulerは、各拡張ポイントにおける各スケジューラープラグインの結果を、以下のマニフェストに示すようにPodのアノテーションとして出力します。
 webフロントエンドはこれらのアノテーションに基づいてスケジューリング結果を整形・可視化します。
 
 ```yaml
@@ -164,25 +164,25 @@ metadata:
     kube-scheduler-simulator.sigs.k8s.io/selected-node: node-mtb5x
 ```
 
-ユーザーはまた、[自身のカスタムプラグイン](/ja/docs/concepts/scheduling-eviction/scheduling-framework/)や[extender](https://github.com/kubernetes/design-proposals-archive/blob/main/scheduling/scheduler_extender.md)をこのデバッグ可能なスケジューラーに統合し、その結果を可視化することもできます。
+ユーザーはまた、[自身のカスタムプラグイン](/ja/docs/concepts/scheduling-eviction/scheduling-framework/)や[extender](https://github.com/kubernetes/design-proposals-archive/blob/main/scheduling/scheduler_extender.md)をこのDebuggable Schedulerに統合し、その結果を可視化することもできます。
 
-このデバッグ可能なスケジューラーは、たとえば任意のKubernetesクラスター上や統合テスト内など、スタンドアローンで実行することも可能です。これは、自身のプラグインをテストしたり、実クラスター上でカスタムスケジューラーをよりデバッグしやすい形で検証したいと考えるカスタムプラグイン開発者にとって有用です。
+このDebuggable Schedulerは、たとえば任意のKubernetesクラスター上や統合テスト内など、スタンドアローンで実行することも可能です。これは、自身のプラグインをテストしたり、実クラスター上でカスタムスケジューラーをよりデバッグしやすくしたいと考えるカスタムプラグイン開発者にとって有用です。
 
 ## より優れた開発クラスターとしてのシミュレーター
 
 前述のとおり、限られたテストだけでは実世界のクラスターで起こり得るすべてのシナリオを予測することは不可能です。
-通常、ユーザーはスケジューラーを本番環境にデプロイする前に、小規模な開発クラスターでテストを行い、問題が発生しないことを願うものです。
+ユーザーはスケジューラーを本番環境にデプロイする前に、小規模な開発クラスターでテストし、問題が発生しないことを願うことしかできません。
 
-この[シミュレーターのインポート機能](https://github.com/kubernetes-sigs/kube-scheduler-simulator/blob/master/simulator/docs/import-cluster-resources.md)は、ユーザーが本番環境に近い環境で新しいスケジューラーのバージョンをデプロイした場合の挙動を、稼働中のワークロードに影響を与えることなくシミュレーションできる手段を提供します。
+そこで、[シミュレーターのインポート機能](https://github.com/kubernetes-sigs/kube-scheduler-simulator/blob/master/simulator/docs/import-cluster-resources.md)を使うことで、本番環境に近い環境で、稼働中のワークロードに影響を与えることなくスケジューラーのシミュレーションをすることができます。
 
 本番クラスターとシミュレーターの間で継続的に同期を行うことで、ユーザーは本番クラスターが対応するリソースと同じリソースを用いて、新しいバージョンのスケジューラーを安全にテストすることができます。
-そのパフォーマンスに確信が持てた段階で本番環境へのデプロイに進むことができ、予期しない問題のリスクを低減できます。
+その動作に確信が持てた段階で本番環境へのデプロイに進むことができ、予期しない問題のリスクを低減できます。
 
 ## ユースケースは？
 
 1. **クラスターユーザー**: スケジューリング制約(たとえば、PodAffinityやPodTopologySpreadなど)が意図した通りに機能しているかを検証する。
 2. **クラスター管理者**: スケジューラーの設定を変更した場合に、クラスターがどのように動作するかを評価する。
-3. **スケジューラープラグイン開発者**: カスタムスケジューラープラグインやスケジューラー拡張をテストする。デバッグ可能なスケジューラーを統合テストや開発クラスターで使用したり、本番環境に近い環境でのテストのために[同期](https://github.com/kubernetes-sigs/kube-scheduler-simulator/blob/simulator/v0.3.0/simulator/docs/import-cluster-resources.md)機能を活用したりする。
+3. **スケジューラープラグイン開発者**: カスタムスケジューラープラグインやスケジューラー拡張をテストする。Debuggable Schedulerを統合テストや開発クラスターで使用したり、本番環境に近い環境でのテストのために[同期](https://github.com/kubernetes-sigs/kube-scheduler-simulator/blob/simulator/v0.3.0/simulator/docs/import-cluster-resources.md)機能を活用したりする。
 
 ## 利用開始の手順
 
@@ -200,14 +200,14 @@ make docker_up
 
 ## 貢献するには
 
-このスケジューラーシミュレーターは、[Kubernetes SIG Scheduling](https://github.com/kubernetes/community/blob/master/sig-scheduling/README.md#kube-scheduler-simulator)によって開発されています。
+このシミュレーターは、[Kubernetes SIG Scheduling](https://github.com/kubernetes/community/blob/master/sig-scheduling/README.md#kube-scheduler-simulator)によって開発されています。
 フィードバックやコントリビューションは大歓迎です！
 
-issueの報告やプルリクエストは、[kube-scheduler-simulatorのリポジトリ](https://sigs.k8s.io/kube-scheduler-simulator)で行ってください。
+問題の報告やプルリクエストは、[kube-scheduler-simulatorのリポジトリ](https://sigs.k8s.io/kube-scheduler-simulator)で行ってください。
 また、Slackの[#sig-scheduling](https://kubernetes.slack.com/messages/sig-scheduling)チャンネルにもぜひご参加ください。
 
 ## 謝辞
 
-このシミュレーターは、熱意あるボランティアのエンジニアたちによって維持され、多くの課題を乗り越えて現在の形に至りました。
+このシミュレーターのプロジェクトは、熱意あるボランティアのエンジニアたちによってメンテナンスされ、多くの課題を乗り越えて現在の形に至りました。
 
 [素晴らしいコントリビューターの皆さん](https://github.com/kubernetes-sigs/kube-scheduler-simulator/graphs/contributors)に心より感謝いたします！
