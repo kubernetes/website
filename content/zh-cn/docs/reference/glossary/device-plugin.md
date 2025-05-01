@@ -26,7 +26,7 @@ tags:
 <!-- 
  Device plugins run on worker
 {{< glossary_tooltip term_id="node" text="Nodes">}} and provide
-{{< glossary_tooltip term_id="pod" text="Pods ">}} with access to resources,
+{{< glossary_tooltip term_id="pod" text="Pods">}} with access to resources,
 such as local hardware, that require vendor-specific initialization or setup
 steps.
 -->

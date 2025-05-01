@@ -11,6 +11,7 @@ auto_generated: true
 
 
 - [AdmissionConfiguration](#apiserver-config-k8s-io-v1-AdmissionConfiguration)
+- [AuthorizationConfiguration](#apiserver-config-k8s-io-v1-AuthorizationConfiguration)
 - [EncryptionConfiguration](#apiserver-config-k8s-io-v1-EncryptionConfiguration)
   
 
@@ -39,14 +40,40 @@ auto_generated: true
 </tbody>
 </table>
 
+## `AuthorizationConfiguration`     {#apiserver-config-k8s-io-v1-AuthorizationConfiguration}
+    
+
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+<tr><td><code>apiVersion</code><br/>string</td><td><code>apiserver.config.k8s.io/v1</code></td></tr>
+<tr><td><code>kind</code><br/>string</td><td><code>AuthorizationConfiguration</code></td></tr>
+    
+  
+<tr><td><code>authorizers</code> <B>[Required]</B><br/>
+<a href="#apiserver-config-k8s-io-v1-AuthorizerConfiguration"><code>[]AuthorizerConfiguration</code></a>
+</td>
+<td>
+   <p>Authorizers is an ordered list of authorizers to
+authorize requests against.
+This is similar to the --authorization-modes kube-apiserver flag
+Must be at least one.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
 ## `EncryptionConfiguration`     {#apiserver-config-k8s-io-v1-EncryptionConfiguration}
     
 
 
 <p>EncryptionConfiguration stores the complete configuration for encryption providers.
 It also allows the use of wildcards to specify the resources that should be encrypted.
-Use '&ast;.&lt;group&gt;' to encrypt all resources within a group or '&ast;.&ast;' to encrypt all resources.
-'&ast;.' can be used to encrypt all resource in the core group.  '&ast;.&ast;' will encrypt all
+Use '<em>.<!-- raw HTML omitted -->' to encrypt all resources within a group or '</em>.<em>' to encrypt all resources.
+'</em>.' can be used to encrypt all resource in the core group.  '<em>.</em>' will encrypt all
 resources, even custom resources that are added after API server start.
 Use of wildcards that overlap within the same resource list or across multiple
 entries are not allowed since part of the configuration would be ineffective.
@@ -81,7 +108,8 @@ resources:
   - aescbc:
       keys:
       - name: key3
-        secret: c2VjcmV0IGlzIHNlY3VyZSwgSSB0aGluaw==</code></pre>
+        secret: c2VjcmV0IGlzIHNlY3VyZSwgSSB0aGluaw==
+</code></pre>
 
 
 <table class="table">
@@ -167,6 +195,53 @@ configuration</p>
 <td>
    <p>Configuration is an embedded configuration object to be used as the plugin's
 configuration. If present, it will be used instead of the path to the configuration file.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `AuthorizerConfiguration`     {#apiserver-config-k8s-io-v1-AuthorizerConfiguration}
+    
+
+**Appears in:**
+
+- [AuthorizationConfiguration](#apiserver-config-k8s-io-v1-AuthorizationConfiguration)
+
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>type</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>Type refers to the type of the authorizer
+&quot;Webhook&quot; is supported in the generic API server
+Other API servers may support additional authorizer
+types like Node, RBAC, ABAC, etc.</p>
+</td>
+</tr>
+<tr><td><code>name</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>Name used to describe the webhook
+This is explicitly used in monitoring machinery for metrics
+Note: Names must be DNS1123 labels like <code>myauthorizername</code> or
+subdomains like <code>myauthorizer.example.domain</code>
+Required, with no default</p>
+</td>
+</tr>
+<tr><td><code>webhook</code> <B>[Required]</B><br/>
+<a href="#apiserver-config-k8s-io-v1-WebhookConfiguration"><code>WebhookConfiguration</code></a>
+</td>
+<td>
+   <p>Webhook defines the configuration for a Webhook authorizer
+Must be defined when Type=Webhook
+Must not be defined when Type!=Webhook</p>
 </td>
 </tr>
 </tbody>
@@ -351,9 +426,9 @@ Set to a negative value to disable caching. This field is only allowed for KMS v
 <td>
    <p>resources is a list of kubernetes resources which have to be encrypted. The resource names are derived from <code>resource</code> or <code>resource.group</code> of the group/version/resource.
 eg: pandas.awesome.bears.example is a custom resource with 'group': awesome.bears.example, 'resource': pandas.
-Use '&ast;.&ast;' to encrypt all resources and '&ast;.&lt;group&gt;' to encrypt all resources in a specific group.
-eg: '&ast;.awesome.bears.example' will encrypt all resources in the group 'awesome.bears.example'.
-eg: '&ast;.' will encrypt all resources in the core group (such as pods, configmaps, etc).</p>
+Use '<em>.</em>' to encrypt all resources and '<em>.<!-- raw HTML omitted -->' to encrypt all resources in a specific group.
+eg: '</em>.awesome.bears.example' will encrypt all resources in the group 'awesome.bears.example'.
+eg: '*.' will encrypt all resources in the core group (such as pods, configmaps, etc).</p>
 </td>
 </tr>
 <tr><td><code>providers</code> <B>[Required]</B><br/>
@@ -389,6 +464,192 @@ eg: aesgcm, aescbc, secretbox, identity, kms.</p>
 <td>
    <p>keys is a list of keys to be used for creating the Secretbox transformer.
 Each key has to be 32 bytes long.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `WebhookConfiguration`     {#apiserver-config-k8s-io-v1-WebhookConfiguration}
+    
+
+**Appears in:**
+
+- [AuthorizerConfiguration](#apiserver-config-k8s-io-v1-AuthorizerConfiguration)
+
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>authorizedTTL</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>The duration to cache 'authorized' responses from the webhook
+authorizer.
+Same as setting <code>--authorization-webhook-cache-authorized-ttl</code> flag
+Default: 5m0s</p>
+</td>
+</tr>
+<tr><td><code>unauthorizedTTL</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>The duration to cache 'unauthorized' responses from the webhook
+authorizer.
+Same as setting <code>--authorization-webhook-cache-unauthorized-ttl</code> flag
+Default: 30s</p>
+</td>
+</tr>
+<tr><td><code>timeout</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>Timeout for the webhook request
+Maximum allowed value is 30s.
+Required, no default value.</p>
+</td>
+</tr>
+<tr><td><code>subjectAccessReviewVersion</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>The API version of the authorization.k8s.io SubjectAccessReview to
+send to and expect from the webhook.
+Same as setting <code>--authorization-webhook-version</code> flag
+Valid values: v1beta1, v1
+Required, no default value</p>
+</td>
+</tr>
+<tr><td><code>matchConditionSubjectAccessReviewVersion</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>MatchConditionSubjectAccessReviewVersion specifies the SubjectAccessReview
+version the CEL expressions are evaluated against
+Valid values: v1
+Required, no default value</p>
+</td>
+</tr>
+<tr><td><code>failurePolicy</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>Controls the authorization decision when a webhook request fails to
+complete or returns a malformed response or errors evaluating
+matchConditions.
+Valid values:</p>
+<ul>
+<li>NoOpinion: continue to subsequent authorizers to see if one of
+them allows the request</li>
+<li>Deny: reject the request without consulting subsequent authorizers
+Required, with no default.</li>
+</ul>
+</td>
+</tr>
+<tr><td><code>connectionInfo</code> <B>[Required]</B><br/>
+<a href="#apiserver-config-k8s-io-v1-WebhookConnectionInfo"><code>WebhookConnectionInfo</code></a>
+</td>
+<td>
+   <p>ConnectionInfo defines how we talk to the webhook</p>
+</td>
+</tr>
+<tr><td><code>matchConditions</code> <B>[Required]</B><br/>
+<a href="#apiserver-config-k8s-io-v1-WebhookMatchCondition"><code>[]WebhookMatchCondition</code></a>
+</td>
+<td>
+   <p>matchConditions is a list of conditions that must be met for a request to be sent to this
+webhook. An empty list of matchConditions matches all requests.
+There are a maximum of 64 match conditions allowed.</p>
+<p>The exact matching logic is (in order):</p>
+<ol>
+<li>If at least one matchCondition evaluates to FALSE, then the webhook is skipped.</li>
+<li>If ALL matchConditions evaluate to TRUE, then the webhook is called.</li>
+<li>If at least one matchCondition evaluates to an error (but none are FALSE):
+<ul>
+<li>If failurePolicy=Deny, then the webhook rejects the request</li>
+<li>If failurePolicy=NoOpinion, then the error is ignored and the webhook is skipped</li>
+</ul>
+</li>
+</ol>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `WebhookConnectionInfo`     {#apiserver-config-k8s-io-v1-WebhookConnectionInfo}
+    
+
+**Appears in:**
+
+- [WebhookConfiguration](#apiserver-config-k8s-io-v1-WebhookConfiguration)
+
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>type</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>Controls how the webhook should communicate with the server.
+Valid values:</p>
+<ul>
+<li>KubeConfigFile: use the file specified in kubeConfigFile to locate the
+server.</li>
+<li>InClusterConfig: use the in-cluster configuration to call the
+SubjectAccessReview API hosted by kube-apiserver. This mode is not
+allowed for kube-apiserver.</li>
+</ul>
+</td>
+</tr>
+<tr><td><code>kubeConfigFile</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>Path to KubeConfigFile for connection info
+Required, if connectionInfo.Type is KubeConfig</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `WebhookMatchCondition`     {#apiserver-config-k8s-io-v1-WebhookMatchCondition}
+    
+
+**Appears in:**
+
+- [WebhookConfiguration](#apiserver-config-k8s-io-v1-WebhookConfiguration)
+
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>expression</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>expression represents the expression which will be evaluated by CEL. Must evaluate to bool.
+CEL expressions have access to the contents of the SubjectAccessReview in v1 version.
+If version specified by subjectAccessReviewVersion in the request variable is v1beta1,
+the contents would be converted to the v1 version before evaluating the CEL expression.</p>
+<ul>
+<li>'resourceAttributes' describes information for a resource access request and is unset for non-resource requests. e.g. has(request.resourceAttributes) &amp;&amp; request.resourceAttributes.namespace == 'default'</li>
+<li>'nonResourceAttributes' describes information for a non-resource access request and is unset for resource requests. e.g. has(request.nonResourceAttributes) &amp;&amp; request.nonResourceAttributes.path == '/healthz'.</li>
+<li>'user' is the user to test for. e.g. request.user == 'alice'</li>
+<li>'groups' is the groups to test for. e.g. ('group1' in request.groups)</li>
+<li>'extra' corresponds to the user.Info.GetExtra() method from the authenticator.</li>
+<li>'uid' is the information about the requesting user. e.g. request.uid == '1'</li>
+</ul>
+<p>Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/</p>
 </td>
 </tr>
 </tbody>

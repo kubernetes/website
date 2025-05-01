@@ -53,24 +53,24 @@ A policy is generally made up of three resources:
 - The `ValidatingAdmissionPolicy` describes the abstract logic of a policy
   (think: "this policy makes sure a particular label is set to a particular value").
 
-- A `ValidatingAdmissionPolicyBinding` links the above resources together and provides scoping.
-  If you only want to require an `owner` label to be set for `Pods`, the binding is where you would
-  specify this restriction.
-
 - A parameter resource provides information to a ValidatingAdmissionPolicy to make it a concrete
   statement (think "the `owner` label must be set to something that ends in `.company.com`").
   A native type such as ConfigMap or a CRD defines the schema of a parameter resource.
   `ValidatingAdmissionPolicy` objects specify what Kind they are expecting for their parameter resource.
+
+- A `ValidatingAdmissionPolicyBinding` links the above resources together and provides scoping.
+  If you only want to require an `owner` label to be set for `Pods`, the binding is where you would
+  specify this restriction.
 -->
 - `ValidatingAdmissionPolicy` 描述策略的抽象逻辑（想想看：“这个策略确保一个特定标签被设置为一个特定值”）。
-
-- 一个 `ValidatingAdmissionPolicyBinding` 将上述资源联系在一起，并提供作用域。
-  如果你只想为 `Pods` 设置一个 `owner` 标签，你就需要在这个绑定中指定这个限制。
 
 - 参数资源为 `ValidatingAdmissionPolicy` 提供信息，使其成为一个具体的声明
   （想想看：“`owner` 标签必须被设置为以 `.company.com` 结尾的形式"）。
   参数资源的模式（Schema）使用诸如 ConfigMap 或 CRD 这类原生类型定义。
   `ValidatingAdmissionPolicy` 对象指定它们期望参数资源所呈现的类型。
+
+- 一个 `ValidatingAdmissionPolicyBinding` 将上述资源联系在一起，并提供作用域。
+  如果你只想为 `Pods` 设置一个 `owner` 标签，你就需要在这个绑定中指定这个限制。
 
 <!--
 At least a `ValidatingAdmissionPolicy` and a corresponding `ValidatingAdmissionPolicyBinding`
@@ -180,6 +180,7 @@ validation failures, use:
 ```yaml
 validationActions: [Warn, Audit]
 ```
+
 <!--
 `Deny` and `Warn` may not be used together since this combination
 needlessly duplicates the validation failure both in the
@@ -199,7 +200,8 @@ otherwise the failures are ignored.
 否则这些失败将被忽略。
 
 <!-- 
-See [Audit Annotations: validation failures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation-failure) for more details about the validation failure audit annotation.
+See [Audit Annotations: validation failures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation-failure)
+for more details about the validation failure audit annotation.
 -->
 有关验证失败审计注解的详细信息，
 请参见[审计注解：验证失败](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)。
@@ -274,6 +276,7 @@ The parameter resource could be as following:
 
 <!--
 This policy parameter resource limits deployments to a max of 3 replicas.
+
 An admission policy may have multiple bindings. To bind all other environments
 to have a maxReplicas limit of 100, create another ValidatingAdmissionPolicyBinding:
 -->
@@ -320,29 +323,6 @@ parameters.
 如果多个参数与同一个绑定匹配，则系统将为每个参数评估策略规则，并且这些规则也必须全部通过才能认为该绑定通过。
 多个绑定之间可以在匹配条件存在重叠。系统针对匹配的绑定参数所有组合来评估策略。如果多个绑定与其匹配，
 或者同一个绑定与多个参数匹配，则策略甚至可以被多次评估。
-
-<!--
-Bindings can have overlapping match criteria. The policy is evaluated for each matching binding.
-In the above example, the "nontest" policy binding could instead have been defined as a global policy:
--->
-绑定可以包含相互重叠的匹配条件。策略会针对每个匹配的绑定进行计算。
-在上面的例子中，`nontest` 策略绑定可以被定义为一个全局策略：
-
-```yaml
-apiVersion: admissionregistration.k8s.io/v1alpha1
-kind: ValidatingAdmissionPolicyBinding
-metadata:
-  name: "replicalimit-binding-global"
-spec:
-  policyName: "replicalimit-policy.example.com"
-  validationActions: [Deny]
-  params: "replica-limit-clusterwide.example.com"
-  matchResources:
-    namespaceSelector:
-      matchExpressions:
-      - key: environment
-        operator: Exists
-```
 
 <!--
 The params object representing a parameter resource will not be set if a parameter resource has
@@ -460,7 +440,7 @@ admitted will be used.
 否则，当 `namespace` 为空且 `paramKind` 为命名空间作用域的资源时，使用被准入请求中指定的 `namespace`。
 
 <!--
-#### Authorization Check
+#### Authorization checks {#authorization-check} 
 
 We introduced the authorization check for parameter resources.
 User is expected to have `read` access to the resources referenced by `paramKind` in
@@ -516,7 +496,7 @@ variables as well as some other useful variables:
 
 `spec.validations[i].expression` 代表将使用 CEL 来计算表达式。
 要了解更多信息，请参阅 [CEL 语言规范](https://github.com/google/cel-spec)。
-CEL 表达式可以访问按 CEL 变量来组织的 Admission 请求/响应的内容，以及其他一些有用的变量 :
+CEL 表达式可以访问按 CEL 变量来组织的 Admission 请求/响应的内容，以及其他一些有用的变量：
 
 <!--
 - 'object' - The object from the incoming request. The value is null for DELETE requests.
@@ -524,19 +504,28 @@ CEL 表达式可以访问按 CEL 变量来组织的 Admission 请求/响应的�
 - 'request' - Attributes of the [admission request](/docs/reference/config-api/apiserver-admission.v1/#admission-k8s-io-v1-AdmissionRequest).
 - 'params' - Parameter resource referred to by the policy binding being evaluated. The value is
   null if `ParamKind` is not specified.
-- `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal
-  (authenticated user) of the request. See
-  [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz) in the Kubernetes CEL library
-  documentation for more details.
-- `authorizer.requestResource` - A shortcut for an authorization check configured with the request
-  resource (group, resource, (subresource), namespace, name).
+- `namespaceObject` - The namespace, as a Kubernetes resource, that the incoming object belongs to.
+  The value is null if the incoming object is cluster-scoped.
 -->
 - 'object' - 来自传入请求的对象。对于 DELETE 请求，该值为 null。
 - 'oldObject' - 现有对象。对于 CREATE 请求，该值为 null。
 - 'request' - [准入请求](/zh-cn/docs/reference/config-api/apiserver-admission.v1/#admission-k8s-io-v1-AdmissionRequest)的属性。
 - 'params' - 被计算的策略绑定引用的参数资源。如果未设置 `paramKind`，该值为 null。
+- `namespaceObject` - 作为 Kubernetes 资源的、传输对象所在的名字空间。
+  如果传入对象是集群作用域的，则此值为 null。
+
+<!--
+- `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal
+  (authenticated user) of the request. See
+  [AuthzSelectors](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#AuthzSelectors) and
+  [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz) in the Kubernetes CEL library
+  documentation for more details.
+- `authorizer.requestResource` - A shortcut for an authorization check configured with the request
+  resource (group, resource, (subresource), namespace, name).
+-->
 - `authorizer` - 一个 CEL 鉴权组件。可以用来为请求的主体（经过身份验证的用户）执行鉴权检查。
-  更多细节可以参考 Kubernetes CEL 库的文档中的 [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)。
+  更多细节可以参考 [AuthzSelectors](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#AuthzSelectors)
+  和 Kubernetes CEL 库的文档中的 [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)。
 - `authorizer.requestResource` - 针对请求资源（组、资源、（子资源）、命名空间、名称）所配置的鉴权检查的快捷方式。
 
 <!--
@@ -565,8 +554,27 @@ Concatenation on arrays with x-kubernetes-list-type use the semantics of the lis
 
 <!--
 #### Validation expression examples
+
+| Expression                                                                                   | Purpose                                                                           |
+|----------------------------------------------------------------------------------------------| ------------                                                                      |
+| `object.minReplicas <= object.replicas && object.replicas <= object.maxReplicas`             | Validate that the three fields defining replicas are ordered appropriately        |
+| `'Available' in object.stateCounts`                                                          | Validate that an entry with the 'Available' key exists in a map                   |
+| `(size(object.list1) == 0) != (size(object.list2) == 0)`                                     | Validate that one of two lists is non-empty, but not both                         |
+| <code>!('MY_KEY' in object.map1) &#124;&#124; object['MY_KEY'].matches('^[a-zA-Z]*$')</code> | Validate the value of a map for a specific key, if it is in the map               |
+| `object.envars.filter(e, e.name == 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')`          | Validate the 'value' field of a listMap entry where key field 'name' is 'MY_ENV'  |
+| `has(object.expired) && object.created + object.ttl < object.expired`                        | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration       |
+| `object.health.startsWith('ok')`                                                             | Validate a 'health' string field has the prefix 'ok'                              |
+| `object.widgets.exists(w, w.key == 'x' && w.foo < 10)`                                       | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
+| `type(object) == string ? object == '100%' : object == 1000`                                 | Validate an int-or-string field for both the int and string cases             |
+| `object.metadata.name.startsWith(object.prefix)`                                             | Validate that an object's name has the prefix of another field value              |
+| `object.set1.all(e, !(e in object.set2))`                                                    | Validate that two listSets are disjoint                                           |
+| `size(object.names) == size(object.details) && object.names.all(n, n in object.details)`     | Validate the 'details' map is keyed by the items in the 'names' listSet           |
+| `size(object.clusters.filter(c, c.name == object.primary)) == 1`                             | Validate that the 'primary' property has one and only one occurrence in the 'clusters' listMap           |
+
+
 -->
 #### 检查表达式示例
+
 
 | 表达式                                                                                        | 目的                                                                     |
 | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
@@ -702,7 +710,7 @@ When an API request is validated with this admission policy, the resulting audit
 In this example the annotation will only be included if the `spec.replicas` of the Deployment is more than
 50, otherwise the CEL expression evaluates to null and the annotation will not be included.
 
-Note that audit annotation keys are prefixed by the name of the `ValidatingAdmissionWebhook` and a `/`. If
+Note that audit annotation keys are prefixed by the name of the `ValidatingAdmissionPolicy` and a `/`. If
 another admission controller, such as an admission webhook, uses the exact same audit annotation key, the 
 value of the first admission controller to include the audit annotation will be included in the audit
 event and all other values will be ignored.
@@ -710,7 +718,7 @@ event and all other values will be ignored.
 在此示例中，只有 Deployment 的 `spec.replicas` 大于 50 时才会包含注解，
 否则 CEL 表达式将求值为 null，并且不会包含注解。
 
-请注意，审计注解键以 `ValidatingAdmissionWebhook` 的名称和 `/` 为前缀。
+请注意，审计注解键以 `ValidatingAdmissionPolicy` 的名称和 `/` 为前缀。
 如果另一个准入控制器（例如准入 Webhook）使用完全相同的审计注解键，
 则第一个包括审计注解值的准入控制器将出现在审计事件中，而所有其他值都将被忽略。
 
@@ -743,7 +751,7 @@ when we try to create a deployment with 5 replicas, we will receive the followin
 在创建限制副本为 3 的 Params 对象并设置绑定之后，当我们尝试创建具有 5 个副本的 Deployment
 时，我们将收到以下消息：
 
-```
+```shell
 $ kubectl create deploy --image=nginx nginx --replicas=5
 error: failed to create deployment: deployments.apps "nginx" is forbidden: ValidatingAdmissionPolicy 'deploy-replica-policy.example.com' with binding 'demo-binding-test.example.com' denied request: object.spec.replicas must be no greater than 3
 ```
@@ -914,3 +922,26 @@ The error message is similar to this.
 ```console
 error: failed to create deployment: deployments.apps "invalid" is forbidden: ValidatingAdmissionPolicy 'image-matches-namespace-environment.policy.example.com' with binding 'demo-binding-test.example.com' denied request: only prod images are allowed in namespace default
 ```
+
+<!--
+## API kinds exempt from admission validation
+
+There are certain API kinds that are exempt from admission-time validation checks. For example, you can't create a ValidatingAdmissionPolicy that prevents changes to ValidatingAdmissionPolicyBindings.
+
+The list of exempt API kinds is:
+-->
+## 免于准入验证的 API 类别
+
+某些 API 类别可以豁免准入时验证检查。例如，你无法创建阻止更改 ValidatingAdmissionPolicyBindings
+的 ValidatingAdmissionPolicy。
+
+豁免准入验证的 API 类别列表如下：
+
+* [ValidatingAdmissionPolicies]({{< relref "/docs/reference/kubernetes-api/policy-resources/validating-admission-policy-v1/" >}})
+* [ValidatingAdmissionPolicyBindings]({{< relref "/docs/reference/kubernetes-api/policy-resources/validating-admission-policy-binding-v1/" >}})
+* MutatingAdmissionPolicies
+* MutatingAdmissionPolicyBindings
+* [TokenReviews]({{< relref "/docs/reference/kubernetes-api/authentication-resources/token-review-v1/" >}})
+* [LocalSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/local-subject-access-review-v1/" >}})
+* [SelfSubjectAccessReviews]({{< relref "/docs/reference/kubernetes-api/authorization-resources/self-subject-access-review-v1/" >}})
+* [SelfSubjectReviews]({{< relref "/docs/reference/kubernetes-api/authentication-resources/self-subject-review-v1/" >}})

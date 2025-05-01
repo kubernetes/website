@@ -360,8 +360,14 @@ with `phase: "Succeeded"`.
 There are situations where you want to fail a Job after some amount of retries
 due to a logical error in configuration etc.
 To do so, set `.spec.backoffLimit` to specify the number of retries before
-considering a Job as failed. The back-off limit is set by default to 6. Failed
-Pods associated with the Job are recreated by the Job controller with an
+considering a Job as failed.
+
+The `.spec.backoffLimit` is set by default to 6, unless the
+[backoff limit per index](#backoff-limit-per-index) (only Indexed Job) is specified.
+When `.spec.backoffLimitPerIndex` is specified, then `.spec.backoffLimit` defaults
+to 2147483647 (MaxInt32).
+
+Failed Pods associated with the Job are recreated by the Job controller with an
 exponential back-off delay (10s, 20s, 40s ...) capped at six minutes.
 
 The number of retries is calculated in two ways:
@@ -383,13 +389,7 @@ from failed Jobs is not lost inadvertently.
 
 ### Backoff limit per index {#backoff-limit-per-index}
 
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
-
-{{< note >}}
-You can only configure the backoff limit per index for an [Indexed](#completion-mode) Job, if you
-have the `JobBackoffLimitPerIndex` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled in your cluster.
-{{< /note >}}
+{{< feature-state feature_gate_name="JobBackoffLimitPerIndex" >}}
 
 When you run an [indexed](#completion-mode) Job, you can choose to handle retries
 for pod failures independently for each index. To do so, set the
@@ -558,14 +558,6 @@ For more details, see [Job termination and cleanup](#job-termination-and-cleanup
 
 ## Success policy {#success-policy}
 
-{{< feature-state feature_gate_name="JobSuccessPolicy" >}}
-
-{{< note >}}
-You can only configure a success policy for an Indexed Job if you have the
-`JobSuccessPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled in your cluster.
-{{< /note >}}
-
 When creating an Indexed Job, you can define when a Job can be declared as succeeded using a `.spec.successPolicy`,
 based on the pods that succeeded.
 
@@ -695,8 +687,8 @@ triggered and all Pod finalizers were removed. However, some Pods would still
 be running or terminating at the moment that the terminal condition was added.
 
 In Kubernetes v1.31 and later, the controller only adds the Job terminal conditions
-_after_ all of the Pods are terminated. You can enable this behavior by using the
-`JobManagedBy` or the `JobPodReplacementPolicy` (enabled by default)
+_after_ all of the Pods are terminated. You can control this behavior by using the
+`JobManagedBy` and the `JobPodReplacementPolicy` (both enabled by default)
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/).
 
 ### Termination of Job pods
@@ -1078,7 +1070,7 @@ and `.spec.completions` together such that `.spec.parallelism == .spec.completio
 When scaling down, Kubernetes removes the Pods with higher indexes.
 
 Use cases for elastic Indexed Jobs include batch workloads which require 
-scaling an indexed Job, such as MPI, Horovord, Ray, and PyTorch training jobs.
+scaling an indexed Job, such as MPI, Horovod, Ray, and PyTorch training jobs.
 
 ### Delayed creation of replacement pods {#pod-replacement-policy}
 
@@ -1137,7 +1129,7 @@ status:
 {{< note >}}
 You can only set the `managedBy` field on Jobs if you enable the `JobManagedBy`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-(disabled by default).
+(enabled by default).
 {{< /note >}}
 
 This feature allows you to disable the built-in Job controller, for a specific

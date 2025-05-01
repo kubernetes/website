@@ -1,7 +1,7 @@
 ---
 title: Service
 id: service
-date: 2019-29-11
+date: 2019-11-29
 full_link: /docs/concepts/services-networking/service/
 short_description: >
   Một cách để thể hiện ứng dụng đang chạy trong một tập các Pods dưới dạng dịch vụ mạng.

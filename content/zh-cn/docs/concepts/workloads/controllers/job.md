@@ -273,7 +273,7 @@ Job 的名字必须是合法的 [DNS 子域名](/zh-cn/docs/concepts/overview/wo
 [DNS 标签](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)规则。
 即使该名字被要求遵循 DNS 子域名规则，也不得超过 63 个字符。
 
-Job 配置还需要一个 [`.spec` 节](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
+Job 配置还需要一个 [`.spec` 部分](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
 
 <!--
 ### Job Labels
@@ -1227,13 +1227,14 @@ Pod 终结器，Job 控制器就会给 Job 添加 `Complete` 或 `Failed` 终止
 
 <!--
 In Kubernetes v1.31 and later, the controller only adds the Job terminal conditions
-_after_ all of the Pods are terminated. You can enable this behavior by using the
-`JobManagedBy` or the `JobPodReplacementPolicy` (enabled by default)
+_after_ all of the Pods are terminated. You can control this behavior by using the
+`JobManagedBy` and the `JobPodReplacementPolicy` (both enabled by default)
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
-在 Kubernetes v1.31 及更高版本中，控制器仅在所有 Pod 终止后添加 Job 终止状况。
-你可以使用 `JobManagedBy` 或 `JobPodReplacementPolicy`（默认启用）
-启用此行为的[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+在 Kubernetes v1.31 及更高版本中，控制器仅在所有 Pod 都终止**之后**才会添加作业（Job）的终止条件。
+你可以通过使用 `JobManagedBy` 和 `JobPodReplacementPolicy`（都默认启用）
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+来控制这一行为。
 
 <!--
 ### Termination of Job pods
@@ -1874,13 +1875,13 @@ and `.spec.completions` together such that `.spec.parallelism == .spec.completio
 When scaling down, Kubernetes removes the Pods with higher indexes.
 
 Use cases for elastic Indexed Jobs include batch workloads which require 
-scaling an indexed Job, such as MPI, Horovord, Ray, and PyTorch training jobs.
+scaling an indexed Job, such as MPI, Horovod, Ray, and PyTorch training jobs.
 -->
 你可以通过同时改变 `.spec.parallelism` 和 `.spec.completions` 来扩大或缩小带索引 Job，
 从而满足 `.spec.parallelism == .spec.completions`。
 缩减规模时，Kubernetes 会删除具有更高索引的 Pod。
 
-弹性索引 Job 的使用场景包括需要扩展索引 Job 的批处理工作负载，例如 MPI、Horovord、Ray
+弹性索引 Job 的使用场景包括需要扩展索引 Job 的批处理工作负载，例如 MPI、Horovod、Ray
 和 PyTorch 训练作业。
 
 <!--
@@ -1975,10 +1976,10 @@ status:
 <!--
 You can only set the `managedBy` field on Jobs if you enable the `JobManagedBy`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-(disabled by default).
+(enabled by default).
 -->
 你只有在启用了 `JobManagedBy`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（默认禁用）时，
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（默认开启）时，
 才可以在 Job 上设置 `managedBy` 字段。
 {{< /note >}}
 

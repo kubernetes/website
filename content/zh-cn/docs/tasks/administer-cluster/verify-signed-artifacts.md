@@ -20,13 +20,13 @@ weight: 420
 <!--
 You will need to have the following tools installed:
 
-- `cosign` ([install guide](https://docs.sigstore.dev/cosign/installation/))
+- `cosign` ([install guide](https://docs.sigstore.dev/cosign/system_config/installation/))
 - `curl` (often provided by your operating system)
 - `jq` ([download jq](https://jqlang.github.io/jq/download/))
 -->
 你需要安装以下工具：
 
-- `cosign`（[安装指南](https://docs.sigstore.dev/cosign/installation/)）
+- `cosign`（[安装指南](https://docs.sigstore.dev/cosign/system_config/installation/))
 - `curl`（通常由你的操作系统提供）
 - `jq`（[下载 jq](https://jqlang.github.io/jq/download/)）
 
@@ -77,7 +77,7 @@ cosign verify-blob "$BINARY" \
 <!-- 
 Cosign 2.0 requires the `--certificate-identity` and `--certificate-oidc-issuer` options.
 
-To learn more about keyless signing, please refer to [Keyless Signatures](https://docs.sigstore.dev/signing/overview/).
+To learn more about keyless signing, please refer to [Keyless Signatures](https://docs.sigstore.dev/cosign/signing/overview/).
 
 Previous versions of Cosign required that you set `COSIGN_EXPERIMENTAL=1`.
 
@@ -86,7 +86,7 @@ For additional information, please refer to the [sigstore Blog](https://blog.sig
 Cosign 2.0 需要指定 `--certificate-identity` 和 `--certificate-oidc-issuer` 选项。
 
 想要进一步了解无密钥签名，请参考
-[Keyless Signatures](https://docs.sigstore.dev/signing/overview/)。
+[Keyless Signatures](https://docs.sigstore.dev/cosign/signing/overview/)。
 
 Cosign 的早期版本还需要设置 `COSIGN_EXPERIMENTAL=1`。
 

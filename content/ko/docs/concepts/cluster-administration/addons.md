@@ -36,12 +36,11 @@ weight: 120
 
 ## 서비스 검색
 
-* [CoreDNS](https://coredns.io)는 유연하고 확장 가능한 DNS 서버로, 파드를 위한 클러스터 내 DNS로 [설치](https://github.com/coredns/deployment/tree/master/kubernetes)할 수 있다.
+* [CoreDNS](https://coredns.io)는 유연하고 확장 가능한 DNS 서버로, 파드를 위한 클러스터 내 DNS로 [설치](https://github.com/coredns/helm)할 수 있다.
 
 ## 시각화 &amp; 제어
 
 * [대시보드](https://github.com/kubernetes/dashboard#kubernetes-dashboard)는 쿠버네티스를 위한 대시보드 웹 인터페이스이다.
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s)는 컨테이너, 파드, 서비스 등을 그래픽으로 시각화하는 도구이다. [Weave Cloud 어카운트](https://cloud.weave.works/)와 함께 사용하거나 UI를 직접 호스팅한다.
 
 ## 인프라스트럭처
 

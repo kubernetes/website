@@ -1,0 +1,79 @@
+---
+title: pingcap Case Study
+linkTitle: pingcap
+case_study_styles: true
+cid: caseStudies
+featured: false
+
+new_case_study_styles: true
+heading_background: /images/case-studies/pingcap/banner1.jpg
+heading_title_logo: /images/pingcap_logo.png
+subheading: >
+  PingCAP Bets on Cloud Native for Its TiDB Database Platform
+case_study_details:
+  - Company: PingCAP
+  - Location: Beijing, China, and San Mateo, CA
+  - Industry: Software
+---
+
+<h2>Challenge</h2>
+
+<p>PingCAP is the company leading the development of the popular open source NewSQL database <a href="https://github.com/pingcap/tidb">TiDB</a>, which is MySQL-compatible, can handle hybrid transactional and analytical processing (HTAP) workloads, and has a cloud native architectural design. "Having a hybrid multi-cloud product is an important part of our global go-to-market strategy," says Kevin Xu, General Manager of Global Strategy and Operations. In order to achieve that, the team had to address two challenges: "how to deploy, run, and manage a distributed stateful application, such as a distributed database like TiDB, in a containerized world," Xu says, and "how to deliver an easy-to-use, consistent, and reliable experience for our customers when they use TiDB in the cloud, any cloud, whether that's one cloud provider or a combination of different cloud environments." Knowing that using a distributed system isn't easy, they began looking for the right orchestration layer to help reduce some of that complexity for end users.</p>
+
+<h2>Solution</h2>
+
+<p>The team started looking at Kubernetes for orchestration early on. "We knew Kubernetes had the promise of helping us solve our problems," says Xu. "We were just waiting for it to mature." In early 2018, PingCAP began integrating Kubernetes into its internal development as well as in its TiDB product. At that point, the team has already had experience using other cloud native technologies, having integrated both <a href="https://prometheus.io/">Prometheus</a> and <a href="https://grpc.io/">gRPC</a> as parts of the TiDB platform earlier on.</p>
+
+<h2>Impact</h2>
+
+<p>Xu says that PingCAP customers have had a "very positive" response so far to Kubernetes being the tool to deploy and manage TiDB. Prometheus, with <a href="https://grafana.com/">Grafana</a> as the dashboard, is installed by default when customers deploy TiDB, so that they can monitor performance and make any adjustments needed to reach their target before and while deploying TiDB in production. That monitoring layer "makes the evaluation process and communication much smoother," says Xu.</p>
+
+<p>With the company's <a href="https://github.com/pingcap/tidb-operator">Kubernetes-based Operator implementation</a>, which is open sourced, customers are now able to deploy, run, manage, upgrade, and maintain their TiDB clusters in the cloud with no downtime, and reduced workload, burden and overhead. And internally, says Xu, "we've completely switched to Kubernetes for our own development and testing, including our data center infrastructure and <a href="https://thenewstack.io/chaos-tools-and-techniques-for-testing-the-tidb-distributed-newsql-database/">Schrodinger</a>, an automated testing platform for TiDB. With Kubernetes, our resource usage is greatly improved. Our developers can allocate and deploy clusters themselves, and the deploying process has gone from hours to minutes, so we can devote fewer people to manage IDC resources. The productivity improvement is about 15%, and as we gain more Kubernetes knowledge on the debugging and diagnosis front, the productivity should improve to more than 20%."</p>
+
+{{< case-studies/quote author="KEVIN XU, GENERAL MANAGER OF GLOBAL STRATEGY AND OPERATIONS, PINGCAP" >}}
+"We knew Kubernetes had the promise of helping us solve our problems. We were just waiting for it to mature, so we can fold it into our own development and product roadmap."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+Since it was introduced in 2015, the open source NewSQL database TiDB has gained a following for its compatibility with MySQL, its ability to handle hybrid transactional and analytical processing (HTAP) workloads—and its cloud native architectural design.
+{{< /case-studies/lead >}}
+
+<p>PingCAP, the company behind TiDB, designed the platform with cloud in mind from day one, says Kevin Xu, General Manager of Global Strategy and Operations, and "having a hybrid multi-cloud product is an important part of our global go-to-market strategy."</p>
+
+<p>In order to achieve that, the team had to address two challenges: "how to deploy, run, and manage a distributed stateful application, such as a distributed database like TiDB, in a containerized world," Xu says, and "how to deliver an easy-to-use, consistent, and reliable experience for our customers when they use TiDB in the cloud, any cloud, whether that's one cloud provider or a combination of different cloud environments."</p>
+
+<p>Knowing that using a distributed system isn't easy, the PingCAP team began looking for the right orchestration layer to help reduce some of that complexity for end users. Kubernetes had been on their radar for quite some time. "We knew Kubernetes had the promise of helping us solve our problems," says Xu. "We were just waiting for it to mature."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/pingcap/banner3.jpg"
+  author="KEVIN XU, GENERAL MANAGER OF GLOBAL STRATEGY AND OPERATIONS, PINGCAP"
+>}}
+"With the governance process being so open, it's not hard to find out what's the latest development in the technology and community, or figure out who to reach out to if we have problems or issues."
+{{< /case-studies/quote >}}
+
+<p>That time came in early 2018, when PingCAP began integrating Kubernetes into its internal development as well as in its TiDB product. "Having Kubernetes be part of the CNCF, as opposed to having only the backing of one individual company, was valuable in having confidence in the longevity of the technology," says Xu. Plus, "with the governance process being so open, it's not hard to find out what's the latest development in the technology and community, or figure out who to reach out to if we have problems or issues."</p>
+
+<p>TiDB's cloud native architecture consists of a stateless SQL layer (also called TiDB) and a persistent key-value storage layer that supports distributed transactions (<a href="https://github.com/tikv/tikv">TiKV</a>, which is now in the CNCF Sandbox), which are loosely coupled. "You can scale both out or in depending on your computation and storage needs, and the two scaling processes can happen independent of each other," says Xu. The PingCAP team also built the <a href="https://github.com/pingcap/tidb-operator">TiDB Operator</a> based on Kubernetes, which helps bootstrap a TiDB cluster on any cloud environment and simplifies and automates deployment, scaling, scheduling, upgrades, and maintenance. The company also recently previewed its fully-managed <a href="https://www.pingcap.com/blog/announcing-tidb-cloud-managed-as-a-service-and-in-the-marketplace/">TiDB Cloud</a> offering.</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/pingcap/banner4.jpg"
+  author="KEVIN XU, GENERAL MANAGER OF GLOBAL STRATEGY AND OPERATIONS, PINGCAP"
+>}}
+"A cloud native infrastructure will not only save you money and allow you to be more in control of the infrastructure resources you consume, but also empower new product innovation, new experience for your users, and new business possibilities. It's both a cost reducer and a money maker."
+{{< /case-studies/quote >}}
+
+<p>The entire TiDB platform leverages Kubernetes and other cloud native technologies, including <a href="https://prometheus.io/">Prometheus</a> for monitoring and <a href="https://grpc.io/">gRPC</a> for interservice communication.</p>
+
+<p>So far, the customer response to the Kubernetes-enabled platform has been "very positive." Prometheus, with <a href="https://grafana.com/">Grafana</a> as the dashboard, is installed by default when customers deploy TiDB, so that they can monitor and make any adjustments needed to reach their performance requirements before deploying TiDB in production. That monitoring layer "makes the evaluation process and communication much smoother," says Xu. With the company's Kubernetes-based Operator implementation, customers are now able to deploy, run, manage, upgrade, and maintain their TiDB clusters in the cloud with no downtime, and reduced workload, burden and overhead.</p>
+
+<p>These technologies have also had an impact internally. "We've completely switched to Kubernetes for our own development and testing, including our data center infrastructure and <a href="https://thenewstack.io/chaos-tools-and-techniques-for-testing-the-tidb-distributed-newsql-database/">Schrodinger</a>, an automated testing platform for TiDB," says Xu. "With Kubernetes, our resource usage is greatly improved. Our developers can allocate and deploy clusters themselves, and the deploying process takes less time, so we can devote fewer people to manage IDC resources.</p>
+
+{{< case-studies/quote author="KEVIN XU, GENERAL MANAGER OF GLOBAL STRATEGY AND OPERATIONS, PINGCAP" >}}
+"The entire cloud native community, whether it's Kubernetes, CNCF in general, or cloud native vendors like us, have all gained enough experience—and have the battle scars to prove it—and are ready to help you succeed."
+{{< /case-studies/quote >}}
+
+<p>The productivity improvement is about 15%, and as we gain more Kubernetes knowledge on the debugging and diagnosis front, the productivity should improve to more than 20%."</p>
+
+<p>Kubernetes is now a crucial part of PingCAP's product roadmap. For anyone else considering going cloud native, Xu has this advice: "There's no better time to get started," he says. "The entire cloud native community, whether it's Kubernetes, CNCF in general, or cloud native vendors like us, have all gained enough experience—and have the battle scars to prove it—and are ready to help you succeed."</p>
+
+<p>In fact, the PingCAP team has seen more and more customers moving toward a cloud native approach, and for good reason. "IT infrastructure is quickly evolving from a cost-center and afterthought, to the core competency and competitiveness of any company," says Xu. "A cloud native infrastructure will not only save you money and allow you to be more in control of the infrastructure resources you consume, but also empower new product innovation, new experience for your users, and new business possibilities. It's both a cost reducer and a money maker."</p>

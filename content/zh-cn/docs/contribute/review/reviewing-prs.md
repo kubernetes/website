@@ -131,9 +131,9 @@ Figure 1. Review process steps.
 
 2. 使用以下标签（组合）对待处理 PR 进行过滤：
 
-   - `cncf-cla: yes` （建议）：由尚未签署 CLA 的贡献者所发起的 PR 不可以合并。
+   - `cncf-cla: yes`（建议）：由尚未签署 CLA 的贡献者所发起的 PR 不可以合并。
      参考[签署 CLA](/zh-cn/docs/contribute/new-content/#sign-the-cla) 以了解更多信息。
-   - `language/en` （建议）：仅查看英语语言的 PR。
+   - `language/en`（建议）：仅查看英语语言的 PR。
    - `size/<尺寸>`：过滤特定尺寸（规模）的 PR。
      如果你刚入门，可以从较小的 PR 开始。
 
@@ -239,7 +239,7 @@ When reviewing, use the following as a starting point.
   - 当一个 PR 更新现有页面时，你应专注于评审正在更新的页面部分。你应评审所更改内容的技术和编辑的正确性。
     如果你发现页面上的一些错误与 PR 作者尝试解决的问题没有直接关系，
     则应将其视为一个单独的 Issue（首先检查是否存在与此相关的 Issue）。
-  - 要特别注意那些 **移动** 内容的 PR。如果作者重命名一个页面或合并两个页面，
+  - 要特别注意那些**移动**内容的 PR。如果作者重命名一个页面或合并两个页面，
     我们（Kubernetes SIG Docs）通常应避免要求该作者修复可能在所移动的内容中发现的所有语法或拼写错误。
 - 是否存在一些过于复杂晦涩的用词，本可以用简单词汇来代替？
 - 是否有些用词、术语或短语可以用不带歧视性的表达方式代替？
@@ -259,7 +259,9 @@ When reviewing, use the following as a starting point.
 - 内容本身是否过度依赖于网站范畴之外、独立供应商或者非开源的文档？
 
 <!--
-### Website
+### Documentation
+
+Some checks to consider:
 
 - Did this PR change or remove a page title, slug/alias or anchor link? If so, are there broken
   links as a result of this PR? Is there another option, like changing the page title without
@@ -275,7 +277,9 @@ When reviewing, use the following as a starting point.
 - Do the changes show up in the Netlify preview? Be particularly vigilant about lists, code
   blocks, tables, notes and images.
 -->
-### 网站 {#Website}
+### 文档   {#documentation}
+
+考虑做一些检查：
 
 - PR 是否改变或者删除了某页面的标题、slug/别名或者链接锚点？
   如果是这样，PR 是否会导致出现新的失效链接？
@@ -292,23 +296,78 @@ When reviewing, use the following as a starting point.
   要对列表、代码段、表格、注释和图像等元素格外留心。
 
 <!--
+### Blog
+
+Early feedback on blog posts is welcome via a Google Doc or HackMD. Please request input early from the [#sig-docs-blog Slack channel](https://kubernetes.slack.com/archives/CJDHVD54J).
+
+Before reviewing blog PRs, be familiar with the [blog guidelines](/docs/contribute/blog/guidelines/)
+  and with [submitting blog posts and case studies](/docs/contribute/new-content/blogs-case-studies/).
+-->
+### 博客   {#blog}
+
+欢迎通过 Google Doc 或 HackMD 对博文提供早期反馈。请尽早通过
+[#sig-docs-blog Slack 频道](https://kubernetes.slack.com/archives/CJDHVD54J)请求输入。
+
+在审查博客的拉取请求（PR）之前，请熟悉[博客指南](/zh-cn/docs/contribute/blog/guidelines/)
+和[提交博文和案例分析](/zh-cn/docs/contribute/new-content/blogs-case-studies/)。
+
+<!--
+Make sure you also know about [evergreen](/docs/contribute/blog/#maintenance-evergreen) articles
+and how to decide if an article is evergreen.
+
+Blog articles may contain [direct quotes](https://en.wikipedia.org/wiki/Direct_discourse) and
+[indirect speech](https://en.wikipedia.org/wiki/Indirect_speech). Avoid suggesting a rewording for
+anything that is attributed to someone or part of a dialog that has happened - even if you think
+the original speaker's grammar was not correct. For those cases, also, try to respect the article
+author's suggested punctuation unless it is obviously wrong.
+-->
+确保你了解[长期维护（Evergreen）](/zh-cn/docs/contribute/blog/#maintenance-evergreen)文章，
+并知道如何判断一篇文章是否应标记为长期维护。
+
+博文可能包含[直接引语](https://en.wikipedia.org/wiki/Direct_discourse)和[间接引语](https://en.wikipedia.org/wiki/Indirect_speech)。
+避免对任何归因于个人或已发生的部分对话提出修改建议，即使你认为原话的语法不正确，也不应该如此操作。
+在这些情况下，也应尽量尊重文章作者的标点符号建议，除非是明显错误。  
+
+<!--
+As a project, we only mark blog articles as maintained (`evergreen: true` in front matter) if the Kubernetes project
+is happy to commit to maintaining them indefinitely.
+Some blog articles absolutely merit this, and we always mark our release announcements evergreen. Check with other contributors if you are not sure how to review on this point.
+-->
+作为一个项目，我们只有在 Kubernetes 社区愿意长期维护某篇博文时，才会将其标记为长期维护
+（即在 front matter 中设置 `evergreen: true`）。
+有些博文绝对值得这样做，我们始终将发布公告标记为长期维护。
+如果你不确定如何评审这部分内容，请咨询其他贡献者。
+
+<!--
+The [content guide](/docs/contribute/style/content-guide/) applies unconditionally to blog articles and the PRs that add them. Bear in mind that some restrictions in the guide state that they are only relevant to documentation; those restrictions don't apply to blog articles.
+
+Check if the Markdown source is using the right [page content type](/docs/contribute/style/page-content-types/) and / or `layout`.
+-->
+[内容指南](/zh-cn/docs/contribute/style/content-guide/)无条件适用于博文及相关 PR。
+请注意，该指南中的某些限制仅适用于文档，而不适用于博文。  
+
+检查 Markdown 源文件是否使用了正确的[页面内容类型](/zh-cn/docs/contribute/style/page-content-types/)和/或 `layout`。
+
+<!--
 ### Other
 
-- Watch out for [trivial edits](https://www.kubernetes.dev/docs/guide/pull-requests/#trivial-edits);
+Watch out for [trivial edits](https://www.kubernetes.dev/docs/guide/pull-requests/#trivial-edits);
   if you see a change that you think is a trivial edit, please point out that policy
-  (it's still OK to accept the change if it is genuinely an improvement).
-- Encourage authors who are making whitespace fixes to do
-  so in the first commit of their PR, and then add other changes on top of that. This
-  makes both merges and reviews easier. Watch out especially for a trivial change that
-  happens in a single commit along with a large amount of whitespace cleanup
-  (and if you see that, encourage the author to fix it).
+(it's still OK to accept the change if it is genuinely an improvement).
+
+Encourage authors who are making whitespace fixes to do
+so in the first commit of their PR, and then add other changes on top of that. This
+makes both merges and reviews easier. Watch out especially for a trivial change that
+happens in a single commit along with a large amount of whitespace cleanup
+(and if you see that, encourage the author to fix it).
 -->
 ### 其他 {#other}
 
-- 查阅 [Trivial Edits](https://www.kubernetes.dev/docs/guide/pull-requests/#trivial-edits)；
-  如果你看到某个变更在你看来是一个 Trivial Edit，请向作者指明这项政策（如果该变更确实会有所改进，那仍然可以接受）。
-- 鼓励作者们在第一次发 PR 时修复一些空格相关的问题，在随后的 PR 中增加其他更改。
-  这样更便于合并和评审。尤其要注意在单个 commit 中大量空格清理附带的微小变更（如果你看到，请鼓励作者进行修复）。
+查阅 [Trivial Edits](https://www.kubernetes.dev/docs/guide/pull-requests/#trivial-edits)；
+如果你看到某个变更在你看来是一个 Trivial Edit，请向作者指明这项政策（如果该变更确实会有所改进，那仍然可以接受）。
+
+鼓励作者们在第一次发 PR 时修复一些空格相关的问题，在随后的 PR 中增加其他更改。
+这样更便于合并和评审。尤其要注意在单个 commit 中大量空格清理附带的微小变更（如果你看到，请鼓励作者进行修复）。
 
 <!--
 As a reviewer, if you identify small issues with a PR that aren't essential to the meaning,
@@ -318,8 +377,7 @@ This lets the author know that this part of your feedback is non-critical.
 If you are considering a pull request for approval and all the remaining feedback is
 marked as a nit, you can merge the PR anyway. In that case, it's often useful to open
 an issue about the remaining nits. Consider whether you're able to meet the requirements
-for marking that new issue as a [Good First Issue](https://www.kubernetes.dev/docs/guide/help-wanted/#good-first-issue);
-if you can, these are a good source.
+for marking that new issue as a [Good First Issue](https://www.kubernetes.dev/docs/guide/help-wanted/#good-first-issue); if you can, these are a good source.
 -->
 作为一名 Reviewer，如果你发现 PR 有一些无关紧要的小问题，例如拼写错误或不正确的空格，
 可以在你的评论前面加上 `nit:`。这样做可以让作者知道该问题不是一个不得了的大问题。
@@ -329,4 +387,3 @@ if you can, these are a good source.
 考虑一下是否能把这些新 Issue 标记为
 [Good First Issue](https://www.kubernetes.dev/docs/guide/help-wanted/#good-first-issue)。
 如果可以，这就是这类 Issue 的良好来源。
-

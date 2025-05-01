@@ -1,99 +1,188 @@
 ---
-title: China Unicom Case Study
-
+title: 中国联通案例研究
 linkTitle: chinaunicom
 case_study_styles: true
 cid: caseStudies
-css: /css/style_case_studies.css
-logo: chinaunicom_featured_logo.png
-featured: true
-weight: 1
-quote: >
-   Kubernetes has improved our experience using cloud infrastructure. There is currently no alternative technology that can replace it.
+featured: false
+
+new_case_study_styles: true
+heading_background: /images/case-studies/chinaunicom/banner1.jpg
+heading_title_logo: /images/chinaunicom_logo.png
+subheading: >
+  中国联通：中国联通如何利用 Kubernetes 提升效率并降低 IT 成本
+case_study_details:
+  - Company: 中国联通
+  - Location: 中国北京
+  - Industry: 电信
 ---
+<!--
+  title: China Unicom Case Study
+linkTitle: chinaunicom
+case_study_styles: true
+cid: caseStudies
+featured: false
 
-<div class="banner1" style="background-image: url('/images/case-studies/chinaunicom/banner1.jpg')">
-  <h1> CASE STUDY:<img src="/images/chinaunicom_logo.png" class="header_logo" style="width:25%;margin-bottom:-1%"><br> <div class="subhead" style="margin-top:1%;line-height:1.4em">China Unicom: How China Unicom Leveraged Kubernetes to Boost Efficiency<br>and Lower IT&nbsp;Costs
+new_case_study_styles: true
+heading_background: /images/case-studies/chinaunicom/banner1.jpg
+heading_title_logo: /images/chinaunicom_logo.png
+subheading: >
+  China Unicom: How China Unicom Leveraged Kubernetes to Boost Efficiency and Lower IT Costs
+case_study_details:
+  - Company: China Unicom
+  - Location: Beijing, China
+  - Industry: Telecom
+-->
 
-</div></h1>
+<!--
+<h2>Challenge</h2>
 
-</div>
+<p>China Unicom is one of the top three telecom operators in China, and to serve its 300 million users, the company runs several data centers with thousands of servers in each, using <a href="https://www.docker.com/">Docker</a> containerization and <a href="https://www.vmware.com/">VMWare</a> and <a href="https://www.openstack.org/">OpenStack</a> infrastructure since 2016. Unfortunately, "the resource utilization rate was relatively low," says Chengyu Zhang, Group Leader of Platform Technology R&D, "and we didn't have a cloud platform to accommodate our hundreds of applications." Formerly an entirely state-owned company, China Unicom has in recent years taken private investment from BAT (Baidu, Alibaba, Tencent) and JD.com, and is now focusing on internal development using open source technology, rather than commercial products. As such, Zhang's China Unicom Lab team began looking for open source orchestration for its cloud infrastructure.</p>
+-->
+<h2>挑战</h2>
 
-<div class="details">
-    Company &nbsp;<b>China Unicom</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location &nbsp;<b>Beijing, China</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Industry &nbsp;<b>Telecom</b>
-</div>
+<p>中国联通是中国三大电信运营商之一，为了服务其 3 亿用户，该公司运营着多个数据中心，每个数据中心有数千台服务器，
+自 2016 年以来使用 <a href="https://www.docker.com/">Docker</a> 容器化以及
+<a href="https://www.vmware.com/">VMWare</a> 和 <a href="https://www.openstack.org/">OpenStack</a> 基础设施。
+不巧的是，“资源利用率相对较低”，平台技术研发组组长张承宇表示，“以前没有一个云平台可以承载我们的数百个应用。”
+中国联通曾是一家完全国有的公司，近年来接受了来自 BAT（百度、阿里巴巴、腾讯）和京东的民营投资，
+现在专注于使用开源技术而不是商业产品进行内部开发。因此，张承宇的中国联通实验室团队开始寻找适合其云基础设施的开源编排方案。</p>
 
-<hr>
-<section class="section1">
-<div class="cols">
-  <div class="col1" style="width:100%"">
-    <h2>Challenge</h2>
-    China Unicom is one of the top three telecom operators in China, and to serve its 300 million users, the company runs several data centers with thousands of servers in each, using <a href="https://www.docker.com/">Docker</a> containerization and <a href="https://www.vmware.com/">VMWare</a> and <a href="https://www.openstack.org/">OpenStack</a> infrastructure since 2016. Unfortunately, "the resource utilization rate was relatively low," says Chengyu Zhang, Group Leader of Platform Technology R&D, "and we didn’t have a cloud platform to accommodate our hundreds of applications." Formerly an entirely state-owned company, China Unicom has in recent years taken private investment from BAT (Baidu, Alibaba, Tencent) and JD.com, and is now focusing on internal development using open source technology, rather than commercial products. As such, Zhang’s China Unicom Lab team began looking for open source orchestration for its cloud infrastructure.
-<br><br>
-    <h2>Solution</h2>
-    Because of its rapid growth and mature open source community, Kubernetes was a natural choice for China Unicom. The company’s Kubernetes-enabled cloud platform now hosts 50 microservices and all new development going forward. "Kubernetes has improved our experience using cloud infrastructure," says Zhang. "There is currently no alternative technology that can replace it." China Unicom also uses <a href="https://istio.io/">Istio</a> for its microservice framework, <a href="https://www.envoyproxy.io/">Envoy</a>, <a href="https://coredns.io/">CoreDNS</a>, and <a href="https://www.fluentd.org/">Fluentd</a>.
-<br><br>
+<!--
+<h2>Solution</h2>
+
+<p>Because of its rapid growth and mature open source community, Kubernetes was a natural choice for China Unicom. The company's Kubernetes-enabled cloud platform now hosts 50 microservices and all new development going forward. "Kubernetes has improved our experience using cloud infrastructure," says Zhang. "There is currently no alternative technology that can replace it." China Unicom also uses <a href="https://istio.io/">Istio</a> for its microservice framework, <a href="https://www.envoyproxy.io/">Envoy</a>, <a href="https://coredns.io/">CoreDNS</a>, and <a href="https://www.fluentd.org/">Fluentd</a>.</p>
+-->
+<h2>解决方案</h2>
+
+<p>Kubernetes 凭借其快速增长和成熟的开源社区，成为中国联通的自然选择。
+中国联通启用 Kubernetes 的云平台现在托管着 50 个微服务，采用这种全新的开发模式向前推进。
+“Kubernetes 改善了我们使用云基础设施的体验，”张承宇说。“目前没有其他技术可以替代它。”
+中国联通还使用 <a href="https://istio.io/">Istio</a> 作为其微服务框架，
+另外还使用了 <a href="https://www.envoyproxy.io/">Envoy</a>、<a href="https://coredns.io/">CoreDNS</a>
+和 <a href="https://www.fluentd.org/">Fluentd</a>。</p>
+
+<!--
 <h2>Impact</h2>
-    At China Unicom, Kubernetes has improved both operational and development efficiency. Resource utilization has increased by 20-50%, lowering IT infrastructure costs, and deployment time has gone from a couple of hours to 5-10 minutes. "This is mainly because of the self-healing and scalability, so we can increase our efficiency in operation and maintenance," Zhang says. "For example, we currently have only five people maintaining our multiple systems. We could never imagine we can achieve this scalability in such a short time."
 
-</div>
+<p>At China Unicom, Kubernetes has improved both operational and development efficiency. Resource utilization has increased by 20-50%, lowering IT infrastructure costs, and deployment time has gone from a couple of hours to 5-10 minutes. "This is mainly because of the self-healing and scalability, so we can increase our efficiency in operation and maintenance," Zhang says. "For example, we currently have only five people maintaining our multiple systems. We could never imagine we can achieve this scalability in such a short time."</p>
+-->
+<h2>影响</h2>
 
-</div>
-</section>
-<div class="banner2">
-  <div class="banner2text">
-    "Kubernetes has improved our experience using cloud infrastructure. There is currently no alternative technology that can replace it."
-<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- Chengyu Zhang, Group Leader of Platform Technology R&D, China Unicom</span>
-  </div>
-</div>
-<section class="section2">
-<div class="fullcol">
-  <h2>With more than 300 million users, China Unicom is one of the country’s top three telecom operators. </h2>
+<p>在中国联通，Kubernetes 提高了运营和开发效率。资源利用率提高了 20-50%，
+降低了 IT 基础设施成本，部署时间从几个小时缩短到 5-10 分钟。
+“这主要是因为 Kubernetes 的自愈和可扩展性，促使我们提高了运维效率，”张承宇说。
+“例如，我们目前只有五个人维护这么多系统。我们从未想过能在这么短的时间内实现这样的可扩展性。”</p>
 
-  Behind the scenes, the company runs multiple data centers with thousands of servers in each, using Docker containerization and VMWare and OpenStack infrastructure since 2016. Unfortunately, "the resource utilization rate was relatively low," says Chengyu Zhang,  Group Leader of Platform Technology R&D, "and we didn’t have a cloud platform to accommodate our hundreds of applications." <br><br>
-  Zhang’s team, which is responsible for new technology, R&D and platforms, set out to find an IT management solution. Formerly an entirely state-owned company, China Unicom has in recent years taken private investment from BAT (Baidu, Alibaba, Tencent) and JD.com, and is now focusing on homegrown development using open source technology, rather than commercial products. For that reason, the team began looking for open source orchestration for its cloud infrastructure.
+{{< case-studies/quote author="张承宇，中国联通平台技术研发组组长" >}}
+<!--
+"Kubernetes has improved our experience using cloud infrastructure. There is currently no alternative technology that can replace it."
+-->
+“Kubernetes 改善了我们使用云基础设施的体验。目前没有其他技术可以替代它。”  
+{{< /case-studies/quote >}}
 
-</div>
-</section>
-<div class="banner3" style="background-image: url('/images/case-studies/chinaunicom/banner3.jpg');width:100%;padding-left:0;">
-  <div class="banner3text">
-    "We could never imagine we can achieve this scalability in such a short time."<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- Chengyu Zhang, Group Leader of Platform Technology R&D, China Unicom</span>
+{{< case-studies/lead >}}
+<!--
+With more than 300 million users, China Unicom is one of the country's top three telecom operators.
+-->
+中国联通拥有超过 3 亿用户，是中国三大电信运营商之一。
+{{< /case-studies/lead >}}
 
-  </div>
-</div>
-<section class="section3">
-<div class="fullcol">
-  Though China Unicom was already using Mesos for a core telecom operator system, the team felt that Kubernetes was a natural choice for the new cloud platform. "The main reason was that it has a mature community," says Zhang. "It grows very rapidly, and so we can learn a lot from others’ best practices." China Unicom also uses Istio for its microservice framework, Envoy, CoreDNS, and Fluentd.<br><br>
-  The company’s Kubernetes-enabled cloud platform now hosts 50 microservices and all new development going forward. China Unicom developers can easily leverage the technology through APIs, without doing the development work themselves. The cloud platform provides 20-30 services connected to the company’s data center PaaS platform, as well as supports things such as big data analysis for internal users in the branch offices across the 31 provinces in China.<br><br>
-  "Kubernetes has improved our experience using cloud infrastructure," says Zhang. "There is currently no alternative technology that can replace it."
+<!--
+<p>Behind the scenes, the company runs multiple data centers with thousands of servers in each, using Docker containerization and VMWare and OpenStack infrastructure since 2016. Unfortunately, "the resource utilization rate was relatively low," says Chengyu Zhang,  Group Leader of Platform Technology R&D, "and we didn't have a cloud platform to accommodate our hundreds of applications."</p>
+-->
+<p>在幕后，该公司运营着多个数据中心，每个数据中心有数千台服务器，自 2016 年以来使用 Docker 容器化以及
+VMWare 和 OpenStack 基础设施。不巧的是，“资源利用率相对较低”，平台技术研发组组长张承宇表示，
+“以前没有一个云平台可以承载我们的数百个应用。”</p>
 
-</div>
-</section>
-<div class="banner4" style="background-image: url('/images/case-studies/chinaunicom/banner4.jpg');width:100%">
-  <div class="banner4text">
-  "This technology is relatively complicated, but as long as developers get used to it, they can enjoy all the benefits." <br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- Jie Jia, Member of Platform Technology R&D, China Unicom</span>
-  </div>
-</div>
+<!--
+<p>Zhang's team, which is responsible for new technology, R&D and platforms, set out to find an IT management solution. Formerly an entirely state-owned company, China Unicom has in recent years taken private investment from BAT (Baidu, Alibaba, Tencent) and JD.com, and is now focusing on homegrown development using open source technology, rather than commercial products. For that reason, the team began looking for open source orchestration for its cloud infrastructure.</p>
+-->
+<p>张所在的团队负责新技术、研发和平台，开始寻找 IT 管理解决方案。中国联通曾是一家完全国有的公司，近年来接受了来自
+BAT（百度、阿里巴巴、腾讯）和京东的民营投资，现在专注于使用开源技术而不是商业产品进行本土开发。
+因此，该团队开始寻找适合其云基础设施的开源编排方案。</p>
 
-<section class="section5" style="padding:0px !important">
-<div class="fullcol">
-  In fact, Kubernetes has boosted both operational and development efficiency at China Unicom. Resource utilization has increased by 20-50%, lowering IT infrastructure costs, and deployment time has gone from a couple of hours to 5-10 minutes. "This is mainly because of the self-healing and scalability of Kubernetes, so we can increase our efficiency in operation and maintenance," Zhang says. "For example, we currently have only five people maintaining our multiple systems."<br><br>
-  With the wins China Unicom has experienced with Kubernetes, Zhang and his team are eager to give back to the community. That starts with participating in meetups and conferences, and offering advice to other companies that are considering a similar path. "Especially for those companies who have had traditional cloud computing system, I really recommend them to join the cloud native computing community," says Zhang.
+{{< case-studies/quote
+  image="/images/case-studies/chinaunicom/banner3.jpg"
+  author="张承宇，中国联通平台技术研发组组长"
+>}}
+<!--
+"We could never imagine we can achieve this scalability in such a short time."
+-->
+“我们从未想过能在这么短的时间内实现这样的可扩展性。” 
+{{< /case-studies/quote >}}
 
-</div>
+<!--
+<p>Though China Unicom was already using Mesos for a core telecom operator system, the team felt that Kubernetes was a natural choice for the new cloud platform. "The main reason was that it has a mature community," says Zhang. "It grows very rapidly, and so we can learn a lot from others' best practices." China Unicom also uses Istio for its microservice framework, Envoy, CoreDNS, and Fluentd.</p>
+-->
+<p>尽管中国联通已经在核心电信运营商系统中使用了 Mesos，但团队认为 Kubernetes 是新一代云平台的自然选择。
+“主要原因是 Kubernetes 有一个成熟的社区，”张承宇说。“它增长非常迅速，因此我们可以从其他人的最佳实践中学习。”
+中国联通还使用 Istio 作为其微服务框架，另外还使用了 Envoy、CoreDNS 和 Fluentd。</p>
 
-<div class="banner5" >
-  <div class="banner5text">
-"Companies can use the managed services offered by companies like Rancher, because they have already customized this technology, you can easily leverage this technology."<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- Jie Jia, Member of Platform Technology R&D, China Unicom</span></div>
-</div>
+<!--
+<p>The company's Kubernetes-enabled cloud platform now hosts 50 microservices and all new development going forward. China Unicom developers can easily leverage the technology through APIs, without doing the development work themselves. The cloud platform provides 20-30 services connected to the company's data center PaaS platform, as well as supports things such as big data analysis for internal users in the branch offices across the 31 provinces in China.</p>
+-->
+<p>中国联通启用 Kubernetes 的云平台现在托管着 50 个微服务，采用这种全新的开发模式向前推进。
+中国联通的开发人员可以通过 API 轻松利用该技术，而无需自己进行开发。这个云平台提供了 20-30 个服务，
+连接到公司的数据中心 PaaS 平台，并支持为中国 31 个省各地分公司的内部用户提供大数据分析等功能。</p>
 
-<div class="fullcol">
-  Platform Technology R&D team member Jie Jia adds that though "this technology is relatively complicated, as long as developers get used to it, they can enjoy all the benefits." And Zhang points out that in his own experience with virtual machine cloud, "Kubernetes and these cloud native technologies are relatively simpler."<br><br>
-  Plus, "companies can use the managed services offered by companies like <a href="https://rancher.com/">Rancher</a>, because they have already customized this technology," says Jia. "You can easily leverage this technology."<br><br>
-  Looking ahead, China Unicom plans to develop more applications on Kubernetes, focusing on big data and machine learning. The team is continuing to optimize the cloud platform that it built, and hopes to pass the conformance test to join CNCF’s <a href="https://www.cncf.io/announcement/2017/11/13/cloud-native-computing-foundation-launches-certified-kubernetes-program-32-conformant-distributions-platforms/">Certified Kubernetes Conformance Program</a>. They’re also hoping to someday contribute code back to the community. <br><br>
-  If that sounds ambitious, it’s because the results they’ve gotten from adopting Kubernetes have been beyond even their greatest expectations. Says Zhang: "We could never imagine we can achieve this scalability in such a short time."
+<!--
+<p>"Kubernetes has improved our experience using cloud infrastructure," says Zhang. "There is currently no alternative technology that can replace it."</p>
+-->
+<p>“Kubernetes 改善了我们使用云基础设施的体验，”张承宇说。“目前没有其他技术可以替代它。”</p>
 
-</div>
-</section>
-</body>
-</html>
+{{< case-studies/quote 
+  image="/images/case-studies/chinaunicom/banner4.jpg"
+  author="贾杰，中国联通平台技术研发组成员"
+>}}
+<!--
+"This technology is relatively complicated, but as long as developers get used to it, they can enjoy all the benefits."
+-->
+“这项技术相对复杂，但只要开发人员习惯它，他们就可以体会到所有的好处。” 
+{{< /case-studies/quote >}}
+
+<!--
+<p>In fact, Kubernetes has boosted both operational and development efficiency at China Unicom. Resource utilization has increased by 20-50%, lowering IT infrastructure costs, and deployment time has gone from a couple of hours to 5-10 minutes. "This is mainly because of the self-healing and scalability of Kubernetes, so we can increase our efficiency in operation and maintenance," Zhang says. "For example, we currently have only five people maintaining our multiple systems."</p>
+-->
+<p>事实上，Kubernetes 提升了中国联通的运营和开发效率。资源利用率提高了 20-50%，
+降低了 IT 基础设施成本，部署时间从几个小时缩短到 5-10 分钟。
+“这主要是由于 Kubernetes 的自愈和可扩展性，因此我们可以提高运维效率，”张承宇说。“例如，我们目前只有五个人就能维护这么多系统。”</p>
+
+<!--
+<p>With the wins China Unicom has experienced with Kubernetes, Zhang and his team are eager to give back to the community. That starts with participating in meetups and conferences, and offering advice to other companies that are considering a similar path. "Especially for those companies who have had traditional cloud computing system, I really recommend them to join the cloud native computing community," says Zhang.</p>
+-->
+<p>随着中国联通在 Kubernetes 上取得的成功，张承宇和他的团队渴望回馈社区。
+这从参与聚会和会议开始，并为考虑类似路径的其他公司提供建议。
+“特别是对于那些拥有传统云计算系统的公司，我真得建议他们加入云原生计算社区，”张承宇说。</p>
+
+{{< case-studies/quote author="贾杰，中国联通平台技术研发组成员" >}}
+<!--
+"Companies can use the managed services offered by companies like Rancher, because they have already customized this technology, you can easily leverage this technology."
+-->
+“公司可以使用像 Rancher 这样的公司提供的托管服务，因为他们已经定制了这项技术，你可以轻松利用这项技术。”  
+{{< /case-studies/quote >}}
+
+<!--
+<p>Platform Technology R&D team member Jie Jia adds that though "this technology is relatively complicated, as long as developers get used to it, they can enjoy all the benefits." And Zhang points out that in his own experience with virtual machine cloud, "Kubernetes and these cloud native technologies are relatively simpler."</p>
+-->
+<p>平台技术研发组成员贾杰补充道，尽管“这项技术相对复杂，但只要开发人员习惯它，他们就可以体会到所有的好处。”
+张承宇根据自己使用虚拟机云的经验指出，“Kubernetes 和这些云原生技术相对简单。”</p>
+
+<!--
+<p>Plus, "companies can use the managed services offered by companies like <a href="https://rancher.com/">Rancher</a>, because they have already customized this technology," says Jia. "You can easily leverage this technology."</p>
+-->
+<p>此外，“公司可以使用像 <a href="https://rancher.com/">Rancher</a> 这样的公司提供的托管服务，
+因为他们已经定制了这项技术，”贾杰说。“你可以轻松利用这项技术。”</p>
+
+<!--
+<p>Looking ahead, China Unicom plans to develop more applications on Kubernetes, focusing on big data and machine learning. The team is continuing to optimize the cloud platform that it built, and hopes to pass the conformance test to join CNCF's <a href="https://www.cncf.io/announcement/2017/11/13/cloud-native-computing-foundation-launches-certified-kubernetes-program-32-conformant-distributions-platforms/">Certified Kubernetes Conformance Program</a>. They're also hoping to someday contribute code back to the community.</p>
+-->
+<p>展望未来，中国联通计划在 Kubernetes 上开发更多应用，专注于大数据和机器学习。
+该团队正在继续优化他们构建的云平台，并希望通过合规性测试以加入 CNCF
+的<a href="https://www.cncf.io/announcement/2017/11/13/cloud-native-computing-foundation-launches-certified-kubernetes-program-32-conformant-distributions-platforms/">认证 Kubernetes 合规性计划（Certified Kubernetes Conformance Program）</a>。
+他们也希望有一天能够将代码回馈给社区。</p>
+
+<!--
+<p>If that sounds ambitious, it's because the results they've gotten from adopting Kubernetes have been beyond even their greatest expectations. Says Zhang: "We could never imagine we can achieve this scalability in such a short time."</p>
+-->
+<p>听起来是不是雄心勃勃，那是因为他们采用 Kubernetes 后所获得的成果超出了他们的最高预期。
+张承宇说：“我们从未想过能在这么短的时间内实现这样的可扩展性。”</p>

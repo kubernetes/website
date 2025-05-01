@@ -114,6 +114,8 @@ During the two-month maintenance mode period, Release Managers may cut
 additional maintenance releases to resolve:
 
 - CVEs (under the advisement of the Security Response Committee)
+- [Vulnerabilities](/docs/reference/issues-security/official-cve-feed/) that have an assigned
+  CVE ID (under the advisement of the Security Response Committee)
 - dependency issues (including base image updates)
 - critical core component issues
 
@@ -127,6 +129,7 @@ dates for simplicity (every month has it).
 在两个月的维护模式期间，发布管理员可能会删减额外的维护版本以解决：
 
 - CVE（在安全响应委员会的建议下）
+- 已分配 CVE ID 的[漏洞](/zh-cn/docs/reference/issues-security/official-cve-feed/)（在安全响应委员会的建议下）
 - 依赖问题（包括基础镜像更新）
 - 关键核心组件问题
 

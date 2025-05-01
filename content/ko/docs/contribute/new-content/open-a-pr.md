@@ -321,7 +321,7 @@ website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할
       make container-serve
       ```
 
-3.  웹 브라우저에서 `https://localhost:1313` 로 이동한다. Hugo는
+3.  웹 브라우저에서 `http://localhost:1313` 로 이동한다. Hugo는
     변경 사항을 보고 필요에 따라 사이트를 다시 구축한다.
 
 4.  로컬의 Hugo 인스턴스를 중지하려면, 터미널로 돌아가서 `Ctrl+C` 를 입력하거나,
@@ -349,7 +349,7 @@ website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할
       hugo server --buildFuture
       ```
 
-4.  웹 브라우저에서 `https://localhost:1313` 으로 이동한다. Hugo는
+4.  웹 브라우저에서 `http://localhost:1313` 으로 이동한다. Hugo는
     변경 사항을 보고 필요에 따라 사이트를 다시 구축한다.
 
 5.  로컬의 Hugo 인스턴스를 중지하려면, 터미널로 돌아가서 `Ctrl+C` 를 입력하거나,

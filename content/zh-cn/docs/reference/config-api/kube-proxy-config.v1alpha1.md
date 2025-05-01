@@ -18,6 +18,440 @@ auto_generated: true
 
 - [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
 
+## `FormatOptions`     {#FormatOptions}
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [LoggingConfiguration](#LoggingConfiguration)
+
+<p>
+<!--
+FormatOptions contains options for the different logging formats.
+-->
+`FormatOptions` 包含不同日志格式的选项。
+</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+  
+<tr><td><code>text</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#TextOptions"><code>TextOptions</code></a>
+</td>
+<td>
+<p>
+<!--
+[Alpha] Text contains options for logging format &quot;text&quot;.
+Only available when the LoggingAlphaOptions feature gate is enabled.
+-->
+[Alpha] text 包含日志格式 &quot;text&quot; 的选项。
+仅在启用了 `LoggingAlphaOptions` 特性门控时可用。
+</p>
+</td>
+</tr>
+<tr><td><code>json</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#JSONOptions"><code>JSONOptions</code></a>
+</td>
+<td>
+<p>
+<!--
+[Alpha] JSON contains options for logging format &quot;json&quot;.
+Only available when the LoggingAlphaOptions feature gate is enabled.
+-->
+[Alpha] JSON 包含日志格式 &quot;json&quot; 的选项。
+仅在启用了 `LoggingAlphaOptions` 特性门控时可用。
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `JSONOptions`     {#JSONOptions}
+    
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [FormatOptions](#FormatOptions)
+
+<p>
+<!--
+JSONOptions contains options for logging format &quot;json&quot;.
+-->
+`JSONOptions` 包含日志格式 &quot;json&quot; 的选项。
+</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>OutputRoutingOptions</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#OutputRoutingOptions"><code>OutputRoutingOptions</code></a>
+</td>
+<td>
+<!--
+(Members of <code>OutputRoutingOptions</code> are embedded into this type.)
+-->
+（<code>OutputRoutingOptions</code> 的成员嵌入到此类型中。）
+<span class="text-muted">
+<!--
+No description provided.
+-->
+未提供描述。
+</span></td>
+</tr>
+</tbody>
+</table>
+
+## `LogFormatFactory`     {#LogFormatFactory}
+
+<p>
+<!--
+LogFormatFactory provides support for a certain additional,
+non-default log format.
+-->
+`LogFormatFactory` 提供对某种额外的、非默认日志格式的支持。
+</p>
+
+## `LoggingConfiguration`     {#LoggingConfiguration}
+    
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
+
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+<p>
+<!--
+LoggingConfiguration contains logging options.
+-->
+`LoggingConfiguration` 包含日志记录选项。
+</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+
+<tr><td><code>format</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+<p>
+<!--
+Format Flag specifies the structure of log messages.
+default value of format is <code>text</code>
+-->
+`format` 标志指定日志消息的结构。
+格式的默认值是 <code>text</code>。
+</p>
+</td>
+</tr>
+<tr><td><code>flushFrequency</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#TimeOrMetaDuration"><code>TimeOrMetaDuration</code></a>
+</td>
+<td>
+<p>
+<!--
+Maximum time between log flushes.
+If a string, parsed as a duration (i.e. &quot;1s&quot;)
+If an int, the maximum number of nanoseconds (i.e. 1s = 1000000000).
+Ignored if the selected logging backend writes log messages without buffering.
+-->
+指定两次日志清洗之间的最大时间：
+
+- 如果是字符串，则被解析为持续时间（例如 &quot;1s&quot;）。
+- 如果是整数，则表示最大纳秒数（例如 1s = 1000000000）。
+
+如果选择的日志后端在写入日志消息时不进行缓冲，则此设置将被忽略。
+</p>
+</td>
+</tr>
+<tr><td><code>verbosity</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#VerbosityLevel"><code>VerbosityLevel</code></a>
+</td>
+<td>
+<p>
+<!--
+Verbosity is the threshold that determines which log messages are
+logged. Default is zero which logs only the most important
+messages. Higher values enable additional messages. Error messages
+are always logged.
+-->
+verbosity 是决定哪些日志消息会被记录的阈值。
+默认值为零，仅记录最重要的消息。更高的值会启用额外的消息记录。错误消息始终会被记录。
+</p>
+</td>
+</tr>
+<tr><td><code>vmodule</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#VModuleConfiguration"><code>VModuleConfiguration</code></a>
+</td>
+<td>
+<p>
+<!--
+VModule overrides the verbosity threshold for individual files.
+Only supported for &quot;text&quot; log format.
+-->
+vmodule 为个别文件覆盖 verbosity 阈值。
+仅支持 "text" 日志格式。
+</p>
+</td>
+</tr>
+<tr><td><code>options</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#FormatOptions"><code>FormatOptions</code></a>
+</td>
+<td>
+<p>
+<!--
+[Alpha] Options holds additional parameters that are specific
+to the different logging formats. Only the options for the selected
+format get used, but all of them get validated.
+Only available when the LoggingAlphaOptions feature gate is enabled.
+-->
+[Alpha] options 包含特定于不同日志格式的附加参数。
+只有与选中格式相关的选项会被使用，但所有选项都会被校验。
+仅在启用了 LoggingAlphaOptions 特性门控时可用。
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `LoggingOptions`     {#LoggingOptions}
+
+<p>
+<!--
+LoggingOptions can be used with ValidateAndApplyWithOptions to override
+certain global defaults.
+-->
+LoggingOptions 可以与 ValidateAndApplyWithOptions 一起使用，以覆盖某些全局默认设置。
+</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+
+<tr><td><code>ErrorStream</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/io#Writer"><code>io.Writer</code></a>
+</td>
+<td>
+<p>
+<!--
+ErrorStream can be used to override the os.Stderr default.
+-->
+ErrorStream 可以用于覆盖默认的 os.Stderr。
+</p>
+</td>
+</tr>
+<tr><td><code>InfoStream</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/io#Writer"><code>io.Writer</code></a>
+</td>
+<td>
+<p>
+<!--
+InfoStream can be used to override the os.Stdout default.
+-->
+InfoStream 可以用于覆盖默认的 os.Stdout。
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `OutputRoutingOptions`     {#OutputRoutingOptions}
+    
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [JSONOptions](#JSONOptions)
+
+- [TextOptions](#TextOptions)
+
+<p>
+<!--
+OutputRoutingOptions contains options that are supported by both &quot;text&quot; and &quot;json&quot;.
+-->
+OutputRoutingOptions 包含同时被 "text" 和 "json" 日志格式支持的选项。
+</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+  
+<tr><td><code>splitStream</code> <B><!--[Required]-->[必需]</B><br/>
+<code>bool</code>
+</td>
+<td>
+<p>
+<!--
+[Alpha] SplitStream redirects error messages to stderr while
+info messages go to stdout, with buffering. The default is to write
+both to stdout, without buffering. Only available when
+the LoggingAlphaOptions feature gate is enabled.
+-->
+[Alpha] SplitStream 将错误消息重定向到 stderr，而信息消息则输出到 stdout，并且带有缓冲。
+默认情况下，两者都写入 stdout，且不带缓冲。
+仅在启用了 LoggingAlphaOptions 特性门控时可用。
+</p>
+</td>
+</tr>
+<tr><td><code>infoBufferSize</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#QuantityValue"><code>k8s.io/apimachinery/pkg/api/resource.QuantityValue</code></a>
+</td>
+<td>
+<p>
+<!--
+[Alpha] InfoBufferSize sets the size of the info stream when
+using split streams. The default is zero, which disables buffering.
+Only available when the LoggingAlphaOptions feature gate is enabled.
+-->
+[Alpha] infoBufferSize 设置在使用分离流时信息流的缓冲区大小。默认值为零，表示禁用缓冲。
+仅在启用了 LoggingAlphaOptions 特性门控时可用。
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `TextOptions`     {#TextOptions}
+   
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [FormatOptions](#FormatOptions)
+
+<p>
+<!--
+TextOptions contains options for logging format &quot;text&quot;.
+-->
+TextOptions 包含日志格式 &quot;text&quot; 的选项。
+</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+  
+<tr><td><code>OutputRoutingOptions</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#OutputRoutingOptions"><code>OutputRoutingOptions</code></a>
+</td>
+<td>
+<!--
+(Members of <code>OutputRoutingOptions</code> are embedded into this type.)
+-->
+（<code>OutputRoutingOptions</code> 的成员嵌入到此类型中。）
+<span class="text-muted">
+<!--
+No description provided.
+-->
+未提供描述。
+</span></td>
+</tr>
+</tbody>
+</table>
+
+## `TimeOrMetaDuration`     {#TimeOrMetaDuration}
+    
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [LoggingConfiguration](#LoggingConfiguration)
+
+<p>
+<!--
+TimeOrMetaDuration is present only for backwards compatibility for the
+flushFrequency field, and new fields should use metav1.Duration.
+-->
+TimeOrMetaDuration 仅出于 flushFrequency 字段的向后兼容性而存在，
+新字段应使用 `metav1.Duration`。
+</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+  
+<tr><td><code>Duration</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+<p>
+<!--
+Duration holds the duration
+-->
+Duration 包含持续时间。
+</p>
+</td>
+</tr>
+<tr><td><code>-</code> <B><!--[Required]-->[必需]</B><br/>
+<code>bool</code>
+</td>
+<td>
+<p>
+<!--
+SerializeAsString controls whether the value is serialized as a string or an integer
+-->
+SerializeAsString 控制值是被序列化为字符串还是整数。
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `VModuleConfiguration`     {#VModuleConfiguration}
+
+<!--
+(Alias of `[]k8s.io/component-base/logs/api/v1.VModuleItem`)
+-->
+`[]k8s.io/component-base/logs/api/v1.VModuleItem` 的别名
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [LoggingConfiguration](#LoggingConfiguration)
+
+<p>
+<!--
+VModuleConfiguration is a collection of individual file names or patterns
+and the corresponding verbosity threshold.
+-->
+VModuleConfiguration 是个别文件名或模式及其对应 verbosity 阈值的集合。
+</p>
+
+## `VerbosityLevel`     {#VerbosityLevel}
+
+<!--   
+(Alias of `uint32`)
+-->
+（`uint32` 的别名）
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [LoggingConfiguration](#LoggingConfiguration)
+
+<p>
+<!--
+VerbosityLevel represents a klog or logr verbosity threshold.
+-->
+VerbosityLevel 表示 klog 或 logr 的日志详细程度（verbosity）阈值。
+</p>
+
 ## `ClientConnectionConfiguration`     {#ClientConnectionConfiguration}
     
 <!--
@@ -468,9 +902,9 @@ Profiling handlers will be handled by metrics server.
 </td>
 <td>
    <!--
-   detectLocalMode determines mode to use for detecting local traffic, defaults to LocalModeClusterCIDR.
+   detectLocalMode determines mode to use for detecting local traffic, defaults to ClusterCIDR.
    -->
-   <p><code>detectLocalMode</code> 确定用于检测本地流量的模式，默认为 LocalModeClusterCIDR。</p>
+   <p><code>detectLocalMode</code> 确定用于检测本地流量的模式，默认为 ClusterCIDR。</p>
 </td>
 </tr>
 <tr><td><code>detectLocal</code> <B><!--[Required]-->[必需]</B><br/>
@@ -490,7 +924,7 @@ Profiling handlers will be handled by metrics server.
    <!--
    clusterCIDR is the CIDR range of the pods in the cluster. (For dual-stack
 clusters, this can be a comma-separated dual-stack pair of CIDR ranges.). When
-DetectLocalMode is set to LocalModeClusterCIDR, kube-proxy will consider
+DetectLocalMode is set to ClusterCIDR, kube-proxy will consider
 traffic to be local if its source IP is in this range. (Otherwise it is not
 used.)
    -->
@@ -505,13 +939,15 @@ used.)
 </td>
 <td>
    <!--
-   nodePortAddresses is a list of CIDR ranges that contain valid node IPs. If set,
-connections to NodePort services will only be accepted on node IPs in one of
-the indicated ranges. If unset, NodePort connections will be accepted on all
-local IPs.
+   nodePortAddresses is a list of CIDR ranges that contain valid node IPs, or
+alternatively, the single string 'primary'. If set to a list of CIDRs,
+the indicated ranges. If set to 'primary', NodePort services will only be
+accepted on the node's primary IPv4 and/or IPv6 address according to the Node
+object. If unset, NodePort connections will be accepted on all local IPs.</p>
    -->
-   <p><code>nodePortAddresses</code> 是一个包含有效节点 IP 的 CIDR 范围列表。
-   如果设置了此项，只有来自这些范围内的节点 IP 的 NodePort 服务连接才会被接受。
+   <p><code>nodePortAddresses</code> 是一个包含有效节点 IP 的 CIDR 范围列表或单个字符串 `primary`。
+   如果设置为 CIDR 范围列表，只有来自这些范围内的节点 IP 的 NodePort 服务连接才会被接受。
+   如果设置为 `primary`，则根据 Node 对象，NodePort 服务将仅在节点的主 IPv4 和/或 IPv6 地址上被接受。
    如果未设置，将接受所有本地 IP 的 NodePort 连接。</p>
 </td>
 </tr>
@@ -556,6 +992,18 @@ than 0.
    portRange was previously used to configure the userspace proxy, but is now unused.
    -->
    <p><code>portRange</code> 之前用于配置用户空间代理，但现在已不再使用。</p>
+</td>
+</tr>
+<tr><td><code>windowsRunAsService</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>
+    <!--
+    windowsRunAsService, if true, enables Windows service control manager API integration.
+    -->
+    如果为 <code>windowsRunAsService</code> 为 True，则启用 Windows 服务控制管理器 API 集成。
+   </p>
 </td>
 </tr>
 

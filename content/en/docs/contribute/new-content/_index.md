@@ -2,7 +2,8 @@
 title: Contributing new content
 content_type: concept
 main_menu: true
-weight: 20
+weight: 25
+simple_list: true # for whatsnext section
 ---
 
 
@@ -10,10 +11,17 @@ weight: 20
 <!-- overview -->
 
 This section contains information you should know before contributing new
-content. 
+content.
+
+There are also dedicated pages about submitting [case studies](/docs/contribute/new-content/case-studies)
+and [blog articles](/docs/contribute/blog/).
+
+<!-- body -->
+
+## New content task flow
+
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
-
 {{< mermaid >}}
 flowchart LR 
     subgraph second[Before you begin]
@@ -118,3 +126,7 @@ The [doc contributors tools](https://github.com/kubernetes/website/tree/main/con
 directory in the `kubernetes/website` repository contains tools to help your
 contribution journey go more smoothly.
 
+## {{% heading "whatsnext" %}}
+
+<!-- relies on simple_list: true in front matter for remaining links -->
+* Read about submitting [blog articles](/docs/contribute/blog/article-submission/).

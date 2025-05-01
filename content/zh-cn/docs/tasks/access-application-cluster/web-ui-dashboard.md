@@ -115,18 +115,18 @@ by running the following command:
 你可以使用 `kubectl` 命令行工具来启用 Dashboard 访问，命令如下：
 
 ```
-kubectl proxy
+kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443
 ```
 
 <!--
-Kubectl will make Dashboard available at [http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/).
+Kubectl will make Dashboard available at [https://localhost:8443](https://localhost:8443).
 -->
-kubectl 会使得 Dashboard 可以通过 [http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/) 访问。
+kubectl 会使得 Dashboard 可以通过 [https://localhost:8443](https://localhost:8443) 访问。
 
 <!--
-The UI can _only_ be accessed from the machine where the command is executed. See `kubectl proxy --help` for more options.
+The UI can _only_ be accessed from the machine where the command is executed. See `kubectl port-forward --help` for more options.
 -->
-UI **只能**通过执行这条命令的机器进行访问。更多选项参见 `kubectl proxy --help`。
+UI **只能**通过执行这条命令的机器进行访问。更多选项参见 `kubectl port-forward --help`。
 
 {{< note >}}
 <!--

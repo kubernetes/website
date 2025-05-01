@@ -97,7 +97,7 @@ Kubernetes 尊重 Job 对象的生命周期保证，例如等待
   to detect changes to the `.status` of the Job and only set a TTL when the Job
   is being marked as completed.
 * Write your own controller to manage the cleanup TTL for Jobs that match a particular
-  {{< glossary_tooltip term_id="selector" text="selector-selector" >}}.
+  {{< glossary_tooltip term_id="selector" text="selector" >}}.
 -->
 * 使用[修改性质的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
   在 Job 完成后动态设置该字段，并根据 Job 状态、标签等选择不同的 TTL 值。

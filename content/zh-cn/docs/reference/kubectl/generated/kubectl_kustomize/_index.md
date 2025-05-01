@@ -139,6 +139,20 @@ helm 命令（可执行文件路径）。
 </tr>
 
 <tr>
+<td colspan="2">--helm-debug</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Enable debug output from the Helm chart inflator generator.
+-->
+启用 Helm Chart Inflator 生成器的调试输出。
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--helm-kube-version string</td>
 </tr>
 <tr>

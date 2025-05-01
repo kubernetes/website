@@ -80,39 +80,6 @@ go get -u github.com/kubernetes/kompose
 ```
 
 {{% /tab %}}
-{{% tab name="CentOS 包" %}}
-
-<!--
-Kompose is in [EPEL](https://fedoraproject.org/wiki/EPEL) CentOS repository.
-If you don't have [EPEL](https://fedoraproject.org/wiki/EPEL) repository already installed and enabled you can do it by running `sudo yum install epel-release`.
--->
-Kompose 位于 [EPEL](https://fedoraproject.org/wiki/EPEL) CentOS 代码仓库。
-如果你还没有安装并启用 [EPEL](https://fedoraproject.org/wiki/EPEL) 代码仓库，
-请运行命令 `sudo yum install epel-release`。
-
-<!--
-If you have [EPEL](https://fedoraproject.org/wiki/EPEL) enabled in your system, you can install Kompose like any other package.
--->
-如果你的系统中已经启用了 [EPEL](https://fedoraproject.org/wiki/EPEL)，
-你就可以像安装其他软件包一样安装 Kompose。
-
-```bash
-sudo yum -y install kompose
-```
-
-{{% /tab %}}
-{{% tab name="Fedora 包" %}}
-
-<!--
-Kompose is in Fedora 24, 25 and 26 repositories. You can install it like any other package.
--->
-Kompose 位于 Fedora 24、25 和 26 的代码仓库。你可以像安装其他软件包一样安装 Kompose。
-
-```bash
-sudo dnf -y install kompose
-```
-
-{{% /tab %}}
 {{% tab name="Homebrew (macOS)" %}}
 
 <!--
@@ -452,7 +419,8 @@ INFO OpenShift file "foo-buildconfig.yaml" created
 If you are manually pushing the Openshift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this OpenShift issue: https://github.com/openshift/origin/issues/4518 .
 -->
 如果使用 ``oc create -f`` 手动推送 OpenShift 工件，则需要确保在构建配置工件之前推送
-imagestream 工件，以解决 OpenShift 的这个问题： https://github.com/openshift/origin/issues/4518。
+imagestream 工件，以解决 OpenShift 的这个问题：
+https://github.com/openshift/origin/issues/4518。
 {{< /note >}}
 
 <!--

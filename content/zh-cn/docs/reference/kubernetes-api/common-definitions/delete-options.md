@@ -43,9 +43,13 @@ DeleteOptions may be provided when deleting an API object.
 <!--
 - **dryRun** ([]string)
 
+  *Atomic: will be replaced during a merge*
+
   When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
 -->
 - **dryRun** ([]string)
+
+  **原子性：将在合并期间被替换**
 
   该值如果存在，则表示不应保留修改。
   无效或无法识别的 `dryRun` 指令将导致错误响应并且不会进一步处理请求。有效值为：
@@ -124,4 +128,8 @@ DeleteOptions may be provided when deleting an API object.
 
   表示是否以及如何执行垃圾收集。可以设置此字段或 `orphanDependents` 字段，但不能同时设置二者。
   默认策略由 `metadata.finalizers` 中现有终结器（Finalizer）集合和特定资源的默认策略决定。
-  可接受的值为：`Orphan` - 令依赖对象成为孤儿对象；`Background` - 允许垃圾收集器在后台删除依赖项；`Foreground` - 一个级联策略，前台删除所有依赖项。
+  可选值为：
+  
+  - `Orphan` 令依赖对象成为孤儿对象；
+  - `Background` 允许垃圾收集器在后台删除依赖项；
+  - `Foreground` 一个级联策略，前台删除所有依赖项。

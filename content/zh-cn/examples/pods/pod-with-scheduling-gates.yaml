@@ -4,8 +4,8 @@ metadata:
   name: test-pod
 spec:
   schedulingGates:
-  - name: foo
-  - name: bar
+  - name: example.com/foo
+  - name: example.com/bar
   containers:
   - name: pause
     image: registry.k8s.io/pause:3.6

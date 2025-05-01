@@ -45,3 +45,9 @@ You can use `kubectl` to create, inspect, update, and delete Kubernetes objects.
 -->
 
 你可以使用 `kubectl` 创建、检视、更新和删除 Kubernetes 对象。
+
+<!-- localization note: OK to omit the rest of this entry -->
+<!--
+In English, `kubectl` is (officially) pronounced /kjuːb/ /kənˈtɹəʊl/ (like "cube control").
+-->
+在英语中，`kubectl` 的（正式）发音为 /kjuːb/ /kənˈtɹəʊl/（类似 "cube control"）。

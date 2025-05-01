@@ -27,7 +27,7 @@ before referring to it in a {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 This page provides an outline of the container image concept.
 -->
 容器镜像（Image）所承载的是封装了应用程序及其所有软件依赖的二进制数据。
-容器镜像是可执行的软件包，可以单独运行；该软件包对所处的运行时环境具有良定（Well Defined）的假定。
+容器镜像是可执行的软件包，可以单独运行；该软件包对所处的运行时环境具有明确定义的运行时环境假定。
 
 你通常会创建应用的容器镜像并将其推送到某仓库（Registry），然后在
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 中引用它。
@@ -101,7 +101,7 @@ Image digests consists of a hash algorithm (such as `sha256`) and a hash value. 
 You can find more information about digests format in the 
 [OCI Image Specification](https://github.com/opencontainers/image-spec/blob/master/descriptor.md#digests).
 -->
-图像摘要由哈希算法（例如 `sha256`）和哈希值组成，例如：
+镜像摘要由哈希算法（例如 `sha256`）和哈希值组成，例如：
 `sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07`。
 你可以在 [OCI 镜像规范](https://github.com/opencontainers/image-spec/blob/master/descriptor.md#digests)
 中找到有关摘要格式的更多信息。
@@ -160,7 +160,8 @@ these values have:
 ### 镜像拉取策略   {#image-pull-policy}
 
 容器的 `imagePullPolicy` 和镜像的标签会影响
-[kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) 尝试拉取（下载）指定的镜像。
+[kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
+尝试拉取（下载）指定的镜像。
 
 以下列表包含了 `imagePullPolicy` 可以设置的值，以及这些值的效果：
 
@@ -212,7 +213,8 @@ roll back properly.
 
 Instead, specify a meaningful tag such as `v1.42.0` and/or a digest.
 -->
-在生产环境中部署容器时，你应该避免使用 `:latest` 标签，因为这使得正在运行的镜像的版本难以追踪，并且难以正确地回滚。
+在生产环境中部署容器时，你应该避免使用 `:latest` 标签，
+因为这使得正在运行的镜像的版本难以追踪，并且难以正确地回滚。
 
 相反，应指定一个有意义的标签，如 `v1.42.0`，和/或者一个摘要。
 {{< /note >}}
@@ -313,7 +315,7 @@ If you would like to always force a pull, you can do one of the following:
 -->
 #### 必要的镜像拉取   {#required-image-pull}
 
-如果你想总是强制执行拉取，你可以使用下述的一中方式：
+如果你想总是强制执行拉取，你可以使用下述的一种方式：
 
 - 设置容器的 `imagePullPolicy` 为 `Always`。
 - 省略 `imagePullPolicy`，并使用 `:latest` 作为镜像标签；
@@ -403,7 +405,7 @@ and multiple images will be pulled at the same time.
 如果你想启用并行镜像拉取，可以在 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
 中将字段 `serializeImagePulls` 设置为 false。
 
-当`serializeImagePulls` 设置为 false 时，kubelet 会立即向镜像服务发送镜像拉取请求，多个镜像将同时被拉动。
+当 `serializeImagePulls` 设置为 false 时，kubelet 会立即向镜像服务发送镜像拉取请求，多个镜像将同时被拉动。
 
 <!--
 When enabling parallel image pulls, please make sure the image service of your
@@ -428,7 +430,7 @@ kubelet 从不代表一个 Pod 并行地拉取多个镜像。
 -->
 ### 最大并行镜像拉取数量  {#maximum-parallel-image-pulls}
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.32" state="beta" >}}
 
 <!--
 When `serializeImagePulls` is set to false, the kubelet defaults to no limit on the
@@ -468,12 +470,6 @@ An image index can point to multiple [image manifests](https://github.com/openco
 for architecture-specific versions of a container. The idea is that you can have a name for an image
 (for example: `pause`, `example/mycontainer`, `kube-apiserver`) and allow different systems to
 fetch the right binary image for the machine architecture they are using.
-
-Kubernetes itself typically names container images with a suffix `-$(ARCH)`. For backward
-compatibility, please generate the older images with suffixes. The idea is to generate say `pause`
-image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards
-compatible for older configurations or YAML files which may have hard coded the images with
-suffixes.
 -->
 ## 带镜像索引的多架构镜像  {#multi-architecture-images-with-image-indexes}
 
@@ -482,8 +478,15 @@ suffixes.
 镜像索引可以指向镜像的多个[镜像清单](https://github.com/opencontainers/image-spec/blob/master/manifest.md)，
 提供特定于体系结构版本的容器。
 这背后的理念是让你可以为镜像命名（例如：`pause`、`example/mycontainer`、`kube-apiserver`）
-的同时，允许不同的系统基于它们所使用的机器体系结构取回正确的二进制镜像。
+的同时，允许不同的系统基于它们所使用的机器体系结构获取正确的二进制镜像。
 
+<!--
+Kubernetes itself typically names container images with a suffix `-$(ARCH)`. For backward
+compatibility, please generate the older images with suffixes. The idea is to generate say `pause`
+image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards
+compatible for older configurations or YAML files which may have hard coded the images with
+suffixes.
+-->
 Kubernetes 自身通常在命名容器镜像时添加后缀 `-$(ARCH)`。
 为了向前兼容，请在生成较老的镜像时也提供后缀。
 这里的理念是为某镜像（如 `pause`）生成针对所有平台都适用的清单时，
@@ -512,7 +515,7 @@ Credentials can be provided in several ways:
   - all pods can use any images cached on a node
   - requires root access to all nodes to set up
 - Specifying ImagePullSecrets on a Pod
-  - only pods which provide own keys can access the private registry
+  - only pods which provide their own keys can access the private registry
 - Vendor-specific or local extensions
   - if you're using a custom node configuration, you (or your cloud
     provider) can implement your mechanism for authenticating the node
@@ -701,14 +704,18 @@ you must ensure all nodes in the cluster have the same pre-pulled images.
 
 This can be used to preload certain images for speed or as an alternative to authenticating to a
 private registry.
-
-All pods will have read access to any pre-pulled images.
 -->
 如果你希望使用提前拉取镜像的方法代替仓库认证，就必须保证集群中所有节点提前拉取的镜像是相同的。
 
 这一方案可以用来提前载入指定的镜像以提高速度，或者作为向私有仓库执行身份认证的一种替代方案。
 
-所有的 Pod 都可以使用节点上提前拉取的镜像。
+{{< note >}}
+{{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
+<!--
+Access to pre-pulled images may be authorized according to [image pull credential verification](#ensureimagepullcredentialverification)
+-->
+对预拉取镜像的访问可能需要根据[镜像拉取凭据验证](#ensureimagepullcredentialverification)进行授权。
+{{< /note >}}
 
 <!--
 ### Specifying imagePullSecrets on a Pod
@@ -731,6 +738,80 @@ Secrets must be of type `kubernetes.io/dockercfg` or `kubernetes.io/dockerconfig
 Kubernetes 支持在 Pod 中设置容器镜像仓库的密钥。
 `imagePullSecrets` 必须全部与 Pod 位于同一个名字空间中。
 引用的 Secret 必须是 `kubernetes.io/dockercfg` 或 `kubernetes.io/dockerconfigjson` 类型。
+
+<!--
+#### Ensure Image Pull Credential Verification {#ensureimagepullcredentialverification}
+-->
+#### 镜像拉取凭据验证   {#ensureimagepullcredentialverification}
+
+{{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
+
+<!--
+If the `KubeletEnsureSecretPulledImages` feature gate is enabled, Kubernetes will validate 
+image credentials for every image that requires credentials to be pulled,
+even if that image is already present on the node.
+This validation ensures that images in a pod request which have not been successfully pulled
+with the provided credentials must re-pull the images from the registry.
+Additionally, image pulls that re-use the same credentials
+which previously resulted in a successful image pull will not need to re-pull from the registry
+and are instead validated locally without accessing the registry
+(provided the image is available locally).
+This is controlled by the`imagePullCredentialsVerificationPolicy` field in the
+[Kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1#ImagePullCredentialsVerificationPolicy).
+-->
+如果启用了 `KubeletEnsureSecretPulledImages` 特性门控，Kubernetes
+将验证每个需要凭据才能拉取的镜像的凭据，即使该镜像已经存在于节点上。
+此验证确保了在 Pod 请求中未成功使用提供的凭据拉取的镜像必须从镜像仓库重新拉取。
+此外，若之前使用相同的凭据已成功拉取过镜像，
+则再次使用这些凭据的镜像拉取操作将不需要从镜像仓库重新拉取，
+而是通过本地验证（前提是镜像在本地可用）而无需访问镜像仓库。
+这由 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1#ImagePullCredentialsVerificationPolicy)中的
+`imagePullCredentialsVerificationPolicy` 字段控制。
+
+<!--
+This configuration controls when image pull credentials must be verified if the
+image is already present on the node:
+-->
+此配置控制在镜像已经存在于节点上时，
+何时必须验证镜像拉取凭据：
+
+<!--
+ * `NeverVerify`: Mimics the behavior of having this feature gate disabled.
+   If the image is present locally, image pull credentials are not verified.
+ * `NeverVerifyPreloadedImages`: Images pulled outside the kubelet are not verified,
+ but all other images will have their credentials verified. This is the default behavior.
+ * `NeverVerifyAllowListedImages`: Images pulled outside the kubelet and mentioned within the 
+   `preloadedImagesVerificationAllowlist` specified in the kubelet config are not verified.
+ * `AlwaysVerify`: All images will have their credentials verified
+   before they can be used.
+-->
+* `NeverVerify`：模仿关闭此特性门控的行为。
+  如果镜像本地存在，则不会验证镜像拉取凭据。
+
+* `NeverVerifyPreloadedImages`：在 kubelet 外部拉取的镜像不会被验证，
+  但所有其他镜像都将验证其凭据。这是默认行为。
+
+* `NeverVerifyAllowListedImages`：在 kubelet 外部拉取且列在 
+  kubelet 配置中的 `preloadedImagesVerificationAllowlist` 里的镜像不会被验证。
+
+* `AlwaysVerify`：所有镜像在使用前都必须验证其凭据。
+
+<!--
+This verification applies to [pre-pulled images](#pre-pulled-images),
+images pulled using node-wide secrets, and images pulled using pod-level secrets.
+-->
+这种验证适用于[预拉取镜像](#pre-pulled-images)、
+使用节点范围的密钥拉取的镜像以及使用 Pod 级别密钥拉取的镜像。
+
+{{< note >}}
+<!--
+In the case of credential rotation, the credentials previously used to pull the image
+will continue to verify without the need to access the registry. New or rotated credentials
+will require the image to be re-pulled from the registry.
+-->
+在凭据轮换的情况下，之前用于拉取镜像的凭据将继续验证，
+而无需访问镜像仓库新的或已轮换的凭据将要求从镜像仓库重新拉取镜像。
+{{< /note >}}
 
 <!--
 #### Creating a Secret with a Docker config
@@ -868,7 +949,7 @@ common use cases and suggested solutions.
    - Or, run an internal private registry behind your firewall with open read access.
      - No Kubernetes configuration is required.
    - Use a hosted container image registry service that controls image access
-     - It will work better with cluster autoscaling than manual node configuration.
+     - It will work better with Node autoscaling than manual node configuration.
    - Or, on a cluster where changing the node configuration is inconvenient, use `imagePullSecrets`.
 -->
 2. 集群运行一些专有镜像，这些镜像需要对公司外部隐藏，对所有集群用户可见
@@ -877,7 +958,7 @@ common use cases and suggested solutions.
    - 或者，在防火墙内运行一个组织内部的私有仓库，并开放读取权限
      - 不需要配置 Kubernetes
    - 使用控制镜像访问的托管容器镜像仓库服务
-     - 与手动配置节点相比，这种方案能更好地处理集群自动扩缩容
+     - 与手动配置节点相比，这种方案能更好地处理节点自动扩缩容
    - 或者，在不方便更改节点配置的集群中，使用 `imagePullSecrets`
 
 <!--

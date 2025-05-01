@@ -274,6 +274,7 @@ fail validation.
 					<li><code>container_t</code></li>
 					<li><code>container_init_t</code></li>
 					<li><code>container_kvm_t</code></li>
+          <li><code>container_engine_t</code> <!--(since Kubernetes 1.31)-->（自从 Kubernetes 1.31）</li>
 				</ul>
 				<hr />
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
@@ -706,7 +707,7 @@ built-in [Pod Security Admission Controller](/docs/concepts/security/pod-securit
 <!--
 ### What about sandboxed Pods?
 
-There is not currently an API standard that controls whether a Pod is considered sandboxed or
+There is currently no API standard that controls whether a Pod is considered sandboxed or
 not. Sandbox Pods may be identified by the use of a sandboxed runtime (such as gVisor or Kata
 Containers), but there is no standard definition of what a sandboxed runtime is.
 -->
