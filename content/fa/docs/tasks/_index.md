@@ -1,5 +1,5 @@
 ---
-title: Tasks
+title: راهکارها
 main_menu: true
 weight: 50
 content_type: concept
@@ -7,9 +7,7 @@ content_type: concept
 
 <!-- overview -->
 
-This section of the Kubernetes documentation contains pages that
-show how to do individual tasks. A task page shows how to do a
-single thing, typically by giving a short sequence of steps.
 
-If you would like to write a task page, see
-[Creating a Documentation Pull Request](/docs/contribute/new-content/open-a-pr/).
+این بخش از مستندات کوبرنتیز شامل صفحاتی است که نحوه انجام راهکار مختلف را نشان می‌دهند. یک صفحه رهکار نحوه انجام یک کار خاص را نشان می‌دهد، معمولاً با ارائه یک تعریف کوتاه از مراحل.
+
+اگر می‌خواهید یک صفحه راهکار بنویسید، یک [Pull Request](/docs/contribute/new-content/open-a-pr/) در پروژه ثبت کنید.

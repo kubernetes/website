@@ -1,14 +1,11 @@
 ---
-title: Available Documentation Versions
+title: نسخه‌های مستندات موجود
 content_type: custom
 layout: supported-versions
 weight: 10
 ---
 
-This website contains documentation for the current version of Kubernetes
-and the four previous versions of Kubernetes.
+این وب‌سایت مستندات مربوط به نسخه جاری کوبرنتیز و چهار نسخه قبلی کوبرنتیز را شامل می‌شود.
 
-The availability of documentation for a Kubernetes version is separate from whether
-that release is currently supported.
-Read [Support period](/releases/patch-releases/#support-period) to learn about
-which versions of Kubernetes are officially supported, and for how long.
+دسترسی مستندات برای یک نسخه کوبرنتیز مستقل از این است که آیا آن نسخه در حال حاضر پشتیبانی می‌شود یا نمی شود.
+برای آگاهی از اینکه کدام نسخه‌های کوبرنتیز به‌طور رسمی پشتیبانی می‌شوند و تا مدت چه زمانی، [دوره پشتیبانی](/releases/patch-releases/#support-period) را مطالعه کنید.

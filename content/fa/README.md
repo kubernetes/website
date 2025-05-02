@@ -5,8 +5,7 @@
 دم شما گرم که به ما کمک می کنید تا این [سایت](https://kubernetes.io/) و مستنداتش رو برای هم زبانانمون ترجمه کنیم!
 
 - [همکاری در سایت](#contributing-to-the-docs)
-- [راهنمای مترجمین](#localization-readmes)
-- [راهنمای مترجمین](#translation-guidelines)
+- [راهنمای ترجمه](#localization-readmes)
 
 ## نحوه استفاده
 
@@ -207,29 +206,6 @@ If you need help at any point when contributing, the [New Contributor Ambassador
 | [Indonesian](./content/id/README.md) | [Ukrainian](./content/uk/README.md) |
 | [Italian](./content/it/README.md)    | [Vietnamese](./content/vi/README.md) |
 | [Japanese](./content/ja/README.md)   | [Persian](./content/fa/README.md) |
-
-## راهنمای مترجمین
-
-برای راحتی و یک پارچه گی مستندات بییاید با هم یک سری قراری بذاریم.
-
-لطفا نام افراد و شرکت ها را ترجمه نکنید و ترجیحا در یک صفه رو به روی این نام ها معادل فارسی آن را در پرانتز ذکر کنید.
-مثال
-```
-We deal with containers at CNCF, at CNCF we also enable Kubernetes communities.
-```
-ترجمه
-```
-ما در سی ان سی اف (CNCF) با کانتینر ها سرو کار داریم و در سی ان سی اف به جوامع کوبرنتیز کمک می کنیم.
-```
-
-| English  | Persian/Farsi |
-| -------- | ------------- |
-| Kubernetes | کوبرنتیز |
-| KubeCon | کیوب کان |
-| Cloud Native | کلاد نیتیو |
-| Version | ویرایش |
-| Release |  |
-
 
 ## Code of conduct
 

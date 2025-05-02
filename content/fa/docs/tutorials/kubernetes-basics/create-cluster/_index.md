@@ -1,5 +1,5 @@
 ---
-title: Create a Cluster
+title: ساخت یک کلاستر (خوشه)
 weight: 10
 ---
 

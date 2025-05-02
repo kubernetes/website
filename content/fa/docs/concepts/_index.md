@@ -1,5 +1,5 @@
 ---
-title: Concepts
+title: مفاهیم
 main_menu: true
 content_type: concept
 weight: 40
@@ -7,8 +7,7 @@ weight: 40
 
 <!-- overview -->
 
-The Concepts section helps you learn about the parts of the Kubernetes system and the abstractions Kubernetes uses to represent your {{< glossary_tooltip text="cluster" term_id="cluster" length="all" >}}, and helps you obtain a deeper understanding of how Kubernetes works.
-
+بخش مفاهیم به شما کمک می‌کند تا با اجزای سیستم کوبرنتیز و انتزاع‌هایی که کوبرنتیز برای نمایش {{< glossary_tooltip text="کلاستر" term_id="cluster" length="all" >}} استفاده می‌کند آشنا شوید، و درک عمیق‌تری از نحوه عملکرد کوبرنتیز به دست آورید.
 
 
 <!-- body -->

@@ -1,9 +1,9 @@
 ---
-title: Hello Minikube
+title: سلام مینی کیوب (minikube)
 content_type: tutorial
 weight: 5
 card:
-  name: tutorials
+  name: آموزش ها
   weight: 10
 ---
 

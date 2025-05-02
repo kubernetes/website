@@ -6,13 +6,13 @@ noedit: true
 cid: docsHome
 layout: docsportal_home
 class: gridPage gridPageHome
-linkTitle: "Documentation"
+linkTitle: "مستندات"
 main_menu: true
 weight: 10
 hide_feedback: true
 menu:
   main:
-    title: "Documentation"
+    title: "مستندات"
     weight: 10
 description: >
   کوبرنتیز یک موتور متن‌باز پیکربندی کانتینر است که برای خودکارسازی، استقرار، مقیاس‌بندی و مدیریت برنامه‌های کانتینری استفاده می شود. این پروژه متن‌باز توسط بنیاد سی ان سی اف (Cloud Native Computing Foundation) میزبانی می‌شود.
@@ -20,34 +20,34 @@ overview: >
   کوبرنتیز یک موتور متن‌باز پیکربندی کانتینر است که برای خودکارسازی، استقرار، مقیاس‌بندی و مدیریت برنامه‌های کانتینری استفاده می شود. این پروژه متن‌باز توسط بنیاد سی ان سی اف (<a href="https://www.cncf.io/about">CNCF</a>) میزبانی می‌شود.
 cards:
 - name: concepts
-  title: "Understand Kubernetes"
-  description: "Learn about Kubernetes and its fundamental concepts."
-  button: "View Concepts"
+  title: "مفاهیم کوبرنتیز"
+  description: "با کوبرنتیز و مفاهیم بنیادی آن آشنا شوید."
+  button: "بازدید از مفاهیم"
   button_path: "/docs/concepts"
 - name: tutorials
-  title: "Try Kubernetes"
-  description: "Follow tutorials to learn how to deploy applications in Kubernetes."
-  button: "View Tutorials"
+  title: "کوبرنتیز را امتحان کنید"
+  description: "نحوه استقرار برنامه‌ها در کوبرنتیز را بیاموزید."
+  button: "بازدید از آموزش ها"
   button_path: "/docs/tutorials"
 - name: setup
-  title: "Set up a K8s cluster"
-  description: "Get Kubernetes running based on your resources and needs."
-  button: "Set up Kubernetes"
+  title: "راه اندازی یک خوشه کوبرنتیز"
+  description: "کوبرنتیز را بر اساس منابع و نیازهای خود راه‌اندازی کنید."
+  button: "پیکر بندی کوبرنتیز"
   button_path: "/docs/setup"
 - name: tasks
-  title: "Learn how to use Kubernetes"
-  description: "Look up common tasks and how to perform them using a short sequence of steps."
-  button: "View Tasks"
+  title: "نحوه استفاده از کوبرنتیز را بیاموزید."
+  description: "روش های رایج و چگونگی انجام ان ها را در قطعه های کوچک بی آمویزید."
+  button: "بازدید از روشهای رایج"
   button_path: "/docs/tasks"
 - name: reference
-  title: Look up reference information
-  description: Browse terminology, command line syntax, API resource types, and setup tool documentation.
-  button: View Reference
+  title: "اطلاعات مرجع را جستجو کنید"
+  description: "ترمینولوژی، نحو خط فرمان، انواع منابع API، و مستندات ابزارهای راه‌اندازی را مرور کنید."
+  button: "بازدید از مرجع"
   button_path: /docs/reference
 - name: contribute
-  title: Contribute to Kubernetes
-  description: Find out how you can help make Kubernetes better.
-  button: See Ways to Contribute
+  title: "در توسعه کوبرنتیز مشارکت کنید"
+  description: "روش های بهبود کوبرنتیز و اینکه شما چگونه می توانید کمک کنید."
+  button: "روش‌های مشارکت را مشاهده کنید"
   button_path: "/docs/contribute"
 - name: آموزش
   title: "آموزش"
@@ -55,13 +55,13 @@ cards:
   button: "بازدید از آموزش"
   button_path: "/training"
 - name: Download
-  title: Download Kubernetes
-  description: Install Kubernetes or upgrade to the newest version.
-  button: "Download Kubernetes"
+  title: "کوبرنتیز را دانلود کنید"
+  description: "کوبرنتیز را نصب کنید یا به جدیدترین نسخه ارتقا دهید."
+  button: "کوبرنتیز را دانلود کنید"
   button_path: "/releases/download"
 - name: about
-  title: About the documentation
-  description: This website contains documentation for the current and previous 4 versions of Kubernetes.
-  button: "See available versions"
+  title: "درباره مستندات"
+  description: "این وب‌سایت مستندات برای ویرایش های جاری و ۴ نسخه قبلی کوبرنتیز را شامل می‌شود."
+  button: "ویرایش های جاری"
   button_path: "/docs/home/supported-doc-versions"
 ---

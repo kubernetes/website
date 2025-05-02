@@ -1,5 +1,5 @@
 ---
-title: Tutorials
+title: آموزش ها
 main_menu: true
 no_list: true
 weight: 60
@@ -8,22 +8,19 @@ content_type: concept
 
 <!-- overview -->
 
-This section of the Kubernetes documentation contains tutorials.
-A tutorial shows how to accomplish a goal that is larger than a single
-[task](/docs/tasks/). Typically a tutorial has several sections,
-each of which has a sequence of steps.
-Before walking through each tutorial, you may want to bookmark the
-[Standardized Glossary](/docs/reference/glossary/) page for later references.
+این بخش از مستندات کوبرنتیز شامل آموزش‌ها می‌باشد.
+این آموزش ها برگرفته از انجام [یک راهکار](/docs/tasks/) برای رسیدن به هدف های بزرگ است. معمولاً یک آموزش چندین بخش دارد، که هرکدام شامل چند مرحله می‌شوند.
+قبل از شروع هر آموزش، ممکن است بخواهید صفحه واژه‌نامه استاندارد را برای مراجعه بعدی ذخیره کنید.
 
 <!-- body -->
 
-## Basics
+## مقدمات
 
 * [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) is an in-depth interactive tutorial that helps you understand the Kubernetes system and try out some basic Kubernetes features.
-* [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
-* [Hello Minikube](/docs/tutorials/hello-minikube/)
+* [آشنایی با مقدمات کوبرنیز](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
+* [آشنایی با مینی کیوب](/docs/tutorials/hello-minikube/) (minikube)
 
-## Configuration
+## تنظیمات
 
 * [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
@@ -43,19 +40,19 @@ Before walking through each tutorial, you may want to bookmark the
 * [Example: Deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/)
 * [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
 
-## Services
+## سرویس ها
 
 * [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
 * [Using Source IP](/docs/tutorials/services/source-ip/)
 
-## Security
+## امنیت
 
 * [Apply Pod Security Standards at Cluster level](/docs/tutorials/security/cluster-level-pss/)
 * [Apply Pod Security Standards at Namespace level](/docs/tutorials/security/ns-level-pss/)
 * [Restrict a Container's Access to Resources with AppArmor](/docs/tutorials/security/apparmor/)
 * [Seccomp](/docs/tutorials/security/seccomp/)
 
-## Cluster Management
+## مدیریت خوشه (کلاستر)
 
 * [Running Kubelet in Standalone Mode](/docs/tutorials/cluster-management/kubelet-standalone/)
 

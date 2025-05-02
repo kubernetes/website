@@ -1,8 +1,5 @@
 ---
-approvers:
-- chenopis
-- abiogenesis-now
-title: Glossary
+title: واژگان
 layout: glossary
 noedit: true
 body_class: glossary
@@ -11,6 +8,6 @@ weight: 5
 card:
   name: reference
   weight: 10
-  title: Glossary
+  title: واژگان
 ---
 

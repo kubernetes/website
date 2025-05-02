@@ -1,8 +1,4 @@
 ---
-reviewers:
-- brendandburns
-- erictune
-- mikedanese
 title: Getting started
 main_menu: true
 weight: 20
@@ -13,9 +9,9 @@ card:
   weight: 20
   anchors:
   - anchor: "#learning-environment"
-    title: Learning environment
+    title: محیط آموزش
   - anchor: "#production-environment"
-    title: Production environment  
+    title: محیط عملیاتی  
 ---
 
 <!-- overview -->
