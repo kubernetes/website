@@ -1,24 +1,25 @@
-# The Kubernetes documentation
+# مستندات فارسی برای کوبرنتیز
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-main-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
-This repository contains the assets required to build the [Kubernetes website and documentation](https://kubernetes.io/). We're glad that you want to contribute!
+دم شما گرم که به ما کمک می کنید تا این [سایت](https://kubernetes.io/) و مستنداتش رو برای هم زبانانمون ترجمه کنیم!
 
-- [Contributing to the docs](#contributing-to-the-docs)
-- [Localization READMEs](#localization-readmes)
+- [همکاری در سایت](#contributing-to-the-docs)
+- [راهنمای مترجمین](#localization-readmes)
+- [راهنمای مترجمین](#translation-guidelines)
 
-## Using this repository
+## نحوه استفاده
 
-You can run the website locally using [Hugo (Extended version)](https://gohugo.io/), or you can run it in a container runtime. We strongly recommend using the container runtime, as it gives deployment consistency with the live website.
+این سایت بر پایه [هوگو](https://gohugo.io/) است و شما می توانید به صورت لوکال یا با یک موتور کانتینری روش کار کنید.  ما به شدت توصیه می‌کنیم از محیط اجرایی کانتینر استفاده کنید، زیرا این روش سازگاری در استقرار با وب‌سایت زنده را فراهم می‌آورد.
 
-## Prerequisites
+## پیش نیازها
 
-To use this repository, you need the following installed locally:
+برای استفاده از این مخزن، نیاز است که موارد زیر به‌طور محلی نصب شده باشند:
 
 - [npm](https://www.npmjs.com/)
 - [Go](https://go.dev/)
 - [Hugo (Extended version)](https://gohugo.io/)
-- A container runtime, like [Docker](https://www.docker.com/).
+- یک موتور کانتینری همانند [Docker](https://www.docker.com/).
 
 > [!NOTE]
 Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L11) file.
@@ -30,10 +31,8 @@ git clone https://github.com/kubernetes/website.git
 cd website
 ```
 
-The Kubernetes website uses the [Docsy Hugo theme](https://github.com/google/docsy#readme),
-which can be installed via npm. You can also download a pre-configured
-development container image that includes Hugo and Docsy. Additionally, a Git
-submodule is used for tools that generate the reference documentation.
+وب‌سایت کوبرنتیز از قالب [Docsy Hugo](https://github.com/google/docsy#readme) استفاده می‌کند،
+که می‌توان آن را از طریق npm نصب کرد. همچنین، شما می‌توانید یک تصویر کانتینر توسعه از پیش پیکربندی‌شده که شامل Hugo و Docsy است را دانلود کنید. علاوه بر این، از یک زیرماژول Git برای ابزارهایی که مستندات مرجع را تولید می‌کنند، استفاده می‌شود.
 
 ### Windows
 
@@ -207,7 +206,30 @@ If you need help at any point when contributing, the [New Contributor Ambassador
 | [Hindi](./content/hi/README.md)      | [Spanish](./content/es/README.md)    |
 | [Indonesian](./content/id/README.md) | [Ukrainian](./content/uk/README.md) |
 | [Italian](./content/it/README.md)    | [Vietnamese](./content/vi/README.md) |
-| [Japanese](./content/ja/README.md)   | [Persian](./content/fa/README.md)  |
+| [Japanese](./content/ja/README.md)   | [Persian](./content/fa/README.md) |
+
+## راهنمای مترجمین
+
+برای راحتی و یک پارچه گی مستندات بییاید با هم یک سری قراری بذاریم.
+
+لطفا نام افراد و شرکت ها را ترجمه نکنید و ترجیحا در یک صفه رو به روی این نام ها معادل فارسی آن را در پرانتز ذکر کنید.
+مثال
+```
+We deal with containers at CNCF, at CNCF we also enable Kubernetes communities.
+```
+ترجمه
+```
+ما در سی ان سی اف (CNCF) با کانتینر ها سرو کار داریم و در سی ان سی اف به جوامع کوبرنتیز کمک می کنیم.
+```
+
+| English  | Persian/Farsi |
+| -------- | ------------- |
+| Kubernetes | کوبرنتیز |
+| KubeCon | کیوب کان |
+| Cloud Native | کلاد نیتیو |
+| Version | ویرایش |
+| Release |  |
+
 
 ## Code of conduct
 

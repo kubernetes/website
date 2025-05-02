@@ -503,6 +503,21 @@ languagedirection = "ltr"
 languageNameLatinScript = "Tiếng Việt"
 description = "Giải pháp điều phối container trong môi trường production"
 
+[languages.fa]
+title = "Kubernetes"
+languageName = "فارسی (Persian)"
+weight = 17
+contentDir = "content/fa"
+# Persian or Farsi is right to left!
+languagedirection = "rtl"
+
+[languages.fa.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+description = "کوبرنتیز به فارسی"
+languageNameLatinScript = "Persian"
+
 # Ensure that the correct file names are in the correct directory. For e.g. i18n/en should contain en.toml and never de.toml
 [[module.mounts]]
 source = "i18n/bn"
@@ -567,3 +582,8 @@ target = "i18n"
 [[module.mounts]]
 source = "i18n/zh-cn"
 target = "i18n"
+
+[[module.mounts]]
+source = "i18n/fa"
+target = "i18n"
+

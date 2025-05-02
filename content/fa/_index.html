@@ -1,0 +1,64 @@
+---
+title: "سامانه برنامه ریزی کانتینر آماده برای محیط های عملیاتی"
+abstract: "استقرار خودکار، پیکر بندی و مدیریت کانتینرها"
+cid: home
+sitemap:
+  priority: 1.0
+---
+
+{{< blocks/section class="k8s-overview" >}}
+{{% blocks/feature image="flower" id="feature-primary" %}}
+کوبرنتیز یک نرم افزار متن باز است که عموما به دو صورت [Kubernetes]({{< relref "/docs/concepts/overview/" >}})  یا K8s نوشته شده و برای پیاده سازی، مدیریت و افزایش توان خودکار نرم افزارهای کانتینری بکار می رود.
+
+کوبرنتیز کانتینرهایی را که یک برنامه را تشکیل می‌دهند، در قالب واحدهای منطقی گروه‌بندی می‌کند تا مدیریت آن‌ها آسان‌تر شود. کوبرنتیز بر پایه‌ی ۱۵ سال تجربه‌ی اجرای برنامه های کاری در محیط تولید در گوگل (Google) ساخته شده است و با بهره‌گیری از بهترین ایده‌ها و شیوه‌های جامعه منبع‌باز توسعه یافته است.
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+#### مقیاس بزرگ
+
+طراحی‌شده بر اساس همان اصولی که به گوگل امکان اجرای میلیاردها کانتینر در هفته را می‌دهد، کوبرنتیز می‌تواند بدون نیاز به افزایش تیم عملیاتی شما به راحتی مقیاس پیکره خود را بزرگ کند.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+#### هیچ کمبودی احساس نخواهید کرد
+
+چه در حال راه اندازی یک سیستم محلی باشید یا یک کسب وکار بزرگ جهانی انعطاف‌پذیری کوبرنتیز به شما این امکان را می دهد که با توجه به نیازهای پیچیده خود، برنامه های خود را به راحتی و با کیفیت بالا ارائه دهید.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+#### کوبرنتیز را هرجایی می توانید استفاده کنید
+
+متن باز بودن کوبرنتیز به شما این امکان را می دهد که از زیرساخت های محلی، ترکیبی یا ابری عمومی یا خصوصی استفاده کنید و به راحتی سرویس ها را به مکان های حساس منتقل کنید.
+
+برای دانلود کوبرنتیز، به بخش [دانلود](/releases/download/) مراجعه کنید.
+
+
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
+<div class="light-text">
+    <h2>چالش‌های مهاجرت بیش از ۱۵۰ میکروسرویس به کوبرنتیز</h2>
+        <p>توسط سارا ولز، مدیر فنی بخش اجرایی فایننشال تایمز.</p>
+        <button id="desktopShowVideoButton" onclick="kub.showVideo()">تماشا کنید</button>
+
+    <h3>در رویدادهای آینده کیوب کان + کلاد نیتیو شرکت کنید:</h3>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-china/" class="desktopKCButton"><strong>چین</strong> (هنگ کنگ، ۱۰ - ۱۱ جون / ۲۰ - ۲۱ خرداد)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-japan/" class="desktopKCButton"><strong>ژاپن</strong> (توکیو، ۱۶ - ۱۷ جون / ۲۷ - ۲۸ خرداد)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-india/" class="desktopKCButton"><strong>هند</strong> (حیدرآباد، ۶ - ۷ آگوست / ۱۵ - ۱۶ مرداد)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/" class="desktopKCButton"><strong>آمریکای شمالی</strong> (آتلانتا، ۱۰ - ۱۳ نوامبر / ۱۹ - ۲۲ آبان)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>اروپا</strong> (آمستردام، ۲۳ - ۲۶ مارچ ۲۰۲۶ / ۳ - ۶ فروردین ۱۴۴۷)</a>
+</div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
+
+
+{{< kubeweekly id="kubeweekly" >}}
