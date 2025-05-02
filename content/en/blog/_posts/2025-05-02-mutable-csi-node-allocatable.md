@@ -1,9 +1,8 @@
 ---
 layout: blog
 title: "Kubernetes v1.33: Mutable CSI Node Allocatable Count"
-date: 2025-04-30
+date: 2025-05-02T10:30:00-08:00
 slug: kubernetes-1-33-mutable-csi-node-allocatable-count
-draft: true
 author: Eddie Torres (Amazon Web Services)
 ---
 
