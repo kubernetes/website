@@ -111,16 +111,16 @@ other = "لیست رسمی آسیب پذیری های کوبرنتیز"
 other = "02 Jan 2006 15:04:05 MST"
 
 [cve_table_date_format_string]
-other = "(last updated: %s)"
+other = "(آخرین بروزرسانی در: %s)"
 
 [deprecation_title]
-other = "You are viewing documentation for Kubernetes version:"
+other = "شما در حال بازدید از مستندات کوبرنتیز نسخه:"
 
 [deprecation_warning]
 other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date information, see the "
 
 [deprecation_file_warning]
-other = "Deprecated"
+other = "منسوخ شده"
 
 [outdated_content_title]
 other = "اطلاعات این صفحه شاید قدیمی شده باشد"
@@ -156,7 +156,7 @@ other = "آخرین ویرایش"
 other = "ویرایش های قبلی"
 
 [end_of_life]
-other = "End of Life:"
+other = "پایان دوره پشتیبانی:"
 
 [envvars_heading]
 other = "Environment variables"
@@ -174,22 +174,22 @@ other = "نمونه ها"
 other = "(enabled by default: {{ .enabled }})"
 
 [feature_gate_stage_alpha]
-other = "Alpha"
+other = "نسخه اولیه (آلفا)"
 
 [feature_gate_stage_beta]
-other = "Beta"
+other = "نسخه آزمایشی (بتا)"
 
 [feature_gate_stage_stable]
-other = "GA"
+other = "برای عموم (جی ای)"
 
 [feature_gate_stage_deprecated]
 other = "منسوخ شده"
 
 [feature_gate_table_header_default]
-other = "Default"
+other = "اصلی"
 
 [feature_gate_table_header_feature]
-other = "Feature"
+other = "ویژگی"
 
 [feature_gate_table_header_from]
 other = "از"
@@ -228,7 +228,7 @@ other = "آیا این صفحه مفید بود؟"
 other = "بلی"
 
 [final_patch_release]
-other = "Final Patch Release"
+other = "انتشار اصلاحیه نهایی"
 
 [inline_list_separator]
 other = ","
@@ -253,7 +253,7 @@ of Katacoda.</p>
 following that shutdown.</p>"""
 
 [latest_release]
-other = "Latest Release:"
+other = "آخرین ویرایش:"
 
 [latest_version]
 other = "آخرین ویرایش."
@@ -286,7 +286,7 @@ other = "Click on the"
 other = "Related to Kubernetes open-source development."
 
 [layout_docs_glossary_community_name]
-other = "Community"
+other = "جامعه متن‌باز"
 
 [layout_docs_glossary_core-object_description]
 other = "A resource type that Kubernetes supports by default."
@@ -298,7 +298,7 @@ other = "Core Object"
 other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to Kubernetes, as well as more general terms that provide useful context."
 
 [layouts_docs_glossary_deselect_all]
-other = "Deselect all"
+other = "لغو انتخاب همه"
 
 [layout_docs_glossary_extension_description]
 other = "Supported customizations of Kubernetes."
@@ -313,7 +313,7 @@ other = "Filter terms according to their tags"
 other = "Relevant for a first-time user of Kubernetes."
 
 [layout_docs_glossary_fundamental_name]
-other = "Fundamental"
+other = "مقدمات"
 
 [layout_docs_glossary_networking_description]
 other = "How Kubernetes components talk to each other (and to programs outside the cluster)."
@@ -325,16 +325,16 @@ other = "Networking"
 other = "Starting and maintaining Kubernetes."
 
 [layout_docs_glossary_operation_name]
-other = "Operation"
+other = "عملیات"
 
 [layout_docs_glossary_security_description]
 other = "Keeping Kubernetes applications safe and secure."
 
 [layout_docs_glossary_security_name]
-other = "Security"
+other = "امنیت"
 
 [layouts_docs_glossary_select_all]
-other = "Select all"
+other = "انتخاب همه"
 
 [layout_docs_glossary_storage_description]
 other = "How Kubernetes applications handle persistent data."
@@ -361,22 +361,22 @@ other = "Applications running on Kubernetes."
 other = "Workload"
 
 [layouts_docs_partials_feedback_improvement]
-other = "suggest an improvement"
+other = "ثبت پیشنهاد"
 
 [layouts_docs_partials_feedback_issue]
 other = """Open an issue in the [GitHub Repository](https://www.github.com/kubernetes/website/) if you want to """
 
 [layouts_docs_partials_feedback_or]
-other = "or"
+other = "یا"
 
 [layouts_docs_partials_feedback_problem]
-other = "report a problem"
+other = "گزارش مشکل"
 
 [layouts_docs_partials_feedback_thanks]
-other = "Thanks for the feedback. If you have a specific, answerable question about how to use Kubernetes, ask it on"
+other = "باسپاس از بازخوردتان، اگر سوال خواصی در زمینه کوبرنتیز دارید آن را بپرسید."
 
 [layouts_docs_search_fetching]
-other = "Fetching results..."
+other = "در حال برگذاری نتایج"
 
 [legacy_repos_message]
 other = """The legacy package repositories (`apt.kubernetes.io` and `yum.kubernetes.io`) have been
@@ -387,7 +387,7 @@ The deprecated legacy repositories, and their contents, might be removed at any 
 a further notice period. The new package repositories provide downloads for Kubernetes versions starting with v1.24.0."""
 
 [main_by]
-other = "by"
+other = "توسط"
 
 [main_cncf_project]
 other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
@@ -439,7 +439,7 @@ other = "Monthly Patch Release"
 
 [not_applicable]
 # Localization teams: it's OK to use a longer text here
-other = "n/a"
+other = "ناموجود"
 
 [note]
 other = "Note:"
@@ -460,16 +460,16 @@ other = "(stale page)"
 other = "Parent Options Inherited"
 
 [patch_release]
-other = "Patch Release"
+other = "نسخه اصلاحی"
 
 [post_create_issue]
-other = "Create an issue"
+other = "مشکل را گزارش کنید"
 
 [prerequisites_heading]
-other = "Before you begin"
+other = "قبل از آغاز"
 
 [previous_patches]
-other = "Patch Releases:"
+other = "نسخه‌های اصلاحی:"
 
 # The following text is displayed when JavaScript isn't available.
 [release_binary_alternate_links]
@@ -483,7 +483,7 @@ other  = "Architecture"
 other = "Architectures"
 
 [release_binary_copy_link]
-other = "Copy Link"
+other = "کپی پیوند"
 
 [release_binary_copy_link_certifcate]
 other = "cert"
@@ -547,13 +547,13 @@ other = "آخرین ویرایش"
 other = ")"
 
 [release_date_before]
-other = "(released: "
+other = "(منتشر شده در: "
 
 # See https://gohugo.io/functions/format/#gos-layout-string
 # Use a suitable format for your locale. Avoid using :date_short
 [release_date_format]
 # example: other = ":date_medium"
-other = "2006-01-02"
+other = "02-01-2006"
 
 # See https://gohugo.io/functions/format/#gos-layout-string
 # Use a suitable format for your locale.
@@ -578,7 +578,7 @@ other = """ℹ️ **Kubernetes {{ .minor_version }} entered maintenance mode on 
 The End of Life date for Kubernetes {{ .minor_version }} is {{ .release_eol_date }}."""
 
 [release_full_details_initial_text]
-other = "تکمیل"
+other = "کلیات"
 
 [release_information_navbar]
 other = "اطلاعات انتشار"
@@ -587,7 +587,7 @@ other = "اطلاعات انتشار"
 other = "ویرایش فرعی"
 
 [release_info_next_patch]
-other = "Next patch release is **%s**."
+other = "زمان انتشار اصلاحیه بعدی **%s** خواهد بود."
 
 
 # Deprecated. Set release_maintenance_and_end_of_life_details_current
@@ -613,16 +613,16 @@ other = "لیست تغییرات"
 other = "See Also"
 
 [sidebar_toggle_nav]
-other = "Toggle section navigation"
+other = "تغییر وضعیت ناوبری"
 
 [subscribe_button]
-other = "Subscribe"
+other = "مشترک شوید"
 
 [success_copy_to_clipboard]
-other = "Success"
+other = "با موفقیت انجام شد"
 
 [synopsis_heading]
-other = "Synopsis"
+other = "خلاصه"
 
 [thirdparty_message]
 other = """This section links to third party projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for these projects, which are listed alphabetically. To add a project to this list, read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change. <a href="#third-party-content-disclaimer">More information.</a>"""

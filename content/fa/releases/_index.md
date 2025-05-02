@@ -8,17 +8,17 @@ notoc: true
 
 <!-- overview -->
 
-The Kubernetes project maintains release branches for the most recent three minor releases
+پروژه کوبرنتیز به صورت فعال سه شاخه اخیر نرم افزار را پشتیبانی می کند
 ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}).
-Kubernetes 1.19 and newer receive
-[approximately 1 year of patch support](/releases/patch-releases/#support-period).
-Kubernetes 1.18 and older received approximately 9 months of patch support.
+نسخه ۱.۱۹ کوبرنتیز و نسخه جدیدتر آن [حدودا یک سال پشتیبانی](/releases/patch-releases/#support-period) نرم افزاری دارند و اصلاحیه دریافت خواهند کرد.
+نسخه ۱.۱۸ و نسخه های قدیمی تر حدودا ۹ ماه پشتیبانی اصلاحیه دارند.
 
-Kubernetes versions are expressed as **x.y.z**,
-where **x** is the major version, **y** is the minor version, and **z** is the patch version,
-following [Semantic Versioning](https://semver.org/) terminology.
 
-More information in the [version skew policy](/releases/version-skew-policy/) document.
+نسخه‌های کوبرنتیز به صورت **x.y.z** نمایش داده می‌شوند،
+که در آن **x** نسخه اصلی (major)، **y** نسخه فرعی (minor)، و **z** نسخه اصلاحیه (patch) است،
+و از واژگان نسخه‌گذاری معنایی [Semantic Versioning](https://semver.org/) پیروی می‌کند.
+
+اطلاعات بیشتر در سند [سیاست تفاوت نسخه‌ها](/releases/version-skew-policy/).
 
 <!-- body -->
 
@@ -28,10 +28,8 @@ More information in the [version skew policy](/releases/version-skew-policy/) do
 
 ## ویرایش آینده
 
-Check out the [schedule](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}})
-for the upcoming **{{< skew nextMinorVersion >}}** Kubernetes release!
+‌آخرین تحولات ویرایش آینده کوبرنتیز **{{< skew nextMinorVersion >}}** را می توانید [اینجا](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}}) دنبال کنید!
 
 ## منابع مفید
 
-Refer to the [Kubernetes Release Team](https://github.com/kubernetes/sig-release/tree/master/release-team) resources 
-for key information on roles and the release process.
+برای اطلاعات کلیدی درباره نقش‌ها و فرآیند انتشار، به منابع [تیم انتشار کوبرنتیز](https://github.com/kubernetes/sig-release/tree/master/release-team) مراجعه کنید.

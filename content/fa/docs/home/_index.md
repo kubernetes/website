@@ -1,7 +1,7 @@
 ---
 approvers:
 - chenopis
-title: Kubernetes Documentation
+title: مستندات کوبرنتیز
 noedit: true
 cid: docsHome
 layout: docsportal_home
@@ -15,9 +15,9 @@ menu:
     title: "Documentation"
     weight: 10
 description: >
-  Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation.
+  کوبرنتیز یک موتور متن‌باز پیکربندی کانتینر است که برای خودکارسازی، استقرار، مقیاس‌بندی و مدیریت برنامه‌های کانتینری استفاده می شود. این پروژه متن‌باز توسط بنیاد سی ان سی اف (Cloud Native Computing Foundation) میزبانی می‌شود.
 overview: >
-  Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
+  کوبرنتیز یک موتور متن‌باز پیکربندی کانتینر است که برای خودکارسازی، استقرار، مقیاس‌بندی و مدیریت برنامه‌های کانتینری استفاده می شود. این پروژه متن‌باز توسط بنیاد سی ان سی اف (<a href="https://www.cncf.io/about">CNCF</a>) میزبانی می‌شود.
 cards:
 - name: concepts
   title: "Understand Kubernetes"
