@@ -17,9 +17,13 @@ weight: 20
 
 {{< version-check >}}
 
+{{< note >}}
+Хоча ви можете використовувати цю функцію в більш ранніх версіях, вона доступна лише в GA і офіційно підтримується починаючи з версії 1.33.
+{{< /note >}}
+
 <!-- steps -->
 
-## API
+## Розширені діапазони Service IP {#extend-service-ip-ranges}
 
 Кластери Kubernetes з kube-apiservers, у яких увімкнено [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `MultiCIDRServiceAllocator` та API група `networking.k8s.io/v1beta1`, створюватимуть обʼєкт ServiceCIDR, який має відоме імʼя `kubernetes`, та визначатимуть діапазон IP-адрес, заснований на значенні аргументу командного рядка `--service-cluster-ip-range` для kube-apiserver.
 
@@ -179,4 +183,93 @@ kubectl get servicecidr newcidr1
 
 ```none
 Error from server (NotFound): servicecidrs.networking.k8s.io "newcidr1" not found
+```
+
+## Політики Kubernetes Service CIDR {#kubernetes-service-cidr-policies}
+
+Адміністратори кластера можуть застосовувати політики для керування створенням і зміною ресурсів ServiceCIDR у кластері. Це дозволяє централізовано керувати діапазонами IP-адрес, які використовуються для Services, і допомагає запобігти ненавмисним або конфліктним конфігураціям. Kubernetes надає такі механізми, як Validating Admission Policies (Перевірка політик допуску) для забезпечення дотримання цих правил.
+
+### Запобігання несанкціонованому створенню/оновленню ServiceCIDR з використанням політики перевірки допуску {#preventing-unauthorized-servicecidr-creation-update-using-validating-admission-policy}
+
+Бувають ситуації, коли адміністратори кластера хочуть обмежити діапазони, які можна дозволити, або повністю заборонити будь-які зміни в діапазонах IP-адрес Service кластера.
+
+{{< note >}}
+Стандартний ServiceCIDR "kubernetes" створюється kube-apiserver для забезпечення узгодженості у кластері і є необхідним для роботи кластера, тому він завжди має бути дозволений. Ви можете переконатися, що ваша `ValidatingAdmissionPolicy` не обмежує стандартно ServiceCIDR, додавши цей пункт:
+
+```yaml
+  matchConditions:
+  - name: 'exclude-default-servicecidr'
+    expression: "object.metadata.name != 'kubernetes'"
+```
+
+як в прикладі нижче.
+{{</ note >}}
+
+#### Обмеження діапазонів Service CIDR конкретними діапазонами {#restrict-service-cidr-ranges-to-some-specific-ranges}
+
+Нижче наведено приклад політики `ValidatingAdmissionPolicy`, яка дозволяє створювати ServiceCIDR, тільки якщо вони є піддіапазонами заданих `allowed` діапазонів. (Таким чином, у прикладі політики буде дозволено створення ServiceCIDR з `cidrs: ['10.96.1.0/24']` або `cidrs: ['2001:db8:0:0:ffff::/80', '10.96.0.0/20']` але не дозволить ServiceCIDR з `cidrs: ['172.20.0.0/16']`.) Ви можете скопіювати цю політику і змінити значення `allowed` на відповідне для вашого кластера.
+
+```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "servicecidrs.default"
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["networking.k8s.io"]
+      apiVersions: ["v1","v1beta1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["servicecidrs"]
+  matchConditions:
+  - name: 'exclude-default-servicecidr'
+    expression: "object.metadata.name != 'kubernetes'"
+  variables:
+  - name: allowed
+    expression: "['10.96.0.0/16','2001:db8::/64']"
+  validations:
+  - expression: "object.spec.cidrs.all(newCIDR, variables.allowed.exists(allowedCIDR, cidr(allowedCIDR).containsCIDR(newCIDR)))"
+  # Для всіх CIDR (newCIDR), перерахованих в spec.cidrs переданого обʼєкту ServiceCIDR
+  # перевірити, чи існує хоча б один CIDR (allowedCIDR) у списку `allowed`.
+  # списку VAP такий, що allowedCIDR повністю містить newCIDR.
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: "servicecidrs-binding"
+spec:
+  policyName: "servicecidrs.default"
+  validationActions: [Deny,Audit]
+```
+
+Зверніться до [документації CEL](/docs/reference/using-api/cel/), щоб дізнатися більше про CEL, якщо ви хочете написати власний валідаційний `expression`.
+
+#### Обмеження будь-якого використання API ServiceCIDR {#restrict-any-usage-of-the-servicecidr-api}
+
+Наступний приклад демонструє, як використовувати `ValidatingAdmissionPolicy` та її привʼязку для обмеження створення будь-яких нових діапазонів Service CIDR, окрім стандартного ServiceCIDR "kubernetes":
+
+```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "servicecidrs.deny"
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["networking.k8s.io"]
+      apiVersions: ["v1","v1beta1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["servicecidrs"]
+  validations:
+  - expression: "object.metadata.name == 'kubernetes'"
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: "servicecidrs-deny-binding"
+spec:
+  policyName: "servicecidrs.deny"
+  validationActions: [Deny,Audit]
 ```

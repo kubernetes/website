@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Продовження переходу від Endpoints до EndpointSlices"
+title: "Kubernetes v1.33: Продовження переходу від Endpoints до EndpointSlices"
 slug: endpoints-deprecation
 date: 2025-04-24T10:30:00-08:00
 author: >
