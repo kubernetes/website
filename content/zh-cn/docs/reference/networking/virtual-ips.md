@@ -32,10 +32,10 @@ of `type` other than
 以外的{{< glossary_tooltip term_id="service" text="服务">}}，实现**虚拟 IP** 机制。
 
 <!--
-Each instance of kube-proxy watches the Kubernetes {{< glossary_tooltip
-term_id="control-plane" text="control plane" >}} for the addition and
-removal of Service and EndpointSlice {{< glossary_tooltip
-term_id="object" text="objects" >}}. For each Service, kube-proxy
+Each instance of kube-proxy watches the Kubernetes
+{{< glossary_tooltip term_id="control-plane" text="control plane" >}}
+for the addition and removal of Service and EndpointSlice
+{{< glossary_tooltip term_id="object" text="objects" >}}. For each Service, kube-proxy
 calls appropriate APIs (depending on the kube-proxy mode) to configure
 the node to capture traffic to the Service's `clusterIP` and `port`,
 and redirect that traffic to one of the Service's endpoints
@@ -85,9 +85,9 @@ There are a few reasons for using proxying for Services:
 Later in this page you can read about how various kube-proxy implementations work.
 Overall, you should note that, when running `kube-proxy`, kernel level rules may be modified
 (for example, iptables rules might get created), which won't get cleaned up, in some
-cases until you reboot.  Thus, running kube-proxy is something that should only be done
-by an administrator which understands the consequences of having a low level, privileged
-network proxying service on a computer.  Although the `kube-proxy` executable supports a
+cases until you reboot. Thus, running kube-proxy is something that should only be done
+by an administrator who understands the consequences of having a low level, privileged
+network proxying service on a computer. Although the `kube-proxy` executable supports a
 `cleanup` function, this function is not an official feature and thus is only available
 to use as-is.
 -->
@@ -104,7 +104,7 @@ Some of the details in this reference refer to an example: the backend
 {{< glossary_tooltip term_id="pod" text="Pods" >}} for a stateless
 image-processing workloads, running with
 three replicas. Those replicas are
-fungible&mdash;frontends do not care which backend they use.  While the actual Pods that
+fungible&mdash;frontends do not care which backend they use. While the actual Pods that
 compose the backend set may change, the frontend clients should not need to be aware of that,
 nor should they need to keep track of the set of backends themselves.
 -->
@@ -188,7 +188,7 @@ random.
 As an example, consider the image processing application described [earlier](#example)
 in the page.
 When the backend Service is created, the Kubernetes control plane assigns a virtual
-IP address, for example 10.0.0.1.  For this example, assume that the
+IP address, for example 10.0.0.1. For this example, assume that the
 Service port is 1234.
 All of the kube-proxy instances in the cluster observe the creation of the new
 Service.
@@ -218,10 +218,10 @@ redirected to the backend without rewriting the client IP address.
 会选择一个后端（基于会话亲和性或随机选择），并将数据包重定向到后端，无需重写客户端 IP 地址。
 
 <!--
-This same basic flow executes when traffic comes in through a node-port or
+This same basic flow executes when traffic comes in through a `type: NodePort` Service, or
 through a load-balancer, though in those cases the client IP address does get altered.
 -->
-当流量通过节点端口或负载均衡器进入时，也会执行相同的基本流程，
+当流量通过 `type: NodePort` Service 或负载均衡器进入时，也会执行相同的基本流程，
 只是在这些情况下，客户端 IP 地址会被更改。
 
 <!--
@@ -232,12 +232,13 @@ Service, and a few iptables rules for each endpoint IP address. In
 clusters with tens of thousands of Pods and Services, this means tens
 of thousands of iptables rules, and kube-proxy may take a long time to update the rules
 in the kernel when Services (or their EndpointSlices) change. You can adjust the syncing
-behavior of kube-proxy via options in the [`iptables` section](/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPTablesConfiguration)
-of the
-kube-proxy [configuration file](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+behavior of kube-proxy via options in the
+[`iptables` section](/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPTablesConfiguration)
+of the kube-proxy [configuration file](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 (which you specify via `kube-proxy --config <path>`):
 -->
 #### 优化 iptables 模式性能  {#optimizing-iptables-mode-performance}
+
 在 iptables 模式下，kube-proxy 为每个 Service 创建一些 iptables 规则，并为每个端点
 IP 地址创建一些 iptables 规则。在拥有数万个 Pod 和 Service 的集群中，这意味着数万个
 iptables 规则，当 Service（或其 EndpointSlice）发生变化时，kube-proxy
@@ -259,22 +260,21 @@ iptables:
 The `minSyncPeriod` parameter sets the minimum duration between
 attempts to resynchronize iptables rules with the kernel. If it is
 `0s`, then kube-proxy will always immediately synchronize the rules
-every time any Service or Endpoint changes. This works fine in very
+every time any Service or EndpointSlice changes. This works fine in very
 small clusters, but it results in a lot of redundant work when lots of
 things change in a small time period. For example, if you have a
 Service backed by a {{< glossary_tooltip term_id="deployment" text="Deployment" >}}
 with 100 pods, and you delete the
 Deployment, then with `minSyncPeriod: 0s`, kube-proxy would end up
 removing the Service's endpoints from the iptables rules one by one,
-for a total of 100 updates. With a larger `minSyncPeriod`, multiple
-Pod deletion events would get aggregated
-together, so kube-proxy might
+resulting in a total of 100 updates. With a larger `minSyncPeriod`, multiple
+Pod deletion events would get aggregated together, so kube-proxy might
 instead end up making, say, 5 updates, each removing 20 endpoints,
 which will be much more efficient in terms of CPU, and result in the
 full set of changes being synchronized faster.
 -->
 `minSyncPeriod` 参数设置尝试同步 iptables 规则与内核之间的最短时长。
-如果是 `0s`，那么每次有任一 Service 或 Endpoint 发生变更时，kube-proxy 都会立即同步这些规则。
+如果是 `0s`，那么每次有任一 Service 或 EndpointSlice 发生变更时，kube-proxy 都会立即同步这些规则。
 这种方式在较小的集群中可以工作得很好，但如果在很短的时间内很多东西发生变更时，它会导致大量冗余工作。
 例如，如果你有一个由 {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
 支持的 Service，共有 100 个 Pod，你删除了这个 Deployment，
@@ -432,9 +432,9 @@ IPVS 为将流量均衡到后端 Pod 提供了更多选择：
 <!--
 * `lblcr` (Locality Based Least Connection with Replication): Traffic for the same IP
   address is sent to the server with least connections. If all the backing servers are
-  overloaded, it picks up one with fewer connections and add it to the target set.
-  If the target set has not changed for the specified time, the most loaded server
-  is removed from the set, in order to avoid high degree of replication.
+  overloaded, it picks up one with fewer connections and adds it to the target set.
+  If the target set has not changed for the specified time, the server with the highest load
+  is removed from the set, in order to avoid a high degree of replication.
 -->
 * `lblcr`（带副本的基于地域的最少连接）：针对相同 IP 地址的流量被发送到连接数最少的服务器。
   如果所有后端服务器都超载，则选择连接较少的服务器并将其添加到目标集中。
@@ -570,69 +570,70 @@ differently the `nftables` mode:
 `nftables` 模式下，一些特性的工作方式略有不同：
 
 <!--
- - **NodePort interfaces**: In `iptables` mode, by default,
-   [NodePort services](/docs/concepts/services-networking/service/#type-nodeport)
-   are reachable on all local IP addresses. This is usually not what
-   users want, so the `nftables` mode defaults to
-   `--nodeport-addresses primary`, meaning NodePort services are only
-   reachable on the node's primary IPv4 and/or IPv6 addresses. You can
-   override this by specifying an explicit value for that option:
-   e.g., `--nodeport-addresses 0.0.0.0/0` to listen on all (local)
-   IPv4 IPs.
+- **NodePort interfaces**: In `iptables` mode, by default,
+  [NodePort services](/docs/concepts/services-networking/service/#type-nodeport)
+  are reachable on all local IP addresses. This is usually not what
+  users want, so the `nftables` mode defaults to
+  `--nodeport-addresses primary`, meaning Services using `type: NodePort` are only
+  reachable on the node's primary IPv4 and/or IPv6 addresses. You can
+  override this by specifying an explicit value for that option:
+  e.g., `--nodeport-addresses 0.0.0.0/0` to listen on all (local)
+  IPv4 IPs.
 -->
- - **NodePort 接口**：在 `iptables` 模式下，默认情况下，
-  [NodePort 服务](/zh-cn/docs/concepts/services-networking/service/#type-nodeport) 可以在所有本地
+- **NodePort 接口**：在 `iptables` 模式下，默认情况下，
+  [NodePort 服务](/zh-cn/docs/concepts/services-networking/service/#type-nodeport)可以在所有本地
   IP 地址上访问。这通常不是用户想要的，因此 `nftables` 模式默认使用 `--nodeport-addresses primary`，这意味着
-  NodePort 服务只能在节点的主 IPv4 和/或 IPv6 地址上访问。你可以通过为该选项指定一个明确的值来覆盖此设置：例如，使用
+  `type: NodePort` Service 只能通过节点上的主 IPv4 和/或 IPv6 地址进行访问。
+  你可以通过为该选项指定一个明确的值来覆盖此设置：例如，使用
   `--nodeport-addresses 0.0.0.0/0` 以监听所有（本地）IPv4 IP。
 
 <!--
- - **NodePort services on `127.0.0.1`**: In `iptables` mode, if the
-   `--nodeport-addresses` range includes `127.0.0.1` (and the option
-   `--iptables-localhost-nodeports false` option is not passed), then
-   NodePort services are reachable even on "localhost" (`127.0.0.1`).
-   In `nftables` mode (and `ipvs` mode), this will not work. If you
-   are not sure if you are depending on this functionality, you can
-   check kube-proxy's
-   `iptables_localhost_nodeports_accepted_packets_total` metric; if it
-   is non-0, that means that some client has connected to a NodePort
-   service via `127.0.0.1`.
+- `type: NodePort` **Services on `127.0.0.1`**: In `iptables` mode, if the
+  `--nodeport-addresses` range includes `127.0.0.1` (and the option
+  `--iptables-localhost-nodeports false` option is not passed), then
+  Services of `type: NodePort` are reachable even on "localhost" (`127.0.0.1`).
+  In `nftables` mode (and `ipvs` mode), this will not work. If you
+  are not sure if you are depending on this functionality, you can
+  check kube-proxy's
+  `iptables_localhost_nodeports_accepted_packets_total` metric; if it
+  is non-0, that means that some client has connected to a `type: NodePort`
+  Service via localhost/loopback.
 -->
- - **`127.0.0.1` 上的 NodePort 服务**：在 `iptables` 模式下，如果
+- **`127.0.0.1` 上的 `type: NodePort` Service**：在 `iptables` 模式下，如果
   `--nodeport-addresses` 范围包括 `127.0.0.1`（且未传递 `--iptables-localhost-nodeports false` 选项），
-  则 NodePort 服务甚至可以在 "localhost" (`127.0.0.1`) 上访问。
+  则 `type: NodePort` Service 甚至可以在 "localhost" (`127.0.0.1`) 上访问。
   在 `nftables` 模式（和 `ipvs` 模式）下，这将不起作用。如果你不确定是否依赖此功能，
   可以检查 kube-proxy 的 `iptables_localhost_nodeports_accepted_packets_total` 指标；
-  如果该值非 0，则表示某些客户端已通过 `127.0.0.1` 连接到 NodePort 服务。
+  如果该值非 0，则表示某些客户端已通过本地主机或本地回路连接到 `type: NodePort` Service。
 
 <!--
- - **NodePort interaction with firewalls**: The `iptables` mode of
-   kube-proxy tries to be compatible with overly-agressive firewalls;
-   for each NodePort service, it will add rules to accept inbound
-   traffic on that port, in case that traffic would otherwise be
-   blocked by a firewall. This approach will not work with firewalls
-   based on nftables, so kube-proxy's `nftables` mode does not do
-   anything here; if you have a local firewall, you must ensure that
-   it is properly configured to allow Kubernetes traffic through
-   (e.g., by allowing inbound traffic on the entire NodePort range).
+- **NodePort interaction with firewalls**: The `iptables` mode of
+  kube-proxy tries to be compatible with overly-agressive firewalls;
+  for each `type: NodePort` service, it will add rules to accept inbound
+  traffic on that port, in case that traffic would otherwise be
+  blocked by a firewall. This approach will not work with firewalls
+  based on nftables, so kube-proxy's `nftables` mode does not do
+  anything here; if you have a local firewall, you must ensure that
+  it is properly configured to allow Kubernetes traffic through
+  (e.g., by allowing inbound traffic on the entire NodePort range).
 -->
 - **NodePort 与防火墙的交互**：kube-proxy 的 `iptables` 模式尝试与过于激进的防火墙兼容；
-  对于每个 NodePort 服务，它会添加规则以接受该端口的入站流量，以防该流量被防火墙阻止。
+  对于每个 `type: NodePort` Service，它会添加规则以接受该端口的入站流量，以防该流量被防火墙阻止。
   这种方法不适用于基于 nftables 的防火墙，因此 kube-proxy 的 `nftables` 模式在这里不会做任何事情；
   如果你有本地防火墙，必须确保其配置正确以允许 Kubernetes 流量通过（例如，允许整个 NodePort 范围的入站流量）。
 
 <!--
- - **Conntrack bug workarounds**: Linux kernels prior to 6.1 have a
-   bug that can result in long-lived TCP connections to service IPs
-   being closed with the error "Connection reset by peer". The
-   `iptables` mode of kube-proxy installs a workaround for this bug,
-   but this workaround was later found to cause other problems in some
-   clusters. The `nftables` mode does not install any workaround by
-   default, but you can check kube-proxy's
-   `iptables_ct_state_invalid_dropped_packets_total` metric to see if
-   your cluster is depending on the workaround, and if so, you can run
-   kube-proxy with the option `--conntrack-tcp-be-liberal` to work
-   around the problem in `nftables` mode.
+- **Conntrack bug workarounds**: Linux kernels prior to 6.1 have a
+  bug that can result in long-lived TCP connections to service IPs
+  being closed with the error "Connection reset by peer". The
+  `iptables` mode of kube-proxy installs a workaround for this bug,
+  but this workaround was later found to cause other problems in some
+  clusters. The `nftables` mode does not install any workaround by
+  default, but you can check kube-proxy's
+  `iptables_ct_state_invalid_dropped_packets_total` metric to see if
+  your cluster is depending on the workaround, and if so, you can run
+  kube-proxy with the option `--conntrack-tcp-be-liberal` to work
+  around the problem in `nftables` mode.
 -->
 - **Conntrack 错误规避**：6.1 之前的 Linux 内核存在一个错误，可能导致与服务 IP 的长时间
    TCP 连接被关闭，并出现“Connection reset by peer（对方重置连接）”的错误。kube-proxy 的 `iptables`
@@ -753,7 +754,7 @@ On Windows, setting the maximum session sticky time for Services is not supporte
 
 <!--
 Unlike Pod IP addresses, which actually route to a fixed destination,
-Service IPs are not actually answered by a single host.  Instead, kube-proxy
+Service IPs are not actually answered by a single host. Instead, kube-proxy
 uses packet processing logic (such as Linux iptables) to define _virtual_ IP
 addresses which are transparently redirected as needed.
 -->
@@ -829,16 +830,12 @@ Kubernetes 还使用控制器来检查无效的分配（例如，因管理员干
 #### 使用 Kubernetes API 跟踪IP 地址分配 {#ip-address-objects}
 
 {{< feature-state feature_gate_name="MultiCIDRServiceAllocator" >}}
+
 <!--
-If you enable the `MultiCIDRServiceAllocator`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
-[`networking.k8s.io/v1alpha1` API group](/docs/tasks/administer-cluster/enable-disable-api/),
-the control plane replaces the existing etcd allocator with a revised implementation
+The control plane replaces the existing etcd allocator with a revised implementation
 that uses IPAddress and ServiceCIDR objects instead of an internal global allocation map.
 Each cluster IP address associated to a Service then references an IPAddress object.
 -->
-如果你启用 `MultiCIDRServiceAllocator` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gate/)和
-[`networking.k8s.io/v1alpha1` API 组](/zh-cn/docs/tasks/administer-cluster/enable-disable-api/)，
 控制平面用一个改进后的实现替换现有的 etcd 分配器，使用 IPAddress 和 ServiceCIDR
 对象而不是内部的全局分配映射。与某 Service 关联的每个 ClusterIP 地址将有一个对应的
 IPAddress 对象。
@@ -908,6 +905,7 @@ kube-apiserver 的 `--service-cluster-ip-range` 命令行参数的值创建一�
 ```shell
 kubectl get servicecidrs
 ```
+
 ```
 NAME         CIDRS         AGE
 kubernetes   10.96.0.0/28  17m
@@ -920,7 +918,7 @@ Users can create or delete new ServiceCIDR objects to manage the available IP ra
 
 ```shell
 cat <<'EOF' | kubectl apply -f -
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: ServiceCIDR
 metadata:
   name: newservicecidr
@@ -929,6 +927,7 @@ spec:
   - 10.96.0.0/24
 EOF
 ```
+
 ```
 servicecidr.networking.k8s.io/newcidr1 created
 ```
@@ -936,10 +935,55 @@ servicecidr.networking.k8s.io/newcidr1 created
 ```shell
 kubectl get servicecidrs
 ```
+
 ```
 NAME             CIDRS         AGE
 kubernetes       10.96.0.0/28  17m
 newservicecidr   10.96.0.0/24  7m
+```
+
+<!--
+Distributions or administrators of Kubernetes clusters may want to control that
+new Service CIDRs added to the cluster does not overlap with other networks on
+the cluster, that only belong to a specific range of IPs or just simple retain
+the existing behavior of only having one ServiceCIDR per cluster.  An example of
+a Validation Admission Policy to achieve this is:
+-->
+Kubernetes 发行版或集群管理员可能希望控制集群中新增的 Service CIDR，确保其不会与集群中的其他网络发生冲突，
+只属于特定的 IP 范围，或只是简单地保留每个集群仅使用一个 ServiceCIDR 的现有行为。
+为实现这一目标，可以使用如下示例的验证准入策略：
+
+```yaml
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "servicecidrs-default"
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["networking.k8s.io"]
+      apiVersions: ["v1","v1beta1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["servicecidrs"]
+  matchConditions:
+  - name: 'exclude-default-servicecidr'
+    expression: "object.metadata.name != 'kubernetes'"
+  variables:
+  - name: allowed
+    expression: "['10.96.0.0/16','2001:db8::/64']"
+  validations:
+  - expression: "object.spec.cidrs.all(i , variables.allowed.exists(j , cidr(j).containsCIDR(i)))"
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: "servicecidrs-binding"
+spec:
+  policyName: "servicecidrs-default"
+  validationActions: [Deny,Audit]
+---
 ```
 
 <!--
@@ -952,12 +996,12 @@ newservicecidr   10.96.0.0/24  7m
 <!--
 Kubernetes divides the `ClusterIP` range into two bands, based on
 the size of the configured `service-cluster-ip-range` by using the following formula
-`min(max(16, cidrSize / 16), 256)`. That formula paraphrases as _never less than 16 or
+`min(max(16, cidrSize / 16), 256)`. That formula means the result is _never less than 16 or
 more than 256, with a graduated step function between them_.
 -->
 Kubernetes 根据配置的 `service-cluster-ip-range` 的大小使用公式
 `min(max(16, cidrSize / 16), 256)` 将 `ClusterIP` 范围分为两段。
-该公式可以解释为：介于 16 和 256 之间，并在上下界之间存在渐进阶梯函数的分配。
+该公式意味着结果**介于 16 和 256 之间，并在上下界之间存在渐进阶梯函数的分配**。
 
 <!--
 Kubernetes prefers to allocate dynamic IP addresses to Services by choosing from the upper band,
@@ -1010,7 +1054,7 @@ node-local endpoints, traffic is dropped by kube-proxy.
 You can set the `.spec.externalTrafficPolicy` field to control how traffic from
 external sources is routed. Valid values are `Cluster` and `Local`. Set the field
 to `Cluster` to route external traffic to all ready endpoints and `Local` to only
-route to ready node-local endpoints. If the traffic policy is `Local` and there are
+route to ready node-local endpoints. If the traffic policy is `Local` and there
 are no node-local endpoints, the kube-proxy does not forward any traffic for the
 relevant Service.
 -->
@@ -1022,8 +1066,8 @@ relevant Service.
 那么 kube-proxy 不会转发与相关 Service 相关的任何流量。
 
 <!--
-If `Cluster` is specified all nodes are eligible load balancing targets _as long as_
-the node is not being deleted and kube-proxy is healthy. In this mode: load balancer 
+If `Cluster` is specified, all nodes are eligible load balancing targets _as long as_
+the node is not being deleted and kube-proxy is healthy. In this mode: load balancer
 health checks are configured to target the service proxy's readiness port and path.
 In the case of kube-proxy this evaluates to: `${NODE_IP}:10256/healthz`. kube-proxy
 will return either an HTTP code 200 or 503. kube-proxy's load balancer health check
@@ -1036,17 +1080,21 @@ kube-proxy，这个健康检查端点为：`${NODE_IP}:10256/healthz`。kube-pro
 
 <!--
 1. kube-proxy is healthy, meaning:
-   - it's able to progress programming the network and isn't timing out while doing
-     so (the timeout is defined to be: **2 × `iptables.syncPeriod`**); and
-2. the node is not being deleted (there is no deletion timestamp set for the Node).
+
+   it's able to progress programming the network and isn't timing out while doing
+   so (the timeout is defined to be: **2 × `iptables.syncPeriod`**); and
+
+1. the node is not being deleted (there is no deletion timestamp set for the Node).
 -->
 1. kube-proxy 是健康的，意味着：
-    - 它能够继续进行网络编程，并且在此过程中不会超时（超时时间定义为：**2 × `iptables.syncPeriod`**）；并且
+
+   它能够继续进行网络编程，并且在此过程中不会超时（超时时间定义为：**2 × `iptables.syncPeriod`**）；并且
+
 2. 节点没有被删除（Node 对象上没有设置删除时间戳）。
 
 <!--
-The reason why kube-proxy returns 503 and marks the node as not
-eligible when it's being deleted, is because kube-proxy supports connection
+kube-proxy returns 503 and marks the node as not
+eligible when it's being deleted because it supports connection
 draining for terminating nodes. A couple of important things occur from the point
 of view of a Kubernetes-managed load balancer when a node _is being_ / _is_ deleted.
 -->
@@ -1058,16 +1106,15 @@ kube-proxy 对处于终止过程中的节点支持连接腾空。从 Kubernetes 
 While deleting:
 
 * kube-proxy will start failing its readiness probe and essentially mark the
-   node as not eligible for load balancer traffic. The load balancer health
-   check failing causes load balancers which support connection draining to
-   allow existing connections to terminate, and block new connections from
-   establishing.
+  node as not eligible for load balancer traffic. The load balancer health
+  check failing causes load balancers which support connection draining to
+  allow existing connections to terminate, and block new connections from
+  establishing.
 -->
 当节点被删除时：
 
 * kube-proxy 的就绪探针将开始失败，并将该节点标记为不胜任接收负载均衡器流量。
   负载均衡器健康检查失败会导致支持连接排空的负载均衡器允许现有连接终止，并阻止新连接建立。
-
 
 <!--
 When deleted:
@@ -1111,7 +1158,7 @@ metrics publish two series, one with the 200 label and one with the 503 one.
 For `Local` Services: kube-proxy will return 200 if
 
 1. kube-proxy is healthy/ready, and
-2. has a local endpoint on the node in question.
+1. has a local endpoint on the node in question.
 
 Node deletion does **not** have an impact on kube-proxy's return
 code for what concerns load balancer health checks. The reason for this is:
@@ -1164,13 +1211,13 @@ prefer forwarding traffic to endpoints that are not terminating.
 否则，kube-proxy 会始终选择将流量转发到并未处于终止过程中的端点。
 
 <!--
-This forwarding behavior for terminating endpoints exist to allow `NodePort` and `LoadBalancer`
+This forwarding behavior for terminating endpoints exists to allow `NodePort` and `LoadBalancer`
 Services to gracefully drain connections when using `externalTrafficPolicy: Local`.
 
 As a deployment goes through a rolling update, nodes backing a load balancer may transition from
 N to 0 replicas of that deployment. In some cases, external load balancers can send traffic to
 a node with 0 replicas in between health check probes. Routing traffic to terminating endpoints
-ensures that Node's that are scaling down Pods can gracefully receive and drain traffic to
+ensures that Nodes that are scaling down Pods can gracefully receive and drain traffic to
 those terminating Pods. By the time the Pod completes termination, the external load balancer
 should have seen the node's health check failing and fully removed the node from the backend
 pool.
@@ -1186,69 +1233,101 @@ pool.
 
 <!--
 ## Traffic Distribution
-
-{{< feature-state feature_gate_name="ServiceTrafficDistribution" >}}
-
-The `spec.trafficDistribution` field within a Kubernetes Service allows you to
-express preferences for how traffic should be routed to Service endpoints.
-Implementations like kube-proxy use the `spec.trafficDistribution` field as a
-guideline. The behavior associated with a given preference may subtly differ
-between implementations.
 -->
 ## 流量分发 {#traffic-distribution}
 
 {{< feature-state feature_gate_name="ServiceTrafficDistribution" >}}
 
-Kubernetes Service 中的 `spec.trafficDistribution` 字段允许你定义流量应如何路由到
-Service 端点的偏好。像 kube-proxy 这样的实现会将 `spec.trafficDistribution` 
-字段作为指导。不同实现之间，与给定偏好相关的行为可能会略有不同。
-
 <!--
-`PreferClose` with kube-proxy
-: For kube-proxy, this means prioritizing sending traffic to endpoints within
-  the same zone as the client. The EndpointSlice controller updates
-  EndpointSlices with `hints` to communicate this preference, which kube-proxy
-  then uses for routing decisions. If a client's zone does not have any
-  available endpoints, traffic will be routed cluster-wide for that client.
+The `spec.trafficDistribution` field within a Kubernetes Service allows you to
+express preferences for how traffic should be routed to Service endpoints.
 
-In the absence of any value for `trafficDistribution`, the default routing
-strategy for kube-proxy is to distribute traffic to any endpoint in the cluster.
+`PreferClose`
+: This prioritizes sending traffic to endpoints in the same zone as the client.
+  The EndpointSlice controller updates EndpointSlices with `hints` to
+  communicate this preference, which kube-proxy then uses for routing decisions.
+  If a client's zone does not have any available endpoints, traffic will be
+  routed cluster-wide for that client.
 -->
-`PreferClose` 与 kube-proxy 结合
-: 对于 kube-proxy，这意味着优先将流量发送到与客户端位于同一区域的端点。
+Kubernetes Service 中的 `spec.trafficDistribution` 字段允许你表达对流量如何路由到 Service 端点的偏好。
+
+`PreferClose`  
+: 这意味着优先将流量发送到与客户端位于同一区域的端点。
   EndpointSlice 控制器使用 `hints` 来更新 EndpointSlices 以传达此偏好，
   之后，kube-proxy 会使用这些提示进行路由决策。如果客户端的区域没有可用的端点，
   则流量将在整个集群范围内路由。
 
-如果 `trafficDistribution` 没有任何值，kube-proxy 的默认路由策略是将流量分配到集群中的任一端点。
+{{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
+
+<!--
+Two additional values are available when the `PreferSameTrafficDistribution`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
+enabled:
+-->
+当启用 `PreferSameTrafficDistribution`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时，还可以使用两个额外的取值：
+
+<!--
+`PreferSameZone`
+: This means the same thing as `PreferClose`, but is more explicit. (Originally,
+  the intention was that `PreferClose` might later include functionality other
+  than just "prefer same zone", but this is no longer planned. In the future,
+  `PreferSameZone` will be the recommended value to use for this functionality,
+  and `PreferClose` will be considered a deprecated alias for it.)
+-->
+`PreferSameZone`  
+: 这意味着与 `PreferClose` 相同，但表达更为明确。
+  （最初，`PreferClose` 被设想为未来可能包含除“优先同一区域”之外的其他功能，但这一计划已被取消。
+  未来，`PreferSameZone` 将成为实现此类功能的推荐取值，而 `PreferClose` 将被视为其弃用的别名。）
+
+<!--
+`PreferSameNode`
+: This prioritizes sending traffic to endpoints on the same node as the client.
+  As with `PreferClose`/`PreferSameZone`, the EndpointSlice controller updates
+  EndpointSlices with `hints` indicating that a slice should be used for a
+  particular node. If a client's node does not have any available endpoints,
+  then the service proxy will fall back to "same zone" behavior, or cluster-wide
+  if there are no same-zone endpoints either.
+-->
+`PreferSameNode`  
+: 这意味着优先将流量发送到与客户端位于同一节点上的端点。
+  与 `PreferClose`/`PreferSameZone` 一样，EndpointSlice 控制器会更新 EndpointSlice，
+  添加 `hints` 表明某个切片应被用于特定节点。如果某客户端所在节点没有可用的端点，
+  服务代理将回退至“同一区域”行为；如果同一区域也没有可用端点，则回退为集群范围内路由。
+
+<!--
+In the absence of any value for `trafficDistribution`, the default strategy is
+to distribute traffic evenly to all endpoints in the cluster.
+-->
+如果 `trafficDistribution` 没有任何值，默认策略是将流量均匀分发给集群中的所有端点。
 
 <!--
 ### Comparison with `service.kubernetes.io/topology-mode: Auto`
 
-The `trafficDistribution` field with `PreferClose` and the
-`service.kubernetes.io/topology-mode: Auto` annotation both aim to prioritize
-same-zone traffic. However, there are key differences in their approaches:
+The `trafficDistribution` field with `PreferClose`/`PreferSameZone`, and the older "Topology-Aware
+Routing" feature using the `service.kubernetes.io/topology-mode: Auto`
+annotation both aim to prioritize same-zone traffic. However, there is a key
+difference in their approaches:
 -->
 ### 与 `service.kubernetes.io/topology-mode: Auto` 的比较 {#comparison-with-service-kubernetes-io-topology-mode-auto}
 
-`trafficDistribution` 字段中的 `PreferClose` 和
-`service.kubernetes.io/topology-mode: Auto` 注解都旨在优先处理同一区域的流量。
+`trafficDistribution` 字段中的 `PreferClose`/`PreferSameZone`
+以及使用 `service.kubernetes.io/topology-mode: Auto`
+注解的旧版“拓扑感知路由”特性都旨在优先处理同一区域的流量。
 然而，它们的方法存在一些关键差异：
 
 <!--
-* `service.kubernetes.io/topology-mode: Auto`: Attempts to distribute traffic
+* `service.kubernetes.io/topology-mode: Auto` attempts to distribute traffic
   proportionally across zones based on allocatable CPU resources. This heuristic
   includes safeguards (such as the [fallback
   behavior](/docs/concepts/services-networking/topology-aware-routing/#three-or-more-endpoints-per-zone)
-  for small numbers of endpoints) and could lead to the feature being disabled
-  in certain scenarios for load-balancing reasons. This approach sacrifices some
-  predictability in favor of potential load balancing.
+  for small numbers of endpoints), sacrificing some predictability in favor of
+  potentially better load balancing.
 -->
 * `service.kubernetes.io/topology-mode: Auto`：尝试根据可分配的 CPU
   资源在各区域之间按比例分配流量。此启发式方法包括一些保障措施
   （例如针对少量端点的[回退行为](/zh-cn/docs/concepts/services-networking/topology-aware-routing/#three-or-more-endpoints-per-zone)），
-  并在某些场景下可能因负载均衡原因导致该特性被禁用。这种方法在一定程度上牺牲了可预测性，
-  以换取潜在的负载均衡。
+  牺牲一些可预测性以换取更好的负载均衡。
 
 <!--
 * `trafficDistribution: PreferClose`: This approach aims to be slightly simpler
@@ -1257,18 +1336,25 @@ same-zone traffic. However, there are key differences in their approaches:
   will be distributed to other zones". While the approach may offer more
   predictability, it does mean that you are in control of managing a [potential
   overload](#considerations-for-using-traffic-distribution-control).
+
+* `trafficDistribution: PreferClose` aims to be simpler and more predictable:
+  "If there are endpoints in the zone, they will receive all traffic for that
+  zone, if there are no endpoints in a zone, the traffic will be distributed to
+  other zones". This approach offers more predictability, but it means that you
+  are responsible for [avoiding endpoint
+  overload](#considerations-for-using-traffic-distribution-control).
 -->
 * `trafficDistribution: PreferClose`：这种方法偏重更简单和更可预测：
   “如果区域内有端点，它们将接收该区域的所有流量；如果区域内没有端点，流量将分配到其他区域”。
-  虽然这种方法可能提供更多的可预测性，但这意味着你需要管理[潜在的过载](#considerations-for-using-traffic-distribution-control)。
+  这种方法提供更多的可预测性，但这意味着你需要负责[避免端点过载](#considerations-for-using-traffic-distribution-control)。
 
 <!--
 If the `service.kubernetes.io/topology-mode` annotation is set to `Auto`, it
-will take precedence over `trafficDistribution`. (The annotation may be deprecated
-in the future in favour of the `trafficDistribution` field).
+will take precedence over `trafficDistribution`. The annotation may be deprecated
+in the future in favor of the `trafficDistribution` field.
 -->
 如果 `service.kubernetes.io/topology-mode` 注解设置为 `Auto`，它将优先于
-`trafficDistribution`。（该注解将来可能会被弃用，取而代之的是 `trafficDistribution` 字段）。
+`trafficDistribution`。该注解将来可能会被弃用，取而代之的是 `trafficDistribution` 字段。
 
 <!--
 ### Interaction with Traffic Policies
@@ -1287,68 +1373,63 @@ interacts with them:
 <!--
 * Precedence of Traffic Policies: For a given Service, if a traffic policy
   (`externalTrafficPolicy` or `internalTrafficPolicy`) is set to `Local`, it
-  takes precedence over `trafficDistribution: PreferClose` for the corresponding
+  takes precedence over `trafficDistribution` for the corresponding
   traffic type (external or internal, respectively).
 -->
 * 流量策略的优先序：对于给定的 Service，如果流量策略
   （`externalTrafficPolicy` 或 `internalTrafficPolicy`）设置为 `Local`，
-  则它优先于相应流量类型（分别为外部或内部）的 `trafficDistribution: PreferClose`。
+  则它优先于相应流量类型（分别为外部或内部）的 `trafficDistribution`。
 
 <!--
 * `trafficDistribution` Influence: For a given Service, if a traffic policy
   (`externalTrafficPolicy` or `internalTrafficPolicy`) is set to `Cluster` (the
-  default), or if the fields are not set, then `trafficDistribution:
-  PreferClose` guides the routing behavior for the corresponding traffic type
+  default), or if the fields are not set, then `trafficDistribution`
+  guides the routing behavior for the corresponding traffic type
   (external or internal, respectively). This means that an attempt will be made
   to route traffic to an endpoint that is in the same zone as the client.
 -->
 * `trafficDistribution` 的影响：对于给定的 Service，如果流量策略
   （`externalTrafficPolicy` 或 `internalTrafficPolicy`）设置为 `Cluster`（默认值），
-  或者这些字段未设置，那么 `trafficDistribution: PreferClose` 将指导相应流量类型
+  或者这些字段未设置，那么 `trafficDistribution` 将指导相应流量类型
   （分别为外部或内部）的路由行为。这意味着 kube-proxy 将尝试将流量路由到与客户端位于同一区域的端点。
 
 <!--
 ### Considerations for using traffic distribution control  
 
-* **Increased Probability of Overloaded Endpoints:** The `PreferClose`
-  heuristic will attempt to route traffic to the closest healthy endpoints
-  instead of spreading that traffic evenly across all endpoints. If you do not
-  have a sufficient number of endpoints within a zone, they may become
-  overloaded. This is especially likely if incoming traffic is not
-  proportionally distributed across zones. To mitigate this, consider the
-  following strategies:
-
-    * [Pod Topology Spread
-      Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/):
-      Use Pod Topology Spread Constraints to distribute your pods more evenly
-      across zones.
-
-    * Zone-specific Deployments: If you expect to see skewed traffic patterns,
-      create a separate Deployment for each zone. This approach allows the
-      separate workloads to scale independently. There are also workload
-      management addons available from the ecosystem, outside the Kubernetes
-      project itself, that can help here.
+A Service using `trafficDistribution` will attempt to route traffic to (healthy)
+endpoints within the appropriate topology, even if this means that some
+endpoints receive much more traffic than other endpoints. If you do not have a
+sufficient number of endpoints within the same topology ("same zone", "same
+node", etc.) as the clients, then endpoints may become overloaded. This is
+especially likely if incoming traffic is not proportionally distributed across
+the topology. To mitigate this, consider the following strategies:
 -->
 ### 使用流量分配控制的注意事项 {#considerations-for-using-traffic-distribution-control}
 
-* **端点过载的概率增加：** `PreferClose` 启发式方法将尝试将流量路由到最近的健康端点，
-  而不是将流量均匀分布到所有端点。如果某个区域内的端点数量不足，它们可能会过载。
-  如果传入流量在各区域之间分布不均，这种情况更有可能发生。为减轻这种情况，请考虑以下策略：
+使用 `trafficDistribution` 的 Service 将尝试将流量路由到适当拓扑中的（健康的）端点，
+即使这意味着某些端点接收的流量远远超过其他端点。
+如果某个区域内的端点数量不足，它们可能会过载。
+如果传入流量在各区域之间分布不均，这种情况更有可能发生。为减轻这种情况，请考虑以下策略：
 
-  * [Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)：
-    使用 Pod 拓扑分布约束在各区域之间更均匀地分布你的 Pod。
-
-  * 区域特定的 Deployment：如果你预计会看到不均衡的流量模式，
-    可以为每个区域创建一个单独的 Deployment。这种方法允许独立扩展各个工作负载。
-    生态系统中还有一些 Kubernetes 项目之外的工作负载管理插件，可以在这方面提供帮助。
 <!--
-* **Implementation-specific behavior:** Each dataplane implementation may handle
-  this field slightly differently. If you're using an implementation other than
-  kube-proxy, refer the documentation specific to that implementation to
-  understand how this field is being handled.
+* [Pod Topology Spread Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/):
+  Use Pod Topology Spread Constraints to distribute your pods evenly
+  across zones or nodes.
+
+* Zone-specific Deployments: If you are using "same zone" traffic
+  distribution, but expect to see different traffic patterns in
+  different zones, you can create a separate Deployment for each zone.
+  This approach allows the separate workloads to scale independently.
+  There are also workload management addons available from the
+  ecosystem, outside the Kubernetes project itself, that can help
+  here.
 -->
-* **特定于具体实现的行为：** 各个数据平面实现处理此字段的方式可能会稍有不同。
-  如果你使用的是 kube-proxy 以外的实现，请参阅该实现的特定文档以了解该实现是如何处理此字段的。
+* [Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)：
+  使用 Pod 拓扑分布约束在各区域之间更均匀地分布你的 Pod。
+
+* 区域特定的 Deployment：如果你预计会看到不均衡的流量模式，
+  可以为每个区域创建一个单独的 Deployment。这种方法允许独立扩展各个工作负载。
+  生态系统中还有一些 Kubernetes 项目之外的工作负载管理插件，可以在这方面提供帮助。
 
 ## {{% heading "whatsnext" %}}
 

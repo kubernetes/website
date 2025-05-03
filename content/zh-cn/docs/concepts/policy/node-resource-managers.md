@@ -310,22 +310,22 @@ listed in alphabetical order:
 : Allocate virtual cores, sometimes called hardware threads, across different physical cores
   (available since Kubernetes v1.31)
 
-`distribute-cpus-across-numa` (alpha, hidden by default)
+`distribute-cpus-across-numa` (beta, visible by default)
 : Spread CPUs across different NUMA domains, aiming for an even balance between the selected domains
   (available since Kubernetes v1.23)
 -->
 `align-by-socket`（Alpha，默认隐藏）：
 : 以物理芯片/插槽为边界（而不是逻辑 NUMA 边界）对齐 CPU（自 Kubernetes v1.25 起可用）
 
-`distribute-cpus-across-cores`（Alpha，默认隐藏）：
+`distribute-cpus-across-cores`（Beta，默认可见）：
 : 跨多个不同的物理核心分配虚拟核心（有时称为硬件线程）（自 Kubernetes v1.31 起可用）
 
 `distribute-cpus-across-numa`（Alpha，默认隐藏）：
 : 跨多个不同的 NUMA 域分配 CPU，力求在所选域之间实现均匀平衡（自 Kubernetes v1.23 起可用）
 
 <!--
-`full-pcpus-only` (beta, visible by default)
-: Always allocate full physical cores (available since Kubernetes v1.22)
+`full-pcpus-only` (GA, visible by default)
+: Always allocate full physical cores (available since Kubernetes v1.22, GA since Kubernetes v1.33)
 
 `strict-cpu-reservation` (beta, visible by default)
 : Prevent all the pods regardless of their Quality of Service class to run on reserved CPUs
@@ -335,8 +335,8 @@ listed in alphabetical order:
 : Align CPUs by uncore (Last-Level) cache boundary on a best-effort way
   (available since Kubernetes v1.32)
 -->
-`full-pcpus-only`（Beta，默认可见）：
-: 始终分配完整的物理核心（自 Kubernetes v1.22 起可用）
+`full-pcpus-only`（GA，默认可见）：
+: 始终分配完整的物理核心（自 Kubernetes v1.22 起可用，自 Kubernetes v1.33 起进阶到 GA）
 
 `strict-cpu-reservation`（Beta，默认可见）：
 : 阻止所有 Pod（无论其服务质量类别如何）在预留的 CPU 上运行（自 Kubernetes v1.32 起可用）

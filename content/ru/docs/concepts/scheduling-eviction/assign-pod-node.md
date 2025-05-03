@@ -126,7 +126,7 @@ Kubernetes также навешивает [стандартный набор л
 При настройке нескольких [профилей планирования](/docs/reference/scheduling/config/#multiple-profiles) можно связать профиль с правилами совместного существования для узлов (это удобно, когда профиль применяется к определенному набору узлов). Для этого необходимо добавить `addedAffinity` в поле `args` [плагина `NodeAffinity`](/docs/reference/scheduling/config/#scheduling-plugins) в [конфигурации планировщика](/docs/reference/scheduling/config/). Например:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 
 profiles:

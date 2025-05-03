@@ -91,6 +91,7 @@ let you meet it.
 * To get the aggregator working in your environment, [configure the aggregation layer](/docs/tasks/extend-kubernetes/configure-aggregation-layer/).
 * Then, [setup an extension api-server](/docs/tasks/extend-kubernetes/setup-extension-api-server/) to work with the aggregation layer.
 * Read about [APIService](/docs/reference/kubernetes-api/cluster-resources/api-service-v1/) in the API reference
+* Learn about [Declarative Validation Concepts](/docs/reference/using-api/declarative-validation), an internal mechanism for defining validation rules that in the future will help support validation for extension API server development.
 
 Alternatively: learn how to
 [extend the Kubernetes API using Custom Resource Definitions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/).
@@ -100,5 +101,7 @@ Alternatively: learn how to
 * 接下来，了解[安装扩展 API 服务器](/zh-cn/docs/tasks/extend-kubernetes/setup-extension-api-server/)，
   开始使用聚合层。
 * 从 API 参考资料中研究关于 [APIService](/zh-cn/docs/reference/kubernetes-api/cluster-resources/api-service-v1/) 的内容。
+* 了解 [声明式校验概念](/zh-cn/docs/reference/using-api/declarative-validation)，
+  一种用于定义校验规则的内部机制，未来将有助于支持扩展 API Server 的开发过程中的校验能力。
 
 或者，学习如何[使用 CustomResourceDefinition 扩展 Kubernetes API](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)。

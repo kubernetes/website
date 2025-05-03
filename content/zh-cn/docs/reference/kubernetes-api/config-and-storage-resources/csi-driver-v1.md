@@ -109,6 +109,29 @@ CSIDriverSpec 是 CSIDriver 的规约。
   采用默认策略时，如果定义了 fstype 且卷的访问模式包含 ReadWriteOnce，将仅应用定义的 fsGroup。
 
 <!--
+- **nodeAllocatableUpdatePeriodSeconds** (int64)
+
+  nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+-->
+- **nodeAllocatableUpdatePeriodSeconds** (int64)
+
+  nodeAllocatableUpdatePeriodSeconds 指定了 CSINode
+  针对此驱动对可分配容量作定期更新的时间间隔。
+  设置后，定期更新和由容量相关故障触发的更新均会启用。
+  如果没有设置，则不会发生更新（无论是定期更新还是检测到与容量相关的故障），
+   并且 `allocatable.count` 保持为固定值。此字段允许的最小值为 10 秒。
+
+  <!--
+  This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+  
+  This field is mutable.
+  -->
+
+  这是一个 Alpha 级别特性，需要启用特性门控 MutableCSINodeAllocatableCount。
+
+  此字段是可变更的。
+
+<!--
 - **podInfoOnMount** (boolean)
 
   podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.

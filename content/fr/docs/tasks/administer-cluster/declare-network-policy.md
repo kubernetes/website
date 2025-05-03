@@ -65,7 +65,7 @@ pod/nginx-701339712-e0qfq   1/1           Running       0          35s
 Vous devriez pouvoir accéder au nouveau service `nginx` depuis d'autres pods. Pour accéder au service `nginx` depuis un autre pod dans le namespace `default`, démarrez un conteneur busybox :
 
 ```console
-kubectl run busybox --rm -ti --image=busybox:1.28 -- /bin/sh
+kubectl run busybox --rm -ti --image=busybox -- /bin/sh
 ```
 
 Dans votre shell, exécutez la commande suivante :
@@ -107,7 +107,7 @@ networkpolicy.networking.k8s.io/access-nginx created
 Lorsque vous tentez d'accéder au service `nginx` depuis un pod sans les bons labels, la requête échoue :
 
 ```console
-kubectl run busybox --rm -ti --image=busybox:1.28 -- /bin/sh
+kubectl run busybox --rm -ti --image=busybox -- /bin/sh
 ```
 
 Dans votre shell, exécutez la commande :
@@ -126,7 +126,7 @@ wget: download timed out
 Vous pouvez créer un pod avec le bon label pour voir que la requête est autorisée :
 
 ```console
-kubectl run busybox --rm -ti --labels="access=true" --image=busybox:1.28 -- /bin/sh
+kubectl run busybox --rm -ti --labels="access=true" --image=busybox -- /bin/sh
 ```
 
 Dans votre shell, exécutez la commande :

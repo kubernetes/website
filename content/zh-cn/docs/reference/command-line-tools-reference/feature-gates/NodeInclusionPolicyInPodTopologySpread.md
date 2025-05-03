@@ -6,13 +6,17 @@ _build:
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.25"
     toVersion: "1.25"
   - stage: beta
     defaultValue: true
     fromVersion: "1.26"
+    toVersion: "1.32"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.33"
 ---
 
 <!--

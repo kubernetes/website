@@ -274,7 +274,7 @@ footer {
 }
 
 // Custom footer sizing
-@media (min-width: 800px) and (max-width: 1279px) {
+@media (min-width: 800px) and (max-width: 1285px) {
   footer {
     ul.footer-icons {
       min-width: 17.5vw;
@@ -282,6 +282,11 @@ footer {
       flex-wrap: nowrap;
       flex-direction: row;
       justify-content: space-evenly;
+
+      li.mx-2 {
+	    margin-left: 0.3rem !important;
+	    margin-right: 0.3rem !important;
+	  }
     }
     .col-sm-2 {
       flex: 0 0 22.5%;

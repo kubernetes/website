@@ -209,7 +209,7 @@ reference for a full definition of this API kind.
 
 The HTTPRoute kind specifies routing behavior of HTTP requests from a Gateway listener to backend network
 endpoints. For a Service backend, an implementation may represent the backend network endpoint as a Service
-IP or the backing Endpoints of the Service. An HTTPRoute represents configuration that is applied to the
+IP or the backing EndpointSlices of the Service. An HTTPRoute represents configuration that is applied to the
 underlying Gateway implementation. For example, defining a new HTTPRoute may result in configuring additional
 traffic routes in a cloud load balancer or in-cluster proxy server.
 
@@ -218,7 +218,7 @@ A minimal HTTPRoute example:
 ### HTTPRoute {#api-kind-httproute}
 
 HTTPRoute 类别指定从 Gateway 监听器到后端网络端点的 HTTP 请求的路由行为。
-对于服务后端，实现可以将后端网络端点表示为服务 IP 或服务的支持端点。
+对于服务后端，实现可以将后端网络端点表示为服务 IP 或服务的支持 EndpointSlices。
 HTTPRoute 表示将被应用到下层 Gateway 实现的配置。
 例如，定义新的 HTTPRoute 可能会导致在云负载均衡器或集群内代理服务器中配置额外的流量路由。
 
@@ -255,7 +255,8 @@ reference for a full definition of this API kind.
 如果 Host 的标头设置为 `www.example.com` 且请求路径指定为 `/login`，
 将被路由到 Service `example-svc` 的 `8080` 端口。
 
-有关此类 API 的完整定义，请参阅 [HTTPRoute](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.HTTPRoute)。
+有关此类 API 的完整定义，请参阅
+[HTTPRoute](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.HTTPRoute)。
 
 <!-- 
 ## Request flow
