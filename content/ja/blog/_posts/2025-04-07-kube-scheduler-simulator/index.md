@@ -2,7 +2,6 @@
 layout: blog
 title: "kube-scheduler-simulatorの紹介"
 date: 2025-04-07
-draft: false
 slug: introducing-kube-scheduler-simulator
 author: Kensei Nakada (Tetrate)
 translator: >
