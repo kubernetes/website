@@ -11,7 +11,7 @@ From the [previous blog post](/blog/2025/04/22/multi-container-pods-overview/) o
 
 ## A gentle refresher
 
-Let’s just remind that the [v1.29.0 release of Kubernetes](https://kubernetes.io/blog/2023/12/13/kubernetes-v1-29-release/) added native support for sidecars, which can now be defined within the `spec.initContainers` field, but with `restartPolicy: Always` as in the example below, which is a partial snippet of the full Kubernetes manifest:
+Let’s just remind that the [v1.29.0 release of Kubernetes](/blog/2023/12/13/kubernetes-v1-29-release/) added native support for [sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/), which can now be defined within the `spec.initContainers` field, but with `restartPolicy: Always` as in the example below (note that it is a partial snippet of the full Kubernetes manifest):
 
 ```yaml
 initContainers:
