@@ -34,7 +34,7 @@ Starting one container only after the previous one is ready is part of a gracefu
 
 ## Readiness probe
 
-To check whether Kubernetes native sidecar delays the start of the main application until sidecar is ready, let’s simulate a short investigation. Firstly, we’ll simulate a sidecar container which will never be ready by implementing a readiness probe which will never succeed. As a reminder, a readiness probe checks if the container is ready to start accepting traffic and therefore, if the pod can be used as a backend for services. 
+To check whether Kubernetes native sidecar delays the start of the main application until sidecar is ready, let’s simulate a short investigation. Firstly, we’ll simulate a sidecar container which will never be ready by implementing a readiness probe which will never succeed. As a reminder, a [readiness probe](/docs/concepts/configuration/liveness-readiness-startup-probes/) checks if the container is ready to start accepting traffic and therefore, if the pod can be used as a backend for services. 
 
 (Unlike true init containers, sidecar containers can have [probes](https://kubernetes.io/docs/concepts/configuration/liveness-readiness-startup-probes/) so that the kubelet can supervise the sidecar and intervene if there are problems. For example, restarting a sidecar container if it fails a health check.)
 
