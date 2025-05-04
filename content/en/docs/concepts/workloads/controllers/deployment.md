@@ -1327,6 +1327,19 @@ created Pod should be ready without any of its containers crashing, for it to be
 This defaults to 0 (the Pod will be considered available as soon as it is ready). To learn more about when
 a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
+### Terminating Pods
+
+{{< feature-state feature_gate_name="DeploymentReplicaSetTerminatingReplicas" >}}
+
+You can enable this feature it by setting the `DeploymentReplicaSetTerminatingReplicas`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
+and on the [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+
+Pods that become terminating due to deletion or scale down may take a long time to terminate, and may consume
+additional resources during that period. As a result, the total number of all pods can temporarily exceed
+`.spec.replicas`. Terminating pods can be tracked using the `.status.terminatingReplicas` field of the Deployment.
+
 ### Revision History Limit
 
 A Deployment's revision history is stored in the ReplicaSets it controls.

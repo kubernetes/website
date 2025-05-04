@@ -7,7 +7,6 @@ weight: 70
 <!-- overview -->
 Role Based Access Control(RBAC)は、組織内の個々のユーザーのRoleをベースに、コンピューターまたはネットワークリソースへのアクセスを制御する方法です。
 
-
 <!-- body -->
 RBAC認可は{{< glossary_tooltip term_id="api-group" >}} `rbac.authorization.k8s.io`を使用して認可の決定を行い、Kubernetes APIを介して動的にポリシーを構成できるようにします。
 
@@ -195,7 +194,7 @@ Bindingの`roleRef`を変更しようとすると、バリデーションエラ�
 
 KubernetesのAPIでは、ほとんどのリソースはPodであれば`pods`のように、オブジェクト名の文字列表現を使用して表されます。RBACは、関連するAPIエンドポイントのURLに表示されるものとまったく同じ名前を使用するリソースを参照します。
 一部のKubernetes APIには、Podのログなどの
-_subresource_　が含まれます。Podのログのリクエストは次のようになります。
+_subresource_ が含まれます。Podのログのリクエストは次のようになります。
 
 ```http
 GET /api/v1/namespaces/{namespace}/pods/{name}/log
