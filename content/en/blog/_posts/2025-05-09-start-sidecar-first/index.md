@@ -163,7 +163,7 @@ startupProbe:
 ```
 
 and run `kubectl get pods -w` to watch in real time whether the readiness of both containers only changes after a 15 second delay. Again, events confirm the main application starts after the sidecar.
-That means that using the `startupProbe` with a correct httpGet request helps to delay the main application start until the sidecar is ready. It’s not optimal, but it works (I can hope this functionality will be added to Kubernetes-native sidecar at some point).
+That means that using the `startupProbe` with a correct `startupProbe.httpGet` request helps to delay the main application start until the sidecar is ready. It’s not optimal, but it works.
 
 ## What about the postStart lifecycle hook?
 
