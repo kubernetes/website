@@ -2,10 +2,6 @@
 title: हेलो मिनीक्यूब
 content_type: tutorial
 weight: 5
-menu:
-  main:
-    title: "शुरू करते हैं"
-    weight: 10
 card:
   name: tutorials
   weight: 10
