@@ -7,7 +7,7 @@ slug: start-sidecar-first
 author: Agata Skorupka (The Scale Factory)
 ---
 
-From the [previous blog](https://kubernetes.io/blog/2025/04/22/multi-container-pods-overview/) post on sidecars you know what its job is, what are the main architectural patterns, and how it’s implemented in Kubernetes. The main thing I’ll cover in this article is how to ensure that your sidecar containers start before the main app. It’s more complicated than you might think!
+From the [previous blog post](/blog/2025/04/22/multi-container-pods-overview/) on Multicontainer Pods you know what their job is, what are the main architectural patterns, and how they are implemented in Kubernetes. The main thing I’ll cover in this article is how to ensure that your sidecar containers start before the main app. It’s more complicated than you might think!
 
 ## A gentle refresher
 
