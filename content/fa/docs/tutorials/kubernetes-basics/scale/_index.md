@@ -1,4 +1,4 @@
 ---
-title: Scale Your App
+title: برنامه یتان را بزرگ کنید
 weight: 50
 ---

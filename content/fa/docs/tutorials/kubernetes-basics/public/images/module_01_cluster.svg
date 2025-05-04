@@ -261,7 +261,7 @@
          id="text183"><tspan
            id="tspan181"
            x="106.34034"
-           y="341.76721">Kubernetes Cluster</tspan></text>
+           y="341.76721">کلاستر کوبرنتیز</tspan></text>
     </g>
     <g
        id="Node">
@@ -504,7 +504,7 @@
      id="text171"><tspan
        id="tspan169"
        x="354.17346"
-       y="198.82574">Control Plane</tspan></text>
+       y="198.82574">کنترل پلین</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:13.3333px;line-height:1.25;font-family:Courier;-inkscape-font-specification:'Courier, Normal'"
@@ -513,7 +513,7 @@
      id="text175"><tspan
        id="tspan173"
        x="364.43982"
-       y="122.11347">Node</tspan></text>
+       y="122.11347">نود</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:13.3333px;line-height:1.25;font-family:Courier;-inkscape-font-specification:'Courier, Normal'"
@@ -522,5 +522,5 @@
      id="text179"><tspan
        id="tspan177"
        x="354.85016"
-       y="232.48218">Node Processes</tspan></text>
+       y="232.48218">پردازش نود</tspan></text>
 </svg>

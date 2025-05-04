@@ -1,8 +1,5 @@
 ---
-reviewers:
-- bgrant0607
-- mikedanese
-title: "Overview"
+title: "نمای کلی"
 description: >
   Kubernetes is a portable, extensible, open source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.
 content_type: concept
@@ -12,19 +9,19 @@ card:
   weight: 10
   anchors:
   - anchor: "#why-you-need-kubernetes-and-what-can-it-do"
-    title: Why Kubernetes?
+    title: چرا کوبرنتیز؟
 no_list: true
 ---
 
 <!-- overview -->
-This page is an overview of Kubernetes.
+این صفحه نمای کلی از کوبرنتیز ارائه می‌دهد.
 
 
 <!-- body -->
 
-The name Kubernetes originates from Greek, meaning helmsman or pilot. K8s as an abbreviation
-results from counting the eight letters between the "K" and the "s". Google open-sourced the
-Kubernetes project in 2014. Kubernetes combines
+نام کوبرنتیز از زبان یونانی گرفته شده و به معنی سکان‌دار یا خلبان است. K8s به‌عنوان یک مخفف از شمارش هشت حرف بین "K" و "s" به‌دست آمده است. گوگل پروژهٔ کوبرنتیز را در سال ۲۰۱۴ به‌صورت متن‌باز منتشر کرد.
+
+Kubernetes combines
 [over 15 years of Google's experience](/blog/2015/04/borg-predecessor-to-kubernetes/) running
 production workloads at scale with best-of-breed ideas and practices from the community.
 

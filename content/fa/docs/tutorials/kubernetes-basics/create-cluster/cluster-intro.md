@@ -1,73 +1,57 @@
 ---
-title: با استفاده از Minikube یک کلاستر بسازید
+title: با استفاده از مینی کی یوب یک کلاستر بسازید
 weight: 10
 ---
 
 ## {{% heading "objectives" %}}
 
 * یاد خواهید گرفت کلاستر چیست
-* یاد خواهید گرفت Minikube چیست
+* یاد خواهید گرفت مینی کی یوب (Minikube) چیست
 * یک کلاستر کوبرنتیز را در کامپیوتر خود راه اندازی خواهید کرد
 
 ## کلاستر های کوبرنتیز
 
 {{% alert %}}
-_کوبرنتیز یک پلتفرم متن‌باز و عملیاتی است که جای‌دهی زمان‌بندی و اجرای کانتینرهای کلاسترها مدیریت (هماهنگ‌سازی) می‌کند._
+_کوبرنتیز یک پلتفرم متن‌باز و عملیاتی است که زمان‌بندی و اجرای کانتینرهای کلاسترها را مدیریت می‌کند._
 {{% /alert %}}
 
-**Kubernetes coordinates a highly available cluster of computers that are connected
-to work as a single unit.** The abstractions in Kubernetes allow you to deploy
-containerized applications to a cluster without tying them specifically to individual
-machines. To make use of this new model of deployment, applications need to be packaged
-in a way that decouples them from individual hosts: they need to be containerized.
-Containerized applications are more flexible and available than in past deployment models,
-where applications were installed directly onto specific machines as packages deeply
-integrated into the host. **Kubernetes automates the distribution and scheduling of
-application containers across a cluster in a more efficient way.** Kubernetes is an
-open-source platform and is production-ready.
+**کوبرنتیز یک کلاستر همیشه در دسترس از کامپیوترهای به هم پیوسته را که به صورت واحد کار خواهند کرد را اداره می کند**
+جداسازی های منطقی در کوبرنتیز به شما این امکان را خواهد داد تا برنامه های کانتینری خود را در یک کلاستر پیاده سازی کنید بدون اینکه این برنامه ها به ماشین خاصی تعلق داشته باشند.
+برای استفاده از این شیوه مدرن پیاده سازی، برنامه ها باید به صورت بسته های تجزیه شده و بی نیاز از سیستم پایه آماده شوند: به عبارت دیگر آن ها باید به کانتینر تبدیل شوند. برنامه های کانتینر شده انعطاف پذیری بیشتری نسبت به برنامه های قدیمی دارند که برای اجرا نیاز به نصب بر روی سیستم را دارند. 
 
-A Kubernetes cluster consists of two types of resources:
+**کوبرنتیز یک پروژه متن باز است که توزیع و زمان‌بندی برنامه های کانتینری را در یک کلاستر به‌صورت خودکار و کارآمدتر امکان می‌دهد.**
 
-* The **Control Plane** coordinates the cluster
-* **Nodes** are the workers that run applications
+یک کلاستر کوبرنتیز از دو نوع منبع تشکیل شده است:
 
-### Cluster Diagram
+* **کنترل پلین** (Control plane) که مدیریت کلاستر را بر عهده دارد
+* **نودها** (Node) که کارگرانی هستند که برنامه ها را اجرا می کنند
 
-{{< figure src="/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg" style="width: 100%;" >}}
+### معماری کلاستر
 
-**The Control Plane is responsible for managing the cluster.** The Control Plane
-coordinates all activities in your cluster, such as scheduling applications, maintaining
-applications' desired state, scaling applications, and rolling out new updates.
+{{< figure src="/fa/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg" style="width: 100%;" >}}
+
+**وظیفه کنترل پلین مدیریت کلاستر است.**
+کنترل پلین تمام فعالیت‌های کلاستر شما را هماهنگ می‌کند، مانند زمان‌بندی اجرای برنامه‌ها، حفظ وضعیت مطلوب آن‌ها، مقیاس‌دهی به برنامه‌ها، و انتشار به‌روزرسانی‌های جدید.
 
 {{% alert %}}
-_Control Planes manage the cluster and the nodes that are used to host the running
-applications._
+_کنترل پلین ها اداره کننده کلاستر و نودهای کارگر آن ها هستند و مدیریت برنامه های اجرایی در کلاستر را هم بر عهده دارند._
 {{% /alert %}}
 
-**A node is a VM or a physical computer that serves as a worker machine in a Kubernetes
-cluster.** Each node has a Kubelet, which is an agent for managing the node and
-communicating with the Kubernetes control plane. The node should also have tools for
-handling container operations, such as {{< glossary_tooltip text="containerd" term_id="containerd" >}}
-or {{< glossary_tooltip term_id="cri-o" >}}. A Kubernetes cluster that handles production
-traffic should have a minimum of three nodes because if one node goes down, both an
-[etcd](/docs/concepts/architecture/#etcd) member and a control plane instance are lost,
-and redundancy is compromised. You can mitigate this risk by adding more control plane nodes.
+**نود یک ماشین مجازی یا کامپیوتر هست که به عنوان کارگر در کلاستر کوبرنتیز انجام وظیفه می کند.**
+هر نود یک پروسه Kubelet دارد که عاملی برای مدیریت نود و ارتباط با صفحه کنترل کوبرنتیز است.
+هر نود باید ابزارهایی برای مدیریت عملیات کانتینر نیز داشته باشد، مانند {{< glossary_tooltip text="containerd" term_id="containerd" >}} یا {{< glossary_tooltip term_id="cri-o" >}}.
+کلاستر کوبرنتیزی که ترافیک عملیاتی را مدیریت می کند باید حداقل سه نود داشته باشد تا بتواند پایداری را رعایت کند. داشتن بیش از ۱ کنترل پلین هم توصیه می شود زمانی که شما می خواهید پایداری را برای پایگاه داده [etcd](/docs/concepts/architecture/#etcd) کوبرنتیز رعایت کنید.
 
-When you deploy applications on Kubernetes, you tell the control plane to start
-the application containers. The control plane schedules the containers to run on
-the cluster's nodes. **Node-level components, such as the kubelet, communicate
-with the control plane using the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)**,
-which the control plane exposes. End users can also use the Kubernetes API directly
-to interact with the cluster.
+زمانی که شما برنامه ای را برروی کوبرنتیز مستقر می کنید به کنترل پلین اجازه می دهید که کانتینر برنامه را اجرا کند.
+کنترل پلین زمان بندی کانتینرها را برای اجرا شدن بر نودهای کلاستر برعهده دارد.
+**اجزای یک نود اعم از Kubelet با استفاده از [رابط کاربری](/docs/concepts/overview/kubernetes-api/) کوبرنتیز با کنترل پلین ارتباط برقرار می کنند.**
+لازم به ذکر است که رابط کاربری کوبرنتیز برای همه کاربران قابل دسترس است.
 
-A Kubernetes cluster can be deployed on either physical or virtual machines. To
-get started with Kubernetes development, you can use Minikube. Minikube is a lightweight
-Kubernetes implementation that creates a VM on your local machine and deploys a
-simple cluster containing only one node. Minikube is available for Linux, macOS,
-and Windows systems. The Minikube CLI provides basic bootstrapping operations for
-working with your cluster, including start, stop, status, and delete.
+کلاستر کوبرنتیز می تواند برروی یک سرور واقعی یا ماشین های مجازی راه اندازی شود. برای شروع به کار با کوبرنتیز شما می توانید از مینی کی یوب استفاده کنید.
+مینی کیوب یک نسخه کوچک از کوبرنتیز است که بر روی کامپیوتر شما یک ماشبن مجازی می سازد و کلاستر ساده ای به همراه یک نود را برای شما آماده سازی می کند.
+مینی کی یوب بر روی سیستم عامل های لینوکس، مک و ویندوز قابل اجرا است. رابط دستوری مینی کی یوب به شما این اجازه را می دهد که کلاستر خود را بسازید، متوقف کنید و یا حذف کنید.
 
 ## {{% heading "whatsnext" %}}
 
-* Tutorial [Hello Minikube](/docs/tutorials/hello-minikube/).
-* Learn more about [Cluster Architecture](/docs/concepts/architecture/).
+* راهنمای سلام [مینی کی یوب](/docs/tutorials/hello-minikube/).
+* درباره معماری کلاستر [بیشتر بدانید](/docs/concepts/architecture/).

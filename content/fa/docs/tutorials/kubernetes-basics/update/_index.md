@@ -1,4 +1,4 @@
 ---
-title: Update Your App
+title: بروزرسانی برنامه
 weight: 60
 ---

@@ -52,7 +52,7 @@ content_type: concept
 * [Restrict a Container's Access to Resources with AppArmor](/docs/tutorials/security/apparmor/)
 * [Seccomp](/docs/tutorials/security/seccomp/)
 
-## مدیریت خوشه (کلاستر)
+## مدیریت کلاستر
 
 * [Running Kubelet in Standalone Mode](/docs/tutorials/cluster-management/kubelet-standalone/)
 

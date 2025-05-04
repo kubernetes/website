@@ -171,18 +171,18 @@
        class="st8"
        font-size="11.3632px"
        font-family="'RobotoSlab-Regular'"
-       id="svg_13">Docker</text>
+       id="svg_13">داکر</text>
     <text
        transform="matrix(0.866,-0.5,-0.5,-0.866,-76.0668,-46.4087) "
        class="st8"
        font-size="11.3632px"
        font-family="'RobotoSlab-Regular'"
-       id="svg_14">Kubelt</text>
+       id="svg_14">کوبلت</text>
   </symbol>
   <g
      id="g1985">
     <title
-       id="title1814">Layer 1</title>
+       id="title1814">لایه اول</title>
     <g
        id="CLUSTER"
        transform="translate(-22)">
@@ -571,7 +571,7 @@
          id="text1997"><tspan
            id="tspan1995"
            x="361.82697"
-           y="104.54287">Node</tspan></text>
+           y="104.54287">نود</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:13.3333px;line-height:1.25;font-family:Courier;-inkscape-font-specification:'Courier, Normal'"
@@ -580,7 +580,7 @@
          id="text2001"><tspan
            id="tspan1999"
            x="361.24179"
-           y="126.47728">containerized app</tspan></text>
+           y="126.47728">برنامه های کانتینر شده</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:13.3333px;line-height:1.25;font-family:Courier;-inkscape-font-specification:'Courier, Normal'"
@@ -589,7 +589,7 @@
          id="text2005"><tspan
            id="tspan2003"
            x="361.82697"
-           y="185.326">Deployment</tspan></text>
+           y="185.326">دیپلویمنت</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:13.3333px;line-height:1.25;font-family:Courier;-inkscape-font-specification:'Courier, Normal'"
@@ -598,7 +598,7 @@
          id="text2009"><tspan
            id="tspan2007"
            x="361.60068"
-           y="207.72804">Control Plane</tspan></text>
+           y="207.72804">کنترل پلین</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:13.3333px;line-height:1.25;font-family:Courier;-inkscape-font-specification:'Courier, Normal'"
@@ -607,7 +607,7 @@
          id="text2013"><tspan
            id="tspan2011"
            x="360.92181"
-           y="232.16661">node processes</tspan></text>
+           y="232.16661">برنامه های اجرایی نود</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.3333px;line-height:1.25;font-family:Courier;-inkscape-font-specification:'Courier, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
@@ -616,7 +616,7 @@
          id="text2017"><tspan
            id="tspan2015"
            x="113.36793"
-           y="350.73907">Kubernetes Cluster</tspan></text>
+           y="350.73907">کلاستر کوبرنتیز</tspan></text>
     </g>
     <g
        id="Layer_14" />

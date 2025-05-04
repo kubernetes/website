@@ -1,6 +1,4 @@
 ---
-approvers:
-- chenopis
 title: مستندات کوبرنتیز
 noedit: true
 cid: docsHome
@@ -30,7 +28,7 @@ cards:
   button: "بازدید از آموزش ها"
   button_path: "/docs/tutorials"
 - name: setup
-  title: "راه اندازی یک خوشه کوبرنتیز"
+  title: "راه اندازی یک کلاستر کوبرنتیز"
   description: "کوبرنتیز را بر اساس منابع و نیازهای خود راه‌اندازی کنید."
   button: "پیکر بندی کوبرنتیز"
   button_path: "/docs/setup"
@@ -47,12 +45,12 @@ cards:
 - name: contribute
   title: "در توسعه کوبرنتیز مشارکت کنید"
   description: "روش های بهبود کوبرنتیز و اینکه شما چگونه می توانید کمک کنید."
-  button: "روش‌های مشارکت را مشاهده کنید"
+  button: "روش‌های مشارکت"
   button_path: "/docs/contribute"
 - name: آموزش
   title: "آموزش"
   description: "مدرک کوبرنتیز بگیرید و پروژه‌های ابری خود را موفق کنید!"
-  button: "بازدید از آموزش"
+  button: "بازدید از بخش آموزش"
   button_path: "/training"
 - name: Download
   title: "کوبرنتیز را دانلود کنید"

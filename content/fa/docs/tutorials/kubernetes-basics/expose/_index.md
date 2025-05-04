@@ -1,4 +1,4 @@
 ---
-title: Expose Your App Publicly
+title: نرم افزارتان را منتشر کنید
 weight: 40
 ---

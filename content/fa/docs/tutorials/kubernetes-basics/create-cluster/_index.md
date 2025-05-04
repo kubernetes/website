@@ -1,7 +1,7 @@
 ---
-title: ساخت یک کلاستر (خوشه)
+title: ساخت یک کلاستر
 weight: 10
 ---
 
-Learn about Kubernetes {{< glossary_tooltip text="cluster" term_id="cluster" length="all" >}} and create a simple cluster using Minikube.
+یادگیری {{< glossary_tooltip text="کلاستر" term_id="cluster" length="all" >}} کوبرنتیز و ساخت یک کلاستر ساده با مینی کی یوب.
 

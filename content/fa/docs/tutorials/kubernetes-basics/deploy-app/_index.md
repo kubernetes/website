@@ -1,4 +1,4 @@
 ---
-title: Deploy an App
+title: استقرار یک برنامه
 weight: 20
 ---

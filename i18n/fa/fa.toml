@@ -41,12 +41,12 @@ other = "ICP license:"
 other = "You can also read about our {{ .link }}."
 
 [community_calendar_name]
-other = "Events Calendar"
+other = "تقویم رویدادها"
 
 # Also cover [community_contribute] if localizing this site
 
 [community_contributor_site_name]
-other = "Contributor website"
+other = "وب سایت مشترکین"
 
 # Also cover [community_develop] if localizing this site
 
@@ -66,7 +66,7 @@ other = "GitHub"
 other = "LinkedIn"
 
 [community_server_fault_name]
-other = "Server Fault"
+other = "خطای سرور"
 
 [community_slack_name]
 other = "Slack"
@@ -93,13 +93,13 @@ other = "YouTube"
 other = "و"
 
 [copy_sample_to_clipboard]
-other = "Copy {{ .filename }} to clipboard"
+other = "کپی {{ .filename }} در کلیپ‌بورد"
 
 [cve_id]
 other = "شناسه آسیب پذیری"
 
 [cve_issue_url]
-other = "CVE GitHub Issue URL"
+other = "آدرس آسیب پذیری در GitHub"
 
 [cve_summary]
 other = "خلاصه مشکل"
@@ -117,7 +117,7 @@ other = "(آخرین بروزرسانی در: %s)"
 other = "شما در حال بازدید از مستندات کوبرنتیز نسخه:"
 
 [deprecation_warning]
-other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date information, see the "
+other = " مستندات دیگر به‌طور فعال نگهداری نمی‌شوند. نسخه‌ای که در حال مشاهده آن هستید، یک عکس‌ لحظه‌ای است. برای اطلاعات به‌روز به "
 
 [deprecation_file_warning]
 other = "منسوخ شده"
@@ -132,10 +132,10 @@ other = "This document has an older update date than the original, so the inform
 other = """Dockershim has been removed from the Kubernetes project as of release 1.24. Read the <a href="/dockershim">Dockershim Removal FAQ</a> for further details."""
 
 [docs_label_browse]
-other = "Browse Docs"
+other = "بررسی مستندات"
 
 [docs_label_contributors]
-other = "Contributors"
+other = "مشارکت‌کنندگان"
 
 [docs_label_i_am]
 other = "I AM..."
@@ -147,7 +147,7 @@ other = "کاربران"
 other = "This %s is for Kubernetes %s. If you want to use a different Kubernetes version, please refer to the following pages instead:"
 
 [docs_version_current]
-other = "(این مستندات)"
+other = "(مستندات جاری)"
 
 [docs_version_latest_heading]
 other = "آخرین ویرایش"
@@ -159,7 +159,7 @@ other = "ویرایش های قبلی"
 other = "پایان دوره پشتیبانی:"
 
 [envvars_heading]
-other = "Environment variables"
+other = "متغیرهای محیطی"
 
 [error_404_were_you_looking_for]
 other = "دنبال این بودی:"
@@ -265,70 +265,70 @@ other = "بعدی >>"
 other = "<< قبلی"
 
 [layouts_case_studies_list_tell]
-other = "Tell your story"
+other = "داستانتان را بازگو کنید"
 
 [layouts_docs_glossary_aka]
 other = "ملقب به"
 
 [layout_docs_glossary_architecture_description]
-other = "The inner components of Kubernetes."
+other = "اجزای داخلی کوبرنتیز."
 
 [layout_docs_glossary_architecture_name]
-other = "Architecture"
+other = "معماری"
 
 [layouts_docs_glossary_click_details_after]
-other = "indicators below to get a longer explanation for any particular term."
+other = " توضیحات طولانی‌تری درباره هر اصطلاح خاص دریافت کنید ."
 
 [layouts_docs_glossary_click_details_before]
-other = "Click on the"
+other = "با کلیک بر روی"
 
 [layout_docs_glossary_community_description]
-other = "Related to Kubernetes open-source development."
+other = "مربوط به توسعه متن‌باز کوبرنتیز."
 
 [layout_docs_glossary_community_name]
 other = "جامعه متن‌باز"
 
 [layout_docs_glossary_core-object_description]
-other = "A resource type that Kubernetes supports by default."
+other = "یک نوع منبع که کوبرنتیز به طور پیش‌فرض از آن پشتیبانی می‌کند."
 
 [layout_docs_glossary_core-object_name]
-other = "Core Object"
+other = "هسته اصلی"
 
 [layouts_docs_glossary_description]
-other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to Kubernetes, as well as more general terms that provide useful context."
+other = "این واژه‌نامه به‌منظور ارائه یک لیست جامع و استاندارد از اصطلاحات کوبرنتیز طراحی شده است. این واژه‌نامه شامل اصطلاحات فنی خاص کوبرنتیز، همچنین اصطلاحات عمومی‌تری است که زمینه مفیدی را فراهم می‌کنند."
 
 [layouts_docs_glossary_deselect_all]
-other = "لغو انتخاب همه"
+other = "لغو انتخاب ها"
 
 [layout_docs_glossary_extension_description]
-other = "Supported customizations of Kubernetes."
+other = "سفارشی‌سازی‌های پشتیبانی‌شده کوبرنتیز."
 
 [layout_docs_glossary_extension_name]
-other = "Extension"
+other = "افزونه"
 
 [layouts_docs_glossary_filter]
-other = "Filter terms according to their tags"
+other = "اصطلاحات را بر اساس برچسب‌های آن‌ها فیلتر کنید."
 
 [layout_docs_glossary_fundamental_description]
-other = "Relevant for a first-time user of Kubernetes."
+other = "قابل استفاده برای کاربران تازه کار کوبرنتیز."
 
 [layout_docs_glossary_fundamental_name]
 other = "مقدمات"
 
 [layout_docs_glossary_networking_description]
-other = "How Kubernetes components talk to each other (and to programs outside the cluster)."
+other = "چگونه اجزای کوبرنتیز با یکدیگر ارتباط برقرار می‌کنند (و با برنامه‌های خارج از کلاستر)."
 
 [layout_docs_glossary_networking_name]
-other = "Networking"
+other = "پیکربندی شبکه"
 
 [layout_docs_glossary_operation_description]
-other = "Starting and maintaining Kubernetes."
+other = "راه‌اندازی و نگهداری از کوبرنتیز."
 
 [layout_docs_glossary_operation_name]
 other = "عملیات"
 
 [layout_docs_glossary_security_description]
-other = "Keeping Kubernetes applications safe and secure."
+other = "امن نگه داشتن برنامه‌های کوبرنتیز."
 
 [layout_docs_glossary_security_name]
 other = "امنیت"
@@ -337,28 +337,28 @@ other = "امنیت"
 other = "انتخاب همه"
 
 [layout_docs_glossary_storage_description]
-other = "How Kubernetes applications handle persistent data."
+other = "نحوه مدیریت داده‌های پایدار توسط برنامه‌های کوبرنتیز."
 
 [layout_docs_glossary_storage_name]
-other = "Storage"
+other = "ذخیره‌سازی"
 
 [layout_docs_glossary_tool_description]
-other = "Software that makes Kubernetes easier or better to use."
+other = "نرم افزار هایی که کار با کوبرنتیز را آسان تر می کنند."
 
 [layout_docs_glossary_tool_name]
-other = "Tool"
+other = "ابزار"
 
 [layout_docs_glossary_user-type_description]
-other = "Represents a common type of Kubernetes user."
+other = "دسته بندی با توجه به مسولیت های رایج کوبرنتیز."
 
 [layout_docs_glossary_user-type_name]
-other = "User Type"
+other = "مسئولیت کاربران"
 
 [layout_docs_glossary_workload_description]
-other = "Applications running on Kubernetes."
+other = "برنامه‌های اجرایی برروی کوبرنتیز."
 
 [layout_docs_glossary_workload_name]
-other = "Workload"
+other = "برنامه های اجرایی"
 
 [layouts_docs_partials_feedback_improvement]
 other = "ثبت پیشنهاد"
@@ -390,13 +390,13 @@ a further notice period. The new package repositories provide downloads for Kube
 other = "توسط"
 
 [main_cncf_project]
-other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
+other = """ما یک پروژه به ثمر رسیده در <a href="https://cncf.io/">سی ان سی اف</a> هستیم</p>"""
 
 [main_community_explore]
-other = "Explore the community"
+other = "با جامعه آشنا شوید"
 
 [main_contribute]
-other = "Contribute"
+other = "مشارکت کنید"
 
 [main_copyright_notice]
 other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
@@ -435,20 +435,20 @@ other = "در این مورد مطالعه کنید"
 other = "بیشتر بدانید"
 
 [monthly_patch_release]
-other = "Monthly Patch Release"
+other = "انتشار اصلاحیه ماهانه"
 
 [not_applicable]
 # Localization teams: it's OK to use a longer text here
 other = "ناموجود"
 
 [note]
-other = "Note:"
+other = "توجه:"
 
 [objectives_heading]
-other = "Objectives"
+other = "اهداف"
 
 [options_heading]
-other = "Options"
+other = "گزینه‌ها"
 
 [outdated_blog__message]
 other = "این مقاله بیش از یک سال قدمت دارد. مقالات قدیمی‌تر ممکن است محتوای منسوخ داشته باشند. بررسی کنید که اطلاعات موجود در صفحه از زمان انتشار آن تغییر نکرده باشد."
@@ -457,7 +457,7 @@ other = "این مقاله بیش از یک سال قدمت دارد. مقالا
 other = "(stale page)"
 
 [parentoptions_heading]
-other = "Parent Options Inherited"
+other = "گزینه‌های والد به ارث رسیده‌اند"
 
 [patch_release]
 other = "نسخه اصلاحی"
@@ -477,34 +477,34 @@ other  = """You can find links to download Kubernetes components (and their chec
 Alternately, use [downloadkubernetes.com](https://www.downloadkubernetes.com/) to filter by version and architecture."""
 
 [release_binary_arch]
-other  = "Architecture"
+other  = "معماری"
 
 [release_binary_arch_option]
-other = "Architectures"
+other = "معماری ها"
 
 [release_binary_copy_link]
 other = "کپی پیوند"
 
 [release_binary_copy_link_certifcate]
-other = "cert"
+other = "گواهی"
 
 [release_binary_copy_link_checksum]
 other = "checksum"
 
 [release_binary_copy_link_signature]
-other = "signature"
+other = "امضاء"
 
 [release_binary_copy_link_tooltip]
-other = "copy to clipboard"
+other = "کپی در کلیپ‌بورد"
 
 [release_binary_download]
-other  = "Download Binary"
+other  = "دانلود فایل"
 
 [release_binary_download_tooltip]
-other = "download binary file"
+other = "دانلود فایل اجرایی"
 
 [release_binary_options]
-other  = "Download Options"
+other  = "گزینه های دانلود"
 
 [release_binary_os]
 other = "سیستم عامل"
@@ -522,7 +522,7 @@ other = "linux"
 other = "windows"
 
 [release_binary_table_caption]
-other = "Download Kubernetes component binaries"
+other = "دانلود فایل های اجرایی اجزا کوبرنتیز"
 
 # NOTE: <current-version> is a placeholder for the actual version number set by 'release-binaries' shortcode.
 # Please do not localize or modify <current-version> placeholder.
@@ -561,14 +561,14 @@ other = "02-01-2006"
 other = "January 2006"
 
 [release_cherry_pick_deadline]
-other = "Cherry Pick Deadline"
+other = "آخرین مهلت انتخاب گزینشی"
 
 [release_end_of_life_date]
-other = "End Of Life Date"
+other = "تاریخ پایان عمر"
 
 # Also see release_maintenance_and_end_of_life_details_past
 [release_maintenance_and_end_of_life_details_current]
-other = "Kubernetes {{ .minor_version }} enters maintenance mode on {{ .maintenance_mode_start_date }}; the End of Life date for Kubernetes {{ .minor_version }} is {{ .release_eol_date }}."
+other = "ویرایش {{ .minor_version }} کوبرنتیز در تاریخ {{ .maintenance_mode_start_date }} وارد دوره پشتیبانی می شود. دوره پایان پشتیبانی نسخه {{ .minor_version }} در تاریخ {{ .release_eol_date }} است."
 
 # Used if the maintenance mode date is in the past, otherwise
 # see release_maintenance_and_end_of_life_details_current
@@ -625,19 +625,19 @@ other = "با موفقیت انجام شد"
 other = "خلاصه"
 
 [thirdparty_message]
-other = """This section links to third party projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for these projects, which are listed alphabetically. To add a project to this list, read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change. <a href="#third-party-content-disclaimer">More information.</a>"""
+other = """این بخش به پروژه‌های شخص ثالث لینک می‌دهد که عملکرد مورد نیاز کوبرنتیز را فراهم می‌کنند. نویسندگان پروژه کوبرنتیز مسئول این پروژه‌ها نیستند، که به ترتیب الفبایی لیست شده‌اند. برای اضافه کردن یک پروژه به این فهرست، قبل از ارسال تغییرات، راهنمای <a href="/docs/contribute/style/content-guide/#third-party-content">محتوا</a> را مطالعه کنید. <a href="#third-party-content-disclaimer">اطلاعات بیشتر.</a>"""
 
 [thirdparty_message_edit_disclaimer]
-other="""Third party content advice"""
+other="""راهنمایی محتواهای شخص ثالث"""
 
 
 [thirdparty_message_single_item]
-other = """&#128711;این مورد به یک پروژه یا محصول شخص ثالث اشاره دارد که بخشی از خود Kubernetes نیست. <a class="alert-more-info" href="#third-party-content-disclaimer">اطلاعات بیشتر</a>"""
+other = """&#128711;این مورد به یک پروژه یا محصول شخص ثالث اشاره دارد که بخشی از خود کوبرنتیز نیست. <a class="alert-more-info" href="#third-party-content-disclaimer">اطلاعات بیشتر</a>"""
 [thirdparty_message_disclaimer]
-other = """<p>موارد موجود در این صفحه به محصولات یا پروژه‌های شخص ثالث اشاره دارند که عملکردهای مورد نیاز Kubernetes را فراهم می‌کنند. نویسندگان پروژه Kubernetes مسئولیتی در قبال این محصولات یا پروژه‌های شخص ثالث ندارند. برای جزئیات بیشتر، راهنمای <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">وب‌سایت CNCF</a> را مشاهده کنید.</p><p>قبل از پیشنهاد تغییراتی که لینک شخص ثالث اضافی به آن اضافه می‌کند، باید <a href="/docs/contribute/style/content-guide/#third-party-content">راهنمای محتوا</a> را مطالعه کنید.</p>"""
+other = """<p>موارد موجود در این صفحه به محصولات یا پروژه‌های شخص ثالث اشاره دارند که عملکردهای مورد نیاز کوبرنتیز را فراهم می‌کنند. نویسندگان پروژه کوبرنتیز مسئولیتی در قبال این محصولات یا پروژه‌های شخص ثالث ندارند. برای جزئیات بیشتر، راهنمای <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">وب‌سایت CNCF</a> را مشاهده کنید.</p><p>قبل از پیشنهاد تغییراتی که لینک شخص ثالث اضافی به آن اضافه می‌کند، باید <a href="/docs/contribute/style/content-guide/#third-party-content">راهنمای محتوا</a> را مطالعه کنید.</p>"""
 
 [thirdparty_message_vendor]
-other = """موارد موجود در این صفحه به فروشندگانی خارج از پروژه Kubernetes اشاره دارند. نویسندگان پروژه Kubernetes مسئولیتی در قبال این محصولات یا پروژه‌های شخص ثالث ندارند. برای افزودن یک فروشنده، محصول یا پروژه به این فهرست، پیش از ارسال تغییرات، لطفاً <a href="/docs/contribute/style/content-guide/#third-party-content">راهنمای محتوا</a> را مطالعه کنید. <a href="#third-party-content-disclaimer">اطلاعات بیشتر</a>."""
+other = """موارد موجود در این صفحه به فروشندگانی خارج از پروژه کوبرنتیز اشاره دارند. نویسندگان پروژه کوبرنتیز مسئولیتی در قبال این محصولات یا پروژه‌های شخص ثالث ندارند. برای افزودن یک فروشنده، محصول یا پروژه به این فهرست، پیش از ارسال تغییرات، لطفاً <a href="/docs/contribute/style/content-guide/#third-party-content">راهنمای محتوا</a> را مطالعه کنید. <a href="#third-party-content-disclaimer">اطلاعات بیشتر</a>."""
 
 [toast_failure_copycode]
 other="کپی در کلیپ‌بورد انجام نشد: "
@@ -670,4 +670,4 @@ other = "اخطار:"
 other = "خطر"
 
 [whatsnext_heading]
-other = "گام بعدی چیست"
+other = "گام بعدی"

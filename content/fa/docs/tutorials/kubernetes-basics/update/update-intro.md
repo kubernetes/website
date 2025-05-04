@@ -1,5 +1,5 @@
 ---
-title: Performing a Rolling Update
+title: به روزرسانی مرحله ای
 weight: 10
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Getting started
+title: دست به کار شوید
 main_menu: true
 weight: 20
 content_type: concept
@@ -9,19 +9,18 @@ card:
   weight: 20
   anchors:
   - anchor: "#learning-environment"
-    title: محیط آموزش
+    title: محیط آموزشی
   - anchor: "#production-environment"
     title: محیط عملیاتی  
 ---
 
 <!-- overview -->
 
-This section lists the different ways to set up and run Kubernetes.
-When you install Kubernetes, choose an installation type based on: ease of maintenance, security,
-control, available resources, and expertise required to operate and manage a cluster.
+این بخش روش‌های مختلف راه‌اندازی و اجرای کوبرنتیز را شامل می شود.
+هنگام نصب کوبرنتیز، نوع نصب را بر اساس: سهولت نگهداری، امنیت، کنترل، منابع موجود و تخصص لازم برای راه‌اندازی و مدیریت یک کلاستر انتخاب کنید.
 
-You can [download Kubernetes](/releases/download/) to deploy a Kubernetes cluster
-on a local machine, into the cloud, or for your own datacenter.
+
+شما می‌توانید با [دانلود کوبرنتیز](/releases/download/) یک کلاستر را روی ماشین محلی، در ابر، یا برای دیتاسنتر خود راه‌اندازی کنید.
 
 Several [Kubernetes components](/docs/concepts/overview/components/) such as {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} or {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} can also be
 deployed as [container images](/releases/download/#container-images) within the cluster.
@@ -37,13 +36,13 @@ bare metal environments.
 
 <!-- body -->
 
-## Learning environment
+## محیط آموزشی
 
 If you're learning Kubernetes, use the tools supported by the Kubernetes community,
 or tools in the ecosystem to set up a Kubernetes cluster on a local machine.
 See [Install tools](/docs/tasks/tools/).
 
-## Production environment
+## محیط عملیاتی
 
 When evaluating a solution for a
 [production environment](/docs/setup/production-environment/), consider which aspects of
@@ -55,13 +54,12 @@ for deploying Kubernetes is [kubeadm](/docs/setup/production-environment/tools/k
 
 ## {{% heading "whatsnext" %}}
 
-- [Download Kubernetes](/releases/download/)
-- Download and [install tools](/docs/tasks/tools/) including `kubectl`
-- Select a [container runtime](/docs/setup/production-environment/container-runtimes/) for your new cluster
-- Learn about [best practices](/docs/setup/best-practices/) for cluster setup
+- [دانلود کوبرنتیز](/releases/download/)
+- [دانلود](/docs/tasks/tools/) و نصب `kubectl` و ابزارهای مشابه
+- انتخاب یک [محیط اجرای کانتینری](/docs/setup/production-environment/container-runtimes/) برای کلاستر شما
+- یادگیری [بهترین روش ها](/docs/setup/best-practices/) برای پیکربندی یک کلاستر
 
-Kubernetes is designed for its {{< glossary_tooltip term_id="control-plane" text="control plane" >}} to
-run on Linux. Within your cluster you can run applications on Linux or other operating systems, including
-Windows.
 
-- Learn to [set up clusters with Windows nodes](/docs/concepts/windows/)
+طراحی کوبرنتیز به صورتی است که پنل مدیریتی آن تنها بر روی لینوکس اجرا می شود. اما کلاستر شما می تواند از نود های تشکیل شوند که سیستم عامل های گوناگونی دارند و به شما این امکان را بدهند تا برنامه های خود را بر روی سیستم عامل های دیگر همانند ویندوز هم اجرا کنید.
+
+- یادگیری نحوه راه اندازی نود های [ویندوزی](/docs/concepts/windows/)

@@ -1,5 +1,5 @@
 ---
-title: Download Kubernetes
+title: دانلود کوبرنتیز
 type: docs
 ---
 
