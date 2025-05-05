@@ -5,13 +5,12 @@ weight: 10
 
 ## {{% heading "objectives" %}}
 
-Perform a rolling update using kubectl.
+* به روزرسانی مقطعی توست کوب کتل (kubectl).
 
-## Updating an application
+## به روزرسانی یک برنامه
 
 {{% alert %}}
-_Rolling updates allow Deployments' update to take place with zero downtime by
-incrementally updating Pods instances with new ones._
+_به روزرسانی مقطعی توسط دیپلویمنت ها به شما این امکان را  می دهد که بدون از دسترس خارج کردن برنامه هایتان پادهایتان را تک تک به روز نمایید._
 {{% /alert %}}
 
 Users expect applications to be available all the time, and developers are expected

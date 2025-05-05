@@ -23,13 +23,9 @@ card:
 
 ## کوبرنتیز چه امکاناتی برای شما فراهم می‌کند؟
 
-With modern web services, users expect applications to be available 24/7, and developers
-expect to deploy new versions of those applications several times a day. Containerization
-helps package software to serve these goals, enabling applications to be released and updated
-without downtime. Kubernetes helps you make sure those containerized applications run where
-and when you want, and helps them find the resources and tools they need to work. Kubernetes
-is a production-ready, open source platform designed with Google's accumulated experience in
-container orchestration, combined with best-of-breed ideas from the community.
+کاربران وب سرویس های مدرن انتظار دارند که این برنامه ها به صورت شبانه روزی و هفت روز هفته قابل دسترسی باشند. 
+سازنده های این برنامه ها هم انتظار دارند که ویرایش های جدید این برنامه ها را چند بار در روز به روز رسانی نمایند.
+کانتینر کردن یک برنامه به شما امکان می دهد که به این اهداف به رسید و ویرایش های جدید برنامه خود را بدون وقفه منتشر و به روزرسانی نمایید. کوبرتنیز به شما این اجازه را می دهد که برنامه های کانتینری خود را جایی که می خواهید در زمانی که می خواهید اجرا نمایید. کوبرنتیز یک پروژه متن باز و آماده برای محیط های عملیاتی است که بر اساس سالها تجربه گوگل در سامان دهی و اجرای برنامه های کانتینری و کمک گرفتن از بهترین ایده های جامعه متن باز شکل گرفته.
 
 ## ماژول‌های اولیه کوبرنتیز
 

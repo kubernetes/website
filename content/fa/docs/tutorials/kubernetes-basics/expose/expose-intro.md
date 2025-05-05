@@ -1,139 +1,119 @@
 ---
-title: Using a Service to Expose Your App
+title: برنامه خود را با استفاده از سرویس ها منتشر کنید
 weight: 10
 ---
 
 ## {{% heading "objectives" %}}
 
-* Learn about a Service in Kubernetes.
-* Understand how labels and selectors relate to a Service.
-* Expose an application outside a Kubernetes cluster.
+* یاد خواهید گرفت سرویس ها کوبرنتیز چیستند.
+* یاد خواهید گرفت برچسب ها (label) و انتخاب کننده (selector).
+* یک برناهه را در خارج از کوبرنتیز منتشر خواهید کرد.
 
-## Overview of Kubernetes Services
+## نگاه کلی بر سرویس های کوبرنتیز
 
-Kubernetes [Pods](/docs/concepts/workloads/pods/) are mortal. Pods have a
-[lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/). When a worker node dies,
-the Pods running on the Node are also lost. A [Replicaset](/docs/concepts/workloads/controllers/replicaset/)
-might then dynamically drive the cluster back to the desired state via the creation
-of new Pods to keep your application running. As another example, consider an image-processing
-backend with 3 replicas. Those replicas are exchangeable; the front-end system should
-not care about backend replicas or even if a Pod is lost and recreated. That said,
-each Pod in a Kubernetes cluster has a unique IP address, even Pods on the same Node,
-so there needs to be a way of automatically reconciling changes among Pods so that your
-applications continue to function.
+
+[پادها](/docs/concepts/workloads/pods/) در کوبرنتیز فانی بوده و هرلحظه امکان دارد حذف شوند. به عبارت دیگر همه پادها یک [طول عمر](/docs/concepts/workloads/pods/pod-lifecycle/) دارند.
+هنگامی که نود کارگری از بین برود پادهایی که بر روی آن نود درحال اجرا بوده اند هم از بین می روند.
+در این هنگام [کپی های همسان](/docs/concepts/workloads/controllers/replicaset/) (Replicaset) می توانند به صورت خودکار با ساخت پادهای جدید کلاستر شما را به حالت ایده ال بازگرداند.
+
+به عنوان مثالی دیگر فرض کنید که ۳ کپی همسان (replicas) بک اند سیستم پردازش تصویر شما را تشکیل می دهند.
+سیستم فرانت‌اند در این مثال نباید گونه ای طراحی شده باشد که تعداد نسخه‌های بک‌اند یا حتی از بین رفتن و بازسازی یک پاد در وظایفش مشکلی ایجاد کند. با این حال، هر پاد در کلاستر کوبرنتیز یک آدرس IP منحصر‌به‌فرد دارد، حتی پادهایی که روی یک نودهمسان هستند. بنابراین، باید راهی برای هماهنگ‌سازی خودکار تغییرات میان پادها وجود داشته باشد تا برنامه‌های شما بتوانند به عملکرد خود ادامه دهند.
 
 {{% alert %}}
-_A Kubernetes Service is an abstraction layer which defines a logical set of Pods and
-enables external traffic exposure, load balancing and service discovery for those Pods._
+_سرویس های کوبرنتیز منابعی هستند که با اتکا به آن ها می توانید منابع داخلی کلاسترتان را برای کاربران و شبکه های خارجی منتشر کنید._
 {{% /alert %}}
 
-A [Service](/docs/concepts/services-networking/service/) in Kubernetes is an abstraction
-which defines a logical set of Pods and a policy by which to access them. Services
-enable a loose coupling between dependent Pods. A Service is defined using YAML or JSON,
-like all Kubernetes object manifests. The set of Pods targeted by a Service is usually
-determined by a _label selector_ (see below for why you might want a Service without
-including a `selector` in the spec).
+[سرویس](/docs/concepts/services-networking/service/) در کوبرنتیز یک انتزاع (abstraction) است که مجموعه‌ای منطقی از پادها و سیاستی برای دسترسی به آن‌ها را تعریف می‌کند.
+سرویس‌ها باعث می‌شوند پادهای وابسته به‌طور متغییر (loose coupling) به هم متصل باشند.
+یک سرویس مانند سایر منابع کوبرنتیز با استفاده از YAML یا JSON تعریف می‌شود.
+مجموعه‌ی پادهایی که یک سرویس هدف قرار می‌دهد معمولاً توسط یک selector بر اساس برچسب (label) مشخص می‌شود (در ادامه توضیح داده می‌شود که چرا ممکن است بخواهید سرویسی بدون مشخص‌کردن `selector` در spec ایجاد کنید).
 
-Although each Pod has a unique IP address, those IPs are not exposed outside the
-cluster without a Service. Services allow your applications to receive traffic.
-Services can be exposed in different ways by specifying a `type` in the `spec` of the Service:
+اگرچه هر پاد یک آدرس IP منحصربه‌فرد دارد، این آدرس‌ها بدون وجود یک سرویس از خارج از کلاستر قابل دسترسی نیستند.
+سرویس‌ها این امکان را فراهم می‌کنند که برنامه‌های شما بتوانند ترافیک خارج از کلاستر را دریافت کنند.
 
-* _ClusterIP_ (default) - Exposes the Service on an internal IP in the cluster. This
-type makes the Service only reachable from within the cluster.
+سرویس‌ها را می‌توان با تعیین یک نوع `type` در بخش `spec` به روش‌های مختلفی در معرض دسترس قرار داد:
 
-* _NodePort_ - Exposes the Service on the same port of each selected Node in the cluster using NAT.
-Makes a Service accessible from outside the cluster using `NodeIP:NodePort`. Superset of ClusterIP.
+* _ClusterIP_ (پیش فرض) - این نوع سرویس با استفاده از ای پی داخلی برنامه را در کلاستر منتشر می کند.
+توجه داشته باشید که این نوع سرویس تنها از داخل کلاستر قابل دسترسی می باشد.
 
-* _LoadBalancer_ - Creates an external load balancer in the current cloud (if supported)
-and assigns a fixed, external IP to the Service. Superset of NodePort.
+* _NodePort_ - این نوع سرویس با استفاده از NAT بر روی تمامی نودهای کلاستر برنامه شما را منتشر می کند.
+منابع خارجی با استفاده از فرمت `NodeIP:NodePort` می توانند به سرویس منتشر شده دسترسی یابند.
 
-* _ExternalName_ - Maps the Service to the contents of the `externalName` field
-(e.g. `foo.bar.example.com`), by returning a `CNAME` record with its value.
-No proxying of any kind is set up. This type requires v1.7 or higher of `kube-dns`,
-or CoreDNS version 0.0.8 or higher.
+* _LoadBalancer_ - این نوع سرویس در فزاهای ابری پشتیبانی شده یک متعادل کننده بار خارجی می سازد که ای پی مختص وایستا می گیرد.
 
-More information about the different types of Services can be found in the
-[Using Source IP](/docs/tutorials/services/source-ip/) tutorial. Also see
-[Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/).
+* _ExternalName_ - این نوع سرویس محتوای `externalName` را به درخواست هامرتبط می کند و آن را به عنوان `CNAME` بازمی گرداند.
+در این حالت هیچ گونه پروکسی استفاده نشده و تنها لازم است از `kube-dns` ویرایش ۱.۷ یا بالاتر و یا `CoreDNS` ویرایش ۰.۰..۸ یا بالاتر استفاده شود.
 
-Additionally, note that there are some use cases with Services that involve not defining
-a `selector` in the spec. A Service created without `selector` will also not create
-the corresponding Endpoints object. This allows users to manually map a Service to
-specific endpoints. Another possibility why there may be no selector is you are strictly
-using `type: ExternalName`.
+برای اطلاعات بیشتر به آموزش استفاده از [ای پی مبدا](/docs/tutorials/services/source-ip/) (Source IP) که در مورد سرویس ها اطلاعات تکمیلی تری می دهد نگاهی بندازید.
+بازدید از آموزش [اتصال برنامه ها و سرویس ها](/docs/tutorials/services/connect-applications-service/) هم خالی از لطف نیست.
 
-## Services and Labels
+درضمن، توجه داشتع باشید در برخی از موارد سرویس های ساخته می شوند که انتخاب کننده (selector) ندارند.
+این سرویس ها به کاربر این اجازه را می دهند تا سرویس خود را به صورت دستی به نقاط مقصد وصل کند.
+یکی دیگر از جاهایی که امکان دارد با سرویس بدون انتخاب گر مواجه شوید در سرویس `نام خارجی` (ExternalName) است.
 
-A Service routes traffic across a set of Pods. Services are the abstraction that allows
-pods to die and replicate in Kubernetes without impacting your application. Discovery
-and routing among dependent Pods (such as the frontend and backend components in an application)
-are handled by Kubernetes Services.
+## برچسب ها و سرویس ها
 
-Services match a set of Pods using
-[labels and selectors](/docs/concepts/overview/working-with-objects/labels), a grouping
-primitive that allows logical operation on objects in Kubernetes. Labels are key/value
-pairs attached to objects and can be used in any number of ways:
+سرویس در کوبرنتیز ترافیک را بین مجموعه‌ای از پادها مسیردهی می‌کند. سرویس‌ها همان لایه‌ی انتزاعی هستند که اجازه می‌دهند پادها بدون تأثیر بر عملکرد برنامه‌ی شما از بین بروند یا مجدداً ساخته شوند. کشف (discovery) و مسیردهی (routing) بین پادهای وابسته به یکدیگر (مانند بخش‌های فرانت‌اند و بک‌اند در یک برنامه) توسط سرویس‌های کوبرنتیز مدیریت می‌شود.
 
-* Designate objects for development, test, and production
-* Embed version tags
-* Classify an object using tags
+سرویس ها از طریق [برچسب ها و انتخاب کننده ها](/docs/concepts/overview/working-with-objects/labels) به پادها متصل می شوند که راه حلی ساده برای گروه کردن منطقی منابع در کوبرنتیز هست.
+برچسب ها به صورت `کلید و محتوا` (key/value) به منابع متصل شده تا این کارها را انجام دهند:
+
+* اختصاص دادن یک منبع برای آزمایش، عملیات یا بهینه سازی
+* الصاق برچسب ویرایش و نسخه
+* دسته بندی یک منبع از طریق برچسب
 
 {{< figure src="/docs/tutorials/kubernetes-basics/public/images/module_04_labels.svg" class="diagram-medium" >}}
 
-Labels can be attached to objects at creation time or later on. They can be modified
-at any time. Let's expose our application now using a Service and apply some labels.
+برچسب منابع هر زمانی می تواند اختصاص یابد یا تغییر کند.
+حالا بیایید با استفاده از برچسب ها برنامه تان را منتشر کنید.
 
-### Step 1: Creating a new Service
+### مرحله اول:‌ ساخت یک سرویس
 
-Let’s verify that our application is running. We’ll use the `kubectl get` command
-and look for existing Pods:
+بیایید بررسی کنیم که برنامه‌ی ما در حال اجراست.
+از دستور `kubectl get` استفاده می‌کنیم و به‌دنبال پادهای موجود می‌گردیم:
 
 ```shell
 kubectl get pods
 ```
 
-If no Pods are running then it means the objects from the previous tutorials were
-cleaned up. In this case, go back and recreate the deployment from the
-[Using kubectl to create a Deployment](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro#deploy-an-app)
-tutorial. Please wait a couple of seconds and list the Pods again. You can continue
-once you see the one Pod running.
+{{< note >}}
+اگر هیچ پادی در حال اجرا نباشد، به این معناست که منابع ایجاد‌شده در آموزش‌های قبلی پاک شده‌اند.
+در این صورت، به آموزش استفاده از [ ساخت یک دیپلویمنت با استفاده از kubectl](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro#deploy-an-app) برگردید و مجدداً دیپلویمنت را ایجاد کنید. لطفاً چند ثانیه صبر کنید و سپس دوباره پادها را فهرست کنید. زمانی که یک پاد در حال اجرا را مشاهده کردید، می‌توانید ادامه دهید.
+{{< /note >}}
 
-Next, let’s list the current Services from our cluster:
+
+در قدم بعدی با استفاده از دستور زیر، لیست سرویس های کلاستر را بررسی کنید:
 
 ```shell
 kubectl get services
 ```
 
-We have now a running Service called kubernetes-bootcamp. Here we see that the Service
-received a unique cluster-IP, an internal port and an external-IP (the IP of the Node).
+در حال حاضر سرویسی به نام (kubernetes-bootcamp) داریم و اگر دقیق تر نگاه کنیم می بینیم که سرویس ما یک `cluster-IP` یکتا با یک درگاه داخلی و یک `external-IP` را در پاسخ از دستور قبل را به ما گزارش می دهد.
 
-To find out what port was opened externally (for the `type: NodePort` Service) we’ll
-run the `describe service` subcommand:
+برای اینکه متوجه شویم چه درگاه هایی برای این سرویس ما تخصیص یافته اند از دستور زیر استفاده کنیم:
 
 ```shell
 kubectl describe services/kubernetes-bootcamp
 ```
 
-Create an environment variable called `NODE_PORT` that has the value of the Node
-port assigned:
+با استفاده از دستور زیر یک متغییر محیطی با نام `NODE_PORT` بسازید و درگاه اختصاصی را در آن ذخیره کنید:
 
 ```shell
 export NODE_PORT="$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')"
 echo "NODE_PORT=$NODE_PORT"
 ```
 
-Now we can test that the app is exposed outside of the cluster using `curl`, the
-IP address of the Node and the externally exposed port:
+حالا می توانید از خارج از کلاستر خود برنامه نشر شده را آزمایش کنید.
 
 ```shell
 curl http://"$(minikube ip):$NODE_PORT"
 ```
-{{< note >}}
-If you're running minikube with Docker Desktop as the container driver, a minikube
-tunnel is needed. This is because containers inside Docker Desktop are isolated
-from your host computer.
 
-In a separate terminal window, execute:
+{{< note >}}
+در صورتی که از نرم افزار Docker Desktop برای minikube استفاده می کنید باید یک تونل مینی کیوب بزنید. 
+این تونل به این دلیل باید برپا شود که به شما اجازه دهد تا به کانتینر های داخل محیط Docker Desktop از طریق سیستم خودتان متصل شوید.
+
+در ترمینال دیگری دستور زیر را اجرا کنید:
 
 ```shell
 minikube service kubernetes-bootcamp --url
@@ -146,100 +126,98 @@ http://127.0.0.1:51082
 !  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
 ```
 
-Then use the given URL to access the app:
+آدرس بازگردانده شده را استفاده کنید تا به برنامه یتان متصل شوید:
 
 ```shell
 curl 127.0.0.1:51082
 ```
 {{< /note >}}
 
-And we get a response from the server. The Service is exposed.
+پاسخ سرور را در این مرحله باید ببنید. سرویس ما برنامه را منتشر کرد!
 
-### Step 2: Using labels
+### مرحله دوم : استفاده از برچسب ها
 
-The Deployment created automatically a label for our Pod. With the `describe deployment`
-subcommand you can see the name (the _key_) of that label:
+برنامه جاری که از طریق دیپلویمنت مستقر کرده اید به صورت خودکار برچسبی از دیپلویمنت خود می گی رد. 
+
+با استفاده از دستور زیر برچسب دیپلویمنت را بررسی کنید:
 
 ```shell
 kubectl describe deployment
 ```
 
-Let’s use this label to query our list of Pods. We’ll use the `kubectl get pods`
-command with `-l` as a parameter, followed by the label values:
+حالا بیایید از این برچسب استفاده کنیم. یکی از روش های استفاده از برچسب ها اضافه کردن آن ها به پارامتر `-l` در دستورات است.
 
 ```shell
 kubectl get pods -l app=kubernetes-bootcamp
 ```
-You can do the same to list the existing Services:
+
+شما می توانید این برچسب را برای دیدن سرویس ها هم بکار به برید.
 
 ```shell
 kubectl get services -l app=kubernetes-bootcamp
 ```
 
-Get the name of the Pod and store it in the POD_NAME environment variable:
+برای قسمت بعد اول اسم پاد را در یک متغییر محیطی با نام `POD_NAME` ذخیره کنید:
 
 ```shell
 export POD_NAME="$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')"
 echo "Name of the Pod: $POD_NAME"
 ```
 
-To apply a new label we use the label subcommand followed by the object type,
-object name and the new label:
+برای ایجاد برچسب می توانید از زیردستور `label` و منبع مورد نظر استفاده کنید تا برچسب جدید الصاق شود:
 
 ```shell
 kubectl label pods "$POD_NAME" version=v1
 ```
 
-This will apply a new label to our Pod (we pinned the application version to the Pod),
-and we can check it with the `describe pod` command:
+بعد از اجرای دستور قبل یک برچسب جدید به پاد ما وصل می شود کی می توانید با کمک گرفتن از زیردستور `describe` آن را بررسی کنید:
 
 ```shell
 kubectl describe pods "$POD_NAME"
 ```
 
-We see here that the label is attached now to our Pod. And we can query now the
-list of pods using the new label:
+همانطور که می بینید برچسب جدید به پاد ما وصل شده و به ما این امکان را می دهد که از طریق این برچسب لیست پادها را تهیه کنیم.
 
 ```shell
 kubectl get pods -l version=v1
 ```
-And we see the Pod.
 
-### Step 3: Deleting a service
+### مرحله سوم: حذف سرویس
 
-To delete Services you can use the `delete service` subcommand. Labels can be used
-also here:
+برای حذف سرویس ها می توانید از زیر دستور `delete service` استفاده نمایید. این زیر دستور قابلیت استفاده هم زمان با برچسب ها را دارد و مانند مثال زیر می توانید این دو خاصیت را با هم ادغام کنید:
 
 ```shell
 kubectl delete service -l app=kubernetes-bootcamp
 ```
 
-Confirm that the Service is gone:
+تأیید کنید که سرویس حذف شده است:
 
 ```shell
 kubectl get services
 ```
 
-This confirms that our Service was removed. To confirm that route is not exposed
-anymore you can `curl` the previously exposed IP and port:
+پاسخ دستور قبل تایید می کند که سرویس حذف شده است، برای اطمینان بیشتر می توانید این مورد را دوباره با استفاده از درگاه و ای پی قبلی آن از طریق دستور `curl` آزمایش کنید:
 
 ```shell
 curl http://"$(minikube ip):$NODE_PORT"
 ```
 
-This proves that the application is not reachable anymore from outside of the cluster.
-You can confirm that the app is still running with a `curl` from inside the pod:
+این نشان می‌دهد که برنامه دیگر از خارج از کلاستر قابل دسترسی نیست.
+
+برای اطمینان از اینکه برنامه همچنان در حال اجراست، می‌توانید از داخل پاد با استفاده از دستور `curl` آن را بررسی کنید:
 
 ```shell
 kubectl exec -ti $POD_NAME -- curl http://localhost:8080
 ```
 
-We see here that the application is up. This is because the Deployment is managing
-the application. To shut down the application, you would need to delete the Deployment
-as well.
+با استناد به پاسخ دستور قبل می توانیم بگوییم که برنامه ما هنوز در حال اجرا است. این مهم به این دلیل می باشد که برنامه ما از طریق دیپلویمنت مدیریت می شود و سرویسی که با آن طعلق داشت تنها برای منتشر کردن برنامه در سطح خارج از کلاستر بوده است.
+
+{{< note >}}
+توجه داشته باشید که برای حذف پاد هایی که برنامه شما را در یک کلاستر بارگذاری می کنند باید آن دیپلویمنت را حذف کنید.
+{{< /note >}}
+
 
 ## {{% heading "whatsnext" %}}
 
-* Tutorial
-[Running Multiple Instances of Your App](/docs/tutorials/kubernetes-basics/scale/scale-intro/).
-* Learn more about [Service](/docs/concepts/services-networking/service/).
+* آموزش [اجرای نسخه های مختلفی از برنامه های تان](/docs/tutorials/kubernetes-basics/scale/scale-intro/).
+* در مورد [سرویس](/docs/concepts/services-networking/service/) بیشتر بدانید. 

@@ -399,10 +399,10 @@ other = "با جامعه آشنا شوید"
 other = "مشارکت کنید"
 
 [main_copyright_notice]
-other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+other = """بنیاد لینوکس یک سازمان و علامت تجاری ثبت شده است.تمامی حقوق محفوظ می باشد."""
 
 [main_documentation_license]
-other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+other = """ مولفین کوبرنتیز | مستندات بر پایه قانون<a href="https://git.k8s.io/website/LICENSE" class="light-text">۴.۰</a>بین المللی حفاظت از ناشر در سال ۲۰۲۵ نشر شده است."""
 
 [main_github_invite]
 other = "Interested in hacking on the core Kubernetes code base?"

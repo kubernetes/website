@@ -1,4 +1,4 @@
 ---
-title: Explore Your App
+title: برنامه خود را بررسی کنید
 weight: 30
 ---

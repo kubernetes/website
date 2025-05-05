@@ -38,19 +38,15 @@ bare metal environments.
 
 ## محیط آموزشی
 
-If you're learning Kubernetes, use the tools supported by the Kubernetes community,
-or tools in the ecosystem to set up a Kubernetes cluster on a local machine.
-See [Install tools](/docs/tasks/tools/).
+اگر در حال یادگیری کوبرنتیز هستید، از ابزارهایی استفاده کنید که توسط جامعه کوبرنتیز پشتیبانی می‌شوند یا از ابزارهای موجود در اکوسیستم برای راه‌اندازی یک کلاستر کوبرنتیز روی یک ماشین محلی بهره ببرید.
+بازدید از صفحه [نصب ابزارها](/docs/tasks/tools/).
 
 ## محیط عملیاتی
 
-When evaluating a solution for a
-[production environment](/docs/setup/production-environment/), consider which aspects of
-operating a Kubernetes cluster (or _abstractions_) you want to manage yourself and which you
-prefer to hand off to a provider.
+هنگام ارزیابی یک راه‌حل برای [محیط عملیاتی](/docs/setup/production-environment/) هستید، در نظر بگیرید که کدام جنبه‌های مدیریت یک کلاستر کوبرنتیز را می‌خواهید خودتان مدیریت کنید و کدام بخش‌ها را ترجیح می‌دهید به یک ارائه‌دهنده سرویس رایانش ابری واگذار کنید.
 
-For a cluster you're managing yourself, the officially supported tool
-for deploying Kubernetes is [kubeadm](/docs/setup/production-environment/tools/kubeadm/).
+
+نرم افزاری که ما رسما پشتیبانی میکنیم برای کلاستر هایی که خودتان می خواهید مدیریت کنید [کیوب ادم](/docs/setup/production-environment/tools/kubeadm/) (kubeadm) است.
 
 ## {{% heading "whatsnext" %}}
 

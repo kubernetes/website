@@ -1,171 +1,147 @@
 ---
-title: Using kubectl to Create a Deployment
+title: ساخت یک دیپلویمنت با استفاده از kubectl
 weight: 10
 ---
 
 ## {{% heading "objectives" %}}
 
-* Learn about application Deployments.
-* Deploy your first app on Kubernetes with kubectl.
+* یاد خواهید گرفت دیپلویمنت ها چیستند.
+* با استفاده از کوب کتل (kubectl) اولین برنامه خود را بر روی کوبرنتیز مستقر خواهید کرد.
 
-## Kubernetes Deployments
+## دیپلویمنت های کوبرنتیز
 
 {{% alert %}}
-_A Deployment is responsible for creating and updating instances of your application._
+_دیپلوبمنت وظیفه ساخت و برروزرسانی نسخه های برنامه شما را دارد_
 {{% /alert %}}
 
 {{< note >}}
-This tutorial uses a container that requires the AMD64 architecture. If you are using
-minikube on a computer with a different CPU architecture, you could try using minikube with
-a driver that can emulate AMD64. For example, the Docker Desktop driver can do this.
+این آموزش از کانتینری استفاده می کند که برای سیستم های ۶۴ بیتی طراحی شده است. اگر معماری پردازنده سیستمی که مینی کوب را بر آن اجرا می کنید به غیر از این است می توانید از درابور شبیه ساز مینی کی یوب استفاده کنید.
 {{< /note >}}
 
-Once you have a [running Kubernetes cluster](/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/),
-you can deploy your containerized applications on top of it. To do so, you create a
-Kubernetes **Deployment**. The Deployment instructs Kubernetes how to create and
-update instances of your application. Once you've created a Deployment, the Kubernetes
-control plane schedules the application instances included in that Deployment to run
-on individual Nodes in the cluster.
+بعد از [راه اندازی یک کلاستر](/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/) کوبرنتیز شما می توانید برنامه های کانتینری خود را بر روی آن اجرا کنید. برای انجام این کار شما تنها باید یک دیپلویمنت کوبرنتیز بسازید. بعد از ساخت دیپلویمنت کنترل پلین کوبرنتیز شما نسخه های از برنامه هایتان را برروی نودهای کلاستر اجرا می کند.
 
-Once the application instances are created, a Kubernetes Deployment controller continuously
-monitors those instances. If the Node hosting an instance goes down or is deleted,
-the Deployment controller replaces the instance with an instance on another Node
-in the cluster. **This provides a self-healing mechanism to address machine failure
-or maintenance.**
+بعد از اینکه نسخه های برنامه ایجاد شدند، دیپلویمنت کوبرنتیز به صورت پیوسته آن ها را نظارت خواهد کرد.
+اگر نودی که برنامه را میزبانی می کند خاموش یا حذف شود دیپلویمنت کنترلر آن نسخه را بر روی نودی دیگر در کلاستر اجرا خواهد کرد.
+**این مکانیزم باعث می شود که محیط شما در مواردی همچون مشکل سروری یا تعمیر و نگهداری خود به خود احیا شود**
 
-In a pre-orchestration world, installation scripts would often be used to start
-applications, but they did not allow recovery from machine failure. By both creating
-your application instances and keeping them running across Nodes, Kubernetes Deployments
-provide a fundamentally different approach to application management.
+در محیط های قدیم بیشتر اسکریپت های نصب برای شروع برنامه ها استفاده می شدند، اما این اسکریپت ها امکان احیا محیط را فراهم نمی کردند. کوبرنتیز به صورت بنیادی با حالت قدیمی نگهداری فرق دارد و با استفاده از نودهای مختلف که توسط دیپلویمنت ها برنامه های شما را اجرا می کنند این مهم را مدیریت می کند.
 
-## Deploying your first app on Kubernetes
+## اولین برنامه خود را برروی کوبرنتیز مستقر کنید
 
 {{% alert %}}
-_Applications need to be packaged into one of the supported container formats in
-order to be deployed on Kubernetes._
+_برای استقرار برنامه ها در کوبرنتیز باید آن ها را به حالت کانتینری که در کوبرنتیز پشتیبانی می شود تبدیل کنید_
 {{% /alert %}}
 
 {{< figure src="/fa/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg" class="diagram-medium" >}}
 
-You can create and manage a Deployment by using the Kubernetes command line interface,
-[kubectl](/docs/reference/kubectl/). `kubectl` uses the Kubernetes API to interact
-with the cluster. In this module, you'll learn the most common `kubectl` commands
-needed to create Deployments that run your applications on a Kubernetes cluster.
+شما می توانید یک دیپلویمنت را با استفاده از دستور [کوب کتل](/docs/reference/kubectl/) ساخته و مدیریت کنید.
 
-When you create a Deployment, you'll need to specify the container image for your
-application and the number of replicas that you want to run. You can change that
-information later by updating your Deployment; [Module 5](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
-and [Module 6](/docs/tutorials/kubernetes-basics/update/update-intro/) of the bootcamp
-discuss how you can scale and update your Deployments.
+شما می توانید دیپلویمنت های کوبرنتیز را با استفاده از رابط دستوری کوب کتل ساخته و مدیریت کنید.`کوب کتل` با استفاده از رابط کاربری کوبرنتیز این مهم را فراهم می سازد.در این قسمت شما رایج ترین دستورات را برای ساخت یک دیپلویمنت فرا خواهید گرفت.
 
-For your first Deployment, you'll use a hello-node application packaged in a Docker
-container that uses NGINX to echo back all the requests. (If you didn't already try
-creating a hello-node application and deploying it using a container, you can do
-that first by following the instructions from the [Hello Minikube tutorial](/docs/tutorials/hello-minikube/).
+زمانی که یک دیپلویمنت می سازید باید ایمیج کانتینری برنامه خود و تعداد کپی هایی (replicas) که در محیط تان می خواهید اجرا شوند را مشخص کنید.
+شما می توانید این مشخصات را بعد از ساخت دیپلویمنت خود تغییر دهید.
+[بخش ۵](/docs/tutorials/kubernetes-basics/scale/scale-intro/) و [بخش ۶](/docs/tutorials/kubernetes-basics/update/update-intro/) این دوره آموزشی که در مورد مقیاس بندی و تغییر دیپلویمنت ها می باشد.
 
-You will need to have installed kubectl as well. If you need to install it, visit
-[install tools](/docs/tasks/tools/#kubectl) install tools.
+برای اولین دیپلویمنت تان شما از برنامه پکیج شده داکری hello-node که یک کانتینر NGINX است و به تمام درخواست های شما پاسخ میدهد استفاده خواهید کرد.
 
-Now that you know what Deployments are, let's deploy our first app!
+اگر هنوز برنامه hello-node را در محیط خود مستقر نکرده اید می توانید از دستورالعمل های آموزشی صفحه [سلام می نی کوب](docs/tutorials/hello-minikube/) استفاده کنید.
+برای ادامه به نرم افزار کوب کتل هم احتیاج دارید که می توانید از [اینجا نصب](http://localhost:1313/fa/docs/tutorials/hello-minikube/) کنید.
 
-### kubectl basics
+حالا که با دیپلویمنت ها آشنا شدید، بی یایید اولین دیپلویمنت خود را مستقر کنید!
 
-The common format of a kubectl command is: `kubectl action resource`.
+### مقدمات کوب کتل
 
-This performs the specified _action_ (like `create`, `describe` or `delete`) on the
-specified _resource_ (like `node` or `deployment`. You can use `--help` after the
-subcommand to get additional info about possible parameters (for example: `kubectl get nodes --help`).
+برای دنبال کردن این آموزش شما نیاز به نرم افزار کوب کتل دارید.
 
-Check that kubectl is configured to talk to your cluster, by running the `kubectl version` command.
+به طور کلی دستور کوب کتل به این نحو استفاده می شود: `kubectl action resource`.
 
-Check that kubectl is installed and that you can see both the client and the server versions.
+این دستور یک فعالیت (مانند `create`, `describe` یا `delete`) را برروی یک منبع خاص (مانند `node` یا `deployment`) اجرا می کند.
+شما می توانید با استفاده از `--help` در اخر هر دستور اطلاعات بیشتری در مورد پارمترهای قابل قبول آن به دست آورید.
 
-To view the nodes in the cluster, run the `kubectl get nodes` command.
+برای مثال: `kubectl get nodes --help`
 
-You see the available nodes. Later, Kubernetes will choose where to deploy our
-application based on Node available resources.
+شما می توانید با استفاده از `kubectl version` می توانید از اینکه کوب کتل می تواند با کلاستر شما ارتباط برقرار کند اطمینان حاصل کنید. با استفاده از این دستور می توانید از اینکه این ابزار برروی سیستم و سرور نصب است اطمینان یابید.
 
-### Deploy an app
+برای بررسی نود ها در کلاستر از دستور `kubectl get nodes` استفاده کنید.
 
-Let’s deploy our first app on Kubernetes with the `kubectl create deployment` command.
-We need to provide the deployment name and app image location (include the full
-repository url for images hosted outside Docker Hub).
+با استفاده از این دستور می توانید نود های قابل دسترس را ببینید. بعدا، یاد خواهید گرفت که چگونه برنامه هایتان را برروی یک نود خاص اجرا کنید.
+
+### استقرار یک برنامه
+
+بی یایید تا اولین برنامه خود را با دستور `kubectl create deployment` برروی کوبرنتیز نصب کنیم.
+برای اینکار ما نیاز به نامی برای دیپلویمنت (در این مثال `kubernetes-bootcamp`) و آدرس ایمیج برنامه کانتینر شده را داریم.
+توجه داشته باشید که در مواردی که ایمیج برروی سایت های دیگیری به غیر از داکر میزبانی می گردد آدرس کامل ایمیج لازم است.
 
 ```shell
 kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1
 ```
 
-Great! You just deployed your first application by creating a deployment. This performed a few things for you:
+آفرین! شما اولین برنامه خود را به صورت دیپلویمنت مستقر کردید.
 
-* searched for a suitable node where an instance of the application could be run (we have only 1 available node)
-* scheduled the application to run on that Node
-* configured the cluster to reschedule the instance on a new Node when needed
+خلاصه مواردی که یک دیپلویمنت انجام می دهد اینگونه است:
 
-To list your deployments use the `kubectl get deployments` command:
+* بررسی می کند که کدام نود در کلاستر بهترین مکام برای اجرای برنامه است. 
+* اجرای برنامه بر روی نود ایده ال را برنامه ریزی می کند.
+* برنامه به نحوی تنظیم می کند تا در زمان مورد نیاز ان را به نود های دیگر انتقال دهد.
+
+برای دریافت فهرست دیپلویمنت ها می توانید از دستور زیر استفاده کنید.
 
 ```shell
 kubectl get deployments
 ```
 
-We see that there is 1 deployment running a single instance of your app. The instance
-is running inside a container on your node.
+اینجا می بینیم که ۱ دیپلویمنت نسخه ای از برنامه ما را اجرا کرده است. این نسخه از برنامه به صورت یک کانتینر بر روی نود ما در حال اجرا است.
 
-### View the app
+### بررسی برنامه
 
-[Pods](/docs/concepts/workloads/pods/) that are running inside Kubernetes are running
-on a private, isolated network. By default they are visible from other pods and services
-within the same Kubernetes cluster, but not outside that network. When we use `kubectl`,
-we're interacting through an API endpoint to communicate with our application.
+تمامی [پادهایی](/docs/concepts/workloads/pods/) که در کوبرنتیز در حال اجرا هستند بر روی یک شبکه خصوصی و مجزا می باشند.
+به صورت پیش فرض این پادها و سرویس ها از داخل کلاستر قابل دسترس هستند اما از خارج از کلاستر کسی به آن ها دسترسی ندارد.
+وقتی شما از دستور `kubectl` استفاده می کنید در اصل دارید از طریق رابط کاربری کوبرنتیز با برنامه ها ارتباط بر قرار می کنید.
 
-We will cover other options on how to expose your application outside the Kubernetes
-cluster later, in [Module 4](/docs/tutorials/kubernetes-basics/expose/).
-Also as a basic tutorial, we're not explaining what `Pods` are in any
-detail here, it will be covered in later topics.
+در [فصل ۴](http://localhost:1313/fa/docs/tutorials/kubernetes-basics/expose/) این دوره آموزشی بیشتر با نحوه انتشار یک برنامه برای دسترسی از خارج از محیط کلاستر آشنا خواهید شد.
+درضمن چون این آموزش ابتدایی است ما به جزییات پادها نخواهیم پرداخت.
 
-The `kubectl proxy` command can create a proxy that will forward communications
-into the cluster-wide, private network. The proxy can be terminated by pressing
-control-C and won't show any output while it's running.
+دستور `kubectl proxy` به شما امکان می دهد که با ایجاد یک پروکسی به شبکه خصوصی کلاستر وصل شوید.
+برای خاتمه این دستور می توانید از `control-c` استفاده کنید.
 
-**You need to open a second terminal window to run the proxy.**
+**برای اجرای دستور زیر از یک ترمینال جدید استفاده کنید**
 
 ```shell
 kubectl proxy
 ```
-We now have a connection between our host (the terminal) and the Kubernetes cluster.
-The proxy enables direct access to the API from these terminals.
+در زمانی که این دستور در حال اجرا می باشد ما به رابط کاربری داخل کوبرتنیز دسترسی داریم.
+این دسترسی به شما این امکان را می دهد تاتمامی API های کوبرتنیز را بررسی و یا از طریق برنامه های دیگر با آن ها ارتباط برقرار کنید.
 
-You can see all those APIs hosted through the proxy endpoint. For example, we can
-query the version directly through the API using the `curl` command:
+به عنوان مثال از طریث دستور زیر شما می توانید با استفاده از ابزار `curl` ویرایش کوبرتنیز خود را ببینید.
 
 ```shell
 curl http://localhost:8001/version
 ```
 
 {{< note >}}
-If port 8001 is not accessible, ensure that the `kubectl proxy` that you started
-above is running in the second terminal.
+در صورتی که درگاه 8001 قابل دسترسی نمی باشد دستور `kubectl proxy` را دوباره چک کنید.
 {{< /note >}}
 
-The API server will automatically create an endpoint for each pod, based on the
-pod name, that is also accessible through the proxy.
+سرور رابط کاربری به صورت خودکار برای هر پاد بر اساس نامش یک پایانه می سازد که از طریق پروکسی ساخته شده در این آموزش قابل دسترس می باشد.
 
-First we need to get the Pod name, and we'll store it in the environment variable `POD_NAME`.
+برای استفاده از این قابلیت شما نیاز به نام پاد ها دارید.
+
+دستور زیر در مرحله اول نام پاد را گرفته و در یک متغیر محیطی به نام `POD_NAME` ذخیره می کند.
 
 ```shell
 export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
 echo Name of the Pod: $POD_NAME
 ```
 
-You can access the Pod through the proxied API, by running:
+بعد از بدست آوردن نام پاد مورد نظرتان شما می توانید از طریق رابط کاربری اطلاعات بیشتری در مورد آن پاد دریافت نمایید:
 
 ```shell
 curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME:8080/proxy/
 ```
 
-In order for the new Deployment to be accessible without using the proxy, a Service
-is required which will be explained in [Module 4](/docs/tutorials/kubernetes-basics/expose/).
+در این قسمت شما با استفاده از پروکسی به دیپلویمنت خود دسترسی یافتید، در [قسمت ۴](http://localhost:1313/fa/docs/tutorials/kubernetes-basics/expose/http://localhost:1313/fa/docs/tutorials/kubernetes-basics/expose/) این دوره شما با سرویس ها آشنا می شوید که به شما این امکان را می دهند تا بدون استفاده از پروکسی برنامه های خود را منتشر کنید.
 
 ## {{% heading "whatsnext" %}}
 
-* Tutorial [Viewing Pods and Nodes](/docs/tutorials/kubernetes-basics/explore/explore-intro/).
-* Learn more about [Deployments](/docs/concepts/workloads/controllers/deployment/).
+* آموزش بررسی [پادها و نودها](/docs/tutorials/kubernetes-basics/explore/explore-intro/).
+* در مورد [دیپلویمنت ها](/docs/concepts/workloads/controllers/deployment/) بیشتر بدانید.

@@ -1,11 +1,11 @@
 ---
-title: Running Multiple Instances of Your App
+title: اجرای نسخه های مختلفی از برنامه های تان
 weight: 10
 ---
 
 ## {{% heading "objectives" %}}
 
-* Scale an existing app manually using kubectl.
+* مقیاس دهی دستی یک برنامه توسط kubectl.
 
 ## Scaling an application
 
