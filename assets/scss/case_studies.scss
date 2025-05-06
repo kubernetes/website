@@ -301,10 +301,19 @@ body.td-section.cid-casestudies {
        flex-basis: 90vw;
        margin-bottom: 40px;
     }
-
-    .video-quote, .case-study-video {
-       width: initial;
-       flex-basis: 90%;
-    }
   }
+}
+
+@media (max-width: 768px) {
+    .video-quote,
+    .case-study-video {
+        width: auto;
+    }
+
+    .case-study-video {
+        flex-basis: 90%;
+        iframe {
+            margin-right: auto;
+        }
+    }
 }
