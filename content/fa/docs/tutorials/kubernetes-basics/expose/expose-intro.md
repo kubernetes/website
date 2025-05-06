@@ -126,7 +126,7 @@ http://127.0.0.1:51082
 !  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
 ```
 
-آدرس بازگردانده شده را استفاده کنید تا به برنامه یتان متصل شوید:
+آدرس بازگردانده شده را استفاده کنید تا به برنامه متصل شوید:
 
 ```shell
 curl 127.0.0.1:51082
@@ -219,5 +219,5 @@ kubectl exec -ti $POD_NAME -- curl http://localhost:8080
 
 ## {{% heading "whatsnext" %}}
 
-* آموزش [اجرای نسخه های مختلفی از برنامه های تان](/docs/tutorials/kubernetes-basics/scale/scale-intro/).
+* آموزش [اجرای نسخه های مختلفی از برنامه هایتان](/docs/tutorials/kubernetes-basics/scale/scale-intro/).
 * در مورد [سرویس](/docs/concepts/services-networking/service/) بیشتر بدانید. 

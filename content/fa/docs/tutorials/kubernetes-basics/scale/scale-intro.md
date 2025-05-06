@@ -1,47 +1,30 @@
 ---
-title: اجرای نسخه های مختلفی از برنامه های تان
+title: اجرای نسخه های مختلفی از برنامه هایتان
 weight: 10
 ---
 
 ## {{% heading "objectives" %}}
 
-* مقیاس دهی دستی یک برنامه توسط kubectl.
+* مقیاس دهی دستی یک برنامه توسط دستور kubectl.
 
-## Scaling an application
+## تغییر مقیاس برنامه ها
 
-{{% alert %}}
-_You can create from the start a Deployment with multiple instances using the --replicas
-parameter for the kubectl create deployment command._
-{{% /alert %}}
+این آموزش قسمتی از دوره آموزش مقدماتی است و با این باور نوشته شده که شما [قسمت های قبلی](/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/) دوره را کامل کرده اید.
 
-Previously we created a [Deployment](/docs/concepts/workloads/controllers/deployment/),
-and then exposed it publicly via a [Service](/docs/concepts/services-networking/service/).
-The Deployment created only one Pod for running our application. When traffic increases,
-we will need to scale the application to keep up with user demand.
-
-If you haven't worked through the earlier sections, start from
-[Using minikube to create a cluster](/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/).
-
-_Scaling_ is accomplished by changing the number of replicas in a Deployment.
+در آموزش های گذشته ما یک [دیپلویمنت](http://localhost:1313/docs/concepts/workloads/controllers/deployment/) (Deployment) ایجاد کردیم و از طریق [سرویسی](http://localhost:1313/docs/concepts/services-networking/service/) (Service) آن را در خارج از کلاسترمان منتشر کردیم و دیپلویمنت آموزشی ما یک نسخه از برنامه را درون پاد اجرا کرد.
+در صورتی که تعداد کاربران برنامه ما افزایش یابد ما باید مقیاس برنامه خود را افزایش دهیم.
 
 {{< note >}}
-If you are trying this after the
-[previous section](/docs/tutorials/kubernetes-basics/expose/expose-intro/), then you
-may have deleted the service you created, or have created a Service of `type: NodePort`.
-In this section, it is assumed that a service with `type: LoadBalancer` is created
-for the kubernetes-bootcamp Deployment.
-
-If you have _not_ deleted the Service created in
-[the previous section](/docs/tutorials/kubernetes-basics/expose/expose-intro),
-first delete that Service and then run the following command to create a new Service
-with its `type` set to `LoadBalancer`:
+اگر سرویس را در [آموزش قبلی](/docs/tutorials/kubernetes-basics/expose/expose-intro) حذف نکرده اید اول آن را حذف کنید و سپس از طریق اجرای دستور زیر یک سرویس جدید از نوع `LoadBalancer` را بسازید:
 
 ```shell
 kubectl expose deployment/kubernetes-bootcamp --type="LoadBalancer" --port 8080
 ```
+
+توجه داشته باشید که این آموزش با این پیش فرض نوشته شده که شما یک سرویس از نوع `LoadBalancer` دارید.
 {{< /note >}}
 
-## Scaling overview
+## مرور کلی مقیاس دهی
 
 <!-- animation -->
 <div class="col-md-8">
@@ -58,7 +41,7 @@ kubectl expose deployment/kubernetes-bootcamp --type="LoadBalancer" --port 8080
 </div>
 
 {{% alert %}}
-_Scaling is accomplished by changing the number of replicas in a Deployment._
+_مقیاس دهی در دیپلویمنت ها از طریق تغییر تعداد کپی های همسان (replicas) امکان پذیر است._
 {{% /alert %}}
 
 Scaling out a Deployment will ensure new Pods are created and scheduled to Nodes
@@ -76,7 +59,7 @@ Once you have multiple instances of an application running, you would be able to
 do Rolling updates without downtime. We'll cover that in the next section of the
 tutorial. Now, let's go to the terminal and scale our application.
 
-### Scaling a Deployment
+### مقیاس دهی دیپلویمنت
 
 To list your Deployments, use the `get deployments` subcommand:
 
@@ -202,7 +185,7 @@ curl 127.0.0.1:51082
 ```
 {{< /note >}}
 
-### Scale Down
+### کوچک کردن مقایس برنامه
 
 To scale down the Deployment to 2 replicas, run again the `scale` subcommand:
 

@@ -1,5 +1,5 @@
 ---
-title: سلام مینی کی یوب (minikube)
+title: آغاز کار با مینی کیوب (minikube)
 content_type: tutorial
 weight: 5
 card:
