@@ -23,7 +23,7 @@ weight: 10
 
 A key aim of Services in Kubernetes is that you don't need to modify your existing
 application to use an unfamiliar service discovery mechanism.
-You can run code in Pods, whether this is a code designed for a cloud-native world, or
+You can run code in Pods, whether this is code designed for a cloud-native world, or
 an older app you've containerized. You use a Service to make that set of Pods available
 on the network so that clients can interact with it.
 
