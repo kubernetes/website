@@ -158,6 +158,6 @@ to be notified of the feature graduation.
 ## 所有细节
 
 通过阅读
-[KEP-4951](https://github.com/kubernetes/zh-enhancements/tree/master/keps/sig-autoscaling/4951-configurable-hpa-tolerance)
-获取所有技术细节，并关注 [Issue 4951](https://github.com/kubernetes/zh-enhancements/issues/4951)
+[KEP-4951](https://github.com/kubernetes/enhancements/tree/master/keps/sig-autoscaling/4951-configurable-hpa-tolerance)
+获取所有技术细节，并关注 [Issue 4951](https://github.com/kubernetes/enhancements/issues/4951)
 以获得**特性毕业**的通知。
