@@ -186,7 +186,8 @@ supported path types:
 
 * `Exact`: Matches the URL path exactly and with case sensitivity.
 
-* `Prefix`: Matches based on a URL path prefix split by `/`. Matching is case sensitive and done element by element on the path. A path element refers
+* `Prefix`: Matches based on a URL path prefix split by `/`. Matching is case
+  sensitive and done on a path element by element basis. A path element refers
   to the list of labels in the path split by the `/` separator. A request is a
   match for path _p_ if every _p_ is an element-wise prefix of _p_ of the
   request path.
