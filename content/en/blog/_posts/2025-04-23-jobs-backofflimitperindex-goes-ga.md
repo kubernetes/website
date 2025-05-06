@@ -36,10 +36,11 @@ which allows you to control the number of retries per index.
 
 ## How Backoff Limit Per Index works
 
-To use Backoff Limit Per Index for Indexed Jobs, configure the following:
-* Specify the number of tolerated Pod failures per index with the
-  `spec.backoffLimitPerIndex` field. When you set this field, the Job executes
-  all indexes by default.
+To use Backoff Limit Per Index for Indexed Jobs, specify the number of tolerated
+Pod failures per index with the `spec.backoffLimitPerIndex` field. When you set
+this field, the Job executes all indexes by default.
+
+Additionally, to fine-tune the error handling:
 * Specify the cap on the total number of failed indexes by setting the
   `spec.maxFailedIndexes` field. When the limit is exceeded the entire Job is
   terminated.
