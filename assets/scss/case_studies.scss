@@ -305,15 +305,17 @@ body.td-section.cid-casestudies {
 }
 
 @media (max-width: 768px) {
-    .video-quote,
-    .case-study-video {
-        width: auto;
-    }
+    body.td-section.cid-casestudies {
+        .video-quote,
+        .case-study-video {
+            width: auto;
+        }
 
-    .case-study-video {
-        flex-basis: 90%;
-        iframe {
-            margin-right: auto;
+        .case-study-video {
+            flex-basis: 90%;
+            iframe {
+                margin-right: auto;
+            }
         }
     }
 }
