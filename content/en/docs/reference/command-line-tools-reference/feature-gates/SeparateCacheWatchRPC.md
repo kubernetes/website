@@ -8,7 +8,7 @@ _build:
 stages:
   - stage: beta
     defaultValue: true
-    fromVersion: "1.20"
+    fromVersion: "1.28"
     toVersion: "1.32"
   - stage: deprecated
     defaultValue: false
