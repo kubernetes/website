@@ -16,7 +16,8 @@ stages:
 
 # TODO: as soon as this is locked to "true" (= GA), comments about other DRA
 # feature gate(s) like "unless you also enable the `DynamicResourceAllocation` feature gate"
-# can be removed (for example, in dra-admin-access.md).
+# can be removed (for example, in DRAAdminAccess, DRADeviceTaints, DRAPartitionableDevices,
+# DRAResourceClaimDeviceStatus, DRAPrioritizedList).
 
 ---
 Enables support for resources with custom parameters and a lifecycle
