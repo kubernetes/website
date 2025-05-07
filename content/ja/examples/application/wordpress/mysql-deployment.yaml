@@ -25,7 +25,7 @@ spec:
     requests:
       storage: 20Gi
 ---
-apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wordpress-mysql
@@ -45,10 +45,19 @@ spec:
         tier: mysql
     spec:
       containers:
-      - image: mysql:5.6
+      - image: mysql:8.0
         name: mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: password
+        - name: MYSQL_DATABASE
+          value: wordpress
+        - name: MYSQL_USER
+          value: wordpress
+        - name: MYSQL_PASSWORD
           valueFrom:
             secretKeyRef:
               name: mysql-pass
