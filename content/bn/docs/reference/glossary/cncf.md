@@ -8,7 +8,7 @@ short_description: >
 
 aka:
 tags:
-- কমিউনিটি
+- community
 ---
 ক্লাউড নেটিভ কম্পিউটিং ফাউন্ডেশন (CNCF) একটি টেকসই ইকোসিস্টেম তৈরি করে এবং 
 একটি কমিউনিটি গড়ে তোলে [প্রকল্পগুলোর (projects)](https://www.cncf.io/projects/) চারপাশে 
