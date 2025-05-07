@@ -42,7 +42,7 @@ Cấu trúc liên kết này kết hợp các control plane và các etcd member
 với các etcd node bên ngoài, và đơn giản hơn để quản lý replication.
 
 Tuy nhiên, một cụm xếp chồng có nguy cơ lỗi hàng loạt. Nếu một node bị lỗi, cả một etcd member và một instance control
-plane bị lỗi, và tính dự phòng bị ảnh hưởng. Bạn có thể giảm thiểu rủi ro này bằng cách bổ sung thêm control plane node.
+plane bị lỗi, và khả năng dự phòng bị ảnh hưởng. Bạn có thể giảm thiểu rủi ro này bằng cách bổ sung thêm control plane node.
 
 Do đó, bạn nên chạy tối thiểu ba node control plane xếp chồng cho cụm HA.
 
@@ -65,7 +65,7 @@ các etcd member chạy trên từng host riêng biệt, và từng etcd host gi
 
 Kiến trúc này tách rời control plane và etcd member. Vì thế nó cung cấp một thiết lập HA trong đó
 việc mất một control plane instance hoặc một etcd member có ít tác động hơn và không ảnh hưởng tới
-tính dự phòng của cụm như kiến trúc HA xếp chồng.
+khả năng dự phòng của cụm như kiến trúc HA xếp chồng.
 
 Tuy nhiên, kiến trúc này yêu cầu gấp đôi số lượng host so với kiến trúc HA xếp chồng.
 Yêu cầu tối thiểu ba host cho các control plane node và ba host cho các etcd node
