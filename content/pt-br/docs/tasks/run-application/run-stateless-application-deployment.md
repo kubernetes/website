@@ -77,7 +77,7 @@ Você pode executar uma aplicação criando um objeto Deployment do Kubernetes, 
    kubectl get pods -l app=nginx
    ```
 
-   The output is similar to this:
+   A saída é semelhante a esta:
 
    ```
    NAME                                READY     STATUS    RESTARTS   AGE
