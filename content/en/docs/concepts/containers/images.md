@@ -248,35 +248,52 @@ a name for an image (for example: `pause`, `example/mycontainer`, `kube-apiserve
 and allow different systems to fetch the right binary image for the machine
 architecture they are using.
 
-Kubernetes itself typically names container images with a suffix `-$(ARCH)`. For
-backward compatibility, generate older images with suffixes. For instance,
-an image named as `pause` would be a multi-architecture image containing manifests
-for all supported architectures, while `pause-amd64` would be a backward-compatible
-version for older configurations, or for YAML files with hardcoded image names
-containing suffixes.
+The Kubernetes project typically creates container images for its releases with
+names that include the suffix `-$(ARCH)`. For backward compatibility, generate
+older images with suffixes. For instance, an image named as `pause` would be a
+multi-architecture image containing manifests for all supported architectures,
+while `pause-amd64` would be a backward-compatible version for older configurations,
+or for YAML files with hardcoded image names containing suffixes.
 
 ## Using a private registry
 
-Private registries may require keys to read images from them.
+Private registries may require authentication to be able to discover and/or pull
+images from them.
 Credentials can be provided in several ways:
 
+- [Specifying `imagePullSecrets` when you define a Pod](#specifying-imagepullsecrets-on-a-pod)
+
+  Only Pods which provide their own keys can access the private registry.
+
 - [Configuring Nodes to Authenticate to a Private Registry](#configuring-nodes-to-authenticate-to-a-private-registry)
-  - all pods can read any configured private registries
-  - requires node configuration by cluster administrator
-- [Kubelet Credential Provider to dynamically fetch credentials for private registries](#kubelet-credential-provider)
-  - kubelet can be configured to use credential provider exec plugin
-    for the respective private registry.
+  - All Pods can read any configured private registries.
+  - Requires node configuration by cluster administrator.
+- Using a _kubelet credential provider_ plugin to [dynamically fetch credentials for private registries](#kubelet-credential-provider)
+
+  The kubelet can be configured to use credential provider exec plugin for the
+  respective private registry.
+
 - [Pre-pulled Images](#pre-pulled-images)
-  - all pods can use any images cached on a node
-  - requires root access to all nodes to set up
-- [Specifying ImagePullSecrets on a Pod](#specifying-imagepullsecrets-on-a-pod)
-  - only pods which provide their own keys can access the private registry
+  - All Pods can use any images cached on a node.
+  - Requires root access to all nodes to set up.
 - Vendor-specific or local extensions
-  - if you're using a custom node configuration, you (or your cloud
-    provider) can implement your mechanism for authenticating the node
-    to the container registry.
+
+  If you're using a custom node configuration, you (or your cloud provider) can
+  implement your mechanism for authenticating the node to the container registry.
 
 These options are explained in more detail below.
+
+### Specifying `imagePullSecrets` on a Pod
+
+{{< note >}}
+This is the recommended approach to run containers based on images
+in private registries.
+{{< /note >}}
+
+Kubernetes supports specifying container image registry keys on a Pod.
+All `imagePullSecrets` must be Secrets that exist in the same
+{{< glossary_tooltip term_id="namespace" >}} as the
+Pod. These Secrets must be of type `kubernetes.io/dockercfg` or `kubernetes.io/dockerconfigjson`.
 
 ### Configuring nodes to authenticate to a private registry
 
@@ -289,14 +306,17 @@ task. That example uses a private registry in Docker Hub.
 
 ### Kubelet credential provider for authenticated image pulls {#kubelet-credential-provider}
 
-{{< note >}}
-This approach is especially suitable when the kubelet needs to fetch registry credentials
-dynamically. Most commonly used for registries provided by cloud providers where
-authentication tokens are short-lived.
-{{< /note >}}
+You can configure the kubelet to invoke a plugin binary to dynamically fetch
+registry credentials for a container image. This is the most robust and versatile
+way to fetch credentials for private registries, but also requires kubelet-level
+configuration to enable.
 
-You can configure the kubelet to invoke a plugin binary to dynamically fetch registry credentials for a container image.
-This is the most robust and versatile way to fetch credentials for private registries, but also requires kubelet-level configuration to enable.
+This technique can be especially useful for running {{< glossary_tooltip term_id="static-pod" text="static Pods" >}}
+that require container images hosted in a private registry.
+Using a {{< glossary_tooltip term_id="service-account" >}} or a
+{{< glossary_tooltip term_id="secret" >}} to provide private registry credentials
+is not possible in the specification of a static Pod, because it _cannot_
+have references to other API resources in its specification.
 
 See [Configure a kubelet image credential provider](/docs/tasks/administer-cluster/kubelet-credential-provider/) for more details.
 
@@ -321,8 +341,8 @@ This means that a `config.json` like this is valid:
 ```json
 {
     "auths": {
-        "my-registry.io/images": { "auth": "…" },
-        "*.my-registry.io/images": { "auth": "…" }
+        "my-registry.example/images": { "auth": "…" },
+        "*.my-registry.example/images": { "auth": "…" }
     }
 }
 ```
@@ -331,15 +351,15 @@ Image pull operations pass the credentials to the CRI container runtime for ever
 valid pattern. For example, the following container image names would match
 successfully:
 
-- `my-registry.io/images`
-- `my-registry.io/images/my-image`
-- `my-registry.io/images/another-image`
-- `sub.my-registry.io/images/my-image`
+- `my-registry.example/images`
+- `my-registry.example/images/my-image`
+- `my-registry.example/images/another-image`
+- `sub.my-registry.example/images/my-image`
 
 However, these container image names would *not* match:
 
-- `a.sub.my-registry.io/images/my-image`
-- `a.b.sub.my-registry.io/images/my-image`
+- `a.sub.my-registry.example/images/my-image`
+- `a.b.sub.my-registry.example/images/my-image`
 
 The kubelet performs image pulls sequentially for every found credential. This
 means that multiple entries in `config.json` for different paths are possible, too:
@@ -347,17 +367,17 @@ means that multiple entries in `config.json` for different paths are possible, t
 ```json
 {
     "auths": {
-        "my-registry.io/images": {
+        "my-registry.example/images": {
             "auth": "…"
         },
-        "my-registry.io/images/subpath": {
+        "my-registry.example/images/subpath": {
             "auth": "…"
         }
     }
 }
 ```
 
-If now a container specifies an image `my-registry.io/images/subpath/my-image`
+If now a container specifies an image `my-registry.example/images/subpath/my-image`
 to be pulled, then the kubelet will try to download it using both authentication
 sources if one of them fails.
 
@@ -376,33 +396,27 @@ then a local image is used (preferentially or exclusively, respectively).
 If you want to rely on pre-pulled images as a substitute for registry authentication,
 you must ensure all nodes in the cluster have the same pre-pulled images.
 
-This can be used to preload certain images for speed or as an alternative to authenticating to a
-private registry.
+This can be used to preload certain images for speed or as an alternative to
+authenticating to a private registry.
+
+Similar to the usage of the [kubelet credential provider](#kubelet-credential-provider),
+pre-pulled images are also suitable for launching
+{{< glossary_tooltip text="static Pods" term_id="static-pod" >}} that depend
+on images hosted in a private registry.
 
 {{< note >}}
 {{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
 Access to pre-pulled images may be authorized according to [image pull credential verification](#ensureimagepullcredentialverification).
 {{< /note >}}
 
-### Specifying `imagePullSecrets` on a Pod
-
-{{< note >}}
-This is the recommended approach to run containers based on images
-in private registries.
-{{< /note >}}
-
-Kubernetes supports specifying container image registry keys on a Pod.
-All `imagePullSecrets` must be Secrets that exist in the same namespace as the
-Pod. These Secrets must be of type `kubernetes.io/dockercfg` or `kubernetes.io/dockerconfigjson`.
-
-#### Ensure Image Pull Credential Verification {#ensureimagepullcredentialverification}
+#### Ensure image pull credential verification {#ensureimagepullcredentialverification}
 
 {{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
 
-If the `KubeletEnsureSecretPulledImages` feature gate is enabled, Kubernetes will
-validate image credentials for every image that requires credentials to be pulled,
-even if that image is already present on the node. This validation ensures that
-images in a Pod request which have not been successfully pulled
+If the `KubeletEnsureSecretPulledImages` feature gate is enabled for your cluster,
+Kubernetes will validate image credentials for every image that requires credentials
+to be pulled, even if that image is already present on the node. This validation
+ensures that images in a Pod request which have not been successfully pulled
 with the provided credentials must re-pull the images from the registry.
 Additionally, image pulls that re-use the same credentials
 which previously resulted in a successful image pull will not need to re-pull from
@@ -535,17 +549,18 @@ If you need access to multiple registries, you can create one Secret per registr
 
 ## Legacy built-in kubelet credential provider
 
-In older versions of Kubernetes, the kubelet had a direct integration with cloud provider credentials.
-This gave it the ability to dynamically fetch credentials for image registries.
+In older versions of Kubernetes, the kubelet had a direct integration with cloud
+provider credentials. This provided the ability to dynamically fetch credentials
+for image registries.
 
-There were three built-in implementations of the kubelet credential provider integration:
-ACR (Azure Container Registry), ECR (Elastic Container Registry), and GCR (Google Container Registry).
+There were three built-in implementations of the kubelet credential provider
+integration: ACR (Azure Container Registry), ECR (Elastic Container Registry),
+and GCR (Google Container Registry).
 
-For more information on the legacy mechanism, read the documentation for the version of Kubernetes that you
-are using. Kubernetes v1.26 through to v{{< skew latestVersion >}} do not include the legacy mechanism, so
-you would need to either:
-- configure a kubelet image credential provider on each node
-- specify image pull credentials using `imagePullSecrets` and at least one Secret
+Starting with version 1.26 of Kubernetes, the legacy mechanism has been removed,
+so you would need to either:
+- configure a kubelet image credential provider on each node; or
+- specify image pull credentials using `imagePullSecrets` and at least one Secret.
 
 ## {{% heading "whatsnext" %}}
 
