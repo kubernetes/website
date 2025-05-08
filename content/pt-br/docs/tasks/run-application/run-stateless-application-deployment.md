@@ -123,7 +123,7 @@ Você pode aumentar o número de Pods no seu Deployment aplicando um novo arquiv
    kubectl apply -f https://k8s.io/examples/application/deployment-scale.yaml
    ```
 
-1. Verifique se o Deployment possui quatro Pods:
+1. Verifique que o Deployment possui quatro Pods:
 
    ```shell
    kubectl get pods -l app=nginx
