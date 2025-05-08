@@ -1,9 +1,8 @@
 ---
 layout: blog
-title: "Kubernetes 1.33：Job 的 SuccessPolicy 进阶至 GA"
-date: 2025-04-23
-draft: true
-slug: kubernetes-1-33-jobs-success-policy-goes-ga
+title: "Kubernetes v1.33：Job 的 SuccessPolicy 进阶至 GA"
+date: 2025-05-16T10:30:00-08:00
+slug: kubernetes-v1-33-jobs-success-policy-goes-ga
 authors: >
   [Yuki Iwai](https://github.com/tenzen-y) (CyberAgent, Inc)
 translator: >
