@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Announcing Changed Block Tracking API in Kubernetes v1.33'
+title: 'Kubernetes v1.33: Changed Block Tracking (CBT )API support (alpha)'
 date: 2025-XX-XX
 draft: true
 slug: csi-changed-block-tracking
