@@ -17,6 +17,7 @@ Enhancements](https://github.com/kubernetes/community/blob/master/sig-architectu
 Garrison](https://github.com/kikisdeliveryservice)さんにお話を伺いました。
 
 ## Enhancementsサブプロジェクト
+
 **Frederico(FSM): Kirstenさん、Enhancementsサブプロジェクトについてお話しできる機会をいただき、とてもうれしく思います。
 まずは簡単に自己紹介とご自身の役割について教えてください。**
 
@@ -26,27 +27,27 @@ Garrison](https://github.com/kikisdeliveryservice)さんにお話を伺いまし
 リリースチームでは、私のチームの経験に基づき、各SIGやEnhancementsチームにとってより良いプロセスとなるよう(オプトインプロセスなどの)いくつかのアイデアに取り組みました。
 最終的には、サブプロジェクトのミーティングに参加し、その作業にも貢献するようになりました。
 
-**FSM: Enhancementsサブプロジェクトについて言及されていましたが、その主な目的や関与する領域についてどのように説明されますか？**
+**FSM: Enhancementsサブプロジェクトについて言及されていましたが、その主な目的や関与する領域について説明していただけますか？**
 
 **KG**: [Enhancementsサブプロジェクト](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md#enhancements)は、主に[Kubernetes Enhancement Proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-architecture/0000-kep-process/README.md)(略して _KEP_)を扱っています。
 KEPは、Kubernetesプロジェクトにおけるすべての新機能および重要な変更に必要となる「設計」ドキュメントです。
 
 ## KEPとその影響
 
-**FSM: KEPプロセスの改善は、かつてから、(そして現在も)、SIG Architectureが深く関与している取り組みの一つです。
+**FSM: KEPプロセスの改善は、かつてから(そして現在も)、SIG Architectureが深く関与している取り組みの一つです。
 このプロセスについて知らない方のために、説明していただけますか？**
 
 **KG**: [各リリース](https://kubernetes.io/releases/release/#the-release-cycle)において、各SIGはそのリリースに含めたいと考えている機能をリリースチームに共有します。
 先ほど述べたとおり、これらの変更の前提となるのがKEPです。
-KEPは、すべての著者がリリースサイクルの最初の数週間で記入・承認しなければならない、標準化された設計ドキュメントです。
+KEPは標準化された設計ドキュメントであり、すべての作成者がリリースサイクルの最初の数週間で記入し、承認されなければなりません。
 ほとんどの機能は、alpha、beta、最終的にはGAという[3つのフェーズを経て進行します](https://kubernetes.io/ja/docs/reference/command-line-tools-reference/feature-gates/#feature-stages)。
 そのため、機能を承認するということは、SIGにとって大きな責任を伴う決定となります。
 
-KEPは、ある機能に関する唯一の信頼できる情報源として機能します。
-[KEP template](https://github.com/kubernetes/enhancements/blob/master/keps/NNNN-kep-template/README.md)には、機能がどの段階にいるかに応じて異なる要件がありますが、一般的には設計や影響についての詳細な議論、安定性やパフォーマンスに関する成果物の提示が求められます。
-KEPが承認されるまでには、著者、SIGのレビュアー、APIレビュー チーム、Production Readiness Reviewチーム[^1]との間でかなりの反復的なやり取りが必要となります。
+KEPは、ある機能に関する唯一の信頼できる情報源としての役割があります。
+[KEPテンプレート](https://github.com/kubernetes/enhancements/blob/master/keps/NNNN-kep-template/README.md)には、機能がどの段階にいるかに応じて異なる要件がありますが、一般的には設計や影響についての詳細な議論、安定性やパフォーマンスに関する成果物の提示が求められます。
+KEPが承認されるまでには、作成者、SIGのレビュアー、APIレビューチーム、Production Readiness Reviewチーム[^1]との間でかなりの反復的なやり取りが必要となります。
 各レビュアーチームは、Kubernetesリリースが安定し、パフォーマンスに優れたものとなるよう、その提案が自分たちの基準を満たしているかを確認します。
-すべての承認が得られて初めて著者は次に進むことができ、Kubernetesのコードベースに自身の機能をマージすることができます。
+すべての承認が得られて初めて作成者は次に進むことができ、Kubernetesのコードベースに自身の機能をマージすることができます。
 
 **FSM: なるほど、かなり多くの枠組みが追加されたのですね。
 振り返ってみて、そのアプローチによる最も重要な改善点は何だったと思いますか？**
@@ -83,7 +84,7 @@ Production Readiness Reviewの追加や改善されたテスト要件(KEPのラ�
 **KG**: このサブプロジェクトは、リリースチームのEnhancementチームによるスプレッドシートからプロジェクトボードへの移行を支援しました。
 Enhancementの収集とトラッキングは、常に運用上の課題でした。
 私がリリースチームに所属していた頃には、SIGのリードがリリーストラッキングの対象とするKEPを「オプトイン」する方式への移行を支援しました。
-これにより、KEPに対して重要な作業を開始する前に、著者とSIGの間でより良いコミュニケーションが取れるようになり、Enhancementsチームの手間も軽減されました。
+これにより、KEPに対して重要な作業を開始する前に、作成者とSIGの間でより良いコミュニケーションが取れるようになり、Enhancementsチームの手間も軽減されました。
 この変更では、コミュニティに一度に多くの変更を導入することを避けるため、既存のツールを活用しました。
 その後、リリースチームが、Enhancementの収集プロセスをさらに改善するため、GitHubのプロジェクトボードを活用するというアイデアをこのサブプロジェクトに提案しました。
 これは、複雑なスプレッドシートの使用をやめ、[k/enhancement](https://github.com/kubernetes/enhancements)のIssueに付与されたリポジトリネイティブなラベルとプロジェクトボードを用いる方向への転換でした。
@@ -98,7 +99,7 @@ Enhancementの収集とトラッキングは、常に運用上の課題でした
 
 ## 参加方法
 
-**FSM: 興味を持って参加を検討している読者に向けて、このサブプロジェクトに関わるために必要なスキルについてどのように説明されますか？**
+**FSM: 興味を持って参加を検討している読者に向けて、このサブプロジェクトに関わるために必要なスキルについて教えていただけますか？**
 
 **KG**: KEPに関する知識があると役立ちます。
 それは実際の経験から得たものであっても、kubernetes/enhancementsリポジトリを時間をかけて読み込んだ結果であっても構いません。
