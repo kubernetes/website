@@ -25,7 +25,7 @@ và chạy mã nguồn được triển khai trong một trình xử lý khi lif
 
 ## Container hooks
 
-Có 2 hooks:
+Có 2 hooks được cung cấp cho các Containers:
 
 `PostStart`
 
@@ -35,37 +35,46 @@ Không có tham số nào được truyền cho trình xử lý (handler).
 
 `PreStop`
 
-Hook này được gọi ngay tức thì ngay trước khi một container bị chấm dứt bởi một API request hoặc quản lý sự kiện như liveness probe failure, preemption, tranh chấp tài nguyên và các vấn đề khác. Một lời gọi tới preStop hook thất bại nếu container đã ở trạng thái kết thúc hoặc đã hoàn thành.
-Nó đang chặn (blocking), có nghĩa là nó đồng bộ,
-vì vậy nó phải hoàn thành trước khi lời gọi xóa container có thể được gửi.
+Hook này được gọi tức thì ngay trước khi một container bị chấm dứt bởi một API request hoặc sự kiện quản lý như liveness/startup probe failure, preemption, tranh chấp tài nguyên và các vấn đề khác. Một lời gọi tới `PreStop` hook thất bại nếu container ở trạng thái đã chấm dứt (terminated) hoặc đã hoàn thành (completed) và hook phải hoàn thành trước khi tín hiệu TERM được gửi tới để dừng container.
+Thời gian gia hạn chấm dứt của Pod bắt đầu trước khi hook `PreStop` được chạy, nên Container cuối cùng sẽ chấm dứt trong thời gian gia hạn chấm dứt của Pod bất kể kết quả của handler là gì.
 Không có tham số nào được truyền cho trình xử lý (handler).
 
 Xem thêm chi tiết về hành vi chấm dứt (termination behavior) tại
-[Termination of Pods](/docs/concepts/workloads/pods/pod/#termination-of-pods).
+[Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 
 ### Các cách thực hiện Hook handler (Hook handler implementations)
 
-Các container có thể truy cập một hook bằng cách thực hiện và đăng ký một handler cho hook đó.
-Có 2 loại hook handler có thể được triển khai cho các containers:
+Các Containers có thể truy cập một hook bằng cách thực hiện và đăng ký một handler cho hook đó.
+Có 3 loại hook handler có thể được triển khai cho các Containers:
 
 * Exec - Thực thi một lệnh cụ thể, như là `pre-stop.sh` trong cgroups và namespaces của Container.
 Tài nguyên được sử dụng bởi lệnh được tính vào Container.
 * HTTP - Thực thi một HTTP request với một endpoint cụ thể trên Container.
+* Sleep - Dừng container trong một khoảng thời gian. Đây là tính năng đang ở
+beta-level, được tự động bật bởi `PodLifecycleSleepAction`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+
+{{< note >}}
+Tính năng beta `PodLifecycleSleepActionAllowZero` được bật mặc định từ bản v1.33.
+Tính năng này cho phép bạn thiết lập thời gian sleep là 0 giây (hay không thực hiện hành động
+nào) cho các hooks Sleep lifecycle của bạn.
+{{< /note >}}
 
 ### Thực thi hook handler (Hook handler execution)
 
-Khi một hook quản lý  một Container lifecycle được gọi,
-hệ thống quản lý Kubernetes thực thi trình xử lý (handler) trong Container đã được đăng kí cho hook đó.
+Khi một hook quản lý Container lifecycle được gọi,
+hệ thống quản lý Kubernetes thực thi trình xử lý (handler) dựa trên hành động của hook.
+`httpGet`, `tcpSocket` ([deprecated](/docs/reference/generated/kubernetes-api/v1.31/#lifecyclehandler-v1-core)) và `sleep` được thực thi bởi tiến trình kubelet, còn `exec` được thực thi trong container.
 
-Các lời gọi hook handler là đồng bộ trong ngữ cảnh của Pod chứa Container.
-Điều này có nghĩa là đối với hook `PostStart`,
-Container ENTRYPOINT và hook thực thi/chạy không đồng bộ.
-Tuy nhiên, nếu hook mất quá nhiều thời gian để chạy hoặc treo,
-Container không thể đạt đến trạng thái `running`.
+Lời gọi hook `PostStart` handler được khởi tạo khi một container được tạo,
+nghĩa là container ENTRYPOINT và hook `PostStart` được kích hoạt đồng thời.
+Tuy nhiên, nếu hook `PostStart` mất quá nhiều thời gian để chạy hoặc bị treo,
+container không thể chuyển sang trạng thái `running`.
 
-Behavior là tương tự cho một hook `PreStop`.
-Nếu hook bị treo trong khi thực thi,
-Pod phase ở trạng thái `Terminating` và bị xóa sau khoảng thời gian `terminationGracePeriodSeconds` của pod kết thúc.
+Các hooks `PreStop` không được thực thi bất đồng bộ với tín hiệu dừng Container; hook phải được hoàn thành thực thi trước khi tín hiệu TERM được gửi.
+Nếu hook `PreStop` bị treo khi thực thi, Pod phase ở trạng thái `Terminating` và tiếp tục cho tới khi bị chấm dứt sau `terminationGracePeriodSeconds` hết hạn. Khoảng thời gian gia hạn này bằng tổng thời gian mà cả hook `PreStop` thực thi và Container dừng lại một cách bình thường.
+Ví dụ, nếu `terminationGracePeriodSeconds` là 60, và hook mất 55 giây để hoàn thành, và Container mất thêm 10 giây để dừng lại sau khi nhận được tín hiệu, thì Container sẽ bị chấm dứt trước khi nó kịp dừng bình thường, vì `terminationGracePeriodSeconds` nhỏ hơn tổng thời gian cần thiết để thực hiện hai việc này (55+10).
+
 Nếu hook `PostStart` hoặc `PreStop` thất bại,
 nó sẽ xóa Container.
 
@@ -93,22 +102,25 @@ Log cho một Hook handler không được hiển thị trong các Pod events.
 Nếu một handler thất bại vì lí do nào đó, nó sẽ broadcast một event.
 Đối với `PostStart`, đây là event `FailedPostStartHook`,
 và đối với `PreStop`, đây là event `FailedPreStopHook`.
-Bạn có thể xem những events này bằng cách chạy lệnh `kubectl describe pod <pod_name>`.
-Dưới đây là một số ví dụ output của events từ việc chạy lệnh này:
+Để tự tạo ra một event lỗi `FailedPostStartHook`, bạn có thể điều chỉnh file
+[lifecycle-events.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/lifecycle-events.yaml)
+để thay đổi lệnh postStart thành "badcommand" và áp dụng nó.
+Dưới đây là một số ví dụ output của events từ việc chạy lệnh `kubectl describe pod
+lifecycle-demo`:
 
 ```
 Events:
-  FirstSeen  LastSeen  Count  From                                                   SubObjectPath          Type      Reason               Message
-  ---------  --------  -----  ----                                                   -------------          --------  ------               -------
-  1m         1m        1      {default-scheduler }                                                          Normal    Scheduled            Successfully assigned test-1730497541-cq1d2 to gke-test-cluster-default-pool-a07e5d30-siqd
-  1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Pulling              pulling image "test:1.0"
-  1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Created              Created container with docker id 5c6a256a2567; Security:[seccomp=unconfined]
-  1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Pulled               Successfully pulled image "test:1.0"
-  1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Started              Started container with docker id 5c6a256a2567
-  38s        38s       1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Killing              Killing container with docker id 5c6a256a2567: PostStart handler: Error executing in Docker Container: 1
-  37s        37s       1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Killing              Killing container with docker id 8df9fdfd7054: PostStart handler: Error executing in Docker Container: 1
-  38s        37s       2      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}                         Warning   FailedSync           Error syncing pod, skipping: failed to "StartContainer" for "main" with RunContainerError: "PostStart handler: Error executing in Docker Container: 1"
-  1m         22s       2      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Warning   FailedPostStartHook
+  Type     Reason               Age              From               Message
+  ----     ------               ----             ----               -------
+  Normal   Scheduled            7s               default-scheduler  Successfully assigned default/lifecycle-demo to ip-XXX-XXX-XX-XX.us-east-2...
+  Normal   Pulled               6s               kubelet            Successfully pulled image "nginx" in 229.604315ms
+  Normal   Pulling              4s (x2 over 6s)  kubelet            Pulling image "nginx"
+  Normal   Created              4s (x2 over 5s)  kubelet            Created container lifecycle-demo-container
+  Normal   Started              4s (x2 over 5s)  kubelet            Started container lifecycle-demo-container
+  Warning  FailedPostStartHook  4s (x2 over 5s)  kubelet            Exec lifecycle hook ([badcommand]) for Container "lifecycle-demo-container" in Pod "lifecycle-demo_default(30229739-9651-4e5a-9a32-a8f1688862db)" failed - error: command 'badcommand' exited with 126: , message: "OCI runtime exec failed: exec failed: container_linux.go:380: starting container process caused: exec: \"badcommand\": executable file not found in $PATH: unknown\r\n"
+  Normal   Killing              4s (x2 over 5s)  kubelet            FailedPostStartHook
+  Normal   Pulled               4s               kubelet            Successfully pulled image "nginx" in 215.66395ms
+  Warning  BackOff              2s (x2 over 3s)  kubelet            Back-off restarting failed container
 ```
 
 
