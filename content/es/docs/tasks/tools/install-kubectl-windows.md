@@ -203,4 +203,4 @@ A continuación se muestran los procedimientos para configurar el autocompletado
 
 ## {{% heading "whatsnext" %}}
 
-{{< include "kubectl-whats-next.md" >}}
+{{< include "included/kubectl-whats-next.md" >}}
