@@ -4,7 +4,7 @@ body_class: code-of-conduct
 cid: code-of-conduct
 ---
 
-_Kubernetes follows the
+Kubernetes follows the
 [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md).
 
 <div id="cncf-code-of-conduct">
