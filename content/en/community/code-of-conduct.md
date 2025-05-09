@@ -6,11 +6,9 @@ cid: code-of-conduct
 
 _Kubernetes follows the
 [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md).
-The text of the CNCF CoC is replicated below, as of
-[commit 71412bb02](https://github.com/cncf/foundation/blob/71412bb029090d42ecbeadb39374a337bfb48a9c/code-of-conduct.md)._
 
 <div id="cncf-code-of-conduct">
-{{< include "static/cncf-code-of-conduct.md" >}}
+{{< cncf-coc >}}
 </div>
 
 ---
