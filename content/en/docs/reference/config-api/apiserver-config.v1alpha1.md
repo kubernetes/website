@@ -398,7 +398,7 @@ The claim's value must be a singular string.
 Same as the --oidc-username-claim and --oidc-username-prefix flags.
 If username.expression is set, the expression must produce a string value.
 If username.expression uses 'claims.email', then 'claims.email_verified' must be used in
-username.expression or extra[<em>].valueExpression or claimValidationRules[</em>].expression.
+username.expression or extra[&ast;].valueExpression or claimValidationRules[<&ast;>].expression.
 An example claim validation rule expression that matches the validation automatically
 applied when username.claim is set to 'email' is 'claims.?email_verified.orValue(true) == true'. By explicitly comparing
 the value to true, we let type-checking see the result will be a boolean, and to make sure a non-boolean email_verified
