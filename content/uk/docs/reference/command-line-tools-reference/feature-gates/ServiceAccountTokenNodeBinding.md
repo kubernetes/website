@@ -16,6 +16,7 @@ stages:
     toVersion: "1.32"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.33"
 ---
 Контролює, чи дозволяє сервер API привʼязувати токени службових облікових записів до обʼєктів Node.

@@ -4,8 +4,8 @@ content_type: task
 weight: 250
 ---
 
-Простори імен можуть бути позначені, щоб забезпечити [стандарти безпеки Podʼів](/uk/docs/concepts/security/pod-security-standards). Три політики [privileged](/uk/docs/concepts/security/pod-security-standards/#privileged), [baseline](/uk/docs/concepts/security/pod-security-standards/#baseline) та [restricted](/uk/docs/concepts/security/pod-security-standards/#restricted) широко охоплюють спектр безпеки та реалізуються за допомогою {{< glossary_tooltip
-text="контролера допуску" term_id="admission-controller" >}} [безпеки Podʼа](/uk/docs/concepts/security/pod-security-admission/).
+Простори імен можуть бути позначені, щоб забезпечити [стандарти безпеки Podʼів](/docs/concepts/security/pod-security-standards). Три політики [privileged](/docs/concepts/security/pod-security-standards/#privileged), [baseline](/docs/concepts/security/pod-security-standards/#baseline) та [restricted](/docs/concepts/security/pod-security-standards/#restricted) широко охоплюють спектр безпеки та реалізуються за допомогою {{< glossary_tooltip
+text="контролера допуску" term_id="admission-controller" >}} [безпеки Podʼа](/docs/concepts/security/pod-security-admission/).
 
 ## {{% heading "prerequisites" %}}
 

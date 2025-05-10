@@ -1,5 +1,5 @@
 ---
-title: Використання змінних середовища для передачі контейнерам інформації про Pod 
+title: Використання змінних середовища для передачі контейнерам інформації про Pod
 content_type: task
 weight: 30
 ---
@@ -11,13 +11,13 @@ weight: 30
 У Kubernetes є два способи експозиції полів Pod та контейнера для запущеного контейнера:
 
 * _Змінні середовища_, як пояснено в цьому завданні
-* [Файли томів](/uk/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
+* [Файли томів](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
 
 Разом ці два способи експозиції полів Pod та контейнера називаються downward API.
 
 Оскільки Service є основним засобом взаємодії між контейнеризованими застосунками, якими керує Kubernetes, корисно мати можливість виявляти їх під час виконання.
 
-Дізнайтеся більше про доступ до Сервісів [тут](/uk/docs/tutorials/services/connect-applications-service/#accessing-the-service).
+Дізнайтеся більше про доступ до Сервісів [тут](/docs/tutorials/services/connect-applications-service/#accessing-the-service).
 
 ## {{% heading "prerequisites" %}}
 
@@ -97,7 +97,7 @@ MY_POD_NAME=dapi-envars-fieldref
 
 ## Використання полів контейнера як значень для змінних середовища {#use-container-fields-as-values-for-environment-variables}
 
-У попередньому завданні ви використовували інформацію з полів рівня Pod як значення для змінних середовища. У наступному завданні ви плануєте передати поля, які є частиною визначення Pod, але взяті з конкретного [контейнера](/uk/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container) замість всього Pod загалом.
+У попередньому завданні ви використовували інформацію з полів рівня Pod як значення для змінних середовища. У наступному завданні ви плануєте передати поля, які є частиною визначення Pod, але взяті з конкретного [контейнера](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container) замість всього Pod загалом.
 
 Ось маніфест для іншого Pod, який знову має лише один контейнер:
 
@@ -135,9 +135,9 @@ kubectl logs dapi-envars-resourcefieldref
 
 ## {{% heading "whatsnext" %}}
 
-* Прочитайте [Визначення змінних середовища для контейнера](/uk/docs/tasks/inject-data-application/define-environment-variable-container/)
-* Прочитайте API-визначення [`spec`](/uk/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec) для Pod. Специфікація включає визначення Контейнера (частина Pod).
-* Ознайомтесь зі списком [доступних полів](/uk/docs/concepts/workloads/pods/downward-api/#available-fields), які можна викрити за допомогою downward API.
+* Прочитайте [Визначення змінних середовища для контейнера](/docs/tasks/inject-data-application/define-environment-variable-container/)
+* Прочитайте API-визначення [`spec`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec) для Pod. Специфікація включає визначення Контейнера (частина Pod).
+* Ознайомтесь зі списком [доступних полів](/docs/concepts/workloads/pods/downward-api/#available-fields), які можна викрити за допомогою downward API.
 
 Дізнайтеся про Pod, контейнери та змінні середовища в легасі довідці API:
 

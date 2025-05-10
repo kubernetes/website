@@ -6,7 +6,7 @@ weight: 70
 
 <!-- overview -->
 
-У цьому документі описано концепцію клонування наявних томів CSI в Kubernetes. Рекомендується мати уявлення про [томи](/uk/docs/concepts/storage/volumes).
+У цьому документі описано концепцію клонування наявних томів CSI в Kubernetes. Рекомендується мати уявлення про [томи](/docs/concepts/storage/volumes).
 
 <!-- body -->
 

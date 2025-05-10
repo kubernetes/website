@@ -16,7 +16,7 @@ Webhook — це зворотний виклик HTTP: HTTP POST, який ві
 
 Режим `Webhook` потребує файл для HTTP конфігурації, що вказується за допомогою прапорця `--authorization-webhook-config-file=SOME_FILENAME`.
 
-Файл конфігурації використовує формат файлу [kubeconfig](/uk/docs/tasks/access-application-cluster/configure-access-multiple-clusters/). У файлі "users" стосується конфігурації webhook API сервера, а "clusters" — до віддаленого сервісу.
+Файл конфігурації використовує формат файлу [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/). У файлі "users" стосується конфігурації webhook API сервера, а "clusters" — до віддаленого сервісу.
 
 Приклад конфігурації, що використовує клієнтську автентифікацію HTTPS:
 
@@ -54,7 +54,7 @@ contexts:
 
 При ухваленні рішення про авторизацію, API сервер надсилає JSON- серіалізований обʼєкт `authorization.k8s.io/v1beta1` `SubjectAccessReview`, що описує дію. Цей обʼєкт містить поля, що описують користувача, який намагається зробити запит, та деталі про ресурс, до якого здійснюється доступ, або атрибути запиту.
 
-Зверніть увагу, що обʼєкти API webhook підлягають тим самим [правилам сумісності версій](/uk/docs/concepts/overview/kubernetes-api/), що й інші обʼєкти API Kubernetes. Імплементатори повинні бути обізнані з менш суворими обіцянками сумісності для бета-обʼєктів і перевіряти поле "apiVersion" запиту для забезпечення правильної десеріалізації. Додатково, API сервер повинен увімкнути групу розширень API `authorization.k8s.io/v1beta1` (`--runtime-config=authorization.k8s.io/v1beta1=true`).
+Зверніть увагу, що обʼєкти API webhook підлягають тим самим [правилам сумісності версій](/docs/concepts/overview/kubernetes-api/), що й інші обʼєкти API Kubernetes. Імплементатори повинні бути обізнані з менш суворими обіцянками сумісності для бета-обʼєктів і перевіряти поле "apiVersion" запиту для забезпечення правильної десеріалізації. Додатково, API сервер повинен увімкнути групу розширень API `authorization.k8s.io/v1beta1` (`--runtime-config=authorization.k8s.io/v1beta1=true`).
 
 Приклад тіла запиту:
 
@@ -143,7 +143,7 @@ contexts:
 
 З увімкненою функцією `AuthorizeWithSelectors` поля та мітки селекторів у запиті передаються до вебхуку авторизації. Вебхук може приймати рішення про авторизацію, орієнтуючися на обмежені селектори полів і міток, якщо бажає.
 
-[Документація API SubjectAccessReview](/uk/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/) надає вказівки щодо того, як ці поля мають інтерпретуватися і оброблятися вебхуками авторизації, зокрема використанням розібраних вимог замість сирих рядків селекторів та як безпечно обробляти невідомі оператори.
+[Документація API SubjectAccessReview](/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/) надає вказівки щодо того, як ці поля мають інтерпретуватися і оброблятися вебхуками авторизації, зокрема використанням розібраних вимог замість сирих рядків селекторів та як безпечно обробляти невідомі оператори.
 
 ```json
 {
@@ -176,4 +176,4 @@ contexts:
 
 Нересурсні шляхи включають: `/api`, `/apis`, `/metrics`, `/logs`, `/debug`, `/healthz`, `/livez`, `/openapi/v2`, `/readyz` та `/version.` Клієнти потребують доступу до `/api`, `/api/*`, `/apis`, `/apis/*`, та `/version` для визначення, які ресурси та версії присутні на сервері. Доступ до інших нересурсних шляхів може бути заборонений без обмеження доступу до REST API.
 
-За подальшою інформацією звертайтеся до [документації SubjectAccessReview API](/uk/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/) та [імплементації webhook.go](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go).
+За подальшою інформацією звертайтеся до [документації SubjectAccessReview API](/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/) та [імплементації webhook.go](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go).

@@ -116,7 +116,7 @@ weight: 60
 
 ## Використання конфігураційного файлу Service {#using-a-service-configuration-file}
 
-Як альтернатива використанню `kubectl expose`, ви можете використовувати [конфігураційний файл Service](/uk/docs/concepts/services-networking/service/) для створення Service.
+Як альтернатива використанню `kubectl expose`, ви можете використовувати [конфігураційний файл Service](/docs/concepts/services-networking/service/) для створення Service.
 
 ## {{% heading "cleanup" %}}
 
@@ -134,4 +134,4 @@ kubectl delete services example-service
 
 ## {{% heading "whatsnext" %}}
 
-Ознайомтесь з посібником [Підключення застосунків за допомогою Service](/uk/docs/tutorials/services/connect-applications-service/).
+Ознайомтесь з посібником [Підключення застосунків за допомогою Service](/docs/tutorials/services/connect-applications-service/).

@@ -18,7 +18,7 @@ weight: 10
 
 ## kube-scheduler
 
-[kube-scheduler](/uk/docs/reference/command-line-tools-reference/kube-scheduler/) є стандартним планувальником для Kubernetes і працює як частина {{< glossary_tooltip text="панелі управління" term_id="control-plane" >}}. kube-scheduler розроблено так, що, якщо ви хочете і вам треба, ви можете написати власний компонент планування і використовувати його замість стандартного.
+[kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) є стандартним планувальником для Kubernetes і працює як частина {{< glossary_tooltip text="панелі управління" term_id="control-plane" >}}. kube-scheduler розроблено так, що, якщо ви хочете і вам треба, ви можете написати власний компонент планування і використовувати його замість стандартного.
 
 Kube-scheduler вибирає оптимальний вузол для запуску нових або ще не запланованих Podʼів. Оскільки контейнери в Podʼах, і самі Podʼи, можуть мати різні вимоги, планувальник фільтрує будь-які вузли, які не відповідають конкретним потребам планування Podʼа. Зазвичай через API можна вказати вузол для Podʼа при його створенні, але це робиться тільки у виняткових випадках.
 
@@ -43,19 +43,19 @@ kube-scheduler вибирає вузол для Podʼа в два етапи:
 
 Є два підтримуваних способи налаштування поведінки фільтрації та оцінювання планувальника:
 
-1. [Політики планування](/uk/docs/reference/scheduling/policies) дозволяють налаштувати _Предикати_ для фільтрації та _Пріоритети_ для оцінювання.
-2. [Профілі планування](/uk/docs/reference/scheduling/config/#profiles) дозволяють налаштувати Втулки, які реалізують різні етапи планування, включаючи: `QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit` та інші. Ви також можете налаштувати kube-scheduler для запуску різних профілів.
+1. [Політики планування](/docs/reference/scheduling/policies) дозволяють налаштувати _Предикати_ для фільтрації та _Пріоритети_ для оцінювання.
+2. [Профілі планування](/docs/reference/scheduling/config/#profiles) дозволяють налаштувати Втулки, які реалізують різні етапи планування, включаючи: `QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit` та інші. Ви також можете налаштувати kube-scheduler для запуску різних профілів.
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся про [налаштування продуктивності планувальника](/uk/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
-* Дізнайтеся про [обмеження розподілу топології Podʼа](/uk/docs/concepts/scheduling-eviction/topology-spread-constraints/)
-* Прочитайте [довідку](/uk/docs/reference/command-line-tools-reference/kube-scheduler/) для kube-scheduler
-* Прочитайте [посилання на конфігурацію kube-scheduler (v1)](/uk/docs/reference/config-api/kube-scheduler-config.v1/)
-* Дізнайтеся про [налаштування кількох планувальників](/uk/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)
-* Дізнайтеся про [політики управління топологією](/uk/docs/tasks/administer-cluster/topology-manager/)
-* Дізнайтеся про [накладні витрати Podʼа](/uk/docs/concepts/scheduling-eviction/pod-overhead/)
+* Дізнайтеся про [налаштування продуктивності планувальника](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
+* Дізнайтеся про [обмеження розподілу топології Podʼа](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+* Прочитайте [довідку](/docs/reference/command-line-tools-reference/kube-scheduler/) для kube-scheduler
+* Прочитайте [посилання на конфігурацію kube-scheduler (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
+* Дізнайтеся про [налаштування кількох планувальників](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)
+* Дізнайтеся про [політики управління топологією](/docs/tasks/administer-cluster/topology-manager/)
+* Дізнайтеся про [накладні витрати Podʼа](/docs/concepts/scheduling-eviction/pod-overhead/)
 * Дізнайтеся про планування Podʼів, які використовують томи в:
-  * [Підтримка топології томів](/uk/docs/concepts/storage/storage-classes/#volume-binding-mode)
-  * [Відстеження місткості сховища](/uk/docs/concepts/storage/storage-capacity/)
-  * [Обмеження томів для конкретного вузла](/uk/docs/concepts/storage/storage-limits/)
+  * [Підтримка топології томів](/docs/concepts/storage/storage-classes/#volume-binding-mode)
+  * [Відстеження місткості сховища](/docs/concepts/storage/storage-capacity/)
+  * [Обмеження томів для конкретного вузла](/docs/concepts/storage/storage-limits/)

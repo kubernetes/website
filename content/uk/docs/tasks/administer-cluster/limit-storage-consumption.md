@@ -8,7 +8,7 @@ weight: 240
 
 Цей приклад демонструє, як обмежити обсяг використання сховища в просторі імен.
 
-У демонстрації використовуються наступні ресурси: [ResourceQuota](/uk/docs/concepts/policy/resource-quotas/), [LimitRange](/uk/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/), та [PersistentVolumeClaim](/uk/docs/concepts/storage/persistent-volumes/).
+У демонстрації використовуються наступні ресурси: [ResourceQuota](/docs/concepts/policy/resource-quotas/), [LimitRange](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/), та [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/).
 
 ## {{% heading "prerequisites" %}}
 

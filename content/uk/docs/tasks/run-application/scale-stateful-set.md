@@ -12,7 +12,7 @@ weight: 50
 
 - StatefulSets доступні тільки в версії Kubernetes 1.5 або пізніше. Щоб перевірити вашу версію Kubernetes, виконайте `kubectl version`.
 
-- Не всі застосунки зі збереженням стану гарно масштабуються. Якщо ви не впевнені, чи масштабувати ваші StatefulSets, див. [Концепції StatefulSet](/uk/docs/concepts/workloads/controllers/statefulset/) або [Посібник StatefulSet](/uk/docs/tutorials/stateful-application/basic-stateful-set/) для отримання додаткової інформації.
+- Не всі застосунки зі збереженням стану гарно масштабуються. Якщо ви не впевнені, чи масштабувати ваші StatefulSets, див. [Концепції StatefulSet](/docs/concepts/workloads/controllers/statefulset/) або [Посібник StatefulSet](/docs/tutorials/stateful-application/basic-stateful-set/) для отримання додаткової інформації.
 
 - Ви повинні виконувати масштабування лише тоді, коли ви впевнені, що ваш кластер застосунку зі збереженням стану є повністю справним.
 
@@ -36,7 +36,7 @@ kubectl scale statefulsets <назва-stateful-set> --replicas=<нові-реп
 
 ### Виконання оновлень на місці для вашого StatefulSets {#make-in-place-updates-on-your-statefulsets}
 
-Альтернативно, ви можете виконати [оновлення на місці](/uk/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources) для ваших StatefulSets.
+Альтернативно, ви можете виконати [оновлення на місці](/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources) для ваших StatefulSets.
 
 Якщо ваш StatefulSet спочатку був створений за допомогою `kubectl apply`, оновіть `.spec.replicas` маніфестів StatefulSet, а потім виконайте `kubectl apply`:
 
@@ -70,4 +70,4 @@ kubectl patch statefulsets <назва-stateful-set> -p '{"spec":{"replicas":<н
 
 ## {{% heading "whatsnext" %}}
 
-- Дізнайтеся більше про [видалення StatefulSet](/uk/docs/tasks/run-application/delete-stateful-set/).
+- Дізнайтеся більше про [видалення StatefulSet](/docs/tasks/run-application/delete-stateful-set/).

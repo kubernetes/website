@@ -8,7 +8,7 @@ weight: 45
 
 {{< feature-state feature_gate_name="VolumeAttributesClass" >}}
 
-Ця сторінка передбачає, що ви знайомі з [StorageClasses](/uk/docs/concepts/storage/storage-classes/), [томами](/uk/docs/concepts/storage/volumes/) та [постійними томами](/uk/docs/concepts/storage/persistent-volumes/) в Kubernetes.
+Ця сторінка передбачає, що ви знайомі з [StorageClasses](/docs/concepts/storage/storage-classes/), [томами](/docs/concepts/storage/volumes/) та [постійними томами](/docs/concepts/storage/persistent-volumes/) в Kubernetes.
 
 <!-- body -->
 
@@ -16,7 +16,7 @@ weight: 45
 
 Це бета-функція, її типово вимкнено.
 
-Якщо ви хочете протестувати функцію, поки вона бета, вам потрібно ввімкнути [функціональну можливість](/uk/docs/reference/command-line-tools-reference/feature-gates/) `VolumeAttributesClass` для kube-controller-manager, kube-scheduler та kube-apiserver. Використовуйте аргумент командного рядка `--feature-gates`:
+Якщо ви хочете протестувати функцію, поки вона бета, вам потрібно ввімкнути [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `VolumeAttributesClass` для kube-controller-manager, kube-scheduler та kube-apiserver. Використовуйте аргумент командного рядка `--feature-gates`:
 
 ```shell
 --feature-gates="...,VolumeAttributesClass=true"
@@ -44,7 +44,7 @@ metadata:
 driverName: pd.csi.storage.gke.io
 parameters:
   provisioned-iops: "3000"
-  provisioned-throughput: "50" 
+  provisioned-throughput: "50"
 ```
 
 ### Постачальник {#provisioner}

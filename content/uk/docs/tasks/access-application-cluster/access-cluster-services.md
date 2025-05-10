@@ -15,15 +15,15 @@ weight: 140
 
 ## Доступ до Serviceʼів, що працюють у кластері {#accessing-services-running-on-the-cluster}
 
-У Kubernetes [Вузли](/uk/docs/concepts/architecture/nodes/),
-[Podʼи](/uk/docs/concepts/workloads/pods/) та [Serviceʼи](/uk/docs/concepts/services-networking/service/) мають власні IP-адреси. У багатьох випадках IP-адреси вузлів, Podʼів та деякі IP-адреси Service у кластері не можуть бути маршрутизовані, тому вони не будуть досяжними з машини за межами кластера, такої як ваш настільний компʼютер.
+У Kubernetes [Вузли](/docs/concepts/architecture/nodes/),
+[Podʼи](/docs/concepts/workloads/pods/) та [Serviceʼи](/docs/concepts/services-networking/service/) мають власні IP-адреси. У багатьох випадках IP-адреси вузлів, Podʼів та деякі IP-адреси Service у кластері не можуть бути маршрутизовані, тому вони не будуть досяжними з машини за межами кластера, такої як ваш настільний компʼютер.
 
 ### Способи приєднання {#ways-to-connect}
 
 Ви маєте кілька варіантів приєднання до вузлів, Podʼів та Serviceʼів ззовні кластера:
 
 - Доступ до Servicʼів через публічні IP-адреси.
-  - Використовуйте Service з типом `NodePort` або `LoadBalancer`, щоб зробити Service доступним ззовні кластера. Дивіться документацію [Service](/uk/docs/concepts/services-networking/service/) та [kubectl expose](/uk/docs/reference/generated/kubectl/kubectl-commands/#expose).
+  - Використовуйте Service з типом `NodePort` або `LoadBalancer`, щоб зробити Service доступним ззовні кластера. Дивіться документацію [Service](/docs/concepts/services-networking/service/) та [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose).
   - Залежно від середовища вашого кластера, це може тільки відкрити Service для вашої корпоративної мережі, або ж зробити його доступним в інтернеті. Подумайте, чи є Service безпечним для відкриття. Чи має він власну автентифікацію?
   - Розміщуйте Podʼи за Serviceʼами. Щоб отримати доступ до одного конкретного Pod з набору реплік, наприклад, для налагодження, додайте унікальну мітку до Podʼа і створіть новий Service, який обирає цю мітку.
   - У більшості випадків розробнику застосунків не потрібно безпосередньо звертатися до вузлів за їх IP-адресами.
@@ -33,7 +33,7 @@ weight: 140
   - Працює тільки для HTTP/HTTPS.
   - Описано [тут](#manually-constructing-apiserver-proxy-urls).
 - Доступ з вузла або Podʼа в кластері.
-  - Запустіть Pod та отримайте доступ до shell у ньому за допомогою [kubectl exec](/uk/docs/reference/generated/kubectl/kubectl-commands/#exec). Підʼєднуйтесь до інших вузлів, Podʼів та Serviceʼів з цього shell.
+  - Запустіть Pod та отримайте доступ до shell у ньому за допомогою [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec). Підʼєднуйтесь до інших вузлів, Podʼів та Serviceʼів з цього shell.
   - Деякі кластери можуть дозволити вам підʼєднатись по SSH до вузла в кластері. Звідти ви можете отримати доступ до Serviceʼів кластера. Це нестандартний метод і працюватиме на одних кластерах, але на інших — ні. Оглядачі та інші інструменти можуть бути встановлені або не встановлені. DNS кластера може не працювати.
 
 ### Виявлення вбудованих Service {#discovering-builtin-services}
@@ -59,7 +59,7 @@ heapster is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/
 Це показує URL з проксі-дієсловом для доступу до кожного Service. Наприклад, у цьому кластері ввімкнено кластерне логування (з використанням Elasticsearch), до якого можна звернутися за адресою `https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` за умови наявності відповідних облікових даних або через проксі kubectl за адресою: `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`.
 
 {{< note >}}
-Дивіться [Доступ до кластерів за допомогою Kubernetes API](/uk/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-kubernetes-api) щоб дізнатися, як передати облікові дані або використовувати проксі kubectl.
+Дивіться [Доступ до кластерів за допомогою Kubernetes API](/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-kubernetes-api) щоб дізнатися, як передати облікові дані або використовувати проксі kubectl.
 {{< /note >}}
 
 #### Ручне створення URL-адрес проксі api-сервера {#manually-constructing-apiserver-proxy-urls}

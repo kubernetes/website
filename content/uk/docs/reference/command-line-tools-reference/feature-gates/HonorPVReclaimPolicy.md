@@ -16,6 +16,7 @@ stages:
     toVersion: "1.32"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.33"
 ---
 Дотримуватися політики відновлення постійного тому, коли він має значення `Delete`, незалежно від впорядкування видалення PV-PVC. Докладніші відомості наведено у документації [Завершувач захисту від видалення постійних томів](/docs/concepts/storage/persistent-volumes/#persistentvolume-deletion-protection-finalizer).

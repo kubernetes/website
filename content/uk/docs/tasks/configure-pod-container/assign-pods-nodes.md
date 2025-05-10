@@ -91,5 +91,5 @@ weight: 150
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся більше про [мітки та селектори](/uk/docs/concepts/overview/working-with-objects/labels/).
-* Дізнайтеся більше про [вузли](/uk/docs/concepts/architecture/nodes/).
+* Дізнайтеся більше про [мітки та селектори](/docs/concepts/overview/working-with-objects/labels/).
+* Дізнайтеся більше про [вузли](/docs/concepts/architecture/nodes/).

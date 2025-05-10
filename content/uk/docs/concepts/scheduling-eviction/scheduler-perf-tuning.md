@@ -8,7 +8,7 @@ weight: 70
 
 {{< feature-state for_k8s_version="v1.14" state="beta" >}}
 
-[kube-scheduler](/uk/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler) — стандартний планувальник для Kubernetes. Він відповідає за розміщення Podʼів на вузлах кластера.
+[kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler) — стандартний планувальник для Kubernetes. Він відповідає за розміщення Podʼів на вузлах кластера.
 
 Вузли кластера, які відповідають вимогам планування Podʼа, називаються _відповідними_ вузлами для Podʼа. Планувальник знаходить відповідні вузли для Podʼа, а потім виконує набір функцій для оцінки цих вузлів, вибираючи вузол з найвищим балом серед відповідних для запуску Podʼа. Планувальник потім повідомляє API-серверу про це рішення в процесі, що називається _звʼязування_.
 
@@ -24,7 +24,7 @@ weight: 70
 
 Опція `percentageOfNodesToScore` приймає цілі числові значення від 0 до 100. Значення 0 є спеціальним числом, яке позначає, що kube-scheduler повинен використовувати типовав вбудоване значення. Якщо ви встановлюєте `percentageOfNodesToScore` більше 100, kube-scheduler діє так, ніби ви встановили значення 100.
 
-Щоб змінити значення, відредагуйте [файл конфігурації kube-scheduler](/uk/docs/reference/config-api/kube-scheduler-config.v1/) і перезапустіть планувальник. У багатьох випадках файл конфігурації можна знайти за шляхом `/etc/kubernetes/config/kube-scheduler.yaml`.
+Щоб змінити значення, відредагуйте [файл конфігурації kube-scheduler](/docs/reference/config-api/kube-scheduler-config.v1/) і перезапустіть планувальник. У багатьох випадках файл конфігурації можна знайти за шляхом `/etc/kubernetes/config/kube-scheduler.yaml`.
 
 Після внесення цих змін ви можете виконати
 
@@ -38,7 +38,7 @@ kubectl get pods -n kube-system | grep kube-scheduler
 
 Для поліпшення продуктивності планування kube-scheduler може припинити пошук відповідних вузлів, як тільки він знайде їх достатню кількість. У великих кластерах це заощаджує час порівняно з підходом, який би враховував кожен вузол.
 
-Ви вказуєте поріг для того, яка кількість вузлів є достатньою, у відсотках від усіх вузлів у вашому кластері. Kube-scheduler перетворює це в ціле число вузлів. Під час планування, якщо kube-scheduler визначив достатню кількість відповідних вузлів, щоб перевищити налаштований відсоток, він припиняє пошук додаткових відповідних вузлів і переходить до [фази оцінки](/uk/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation).
+Ви вказуєте поріг для того, яка кількість вузлів є достатньою, у відсотках від усіх вузлів у вашому кластері. Kube-scheduler перетворює це в ціле число вузлів. Під час планування, якщо kube-scheduler визначив достатню кількість відповідних вузлів, щоб перевищити налаштований відсоток, він припиняє пошук додаткових відповідних вузлів і переходить до [фази оцінки](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation).
 
 У розділі [Як планувальник проходиться по вузлах](#how-the-scheduler-iterates-over-nodes) детально описано цей процес.
 
@@ -104,4 +104,4 @@ Node 1, Node 5, Node 2, Node 6, Node 3, Node 4
 
 ## {{% heading "whatsnext" %}}
 
-* Перегляньте [довідку конфігурації kube-scheduler (v1)](/uk/docs/reference/config-api/kube-scheduler-config.v1/)
+* Перегляньте [довідку конфігурації kube-scheduler (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)

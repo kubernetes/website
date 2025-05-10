@@ -145,7 +145,7 @@ username:    5 bytes
 
 ## Редагування Secret {#edit-secret}
 
-Ви можете редагувати наявний обʼєкт `Secret`, якщо він не є [незмінним](/uk/docs/concepts/configuration/secret/#secret-immutable). Щоб редагувати Secret, виконайте наступну команду:
+Ви можете редагувати наявний обʼєкт `Secret`, якщо він не є [незмінним](/docs/concepts/configuration/secret/#secret-immutable). Щоб редагувати Secret, виконайте наступну команду:
 
 ```shell
 kubectl edit secrets <secret-name>
@@ -182,6 +182,6 @@ kubectl delete secret db-user-pass
 
 ## {{% heading "whatsnext" %}}
 
-- Дізнайтеся більше про [концепцію Secret](/uk/docs/concepts/configuration/secret/)
-- Дізнайтесь, як [керувати Secret за допомогою файлу конфігурації](/uk/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- Дізнайтесь, як [керувати Secret за допомогою kustomize](/uk/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- Дізнайтеся більше про [концепцію Secret](/docs/concepts/configuration/secret/)
+- Дізнайтесь, як [керувати Secret за допомогою файлу конфігурації](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- Дізнайтесь, як [керувати Secret за допомогою kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)

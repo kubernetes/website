@@ -18,7 +18,7 @@ weight: 30
 
 ### Встановлення CRD для GMSACredentialSpec {#install-the-gmsacredentialspec-crd}
 
-[CustomResourceDefinition](/uk/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)(CRD) для ресурсів специфікації облікових даних GMSA потрібно налаштувати на кластері, щоб визначити тип настроюваного ресурсу `GMSACredentialSpec`. Завантажте GMSA CRD [YAML](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-crd.yml) і збережіть як gmsa-crd.yaml. Далі встановіть CRD за допомогою `kubectl apply -f gmsa-crd.yaml`.
+[CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)(CRD) для ресурсів специфікації облікових даних GMSA потрібно налаштувати на кластері, щоб визначити тип настроюваного ресурсу `GMSACredentialSpec`. Завантажте GMSA CRD [YAML](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-crd.yml) і збережіть як gmsa-crd.yaml. Далі встановіть CRD за допомогою `kubectl apply -f gmsa-crd.yaml`.
 
 ### Встановлення вебхуків для перевірки користувачів GMSA {#install-webhooks-to-validate-gmsa-users}
 

@@ -10,7 +10,7 @@ weight: 50
 
 Документація API Kubernetes формується на основі [специфікації OpenAPI Kubernetes](https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/swagger.json) з використанням коду генерації з [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs).
 
-Якщо ви знайшли помилки у згенерованій документації, вам потрібно [виправити їх на upstream](/uk/docs/contribute/generate-ref-docs/contribute-upstream/).
+Якщо ви знайшли помилки у згенерованій документації, вам потрібно [виправити їх на upstream](/docs/contribute/generate-ref-docs/contribute-upstream/).
 
 Якщо вам потрібно тільки згенерувати документацію з [OpenAPI](https://github.com/OAI/OpenAPI-Specification), продовжте читати цю сторінку.
 
@@ -145,7 +145,7 @@ static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/scroll
 
 ## Локальне тестування документації API {#locally-test-the-api-reference}
 
-Опублікуйте локальну версію документації API. Перевірте [локальний попередній перегляд](/uk/docs/reference/generated/kubernetes-api/{{< param "version">}}/).
+Опублікуйте локальну версію документації API. Перевірте [локальний попередній перегляд](/docs/reference/generated/kubernetes-api/{{< param "version">}}/).
 
 ```shell
 cd <web-base>
@@ -157,10 +157,10 @@ make container-serve
 
 У `<web-base>`, виконайте `git add` і `git commit`, щоб зафіксувати зміни.
 
-Подайте ваші зміни як [pull request](/uk/docs/contribute/new-content/open-a-pr/) до репозиторію [kubernetes/website](https://github.com/kubernetes/website). Слідкуйте за вашим pull request, і відповідайте на коментарі рецензентів за потреби. Продовжуйте слідкувати за вашим pull request до його злиття.
+Подайте ваші зміни як [pull request](/docs/contribute/new-content/open-a-pr/) до репозиторію [kubernetes/website](https://github.com/kubernetes/website). Слідкуйте за вашим pull request, і відповідайте на коментарі рецензентів за потреби. Продовжуйте слідкувати за вашим pull request до його злиття.
 
 ## {{% heading "whatsnext" %}}
 
-* [Швидкий старт з генерації документації](/uk/docs/contribute/generate-ref-docs/quickstart/)
-* [Генерація документації для компонентів та інструментів Kubernetes](/uk/docs/contribute/generate-ref-docs/kubernetes-components/)
-* [Генерація документації для команд kubectl](/uk/docs/contribute/generate-ref-docs/kubectl/)
+* [Швидкий старт з генерації документації](/docs/contribute/generate-ref-docs/quickstart/)
+* [Генерація документації для компонентів та інструментів Kubernetes](/docs/contribute/generate-ref-docs/kubernetes-components/)
+* [Генерація документації для команд kubectl](/docs/contribute/generate-ref-docs/kubectl/)

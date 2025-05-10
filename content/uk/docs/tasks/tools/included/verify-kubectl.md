@@ -9,7 +9,7 @@ _build:
 ---
 
 Щоб kubectl знайшов та отримав доступ до кластера Kubernetes, вам потрібен
-[файл kubeconfig](/uk/docs/concepts/configuration/organize-cluster-access-kubeconfig/), який створюється автоматично при створенні кластера за допомогою [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh) або успішного розгортання кластера Minikube. Типово конфігурація kubectl знаходиться в `~/.kube/config`.
+[файл kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/), який створюється автоматично при створенні кластера за допомогою [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh) або успішного розгортання кластера Minikube. Типово конфігурація kubectl знаходиться в `~/.kube/config`.
 
 Перевірте, що kubectl належним чином налаштований, отримавши стан кластера:
 

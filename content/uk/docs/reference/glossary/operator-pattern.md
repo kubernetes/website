@@ -13,7 +13,7 @@ tags:
 - architecture
 ---
 
-[Шаблон Operator](/uk/docs/concepts/extend-kubernetes/operator/) — це системний дизайн, який повʼязує контролер з одним чи кількома власними ресурсами.
+[Шаблон Operator](/docs/concepts/extend-kubernetes/operator/) — це системний дизайн, який повʼязує контролер з одним чи кількома власними ресурсами.
 
 <!--more-->
 

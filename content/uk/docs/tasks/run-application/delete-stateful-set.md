@@ -69,9 +69,9 @@ kubectl delete pvc -l app.kubernetes.io/name=MyApp
 
 ### Примусове видалення Podʼів StatefulSet {#force-deletion-of-statefulset-pods}
 
-Якщо ви помітите, що деякі Podʼи у вашому StatefulSet застрягли у стані 'Terminating' або 'Unknown' протягом тривалого періоду часу, вам може знадобитися втрутитися вручну, щоб примусово видалити Podʼи з apiserverʼа. Це потенційно небезпечне завдання. Див. 
-[Примусове видалення Podʼів StatefulSet](/uk/docs/tasks/run-application/force-delete-stateful-set-pod/) для отримання детальної інформації.
+Якщо ви помітите, що деякі Podʼи у вашому StatefulSet застрягли у стані 'Terminating' або 'Unknown' протягом тривалого періоду часу, вам може знадобитися втрутитися вручну, щоб примусово видалити Podʼи з apiserverʼа. Це потенційно небезпечне завдання. Див.
+[Примусове видалення Podʼів StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/) для отримання детальної інформації.
 
 ## {{% heading "whatsnext" %}}
 
-Дізнайтеся більше про [примусове видалення Podʼів StatefulSet](/uk/docs/tasks/run-application/force-delete-stateful-set-pod/).
+Дізнайтеся більше про [примусове видалення Podʼів StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).

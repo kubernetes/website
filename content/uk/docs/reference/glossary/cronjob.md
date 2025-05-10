@@ -12,7 +12,7 @@ tags:
 - workload
 ---
 
-Керує [Job](/uk/docs/concepts/workloads/controllers/job/), який виконується за встановленим розкладом.
+Керує [Job](/docs/concepts/workloads/controllers/job/), який виконується за встановленим розкладом.
 
 <!--more-->
 

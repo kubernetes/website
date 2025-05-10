@@ -6,19 +6,19 @@ weight: 360
 
 <!--overview-->
 
-Ця сторінка показує, як вказати тип [каскадного видалення](/uk/docs/concepts/architecture/garbage-collection/#cascading-deletion) у вашому кластері під час {{<glossary_tooltip text="збору сміття" term_id="garbage-collection">}}.
+Ця сторінка показує, як вказати тип [каскадного видалення](/docs/concepts/architecture/garbage-collection/#cascading-deletion) у вашому кластері під час {{<glossary_tooltip text="збору сміття" term_id="garbage-collection">}}.
 
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-Вам також потрібно [створити приклад Deployment](/uk/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment), щоб експериментувати з різними типами каскадного видалення. Вам доведеться перестворити Deployment для кожного типу.
+Вам також потрібно [створити приклад Deployment](/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment), щоб експериментувати з різними типами каскадного видалення. Вам доведеться перестворити Deployment для кожного типу.
 
 ## Перевірка власників у ваших Podʼах {#check-owner-references-on-your-pods}
 
 Перевірте, що поле `ownerReferences` присутнє у ваших Podʼах:
 
-```shell 
+```shell
 kubectl get pods -l app=nginx --output=yaml
 ```
 
@@ -39,7 +39,7 @@ apiVersion: v1
 
 ## Використання каскадного видалення на видності {#use-foreground-cascading-deletion}
 
-Стандартно Kubernetes використовує [фонове каскадне видалення](/uk/docs/concepts/architecture/garbage-collection/#background-deletion) для видалення залежностей обʼєкта. Ви можете переключитися на каскадне видалення на видноті за допомогою `kubectl` або за допомогою API Kubernetes, залежно від версії Kubernetes вашого кластера. {{<version-check>}}
+Стандартно Kubernetes використовує [фонове каскадне видалення](/docs/concepts/architecture/garbage-collection/#background-deletion) для видалення залежностей обʼєкта. Ви можете переключитися на каскадне видалення на видноті за допомогою `kubectl` або за допомогою API Kubernetes, залежно від версії Kubernetes вашого кластера. {{<version-check>}}
 
 Ви можете видаляти обʼєкти за допомогою каскадного видалення, використовуючи `kubectl` або API Kubernetes.
 
@@ -88,7 +88,7 @@ kubectl delete deployment nginx-deployment --cascade=foreground
 
 ## Використання фонового каскадного видалення {#use-background-cascading-deletion}
 
-1. [Створіть приклад Deployment](/uk/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment).
+1. [Створіть приклад Deployment](/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment).
 1. Використовуйте або `kubectl`, або API Kubernetes для видалення Deployment, залежно від версії Kubernetes вашого кластера. {{<version-check>}}
 
 Ви можете видаляти обʼєкти за допомогою фонового каскадного видалення за допомогою `kubectl`
@@ -188,6 +188,6 @@ kubectl get pods -l app=nginx
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся про [власників та залежності](/uk/docs/concepts/overview/working-with-objects/owners-dependents/) у Kubernetes.
-* Дізнайтеся про [завершувачів в Kubernetes](/uk/docs/concepts/overview/working-with-objects/finalizers/).
-* Дізнайтеся про [збирання сміття](/uk/docs/concepts/architecture/garbage-collection/).
+* Дізнайтеся про [власників та залежності](/docs/concepts/overview/working-with-objects/owners-dependents/) у Kubernetes.
+* Дізнайтеся про [завершувачів в Kubernetes](/docs/concepts/overview/working-with-objects/finalizers/).
+* Дізнайтеся про [збирання сміття](/docs/concepts/architecture/garbage-collection/).

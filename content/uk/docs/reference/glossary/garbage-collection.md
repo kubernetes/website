@@ -17,4 +17,4 @@ tags:
 
 <!--more-->
 
-Kubernetes використовує збирання сміття для очищення ресурсів, таких як [невикористані контейнери та образи](/uk/docs/concepts/architecture/garbage-collection/#containers-images), [збійні Podʼи](/uk/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection), [обʼєкти, які належать цільовому ресурсу](/uk/docs/concepts/overview/working-with-objects/owners-dependents/), [завершені завдання (Job)](/uk/docs/concepts/workloads/controllers/ttlafterfinished/) та ресурси, строк існування яких сплив або які зазнали збою.
+Kubernetes використовує збирання сміття для очищення ресурсів, таких як [невикористані контейнери та образи](/docs/concepts/architecture/garbage-collection/#containers-images), [збійні Podʼи](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection), [обʼєкти, які належать цільовому ресурсу](/docs/concepts/overview/working-with-objects/owners-dependents/), [завершені завдання (Job)](/docs/concepts/workloads/controllers/ttlafterfinished/) та ресурси, строк існування яких сплив або які зазнали збою.

@@ -22,7 +22,7 @@ CRI — це інтерфейс втулка, який дозволяє kubelet
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
-Kubelet діє як клієнт при підключенні до середовища виконання контейнерів через gRPC. Endpointʼи служби виконання та образів повинні бути доступні в середовищі виконання контейнерів, це може бути налаштовано окремо в kubelet за допомогою прапорців командного рядка `--image-service-endpoint` [command line flags](/uk/docs/reference/command-line-tools-reference/kubelet).
+Kubelet діє як клієнт при підключенні до середовища виконання контейнерів через gRPC. Endpointʼи служби виконання та образів повинні бути доступні в середовищі виконання контейнерів, це може бути налаштовано окремо в kubelet за допомогою прапорців командного рядка `--image-service-endpoint` [command line flags](/docs/reference/command-line-tools-reference/kubelet).
 
 Для Kubernetes v{{< skew currentVersion >}}, kubelet вибирає CRI `v1`. Якщо середовище виконання контейнерів не підтримує `v1` CRI, то kubelet намагається домовитися про будь-яку підтримувану старішу версію. Kubelet v{{< skew currentVersion >}} також може домовитися про CRI `v1alpha2`, але ця версія вважається застарілою. Якщо kubelet не може домовитися про підтримувану версію CRI, то kubelet припиняє спроби та не реєструє вузол.
 

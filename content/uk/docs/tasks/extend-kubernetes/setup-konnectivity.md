@@ -22,7 +22,7 @@ weight: 70
 
 Вам потрібно налаштувати API-сервер для використання служби Konnectivity та направлення мережевого трафіку на вузли кластера:
 
-1. Переконайтеся, що функція [Проєкція токенів службових облікових записів](/uk/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection) увімкенна у вашому кластері. Вона є типово увімкненою з версії Kubernetes v1.20.
+1. Переконайтеся, що функція [Проєкція токенів службових облікових записів](/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection) увімкенна у вашому кластері. Вона є типово увімкненою з версії Kubernetes v1.20.
 2. Створіть файл конфігурації egress, наприклад `admin/konnectivity/egress-selector-configuration.yaml`.
 3. Встановіть прапорець `--egress-selector-config-file` API-сервера на шлях до файлу конфігурації виходу API-сервера.
 4. Якщо ви використовуєте з'ʼєднання UDS, додайте конфігурацію томів до kube-apiserver:

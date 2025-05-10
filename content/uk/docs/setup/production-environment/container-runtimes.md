@@ -23,8 +23,8 @@ Kubernetes {{< skew currentVersion >}} вимагає використання r
 - [Mirantis Container Runtime](#mcr)
 
 {{< note >}}
-Релізи Kubernetes до v1.24 включно мали безпосередню інтеграцію з Docker Engine, використовуючи компонент під назвою _dockershim_. Ця безпосередня інтеграція більше не є частиною Kubernetes (про що було [оголошено](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation) у випуску v1.20). Ви можете ознайомитись з матеріалами статті [Перевірте, чи вас стосується видалення Dockershim](/uk/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/), щоб зрозуміти, як це видалення може вплинути на вас. Щоб дізнатися про міграцію з dockershim, перегляньте
-[Міграція з dockershim](/uk/docs/tasks/administer-cluster/migrating-from-dockershim/).
+Релізи Kubernetes до v1.24 включно мали безпосередню інтеграцію з Docker Engine, використовуючи компонент під назвою _dockershim_. Ця безпосередня інтеграція більше не є частиною Kubernetes (про що було [оголошено](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation) у випуску v1.20). Ви можете ознайомитись з матеріалами статті [Перевірте, чи вас стосується видалення Dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/), щоб зрозуміти, як це видалення може вплинути на вас. Щоб дізнатися про міграцію з dockershim, перегляньте
+[Міграція з dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/).
 
 Якщо ви використовуєте версію Kubernetes іншу, ніж v{{< skew currentVersion >}}, перевірте документацію для цієї версії.
 {{< /note >}}
@@ -61,7 +61,7 @@ sysctl net.ipv4.ip_forward
 
 У Linux використовуються {{< glossary_tooltip text="control groups" term_id="cgroup" >}} для обмеження ресурсів, які виділяються процесам.
 
-І {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, і відповідні середовища виконання контейнерів потребують взаємодії з cgroup для [управління ресурсами для Podʼів та контейнерів](/uk/docs/concepts/configuration/manage-resources-containers/) та встановлення ресурсів, таких як обсяг памʼяті та обчислювальних ресурсів центрального процесора, а також їх обмежень. Щоб взаємодіяти з cgroup, kubelet та середовище виконання контейнерів повинні використовувати _драйвер cgroup_. Важливо, щоб kubelet та середовище виконання контейнерів використовували один і той самий драйвер cgroup та були налаштовані однаково.
+І {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, і відповідні середовища виконання контейнерів потребують взаємодії з cgroup для [управління ресурсами для Podʼів та контейнерів](/docs/concepts/configuration/manage-resources-containers/) та встановлення ресурсів, таких як обсяг памʼяті та обчислювальних ресурсів центрального процесора, а також їх обмежень. Щоб взаємодіяти з cgroup, kubelet та середовище виконання контейнерів повинні використовувати _драйвер cgroup_. Важливо, щоб kubelet та середовище виконання контейнерів використовували один і той самий драйвер cgroup та були налаштовані однаково.
 
 Існують два доступні драйвери cgroup:
 
@@ -70,10 +70,10 @@ sysctl net.ipv4.ip_forward
 
 ### Драйвер cgroupfs {#cgroupfs-cgroup-driver}
 
-Драйвер `cgroupfs` є [стандартним драйвером cgroup в kubelet](/uk/docs/reference/config-api/kubelet-config.v1beta1). Коли використовується драйвер `cgroupfs`, kubelet та середовище виконання контейнерів безпосередньо взаємодіють
+Драйвер `cgroupfs` є [стандартним драйвером cgroup в kubelet](/docs/reference/config-api/kubelet-config.v1beta1). Коли використовується драйвер `cgroupfs`, kubelet та середовище виконання контейнерів безпосередньо взаємодіють
 з файловою системою cgroup для їх налаштування.
 
-Драйвер `cgroupfs` **не** рекомендується використовувати, коли [systemd](https://www.freedesktop.org/wiki/Software/systemd/) є системою ініціалізації, оскільки systemd очікує наявності єдиного менеджера cgroup в системі. Крім того, якщо використовуєте [cgroup v2](/uk/docs/concepts/architecture/cgroups), використовуйте драйвер `systemd` cgroup замість `cgroupfs`.
+Драйвер `cgroupfs` **не** рекомендується використовувати, коли [systemd](https://www.freedesktop.org/wiki/Software/systemd/) є системою ініціалізації, оскільки systemd очікує наявності єдиного менеджера cgroup в системі. Крім того, якщо використовуєте [cgroup v2](/docs/concepts/architecture/cgroups), використовуйте драйвер `systemd` cgroup замість `cgroupfs`.
 
 ### Драйвер cgroup системи systemd {#systemd-cgroup-driver}
 
@@ -85,7 +85,7 @@ systemd тісно інтегрований з cgroup та розміщує по
 
 Підхід до помʼякшення цієї нестійкості — використовувати `systemd` як драйвер cgroup для kubelet та середовище виконання контейнерів, коли `systemd` вибрано системою ініціалізації.
 
-Щоб встановити `systemd` як драйвер cgroup, відредагуйте в [`KubeletConfiguration`](/uk/docs/tasks/administer-cluster/kubelet-config-file/) опцію `cgroupDriver` та встановіть її в `systemd`. Наприклад:
+Щоб встановити `systemd` як драйвер cgroup, відредагуйте в [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) опцію `cgroupDriver` та встановіть її в `systemd`. Наприклад:
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -103,7 +103,7 @@ cgroupDriver: systemd
 - [containerd](#containerd-systemd)
 - [CRI-O](#cri-o)
 
-У Kubernetes {{< skew currentVersion >}}, з увімкненою [функціональною можливістю](/uk/docs/reference/command-line-tools-reference/feature-gates/) `KubeletCgroupDriverFromCRI` і середовищем виконання контейнерів, яке підтримує `RuntimeConfig` CRI RPC, kubelet автоматично визначає відповідний драйвер cgroup з runtime, та ігнорує налаштування `cgroupDriver` у конфігурації kubelet.
+У Kubernetes {{< skew currentVersion >}}, з увімкненою [функціональною можливістю](/docs/reference/command-line-tools-reference/feature-gates/) `KubeletCgroupDriverFromCRI` і середовищем виконання контейнерів, яке підтримує `RuntimeConfig` CRI RPC, kubelet автоматично визначає відповідний драйвер cgroup з runtime, та ігнорує налаштування `cgroupDriver` у конфігурації kubelet.
 
 {{< caution >}}
 Зміна драйвера cgroup вузла, який приєднався до кластера, — це чутлива операція. Якщо kubelet створював Podʼи, використовуючи семантику одного драйвера cgroup, зміна середовища виконання контейнерів на інший драйвер cgroup може спричинити помилки при спробі повторного створення пісочниці Pod для таких наявних Podʼів. Перезапуск kubelet може не вирішити таких помилок.
@@ -113,7 +113,7 @@ cgroupDriver: systemd
 
 ### Міграція на драйвер `systemd` в кластерах, що керуються kubeadm {#migrating-to-systemd-driver-in-kubeadm-managed-clusters}
 
-Якщо ви хочете мігрувати на драйвер `systemd` cgroup в кластерах, що керуються kubeadm, дотримуйтеся рекомендацій [налаштування драйвера cgroup](/uk/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
+Якщо ви хочете мігрувати на драйвер `systemd` cgroup в кластерах, що керуються kubeadm, дотримуйтеся рекомендацій [налаштування драйвера cgroup](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
 
 ## Підтримка версій CRI {#cri-versions}
 
@@ -157,7 +157,7 @@ Kubernetes [починаючи з v1.26](/blog/2022/11/18/upcoming-changes-in-ku
  SystemdCgroup = true
 ```
 
-Драйвер cgroup `systemd` є рекомендованим, якщо ви використовуєте [cgroup v2](/uk/docs/concepts/architecture/cgroups).
+Драйвер cgroup `systemd` є рекомендованим, якщо ви використовуєте [cgroup v2](/docs/concepts/architecture/cgroups).
 
 {{< note >}}
 Якщо ви встановили containerd за допомогою менеджера пакунків (наприклад, RPM або `.deb`, ви можете знайти, що втулок інтеграції CRI є типово вимкненим.
@@ -173,7 +173,7 @@ Kubernetes [починаючи з v1.26](/blog/2022/11/18/upcoming-changes-in-ku
 sudo systemctl restart containerd
 ```
 
-Використовуючи kubeadm, вручну налаштуйте [cgroup драйвер для kubelet](/uk/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configure-the-kubelet-cgroup-driver).
+Використовуючи kubeadm, вручну налаштуйте [cgroup драйвер для kubelet](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configure-the-kubelet-cgroup-driver).
 
 У Kubernetes v1.28 ви можете увімкнути alpha-функцію автоматичного виявлення драйвера cgroup. Дивіться [systemd cgroup driver](#systemd-cgroup-driver) для отримання додаткової інформації.
 
@@ -250,4 +250,4 @@ pause_image="registry.k8s.io/pause:3.10"
 
 ## {{% heading "whatsnext" %}}
 
-Так само як і середовище виконання контейнерів, вашому кластеру знадобиться [втулок мережі](/uk/docs/concepts/extend-kubernetes/networking/#how-to-implement-the-kubernetes-networking-model).
+Так само як і середовище виконання контейнерів, вашому кластеру знадобиться [втулок мережі](/docs/concepts/extend-kubernetes/networking/#how-to-implement-the-kubernetes-networking-model).

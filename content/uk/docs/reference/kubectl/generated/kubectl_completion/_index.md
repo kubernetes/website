@@ -13,13 +13,13 @@ no_list: true
 Докладні інструкції про те, як це зробити, можна знайти тут:
 
 для macOS:
-: [https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#enable-shell-autocompletion](/uk/docs/tasks/tools/install-kubectl-macos/#enable-shell-autocompletion)
+: [https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#enable-shell-autocompletion](/docs/tasks/tools/install-kubectl-macos/#enable-shell-autocompletion)
 
 для linux:
-: [https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#enable-shell-autocompletion](/uk/docs/tasks/tools/install-kubectl-linux/#enable-shell-autocompletion)
+: [https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#enable-shell-autocompletion](/docs/tasks/tools/install-kubectl-linux/#enable-shell-autocompletion)
 
 для windows:
-: [https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/#enable-shell-autocompletion](/uk/docs/tasks/tools/install-kubectl-windows/#enable-shell-autocompletion)
+: [https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/#enable-shell-autocompletion](/docs/tasks/tools/install-kubectl-windows/#enable-shell-autocompletion)
 
 Примітка для користувачів zsh: [1] завершення zsh підтримуються лише у версіях zsh &gt;= 5.2.
 

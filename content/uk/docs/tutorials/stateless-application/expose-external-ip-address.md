@@ -10,8 +10,8 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
-* Встановіть [kubectl](/uk/docs/tasks/tools/).
-* Використовуйте хмарного провайдера, такого як Google Kubernetes Engine або Amazon Web Services, щоб створити кластер Kubernetes. У цьому підручнику створюється [зовнішній балансувальник навантаження](/uk/docs/tasks/access-application-cluster/create-external-load-balancer/), який вимагає хмарного провайдера.
+* Встановіть [kubectl](/docs/tasks/tools/).
+* Використовуйте хмарного провайдера, такого як Google Kubernetes Engine або Amazon Web Services, щоб створити кластер Kubernetes. У цьому підручнику створюється [зовнішній балансувальник навантаження](/docs/tasks/access-application-cluster/create-external-load-balancer/), який вимагає хмарного провайдера.
 * Налаштуйте `kubectl` для спілкування з вашим API-сервером Kubernetes. Для інструкцій дивіться документацію вашого хмарного провайдера.
 
 ## {{% heading "objectives" %}}
@@ -69,7 +69,7 @@ weight: 10
 
    {{< note >}}
 
-   Сервіс типу `type=LoadBalancer` підтримується зовнішніми хмарними провайдерами, що не розглядається в цьому прикладі, будь ласка, зверніться до [цієї сторінки](/uk/docs/concepts/services-networking/service/#loadbalancer) для деталей.
+   Сервіс типу `type=LoadBalancer` підтримується зовнішніми хмарними провайдерами, що не розглядається в цьому прикладі, будь ласка, зверніться до [цієї сторінки](/docs/concepts/services-networking/service/#loadbalancer) для деталей.
 
    {{< /note >}}
 
@@ -154,4 +154,4 @@ kubectl delete deployment hello-world
 
 ## {{% heading "whatsnext" %}}
 
-Дізнайтеся більше про [Підключення застосунків за допомогою Service](/uk/docs/tutorials/services/connect-applications-service/).
+Дізнайтеся більше про [Підключення застосунків за допомогою Service](/docs/tutorials/services/connect-applications-service/).

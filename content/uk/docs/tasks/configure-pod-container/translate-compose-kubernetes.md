@@ -8,7 +8,7 @@ weight: 230
 
 Що таке Kompose? Це інструмент конвертації для всього, що стосується композиції (зокрема Docker Compose) в ресурси систем оркестрування (Kubernetes або OpenShift).
 
-Додаткову інформацію можна знайти на вебсайті Kompose за адресою [http://kompose.io](http://kompose.io).
+Додаткову інформацію можна знайти на вебсайті Kompose за адресою [https://kompose.io](https://kompose.io).
 
 ## {{% heading "prerequisites" %}}
 
@@ -300,7 +300,7 @@ INFO OpenShift file "foo-buildconfig.yaml" created
 ```
 
 {{< note >}}
-Якщо ви вручну публікуєте артефакти OpenShift за допомогою `oc create -f`, вам потрібно забезпечити, щоб ви публікували артефакт imagestream перед артефактом buildconfig, щоб уникнути цієї проблеми OpenShift: https://github.com/openshift/origin/issues/4518 .
+Якщо ви вручну публікуєте артефакти OpenShift за допомогою `oc create -f`, вам потрібно забезпечити, щоб ви публікували артефакт imagestream перед артефактом buildconfig, щоб уникнути цієї проблеми OpenShift: <https://github.com/openshift/origin/issues/4518>.
 {{< /note >}}
 
 ## Альтернативні конвертації {#alternative-conversions}

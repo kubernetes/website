@@ -15,7 +15,7 @@ weight: 20
 
 Середовище контейнера Kubernetes надає кілька важливих ресурсів контейнерам:
 
-* Файлову систему, яка є комбінацією [образу](/uk/docs/concepts/containers/images/) та одного чи декількох [томів](/uk/docs/concepts/storage/volumes/).
+* Файлову систему, яка є комбінацією [образу](/docs/concepts/containers/images/) та одного чи декількох [томів](/docs/concepts/storage/volumes/).
 * Інформацію про сам контейнер.
 * Інформацію про інші обʼєкти в кластері.
 
@@ -23,7 +23,7 @@ weight: 20
 
 *hostname* контейнера є імʼям Pod, в якому він працює. Воно доступне через команду `hostname` або виклик функції [`gethostname`](https://man7.org/linux/man-pages/man2/gethostname.2.html) у бібліотеці libc.
 
-Імʼя та простір імен Pod доступні як змінні середовища через [downward API](/uk/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/).
+Імʼя та простір імен Pod доступні як змінні середовища через [downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/).
 
 Змінні середовища, визначені користувачем у визначенні Pod, також доступні для контейнера, так само як будь-які статично визначені змінні середовища в образі контейнера.
 
@@ -42,5 +42,5 @@ FOO_SERVICE_PORT=<порт, на якому працює служба>
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся більше про [закріплення обробників за подіями життєвого циклу контейнера](/uk/docs/concepts/containers/container-lifecycle-hooks/).
-* Отримайте практичний досвід [прикріплення обробників до подій життєвого циклу контейнера](/uk/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
+* Дізнайтеся більше про [закріплення обробників за подіями життєвого циклу контейнера](/docs/concepts/containers/container-lifecycle-hooks/).
+* Отримайте практичний досвід [прикріплення обробників до подій життєвого циклу контейнера](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).

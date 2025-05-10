@@ -16,8 +16,8 @@ min-kubernetes-server-version: v1.21
 {{< version-check >}}
 
 - Ви є власником застосунку, який працює на кластері Kubernetes і вимагає високої доступності.
-- Вам слід знати, як розгорнути [репліковані застосунки без збереження стану](/uk/docs/tasks/run-application/run-stateless-application-deployment/) та/або [репліковані застосунки зі збереженням стану](/uk/docs/tasks/run-application/run-replicated-stateful-application/).
-- Ви повинні прочитати про [розлади Podʼів](/uk/docs/concepts/workloads/pods/disruptions/).
+- Вам слід знати, як розгорнути [репліковані застосунки без збереження стану](/docs/tasks/run-application/run-stateless-application-deployment/) та/або [репліковані застосунки зі збереженням стану](/docs/tasks/run-application/run-replicated-stateful-application/).
+- Ви повинні прочитати про [розлади Podʼів](/docs/concepts/workloads/pods/disruptions/).
 - Ви повинні підтвердити з власником кластера або постачальником послуг, що вони дотримуються Бюджетів розладів Podʼів.
 
 <!-- steps -->
@@ -42,7 +42,7 @@ min-kubernetes-server-version: v1.21
 
 У цьому випадку обовʼязково відзначте `.spec.selector` контролера; той самий селектор використовується в `.spec.selector` PDBs.
 
-Починаючи з версії 1.15, PDB підтримують власні контролери, де включено [субресурс масштабування](/uk/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource).
+Починаючи з версії 1.15, PDB підтримують власні контролери, де включено [субресурс масштабування](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource).
 
 Також можна використовувати PDB зі сторонніми Podʼами, які не контролюються одним із вищевказаних контролерів, або з довільними групами Podʼів, але є деякі обмеження, описані у [Довільні робочі навантаження та довільні селектори](#arbitrary-controllers-and-selectors).
 
@@ -210,7 +210,7 @@ Podʼи у фазах `Pending`, `Succeeded` або `Failed` завжди вва
 
 ## Довільні робочі навантаження та селектори {#arbitrary-controllers-and-selectors}
 
-Ви можете пропустити цей розділ, якщо ви використовуєте PDB лише зі вбудованими ресурсами навантаження (Deployment, ReplicaSet, StatefulSet та ReplicationController) або з {{< glossary_tooltip term_id="CustomResourceDefinition" text="власними ресурсами" >}}, які реалізують [субресурс](/uk/docs/concepts/extend-kubernetes/api-extension/custom-resources/#advanced-features-and-flexibility) `scale`, і де селектор PDB точно відповідає селектору власного ресурсу Podʼа.
+Ви можете пропустити цей розділ, якщо ви використовуєте PDB лише зі вбудованими ресурсами навантаження (Deployment, ReplicaSet, StatefulSet та ReplicationController) або з {{< glossary_tooltip term_id="CustomResourceDefinition" text="власними ресурсами" >}}, які реалізують [субресурс](/docs/concepts/extend-kubernetes/api-extension/custom-resources/#advanced-features-and-flexibility) `scale`, і де селектор PDB точно відповідає селектору власного ресурсу Podʼа.
 
 Ви можете використовувати PDB з підпроцесами, керованими іншим ресурсом, "оператором" або голими підпроцесами, але з такими обмеженнями:
 

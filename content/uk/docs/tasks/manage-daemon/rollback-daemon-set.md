@@ -13,7 +13,7 @@ min-kubernetes-server-version: 1.7
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-Ви повинні вже знати, як [виконати поетапне оновлення на DaemonSet](/uk/docs/tasks/manage-daemon/update-daemon-set/).
+Ви повинні вже знати, як [виконати поетапне оновлення на DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/).
 
 <!-- steps -->
 
@@ -126,4 +126,4 @@ NAME                               CONTROLLER                     REVISION   AGE
 
 ## Усунення несправностей {#troubleshooting}
 
-* Див. [усунення несправностей при поетапному оновленні DaemonSet](/uk/docs/tasks/manage-daemon/update-daemon-set/#troubleshooting).
+* Див. [усунення несправностей при поетапному оновленні DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/#troubleshooting).

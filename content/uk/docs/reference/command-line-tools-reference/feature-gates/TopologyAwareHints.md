@@ -20,6 +20,7 @@ stages:
     toVersion: "1.32"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.33"
 ---
 Вмикає маршрутизацію з урахуванням топології на основі підказок топології у EndpointSlices. Див. статтю [Підказки з урахуванням топології](/docs/concepts/services-networking/topology-aware-routing/) для отримання детальнішої інформації.

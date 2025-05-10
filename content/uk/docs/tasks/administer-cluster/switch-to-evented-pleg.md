@@ -29,9 +29,9 @@ weight: 93
 
 ## Перехід на Evented PLEG {#switching-to-evented-pleg}
 
-1. Запустіть Kubelet з увімкненою [функціональною можливістю](/uk/docs/reference/command-line-tools-reference/feature-gates/) `EventedPLEG`. Ви можете керувати feature gate kubelet редагуючи [файл конфігурації](/uk/docs/tasks/administer-cluster/kubelet-config-file/) kubelet і перезапустіть службу kubelet. Вам потрібно зробити це на кожному вузлі, де ви використовуєте цю функцію.
+1. Запустіть Kubelet з увімкненою [функціональною можливістю](/docs/reference/command-line-tools-reference/feature-gates/) `EventedPLEG`. Ви можете керувати feature gate kubelet редагуючи [файл конфігурації](/docs/tasks/administer-cluster/kubelet-config-file/) kubelet і перезапустіть службу kubelet. Вам потрібно зробити це на кожному вузлі, де ви використовуєте цю функцію.
 
-2. Переконайтеся, що вузол [виведено з експлуатації](/uk/docs/tasks/administer-cluster/safely-drain-node/) перед продовженням.
+2. Переконайтеся, що вузол [виведено з експлуатації](/docs/tasks/administer-cluster/safely-drain-node/) перед продовженням.
 
 3. Запустіть контейнерне середовище з увімкненою генерацією подій контейнера.
 

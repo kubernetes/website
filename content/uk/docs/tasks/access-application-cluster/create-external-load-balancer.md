@@ -10,7 +10,7 @@ weight: 80
 
 Під час створення {{< glossary_tooltip text="Service" term_id="service" >}} ви маєте можливість автоматично створити балансувальник навантаження в хмарі. Він забезпечує доступну назовні IP-адресу, яка надсилає трафік на відповідний порт ваших вузлів кластера, _за умови, що ваш кластер працює в підтримуваному середовищі та налаштований з відповідним пакетом постачальника хмарного балансувальника навантаження_.
 
-Ви також можете використовувати {{< glossary_tooltip term_id="ingress" >}} замість Service. Для отримання додаткової інформації ознайомтеся з документацією [Ingress](/uk/docs/concepts/services-networking/ingress/).
+Ви також можете використовувати {{< glossary_tooltip term_id="ingress" >}} замість Service. Для отримання додаткової інформації ознайомтеся з документацією [Ingress](/docs/concepts/services-networking/ingress/).
 
 ## {{% heading "prerequisites" %}}
 
@@ -57,7 +57,7 @@ kubectl expose deployment example --port=8765 --target-port=9376 \
 
 Ця команда створює новий Service, використовуючи ті ж селектори, що й вказаний ресурс (у випадку наведеного прикладу — {{< glossary_tooltip text="Deployment" term_id="deployment" >}} під назвою `example`).
 
-Для отримання додаткової інформації, включаючи необовʼязкові прапорці, зверніться до [довідника команди `kubectl expose`](/uk/docs/reference/generated/kubectl/kubectl-commands/#expose).
+Для отримання додаткової інформації, включаючи необовʼязкові прапорці, зверніться до [довідника команди `kubectl expose`](/docs/reference/generated/kubectl/kubectl-commands/#expose).
 
 ## Пошук вашої IP-адреси {#finding-your-ip-address}
 
@@ -150,6 +150,6 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-* Ознайомтеся з підручником [Підключення застосунків за допомогою Service](/uk/docs/tutorials/services/connect-applications-service/)
-* Дізнайтеся більше про [Service](/uk/docs/concepts/services-networking/service/)
-* Дізнайтеся більше про [Ingress](/uk/docs/concepts/services-networking/ingress/)
+* Ознайомтеся з підручником [Підключення застосунків за допомогою Service](/docs/tutorials/services/connect-applications-service/)
+* Дізнайтеся більше про [Service](/docs/concepts/services-networking/service/)
+* Дізнайтеся більше про [Ingress](/docs/concepts/services-networking/ingress/)

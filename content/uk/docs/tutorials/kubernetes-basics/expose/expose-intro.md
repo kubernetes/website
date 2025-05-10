@@ -64,6 +64,12 @@ kubectl get pods
 kubectl get services
 ```
 
+Для експонування розгортання для зовнішнього трафіку ми будемо використовувати команду `kubectl expose` з параметром `--type=NodePort`:
+
+```shell
+kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080
+```
+
 Тепер у нас є запущений Service з назвою kubernetes-bootcamp. Тут ми бачимо, що Service отримав унікальну кластерну IP-адресу, внутрішній порт і зовнішню IP-адресу (IP-адресу Вузла).
 
 Щоб дізнатися, який порт було відкрито назовні (для сервісу `type: NodePort`), виконаємо підкоманду `describe service`:

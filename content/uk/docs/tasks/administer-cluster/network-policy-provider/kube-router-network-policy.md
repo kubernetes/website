@@ -20,4 +20,4 @@ weight: 40
 
 ## {{% heading "whatsnext" %}}
 
-Після того, як ви встановили надбудову Kube-router, ви можете перейти до [Оголошення мережевої політики](/uk/docs/tasks/administer-cluster/declare-network-policy/) для випробування Kubernetes NetworkPolicy.
+Після того, як ви встановили надбудову Kube-router, ви можете перейти до [Оголошення мережевої політики](/docs/tasks/administer-cluster/declare-network-policy/) для випробування Kubernetes NetworkPolicy.

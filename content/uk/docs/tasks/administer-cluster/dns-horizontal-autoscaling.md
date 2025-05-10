@@ -14,7 +14,7 @@ weight: 80
 
 * Цей посібник передбачає, що ваші вузли використовують архітектуру процесора AMD64 або Intel 64.
 
-* Переконайтеся, що [DNS Kubernetes](/uk/docs/concepts/services-networking/dns-pod-service/) увімкнений.
+* Переконайтеся, що [DNS Kubernetes](/docs/concepts/services-networking/dns-pod-service/) увімкнений.
 
 <!-- steps -->
 
@@ -198,5 +198,5 @@ kubectl delete deployment kube-dns-autoscaler --namespace=kube-system
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся більше про [Гарантоване планування для Podʼів критичних надбудов](/uk/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
+* Дізнайтеся більше про [Гарантоване планування для Podʼів критичних надбудов](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
 * Дізнайтеся більше про [реалізацію cluster-proportional-autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler).

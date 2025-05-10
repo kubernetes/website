@@ -4,13 +4,13 @@ weight: 10
 content_type: task
 ---
 
-Це завдання визначає кроки, необхідні для оновлення вашого середовища виконання контейнерів на containerd з Docker. Воно буде корисним для операторів кластерів, які працюють з Kubernetes 1.23 або старішими версіями. Воно також охоплює приклад сценарію міграції з dockershim на containerd. З цієї [сторінки](/uk/docs/setup/production-environment/container-runtimes/) можна вибрати альтернативні середовища виконання контейнерів.
+Це завдання визначає кроки, необхідні для оновлення вашого середовища виконання контейнерів на containerd з Docker. Воно буде корисним для операторів кластерів, які працюють з Kubernetes 1.23 або старішими версіями. Воно також охоплює приклад сценарію міграції з dockershim на containerd. З цієї [сторінки](/docs/setup/production-environment/container-runtimes/) можна вибрати альтернативні середовища виконання контейнерів.
 
 ## {{% heading "prerequisites" %}}
 
 {{% thirdparty-content %}}
 
-Встановіть containerd. Для отримання додаткової інформації дивіться [документацію з встановлення containerd](https://containerd.io/docs/getting-started/) і для конкретних передумов виконуйте кроки описані в [посібнику containerd](/uk/docs/setup/production-environment/container-runtimes/#containerd).
+Встановіть containerd. Для отримання додаткової інформації дивіться [документацію з встановлення containerd](https://containerd.io/docs/getting-started/) і для конкретних передумов виконуйте кроки описані в [посібнику containerd](/docs/setup/production-environment/container-runtimes/#containerd).
 
 ## Виведення вузла з експлуатації {#drain-the-node}
 
@@ -29,7 +29,7 @@ systemctl disable docker.service --now
 
 ## Встановлення Containerd {#install-containerd}
 
-Дотримуйтесь настанов [посібника](/uk/docs/setup/production-environment/container-runtimes/#containerd) для отримання детальних кроків з встановлення containerd.
+Дотримуйтесь настанов [посібника](/docs/setup/production-environment/container-runtimes/#containerd) для отримання детальних кроків з встановлення containerd.
 
 {{< tabs name="tab-cri-containerd-installation" >}}
 {{% tab name="Linux" %}}

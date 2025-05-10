@@ -7,7 +7,7 @@ min-kubernetes-server-version: 1.23
 
 <!-- overview -->
 
-[HorizontalPodAutoscaler](/uk/docs/tasks/run-application/horizontal-pod-autoscale/) (HPA)
+[HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) (HPA)
 автоматично оновлює ресурс робочого навантаження (наприклад, {{< glossary_tooltip text="Deployment" term_id="deployment" >}} або {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}), з метою автоматичного масштабування робочого навантаження, щоб відповідати попиту.
 
 Горизонтальне масштабування означає, що відповідь на збільшене навантаження полягає в розгортанні додаткових {{< glossary_tooltip text="Podʼів" term_id="pod" >}}. Це відрізняється від _вертикального_ масштабування, що для Kubernetes означає призначення додаткових ресурсів (наприклад: памʼять або CPU) для Podʼів, які вже працюють для робочого навантаження.
@@ -19,9 +19,9 @@ min-kubernetes-server-version: 1.23
 
 ## {{% heading "prerequisites" %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}} Якщо ви використовуєте старі версії Kubernetes, зверніться до документації для цієї версії (див. [доступні версії документації](/uk/docs/home/supported-doc-versions/)).
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}} Якщо ви використовуєте старі версії Kubernetes, зверніться до документації для цієї версії (див. [доступні версії документації](/docs/home/supported-doc-versions/)).
 
-Для виконання рекомендацій цього посібника, вам також потрібно використовувати кластер, в якому розгорнутий і налаштований [Metrics Server](https://github.com/kubernetes-sigs/metrics-server#readme). Сервер метрик Kubernetes збирає метрики ресурсів з {{<glossary_tooltip term_id="kubelet" text="kubelets">}} у вашому кластері та використовує ці метрики через [Kubernetes API](/uk/docs/concepts/overview/kubernetes-api/), використовуючи [APIService](/uk/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/), щоб додати нові види ресурсів, які представляють метричні показники.
+Для виконання рекомендацій цього посібника, вам також потрібно використовувати кластер, в якому розгорнутий і налаштований [Metrics Server](https://github.com/kubernetes-sigs/metrics-server#readme). Сервер метрик Kubernetes збирає метрики ресурсів з {{<glossary_tooltip term_id="kubelet" text="kubelets">}} у вашому кластері та використовує ці метрики через [Kubernetes API](/docs/concepts/overview/kubernetes-api/), використовуючи [APIService](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/), щоб додати нові види ресурсів, які представляють метричні показники.
 
 Щоб дізнатися, як розгорнути Metrics Server, див. [документацію metrics-server](https://github.com/kubernetes-sigs/metrics-server#deployment).
 
@@ -52,13 +52,13 @@ service/php-apache створено
 
 ## Створіть HorizontalPodAutoscaler {#create-horizontal-pod-autoscaler}
 
-Тепер, коли сервер працює, створіть автомасштабувальник за допомогою `kubectl`. Підкоманда [`kubectl autoscale`](/uk/docs/reference/generated/kubectl/kubectl-commands#autoscale), частина `kubectl`, допоможе зробити це.
+Тепер, коли сервер працює, створіть автомасштабувальник за допомогою `kubectl`. Підкоманда [`kubectl autoscale`](/docs/reference/generated/kubectl/kubectl-commands#autoscale), частина `kubectl`, допоможе зробити це.
 
 За мить ви виконаєте команду, яка створить HorizontalPodAutoscaler, що підтримує від 1 до 10 реплік контрольованих Podʼів за допомогою Deployment php-apache, який ви створили на першому етапі цих інструкцій.
 
 Грубо кажучи, контролер {{<glossary_tooltip text="контролер" term_id="controller">}} HPA збільшує або зменшує кількість реплік (шляхом оновлення Deployment) для підтримки середнього використання процесора на рівні 50% по всіх Podʼах. Deployment потім оновлює ReplicaSet — це частина всіх Deployment у Kubernetes — і потім ReplicaSet додає або видаляє Podʼи на основі змін у його `.spec`.
 
-Оскільки кожен Pod запитує 200 мілі-ядер за допомогою `kubectl run`, це означає середнє використання процесора 100 мілі-ядер. Див. [Деталі алгоритму](/uk/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details) для отримання додаткової інформації щодо алгоритму.
+Оскільки кожен Pod запитує 200 мілі-ядер за допомогою `kubectl run`, це означає середнє використання процесора 100 мілі-ядер. Див. [Деталі алгоритму](/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details) для отримання додаткової інформації щодо алгоритму.
 
 Створіть HorizontalPodAutoscaler:
 

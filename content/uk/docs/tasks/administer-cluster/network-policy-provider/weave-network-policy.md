@@ -10,7 +10,7 @@ weight: 60
 
 ## {{% heading "prerequisites" %}}
 
-Вам потрібен Kubernetes кластер. Слідуйте [початковому керівництву kubeadm](/uk/docs/reference/setup-tools/kubeadm/), щоб його налаштувати.
+Вам потрібен Kubernetes кластер. Слідуйте [початковому керівництву kubeadm](/docs/reference/setup-tools/kubeadm/), щоб його налаштувати.
 
 <!-- steps -->
 
@@ -44,4 +44,4 @@ weave-net-pmw8w                         2/2       Running   0          9d       
 
 ## {{% heading "whatsnext" %}}
 
-Після встановлення надбудови Weave Net ви можете перейти до [Оголошення мережевої політики](/uk/docs/tasks/administer-cluster/declare-network-policy/), щоб спробувати Kubernetes NetworkPolicy. Якщо у вас є запитання, звертайтеся до нас [#weave-community у Slack або Weave User Group](https://github.com/weaveworks/weave#getting-help).
+Після встановлення надбудови Weave Net ви можете перейти до [Оголошення мережевої політики](/docs/tasks/administer-cluster/declare-network-policy/), щоб спробувати Kubernetes NetworkPolicy. Якщо у вас є запитання, звертайтеся до нас [#weave-community у Slack або Weave User Group](https://github.com/weaveworks/weave#getting-help).

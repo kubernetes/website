@@ -32,4 +32,4 @@ weight: 190
 
 ### У коді Kubernetes {#in-tree}
 
-Для внутрішніх постачальників хмар ви можете запустити cloud-controller-managerу, що працює у внутрішньому коді, як {{< glossary_tooltip term_id="daemonset" >}} у вашому кластері. Див. [Адміністрування Cloud Controller Manager](/uk/docs/tasks/administer-cluster/running-cloud-controller/) для отримання додаткової інформації.
+Для внутрішніх постачальників хмар ви можете запустити cloud-controller-managerу, що працює у внутрішньому коді, як {{< glossary_tooltip term_id="daemonset" >}} у вашому кластері. Див. [Адміністрування Cloud Controller Manager](/docs/tasks/administer-cluster/running-cloud-controller/) для отримання додаткової інформації.

@@ -20,7 +20,7 @@ weight: 100
 
 - Отримайте всі Podʼи у всіх просторах імен за допомогою `kubectl get pods --all-namespaces`.
 - Форматуйте вивід для включення лише списку імен образів контейнерів, використовуючи `-o jsonpath={.items[*].spec['initContainers', 'containers'][*].image}`. Це рекурсивно розбирає поле `image` з отриманого JSON.
-  - Ознайомтеся з [довідником по jsonpath](/uk/docs/reference/kubectl/jsonpath/) для додаткової інформації про використання jsonpath.
+  - Ознайомтеся з [довідником по jsonpath](/docs/reference/kubectl/jsonpath/) для додаткової інформації про використання jsonpath.
 - Форматуйте вивід за допомогою стандартних інструментів: `tr`, `sort`, `uniq`.
   - Використовуйте `tr` для заміни пробілів на нові рядки.
   - Використовуйте `sort` для сортування результатів.
@@ -81,5 +81,5 @@ kubectl get pods --all-namespaces -o go-template --template="{{range .items}}{{r
 
 ### Довідники
 
-- [Jsonpath](/uk/docs/reference/kubectl/jsonpath/)
+- [Jsonpath](/docs/reference/kubectl/jsonpath/)
 - [Go template](https://pkg.go.dev/text/template)

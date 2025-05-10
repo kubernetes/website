@@ -55,7 +55,7 @@ MASQUERADE  all  --  anywhere             anywhere             /* ip-masq-agent:
 
 ```
 
-Стандартно, в середовищі GCE/Google Kubernetes Engine, якщо ввімкнуто мережеву політику або ви використовуєте CIDR кластера не в діапазоні 10.0.0.0/8, агент `ip-masq-agent` буде запущений у вашому кластері. Якщо ви працюєте в іншому середовищі, ви можете додати [DaemonSet](/uk/docs/concepts/workloads/controllers/daemonset/) `ip-masq-agent` до свого кластера.
+Стандартно, в середовищі GCE/Google Kubernetes Engine, якщо ввімкнуто мережеву політику або ви використовуєте CIDR кластера не в діапазоні 10.0.0.0/8, агент `ip-masq-agent` буде запущений у вашому кластері. Якщо ви працюєте в іншому середовищі, ви можете додати [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) `ip-masq-agent` до свого кластера.
 
 <!-- steps -->
 
@@ -75,7 +75,7 @@ kubectl label nodes my-node node.kubernetes.io/masq-agent-ds-ready=true
 
 Додаткову інформацію можна знайти в документації агента маскування IP [тут](https://github.com/kubernetes-sigs/ip-masq-agent).
 
-У більшості випадків стандартний набір правил має бути достатнім; однак, якщо це не так для вашого кластера, ви можете створити та застосувати [ConfigMap](/uk/docs/tasks/configure-pod-container/configure-pod-configmap/), щоб налаштувати діапазони IP-адрес, що залучаються. Наприклад, щоб дозволити розгляд тільки діапазону 10.0.0.0/8 ip-masq-agent, ви можете створити наступний [ConfigMap](/uk/docs/tasks/configure-pod-container/configure-pod-configmap/) у файлі з назвою "config".
+У більшості випадків стандартний набір правил має бути достатнім; однак, якщо це не так для вашого кластера, ви можете створити та застосувати [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/), щоб налаштувати діапазони IP-адрес, що залучаються. Наприклад, щоб дозволити розгляд тільки діапазону 10.0.0.0/8 ip-masq-agent, ви можете створити наступний [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) у файлі з назвою "config".
 
 {{< note >}}
 Важливо, що файл називається config, оскільки стандартно це буде використано як ключ для пошуку агентом `ip-masq-agent`:

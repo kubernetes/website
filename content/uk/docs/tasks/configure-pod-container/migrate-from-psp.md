@@ -15,7 +15,7 @@ weight: 260
 
 Якщо ви використовуєте відмінну від {{< skew currentVersion >}} версію Kubernetes, вам можливо захочеться перейти до перегляду цієї сторінки у документації для версії Kubernetes, яку ви фактично використовуєте.
 
-Ця сторінка передбачає, що ви вже знайомі з основними концепціями [Pod Security Admission](/uk/docs/concepts/security/pod-security-admission/).
+Ця сторінка передбачає, що ви вже знайомі з основними концепціями [Pod Security Admission](/docs/concepts/security/pod-security-admission/).
 
 <!-- body -->
 
@@ -39,15 +39,15 @@ weight: 260
 
 Pod Security Admission був розроблений для задоволення найбільш поширених потреб у безпеці з коробки, а також для забезпечення стандартного набору рівнів безпеки у всіх кластерах. Однак він менш гнучкий, ніж PodSecurityPolicy. Зокрема, наступні функції підтримуються за допомогою PodSecurityPolicy, але не за допомогою Pod Security Admission:
 
-- **Встановлення типових обмежень безпеки** — Pod Security Admission є немутуючим контролером допуску, що означає, що він не буде змінювати Podʼи перед їх перевіркою. Якщо ви покладалися на цей аспект PodSecurityPolicy, вам доведеться або модифікувати ваші робочі навантаження, щоб вони відповідали обмеженням безпеки Podʼів, або використовувати [Мутуючий вебхук допуску](/uk/docs/reference/access-authn-authz/extensible-admission-controllers/) для внесення цих змін. Дивіться [Спрощення та стандартизація PodSecurityPolicies](#simplify-psps) нижче для детальнішої інформації.
-- **Докладний контроль над визначенням політики** — Pod Security Admission підтримує тільки [3 стандартні рівні](/uk/docs/concepts/security/pod-security-standards/). Якщо вам потрібно більше контролю над конкретними обмеженнями, вам доведеться використовувати [Вебхук допуску з перевіркою](/uk/docs/reference/access-authn-authz/extensible-admission-controllers/) для виконання цих політик.
-- **Деталізація політики на рівні підпросторів імен** — PodSecurityPolicy дозволяє вам призначати різні політики різним обліковим записам служб або користувачам, навіть в межах одного простору імен. Цей підхід має багато підводних каменів і не рекомендується, але якщо вам все одно потрібна ця функція, вам потрібно буде використовувати сторонній вебхук. Виняток становить випадок, коли вам потрібно повністю виключити певних користувачів або [RuntimeClasses](/uk/docs/concepts/containers/runtime-class/), у цьому випадку Pod Security Admission все ж надає деякі [статичні конфігурації для виключень](/uk/docs/concepts/security/pod-security-admission/#exemptions).
+- **Встановлення типових обмежень безпеки** — Pod Security Admission є немутуючим контролером допуску, що означає, що він не буде змінювати Podʼи перед їх перевіркою. Якщо ви покладалися на цей аспект PodSecurityPolicy, вам доведеться або модифікувати ваші робочі навантаження, щоб вони відповідали обмеженням безпеки Podʼів, або використовувати [Мутуючий вебхук допуску](/docs/reference/access-authn-authz/extensible-admission-controllers/) для внесення цих змін. Дивіться [Спрощення та стандартизація PodSecurityPolicies](#simplify-psps) нижче для детальнішої інформації.
+- **Докладний контроль над визначенням політики** — Pod Security Admission підтримує тільки [3 стандартні рівні](/docs/concepts/security/pod-security-standards/). Якщо вам потрібно більше контролю над конкретними обмеженнями, вам доведеться використовувати [Вебхук допуску з перевіркою](/docs/reference/access-authn-authz/extensible-admission-controllers/) для виконання цих політик.
+- **Деталізація політики на рівні підпросторів імен** — PodSecurityPolicy дозволяє вам призначати різні політики різним обліковим записам служб або користувачам, навіть в межах одного простору імен. Цей підхід має багато підводних каменів і не рекомендується, але якщо вам все одно потрібна ця функція, вам потрібно буде використовувати сторонній вебхук. Виняток становить випадок, коли вам потрібно повністю виключити певних користувачів або [RuntimeClasses](/docs/concepts/containers/runtime-class/), у цьому випадку Pod Security Admission все ж надає деякі [статичні конфігурації для виключень](/docs/concepts/security/pod-security-admission/#exemptions).
 
 Навіть якщо Pod Security Admission не відповідає всім вашим потребам, він був розроблений для _доповнення_ інших механізмів контролю політики, і може бути корисним допоміжним засобом, який працює нарівно з іншими вебхуками допуску.
 
 ## 1. Перегляньте дозволи простору імен {#review-namespace-permissions}
 
-Pod Security Admission керується [мітками в просторах імен](/uk/docs/concepts/security/pod-security-admission/#pod-security-admission-labels-for-namespaces). Це означає, що будь-хто, хто може оновлювати (або накладати патчі, або створювати) простір імен, також може змінювати рівень безпеки Podʼів для цього простору імен, що може бути використано для обходу більш обмеженої політики. Перш ніж продовжувати, переконайтеся, що ці дозволи на простір імен мають лише довірені, привілейовані користувачі. Не рекомендується надавати ці могутні дозволи користувачам, які не повинні мати підвищені привілеї, але якщо вам доведеться це зробити, вам потрібно буде використовувати [вебхук допуску](/uk/docs/reference/access-authn-authz/extensible-admission-controllers/), щоб накласти додаткові обмеження на встановлення міток безпеки Podʼів на обʼєкти Namespace.
+Pod Security Admission керується [мітками в просторах імен](/docs/concepts/security/pod-security-admission/#pod-security-admission-labels-for-namespaces). Це означає, що будь-хто, хто може оновлювати (або накладати патчі, або створювати) простір імен, також може змінювати рівень безпеки Podʼів для цього простору імен, що може бути використано для обходу більш обмеженої політики. Перш ніж продовжувати, переконайтеся, що ці дозволи на простір імен мають лише довірені, привілейовані користувачі. Не рекомендується надавати ці могутні дозволи користувачам, які не повинні мати підвищені привілеї, але якщо вам доведеться це зробити, вам потрібно буде використовувати [вебхук допуску](/docs/reference/access-authn-authz/extensible-admission-controllers/), щоб накласти додаткові обмеження на встановлення міток безпеки Podʼів на обʼєкти Namespace.
 
 ## 2. Спрощення та стандартизація PodSecurityPolicies {#simplify-psps}
 
@@ -57,7 +57,7 @@ Pod Security Admission керується [мітками в просторах 
 
 Якщо PodSecurityPolicy змінює Podʼи, то ви можете опинитись з Podʼами, які не відповідають вимогам рівня безпеки Podʼів, коли ви нарешті вимкнете PodSecurityPolicy. Щоб уникнути цього, вам слід усунути всі мутації PSP перед переходом. На жаль, PSP чітко не розділяє мутуючі та валідуючі поля, тому цей перехід не є простим.
 
-Ви можете почати з видалення полів, які є явно мутуючими та не мають жодного впливу на політику валлідації. Ці поля (також перераховані в довіднику [Перенесення PodSecurityPolicies у Pod Security Standards](/uk/docs/reference/access-authn-authz/psp-to-pod-security-standards/)) включають:
+Ви можете почати з видалення полів, які є явно мутуючими та не мають жодного впливу на політику валлідації. Ці поля (також перераховані в довіднику [Перенесення PodSecurityPolicies у Pod Security Standards](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)) включають:
 
 - `.spec.defaultAllowPrivilegeEscalation`
 - `.spec.runtimeClass.defaultRuntimeClassName`
@@ -71,9 +71,9 @@ Pod Security Admission керується [мітками в просторах 
 
 ### 2.б. Вилучення параметрів, що не підпадають під Pod Security Standards  {#eliminate-non-standard-options}
 
-Існують кілька полів в PodSecurityPolicy, які не входять до складу Pod Security Standards. Якщо вам потрібно забезпечити ці опції, вам доведеться доповнити Pod Security Admission за допомогою [вебхуків допуску](/uk/docs/reference/access-authn-authz/extensible-admission-controllers/), що не входить в рамки цього посібника.
+Існують кілька полів в PodSecurityPolicy, які не входять до складу Pod Security Standards. Якщо вам потрібно забезпечити ці опції, вам доведеться доповнити Pod Security Admission за допомогою [вебхуків допуску](/docs/reference/access-authn-authz/extensible-admission-controllers/), що не входить в рамки цього посібника.
 
-Спочатку ви можете видалити явно валідуючі поля, які не охоплюються Pod Security Standards. Ці поля (також перераховані в довіднику [Перенесення PodSecurityPolicies у Pod Security Standards](/uk/docs/reference/access-authn-authz/psp-to-pod-security-standards/) з поміткою "no opinion") включають:
+Спочатку ви можете видалити явно валідуючі поля, які не охоплюються Pod Security Standards. Ці поля (також перераховані в довіднику [Перенесення PodSecurityPolicies у Pod Security Standards](/docs/reference/access-authn-authz/psp-to-pod-security-standards/) з поміткою "no opinion") включають:
 
 - `.spec.allowedHostPaths`
 - `.spec.allowedFlexVolumes`
@@ -139,12 +139,12 @@ Pod Security Admission керується [мітками в просторах 
 
 ### 3.а. Визначення відповідного рівня безпеки Podʼа {#identify-appropriate-level}
 
-Почніть з ознайомлення зі [Стандартами безпеки Podʼа](/uk/docs/concepts/security/pod-security-standards/) та з трьома різними рівнями цих стандартів.
+Почніть з ознайомлення зі [Стандартами безпеки Podʼа](/docs/concepts/security/pod-security-standards/) та з трьома різними рівнями цих стандартів.
 
 Існує кілька способів вибору рівня безпеки Podʼа для вашого простору імен:
 
 1. **За вимогами безпеки для простору імен** — Якщо ви знайомі з очікуваним рівнем доступу для простору імен, ви можете вибрати відповідний рівень, базуючись на цих вимогах, подібно до підходу, який можна застосувати в новому кластері.
-2. **За поточними PodSecurityPolicies** — Використовуючи довідник [Перенесення PodSecurityPolicies у Pod Security Standards](/uk/docs/reference/access-authn-authz/psp-to-pod-security-standards/), ви можете віднести кожен PSP до рівня стандарту безпеки Podʼа. Якщо ваші PSP не базуються на Pod Security Standards, вам може знадобитися вирішити, обирати рівень, який є принаймні таким же дозвільним, як PSP, або рівень, який є принаймні таким же обмежувальним. Які PSP використовуються для Podʼів у даному просторі імен, ви можете побачити за допомогою цієї команди:
+2. **За поточними PodSecurityPolicies** — Використовуючи довідник [Перенесення PodSecurityPolicies у Pod Security Standards](/docs/reference/access-authn-authz/psp-to-pod-security-standards/), ви можете віднести кожен PSP до рівня стандарту безпеки Podʼа. Якщо ваші PSP не базуються на Pod Security Standards, вам може знадобитися вирішити, обирати рівень, який є принаймні таким же дозвільним, як PSP, або рівень, який є принаймні таким же обмежувальним. Які PSP використовуються для Podʼів у даному просторі імен, ви можете побачити за допомогою цієї команди:
 
    ```sh
    kubectl get pods -n $NAMESPACE -o jsonpath="{.items[*].metadata.annotations.kubernetes\.io\/psp}" | tr " " "\n" | sort -u
@@ -211,13 +211,13 @@ kubectl delete -n $NAMESPACE rolebinding disable-psp
 
 Тепер, коли поточні простори імен оновлено для забезпечення прийняття рішень щодо Pod Security Admission, вам слід переконатися, що ваші процеси та/або політики для створення нових просторів імен оновлено, щоб гарантувати застосування відповідного профілю безпеки Pod для нових просторів імен.
 
-Ви також можете статично налаштувати контролер Pod Security Admission для встановлення типового рівня впровадження, аудиту та/або попередження для просторів імен без міток. Див. [Налаштування контролера допуску](/uk/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller) для отримання додаткової інформації.
+Ви також можете статично налаштувати контролер Pod Security Admission для встановлення типового рівня впровадження, аудиту та/або попередження для просторів імен без міток. Див. [Налаштування контролера допуску](/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller) для отримання додаткової інформації.
 
 ## 5. Вимкнення PodSecurityPolicy {#disable-psp}
 
-Нарешті, ви готові вимкнути PodSecurityPolicy. Для цього вам потрібно змінити конфігурацію допуску сервера API: [Як я можу вимкнути контролер допуску?](/uk/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-off-an-admission-controller).
+Нарешті, ви готові вимкнути PodSecurityPolicy. Для цього вам потрібно змінити конфігурацію допуску сервера API: [Як я можу вимкнути контролер допуску?](/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-off-an-admission-controller).
 
-Щоб перевірити, що контролер допуску PodSecurityPolicy більше не активний, ви можете вручну запустити тест, видаючи себе за користувача без доступу до будь-яких PodSecurityPolicies (див. [приклад PodSecurityPolicy](/uk/docs/concepts/security/pod-security-policy/#example)), або перевірити логи сервера API. При запуску сервер API виводить рядки логу, що перераховують завантажені втулки контролера допуску:
+Щоб перевірити, що контролер допуску PodSecurityPolicy більше не активний, ви можете вручну запустити тест, видаючи себе за користувача без доступу до будь-яких PodSecurityPolicies (див. [приклад PodSecurityPolicy](/docs/concepts/security/pod-security-policy/#example)), або перевірити логи сервера API. При запуску сервер API виводить рядки логу, що перераховують завантажені втулки контролера допуску:
 
 ```log
 I0218 00:59:44.903329      13 plugins.go:158] Loaded 16 mutating admission controller(s) successfully in the following order: NamespaceLifecycle,LimitRanger,ServiceAccount,NodeRestriction,TaintNodesByCondition,Priority,DefaultTolerationSeconds,ExtendedResourceToleration,PersistentVolumeLabel,DefaultStorageClass,StorageObjectInUseProtection,RuntimeClass,DefaultIngressClass,MutatingAdmissionWebhook.

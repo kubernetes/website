@@ -6,7 +6,7 @@ weight: 20
 
 <!-- overview -->
 
-Kubernetes постачається зі стандартним [планувальником](/uk/docs/reference/command-line-tools-reference/kube-scheduler/). Якщо стандартний планувальник не підходить для ваших потреб, ви можете реалізувати власний. До того, ви можете одночасно запускати кілька планувальників поряд зі стандартним планувальником і вказувати Kubernetes, який планувальник використовувати для кожного з ваших Podʼів. Тепер навчимося запускати кілька планувальників в Kubernetes на прикладі.
+Kubernetes постачається зі стандартним [планувальником](/docs/reference/command-line-tools-reference/kube-scheduler/). Якщо стандартний планувальник не підходить для ваших потреб, ви можете реалізувати власний. До того, ви можете одночасно запускати кілька планувальників поряд зі стандартним планувальником і вказувати Kubernetes, який планувальник використовувати для кожного з ваших Podʼів. Тепер навчимося запускати кілька планувальників в Kubernetes на прикладі.
 
 Детальний опис того, як реалізувати планувальник, виходить за рамки цього документа. Будь ласка, зверніться до реалізації kube-scheduler в [pkg/scheduler](https://github.com/kubernetes/kubernetes/tree/master/pkg/scheduler) в теці вихідних кодів Kubernetes для канонічного прикладу.
 
@@ -42,13 +42,13 @@ gcloud docker -- push gcr.io/my-gcp-project/my-kube-scheduler:1.0 # тут є л
 
 ## Визначення розгортання Kubernetes для планувальника {#define-a-kubernetes-deployment-for-the-scheduler}
 
-Тепер, коли ви маєте ваш планувальник у контейнерному образі, створіть конфігурацію Podʼа для нього і запустіть його у вашому кластері Kubernetes. Але замість того, щоб створювати Pod безпосередньо в кластері, ви можете використовувати [Deployment](/uk/docs/concepts/workloads/controllers/deployment/) для цього прикладу. [Deployment](/uk/docs/concepts/workloads/controllers/deployment/) керує [Replica Set](/uk/docs/concepts/workloads/controllers/replicaset/), який, своєю чергою, керує Podʼами, забезпечуючи стійкість планувальника до збоїв. Ось конфігурація розгортання. Збережіть її як `my-scheduler.yaml`:
+Тепер, коли ви маєте ваш планувальник у контейнерному образі, створіть конфігурацію Podʼа для нього і запустіть його у вашому кластері Kubernetes. Але замість того, щоб створювати Pod безпосередньо в кластері, ви можете використовувати [Deployment](/docs/concepts/workloads/controllers/deployment/) для цього прикладу. [Deployment](/docs/concepts/workloads/controllers/deployment/) керує [Replica Set](/docs/concepts/workloads/controllers/replicaset/), який, своєю чергою, керує Podʼами, забезпечуючи стійкість планувальника до збоїв. Ось конфігурація розгортання. Збережіть її як `my-scheduler.yaml`:
 
 {{% code_sample file="admin/sched/my-scheduler.yaml" %}}
 
-У наведеному вище маніфесті ви використовуєте [KubeSchedulerConfiguration](/uk/docs/reference/scheduling/config/) для налаштування поведінки вашої реалізації планувальника. Ця конфігурація була передана kube-scheduler під час ініціалізації за допомогою параметра `--config`. Конфігураційний файл зберігається у ConfigMap `my-scheduler-config`. Pod Deployment `my-scheduler` монтує ConfigMap `my-scheduler-config` як том.
+У наведеному вище маніфесті ви використовуєте [KubeSchedulerConfiguration](/docs/reference/scheduling/config/) для налаштування поведінки вашої реалізації планувальника. Ця конфігурація була передана kube-scheduler під час ініціалізації за допомогою параметра `--config`. Конфігураційний файл зберігається у ConfigMap `my-scheduler-config`. Pod Deployment `my-scheduler` монтує ConfigMap `my-scheduler-config` як том.
 
-У вищезгаданій конфігурації планувальника ваша реалізація планувальника представлена за допомогою [KubeSchedulerProfile](/uk/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-KubeSchedulerProfile).
+У вищезгаданій конфігурації планувальника ваша реалізація планувальника представлена за допомогою [KubeSchedulerProfile](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-KubeSchedulerProfile).
 
 {{< note >}}
 Щоб визначити, чи відповідає планувальник за планування конкретного Podʼа, поле `spec.schedulerName` в PodTemplate або Pod маніфесті повинно збігатися з полем `schedulerName` профілю `KubeSchedulerProfile`. Усі планувальники, що працюють у кластері, повинні мати унікальні імена.
@@ -56,7 +56,7 @@ gcloud docker -- push gcr.io/my-gcp-project/my-kube-scheduler:1.0 # тут є л
 
 Також зверніть увагу, що ви створюєте окремий службовий обліковий запис `my-scheduler` і привʼязуєте до нього кластерну роль `system:kube-scheduler`, щоб він міг отримати ті ж привілеї, що й `kube-scheduler`.
 
-Будь ласка, зверніться до [документації kube-scheduler](/uk/docs/reference/command-line-tools-reference/kube-scheduler/) для детального опису інших параметрів командного рядка та [довідкової інформації щодо конфігурації планувальника](/uk/docs/reference/config-api/kube-scheduler-config.v1/) для детального опису інших налаштовуваних конфігурацій `kube-scheduler`.
+Будь ласка, зверніться до [документації kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) для детального опису інших параметрів командного рядка та [довідкової інформації щодо конфігурації планувальника](/docs/reference/config-api/kube-scheduler-config.v1/) для детального опису інших налаштовуваних конфігурацій `kube-scheduler`.
 
 ## Запуск другого планувальника в кластері {#run-the-second-scheduler-in-the-cluster}
 
@@ -162,4 +162,4 @@ kubectl edit clusterrole system:kube-scheduler
 kubectl get events
 ```
 
-Ви також можете використовувати [власну конфігурацію планувальника](/uk/docs/reference/scheduling/config/#multiple-profiles) або власний контейнерний образ для основного планувальника кластера, змінивши його статичний маніфест Podʼа на відповідних вузлах панелі управління.
+Ви також можете використовувати [власну конфігурацію планувальника](/docs/reference/scheduling/config/#multiple-profiles) або власний контейнерний образ для основного планувальника кластера, змінивши його статичний маніфест Podʼа на відповідних вузлах панелі управління.

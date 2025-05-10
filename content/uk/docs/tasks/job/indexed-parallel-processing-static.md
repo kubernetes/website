@@ -11,7 +11,7 @@ weight: 31
 
 У цьому прикладі ви запустите Job Kubernetes, яке використовує кілька паралельних робочих процесів. Кожен робочий процес — це різний контейнер, що працює у власному Podʼі. Podʼи мають _індексний номер_, який автоматично встановлює панель управління, що дозволяє кожному Podʼу визначити, над якою частиною загального завдання працювати.
 
-Індекс Podʼа доступний в {{< glossary_tooltip text="анотації" term_id="annotation" >}} `batch.kubernetes.io/job-completion-index` у вигляді рядка, який представляє його десяткове значення. Щоб контейнеризований процес завдання отримав цей індекс, можна опублікувати значення анотації за допомогою механізму [downward API](/uk/docs/concepts/workloads/pods/downward-api/). Для зручності панель управління автоматично встановлює downward API для експонування індексу в змінну середовища `JOB_COMPLETION_INDEX`.
+Індекс Podʼа доступний в {{< glossary_tooltip text="анотації" term_id="annotation" >}} `batch.kubernetes.io/job-completion-index` у вигляді рядка, який представляє його десяткове значення. Щоб контейнеризований процес завдання отримав цей індекс, можна опублікувати значення анотації за допомогою механізму [downward API](/docs/concepts/workloads/pods/downward-api/). Для зручності панель управління автоматично встановлює downward API для експонування індексу в змінну середовища `JOB_COMPLETION_INDEX`.
 
 Нижче наведено огляд кроків у цьому прикладі:
 
@@ -20,7 +20,7 @@ weight: 31
 
 ## {{% heading "prerequisites" %}}
 
-Ви маєти бути знайомі з базовим, не-паралельним використанням [Job](/uk/docs/concepts/workloads/controllers/job/).
+Ви маєти бути знайомі з базовим, не-паралельним використанням [Job](/docs/concepts/workloads/controllers/job/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -50,9 +50,9 @@ rev data.txt
 
 {{% code_sample language="yaml" file="application/job/indexed-job.yaml" %}}
 
-У вищенаведеному прикладі ви використовуєте вбудовану змінну середовища `JOB_COMPLETION_INDEX`, яку встановлює контролер завдань для всіх контейнерів. [Контейнер ініціалізації](/uk/docs/concepts/workloads/pods/init-containers/) відображає індекс на статичне значення та записує його в файл, який спільно використовується з контейнером, що виконує робочий процес через [том emptyDir](/uk/docs/concepts/storage/volumes/#emptydir). Додатково ви можете [визначити свою власну змінну середовища через downward API](/uk/docs/tasks/inject-data-application/environment-variable-expose-pod-information/) для публікації індексу в контейнерах. Ви також можете вибрати завантаження списку значень з [ConfigMap як змінної середовища або файлу](/uk/docs/tasks/configure-pod-container/configure-pod-configmap/).
+У вищенаведеному прикладі ви використовуєте вбудовану змінну середовища `JOB_COMPLETION_INDEX`, яку встановлює контролер завдань для всіх контейнерів. [Контейнер ініціалізації](/docs/concepts/workloads/pods/init-containers/) відображає індекс на статичне значення та записує його в файл, який спільно використовується з контейнером, що виконує робочий процес через [том emptyDir](/docs/concepts/storage/volumes/#emptydir). Додатково ви можете [визначити свою власну змінну середовища через downward API](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/) для публікації індексу в контейнерах. Ви також можете вибрати завантаження списку значень з [ConfigMap як змінної середовища або файлу](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
-У іншому варіанті ви можете безпосередньо [використовувати downward API для передачі значення анотації як файлу тому](/uk/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#store-pod-fields), як показано у наступному прикладі:
+У іншому варіанті ви можете безпосередньо [використовувати downward API для передачі значення анотації як файлу тому](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#store-pod-fields), як показано у наступному прикладі:
 
 {{% code_sample language="yaml" file="application/job/indexed-job-vol.yaml" %}}
 

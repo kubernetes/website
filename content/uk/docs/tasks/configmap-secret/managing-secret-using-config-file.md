@@ -50,9 +50,9 @@ description: Створення обʼєктів Secret за допомогою 
      password: MWYyZDFlMmU2N2Rm
    ```
 
-   Зверніть увагу, що імʼя обʼєкта Secret повинно бути дійсним [піддоменом DNS](/uk/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+   Зверніть увагу, що імʼя обʼєкта Secret повинно бути дійсним [піддоменом DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
-1. Створіть Secret, використовуючи [`kubectl apply`](/uk/docs/reference/generated/kubectl/kubectl-commands#apply):
+1. Створіть Secret, використовуючи [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply):
 
    ```shell
    kubectl apply -f ./secret.yaml
@@ -64,7 +64,7 @@ description: Створення обʼєктів Secret за допомогою 
    secret/mysecret created
    ```
 
-Щоб перевірити, що Secret був створений та щоб розкодувати дані Secret, див. [Керування Secret за допомогою kubectl](/uk/docs/tasks/configmap-secret/managing-secret-using-kubectl/#перевірка-секрету).
+Щоб перевірити, що Secret був створений та щоб розкодувати дані Secret, див. [Керування Secret за допомогою kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#перевірка-секрету).
 
 ### Вказання незакодованих даних під час створення Secret {#specify-unencoded-data-when-creating-a-secret}
 
@@ -165,7 +165,7 @@ type: Opaque
 
 ## Редагування Secret {#edit-secret}
 
-Щоб редагувати дані у Secret, створеному за допомогою маніфесту, змініть поле `data` або `stringData` у вашому маніфесті та застосуйте файл у вашому кластері. Ви можете редагувати наявний обʼєкт `Secret`, за винятком випадку, коли він є [незмінним](/uk/docs/concepts/configuration/secret/#secret-immutable).
+Щоб редагувати дані у Secret, створеному за допомогою маніфесту, змініть поле `data` або `stringData` у вашому маніфесті та застосуйте файл у вашому кластері. Ви можете редагувати наявний обʼєкт `Secret`, за винятком випадку, коли він є [незмінним](/docs/concepts/configuration/secret/#secret-immutable).
 
 Наприклад, якщо ви хочете змінити пароль з попереднього прикладу на `birdsarentreal`, виконайте наступне:
 
@@ -208,7 +208,7 @@ type: Opaque
 
 Kubernetes оновлює наявний обʼєкт `Secret`. Докладно, інструмент `kubectl` помічає, що є обʼєкт `Secret` з тим самим імʼям. `kubectl` отримує поточний обʼєкт, планує зміни в ньому і надсилає змінений обʼєкт `Secret` до панелі управління кластера.
 
-Якщо ви вказали `kubectl apply --server-side`, `kubectl` використовує [застосування на боці сервера](/uk/docs/reference/using-api/server-side-apply/) замість цього.
+Якщо ви вказали `kubectl apply --server-side`, `kubectl` використовує [застосування на боці сервера](/docs/reference/using-api/server-side-apply/) замість цього.
 
 ## Прибирання {#clean-up}
 
@@ -220,6 +220,6 @@ kubectl delete secret mysecret
 
 ## {{% heading "whatsnext" %}}
 
-- Дізнайтеся більше про [концепцію Secret](/uk/docs/concepts/configuration/secret/)
-- Дізнайтесь, як [керувати Secret за допомогою kubectl](/uk/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- Дізнайтесь, як [керувати Secret за допомогою kustomize](/uk/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- Дізнайтеся більше про [концепцію Secret](/docs/concepts/configuration/secret/)
+- Дізнайтесь, як [керувати Secret за допомогою kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Дізнайтесь, як [керувати Secret за допомогою kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)

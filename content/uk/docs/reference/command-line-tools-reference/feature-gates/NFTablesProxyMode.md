@@ -16,6 +16,7 @@ stages:
     toVersion: "1.32"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.33"
 ---
 Дозволяє запуск kube-proxy у режимі [nftables](/docs/reference/networking/virtual-ips/#proxy-mode-nftables).

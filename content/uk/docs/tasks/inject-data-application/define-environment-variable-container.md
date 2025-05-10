@@ -26,8 +26,8 @@ weight: 20
 `envFrom`
 : дозволяє вам задати змінні середовища для контейнера, посилаючись на ConfigMap або Secret. Коли ви використовуєте `envFrom`, всі пари ключ-значення у зазначеному ConfigMap або Secret встановлюються як змінні середовища для контейнера. Ви також можете вказати спільний префіксовий рядок.
 
-Докладніше про [ConfigMap](/uk/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables)
-та [Secret](/uk/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables).
+Докладніше про [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables)
+та [Secret](/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables).
 
 Ця сторінка пояснює, як використовувати `env`.
 
@@ -83,7 +83,7 @@ weight: 20
 
 Змінні середовища, які ви визначаєте у конфігурації Pod у `.spec.containers[*].env[*]`, можна використовувати в інших частинах конфігурації, наприклад, у командах та аргументах, які ви задаєте для контейнерів Pod. У наступній конфігурації прикладу, змінні середовища `GREETING`, `HONORIFIC` та `NAME` встановлені на `Warm greetings to`, `The Most Honorable` та `Kubernetes` відповідно. Змінна середовища `MESSAGE` комбінує набір усіх цих змінних середовища, а потім використовує їх як аргумент командного рядка, переданий контейнеру `env-print-demo`.
 
-Імена змінних середовища складаються з літер, цифр, підкреслення, крапок або дефісів, але перший символ не може бути цифрою. Якщо ввімкнуто [функціональну можливість](/uk/docs/reference/command-line-tools-reference/feature-gates/) `RelaxedEnvironmentVariableValidation`, можна використовувати всі [друковані символи ASCII](https://www.ascii-code.com/characters/printable-characters), окрім "=" для імен змінних середовища.
+Імена змінних середовища складаються з літер, цифр, підкреслення, крапок або дефісів, але перший символ не може бути цифрою. Якщо ввімкнуто [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `RelaxedEnvironmentVariableValidation`, можна використовувати всі [друковані символи ASCII](https://www.ascii-code.com/characters/printable-characters), окрім "=" для імен змінних середовища.
 
 ```yaml
 apiVersion: v1
@@ -111,6 +111,6 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся більше про [змінні середовища](/uk/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
-* Дізнайтеся про [використання secret як змінних середовища](/uk/docs/concepts/configuration/secret/#using-secrets-as-environment-variables).
+* Дізнайтеся більше про [змінні середовища](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
+* Дізнайтеся про [використання secret як змінних середовища](/docs/concepts/configuration/secret/#using-secrets-as-environment-variables).
 * Дивіться [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core).

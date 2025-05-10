@@ -10,9 +10,9 @@ weight: 60
 
 Коли Kubernetes створює Pod, він призначає один з таких класів QoS для Podʼа:
 
-* [Guaranteed](/uk/docs/concepts/workloads/pods/pod-qos/#guaranteed)
-* [Burstable](/uk/docs/concepts/workloads/pods/pod-qos/#burstable)
-* [BestEffort](/uk/docs/concepts/workloads/pods/pod-qos/#besteffort)
+* [Guaranteed](/docs/concepts/workloads/pods/pod-qos/#guaranteed)
+* [Burstable](/docs/concepts/workloads/pods/pod-qos/#burstable)
+* [BestEffort](/docs/concepts/workloads/pods/pod-qos/#besteffort)
 
 ## {{% heading "prerequisites" %}}
 
@@ -39,7 +39,7 @@ kubectl create namespace qos-example
 * Кожний контейнер у Pod повинен мати ліміт CPU та запит CPU.
 * Для кожного контейнера у Pod ліміт CPU повинен дорівнювати запиту CPU.
 
-Ці обмеження так само застосовуються до контейнерів ініціалізації і до контейнерів застосунків. [Ефемерні контейнери](/uk/docs/concepts/workloads/pods/ephemeral-containers/) не можуть визначати ресурси, тому ці обмеження не застосовуються до них.
+Ці обмеження так само застосовуються до контейнерів ініціалізації і до контейнерів застосунків. [Ефемерні контейнери](/docs/concepts/workloads/pods/ephemeral-containers/) не можуть визначати ресурси, тому ці обмеження не застосовуються до них.
 
 Нижче подано маніфест для Podʼа з одним контейнером. Контейнер має ліміт памʼяті та запит памʼяті, обидва дорівнюють 200 MiB. Контейнер має ліміт CPU та запит CPU, обидва дорівнюють 700 міліCPU:
 
@@ -239,24 +239,24 @@ kubectl delete namespace qos-example
 
 ### Для розробників застосунків {#for-app-developers}
 
-* [Призначення ресурсів памʼяті для контейнерів та Podʼів](/uk/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [Призначення ресурсів памʼяті для контейнерів та Podʼів](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Призначення ресурсів CPU для контейнерів та Podʼів](/uk/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [Призначення ресурсів CPU для контейнерів та Podʼів](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 ### Для адміністраторів кластера {#for-cluster-administrators}
 
-* [Налаштування стандартних запитів та лімітів памʼяті для простору імен](/uk/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [Налаштування стандартних запитів та лімітів памʼяті для простору імен](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [Налаштування стандартних запитів та лімітів CPU для простору імен](/uk/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [Налаштування стандартних запитів та лімітів CPU для простору імен](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Налаштування мінімальних та максимальних лімітів памʼяті для простору імен](/uk/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [Налаштування мінімальних та максимальних лімітів памʼяті для простору імен](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Налаштування мінімальних та максимальних лімітів CPU для простору імен](/uk/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [Налаштування мінімальних та максимальних лімітів CPU для простору імен](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [Налаштування квот памʼяті та CPU для простору імен](/uk/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [Налаштування квот памʼяті та CPU для простору імен](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [Налаштування квоти Podʼа для простору імен](/uk/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+* [Налаштування квоти Podʼа для простору імен](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
-* [Налаштування квот для обʼєктів API](/uk/docs/tasks/administer-cluster/quota-api-object/)
+* [Налаштування квот для обʼєктів API](/docs/tasks/administer-cluster/quota-api-object/)
 
-* [Керування політиками управління топологією на вузлі](/uk/docs/tasks/administer-cluster/topology-manager/)
+* [Керування політиками управління топологією на вузлі](/docs/tasks/administer-cluster/topology-manager/)

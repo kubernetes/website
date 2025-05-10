@@ -76,7 +76,7 @@ Status — це значення, що повертається для викл
 
     - **details.uid** (string)
 
-      UID ресурсу. (коли є один ресурс, який можна описати). Додаткова інформація: [https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids](/uk/docs/concepts/overview/working-with-objects/names#uids)
+      UID ресурсу. (коли є один ресурс, який можна описати). Додаткова інформація: [https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids](/docs/concepts/overview/working-with-objects/names#uids)
 
 - **kind** (string)
 

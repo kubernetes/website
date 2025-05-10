@@ -6,7 +6,7 @@ weight: 20
 
 <!-- overview -->
 
-На додаток до [PR чергування](/uk/docs/contribute/participate/pr-wranglers), офіційні затверджувачі, рецензенти та члени SIG Docs беруть участь у тижневих чергуваннях у [розгляді та категоризації тікетів](/uk/docs/contribute/review/for-approvers/#triage-and-categorize-issues) в репозиторії.
+На додаток до [PR чергування](/docs/contribute/participate/pr-wranglers), офіційні затверджувачі, рецензенти та члени SIG Docs беруть участь у тижневих чергуваннях у [розгляді та категоризації тікетів](/docs/contribute/review/for-approvers/#triage-and-categorize-issues) в репозиторії.
 
 <!-- body -->
 
@@ -14,7 +14,7 @@ weight: 20
 
 Кожного дня під час тижневого чергування Відповідальний за тікети буде відповідати за:
 
-- Щоденний розгляд та тегування нових тікетів. Дивіться [Розглядв та категоризація тікетів](/uk/docs/contribute/review/for-approvers/#triage-and-categorize-issues) для керівництва з використання метаданих SIG Docs.
+- Щоденний розгляд та тегування нових тікетів. Дивіться [Розглядв та категоризація тікетів](/docs/contribute/review/for-approvers/#triage-and-categorize-issues) для керівництва з використання метаданих SIG Docs.
 - Слідкування за застарілими та "протухлими" тікетами в репозиторії kubernetes/website.
 - Підтримку [дошки тікетів](https://github.com/orgs/kubernetes/projects/72/views/1).
 

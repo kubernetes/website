@@ -17,7 +17,7 @@ _Мітки_ — це пари ключ/значення, які прикріп
 }
 ```
 
-Мітки дозволяють є ефективними для запитів та спостережень та є ідеальними для використання в інтерфейсах користувача та інтерфейсах командного рядка. Інформацію, що не є ідентифікуючою, слід записувати за допомогою [анотацій](/uk/docs/concepts/overview/working-with-objects/annotations/).
+Мітки дозволяють є ефективними для запитів та спостережень та є ідеальними для використання в інтерфейсах користувача та інтерфейсах командного рядка. Інформацію, що не є ідентифікуючою, слід записувати за допомогою [анотацій](/docs/concepts/overview/working-with-objects/annotations/).
 
 <!-- body -->
 
@@ -35,7 +35,7 @@ _Мітки_ — це пари ключ/значення, які прикріп
 * `"partition" : "customerA"`, `"partition" : "customerB"`
 * `"track" : "daily"`, `"track" : "weekly"`
 
-Це приклади [загальновживаних міток](/uk/docs/concepts/overview/working-with-objects/common-labels/); ви вільні розробляти свої власні домовленості. Памʼятайте, що ключ мітки повинен бути унікальним для даного обʼєкта.
+Це приклади [загальновживаних міток](/docs/concepts/overview/working-with-objects/common-labels/); ви вільні розробляти свої власні домовленості. Памʼятайте, що ключ мітки повинен бути унікальним для даного обʼєкта.
 
 ## Синтаксис та набір символів {#syntax-and-character-set}
 
@@ -43,7 +43,7 @@ _Мітки_ — це пари ключ/значення. Дійсні ключ
 
 Якщо префікс відсутній, ключ мітки вважається приватним для користувача. Автоматизовані компоненти системи (наприклад, `kube-scheduler`, `kube-controller-manager`, `kube-apiserver`, `kubectl`, або інші засоби автоматизації від інших сторін), які додають мітки до обʼєктів користувача, повинні вказати префікс.
 
-Префікси `kubernetes.io/` та `k8s.io/` є [зарезервованими](/uk/docs/reference/labels-annotations-taints/) для основних компонентів Kubernetes.
+Префікси `kubernetes.io/` та `k8s.io/` є [зарезервованими](/docs/reference/labels-annotations-taints/) для основних компонентів Kubernetes.
 
 Дійсне значення мітки:
 
@@ -71,7 +71,7 @@ spec:
 
 ## Селектори міток {#label-selectors}
 
-На відміну від [назв та UID](/uk/docs/concepts/overview/working-with-objects/names/), мітки не забезпечують унікальності. Загалом, ми очікуємо, що багато обʼєктів матимуть ті ж самі мітки.
+На відміну від [назв та UID](/docs/concepts/overview/working-with-objects/names/), мітки не забезпечують унікальності. Загалом, ми очікуємо, що багато обʼєктів матимуть ті ж самі мітки.
 
 За допомогою _селектора міток_ користувач може ідентифікувати набір обʼєктів. Селектор міток є основним примітивом гуртування в Kubernetes.
 
@@ -144,7 +144,7 @@ partition
 
 ### Фільтрація LIST та WATCH {#list-and-watch-filtering}
 
-Для операцій **list** і **watch** ви можете вказати селектори міток для фільтрації наборів обʼєктів що повертаються; фільтр задається за допомогою параметра запиту. (Щоб дізнатися докладніше про watch у Kubernetes, прочитайте [ефективне виявлення змін](/uk/docs/reference/using-api/api-concepts/#efficient-detection-of-changes)).
+Для операцій **list** і **watch** ви можете вказати селектори міток для фільтрації наборів обʼєктів що повертаються; фільтр задається за допомогою параметра запиту. (Щоб дізнатися докладніше про watch у Kubernetes, прочитайте [ефективне виявлення змін](/docs/reference/using-api/api-concepts/#efficient-detection-of-changes)).
 Обидві вимоги дозволені (тут подано так, як вони з'являться у рядку URL-запиту):
 
 * вимоги на основі рівності: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`
@@ -176,7 +176,7 @@ kubectl get pods -l 'environment,environment notin (frontend)'
 
 ### Посилання в API-обʼєктах {#set-reference-in-api-objects}
 
-Деякі обʼєкти Kubernetes, такі як [`services`](/uk/docs/concepts/services-networking/service/) та [`replicationcontrollers`](/uk/docs/concepts/workloads/controllers/replicationcontroller/), також використовують селектори міток для вказівки наборів інших ресурсів, таких як [Podʼи](/uk/docs/concepts/workloads/pods/).
+Деякі обʼєкти Kubernetes, такі як [`services`](/docs/concepts/services-networking/service/) та [`replicationcontrollers`](/docs/concepts/workloads/controllers/replicationcontroller/), також використовують селектори міток для вказівки наборів інших ресурсів, таких як [Podʼи](/docs/concepts/workloads/pods/).
 
 #### Service та ReplicationController {#service-and-replicationcontroller}
 
@@ -202,7 +202,7 @@ selector:
 
 #### Ресурси, які підтримують вимоги на основі множин {#resources-that-support-set-based-requirements}
 
-Нові ресурси, такі як [`Job`](/uk/docs/concepts/workloads/controllers/job/), [`Deployment`](/uk/docs/concepts/workloads/controllers/deployment/), [`ReplicaSet`](/uk/docs/concepts/workloads/controllers/replicaset/), та [`DaemonSet`](/uk/docs/concepts/workloads/controllers/daemonset/), також підтримують вимоги на основі множин.
+Нові ресурси, такі як [`Job`](/docs/concepts/workloads/controllers/job/), [`Deployment`](/docs/concepts/workloads/controllers/deployment/), [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/), та [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/), також підтримують вимоги на основі множин.
 
 ```yaml
 selector:
@@ -219,7 +219,7 @@ selector:
 
 #### Вибір множини вузлів {#selecting-sets-of-nodes}
 
-Одним з варіантів використання селекторів на мітках є обмеження множини вузлів, на які може бути заплановано Pod. Дивіться документацію щодо [вибору вузла](/uk/docs/concepts/scheduling-eviction/assign-pod-node/) для отримання докладнішої інформації.
+Одним з варіантів використання селекторів на мітках є обмеження множини вузлів, на які може бути заплановано Pod. Дивіться документацію щодо [вибору вузла](/docs/concepts/scheduling-eviction/assign-pod-node/) для отримання докладнішої інформації.
 
 ## Ефективне використання міток {#using-labels-effectively}
 
@@ -311,12 +311,12 @@ my-nginx-2035384211-u3t6x   1/1       Running   0          23m       fe
 
 Це виводить всі Podʼи "app=nginx", з додатковим стовпчиком міток рівня Podʼів (вказаним за допомогою `-L` або `--label-columns`).
 
-Для отримання додаткової інформації, будь ласка, див. [kubectl label](/uk/docs/reference/generated/kubectl/kubectl-commands/#label).
+Для отримання додаткової інформації, будь ласка, див. [kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label).
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся, як [додати мітку до вузла](/uk/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node)
-* Знайдіть [Відомі мітки, Анотації та Ознаки](/uk/docs/reference/labels-annotations-taints/)
-* Перегляньте [Рекомендовані мітки](/uk/docs/concepts/overview/working-with-objects/common-labels/)
-* [Застосовуйте стандарти безпеки для Podʼів з мітками простору імен](/uk/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/)
+* Дізнайтеся, як [додати мітку до вузла](/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node)
+* Знайдіть [Відомі мітки, Анотації та Ознаки](/docs/reference/labels-annotations-taints/)
+* Перегляньте [Рекомендовані мітки](/docs/concepts/overview/working-with-objects/common-labels/)
+* [Застосовуйте стандарти безпеки для Podʼів з мітками простору імен](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/)
 * Прочитайте блог про [Написання контролера для міток Podʼа](/blog/2021/06/21/writing-a-controller-for-pod-labels/)

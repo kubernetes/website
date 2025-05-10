@@ -11,7 +11,7 @@ content_type: task
 
 1. Мої Podʼи застрягли на "Container Creating" або постійно перезавантажуються.
 
-   Переконайтеся, що ваш образ pause відповідає версії вашої операційної системи Windows. Див. [Контейнер pause](/uk/docs/concepts/windows/intro/#pause-container) для перегляду останнього/рекомендованого образу pause та/або отримання додаткової інформації.
+   Переконайтеся, що ваш образ pause відповідає версії вашої операційної системи Windows. Див. [Контейнер pause](/docs/concepts/windows/intro/#pause-container) для перегляду останнього/рекомендованого образу pause та/або отримання додаткової інформації.
 
    {{< note >}}
    Якщо ви використовуєте containerd як оточення для виконання контейнерів, образ pause вказується в    полі `plugins.plugins.cri.sandbox_image` файлу конфігурації config.toml.
@@ -22,7 +22,7 @@ content_type: task
    Переконайтеся, що ваш Pod планується на [сумісний](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility) вузол Windows.
 
    Додаткову інформацію про те, як вказати сумісний вузол для вашого Podʼа, можна знайти в
-   [цьому посібнику](/uk/docs/concepts/windows/user-guide/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host).
+   [цьому посібнику](/docs/concepts/windows/user-guide/#ensuring-os-specific-workloads-land-on-the-appropriate-container-host).
 
 ## Розвʼязання проблем мережі {#troubleshooting-network}
 
@@ -37,7 +37,7 @@ content_type: task
    Якщо у вас все ще виникають проблеми, ймовірно, ваша мережева конфігурація в
    [cni.conf](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf) потребує додаткової уваги. Ви завжди можете редагувати цей статичний файл. Оновлення конфігурації буде застосовано до будь-яких нових ресурсів Kubernetes.
 
-   Одним із вимог мережі Kubernetes (див. [Модель Kubernetes](/uk/docs/concepts/cluster-administration/networking/)) є внутрішнє звʼязування кластера без NAT всередині. Щоб відповідати цій вимозі, існує [ExceptionList](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf#L20) для всього трафіку, де ви не хочете, щоб відбувалось використання NAT назовні. Однак, це також означає, що вам потрібно виключити зовнішню IP-адресу, яку ви намагаєтесь запитати з `ExceptionList`. Тільки тоді трафік, який походить з вашого Podʼа Windows, буде коректно SNAT'ed для отримання відповіді зі світу. З цього погляду ваш `ExceptionList` у `cni.conf` повинен виглядати так:
+   Одним із вимог мережі Kubernetes (див. [Модель Kubernetes](/docs/concepts/cluster-administration/networking/)) є внутрішнє звʼязування кластера без NAT всередині. Щоб відповідати цій вимозі, існує [ExceptionList](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf#L20) для всього трафіку, де ви не хочете, щоб відбувалось використання NAT назовні. Однак, це також означає, що вам потрібно виключити зовнішню IP-адресу, яку ви намагаєтесь запитати з `ExceptionList`. Тільки тоді трафік, який походить з вашого Podʼа Windows, буде коректно SNAT'ed для отримання відповіді зі світу. З цього погляду ваш `ExceptionList` у `cni.conf` повинен виглядати так:
 
    ```conf
    "ExceptionList": [
@@ -53,7 +53,7 @@ content_type: task
 
 4. vNICs та HNS точки доступу контейнерів видаляються.
 
-   Цю проблему може викликати відмова в передачі параметра `hostname-override` до [kube-proxy](/uk/docs/reference/command-line-tools-reference/kube-proxy/). Щоб вирішити це, користувачі повинні передавати імʼя хосту kube-proxy наступним чином:
+   Цю проблему може викликати відмова в передачі параметра `hostname-override` до [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/). Щоб вирішити це, користувачі повинні передавати імʼя хосту kube-proxy наступним чином:
 
    ```powershell
    C:\k\kube-proxy.exe --hostname-override=$(hostname)
@@ -76,7 +76,7 @@ content_type: task
 
 7. DNS-перетворення не працює належним чином.
 
-   Перевірте обмеження DNS для Windows у цьому [розділі](/uk/docs/concepts/services-networking/dns-pod-service/#dns-windows).
+   Перевірте обмеження DNS для Windows у цьому [розділі](/docs/concepts/services-networking/dns-pod-service/#dns-windows).
 
 8. `kubectl port-forward` видає помилку "unable to do port forwarding: wincat not found"
 

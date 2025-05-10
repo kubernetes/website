@@ -13,7 +13,7 @@ weight: 10
 ## {{% heading "prerequisites" %}}
 
 * Вам потрібно мати кластер Kubernetes.
-* Вам також потрібно встановити `kubectl` — дивіться [встановлення інструментів](/uk/docs/tasks/tools/#kubectl)
+* Вам також потрібно встановити `kubectl` — дивіться [встановлення інструментів](/docs/tasks/tools/#kubectl)
 
 ## Перевірка налаштувань kubectl {#verify-kubectl-setup}
 
@@ -36,7 +36,7 @@ Server Version: version.Info{Major:"1", Minor:"27", GitVersion:"v1.27.3",GitComm
 
 Якщо замість `Server Version` ви бачите `Unable to connect to the server: dial tcp <server-ip>:8443: i/o timeout`, вам потрібно дослідити проблеми зʼєднання kubectl з вашим кластером.
 
-Переконайтеся, що ви встановили kubectl, слідуючи [офіційній документації з встановлення kubectl](/uk/docs/tasks/tools/#kubectl), і правильно налаштували змінну середовища `$PATH`.
+Переконайтеся, що ви встановили kubectl, слідуючи [офіційній документації з встановлення kubectl](/docs/tasks/tools/#kubectl), і правильно налаштували змінну середовища `$PATH`.
 
 ## Перевірка kubeconfig {#check-kubeconfig}
 
@@ -56,7 +56,7 @@ Server Version: version.Info{Major:"1", Minor:"27", GitVersion:"v1.27.3",GitComm
 
 ## Перевірка контекстів {#verify-contexts}
 
-Kubernetes підтримує роботу з [кількома кластерами та контекстами](/uk/docs/tasks/access-application-cluster/configure-access-multiple-clusters/). Переконайтеся, що ви використовуєте правильний контекст для взаємодії з вашим кластером.
+Kubernetes підтримує роботу з [кількома кластерами та контекстами](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/). Переконайтеся, що ви використовуєте правильний контекст для взаємодії з вашим кластером.
 
 Перелік доступних контекстів:
 

@@ -252,7 +252,7 @@ weight: 30
    ../cfssl gencert -ca=ca.pem -ca-key=ca-key.pem \
         --config=ca-config.json -profile=kubernetes \
         server-csr.json | ../cfssljson -bare server
-   ```  
+   ```
 
 ## Розповсюдження самопідписних сертифікатів CA {#distribute-self-signed-ca-certificates}
 
@@ -274,4 +274,4 @@ done.
 
 ## API сертифікатів {#certificates-api}
 
-Ви можете використовувати `certificates.k8s.io` API для надання сертифікатів x509 для використання для автентифікації, як про це йдеться на сторінці [Керування TLS в кластері](/uk/docs/tasks/tls/managing-tls-in-a-cluster/).
+Ви можете використовувати `certificates.k8s.io` API для надання сертифікатів x509 для використання для автентифікації, як про це йдеться на сторінці [Керування TLS в кластері](/docs/tasks/tls/managing-tls-in-a-cluster/).

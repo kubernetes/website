@@ -12,7 +12,7 @@
 - Bootstrap токен повинен мати форму "[a-z0-9]{6}.[a-z0-9]{16}". Перша частина є публічним ідентифікатором токена, а друга — секретом токена, який повинен бути збережений у таємниці за будь-яких обставин!
 - Назва Secret повинна бути "bootstrap-token-(token-id)".
 
-Більше інформації про bootstrap токени можна знайти тут: [https://kubernetes.io/docs/admin/bootstrap-tokens/](/uk/docs/admin/bootstrap-tokens/)
+Більше інформації про bootstrap токени можна знайти тут: [https://kubernetes.io/docs/admin/bootstrap-tokens/](/docs/admin/bootstrap-tokens/)
 
 ```shell
 kubeadm token [flags]

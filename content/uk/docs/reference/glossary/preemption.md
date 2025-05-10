@@ -16,4 +16,4 @@ tags:
 
 <!--more-->
 
-Якщо Pod не можна призначити, планувальник намагається [випередити](/uk/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption) Podʼи з меншим пріоритетом, щоб забезпечити можливість призначення Podʼа, що перебуває в очікуванні вузла.
+Якщо Pod не можна призначити, планувальник намагається [випередити](/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption) Podʼи з меншим пріоритетом, щоб забезпечити можливість призначення Podʼа, що перебуває в очікуванні вузла.

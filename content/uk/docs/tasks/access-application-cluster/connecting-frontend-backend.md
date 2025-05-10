@@ -20,8 +20,8 @@ weight: 70
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-Це завдання використовує [Service з зовнішніми балансувальниками навантаження](/uk/docs/tasks/access-application-cluster/create-external-load-balancer/), які вимагають підтримуваного середовища. Якщо ваше середовище не підтримує це, ви можете використовувати Service типу
-[NodePort](/uk/docs/concepts/services-networking/service/#type-nodeport).
+Це завдання використовує [Service з зовнішніми балансувальниками навантаження](/docs/tasks/access-application-cluster/create-external-load-balancer/), які вимагають підтримуваного середовища. Якщо ваше середовище не підтримує це, ви можете використовувати Service типу
+[NodePort](/docs/concepts/services-networking/service/#type-nodeport).
 
 <!-- lessoncontent -->
 
@@ -129,7 +129,7 @@ service/frontend created
 ```
 
 {{< note >}}
-Конфігурація nginx вбудована в [образ контейнера](/uk/examples/service/access/Dockerfile). Кращий спосіб зробити її — скористатись [ConfigMap](/uk/docs/tasks/configure-pod-container/configure-pod-configmap/), щоб ви могли легше змінювати конфігурацію.
+Конфігурація nginx вбудована в [образ контейнера](/examples/service/access/Dockerfile). Кращий спосіб зробити її — скористатись [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/), щоб ви могли легше змінювати конфігурацію.
 {{< /note >}}
 
 ## Взаємодія з Service фронтенду {#interacting-with-the-frontend-service}
@@ -186,6 +186,6 @@ kubectl delete deployment frontend backend
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся більше про [Service](/uk/docs/concepts/services-networking/service/)
-* Дізнайтеся більше про [ConfigMap](/uk/docs/tasks/configure-pod-container/configure-pod-configmap/)
-* Дізнайтеся більше про [DNS для Service та Podʼів](/uk/docs/concepts/services-networking/dns-pod-service/)
+* Дізнайтеся більше про [Service](/docs/concepts/services-networking/service/)
+* Дізнайтеся більше про [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)
+* Дізнайтеся більше про [DNS для Service та Podʼів](/docs/concepts/services-networking/dns-pod-service/)

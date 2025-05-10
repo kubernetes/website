@@ -17,5 +17,8 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.30"
+    toVersion: "1.32"
+
+removed: true
 ---
 Вмикає єдину точку доступу до HTTP `/discovery/<version>`, яка підтримує власне кешування HTTP за допомогою теґів, що містять усі відомі APIResources на сервері API.

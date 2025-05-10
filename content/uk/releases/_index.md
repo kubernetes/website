@@ -8,7 +8,7 @@ notoc: true
 
 <!-- overview -->
 
-Проєкт Kubernetes підтримує гілки випусків для трьох останніх мінорних випусків ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}). Kubernetes 1.19 та новіші отримують [приблизно 1 рік патчі підтримки](/uk/releases/patch-releases/#support-period). Kubernetes 1.18 та старіші отримували патчі приблизно впродовж 9 місяців.
+Проєкт Kubernetes підтримує гілки випусків для трьох останніх мінорних випусків ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}). Kubernetes 1.19 та новіші отримують [приблизно 1 рік патчі підтримки](/releases/patch-releases/#support-period). Kubernetes 1.18 та старіші отримували патчі приблизно впродовж 9 місяців.
 
 Версії Kubernetes зазначаються у вигляді **x.y.z**, де
 
@@ -16,7 +16,7 @@ notoc: true
 - **y** — мінорна версія, а
 - **z** — версія патча, відповідно до термінології [Semantic Versioning](https://semver.org/lang/uk/).
 
-Докладніше про політику розбіжностей між версіями у документі — [Політика версійної розбіжності](/uk/releases/version-skew-policy/).
+Докладніше про політику розбіжностей між версіями у документі — [Політика версійної розбіжності](/releases/version-skew-policy/).
 
 <!-- body -->
 

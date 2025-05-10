@@ -8,9 +8,9 @@ weight: 10
 Цей навчальний посібник застосовується лише для нових кластерів.
 {{% /alert %}}
 
-Безпека Pod покладається на контролер допуску, що виконує перевірки відповідно до [Стандартів безпеки Podʼів в Kubernetes](/uk/docs/concepts/security/pod-security-standards/) при створенні нових Podʼів. Це функція, має загальну доступність з випуску v1.25. Цей навчальний посібник показує, як застосувати стандарт безпеки `baseline` на рівні кластера, що застосовує стандартну конфігурацію для всіх просторів імен у кластері.
+Безпека Pod покладається на контролер допуску, що виконує перевірки відповідно до [Стандартів безпеки Podʼів в Kubernetes](/docs/concepts/security/pod-security-standards/) при створенні нових Podʼів. Це функція, має загальну доступність з випуску v1.25. Цей навчальний посібник показує, як застосувати стандарт безпеки `baseline` на рівні кластера, що застосовує стандартну конфігурацію для всіх просторів імен у кластері.
 
-Для застосування стандартів безпеки Podʼів до певних просторів імен дивіться [Застосування стандартів безпеки Podʼів на рівні простору імен](/uk/docs/tutorials/security/ns-level-pss).
+Для застосування стандартів безпеки Podʼів до певних просторів імен дивіться [Застосування стандартів безпеки Podʼів на рівні простору імен](/docs/tutorials/security/ns-level-pss).
 
 Якщо ви працюєте з версією Kubernetes, відмінною від v{{< skew currentVersion >}}, перевірте документацію для вашої версії.
 
@@ -19,13 +19,13 @@ weight: 10
 Встановіть на ваш компʼютер наступне:
 
 - [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-- [kubectl](/uk/docs/tasks/tools/)
+- [kubectl](/docs/tasks/tools/)
 
-Цей навчальний посібник показує, як ви можете налаштувати кластер Kubernetes, який ви повністю контролюєте. Якщо ви вивчаєте, як налаштувати Pod Security Admission для кластера, що надається постачальником послуг, де ви не можете налаштувати панель управління, прочитайте [Застосування стандартів безпеки Podʼів на рівні простору імен](/uk/docs/tutorials/security/ns-level-pss).
+Цей навчальний посібник показує, як ви можете налаштувати кластер Kubernetes, який ви повністю контролюєте. Якщо ви вивчаєте, як налаштувати Pod Security Admission для кластера, що надається постачальником послуг, де ви не можете налаштувати панель управління, прочитайте [Застосування стандартів безпеки Podʼів на рівні простору імен](/docs/tutorials/security/ns-level-pss).
 
 ## Виберіть правильний стандарт безпеки Podʼів {#choose-the-right-pod-security-standard-to-apply}
 
-[Pod Security Admission](/uk/docs/concepts/security/pod-security-admission/) дозволяє застосовувати вбудовані [Стандарти безпеки Podʼів](/uk/docs/concepts/security/pod-security-standards/) у режимах: `enforce`, `audit` та `warn`.
+[Pod Security Admission](/docs/concepts/security/pod-security-admission/) дозволяє застосовувати вбудовані [Стандарти безпеки Podʼів](/docs/concepts/security/pod-security-standards/) у режимах: `enforce`, `audit` та `warn`.
 
 Щоб зібрати інформацію, яка допоможе вам вибрати стандарти безпеки Podʼів, які найбільш підходять для вашої конфігурації, виконайте наступне:
 
@@ -300,13 +300,13 @@ kind delete cluster --name psa-wo-cluster-pss
 ## {{% heading "whatsnext" %}}
 
 - Виконайте
-  [скрипт оболонки](/uk/examples/security/kind-with-cluster-level-baseline-pod-security.sh) для виконання всіх попередніх кроків одночасно:
+  [скрипт оболонки](/examples/security/kind-with-cluster-level-baseline-pod-security.sh) для виконання всіх попередніх кроків одночасно:
   1. Створіть конфігурацію на рівні кластера на основі Стандартів безпеки Pod.
   2. Створіть файл для того, щоб API-сервер міг використовувати цю конфігурацію.
   3. Створіть кластер, який створює API-сервер з цією конфігурацією.
   4. Встановіть контекст kubectl для цього нового кластера.
   5. Створіть мінімальний файл yaml для Podʼів.
   6. Застосуйте цей файл для створення Podʼів в новому кластері.
-- [Pod Security Admission](/uk/docs/concepts/security/pod-security-admission/)
-- [Стандарти безпеки Pod](/uk/docs/concepts/security/pod-security-standards/)
-- [Застосування Стандартів безпеки Pod на рівні простору імен](/uk/docs/tutorials/security/ns-level-pss/)
+- [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
+- [Стандарти безпеки Pod](/docs/concepts/security/pod-security-standards/)
+- [Застосування Стандартів безпеки Pod на рівні простору імен](/docs/tutorials/security/ns-level-pss/)

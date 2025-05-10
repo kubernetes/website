@@ -12,8 +12,8 @@ weight: 40
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* Ви повинні бути знайомі з основами [контейнерів ініціалізації](/uk/docs/concepts/workloads/pods/init-containers/).
-* Ви повинні [Налаштувати контейнер ініціалізації](/uk/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container).
+* Ви повинні бути знайомі з основами [контейнерів ініціалізації](/docs/concepts/workloads/pods/init-containers/).
+* Ви повинні [Налаштувати контейнер ініціалізації](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container).
 
 <!-- steps -->
 

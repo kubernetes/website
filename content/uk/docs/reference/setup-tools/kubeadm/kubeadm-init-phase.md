@@ -6,7 +6,7 @@ content_type: concept
 
 `kubeadm init phase` дозволяє вам викликати атомарні кроки процесу початкового завантаження. Таким чином, ви можете дозволити kubeadm виконати частину роботи, а ви можете заповнити прогалини якщо ви бажаєте застосувати кастомізацію.
 
-`kubeadm init phase` узгоджується з [kubeadm init workflow](/uk/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow), і за лаштунками обидва використовують той самий код.
+`kubeadm init phase` узгоджується з [kubeadm init workflow](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow), і за лаштунками обидва використовують той самий код.
 
 ## kubeadm init phase preflight {#cmd-phase-preflight}
 
@@ -81,7 +81,7 @@ content_type: concept
 
 ## kubeadm init phase upload-config {#cmd-phase-upload-config}
 
-За допомогою цієї команди ви можете завантажити конфігурацію kubeadm до вашого кластера. Також ви можете скористатися [kubeadm config](/uk/docs/reference/setup-tools/kubeadm/kubeadm-config/).
+За допомогою цієї команди ви можете завантажити конфігурацію kubeadm до вашого кластера. Також ви можете скористатися [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/).
 
 {{< tabs name="upload-config" >}}
 {{< tab name="upload-config" include="generated/kubeadm_init/kubeadm_init_phase_upload-config.md" />}}
@@ -135,11 +135,11 @@ content_type: concept
 {{< tab name="kube-proxy" include="generated/kubeadm_init/kubeadm_init_phase_addon_kube-proxy.md" />}}
 {{< /tabs >}}
 
-Для отримання більш детальної інформації про кожне поле в конфігурації `v1beta4` ви можете перейти на нашу [сторінки довідки API](/uk/docs/reference/config-api/kubeadm-config.v1beta4/).
+Для отримання більш детальної інформації про кожне поле в конфігурації `v1beta4` ви можете перейти на нашу [сторінки довідки API](/docs/reference/config-api/kubeadm-config.v1beta4/).
 
 ## {{% heading "whatsnext" %}}
 
-* [kubeadm init](/uk/docs/reference/setup-tools/kubeadm/kubeadm-init/) для завантаження вузла керування Kubernetes
-* [kubeadm join](/uk/docs/reference/setup-tools/kubeadm/kubeadm-join/) для підключення вузла до кластера
-* [kubeadm reset](/uk/docs/reference/setup-tools/kubeadm/kubeadm-reset/) для скасування будь-яких змін, зроблених за допомогою `kubeadm init` або `kubeadm join`
-* [kubeadm alpha](/uk/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) для випробування експериментальних функцій
+* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) для завантаження вузла керування Kubernetes
+* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) для підключення вузла до кластера
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) для скасування будь-яких змін, зроблених за допомогою `kubeadm init` або `kubeadm join`
+* [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) для випробування експериментальних функцій

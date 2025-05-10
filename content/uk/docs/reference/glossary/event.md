@@ -21,4 +21,4 @@ tags:
 
 Події слід розглядати як інформаційні дані, що надаються як найкраще, та які є додатковими даними.
 
-У Kubernetes [аудит](/uk/docs/tasks/debug/debug-cluster/audit/) генерує інший вид Подій (API-група `audit.k8s.io`).
+У Kubernetes [аудит](/docs/tasks/debug/debug-cluster/audit/) генерує інший вид Подій (API-група `audit.k8s.io`).

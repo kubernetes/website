@@ -79,5 +79,5 @@ timeout 60 sh -c 'while pgrep kube-apiserver >/dev/null; do sleep 1; done' || tr
 
 ## {{% heading "whatsnext" %}}
 
-* [kubeadm init](/uk/docs/reference/setup-tools/kubeadm/kubeadm-init/) для створення вузла панелі управління Kubernetes
-* [kubeadm join](/uk/docs/reference/setup-tools/kubeadm/kubeadm-join/) для приєднання робочого вузла Kubernetes до кластера
+* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) для створення вузла панелі управління Kubernetes
+* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) для приєднання робочого вузла Kubernetes до кластера

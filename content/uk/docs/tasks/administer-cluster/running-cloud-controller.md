@@ -74,4 +74,4 @@ weight: 110
 
 ## {{% heading "whatsnext" %}}
 
-Щоб створити та розробити свій власний контролер хмарного провайдера, прочитайте [Розробка контролера хмарного провайдера](/uk/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
+Щоб створити та розробити свій власний контролер хмарного провайдера, прочитайте [Розробка контролера хмарного провайдера](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).

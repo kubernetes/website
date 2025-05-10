@@ -17,7 +17,7 @@ Kubernetes містить кілька інструментів, які допо
 
 ## Dashboard
 
-[`Dashboard`](/uk/docs/tasks/access-application-cluster/web-ui-dashboard/), вебінтерфейс Kubernetes, дозволяє розгортати контейнерні застосунки в кластері Kubernetes, розвʼязувати проблеми з ними та управляти кластером та його ресурсами.
+[`Dashboard`](/docs/tasks/access-application-cluster/web-ui-dashboard/), вебінтерфейс Kubernetes, дозволяє розгортати контейнерні застосунки в кластері Kubernetes, розвʼязувати проблеми з ними та управляти кластером та його ресурсами.
 
 ## Helm
 

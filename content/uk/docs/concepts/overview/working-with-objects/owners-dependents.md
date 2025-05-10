@@ -9,7 +9,7 @@ weight: 90
 В Kubernetes деякі {{< glossary_tooltip text="обʼєкти" term_id="object" >}} є
 *власниками* інших обʼєктів. Наприклад, {{<glossary_tooltip text="ReplicaSet" term_id="replica-set">}} є власником групи Podʼів. Ці обʼєкти, якими володіють, є *залежними* від свого власника.
 
-Власність відрізняється від [механізму міток та селекторів](/uk/docs/concepts/overview/working-with-objects/labels/), який також використовують деякі ресурси. Наприклад, розгляньте Service, який створює обʼєкти `EndpointSlice`. Service використовує {{<glossary_tooltip text="мітки" term_id="label">}} щоби панель управління могла
+Власність відрізняється від [механізму міток та селекторів](/docs/concepts/overview/working-with-objects/labels/), який також використовують деякі ресурси. Наприклад, розгляньте Service, який створює обʼєкти `EndpointSlice`. Service використовує {{<glossary_tooltip text="мітки" term_id="label">}} щоби панель управління могла
 визначити, які обʼєкти `EndpointSlice` використовуються для цього Service. Крім того, до міток, кожен `EndpointSlice`, який керується від імені Service, має
 посилання на власника. Посилання на власника допомагають різним частинам Kubernetes уникати втручання в обʼєкти, якими вони не керують.
 
@@ -31,12 +31,12 @@ weight: 90
 
 ## Власність та завершувачі {#ownership-and-finalizers}
 
-Коли ви наказуєте Kubernetes видалити ресурс, сервер API дозволяє керуючому контролеру обробити будь-які [правила завершувача](/uk/docs/concepts/overview/working-with-objects/finalizers/) для ресурсу. {{<glossary_tooltip text="Завершувачі" term_id="finalizer">}} запобігають випадковому видаленню ресурсів, які вашому кластеру можуть ще бути потрібні для коректної роботи. Наприклад, якщо ви намагаєтеся видалити [PersistentVolume](/uk/docs/concepts/storage/persistent-volumes/), який все ще використовується Podʼом, видалення не відбувається негайно, оскільки `PersistentVolume` має завершувач `kubernetes.io/pv-protection`. Замість цього [том](/uk/docs/concepts/storage/volumes/) залишається в стані `Terminating` до тих пір, поки Kubernetes не очистить завершувач, що відбувається тільки після того, як `PersistentVolume` більше не привʼязаний до Podʼа.
+Коли ви наказуєте Kubernetes видалити ресурс, сервер API дозволяє керуючому контролеру обробити будь-які [правила завершувача](/docs/concepts/overview/working-with-objects/finalizers/) для ресурсу. {{<glossary_tooltip text="Завершувачі" term_id="finalizer">}} запобігають випадковому видаленню ресурсів, які вашому кластеру можуть ще бути потрібні для коректної роботи. Наприклад, якщо ви намагаєтеся видалити [PersistentVolume](/docs/concepts/storage/persistent-volumes/), який все ще використовується Podʼом, видалення не відбувається негайно, оскільки `PersistentVolume` має завершувач `kubernetes.io/pv-protection`. Замість цього [том](/docs/concepts/storage/volumes/) залишається в стані `Terminating` до тих пір, поки Kubernetes не очистить завершувач, що відбувається тільки після того, як `PersistentVolume` більше не привʼязаний до Podʼа.
 
-Kubernetes також додає завершувачів до ресурсу-власника, коли ви використовуєте або [переднє або інше каскадне видалення](/uk/docs/concepts/architecture/garbage-collection/#cascading-deletion). При передньому видаленні додається завершувач `foreground`, так що контролер повинен видалити залежні ресурси, які також мають `ownerReferences.blockOwnerDeletion=true`, перш ніж він видалить власника. Якщо ви вказуєте політику видалення покинутих ресурсів (сиріт), Kubernetes додає завершувач `orphan`, так що контролер ігнорує залежні ресурси після того, як він видаляє обʼєкт-власника.
+Kubernetes також додає завершувачів до ресурсу-власника, коли ви використовуєте або [переднє або інше каскадне видалення](/docs/concepts/architecture/garbage-collection/#cascading-deletion). При передньому видаленні додається завершувач `foreground`, так що контролер повинен видалити залежні ресурси, які також мають `ownerReferences.blockOwnerDeletion=true`, перш ніж він видалить власника. Якщо ви вказуєте політику видалення покинутих ресурсів (сиріт), Kubernetes додає завершувач `orphan`, так що контролер ігнорує залежні ресурси після того, як він видаляє обʼєкт-власника.
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся більше про [завершувачі Kubernetes](/uk/docs/concepts/overview/working-with-objects/finalizers/).
-* Дізнайтеся про [збір сміття](/uk/docs/concepts/architecture/garbage-collection).
-* Прочитайте API-довідник про [метадані обʼєкта](/uk/docs/reference/kubernetes-api/common-definitions/object-meta/#System).
+* Дізнайтеся більше про [завершувачі Kubernetes](/docs/concepts/overview/working-with-objects/finalizers/).
+* Дізнайтеся про [збір сміття](/docs/concepts/architecture/garbage-collection).
+* Прочитайте API-довідник про [метадані обʼєкта](/docs/reference/kubernetes-api/common-definitions/object-meta/#System).

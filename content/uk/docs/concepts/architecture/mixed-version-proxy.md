@@ -16,7 +16,7 @@ weight: 220
 
 ## Активація Mixed Version Proxy {#enabling-the-mixed-version-proxy}
 
-Переконайтеся, що [функціональну можливість](/uk/docs/reference/command-line-tools-reference/feature-gates/) `UnknownVersionInteroperabilityProxy` увімкнено, коли ви запускаєте {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}:
+Переконайтеся, що [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `UnknownVersionInteroperabilityProxy` увімкнено, коли ви запускаєте {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}:
 
 ```shell
 kube-apiserver \
@@ -39,7 +39,7 @@ kube-apiserver \
 ### Транспорт та автентифікація проксі між API-серверами {#transport-and-authn}
 
 * Вихідний kube-apiserver повторно використовує
-  [наявні прапорці автентифікації клієнта API-сервера](/uk/docs/tasks/extend-kubernetes/configure-aggregation-layer/#kubernetes-apiserver-client-authentication) `--proxy-client-cert-file` та `--proxy-client-key-file` для представлення своєї ідентичності, яку перевіряє його рівноправний (цільовий kube-apiserver). Цей останній підтверджує підключення рівноправного на основі конфігурації, яку ви вказуєте за допомогою аргументу командного рядка `--requestheader-client-ca-file`.
+  [наявні прапорці автентифікації клієнта API-сервера](/docs/tasks/extend-kubernetes/configure-aggregation-layer/#kubernetes-apiserver-client-authentication) `--proxy-client-cert-file` та `--proxy-client-key-file` для представлення своєї ідентичності, яку перевіряє його рівноправний (цільовий kube-apiserver). Цей останній підтверджує підключення рівноправного на основі конфігурації, яку ви вказуєте за допомогою аргументу командного рядка `--requestheader-client-ca-file`.
 
 * Для автентифікації сертифікатів серверів призначення вам слід налаштувати пакет сертифіката організації, вказавши аргумент командного рядка `--peer-ca-file` **вихідному** API-серверу.
 
@@ -49,7 +49,7 @@ kube-apiserver \
 
 ## Mixed version proxying
 
-При активації Mixed version proxying [шар агрегації](/uk/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) завантажує спеціальний фільтр, який виконує такі дії:
+При активації Mixed version proxying [шар агрегації](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) завантажує спеціальний фільтр, який виконує такі дії:
 
 * Коли запит ресурсу надходить до API-сервера, який не може обслуговувати цей API (чи то тому, що він є версією, що передує введенню API, чи тому, що API вимкнено на API-сервері), API-сервер намагається надіслати запит до рівноправного API-сервера, який може обслуговувати затребуваний API. Це відбувається шляхом ідентифікації груп API / версій / ресурсів, які місцевий сервер не визнає, і спроби проксійовати ці запити до рівноправного API-сервера, який може обробити запит.
 * Якщо рівноправний API-сервер не відповідає, то _source_ API-сервер відповідає помилкою 503 ("Сервіс недоступний").
@@ -60,7 +60,7 @@ kube-apiserver \
 
 * Якщо ресурс відомий API-серверу, що отримав запит (наприклад, `GET /api/v1/pods/some-pod`), запит обробляється локально.
 
-* Якщо для запитаного ресурсу не знайдено внутрішнього обʼєкта `StorageVersion` (наприклад, `GET /my-api/v1/my-resource`) і налаштовано APIService на проксі до  API-сервера розширення, цей проксі відбувається за звичайного [процесу](/uk/docs/tasks/extend-kubernetes/configure-aggregation-layer/) для розширених API.
+* Якщо для запитаного ресурсу не знайдено внутрішнього обʼєкта `StorageVersion` (наприклад, `GET /my-api/v1/my-resource`) і налаштовано APIService на проксі до  API-сервера розширення, цей проксі відбувається за звичайного [процесу](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) для розширених API.
 
 * Якщо знайдено дійсний внутрішній обʼєкт `StorageVersion` для запитаного ресурсу (наприклад, `GET /batch/v1/jobs`) і API-сервер, який намагається обробити запит (API-сервер обробників), має вимкнений API `batch`, тоді API-сервер, який обробляє запит, витягує рівноправні API-сервери, які обслуговують відповідну групу / версію / ресурс (`api/v1/batch` у цьому випадку) за інформацією у витягнутому обʼєкті `StorageVersion`.  API-сервер, який обробляє запит, потім проксіює запит до одного з вибраних рівноправних kube-apiservers які обізнані з запитаним ресурсом.
 

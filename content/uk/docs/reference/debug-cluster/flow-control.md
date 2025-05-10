@@ -5,7 +5,7 @@ weight: 130
 
 <!-- overview -->
 
-API Priority and Fairness контролює поведінку сервера API Kubernetes у ситуації перевантаження. Ви можете знайти більше інформації про нього у розділі [API Priority & Fairness](/uk/docs/concepts/cluster-administration/flow-control/) документації.
+API Priority and Fairness контролює поведінку сервера API Kubernetes у ситуації перевантаження. Ви можете знайти більше інформації про нього у розділі [API Priority & Fairness](/docs/concepts/cluster-administration/flow-control/) документації.
 
 <!-- body -->
 
@@ -24,7 +24,7 @@ kubectl get prioritylevelconfigurations -o custom-columns="uid:{metadata.uid},na
 
 З увімкненою функцією `APIPriorityAndFairness`, `kube-apiserver` обслуговує наступні додаткові шляхи на своїх HTTP(S) портах.
 
-Вам потрібно переконатися, що у вас є дозволи для доступу до цих точок. Вам не потрібно нічого робити, якщо ви адміністратор. Дозволи можуть бути надані за необхідністю відповідно до [RBAC](/uk/docs/reference/access-authn-authz/rbac/) документа для доступу до `/debug/api_priority_and_fairness/` шляхом зазначення `nonResourceURLs`.
+Вам потрібно переконатися, що у вас є дозволи для доступу до цих точок. Вам не потрібно нічого робити, якщо ви адміністратор. Дозволи можуть бути надані за необхідністю відповідно до [RBAC](/docs/reference/access-authn-authz/rbac/) документа для доступу до `/debug/api_priority_and_fairness/` шляхом зазначення `nonResourceURLs`.
 
 - `/debug/api_priority_and_fairness/dump_priority_levels` — перелік
   усіх рівнів пріоритету та поточний стан кожного. Ви можете отримати його так:

@@ -19,4 +19,4 @@ title: "LocalObjectReference
 
 - **name** (string)
 
-    Назва обʼєкта, на який ви посилаєтеся. Це поле є фактично обов'язковим, але через зворотну сумісність дозволено залишати його порожнім. Екземпляри цього типу з порожнім значенням тут, як правило, є помилковими. Докладніше: [https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names](/uk/docs/concepts/overview/working-with-objects/names/#names)
+    Назва обʼєкта, на який ви посилаєтеся. Це поле є фактично обов'язковим, але через зворотну сумісність дозволено залишати його порожнім. Екземпляри цього типу з порожнім значенням тут, як правило, є помилковими. Докладніше: [https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names](/docs/concepts/overview/working-with-objects/names/#names)

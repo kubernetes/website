@@ -17,5 +17,7 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.29"
+    toVersion: "1.32"
+removed: true
 ---
 Дозволяє клієнтам API отримувати (`LIST` або `GET`) ресурси з сервера API частинами.

@@ -1,7 +1,7 @@
 ---
 title: Контролери Ingress
 description: >-
-  Для того, щоб ресурс [Ingress](/uk/docs/concepts/services-networking/ingress/) працював у вашому кластері, повинен бути запущений _контролер Ingress_. Вам потрібно вибрати принаймні один контролер Ingress та переконатися, що він налаштований у вашому кластері. На цій сторінці перелічені поширені контролери Ingress, які ви можете встановити.
+  Для того, щоб ресурс [Ingress](/docs/concepts/services-networking/ingress/) працював у вашому кластері, повинен бути запущений _контролер Ingress_. Вам потрібно вибрати принаймні один контролер Ingress та переконатися, що він налаштований у вашому кластері. На цій сторінці перелічені поширені контролери Ingress, які ви можете встановити.
 content_type: concept
 weight: 50
 ---
@@ -55,9 +55,9 @@ weight: 50
 
 ## Використання кількох контролерів Ingress {#using-multiple-ingress-controllers}
 
-Ви можете розгортати будь-яку кількість контролерів Ingress за допомогою [класу Ingress](/uk/docs/concepts/services-networking/ingress/#ingress-class) у межах кластера. Зверніть увагу на значення `.metadata.name` вашого ресурсу класу Ingress. При створенні Ingress вам слід вказати це імʼя для визначення поля `ingressClassName` в обʼєкті Ingress (див. [специфікацію IngressSpec v1](/uk/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)). `ingressClassName` є заміною застарілого [методу анотації](/uk/docs/concepts/services-networking/ingress/#deprecated-annotation).
+Ви можете розгортати будь-яку кількість контролерів Ingress за допомогою [класу Ingress](/docs/concepts/services-networking/ingress/#ingress-class) у межах кластера. Зверніть увагу на значення `.metadata.name` вашого ресурсу класу Ingress. При створенні Ingress вам слід вказати це імʼя для визначення поля `ingressClassName` в обʼєкті Ingress (див. [специфікацію IngressSpec v1](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)). `ingressClassName` є заміною застарілого [методу анотації](/docs/concepts/services-networking/ingress/#deprecated-annotation).
 
-Якщо ви не вказуєте IngressClass для Ingress, і у вашому кластері рівно один IngressClass відзначений як типовий, тоді Kubernetes [застосовує](/uk/docs/concepts/services-networking/ingress/#default-ingress-class) типовий IngressClass кластера до Ingress. Ви вказуєте IngressClass як типовий, встановлюючи анотацію [`ingressclass.kubernetes.io/is-default-class`](/uk/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class) для цього IngressClass, зі значенням `"true"`.
+Якщо ви не вказуєте IngressClass для Ingress, і у вашому кластері рівно один IngressClass відзначений як типовий, тоді Kubernetes [застосовує](/docs/concepts/services-networking/ingress/#default-ingress-class) типовий IngressClass кластера до Ingress. Ви вказуєте IngressClass як типовий, встановлюючи анотацію [`ingressclass.kubernetes.io/is-default-class`](/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class) для цього IngressClass, зі значенням `"true"`.
 
 В ідеалі, всі контролери Ingress повинні відповідати цій специфікації, але різні контролери Ingress працюють трошки по-різному.
 
@@ -67,5 +67,5 @@ weight: 50
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся більше про [Ingress](/uk/docs/concepts/services-networking/ingress/).
-* [Налаштуйте Ingress на Minikube з контролером NGINX](/uk/docs/tasks/access-application-cluster/ingress-minikube).
+* Дізнайтеся більше про [Ingress](/docs/concepts/services-networking/ingress/).
+* [Налаштуйте Ingress на Minikube з контролером NGINX](/docs/tasks/access-application-cluster/ingress-minikube).

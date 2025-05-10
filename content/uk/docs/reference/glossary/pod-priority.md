@@ -15,4 +15,4 @@ tags:
 
 <!--more-->
 
-[Пріоритет Podʼа](/uk/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority) дає змогу встановлювати пріоритет планування Podʼа вищим або нижчим в порівнянні з іншими Podʼами — це важлива функція для навантажень операційних кластерів.
+[Пріоритет Podʼа](/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority) дає змогу встановлювати пріоритет планування Podʼа вищим або нижчим в порівнянні з іншими Podʼами — це важлива функція для навантажень операційних кластерів.

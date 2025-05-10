@@ -9,7 +9,7 @@ auto_generated: false
 
 kubectl керує менеджером кластерів Kubernetes.
 
-Докладніше: [https://kubernetes.io/docs/reference/kubectl/](/uk/docs/reference/kubectl/)
+Докладніше: [https://kubernetes.io/docs/reference/kubectl/](/docs/reference/kubectl/)
 
 ```shell
 kubectl [flags]

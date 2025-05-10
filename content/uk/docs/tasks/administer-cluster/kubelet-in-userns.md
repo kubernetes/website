@@ -16,7 +16,7 @@ weight: 300
 {{< note >}}
 У цьому документі описано, як запустити компоненти вузла Kubernetes (і відповідно Podʼи), як не-root користувач.
 
-Якщо ви шукаєте лише як запустити Pod як не-root користувача, див. [SecurityContext](/uk/docs/tasks/configure-pod-container/security-context/).
+Якщо ви шукаєте лише як запустити Pod як не-root користувача, див. [SecurityContext](/docs/tasks/configure-pod-container/security-context/).
 {{< /note >}}
 
 ## {{% heading "prerequisites" %}}
@@ -27,7 +27,7 @@ weight: 300
 * [Увімкніть systemd з сеансом користувача](https://rootlesscontaine.rs/getting-started/common/login/)
 * [Налаштуйте кілька значень sysctl, залежно від розподілу Linux хосту](https://rootlesscontaine.rs/getting-started/common/sysctl/)
 * [Переконайтеся, що ваш не привілейований користувач вказаний у `/etc/subuid` та `/etc/subgid`](https://rootlesscontaine.rs/getting-started/common/subuid/)
-* Увімкніть [функціональну можливість](/uk/docs/reference/command-line-tools-reference/feature-gates/) `KubeletInUserNamespace`
+* Увімкніть [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `KubeletInUserNamespace`
 
 <!-- steps -->
 

@@ -277,7 +277,7 @@ CredentialProviderConfig — це конфігурація, яка містит
 <a href="#kubelet-config-k8s-io-v1beta1-CredentialProvider"><code>[]CredentialProvider</code></a>
 </td>
 <td>
-   <p>providers — це список втулків постачальників облікових даних, які будуть активовані kubelet. Кілька постачальників можуть відповідати одному образу, у такому випадку облікові дані від усіх постачальників будуть повернуті kubelet. Якщо кілька постачальників викликаються для одного образуу, результати обʼєднуються. Якщо постачальники повертають перекриваючі ключі автентифікації, використовується значення від постачальника, який знаходиться раніше в цьому списку.</p>
+   <p>providers — це список втулків постачальників облікових даних, які будуть активовані kubelet. Кілька постачальників можуть відповідати одному образу, у такому випадку облікові дані від усіх постачальників будуть повернуті kubelet. Якщо кілька постачальників викликаються для одного образуу, результати обʼєднуються. Якщо провайдери повертають ключі авторизації, що збігаються, спочатку буде використано значення від провайдера, що знаходиться раніше у списку.</p>
 </td>
 </tr>
 </tbody>
@@ -446,6 +446,42 @@ webhook:
 </td>
 <td>
    <p>registryBurst — максимальний розмір стрімких витягань, тимчасово дозволяє стрімким витяганням досягати цього числа, але при цьому не перевищувати registryPullQPS. Значення не повинно бути відʼємним числом. Використовується тільки якщо registryPullQPS більше 0. Стандартно: 10</p>
+</td>
+</tr>
+<tr><td><code>imagePullCredentialsVerificationPolicy</code><br/>
+<a href="#kubelet-config-k8s-io-v1beta1-ImagePullCredentialsVerificationPolicy"><code>ImagePullCredentialsVerificationPolicy</code></a>
+</td>
+<td>
+   <p>imagePullCredentialsVerificationPolicy визначає, як слід перевіряти облікові дані, коли pod запитує образ, який вже присутній на вузлі:</p>
+<ul>
+<li>NeverVerify
+<ul>
+<li>будь-хто на вузлі може використовувати будь- який образ, наявний на вузлі</li>
+</ul>
+</li>
+<li>NeverVerifyPreloadedImages
+<ul>
+<li>образи, які було витягнуто на вузол не за допомогою kubelet, можна використовувати без повторної перевірки облікових даних для витягування</li>
+</ul>
+</li>
+<li>NeverVerifyAllowlistedImages
+<ul>
+<li>як &quot;NeverVerifyPreloadedImages&quot;, але тільки образи вузлів з <code>preloadedImagesVerificationAllowlist</code> не потребують повторної перевірки</li>
+</ul>
+</li>
+<li>AlwaysVerify
+<ul>
+<li>всі образи потребують перевірки облікових даних</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr><td><code>preloadedImagesVerificationAllowlist</code><br/>
+<code>[]string</code>
+</td>
+<td>
+   <p>preloadedImagesVerificationAllowlist визначає список образів, які звільняються від перевірки облікових даних для політики &quot;NeverVerifyAllowlistedImages&quot; <code>imagePullCredentialsVerificationPolicy</code>. Список може містити підстановочний суфікс &quot;/&ast;&quot; для повного сегмента шляху. Використовуйте тільки специфікації файлів образів без теґу або дайджесту образу.</p>
 </td>
 </tr>
 <tr><td><code>eventRecordQPS</code><br/>
@@ -627,14 +663,14 @@ webhook:
 <code>map[string]string</code>
 </td>
 <td>
-   <p>cpuManagerPolicyOptions — це набір key=value, який дозволяє встановити додаткові опції для точного налаштування поведінки політик диспетчера процесорів. Потребує увімкнення функціональних можливостей &quot;CPUManager&quot; та &quot;CPUManagerPolicyOptions&quot;. Стандартно: nil</p>
+   <p>cpuManagerPolicyOptions — це набір key=value, який дозволяє встановити додаткові опції для точного налаштування поведінки політик диспетчера процесорів.  Стандартно: nil</p>
 </td>
 </tr>
 <tr><td><code>cpuManagerReconcilePeriod</code><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
-   <p>cpuManagerReconcilePeriod - період узгодження для CPU Manager. Потребує увімкнення функціональної можливості CPUManager. Стандартне значення: &quot;10s&quot;</p>
+   <p>cpuManagerReconcilePeriod - період узгодження для CPU Manager. Стандартне значення: &quot;10s&quot;</p>
 </td>
 </tr>
 <tr><td><code>memoryManagerPolicy</code><br/>
@@ -832,7 +868,7 @@ imagefs.available: &quot;15%&quot;</pre></p>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
-   <p>evictionPressureTransitionPeriod — це тривалість, протягом якої kubelet має зачекати, перш ніж вийти зі стану тиску витіснення. Стандартно: &quot;5m&quot;</p>
+   <p>evictionPressureTransitionPeriod — це тривалість, протягом якої kubelet має зачекати, перш ніж вийти зі стану тиску витіснення. Тривалість 0s буде перетворено на стандартне значення 5m. Стандартно: &quot;5m&quot;</p>
 </td>
 </tr>
 <tr><td><code>evictionMaxPodGracePeriod</code><br/>
@@ -847,6 +883,13 @@ imagefs.available: &quot;15%&quot;</pre></p>
 </td>
 <td>
    <p>evictionMinimumReclaim це map імен сигналів до величин, що визначає мінімальні відновлення, які описують мінімальну кількість заданого ресурсу, яку kubelet буде відновлювати при виконанні виселення pod, поки цей ресурс знаходиться під тиском. Наприклад: <code>{&quot;imagefs.available&quot;: &quot;2Gi&quot;}</code>. Стандартно: nil</p>
+</td>
+</tr>
+<tr><td><code>mergeDefaultEvictionSettings</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>mergeDefaultEvictionSettings вказує, що стандартні значення для полів evictionHard, evictionSoft, evictionSoftGracePeriod та evictionMinimumReclaim слід обʼєднати у значення, вказані для цих полів у цій конфігурації. Сигнали, вказані в цій конфігурації, мають пріоритет. Сигнали, не вказані в цій конфігурації, успадковують стандартні значення. Якщо false, і якщо будь-який сигнал вказано у цій конфігурації, то інші сигнали, не вказані у цій конфігурації, будуть встановлені у 0. Це стосується обʼєднання полів, для яких існує стандартне значення, і наразі тільки evictionHard має стандартне значення. Стандартне значення: false</p>
 </td>
 </tr>
 <tr><td><code>podsPerCore</code><br/>
@@ -1048,7 +1091,7 @@ imagefs.available: &quot;15%&quot;</pre></p>
 <code>bool</code>
 </td>
 <td>
-   <p>enableSystemLogQuery активує функцію запиту логів вузла на точці доступу /logs. Для роботи цієї функції також потрібно включити EnableSystemLogHandler. Стандартно: false</p>
+   <p>enableSystemLogQuery активує функцію запиту логів вузла на точці доступу /logs. Для роботи цієї функції також потрібно включити EnableSystemLogHandler. Увімкнення цього параметра впливає на безпеку. Рекомендується вмикати її за необхідності для налагодження і вимикати за інших обставин. Стандартно: false</p>
 </td>
 </tr>
 <tr><td><code>shutdownGracePeriod</code><br/>
@@ -1135,7 +1178,7 @@ shutdownGracePeriodSeconds: 30</li>
 </td>
 </tr>
 <tr><td><code>registerWithTaints</code><br/>
-<a href="/docs/reference/generated/kubernetes-api/v1.32/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="/docs/reference/generated/kubernetes-api/v1.33/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <p>registerWithTaints — це масив "taints" (міток) для додавання до обʼєкта вузла під час реєстрації kubelet. Набирає чинності лише тоді, коли параметр registerNode встановлено в значення true і під час початкової реєстрації вузла. Стандартно: nil</p>
@@ -1185,6 +1228,13 @@ shutdownGracePeriodSeconds: 30</li>
    <p>FailCgroupV1 забороняє запуск kubelet на хостах, які використовують cgroup v1. Стандартно цей параметр має значення false, що означає, що kubelet дозволяється запускати на хостах cgroup v1, якщо цей параметр явно не ввімкнено. Стандартно: false</p>
 </td>
 </tr>
+<tr><td><code>userNamespaces</code><br/>
+<a href="#kubelet-config-k8s-io-v1beta1-UserNamespaces"><code>UserNamespaces</code></a>
+</td>
+<td>
+   <p>UserNamespaces містить конфігурацію User Namespace.</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -1200,7 +1250,7 @@ SerializedNodeConfigSource дозволяє серіалізувати v1.NodeCo
 <tr><td><code>kind</code><br/>string</td><td><code>SerializedNodeConfigSource</code></td></tr>
 
 <tr><td><code>source</code><br/>
-<a href="/docs/reference/generated/kubernetes-api/v1.32/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
+<a href="/docs/reference/generated/kubernetes-api/v1.33/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
 </td>
 <td>
    <p>source є джерелом, яке ми серіалізуємо.</p>
@@ -1245,7 +1295,7 @@ SerializedNodeConfigSource дозволяє серіалізувати v1.NodeCo
 <code>string</code>
 </td>
 <td>
-   <p>name є обовʼязковою назвою постачальника облікових даних. Має відповідати назві виконуваного файлу постачальника, яку бачить kubelet. Виконуваний файл повинен бути в теці bin kubelet (встановлений прапорцем --image-credential-provider-bin-dir).</p>
+   <p>name є обовʼязковою назвою постачальника облікових даних. Має відповідати назві виконуваного файлу постачальника, яку бачить kubelet. Виконуваний файл повинен бути в теці bin kubelet (встановлений прапорцем --image-credential-provider-bin-dir). Має бути унікальним серед всіх провайдерів.</p>
 </td>
 </tr>
 <tr><td><code>matchImages</code> <b>[Обовʼязково]</b><br/>
@@ -1332,6 +1382,18 @@ SerializedNodeConfigSource дозволяє серіалізувати v1.NodeCo
 </tr>
 </tbody>
 </table>
+
+## `ImagePullCredentialsVerificationPolicy`     {#kubelet-config-k8s-io-v1beta1-ImagePullCredentialsVerificationPolicy}
+
+(Аліас `string`)
+
+**Зʼявляється в:**
+
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+
+ImagePullCredentialsVerificationPolicy - це зчислення для політики, яка застосовується, коли pod запитує образ, що зʼявляється у системі.
+
 
 ## `KubeletAnonymousAuthentication` {#kubelet-config-k8s-io-v1beta1-KubeletAnonymousAuthentication}
 
@@ -1515,7 +1577,7 @@ SerializedNodeConfigSource дозволяє серіалізувати v1.NodeCo
    <span class="text-muted">Номер NUMA вузла, для якого задається резервування памʼяті.</span></td>
 </tr>
 <tr><td><code>limits</code> <b>[Обовʼязково]</b><br/>
-<a href="/docs/reference/generated/kubernetes-api/v1.32/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="/docs/reference/generated/kubernetes-api/v1.33/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <span class="text-muted">Список ресурсів для резервування, які визначають обмеження памʼяті.</span></td>
@@ -1525,7 +1587,7 @@ SerializedNodeConfigSource дозволяє серіалізувати v1.NodeCo
 
 ## `MemorySwapConfiguration` {#kubelet-config-k8s-io-v1beta1-MemorySwapConfiguration}
 
-**ЗустрЗʼявляється в:**
+**Зʼявляється в:**
 
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 
@@ -1552,7 +1614,7 @@ SerializedNodeConfigSource дозволяє серіалізувати v1.NodeCo
 
 (Аліас `string`)
 
-**ЗустрЗʼявляється в:**
+**Зʼявляється в:**
 
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 
@@ -1560,7 +1622,7 @@ SerializedNodeConfigSource дозволяє серіалізувати v1.NodeCo
 
 ## `ShutdownGracePeriodByPodPriority`     {#kubelet-config-k8s-io-v1beta1-ShutdownGracePeriodByPodPriority}
 
-**ЗустрЗʼявляється в:**
+**Зʼявляється в:**
 
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 
@@ -1582,6 +1644,33 @@ SerializedNodeConfigSource дозволяє серіалізувати v1.NodeCo
 </td>
 <td>
    <p>shutdownGracePeriodSeconds — це період належного завершення перед завершенням роботи в секундах</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+## `UserNamespaces`     {#kubelet-config-k8s-io-v1beta1-UserNamespaces}
+
+
+**Зʼявляється в:**
+
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+UserNamespaces містисть конфігурацію User Namespace.
+
+<table class="table">
+<thead><tr><th width="30%">Поле</th><th>Опис</th></tr></thead>
+<tbody>
+
+
+<tr><td><code>idsPerPod</code><br/>
+<code>int64</code>
+</td>
+<td>
+   <p>IDsPerPod — це довжина зіставлення UID та GID. Довжина має бути кратною 65536 і не перевищувати 1&lt;&lt;32. У не-linux системах, таких як Windows, допускається лише null / absent.</p>
+   <p>Зміна значення може вимагати перестворення всіх контейнерів на вузлі.</p>
+   <p>Стандартно: 65536</p>
 </td>
 </tr>
 </tbody>

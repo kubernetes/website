@@ -48,7 +48,7 @@ _Маршрутизація з урахуванням топології_ нал
 
 ### Контролер EndpointSlice {#implementation-control-plane}
 
-Контролер EndpointSlice відповідає за встановлення підказок на EndpointSlice, коли цей евристичний підхід увімкнено. Контролер виділяє пропорційну кількість точок доступу кожній зоні. Ця пропорція ґрунтується на [виділеному обсязі](/uk/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) ядер ЦП для вузлів, що працюють в цій зоні. Наприклад, якщо в одній зоні є 2 ядра ЦП, а в іншій зоні лише 1 ядро ЦП, контролер виділить подвійну кількість точок доступу для зони з 2 ядрами ЦП.
+Контролер EndpointSlice відповідає за встановлення підказок на EndpointSlice, коли цей евристичний підхід увімкнено. Контролер виділяє пропорційну кількість точок доступу кожній зоні. Ця пропорція ґрунтується на [виділеному обсязі](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) ядер ЦП для вузлів, що працюють в цій зоні. Наприклад, якщо в одній зоні є 2 ядра ЦП, а в іншій зоні лише 1 ядро ЦП, контролер виділить подвійну кількість точок доступу для зони з 2 ядрами ЦП.
 
 Нижче наведено приклад того, як виглядає EndpointSlice, коли підказки вже заповнено:
 
@@ -114,5 +114,5 @@ Kubernetes може розгортатися різними способами, 
 
 ## {{% heading "whatsnext" %}}
 
-* Скористайтесь довідником [Підключення застосунків за допомогою Service](/uk/docs/tutorials/services/connect-applications-service/).
-* Дізнайтесь про поле [trafficDistribution](/uk/docs/concepts/services-networking/service/#traffic-distribution), що тісно повʼязане з анотацією `service.kubernetes.io/topology-mode` та надає гнучкість управління маршрутизацією трафіку в Kubernetes.
+* Скористайтесь довідником [Підключення застосунків за допомогою Service](/docs/tutorials/services/connect-applications-service/).
+* Дізнайтесь про поле [trafficDistribution](/docs/concepts/services-networking/service/#traffic-distribution), що тісно повʼязане з анотацією `service.kubernetes.io/topology-mode` та надає гнучкість управління маршрутизацією трафіку в Kubernetes.

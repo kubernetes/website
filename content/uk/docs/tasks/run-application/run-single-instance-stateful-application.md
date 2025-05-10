@@ -26,7 +26,7 @@ weight: 20
 
 Ви можете запустити stateful застосунок, створивши Deployment Kubernetes та підʼєднавши його до наявного PersistentVolume за допомогою PersistentVolumeClaim. Наприклад, цей файл YAML описує Deployment, що запускає MySQL та посилається на PersistentVolumeClaim. Файл визначає монтування тому для `/var/lib/mysql`, а потім створює PersistentVolumeClaim, який шукає том 20G. Ця заявка виконується будь-яким наявним томом, який відповідає вимогам, або за допомогою динамічного провізора.
 
-Примітка: пароль визначений в файлі конфігурації yaml, і це не є безпечним. Див. [Kubernetes Secrets](/uk/docs/concepts/configuration/secret/) для безпечнішого рішення.
+Примітка: пароль визначений в файлі конфігурації yaml, і це не є безпечним. Див. [Kubernetes Secrets](/docs/concepts/configuration/secret/) для безпечнішого рішення.
 
 {{% code_sample file="application/mysql/mysql-deployment.yaml" %}}
 {{% code_sample file="application/mysql/mysql-pv.yaml" %}}
@@ -147,7 +147,7 @@ mysql>
 
 Образ або будь-яку іншу частину Deployment можна оновити як зазвичай за допомогою команди `kubectl apply`. Ось деякі заходи обережності, які специфічні для застосунків зі збереженням стану:
 
-- Не масштабуйте застосунок. Цей варіант призначений лише для застосунків з одним екземпляром. Основний PersistentVolume можна примонтувати лише до одного Podʼа. Для кластеризованих застосунків зі збереженням стану див. [документацію StatefulSet](/uk/docs/concepts/workloads/controllers/statefulset/).
+- Не масштабуйте застосунок. Цей варіант призначений лише для застосунків з одним екземпляром. Основний PersistentVolume можна примонтувати лише до одного Podʼа. Для кластеризованих застосунків зі збереженням стану див. [документацію StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 - Використовуйте `strategy:` `type: Recreate` в файлі конфігурації YAML Deployment. Це вказує Kubernetes _не_ використовувати постійні (rolling) оновлення. Такі оновлення не працюватимуть, оскільки ви не можете мати більше одного Podʼа, що працює одночасно. Стратегія `Recreate` зупинить перший Pod перед створенням нового з оновленою конфігурацією.
 
 ## Видалення Deployment {#deleting-a-deployment}
@@ -164,10 +164,10 @@ kubectl delete pv mysql-pv-volume
 
 ## {{% heading "whatsnext" %}}
 
-- Дізнайтеся більше про [обʼєкти Deployment](/uk/docs/concepts/workloads/controllers/deployment/).
+- Дізнайтеся більше про [обʼєкти Deployment](/docs/concepts/workloads/controllers/deployment/).
 
-- Дізнайтеся більше про [розгортання застосунків](/uk/docs/tasks/run-application/run-stateless-application-deployment/)
+- Дізнайтеся більше про [розгортання застосунків](/docs/tasks/run-application/run-stateless-application-deployment/)
 
-- [документація kubectl run](/uk/docs/reference/generated/kubectl/kubectl-commands/#run)
+- [документація kubectl run](/docs/reference/generated/kubectl/kubectl-commands/#run)
 
-- [Томи](/uk/docs/concepts/storage/volumes/) та [Persistent Volumes](/uk/docs/concepts/storage/persistent-volumes/)
+- [Томи](/docs/concepts/storage/volumes/) та [Persistent Volumes](/docs/concepts/storage/persistent-volumes/)

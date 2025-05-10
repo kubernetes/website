@@ -29,7 +29,7 @@ git clone git@github.com:<your_github_username>/website.git
 Визначте базову теку вашого клону. Наприклад, якщо ви слідували попередньому кроку для отримання репозиторію, ваша базова тека — `github.com/website`. Наступні кроки посилаються на вашу базову теку як `<web-base>`.
 
 {{< note>}}
-Якщо ви хочете змінити вміст компонентів інструментів і довідкову документацію API, дивіться [інструкцію для внесення змін в upstream](/uk/docs/contribute/generate-ref-docs/contribute-upstream).
+Якщо ви хочете змінити вміст компонентів інструментів і довідкову документацію API, дивіться [інструкцію для внесення змін в upstream](/docs/contribute/generate-ref-docs/contribute-upstream).
 {{< /note >}}
 
 ## Огляд update-imported-docs {#overview-of-update-imported-docs}
@@ -62,7 +62,7 @@ git clone git@github.com:<your_github_username>/website.git
 3. Копіювання згенерованих HTML і Markdown файлів до локального клону репозиторію `<web-base>` за вказаними в конфігураційному файлі шляхами.
 4. Оновлення посилань команд `kubectl` з `kubectl.md` у секції в довідці по команді `kubectl`.
 
-Коли згенеровані файли знаходяться у вашому локальному клоні репозиторію `<web-base>`, ви можете подати їх у [pull request](/uk/docs/contribute/new-content/open-a-pr/) до `<web-base>`.
+Коли згенеровані файли знаходяться у вашому локальному клоні репозиторію `<web-base>`, ви можете подати їх у [pull request](/docs/contribute/new-content/open-a-pr/) до `<web-base>`.
 
 ## Формат конфігураційного файлу {#configuration-file-format}
 
@@ -80,7 +80,7 @@ repos:
     dst: docs/imported/community/guide.md
 ```
 
-Окремі Markdown документи, імпортовані за допомогою інструмента, повинні відповідати [Посібнику зі стилю документації](/uk/docs/contribute/style/style-guide/).
+Окремі Markdown документи, імпортовані за допомогою інструмента, повинні відповідати [Посібнику зі стилю документації](/docs/contribute/style/style-guide/).
 
 ## Налаштування reference.yml {#customizing-reference-yml}
 
@@ -192,12 +192,12 @@ static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fon
 
 Створіть pull request до репозиторію `kubernetes/website`. Слідкуйте за вашим pull request і відповідайте на коментарі рецензентів за потреби. Продовжуйте слідкувати за вашим pull request до його злиття.
 
-Через кілька хвилин після злиття вашого pull request, ваша оновлена довідкова документація буде видна в [опублікованій документації](/uk/docs/home/).
+Через кілька хвилин після злиття вашого pull request, ваша оновлена довідкова документація буде видна в [опублікованій документації](/docs/home/).
 
 ## {{% heading "whatsnext" %}}
 
 Щоб згенерувати окрему довідкову документацію, вручну налаштувавши необхідні репозиторії та запустивши цільові завдання збірки, дивіться наступні посібники:
 
-* [Генерація довідкової документації для компонентів і інструментів Kubernetes](/uk/docs/contribute/generate-ref-docs/kubernetes-components/)
-* [Генерація довідкової документації для команд kubectl](/uk/docs/contribute/generate-ref-docs/kubectl/)
-* [Генерація довідкової документації для API Kubernetes](/uk/docs/contribute/generate-ref-docs/kubernetes-api/)
+* [Генерація довідкової документації для компонентів і інструментів Kubernetes](/docs/contribute/generate-ref-docs/kubernetes-components/)
+* [Генерація довідкової документації для команд kubectl](/docs/contribute/generate-ref-docs/kubectl/)
+* [Генерація довідкової документації для API Kubernetes](/docs/contribute/generate-ref-docs/kubernetes-api/)

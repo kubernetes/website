@@ -16,19 +16,19 @@ description: >
 
 Деякі обʼєкти API виступають як політики. Ось деякі приклади:
 
-* [NetworkPolicies](/uk/docs/concepts/services-networking/network-policies/) можуть бути використані для обмеження вхідного та вихідного трафіку для робочого навантаження.
-* [LimitRanges](/uk/docs/concepts/policy/limit-range/) керують обмеженнями розподілу ресурсів між різними типами обʼєктів.
-* [ResourceQuotas](/uk/docs/concepts/policy/resource-quotas/) обмежують споживання ресурсів для {{< glossary_tooltip text="простору імен" term_id="namespace" >}}.
+* [NetworkPolicies](/docs/concepts/services-networking/network-policies/) можуть бути використані для обмеження вхідного та вихідного трафіку для робочого навантаження.
+* [LimitRanges](/docs/concepts/policy/limit-range/) керують обмеженнями розподілу ресурсів між різними типами обʼєктів.
+* [ResourceQuotas](/docs/concepts/policy/resource-quotas/) обмежують споживання ресурсів для {{< glossary_tooltip text="простору імен" term_id="namespace" >}}.
 
 ## Застосування політик за допомогою admission-контролерів {#apply-policies-using-admission-controllers}
 
-{{< glossary_tooltip text="Admission контролер" term_id="admission-controller" >}} працює в API-сервері та може перевіряти або змінювати запити до API. Деякі admission-контролери виступають як політики. Наприклад, admission-контролер [AlwaysPullImages](/uk/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) змінює новий обʼєкт Pod, щоб встановити політику завантаження образу на `Always`.
+{{< glossary_tooltip text="Admission контролер" term_id="admission-controller" >}} працює в API-сервері та може перевіряти або змінювати запити до API. Деякі admission-контролери виступають як політики. Наприклад, admission-контролер [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) змінює новий обʼєкт Pod, щоб встановити політику завантаження образу на `Always`.
 
 У Kubernetes є кілька вбудованих admission-контролерів, які можна налаштувати за допомогою прапорця `--enable-admission-plugins` API-сервера.
 
 Детальні відомості про admission-контролери, з повним списком доступних admission-контролерів, ви знайдете в окремому розділі:
 
-* [Admission контролери](/uk/docs/reference/access-authn-authz/admission-controllers/)
+* [Admission контролери](/docs/reference/access-authn-authz/admission-controllers/)
 
 ## Застосування політик за допомогою ValidatingAdmissionPolicy {#apply-policies-using-validating-admission-policy}
 
@@ -38,7 +38,7 @@ description: >
 
 Детальні відомості про API `ValidatingAdmissionPolicy` з прикладами ви знайдете в окремому розділі:
 
-* [Перевірка політик допуску](/uk/docs/reference/access-authn-authz/validating-admission-policy/)
+* [Перевірка політик допуску](/docs/reference/access-authn-authz/validating-admission-policy/)
 
 ## Застосування політик за допомогою динамічного контролю допуску {#apply-policies-using-dynamic-admission-control}
 
@@ -48,7 +48,7 @@ description: >
 
 Детальні відомості про динамічний контроль допуску ви знайдете в окремому розділі:
 
-* [Динамічний контроль допуску](/uk/docs/reference/access-authn-authz/extensible-admission-controllers/)
+* [Динамічний контроль допуску](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 
 ### Реалізації {#implementations-admission-control}
 
@@ -57,7 +57,7 @@ description: >
 Контролери динамічного допуску, які виступають як гнучкі рушії політик, розробляються в екосистемі Kubernetes, серед них:
 
 * [Kubewarden](https://github.com/kubewarden)
-* [Kyverno](https://kyverno.io) 
+* [Kyverno](https://kyverno.io)
 * [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
 * [Polaris](https://polaris.docs.fairwinds.com/admission-controller/)
 
@@ -65,5 +65,5 @@ description: >
 
 Kubeletʼи дозволяють налаштовувати політики для кожного робочого вузла. Деякі конфігурації Kubeletʼів працюють як політики:
 
-* [Резурвування та ліміти Process ID](/uk/docs/concepts/policy/pid-limiting/) використовуються для обмеження та резервування PID.
-* [Менеджер ресурсів вузлів](/uk/docs/concepts/policy/node-resource-manager/) може бути використаний для керування обчислювальними ресурсами, ресурсами памʼяті та ресурсами пристроїв для високопропускних та критичних до затримок робочих навантажень.
+* [Резурвування та ліміти Process ID](/docs/concepts/policy/pid-limiting/) використовуються для обмеження та резервування PID.
+* [Менеджер ресурсів вузлів](/docs/concepts/policy/node-resource-manager/) може бути використаний для керування обчислювальними ресурсами, ресурсами памʼяті та ресурсами пристроїв для високопропускних та критичних до затримок робочих навантажень.

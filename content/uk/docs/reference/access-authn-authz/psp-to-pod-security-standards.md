@@ -6,11 +6,11 @@ weight: 95
 
 <!-- overview -->
 
-Нижче наведено таблиці, що перераховують параметри конфігурації обʼєктів `PodSecurityPolicy`, чи поле змінює або перевіряє контейнери, та як значення конфігурації зіставляються з [Стандартами безпеки Podʼів](/uk/docs/concepts/security/pod-security-standards/).
+Нижче наведено таблиці, що перераховують параметри конфігурації обʼєктів `PodSecurityPolicy`, чи поле змінює або перевіряє контейнери, та як значення конфігурації зіставляються з [Стандартами безпеки Podʼів](/docs/concepts/security/pod-security-standards/).
 
-Для кожного параметра, до якого це застосовується, перераховані допустимі значення для [Baseline](/uk/docs/concepts/security/pod-security-standards/#baseline) та [Restricted](/uk/docs/concepts/security/pod-security-standards/#restricted) профілів. Все, що перебуває за межами допустимих значень для цих профілів, підпадає під [Privileged](/uk/docs/concepts/security/pod-security-standards/#privileged) профіль. "Немає думки" означає, що всі значення допустимі для всіх стандартів безпеки Podʼів.
+Для кожного параметра, до якого це застосовується, перераховані допустимі значення для [Baseline](/docs/concepts/security/pod-security-standards/#baseline) та [Restricted](/docs/concepts/security/pod-security-standards/#restricted) профілів. Все, що перебуває за межами допустимих значень для цих профілів, підпадає під [Privileged](/docs/concepts/security/pod-security-standards/#privileged) профіль. "Немає думки" означає, що всі значення допустимі для всіх стандартів безпеки Podʼів.
 
-Для покрокового керівництва міграції див. [Міграція з PodSecurityPolicy до вбудованого контролера допуску PodSecurity](/uk/docs/tasks/configure-pod-container/migrate-from-psp/).
+Для покрокового керівництва міграції див. [Міграція з PodSecurityPolicy до вбудованого контролера допуску PodSecurity](/docs/tasks/configure-pod-container/migrate-from-psp/).
 
 <!-- body -->
 
@@ -222,7 +222,7 @@ weight: 95
 
 ## Анотації PodSecurityPolicy {#podsecuritypolicy-annotations}
 
-[Анотації](/uk/docs/concepts/overview/working-with-objects/annotations/), перераховані в цій таблиці, можуть бути вказані у `.metadata.annotations` обʼєкту PodSecurityPolicy.
+[Анотації](/docs/concepts/overview/working-with-objects/annotations/), перераховані в цій таблиці, можуть бути вказані у `.metadata.annotations` обʼєкту PodSecurityPolicy.
 
 <table class="no-word-break">
   <caption style="display:none">Зіставлення анотацій PodSecurityPolicy зі стандартами безпеки Podʼів</caption>

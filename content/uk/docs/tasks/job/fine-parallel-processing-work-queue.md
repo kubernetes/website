@@ -12,7 +12,7 @@ In цьому прикладі ви запустите Job Kubernetes, яке в
 
 Ось загальний огляд кроків у цьому прикладі:
 
-1. **Запустіть службу зберігання, щоб зберігати чергу завдань.** У цьому прикладі ви використаєте Redis для зберігання робочих елементів. У [попередньому прикладі](/uk/docs/tasks/job/coarse-parallel-processing-work-queue), ви використали RabbitMQ. У цьому прикладі ви будете використовувати Redis та власну бібліотеку клієнтів черг завдань; це тому, що AMQP не надає зручний спосіб клієнтам виявити, коли скінчиться черга робочих елементів з обмеженою довжиною. На практиці ви налаштуєте сховище, таке як Redis, один раз і повторно використовуватимете його для черг робочих завдань багатьох завдань та іншого.
+1. **Запустіть службу зберігання, щоб зберігати чергу завдань.** У цьому прикладі ви використаєте Redis для зберігання робочих елементів. У [попередньому прикладі](/docs/tasks/job/coarse-parallel-processing-work-queue), ви використали RabbitMQ. У цьому прикладі ви будете використовувати Redis та власну бібліотеку клієнтів черг завдань; це тому, що AMQP не надає зручний спосіб клієнтам виявити, коли скінчиться черга робочих елементів з обмеженою довжиною. На практиці ви налаштуєте сховище, таке як Redis, один раз і повторно використовуватимете його для черг робочих завдань багатьох завдань та іншого.
 2. **Створіть чергу та заповніть її повідомленнями.** Кожне повідомлення представляє одне завдання, яке потрібно виконати. У цьому прикладі повідомленням є ціле число, над яким ми виконаємо тривалі обчислення.
 3. **Запустіть завдання, яке працює над завданнями з черги**. Завдання запускає декілька Podʼів.  Кожний Pod бере одне завдання з черги повідомлень, обробляє його та повторює цей процес до досягнення кінця черги.
 
@@ -26,7 +26,7 @@ In цьому прикладі ви запустите Job Kubernetes, яке в
 
 <!-- steps -->
 
-Ви маєти бути знайомі з базовим, не-паралельним використанням [Job](/uk/docs/concepts/workloads/controllers/job/).
+Ви маєти бути знайомі з базовим, не-паралельним використанням [Job](/docs/concepts/workloads/controllers/job/).
 
 <!-- steps -->
 
@@ -36,12 +36,12 @@ In цьому прикладі ви запустите Job Kubernetes, яке в
 
 Ви також можете завантажити наступні файли безпосередньо:
 
-- [`redis-pod.yaml`](/uk/examples/application/job/redis/redis-pod.yaml)
-- [`redis-service.yaml`](/uk/examples/application/job/redis/redis-service.yaml)
-- [`Dockerfile`](/uk/examples/application/job/redis/Dockerfile)
-- [`job.yaml`](/uk/examples/application/job/redis/job.yaml)
-- [`rediswq.py`](/uk/examples/application/job/redis/rediswq.py)
-- [`worker.py`](/uk/examples/application/job/redis/worker.py)
+- [`redis-pod.yaml`](/examples/application/job/redis/redis-pod.yaml)
+- [`redis-service.yaml`](/examples/application/job/redis/redis-service.yaml)
+- [`Dockerfile`](/examples/application/job/redis/Dockerfile)
+- [`job.yaml`](/examples/application/job/redis/job.yaml)
+- [`rediswq.py`](/examples/application/job/redis/rediswq.py)
+- [`worker.py`](/examples/application/job/redis/worker.py)
 
 Для запуску одного екземпляра Redis вам потрібно створити Pod Redis та Service Redis:
 
@@ -112,13 +112,13 @@ redis:6379> lrange job2 0 -1
 
 Ви будете використовувати робочу програму на Python з клієнтом Redis для читання повідомлень з черги повідомлень.
 
-Надається проста бібліотека клієнтів черги роботи Redis, яка називається `rediswq.py` ([Завантажити](/uk/examples/application/job/redis/rediswq.py)).
+Надається проста бібліотека клієнтів черги роботи Redis, яка називається `rediswq.py` ([Завантажити](/examples/application/job/redis/rediswq.py)).
 
 Програма "робітник" в кожному Pod Job використовує бібліотеку клієнтів черги роботи, щоб отримати роботу. Ось вона:
 
 {{% code_sample language="python" file="application/job/redis/worker.py" %}}
 
-Ви також можете завантажити файли [`worker.py`](/uk/examples/application/job/redis/worker.py), [`rediswq.py`](/uk/examples/application/job/redis/rediswq.py) та [`Dockerfile`](/uk/examples/application/job/redis/Dockerfile), а потім побудувати контейнерний образ. Ось приклад використання Docker для побудови образу:
+Ви також можете завантажити файли [`worker.py`](/examples/application/job/redis/worker.py), [`rediswq.py`](/examples/application/job/redis/rediswq.py) та [`Dockerfile`](/examples/application/job/redis/Dockerfile), а потім побудувати контейнерний образ. Ось приклад використання Docker для побудови образу:
 
 ```shell
 docker build -t job-wq-2 .
@@ -133,7 +133,7 @@ docker tag job-wq-2 <username>/job-wq-2
 docker push <username>/job-wq-2
 ```
 
-Вам потрібно завантажити в публічний репозиторій або [налаштувати кластер для доступу до вашого приватного репозиторію](/uk/docs/concepts/containers/images/).
+Вам потрібно завантажити в публічний репозиторій або [налаштувати кластер для доступу до вашого приватного репозиторію](/docs/concepts/containers/images/).
 
 ## Визначення завдання {#defining-a-job}
 
@@ -214,6 +214,6 @@ Working on lemon
 
 ## Альтернативи {#alternatives}
 
-Якщо запуск служби черги або модифікація ваших контейнерів для використання робочої черги є незручними, ви можете розглянути один з інших [шаблонів завдань](/uk/docs/concepts/workloads/controllers/job/#job-patterns).
+Якщо запуск служби черги або модифікація ваших контейнерів для використання робочої черги є незручними, ви можете розглянути один з інших [шаблонів завдань](/docs/concepts/workloads/controllers/job/#job-patterns).
 
 Якщо у вас є постійний потік фонової обробки, яку потрібно виконувати, то розгляньте запуск ваших фонових робітників за допомогою ReplicaSet, і розгляньте використання бібліотеки фонової обробки, такої як [https://github.com/resque/resque](https://github.com/resque/resque).

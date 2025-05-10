@@ -459,5 +459,5 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-- Дізнайтеся більше про [Secret](/uk/docs/concepts/configuration/secret/).
-- Дізнайтеся про [Томи](/uk/docs/concepts/storage/volumes/).
+- Дізнайтеся більше про [Secret](/docs/concepts/configuration/secret/).
+- Дізнайтеся про [Томи](/docs/concepts/storage/volumes/).

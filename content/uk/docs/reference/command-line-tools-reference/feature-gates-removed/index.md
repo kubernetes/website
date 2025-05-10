@@ -8,7 +8,7 @@ content_type: concept
 
 Ця сторінка містить список функціональних можливостей воріт, які були видалені. Інформація на цій сторінці є довідковою. Вилучені функціональні можливості відрізняються від GA або застарілих тим, що вилучені функціональні можливості більше не розпізнається як дійсний функціональний елемент. Однак, GA'ed або застарілі функціональні ворота все ще розпізнаються відповідними компонентами Kubernetes, хоча вони не можуть спричинити жодних відмінностей у поведінці кластера.
 
-Для отримання інформації про функціональні можливості, які все ще розпізнаються компонентами Kubernetes, зверніться до [Таблиці функціональних можливостей Alpha/Beta](/uk/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) або [Таблиці функціональних можливостей Graduated/Deprecated](/uk/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features).
+Для отримання інформації про функціональні можливості, які все ще розпізнаються компонентами Kubernetes, зверніться до [Таблиці функціональних можливостей Alpha/Beta](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) або [Таблиці функціональних можливостей Graduated/Deprecated](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features).
 
 ## Вилучені функціональні можливості {#feature-gates-that-are-removed}
 

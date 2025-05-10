@@ -18,7 +18,7 @@ weight: 10
 
 Дайте команду kubelet створити копію зі збереженням стану конкретного контейнера з вказаного Pod.
 
-Для отримання додаткової інформації щодо керування доступом до інтерфейсу контролю kubelet дивіться [довідку з автентифікації/авторизації kubelet](/uk/docs/reference/access-authn-authz/kubelet-authn-authz).
+Для отримання додаткової інформації щодо керування доступом до інтерфейсу контролю kubelet дивіться [довідку з автентифікації/авторизації kubelet](/docs/reference/access-authn-authz/kubelet-authn-authz).
 
 Kubelet запитає контрольну точку у відповідного {{<glossary_tooltip term_id="cri" text="CRI">}}. У запиті до контрольної точки kubelet вкаже імʼя архіву контрольної точки у вигляді `checkpoint-<podFullName>-<containerName>-<timestamp>.tar`, а також попросить зберігати архів контрольних точок у теці `checkpoints` в його кореневій теці (як визначено параметром `--root-dir`). Типово це буде `/var/lib/kubelet/checkpoints`.
 

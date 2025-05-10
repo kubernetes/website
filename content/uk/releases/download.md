@@ -10,15 +10,15 @@ Kubernetes надає бінарні файли для кожного компо
 
 <!-- overview -->
 
-Командний рядок Kubernetes, [kubectl](/uk/docs/reference/kubectl/kubectl/), дозволяє виконувати команди в кластерах Kubernetes.
+Командний рядок Kubernetes, [kubectl](/docs/reference/kubectl/kubectl/), дозволяє виконувати команди в кластерах Kubernetes.
 
-Ви можете використовувати kubectl для розгортання застосунків, інспектування та керування ресурсами кластера, а також перегляду логів. Для отримання додаткової інформації, включаючи повний список операцій kubectl, дивіться [довідкову документацію `kubectl`](/uk/docs/reference/kubectl/).
+Ви можете використовувати kubectl для розгортання застосунків, інспектування та керування ресурсами кластера, а також перегляду логів. Для отримання додаткової інформації, включаючи повний список операцій kubectl, дивіться [довідкову документацію `kubectl`](/docs/reference/kubectl/).
 
 kubectl можна встановити на різних платформах Linux, macOS і Windows. Знайдіть вашу операційну систему нижче.
 
-- [Встановити kubectl на Linux](/uk/docs/tasks/tools/install-kubectl-linux)
-- [Встановити kubectl на macOS](/uk/docs/tasks/tools/install-kubectl-macos)
-- [Встановити kubectl на Windows](/uk/docs/tasks/tools/install-kubectl-windows)
+- [Встановити kubectl на Linux](/docs/tasks/tools/install-kubectl-linux)
+- [Встановити kubectl на macOS](/docs/tasks/tools/install-kubectl-macos)
+- [Встановити kubectl на Windows](/docs/tasks/tools/install-kubectl-windows)
 
 ## Контейнерні образи {#container-images}
 
@@ -52,7 +52,7 @@ kubectl можна встановити на різних платформах L
 curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/stable.txt)/release" | grep "SPDXID: SPDXRef-Package-registry.k8s.io" |  grep -v sha256 | cut -d- -f3- | sed 's/-/\//' | sed 's/-v1/:v1/'
 ```
 
-Щоб вручну перевірити підписані контейнерні образи основних компонентів Kubernetes, зверніться до документа [Перевірка підписаних контейнерних образів](/uk/docs/tasks/administer-cluster/verify-signed-artifacts).
+Щоб вручну перевірити підписані контейнерні образи основних компонентів Kubernetes, зверніться до документа [Перевірка підписаних контейнерних образів](/docs/tasks/administer-cluster/verify-signed-artifacts).
 
 Якщо ви витягуєте образ контейнера для певної архітектури, то цей образ для однієї архітектури
 підписаний так само як і мультиархітектурні списки маніфестів.

@@ -28,9 +28,9 @@ weight: 350
 
 ### kubeadm {#upgrade-kubeadm}
 
-Якщо ваш кластер був розгорнутий за допомогою інструменту `kubeadm`, дивіться [Оновлення кластерів kubeadm](/uk/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/) для докладної інформації щодо оновлення кластера.
+Якщо ваш кластер був розгорнутий за допомогою інструменту `kubeadm`, дивіться [Оновлення кластерів kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/) для докладної інформації щодо оновлення кластера.
 
-Після того, як ви оновили кластер, не забудьте [встановити останню версію `kubectl`](/uk/docs/tasks/tools/).
+Після того, як ви оновили кластер, не забудьте [встановити останню версію `kubectl`](/docs/tasks/tools/).
 
 ### Ручне розгортання {#manual-deployments}
 
@@ -46,9 +46,9 @@ weight: 350
 - kube-scheduler
 - контролер управління хмари, якщо ви використовуєте його
 
-На цьому етапі вам слід [встановити останню версію `kubectl`](/uk/docs/tasks/tools/).
+На цьому етапі вам слід [встановити останню версію `kubectl`](/docs/tasks/tools/).
 
-Для кожного вузла в вашому кластері, [очистіть](/uk/docs/tasks/administer-cluster/safely-drain-node/) цей вузол, а потім або замініть його новим вузлом, який використовує {{< skew currentVersion >}} kubelet, або оновіть kubelet на цьому вузлі та відновіть його Service.
+Для кожного вузла в вашому кластері, [очистіть](/docs/tasks/administer-cluster/safely-drain-node/) цей вузол, а потім або замініть його новим вузлом, який використовує {{< skew currentVersion >}} kubelet, або оновіть kubelet на цьому вузлі та відновіть його Service.
 
 {{< caution >}}
 Jxbotyyz вузлів перед оновленням kubelet забезпечує повторний вхід Podʼів та перезапуск контейнерів, що може бути необхідно для розвʼязання деяких проблем безпеки або інших важливих помилок.
@@ -84,4 +84,4 @@ kubectl convert -f pod.yaml --output-version v1
 
 Якщо ваш кластер використовує втулки пристроїв і вузол потребує оновлення до випуску Kubernetes з новішою версією API втулка пристроїв, втулки пристроїв повинні бути оновлені для підтримки обох версій перед оновленням вузла, щоб гарантувати, що виділення пристроїв продовжує успішно завершуватися під час оновлення.
 
-Дивіться [Сумісність API](/uk/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#api-compatibility) та [Версії API керуючого пристрою Kubelet](/uk/docs/reference/node/device-plugin-api-versions/) для отримання додаткової інформації.
+Дивіться [Сумісність API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#api-compatibility) та [Версії API керуючого пристрою Kubelet](/docs/reference/node/device-plugin-api-versions/) для отримання додаткової інформації.

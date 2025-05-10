@@ -23,8 +23,8 @@ weight: 30
 kubectl get pods -l app.kubernetes.io/name=MyApp
 ```
 
-Якщо ви помітили, що будь-які Podʼи вказані у стані `Unknown` або `Terminating` протягом тривалого періоду часу, зверніться до завдання [Видалення Podʼів StatefulSet](/uk/docs/tasks/run-application/delete-stateful-set/) за інструкціями щодо дії з ними. Ви можете усувати несправності окремих Podʼів у StatefulSet, використовуючи [Посібник з усунення несправностей Podʼів](/uk/docs/tasks/debug/debug-application/debug-pods/).
+Якщо ви помітили, що будь-які Podʼи вказані у стані `Unknown` або `Terminating` протягом тривалого періоду часу, зверніться до завдання [Видалення Podʼів StatefulSet](/docs/tasks/run-application/delete-stateful-set/) за інструкціями щодо дії з ними. Ви можете усувати несправності окремих Podʼів у StatefulSet, використовуючи [Посібник з усунення несправностей Podʼів](/docs/tasks/debug/debug-application/debug-pods/).
 
 ## {{% heading "whatsnext" %}}
 
-Дізнайтеся більше про [усунення несправностей контейнера ініціалізації](/uk/docs/tasks/debug/debug-application/debug-init-containers/).
+Дізнайтеся більше про [усунення несправностей контейнера ініціалізації](/docs/tasks/debug/debug-application/debug-init-containers/).

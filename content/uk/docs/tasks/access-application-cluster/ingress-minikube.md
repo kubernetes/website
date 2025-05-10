@@ -7,13 +7,13 @@ min-kubernetes-server-version: 1.19
 
 <!-- overview -->
 
-[Ingress](/uk/docs/concepts/services-networking/ingress/) — це API-обʼєкт, який визначає правила, що дозволяють зовнішній доступ до Serviceʼів у кластері. [Ingress-контролер](/uk/docs/concepts/services-networking/ingress-controllers/) виконує правила, встановлені в Ingress.
+[Ingress](/docs/concepts/services-networking/ingress/) — це API-обʼєкт, який визначає правила, що дозволяють зовнішній доступ до Serviceʼів у кластері. [Ingress-контролер](/docs/concepts/services-networking/ingress-controllers/) виконує правила, встановлені в Ingress.
 
 Ця сторінка показує, як налаштувати простий Ingress, який маршрутизує запити до Service 'web' або 'web2' залежно від HTTP URI.
 
 ## {{% heading "prerequisites" %}}
 
-Це завдання передбачає, що ви використовуєте `minikube` для запуску локального Kubernetes кластера. Відвідайте сторінку[Встановлення інструментів](/uk/docs/tasks/tools/#minikube), щоб дізнатися, як встановити `minikube`.
+Це завдання передбачає, що ви використовуєте `minikube` для запуску локального Kubernetes кластера. Відвідайте сторінку[Встановлення інструментів](/docs/tasks/tools/#minikube), щоб дізнатися, як встановити `minikube`.
 
 {{< note >}}
 Це завдання використовує контейнер, який вимагає архітектури AMD64. Якщо ви використовуєте minikube на компʼютері з іншою архітектурою процесора, ви можете спробувати використовувати minikube з драйвером, який може емулювати AMD64. Наприклад, драйвер Docker Desktop може це робити.
@@ -72,15 +72,15 @@ min-kubernetes-server-version: 1.19
    Переконайтеся, що Deployment перебуває у стані Ready:
 
    ```shell
-   kubectl get deployment web 
-   ```  
+   kubectl get deployment web
+   ```
 
    Вивід має бути подібний до:
 
    ```none
    NAME   READY   UP-TO-DATE   AVAILABLE   AGE
    web    1/1     1            1           53s
-   ``` 
+   ```
 
 1. Опублікуйте Deployment:
 
@@ -111,7 +111,7 @@ min-kubernetes-server-version: 1.19
 
    {{< tabs name="minikube_service" >}}
    {{% tab name="Linux" %}}
-   
+
    ```shell
    minikube service web --url
    ```
@@ -125,7 +125,7 @@ min-kubernetes-server-version: 1.19
    Виконайте запит до URL, отриманого у попередньому кроці:
 
    ```shell
-   curl http://172.17.0.15:31637 
+   curl http://172.17.0.15:31637
    ```
 
    {{% /tab %}}
@@ -133,7 +133,7 @@ min-kubernetes-server-version: 1.19
 
    ```shell
    # Команду потрібно виконати в окремому терміналі.
-   minikube service web --url 
+   minikube service web --url
    ```
 
    Вивід подібний до:
@@ -146,7 +146,7 @@ min-kubernetes-server-version: 1.19
    В іншому терміналі виконайте запит до URL, отриманого у попередньому кроці:
 
    ```shell
-   curl http://127.0.0.1:62445 
+   curl http://127.0.0.1:62445
    ```
 
    {{% /tab %}}
@@ -259,8 +259,8 @@ min-kubernetes-server-version: 1.19
    Знайдіть зовнішню IP-адресу, як вказано у звіті minikube
 
    ```none
-     minikube ip 
-   ``` 
+     minikube ip
+   ```
 
    <br>
 
@@ -302,7 +302,7 @@ min-kubernetes-server-version: 1.19
    Переконайтеся, що Deployment перебуває у стані Ready:
 
    ```shell
-   kubectl get deployment web2 
+   kubectl get deployment web2
    ```
 
    Вихід має бути подібний до:
@@ -449,6 +449,6 @@ min-kubernetes-server-version: 1.19
 
 ## {{% heading "whatsnext" %}}
 
-* Докладніше про [Ingress](/uk/docs/concepts/services-networking/ingress/)
-* Докладніше про [Контролери Ingress](/uk/docs/concepts/services-networking/ingress-controllers/)
-* Докладніше про [Service](/uk/docs/concepts/services-networking/service/)
+* Докладніше про [Ingress](/docs/concepts/services-networking/ingress/)
+* Докладніше про [Контролери Ingress](/docs/concepts/services-networking/ingress-controllers/)
+* Докладніше про [Service](/docs/concepts/services-networking/service/)

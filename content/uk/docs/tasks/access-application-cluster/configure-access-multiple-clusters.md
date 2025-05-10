@@ -24,7 +24,7 @@ card:
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-Щоб перевірити, чи встановлений {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}, виконайте команду `kubectl version --client`. Версія kubectl повинна бути в межах [однієї мінорної](/uk/releases/version-skew-policy/#kubectl) версії API сервера вашого кластера.
+Щоб перевірити, чи встановлений {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}, виконайте команду `kubectl version --client`. Версія kubectl повинна бути в межах [однієї мінорної](/releases/version-skew-policy/#kubectl) версії API сервера вашого кластера.
 
 <!-- steps -->
 
@@ -70,7 +70,7 @@ kubectl config --kubeconfig=config-demo set-cluster test --server=https://5.6.7.
 Додайте відомості про користувачів до вашого конфігураційного файлу:
 
 {{< caution >}}
-Зберігання паролів у конфігурації клієнта Kubernetes ризиковано. Краще використовувати втулок для автентифікації та зберігати паролі окремо. Дивіться: [client-go втулки автентифікації](/uk/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins)
+Зберігання паролів у конфігурації клієнта Kubernetes ризиковано. Краще використовувати втулок для автентифікації та зберігати паролі окремо. Дивіться: [client-go втулки автентифікації](/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins)
 {{< /caution >}}
 
 ```shell
@@ -307,7 +307,7 @@ contexts:
   name: exp-test
 ```
 
-Для отримання додаткової інформації про те, як обʼєднуються файли kubeconfig, дивіться [Організація доступу до кластерів за допомогою файлів kubeconfig](/uk/docs/concepts/configuration/organize-cluster-access-kubeconfig/).
+Для отримання додаткової інформації про те, як обʼєднуються файли kubeconfig, дивіться [Організація доступу до кластерів за допомогою файлів kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/).
 
 ## Ознайомтеся з текою $HOME/.kube {#explore-the-home-kube-directory}
 
@@ -359,9 +359,9 @@ $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 
 Існує підкоманда `kubectl` для перевірки атрибутів субʼєкта, таких як імʼя користувача, для вашого вибраного контексту клієнта Kubernetes: `kubectl auth whoami`.
 
-Детальніше читайте у [Доступ до інформації автентифікації клієнта через API](/uk/docs/reference/access-authn-authz/authentication/#self-subject-review).
+Детальніше читайте у [Доступ до інформації автентифікації клієнта через API](/docs/reference/access-authn-authz/authentication/#self-subject-review).
 
 ## {{% heading "whatsnext" %}}
 
-- [Організація доступу до кластерів за допомогою файлів kubeconfig](/uk/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-- [kubectl config](/uk/docs/reference/generated/kubectl/kubectl-commands#config)
+- [Організація доступу до кластерів за допомогою файлів kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+- [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)

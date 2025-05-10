@@ -17,7 +17,7 @@ tags:
 
 <!--more-->
 
-CSI дозволяє вендорам створювати спеціальні втулки зберігання для Kubernetes, не включаючи їх до репозиторію Kubernetes (зовнішні втулки). Щоб використовувати драйвер CSI від постачальника зберігання, спочатку потрібно [розгорнути його у вашому кластері](https://kubernetes-csi.github.io/docs/deploying.html). Після цього ви зможете створити [клас зберігання](/uk/docs/concepts/storage/storage-classes/) (Storage Class), який використовує цей драйвер CSI.
+CSI дозволяє вендорам створювати спеціальні втулки зберігання для Kubernetes, не включаючи їх до репозиторію Kubernetes (зовнішні втулки). Щоб використовувати драйвер CSI від постачальника зберігання, спочатку потрібно [розгорнути його у вашому кластері](https://kubernetes-csi.github.io/docs/deploying.html). Після цього ви зможете створити [клас зберігання](/docs/concepts/storage/storage-classes/) (Storage Class), який використовує цей драйвер CSI.
 
-* [CSI в документації Kubernetes](/uk/docs/concepts/storage/volumes/#csi)
+* [CSI в документації Kubernetes](/docs/concepts/storage/volumes/#csi)
 * [Список доступних драйверів CSI](https://kubernetes-csi.github.io/docs/drivers.html)

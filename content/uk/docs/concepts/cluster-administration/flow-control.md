@@ -23,7 +23,7 @@ weight: 110
 
 ## Увімкнення/вимкнення API Priority та Fairness {#enabling-disabling-api-priority-and-fairness}
 
-API Priority та Fairness контролюється прапорцем командного рядка та є типово увімкненим. Див. [Опції](/uk/docs/reference/command-line-tools-reference/kube-apiserver/#options) для загального пояснення доступних опцій командного рядка `kube-apiserver` та того, як їх увімкнути та вимкнути. Назва параметра командного рядка для APF — "--enable-priority-and-fairness". Ця функція також включає {{<glossary_tooltip term_id="api-group" text="API Group" >}}, яка має: (a) стабільну версію `v1`, введена у версії 1.29, і типово увімкнена, (b) версію `v1beta3`, типово увімкнена та застаріла у версії v1.29. Ви можете вимкнути бета-версію групи API `v1beta3`, додавши наступні параметри командного рядка до запуску `kube-apiserver`:
+API Priority та Fairness контролюється прапорцем командного рядка та є типово увімкненим. Див. [Опції](/docs/reference/command-line-tools-reference/kube-apiserver/#options) для загального пояснення доступних опцій командного рядка `kube-apiserver` та того, як їх увімкнути та вимкнути. Назва параметра командного рядка для APF — "--enable-priority-and-fairness". Ця функція також включає {{<glossary_tooltip term_id="api-group" text="API Group" >}}, яка має: (a) стабільну версію `v1`, введена у версії 1.29, і типово увімкнена, (b) версію `v1beta3`, типово увімкнена та застаріла у версії v1.29. Ви можете вимкнути бета-версію групи API `v1beta3`, додавши наступні параметри командного рядка до запуску `kube-apiserver`:
 
 ```shell
 kube-apiserver \
@@ -345,6 +345,6 @@ FlowSchema відповідає даному запиту, якщо принай
 
 ## {{% heading "whatsnext" %}}
 
-- Ви можете переглянути [довідку з контролювання потоків](/uk/docs/reference/debug-cluster/flow-control/) для отримання додаткової інформації для розвʼязання проблем.
+- Ви можете переглянути [довідку з контролювання потоків](/docs/reference/debug-cluster/flow-control/) для отримання додаткової інформації для розвʼязання проблем.
 - Для отримання довідкової інформації про деталі дизайну для пріоритету та справедливості API див. [пропозицію про вдосконалення](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness).
 - Ви можете надсилати пропозиції та запити на функціонал через [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery) або через [канал у Slack](https://kubernetes.slack.com/messages/api-priority-and-fairness).

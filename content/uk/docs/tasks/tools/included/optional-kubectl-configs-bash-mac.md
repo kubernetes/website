@@ -83,7 +83,7 @@ brew_etc="$(brew --prefix)/etc" && [[ -r "${brew_etc}/profile.d/bash_completion.
     echo 'complete -o default -F __start_kubectl k' >>~/.bash_profile
     ```
 
-- Якщо ви встановили kubectl за допомогою Homebrew (як пояснено [тут](/uk/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos)), то сценарій автодоповнення для kubectl вже повинен знаходитися у `/usr/local/etc/bash_completion.d/kubectl`. У цьому випадку вам нічого робити не потрібно.
+- Якщо ви встановили kubectl за допомогою Homebrew (як пояснено [тут](/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos)), то сценарій автодоповнення для kubectl вже повинен знаходитися у `/usr/local/etc/bash_completion.d/kubectl`. У цьому випадку вам нічого робити не потрібно.
 
    {{< note >}}
    Установка bash-completion v2 за допомогою Homebrew додає всі файли у теку `BASH_COMPLETION_COMPAT_DIR`, тому останні два методи працюють.

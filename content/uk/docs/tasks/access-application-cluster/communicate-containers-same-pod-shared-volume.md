@@ -6,7 +6,7 @@ weight: 120
 
 <!-- overview -->
 
-Ця сторінка показує, як використовувати Том для спілкування між двома контейнерами, що працюють в одному Podʼі. Також дивіться, як дозволити процесам спілкуватися між контейнерами через [спільний простір процесів](/uk/docs/tasks/configure-pod-container/share-process-namespace/).
+Ця сторінка показує, як використовувати Том для спілкування між двома контейнерами, що працюють в одному Podʼі. Також дивіться, як дозволити процесам спілкуватися між контейнерами через [спільний простір процесів](/docs/tasks/configure-pod-container/share-process-namespace/).
 
 ## {{% heading "prerequisites" %}}
 
@@ -124,9 +124,9 @@ Hello from the debian container
 
 * Дізнайтеся про [композитні контейнери для модульної архітектури](https://www.slideshare.net/Docker/slideshare-burns).
 
-* Перегляньте [Налаштування Pod для використання тому для зберігання](/uk/docs/tasks/configure-pod-container/configure-volume-storage/).
+* Перегляньте [Налаштування Pod для використання тому для зберігання](/docs/tasks/configure-pod-container/configure-volume-storage/).
 
-* Перегляньте [Налаштування Pod для спільного використання простору процесів між контейнерами](/uk/docs/tasks/configure-pod-container/share-process-namespace/).
+* Перегляньте [Налаштування Pod для спільного використання простору процесів між контейнерами](/docs/tasks/configure-pod-container/share-process-namespace/).
 
 * Перегляньте [Том](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core).
 

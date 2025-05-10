@@ -6,11 +6,11 @@ weight: 40
 
 <!-- overview -->
 
-Ця сторінка показує, як Pod може використовувати [`volumeDownwardAPI`](/uk/docs/concepts/storage/volumes/#downwardapi), щоб передати інформацію про себе контейнерам, які працюють в Pod. `volumeDownwardAPI` може викривати поля Pod та контейнера.
+Ця сторінка показує, як Pod може використовувати [`volumeDownwardAPI`](/docs/concepts/storage/volumes/#downwardapi), щоб передати інформацію про себе контейнерам, які працюють в Pod. `volumeDownwardAPI` може викривати поля Pod та контейнера.
 
 У Kubernetes є два способи експозиції полів Pod та контейнера для запущеного контейнера:
 
-* [Змінні середовища](/uk/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
+* [Змінні середовища](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * Файли томів, як пояснено в цьому завданні
 
 Разом ці два способи експозиції полів Pod та контейнера називаються _downward API_.
@@ -113,7 +113,7 @@ total 8
 Використання символічних посилань дозволяє динамічне атомарне оновлення метаданих; оновлення записуються у новий тимчасову теку, а символічне посилання `..data` оновлюється атомарно за допомогою [rename(2)](http://man7.org/linux/man-pages/man2/rename.2.html).
 
 {{< note >}}
-Контейнер, який використовує Downward API як том з [subPath](/uk/docs/concepts/storage/volumes/#using-subpath) монтуванням, не отримає оновлень від Downward API.
+Контейнер, який використовує Downward API як том з [subPath](/docs/concepts/storage/volumes/#using-subpath) монтуванням, не отримає оновлень від Downward API.
 {{< /note >}}
 
 Вийдіть з оболонки:
@@ -124,11 +124,11 @@ total 8
 
 ## Зберігання полів контейнера {#store-container-fields}
 
-У попередньому завданні ви зробили поля Pod доступними за допомогою Downward API. У наступній вправі ви передаєте поля, які є частиною визначення Pod, але беруться з конкретного [контейнера](/uk/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container) скоріше, ніж з Pod загалом. Ось маніфест для Pod, що має лише один контейнер:
+У попередньому завданні ви зробили поля Pod доступними за допомогою Downward API. У наступній вправі ви передаєте поля, які є частиною визначення Pod, але беруться з конкретного [контейнера](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container) скоріше, ніж з Pod загалом. Ось маніфест для Pod, що має лише один контейнер:
 
 {{% code_sample file="pods/inject/dapi-volume-resources.yaml" %}}
 
-У маніфесті ви бачите, що у Pod є [`volumeDownwardAPI`](/uk/docs/concepts/storage/volumes/#downwardapi), і що контейнер у цьому Pod монтує том за шляхом `/etc/podinfo`.
+У маніфесті ви бачите, що у Pod є [`volumeDownwardAPI`](/docs/concepts/storage/volumes/#downwardapi), і що контейнер у цьому Pod монтує том за шляхом `/etc/podinfo`.
 
 Подивіться на масив `items` під `downwardAPI`. Кожен елемент масиву визначає файл у томі downward API.
 
@@ -159,12 +159,12 @@ cat /etc/podinfo/cpu_limit
 
 ## Проєцювання ключів на конкретні шляхи та дозволи на файли {#project-keys-to-specific-paths-and-file-permissions}
 
-Ви можете проєціювати ключі на конкретні шляхи та конкретні дозволи на файл на основі файлу. Для отримання додаткової інформації дивіться [Secret](/uk/docs/concepts/configuration/secret/).
+Ви можете проєціювати ключі на конкретні шляхи та конкретні дозволи на файл на основі файлу. Для отримання додаткової інформації дивіться [Secret](/docs/concepts/configuration/secret/).
 
 ## {{% heading "whatsnext" %}}
 
-* Прочитайте [`spec`](/uk/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec) API-визначення для Pod. Специфікація включає визначення Контейнера (частина Pod).
-* Прочитайте список [доступних полів](/uk/docs/concepts/workloads/pods/downward-api/#available-fields), які ви можете викрити за допомогою downward API.
+* Прочитайте [`spec`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec) API-визначення для Pod. Специфікація включає визначення Контейнера (частина Pod).
+* Прочитайте список [доступних полів](/docs/concepts/workloads/pods/downward-api/#available-fields), які ви можете викрити за допомогою downward API.
 
 Дізнайтеся про томи в легасі довідці API:
 

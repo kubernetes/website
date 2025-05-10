@@ -20,4 +20,4 @@ tags:
 
 На відміну від {{<glossary_tooltip text="sidecar контейнерів" term_id="sidecar-container">}} контейнери ініціалізації не залишаються працювати після запуску Podʼа.
 
-Докладніше дивіться [контейнери ініціалізації](/uk/docs/concepts/workloads/pods/init-containers/).
+Докладніше дивіться [контейнери ініціалізації](/docs/concepts/workloads/pods/init-containers/).

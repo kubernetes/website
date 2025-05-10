@@ -73,12 +73,12 @@ weight: 100
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся більше про [PersistentVolumes](/uk/docs/concepts/storage/persistent-volumes/).
-* Дізнайтеся більше про [PersistentVolumeClaims](/uk/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
+* Дізнайтеся більше про [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
+* Дізнайтеся більше про [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
 
 ### Посилання {#reference}
 
 * {{< api-reference page="config-and-storage-resources/persistent-volume-v1" >}}
   * Зверніть увагу на `.spec.persistentVolumeReclaimPolicy`
-    [поля](/uk/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec)  PersistentVolume.
+    [поля](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec)  PersistentVolume.
 * {{< api-reference page="config-and-storage-resources/persistent-volume-claim-v1" >}}

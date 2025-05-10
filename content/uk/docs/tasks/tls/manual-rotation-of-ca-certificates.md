@@ -12,8 +12,8 @@ content_type: task
 {{< include "task-tutorial-prereqs.md" >}}
 
 - Для отримання додаткової інформації про автентифікацію в Kubernetes, див.
-  [Автентифікація](/uk/docs/reference/access-authn-authz/authentication).
-- Для отримання додаткової інформації про найкращі практики для сертифікатів CA, див. [Один кореневий CA](/uk/docs/setup/best-practices/certificates/#single-root-ca).
+  [Автентифікація](/docs/reference/access-authn-authz/authentication).
+- Для отримання додаткової інформації про найкращі практики для сертифікатів CA, див. [Один кореневий CA](/docs/setup/best-practices/certificates/#single-root-ca).
 
 <!-- steps -->
 
@@ -53,7 +53,7 @@ content_type: task
 
 1. Оновіть сертифікати для облікових записів користувачів, замінивши вміст `client-certificate-data` та `client-key-data`.
 
-   Для отримання інформації про створення сертифікатів для індивідуальних облікових записів користувачів, див. [Налаштування сертифікатів для облікових записів користувачів](/uk/docs/setup/best-practices/certificates/#configure-certificates-for-user-accounts).
+   Для отримання інформації про створення сертифікатів для індивідуальних облікових записів користувачів, див. [Налаштування сертифікатів для облікових записів користувачів](/docs/setup/best-practices/certificates/#configure-certificates-for-user-accounts).
 
    Крім того, оновіть розділ `certificate-authority-data` у kubeconfig файлах, відповідно до закодованих у Base64 даних старого та нового центру сертифікації.
 
@@ -65,7 +65,7 @@ content_type: task
 
 1. Виконайте наступні кроки поступово.
 
-   1. Перезавантажте будь-які інші [агреговані сервери API](/uk/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) або обробники вебхуків, щоб довіряти новим сертифікатам CA.
+   1. Перезавантажте будь-які інші [агреговані сервери API](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) або обробники вебхуків, щоб довіряти новим сертифікатам CA.
 
    2. Перезавантажте kubelet, оновивши файл, зазначений у `clientCAFile` в конфігурації kubelet, та `certificate-authority-data` у `kubelet.conf`, щоб використовувати як старий, так і новий CA на всіх вузлах.
 
@@ -80,7 +80,7 @@ content_type: task
       - Переконайтеся, що логи компонентів панелі управління не містять помилок TLS.
 
       {{< note >}}
-      Для генерації сертифікатів та приватних ключів для вашого кластера за допомогою `openssl`, див. [Сертифікати (`openssl`)](/uk/docs/tasks/administer-cluster/certificates/#openssl). Ви також можете використовувати [`cfssl`](/uk/docs/tasks/administer-cluster/certificates/#cfssl).
+      Для генерації сертифікатів та приватних ключів для вашого кластера за допомогою `openssl`, див. [Сертифікати (`openssl`)](/docs/tasks/administer-cluster/certificates/#openssl). Ви також можете використовувати [`cfssl`](/docs/tasks/administer-cluster/certificates/#cfssl).
       {{< /note >}}
 
    4. Анотуйте будь-які DaemonSets та Deployments, щоб викликати заміну Podʼів у більш безпечний спосіб.
@@ -97,7 +97,7 @@ content_type: task
       ```
 
       {{< note >}}
-      Щоб обмежити кількість одночасних порушень, з якими стикається ваш застосунок, див. [налаштування бюджетів порушень Podʼів](/uk/docs/tasks/run-application/configure-pdb/).
+      Щоб обмежити кількість одночасних порушень, з якими стикається ваш застосунок, див. [налаштування бюджетів порушень Podʼів](/docs/tasks/run-application/configure-pdb/).
       {{< /note >}}
 
       Залежно від того, як ви використовуєте StatefulSets, вам також може знадобитися виконати подібну поступову заміну.
@@ -114,7 +114,7 @@ content_type: task
 
 1. Перевірте функціональність кластера.
 
-    1. Перевірте логи компонентів панелі управління, а також kubelet та kube-proxy. Переконайтеся, що ці компоненти не повідомляють про помилки TLS; див. [перегляд журналів](/uk/docs/tasks/debug/debug-cluster/#looking-at-logs) для отримання додаткових деталей.
+    1. Перевірте логи компонентів панелі управління, а також kubelet та kube-proxy. Переконайтеся, що ці компоненти не повідомляють про помилки TLS; див. [перегляд журналів](/docs/tasks/debug/debug-cluster/#looking-at-logs) для отримання додаткових деталей.
 
     1. Перевірте логи будь-яких агрегованих серверів API та Podʼів, що використовують внутрішню конфігурацію.
 

@@ -17,4 +17,4 @@ tags:
 
 <!--more-->
 
-* Для отримання інформації про Kubernetes та CNI дивіться [**Мережеві втулки**](/uk/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/).
+* Для отримання інформації про Kubernetes та CNI дивіться [**Мережеві втулки**](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/).

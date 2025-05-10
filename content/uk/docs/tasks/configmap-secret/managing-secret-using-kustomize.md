@@ -7,7 +7,7 @@ description: Створення обʼєктів Secret за допомогою 
 
 <!-- overview -->
 
-`kubectl` підтримує використання [інструменту керування обʼєктами Kustomize](/uk/docs/tasks/manage-kubernetes-objects/kustomization/) для керування Secret та ConfigMap. Ви можете створити *генератор ресурсів* за допомогою Kustomize, який створює Secret, який ви можете застосувати до сервера API за допомогою `kubectl`.
+`kubectl` підтримує використання [інструменту керування обʼєктами Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/) для керування Secret та ConfigMap. Ви можете створити *генератор ресурсів* за допомогою Kustomize, який створює Secret, який ви можете застосувати до сервера API за допомогою `kubectl`.
 
 ## {{% heading "prerequisites" %}}
 
@@ -90,7 +90,7 @@ secret/database-creds-5hdh7hhgfk created
 Щоб перевірити, що Secret був створений та розкодувати дані Secret,
 
 ```shell
-kubectl get -k <directory-path> -o jsonpath='{.data}' 
+kubectl get -k <directory-path> -o jsonpath='{.data}'
 ```
 
 Вивід буде подібний до:
@@ -109,7 +109,7 @@ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 1f2d1e2e67df
 ```
 
-Для отримання додаткової інформації див. [Керування Secret за допомогою kubectl](/uk/docs/tasks/configmap-secret/managing-secret-using-kubectl/#перевірка-секрету) та [Декларативне керування обʼєктами Kubernetes за допомогою Kustomize](/uk/docs/tasks/manage-kubernetes-objects/kustomization/).
+Для отримання додаткової інформації див. [Керування Secret за допомогою kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#перевірка-секрету) та [Декларативне керування обʼєктами Kubernetes за допомогою Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/).
 
 ## Редагування Secret {#edit-secret}
 
@@ -138,6 +138,6 @@ kubectl delete secret db-user-pass
 
 ## {{% heading "whatsnext" %}}
 
-- Дізнайтеся більше про [концепцію Secret](/uk/docs/concepts/configuration/secret/)
-- Дізнайтесь, як [керувати Secret за допомогою kubectl](/uk/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- Дізнайтесь, як [керувати Secret за допомогою файлу конфігурації](/uk/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- Дізнайтеся більше про [концепцію Secret](/docs/concepts/configuration/secret/)
+- Дізнайтесь, як [керувати Secret за допомогою kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Дізнайтесь, як [керувати Secret за допомогою файлу конфігурації](/docs/tasks/configmap-secret/managing-secret-using-config-file/)

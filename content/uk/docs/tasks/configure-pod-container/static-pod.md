@@ -21,7 +21,7 @@ Kubelet автоматично намагається створити {{< gloss
 {{< /note >}}
 
 {{< note >}}
-Статичні Podʼи не підтримують [Ефемерні контейнери](/uk/docs/concepts/workloads/pods/ephemeral-containers/).
+Статичні Podʼи не підтримують [Ефемерні контейнери](/docs/concepts/workloads/pods/ephemeral-containers/).
 {{< /note >}}
 
 ## {{% heading "prerequisites" %}}
@@ -34,11 +34,11 @@ Kubelet автоматично намагається створити {{< gloss
 
 ### Створення статичного Podʼа {#static-pod-creation}
 
-Ви можете налаштувати статичний Pod з використанням [файлу конфігурації, що зберігається в файловій системі](/uk/docs/tasks/configure-pod-container/static-pod/#configuration-files) або [файлу конфігурації, що зберігається на вебсервері](/uk/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http).
+Ви можете налаштувати статичний Pod з використанням [файлу конфігурації, що зберігається в файловій системі](/docs/tasks/configure-pod-container/static-pod/#configuration-files) або [файлу конфігурації, що зберігається на вебсервері](/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http).
 
 ### Статичний Pod з файлової системи {#configuration-files}
 
-Маніфести — це стандартні визначення Podʼів у форматі JSON або YAML в певній теці. Використовуйте поле `staticPodPath: <тека>` у [конфігураційному файлі kubelet](/uk/docs/reference/config-api/kubelet-config.v1beta1/), який періодично сканує теку і створює/видаляє статичні Podʼи, коли у цій теці зʼявляються/зникають файли YAML/JSON. Зверніть увагу, що kubelet ігнорує файли, що починаються з крапки при скануванні вказаної теки.
+Маніфести — це стандартні визначення Podʼів у форматі JSON або YAML в певній теці. Використовуйте поле `staticPodPath: <тека>` у [конфігураційному файлі kubelet](/docs/reference/config-api/kubelet-config.v1beta1/), який періодично сканує теку і створює/видаляє статичні Podʼи, коли у цій теці зʼявляються/зникають файли YAML/JSON. Зверніть увагу, що kubelet ігнорує файли, що починаються з крапки при скануванні вказаної теки.
 
 Наприклад, так можна запустити простий вебсервер як статичний Pod:
 
@@ -71,7 +71,7 @@ Kubelet автоматично намагається створити {{< gloss
    EOF
    ```
 
-3. Налаштуйте kubelet на тому вузлі, щоб встановити значення `staticPodPath` в [конфігураційному файлі kubelet](/uk/docs/reference/config-api/kubelet-config.v1beta1/). Див. [Встановлення параметрів kubelet через конфігураційний файл](/uk/docs/tasks/administer-cluster/kubelet-config-file/) для отримання додаткової інформації.
+3. Налаштуйте kubelet на тому вузлі, щоб встановити значення `staticPodPath` в [конфігураційному файлі kubelet](/docs/reference/config-api/kubelet-config.v1beta1/). Див. [Встановлення параметрів kubelet через конфігураційний файл](/docs/tasks/administer-cluster/kubelet-config-file/) для отримання додаткової інформації.
 
    Альтернативний і застарілий метод полягає в налаштуванні kubelet на тому вузлі, щоб він шукав маніфести статичного Podʼа локально, використовуючи аргумент командного рядка. Щоб використовувати застарілий підхід, запустіть kubelet з аргументом `--pod-manifest-path=/etc/kubernetes/manifests/`.
 
@@ -213,7 +213,7 @@ crictl logs <container_id>
 10.240.0.48 - - [16/Nove/2022:12:45:51 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
 ```
 
-Щоб дізнатися більше про те, як налагоджувати за допомогою `crictl`, відвідайте [_Налагодження вузлів Kubernetes за допомогою crictl_](/uk/docs/tasks/debug/debug-cluster/crictl/).
+Щоб дізнатися більше про те, як налагоджувати за допомогою `crictl`, відвідайте [_Налагодження вузлів Kubernetes за допомогою crictl_](/docs/tasks/debug/debug-cluster/crictl/).
 
 ## Динамічне додавання та видалення статичних Podʼів {#dynamic-addition-and-removal-of-static-pods}
 
@@ -239,9 +239,9 @@ f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running 
 
 ## {{% heading "whatsnext" %}}
 
-* [Створення статичних файлів маніфестів Podʼів для компонентів панелі управління](/uk/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifests-for-control-plane-components)
-* [Створення статичного файлу маніфесту Podʼа для локального etcd](/uk/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifest-for-local-etcd)
-* [Налагодження вузлів Kubernetes за допомогою `crictl`](/uk/docs/tasks/debug/debug-cluster/crictl/)
+* [Створення статичних файлів маніфестів Podʼів для компонентів панелі управління](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifests-for-control-plane-components)
+* [Створення статичного файлу маніфесту Podʼа для локального etcd](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifest-for-local-etcd)
+* [Налагодження вузлів Kubernetes за допомогою `crictl`](/docs/tasks/debug/debug-cluster/crictl/)
 * [Дізнайтеся більше про `crictl`](https://github.com/kubernetes-sigs/cri-tools).
-* [Зіставлення команд `docker` CLI з `crictl`](/uk/docs/reference/tools/map-crictl-dockercli/).
-* [Налаштування екземплярів etcd як статичних Podʼів, керованих kubelet](/uk/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
+* [Зіставлення команд `docker` CLI з `crictl`](/docs/reference/tools/map-crictl-dockercli/).
+* [Налаштування екземплярів etcd як статичних Podʼів, керованих kubelet](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)

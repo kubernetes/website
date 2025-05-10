@@ -18,4 +18,4 @@ tags:
 
 Дієслово, яке використовується для відстеження змін обʼєкта у Kubernetes у вигляді потоку. Watch дозволяє ефективно виявляти зміни; наприклад, {{< glossary_tooltip term_id="controller" text="контролер" >}}, якому потрібно знати, коли змінюється ConfigMap, може використовувати watch, а не опитування.
 
-Ознайомтесь з [Ефективним виявленням змін у концепціях API](/uk/docs/reference/using-api/api-concepts/#efficient-detection-of-changes) для отримання додаткової інформації.
+Ознайомтесь з [Ефективним виявленням змін у концепціях API](/docs/reference/using-api/api-concepts/#efficient-detection-of-changes) для отримання додаткової інформації.

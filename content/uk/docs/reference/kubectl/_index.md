@@ -14,11 +14,11 @@ card:
 
 Цей інструмент має назву `kubectl`.
 
-Для отримання налаштувань `kubectl` шукає файл `config` в теці `$HOME/.kube`. Ви можете вказати інший файл [kubeconfig](/uk/docs/concepts/configuration/organize-cluster-access-kubeconfig/) у змінній оточення `KUBECONFIG` або у значенні ключа [`--kubeconfig`](/uk/docs/concepts/configuration/organize-cluster-access-kubeconfig/).
+Для отримання налаштувань `kubectl` шукає файл `config` в теці `$HOME/.kube`. Ви можете вказати інший файл [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) у змінній оточення `KUBECONFIG` або у значенні ключа [`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/).
 
-Тут ми розглянемо синтаксис команд `kubectl`, опис операторів та розберемо їх на прикладах. Докладніше про кожну команду, включаючи всі підтримувані прапорці та субкоманди, див. довідкову документацію [kubectl](/uk/docs/reference/kubectl/generated/kubectl/).
+Тут ми розглянемо синтаксис команд `kubectl`, опис операторів та розберемо їх на прикладах. Докладніше про кожну команду, включаючи всі підтримувані прапорці та субкоманди, див. довідкову документацію [kubectl](/docs/reference/kubectl/generated/kubectl/).
 
-Інструкції з встановлення знаходяться у статті [Встановлення kubectl](/uk/docs/tasks/tools/#kubectl); короткий посібник є у [шпаргалці](/uk/docs/reference/kubectl/quick-reference/). Якщо ви звикли користуватись інструментом командного рядка `docker`, [`kubectl` для користувачів Docker](/uk/docs/reference/kubectl/docker-cli-to-kubectl/) пояснює деякі еквівалентні команди для Kubernetes.
+Інструкції з встановлення знаходяться у статті [Встановлення kubectl](/docs/tasks/tools/#kubectl); короткий посібник є у [шпаргалці](/docs/reference/kubectl/quick-reference/). Якщо ви звикли користуватись інструментом командного рядка `docker`, [`kubectl` для користувачів Docker](/docs/reference/kubectl/docker-cli-to-kubectl/) пояснює деякі еквівалентні команди для Kubernetes.
 
 <!-- body -->
 
@@ -56,7 +56,7 @@ kubectl [команда] [ТИП] [ІМʼЯ] [прапорці]
 
   * Щоб вказати ресурси за допомогою одного чи кількох файлів: `-f файл1 -f файл2 -f файл<#>`.
 
-    * [Використовуйте YAML замість JSON](/uk/docs/concepts/configuration/overview/#general-configuration-tips), оскільки YAML зазвичай є зручнішим для користувача, особливо для файлів конфігурації.<br/>
+    * [Використовуйте YAML замість JSON](/docs/concepts/configuration/overview/#general-configuration-tips), оскільки YAML зазвичай є зручнішим для користувача, особливо для файлів конфігурації.<br/>
       Приклад: `kubectl get -f ./pod.yaml`
 
 * `прапорці`: Є необовʼязковими. Наприклад, ви можете використовувати прапорці `-s` або `--server`, щоб вказати адресу та порт сервера API Kubernetes.
@@ -145,7 +145,7 @@ kubectl config set-context --current --namespace=<namespace-name>
 `version` | `kubectl version [--client] [flags]` | Показати версію Kubernetes, яка працює на клієнті та сервері.
 `wait` | <code>kubectl wait ([-f FILENAME] &#124; resource.group/resource.name &#124; resource.group [(-l label &#124; --all)]) [--for=delete&#124;--for condition=available] [options]</code> | Експериментально: чекати на певний стан одного чи кількох ресурсів.
 
-Щоб дізнатися більше про операції, що виконують команди, див. довідку [kubectl](/uk/docs/reference/kubectl/kubectl/).
+Щоб дізнатися більше про операції, що виконують команди, див. довідку [kubectl](/docs/reference/kubectl/kubectl/).
 
 ## Типи ресурсів {#resource-types}
 
@@ -214,7 +214,7 @@ kubectl config set-context --current --namespace=<namespace-name>
 
 ## Параметри виводу {#output-options}
 
-Використовуйте наступні розділи для отримання інформації про те, як ви можете форматувати або сортувати вивід деяких команд. Докладні відомості щодо команд, які підтримують різні параметри виводу, див. в документації по [kubectl](/uk/docs/reference/kubectl/kubectl/).
+Використовуйте наступні розділи для отримання інформації про те, як ви можете форматувати або сортувати вивід деяких команд. Докладні відомості щодо команд, які підтримують різні параметри виводу, див. в документації по [kubectl](/docs/reference/kubectl/kubectl/).
 
 ### Форматування виводу {#formatting-output}
 
@@ -233,8 +233,8 @@ kubectl [команда] [ТИП] [ІМʼЯ] -o <формат_виводу>
 `-o custom-columns=<специфікація>` | Вивести таблицю, використовуючи розділений комою список [власних стовпців](#custom-columns).
 `-o custom-columns-file=<імʼя_файлу>` | Вивести таблицю, використовуючи шаблон [власних стовпців](#custom-columns) у файлі `<імʼя_файлу>`.
 `-o json`     | Вивести обʼєкт API у форматі JSON.
-`-o jsonpath=<шаблон>` | Вивести поля, визначені в виразі [jsonpath](/uk/docs/reference/kubectl/jsonpath/).
-`-o jsonpath-file=<імʼя_файлу>` | Вивести поля, визначені в виразі [jsonpath](/uk/docs/reference/kubectl/jsonpath/) у файлі `<імʼя_файлу>`.
+`-o jsonpath=<шаблон>` | Вивести поля, визначені в виразі [jsonpath](/docs/reference/kubectl/jsonpath/).
+`-o jsonpath-file=<імʼя_файлу>` | Вивести поля, визначені в виразі [jsonpath](/docs/reference/kubectl/jsonpath/) у файлі `<імʼя_файлу>`.
 `-o name`     | Вивести лише імʼя ресурсу і нічого більше.
 `-o wide`     | Вивести у текстовому форматі з будь-якою додатковою інформацією. Для Pod включно з імʼям вузла.
 `-o yaml`     | Вивести обʼєкт API у форматі YAML.
@@ -247,7 +247,7 @@ kubectl [команда] [ТИП] [ІМʼЯ] -o <формат_виводу>
 kubectl get pod web-pod-13je7 -o yaml
 ```
 
-Нагадування: Дивіться довідку [kubectl](/uk/docs/reference/kubectl/kubectl/) для отримання деталей щодо підтримуваних форматів виводу для кожної команди.
+Нагадування: Дивіться довідку [kubectl](/docs/reference/kubectl/kubectl/) для отримання деталей щодо підтримуваних форматів виводу для кожної команди.
 
 #### Власні стовпці {#custom-columns}
 
@@ -304,7 +304,7 @@ pod-name   1m
 
 ### Сортування списку обʼєктів {#sorting-list-of-objects}
 
-Щоб вивести обʼєкти у відсортованому списку у вашому вікні термінала, ви можете додати прапорець `--sort-by` до команди `kubectl`. Впорядкуйте ваші обʼєкти, вказавши будь-яке числове чи рядкове поле з прапорцем `--sort-by`. Для вказання поля використовуйте вираз [jsonpath](/uk/docs/reference/kubectl/jsonpath/).
+Щоб вивести обʼєкти у відсортованому списку у вашому вікні термінала, ви можете додати прапорець `--sort-by` до команди `kubectl`. Впорядкуйте ваші обʼєкти, вказавши будь-яке числове чи рядкове поле з прапорцем `--sort-by`. Для вказання поля використовуйте вираз [jsonpath](/docs/reference/kubectl/jsonpath/).
 
 #### Синтаксис {#syntax-2}
 
@@ -453,7 +453,7 @@ sudo mv ./kubectl-hello /usr/local/bin
 sudo chown root:root /usr/local/bin
 
 # Ви зараз створили та "встановили" втулок kubectl.
-# Ви можете почати використовувати цей втулок, викликаючи його з kubectl, 
+# Ви можете почати використовувати цей втулок, викликаючи його з kubectl,
 # ніби це звичайна команда
 kubectl hello
 ```
@@ -534,9 +534,9 @@ Current user: plugins-user
 ## {{% heading "whatsnext" %}}
 
 * Ознайомтеся з документацією `kubectl`:
-  * [довідник команд](/uk/docs/reference/kubectl/kubectl/)
-  * специфікації аргументів командного рядка в [довіднику](/uk/docs/reference/kubectl/generated/kubectl/)
-* Дізнайтеся про [домовленості використання `kubectl`](/uk/docs/reference/kubectl/conventions/)
-* Ознайомтеся з підтримкою [JSONPath](/uk/docs/reference/kubectl/jsonpath/) у kubectl
-* Дізнайтеся, як [розширювати kubectl за допомогою втулків](/uk/docs/tasks/extend-kubectl/kubectl-plugins)
+  * [довідник команд](/docs/reference/kubectl/kubectl/)
+  * специфікації аргументів командного рядка в [довіднику](/docs/reference/kubectl/generated/kubectl/)
+* Дізнайтеся про [домовленості використання `kubectl`](/docs/reference/kubectl/conventions/)
+* Ознайомтеся з підтримкою [JSONPath](/docs/reference/kubectl/jsonpath/) у kubectl
+* Дізнайтеся, як [розширювати kubectl за допомогою втулків](/docs/tasks/extend-kubectl/kubectl-plugins)
   * Для отримання додаткової інформації про втулки, подивіться [приклад CLI-втулка](https://github.com/kubernetes/sample-cli-plugin).

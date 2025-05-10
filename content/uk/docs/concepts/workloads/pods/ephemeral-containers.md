@@ -30,7 +30,7 @@ weight: 60
 Ефемерні контейнери створюються за допомогою спеціального обробника `ephemeralcontainers` в API замість того, щоб додавати їх безпосередньо до `pod.spec`, тому не можна додавати ефемерний контейнер за допомогою `kubectl edit`.
 
 {{< note >}}
-Ефемерні контейнери не підтримуються [статичними Podʼами](/uk/docs/tasks/configure-pod-container/static-pod/).
+Ефемерні контейнери не підтримуються [статичними Podʼами](/docs/tasks/configure-pod-container/static-pod/).
 {{< /note >}}
 
 ## Використання ефемерних контейнерів {#uses-for-ephemeral-containers}
@@ -39,8 +39,8 @@ weight: 60
 
 Зокрема [образи distroless](https://github.com/GoogleContainerTools/distroless) дозволяють вам розгортати мінімальні образи контейнерів, які зменшують площу атаки та вразливість. Оскільки образи distroless не включають оболонку або будь-які засоби налагодження, складно налагоджувати образи distroless, використовуючи лише `kubectl exec`.
 
-При використанні ефемерних контейнерів корисно включити [спільний простір імен процесу (process namespace sharing)](/uk/docs/tasks/configure-pod-container/share-process-namespace/), щоб ви могли переглядати процеси в інших контейнерах.
+При використанні ефемерних контейнерів корисно включити [спільний простір імен процесу (process namespace sharing)](/docs/tasks/configure-pod-container/share-process-namespace/), щоб ви могли переглядати процеси в інших контейнерах.
 
 ## {{% heading "whatsnext" %}}
 
-- Дізнайтеся, як [налагоджувати Podʼи за допомогою ефемерних контейнерів](/uk/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container).
+- Дізнайтеся, як [налагоджувати Podʼи за допомогою ефемерних контейнерів](/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container).

@@ -14,9 +14,9 @@ weight: 50
 Вивід цієї команди використовується як приклад. Ви повинні вручну редагувати вивід цієї команди, щоб адаптувати його до ваших налаштувань. Видаліть поля, щодо яких ви не впевнені, і kubeadm спробує заповнити їх стандартними значеннями під час виконання, аналізуючи хост.
 {{< /note >}}
 
-Для отримання додаткової інформації про `init` та `join` перейдіть до [Використання kubeadm init з конфігураційним файлом](/uk/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file) або [Використання kubeadm join з конфігураційним файлом](/uk/docs/reference/setup-tools/kubeadm/kubeadm-join/#config-file).
+Для отримання додаткової інформації про `init` та `join` перейдіть до [Використання kubeadm init з конфігураційним файлом](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file) або [Використання kubeadm join з конфігураційним файлом](/docs/reference/setup-tools/kubeadm/kubeadm-join/#config-file).
 
-Для отримання додаткової інформації про використання API конфігурації kubeadm перейдіть до [Налаштування компонентів за допомогою API kubeadm](/uk/docs/setup/production-environment/tools/kubeadm/control-plane-flags).
+Для отримання додаткової інформації про використання API конфігурації kubeadm перейдіть до [Налаштування компонентів за допомогою API kubeadm](/docs/setup/production-environment/tools/kubeadm/control-plane-flags).
 
 Ви можете використовувати `kubeadm config migrate` для перетворення старих конфігураційних файлів, що містять застарілу версію API, на новішу підтримувану версію API.
 
@@ -55,4 +55,4 @@ weight: 50
 
 ## {{% heading "whatsnext" %}}
 
-* [kubeadm upgrade](/uk/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) для оновлення кластера Kubernetes до новішої версії
+* [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) для оновлення кластера Kubernetes до новішої версії

@@ -58,13 +58,13 @@ echo 'kubectl completion fish | source' > ~/.config/fish/completions/kubectl.fis
 
 ### Контекст та конфігурація kubectl {#kubectl-context-and-configuration}
 
-Встановіть, з яким кластером Kubernetes `kubectl` спілкується та змінює інформацію про конфігурацію. Див. документацію [Автентифікація між кластерами за допомогою kubeconfig](/uk/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) для детальної інформації про конфігураційний файл.
+Встановіть, з яким кластером Kubernetes `kubectl` спілкується та змінює інформацію про конфігурацію. Див. документацію [Автентифікація між кластерами за допомогою kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) для детальної інформації про конфігураційний файл.
 
 ```bash
 kubectl config view # Показати обʼєднані налаштування kubeconfig.
 
 # використовувати декілька файлів kubeconfig одночасно та переглядати обʼєднані конфігурації {#creating-objects}
-KUBECONFIG=~/.kube/config:~/.kube/config2 
+KUBECONFIG=~/.kube/config:~/.kube/config2
 
 kubectl config view
 
@@ -424,7 +424,7 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 ### Типи ресурсів {#resource-types}
 
-Для виводу всіх підтримуваних типів ресурсів разом з їх короткими іменами, [API групою](/uk/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning), чи вони [просторово обмежені](/uk/docs/concepts/overview/working-with-objects/namespaces), та [kind](/uk/docs/concepts/overview/working-with-objects/):
+Для виводу всіх підтримуваних типів ресурсів разом з їх короткими іменами, [API групою](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning), чи вони [просторово обмежені](/docs/concepts/overview/working-with-objects/namespaces), та [kind](/docs/concepts/overview/working-with-objects/):
 
 ```bash
 kubectl api-resources
@@ -452,8 +452,8 @@ kubectl api-resources --api-group=extensions # Усі ресурси в API гр
 `-o=go-template=<template>`     | Вивести поля, визначені за допомогою [шаблону на основі golang](https://pkg.go.dev/text/template)
 `-o=go-template-file=<filename>` | Вивести поля, визначені за допомогою шаблону на основі [golang з файлу](https://pkg.go.dev/text/template) `<filename>`
 `-o=json`     | Вивести API обʼєкт у форматі JSON
-`-o=jsonpath=<template>` | Вивести поля, визначені за допомогою виразу [jsonpath](/uk/docs/reference/kubectl/jsonpath)
-`-o=jsonpath-file=<filename>` | Вивести поля, визначені за допомогою виразу [jsonpath](/uk/docs/reference/kubectl/jsonpath) з файлу `<filename>`
+`-o=jsonpath=<template>` | Вивести поля, визначені за допомогою виразу [jsonpath](/docs/reference/kubectl/jsonpath)
+`-o=jsonpath-file=<filename>` | Вивести поля, визначені за допомогою виразу [jsonpath](/docs/reference/kubectl/jsonpath) з файлу `<filename>`
 `-o=name`     | Вивести лише назву ресурсу і нічого більше
 `-o=wide`     | Вивести в текстовому форматі з додатковою інформацією, включаючи імʼя вузла для Podʼів
 `-o=yaml`     | Вивести API обʼєкт у форматі YAML
@@ -474,7 +474,7 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="registry
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'
 ```
 
-Додаткові приклади можна знайти в документації kubectl [reference documentation](/uk/docs/reference/kubectl/#custom-columns).
+Додаткові приклади можна знайти в документації kubectl [reference documentation](/docs/reference/kubectl/#custom-columns).
 
 ### Рівні деталізації виводу та налагодження для kubectl {#kubectl-output-verbosity-and-debugging}
 
@@ -495,11 +495,11 @@ kubectl get pods -A -o=custom-columns='DATA:metadata.*'
 
 ## {{% heading "whatsnext" %}}
 
-* Прочитайте [огляд kubectl](/uk/docs/reference/kubectl/) і дізнайтеся про [JsonPath](/uk/docs/reference/kubectl/jsonpath).
+* Прочитайте [огляд kubectl](/docs/reference/kubectl/) і дізнайтеся про [JsonPath](/docs/reference/kubectl/jsonpath).
 
-* Перегляньте опції [kubectl](/uk/docs/reference/kubectl/kubectl/).
+* Перегляньте опції [kubectl](/docs/reference/kubectl/kubectl/).
 
-* Також ознайомтеся з [конвенціями використання kubectl](/uk/docs/reference/kubectl/conventions/), щоб зрозуміти, як використовувати kubectl в скриптах.
+* Також ознайомтеся з [конвенціями використання kubectl](/docs/reference/kubectl/conventions/), щоб зрозуміти, як використовувати kubectl в скриптах.
 
 * Дивіться більше у [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4) спільноти.
 

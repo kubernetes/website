@@ -5,7 +5,7 @@ weight: 40
 
 <!-- overview -->
 
-Ця сторінка надає огляд найкращих практик щодо впровадження [стандартів безпеки для Podʼів](/uk/docs/concepts/security/pod-security-standards).
+Ця сторінка надає огляд найкращих практик щодо впровадження [стандартів безпеки для Podʼів](/docs/concepts/security/pod-security-standards).
 
 <!-- body -->
 
@@ -13,13 +13,13 @@ weight: 40
 
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
-[Контролер допуску безпеки Podʼів](/uk/docs/reference/access-authn-authz/admission-controllers/#podsecurity) має на меті замінити застарілі політики безпеки Podʼів (PodSecurityPolicies).
+[Контролер допуску безпеки Podʼів](/docs/reference/access-authn-authz/admission-controllers/#podsecurity) має на меті замінити застарілі політики безпеки Podʼів (PodSecurityPolicies).
 
 ### Налаштування для всіх просторів імен кластера {#configure-all-cluster-namespaces}
 
 Простори імен, які абсолютно не мають жодної конфігурації, повинні розглядатися як значущі прогалини в безпеці вашого кластера. Ми рекомендуємо приділити час аналізу типів робочих навантажень в кожному просторі імен і, посилаючись на стандарти безпеки Podʼів, визначити відповідний рівень для кожного з них. Простори імен без міток повинні вказувати лише на те, що їх ще не оцінено.
 
-У сценарії, коли всі робочі навантаження у всіх просторах імен мають однакові вимоги до безпеки, ми надаємо [приклад](/uk/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/#applying-to-all-namespaces) який показує, як можна застосовувати мітки безпеки для Podʼів гуртом.
+У сценарії, коли всі робочі навантаження у всіх просторах імен мають однакові вимоги до безпеки, ми надаємо [приклад](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/#applying-to-all-namespaces) який показує, як можна застосовувати мітки безпеки для Podʼів гуртом.
 
 ### Принципу найменшого доступу {#embrace-the-principle-of-least-privilege}
 

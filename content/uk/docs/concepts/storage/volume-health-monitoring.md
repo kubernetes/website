@@ -23,7 +23,7 @@ weight: 100
 Якщо драйвер CSI підтримує функцію моніторингу справності томів зі сторони вузла, подія буде повідомлена на кожному Pod, який використовує PVC, при виявленні ненормальної умови тому CSI. Крім того, інформація про справність томів викладена у вигляді метрик Kubelet VolumeStats. Додано нову метрику kubelet_volume_stats_health_status_abnormal. Ця метрика має дві мітки: `namespace` та `persistentvolumeclaim`. Лічильник приймає значення 1 або 0. 1 вказує на те, що том є несправним, 0 вказує на те, що том — справний. Докладніше див. у [KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/1432-volume-health-monitor#kubelet-metrics-changes).
 
 {{< note >}}
-Вам потрібно увімкнути [функціональну можливість](/uk/docs/reference/command-line-tools-reference/feature-gates/) `CSIVolumeHealth` для використання цієї функції зі сторони вузла.
+Вам потрібно увімкнути [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `CSIVolumeHealth` для використання цієї функції зі сторони вузла.
 {{< /note >}}
 
 ## {{% heading "whatsnext" %}}

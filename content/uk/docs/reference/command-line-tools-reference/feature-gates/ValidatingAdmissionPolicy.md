@@ -17,5 +17,8 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.30"
+    toVersion: "1.31"
+
+removed: true
 ---
 Вмикання підтримки [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/) для використання валідації CEL у контролі допуску.

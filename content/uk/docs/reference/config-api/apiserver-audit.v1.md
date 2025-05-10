@@ -64,13 +64,13 @@ auto_generated: false
         </tr>
         <tr>
             <td><code>user</code> <b>[Обовʼязково]</b><br/>
-                <a href="/docs/reference/generated/kubernetes-api/v1.32/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
+                <a href="/docs/reference/generated/kubernetes-api/v1.33/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
             </td>
             <td><p>Інформація про автентифікованого користувача.</p></td>
         </tr>
         <tr>
             <td><code>impersonatedUser</code><br/>
-                <a href="/docs/reference/generated/kubernetes-api/v1.32/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
+                <a href="/docs/reference/generated/kubernetes-api/v1.33/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
             </td>
             <td><p>Інформація про користувача, який діє від імені іншого користувача.</p></td>
         </tr>
@@ -100,7 +100,7 @@ auto_generated: false
         </tr>
         <tr>
             <td><code>responseStatus</code><br/>
-                <a href="/docs/reference/generated/kubernetes-api/v1.32/#status-v1-meta"><code>meta/v1.Status</code></a>
+                <a href="/docs/reference/generated/kubernetes-api/v1.33/#status-v1-meta"><code>meta/v1.Status</code></a>
             </td>
             <td><p>Статус відповіді, заповнений навіть коли ObjectReference не є типом Status. Для успішних відповідей це міститиме лише Code і StatusSuccess. Для не-статусних типів помилок відповідей це буде автоматично заповнено повідомленням про помилку.</p> </td>
         </tr>
@@ -119,13 +119,13 @@ auto_generated: false
         </tr>
         <tr>
             <td><code>requestReceivedTimestamp</code><br/>
-                <a href="/docs/reference/generated/kubernetes-api/v1.32/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
+                <a href="/docs/reference/generated/kubernetes-api/v1.33/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
             </td>
             <td><p>Час, коли запит досяг сервера API.</p></td>
         </tr>
         <tr>
             <td><code>stageTimestamp</code><br/>
-                <a href="/docs/reference/generated/kubernetes-api/v1.32/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
+                <a href="/docs/reference/generated/kubernetes-api/v1.33/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
             </td>
             <td><p>Час, коли запит досяг поточної стадії аудиту.</p></td>
         </tr>
@@ -155,7 +155,7 @@ EventList містить події аудиту API.
         </tr>
         <tr>
             <td><code>metadata</code><br/>
-                <a href="/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
+                <a href="/docs/reference/generated/kubernetes-api/v1.33/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
             </td>
             <td><p>Метадані списку, такі як інформація про пагінацію.</p></td>
         </tr>
@@ -188,7 +188,7 @@ EventList містить події аудиту API.
             <td><code>Policy</code></td></tr>
         <tr>
             <td><code>metadata</code><br/>
-                <a href="/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
+                <a href="/docs/reference/generated/kubernetes-api/v1.33/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
             </td>
             <td><p>ObjectMeta включено для забезпечення сумісності з API-інфраструктурою.</p>
                 <p>Зверніться до документації Kubernetes API для полів поля <code>metadata</code>.</p>
@@ -239,7 +239,7 @@ PolicyList — це список політик аудиту.
         </tr>
         <tr>
             <td><code>metadata</code><br/>
-                <a href="/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
+                <a href="/docs/reference/generated/kubernetes-api/v1.33/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
             </td>
             <td><span class="text-muted">Опис не надано.</span></td>
         </tr>

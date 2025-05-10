@@ -10,7 +10,7 @@ weight: 50
 
 <!-- body -->
 
-Користувачі отримують доступ до [API Kubernetes](/uk/docs/concepts/overview/kubernetes-api/) за допомогою `kubectl`, клієнтських бібліотек або за допомогою запитів REST. Як користувачі-люди, так і [облікові записи служб Kubernetes](/uk/docs/tasks/configure-pod-container/configure-service-account/) можуть бути авторизовані для доступу до API. Коли запит досягає API, він проходить кілька етапів, які ілюструються на
+Користувачі отримують доступ до [API Kubernetes](/docs/concepts/overview/kubernetes-api/) за допомогою `kubectl`, клієнтських бібліотек або за допомогою запитів REST. Як користувачі-люди, так і [облікові записи служб Kubernetes](/docs/tasks/configure-pod-container/configure-service-account/) можуть бути авторизовані для доступу до API. Коли запит досягає API, він проходить кілька етапів, які ілюструються на
 наступній діаграмі:
 
 ![Діаграма етапів обробки запиту до API Kubernetes](/images/docs/admin/access-control-overview.svg)
@@ -27,7 +27,7 @@ weight: 50
 
 ## Автентифікація {#authentication}
 
-Якщо TLS-зʼєднання встановлено, HTTP-запит переходить до кроку автентифікації. Це показано як крок **1** на діаграмі. Скрипт створення кластера або адміністратор кластера налаштовує сервер API на виконання одного або декількох модулів автентифікації. Модулі автентифікації детально описані в документації про [Автентифікацію](/uk/docs/reference/access-authn-authz/authentication/).
+Якщо TLS-зʼєднання встановлено, HTTP-запит переходить до кроку автентифікації. Це показано як крок **1** на діаграмі. Скрипт створення кластера або адміністратор кластера налаштовує сервер API на виконання одного або декількох модулів автентифікації. Модулі автентифікації детально описані в документації про [Автентифікацію](/docs/reference/access-authn-authz/authentication/).
 
 Вхідними даними для кроку автентифікації є весь HTTP-запит; проте, зазвичай перевіряються заголовки та/або сертифікат клієнта.
 
@@ -86,7 +86,7 @@ weight: 50
 
 Kubernetes підтримує кілька модулів авторизації, таких як режим ABAC, режим RBAC та режим Webhook. Коли адміністратор створює кластер, він налаштовує модулі авторизації, які повинні використовуватися в сервері API. Якщо налаштовано більше одного модуля авторизації, Kubernetes перевіряє кожен модуль, і якщо будь-який модуль авторизує запит, то запит може бути виконаний. Якщо всі модулі відхиляють запит, то запит відхиляється (HTTP-статус код 403).
 
-Щоб дізнатися більше про авторизацію в Kubernetes, включно з деталями щодо створення політик з використанням підтримуваних модулів авторизації, див. [Авторизація](/uk/docs/reference/access-authn-authz/authorization/).
+Щоб дізнатися більше про авторизацію в Kubernetes, включно з деталями щодо створення політик з використанням підтримуваних модулів авторизації, див. [Авторизація](/docs/reference/access-authn-authz/authorization/).
 
 ## Контроль доступу {#admission-control}
 
@@ -100,7 +100,7 @@ Kubernetes підтримує кілька модулів авторизації
 
 Крім відхилення обʼєктів, контролери доступу також можуть встановлювати складні стандартні значення для полів.
 
-Доступні модулі контролю доступу описані в [Контролерах доступу](/uk/docs/reference/access-authn-authz/admission-controllers/).
+Доступні модулі контролю доступу описані в [Контролерах доступу](/docs/reference/access-authn-authz/admission-controllers/).
 
 Після того як запит пройшов усі контролери доступу, він перевіряється за допомогою процедур валідації для відповідного обʼєкта API, і потім записується в сховище обʼєктів (показано як крок **4**).
 
@@ -108,26 +108,26 @@ Kubernetes підтримує кілька модулів авторизації
 
 Аудит Kubernetes забезпечує безпеку, хронологічний набір записів, що документують послідовність дій у кластері. Кластер аудитує активності, що генеруються користувачами, застосунками, які використовують API Kubernetes, і самою панелі управління.
 
-Для отримання додаткової інформації див. [Аудит](/uk/docs/tasks/debug/debug-cluster/audit/).
+Для отримання додаткової інформації див. [Аудит](/docs/tasks/debug/debug-cluster/audit/).
 
 ## {{% heading "whatsnext" %}}
 
 Прочитайте додаткову документацію щодо автентифікації, авторизації та контролю доступу до API:
 
-- [Автентифікація](/uk/docs/reference/access-authn-authz/authentication/)
-   - [Автентифікація за допомогою Bootstrap Token](/uk/docs/reference/access-authn-authz/bootstrap-tokens/)
-- [Контролери допуску](/uk/docs/reference/access-authn-authz/admission-controllers/)
-   - [Динамічний контроль допуску](/uk/docs/reference/access-authn-authz/extensible-admission-controllers/)
-- [Авторизація](/uk/docs/reference/access-authn-authz/authorization/)
-   - [Контроль доступу на основі ролей](/uk/docs/reference/access-authn-authz/rbac/)
-   - [Контроль доступу на основі атрибутів](/uk/docs/reference/access-authn-authz/abac/)
-   - [Авторизація вузлів](/uk/docs/reference/access-authn-authz/node/)
-   - [Авторизація вебхукками](/uk/docs/reference/access-authn-authz/webhook/)
-- [Запити на підписання сертифікатів](/uk/docs/reference/access-authn-authz/certificate-signing-requests/)
-   - включаючи [схвалення запитів на підписання сертифікатів](/uk/docs/reference/access-authn-authz/certificate-signing-requests/#approval-rejection) та [підписання сертифікатів](/uk/docs/reference/access-authn-authz/certificate-signing-requests/#signing)
+- [Автентифікація](/docs/reference/access-authn-authz/authentication/)
+   - [Автентифікація за допомогою Bootstrap Token](/docs/reference/access-authn-authz/bootstrap-tokens/)
+- [Контролери допуску](/docs/reference/access-authn-authz/admission-controllers/)
+   - [Динамічний контроль допуску](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+- [Авторизація](/docs/reference/access-authn-authz/authorization/)
+   - [Контроль доступу на основі ролей](/docs/reference/access-authn-authz/rbac/)
+   - [Контроль доступу на основі атрибутів](/docs/reference/access-authn-authz/abac/)
+   - [Авторизація вузлів](/docs/reference/access-authn-authz/node/)
+   - [Авторизація вебхукками](/docs/reference/access-authn-authz/webhook/)
+- [Запити на підписання сертифікатів](/docs/reference/access-authn-authz/certificate-signing-requests/)
+   - включаючи [схвалення запитів на підписання сертифікатів](/docs/reference/access-authn-authz/certificate-signing-requests/#approval-rejection) та [підписання сертифікатів](/docs/reference/access-authn-authz/certificate-signing-requests/#signing)
 - Сервісні облікові записи
-  - [Керівництво розробника](/uk/docs/tasks/configure-pod-container/configure-service-account/)
-  - [Адміністрування](/uk/docs/reference/access-authn-authz/service-accounts-admin/)
+  - [Керівництво розробника](/docs/tasks/configure-pod-container/configure-service-account/)
+  - [Адміністрування](/docs/reference/access-authn-authz/service-accounts-admin/)
 
 Ви можете дізнатися про:
-- як Podʼи можуть використовувати [Secret](/uk/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials) для отримання API-даних для доступу.
+- як Podʼи можуть використовувати [Secret](/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials) для отримання API-даних для доступу.

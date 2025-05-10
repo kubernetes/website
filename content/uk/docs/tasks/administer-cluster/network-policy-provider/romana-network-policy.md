@@ -10,7 +10,7 @@ weight: 50
 
 ## {{% heading "prerequisites" %}}
 
-Виконайте кроки 1, 2 та 3 з [початкового керівництва kubeadm](/uk/docs/reference/setup-tools/kubeadm/).
+Виконайте кроки 1, 2 та 3 з [початкового керівництва kubeadm](/docs/reference/setup-tools/kubeadm/).
 
 <!-- steps -->
 
@@ -28,4 +28,4 @@ weight: 50
 
 ## {{% heading "whatsnext" %}}
 
-Після встановлення Romana ви можете перейти до [Оголошення мережевої політики](/uk/docs/tasks/administer-cluster/declare-network-policy/) для випробування Kubernetes NetworkPolicy.
+Після встановлення Romana ви можете перейти до [Оголошення мережевої політики](/docs/tasks/administer-cluster/declare-network-policy/) для випробування Kubernetes NetworkPolicy.

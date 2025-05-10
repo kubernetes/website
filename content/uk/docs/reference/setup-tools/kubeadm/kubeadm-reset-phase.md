@@ -7,7 +7,7 @@ content_type: concept
 `kubeadm reset phase` дозволяє вам викликати атомарні кроки процесу reset. Таким чином, ви можете дозволити kubeadm виконати частину роботи, а ви можете заповнити прогалини
 якщо ви бажаєте застосувати кастомізацію.
 
-`kubeadm reset phase` узгоджується з [kubeadm reset workflow](/uk/docs/reference/setup-tools/kubeadm/kubeadm-reset/#reset-workflow), і за лаштунками обидва використовують той самий код.
+`kubeadm reset phase` узгоджується з [kubeadm reset workflow](/docs/reference/setup-tools/kubeadm/kubeadm-reset/#reset-workflow), і за лаштунками обидва використовують той самий код.
 
 ## kubeadm reset phase {#cmd-reset-phase}
 
@@ -41,7 +41,7 @@ content_type: concept
 
 ## {{% heading "whatsnext" %}}
 
-* [kubeadm init](/uk/docs/reference/setup-tools/kubeadm/kubeadm-init/) для завантаження вузла керування Kubernetes
-* [kubeadm join](/uk/docs/reference/setup-tools/kubeadm/kubeadm-join/) для підключення вузла до кластера
-* [kubeadm reset](/uk/docs/reference/setup-tools/kubeadm/kubeadm-reset/) для скасування будь-яких змін, зроблених за допомогою `kubeadm init` або `kubeadm join`
-* [kubeadm alpha](/uk/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) для випробування експериментальних функцій
+* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) для завантаження вузла керування Kubernetes
+* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) для підключення вузла до кластера
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) для скасування будь-яких змін, зроблених за допомогою `kubeadm init` або `kubeadm join`
+* [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) для випробування експериментальних функцій

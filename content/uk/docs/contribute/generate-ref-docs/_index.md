@@ -8,4 +8,4 @@ weight: 80
 
 Щоб створити довідкову документацію, ознайомтесь з наступним посібником:
 
-* [Швидкий старт для генерації довідкової документації](/uk/docs/contribute/generate-ref-docs/quickstart/)
+* [Швидкий старт для генерації довідкової документації](/docs/contribute/generate-ref-docs/quickstart/)

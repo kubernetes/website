@@ -14,7 +14,7 @@ weight: 100
 
 У вас можуть зустрітися декілька різних проксі, коли ви використовуєте Kubernetes:
 
-1. [Проксі kubectl](/uk/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api):
+1. [Проксі kubectl](/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api):
 
     - працює на робочому столі користувача або в контейнері
     - забезпечує проксі з локальної адреси до apiserver Kubernetes
@@ -23,7 +23,7 @@ weight: 100
     - знаходить apiserver
     - додає заголовки автентифікації
 
-1. [Проксі apiserver](/uk/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services):
+1. [Проксі apiserver](/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services):
 
     - є бастіоном, вбудованим в apiserver
     - зʼєднує користувача поза кластером з IP-адресами кластера, які інакше можуть бути недоступними
@@ -33,7 +33,7 @@ weight: 100
     - може бути використаний для доступу до Node, Pod або Service
     - виконує балансування навантаження при використанні для доступу до Service
 
-1. [kube proxy](/uk/docs/concepts/services-networking/service/#ips-and-vips):
+1. [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
 
     - працює на кожному вузлі
     - забезпечує проксі UDP, TCP та SCTP

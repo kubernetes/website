@@ -14,14 +14,14 @@ card:
 ## kubectl
 
 <!-- overview -->
-Інструмент командного рядка Kubernetes, [kubectl](/uk/docs/reference/kubectl/kubectl/), дозволяє вам виконувати команди відносно кластерів Kubernetes. Ви можете використовувати kubectl для розгортання застосунків, огляду та управління ресурсами кластера,
-а також перегляду логів. Для отримання додаткової інформації, включаючи повний перелік операцій kubectl, див. [Документацію з посилань на `kubectl`](/uk/docs/reference/kubectl/).
+Інструмент командного рядка Kubernetes, [kubectl](/docs/reference/kubectl/kubectl/), дозволяє вам виконувати команди відносно кластерів Kubernetes. Ви можете використовувати kubectl для розгортання застосунків, огляду та управління ресурсами кластера,
+а також перегляду логів. Для отримання додаткової інформації, включаючи повний перелік операцій kubectl, див. [Документацію з посилань на `kubectl`](/docs/reference/kubectl/).
 
 kubectl можна встановити на різноманітних платформах Linux, macOS та Windows. Знайдіть свою вибрану операційну систему нижче.
 
-- [Встановлення kubectl на Linux](/uk/docs/tasks/tools/install-kubectl-linux)
-- [Встановлення kubectl на macOS](/uk/docs/tasks/tools/install-kubectl-macos)
-- [Встановлення kubectl на Windows](/uk/docs/tasks/tools/install-kubectl-windows)
+- [Встановлення kubectl на Linux](/docs/tasks/tools/install-kubectl-linux)
+- [Встановлення kubectl на macOS](/docs/tasks/tools/install-kubectl-macos)
+- [Встановлення kubectl на Windows](/docs/tasks/tools/install-kubectl-windows)
 
 ## kind
 
@@ -39,12 +39,12 @@ kubectl можна встановити на різноманітних плат
 
 <a class="btn btn-primary" href="https://minikube.sigs.k8s.io/docs/start/" role="button" aria-label="Переглянути навчальний посібник Minikube Get Started!">Переглянути посібник Швидкий старт з Minikube</a>
 
-Якщо у вас вже працює `minikube`, ви можете використовувати його для [запуску застосунку-прикладу](/uk/docs/tutorials/hello-minikube/).
+Якщо у вас вже працює `minikube`, ви можете використовувати його для [запуску застосунку-прикладу](/docs/tutorials/hello-minikube/).
 
 ## kubeadm
 
 Ви можете використовувати інструмент {{< glossary_tooltip term_id="kubeadm" text="kubeadm" >}} для створення та управління кластерами Kubernetes. Він виконує необхідні дії для запуску мінімально життєздатного та захищеного кластера за допомогою зручного інтерфейсу користувача.
 
-На сторінці [Встановлення kubeadm](/uk/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) показано, як встановити kubeadm. Після встановлення ви можете використовувати його для [створення кластера](/uk/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
+На сторінці [Встановлення kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) показано, як встановити kubeadm. Після встановлення ви можете використовувати його для [створення кластера](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
 
 <a class="btn btn-primary" href="/uk/docs/setup/production-environment/tools/kubeadm/install-kubeadm/" role="button" aria-label="Переглянути посібник з встановлення kubeadm">Переглянути посібник з встановлення kubeadm</a>

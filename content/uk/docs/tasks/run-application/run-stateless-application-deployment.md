@@ -149,8 +149,8 @@ kubectl delete deployment nginx-deployment
 
 ## ReplicationControllers — Старий спосіб {#replicationcontrollers-the-old-way}
 
-Перевагою створення реплікованих застосунків є використання Deployment, який своєю чергою використовує ReplicaSet. До того, як в Kubernetes були додані Deployment та ReplicaSet, репліковані застосунки конфігурувалися за допомогою [ReplicationController](/uk/docs/concepts/workloads/controllers/replicationcontroller/).
+Перевагою створення реплікованих застосунків є використання Deployment, який своєю чергою використовує ReplicaSet. До того, як в Kubernetes були додані Deployment та ReplicaSet, репліковані застосунки конфігурувалися за допомогою [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/).
 
 ## {{% heading "whatsnext" %}}
 
-- Дізнайтеся більше про [обʼєкти Deployment](/uk/docs/concepts/workloads/controllers/deployment/).
+- Дізнайтеся більше про [обʼєкти Deployment](/docs/concepts/workloads/controllers/deployment/).

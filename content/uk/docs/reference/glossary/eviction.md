@@ -18,5 +18,5 @@ tags:
 
 Існують два види виселення:
 
-* [Виселення внаслідок тиску на вузол](/uk/docs/concepts/scheduling-eviction/node-pressure-eviction/)
-* [Виселення, ініційоване API](/uk/docs/concepts/scheduling-eviction/api-eviction/)
+* [Виселення внаслідок тиску на вузол](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
+* [Виселення, ініційоване API](/docs/concepts/scheduling-eviction/api-eviction/)

@@ -7,22 +7,22 @@ weight: 100
 
 <!-- overview -->
 
-Ця сторінка передбачає, що ви вже знаєте, як [додавати новий контент](/uk/docs/contribute/new-content/) та [перевіряти роботу інших](/uk/docs/contribute/review/reviewing-prs/), і готові дізнатися більше про способи участі. Вам потрібно використовувати командний рядок Git та інші інструменти для виконання деяких з цих завдань.
+Ця сторінка передбачає, що ви вже знаєте, як [додавати новий контент](/docs/contribute/new-content/) та [перевіряти роботу інших](/docs/contribute/review/reviewing-prs/), і готові дізнатися більше про способи участі. Вам потрібно використовувати командний рядок Git та інші інструменти для виконання деяких з цих завдань.
 
 <!-- body -->
 
 ## Пропонування покращень {#proposing-improvements}
 
-Члени [SIG Docs](/uk/docs/contribute/participate/roles-and-responsibilities/#members) можуть пропонувати покращення.
+Члени [SIG Docs](/docs/contribute/participate/roles-and-responsibilities/#members) можуть пропонувати покращення.
 
 Після того, як ви вже деякий час вносите зміни в документацію Kubernetes, у вас
-можуть зʼявитися ідеї щодо покращення [настанов зі стилю](/uk/docs/contribute/style/style-guide/), [настанов з контенту](/uk/docs/contribute/style/content-guide/), інструментів, які використовуються для створення документації, стилю вебсайту, процесів перевірки та злиття pull request-ів, або інших аспектів документації. Для забезпечення максимальної прозорості ці пропозиції повинні обговорюватися на зустрічі SIG Docs або у [списку розсилки kubernetes-sig-docs](https://groups.google.com/forum/#!forum/kubernetes-sig-docs). Крім того, корисно мати певний контекст щодо того, як все зараз працює і чому в минулому були прийняті певні рішення, перш ніж пропонувати кардинальні зміни. Найшвидший спосіб отримати відповіді на запитання про те, як працює документація, — запитати в каналі `#sig-docs` на [kubernetes.slack.com](https://kubernetes.slack.com).
+можуть зʼявитися ідеї щодо покращення [настанов зі стилю](/docs/contribute/style/style-guide/), [настанов з контенту](/docs/contribute/style/content-guide/), інструментів, які використовуються для створення документації, стилю вебсайту, процесів перевірки та злиття pull request-ів, або інших аспектів документації. Для забезпечення максимальної прозорості ці пропозиції повинні обговорюватися на зустрічі SIG Docs або у [списку розсилки kubernetes-sig-docs](https://groups.google.com/forum/#!forum/kubernetes-sig-docs). Крім того, корисно мати певний контекст щодо того, як все зараз працює і чому в минулому були прийняті певні рішення, перш ніж пропонувати кардинальні зміни. Найшвидший спосіб отримати відповіді на запитання про те, як працює документація, — запитати в каналі `#sig-docs` на [kubernetes.slack.com](https://kubernetes.slack.com).
 
 Після того, як обговорення відбулося, і SIG Docs погодився щодо бажаного результату, ви можете працювати над запропонованими змінами найбільш відповідним чином. Наприклад, оновлення керівництва зі стилю або функціональності вебсайту може включати відкриття pull request, тоді як зміна, повʼязана з тестуванням документації, може передбачати співпрацю з sig-testing.
 
 ## Координація документації для випуску Kubernetes {#coordinate-docs-for-a-kubernetes-release}
 
-[Затверджувачі SIG Docs](/uk/docs/contribute/participate/roles-and-responsibilities/#approvers) можуть координувати документацію для випуску Kubernetes.
+[Затверджувачі SIG Docs](/docs/contribute/participate/roles-and-responsibilities/#approvers) можуть координувати документацію для випуску Kubernetes.
 
 Кожен випуск Kubernetes координується командою, яка бере участь у робочій групі (SIG) sig-release. Серед інших членів команди випуску: загальний керівник випуску, а також представники sig-testing та інші. Щоб дізнатися більше про процеси випуску Kubernetes, зверніться до [https://github.com/kubernetes/sig-release](https://github.com/kubernetes/sig-release).
 
@@ -39,7 +39,7 @@ weight: 100
 
 ## Виконання обовʼязків New Contributor Ambassador {#serve-as-a-new-contributor-ambassador}
 
-[Затверджувачі SIG Docs](/uk/docs/contribute/participate/roles-and-responsibilities/#approvers) можуть бути New Contributor Ambassador.
+[Затверджувачі SIG Docs](/docs/contribute/participate/roles-and-responsibilities/#approvers) можуть бути New Contributor Ambassador.
 
 Помічники для нових учасників вітають нових учасників SIG-Docs, пропонують PRʼи новим учасникам та наставляють нових учасників через їх перші кілька PR-ів.
 
@@ -49,29 +49,29 @@ weight: 100
 - Співпраця з керівниками PRʼів для ідентифікації [good first issues](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue) для нових учасників.
 - Наставництво нових учасників через їхні перші кілька PRʼів до репозиторію документації.
 - Допомога новим учасникам у створенні складніших PRʼів, необхідних їм для того, щоб стати членами Kubernetes.
-- [Поручительство за учасників](/uk/docs/contribute/advanced/#sponsor-a-new-contributor) на їхньому шляху до членства у Kubernetes.
+- [Поручительство за учасників](/docs/contribute/advanced/#sponsor-a-new-contributor) на їхньому шляху до членства у Kubernetes.
 - Проведення щомісячної зустрічі для допомоги та наставництва нових учасників.
 
 Поточні Амбасадори нових учасників оголошуються на кожній зустрічі SIG-Docs та в [каналі #sig-docs Kubernetes](https://kubernetes.slack.com).
 
 ## Поручительство за нового учасника {#sponsor-a-new-contributor}
 
-[Рецензенти SIG Docs](/uk/docs/contribute/participate/roles-and-responsibilities/#reviewers) можуть бути поручителями нових учасників.
+[Рецензенти SIG Docs](/docs/contribute/participate/roles-and-responsibilities/#reviewers) можуть бути поручителями нових учасників.
 
-Після того, як новий учасник успішно подав 5 значних pull requestʼів до одного або кількох репозиторіїв Kubernetes, він має право подати заявку на [членство](/uk/docs/contribute/participate/roles-and-responsibilities/#members) в організації Kubernetes. Членство учасника повинно бути підтримано двома поручителями, які вже є рецензентами.
+Після того, як новий учасник успішно подав 5 значних pull requestʼів до одного або кількох репозиторіїв Kubernetes, він має право подати заявку на [членство](/docs/contribute/participate/roles-and-responsibilities/#members) в організації Kubernetes. Членство учасника повинно бути підтримано двома поручителями, які вже є рецензентами.
 
 Нові учасники документації можуть запитати поручителів, запитавши в каналі #sig-docs на [Slack Kubernetes](https://kubernetes.slack.com) або у [списку розсилки SIG Docs](https://groups.google.com/forum/#!forum/kubernetes-sig-docs). Якщо ви впевнені в роботі заявника, ви можете добровільно поручитись за нього. Коли кандидати подають свою заявку на членство, відповідайте на заявку з "+1" і включайте деталі про те, чому ви вважаєте, що заявник добре підходить для членства в організації Kubernetes.
 
 ## Виконання обовʼязків співголови SIG {#serve-as-a-sig-co-chair}
 
-[Члени SIG Docs](/uk/docs/contribute/participate/roles-and-responsibilities/#members) можуть бути співголовою SIG Docs.
+[Члени SIG Docs](/docs/contribute/participate/roles-and-responsibilities/#members) можуть бути співголовою SIG Docs.
 
 ### Вимоги {#prerequisites}
 
 Член Kubernetes повинен відповідати наступним вимогам для того, щоб бути співголовою:
 
 - Розуміти робочі процеси та інструментарій SIG Docs: git, Hugo, локалізація, блог.
-- Розуміти, як інші SIG Kubernetes та репозиторії впливають на робочий процес SIG Docs, включаючи: [команди в k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml), [процеси в k/community](https://github.com/kubernetes/community/tree/master/sig-docs), втулки в [k/test-infra](https://github.com/kubernetes/test-infra/), та роль [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture). Крім того, розуміти, як працює [процес випуску документації Kubernetes](/uk/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release).
+- Розуміти, як інші SIG Kubernetes та репозиторії впливають на робочий процес SIG Docs, включаючи: [команди в k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml), [процеси в k/community](https://github.com/kubernetes/community/tree/master/sig-docs), втулки в [k/test-infra](https://github.com/kubernetes/test-infra/), та роль [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture). Крім того, розуміти, як працює [процес випуску документації Kubernetes](/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release).
 - Отримати схвалення від спільноти SIG Docs або безпосередньо, або за допомогою консенсусу.
 - Виділяти принаймні 5 годин на тиждень (і часто більше) на цю роль протягом мінімум 6 місяців.
 

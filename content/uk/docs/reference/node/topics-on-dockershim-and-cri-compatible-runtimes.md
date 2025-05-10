@@ -20,9 +20,9 @@ weight: 20
 
 * Блог Kubernetes: [Видалення dockershim наближається. Чи готові ви?](/blog/2021/11/12/are-you-ready-for-dockershim-removal/) (опубліковано 2021/11/12)
 
-* Документація Kubernetes: [Міграція з dockershim](/uk/docs/tasks/administer-cluster/migrating-from-dockershim/)
+* Документація Kubernetes: [Міграція з dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/)
 
-* Документація Kubernetes: [Середовища виконання контейнерів](/uk/docs/setup/production-environment/container-runtimes/)
+* Документація Kubernetes: [Середовища виконання контейнерів](/docs/setup/production-environment/container-runtimes/)
 
 * Пропозиція щодо покращення Kubernetes: [KEP-2221: Видалення dockershim з kubelet](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2221-remove-dockershim/README.md)
 

@@ -9,7 +9,7 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
-Вам потрібно мати кластер Kubernetes. Слідуйте [початковому керівництву kubeadm](/uk/docs/reference/setup-tools/kubeadm/) для його створення.
+Вам потрібно мати кластер Kubernetes. Слідуйте [початковому керівництву kubeadm](/docs/reference/setup-tools/kubeadm/) для його створення.
 
 <!-- steps -->
 
@@ -19,4 +19,4 @@ weight: 10
 
 ## {{% heading "whatsnext" %}}
 
-Після того, як ваш кластер буде запущений, ви можете перейти до [Оголошення мережевої політики](/uk/docs/tasks/administer-cluster/declare-network-policy/), щоб спробувати в дії Kubernetes NetworkPolicy.
+Після того, як ваш кластер буде запущений, ви можете перейти до [Оголошення мережевої політики](/docs/tasks/administer-cluster/declare-network-policy/), щоб спробувати в дії Kubernetes NetworkPolicy.

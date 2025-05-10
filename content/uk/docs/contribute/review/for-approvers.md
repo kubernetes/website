@@ -6,7 +6,7 @@ content_type: concept
 weight: 20
 ---
 
-[Рецензенти](/uk/docs/contribute/participate/#reviewers) та [затверджувачі](/uk/docs/contribute/participate/#approvers) SIG Docs виконують кілька додаткових дій під час огляду змін.
+[Рецензенти](/docs/contribute/participate/#reviewers) та [затверджувачі](/docs/contribute/participate/#approvers) SIG Docs виконують кілька додаткових дій під час огляду змін.
 
 Щотижня конкретний затверджувач документації добровільно погоджується переглядати та рецензувати pull request'и (PR). Ця особа є "PR Wrangler" на тиждень. Детальнішу інформацію можна знайти в [розкладі PR Wrangler](https://github.com/kubernetes/website/wiki/PR-Wranglers). Щоб стати PR Wrangler, відвідайте щотижневу зустріч SIG Docs і станьте волонтером. Навіть якщо ви не внесені до розкладу на поточний тиждень, ви все одно можете переглядати pull request'и, які не знаходяться в активному перегляді.
 
@@ -16,7 +16,7 @@ weight: 20
 
 Документація Kubernetes дотримується [процесу огляду коду Kubernetes](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md#the-code-review-process).
 
-Все, що описано в [Огляд pull request'ів](/uk/docs/contribute/review/reviewing-prs), застосовується, але рецензенти та затверджувачі повинні також робити наступне:
+Все, що описано в [Огляд pull request'ів](/docs/contribute/review/reviewing-prs), застосовується, але рецензенти та затверджувачі повинні також робити наступне:
 
 - Використовуйте команду Prow `/assign`, щоб за потреби призначити конкретного рецензента для PR. Це особливо важливо, коли мова йде про запит технічного огляду від тих хто робить внесок в покращення коду.
 
@@ -24,7 +24,7 @@ weight: 20
   Подивіться поле `reviewers` у верхній частині Markdown файлу, щоб побачити, хто може надати технічний огляд.
   {{< /note >}}
 
-- Переконайтеся, що PR дотримується настанов з [контенту](/uk/docs/contribute/style/content-guide/) та [стилью](/uk/docs/contribute/style/style-guide/); надайте автору посилання на відповідну частину керівництва, якщо ні.
+- Переконайтеся, що PR дотримується настанов з [контенту](/docs/contribute/style/content-guide/) та [стилью](/docs/contribute/style/style-guide/); надайте автору посилання на відповідну частину керівництва, якщо ні.
 - Використовуйте опцію **Request Changes** в GitHub, коли це доречно, щоб запропонувати зміни автору PR.
 - Змінюйте свій статус огляду в GitHub за допомогою команд Prow `/approve` або `/lgtm`, якщо ваші пропозиції були впроваджені.
 
@@ -179,7 +179,7 @@ If this is a documentation issue, please re-open this issue.
 
 **Порада авторам обʼєднати коміти**: Нові учасники можуть не знати, що потрібно обʼєднати коміти в своїх pull requests (PRs). Якщо це так, порадьте їм це зробити, надайте посилання на корисну інформацію і запропонуйте допомогу, якщо вона необхідна. Корисні посилання:
 
-- [Відкриття pull requests та обʼєднання комітів](/uk/docs/contribute/new-content/open-a-pr#squashing-commits) для учасників документації.
+- [Відкриття pull requests та обʼєднання комітів](/docs/contribute/new-content/open-a-pr#squashing-commits) для учасників документації.
 - [GitHub Workflow](https://www.k8s.dev/docs/guide/github-workflow/), включаючи діаграми, для розробників.
 
 **Обʼєднання комітів для учасників**: Якщо автору може бути важко обʼєднати коміти або існує тиск часу для злиття PR, ви можете виконати обʼєднання за них:

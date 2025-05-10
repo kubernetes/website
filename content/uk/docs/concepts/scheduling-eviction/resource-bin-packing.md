@@ -6,7 +6,7 @@ weight: 80
 
 <!-- overview -->
 
-У [scheduling-plugin](/uk/docs/reference/scheduling/config/#scheduling-plugins) `NodeResourcesFit` kube-scheduler є дві стратегії оцінювання, які підтримують пакування ресурсів: `MostAllocated` та `RequestedToCapacityRatio`.
+У [scheduling-plugin](/docs/reference/scheduling/config/#scheduling-plugins) `NodeResourcesFit` kube-scheduler є дві стратегії оцінювання, які підтримують пакування ресурсів: `MostAllocated` та `RequestedToCapacityRatio`.
 
 <!-- body -->
 
@@ -14,7 +14,7 @@ weight: 80
 
 Стратегія `MostAllocated` оцінює вузли на основі використання ресурсів, віддаючи перевагу тим, у яких використання вище. Для кожного типу ресурсів ви можете встановити коефіцієнт, щоб змінити його вплив на оцінку вузла.
 
-Щоб встановити стратегію `MostAllocated` для втулка `NodeResourcesFit`, використовуйте [конфігурацію планувальника](/uk/docs/reference/scheduling/config) подібну до наступної:
+Щоб встановити стратегію `MostAllocated` для втулка `NodeResourcesFit`, використовуйте [конфігурацію планувальника](/docs/reference/scheduling/config) подібну до наступної:
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1
@@ -36,11 +36,11 @@ profiles:
     name: NodeResourcesFit
 ```
 
-Щоб дізнатися більше про інші параметри та їх стандартну конфігурацію, див. документацію API для [`NodeResourcesFitArgs`](/uk/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs).
+Щоб дізнатися більше про інші параметри та їх стандартну конфігурацію, див. документацію API для [`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs).
 
 ## Включення пакування ресурсів за допомогою стратегії RequestedToCapacityRatio {#enabling-bin-packing-using-requestedtocapacityratio}
 
-Стратегія `RequestedToCapacityRatio` дозволяє користувачам вказати ресурси разом з коефіцієнтами для кожного ресурсу для оцінювання вузлів на основі відношення запиту до потужності. Це дозволяє користувачам пакувати розширені ресурси, використовуючи відповідні параметри для покращення використання рідкісних ресурсів у великих кластерах. Вона віддає перевагу вузлам згідно з налаштованою функцією виділених ресурсів. Поведінку `RequestedToCapacityRatio` в функції оцінювання `NodeResourcesFit` можна керувати за допомогою поля [scoringStrategy](/uk/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-ScoringStrategy). У межах поля `scoringStrategy` ви можете налаштувати два параметри: `requestedToCapacityRatio` та `resources`. Параметр `shape` в `requestedToCapacityRatio` дозволяє користувачу налаштувати функцію як найменш чи найбільш затребувані на основі значень `utilization` та `score`. Параметр `resources` охоплює як `name` ресурсу, що оцінюється, так і `weight` для кожного ресурсу.
+Стратегія `RequestedToCapacityRatio` дозволяє користувачам вказати ресурси разом з коефіцієнтами для кожного ресурсу для оцінювання вузлів на основі відношення запиту до потужності. Це дозволяє користувачам пакувати розширені ресурси, використовуючи відповідні параметри для покращення використання рідкісних ресурсів у великих кластерах. Вона віддає перевагу вузлам згідно з налаштованою функцією виділених ресурсів. Поведінку `RequestedToCapacityRatio` в функції оцінювання `NodeResourcesFit` можна керувати за допомогою поля [scoringStrategy](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-ScoringStrategy). У межах поля `scoringStrategy` ви можете налаштувати два параметри: `requestedToCapacityRatio` та `resources`. Параметр `shape` в `requestedToCapacityRatio` дозволяє користувачу налаштувати функцію як найменш чи найбільш затребувані на основі значень `utilization` та `score`. Параметр `resources` охоплює як `name` ресурсу, що оцінюється, так і `weight` для кожного ресурсу.
 
 Нижче наведено приклад конфігурації, яка встановлює поведінку пакування ресурсів  `intel.com/foo` та `intel.com/bar` за допомогою поля `requestedToCapacityRatio`.
 
@@ -68,7 +68,7 @@ profiles:
 
 Посилання на файл `KubeSchedulerConfiguration` з прапорцем kube-scheduler `--config=/path/to/config/file` передасть конфігурацію планувальнику.
 
-Щоб дізнатися більше про інші параметри та їх стандартну конфігурацію, див. документацію API для [`NodeResourcesFitArgs`](/uk/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs).
+Щоб дізнатися більше про інші параметри та їх стандартну конфігурацію, див. документацію API для [`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs).
 
 ### Налаштування функції оцінювання {#tuning-the-score-function}
 
@@ -220,5 +220,5 @@ NodeScore   =  ((5 * 5) + (7 * 1) + (10 * 3)) / (5 + 1 + 3)
 
 ## {{% heading "whatsnext" %}}
 
-- Дізнайтеся більше про [фреймворк планування](/uk/docs/concepts/scheduling-eviction/scheduling-framework/)
-- Дізнайтеся більше про [конфігурацію планувальника](/uk/docs/reference/scheduling/config/)
+- Дізнайтеся більше про [фреймворк планування](/docs/concepts/scheduling-eviction/scheduling-framework/)
+- Дізнайтеся більше про [конфігурацію планувальника](/docs/reference/scheduling/config/)

@@ -10,7 +10,7 @@ weight: 340
 
 ## {{% heading "prerequisites" %}}
 
-* Вам потрібен [кластер Kubernetes](/uk/docs/setup/).
+* Вам потрібен [кластер Kubernetes](/docs/setup/).
 * Ви маєте базове розуміння про {{< glossary_tooltip text="Pod" term_id="pod" >}}, {{< glossary_tooltip term_id="service" text="Service" >}}, та {{< glossary_tooltip text="Deployment" term_id="deployment" >}} в Kubernetes.
 
 <!-- steps -->
@@ -34,7 +34,7 @@ kube-system       Active   11d
 Kubernetes запускається з чотирма просторами імен:
 
 * `default` — стандартний простір імен для обʼєктів без іншого простору імен.
-* `kube-node-lease` — цей простір імен містить обʼєкти [Lease](/uk/docs/concepts/architecture/leases/), повʼязані з кожним вузлом. Лізинги вузлів дозволяють kubelet надсилати [пульси](/uk/docs/concepts/architecture/nodes/#heartbeats), щоб панель управління було в змозі виявляти збої вузлів.
+* `kube-node-lease` — цей простір імен містить обʼєкти [Lease](/docs/concepts/architecture/leases/), повʼязані з кожним вузлом. Лізинги вузлів дозволяють kubelet надсилати [пульси](/docs/concepts/architecture/nodes/#heartbeats), щоб панель управління було в змозі виявляти збої вузлів.
 * `kube-public` — цей простір імен створюється автоматично і доступний для читання всіма користувачами (включаючи неавтентифікованих). Цей простір імен зазвичай зарезервований для використання у межах кластера, у випадках коли деякі ресурси мають бути відкриті та доступні для загального огляду у всьому кластері. Публічний аспект цього простору імен є лише конвенцією, а не вимогою.
 * `kube-system` — простір імен для обʼєктів, створених системою Kubernetes.
 
@@ -77,7 +77,7 @@ Resource Limits
 * `Active` — простір імен використовується
 * `Terminating` — простір імен видаляється і не може бути використаний для нових обʼєктів
 
-Для отримання додаткової інформації дивіться [Простір імен](/uk/docs/reference/kubernetes-api/cluster-resources/namespace-v1/) в довідковій документації API.
+Для отримання додаткової інформації дивіться [Простір імен](/docs/reference/kubernetes-api/cluster-resources/namespace-v1/) в довідковій документації API.
 
 ## Створення нового простору імен {#creating-a-new-namespace}
 
@@ -106,7 +106,7 @@ kubectl create -f ./my-namespace.yaml
 kubectl create namespace <вставте-назву-простору-імен-тут>
 ```
 
-Назва вашого простору імен повинна бути дійсною [DNS-міткою](/uk/docs/concepts/overview/working-with-objects/names#dns-label-names).
+Назва вашого простору імен повинна бути дійсною [DNS-міткою](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
 Є необовʼязкове поле `finalizers`, яке дозволяє спостережувачам очищати ресурси кожного разу, коли простір імен видаляється. Майте на увазі, що якщо ви вказуєте неіснуючий finalizer, простір імен буде створений, але залишиться в стані `Terminating`, якщо користувач спробує його видалити.
 
@@ -259,7 +259,7 @@ cattle-2263376956-sxpth   1/1       Running   0          34s
 
 Це робиться за допомогою такого:
 
-1. Області для [імен](/uk/docs/concepts/overview/working-with-objects/names/).
+1. Області для [імен](/docs/concepts/overview/working-with-objects/names/).
 2. Механізму для прикріплення авторизації та політики до підрозділу кластера.
 
 Використання кількох просторів імен не є обовʼязковим.
@@ -287,10 +287,10 @@ cattle-2263376956-sxpth   1/1       Running   0          34s
 
 ## Розуміння просторів імен та DNS {#understanding-namespaces-and-dns}
 
-Коли ви створюєте [Service](/uk/docs/concepts/services-networking/service/), він створює відповідний [DNS-запис](/uk/docs/concepts/services-networking/dns-pod-service/). Цей запис має вигляд `<імʼя-сервісу>.<імʼя-простору-імен>.svc.cluster.local`, що означає, що якщо контейнер використовує `<імʼя-сервісу>`, воно буде розпізнано як сервіс, який знаходиться в межах простору імен. Це корисно для використання однакової конфігурації в кількох просторах імен, таких як Development, Staging та Production. Якщо ви хочете отримати доступ за межі просторів імен, вам потрібно використовувати повністю кваліфіковане доменне імʼя (FQDN).
+Коли ви створюєте [Service](/docs/concepts/services-networking/service/), він створює відповідний [DNS-запис](/docs/concepts/services-networking/dns-pod-service/). Цей запис має вигляд `<імʼя-сервісу>.<імʼя-простору-імен>.svc.cluster.local`, що означає, що якщо контейнер використовує `<імʼя-сервісу>`, воно буде розпізнано як сервіс, який знаходиться в межах простору імен. Це корисно для використання однакової конфігурації в кількох просторах імен, таких як Development, Staging та Production. Якщо ви хочете отримати доступ за межі просторів імен, вам потрібно використовувати повністю кваліфіковане доменне імʼя (FQDN).
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся більше про [налаштування простору імен](/uk/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference).
-* Дізнайтеся більше про [налаштування простору імен для запиту](/uk/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)
+* Дізнайтеся більше про [налаштування простору імен](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference).
+* Дізнайтеся більше про [налаштування простору імен для запиту](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)
 * Перегляньте [проєкт дизайну просторів імен](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md).

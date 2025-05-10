@@ -15,6 +15,8 @@ auto_generated: false
 
 **Зʼявляється у:**
 
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
+
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
 ClientConnectionConfiguration містить деталі для конструювання клієнта.
@@ -64,6 +66,8 @@ ClientConnectionConfiguration містить деталі для констру�
 
 **Зʼявляється у:**
 
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
+
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
 DebuggingConfiguration містить конфігурацію для функцій, повʼязаних з налагодженням.
@@ -91,6 +95,8 @@ DebuggingConfiguration містить конфігурацію для функц
 ## `LeaderElectionConfiguration` {#LeaderElectionConfiguration}
 
 **Зʼявляється у:**
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 

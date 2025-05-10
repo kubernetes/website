@@ -2,7 +2,7 @@
 title: "Приклад: Розгортання WordPress та MySQL з постійними томами"
 content_type: tutorial
 weight: 20
-card: 
+card:
   name: tutorials
   weight: 40
   title: "Приклад Stateful: WordPress з Постійними Томами"
@@ -12,7 +12,7 @@ card:
 
 У цьому посібнику ви дізнаєтеся, як розгорнути сайт WordPress та базу даних MySQL за допомогою Minikube. Обидва застосунки використовують PersistentVolumes та PersistentVolumeClaims для зберігання даних.
 
-Постійні томи ([PersistentVolume](/uk/docs/concepts/storage/persistent-volumes/) (PV)) — це частина системи зберігання в кластері, яку адміністратор вручну надав або яку Kubernetes автоматично надав за допомогою [StorageClass](/uk/docs/concepts/storage/storage-classes). Запити на постійні томи ([PersistentVolumeClaim](/uk/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) (PVC)) — це запит на зберігання, який користувач може отримати через PV. PersistentVolumes та PersistentVolumeClaims незалежні від життєвого циклу Podʼів і зберігають дані під час перезапуску, перепланування та навіть видалення Podʼів.
+Постійні томи ([PersistentVolume](/docs/concepts/storage/persistent-volumes/) (PV)) — це частина системи зберігання в кластері, яку адміністратор вручну надав або яку Kubernetes автоматично надав за допомогою [StorageClass](/docs/concepts/storage/storage-classes). Запити на постійні томи ([PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) (PVC)) — це запит на зберігання, який користувач може отримати через PV. PersistentVolumes та PersistentVolumeClaims незалежні від життєвого циклу Podʼів і зберігають дані під час перезапуску, перепланування та навіть видалення Podʼів.
 
 {{< warning >}}
 Це розгортання не підходить для використання в операційній діяльності, оскільки використовує Podʼи з одним екземпляром WordPress та MySQL. Розгляньте використання [WordPress Helm Chart](https://github.com/bitnami/charts/tree/master/bitnami/wordpress), щоб розгорнути WordPress для промислової експлуатації.
@@ -40,9 +40,9 @@ card:
 
 Завантажте наступні конфігураційні файли:
 
-1. [mysql-deployment.yaml](/uk/examples/application/wordpress/mysql-deployment.yaml)
+1. [mysql-deployment.yaml](/examples/application/wordpress/mysql-deployment.yaml)
 
-1. [wordpress-deployment.yaml](/uk/examples/application/wordpress/wordpress-deployment.yaml)
+1. [wordpress-deployment.yaml](/examples/application/wordpress/wordpress-deployment.yaml)
 
 <!-- lessoncontent -->
 
@@ -70,7 +70,7 @@ card:
 
 ### Додавання генератора Secret {#add-a-secret-generator}
 
-[Secret](/uk/docs/concepts/configuration/secret/) — це обʼєкт, який зберігає чутливі дані, такі як паролі або ключі. Починаючи з версії 1.14, `kubectl` підтримує керування обʼєктами Kubernetes за допомогою файлу kustomization. Ви можете створити Secret за допомогою генераторів у файлі `kustomization.yaml`.
+[Secret](/docs/concepts/configuration/secret/) — це обʼєкт, який зберігає чутливі дані, такі як паролі або ключі. Починаючи з версії 1.14, `kubectl` підтримує керування обʼєктами Kubernetes за допомогою файлу kustomization. Ви можете створити Secret за допомогою генераторів у файлі `kustomization.yaml`.
 
 Додайте генератор Secret у файл `kustomization.yaml` за допомогою наступної команди. Вам потрібно буде замінити `YOUR_PASSWORD` на пароль, який ви хочете використовувати.
 
@@ -223,7 +223,7 @@ kubectl apply -k ./
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся більше про [Інтроспекцію та Налагодження](/uk/docs/tasks/debug/debug-application/debug-running-pod/)
-* Дізнайтеся більше про [Job](/uk/docs/concepts/workloads/controllers/job/)
-* Дізнайтеся більше про [Переадресацію портів](/uk/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
-* Дізнайтеся, як [Отримати доступ до оболонки командного рядка в контейнері](/uk/docs/tasks/debug/debug-application/get-shell-running-container/)
+* Дізнайтеся більше про [Інтроспекцію та Налагодження](/docs/tasks/debug/debug-application/debug-running-pod/)
+* Дізнайтеся більше про [Job](/docs/concepts/workloads/controllers/job/)
+* Дізнайтеся більше про [Переадресацію портів](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+* Дізнайтеся, як [Отримати доступ до оболонки командного рядка в контейнері](/docs/tasks/debug/debug-application/get-shell-running-container/)

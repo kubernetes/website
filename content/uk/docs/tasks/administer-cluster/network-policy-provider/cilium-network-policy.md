@@ -92,5 +92,5 @@ Pod `cilium` працює на кожному вузлі вашого класт
 
 ## {{% heading "whatsnext" %}}
 
-Після того, як ваш кластер буде запущений, ви можете перейти до [Оголошення мережевої політики](/uk/docs/tasks/administer-cluster/declare-network-policy/)
+Після того, як ваш кластер буде запущений, ви можете перейти до [Оголошення мережевої політики](/docs/tasks/administer-cluster/declare-network-policy/)
 для випробування Kubernetes NetworkPolicy з Cilium. Якщо у вас є запитання, звʼяжіться з нами за допомогою [Каналу Cilium у Slack](https://cilium.herokuapp.com/).

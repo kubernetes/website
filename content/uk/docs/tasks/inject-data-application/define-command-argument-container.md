@@ -69,7 +69,7 @@ command: ["/bin/echo"]
 args: ["$(MESSAGE)"]
 ```
 
-Це означає, що ви можете визначити аргумент для Podʼа, використовуючи будь-які з технік доступних для визначення змінних середовища, включаючи [ConfigMap](/uk/docs/tasks/configure-pod-container/configure-pod-configmap/) та [Secret](/uk/docs/concepts/configuration/secret/).
+Це означає, що ви можете визначити аргумент для Podʼа, використовуючи будь-які з технік доступних для визначення змінних середовища, включаючи [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) та [Secret](/docs/concepts/configuration/secret/).
 
 {{< note >}}
 Змінна середовища зʼявляється у дужках, `"$(VAR)"`. Це необхідно для того, щоб змінна була розгорнута у полі `command` або `args`.
@@ -87,6 +87,6 @@ args: ["-c", "while true; do echo hello; sleep 10;done"]
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся більше про [налаштування Podʼів та контейнерів](/uk/docs/tasks/).
-* Дізнайтеся більше про [виконання команд у контейнері](/uk/docs/tasks/debug/debug-application/get-shell-running-container/).
+* Дізнайтеся більше про [налаштування Podʼів та контейнерів](/docs/tasks/).
+* Дізнайтеся більше про [виконання команд у контейнері](/docs/tasks/debug/debug-application/get-shell-running-container/).
 * Дивіться [Контейнер](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).

@@ -81,7 +81,7 @@ root@nginx:~# curl localhost
 ## {{% heading "whatsnext" %}}
 
 * Дізнайтеся більше про
-  [спілкування між контейнерами, що працюють в одному Podʼі](/uk/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/).
-* Дізнайтеся більше про [Контейнери ініціалізації](/uk/docs/concepts/workloads/pods/init-containers/).
-* Дізнайтеся більше про [Томи](/uk/docs/concepts/storage/volumes/).
-* Дізнайтеся більше про [Налагодження контейнерів ініціалізації](/uk/docs/tasks/debug/debug-application/debug-init-containers/)
+  [спілкування між контейнерами, що працюють в одному Podʼі](/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/).
+* Дізнайтеся більше про [Контейнери ініціалізації](/docs/concepts/workloads/pods/init-containers/).
+* Дізнайтеся більше про [Томи](/docs/concepts/storage/volumes/).
+* Дізнайтеся більше про [Налагодження контейнерів ініціалізації](/docs/tasks/debug/debug-application/debug-init-containers/)

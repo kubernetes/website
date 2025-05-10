@@ -267,7 +267,7 @@ status:
 
 ## Пакети довіри кластера {#cluster-trust-bundles}
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state feature_gate_name="ClusterTrustBundle" >}}
 
 {{< note >}}
 У Kubernetes {{< skew currentVersion >}} ви повинні ввімкнути [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `ClusterTrustBundle` _та_ {{< glossary_tooltip text="групу API" term_id="api-group" >}} `certificates.k8s.io/v1alpha1`,
@@ -335,7 +335,7 @@ ClusterTrustBundles, незвʼязані з підписувачем, не ма
 
 ### Доступ до ClusterTrustBundles з Podʼів {#ctb-projection}
 
-{{<feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="ClusterTrustBundleProjection" >}}
 
 Вміст ClusterTrustBundles може бути впроваджений у файлову систему контейнера, подібно до ConfigMaps та Secrets. Дивіться [джерело projected томів clusterTrustBundle](/docs/concepts/storage/projected-volumes#clustertrustbundle) для отримання додаткової інформації.
 

@@ -15,10 +15,10 @@ weight: 200
 Аргумент командного рядка `runtime-config` також підтримує 2 спеціальні ключі:
 
 - `api/all`, що представляє всі відомі API.
-- `api/legacy`, що представляє лише застарілі API. Застарілі API — це будь-які API, які були явно визнані [застарілими](/uk/docs/reference/using-api/deprecation-policy/).
+- `api/legacy`, що представляє лише застарілі API. Застарілі API — це будь-які API, які були явно визнані [застарілими](/docs/reference/using-api/deprecation-policy/).
 
 Наприклад, щоб вимкнути всі версії API, крім v1, передайте `--runtime-config=api/all=false,api/v1=true` до `kube-apiserver`.
 
 ## {{% heading "whatsnext" %}}
 
-Прочитайте [повну документацію](/uk/docs/reference/command-line-tools-reference/kube-apiserver/) для компонента `kube-apiserver`.
+Прочитайте [повну документацію](/docs/reference/command-line-tools-reference/kube-apiserver/) для компонента `kube-apiserver`.

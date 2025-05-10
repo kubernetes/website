@@ -6,7 +6,7 @@ weight: 80
 
 <!-- overview -->
 
-Стан [вузла](/uk/docs/concepts/architecture/nodes/) у Kubernetes є критичним аспектом управління кластером Kubernetes. У цій статті ми розглянемо основи моніторингу та підтримки стану вузлів, щоб забезпечити справний та стабільний кластер.
+Стан [вузла](/docs/concepts/architecture/nodes/) у Kubernetes є критичним аспектом управління кластером Kubernetes. У цій статті ми розглянемо основи моніторингу та підтримки стану вузлів, щоб забезпечити справний та стабільний кластер.
 
 ## Поля стану вузла {#node-status-fields}
 
@@ -66,11 +66,11 @@ kubectl describe node <insert-node-name-here>
 ]
 ```
 
-Коли на вузлах виникають проблеми, панель управління Kubernetes автоматично створює [taints](/uk/docs/concepts/scheduling-eviction/taint-and-toleration/), які відповідають станам, що впливають на вузол. Прикладом цього є ситуація, коли `status` стану Ready залишається `Unknown` або `False` довше, ніж налаштований інтервал NodeMonitorGracePeriod у kube-controller-manager, який стандартно становить 50 секунд. Це спричинить додавання на вузол taint `node.kubernetes.io/unreachable` для статусу `Unknown` або taint `node.kubernetes.io/not-ready` для статусу `False`.
+Коли на вузлах виникають проблеми, панель управління Kubernetes автоматично створює [taints](/docs/concepts/scheduling-eviction/taint-and-toleration/), які відповідають станам, що впливають на вузол. Прикладом цього є ситуація, коли `status` стану Ready залишається `Unknown` або `False` довше, ніж налаштований інтервал NodeMonitorGracePeriod у kube-controller-manager, який стандартно становить 50 секунд. Це спричинить додавання на вузол taint `node.kubernetes.io/unreachable` для статусу `Unknown` або taint `node.kubernetes.io/not-ready` для статусу `False`.
 
 Ці taints впливають на Podʼи, що перебувають в очікуванні, оскільки планувальник враховує taints вузла при призначенні Podʼів на вузол. Наявні Podʼи, заплановані на вузол, можуть бути виселені через застосування taints типу `NoExecute`. Podʼи також можуть мати {{< glossary_tooltip text="tolerations" term_id="toleration" >}}, що дозволяє їм бути запланованими та продовжувати працювати на вузлі, навіть якщо на ньому є певний taint.
 
-Дивіться [Виселення на основі taint](/uk/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-based-evictions) та [Taint вузлів за станами](/uk/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition) для отримання додаткової інформації.
+Дивіться [Виселення на основі taint](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-based-evictions) та [Taint вузлів за станами](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition) для отримання додаткової інформації.
 
 ## Місткість та Доступність {#capacity}
 
@@ -78,7 +78,7 @@ kubectl describe node <insert-node-name-here>
 
 Поля у блоці місткості вказують на загальну кількість ресурсів, які має вузол. Блок доступності вказує на кількість ресурсів на вузлі, які доступні для використання звичайними подами.
 
-Ви можете дізнатися більше про місткість та доступність ресурсів, дізнаючись, як [зарезервувати обчислювальні ресурси](/uk/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) на вузлі.
+Ви можете дізнатися більше про місткість та доступність ресурсів, дізнаючись, як [зарезервувати обчислювальні ресурси](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) на вузлі.
 
 ## Інформація {#info}
 
@@ -92,7 +92,7 @@ kubectl describe node <insert-node-name-here>
 Для вузлів існує дві форми пульсу:
 
 * оновлення `.status` вузла
-* обʼєкти [Lease](/uk/docs/concepts/architecture/leases/) у {{< glossary_tooltip term_id="namespace" text="просторі імен">}} `kube-node-lease`. Кожен вузол має повʼязаний обʼєкт Lease.
+* обʼєкти [Lease](/docs/concepts/architecture/leases/) у {{< glossary_tooltip term_id="namespace" text="просторі імен">}} `kube-node-lease`. Кожен вузол має повʼязаний обʼєкт Lease.
 
 Порівняно з оновленнями `.status` вузла, Lease є легким ресурсом. Використання Lease для пульсу знижує вплив цих оновлень на продуктивність для великих кластерів.
 

@@ -21,7 +21,7 @@ tags:
 
 Є два способи надання доступу до полів Podʼа та контейнера для робочого контейнера:
 
-* використання [змінних оточення](/uk/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
-* використання [томів `downwardAPI`](/uk/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
+* використання [змінних оточення](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
+* використання [томів `downwardAPI`](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
 
 Разом ці два способи надання доступу до полів Podʼів та контейнера називаються _downward API_.

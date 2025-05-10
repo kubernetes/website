@@ -17,6 +17,7 @@ stages:
     toVersion: "1.32"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.33"
 ---
 Дозволяє користувачам вказувати, коли Job може бути визнаний успішним на основі набору успішних Podʼів.

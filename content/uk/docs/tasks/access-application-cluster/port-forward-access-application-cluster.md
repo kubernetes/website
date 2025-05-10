@@ -198,4 +198,4 @@ Forwarding from [::1]:63753 -> 27017
 
 ## {{% heading "whatsnext" %}}
 
-Дізнайтеся більше про [kubectl port-forward](/uk/docs/reference/generated/kubectl/kubectl-commands/#port-forward).
+Дізнайтеся більше про [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands/#port-forward).

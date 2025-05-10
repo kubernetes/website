@@ -59,16 +59,16 @@ Hello from the postStart handler
 
 Kubernetes надсилає подію postStart безпосередньо після створення контейнера. Проте, немає гарантії, що обробник postStart буде викликаний перед тим, як буде викликано точку входу контейнера. Обробник postStart працює асинхронно відносно коду контейнера, але керування Kubernetes блокується до завершення обробника postStart. Статус контейнера не встановлюється як RUNNING до завершення обробника postStart.
 
-Kubernetes надсилає подію preStop безпосередньо перед завершенням роботи контейнера. Керування Kubernetes контейнером блокується до завершення обробника preStop, якщо тайм-аут оновлення Podʼа не закінчився. Докладніше див. [Життєвий цикл Podʼа](/uk/docs/concepts/workloads/pods/pod-lifecycle/).
+Kubernetes надсилає подію preStop безпосередньо перед завершенням роботи контейнера. Керування Kubernetes контейнером блокується до завершення обробника preStop, якщо тайм-аут оновлення Podʼа не закінчився. Докладніше див. [Життєвий цикл Podʼа](/docs/concepts/workloads/pods/pod-lifecycle/).
 
 {{< note >}}
-Kubernetes надсилає подію preStop лише тоді, коли Pod або контейнер у Podʼі *завершується*. Це означає, що обробник preStop не викликається, коли Pod *завершує роботу*. Про це обмеження дізнайтеся більше в розділі [Контейнерні обробники](/uk/docs/concepts/containers/container-lifecycle-hooks/#container-hooks).
+Kubernetes надсилає подію preStop лише тоді, коли Pod або контейнер у Podʼі *завершується*. Це означає, що обробник preStop не викликається, коли Pod *завершує роботу*. Про це обмеження дізнайтеся більше в розділі [Контейнерні обробники](/docs/concepts/containers/container-lifecycle-hooks/#container-hooks).
 {{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся більше про [обробників життєвого циклу контейнера](/uk/docs/concepts/containers/container-lifecycle-hooks/).
-* Дізнайтеся більше про [життєвий цикл Podʼа](/uk/docs/concepts/workloads/pods/pod-lifecycle/).
+* Дізнайтеся більше про [обробників життєвого циклу контейнера](/docs/concepts/containers/container-lifecycle-hooks/).
+* Дізнайтеся більше про [життєвий цикл Podʼа](/docs/concepts/workloads/pods/pod-lifecycle/).
 
 ### Довідка {#reference}
 

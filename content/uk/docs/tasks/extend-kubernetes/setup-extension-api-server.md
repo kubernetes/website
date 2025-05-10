@@ -12,7 +12,7 @@ weight: 15
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* Необхідно [налаштувати шар агрегації](/uk/docs/tasks/extend-kubernetes/configure-aggregation-layer/) та увімкнути прапорці apiserver.
+* Необхідно [налаштувати шар агрегації](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) та увімкнути прапорці apiserver.
 
 <!-- steps -->
 
@@ -40,7 +40,6 @@ weight: 15
 
 ## {{% heading "whatsnext" %}}
 
-* Пройдіть кроки, щоб [налаштувати шар агрегації API](/uk/docs/tasks/extend-kubernetes/configure-aggregation-layer/) та увімкнути прапорці apiserver.
-* Для загального огляду дивіться [Розширення API Kubernetes за допомогою шару агрегації](/uk/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
-* Дізнайтеся, як [Розширити API Kubernetes за допомогою Custom Resource Definitions](/uk/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/).
-  
+* Пройдіть кроки, щоб [налаштувати шар агрегації API](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) та увімкнути прапорці apiserver.
+* Для загального огляду дивіться [Розширення API Kubernetes за допомогою шару агрегації](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
+* Дізнайтеся, як [Розширити API Kubernetes за допомогою Custom Resource Definitions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/).

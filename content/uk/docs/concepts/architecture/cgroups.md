@@ -8,7 +8,7 @@ weight: 50
 
 У Linux {{< glossary_tooltip text="control groups" term_id="cgroup" >}} обмежують ресурси, які виділяються процесам.
 
-{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} та середовище виконання контейнерів повинні співпрацювати з cgroups для забезпечення [управління ресурсами для Podʼів та контейнерів](/uk/docs/concepts/configuration/manage-resources-containers/), що включає запити та обмеження на CPU/памʼяті для контейнеризованих навантажень.
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} та середовище виконання контейнерів повинні співпрацювати з cgroups для забезпечення [управління ресурсами для Podʼів та контейнерів](/docs/concepts/configuration/manage-resources-containers/), що включає запити та обмеження на CPU/памʼяті для контейнеризованих навантажень.
 
 Є дві версії cgroups у Linux: cgroup v1 і cgroup v2. cgroup v2 — це нове покоління API `cgroup` в Linux.
 
@@ -29,7 +29,7 @@ cgroup v2 пропонує кілька поліпшень порівняно з
   - Обʼєднаний облік різних типів виділення памʼяті (мережева памʼять, памʼять ядра і т. д.)
   - Облік негайних змін ресурсів, таких як запис кешу сторінок
 
-Деякі можливості Kubernetes використовують виключно cgroup v2 для поліпшення управління ресурсами та ізоляцією. Наприклад, можливість [MemoryQoS](/uk/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2) покращує якість обслуговування памʼяті та покладається на примітиви cgroup v2.
+Деякі можливості Kubernetes використовують виключно cgroup v2 для поліпшення управління ресурсами та ізоляцією. Наприклад, можливість [MemoryQoS](/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2) покращує якість обслуговування памʼяті та покладається на примітиви cgroup v2.
 
 ## Використання cgroup v2 {#using-cgroupv2}
 
@@ -46,7 +46,7 @@ cgroup v2 має наступні вимоги:
 - Середовище виконання контейнерів підтримує cgroup v2. Наприклад:
   - [containerd](https://containerd.io/) v1.4 і новіше
   - [cri-o](https://cri-o.io/) v1.20 і новіше
-- kubelet та середовище виконання контейнерів налаштовані на використання [cgroup-драйвера systemd](/uk/docs/setup/production-environment/container-runtimes#systemd-cgroup-driver)
+- kubelet та середовище виконання контейнерів налаштовані на використання [cgroup-драйвера systemd](/docs/setup/production-environment/container-runtimes#systemd-cgroup-driver)
 
 ### Підтримка cgroup v2 дистрибутивами Linux {#linux-distribution-cgroup-v2-support}
 
@@ -97,5 +97,5 @@ stat -fc %T /sys/fs/cgroup/
 ## {{% heading "whatsnext" %}}
 
 - Дізнайтеся більше про [cgroups](https://man7.org/linux/man-pages/man7/cgroups.7.html)
-- Дізнайтеся більше про [середовище виконання контейнерів](/uk/docs/concepts/architecture/cri)
-- Дізнайтеся більше про [драйвери cgroup](/uk/docs/setup/production-environment/container-runtimes#cgroup-drivers)
+- Дізнайтеся більше про [середовище виконання контейнерів](/docs/concepts/architecture/cri)
+- Дізнайтеся більше про [драйвери cgroup](/docs/setup/production-environment/container-runtimes#cgroup-drivers)

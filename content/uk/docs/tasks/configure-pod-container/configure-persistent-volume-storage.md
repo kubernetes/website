@@ -18,7 +18,7 @@ weight: 90
 
 * Вам потрібно мати кластер Kubernetes, який має лише один вузол, і {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} повинен бути налаштований на спілкування з вашим кластером. Якщо у вас ще немає кластера з одним вузлом, ви можете створити його, використовуючи [Minikube](https://minikube.sigs.k8s.io/docs/).
 
-* Ознайомтеся з матеріалом в [Постійні томи](/uk/docs/concepts/storage/persistent-volumes/).
+* Ознайомтеся з матеріалом в [Постійні томи](/docs/concepts/storage/persistent-volumes/).
 
 <!-- steps -->
 
@@ -64,13 +64,13 @@ Hello from Kubernetes storage
 
 У цьому завданні ви створюєте *hostPath* PersistentVolume. Kubernetes підтримує hostPath для розробки та тестування на одновузловому кластері. PersistentVolume типу hostPath використовує файл або теку на вузлі для емуляції мережевого сховища.
 
-В операційному кластері ви не використовували б hostPath. Замість цього адміністратор кластера створив би мережевий ресурс, такий як постійний диск Google Compute Engine, розділ NFS або том Amazon Elastic Block Store. Адміністратори кластера також можуть використовувати [StorageClasses](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage-k8s-io) для [динамічного налаштування](/uk/docs/concepts/storage/dynamic-provisioning/).
+В операційному кластері ви не використовували б hostPath. Замість цього адміністратор кластера створив би мережевий ресурс, такий як постійний диск Google Compute Engine, розділ NFS або том Amazon Elastic Block Store. Адміністратори кластера також можуть використовувати [StorageClasses](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage-k8s-io) для [динамічного налаштування](/docs/concepts/storage/dynamic-provisioning/).
 
 Ось файл конфігурації для PersistentVolume типу hostPath:
 
 {{% code_sample file="pods/storage/pv-volume.yaml" %}}
 
-Файл конфігурації вказує, що том знаходиться в `/mnt/data` на вузлі кластера. Конфігурація також вказує розмір 10 гібібайт та режим доступу `ReadWriteOnce`, що означає, що том може бути підключений як для читання-запису лише одним вузлом. Визначається імʼя [StorageClass](/uk/docs/concepts/storage/persistent-volumes/#class) `manual` для PersistentVolume, яке буде використовуватися для привʼязки запитів PersistentVolumeClaim до цього PersistentVolume.
+Файл конфігурації вказує, що том знаходиться в `/mnt/data` на вузлі кластера. Конфігурація також вказує розмір 10 гібібайт та режим доступу `ReadWriteOnce`, що означає, що том може бути підключений як для читання-запису лише одним вузлом. Визначається імʼя [StorageClass](/docs/concepts/storage/persistent-volumes/#class) `manual` для PersistentVolume, яке буде використовуватися для привʼязки запитів PersistentVolumeClaim до цього PersistentVolume.
 
 {{< note >}}
 У цьому прикладі використовується режим доступу `ReadWriteOnce` для спрощення. Для
@@ -379,7 +379,7 @@ metadata:
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся більше про [PersistentVolumes](/uk/docs/concepts/storage/persistent-volumes/).
+* Дізнайтеся більше про [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
 * Прочитайте [документ проєктування постійного сховища](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 
 ### Довідка {#reference}

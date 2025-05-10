@@ -9,7 +9,7 @@ weight: 40
 
 ## {{% heading "prerequisites" %}}
 
-Встановіть [`kubectl`](/uk/docs/tasks/tools/).
+Встановіть [`kubectl`](/docs/tasks/tools/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -23,7 +23,7 @@ weight: 40
 * Імперативне конфігурування обʼєктів
 * Декларативне конфігурування обʼєктів
 
-Див. [Управління обʼєктами Kubernetes](/uk/docs/concepts/overview/working-with-objects/object-management/) для обговорення переваг та недоліків кожного виду управління обʼєктами.
+Див. [Управління обʼєктами Kubernetes](/docs/concepts/overview/working-with-objects/object-management/) для обговорення переваг та недоліків кожного виду управління обʼєктами.
 
 ## Як створювати обʼєкти {#how-to-create-objects}
 
@@ -123,7 +123,7 @@ template:
 
 ## {{% heading "whatsnext" %}}
 
-* [Управління обʼєктами Kubernetes за допомогою імперативних команд](/uk/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [Декларативне керування обʼєктами Kubernetes за допомогою файлів конфігурації](/uk/docs/tasks/manage-kubernetes-objects/declarative-config/)
-* [Довідник команд Kubectl](/uk/docs/reference/generated/kubectl/kubectl-commands/)
+* [Управління обʼєктами Kubernetes за допомогою імперативних команд](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [Декларативне керування обʼєктами Kubernetes за допомогою файлів конфігурації](/docs/tasks/manage-kubernetes-objects/declarative-config/)
+* [Довідник команд Kubectl](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Довідник API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)

@@ -19,4 +19,4 @@ tags:
 
 Ви можете увімкнути або вимкнути кожну API-групу, змінивши конфігурацію свого API-сервера. Ви також можете вимкнути або увімкнути шляхи до конкретних ресурсів. API-група полегшує розширення API Kubernetes. API-група вказується в REST-шляху та в полі `apiVersion` серіалізованого обʼєкта.
 
-* Дивіться [API-група](/uk/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning) для отримання додаткової інформації.
+* Дивіться [API-група](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning) для отримання додаткової інформації.

@@ -10,7 +10,7 @@ weight: 80
 
 {{< feature-state for_k8s_version="v1.11" state="stable" >}}
 
-Життєвий цикл інструменту командного рядка kubeadm не повʼязаний з [kubelet](/uk/docs/reference/command-line-tools-reference/kubelet), який є службою, що працює на кожному вузлі в кластері Kubernetes. Інструмент командного рядка kubeadm запускається користувачем під час ініціалізації або оновлення Kubernetes, тоді як kubelet завжди працює в фоновому режимі.
+Життєвий цикл інструменту командного рядка kubeadm не повʼязаний з [kubelet](/docs/reference/command-line-tools-reference/kubelet), який є службою, що працює на кожному вузлі в кластері Kubernetes. Інструмент командного рядка kubeadm запускається користувачем під час ініціалізації або оновлення Kubernetes, тоді як kubelet завжди працює в фоновому режимі.
 
 Оскільки kubelet — це демон, його потрібно обслуговувати за допомогою якоїсь системи ініціалізації або менеджера служб. Коли kubelet встановлено за допомогою DEB або RPM-пакунків, systemd налаштовується для управління kubelet. Ви можете використовувати інший менеджер служб, але його потрібно налаштувати вручну.
 
@@ -34,7 +34,7 @@ kubeadm init --service-cidr 10.96.0.0/12
 ```
 
 Віртуальні IP-адреси для служб тепер виділяються з цієї підмережі. Вам також потрібно встановити адресу DNS, яку використовує kubelet, за допомогою прапорця `--cluster-dns`. Це налаштування мають бути однаковим для кожного kubelet
-на кожному вузлі управління та вузлі в кластері. Kubelet надає структурований, версійований обʼєкт API, який може налаштовувати більшість параметрів в kubelet та розсилати цю конфігурацію кожному працюючому kubelet в кластері. Цей обʼєкт називається [`KubeletConfiguration`](/uk/docs/reference/config-api/kubelet-config.v1beta1/). `KubeletConfiguration` дозволяє користувачу вказувати прапорці, такі як IP-адреси DNS кластера, у вигляді списку значень для camelCased ключа, як показано в наступному прикладі:
+на кожному вузлі управління та вузлі в кластері. Kubelet надає структурований, версійований обʼєкт API, який може налаштовувати більшість параметрів в kubelet та розсилати цю конфігурацію кожному працюючому kubelet в кластері. Цей обʼєкт називається [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/). `KubeletConfiguration` дозволяє користувачу вказувати прапорці, такі як IP-адреси DNS кластера, у вигляді списку значень для camelCased ключа, як показано в наступному прикладі:
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -57,16 +57,16 @@ clusterDNS:
 
 - Щоб вказати середовище виконання контейнерів, вам потрібно встановити його endpoint за допомогою прапорця `--container-runtime-endpoint=<шлях>`.
 
-Рекомендований спосіб застосування такої конфігурації, специфічної для екземпляра, — використовувати [патчі для KubeletConfiguration](/uk/docs/setup/production-environment/tools/kubeadm/control-plane-flags#patches).
+Рекомендований спосіб застосування такої конфігурації, специфічної для екземпляра, — використовувати [патчі для KubeletConfiguration](/docs/setup/production-environment/tools/kubeadm/control-plane-flags#patches).
 
 ## Налаштування kubelet за допомогою kubeadm {#configure-kubelets-using-kubeadm}
 
-Можливо налаштувати kubelet, який запустить kubeadm, якщо вказано власний обʼєкт API [`KubeletConfiguration`](/uk/docs/reference/config-api/kubelet-config.v1beta1/)
+Можливо налаштувати kubelet, який запустить kubeadm, якщо вказано власний обʼєкт API [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
 з конфігураційним файлом таким чином `kubeadm ... --config some-config-file.yaml`.
 
 Викликаючи `kubeadm config print init-defaults --component-configs KubeletConfiguration`, ви можете переглянути всі типові значення для цієї структури.
 
-Також можливо застосувати специфічні для екземпляра патчі до базового `KubeletConfiguration`. Див. [Налаштування kubelet](/uk/docs/setup/production-environment/tools/kubeadm/control-plane-flags#customizing-the-kubelet) для отримання докладнішої інформації.
+Також можливо застосувати специфічні для екземпляра патчі до базового `KubeletConfiguration`. Див. [Налаштування kubelet](/docs/setup/production-environment/tools/kubeadm/control-plane-flags#customizing-the-kubelet) для отримання докладнішої інформації.
 
 ### Послідовність дій при використанні `kubeadm init` {#workflow-when-using-kubeadm-init}
 
@@ -115,7 +115,7 @@ systemctl daemon-reload && systemctl restart kubelet
 Ось що ви, імовірно, знайдете в `/usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf`:
 
 {{< note >}}
-Наведені нижче вміст — це лише приклад. Якщо ви не хочете використовувати менеджер пакунків, дотримуйтеся інструкції, описаної в розділі ([Без менеджера пакунків](/uk/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-2)).
+Наведені нижче вміст — це лише приклад. Якщо ви не хочете використовувати менеджер пакунків, дотримуйтеся інструкції, описаної в розділі ([Без менеджера пакунків](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-2)).
 {{< /note >}}
 
 ```none

@@ -4,7 +4,7 @@ content_type: task
 weight: 240
 ---
 
-Kubernetes надає вбудований [контролер допуску](/uk/docs/reference/access-authn-authz/admission-controllers/#podsecurity), щоб забезпечити дотримання [стандартів безпеки Podʼів](/uk/docs/concepts/security/pod-security-standards). Ви можете налаштувати цей контролер допуску, щоб встановити глобальні стандартні значення та [винятки](/uk/docs/concepts/security/pod-security-admission/#exemptions).
+Kubernetes надає вбудований [контролер допуску](/docs/reference/access-authn-authz/admission-controllers/#podsecurity), щоб забезпечити дотримання [стандартів безпеки Podʼів](/docs/concepts/security/pod-security-standards). Ви можете налаштувати цей контролер допуску, щоб встановити глобальні стандартні значення та [винятки](/docs/concepts/security/pod-security-admission/#exemptions).
 
 ## {{% heading "prerequisites" %}}
 
@@ -36,7 +36,7 @@ plugins:
     # - "restricted"
     #
     # Значення мітки версії повинні бути одним з:
-    # - "latest" (станадртно) 
+    # - "latest" (станадртно)
     # - конкретна версія, наприклад "v{{< skew currentVersion >}}"
     defaults:
       enforce: "privileged"

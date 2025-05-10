@@ -6,7 +6,7 @@ weight: 100
 
 <!-- overview -->
 
-Ця сторінка показує, як використовувати [`projected`](/uk/docs/concepts/storage/volumes/#projected) том, щоб змонтувати декілька наявних джерел томів у одну теку. Наразі можна проєктувати томи типів `secret`, `configMap`, `downwardAPI`, та `serviceAccountToken`.
+Ця сторінка показує, як використовувати [`projected`](/docs/concepts/storage/volumes/#projected) том, щоб змонтувати декілька наявних джерел томів у одну теку. Наразі можна проєктувати томи типів `secret`, `configMap`, `downwardAPI`, та `serviceAccountToken`.
 
 {{< note >}}
 `serviceAccountToken` не є типом тому.
@@ -20,7 +20,7 @@ weight: 100
 
 ## Налаштування projected тому для Pod {#configure-a-projected-volume-for-a-pod}
 
-У цьому завданні ви створите {{< glossary_tooltip text="Secrets" term_id="secret" >}} із локальних файлів для імені користувача та пароля. Потім ви створите Pod, який запускає один контейнер, використовуючи [`projected`](/uk/docs/concepts/storage/volumes/#projected) том для монтування секретів у спільну теку.
+У цьому завданні ви створите {{< glossary_tooltip text="Secrets" term_id="secret" >}} із локальних файлів для імені користувача та пароля. Потім ви створите Pod, який запускає один контейнер, використовуючи [`projected`](/docs/concepts/storage/volumes/#projected) том для монтування секретів у спільну теку.
 
 Ось файл конфігурації для Pod:
 
@@ -80,5 +80,5 @@ kubectl delete secret user pass
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся більше про [`projected`](/uk/docs/concepts/storage/volumes/#projected) томи.
+* Дізнайтеся більше про [`projected`](/docs/concepts/storage/volumes/#projected) томи.
 * Прочитайте документ про проєктування [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md).

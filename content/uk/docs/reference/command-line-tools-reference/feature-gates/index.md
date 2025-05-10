@@ -34,7 +34,7 @@ card:
 - [Таблиця функціональних можливостей для стабільних або застарілих функцій](#feature-gates-for-graduated-or-deprecated-features) також містить застарілі та вилучені функції.
 
 {{< note >}}
-Для посилання на старі функціональні можливості, які вилучені, дивіться [вилучені функціональні можливості](/uk/docs/reference/command-line-tools-reference/feature-gates-removed/).
+Для посилання на старі функціональні можливості, які вилучені, дивіться [вилучені функціональні можливості](/docs/reference/command-line-tools-reference/feature-gates-removed/).
 {{< /note >}}
 
 <!-- Want to edit this table? See https://k8s.io/docs/contribute/new-content/new-features/#ready-for-review-feature-gates -->
@@ -91,5 +91,5 @@ card:
 
 ## {{% heading "whatsnext" %}}
 
-- У [Політиці застарівання Kubernetes](/uk/docs/reference/using-api/deprecation-policy/) пояснюється підхід проєкту до видалення функцій та компонентів.
-- Починаючи з Kubernetes 1.24, нові бета-версії API стандартно не увімкнені. При увімкненні бета-версії вам також потрібно буде увімкнути всі повʼязані з цим API ресурси. Наприклад, щоб увімкнути певний ресурс, наприклад `storage.k8s.io/v1beta1/csistoragecapacities`, встановіть `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`. Докладнішу інформацію про прапорці командного рядка наведено в [Версіювання API](/uk/docs/reference/using-api/#api-versioning).
+- У [Політиці застарівання Kubernetes](/docs/reference/using-api/deprecation-policy/) пояснюється підхід проєкту до видалення функцій та компонентів.
+- Починаючи з Kubernetes 1.24, нові бета-версії API стандартно не увімкнені. При увімкненні бета-версії вам також потрібно буде увімкнути всі повʼязані з цим API ресурси. Наприклад, щоб увімкнути певний ресурс, наприклад `storage.k8s.io/v1beta1/csistoragecapacities`, встановіть `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`. Докладнішу інформацію про прапорці командного рядка наведено в [Версіювання API](/docs/reference/using-api/#api-versioning).

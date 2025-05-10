@@ -1,5 +1,5 @@
 ---
-title: Мережеві політики 
+title: Мережеві політики
 aka: Network Policies
 content_type: concept
 api_metadata:
@@ -28,7 +28,7 @@ description: >-
 
 ## Передумови {#prerequisites}
 
-Мережеві політики впроваджуються [мережевим втулком](/uk/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/). Для використання мережевих політик вам слід використовувати рішення з підтримкою NetworkPolicy. Створення ресурсу NetworkPolicy без контролера, який його реалізує, не матиме ефекту.
+Мережеві політики впроваджуються [мережевим втулком](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/). Для використання мережевих політик вам слід використовувати рішення з підтримкою NetworkPolicy. Створення ресурсу NetworkPolicy без контролера, який його реалізує, не матиме ефекту.
 
 ## Два види ізоляції для Podʼів {#two-sort-of-pod-isolation}
 
@@ -54,7 +54,7 @@ description: >-
 Надсилання (POST) цього до сервера API вашого кластера не матиме жодного ефекту, якщо ваше обране мережеве рішення не підтримує мережеву політику.
 {{< /note >}}
 
-**Обовʼязкові поля**: Як і з усіма іншими конфігураціями Kubernetes, для NetworkPolicy потрібні поля `apiVersion`, `kind` та `metadata`. Для загальної інформації щодо роботи з конфігураційними файлами дивіться [Налаштування Pod для використання ConfigMap](/uk/docs/tasks/configure-pod-container/configure-pod-configmap/) та [Управління обʼєктами](/uk/docs/concepts/overview/working-with-objects/object-management).
+**Обовʼязкові поля**: Як і з усіма іншими конфігураціями Kubernetes, для NetworkPolicy потрібні поля `apiVersion`, `kind` та `metadata`. Для загальної інформації щодо роботи з конфігураційними файлами дивіться [Налаштування Pod для використання ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) та [Управління обʼєктами](/docs/concepts/overview/working-with-objects/object-management).
 
 **spec**: Специфікація мережевої політики [spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) містить всю інформацію, необхідну для визначення конкретної мережевої політики в заданому просторі імен.
 
@@ -77,7 +77,7 @@ description: >-
 
 3. (Правила Egress) дозволяє підключення з будь-якого Pod в просторі імен `default` з міткою `role=db` до CIDR `10.0.0.0/24` на TCP-порт 5978
 
-Дивіться [Оголошення мережевої політики](/uk/docs/tasks/administer-cluster/declare-network-policy/) для ознайомлення з додатковими прикладами.
+Дивіться [Оголошення мережевої політики](/docs/tasks/administer-cluster/declare-network-policy/) для ознайомлення з додатковими прикладами.
 
 ## Поведінка селекторів `to` та `from` {#behavior-of-to-and-from-selectors}
 
@@ -203,7 +203,7 @@ NetworkPolicy визначений для зʼєднань [layer 4](https://en.
 * Обидва порти повинні бути числовими значеннями.
 
 {{< note >}}
-Ваш кластер повинен використовувати втулок {{< glossary_tooltip text="CNI" term_id="cni" >}}, який підтримує поле `endPort` в специфікаціях NetworkPolicy. Якщо ваш [мережевий втулок](/uk/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) не підтримує поле `endPort`, і ви вказуєте NetworkPolicy з таким полем, політика буде застосована лише для одного поля `port`.
+Ваш кластер повинен використовувати втулок {{< glossary_tooltip text="CNI" term_id="cni" >}}, який підтримує поле `endPort` в специфікаціях NetworkPolicy. Якщо ваш [мережевий втулок](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) не підтримує поле `endPort`, і ви вказуєте NetworkPolicy з таким полем, політика буде застосована лише для одного поля `port`.
 {{< /note >}}
 
 ## Спрямування трафіку на кілька просторів імен за допомогою міток {#targeting-multiple-namespaces-by-labels}
@@ -263,7 +263,7 @@ spec:
 
 Кожна створена NetworkPolicy буде врешті-решт застосована мережевим втулком, але немає способу визначити з API Kubernetes, коли саме це станеться.
 
-Отже, Podʼи повинні бути стійкими до того, що їх можуть запускати з різним ступенем мережевого зʼєднання, ніж очікувалося. Якщо вам потрібно переконатися, що Pod може досягти певних місць перед тим, як його запустять, ви можете використовувати [init контейнер](/uk/docs/concepts/workloads/pods/init-containers/) чекати, доки ці місця стануть доступними, перш ніж kubelet запустить контейнери застосунків.
+Отже, Podʼи повинні бути стійкими до того, що їх можуть запускати з різним ступенем мережевого зʼєднання, ніж очікувалося. Якщо вам потрібно переконатися, що Pod може досягти певних місць перед тим, як його запустять, ви можете використовувати [init контейнер](/docs/concepts/workloads/pods/init-containers/) чекати, доки ці місця стануть доступними, перш ніж kubelet запустить контейнери застосунків.
 
 Кожна NetworkPolicy буде застосована до всіх вибраних Podʼів врешті-решт. Оскільки мережевий втулок може реалізовувати NetworkPolicy розподіленим чином, можливо, що Podʼи можуть бачити трохи неузгоджений вид мережевих політик при першому створенні Podʼа або при зміні Podʼів або політик. Наприклад, новий створений Pod, який повинен бути в змозі досягти як Podʼа на вузлі 1, так і Podʼа на вузлі 2, може знайти, що він може досягати Podʼа А негайно, але не може досягати Podʼа B впродовж кількох секунд.
 
@@ -322,5 +322,5 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-* Перегляньте [оголошення мережевої політики](/uk/docs/tasks/administer-cluster/declare-network-policy/) для отримання додаткових прикладів.
+* Перегляньте [оголошення мережевої політики](/docs/tasks/administer-cluster/declare-network-policy/) для отримання додаткових прикладів.
 * Дивіться більше [рецептів](https://github.com/ahmetb/kubernetes-network-policy-recipes) для звичайних сценаріїв, які підтримує ресурс NetworkPolicy.

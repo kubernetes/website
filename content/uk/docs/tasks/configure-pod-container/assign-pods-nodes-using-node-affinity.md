@@ -109,4 +109,4 @@ weight: 160
 
 ## {{% heading "whatsnext" %}}
 
-Дізнайтеся більше про [Спорідненість вузла](/uk/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity).
+Дізнайтеся більше про [Спорідненість вузла](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity).

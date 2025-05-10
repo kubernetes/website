@@ -46,6 +46,6 @@ Kube-proxy фільтрує endpointʼи, до яких він виконує м
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся про [Маршрутизацію з урахуванням топології](/uk/docs/concepts/services-networking/topology-aware-routing)
-* Дізнайтеся про [Політики зовнішнього трафіку Service](/uk/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
-* Скористайтесь довідником [Підключенням застосунків за допомогою Service](/uk/docs/tutorials/services/connect-applications-service/).
+* Дізнайтеся про [Маршрутизацію з урахуванням топології](/docs/concepts/services-networking/topology-aware-routing)
+* Дізнайтеся про [Політики зовнішнього трафіку Service](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
+* Скористайтесь довідником [Підключенням застосунків за допомогою Service](/docs/tutorials/services/connect-applications-service/).

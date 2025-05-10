@@ -39,7 +39,7 @@ weight: 80
 
 ## Власники, мітки та завершувачі {#owners-labels-finalizers}
 
-Так само як і {{<glossary_tooltip text="мітки" term_id="label">}}, [посилання на власника](/uk/docs/concepts/overview/working-with-objects/owners-dependents/) описують стосунки між обʼєктами в Kubernetes, але використовуються для іншої цілі. Коли {{<glossary_tooltip text="контролер" term_id="controller">}} керує обʼєктами типу Pod, він використовує мітки для відстеження змін у групах повʼязаних обʼєктів. Наприклад, коли {{<glossary_tooltip text="Завдання" term_id="job">}} створює один чи
+Так само як і {{<glossary_tooltip text="мітки" term_id="label">}}, [посилання на власника](/docs/concepts/overview/working-with-objects/owners-dependents/) описують стосунки між обʼєктами в Kubernetes, але використовуються для іншої цілі. Коли {{<glossary_tooltip text="контролер" term_id="controller">}} керує обʼєктами типу Pod, він використовує мітки для відстеження змін у групах повʼязаних обʼєктів. Наприклад, коли {{<glossary_tooltip text="Завдання" term_id="job">}} створює один чи
 декілька Podʼів, контролер Завдання додає мітки до цих Podʼів та відстежує зміни
 у будь-яких Podʼах у кластері з такою ж міткою.
 

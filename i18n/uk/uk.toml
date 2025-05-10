@@ -534,7 +534,7 @@ other = "Завантаження бінарних компонентів Kubern
 [release_binary_section]
 other = """Ви можете знайти посилання для завантаження компонентів версії <current-version> Kubernetes (разом з їх контрольними сумами) нижче.
 Щоб отримати доступ до завантажень для попередніх підтримуваних версій, перейдіть за відповідним посиланням в
-документації для [попередніх версій](/uk/docs/home/supported-doc-versions/#versions-older) або скористайтеся [downloadkubernetes.com](https://www.downloadkubernetes.com/)."""
+документації для [попередніх версій](/docs/home/supported-doc-versions/#versions-older) або скористайтеся [downloadkubernetes.com](https://www.downloadkubernetes.com/)."""
 
 # NOTE: <current-version> and <current-changelog-url> are placeholders set by 'release-binaries' shortcode.
 # Please do not localize or modify <current-version> and <current-changelog-url>  placeholders.

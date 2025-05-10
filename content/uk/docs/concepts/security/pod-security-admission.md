@@ -10,7 +10,7 @@ weight: 20
 
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
-Стандарти [безпеки Podʼів Kubernetes](/uk/docs/concepts/security/pod-security-standards/) визначають різні рівні ізоляції для Podʼів. Ці стандарти дозволяють визначити, як ви хочете обмежувати поведінку Podʼів в чіткий, послідовний спосіб.
+Стандарти [безпеки Podʼів Kubernetes](/docs/concepts/security/pod-security-standards/) визначають різні рівні ізоляції для Podʼів. Ці стандарти дозволяють визначити, як ви хочете обмежувати поведінку Podʼів в чіткий, послідовний спосіб.
 
 У Kubernetes є вбудований {{< glossary_tooltip text="контролер допуску" term_id="admission-controller" >}} _безпеки Pod_, щоб застосовувати Стандарти Безпеки Podʼів. Обмеження безпеки Podʼів застосовуються на рівні {{< glossary_tooltip text="просторі імен" term_id="namespace" >}} під час створення Podʼів.
 
@@ -22,7 +22,7 @@ weight: 20
 
 ## Рівні безпеки Podʼів {#pod-security-levels}
 
-Забезпечення Pod Security admission ставить вимоги до [Контексту Безпеки](/uk/docs/tasks/configure-pod-container/security-context/) Podʼа та інших повʼязаних полів відповідно до трьох рівнів, визначених [Стандартами безпеки Podʼів](/uk/docs/concepts/security/pod-security-standards): `privileged` (привілейований), `baseline` (базовий) та `restricted` (обмежений). Для докладного огляду цих вимог дивіться сторінку [Стандартів безпеки Podʼів](/uk/docs/concepts/security/pod-security-standards).
+Забезпечення Pod Security admission ставить вимоги до [Контексту Безпеки](/docs/tasks/configure-pod-container/security-context/) Podʼа та інших повʼязаних полів відповідно до трьох рівнів, визначених [Стандартами безпеки Podʼів](/docs/concepts/security/pod-security-standards): `privileged` (привілейований), `baseline` (базовий) та `restricted` (обмежений). Для докладного огляду цих вимог дивіться сторінку [Стандартів безпеки Podʼів](/docs/concepts/security/pod-security-standards).
 
 ## Мітки Pod Security Admission для просторів імен
 
@@ -32,7 +32,7 @@ weight: 20
 Режим | Опис
 :---------|:------------
 **enforce** | Порушення політики призведе до відмови обслуговування Podʼа.
-**audit** | Порушення політики спричинить додавання аудит-анотації до події, записаної в [аудит-лог](/uk/docs/tasks/debug/debug-cluster/audit/), але в іншому випадку буде дозволено.
+**audit** | Порушення політики спричинить додавання аудит-анотації до події, записаної в [аудит-лог](/docs/tasks/debug/debug-cluster/audit/), але в іншому випадку буде дозволено.
 **warn** | Порушення політики спричинить попередження для користувача, але в іншому випадку буде дозволено.
 {{< /table >}}
 
@@ -55,17 +55,17 @@ pod-security.kubernetes.io/<РЕЖИМ>: <РІВЕНЬ>
 pod-security.kubernetes.io/<РЕЖИМ>-version: <ВЕРСІЯ>
 ```
 
-Перегляньте [Застосування стандартів безпеки Podʼів з використанням міток просторів імен](/uk/docs/tasks/configure-pod-container/enforce-standards-namespace-labels), щоб побачити приклад використання.
+Перегляньте [Застосування стандартів безпеки Podʼів з використанням міток просторів імен](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels), щоб побачити приклад використання.
 
 ## Ресурси робочого навантаження та шаблони Podʼа {#workload-resources-and-pod-templates}
 
-Podʼи часто створюються не безпосередньо, а шляхом створення [обʼєкта робочого навантаження](/uk/docs/concepts/workloads/controllers/), такого як {{< glossary_tooltip term_id="deployment" >}} або {{< glossary_tooltip term_id="job">}}. Обʼєкт робочого навантаження визначає _шаблон Podʼа_ та {{< glossary_tooltip term_id="controller" text="контролер" >}} для ресурсу робочого навантаження, який створює Podʼи на основі цього шаблону. Щоб вчасно виявляти порушення, обидва режими аудиту та попередження застосовуються до ресурсів робочого навантаження. Проте режим виконання **не** застосовується до ресурсів робочого навантаження, а лише до отриманих обʼєктів Podʼа.
+Podʼи часто створюються не безпосередньо, а шляхом створення [обʼєкта робочого навантаження](/docs/concepts/workloads/controllers/), такого як {{< glossary_tooltip term_id="deployment" >}} або {{< glossary_tooltip term_id="job">}}. Обʼєкт робочого навантаження визначає _шаблон Podʼа_ та {{< glossary_tooltip term_id="controller" text="контролер" >}} для ресурсу робочого навантаження, який створює Podʼи на основі цього шаблону. Щоб вчасно виявляти порушення, обидва режими аудиту та попередження застосовуються до ресурсів робочого навантаження. Проте режим виконання **не** застосовується до ресурсів робочого навантаження, а лише до отриманих обʼєктів Podʼа.
 
 ## Виключення {#exemptions}
 
 Ви можете визначити _Виключення_ з виконання політики безпеки Podʼа, щоб дозволити створення Podʼів, які інакше були б заборонені через політику, повʼязану з певним простором імен.
 
-Виключення можна статично налаштувати в [конфігурації контролера допуску](/uk/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller).
+Виключення можна статично налаштувати в [конфігурації контролера допуску](/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller).
 
 Виключення повинні бути явно перераховані. Запити, які відповідають критеріям винятків, _ігноруються_ контролером допуску (всі поведінки `enforce`, `audit` та `warn` пропускаються). Винятків включають:
 
@@ -98,9 +98,9 @@ Podʼи часто створюються не безпосередньо, а ш
 
 ## {{% heading "whatsnext" %}}
 
-- [Стандарти безпеки Podʼів](/uk/docs/concepts/security/pod-security-standards)
-- [Застосування стандартів безпеки Podʼів](/uk/docs/setup/best-practices/enforcing-pod-security-standards)
-- [Застосування стандартів безпеки Podʼів за допомогою вбудованого контролера допуску](/uk/docs/tasks/configure-pod-container/enforce-standards-admission-controller)
-- [Застосування стандартів безпеки Podʼів з мітками простору імен](/uk/docs/tasks/configure-pod-container/enforce-standards-namespace-labels)
+- [Стандарти безпеки Podʼів](/docs/concepts/security/pod-security-standards)
+- [Застосування стандартів безпеки Podʼів](/docs/setup/best-practices/enforcing-pod-security-standards)
+- [Застосування стандартів безпеки Podʼів за допомогою вбудованого контролера допуску](/docs/tasks/configure-pod-container/enforce-standards-admission-controller)
+- [Застосування стандартів безпеки Podʼів з мітками простору імен](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels)
 
-Якщо ви використовуєте старішу версію Kubernetes і хочете оновитися до версії Kubernetes, яка не містить політик безпеки Podʼа, прочитайте [перехід від PodSecurityPolicy до вбудованого контролера допуску для безпеки Podʼа](/uk/docs/tasks/configure-pod-container/migrate-from-psp).
+Якщо ви використовуєте старішу версію Kubernetes і хочете оновитися до версії Kubernetes, яка не містить політик безпеки Podʼа, прочитайте [перехід від PodSecurityPolicy до вбудованого контролера допуску для безпеки Podʼа](/docs/tasks/configure-pod-container/migrate-from-psp).

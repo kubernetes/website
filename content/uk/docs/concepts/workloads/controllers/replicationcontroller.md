@@ -12,7 +12,7 @@ description: >-
 <!-- overview -->
 
 {{< note >}}
-[`Deployment`](/uk/docs/concepts/workloads/controllers/deployment/), який налаштовує [`ReplicaSet`](/uk/docs/concepts/workloads/controllers/replicaset/), тепер є рекомендованим способом налаштування реплікації.
+[`Deployment`](/docs/concepts/workloads/controllers/deployment/), який налаштовує [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/), тепер є рекомендованим способом налаштування реплікації.
 {{< /note >}}
 
 _ReplicationController_ гарантує, що завжди запущено зазначену кількість реплік Podʼів. Іншими словами, ReplicationController переконується, що Pod або однорідний набір Podʼів завжди працює та доступний.
@@ -99,9 +99,9 @@ nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 
 Як і з усіма іншими конфігураціями Kubernetes, для ReplicationController потрібні поля `apiVersion`, `kind` і `metadata`.
 
-Коли панель управління створює нові Podʼи для ReplicationController, `.metadata.name` ReplicationController є частиною основи для найменування цих Podʼів. Назва ReplicationController повинна бути дійсним значенням [DNS-піддомену](/uk/docs/concepts/overview/working-with-objects/names#dns-subdomain-names), але це може призводити до неочікуваних результатів для імен хостів Podʼів. Для забезпечення найкращої сумісності імʼя повинно відповідати більш обмеженим правилам для [DNS-мітки](/uk/docs/concepts/overview/working-with-objects/names#dns-label-names).
+Коли панель управління створює нові Podʼи для ReplicationController, `.metadata.name` ReplicationController є частиною основи для найменування цих Podʼів. Назва ReplicationController повинна бути дійсним значенням [DNS-піддомену](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names), але це може призводити до неочікуваних результатів для імен хостів Podʼів. Для забезпечення найкращої сумісності імʼя повинно відповідати більш обмеженим правилам для [DNS-мітки](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
-Для загальної інформації про роботу з файлами конфігурації дивіться [управління обʼєктами](/uk/docs/concepts/overview/working-with-objects/object-management/).
+Для загальної інформації про роботу з файлами конфігурації дивіться [управління обʼєктами](/docs/concepts/overview/working-with-objects/object-management/).
 
 ReplicationController також потребує розділу [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
@@ -109,13 +109,13 @@ ReplicationController також потребує розділу [`.spec`](https
 
 `.spec.template` — єдине обовʼязкове поле в розділі `.spec`.
 
-`.spec.template` — це [шаблон pod](/uk/docs/concepts/workloads/pods/#pod-templates). Він має точно таку ж схему, як і {{< glossary_tooltip text="Pod" term_id="pod" >}}, за винятком того, що він вкладений і не має `apiVersion` або `kind`.
+`.spec.template` — це [шаблон pod](/docs/concepts/workloads/pods/#pod-templates). Він має точно таку ж схему, як і {{< glossary_tooltip text="Pod" term_id="pod" >}}, за винятком того, що він вкладений і не має `apiVersion` або `kind`.
 
 Окрім обовʼязкових полів для Pod, шаблон pod в ReplicationController повинен вказати відповідні мітки та відповідну політику перезапуску. Щодо міток, переконайтеся, що вони не перекриваються з іншими контролерами. Див. [селектор pod](#pod-selector).
 
-Дозволяється лише [`.spec.template.spec.restartPolicy`](/uk/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy), рівна `Always`, якщо не вказано інше, що є стандартним значенням.
+Дозволяється лише [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy), рівна `Always`, якщо не вказано інше, що є стандартним значенням.
 
-Для локальних перезапусків контейнерів ReplicationControllers делегують агентові на вузлі, наприклад, [Kubelet](/uk/docs/reference/command-line-tools-reference/kubelet/).
+Для локальних перезапусків контейнерів ReplicationControllers делегують агентові на вузлі, наприклад, [Kubelet](/docs/reference/command-line-tools-reference/kubelet/).
 
 ### Мітки на ReplicationController {#labels-on-the-replicationcontrollers}
 
@@ -123,7 +123,7 @@ ReplicationController може мати власні мітки (`.metadata.labe
 
 ### Селектор Pod {#pod-selector}
 
-Поле `.spec.selector` є [селектором міток](/uk/docs/concepts/overview/working-with-objects/labels/#label-selectors). ReplicationController керує всіма Podʼами з мітками, які відповідають селектору. Він не робить різниці між Podʼами, які він створив чи видалив, і Podʼами, які створив чи видалив інший процес чи особа. Це дозволяє замінити ReplicationController без впливу на робочі Podʼи.
+Поле `.spec.selector` є [селектором міток](/docs/concepts/overview/working-with-objects/labels/#label-selectors). ReplicationController керує всіма Podʼами з мітками, які відповідають селектору. Він не робить різниці між Podʼами, які він створив чи видалив, і Podʼами, які створив чи видалив інший процес чи особа. Це дозволяє замінити ReplicationController без впливу на робочі Podʼи.
 
 Якщо вказано, то `.spec.template.metadata.labels` повинні бути рівні `.spec.selector`, або вони буде відхилені API. Якщо `.spec.selector` не вказано, він буде встановлений типово як `.spec.template.metadata.labels`.
 
@@ -141,17 +141,17 @@ ReplicationController може мати власні мітки (`.metadata.labe
 
 ### Видалення ReplicationController та його Podʼів {#deleting-a-replicationcontroller-and-its-pods}
 
-Щоб видалити ReplicationController та всі його Podʼи, використовуйте команду [`kubectl delete`](/uk/docs/reference/generated/kubectl/kubectl-commands#delete). Kubectl масштабує ReplicationController до нуля і чекає, доки кожний Pod буде видалено, перед видаленням самого ReplicationController. Якщо цю команду kubectl перервати, її можна перезапустити.
+Щоб видалити ReplicationController та всі його Podʼи, використовуйте команду [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete). Kubectl масштабує ReplicationController до нуля і чекає, доки кожний Pod буде видалено, перед видаленням самого ReplicationController. Якщо цю команду kubectl перервати, її можна перезапустити.
 
-При використанні REST API або [бібліотеки клієнта](/uk/docs/reference/using-api/client-libraries), вам потрібно виконати кроки явно (масштабування реплік до 0, очікування видалення Podʼів, а потім видалення самого ReplicationController).
+При використанні REST API або [бібліотеки клієнта](/docs/reference/using-api/client-libraries), вам потрібно виконати кроки явно (масштабування реплік до 0, очікування видалення Podʼів, а потім видалення самого ReplicationController).
 
 ### Видалення лише ReplicationController {#deleting-only-a-replicationcontroller}
 
 Ви можете видалити ReplicationController, не впливаючи на його Podʼи.
 
-При використанні kubectl вкажіть опцію `--cascade=orphan` команді [`kubectl delete`](/uk/docs/reference/generated/kubectl/kubectl-commands#delete).
+При використанні kubectl вкажіть опцію `--cascade=orphan` команді [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete).
 
-При використанні REST API або [бібліотеки клієнта](/uk/docs/reference/using-api/client-libraries) ви можете видалити обʼєкт ReplicationController.
+При використанні REST API або [бібліотеки клієнта](/docs/reference/using-api/client-libraries) ви можете видалити обʼєкт ReplicationController.
 
 Після видалення оригіналу ви можете створити новий ReplicationController, щоб замінити його. Поки старий та новий `.spec.selector` однакові, то новий прийме старі Podʼи. Однак він не буде вживати жодних зусиль, щоб наявні Podʼи відповідали новому, відмінному від оригінального, шаблону Podʼа. Щоб оновити Podʼи за новою специфікацією у керований спосіб, використовуйте [кероване оновлення](#rolling-updates).
 
@@ -211,11 +211,11 @@ ReplicationController є ресурсом верхнього рівня в Kuber
 
 ### ReplicaSet
 
-[`ReplicaSet`](/uk/docs/concepts/workloads/controllers/replicaset/) — це ReplicationController нового покоління, який підтримує нові [вимоги щодо вибору міток на основі множин](/uk/docs/concepts/overview/working-with-objects/labels/#set-based-requirement). Він використовується головним чином [Deployment](/uk/docs/concepts/workloads/controllers/deployment/) як механізм для оркестрування створення, видалення та оновлення Podʼів. Зауважте, що ми рекомендуємо використовувати Deployments замість безпосереднього використання Replica Sets, якщо вам потрібна власне оркестрування оновлення або взагалі не потрібні оновлення.
+[`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) — це ReplicationController нового покоління, який підтримує нові [вимоги щодо вибору міток на основі множин](/docs/concepts/overview/working-with-objects/labels/#set-based-requirement). Він використовується головним чином [Deployment](/docs/concepts/workloads/controllers/deployment/) як механізм для оркестрування створення, видалення та оновлення Podʼів. Зауважте, що ми рекомендуємо використовувати Deployments замість безпосереднього використання Replica Sets, якщо вам потрібна власне оркестрування оновлення або взагалі не потрібні оновлення.
 
 ### Deployment (Рекомендовано) {#deployment-recommended}
 
-[`Deployment`](/uk/docs/concepts/workloads/controllers/deployment/) — це обʼєкт API вищого рівня, який оновлює свої базові Replica Sets та їхні Podʼи. Deployments рекомендуються, якщо вам потрібна функціональність плавного оновлення, оскільки вони є декларативними, виконуються на сервері та мають додаткові функції.
+[`Deployment`](/docs/concepts/workloads/controllers/deployment/) — це обʼєкт API вищого рівня, який оновлює свої базові Replica Sets та їхні Podʼи. Deployments рекомендуються, якщо вам потрібна функціональність плавного оновлення, оскільки вони є декларативними, виконуються на сервері та мають додаткові функції.
 
 ### Тільки Podʼи {#bare-pods}
 
@@ -223,14 +223,14 @@ ReplicationController є ресурсом верхнього рівня в Kuber
 
 ### Job
 
-Використовуйте [`Job`](/uk/docs/concepts/workloads/controllers/job/) замість ReplicationController для Podʼів, які мають завершуватись самі по собі (іншими словами, пакетні завдання).
+Використовуйте [`Job`](/docs/concepts/workloads/controllers/job/) замість ReplicationController для Podʼів, які мають завершуватись самі по собі (іншими словами, пакетні завдання).
 
 ### DaemonSet
 
-Використовуйте [`DaemonSet`](/uk/docs/concepts/workloads/controllers/daemonset/) замість ReplicationController для Podʼів, які забезпечують функцію рівня машини, таку як моніторинг машини або ведення логу машини. Ці Podʼи мають термін служби, який повʼязаний із терміном служби машини: Pod повинty працювати на машині перед тим, як інші Podʼи почнуть працювати, і може бути безпечно завершений, коли машина готова до перезавантаження або вимкнення.
+Використовуйте [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) замість ReplicationController для Podʼів, які забезпечують функцію рівня машини, таку як моніторинг машини або ведення логу машини. Ці Podʼи мають термін служби, який повʼязаний із терміном служби машини: Pod повинty працювати на машині перед тим, як інші Podʼи почнуть працювати, і може бути безпечно завершений, коли машина готова до перезавантаження або вимкнення.
 
 ## {{% heading "whatsnext" %}}
 
-* Більше про [Podʼи](/uk/docs/concepts/workloads/pods).
-* Дізнайтеся більше про [Deployment](/uk/docs/concepts/workloads/controllers/deployment/), альтернативу ReplicationController.
+* Більше про [Podʼи](/docs/concepts/workloads/pods).
+* Дізнайтеся більше про [Deployment](/docs/concepts/workloads/controllers/deployment/), альтернативу ReplicationController.
 * `ReplicationController` — це частина Kubernetes REST API. Ознайомтесь з визначенням обʼєкта {{< api-reference page="workload-resources/replication-controller-v1" >}}, щоб зрозуміти API для контролерів реплікації.

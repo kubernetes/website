@@ -88,4 +88,4 @@ curl http://localhost:8080/api/v1/namespaces/default/pods
 
 ## {{% heading "whatsnext" %}}
 
-Дізнайтеся більше про [kubectl proxy](/uk/docs/reference/generated/kubectl/kubectl-commands#proxy).
+Дізнайтеся більше про [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands#proxy).

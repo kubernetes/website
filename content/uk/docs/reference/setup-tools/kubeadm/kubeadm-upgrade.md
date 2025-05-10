@@ -12,11 +12,11 @@ weight: 40
 
 ## Інструкція kubeadm upgrade {#kubeadm-upgrade-guidance}
 
-Кроки для виконання оновлення за допомогою kubeadm викладені в [цьому документі](/uk/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/). Для старіших версій kubeadm, будь ласка, зверніться до старих наборів документації на сайті Kubernetes.
+Кроки для виконання оновлення за допомогою kubeadm викладені в [цьому документі](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/). Для старіших версій kubeadm, будь ласка, зверніться до старих наборів документації на сайті Kubernetes.
 
 Ви можете використовувати `kubeadm upgrade diff` для перегляду змін, які будуть застосовані до маніфестів статичних Pod.
 
-У Kubernetes версії v1.15.0 і пізніше, `kubeadm upgrade apply` та `kubeadm upgrade node` також автоматично оновлять сертифікати, керовані kubeadm на цьому вузлі, включаючи ті, що зберігаються у файлах kubeconfig. Щоб відмовитися від цього, можна передати прапорець `--certificate-renewal=false`. Для отримання додаткової інформації про оновлення сертифікатів дивіться [документацію з управління сертифікатами](/uk/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
+У Kubernetes версії v1.15.0 і пізніше, `kubeadm upgrade apply` та `kubeadm upgrade node` також автоматично оновлять сертифікати, керовані kubeadm на цьому вузлі, включаючи ті, що зберігаються у файлах kubeconfig. Щоб відмовитися від цього, можна передати прапорець `--certificate-renewal=false`. Для отримання додаткової інформації про оновлення сертифікатів дивіться [документацію з управління сертифікатами](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
 
 {{< note >}}
 Команди `kubeadm upgrade apply` та `kubeadm upgrade plan` мають застарілий прапорець `--config`, який дозволяє переналаштувати кластер під час планування або оновлення конкретного вузла панелі управління. Будь ласка, зверніть увагу, що робочий процес оновлення не був розроблений для цього сценарію, і можуть бути повідомлення про несподівані результати.
@@ -40,4 +40,4 @@ weight: 40
 
 ## {{% heading "whatsnext" %}}
 
-* [kubeadm config](/uk/docs/reference/setup-tools/kubeadm/kubeadm-config/) якщо ви ініціалізували свій кластер за допомогою kubeadm версії 1.7.x або нижче, щоб налаштувати ваш кластер для оновлення за допомогою `kubeadm upgrade`.
+* [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/) якщо ви ініціалізували свій кластер за допомогою kubeadm версії 1.7.x або нижче, щоб налаштувати ваш кластер для оновлення за допомогою `kubeadm upgrade`.

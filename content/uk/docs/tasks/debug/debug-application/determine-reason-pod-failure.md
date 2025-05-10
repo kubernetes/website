@@ -8,7 +8,7 @@ weight: 31
 
 Ця сторінка показує, як записувати та читати повідомлення про припинення роботи контейнера.
 
-Повідомлення про припинення роботи надають можливість контейнерам записувати інформацію про фатальні події у місце, звідки її можна легко витягти та показувати за допомогою інструментів, таких як інформаційні панелі та програмне забезпечення моніторингу. У більшості випадків інформацію, яку ви вводите у повідомлення про припинення роботи, також слід записати в [логи Kubernetes](/uk/docs/concepts/cluster-administration/logging/).
+Повідомлення про припинення роботи надають можливість контейнерам записувати інформацію про фатальні події у місце, звідки її можна легко витягти та показувати за допомогою інструментів, таких як інформаційні панелі та програмне забезпечення моніторингу. У більшості випадків інформацію, яку ви вводите у повідомлення про припинення роботи, також слід записати в [логи Kubernetes](/docs/concepts/cluster-administration/logging/).
 
 ## {{% heading "prerequisites" %}}
 
@@ -101,8 +101,8 @@ spec:
 ## {{% heading "whatsnext" %}}
 
 * Перегляньте поле `terminationMessagePath` в [Контейнері](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).
-* Перегляньте [ImagePullBackOff](/uk/docs/concepts/containers/images/#imagepullbackoff) в [Образах](/uk/docs/concepts/containers/images/).
-* Дізнайтеся про [отримання логів](/uk/docs/concepts/cluster-administration/logging/).
+* Перегляньте [ImagePullBackOff](/docs/concepts/containers/images/#imagepullbackoff) в [Образах](/docs/concepts/containers/images/).
+* Дізнайтеся про [отримання логів](/docs/concepts/cluster-administration/logging/).
 * Дізнайтеся про [шаблони Go](https://pkg.go.dev/text/template).
-* Дізнайтеся про [стани Pod](/uk/docs/tasks/debug/debug-application/debug-init-containers/#understanding-pod-status) та [фази Pod](/uk/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase).
-* Дізнайтеся про [стани контейнера](/uk/docs/concepts/workloads/pods/pod-lifecycle/#container-states).
+* Дізнайтеся про [стани Pod](/docs/tasks/debug/debug-application/debug-init-containers/#understanding-pod-status) та [фази Pod](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase).
+* Дізнайтеся про [стани контейнера](/docs/concepts/workloads/pods/pod-lifecycle/#container-states).

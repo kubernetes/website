@@ -129,4 +129,4 @@ kubectl exec -i -t my-pod --container main-app -- /bin/bash
 
 ## {{% heading "whatsnext" %}}
 
-* Прочитайте про [kubectl exec](/uk/docs/reference/generated/kubectl/kubectl-commands/#exec)
+* Прочитайте про [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)

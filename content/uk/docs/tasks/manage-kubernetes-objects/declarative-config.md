@@ -10,7 +10,7 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
-Встановіть [`kubectl`](/uk/docs/tasks/tools/).
+Встановіть [`kubectl`](/docs/tasks/tools/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -24,14 +24,14 @@ weight: 10
 * Імперативне конфігурування обʼєктів
 * Декларативне конфігурування обʼєктів
 
-Див. [Управління обʼєктами Kubernetes](/uk/docs/concepts/overview/working-with-objects/object-management/) для обговорення переваг та недоліків кожного виду управління обʼєктами.
+Див. [Управління обʼєктами Kubernetes](/docs/concepts/overview/working-with-objects/object-management/) для обговорення переваг та недоліків кожного виду управління обʼєктами.
 
 ## Огляд {#overview}
 
 Декларативна конфігурація обʼєктів потребує чіткого розуміння визначень та конфігурації обʼєктів Kubernetes. Прочитайте наступні документи, якщо ви ще цього не зробили:
 
-* [Управління обʼєктами Kubernetes за допомогою імперативних команд](/uk/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [Імперативне управління обʼєктами Kubernetes за допомогою файлів конфігурації](/uk/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [Управління обʼєктами Kubernetes за допомогою імперативних команд](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [Імперативне управління обʼєктами Kubernetes за допомогою файлів конфігурації](/docs/tasks/manage-kubernetes-objects/imperative-config/)
 
 Нижче подано визначення термінів, використаних у цьому документі:
 
@@ -64,9 +64,9 @@ kubectl diff -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
 
 {{< note >}}
-`diff` використовує [запуск без внесення змін на сервері (dry-run)](/uk/docs/reference/using-api/api-concepts/#dry-run), таку можливість потрібно ввімкнути на `kube-apiserver`.
+`diff` використовує [запуск без внесення змін на сервері (dry-run)](/docs/reference/using-api/api-concepts/#dry-run), таку можливість потрібно ввімкнути на `kube-apiserver`.
 
-Оскільки `diff` виконує запит на стороні сервера для застосування в режимі без внесення змін, для його роботи потрібно дозволити дії `PATCH`, `CREATE` та `UPDATE`. Детальніше див. [Авторизація запуску dry-run](/uk/docs/reference/using-api/api-concepts#dry-run-authorization).
+Оскільки `diff` виконує запит на стороні сервера для застосування в режимі без внесення змін, для його роботи потрібно дозволити дії `PATCH`, `CREATE` та `UPDATE`. Детальніше див. [Авторизація запуску dry-run](/docs/reference/using-api/api-concepts#dry-run-authorization).
 {{< /note >}}
 
 Створіть обʼєкт за допомогою `kubectl apply`:
@@ -915,7 +915,7 @@ template:
 
 ## {{% heading "whatsnext" %}}
 
-* [Керування обʼєктами Kubernetes за допомогою імперативних команд](/uk/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [Імперативне керування обʼєктами Kubernetes за допомогою конфігураційних файлів](/uk/docs/tasks/manage-kubernetes-objects/imperative-config/)
-* [Довідник команд kubectl](/uk/docs/reference/generated/kubectl/kubectl-commands/)
+* [Керування обʼєктами Kubernetes за допомогою імперативних команд](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [Імперативне керування обʼєктами Kubernetes за допомогою конфігураційних файлів](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [Довідник команд kubectl](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Довідник API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)

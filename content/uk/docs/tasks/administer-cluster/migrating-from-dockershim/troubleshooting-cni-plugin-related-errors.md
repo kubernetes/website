@@ -41,7 +41,7 @@ error="failed to destroy network for sandbox \"bbc85f891eaf060c5a879e27bba9b6b06
 
 Ось огляд типових кроків для кожного вузла:
 
-1. [Безпечно виведіть та введіть вузол в експлуатацію](/uk/docs/tasks/administer-cluster/safely-drain-node/).
+1. [Безпечно виведіть та введіть вузол в експлуатацію](/docs/tasks/administer-cluster/safely-drain-node/).
 1. Після зупинки ваших служб середовища виконання контейнерів та kubelet виконайте наступні операції оновлення:
 
    - Якщо ви використовуєте втулки CNI, оновіть їх до останньої версії.

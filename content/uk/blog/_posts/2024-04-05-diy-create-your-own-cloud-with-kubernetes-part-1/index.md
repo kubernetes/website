@@ -158,6 +158,6 @@ cozy-victoria-metrics-operator   victoria-metrics-operator   4m1s   True    Rele
 
 Як результат, ви досягаєте високо відтворюваного середовища, яке можна надати будь-кому, знаючи, що воно працює саме так, як потрібно. Це, власне, і є метою проєкту [Cozystack](https://github.com/aenix-io/cozystack), який ви можете спробувати абсолютно вільно.
 
-У наступних статтях я розповім про те [як підготувати Kubernetes для запуску віртуальних машин](/uk/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-2/) та [як запускати кластери Kubernetes натисканням кнопки](/uk/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-3/).
+У наступних статтях я розповім про те [як підготувати Kubernetes для запуску віртуальних машин](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-2/) та [як запускати кластери Kubernetes натисканням кнопки](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-3/).
 
 Залишайтеся з нами, буде цікаво!

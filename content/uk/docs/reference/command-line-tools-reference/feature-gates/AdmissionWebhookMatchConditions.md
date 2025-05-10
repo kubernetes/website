@@ -17,5 +17,8 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.30"
+    toVersion: "1.32"
+
+removed: true
 ---
 Вмикає [умови збігу](/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requestions-matchconditions) для модифікації та перевірки вебхуків допуску.

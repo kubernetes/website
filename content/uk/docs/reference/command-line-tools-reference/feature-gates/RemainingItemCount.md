@@ -17,5 +17,8 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.29"
+    toVersion: "1.32"
+
+removed: true
 ---
 Дозволити серверам API показувати кількість елементів, що залишилися, у відповіді на запит [chunking list request](/docs/reference/using-api/api-concepts/#retrieving-large-results-sets-in-chunks).

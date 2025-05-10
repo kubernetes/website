@@ -21,7 +21,7 @@ weight: 100
 Потім виконайте наступну команду:
 
 ```shell
-git clone https://www.github.com/kubernetes/kubernetes 
+git clone https://www.github.com/kubernetes/kubernetes
 ```
 
 Це створить теку `kubernetes` у вашій поточній робочій теці.
@@ -73,10 +73,10 @@ git status
 
 ## Створіть pull request {#create-a-pull-request}
 
-Щоб створити pull request, дотримуйтесь інструкцій у розділі [Відкриття pull request](/uk/docs/contribute/new-content/open-a-pr/).
+Щоб створити pull request, дотримуйтесь інструкцій у розділі [Відкриття pull request](/docs/contribute/new-content/open-a-pr/).
 
 ## {{% heading "whatsnext" %}}
 
-* [Внесок у код Kubernetes](/uk/docs/contribute/generate-ref-docs/contribute-upstream/)
-* [Генерація довідкової документації для компонентів і інструментів Kubernetes](/uk/docs/contribute/generate-ref-docs/kubernetes-components/)
-* [Генерація довідкової документації для команд kubectl](/uk/docs/contribute/generate-ref-docs/kubectl/)
+* [Внесок у код Kubernetes](/docs/contribute/generate-ref-docs/contribute-upstream/)
+* [Генерація довідкової документації для компонентів і інструментів Kubernetes](/docs/contribute/generate-ref-docs/kubernetes-components/)
+* [Генерація довідкової документації для команд kubectl](/docs/contribute/generate-ref-docs/kubectl/)

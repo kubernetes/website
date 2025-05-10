@@ -14,7 +14,7 @@ weight: 70
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-Перш ніж виконувати це завдання, виконайте завдання [Оголошення розширених ресурсів для вузла](/uk/docs/tasks/administer-cluster/extended-resource-node/). Це налаштує один з ваших вузлів для оголошення ресурсу "dongle".
+Перш ніж виконувати це завдання, виконайте завдання [Оголошення розширених ресурсів для вузла](/docs/tasks/administer-cluster/extended-resource-node/). Це налаштує один з ваших вузлів для оголошення ресурсу "dongle".
 
 <!-- steps -->
 
@@ -115,9 +115,9 @@ kubectl delete pod extended-resource-demo-2
 
 ### Для розробників застосунків {#for-app-developers}
 
-* [Призначення ресурсів памʼяті для контейнерів та Podʼів](/uk/docs/tasks/configure-pod-container/assign-memory-resource/)
-* [Призначення ресурсів CPU для контейнерів та Podʼів](/uk/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [Призначення ресурсів памʼяті для контейнерів та Podʼів](/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [Призначення ресурсів CPU для контейнерів та Podʼів](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 ### Для адміністраторів кластера {#for-cluster-administrators}
 
-* [Оголошення розширених ресурсів для вузла](/uk/docs/tasks/administer-cluster/extended-resource-node/)
+* [Оголошення розширених ресурсів для вузла](/docs/tasks/administer-cluster/extended-resource-node/)

@@ -96,7 +96,7 @@ other = "다음 내용"
 - У розділі `body` поясніть концепцію.
 - Для розділу `whatsnext` надайте список із кількох пунктів для подальшого вивчення теми.
 
-Приклад опублікованої сторінки концепту: [Анотації](/uk/docs/concepts/overview/working-with-objects/annotations/).
+Приклад опублікованої сторінки концепту: [Анотації](/docs/concepts/overview/working-with-objects/annotations/).
 
 ### Завдання {#task}
 
@@ -123,7 +123,7 @@ other = "다음 내용"
 - У розділі `discussion` використовуйте звичайний контент для розширення інформації, про яку йдеться у розділі `steps`.
 - У розділі `whatsnext` надайте список із кількох тем, які можуть зацікавити читача далі.
 
-Приклад опублікованої сторінки завдання: [Використання HTTP-проксі для доступу до API Kubernetes](/uk/docs/tasks/extend-kubernetes/http-proxy-access-api/).
+Приклад опублікованої сторінки завдання: [Використання HTTP-проксі для доступу до API Kubernetes](/docs/tasks/extend-kubernetes/http-proxy-access-api/).
 
 ### Посібник {#tutorial}
 
@@ -152,7 +152,7 @@ other = "다음 내용"
 - У розділі `cleanup` використовуйте пронумеровані списки для опису кроків, необхідних для очищення стану кластера після завершення завдання.
 - У розділі `whatsnext` надайте список із кількох тем, які можуть зацікавити читача далі.
 
-Приклад опублікованої сторінки посібника: [Запуск застосунку без збереження стану за допомогою Deployment](/uk/docs/tasks/run-application/run-stateless-application-deployment/).
+Приклад опублікованої сторінки посібника: [Запуск застосунку без збереження стану за допомогою Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
 
 ### Довідка {#reference}
 
@@ -170,12 +170,12 @@ other = "다음 내용"
 
 Приклади опублікованих сторінок довідки з інструмента:
 
-- [kubeadm init](/uk/docs/reference/setup-tools/kubeadm/kubeadm-init/)
-- [kube-apiserver](/uk/docs/reference/command-line-tools-reference/kube-apiserver/)
-- [kubectl](/uk/docs/reference/kubectl/kubectl/)
+- [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/)
+- [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
+- [kubectl](/docs/reference/kubectl/kubectl/)
 
 ## {{% heading "whatsnext" %}}
 
-- Дізнайтеся про [настанови зі стилю](/uk/docs/contribute/style/style-guide/)
-- Дізнайтеся про [настанови з контенту](/uk/docs/contribute/style/content-guide/)
-- Дізнайтеся про [організацію контенту](/uk/docs/contribute/style/content-organization/)
+- Дізнайтеся про [настанови зі стилю](/docs/contribute/style/style-guide/)
+- Дізнайтеся про [настанови з контенту](/docs/contribute/style/content-guide/)
+- Дізнайтеся про [організацію контенту](/docs/contribute/style/content-organization/)

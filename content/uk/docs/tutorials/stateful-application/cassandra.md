@@ -7,7 +7,7 @@ weight: 30
 <!-- overview -->
 Цей підручник покаже вам, як запустити [Apache Cassandra](https://cassandra.apache.org/) у Kubernetes. Cassandra, база даних, потребує постійного сховища для забезпечення стійкості даних (_стан_ застосунку). У цьому прикладі використовується власний постачальник насіння Cassandra, що дозволяє базі даних виявляти нові екземпляри Cassandra, коли вони приєднуються до кластера Cassandra.
 
-*StatefulSet* полегшує розгортання стійких застосунків у вашому кластері Kubernetes. Для отримання додаткової інформації про використані у цьому підручнику функції дивіться [StatefulSet](/uk/docs/concepts/workloads/controllers/statefulset/).
+*StatefulSet* полегшує розгортання стійких застосунків у вашому кластері Kubernetes. Для отримання додаткової інформації про використані у цьому підручнику функції дивіться [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 
 {{< note >}}
 Cassandra та Kubernetes використовують термін _вузол_ для позначення члена кластера. У цьому підручнику Podʼи, що належать StatefulSet, є вузлами Cassandra та є членами кластера Cassandra (званого _кільцем_ (_ring_)). Коли ці Podʼи працюють у вашому кластері Kubernetes, панель управління Kubernetes розміщує ці Podʼи на {{< glossary_tooltip text="Вузлах" term_id="node" >}} Kubernetes.
@@ -70,7 +70,7 @@ NAME        TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
 cassandra   ClusterIP   None         <none>        9042/TCP   45s
 ```
 
-Якщо ви не бачите Service з назвою `cassandra`, це означає, що його створення не вдалося. Прочитайте [Налагодження Service](/uk/docs/tasks/debug/debug-application/debug-service/), щоб отримати довідку з усунення загальних проблем.
+Якщо ви не бачите Service з назвою `cassandra`, це означає, що його створення не вдалося. Прочитайте [Налагодження Service](/docs/tasks/debug/debug-application/debug-service/), щоб отримати довідку з усунення загальних проблем.
 
 ## Використання StatefulSet для створення кільця Cassandra {#using-a-statefulset-to-create-a-cassandra-ring}
 
@@ -244,6 +244,6 @@ Podʼи в цьому посібнику використовують образ
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся, як [Масштабувати StatefulSet](/uk/docs/tasks/run-application/scale-stateful-set/).
+* Дізнайтеся, як [Масштабувати StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
 * Дізнайтеся більше про [*KubernetesSeedProvider*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)
 * Подивіться інші [налаштування постачальника насіння](https://git.k8s.io/examples/cassandra/java/README.md)

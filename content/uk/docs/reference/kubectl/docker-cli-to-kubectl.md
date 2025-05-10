@@ -12,7 +12,7 @@ weight: 50
 
 ## docker run
 
-Щоб запустити Deployment nginx і експонувати Deployment, див. [kubectl create deployment](/uk/docs/reference/generated/kubectl/kubectl-commands#-em-deployment-em-).
+Щоб запустити Deployment nginx і експонувати Deployment, див. [kubectl create deployment](/docs/reference/generated/kubectl/kubectl-commands#-em-deployment-em-).
 
 docker:
 
@@ -66,9 +66,9 @@ kubectl expose deployment nginx-app --port=80 --name=nginx-http
 service "nginx-http" exposed
 ```
 
-За допомогою kubectl ви можете створити [Deployment](/uk/docs/concepts/workloads/controllers/deployment/), щоб переконатися, що N Podʼів працюють під управлінням nginx, де N — це кількість реплік, вказана у специфікації, типово дорівнює 1. Ви також можете створити [Service](/uk/docs/concepts/services-networking/service/) з селектором, який відповідає міткам Podʼів. Докладні відомості наведено у статті [Використання Service для доступу до застосунку у кластері](/uk/docs/tasks/access-application-cluster/service-access-application-cluster).
+За допомогою kubectl ви можете створити [Deployment](/docs/concepts/workloads/controllers/deployment/), щоб переконатися, що N Podʼів працюють під управлінням nginx, де N — це кількість реплік, вказана у специфікації, типово дорівнює 1. Ви також можете створити [Service](/docs/concepts/services-networking/service/) з селектором, який відповідає міткам Podʼів. Докладні відомості наведено у статті [Використання Service для доступу до застосунку у кластері](/docs/tasks/access-application-cluster/service-access-application-cluster).
 
-Стандартно образи запускаються у фоновому режимі, подібно до `docker run -d ...`. Щоб запустити щось на передньому плані, скористайтеся [`kubectl run`](/uk/docs/reference/generated/kubectl/kubectl-commands/#run) для створення Pod:
+Стандартно образи запускаються у фоновому режимі, подібно до `docker run -d ...`. Щоб запустити щось на передньому плані, скористайтеся [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) для створення Pod:
 
 ```shell
 kubectl run [-i] [--tty] --attach <name> --image=<image>
@@ -78,7 +78,7 @@ kubectl run [-i] [--tty] --attach <name> --image=<image>
 
 ## docker ps
 
-Для виводу переліку того, що працює, скористайтеся командою [`kubectl get`](/uk/docs/reference/generated/kubectl/kubectl-commands/#get):
+Для виводу переліку того, що працює, скористайтеся командою [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get):
 
 docker:
 
@@ -106,7 +106,7 @@ ubuntu                      0/1       Completed   0          20s
 
 ## docker attach
 
-Щоб приєднати процес, який вже запущено у контейнері, див. [kubectl attach](/uk/docs/reference/generated/kubectl/kubectl-commands/#attach).
+Щоб приєднати процес, який вже запущено у контейнері, див. [kubectl attach](/docs/reference/generated/kubectl/kubectl-commands/#attach).
 
 docker:
 
@@ -144,7 +144,7 @@ kubectl attach -it nginx-app-5jyvm
 
 ## docker exec
 
-Щоб виконати команду у контейнері, див. [kubectl exec](/uk/docs/reference/generated/kubectl/kubectl-commands/#exec).
+Щоб виконати команду у контейнері, див. [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec).
 
 docker:
 
@@ -200,11 +200,11 @@ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 # exit
 ```
 
-Докладнішу інформацію наведено у статті [Отримання доступу до оболонки запущеного контейнера](/uk/docs/tasks/debug/debug-application/get-shell-running-container/).
+Докладнішу інформацію наведено у статті [Отримання доступу до оболонки запущеного контейнера](/docs/tasks/debug/debug-application/get-shell-running-container/).
 
 ## docker logs
 
-Щоб переглянути stdout/stderr запущеного процесу, див. [kubectl logs](/uk/docs/reference/generated/kubectl/kubectl-commands/#logs).
+Щоб переглянути stdout/stderr запущеного процесу, див. [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands/#logs).
 
 
 docker:
@@ -240,11 +240,11 @@ kubectl logs --previous nginx-app-zibvs
 10.240.63.110 - - [14/Jul/2015:01:09:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 ```
 
-Для отримання додаткової інформації див. [Архітектура логування](/uk/docs/concepts/cluster-administration/logging/).
+Для отримання додаткової інформації див. [Архітектура логування](/docs/concepts/cluster-administration/logging/).
 
 ## docker stop та docker rm {#docker-stop-and-docker-rm}
 
-Щоб зупинити і видалити запущений процес, див. [kubectl delete](/uk/docs/reference/generated/kubectl/kubectl-commands/#delete).
+Щоб зупинити і видалити запущений процес, див. [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands/#delete).
 
 docker:
 
@@ -312,11 +312,11 @@ kubectl get po -l app=nginx-app
 
 ## docker login
 
-У kubectl немає прямого аналога `docker login`. Якщо вас цікавить використання Kubernetes з приватним реєстром, див. [Використання приватного реєстру](/uk/docs/concepts/containers/images/#using-a-private-registry).
+У kubectl немає прямого аналога `docker login`. Якщо вас цікавить використання Kubernetes з приватним реєстром, див. [Використання приватного реєстру](/docs/concepts/containers/images/#using-a-private-registry).
 
 ## docker version
 
-Щоб отримати версії клієнта і сервера, див. [kubectl version](/uk/docs/reference/generated/kubectl/kubectl-commands/#version).
+Щоб отримати версії клієнта і сервера, див. [kubectl version](/docs/reference/generated/kubectl/kubectl-commands/#version).
 
 docker:
 
@@ -350,7 +350,7 @@ Server Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4
 
 ## docker info
 
-Для отримання різноманітної інформації про середовище та конфігурацію див. [kubectl cluster-info](/uk/docs/reference/generated/kubectl/kubectl-commands/#cluster-info).
+Для отримання різноманітної інформації про середовище та конфігурацію див. [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands/#cluster-info).
 
 docker:
 

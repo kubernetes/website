@@ -17,6 +17,6 @@ FlexVolume — інтерфейс, зараз визнаний застаріл
 
 FlexVolumes дозволяють користувачам писати свої власні драйвери та додавати підтримку своїх томів в Kubernetes. Бінарні файли та залежності драйверів FlexVolume повинні бути встановлені на машинах-хостах. Це вимагає прав адміністратора. Група Storage SIG рекомендує використовувати {{< glossary_tooltip text="CSI" term_id="csi" >}} драйвер, якщо це можливо, оскільки він вирішує обмеження, повʼязані з FlexVolumes.
 
-* [FlexVolume в документації Kubernetes](/uk/docs/concepts/storage/volumes/#flexvolume)
+* [FlexVolume в документації Kubernetes](/docs/concepts/storage/volumes/#flexvolume)
 * [Додаткова інформація про FlexVolumes](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
 * [ЧаПи про втулки роботи з томами в Kubernetes для постачальників рішень](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md)

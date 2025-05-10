@@ -13,7 +13,7 @@ weight: 10
 
 Ви можете зареєструватися на Kubernetes Slack за адресою https://slack.k8s.io/.
 
-Для отримання інформації про створення нового вмісту для документації Kubernetes, дотримуйтесь [посібника зі стилю](/uk/docs/contribute/style/style-guide).
+Для отримання інформації про створення нового вмісту для документації Kubernetes, дотримуйтесь [посібника зі стилю](/docs/contribute/style/style-guide).
 
 <!-- body -->
 
@@ -37,7 +37,7 @@ weight: 10
 
 Посилання на активний вміст у проєкті Kubernetes завжди дозволені.
 
-Для функціонування Kubernetes необхідний деякий сторонній вміст. Прикладами є контейнерні середовища (containerd, CRI-O, Docker), [мережева політика](/uk/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) (втулки CNI), [контролери Ingress](/uk/docs/concepts/services-networking/ingress-controllers/), та [логування](/uk/docs/concepts/cluster-administration/logging/).
+Для функціонування Kubernetes необхідний деякий сторонній вміст. Прикладами є контейнерні середовища (containerd, CRI-O, Docker), [мережева політика](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) (втулки CNI), [контролери Ingress](/docs/concepts/services-networking/ingress-controllers/), та [логування](/docs/concepts/cluster-administration/logging/).
 
 Документація може посилатися на стороннє програмне забезпечення з відкритим вихідним кодом (OSS) поза проєктом Kubernetes тільки якщо воно необхідне для функціонування Kubernetes.
 
@@ -57,4 +57,4 @@ weight: 10
 
 ## {{% heading "whatsnext" %}}
 
-- Ознайомтесь з [посібником зі стилю](/uk/docs/contribute/style/style-guide).
+- Ознайомтесь з [посібником зі стилю](/docs/contribute/style/style-guide).

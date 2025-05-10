@@ -83,7 +83,7 @@ toc_hide: true
 
 Окрім окремих контентних сторінок (файли Markdown), Hugo підтримує [Пакети сторінок](https://gohugo.io/content-management/page-bundles/).
 
-Один приклад — [Custom Hugo Shortcodes](/uk/docs/contribute/style/hugo-shortcodes/). Це вважається `leaf bundle`. Все, що знаходиться нижче теки, включаючи `index.md`, буде частиною пакета. Це також включає посилання, що є відносними до сторінки, зображення, які можна обробити тощо:
+Один приклад — [Custom Hugo Shortcodes](/docs/contribute/style/hugo-shortcodes/). Це вважається `leaf bundle`. Все, що знаходиться нижче теки, включаючи `index.md`, буде частиною пакета. Це також включає посилання, що є відносними до сторінки, зображення, які можна обробити тощо:
 
 ```bash
 en/docs/home/contribute/includes
@@ -118,6 +118,6 @@ en/includes
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся про [власні shortcodes Hugo](/uk/docs/contribute/style/hugo-shortcodes/)
-* Дізнайтеся про [настанови зі стилю](/uk/docs/contribute/style/style-guide)
-* Дізнайтеся про [настанови з контенту](/uk/docs/contribute/style/content-guide)
+* Дізнайтеся про [власні shortcodes Hugo](/docs/contribute/style/hugo-shortcodes/)
+* Дізнайтеся про [настанови зі стилю](/docs/contribute/style/style-guide)
+* Дізнайтеся про [настанови з контенту](/docs/contribute/style/content-guide)

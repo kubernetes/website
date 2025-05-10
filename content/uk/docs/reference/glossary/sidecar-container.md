@@ -15,4 +15,4 @@ tags:
 
 Sidecar контейнери схожі на звичайні контейнери застосунків, але вони мають інше призначення: sidecar контейнер надає локальні послуги для Podʼа основному контейнеру застосунку. На відміну від {{< glossary_tooltip text="контейнерів ініціалізації" term_id="init-container" >}}, sidecar контейнери продовжують виконуватися після запуску Podʼа.
 
-Докладніше дивіться [Sidecar контейнери](/uk/docs/concepts/workloads/pods/sidecar-containers/).
+Докладніше дивіться [Sidecar контейнери](/docs/concepts/workloads/pods/sidecar-containers/).

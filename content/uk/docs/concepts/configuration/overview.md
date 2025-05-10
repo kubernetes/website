@@ -36,13 +36,13 @@ weight: 10
 
 ## "Чисті" Podʼи проти ReplicaSets, Deployments та Jobs {#naked-pods-vs-replicasets-deployments-and-jobs}
 
-- Не використовуйте "чисті" Podʼи (тобто Podʼи, не повʼязані з [ReplicaSet](/uk/docs/concepts/workloads/controllers/replicaset/) або [Deployment](/uk/docs/concepts/workloads/controllers/deployment/)), якщо можна уникнути цього. "Чисті" Podʼи не будуть переплановані в разі відмови вузла.
+- Не використовуйте "чисті" Podʼи (тобто Podʼи, не повʼязані з [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) або [Deployment](/docs/concepts/workloads/controllers/deployment/)), якщо можна уникнути цього. "Чисті" Podʼи не будуть переплановані в разі відмови вузла.
 
-  Використання Deployment, який як створює ReplicaSet для забезпечення того, що потрібна кількість Podʼів завжди доступна, так і вказує стратегію для заміни Podʼів (таку як [RollingUpdate](/uk/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)), майже завжди є переважним варіантом на відміну від створення Podʼів безпосередньо, за винятком деяких явних сценаріїв [`restartPolicy: Never`](/uk/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy). Також може бути прийнятним використання [Job](/uk/docs/concepts/workloads/controllers/job/).
+  Використання Deployment, який як створює ReplicaSet для забезпечення того, що потрібна кількість Podʼів завжди доступна, так і вказує стратегію для заміни Podʼів (таку як [RollingUpdate](/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)), майже завжди є переважним варіантом на відміну від створення Podʼів безпосередньо, за винятком деяких явних сценаріїв [`restartPolicy: Never`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy). Також може бути прийнятним використання [Job](/docs/concepts/workloads/controllers/job/).
 
 ## Services
 
-- Створіть [Service](/uk/docs/concepts/services-networking/service/) перед створенням відповідного робочого навантаження (Deployments або ReplicaSets), і перед будь-якими створенням робочих навантажень, які мають до нього доступ. Коли Kubernetes запускає контейнер, він надає змінні середовища, які вказують на всі Serviceʼи, які працювали під час запуску контейнера. Наприклад, якщо існує Service з іменем `foo`, то всі контейнери отримають наступні змінні у своєму початковому середовищі:
+- Створіть [Service](/docs/concepts/services-networking/service/) перед створенням відповідного робочого навантаження (Deployments або ReplicaSets), і перед будь-якими створенням робочих навантажень, які мають до нього доступ. Коли Kubernetes запускає контейнер, він надає змінні середовища, які вказують на всі Serviceʼи, які працювали під час запуску контейнера. Наприклад, якщо існує Service з іменем `foo`, то всі контейнери отримають наступні змінні у своєму початковому середовищі:
 
   ```shell
   FOO_SERVICE_HOST=<хост, на якому працює Service>
@@ -51,34 +51,34 @@ weight: 10
 
   *Це передбачає вимоги щодо черговості* — будь-який `Service`, до якого `Pod` хоче отримати доступ, повинен бути створений перед створенням цього `Pod`ʼу, бо змінні середовища не будуть заповнені. DNS не має такого обмеження.
 
-- Необовʼязкова (хоча настійно рекомендована) [надбудова для кластера](/uk/docs/concepts/cluster-administration/addons/) — це DNS-сервер. DNS-сервер спостерігає за Kubernetes API за появою нових `Serviceʼів` та створює набір DNS-записів для кожного з них. Якщо DNS було активовано в усьому кластері, то всі `Podʼи` повинні мати можливість автоматичного використовувати назви `Serviceʼів`.
+- Необовʼязкова (хоча настійно рекомендована) [надбудова для кластера](/docs/concepts/cluster-administration/addons/) — це DNS-сервер. DNS-сервер спостерігає за Kubernetes API за появою нових `Serviceʼів` та створює набір DNS-записів для кожного з них. Якщо DNS було активовано в усьому кластері, то всі `Podʼи` повинні мати можливість автоматичного використовувати назви `Serviceʼів`.
 
 - Не вказуйте `hostPort` для Podʼа, якщо це не є абсолютно необхідним. Коли ви привʼязуєте Pod до `hostPort`, це обмежує місця, де може бути запланований Pod, оскільки кожна комбінація <`hostIP`, `hostPort`, `protocol`> повинна бути унікальною. Якщо ви не вказуєте явно `hostIP` та `protocol`, Kubernetes використовуватиме `0.0.0.0` як типовий `hostIP` та `TCP` як типовий `protocol`.
 
-  Якщо вам потрібен доступ до порту лише для налагодження, ви можете використовувати [apiserver proxy](/uk/docs/tasks/access-application-cluster/access-cluster/#manually-constructing-apiserver-proxy-urls) або [`kubectl port-forward`](/uk/docs/tasks/access-application-cluster/port-forward-access-application-cluster/).
+  Якщо вам потрібен доступ до порту лише для налагодження, ви можете використовувати [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#manually-constructing-apiserver-proxy-urls) або [`kubectl port-forward`](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/).
 
-  Якщо вам дійсно потрібно використовувати порт Подʼа на вузлі, розгляньте можливість використання [NodePort](/uk/docs/concepts/services-networking/service/#type-nodeport) Service перед використанням `hostPort`.
+  Якщо вам дійсно потрібно використовувати порт Подʼа на вузлі, розгляньте можливість використання [NodePort](/docs/concepts/services-networking/service/#type-nodeport) Service перед використанням `hostPort`.
 
 - Уникайте використання `hostNetwork`, з тих самих причин, що й `hostPort`.
 
-- Використовуйте [headless Service](/uk/docs/concepts/services-networking/service/#headless-services) (які мають `ClusterIP` `None`) для виявлення Service, коли вам не потрібен балансувальник навантаження `kube-proxy`.
+- Використовуйте [headless Service](/docs/concepts/services-networking/service/#headless-services) (які мають `ClusterIP` `None`) для виявлення Service, коли вам не потрібен балансувальник навантаження `kube-proxy`.
 
 ## Використання міток {#using-labels}
 
-- Визначайте та використовуйте [мітки](/uk/docs/concepts/overview/working-with-objects/labels/), які ідентифікують **семантичні атрибути** вашого застосунку або Deployment, такі як `{ app.kubernetes.io/name: MyApp, tier: frontend, phase: test, deployment: v3 }`. Ви можете використовувати ці мітки для вибору відповідних Podʼів для інших ресурсів; наприклад, Service, який вибирає всі Podʼи з `tier: frontend`, або всі складові `phase: test` з `app.kubernetes.io/name: MyApp`. Подивіться застосунок [гостьова книга](https://github.com/kubernetes/examples/tree/master/guestbook/) для прикладів застосування такого підходу.
+- Визначайте та використовуйте [мітки](/docs/concepts/overview/working-with-objects/labels/), які ідентифікують **семантичні атрибути** вашого застосунку або Deployment, такі як `{ app.kubernetes.io/name: MyApp, tier: frontend, phase: test, deployment: v3 }`. Ви можете використовувати ці мітки для вибору відповідних Podʼів для інших ресурсів; наприклад, Service, який вибирає всі Podʼи з `tier: frontend`, або всі складові `phase: test` з `app.kubernetes.io/name: MyApp`. Подивіться застосунок [гостьова книга](https://github.com/kubernetes/examples/tree/master/guestbook/) для прикладів застосування такого підходу.
 
-  Service може охоплювати кілька Deploymentʼів, пропускаючи мітки, специфічні для релізу, від його селектора. Коли вам потрібно оновити робочий Service без простою, використовуйте [Deployment](/uk/docs/concepts/workloads/controllers/deployment/).
+  Service може охоплювати кілька Deploymentʼів, пропускаючи мітки, специфічні для релізу, від його селектора. Коли вам потрібно оновити робочий Service без простою, використовуйте [Deployment](/docs/concepts/workloads/controllers/deployment/).
 
   Бажаний стан обʼєкта описується Deploymentʼом, і якщо зміни до його специфікації будуть *застосовані*, контролер Deployment змінює фактичний стан на бажаний з контрольованою швидкістю.
 
-- Використовуйте [загальні мітки Kubernetes](/uk/docs/concepts/overview/working-with-objects/common-labels/) для загальних випадків використання. Ці стандартизовані мітки збагачують метадані таким чином, що дозволяють інструментам, включаючи `kubectl` та [інфопанель (dashboard)](/uk/docs/tasks/access-application-cluster/web-ui-dashboard), працювати в сумісний спосіб.
+- Використовуйте [загальні мітки Kubernetes](/docs/concepts/overview/working-with-objects/common-labels/) для загальних випадків використання. Ці стандартизовані мітки збагачують метадані таким чином, що дозволяють інструментам, включаючи `kubectl` та [інфопанель (dashboard)](/docs/tasks/access-application-cluster/web-ui-dashboard), працювати в сумісний спосіб.
 
-- Ви можете маніпулювати мітками для налагодження. Оскільки контролери Kubernetes (такі як ReplicaSet) та Service отримують збіг з Podʼами за допомогою міток селектора, видалення відповідних міток з Podʼа зупинить його від обробки контролером або від обслуговування трафіку Serviceʼом. Якщо ви видалите мітки наявного Podʼа, його контролер створить новий Pod, щоб зайняти його місце. Це корисний спосіб налагоджувати раніше "справний" Pod в "карантинному" середовищі. Щоб інтерактивно видаляти або додавати мітки, використовуйте [`kubectl label`](/uk/docs/reference/generated/kubectl/kubectl-commands#label).
+- Ви можете маніпулювати мітками для налагодження. Оскільки контролери Kubernetes (такі як ReplicaSet) та Service отримують збіг з Podʼами за допомогою міток селектора, видалення відповідних міток з Podʼа зупинить його від обробки контролером або від обслуговування трафіку Serviceʼом. Якщо ви видалите мітки наявного Podʼа, його контролер створить новий Pod, щоб зайняти його місце. Це корисний спосіб налагоджувати раніше "справний" Pod в "карантинному" середовищі. Щоб інтерактивно видаляти або додавати мітки, використовуйте [`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands#label).
 
 ## Використання kubectl {#using-kubectl}
 
 - Використовуйте `kubectl apply -f <directory>`. Виконання цієї команди шукає конфігурацію Kubernetes у всіх файлах `.yaml`, `.yml` та `.json` у `<directory>` та передає її до `apply`.
 
-- Використовуйте селектори міток для операцій `get` та `delete` замість конкретних назв обʼєктів. Подивіться розділи про [селектори міток](/uk/docs/concepts/overview/working-with-objects/labels/#label-selectors) та [ефективне використання міток](/uk/docs/concepts/overview/working-with-objects/labels/#using-labels-effectively).
+- Використовуйте селектори міток для операцій `get` та `delete` замість конкретних назв обʼєктів. Подивіться розділи про [селектори міток](/docs/concepts/overview/working-with-objects/labels/#label-selectors) та [ефективне використання міток](/docs/concepts/overview/working-with-objects/labels/#using-labels-effectively).
 
-- Використовуйте `kubectl create deployment` та `kubectl expose`, щоб швидко створити Deployment з одним контейнером та Service. Подивіться [Використання Service для доступу до застосунку в кластері](/uk/docs/tasks/access-application-cluster/service-access-application-cluster/) для прикладу.
+- Використовуйте `kubectl create deployment` та `kubectl expose`, щоб швидко створити Deployment з одним контейнером та Service. Подивіться [Використання Service для доступу до застосунку в кластері](/docs/tasks/access-application-cluster/service-access-application-cluster/) для прикладу.

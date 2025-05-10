@@ -17,4 +17,4 @@ tags:
 
 <!--more-->
 
-Для отримання додаткової інформації читайте [проби контейнера](/uk/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
+Для отримання додаткової інформації читайте [проби контейнера](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).

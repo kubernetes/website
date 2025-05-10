@@ -6,7 +6,7 @@ weight: 20
 
 <!-- overview -->
 
-*Node Problem Detector* — це служба для моніторингу та звітування про стан вузла. Ви можете запустити Node Problem Detector як `DaemonSet` або окремий демон. Node Problem Detector збирає інформацію про проблеми вузла з різних демонів і повідомляє їх на сервер API як [стан вузла](/uk/docs/concepts/architecture/nodes/#condition) або як [події](/uk/docs/reference/kubernetes-api/cluster-resources/event-v1).
+*Node Problem Detector* — це служба для моніторингу та звітування про стан вузла. Ви можете запустити Node Problem Detector як `DaemonSet` або окремий демон. Node Problem Detector збирає інформацію про проблеми вузла з різних демонів і повідомляє їх на сервер API як [стан вузла](/docs/concepts/architecture/nodes/#condition) або як [події](/docs/reference/kubernetes-api/cluster-resources/event-v1).
 
 Для отримання інформації щодо встановлення та використання Node Problem Detector, див. [Документацію проєкту Node Problem Detector](https://github.com/kubernetes/node-problem-detector).
 
@@ -53,7 +53,7 @@ weight: 20
 
 [Типова конфігурація](https://github.com/kubernetes/node-problem-detector/tree/v0.8.12/config) вбудована під час збирання Docker-образу Node Problem Detector.
 
-Однак ви можете використовувати [`ConfigMap`](/uk/docs/tasks/configure-pod-container/configure-pod-configmap/) для перезапису конфігурації:
+Однак ви можете використовувати [`ConfigMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/) для перезапису конфігурації:
 
 1. Змініть файли конфігурації в `config/`.
 1. Створіть `ConfigMap` `node-problem-detector-config`:

@@ -8,7 +8,7 @@ weight: 10
 
 Kubernetes (з версії 1.3 і до останньої версії {{< skew currentVersion >}} та можливо й потім) дозволяє використовувати [мережевий інтерфейс контейнерів](https://github.com/containernetworking/cni) (CNI, Container Network Interface) для втулків мережі кластера. Вам потрібно використовувати втулок CNI, який сумісний з вашим кластером та відповідає вашим потребам. В екосистемі Kubernetes доступні різні втулки (як з відкритим, так і закритим кодом).
 
-Для імплементації [мережевої моделі Kubernetes](/uk/docs/concepts/services-networking/#the-kubernetes-network-model) необхідно використовувати втулок CNI.
+Для імплементації [мережевої моделі Kubernetes](/docs/concepts/services-networking/#the-kubernetes-network-model) необхідно використовувати втулок CNI.
 
 Вам потрібно використовувати втулок CNI, який сумісний з [v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md) або більш пізніми версіями специфікації CNI. Проєкт Kubernetes рекомендує використовувати втулок, який сумісний з [v1.0.0](https://github.com/containernetworking/cni/blob/spec-v1.0.0/SPEC.md) специфікації CNI (втулки можуть бути сумісними з кількома версіями специфікації).
 
@@ -21,7 +21,7 @@ Kubernetes (з версії 1.3 і до останньої версії {{< skew
 {{< note >}}
 До Kubernetes 1.24 втулками CNI також можна було керувати через kubelet за допомогою параметрів командного рядка `cni-bin-dir` та `network-plugin`. Ці параметри командного рядка були видалені в Kubernetes 1.24, і управління CNI більше не входить до сфери обовʼязків kubelet.
 
-Дивіться [Вирішення помилок, повʼязаних з втулками CNI](/uk/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/) якщо ви стикаєтеся з проблемами після видалення dockershim.
+Дивіться [Вирішення помилок, повʼязаних з втулками CNI](/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/) якщо ви стикаєтеся з проблемами після видалення dockershim.
 {{< /note >}}
 
 Для конкретної інформації про те, як середовище виконання контейнерів керує втулками CNI, дивіться документацію для цього середовища виконання контейнерів, наприклад:
@@ -29,7 +29,7 @@ Kubernetes (з версії 1.3 і до останньої версії {{< skew
 - [containerd](https://github.com/containerd/containerd/blob/main/script/setup/install-cni)
 - [CRI-O](https://github.com/cri-o/cri-o/blob/main/contrib/cni/README.md)
 
-Для конкретної інформації про те, як встановити та керувати втулком CNI, дивіться документацію для цього втулка або [постачальника мережі](/uk/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model).
+Для конкретної інформації про те, як встановити та керувати втулком CNI, дивіться документацію для цього втулка або [постачальника мережі](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model).
 
 ## Вимоги до мережевих втулків {#network-plugin-requirements}
 
@@ -124,6 +124,6 @@ metadata:
 
 ## {{% heading "whatsnext" %}}
 
-- Дізнайтеся більше про [мережі в кластерах](/uk/docs/concepts/cluster-administration/networking/)
-- Дізнайтеся більше про [мережеві політики](/uk/docs/concepts/services-networking/network-policies/)
-- Ознайомтеся з [Вирішення помилок, повʼязаних з втулками CNI](/uk/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/)
+- Дізнайтеся більше про [мережі в кластерах](/docs/concepts/cluster-administration/networking/)
+- Дізнайтеся більше про [мережеві політики](/docs/concepts/services-networking/network-policies/)
+- Ознайомтеся з [Вирішення помилок, повʼязаних з втулками CNI](/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/)

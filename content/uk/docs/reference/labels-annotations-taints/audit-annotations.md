@@ -8,7 +8,7 @@ weight: 10
 Ця сторінка служить довідником по анотаціях аудиту простору імен kubernetes.io. Ці анотації застосовуються до обʼєктів `Event` з API-групи `audit.k8s.io`.
 
 {{< note >}}
-Наступні анотації не використовуються в межах Kubernetes API. Коли ви [вмикаєте аудит](/uk/docs/tasks/debug/debug-cluster/audit/) у своєму кластері, дані аудиту подій записуються за допомогою `Event` з API-групи `audit.k8s.io`. Ці анотації застосовуються до подій аудиту. Події аудиту відрізняються від обʼєктів у [API подій](/uk/docs/reference/kubernetes-api/cluster-resources/event-v1/) (API-група `events.k8s.io`).
+Наступні анотації не використовуються в межах Kubernetes API. Коли ви [вмикаєте аудит](/docs/tasks/debug/debug-cluster/audit/) у своєму кластері, дані аудиту подій записуються за допомогою `Event` з API-групи `audit.k8s.io`. Ці анотації застосовуються до подій аудиту. Події аудиту відрізняються від обʼєктів у [API подій](/docs/reference/kubernetes-api/cluster-resources/event-v1/) (API-група `events.k8s.io`).
 {{< /note >}}
 
 <!-- body -->
@@ -29,25 +29,25 @@ weight: 10
 
 Приклад: `pod-security.kubernetes.io/exempt: namespace`
 
-Значення **повинно** бути одним із `user`, `namespace` або `runtimeClass`, що відповідає [вимогам виключень безпеки Pod](/uk/docs/concepts/security/pod-security-admission/#exemptions). Ця анотація вказує на те, на чому засновано виключення з дотримання безпеки Pod.
+Значення **повинно** бути одним із `user`, `namespace` або `runtimeClass`, що відповідає [вимогам виключень безпеки Pod](/docs/concepts/security/pod-security-admission/#exemptions). Ця анотація вказує на те, на чому засновано виключення з дотримання безпеки Pod.
 
 ## pod-security.kubernetes.io/enforce-policy
 
 Приклад: `pod-security.kubernetes.io/enforce-policy: restricted:latest`
 
 Значення **повинно** бути `privileged:<version>`, `baseline:<version>`,
-`restricted:<version>`, що відповідає рівням [стандарту безпеки Pod](/uk/docs/concepts/security/pod-security-standards), супроводжуваних версією, яка **повинна** бути `latest` або дійсною версією Kubernetes у форматі `v<MAJOR>.<MINOR>`. Ця анотація надає інформацію про рівень виконання, який дозволив або відхилив Pod під час допуску PodSecurity.
+`restricted:<version>`, що відповідає рівням [стандарту безпеки Pod](/docs/concepts/security/pod-security-standards), супроводжуваних версією, яка **повинна** бути `latest` або дійсною версією Kubernetes у форматі `v<MAJOR>.<MINOR>`. Ця анотація надає інформацію про рівень виконання, який дозволив або відхилив Pod під час допуску PodSecurity.
 
-Див. [Стандарти безпеки Pod](/uk/docs/concepts/security/pod-security-standards/) для отримання додаткової інформації.
+Див. [Стандарти безпеки Pod](/docs/concepts/security/pod-security-standards/) для отримання додаткової інформації.
 
 ## pod-security.kubernetes.io/audit-violations
 
 Приклад:  `pod-security.kubernetes.io/audit-violations: would violate
 PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "example" must set securityContext.allowPrivilegeEscalation=false), ...`
 
-Значення деталізує порушення аудиту політики, воно містить рівень [стандарту безпеки Pod](/uk/docs/concepts/security/pod-security-standards/), який був порушений, а також конкретні політики з полів, які були порушені з дотримання безпеки Pod.
+Значення деталізує порушення аудиту політики, воно містить рівень [стандарту безпеки Pod](/docs/concepts/security/pod-security-standards/), який був порушений, а також конкретні політики з полів, які були порушені з дотримання безпеки Pod.
 
-Див. [Стандарти безпеки Pod](/uk/docs/concepts/security/pod-security-standards/) для отримання додаткової інформації.
+Див. [Стандарти безпеки Pod](/docs/concepts/security/pod-security-standards/) для отримання додаткової інформації.
 
 ## authorization.k8s.io/decision
 
@@ -55,7 +55,7 @@ PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "e
 
 Значення має бути **forbid** або **allow**. Ця анотація вказує на те, чи було дозволено запит у логах аудиту Kubernetes.
 
-Див. [Аудит](/uk/docs/tasks/debug/debug-cluster/audit/) для отримання додаткової інформації.
+Див. [Аудит](/docs/tasks/debug/debug-cluster/audit/) для отримання додаткової інформації.
 
 ## authorization.k8s.io/reason
 
@@ -63,7 +63,7 @@ PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "e
 
 Ця анотація вказує причину для [рішення](#authorization-k8s-io-decision) в логах аудиту Kubernetes.
 
-Див. [Аудит](/uk/docs/tasks/debug/debug-cluster/audit/) для отримання додаткової інформації.
+Див. [Аудит](/docs/tasks/debug/debug-cluster/audit/) для отримання додаткової інформації.
 
 ## missing-san.invalid-cert.kubernetes.io/$hostname
 
@@ -101,4 +101,4 @@ Serviceʼи, які використовують ці сертифікати, п
 
 `policy`, `binding` і `expressionIndex` в JSON ідентифікують імʼя `ValidatingAdmissionPolicy`, імʼя `ValidatingAdmissionPolicyBinding` та індекс у політиці `validations` виразів CEL, які не вдалося, відповідно.
 
-`validationActions` показують, які дії були вжиті для цієї невдачі перевірки. Див. [Політика валідації допуску](/uk/docs/reference/access-authn-authz/validating-admission-policy/) для отримання додаткових відомостей щодо `validationActions`.
+`validationActions` показують, які дії були вжиті для цієї невдачі перевірки. Див. [Політика валідації допуску](/docs/reference/access-authn-authz/validating-admission-policy/) для отримання додаткових відомостей щодо `validationActions`.

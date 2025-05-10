@@ -87,7 +87,7 @@ Capacity:
   example.com/dongle: 4
 ```
 
-Тепер розробники застосунків можуть створювати Podʼи, які вимагають певну кількість dongle. Див. [Призначення розширених ресурсів контейнеру](/uk/docs/tasks/configure-pod-container/extended-resource/).
+Тепер розробники застосунків можуть створювати Podʼи, які вимагають певну кількість dongle. Див. [Призначення розширених ресурсів контейнеру](/docs/tasks/configure-pod-container/extended-resource/).
 
 ## Обговорення {#discussion}
 
@@ -160,9 +160,9 @@ kubectl describe node <your-node-name> | grep dongle
 
 ### Для розробників застосунків {#for-application-developers}
 
-- [Призначення розширених ресурсів контейнеру](/uk/docs/tasks/configure-pod-container/extended-resource/)
+- [Призначення розширених ресурсів контейнеру](/docs/tasks/configure-pod-container/extended-resource/)
 
 ### Для адміністраторів кластера {#for-cluster-administrators}
 
-- [Налаштування мінімальних та максимальних обмежень памʼяті для простору імен](/uk/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-- [Налаштування мінімальних та максимальних обмежень CPU для простору імен](/uk/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+- [Налаштування мінімальних та максимальних обмежень памʼяті для простору імен](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+- [Налаштування мінімальних та максимальних обмежень CPU для простору імен](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)

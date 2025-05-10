@@ -40,7 +40,7 @@ min-kubernetes-server-version: v1.22
 У цьому прикладі вже є `ReadWriteOnce` "cat-pictures-pvc" PersistentVolumeClaim, який привʼязаний до "cat-pictures-pv" PersistentVolume, і "cat-pictures-writer" Deployment, який використовує цей PersistentVolumeClaim.
 
 {{< note >}}
-Якщо ваш втулок сховища підтримує [Динамічне впровадження](/uk/docs/concepts/storage/dynamic-provisioning/), "cat-pictures-pv" буде створено для вас, але його назва може відрізнятися. Щоб дізнатися назву вашого PersistentVolume, виконайте:
+Якщо ваш втулок сховища підтримує [Динамічне впровадження](/docs/concepts/storage/dynamic-provisioning/), "cat-pictures-pv" буде створено для вас, але його назва може відрізнятися. Щоб дізнатися назву вашого PersistentVolume, виконайте:
 
 ```shell
 kubectl get pvc cat-pictures-pvc -o jsonpath='{.spec.volumeName}'
@@ -144,6 +144,6 @@ kubectl patch pv cat-pictures-pv -p '{"spec":{"persistentVolumeReclaimPolicy":"D
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся більше про [PersistentVolumes](/uk/docs/concepts/storage/persistent-volumes/).
-* Дізнайтеся більше про [PersistentVolumeClaims](/uk/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
-* Дізнайтеся більше про [Конфігурацію Pod для використання PersistentVolume для зберігання](/uk/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)
+* Дізнайтеся більше про [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
+* Дізнайтеся більше про [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
+* Дізнайтеся більше про [Конфігурацію Pod для використання PersistentVolume для зберігання](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)

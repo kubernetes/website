@@ -108,4 +108,4 @@ Hello from the Kubernetes cluster
 kubectl delete cronjob hello
 ```
 
-Видалення cron job призводить до видалення всіх створених ним завдань і Podʼів і припинення створення додаткових завдань. Докладніше про видалення завдань читайте в [збиранні сміття](/uk/docs/concepts/architecture/garbage-collection/).
+Видалення cron job призводить до видалення всіх створених ним завдань і Podʼів і припинення створення додаткових завдань. Докладніше про видалення завдань читайте в [збиранні сміття](/docs/concepts/architecture/garbage-collection/).

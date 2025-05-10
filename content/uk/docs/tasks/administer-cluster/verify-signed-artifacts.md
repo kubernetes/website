@@ -58,7 +58,7 @@ Cosign 2.0 вимагає опції `--certificate-identity` та `--certificat
 
 ## Перевірка підписів образів {#verifying-image-signatures}
 
-Для повного списку образів, які підписані, дивіться [Випуски](/uk/releases/download/).
+Для повного списку образів, які підписані, дивіться [Випуски](/releases/download/).
 
 Оберіть один образ з цього списку та перевірте його підпис, використовуючи команду `cosign verify`:
 
@@ -94,7 +94,7 @@ done < "$input"
 registry-url/image-name@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2
 ```
 
-Для отримання додаткової інформації, див. Розділ [Політика отримання образів](/uk/docs/concepts/containers/images/#image-pull-policy).
+Для отримання додаткової інформації, див. Розділ [Політика отримання образів](/docs/concepts/containers/images/#image-pull-policy).
 
 ## Перевірка підписів образів за допомогою контролера допуску {#verifying-image-signatures-with-admission-controller}
 

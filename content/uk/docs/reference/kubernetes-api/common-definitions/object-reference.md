@@ -30,11 +30,11 @@ ObjectReference містить достатньо інформації для т
 
 - **name** (string)
 
-  Назва посилання. Додаткова інформація: [https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names](/uk/docs/concepts/overview/working-with-objects/names/#names)
+  Назва посилання. Додаткова інформація: [https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names](/docs/concepts/overview/working-with-objects/names/#names)
 
 - **namespace** (string)
 
-  Простір імен посилання. Додаткова інформація: [https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/](/uk/docs/concepts/overview/working-with-objects/namespaces/)
+  Простір імен посилання. Додаткова інформація: [https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/](/docs/concepts/overview/working-with-objects/namespaces/)
 
 - **resourceVersion** (string)
 
@@ -42,4 +42,4 @@ ObjectReference містить достатньо інформації для т
 
 - **uid** (string)
 
-  UID посилання. Додаткова інформація: [https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids](/uk/docs/concepts/overview/working-with-objects/names/#uids)
+  UID посилання. Додаткова інформація: [https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids](/docs/concepts/overview/working-with-objects/names/#uids)
