@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.33: Image Pull Policy the way you always thought it worked!"
-date:  2025-05-12
-draft: true
+date:  2025-05-12T10:30:00-08:00
 slug: kubernetes-v1-33-ensure-secret-pulled-images-alpha
 author: >
   [Ben Petersen](https://github.com/benjaminapetersen) (Microsoft),
@@ -32,7 +31,7 @@ and it will pull *container image Foo* from the registry.  This is the intended 
 behavior.
 
 But now things get curious. If *Pod B* in *Namespace Y* happens to also be scheduled to *Node 1*, unexpected (and potentially insecure) things happen. *Pod B* may reference the same private image, specifying the `IfNotPresent` image pull policy. *Pod B* does not reference *Secret 1*
-(or in our case, any secret) in it's `imagePullSecrets`. When the Kubelet tries to run the pod, it honors the `IfNotPresent` policy. The Kubelet sees that the *image Foo* is already present locally, and will provide *image Foo* to *Pod B*. *Pod B* gets to run the image even though it did not provide credentials authorizing it to pull the image in the first place.
+(or in our case, any secret) in its `imagePullSecrets`. When the Kubelet tries to run the pod, it honors the `IfNotPresent` policy. The Kubelet sees that the *image Foo* is already present locally, and will provide *image Foo* to *Pod B*. *Pod B* gets to run the image even though it did not provide credentials authorizing it to pull the image in the first place.
 
 {{< figure
     src="ensure_secret_image_pulls.svg"
@@ -47,7 +46,7 @@ authorized to pull the image in the first place.
 
 ## IfNotPresent, but only if I am supposed to have it
 
-In Kubernetes v1.33, we - SIG Auth and SIG Node - are finally addressing this (really old) problem and getting the verification right! The basic expected behavior is not changed. If
+In Kubernetes v1.33, we - SIG Auth and SIG Node - have finally started to address this (really old) problem and getting the verification right! The basic expected behavior is not changed. If
 an image is not present, the Kubelet will attempt to pull the image. The credentials each pod supplies will be utilized for this task. This matches behavior prior to 1.33.
 
 If the image is present, then the behavior of the Kubelet changes. The Kubelet will now
