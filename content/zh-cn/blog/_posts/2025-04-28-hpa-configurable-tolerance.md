@@ -1,9 +1,9 @@
 ---
 layout: blog
 title: "Kubernetes v1.33：HorizontalPodAutoscaler 可配置容差"
-slug: kubernetes-1-33-hpa-configurable-tolerance
+slug: kubernetes-v1-33-hpa-configurable-tolerance
 math: true # for formulae
-date: 2025-04-29T10:30:00-08:00
+date: 2025-04-28T10:30:00-08:00
 author: "Jean-Marc François (Google)"
 translator: >
   [Xin Li](https://github.com/my-git9) (DaoCloud)
@@ -11,9 +11,9 @@ translator: >
 <!--
 layout: blog
 title: "Kubernetes v1.33: HorizontalPodAutoscaler Configurable Tolerance"
-slug: kubernetes-1-33-hpa-configurable-tolerance
+slug: kubernetes-v1-33-hpa-configurable-tolerance
 math: true # for formulae
-date: 2025-04-29T10:30:00-08:00
+date: 2025-04-28T10:30:00-08:00
 author: "Jean-Marc François (Google)"
 -->
 
@@ -158,6 +158,6 @@ to be notified of the feature graduation.
 ## 所有细节
 
 通过阅读
-[KEP-4951](https://github.com/kubernetes/zh-enhancements/tree/master/keps/sig-autoscaling/4951-configurable-hpa-tolerance)
-获取所有技术细节，并关注 [Issue 4951](https://github.com/kubernetes/zh-enhancements/issues/4951)
+[KEP-4951](https://github.com/kubernetes/enhancements/tree/master/keps/sig-autoscaling/4951-configurable-hpa-tolerance)
+获取所有技术细节，并关注 [Issue 4951](https://github.com/kubernetes/enhancements/issues/4951)
 以获得**特性毕业**的通知。

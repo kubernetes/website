@@ -1,12 +1,26 @@
 ---
 title: Kubernetes 自我修复
 content_type: concept  
-Weight: 50  
+weight: 50
+feature:
+  title: 自我修复
+  anchor: 自动化故障恢复
+  description: >
+    Kubernetes 会自动重启崩溃的容器，在必要时替换整个 Pod，
+    在发生更大范围的故障时重新挂载存储，
+    并且能够与节点自动扩缩容器集成，实现节点级别的自我修复能力。
 ---
 <!--
 title: Kubernetes Self-Healing  
 content_type: concept  
-Weight: 50  
+weight: 50
+feature:
+  title: Self-healing
+  anchor: Automated recovery from damage
+  description: >
+    Kubernetes restarts containers that crash, replaces entire Pods where needed,
+    reattaches storage in response to wider failures, and can integrate with
+    node autoscalers to self-heal even at the node level.
 -->
 
 <!-- overview -->

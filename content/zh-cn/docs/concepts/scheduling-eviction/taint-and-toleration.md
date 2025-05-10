@@ -578,6 +578,23 @@ arbitrary tolerations to DaemonSets.
 -->
 添加上述容忍度确保了向后兼容，你也可以选择自由向 DaemonSet 添加容忍度。
 
+<!--
+## Device taints and tolerations
+
+Instead of tainting entire nodes, administrators can also [taint individual devices](/docs/concepts/scheduling-eviction/dynamic-resource-allocation#device-taints-and-tolerations)
+when the cluster uses [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
+to manage special hardware. The advantage is that tainting can be targeted towards exactly the hardware that
+is faulty or needs maintenance. Tolerations are also supported and can be specified when requesting
+devices. Like taints they apply to all pods which share the same allocated device.
+-->
+## 设备污点与容忍度    {#device-taints-and-tolerations}
+
+在使用[动态资源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation)管理特殊硬件的集群中，
+管理员可以选择[为单个设备设置污点](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation#device-taints-and-tolerations)，
+而不是为整个节点打污点。这样做的好处是，污点可以精确地作用于出现故障或需要维护的硬件。
+同时也支持容忍度配置，并且可以在请求设备时指定。
+与污点类似，容忍度会应用于共享同一分配设备的所有 Pod。
+
 ## {{% heading "whatsnext" %}}
 
 <!--

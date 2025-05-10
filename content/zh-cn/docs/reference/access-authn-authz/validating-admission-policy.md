@@ -281,6 +281,7 @@ An admission policy may have multiple bindings. To bind all other environments
 to have a maxReplicas limit of 100, create another ValidatingAdmissionPolicyBinding:
 -->
 此策略参数资源将限制 Deployment 最多有 3 个副本。
+
 一个准入策略可以有多个绑定。
 要绑定所有的其他环境，限制 maxReplicas 为 100，请创建另一个 ValidatingAdmissionPolicyBinding：
 
@@ -459,6 +460,95 @@ resources of groups is required.
 `read` 访问权限。
 
 <!--
+#### `paramRef`
+
+The `paramRef` field specifies the parameter resource used by the policy. It has the following fields:
+-->
+#### `paramRef`
+
+`paramRef` 字段用于指定策略所使用的参数资源。它包含以下字段：
+
+<!--
+- **name**: The name of the parameter resource.
+- **namespace**: The namespace of the parameter resource.
+- **selector**: A label selector to match multiple parameter resources.
+- **parameterNotFoundAction**: (Required) Controls the behavior when the specified parameters are not found.
+-->
+- **name**：参数资源的名称。
+- **namespace**：参数资源所在的命名空间。
+- **selector**：用于匹配多个参数资源的标签选择算符。
+- **parameterNotFoundAction**：（必需项）控制在未找到指定参数时的行为。
+
+  <!--
+  - **Allowed Values**:
+    - **`Allow`**: The absence of matched parameters is treated as a successful validation by the binding.
+    - **`Deny`**: The absence of matched parameters is subject to the `failurePolicy` of the policy.
+  -->
+
+  - **允许的取值**：
+    - **`Allow`**：如果未匹配到参数，绑定会将其视为验证成功。
+    - **`Deny`**：如果未匹配到参数，则取决于策略的 `failurePolicy`。
+
+<!--
+One of `name` or `selector` must be set, but not both.
+-->
+`name` 和 `selector` 必须设置其中之一，但不能同时设置。
+
+{{< note >}}
+
+<!--
+The `parameterNotFoundAction` field in `paramRef` is **required**. It specifies the action to take when no parameters are found matching the `paramRef`. If not specified, the policy binding may be considered invalid and will be ignored or could lead to unexpected behavior.
+-->
+`paramRef` 中的 `parameterNotFoundAction` 字段是**必需项**。
+它指定在没有参数与 `paramRef` 匹配时应采取的操作。
+如果未指定此字段，策略绑定可能被视为无效，进而被忽略，或可能导致意料之外的行为。
+
+<!--
+- **`Allow`**: If set to `Allow`, and no parameters are found, the binding treats the absence of parameters as a successful validation, and the policy is considered to have passed.
+- **`Deny`**: If set to `Deny`, and no parameters are found, the binding enforces the `failurePolicy` of the policy. If the `failurePolicy` is `Fail`, the request is rejected.
+
+Make sure to set `parameterNotFoundAction` according to the desired behavior when parameters are missing.
+-->
+- **`Allow`**：如果设置为 `Allow`，且未找到参数，绑定会将参数缺失视为验证成功，
+  此策略被认为是通过的。
+- **`Deny`**：如果设置为 `Deny`，且未找到参数，绑定将执行策略的 `failurePolicy`。
+  如果 `failurePolicy` 设置为 `Fail`，则该请求会被拒绝。
+
+请根据在参数缺失时期望的行为，正确设置 `parameterNotFoundAction`。
+
+{{< /note >}}
+
+<!--
+#### Handling Missing Parameters with `parameterNotFoundAction`
+
+When using `paramRef` with a selector, it's possible that no parameters match the selector. The `parameterNotFoundAction` field determines how the binding behaves in this scenario.
+
+**Example:**
+-->
+#### 使用 `parameterNotFoundAction` 处理缺失的参数
+
+当在 `paramRef` 中使用 `selector` 时，有可能不会匹配到任何参数。
+在这种情况下，`parameterNotFoundAction` 字段决定绑定的行为。
+
+**示例：**
+
+```yaml
+apiVersion: admissionregistration.k8s.io/v1alpha1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: example-binding
+spec:
+  policyName: example-policy
+  paramRef:
+    selector:
+      matchLabels:
+        environment: test
+    parameterNotFoundAction: Allow
+  validationActions:
+  - Deny
+```  
+
+<!--
 ### Failure Policy
 
 `failurePolicy` defines how mis-configurations and CEL expressions evaluating to error from the
@@ -570,11 +660,8 @@ Concatenation on arrays with x-kubernetes-list-type use the semantics of the lis
 | `object.set1.all(e, !(e in object.set2))`                                                    | Validate that two listSets are disjoint                                           |
 | `size(object.names) == size(object.details) && object.names.all(n, n in object.details)`     | Validate the 'details' map is keyed by the items in the 'names' listSet           |
 | `size(object.clusters.filter(c, c.name == object.primary)) == 1`                             | Validate that the 'primary' property has one and only one occurrence in the 'clusters' listMap           |
-
-
 -->
 #### 检查表达式示例
-
 
 | 表达式                                                                                        | 目的                                                                     |
 | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
@@ -930,7 +1017,7 @@ There are certain API kinds that are exempt from admission-time validation check
 
 The list of exempt API kinds is:
 -->
-## 免于准入验证的 API 类别
+## 免于准入验证的 API 类别   {#api-kinds-exempt-from-admission-validation}
 
 某些 API 类别可以豁免准入时验证检查。例如，你无法创建阻止更改 ValidatingAdmissionPolicyBindings
 的 ValidatingAdmissionPolicy。
