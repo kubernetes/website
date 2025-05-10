@@ -1,0 +1,66 @@
+---
+title: Wikimedia Vaka Çalışması
+case_study_styles: true
+cid: caseStudies
+
+new_case_study_styles: true
+heading_title_text: Wikimedia
+use_gradient_overlay: true
+subheading: >
+  Dünyanın Vikilerini İyileştirmek İçin Kubernetes Kullanmak
+case_study_details:
+  - Şirket: Wikimedia
+  - Konum: San Francisco, CA
+---
+
+<p>Kâr amacı gütmeyen Wikimedia Vakfı, Wikipedia da dahil olmak üzere dünyanın en büyük ortaklaşa düzenlenen referans projelerinden bazılarını işletmektedir. Kullanıcıların vikileri korumasına ve kullanmasına yardımcı olmak için, editörler ve diğer gönüllülerin çalışmalarını yapmalarına yardımcı olan araçlar ve botlar üzerinde çalışan topluluk geliştiricileri için bir barındırma ortamı olan Wikimedia Tool Labs'ı işletmektedir. Wikimedia Tool Labs etrafındaki topluluk yaklaşık 10 yıl önce oluşmaya başladı.</p>
+
+{{< case-studies/quote author="Yuvi Panda, Wikimedia Vakfı ve Wikimedia Tool Labs'ta operasyon mühendisi">}}
+<img src="/images/wikimedia_logo.png" alt="Wikimedia">
+<br>
+<br>
+"Wikimedia Tool Labs, dünyanın dört bir yanındaki vikilerin mümkün olduğunca iyi çalışmasını sağlamak için hayati öneme sahiptir. Yaklaşık 10 yıldır organik olarak büyüdüğü için, son derece karmaşık bir ortam haline geldi ve bakımı zorlaştı. Büyük bir çamur topu gibi — gerçekten içini göremiyorsunuz. Kubernetes ile ortamı basitleştiriyoruz ve geliştiricilerin vikilerin daha iyi çalışmasını sağlayan araçları oluşturmasını kolaylaştırıyoruz."
+{{< /case-studies/quote >}}
+
+<h2>Zorluklar</h2>
+
+<ul>
+  <li>Karmaşık, yönetilmesi zor bir altyapıyı basitleştirmek</li>
+  <li>Geliştiricilerin mevcut teknikleri kullanarak araçlar ve botlar yazmaya devam etmelerini sağlamak</li>
+</ul>
+
+<h2>Neden Kubernetes</h2>
+
+<ul>
+  <li>Wikimedia Tool Labs, mevcut iş akışlarını taklit edebilirken karmaşıklığı azaltabileceği için Kubernetes'i seçti</li>
+</ul>
+
+<h2>Yaklaşım</h2>
+
+<ul>
+  <li>Eski sistemleri ve karmaşık altyapıyı Kubernetes'e taşımak</li>
+</ul>
+
+<h2>Sonuçlar</h2>
+
+<ul>
+  <li>Web trafiğinin yüzde 40'ından fazlasını oluşturan web araçlarının yüzde 20'si artık Kubernetes üzerinde çalışıyor</li>
+  <li>Her yeni Kubernetes sürümüne ayak uyduran 25 düğümlü bir küme</li>
+  <li>Kubernetes sayesinde binlerce satır eski kod silindi</li>
+</ul>
+
+<h2>Vikileri korumak için araçlar sağlamak amacıyla Kubernetes kullanmak</h2>
+
+<p>Wikimedia Tool Labs, dört buçuk ücretli çalışan ve iki gönüllüden oluşan bir ekip tarafından yönetilmektedir. Altyapı, geliştiricilerin botlar ve diğer araçları daha kolay çalıştırmasını veya oluşturmasını kolay veya sezgisel hale getirmiyordu. Yuvi, "İnanılmaz derecede kaotik. Üzerinde çok fazla Perl ve Bash bantlama var. Her şey süper kırılgan." diyor.</p>
+
+<p>Problemi çözmek için Wikimedia Tool Labs, altyapısının bazı bölümlerini Kubernetes'e taşıdı ve sonunda tüm sistemini taşımaya hazırlanıyor. Yuvi, Kubernetes'in bakımı büyük ölçüde basitleştirdiğini söyledi. Amaç, botlar ve diğer araçları oluşturan geliştiricilerin istedikleri geliştirme yöntemlerini kullanmalarına izin vermek, ancak Wikimedia Tool Labs'ın bunları barındırmak ve paylaşmak için gereken altyapıyı korumasını kolaylaştırmaktır.</p>
+
+<p>Yuvi, "Kubernetes ile çok fazla özel yapım kodumuzu kaldırabildim, bu da her şeyi daha kolay hale getiriyor. Kullanıcılarımızın kodu da öncekinden daha istikrarlı bir şekilde çalışıyor." diyor.</p>
+
+<h2>Altyapıyı basitleştirmek ve vikilerin daha iyi çalışmasını sağlamak</h2>
+
+<p>Wikimedia Tool Labs, ilk Kubernetes dağıtımı ile büyük başarı elde etti. Eski kod basitleştiriliyor ve ortadan kaldırılıyor, katkıda bulunan geliştiriciler araçlarını ve botlarını yazma şeklini değiştirmek zorunda kalmıyor ve bu araçlar ve botlar geçmişte olduğundan daha istikrarlı bir şekilde çalışıyor. Ücretli personel ve gönüllüler sorunları çözmekte daha iyi bir şekilde ayak uydurabiliyor.</p>
+
+<p>Gelecekte, Kubernetes'e daha kapsamlı bir geçişle, Wikimedia Tool Labs, vikileri dünya çapında çalıştıran botları ve araçları barındırmayı ve korumayı daha da kolaylaştırmayı bekliyor. Araç laboratuvarları zaten 800 gönüllüden yaklaşık 1.300 araç ve bot barındırıyor ve her gün daha fazlası gönderiliyor. Araç laboratuvarlarının web trafiğinin yüzde 60'ından fazlasını oluşturan web araçlarının yüzde 20'si artık Kubernetes üzerinde çalışıyor. Araç laboratuvarlarının her yeni Kubernetes sürümüne ayak uyduran 25 düğümlü bir kümesi var. Mevcut birçok web aracı Kubernetes'e taşınıyor.</p>
+
+<p>Yuvi, "Amacımız, insanların dünya çapında bilgiyi mümkün olduğunca kolay paylaşabilmesini sağlamak. Kubernetes, vikilerin ihtiyaç duyduğu araçlara sahip olmasını kolaylaştırarak buna yardımcı oluyor." diyor.</p>
