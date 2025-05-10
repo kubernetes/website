@@ -14,4 +14,3 @@ data:
     # Apply this config only on replicas.
     [mysqld]
     super-read-only
-
