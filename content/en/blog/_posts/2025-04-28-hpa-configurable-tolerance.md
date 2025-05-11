@@ -18,7 +18,7 @@ automatically resize by adding or removing replicas based on resource
 utilization.
 
 Let's say you have a web application running in a Kubernetes cluster with 50
-replicas. You configure the Horizontal Pod Autoscaler (HPA) to scale based on
+replicas. You configure the HorizontalPodAutoscaler (HPA) to scale based on
 CPU utilization, with a target of 75% utilization. Now, imagine that the current
 CPU utilization across all replicas is 90%, which is higher than the desired
 75%. The HPA will calculate the required number of replicas using the formula:
