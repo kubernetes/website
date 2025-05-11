@@ -9,14 +9,14 @@ translator: >
   [Takuya Kitamura](https://github.com/kfess)
 ---
 
-この投稿では、Kubernetes1.33で初めて利用可能になった新しいアルファ機能である、_HorizontalPodAutoscalerの設定可能な許容値_ について説明します。
+この投稿では、Kubernetes 1.33で初めて利用可能になった新しいアルファ機能である、_HorizontalPodAutoscalerの設定可能な許容値_ について説明します。
 
 ## これは何ですか？
 
 [水平Pod自動スケーリング](/ja/docs/tasks/run-application/horizontal-pod-autoscale/)は、Kubernetesのよく知られた機能であり、リソース使用率に基づいてレプリカを追加または削除することで、ワークロードのサイズを自動的に調整できます。
 
-たとえば、Kubernetesクラスターで50個のレプリカを持つwebアプリケーションが稼働しているとします。
-Horizontal Pod Autoscaler(HPA)をCPU使用率に基づいてスケーリングするように構成し、目標使用率を75%に設定します。
+たとえば、Kubernetesクラスターで50個のレプリカを持つWebアプリケーションが稼働しているとします。
+HorizontalPodAutoscaler(HPA)をCPU使用率に基づいてスケーリングするように構成し、目標使用率を75%に設定します。
 現在の全レプリカにおけるCPU使用率が目標の75%を上回る90%であると仮定します。
 このとき、HPAは次の式を使用して必要なレプリカ数を計算します。
 ```math
