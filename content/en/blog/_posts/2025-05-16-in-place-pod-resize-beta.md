@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Kubernetes v1.33: In-Place Pod Resize Graduating to Beta"
-slug: in-place-pod-resize-beta
-date: 2025-05-19T10:30:00-08:00
+slug: kubernetes-v1-33-in-place-pod-resize-beta
+date: 2025-05-16T10:30:00-08:00
 author: "Tim Allclair (Google)"
 ---
 
