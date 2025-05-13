@@ -10,21 +10,21 @@ Một cụm Kubernetes chất lượng production yêu cầu có sự lên kế 
 Nếu cụm Kubernetes của bạn dùng để chạy các workload quan trọng, nó phải được cấu hình để có khả năng phục hồi.
 Trang này giải thích các bước bạn có thể thực hiện để thiết lập một cụm sẵn sàng cho production,
 hoặc để thúc đẩy một cụm hiện có cho việc sử dụng production.
-Nếu bạn đã quen thuộc với thiết lập production và muốn những liên kết, hãy bỏ qua đến 
-[Tiếp theo là gì](#tiếp-theo-là-gì).
+Nếu bạn đã quen thuộc với thiết lập production và muốn những liên kết, hãy bỏ qua đến
+[Tiếp theo là gì](#what-s-next).
 
 <!-- body -->
 
 ## Những cân nhắc production
 
 Thông thường, một môi trường cụm Kubernetes production có nhiều yêu cầu hơn một
-môi trường Kubernetes cho học tập, phát triển hoặc thử nghiệm cá nhân. Một môi trường production 
+môi trường Kubernetes cho học tập, phát triển hoặc thử nghiệm cá nhân. Một môi trường production
 có thể yêu cầu truy cập an toàn bởi nhiều người dùng, tính khả dụng nhất quán, và các nguồn lực để
 thích ứng với nhu cầu thay đổi.
 
-Khi bạn quyết định nơi bạn muốn triển khai môi trường Kubernetes production 
-(on-premise hoặc trên cloud) và lượng công việc quản lý bạn muốn đảm nhận hoặc trao cho 
-người khác, hãy xem xét các yêu cầu của bạn đối với cụm Kubernetes bị ảnh hưởng như thế nào 
+Khi bạn quyết định nơi bạn muốn triển khai môi trường Kubernetes production
+(on-premise hoặc trên cloud) và lượng công việc quản lý bạn muốn đảm nhận hoặc trao cho
+người khác, hãy xem xét các yêu cầu của bạn đối với cụm Kubernetes bị ảnh hưởng như thế nào
 bởi các vấn đề sau:
 
 - *Tính sẵn sàng*: Một [môi trường học tập](/docs/setup/#learning-environment) Kubernetes trên một máy
@@ -34,16 +34,16 @@ bởi các vấn đề sau:
   - Cân bằng tải lưu lượng tới {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}} của cụm.
   - Có đủ các worker node sẵn sàng, hoặc có khả năng trở nên khả dụng một cách nhanh chóng khi workload thay đổi.
 
-- *Quy mô*: Nếu bạn mong muốn môi trường Kubernetes production của mình đáp ứng được một lượng 
-  yêu cầu ổn định, bạn có thể thiết lập khả năng đáp ứng bạn cần và hoàn thành. Tuy nhiên, 
+- *Quy mô*: Nếu bạn mong muốn môi trường Kubernetes production của mình đáp ứng được một lượng
+  yêu cầu ổn định, bạn có thể thiết lập khả năng đáp ứng bạn cần và hoàn thành. Tuy nhiên,
   nếu bạn mong muốn đáp ứng nhu cầu tăng theo thời gian hoặc thay đổi đáng kể dựa trên những yếu tố
-  như mùa hoặc sự kiện đặc biệt, bạn cần lập kế hoạch về việc mở rộng quy mô để giảm bớt áp lực 
+  như mùa hoặc sự kiện đặc biệt, bạn cần lập kế hoạch về việc mở rộng quy mô để giảm bớt áp lực
   tăng lên từ nhiều yêu cầu hơn đối với control plane và các worker node hoặc thu hẹp quy mô để tối ưu
   tài nguyên không sử dụng.
 
 - *Quản lý bảo mật và truy cập*: Bạn có đầy đủ các đặc quyền admin trên cụm
   Kubernetes học tập của mình. Nhưng các cụm chia sẻ với nhiều workload quan trọng, và
-  nhiều hơn một hoặc hai người dùng, yêu cầu một cách tiếp cận tinh tế hơn đối với những ai và 
+  nhiều hơn một hoặc hai người dùng, yêu cầu một cách tiếp cận tinh tế hơn đối với những ai và
   những gì có thể truy cập vào các tài nguyên cụm. Bạn có thể sử dụng kiểm soát truy cập dựa trên vai trò
   ([RBAC](/docs/reference/access-authn-authz/rbac/)) và các kỹ thuật bảo mật khác
   để chắc chắn rằng người dùng và workloads có thể truy cập được tới tài nguyên họ cần
@@ -54,7 +54,7 @@ bởi các vấn đề sau:
 
 Trước khi dựng một môi trường Kubernetes production, cân nhắc
 chuyển giao một phần hoặc toàn bộ công việc này cho các nhà cung cấp giải pháp Cloud
-[Turnkey Cloud Solutions](/docs/setup/production-environment/turnkey-solutions/) 
+[Turnkey Cloud Solutions](/docs/setup/production-environment/turnkey-solutions/)
 hoặc các đối tác [Kubernetes Partners](/vi/partners/).
 Các tùy chọn gồm:
 
@@ -101,7 +101,7 @@ Xem xét các bước sau:
 - *Chọn các công cụ triển khai*: Bạn có thể triển khai một control plane bằng các công cụ
   vi dụ như kubeadm, kops, và kubespray. Xem
   [Cài đặt Kubernetes với những công cụ triển khai](/docs/setup/production-environment/tools/)
-  để tìm hiểu các mẹo triển khai chất lượng production bằng cách sử dụng từng phương pháp 
+  để tìm hiểu các mẹo triển khai chất lượng production bằng cách sử dụng từng phương pháp
   triển khai đó. Những [Container Runtimes](/docs/setup/production-environment/container-runtimes/)
   khác cũng có sẵn để bạn sử dụng cho việc triển khai của mình.
 - *Quản lý chứng chỉ*: Giao tiếp bảo mật giữa các dịch vụ control plane
@@ -109,7 +109,7 @@ Xem xét các bước sau:
   hoặc bạn có thể tạo chúng bằng cách sử dụng cơ quan cấp chứng chỉ của riêng bạn.
   Xem [Chứng chỉ PKI và yêu cầu](/docs/setup/best-practices/certificates/) để biết thêm chi tiết.
 - *Cấu hình bộ cân bằng tải cho apiserver*: Cấu hình bộ cân bằng tải
-  để phân phối các request API bên ngoài tới các instance của dịch vụ apiserver chạy trên các node khác nhau. Xem 
+  để phân phối các request API bên ngoài tới các instance của dịch vụ apiserver chạy trên các node khác nhau. Xem
   [Tạo Bộ Cân bằng tải bên ngoài](/docs/tasks/access-application-cluster/create-external-load-balancer/)
   để biết thêm chi tiết.
 - *Phân tách và sao lưu dịch vụ etcd*: Các dịch vụ etcd có thể chạy trên
@@ -128,9 +128,9 @@ Xem xét các bước sau:
   Kubernetes đảm bảo rằng số lượng bản sao dịch vụ mà bạn yêu cầu
   sẽ luôn có sẵn.
   Scheduler phải có khả năng chịu lỗi,
-  nhưng không sẵn sàng cao. Một số công cụ triển khai được thiết lập thuật toán đồng thuận 
+  nhưng không sẵn sàng cao. Một số công cụ triển khai được thiết lập thuật toán đồng thuận
   [Raft](https://raft.github.io/) để bầu cử leader cho các dịch vụ Kubernetes. Nếu
-  nếu leader biến mất, một dịch vụ khác tự bầu cử chính nó và tiếp quản. 
+  nếu leader biến mất, một dịch vụ khác tự bầu cử chính nó và tiếp quản.
 - *Trải rộng nhiều zone*: Nếu việc duy trì cụm khả dụng mọi lúc là quan trọng,
   cân nhắc việc tạo một cụm chạy trên nhiều trung tâm dữ liệu,
   được gọi là zone trên các môi trường đám mây. Nhóm các zone gọi là region.
@@ -149,7 +149,7 @@ Xem xét các bước sau:
 Để tìm hiểu về các tùy chọn có sẵn khi bạn chạy các dịch vụ control plane, xem các trang
 [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/),
 [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/),
-và [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/). 
+và [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
 Đối với các ví dụ về control plane có tính sẵn sàng cao, xem
 [Các tùy chọn cho kiến trúc có tính Sẵn sàng cao](/docs/setup/production-environment/tools/kubeadm/ha-topology/),
 [Tạo các cụm có tính Sẵn sàng cao với kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/),
@@ -163,26 +163,26 @@ Workload chất lượng production cần phải có tính đàn hồi và bất
 (ví dụ CoreDNS). Cho dù bạn tự quản lý control plane hay có một nhà cung cấp cloud làm điều đó cho bạn, bạn vẫn cần phải xem xét
 cách bạn muốn quản lý các worker node (còn gọi một cách đơn giản là *node*).
 
-- *Cấu hình các node*: Các node có thể là máy vật lý hay máy ảo. Nếu bạn muốn tạo 
+- *Cấu hình các node*: Các node có thể là máy vật lý hay máy ảo. Nếu bạn muốn tạo
   và quản lý node của riêng bạn, bạn có thể cài đặt một hệ điều hành được hỗ trợ,
   sau đó thêm và chạy [các dịch vụ Node](/docs/concepts/architecture/#node-components) thích hợp. Xem xét:
   - Nhu cầu của workload khi bạn thiết lập các node bằng cách có sẵn bộ nhớ, CPU và tốc độ đĩa và dung lượng lưu trữ phù hợp.
   - Liệu các hệ thống máy tính chung sẽ làm hay bạn có workload cần bộ xử lý GPU, node Windows hoặc VM cô lập.
 - *Xác nhận các node*: Xem [Thiết lập node hợp lệ](/docs/setup/best-practices/node-conformance/)
   để biết thông tin về cách đảm bảo một node đáp ứng các yêu cầu để tham gia cụm Kubernetes.
-- *Thêm các node vào cụm*: Nếu bạn đang quản lý cụm của riêng mình, bạn có thể 
-  thêm các node bằng cách thiết lập các máy của riêng bạn và thêm chúng theo cách thủ công hoặc 
-  để chúng tự đăng ký với apiserver của cụm. Xem phần [Nodes](/docs/concepts/architecture/nodes/) 
+- *Thêm các node vào cụm*: Nếu bạn đang quản lý cụm của riêng mình, bạn có thể
+  thêm các node bằng cách thiết lập các máy của riêng bạn và thêm chúng theo cách thủ công hoặc
+  để chúng tự đăng ký với apiserver của cụm. Xem phần [Nodes](/docs/concepts/architecture/nodes/)
   để biết thông tin về cách thiết lập Kubernetes để thêm các nút theo những cách này.
-- *Quy mô các node*: Sau cùng bạn sẽ cần có một kế hoạch để mở rộng khả năng của cụm. 
+- *Quy mô các node*: Sau cùng bạn sẽ cần có một kế hoạch để mở rộng khả năng của cụm.
   Xem [Các cân nhắc cho những cụm lớn](/docs/setup/best-practices/cluster-large/) để giúp xác định bạn cần bao nhiêu node,
-  dựa trên số lượng pod và container bạn cần chạy. Nếu bạn đang tự quản lý các node, 
+  dựa trên số lượng pod và container bạn cần chạy. Nếu bạn đang tự quản lý các node,
   điều này có thể có nghĩa là mua và cài đặt thiết bị vật lý của riêng bạn.
-- *Autoscale các node*: Đọc 
+- *Autoscale các node*: Đọc
   [Node Autoscaling](/docs/concepts/cluster-administration/node-autoscaling) để tìm hiểu về
   các công cụ có sẵn để tự động quản lý các node của bạn và khả năng chúng cung cấp.
 - *Thiết lập kiểm tra sức khỏe node*: Đối với những workload quan trọng, bạn muốn đảm bảo rằng
-  các node và các pod chạy trên các node đó là khỏe mạnh. Sử dụng 
+  các node và các pod chạy trên các node đó là khỏe mạnh. Sử dụng
   [Trình phát hiện vấn đề node](/docs/tasks/debug/debug-cluster/monitor-node-health/),
   bạn có thể đảm bảo các node của bạn khỏe mạnh.
 
@@ -199,7 +199,7 @@ nhiều tài khoản với các cấp độ truy cập khác nhau vào các name
 chọn chiến lược để xác minh danh tính những người đang cố truy cập vào cụm của bạn
 (xác thực) và quyết định liệu họ có quyền làm những gì họ muốn (phân quyền):
 
-- *Xác thực*: Apiserver có thể xác thực người dùng bằng chứng chỉ khác, bearer tokens, 
+- *Xác thực*: Apiserver có thể xác thực người dùng bằng chứng chỉ khác, bearer tokens,
   một proxy xác thực, hoặc HTTP basic auth.
   Bạn có thể chọn phương pháp xác thực bạn muốn. Băng việc sử dụng plugin, apiserver có thể
   tận dụng phương thức xác thực hiện có của tổ chức của bạn, ví dụ LDAP hoặc Kerberos. Xem
@@ -208,7 +208,7 @@ chọn chiến lược để xác minh danh tính những người đang cố tr
 - *Phân quyền*: Khi bạn bắt đầu ủy quyền cho người dùng thường xuyên của mình, bạn có lẽ
   sẽ chọn giữa phân quyền RBAC và ABAC.
   Xem [Tổng quan phân quyền](/docs/reference/access-authn-authz/authorization/)
-  để xem những chế độ phân quyền tài khoản người dùng khác nhau (cũng như quyền truy cập của 
+  để xem những chế độ phân quyền tài khoản người dùng khác nhau (cũng như quyền truy cập của
   service account tới cụm của bạn):
   - *Kiểm soát truy cập dựa trên vai trò* ([RBAC](/docs/reference/access-authn-authz/rbac/)): Cho phép
     bạn chỉ định quyền truy cập vào cụm bằng cách cho phép thiết lập một tập các quyền tới
@@ -228,9 +228,9 @@ dưới đây là một số điều cần cân nhắc:
 
 - *Đặt chế độ phân quyền*: Khi Kubernetes API server
   ([kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/))
-  khởi động, chế độ hỗ trợ phân quyền phải được thiết lập bằng cờ *--authorization-config* 
-  file hoặc *--authorization-mode*. Ví dụ, cờ đó trong *kube-adminserver.yaml* file 
-  (tại */etc/kubernetes/manifests*) có thể được đặt là `Node,RBAC`. Điều này sẽ cho phép 
+  khởi động, chế độ hỗ trợ phân quyền phải được thiết lập bằng cờ *--authorization-config*
+  file hoặc *--authorization-mode*. Ví dụ, cờ đó trong *kube-adminserver.yaml* file
+  (tại */etc/kubernetes/manifests*) có thể được đặt là `Node,RBAC`. Điều này sẽ cho phép
   phân quyền Node và RBAC tới những yêu cầu đã xác thực.
 - *Tạo chứng chỉ người dùng và role bindings (RBAC)*: Nếu bạn sử dụng phân quyền RBAC,
   người dùng có thể tạo một CertificateSigningRequest (CSR) và sẽ được ký bởi CA của cụm.
@@ -257,15 +257,13 @@ nhu cầu của workload trong cụm của bạn:
 
 - *Đặt giới hạn namespace*: Đặt từng namespace quotas lên những thứ như bộ nhớ và CPU. Xem
   [Quản lý Bộ nhớ, CPU, và API Resources](/docs/tasks/administer-cluster/manage-resources/)
-  để biết thêm chi tiết. Bạn cũng có thể thiết lập
-  [Namespaces phân cấp](/vi/blog/2020/08/14/introducing-hierarchical-namespaces/)
-  để kế thừa giới hạn.
+  để biết thêm chi tiết.
 - *Chuẩn bị cho yêu cầu DNS*: Nếu bạn mong đợi workloads mở rộng một cách ồ ạt,
   dịch vụ DNS của bạn phải săn sàng để mở rộng quy mô. Xem
   [Autoscale dịch vụ DNS trong cụm](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
-- *Tạo thêm các service account*: Tài khoản người dùng (user account) xác định những gì 
+- *Tạo thêm các service account*: Tài khoản người dùng (user account) xác định những gì
   người dùng có thể thực hiện trên một cụm, trong khi đó một tài khoản dịch vụ (service account)
-  định nghĩa khả năng truy cập của pod trong một namespace cụ thể. Mặc định, một pod sẽ 
+  định nghĩa khả năng truy cập của pod trong một namespace cụ thể. Mặc định, một pod sẽ
   tiếp nhận service account `default` từ namespace của nó.
   Xem [Quản lý Service Account](/docs/reference/access-authn-authz/service-accounts-admin/)
   để biết cách tạo một service account. Ví dụ, bạn có thể muốn:
@@ -275,9 +273,9 @@ nhu cầu của workload trong cụm của bạn:
     [các quyền ServiceAccount](/docs/reference/access-authn-authz/rbac/#service-account-permissions)
     để biết thêm chi tiết.
 
-## {{% heading "whatsnext" %}}
+## {{% heading "whatsnext" %}} {#what-s-next}
 
-- Quyết định liệu bạn muốn tự dựng cụm Kubernetes production hay đạt được từ những nhà cung cấp 
+- Quyết định liệu bạn muốn tự dựng cụm Kubernetes production hay đạt được từ những nhà cung cấp
   [Turnkey Cloud Solutions](/docs/setup/production-environment/turnkey-solutions/)
   hoặc các đối tác [Kubernetes Partners](/vi/partners/).
 - Nếu bạn chọn dựng cụm cho riêng bạn, lập kế hoạch về việc xử lý

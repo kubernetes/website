@@ -17,6 +17,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.26"  
+    toVersion: "1.32"
+
+removed: true
 ---
 <!--
 Enable container level CPU affinity support, see

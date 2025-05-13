@@ -598,10 +598,30 @@ Pod 考虑在内，评估相关 Job 的 `.backoffLimit` 和 `.podFailurePolicy`�
 There are situations where you want to fail a Job after some amount of retries
 due to a logical error in configuration etc.
 To do so, set `.spec.backoffLimit` to specify the number of retries before
-considering a Job as failed. The back-off limit is set by default to 6. Failed
-Pods associated with the Job are recreated by the Job controller with an
-exponential back-off delay (10s, 20s, 40s ...) capped at six minutes.
+considering a Job as failed.
 
+The `.spec.backoffLimit` is set by default to 6, unless the
+[backoff limit per index](#backoff-limit-per-index) (only Indexed Job) is specified.
+When `.spec.backoffLimitPerIndex` is specified, then `.spec.backoffLimit` defaults
+to 2147483647 (MaxInt32).
+
+Failed Pods associated with the Job are recreated by the Job controller with an
+exponential back-off delay (10s, 20s, 40s ...) capped at six minutes.
+-->
+### Pod 回退失效策略    {#pod-backoff-failure-policy}
+
+在有些情形下，你可能希望 Job 在经历若干次重试之后直接进入失败状态，
+因为这很可能意味着遇到了配置错误。
+为了实现这点，可以将 `.spec.backoffLimit` 设置为视 Job 为失败之前的重试次数。
+`.spec.backoffLimit` 的值默认为 6，
+除非指定了[每个索引的退避限制](#backoff-limit-per-index)（仅限带索引的 Job）。
+当指定 `.spec.backoffLimitPerIndex` 时，`.spec.backoffLimit`
+默认为 2147483647 (MaxInt32)。
+
+与 Job 相关的失效的 Pod 会被 Job 控制器重建，回退重试时间将会按指数增长
+（从 10 秒、20 秒到 40 秒）最多至 6 分钟。
+
+<!--
 The number of retries is calculated in two ways:
 
 - The number of Pods with `.status.phase = "Failed"`.
@@ -611,15 +631,6 @@ The number of retries is calculated in two ways:
 If either of the calculations reaches the `.spec.backoffLimit`, the Job is
 considered failed.
 -->
-### Pod 回退失效策略    {#pod-backoff-failure-policy}
-
-在有些情形下，你可能希望 Job 在经历若干次重试之后直接进入失败状态，
-因为这很可能意味着遇到了配置错误。
-为了实现这点，可以将 `.spec.backoffLimit` 设置为视 Job 为失败之前的重试次数。
-失效回退的限制值默认为 6。
-与 Job 相关的失效的 Pod 会被 Job 控制器重建，回退重试时间将会按指数增长
-（从 10 秒、20 秒到 40 秒）最多至 6 分钟。
-
 计算重试次数有以下两种方法：
 - 计算 `.status.phase = "Failed"` 的 Pod 数量。
 - 当 Pod 的 `restartPolicy = "OnFailure"` 时，针对 `.status.phase` 等于 `Pending` 或
@@ -647,18 +658,7 @@ from failed Jobs is not lost inadvertently.
 -->
 ### 逐索引的回退限制    {#backoff-limit-per-index}
 
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
-
-{{< note >}}
-<!--
-You can only configure the backoff limit per index for an [Indexed](#completion-mode) Job, if you
-have the `JobBackoffLimitPerIndex` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled in your cluster.
--->
-只有在集群中启用了 `JobBackoffLimitPerIndex`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-才能为 [Indexed](#completion-mode) Job 配置逐索引的回退限制。
-{{< /note >}}
+{{< feature-state feature_gate_name="JobBackoffLimitPerIndex" >}}
 
 <!--
 When you run an [indexed](#completion-mode) Job, you can choose to handle retries
@@ -963,19 +963,6 @@ For more details, see [Job termination and cleanup](#job-termination-and-cleanup
 ## Success policy {#success-policy}
 -->
 ## 成功策略   {#success-policy}
-
-{{< feature-state feature_gate_name="JobSuccessPolicy" >}}
-
-{{< note >}}
-<!--
-You can only configure a success policy for an Indexed Job if you have the
-`JobSuccessPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled in your cluster.
--->
-只有你在集群中启用了 `JobSuccessPolicy`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时，
-才可以为带索引的 Job 配置成功策略。
-{{< /note >}}
 
 <!--
 When creating an Indexed Job, you can define when a Job can be declared as succeeded using a `.spec.successPolicy`,

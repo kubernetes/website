@@ -761,6 +761,29 @@ metadata:
 
 This admission controller is disabled by default.
 
+### PodTopologyLabels {#podtopologylabels}
+
+{{< feature-state feature_gate="PodTopologyLabelsAdmission" >}}
+
+**Type**: Mutating
+
+The PodTopologyLabels admission controller mutates the `pods/binding` subresources
+for all pods bound to a Node, adding topology labels matching those of the bound Node.
+This allows Node topology labels to be available as pod labels,
+which can be surfaced to running containers using the
+[Downward API](docs/concepts/workloads/pods/downward-api/).
+The labels available as a result of this controller are the
+[topology.kubernetes.io/region](docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
+[topology.kuberentes.io/zone](docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
+
+{{ <note> }}
+If any mutating admission webhook adds or modifies labels of the `pods/binding` subresource,
+these changes will propagate to pod labels as a result of this controller,
+overwriting labels with conflicting keys.
+{{ </note> }}
+
+This admission controller is enabled when the `PodTopologyLabelsAdmission` feature gate is enabled.
+
 ### Priority {#priority}
 
 **Type**: Mutating and Validating.

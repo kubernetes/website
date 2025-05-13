@@ -118,7 +118,7 @@ reference for a full definition of this API kind.
 
 The HTTPRoute kind specifies routing behavior of HTTP requests from a Gateway listener to backend network
 endpoints. For a Service backend, an implementation may represent the backend network endpoint as a Service
-IP or the backing Endpoints of the Service. An HTTPRoute represents configuration that is applied to the
+IP or the backing EndpointSlices of the Service. An HTTPRoute represents configuration that is applied to the
 underlying Gateway implementation. For example, defining a new HTTPRoute may result in configuring additional
 traffic routes in a cloud load balancer or in-cluster proxy server.
 
