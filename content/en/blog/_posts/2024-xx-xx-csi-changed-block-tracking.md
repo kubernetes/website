@@ -1,70 +1,71 @@
 ---
 layout: blog
-title: 'Kubernetes v1.33: Changed Block Tracking (CBT )API support (alpha)'
-date: 2025-XX-XX
+title: 'Kubernetes v1.33: Changed Block Tracking API support (alpha)'
+date: 2025-05-14T18:30:00+05:30
 draft: true
-slug: csi-changed-block-tracking
+slug: kubernetes-v1-33-csi-changed-block-tracking
 author: >
    Prasad Ghangal (Veeam Kasten)
+   Carl Braganza (Veeam Kasten)
 ---
 
-We're excited to announce that Kubernetes v1.33 introduces alpha support for the **Changed Block Tracking (CBT) API**. This new feature enhances the Kubernetes storage ecosystem by providing an efficient way to identify changed blocks in block volume snapshots, enabling faster and more resource-efficient backup operations.
+We're excited to announce that Kubernetes v1.33 introduced alpha support for a _changed block tracking_ mechanism. This enhances the Kubernetes storage ecosystem by providing an efficient way for storage drivers to identify changed blocks in PersistentVolume snapshots. With a driver that can use the feature, you could benefit from faster and more resource-efficient backup operations.
 
 ## What is changed block tracking?
 
-The Changed Block Tracking API introduces a new Container Storage Interface (CSI) capability that allows you to:
+The improvement is a change to the Container Storage Interface (CSI), and also to the storage snapshot support in Kubernetes itself.
+With the alpha features enabled, your cluster can:
 
 - Identify allocated blocks within a CSI volume snapshot
 - Determine changed blocks between two snapshots of the same volume
 
-For Kubernetes users managing large datasets, this means significantly more efficient backup processes, as backup applications can now focus only on blocks that have actually changed rather than processing entire volumes.
+For Kubernetes users managing large datasets, this API enables significantly more efficient backup processes. Backup applications can now focus only on the blocks that have changed, rather than processing entire volumes.
 
->  NOTE:
->  As of now, the Changed Block Tracking API is supported only for block volumes and not for file volumes. CSI drivers that manage file-based storage systems will not be able to implement this capability.
+**NOTE:** As of now, the Changed Block Tracking API is supported only for block volumes and not for file volumes. CSI drivers that manage file-based storage systems will not be able to implement this capability.
 
 
-## Why add changed block tracking API to Kubernetes
+## Benefits of changed block tracking support in Kubernetes
 
 As Kubernetes adoption grows for stateful workloads managing critical data, the need for efficient backup solutions becomes increasingly important. Traditional full backup approaches face challenges with:
 
-- Long backup windows
-- High resource utilization
-- Increased storage costs
+- _Long backup windows_: Full volume backups can take hours for large datasets, making it difficult to complete within maintenance windows.
+- _High resource utilization_: Backup operations consume substantial network bandwidth and I/O resources, especially for large data volumes and data-intensive applications.
+- _Increased storage costs_: Repetitive full backups store redundant data, causing storage requirements to grow linearly even when only a small percentage of data actually changes between backups.
 
-The CBT API addresses these challenges by providing native Kubernetes support for incremental backup capabilities through the CSI interface.
+The Changed Block Tracking API addresses these challenges by providing native Kubernetes support for incremental backup capabilities through the CSI interface.
 
 ## Key components
 
 The implementation consists of three primary components:
 
-1. **CSI SnapshotMetadata Service API**: A gRPC service that provides information about volume snapshots, including changed block data
-2. **SnapshotMetadataService Custom Resource**: Advertises the availability of a CSI driver's metadata service along with connection details
-3. **ExternalSnapshotMetadata Sidecar**: Implements the server-side of the API, bridging CSI drivers with backup applications
+1. _CSI SnapshotMetadata Service API_: A gRPC service that provides information about volume snapshots, including changed block data
+2. _SnapshotMetadataService Custom Resource_: Advertises the availability of a CSI driver's metadata service along with connection details
+3. _External Snapshot Metadata Sidecar_: Implements the server-side of the API, bridging CSI drivers with backup applications
 
-## Vendor implementation requirements
+## Implementation requirements
 
-### Storage vendor responsibilities
+### Storage provider responsibilities
 
 Storage vendors who want to support the changed block tracking feature must implement specific requirements:
 
-1. **Implement CSI RPCs**: Storage vendors need to implement the `SnapshotMetadata` service as defined in the [CSI specifications protobuf](https://github.com/container-storage-interface/spec/blob/master/csi.proto). This service requires server-side streaming implementations for the following RPCs:
+1. _Implement CSI RPCs_: Storage vendors need to implement the `SnapshotMetadata` service as defined in the [CSI specifications protobuf](https://github.com/container-storage-interface/spec/blob/master/csi.proto). This service requires server-side streaming implementations for the following RPCs:
 
    - `GetMetadataAllocated`: For identifying allocated blocks in a snapshot
    - `GetMetadataDelta`: For determining changed blocks between two snapshots
 
-2. **Storage backend capabilities**: Ensure the storage backend has the capability to track and report block-level changes.
+2. _Storage backend capabilities_: Ensure the storage backend has the capability to track and report block-level changes.
 
-3. **Deploy external components**: Integrate with the `external-snapshot-metadata` sidecar to expose the snapshot metadata service.
+3. _Deploy external components_: Integrate with the `external-snapshot-metadata` sidecar to expose the snapshot metadata service.
 
-4. **Register custom resource**: Create and maintain a `SnapshotMetadataService` custom resource that advertises the availability of their metadata service and provides connection details.
+4. _Register custom resource_: Create and maintain a `SnapshotMetadataService` custom resource that advertises the availability of their metadata service and provides connection details.
 
-5. **Support error handling**: Implement proper error handling for these RPCs according to the CSI specification requirements.
+5. _Support error handling_: Implement proper error handling for these RPCs according to the CSI specification requirements.
 
-### Backup vendor responsibilities
+### Backup client responsibilities
 
 Backup vendors looking to leverage this feature must:
 
-1. **Setup authentication**: Configure proper authentication for clients accessing the storage system using Kubernetes ServiceAccount tokens.
+1. **Set up authentication**: Configure proper authentication for clients accessing the storage system using Kubernetes ServiceAccount tokens.
 
 2. **Implement streaming client-side code**: Develop clients that implement the streaming gRPC APIs defined in the [schema.proto](https://github.com/kubernetes-csi/external-snapshot-metadata/blob/main/proto/schema.proto) file. Specifically:
    - Implement streaming client code for `GetMetadataAllocated` and `GetMetadataDelta` methods
