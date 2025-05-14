@@ -45,7 +45,8 @@ For detailed instructions on configuring resource requests and limits for your c
 
 **My Reality Check**: I once forgot a readiness probe for a web service that took a while to load. Users hit it prematurely, got weird timeouts, and I spent hours scratching my head. A 3-line readiness probe would have saved the day.
 
-For comprehensive instructions on configuring liveness, readiness, and startup probes for containers, please refer to the official Kubernetes documentation in this [article](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
+For comprehensive instructions on configuring liveness, readiness, and startup probes for containers, please refer to [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
+in the official Kubernetes documentation.
 
 ## 3. “We’ll Just Look at Container Logs” (Famous Last Words)
 
