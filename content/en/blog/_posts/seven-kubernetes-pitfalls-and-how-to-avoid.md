@@ -62,7 +62,7 @@ in the official Kubernetes documentation.
 
 ## 4. Treating Dev and Prod Exactly the Same
 
-**The Pitfall**: Deploying the same YAML with the same resources and settings to dev, staging, and production. Different environments have different needs, traffic patterns, and sometimes secrets.
+**The Pitfall**: Deploying the same YAML manifests with the same resource configuration and application settings to dev, staging, and production. Different environments have different needs, traffic patterns, and sometimes secrets.
 
 **How to Avoid It**:
 - Use environment overlays or [kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/) to maintain a shared base while customizing resource requests, replicas, or config for each environment.
