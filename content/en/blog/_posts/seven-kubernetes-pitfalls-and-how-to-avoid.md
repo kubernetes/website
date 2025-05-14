@@ -31,7 +31,8 @@ When resource requests and limits are not set:
 
 **My Reality Check**: Early on, I never thought about memory limits. Things seemed fine on my local cluster. Then, on a larger environment, Pods got *OOMKilled* left and right. Lesson learned.
 
-For detailed instructions on configuring resource requests and limits for your containers, please refer to the comprehensive guide available in the [official Kubernetes documentation](/docs/tasks/configure-pod-container/assign-memory-resource/).
+For detailed instructions on configuring resource requests and limits for your containers, please refer to [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
+(part of the official Kubernetes documentation).
 
 
 ## 2. Underestimating Liveness and Readiness Probes
