@@ -5,7 +5,7 @@ date: 2024-12-27
 draft: true
 slug: seven-kubernetes-pitfalls-and-how-to-avoid
 author: >
-  Abdelkoddous Lhajouji (CNCF Kubestronaut)
+  Abdelkoddous Lhajouji
 ---
 
 It’s no secret that Kubernetes can be both powerful and frustrating at times. When I first started dabbling with container orchestration, I made more than my fair share of mistakes enough to compile a whole list of pitfalls. In this post, I want to walk through seven big gotchas I’ve encountered (or seen others run into) and share some tips on how to avoid them. Whether you’re just kicking the tires on Kubernetes or already managing production clusters, I hope these insights help you steer clear of a little extra stress.
