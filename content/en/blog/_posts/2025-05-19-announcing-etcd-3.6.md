@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Announcing Etcd v3.6.0"
-date: 2025-05-15T15:00:00-08:00
+date: 2025-05-19T10:00:00-08:00
 slug: announcing-etcd-3.6
 author: >
   Benjamin Wang (VMware by Broadcom)
@@ -144,7 +144,7 @@ In this release, we reduced average memory consumption by at least 50% (see Figu
 - The default value of `--snapshot-count` has been reduced from 100,000 in v3.5 to 10,000 in v3.6. As a result, etcd v3.6 now retains only about 10% of the history records compared to v3.5.
 - Raft history is compacted more frequently, as introduced in [PR/18825][].
 
-![figure-1](../2025-05-15-announcing-etcd-3.6/figure-1.png "Diagram of memory usage")
+![figure-1](../2025-05-19-announcing-etcd-3.6/figure-1.png "Diagram of memory usage")
 
 _**Figure 1:** Memory usage comparison between etcd v3.5.20 and v3.6.0-rc.2 under different read/write ratios.
 Each subplot shows the memory usage over time with a specific read/write ratio. The red line represents etcd
@@ -158,25 +158,25 @@ in both read and write throughput (see Figure 2, 3, 4 and 5). This improvement i
 any single major change, but rather the cumulative effect of multiple minor enhancements. One such
 example is the optimization of the free page queries introduced in [PR/419][].
 
-![figure-2](../2025-05-15-announcing-etcd-3.6/figure-2.png "etcd read transaction performance with a high write ratio")
+![figure-2](../2025-05-19-announcing-etcd-3.6/figure-2.png "etcd read transaction performance with a high write ratio")
 
 _**Figure 2:** Read throughput comparison between etcd v3.5.20 and v3.6.0-rc.2 under a high write ratio. The
 read/write ratio is 0.0078, meaning 1 read per 128 writes. The right bar shows the percentage improvement
 in read throughput of v3.6.0-rc.2 over v3.5.20, ranging from 3.21% to 25.59%._
 
-![figure-3](../2025-05-15-announcing-etcd-3.6/figure-3.png "etcd read transaction performance with a high read ratio")
+![figure-3](../2025-05-19-announcing-etcd-3.6/figure-3.png "etcd read transaction performance with a high read ratio")
 
 _**Figure 3:** Read throughput comparison between etcd v3.5.20 and v3.6.0-rc.2 under a high read ratio.
 The read/write ratio is 8, meaning 8 reads per write. The right bar shows the percentage improvement in
 read throughput of v3.6.0-rc.2 over v3.5.20, ranging from 4.38% to 27.20%._
 
-![figure-4](../2025-05-15-announcing-etcd-3.6/figure-4.png "etcd write transaction performance with a high write ratio")
+![figure-4](../2025-05-19-announcing-etcd-3.6/figure-4.png "etcd write transaction performance with a high write ratio")
 
 _**Figure 4:** Write throughput comparison between etcd v3.5.20 and v3.6.0-rc.2 under a high write ratio. The
 read/write ratio is 0.0078, meaning 1 read per 128 writes. The right bar shows the percentage improvement
 in write throughput of v3.6.0-rc.2 over v3.5.20, ranging from 2.95% to 24.24%._
 
-![figure-5](../2025-05-15-announcing-etcd-3.6/figure-5.png "etcd write transaction performance with a high read ratio")
+![figure-5](../2025-05-19-announcing-etcd-3.6/figure-5.png "etcd write transaction performance with a high read ratio")
 
 _**Figure 5:** Write throughput comparison between etcd v3.5.20 and v3.6.0-rc.2 under a high read ratio.
 The read/write ratio is 8, meaning 8 reads per write. The right bar shows the percentage improvement in
