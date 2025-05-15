@@ -639,7 +639,7 @@ these pods.
 {{< /note >}}
 
 {{< note >}}
-There have been reports of an issue where, after deleting and recreating an immutable secret, some pods that are started after the recreation may mount the previous secret. For more details, please see [here](https://github.com/kubernetes/kubernetes/issues/131589).
+There have been reports of an issue where, after deleting and recreating an immutable secret, some pods that are started after the recreation may occasionally mount the previous secret. For more details, please see [here](https://github.com/kubernetes/kubernetes/issues/131589).
 {{< /note >}}
 
 ## Information security for Secrets
