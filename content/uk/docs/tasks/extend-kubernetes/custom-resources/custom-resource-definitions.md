@@ -181,52 +181,52 @@ CustomResources зберігають структуровані дані у вл
 
 Неструктурний приклад 1:
 
-```none
+```yaml
 allOf:
 - properties:
     foo:
-      ...
+      # ...
 ```
 
 суперечить правилу 2. Наступне було б правильним:
 
-```none
+```yaml
 properties:
   foo:
-    ...
+    # ...
 allOf:
 - properties:
     foo:
-      ...
+      # ...
 ```
 
 Неструктурний приклад 2:
 
-```none
+```yaml
 allOf:
 - items:
     properties:
       foo:
-        ...
+        # ...
 ```
 
 суперечить правилу 2. Наступне було б правильним:
 
-```none
+```yaml
 items:
   properties:
     foo:
-      ...
+      # ...
 allOf:
 - items:
     properties:
       foo:
-        ...
+        # ...
 ```
 
 Неструктурний приклад 3:
 
-```none
+```yaml
 properties:
   foo:
     pattern: "abc"
@@ -442,7 +442,7 @@ allOf:
   - anyOf:
       - type: integer
       - type: string
-  - ... # нуль або більше
+  - # ... нуль або більше
 ...
 ```
 
@@ -466,12 +466,12 @@ properties:
 
 Тут поле `foo` містить повний обʼєкт, наприклад:
 
-```none
+```yaml
 foo:
   apiVersion: v1
   kind: Pod
   spec:
-    ...
+    # ...
 ```
 
 Оскільки поруч вказано `x-kubernetes-preserve-unknown-fields: true`, нічого не обрізається. Використання `x-kubernetes-preserve-unknown-fields: true` є опціональним.
@@ -687,7 +687,7 @@ crontab "my-new-cron-object" created
 Наприклад:
 
 ```yaml
-  ...
+  # ...
   openAPIV3Schema:
     type: object
     properties:
@@ -699,7 +699,7 @@ crontab "my-new-cron-object" created
           - rule: "self.replicas <= self.maxReplicas"
             message: "replicas should be smaller than or equal to maxReplicas."
         properties:
-          ...
+          # ...
           minReplicas:
             type: integer
           replicas:
@@ -794,7 +794,7 @@ The CronTab "my-new-cron-object" is invalid:
 * Якщо правило обмежене коренем ресурсу, воно може вибирати поля з будь-яких полів, оголошених у схемі OpenAPIv3 CRD, а також `apiVersion`, `kind`, `metadata.name` та `metadata.generateName`. Це включає вибір полів як у `spec`, так і в `status` в одному виразі:
 
   ```yaml
-    ...
+    # ...
     openAPIV3Schema:
       type: object
       x-kubernetes-validations:
@@ -805,7 +805,7 @@ The CronTab "my-new-cron-object" is invalid:
             properties:
               minReplicas:
                 type: integer
-              ...
+              # ...
           status:
             type: object
             properties:
@@ -816,7 +816,7 @@ The CronTab "my-new-cron-object" is invalid:
 * Якщо Rule обмежене обʼєктом з властивостями, доступні властивості обʼєкта можна вибирати за допомогою `self.field`, а наявність поля можна перевірити за допомогою `has(self.field)`. Поля зі значенням null трактуються як відсутні поля у виразах CEL.
 
   ```yaml
-    ...
+    # ...
     openAPIV3Schema:
       type: object
       properties:
@@ -833,7 +833,7 @@ The CronTab "my-new-cron-object" is invalid:
 * Якщо Rule обмежене обʼєктом з додатковими властивостями (тобто map), значення map доступні через `self[mapKey]`, наявність map можна перевірити за допомогою `mapKey in self`, а всі записи з map доступні за допомогою макросів і функцій CEL, таких як `self.all(...)`.
 
   ```yaml
-    ...
+    # ...
     openAPIV3Schema:
       type: object
       properties:
@@ -852,11 +852,11 @@ The CronTab "my-new-cron-object" is invalid:
 * Якщо правило обмежене масивом, елементи масиву доступні через `self[i]` та також за допомогою макросів і функцій.
 
   ```yaml
-    ...
+    # ...
     openAPIV3Schema:
       type: object
       properties:
-        ...
+        # ...
         foo:
           type: array
           x-kubernetes-validations:
@@ -868,14 +868,14 @@ The CronTab "my-new-cron-object" is invalid:
 * Якщо правило обмежене скаляром, `self` привʼязується до значення скаляра.
 
   ```yaml
-    ...
+    # ...
     openAPIV3Schema:
       type: object
       properties:
         spec:
           type: object
           properties:
-            ...
+            # ...
             foo:
               type: integer
               x-kubernetes-validations:

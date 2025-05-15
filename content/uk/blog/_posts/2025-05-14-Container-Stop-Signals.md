@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.33: Оновлення в життєвому циклі контейнерів в Kubernetes v1.33"
-date: 2025-05-15T10:30:00-08:00
+date: 2025-05-14T10:30:00-08:00
 slug: kubernetes-v1-33-updates-to-container-lifecycle
 author: >
   Sreeram Venkitesh (DigitalOcean)

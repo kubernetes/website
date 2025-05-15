@@ -188,6 +188,9 @@ crashLoopBackOff:
 * `ContainersReady`: всі контейнери в Pod готові.
 * `Initialized`: всі [контейнери ініціалізації](/docs/concepts/workloads/pods/init-containers/) успішно завершили виконання.
 * `Ready`: Pod може обслуговувати запити і його слід додати до балансування навантаження всіх відповідних Services.
+* `DisruptionTarget`: Роботу Pod скоро буде припинено через розлади (наприклад, переважне право, виселення або збирання сміття).
+* `PodResizePending`: було запитано зміну розміру pod, але її неможливо застосувати. Див. розділ [Стан зміни розміру Podʼа](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
+* `PodResizeInProgress`: Pod перебуває в процесі зміни розміру. Дивіться [Стан зміни розміру Podʼа](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
 
 Назва поля          | Опис
 :--------------------|:-----------

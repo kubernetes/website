@@ -26,6 +26,7 @@ weight: 40
 | TCP      | Вхідний  | 10250           | Kubelet API            | Власний, Панель управління |
 | TCP      | Вхідний  | 10256           | kube-proxy             | Власний, Балансувальники навантаження |
 | TCP      | Вхідний  | 30000-32767     | NodePort Сервіси†      | Усі                       |
+| UDP      | Вхідний  | 30000-32767     | NodePort Сервіси†      | Усі                       |
 
 † Типовий діапазон портів для [NodePort Services](/docs/concepts/services-networking/service/).
 

@@ -23,7 +23,7 @@ weight: 10
 
 Приклад: `k8s.io/removed-release: "1.22"`
 
-Значення **повинно** бути у форматі "<major>.<minor>". Встановлюється на цільовий випуск видалення на запити до застарілих версій API з цільовим випуском видалення.
+Значення **повинно** бути у форматі "\<MAJOR>\.\<MINOR>\". Встановлюється на цільовий випуск видалення на запити до застарілих версій API з цільовим випуском видалення.
 
 ## pod-security.kubernetes.io/exempt
 
@@ -49,6 +49,28 @@ PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "e
 
 Див. [Стандарти безпеки Pod](/docs/concepts/security/pod-security-standards/) для отримання додаткової інформації.
 
+## apiserver.latency.k8s.io/etcd
+
+Приклад: `apiserver.latency.k8s.io/etcd: "4.730661757s"`
+
+Ця анотація вказує на міру затримки, що виникає на рівні зберігання, вона враховує час, необхідний для надсилання даних до etcd і отримання повної відповіді назад.
+
+Значення цієї анотації аудиту не включає час, витрачений на допуск або перевірку.
+
+## apiserver.latency.k8s.io/decode-response-object
+
+Приклад: `apiserver.latency.k8s.io/decode-response-object: "450.6649ns"`
+
+Ця анотація записує час, необхідний для декодування відповіді, отриманої від рівня зберігання (etcd)
+
+## apiserver.latency.k8s.io/apf-queue-wait
+
+Приклад: `apiserver.latency.k8s.io/apf-queue-wait: "100ns"`
+
+Ця анотація записує час, який запит провів у черзі через пріоритети сервера API.
+
+Дивіться [API Priority та Fairness](/docs/concepts/cluster-administration/flow-control/) (APF) для отримання додаткової інформації про цей механізм.
+
 ## authorization.k8s.io/decision
 
 Приклад: `authorization.k8s.io/decision: "forbid"`
@@ -59,7 +81,7 @@ PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "e
 
 ## authorization.k8s.io/reason
 
-Приклад: `authorization.k8s.io/reason: "Людиночитана причина рішення"`
+Приклад: `authorization.k8s.io/reason: "Зрозуміла для людини причина рішення"`
 
 Ця анотація вказує причину для [рішення](#authorization-k8s-io-decision) в логах аудиту Kubernetes.
 
