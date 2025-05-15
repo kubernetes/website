@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.33: Job's Backoff Limit Per Index Goes GA"
-date: 2025-04-23
-draft: true
+date: 2025-05-13T10:30:00-08:00
 slug: kubernetes-v1-33-jobs-backoff-limit-per-index-goes-ga
 author: >
   [Michał Woźniak](https://github.com/mimowo) (Google)
@@ -12,7 +11,7 @@ In Kubernetes v1.33, the _Backoff Limit Per Index_ feature reaches general
 availability (GA). This blog describes the Backoff Limit Per Index feature and
 its benefits.
 
-## About Backoff Limit Per Index
+## About backoff limit per index
 
 When you run workloads on Kubernetes, you must consider scenarios where Pod
 failures can affect the completion of your workloads. Ideally, your workload
@@ -31,10 +30,10 @@ In that setup, a fast-failing index  (test suite) is likely to consume your
 entire budget for tolerating Pod failures, and you might not be able to run the
 other indexes.
 
-In order to address this limitation, we introduce _Backoff Limit Per Index_,
+In order to address this limitation, Kubernetes introduced _backoff limit per index_,
 which allows you to control the number of retries per index.
 
-## How Backoff Limit Per Index works
+## How backoff limit per index works
 
 To use Backoff Limit Per Index for Indexed Jobs, specify the number of tolerated
 Pod failures per index with the `spec.backoffLimitPerIndex` field. When you set
@@ -46,15 +45,15 @@ Additionally, to fine-tune the error handling:
   terminated.
 * Define a short-circuit to detect a failed index by using the `FailIndex` action in the
   [Pod Failure Policy](/docs/concepts/workloads/controllers/job/#pod-failure-policy)
-  feature.
+  mechanism.
 
 When the number of tolerated failures is exceeded, the Job marks that index as
 failed and lists it in the Job's `status.failedIndexes` field.
 
 ### Example
 
-The following Job spec snippet is an example of how to combine Backoff Limit Per
-Index with the _Pod Failure Policy_ feature:
+The following Job spec snippet is an example of how to combine backoff limit per
+index with the _Pod Failure Policy_ feature:
 
 ```yaml
 completions: 10
@@ -98,7 +97,7 @@ In this example, the Job handles Pod failures as follows:
 
 ## Get involved
 
-This work was sponsored by
+This work was sponsored by the Kubernetes
 [batch working group](https://github.com/kubernetes/community/tree/master/wg-batch)
 in close collaboration with the
 [SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps) community.

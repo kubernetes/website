@@ -13,7 +13,7 @@ This page serves as a reference for the audit annotations of the kubernetes.io
 namespace. These annotations apply to `Event` object from API group
 `audit.k8s.io`.
 -->
-该页面作为 kubernetes.io 名字空间的审计注解的参考。这些注解适用于 API 组
+本页面作为 kubernetes.io 名字空间的审计注解的参考。这些注解适用于 API 组
 `audit.k8s.io` 中的 `Event` 对象。
 
 {{< note >}}
@@ -26,9 +26,8 @@ The annotations apply to audit events. Audit events are different from objects i
 `events.k8s.io`).
 -->
 Kubernetes API 中不使用以下注解。当你在集群中[启用审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/)时，
-审计事件数据将使用 API 组 `audit.k8s.io` 中的 `Event` 写入。
-注解适用于审计事件。
-审计事件不同于[事件 API](/zh-cn/docs/reference/kubernetes-api/cluster-resources/event-v1/)
+审计事件数据将使用 API 组 `audit.k8s.io` 中的 `Event` 写入。此注解适用于审计事件。
+审计事件不同于 [Event API](/zh-cn/docs/reference/kubernetes-api/cluster-resources/event-v1/)
 （API 组 `events.k8s.io`）中的对象。
 {{</note>}}
 
@@ -53,14 +52,14 @@ request used a deprecated API version.
 
 Example: `k8s.io/removed-release: "1.22"`
 
-Value **must** be in the format "<major>.<minor>". It is set to target the removal release
+Value **must** be in the format "\<MAJOR>\.\<MINOR>\". It is set to target the removal release
 on requests made to deprecated API versions with a target removal release.
 -->
-## k8s.io/removed-release {#k8s-io-removed-release} 
+## k8s.io/removed-release {#k8s-io-removed-release}
 
 例子：`k8s.io/removed-release: "1.22"`
 
-值**必须**为 "<major>.<minor>" 的格式。当请求使用了已弃用的 API 版本时，
+值**必须**为 "\<MAJOR>\.\<MINOR>\" 的格式。当请求使用了已弃用的 API 版本时，
 该值会被设置为目标移除的版本。
 
 <!--
@@ -77,7 +76,7 @@ from the PodSecurity enforcement.
 
 例子：`pod-security.kubernetes.io/exempt: namespace`
 
-值**必须**是对应于 [Pod 安全豁免](/zh-cn/docs/concepts/security/pod-security-admission/#exemptions)维度的 
+值**必须**是对应于 [Pod 安全豁免](/zh-cn/docs/concepts/security/pod-security-admission/#exemptions)维度的
 `user`、`namespace` 或 `runtimeClass` 之一。
 此注解指示 PodSecurity 基于哪个维度的强制豁免执行。
 
@@ -135,6 +134,57 @@ PodSecurity 执行中违反的特定策略及对应字段。
 有关详细信息，请参阅 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)。
 
 <!--
+## apiserver.latency.k8s.io/etcd
+
+Example: `apiserver.latency.k8s.io/etcd: "4.730661757s"`
+
+This annotation indiactes the measure of latency incurred inside the storage layer,
+it accounts for the time it takes to send data to the etcd and get the complete response back.
+
+The value of this audit annotation does not include the time incurred in admission, or validation.
+-->
+## apiserver.latency.k8s.io/etcd
+
+例子：`apiserver.latency.k8s.io/etcd: "4.730661757s"`
+
+此注解表示在存储层内部产生的延迟测量，  
+它记录将数据发送到 etcd 并接收完整响应所花费的时间。
+
+此审计注解的取值不包括准入或校验过程所耗用的时间。
+
+<!--
+## apiserver.latency.k8s.io/decode-response-object
+
+Example: `apiserver.latency.k8s.io/decode-response-object: "450.6649ns"`
+
+This annotation records the time taken to decode the response received from the storage layer (etcd)
+-->
+## apiserver.latency.k8s.io/decode-response-object
+
+例子：`apiserver.latency.k8s.io/decode-response-object: "450.6649ns"`
+
+此注解记录解码从存储层（etcd）接收到的响应对象所花费的时间。
+
+<!--
+## apiserver.latency.k8s.io/apf-queue-wait
+
+Example: `apiserver.latency.k8s.io/apf-queue-wait: "100ns"`
+
+This annotation records the time that a request spent queued due to API server priorities.
+
+See [API Priority and Fairness](/docs/concepts/cluster-administration/flow-control/) (APF)
+for more information about this mechanism.
+-->
+## apiserver.latency.k8s.io/apf-queue-wait
+
+例子：`apiserver.latency.k8s.io/apf-queue-wait: "100ns"`
+
+此注解记录由于 API 服务器优先级机制，请求在队列中等待的时间。
+
+有关此机制的更多信息，参见
+[API 优先级与公平性](/zh-cn/docs/concepts/cluster-administration/flow-control/)（APF）。
+
+<!--
 ## authorization.k8s.io/decision
 
 Example: `authorization.k8s.io/decision: "forbid"`
@@ -179,7 +229,7 @@ Used by Kubernetes version v1.24 and later
 -->
 例子：`missing-san.invalid-cert.kubernetes.io/example-svc.example-namespace.svc: "relies on a legacy Common Name field instead of the SAN extension for subject validation"`
 
-由 Kubernetes v1.24 及更高版本使用
+由 Kubernetes v1.24 及更高版本使用。
 
 <!--
 This annotation indicates a webhook or aggregated API server
@@ -187,7 +237,7 @@ is using an invalid certificate that is missing `subjectAltNames`.
 Support for these certificates was disabled by default in Kubernetes 1.19,
 and removed in Kubernetes 1.23.
 -->
-此注解表示 webhook 或聚合 API 服务器正在使用缺少 `subjectAltNames` 的无效证书。
+此注解表示 Webhook 或聚合 API 服务器正在使用缺少 `subjectAltNames` 的无效证书。
 Kubernetes 1.19 已经默认禁用，且 Kubernetes 1.23 已经移除对这些证书的支持。
 
 <!--
@@ -209,12 +259,12 @@ Go 文档中有更多关于此的信息：
 
 <!--
 Example: `insecure-sha1.invalid-cert.kubernetes.io/example-svc.example-namespace.svc: "uses an insecure SHA-1 signature"`
+
 Used by Kubernetes version v1.24 and later
 -->
-
 例子：`insecure-sha1.invalid-cert.kubernetes.io/example-svc.example-namespace.svc: "uses an insecure SHA-1 signature"`
 
-由 Kubernetes v1.24 及更高版本使用
+由 Kubernetes v1.24 及更高版本使用。
 
 <!--
 This annotation indicates a webhook or aggregated API server
@@ -222,7 +272,7 @@ is using an insecure certificate signed with a SHA-1 hash.
 Support for these insecure certificates is disabled by default in Kubernetes 1.24,
 and will be removed in a future release.
 -->
-此注解表示 webhook 或聚合 API 服务器所使用的是使用 SHA-1 签名的不安全证书。
+此注解表示 Webhook 或聚合 API 服务器所使用的是使用 SHA-1 签名的不安全证书。
 Kubernetes 1.24 已经默认禁用，并将在未来的版本中删除对这些证书的支持。
 
 <!--
@@ -243,10 +293,7 @@ Go 文档中有更多关于此的信息：
 <!--
 Example: `validation.policy.admission.k8s.io/validation_failure: '[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]'`
 -->
-例子：`validation.policy.admission.k8s.io/validation_failure:
-'[{"message": "Invalid value", {"policy": "policy.example.com",
-{"binding": "policybinding.example.com", {"expressionIndex": "1",
-{"validationActions": ["Audit"]}]'`
+例子：`validation.policy.admission.k8s.io/validation_failure: '[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]'`
 
 <!--
 Used by Kubernetes version v1.27 and later.
@@ -286,4 +333,3 @@ for more details about `validationActions`.
 `validationActions` 显示针对此验证失败采取的操作。
 有关 `validationActions` 的更多详细信息，
 请参阅[验证准入策略](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)。
-

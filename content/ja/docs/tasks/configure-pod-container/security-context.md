@@ -298,6 +298,25 @@ status:
     supplementalGroupsPolicy: true
 ```
 
+{{<note>}}
+アルファリリース(v1.31, v1.32)では、`SupplementalGroupsPolicy=Strict`を指定されたPodが、この機能をサポートされていないノード(`.status.features.supplementalGroupsPolicy=false`なノード)にスケジュールされた場合、そのPodのSupplementalGroupsPolicyは`Merge`に暗黙的にフォールバックされていました。
+
+しかし、ベータリリース(v1.33)以降は、ポリシーをより厳格に強制するため、そのようなPodの作成は、ノードによるポリシーの強制が不可能なためkubeletによって拒否されます。Podの作成が拒否された場合、下記のような`reason=SupplementalGroupsPolicyNotSupported`を持つWarningイベントが作成されます。
+
+```yaml
+apiVersion: v1
+kind: Event
+...
+type: Warning
+reason: SupplementalGroupsPolicyNotSupported
+message: "SupplementalGroupsPolicy=Strict is not supported in this node"
+involvedObject:
+  apiVersion: v1
+  kind: Pod
+  ...
+```
+{{</note>}}
+
 ## Podのボリュームパーミッションと所有権変更ポリシーを設定する
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}

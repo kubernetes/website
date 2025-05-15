@@ -221,51 +221,51 @@ A structural schema is an [OpenAPI v3.0 validation schema](#validation) which:
 
 Non-structural example 1:
 
-```none
+```yaml
 allOf:
 - properties:
     foo:
-      ...
+      # ...
 ```
 
 conflicts with rule 2. The following would be correct:
 
-```none
+```yaml
 properties:
   foo:
-    ...
+    # ...
 allOf:
 - properties:
     foo:
-      ...
+      # ...
 ```
 
 Non-structural example 2:
 
-```none
+```yaml
 allOf:
 - items:
     properties:
       foo:
-        ...
+        # ...
 ```
 conflicts with rule 2. The following would be correct:
 
-```none
+```yaml
 items:
   properties:
     foo:
-      ...
+      # ...
 allOf:
 - items:
     properties:
       foo:
-        ...
+        # ...
 ```
 
 Non-structural example 3:
 
-```none
+```yaml
 properties:
   foo:
     pattern: "abc"
@@ -479,7 +479,7 @@ properties:
 Also those nodes are partially excluded from rule 3 in the sense that the following two patterns are allowed
 (exactly those, without variations in order to additional fields):
 
-```none
+```yaml
 x-kubernetes-int-or-string: true
 anyOf:
   - type: integer
@@ -489,13 +489,13 @@ anyOf:
 
 and
 
-```none
+```yaml
 x-kubernetes-int-or-string: true
 allOf:
   - anyOf:
       - type: integer
       - type: string
-  - ... # zero or more
+  - # ... zero or more
 ...
 ```
 
@@ -522,12 +522,12 @@ properties:
 
 Here, the field `foo` holds a complete object, e.g.:
 
-```none
+```yaml
 foo:
   apiVersion: v1
   kind: Pod
   spec:
-    ...
+    # ...
 ```
 
 Because `x-kubernetes-preserve-unknown-fields: true` is specified alongside, nothing is pruned.
@@ -796,8 +796,8 @@ rules are supported.
 
 For example:
 
-```none
-  ...
+```yaml
+  # ...
   openAPIV3Schema:
     type: object
     properties:
@@ -809,7 +809,7 @@ For example:
           - rule: "self.replicas <= self.maxReplicas"
             message: "replicas should be smaller than or equal to maxReplicas."
         properties:
-          ...
+          # ...
           minReplicas:
             type: integer
           replicas:
@@ -912,8 +912,8 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
   `metadata.generateName`. This includes selection of fields in both the `spec` and `status` in the
   same expression:
 
-  ```none
-    ...
+  ```yaml
+    # ...
     openAPIV3Schema:
       type: object
       x-kubernetes-validations:
@@ -924,7 +924,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
             properties:
               minReplicas:
                 type: integer
-              ...
+              # ...
           status:
             type: object
             properties:
@@ -936,8 +936,8 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
   via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as
   absent fields in CEL expressions.
 
-  ```none
-    ...
+  ```yaml
+    # ...
     openAPIV3Schema:
       type: object
       properties:
@@ -946,7 +946,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
           x-kubernetes-validations:
             - rule: "has(self.foo)"
           properties:
-            ...
+            # ...
             foo:
               type: integer
   ```
@@ -955,8 +955,8 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
   are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all
   entries of the map are accessible via CEL macros and functions such as `self.all(...)`.
 
-  ```none
-    ...
+  ```yaml
+    # ...
     openAPIV3Schema:
       type: object
       properties:
@@ -965,7 +965,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
           x-kubernetes-validations:
             - rule: "self['xyz'].foo > 0"
           additionalProperties:
-            ...
+            # ...
             type: object
             properties:
               foo:
@@ -975,12 +975,12 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
 - If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and
   also by macros and functions.
 
-  ```none
-    ...
+  ```yaml
+    # ...
     openAPIV3Schema:
       type: object
       properties:
-        ...
+        # ...
         foo:
           type: array
           x-kubernetes-validations:
@@ -991,15 +991,15 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
 
 - If the Rule is scoped to a scalar, `self` is bound to the scalar value.
 
-  ```none
-    ...
+  ```yaml
+    # ...
     openAPIV3Schema:
       type: object
       properties:
         spec:
           type: object
           properties:
-            ...
+            # ...
             foo:
               type: integer
               x-kubernetes-validations:

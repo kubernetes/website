@@ -1,7 +1,7 @@
 ---
 layout: blog
-title: "Kubernetes v1.33: Updates to Container Lifecycle in Kubernetes v1.33"
-date: 2025-05-15T10:30:00-08:00
+title: "Kubernetes v1.33: Updates to Container Lifecycle"
+date: 2025-05-14T10:30:00-08:00
 slug: kubernetes-v1-33-updates-to-container-lifecycle
 author: >
   Sreeram Venkitesh (DigitalOcean)

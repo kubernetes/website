@@ -1,12 +1,12 @@
 ---
 layout: blog
-title: "Kubernetes v1.33: In-Place Pod Resize Graduating to Beta"
-slug: in-place-pod-resize-beta
-date: 2025-05-19T10:30:00-08:00
+title: "Kubernetes v1.33: In-Place Pod Resize Graduated to Beta"
+slug: kubernetes-v1-33-in-place-pod-resize-beta
+date: 2025-05-16T10:30:00-08:00
 author: "Tim Allclair (Google)"
 ---
 
-On behalf of the Kubernetes project, I am excited to announce that the **in-place Pod resize** feature (also known as In-Place Pod Vertical Scaling), first introduced as alpha in Kubernetes v1.27, is graduating to **Beta** and will be enabled by default in the Kubernetes v1.33 release! This marks a significant milestone in making resource management for Kubernetes workloads more flexible and less disruptive.
+On behalf of the Kubernetes project, I am excited to announce that the **in-place Pod resize** feature (also known as In-Place Pod Vertical Scaling), first introduced as alpha in Kubernetes v1.27, has graduated to **Beta** and will be enabled by default in the Kubernetes v1.33 release! This marks a significant milestone in making resource management for Kubernetes workloads more flexible and less disruptive.
 
 ## What is in-place Pod resize?
 

@@ -123,11 +123,6 @@ introduced at the specified Kubernetes versions:
 </thead>
 <tbody>
 <tr>
-  <td>CEL option, library or language feature</td>
-  <td>Included</td>
-  <td>Availablity</td>
-</tr>
-<tr>
   <td><a href="https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros">Standard macros</a></td>
   <td><code>has</code>, <code>all</code>, <code>exists</code>, <code>exists_one</code>, <code>map</code>, <code>filter</code></td>
   <td>All Kubernetes versions</td>
