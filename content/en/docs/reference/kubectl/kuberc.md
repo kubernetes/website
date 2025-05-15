@@ -1,5 +1,5 @@
 ---
-title: Kuberc
+title: Kubectl user preferences (kuberc)
 content_type: concept
 weight: 70
 ---
@@ -21,7 +21,7 @@ Specify the underlying built-in command that your alias will execute. This inclu
 
 ### Flags
 
-Customize the defaults values of flags. If you explicitly specify a flag on your terminal, explicit value will always take precedence over the default one defined in kuberc. 
+Customize the defaults values of flags. If you explicitly specify a flag on your terminal, that value will always take precedence over the default one defined in kuberc. 
 
 **Example:**
 

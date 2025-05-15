@@ -1,5 +1,5 @@
 ---
-title: Kuberc (v1alpha)
+title: Kuberc (v1alpha1)
 content_type: tool-reference
 package: kubectl.config.k8s.io/v1alpha1
 auto_generated: true
