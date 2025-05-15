@@ -506,6 +506,8 @@ Verbosity | Description
 
 * See [kubectl](/docs/reference/kubectl/kubectl/) options.
 
+* See [kuberc](/docs/reference/kubectl/kuberc) options.
+
 * Also read [kubectl Usage Conventions](/docs/reference/kubectl/conventions/) to understand how to use kubectl in reusable scripts.
 
 * See more community [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
