@@ -1,46 +1,14 @@
 ---
 layout: blog
-title: "Announcing Etcd v3.6.0"
-date: 2025-05-19T10:00:00-08:00
+title: "Announcing etcd v3.6.0"
+date: 2025-05-15T16:00:00-08:00
 slug: announcing-etcd-3.6
 author: >
   Benjamin Wang (VMware by Broadcom)
+canonicalUrl: "https://etcd.io/blog/2025/announcing-etcd-3.6/"
 ---
 
-## Table of Contents
-
-- **[Introduction](#introduction)**
-- **[Security](#security)**
-- **[Features](#features)**
-  - [Migration to v3store](#migration-to-v3store)
-  - [Downgrade](#downgrade)
-  - [Feature Gates](#feature-gates)
-  - [Livez/readyz checks](#livezreadyz-checks)
-  - [v3discovery](#v3discovery)
-- **[Performance](#performance)**
-  - [Memory](#memory)
-  - [Throughput](#throughput)
-- **[Breaking changes](#breaking-changes)**
-  - [Old Binaries Are Incompatible with New Schema Versions](#old-binaries-are-incompatible-with-new-schema-versions)
-  - [Peer Endpoints No Longer Serve Client Requests](#peer-endpoints-no-longer-serve-client-requests)
-  - [Clear boundary between etcdctl and etcdutl](#clear-boundary-between-etcdctl-and-etcdutl)
-- **[Critical bug fixes](#critical-bug-fixes)**
-- **[Upgrade issue](#upgrade-issue)**
-- **[Testing](#testing)**
-- **[Platforms](#platforms)**
-- **[Dependencies](#dependencies)**
-  - [Dependency Bumping Guide](#dependency-bumping-guide)
-  - [Core Dependency Updates](#core-dependency-updates)
-  - [grpc-gateway@v2](#grpc-gatewayv2)
-  - [grpc-ecosystem/go-grpc-middleware/providers/prometheus](#grpc-ecosystemgo-grpc-middlewareprovidersprometheus)
-- **[Community](#community)**
-  - [etcd Becomes a Kubernetes SIG](#etcd-becomes-a-kubernetes-sig)
-  - [New Contributors, Maintainers, and Reviewers](#new-contributors-maintainers-and-reviewers)
-  - [New Release Team](#new-release-team)
-  - [Introducing the etcd Operator Working Group](#introducing-the-etcd-operator-working-group)
-- **[Future Development](#future-development)**
-
-## Introduction
+_This announcement originally [appeared](https://etcd.io/blog/2025/announcing-etcd-3.6/) on the etcd blog._
 
 Today, we are releasing [etcd v3.6.0][], the first minor release since etcd v3.5.0 on June 15, 2021. This release
 introduces several new features, makes significant progress on long-standing efforts like downgrade support and
@@ -107,7 +75,7 @@ etcd will then migrate the data schema in the background. Once complete, proceed
 
 For details, refer to the [Downgrade-3.6] guide.
 
-### Feature Gates
+### Feature gates
 
 In etcd v3.6.0, we introduced Kubernetes-style feature gates for managing new features. Previously, we
 indicated unstable features through the `--experimental` prefix in feature flag names. The prefix was removed
@@ -116,7 +84,7 @@ to Beta, then GA, or get deprecated. This ensures a much smoother upgrade and do
 
 See [feature-gates][] for details.
 
-### Livez/readyz checks
+### livez / readyz checks {#livezreadyz-checks}
 
 etcd now supports `/livez` and `/readyz` endpoints, aligning with Kubernetes' Liveness and Readiness probes.
 `/livez` indicates whether the etcd instance is alive, while `/readyz` indicates when it is ready to serve requests.
@@ -187,7 +155,7 @@ write throughput of v3.6.0-rc.2 over v3.5.20, ranging from 3.86% to 28.37%._
 This section highlights a few notable breaking changes. For a complete list, please refer to
 the [Upgrade etcd from v3.5 to v3.6][] and the [CHANGELOG-3.6][].
 
-### Old Binaries Are Incompatible with New Schema Versions
+Old binaries are incompatible with new schema versions
 
 Old etcd binaries are not compatible with newer data schema versions. For example, etcd 3.5 cannot start with
 data created by etcd 3.6, and etcd 3.4 cannot start with data created by either 3.5 or 3.6.
@@ -195,7 +163,7 @@ data created by etcd 3.6, and etcd 3.4 cannot start with data created by either 
 When downgrading etcd, it's important to follow the documented downgrade procedure. Simply replacing
 the binary or image will result in the incompatibility issue.
 
-### Peer Endpoints No Longer Serve Client Requests
+### Peer endpoints no longer serve client requests
 
 Client endpoints (`--advertise-client-urls`) are intended to serve client requests only, while peer
 endpoints (`--initial-advertise-peer-urls`) are intended solely for peer communication. However, due to an implementation
@@ -279,7 +247,7 @@ see [supported-platform][].
 
 ## Dependencies
 
-### Dependency Bumping Guide
+### Dependency bumping guide
 
 We have published an official guide on how to bump dependencies for etcd’s main branch and stable releases.
 It also covers how to update the Go version. For more details, please refer to [dependency_management][].
@@ -331,7 +299,7 @@ and transparent home for long-term stewardship and cross-project collaboration. 
 designation will help streamline decision-making, align roadmaps with Kubernetes needs,
 and attract broader community involvement.
 
-### New Contributors, Maintainers, and Reviewers
+### New contributors, maintainers, and reviewers
 
 We’ve seen increasing engagement from contributors, which has resulted in the addition of three new maintainers:
 
@@ -349,7 +317,7 @@ We also welcome two new reviewers to the project:
 We appreciate their dedication to code quality and their willingness to take on broader review responsibilities
 within the community.
 
-### New Release Team
+New release team
 
 We've formed a new release team led by [ivanvc][] and [jmhbnz][], streamlining the release process by automating
 many previously manual steps. Inspired by Kubernetes SIG Release, we've adopted several best practices, including
