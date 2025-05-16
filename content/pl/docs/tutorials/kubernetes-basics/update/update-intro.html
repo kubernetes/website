@@ -30,7 +30,7 @@ weight: 10
 
             <p>Użytkownicy oczekują, że aplikacje są dostępne non-stop, a deweloperzy chcieliby móc wprowadzać nowe wersje nawet kilka razy dziennie. W Kubernetes jest to możliwe dzięki mechanizmowi płynnych aktualizacji <em>(rolling updates)</em>. <b>Rolling updates</b> pozwala prowadzić aktualizację w ramach Deploymentu bez przerw w jego działaniu dzięki krokowemu aktualizowaniu kolejnych Podów. Nowe Pody uruchamiane są na Węzłach, które posiadają wystarczające zasoby.</p>
 
-            <p>W poprzednim module wyskalowaliśmy aplikację aby była uruchomiona na wielu instancjach. To niezbędny wymóg, aby móc prowadzić aktualizacje bez wpływu na dostępność aplikacji. Domyślnie, maksymalna liczba Podów, które mogą być niedostępne w trakcie aktualizacji oraz Podów, które mogą być tworzone, wynosi jeden. Obydwie opcje mogą być zdefiniowane w wartościach bezwzględnych lub procentowych (ogólnej liczby Podów). 
+            <p>W poprzednim module wyskalowaliśmy aplikację aby była uruchomiona na wielu instancjach. To niezbędny wymóg, aby móc prowadzić aktualizacje bez wpływu na dostępność aplikacji. Domyślnie, maksymalna liczba Podów, które mogą być niedostępne w trakcie aktualizacji oraz Podów, które mogą być tworzone, wynosi jeden. Obydwie opcje mogą być zdefiniowane w wartościach bezwzględnych lub procentowych (ogólnej liczby Podów).
             W Kubernetes, każdy aktualizacja ma nadany numer wersji i każdy Deployment może być wycofany do wersji poprzedniej (stabilnej).</p>
 
             </div>
@@ -111,21 +111,6 @@ weight: 10
                 <div class="content__box content__box_fill">
                     <p><i>Jeśli Deployment jest udostępniony publicznie, Serwis będzie kierował ruch w trakcie aktualizacji tylko do Podów, które są aktualnie dostępne. </i></p>
                 </div>
-            </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-            <div class="col-md-8">
-                <p>W ramach tego interaktywnego samouczka zaktualizujemy aplikację do nowej wersji oraz wycofamy tę aktualizację.</p>
-            </div>
-        </div>
-        <br>
-
-        <div class="row">
-            <div class="col-md-12">
-                <a class="btn btn-lg btn-success" href="/pl/docs/tutorials/kubernetes-basics/update/update-interactive/" role="button">Rozpocznij interaktywny samouczek <span class="btn__next">›</span></a>
             </div>
         </div>
 

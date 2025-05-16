@@ -74,6 +74,9 @@ p.attrib {
     background: #f9f9f9;
     height: auto;
     /*height: 340px;*/
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .gridPage #video .main-section {

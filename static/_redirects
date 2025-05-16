@@ -54,6 +54,7 @@
 /docs/concepts/cluster-administration/access-cluster/     /docs/tasks/access-application-cluster/access-cluster/ 301
 /docs/concepts/cluster-administration/audit/     /docs/tasks/debug/debug-cluster/audit/ 301
 /docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig   /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/ 301
+/docs/concepts/cluster-administration/cluster-autoscaling/    /docs/concepts/cluster-administration/node-autoscaling/ 301
 /docs/concepts/cluster-administration/cluster-management/     /docs/tasks/administer-cluster/ 302
 /docs/concepts/cluster-administration/configure-etcd/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
 /docs/concepts/cluster-administration/device-plugins/     /docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/ 301
@@ -147,6 +148,10 @@
 /docs/contribute/start/        /docs/contribute/ 301
 /docs/contribute/intermediate/        /docs/contribute/ 301
 /docs/contribute/new-content/overview/        /docs/contribute/new-content/ 301
+
+# Previous page is now /docs/contribute/blog/ and /docs/contribute/new-content/case-studies
+# No direct redirect is correct to make
+/docs/contribute/new-content/blogs-case-studies/ /docs/contribute/new-content/ 302
 
 /docs/deprecate/     /docs/reference/using-api/deprecation-policy/ 301
 /docs/deprecated/     /docs/reference/using-api/deprecation-policy/ 301
@@ -454,5 +459,6 @@
 
 /docs/concepts/overview/what-is-kubernetes/      /docs/concepts/overview/ 301
 /docs/tasks/administer-cluster/verify-signed-images/     /docs/tasks/administer-cluster/verify-signed-artifacts/   301
+/docs/tasks/administer-cluster/namespaces-walkthrough/   /docs/tutorials/cluster-management/namespaces-walkthrough/ 301
 
 /kubertenes     /blog/2024/06/06/10-years-of-kubernetes/ 302

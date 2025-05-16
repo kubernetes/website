@@ -10,7 +10,7 @@ weight: 230
 
 What's Kompose? It's a conversion tool for all things compose (namely Docker Compose) to container orchestrators (Kubernetes or OpenShift).
 
-More information can be found on the Kompose website at [http://kompose.io](http://kompose.io).
+More information can be found on the Kompose website at [https://kompose.io/](https://kompose.io/).
 
 ## {{% heading "prerequisites" %}}
 
@@ -50,27 +50,6 @@ Installing using `go get` pulls from the master branch with the latest developme
 
 ```sh
 go get -u github.com/kubernetes/kompose
-```
-
-{{% /tab %}}
-{{% tab name="CentOS package" %}}
-
-Kompose is in [EPEL](https://fedoraproject.org/wiki/EPEL) CentOS repository.
-If you don't have [EPEL](https://fedoraproject.org/wiki/EPEL) repository already installed and enabled you can do it by running `sudo yum install epel-release`.
-
-If you have [EPEL](https://fedoraproject.org/wiki/EPEL) enabled in your system, you can install Kompose like any other package.
-
-```bash
-sudo yum -y install kompose
-```
-
-{{% /tab %}}
-{{% tab name="Fedora package" %}}
-
-Kompose is in Fedora 24, 25 and 26 repositories. You can install it like any other package.
-
-```bash
-sudo dnf -y install kompose
 ```
 
 {{% /tab %}}

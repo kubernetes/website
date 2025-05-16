@@ -172,7 +172,8 @@ your cluster. Those fields are:
   If this value is null, the behavior is equivalent to the Honor policy.
 
   {{< note >}}
-  The `nodeAffinityPolicy` is a beta-level field and enabled by default in 1.26. You can disable it by disabling the
+  The `nodeAffinityPolicy` became beta in 1.26 and graduated to GA in 1.33.
+  It's enabled by default in beta, you can disable it by disabling the
   `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
@@ -185,7 +186,8 @@ your cluster. Those fields are:
   If this value is null, the behavior is equivalent to the Ignore policy.
 
   {{< note >}}
-  The `nodeTaintsPolicy` is a beta-level field and enabled by default in 1.26. You can disable it by disabling the
+  The `nodeTaintsPolicy` became beta in 1.26 and graduated to GA in 1.33.
+  It's enabled by default in beta, you can disable it by disabling the
   `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
@@ -515,7 +517,7 @@ ReplicaSets, StatefulSets or ReplicationControllers that the Pod belongs to.
 An example configuration might look like follows:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 
 profiles:
@@ -565,7 +567,7 @@ you can disable those defaults by setting `defaultingType` to `List` and leaving
 empty `defaultConstraints` in the `PodTopologySpread` plugin configuration:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 
 profiles:
@@ -618,7 +620,7 @@ section of the enhancement proposal about Pod topology spread constraints.
   because, in this case, those topology domains won't be considered until there is
   at least one node in them.
 
-  You can work around this by using a cluster autoscaling tool that is aware of
+  You can work around this by using a Node autoscaler that is aware of
   Pod topology spread constraints and is also aware of the overall set of topology
   domains.
 

@@ -2,6 +2,7 @@
 content_type: "reference"
 title: Kubelet Systemd Watchdog
 weight: 80
+math: true # for a division by 2
 ---
 
 {{< feature-state feature_gate_name="SystemdWatchdog" >}}
@@ -29,7 +30,7 @@ WatchdogSec=30s
 ```
 
 Setting `WatchdogSec=30s` indicates a service watchdog timeout of 30 seconds.
-Within the kubelet, the `sd_notify()` function is invoked, at intervals of `WatchdogSec` ÷ 2, to send
+Within the kubelet, the `sd_notify()` function is invoked, at intervals of \\( WatchdogSec \div 2\\). to send
 `WATCHDOG=1` (a keep-alive message). If the watchdog is not fed
 within the timeout period, the kubelet will be killed. Setting `Restart`
 to "always", "on-failure", "on-watchdog", or "on-abnormal" will ensure that the service

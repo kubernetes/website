@@ -434,7 +434,6 @@ The above scenario can be replicated by using a [Sidecar Container](/docs/concep
 as a helper container to write the HTML file.  
 As a Sidecar Container is conceptually an Init Container, it is guaranteed to start before the main web server container.  
 This ensures that the HTML file is always available when the web server is ready to serve it.  
-Please see [Enabling sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/#enabling-sidecar-containers) to utilize this feature.
 
 If you are continuing from the previous scenario, you can reuse the ConfigMap named `color` for this scenario.  
 If you are executing this scenario independently, use the `kubectl create configmap` command to create a ConfigMap

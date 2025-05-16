@@ -36,7 +36,7 @@ weight: 120
 
 ## 서비스 검색
 
-* [CoreDNS](https://coredns.io)는 유연하고 확장 가능한 DNS 서버로, 파드를 위한 클러스터 내 DNS로 [설치](https://github.com/coredns/deployment/tree/master/kubernetes)할 수 있다.
+* [CoreDNS](https://coredns.io)는 유연하고 확장 가능한 DNS 서버로, 파드를 위한 클러스터 내 DNS로 [설치](https://github.com/coredns/helm)할 수 있다.
 
 ## 시각화 &amp; 제어
 

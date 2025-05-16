@@ -1,4 +1,0 @@
----
-title: "Ordliste"
-layout: glossary
----

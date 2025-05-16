@@ -20,6 +20,9 @@ Aby móc skorzystać z tego repozytorium, musisz lokalnie zainstalować:
 - [Hugo (Extended version)](https://gohugo.io/)
 - Środowisko obsługi kontenerów, np. [Dockera](https://www.docker.com/).
 
+> [!NOTE]
+Upewnij się, że instalujesz rozszerzoną (extended) wersję Hugo, która jest zdefiniowana w zmiennej środowiskowej `HUGO_VERSION` w pliku [`netlify.toml`](netlify.toml#L11).
+
 Przed rozpoczęciem zainstaluj niezbędne zależności. Sklonuj repozytorium i przejdź do odpowiedniego katalogu:
 
 ```bash
@@ -27,15 +30,20 @@ git clone https://github.com/kubernetes/website.git
 cd website
 ```
 
-Strona Kubernetesa używa [Docsy Hugo theme](https://github.com/google/docsy#readme). Nawet jeśli planujesz uruchomić serwis w środowisku kontenerowym, zalecamy pobranie podmodułów i innych zależności za pomocą polecenia:
+Strona Kubernetesa używa [Docsy Hugo theme](https://github.com/google/docsy#readme),
+którą można zainstalować przez npm. Możesz też pobrać wstępnie skonfigurowany
+obraz kontenera, który zawiera Hugo i Docsy. Dodatkowe narzędzia potrzebne
+do generowania dokumentacji źródłowej dostarczane są przez moduł zależny Git-a.
 
 ### Windows
+
 ```powershell
 # aktualizuj podrzędne moduły
 git submodule update --init --recursive --depth 1
 ```
 
 ### Linux / inne systemy Unix
+
 ```bash
 # aktualizuj podrzędne moduły
 make module-init
@@ -56,16 +64,17 @@ Aby obejrzeć zawartość serwisu, otwórz w przeglądarce adres <http://localho
 
 ## Jak uruchomić lokalną kopię strony przy pomocy Hugo?
 
-Upewnij się, że zainstalowałeś odpowiednią wersję Hugo "extended", określoną przez zmienną środowiskową `HUGO_VERSION` w pliku [`netlify.toml`](netlify.toml#L10).
-
-Aby uruchomić i przetestować serwis lokalnie, wykonaj:
+Aby zainstalować zależne składniki, uruchomić i przetestować serwis lokalnie, wykonaj:
 
 - macOS i Linux
+
   ```bash
   npm ci
   make serve
   ```
+
 - Windows (PowerShell)
+
   ```powershell
   npm ci
   hugo.exe server --buildFuture --environment development
@@ -145,18 +154,28 @@ Więcej informacji na temat współpracy przy tworzeniu dokumentacji znajdziesz 
 - [Rodzaje stron](https://kubernetes.io/docs/contribute/style/page-content-types/)
 - [Styl pisania dokumentacji](http://kubernetes.io/docs/contribute/style/style-guide/)
 - [Lokalizacja dokumentacji Kubernetesa](https://kubernetes.io/docs/contribute/localization/)
+- [Introduction to Kubernetes Docs](https://www.youtube.com/watch?v=pprMgmNzDcw)
+
+### Ambasadorzy nowych twórców
+
+Jeśli potrzebujesz pomocy na jakimkolwiek etapie tworzenia nowej treści, skontaktuj się z [ambasadorami nowych twórców](https://kubernetes.io/docs/contribute/advanced/#serve-as-a-new-contributor-ambassador). Ambasadorami są osoby, które mają uprawienia do zatwierdzania zmian w dokumentacji. Do ich zadań należy także wspieranie nowych twórców i pomoc w tworzeniu pierwszych *pull requestów*. Najlepiej kontaktować się z nimi przez [Slacka Kubernetesa](https://slack.k8s.io/). Aktualnie ambasadorami nowych twórców są:
+
+| Name                       | Slack                      | GitHub                     |
+| -------------------------- | -------------------------- | -------------------------- |
+| Sreeram Venkitesh          | @sreeram.venkitesh         | @sreeram-venkitesh         |
 
 ## Różne wersje językowe `README.md`
 
 | Język  | Język |
 |---|---|
-| [angielski](README.md)       | [francuski](README-fr.md)    |
-| [koreański](README-ko.md)    | [niemiecki](README-de.md)    |
-| [portugalski](README-pt.md)  | [hindi](README-hi.md)        |
-| [hiszpański](README-es.md)   | [indonezyjski](README-id.md) |
-| [chiński](README-zh.md)      | [japoński](README-ja.md)     |
-| [wietnamski](README-vi.md)   | [rosyjski](README-ru.md)     |
-| [włoski](README-it.md)       | [ukraiński](README-uk.md)    |
+| [bengali](../bn/README.md)    | [koreański](../ko/README.md)    |
+| [chiński](../zh-cn/README.md)    | [angielski](../../README.md)    |
+| [francuski](../fr/README.md)     | [portugalski](../pt-br/README.md)    |
+| [niemiecki](../de/README.md)     | [rosyjski](../ru/README.md)    |
+| [hindi](../hi/README.md)      | [hiszpański](../es/README.md)    |
+| [indonezyjski](../id/README.md) | [ukraiński](../uk/README.md) |
+| [włoski](../it/README.md)    | [wietnamski](../vi/README.md) |
+| [japoński](../ja/README.md)   | |
 
 ## Zasady postępowania
 

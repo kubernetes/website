@@ -3,7 +3,6 @@ title: 多租户
 content_type: concept
 weight: 80
 ---
-
 <!--
 title: Multi-tenancy
 content_type: concept
@@ -949,24 +948,22 @@ divisions, teams, and subteams - which should be assigned a namespace?
 例如，一个组织可能有部门、团队和子团队 - 哪些应该分配一个命名空间？
 
 <!--
-To solve this, Kubernetes provides the [Hierarchical Namespace Controller (HNC)](https://github.com/kubernetes-sigs/hierarchical-namespaces),
-which allows you to organize your namespaces into hierarchies, and share certain policies and
-resources between them. It also helps you manage namespace labels, namespace lifecycles, and
-delegated management, and share resource quotas across related namespaces. These capabilities can
+One possible approach is to organize your namespaces into hierarchies, and share certain policies and
+resources between them. This could include managing namespace labels, namespace lifecycles,
+delegated access, and shared resource quotas across related namespaces. These capabilities can
 be useful in both multi-team and multi-customer scenarios.
 -->
-为了解决这个问题，Kubernetes 提供了
-[Hierarchical Namespace Controller (HNC)](https://github.com/kubernetes-sigs/hierarchical-namespaces)，
-它允许你将多个命名空间组织成层次结构，并在它们之间共享某些策略和资源。
-它还可以帮助你管理命名空间标签、命名空间生命周期和委托管理，
-并在相关命名空间之间共享资源配额。
+一种可能的方法是将多个命名空间组织成层次结构，并在它们之间共享某些策略和资源。
+这可以包括管理命名空间标签、命名空间生命周期、委托访问权限，以及在相关命名空间之间共享资源配额。
 这些功能在多团队和多客户场景中都很有用。
 
 <!--
-Other projects that provide similar capabilities and aid in managing namespaced resources are
+Some third-party projects that provide capabilities like this and aid in managing namespaced resources are
 listed below.
 -->
-下面列出了提供类似功能并有助于管理命名空间资源的其他项目：
+下面列出了提供类似功能并有助于管理命名空间资源的一些第三方项目：
+
+{{% thirdparty-content %}}
 
 <!--
 #### Multi-team tenancy

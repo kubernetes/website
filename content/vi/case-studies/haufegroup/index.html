@@ -1,0 +1,85 @@
+---
+title: Haufe Group Case Study
+case_study_styles: true
+cid: caseStudies
+
+new_case_study_styles: true
+heading_background: /images/case-studies/haufegroup/banner1.jpg
+heading_title_logo: /images/haufegroup_logo.png
+subheading: >
+  Paving the Way for Cloud Native for Midsize Companies
+case_study_details:
+  - Company: Haufe Group
+  - Location: Freiburg, Germany
+  - Industry: Media and Software
+---
+
+<h2>Challenge</h2>
+
+<p>Founded in 1930 as a traditional publisher, Haufe Group has grown into a media and software company with 95 percent of its sales from digital products. Over the years, the company has gone from having "hardware in the basement" to outsourcing its infrastructure operations and IT. More recently, the development of new products, from Internet portals for tax experts to personnel training software, has created demands for increased speed, reliability and scalability. "We need to be able to move faster," says Solution Architect Martin Danielsson. "Adapting workloads is something that we really want to be able to do."</p>
+
+<h2>Solution</h2>
+<p>Haufe Group began its cloud-native journey when <a href="https://azure.microsoft.com/">Microsoft Azure</a> became available in Europe; the company needed cloud deployments for its desktop apps with bandwidth-heavy download services. "After that, it has been different projects trying out different things," says Danielsson. Two years ago, Holger Reinhardt joined Haufe Group as CTO and rapidly re-oriented the traditional host provider-based approach toward a cloud and API-first strategy.</p>
+
+<p>A core part of this strategy was a strong mandate to embrace infrastructure-as-code across the entire software deployment lifecycle via Docker. The company is now getting ready to go live with two services in production using <a href="https://kubernetes.io/">Kubernetes</a> orchestration on <a href="https://azure.microsoft.com/">Microsoft Azure</a> and <a href="https://aws.amazon.com/">Amazon Web Services</a>. The team is also working on breaking up one of their core Java Enterprise desktop products into microservices to allow for better evolvability and dynamic scaling in the cloud.</p>
+
+<h2>Impact</h2>
+<p>With the ability to adapt workloads, Danielsson says, teams "will be able to scale down to around half the capacity at night, saving 30 percent of the hardware cost." Plus, shorter release times have had a major impact. "Before, we had to announce at least a week in advance when we wanted to do a release because there was a huge checklist of things that you had to do," he says. "By going cloud native, we have the infrastructure in place to be able to automate all of these things. Now we can get a new release done in half an hour instead of days."</p>
+
+{{< case-studies/quote author="Martin Danielsson, Solution Architect, Haufe Group" >}}
+"Over the next couple of years, people won't even think that much about it when they want to run containers. Kubernetes is going to be the go-to solution."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+More than 80 years ago, Haufe Group was founded as a traditional publishing company, printing books and commentary on paper.
+{{< /case-studies/lead >}}
+
+<p>By the 1990s, though, the company's leaders recognized that the future was digital, and to their credit, were able to transform Haufe Group into a media and software business that now gets 95 percent of its sales from digital products. "Among the German companies doing this, we were one of the early adopters," says Martin Danielsson, Solution Architect for Haufe Group.</p>
+
+<p>And now they're leading the way for midsize companies embracing cloud-native technology like Kubernetes. "The really big companies like Ticketmaster and Google get it right, and the startups get it right because they're faster," says Danielsson. "We're in this big lump of companies in the middle with a lot of legacy, a lot of structure, a lot of culture that does not easily fit the cloud technologies. We're just 1,500 people, but we have hundreds of customer-facing applications. So we're doing things that will be relevant for many companies of our size or even smaller."</p>
+
+<p>Many of those legacy challenges stemmed from simply following the technology trends of the times. "We used to do full DevOps," he says. In the 1990s and 2000s, "that meant that you had your hardware in the basement. And then 10 years ago, the hype of the moment was to outsource application operations, outsource everything, and strip down your IT department to take away the distraction of all these hardware things. That's not our area of expertise. We didn't want to be an infrastructure provider. And now comes the backlash of that."</p>
+
+<p>Haufe Group began feeling the pain as they were developing more new products, from Internet portals for tax experts to personnel training software, that have created demands for increased speed, reliability and scalability. "Right now, we have this break in workflows, where we go from writing concepts to developing, handing it over to production and then handing that over to your host provider," he says. "And then when things go bad we have no clue what went wrong. We definitely want to take back control, and we want to move a lot faster. Adapting workloads is something that we really want to be able to do."</p>
+
+<p>Those needs led them to explore cloud-native technology. Their first foray into the cloud was doing deployments in <a href="https://azure.microsoft.com/">Microsoft Azure</a>, once it became available in Europe, for desktop products that had built-in download services. Hosting expenses for such bandwidth-heavy services were too high, so the company turned to the cloud. "After that, it has been different projects trying out different things," says Danielsson.</p>
+
+{{< case-studies/quote image="/images/case-studies/haufegroup/banner3.jpg" >}}
+"We have been doing containers for the last two years, and we really got the hang of how they work," says Danielsson. "But it was always for development and test, never in production, because we didn't fully understand how that would work. And to me, Kubernetes was definitely the technology that solved that."
+{{< /case-studies/quote >}}
+
+<p>Two years ago, Holger Reinhardt joined Haufe Group as CTO and rapidly re-oriented the traditional host provider-based approach toward a cloud and API-first strategy. A core part of this strategy was a strong mandate to embrace infrastructure-as-code across the entire software deployment lifecycle via Docker. Some experiments went further than others; German regulations about sensitive data proved to be a road block in moving some workloads to Azure and Amazon Web Services. "Due to our history, Germany is really strict with things like personally identifiable data," Danielsson says.</p>
+
+<p>These experiments took on new life with the arrival of the Azure Sovereign Cloud for Germany (an Azure clone run by the German T-Systems provider). With the availability of Azure.de—which conforms to Germany's privacy regulations—teams started to seriously consider deploying production loads in Docker into the cloud. "We have been doing containers for the last two years, and we really got the hang of how they work," says Danielsson. "But it was always for development and test, never in production, because we didn't fully understand how that would work. And to me, Kubernetes was definitely the technology that solved that."</p>
+
+<p>In parallel, Danielsson had built an API management system with the aim of supporting CI/CD scenarios, aspects of which were missing in off-the-shelf API management products. With a foundation based on <a href="https://getkong.org/">Mashape's Kong</a> gateway, it is open-sourced as <a href="http://wicked.haufe.io/">wicked.haufe.io</a>. He put wicked.haufe.io to use with his product team.<br><br> Otherwise, Danielsson says his philosophy was "don't try to reinvent the wheel all the time. Go for what's there and 99 percent of the time it will be enough. And if you think you really need something custom or additional, think perhaps once or twice again. One of the things that I find so amazing with this cloud-native framework is that everything ties in."</p>
+
+<p>Currently, Haufe Group is working on two projects using Kubernetes in production. One is a new mobile application for researching legislation and tax laws. "We needed a way to take out functionality from a legacy core and put an application on top of that with an API gateway—a lot of moving parts that screams containers," says Danielsson. So the team moved the build pipeline away from "deploying to some old, huge machine that you could deploy anything to" and onto a Kubernetes cluster where there would be automatic CI/CD "with feature branches and all these things that were a bit tedious in the past."</p>
+
+{{< case-studies/quote image="/images/case-studies/haufegroup/banner4.jpg" >}}
+"Before, we had to announce at least a week in advance when we wanted to do a release because there was a huge checklist of things that you had to do," says Danielsson. "By going cloud native, we have the infrastructure in place to be able to automate all of these things. Now we can get a new release done in half an hour instead of days."
+{{< /case-studies/quote >}}
+
+<p>It was a proof of concept effort, and the proof was in the pudding. "Everyone was really impressed at what we accomplished in a week," says Danielsson. "We did these kinds of integrations just to make sure that we got a handle on how Kubernetes works. If you can create optimism and buzz around something, it's half won. And if the developers and project managers know this is working, you're more or less done." Adds Reinhardt: "You need to create some very visible, quick wins in order to overcome the status quo."</p>
+
+<p>The impact on the speed of deployment was clear: "Before, we had to announce at least a week in advance when we wanted to do a release because there was a huge checklist of things that you had to do," says Danielsson. "By going cloud native, we have the infrastructure in place to be able to automate all of these things. Now we can get a new release done in half an hour instead of days."</p>
+
+<p>The potential impact on cost was another bonus. "Hosting applications is quite expensive, so moving to the cloud is something that we really want to be able to do," says Danielsson. With the ability to adapt workloads, teams "will be able to scale down to around half the capacity at night, saving 30 percent of the hardware cost."</p>
+
+<p>Just as importantly, Danielsson says, there's added flexibility: "When we try to move or rework applications that are really crucial, it's often tricky to validate whether the path we want to take is going to work out well. In order to validate that, we would need to reproduce the environment and really do testing, and that's prohibitively expensive and simply not doable with traditional host providers. Cloud native gives us the ability to do risky changes and validate them in a cost-effective way."</p>
+
+<p>As word of the two successful test projects spread throughout the company, interest in Kubernetes has grown. "We want to be able to support our developers in running Kubernetes clusters but we're not there yet, so we allow them to do it as long as they're aware that they are on their own," says Danielsson. "So that's why we are also looking at things like [the managed Kubernetes platform] <a href="https://coreos.com/tectonic/">CoreOS Tectonic</a>, <a href="https://azure.microsoft.com/en-us/services/container-service/">Azure Container Service</a>, <a href="https://aws.amazon.com/ecs/">ECS</a>, etc. These kinds of services will be a lot more relevant to midsize companies that want to leverage cloud native but don't have the IT departments or the structure around that."</p>
+
+<p>In the next year and a half, Danielsson says the company will be working on moving one of their legacy desktop products, a web app for researching legislation and tax laws originally built in Java Enterprise, onto cloud-native technology. "We're doing a microservice split out right now so that we can independently deploy the different parts," he says. The main website, which provides free content for customers, is also moving to cloud native.</p>
+
+{{< case-studies/quote >}}
+"the execution of a strategy requires alignment of culture, structure and technology. Only if those three dimensions are aligned can you successfully execute a transformation into microservices and cloud-native architectures. And it is only then that the Cloud will pay the dividends in much faster speeds in product innovation and much lower operational costs."
+{{< /case-studies/quote >}}
+
+<p>But with these goals, Danielsson believes there are bigger cultural challenges that need to be constantly addressed. The move to new technology, not to mention a shift toward DevOps, means a lot of change for employees. "The roles were rather fixed in the past," he says. "You had developers, you had project leads, you had testers. And now you get into these really, really important things like test automation. Testers aren't actually doing click testing anymore, and they have to write automated testing. And if you really want to go full-blown CI/CD, all these little pieces have to work together so that you get the confidence to do a check in, and know this check in is going to land in production, because if I messed up, some test is going to break. This is a really powerful thing because whatever you do, whenever you merge something into the trunk or to the master, this is going live. And that's where you either get the people or they run away screaming." Danielsson understands that it may take some people much longer to get used to the new ways.</p>
+
+<p>"Culture is nothing that you can force on people," he says. "You have to live it for yourself. You have to evangelize. You have to show the advantages time and time again: This is how you can do it, this is what you get from it." To that end, his team has scheduled daylong workshops for the staff, bringing in outside experts to talk about everything from API to Devops to cloud.</p>
+
+<p>For every person who runs away screaming, many others get drawn in. "Get that foot in the door and make them really interested in this stuff," says Danielsson. "Usually it catches on. We have people you never would have expected chanting, 'Docker Docker Docker' now. It's cool to see them realize that there is a world outside of their Python libraries. It's awesome to see them really work with Kubernetes."</p>
+
+<p>Ultimately, Reinhardt says, "the execution of a strategy requires alignment of culture, structure and technology. Only if those three dimensions are aligned can you successfully execute a transformation into microservices and cloud-native architectures. And it is only then that the Cloud will pay the dividends in much faster speeds in product innovation and much lower operational costs."</p>

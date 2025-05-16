@@ -106,6 +106,24 @@ or detective controls around Pods, their containers, and the images that run in 
 可让控制 Pod 之间或 Pod 与集群外部网络之间的网络流量。
 
 <!--
+### Admission control {#admission-control}
+
+[Admission controllers](/docs/reference/access-authn-authz/admission-controllers/)
+are plugins that intercept Kubernetes API requests and can validate or mutate
+the requests based on specific fields in the request. Thoughtfully designing
+these controllers helps to avoid unintended disruptions as Kubernetes APIs
+change across version updates. For design considerations, see
+[Admission Webhook Good Practices](/docs/concepts/cluster-administration/admission-webhooks-good-practices/).
+-->
+### 准入控制   {#admission-control}
+
+[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)是拦截
+Kubernetes API 请求的插件，可以根据请求中的特定字段验证或修改请求。
+精心设计这些控制器有助于避免 Kubernetes API 在版本更新过程中发生意外干扰。
+有关设计注意事项，请参阅
+[Admission Webhook 良好实践](/zh-cn/docs/concepts/cluster-administration/admission-webhooks-good-practices/)。
+
+<!--
 ### Auditing
 
 Kubernetes [audit logging](/docs/tasks/debug/debug-cluster/audit/) provides a
@@ -147,7 +165,8 @@ Huawei Cloud | https://www.huaweicloud.com/intl/en-us/securecenter/overallsafety
 IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
 Oracle Cloud Infrastructure | https://www.oracle.com/security |
-VMware vSphere | https://www.vmware.com/security/hardening-guides |
+Tencent Cloud | https://www.tencentcloud.com/solutions/data-security-and-information-protection |
+VMware vSphere | https://www.vmware.com/solutions/security/hardening-guides |
 
 {{< /table >}}
 -->
@@ -162,7 +181,8 @@ IaaS 提供商        | 链接 |
 IBM 云 | https://www.ibm.com/cloud/security |
 微软 Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
 Oracle 云基础设施| https://www.oracle.com/security |
-VMware vSphere | https://www.vmware.com/security/hardening-guides |
+腾讯云 | https://www.tencentcloud.com/solutions/data-security-and-information-protection |
+VMware vSphere | https://www.vmware.com/solutions/security/hardening-guides |
 
 {{< /table >}}
 

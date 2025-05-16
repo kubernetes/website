@@ -59,7 +59,7 @@ CPU Manager support can be enabled on Windows by using the `WindowsCPUAndMemoryA
 and it requires support in the container runtime.
 Once the feature gate is enabled, follow the steps below to configure the [CPU manager policy](#configuration).
 
-### Configuration
+## Configuration
 
 The CPU Manager policy is set with the `--cpu-manager-policy` kubelet
 flag or the `cpuManagerPolicy` field in [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/).
@@ -89,7 +89,7 @@ and `CPUManagerPolicyBetaOptions` feature gates. Diverging from the Kubernetes s
 feature gates guard groups of options, because it would have been too cumbersome to add a feature
 gate for each individual option.
 
-### Changing the CPU Manager Policy
+## Changing the CPU Manager Policy
 
 Since the CPU manager policy can only be applied when kubelet spawns new pods, simply changing from
 "none" to "static" won't apply to existing pods. So in order to properly change the CPU manager
@@ -115,11 +115,11 @@ if the set of online CPUs changes on the node, the node must be drained and CPU 
 state file `cpu_manager_state` in the kubelet root directory.
 {{< /note >}}
 
-#### `none` policy configuration
+### `none` policy configuration
 
 This policy has no extra configuration items.
 
-#### `static` policy configuration
+### `static` policy configuration
 
 This policy manages a shared pool of CPUs that initially contains all CPUs in the
 node. The amount of exclusively allocatable CPUs is equal to the total
@@ -142,7 +142,7 @@ the static policy is enabled. This is because zero CPU reservation would allow t
 pool to become empty.
 {{< /note >}}
 
-#### Static policy options {#cpu-policy-static--options}
+### Static policy options {#cpu-policy-static--options}
 
 You can toggle groups of options on and off based upon their maturity level
 using the following feature gates:
@@ -151,11 +151,11 @@ using the following feature gates:
 You will still have to enable each option using the `CPUManagerPolicyOptions` kubelet option.
 
 The following policy options exist for the static `CPUManager` policy:
-* `full-pcpus-only` (beta, visible by default) (1.22 or higher)
-* `distribute-cpus-across-numa` (alpha, hidden by default) (1.23 or higher)
+* `full-pcpus-only` (GA, visible by default) (1.33 or higher)
+* `distribute-cpus-across-numa` (beta, visible by default) (1.33 or higher)
 * `align-by-socket` (alpha, hidden by default) (1.25 or higher)
 * `distribute-cpus-across-cores` (alpha, hidden by default) (1.31 or higher)
-* `strict-cpu-reservation` (alpha, hidden by default) (1.32 or higher)
+* `strict-cpu-reservation` (beta, visible by default) (1.32 or higher)
 * `prefer-align-cpus-by-uncorecache` (alpha, hidden by default) (1.32 or higher)
 
 The `full-pcpus-only` option can be enabled by adding `full-pcpus-only=true` to
