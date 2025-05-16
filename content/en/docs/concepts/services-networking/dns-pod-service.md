@@ -13,37 +13,37 @@ description: >-
 <!-- overview -->
 
 Kubernetes creates DNS records for Services and Pods. You can contact
-Services with consistent DNS names instead of IP addresses. 
+Services with consistent DNS names instead of IP addresses.
 
 <!-- body -->
 
 Kubernetes publishes information about Pods and Services which is used
-to program DNS.  Kubelet configures Pods' DNS so that running containers
-can lookup Services by name rather than IP.
+to program DNS. kubelet configures Pods' DNS so that running containers
+can look up Services by name rather than IP.
 
 Services defined in the cluster are assigned DNS names. By default, a
 client Pod's DNS search list includes the Pod's own namespace and the
-cluster's default domain. 
+cluster's default domain.
 
-### Namespaces of Services 
+### Namespaces of Services
 
-A DNS query may return different results based on the namespace of the Pod making 
-it. DNS queries that don't specify a namespace are limited to the Pod's 
-namespace. Access Services in other namespaces by specifying it in the DNS query. 
+A DNS query may return different results based on the namespace of the Pod making
+it. DNS queries that don't specify a namespace are limited to the Pod's
+namespace. Access Services in other namespaces by specifying it in the DNS query.
 
-For example, consider a Pod in a `test` namespace. A `data` Service is in 
-the `prod` namespace. 
+For example, consider a Pod in a `test` namespace. A `data` Service is in
+the `prod` namespace.
 
-A query for `data` returns no results, because it uses the Pod's `test` namespace. 
+A query for `data` returns no results, because it uses the Pod's `test` namespace.
 
-A query for `data.prod` returns the intended result, because it specifies the 
-namespace. 
+A query for `data.prod` returns the intended result, because it specifies the
+namespace.
 
-DNS queries may be expanded using the Pod's `/etc/resolv.conf`. Kubelet 
-configures this file for each Pod. For example, a query for just `data` may be 
-expanded to `data.test.svc.cluster.local`. The values of the `search` option 
-are used to expand queries. To learn more about DNS queries, see 
-[the `resolv.conf` manual page.](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html) 
+DNS queries may be expanded using the Pod's `/etc/resolv.conf`. kubelet
+configures this file for each Pod. For example, a query for just `data` may be
+expanded to `data.test.svc.cluster.local`. The values of the `search` option
+are used to expand queries. To learn more about DNS queries, see
+[the `resolv.conf` manual page](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html).
 
 ```
 nameserver 10.32.0.10
@@ -51,7 +51,7 @@ search <namespace>.svc.cluster.local svc.cluster.local cluster.local
 options ndots:5
 ```
 
-In summary, a Pod in the _test_ namespace can successfully resolve either 
+In summary, a Pod in the _test_ namespace can successfully resolve either
 `data.prod` or `data.prod.svc.cluster.local`.
 
 ### DNS Records
@@ -59,10 +59,10 @@ In summary, a Pod in the _test_ namespace can successfully resolve either
 What objects get DNS records?
 
 1. Services
-2. Pods
+1. Pods
 
 The following sections detail the supported DNS record types and layout that is
-supported.  Any other layout or names or queries that happen to work are
+supported. Any other layout or names or queries that happen to work are
 considered implementation details and are subject to change without warning.
 For more up-to-date specification, see
 [Kubernetes DNS-Based Service Discovery](https://github.com/kubernetes/dns/blob/master/docs/specification.md).
@@ -73,12 +73,12 @@ For more up-to-date specification, see
 
 "Normal" (not headless) Services are assigned DNS A and/or AAAA records,
 depending on the IP family or families of the Service, with a name of the form
-`my-svc.my-namespace.svc.cluster-domain.example`.  This resolves to the cluster IP
+`my-svc.my-namespace.svc.cluster-domain.example`. This resolves to the cluster IP
 of the Service.
 
-[Headless Services](/docs/concepts/services-networking/service/#headless-services) 
+[Headless Services](/docs/concepts/services-networking/service/#headless-services)
 (without a cluster IP) are also assigned DNS A and/or AAAA records,
-with a name of the form `my-svc.my-namespace.svc.cluster-domain.example`.  Unlike normal
+with a name of the form `my-svc.my-namespace.svc.cluster-domain.example`. Unlike normal
 Services, this resolves to the set of IPs of all of the Pods selected by the Service.
 Clients are expected to consume the set or else use standard round-robin
 selection from the set.
@@ -86,30 +86,40 @@ selection from the set.
 ### SRV records
 
 SRV Records are created for named ports that are part of normal or headless
-services.  For each named port, the SRV record has the form
-`_port-name._port-protocol.my-svc.my-namespace.svc.cluster-domain.example`.
-For a regular Service, this resolves to the port number and the domain name:
-`my-svc.my-namespace.svc.cluster-domain.example`.
-For a headless Service, this resolves to multiple answers, one for each Pod
-that is backing the Service, and contains the port number and the domain name of the Pod
-of the form `hostname.my-svc.my-namespace.svc.cluster-domain.example`.
+services.
+
+- For each named port, the SRV record has the form
+  `_port-name._port-protocol.my-svc.my-namespace.svc.cluster-domain.example`.
+- For a regular Service, this resolves to the port number and the domain name:
+  `my-svc.my-namespace.svc.cluster-domain.example`.
+- For a headless Service, this resolves to multiple answers, one for each Pod
+  that is backing the Service, and contains the port number and the domain name of the Pod
+  of the form `hostname.my-svc.my-namespace.svc.cluster-domain.example`.
 
 ## Pods
 
 ### A/AAAA records
 
-Kube-DNS versions, prior to the implementation of the [DNS specification](https://github.com/kubernetes/dns/blob/master/docs/specification.md), had the following DNS resolution:
+Kube-DNS versions, prior to the implementation of the
+[DNS specification](https://github.com/kubernetes/dns/blob/master/docs/specification.md),
+had the following DNS resolution:
 
-`pod-ipv4-address.my-namespace.pod.cluster-domain.example`.
+```
+pod-ipv4-address.my-namespace.pod.cluster-domain.example
+```
 
 For example, if a Pod in the `default` namespace has the IP address 172.17.0.3,
 and the domain name for your cluster is `cluster.local`, then the Pod has a DNS name:
 
-`172-17-0-3.default.pod.cluster.local`.
+```
+172-17-0-3.default.pod.cluster.local
+```
 
-Some cluster DNS mechanisms, like [CoreDNS], also provide `A` records for:
+Some cluster DNS mechanisms, like [CoreDNS](https://coredns.io/), also provide `A` records for:
 
-<tt><em>pod-ipv4-address</em>.<em>service-name</em>.<em>my-namespace</em>.svc.<em>cluster-domain.example</em>.</tt>
+```
+<pod-ipv4-address>.<service-name>.<my-namespace>.svc.<cluster-domain.example>
+```
 
 ### Pod's hostname and subdomain fields
 
@@ -191,7 +201,8 @@ An {{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}} can spec
 the DNS hostname for any endpoint addresses, along with its IP.
 
 {{< note >}}
-A and AAAA records are not created for Pod names since `hostname` is missing for the Pod. A Pod with no `hostname` but with `subdomain` will only create the
+A and AAAA records are not created for Pod names since `hostname` is missing for the Pod.
+A Pod with no `hostname` but with `subdomain` will only create the
 A or AAAA record for the headless Service (`busybox-subdomain.my-namespace.svc.cluster-domain.example`),
 pointing to the Pods' IP addresses. Also, the Pod needs to be ready in order to have a
 record unless `publishNotReadyAddresses=True` is set on the Service.
@@ -203,16 +214,24 @@ record unless `publishNotReadyAddresses=True` is set on the Service.
 
 When a Pod is configured to have fully qualified domain name (FQDN), its
 hostname is the short hostname. For example, if you have a Pod with the fully
-qualified domain name `busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example`, 
-then by default the `hostname` command inside that Pod returns `busybox-1` and  the
+qualified domain name `busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example`,
+then by default the `hostname` command inside that Pod returns `busybox-1` and the
 `hostname --fqdn` command returns the FQDN.
 
-When you set `setHostnameAsFQDN: true` in the Pod spec, the kubelet writes the Pod's FQDN into the hostname for that Pod's namespace. In this case, both `hostname` and `hostname --fqdn` return the Pod's FQDN.
+When you set `setHostnameAsFQDN: true` in the Pod spec, the kubelet writes the Pod's FQDN
+into the hostname for that Pod's namespace. In this case, both `hostname` and `hostname --fqdn`
+return the Pod's FQDN.
 
 {{< note >}}
 In Linux, the hostname field of the kernel (the `nodename` field of `struct utsname`) is limited to 64 characters.
 
-If a Pod enables this feature and its FQDN is longer than 64 character, it will fail to start. The Pod will remain in `Pending` status (`ContainerCreating` as seen by `kubectl`) generating error events, such as Failed to construct FQDN from Pod hostname and cluster domain, FQDN `long-FQDN` is too long (64 characters is the max, 70 characters requested). One way of improving user experience for this scenario is to create an [admission webhook controller](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks) to control FQDN size when users create top level objects, for example, Deployment.
+If a Pod enables this feature and its FQDN is longer than 64 character, it will fail to start.
+The Pod will remain in `Pending` status (`ContainerCreating` as seen by `kubectl`) generating
+error events, such as Failed to construct FQDN from Pod hostname and cluster domain,
+FQDN `long-FQDN` is too long (64 characters is the max, 70 characters requested).
+One way of improving user experience for this scenario is to create an
+[admission webhook controller](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)
+to control FQDN size when users create top level objects, for example, Deployment.
 {{< /note >}}
 
 ### Pod's DNS Policy
@@ -235,7 +254,11 @@ following Pod-specific DNS policies. These policies are specified in the
   explicitly set its DNS policy to "`ClusterFirstWithHostNet`". Otherwise, Pods
   running with hostNetwork and `"ClusterFirst"` will fallback to the behavior
   of the `"Default"` policy.
-  - Note: This is not supported on Windows. See [below](#dns-windows) for details
+
+  {{< note >}}
+  This is not supported on Windows. See [below](#dns-windows) for details.
+  {{< /note >}}
+
 - "`None`": It allows a Pod to ignore DNS settings from the Kubernetes
   environment. All DNS settings are supposed to be provided using the
   `dnsConfig` field in the Pod Spec.
@@ -245,7 +268,6 @@ following Pod-specific DNS policies. These policies are specified in the
 "Default" is not the default DNS policy. If `dnsPolicy` is not
 explicitly specified, then "ClusterFirst" is used.
 {{< /note >}}
-
 
 The example below shows a Pod with its DNS policy set to
 "`ClusterFirstWithHostNet`" because it has `hostNetwork` set to `true`.
@@ -315,7 +337,9 @@ For IPv6 setup, search path and name server should be set up like this:
 ```shell
 kubectl exec -it dns-example -- cat /etc/resolv.conf
 ```
+
 The output is similar to this:
+
 ```
 nameserver 2001:db8:30::a
 search default.svc.cluster-domain.example svc.cluster-domain.example cluster-domain.example
@@ -343,7 +367,7 @@ this problem.
 
 ## DNS resolution on Windows nodes {#dns-windows}
 
-- ClusterFirstWithHostNet is not supported for Pods that run on Windows nodes.
+- `ClusterFirstWithHostNet` is not supported for Pods that run on Windows nodes.
   Windows treats all names with a `.` as a FQDN and skips FQDN resolution.
 - On Windows, there are multiple DNS resolvers that can be used. As these come with
   slightly different behaviors, using the
@@ -362,6 +386,4 @@ this problem.
 ## {{% heading "whatsnext" %}}
 
 For guidance on administering DNS configurations, check
-[Configure DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers/)
-
-[CoreDNS]: https://coredns.io/
+[Configure DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers/).

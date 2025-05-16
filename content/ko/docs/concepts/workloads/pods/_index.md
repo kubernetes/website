@@ -345,7 +345,7 @@ _프로브_는 컨테이너의 kubelet에 의해 주기적으로 실행되는 �
 쿠버네티스가 다른 리소스({{< glossary_tooltip text="스테이트풀셋" term_id="statefulset" >}}이나 {{< glossary_tooltip text="디플로이먼트" term_id="deployment" >}}와 같은)에서 공통 파드 API를 래핑하는 이유에 대한 콘텍스트를 이해하기 위해서, 다음과 같은 선행 기술에 대해 읽어볼 수 있다.
 
 * [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
-* [Borg](https://research.google.com/pubs/pub43438.html)
-* [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
+* [Borg](https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/)
+* [Marathon](https://github.com/d2iq-archive/marathon)
 * [Omega](https://research.google/pubs/pub41684/)
 * [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/).

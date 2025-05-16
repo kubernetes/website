@@ -314,10 +314,10 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2). Matching objects must satisfy all of the specified label constraints.
+Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.
 -->
-过滤所用的选择算符（标签查询），支持 '='、'==' 和 '！='。
-（例如 -l key1=value1,key2=value2）。匹配的对象必须满足所有指定的标签约束。
+过滤所用的选择算符（标签查询），支持 '='、'=='、'!='、'in' 和 'notin'。
+（例如 -l key1=value1,key2=value2,key3 in (value3)）。匹配的对象必须满足所有指定的标签约束。
 </p></td>
 </tr>
 
@@ -344,6 +344,21 @@ If true, apply runs in the server instead of the client.
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
 如果为真，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--subresource string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+If specified, apply will operate on the subresource of the requested object.  Only allowed when using --server-side.
+-->
+如果指定此参数，apply 将对请求对象的子资源进行操作。
+仅在使用 --server-side 时允许指定此参数。
 </p>
 </td>
 </tr>
@@ -378,18 +393,27 @@ The length of time to wait before giving up on a delete, zero means determine a 
 <td colspan="2">--validate string[="strict"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："strict"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-Must be one of: strict (or true), warn, ignore (or false).<br/>&quot;true&quot; or &quot;strict&quot; will use a schema to validate the input and fail the request if invalid. It will perform server side validation if ServerSideFieldValidation is enabled on the api-server, but will fall back to less reliable client-side validation if not.<br/>&quot;warn&quot; will warn about unknown or duplicate fields without blocking the request if server-side field validation is enabled on the API server, and behave as &quot;ignore&quot; otherwise.<br/>&quot;false&quot; or &quot;ignore&quot; will not perform any schema validation, silently dropping any unknown or duplicate fields.
+Must be one of: strict (or true), warn, ignore (or false).
+&quot;true&quot; or &quot;strict&quot; will use a schema to validate the input and
+fail the request if invalid. It will perform server side validation if ServerSideFieldValidation
+is enabled on the api-server, but will fall back to less reliable client-side validation if not.
+&quot;warn&quot; will warn about unknown or duplicate fields without blocking the request if
+server-side field validation is enabled on the API server, and behave as &quot;ignore&quot; otherwise.
+&quot;false&quot; or &quot;ignore&quot; will not perform any schema validation,
+silently dropping any unknown or duplicate fields.
 -->
-必须是以下选项之一：strict（或 true）、warn、ignore（或 false）。<br/>
-"true" 或 "strict" 将使用模式定义来验证输入，如果无效，则请求失败。
+必须是以下选项之一：strict（或 true）、warn、ignore（或 false）。
+&quot;true&quot; 或 &quot;strict&quot; 将使用模式定义来验证输入，如果无效，则请求失败。
 如果在 API 服务器上启用了 ServerSideFieldValidation，则执行服务器端验证，
-但如果未启用，它将回退到可靠性较低的客户端验证。<br/>
-如果在 API 服务器上启用了服务器端字段验证，"warn" 将警告未知或重复的字段而不阻止请求，
-否则操作与 "ignore" 的表现相同。<br/>
-"false" 或 "ignore" 将不会执行任何模式定义检查，而是静默删除所有未知或重复的字段。
-</p></td>
+但如果未启用此参数，API 服务器将回退到可靠性较低的客户端验证。
+如果在 API 服务器上启用了服务器端字段验证，&quot;warn&quot; 将警告未知或重复的字段而不阻止请求，
+否则操作与 &quot;ignore&quot; 的表现相同。
+&quot;false&quot; 或 &quot;ignore&quot; 将不会执行任何模式定义检查，而是静默删除所有未知或重复的字段。
+</p>
+</td>
 </tr>
 
 <tr>

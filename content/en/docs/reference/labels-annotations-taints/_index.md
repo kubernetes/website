@@ -1341,6 +1341,23 @@ records the date (ISO 8601 format, UTC time zone) when the control plane detects
 that the auto-generated Secret has not been used for a specified duration
 (defaults to one year).
 
+### endpoints.kubernetes.io/managed-by (deprecated) {#endpoints-kubernetes-io-managed-by}
+
+Type: Label
+
+Example: `endpoints.kubernetes.io/managed-by: endpoint-controller`
+
+Used on: Endpoints
+
+This label is used internally to mark Endpoints objects that were created by
+Kubernetes (as opposed to Endpoints created by users or external controllers).
+
+{{< note >}}
+The [Endpoints](/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+API is deprecated in favor of
+[EndpointSlice](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/).
+{{< /note >}}
+
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
 Type: Label
@@ -1351,7 +1368,9 @@ Used on: EndpointSlices
 
 The label is used to indicate the controller or entity that manages the EndpointSlice. This label
 aims to enable different EndpointSlice objects to be managed by different controllers or entities
-within the same cluster.
+within the same cluster. The value `endpointslice-controller.k8s.io` indicates an
+EndpointSlice object that was created automatically by Kubernetes for a Service with a
+{{< glossary_tooltip text="selectors" term_id="selector" >}}.
 
 ### endpointslice.kubernetes.io/skip-mirror {#endpointslicekubernetesioskip-mirror}
 
@@ -2735,6 +2754,22 @@ only onto these nodes, or to avoid running Pods on the control plane.
 If this label is set, the [EndpointSlice controller](/docs/concepts/services-networking/topology-aware-routing/#implementation-control-plane)
 ignores that node while calculating Topology Aware Hints.
 
+### node-role.kubernetes.io/*
+
+Type: Label
+
+Example: `node-role.kubernetes.io/gpu: gpu`
+
+Used on: Node
+
+This optional label is applied to a node when you want to mark a node role. 
+The node role (text following `/` in the label key) can be set, as long as the overall key follows the
+[syntax](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) rules for
+object labels.
+
+Kubernetes defines one specific node role, **control-plane**. A label you can use to mark that node
+role is [`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane).
+
 ### node-role.kubernetes.io/control-plane {#node-role-kubernetes-io-control-plane-taint}
 
 Type: Taint
@@ -2766,3 +2801,20 @@ Taint that kubeadm previously applied on control plane nodes to allow only criti
 workloads to schedule on them. Replaced by the
 [`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane-taint)
 taint. kubeadm no longer sets or uses this deprecated taint.
+
+### resource.k8s.io/admin-access {resource-k8s-io-admin-access}
+
+Type: Label
+
+Example: `resource.k8s.io/admin-access: "true"`
+
+Used on: Namespace
+
+Used to grant administrative access to certain resource.k8s.io API types within
+a namespace. When this label is set on a namespace with the value `"true"`
+(case-sensitive), it allows the use of `adminAccess: true` in any namespaced
+`resource.k8s.io` API types. Currently, this permission applies to
+`ResourceClaim` and `ResourceClaimTemplate` objects.
+
+See [Dynamic Resource Allocation Admin access](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#enabling-admin-access)
+for more information.

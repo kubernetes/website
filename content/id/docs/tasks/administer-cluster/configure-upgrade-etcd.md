@@ -207,7 +207,7 @@ Pada Kubernetes v1.13.0, etcd2 tidak lagi didukung sebagai _backend_ penyimpanan
                      dan `kube-apiserver` standarnya ke etcd3
 - Kubernetes v1.9.0: pengumuman penghentian _backend_ penyimpanan etcd2 diumumkan
 - Kubernetes v1.13.0: _backend_ penyimpanan etcd2 dihapus, `kube-apiserver` akan
-                      menolak untuk start dengan `--storage-backend=etcd2`, dengan pesan 
+                      menolak untuk start dengan `--storage-backend=etcd2`, dengan pesan
                       `etcd2 is no longer a supported storage backend`
 
 Sebelum memutakhirkan v1.12.x kube-apiserver menggunakan `--storage-backend=etcd2` ke
@@ -215,7 +215,7 @@ v1.13.x, data etcd v2 harus dimigrasikan ke _backend_ penyimpanan v3 dan
 permintaan kube-apiserver harus diubah untuk menggunakan `--storage-backend=etcd3`.
 
 Proses untuk bermigrasi dari etcd2 ke etcd3 sangat tergantung pada bagaimana
-klaster etcd diluncurkan dan dikonfigurasi, serta bagaimana klaster Kubernetes diluncurkan dan dikonfigurasi. Kami menyarankan kamu berkonsultasi dengan dokumentasi penyedia kluster kamu untuk melihat apakah ada solusi yang telah ditentukan.
+klaster etcd diluncurkan dan dikonfigurasi, serta bagaimana klaster Kubernetes diluncurkan dan dikonfigurasi. Kami menyarankan kamu berkonsultasi dengan dokumentasi penyedia klaster kamu untuk melihat apakah ada solusi yang telah ditentukan.
 
 Jika klaster kamu dibuat melalui `kube-up.sh` dan masih menggunakan etcd2 sebagai penyimpanan _backend_, silakan baca [Kubernetes v1.12 etcd cluster upgrade docs](https://v1-12.docs.kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#upgrading-and-rolling-back-etcd-clusters)
 

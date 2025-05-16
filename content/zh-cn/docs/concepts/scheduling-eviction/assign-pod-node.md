@@ -6,8 +6,10 @@ weight: 20
 <!--
 reviewers:
 - davidopp
+- dom4ha
 - kevin-wangzefeng
-- alculquicondor
+- macsko
+- sanposhiho
 title: Assigning Pods to Nodes
 content_type: concept
 weight: 20
@@ -376,7 +378,7 @@ in the [scheduler configuration](/docs/reference/scheduling/config/). For exampl
 `args` 字段添加 `addedAffinity`。例如：
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 
 profiles:
@@ -706,6 +708,18 @@ Kubernetes 在 Pod 亲和性或反亲和性中包含一个可选的 `matchLabelK
 这些键用于从 Pod 的标签中查找值；这些键值标签与使用 `labelSelector` 字段定义的匹配限制组合（使用 `AND` 操作）。
 这种组合的过滤机制选择将用于 Pod（反）亲和性计算的现有 Pod 集合。
 
+{{< caution >}}
+<!--
+It's not recommended to use `matchLabelKeys` with labels that might be updated directly on pods.
+Even if you edit the pod's label that is specified at `matchLabelKeys` **directly**, (that is, not via a deployment),
+kube-apiserver doesn't reflect the label update onto the merged `labelSelector`.
+-->
+不建议在 `matchLabelKeys` 中使用可能会直接在 Pod 上更新的标签。  
+即使你编辑**直接**在 `matchLabelKeys` 中指定的 Pod 的标签
+（也就是说，不是通过 Deployment 进行更新），
+kube-apiserver 也不会将这种标签的更新反映到合并后的 `labelSelector` 上。
+{{< /caution >}}
+
 <!--
 A common use case is to use `matchLabelKeys` with `pod-template-hash` (set on Pods
 managed as part of a Deployment, where the value is unique for each revision).
@@ -718,9 +732,31 @@ to the same revision as the incoming Pod, so that a rolling upgrade won't break 
 确保滚动升级不会破坏亲和性。
 
 <!--
-# Only Pods from a given rollout are taken into consideration when calculating pod affinity.
-# If you update the Deployment, the replacement Pods follow their own affinity rules
-# (if there are any defined in the new Pod template)
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: application-server
+...
+spec:
+  template:
+    spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - database
+            topologyKey: topology.kubernetes.io/zone
+            # Only Pods from a given rollout are taken into consideration when calculating pod affinity.
+            # If you update the Deployment, the replacement Pods follow their own affinity rules
+            # (if there are any defined in the new Pod template)
+            matchLabelKeys:
+            - pod-template-hash
+```
 -->
 ```yaml
 apiVersion: apps/v1
@@ -769,13 +805,26 @@ When you want to disable it, you have to disable it explicitly via the
 Kubernetes includes an optional `mismatchLabelKeys` field for Pod affinity
 or anti-affinity. The field specifies keys for the labels that should **not** match with the incoming Pod's labels,
 when satisfying the Pod (anti)affinity.
-
-One example use case is to ensure Pods go to the topology domain (node, zone, etc) where only Pods from the same tenant or team are scheduled in.
-In other words, you want to avoid running Pods from two different tenants on the same topology domain at the same time.
 -->
 Kubernetes 为 Pod 亲和性或反亲和性提供了一个可选的 `mismatchLabelKeys` 字段。
 此字段指定了在满足 Pod（反）亲和性时，**不**应与传入 Pod 的标签匹配的键。
 
+{{< caution >}}
+<!--
+It's not recommended to use `mismatchLabelKeys` with labels that might be updated directly on pods.
+Even if you edit the pod's label that is specified at `mismatchLabelKeys` **directly**, (that is, not via a deployment),
+kube-apiserver doesn't reflect the label update onto the merged `labelSelector`.
+-->
+不建议在 `matchLabelKeys` 中使用可能会直接在 Pod 上更新的标签。  
+即使你编辑**直接**在 `matchLabelKeys` 中指定的 Pod 的标签
+（也就是说，不是通过 Deployment 进行更新），
+kube-apiserver 也不会将这种标签的更新反映到合并后的 `labelSelector` 上。
+{{< /caution >}}
+
+<!--
+One example use case is to ensure Pods go to the topology domain (node, zone, etc) where only Pods from the same tenant or team are scheduled in.
+In other words, you want to avoid running Pods from two different tenants on the same topology domain at the same time.
+-->
 一个示例用例是确保 Pod 进入指定的拓扑域（节点、区域等），在此拓扑域中只调度来自同一租户或团队的 Pod。
 换句话说，你想要避免在同一拓扑域中同时运行来自两个不同租户的 Pod。
 
@@ -805,7 +854,7 @@ spec:
                  # tenant is running.
         labelSelector:
           # We have to have the labelSelector which selects only Pods with the tenant label,
-          # otherwise this Pod would hate Pods from daemonsets as well, for example,
+          # otherwise this Pod would have Pods from daemonsets as well, for example,
           # which aren't supposed to have the tenant label.
           matchExpressions:
           - key: tenant

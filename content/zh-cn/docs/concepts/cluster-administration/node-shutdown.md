@@ -196,7 +196,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 To provide more flexibility during graceful node shutdown around the ordering
 of pods during shutdown, graceful node shutdown honors the PriorityClass for
 Pods, provided that you enabled this feature in your cluster. The feature
-allows cluster administers to explicitly define the ordering of pods
+allows cluster administrators to explicitly define the ordering of pods
 during graceful node shutdown based on
 [priority classes](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass).
 -->

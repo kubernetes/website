@@ -146,12 +146,9 @@ PodDisruptionBudgetSpec 是对 PodDisruptionBudget 的描述。
 
   <!--
   Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
-
-  This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
   -->
-  将来可能会添加其他策略。如果客户端在该字段遇到未识别的策略，则做出驱逐决定的客户端应禁止驱逐不健康的 Pod。
 
-  该字段是 Alpha 级别的。当特性门控 PDBUnhealthyPodEvictionPolicy 被启用（默认禁用）时，驱逐 API 使用此字段。
+  将来可能会添加其他策略。如果客户端在该字段遇到未识别的策略，则做出驱逐决定的客户端应禁止驱逐不健康的 Pod。 
 
 ## PodDisruptionBudgetStatus {#PodDisruptionBudgetStatus}
 
@@ -1221,6 +1218,15 @@ DELETE /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 <!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+<!--
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1311,6 +1317,15 @@ DELETE /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+<!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 <!--
 - **labelSelector** (*in query*): string

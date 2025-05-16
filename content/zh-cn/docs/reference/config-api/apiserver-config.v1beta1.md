@@ -218,7 +218,9 @@ EgressSelectorConfiguration 为出站流量选择器客户端（Egress Selector 
 ## `TracingConfiguration`     {#apiserver-k8s-io-v1beta1-TracingConfiguration}
 
 <p>
-<!-- TracingConfiguration provides versioned configuration for tracing clients. -->
+<!--
+TracingConfiguration provides versioned configuration for tracing clients.
+-->
 TracingConfiguration 为跟踪客户端提供版本化的配置信息。
 </p>
 
@@ -233,7 +235,9 @@ TracingConfiguration 为跟踪客户端提供版本化的配置信息。
 <a href="#TracingConfiguration"><code>TracingConfiguration</code></a>
 </td>
 <td>
-<!-- (Members of <code>TracingConfiguration</code> are embedded into this type.) -->
+<!--
+(Members of <code>TracingConfiguration</code> are embedded into this type.)
+-->
 （<code>TracingConfiguration</code> 的成员嵌入到这种类型中。）
    <p>
    <!-- 
@@ -295,7 +299,8 @@ AnonymousAuthCondition 描述了应启用匿名身份认证的条件。
 <!--
 AnonymousAuthConfig provides the configuration for the anonymous authenticator.
 -->
-AnonymousAuthConfig 为匿名身份认证器提供配置信息。</p>
+AnonymousAuthConfig 为匿名身份认证器提供配置信息。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -666,10 +671,12 @@ Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 
 - [JWTAuthenticator](#apiserver-k8s-io-v1beta1-JWTAuthenticator)
 
+<p>
 <!--
-<p>ClaimValidationRule provides the configuration for a single claim validation rule.</p>
+ClaimValidationRule provides the configuration for a single claim validation rule.
 -->
-<p>ClaimValidationRule 为单个声明验证规则提供配置信息。</p>
+ClaimValidationRule 为单个声明验证规则提供配置信息。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -722,7 +729,7 @@ Mutually exclusive with expression and message.
 Must produce a boolean.</p>
 <p>CEL expressions have access to the contents of the token claims, organized into CEL variable:</p>
    -->
-   <p><p>expression 表示将由 CEL 求值的表达式。
+   <p>expression 表示将由 CEL 求值的表达式。
    必须生成一个布尔值。</p>
    <p>CEL 表达式可以访问令牌声明的内容，这些内容被组织成 CEL 变量：</p>
 <ul>
@@ -1119,13 +1126,15 @@ JWT 中的 &quot;aud&quot; 声明必须包含 &quot;foo&quot; 或 &quot;bar&quot
 所提供的 JWT 中的 &quot;aud&quot; 声明必须包含该单个受众（并且可以包含其他受众）。</p>
 </li>
 </ul>
+<p>
 <!--
-<p>For more nuanced audience validation, use claimValidationRules.
-example: claimValidationRule[].expression: 'sets.equivalent(claims.aud, [&quot;bar&quot;, &quot;foo&quot;, &quot;baz&quot;])' to require an exact match.</p>
+For more nuanced audience validation, use claimValidationRules.
+example: claimValidationRule[].expression: 'sets.equivalent(claims.aud, [&quot;bar&quot;, &quot;foo&quot;, &quot;baz&quot;])' to require an exact match.
 -->
-<p>对于更精细的受众验证，请使用 claimValidationRules。
+对于更精细的受众验证，请使用 claimValidationRules。
 示例：claimValidationRule[].expression: 'sets.equivalent(claims.aud, [&quot;bar&quot;, &quot;foo&quot;, &quot;baz&quot;])'
-以要求精确匹配。</p>
+以要求精确匹配。
+</p>
 </td>
 </tr>
 </tbody>
@@ -1140,10 +1149,12 @@ example: claimValidationRule[].expression: 'sets.equivalent(claims.aud, [&quot;b
 
 - [AuthenticationConfiguration](#apiserver-k8s-io-v1beta1-AuthenticationConfiguration)
 
+<p>
 <!--
-<p>JWTAuthenticator provides the configuration for a single JWT authenticator.</p>
+JWTAuthenticator provides the configuration for a single JWT authenticator.
 -->
-<p>JWTAuthenticator 为单个 JWT 身份认证器提供配置信息。</p>
+JWTAuthenticator 为单个 JWT 身份认证器提供配置信息。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1169,7 +1180,8 @@ example: claimValidationRule[].expression: 'sets.equivalent(claims.aud, [&quot;b
    <!--
    claimValidationRules are rules that are applied to validate token claims to authenticate users.
    -->
-   claimValidationRules 是用于验证令牌声明以认证用户的规则。</p>
+   claimValidationRules 是用于验证令牌声明以认证用户的规则。
+   </p>
 </td>
 </tr>
 <tr><td><code>claimMappings</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1213,10 +1225,12 @@ The validation rules are logically ANDed together and must all return true for t
 
 - [ClaimMappings](#apiserver-k8s-io-v1beta1-ClaimMappings)
 
+<p>
 <!--
-<p>PrefixedClaimOrExpression provides the configuration for a single prefixed claim or expression.</p>
+PrefixedClaimOrExpression provides the configuration for a single prefixed claim or expression.
 -->
-<p>PrefixedClaimOrExpression 为单个带前缀的声明或表达式提供配置。</p>
+PrefixedClaimOrExpression 为单个带前缀的声明或表达式提供配置。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1248,7 +1262,8 @@ Mutually exclusive with expression.
    -->
    prefix 是添加到声明值前面的前缀，以防止与现有名称冲突。
    如果设置了 claim，则需要设置 prefix，并且可以是空字符串。
-   与 expression 互斥。</p>
+   与 expression 互斥。
+   </p>
 </td>
 </tr>
 <tr><td><code>expression</code><br/>
@@ -1389,7 +1404,8 @@ TLSConfig 为连接 konnectivity 服务器提供身份认证信息。仅用于 T
 <code>string</code>
 </td>
 <td>
-   <p><!--
+   <p>
+   <!--
    clientKey is the file location of the client key to be used in mtls handshakes with the konnectivity server.
    Must be absent/empty if TCPTransport.URL is prefixed with http://
    Must be configured if TCPTransport.URL is prefixed with https://
@@ -1594,30 +1610,34 @@ API 文档：https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
+   <p>
    <!--
-   <p>The duration to cache 'authorized' responses from the webhook
+   The duration to cache 'authorized' responses from the webhook
 authorizer.
 Same as setting <code>--authorization-webhook-cache-authorized-ttl</code> flag
-Default: 5m0s</p>
+Default: 5m0s
    -->
-   <p>对来自 Webhook 鉴权组件的 “authorized” 响应的缓存时长。
+   对来自 Webhook 鉴权组件的 “authorized” 响应的缓存时长。
    与设置 <code>--authorization-webhook-cache-authorized-ttl</code> 标志相同。
-   默认值：5m0s。</p>
+   默认值：5m0s。
+   </p>
 </td>
 </tr>
 <tr><td><code>unauthorizedTTL</code> <B>[Required]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
+   <p>
    <!--
-   <p>The duration to cache 'unauthorized' responses from the webhook
+   The duration to cache 'unauthorized' responses from the webhook
 authorizer.
 Same as setting <code>--authorization-webhook-cache-unauthorized-ttl</code> flag
-Default: 30s</p>
+Default: 30s
    -->
-   <p>对来自 Webhook 鉴权组件的 “unauthorized” 响应的缓存时长。
+   对来自 Webhook 鉴权组件的 “unauthorized” 响应的缓存时长。
 与设置 <code>--authorization-webhook-cache-unauthorized-ttl</code> 标志相同。
-默认值：30s</p>
+默认值：30s
+   </p>
 
 </td>
 </tr>
@@ -1641,17 +1661,19 @@ Required, no default value.
 <code>string</code>
 </td>
 <td>
+   <p>
    <!--
-   <p>The API version of the authorization.k8s.io SubjectAccessReview to
+   The API version of the authorization.k8s.io SubjectAccessReview to
 send to and expect from the webhook.
 Same as setting <code>--authorization-webhook-version</code> flag
 Valid values: v1beta1, v1
-Required, no default value</p>
+Required, no default value
    -->
-   <p>要发送到 Webhook 并期望从 Webhook 获得的 authorization.k8s.io SubjectAccessReview 的 API 版本。
+   要发送到 Webhook 并期望从 Webhook 获得的 authorization.k8s.io SubjectAccessReview 的 API 版本。
 与设置 <code>--authorization-webhook-version</code> 标志相同。
 有效值：v1beta1、v1。
-必需，无默认值</p>
+必需，无默认值
+   </p>
 </td>
 </tr>
 <tr><td><code>matchConditionSubjectAccessReviewVersion</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1814,18 +1836,40 @@ Required, if connectionInfo.Type is KubeConfig
 <code>string</code>
 </td>
 <td>
+<p>
 <!--
-   <p>expression represents the expression which will be evaluated by CEL. Must evaluate to bool.
+expression represents the expression which will be evaluated by CEL. Must evaluate to bool.
 CEL expressions have access to the contents of the SubjectAccessReview in v1 version.
 If version specified by subjectAccessReviewVersion in the request variable is v1beta1,
 the contents would be converted to the v1 version before evaluating the CEL expression.</p>
-<p>Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/</p>
 -->
-   <p>expression 表示将由 CEL 求值的表达式。求值结果必须为布尔值。
+expression 表示将由 CEL 求值的表达式。求值结果必须为布尔值。
 CEL 表达式可以访问 v1 版本中的 SubjectAccessReview 的内容。
 如果请求变量中 subjectAccessReviewVersion 指定的版本是 v1beta1，
-在计算 CEL 表达式之前，内容将被转换为 v1 版本。</p>
-<p>关于 CEL 文档: https://kubernetes.io/zh-cn/docs/reference/using-api/cel/</p>
+在计算 CEL 表达式之前，内容将被转换为 v1 版本。
+</p>
+<ul>
+<!--
+<li>'resourceAttributes' describes information for a resource access request and is unset for non-resource requests. e.g. has(request.resourceAttributes) &amp;&amp; request.resourceAttributes.namespace == 'default'</li>
+<li>'nonResourceAttributes' describes information for a non-resource access request and is unset for resource requests. e.g. has(request.nonResourceAttributes) &amp;&amp; request.nonResourceAttributes.path == '/healthz'.</li>
+<li>'user' is the user to test for. e.g. request.user == 'alice'</li>
+<li>'groups' is the groups to test for. e.g. ('group1' in request.groups)</li>
+<li>'extra' corresponds to the user.Info.GetExtra() method from the authenticator.</li>
+<li>'uid' is the information about the requesting user. e.g. request.uid == '1'</li>
+-->
+<li>'resourceAttributes' 描述了资源访问请求的信息，对于非资源请求则未设置。例如：<code>has(request.resourceAttributes) && request.resourceAttributes.namespace == 'default'</code>。</li>
+<li>'nonResourceAttributes' 描述了非资源访问请求的信息，对于资源请求则未设置。例如：<code>has(request.nonResourceAttributes) && request.nonResourceAttributes.path == '/healthz'</code>。</li>
+<li>'user' 是要测试的用户。例如：<code>request.user == 'alice'</code>。</li>
+<li>'groups' 是要测试的用户组。例如：<code>('group1' in request.groups)</code>。</li>
+<li>'extra' 对应于身份验证器中的 <code>user.Info.GetExtra()</code> 方法。</li>
+<li>'uid' 是关于请求用户的标识信息。例如：<code>request.uid == '1'</code>。</li>
+</ul>
+<p>
+<!--
+Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+-->
+关于 CEL 文档: https://kubernetes.io/zh-cn/docs/reference/using-api/cel/
+</p>
 </td>
 </tr>
 </tbody>

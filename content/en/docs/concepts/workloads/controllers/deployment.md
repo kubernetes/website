@@ -1079,6 +1079,16 @@ Explicitly setting this field to 0, will result in cleaning up all the history o
 thus that Deployment will not be able to roll back.
 {{< /note >}}
 
+The cleanup only starts **after** a Deployment reaches a 
+[complete state](/docs/concepts/workloads/controllers/deployment/#complete-deployment).
+If you set `.spec.revisionHistoryLimit` to 0, any rollout nonetheless triggers creation of a new
+ReplicaSet before Kubernetes removes the old one.
+
+Even with a non-zero revision history limit, you can have more ReplicaSets than the limit
+you configure. For example, if pods are crash looping, and there are multiple rolling updates
+events triggered over time, you might end up with more ReplicaSets than the 
+`.spec.revisionHistoryLimit` because the Deployment never reaches a complete state.
+
 ## Canary Deployment
 
 If you want to roll out releases to a subset of users or servers using the Deployment, you
@@ -1316,6 +1326,19 @@ If specified, this field needs to be greater than `.spec.minReadySeconds`.
 created Pod should be ready without any of its containers crashing, for it to be considered available.
 This defaults to 0 (the Pod will be considered available as soon as it is ready). To learn more about when
 a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
+
+### Terminating Pods
+
+{{< feature-state feature_gate_name="DeploymentReplicaSetTerminatingReplicas" >}}
+
+You can enable this feature it by setting the `DeploymentReplicaSetTerminatingReplicas`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
+and on the [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+
+Pods that become terminating due to deletion or scale down may take a long time to terminate, and may consume
+additional resources during that period. As a result, the total number of all pods can temporarily exceed
+`.spec.replicas`. Terminating pods can be tracked using the `.status.terminatingReplicas` field of the Deployment.
 
 ### Revision History Limit
 

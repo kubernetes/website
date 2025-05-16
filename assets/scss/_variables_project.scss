@@ -5,9 +5,17 @@ $primary: #326ce5;
 $secondary: #495057;
 
 $light-grey: #f7f7f7;
+$medium-light-grey: #6f6f6f;
 $medium-grey: #4c4c4c;
 $dark-grey: #303030;
 $white: #ffffff;
+
+// feature gate colors
+$feature: #daeaf9;
+$feature-inset: #eeeeee;
+
+$metric-labels-varying: #efefef;
+$metric-labels-varying-border: #e2e2e2;
 
 // tooltip
 $tooltip-bg: #555;
@@ -20,3 +28,9 @@ $tooltip-font-size: 1rem;
 $tooltip-padding: 5px 8px;
 $tooltip-border-radius: 6px;
 $tooltip-font-weight: 400;
+
+// light / dark mode support
+$dark-bg-color-1: #303030;
+$dark-bg-color-2: #4f4f4f;
+$dark-text-color-1: #ffffff;
+$dark-text-color-2: #3371e3;

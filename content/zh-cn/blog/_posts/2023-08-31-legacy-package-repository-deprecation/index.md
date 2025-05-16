@@ -4,6 +4,14 @@ title: "Kubernetes 旧版软件包仓库将于 2023 年 9 月 13 日被冻结"
 date: 2023-08-31T15:30:00-07:00
 slug: legacy-package-repository-deprecation
 evergreen: true
+author: >
+  Bob Killen (Google),
+  Chris Short (AWS),
+  Jeremy Rickard (Microsoft),
+  Marko Mudrinić (Kubermatic),
+  Tim Bannister (The Scale Factory)
+translator: >
+  [Mengjiao Liu](https://github.com/mengjiao-liu) (DaoCloud)
 ---
 
 <!--
@@ -12,13 +20,13 @@ title: "Kubernetes Legacy Package Repositories Will Be Frozen On September 13, 2
 date: 2023-08-31T15:30:00-07:00
 slug: legacy-package-repository-deprecation
 evergreen: true
+author: >
+  Bob Killen (Google),
+  Chris Short (AWS),
+  Jeremy Rickard (Microsoft),
+  Marko Mudrinić (Kubermatic),
+  Tim Bannister (The Scale Factory)
 -->
-<!--
-**Authors**: Bob Killen (Google), Chris Short (AWS), Jeremy Rickard (Microsoft), Marko Mudrinić (Kubermatic), Tim Bannister (The Scale Factory)
--->
-**作者**：Bob Killen (Google), Chris Short (AWS), Jeremy Rickard (Microsoft), Marko Mudrinić (Kubermatic), Tim Bannister (The Scale Factory)
-
-**译者**：[Mengjiao Liu](https://github.com/mengjiao-liu) (DaoCloud)
 
 <!--
 On August 15, 2023, the Kubernetes project announced the general availability of
@@ -50,6 +58,14 @@ distributor, and what steps you may need to take.
 -->
 请继续阅读以了解这对于作为用户或分发商的你意味着什么，
 以及你可能需要采取哪些步骤。
+
+<!--
+**ℹ Update (March 26, 2024): _the legacy Google-hosted repositories went
+away on March 4, 2024. It's not possible to install Kubernetes packages from
+the legacy Google-hosted package repositories any longer._**
+-->
+**i 更新（2024 年 3 月 26 日)：旧 Google 托管仓库已于 2024 年 3 月 4 日下线。
+现在无法再从旧 Google 托管软件包仓库安装 Kubernetes 软件包。**
 
 <!--
 ## How does this affect me as a Kubernetes end user?
@@ -90,11 +106,11 @@ managing Kubernetes for you, then they would usually take responsibility for tha
 那么他们通常会负责该检查。
 
 <!--
-If you have a managed [control plane](/docs/concepts/overview/components/#control-plane-components)
+If you have a managed [control plane](/docs/concepts/architecture/#control-plane-components)
 but you are responsible for **managing the nodes yourself**, and any of those nodes run Linux,
 you should [check](#check-if-affected) whether you are affected.
 -->
-如果你使用的是托管的[控制平面](/zh-cn/docs/concepts/overview/components/#control-plane-components)
+如果你使用的是托管的[控制平面](/zh-cn/docs/concepts/architecture/#control-plane-components)
 但你负责**自行管理节点**，并且每个节点都运行 Linux，
 你应该[检查](#check-if-affected)你是否会受到影响。
 
@@ -141,6 +157,8 @@ possible and inform your users about this change and what steps they need to tak
 <!--
 ## Timeline of changes
 
+_(updated on March 26, 2024)_
+
 - **15th August 2023:**  
   Kubernetes announces a new, community-managed source for Linux software packages of Kubernetes components
 - **31st August 2023:**  
@@ -150,10 +168,16 @@ possible and inform your users about this change and what steps they need to tak
   Kubernetes will freeze the legacy package repositories,
   (`apt.kubernetes.io` and `yum.kubernetes.io`).
   The freeze will happen immediately following the patch releases that are scheduled for September, 2023.
+- **12th January 2024:**  
+  Kubernetes announced intentions to remove the legacy package repositories in January 2024
+- **4th March 2024:**  
+  The legacy package repositories have been removed. It's not possible to install Kubernetes packages from
+  the legacy package repositories any longer
 -->
 ## 变更时间表  {#timeline-of-changes}
 
 <!-- note to maintainers - the trailing whitespace is significant -->
+**（更新于 2024 年 3 月 26 日）**
 
 - **2023 年 8 月 15 日：**  
   Kubernetes 宣布推出一个新的社区管理的 Kubernetes 组件 Linux 软件包源
@@ -162,6 +186,10 @@ possible and inform your users about this change and what steps they need to tak
 - **2023 年 9 月 13 日**（左右）：  
   Kubernetes 将冻结旧软件包仓库（`apt.kubernetes.io` 和 `yum.kubernetes.io`）。
   冻结将计划于 2023 年 9 月发布补丁版本后立即进行。
+- **2024 年 1 月 12 日：**  
+  Kubernetes 宣布计划在 2024 年 1 月移除旧软件包仓库。  
+- **2024 年 3 月 4 日：**  
+  旧软件包仓库已被移除，现在无法再从旧软件包仓库安装 Kubernetes 软件包。  
 
 <!--
 The Kubernetes patch releases scheduled for September 2023 (v1.28.2, v1.27.6,
@@ -196,28 +224,50 @@ community-owned repositories (`pkgs.k8s.io`).
 Kubernetes 1.29 及以后的版本将**仅**发布软件包到社区拥有的仓库（`pkgs.k8s.io`）。
 
 <!--
+### What releases are available in the new community-owned package repositories?
+
+Linux packages for releases starting from Kubernetes v1.24.0 are available in the 
+Kubernetes package repositories (`pkgs.k8s.io`). Kubernetes does not have official
+Linux packages available for earlier releases of Kubernetes; however, your Linux
+distribution may provide its own packages.
+-->
+### 新的社区拥有的软件包仓库提供哪些可用的软件包版本？ {#what-releases-are-available-in-the-new-community-owned-package-repositories}
+
+Kubernetes 软件包仓库（`pkgs.k8s.io`）提供从 Kubernetes v1.24.0 版本开始的 Linux 软件包。
+Kubernetes 官方没有为早期的 Kubernetes 版本提供可用的 Linux 软件包，但你的 Linux 发行版可能会提供其自有的软件包。  
+
+<!--
 ## Can I continue to use the legacy package repositories?
+
+_(updated on March 26, 2024)_
+
+**The legacy Google-hosted repositories went away on March 4, 2024. It's not possible
+to install Kubernetes packages from the legacy Google-hosted package repositories any
+longer.**
 
 The existing packages in the legacy repositories will be available for the foreseeable
 future. However, the Kubernetes project can't provide _any_ guarantees on how long
 is that going to be. The deprecated legacy repositories, and their contents, might
 be removed at any time in the future and without a further notice period.
-
-**UPDATE**: The legacy packages are expected to go away in January 2024.
 -->
 ## 我可以继续使用旧软件包仓库吗？ {#can-i-continue-to-use-the-legacy-package-repositories}
+
+**（更新于 2024 年 3 月 26 日）**
+
+**旧 Google 托管软件包仓库已于 2024 年 3 月 4 日下线。
+现在无法再从旧 Google 托管软件包仓库安装 Kubernetes 软件包。**  
 
 ~~旧仓库中的现有软件包将在可预见的未来内保持可用。然而，
 Kubernetes 项目无法对这会持续多久提供**任何**保证。
 已弃用的旧仓库及其内容可能会在未来随时删除，恕不另行通知。~~
 
-**更新**: 旧版软件包预计将于 2024 年 1 月被删除。
-
 <!--
-The Kubernetes project **strongly recommends** migrating to the new community-owned
-repositories **as soon as possible**.
+~~The Kubernetes project **strongly recommends** migrating to the new community-owned
+repositories **as soon as possible**.~~ Migrating to the new package repositories is
+required to consume the official Kubernetes packages.
 -->
-Kubernetes 项目**强烈建议尽快**迁移到新的社区拥有的仓库。
+~~Kubernetes 项目**强烈建议尽快**迁移到新的社区拥有的仓库。~~
+要使用 Kubernetes 官方软件包，需要迁移到新的软件包仓库。  
 
 <!--
 Given that no new releases will be published to the legacy repositories **after the September 13, 2023**

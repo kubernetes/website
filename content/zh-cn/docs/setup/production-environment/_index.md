@@ -361,11 +361,11 @@ simply as *nodes*).
   这一规模是基于你要运行的 Pod 和容器个数来确定的。
   如果你自行管理集群节点，这可能意味着要购买和安装你自己的物理设备。
 <!--
-- *Autoscale nodes*: Read [Cluster Autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling) to learn about the
+- *Autoscale nodes*: Read [Node Autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling) to learn about the
   tools available to automatically manage your nodes and the capacity they
   provide.
 -->
-- **节点自动扩缩容**：查阅[集群自动扩缩容](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling)，
+- **节点自动扩缩容**：查阅[节点自动扩缩容](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling)，
   了解可以自动管理节点的工具及其提供的能力。
 <!--
 - *Set up node health checks*: For important workloads, you want to make sure
@@ -519,13 +519,10 @@ needs of your cluster's workloads:
 <!--
 - *Set namespace limits*: Set per-namespace quotas on things like memory and CPU. See
   [Manage Memory, CPU, and API Resources](/docs/tasks/administer-cluster/manage-resources/)
-  for details. You can also set
-  [Hierarchical Namespaces](/blog/2020/08/14/introducing-hierarchical-namespaces/)
-  for inheriting limits.
+  for details.
 -->
 - **设置名字空间限制**：为每个名字空间的内存和 CPU 设置配额。
   参阅[管理内存、CPU 和 API 资源](/zh-cn/docs/tasks/administer-cluster/manage-resources/)以了解细节。
-  你也可以设置[层次化名字空间](/blog/2020/08/14/introducing-hierarchical-namespaces/)来继承这类约束。
 <!--
 - *Prepare for DNS demand*: If you expect workloads to massively scale up,
   your DNS service must be ready to scale up as well. See

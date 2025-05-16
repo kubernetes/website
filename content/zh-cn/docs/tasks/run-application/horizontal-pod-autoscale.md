@@ -6,6 +6,7 @@ feature:
     使用一个简单的命令、一个 UI 或基于 CPU 使用情况自动对应用程序进行扩缩。
 content_type: concept
 weight: 90
+math: true
 ---
 <!--
 reviewers:
@@ -19,6 +20,7 @@ feature:
     Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.
 content_type: concept
 weight: 90
+math: true
 -->
 
 <!-- overview -->
@@ -224,25 +226,30 @@ value:
 从最基本的角度来看，Pod 水平自动扩缩控制器根据当前指标和期望指标来计算扩缩比例。
 
 <!--
-```
-desiredReplicas = ceil[currentReplicas * ( currentMetricValue / desiredMetricValue )]
+```math
+\begin{equation*}
+desiredReplicas = ceil\left\lceil currentReplicas \times \frac{currentMetricValue}{desiredMetricValue} \right\rceil
+\end{equation*}
 ```
 -->
-```
-期望副本数 = ceil[当前副本数 * (当前指标 / 期望指标)]
+```math
+\begin{equation*}
+期望副本数 = ceil\left\lceil 当前副本数 \times \frac{当前指标}{期望指标} \right\rceil
+\end{equation*}
 ```
 
 <!--
 For example, if the current metric value is `200m`, and the desired value
-is `100m`, the number of replicas will be doubled, since `200.0 / 100.0 ==
-2.0` If the current value is instead `50m`, you'll halve the number of
-replicas, since `50.0 / 100.0 == 0.5`. The control plane skips any scaling
-action if the ratio is sufficiently close to 1.0 (within a globally-configurable
-tolerance, 0.1 by default).
+is `100m`, the number of replicas will be doubled, since
+\\( { 200.0 \div 100.0 } = 2.0 \\).  
+If the current value is instead `50m`, you'll halve the number of
+replicas, since \\( { 50.0 \div 100.0 } = 0.5 \\). The control plane skips any scaling
+action if the ratio is sufficiently close to 1.0 (within a
+[configurable tolerance](#tolerance), 0.1 by default).
 -->
 例如，如果当前指标值为 `200m`，而期望值为 `100m`，则副本数将加倍，
-因为 `200.0 / 100.0 == 2.0` 如果当前值为 `50m`，则副本数将减半，
-因为 `50.0 / 100.0 == 0.5`。如果比率足够接近 1.0（在全局可配置的容差范围内，默认为 0.1），
+因为 \\( { 200.0 \div 100.0 } = 2.0 \\)。如果当前值为 `50m`，则副本数将减半，
+因为  \\( { 50.0 \div 100.0 } = 0.5 \\)。如果比率足够接近 1.0（在[可配置的容差范围内](#tolerance)，默认为 0.1），
 则控制平面会跳过扩缩操作。
 
 <!--
@@ -302,10 +309,10 @@ default is 5 minutes.
 该值由 `-horizontal-pod-autoscaler-cpu-initialization-period` 标志配置，默认为 5 分钟。
 
 <!--
-The `currentMetricValue / desiredMetricValue` base scale ratio is then
-calculated using the remaining pods not set aside or discarded from above.
+The \\( currentMetricValue \over desiredMetricValue \\) base scale ratio is then
+calculated, using the remaining pods not set aside or discarded from above.
 -->
-在排除掉被搁置的 Pod 后，扩缩比例就会根据 `currentMetricValue/desiredMetricValue`
+在排除掉被搁置的 Pod 后，扩缩比例就会根据 \\( 当前指标 \over 预期指标 \\)
 计算出来。
 
 <!--
@@ -701,13 +708,15 @@ under the `behavior` field.
 来配置单独的放大和缩小行为。你可以通过在行为字段下设置 `scaleUp` 和/或 `scaleDown` 来指定这些行为。
 
 <!--
-You can specify a _stabilization window_ that prevents [flapping](#flapping)
-the replica count for a scaling target. Scaling policies also let you control the
-rate of change of replicas while scaling.
+Scaling policies let you control the rate of change of replicas while scaling.
+Also two settings can be used to prevent [flapping](#flapping): you can specify a
+_stabilization window_ for smoothing replica counts, and a tolerance to ignore
+minor metric fluctuations below a specified threshold.
 -->
-
-你可以指定一个“稳定窗口”，以防止扩缩目标的副本计数发生[波动](#flapping)。
-扩缩策略还允许你在扩缩时控制副本的变化率。
+扩缩策略允许你在扩缩容时控制副本数量变化的速率。
+此外，还可以通过两个设置来防止频繁[波动](#flapping)：
+你可以指定一个“稳定窗口“来平滑副本数量的变化，
+也可以设置一个容差值，用于忽略低于指定阈值的小幅指标波动。
 
 <!--
 ### Scaling policies
@@ -807,6 +816,49 @@ This approximates a rolling maximum, and avoids having the scaling algorithm fre
 remove Pods only to trigger recreating an equivalent Pod just moments later.
 -->
 这近似于滚动最大值，并避免了扩缩算法频繁删除 Pod 而又触发重新创建等效 Pod。
+
+<!--
+### Tolerance {#tolerance}
+-->
+### 容忍阈值 {#tolerance}
+
+{{< feature-state feature_gate_name="HPAConfigurableTolerance" >}}
+
+<!--
+The `tolerance` field configures a threshold for metric variations, preventing the
+autoscaler from scaling for changes below that value.
+
+This tolerance is defined as the amount of variation around the desired metric value under
+which no scaling will occur. For example, consider a HorizontalPodAutoscaler configured
+with a target memory consumption of 100MiB and a scale-up tolerance of 5%:
+-->
+`tolerance` 字段用于配置指标波动的阈值，避免自动扩缩器因小幅变化而触发扩缩容操作。
+
+该容忍阈值指的是在期望指标值附近的一个波动范围，在这个范围内不会触发扩缩容操作。
+例如，假设 HorizontalPodAutoscaler 配置了目标内存使用量为 100MiB，并设置了 5% 的扩容容忍阈值：
+
+```yaml
+behavior:
+  scaleUp:
+    tolerance: 0.05 # 5% tolerance for scale up
+```
+
+<!--
+With this configuration, the HPA algorithm will only consider scaling up if the memory
+consumption is higher than 105MiB (that is: 5% above the target).
+
+If you don't set this field, the HPA applies the default cluster-wide tolerance of 10%. This
+default can be updated for both scale-up and scale-down using the
+[kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+`--horizontal-pod-autoscaler-tolerance` command line argument. (You can't use the Kubernetes API
+to configure this default value.)
+-->
+在这种配置下，只有当内存使用量超过 105MiB（即比目标值高出 5%）时，HPA 算法才会考虑进行扩容。
+
+如果你未设置该字段，HPA 将使用集群范围内默认的 10% 容忍阈值。
+你可以通过[kube-controller-manager](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)
+的 `--horizontal-pod-autoscaler-tolerance` 命令行参数，分别调整扩容和缩容的默认容忍阈值。
+（注意，无法通过 Kubernetes API 来配置这个默认值。）
 
 <!--
 ### Default Behavior
@@ -1045,13 +1097,13 @@ guidelines, which cover this exact use case.
 
 <!--
 If you configure autoscaling in your cluster, you may also want to consider using
-[cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
+[node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
 to ensure you are running the right number of nodes.
 
 For more information on HorizontalPodAutoscaler:
 -->
 如果你在集群中配置自动扩缩，
-你可能还需要考虑使用[集群自动扩缩](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/)来确保所运行的节点数目合适。
+你可能还需要考虑使用[节点自动扩缩](/doc/concepts/cluster-administration/node-autoscaling/)来确保所运行的节点数目合适。
 
 有关 HorizontalPodAutoscaler 的更多信息：
 

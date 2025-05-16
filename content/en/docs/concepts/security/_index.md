@@ -53,6 +53,15 @@ network traffic between Pods, or between Pods and the network outside your clust
 You can deploy security controls from the wider ecosystem to implement preventative
 or detective controls around Pods, their containers, and the images that run in them.
 
+### Admission control {#admission-control}
+
+[Admission controllers](/docs/reference/access-authn-authz/admission-controllers/)
+are plugins that intercept Kubernetes API requests and can validate or mutate
+the requests based on specific fields in the request. Thoughtfully designing
+these controllers helps to avoid unintended disruptions as Kubernetes APIs
+change across version updates. For design considerations, see
+[Admission Webhook Good Practices](/docs/concepts/cluster-administration/admission-webhooks-good-practices/).
+
 ### Auditing
 
 Kubernetes [audit logging](/docs/tasks/debug/debug-cluster/audit/) provides a
@@ -80,7 +89,7 @@ IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
 Oracle Cloud Infrastructure | https://www.oracle.com/security |
 Tencent Cloud | https://www.tencentcloud.com/solutions/data-security-and-information-protection |
-VMware vSphere | https://www.vmware.com/security/hardening-guides |
+VMware vSphere | https://www.vmware.com/solutions/security/hardening-guides |
 
 {{< /table >}}
 

@@ -1,5 +1,4 @@
 ---
-# Removed from Kubernetes
 title: Accelerators
 content_type: feature_gate
 

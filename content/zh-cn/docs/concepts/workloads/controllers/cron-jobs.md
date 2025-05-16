@@ -110,7 +110,7 @@ The `.spec.schedule` field is required. The value of that field follows the [Cro
 # │ │ │ ┌───────────── month (1 - 12)
 # │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday)
 # │ │ │ │ │                                   OR sun, mon, tue, wed, thu, fri, sat
-# │ │ │ │ │ 
+# │ │ │ │ │
 # │ │ │ │ │
 # * * * * *
 ```
@@ -384,21 +384,15 @@ Go 标准库中的时区数据库包含在二进制文件中，并用作备用�
 
 <!--
 Specifying a timezone using `CRON_TZ` or `TZ` variables inside `.spec.schedule`
-is **not officially supported** (and never has been).
+is **not officially supported** (and never has been). If you try to set a schedule
+that includes `TZ` or `CRON_TZ` timezone specification, Kubernetes will fail to
+create or update the resource with a validation error. You should specify time zones
+using the [time zone field](#time-zones), instead.
 -->
 在 `.spec.schedule` 中通过 `CRON_TZ` 或 `TZ` 变量来指定时区**并未得到官方支持**（而且从未支持过）。
-
-<!--
-Starting with Kubernetes 1.29 if you try to set a schedule that includes `TZ` or `CRON_TZ`
-timezone specification, Kubernetes will fail to create the resource with a validation
-error.
-Updates to CronJobs already using `TZ` or `CRON_TZ` will continue to report a
-[warning](/blog/2020/09/03/warnings/) to the client.
--->
-从 Kubernetes 1.29 版本开始，如果你尝试设定包含 `TZ` 或 `CRON_TZ` 时区规范的排期表，
-Kubernetes 将无法创建该资源，并会报告验证错误。
-对已经设置 `TZ` 或 `CRON_TZ` 的 CronJob 进行更新时，
-系统会继续向客户端发送[警告](/zh-cn/blog/2020/09/03/warnings/)。
+如果你尝试设置一个包含 `TZ` 或 `CRON_TZ` 时区规范的计划，Kubernetes
+将因验证错误无法创建或更新资源。
+你应该使用[时区字段](#time-zones)指定时区。
 
 <!--
 ### Modifying a CronJob

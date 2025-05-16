@@ -183,7 +183,7 @@ simply as *nodes*).
   to help determine how many nodes you need, based on the number of pods and
   containers you need to run. If you are managing nodes yourself, this can mean
   purchasing and installing your own physical equipment.
-- *Autoscale nodes*: Read [Cluster Autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling) to learn about the
+- *Autoscale nodes*: Read [Node Autoscaling](/docs/concepts/cluster-administration/node-autoscaling) to learn about the
   tools available to automatically manage your nodes and the capacity they
   provide.
 - *Set up node health checks*: For important workloads, you want to make sure
@@ -260,9 +260,7 @@ needs of your cluster's workloads:
 
 - *Set namespace limits*: Set per-namespace quotas on things like memory and CPU. See
   [Manage Memory, CPU, and API Resources](/docs/tasks/administer-cluster/manage-resources/)
-  for details. You can also set
-  [Hierarchical Namespaces](/blog/2020/08/14/introducing-hierarchical-namespaces/)
-  for inheriting limits.
+  for details.
 - *Prepare for DNS demand*: If you expect workloads to massively scale up,
   your DNS service must be ready to scale up as well. See
   [Autoscale the DNS service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).

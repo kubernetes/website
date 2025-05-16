@@ -13,6 +13,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.31"
+    toVersion: "1.32"
+
+removed: true
 ---
 Enable AppArmor related security context settings.
 

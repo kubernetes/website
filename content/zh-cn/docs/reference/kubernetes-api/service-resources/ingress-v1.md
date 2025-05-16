@@ -1310,6 +1310,15 @@ DELETE /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 <!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**)：boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+<!--
 - **pretty** (*in query*): string
 -->
 - **pretty** (**查询参数**): string
@@ -1391,6 +1400,15 @@ DELETE /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+<!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**)：boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 <!--
 - **labelSelector** (*in query*): string
