@@ -4,13 +4,13 @@ id: affinity
 date: 2019-01-11
 full_link: /docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
 short_description: >
-     Các quy tắc được scheduler sử dụng để xác định vị trí đặt pod
+     Các quy tắc được scheduler sử dụng để xác định vị trí phân phối pod
 aka:
 tags:
 - fundamental
 ---
 
-Trong Kubernetes, _affinity_ là một tập hợp các quy tắc cung cấp gợi ý cho scheduler về vị trí đặt pod.
+Trong Kubernetes, _affinity_ là một tập hợp các quy tắc cung cấp gợi ý cho scheduler về vị trí phân phối pod.
 
 <!--more-->
 Có hai loại affinity:
