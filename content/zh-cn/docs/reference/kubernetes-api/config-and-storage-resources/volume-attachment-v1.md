@@ -24,6 +24,7 @@ weight: 11
 `import "k8s.io/api/storage/v1"`
 
 ## VolumeAttachment {#VolumeAttachment}
+
 <!--
 VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 
@@ -64,9 +65,11 @@ VolumeAttachment 对象未划分命名空间。
 -->
 - **status** (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachmentStatus" >}}">VolumeAttachmentStatus</a>)
 
-  status 表示 VolumeAttachment 请求的状态。由完成挂接或解除挂接操作的实体（即外部挂接器）进行填充。
+  status 表示 VolumeAttachment 请求的状态。由完成挂接或解除挂接操作的实体
+ （即外部挂接器）进行填充。
 
 ## VolumeAttachmentSpec {#VolumeAttachmentSpec}
+
 <!--
 VolumeAttachmentSpec is the specification of a VolumeAttachment request.
 -->
@@ -160,6 +163,21 @@ VolumeAttachmentStatus 是 VolumeAttachment 请求的状态。
   **VolumeError 抓取卷操作期间遇到的一个错误。**
 
   <!--
+  - **attachError.errorCode** (int32)
+
+    errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+    
+    This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+  -->
+
+  - **attachError.errorCode** (int32)
+
+    errorCode 是一个 gRPC 错误码，代表在 Attach 或 Detach 操作期间遇到的错误。
+
+    这是一个可选的、Alpha 阶段的字段，要求启用了 MutableCSINodeAllocatableCount
+    特性门控才能设置。
+
+  <!--
   - **attachError.message** (string)
 
     message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
@@ -204,7 +222,31 @@ VolumeAttachmentStatus 是 VolumeAttachment 请求的状态。
 
   <a name="VolumeError"></a>
   *VolumeError captures an error encountered during a volume operation.*
+-->
+- **detachError** (VolumeError)
 
+  detachError 表示解除挂接操作期间遇到的最后一个错误，如果有。
+  此字段只能由完成解除挂接操作的实体（例如外部挂接器）进行设置。
+
+  <a name="VolumeError"></a>
+  **VolumeError 抓取卷操作期间遇到的一个错误。**
+
+  <!--
+  - **attachError.errorCode** (int32)
+
+    errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+    
+    This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+  -->
+
+  - **attachError.errorCode** (int32)
+
+    errorCode 是一个 gRPC 错误码，代表在 Attach 或 Detach 操作期间遇到的错误。
+
+    这是一个可选的、Alpha 阶段的字段，要求启用了 MutableCSINodeAllocatableCount
+    特性门控才能设置。
+
+  <!--
   - **detachError.message** (string)
 
     message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
@@ -215,14 +257,7 @@ VolumeAttachmentStatus 是 VolumeAttachment 请求的状态。
 
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
--->
-- **detachError** (VolumeError)
-
-  detachError 表示解除挂接操作期间遇到的最后一个错误，如果有。
-  此字段只能由完成解除挂接操作的实体（例如外部挂接器）进行设置。
-
-  <a name="VolumeError"></a>
-  **VolumeError 抓取卷操作期间遇到的一个错误。**
+  -->
 
   - **detachError.message** (string)
 
@@ -238,6 +273,7 @@ VolumeAttachmentStatus 是 VolumeAttachment 请求的状态。
     为 time 包提供的许多工厂方法提供了包装类。**
 
 ## VolumeAttachmentList {#VolumeAttachmentList}
+
 <!--
 VolumeAttachmentList is a collection of VolumeAttachment objects.
 -->
@@ -268,13 +304,15 @@ VolumeAttachmentList 是 VolumeAttachment 对象的集合。
 
 <!--
 ## Operations {#Operations}
-### `get` read the specified VolumeAttachment
-#### HTTP Request
 -->
 ## 操作 {#Operations}
 
 <hr>
 
+<!--
+### `get` read the specified VolumeAttachment
+#### HTTP Request
+-->
 ### `get` 读取指定的 VolumeAttachment
 
 #### HTTP 请求
