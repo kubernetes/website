@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "admission-policies-installer-csr-config"
+  namespace: csr-signer-installer
+data:
+  controllerServiceAccountName: "installer"
+  controllerNamespace: "csr-signer-installer"
+  domain: "example.com"
