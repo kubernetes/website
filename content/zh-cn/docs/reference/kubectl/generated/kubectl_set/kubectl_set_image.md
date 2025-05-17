@@ -64,7 +64,7 @@ kubectl set image -f path/to/file.yaml nginx=nginx:1.9.1 --local -o yaml
 
 ## {{% heading "options" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -198,13 +198,16 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 <td colspan="2">-l, --selector string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2). Matching objects must satisfy all of the specified label constraints.
+Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.
 -->
-过滤所用的选择算符（标签查询），支持 '='、'==' 和 '！='。
-（例如 -l key1=value1,key2=value2）。匹配的对象必须满足所有指定的标签约束。
-</p></td>
+过滤所用的选择算符（标签查询），支持 '='、'=='、'!='、'in' 和 'notin'。
+（例如 -l key1=value1,key2=value2,key3 in (value3)）。
+匹配的对象必须满足所有指定的标签约束。
+</p>
+</td>
 </tr>
 
 <tr>
