@@ -150,6 +150,7 @@ slice object tracks endpoints for. This ownership is indicated by an owner
 reference on each EndpointSlice as well as a `kubernetes.io/service-name`
 label that enables simple lookups of all EndpointSlices belonging to a Service.
 
+
 ### Distribution of EndpointSlices
 
 Each EndpointSlice has a set of ports that applies to all endpoints within the
