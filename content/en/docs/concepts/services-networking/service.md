@@ -775,6 +775,7 @@ metadata:
 
 ```yaml
 metadata:
+  name: my-service
   annotations:
     service.kubernetes.io/qcloud-loadbalancer-internal-subnetid: subnet-xxxxx
 ```
@@ -784,6 +785,7 @@ metadata:
 
 ```yaml
 metadata:
+  name: my-service
   annotations:
     service.beta.kubernetes.io/alibaba-cloud-loadbalancer-address-type: "intranet"
 ```
