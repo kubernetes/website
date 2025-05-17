@@ -1,0 +1,29 @@
+# Це правило забезпечує виконання умови, що всі контейнери deployment повинні мати збіг репозиторієв образів з міткою середовища його простору імен.
+# За винятком deployment, позначених як "exempt", або будь-яких контейнерів, які не належать організації "example.com" (наприклад, загальні sidecar).
+# Наприклад, якщо у просторі імен є мітка {"environment": "staging"}, всі контейнери повинні мати репозиторій, який є або staging.example.com/*
+# або не містить "example.com" взагалі, якщо deployment має мітку {"exempt": "true"}.
+
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "image-matches-namespace-environment.policy.example.com"
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["apps"]
+      apiVersions: ["v1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["deployments"]
+  variables:
+  - name: environment
+    expression: "'environment' in namespaceObject.metadata.labels ? namespaceObject.metadata.labels['environment'] : 'prod'"
+  - name: exempt
+    expression: "'exempt' in object.metadata.labels && object.metadata.labels['exempt'] == 'true'"
+  - name: containers
+    expression: "object.spec.template.spec.containers"
+  - name: containersToCheck
+    expression: "variables.containers.filter(c, c.image.contains('example.com/'))"
+  validations:
+  - expression: "variables.exempt || variables.containersToCheck.all(c, c.image.startsWith(variables.environment + '.'))"
+    messageExpression: "'only ' + variables.environment + ' images are allowed in namespace ' + namespaceObject.metadata.name"
