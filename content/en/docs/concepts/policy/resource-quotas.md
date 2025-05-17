@@ -14,36 +14,57 @@ weight: 20
 When several users or teams share a cluster with a fixed number of nodes,
 there is a concern that one team could use more than its fair share of resources.
 
-Resource quotas are a tool for administrators to address this concern.
+_Resource quotas_ are a tool for administrators to address this concern.
+
+A resource quota, defined by a ResourceQuota object, provides constraints that limit
+aggregate resource consumption per {{< glossary_tooltip text="namespace" term_id="namespace" >}}. A ResourceQuota can also
+limit the [quantity of objects that can be created in a namespace](#quota-on-object-count) by API kind, as well as the total
+amount of {{< glossary_tooltip text="infrastructure resources" term_id="infrastructure-resource" >}} that may be consumed by
+API objects found in that namespace.
+
+{{< caution >}}
+Neither contention nor changes to quota will affect already created resources.
+{{< /caution >}}
 
 <!-- body -->
 
-A resource quota, defined by a `ResourceQuota` object, provides constraints that limit
-aggregate resource consumption per namespace. It can limit the quantity of objects that can
-be created in a namespace by type, as well as the total amount of compute resources that may
-be consumed by resources in that namespace.
+## How Kubernetes ResourceQuotas work
 
-Resource quotas work like this:
+ResourceQuotas work like this:
 
-- Different teams work in different namespaces. This can be enforced with
-  [RBAC](/docs/reference/access-authn-authz/rbac/).
+- Different teams work in different namespaces. This separation can be enforced with
+  [RBAC](/docs/reference/access-authn-authz/rbac/) or any other [authorization](/docs/reference/access-authn-authz/authorization/)
+  mechanism.
 
-- The administrator creates one ResourceQuota for each namespace.
+- A cluster administrator creates at least one ResourceQuota for each namespace.
+  - To make sure the enforcement stays enforced, the cluster administrator should also restrict access to delete or update
+    that ResourceQuota; for example, by defining a [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/).
 
 - Users create resources (pods, services, etc.) in the namespace, and the quota system
   tracks usage to ensure it does not exceed hard resource limits defined in a ResourceQuota.
 
-- If creating or updating a resource violates a quota constraint, the request will fail with HTTP
-  status code `403 FORBIDDEN` with a message explaining the constraint that would have been violated.
+  You can apply a [scope](#quota-scopes) to a ResourceQuota to limit where it applies,
 
-- If quotas are enabled in a namespace for compute resources like `cpu` and `memory`, users must specify
-  requests or limits for those values; otherwise, the quota system may reject pod creation. Hint: Use
-  the `LimitRanger` admission controller to force defaults for pods that make no compute resource requirements.
+- If creating or updating a resource violates a quota constraint, the control plane rejects that request with HTTP
+  status code `403 Forbidden`. The error includes a message explaining the constraint that would have been violated.
 
-  See the [walkthrough](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
-  for an example of how to avoid this problem.
+- If quotas are enabled in a namespace for {{< glossary_tooltip text="resource" term_id="infrastructure-resource" >}}
+  such as `cpu` and `memory`, users must specify requests or limits for those values when they define a Pod; otherwise,
+  the quota system may reject pod creation.
+
+  The resource quota [walkthrough](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+  shows an example of how to avoid this problem.
 
 {{< note >}}
+* You can define a [LimitRange](/docs/concepts/policy/limit-range/)
+  to force defaults on pods that make no compute resource requirements (so that users don't have to remember to do that).
+{{< /note >}}
+
+You often do not create Pods directly; for example, you more usually create a [workload management](/docs/concepts/workloads/controllers/)
+object such as a {{< glossary_tooltip term_id="deployment" >}}. If you create a Deployment that tries to use more
+resources than are available, the creation of the Deployment (or other workload management object) **succeeds**, but
+the Deployment may not be able to get all of the Pods it manages to exist. In that case you can check the status of
+the Deployment, for example with `kubectl describe`, to see what has happened.
 
 - For `cpu` and `memory` resources, ResourceQuotas enforce that **every**
   (new) pod in that namespace sets a limit for that resource.
@@ -59,8 +80,6 @@ Resource quotas work like this:
 You can use a [LimitRange](/docs/concepts/policy/limit-range/) to automatically set
 a default request for these resources.
 
-{{< /note >}}
-
 The name of a ResourceQuota object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
@@ -74,7 +93,6 @@ Examples of policies that could be created using namespaces and quotas are:
 In the case where the total capacity of the cluster is less than the sum of the quotas of the namespaces,
 there may be contention for resources. This is handled on a first-come-first-served basis.
 
-Neither contention nor changes to quota will affect already created resources.
 
 ## Enabling Resource Quota
 
@@ -916,8 +934,9 @@ and it is to be created in a namespace other than `kube-system`.
 
 ## {{% heading "whatsnext" %}}
 
-- See [ResourceQuota design document](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md)
-  for more information.
 - See a [detailed example for how to use resource quota](/docs/tasks/administer-cluster/quota-api-object/).
-- Read [Quota support for priority class design document](https://git.k8s.io/design-proposals-archive/scheduling/pod-priority-resourcequota.md).
-- See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765).
+- Read the ResourceQuota [API reference](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+- Learn about [LimitRanges](/docs/concepts/policy/limit-range/)
+- You can read the historical [ResourceQuota design document](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md)
+  for more information.
+- You can also read the [Quota support for priority class design document](https://git.k8s.io/design-proposals-archive/scheduling/pod-priority-resourcequota.md).
