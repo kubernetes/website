@@ -3,6 +3,7 @@ layout: blog
 title: "Spotlight on Policy Working Group"
 slug: wg-policy-spotlight-2025
 date: 2025-05-22
+draft: true
 author: "Arujjwal Negi"
 ---  
 
