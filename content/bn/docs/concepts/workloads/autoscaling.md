@@ -87,7 +87,7 @@ HPA কাজ করার জন্য আপনার ক্লাস্টা
 
 {{< feature-gate-description name="InPlacePodVerticalScaling" >}}
 
-## অটোস্কেলিং ক্লাস্টার আকারের উপর ভিত্তি করে
+## ক্লাস্টারের আকারের উপর ভিত্তি করে অটোস্কেলিং
 
 যেসব ওয়ার্কলোড ক্লাস্টারের আকারের উপর ভিত্তি করে স্কেল করতে হয় (উদাহরণস্বরূপ `cluster-dns` বা অন্যান্য সিস্টেম কম্পোনেন্ট), 
 আপনি [_ক্লাস্টার প্রপোরশনাল অটোস্কেলার_](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler) 
