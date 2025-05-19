@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Enhancing Kubernetes Event Management with Custom Aggregation"
-date: 2025-01-15
-draft: true
+date: 2025-06-10
+draft: false
 slug: enhancing-kubernetes-event-management-custom-aggregation
 Author: >
   [Rez Moss](https://github.com/rezmoss)
