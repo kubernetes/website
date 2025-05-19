@@ -34,6 +34,8 @@ Now you know that defining a sidecar with this native approach will always start
 It might be a bit tricky because the problem with sidecars is there’s no obvious success signal, contrary to init containers - designed to run only for a specified period of time. With an init container, exit status 0 is unambiguously "I succeeded". With a sidecar, there are lots of points at which you can say "a thing is running".
 Starting one container only after the previous one is ready is part of a graceful deployment strategy, ensuring proper sequencing and stability during startup. It’s also actually how I’d expect sidecar containers to work as well, to cover the scenario where the main application is dependent on the sidecar. For example, it may happen that an app errors out if the sidecar isn’t available to serve requests (e.g., logging with DataDog). Sure, we could change the application code (and it would actually be the “best practice” solution), but sometimes we can’t - and this post focuses on this use case.
 
+I'll explain some ways that you might try, and show you what approaches will really work.
+
 ## Readiness probe
 
 To check whether Kubernetes native sidecar delays the start of the main application until the sidecar is ready, let’s simulate a short investigation. Firstly, we’ll simulate a sidecar container which will never be ready by implementing a readiness probe which will never succeed. As a reminder, a [readiness probe](/docs/concepts/configuration/liveness-readiness-startup-probes/) checks if the container is ready to start accepting traffic and therefore, if the pod can be used as a backend for services. 
