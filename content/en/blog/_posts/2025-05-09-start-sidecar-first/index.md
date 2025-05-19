@@ -198,7 +198,8 @@ initContainers:
 
 ## Liveness probe
 
-An interesting exercise would be to check the sidecar container behavior with the [liveness probe](/docs/concepts/configuration/liveness-readiness-startup-probes/). The liveness probe works and is configured similarly to the readiness probe - just with the difference that it doesn’t affect the readiness of the container but restarts it in case the probe fails. 
+An interesting exercise would be to check the sidecar container behavior with a [liveness probe](/docs/concepts/configuration/liveness-readiness-startup-probes/).
+A liveness probe behaves and is configured similarly to a readiness probe - only with the difference that it doesn’t affect the readiness of the container but restarts it in case the probe fails. 
 
 ```yaml
 livenessProbe:
