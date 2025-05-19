@@ -33,15 +33,15 @@ To learn more, you can also read the official [Pod sidecar containers tutorial](
 
 ## The problem
 
-Now you know that defining a sidecar with this native approach will always start it before the main application. From the [kubelet source code](https://github.com/kubernetes/kubernetes/blob/537a602195efdc04cdf2cb0368792afad082d9fd/pkg/kubelet/kuberuntime/kuberuntime_manager.go#L827-L830), we know that this often means being started almost in parallel, and this is not always what we want to achieve. What we are really interested in is whether we can delay the start of the main application until the sidecar is not just started, but fully running and ready to serve.
+Now you know that defining a sidecar with this native approach will always start it before the main application. From the [kubelet source code](https://github.com/kubernetes/kubernetes/blob/537a602195efdc04cdf2cb0368792afad082d9fd/pkg/kubelet/kuberuntime/kuberuntime_manager.go#L827-L830), it's visible that this often means being started almost in parallel, and this is not always what an engineer wants to achieve. What I'm really interested in is whether I can delay the start of the main application until the sidecar is not just started, but fully running and ready to serve.
 It might be a bit tricky because the problem with sidecars is there’s no obvious success signal, contrary to init containers - designed to run only for a specified period of time. With an init container, exit status 0 is unambiguously "I succeeded". With a sidecar, there are lots of points at which you can say "a thing is running".
-Starting one container only after the previous one is ready is part of a graceful deployment strategy, ensuring proper sequencing and stability during startup. It’s also actually how I’d expect sidecar containers to work as well, to cover the scenario where the main application is dependent on the sidecar. For example, it may happen that an app errors out if the sidecar isn’t available to serve requests (e.g., logging with DataDog). Sure, we could change the application code (and it would actually be the “best practice” solution), but sometimes we can’t - and this post focuses on this use case.
+Starting one container only after the previous one is ready is part of a graceful deployment strategy, ensuring proper sequencing and stability during startup. It’s also actually how I’d expect sidecar containers to work as well, to cover the scenario where the main application is dependent on the sidecar. For example, it may happen that an app errors out if the sidecar isn’t available to serve requests (e.g., logging with DataDog). Sure, one could change the application code (and it would actually be the “best practice” solution), but sometimes they can’t - and this post focuses on this use case.
 
 I'll explain some ways that you might try, and show you what approaches will really work.
 
 ## Readiness probe
 
-To check whether Kubernetes native sidecar delays the start of the main application until the sidecar is ready, let’s simulate a short investigation. Firstly, we’ll simulate a sidecar container which will never be ready by implementing a readiness probe which will never succeed. As a reminder, a [readiness probe](/docs/concepts/configuration/liveness-readiness-startup-probes/) checks if the container is ready to start accepting traffic and therefore, if the pod can be used as a backend for services. 
+To check whether Kubernetes native sidecar delays the start of the main application until the sidecar is ready, let’s simulate a short investigation. Firstly, I’ll simulate a sidecar container which will never be ready by implementing a readiness probe which will never succeed. As a reminder, a [readiness probe](/docs/concepts/configuration/liveness-readiness-startup-probes/) checks if the container is ready to start accepting traffic and therefore, if the pod can be used as a backend for services. 
 
 (Unlike standard init containers, sidecar containers can have [probes](https://kubernetes.io/docs/concepts/configuration/liveness-readiness-startup-probes/) so that the kubelet can supervise the sidecar and intervene if there are problems. For example, restarting a sidecar container if it fails a health check.)
 
@@ -87,7 +87,7 @@ spec:
 
 The result is:
 
-```bash
+```console
 controlplane $ kubectl get pods -w
 NAME                    READY   STATUS    RESTARTS   AGE
 myapp-db5474f45-htgw5   1/2     Running   0          9m28s
@@ -214,7 +214,7 @@ livenessProbe:
   periodSeconds: 5
 ```
 
-After adding the liveness probe configured just as the previous readiness probe and checking events of the pod by `kubectl describe pod` it’s visible that the sidecar has a restart count above 0. Nevertheless, the main application is not restarted nor influenced at all, even though we’re aware that (in our imaginary worst-case scenario) it can error out when the sidecar is not there serving requests.
+After adding the liveness probe configured just as the previous readiness probe and checking events of the pod by `kubectl describe pod` it’s visible that the sidecar has a restart count above 0. Nevertheless, the main application is not restarted nor influenced at all, even though I'm aware that (in our imaginary worst-case scenario) it can error out when the sidecar is not there serving requests.
 What if I’d used a `livenessProbe` without lifecycle `postStart`? Both containers will be immediately ready: at the beginning, this behavior will not be different from the one without any additional probes since the liveness probe doesn’t affect readiness at all. After a while, the sidecar will begin to restart itself, but it won’t influence the main container.
 
 ## Findings summary
@@ -223,10 +223,10 @@ I’ll summarize the startup behavior in the table below:
 
 | Probe/Hook     | Sidecar starts before the main app?                      | Main app waits for the sidecar to be ready?         | What if the check doesn’t pass?                    |
 |----------------|----------------------------------------------------------|-----------------------------------------------------|----------------------------------------------------|
-| readinessProbe | Yes, but it’s almost in parallel (effectively no)        | No                                                  | Sidecar is not ready, main app is running          |
-| livenessProbe  | Yes, but it’s almost in parallel (effectively no)        | No                                                  | Sidecar is restarted, main app is running          |
-| startupProbe   | Yes, but it’s almost in parallel (effectively no)        | Yes                                                 | Main app is not started                            |
-| postStart      | Yes, sequentially after postStart is executed            | Yes, but you have to provide custom logic for that  | Main app is not started                            |
+| readinessProbe | Yes, but it’s almost in parallel (effectively **no**)        | **No**                                                  | Sidecar is not ready, main app is running          |
+| livenessProbe  | Yes, but it’s almost in parallel (effectively **no**)        | **No**                                                  | Sidecar is restarted, main app is running          |
+| startupProbe   | Yes, but it’s almost in parallel (effectively **no**)        | **Yes**                                                 | Main app is not started                            |
+| postStart      | **Yes**, sequentially after postStart is executed            | **Yes**, but you have to provide custom logic for that  | Main app is not started                            |
 
 To summarize: with sidecars often being a dependency of the main application, you may want to delay the start of the latter until the sidecar is healthy.
 The ideal pattern is to start both containers simultaneously and have the app container logic delay at all levels, but it’s not always possible. If that's what you need, you have to use the right kind of customization to the Pod definition. Thankfully, it’s nice and quick, and you have the recipe ready above.
