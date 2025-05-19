@@ -64,7 +64,7 @@ For the Kubernetes blog, the blog team usually schedules blog articles to publis
 (Gregorian calendar, as used in the USA and other countries). When it's important to publish on
 a specific date that falls on a weekend, the blog team try to accommodate that.
 
-The section on [authoring a blog article]{#authoring} explains what to do:
+The section on [authoring a blog article](#authoring) explains what to do:
 
 * initially, don't specify a date for the article
 * however, do set the article as draft (put `draft: true` in the front matter)

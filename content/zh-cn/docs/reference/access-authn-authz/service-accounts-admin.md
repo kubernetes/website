@@ -120,7 +120,7 @@ Supported object types are as follows:
 
 * Pod (used for projected volume mounts, see below)
 * Secret (can be used to allow revoking a token by deleting the Secret)
-* Node (in v1.32, creating new node-bound tokens is beta, using existing node-bound tokens is GA)
+* Node (can be used to auto-revoke a token when its Node is deleted; creating new node-bound tokens is GA in v1.33+)
 -->
 ServiceAccount 令牌可以被绑定到 kube-apiserver 中存在的 API 对象。
 这可用于将令牌的有效性与另一个 API 对象的存在与否关联起来。
@@ -128,7 +128,7 @@ ServiceAccount 令牌可以被绑定到 kube-apiserver 中存在的 API 对象�
 
 * Pod（用于投射卷的挂载，见下文）
 * Secret（可用于允许通过删除 Secret 来撤销令牌）
-* 节点（在 v1.32 中，创建新的节点绑定令牌是 Beta 特性，使用现有的节点绑定令牌是 GA 特性）
+* 节点（可以在其节点被删除时自动撤销令牌；创建新的与节点绑定的令牌在 v1.33+ 中是 GA 状态）
 
 <!--
 When a token is bound to an object, the object's `metadata.name` and `metadata.uid` are
