@@ -26,7 +26,10 @@ initContainers:
         mountPath: /opt
 ```
 
-What’s the specifics of defining sidecars with a `spec.initContainers` block, rather than as a regular multi-container pod? `spec.initContainers` are always started before the main application and terminated after the main application. Furthermore, when used with [Jobs](/docs/concepts/workloads/controllers/job/), a sidecar container is still alive and potentially restarts after the Job is done, and they will not block pod completion (see also [Pod sidecar containers tutorial](/docs/tutorials/configuration/pod-sidecar-containers/)).
+What are the specifics of defining sidecars with a `.spec.initContainers` block, rather than as a legacy multi-container pod with multiple `.spec.containers`?
+Well, all `.spec.initContainers` are always launched **before** the main application. If you define Kubernetes-native sidecars, those are terminated **after** the main application. Furthermore, when used with [Jobs](/docs/concepts/workloads/controllers/job/), a sidecar container should still be alive and could potentially even restart after the owning Job is complete; Kubernetes-native sidecar containers do not block pod completion.
+
+To learn more, you can also read the official [Pod sidecar containers tutorial](/docs/tutorials/configuration/pod-sidecar-containers/).
 
 ## The problem
 
