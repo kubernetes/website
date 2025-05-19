@@ -83,3 +83,19 @@ Then deploy the Konnectivity agents in your cluster:
 Last, if RBAC is enabled in your cluster, create the relevant RBAC rules:
 
 {{% code_sample file="admin/konnectivity/konnectivity-rbac.yaml" %}}
+
+## How to use the Konnectivity service with a Highly Available control plane
+
+If you are using the Konnectivity service with a Highly Available control plane, each Konnectivity agent needs to connect to each Konnectivity server. If the several control plane are behind a load balancer, the Konnectivity agent will not be able to target each Konnectivity server explicitly.
+
+In order to solve this, the Konnectivity agent need to know how many control-plane pods exist, and need a way to know on which ones it connected through the load balancer.
+
+In the [reference implementation](https://github.com/kubernetes-sigs/apiserver-network-proxy), it works like this:
+
+* The `proxy-server` need to advertise the number of existing control planes using the `--server-count` option. For example, if you are using 3 control planes, set `--server-count=3` on `proxy-server`.
+* Each `proxy-server` advertise it's unique server ID. You can set the server ID using the `--server-id` option. If the option is not set, the server ID is the machine ID from `/var/lib/dbus/machine-id`.
+* Each `proxy-agent` will initiate a first connection to the `proxy-server` through the load balancer. The `proxy-server` will tell to the `proxy-agent` how many `proxy-server` there are and its own server ID.
+* If there is only one `proxy-server`, the `proxy-agent` will store the server ID and simply maintain this single connection.
+* If there are several `proxy-server`, the `proxy-agent` will store the server ID and try to establish a new connection through the load balancer, hoping to contact a new `proxy-server` with a different server ID. The newly connected `proxy-server` will give its server ID. The `proxy-agent` will compare it to the already connected server IDs. If it's a new one, it will store the server ID and maintain the connection. If the load balancer redirected the query to an already connected one, the connection will be dropped.
+* The `proxy-agent` will retry connecting through the load balancer until it has the correct number of different `proxy-server` server IDs connected. Depending on the load balancing method, it can take some time.
+* The communications between the control plane and the nodes will work perfectly once each `proxy-agent` is connected to each `proxy-server`. In the meantime, some queries like `kubectl logs` or admission controller's webhook's calls can fail (but some will work, as some connection are already established).
