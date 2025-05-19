@@ -81,7 +81,7 @@ HPA কাজ করার জন্য আপনার ক্লাস্টা
 
 {{< feature-state for_k8s_version="v1.27" state="alpha" >}}
 
-ইন-প্লেস একটি ওয়ার্কলোড রিসাইজিং **ছাড়া** {{< glossary_tooltip text="পড" term_id="pod" >}} 
+in-place একটি ওয়ার্কলোড রিসাইজিং **ছাড়া** {{< glossary_tooltip text="পড" term_id="pod" >}} 
 বা এর {{< glossary_tooltip text="কন্টেইনার" term_id="container" >}} রিস্টার্ট করার জন্য কুবারনেটিস ভার্সন 1.27 বা পরবর্তী প্রয়োজন।
 এছাড়াও, InPlaceVerticalScaling ফিচার গেট এনাবল্ করা প্রয়োজন।
 
