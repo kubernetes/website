@@ -19,7 +19,7 @@ but with `restartPolicy: Always`. You can see that illustrated in the following 
 initContainers:
   - name: logshipper
     image: alpine:latest
-    restartPolicy: Always
+    restartPolicy: Always # this is what makes it a sidecar container
     command: ['sh', '-c', 'tail -F /opt/logs.txt']
     volumeMounts:
     - name: data
