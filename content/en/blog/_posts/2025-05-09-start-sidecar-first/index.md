@@ -228,6 +228,7 @@ I’ll summarize the startup behavior in the table below:
 | startupProbe   | Yes, but it’s almost in parallel (effectively no)        | Yes                                                 | Main app is not started                            |
 | postStart      | Yes, sequentially after postStart is executed            | Yes, but you have to provide custom logic for that  | Main app is not started                            |
 
-To wrap up, with sidecars often being a dependency of the main application, you may want to delay the start of the latter until the sidecar is ready. The ideal pattern is to start both containers simultaneously and have the app container logic delay at all levels, but it’s not always possible. In such a case, we have to introduce a bit of custom logic to our resource definition. Thankfully, it’s nice and quick, and you have the recipe ready above. 
+To summarize: with sidecars often being a dependency of the main application, you may want to delay the start of the latter until the sidecar is healthy.
+The ideal pattern is to start both containers simultaneously and have the app container logic delay at all levels, but it’s not always possible. If that's what you need, you have to use the right kind of customization to the Pod definition. Thankfully, it’s nice and quick, and you have the recipe ready above.
 
 Happy deploying!
