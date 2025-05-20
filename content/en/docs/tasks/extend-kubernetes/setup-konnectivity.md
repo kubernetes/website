@@ -94,7 +94,8 @@ In order to solve this, the Konnectivity agent need to know how many control-pla
 In the [reference implementation](https://github.com/kubernetes-sigs/apiserver-network-proxy), it works like this:
 
 * Each `proxy-server` needs to advertise the number of existing control plane hosts, which you specify using the `--server-count` command line argument. For example, if you are using 3 control plane hosts, set `--server-count=3` on `proxy-server`.
-* Each `proxy-server` advertise it's unique server ID. You can set the server ID using the `--server-id` option. If the option is not set, the server ID is the machine ID from `/var/lib/dbus/machine-id`.
+* Each Konnectivity proxy server advertises its unique server ID. You can set the server ID using the `--server-id` command line option.
+  If the option is not set, the server ID is the machine ID from `/var/lib/dbus/machine-id`.
 * Each `proxy-agent` will initiate a first connection to the `proxy-server` through the load balancer. The `proxy-server` will tell to the `proxy-agent` how many `proxy-server` there are and its own server ID.
 * If there is only one `proxy-server`, the `proxy-agent` will store the server ID and simply maintain this single connection.
 * If there are several `proxy-server`, the `proxy-agent` will store the server ID and try to establish a new connection through the load balancer, hoping to contact a new `proxy-server` with a different server ID. The newly connected `proxy-server` will give its server ID. The `proxy-agent` will compare it to the already connected server IDs. If it's a new one, it will store the server ID and maintain the connection. If the load balancer redirected the query to an already connected one, the connection will be dropped.
