@@ -14,6 +14,6 @@ tags:
 
 <!--more-->
 
-Một Kubernetes volume tồn tại cùng với Pod bao quanh nó. Do đó, một volume tồn tại lâu hơn bất kỳ container nào chạy trong Pod, và dữ liệu trong volume được bảo toàn qua các lần container tái khởi động.
+Một Kubernetes volume tồn tại cùng với Pod sử dụng nó. Do đó, một volume tồn tại lâu hơn bất kỳ container nào chạy trong Pod, và dữ liệu trong volume được bảo toàn qua các lần container tái khởi động.
 
 Xem [kho lưu trữ](/docs/concepts/storage/) để biết thêm thông tin.
