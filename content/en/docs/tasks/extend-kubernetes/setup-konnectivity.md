@@ -80,7 +80,7 @@ Then deploy the Konnectivity agents in your cluster:
 
 {{% code_sample file="admin/konnectivity/konnectivity-agent.yaml" %}}
 
-Last, if RBAC is enabled in your cluster, create the relevant RBAC rules:
+If RBAC is enabled in your cluster, create the relevant RBAC rules:
 
 {{% code_sample file="admin/konnectivity/konnectivity-rbac.yaml" %}}
 
