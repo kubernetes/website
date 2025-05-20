@@ -86,7 +86,8 @@ If RBAC is enabled in your cluster, create the relevant RBAC rules:
 
 ## How to use the Konnectivity service with a Highly Available control plane
 
-If you are using the Konnectivity service with a Highly Available control plane, each Konnectivity agent needs to connect to each Konnectivity server. If the several control plane are behind a load balancer, the Konnectivity agent will not be able to target each Konnectivity server explicitly.
+If you are using the Konnectivity service with a Highly Available control plane, each Konnectivity agent needs to connect to each Konnectivity server.
+If the hosts that make up your cluster's control plane are behind a load balancer, the Konnectivity agent may not be able to target each Konnectivity server explicitly.
 
 In order to solve this, the Konnectivity agent need to know how many control-plane pods exist, and need a way to know on which ones it connected through the load balancer.
 
