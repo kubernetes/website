@@ -2,8 +2,8 @@
 layout: blog
 title: "Spotlight on Policy Working Group"
 slug: wg-policy-spotlight-2025
-date: 2025-05-22
 draft: true
+date: 2025-05-22
 author: "Arujjwal Negi"
 ---  
 
@@ -13,15 +13,15 @@ The Policy Working Group is dedicated to a critical mission: providing an overal
 
 Through collaborative methods, this working group is striving to bring clarity and consistency to the often complex world of Kubernetes policies. By focusing on both existing implementations and future proposals, they're working to ensure that the policy landscape in Kubernetes remains coherent and accessible as the technology evolves.
 
-In this blog post, we'll dive deeper into the work of the Policy Working Group, guided by insights from its co-chairs:
+In this blog post, I'll dive deeper into the work of the Policy Working Group, guided by insights from its co-chairs:
 
 -   [Jim Bugwadia](https://twitter.com/JimBugwadia)
 -   [Poonam Lamba](https://twitter.com/poonam-lamba)
 -   [Andy Suderman](https://twitter.com/sudermanjr)
 
-Interviewed by [Arujjwal Negi](https://twitter.com/arujjval).
+_Interviewed by [Arujjwal Negi](https://twitter.com/arujjval)._
 
-These co-chairs will let us know what the Policy working group is all about.
+These co-chairs will explain what the Policy working group is all about.
 
 ## Introduction  
 
@@ -41,7 +41,7 @@ These co-chairs will let us know what the Policy working group is all about.
 
 Unlike SIGs, working groups are temporary and focused on tackling specific, cross-cutting issues or projects that may involve multiple SIGs. Their lifespan is defined, and they disband once they've achieved their objective. Generally, working groups don't own code or have long-term responsibility for managing a particular area of the Kubernetes project.
 
-(To know more about SIGs, visit [here](https://github.com/kubernetes/community/blob/master/sig-list.md))
+(To know more about SIGs, visit the [list of Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md))
  
 **You mentioned that Working Groups involve multiple SIGS.  What SIGS are you closely involved with, and how do you coordinate with them?**
 
@@ -96,7 +96,7 @@ It often takes a few meetings to fully understand the discussions, so don't feel
 Additionally, differences of opinion are valued and encouraged within the Policy-WG. We adhere to the CNCF core values and resolve disagreements by maintaining respect for one another. We also strive to timebox our decisions and assign clear responsibilities to keep things moving forward.
 
 
-## New Contributors
+## New contributors
 
 **What skills are expected from new contributors and how can they get involved with the Policy Working Group?**
 
@@ -107,4 +107,5 @@ Join the mailing list as described on our community [page](https://github.com/ku
 
 ---
 
-This is where our discussion about the Policy Working Group ends. We hope this gave you some insights into the group's aims and workings. Of course, this is just the tip of the iceberg. To learn more and get involved with the Policy Working Group, consider attending their meetings. You can find the schedule and join their discussions [here](https://github.com/kubernetes/community/tree/master/wg-policy).
+This is where our discussion about the Policy Working Group ends. The working group, and especially the people who took part in this article, hope this gave you some insights into the group's aims and workings. Of course, this is just the tip of the iceberg. To learn more and get involved with the Policy Working Group, consider attending their meetings. You can find the schedule and join their [discussions](https://github.com/kubernetes/community/tree/master/wg-policy).
+
