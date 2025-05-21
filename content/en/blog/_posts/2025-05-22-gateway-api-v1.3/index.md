@@ -6,7 +6,9 @@ slug: gateway-api-v1-3
 author: Gateway API Contributors
 ---
 
-![Gateway API logo](gateway-api-logo.svg)
+<!--
+{{< figure src="gateway-api-logo.svg" alt="Gateway API logo" >}}
+-->
 
 Join us in the Kubernetes SIG Network community in celebrating the general
 availability of [Gateway API](https://gateway-api.sigs.k8s.io/) v1.3.0! This
@@ -16,7 +18,7 @@ of conformant implementations to try out.
 Gateway API v1.3.0 brings a new feature to the _Standard channel_
 (Gateway API's GA release channel): percentage-based request mirroring, and
 introduces three new experimental features: cross-origin resource sharing (CORS)
-filters, a standard mechanism to merge gateways, and retry budgets.
+filters, a standard mechanism for listener and gateway merging, and retry budgets.
 
 ## Graduation to Standard Channel:
 
@@ -30,6 +32,7 @@ all of this works, refer to the [Gateway API Versioning Policy](https://gateway-
 
 ### Percentage-Based Request Mirroring :tada:
 Leads: [Lior Lieberman](https://github.com/LiorLieberman),[Jake Bennert](https://github.com/jakebennert)
+
 GEP-3171: [Percentage-Based Request Mirroring](https://github.com/kubernetes-sigs/gateway-api/blob/main/geps/gep-3171/index.md)
 
 Percentage-Based Request Mirroring is an enhancement to the
@@ -110,6 +113,7 @@ and `XListenerSet`.
 
 ### CORS Filter
 Leads: [Liang Li](https://github.com/liangli), [Eyal Pazz](https://github.com/EyalPazz), [Rob Scott](https://github.com/robscott)
+
 GEP-1767: [CORS Filter](https://github.com/kubernetes-sigs/gateway-api/blob/main/geps/gep-1767/index.md)
 
 Cross-origin resource sharing (CORS) is an HTTP-header based mechanism that allows
@@ -177,9 +181,10 @@ The complete list of fields in the new CORS filter:
 
 See [CORS protocol](https://fetch.spec.whatwg.org/#http-cors-protocol) for details.
 
-### XListenerSets (Standard Mechanism to Merge Gateways)
+### XListenerSets (Standard Mechanism for Listener  and Gateway Merging)
 Lead: [Dave Protasowski](https://github.com/dprotaso)
-GEP-1713: [ListenerSets - Standard Mechanism to Merge Multiple Gateways]([https://github.com/kubernetes-sigs/gateway-api/pull/3213)
+
+GEP-1713: [ListenerSets - Standard Mechanism to Merge Multiple Gateways](https://github.com/kubernetes-sigs/gateway-api/pull/3213)
 
 This feature adds a new experimental resource called `XListenerSet` to allow a
 shared list of Listeners to be attached to one or more parent Gateway(s).  In
@@ -290,6 +295,7 @@ Gateway, Listeners will then be ordered using the following precedence:
 
 ### XBackendTrafficPolicy (Retry Budgets)
 Leads: [Eric Bishop](https://github.com/ericbishop), [Mike Morris](https://github.com/mikemorris)
+
 GEP-3388: [Retry Budgets](https://gateway-api.sigs.k8s.io/geps/gep-3388)
 
 This feature specifies the configuration of a "retry budget" across all endpoints
@@ -329,12 +335,11 @@ Kubernetes 1.26 or later, you'll be able to get up and running with this version
 of Gateway API.
 
 To try out the API, follow our [Getting Started Guide](https://gateway-api.sigs.k8s.io/guides/).
-As of this writing, three
-implementations are already conformant with Gateway API v1.3. In alphabetical order:
+As of this writing, two implementations are already conformant with Gateway API
+v1.3. In alphabetical order:
 
-- [Cilium v1.tbd](https://github.com/cilium/cilium), Experimental channel
-- [Envoy Gateway v1.tbd](https://github.com/envoyproxy/gateway), Experimental channel
-- [Istio v1.tbd](https://istio.io), Experimental channel
+- [Cilium](https://github.com/cilium/cilium), Experimental channel
+- [Istio](https://istio.io), Experimental channel
 
 ## Get involved
 
@@ -343,7 +348,7 @@ involved and help define the future of Kubernetes routing APIs for both ingress
 and service mesh.
 
 * Check out the [user guides](https://gateway-api.sigs.k8s.io/guides) to see what
-* use-cases can be addressed.
+use-cases can be addressed.
 * Try out one of the [existing Gateway controllers](https://gateway-api.sigs.k8s.io/implementations/).
 * Or [join us in the community](https://gateway-api.sigs.k8s.io/contributing/)
 and help us build the future of Gateway API together!
@@ -359,7 +364,7 @@ this dedicated and active community.
   11/2024
 * [Gateway API v1.1: Service mesh, GRPCRoute, and a whole lot more](https://kubernetes.io/blog/2024/05/09/gateway-api-v1-1/)
   05/2024
-* [New Experimental Features in Gateway API v1.0](/blog/2023/11/28/gateway-api-ga/)
+* [New Experimental Features in Gateway API v1.0](https://kubernetes.io/blog/2023/11/28/gateway-api-ga/)
   11/2023
-* [Gateway API v1.0: GA Release](/blog/2023/10/31/gateway-api-ga/)
+* [Gateway API v1.0: GA Release](https://kubernetes.io/blog/2023/10/31/gateway-api-ga/)
   10/2023
