@@ -356,13 +356,13 @@ If you are running a [static pod](/docs/concepts/workloads/pods/#static-pods)
 and want to avoid having it evicted under resource pressure, set the
 `priorityClassName` field for that Pod directly. 
 
-**Note:**  
+{{< note >}}
 >The kubelet considers all static pods as critical regardless of their `.spec.priorityClassName`.
 >Static pods also pass kubelet admission even if a node does not have enough resources; the kubelet may
 >instead evict another Pod (potentially even evicting a different Pod at a higher priority, if there is no better match).
 
 >You must ensure that you account for resource use when defining static pods on existing nodes.
-
+{{</ note >}}
 For example, you might follow the following steps to set the `priorityClassName` for a static pod as `xyz-priority`.
 
 ```shell
