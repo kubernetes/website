@@ -378,7 +378,7 @@ system-node-critical      2000001000   false            2m2s
 xyz-priority              1000000      false            47s
 ```
 
-This is a definition for a static Pod. You would define this directly for the kubelet on a particular nod (and not via kubectl)
+This is a definition for a static Pod. You would define this directly for the kubelet on a particular node (and not via kubectl)
 
 ```yaml
 apiVersion: v1
