@@ -12,11 +12,11 @@ stages:
     toVersion: "1.8"
   - stage: beta
     defaultValue: true
-    fromVersion: "1.9"  
-    toVersion: "1.28" 
+    fromVersion: "1.9"
+    toVersion: "1.28"
   - stage: stable
     defaultValue: true
-    fromVersion: "1.29"    
+    fromVersion: "1.29"
     toVersion: "1.32"
 
 removed: true
