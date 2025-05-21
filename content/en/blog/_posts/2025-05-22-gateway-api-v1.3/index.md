@@ -19,6 +19,15 @@ introduces three new experimental features: cross-origin resource sharing (CORS)
 filters, a standard mechanism to merge gateways, and retry budgets.
 
 ## Graduation to Standard Channel:
+
+Graduation to Standard Channel is a notable achievement for Gateway API
+features, as inclusion in the Standard release channel denotes a high level of
+confidence in the API surface and provides guarantees of backward compatibility.
+Of course, as with any other Kubernetes API, Standard Channel features can continue
+to evolve with backward-compatible additions over time, and we certainly expect
+further refinements and improvements in the future. For more information on how
+all of this works, refer to the [Gateway API Versioning Policy](https://gateway-api.sigs.k8s.io/concepts/versioning/).
+
 ### Percentage-Based Request Mirroring :tada:
 Leads: [Lior Lieberman](https://github.com/LiorLieberman),[Jake Bennert](https://github.com/jakebennert)
 GEP-3171: [Percentage-Based Request Mirroring](https://github.com/kubernetes-sigs/gateway-api/blob/main/geps/gep-3171/index.md)
@@ -166,8 +175,7 @@ The complete list of fields in the new CORS filter:
 * ExposeHeaders
 * MaxAge
 
-See https://fetch.spec.whatwg.org/#http-cors-protocol for more information on
-the CORS protocol.
+See [CORS protocol](https://fetch.spec.whatwg.org/#http-cors-protocol) for details.
 
 ### XListenerSets (Standard Mechanism to Merge Gateways)
 Lead: [Dave Protasowski](https://github.com/dprotaso)
@@ -175,7 +183,7 @@ GEP-1713: [ListenerSets - Standard Mechanism to Merge Multiple Gateways]([https:
 
 This feature adds a new experimental resource called `XListenerSet` to allow a
 shared list of Listeners to be attached to one or more parent Gateway(s).  In
-addition, it expands upon the current suggestion that implementations MAY merge
+addition, it expands upon the current suggestion that implementations may merge
 `Gateway` resources.  It also:
 
 - adds new field `AllowedListeners` to `GatewaySpec`. `AllowedListeners` defines
@@ -185,7 +193,6 @@ from which namespaces to select XListenerSets that are allowed to attach to that
 - re-types the `Port` resource to allow for dynamic port assignment
 - adds a new `Gateway` condition type `AttachedListenerSets`
 - provides for xRoute `parentRefs` to contain both `XListenerSet` and `Gateway`
-
 
 The following example shows a `Gateway` with an HTTP listener and two child HTTPS
 XListenerSets with unique hostnames and certificates.
@@ -271,19 +278,15 @@ Furthermore, implementations can *merge* separate Gateways into a single set of
 Listener addresses if all Listeners across all Gateways are compatible.  The
 management of merged Listeners is under-specified in releases prior to v1.3.0.
 
-With this feature, the specification on merging is expanded.  Listeners and
-XListenerSets in one or more Gateways are to be treated as if they were
-concatenated in a list.  Listeners will then be merged using the following
-precedence:
+With this feature, the specification on merging is expanded.  Implementations
+must treat the parent Gateways as having the merged list of all listeners from
+itself and from attached XListenerSets, and validation of this list of listeners
+must behave the same as if the list were part of a single `Gateway`. Within a single
+Gateway, Listeners will then be ordered using the following precedence:
 
-1. "parent" `Gateway` (TBD - needs clarification in GEP and API)
-1. `Listener` ordered by creation time (oldest first)
-1. `Listener` ordered alphabetically by “{namespace}/{name}”
-
-Now, it is clearer (TBD - ?) how implementations may merge separate Gateways into
-a single set of Listener addresses when all Listeners across all Gateways are
-compatible.
-
+1. Single Listeners (not a part of an `XListenerSet`) first, followed by
+1. Listeners ordered by creation time (oldest first), followed by
+1. Listeners ordered alphabetically by “namespace/name”
 
 ### XBackendTrafficPolicy (Retry Budgets)
 Leads: [Eric Bishop](https://github.com/ericbishop), [Mike Morris](https://github.com/mikemorris)
@@ -298,8 +301,9 @@ experimental field `BackendLBPolicy` into `XBackendTrafficPolicy` in the interes
 of reducing the proliferation of policy resources that had commonalities.
 
 The following example shows an `XBackendTrafficPolicy` that applies a
-`retryConstraint` budget that limits the retries to a maximum of 20% of requests,
-over a duration of 10 seconds, and with a minimum of 3 retries over 1 second. (TBD?)
+`retryConstraint` that represents a budget that limits the retries to a maximum
+of 20% of requests, over a duration of 10 seconds, and to a minimum of 3 retries
+over 1 second.
 
 ```yaml
 apiVersion: gateway.networking.x-k8s.io/v1alpha1
@@ -324,12 +328,13 @@ Kubernetes to get the latest version of Gateway API. As long as you're running
 Kubernetes 1.26 or later, you'll be able to get up and running with this version
 of Gateway API.
 
-To try out the API, follow our Getting Started Guide. As of this writing, (TBD)
+To try out the API, follow our [Getting Started Guide](https://gateway-api.sigs.k8s.io/guides/).
+As of this writing, three
 implementations are already conformant with Gateway API v1.3. In alphabetical order:
 
-- TBD
-- TBD
-
+- [Cilium v1.tbd](https://github.com/cilium/cilium), Experimental channel
+- [Envoy Gateway v1.tbd](https://github.com/envoyproxy/gateway), Experimental channel
+- [Istio v1.tbd](https://istio.io), Experimental channel
 
 ## Get involved
 
