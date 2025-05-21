@@ -22,14 +22,14 @@ spec:
         - podSelector:
             matchLabels:
               role: frontend
-    - ports:
+      ports:
         - protocol: TCP
           port: 6379
   egress:
     - to:
         - ipBlock:
             cidr: 10.0.0.0/24
-    - ports:
+      ports:
         - protocol: TCP
           port: 5978
 
