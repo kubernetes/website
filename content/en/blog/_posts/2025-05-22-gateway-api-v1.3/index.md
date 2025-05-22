@@ -6,9 +6,7 @@ slug: gateway-api-v1-3
 author: Gateway API Contributors
 ---
 
-<!--
 {{< figure src="gateway-api-logo.svg" alt="Gateway API logo" >}}
--->
 
 Join us in the Kubernetes SIG Network community in celebrating the general
 availability of [Gateway API](https://gateway-api.sigs.k8s.io/) v1.3.0! This
