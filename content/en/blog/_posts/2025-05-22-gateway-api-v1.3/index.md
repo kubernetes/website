@@ -42,7 +42,9 @@ application performance without impacting responses to clients.
 
 The previous mirroring capability worked on all the requests to a `backendRef`.  
 Percentage-Based Request Mirroring allows users to specify a percentage of requests
-they want to be mirrored.
+they want to be mirrored. This can be particularly useful when Services are receiving
+a large volume of requests. Instead of mirroring all of those requests, this new feature
+can be used to mirror a smaller subset of them.
 
 Here's an example with 42% of the requests to `foo-v1` being mirrored to `foo-v2`:
 
