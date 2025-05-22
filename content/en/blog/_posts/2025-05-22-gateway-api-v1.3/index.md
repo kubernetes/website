@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Gateway API v1.3.0: Advancements in Request Mirroring, CORS, Gateway Merging, and Retry Budgets"
-date: 2025-05-22T09:00:00-08:00
+date: 2025-05-28T09:00:00-08:00
 slug: gateway-api-v1-3
 author: Gateway API Contributors
 ---
@@ -42,9 +42,9 @@ application performance without impacting responses to clients.
 
 The previous mirroring capability worked on all the requests to a `backendRef`.  
 Percentage-Based Request Mirroring allows users to specify a percentage of requests
-they want to be mirrored. This can be particularly useful when Services are receiving
-a large volume of requests. Instead of mirroring all of those requests, this new feature
-can be used to mirror a smaller subset of them.
+they want to be mirrored. This can be particularly useful when Services are
+receiving a large volume of requests. Instead of mirroring all of those requests,
+this new feature can be used to mirror a smaller subset of them.
 
 Here's an example with 42% of the requests to `foo-v1` being mirrored to `foo-v2`:
 
@@ -129,18 +129,10 @@ kind: HTTPRoute
 metadata:
   name: http-route-cors
 spec:
-  hostnames:
-  - http.route.cors.com
   parentRefs:
-  - group: gateway.networking.k8s.io
-    kind: Gateway
-    name: http-gateway
+  - name: http-gateway
   rules:
-  - backendRefs:
-    - kind: Service
-      name: http-route-cors
-      port: 80
-    matches:
+  - matches:
     - path:
         type: PathPrefix
         value: /resource/foo
@@ -159,6 +151,10 @@ spec:
         - Content-Type
         - Range
       type: CORS
+    backendRefs:
+    - kind: Service
+      name: http-route-cors
+      port: 80
 ```
 In this case, the `Gateway` returns an origin header of "*", which means that the
 requested resource can be accessed from any `Origin`, a methods header consisting
@@ -191,16 +187,19 @@ shared list of Listeners to be attached to one or more parent Gateway(s).  In
 addition, it expands upon the current suggestion that implementations may merge
 `Gateway` resources.  It also:
 
-- adds new field `AllowedListeners` to `GatewaySpec`. `AllowedListeners` defines
+- Adds a new field `allowedListeners` to `gateway.spec`. AllowedListeners defines
 from which namespaces to select XListenerSets that are allowed to attach to that
-`Gateway` (Same, All, None, or Selector based)
-- renames the `Listener` resource to `ListenerEntry`
-- re-types the `Port` resource to allow for dynamic port assignment
-- adds a new `Gateway` condition type `AttachedListenerSets`
-- provides for xRoute `parentRefs` to contain both `XListenerSet` and `Gateway`
+`Gateway` (Same, All, None, or Selector based).
+- Increases the previous maximum number (64) of Listeners with the addition of
+XListenerSets.
+- Allows the delegation of Listener configuration like TLS to applications in
+other namespaces.
 
 The following example shows a `Gateway` with an HTTP listener and two child HTTPS
-XListenerSets with unique hostnames and certificates.
+XListenerSets with unique hostnames and certificates.  The combined set of Listeners
+includes the two additiona l HTTPS Listeners in the XListenerSets that attach to
+the `Gateway`, thereby delegating Listener TLS config to application owners in
+different namespaces ("store" and "app").
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
@@ -211,7 +210,7 @@ metadata:
 spec:
   gatewayClassName: example
   allowedListeners:
-  - from: Same
+  - from: All
   listeners:
   - name: foo
     hostname: foo.com
@@ -221,13 +220,11 @@ spec:
 apiVersion: gateway.networking.x-k8s.io/v1alpha1
 kind: XListenerSet
 metadata:
-  name: first-workload-listeners
-  namespace: parent-listener
+  name: store
+  namespace: store
 spec:
   parentRef:
     name: parent-gateway
-    kind: Gateway
-    group: gateway.networking.k8s.io
   listeners:
   - name: first
     hostname: first.foo.com
@@ -243,13 +240,11 @@ spec:
 apiVersion: gateway.networking.x-k8s.io/v1alpha1
 kind: XListenerSet
 metadata:
-  name: second-workload-listeners
-  namespace: parent-listener
+  name: app
+  namespace: app
 spec:
   parentRef:
     name: parent-gateway
-    kind: Gateway
-    group: gateway.networking.k8s.io
   listeners:
   - name: second
     hostname: second.foo.com
@@ -268,7 +263,7 @@ metadata:
   name: httproute-example
 spec:
   parentRefs:
-  - name: second-workload-listeners
+  - name: app
     kind: XListenerSet
     sectionName: second
   - name: parent-gateway
