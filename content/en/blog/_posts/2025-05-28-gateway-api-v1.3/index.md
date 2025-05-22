@@ -3,7 +3,8 @@ layout: blog
 title: "Gateway API v1.3.0: Advancements in Request Mirroring, CORS, Gateway Merging, and Retry Budgets"
 date: 2025-05-28T09:00:00-08:00
 slug: gateway-api-v1-3
-author: Gateway API Contributors
+author: >
+  [Candace Holman](https://github.com/candita) (Red Hat)
 ---
 
 {{< figure src="gateway-api-logo.svg" alt="Gateway API logo" >}}
@@ -197,16 +198,18 @@ other namespaces.
 
 The following example shows a `Gateway` with an HTTP listener and two child HTTPS
 XListenerSets with unique hostnames and certificates.  The combined set of Listeners
-includes the two additiona l HTTPS Listeners in the XListenerSets that attach to
-the `Gateway`, thereby delegating Listener TLS config to application owners in
-different namespaces ("store" and "app").
+attached to the `Gateway` includes the two additional HTTPS Listeners in the
+XListenerSets that attach to the `Gateway`.  This example illustrates the
+delegation of Listener TLS config to application owners in different namespaces
+("store" and "app").  The `HTTPRoute` has both the `Gateway` Listener `foo` and
+one `XListenerSet` Listener `second` as `parentRefs`.
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: parent-gateway
-  namespace: parent-listener
+  name: prod-external
+  namespace: infra
 spec:
   gatewayClassName: example
   allowedListeners:
@@ -224,7 +227,7 @@ metadata:
   namespace: store
 spec:
   parentRef:
-    name: parent-gateway
+    name: prod-external
   listeners:
   - name: first
     hostname: first.foo.com
@@ -244,7 +247,7 @@ metadata:
   namespace: app
 spec:
   parentRef:
-    name: parent-gateway
+    name: prod-external
   listeners:
   - name: second
     hostname: second.foo.com
@@ -285,8 +288,8 @@ must behave the same as if the list were part of a single `Gateway`. Within a si
 Gateway, Listeners will then be ordered using the following precedence:
 
 1. Single Listeners (not a part of an `XListenerSet`) first, followed by
-1. Listeners ordered by creation time (oldest first), followed by
-1. Listeners ordered alphabetically by “namespace/name”
+2. Listeners ordered by creation time (oldest first), followed by
+3. Listeners ordered alphabetically by “namespace/name”
 
 ### XBackendTrafficPolicy (Retry Budgets)
 Leads: [Eric Bishop](https://github.com/ericbishop), [Mike Morris](https://github.com/mikemorris)
@@ -330,11 +333,13 @@ Kubernetes 1.26 or later, you'll be able to get up and running with this version
 of Gateway API.
 
 To try out the API, follow our [Getting Started Guide](https://gateway-api.sigs.k8s.io/guides/).
-As of this writing, two implementations are already conformant with Gateway API
-v1.3. In alphabetical order:
+As of this writing, four implementations are already conformant with Gateway API
+v1.3 experimental channel features. In alphabetical order:
 
-- [Cilium](https://github.com/cilium/cilium), Experimental channel
-- [Istio](https://istio.io), Experimental channel
+- [Airlock Microgateway 4.6](https://github.com/airlock/microgateway/releases/tag/4.6.0)
+- [Cilium main](https://github.com/cilium/cilium)
+- [Envoy Gateway v1.4.0](https://github.com/envoyproxy/gateway/releases/tag/v1.4.0)
+- [Istio 1.27-dev](https://istio.io)
 
 ## Get involved
 
