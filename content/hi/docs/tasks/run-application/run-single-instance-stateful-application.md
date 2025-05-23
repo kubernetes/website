@@ -6,7 +6,7 @@ weight: 20
 
 <!-- overview -->
 
-यह पृष्ठ आपको Kubernetes में एक उदाहरण Stateful एप्लिकेशन चलाने का तरीका दिखाता है, जिसमें PersistentVolume और Deployment का उपयोग किया गया है। एप्लिकेशन MySQL है।
+यह पृष्ठ आपको कुबेरनेटेस में एक उदाहरण Stateful एप्लिकेशन चलाने का तरीका दिखाता है, जिसमें PersistentVolume और Deployment का उपयोग किया गया है। एप्लिकेशन MySQL है।
 
 ## {{% heading "objectives" %}}
 
@@ -24,9 +24,9 @@ weight: 20
 
 ## MySQL को डिप्लॉय करें {#deploy-mysql}
 
-आप एक Stateful एप्लिकेशन को Kubernetes Deployment बनाकर और इसे एक मौजूदा PersistentVolume से PersistentVolumeClaim के माध्यम से कनेक्ट करके चला सकते हैं। उदाहरण के लिए, यह YAML फ़ाइल एक Deployment का वर्णन करती है जो MySQL चलाती है और PersistentVolumeClaim को संदर्भित करती है। फ़ाइल /var/lib/mysql के लिए एक वॉल्यूम माउंट को परिभाषित करती है, और फिर एक PersistentVolumeClaim बनाती है जो 20G वॉल्यूम की तलाश करती है। यह दावा किसी भी मौजूदा वॉल्यूम द्वारा पूरा किया जा सकता है जो आवश्यकताओं को पूरा करता है, या एक डायनेमिक प्रोविजनर द्वारा।
+आप एक Stateful एप्लिकेशन को कुबेरनेटेस Deployment बनाकर और इसे एक मौजूदा PersistentVolume से PersistentVolumeClaim के माध्यम से कनेक्ट करके चला सकते हैं। उदाहरण के लिए, यह YAML फ़ाइल एक Deployment का वर्णन करती है जो MySQL चलाती है और PersistentVolumeClaim को संदर्भित करती है। फ़ाइल /var/lib/mysql के लिए एक वॉल्यूम माउंट को परिभाषित करती है, और फिर एक PersistentVolumeClaim बनाती है जो 20G वॉल्यूम की तलाश करती है। यह दावा किसी भी मौजूदा वॉल्यूम द्वारा पूरा किया जा सकता है जो आवश्यकताओं को पूरा करता है, या एक डायनेमिक प्रोविजनर द्वारा।
 
-नोट: पासवर्ड को कॉन्फ़िगरेशन YAML में परिभाषित किया गया है, और यह असुरक्षित है। सुरक्षित समाधान के लिए [Kubernetes Secrets](/docs/concepts/configuration/secret/) देखें।
+नोट: पासवर्ड को कॉन्फ़िगरेशन YAML में परिभाषित किया गया है, और यह असुरक्षित है। सुरक्षित समाधान के लिए [कुबेरनेटेस Secrets](/docs/concepts/configuration/secret/) देखें।
 
 {{% code_sample file="application/mysql/mysql-deployment.yaml" %}}
 {{% code_sample file="application/mysql/mysql-pv.yaml" %}}
@@ -56,7 +56,7 @@ Name:                 mysql
 Namespace:            default
 CreationTimestamp:    Tue, 01 Nov 2016 11:18:45 -0700
 Labels:               app=mysql
-Annotations:          deployment.kubernetes.io/revision=1
+Annotations:          deployment.कुबेरनेटेस.io/revision=1
 Selector:             app=mysql
 Replicas:             1 desired | 1 updated | 1 total | 0 available | 1 unavailable
 StrategyType:         Recreate
@@ -117,8 +117,8 @@ StorageClass:
 Status:       Bound
 Volume:       mysql-pv-volume
 Labels:       <none>
-Annotations:    pv.kubernetes.io/bind-completed=yes
-           pv.kubernetes.io/bound-by-controller=yes
+Annotations:    pv.कुबेरनेटेस.io/bind-completed=yes
+           pv.कुबेरनेटेस.io/bound-by-controller=yes
 Capacity:     20Gi
 Access Modes: RWO
 Events:       <none>
@@ -148,7 +148,7 @@ mysql>
 `kubectl apply` कमांड के साथ इमेज या Deployment के किसी अन्य भाग को सामान्य रूप से अपडेट किया जा सकता है। Stateful एप्लिकेशन के लिए यहां कुछ सावधानियां दी गई हैं:
 
 - एप्लिकेशन को स्केल न करें। यह सेटअप केवल एक उदाहरण एप्लिकेशन के लिए है। अंतर्निहित PersistentVolume को केवल एक पॉड पर माउंट किया जा सकता है। क्लस्टर्ड Stateful एप्लिकेशन के लिए, [StatefulSet दस्तावेज़ीकरण](/docs/concepts/workloads/controllers/statefulset/) देखें।
-- Deployment कॉन्फ़िगरेशन YAML फ़ाइल में `strategy:` `type: Recreate` का उपयोग करें। यह Kubernetes को रोलिंग अपडेट का उपयोग न करने का निर्देश देता है। रोलिंग अपडेट काम नहीं करेंगे, क्योंकि आप एक समय में एक से अधिक पॉड नहीं चला सकते। `Recreate` रणनीति पहले पॉड को रोक देगी और फिर अपडेटेड कॉन्फ़िगरेशन के साथ एक नया पॉड बनाएगी।
+- Deployment कॉन्फ़िगरेशन YAML फ़ाइल में `strategy:` `type: Recreate` का उपयोग करें। यह कुबेरनेटेस को रोलिंग अपडेट का उपयोग न करने का निर्देश देता है। रोलिंग अपडेट काम नहीं करेंगे, क्योंकि आप एक समय में एक से अधिक पॉड नहीं चला सकते। `Recreate` रणनीति पहले पॉड को रोक देगी और फिर अपडेटेड कॉन्फ़िगरेशन के साथ एक नया पॉड बनाएगी।
 
 ## डिप्लॉयमेंट हटाना  {#deleting-a-deployment}
 
