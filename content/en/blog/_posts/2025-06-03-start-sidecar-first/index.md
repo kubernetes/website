@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Start Sidecar First: How To Avoid Snags"
-date: 2025-05-05
-draft: true
+date: 2025-06-03
+draft: false
 slug: start-sidecar-first
 author: Agata Skorupka (The Scale Factory)
 ---
@@ -223,10 +223,10 @@ I’ll summarize the startup behavior in the table below:
 
 | Probe/Hook     | Sidecar starts before the main app?                      | Main app waits for the sidecar to be ready?         | What if the check doesn’t pass?                    |
 |----------------|----------------------------------------------------------|-----------------------------------------------------|----------------------------------------------------|
-| readinessProbe | Yes, but it’s almost in parallel (effectively **no**)        | **No**                                                  | Sidecar is not ready, main app is running          |
-| livenessProbe  | Yes, but it’s almost in parallel (effectively **no**)        | **No**                                                  | Sidecar is restarted, main app is running          |
-| startupProbe   | Yes, but it’s almost in parallel (effectively **no**)        | **Yes**                                                 | Main app is not started                            |
-| postStart      | **Yes**, sequentially after postStart is executed            | **Yes**, but you have to provide custom logic for that  | Main app is not started                            |
+| `readinessProbe` | **Yes**, but it’s almost in parallel (effectively **no**)    | **No**                                                  | Sidecar is not ready; main app continues running   |
+| `livenessProbe`  | Yes, but it’s almost in parallel (effectively **no**)    | **No**                                                  | Sidecar is restarted, main app continues running   |
+| `startupProbe`   | **Yes**                                                      | **Yes**                                                 | Main app is not started                            |
+| postStart      | **Yes**, main app container starts after `postStart` completes | **Yes**, but you have to provide custom logic for that  | Main app is not started                            |
 
 To summarize: with sidecars often being a dependency of the main application, you may want to delay the start of the latter until the sidecar is healthy.
 The ideal pattern is to start both containers simultaneously and have the app container logic delay at all levels, but it’s not always possible. If that's what you need, you have to use the right kind of customization to the Pod definition. Thankfully, it’s nice and quick, and you have the recipe ready above.
