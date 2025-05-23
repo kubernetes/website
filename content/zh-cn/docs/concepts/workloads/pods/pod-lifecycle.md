@@ -640,12 +640,23 @@ Kubelet 管理以下 PodCondition：
   have completed successfully.
 * `Ready`: the Pod is able to serve requests and should be added to the load
   balancing pools of all matching Services.
+* `DisruptionTarget`: the pod is about to be terminated due to a disruption
+  (such as preemption, eviction or garbage-collection).
+* `PodResizePending`: a pod resize was requested but cannot be applied.
+  See [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
+* `PodResizeInProgress`: the pod is in the process of resizing.
+  See [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
 -->
 * `PodScheduled`：Pod 已经被调度到某节点；
 * `PodReadyToStartContainers`：Pod 沙箱被成功创建并且配置了网络（Beta 特性，[默认](#pod-has-network)启用）；
 * `ContainersReady`：Pod 中所有容器都已就绪；
 * `Initialized`：所有的 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)都已成功完成；
 * `Ready`：Pod 可以为请求提供服务，并且应该被添加到对应服务的负载均衡池中。
+* `DisruptionTarget`：由于干扰（例如抢占、驱逐或垃圾回收），Pod 即将被终止。
+* `PodResizePending`：已请求对 Pod 进行调整大小，但尚无法应用。
+  详见 [Pod 调整大小状态](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status)。
+* `PodResizeInProgress`：Pod 正在调整大小中。
+  详见 [Pod 调整大小状态](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status)。
 
 <!--
 Field name           | Description
@@ -1066,14 +1077,16 @@ processing its startup data, you might prefer a readiness probe.
 {{< note >}}
 <!--
 If you want to be able to drain requests when the Pod is deleted, you do not
-necessarily need a readiness probe; on deletion, the Pod automatically puts itself
-into an unready state regardless of whether the readiness probe exists.
-The Pod remains in the unready state while it waits for the containers in the Pod
-to stop.
+necessarily need a readiness probe; when the Pod is deleted, the corresponding endpoint
+in the `EndppointSlice` will update its [conditions](/docs/concepts/services-networking/endpoint-slices/#conditions):
+the endpoint `ready` condition will be set to `false`, so load balancers
+will not use the Pod for regular traffic. See [Pod termination](#pod-termination)
+for more information about how the kubelet handles Pod deletion.
 -->
 请注意，如果你只是想在 Pod 被删除时能够排空请求，则不一定需要使用就绪态探针；
-在删除 Pod 时，Pod 会自动将自身置于未就绪状态，无论就绪态探针是否存在。
-等待 Pod 中的容器停止期间，Pod 会一直处于未就绪状态。
+当 Pod 被删除时，`EndpointSlice` 中对应的端点会更新其[状况](/zh-cn/docs/concepts/services-networking/endpoint-slices/#conditions)：
+该端点的 `ready` 状况将被设置为 `false`，因此负载均衡器不会再将该 Pod 用于常规流量。
+关于 kubelet 如何处理 Pod 删除的更多信息，请参见 [Pod 终止](#pod-termination)。
 {{< /note >}}
 
 <!--

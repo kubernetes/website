@@ -16,8 +16,12 @@ stages:
     toVersion: "1.16" 
   - stage: stable
     defaultValue: true
-    fromVersion: "1.17" 
+    fromVersion: "1.17"  
+    toVersion: "1.32"
+
+removed: true
 ---
+
 <!--
 Enable support for watch bookmark events.
 -->
