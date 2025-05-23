@@ -6,12 +6,12 @@ weight: 20
 
 <!-- overview -->
 
-यह पृष्ठ आपको कुबेरनेटेस में एक उदाहरण Stateful एप्लिकेशन चलाने का तरीका दिखाता है, जिसमें PersistentVolume और Deployment का उपयोग किया गया है। एप्लिकेशन MySQL है।
+यह पृष्ठ आपको कुबेरनेटेस में एक उदाहरण Stateful एप्लिकेशन चलाने का तरीका दिखाता है, जिसमें PersistentVolume और डिप्लॉयमेंट  का उपयोग किया गया है। एप्लिकेशन MySQL है।
 
 ## {{% heading "objectives" %}}
 
 - अपने वातावरण में एक डिस्क को संदर्भित करने वाले PersistentVolume को बनाएं।
-- एक MySQL Deployment बनाएं।
+- एक MySQL डिप्लॉयमेंट  बनाएं।
 - क्लस्टर में अन्य पॉड्स को ज्ञात DNS नाम पर MySQL को एक्सपोज़ करें।
 
 ## {{% heading "prerequisites" %}}
@@ -24,7 +24,7 @@ weight: 20
 
 ## MySQL को डिप्लॉय करें {#deploy-mysql}
 
-आप एक Stateful एप्लिकेशन को कुबेरनेटेस Deployment बनाकर और इसे एक मौजूदा PersistentVolume से PersistentVolumeClaim के माध्यम से कनेक्ट करके चला सकते हैं। उदाहरण के लिए, यह YAML फ़ाइल एक Deployment का वर्णन करती है जो MySQL चलाती है और PersistentVolumeClaim को संदर्भित करती है। फ़ाइल /var/lib/mysql के लिए एक वॉल्यूम माउंट को परिभाषित करती है, और फिर एक PersistentVolumeClaim बनाती है जो 20G वॉल्यूम की तलाश करती है। यह दावा किसी भी मौजूदा वॉल्यूम द्वारा पूरा किया जा सकता है जो आवश्यकताओं को पूरा करता है, या एक डायनेमिक प्रोविजनर द्वारा।
+आप एक Stateful एप्लिकेशन को कुबेरनेटेस डिप्लॉयमेंट  बनाकर और इसे एक मौजूदा PersistentVolume से PersistentVolumeClaim के माध्यम से कनेक्ट करके चला सकते हैं। उदाहरण के लिए, यह YAML फ़ाइल एक डिप्लॉयमेंट  का वर्णन करती है जो MySQL चलाती है और PersistentVolumeClaim को संदर्भित करती है। फ़ाइल /var/lib/mysql के लिए एक वॉल्यूम माउंट को परिभाषित करती है, और फिर एक PersistentVolumeClaim बनाती है जो 20G वॉल्यूम की तलाश करती है। यह दावा किसी भी मौजूदा वॉल्यूम द्वारा पूरा किया जा सकता है जो आवश्यकताओं को पूरा करता है, या एक डायनेमिक प्रोविजनर द्वारा।
 
 नोट: पासवर्ड को कॉन्फ़िगरेशन YAML में परिभाषित किया गया है, और यह असुरक्षित है। सुरक्षित समाधान के लिए [कुबेरनेटेस Secrets](/docs/concepts/configuration/secret/) देखें।
 
@@ -43,7 +43,7 @@ kubectl apply -f https://k8s.io/examples/application/mysql/mysql-pv.yaml
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-deployment.yaml
 ```
 
-1. Deployment की जानकारी प्रदर्शित करें:
+1. डिप्लॉयमेंट की जानकारी प्रदर्शित करें:
 
 ```shell
 kubectl describe deployment mysql
@@ -56,7 +56,7 @@ Name:                 mysql
 Namespace:            default
 CreationTimestamp:    Tue, 01 Nov 2016 11:18:45 -0700
 Labels:               app=mysql
-Annotations:          deployment.कुबेरनेटेस.io/revision=1
+Annotations:          deployment.kubernetes.io/revision=1
 Selector:             app=mysql
 Replicas:             1 desired | 1 updated | 1 total | 0 available | 1 unavailable
 StrategyType:         Recreate
@@ -89,7 +89,7 @@ Events:
   33s          33s         1        {deployment-controller }             Normal      ScalingReplicaSet Scaled up replica set mysql-63082529 to 1
 ```
 
-1. Deployment द्वारा बनाए गए पॉड्स की सूची देखें:
+1. डिप्लॉयमेंट  द्वारा बनाए गए पॉड्स की सूची देखें:
 
 ```shell
 kubectl get pods -l app=mysql
@@ -145,10 +145,10 @@ mysql>
 
 ## अपडेट करना {#updating}
 
-`kubectl apply` कमांड के साथ इमेज या Deployment के किसी अन्य भाग को सामान्य रूप से अपडेट किया जा सकता है। Stateful एप्लिकेशन के लिए यहां कुछ सावधानियां दी गई हैं:
+`kubectl apply` कमांड के साथ इमेज या डिप्लॉयमेंट  के किसी अन्य भाग को सामान्य रूप से अपडेट किया जा सकता है। Stateful एप्लिकेशन के लिए यहां कुछ सावधानियां दी गई हैं:
 
 - एप्लिकेशन को स्केल न करें। यह सेटअप केवल एक उदाहरण एप्लिकेशन के लिए है। अंतर्निहित PersistentVolume को केवल एक पॉड पर माउंट किया जा सकता है। क्लस्टर्ड Stateful एप्लिकेशन के लिए, [StatefulSet दस्तावेज़ीकरण](/docs/concepts/workloads/controllers/statefulset/) देखें।
-- Deployment कॉन्फ़िगरेशन YAML फ़ाइल में `strategy:` `type: Recreate` का उपयोग करें। यह कुबेरनेटेस को रोलिंग अपडेट का उपयोग न करने का निर्देश देता है। रोलिंग अपडेट काम नहीं करेंगे, क्योंकि आप एक समय में एक से अधिक पॉड नहीं चला सकते। `Recreate` रणनीति पहले पॉड को रोक देगी और फिर अपडेटेड कॉन्फ़िगरेशन के साथ एक नया पॉड बनाएगी।
+- डिप्लॉयमेंट  कॉन्फ़िगरेशन YAML फ़ाइल में `strategy:` `type: Recreate` का उपयोग करें। यह कुबेरनेटेस को रोलिंग अपडेट का उपयोग न करने का निर्देश देता है। रोलिंग अपडेट काम नहीं करेंगे, क्योंकि आप एक समय में एक से अधिक पॉड नहीं चला सकते। `Recreate` रणनीति पहले पॉड को रोक देगी और फिर अपडेटेड कॉन्फ़िगरेशन के साथ एक नया पॉड बनाएगी।
 
 ## डिप्लॉयमेंट हटाना  {#deleting-a-deployment}
 
@@ -164,7 +164,7 @@ kubectl delete pv mysql-pv-volume
 
 ## {{% heading "whatsnext" %}}
 
-- [Deployment ऑब्जेक्ट्स](/docs/concepts/workloads/controllers/deployment/) के बारे में और जानें।
+- [डिप्लॉयमेंट  ऑब्जेक्ट्स](/docs/concepts/workloads/controllers/deployment/) के बारे में और जानें।
 
 - [एप्लिकेशन डिप्लॉय करना](/docs/tasks/run-application/run-stateless-application-deployment/) के बारे में और जानें।
 
