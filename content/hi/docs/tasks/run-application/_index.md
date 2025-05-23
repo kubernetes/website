@@ -1,5 +1,5 @@
 ---
-title: "Run Applications"
-description: Run and manage both stateless and stateful applications.
+title: "एप्लिकेशन चलाएं"
+description: स्टेटलेस और स्टेटफुल दोनों प्रकार के एप्लिकेशन को चलाएं और प्रबंधित करें।
 weight: 80
 ---
