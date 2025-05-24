@@ -2,7 +2,8 @@
 title: Współtworzenie nowych treści
 content_type: concept
 main_menu: true
-weight: 20
+weight: 25
+simple_list: true # for whatsnext section
 ---
 
 
@@ -10,10 +11,17 @@ weight: 20
 <!-- overview -->
 
 Ta sekcja zawiera informacje, które
-powinieneś znać przed dodaniem nowej treści. 
+powinieneś znać przed dodaniem nowej treści.
+
+Istnieją również dedykowane strony dotyczące pisania
+[studiów przypadków](/docs/contribute/new-content/case-studies) oraz [artykułów na bloga](/docs/contribute/blog/).
+
+<!-- body -->
+
+## Proces tworzenia nowej treści {#new-content-task-flow}
+
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
-
 {{< mermaid >}}
 flowchart LR
     subgraph second[Zanim zaczniesz]
@@ -118,3 +126,7 @@ Katalog [narzędzi dla współtwórców dokumentacji](https://github.com/kuberne
 w repozytorium
 `kubernetes/website` zawiera narzędzia, wspierające proces współtworzenia dokumentacji.
 
+## {{% heading "whatsnext" %}}
+
+<!-- relies on simple_list: true in front matter for remaining links -->
+* Przeczytaj jak zgłaszać [artykuły na bloga](/docs/contribute/blog/article-submission/).
