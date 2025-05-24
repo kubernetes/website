@@ -170,11 +170,16 @@ Dodaj blok konfiguracyjny dla nowego języka do `hugo.toml` pod istniejącym blo
 ```toml
 [languages.de]
 title = "Kubernetes"
-description = "Produktionsreife Container-Verwaltung"
 languageName = "Deutsch (German)"
-languageNameLatinScript = "Deutsch"
+weight = 5
 contentDir = "content/de"
-weight = 8
+languagedirection = "ltr"
+
+[languages.de.params]
+time_format_blog = "02.01.2006"
+language_alternatives = ["en"]
+description = "Produktionsreife Container-Orchestrierung"
+languageNameLatinScript = "Deutsch"
 ```
 
 Pasek wyboru języka wyświetla wartość dla `languageName`.
@@ -206,15 +211,11 @@ repozytorium. Na przykład dwuliterowy kod dla języka niemieckiego to `de`:
 mkdir content/de
 ```
 
-Musisz również utworzyć katalog wewnątrz `data/i18n` dla
-[zlokalizowanych ciągów](#site-strings-in-i18n); spójrz na istniejące
-lokalizacje jako przykład. Aby użyć tych nowych ciągów, musisz również
-utworzyć dowiązanie symboliczne (ang. symbolic link) z
-`i18n/<localization>.toml` do rzeczywistej konfiguracji ciągów w
-`data/i18n/<localization>/<localization>.toml` (pamiętaj o zatwierdzeniu dowiązania symbolicznego).
+Musisz również utworzyć katalog wewnątrz `i18n`
+dla [zlokalizowanych ciągów](#site-strings-in-i18n)
+; spójrz na istniejące lokalizacje jako przykład.
 
-Na przykład, dla języka niemieckiego ciągi znaków znajdują się w
-`data/i18n/de/de.toml`, a `i18n/de.toml` jest dowiązaniem symbolicznym do `data/i18n/de/de.toml`.
+Na przykład, dla języka niemieckiego, ciągi znaków znajdują się w pliku `i18n/de/de.toml`.
 
 ### Zlokalizuj kodeks postępowania społeczności {#localize-the-community-code-of-conduct}
 
@@ -253,6 +254,7 @@ approvers:
 - sig-docs-es-owners
 
 labels:
+- area/localization
 - language/es
 ```
 
@@ -431,16 +433,16 @@ Gałąź `main` zawiera treści dla bieżącego wydania
 ### Ciągi znaków strony (ang. site strings) w i18n {#site-strings-in-i18n}
 
 Lokalizacje muszą zawierać treści
-[`data/i18n/en/en.toml`](https://github.com/kubernetes/website/blob/main/data/i18n/en/en.toml) w
-nowym pliku specyficznym dla danego języka. Na przykład
-używając języka niemieckiego: `data/i18n/de/de.toml`.
+[`i18n/en/en.toml`](https://github.com/kubernetes/website/blob/main/i18n/en/en.toml) w
+nowym pliku specyficznym dla danego języka.
+Na przykład używając języka niemieckiego: `i18n/de/de.toml`.
 
-Dodaj nowy katalog lokalizacyjny i plik do
-`data/i18n/`. Na przykład, z niemieckim (`de`):
+Dodaj nowy katalog lokalizacyjny i plik
+do `i18n/`. Na przykład, z niemieckim (`de`):
 
 ```bash
-mkdir -p data/i18n/de
-cp data/i18n/en/en.toml data/i18n/de/de.toml
+mkdir -p i18n/de
+cp i18n/en/en.toml i18n/de/de.toml
 ```
 
 Przejrzyj komentarze na początku pliku, aby dostosować je do
@@ -448,7 +450,7 @@ swojego lokalnego języka, a następnie przetłumacz wartość każdego ciągu.
 Na przykład, oto niemiecki tekst zastępczy dla formularza wyszukiwania:
 
 ```toml
-[ui_search_placeholder]
+[ui_search]
 other = "Suchen"
 ```
 
