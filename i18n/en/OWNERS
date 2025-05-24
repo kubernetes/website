@@ -3,11 +3,14 @@
 # Upstream (English) localized strings.
 # Teams and members are visible at https://github.com/orgs/kubernetes/teams.
 
-reviewers:
-- sig-docs-en-reviews
+filters:
+  "\\.toml$":
 
-approvers:
-- sig-docs-en-owners
+    reviewers:
+    - sig-docs-en-reviews
 
-labels:
-- language/en
+    approvers:
+    - sig-docs-en-owners
+
+    labels:
+    - language/en
