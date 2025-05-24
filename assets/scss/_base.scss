@@ -11,9 +11,6 @@ $quickstart-button-padding: 0 50px;
 $vendor-strip-height: 88px;
 $vendor-strip-font-size: 16px;
 
-// video
-$video-section-height: 200px;
-
 @import "size";
 @import "documentation";
 
@@ -256,9 +253,6 @@ $ocean-nodes-padding-Y: 60px;
 $ocean-nodes-main-margin-bottom: 60px;
 $ocean-nodes-h3-margin-bottom: 30px;
 
-// video
-$video-section-height: 200px;
-
 // Home-specific
 
 .header-hero {
@@ -318,12 +312,9 @@ $video-section-height: 200px;
 
 // Video thingy
 #video {
-  height: $video-section-height;
-}
-
-#video {
   width: 100%;
   position: relative;
+  overflow: hidden;
   background-position: center center;
   background-size: cover;
 
@@ -424,6 +415,10 @@ $video-section-height: 200px;
       border-color: transparent transparent transparent #ffffff;
     }
   }
+}
+
+#video:has(#desktopKCButton) {
+  height: 580px;
 }
 
 #videoPlayer {
