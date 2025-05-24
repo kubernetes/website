@@ -784,15 +784,15 @@ which previously resulted in a successful image pull will not need to re-pull fr
 the registry and are instead validated locally without accessing the registry
 (provided the image is available locally).
 This is controlled by the`imagePullCredentialsVerificationPolicy` field in the
-[Kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1#ImagePullCredentialsVerificationPolicy).
+[Kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-ImagePullCredentialsVerificationPolicy).
 -->
 如果为你的集群启用了 `KubeletEnsureSecretPulledImages` 特性门控，Kubernetes
 将验证每个需要凭据才能拉取的镜像的凭据，即使该镜像已经存在于节点上。
 此验证确保了在 Pod 请求中未成功使用提供的凭据拉取的镜像必须从镜像仓库重新拉取。
 此外，若之前使用相同的凭据已成功拉取过镜像，
 则再次使用这些凭据的镜像拉取操作将不需要从镜像仓库重新拉取，
-而是通过本地验证（前提是镜像在本地可用）而无需访问镜像仓库。
-这由 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1#ImagePullCredentialsVerificationPolicy)中的
+而是通过本地验证（前提是镜像在本地可用）而无需访问镜像仓库。这由
+[kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-ImagePullCredentialsVerificationPolicy)中的
 `imagePullCredentialsVerificationPolicy` 字段控制。
 
 <!--
