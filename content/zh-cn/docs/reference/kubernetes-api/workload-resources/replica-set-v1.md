@@ -47,13 +47,13 @@ ReplicaSet 确保在任何给定的时刻都在运行指定数量的 Pod 副本�
   Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
-  
+
   如果 ReplicaSet 的标签为空，则这些标签默认为与 ReplicaSet 管理的 Pod 相同。
   标准的对象元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSetSpec" >}}">ReplicaSetSpec</a>)
-  
+
   spec 定义 ReplicaSet 预期行为的规约。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
@@ -63,7 +63,7 @@ ReplicaSet 确保在任何给定的时刻都在运行指定数量的 Pod 副本�
   Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 -->
 - **status** (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSetStatus" >}}">ReplicaSetStatus</a>)
-  
+
   status 是最近观测到的 ReplicaSet 状态。此数据可能在某个时间窗之后过期。
   该值由系统填充，只读。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -84,35 +84,35 @@ ReplicaSetSpec 是 ReplicaSet 的规约。
 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)
 
-  Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+  Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
 -->
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)，必需
-  
+
   selector 是针对 Pod 的标签查询，应与副本计数匹配。标签的主键和取值必须匹配，
   以便由这个 ReplicaSet 进行控制。它必须与 Pod 模板的标签匹配。更多信息：
-  https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors
+  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicaset/#pod-template
 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)
-  
+
   template 是描述 Pod 的一个对象，将在检测到副本不足时创建此对象。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 
 <!--
 - **replicas** (int32)
 
-  Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+  Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 
 - **minReadySeconds** (int32)
 
   Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 -->
 - **replicas** (int32)
-  
-  replicas 是预期副本的数量。这是一个指针，用于辨别显式零和未指定的值。默认为 1。更多信息：
-  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+
+  replicas 是预期 Pod 的数量。这是一个指针，用于辨别显式零和未指定的值。默认为 1。更多信息：
+  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicaset
 
 - **minReadySeconds** (int32)
-  
+
   新建的 Pod 在没有任何容器崩溃的情况下就绪并被系统视为可用的最短秒数。
   默认为 0（Pod 就绪后即被视为可用）。
 
@@ -128,37 +128,54 @@ ReplicaSetStatus 表示 ReplicaSet 的当前状态。
 <!--
 - **replicas** (int32), required
 
-  Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+  Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 
 - **availableReplicas** (int32)
 
-  The number of available replicas (ready for at least minReadySeconds) for this replica set.
+  The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
 -->
 - **replicas** (int32)，必需
-  
-  replicas 是最近观测到的副本数量。更多信息：
-  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+
+  replicas 是最近观测到的非终止状态 Pod 的数量。更多信息：
+  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicaset
 
 - **availableReplicas** (int32)
-  
-  此副本集可用副本（至少 minReadySeconds 才能就绪）的数量。
+
+  此副本集可用的非终止状态 Pod（至少 minReadySeconds 才能就绪）的数量。
 
 <!--
 - **readyReplicas** (int32)
 
-  readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
-
-- **fullyLabeledReplicas** (int32)
-
-  The number of pods that have labels matching the labels of the pod template of the replicaset.
+  The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
 -->
 - **readyReplicas** (int32)
-  
-  readyReplicas 是此 ReplicaSet 在就绪状况下处理的目标 Pod 数量。
 
-- **fullyLabeledReplicas** (int32)
+  此 ReplicaSet 所针对是的处于 Ready 状况的非终止 Pod 的数量。
+
+<!--
+- **terminatingReplicas** (int32)
+
+  The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
   
-  标签与 ReplicaSet 的 Pod 模板标签匹配的 Pod 数量。
+  This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+-->
+- **terminatingReplicas** (int32)
+
+  此副本集正在终止的 Pod 的数量。正在终止的 Pod 是具有非空
+  .metadata.deletionTimestamp 的 Pod，并且尚未达到 Failed 或
+  Succeeded 的 .status.phase 状态。
+
+  这是一个 Alpha 阶段的字段。需要启用 DeploymentReplicaSetTerminatingReplicas
+  特性门控才能使用此字段。
+
+<!--
+- **fullyLabeledReplicas** (int32)
+
+  The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
+-->
+- **fullyLabeledReplicas** (int32)
+
+  标签与 ReplicaSet 的 Pod 模板标签匹配的非终止状态 Pod 的数量。
 
 <!--
 - **conditions** ([]ReplicaSetCondition)
@@ -173,7 +190,7 @@ ReplicaSetStatus 表示 ReplicaSet 的当前状态。
   *ReplicaSetCondition describes the state of a replica set at a certain point.*
 -->
 - **conditions** ([]ReplicaSetCondition)
-  
+
   **补丁策略：按照键 `type` 合并**
 
   **Map：键类型的唯一值将在合并期间保留**
@@ -242,7 +259,7 @@ ReplicaSetStatus 表示 ReplicaSet 的当前状态。
   ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
 -->
 - **observedGeneration** (int64)
-  
+
   observedGeneration 反映了最近观测到的 ReplicaSet 生成情况。
 
 ## ReplicaSetList {#ReplicaSetList}
@@ -265,7 +282,7 @@ ReplicaSetList 是多个 ReplicaSet 的集合。
 
 - **items** ([]<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>), required
 
-  List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+  List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
   
@@ -273,9 +290,9 @@ ReplicaSetList 是多个 ReplicaSet 的集合。
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **items** ([]<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>)，必需
-  
+
   ReplicaSet 的列表。更多信息：
-  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicationcontroller
+  https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/replicaset
 
 <!--
 ## Operations {#Operations}
@@ -306,15 +323,15 @@ GET /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
 #### 参数
 
 - **name** (**路径参数**): string，必需
-  
+
   ReplicaSet 的名称
 
 - **namespace** (**路径参数**): string，必需
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -347,15 +364,15 @@ GET /apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status
 #### 参数
 
 - **name** (**路径参数**): string，必需
-  
+
   ReplicaSet 的名称
 
 - **namespace** (**路径参数**): string，必需
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -395,39 +412,39 @@ GET /apis/apps/v1/namespaces/{namespace}/replicasets
 #### 参数
 
 - **namespace** (**路径参数**): string，必需
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **allowWatchBookmarks** (**查询参数**): boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 - **continue** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 - **fieldSelector** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 - **labelSelector** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 - **limit** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 - **resourceVersion** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 - **resourceVersionMatch** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 - **sendInitialEvents** (**查询参数**): boolean
@@ -435,11 +452,11 @@ GET /apis/apps/v1/namespaces/{namespace}/replicasets
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 - **watch** (**查询参数**): boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
 <!--
@@ -478,35 +495,35 @@ GET /apis/apps/v1/replicasets
 #### 参数
 
 - **allowWatchBookmarks** (**查询参数**): boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 - **continue** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 - **fieldSelector** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 - **labelSelector** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 - **limit** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 - **resourceVersion** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 - **resourceVersionMatch** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 - **sendInitialEvents** (**查询参数**): boolean
@@ -514,11 +531,11 @@ GET /apis/apps/v1/replicasets
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 - **watch** (**查询参数**): boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
 <!--
@@ -553,25 +570,25 @@ POST /apis/apps/v1/namespaces/{namespace}/replicasets
 #### 参数
 
 - **namespace** (**路径参数**): string，必需
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **body**: <a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>，必需
 
 - **dryRun** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -612,29 +629,29 @@ PUT /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
 #### 参数
 
 - **name** (**路径参数**): string，必需
-  
+
   ReplicaSet 的名称
 
 - **namespace** (**路径参数**): string，必需
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **body**: <a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>，必需
 
 - **dryRun** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -673,29 +690,29 @@ PUT /apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status
 #### 参数
 
 - **name** (**路径参数**): string，必需
-  
+
   ReplicaSet 的名称
 
 - **namespace** (**路径参数**): string，必需
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **body**: <a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>，必需
 
 - **dryRun** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -735,33 +752,33 @@ PATCH /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
 #### 参数
 
 - **name** (**路径参数**): string，必需
-  
+
   ReplicaSet 的名称
 
 - **namespace** (**路径参数**): string，必需
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 - **dryRun** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **force** (**查询参数**): boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -801,33 +818,33 @@ PATCH /apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status
 #### 参数
 
 - **name** (**路径参数**): string，必需
-  
+
   ReplicaSet 的名称
 
 - **namespace** (**路径参数**): string，必需
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 - **dryRun** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldManager** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 - **fieldValidation** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 - **force** (**查询参数**): boolean
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
@@ -867,21 +884,21 @@ DELETE /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
 #### 参数
 
 - **name** (**路径参数**): string，必需
-  
+
   ReplicaSet 的名称
 
 - **namespace** (**路径参数**): string，必需
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
 - **dryRun** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **gracePeriodSeconds** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 - **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
@@ -889,11 +906,11 @@ DELETE /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
   <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 - **propagationPolicy** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 <!--
@@ -938,25 +955,25 @@ DELETE /apis/apps/v1/namespaces/{namespace}/replicasets
 #### 参数
 
 - **namespace** (**路径参数**): string，必需
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
 - **continue** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 - **dryRun** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 - **fieldSelector** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 - **gracePeriodSeconds** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 - **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
@@ -964,27 +981,27 @@ DELETE /apis/apps/v1/namespaces/{namespace}/replicasets
   <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 - **limit** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 - **pretty** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 - **propagationPolicy** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 - **resourceVersion** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 - **resourceVersionMatch** (**查询参数**): string
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 - **sendInitialEvents** (**查询参数**): boolean
@@ -992,7 +1009,7 @@ DELETE /apis/apps/v1/namespaces/{namespace}/replicasets
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
-  
+
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 <!--

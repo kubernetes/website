@@ -16,11 +16,12 @@ stages:
     toVersion: "1.32"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.33"
 ---
 
 <!--
-Enable the `matchLabelKeys` and `mismatchLabelKeys` field for
+Enable the `matchLabelKeys` and `mismatchLabelKeys` fields for
 [pod (anti)affinity](/docs/concepts/scheduling-eviction/assign-pod-node/).
 -->
 为 [Pod（反）亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)启用

@@ -6,8 +6,10 @@ weight: 20
 <!--
 reviewers:
 - davidopp
+- dom4ha
 - kevin-wangzefeng
-- alculquicondor
+- macsko
+- sanposhiho
 title: Assigning Pods to Nodes
 content_type: concept
 weight: 20

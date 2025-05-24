@@ -1,9 +1,9 @@
 ---
 layout: blog
 title: "Introducing Gateway API Inference Extension"
-date: 2025-03-31
+date: 2025-06-05
 slug: introducing-gateway-api-inference-extension
-draft: true
+draft: false
 author: >
   Daneyon Hansen (Solo.io),
   Kaushik Mitra (Google),

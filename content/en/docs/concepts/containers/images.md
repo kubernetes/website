@@ -423,7 +423,7 @@ which previously resulted in a successful image pull will not need to re-pull fr
 the registry and are instead validated locally without accessing the registry
 (provided the image is available locally).
 This is controlled by the`imagePullCredentialsVerificationPolicy` field in the
-[Kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1#ImagePullCredentialsVerificationPolicy).
+[Kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-ImagePullCredentialsVerificationPolicy).
 
 This configuration controls when image pull credentials must be verified if the
 image is already present on the node:

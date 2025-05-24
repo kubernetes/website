@@ -82,7 +82,7 @@ kubectl explain deployment --output=plaintext-openapiv2
 
 ## {{% heading "options" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -93,48 +93,57 @@ kubectl explain deployment --output=plaintext-openapiv2
 <td colspan="2">--api-version string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-Use given api-version (group/version) of the resource.
+Get different explanations for particular API version (API group/version).
 -->
-使用资源的给定的 API 版本（组/版本）。
-</p></td>
+获取特定 API 版本（API 组/版本）的描述。
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for explain
 -->
 explain 操作的帮助命令。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-o, --output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："plaintext"</td>
+<td colspan="2">--output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："plaintext"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-Format in which to render the schema. Valid values are: (plaintext, plaintext-openapiv2).
+Format in which to render the schema (plaintext, plaintext-openapiv2)
 -->
-渲染模式的格式。有效值为：（plaintext、plaintext-openapiv2）。
-</p></td>
+渲染模式的格式（plaintext、plaintext-openapiv2）。
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--recursive</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-When true, print the name of all the fields recursively. Otherwise, print the available fields with their description.
+Print the fields of fields (Currently only 1 level deep)
 -->
-如果为真，递归打印所有字段的名称。否则，打印可用字段及其描述。
-</p></td>
+递归打印字段（目前仅支持 1 层）。
+</p>
+</td>
 </tr>
 
 </tbody>
@@ -142,7 +151,7 @@ When true, print the name of all the fields recursively. Otherwise, print the av
 
 ## {{% heading "parentoptions" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -153,36 +162,42 @@ When true, print the name of all the fields recursively. Otherwise, print the av
 <td colspan="2">--as string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
 操作所用的伪装用户名。用户可以是常规用户或命名空间中的服务账号。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--as-group strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
 操作所用的伪装用户组，此标志可以被重复设置以指定多个组。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--as-uid string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>

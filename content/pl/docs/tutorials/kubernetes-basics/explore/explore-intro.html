@@ -1,6 +1,10 @@
 ---
 title: Pody i Węzły
 weight: 10
+description: |-
+  Naucz się rozwiązywać problemy z aplikacjami działającymi w Kubernetesie, korzystając
+  z kubectl get, kubectl describe, kubectl logs
+  i kubectl exec.
 ---
 
 <!DOCTYPE html>
@@ -8,9 +12,6 @@ weight: 10
 <html lang="pl">
 
 <body>
-
-<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
-
 
 <div class="layout" id="top">
 
@@ -110,10 +111,10 @@ weight: 10
                 <h2>Rozwiązywanie problemów przy pomocy kubectl</h2>
                 <p>W module <a href="/pl/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a> używałeś narzędzia Kubectl. W module 3 będziemy go nadal używać, aby wydobyć informacje na temat zainstalowanych aplikacji i środowiska, w jakim działają. Najczęstsze operacje przeprowadzane są przy pomocy następujących poleceń kubectl:</p>
                 <ul>
-                    <li><b>kubectl get</b> - wyświetl informacje o zasobach</li>
-                    <li><b>kubectl describe</b> - pokaż szczegółowe informacje na temat konkretnego zasobu</li>
-                    <li><b>kubectl logs</b> - wyświetl logi z kontenera w danym podzie</li>
-                    <li><b>kubectl exec</b> - wykonaj komendę wewnątrz kontenera w danym podzie</li>
+                    <li><tt><b>kubectl get</b></tt> - wyświetl informacje o zasobach</li>
+                    <li><tt><b>kubectl describe</b></tt> - pokaż szczegółowe informacje na temat konkretnego zasobu</li>
+                    <li><tt><b>kubectl logs</b></tt> - wyświetl logi z kontenera w danym podzie</li>
+                    <li><tt><b>kubectl exec</b></tt> - wykonaj komendę wewnątrz kontenera w danym podzie</li>
                 </ul>
 
                 <p>Korzystaj z tych poleceń, aby sprawdzić, kiedy aplikacja została zainstalowana, jaki jest jej aktualny status, gdzie jest uruchomiona i w jakiej konfiguracji.</p>
@@ -127,6 +128,70 @@ weight: 10
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Sprawdzanie konfiguracji aplikacji</h3>
+                <p>Sprawdźmy, czy aplikacja, którą wdrożyliśmy w poprzednim scenariuszu, działa. Użyjemy polecenia <code>kubectl get</code> i poszukamy istniejących Podów:</p>
+                <p><b><code>kubectl get pods</code></b></p>
+                <p>Jeśli żadne pody nie działają, poczekaj kilka sekund i ponownie wylistuj pody. Możesz kontynuować, gdy zobaczysz działający jeden pod.</p>
+                <p>Następnie, aby zobaczyć, jakie kontenery znajdują się w tym Podzie i jakie obrazy są używane do budowy tych kontenerów, uruchamiamy polecenie <code>kubectl describe pods</code>:</p>
+                <p><b><code>kubectl describe pods</code></b></p>
+                <p>Widzimy tutaj szczegóły dotyczące kontenera Pod: adres IP, używane porty oraz listę zdarzeń związanych z cyklem życia Poda.</p>
+                <p>Wyjście komendy <tt>describe</tt> jest obszerne i obejmuje niektóre pojęcia, których jeszcze nie omawialiśmy, ale nie martw się tym, bo staną się one zrozumiałe przed końcem tego bootcampu.</p>
+                <p><em><strong>Uwaga:</strong> komenda <tt>describe</tt> może być używana do uzyskania szczegółowych informacji o większości obiektów Kubernetesa, w tym o Węzłach, Podach i Deploymentach. Wyjście komendy <em>describe</em> jest zaprojektowane tak, aby było czytelne dla ludzi, a nie do wykorzystania w skryptach.</em></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Pokazywanie aplikacji w terminalu</h3>
+                <p>Pamiętaj, że Pody działają w izolowanej, prywatnej sieci - więc musimy przepuścić do nich dostęp, aby móc je debugować i wchodzić z nimi w interakcję. Aby to zrobić, użyjemy polecenia <code>kubectl proxy</code>, aby uruchomić proxy w <strong>drugim terminalu</strong>. Otwórz nowe okno terminala, a w tym nowym terminalu uruchom:</p>
+                <p><code><b>kubectl proxy</b></code></p>
+                <p>Teraz ponownie uzyskamy nazwę Poda i zapytamy ten pod bezpośrednio przez proxy.
+                Aby uzyskać nazwę Poda i zapisać ją w zmiennej środowiskowej <tt>POD_NAME</tt>:</p>
+                <p><code><b>export POD_NAME="$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')"</b></code><br />
+                <code><b>echo Name of the Pod: $POD_NAME</b></code></p>
+                <p>Aby zobaczyć wyniki działania naszej aplikacji, wykonaj polecenie <code>curl</code>:</p>
+                <p><code><b>curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME:8080/proxy/</b></code></p>
+                <p>URL jest ścieżką do API Poda.</p>
+           </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Przeglądanie dzienników kontenera</h3>
+                <p>Wszystko, co aplikacja normalnie wysyłałaby do standardowego wyjścia, staje się logami dla kontenera wewnątrz Poda. Możemy pobrać te logi za pomocą polecenia <code>kubectl logs</code>:</p>
+                <p><code><b>kubectl logs "$POD_NAME"</b></code></p>
+                <p><em><strong>Uwaga:</strong> Nie musimy określać nazwy kontenera, ponieważ wewnątrz poda mamy tylko jeden kontener.</em></p>
+           </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Wykonywanie polecenia w kontenerze</h3>
+                <p>Możemy wykonywać polecenia bezpośrednio na kontenerze po uruchomieniu i działaniu Poda.
+                Do tego celu używamy podpolecenia <code>exec</code> i używamy nazwy Poda jako parametru. Wymieńmy zmienne środowiskowe:</p>
+                <p><code><b>kubectl exec "$POD_NAME" -- env</b></code></p>
+                <p>Warto ponownie wspomnieć, że nazwa samego kontenera może zostać pominięta, ponieważ w Podzie mamy tylko jeden kontener.</p>
+                <p>Następnie rozpocznijmy sesję bash w kontenerze Pod:</p>
+                <p><code><b>kubectl exec -ti $POD_NAME -- bash</b></code></p>
+                <p>Mamy teraz otwartą konsolę na kontenerze, w którym uruchamiamy naszą aplikację NodeJS. Kod źródłowy aplikacji znajduje się w pliku <tt>server.js</tt>:</p>
+                <p><code><b>cat server.js</b></code></p>
+                <p>Możesz sprawdzić, czy aplikacja działa, uruchamiając polecenie <tt>curl</tt>:</p>
+                <p><code><b>curl http://localhost:8080</b></code></p>
+                <p><em><strong>Uwaga:</strong> użyliśmy tutaj <tt>localhost</tt>, ponieważ wykonaliśmy polecenie wewnątrz Podu NodeJS. Jeśli nie możesz połączyć się z localhost:8080, upewnij się, że uruchomiłeś polecenie <code>kubectl exec</code> i wykonujesz polecenie z wnętrza Podu</em></p>
+                <p>Aby zamknąć połączenie z kontenerem, wpisz <code><b>exit</b></code>.</p>
+           </div>
+        </div>
+
+
+      <div class="row">
+          <p>
+            Gdy będziesz gotowy, przejdź do rozdziału <a href="/pl/docs/tutorials/kubernetes-basics/expose/expose-intro/" title="Using A Service To Expose Your App">Jak używać Service do udostępniania aplikacji</a>.
+          </p>
+      </div>
+
 
     </main>
 

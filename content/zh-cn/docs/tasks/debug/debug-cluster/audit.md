@@ -33,13 +33,13 @@ Kubernetes **审计（Auditing）** 功能提供了与安全相关的、按时�
  - from where was it initiated?
  - to where was it going?
 -->
- - 发生了什么？
- - 什么时候发生的？
- - 谁触发的？
- - 活动发生在哪个（些）对象上？
- - 在哪观察到的？
- - 它从哪触发的？
- - 活动的后续处理行为是什么？
+- 发生了什么？
+- 什么时候发生的？
+- 谁触发的？
+- 活动发生在哪个（些）对象上？
+- 在哪观察到的？
+- 它从哪触发的？
+- 活动的后续处理行为是什么？
 
 <!-- body -->
 
@@ -55,7 +55,7 @@ include logs files and webhooks.
 审计记录最初产生于
 [kube-apiserver](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)
 内部。每个请求在不同执行阶段都会生成审计事件；这些审计事件会根据特定策略被预处理并写入后端。
-策略确定要记录的内容和用来存储记录的后端，当前的后端支持日志文件和 webhook。
+策略确定要记录的内容和用来存储记录的后端，当前的后端支持日志文件和 Webhook。
 
 <!--
 Each request can be recorded with an associated _stage_. The defined stages are:
@@ -87,8 +87,8 @@ is different from the
 [Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)
 API object.
 -->
-[审计事件配置](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
-的配置与 [Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)
+[审计事件配置](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)的配置与
+[Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)
 API 对象不同。
 {{< /note >}}
 
@@ -97,7 +97,7 @@ The audit logging feature increases the memory consumption of the API server
 because some context required for auditing is stored for each request.
 Memory consumption depends on the audit logging configuration.
 -->
-审计日志记录功能会增加 API server 的内存消耗，因为需要为每个请求存储审计所需的某些上下文。
+审计日志记录功能会增加 API 服务器的内存消耗，因为需要为每个请求存储审计所需的某些上下文。
 内存消耗取决于审计日志记录的配置。
 
 <!--
@@ -155,6 +155,15 @@ You can use a minimal audit policy file to log all requests at the `Metadata` le
 -->
 你可以使用最低限度的审计策略文件在 `Metadata` 级别记录所有请求：
 
+<!--
+```yaml
+# Log all requests at the Metadata level.
+apiVersion: audit.k8s.io/v1
+kind: Policy
+rules:
+- level: Metadata
+```
+-->
 ```yaml
 # 在 Metadata 级别为所有请求生成日志
 apiVersion: audit.k8s.io/v1beta1
@@ -199,8 +208,7 @@ In all cases, audit events follow a structure defined by the Kubernetes API in t
 - Webhook 后端，将事件发送到外部 HTTP API
 
 在这所有情况下，审计事件均遵循 Kubernetes API 在
-[`audit.k8s.io` API 组](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
-中定义的结构。
+[`audit.k8s.io` API 组](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)中定义的结构。
 
 {{< note >}}
 <!--
@@ -334,23 +342,28 @@ Both log and webhook backends support batching. Using webhook as an example, her
 available flags. To get the same flag for log backend, replace `webhook` with `log` in the flag
 name. By default, batching is enabled in `webhook` and disabled in `log`. Similarly, by default
 throttling is enabled in `webhook` and disabled in `log`.
+
+Both `log` and `webhook` backends support batching. Below is a list of
+available flags specific to each backend. 
+By default, batching and throttling are **enabled** for the `webhook` backend and **disabled** for the `log` backend.
 -->
 ## 事件批处理  {#batching}
 
-日志和 Webhook 后端都支持批处理。以 Webhook 为例，以下是可用参数列表。要获取日志
-后端的同样参数，请在参数名称中将 `webhook` 替换为 `log`。
-默认情况下，在 `webhook` 中批处理是被启用的，在 `log` 中批处理是被禁用的。
-同样，默认情况下，在 `webhook` 中启用带宽限制，在 `log` 中禁用带宽限制。
+日志和 Webhook 后端都支持批处理。以下是特定于每个后端的可用参数列表。
+默认情况下，在 `webhook` 后端中批处理和带宽限制是被启用的，
+在 `log` 后端中批处理和带宽限制是被禁用的。
 
+{{< tabs name="tab_with_md" >}}
+{{% tab name="webhook" %}}
 <!--
 - `--audit-webhook-mode` defines the buffering strategy. One of the following:
-  - `batch` - buffer events and asynchronously process them in batches. This is the default.
+  - `batch` - buffer events and asynchronously process them in batches. This is the default mode for the `webhook` backend.
   - `blocking` - block API server responses on processing each individual event.
   - `blocking-strict` - Same as blocking, but when there is a failure during audit logging at the
-     RequestReceived stage, the whole request to the kube-apiserver fails.
+    RequestReceived stage, the whole request to the kube-apiserver fails.
 -->
 - `--audit-webhook-mode` 定义缓存策略，可选值如下：
-  - `batch` - 以批处理缓存事件和异步的过程。这是默认值。
+  - `batch` - 以批处理缓存事件和异步的过程。这对 `webhook` 后端来说是默认模式。
   - `blocking` - 在 API 服务器处理每个单独事件时，阻塞其响应。
   - `blocking-strict` - 与 `blocking` 相同，不过当审计日志在 RequestReceived
     阶段失败时，整个 API 服务请求会失效。
@@ -359,23 +372,67 @@ throttling is enabled in `webhook` and disabled in `log`.
 The following flags are used only in the `batch` mode:
 
 - `--audit-webhook-batch-buffer-size` defines the number of events to buffer before batching.
-  If the rate of incoming events overflows the buffer, events are dropped.
-- `--audit-webhook-batch-max-size` defines the maximum number of events in one batch.
+  If the rate of incoming events overflows the buffer, events are dropped. The default value is 10000.
+- `--audit-webhook-batch-max-size` defines the maximum number of events in one batch. The default value is 400.
 - `--audit-webhook-batch-max-wait` defines the maximum amount of time to wait before unconditionally
-  batching events in the queue.
+  batching events in the queue. The default value is 30 seconds.
+- `--audit-webhook-batch-throttle-enable` defines whether batching throttling is enabled. Throttling is enabled by default.
 - `--audit-webhook-batch-throttle-qps` defines the maximum average number of batches generated
-  per second.
+  per second. The default value is 10.
 - `--audit-webhook-batch-throttle-burst` defines the maximum number of batches generated at the same
-  moment if the allowed QPS was underutilized previously.
+  moment if the allowed QPS was underutilized previously. The default value is 15.
 -->
 以下参数仅用于 `batch` 模式：
 
 - `--audit-webhook-batch-buffer-size` 定义 batch 之前要缓存的事件数。
-  如果传入事件的速率溢出缓存区，则会丢弃事件。
-- `--audit-webhook-batch-max-size` 定义一个 batch 中的最大事件数。
-- `--audit-webhook-batch-max-wait` 无条件 batch 队列中的事件前等待的最大事件。
-- `--audit-webhook-batch-throttle-qps` 每秒生成的最大批次数。
-- `--audit-webhook-batch-throttle-burst` 在达到允许的 QPS 前，同一时刻允许存在的最大 batch 生成数。
+  如果传入事件的速率溢出缓存区，则会丢弃事件。默认值是 10000。
+- `--audit-webhook-batch-max-size` 定义一个 batch 中的最大事件数。默认值是 400。
+- `--audit-webhook-batch-max-wait` 定义无条件批处理队列中的事件前等待的最大时间。默认值是 30 秒。
+- `--audit-webhook-batch-throttle-enable` 定义是否启用批处理带宽限制。带宽限制默认被启用。
+- `--audit-webhook-batch-throttle-qps` 定义每秒生成的最大平均批次数。默认值是 10。
+- `--audit-webhook-batch-throttle-burst` 定义在达到允许的 QPS 前，同一时刻允许存在的最大 batch 生成数。默认值是 15。
+{{% /tab %}}
+{{% tab name="log" %}}
+<!--
+- `--audit-log-mode` defines the buffering strategy. One of the following:
+  - `batch` - buffer events and asynchronously process them in batches. Batching is not recommended for the `log` backend.
+  - `blocking` - block API server responses on processing each individual event. This is the default mode for the `log` backend.
+  - `blocking-strict` - Same as blocking, but when there is a failure during audit logging at the
+    RequestReceived stage, the whole request to the kube-apiserver fails.
+-->
+- `--audit-log-mode` 定义缓存策略，可选值如下：
+  - `batch` - 以批处理缓存事件并对它们作异步的批处理。不建议在 `log` 后端使用批处理。
+  - `blocking` - 在处理每个单独事件时阻塞 API 服务器的响应。这是 `log` 后端的默认模式。
+  - `blocking-strict` - 与 `blocking` 相同，但如果在 RequestReceived 阶段审计日志记录失败，
+    则整个发往 kube-apiserver 的请求也会失败。
+
+<!--
+The following flags are used only in the `batch` mode (batching is **disabled** by default for the `log` backend, and when batching is disabled, all batching-related flags are ignored):
+
+- `--audit-log-batch-buffer-size` defines the number of events to buffer before batching.
+  If the rate of incoming events overflows the buffer, events are dropped.
+- `--audit-log-batch-max-size` defines the maximum number of events in one batch.
+- `--audit-log-batch-max-wait` defines the maximum amount of time to wait before unconditionally
+  batching events in the queue.
+-->
+以下参数仅在 `batch` 模式下使用（`log` 后端默认**禁用**批处理，当批处理被禁用时，所有与批处理相关的参数都会被忽略）：
+
+- `--audit-log-batch-buffer-size` 定义在批处理之前缓存的事件数。
+  如果传入事件的速率超过缓存区容量，多余的事件将被丢弃。
+- `--audit-log-batch-max-size` 定义一个 batch 中的最大事件数。
+- `--audit-log-batch-max-wait` 定义无条件批处理队列中的事件前等待的最长时间。
+<!--
+- `--audit-log-batch-throttle-enable` defines whether batching throttling is enabled.
+- `--audit-log-batch-throttle-qps` defines the maximum average number of batches generated
+  per second.
+- `--audit-log-batch-throttle-burst` defines the maximum number of batches generated at the same
+  moment if the allowed QPS was underutilized previously.
+-->
+- `--audit-log-batch-throttle-enable` 定义是否启用批处理带宽限制。
+- `--audit-log-batch-throttle-qps` 定义每秒生成的最大平均批次数。
+- `--audit-log-batch-throttle-burst` 定义在先前 QPS 未被充分使用的情况下，允许瞬时生成的最大批次数。
+{{% /tab %}}
+{{< /tabs >}}
 
 <!--
 ## Parameter tuning
