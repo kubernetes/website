@@ -1392,7 +1392,7 @@ SerializedNodeConfigSource дозволяє серіалізувати v1.NodeCo
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 
 
-ImagePullCredentialsVerificationPolicy - це зчислення для політики, яка застосовується, коли pod запитує образ, що зʼявляється у системі.
+ImagePullCredentialsVerificationPolicy — це зчислення для політики, яка застосовується, коли pod запитує образ, що зʼявляється у системі.
 
 
 ## `KubeletAnonymousAuthentication` {#kubelet-config-k8s-io-v1beta1-KubeletAnonymousAuthentication}

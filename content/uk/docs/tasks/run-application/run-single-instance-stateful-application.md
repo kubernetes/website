@@ -65,7 +65,7 @@ weight: 20
      Labels:       app=mysql
      Containers:
        mysql:
-       Image:      mysql:5.6
+       Image:      mysql:9
        Port:       3306/TCP
        Environment:
          MYSQL_ROOT_PASSWORD:      password
@@ -131,7 +131,7 @@ weight: 20
 Запустіть клієнта MySQL, щоб підʼєднатися до сервера:
 
 ```shell
-kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppassword
+kubectl run -it --rm --image=mysql:9 --restart=Never mysql-client -- mysql -h mysql -ppassword
 ```
 
 Ця команда створює новий Pod у кластері, що виконує клієнта MySQL та підʼєднується до сервера через Service. Якщо підʼєднання вдалося, ви знаєте, що ваша stateful база даних MySQL працює.

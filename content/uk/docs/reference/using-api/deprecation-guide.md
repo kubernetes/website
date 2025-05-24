@@ -14,11 +14,11 @@ content_type: reference
 
 ### v1.32
 
-У випуску **v1.32** перестануть обслуговуватися наступні застарілі версії API:
+У випуску **v1.32** перестали обслуговуватися наступні застарілі версії API:
 
 #### Ресурси контролю потоку {#flowcontrol-resources-v132}
 
-Версія API **flowcontrol.apiserver.k8s.io/v1beta3** FlowSchema та PriorityLevelConfiguration більше не буде обслуговуватися у v1.32.
+Версія API **flowcontrol.apiserver.k8s.io/v1beta3** FlowSchema та PriorityLevelConfiguration більше не обслуговуються починаючи з v1.32.
 
 * Перенесіть маніфести та клієнти API на використання версії API **flowcontrol.apiserver.k8s.io/v1**, доступної з версії v1.29.
 * Усі наявні збережені обʼєкти доступні через новий API
