@@ -153,8 +153,7 @@ services.
 -->
 在许多情况下，同一组织可能在不同的上下文中使用“租户”的两种定义。
 例如，一个平台团队可能向多个内部“客户”提供安全工具和数据库等共享服务，
-而 SaaS 供应商也可能让多个团队共享一个开发集群。
-最后，混合架构也是可能的，
+而 SaaS 供应商也可能让多个团队共享一个开发集群。最后，混合架构也是可能的，
 例如，某 SaaS 提供商为每个客户的敏感数据提供独立的工作负载，同时提供多租户共享的服务。
 
 <!--
@@ -276,7 +275,7 @@ key dimensions:
 -->
 2. 许多 Kubernetes 安全策略的作用域是命名空间。
    例如，RBAC Role 和 NetworkPolicy 是命名空间作用域的资源。
-   使用 RBAC，可以将用户和服务帐户限制在一个命名空间中。
+   使用 RBAC，可以将用户账号和服务账号限制在一个命名空间中。
 
 <!--
 In a multi-tenant environment, a Namespace helps segment a tenant's workload into a logical and
@@ -295,8 +294,7 @@ networking plugins, and adherence to security best practices to properly isolate
 These considerations are discussed below.
 -->
 命名空间隔离模型需要配置其他几个 Kubernetes 资源、网络插件，
-并遵守安全最佳实践以正确隔离租户工作负载。
-这些考虑将在下面讨论。
+并遵守安全最佳实践以正确隔离租户工作负载。这些考虑将在下面讨论。
 
 <!--
 ### Access controls
@@ -325,7 +323,7 @@ application; similar objects exist for authorizing access to cluster-level objec
 are less useful for multi-tenant clusters.
 
 -->
-基于角色的访问控制 (RBAC) 通常用于在 Kubernetes 控制平面中对用户和工作负载（服务帐户）强制执行鉴权。
+基于角色的访问控制 (RBAC) 通常用于在 Kubernetes 控制平面中对用户和工作负载（服务账号）强制执行鉴权。
 [角色](/zh-cn/docs/reference/access-authn-authz/rbac/#role-and-clusterrole)
 和[角色绑定](/zh-cn/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding)是两种
 Kubernetes 对象，用来在命名空间级别对应用实施访问控制；
@@ -368,7 +366,7 @@ control plane.
 Kubernetes 工作负载消耗节点资源，例如 CPU 和内存。在多租户环境中，
 你可以使用[资源配额](/zh-cn/docs/concepts/policy/resource-quotas/)来管理租户工作负载的资源使用情况。
 对于多团队场景，各个租户可以访问 Kubernetes API，你可以使用资源配额来限制租户可以创建的 API 资源的数量
-（例如：Pod 的数量，或 ConfigMap 的数量）。
+（例如：Pod 的数量或 ConfigMap 的数量）。
 对对象计数的限制确保了公平性，并有助于避免**嘈杂邻居**问题影响共享控制平面的其他租户。
 
 <!--
@@ -379,8 +377,7 @@ Kubernetes quotas only apply within a single namespace, some namespace managemen
 groups of namespaces to share quotas, giving administrators far more flexibility with less effort
 than built-in quotas.
 -->
-资源配额是命名空间作用域的对象。
-通过将租户映射到命名空间，
+资源配额是命名空间作用域的对象。通过将租户映射到命名空间，
 集群管理员可以使用配额来确保租户不能垄断集群的资源或压垮控制平面。
 命名空间管理工具简化了配额的管理。
 此外，虽然 Kubernetes 配额仅针对单个命名空间，
@@ -403,8 +400,7 @@ either be throttled or killed, based on the resource type. When resource request
 than limits, each container is guaranteed the requested amount but there may still be some
 potential for impact across workloads.
 -->
-当你对命名空间应用配额时，
-Kubernetes 要求你还为每个容器指定资源请求和限制。
+当你对命名空间应用配额时，Kubernetes 要求你还为每个容器指定资源请求和限制。
 限制是容器可以消耗的资源量的上限。
 根据资源类型，尝试使用超出配置限制的资源的容器将被限制或终止。
 当资源请求设置为低于限制时，
@@ -458,13 +454,11 @@ Kubernetes networking.
 -->
 Pod 之间的通信可以使用[网络策略](/zh-cn/docs/concepts/services-networking/network-policies/)来控制，
 它使用命名空间标签或 IP 地址范围来限制 Pod 之间的通信。
-在需要租户之间严格网络隔离的多租户环境中，
-建议从拒绝 Pod 之间通信的默认策略入手，
+在需要租户之间严格网络隔离的多租户环境中，建议从拒绝 Pod 之间通信的默认策略入手，
 然后添加一条允许所有 Pod 查询 DNS 服务器以进行名称解析的规则。
 有了这样的默认策略之后，你就可以开始添加允许在命名空间内进行通信的更多规则。
 另外建议不要在网络策略定义中对 namespaceSelector 字段使用空标签选择算符 “{}”，
-以防需要允许在命名空间之间传输流量。
-该方案可根据需要进一步细化。
+以防需要允许在命名空间之间传输流量。该方案可根据需要进一步细化。
 请注意，这仅适用于单个控制平面内的 Pod；
 属于不同虚拟控制平面的 Pod 不能通过 Kubernetes 网络相互通信。
 
@@ -500,8 +494,7 @@ However, they can be significantly more complex to manage and may not be appropr
 这些更高层次的策略可以更轻松地管理基于命名空间的多租户，
 尤其是存在多个命名空间专用于某一个租户时。
 服务网格还经常使用双向 TLS 提供加密能力，
-即使在存在受损节点的情况下也能保护你的数据，
-并且可以跨专用或虚拟集群工作。
+即使在存在受损节点的情况下也能保护你的数据，并且可以跨专用或虚拟集群工作。
 但是，它们的管理可能要复杂得多，并且可能并不适合所有用户。
 
 <!--
@@ -553,8 +546,6 @@ to ensure that a PersistentVolume cannot be reused across different namespaces.
 -->
 ### 沙箱容器 {#sandboxing-containers}
 
-{{% thirdparty-content %}}
-
 <!--
 Kubernetes pods are composed of one or more containers that execute on worker nodes.
 Containers utilize OS-level virtualization and hence offer a weaker isolation boundary than
@@ -572,8 +563,7 @@ the ability to upload and execute untrusted scripts or code. In either case, mec
 isolate and protect workloads using strong isolation are desirable.
 -->
 在共享环境中，攻击者可以利用应用和系统层中未修补的漏洞实现容器逃逸和远程代码执行，
-从而允许访问主机资源。
-在某些应用中，例如内容管理系统（CMS），
+从而允许访问主机资源。在某些应用中，例如内容管理系统（CMS），
 客户可能被授权上传和执行非受信的脚本或代码。
 无论哪种情况，都需要使用强隔离进一步隔离和保护工作负载的机制。
 
@@ -594,7 +584,7 @@ access to the host system and all the processes/files running on that host.
 它通常涉及在单独的执行环境（例如虚拟机或用户空间内核）中运行每个 Pod。
 当你运行不受信任的代码时（假定工作负载是恶意的），通常建议使用沙箱，
 这种隔离是必要的，部分原因是由于容器是在共享内核上运行的进程。
-它们从底层主机挂载像 /sys 和 /proc 这样的文件系统，
+它们从底层主机挂载像 `/sys` 和 `/proc` 这样的文件系统，
 这使得它们不如在具有自己内核的虚拟机上运行的应用安全。
 虽然 seccomp、AppArmor 和 SELinux 等控件可用于加强容器的安全性，
 但很难将一套通用规则应用于在共享集群中运行的所有工作负载。
@@ -602,22 +592,9 @@ access to the host system and all the processes/files running on that host.
 在容器逃逸场景中，攻击者会利用漏洞来访问主机系统以及在该主机上运行的所有进程/文件。
 
 <!--
-Virtual machines and userspace kernels are two popular approaches to sandboxing. The following
-sandboxing implementations are available:
-
-* [gVisor](https://gvisor.dev/) intercepts syscalls from containers and runs them through a
-  userspace kernel, written in Go, with limited access to the underlying host.
-* [Kata Containers](https://katacontainers.io/) provide a secure container runtime that allows you to run
-  containers in a VM. The hardware virtualization available in Kata offers an added layer of
-  security for containers running untrusted code.
+Virtual machines and userspace kernels are two popular approaches to sandboxing.
 -->
 虚拟机和用户空间内核是两种流行的沙箱方法。
-可以使用以下沙箱实现：
-
-* [gVisor](https://gvisor.dev/) 拦截来自容器的系统调用，并通过用户空间内核运行它们，
-  用户空间内核采用 Go 编写，对底层主机的访问是受限的
-* [Kata Containers](https://katacontainers.io/) 提供了一个安全的容器运行时，
-  允许你在 VM 中运行容器。Kata 中提供的硬件虚拟化为运行不受信任代码的容器提供了额外的安全层。
 
 <!--
 ### Node Isolation
@@ -673,11 +650,9 @@ specific set of nodes designated for that tenant.
 以便它们在为该租户指定的一组特定节点上运行。
 
 <!--
-Node isolation can be implemented using an [pod node selectors](/docs/concepts/scheduling-eviction/assign-pod-node/)
-or a [Virtual Kubelet](https://github.com/virtual-kubelet).
+Node isolation can be implemented using [pod node selectors](/docs/concepts/scheduling-eviction/assign-pod-node/).
 -->
-节点隔离可以使用[将 Pod 指派给节点](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)或
-[Virtual Kubelet](https://github.com/virtual-kubelet) 来实现。
+节点隔离可以使用[将 Pod 指派给节点](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)来实现。
 
 <!--
 ## Additional Considerations
@@ -785,10 +760,7 @@ this feature.
 如果你有一个用例，其中租户在共享集群中具有不同的服务层，例如免费和付费，
 你可能希望使用此功能为某些层级提供更高的优先级。
 
-<!--
 ### DNS
--->
-### DNS {#dns}
 
 <!--
 Kubernetes clusters include a Domain Name System (DNS) service to provide translations from names
@@ -827,10 +799,7 @@ that supports multiple tenants.
 必须为每个租户配置 DNS 服务或必须使用多租户 DNS 服务。参见一个
 [CoreDNS 的定制版本](https://github.com/kubernetes-sigs/cluster-api-provider-nested/blob/main/virtualcluster/doc/tenant-dns.md)支持多租户的示例。
 
-<!--
 ### Operators
--->
-### Operators {#operators}
 
 <!--
 [Operators](/docs/concepts/extend-kubernetes/operator/) are Kubernetes controllers that manage
@@ -862,8 +831,6 @@ Specifically, the Operator should:
 ## Implementations
 -->
 ## 实现 {#implementations}
-
-{{% thirdparty-content %}}
 
 <!--
 There are two primary ways to share a Kubernetes cluster for multi-tenancy: using Namespaces
@@ -939,8 +906,7 @@ customize policies to individual workloads, and secondly, it may be challenging 
 single level of "tenancy" that should be given a namespace. For example, an organization may have
 divisions, teams, and subteams - which should be assigned a namespace?
 -->
-相反，在租户级别分配命名空间也有优势，
-而不仅仅是工作负载级别，
+相反，在租户级别分配命名空间也有优势，而不仅仅是工作负载级别，
 因为通常有一些策略适用于单个租户拥有的所有工作负载。
 然而，这种方案也有自己的问题。
 首先，这使得为各个工作负载定制策略变得困难或不可能，
@@ -956,55 +922,6 @@ be useful in both multi-team and multi-customer scenarios.
 一种可能的方法是将多个命名空间组织成层次结构，并在它们之间共享某些策略和资源。
 这可以包括管理命名空间标签、命名空间生命周期、委托访问权限，以及在相关命名空间之间共享资源配额。
 这些功能在多团队和多客户场景中都很有用。
-
-<!--
-Some third-party projects that provide capabilities like this and aid in managing namespaced resources are
-listed below.
--->
-下面列出了提供类似功能并有助于管理命名空间资源的一些第三方项目：
-
-{{% thirdparty-content %}}
-
-<!--
-#### Multi-team tenancy
--->
-#### 多团队租户 {#multi-team-tenancy}
-
-{{% thirdparty-content %}}
-
-<!--
-* [Capsule](https://github.com/clastix/capsule)
-* [Multi Tenant Operator](https://docs.stakater.com/mto/)
--->
-* [Capsule](https://github.com/clastix/capsule)
-* [Multi Tenant Operator](https://docs.stakater.com/mto/)
-
-<!--
-#### Multi-customer tenancy
--->
-#### 多客户租户 {#multi-customer-tenancy}
-
-<!--
-* [Kubeplus](https://github.com/cloud-ark/kubeplus)
--->
-* [Kubeplus](https://github.com/cloud-ark/kubeplus)
-
-<!--
-#### Policy engines
--->
-#### 策略引擎 {#policy-engines}
-
-<!--
-Policy engines provide features to validate and generate tenant configurations:
--->
-策略引擎提供了验证和生成租户配置的特性：
-
-<!--
-* [Kyverno](https://kyverno.io/)
-* [OPA/Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
--->
-* [Kyverno](https://kyverno.io/)
-* [OPA/Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
 
 <!--
 ### Virtual control plane per tenant
@@ -1072,19 +989,3 @@ These must still be addressed separately.
 改进的隔离是以每个租户运行和维护一个单独的虚拟控制平面为代价的。
 此外，租户层面的控制面不能解决数据面的隔离问题，
 例如节点级的嘈杂邻居或安全威胁。这些仍然必须单独解决。
-
-<!--
-
-The Kubernetes [Cluster API - Nested (CAPN)](https://github.com/kubernetes-sigs/cluster-api-provider-nested/tree/main/virtualcluster)
-project provides an implementation of virtual control planes.
--->
-Kubernetes [Cluster API - Nested (CAPN)](https://github.com/kubernetes-sigs/cluster-api-provider-nested/tree/main/virtualcluster)
-项目提供了虚拟控制平面的实现。
-
-<!--
-#### Other implementations
--->
-#### 其他实现 {#other-implementations}
-
-* [Kamaji](https://github.com/clastix/kamaji)
-* [vcluster](https://github.com/loft-sh/vcluster)
