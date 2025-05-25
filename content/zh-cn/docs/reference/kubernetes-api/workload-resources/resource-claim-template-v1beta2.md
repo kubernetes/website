@@ -1,28 +1,28 @@
 ---
 api_metadata:
-  apiVersion: "resource.k8s.io/v1alpha3"
-  import: "k8s.io/api/resource/v1alpha3"
+  apiVersion: "resource.k8s.io/v1beta2"
+  import: "k8s.io/api/resource/v1beta2"
   kind: "ResourceClaimTemplate"
 content_type: "api_reference"
 description: "ResourceClaimTemplate 用于生成 ResourceClaim 对象。"
-title: "ResourceClaimTemplate v1alpha3"
+title: "ResourceClaimTemplate v1beta2"
 weight: 17
 ---
 <!--
 api_metadata:
-  apiVersion: "resource.k8s.io/v1alpha3"
-  import: "k8s.io/api/resource/v1alpha3"
+  apiVersion: "resource.k8s.io/v1beta2"
+  import: "k8s.io/api/resource/v1beta2"
   kind: "ResourceClaimTemplate"
 content_type: "api_reference"
 description: "ResourceClaimTemplate is used to produce ResourceClaim objects."
-title: "ResourceClaimTemplate v1alpha3"
+title: "ResourceClaimTemplate v1beta2"
 weight: 17
 auto_generated: true
 -->
 
-`apiVersion: resource.k8s.io/v1alpha3`
+`apiVersion: resource.k8s.io/v1beta2`
 
-`import "k8s.io/api/resource/v1alpha3"`
+`import "k8s.io/api/resource/v1beta2"`
 
 ## ResourceClaimTemplate {#ResourceClaimTemplate}
 
@@ -37,7 +37,7 @@ ResourceClaimTemplate 用于生成 ResourceClaim 对象。
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1alpha3
+- **apiVersion**: resource.k8s.io/v1beta2
 
 - **kind**: ResourceClaimTemplate
 
@@ -49,13 +49,13 @@ ResourceClaimTemplate 用于生成 ResourceClaim 对象。
   标准的对象元数据。
 
 <!--
-- **spec** (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplateSpec" >}}">ResourceClaimTemplateSpec</a>), required
+- **spec** (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplateSpec" >}}">ResourceClaimTemplateSpec</a>), required
 
   Describes the ResourceClaim that is to be generated.
   
   This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
 -->
-- **spec** (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplateSpec" >}}">ResourceClaimTemplateSpec</a>)，必需
+- **spec** (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplateSpec" >}}">ResourceClaimTemplateSpec</a>)，必需
 
   描述要生成的 ResourceClaim。
 
@@ -71,11 +71,11 @@ ResourceClaimTemplateSpec 包含针对 ResourceClaim 的元数据和字段。
 <hr>
 
 <!--
-- **spec** (<a href="{{< ref "../workload-resources/resource-claim-v1alpha3#ResourceClaimSpec" >}}">ResourceClaimSpec</a>), required
+- **spec** (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaimSpec" >}}">ResourceClaimSpec</a>), required
 
   Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
 -->
-- **spec** (<a href="{{< ref "../workload-resources/resource-claim-v1alpha3#ResourceClaimSpec" >}}">ResourceClaimSpec</a>)，必需
+- **spec** (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaimSpec" >}}">ResourceClaimSpec</a>)，必需
 
   ResourceClaim 的规约。整个内容将不加修改地复制到从模板创建的 ResourceClaim 中。
   与 ResourceClaim 中相同的字段在此处也是有效的。
@@ -99,7 +99,7 @@ ResourceClaimTemplateList 是申领模板的集合。
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1alpha3
+- **apiVersion**: resource.k8s.io/v1beta2
 
 - **kind**: ResourceClaimTemplateList
 
@@ -111,11 +111,11 @@ ResourceClaimTemplateList 是申领模板的集合。
   标准的列表元数据。
 
 <!--
-- **items** ([]<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>), required
 
   Items is the list of resource claim templates.
 -->
-- **items** ([]<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>)，必需
+- **items** ([]<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>)，必需
 
   items 是资源申领模板的列表。
 
@@ -136,7 +136,7 @@ ResourceClaimTemplateList 是申领模板的集合。
 
 #### HTTP 请求
 
-GET /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplates/{name}
+GET /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 <!--
 #### Parameters
@@ -172,7 +172,7 @@ GET /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplates
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
 401: Unauthorized
 
@@ -181,11 +181,11 @@ GET /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplates
 
 #### HTTP Request
 -->
-### `list` 列出或监视 ResourceClaimTemplate 类别的对象
+### `list` 列举或监视 ResourceClaimTemplate 类别的对象
 
 #### HTTP 请求
 
-GET /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplates
+GET /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates
 
 <!--
 #### Parameters
@@ -293,7 +293,7 @@ GET /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplates
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplateList" >}}">ResourceClaimTemplateList</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplateList" >}}">ResourceClaimTemplateList</a>): OK
 
 401: Unauthorized
 
@@ -302,11 +302,11 @@ GET /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplates
 
 #### HTTP Request
 -->
-### `list` 列出或监视 ResourceClaimTemplate 类别的对象
+### `list` 列举或监视 ResourceClaimTemplate 类别的对象
 
 #### HTTP 请求
 
-GET /apis/resource.k8s.io/v1alpha3/resourceclaimtemplates
+GET /apis/resource.k8s.io/v1beta2/resourceclaimtemplates
 
 <!--
 #### Parameters
@@ -406,7 +406,7 @@ GET /apis/resource.k8s.io/v1alpha3/resourceclaimtemplates
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplateList" >}}">ResourceClaimTemplateList</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplateList" >}}">ResourceClaimTemplateList</a>): OK
 
 401: Unauthorized
 
@@ -419,7 +419,7 @@ GET /apis/resource.k8s.io/v1alpha3/resourceclaimtemplates
 
 #### HTTP 请求
 
-POST /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplates
+POST /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates
 
 <!--
 #### Parameters
@@ -428,7 +428,7 @@ POST /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplate
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>, required
+- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>, required
 
 - **dryRun** (*in query*): string
 
@@ -452,7 +452,7 @@ POST /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplate
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>，必需
+- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -475,11 +475,11 @@ POST /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplate
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
 
-202 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Accepted
 
 401: Unauthorized
 
@@ -492,7 +492,7 @@ POST /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplate
 
 #### HTTP 请求
 
-PUT /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplates/{name}
+PUT /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 <!--
 #### Parameters
@@ -505,7 +505,7 @@ PUT /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplates
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>, required
+- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>, required
 
 - **dryRun** (*in query*): string
 
@@ -533,7 +533,7 @@ PUT /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplates
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>，必需
+- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -556,9 +556,9 @@ PUT /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplates
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
 
 401: Unauthorized
 
@@ -571,7 +571,7 @@ PUT /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplates
 
 #### HTTP 请求
 
-PATCH /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplates/{name}
+PATCH /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 <!--
 #### Parameters
@@ -643,9 +643,9 @@ PATCH /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplat
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
 
 401: Unauthorized
 
@@ -658,7 +658,7 @@ PATCH /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplat
 
 #### HTTP 请求
 
-DELETE /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplates/{name}
+DELETE /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 <!--
 #### Parameters
@@ -680,6 +680,10 @@ DELETE /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtempla
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **pretty** (*in query*): string
 
@@ -709,6 +713,10 @@ DELETE /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtempla
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -722,9 +730,9 @@ DELETE /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtempla
 -->
 #### 响应
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-202 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha3#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-claim-template-v1beta2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Accepted
 
 401: Unauthorized
 
@@ -737,7 +745,7 @@ DELETE /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtempla
 
 #### HTTP 请求
 
-DELETE /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplates
+DELETE /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaimtemplates
 
 <!--
 #### Parameters
@@ -763,6 +771,10 @@ DELETE /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtempla
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (*in query*): string
 
@@ -819,6 +831,10 @@ DELETE /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtempla
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (**查询参数**): string
 
