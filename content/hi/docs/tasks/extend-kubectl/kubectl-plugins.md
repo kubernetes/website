@@ -1,8 +1,8 @@
 ---
 title: kubectl को प्लगइन्स के साथ विस्तारित करें
 reviewers:
-- juanvallejo
-- soltysh
+- divya-mohan0209
+- dipesh-rawat
 description: kubectl को प्लगइन बनाकर और इंस्टॉल करके विस्तारित करें।
 content_type: task
 ---
