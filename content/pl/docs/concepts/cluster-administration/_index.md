@@ -77,6 +77,10 @@ Rozważ:
   opisuje wtyczki, które
   przechwytują żądania do serwera API Kubernetesa po uwierzytelnieniu i autoryzacji.
 
+* Dokument [Dobre Praktyki dla Admission Webhooks](/docs/concepts/cluster-administration/admission-webhooks-good-practices/)
+  opisuje zalecane podejście i ważne aspekty, które należy
+  uwzględnić przy tworzeniu webhooków modyfikujących oraz wehbooków walidujących w Kubernetesie.
+
 * [Używanie Sysctls w klastrach Kubernetesa](/docs/tasks/administer-cluster/sysctl-cluster/)
   opisuje administratorowi, jak używać
   narzędzia wiersza polecenia `sysctl` do ustawiania parametrów jądra.
