@@ -212,35 +212,35 @@ var http = require('http');
 // This will hold info about the current master
 var master = {};
 
-  // The web handler for our nodejs application
-  var handleRequest = function(request, response) {
-    response.writeHead(200);
-    response.end("Master is " + master.name);
-  };
+// The web handler for our nodejs application
+var handleRequest = function(request, response) {
+  response.writeHead(200);
+  response.end("Master is " + master.name);
+};
 
-  // A callback that is used for our outgoing client requests to the sidecar
-  var cb = function(response) {
-    var data = '';
-    response.on('data', function(piece) { data = data + piece; });
-    response.on('end', function() { master = JSON.parse(data); });
-  };
+// A callback that is used for our outgoing client requests to the sidecar
+var cb = function(response) {
+  var data = '';
+  response.on('data', function(piece) { data = data + piece; });
+  response.on('end', function() { master = JSON.parse(data); });
+};
 
-  // Make an async request to the sidecar at http://localhost:4040
-  var updateMaster = function() {
-    var req = http.get({host: 'localhost', path: '/', port: 4040}, cb);
-    req.on('error', function(e) { console.log('problem with request: ' + e.message); });
-    req.end();
-  };
+// Make an async request to the sidecar at http://localhost:4040
+var updateMaster = function() {
+  var req = http.get({host: 'localhost', path: '/', port: 4040}, cb);
+  req.on('error', function(e) { console.log('problem with request: ' + e.message); });
+  req.end();
+};
 
-  / / Set up regular updates
-  updateMaster();
-  setInterval(updateMaster, 5000);
+/ / Set up regular updates
+updateMaster();
+setInterval(updateMaster, 5000);
 
-  // set up the web server
-  var www = http.createServer(handleRequest);
-  www.listen(8080);
-  ```
-  Of course, you can use this sidecar from any language that you choose that supports HTTP and JSON.
+// set up the web server
+var www = http.createServer(handleRequest);
+www.listen(8080);
+```
+Of course, you can use this sidecar from any language that you choose that supports HTTP and JSON.
 -->
 
 例如，这里有一个简单的 Node.js 应用程序，它连接到 leader election sidecar 并打印出它当前是否是 master。默认情况下，leader election sidecar 将其标识符设置为 `hostname`。
@@ -250,52 +250,52 @@ var http = require('http');
 // This will hold info about the current master
 var master = {};
 
-  // The web handler for our nodejs application
-  var handleRequest = function(request, response) {
-    response.writeHead(200);
-    response.end("Master is " + master.name);
-  };
+// The web handler for our nodejs application
+var handleRequest = function(request, response) {
+  response.writeHead(200);
+  response.end("Master is " + master.name);
+};
 
-  // A callback that is used for our outgoing client requests to the sidecar
-  var cb = function(response) {
-    var data = '';
-    response.on('data', function(piece) { data = data + piece; });
-    response.on('end', function() { master = JSON.parse(data); });
-  };
+// A callback that is used for our outgoing client requests to the sidecar
+var cb = function(response) {
+  var data = '';
+  response.on('data', function(piece) { data = data + piece; });
+  response.on('end', function() { master = JSON.parse(data); });
+};
 
-  // Make an async request to the sidecar at http://localhost:4040
-  var updateMaster = function() {
-    var req = http.get({host: 'localhost', path: '/', port: 4040}, cb);
-    req.on('error', function(e) { console.log('problem with request: ' + e.message); });
-    req.end();
-  };
+// Make an async request to the sidecar at http://localhost:4040
+var updateMaster = function() {
+  var req = http.get({host: 'localhost', path: '/', port: 4040}, cb);
+  req.on('error', function(e) { console.log('problem with request: ' + e.message); });
+  req.end();
+};
 
-  / / Set up regular updates
-  updateMaster();
-  setInterval(updateMaster, 5000);
+/ / Set up regular updates
+updateMaster();
+setInterval(updateMaster, 5000);
 
-  // set up the web server
-  var www = http.createServer(handleRequest);
-  www.listen(8080);
-  ```
- 当然，您可以从任何支持 HTTP 和 JSON 的语言中使用这个 sidecar。
+// set up the web server
+var www = http.createServer(handleRequest);
+www.listen(8080);
+```
+当然，您可以从任何支持 HTTP 和 JSON 的语言中使用这个 sidecar。
 
 <!--
 #### Conclusion
 
 
-  Hopefully I've shown you how easy it is to build leader election for your distributed application using Kubernetes. In future installments we'll show you how Kubernetes is making building distributed systems even easier. In the meantime, head over to [Google Container Engine][2] or [kubernetes.io][3] to get started with Kubernetes.
+Hopefully I've shown you how easy it is to build leader election for your distributed application using Kubernetes. In future installments we'll show you how Kubernetes is making building distributed systems even easier. In the meantime, head over to [Google Container Engine][2] or [kubernetes.io][3] to get started with Kubernetes.
 
-  [1]: https://github.com/kubernetes/contrib/pull/353
-  [2]: https://cloud.google.com/container-engine/
-  [3]: http://kubernetes.io/
+[1]: https://github.com/kubernetes/contrib/pull/353
+[2]: https://cloud.google.com/container-engine/
+[3]: http://kubernetes.io/
 -->
 
 #### 结论
 
 
- 希望我已经向您展示了使用 Kubernetes 为您的分布式应用程序构建 leader election 是多么容易。在以后的部分中，我们将向您展示 Kubernetes 如何使构建分布式系统变得更加容易。同时，转到[Google Container Engine][2]或[kubernetes.io][3]开始使用Kubernetes。
+希望我已经向您展示了使用 Kubernetes 为您的分布式应用程序构建 leader election 是多么容易。在以后的部分中，我们将向您展示 Kubernetes 如何使构建分布式系统变得更加容易。同时，转到[Google Container Engine][2]或[kubernetes.io][3]开始使用Kubernetes。
 
-  [1]: https://github.com/kubernetes/contrib/pull/353
-  [2]: https://cloud.google.com/container-engine/
-  [3]: http://kubernetes.io/
+[1]: https://github.com/kubernetes/contrib/pull/353
+[2]: https://cloud.google.com/container-engine/
+[3]: http://kubernetes.io/
