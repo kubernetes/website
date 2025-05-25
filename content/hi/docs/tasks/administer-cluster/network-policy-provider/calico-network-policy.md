@@ -1,6 +1,7 @@
 ---
 reviewers:
-- caseydavenport
+- dipesh-rawat
+- divya-mohan0209
 title: नेटवर्कपॉलिसी के लिए Calico का उपयोग करें
 content_type: task
 weight: 20
