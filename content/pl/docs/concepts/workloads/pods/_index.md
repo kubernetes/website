@@ -225,10 +225,14 @@ miejscu. Jednak operacje aktualizacji Poda, takie jak
 [`replace`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#replace-pod-v1-core)
 mają pewne ograniczenia:
 
-- Większość metadanych o Podzie jest niezmienna. Na
-  przykład, nie można zmienić pól `namespace`, `name`, `uid` ani
-  `creationTimestamp`; pole `generation` jest unikalne.
-  Akceptuje tylko aktualizacje, które zwiększają bieżącą wartość pola.
+- Większość metadanych o Podzie jest niezmienna. Na przykład, nie
+  można zmienić pól `namespace`, `name`, `uid` ani `creationTimestamp`.
+  - Pole `generation` jest unikatowe. Zostanie automatycznie
+    ustawione przez system w taki sposób, że nowe pody będą miały ustawioną
+    wartość na 1, a każda aktualizacja pól w specyfikacji poda zwiększy
+    `generation` o 1. Jeśli funkcja alfa PodObservedGenerationTracking
+    jest włączona, `status.observedGeneration` poda będzie odzwierciedlał `metadata.generation`
+    poda w momencie, gdy status poda jest raportowany.
 - Jeśli parametr `metadata.deletionTimestamp` jest
   ustawiony, nie można dodać nowego wpisu do listy `metadata.finalizers`.
 - Aktualizacje Podów nie mogą zmieniać pól innych niż
@@ -240,6 +244,21 @@ mają pewne ograniczenia:
   1. ustawienie nieprzypisanego pola na liczbę dodatnią;
   1. aktualizacja pola z liczby
      dodatniej do mniejszej, nieujemnej liczby.
+
+### Podzasoby Poda {#pod-subresources}
+
+Powyższe zasady aktualizacji dotyczą standardowych zmian w Podach, jednak niektóre pola Poda mogą być aktualizowane za pomocą _podzasobów_.
+
+- **Zmiana rozmiaru:** Podzasób `resize` umożliwia aktualizację zasobów kontenera (`spec.containers
+  [*].resources`). Szczegółowe informacje znajdują się w sekcji [Zmiana rozmiaru zasobów kontenera](#resize-container-resources).
+- **Kontenery efemeryczne:** Podzasób `ephemeralContainers` umożliwia
+  dodanie do Poda {{< glossary_tooltip text="kontenera efemerycznego" term_id="ephemeral-container" >}}.
+  Aby uzyskać więcej szczegółów zobacz
+  [Kontenery efemeryczne](/docs/concepts/workloads/pods/ephemeral-containers/).
+- **Status:** Podzasób `status` umożliwia aktualizację statusu poda. Zazwyczaj
+  jest to używane tylko przez Kubelet i kontrolery systemowe.
+- **Przypisanie Poda do węzła:** Podzasób `binding` umożliwia ustawienie `spec.nodeName` poda za pomocą żądania typu
+  `Binding`. Zazwyczaj jest to używane tylko przez {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}.
 
 ## Udostępnianie zasobów i komunikacja {#resource-sharing-and-communication}
 
@@ -318,10 +337,11 @@ Statyczne Pody są zawsze powiązane z jednym komponentem {{< glossary_tooltip t
 Głównym zastosowaniem statycznych Podów jest uruchamianie samodzielnie hostowanej warstwy sterowania: innymi słowy, użycie
 kubeleta do nadzorowania poszczególnych [komponentów warstwy sterowania](/docs/concepts/architecture/#control-plane-components).
 
-Kubelet automatycznie próbuje utworzyć {{< glossary_tooltip text="mirror Pod" term_id="mirror-pod" >}}
-na serwerze API Kubernetesa dla każdego statycznego Poda. Oznacza to, że Pody działające
-na węźle są widoczne na serwerze API, ale nie mogą być z niego kontrolowane. Więcej informacji
-znajdziesz w przewodniku [Tworzenie statycznych Podów](/docs/tasks/configure-pod-container/static-pod).
+Kubelet automatycznie próbuje utworzyć {{< glossary_tooltip text="Pod lustrzany" term_id="mirror-pod" >}}
+na serwerze API Kubernetesa dla każdego
+statycznego Poda. Oznacza to, że Pody działające na węźle są widoczne na serwerze
+API, ale nie mogą być z niego kontrolowane. Więcej informacji znajdziesz w
+przewodniku [Tworzenie statycznych Podów](/docs/tasks/configure-pod-container/static-pod).
 
 {{< note >}}
 `spec` statycznego Poda nie może odwoływać się do innych obiektów
@@ -370,7 +390,7 @@ kontenery inicjujące uruchamiają się i kończą przed startem kontenerów apl
 Możesz również mieć [kontenery pomocnicze](/docs/concepts/workloads/pods/sidecar-containers/),
 które świadczą usługi pomocnicze dla głównej aplikacji w Podzie.
 
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
+{{< feature-state feature_gate_name="SidecarContainers" >}}
 
 Domyślnie włączona bramka funkcji `SidecarContainers`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) pozwala na określenie
@@ -383,7 +403,8 @@ główną aplikacją w Podzie i pozostają uruchomione do momentu, gdy Pod zosta
 
 ## Kontenerowe sondy (ang. Container probes) {#container-probes}
 
-_Sonda (ang. probe)_ to diagnostyka wykonywana okresowo przez kubelet na kontenerze. Aby przeprowadzić diagnostykę, kubelet może wywoływać różne akcje:
+_Sonda (ang. probe)_ to diagnostyka wykonywana okresowo przez kubelet na
+kontenerze. Aby przeprowadzić diagnostykę, kubelet może wywoływać różne akcje:
 
 - `ExecAction` (wykonywane za pomocą środowiska uruchomieniowego kontenera)
 - `TCPSocketAction` (sprawdzane bezpośrednio przez kubelet)
@@ -397,14 +418,18 @@ w dokumentacji cyklu życia Poda.
 * Dowiedz się więcej o [cyklu życia Poda](/docs/concepts/workloads/pods/pod-lifecycle/).
 * Dowiedz się o [RuntimeClass](/docs/concepts/containers/runtime-class/) i o tym, jak
   możesz go użyć do konfigurowania różnych Podów z różnymi konfiguracjami runtime kontenerów.
-* Przeczytaj o [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) i dowiedz się, jak możesz go używać do zarządzania dostępnością aplikacji podczas zakłóceń.
+* Przeczytaj o [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) i
+  dowiedz się, jak możesz go używać do zarządzania dostępnością aplikacji podczas zakłóceń.
 * Pod jest zasobem najwyższego poziomu w REST API
   Kubernetesa. Definicja obiektu {{< api-reference page="workload-resources/pod-v1" >}}
   opisuje szczegółowo ten obiekt.
 * [Toolkit systemu rozproszonego: Wzorce dla kontenerów złożonych](/blog/2015/06/the-distributed-system-toolkit-patterns/) wyjaśnia typowe układy dla Podów z więcej niż jednym kontenerem.
 * Przeczytaj o [ograniczeniach topologii Podów](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 
-Aby zrozumieć kontekst, dlaczego Kubernetes opakowuje wspólne API Poda w inne zasoby (takie jak {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} lub {{< glossary_tooltip text="Deployments" term_id="deployment" >}}), możesz przeczytać o wcześniejszych rozwiązaniach, w tym:
+Aby zrozumieć kontekst, dlaczego Kubernetes opakowuje wspólne API Poda
+w inne zasoby (takie jak {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}}
+lub {{< glossary_tooltip text="Deployments" term_id="deployment" >}}),
+możesz przeczytać o wcześniejszych rozwiązaniach, w tym:
 
 * [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
 * [Borg](https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/)
