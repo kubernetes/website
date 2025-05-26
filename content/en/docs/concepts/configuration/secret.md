@@ -635,7 +635,7 @@ You can also update any existing mutable Secret to make it immutable.
 Once a Secret or ConfigMap is marked as immutable, it is _not_ possible to revert this change
 nor to mutate the contents of the `data` field. You can only delete and recreate the Secret.
 Existing Pods maintain a mount point to the deleted Secret - it is recommended to recreate
-these pods. **But, the kubelet does not watch for changes on immutable Secrets and ConfigMaps, so newly created pods may still get stale data. In case one wants to ensure that the new data values are used, the suggested course of action in this case is to recreate the Secret or ConfigMap under a new name.** For more details, please see [here](https://github.com/kubernetes/kubernetes/issues/131589).
+these pods. **However, the `kubelet` does not watch for changes on immutable Secrets and ConfigMaps, so newly created pods may still get stale data. To ensure that the new data values are used, the suggested course of action is to recreate the Secret or ConfigMap under a new name.** For more details, please see [here](https://github.com/kubernetes/kubernetes/issues/131589).
 {{< /note >}}
 
 ## Information security for Secrets
