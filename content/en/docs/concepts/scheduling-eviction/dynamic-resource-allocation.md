@@ -143,7 +143,7 @@ specific attributes. A ResourceClaim that references the DeviceClass can then
 request specific configurations within the DeviceClass.
 
 To create a DeviceClass, see
-[Dynamically Allocate Devices to Workloads with DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/).
+[Set Up DRA in a Cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster).
 
 ### ResourceClaims and ResourceClaimTemplates {#resourceclaims-templates}
 
@@ -183,7 +183,7 @@ recommended because auto-generated ResourceClaims are bound to the lifetime of
 the Pod that triggered the generation.
 
 To learn how to claim resources using one of these methods, see
-[Dynamically Allocate Devices to Workloads with DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/#claim-resources).
+[Allocate Devices to Workloads with DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/).
 
 ### ResourceSlice {#resourceslice}
 
@@ -387,7 +387,7 @@ To use any of these features, you must also set up DRA in your clusters by
 enabling the DynamicResourceAllocation feature gate and the DRA
 {{< glossary_tooltip text="API groups" term_id="api-group" >}}. For more
 information, see
-[Set up DRA in the cluster](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/#set-up-dra-cluster)
+[Set up DRA in the cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/).
 
 ### Admin access {#admin-access}
 
@@ -628,7 +628,8 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-- [Dynamically allocate devices to workloads using DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/)
+- [Set Up DRA in a Cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/)
+- [Allocate devices to workloads using DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/)
 - For more information on the design, see the
   [Dynamic Resource Allocation with Structured Parameters](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4381-dra-structured-parameters)
   KEP.
