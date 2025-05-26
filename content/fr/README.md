@@ -19,7 +19,7 @@ Pour utiliser ce dépôt, vous devez avoir au préalable d'installé:
 - Un environnement d'exécution de container runtime, comme [Docker](https://www.docker.com/).
 
 > [!NOTE]
-Soyez certain d'avoir installé Hugo version étutendu spécifié par la variable d'environnement `HUGO_VERSION` dans le fichier [`netlify.toml`](netlify.toml#L11).
+Soyez certain d'avoir installé Hugo version étendu spécifié par la variable d'environnement `HUGO_VERSION` dans le fichier [`netlify.toml`](netlify.toml#L11).
 
 Avant de démarrer, installez les dépendances. Clonez le dépôt et placez-vous dans le répertoire:
 
@@ -52,14 +52,14 @@ make module-init
 Pour construire le site dans un container, lancez la commande suivante:
 
 ```bash
-# Vous pouvez définir $CONTAINER_ENGINE, correspondant au nom de n'importe quelle type de container tel que Docker
+# Vous pouvez définir $CONTAINER_ENGINE, correspondant au nom de n'importe quel type de container tel que Docker
 make container-serve
 ```
 
 Si vous voyez des erreurs, cela provient probablement du container Hugo qui ne dispose pas d'assez de ressources disponibles. Pour résoudre cela, augmentez la limite de CPU et de mémoire utilisé par Docker sur votre machine ([macOS](https://docs.docker.com/desktop/settings/mac/) and [Windows](https://docs.docker.com/desktop/settings/windows/)).
 
 Ouvrez votre navigateur à l'adresse: http://localhost:1313 pour voir le site.
-Lorsque vous apportez des modifications aux fichiers sources, Hugo met à jour le site et force le navigateur à rafraîchir la page.
+Lorsque vous apportez des modifications aux fichiers source, Hugo met à jour le site et force le navigateur à rafraîchir la page.
 
 ## Démarrer le site avec Hugo
 
@@ -79,11 +79,11 @@ Lorsque vous apportez des modifications aux fichiers sources, Hugo met à jour l
 
 Le serveur Hugo local démarrera sur le port 1313.
 Ouvrez votre navigateur à l'adresse: http://localhost:1313 pour voir le site.
-Lorsque vous apportez des modifications aux fichiers sources, Hugo met à jour le site et force le navigateur à rafraîchir la page.
+Lorsque vous apportez des modifications aux fichiers source, Hugo met à jour le site et force le navigateur à rafraîchir la page.
 
 ## Construire l'API de référence des pages
 
-L'API de référence des pages est situé dans le répertoire [content/en/docs/reference/kubernetes-api](../en/docs/reference/kubernetes-api) et construit à partir des spécifications du Swagger, également connu sous le nom de spécifications d'OpenAPI, en utilisant <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>.
+L'API de référence des pages est située dans le répertoire [content/en/docs/reference/kubernetes-api](../en/docs/reference/kubernetes-api) et construit à partir des spécifications du Swagger, également connu sous le nom de spécifications d'OpenAPI, en utilisant <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>.
 
 Pour mettre à jour la référence des pages pour une nouvelle release Kubernetes suivez les étapes suivantes:
 
@@ -107,7 +107,7 @@ Pour mettre à jour la référence des pages pour une nouvelle release Kubernete
    make api-reference
    ```
 
-   Vous pouvez tester les résulats localement en construisant et servant le site depuis un container:
+   Vous pouvez tester les résultats localement en construisant et servant le site depuis un container:
 
    ```bash
    make container-serve
