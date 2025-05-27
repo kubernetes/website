@@ -485,7 +485,17 @@ jwt:
   - expression: "user.groups.all(group, !group.startsWith('system:'))"
     message: 'groups cannot used reserved system: prefix'
 ```
+### Token Revocation
 
+Kubernetes does not currently support full token revocation for authentication tokens. To mitigate this, use short-lived tokens to reduce the risk of compromised tokens being used for an extended period. As an alternative, you can approximate revocation by writing user validation rules using Common Expression Language (CEL). For example, you can use the `jti` claim (if present) or any unique token identifier to check against a denylist or revocation list. Note that managing revocation this way can be complex and may not scale well for large systems.
+
+Example of a revocation rule using the `jti` claim:
+
+```yaml
+userValidationRules:
+  # This rule expects the jti claim to be present in the token and checks that the credential ID is not in the denylist
+  - expression: `has(user.extra.authentication__dot__x__dash__kubernetes__dot__io__slash__credential__dash__id) && !(user.extra.authentication__dot__x__dash__kubernetes__dot__io__slash__credential__dash__id[0] in ["JTI=e28ed49-2e11-4280-9ec5-bc3d1d84661a"])`
+    message: "credential id is revoked"
 * Claim validation rule expression
 
   `jwt.claimValidationRules[i].expression` represents the expression which will be evaluated by CEL.
