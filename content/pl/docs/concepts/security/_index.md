@@ -53,6 +53,15 @@ ruch sieciowy pomiędzy Podami lub pomiędzy Podami a siecią poza klastrem.
 Możesz wdrażać mechanizmy zabezpieczeń z szerszego ekosystemu, aby wprowadzać środki
 zapobiegawcze lub detekcyjne wokół Podów, ich kontenerów oraz obrazów, które w nich działają.
 
+### Kontrola przychodzących żądań {#admission-control}
+
+Kontrolery przychodzących żądań ([Admission controllers](/docs/reference/access-authn-authz/admission-controllers/)
+) to wtyczki, które przechwytują żądania do API Kubernetesa i mogą
+weryfikować lub modyfikować te żądania w oparciu o konkretne pola w żądaniu. Przemyślane
+projektowanie tych kontrolerów pomaga unikać niezamierzonych zakłóceń, szczególnie gdy API
+Kubernetesa zmienia się wraz z aktualizacjami. Aby dowiedzieć się więcej, zobacz
+[Dobre Praktyki dla Admission Webhooks](/docs/concepts/cluster-administration/admission-webhooks-good-practices/).
+
 ### Audytowanie {#auditing}
 
 Dziennik audytu Kubernetesa [audit logging](/docs/tasks/debug/debug-cluster/audit/)
@@ -80,7 +89,7 @@ IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
 Oracle Cloud Infrastructure | https://www.oracle.com/security |
 Tencent Cloud | https://www.tencentcloud.com/solutions/data-security-and-information-protection |
-VMware vSphere | https://www.vmware.com/security/hardening-guides |
+VMware vSphere | https://www.vmware.com/solutions/security/hardening-guides |
 
 {{< /table >}}
 
