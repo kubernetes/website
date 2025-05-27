@@ -7,21 +7,21 @@ weight: 55
 
 <!-- overview -->
 
-This page provides an overview of the steps you should follow when shutting down and restarting Kubernetes clusters.
+This page outlines the steps required to safely shut down and restart Kubernetes clusters.
 
 As cluster administrators, you may need to suspend your running cluster and restart it for later use. There are different reasons why you may need to perform this shutdown, such as cluster maintenance or saving on operation/resource costs.
 
 At a high level, the steps you perform for shutting down are:
-- Backing up your cluster
-- Making your nodes unschedulable
-- Terminating pods from your nodes
-- Shutting down nodes
-- Shutting down any dependencies of your cluster
+- Back up the cluster
+- Cordon the nodes (mark as unschedulable)
+- Drain pods from nodes
+- Shut down nodes
+- Shut down any dependencies of your cluster
 
 Meanwhile, the steps you perform for restarting are:
-- Powering on your cluster's dependencies
-- Powering on your nodes and waiting until they're ready
-- Making your nodes schedulable again
+- Start external dependencies
+- Power on your nodes and waiting until they are Ready
+- Mark the nodes as schedulable again
 
 <!-- body -->
 
@@ -36,7 +36,7 @@ If the cluster has etcd, create an [etcd backup](/docs/tasks/administer-cluster/
 
 ## Shut Down Clusters
 
-You can shut down your cluster in a graceful manner by gracefully shutting down its nodes. This will allow you to gracefully restart the cluster for later use. While [node shutdown](https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown) allows you to safely evict the pods of the node to another available node, cluster shutdowns do not need the evicted pods be rescheduled anywhere else until the cluster is restarted. Thus, this procedure suppresses any pod rescheduling from the nodes being shutdown until cluster restart.
+You can shut down your cluster in a graceful manner by gracefully shutting down its nodes. This will allow you to gracefully restart the cluster for later use. While [node shutdown](https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown) allows you to safely evict the pods of the node to another available node, cluster shutdowns do not need evicted pods to be rescheduled anywhere else until the cluster is restarted. Thus, this procedure suppresses any pod rescheduling from the nodes being shutdown until cluster restart.
 
 ### (Optional) Checking for certificate expiration
 
@@ -84,7 +84,7 @@ This section describes the process you need to restart the cluster after being g
 
 If the cluster fails to recover, you restore the cluster to its previous state using the [etcd backup](/docs/tasks/administer-cluster/configure-upgrade-etcd/#restoring-an-etcd-cluster).
 
-### Poweering on cluster dependencies
+### Powering on cluster dependencies
 Power on any cluster dependencies you need for your cluster, such as external storages.
 
 ### Powering on cluster machines
