@@ -8,7 +8,7 @@ author: >
   [Candace Holman](https://github.com/candita) (Red Hat)
 ---
 
-{{< figure src="gateway-api-logo.svg" alt="Gateway API logo" >}}
+![Gateway API logo](gateway-api-logo.svg)
 
 Join us in the Kubernetes SIG Network community in celebrating the general
 availability of [Gateway API](https://gateway-api.sigs.k8s.io/) v1.3.0! This
