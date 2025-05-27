@@ -21,6 +21,6 @@ tags:
   * 完全に自動化されたインストール
   * DNS を使用してクラスターを識別します
   * 自己修復: すべてが Auto Scaling グループで実行されます
-  * 複数の OS のサポート (Amazon Linux、Debian、Flatcar、RHEL、Rocky、Ubuntu)
+  * 複数OSのサポート(Amazon Linux、Debian、Flatcar、RHEL、Rocky、Ubuntu)
   * 高可用性のサポート
   * Terraform マニフェストを直接プロビジョニングまたは生成できる
