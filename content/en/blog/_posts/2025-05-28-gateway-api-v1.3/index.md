@@ -2,6 +2,7 @@
 layout: blog
 title: "Gateway API v1.3.0: Advancements in Request Mirroring, CORS, Gateway Merging, and Retry Budgets"
 date: 2025-05-28T09:00:00-08:00
+draft: true
 slug: gateway-api-v1-3
 author: >
   [Candace Holman](https://github.com/candita) (Red Hat)
