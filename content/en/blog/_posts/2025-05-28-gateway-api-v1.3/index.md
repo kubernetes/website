@@ -15,7 +15,7 @@ availability of [Gateway API](https://gateway-api.sigs.k8s.io/) v1.3.0! This
 version of the API was released on April 24, 2025, and there are already a number
 of conformant implementations to try out.
 
-Gateway API v1.3.0 brings a new feature to the _Standard channel_
+Gateway API v1.3.0 brings a new feature to the _Standard_ channel
 (Gateway API's GA release channel): percentage-based request mirroring, and
 introduces three new experimental features: cross-origin resource sharing (CORS)
 filters, a standard mechanism for listener and gateway merging, and retry budgets.
