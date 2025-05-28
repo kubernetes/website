@@ -9,11 +9,11 @@ author: >
    [Carl Braganza](https://github.com/carlbraganza) (Veeam Kasten)
 ---
 
-We're excited to announce that Kubernetes v1.33 introduced alpha support for a _changed block tracking_ mechanism. This enhances the Kubernetes storage ecosystem by providing an efficient way for storage drivers to identify changed blocks in PersistentVolume snapshots. With a driver that can use the feature, you could benefit from faster and more resource-efficient backup operations.
+We're excited to announce the alpha support for a _changed block tracking_ mechanism. This enhances the Kubernetes storage ecosystem by providing an efficient way for storage drivers to identify changed blocks in PersistentVolume snapshots. With a driver that can use the feature, you could benefit from faster and more resource-efficient backup operations.
 
 ## What is changed block tracking?
 
-The improvement is a change to the Container Storage Interface (CSI), and also to the storage snapshot support in Kubernetes itself.
+Changed block tracking enables storage systems to identify and track modifications at the block level between snapshots, eliminating the need to scan entire volumes during backup operations. The improvement is a change to the Container Storage Interface (CSI), and also to the storage support in Kubernetes itself.
 With the alpha feature enabled, your cluster can:
 
 - Identify allocated blocks within a CSI volume snapshot
