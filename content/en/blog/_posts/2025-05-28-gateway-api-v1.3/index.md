@@ -20,22 +20,23 @@ Gateway API v1.3.0 brings a new feature to the _Standard_ channel
 introduces three new experimental features: cross-origin resource sharing (CORS)
 filters, a standard mechanism for listener and gateway merging, and retry budgets.
 
-## Graduation to Standard Channel:
+## Graduation to Standard channel
 
-Graduation to Standard Channel is a notable achievement for Gateway API
+Graduation to the Standard channel is a notable achievement for Gateway API
 features, as inclusion in the Standard release channel denotes a high level of
 confidence in the API surface and provides guarantees of backward compatibility.
-Of course, as with any other Kubernetes API, Standard Channel features can continue
-to evolve with backward-compatible additions over time, and we certainly expect
+Of course, as with any other Kubernetes API, Standard channel features can continue
+to evolve with backward-compatible additions over time, and we (SIG Network)
+certainly expect
 further refinements and improvements in the future. For more information on how
 all of this works, refer to the [Gateway API Versioning Policy](https://gateway-api.sigs.k8s.io/concepts/versioning/).
 
-### Percentage-Based Request Mirroring :tada:
+### Percentage-based request mirroring
 Leads: [Lior Lieberman](https://github.com/LiorLieberman),[Jake Bennert](https://github.com/jakebennert)
 
 GEP-3171: [Percentage-Based Request Mirroring](https://github.com/kubernetes-sigs/gateway-api/blob/main/geps/gep-3171/index.md)
 
-Percentage-Based Request Mirroring is an enhancement to the
+_Percentage-based request mirroring_ is an enhancement to the
 [HTTP Request Mirroring](https://gateway-api.sigs.k8s.io/guides/http-request-mirroring/)
 feature, which allows HTTP requests to be duplicated to another backend using the
 `RequestMirror` filter type.  Request mirroring is particularly useful in
@@ -74,7 +75,7 @@ spec:
           port: 8080
         percent: 42 # This value must be an integer.
 ```
-The percentage can also be expressed using a fraction.  This shows an example
+You can also configure the partial mirroring using a fraction. Here is an example
 with 5 out of every 1000 requests to `foo-v1` being mirrored to `foo-v2`.
 
 ```yaml
@@ -93,27 +94,26 @@ with 5 out of every 1000 requests to `foo-v1` being mirrored to `foo-v2`.
           denominator: 1000
 ```
 
-## Additions to Experimental Channel:
-#### Experimental Channel Additions and Changes
+## Additions to Experimental channel
 
-The experimental channel is Gateway API's channel for experimenting with new
+The Experimental channel is Gateway API's channel for experimenting with new
 features and gaining confidence with them before allowing them to graduate to
 standard.  Please note: the experimental channel may include features that are
 changed or removed later.
 
-Starting in release v1.3.0, in an effort to distinguish experimental channel
-resources from standard channel resources, new experimental resources have the
+Starting in release v1.3.0, in an effort to distinguish Experimental channel
+resources from Standard channel resources, any new experimental API kinds have the
 prefix "**X**".  For the same reason, experimental resources are now added to the
-object group `gateway.networking.x-k8s.io` instead of `gateway.networking.k8s.io`. 
+API group `gateway.networking.x-k8s.io` instead of `gateway.networking.k8s.io`. 
 Bear in mind that using new experimental channel resources means they can coexist
 with standard channel resources, but migrating these resources to the standard
 channel will require recreating them with the standard channel names and API
 Group (both of which lack the "x" prefix).
 
-This release introduces two new experimental resources: `XBackendTrafficPolicy`
-and `XListenerSet`.
+The v1.3 release introduces two new experimental API kinds: XBackendTrafficPolicy
+and XListenerSet.
 
-### CORS Filter
+### CORS filtering
 Leads: [Liang Li](https://github.com/liangli), [Eyal Pazz](https://github.com/EyalPazz), [Rob Scott](https://github.com/robscott)
 
 GEP-1767: [CORS Filter](https://github.com/kubernetes-sigs/gateway-api/blob/main/geps/gep-1767/index.md)
