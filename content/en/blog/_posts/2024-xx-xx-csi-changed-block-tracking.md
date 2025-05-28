@@ -14,15 +14,16 @@ We're excited to announce that Kubernetes v1.33 introduced alpha support for a _
 ## What is changed block tracking?
 
 The improvement is a change to the Container Storage Interface (CSI), and also to the storage snapshot support in Kubernetes itself.
-With the alpha features enabled, your cluster can:
+With the alpha feature enabled, your cluster can:
 
 - Identify allocated blocks within a CSI volume snapshot
 - Determine changed blocks between two snapshots of the same volume
 
 For Kubernetes users managing large datasets, this API enables significantly more efficient backup processes. Backup applications can now focus only on the blocks that have changed, rather than processing entire volumes.
 
-**NOTE:** As of now, the Changed Block Tracking API is supported only for block volumes and not for file volumes. CSI drivers that manage file-based storage systems will not be able to implement this capability.
-
+{{< note >}}
+As of now, the Changed Block Tracking API is supported only for block volumes and not for file volumes. CSI drivers that manage file-based storage systems will not be able to implement this capability.
+{{< /note >}}
 
 ## Benefits of changed block tracking support in Kubernetes
 
@@ -46,9 +47,9 @@ The implementation consists of three primary components:
 
 ### Storage provider responsibilities
 
-Storage vendors who want to support the changed block tracking feature must implement specific requirements:
+Storage providers who want to support the changed block tracking feature must implement specific requirements:
 
-1. _Implement CSI RPCs_: Storage vendors need to implement the `SnapshotMetadata` service as defined in the [CSI specifications protobuf](https://github.com/container-storage-interface/spec/blob/master/csi.proto). This service requires server-side streaming implementations for the following RPCs:
+1. _Implement CSI RPCs_: Storage providers need to implement the `SnapshotMetadata` service as defined in the [CSI specifications protobuf](https://github.com/container-storage-interface/spec/blob/master/csi.proto). This service requires server-side streaming implementations for the following RPCs:
 
    - `GetMetadataAllocated`: For identifying allocated blocks in a snapshot
    - `GetMetadataDelta`: For determining changed blocks between two snapshots
@@ -63,18 +64,18 @@ Storage vendors who want to support the changed block tracking feature must impl
 
 ### Backup client responsibilities
 
-Backup vendors looking to leverage this feature must:
+Backup clients looking to leverage this feature must:
 
-1. **Set up authentication**: Configure proper authentication for clients accessing the storage system using Kubernetes ServiceAccount tokens.
+1. _Set up authentication_: Configure proper authentication for clients accessing the storage system using Kubernetes ServiceAccount tokens.
 
-2. **Implement streaming client-side code**: Develop clients that implement the streaming gRPC APIs defined in the [schema.proto](https://github.com/kubernetes-csi/external-snapshot-metadata/blob/main/proto/schema.proto) file. Specifically:
+2. _Implement streaming client-side code_: Develop clients that implement the streaming gRPC APIs defined in the [schema.proto](https://github.com/kubernetes-csi/external-snapshot-metadata/blob/main/proto/schema.proto) file. Specifically:
    - Implement streaming client code for `GetMetadataAllocated` and `GetMetadataDelta` methods
    - Handle server-side streaming responses efficiently as the metadata comes in chunks
    - Process the `SnapshotMetadataResponse` message format with proper error handling
 
-3. **Handle large dataset streaming**: Design clients to efficiently handle large streams of block metadata that could be returned for volumes with significant changes.
+3. _Handle large dataset streaming_: Design clients to efficiently handle large streams of block metadata that could be returned for volumes with significant changes.
 
-4. **Optimize backup processes**: Modify backup workflows to use the changed block metadata to identify and only transfer changed blocks to make backups more efficient, reducing both backup duration and resource consumption.
+4. _Optimize backup processes_: Modify backup workflows to use the changed block metadata to identify and only transfer changed blocks to make backups more efficient, reducing both backup duration and resource consumption.
 
 
 ## Getting started
