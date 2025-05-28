@@ -37,8 +37,7 @@ Leads: [Lior Lieberman](https://github.com/LiorLieberman),[Jake Bennert](https:/
 GEP-3171: [Percentage-Based Request Mirroring](https://github.com/kubernetes-sigs/gateway-api/blob/main/geps/gep-3171/index.md)
 
 _Percentage-based request mirroring_ is an enhancement to the
-[HTTP Request Mirroring](https://gateway-api.sigs.k8s.io/guides/http-request-mirroring/)
-feature, which allows HTTP requests to be duplicated to another backend using the
+existing support for [HTTP request mirroring](https://gateway-api.sigs.k8s.io/guides/http-request-mirroring/), which allows HTTP requests to be duplicated to another backend using the
 `RequestMirror` filter type.  Request mirroring is particularly useful in
 blue-green deployment. It can be used to assess the impact of request scaling on
 application performance without impacting responses to clients.
@@ -197,13 +196,13 @@ XListenerSets.
 - Allows the delegation of listener configuration, such as TLS, to applications in
 other namespaces.
 
-The following example shows a `Gateway` with an HTTP listener and two child HTTPS
-XListenerSets with unique hostnames and certificates.  The combined set of Listeners
-attached to the `Gateway` includes the two additional HTTPS Listeners in the
-XListenerSets that attach to the `Gateway`.  This example illustrates the
-delegation of Listener TLS config to application owners in different namespaces
-("store" and "app").  The `HTTPRoute` has both the `Gateway` Listener `foo` and
-one `XListenerSet` Listener `second` as `parentRefs`.
+The following example shows a Gateway with an HTTP listener and two child HTTPS
+XListenerSets with unique hostnames and certificates.  The combined set of listeners
+attached to the Gateway includes the two additional HTTPS listeners in the
+XListenerSets that attach to the Gateway.  This example illustrates the
+delegation of listener TLS config to application owners in different namespaces
+("store" and "app").  The HTTPRoute has both the Gateway listener named "foo" and
+one XListenerSet listener named "second" as `parentRefs`.
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
@@ -294,15 +293,16 @@ Gateway, listeners are ordered using the following precedence:
 3. Listeners ordered alphabetically by “namespace/name”
 
 ### XBackendTrafficPolicy (Retry Budgets)
-Leads: [Eric Bishop](https://github.com/ericbishop), [Mike Morris](https://github.com/mikemorris)
+Leads: [Eric Bishop](https://github.com/ericdbishop), [Mike Morris](https://github.com/mikemorris)
 
 GEP-3388: [Retry Budgets](https://gateway-api.sigs.k8s.io/geps/gep-3388)
 
 This feature allows you to configure a a _retry budget_ across all endpoints
 of a destination Service.  This is used to limit additional client-side retries
-after reaching a configured threshold. The budget can be configured using a
-maximum percentage of active requests, or an interval during which requests will
-be considered. The development of this specification changed the existing
+after reaching a configured threshold. When configuring the budget, the maximum 
+percentage of active requests that may consist of retries may be specified, as well as 
+the interval over which requests will be considered when calculating the threshold 
+for retries. The development of this specification changed the existing
 experimental field `BackendLBPolicy` into `XBackendTrafficPolicy` in the interest
 of reducing the proliferation of policy resources that had commonalities.
 
