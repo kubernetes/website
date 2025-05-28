@@ -170,12 +170,12 @@ Access-Control-Allow-Methods: GET, HEAD, POST
 Access-Control-Allow-Headers: Accept,Accept-Language,Content-Language,Content-Type,Range
 ```     
 The complete list of fields in the new CORS filter:
-* AllowOrigins
-* AllowMethods
-* AllowHeaders
-* AllowCredentials
-* ExposeHeaders
-* MaxAge
+* `allowOrigins`
+* `allowMethods`
+* `allowHeaders`
+* `allowCredentials`
+* `exposeHeaders`
+* `maxAge`
 
 See [CORS protocol](https://fetch.spec.whatwg.org/#http-cors-protocol) for details.
 
@@ -184,17 +184,17 @@ Lead: [Dave Protasowski](https://github.com/dprotaso)
 
 GEP-1713: [ListenerSets - Standard Mechanism to Merge Multiple Gateways](https://github.com/kubernetes-sigs/gateway-api/pull/3213)
 
-This feature adds a new experimental resource called `XListenerSet` to allow a
-shared list of Listeners to be attached to one or more parent Gateway(s).  In
-addition, it expands upon the current suggestion that implementations may merge
+This release adds a new experimental API kind, XListenerSet, that allows a
+shared list of _listeners_ to be attached to one or more parent Gateway(s).  In
+addition, it expands upon the existing suggestion that Gateway API implementations may merge
 `Gateway` resources.  It also:
 
 - Adds a new field `allowedListeners` to `gateway.spec`. AllowedListeners defines
 from which namespaces to select XListenerSets that are allowed to attach to that
 `Gateway` (Same, All, None, or Selector based).
-- Increases the previous maximum number (64) of Listeners with the addition of
+- Increases the previous maximum number (64) of listeners with the addition of
 XListenerSets.
-- Allows the delegation of Listener configuration like TLS to applications in
+- Allows the delegation of listener configuration, such as TLS, to applications in
 other namespaces.
 
 The following example shows a `Gateway` with an HTTP listener and two child HTTPS
@@ -275,18 +275,19 @@ spec:
     sectionName: foo
     ...
 ```
-Each Listener in a `Gateway` must have a unique combination of Port, Protocol,
-(and Hostname if supported by the protocol) in order for all Listeners to be
-*compatible* and not conflicted over which traffic they should receive.  
-Furthermore, implementations can *merge* separate Gateways into a single set of
-Listener addresses if all Listeners across all Gateways are compatible.  The
-management of merged Listeners is under-specified in releases prior to v1.3.0.
+Each listener in a Gateway must have a unique combination of `port`, `protocol`,
+(and `hostname` if supported by the protocol) in order for all listeners to be
+**compatible** and not conflicted over which traffic they should receive.
 
-With this feature, the specification on merging is expanded.  Implementations
+Furthermore, implementations can _merge_ separate Gateways into a single set of
+listener addresses if all listeners across those Gateways are compatible.  The
+management of merged listeners was under-specified in releases prior to v1.3.0.
+
+With the new feature, the specification on merging is expanded.  Implementations
 must treat the parent Gateways as having the merged list of all listeners from
 itself and from attached XListenerSets, and validation of this list of listeners
-must behave the same as if the list were part of a single `Gateway`. Within a single
-Gateway, Listeners will then be ordered using the following precedence:
+must behave the same as if the list were part of a single Gateway. Within a single
+Gateway, listeners are ordered using the following precedence:
 
 1. Single Listeners (not a part of an `XListenerSet`) first, followed by
 2. Listeners ordered by creation time (oldest first), followed by
@@ -297,15 +298,15 @@ Leads: [Eric Bishop](https://github.com/ericbishop), [Mike Morris](https://githu
 
 GEP-3388: [Retry Budgets](https://gateway-api.sigs.k8s.io/geps/gep-3388)
 
-This feature specifies the configuration of a "retry budget" across all endpoints
-of a destination service.  This is used to limit additional client-side retries
+This feature allows you to configure a a _retry budget_ across all endpoints
+of a destination Service.  This is used to limit additional client-side retries
 after reaching a configured threshold. The budget can be configured using a
 maximum percentage of active requests, or an interval during which requests will
 be considered. The development of this specification changed the existing
 experimental field `BackendLBPolicy` into `XBackendTrafficPolicy` in the interest
 of reducing the proliferation of policy resources that had commonalities.
 
-The following example shows an `XBackendTrafficPolicy` that applies a
+The following example shows an XBackendTrafficPolicy that applies a
 `retryConstraint` that represents a budget that limits the retries to a maximum
 of 20% of requests, over a duration of 10 seconds, and to a minimum of 3 retries
 over 1 second.
@@ -333,7 +334,7 @@ Kubernetes to get the latest version of Gateway API. As long as you're running
 Kubernetes 1.26 or later, you'll be able to get up and running with this version
 of Gateway API.
 
-To try out the API, follow our [Getting Started Guide](https://gateway-api.sigs.k8s.io/guides/).
+To try out the API, follow the [Getting Started Guide](https://gateway-api.sigs.k8s.io/guides/).
 As of this writing, four implementations are already conformant with Gateway API
 v1.3 experimental channel features. In alphabetical order:
 
@@ -361,11 +362,11 @@ this dedicated and active community.
 
 ## Related Kubernetes blog articles
 
-* [Gateway API v1.2: WebSockets, Timeouts, Retries, and More](https://kubernetes.io/blog/2024/11/21/gateway-api-v1-2/)
-  11/2024
-* [Gateway API v1.1: Service mesh, GRPCRoute, and a whole lot more](https://kubernetes.io/blog/2024/05/09/gateway-api-v1-1/)
-  05/2024
-* [New Experimental Features in Gateway API v1.0](https://kubernetes.io/blog/2023/11/28/gateway-api-ga/)
-  11/2023
-* [Gateway API v1.0: GA Release](https://kubernetes.io/blog/2023/10/31/gateway-api-ga/)
-  10/2023
+* [Gateway API v1.2: WebSockets, Timeouts, Retries, and More](/blog/2024/11/21/gateway-api-v1-2/)
+  (November 2024)
+* [Gateway API v1.1: Service mesh, GRPCRoute, and a whole lot more](/blog/2024/05/09/gateway-api-v1-1/)
+  (May 2024)
+* [New Experimental Features in Gateway API v1.0](/blog/2023/11/28/gateway-api-ga/)
+  (November 2023)
+* [Gateway API v1.0: GA Release](/blog/2023/10/31/gateway-api-ga/)
+  (October 2023)
