@@ -1,12 +1,12 @@
 ---
 layout: blog
-title: 'Kubernetes v1.33: Changed Block Tracking API support (alpha)'
+title: 'Announcing Changed Block Tracking API support (alpha)'
 date: 2025-05-14T18:30:00+05:30
 draft: true
-slug: kubernetes-v1-33-csi-changed-block-tracking
+slug: csi-changed-block-tracking
 author: >
-   Prasad Ghangal (Veeam Kasten)
-   Carl Braganza (Veeam Kasten)
+   [Prasad Ghangal](https://github.com/PrasadG193) (Veeam Kasten)
+   [Carl Braganza](https://github.com/carlbraganza) (Veeam Kasten)
 ---
 
 We're excited to announce that Kubernetes v1.33 introduced alpha support for a _changed block tracking_ mechanism. This enhances the Kubernetes storage ecosystem by providing an efficient way for storage drivers to identify changed blocks in PersistentVolume snapshots. With a driver that can use the feature, you could benefit from faster and more resource-efficient backup operations.
@@ -66,12 +66,16 @@ Storage providers who want to support the changed block tracking feature must im
 
 Backup clients looking to leverage this feature must:
 
-1. _Set up authentication_: Configure proper authentication for clients accessing the storage system using Kubernetes ServiceAccount tokens.
+1. _Set up authentication_: The backup application must provide a Kubernetes ServiceAccount token when using the
+[Kubernetes SnapshotMetadataService API](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/3314-csi-changed-block-tracking#the-kubernetes-snapshotmetadata-service-api).
+Appropriate RBAC permission must be established to authorize the backup application ServiceAccount to obtain such tokens.
 
 2. _Implement streaming client-side code_: Develop clients that implement the streaming gRPC APIs defined in the [schema.proto](https://github.com/kubernetes-csi/external-snapshot-metadata/blob/main/proto/schema.proto) file. Specifically:
    - Implement streaming client code for `GetMetadataAllocated` and `GetMetadataDelta` methods
    - Handle server-side streaming responses efficiently as the metadata comes in chunks
    - Process the `SnapshotMetadataResponse` message format with proper error handling
+
+   The `external-snapshot-metadata` GitHub repository provides a convenient [iterator](https://github.com/kubernetes-csi/external-snapshot-metadata/tree/master/pkg/iterator) support package that can be used to implement the client.
 
 3. _Handle large dataset streaming_: Design clients to efficiently handle large streams of block metadata that could be returned for volumes with significant changes.
 
