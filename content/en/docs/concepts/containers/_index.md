@@ -30,31 +30,47 @@ cluster runs the containers that form the
 Containers in a Pod are co-located and co-scheduled to run on the same node.
 
 
-<!-- body -->
+## How CPU requests and limits work under the hood
 
-## Container images
-A [container image](/docs/concepts/containers/images/) is a ready-to-run
-software package containing everything needed to run an application:
-the code and any runtime it requires, application and system libraries,
-and default values for any essential settings.
+### On Linux systems
 
-Containers are intended to be stateless and
-[immutable](https://glossary.cncf.io/immutable-infrastructure/):
-you should not change
-the code of a container that is already running. If you have a containerized
-application and want to make changes, the correct process is to build a new
-image that includes the change, then recreate the container to start from the
-updated image.
+In Linux, Kubernetes uses cgroups (control groups) to enforce CPU requests and limits. See the [RedHat documentation on cgroups](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managing_monitoring_and_updating_the_kernel/setting-limits-for-applications_managing-monitoring-and-updating-the-kernel) for more details.
 
-## Container runtimes
+#### CPU requests {#under-hood-cpu-request-linux}
 
-{{< glossary_definition term_id="container-runtime" length="all" >}}
+- For cgroups v1: CPU requests are translated to CPU shares. The share value is calculated as `cpu.shares = request * 1024`. The default value is 1024, which corresponds to 1 CPU request. See the [kernel documentation on scheduler-domains](https://docs.kernel.org/scheduler/sched-domains.html).
+- For cgroups v2: CPU requests are translated to CPU weight. Weight values range from 1 to 10000, with a default of 100. See the [kernel documentation on cgroup-v2](https://docs.kernel.org/admin-guide/cgroup-v2.html).
+- The Linux CPU scheduler (CFS - Completely Fair Scheduler) uses these values to determine the proportion of CPU time each container gets when there is CPU contention. For more details, see the [kernel CFS scheduler documentation](https://docs.kernel.org/scheduler/sched-design-CFS.html).
+- When there is no contention, containers may use more CPU than requested, up to their limit.
 
-Usually, you can allow your cluster to pick the default container runtime
-for a Pod. If you need to use more than one container runtime in your cluster,
-you can specify the [RuntimeClass](/docs/concepts/containers/runtime-class/)
-for a Pod to make sure that Kubernetes runs those containers using a
-particular container runtime.
+#### CPU limits {#under-hood-cpu-limit-linux}
 
-You can also use RuntimeClass to run different Pods with the same container
-runtime but with different settings.
+- CPU limits are implemented using CPU quota and period.
+- The quota is calculated as `cpu.cfs_quota_us = limit * cpu.cfs_period_us`.
+- For example, if you set a limit of 0.5 CPU:
+  - Period = 100,000 microseconds (100ms)
+  - Quota = 50,000 microseconds (50ms)
+- This means in every 100ms period, the container can use the CPU for up to 50ms.
+- If a container tries to use more CPU than its limit, it will be throttled and must wait for the next period.
+- Throttling can cause latency in applications, especially those that are CPU-intensive or require consistent CPU access.
+
+### On Windows systems
+
+Windows handles CPU requests and limits differently:
+
+#### CPU requests {#under-hood-cpu-request-windows}
+
+- Windows doesn't have a direct equivalent to Linux CPU shares.
+- CPU requests are used primarily for scheduling decisions but don't directly affect runtime CPU allocation.
+
+#### CPU limits {#under-hood-cpu-limit-windows}
+
+- Windows implements CPU limits using CPU caps.
+- The limit is expressed as a percentage of total CPU cycles across all online processors.
+- For example, a limit of 0.5 CPU on a 2-core system means the container can use up to 25% of the total CPU cycles.
+- Windows measures CPU usage over a longer time window compared to Linux, which can result in different throttling behavior.
+
+Understanding how these mechanisms work is crucial for application performance tuning. For example, if you observe throttling in your application (which you can monitor through container runtime metrics), you might want to:
+- Adjust your CPU limits to be closer to actual usage patterns
+- Consider using horizontal pod autoscaling instead of relying on CPU bursting
+- Profile your application to optimize CPU usage
