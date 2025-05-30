@@ -1,25 +1,25 @@
 ---
 layout: blog
 title: "Kubernetes v1.33：原地调整 Pod 资源特性升级为 Beta"
-slug: in-place-pod-resize-beta
-date: 2025-05-19T10:30:00-08:00
+slug: kubernetes-v1-33-in-place-pod-resize-beta
+date: 2025-05-16T10:30:00-08:00
 author: "Tim Allclair (Google)"
 translator: >
   [Xin Li](https://github.com/my-git9) (DaoCloud)
 ---
 <!--
 layout: blog
-title: "Kubernetes v1.33: In-Place Pod Resize Graduating to Beta"
-slug: in-place-pod-resize-beta
-date: 2025-05-19T10:30:00-08:00
+title: "Kubernetes v1.33: In-Place Pod Resize Graduated to Beta"
+slug: kubernetes-v1-33-in-place-pod-resize-beta
+date: 2025-05-16T10:30:00-08:00
 author: "Tim Allclair (Google)"
 -->
 
 <!--
-On behalf of the Kubernetes project, I am excited to announce that the **in-place Pod resize** feature (also known as In-Place Pod Vertical Scaling), first introduced as alpha in Kubernetes v1.27, is graduating to **Beta** and will be enabled by default in the Kubernetes v1.33 release! This marks a significant milestone in making resource management for Kubernetes workloads more flexible and less disruptive.
+On behalf of the Kubernetes project, I am excited to announce that the **in-place Pod resize** feature (also known as In-Place Pod Vertical Scaling), first introduced as alpha in Kubernetes v1.27, has graduated to **Beta** and will be enabled by default in the Kubernetes v1.33 release! This marks a significant milestone in making resource management for Kubernetes workloads more flexible and less disruptive.
 -->
 代表 Kubernetes 项目，我很高兴地宣布，**原地 Pod 调整大小**特性（也称为原地 Pod 垂直缩放），
-在 Kubernetes v1.27 中首次引入为 alpha 版本，现在已升级为**Beta**版，
+在 Kubernetes v1.27 中首次引入为 Alpha 版本，现在已升级为 **Beta** 版本，
 并将在 Kubernetes v1.33 发行版中默认启用！
 这标志着 Kubernetes 工作负载的资源管理变得更加灵活和不那么具有干扰性的一个重要里程碑。
 
@@ -28,7 +28,7 @@ On behalf of the Kubernetes project, I am excited to announce that the **in-plac
 
 Traditionally, changing the CPU or memory resources allocated to a container required restarting the Pod. While acceptable for many stateless applications, this could be disruptive for stateful services, batch jobs, or any workloads sensitive to restarts.
 -->
-## 什么是原地 Pod 调整大小？
+## 什么是原地 Pod 调整大小？   {#what-is-in-place-pod-resize}
 
 传统上，更改分配给容器的 CPU 或内存资源需要重启 Pod。
 虽然这对于许多无状态应用来说是可以接受的，
@@ -58,8 +58,13 @@ You can try it out on a v1.33 Kubernetes cluster by using kubectl to edit a Pod 
 你可以在 v1.33 的 Kubernetes 集群上使用 kubectl 编辑
 Pod 来尝试（需要 v1.32+ 的 kubectl）：
 
+<!--
 ```shell
 kubectl edit pod <pod-name> --subresource resize
+```
+-->
+```shell
+kubectl edit pod <Pod 名称> --subresource resize
 ```
 
 <!--
@@ -74,7 +79,7 @@ For detailed usage instructions and examples, please refer to the official Kuber
 
 Kubernetes still excels at scaling workloads horizontally (adding or removing replicas), but in-place Pod resizing unlocks several key benefits for vertical scaling:
 -->
-## 为什么原地 Pod 调整大小很重要？
+## 为什么原地 Pod 调整大小很重要？   {#why-does-in-place-pod-resize-matter}
 
 Kubernetes 在水平扩缩工作负载（添加或移除副本）方面仍然表现出色，但原地
 Pod 调整大小为垂直扩缩解锁了几个关键优势：
@@ -91,7 +96,7 @@ Pod 调整大小为垂直扩缩解锁了几个关键优势：
   相反，在重负载下的 Pod 可以在不重启的情况下获得更多的资源。
 
 * **更快的扩缩：** 更快速地解决瞬时资源需求。例如，Java
-  应用程序在启动期间通常比在稳定状态下需要更多的 CPU。
+  应用在启动期间通常比在稳定状态下需要更多的 CPU。
   可以开始时使用更高的 CPU 配置，然后在之后调整减小。
 
 <!--
@@ -99,7 +104,7 @@ Pod 调整大小为垂直扩缩解锁了几个关键优势：
 
 Since the alpha release in v1.27, significant work has gone into maturing the feature, improving its stability, and refining the user experience based on feedback and further development. Here are the key changes:
 -->
-## 从 Alpha 到 Beta 有哪些变化？
+## 从 Alpha 到 Beta 有哪些变化？   {#whats-changed-between-alpha-and-beta}
 
 自从 v1.27 的 Alpha 版本发布以来，为了完善此特性、
 提高其稳定性并根据反馈和进一步开发优化用户体验，已经进行了大量工作。
@@ -160,7 +165,7 @@ Since the alpha release in v1.27, significant work has gone into maturing the fe
 
 Graduating to Beta means the feature is ready for broader adoption, but development doesn't stop here! Here's what the community is focusing on next:
 -->
-## 接下来是什么？
+## 接下来是什么？   {#whats-next}
 
 晋升为 Beta 意味着该特性已经准备好被更广泛地采用，但开发工作并不会止步于此！
 以下是社区接下来的关注重点：
@@ -188,7 +193,7 @@ With the `InPlacePodVerticalScaling` feature gate enabled by default in v1.33, y
 
 Refer to the [documentation](/docs/tasks/configure-pod-container/resize-container-resources/) for detailed guides and examples.
 -->
-## 开始使用并提供反馈
+## 开始使用并提供反馈   {#getting-started-and-providing-feedback}
 
 随着 **InPlacePodVerticalScaling** 特性门控在 v1.33 中默认启用，
 你可以立即开始尝试原地 Pod 资源调整大小！
@@ -201,9 +206,9 @@ As this feature moves through Beta, your feedback is invaluable. Please report a
 We look forward to seeing how the community leverages in-place Pod resize to build more efficient and resilient applications on Kubernetes!
 -->
 随着此特性从 Beta 阶段逐步推进，你的反馈是无价的。请通过 Kubernetes
-标准沟通渠道（GitHub issues、邮件列表、Slack）报告任何问题或分享你的经验。
+标准沟通渠道（GitHub Issues、邮件列表、Slack）报告任何问题或分享你的经验。
 你也可以查看
 [KEP-1287: In-place Update of Pod Resources](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/1287-in-place-update-pod-resources)
 以获取完整的深入设计细节。
 
-我们期待看到社区如何利用原地 Pod 调整大小来构建更高效、更 resilient 的 Kubernetes 应用程序！
+我们期待看到社区如何利用原地 Pod 调整大小来构建更高效、弹性更好的 Kubernetes 应用！

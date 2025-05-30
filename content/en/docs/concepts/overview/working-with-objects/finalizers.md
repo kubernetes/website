@@ -55,6 +55,11 @@ object once it is set.
 * After the deletion is requested, you can not resurrect this object. The only way is to delete it and make a new similar object.
 {{</note>}}
 
+{{<note>}}
+Custom finalizer names **must** be publicly qualified finalizer names, such as `example.com/finalizer-name`.
+Kubernetes enforces this format; the API server rejects writes to objects where the change does not use qualified finalizer names for any custom finalizer.
+{{</note>}}
+
 ## Owner references, labels, and finalizers {#owners-labels-finalizers}
 
 Like {{<glossary_tooltip text="labels" term_id="label">}},

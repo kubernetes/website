@@ -225,10 +225,9 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-If specified, patch will operate on the subresource of the requested object. This flag is beta and may change in the future.
+If specified, patch will operate on the subresource of the requested object.
 -->
 如果指定此标志，patch 操作将作用于所请求对象的子资源。
-此标志处于 Beta 阶段，未来可能会有所变化。
 </p></td>
 </tr>
 

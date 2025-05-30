@@ -572,7 +572,7 @@ kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
 
 ## API implementation
 
-The `PATCH` verb for a resource that supports Server-Side Apply can accepts the
+The `PATCH` verb (for an object that supports Server-Side Apply) accepts the
 unofficial `application/apply-patch+yaml` content type. Users of Server-Side
 Apply can send partially specified objects as YAML as the body of a `PATCH` request
 to the URI of a resource.  When applying a configuration, you should always include all the

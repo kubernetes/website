@@ -217,6 +217,38 @@ highest recommendation from within that window. This value can be configured usi
 This means that scaledowns will occur gradually, smoothing out the impact of rapidly
 fluctuating metric values.
 
+### Pod readiness and autoscaling metrics
+
+The HorizontalPodAutoscaler (HPA) controller includes two flags that influence how CPU metrics are collected from Pods during startup:
+
+1. `--horizontal-pod-autoscaler-cpu-initialization-period` (default: 5 minutes)
+
+  This defines the time window after a Pod starts during which its **CPU usage is ignored** unless:
+    - The Pod is in a `Ready` state **and**
+    - The metric sample was taken entirely during the period it was `Ready`.
+
+  This flag helps **exclude misleading high CPU usage** from initializing Pods (e.g., Java apps warming up) in HPA scaling decisions.
+
+2. `--horizontal-pod-autoscaler-initial-readiness-delay` (default: 30 seconds)
+
+  This defines a short delay period after a Pod starts during which the HPA controller treats Pods that are currently `Unready` as still initializing, **even if they have previously transitioned to `Ready` briefly**.
+
+  It is designed to:
+    - Avoid including Pods that rapidly fluctuate between `Ready` and `Unready` during startup.
+    - Ensure stability in the initial readiness signal before HPA considers their metrics valid.
+
+**Key behaviors:**
+- If a Pod is `Ready` and remains `Ready`, it can be counted as contributing metrics even within the delay.
+- If a Pod rapidly toggles between `Ready` and `Unready`, metrics are ignored until it’s considered stably `Ready`.
+
+#### Best Practice:
+If your Pod has a startup phase with high CPU usage, configure both:
+- `--horizontal-pod-autoscaler-cpu-initialization-period` to **cover the startup duration**.
+- Ensure your **readinessProbe** only reports `Ready` **after the CPU spike subsides**, using `initialDelaySeconds`.
+
+This avoids scaling based on temporary spikes that do not reflect long-term workload needs.
+
+
 ## API Object
 
 The Horizontal Pod Autoscaler is an API resource in the Kubernetes

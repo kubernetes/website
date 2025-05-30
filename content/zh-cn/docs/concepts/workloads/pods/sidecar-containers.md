@@ -10,7 +10,7 @@ weight: 50
 -->
 
 <!-- overview -->
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
+{{< feature-state feature_gate_name="SidecarContainers" >}}
 
 <!--
 Sidecar containers are the secondary containers that run along with the main

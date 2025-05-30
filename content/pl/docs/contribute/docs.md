@@ -19,6 +19,9 @@ Współtwórcy dokumentacji Kubernetesa:
 - Tłumaczą dokumentację
 - Zarządzają i publikują części dokumentacji cyklu wydawniczego Kubernetesa
 
+Zespół blogowy, będący częścią SIG Docs, pomaga zarządzać oficjalnymi blogami. Aby
+dowiedzieć się więcej, przeczytaj [jak współtworzyć blogi Kubernetesa](/docs/contribute/blog/).
+
 ---
 
 {{< note >}}
@@ -200,4 +203,5 @@ SIG Dokumentacja komunikuje się za pomocą różnych metod:
   aby zaangażować się w rozwój funkcji Kubernetesa.
 - Odwiedź stronę dla współtwórców, aby dowiedzieć się więcej o
   [współtwórcach Kubernetesa](https://www.kubernetes.dev/) oraz [dodatkowych zasobach dla współtwórców](https://www.kubernetes.dev/resources/).
-- Prześlij [post na bloga lub studium przypadku](/docs/contribute/new-content/blogs-case-studies/).
+- Dowiedz się, jak [współtworzyć oficjalne blogi](/docs/contribute/blog/)
+- Prześlij [studium przypadku](/docs/contribute/new-content/case-studies/)

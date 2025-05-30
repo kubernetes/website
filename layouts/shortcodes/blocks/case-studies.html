@@ -1,32 +1,30 @@
-{{ $caseStudiesSection := site.GetPage "case-studies" }}
-{{ if not $caseStudiesSection }}
+{{- $caseStudiesSection := site.GetPage "case-studies" -}}
+{{- if not $caseStudiesSection -}}
 {{ errorf "[%s] No case-studies section found. Create content/%s/case-studies/_index.md"  $.Page.Lang $.Page.Lang }}
-{{ else }}
+{{- else -}}
 {{ $caseStudiesPages := where $caseStudiesSection.Pages "Params.featured" true | first 4 }}
-<section id="talkToUs">
-  <div class="main-section">
-    <h3  style="text-align: center"><a href="{{ $caseStudiesSection.RelPermalink }}" style="color: #3371E3; font-weight: 400">{{ $caseStudiesSection.LinkTitle }}</a></h3>
-    <div id="caseStudiesWrapper">
-      {{ range $caseStudiesPages }}
+<section class="case-studies">
+  <h3><a href="{{ $caseStudiesSection.RelPermalink }}">{{ $caseStudiesSection.LinkTitle }}</a></h3>
+  <div class="case-study-list">
+      {{- range $caseStudiesPages -}}
 			{{ $dark := .Resources.GetMatch "**{dark_logo}*.svg" }}
 			{{ $logo := .Resources.GetMatch "**{featured_logo}*.svg" }}
 			
 			{{ if not $logo }}
 				{{ $logo = .Resources.GetMatch "**logo*.png" }}
 			{{ end }}
-			{{ if not $dark }}
-				{{ $dark =  $logo }}
-			{{ end }}
-	  <div>
+			{{- if not $dark -}}
+				{{ $dark = $logo }}
+			{{- end -}}
+	  <div class="case-study-item">
         <picture>
-	  	  <source srcset={{$dark.RelPermalink}} media="(prefers-color-scheme: dark)">
+	  	  <source srcset="{{$dark.RelPermalink}}" media="(prefers-color-scheme: dark)">
 	  	    <img src="{{ $logo.RelPermalink }}" alt="{{ .Title }}">
 		</picture>
         <p>"{{ .Params.quote | truncate 100 }}"</p>
         <a href="{{ .RelPermalink }}">{{ T "main_read_more" }}</a>
       </div>
-     {{ end }}  
-    </div>
+     {{- end -}}  
   </div>
 </section>
-{{ end }}
+{{- end -}}
