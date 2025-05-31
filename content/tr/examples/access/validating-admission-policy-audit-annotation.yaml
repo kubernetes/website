@@ -1,0 +1,18 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "demo-policy.example.com"
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["apps"]
+      apiVersions: ["v1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["deployments"]
+  validations:
+    - expression: "object.spec.replicas > 50"
+      messageExpression: "'Deployment spec.replicas set to ' + string(object.spec.replicas)"
+  auditAnnotations:
+    - key: "high-replica-count"
+      valueExpression: "'Deployment spec.replicas set to ' + string(object.spec.replicas)"
