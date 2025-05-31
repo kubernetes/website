@@ -1,7 +1,7 @@
 ---
 title: Visualizando Analytics do Site
 content_type: concept
-weight: 100
+weight: 120
 card:
   name: contribuir
   weight: 100
@@ -9,20 +9,17 @@ card:
 
 <!-- overview -->
 
-Essa página contém informações sobre a dashboard de analystics do kubernetes.io.
+Esta página contém informações sobre o painel de analytics do kubernetes.io.
 
 <!-- body -->
 
-Essa [dashboard](https://datastudio.google.com/reporting/fede2672-b2fd-402a-91d2-7473bdb10f04) foi feita usando
-o Google Data Studio e possui informações coletadas do
-kubernetes.io usando o Google Analytics.
+[Ver o painel](https://lookerstudio.google.com/u/0/reporting/fe615dc5-59b0-4db5-8504-ef9eacb663a9/page/4VDGB/).
 
-### Usando a dashboard
+Este painel foi criado usando o [Google Looker Studio](https://lookerstudio.google.com/overview) e mostra informações coletadas no kubernetes.io usando o Google Analytics 4 desde agosto de 2022.
 
-Por padrão, a dashboard mostra todos os analytics coletados nos últimos 30 dias. Use o seletor de data
-para ver dados de outros intervalos de data. Outras 
-opções de filtros permitem que você veja dados baseados
-em localização do usuário para acessar o site, a tradução
-da documentação usada e outros.
+### Usando o painel
 
-Se você identificar um problema com essa dashboard ou quer solicitar qualquer melhoria, [abra uma issue](https://github.com/kubernetes/website/issues/new/choose) no repositório.
+Por padrão, o painel mostra todas as análises coletadas nos últimos 30 dias. Use o seletor de data para ver dados de um intervalo de datas diferente.
+Outras opções de filtragem permitem que você visualize dados com base na localização do usuário, no dispositivo usado para acessar o site, na tradução dos documentos usados ​​e muito mais.
+
+Se você identificar algum problema com este painel ou quiser solicitar alguma melhoria, [abra um problema](https://github.com/kubernetes/website/issues/new/choose) no repositório.
