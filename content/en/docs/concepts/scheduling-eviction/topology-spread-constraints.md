@@ -142,7 +142,8 @@ your cluster. Those fields are:
 
   {{< caution >}}
   It's not recommended to use `matchLabelKeys` with labels that might be updated directly on pods.
-  Even if you edit the pod's label that is specified at `matchLabelKeys` **directly**, (that is, not via a deployment),
+  Even if you edit the pod's label that is specified at `matchLabelKeys` **directly**,
+  (that is, you edit the Pod and not a Deployment),
   kube-apiserver doesn't reflect the label update onto the merged `labelSelector`.
   {{< /caution >}}
 
