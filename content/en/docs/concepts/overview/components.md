@@ -30,10 +30,10 @@ Here's a brief overview of the main components:
 Manage the overall state of the cluster:
 
 [kube-apiserver](/docs/concepts/architecture/#kube-apiserver)
-: The core component server that exposes the Kubernetes HTTP API
+: The core component server that exposes the Kubernetes HTTP API.
 
 [etcd](/docs/concepts/architecture/#etcd)
-: Consistent and highly-available key value store for all API server data
+: Consistent and highly-available key value store for all API server data.
 
 [kube-scheduler](/docs/concepts/architecture/#kube-scheduler)
 : Looks for Pods not yet bound to a node, and assigns each Pod to a suitable node.
@@ -68,16 +68,16 @@ run [systemd](https://systemd.io/) on a Linux node to supervise local components
 Addons extend the functionality of Kubernetes. A few important examples include:
 
 [DNS](/docs/concepts/architecture/#dns)
-: For cluster-wide DNS resolution
+: For cluster-wide DNS resolution.
 
 [Web UI](/docs/concepts/architecture/#web-ui-dashboard) (Dashboard)
-: For cluster management via a web interface
+: For cluster management via a web interface.
 
 [Container Resource Monitoring](/docs/concepts/architecture/#container-resource-monitoring)
-: For collecting and storing container metrics
+: For collecting and storing container metrics.
 
 [Cluster-level Logging](/docs/concepts/architecture/#cluster-level-logging)
-: For saving container logs to a central log store
+: For saving container logs to a central log store.
 
 ## Flexibility in Architecture
 
