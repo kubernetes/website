@@ -7,7 +7,7 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
-Debes usar una versión de kubectl que este dentro de una diferencia de versión menor de tu clúster. Por ejemplo, un cliente v{{< skew latestVersion >}} puede comunicarse con versiones v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}}, y v{{< skew nextMinorVersion >}} del plano de control.
+Debes usar una versión de kubectl que esté dentro de una diferencia de versión menor de tu clúster. Por ejemplo, un cliente v{{< skew latestVersion >}} puede comunicarse con versiones v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}}, y v{{< skew nextMinorVersion >}} del plano de control.
 
 El uso de la última versión de kubectl ayuda a evitar problemas imprevistos.
 
@@ -24,7 +24,7 @@ Existen los siguientes métodos para instalar kubectl en Windows:
 1. Tiene dos opciones para instalar kubectl en su dispositivo Windows:
 
    - Descarga directa:
-      Descarga la última versión {{< skew currentPatchVersion >}} del binario  directamente según tu arquitetura visitando [Kubernetes release page](https://kubernetes.io/releases/download/#binaries). Asegúrate de seleccionar el binario correcto para tu arquitectura (e.g., amd64, arm64, etc.).
+      Descargue la última versión {{< skew currentPatchVersion >}} del binario  directamente según tu arquitectura visitando [Kubernetes release page](https://kubernetes.io/releases/download/#binaries). Asegúrese de seleccionar el binario correcto para tu arquitectura (e.g., amd64, arm64, etc.).
 
    - Usando curl: 
 
@@ -113,7 +113,7 @@ Si ha instalado Docker Desktop antes, es posible que deba colocar su entrada del
 3. Navegue a su directorio de inicio:
 
    ```powershell
-   # Si estas usando cmd.exe, correr: cd %USERPROFILE%
+   # Si estás usando cmd.exe, correr: cd %USERPROFILE%
    cd ~
    ```
 

@@ -15,9 +15,9 @@ Para hacerlo en todas tus sesiones de shell, agrega la siguiente línea a tu arc
 ```powershell
 kubectl completion powershell | Out-String | Invoke-Expression
 ```
-Este commando agragará el script de autocompletado en cada sesión de PowerShell. También puedes añadir el script generado directamente en tu archivo `$PROFILE`.
+Este comando agregará el script de autocompletado en cada sesión de PowerShell. También puedes añadir el script generado directamente en tu archivo `$PROFILE`.
 
-Para agregar el escript generado a tu archivo `$PROFILE`, ejecuta el siguiente comando en el prompt de tu powershell
+Para agregar el script generado a tu archivo `$PROFILE`, ejecute el siguiente comando en el prompt de tu PowerShell:
 
 ```powershell
 kubectl completion powershell >> $PROFILE
