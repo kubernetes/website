@@ -171,7 +171,7 @@ ports:
 
 4. `endpoints`フィールドと`addresses`フィールドはどちらも配列ですが、慣習的に`addresses`フィールドは1つの要素しか含みません。あなたのServiceが複数のエンドポイントを持つ場合、`endpoints`フィールドに複数の要素を持たせ、それぞれの`addresses`フィールドは1つの要素しか持たない形にして下さい。
 
-5. Endpoints APIでは「ready」と「not-ready」のエンドポイントが別々に列挙されますが、EndpointSlice APIでは各エンドポイントごとにconditions (`ready: false` など)を設定することができます。
+5. Endpoints APIでは「ready」と「not-ready」のエンドポイントが別々に列挙されますが、EndpointSlice APIでは各エンドポイントごとにconditions(`ready: false`など)を設定することができます。
 
 もちろん、ひとたびEndpointSliceに移行すれば、Topology Aware RoutingやTerminating EndpointsなどEndpointSlice特有の機能を活用できます。
 詳細は[EndpointSlice APIのドキュメント](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1)をご参照下さい。
