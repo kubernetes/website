@@ -51,11 +51,11 @@ myservice-jcv8s   IPv6          443     2001:db8:0123::5   21s
 
 複数のEndpointSliceを持つ _可能性_ は、複数のエンドポイントが存在するあらゆるServiceにありますが、代表的なケースが3つ存在します。
 
-- EndpointSliceは単一のIPファミリーのエンドポイントしか表現できないため、デュアルスタックServiceの場合、IPv4用とIPv6用のEndpointSliceがそれぞれ作成されます。
+  - EndpointSliceは単一のIPファミリーのエンドポイントしか表現できないため、デュアルスタックServiceの場合、IPv4用とIPv6用のEndpointSliceがそれぞれ作成されます。
 
-- 単一のEndpointSlice内のエンドポイントは、全て同じポートを対象とする必要があります。例えば、エンドポイントとなるPodをロールアウトして、リッスンするポート番号を80から8080に更新する場合、ロールアウト中はServiceに2つのEndpointSliceが必要になります。1つはポート80をリッスンしているエンドポイント用、もう1つはポート8080をリッスンしているエンドポイント用です。
+  - 単一のEndpointSlice内のエンドポイントは、全て同じポートを対象とする必要があります。例えば、エンドポイントとなるPodをロールアウトして、リッスンするポート番号を80から8080に更新する場合、ロールアウト中はServiceに2つのEndpointSliceが必要になります。1つはポート80をリッスンしているエンドポイント用、もう1つはポート8080をリッスンしているエンドポイント用です。
 
-- Serviceに100以上のエンドポイントが存在する場合、Endpointsコントローラーは1つの巨大なオブジェクトにエンドポイントを集約していましたが、EndpointSliceコントローラーはこれらを複数のEndpointSliceに分割します。
+  - Serviceに100以上のエンドポイントが存在する場合、Endpointsコントローラーは1つの巨大なオブジェクトにエンドポイントを集約していましたが、EndpointSliceコントローラーはこれらを複数のEndpointSliceに分割します。
 
 ServiceとEndpointSliceの間に予測可能な1対1の対応関係はないため、あるServiceに紐づけられるEndpointSliceリソースの実際の名前を事前に知ることはできません。
 そのため、Serviceに紐づけられるEndpointSliceリソースを取得する際は、名前で取得するのではなく、`"kubernetes.io/service-name"`[ラベル](/docs/concepts/overview/working-with-objects/labels/)が目的のServiceを指しているEndpointSliceを全て取得する必要があります。
@@ -169,7 +169,7 @@ ports:
 
 3. EndpointSliceは、Endpointsの`"subsets"`フィールドの一要素と類似しています。複数のsubsetsを持つEndpointsオブジェクトを表現する場合、基本的には異なる`"ports"`を持つ複数のEndpointSliceにする必要があります。
 
-4. `endpoints`フィールドと`addresses`フィールドはどちらも配列ですが、慣習的に`addresses`フィールドは1つの要素しか含みません。あなたのServiceが複数のエンドポイントを持つ場合、`endpoints`フィールドに複数の要素を持たせ、それぞれの`addresses`フィールドは1つの要素しか持たない形にして下さい。
+4. `endpoints`フィールドと`addresses`フィールドはどちらも配列ですが、慣習的に`addresses`フィールドは1つの要素しか含みません。Serviceに複数のエンドポイントがある場合は、`endpoints`フィールドに複数の要素を持たせ、それぞれの`addresses`フィールドには1つの要素のみを含める必要があります。
 
 5. Endpoints APIでは「ready」と「not-ready」のエンドポイントが別々に列挙されますが、EndpointSlice APIでは各エンドポイントごとにconditions(`ready: false`など)を設定することができます。
 
