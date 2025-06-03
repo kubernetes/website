@@ -39,7 +39,7 @@ weight: 20
 
     Calico पॉड्स `calico` से शुरू होते हैं। जांचें कि प्रत्येक की स्थिति `Running` है।
 
-## kubeadm के साथ लोकल Calico क्लस्टर बनाना
+## kubeadm के साथ लोकल Calico क्लस्टर बनाना  {#creating-a-local-calico-cluster-with-kubeadm}
 
 kubeadm का उपयोग करके पंद्रह मिनट में एक लोकल सिंगल-होस्ट Calico क्लस्टर प्राप्त करने के लिए,
 [Calico क्विकस्टार्ट](https://projectcalico.docs.tigera.io/getting-started/kubernetes/) देखें।
