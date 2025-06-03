@@ -1,20 +1,17 @@
 ---
 layout: blog
-title: "Kubernetes 1.33：存储动态制备模式下的节点存储容量评分（Alpha 版）"
-date: 2025-04-23
-draft: true
-slug: kubernetes-1-33-storage-capacity-scoring-feature
+title: "Kubernetes v1.33：存储动态制备模式下的节点存储容量评分（Alpha 版）"
+date: 2025-04-30T10:30:00-08:00
+slug: kubernetes-v1-33-storage-capacity-scoring-feature
 author: >
   Yuma Ogami (Cybozu)
 translator: Xin Li (DaoCloud)
 ---
-
 <!--
 layout: blog
-title: "Kubernetes 1.33: Storage Capacity Scoring of Nodes for Dynamic Provisioning (alpha)"
-date: 2025-04-23
-draft: true
-slug: kubernetes-1-33-storage-capacity-scoring-feature
+title: "Kubernetes v1.33: Storage Capacity Scoring of Nodes for Dynamic Provisioning (alpha)"
+date: 2025-04-30T10:30:00-08:00
+slug: kubernetes-v1-33-storage-capacity-scoring-feature
 author: >
   Yuma Ogami (Cybozu)
 -->
@@ -36,7 +33,7 @@ This feature extends the kube-scheduler's VolumeBinding plugin to perform scorin
 obtained from [Storage Capacity](/docs/concepts/storage/storage-capacity/). Currently, you can only filter out nodes with insufficient storage capacity.
 So, you have to use a scheduler extender to achieve storage-capacity-based pod scheduling.
 -->
-## 关于此特性
+## 关于此特性   {#about-this-feature}
 
 此特性扩展了 kube-scheduler 的 VolumeBinding 插件，
 以使用从[存储容量](/zh-cn/docs/concepts/storage/storage-capacity/)获得的节点存储容量信息进行评分。
@@ -67,9 +64,9 @@ utilized nodes first that still have enough storage capacity for the requested v
 In the alpha phase, `StorageCapacityScoring` is disabled by default. To use this feature, add `StorageCapacityScoring=true`
 to the kube-scheduler command line option `--feature-gates`.
 -->
-## 如何使用
+## 如何使用   {#how-to-use}
 
-### 启用此特性
+### 启用此特性   {#enabling-the-feature}
 
 在 Alpha 阶段，`StorageCapacityScoring` 默认是禁用的。要使用此特性，请将
 `StorageCapacityScoring=true` 添加到 kube-scheduler 命令行选项
@@ -82,7 +79,7 @@ You can configure node priorities based on storage utilization using the `shape`
 This allows you to prioritize nodes with higher available storage capacity (default) or, conversely, nodes with lower available storage capacity.
 For example, to prioritize lower available storage capacity, configure `KubeSchedulerConfiguration` as follows:
 -->
-### 配置更改
+### 配置更改   {#configuration-changes}
 
 你可以使用 VolumeBinding 插件配置中的 `shape` 参数，根据存储利用率来配置节点优先级。
 这允许你优先考虑具有更高可用存储容量（默认）的节点，或者相反，优先考虑具有更低可用存储容量的节点。
@@ -112,7 +109,7 @@ For more details, please refer to the [documentation](/docs/reference/config-api
 <!--
 ## Further reading
 -->
-## 进一步阅读
+## 进一步阅读   {#further-reading}
 
 - [KEP-4049: Storage Capacity Scoring of Nodes for Dynamic Provisioning](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/4049-storage-capacity-scoring-of-nodes-for-dynamic-provisioning/README.md)
 
