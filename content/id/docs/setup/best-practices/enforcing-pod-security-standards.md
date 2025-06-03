@@ -9,7 +9,7 @@ Laman ini memberikan sebuah gambaran umum tentang cara memberlakukan [Standar Ke
 
 <!-- body -->
 
-## Menggunakan Kontroler *Pod Security Admission* bawaan
+## Menggunakan Kontroler *Pod Security Admission* Bawaan
 
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
