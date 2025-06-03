@@ -7,7 +7,7 @@ weight: 120
 
 <!-- overview -->
 
-Dalam Kubernetes, [Service](/docs/concepts/services-networking/service/) adalah cara abstrak untuk mengekspos aplikasi yang berjalan pada sekumpulan Pod. Service dapat memiliki alamat IP virtual yang berlaku dalam skala kluster (menggunakan Service dengan `type: ClusterIP`). Klien dapat terhubung menggunakan alamat IP virtual tersebut, dan Kubernetes kemudian mendistribusikan lalu lintas ke Service tersebut di antara berbagai Pod yang menjadi backend-nya.
+Dalam Kubernetes, [Service](/docs/concepts/services-networking/service/) adalah cara abstrak untuk mengekspos aplikasi yang berjalan pada sekumpulan Pod. Service dapat memiliki alamat IP virtual yang berlaku dalam skala kluster (menggunakan Service dengan `type: ClusterIP`). Klien dapat terhubung menggunakan alamat IP virtual tersebut, dan Kubernetes kemudian mendistribusikan lalu lintas ke Service tersebut di antara berbagai Pod yang menjadi _backend_-nya.
 
 <!-- body -->
 
