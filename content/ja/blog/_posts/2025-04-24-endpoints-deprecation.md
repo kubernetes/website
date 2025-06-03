@@ -173,5 +173,5 @@ ports:
 
 5. Endpoints APIでは「ready」と「not-ready」のエンドポイントが別々に列挙されますが、EndpointSlice APIでは各エンドポイントごとにconditions(`ready: false`など)を設定することができます。
 
-もちろん、ひとたびEndpointSliceに移行すれば、Topology Aware RoutingやTerminating EndpointsなどEndpointSlice特有の機能を活用できます。
+もちろん、ひとたびEndpointSliceに移行すれば、topology hintsやterminating endpointsなどEndpointSlice特有の機能を活用できます。
 詳細は[EndpointSlice APIのドキュメント](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1)をご参照下さい。
