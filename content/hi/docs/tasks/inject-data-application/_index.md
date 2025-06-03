@@ -1,0 +1,11 @@
+---
+title: "ऐप्लिकेशन में डेटा इंजेक्ट करें"
+description: अपने वर्कलोड को चलाने वाले पॉड्स के लिए कॉन्फ़िगरेशन और अन्य डेटा निर्दिष्ट करें।
+weight: 70
+---
+
+<!--
+title: "Inject Data Into Applications"
+description: Specify configuration and other data for the Pods that run your workload.
+weight: 70
+-->
