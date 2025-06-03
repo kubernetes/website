@@ -15,7 +15,7 @@ translator: >
 
 Kubernetes 1.33にてEndpoints APIは正式に非推奨となり、Endpointsリソースを読み書きするユーザーに対して、EndpointSliceを使用するようAPIサーバーから警告が返されるようになりました。
 
-最終的には、「ServiceとPodに基づいてEndpointsオブジェクトを生成する _Endpointsコントローラー_ がクラスタ内で実行されている」という基準を[Kubernetes Conformance]から除外することが[KEP-4974]にて計画されています。
+最終的には、「ServiceとPodに基づいてEndpointsオブジェクトを生成する _Endpointsコントローラー_ がクラスター内で実行されている」という基準を[Kubernetes Conformance]から除外することが[KEP-4974]にて計画されています。
 これの実現によって、Kubernetes Conformance Softwareの運用者は、現代的なほとんどのクラスタにおいて不要な作業を回避することができます。
 
 [Kubernetes非推奨ポリシー]に従うと、Endpointsが完全に廃止されることはおそらく無いですが、Endpoints APIを使うワークロードやスクリプトを保有しているユーザーはEndpointSliceへの移行が推奨されます。
