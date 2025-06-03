@@ -13,7 +13,7 @@ translator: >
 [デュアルスタックネットワーク]や[トラフィック分散]など、Serviceの新機能はEndpointSlice APIでのみサポートされているため、全てのサービスプロキシ、Gateway API実装、及び同様のコントローラーはEndpointsからEndpointSliceへの移行を余儀なくされました。
 現時点のEndpoints APIは、未だにEndpointsを使っているエンドユーザーのワークロードやスクリプトの互換性を維持するための存在に過ぎません。
 
-Kubernetes 1.33にてEndpoints APIは正式に非推奨となり、Endpointsリソースを読み書きするユーザーに対して、EndpointSliceを使用するようAPIサーバーから警告が返されるようになりました。
+Kubernetes 1.33以降、Endpoints APIは正式に非推奨となり、Endpointsリソースを読み書きするユーザーに対して、EndpointSliceを使用するようAPIサーバーから警告が返されるようになりました。
 
 最終的には、「ServiceとPodに基づいてEndpointsオブジェクトを生成する _Endpointsコントローラー_ がクラスター内で実行されている」という基準を[Kubernetes Conformance]から除外することが[KEP-4974]にて計画されています。
 これの実現によって、Kubernetes Conformance Softwareの運用者は、現代的なほとんどのクラスタにおいて不要な作業を回避することができます。
