@@ -57,7 +57,7 @@ myservice-jcv8s   IPv6          443     2001:db8:0123::5   21s
 
 - Serviceに100以上のエンドポイントが存在する場合、Endpointsコントローラーは1つの巨大なオブジェクトにエンドポイントを集約していましたが、EndpointSliceコントローラーはこれらを複数のEndpointSliceに分割します。
 
-ServiceとEndpointSliceの間に予測可能な1対1の対応関係はないので、あるServiceに紐づけられるEndpointSliceリソースの名前を事前に知ることはできません。
+ServiceとEndpointSliceの間に予測可能な1対1の対応関係はないため、あるServiceに紐づけられるEndpointSliceリソースの実際の名前を事前に知ることはできません。
 そのため、Serviceに紐づけられるEndpointSliceリソースを取得する際は、名前で取得するのではなく、`"kubernetes.io/service-name"`[ラベル](/docs/concepts/overview/working-with-objects/labels/)が目的のServiceを指しているEndpointSliceを全て取得する必要があります。
 
 ```console
