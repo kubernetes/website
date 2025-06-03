@@ -12,7 +12,7 @@ weight: 20
 
 ## {{% heading "prerequisites" %}}
 
-तय करें कि आप [क्लाउड](#creating-a-calico-cluster-with-google-kubernetes-engine-gke) या [लोकल](#creating-a-local-calico-cluster-with-kubeadm) क्लस्टर डिप्लॉय करना चाहते हैं।
+तय करें कि आप [cloud](#creating-a-calico-cluster-with-google-kubernetes-engine-gke) या [local](#creating-a-local-calico-cluster-with-kubeadm) क्लस्टर डिप्लॉय करना चाहते हैं।
 
 <!-- steps -->
 ## Google कुबेरनेट्स इंजन (GKE) के साथ Calico क्लस्टर बनाना
