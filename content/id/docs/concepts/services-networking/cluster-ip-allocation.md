@@ -7,7 +7,7 @@ weight: 120
 
 <!-- overview -->
 
-Dalam Kubernetes, [Service](/docs/concepts/services-networking/service/) adalah cara abstrak untuk mengekspos aplikasi yang berjalan pada sekumpulan Pod. Service dapat memiliki alamat IP virtual yang berlaku dalam skala kluster (menggunakan Service dengan `type: ClusterIP`). Klien dapat terhubung menggunakan alamat IP virtual tersebut, dan Kubernetes kemudian mendistribusikan lalu lintas ke Service tersebut di antara berbagai Pod yang menjadi _backend_-nya.
+Dalam Kubernetes, [Service](/docs/concepts/services-networking/service/) adalah cara abstrak untuk mengekspos aplikasi yang berjalan pada sekumpulan Pod. Service dapat memiliki alamat IP virtual yang berlaku dalam skala klaster (menggunakan Service dengan `type: ClusterIP`). Klien dapat terhubung menggunakan alamat IP virtual tersebut, dan Kubernetes kemudian mendistribusikan lalu lintas ke Service tersebut di antara berbagai Pod yang menjadi _backend_-nya.
 
 <!-- body -->
 
@@ -16,18 +16,18 @@ Dalam Kubernetes, [Service](/docs/concepts/services-networking/service/) adalah 
 Ketika Kubernetes perlu menetapkan alamat IP virtual untuk sebuah Service, penetapan tersebut dapat dilakukan dengan dua cara:
 
 _dinamis_
-: _Control plane_ kluster secara otomatis memilih alamat IP yang tersedia dari dalam rentang IP yang telah dikonfigurasi untuk Service dengan `type: ClusterIP`.
+: _Control plane_ klaster secara otomatis memilih alamat IP yang tersedia dari dalam rentang IP yang telah dikonfigurasi untuk Service dengan `type: ClusterIP`.
 
 _statis_
 : Kamu yang menentukan sendiri alamat IP yang diinginkan, asalkan berada dalam rentang IP yang telah dikonfigurasi untuk Service.
 
-Di seluruh kluster kamu, setiap `ClusterIP` untuk Service harus unik. Mencoba membuat Service dengan `ClusterIP` tertentu yang telah dialokasikan sebelumnya akan menghasilkan _error_.
+Di seluruh klaster kamu, setiap `ClusterIP` untuk Service harus unik. Mencoba membuat Service dengan `ClusterIP` tertentu yang telah dialokasikan sebelumnya akan menghasilkan _error_.
 
 ## Mengapa Kamu Perlu Menetapkan Alamat IP Cluster Service?
 
-Kamu terkadang ingin memiliki Service yang berjalan dengan alamat IP yang telah dikenal (_well-known IP addresses_), sehingga komponen lain dan pengguna dalam kluster dapat menggunakannya.
+Kamu terkadang ingin memiliki Service yang berjalan dengan alamat IP yang telah dikenal (_well-known IP addresses_), sehingga komponen lain dan pengguna dalam klaster dapat menggunakannya.
 
-Contoh terbaiknya adalah Service DNS untuk kluster. Sebagai konvensi lunak, beberapa _installer_ Kubernetes menetapkan alamat IP ke-10 dari rentang IP Service untuk Service DNS. Misalnya, jika kamu mengonfigurasi kluster kamu dengan rentang IP Service 10.96.0.0/16 dan ingin alamat IP Service DNS kamu menjadi 10.96.0.10, kamu harus membuat Service seperti berikut:
+Contoh terbaiknya adalah Service DNS untuk klaster. Sebagai konvensi lunak, beberapa _installer_ Kubernetes menetapkan alamat IP ke-10 dari rentang IP Service untuk Service DNS. Misalnya, jika kamu mengonfigurasi klaster kamu dengan rentang IP Service 10.96.0.0/16 dan ingin alamat IP Service DNS kamu menjadi 10.96.0.10, kamu harus membuat Service seperti berikut:
 
 ```yaml
 apiVersion: v1
