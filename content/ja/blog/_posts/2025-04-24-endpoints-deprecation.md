@@ -163,7 +163,7 @@ ports:
 
 いくつか留意点があります。
 
-1. この例では明示的に`name`を指定していますが、`generateName`を使用することでAPIサーバーにサフィックスを付加させることもできます。前の章に書いてある通り、重要なのは名前ではなく、Serviceを指す`"kubernetes.io/service-name"`ラベルです。
+1. この例では明示的に`name`を指定していますが、`generateName`を使用することでAPIサーバーにユニークなサフィックスを付加させることもできます。重要なのは名前自体ではなく、Serviceを指す`"kubernetes.io/service-name"`ラベルです。
 
 2. 明示的に`addressType: IPv4`(または`IPv6`)を指定する必要があります。
 
