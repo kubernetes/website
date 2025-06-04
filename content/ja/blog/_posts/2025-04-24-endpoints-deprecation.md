@@ -9,7 +9,7 @@ translator: >
   [Takuto Nagami](https://github.com/logica0419) (千葉工業大学)
 ---
 
-[EndpointSlice]([KEP-752])がv1.15でアルファとして導入され、v1.21でGAとなって以来、Endpoints APIはKubernetesの中でほぼ使われず、埃を被っています。
+[EndpointSlice] ([KEP-752])がv1.15でアルファとして導入され、v1.21でGAとなって以来、Endpoints APIはKubernetesの中でほぼ使われず、埃を被っています。
 [デュアルスタックネットワーク]や[トラフィック分散]など、Serviceの新機能はEndpointSlice APIでのみサポートされているため、全てのサービスプロキシ、Gateway API実装、及び同様のコントローラーはEndpointsからEndpointSliceへの移行を余儀なくされました。
 現時点のEndpoints APIは、未だにEndpointsを使っているエンドユーザーのワークロードやスクリプトの互換性を維持するための存在に過ぎません。
 
