@@ -376,11 +376,11 @@ Non-structural example 1:
 -->
 非结构化的例 1：
 
-```none
+```yaml
 allOf:
 - properties:
     foo:
-      ...
+      # ...
 ```
 
 <!--
@@ -388,14 +388,14 @@ conflicts with rule 2. The following would be correct:
 -->
 违反了第 2 条规则。下面的是正确的：
 
-```none
+```yaml
 properties:
   foo:
-    ...
+    # ...
 allOf:
 - properties:
     foo:
-      ...
+      # ...
 ```
 
 <!--
@@ -403,12 +403,12 @@ Non-structural example 2:
 -->
 非结构化的例 2：
 
-```none
+```yaml
 allOf:
 - items:
     properties:
       foo:
-        ...
+        # ...
 ```
 
 <!--
@@ -416,16 +416,16 @@ conflicts with rule 2. The following would be correct:
 -->
 违反了第 2 条规则。下面的是正确的：
 
-```none
+```yaml
 items:
   properties:
     foo:
-      ...
+      # ...
 allOf:
 - items:
     properties:
       foo:
-        ...
+        # ...
 ```
 
 <!--
@@ -433,7 +433,7 @@ Non-structural example 3:
 -->
 非结构化的例 3：
 
-```none
+```yaml
 properties:
   foo:
     pattern: "abc"
@@ -535,12 +535,6 @@ For legacy CustomResourceDefinition objects created as
 
 * Pruning is not enabled.
 * You can store arbitrary data.
-
-For compatibility with `apiextensions.k8s.io/v1`, update your custom
-resource definitions to:
-
-1. Use a structural OpenAPI schema.
-2. Set `spec.preserveUnknownFields` to `false`.
 -->
 从 `apiextensions.k8s.io/v1beta1` 转换到 `apiextensions.k8s.io/v1` 的 CRD
 可能没有结构化的模式定义，因此其 `spec.preserveUnknownFields` 可能为 `true`。
@@ -551,6 +545,13 @@ resource definitions to:
 * 裁剪未启用。
 * 可以存储任意数据。
 
+<!--
+For compatibility with `apiextensions.k8s.io/v1`, update your custom
+resource definitions to:
+
+1. Use a structural OpenAPI schema.
+2. Set `spec.preserveUnknownFields` to `false`.
+-->
 为了与 `apiextensions.k8s.io/v1` 兼容，将你的定制资源定义更新为：
 
 1. 使用结构化的 OpenAPI 模式。
@@ -745,7 +746,7 @@ Also those nodes are partially excluded from rule 3 in the sense that the follow
 此外，所有这类节点也不再受规则 3 约束，也就是说，下面两种模式是被允许的
 （注意，仅限于这两种模式，不支持添加新字段的任何其他变种）：
 
-```none
+```yaml
 x-kubernetes-int-or-string: true
 anyOf:
   - type: integer
@@ -758,13 +759,24 @@ and
 -->
 和
 
-```none
+<!--
+```yaml
 x-kubernetes-int-or-string: true
 allOf:
   - anyOf:
       - type: integer
       - type: string
-  - ... # zero or more
+  - # ... zero or more
+...
+```
+-->
+```yaml
+x-kubernetes-int-or-string: true
+allOf:
+  - anyOf:
+      - type: integer
+      - type: string
+  - # ... 零或更多
 ...
 ```
 
@@ -810,12 +822,12 @@ Here, the field `foo` holds a complete object, e.g.:
 -->
 这里，字段 `foo` 包含一个完整的对象，例如：
 
-```none
+```yaml
 foo:
   apiVersion: v1
   kind: Pod
   spec:
-    ...
+    # ...
 ```
 
 <!--
@@ -930,21 +942,6 @@ can add additional validation using
 Additionally, the following restrictions are applied to the schema:
 
 - These fields cannot be set:
-
-  - `definitions`,
-  - `dependencies`,
-  - `deprecated`,
-  - `discriminator`,
-  - `id`,
-  - `patternProperties`,
-  - `readOnly`,
-  - `writeOnly`,
-  - `xml`,
-  - `$ref`.
-
-- The field `uniqueItems` cannot be set to `true`.
-- The field `additionalProperties` cannot be set to `false`.
-- The field `additionalProperties` is mutually exclusive with `properties`.
 -->
 此外，对模式定义存在以下限制：
 
@@ -961,6 +958,11 @@ Additionally, the following restrictions are applied to the schema:
   - `xml`
   - `$ref`
 
+<!--
+- The field `uniqueItems` cannot be set to `true`.
+- The field `additionalProperties` cannot be set to `false`.
+- The field `additionalProperties` is mutually exclusive with `properties`.
+-->
 - 字段 `uniqueItems` 不可设置为 `true`
 - 字段 `additionalProperties` 不可设置为 `false`
 - 字段 `additionalProperties` 与 `properties` 互斥，不可同时使用
@@ -1219,7 +1221,7 @@ Kubernetes {{< skew currentVersion >}} 下实现的验证逐步升级不支持�
   Errors arising from changing the list type of a subschema will not be 
   ratcheted. For example adding `set` onto a list with duplicates will always 
   result in an error.
-- `x-kubernetes-map-keys`
+- `x-kubernetes-list-map-keys`
   Errors arising from changing the map keys of a list schema will not be 
   ratcheted.
 -->
@@ -1228,7 +1230,7 @@ Kubernetes {{< skew currentVersion >}} 下实现的验证逐步升级不支持�
   更改子模式的列表类型引发的错误不会被逐步升级机制处理。
   例如，在具有重复项的列表上添加 `set` 一定会出错。
 
-- `x-kubernetes-map-keys`
+- `x-kubernetes-list-map-keys`
 
   由于更改列表模式定义的映射键而引起的错误将不会被逐步升级机制处理。
 
@@ -1301,8 +1303,8 @@ For example:
 -->
 例如：
 
-```none
-  ...
+```yaml
+  # ...
   openAPIV3Schema:
     type: object
     properties:
@@ -1314,7 +1316,7 @@ For example:
           - rule: "self.replicas <= self.maxReplicas"
             message: "replicas should be smaller than or equal to maxReplicas."
         properties:
-          ...
+          # ...
           minReplicas:
             type: integer
           replicas:
@@ -1355,22 +1357,25 @@ The CronTab "my-new-cron-object" is invalid:
 
 <!--
 `x-kubernetes-validations` could have multiple rules.
-
 The `rule` under `x-kubernetes-validations` represents the expression which will be evaluated by CEL.
-
 The `message` represents the message displayed when validation fails. If message is unset, the
 above response would be:
 -->
 `x-kubernetes-validations` 可以有多条规则。
-
 `x-kubernetes-validations` 下的 `rule` 代表将由 CEL 评估的表达式。
-
 `message` 代表验证失败时显示的信息。如果消息没有设置，上述响应将是：
 
 ```
 The CronTab "my-new-cron-object" is invalid:
 * spec: Invalid value: map[string]interface {}{"maxReplicas":10, "minReplicas":0, "replicas":20}: failed rule: self.replicas <= self.maxReplicas
 ```
+
+{{< note >}}
+<!--
+You can quickly test CEL expressions in [CEL Playground](https://playcel.undistro.io).
+-->
+你可以在 [CEL Playground](https://playcel.undistro.io) 中快速测试这些 CEL 表达式。
+{{< /note >}}
 
 <!--
 Validation rules are compiled when CRDs are created/updated.
@@ -1394,7 +1399,7 @@ The compilation failure:
 
   例如，像 `self == true` 这样的规则对一个整数类型的字段将得到错误：
 
-  ```
+  ```none
   Invalid value: apiextensions.ValidationRule{Rule:"self == true", Message:""}: compilation failed: ERROR: \<input>:1:6: found no matching overload for '_==_' applied to '(int, bool)'
   ```
 
@@ -1408,7 +1413,7 @@ The compilation failure:
 
   例如，针对一个不存在的字段，像 `self.nonExistingField > 0` 这样的规则将返回错误：
 
-  ```
+  ```none
   Invalid value: apiextensions.ValidationRule{Rule:"self.nonExistingField > 0", Message:""}: compilation failed: ERROR: \<input>:1:5: undefined field 'nonExistingField'
   ```
 
@@ -1421,7 +1426,7 @@ The compilation failure:
 
   例如，像 `has(self)` 这样的规则将返回错误：
 
-  ```
+  ```none
   Invalid value: apiextensions.ValidationRule{Rule:"has(self)", Message:""}: compilation failed: ERROR: <input>:1:4: invalid argument to has() macro
   ```
 
@@ -1476,8 +1481,8 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
   以及 `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName`。
   这包括在同一表达式中对 `spec` 和 `status` 的字段进行选择：
 
-  ```none
-    ...
+  ```yaml
+    # ...
     openAPIV3Schema:
       type: object
       x-kubernetes-validations:
@@ -1488,7 +1493,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
             properties:
               minReplicas:
                 type: integer
-              ...
+              # ...
           status:
             type: object
             properties:
@@ -1505,8 +1510,8 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
   而字段存在与否可以通过 `has(self.field)` 来检查。
   在 CEL 表达式中，Null 值的字段被视为不存在的字段。
 
-  ```none
-    ...
+  ```yaml
+    # ...
     openAPIV3Schema:
       type: object
       properties:
@@ -1515,7 +1520,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
           x-kubernetes-validations:
             - rule: "has(self.foo)"
           properties:
-            ...
+            # ...
             foo:
               type: integer
   ```
@@ -1529,8 +1534,8 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
   可以通过 `self[mapKey]` 访问，map 的包含性可以通过 `mapKey in self` 检查，
   map 中的所有条目可以通过 CEL 宏和函数如 `self.all(...)` 访问。
 
-  ```none
-    ...
+  ```yaml
+    # ...
     openAPIV3Schema:
       type: object
       properties:
@@ -1539,7 +1544,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
           x-kubernetes-validations:
             - rule: "self['xyz'].foo > 0"
           additionalProperties:
-            ...
+            # ...
             type: object
             properties:
               foo:
@@ -1552,12 +1557,12 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
 -->
 - 如果规则的作用域是 array，则 array 的元素可以通过 `self[i]` 访问，也可以通过宏和函数访问。
 
-  ```none
-    ...
+  ```yaml
+    # ...
     openAPIV3Schema:
       type: object
       properties:
-        ...
+        # ...
         foo:
           type: array
           x-kubernetes-validations:
@@ -1571,15 +1576,15 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
 -->
 - 如果规则的作用域为标量，则 `self` 将绑定到标量值。
 
-  ```none
-    ...
+  ```yaml
+    # ...
     openAPIV3Schema:
       type: object
       properties:
         spec:
           type: object
           properties:
-            ...
+            # ...
             foo:
               type: integer
               x-kubernetes-validations:
@@ -1970,15 +1975,15 @@ Example Usage:
 <!--
 | CEL                                     | Description |
 |-----------------------------------------|-------------|
-| `self.foo == "foo" || (oldSelf.hasValue() && oldSelf.value().foo != "foo")` | Ratcheted rule. Once a value is set to "foo", it must stay foo. But if it existed before the "foo" constraint was introduced, it may use any value |
-| [oldSelf.orValue(""), self].all(x, ["OldCase1", "OldCase2"].exists(case, x == case)) || ["NewCase1", "NewCase2"].exists(case, self == case) || ["NewCase"].has(self)` | "Ratcheted validation for removed enum cases if oldSelf used them" |
-| oldSelf.optMap(o, o.size()).orValue(0) < 4 || self.size() >= 4 | Ratcheted validation of newly increased minimum map or list size |
+| <code>self.foo == "foo" &#124;&#124; (oldSelf.hasValue() && oldSelf.value().foo != "foo")</code> | Ratcheted rule. Once a value is set to "foo", it must stay foo. But if it existed before the "foo" constraint was introduced, it may use any value |
+| <code>[oldSelf.orValue(""), self].all(x, ["OldCase1", "OldCase2"].exists(case, x == case)) &#124;&#124; ["NewCase1", "NewCase2"].exists(case, self == case) &#124;&#124; ["NewCase"].has(self)</code> | "Ratcheted validation for removed enum cases if oldSelf used them" |
+| <code>oldSelf.optMap(o, o.size()).orValue(0) < 4 &#124;&#124; self.size() >= 4</code> | Ratcheted validation of newly increased minimum map or list size |
 -->
 | CEL                                     | 描述 |
 |-----------------------------------------|------|
-| `self.foo == "foo" || (oldSelf.hasValue() && oldSelf.value().foo != "foo")` | 逐步升级规则。一旦将值设置为 "foo"，它必须保持为 foo。但如果在引入 "foo" 约束之前它已存在，则可以使用所有值 |
-| [oldSelf.orValue(""), self].all(x, ["OldCase1", "OldCase2"].exists(case, x == case)) || ["NewCase1", "NewCase2"].exists(case, self == case) || ["NewCase"].has(self)` | "如果 oldSelf 使用了已移除的枚举值，则逐步升级验证" |
-| oldSelf.optMap(o, o.size()).orValue(0) < 4 || self.size() >= 4 | 对新增的最小映射或列表大小进行逐步升级验证 |
+| <code>self.foo == "foo" &#124;&#124; (oldSelf.hasValue() && oldSelf.value().foo != "foo")</code> | 逐步升级规则。一旦将值设置为 "foo"，它必须保持为 foo。但如果在引入 "foo" 约束之前它已存在，则可以使用所有值 |
+| <code>[oldSelf.orValue(""), self].all(x, ["OldCase1", "OldCase2"].exists(case, x == case)) &#124;&#124; ["NewCase1", "NewCase2"].exists(case, self == case) &#124;&#124; ["NewCase"].has(self)</code> | "如果 oldSelf 使用了已移除的枚举值，则逐步升级验证" |
+| <code>oldSelf.optMap(o, o.size()).orValue(0) < 4 &#124;&#124; self.size() >= 4</code> 对新增的最小映射或列表大小进行逐步升级验证 |
 
 <!--
 #### Validation functions {#available-validation-functions}

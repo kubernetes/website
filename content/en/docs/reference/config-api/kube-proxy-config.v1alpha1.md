@@ -1113,9 +1113,9 @@ Windows</p>
 
 
 <p>ProxyMode represents modes used by the Kubernetes proxy server.</p>
-<p>Currently, two modes of proxy are available on Linux platforms: 'iptables' and 'ipvs'.
-One mode of proxy is available on Windows platforms: 'kernelspace'.</p>
-<p>If the proxy mode is unspecified, the best-available proxy mode will be used (currently this
+<p>Three modes of proxy are available on Linux platforms: <code>iptables</code>, <code>ipvs</code>, and
+<code>nftables</code>. One mode of proxy is available on Windows platforms: <code>kernelspace</code>.</p>
+<p>If the proxy mode is unspecified, a default proxy mode will be used (currently this
 is <code>iptables</code> on Linux and <code>kernelspace</code> on Windows). If the selected proxy mode cannot be
 used (due to lack of kernel support, missing userspace components, etc) then kube-proxy
 will exit with an error.</p>

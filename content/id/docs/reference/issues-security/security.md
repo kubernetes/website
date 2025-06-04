@@ -1,6 +1,6 @@
 ---
 title: Informasi Keamanan dan Pengungkapan Kubernetes
-aliases: [/security/]
+aliases: [/id/security/]
 reviewers:
 - eparis
 - erictune

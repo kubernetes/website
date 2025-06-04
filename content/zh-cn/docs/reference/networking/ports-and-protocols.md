@@ -53,6 +53,7 @@ etcd cluster externally or on custom ports.
 | TCP      | Inbound   | 10250       | Kubelet API           | Self, Control plane     |
 | TCP      | Inbound   | 10256       | kube-proxy            | Self, Load balancers    |
 | TCP      | Inbound   | 30000-32767 | NodePort Services†    | All                     |
+| UDP      | Inbound   | 30000-32767 | NodePort Services†    | All                     |
 
 † Default port range for [NodePort Services](/docs/concepts/services-networking/service/).
 
@@ -71,6 +72,7 @@ on the default port.
 | TCP      | 入站       | 10250       | kubelet API           | 自身、控制面             |
 | TCP      | 入站       | 10256       | kube-proxy            | 自身、负载均衡器   |
 | TCP      | 入站       | 30000-32767 | NodePort Services†    | 所有                    |
+| UDP      | 入站       | 30000-32767 | NodePort Services†    | 所有                    |
 
 † [NodePort Service](/zh-cn/docs/concepts/services-networking/service/) 的默认端口范围。
 

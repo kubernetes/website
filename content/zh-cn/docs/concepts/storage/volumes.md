@@ -588,13 +588,13 @@ Kubernetes 项目建议你转为使用
 
 {{< warning >}}
 <!--
-The `gitRepo` volume type is deprecated.
+The `gitRepo` volume plugin is deprecated and is disabled by default.
 
 To provision a Pod that has a Git repository mounted, you can mount an
 [`emptyDir`](#emptydir) volume into an [init container](/docs/concepts/workloads/pods/init-containers/)
 that clones the repo using Git, then mount the [EmptyDir](#emptydir) into the Pod's container.
 -->
-`gitRepo` 卷类型已经被弃用。
+`gitRepo` 卷插件已经被弃用且默认禁用。
 
 如果需要制备已挂载 Git 仓库的 Pod，你可以将
 [EmptyDir](#emptydir) 卷挂载到 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)中，
@@ -617,6 +617,15 @@ part of a policy to reject use of `gitRepo` volumes:
 !has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))
 ```
 {{< /warning >}}
+
+<!--
+You can use this deprecated storage plugin in your cluster if you explicitly
+enable the `GitRepoVolumeDriver`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+-->
+如果你明确启用 `GitRepoVolumeDriver`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+你可以在集群中使用这个已废弃的存储插件。
 
 <!--
 A `gitRepo` volume is an example of a volume plugin. This plugin
@@ -1083,8 +1092,10 @@ OCI 对象将以只读方式被挂载到单个目录（`spec.containers[*].volum
 <!--
 Besides that:
 
-- Sub path mounts for containers are not supported
-  (`spec.containers[*].volumeMounts.subpath`).
+- [`subPath`](/docs/concepts/storage/volumes/#using-subpath) or
+  [`subPathExpr`](/docs/concepts/storage/volumes/#using-subpath-expanded-environment)
+  mounts for containers (`spec.containers[*].volumeMounts.[subPath,subPathExpr]`)
+  are only supported from Kubernetes v1.33.
 - The field `spec.securityContext.fsGroupChangePolicy` has no effect on this
   volume type.
 - The [`AlwaysPullImages` Admission Controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
@@ -1092,7 +1103,9 @@ Besides that:
 -->
 此外：
 
-- 不支持容器使用子路径挂载（`spec.containers[*].volumeMounts.subpath`）。
+- 从 Kubernetes v1.33 开始，才支持容器的 [`subPath`](/zh-cn/docs/concepts/storage/volumes/#using-subpath) 或
+  [`subPathExpr`](/zh-cn/docs/concepts/storage/volumes/#using-subpath-expanded-environment)
+  挂载（`spec.containers[*].volumeMounts.[subPath,subPathExpr]`）。
 - `spec.securityContext.fsGroupChangePolicy` 字段对这种卷没有效果。
 - [`AlwaysPullImages` 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)也适用于此卷源，
   就像适用于容器镜像一样。
@@ -1450,30 +1463,18 @@ For more details, see the
 -->
 #### Portworx CSI 迁移
 
-{{< feature-state for_k8s_version="v1.25" state="beta" >}}
+{{< feature-state feature_gate_name="CSIMigrationPortworx" >}}
 
 <!--
-By default, Kubernetes {{% skew currentVersion %}} attempts to migrate legacy
-Portworx volumes to use CSI. (CSI migration for Portworx has been available since
-Kubernetes v1.23, but was only turned on by default since the v1.31 release).
-If you want to disable automatic migration, you can set the `CSIMigrationPortworx`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to `false`; you need to make that change for the kube-controller-manager **and** on
-every relevant kubelet.
-
-It redirects all plugin operations from the existing in-tree plugin to the
-`pxd.portworx.com` Container Storage Interface (CSI) Driver.
+In Kubernetes {{% skew currentVersion %}}, all operations for the in-tree
+Portworx volumes are redirected to the `pxd.portworx.com` 
+Container Storage Interface (CSI) Driver by default. 
 [Portworx CSI Driver](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi)
 must be installed on the cluster.
 -->
-默认情况下，Kubernetes {{% skew currentVersion %}} 尝试将传统的 Portworx 卷迁移为使用 CSI。
-（Portworx 的 CSI 迁移自 Kubernetes v1.23 版本以来一直可用，但从 v1.31 版本开始才默认启用）。
-如果你想禁用自动迁移，可以将 `CSIMigrationPortworx`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 设置为 `false`；
-你需要在 kube-controller-manager **和**每个相关的 kubelet 上进行此更改。
-
-它将所有插件操作不再指向树内插件（In-Tree Plugin），转而指向
-`pxd.portworx.com` 容器存储接口（Container Storage Interface，CSI）驱动。
+在 Kubernetes {{% skew currentVersion %}} 中，默认情况下，
+所有针对树内 Portworx 卷的操作都会被重定向到 
+`pxd.portworx.com` 容器存储接口（CSI）驱动。
 [Portworx CSI 驱动程序](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi)必须安装在集群上。
 
 <!--

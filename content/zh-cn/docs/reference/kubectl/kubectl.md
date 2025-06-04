@@ -570,6 +570,18 @@ When set to true, the kubectl exec, cp, and attach commands will attempt to stre
 </td>
 </tr>
 
+<tr>
+<td colspan="2">KUBECTL_KUBERC</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+When set to true, kuberc file is taken into account to define user specific preferences.
+-->
+当设置为 true 时，kuberc 文件会被纳入考虑，用于定义用户特定偏好设置。
+</td>
+</tr>
+
 </tbody>
 </table>
 

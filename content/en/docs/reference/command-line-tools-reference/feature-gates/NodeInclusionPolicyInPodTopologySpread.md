@@ -16,6 +16,7 @@ stages:
     toVersion: "1.32"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.33"
 ---
 Enable using `nodeAffinityPolicy` and `nodeTaintsPolicy` in

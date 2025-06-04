@@ -21,6 +21,9 @@ funkcji jako pull request do odpowiedniego gałęzi rozwojowej w repozytorium
 lub edytuje szkic bezpośrednio. Ta sekcja opisuje konwencje dotyczące
 rozgałęzień (ang. branching) oraz proces stosowany podczas wydania przez obie grupy.
 
+Więcej o publikowaniu nowych funkcji na blogu przeczytasz w
+sekcji [komunikaty po wydaniu](/docs/contribute/blog/release-comms/).
+
 <!-- body -->
 
 ## Dla współtwórców dokumentacji {#for-documentation-contributors}

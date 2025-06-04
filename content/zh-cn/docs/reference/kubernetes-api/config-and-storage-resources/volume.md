@@ -1565,7 +1565,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - IfNotPresent：如果磁盘上尚不存在此引用，kubelet 执行拉取操作。若此引用不存在且拉取失败，则容器创建将失败。
 
   <!--
-  The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+  The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
   -->
 
   如果 Pod 被删除并重新创建，此卷会被重新解析，这意味着在 Pod 重新创建时将可以访问新的远程内容。
@@ -1574,7 +1574,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   此卷可以挂载的对象类型由主机上的容器运行时实现负责定义，至少必须包含容器镜像字段所支持的所有有效类型。
   OCI 对象将以只读方式被挂载到单个目录（`spec.containers[*].volumeMounts.mountPath`）中。
   在 Linux 上，容器运行时通常还会挂载阻止文件执行（`noexec`）的卷。
-  不支持容器使用子路径挂载（`spec.containers[*].volumeMounts.subpath`）。
+  1.33 版本之前不支持容器使用子路径挂载（`spec.containers[*].volumeMounts.subpath`）。
   `spec.securityContext.fsGroupChangePolicy` 字段对这种卷没有效果。
 
   <!--

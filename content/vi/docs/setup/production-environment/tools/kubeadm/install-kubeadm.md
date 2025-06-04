@@ -397,7 +397,7 @@ Cả container runtime và kubelet có một thuộc tính gọi là
 cho việc quản lý các cgroup trên các máy Linux.
 
 {{< warning >}}
-Hợp nhất các cgroup driver của container runtime và kubelet là bắt buộc hoặc nếu không thì tiến trình kubelet sẽ lỗi.
+Làm cho khớp các cgroup driver của container runtime và kubelet là bắt buộc hoặc nếu không thì tiến trình kubelet sẽ lỗi.
 
 Xem [Cấu hình cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/) để biết thêm chi tiết.
 {{< /warning >}}

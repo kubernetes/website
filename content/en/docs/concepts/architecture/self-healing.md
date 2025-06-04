@@ -1,7 +1,14 @@
 ---
 title: Kubernetes Self-Healing  
 content_type: concept  
-Weight: 50  
+weight: 50  
+feature:
+  title: Self-healing
+  anchor: Automated recovery from damage
+  description: >
+    Kubernetes restarts containers that crash, replaces entire Pods where needed,
+    reattaches storage in response to wider failures, and can integrate with
+    node autoscalers to self-heal even at the node level.
 ---
 <!-- overview -->
 

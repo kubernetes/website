@@ -476,9 +476,9 @@ After that, `kubeadm join` will block until the admin has manually approved the 
    ```
 
 <!--
-3. This would change the CRS resource to Active state.
+3. This would change the CSR resource to Active state.
 -->
-3. 这会将 CRS 资源更改为 Active 状态。
+3. 这会将 CSR 资源更改为 Active 状态。
 
    ```shell
    kubectl get csr

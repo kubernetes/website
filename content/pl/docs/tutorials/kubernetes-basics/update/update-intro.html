@@ -1,6 +1,8 @@
 ---
 title: Aktualizacje Rolling Update
 weight: 10
+description: |-
+  Wykonaj aktualizację Rolling Update używając kubectl.
 ---
 
 <!DOCTYPE html>
@@ -8,9 +10,6 @@ weight: 10
 <html lang="pl">
 
 <body>
-
-    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
-
 
 <div class="layout" id="top">
 
@@ -28,7 +27,7 @@ weight: 10
             <div class="col-md-8">
             <h3>Aktualizowanie aplikacji</h3>
 
-            <p>Użytkownicy oczekują, że aplikacje są dostępne non-stop, a deweloperzy chcieliby móc wprowadzać nowe wersje nawet kilka razy dziennie. W Kubernetes jest to możliwe dzięki mechanizmowi płynnych aktualizacji <em>(rolling updates)</em>. <b>Rolling updates</b> pozwala prowadzić aktualizację w ramach Deploymentu bez przerw w jego działaniu dzięki krokowemu aktualizowaniu kolejnych Podów. Nowe Pody uruchamiane są na Węzłach, które posiadają wystarczające zasoby.</p>
+            <p>Użytkownicy oczekują, że aplikacje są dostępne non-stop, a deweloperzy chcieliby móc wprowadzać nowe wersje nawet kilka razy dziennie. W Kubernetes jest to możliwe dzięki mechanizmowi płynnych aktualizacji <em>(rolling updates)</em>. <b>Rolling updates</b> pozwala prowadzić aktualizację w ramach Deploymentu bez przerw w jego działaniu. Odbywa się to dzięki krokowemu zastępowaniu kolejnych Podów. Nowe Pody uruchamiane są na Węzłach, które posiadają wystarczające zasoby, a Kubernetes czeka, aż uruchomią się nowe Pody, zanim usunie stare.</p>
 
             <p>W poprzednim module wyskalowaliśmy aplikację aby była uruchomiona na wielu instancjach. To niezbędny wymóg, aby móc prowadzić aktualizacje bez wpływu na dostępność aplikacji. Domyślnie, maksymalna liczba Podów, które mogą być niedostępne w trakcie aktualizacji oraz Podów, które mogą być tworzone, wynosi jeden. Obydwie opcje mogą być zdefiniowane w wartościach bezwzględnych lub procentowych (ogólnej liczby Podów).
             W Kubernetes, każdy aktualizacja ma nadany numer wersji i każdy Deployment może być wycofany do wersji poprzedniej (stabilnej).</p>
@@ -113,6 +112,81 @@ weight: 10
                 </div>
             </div>
         </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>W ramach tego interaktywnego samouczka zaktualizujemy aplikację do nowej wersji, a następnie wycofamy tę aktualizację.</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+               <h3>Zaktualizuj wersję aplikacji</h3>
+               <p>Aby wyświetlić listę swoich Deploymentów, uruchom komendę <code>get deployments</code>:
+               <code><b>kubectl get deployments</b></code></p>
+               <p>Aby wyświetlić listę uruchomionych Podów, użyj komendy <code>get pods</code>:</p>
+               <p><code><b>kubectl get pods</b></code></p>
+               <p>Aby zobaczyć bieżącą wersję obrazu aplikacji, uruchom komendę <code>describe pods</code>
+               i poszukaj pola <code>Image</code>:</p>
+               <p><code><b>kubectl describe pods</b></code></p>
+               <p>Aby zaktualizować obraz aplikacji do wersji 2, użyj komendy <code>set image</code>, podając nazwę Deploymentu oraz nową wersję obrazu:</p>
+               <p><code><b>kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=docker.io/jocatalin/kubernetes-bootcamp:v2</b></code></p>
+               <p>Polecenie zainicjowało rolling update Deploymentu, aktualizując obraz aplikacji. Sprawdź status nowych Podów i zobacz, jak postępuje wyłączanie poprzednich wersji używając polecenia <code>get pods</code>:</p>
+               <p><code><b>kubectl get pods</b></code></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+               <h3>Zweryfikuj aktualizację</h3>
+               <p>Najpierw sprawdź, czy usługa działa, ponieważ mogłeś ją usunąć w poprzednim kroku samouczka, uruchom <code>describe services/kubernetes-bootcamp</code>. Jeśli jej brakuje, możesz ją ponownie utworzyć za pomocą:
+               <p><code><b>kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080</b></code></p>
+               <p>Utwórz zmienną środowiskową o nazwie <tt>NODE_PORT</tt>, która będzie miała wartość przypisanego portu Węzła:</p>
+               <p><code><b>export NODE_PORT="$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')"</b></code><br />
+                  <code><b>echo "NODE_PORT=$NODE_PORT"</b></code></p>
+               <p>Następnie wykonaj polecenie <code>curl</code> na udostępniony adres IP i port:</p>
+               <p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></code></p>
+               <p>Z każdym uruchomieniem polecenia <code>curl</code>, trafisz na inny Pod. Zwróć uwagę, że obecnie wszystkie Pody działają na najnowszej wersji (v2).</p>
+               <p>Możesz również potwierdzić aktualizację, uruchamiając komendę <code>rollout status</code>:</p>
+               <p><code><b>kubectl rollout status deployments/kubernetes-bootcamp</b></code></p>
+               <p>Aby wyświetlić bieżącą wersję obrazu aplikacji, uruchom komendę <code>describe pods</code>:</p>
+               <p><code><b>kubectl describe pods</b></code></p>
+               <p>W polu <code>Image</code> sprawdź, czy używasz najnowszej wersji obrazu (v2).</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+               <h3>Cofnięcie aktualizacji</h3>
+               <p>Wykonajmy kolejną aktualizację i spróbujmy wdrożyć obraz oznaczony tagiem <code>v10</code>:</p>
+               <p><code><b>kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=gcr.io/google-samples/kubernetes-bootcamp:v10</b></code></p>
+               <p>Użyj <code>get deployments</code>, aby zobaczyć status Deploymentu:</p>
+               <p><code><b>kubectl get deployments</b></code></p>
+               <p>Zauważ, że w jest za mało Podów działających poprawnie. Uruchom komendę <code>get pods</code>, aby wyświetlić listę wszystkich Podów:</p>
+               <p><code><b>kubectl get pods</b></code></p>
+               <p>Zauważ, że niektóre z podów mają status <tt>ImagePullBackOff</tt>.</p>
+               <p>Aby uzyskać więcej informacji na temat problemu, uruchom komendę <code>describe pods</code>:</p>
+               <p><code><b>kubectl describe pods</b></code></p>
+               <p>W sekcji <code>Events</code> dla podów, zauważ, że wersja obrazu <code>v10</code> nie istniała w repozytorium.</p>
+               <p>Aby wycofać wdrożenie do ostatniej działającej wersji, użyj komendy <code>rollout undo</code>:</p>
+               <p><code><b>kubectl rollout undo deployments/kubernetes-bootcamp</b></code></p>
+               <p>Polecenie <code>rollout undo</code> przywraca Deployment do poprzedniego znanego stanu (v2 obrazu). Aktualizacje są wersjonowane i można je cofać do dowolnego wcześniej znanego stanu Deploymentu.</p>
+               <p>Użyj podpolecenia <code>get pods</code>, aby ponownie wyświetlić listę Podów:</p>
+               <p><code><b>kubectl get pods</b></code></p>
+               <p>Aby sprawdzić obraz wdrożony na działających Podach, użyj podpolecenia <code>describe pods</code>:</p>
+               <p><code><b>kubectl describe pods</b></code></p>
+               <p>Deployment ponownie używa stabilnej wersji aplikacji (v2). Wycofanie zakończyło się pomyślnie.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>Pamiętaj o oczyszczeniu lokalnego klastra</p>
+                <p><code><b>kubectl delete deployments/kubernetes-bootcamp services/kubernetes-bootcamp</b></code>
+            </div>
+        </div>
+
 
     </main>
 

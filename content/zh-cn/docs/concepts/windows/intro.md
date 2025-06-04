@@ -429,7 +429,7 @@ work between Windows and Linux:
 The following list documents differences between how Pod specifications work between Windows and Linux:
 
 * `hostIPC` and `hostpid` - host namespace sharing is not possible on Windows
-* `hostNetwork` - [see below](#compatibility-v1-pod-spec-containers-hostnetwork)
+* `hostNetwork` - host networking is not possible on Windows
 * `dnsPolicy` - setting the Pod `dnsPolicy` to `ClusterFirstWithHostNet` is
    not supported on Windows because host networking is not provided. Pods always
    run with a container network.
@@ -443,7 +443,7 @@ The following list documents differences between how Pod specifications work bet
 以下列表记录了 Pod 规约在 Windows 和 Linux 之间的工作方式差异：
 
 * `hostIPC` 和 `hostpid` - 不能在 Windows 上共享主机命名空间。
-* `hostNetwork` - [参见下文](#compatibility-v1-pod-spec-containers-hostnetwork)
+* `hostNetwork` - 在 Windows 上不支持主机网络模式。
 * `dnsPolicy` - Windows 不支持将 Pod `dnsPolicy` 设为 `ClusterFirstWithHostNet`，
   因为未提供主机网络。Pod 始终用容器网络运行。
 * `podSecurityContext` [参见下文](#compatibility-v1-pod-spec-containers-securitycontext)
@@ -479,26 +479,20 @@ The following list documents differences between how Pod specifications work bet
 * 你无法为卷挂载启用 `mountPropagation`，因为这在 Windows 上不支持。
 
 <!--
-#### Field compatibility for hostNetwork {#compatibility-v1-pod-spec-containers-hostnetwork}
+#### Host network access {#compatibility-v1-pod-spec-containers-hostnetwork}
 
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
-
-The kubelet can now request that pods running on Windows nodes use the host's network namespace instead
-of creating a new pod network namespace. To enable this functionality pass `--feature-gates=WindowsHostNetwork=true` to the kubelet.
+Kubernetes v1.26 to v1.32  included alpha support for running Windows Pods in the host's network namespace.
 -->
-#### hostNetwork 的字段兼容性   {#compatibility-v1-pod-spec-containers-hostnetwork}
+#### 主机网络访问   {#compatibility-v1-pod-spec-containers-hostnetwork}
 
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+Kubernetes 从 v1.26 到 v1.32 提供了在主机网络命名空间中运行 Windows Pod 的 Alpha 版本支持。
 
-现在，kubelet 可以请求在 Windows 节点上运行的 Pod 使用主机的网络命名空间，而不是创建新的 Pod 网络命名空间。
-要启用此功能，请将 `--feature-gates=WindowsHostNetwork=true` 传递给 kubelet。
-
-{{< note >}}
-<!-- 
-This functionality requires a container runtime that supports this functionality.
+<!--
+Kubernetes v{{< skew currentVersion >}} does **not** include the `WindowsHostNetwork` feature gate
+or support for running Windows Pods in the host's network namespace.
 -->
-此功能需要支持该功能的容器运行时。
-{{< /note >}}
+Kubernetes v{{< skew currentVersion >}} **不**包含 `WindowsHostNetwork` 特性门控，
+也不支持在主机网络命名空间中运行 Windows Pod。
 
 <!--
 #### Field compatibility for Pod security context {#compatibility-v1-pod-spec-containers-securitycontext}

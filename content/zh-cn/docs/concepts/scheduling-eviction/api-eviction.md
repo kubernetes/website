@@ -148,8 +148,7 @@ API 服务器总是返回 `200 OK` 并且允许驱逐。
    resource is marked for termination and starts to gracefully shut down the
    local Pod.
 1. While the kubelet is shutting the Pod down, the control plane removes the Pod
-   from {{<glossary_tooltip term_id="endpoint" text="Endpoint">}} and
-   {{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}}
+   from {{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}}
    objects. As a result, controllers no longer consider the Pod as a valid object.
 1. After the grace period for the Pod expires, the kubelet forcefully terminates
    the local Pod.
@@ -160,8 +159,7 @@ API 服务器总是返回 `200 OK` 并且允许驱逐。
    此 `Pod` 资源还会标记上配置的宽限期。
 1. 本地运行状态的 Pod 所处的节点上的 {{<glossary_tooltip term_id="kubelet" text="kubelet">}}
    注意到 `Pod` 资源被标记为终止，并开始优雅停止本地 Pod。
-1. 当 kubelet 停止 Pod 时，控制面从 {{<glossary_tooltip term_id="endpoint" text="Endpoint">}}
-   和 {{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}}
+1. 当 kubelet 停止 Pod 时，控制面从 {{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}}
    对象中移除该 Pod。因此，控制器不再将此 Pod 视为有用对象。
 1. Pod 的宽限期到期后，kubelet 强制终止本地 Pod。
 1. kubelet 告诉 API 服务器删除 `Pod` 资源。

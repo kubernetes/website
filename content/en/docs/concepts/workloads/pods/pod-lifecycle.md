@@ -331,6 +331,9 @@ PodConditions:
   have completed successfully.
 * `Ready`: the Pod is able to serve requests and should be added to the load
   balancing pools of all matching Services.
+* `DisruptionTarget`: the pod is about to be terminated due to a disruption (such as preemption, eviction or garbage-collection).
+* `PodResizePending`: a pod resize was requested but cannot be applied. See [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
+* `PodResizeInProgress`: the pod is in the process of resizing. See [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
 
 Field name           | Description
 :--------------------|:-----------
@@ -562,10 +565,11 @@ processing its startup data, you might prefer a readiness probe.
 
 {{< note >}}
 If you want to be able to drain requests when the Pod is deleted, you do not
-necessarily need a readiness probe; on deletion, the Pod automatically puts itself
-into an unready state regardless of whether the readiness probe exists.
-The Pod remains in the unready state while it waits for the containers in the Pod
-to stop.
+necessarily need a readiness probe; when the Pod is deleted, the corresponding endpoint
+in the `EndppointSlice` will update its [conditions](/docs/concepts/services-networking/endpoint-slices/#conditions):
+the endpoint `ready` condition will be set to `false`, so load balancers
+will not use the Pod for regular traffic. See [Pod termination](#pod-termination)
+for more information about how the kubelet handles Pod deletion.
 {{< /note >}}
 
 #### When should you use a startup probe?

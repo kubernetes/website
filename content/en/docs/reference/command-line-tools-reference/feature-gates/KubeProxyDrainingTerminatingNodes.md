@@ -17,6 +17,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.31"
+    toVersion: "1.32"
+
+removed: true
 ---
 Implement connection draining for
 terminating nodes for `externalTrafficPolicy: Cluster` services.

@@ -10,7 +10,7 @@ weight: 230
 
 What's Kompose? It's a conversion tool for all things compose (namely Docker Compose) to container orchestrators (Kubernetes or OpenShift).
 
-More information can be found on the Kompose website at [http://kompose.io](http://kompose.io).
+More information can be found on the Kompose website at [https://kompose.io/](https://kompose.io/).
 
 ## {{% heading "prerequisites" %}}
 

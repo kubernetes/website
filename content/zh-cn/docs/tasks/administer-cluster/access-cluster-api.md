@@ -524,8 +524,8 @@ kc.loadFromDefault();
 
 const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
 
-k8sApi.listNamespacedPod('default').then((res) => {
-    console.log(res.body);
+k8sApi.listNamespacedPod({ namespace: 'default' }).then((res) => {
+    console.log(res);
 });
 ```
 
@@ -564,6 +564,7 @@ exampleWithKubeConfig = do
 ```
 
 ## {{% heading "whatsnext" %}}
+
 <!--
 * [Accessing the Kubernetes API from a Pod](/docs/tasks/run-application/access-api-from-pod/)
 -->

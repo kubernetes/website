@@ -396,7 +396,7 @@ Defaults to false.</p>
     
   
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    <p>AddedAffinity is applied to all Pods additionally to the NodeAffinity
@@ -495,7 +495,7 @@ The default strategy is LeastAllocated with an equal &quot;cpu&quot; and &quot;m
     
   
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <p>DefaultConstraints defines topology spread constraints to be applied to
@@ -552,16 +552,16 @@ If this value is nil, the default value (600) will be used.</p>
 </td>
 <td>
    <p>Shape specifies the points defining the score function shape, which is
-used to score nodes based on the utilization of statically provisioned
-PVs. The utilization is calculated by dividing the total requested
+used to score nodes based on the utilization of provisioned PVs.
+The utilization is calculated by dividing the total requested
 storage of the pod by the total capacity of feasible PVs on each node.
 Each point contains utilization (ranges from 0 to 100) and its
 associated score (ranges from 0 to 10). You can turn the priority by
 specifying different scores for different utilization numbers.
 The default shape points are:</p>
 <ol>
-<li>0 for 0 utilization</li>
-<li>10 for 100 utilization
+<li>10 for 0 utilization</li>
+<li>0 for 100 utilization
 All points must be sorted in increasing order by utilization.</li>
 </ol>
 </td>

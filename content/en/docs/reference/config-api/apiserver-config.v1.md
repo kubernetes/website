@@ -72,8 +72,8 @@ Must be at least one.</p>
 
 <p>EncryptionConfiguration stores the complete configuration for encryption providers.
 It also allows the use of wildcards to specify the resources that should be encrypted.
-Use '<em>.<!-- raw HTML omitted -->' to encrypt all resources within a group or '</em>.<em>' to encrypt all resources.
-'</em>.' can be used to encrypt all resource in the core group.  '<em>.</em>' will encrypt all
+Use '&ast;.&lt;group&gt;' to encrypt all resources within a group or '&ast;.&ast;' to encrypt all resources.
+'&ast;.' can be used to encrypt all resource in the core group.  '&ast;.&ast;' will encrypt all
 resources, even custom resources that are added after API server start.
 Use of wildcards that overlap within the same resource list or across multiple
 entries are not allowed since part of the configuration would be ineffective.
@@ -426,8 +426,8 @@ Set to a negative value to disable caching. This field is only allowed for KMS v
 <td>
    <p>resources is a list of kubernetes resources which have to be encrypted. The resource names are derived from <code>resource</code> or <code>resource.group</code> of the group/version/resource.
 eg: pandas.awesome.bears.example is a custom resource with 'group': awesome.bears.example, 'resource': pandas.
-Use '<em>.</em>' to encrypt all resources and '<em>.<!-- raw HTML omitted -->' to encrypt all resources in a specific group.
-eg: '</em>.awesome.bears.example' will encrypt all resources in the group 'awesome.bears.example'.
+Use '&ast;.&ast;' to encrypt all resources and '&ast;.&lt;group&gt;' to encrypt all resources in a specific group.
+eg: '&ast;.awesome.bears.example' will encrypt all resources in the group 'awesome.bears.example'.
 eg: '*.' will encrypt all resources in the core group (such as pods, configmaps, etc).</p>
 </td>
 </tr>

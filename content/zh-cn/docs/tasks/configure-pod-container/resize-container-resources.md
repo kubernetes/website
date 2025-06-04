@@ -2,13 +2,13 @@
 title: 调整分配给容器的 CPU 和内存资源
 content_type: task
 weight: 30
-min-kubernetes-server-version: 1.27
+min-kubernetes-server-version: 1.33
 ---
 <!--
 title: Resize CPU and Memory Resources assigned to Containers
 content_type: task
 weight: 30
-min-kubernetes-server-version: 1.27
+min-kubernetes-server-version: 1.33
 -->
 
 <!-- overview -->
@@ -16,385 +16,432 @@ min-kubernetes-server-version: 1.27
 {{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
 <!--
-This page assumes that you are familiar with [Quality of Service](/docs/tasks/configure-pod-container/quality-service-pod/)
-for Kubernetes Pods.
-
-This page shows how to resize CPU and memory resources assigned to containers
-of a running pod without restarting the pod or its containers. A Kubernetes node
-allocates resources for a pod based on its `requests`, and restricts the pod's
-resource usage based on the `limits` specified in the pod's containers.
+This page explains how to change the CPU and memory resource requests and limits
+assigned to a container *without recreating the Pod*.
 -->
-本页假定你已经熟悉了 Kubernetes Pod
-的[服务质量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)。
-
-本页说明如何在不重启 Pod 或其容器的情况下调整分配给运行中 Pod 容器的 CPU 和内存资源。
-Kubernetes 节点会基于 Pod 的 `requests` 为 Pod 分配资源，
-并基于 Pod 的容器中指定的 `limits` 限制 Pod 的资源使用。
+本页面说明了如何在**不重新创建 Pod** 的情况下，更改分配给容器的 CPU 和内存资源请求与限制。
 
 <!--
-Changing the resource allocation for a running Pod requires the
-`InPlacePodVerticalScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to be enabled. The alternative is to delete the Pod and let the
-[workload controller](/docs/concepts/workloads/controllers/) make a replacement Pod
-that has a different resource requirement.
+Traditionally, changing a Pod's resource requirements necessitated deleting the existing Pod
+and creating a replacement, often managed by a [workload controller](/docs/concepts/workloads/controllers/).
+In-place Pod Resize allows changing the CPU/memory allocation of container(s) within a running Pod
+while potentially avoiding application disruption.
 -->
-要为正在运行的 Pod 更改资源分配量，需要启用 `InPlacePodVerticalScaling`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-并让[工作负载控制器](/zh-cn/docs/concepts/workloads/controllers/)创建一个具有不同资源需求的新 Pod。
+传统上，更改 Pod 的资源需求需要删除现有 Pod 并创建一个替代 Pod，
+这通常由[工作负载控制器](/zh-cn/docs/concepts/workloads/controllers/)管理。
+而就地 Pod 调整功能允许在运行中的 Pod 内变更容器的 CPU 和内存分配，从而可能避免干扰应用。
 
 <!--
-A resize request is made through the pod `/resize` subresource, which takes the full updated pod for
-an update request, or a patch on the pod object for a patch request.
+**Key Concepts:**
+
+* **Desired Resources:** A container's `spec.containers[*].resources` represent
+  the *desired* resources for the container, and are mutable for CPU and memory.
+* **Actual Resources:** The `status.containerStatuses[*].resources` field
+  reflects the resources *currently configured* for a running container.
+  For containers that haven't started or were restarted,
+  it reflects the resources allocated upon their next start.
+* **Triggering a Resize:** You can request a resize by updating the desired `requests`
+  and `limits` in the Pod's specification.
+  This is typically done using `kubectl patch`, `kubectl apply`, or `kubectl edit`
+  targeting the Pod's `resize` subresource.
+  When the desired resources don't match the allocated resources,
+  the Kubelet will attempt to resize the container.
+* **Allocated Resources (Advanced):**
+  The `status.containerStatuses[*].allocatedResources` field tracks resource values
+  confirmed by the Kubelet, primarily used for internal scheduling logic.
+  For most monitoring and validation purposes, focus on `status.containerStatuses[*].resources`.
 -->
-resize 请求是通过 Pod 的 `/resize` 子资源处理的。
-对于 update 请求，请求体是更新后的完整 Pod；
-对于 patch 请求，请求体是对 Pod 对象的补丁。
+**关键概念：**
+
+- **期望资源（Desired Resources）**：容器的 `spec.containers[*].resources`
+  字段表示容器的**期望**资源，对于 CPU 和内存是可变的。
+- **实际资源（Actual Resources）**：`status.containerStatuses[*].resources`
+  字段反映当前运行容器**实际配置**的资源。
+  对于尚未启动或重新启动的容器，该字段表示其下次启动时分配的资源。
+- **触发调整（Triggering a Resize）**：你可以通过更新 Pod 规约中的 `requests` 和 `limits` 来请求调整。
+  这通常通过 `kubectl patch`、`kubectl apply` 或 `kubectl edit` 操作
+  Pod 的 `resize` 子资源来完成。
+  当期望资源与已分配资源不一致时，Kubelet 会尝试调整容器资源。
+- **已分配资源（Allocated Resources，进阶）**：`status.containerStatuses[*].allocatedResources`
+  字段用于记录由 Kubelet 确认的资源值，主要用于内部调度逻辑。
+  在大多数监控和验证场景中，建议关注 `status.containerStatuses[*].resources` 字段。
 
 <!--
-For in-place resize of pod resources:
-- A container's resource `requests` and `limits` are _mutable_ for CPU
-  and memory resources. These fields represent the _desired_ resources for the container.
-- The `resources` field in `containerStatuses` of the Pod's status reflects the resources
-  _allocated_ to the pod's containers. For running containers, this reflects the actual resource
-  `requests` and `limits` that are configured as reported by the container runtime. For non-running
-  containers, these are the resources allocated for the container when it starts.
+If a node has pods with a pending or incomplete resize (see [Pod Resize Status](#pod-resize-status) below),
+the {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}} uses
+the *maximum* of a container's desired requests, allocated requests,
+and actual requests from the status when making scheduling decisions.
 -->
-对于原地调整 Pod 资源而言：
-
-- 针对 CPU 和内存资源的容器的 `requests` 和 `limits` 是**可变更的**。
-  这些字段表示容器**所预期**使用的资源。
-- Pod 状态中 `containerStatuses` 的 `resources` 字段反映了分配给 Pod 容器的资源。
-  对于正运行的容器，这个字段反映了实际配置的资源 `requests` 和 `limits`，
-  字段值是容器运行时所报告的。对于未运行的容器，字段值是容器启动时为其分配的资源。
-
-<!--
-- The `resize` field in the Pod's status shows the status of the last requested
-  pending resize. It can have the following values:
-  - `Proposed`: This value indicates that a pod was resized, but the Kubelet has not yet processed
-    the resize.
-  - `InProgress`: This value indicates that the node has accepted the resize
-    request and is in the process of applying it to the pod's containers.
-  - `Deferred`: This value means that the requested resize cannot be granted at
-    this time, and the node will keep retrying. The resize may be granted when
-    other pods are removed and free up node resources.
-  - `Infeasible`: is a signal that the node cannot accommodate the requested
-    resize. This can happen if the requested resize exceeds the maximum
-    resources the node can ever allocate for a pod.
-  - `""`: An empty or unset value indicates that the last resize completed. This should only be the
-    case if the resources in the container spec match the resources in the container status.
--->
-- Pod 状态中 `resize` 字段显示上次请求待处理的调整状态。此字段可以具有以下值：
-  - `Proposed`：此值表示 Pod 大小的规约已被调整，但 kubelet 还未处理此调整请求。
-  - `InProgress`：此值表示节点已接受调整请求，并正在将其应用于 Pod 的容器。
-  - `Deferred`：此值意味着在此时无法批准请求的调整，节点将继续重试。
-    当其他 Pod 被移除并释放节点资源时，调整可能会被真正实施。
-  - `Infeasible`：此值是一种信号，表示节点无法承接所请求的调整值。
-    如果所请求的调整超过节点可分配给 Pod 的最大资源，则可能会发生这种情况。
-  - `""`：留空或不设置，表示上一次调整已完成。
-    只有容器规约中的资源与容器状态中的资源相匹配时，才会是这种情况。
-
-<!--
-If a node has pods with an incomplete resize, the scheduler will compute the pod requests from the
-maximum of a container's desired resource requests, and it's actual requests reported in the status.
--->
-如果节点有一些 Pod 还未完成调整，调度器将基于容器的预期资源请求的最大值来计算 Pod 请求，
-它是状态中所报告的实际请求。
+如果某个节点上存在处于挂起或未完成调整状态的 Pod（见下文 [Pod 调整状态](#pod-resize-status)），
+{{< glossary_tooltip text="调度器" term_id="kube-scheduler" >}}会在进行调度决策时，
+使用容器的期望请求、已分配请求和实际请求三者中的**最大值**。
 
 ## {{% heading "prerequisites" %}}
 
+<!--
+The `InPlacePodVerticalScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+must be enabled
+for your control plane and for all nodes in your cluster.
+
+The `kubectl` client version must be at least v1.32 to use the `--subresource=resize` flag.
+-->
+
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
+你需要在控制平面和集群中的所有节点上启用 `InPlacePodVerticalScaling` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。  
+
+要使用 `--subresource=resize` 参数，`kubectl` 客户端版本需至少为 v1.32。
+
 <!--
-The `InPlacePodVerticalScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled
-for your control plane and for all nodes in your cluster.
+## Pod resize status
+
+The Kubelet updates the Pod's status conditions to indicate the state of a resize request:
+
+* `type: PodResizePending`: The Kubelet cannot immediately grant the request.
+  The `message` field provides an explanation of why.
+    * `reason: Infeasible`: The requested resize is impossible on the current node
+      (for example, requesting more resources than the node has).
+    * `reason: Deferred`: The requested resize is currently not possible,
+      but might become feasible later (for example if another pod is removed).
+      The Kubelet will retry the resize.
+* `type: PodResizeInProgress`: The Kubelet has accepted the resize and allocated resources,
+  but the changes are still being applied.
+  This is usually brief but might take longer depending on the resource type and runtime behavior.
+  Any errors during actuation are reported in the `message` field (along with `reason: Error`).
 -->
-你必须在控制平面和集群中的所有节点上启用 `InPlacePodVerticalScaling`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+## Pod 大小调整状态   {#pod-resize-status}
+
+Kubelet 会通过更新 Pod 的状态状况来反映调整请求的当前状态：
+
+* `type: PodResizePending`：Kubelet 当前无法立即执行该请求。`message` 字段会说明原因：
+  * `reason: Infeasible`：请求的资源在当前节点上不可行（例如请求超出节点总资源）。
+  * `reason: Deferred`：请求的资源当前无法满足，但未来可能满足（例如其他 Pod 被移除后），
+    Kubelet 会重试调整。
+* `type: PodResizeInProgress`：Kubelet 已接受调整并分配了资源，但调整仍在进行中。  
+  这一状态通常很短暂，但也可能因资源类型或运行时行为而延长。
+  执行过程中的任何错误都会在 `message` 字段中报告，同时带有 `reason: Error`。
 
 <!--
-## Container Resize Policies
+## Container resize policies
 
-Resize policies allow for a more fine-grained control over how pod's containers
-are resized for CPU and memory resources. For example, the container's
-application may be able to handle CPU resources resized without being restarted,
-but resizing memory may require that the application hence the containers be restarted.
+Containers can specify an optional `resizePolicy` array as part of the resource requirements.
+Each entry defines how a particular resource should be handled during in-place resize.
 -->
 ## 容器调整策略   {#container-resize-policies}
 
-调整策略允许更精细地控制 Pod 中的容器如何针对 CPU 和内存资源进行调整。
-例如，容器的应用程序可以处理 CPU 资源的调整而不必重启，
-但是调整内存可能需要应用程序重启，因此容器也必须重启。
+容器可以在资源需求中指定可选的 `resizePolicy` 数组。  
+该数组中的每一项定义了某种资源在就地调整期间应如何处理。
 
 <!--
-To enable this, the Container specification allows users to specify a `resizePolicy`.
-The following restart policies can be specified for resizing CPU and memory:
-* `NotRequired`: Resize the container's resources while it is running.
-* `RestartContainer`: Restart the container and apply new resources upon restart.
-
-If `resizePolicy[*].restartPolicy` is not specified, it defaults to `NotRequired`.
+You can control whether a container should be restarted when resizing
+by setting `resizePolicy` in the container specification.
+This allows fine-grained control based on resource type (CPU or memory).
 -->
-为了实现这一点，容器规约允许用户指定 `resizePolicy`。
-针对调整 CPU 和内存可以设置以下重启策略：
-
-- `NotRequired`：在运行时调整容器的资源。
-- `RestartContainer`：重启容器并在重启后应用新资源。
-
-如果未指定 `resizePolicy[*].restartPolicy`，则默认为 `NotRequired`。
-
-{{< note >}}
-<!--
-If the Pod's `restartPolicy` is `Never`, container's resize restart policy must be
-set to `NotRequired` for all Containers in the Pod.
--->
-如果 Pod 的 `restartPolicy` 为 `Never`，则 Pod 中所有容器的调整重启策略必须被设置为 `NotRequired`。
-{{< /note >}}
-
-<!--
-Below example shows a Pod whose Container's CPU can be resized without restart, but
-resizing memory requires the container to be restarted.
--->
-下面的示例显示了一个 Pod，其中 CPU 可以在不重启容器的情况下进行调整，但是内存调整需要重启容器。
+你可以通过在容器规约中设置 `resizePolicy`，控制在调整资源时容器是否需要重启。
+这样可以针对不同资源类型（CPU 或内存）进行精细化控制。
 
 ```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: qos-demo-5
-  namespace: qos-example
-spec:
-  containers:
-    - name: qos-demo-ctr-5
-      image: nginx
-      resizePolicy:
-        - resourceName: cpu
-          restartPolicy: NotRequired
-        - resourceName: memory
-          restartPolicy: RestartContainer
-      resources:
-        limits:
-          memory: "200Mi"
-          cpu: "700m"
-        requests:
-          memory: "200Mi"
-          cpu: "700m"
-```
-
-{{< note >}}
-<!--
-In the above example, if desired requests or limits for both CPU _and_ memory
-have changed, the container will be restarted in order to resize its memory.
--->
-在上述示例中，如果所需的 CPU 和内存请求或限制已更改，则容器将被重启以调整其内存。
-{{< /note >}}
-
-<!-- steps -->
-
-<!--
-## Limitations
-
-In-place resize of pod resources currently has the following limitations:
--->
-## 限制   {#limitations}
-
-目前就地调整 Pod 资源大小存在以下限制：
-
-<!--
-- Only CPU and memory resources can be changed.
-- Pod QoS Class cannot change. This means that requests must continue to equal limits for Guaranteed
-  pods, Burstable pods cannot set requests and limits to be equal for both CPU & memory, and you
-  cannot add resource requirements to Best Effort pods.
-- Init containers and Ephemeral Containers cannot be resized.
-- Resource requests and limits cannot be removed once set.
-- A container's memory limit may not be reduced below its usage. If a request puts a container in
-  this state, the resize status will remain in `InProgress` until the desired memory limit becomes
-  feasible.
-- Windows pods cannot be resized.
--->
-- 只能更改 CPU 和内存资源。
-- Pod QoS 类不能更改。这意味着 Guaranteed Pod 的 requests 必须继续等于其 limits，
-  Burstable Pod 对于 CPU 和内存的 requests 不能设为等于其 limits，
-  并且你不能给 BestEffort Pod 添加资源要求。
-- Init 容器和临时容器不能调整大小。
-- 资源请求和限制一旦被设置就不能移除。
-- 容器的内存限制不能降到比其当前用量更低的值。如果某请求将容器置于此状态，
-  调整的状态将停留在 `InProgress`，直到预期的内存限制成为可行为止。
-- Windows Pod 不能被调整大小。
-
-<!--
-## Create a pod with resource requests and limits
-
-You can create a Guaranteed or Burstable [Quality of Service](/docs/tasks/configure-pod-container/quality-service-pod/)
-class pod by specifying requests and/or limits for a pod's containers.
-
-Consider the following manifest for a Pod that has one Container.
--->
-## 创建具有资源请求和限制的 Pod    {#create-pod-with-resource-requests-and-limits}
-
-你可以通过为 Pod 的容器指定请求和/或限制来创建 Guaranteed 或 Burstable
-[服务质量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)类的 Pod。
-
-考虑以下包含一个容器的 Pod 的清单。
-
-{{% code_sample file="pods/qos/qos-pod-5.yaml" %}}
-
-<!--
-Create the pod in the `qos-example` namespace:
--->
-在 `qos-example` 名字空间中创建该 Pod：
-
-```shell
-kubectl create namespace qos-example
-kubectl create -f https://k8s.io/examples/pods/qos/qos-pod-5.yaml --namespace=qos-example
-```
-
-<!--
-This pod is classified as a Guaranteed QoS class requesting 700m CPU and 200Mi
-memory.
-
-View detailed information about the pod:
--->
-此 Pod 被分类为 Guaranteed QoS 类，请求 700m CPU 和 200Mi 内存。
-
-查看有关 Pod 的详细信息：
-
-```shell
-kubectl get pod qos-demo-5 --output=yaml --namespace=qos-example
-```
-
-<!--
-Also notice that the values of `resizePolicy[*].restartPolicy` defaulted to
-`NotRequired`, indicating that CPU and memory can be resized while container
-is running.
--->
-另请注意，`resizePolicy[*].restartPolicy` 的值默认为 `NotRequired`，
-表示可以在容器运行的情况下调整 CPU 和内存大小。
-
-```yaml
-spec:
-  containers:
-    ...
     resizePolicy:
     - resourceName: cpu
       restartPolicy: NotRequired
     - resourceName: memory
-      restartPolicy: NotRequired
-    resources:
-      limits:
-        cpu: 700m
-        memory: 200Mi
-      requests:
-        cpu: 700m
-        memory: 200Mi
-...
-  containerStatuses:
-...
-    name: qos-demo-ctr-5
-    ready: true
-...
-    resources:
-      limits:
-        cpu: 700m
-        memory: 200Mi
-      requests:
-        cpu: 700m
-        memory: 200Mi
-    restartCount: 0
-    started: true
-...
-  qosClass: Guaranteed
+      restartPolicy: RestartContainer
 ```
 
 <!--
-## Updating the pod's resources
+* `NotRequired`: (Default) Apply the resource change to the running container without restarting it.
+* `RestartContainer`: Restart the container to apply the new resource values.
+  This is often necessary for memory changes because many applications
+  and runtimes cannot adjust their memory allocation dynamically.
 
-Let's say the CPU requirements have increased, and 0.8 CPU is now desired. This may
-be specified manually, or determined and programmatically applied by an entity such as
-[VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) (VPA).
+If `resizePolicy[*].restartPolicy` is not specified for a resource, it defaults to `NotRequired`.
 -->
-## 更新 Pod 的资源   {#updating-pod-resources}
+* `NotRequired`：（默认）在不重启容器的情况下应用资源变更。
+* `RestartContainer`：重启容器以应用新的资源值。
+  对于内存变更，许多应用和运行时无法动态调整内存分配，因此通常需要重启。
 
-假设要求的 CPU 需求已上升，现在需要 0.8 CPU。这可以手动指定，或由如
-[VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) (VPA)
-这样的实体确定并可能以编程方式应用。
+如果未为某个资源指定 `resizePolicy[*].restartPolicy`，则默认为 `NotRequired`。
 
 {{< note >}}
 <!--
-While you can change a Pod's requests and limits to express new desired
-resources, you cannot change the QoS class in which the Pod was created.
+If a Pod's overall `restartPolicy` is `Never`, then any container `resizePolicy` must be `NotRequired` for all resources.
+You cannot configure a resize policy that would require a restart in such Pods.
 -->
-尽管你可以更改 Pod 的请求和限制以表示新的期望资源，
-但无法更改 Pod 创建时所归属的 QoS 类。
+如果 Pod 的整体 `restartPolicy` 为 `Never`，则所有容器的 `resizePolicy` 必须对所有资源都设置为 `NotRequired`。
+此类 Pod 不允许配置需要重启的调整策略。
 {{< /note >}}
 
 <!--
-Now, patch the Pod's Container with CPU requests & limits both set to `800m`:
+**Example Scenario:**
+
+Consider a container configured with `restartPolicy: NotRequired` for CPU and `restartPolicy: RestartContainer` for memory.
+* If only CPU resources are changed, the container is resized in-place.
+* If only memory resources are changed, the container is restarted.
+* If *both* CPU and memory resources are changed simultaneously, the container is restarted (due to the memory policy).
 -->
-现在对 Pod 的 Container 执行 patch 命令，将容器的 CPU 请求和限制均设置为 `800m`：
+**示例场景：**
+
+考虑一个容器，其 CPU 的 `restartPolicy` 为 `NotRequired`，内存的 `restartPolicy` 为 `RestartContainer`：
+* 如果仅更改 CPU 资源，容器将原地调整大小。
+* 如果仅更改内存资源，容器将重启。
+* 如果**同时**更改 CPU 和内存资源，容器将重启（由于内存策略）。
+
+<!--
+## Limitations
+
+For Kubernetes v{{< skew currentVersion >}}, resizing pod resources in-place has the following limitations:
+-->
+## 限制   {#limitations}
+
+对于 Kubernetes v{{< skew currentVersion >}}，原地调整 Pod 资源大小存在以下限制：
+
+<!--
+* **Resource Types:** Only CPU and memory resources can be resized.
+-->
+* **资源类型**：只能调整 CPU 和内存资源。
+
+<!--
+* **Memory Decrease:** Memory limits _cannot be decreased_ unless the `resizePolicy` for memory is `RestartContainer`.
+  Memory requests can generally be decreased.
+-->
+* **内存减少**：除非内存的 `resizePolicy` 为 `RestartContainer`，否则内存限制**不能减少**。
+  内存请求通常可以减少。
+
+<!--
+* **QoS Class:** The Pod's original [Quality of Service (QoS) class](/docs/concepts/workloads/pods/pod-qos/)
+  (Guaranteed, Burstable, or BestEffort) is determined at creation and **cannot** be changed by a resize.
+  The resized resource values must still adhere to the rules of the original QoS class:
+    * *Guaranteed*: Requests must continue to equal limits for both CPU and memory after resizing.
+    * *Burstable*: Requests and limits cannot become equal for *both* CPU and memory simultaneously
+      (as this would change it to Guaranteed).
+    * *BestEffort*: Resource requirements (`requests` or `limits`) cannot be added
+      (as this would change it to Burstable or Guaranteed).
+-->
+* **QoS 类**：Pod 的原始[服务质量（QoS）类](/zh-cn/docs/concepts/workloads/pods/pod-qos/)
+  （Guaranteed、Burstable 或 BestEffort）在创建时确定，**不能**通过调整大小来更改。
+  调整后的资源值仍必须遵守原始 QoS 类的规则：
+  * **Guaranteed**：调整后，CPU 和内存的请求必须继续等于限制。
+  * **Burstable**：CPU 和内存的请求和限制不能**同时**变为相等
+    （因为这会将其更改为 Guaranteed）。
+  * **BestEffort**：不能添加资源要求（`requests` 或 `limits`）
+    （因为这会将其更改为 Burstable 或 Guaranteed）。
+
+<!--
+* **Container Types:** Non-restartable {{< glossary_tooltip text="init containers" term_id="init-container" >}} and
+  {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}} cannot be resized.
+  [Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/) can be resized.
+-->
+* **容器类型**：不可重启的{{< glossary_tooltip text="Init 容器" term_id="init-container" >}}和
+  {{< glossary_tooltip text="临时容器" term_id="ephemeral-container" >}}不能调整大小。
+  [边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)可以调整大小。
+
+<!--
+* **Resource Removal:** Resource requests and limits cannot be entirely removed once set;
+  they can only be changed to different values.
+-->
+* **资源移除**：一旦设置了资源请求和限制，就不能完全移除；
+  只能更改为不同的值。
+
+<!--
+* **Operating System:** Windows pods do not support in-place resize.
+-->
+* **操作系统**：Windows Pod 不支持原地调整大小。
+
+<!--
+* **Node Policies:** Pods managed by [static CPU or Memory manager policies](/docs/tasks/administer-cluster/cpu-management-policies/)
+  cannot be resized in-place.
+-->
+* **节点策略**：由[静态 CPU 或内存管理器策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/)管理的
+  Pod 不能原地调整大小。
+
+<!--
+* **Swap:** Pods utilizing [swap memory](/docs/concepts/architecture/nodes/#swap-memory) cannot resize memory requests
+  unless the `resizePolicy` for memory is `RestartContainer`.
+-->
+* **交换内存**：使用[交换内存](/zh-cn/docs/concepts/architecture/nodes/#swap-memory)的 Pod 不能调整内存请求，
+  除非内存的 `resizePolicy` 为 `RestartContainer`。
+
+<!--
+These restrictions might be relaxed in future Kubernetes versions.
+-->
+这些限制可能会在未来的 Kubernetes 版本中放宽。
+
+<!--
+## Example 1: Resizing CPU without restart
+
+First, create a Pod designed for in-place CPU resize and restart-required memory resize.
+-->
+## 示例 1：调整 CPU 而不重启   {#example-1-resizing-cpu-without-restart}
+
+首先，创建一个设计用于原地 CPU 调整和需要重启的内存调整的 Pod。
+
+{{% code_sample file="pods/resource/pod-resize.yaml" %}}
+
+<!--
+Create the pod:
+-->
+创建 Pod：
 
 ```shell
-kubectl -n qos-example patch pod qos-demo-5 --subresource resize --patch '{"spec":{"containers":[{"name":"qos-demo-ctr-5", "resources":{"requests":{"cpu":"800m"}, "limits":{"cpu":"800m"}}}]}}'
+kubectl create -f pod-resize.yaml
 ```
 
 <!--
-Query the Pod's detailed information after the Pod has been patched.
+This pod starts in the Guaranteed QoS class. Verify its initial state:
 -->
-在 Pod 已打补丁后查询其详细信息。
+这个 Pod 以 Guaranteed QoS 类启动。验证其初始状态：
 
 ```shell
-kubectl get pod qos-demo-5 --output=yaml --namespace=qos-example
+# 等待 Pod 运行
+kubectl get pod resize-demo --output=yaml
 ```
 
 <!--
-The Pod's spec below reflects the updated CPU requests and limits.
+Observe the `spec.containers[0].resources` and `status.containerStatuses[0].resources`.
+They should match the manifest (700m CPU, 200Mi memory). Note the `status.containerStatuses[0].restartCount` (should be 0).
 -->
-以下 Pod 规约反映了更新后的 CPU 请求和限制。
+观察 `spec.containers[0].resources` 和 `status.containerStatuses[0].resources`。
+它们应该与清单文件匹配（700m CPU，200Mi 内存）。注意 `status.containerStatuses[0].restartCount`（应该为 0）。
 
-```yaml
-spec:
-  containers:
-    ...
-    resources:
-      limits:
-        cpu: 800m
-        memory: 200Mi
-      requests:
-        cpu: 800m
-        memory: 200Mi
-...
-  containerStatuses:
-...
-    resources:
-      limits:
-        cpu: 800m
-        memory: 200Mi
-      requests:
-        cpu: 800m
-        memory: 200Mi
-    restartCount: 0
-    started: true
+<!--
+Now, increase the CPU request and limit to `800m`. You use `kubectl patch` with the `--subresource resize` command line argument.
+-->
+现在，将 CPU 请求和限制增加到 `800m`。使用带有 `--subresource resize` 命令行参数的 `kubectl patch`。
+
+```shell
+kubectl patch pod resize-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"800m"}, "limits":{"cpu":"800m"}}}]}}'
+
+# 替代方法：
+# kubectl -n qos-example edit pod resize-demo --subresource resize
+# kubectl -n qos-example apply -f <updated-manifest> --subresource resize
+```
+
+{{< note >}}
+<!--
+The `--subresource resize` command line argument requires `kubectl` client version v1.32.0 or later.
+Older versions will report an `invalid subresource` error.
+-->
+`--subresource resize` 命令行参数要求 `kubectl` 客户端版本为 v1.32.0 或更高。
+较早版本会报告 `invalid subresource` 错误。
+{{< /note >}}
+
+<!--
+Check the pod status again after patching:
+-->
+在应用补丁后再次检查 Pod 状态：
+
+```shell
+kubectl get pod resize-demo --output=yaml --namespace=qos-example
 ```
 
 <!--
-Observe that the `resources` in the `containerStatuses` have been updated to reflect the new desired
-CPU requests. This indicates that node was able to accommodate the increased CPU resource needs,
-and the new CPU resources have been applied. The Container's `restartCount` remains unchanged,
-indicating that container's CPU resources were resized without restarting the container.
+You should see:
+* `spec.containers[0].resources` now shows `cpu: 800m`.
+* `status.containerStatuses[0].resources` also shows `cpu: 800m`, indicating the resize was successful on the node.
+* `status.containerStatuses[0].restartCount` remains `0`, because the CPU `resizePolicy` was `NotRequired`.
 -->
-观察到 `allocatedResources` 的值已更新，反映了新的预期 CPU 请求。
-这表明节点能够容纳提高后的 CPU 资源需求，而且新的 CPU 资源已经被应用。
-Container 的 `restartCount` 保持不变，表示已在无需重启容器的情况下调整了容器的 CPU 资源。
+你应该看到：
+* `spec.containers[0].resources` 现在显示 `cpu: 800m`。
+* `status.containerStatuses[0].resources` 也显示 `cpu: 800m`，表明节点上的调整已成功。
+* `status.containerStatuses[0].restartCount` 保持为 `0`，因为 CPU 的 `resizePolicy` 是 `NotRequired`。
+
+<!--
+## Example 2: Resizing memory with restart
+
+Now, resize the memory for the *same* pod by increasing it to `300Mi`.
+Since the memory `resizePolicy` is `RestartContainer`, the container is expected to restart.
+-->
+## 示例 2：调整内存并重启   {#example-2-resizing-memory-with-restart}
+
+现在，将**同一个** Pod 的内存增加到 `300Mi`。
+由于内存的 `resizePolicy` 是 `RestartContainer`，容器将会重启。
+
+```shell
+kubectl patch pod resize-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"memory":"300Mi"}, "limits":{"memory":"300Mi"}}}]}}'
+```
+
+<!--
+Check the pod status shortly after patching:
+-->
+在应用补丁后立即检查 Pod 状态：
+
+```shell
+kubectl get pod resize-demo --output=yaml
+```
+
+<!--
+You should now observe:
+* `spec.containers[0].resources` shows `memory: 300Mi`.
+* `status.containerStatuses[0].resources` also shows `memory: 300Mi`.
+* `status.containerStatuses[0].restartCount` has increased to `1` (or more, if restarts happened previously),
+  indicating the container was restarted to apply the memory change.
+-->
+你现在应该观察到：
+* `spec.containers[0].resources` 显示 `memory: 300Mi`。
+* `status.containerStatuses[0].resources` 也显示 `memory: 300Mi`。
+* `status.containerStatuses[0].restartCount` 增加到 `1`（如果之前发生过重启，可能会更多），
+  表明容器已重启以应用内存变更。
+
+<!--
+## Troubleshooting: Infeasible resize request
+
+Next, try requesting an unreasonable amount of CPU, such as 1000 full cores (written as `"1000"` instead of `"1000m"` for millicores), which likely exceeds node capacity.
+-->
+## 故障排查：不可行的调整请求   {#troubleshooting-infeasible-resize-request}
+
+接下来，尝试请求不合理的 CPU 数量，例如 1000 个完整核心（写作 `"1000"` 而不是 `"1000m"` 毫核），这很可能超出节点容量。
+
+```shell
+# 尝试使用过大的 CPU 请求进行补丁
+kubectl patch pod resize-demo --subresource resize --patch \
+  '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"1000"}, "limits":{"cpu":"1000"}}}]}}'
+```
+
+<!--
+Query the Pod's details:
+-->
+查询 Pod 的详细信息：
+
+```shell
+kubectl get pod resize-demo --output=yaml
+```
+
+<!--
+You'll see changes indicating the problem:
+
+* The `spec.containers[0].resources` reflects the *desired* state (`cpu: "1000"`).
+* A condition with `type: PodResizePending` and `reason: Infeasible` was added to the Pod.
+* The condition's `message` will explain why (`Node didn't have enough capacity: cpu, requested: 800000, capacity: ...`)
+* Crucially, `status.containerStatuses[0].resources` will *still show the previous values* (`cpu: 800m`, `memory: 300Mi`),
+  because the infeasible resize was not applied by the Kubelet.
+* The `restartCount` will not have changed due to this failed attempt.
+
+To fix this, you would need to patch the pod again with feasible resource values.
+-->
+你会看到表明问题的变更：
+
+* `spec.containers[0].resources` 反映了**期望**状态（`cpu: "1000"`）。
+* Pod 添加了一个 `type: PodResizePending` 和 `reason: Infeasible` 的条件。
+* 状况的 `message` 会解释原因（`Node didn't have enough capacity: cpu, requested: 800000, capacity: ...`）
+* 重要的是，`status.containerStatuses[0].resources` **仍然显示之前的值**（`cpu: 800m`，`memory: 300Mi`），
+  因为不可行的调整未被 Kubelet 应用。
+* 由于这次失败的尝试，`restartCount` 不会发生变化。
+
+要修复这个问题，你需要使用可行的资源值再次对 Pod 进行补丁。
 
 <!--
 ## Clean up
 
-Delete your namespace:
+Delete the pod:
 -->
 ## 清理   {#clean-up}
 
-删除你的名字空间：
+删除 Pod：
 
 ```shell
-kubectl delete namespace qos-example
+kubectl delete pod resize-demo
 ```
 
 ## {{% heading "whatsnext" %}}

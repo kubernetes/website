@@ -11,18 +11,17 @@ weight: 10
 hide_feedback: true
 menu:
   main:
+    # title: "Documentation"
     title: "文档"
     weight: 10
 # description: >
 #   Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation.
 description: >
   Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行自动部署、扩缩和管理。此开源项目由云原生计算基金会（CNCF）托管。
-
-# overview:
-#  Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
-overview:
-  Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行自动化部署、扩缩和管理。该项目托管在 <a href="https://www.cncf.io/about">CNCF</a>。
-
+# overview: >
+#   Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
+overview: >
+  Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行自动化部署、扩缩和管理。此开源项目由<a href="https://www.cncf.io/about">云原生计算基金会（CNCF）</a>托管。
 cards:
 # - name: concepts
 #   title: "Understand Kubernetes"
@@ -56,7 +55,7 @@ cards:
 #   button_path: "/docs/tasks"
 - name: setup
   title: "安裝 K8s 集群"
-  description: "基于你的资源情况和需要运行 Kubernetes。"
+  description: "基于你的资源情况和需求来运行 Kubernetes。"
   button: "安装 Kubernetes"
   button_path: "/zh-cn/docs/setup"
 - name: tasks
@@ -94,11 +93,16 @@ cards:
   description: "通过 Kubernetes 认证，助你的云原生项目成功！"
   button: "查看培训"
   button_path: "/zh-cn/training"
+# - name: Download
+#   title: Download Kubernetes
+#   description: Install Kubernetes or upgrade to the newest version.
+#   button: "Download Kubernetes"
+#   button_path: "/releases/download"
 - name: Download
   title: 下载 Kubernetes
   description: 安装 Kubernetes 或将其升级到最新版本。
   button: "下载 Kubernetes"
-  button_path: "/releases/download"
+  button_path: "/zh-cn/releases/download"
 # - name: about
 #   title: About the documentation
 #   description: This website contains documentation for the current and previous 4 versions of Kubernetes.

@@ -187,7 +187,7 @@ kubectl apply (-f FILENAME | -k DIRECTORY)
 <td colspan="2">-l, --selector string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2). Matching objects must satisfy all of the specified label constraints.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.</p></td>
 </tr>
 
 <tr>
@@ -208,7 +208,7 @@ kubectl apply (-f FILENAME | -k DIRECTORY)
 <td colspan="2">--subresource string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If specified, apply will operate on the subresource of the requested object.  Only allowed when using --server-side. This flag is beta and may change in the future.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If specified, apply will operate on the subresource of the requested object.  Only allowed when using --server-side.</p></td>
 </tr>
 
 <tr>

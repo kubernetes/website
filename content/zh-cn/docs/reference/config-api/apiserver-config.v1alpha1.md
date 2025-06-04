@@ -10,10 +10,12 @@ package: apiserver.k8s.io/v1alpha1
 auto_generated: true
 -->
 
+<p>
 <!--
 Package v1alpha1 is the v1alpha1 version of the API.
 -->
-<p>包 v1alpha1 包含 API 的 v1alpha1 版本。</p>
+包 v1alpha1 包含 API 的 v1alpha1 版本。
+</p>
 
 <!--
 ## Resource Types
@@ -125,11 +127,11 @@ AuthenticationConfiguration 为身份认证提供版本化的配置。
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
+
 <tr><td><code>apiVersion</code><br/>string</td><td><code>apiserver.k8s.io/v1alpha1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>AuthenticationConfiguration</code></td></tr>
-    
-  
+
+
 <tr><td><code>jwt</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#apiserver-k8s-io-v1beta1-JWTAuthenticator"><code>[]JWTAuthenticator</code></a>
 </td>
@@ -191,7 +193,7 @@ The minimum valid JWT payload must contain the following claims:
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
+
 <tr><td><code>apiVersion</code><br/>string</td><td><code>apiserver.k8s.io/v1alpha1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>AuthorizationConfiguration</code></td></tr>
 
@@ -397,8 +399,8 @@ AnonymousAuthConfig 为匿名身份认证器提供配置信息。</p>
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
+
 <tr><td><code>enabled</code> <B><!--[Required]-->[必需]</B><br/>
 <code>bool</code>
 </td>
@@ -453,8 +455,8 @@ AudienceMatchPolicyType 是 issuer.audienceMatchPolicy 合法值的集合
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
+
 <tr><td><code>type</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -544,7 +546,9 @@ If username.expression is set, the expression must produce a string value.
 If username.expression uses 'claims.email', then 'claims.email_verified' must be used in
 username.expression or extra[<em>].valueExpression or claimValidationRules[</em>].expression.
 An example claim validation rule expression that matches the validation automatically
-applied when username.claim is set to 'email' is 'claims.?email_verified.orValue(true)'.
+applied when username.claim is set to 'email' is 'claims.?email_verified.orValue(true) == true'. By explicitly comparing
+the value to true, we let type-checking see the result will be a boolean, and to make sure a non-boolean email_verified
+claim will be caught at runtime.<
    -->
    username 表示用户名属性的一个选项。
    声明的值必须是单一字符串。
@@ -555,6 +559,8 @@ applied when username.claim is set to 'email' is 'claims.?email_verified.orValue
    或 <code>claimValidationRules[*].expression</code> 中使用 'claims.email_verified'。
    这里有一个声明验证规则表达式的示例，当 username.claim 设置为 'email' 时与自动应用的验证所匹配：
    'claims.?email_verified.orValue(true)'。
+   通过显式地将值与 true 进行比较，我们可以看到类型检查的结果将是一个布尔值，
+   并确保在运行时捕获到非布尔值的 email_verified 声明。
    </p>
 <p>
 <!--
@@ -568,13 +574,13 @@ For prefix:
          behavior using authentication config, set username.prefix="<value of issuer.url>#"
      (3) --oidc-username-prefix="<value>". For the same behavior using authentication config, set username.prefix="<value>"
 -->
-在基于标志的方法中，--oidc-username-claim 和 --oidc-username-prefix
-是可选的。如果未设置 --oidc-username-claim，默认值为 &quot;sub&quot;。
+在基于标志的方法中，<code>--oidc-username-claim</code> 和 <code>--oidc-username-prefix</code>
+是可选的。如果未设置 <code>--oidc-username-claim</code>，默认值为 &quot;sub&quot;。
 对于身份认证配置，声明或前缀都没有默认值。声明和前缀必须显式设置。
-对于声明，如果在传统标志方法中未设置 --oidc-username-claim，
+对于声明，如果在传统标志方法中未设置 <code>--oidc-username-claim</code>，
 请在身份认证配置中配置 username.claim=&quot;sub&quot;。
 对于前缀：
-(1) --oidc-username-prefix="-", 未添加前缀到用户名。要实现相同的行为，请在身份认证配置中设置
+(1) --oidc-username-prefix="-"，未添加前缀到用户名。要实现相同的行为，请在身份认证配置中设置
 username.prefix=&quot;&quot;
 (2) --oidc-username-prefix=&quot;&quot; 并且 --oidc-username-claim != &quot;email&quot;，
 前缀为 &quot;&lt;--oidc-issuer-url 的值&gt;#&quot;。要实现相同的行为，请在身份认证配置中设置
@@ -598,8 +604,8 @@ If groups.expression is set, the expression must produce a string or string arra
    -->
    groups 表示 groups 属性的一个选项。
    其中 claim 字段的值必须是字符串或字符串数组。
-   如果设置了 groups.claim，则必须指定 prefix 字段（可以是空字符串）。
-   如果设置了 groups.expression，则该表达式必须生成一个字符串或字符串数组值。
+   如果设置了 <code>groups.claim</code>，则必须指定 prefix 字段（可以是空字符串）。
+   如果设置了 <code>groups.expression</code>，则该表达式必须生成一个字符串或字符串数组值。
    &quot;&quot;、[] 和 null 值被视为不存在组映射。
    </p>
 </td>
@@ -616,7 +622,7 @@ If uid.expression is set, the expression must produce a string value.
    -->
    uid 表示 uid 属性的一个选项。
    其中的 claim 字段必须是一个字符串。
-   如果设置了 uid.expression，则该表达式必须生成一个字符串值。
+   如果设置了 <code>uid.expression</code>，则该表达式必须生成一个字符串值。
    </p>
 </td>
 </tr>
@@ -654,7 +660,9 @@ This will result in:
 - key: "foo"
    valueExpression: "'bar'"
 </pre>
-这将导致一个额外的属性 - foo: [&quot;bar&quot;]<br/>
+这将导致一个额外的属性 - foo: [&quot;bar&quot;]
+
+<br/>
 
 硬编码 key，value 从声明的值复制
 <pre>
@@ -708,8 +716,8 @@ ClaimOrExpression 为单个声明或表达式提供配置信息。
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
+
 <tr><td><code>claim</code><br/>
 <code>string</code>
 </td>
@@ -787,7 +795,7 @@ Only string claim keys are supported.
 Mutually exclusive with expression and message.
    -->
    claim 是所需要的声明的名称。
-   与 --oidc-required-claim 标志相同。
+   与 <code>--oidc-required-claim</code> 标志相同。
    仅支持用字符串声明键。
    与 expression 和 message 互斥。
    </p>
@@ -806,7 +814,7 @@ If claim is set and requiredValue is not set, the claim must be present with a v
 Mutually exclusive with expression and message.
    -->
    requiredValue 是声明中必须包含的值。
-   与 --oidc-required-claim 标志相同。
+   与 <code>--oidc-required-claim</code> 标志相同。
    仅支持用字符串声明值。
    如果设置了 claim 而未设置 requiredValue，则 claim 必须存在且值必须设置为空字符串。
    与 expression 和 message 互斥。
@@ -992,7 +1000,7 @@ key must be lowercase.
 Required to be unique.
    -->
    key 是用作 extra 属性键的字符串。
-   key 必须是域前缀路径（例如 example.org/foo）。第一个 &quot;/&quot; 之前的所有字符必须是符合
+   key 必须是域前缀路径（例如 <code>example.org/foo</code>）。第一个 &quot;/&quot; 之前的所有字符必须是符合
    RFC 1123 定义的有效子域名。第一个 &quot;/&quot; 之后的所有字符必须是符合 RFC 3986
    定义的有效 HTTP 路径字符。
    key 必须是小写。必须是唯一的。
@@ -1015,7 +1023,7 @@ For example, a variable named 'sub' can be accessed as 'claims.sub'.
 Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 </ul>
 <p>Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/</p>
-   -->  
+   -->
    <p>valueExpression 是一个 CEL 表达式，用于提取 extra 中的属性值。
    valueExpression 必须生成一个字符串或字符串数组值。
      &quot;&quot;、[] 和 null 值被视为不存在 extra 映射。
@@ -1041,17 +1049,18 @@ Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 
 - [JWTAuthenticator](#apiserver-k8s-io-v1alpha1-JWTAuthenticator)
 
+<p>
 <!--
-<p>Issuer provides the configuration for an external provider's specific settings.</p>
+Issuer provides the configuration for an external provider's specific settings.
 -->
-<p>Issuer 为外部提供者的特定设置提供配置。</p>
-
+Issuer 为外部提供者的特定设置提供配置。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
+
 <tr><td><code>url</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -1198,31 +1207,36 @@ Allowed values are:
 </ol>
 <ul>
 <li>
+<p>
 <!--
-<p>MatchAny: the &quot;aud&quot; claim in the presented JWT must match at least one of the entries in the &quot;audiences&quot; field.
-For example, if &quot;audiences&quot; is [&quot;foo&quot;, &quot;bar&quot;], the &quot;aud&quot; claim in the presented JWT must contain either &quot;foo&quot; or &quot;bar&quot; (and may contain both).</p>
+MatchAny: the &quot;aud&quot; claim in the presented JWT must match at least one of the entries in the &quot;audiences&quot; field.
+For example, if &quot;audiences&quot; is [&quot;foo&quot;, &quot;bar&quot;], the &quot;aud&quot; claim in the presented JWT must contain either &quot;foo&quot; or &quot;bar&quot; (and may contain both).
 -->
-<p>MatchAny：所提供的 JWT 中的 &quot;aud&quot; 声明必须至少与 &quot;audiences&quot;
+MatchAny：所提供的 JWT 中的 &quot;aud&quot; 声明必须至少与 &quot;audiences&quot;
 字段中的一个条目匹配。例如，如果 &quot;audiences&quot; 是 [&quot;foo&quot;, &quot;bar&quot;]，
 则所提供的 JWT 中的 &quot;aud&quot; 声明必须包含 &quot;foo&quot; 或 &quot;bar&quot;（也可以同时包含两者）。
 </p>
 </li>
 <li>
+<p>
 <!--
-<p>&quot;&quot;: The match policy can be empty (or unset) when a single audience is specified in the &quot;audiences&quot; field. The &quot;aud&quot; claim in the presented JWT must contain the single audience (and may contain others).</p>
+&quot;&quot;: The match policy can be empty (or unset) when a single audience is specified in the &quot;audiences&quot; field. The &quot;aud&quot; claim in the presented JWT must contain the single audience (and may contain others).
 -->
-<p>&quot;&quot;：当 &quot;audiences&quot; 字段中指定单个受众时，匹配策略可以为空（或未设置）。
-所提供的 JWT 中的 &quot;aud&quot; 声明必须包含该单个受众（并且可以包含其他受众）。</p>
+&quot;&quot;：当 &quot;audiences&quot; 字段中指定单个受众时，匹配策略可以为空（或未设置）。
+所提供的 JWT 中的 &quot;aud&quot; 声明必须包含该单个受众（并且可以包含其他受众）。
+</p>
 </li>
 </ul>
+<p>
 <!--
-<p>For more nuanced audience validation, use claimValidationRules.
-example: claimValidationRule[].expression: 'sets.equivalent(claims.aud, [&quot;bar&quot;, &quot;foo&quot;, &quot;baz&quot;])' to require an exact match.</p>
+For more nuanced audience validation, use claimValidationRules.
+example: claimValidationRule[].expression: 'sets.equivalent(claims.aud, [&quot;bar&quot;, &quot;foo&quot;, &quot;baz&quot;])' to require an exact match.
 -->
-<p>对于更精细的受众验证，请使用 claimValidationRules。
+对于更精细的受众验证，请使用 claimValidationRules。
 示例：claimValidationRule[].expression:
 'sets.equivalent(claims.aud, [&quot;bar&quot;, &quot;foo&quot;, &quot;baz&quot;])'
-以要求精确匹配。</p>
+以要求精确匹配。
+</p>
 </td>
 </tr>
 </tbody>
@@ -1318,7 +1332,7 @@ The validation rules are logically ANDed together and must all return true for t
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>claim</code><br/>
 <code>string</code>
 </td>
@@ -1590,7 +1604,7 @@ UDSTransport 设置通过 UDS 连接 konnectivity 服务器时需要的信息。
 <tbody>
 
 
-<tr><td><code>udsName</code> <B>[必需]</B><br/>
+<tr><td><code>udsName</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
 <td>
@@ -1687,7 +1701,7 @@ API 文档：https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>authorizedTTL</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
@@ -1745,7 +1759,7 @@ Same as setting <code>--authorization-webhook-version</code> flag
 Valid values: v1beta1, v1
 Required, no default value</p>
    -->
-   <p>要发送到 Webhook 并期望从 Webhook 获得的 authorization.k8s.io SubjectAccessReview 的 API 版本。
+   <p>要发送到 Webhook 并期望从 Webhook 获得的 <code>authorization.k8s.io</code> SubjectAccessReview 的 API 版本。
 与设置 <code>--authorization-webhook-version</code> 标志相同。
 有效值：v1beta1、v1。必需，无默认值</p>
 </td>
@@ -1905,8 +1919,8 @@ Required, if connectionInfo.Type is KubeConfig
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
+
 <tr><td><code>expression</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>

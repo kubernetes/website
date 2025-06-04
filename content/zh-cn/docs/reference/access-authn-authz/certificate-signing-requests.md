@@ -689,7 +689,7 @@ you like. If you want to add a note for human consumption, use the
 -->
 ## 集群信任包   {#cluster-trust-bundles}
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state feature_gate_name="ClusterTrustBundle" >}}
 
 {{< note >}}
 <!--
@@ -869,7 +869,7 @@ ClusterTrustBundle 的名称**必须不**包含英文冒号（`:`）。
 -->
 ### 从 Pod 访问 ClusterTrustBundle {#ctb-projection}
 
-{{<feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="ClusterTrustBundleProjection" >}}
 
 <!--
 The contents of ClusterTrustBundles can be injected into the container filesystem, similar to ConfigMaps and Secrets.

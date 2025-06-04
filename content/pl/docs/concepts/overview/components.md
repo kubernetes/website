@@ -2,117 +2,87 @@
 title: Składniki Kubernetesa
 content_type: concept
 description: >
-  Klaster Kubernetesa tworzą: komponenty warstwy sterowania
-  oraz zbiór maszyn nazywanych węzłami.
-weight: 30
-card: 
+  Omówienie głównych elementów tworzących klaster Kubernetesa.
+weight: 10
+card:
+  title: Komponenty klastra
   name: concepts
   weight: 20
 ---
 
+
+
 <!-- overview -->
-W wyniku instalacji Kubernetesa otrzymujesz klaster.
 
-{{< glossary_definition term_id="cluster" length="all" prepend="Klaster Kubernetes to">}}
+Ta strona zawiera wysokopoziomy przegląd niezbędnych komponentów, które tworzą klaster Kubernetesa.
 
-W tym dokumencie opisujemy składniki niezbędne do zbudowania kompletnego, poprawnie działającego klastra Kubernetesa.
-
-{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Składniki Kubernetesa" caption="Części składowe klastra Kubernetes" class="diagram-large" >}}
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Komponenty Kubernetesa" caption="Komponenty klastra Kubernetesa" class="diagram-large" clicktozoom="true" >}}
 
 <!-- body -->
-## Części składowe warstwy sterowania
 
-Komponenty warstwy sterowania podejmują ogólne decyzje dotyczące klastra (np. zlecanie zadań), a także wykrywają i reagują na zdarzenia w klastrze (przykładowo, start nowego {{< glossary_tooltip text="poda" term_id="pod">}}, kiedy wartość `replicas` dla deploymentu nie zgadza się z faktyczną liczbą replik).
+## Składniki Kubernetesa {#core-components}
 
-Komponenty warstwy sterowania mogą być uruchomione na dowolnej maszynie w klastrze. Dla uproszczenia jednak skrypty instalacyjne zazwyczaj startują wszystkie składniki na tej samej maszynie, a jednocześnie nie pozwalają na uruchamianie na niej kontenerów użytkowników. Na stronie [Creating Highly Available clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/) znajdziesz opis konfiguracji warstwy sterowania działającej na wielu maszynach.
+Klaster Kubernetesa składa się z warstwy sterowania oraz jednego
+lub więcej węzłów roboczych. Oto krótki przegląd głównych komponentów:
 
-### kube-apiserver
+### Części składowe warstwy sterowania {#control-plane-components}
 
-{{< glossary_definition term_id="kube-apiserver" length="all" >}}
+Zarządzanie ogólnym stanem klastra:
 
-### etcd
+[kube-apiserver](/docs/concepts/architecture/#kube-apiserver)
+: Podstawowy komponent udostępniający interfejs API Kubernetesa przez HTTP
 
-{{< glossary_definition term_id="etcd" length="all" >}}
+[etcd](/docs/concepts/architecture/#etcd)
+: Stabilna i wysoko dostępna baza danych typu klucz-wartość, wykorzystywana do przechowywania stanu całego klastra Kubernetesa.
 
-### kube-scheduler
+[kube-scheduler](/docs/concepts/architecture/#kube-scheduler)
+: Wyszukuje Pody, które nie zostały jeszcze przypisane do węzła, i przydziela każdy Pod do odpowiedniego węzła.
 
-{{< glossary_definition term_id="kube-scheduler" length="all" >}}
+[kube-controller-manager](/docs/concepts/architecture/#kube-controller-manager)
+: Uruchamia {{< glossary_tooltip text="kontrolery" term_id="controller" >}} realizujące logikę działania API Kubernetesa.
 
-### kube-controller-manager
+[cloud-controller-manager](/docs/concepts/architecture/#cloud-controller-manager) (opcjonalne)
+: Zapewnia integrację klastra Kubernetesa z infrastrukturą dostarczaną przez zewnętrznych dostawców chmurowych.
 
-{{< glossary_definition term_id="kube-controller-manager" length="all" >}}
+### Składniki węzłów {#node-components}
 
-Przykładowe kontrolery:
+Działa na każdym węźle klastra, odpowiada za utrzymanie aktywnych podów oraz zapewnienie środowiska uruchomieniowego Kubernetesa:
 
-* Node controller: Odpowiada za rozpoznawanie i reagowanie na sytuacje, kiedy węzeł staje się z jakiegoś powodu niedostępny.
-* Job controller: Czeka na obiekty typu *Job*, które definiują zadania uruchamiane jednorazowo
-  i startuje Pody, odpowiadające za ich wykonanie tych zadań.
-* EndpointSlice controller: Dostarcza informacji do obiektów typu *EndpointSlice* (aby zapewnić połaczenie pomiędzy Serwisami i Podami).
-* ServiceAccount controllers: Tworzy domyślne konta dla nowych przestrzeni nazw (*namespaces*).
+[kubelet](/docs/concepts/architecture/#kubelet)
+: Odpowiada za nadzorowanie, czy pody oraz ich kontenery są uruchomione i działają zgodnie z oczekiwaniami.
 
-### cloud-controller-manager
+[kube-proxy](/docs/concepts/architecture/#kube-proxy) (opcjonalne)
+: Utrzymuje reguły sieciowe na węzłach w celu obsługi komunikacji z {{< glossary_tooltip text="usługami (ang. Service)" term_id="service" >}}.
 
-{{< glossary_definition term_id="cloud-controller-manager" length="short" >}}
+[Środowisko uruchomieniowe kontenerów](/docs/concepts/architecture/#container-runtime)
+: Oprogramowanie odpowiedzialne za uruchamianie kontenerów. Przeczytaj [Środowiska uruchomieniowe kontenerów](/docs/setup/production-environment/container-runtimes/), aby dowiedzieć się więcej.
 
-cloud-controller-manager uruchamia jedynie kontrolery właściwe dla konkretnego dostawcy usług chmurowych.
-Jeśli uruchamiasz Kubernetesa we własnym centrum komputerowym lub w środowisku szkoleniowym na swoim
-komputerze, klaster nie będzie miał cloud controller managera.
+{{% thirdparty-content single="true" %}}
 
-Podobnie jak w przypadku kube-controller-manager, cloud-controller-manager łączy w jednym pliku binarnym
-kilka niezależnych pętli sterowania. Można go skalować horyzontalnie
-(uruchomić więcej niż jedną instancję), aby poprawić wydajność lub zwiększyć odporność na awarie.
+Klaster może wymagać dodatkowego oprogramowania na każdym węźle; możesz na przykład uruchomić
+[systemd](https://systemd.io/) na węzłach z systemem Linux do monitorowania i zarządzania lokalnymi usługami.
 
-Następujące kontrolery mogą zależeć od dostawców usług chmurowych:
+## Dodatki (Addons) {#addons}
 
-* Node controller: Aby sprawdzić u dostawcy usługi chmurowej, czy węzeł został skasowany po tym, jak przestał odpowiadać
-* Route controller: Aby ustawić trasy *(routes)* w niższych warstwach infrastruktury chmurowej
-* Service controller: Aby tworzyć, aktualizować i kasować *cloud load balancers*
+Dodatki rozszerzają funkcjonalność Kubernetesa. Oto kilka ważnych przykładów:
 
-## Składniki węzłów
+[DNS](/docs/concepts/architecture/#dns)
+: Umożliwia rozpoznawanie nazw DNS dla usług i komponentów działających w całym klastrze
 
-Składniki węzłów uruchomiane są na każdym węźle. Utrzymują pody w działaniu i ustawiają środowisko uruchomieniowe Kubernetes.
+[Web UI](/docs/concepts/architecture/#web-ui-dashboard) (Dashboard)
+: Umożliwia zarządzanie klastrem Kubernetesa poprzez webowy interfejs.
 
-### kubelet
+[Monitorowanie zasobów kontenera](/docs/concepts/architecture/#container-resource-monitoring)
+: Służy do monitorowania zasobów kontenerów poprzez gromadzenie i zapisywanie danych o ich wydajności.
 
-{{< glossary_definition term_id="kubelet" length="all" >}}
+[Logowanie na poziomie klastra](/docs/concepts/architecture/#cluster-level-logging)
+: Umożliwia zbieranie i przechowywanie logów z kontenerów w centralnym systemie logowania dostępnym na poziomie całego klastra.
 
-### kube-proxy
+## Elastyczność architektury {#flexibility-in-architecture}
 
-{{< glossary_definition term_id="kube-proxy" length="all" >}}
+Dzięki elastycznej architekturze Kubernetesa można dostosować sposób
+wdrażania i zarządzania poszczególnymi komponentami do konkretnych wymagań - od prostych
+klastrów deweloperskich po złożone systemy produkcyjne na dużą skalę.
 
-### Container runtime
-
-{{< glossary_definition term_id="container-runtime" length="all" >}}
-
-## Dodatki (*Addons*) {#dodatki}
-
-Dodatki korzystają z podstawowych obiektów Kubernetes ({{< glossary_tooltip term_id="daemonset" >}}, {{< glossary_tooltip term_id="deployment" >}}, itp.), aby rozszerzyć funkcjonalności klastra. Ponieważ są to funkcjonalności obejmujące cały klaster, zasoby te należą do przestrzeni nazw *(namespace)* `kube-system`.
-
-Wybrane dodatki opisano poniżej. Rozszerzona lista dostępnych dodatków jest w części [Dodatki](/docs/concepts/cluster-administration/addons/).
-
-### DNS
-
-Mimo, że inne dodatki nie są bezwzględnie wymagane, wszystkie klastry Kubernetes powinny mieć [cluster DNS](/docs/concepts/services-networking/dns-pod-service/), ponieważ wiele przykładów z niego korzysta.
-
-*Cluster DNS* to serwer DNS, który uzupełnienia inne serwery DNS z twojego środowiska, dostarczając informacje o rekordach DNS dla usług Kubernetes.
-
-Kontenery uruchomione przez Kubernetes automatycznie przeszukują ten serwer DNS.
-
-### Interfejs użytkownika (Dashboard)
-
-[Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) to webowy interfejs ogólnego zastosowania przeznaczony dla użytkowników klastra Kubernetes. Umożliwia zarządzanie i rozwiązywanie problemów związanych z aplikacjami uruchamianymi na klastrze, a także z samym klastrem.
-
-### Monitorowanie zasobów w kontenerach
-
-[Container Resource Monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/) zapisuje serie czasowe podstawowych metryk kontenerów w centralnej bazie danych i oferuje interfejs użytkownika do przeglądania tych danych.
-
-### Logowanie na poziomie klastra
-
-Mechanizm [logowania na poziomie klastra](/docs/concepts/cluster-administration/logging/) odpowiada za zapisywanie logów pochodzących z poszczególnych kontenerów do wspólnego magazynu, który posiada interfejs do przeglądania i przeszukiwania.
-
-## {{% heading "whatsnext" %}}
-
-* Więcej o [Węzłach](/docs/concepts/architecture/nodes/)
-* Więcej o [Kontrolerach](/docs/concepts/architecture/controller/)
-* Więcej o [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
-* Oficjalna [dokumentacja](https://etcd.io/docs/) etcd
+Szczegółowe informacje o każdym komponencie oraz różnych sposobach konfiguracji
+architektury klastra znajdziesz na stronie [Architektura klastra](/docs/concepts/architecture/).

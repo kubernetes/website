@@ -50,8 +50,8 @@ The continue option should be set when retrieving more results from the server. 
 <!--
 This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
 -->
-当 watch 字段为 true 时，不支持此字段。客户端可以从服务器返回的最后一个 resourceVersion
-值开始监视，就不会错过任何修改。
+当 watch 字段为 true 时，不支持此字段。客户端可以从服务器返回的最后一个
+resourceVersion 值开始监视，就不会错过任何修改。
 
 <hr>
 
@@ -63,7 +63,7 @@ When present, indicates that modifications should not be persisted. An invalid o
 表示不应该持久化所请求的修改。无效或无法识别的 dryRun 指令将导致错误响应，
 并且服务器不再对请求进行进一步处理。有效值为:
 
-- All: 将处理所有的演练阶段
+- All：将处理所有的演练阶段
 
 <hr>
 
@@ -126,6 +126,38 @@ The duration in seconds before the object should be deleted. Value must be non-n
 
 <hr>
 
+## ignoreStoreReadErrorWithClusterBreakingPotential {#ignoreStoreReadErrorWithClusterBreakingPotential}
+
+<!--
+if set to true, it will trigger an unsafe deletion of the resource in case the normal
+deletion flow fails with a corrupt object error.
+A resource is considered corrupt if it can not be retrieved from the underlying
+storage successfully because of
+a) its data can not be transformed e.g. decryption failure, or
+b) it fails to decode into an object.
+NOTE: unsafe deletion ignores finalizer constraints, skips precondition checks,
+and removes the object from the storage.
+WARNING: This may potentially break the cluster if the workload associated
+with the resource being unsafe-deleted relies on normal deletion flow.
+Use only if you REALLY know what you are doing. The default value is false,
+and the user must opt in to enable it
+-->
+如果设置为 true，在正常的删除流程因对象损坏错误而失败时，
+将触发资源的不安全删除。当由于以下原因无法从底层存储成功检索资源时，
+该资源被视为损坏：
+
+1. 其数据无法转换，例如解密失败；或
+2. 它无法解码为一个对象。
+
+注意：不安全删除忽略终结器约束，跳过前提条件检查，并从存储中移除对象。
+
+警告：如果与正在被不安全删除的资源相关联的工作负载依赖于正常删除流程，
+这可能会破坏集群。仅在你真正知道自己在做什么的情况下使用。
+
+默认值是 false，用户必须主动选择启用。
+
+<hr>
+
 ## labelSelector {#labelSelector}
 
 <!--
@@ -173,7 +205,8 @@ object name and auth scope, such as for teams and projects
 If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).
 -->
 如果设置为 'true'，那么输出是规范的打印。
-默认情况下为 false，除非用户代理声明是浏览器或命令行 HTTP 工具（如 curl 和 wget）。
+默认情况下为 false，除非用户代理声明是浏览器或命令行 HTTP 工具
+（如 curl 和 wget）。
 
 <hr>
 
@@ -255,8 +288,8 @@ When `sendInitialEvents` option is set, we require `resourceVersionMatch` option
 <!--
 Defaults to true if `resourceVersion=""` or `resourceVersion="0"` (for backward compatibility reasons) and to false otherwise.
 -->
-如果 `resourceVersion=""` 或 `resourceVersion="0"`（出于向后兼容性原因），默认为
-true，否则默认为 false。
+如果 `resourceVersion=""` 或 `resourceVersion="0"`（出于向后兼容性原因），
+默认为 true，否则默认为 false。
 
 <hr>
 

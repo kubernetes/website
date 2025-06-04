@@ -50,7 +50,7 @@ Kubernetes 调度器对挂接到一个节点的卷数有默认限制：
   <tr><td><a href="https://cloud.google.com/persistent-disk/">Google Persistent Disk</a></td><td>16</td></tr>
   <tr><td><a href="https://azure.microsoft.com/en-us/services/storage/main-disks/">Microsoft Azure Disk Storage</a></td><td>16</td></tr>
 </table>
- -->
+-->
 <table>
   <tr><th>云服务</th><th>每节点最大卷数</th></tr>
   <tr><td><a href="https://aws.amazon.com/ebs/">Amazon Elastic Block Store (EBS)</a></td><td>39</td></tr>
@@ -143,3 +143,62 @@ Refer to the [CSI specifications](https://github.com/container-storage-interface
   参考 [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo)获取更多详细信息。
 
 * 对于由已迁移到 CSI 驱动的树内插件管理的卷，最大卷数将是 CSI 驱动报告的卷数。
+
+<!--
+### Mutable CSI Node Allocatable Count
+-->
+### 可变的 CSI 节点可分配数   {#mutable-csi-node-allocatable-count}
+
+{{< feature-state state="alpha" for_k8s_version="v1.33" >}}
+
+<!--
+CSI drivers can dynamically adjust the maximum number of volumes that can be attached to a Node at runtime. This enhances scheduling accuracy and reduces pod scheduling failures due to changes in resource availability.
+-->
+CSI 驱动可以在运行时动态调整可以挂载到 Node 的最大卷数量。
+这提高了调度准确性，并减少了由于资源可用性变化导致的 Pod 调度失败。
+
+<!--
+This is an alpha feature and is disabled by default.
+
+To use this feature, you must enable the `MutableCSINodeAllocatableCount` feature gate on the following components:
+-->
+这是一个 Alpha 级别特性，默认情况下是禁用的。
+
+要使用此特性，你必须在以下组件上启用 `MutableCSINodeAllocatableCount`
+特性门控：
+
+- `kube-apiserver`
+- `kubelet`
+
+<!--
+#### Periodic Updates
+
+When enabled, CSI drivers can request periodic updates to their volume limits by setting the `nodeAllocatableUpdatePeriodSeconds` field in the `CSIDriver` specification. For example:
+-->
+#### 定期更新
+
+当启用时，CSI 驱动可以通过在 `CSIDriver` 规约中设置
+`nodeAllocatableUpdatePeriodSeconds` 字段来请求定期更新其卷限制。
+例如：
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: CSIDriver
+metadata:
+  name: hostpath.csi.k8s.io
+spec:
+  nodeAllocatableUpdatePeriodSeconds: 60
+```
+
+<!--
+Kubelet will periodically call the corresponding CSI driver’s `NodeGetInfo` endpoint to refresh the maximum number of attachable volumes, using the interval specified in `nodeAllocatableUpdatePeriodSeconds`. The minimum allowed value for this field is 10 seconds.
+-->
+kubelet 将使用 `nodeAllocatableUpdatePeriodSeconds`
+中指定的时间间隔，定期调用相应的 CSI 驱动的 `NodeGetInfo`
+端点来刷新可挂接卷的最大数量。此字段允许的最小值为 10 秒。
+
+<!--
+Additionally, if a volume attachment operation fails with a `ResourceExhausted` error (gRPC code 8), Kubernetes triggers an immediate update to the allocatable volume count for that Node.
+-->
+此外，如果卷挂接操作失败并返回 `ResourceExhausted` 错误（gRPC 代码 8），
+Kubernetes 会立即触发对该 Node 的可分配卷数量的更新。

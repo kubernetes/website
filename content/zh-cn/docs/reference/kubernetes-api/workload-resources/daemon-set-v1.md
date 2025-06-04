@@ -86,18 +86,18 @@ DaemonSetSpec 是守护进程集的规约。
 
   A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 -->
-- **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>), 必需
+- **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)，必需
 
   对由守护进程集管理的 Pod 的标签查询。Pod 必须匹配此查询才能被此 DaemonSet 控制。
-  查询条件必须与 Pod 模板的标签匹配。
-  更多信息： https://kubernetes.io/zh-cn/concepts/overview/working-with-objects/labels/#label-selectors
+  查询条件必须与 Pod 模板的标签匹配。更多信息：
+  https://kubernetes.io/zh-cn/concepts/overview/working-with-objects/labels/#label-selectors
 
 <!--
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), required
 
   An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 -->
-- **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), 必需
+- **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)，必需
 
   描述将要创建的 Pod 的对象。DaemonSet 将在与模板的节点选择器匹配的每个节点上
  （如果未指定节点选择器，则在每个节点上）准确创建此 Pod 的副本。`template.spec.restartPolicy`
@@ -420,9 +420,10 @@ DaemonSetList 是守护进程集的集合。
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  标准列表元数据。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  标准列表元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>), 必需
+- **items** ([]<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>)，必需
 
   DaemonSet 的列表。
 
@@ -452,7 +453,7 @@ GET /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
 
   name of the DaemonSet
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   DaemonSet 的名称
 
@@ -466,7 +467,7 @@ GET /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -509,7 +510,7 @@ GET /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status
 
   name of the DaemonSet
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   DaemonSet 的名称
 
@@ -518,7 +519,7 @@ GET /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -571,7 +572,7 @@ GET /apis/apps/v1/namespaces/{namespace}/daemonsets
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 -->
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -837,11 +838,11 @@ POST /apis/apps/v1/namespaces/{namespace}/daemonsets
 
 - **body**: <a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>, required
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>, 必需
+- **body**: <a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
@@ -1019,15 +1020,15 @@ PUT /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status
 
 - **body**: <a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>, required
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   DaemonSet 的名称
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>, 必需
+- **body**: <a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>，必需
 
 <!--
 - **dryRun** (*in query*): string
@@ -1111,15 +1112,15 @@ PATCH /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 -->
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   DaemonSet 的名称
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
   
 <!--
 - **dryRun** (*in query*): string
@@ -1212,15 +1213,15 @@ PATCH /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   DaemonSet 的名称
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需 
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需 
 
 <!--
 - **dryRun** (*in query*): string
@@ -1406,7 +1407,7 @@ DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
 
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 

@@ -111,20 +111,20 @@ Don't apply any changes; just output what would be done.
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-ControlPlaneKubeletLocalMode=true|false (ALPHA - default=false)<br/>
+ControlPlaneKubeletLocalMode=true|false (BETA - default=true)<br/>
 EtcdLearnerMode=true|false (default=true)<br/>
 NodeLocalCRISocket=true|false (ALPHA - default=false)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
+WaitForAllControlPlaneComponents=true|false (BETA - default=true)
 -->
 一组键值对（key=value），描述了各种特征。选项包括：<br/>
-ControlPlaneKubeletLocalMode=true|false (ALPHA - 默认值=false)<br/>
+ControlPlaneKubeletLocalMode=true|false (BETA - 默认值=true)<br/>
 EtcdLearnerMode=true|false (默认值=true)<br/>
 NodeLocalCRISocket=true|false (ALPHA - 默认值=false)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
+WaitForAllControlPlaneComponents=true|false (BETA - 默认值=true)
 </td>
 </tr>
 

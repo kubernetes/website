@@ -77,11 +77,11 @@ StatefulSetSpec 是 StatefulSet 的规约。
 <hr>
 
 <!-- 
-- **serviceName** (string), required
+- **serviceName** (string)
 
   serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.  
 -->
-- **serviceName** (string)，必需
+- **serviceName** (string)
 
   serviceName 是管理此 StatefulSet 服务的名称。
   该服务必须在 StatefulSet 之前即已存在，并负责该集合的网络标识。

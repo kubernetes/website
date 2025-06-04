@@ -3,6 +3,8 @@ title: 动态资源分配
 content_type: concept
 weight: 65
 api_metadata:
+- apiVersion: "resource.k8s.io/v1alpha3"
+  kind: "DeviceTaintRule"
 - apiVersion: "resource.k8s.io/v1beta1"
   kind: "ResourceClaim"
 - apiVersion: "resource.k8s.io/v1beta1"
@@ -10,6 +12,14 @@ api_metadata:
 - apiVersion: "resource.k8s.io/v1beta1"
   kind: "DeviceClass"
 - apiVersion: "resource.k8s.io/v1beta1"
+  kind: "ResourceSlice"
+- apiVersion: "resource.k8s.io/v1beta2"
+  kind: "ResourceClaim"
+- apiVersion: "resource.k8s.io/v1beta2"
+  kind: "ResourceClaimTemplate"
+- apiVersion: "resource.k8s.io/v1beta2"
+  kind: "DeviceClass"
+- apiVersion: "resource.k8s.io/v1beta2"
   kind: "ResourceSlice"
 ---
 <!--
@@ -85,10 +95,10 @@ Kubernetes v{{< skew currentVersion >}} 包含用于动态资源分配的集群�
 ## API
 
 <!-- 
-The `resource.k8s.io/v1beta1`
-{{< glossary_tooltip text="API group" term_id="api-group" >}} provides these types:
+The `resource.k8s.io/v1beta1` and `resource.k8s.io/v1beta2`
+{{< glossary_tooltip text="API groups" term_id="api-group" >}} provide these types:
 -->
-`resource.k8s.io/v1beta1`
+`resource.k8s.io/v1beta1` 和 `resource.k8s.io/v1beta2`
 {{< glossary_tooltip text="API 组" term_id="api-group" >}}
 提供了以下类型：
 
@@ -131,11 +141,19 @@ DeviceClass
 
 <!--
 ResourceSlice
-: Used with structured parameters to publish information about resources
+: Used by DRA drivers to publish information about resources (typically devices)
   that are available in the cluster.
 -->
 ResourceSlice
-: 用于 DRA 驱动程序发布关于集群中可用资源的信息。
+: 用于 DRA 驱动程序发布关于集群中可用资源（通常是设备）的信息。
+
+<!--
+DeviceTaintRule
+: Used by admins or control plane components to add device taints
+  to the devices described in ResourceSlices.
+-->
+DeviceTaintRule
+: 用于管理员或控制平面组件为 ResourceSlice 中描述的设备添加设备污点。
 
 <!--
 All parameters that select devices are defined in the ResourceClaim and
@@ -175,15 +193,16 @@ will get created for this Pod and each container gets access to one of them.
 该示例将为此 Pod 创建两个 ResourceClaim 对象，每个容器都可以访问其中一个。
 
 ```yaml
-apiVersion: resource.k8s.io/v1beta1
+apiVersion: resource.k8s.io/v1beta2
 kind: DeviceClass
-name: resource.example.com
+metadata:
+  name: resource.example.com
 spec:
   selectors:
   - cel:
       expression: device.driver == "resource-driver.example.com"
 ---
-apiVersion: resource.k8s.io/v1beta1
+apiVersion: resource.k8s.io/v1beta2
 kind: ResourceClaimTemplate
 metadata:
   name: large-black-cat-claim-template
@@ -192,13 +211,14 @@ spec:
     devices:
       requests:
       - name: req-0
-        deviceClassName: resource.example.com
-        selectors:
-        - cel:
-           expression: |-
-              device.attributes["resource-driver.example.com"].color == "black" &&
-              device.attributes["resource-driver.example.com"].size == "large"
-–--
+        exactly:
+          deviceClassName: resource.example.com
+          selectors:
+          - cel:
+              expression: |-
+                device.attributes["resource-driver.example.com"].color == "black" &&
+                device.attributes["resource-driver.example.com"].size == "large"
+---
 apiVersion: v1
 kind: Pod
 metadata:
@@ -353,16 +373,18 @@ the `.spec.nodeName` field and to use a node selector instead.
 {{< feature-state feature_gate_name="DRAAdminAccess" >}}
 
 <!--
-You can mark a request in a ResourceClaim or ResourceClaimTemplate as having privileged features.
-A request with admin access grants access to devices which are in use and
-may enable additional permissions when making the device available in a
-container:
+You can mark a request in a ResourceClaim or ResourceClaimTemplate as having
+privileged features for maintenance and troubleshooting tasks. A request with
+admin access grants access to in-use devices and may enable additional
+permissions when making the device available in a container:
 -->
-你可以在 ResourceClaim 或 ResourceClaimTemplate 中标记一个请求为具有特权特性。
-具有管理员访问权限的请求可以允许用户访问使用中的设备，并且在将设备提供给容器时可能授权一些额外的访问权限：
+你可以在 ResourceClaim 或 ResourceClaimTemplate
+中标记一个请求为具有用于维护和故障排除任务的特权特性。
+具有管理员访问权限的请求可以允许用户访问使用中的设备，
+并且在将设备提供给容器时可能授权一些额外的访问权限：
 
 ```yaml
-apiVersion: resource.k8s.io/v1beta1
+apiVersion: resource.k8s.io/v1beta2
 kind: ResourceClaimTemplate
 metadata:
   name: large-black-cat-claim-template
@@ -371,99 +393,34 @@ spec:
     devices:
       requests:
       - name: req-0
-        deviceClassName: resource.example.com
-        adminAccess: true
+        exactly:
+          deviceClassName: resource.example.com
+          allocationMode: All
+          adminAccess: true
 ```
 
 <!--
 If this feature is disabled, the `adminAccess` field will be removed
 automatically when creating such a ResourceClaim.
 
-Admin access is a privileged mode which should not be made available to normal
-users in a multi-tenant cluster. Cluster administrators can restrict usage of
-this feature by installing a validating admission policy similar to the following
-example. Cluster administrators need to adapt at least the names and replace
-"dra.example.com".
+Admin access is a privileged mode and should not be granted to regular users in
+multi-tenant clusters. Starting with Kubernetes v1.33, only users authorized to
+create ResourceClaim or ResourceClaimTemplate objects in namespaces labeled with
+`resource.k8s.io/admin-access: "true"` (case-sensitive) can use the
+`adminAccess` field. This ensures that non-admin users cannot misuse the
+feature.
 -->
 如果此特性被禁用，创建此类 ResourceClaim 时将自动移除 `adminAccess` 字段。
 
 管理性质访问是一种特权模式，在多租户集群中不应该对普通用户开放。
-集群管理员可以通过安装类似于以下示例的验证准入策略来限制哪些负载能够使用此特性。
-集群管理员至少需要调整 name 属性并将 "dra.example.com" 替换为有意义的值。
-
-<!--
-# Permission to use admin access is granted only in namespaces which have the
-# "admin-access.dra.example.com" label. Other ways of making that decision are
-# also possible.
--->
-```yaml
-# 仅将管理性质访问权限授予具有 "admin-access.dra.example.com" 标签的命名空间。
-# 也可以采用其他方式做出此类决定。
-apiVersion: admissionregistration.k8s.io/v1
-kind: ValidatingAdmissionPolicy
-metadata:
-  name: resourceclaim-policy.dra.example.com
-spec:
-  failurePolicy: Fail
-  matchConstraints:
-    resourceRules:
-    - apiGroups:   ["resource.k8s.io"]
-      apiVersions: ["v1alpha3", "v1beta1"]
-      operations:  ["CREATE", "UPDATE"]
-      resources:   ["resourceclaims"]
-  validations:
-    - expression: '! object.spec.devices.requests.exists(e, has(e.adminAccess) && e.adminAccess)'
-      reason: Forbidden
-      messageExpression: '"admin access to devices not enabled"'
----
-apiVersion: admissionregistration.k8s.io/v1
-kind: ValidatingAdmissionPolicyBinding
-metadata:
-  name: resourceclaim-binding.dra.example.com
-spec:
-  policyName:  resourceclaim-policy.dra.example.com
-  validationActions: [Deny]
-  matchResources:
-    namespaceSelector:
-      matchExpressions:
-      - key: admin-access.dra.example.com
-        operator: DoesNotExist
----
-apiVersion: admissionregistration.k8s.io/v1
-kind: ValidatingAdmissionPolicy
-metadata:
-  name: resourceclaimtemplate-policy.dra.example.com
-spec:
-  failurePolicy: Fail
-  matchConstraints:
-    resourceRules:
-    - apiGroups:   ["resource.k8s.io"]
-      apiVersions: ["v1alpha3", "v1beta1"]
-      operations:  ["CREATE", "UPDATE"]
-      resources:   ["resourceclaimtemplates"]
-  validations:
-    - expression: '! object.spec.spec.devices.requests.exists(e, has(e.adminAccess) && e.adminAccess)'
-      reason: Forbidden
-      messageExpression: '"admin access to devices not enabled"'
----
-apiVersion: admissionregistration.k8s.io/v1
-kind: ValidatingAdmissionPolicyBinding
-metadata:
-  name: resourceclaimtemplate-binding.dra.example.com
-spec:
-  policyName:  resourceclaimtemplate-policy.dra.example.com
-  validationActions: [Deny]
-  matchResources:
-    namespaceSelector:
-      matchExpressions:
-      - key: admin-access.dra.example.com
-        operator: DoesNotExist
-```
+从 Kubernetes v1.33 开始，在标有 `resource.k8s.io/admin-access: "true"`（区分大小写）
+的命名空间中只有被授权创建 ResourceClaim 或 ResourceClaimTemplate
+对象的用户才能使用 `adminAccess` 字段。这确保了非管理员用户不能滥用此特性。
 
 <!--
 ## ResourceClaim Device Status
 -->
-ResourceClaim 设备状态  {#resourceclaim-device-status}
+## ResourceClaim 设备状态  {#resourceclaim-device-status}
 
 {{< feature-state feature_gate_name="DRAResourceClaimDeviceStatus" >}}
 
@@ -484,12 +441,319 @@ existing ResourceClaim where the `status.devices` field is set.
 驱动程序可以报告资源申领中各个已分配设备的、特定于驱动程序的设备状态。
 例如，可以在 ResourceClaim 状态中报告分配给网络接口设备的 IP。
 
-驱动程序设置状态，信息的准确性取决于 DRA 驱动程序的具体实现。因此，所报告的设备状态可能并不总是反映设备状态的实时变化。
+驱动程序设置状态，信息的准确性取决于 DRA 驱动程序的具体实现。
+因此，所报告的设备状态可能并不总是反映设备状态的实时变化。
 
 当此特性被禁用时，该字段会在存储 ResourceClaim 时自动清除。
 
 针对一个已经设置了 `status.devices` 字段的现有 ResourceClaim 而言，如果 DRA
 驱动能够更新该 ResourceClaim，则有可能支持 ResourceClaim 设备状态这一特性。
+
+
+<!--
+## Prioritized List
+
+{{< feature-state feature_gate_name="DRAPrioritizedList" >}}
+
+You can provide a prioritized list of subrequests for requests in a ResourceClaim. The
+scheduler will then select the first subrequest that can be allocated. This allows users to
+specify alternative devices that can be used by the workload if the primary choice is not
+available.
+
+In the example below, the ResourceClaimTemplate requested a device with the color black
+and the size large. If a device with those attributes are not available, the pod can not
+be scheduled. With the priotized list feature, a second alternative can be specified, which
+requests two devices with the color white and size small. The large black device will be
+allocated if it is available. But if it is not and two small white devices are available,
+the pod will still be able to run.
+-->
+## 按优先级排序的列表  {#prioritized-list}
+
+{{< feature-state feature_gate_name="DRAPrioritizedList" >}}
+
+你可以在 ResourceClaim 中为请求提供按优先级排序的子请求列表。调度器将选择第一个能够分配的子请求。
+这使得用户能够在首选设备不可用时指定工作负载可以使用的替代设备。
+
+在下面的示例中，ResourceClaimTemplate 请求了一个颜色为黑色且尺寸为大的设备。
+如果具有这些属性的设备不可用，Pod 将无法被调度。使用按优先级排序的列表特性，
+可以指定第二个替代方案，即请求两个颜色为白色且尺寸为小的设备。
+如果大型黑色设备可用，将分配它。但如果它不可用且有两个小型白色设备可用，
+Pod 仍然能够运行。
+
+```yaml
+apiVersion: resource.k8s.io/v1beta2
+kind: ResourceClaimTemplate
+metadata:
+  name: prioritized-list-claim-template
+spec:
+  spec:
+    devices:
+      requests:
+      - name: req-0
+        firstAvailable:
+        - name: large-black
+          deviceClassName: resource.example.com
+          selectors:
+          - cel:
+              expression: |-
+                device.attributes["resource-driver.example.com"].color == "black" &&
+                device.attributes["resource-driver.example.com"].size == "large"
+        - name: small-white
+          deviceClassName: resource.example.com
+          selectors:
+          - cel:
+              expression: |-
+                device.attributes["resource-driver.example.com"].color == "white" &&
+                device.attributes["resource-driver.example.com"].size == "small"
+          count: 2
+```
+
+<!--
+## Partitionable Devices
+
+{{< feature-state feature_gate_name="DRAPartitionableDevices" >}}
+
+Devices represented in DRA don't necessarily have to be a single unit connected to a single machine,
+but can also be a logical device comprised of multiple devices connected to multiple machines. These
+devices might consume overlapping resources of the underlying phyical devices, meaning that when one
+logical device is allocated other devices will no longer be available.
+-->
+## 可切分设备  {#partitionable-devices}
+
+{{< feature-state feature_gate_name="DRAPartitionableDevices" >}}
+
+DRA 中表示的设备不一定必须是连接到单个机器的单个单元，
+也可以是由连接到多个机器的多个设备组成的逻辑设备。
+这些设备可能会消耗底层物理设备的重叠资源，这意味着当一个逻辑设备被分配时，
+其他设备将不再可用。
+
+<!--
+In the ResourceSlice API, this is represented as a list of named CounterSets, each of which
+contains a set of named counters. The counters represent the resources available on the physical
+device that are used by the logical devices advertised through DRA.
+
+Logical devices can specify the ConsumesCounters list. Each entry contains a reference to a CounterSet
+and a set of named counters with the amounts they will consume. So for a device to be allocatable,
+the referenced counter sets must have sufficient quantity for the counters referenced by the device.
+
+Here is an example of two devices, each consuming 6Gi of memory from the a shared counter with
+8Gi of memory. Thus, only one of the devices can be allocated at any point in time. The scheduler
+handles this and it is transparent to the consumer as the ResourceClaim API is not affected.
+-->
+在 ResourceSlice API 中，这类设备表示为命名 CounterSet 列表，每个 CounterSet 包含一组命名计数器。
+计数器表示物理设备上可供通过 DRA 发布的逻辑设备使用的资源。
+
+逻辑设备可以指定 ConsumesCounter 列表。每个条目包含对某个 CounterSet 的引用和一组命名计数器及其消耗量。
+因此，要使设备可被分配，所引用的 CounterSet 必须具有设备引用的计数器所需的足够数量。
+
+以下是两个设备的示例，每个设备从具有 8Gi 内存的共享计数器中消耗 6Gi 内存。
+因此，在任何时间点只能分配其中一个设备。调度器处理这种情况，
+对使用者来说是透明的，因为 ResourceClaim API 不受影响。
+
+```yaml
+kind: ResourceSlice
+apiVersion: resource.k8s.io/v1beta2
+metadata:
+  name: resourceslice
+spec:
+  nodeName: worker-1
+  pool:
+    name: pool
+    generation: 1
+    resourceSliceCount: 1
+  driver: dra.example.com
+  sharedCounters:
+  - name: gpu-1-counters
+    counters:
+      memory:
+        value: 8Gi
+  devices:
+  - name: device-1
+    consumesCounters:
+    - counterSet: gpu-1-counters
+      counters:
+        memory:
+          value: 6Gi
+  - name: device-2
+    consumesCounters:
+    - counterSet: gpu-1-counters
+      counters:
+        memory:
+          value: 6Gi
+```
+
+<!--
+## Device taints and tolerations
+
+{{< feature-state feature_gate_name="DRADeviceTaints" >}}
+
+Device taints are similar to node taints: a taint has a string key, a string
+value, and an effect. The effect is applied to the ResourceClaim which is
+using a tainted device and to all Pods referencing that ResourceClaim.
+The "NoSchedule" effect prevents scheduling those Pods.
+Tainted devices are ignored when trying to allocate a ResourceClaim
+because using them would prevent scheduling of Pods.
+-->
+## 设备污点和容忍度  {#device-taints-and-tolerations}
+
+{{< feature-state feature_gate_name="DRADeviceTaints" >}}
+
+设备污点类似于节点污点：污点具有字符串形式的键、字符串形式的值和效果。
+效果应用于使用带污点设备的 ResourceClaim 以及引用该 ResourceClaim 的所有 Pod。
+"NoSchedule" 效果会阻止调度这些 Pod。
+在尝试分配 ResourceClaim 时会忽略带污点的设备，
+因为使用它们会阻止 Pod 的调度。
+
+<!--
+The "NoExecute" effect implies "NoSchedule" and in addition causes eviction
+of all Pods which have been scheduled already. This eviction is implemented
+in the device taint eviction controller in kube-controller-manager by
+deleting affected Pods.
+
+ResourceClaims can tolerate taints. If a taint is tolerated, its effect does
+not apply. An empty toleration matches all taints. A toleration can be limited to
+certain effects and/or match certain key/value pairs. A toleration can check
+that a certain key exists, regardless which value it has, or it can check
+for specific values of a key.
+For more information on this matching see the
+[node taint concepts](/docs/concepts/scheduling-eviction/taint-and-toleration#concepts).
+-->
+"NoExecute" 效果隐含 "NoSchedule" 效果，此外还会导致已调度的所有 Pod 被驱逐。
+这种驱逐是通过 kube-controller-manager 中的设备污点驱逐控制器删除受影响的 Pod 来实现的。
+
+ResourceClaim 可以容忍污点。如果污点被容忍，其效果将不会生效。
+空容忍度匹配所有污点。容忍度可以限制为特定效果和/或匹配特定键/值对。
+容忍度可以检查某个键是否存在，无论其值是什么，也可以检查某个键是否具有特定值。
+有关此匹配机制的更多信息，请参阅[节点污点概念](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration#concepts)。
+
+<!--
+Eviction can be delayed by tolerating a taint for a certain duration.
+That delay starts at the time when a taint gets added to a device, which is recorded in a field
+of the taint.
+
+Taints apply as described above also to ResourceClaims allocating "all" devices on a node.
+All devices must be untainted or all of their taints must be tolerated.
+Allocating a device with admin access (described [above](#admin-access))
+is not exempt either. An admin using that mode must explicitly tolerate all taints
+to access tainted devices.
+
+Taints can be added to devices in two different ways:
+-->
+通过容忍污点一段时间可以延迟驱逐。该延迟从污点添加到设备时开始，
+并被记录在污点的字段中。
+
+如上所述，污点也适用于在节点上分配"所有"设备的 ResourceClaim。
+所有设备必须不带污点，或者必须容忍其所有污点。
+分配具有管理员访问权限的设备（[上文](#admin-access)所述）也不例外。
+使用该模式的管理员必须明确容忍所有污点才能访问带污点的设备。
+
+可以通过两种不同的方式向设备添加污点：
+
+<!--
+### Taints set by the driver
+
+A DRA driver can add taints to the device information that it publishes in ResourceSlices.
+Consult the documentation of a DRA driver to learn whether the driver uses taints and what
+their keys and values are.
+-->
+### 由驱动程序设置的污点  {#taints-set-by-the-driver}
+
+DRA 驱动程序可以为其在 ResourceSlice 中发布的设备信息添加污点。
+请查阅 DRA 驱动程序的文档，了解驱动程序是否使用污点以及它们的键和值是什么。
+
+<!--
+### Taints set by an admin
+
+An admin or a control plane component can taint devices without having to tell
+the DRA driver to include taints in its device information in ResourceSlices. They do that by
+creating DeviceTaintRules. Each DeviceTaintRule adds one taint to devices which
+match the device selector. Without such a selector, no devices are tainted. This
+makes it harder to accidentally evict all pods using ResourceClaims when leaving out
+the selector by mistake.
+-->
+### 由管理员设置的污点  {#taints-set-by-an-admin}
+
+管理员或控制平面组件可以在不告诉 DRA 驱动程序在其 ResourceSlice
+中的设备信息中包含污点的情况下为设备添加污点。他们通过创建 DeviceTaintRule 来实现这一点。
+每个 DeviceTaintRule 为匹配设备选择算符的设备添加一个污点。
+如果没有指定这样的选择算符，则不会为任何设备添加污点。这使得在错误地遗漏选择算符时，
+意外驱逐所有使用 ResourceClaim 的 Pod 变得更加困难。
+
+<!--
+Devices can be selected by giving the name of a DeviceClass, driver, pool,
+and/or device. The DeviceClass selects all devices that are selected by the
+selectors in that DeviceClass. With just the driver name, an admin can taint
+all devices managed by that driver, for example while doing some kind of
+maintenance of that driver across the entire cluster. Adding a pool name can
+limit the taint to a single node, if the driver manages node-local devices.
+
+Finally, adding the device name can select one specific device. The device name
+and pool name can also be used alone, if desired. For example, drivers for node-local
+devices are encouraged to use the node name as their pool name. Then tainting with
+that pool name automatically taints all devices on a node.
+-->
+可以通过提供 DeviceClass、驱动程序（driver）、资源池（pool）和/或设备的名称来选择设备。
+DeviceClass 选择该 DeviceClass 中的选择算符所选择的所有设备。
+通过仅使用驱动程序名称，管理员可以为该驱动程序管理的所有设备添加污点，
+例如在对整个集群中的该驱动程序进行某种维护时。
+如果驱动程序管理节点本地设备，添加池名称可以将污点限制为单个节点。
+
+最后，添加设备名称可以选择一个特定设备。如果需要，设备名称和池名称也可以单独使用。
+例如，鼓励负责制备节点本地设备的驱动程序使用节点名称作为其池名称。
+然后使用该池名称添加污点会自动为节点上的所有设备添加污点。
+
+<!--
+Drivers might use stable names like "gpu-0" that hide which specific device is
+currently assigned to that name. To support tainting a specific hardware
+instance, CEL selectors can be used in a DeviceTaintRule to match a vendor-specific
+unique ID attribute, if the driver supports one for its hardware.
+
+The taint applies as long as the DeviceTaintRule exists. It can be modified and
+and removed at any time. Here is one example of a DeviceTaintRule for a fictional
+DRA driver:
+-->
+驱动程序可能使用像 "gpu-0" 这样的稳定名称，
+这些名称隐藏了当前分配给该名称的特定设备。
+为了支持为特定硬件实例添加污点，
+可以在 DeviceTaintRule 中使用 CEL 选择算符来匹配特定于供应商的唯一 ID 属性，
+前提是驱动程序支持硬件对应的这类属性。
+
+只要 DeviceTaintRule 存在，污点就会生效。它可以随时被修改和删除。
+以下是一个虚构的 DRA 驱动程序的 DeviceTaintRule 示例：
+
+<!--
+```yaml
+apiVersion: resource.k8s.io/v1alpha3
+kind: DeviceTaintRule
+metadata:
+  name: example
+spec:
+  # The entire hardware installation for this
+  # particular driver is broken.
+  # Evict all pods and don't schedule new ones.
+  deviceSelector:
+    driver: dra.example.com
+  taint:
+    key: dra.example.com/unhealthy
+    value: Broken
+    effect: NoExecute
+```
+-->
+```yaml
+apiVersion: resource.k8s.io/v1alpha3
+kind: DeviceTaintRule
+metadata:
+  name: example
+spec:
+  # 这个特定驱动程序的整个硬件安装已损坏。
+  # 驱逐所有 Pod 并且不调度新的 Pod。
+  deviceSelector:
+    driver: dra.example.com
+  taint:
+    key: dra.example.com/unhealthy
+    value: Broken
+    effect: NoExecute
+```
 
 <!-- 
 ## Enabling dynamic resource allocation
@@ -499,14 +763,14 @@ existing ResourceClaim where the `status.devices` field is set.
 <!--
 Dynamic resource allocation is a *beta feature* which is off by default and only enabled when the
 `DynamicResourceAllocation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-and the `resource.k8s.io/v1beta1` {{< glossary_tooltip text="API group" term_id="api-group" >}}
+and the `resource.k8s.io/v1beta1` and `resource.k8s.io/v1beta2` {{< glossary_tooltip text="API groups" term_id="api-group" >}}
 are enabled. For details on that, see the `--feature-gates` and `--runtime-config`
 [kube-apiserver parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
 kube-scheduler, kube-controller-manager and kubelet also need the feature gate.
 -->
 动态资源分配是一个 **Beta 特性**，默认关闭，只有在启用 `DynamicResourceAllocation`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-和 `resource.k8s.io/v1beta1`
+和 `resource.k8s.io/v1beta1` 和 `resource.k8s.io/v1beta2`
 {{< glossary_tooltip text="API 组" term_id="api-group" >}} 时才启用。
 有关详细信息，参阅 `--feature-gates` 和 `--runtime-config`
 [kube-apiserver 参数](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)。
@@ -590,6 +854,48 @@ is enabled in the kube-apiserver.
 [ResourceClaim 设备状态](#resourceclaim-device-status) 是一个 **Alpha 级别特性**，
 仅在 kube-apiserver 中启用了 `DRAResourceClaimDeviceStatus`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时才生效。
+
+<!--
+### Enabling Prioritized List
+
+[Prioritized List](#prioritized-list) is an *alpha feature* and only enabled when the
+`DRAPrioritizedList` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kube-apiserver and kube-scheduler. It also requires that the
+`DynamicResourceAllocation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled.
+-->
+### 启用按优先级排序的列表  {#enabling-prioritized-list}
+
+[带优先级的列表](#prioritized-list) 是一个 **Alpha 级别特性**，仅在 kube-apiserver 和 kube-scheduler
+中启用了 `DRAPrioritizedList` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时才生效。
+它还要求启用 `DynamicResourceAllocation` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+
+<!--
+### Enabling Partitionable Devices
+
+[Partitionable Devices](#partitionable-devices) is an *alpha feature*
+and only enabled when the `DRAPartitionableDevices`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kube-apiserver and kube-scheduler.
+-->
+### 启用可切分的设备  {#enabling-partitionable-devices}
+
+[可切分设备](#partitionable-devices) 是一个 **Alpha 级别特性**，仅在 kube-apiserver 和 kube-scheduler
+中启用了 `DRAPartitionableDevices` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时才生效。
+
+<!--
+### Enabling device taints and tolerations
+
+[Device taints and tolerations](#device-taints-and-tolerations) is an *alpha feature* and only enabled when the
+`DRADeviceTaints` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kube-apiserver, kube-controller-manager and kube-scheduler. To use DeviceTaintRules, the
+`resource.k8s.io/v1alpha3` API version must be enabled.
+-->
+### 启用设备污点和容忍度  {#enabling-device-taints-and-tolerations}
+
+[设备污点和容忍度](#device-taints-and-tolerations) 是一个 **Alpha 级别特性**，仅在 kube-apiserver、kube-controller-manager
+和 kube-scheduler 中启用了 `DRADeviceTaints` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时才生效。
+要使用 DeviceTaintRules，必须启用 `resource.k8s.io/v1alpha3` API 版本。
 
 ## {{% heading "whatsnext" %}}
 

@@ -378,7 +378,7 @@ you like. If you want to add a note for human consumption, use the
 
 ## Cluster trust bundles {#cluster-trust-bundles}
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state feature_gate_name="ClusterTrustBundle" >}}
 
 {{< note >}}
 In Kubernetes {{< skew currentVersion >}}, you must enable the `ClusterTrustBundle`
@@ -484,7 +484,7 @@ signer-unlinked ClusterTrustBundles **must not** contain a colon (`:`).
 
 ### Accessing ClusterTrustBundles from pods {#ctb-projection}
 
-{{<feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="ClusterTrustBundleProjection" >}}
 
 The contents of ClusterTrustBundles can be injected into the container filesystem, similar to ConfigMaps and Secrets.
 See the [clusterTrustBundle projected volume source](/docs/concepts/storage/projected-volumes#clustertrustbundle) for more details.

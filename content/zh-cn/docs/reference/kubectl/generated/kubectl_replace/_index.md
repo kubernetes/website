@@ -259,10 +259,9 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-If specified, replace will operate on the subresource of the requested object. Must be one of [status scale]. This flag is beta and may change in the future.
+If specified, replace will operate on the subresource of the requested object.
 -->
-如果指定此标志，replace 将操作所请求对象的子资源。必须是 status、scale 之一。
-此标志处于 Beta 阶段，未来可能会有变更。
+如果指定此标志，replace 将操作所请求对象的子资源。
 </p></td>
 </tr>
 

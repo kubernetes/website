@@ -22,7 +22,10 @@ to older kernel releases (retaining the older kernel version).
 然而，单纯依赖内核版本号可能不足以满足某些操作系统发行版，
 因为像 RHEL、Ubuntu 和 SUSE 等发行版的维护者们通常会将选定的特性反向移植到较旧的内核版本（保留较旧的内核版本）。
 
+<!--
 ## Pod sysctls
+-->
+## Pod sysctl   {#pod-sysctls}
 
 <!--
 On Linux, the `sysctl()` system call configures kernel parameters at run time. There is a command
@@ -59,15 +62,15 @@ Code: https://github.com/kubernetes/kubernetes/blob/00236ae0d73d2455a2470469ed10
 
 ### kube proxy `nftables` proxy mode
 -->
-- `net.ipv4.ip_local_reserved_ports`（自 Kubernetes 1.27 起，需要内核 3.16+）；
-- `net.ipv4.tcp_keepalive_time`（自 Kubernetes 1.29 起，需要内核 4.5+）；
-- `net.ipv4.tcp_fin_timeout`（自 Kubernetes 1.29 起，需要内核 4.6+）；
-- `net.ipv4.tcp_keepalive_intvl`（自 Kubernetes 1.29 起，需要内核 4.5+）；
-- `net.ipv4.tcp_keepalive_probes`（自 Kubernetes 1.29 起，需要内核 4.5+）；
+- `net.ipv4.ip_local_reserved_ports`（自 Kubernetes 1.27 起，需要内核 3.16+）。
+- `net.ipv4.tcp_keepalive_time`（自 Kubernetes 1.29 起，需要内核 4.5+）。
+- `net.ipv4.tcp_fin_timeout`（自 Kubernetes 1.29 起，需要内核 4.6+）。
+- `net.ipv4.tcp_keepalive_intvl`（自 Kubernetes 1.29 起，需要内核 4.5+）。
+- `net.ipv4.tcp_keepalive_probes`（自 Kubernetes 1.29 起，需要内核 4.5+）。
 - `net.ipv4.tcp_syncookies`（自内核 4.6+ 添加了命名空间作用域）。
 - `net.ipv4.tcp_rmem`（自 Kubernetes 1.32，需要内核 4.15+）。
 - `net.ipv4.tcp_wmem`（自 Kubernetes 1.32，需要内核 4.15+）。
-- `net.ipv4.vs.conn_reuse_mode`（用于 `ipvs` 代理模式，需要内核 4.1+）；
+- `net.ipv4.vs.conn_reuse_mode`（用于 `ipvs` 代理模式，需要内核 4.1+）。
 
 ### kube proxy `nftables` 代理模式   {#kube-proxy-nftables-proxy-mode}
 
@@ -109,6 +112,15 @@ Kubernetes 对 cgroup v1 的支持从 v1.31 开始处于维护模式；推荐使
 中，为了方便使用，系统层面的 `cpu.stat` 文件被添加到根 cgroup。
 
 在 runc 文档中，不推荐使用低于 5.2 的内核，因为其缺少冻结特性。
+
+<!--
+## Pressure Stall Information (PSI) {#requirements-psi}
+
+[Pressure Stall Information](/docs/reference/instrumentation/node-metrics#psi) is supported in Linux kernel versions 4.20 and up.
+-->
+## 压力阻塞信息（PSI）{#requirements-psi}
+
+Linux 内核 v4.20 及更高版本支持[压力阻塞信息](/zh-cn/docs/reference/instrumentation/node-metrics#psi)。
 
 <!--
 ## Other kernel requirements {#requirements-other}

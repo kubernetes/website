@@ -13,5 +13,11 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.23"
+    toVersion: "1.32"
+  - stage: stable
+    defaultValue: true
+    locked: true
+    fromVersion: "1.33"
+
 ---
 Allow fine-tuning of CPUManager policies.

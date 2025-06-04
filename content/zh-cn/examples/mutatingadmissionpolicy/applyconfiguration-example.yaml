@@ -8,7 +8,7 @@ spec:
     apiVersion: mutations.example.com/v1
   matchConstraints:
     resourceRules:
-    - apiGroups:   ["apps"]
+    - apiGroups:   [""]
       apiVersions: ["v1"]
       operations:  ["CREATE"]
       resources:   ["pods"]

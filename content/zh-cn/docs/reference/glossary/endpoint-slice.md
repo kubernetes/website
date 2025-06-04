@@ -4,7 +4,7 @@ id: endpoint-slice
 date: 2018-04-12
 full_link: /zh-cn/docs/concepts/services-networking/endpoint-slices/
 short_description: >
-  一种将网络端点与 Kubernetes 资源组合在一起的方法。
+  EndpointSlices 跟踪具有匹配 Service 选择算符的 Pod 的 IP 地址。
 
 aka:
 tags:
@@ -16,7 +16,7 @@ id: endpoint-slice
 date: 2018-04-12
 full_link: /docs/concepts/services-networking/endpoint-slices/
 short_description: >
-  A way to group network endpoints together with Kubernetes resources.
+  EndpointSlices track the IP addresses of Pods with matching Service selectors.
 
 aka:
 tags:
@@ -24,17 +24,15 @@ tags:
 -->
 
 <!--
- A way to group network endpoints together with Kubernetes resources.
+ EndpointSlices track the IP addresses of Pods with matching  {{< glossary_tooltip text="selectors" term_id="selector" >}}.
 -->
-一种将网络端点与 Kubernetes 资源组合在一起的方法。
+EndpointSlices 跟踪具有匹配{{< glossary_tooltip text="选择算符" term_id="selector" >}}的
+Pod 的 IP 地址。
 
 <!--more-->
 
 <!--
-A scalable and extensible way to group network endpoints together. These can be
-used by {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} to
-establish network routes on each {{< glossary_tooltip text="node" term_id="node" >}}.
+EndpointSlices can be configured manually for {{< glossary_tooltip text="Services" term_id="service" >}} without selectors specified.
 -->
-一种将网络端点组合在一起的可扩缩、可扩展方式。
-它们将被 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} 用于在
-每个 {{< glossary_tooltip text="节点" term_id="node">}} 上建立网络路由。
+EndpointSlices 可以手动配置给没有指定选择算符的
+{{< glossary_tooltip text="Service" term_id="service" >}}。

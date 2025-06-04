@@ -104,6 +104,12 @@ Next, let’s list the current Services from our cluster:
 kubectl get services
 ```
 
+To expose the deployment to external traffic, we'll use the kubectl expose command with the --type=NodePort option:
+
+```shell
+kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080
+```
+
 We have now a running Service called kubernetes-bootcamp. Here we see that the Service
 received a unique cluster-IP, an internal port and an external-IP (the IP of the Node).
 

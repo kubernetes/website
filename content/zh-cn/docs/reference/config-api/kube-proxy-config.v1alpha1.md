@@ -37,7 +37,7 @@ FormatOptions contains options for the different logging formats.
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>text</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#TextOptions"><code>TextOptions</code></a>
 </td>
@@ -70,7 +70,7 @@ Only available when the LoggingAlphaOptions feature gate is enabled.
 </table>
 
 ## `JSONOptions`     {#JSONOptions}
-    
+
 <!--
 **Appears in:**
 -->
@@ -88,8 +88,8 @@ JSONOptions contains options for logging format &quot;json&quot;.
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
+
 <tr><td><code>OutputRoutingOptions</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#OutputRoutingOptions"><code>OutputRoutingOptions</code></a>
 </td>
@@ -119,7 +119,7 @@ non-default log format.
 </p>
 
 ## `LoggingConfiguration`     {#LoggingConfiguration}
-    
+
 <!--
 **Appears in:**
 -->
@@ -266,7 +266,7 @@ InfoStream 可以用于覆盖默认的 os.Stdout。
 </table>
 
 ## `OutputRoutingOptions`     {#OutputRoutingOptions}
-    
+
 <!--
 **Appears in:**
 -->
@@ -286,7 +286,7 @@ OutputRoutingOptions 包含同时被 "text" 和 "json" 日志格式支持的选�
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>splitStream</code> <B><!--[Required]-->[必需]</B><br/>
 <code>bool</code>
 </td>
@@ -323,7 +323,7 @@ Only available when the LoggingAlphaOptions feature gate is enabled.
 </table>
 
 ## `TextOptions`     {#TextOptions}
-   
+
 <!--
 **Appears in:**
 -->
@@ -341,7 +341,7 @@ TextOptions 包含日志格式 &quot;text&quot; 的选项。
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>OutputRoutingOptions</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#OutputRoutingOptions"><code>OutputRoutingOptions</code></a>
 </td>
@@ -361,7 +361,7 @@ No description provided.
 </table>
 
 ## `TimeOrMetaDuration`     {#TimeOrMetaDuration}
-    
+
 <!--
 **Appears in:**
 -->
@@ -381,7 +381,7 @@ TimeOrMetaDuration 仅出于 flushFrequency 字段的向后兼容性而存在，
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>Duration</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
@@ -433,7 +433,7 @@ VModuleConfiguration 是个别文件名或模式及其对应 verbosity 阈值的
 
 ## `VerbosityLevel`     {#VerbosityLevel}
 
-<!--   
+<!--
 (Alias of `uint32`)
 -->
 （`uint32` 的别名）
@@ -453,7 +453,7 @@ VerbosityLevel 表示 klog 或 logr 的日志详细程度（verbosity）阈值�
 </p>
 
 ## `ClientConnectionConfiguration`     {#ClientConnectionConfiguration}
-    
+
 <!--
 **Appears in:**
 -->
@@ -575,7 +575,6 @@ enableProfiling is true.
 </tr>
 </tbody>
 </table>
-
 
 ## `LeaderElectionConfiguration`     {#LeaderElectionConfiguration}
 
@@ -711,10 +710,10 @@ KubeProxyConfiguration 包含用来配置 Kubernetes 代理服务器的所有配
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
+
 <tr><td><code>apiVersion</code><br/>string</td><td><code>kubeproxy.config.k8s.io/v1alpha1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>KubeProxyConfiguration</code></td></tr>
-  
+
 <tr><td><code>featureGates</code> <B><!--[Required]-->[必需]</B><br/>
 <code>map[string]bool</code>
 </td>
@@ -1060,7 +1059,7 @@ it originates from any interface whose name begins with this prefix.
 </table>
 
 ## `KubeProxyConntrackConfiguration`     {#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConntrackConfiguration}
-    
+
 <!--
 **Appears in:**
 -->
@@ -1077,7 +1076,7 @@ KubeProxyConntrackConfiguration 包含为 Kubernetes 代理服务器提供的 co
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>maxPerCore</code> <B><!--[Required]-->[必需]</B><br/>
 <code>int32</code>
 </td>
@@ -1172,7 +1171,7 @@ ASSURED state will remain in the conntrack table
 </table>
 
 ## `KubeProxyIPTablesConfiguration`     {#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPTablesConfiguration}
-    
+
 <!--
 **Appears in:**
 -->
@@ -1258,7 +1257,7 @@ result in an immediate iptables resync.
 </table>
 
 ## `KubeProxyIPVSConfiguration`     {#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPVSConfiguration}
-    
+
 <!--
 **Appears in:**
 -->
@@ -1426,7 +1425,7 @@ when using the nftables mode. This may be required with some CNI plugins.
 various re-synchronizing and cleanup operations are performed. Must be greater
 than 0.
    -->
-   <p><code>syncPeriod</code> 表示各种重新同步和清理操作执行频率的时间间隔（例如 '5s', '1m', '2h22m'）。
+   <p><code>syncPeriod</code> 表示各种重新同步和清理操作执行频率的时间间隔（例如 '5s'、'1m'、'2h22m'）。
    该值必须大于 0。</p>
 </td>
 </tr>
@@ -1439,7 +1438,7 @@ than 0.
 '1m', '2h22m'). A value of 0 means every Service or EndpointSlice change will
 result in an immediate iptables resync.
    -->
-   <p><code>minSyncPeriod</code>是 iptables 规则重新同步之间的最小时间间隔（例如 '5s', '1m', '2h22m'）。
+   <p><code>minSyncPeriod</code>是 iptables 规则重新同步之间的最小时间间隔（例如 '5s'、'1m'、'2h22m'）。
    值为 0 时，表示每次服务或 EndpointSlice 发生变化时都会立即重新同步 iptables。</p>
 </td>
 </tr>
@@ -1447,7 +1446,7 @@ result in an immediate iptables resync.
 </table>
 
 ## `KubeProxyWinkernelConfiguration`     {#kubeproxy-config-k8s-io-v1alpha1-KubeProxyWinkernelConfiguration}
-    
+
 <!--
 **Appears in:**
 -->
@@ -1545,7 +1544,7 @@ LocalMode 代表的是对节点上本地流量进行检测的模式。
 
 ## `ProxyMode`     {#kubeproxy-config-k8s-io-v1alpha1-ProxyMode}
 
-<!--    
+<!--
 (Alias of `string`)
 
 **Appears in:**
@@ -1560,19 +1559,20 @@ LocalMode 代表的是对节点上本地流量进行检测的模式。
 <!--
 ProxyMode represents modes used by the Kubernetes proxy server.
 
-Currently, two modes of proxy are available on Linux platforms: 'iptables' and 'ipvs'.
-One mode of proxy is available on Windows platforms: 'kernelspace'.
+Three modes of proxy are available on Linux platforms: <code>iptables</code>, <code>ipvs</code>, and
+<code>nftables</code>. One mode of proxy is available on Windows platforms: <code>kernelspace</code>.
 -->
 <p>ProxyMode 表示的是 Kubernetes 代理服务器所使用的模式。</p>
 
-<p>目前 Linux 平台上有两种可用的代理模式：'iptables' 和 'ipvs'。
-在 Windows 平台上可用的一种代理模式是：'kernelspace'。</p>
+<p>Linux 平台上有三种可用的代理模式：<code>iptables</code>、<code>ipvs</code>
+和 <code>nftables</code>。
+在 Windows 平台上可用的一种代理模式是：<code>kernelspace</code>。</p>
 
 <!--
-If the proxy mode is unspecified, the best-available proxy mode will be used (currently this
+If the proxy mode is unspecified, the default proxy mode will be used (currently this
 is <code>iptables</code> on Linux and <code>kernelspace</code> on Windows). If the selected proxy mode cannot be
 used (due to lack of kernel support, missing userspace components, etc) then kube-proxy
 will exit with an error.
 -->
-<p>如果代理模式未被指定，将使用最佳可用的代理模式（目前在 Linux 上是 <code>iptables</code>，在 Windows 上是 <code>kernelspace</code>）。
+<p>如果代理模式未被指定，将使用默认的代理模式（目前在 Linux 上是 <code>iptables</code>，在 Windows 上是 <code>kernelspace</code>）。
 如果不能使用选定的代理模式（由于缺少内核支持、缺少用户空间组件等），则 kube-proxy 将出错并退出。</p>

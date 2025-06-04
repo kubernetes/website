@@ -1,7 +1,7 @@
 ---
 reviewers:
-- alculquicondor
 - erictune
+- mimowo
 - soltysh
 title: Jobs
 api_metadata:

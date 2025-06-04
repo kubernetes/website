@@ -256,6 +256,31 @@ scores from all plugins according to the configured plugin weights.
 调度器将根据配置的插件权重合并所有插件的节点分数。
 
 <!--
+#### Capacity scoring {#scoring-capacity}
+
+{{< feature-state feature_gate_name="StorageCapacityScoring" >}}
+
+The feature gate `VolumeCapacityPriority` was used in v1.32 to support storage that are
+statically provisioned. Starting from v1.33, the new feature gate `StorageCapacityScoring`
+replaces the old `VolumeCapacityPriority` gate with added support to dynamically provisioned storage.
+When `StorageCapacityScoring` is enabled, the VolumeBinding plugin in the kube-scheduler is extended
+to score Nodes based on the storage capacity on each of them.
+This feature is applicable to CSI volumes that supported [Storage Capacity](/docs/concepts/storage/storage-capacity/),
+including local storage backed by a CSI driver.
+-->
+#### 容量打分 {#scoring-capacity}
+
+{{< feature-state feature_gate_name="StorageCapacityScoring" >}}
+
+在 v1.32 中，特性门控 `VolumeCapacityPriority` 被用于支持静态制备的存储。
+从 v1.33 开始，新的特性门控 `StorageCapacityScoring` 取代了旧的 `VolumeCapacityPriority`，
+并新增了对动态制备存储的支持。
+启用 `StorageCapacityScoring` 后，kube-scheduler 中的 VolumeBinding 插件功能将进行扩展，
+根据每个节点上的存储容量对节点进行打分。
+该特性适用于支持[存储容量](/zh-cn/docs/concepts/storage/storage-capacity/)的 CSI 卷，
+包括由 CSI 驱动程序支持的本地存储。
+
+<!--
 ### NormalizeScore {#normalize-scoring}
 -->
 ### NormalizeScore   {#normalize-scoring}

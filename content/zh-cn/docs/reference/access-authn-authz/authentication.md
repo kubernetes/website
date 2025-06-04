@@ -348,7 +348,23 @@ talk to the API server. Accounts may be explicitly associated with pods using th
 {{< /note >}}
 
 <!--
-# this apiVersion is relevant as of Kubernetes 1.9
+```yaml
+apiVersion: apps/v1 # this apiVersion is relevant as of Kubernetes 1.9
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: default
+spec:
+  replicas: 3
+  template:
+    metadata:
+    # ...
+    spec:
+      serviceAccountName: bob-the-bot
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+```
 -->
 ```yaml
 apiVersion: apps/v1 # 此 apiVersion 从 Kubernetes 1.9 开始可用
@@ -570,7 +586,7 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-groups-prefix` | Prefix prepended to group claims to prevent clashes with existing names (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`. | `oidc:` | No |
 | `--oidc-required-claim` | A key=value pair that describes a required claim in the ID Token. If set, the claim is verified to be present in the ID Token with a matching value. Repeat this flag to specify multiple claims. | `claim=value` | No |
 | `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate. Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
-| `--oidc-signing-algs` | The signing algorithms accepted. Default is "RS256". | `RS512` | No |
+| `--oidc-signing-algs` | The signing algorithms accepted. Default is RS256. Allowed values are: RS256, RS384, RS512, ES256, ES384, ES512, PS256, PS384, PS512. Values are defined by RFC 7518 https://tools.ietf.org/html/rfc7518#section-3.1. | `RS512` | No |
 -->
 
 | 参数 | 描述 | 示例 | 必需？ |
@@ -583,7 +599,7 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-groups-prefix` | 添加到组申领的前缀，用来避免与现有用户组名（如：`system:` 组）发生冲突。例如，此标志值为 `oidc:` 时，所得到的用户组名形如 `oidc:engineering` 和 `oidc:infra`。 | `oidc:` | 否 |
 | `--oidc-required-claim` | 取值为一个 key=value 偶对，意为 ID 令牌中必须存在的申领。如果设置了此标志，则 ID 令牌会被检查以确定是否包含取值匹配的申领。此标志可多次重复，以指定多个申领。 | `claim=value` | 否 |
 | `--oidc-ca-file` | 指向一个 CA 证书的路径，该 CA 负责对你的身份服务的 Web 证书提供签名。默认值为宿主系统的根 CA。 | `/etc/kubernetes/ssl/kc-ca.pem` | 否 |
-| `--oidc-signing-algs` | 采纳的签名算法。默认为 "RS256"。 | `RS512` | 否 |
+| `--oidc-signing-algs` | 采纳的签名算法。默认为 "RS256"。可选值为：RS256、RS384、RS512、ES256、ES384、ES512、PS256、PS384、PS512。值由 RFC 7518 https://tools.ietf.org/html/rfc7518#section-3.1 定义。| `RS512` | 否 |
 
 <!--
 ##### Authentication configuration from a file {#using-authentication-configuration}
@@ -889,7 +905,7 @@ jwt:
     # expression 是一个计算结果为布尔值的 CEL 表达式。
     # 所有表达式的计算结果必须为 true，用户才有效。
   - expression: "!user.username.startsWith('system:')"
-    # Message 自定义验证失败时在 API 服务器日志中看到的错误消息。
+    # message 是自定义验证失败时在 API 服务器日志中看到的错误消息。
     message: 'username cannot used reserved system: prefix'
   - expression: "user.groups.all(group, !group.startsWith('system:'))"
     message: 'groups cannot used reserved system: prefix'
@@ -943,7 +959,7 @@ jwt:
 
   Here are examples of the `AuthenticationConfiguration` with different token payloads.
   -->
-  要了解更多信息，请参阅[CEL 文档](/docs/reference/using-api/cel/)。
+  要了解更多信息，请参阅 [CEL 文档](/zh-cn/docs/reference/using-api/cel/)。
 
   以下是具有不同令牌有效负载的 “AuthenticationConfiguration” 示例。
 
@@ -951,8 +967,30 @@ jwt:
   {{< tabs name="example_configuration" >}}
   {{% tab name="Valid token" %}}
   <!--
-  # the expression will evaluate to true, so validation will succeed.
+  ```yaml
+  apiVersion: apiserver.config.k8s.io/v1beta1
+  kind: AuthenticationConfiguration
+  jwt:
+  - issuer:
+      url: https://example.com
+      audiences:
+      - my-app
+    claimMappings:
+      username:
+        expression: 'claims.username + ":external-user"'
+      groups:
+        expression: 'claims.roles.split(",")'
+      uid:
+        expression: 'claims.sub'
+      extra:
+      - key: 'example.com/tenant'
+        valueExpression: 'claims.tenant'
+  userValidationRules:
+  - expression: "!user.username.startsWith('system:')" # the expression will evaluate to true, so validation will succeed.
+      message: 'username cannot used reserved system: prefix'
+  ```
   -->
+
   ```yaml
   apiVersion: apiserver.config.k8s.io/v1beta1
   kind: AuthenticationConfiguration
@@ -1022,8 +1060,32 @@ jwt:
   {{% /tab %}}
   {{% tab name="Fails claim validation" %}}
   <!--
-  # the token below does not have this claim, so validation will fail.
-  # the expression will evaluate to true, so validation will succeed.
+  ```yaml
+   apiVersion: apiserver.config.k8s.io/v1beta1
+   kind: AuthenticationConfiguration
+   jwt:
+   - issuer:
+        url: https://example.com
+        audiences:
+        - my-app
+   claimValidationRules:
+   - expression: 'claims.hd == "example.com"' # the token below does not have this claim, so validation will fail.
+        message: the hd claim must be set to example.com
+   claimMappings:
+        username:
+          expression: 'claims.username + ":external-user"'
+        groups:
+          expression: 'claims.roles.split(",")'
+        uid:
+          expression: 'claims.sub'
+        extra:
+        - key: 'example.com/tenant'
+          valueExpression: 'claims.tenant'
+   userValidationRules:
+   - expression: "!user.username.startsWith('system:')" # the expression will evaluate to true, so validation will succeed.
+        message: 'username cannot used reserved system: prefix'
+  ```
+
   -->
   ```yaml
    apiVersion: apiserver.config.k8s.io/v1beta1
@@ -1085,9 +1147,33 @@ jwt:
   {{% tab name="Fails user validation" %}}
 
   <!--
-  # this will prefix the username with "system:" and will fail user validation.
-  # the username will be system:foo and expression will evaluate to false, so validation will fail.
+  ```yaml
+  apiVersion: apiserver.config.k8s.io/v1beta1
+  kind: AuthenticationConfiguration
+  jwt:
+  - issuer:
+      url: https://example.com
+      audiences:
+      - my-app
+    claimValidationRules:
+    - expression: 'claims.hd == "example.com"'
+      message: the hd claim must be set to example.com
+    claimMappings:
+      username:
+        expression: '"system:" + claims.username' # this will prefix the username with "system:" and will fail user validation.
+      groups:
+        expression: 'claims.roles.split(",")'
+      uid:
+        expression: 'claims.sub'
+      extra:
+      - key: 'example.com/tenant'
+        valueExpression: 'claims.tenant'
+    userValidationRules:
+    - expression: "!user.username.startsWith('system:')" # the username will be system:foo and expression will evaluate to false, so validation will fail.
+      message: 'username cannot used reserved system: prefix'
+  ```
   -->
+
   ```yaml
   apiVersion: apiserver.config.k8s.io/v1beta1
   kind: AuthenticationConfiguration

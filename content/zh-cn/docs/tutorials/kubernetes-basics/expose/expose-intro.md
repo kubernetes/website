@@ -32,12 +32,12 @@ each Pod in a Kubernetes cluster has a unique IP address, even Pods on the same 
 so there needs to be a way of automatically reconciling changes among Pods so that your
 applications continue to function.
 -->
-## Kubernetes Service 概述
+## Kubernetes Service 概述   {#overview-of-kubernetes-services}
 
 Kubernetes [Pod](/zh-cn/docs/concepts/workloads/pods/) 是有生命期的。
 Pod 拥有[生命周期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)。
 当一个工作节点停止工作后，在节点上运行的 Pod 也会消亡。
-[Replicaset](/zh-cn/docs/concepts/workloads/controllers/replicaset/)
+[ReplicaSet](/zh-cn/docs/concepts/workloads/controllers/replicaset/)
 会自动地通过创建新的 Pod 驱动集群回到期望状态，以保证应用正常运行。
 换一个例子，考虑一个具有 3 个副本的用作图像处理的后端程序。
 这些副本是彼此可替换的。前端系统不应该关心后端副本，即使某个 Pod 丢失或被重新创建。
@@ -60,10 +60,6 @@ enable a loose coupling between dependent Pods. A Service is defined using YAML 
 like all Kubernetes object manifests. The set of Pods targeted by a Service is usually
 determined by a _label selector_ (see below for why you might want a Service without
 including a `selector` in the spec).
-
-Although each Pod has a unique IP address, those IPs are not exposed outside the
-cluster without a Service. Services allow your applications to receive traffic.
-Services can be exposed in different ways by specifying a `type` in the `spec` of the Service:
 -->
 Kubernetes 中的 [Service](/zh-cn/docs/concepts/services-networking/service/)
 是一种抽象概念，它定义的是 Pod 的一个逻辑集合和一种用来访问 Pod 的协议。
@@ -71,6 +67,14 @@ Service 使从属 Pod 之间的松耦合成为可能。
 和所有 Kubernetes 对象清单一样，Service 用 YAML 或者 JSON 来定义。
 Service 下的一组 Pod 通常由一个**标签选择算符**来标记
 （请参阅下面的说明来了解为什么你可能想要一个 spec 中不包含 `selector` 的 Service）。
+
+<!--
+Although each Pod has a unique IP address, those IPs are not exposed outside the
+cluster without a Service. Services allow your applications to receive traffic.
+Services can be exposed in different ways by specifying a `type` in the `spec` of the Service:
+-->
+虽然每个 Pod 都有唯一的 IP 地址，但如果没有 Service，这些 IP 地址不会公开到集群外部。
+Service 允许你的应用接收流量。通过在 Service 的 `spec` 中指定 `type`，可以以不同的方式公开 Service：
 
 <!--
 * _ClusterIP_ (default) - Exposes the Service on an internal IP in the cluster. This
@@ -90,13 +94,13 @@ or CoreDNS version 0.0.8 or higher.
 * **ClusterIP**（默认）- 在集群的内部 IP 上公开 Service。
   这种类型使得 Service 只能从集群内访问。
 * **NodePort** - 使用 NAT 在集群中每个选定 Node 的相同端口上公开 Service 。
-  使用 `NodeIP:NodePort` 从集群外部访问 Service。是 ClusterIP 的超集。
+  使用 `NodeIP:NodePort` 从集群外部访问 Service。这是 ClusterIP 的超集。
 * **LoadBalancer** - 在当前云中创建一个外部负载均衡器（如果支持的话），
-  并为 Service 分配一个固定的外部IP。是 NodePort 的超集。
+  并为 Service 分配一个固定的外部 IP。这是 NodePort 的超集。
 * **ExternalName** - 将 Service 映射到 `externalName`
   字段的内容（例如 `foo.bar.example.com`），
   通过返回带有该名称的 `CNAME` 记录实现。不设置任何类型的代理。
-  这种类型需要 `kube-dns` 的 v1.7 或更高版本，或者 CoreDNS 的 0.8 或更高版本。
+  这种类型需要 `kube-dns` 的 v1.7 或更高版本，或者 CoreDNS 的 v0.8 或更高版本。
 
 <!--
 More information about the different types of Services can be found in the
@@ -115,7 +119,7 @@ using `type: ExternalName`.
 另外，需要注意的是有一些 Service 的用例不需要在 spec 中定义 `selector`。
 一个创建时未设置 `selector` 的 Service 也不会创建相应的 Endpoints 对象。
 这允许用户手动将 Service 映射到特定的端点。
-没有 selector 的另一种可能是你在严格使用 `type: ExternalName` Service。
+没有 `selector` 的另一种可能是你在严格使用 `type: ExternalName` Service。
 
 <!--
 ## Services and Labels
@@ -125,7 +129,7 @@ pods to die and replicate in Kubernetes without impacting your application. Disc
 and routing among dependent Pods (such as the frontend and backend components in an application)
 are handled by Kubernetes Services.
 -->
-## Service 和标签
+## Service 和标签   {#services-and-labels}
 
 Service 为一组 Pod 提供流量路由。Service 是一种抽象，
 使得 Kubernetes 中的 Pod 死亡和复制不会影响应用。
@@ -165,7 +169,7 @@ at any time. Let's expose our application now using a Service and apply some lab
 Let’s verify that our application is running. We’ll use the `kubectl get` command
 and look for existing Pods:
 -->
-### 第一步：创建新 Service
+### 第一步：创建新 Service   {#step1-creating-a-new-service}
 
 让我们来验证我们的应用正在运行。我们将使用 `kubectl get`
 命令并查找现有的 Pod：
@@ -195,6 +199,15 @@ kubectl get services
 ```
 
 <!--
+To expose the deployment to external traffic, we'll use the kubectl expose command with the --type=NodePort option:
+-->
+为了将 Deployment 公开给外部流量，我们将使用 `kubectl expose` 命令和 `--type=NodePort` 选项：
+
+```shell
+kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080
+```
+
+<!--
 We have now a running Service called kubernetes-bootcamp. Here we see that the Service
 received a unique cluster-IP, an internal port and an external-IP (the IP of the Node).
 
@@ -202,7 +215,7 @@ To find out what port was opened externally (for the `type: NodePort` Service) w
 run the `describe service` subcommand:
 -->
 我们现在有一个运行中的 Service 名为 kubernetes-bootcamp。
-这里我们看到 Service 收到了一个唯一的集群内 IP（Cluster-IP），一个内部端口和一个外部 IP
+这里我们看到 Service 收到了一个唯一的集群内 IP（Cluster-IP）、一个内部端口和一个外部 IP
 （External-IP）（Node 的 IP）。
 
 要得到外部打开的端口号（对于 `type: NodePort` 的 Service），
@@ -281,7 +294,7 @@ subcommand you can see the name (the _key_) of that label:
 -->
 然后我们就会收到服务器的响应。Service 已经被公开出来。
 
-### 第二步：使用标签
+### 第二步：使用标签   {#step2-using-labels}
 
 Deployment 自动给我们的 Pod 创建了一个标签。通过 `describe deployment`
 子命令你可以看到那个标签的名称（对应 `key`）：
@@ -364,7 +377,7 @@ And we see the Pod.
 To delete Services you can use the `delete service` subcommand. Labels can be used
 also here:
 -->
-### 第三步：删除一个 Service
+### 第三步：删除一个 Service   {#step3-deleting-a-service}
 
 要删除一个 Service 你可以使用 `delete service` 子命令。这里也可以使用标签：
 

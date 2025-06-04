@@ -1,6 +1,10 @@
 ---
 title: Jak używać Service do udostępniania aplikacji
 weight: 10
+description: |-
+    Dowiedz się, czym jest Service w Kubernetesie.
+    Zrozum, jak etykiety (labels) i selektory (selectors) są powiązane z Service.
+    Wystaw aplikację na zewnątrz klastra Kubernetesa.
 ---
 
 <!DOCTYPE html>
@@ -18,7 +22,7 @@ weight: 10
     		<h3>Cele</h3>
 				<ul>
 					<li>Poznać Serwis w Kubernetesie</li>
-					<li>Zrozumieć, jak obiekty Label i LabelSelector są powiązane z Serwisem</li>
+					<li>Zrozumieć, jak etykiety (labels) i selektory (selectors) są powiązane z Serwisem</li>
 					<li>Udostępnić aplikację na zewnątrz klastra Kubernetes korzystając z Serwisu</li>
 				</ul>
 			</div>
@@ -30,7 +34,7 @@ weight: 10
 
 			<p>Serwis w Kubernetes jest abstrakcyjnym obiektem, która definiuje logiczny zbiór podów oraz politykę dostępu do nich. Serwisy pozwalają na swobodne łączenie zależnych podów. Serwis jest zdefiniowany w YAMLu <a href="/docs/concepts/configuration/overview/#general-configuration-tips">(zalecane)</a> lub w JSONie - tak, jak wszystkie obiekty Kubernetes. Zbiór podów, które obsługuje Serwis, jest zazwyczaj określany przez <i>LabelSelector</i> (poniżej opisane jest, w jakich przypadkach możesz potrzebować zdefiniować Serwis bez specyfikowania <code>selektora</code>).</p>
 
-			<p>Mimo, że każdy pod ma swój unikatowy adres IP, te adresy nie są dostępne poza klastrem, o ile nie zostaną wystawione za pomocą Serwisu. Serwis umożliwia aplikacji przyjmować ruch przychodzący. Serwisy mogą być wystawiane na zewnątrz na kilka różnych sposobów, poprzez określenie <code>typu</code> w ServiceSpec:</p>
+                        <p>Mimo, że każdy pod ma swój unikatowy adres IP, te adresy nie są dostępne poza klastrem, o ile nie zostaną wystawione za pomocą Serwisu. Serwis umożliwia aplikacji przyjmować ruch przychodzący. Serwisy mogą być wystawiane na zewnątrz na kilka różnych sposobów, poprzez określenie <code>typu</code> w ServiceSpec:</p>
 			<ul>
 				<li><i>ClusterIP</i> (domyślnie) - Wystawia serwis poprzez wewnętrzny adres IP w klastrze. W ten sposób serwis jest dostępny tylko wewnątrz klastra.</li>
 				<li><i>NodePort</i> - Wystawia serwis na tym samym porcie na każdym z wybranych węzłów klastra przy pomocy NAT. W ten sposób serwis jest dostępny z zewnątrz klastra poprzez <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>. Nadzbiór ClusterIP.</li>
@@ -71,8 +75,8 @@ weight: 10
 					<li>Osadzać znaczniki <em>(tags)</em>określające wersje</li>
 					<li>Klasyfikować obiekty przy użyciu znaczników</li>
 				</ul>
-
 			</div>
+
 		</div>
 
 		<br>
@@ -88,7 +92,84 @@ weight: 10
 				<p>Obiekty mogą być oznaczane etykietami w momencie tworzenia lub później. Etykiety mogą być zmienianie w dowolnej chwili. Udostępnijmy teraz naszą aplikację przy użyciu Serwisu i oznaczmy ją odpowiednimi etykietami.</p>
 			</div>
 		</div>
-		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<h3>Krok 1: Tworzenie nowej Usługi</h3>
+				<p>Sprawdźmy, czy nasza aplikacja działa. Użyjemy polecenia <code>kubectl get</code> i sprawdzimy istniejące Pody:</p>
+				<p><code><b>kubectl get pods</b></code></p>
+				<p>Jeśli żadne Pody nie działają, oznacza to, że obiekty z poprzednich samouczków zostały usunięte. W takim przypadku wróć i odtwórz wdrożenie z samouczka <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro#deploy-an-app">Używanie kubectl do tworzenia Deploymentu</a>. Proszę poczekać kilka sekund i ponownie wylistować Pody. Możesz kontynuować, gdy zobaczysz działający jeden Pod.</p>
+				<p>Następnie wymieńmy aktualne usługi z naszego klastra:</p>
+				<p><code><b>kubectl get services</b></code></p>
+				<p>Mamy usługę o nazwie <tt>kubernetes</tt>, która jest tworzona domyślnie, gdy minikube uruchamia klaster.
+                Aby utworzyć nową usługę i udostępnić ją dla ruchu zewnętrznego, użyjemy polecenia expose z parametrem NodePort.</p>
+				<p><code><b>kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080</b></code></p>
+				<p>Uruchommy ponownie komendę <code>get services</code>:</p>
+				<p><code><b>kubectl get services</b></code></p>
+				<p>Mamy teraz działającą usługę o nazwie kubernetes-bootcamp. Tutaj widzimy, że usługa otrzymała unikalny cluster-IP, wewnętrzny port oraz zewnętrzny-IP (IP węzła).</p>
+				<p>Aby dowiedzieć się, który port został otwarty zewnętrznie (dla <tt>type: NodePort</tt> usługi), uruchomimy komendę <code>describe service</code>:</p>
+				<p><code><b>kubectl describe services/kubernetes-bootcamp</b></code></p>
+				<p>Utwórz zmienną środowiskową o nazwie <tt>NODE_PORT</tt>, która ma wartość przypisanego portu węzła:</p>
+				<p><code><b>export NODE_PORT="$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')"</b></code><br />
+				<code><b>echo "NODE_PORT=$NODE_PORT"</b></code></p>
+				<p>Teraz możemy przetestować, czy aplikacja jest wystawiona poza klaster, używając <code>curl</code>, adresu IP węzła i zewnętrznie wystawionego portu:</p>
+				<p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></code></p>
+        {{< note >}}<p>Jeśli używasz minikube z Docker Desktop jako sterownik kontenerów, potrzebny jest tunel minikube. Dzieje się tak, ponieważ kontenery wewnątrz Docker Desktop są izolowane od twojego komputera głównego.<br>
+				<p>W osobnym oknie terminala wykonaj:<br>
+				<code><b>minikube service kubernetes-bootcamp --url</b></code></p>
+				<p>Wyjście wygląda następująco:
+				<pre><b>http://127.0.0.1:51082<br>! Ponieważ używasz sterownika Docker na systemie Darwin, terminal musi być otwarty, aby go uruchomić.</b></pre></p>
+				<p>Następnie użyj podanego URL-a, aby uzyskać dostęp do aplikacji:<br>
+				<code><b>curl 127.0.0.1:51082</b></code></p>
+				{{< /note >}}
+				<p>Otrzymaliśmy odpowiedź od serwera. Usługa jest wystawiona.</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<h3>Krok 2: Używanie etykiet</h3>
+				<div class="content">
+				<p>Deployment automatycznie utworzył etykietę dla naszego Poda. Za pomocą komendy <code>describe deployment</code> możesz zobaczyć nazwę (klucz) tej etykiety:</p>
+				<p><code><b>kubectl describe deployment</b></code></p>
+				<p>Użyjmy tej etykiety, aby zapytać o naszą listę Podów. Skorzystamy z polecenia <code>kubectl get pods</code> z parametrem <tt>-l</tt>, a następnie wartościami etykiet:</p>
+				<p><code><b>kubectl get pods -l app=kubernetes-bootcamp</b></code></p>
+				<p>Możesz zrobić to samo, aby wyświetlić istniejące Usługi:</p>
+				<p><code><b>kubectl get services -l app=kubernetes-bootcamp</b></code></p>
+				<p>Pobierz nazwę Pod i zapisz ją w zmiennej środowiskowej <tt>POD_NAME</tt>:</p>
+				<p><code><b>export POD_NAME="$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')"</b></code><br />
+				   <code><b>echo "Name of the Pod: $POD_NAME"</b></code></p>
+				<p>Aby zastosować nową etykietę, używamy komendy <code>label</code>, po której następuje typ obiektu, nazwa obiektu i nowa etykieta:</p>
+				<p><code><b>kubectl label pods "$POD_NAME" version=v1</b></code></p>
+				<p>To zastosuje nową etykietę do naszego poda (przypięliśmy wersję aplikacji do poda), a możemy to sprawdzić za pomocą polecenia describe pod:</p>
+				<p><code><b>kubectl describe pods "$POD_NAME"</b></code></p>
+				<p>Widzimy tutaj, że etykieta jest teraz przypisana do naszego Poda. Możemy teraz zapytać o listę podów, używając nowej etykiety:</p>
+				<p><code><b>kubectl get pods -l version=v1</b></code></p>
+				<p>I widzimy Pod.</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<h3>Krok 3: Usuwanie usługi</h3>
+				<p>Aby usunąć Usługi, można użyć polecenia <code>delete service</code>. Etykiety mogą być również używane tutaj:</p>
+				<p><code><b>kubectl delete service -l app=kubernetes-bootcamp</b></code></p>
+				<p>Potwierdź, że usługa została usunięta:</p>
+				<p><code><b>kubectl get services</b></code></p>
+				<p>To potwierdza, że nasza usługa została usunięta. Aby upewnić się, że trasa nie jest już wystawiona, możesz użyć <tt>curl</tt> na wcześniej wystawionym adresie IP i porcie:</p>
+				<p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></code></p>
+				<p>To dowodzi, że aplikacja nie jest już dostępna z zewnątrz klastra.
+Możesz potwierdzić, że aplikacja nadal działa, wykonując <tt>curl</tt> z wewnątrz poda:</p>
+				<p><code><b>kubectl exec -ti $POD_NAME -- curl http://localhost:8080</b></code></p>
+				<p>Widzimy tutaj, że aplikacja jest uruchomiona. Dzieje się tak, ponieważ aplikacją zarządza Deployment. Aby wyłączyć aplikację, należy również usunąć Deployment.</p>
+			</div>
+		</div>
+				<div class="row">
+				<p>
+					Gdy będziesz gotowy, przejdź do <a href="/pl/docs/tutorials/kubernetes-basics/scale/scale-intro/" title="Uruchamianie wielu instancji Twojej aplikacji">Uruchamianie wielu instancji Twojej aplikacji</a>.
+				</p>
+				</div>
+
+		</div>
 	</main>
 </div>
 

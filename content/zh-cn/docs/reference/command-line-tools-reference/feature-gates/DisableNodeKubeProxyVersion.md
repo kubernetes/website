@@ -20,6 +20,10 @@ stages:
   - stage: deprecated
     defaultValue: false
     fromVersion: "1.32"
+    toVersion: "1.32"
+  - stage: deprecated
+    defaultValue: true
+    fromVersion: "1.33"
 ---
 
 <!--

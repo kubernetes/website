@@ -21,6 +21,8 @@ auto_generated: true
 
 **Appears in:**
 
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
+
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
 
@@ -77,6 +79,8 @@ client.</p>
 
 **Appears in:**
 
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
+
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
 
@@ -110,6 +114,8 @@ enableProfiling is true.</p>
     
 
 **Appears in:**
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 

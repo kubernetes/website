@@ -2,11 +2,13 @@
 title: "プロダクショングレードのコンテナ管理基盤"
 abstract: "自動化されたコンテナのデプロイ・スケール・管理"
 cid: home
+sitemap:
+  priority: 1.0
 ---
 
-{{< blocks/section id="oceanNodes" >}}
-{{% blocks/feature image="flower" %}}
-### [Kubernetes (K8s)]({{< relref "/docs/concepts/overview/" >}})は、デプロイやスケーリングを自動化したり、コンテナ化されたアプリケーションを管理したりするための、オープンソースのシステムです。
+{{< blocks/section class="k8s-overview" >}}
+{{% blocks/feature image="flower" id="feature-primary" %}}
+[Kubernetes]({{< relref path="/docs/concepts/overview/" lang="ja" >}})はK8sとしても知られており、デプロイやスケーリングを自動化したり、コンテナ化されたアプリケーションを管理したりするための、オープンソースのシステムです。
 
 管理や検出を容易にするため、アプリケーションを論理的な単位に分割し、コンテナをグルーピングします。Kubernetesは[Googleでの15年にわたる経験](https://queue.acm.org/detail.cfm?id=2898444)を基に構築されており、コミュニティのアイディアや慣習との最善の組み合わせを取っています。
 {{% /blocks/feature %}}
@@ -26,9 +28,9 @@ Googleが週に何十億ものコンテナを実行することを可能とし�
 {{% /blocks/feature %}}
 
 {{% blocks/feature image="suitcase" %}}
-#### どこでも実行できる
+#### どこでもK8sを実行できる
 
-Kubernetesはオープンソースなので、オンプレミスやパブリッククラウド、それらのハイブリッドなどの利点を自由に得ることができ、簡単に移行することができます。
+Kubernetesはオープンソースであるため、オンプレミスやパブリッククラウド、それらのハイブリッドなどの利点を自由に得ることができ、簡単に移行することができます。
 
 Kubernetesをダウンロードするには、[ダウンロード](/releases/download/)セクションを訪れてください。
 
@@ -38,20 +40,16 @@ Kubernetesをダウンロードするには、[ダウンロード](/releases/dow
 
 {{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
 <div class="light-text">
-<h2>150以上のマイクロサービスアプリケーションをKubernetes上に移行する挑戦</h2>
+    <h2>150以上のマイクロサービスをKubernetes上に移行する挑戦</h2>
         <p>By Sarah Wells, Technical Director for Operations and Reliability, Financial Times</p>
         <button id="desktopShowVideoButton" onclick="kub.showVideo()">ビデオを見る</button>
-        <br>
-        <br>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-open-source-summit-ai-dev-china/" button id="desktopKCButton">2024年8月21日〜23日のKubeCon + CloudNativeCon Chinaに参加する</a>
-        <br>
-        <br>
-        <br>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2024/" button id="desktopKCButton">2024年11月12日〜15日のKubeCon + CloudNativeCon North Americaに参加する</a>
-        <br>
-        <br>
-        <br>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-india/" button id="desktopKCButton">2024年12月11日〜12日のKubeCon + CloudNativeCon Indiaに参加する</a>
+
+    <h3>今後のKubeCon + CloudNativeConイベントに参加する</h3>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-china/" class="desktopKCButton"><strong>China</strong>(香港、6月10日〜11日)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-japan/" class="desktopKCButton"><strong>Japan</strong>(東京、6月16日〜17日)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-india/" class="desktopKCButton"><strong>India</strong>(ハイデラバード、8月6日〜7日)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/" class="desktopKCButton"><strong>North America</strong>(アトランタ、11月10日〜13日)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>Europe</strong>(アムステルダム、2026年3月23日〜26日)</a>
 </div>
 <div id="videoPlayer">
     <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
@@ -62,3 +60,5 @@ Kubernetesをダウンロードするには、[ダウンロード](/releases/dow
 {{< blocks/kubernetes-features >}}
 
 {{< blocks/case-studies >}}
+
+{{< kubeweekly id="kubeweekly" >}}

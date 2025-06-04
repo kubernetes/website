@@ -270,8 +270,6 @@ JobSpec 描述了任务执行的情况。
         running pods are terminated.
       - FailIndex: indicates that the pod's index is marked as Failed and will
         not be restarted.
-        This value is beta-level. It can be used when the
-        `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
     -->
 
     - **podFailurePolicy.rules.action** (string)，必需
@@ -280,7 +278,6 @@ JobSpec 描述了任务执行的情况。
 
       - FailJob：表示 Pod 的任务被标记为 Failed 且所有正在运行的 Pod 都被终止。
       - FailIndex：表示 Pod 对应的索引被标记为 Failed 且 Pod 不会被重新启动。
-        此值是 Beta 级别的。当 `JobBackoffLimitPerIndex` 特性门控被启用时（默认被启用），可以使用此值。
 
       <!--
       - Ignore: indicates that the counter towards the .backoffLimit is not
@@ -415,17 +412,13 @@ JobSpec 描述了任务执行的情况。
         指定必需的 Pod 状况类型。要匹配一个 Pod 状况，指定的类型必须等于该 Pod 状况类型。
 
 - **successPolicy** (SuccessPolicy)
-<!--
+  <!--
   successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
- 
-  This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
--->
+  -->
 
   successPolicy 指定策略，用于判定何时可以声明任务为成功。如果为空，则应用默认行为 —— 仅当成功
   Pod 的数量等于完成数量时，任务才会被声明为成功。指定了该字段时，该字段必须是不可变的，
   并且仅适用于带索引的任务。一旦任务满足 `successPolicy`，滞留 Pod 就会被终止。
-
-  此字段为 Beta 级。要使用此字段，你必须启用 `JobSuccessPolicy` 特性门控（默认启用）。
 
   <a name="SuccessPolicy"></a>
 
@@ -489,15 +482,14 @@ JobSpec 描述了任务执行的情况。
 <!--
 - **backoffLimitPerIndex** (int32)
 
-  Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+  Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
 -->
 - **backoffLimitPerIndex**（int32）
 
   指定在将特定索引的 Pod 标记为失败之前在对该 Pod 重试次数的限制。
   启用后，各索引的失败次数将保存在 Pod 的 `batch.kubernetes.io/job-index-failure-count` 注解中。
   仅当 Job 的 completionMode=Indexed 且 Pod 的重启策略为 Never 时才能设置此字段。
-  此字段是不可变更的。此字段是 Beta 级别的。
-  当 `JobBackoffLimitPerIndex` 特性门控被启用时（默认被启用），可以使用此字段。
+  此字段是不可变更的。
 
 - **managedBy** (string)
 
@@ -518,7 +510,7 @@ JobSpec 描述了任务执行的情况。
 <!--
 - **maxFailedIndexes** (int32)
 
-  Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+  Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
 -->
 - **maxFailedIndexes**（int32）
 
@@ -527,7 +519,6 @@ JobSpec 描述了任务执行的情况。
   如果不设置此字段（对应为 null），则作业继续执行其所有索引，且 Job 会被标记 `Complete` 状况。
   此字段只能在设置 backoffLimitPerIndex 时指定。此字段值可以是 null 或完成次数之内的值。
   当完成次数大于 10^5 时，此字段是必需的且必须小于等于 10^4。
-  此字段是 Beta 级别的。当 `JobBackoffLimitPerIndex` 特性门控被启用时（默认启用），可以使用此字段。
 
 <!--
 - **podReplacementPolicy** (string)
@@ -819,8 +810,6 @@ JobStatus 表示 Job 的当前状态。
 - **failedIndexes** (string)
 
   FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". The set of failed indexes cannot overlap with the set of completed indexes.
-
-  This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 -->
 - **failedIndexes** (string)
 
@@ -829,8 +818,6 @@ JobStatus 表示 Job 的当前状态。
   这些数字按升序列出。三个或更多连续的数字会被压缩，整个序列表示为第一个数字、连字符和最后一个数字。
   例如，如果失败的索引是 1、3、4、5 和 7，则表示为 "1,3-5,7"。
   失败索引集不能与完成索引集重叠。
-
-  该字段是 Beta 级别的。当 `JobBackoffLimitPerIndex` 特性门控被启用时（默认被启用），可以使用此字段。
 
 <!--
 - **terminating** (int32)
@@ -929,11 +916,14 @@ GET /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 <!--
 #### Response
+-->
+#### 响应
 
 200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
 
 401: Unauthorized
 
+<!--
 ### `get` read status of the specified Job
 
 #### HTTP Request
@@ -942,13 +932,6 @@ GET /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 #### Parameters
 -->
-
-#### 响应
-
-200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
-
-401: Unauthorized
-
 ### `get` 读取指定任务的状态
 
 #### HTTP 请求
@@ -984,11 +967,14 @@ GET /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 <!--
 #### Response
+-->
+#### 响应
 
 200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
 
 401: Unauthorized
 
+<!--
 ### `list` list or watch objects of kind Job
 
 #### HTTP Request
@@ -1001,12 +987,6 @@ GET /apis/batch/v1/namespaces/{namespace}/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
-#### 响应
-
-200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
-
-401: Unauthorized
-
 ### `list` 列举或监测 Job 类别的对象
 
 #### HTTP 请求
@@ -1114,11 +1094,14 @@ GET /apis/batch/v1/namespaces/{namespace}/jobs
 
 <!--
 #### Response
+-->
+#### 响应
 
 200 (<a href="{{< ref "../workload-resources/job-v1#JobList" >}}">JobList</a>): OK
 
 401: Unauthorized
 
+<!--
 ### `list` list or watch objects of kind Job
 
 #### HTTP Request
@@ -1127,12 +1110,6 @@ GET /apis/batch/v1/jobs
 
 #### Parameters
 -->
-#### 响应
-
-200 (<a href="{{< ref "../workload-resources/job-v1#JobList" >}}">JobList</a>): OK
-
-401: Unauthorized
-
 ### `list` 列举或监测 Job 类别的对象
 
 #### HTTP 请求
@@ -1236,11 +1213,14 @@ GET /apis/batch/v1/jobs
 
 <!--
 #### Response
+-->
+#### 响应
 
 200 (<a href="{{< ref "../workload-resources/job-v1#JobList" >}}">JobList</a>): OK
 
 401: Unauthorized
 
+<!--
 ### `create` create a Job
 
 #### HTTP Request
@@ -1255,12 +1235,6 @@ POST /apis/batch/v1/namespaces/{namespace}/jobs
 
 - **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>, required
 -->
-#### 响应
-
-200 (<a href="{{< ref "../workload-resources/job-v1#JobList" >}}">JobList</a>): OK
-
-401: Unauthorized
-
 ### `create` 创建一个 Job
 
 #### HTTP 请求
@@ -1311,22 +1285,6 @@ POST /apis/batch/v1/namespaces/{namespace}/jobs
 
 <!--
 #### Response
-
-200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
-
-201 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): Created
-
-202 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): Accepted
-
-401: Unauthorized
-
-### `update` replace the specified Job
-
-#### HTTP Request
-
-PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}
-
-#### Parameters
 -->
 #### 响应
 
@@ -1338,6 +1296,15 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 401: Unauthorized
 
+<!--
+### `update` replace the specified Job
+
+#### HTTP Request
+
+PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}
+
+#### Parameters
+-->
 ### `update` 替换指定的 Job
 
 #### HTTP 请求
@@ -1403,20 +1370,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 <!--
 #### Response
-
-200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
-
-201 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): Created
-
-401: Unauthorized
-
-### `update` replace status of the specified Job
-
-#### HTTP Request
-
-PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
-
-#### Parameters
 -->
 #### 响应
 
@@ -1426,6 +1379,15 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 401: Unauthorized
 
+<!--
+### `update` replace status of the specified Job
+
+#### HTTP Request
+
+PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
+
+#### Parameters
+-->
 ### `update` 替换指定 Job 的状态
 
 #### HTTP 请求
@@ -1491,18 +1453,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 <!--
 #### Response
-
-200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
-
-201 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): Created
-
-401: Unauthorized
-
-### `patch` partially update the specified Job
-
-#### HTTP Request
-
-PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 -->
 #### 响应
 
@@ -1512,6 +1462,13 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 401: Unauthorized
 
+<!--
+### `patch` partially update the specified Job
+
+#### HTTP Request
+
+PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}
+-->
 ### `patch` 部分更新指定的 Job
 
 #### HTTP 请求
@@ -1588,20 +1545,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 <!--
 #### Response
-
-200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
-
-201 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): Created
-
-401: Unauthorized
-
-### `patch` partially update status of the specified Job
-
-#### HTTP Request
-
-PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
-
-#### Parameters
 -->
 #### 响应
 
@@ -1611,6 +1554,15 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 401: Unauthorized
 
+<!--
+### `patch` partially update status of the specified Job
+
+#### HTTP Request
+
+PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
+
+#### Parameters
+-->
 ### `patch` 部分更新指定 Job 的状态
 
 #### HTTP 请求
@@ -1685,6 +1637,8 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 <!--
 #### Response
+-->
+#### 响应
 
 200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
 
@@ -1692,6 +1646,7 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 401: Unauthorized
 
+<!--
 ### `delete` delete a Job
 
 #### HTTP Request
@@ -1706,14 +1661,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 - **namespace** (*in path*): string, required
 -->
-#### 响应
-
-200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
-
-201 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): Created
-
-401: Unauthorized
-
 ### `delete` 删除一个 Job
 
 #### HTTP 请求
@@ -1777,22 +1724,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 <!--
 #### Response
-
-200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
-
-202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
-
-401: Unauthorized
-
-### `deletecollection` delete collection of Job
-
-#### HTTP Request
-
-DELETE /apis/batch/v1/namespaces/{namespace}/jobs
-
-#### Parameters
-
-- **namespace** (*in path*): string, required
 -->
 #### 响应
 
@@ -1802,6 +1733,19 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs
 
 401: Unauthorized
 
+<!--
+### `deletecollection` delete collection of Job
+
+#### HTTP Request
+
+DELETE /apis/batch/v1/namespaces/{namespace}/jobs
+
+#### Parameters
+
+- **namespace** (*in path*): string, required
+
+- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+-->
 ### `deletecollection` 删除 Job 的集合
 
 #### HTTP 请求
@@ -1929,10 +1873,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs
 
 <!--
 #### Response
-
-200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
-
-401: Unauthorized
 -->
 #### 响应
 

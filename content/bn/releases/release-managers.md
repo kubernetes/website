@@ -85,7 +85,7 @@ type: docs
 
 GitHub অ্যাক্সেস নিয়ন্ত্রণ: [@kubernetes/release-managers](https://github.com/orgs/kubernetes/teams/release-managers)
 
-GitHub উল্লেখ: [@kubernetes/release-engineering](https://github.com/orgs/kubernetes/teams/release-engineering)
+GitHub উল্লেখ: @kubernetes/release-engineering
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
 - Cici Huang ([@cici37](https://github.com/cici37))
