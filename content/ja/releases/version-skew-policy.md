@@ -51,7 +51,7 @@ HAクラスター内の`kube-apiserver`間にバージョンの差異がある�
 
 例:
 
-* `kube-apiserver`インスタンスが**{{< skew latestVersion >}}**および**1.12**であるとします
+* `kube-apiserver`インスタンスが**{{< skew latestVersion >}}**および**{{< skew prevMinorVersion >}}**であるとします
 * `kubelet`は**{{< skew prevMinorVersion >}}**および**{{< skew oldestMinorVersion >}}**がサポートされます（**{{< skew latestVersion >}}**はバージョン**{{< skew prevMinorVersion >}}**の`kube-apiserver`よりも新しくなるためサポートされません)
 
 ### kube-controller-manager、kube-scheduler、およびcloud-controller-manager

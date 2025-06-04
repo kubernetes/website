@@ -134,15 +134,15 @@ DeploymentStatus is the most recently observed status of the Deployment.
 
 - **replicas** (int32)
 
-  Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+  Total number of non-terminating pods targeted by this deployment (their labels match the selector).
 
 - **availableReplicas** (int32)
 
-  Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+  Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
 
 - **readyReplicas** (int32)
 
-  readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+  Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
 
 - **unavailableReplicas** (int32)
 
@@ -150,7 +150,13 @@ DeploymentStatus is the most recently observed status of the Deployment.
 
 - **updatedReplicas** (int32)
 
-  Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+  Total number of non-terminating pods targeted by this deployment that have the desired template spec.
+
+- **terminatingReplicas** (int32)
+
+  Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+  
+  This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
 
 - **collisionCount** (int32)
 
