@@ -30,7 +30,7 @@ Specify the underlying built-in command that your alias will execute. This inclu
 Specify default values for command line arguments (which the kuberc format terms _flags_). 
 If you explicitly specify a command line argument when you run kubectl, the value you provide takes precedence over the default one defined in kuberc. 
 
-#### Example:
+#### Example  {#flags-example}
 
 ```yaml
 apiVersion: kubectl.config.k8s.io/v1alpha1
@@ -49,7 +49,7 @@ With this alias, running `kubectl getn pods` will default JSON output. However, 
 
 Insert arbitrary arguments immediately after the kubectl command and its subcommand (if any).
 
-#### Example:
+#### Example {#prependArgs-example}
 
 ```yaml
 apiVersion: kubectl.config.k8s.io/v1alpha1
@@ -70,7 +70,7 @@ aliases:
 
 Append arbitrary arguments to the end of the kubectl command.
 
-#### Example:
+#### Example {#appendArgs-example}
 
 ```yaml
 apiVersion: kubectl.config.k8s.io/v1alpha1
@@ -90,7 +90,7 @@ aliases:
 
 `kubectl runx test-pod` will be translated to `kubectl run test-pod --namespace test-ns --image busybox -- custom-arg`.
 
-## Command Overrides
+## Command overrides
 
 Within a `kuberc` configuration, _command overrides_ let you specify custom values for command line arguments.
 
