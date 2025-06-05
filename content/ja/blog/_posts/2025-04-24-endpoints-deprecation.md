@@ -16,15 +16,15 @@ translator: >
 Kubernetes 1.33以降、Endpoints APIは正式に非推奨となり、Endpointsリソースを読み書きするユーザーに対して、EndpointSliceを使用するようAPIサーバーから警告が返されるようになりました。
 
 最終的には、「ServiceとPodに基づいてEndpointsオブジェクトを生成する _Endpointsコントローラー_ がクラスター内で実行されている」という基準を[Kubernetes Conformance]から除外することが[KEP-4974]にて計画されています。
-これの実現によって、Kubernetes Conformance Softwareの運用者は、現代的なほとんどのクラスタにおいて不要な作業を回避することができます。
+これの実現によって、現代的なほとんどのクラスターにおいて不要な作業を回避することができます。
 
 [Kubernetes非推奨ポリシー]に従うと、Endpointsタイプ自体が完全に廃止されることはおそらく無いですが、Endpoints APIを使うワークロードやスクリプトを保有しているユーザーはEndpointSliceへの移行が推奨されます。
 
 [EndpointSlice]: /blog/2020/09/02/scaling-kubernetes-networking-with-endpointslices/
 [KEP-752]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/0752-endpointslices/README.md
-[デュアルスタックネットワーク]: /docs/concepts/services-networking/dual-stack/
+[デュアルスタックネットワーク]: /ja/docs/concepts/services-networking/dual-stack/
 [トラフィック分散]: /docs/reference/networking/virtual-ips/#traffic-distribution
-[Kubernetes非推奨ポリシー]: /docs/reference/using-api/deprecation-policy/
+[Kubernetes非推奨ポリシー]: /ja/docs/reference/using-api/deprecation-policy/
 [KEP-4974]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/4974-deprecate-endpoints/README.md
 [Kubernetes Conformance]: https://www.cncf.io/training/certification/software-conformance/
 
@@ -58,7 +58,7 @@ myservice-jcv8s   IPv6          443     2001:db8:0123::5   21s
   - Serviceに100以上のエンドポイントが存在する場合、Endpointsコントローラーは1つの巨大なオブジェクトにエンドポイントを集約していましたが、EndpointSliceコントローラーはこれらを複数のEndpointSliceに分割します。
 
 ServiceとEndpointSliceの間に予測可能な1対1の対応関係はないため、あるServiceに紐づけられるEndpointSliceリソースの実際の名前を事前に知ることはできません。
-そのため、Serviceに紐づけられるEndpointSliceリソースを取得する際は、名前で取得するのではなく、`"kubernetes.io/service-name"`[ラベル](/docs/concepts/overview/working-with-objects/labels/)が目的のServiceを指しているEndpointSliceを全て取得する必要があります。
+そのため、Serviceに紐づけられるEndpointSliceリソースを取得する際は、名前で取得するのではなく、`"kubernetes.io/service-name"`[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)が目的のServiceを指しているEndpointSliceを全て取得する必要があります。
 
 ```console
 kubectl get endpointslice -l kubernetes.io/service-name=myservice
