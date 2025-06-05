@@ -5,7 +5,7 @@ weight: 30
 
 কাস্টম রিসোর্স হলো কুবারনেটিস API এর এক্সটেনশন। কুবারনেটিস আপনার ক্লাস্টারে কাস্টম রিসোর্স যোগ করার দুটি উপায় প্রদান করে:
 
-- [CustomResourceDefinition](bn/docs/concepts/extend-kubernetes/api-extension/custom-resources/) (CRD) 
+- [CustomResourceDefinition](bn/docs/concepts/extend-kubernetes/api-extension/custom-resources/#customresourcedefinitions) (CRD) 
   মেকানিজম আপনাকে একটি API গ্রুপ, ধরনের, এবং স্কিমা দিয়ে ঘোষণামূলকভাবে একটি নতুন কাস্টম API সংজ্ঞায়িত করতে দেয় 
   যা আপনি নির্দিষ্ট করেছেন।
   কুবারনেটিস কন্ট্রোল প্লেন আপনার কাস্টম রিসোর্সের স্টোরেজ পরিবেশন  এবং পরিচালনা করে। CRD গুলো আপনাকে আপনার 

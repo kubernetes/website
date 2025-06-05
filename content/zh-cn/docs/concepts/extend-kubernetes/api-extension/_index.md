@@ -10,7 +10,7 @@ Custom resources are extensions of the Kubernetes API. Kubernetes provides two w
 Kubernetes 提供了两种将自定义资源添加到集群的方法：
 
 <!--
-- The [CustomResourceDefinition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+- The [CustomResourceDefinition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/#customresourcedefinitions)
   (CRD) mechanism allows you to declaratively define a new custom API with an API group, kind, and
   schema that you specify.
   The Kubernetes control plane serves and handles the storage of your custom resource. CRDs allow you to
