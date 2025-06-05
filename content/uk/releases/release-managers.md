@@ -74,15 +74,15 @@ weight: 40
 
 Згадки GitHub: @kubernetes/release-engineering
 
-- Адольфо Гарсія Вейтіа [Adolfo García Veytia] ([@puerco](https://github.com/puerco))
-- Сісі Хуанг [Cici Huang] ([@cici37](https://github.com/cici37))
-- Карлос Панато [Carlos Panato] ([@cpanato](https://github.com/cpanato))
-- Джеремі Рікард [Jeremy Rickard] ([@jeremyrickard](https://github.com/jeremyrickard))
-- Марко Мудриніч [Marko Mudrinić] ([@xmudrii](https://github.com/xmudrii))
-- Набарун Пал [Nabarun Pal] ([@palnabarun](https://github.com/palnabarun))
-- Саша Грунерт [Sascha Grunert] ([@saschagrunert](https://github.com/saschagrunert))
-- Стівен Августус [Stephen Augustus] ([@justaugustus](https://github.com/justaugustus))
-- Вероніка Лопес [Verónica López] ([@verolop](https://github.com/verolop))
+- [Adolfo García Veytia] ([@puerco](https://github.com/puerco))
+- [Cici Huang] ([@cici37](https://github.com/cici37))
+- [Carlos Panato] ([@cpanato](https://github.com/cpanato))
+- [Jeremy Rickard] ([@jeremyrickard](https://github.com/jeremyrickard))
+- [Marko Mudrinić] ([@xmudrii](https://github.com/xmudrii))
+- [Nabarun Pal] ([@palnabarun](https://github.com/palnabarun))
+- [Sascha Grunert] ([@saschagrunert](https://github.com/saschagrunert))
+- [Stephen Augustus] ([@justaugustus](https://github.com/justaugustus))
+- [Verónica López] ([@verolop](https://github.com/verolop))
 
 ### Як стати менеджером випусків {#becoming-a-release-manager}
 
@@ -108,12 +108,12 @@ weight: 40
   - Оновлення календаря, допомога з датами випуску та віхами з [графіку циклу випуску][k-sig-release-releases]
 - Через програму Buddy, інтеграція нових учасників та співпраця з ними над завданнями
 
-Згадки GitHub: @kubernetes/release-engineering
+Посилання на GitHub: @kubernetes/release-engineering
 
-- Арно Меукам [Arnaud Meukam] ([@ameukam](https://github.com/ameukam))
-- Джим Анжел [Jim Angel] ([@jimangel](https://github.com/jimangel))
-- Джозеф Сандовал [Joseph Sandoval] ([@jrsapi](https://github.com/jrsapi))
-- Ксандер Гжижинскі [Xander Grzywinski] ([@salaxander](https://github.com/salaxander))
+- [Arnaud Meukam] ([@ameukam](https://github.com/ameukam))
+- [Jim Angel] ([@jimangel](https://github.com/jimangel))
+- [Joseph Sandoval] ([@jrsapi](https://github.com/jrsapi))
+- [Xander Grzywinski] ([@salaxander](https://github.com/salaxander))
 
 ### Як стати асистентом менеджера випусків {#becoming-a-release-manager-associate}
 
@@ -139,15 +139,15 @@ weight: 40
 
 ### Голови {#chairs}
 
-- Джеремі Рікард [Jeremy Rickard] ([@jeremyrickard](https://github.com/jeremyrickard))
-- Саша Грунерт [Sascha Grunert] ([@saschagrunert](https://github.com/saschagrunert))
-- Стівен Августус [Stephen Augustus] ([@justaugustus](https://github.com/justaugustus))
+- [Jeremy Rickard] ([@jeremyrickard](https://github.com/jeremyrickard))
+- [Sascha Grunert] ([@saschagrunert](https://github.com/saschagrunert))
+- [Stephen Augustus] ([@justaugustus](https://github.com/justaugustus))
 
 ### Технічні Лідери {#technical-leads}
 
-- Адольфо Гарсія Вейтіа [Adolfo García Veytia] ([@puerco](https://github.com/puerco))
-- Карлос Панато [Carlos Panato] ([@cpanato](https://github.com/cpanato))
-- Вероніка Лопес [Verónica López] ([@verolop](https://github.com/verolop))
+- [Adolfo García Veytia] ([@puerco](https://github.com/puerco))
+- [Carlos Panato] ([@cpanato](https://github.com/cpanato))
+- [Verónica López] ([@verolop](https://github.com/verolop))
 
 ---
 
