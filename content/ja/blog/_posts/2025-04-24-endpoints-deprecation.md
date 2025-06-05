@@ -104,7 +104,7 @@ if err != nil {
 ### EndpointSliceを生成する
 
 手作業でEndpointsを生成している箇所やコントローラーについては、複数のEndpointSliceを考慮しなくてもよい場合が多いため、比較的簡単にEndpointSliceへの移行ができます。
-Endpointsから少し整理の仕方は変わっていますが、単にEndpointSlice型を使用するようにYAMLやGoのコードを更新するだけで済みます。
+Endpointsから少し情報の整理の仕方は変わっていますが、単にEndpointSliceという新しい型を使用するようにYAMLやGoのコードを更新するだけで済みます。
 
 例えばこのようなEndpointsオブジェクトの場合、
 
