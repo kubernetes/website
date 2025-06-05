@@ -5,7 +5,7 @@ weight: 30
 
 Niestandardowe zasoby Kubernetesa (ang. Custom Resources) stanowią rozszerzenie API. Kubernetes udostępnia dwie metody ich integracji z klastrem:
 
-- Mechanizm [CustomResourceDefinition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/#customresourcedefinitions)
+- Mechanizm [CustomResourceDefinition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
   (CRD) pozwala deklaratywnie zdefiniować nowe niestandardowe API z
   grupą API, rodzajem i schematem, który określisz. Warstwa sterowania Kubernetesa
   obsługuje i zarządza przechowywaniem twojego niestandardowego zasobu. CRD pozwalają tworzyć
