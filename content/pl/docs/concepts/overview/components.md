@@ -30,7 +30,7 @@ lub więcej węzłów roboczych. Oto krótki przegląd głównych komponentów:
 Zarządzanie ogólnym stanem klastra:
 
 [kube-apiserver](/docs/concepts/architecture/#kube-apiserver)
-: Podstawowy komponent udostępniający interfejs API Kubernetesa przez HTTP
+: Podstawowy komponent udostępniający interfejs API Kubernetesa przez HTTP.
 
 [etcd](/docs/concepts/architecture/#etcd)
 : Stabilna i wysoko dostępna baza danych typu klucz-wartość, wykorzystywana do przechowywania stanu całego klastra Kubernetesa.
@@ -67,7 +67,7 @@ Klaster może wymagać dodatkowego oprogramowania na każdym węźle; możesz na
 Dodatki rozszerzają funkcjonalność Kubernetesa. Oto kilka ważnych przykładów:
 
 [DNS](/docs/concepts/architecture/#dns)
-: Umożliwia rozpoznawanie nazw DNS dla usług i komponentów działających w całym klastrze
+: Umożliwia rozpoznawanie nazw DNS dla usług i komponentów działających w całym klastrze.
 
 [Web UI](/docs/concepts/architecture/#web-ui-dashboard) (Dashboard)
 : Umożliwia zarządzanie klastrem Kubernetesa poprzez webowy interfejs.
