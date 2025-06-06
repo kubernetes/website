@@ -22,7 +22,7 @@ and emits this information in the
 -->
 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
 在节点、卷、Pod 和容器级别收集统计信息，
-并在[概要 API](zh-cn/docs/reference/config-api/kubelet-stats.v1alpha1/)
+并在[概要 API](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go)
 中输出这些信息。
 
 <!--
@@ -103,7 +103,7 @@ to use this feature. The information is also exposed in
 作为 Alpha 级别特性，Kubernetes 允许你配置 kubelet 来收集 Linux
 内核的[压力停滞信息](https://docs.kernel.org/accounting/psi.html)（PSI）
 的 CPU、内存和 IO 使用情况。这些信息是在节点、Pod 和容器级别上收集的。
-详细模式请参见 [Summary API](/zh-cn/docs/reference/config-api/kubelet-stats.v1alpha1/)。
+详细模式请参见 [Summary API](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go)。
 你必须启用 `KubeletPSI`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)才能使用此特性。
 这些信息也在
