@@ -100,6 +100,16 @@ object once it is set.
 * 删除请求已被发出之后，你无法复活该对象。唯一的方法是删除它并创建一个新的相似对象。
 {{</note>}}
 
+{{<note>}}
+<!--
+Custom finalizer names **must** be publicly qualified finalizer names, such as `example.com/finalizer-name`.
+Kubernetes enforces this format; the API server rejects writes to objects where the change does not use qualified finalizer names for any custom finalizer.
+-->
+自定义的 finalizer 名称**必须**是具有公共限定前缀的 finalizer 名称，
+例如 `example.com/finalizer-name`。Kubernetes 强制要求使用这种格式；
+如果对象中的更改未使用合规的限定格式，API 服务器将拒绝写入包含自定义 finalizer 的对象。
+{{</note>}}
+
 <!--
 ## Owner references, labels, and finalizers {#owners-labels-finalizers}
 
