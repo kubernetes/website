@@ -3,12 +3,15 @@
 # Localized strings for Hindi.
 # Teams and members are visible at https://github.com/orgs/kubernetes/teams.
 
-reviewers:
-- sig-docs-hi-reviews
+filters:
+  "\\.toml$":
 
-approvers:
-- sig-docs-hi-owners
+    reviewers:
+    - sig-docs-hi-reviews
 
-labels:
-- area/localization
-- language/hi
+    approvers:
+    - sig-docs-hi-owners
+
+    labels:
+    - area/localization
+    - language/hi

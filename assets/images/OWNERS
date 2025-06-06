@@ -4,13 +4,12 @@
 # reviewers to review and approve.
 # Teams and members are visible at https://github.com/orgs/kubernetes/teams.
 
-reviewers:
-- sig-docs-en-reviews
-
-approvers:
-- sig-docs-en-owners
-
 filters:
+  ".*":
+    reviewers:
+    - sig-docs-en-reviews
+    approvers:
+    - sig-docs-en-owners
   "\\.svg":
     labels:
     - area/web-development

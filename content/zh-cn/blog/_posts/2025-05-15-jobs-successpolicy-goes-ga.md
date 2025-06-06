@@ -31,7 +31,7 @@ in which the leader controls the execution, including the followers' lifecycle.
 ## 关于 Job 的成功策略   {#about-jobs-success-policy}
 
 在批处理工作负载中，你可能希望使用类似
-[MPI](https://en.wikipedia.org/wiki/Message_Passing_Interface)
+[MPI（消息传递接口）](https://zh.wikipedia.org/zh-cn/%E8%A8%8A%E6%81%AF%E5%82%B3%E9%81%9E%E4%BB%8B%E9%9D%A2)
 的领导者跟随者（leader-follower）模式，其中领导者控制执行过程，包括跟随者的生命周期。
 
 <!--
@@ -96,7 +96,15 @@ as shown below:
 此外，你还可以基于 `.successPolicy.rules[0].succeededCount` 限制索引编号，如下所示：
 
 <!--
-# index of the leader Pod
+```yaml
+parallelism: 10
+completions: 10
+completionMode: Indexed
+successPolicy:
+  rules:
+  - succeededIndexes: 0 # index of the leader Pod
+    succeededCount: 1
+```
 -->
 ```yaml
 parallelism: 10

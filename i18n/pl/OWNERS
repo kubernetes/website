@@ -3,11 +3,15 @@
 # Localized strings for Polish.
 # Teams and members are visible at https://github.com/orgs/kubernetes/teams.
 
-reviewers:
-- sig-docs-pl-reviews
+filters:
+  "\\.toml$":
 
-approvers:
-- sig-docs-pl-owners
+    reviewers:
+    - sig-docs-pl-reviews
 
-labels:
-- language/pl
+    approvers:
+    - sig-docs-pl-owners
+
+    labels:
+    - area/localization
+    - language/pl

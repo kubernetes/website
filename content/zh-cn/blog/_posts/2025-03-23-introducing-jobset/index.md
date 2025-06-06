@@ -1,9 +1,8 @@
 ---
 layout: blog
 title: "JobSet 介绍"
-date: 2025-02-03
+date: 2025-03-23
 slug: introducing-jobset
-draft: true
 author: >
   Daniel Vega-Myhre (Google),
   Abdullah Gharaibeh (Google),
@@ -14,9 +13,8 @@ translator: >
 <!--
 layout: blog
 title: "Introducing JobSet"
-date: 2025-02-03
+date: 2025-03-23
 slug: introducing-jobset
-draft: true
 
 **Authors**: Daniel Vega-Myhre (Google), Abdullah Gharaibeh (Google), Kevin Hannon (Red Hat)
 -->
@@ -40,12 +38,12 @@ Large ML models (particularly LLMs) which cannot fit into the memory of the GPU 
 single host are often distributed across tens of thousands of accelerator chips, which in turn may
 span thousands of hosts.
 -->
-## 为什么需要 JobSet？
+## 为什么需要 JobSet？   {#why-jobset}
 
 Kubernetes 社区近期对 Kubernetes 批处理生态系统的增强，吸引了许多机器学习工程师，
 他们发现这非常符合运行分布式训练工作负载的需求。
 
-单个主机上的 GPU 或 TPU 芯片通常无法满足大型机器学习模型（尤其是大语言模型，LLMs）的内存需求，
+单个主机上的 GPU 或 TPU 芯片通常无法满足大型机器学习模型（尤其是大语言模型，LLM）的内存需求，
 因此往往会被分布到成千上万的加速器芯片上，而这些芯片可能跨越数千个主机。
 
 <!--
@@ -57,14 +55,14 @@ hosts.
 
 These workload characteristics make Kubernetes a great fit for this type of workload, as efficiently
 scheduling and managing the lifecycle of containerized applications across a cluster of compute
-resources is an area where it shines.
+resources is an area where it shines. 
 -->
 因此，模型训练代码通常会被容器化，并在所有这些主机上同时执行，进行分布式计算。
 这些计算通常会将模型参数和/或训练数据集拆分到目标加速器芯片上，并使用如
 all-gather 和 all-reduce 等通信集合原语来进行分布式计算以及在主机之间同步梯度。
 
 这些工作负载的特性使得 Kubernetes 非常适合此类任务，
-因为高效地调度和管理跨计算资源集群的容器化应用程序生命周期是 Kubernetes 的强项。
+因为高效地调度和管理跨计算资源集群的容器化应用生命周期是 Kubernetes 的强项。
 
 <!--
 It is also very extensible, allowing developers to define their own Kubernetes APIs, objects, and
@@ -108,11 +106,11 @@ Pods are part of the same workload, but they need to run a different container, 
 resources or have different failure policies. A common example is the driver-worker pattern.
 -->
 另一方面，Job API 弥补了运行批处理工作负载的许多空白，包括带索引的完成模式（Indexed Completion Mode）、
-更高的可扩展性、Pod 失败策略和 Pod 回退策略等，这些都是最近的一些重要增强功能。然而，使用上游
+更高的可扩展性、Pod 失效策略和 Pod 回退策略等，这些都是最近的一些重要增强功能。然而，使用上游
 Job API 运行机器学习训练和高性能计算（HPC）工作负载时，需要额外的编排来填补以下空白：
 
 - 多模板 Pod：大多数 HPC 或机器学习训练任务包含多种类型的 Pod。这些不同的 Pod 属于同一工作负载，
-  但它们需要运行不同的容器、请求不同的资源或具有不同的失败策略。
+  但它们需要运行不同的容器、请求不同的资源或具有不同的失效策略。
   一个常见的例子是驱动器-工作节点（driver-worker）模式。
 
 <!--
@@ -141,7 +139,7 @@ JobSet aims to address those gaps using the Job API as a building block to build
 large-scale distributed HPC and ML use cases.
 -->
 - 启动顺序：某些任务需要特定的 Pod 启动顺序；有时需要驱动（driver）首先启动（例如 Ray 或 Spark），
-  而有时，人们期望工作节点（workers）在驱动启动之前就绪（例如 MPI）。
+  而有时，人们期望多个工作节点（worker）在驱动启动之前就绪（例如 MPI）。
 
 JobSet 旨在以 Job API 为基础，填补这些空白，构建一个更丰富的 API，
 以支持大规模分布式 HPC 和 ML 使用场景。
@@ -158,7 +156,7 @@ declarative way to easily create identical child-jobs to run on different island
 without resorting to scripting or Helm charts to generate many versions of the same job but with
 different names.
 -->
-## JobSet 的工作原理
+## JobSet 的工作原理   {#how-jobset-works}
 
 JobSet 将分布式批处理工作负载建模为一组 Kubernetes Job。
 这使得用户可以轻松为不同的 Pod 组（例如领导者 Pod、工作节点 Pod、参数服务器 Pod 等）
@@ -219,9 +217,9 @@ specify a maximum number of times the JobSet should be restarted in the event of
 job is marked failed, the entire JobSet will be recreated, allowing the workload to resume from the
 last checkpoint. When no failure policy is specified, if any job fails, the JobSet simply fails. 
 -->
-- **可配置的失败策略**：JobSet 提供了可配置的失败策略，允许用户指定在发生故障时
+- **可配置的失效策略**：JobSet 提供了可配置的失效策略，允许用户指定在发生故障时
   JobSet 应重启的最大次数。如果任何任务被标记为失败，整个 JobSet 将会被重新创建，
-  从而使工作负载可以从最后一个检查点恢复。当未指定失败策略时，如果任何任务失败，
+  从而使工作负载可以从最后一个检查点恢复。当未指定失效策略时，如果任何任务失败，
   JobSet 会直接标记为失败。
 
 <!--
@@ -263,7 +261,7 @@ The following example is a JobSet spec for running a TPU Multislice workload on 
 TPU concepts and terminology, please refer to these
 [docs](https://cloud.google.com/tpu/docs/system-architecture-tpu-vm).
 -->
-## 示例用例
+## 示例用例   {#example-use-case}
 
 ### 使用 Jax 在多个 TPU 切片上进行分布式 ML 训练
 
@@ -393,7 +391,7 @@ found in the [JobSet roadmap](https://github.com/kubernetes-sigs/jobset?tab=read
 Please feel free to reach out with feedback of any kind. We’re also open to additional contributors,
 whether it is to fix or report bugs, or help add new features or write documentation. 
 -->
-## 未来工作与参与方式
+## 未来工作与参与方式   {#furture-work-and-getting-involved}
 
 我们今年的 JobSet 路线图中计划开发多项功能，具体内容可以在
 [JobSet 路线图](https://github.com/kubernetes-sigs/jobset?tab=readme-ov-file#roadmap)中找到。

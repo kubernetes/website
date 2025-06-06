@@ -25,7 +25,7 @@
     <ul class="navbar-nav mt-lg-0">
       {{ $p := . -}}
       {{/* The below code needs to be aligned to Docsy to use the menu data from the front matter wherever possible */}}
-      {{ $sections := slice "docs" "blog" "training" "partners" "community" "case-studies" }}
+      {{ $sections := slice "docs" "blog" "training" "careers" "partners" "community" }}
       {{ range $sections }}
       {{ with site.GetPage "section" . }}
       <li class="nav-item mr-4 mb-2 mb-lg-0">
