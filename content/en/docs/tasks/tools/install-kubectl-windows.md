@@ -163,6 +163,10 @@ Below are the procedures to set up autocompletion for PowerShell.
 
 {{< include "included/optional-kubectl-configs-pwsh.md" >}}
 
+### Configure kuberc
+
+See [kuberc](/docs/reference/kubectl/kuberc) for more information.
+
 ### Install `kubectl convert` plugin
 
 {{< include "included/kubectl-convert-overview.md" >}}
