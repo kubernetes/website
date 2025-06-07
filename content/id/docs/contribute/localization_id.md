@@ -256,6 +256,7 @@ Contoh dari _feature gate_ adalah sebagai berikut:
 | Pod Disruption Budget | ... | ... | ... |
 | Pod Lifecycle | ... | ... | ... |
 | Pod Priority | Prioritas Pod | Dilokalkan | ... |
+| Pod Security Admission | ... | ... | ... |
 | Pod Security Policy | ... | ... | ... |
 | PodTemplate | PodTemplate | Tetap | ... |
 | Preemption | ... | ... | ... |

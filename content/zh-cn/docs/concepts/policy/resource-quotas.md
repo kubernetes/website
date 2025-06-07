@@ -23,58 +23,115 @@ weight: 20
 When several users or teams share a cluster with a fixed number of nodes,
 there is a concern that one team could use more than its fair share of resources.
 
-Resource quotas are a tool for administrators to address this concern.
+_Resource quotas_ are a tool for administrators to address this concern.
 -->
 当多个用户或团队共享具有固定节点数目的集群时，人们会担心有人使用超过其基于公平原则所分配到的资源量。
 
-资源配额是帮助管理员解决这一问题的工具。
+**资源配额**是帮助管理员解决这一问题的工具。
+
+<!--
+A resource quota, defined by a ResourceQuota object, provides constraints that limit
+aggregate resource consumption per {{< glossary_tooltip text="namespace" term_id="namespace" >}}. A ResourceQuota can also
+limit the [quantity of objects that can be created in a namespace](#quota-on-object-count) by API kind, as well as the total
+amount of {{< glossary_tooltip text="infrastructure resources" term_id="infrastructure-resource" >}} that may be consumed by
+API objects found in that namespace.
+-->
+资源配额，由 ResourceQuota 对象定义，
+提供了限制每个{{< glossary_tooltip text="命名空间" term_id="namespace" >}}的资源总消耗的约束。
+资源配额还可以限制在命名空间中可以创建的[对象数量](#quota-on-object-count)（按 API 类型计算），
+以及该命名空间中存在的 API
+对象可能消耗的{{< glossary_tooltip text="基础设施资源" term_id="infrastructure-resource" >}}的总量。
+
+{{< caution >}}
+<!--
+Neither contention nor changes to quota will affect already created resources.
+-->
+不同的资源争用，或者资源配额的更改不会影响已经创建的资源。
+{{< /caution >}}
 
 <!-- body -->
 
 <!--
-A resource quota, defined by a `ResourceQuota` object, provides constraints that limit
-aggregate resource consumption per namespace. It can limit the quantity of objects that can
-be created in a namespace by type, as well as the total amount of compute resources that may
-be consumed by resources in that namespace.
+## How Kubernetes ResourceQuotas work
 -->
-资源配额，通过 `ResourceQuota` 对象来定义，对每个命名空间的资源消耗总量提供限制。
-它可以限制命名空间中某种类型的对象的总数目上限，也可以限制命名空间中的 Pod 可以使用的计算资源的总上限。
+## Kubernetes ResourceQuota 的工作原理 {#how-kubernetes-resourcequotas-work}
 
 <!--
-Resource quotas work like this:
+ResourceQuotas work like this:
 -->
-资源配额的工作方式如下：
+ResourceQuota 的工作方式如下：
 
 <!--
-- Different teams work in different namespaces. This can be enforced with
-  [RBAC](/docs/reference/access-authn-authz/rbac/).
-- The administrator creates one ResourceQuota for each namespace.
+- Different teams work in different namespaces. This separation can be enforced with
+  [RBAC](/docs/reference/access-authn-authz/rbac/) or any other [authorization](/docs/reference/access-authn-authz/authorization/)
+  mechanism.
+
+- A cluster administrator creates at least one ResourceQuota for each namespace.
+  - To make sure the enforcement stays enforced, the cluster administrator should also restrict access to delete or update
+    that ResourceQuota; for example, by defining a [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/).
+-->
+- 不同团队在不同的命名空间中工作。
+  这种分离可以通过 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)
+  或任何其他[鉴权](/zh-cn/docs/reference/access-authn-authz/authorization/)机制来强制执行。
+
+- 集群管理员为每个命名空间创建至少一个 ResourceQuota。
+  - 为了确保强制执行不被解除，集群管理员还应限制对删除或更新此 ResourceQuota 的访问；
+    例如，通过定义一个[验证准入策略](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)来实现这点。
+
+<!--
 - Users create resources (pods, services, etc.) in the namespace, and the quota system
   tracks usage to ensure it does not exceed hard resource limits defined in a ResourceQuota.
-- If creating or updating a resource violates a quota constraint, the request will fail with HTTP
-  status code `403 FORBIDDEN` with a message explaining the constraint that would have been violated.
-- If quotas are enabled in a namespace for compute resources like `cpu` and `memory`, users must specify
-  requests or limits for those values; otherwise, the quota system may reject pod creation. Hint: Use
-  the `LimitRanger` admission controller to force defaults for pods that make no compute resource requirements.
 
-  See the [walkthrough](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
-  for an example of how to avoid this problem.
+  You can apply a [scope](#quota-scopes) to a ResourceQuota to limit where it applies.
+
+- If creating or updating a resource violates a quota constraint, the control plane rejects that request with HTTP
+  status code `403 Forbidden`. The error includes a message explaining the constraint that would have been violated.
 -->
-- 不同的团队可以在不同的命名空间下工作，这可以通过
-  [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/) 强制执行。
-- 集群管理员可以为每个命名空间创建一个或多个 ResourceQuota 对象。
 - 当用户在命名空间下创建资源（如 Pod、Service 等）时，Kubernetes 的配额系统会跟踪集群的资源使用情况，
   以确保使用的资源用量不超过 ResourceQuota 中定义的硬性资源限额。
-- 如果资源创建或者更新请求违反了配额约束，那么该请求会报错（HTTP 403 FORBIDDEN），
-  并在消息中给出有可能违反的约束。
-- 如果命名空间下的计算资源（如 `cpu` 和 `memory`）的配额被启用，
-  则用户必须为这些资源设定请求值（request）和约束值（limit），否则配额系统将拒绝 Pod 的创建。
-  提示: 可使用 `LimitRanger` 准入控制器来为没有设置计算资源需求的 Pod 设置默认值。
-  
-  若想避免这类问题，请参考
-  [演练](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)示例。
+
+  你可以对 ResourceQuota 应用一个[范围](#quota-scopes)，以限制其适用的地方。
+
+- 如果创建或更新资源违反了配额约束，控制平面将使用 HTTP 状态码
+  `403 Forbidden` 拒绝该请求。错误信息包括解释将要违反的约束的说明。
+
+<!--
+- If quotas are enabled in a namespace for {{< glossary_tooltip text="resource" term_id="infrastructure-resource" >}}
+  such as `cpu` and `memory`, users must specify requests or limits for those values when they define a Pod; otherwise,
+  the quota system may reject pod creation.
+
+  The resource quota [walkthrough](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+  shows an example of how to avoid this problem.
+-->
+- 如果在命名空间中为诸如 `cpu` 和 `memory`
+  的{{< glossary_tooltip text="资源" term_id="infrastructure-resource" >}}启用了配额，
+  用户在定义 Pod 时必须指定这些值的请求或限制；否则，配额系统可能会拒绝 Pod 创建。
+
+  资源配额[演练](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)展示了一个如何避免此问题的示例。
 
 {{< note >}}
+<!--
+* You can define a [LimitRange](/docs/concepts/policy/limit-range/)
+  to force defaults on pods that make no compute resource requirements (so that users don't have to remember to do that).
+->
+* 可以定义 [LimitRange](/docs/concepts/policy/limit-range/) 强制
+  Pod 在没有计算资源需求的情况下设置默认值（这样用户就不必记住要这样做）。
+{{< /note >}}
+
+<!--
+You often do not create Pods directly; for example, you more usually create a [workload management](/docs/concepts/workloads/controllers/)
+object such as a {{< glossary_tooltip term_id="deployment" >}}. If you create a Deployment that tries to use more
+resources than are available, the creation of the Deployment (or other workload management object) **succeeds**, but
+the Deployment may not be able to get all of the Pods it manages to exist. In that case you can check the status of
+the Deployment, for example with `kubectl describe`, to see what has happened.
+-->
+你通常不会直接创建 Pod；例如，你更常创建一个[工作负载管理](/zh-cn/docs/concepts/workloads/controllers/)对象，
+如 {{< glossary_tooltip term_id="deployment" >}}。
+如果你创建了一个尝试使用超出可用资源的 Deployment（或其他工作负载管理对象），
+其创建**会成功**，但 Deployment 可能无法使其管理的所有 Pod 都运行起来。
+在这种情况下，你可以使用 `kubectl describe` 等命令检查 Deployment 的状态，
+以查看发生了什么。
+
 <!--
 - For `cpu` and `memory` resources, ResourceQuotas enforce that **every**
   (new) pod in that namespace sets a limit for that resource.
@@ -93,12 +150,11 @@ a default request for these resources.
 - 对于 `cpu` 和 `memory` 资源：ResourceQuota 强制该命名空间中的**每个**（新）Pod 为该资源设置限制。
   如果你在命名空间中为 `cpu` 和 `memory` 实施资源配额，
   你或其他客户端**必须**为你提交的每个新 Pod 指定该资源的 `requests` 或 `limits`。
-  否则，控制平面可能会拒绝接纳该 Pod。
+  否则，控制平面可能会拒绝接纳该 Pod
 - 对于其他资源：ResourceQuota 可以工作，并且会忽略命名空间中的 Pod，而无需为该资源设置限制或请求。
   这意味着，如果资源配额限制了此命名空间的临时存储，则可以创建没有限制/请求临时存储的新 Pod。
-  你可以使用[限制范围](/zh-cn/docs/concepts/policy/limit-range/)自动设置对这些资源的默认请求。
 
-{{< /note >}}
+你可以使用 [LimitRange](/zh-cn/docs/concepts/policy/limit-range/) 自动设置对这些资源的默认请求。
 
 <!--
 The name of a ResourceQuota object must be a valid
@@ -125,12 +181,8 @@ Examples of policies that could be created using namespaces and quotas are:
 <!--
 In the case where the total capacity of the cluster is less than the sum of the quotas of the namespaces,
 there may be contention for resources. This is handled on a first-come-first-served basis.
-
-Neither contention nor changes to quota will affect already created resources.
 -->
 在集群容量小于各命名空间配额总和的情况下，可能存在资源竞争。资源竞争时，Kubernetes 系统会遵循先到先得的原则。
-
-不管是资源竞争还是配额的修改，都不会影响已经创建的资源使用对象。
 
 <!--
 ## Enabling Resource Quota
@@ -1357,13 +1409,16 @@ and it is to be created in a namespace other than `kube-system`.
 ## {{% heading "whatsnext" %}}
 
 <!--
-- See [ResourceQuota design document](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md)
-  for more information.
 - See a [detailed example for how to use resource quota](/docs/tasks/administer-cluster/quota-api-object/).
-- Read [Quota support for priority class design document](https://git.k8s.io/design-proposals-archive/scheduling/pod-priority-resourcequota.md).
-- See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765).
+- Read the ResourceQuota [API reference](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+- Learn about [LimitRanges](/docs/concepts/policy/limit-range/)
+- You can read the historical [ResourceQuota design document](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md)
+  for more information.
+- You can also read the [Quota support for priority class design document](https://git.k8s.io/design-proposals-archive/scheduling/pod-priority-resourcequota.md).
 -->
-- 参阅[资源配额设计文档](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md)。
 - 参阅[如何使用资源配额的详细示例](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)。
-- 参阅[优先级类配额支持的设计文档](https://git.k8s.io/design-proposals-archive/scheduling/pod-priority-resourcequota.md)了解更多信息。
-- 参阅 [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765)。
+- 阅读 ResourceQuota [API 参考](/zh-cn/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+- 了解 [LimitRanges](/zh-cn/docs/concepts/policy/limit-range/)
+- 你可以阅读历史的
+  [ResourceQuota 设计文档](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md)获取更多信息。
+- 你也可以阅读[优先级类配额支持设计文档](https://git.k8s.io/design-proposals-archive/scheduling/pod-priority-resourcequota.md)。
