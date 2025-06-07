@@ -30,13 +30,14 @@ receivers:
       grpc:
 exporters:
   # Замініть цей експортер на експортер для вашої системи
-  logging:
-    logLevel: debug
+  exporters:
+    debug:
+      verbosity: detailed
 service:
   pipelines:
     traces:
       receivers: [otlp]
-      exporters: [logging]
+      exporters: [debug]
 ```
 
 Для безпосереднього надсилання трейсів до бекенду без використання колектора, вкажіть поле `endpoint` у конфігурації Kubernetes з адресою бекенду. Цей метод усуває потребу в колекторі та спрощує загальну структуру.
