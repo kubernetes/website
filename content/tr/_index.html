@@ -1,0 +1,66 @@
+---
+title: "Üretim Seviyesinde Konteyner Orkestrasyonu"
+abstract: "Otomatik konteyner dağıtımı, ölçeklendirme ve yönetim"
+cid: home
+sitemap:
+    priority: 1.0
+---
+
+{{< site-searchbar >}}
+
+{{< blocks/section class="k8s-overview" >}}
+{{% blocks/feature image="flower" id="feature-primary" %}}
+[Kubernetes]({{< relref "/docs/concepts/overview/" >}}), K8s olarak da bilinir, konteynerleştirilmiş uygulamaların dağıtımını, ölçeklendirilmesini ve yönetimini otomatikleştiren açık kaynaklı bir sistemdir.
+
+Kubernetes, bir uygulamayı oluşturan konteynerleri kolay yönetim ve keşif için mantıksal birimlere gruplar. Kubernetes, [Google'da üretim iş yüklerini çalıştırma konusunda 15 yıllık deneyime](https://queue.acm.org/detail.cfm?id=2898444) dayanır ve topluluktan en iyi fikirler ve uygulamalarla birleştirilmiştir.
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+#### Gezegen Ölçeği
+
+Google'ın haftada milyarlarca konteyner çalıştırmasını sağlayan aynı prensipler üzerine tasarlanan Kubernetes, operasyon ekibinizi artırmadan ölçeklenebilir.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+#### Asla Büyümez
+
+Yerel olarak test yapıyor veya küresel bir işletme çalıştırıyor olun, Kubernetes esnekliği, ihtiyaçlarınız ne kadar karmaşık olursa olsun uygulamalarınızı tutarlı ve kolay bir şekilde sunmak için sizinle birlikte büyür.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+#### K8s Her Yerde Çalıştırın
+
+Kubernetes, size yerinde, hibrit veya genel bulut altyapısından yararlanma özgürlüğü veren açık kaynaklıdır ve iş yüklerini sizin için önemli olan yere zahmetsizce taşımanıza olanak tanır.
+
+Kubernetes'i indirmek için [indirme](/releases/download/) bölümünü ziyaret edin.
+
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
+<div class="light-text">
+        <h2>150+ Mikroservisi Kubernetes'e Taşımanın Zorlukları</h2>
+                <p>Sarah Wells, Financial Times Operasyonlar ve Güvenilirlik Teknik Direktörü</p>
+                <button id="desktopShowVideoButton" onclick="kub.showVideo()">Videoyu İzle</button>
+
+        <h3>Yaklaşan KubeCon + CloudNativeCon etkinliklerine katılın</h3>
+                <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/" class="desktopKCButton"><strong>Avrupa</strong> (Londra, 1-4 Nisan)</a>
+                <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-china/" class="desktopKCButton"><strong>Çin</strong> (Hong Kong, 10-11 Haziran)</a>
+                <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-japan/" class="desktopKCButton"><strong>Japonya</strong> (Tokyo, 16-17 Haziran)</a>
+                <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-india/" class="desktopKCButton"><strong>Hindistan</strong> (Haydarabad, 6-7 Ağustos)</a>
+                <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2025/" class="desktopKCButton"><strong>Kuzey Amerika</strong> (Atlanta, 10-13 Kasım)</a>
+</div>
+<div id="videoPlayer">
+        <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+        <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
+
+{{< blocks/case-studies >}}
+
+{{< kubeweekly id="kubeweekly" >}}
