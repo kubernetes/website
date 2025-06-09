@@ -200,14 +200,14 @@ If you need help at any point when contributing, the [New Contributor Ambassador
 
 | Language                   | Language                   |
 | -------------------------- | -------------------------- |
-| [Bengali](./content/bn/README.md)    | [Korean](./content/ko/README.md)    |
-| [Chinese](./content/zh-cn/README.md)    | [Polish](./content/pl/README.md)    |
-| [French](./content/fr/README.md)     | [Portuguese](./content/pt-br/README.md)    |
-| [German](./content/de/README.md)     | [Russian](./content/ru/README.md)    |
-| [Hindi](./content/hi/README.md)      | [Spanish](./content/es/README.md)    |
-| [Indonesian](./content/id/README.md) | [Ukrainian](./content/uk/README.md) |
-| [Italian](./content/it/README.md)    | [Vietnamese](./content/vi/README.md) |
-| [Japanese](./content/ja/README.md)   | |
+| [Bengali](./content/bn/README.md)       | [Korean](./content/ko/README.md)         |
+| [Chinese](./content/zh-cn/README.md)    | [Persian](./content/fa/README.md)        |
+| [French](./content/fr/README.md)        | [Polish](./content/pl/README.md)         |
+| [German](./content/de/README.md)        | [Portuguese](./content/pt-br/README.md)  |
+| [Hindi](./content/hi/README.md)         | [Russian](./content/ru/README.md)        |
+| [Indonesian](./content/id/README.md)    | [Spanish](./content/es/README.md)        |
+| [Italian](./content/it/README.md)       | [Ukrainian](./content/uk/README.md)      |
+| [Japanese](./content/ja/README.md)      | [Vietnamese](./content/vi/README.md)     |
 
 ## Code of conduct
 
