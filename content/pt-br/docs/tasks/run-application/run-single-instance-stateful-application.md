@@ -153,7 +153,7 @@ com o comando `kubectl apply`. Aqui estão algumas precauções específicas par
   O PersistentVolume subjacente só pode ser montado em um Pod. Para aplicativos com estado em cluster, consulte a
   [documentação do StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 - Use `strategy:` `type: Recreate` no arquivo YAML de configuração do Deployment.
-  Isso instrui o Kubernetes a _não_ usar atualizações rolling. Atualizações rolling não funcionarão, pois não é possível ter mais de um Pod em execução ao mesmo tempo. A estratégia `Recreate` irá parar o primeiro pod antes de criar um novo com a configuração atualizada.
+  Isso instrui o Kubernetes a _não_ usar atualizações graduais. Atualizações graduais não funcionarão, pois não é possível ter mais de um Pod em execução ao mesmo tempo. A estratégia `Recreate` irá parar o primeiro Pod antes de criar um novo com a configuração atualizada.
 
 ## Excluindo um deployment
 
