@@ -2,9 +2,9 @@
 # مستندات فارسی کوبرنتیز
 
 &#x202b;
-[![وضعیت ساخت](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
-&#x202b;
-[![انتشار گیتهاب](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-main-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
+
+
 &#x202b;
 خوش آمدید! این مخزن شامل محتویات لازم برای ساخت [تارنما کوبرنتیز فارسی و مستندات](https://kubernetes.io/fa/) آن است. خوشحال می‌شویم که در این مسیر با مشارکت کردن ما را همراهی کنید. 
 
@@ -110,7 +110,7 @@ make serve
 ## جامعه، بحث، مشارکت و حمایت
 
 &#x202b;
-برای آشنایی با نحوه تعامل با انجمن کوبرنتیز به [صفحه انجمن] (https://kubernetes.io/community/) مراجعه کنید.
+برای آشنایی با نحوه تعامل با انجمن کوبرنتیز به [صفحه انجمن](https://kubernetes.io/community/) مراجعه کنید.
 
 &#x202b;
 برای ارتباط با سرپرستان این پروژه می‌توانید از طریق نشانی زیر اقدام کنید:
@@ -122,7 +122,7 @@ make serve
 ### قوانین رفتاری
 
 &#x202b;
-مشارکت در جامعه کوبرنتیز تابع [قوانین رفتاری کوبرنتیز](code-of-conduct.md) است.
+مشارکت در جامعه کوبرنتیز تابع [قوانین رفتاری کوبرنتیز](https://github.com/kubernetes/website/blob/main/code-of-conduct.md) است.
 
 &#x202b;
 ## سپاس گزاریم

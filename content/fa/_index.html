@@ -1,0 +1,64 @@
+---
+title: "مدیریت کانتینر در محیط عملیاتی"
+abstract: "استقرار، مقیاس‌بندی و مدیریت خودکار کانتینر"
+cid: home
+sitemap:
+  priority: 1.0
+---
+
+{{< blocks/section class="k8s-overview" >}}
+{{% blocks/feature image="flower" id="feature-primary" %}}
+[کوبرنتیز]({{< relref "/docs/concepts/overview/" >}}), که با نام K8s نیز شناخته می‌شود، یک سامانه متن‌باز برای خودکارسازی استقرار، مقیاس‌بندی و مدیریت برنامه‌های کانتینری است.
+
+این سامانه، کانتینرهایی را که یک برنامه را تشکیل می‌دهند، برای مدیریت و کشف آسان، در واحدهای منطقی گروه‌بندی می‌کند. کوبرنتیز بر اساس [۱۵ سال تجربه در اجرای برنامه‌های عملیاتی در گوگل](https://queue.acm.org/detail.cfm?id=2898444) و با ترکیب بهترین ایده‌ها و شیوه‌های جامعه ساخته شده است.
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+#### مقیاس سیاره
+
+کوبرنتیز که بر اساس همان اصولی طراحی شده است که به گوگل اجازه می‌دهد میلیاردها کانتینر را در هفته اجرا کند، می‌تواند بدون افزایش تیم عملیاتی شما، مقیاس‌پذیر شود.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+#### از بزرگ شدن نترس
+
+چه یک سازمان کوچک و چه یک سازمان با مقیاس جهانی را اداره کنید، انعطاف‌پذیری کوبرنتیز با شما رشد می‌کند تا برنامه‌های شما را به طور مداوم و آسان، صرف نظر از پیچیدگی نیازتان، ارائه دهد.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+#### کوبرنتیز همه جا
+
+کوبرنتیز متن‌باز است و به شما آزادی عمل می‌دهد تا از زیرساخت‌های ابری داخلی، ترکیبی یا عمومی بهره ببرید و به شما امکان می‌دهد بدون دردسر برنامه‌ها را به جایی که برایتان مهم است منتقل کنید.
+
+برای دانلود کوبرنتیز، به بخش [دانلود](/releases/download/) مراجعه کنید.
+
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
+<div class="light-text">
+    <h2>چالش‌های مهاجرت بیش از ۱۵۰ میکروسرویس به کوبرنتیز</h2>
+        <p>نوشته Sarah Wells، راهبر فنی عملیات و پایایی در Financial Times</p>
+        <button id="desktopShowVideoButton" onclick="kub.showVideo()">مشاهده ویدیو</button>
+
+    <h3>در رویدادهای آینده KubeCon + CloudNativeCon شرکت کنید</h3>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-china/" class="desktopKCButton"><strong>چین</strong> (هنگ کنگ، ۱۰ تا ۱۱ ژوئن)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-japan/" class="desktopKCButton"><strong>ژاپن</strong> (توکیو، ۱۶ و ۱۷ ژوئن)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-india/" class="desktopKCButton"><strong>هند</strong> (حیدرآباد، ۶ و ۷ اوت)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/" class="desktopKCButton"><strong>آمریکا شمالی</strong> (آتلانتا، ۱۰ تا ۱۳ نوامبر)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>اروپا</strong> (آمستردام، ۲۳ تا ۲۶ مارس ۲۰۲۶)</a>
+</div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
+
+{{< blocks/case-studies >}}
+
+{{< kubeweekly id="kubeweekly" >}}

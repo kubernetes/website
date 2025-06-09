@@ -35,6 +35,9 @@ $video-section-height: 580px;
         p {
           text-align: left
         }
+        p:dir(rtl) {
+          text-align: right
+        }
 
         .image-wrapper {
           position: absolute;
