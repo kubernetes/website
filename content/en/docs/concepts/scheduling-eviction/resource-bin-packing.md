@@ -12,11 +12,13 @@ math: true
 <!-- overview -->
 
 In the [scheduling-plugin](/docs/reference/scheduling/config/#scheduling-plugins) `NodeResourcesFit` of kube-scheduler, there are two
-scoring strategies that support the bin packing of resources: `MostAllocated` and `RequestedToCapacityRatio`.
+scoring strategies that aim to make efficient use of infrastructure resources:
+`MostAllocated` and `RequestedToCapacityRatio`.
 
 <!-- body -->
 
-## Bin packing using MostAllocated strategy
+## Placement using MostAllocated strategy {#strategy-MostAllocated}
+
 The `MostAllocated` strategy scores the nodes based on the utilization of resources, favoring the ones with higher allocation.
 For each resource type, you can set a weight to modify its influence in the node score.
 
@@ -46,15 +48,16 @@ profiles:
 To learn more about other parameters and their default configuration, see the API documentation for
 [`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs).
 
-## Bin packing using RequestedToCapacityRatio
+## Placement using RequestedToCapacityRatio strategy {#strategy-RequestedToCapacityRatio}
 
-The `RequestedToCapacityRatio` strategy allows the users to specify the resources along with weights for
+The `RequestedToCapacityRatio` strategy allows you to specify the resources along with weights for
 each resource to score nodes based on the request to capacity ratio. This
-allows users to bin pack extended resources by using appropriate parameters
+approximates efficient _bin packing_ of infrastructure resources (notably, extended resources) by using appropriate parameters
 to improve the utilization of scarce resources in large clusters. It favors nodes according to a
 configured function of the allocated resources. The behavior of the `RequestedToCapacityRatio` in
 the `NodeResourcesFit` score function can be controlled by the
 [scoringStrategy](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-ScoringStrategy) field.
+
 Within the `scoringStrategy` field, you can configure two parameters: `requestedToCapacityRatio` and
 `resources`. The `shape` in the `requestedToCapacityRatio`
 parameter allows the user to tune the function as least requested or most
@@ -62,8 +65,8 @@ requested based on `utilization` and `score` values. The `resources` parameter
 comprises both the `name` of the resource to be considered during scoring and
 its corresponding `weight`, which specifies the weight of each resource.
 
-Below is an example configuration that sets
-the bin packing behavior for extended resources `intel.com/foo` and `intel.com/bar`
+Below is an example configuration that adjusts
+the Pod scheduling preferences associated with the extended resources `intel.com/foo` and `intel.com/bar`
 using the `requestedToCapacityRatio` field.
 
 ```yaml
@@ -108,8 +111,8 @@ shape:
 ```
 
 The above arguments give the node a `score` of 0 if `utilization` is 0% and 10 for
-`utilization` 100%, thus enabling bin packing behavior. To enable least
-requested the score value must be reversed as follows.
+`utilization` 100%, as an approximation of ideal bin packing. To enable **least**
+requested the score value must be reversed, as follows:
 
 ```yaml
 shape:
