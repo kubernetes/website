@@ -103,15 +103,17 @@ Specify the built-in command. This includes support for subcommands like `create
 Within a `kuberc`, configuration, command line arguments are termed _flags_ (even if they do not represent a boolean type).
 You can use `flags` to set the default value of a command line argument.
 
-	If you explicitly specify a flag on your terminal, explicit value will always take precedence over the value you defined in kuberc using `overrides`.
-	
-	{{< note >}}
-	You cannot use `kuberc` to override the value of a command line argument to take precedence over what the user specifies on the command line. The term `overrides`
-	in this context refers to specifying a default value that is different from the
-	compiled-in default value.
-	{{< /note >}}
+If you explicitly specify a flag on your terminal, explicit value will always take precedence over
+the value you defined in kuberc using `overrides`.
 
-#### Example:
+{{< note >}}
+You cannot use `kuberc` to override the value of a command line argument to take precedence over
+what the user specifies on the command line. The term `overrides`
+in this context refers to specifying a default value that is different from the
+compiled-in default value.
+{{< /note >}}
+
+#### Example
 
 ```yaml
 apiVersion: kubectl.config.k8s.io/v1alpha1
