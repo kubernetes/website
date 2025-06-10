@@ -116,5 +116,5 @@ SIG Docs approvers. Here's how it works.
 For more information about contributing to the Kubernetes documentation, see:
 
 - [Contributing new content](/docs/contribute/new-content/)
-- [Reviewing content](/docs/contribute/review/reviewing-prs)
+- [Reviewing content](/docs/contribute/review/reviewing-prs) 
 - [Documentation style guide](/docs/contribute/style/)
