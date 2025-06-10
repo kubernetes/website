@@ -156,16 +156,6 @@ mounts (specified in `pod.spec.volumes`) and therefore the host UID/GID will not
 have any effect on writes/reads from volumes the pod can mount. In other words,
 the inodes created/read in volumes mounted by the pod will be the same as if the
 pod wasn't using user namespaces.
-
-This way, a pod can easily enable and disable user namespaces (without affecting
-its volume's file ownerships) and can also share volumes with pods without user
-namespaces by just setting the appropriate users inside the container
-(`RunAsUser`, `RunAsGroup`, `fsGroup`, etc.). This applies to any volume the pod
-can mount, including `hostPath` (if the pod is allowed to mount `hostPath`
-volumes).
-
-The valid UIDs/GIDs when this feature is enabled is the range 0-65535. This
-applies to files and processes (`runAsUser`, `runAsGroup`, etc.).
 -->
 kubelet 将挑选 Pod 所映射的主机 UID/GID，
 并以此保证同一节点上没有两个 Pod 使用相同的方式进行映射。
@@ -175,12 +165,23 @@ kubelet 将挑选 Pod 所映射的主机 UID/GID，
 因此，主机上的 UID/GID 不会影响 Pod 挂载卷的读写操作。
 换句话说，由 Pod 挂载卷中创建或读取的 inode，将与 Pod 未使用用户命名空间时相同。
 
+<!--
+This way, a pod can easily enable and disable user namespaces (without affecting
+its volume's file ownerships) and can also share volumes with pods without user
+namespaces by just setting the appropriate users inside the container
+(`RunAsUser`, `RunAsGroup`, `fsGroup`, etc.). This applies to any volume the pod
+can mount, including `hostPath` (if the pod is allowed to mount `hostPath`
+volumes).
+
+By default, the valid UIDs/GIDs when this feature is enabled is the range 0-65535.
+This applies to files and processes (`runAsUser`, `runAsGroup`, etc.).
+-->
 通过这种方式，Pod 可以轻松启用或禁用用户命名空间（不会影响其卷中文件的所有权），
 并且可以通过在容器内部设置适当的用户（`runAsUser`、`runAsGroup`、`fsGroup` 等），
 即可与没有用户命名空间的 Pod 共享卷。这一点适用于 Pod 可挂载的任何卷，
 包括 `hostPath`（前提是允许 Pod 挂载 `hostPath` 卷）。
 
-启用该功能时，有效的 UID/GID 在 0-65535 范围内。
+默认情况下，当启用该功能时，有效的 UID/GID 在 0-65535 范围内。
 这适用于文件和进程（`runAsUser`、`runAsGroup` 等）。
 
 <!--
@@ -189,6 +190,9 @@ overflow ID, usually 65534 (configured in `/proc/sys/kernel/overflowuid` and
 `/proc/sys/kernel/overflowgid`). However, it is not possible to modify those
 files, even by running as the 65534 user/group.
 
+If the range 0-65535 is extended with a configuration knob, the aforementioned
+restrictions apply to the extended range.
+
 Most applications that need to run as root but don't access other host
 namespaces or resources, should continue to run fine without any changes needed
 if user namespaces is activated.
@@ -196,6 +200,8 @@ if user namespaces is activated.
 使用这个范围之外的 UID/GID 的文件将被视为属于溢出 ID，
 通常是 65534（配置在 `/proc/sys/kernel/overflowuid和/proc/sys/kernel/overflowgid`）。
 然而，即使以 65534 用户/组的身份运行，也不可能修改这些文件。
+
+如果用配置旋钮将 0-65535 范围扩展，则上述限制适用于扩展的范围。
 
 大多数需要以 Root 身份运行但不访问其他主机命名空间或资源的应用程序，
 在用户命名空间被启用时，应该可以继续正常运行，不需要做任何改变。
@@ -350,8 +356,6 @@ to the `kubelet` user:
 
 <!--
 * The subordinate ID count must be a multiple of 65536
-(for Kubernetes {{< skew currentVersion >}} the subordinate ID count for each Pod is hard-coded
-to 65536).
 
 * The subordinate ID count must be at least `65536 x <maxPods>` where `<maxPods>`
   is the maximum number of pods that can run on the node.
@@ -360,8 +364,7 @@ to 65536).
   matter if other users have user ID ranges that don't align with the group ID
   ranges.
 -->
-* 从属 ID 计数必须是 65536 的倍数（对于 Kubernetes {{< skew currentVersion >}}，
-  每个 Pod 的从属 ID 数量被硬编码为 65536）。
+* 从属 ID 计数必须是 65536 的倍数。
 
 * 从属 ID 计数必须至少为 `65536 x <maxPods>`，其中 `<maxPods>` 是节点上可以运行的最大 Pod 数量。
 
@@ -404,6 +407,41 @@ kubelet:65536:7208960
 
 [CVE-2021-25741]: https://github.com/kubernetes/kubernetes/issues/104980
 [shadow-utils]: https://github.com/shadow-maint/shadow
+
+<!--
+## ID count for each of Pods
+
+Starting with Kubernetes v1.33, the ID count for each of Pods can be set in
+[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/).
+-->
+## Pod 的 ID 计数   {#id-count-for-each-of-pods}
+
+从 Kubernetes v1.33 开始，每个 Pod 的 ID 计数可以在 
+[`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/) 中设置。
+
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+userNamespaces:
+  idsPerPod: 1048576
+```
+
+<!--
+The value of `idsPerPod` (uint32) must be a multiple of 65536.
+The default value is 65536.
+This value only applies to containers created after the kubelet was started with
+this `KubeletConfiguration`.
+Running containers are not affected by this config.
+
+In Kubernetes prior to v1.33, the ID count for each of Pods was hard-coded to
+65536.
+-->
+`idsPerPod` 的值（uint32）必须是 65536 的倍数。
+默认值是 65536。
+此值仅适用于使用此 `KubeletConfiguration` 启动 kubelet 后创建的容器。
+正在运行的容器不受此配置的影响。
+
+在 Kubernetes v1.33 之前，每个 Pod 的 ID 计数被硬编码为 65536。
 
 <!--
 ## Integration with Pod security admission checks

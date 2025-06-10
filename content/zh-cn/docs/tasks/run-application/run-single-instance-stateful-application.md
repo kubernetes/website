@@ -107,7 +107,7 @@ for a secure solution.
      Labels:       app=mysql
      Containers:
       mysql:
-       Image:      mysql:5.6
+       Image:      mysql:9
        Port:       3306/TCP
        Environment:
          MYSQL_ROOT_PASSWORD:      password
@@ -198,7 +198,7 @@ Run a MySQL client to connect to the server:
 运行 MySQL 客户端以连接到服务器：
 
 ```shell
-kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppassword
+kubectl run -it --rm --image=mysql:9 --restart=Never mysql-client -- mysql -h mysql -ppassword
 ```
 
 <!--
