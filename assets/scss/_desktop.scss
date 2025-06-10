@@ -4,6 +4,10 @@ $video-section-height: 580px;
 
 @media screen and (min-width: 1024px) {
 
+  body:lang(fa) {
+    overflow-x: hidden;
+  }
+  
   .td-home {
     .header-hero {
       #vendorStrip {

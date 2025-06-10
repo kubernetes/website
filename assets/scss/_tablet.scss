@@ -17,6 +17,10 @@ $video-section-height: 400px;
 @media screen and (min-width: 768px) {
   @import "size";
 
+  body:lang(fa) {
+    overflow-x: hidden;
+  }
+  
   #hamburger {
     display: none;
   }
