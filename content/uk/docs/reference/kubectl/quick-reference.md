@@ -499,7 +499,8 @@ kubectl get pods -A -o=custom-columns='DATA:metadata.*'
 
 * Перегляньте опції [kubectl](/docs/reference/kubectl/kubectl/).
 
+* Перегляньте опції [kuberc](/docs/reference/kubectl/kuberc/).
+
 * Також ознайомтеся з [конвенціями використання kubectl](/docs/reference/kubectl/conventions/), щоб зрозуміти, як використовувати kubectl в скриптах.
 
 * Дивіться більше у [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4) спільноти.
-

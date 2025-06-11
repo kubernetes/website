@@ -153,6 +153,10 @@ kubectl надає підтримку автодоповнення для обо
 
 {{< include "included/optional-kubectl-configs-pwsh.md" >}}
 
+### Налаштування kuberc {#configure-kuberc}
+
+Дивіться [kuberc](/docs/reference/kubectl/kuberc) для отримання докладної інформації.
+
 ### Встановлення втулка `kubectl convert` {#install-kubectl-convert-plugin}
 
 {{< include "included/kubectl-convert-overview.md" >}}
