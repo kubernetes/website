@@ -58,4 +58,4 @@ content_type: concept
 
 ## {{% heading "whatsnext" %}}
 
-اگر تمایل دارید یک آموزش بنویسید، برای اطلاعات دربارهٔ نوع صفحهٔ آموزش به  [انواع صفحات محتوا](/docs/contribute/style/page-content-types/) مراجعه کنید.
+اگر تمایل دارید یک آموزش بنویسید، برای اطلاعات درباره نوع صفحه آموزش به [انواع صفحات محتوا](/docs/contribute/style/page-content-types/) مراجعه کنید.
