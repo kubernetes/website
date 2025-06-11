@@ -945,7 +945,7 @@ directories during &quot;reset&quot;. This flag can be one of: <code>&quot;MNT_F
 <code>string</code>
 </td>
 <td>
-   <p><code>dvertiseAddress</code> sets the IP address for the API server to advertise.</p>
+   <p><code>advertiseAddress</code> sets the IP address for the API server to advertise.</p>
 </td>
 </tr>
 <tr><td><code>bindPort</code><br/>
