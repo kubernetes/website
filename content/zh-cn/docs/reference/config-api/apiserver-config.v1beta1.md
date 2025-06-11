@@ -16,7 +16,7 @@ Package v1beta1 is the v1beta1 version of the API.</p>
 <p>v1beta1 包是 v1beta1 版本的 API。</p>
 
 <!-- 
-## Resource Types  
+## Resource Types
 -->
 ## 资源类型   {#resource-types}
 
@@ -26,7 +26,7 @@ Package v1beta1 is the v1beta1 version of the API.</p>
 - [TracingConfiguration](#apiserver-k8s-io-v1beta1-TracingConfiguration)
 
 ## `TracingConfiguration`     {#TracingConfiguration}
-   
+
 <!--
 **Appears in:**
 -->
@@ -96,7 +96,7 @@ AuthenticationConfiguration 为身份认证提供版本化的配置。
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
+
 <tr><td><code>apiVersion</code><br/>string</td><td><code>apiserver.k8s.io/v1beta1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>AuthenticationConfiguration</code></td></tr>
 
@@ -161,7 +161,7 @@ The minimum valid JWT payload must contain the following claims:
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
+
 <tr><td><code>apiVersion</code><br/>string</td><td><code>apiserver.k8s.io/v1beta1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>AuthorizationConfiguration</code></td></tr>
 
@@ -197,7 +197,7 @@ EgressSelectorConfiguration 为出站流量选择器客户端（Egress Selector 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
+
 <tr><td><code>apiVersion</code><br/>string</td><td><code>apiserver.k8s.io/v1beta1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>EgressSelectorConfiguration</code></td></tr>
 
@@ -287,7 +287,7 @@ AnonymousAuthCondition 描述了应启用匿名身份认证的条件。
 </table>
 
 ## `AnonymousAuthConfig`     {#apiserver-k8s-io-v1beta1-AnonymousAuthConfig}
-    
+
 <!--
 **Appears in:**
 -->
@@ -305,7 +305,7 @@ AnonymousAuthConfig 为匿名身份认证器提供配置信息。
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>enabled</code> <B><!--[Required]-->[必需]</B><br/>
 <code>bool</code>
 </td>
@@ -450,7 +450,9 @@ If username.expression is set, the expression must produce a string value.
 If username.expression uses 'claims.email', then 'claims.email_verified' must be used in
 username.expression or extra[<em>].valueExpression or claimValidationRules[</em>].expression.
 An example claim validation rule expression that matches the validation automatically
-applied when username.claim is set to 'email' is 'claims.?email_verified.orValue(true)'.
+applied when username.claim is set to 'email' is 'claims.?email_verified.orValue(true) == true'. By explicitly comparing
+the value to true, we let type-checking see the result will be a boolean, and to make sure a non-boolean email_verified
+claim will be caught at runtime.
    -->
    username 表示用户名属性的一个选项。
    声明的值必须是单一字符串。
@@ -460,7 +462,9 @@ applied when username.claim is set to 'email' is 'claims.?email_verified.orValue
    <code>username.expression</code> 或 <code>extra[*].valueExpression</code>
    或 <code>claimValidationRules[*].expression</code> 中使用 'claims.email_verified'。
    这里有一个声明验证规则表达式的示例，当 username.claim 设置为 'email' 时与自动应用的验证所匹配：
-   'claims.?email_verified.orValue(true)'。
+   'claims.?email_verified.orValue(true) == true'。
+   通过显式地将值与 true 进行比较，我们可以看到类型检查的结果将是一个布尔值，
+   并确保在运行时捕获到非布尔值的 email_verified 声明。
    </p>
 <p>
 <!--
@@ -614,7 +618,7 @@ ClaimOrExpression 为单个声明或表达式提供配置信息。
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>claim</code><br/>
 <code>string</code>
 </td>
@@ -838,7 +842,7 @@ EgressSelection 为某个出站流量选择器客户端（Egress Selector Client
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>name</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -887,8 +891,8 @@ EgressSelection 为某个出站流量选择器客户端（Egress Selector Client
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
+
 <tr><td><code>key</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -927,7 +931,7 @@ For example, a variable named 'sub' can be accessed as 'claims.sub'.
 Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 </ul>
 <p>Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/</p>
-   -->  
+   -->
    <p>valueExpression 是一个 CEL 表达式，用于提取 extra 中的属性值。
    valueExpression 必须生成一个字符串或字符串数组值。
      &quot;&quot;、[] 和 null 值被视为不存在 extra 映射。
@@ -961,8 +965,8 @@ Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
-  
+
+
 <tr><td><code>url</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -1296,7 +1300,7 @@ Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 </table>
 
 ## `ProtocolType`     {#apiserver-k8s-io-v1beta1-ProtocolType}
-   
+
 <!--
 (Alias of `string`)
 
@@ -1524,7 +1528,7 @@ UDSTransport 设置通过 UDS 连接 konnectivity 服务器时需要的信息。
 </td>
 </tr>
 </tbody>
-</table>  
+</table>
 
 ## `UserValidationRule`     {#apiserver-k8s-io-v1beta1-UserValidationRule}
 
@@ -1868,7 +1872,7 @@ CEL 表达式可以访问 v1 版本中的 SubjectAccessReview 的内容。
 <!--
 Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
 -->
-关于 CEL 文档: https://kubernetes.io/zh-cn/docs/reference/using-api/cel/
+关于 CEL 文档：https://kubernetes.io/zh-cn/docs/reference/using-api/cel/
 </p>
 </td>
 </tr>
