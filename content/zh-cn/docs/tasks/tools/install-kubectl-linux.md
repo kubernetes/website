@@ -503,6 +503,15 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 {{< /tabs >}}
 
 <!--
+### Configure kuberc
+
+See [kuberc](/docs/reference/kubectl/kuberc) for more information.
+-->
+### 配置 kuberc  {#configure-kuberc}
+
+更多信息请参见 [kuberc](/zh-cn/docs/reference/kubectl/kuberc)。
+
+<!--
 ### Install `kubectl convert` plugin
 -->
 ### 安装 `kubectl convert` 插件 {#install-kubectl-convert-plugin}
