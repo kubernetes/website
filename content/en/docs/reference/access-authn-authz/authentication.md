@@ -1108,7 +1108,7 @@ A sample authentication configuration file is below:
 # CAUTION: this is an example configuration.
 #          Do not use this for your own cluster!
 #
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: AuthenticationConfiguration
 anonymous:
   enabled: true
