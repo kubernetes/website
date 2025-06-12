@@ -83,6 +83,23 @@ A more detailed description of the termination behavior can be found in
 请参见[终止 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
 
 <!--
+`StopSignal`
+
+The StopSignal lifecycle can be used to define a stop signal which would be sent to the container when it is
+stopped. If you set this, it overrides any `STOPSIGNAL` instruction defined within the container image.
+
+A more detailed description of termination behaviour with custom stop signals can be found in
+[Stop Signals](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-stop-signals).
+-->
+`StopSignal`
+
+StopSignal 生命周期可用于定义停止信号，该信号将在容器停止时发送给容器。
+如果设置了该字段，将会覆盖容器镜像中定义的 `STOPSIGNAL` 指令。
+
+关于自定义停止信号的终止行为的更为详细的描述，请参阅
+[停止信号](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-stop-signals)。
+
+<!--
 ### Hook handler implementations
 
 Containers can access a hook by implementing and registering a handler for that hook.
@@ -98,7 +115,8 @@ There are three types of hook handlers that can be implemented for Containers:
 Resources consumed by the command are counted against the Container.
 * HTTP - Executes an HTTP request against a specific endpoint on the Container.
 * Sleep - Pauses the container for a specified duration.
-  This is a beta-level feature default enabled by the `PodLifecycleSleepAction` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+  This is a beta-level feature default enabled by the `PodLifecycleSleepAction`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
 
 * Exec - 在容器的 cgroups 和名字空间中执行特定的命令（例如 `pre-stop.sh`）。
@@ -110,10 +128,11 @@ Resources consumed by the command are counted against the Container.
 
 {{< note >}}
 <!--
-Enable the `PodLifecycleSleepActionAllowZero` feature gate if you want to set a sleep duration of zero seconds (effectively a no-op) for your Sleep lifecycle hooks.
+The beta level `PodLifecycleSleepActionAllowZero` feature gate which is enabled by default from v1.33.
+It allows you to set a sleep duration of zero seconds (effectively a no-op) for your Sleep lifecycle hooks.
 -->
-如果你想为 Sleep 生命周期回调设置零秒的睡眠持续时间（实际上是一个 no-op），
-可以启用 `PodLifecycleSleepActionAllowZero` 特性门控。
+从 v1.33 开始，Beta 阶段的特性门控 `PodLifecycleSleepActionAllowZero` 默认启用。
+它允许你为 Sleep 生命周期钩子设置零秒的睡眠时间（实际上是一个空操作）。
 {{< /note >}}
 
 <!--
@@ -121,7 +140,6 @@ Enable the `PodLifecycleSleepActionAllowZero` feature gate if you want to set a 
 
 When a Container lifecycle management hook is called,
 the Kubernetes management system executes the handler according to the hook action,
-`httpGet`, `tcpSocket` ([deprecated](/docs/reference/generated/kubernetes-api/v1.31/#lifecyclehandler-v1-core))
 and `sleep` are executed by the kubelet process, and `exec` is executed in the container.
 -->
 ### 回调处理程序执行   {#hook-handler-execution}
@@ -211,8 +229,11 @@ The logs for a Hook handler are not exposed in Pod events.
 If a handler fails for some reason, it broadcasts an event.
 For `PostStart`, this is the `FailedPostStartHook` event,
 and for `PreStop`, this is the `FailedPreStopHook` event.
-To generate a failed `FailedPostStartHook` event yourself, modify the [lifecycle-events.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/lifecycle-events.yaml) file to change the postStart command to "badcommand" and apply it.
-Here is some example output of the resulting events you see from running `kubectl describe pod lifecycle-demo`:
+To generate a failed `FailedPostStartHook` event yourself, modify the
+[lifecycle-events.yaml](https://k8s.io/examples/pods/lifecycle-events.yaml)
+file to change the postStart command to "badcommand" and apply it.
+Here is some example output of the resulting events you see from running `kubectl describe
+pod lifecycle-demo`:
 -->
 ### 调试回调处理程序   {#debugging-hook-handlers}
 
@@ -220,7 +241,7 @@ Here is some example output of the resulting events you see from running `kubect
 如果处理程序由于某种原因失败，它将播放一个事件。
 对于 `PostStart`，这是 `FailedPostStartHook` 事件，对于 `PreStop`，这是 `FailedPreStopHook` 事件。
 要自己生成失败的 `FailedPostStartHook` 事件，请修改
-[lifecycle-events.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/lifecycle-events.yaml)
+[lifecycle-events.yaml](https://k8s.io/examples/pods/lifecycle-events.yaml)
 文件将 postStart 命令更改为 “badcommand” 并应用它。
 以下是通过运行 `kubectl describe pod lifecycle-demo` 后你看到的一些结果事件的示例输出：
 

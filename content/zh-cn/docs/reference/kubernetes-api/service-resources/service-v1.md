@@ -490,14 +490,13 @@ ServiceSpec 描述用户在服务上创建的属性。
 <!--
 - **trafficDistribution** (string)
 
-  TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
+  TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
 -->
 - **trafficDistribution** (string)
 
   trafficDistribution 提供了一种流量如何被分配到 Service 端点的偏好表达方式。
   各个实现可以将此字段用作提示，但不需要严格遵守。如果此字段未设置，实现将应用其默认路由策略。
-  如果设置为 “PreferClose”，则实现应优先考虑在拓扑上接近的端点（例如，位于同一区域）。
-  这是一个 Beta 字段，需要启用 ServiceTrafficDistribution 特性。
+  如果设置为 “PreferClose”，则实现应优先考虑位于同一区域的端点。
 
 ## ServiceStatus {#ServiceStatus}
 

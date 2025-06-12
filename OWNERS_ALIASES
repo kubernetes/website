@@ -1,10 +1,12 @@
 aliases:
   sig-docs-blog-owners: # Approvers for blog content
+    - lmktfy
     - mrbobbytables
     - natalisucks
     - nate-double-u
   sig-docs-blog-reviewers: # Reviewers for blog content
     - Gauravpadam
+    - lmktfy
     - mrbobbytables
     - natalisucks
     - nate-double-u
@@ -12,6 +14,7 @@ aliases:
     - dipesh-rawat
     - divya-mohan0209
     - katcosgrove
+    - lmktfy
     - natalisucks
     - nate-double-u
     - reylejano
@@ -54,6 +57,7 @@ aliases:
     - dipesh-rawat
     - divya-mohan0209
     - katcosgrove
+    - lmktfy
     - natalisucks
     - nate-double-u
     - rayandas # RT 1.33 Docs Lead
@@ -64,7 +68,7 @@ aliases:
     - dipesh-rawat
     - divya-mohan0209
     - katcosgrove
-    - kbhawkey
+    - lmktfy
     - mengjiao-liu
     - natalisucks
     - nate-double-u
@@ -73,8 +77,6 @@ aliases:
     - shannonxtreme
     - tengqm
     - windsonsea
-    - Princesso
-    - drewhagen
   sig-docs-es-owners: # Admins for Spanish content
     - electrocucaracha
     - krol3
@@ -106,10 +108,12 @@ aliases:
     - ariscahyadi
     - girikuncoro
     - habibrosyad
+    - za
   sig-docs-id-reviews: # PR reviews for Indonesian content
     - ariscahyadi
     - girikuncoro
     - habibrosyad
+    - za
   sig-docs-it-owners: # Admins for Italian content
     - fabriziopandini
     - Fale
