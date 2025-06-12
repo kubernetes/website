@@ -1,5 +1,5 @@
 ---
-title: Executar uma Aplicação Com Estado e de Instância Única
+title: Executar uma Aplicação Com Estado de Instância Única
 content_type: tutorial
 weight: 20
 ---
