@@ -82,14 +82,6 @@ card:
 
 ## هنگام مشارکت کمک بگیرید
 
-Making your first contribution can be overwhelming. The
-[New Contributor Ambassadors](https://github.com/kubernetes/website#new-contributor-ambassadors)
-are there to walk you through making your first few contributions. You can reach out to them in the
-[Kubernetes Slack](https://slack.k8s.io/) preferably in the `#sig-docs` channel. There is also the
-[New Contributors Meet and Greet call](https://www.kubernetes.dev/resources/calendar/)
-that happens on the first Tuesday of every month. You can interact with the New Contributor Ambassadors
-and get your queries resolved here.
-
 ارائه نخستین مشارکت می‌تواند دلهره‌آور باشد.  
 [سفیران مشارکت‌کنندگان جدید](https://github.com/kubernetes/website#new-contributor-ambassadors)  
 برای همراهی شما در انجام چند مشارکت اول حضور دارند. می‌توانید از طریق  

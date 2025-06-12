@@ -35,10 +35,10 @@ other = "پاک کردن"
 # project's ICP license, issued by the government of the People's Republic
 # of China.
 [china_icp_license]
-other = "مجوز ICP:"
+other = "گواهینامه ICP:"
 
 [community_advice_guidelines]
-other = "همچنین می‌توانید درباره {{ .نشانی }} ما بخوانید"
+other = "همچنین می‌توانید درباره {{ .link }} بخوانید"
 
 [community_bluesky_name]
 other = "بلو اسکای"
@@ -47,11 +47,15 @@ other = "بلو اسکای"
 other = "تقویم رویدادها"
 
 # Also cover [community_contribute] if localizing this site
+[community_contribute]
+other = "اگر می‌خواهید با مشارکت در کوبرنتیز مشارکت بیشتری داشته باشید، به ما بپیوندید:"
 
 [community_contributor_site_name]
 other = "وب‌سایت مشارکت‌کننده"
 
 # Also cover [community_develop] if localizing this site
+[community_develop]
+other = "توسعه و مشارکت"
 
 [community_forum_name]
 other = "انجمن"
@@ -60,16 +64,20 @@ other = "انجمن"
 other = "گیت هاب"
 
 # Also cover [community_introduce] if localizing this site
+[community_introduce]
+other = "کوبرنتیز یک پروژه متن‌باز است که هر کسی در جامعه می‌تواند از آن استفاده کند، آن را بهبود بخشد و از آن لذت ببرد. خوشحال می‌شویم که به ما بپیوندید! در اینجا چند روش برای اطلاع از اتفاقات و مشارکت شما آورده شده است."
 
 # Also cover [community_join] if localizing this site
 
 # Also cover [community_learn] if localizing this site
+[community_learn]
+other = "یاد بگیرید و ارتباط برقرار کنید"
 
 [community_linkedin_name]
 other = "لینکدین"
 
 [community_server_fault_name]
-other = "خطای سرور"
+other = "Server Fault"
 
 [community_slack_name]
 other = "اسلک"
@@ -81,6 +89,8 @@ other = "Stack Overflow"
 other = "ایکس (توئیتر)"
 
 # Also cover [community_using] if localizing this site
+[community_using]
+other = "از کوبرنتیز استفاده می‌کنید یا می‌خواهید از آن استفاده کنید؟ اطلاعات بیشتر را اینجا بیابید:"
 
 [community_x_name]
 other = "ایکس (توئیتر)"
@@ -96,7 +106,7 @@ other = "یوتیوب"
 other = "and"
 
 [copy_sample_to_clipboard]
-other = "{{ .نام فایل  }} را در کلیپ‌بورد کپی کنید"
+other = "{{ .filename  }} را در کلیپ‌بورد کپی کنید"
 
 [cve_id]
 other = "شناسه آسیب‌پذیری‌ها"
@@ -150,13 +160,13 @@ other = "کاربرها"
 other = "این %s مربوط به کوبرنتیز %s است. اگر می‌خواهید از نسخه دیگری از کوبرنتیز استفاده کنید، لطفاً به صفحات زیر مراجعه کنید:"
 
 [docs_version_current]
-other = "(این مستندات)"
+other = "(مستندات کنونی)"
 
 [docs_version_latest_heading]
 other = "آخرین نسخه"
 
 [docs_version_other_heading]
-other = "نسخه های قدیمی تر"
+other = "نسخه‌های قدیمی‌تر"
 
 [end_of_life]
 other = "پشتیبانی نمی شود:"
@@ -174,7 +184,7 @@ other = "خطا"
 other = "مثال ها"
 
 [feature_gate_enabled]
-other = "(به طور پیش‌فرض فعال است: {{ .فعال شد }})"
+other = "(به طور پیش‌فرض فعال است: {{ .enabled }})"
 
 [feature_gate_stage_alpha]
 other = "آلفا"
@@ -228,7 +238,7 @@ other = "نه"
 other = "آیا این صفحه مفید بود؟"
 
 [feedback_yes]
-other = "بله"
+other = "آری"
 
 [final_patch_release]
 other = "انتشار فایل اصلاح نهایی"
@@ -387,7 +397,7 @@ other = """مخازن بسته‌های قدیمی (`apt.kubernetes.io` و `yum.
 other = "توسط"
 
 [main_cncf_project]
-other = """ما یک پروژه فارغ التحصیل <a href="https://cncf.io/">CNCF</a> هستیم</p>"""
+other = """ما یک پروژه فارغ التحصیل<a href="https://cncf.io/">CNCF</a> هستیم</p>"""
 
 [main_community_explore]
 other = "جامعه را کاوش کنید"
@@ -396,10 +406,10 @@ other = "جامعه را کاوش کنید"
 other = "مشارکت"
 
 [main_copyright_notice]
-other = """بنیاد لینوکس و ثبت. تمامی حقوق محفوظ است. بنیاد لینوکس علائم تجاری ثبت شده دارد و از علائم تجاری استفاده می‌کند. برای مشاهده فهرست علائم تجاری بنیاد لینوکس، لطفاً به صفحه <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">استفاده از علائم تجاری</a> مراجعه کنید."""
+other = """بنیاد لینوکس &reg;. کلیهٔ حقوق محفوظ است. بنیاد لینوکس دارای علائم تجاری ثبت‌شده است و از علائم تجاری استفاده می‌کند. برای فهرستی از علائم تجاری بنیاد لینوکس، لطفاً به <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">صفحهٔ استفاده از علائم تجاری</a> ما مراجعه کنید."""
 
 [main_documentation_license]
-other = """نویسندگان کوبرنتیز | مستندات توزیع‌شده تحت <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+other = """نویسندگان کوبرنتیز | مستندات تحت <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> توزیع‌شده است."""
 
 [main_github_invite]
 other = "به هک کردن روی کد پایه اصلی کوبرنتیز علاقه دارید؟"
@@ -417,7 +427,7 @@ other = "علاقه‌مند به دریافت آخرین اخبارکوبرنت
 other = "مشاهده خبرنامه‌های گذشته"
 
 [main_kubeweekly_signup]
-other = "اشتراک"
+other = "اشتراک خبرنامه"
 
 [main_page_history]
 other ="تاریخچه صفحه"
@@ -611,7 +621,7 @@ other = "همچنین ببینید"
 other = "تغییر وضعیت ناوبری بخش"
 
 [subscribe_button]
-other = "اشتراک"
+other = "اشتراک خبرنامه"
 
 [success_copy_to_clipboard]
 other = "موفقیت"
@@ -665,4 +675,4 @@ other = "هشدار:"
 other = "هشدار"
 
 [whatsnext_heading]
-other = "قدم بعدی چیست؟"
+other = "قدم بعدی"

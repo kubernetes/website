@@ -7,6 +7,12 @@ $video-section-height: 580px;
   body:lang(fa) {
     overflow-x: hidden;
   }
+
+  table:dir(rtl) {
+    text-align: left;
+    direction: ltr;
+  }
+  
   .breadcrumb-item + .breadcrumb-item::before {
     float: right;
   }

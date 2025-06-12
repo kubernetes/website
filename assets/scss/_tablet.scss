@@ -21,6 +21,11 @@ $video-section-height: 400px;
     overflow-x: hidden;
   }
   
+  table:dir(rtl) {
+    text-align: left;
+    direction: ltr;
+  }
+  
   #hamburger {
     display: none;
   }
