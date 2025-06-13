@@ -6,7 +6,7 @@ weight: 30
 
 <!-- overview -->
 
-Esta página mostra como executar uma aplicação com estado replicada usando um
+Esta página mostra como executar uma aplicação com estado e replicada usando um
 {{< glossary_tooltip term_id="statefulset" >}}.
 Esta aplicação é um banco de dados MySQL replicado. A topologia de exemplo possui
 um único servidor primário e múltiplas réplicas, utilizando replicação assíncrona
@@ -139,7 +139,7 @@ para realizar a inicialização ordenada da replicação do MySQL.
 ### Gerando configuração
 
 Antes de iniciar qualquer um dos contêineres especificados no Pod, o Pod executa primeiro todos os
-[init containers](/docs/concepts/workloads/pods/init-containers/) na ordem definida.
+[contêineres de inicialização](/docs/concepts/workloads/pods/init-containers/) na ordem definida.
 
 O primeiro init container, chamado `init-mysql`, gera arquivos de configuração
 especiais do MySQL com base no índice ordinal.
@@ -166,7 +166,7 @@ Também deve considerar que os logs de replicação podem não cobrir todo o his
 Essas suposições conservadoras são fundamentais para permitir que um StatefulSet em execução
 possa ser escalonado para mais ou para menos ao longo do tempo, em vez de ficar limitado ao seu tamanho inicial.
 
-O segundo init container, chamado `clone-mysql`, realiza uma operação de clonagem em um Pod réplica
+O segundo container de inicialização, chamado `clone-mysql`, realiza uma operação de clonagem em um Pod réplica
 na primeira vez que ele é iniciado em um PersistentVolume vazio.
 Isso significa que ele copia todos os dados existentes de outro Pod em execução,
 de modo que seu estado local fique consistente o suficiente para começar a replicar a partir do servidor primário.
@@ -179,7 +179,7 @@ Isso funciona porque o controlador do StatefulSet sempre garante que o Pod `N` e
 
 ### Iniciando a replicação
 
-Após a conclusão bem-sucedida dos init containers, os contêineres regulares são executados.
+Após a conclusão bem-sucedida dos contêineres de inicialização, os contêineres regulares são executados.
 Os Pods MySQL consistem em um contêiner `mysql`, que executa o servidor `mysqld`,
 e um contêiner `xtrabackup`, que atua como um [sidecar](/blog/2015/06/the-distributed-system-toolkit-patterns).
 
@@ -192,7 +192,7 @@ Assim que uma réplica inicia a replicação, ela memoriza seu servidor MySQL pr
 reconecta-se automaticamente caso o servidor reinicie ou a conexão seja perdida.
 Além disso, como as réplicas procuram o servidor primário pelo seu nome DNS estável
 (`mysql-0.mysql`), elas o encontram automaticamente mesmo que ele receba um novo
-IP de Pod devido a um reescalonamento.
+IP de Pod devido a um reagendamento.
 
 Por fim, após iniciar a replicação, o contêiner `xtrabackup` fica ouvindo conexões de outros
 Pods que solicitam a clonagem de dados.
@@ -348,7 +348,7 @@ em execução no mesmo nó. Execute o passo a seguir apenas em um cluster de tes
 kubectl drain <node-name> --force --delete-emptydir-data --ignore-daemonsets
 ```
 
-Agora você pode observar o Pod sendo reescalonado em outro Nó:
+Agora você pode observar o Pod sendo reagendado em outro Nó:
 
 ```shell
 kubectl get pod mysql-2 -o wide --watch
