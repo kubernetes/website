@@ -1,5 +1,5 @@
 ---
-title: Kubernetes API Serverのバイパスリスク
+title: Kubernetes APIサーバーのバイパスリスク
 description: >
   APIサーバーとその他のコンポーネントに関連するセキュリティアーキテクチャ情報
 content_type: concept
