@@ -50,34 +50,21 @@ In addition, the container runtime and its underlying OCI runtime must support
 user namespaces. The following OCI runtimes offer support:
 
 * [crun](https://github.com/containers/crun) version 1.9 or greater (it's recommend version 1.13+).
+* [runc](https://github.com/opencontainers/runc) version 1.2 or greater
 
-<!-- ideally, update this if a newer minor release of runc comes out, whether or not it includes the idmap support -->
 {{< note >}}
-Many OCI runtimes do not include the support needed for using user namespaces in
+Some OCI runtimes do not include the support needed for using user namespaces in
 Linux pods. If you use a managed Kubernetes, or have downloaded it from packages
-and set it up, it's likely that nodes in your cluster use a runtime that doesn't
-include this support. For example, the most widely used OCI runtime is `runc`,
-and version `1.1.z` of runc doesn't support all the features needed by the
-Kubernetes implementation of user namespaces.
-
-If there is a newer release of runc than 1.1 available for use, check its
-documentation and release notes for compatibility (look for idmap mounts support
-in particular, because that is the missing feature).
+and set it up, it's possible that nodes in your cluster use a runtime that doesn't
+include this support.
 {{< /note >}}
 
 To use user namespaces with Kubernetes, you also need to use a CRI
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 to use this feature with Kubernetes pods:
 
+* containerd: version 2.0 (and later) supports user namespaces for containers.
 * CRI-O: version 1.25 (and later) supports user namespaces for containers.
-
-containerd v1.7 is not compatible with the userns support in Kubernetes v1.27 to v{{< skew latestVersion >}}.
-Kubernetes v1.25 and v1.26 used an earlier implementation that **is** compatible with containerd v1.7,
-in terms of userns support.
-If you are using a version of Kubernetes other than {{< skew currentVersion >}},
-check the documentation for that version of Kubernetes for the most relevant information.
-If there is a newer release of containerd than v1.7 available for use, also check the containerd
-documentation for compatibility information.
 
 You can see the status of user namespaces support in cri-dockerd tracked in an [issue][CRI-dockerd-issue]
 on GitHub.
@@ -97,15 +84,29 @@ The kubelet will pick host UIDs/GIDs a pod is mapped to, and will do so in a way
 to guarantee that no two pods on the same node use the same mapping.
 
 The `runAsUser`, `runAsGroup`, `fsGroup`, etc. fields in the `pod.spec` always
-refer to the user inside the container.
+refer to the user inside the container. These users will be used for volume
+mounts (specified in `pod.spec.volumes`) and therefore the host UID/GID will not
+have any effect on writes/reads from volumes the pod can mount. In other words,
+the inodes created/read in volumes mounted by the pod will be the same as if the
+pod wasn't using user namespaces.
 
-The valid UIDs/GIDs when this feature is enabled is the range 0-65535. This
-applies to files and processes (`runAsUser`, `runAsGroup`, etc.).
+This way, a pod can easily enable and disable user namespaces (without affecting
+its volume's file ownerships) and can also share volumes with pods without user
+namespaces by just setting the appropriate users inside the container
+(`RunAsUser`, `RunAsGroup`, `fsGroup`, etc.). This applies to any volume the pod
+can mount, including `hostPath` (if the pod is allowed to mount `hostPath`
+volumes).
+
+By default, the valid UIDs/GIDs when this feature is enabled is the range 0-65535.
+This applies to files and processes (`runAsUser`, `runAsGroup`, etc.).
 
 Files using a UID/GID outside this range will be seen as belonging to the
 overflow ID, usually 65534 (configured in `/proc/sys/kernel/overflowuid` and
 `/proc/sys/kernel/overflowgid`). However, it is not possible to modify those
 files, even by running as the 65534 user/group.
+
+If the range 0-65535 is extended with a configuration knob, the aforementioned
+restrictions apply to the extended range.
 
 Most applications that need to run as root but don't access other host
 namespaces or resources, should continue to run fine without any changes needed
@@ -211,12 +212,34 @@ these entries for the `kubelet` user:
 #   name:firstID:count of IDs
 # where
 # - firstID is 65536 (the minimum value possible)
-# - count of IDs is 110 (default limit for number of) * 65536
+# - count of IDs is 110 * 65536
+#   (110 is the default limit for number of pods on the node)
+
 kubelet:65536:7208960
 ```
 
 [CVE-2021-25741]: https://github.com/kubernetes/kubernetes/issues/104980
 [shadow-utils]: https://github.com/shadow-maint/shadow
+
+## ID count for each of Pods
+Starting with Kubernetes v1.33, the ID count for each of Pods can be set in
+[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/).
+
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+userNamespaces:
+  idsPerPod: 1048576
+```
+
+The value of `idsPerPod` (uint32) must be a multiple of 65536.
+The default value is 65536.
+This value only applies to containers created after the kubelet was started with
+this `KubeletConfiguration`.
+Running containers are not affected by this config.
+
+In Kubernetes prior to v1.33, the ID count for each of Pods was hard-coded to
+65536.
 
 ## Integration with Pod security admission checks
 

@@ -208,10 +208,10 @@ spec:
         name: log-config
         items:
           - key: log_level
-            path: log_level
+            path: log_level.conf
 ```
 
-ConfigMap `log-config` ditambatkan sebagai sebuah Volume, dan semua isinya yang ditaruh di dalam entri `log_level`-nya ditambatkan dalam Pod tersebut pada _path_ "`/etc/config/log_level`".
+ConfigMap `log-config` ditambatkan sebagai sebuah Volume, dan semua isinya yang ditaruh di dalam entri `log_level`-nya ditambatkan dalam Pod tersebut pada _path_ "`/etc/config/log_level.conf`".
 Perlu dicatat bahwa _path_ tersebut berasal dari isian `mountPath` pada Volume, dan `path` yang ditunjuk dengan `key` bernama `log_level`.
 
 {{< caution >}}

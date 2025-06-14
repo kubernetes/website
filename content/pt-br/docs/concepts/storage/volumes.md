@@ -203,10 +203,10 @@ spec:
         name: log-config
         items:
           - key: log_level
-            path: log_level
+            path: log_level.conf
 ```
 
-O ConfigMap `log-config` é montado como um volume e todos os conteúdos armazenados em sua entrada `log_level` são montados no Pod através do caminho `/etc/config/log_level`. Observe que esse caminho é derivado do volume `mountPath`e do `path` configurado com `log_level`.
+O ConfigMap `log-config` é montado como um volume e todos os conteúdos armazenados em sua entrada `log_level` são montados no Pod através do caminho `/etc/config/log_level.conf`. Observe que esse caminho é derivado do volume `mountPath`e do `path` configurado com `log_level`.
 
 {{< note >}}
 

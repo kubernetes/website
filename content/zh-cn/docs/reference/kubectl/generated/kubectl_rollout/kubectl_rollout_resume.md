@@ -19,7 +19,8 @@ Resume a paused resource.
 -->
 恢复暂停的资源。
 
-- 控制器不会调和已暂停的资源。通过恢复资源，我们可以让控制器再次调和它，目前只有部署支持恢复。
+- 控制器不会调和已暂停的资源。通过恢复资源，我们可以让控制器再次调和它，
+  目前只有部署支持恢复。
 
 ```shell
 kubectl rollout resume RESOURCE
@@ -28,7 +29,10 @@ kubectl rollout resume RESOURCE
 ## {{% heading "examples" %}}
 
 <!--
+```
 # Resume an already paused deployment
+kubectl rollout resume deployment/nginx
+```
 -->
 ```
 # 恢复已暂停的 Deployment
@@ -138,13 +142,16 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 <td colspan="2">-l, --selector string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2). Matching objects must satisfy all of the specified label constraints.
+Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.
 -->
-过滤所用的选择算符（标签查询），支持 '='、'==' 和 '！='。
-（例如 -l key1=value1,key2=value2）。匹配的对象必须满足所有指定的标签约束。
-</p></td>
+过滤所用的选择算符（标签查询），支持 '='、'=='、'!='、'in' 和 'notin'。
+（例如 -l key1=value1,key2=value2,key3 in (value3)）。
+匹配的对象必须满足所有指定的标签约束。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -320,7 +327,8 @@ Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is
 <!--
 Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
 -->
-设置针对 unreachable:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
+设置针对 unreachable:NoExecute 的容忍度的 tolerationSeconds，
+默认添加到所有尚未设置此容忍度的 Pod。
 </p></td>
 </tr>
 

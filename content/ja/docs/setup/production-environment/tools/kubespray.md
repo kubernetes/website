@@ -8,7 +8,7 @@ weight: 30
 
 このクイックスタートは、[Kubespray](https://github.com/kubernetes-sigs/kubespray)を使用して、GCE、Azure、OpenStack、AWS、vSphere、Equinix Metal(以前のPacket)、Oracle Cloud Infrastructure(実験的)またはベアメタルにホストされたKubernetesクラスターをインストールするためのものです。
 
-Kubesprayは、汎用的なOSやKubernetesクラスターの構成管理タスクのための[Ansible](https://docs.ansible.com/)プレイブック、[インベントリー](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md#inventory)、プロビジョニングツール、ドメインナレッジをまとめたものです。
+Kubesprayは、汎用的なOSやKubernetesクラスターの構成管理タスクのための[Ansible](https://docs.ansible.com/)プレイブック、[インベントリー](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible/inventory.md)、プロビジョニングツール、ドメインナレッジをまとめたものです。
 
 Kubesprayは次を提供します:
 

@@ -17,7 +17,7 @@
 
 {{- $tooltip := $tooltip | replaceRE "(?s)<a class='glossary-tooltip'.*?>(.*?).*</a>" "$1" | plainify -}}
 {{- $tooltip := trim $tooltip " \n" -}}
-<a class='glossary-tooltip' title='{{- $tooltip | safeHTML -}}' data-toggle='tooltip' data-placement='top' href='{{ $external_link }}' target='_blank' aria-label='{{ $text }}'>
+<a class='glossary-tooltip' title='{{- $tooltip | safeHTML -}}' data-toggle='tooltip' data-placement='top' href='{{ $external_link | relLangURL }}' target='_blank' aria-label='{{ $text }}'>
 {{- $text -}}
 </a>
 {{- end -}}

@@ -68,7 +68,7 @@ If you would like to see the feature in action and verify it works fine in your 
      name: csi-sc-example
    provisioner: pd.csi.storage.gke.io
    parameters:
-     disk-type: "hyperdisk-balanced"
+     type: "hyperdisk-balanced"
    volumeBindingMode: WaitForFirstConsumer
    ```
 

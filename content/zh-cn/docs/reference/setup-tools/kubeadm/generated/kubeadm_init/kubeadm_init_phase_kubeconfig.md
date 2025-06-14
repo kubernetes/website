@@ -9,11 +9,11 @@ Generate all kubeconfig files necessary to establish the control plane and the a
 ### 概要
 
 <!-- 
-This command is not meant to be run on its own. See list of available subcommands. 
+Generate all kubeconfig files necessary to establish the control plane and the admin kubeconfig file
 -->
-此命令并非设计用来单独运行。请阅读可用子命令列表。
+生成建立控制平面和管理 kubeconfig 文件所需的所有 kubeconfig 文件
 
-```
+```shell
 kubeadm init phase kubeconfig [flags]
 ```
 
@@ -22,7 +22,7 @@ kubeadm init phase kubeconfig [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -34,10 +34,12 @@ kubeadm init phase kubeconfig [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>help for kubeconfig</p>
+help for kubeconfig
 -->
-<p>kubeconfig 操作的帮助命令</p>
+kubeconfig 操作的帮助命令
+</p>
 </td>
 </tr>
 
@@ -49,7 +51,7 @@ kubeadm init phase kubeconfig [flags]
 -->
 ### 从父命令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -61,10 +63,12 @@ kubeadm init phase kubeconfig [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
+[EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
+[实验] 到'真实'主机根文件系统的路径。
+</p>
 </td>
 </tr>
 

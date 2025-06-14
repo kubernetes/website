@@ -36,12 +36,11 @@ weight: 120
 
 ## サービスディスカバリー {#service-discovery}
 
-* [CoreDNS](https://coredns.io)は、フレキシブルで拡張可能なDNSサーバーです。Pod向けのクラスター内DNSとして[インストール](https://github.com/coredns/deployment/tree/master/kubernetes)できます。
+* [CoreDNS](https://coredns.io)は、フレキシブルで拡張可能なDNSサーバーです。Pod向けのクラスター内DNSとして[インストール](https://github.com/coredns/helm)できます。
 
 ## 可視化と制御 {#visualization-amp-control}
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard)はKubernetes向けのダッシュボードを提供するウェブインターフェースです。
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s)は、コンテナ、Pod、Serviceなどをグラフィカルに可視化するツールです。[Weave Cloud account](https://cloud.weave.works/)と組み合わせて使うか、UIを自分でホストして使います。
 
 ## インフラストラクチャ {#infrastructure}
 

@@ -33,9 +33,7 @@ presents a valid certificate signed by the cluster's certificate authority
 the username from the common name field in the 'subject' of the cert (e.g.,
 "/CN=bob"). From there, the role based access control (RBAC) sub-system would
 determine whether the user is authorized to perform a specific operation on a
-resource. For more details, refer to the normal users topic in
-[certificate request](/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
-for more details about this.
+resource.
 
 In contrast, service accounts are users managed by the Kubernetes API. They are
 bound to specific namespaces, and created automatically by the API server or
@@ -329,7 +327,7 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-groups-prefix` | Prefix prepended to group claims to prevent clashes with existing names (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`. | `oidc:` | No |
 | `--oidc-required-claim` | A key=value pair that describes a required claim in the ID Token. If set, the claim is verified to be present in the ID Token with a matching value. Repeat this flag to specify multiple claims. | `claim=value` | No |
 | `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate. Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
-| `--oidc-signing-algs` | The signing algorithms accepted. Default is "RS256". | `RS512` | No |
+| `--oidc-signing-algs` | The signing algorithms accepted. Default is RS256. Allowed values are: RS256, RS384, RS512, ES256, ES384, ES512, PS256, PS384, PS512. Values are defined by RFC 7518 https://tools.ietf.org/html/rfc7518#section-3.1. | `RS512` | No |
 
 ##### Authentication configuration from a file {#using-authentication-configuration}
 
@@ -442,7 +440,9 @@ jwt:
       # 1.  If username.expression uses 'claims.email', then 'claims.email_verified' must be used in
       #     username.expression or extra[*].valueExpression or claimValidationRules[*].expression.
       #     An example claim validation rule expression that matches the validation automatically
-      #     applied when username.claim is set to 'email' is 'claims.?email_verified.orValue(true)'.
+      #     applied when username.claim is set to 'email' is 'claims.?email_verified.orValue(true) == true'.
+      #     By explicitly comparing the value to true, we let type-checking see the result will be a boolean, and
+      #     to make sure a non-boolean email_verified claim will be caught at runtime.
       # 2.  If the username asserted based on username.expression is the empty string, the authentication
       #     request will fail.
       expression: 'claims.username + ":external-user"'
@@ -466,6 +466,12 @@ jwt:
       expression: 'claims.sub'
     # extra attributes to be added to the UserInfo object. Keys must be domain-prefix path and must be unique.
     extra:
+      # key is a string to use as the extra attribute key.
+      # key must be a domain-prefix path (e.g. example.org/foo). All characters before the first "/" must be a valid
+      # subdomain as defined by RFC 1123. All characters trailing the first "/" must
+      # be valid HTTP Path characters as defined by RFC 3986.
+      # k8s.io, kubernetes.io and their subdomains are reserved for Kubernetes use and cannot be used.
+      # key must be lowercase and unique across all extra attributes.
     - key: 'example.com/tenant'
       # valueExpression is a CEL expression that evaluates to a string or a list of strings.
       valueExpression: 'claims.tenant'
@@ -1087,9 +1093,8 @@ that grant access to the `*` user or `*` group do not include anonymous users.
 {{< feature-state feature_gate_name="AnonymousAuthConfigurableEndpoints" >}}
 
 The `AuthenticationConfiguration` can be used to configure the anonymous
-authenticator. To enable configuring anonymous auth via the config file you need
-enable the `AnonymousAuthConfigurableEndpoints` feature gate. When this feature
-gate is enabled you cannot set the `--anonymous-auth` flag.
+authenticator. If you set the anonymous field in the `AuthenticationConfiguration`
+file then you cannot set the `--anonymous-auth` flag.
 
 The main advantage of configuring anonymous authenticator using the authentication
 configuration file is that in addition to enabling and disabling anonymous authentication
@@ -1810,5 +1815,6 @@ You can only make `SelfSubjectReview` requests if:
 
 ## {{% heading "whatsnext" %}}
 
+* To learn about issuing certificates for users, read [Issue a Certificate for a Kubernetes API Client Using A CertificateSigningRequest](/docs/tasks/tls/certificate-issue-client-csr/)
 * Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
 * Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)

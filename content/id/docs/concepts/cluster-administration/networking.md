@@ -1,5 +1,5 @@
 ---
-title: Jaringan Kluster
+title: Jaringan Klaster
 content_type: concept
 weight: 50
 ---
@@ -24,7 +24,7 @@ Kubernetes adalah tentang berbagi mesin antar aplikasi. Pada dasarnya,
 saat berbagi mesin harus memastikan bahwa dua aplikasi tidak mencoba menggunakan
 _port_ yang sama. Mengkoordinasikan _port_ di banyak pengembang sangat sulit
 dilakukan pada skala yang berbeda dan memaparkan pengguna ke masalah
-tingkat kluster yang di luar kendali mereka.
+tingkat klaster yang di luar kendali mereka.
 
 Alokasi _port_ yang dinamis membawa banyak komplikasi ke sistem - setiap aplikasi
 harus menganggap _port_ sebagai _flag_, _server_ API harus tahu cara memasukkan
@@ -73,9 +73,9 @@ Detail tentang cara kerja sistem AOS dapat diakses di sini: http://www.apstra.co
 
 ### AWS VPC CNI untuk Kubernetes
 
-[AWS VPC CNI](https://github.com/aws/amazon-vpc-cni-k8s) menawarkan jaringan AWS _Virtual Private Cloud_ (VPC) terintegrasi untuk kluster Kubernetes. Plugin CNI ini menawarkan _throughput_ dan ketersediaan tinggi, latensi rendah, dan _jitter_ jaringan minimal. Selain itu, pengguna dapat menerapkan jaringan AWS VPC dan praktik keamanan terbaik untuk membangun kluster Kubernetes. Ini termasuk kemampuan untuk menggunakan catatan aliran VPC, kebijakan perutean VPC, dan grup keamanan untuk isolasi lalu lintas jaringan.
+[AWS VPC CNI](https://github.com/aws/amazon-vpc-cni-k8s) menawarkan jaringan AWS _Virtual Private Cloud_ (VPC) terintegrasi untuk klaster Kubernetes. Plugin CNI ini menawarkan _throughput_ dan ketersediaan tinggi, latensi rendah, dan _jitter_ jaringan minimal. Selain itu, pengguna dapat menerapkan jaringan AWS VPC dan praktik keamanan terbaik untuk membangun klaster Kubernetes. Ini termasuk kemampuan untuk menggunakan catatan aliran VPC, kebijakan perutean VPC, dan grup keamanan untuk isolasi lalu lintas jaringan.
 
-Menggunakan _plugin_ CNI ini memungkinkan Pod Kubernetes memiliki alamat IP yang sama di dalam Pod seperti yang mereka lakukan di jaringan VPC. CNI mengalokasikan AWS _Elastic Networking Interfaces_ (ENIs) ke setiap node Kubernetes dan menggunakan rentang IP sekunder dari setiap ENI untuk Pod pada Node. CNI mencakup kontrol untuk pra-alokasi ENI dan alamat IP untuk waktu mulai Pod yang cepat dan memungkinkan kluster besar hingga 2.000 Node.
+Menggunakan _plugin_ CNI ini memungkinkan Pod Kubernetes memiliki alamat IP yang sama di dalam Pod seperti yang mereka lakukan di jaringan VPC. CNI mengalokasikan AWS _Elastic Networking Interfaces_ (ENIs) ke setiap node Kubernetes dan menggunakan rentang IP sekunder dari setiap ENI untuk Pod pada Node. CNI mencakup kontrol untuk pra-alokasi ENI dan alamat IP untuk waktu mulai Pod yang cepat dan memungkinkan klaster besar hingga 2.000 Node.
 
 Selain itu, CNI dapat dijalankan bersama [Calico untuk penegakan kebijakan jaringan](https://docs.aws.amazon.com/eks/latest/userguide/calico.html). Proyek AWS VPC CNI adalah _open source_ dengan [dokumentasi di GitHub](https://github.com/aws/amazon-vpc-cni-k8s).
 
@@ -83,7 +83,7 @@ Selain itu, CNI dapat dijalankan bersama [Calico untuk penegakan kebijakan jarin
 
 [Big Cloud Fabric](https://www.bigswitch.com/container-network-automation) adalah arsitektur jaringan asli layanan cloud, yang dirancang untuk menjalankan Kubernetes di lingkungan cloud pribadi / lokal. Dengan menggunakan SDN fisik & _virtual_ terpadu, Big Cloud Fabric menangani masalah yang sering melekat pada jaringan kontainer seperti penyeimbangan muatan, visibilitas, pemecahan masalah, kebijakan keamanan & pemantauan lalu lintas kontainer.
 
-Dengan bantuan arsitektur multi-penyewa Pod virtual pada Big Cloud Fabric, sistem orkestrasi kontainer seperti Kubernetes, RedHat OpenShift, Mesosphere DC/OS & Docker Swarm akan terintegrasi secara alami bersama dengan sistem orkestrasi VM seperti VMware, OpenStack & Nutanix. Pelanggan akan dapat terhubung dengan aman berapa pun jumlah klusternya dan memungkinkan komunikasi antar penyewa di antara mereka jika diperlukan.
+Dengan bantuan arsitektur multi-penyewa Pod virtual pada Big Cloud Fabric, sistem orkestrasi kontainer seperti Kubernetes, RedHat OpenShift, Mesosphere DC/OS & Docker Swarm akan terintegrasi secara alami bersama dengan sistem orkestrasi VM seperti VMware, OpenStack & Nutanix. Pelanggan akan dapat terhubung dengan aman berapa pun jumlah klasternya dan memungkinkan komunikasi antar penyewa di antara mereka jika diperlukan.
 
 Terbaru ini BCF diakui oleh Gartner sebagai visioner dalam [_Magic Quadrant_](http://go.bigswitch.com/17GatedDocuments-MagicQuadrantforDataCenterNetworking_Reg.html). Salah satu penyebaran BCF Kubernetes di tempat (yang mencakup Kubernetes, DC/OS & VMware yang berjalan di beberapa DC di berbagai wilayah geografis) juga dirujuk [di sini](https://portworx.com/architects-corner-kubernetes-satya-komala-nio/).
 
@@ -113,7 +113,7 @@ Plugin ini dirancang untuk secara langsung mengkonfigurasi dan _deploy_ dalam VP
 
 ### DANM
 
-[DANM] (https://github.com/nokia/danm) adalah solusi jaringan untuk beban kerja telco yang berjalan di kluster Kubernetes. Dibangun dari komponen-komponen berikut:
+[DANM] (https://github.com/nokia/danm) adalah solusi jaringan untuk beban kerja telco yang berjalan di klaster Kubernetes. Dibangun dari komponen-komponen berikut:
 
    * Plugin CNI yang mampu menyediakan antarmuka IPVLAN dengan fitur-fitur canggih
    * Modul IPAM built-in dengan kemampuan mengelola dengan jumlah banyak, _cluster-wide_, _discontinous_ jaringan L3 dan menyediakan skema dinamis, statis, atau tidak ada permintaan skema IP
@@ -129,7 +129,7 @@ Dengan _toolset_ ini, DANM dapat memberikan beberapa antarmuka jaringan yang ter
 
 ### Google Compute Engine (GCE)
 
-Untuk skrip konfigurasi kluster Google Compute Engine, [perutean lanjutan](https://cloud.google.com/vpc/docs/routes) digunakan untuk menetapkan setiap VM _subnet_ (standarnya adalah `/24` - 254 IP). Setiap lalu lintas yang terikat untuk _subnet_ itu akan dialihkan langsung ke VM oleh _fabric_ jaringan GCE. Ini adalah tambahan untuk alamat IP "utama" yang ditugaskan untuk VM, yang NAT'ed untuk akses internet keluar. Sebuah linux _bridge_ (disebut `cbr0`) dikonfigurasikan untuk ada pada subnet itu, dan diteruskan ke _flag_ `-bridge` milik docker.
+Untuk skrip konfigurasi klaster Google Compute Engine, [perutean lanjutan](https://cloud.google.com/vpc/docs/routes) digunakan untuk menetapkan setiap VM _subnet_ (standarnya adalah `/24` - 254 IP). Setiap lalu lintas yang terikat untuk _subnet_ itu akan dialihkan langsung ke VM oleh _fabric_ jaringan GCE. Ini adalah tambahan untuk alamat IP "utama" yang ditugaskan untuk VM, yang NAT'ed untuk akses internet keluar. Sebuah linux _bridge_ (disebut `cbr0`) dikonfigurasikan untuk ada pada subnet itu, dan diteruskan ke _flag_ `-bridge` milik docker.
 
 Docker dimulai dengan:
 

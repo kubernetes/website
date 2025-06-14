@@ -11,6 +11,7 @@ tags:
 - networking
 - architecture
 - extension
+- core-object
 ---
 
 <!--
@@ -27,10 +28,12 @@ tags:
 - networking
 - architecture
 - extension
+- core-object
 ---
+-->
 
 <!--
- A specification of how groups of Pods are allowed to communicate with each other and with other network endpoints.
+A specification of how groups of Pods are allowed to communicate with each other and with other network endpoints.
 -->
 
 网络策略是一种规范，规定了允许 Pod 组之间、Pod 与其他网络端点之间以怎样的方式进行通信。

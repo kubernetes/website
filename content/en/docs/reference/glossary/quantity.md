@@ -8,7 +8,8 @@ short_description: >
 
 aka: 
 tags:
-- core-object
+- fundamental
+
 ---
  A whole-number representation of small or large numbers using [SI](https://en.wikipedia.org/wiki/International_System_of_Units) suffixes.
 

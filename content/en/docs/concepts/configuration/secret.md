@@ -666,10 +666,7 @@ Therefore, one Pod does not have access to the Secrets of another Pod.
 
 ### Configure least-privilege access to Secrets
 
-To enhance the security measures around Secrets, Kubernetes provides a mechanism: you can
-annotate a ServiceAccount as `kubernetes.io/enforce-mountable-secrets: "true"`.
-
-For more information, you can refer to the [documentation about this annotation](/docs/concepts/security/service-accounts/#enforce-mountable-secrets).
+To enhance the security measures around Secrets, use separate namespaces to isolate access to mounted secrets.
 
 {{< warning >}}
 Any containers that run with `privileged: true` on a node can access all

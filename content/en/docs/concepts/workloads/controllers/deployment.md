@@ -66,12 +66,12 @@ In this example:
   All of the requirements, from both `matchLabels` and `matchExpressions`, must be satisfied in order to match.
   {{< /note >}}
 
-* The `template` field contains the following sub-fields:
+* The `.spec.template` field contains the following sub-fields:
   * The Pods are labeled `app: nginx`using the `.metadata.labels` field.
-  * The Pod template's specification, or `.template.spec` field, indicates that
-  the Pods run one container, `nginx`, which runs the `nginx`
-  [Docker Hub](https://hub.docker.com/) image at version 1.14.2.
-  * Create one container and name it `nginx` using the `.spec.template.spec.containers[0].name` field.
+  * The Pod template's specification, or `.spec` field, indicates that
+    the Pods run one container, `nginx`, which runs the `nginx`
+    [Docker Hub](https://hub.docker.com/) image at version 1.14.2.
+  * Create one container and name it `nginx` using the `.spec.containers[0].name` field.
 
 Before you begin, make sure your Kubernetes cluster is up and running.
 Follow the steps given below to create the above Deployment:
@@ -227,7 +227,7 @@ Get more details on your updated Deployment:
 * After the rollout succeeds, you can view the Deployment by running `kubectl get deployments`.
   The output is similar to this:
 
-  ```ini
+  ```
   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
   nginx-deployment   3/3     3            3           36s
   ```
@@ -813,9 +813,9 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
   ```
   deployment.apps/nginx-deployment resumed
   ```
-* Watch the status of the rollout until it's done.
+* {{< glossary_tooltip text="Watch" term_id="watch" >}} the status of the rollout until it's done.
   ```shell
-  kubectl get rs -w
+  kubectl get rs --watch
   ```
 
   The output is similar to this:
@@ -1079,11 +1079,21 @@ Explicitly setting this field to 0, will result in cleaning up all the history o
 thus that Deployment will not be able to roll back.
 {{< /note >}}
 
+The cleanup only starts **after** a Deployment reaches a 
+[complete state](/docs/concepts/workloads/controllers/deployment/#complete-deployment).
+If you set `.spec.revisionHistoryLimit` to 0, any rollout nonetheless triggers creation of a new
+ReplicaSet before Kubernetes removes the old one.
+
+Even with a non-zero revision history limit, you can have more ReplicaSets than the limit
+you configure. For example, if pods are crash looping, and there are multiple rolling updates
+events triggered over time, you might end up with more ReplicaSets than the 
+`.spec.revisionHistoryLimit` because the Deployment never reaches a complete state.
+
 ## Canary Deployment
 
 If you want to roll out releases to a subset of users or servers using the Deployment, you
 can create multiple Deployments, one for each release, following the canary pattern described in
-[managing resources](/docs/concepts/cluster-administration/manage-deployment/#canary-deployments).
+[managing resources](/docs/concepts/workloads/management/#canary-deployments).
 
 ## Writing a Deployment Spec
 
@@ -1192,7 +1202,7 @@ at all times during the update is at least 70% of the desired Pods.
 
 `.spec.strategy.rollingUpdate.maxSurge` is an optional field that specifies the maximum number of Pods
 that can be created over the desired number of Pods. The value can be an absolute number (for example, 5) or a
-percentage of desired Pods (for example, 10%). The value cannot be 0 if `MaxUnavailable` is 0. The absolute number
+percentage of desired Pods (for example, 10%). The value cannot be 0 if `maxUnavailable` is 0. The absolute number
 is calculated from the percentage by rounding up. The default value is 25%.
 
 For example, when this value is set to 30%, the new ReplicaSet can be scaled up immediately when the
@@ -1316,6 +1326,19 @@ If specified, this field needs to be greater than `.spec.minReadySeconds`.
 created Pod should be ready without any of its containers crashing, for it to be considered available.
 This defaults to 0 (the Pod will be considered available as soon as it is ready). To learn more about when
 a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
+
+### Terminating Pods
+
+{{< feature-state feature_gate_name="DeploymentReplicaSetTerminatingReplicas" >}}
+
+You can enable this feature by setting the `DeploymentReplicaSetTerminatingReplicas`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
+and on the [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+
+Pods that become terminating due to deletion or scale down may take a long time to terminate, and may consume
+additional resources during that period. As a result, the total number of all pods can temporarily exceed
+`.spec.replicas`. Terminating pods can be tracked using the `.status.terminatingReplicas` field of the Deployment.
 
 ### Revision History Limit
 

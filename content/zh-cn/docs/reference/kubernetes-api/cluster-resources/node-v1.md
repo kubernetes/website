@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Node 是 Kubernetes 中的工作节点。"
 title: "Node"
-weight: 1
+weight: 8
 ---
 <!-- 
 api_metadata:
@@ -16,7 +16,8 @@ api_metadata:
 content_type: "api_reference"
 description: "Node is a worker node in Kubernetes."
 title: "Node"
-weight: 1
+weight: 8
+auto_generated: true
 -->
 
 `apiVersion: v1`
@@ -95,7 +96,7 @@ NodeSpec 描述了创建节点时使用的属性。
     ConfigMap is a reference to a Node's ConfigMap
     -->
 
-    configMap 是对 Node 的 ConfigMap 的引用。
+    ConfigMap 是对 Node 的 ConfigMap 的引用。
 
     <a name="ConfigMapNodeConfigSource"></a>
     <!--
@@ -111,7 +112,7 @@ NodeSpec 描述了创建节点时使用的属性。
       KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
     -->
 
-    - **configSource.configMap.kubeletConfigKey** (string), 必需
+    - **configSource.configMap.kubeletConfigKey** (string)，必需
 
       kubeletConfigKey 声明所引用的 ConfigMap 的哪个键对应于 KubeletConfiguration 结构体，
       该字段在所有情况下都是必需的。
@@ -122,7 +123,7 @@ NodeSpec 描述了创建节点时使用的属性。
       Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
     -->
 
-    - **configSource.configMap.name** (string), 必需
+    - **configSource.configMap.name** (string)，必需
 
       name 是被引用的 ConfigMap 的 metadata.name。
       此字段在所有情况下都是必需的。
@@ -133,7 +134,7 @@ NodeSpec 描述了创建节点时使用的属性。
       Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
     -->
 
-    - **configSource.configMap.namespace** (string), 必需
+    - **configSource.configMap.namespace** (string)，必需
 
       namespace 是所引用的 ConfigMap 的 metadata.namespace。
       此字段在所有情况下都是必需的。
@@ -173,9 +174,13 @@ NodeSpec 描述了创建节点时使用的属性。
 
 - **podCIDRs** ([]string)
 
-  <!-- 
+  <!--
+  *Set: unique values will be kept during a merge*
+
   podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6. 
   -->
+  **集合：唯一值将在合并期间被保留**
+
   podCIDRs 表示分配给节点以供该节点上的 Pod 使用的 IP 范围。
   如果指定了该字段，则第 0 个条目必须与 podCIDR 字段匹配。
   对于 IPv4 和 IPv6，它最多可以包含 1 个值。
@@ -189,9 +194,13 @@ NodeSpec 描述了创建节点时使用的属性。
 
 - **taints** ([]Taint)
 
-  <!-- 
+  <!--
+  *Atomic: will be replaced during a merge*
+
   If specified, the node's taints. 
   -->
+  **原子：将在合并期间被替换**
+
   如果设置了，则为节点的污点。
 
   <a name="Taint"></a>
@@ -206,7 +215,7 @@ NodeSpec 描述了创建节点时使用的属性。
     Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute. 
   -->
 
-  - **taints.effect** (string), 必需
+  - **taints.effect** (string)，必需
 
     必需的。污点对不容忍污点的 Pod 的影响。合法的 effect 值有 NoSchedule、PreferNoSchedule 和 NoExecute。
 
@@ -216,7 +225,7 @@ NodeSpec 描述了创建节点时使用的属性。
     Required. The taint key to be applied to a node.
   -->
 
-  - **taints.key** (string), 必需
+  - **taints.key** (string)，必需
 
     必需的。被应用到节点上的污点的键。
 
@@ -268,12 +277,16 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   *Patch strategy: merge on key `type`*
   
-  List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
+  *Map: unique values on key type will be kept during a merge*
+
+  List of addresses reachable to the node. Queried from cloud provider, if available. More info:  https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
   -->
   **补丁策略：根据 `type` 键执行合并操作**
 
+  **Map：键 `type` 的唯一值将在合并期间保留**
+
   节点可到达的地址列表。从云提供商处查询（如果有）。
-  更多信息： https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/#addresses
+  更多信息：https://kubernetes.io/zh-cn/docs/reference/node/node-status/#addresses
   
   注意：该字段声明为可合并，但合并键不够唯一，合并时可能导致数据损坏。
   调用者应改为使用完全替换性质的补丁操作。
@@ -295,7 +308,7 @@ NodeStatus 是有关节点当前状态的信息。
     The node address. 
   -->
 
-  - **addresses.address** (string), 必需
+  - **addresses.address** (string)，必需
 
     节点地址。
 
@@ -305,7 +318,7 @@ NodeStatus 是有关节点当前状态的信息。
     Node address type, one of Hostname, ExternalIP or InternalIP. 
   -->
 
-  - **addresses.type** (string), 必需
+  - **addresses.type** (string)，必需
 
     节点地址类型，Hostname、ExternalIP 或 InternalIP 之一。
    
@@ -319,22 +332,26 @@ NodeStatus 是有关节点当前状态的信息。
 - **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
   <!--
-  Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity 
+  Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
   -->
-  capacity 代表一个节点的总资源。
-  更多信息： https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/#capacity
+  capacity 代表一个节点的总资源。更多信息：
+  https://kubernetes.io/zh-cn/docs/reference/node/node-status/#capacity
 
 - **conditions** ([]NodeCondition)
 
   <!-- 
   *Patch strategy: merge on key `type`*
+
+  *Map: unique values on key type will be kept during a merge*
   
-  Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition 
+  Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
   -->
   **补丁策略：根据 `type` 键执行合并操作**
 
+  **Map：键 `type` 的唯一值将在合并期间保留**
+
   conditions 是当前观测到的节点状况的数组。
-  更多信息： https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/#condition
+  更多信息：https://kubernetes.io/zh-cn/docs/reference/node/node-status/#condition
 
   <a name="NodeCondition"></a>
   <!--
@@ -348,7 +365,7 @@ NodeStatus 是有关节点当前状态的信息。
     Status of the condition, one of True, False, Unknown.
   -->
 
-  - **conditions.status** (string), 必需
+  - **conditions.status** (string)，必需
 
     状况的状态为 True、False、Unknown 之一。
   
@@ -358,7 +375,7 @@ NodeStatus 是有关节点当前状态的信息。
     Type of node condition. 
   -->
 
-  - **conditions.type** (string), 必需
+  - **conditions.type** (string)，必需
 
     节点状况的类型。
 
@@ -415,7 +432,7 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   Status of the config assigned to the node via the dynamic Kubelet config feature. 
   -->
-  通过动态 Kubelet 配置功能分配给节点的配置状态。
+  通过动态 kubelet 配置功能分配给节点的配置状态。
 
   <a name="NodeConfigStatus"></a>
   <!-- 
@@ -453,7 +470,7 @@ NodeStatus 是有关节点当前状态的信息。
       -->
 
       ConfigMapNodeConfigSource 包含引用某 ConfigMap 作为节点配置源的信息。
-      此 API 自 1.22 版本起已被弃用： https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+      此 API 自 1.22 版本起已被弃用：https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
 
       <!--
       - **config.active.configMap.kubeletConfigKey** (string), required
@@ -461,7 +478,7 @@ NodeStatus 是有关节点当前状态的信息。
         KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
       -->
 
-      - **config.active.configMap.kubeletConfigKey** (string), 必需
+      - **config.active.configMap.kubeletConfigKey** (string)，必需
 
         kubeletConfigKey 声明所引用的 ConfigMap 的哪个键对应于 KubeletConfiguration 结构体，
         该字段在所有情况下都是必需的。
@@ -472,7 +489,7 @@ NodeStatus 是有关节点当前状态的信息。
         Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
       -->
 
-      - **config.active.configMap.name** (string), 必需
+      - **config.active.configMap.name** (string)，必需
 
         name 是所引用的 ConfigMap 的 metadata.name。
         此字段在所有情况下都是必需的。
@@ -483,7 +500,7 @@ NodeStatus 是有关节点当前状态的信息。
         Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
       -->
 
-      - **config.active.configMap.namespace** (string), 必需
+      - **config.active.configMap.namespace** (string)，必需
 
         namespace 是所引用的 ConfigMap 的 metadata.namespace。
         此字段在所有情况下都是必需的。
@@ -546,7 +563,7 @@ NodeStatus 是有关节点当前状态的信息。
         KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
       -->
 
-      - **config.assigned.configMap.kubeletConfigKey** (string), 必需
+      - **config.assigned.configMap.kubeletConfigKey** (string)，必需
 
         kubeletConfigKey 声明所引用的 ConfigMap 的哪个键对应于 KubeletConfiguration 结构体，
         该字段在所有情况下都是必需的。
@@ -557,7 +574,7 @@ NodeStatus 是有关节点当前状态的信息。
         Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
       -->
 
-      - **config.assigned.configMap.name** (string), 必需
+      - **config.assigned.configMap.name** (string)，必需
 
         name 是所引用的 ConfigMap 的 metadata.name。
         此字段在所有情况下都是必需的。
@@ -568,7 +585,7 @@ NodeStatus 是有关节点当前状态的信息。
         Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
       -->
 
-      - **config.assigned.configMap.namespace** (string), 必需
+      - **config.assigned.configMap.namespace** (string)，必需
 
         namespace 是所引用的 ConfigMap 的 metadata.namespace。
         此字段在所有情况下都是必需的。
@@ -600,11 +617,11 @@ NodeStatus 是有关节点当前状态的信息。
     可能会发生的情况，例如，尝试将 spec.configSource 通过检查点操作复制到到本地 assigned 记录时，
     尝试对与 spec.configSource 关联的有效负载执行检查点操作，尝试加​​载或验证 assigned 的配置时。
     同步配置时可能会在不同位置发生错误，较早的错误（例如下载或检查点错误）不会导致回滚到 LastKnownGood，
-    并且可能会在 Kubelet 重试后解决。
+    并且可能会在 kubelet 重试后解决。
     后期发生的错误（例如加载或验证检查点配置）将导致回滚到 LastKnownGood。
     在后一种情况下，通常可以通过修复 spec.sonfigSource 中 assigned 配置来解决错误。
-    你可以通过在 Kubelet 日志中搜索错误消息来找到更多的调试信息。
-    error 是错误状态的人类可读描述；机器可以检查 error 是否为空，但不应依赖跨 Kubelet 版本的 error 文本的稳定性。
+    你可以通过在 kubelet 日志中搜索错误消息来找到更多的调试信息。
+    error 是错误状态的人类可读描述；机器可以检查 error 是否为空，但不应依赖跨 kubelet 版本的 error 文本的稳定性。
 
   - **config.lastKnownGood** (NodeConfigSource)
     
@@ -648,7 +665,7 @@ NodeStatus 是有关节点当前状态的信息。
         KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
       -->
 
-      - **config.lastKnownGood.configMap.kubeletConfigKey** (string), 必需
+      - **config.lastKnownGood.configMap.kubeletConfigKey** (string)，必需
 
         kubeletConfigKey 声明所引用的 ConfigMap 的哪个键对应于 KubeletConfiguration 结构体，
         该字段在所有情况下都是必需的。
@@ -659,7 +676,7 @@ NodeStatus 是有关节点当前状态的信息。
         Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
       -->
 
-      - **config.lastKnownGood.configMap.name** (string), 必需
+      - **config.lastKnownGood.configMap.name** (string)，必需
 
         name 是所引用的 ConfigMap 的 metadata.name。
         此字段在所有情况下都是必需的。
@@ -670,7 +687,7 @@ NodeStatus 是有关节点当前状态的信息。
         Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
       -->
 
-      - **config.lastKnownGood.configMap.namespace** (string), 必需
+      - **config.lastKnownGood.configMap.namespace** (string)，必需
 
         namespace 是所引用的 ConfigMap 的 metadata.namespace。
         此字段在所有情况下都是必需的。
@@ -712,7 +729,7 @@ NodeStatus 是有关节点当前状态的信息。
     Endpoint on which Kubelet is listening.
     -->
 
-    Kubelet 正在侦听的端点。
+    kubelet 正在侦听的端点。
 
     <a name="DaemonEndpoint"></a>
     <!--
@@ -727,15 +744,44 @@ NodeStatus 是有关节点当前状态的信息。
       Port number of the given endpoint.
     -->
 
-    - **daemonEndpoints.kubeletEndpoint.Port** (int32), 必需
+    - **daemonEndpoints.kubeletEndpoint.Port** (int32)，必需
 
       给定端点的端口号。
+
+<!--
+- **features** (NodeFeatures)
+
+  Features describes the set of features implemented by the CRI implementation.
+
+  <a name="NodeFeatures"></a>
+  *NodeFeatures describes the set of features implemented by the CRI implementation. The features contained in the NodeFeatures should depend only on the cri implementation independent of runtime handlers.*
+-->
+- **features** (NodeFeatures)
+
+  features 描述由 CRI 实现所实现的一组特性。
+
+  <a name="NodeFeatures"></a>
+  **NodeFeatures 描述由 CRI 实现所实现的一组特性。
+  NodeFeatures 中包含的特性应仅依赖于 CRI 实现，而与运行时处理程序无关。**
+
+  - **features.supplementalGroupsPolicy** (boolean)
+
+    <!--
+    SupplementalGroupsPolicy is set to true if the runtime supports SupplementalGroupsPolicy and ContainerUser.
+    -->
+
+    如果运行时支持 SupplementalGroupsPolicy 和 ContainerUser，则将 supplementalGroupsPolicy 设置为 true。
 
 - **images** ([]ContainerImage)
 
   <!--
+  *Atomic: will be replaced during a merge*
+
   List of container images on this node 
   -->
+
+  **原子：将在合并期间被替换**
+
   该节点上的容器镜像列表。
 
   <a name="ContainerImage"></a>
@@ -747,8 +793,12 @@ NodeStatus 是有关节点当前状态的信息。
   - **images.names** ([]string)
 
     <!--
+    *Atomic: will be replaced during a merge*
+
     Names by which this image is known. e.g. ["kubernetes.example/hyperkube:v1.0.7", "cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7"]
     -->
+
+    **原子：将在合并期间被替换**
 
     已知此镜像的名称。
     例如 ["kubernetes.example/hyperkube:v1.0.7", "cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7"]
@@ -764,10 +814,10 @@ NodeStatus 是有关节点当前状态的信息。
 - **nodeInfo** (NodeSystemInfo)
 
   <!--
-  Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info 
+  Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
   -->
   用于唯一标识节点的 ids/uuids 集。
-  更多信息： https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/#info
+  更多信息：https://kubernetes.io/zh-cn/docs/reference/node/node-status/#info
 
   <a name="NodeSystemInfo"></a>
   <!--
@@ -781,7 +831,7 @@ NodeStatus 是有关节点当前状态的信息。
     The Architecture reported by the node 
   -->
 
-  - **nodeInfo.architecture** (string), 必需
+  - **nodeInfo.architecture** (string)，必需
 
     节点报告的 architecture。
 
@@ -791,7 +841,7 @@ NodeStatus 是有关节点当前状态的信息。
     Boot ID reported by the node. 
   -->
 
-  - **nodeInfo.bootID** (string), 必需
+  - **nodeInfo.bootID** (string)，必需
 
     节点报告的 bootID。
 
@@ -801,7 +851,7 @@ NodeStatus 是有关节点当前状态的信息。
     ContainerRuntime Version reported by the node through runtime remote API (e.g. containerd://1.4.2). 
   -->
 
-  - **nodeInfo.containerRuntimeVersion** (string), 必需
+  - **nodeInfo.containerRuntimeVersion** (string)，必需
 
     节点通过运行时远程 API 报告的 ContainerRuntime 版本（例如 containerd://1.4.2）。
 
@@ -811,19 +861,19 @@ NodeStatus 是有关节点当前状态的信息。
     Kernel Version reported by the node from 'uname -r' (e.g. 3.16.0-0.bpo.4-amd64). 
   -->
 
-  - **nodeInfo.kernelVersion** (string), 必需
+  - **nodeInfo.kernelVersion** (string)，必需
 
     节点来自 “uname -r” 报告的内核版本（例如 3.16.0-0.bpo.4-amd64）。
 
   <!--
   - **nodeInfo.kubeProxyVersion** (string), required
 
-    KubeProxy Version reported by the node. 
+    Deprecated: KubeProxy Version reported by the node.
   -->
 
-  - **nodeInfo.kubeProxyVersion** (string), 必需
+  - **nodeInfo.kubeProxyVersion** (string)，必需
 
-    节点报告的 KubeProxy 版本。
+    已弃用：节点报告的 KubeProxy 版本。
 
   <!--
   - **nodeInfo.kubeletVersion** (string), required
@@ -831,9 +881,9 @@ NodeStatus 是有关节点当前状态的信息。
     Kubelet Version reported by the node. 
   -->
 
-  - **nodeInfo.kubeletVersion** (string), 必需
+  - **nodeInfo.kubeletVersion** (string)，必需
 
-    节点报告的 Kubelet 版本。
+    节点报告的 kubelet 版本。
 
   <!--
   - **nodeInfo.machineID** (string), required
@@ -841,7 +891,7 @@ NodeStatus 是有关节点当前状态的信息。
     MachineID reported by the node. For unique machine identification in the cluster this field is preferred. Learn more from man(5) machine-id: http://man7.org/linux/man-pages/man5/machine-id.5.html 
   -->
 
-  - **nodeInfo.machineID** (string), 必需
+  - **nodeInfo.machineID** (string)，必需
 
     节点上报的 machineID。
     对于集群中的唯一机器标识，此字段是首选。
@@ -853,7 +903,7 @@ NodeStatus 是有关节点当前状态的信息。
     The Operating System reported by the node 
   -->
 
-  - **nodeInfo.operatingSystem** (string), 必需
+  - **nodeInfo.operatingSystem** (string)，必需
 
     节点上报的操作系统。
 
@@ -863,7 +913,7 @@ NodeStatus 是有关节点当前状态的信息。
     OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)). 
   -->
 
-  - **nodeInfo.osImage** (string), 必需
+  - **nodeInfo.osImage** (string)，必需
 
     节点从 /etc/os-release 报告的操作系统映像（例如 Debian GNU/Linux 7 (wheezy)）。
 
@@ -873,11 +923,35 @@ NodeStatus 是有关节点当前状态的信息。
     SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid 
   -->
 
-  - **nodeInfo.systemUUID** (string), 必需
+  - **nodeInfo.systemUUID** (string)，必需
 
     节点报告的 systemUUID。
     对于唯一的机器标识 MachineID 是首选。
     此字段特定于 Red Hat 主机 https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
+
+  <!--
+  - **nodeInfo.swap** (NodeSwapStatus)
+
+    Swap Info reported by the node.
+
+    <a name="NodeSwapStatus"></a>
+    *NodeSwapStatus represents swap memory information.*
+
+    - **nodeInfo.swap.capacity** (int64)
+
+      Total amount of swap memory in bytes.
+  -->
+
+  - **nodeInfo.swap** (NodeSwapStatus)
+
+    节点报告的交换内存信息。
+
+    <a name="NodeSwapStatus"></a>
+    *NodeSwapStatus 表示交换内存信息。*
+
+    - **nodeInfo.swap.capacity** (int64)
+
+      交换内存总量（以字节为单位）。
 
 - **phase** (string)
 
@@ -889,11 +963,78 @@ NodeStatus 是有关节点当前状态的信息。
   
   该字段从未填充，现在已被弃用。
 
+<!--
+- **runtimeHandlers** ([]NodeRuntimeHandler)
+
+  *Atomic: will be replaced during a merge*
+  
+  The available runtime handlers.
+
+  <a name="NodeRuntimeHandler"></a>
+  *NodeRuntimeHandler is a set of runtime handler information.*
+-->
+- **runtimeHandlers** ([]NodeRuntimeHandler)
+
+  **原子：将在合并期间被替换**
+
+  可用的运行时处理程序。
+
+  <a name="NodeRuntimeHandler"></a>
+  **NodeRuntimeHandler 是一组运行时处理程序信息。**
+
+  <!--
+  - **runtimeHandlers.features** (NodeRuntimeHandlerFeatures)
+
+    Supported features.
+
+    <a name="NodeRuntimeHandlerFeatures"></a>
+    *NodeRuntimeHandlerFeatures is a set of features implemented by the runtime handler.*
+  -->
+
+  - **runtimeHandlers.features** (NodeRuntimeHandlerFeatures)
+
+    支持的特性。
+
+    <a name="NodeRuntimeHandlerFeatures"></a>
+    **NodeRuntimeHandlerFeatures 是由运行时处理程序所实现的一组特性。**
+
+    <!--
+    - **runtimeHandlers.features.recursiveReadOnlyMounts** (boolean)
+
+      RecursiveReadOnlyMounts is set to true if the runtime handler supports RecursiveReadOnlyMounts.
+
+    - **runtimeHandlers.features.userNamespaces** (boolean)
+
+      UserNamespaces is set to true if the runtime handler supports UserNamespaces, including for volumes.
+    -->
+  
+    - **runtimeHandlers.features.recursiveReadOnlyMounts** (boolean)
+
+      如果运行时处理程序支持 RecursiveReadOnlyMounts，则将 recursiveReadOnlyMounts 设置为 true。
+
+    - **runtimeHandlers.features.userNamespaces** (boolean)
+
+      如果运行时处理程序支持包括数据卷所用的 UserNamespaces，则将 userNamespaces 设置为 true。
+
+  <!--
+  - **runtimeHandlers.name** (string)
+
+    Runtime handler name. Empty for the default runtime handler.
+  -->
+
+  - **runtimeHandlers.name** (string)
+
+    运行时处理程序名称。默认运行时处理程序为空。
+
 - **volumesAttached** ([]AttachedVolume)
 
   <!--
+  *Atomic: will be replaced during a merge*
+
   List of volumes that are attached to the node. 
   -->
+  **原子：将在合并期间被替换**
+
   附加到节点的卷的列表。
 
   <a name="AttachedVolume"></a>
@@ -908,7 +1049,7 @@ NodeStatus 是有关节点当前状态的信息。
     DevicePath represents the device path where the volume should be available 
   -->
 
-   - **volumesAttached.devicePath** (string), 必需
+   - **volumesAttached.devicePath** (string)，必需
 
      devicePath 表示卷应该可用的设备路径。
 
@@ -918,7 +1059,7 @@ NodeStatus 是有关节点当前状态的信息。
     Name of the attached volume 
   -->
 
-  - **volumesAttached.name** (string), 必需
+  - **volumesAttached.name** (string)，必需
 
     附加卷的名称。
 
@@ -955,7 +1096,7 @@ NodeList 是已注册到 master 的所有节点的完整列表。
 
   List of nodes
 -->
-- **items** ([]<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>), 必需
+- **items** ([]<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>)，必需
 
   节点的列表。
 
@@ -985,7 +1126,7 @@ GET /api/v1/nodes/{name}
 - **pretty** (*in query*): string
 #### Response 
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   节点的名称。
 
@@ -1019,7 +1160,7 @@ GET /api/v1/nodes/{name}/status
 - **pretty** (*in query*): string
 #### Response 
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   节点的名称。
 
@@ -1169,7 +1310,7 @@ POST /api/v1/nodes
 - **pretty** (*in query*): string
 #### Response 
 -->
-- **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>, 必需
+- **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -1221,11 +1362,11 @@ PUT /api/v1/nodes/{name}
 - **pretty** (*in query*): string
 #### Response 
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   节点的名称。
 
-- **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>, 必需
+- **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -1278,11 +1419,11 @@ PUT /api/v1/nodes/{name}/status
 - **pretty** (*in query*): string
 #### Response 
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   节点的名称。
 
-- **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>, 必需
+- **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -1333,11 +1474,11 @@ PATCH /api/v1/nodes/{name}
 - **pretty** (*in query*): string
 #### Response 
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   节点的名称。
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -1392,11 +1533,11 @@ PATCH /api/v1/nodes/{name}/status
 - **pretty** (*in query*): string
 #### Response 
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   节点的名称。
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -1446,11 +1587,12 @@ DELETE /api/v1/nodes/{name}
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 - **dryRun** (*in query*): string
 - **gracePeriodSeconds** (*in query*): integer
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
 - **pretty** (*in query*): string
 - **propagationPolicy** (*in query*): string
 #### Response
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   节点的名称。
 
@@ -1463,6 +1605,10 @@ DELETE /api/v1/nodes/{name}
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **pretty** (**查询参数**): string
 
@@ -1512,6 +1658,10 @@ DELETE /api/v1/nodes
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **labelSelector** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
@@ -1559,6 +1709,10 @@ DELETE /api/v1/nodes
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (**查询参数**): string
 

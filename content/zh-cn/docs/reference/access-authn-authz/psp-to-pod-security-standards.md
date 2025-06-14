@@ -166,12 +166,12 @@ under the `.spec` field path.
           <!--
           <li><code>user</code> is unset (<code>""</code> / undefined / nil)</li>
           <li><code>role</code> is unset (<code>""</code> / undefined / nil)</li>
-          <li><code>type</code> is unset or one of: <code>container_t, container_init_t, container_kvm_t</code></li>
+          <li><code>type</code> is unset or one of: <code>container_t, container_init_t, container_kvm_t, container_engine_t</code></li>
           <li><code>level</code> is anything</li>
           -->
           <li><code>user</code> 未设置（<code>""</code> / 未定义 / nil）</li>
           <li><code>role</code> 未设置（<code>""</code> / 未定义 / nil）</li>
-          <li><code>type</code> 未设置或者取值为 <code>container_t</code>、<code>container_init_t</code> 或 <code>container_kvm_t</code> 之一</li>
+          <li><code>type</code> 未设置或者取值为 <code>container_t</code>、<code>container_init_t</code>、<code>container_kvm_t</code> 或 <code>container_engine_t</code> 之一</li>
           <li><code>level</code> 是任何取值</li>
         </ul>
       </td>

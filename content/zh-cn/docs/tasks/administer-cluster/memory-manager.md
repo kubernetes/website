@@ -1,7 +1,7 @@
 ---
 title: 使用 NUMA 感知的内存管理器
 content_type: task
-min-kubernetes-server-version: v1.21
+min-kubernetes-server-version: v1.32
 weight: 410
 ---
 
@@ -13,7 +13,7 @@ reviewers:
 - derekwaynecarr
 
 content_type: task
-min-kubernetes-server-version: v1.21
+min-kubernetes-server-version: v1.32
 weight: 410
 -->
 
@@ -64,8 +64,8 @@ To align memory resources with other requested resources in a Pod spec:
 
 - CPU 管理器应该被启用，并且在节点（Node）上要配置合适的 CPU 管理器策略，
   参见[控制 CPU 管理策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/)；
-- 拓扑管理器要被启用，并且要在节点上配置合适的拓扑管理器策略，参见
-  [控制拓扑管理器策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)。
+- 拓扑管理器要被启用，并且要在节点上配置合适的拓扑管理器策略，
+  参见[控制拓扑管理器策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)。
 
 <!--
 Starting from v1.22, the Memory Manager is enabled by default through `MemoryManager`
@@ -87,9 +87,9 @@ in order to enable the Memory Manager feature.
 这样内存管理器特性才会被启用。
 
 <!--
-## How Memory Manager Operates?
+## How does the Memory Manager Operate?
 -->
-## 内存管理器如何运作？
+## 内存管理器如何运作？   {#how-does-the-memory-manager-operate}
 
 <!--
 The Memory Manager currently offers the guaranteed memory (and hugepages) allocation
@@ -101,19 +101,19 @@ prepare and deploy a `Guaranteed` pod as illustrated in the section
 -->
 内存管理器目前为 Guaranteed QoS 类中的 Pod 提供可保证的内存（和大页面）分配能力。
 若要立即将内存管理器启用，可参照[内存管理器配置](#memory-manager-configuration)节中的指南，
-之后按[将 Pod 放入 Guaranteed QoS 类](#placing-a-pod-in-the-guaranteed-qos-class)
-节中所展示的，准备并部署一个 `Guaranteed` Pod。
+之后按[将 Pod 放入 Guaranteed QoS 类](#placing-a-pod-in-the-guaranteed-qos-class)节中所展示的，
+准备并部署一个 `Guaranteed` Pod。
 
 <!--
 The Memory Manager is a Hint Provider, and it provides topology hints for
 the Topology Manager which then aligns the requested resources according to these topology hints.
-It also enforces `cgroups` (i.e. `cpuset.mems`) for pods.
+On Linux, it also enforces `cgroups` (i.e. `cpuset.mems`) for pods.
 The complete flow diagram concerning pod admission and deployment process is illustrated in
 [Memory Manager KEP: Design Overview][4] and below:
 -->
 内存管理器是一个提示驱动组件（Hint Provider），负责为拓扑管理器提供拓扑提示，
 后者根据这些拓扑提示对所请求的资源执行对齐操作。
-内存管理器也会为 Pods 应用 `cgroups` 设置（即 `cpuset.mems`）。
+在 Linux 上，内存管理器也会为 Pod 应用 `cgroups` 设置（即 `cpuset.mems`）。
 与 Pod 准入和部署流程相关的完整流程图在[Memory Manager KEP: Design Overview][4]，
 下面也有说明。
 
@@ -184,6 +184,21 @@ NUMA 节点的分组，从而扩展内存容量。解决这个问题的详细描
 [Memory Manager KEP: Simulation - how the Memory Manager works? (by examples)][1]。
 
 <!--
+### Windows Support
+-->
+### Windows 支持   {#windows-support}
+
+{{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
+
+<!--
+Windows support can be enabled via the `WindowsCPUAndMemoryAffinity` feature gate
+and it requires support in the container runtime.
+Only the [BestEffort Policy](#policy-best-effort) is supported on Windows.
+-->
+Windows 支持可以通过 `WindowsCPUAndMemoryAffinity` 特性门控来启用，
+并且需要容器运行时的支持。在 Windows 上，仅支持 [BestEffort 策略](#policy-best-effort)。
+
+<!--
 ## Memory Manager configuration
 -->
 ## 内存管理器配置   {#memory-manager-configuration}
@@ -208,13 +223,15 @@ node stability (section [Reserved memory flag](#reserved-memory-flag)).
 Memory Manager supports two policies. You can select a policy via a `kubelet` flag `--memory-manager-policy`:
 
 * `None` (default)
-* `Static`
+* `Static` (Linux only)
+* `BestEffort` (Windows Only)
 -->
 内存管理器支持两种策略。你可以通过 `kubelet` 标志 `--memory-manager-policy`
 来选择一种策略：
 
-* `None` （默认）
-* `Static`
+* `None`（默认）
+* `Static`（仅 Linux）
+* `BestEffort`（仅 Windows）
 
 <!--
 #### None policy {#policy-none}
@@ -251,6 +268,38 @@ and does not reserve the memory in the internal [NodeMap][2] object.
 
 对 `BestEffort` 或 `Burstable` Pod 而言，因为不存在对有保障的内存资源的请求，
 `Static` 内存管理器策略会返回默认的拓扑提示，并且不会通过内部的[节点映射][2]对象来预留内存。
+
+<!--
+#### BestEffort policy {#policy-best-effort}
+-->
+#### BestEffort 策略   {#policy-best-effort}
+
+{{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
+
+<!--
+This policy is only supported on Windows.
+
+On Windows, NUMA node assignment works differently than Linux.
+There is no mechanism to ensure that Memory access only comes from a specific NUMA node.
+Instead the Windows scheduler will select the most optimal NUMA node based on the CPU(s) assignments.
+It is possible that Windows might use other NUMA nodes if deemed optimal by the Windows scheduler.
+-->
+此策略仅 Windows 上支持。
+
+在 Windows 上，NUMA 节点分配方式与 Linux 上不同。
+没有机制确保内存访问仅来自特定的 NUMA 节点。
+相反，Windows 调度器将基于 CPU 的分配来选择最优的 NUMA 节点。
+如果 Windows 调度器认为其他 NUMA 节点更优，Windows 可能会使用其他节点。
+
+<!--
+The policy does track the amount of memory available and requested through the internal [NodeMap][2]. 
+The memory manager will make a best effort at ensuring that enough memory is available on
+a NUMA node before making the assignment.  
+This means that in most cases memory assignment should function as expected.
+-->
+此策略会通过内部的 [NodeMap][2] 跟踪可用和请求的内存量。
+内存管理器将尽力确保在进行分配之前，NUMA 节点上有足够的内存可用。
+这意味着在大多数情况下，内存分配的工作模式是符合预期的。
 
 <!--
 ### Reserved memory flag
@@ -431,7 +480,6 @@ Here is an example of a correct configuration:
 下面是一个正确配置的示例：
 
 ```shell
---feature-gates=MemoryManager=true
 --kube-reserved=cpu=4,memory=4Gi
 --system-reserved=cpu=1,memory=1Gi
 --memory-manager-policy=Static
@@ -439,14 +487,28 @@ Here is an example of a correct configuration:
 ```
 
 <!--
+Prior to Kubernetes 1.32, you also need to add
+-->
+在 Kubernetes 1.32 之前，你还需要添加：
+
+```shell
+--feature-gates=MemoryManager=true
+```
+
+<!--
 Let us validate the configuration above:
+
+1. `kube-reserved + system-reserved + eviction-hard(default) = reserved-memory(0) + reserved-memory(1)`
+1. `4GiB + 1GiB + 100MiB = 3GiB + 2148MiB`
+1. `5120MiB + 100MiB = 3072MiB + 2148MiB`
+1. `5220MiB = 5220MiB` (which is correct)
 -->
 我们对上面的配置做一个检查：
 
 1. `kube-reserved + system-reserved + eviction-hard(default) = reserved-memory(0) + reserved-memory(1)`
 1. `4GiB + 1GiB + 100MiB = 3GiB + 2148MiB`
 1. `5120MiB + 100MiB = 3072MiB + 2148MiB`
-1. `5220MiB = 5220MiB` （这是对的）
+1. `5220MiB = 5220MiB`（这是对的）
 
 <!--
 ## Placing a Pod in the Guaranteed QoS class
@@ -457,7 +519,7 @@ The Memory Manager provides specific topology hints to the Topology Manager for 
 For pods in a QoS class other than `Guaranteed`, the Memory Manager provides default topology hints
 to the Topology Manager.
 -->
-## 将 Pod 放入 Guaranteed QoS 类  {#placing-a-pod-in-the-guaranteed-qos-class} 
+## 将 Pod 放入 Guaranteed QoS 类  {#placing-a-pod-in-the-guaranteed-qos-class}
 
 若所选择的策略不是 `None`，则内存管理器会辨识处于 `Guaranteed` QoS 类中的 Pod。
 内存管理器为每个 `Guaranteed` Pod 向拓扑管理器提供拓扑提示信息。
@@ -535,7 +597,7 @@ became rejected at a node:
 - Pod 状态 - 可表明拓扑亲和性错误
 - 系统日志 - 包含用来调试的有价值的信息，例如，关于所生成的提示信息
 - 状态文件 - 其中包含内存管理器内部状态的转储（包含[节点映射和内存映射][2]）
-- 从 v1.22 开始，[设备插件资源 API](#device-plugin-resource-api) 
+- 从 v1.22 开始，[设备插件资源 API](#device-plugin-resource-api)
   可以用来检索关于为容器预留的内存的信息
 
 <!--
@@ -758,7 +820,7 @@ i.e., in the `"memory"` section of NUMA node `0` (`"free":0`) and NUMA node `1` 
 So, the total amount of free "conventional" memory in this group is equal to `0 + 103739236352` bytes.
 -->
 例如，NUMA 分组中空闲的“常规”内存的总量可以通过将分组内所有 NUMA
-节点上空闲内存加和来计算，即将 NUMA 节点 `0` 和 NUMA 节点 `1`  的 `"memory"` 节
+节点上空闲内存加和来计算，即将 NUMA 节点 `0` 和 NUMA 节点 `1` 的 `"memory"` 节
 （分别是 `"free":0` 和 `"free": 103739236352`）相加，得到此分组中空闲的“常规”
 内存总量为 `0 + 103739236352` 字节。
 

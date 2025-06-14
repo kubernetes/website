@@ -19,7 +19,7 @@ Real time visualization is a strength that UI’s have over CLI’s, and with 1.
 
 
 **Logs**  
-Based on user research with Kubernetes’ predecessor&nbsp;[Borg](http://research.google.com/pubs/pub43438.html)&nbsp;and continued community feedback, we know logs are tremendously important to users. For this reason we’re constantly looking for ways to improve these features in Dashboard. This release includes a fix for an issue wherein large numbers of logs would crash the system, as well as the introduction of the ability to view logs by date.  
+Based on user research with Kubernetes’ predecessor&nbsp;[Borg](https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/)&nbsp;and continued community feedback, we know logs are tremendously important to users. For this reason we’re constantly looking for ways to improve these features in Dashboard. This release includes a fix for an issue wherein large numbers of logs would crash the system, as well as the introduction of the ability to view logs by date.  
 
 **Showing More Resources**  
 The previous release brought all workloads to Dashboard: Pods, Pet Sets, Daemon Sets, Replication Controllers, Replica Set, Services, & Deployments. With 1.4, we expand upon that set of objects by including Services, Ingresses, Persistent Volume Claims, Secrets, & ConfigMaps. We’ve also introduced an “Admin” section with the Namespace-independent global objects of Namespaces, Nodes, and Persistent Volumes. With the addition of roles, these will be shown only to cluster operators, and developers’ side nav will begin with the Namespace dropdown.  

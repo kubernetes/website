@@ -241,18 +241,6 @@ the `cgroupDriver` field under `KubeletConfiguration`, kubeadm defaults it to `s
 {{< /note >}}
 
 <!--
-In Kubernetes v1.28, with the `KubeletCgroupDriverFromCRI`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled and a container runtime that supports the `RuntimeConfig` CRI RPC,
-the kubelet automatically detects the appropriate cgroup driver from the runtime,
-and ignores the `cgroupDriver` setting within the kubelet configuration.
--->
-在 Kubernetes v1.28 中，启用 `KubeletCgroupDriverFromCRI`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)结合支持
-`RuntimeConfig` CRI RPC 的容器运行时，kubelet 会自动从运行时检测适当的 Cgroup
-驱动程序，并忽略 kubelet 配置中的 `cgroupDriver` 设置。
-
-<!--
 If you configure `systemd` as the cgroup driver for the kubelet, you must also
 configure `systemd` as the cgroup driver for the container runtime. Refer to
 the documentation for your container runtime for instructions. For example:
@@ -262,6 +250,18 @@ the documentation for your container runtime for instructions. For example:
 
 *  [containerd](#containerd-systemd)
 *  [CRI-O](#cri-o)
+
+<!--
+In Kubernetes {{< skew currentVersion >}}, with the `KubeletCgroupDriverFromCRI`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled and a container runtime that supports the `RuntimeConfig` CRI RPC,
+the kubelet automatically detects the appropriate cgroup driver from the runtime,
+and ignores the `cgroupDriver` setting within the kubelet configuration.
+-->
+在 Kubernetes {{< skew currentVersion >}} 中，启用 `KubeletCgroupDriverFromCRI`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)结合支持
+`RuntimeConfig` CRI RPC 的容器运行时，kubelet 会自动从运行时检测适当的 Cgroup
+驱动程序，并忽略 kubelet 配置中的 `cgroupDriver` 设置。
 
 {{< caution >}}
 <!--
@@ -449,24 +449,13 @@ sandbox image by setting the following config:
 
 ```toml
 [plugins."io.containerd.grpc.v1.cri"]
-  sandbox_image = "registry.k8s.io/pause:3.2"
+  sandbox_image = "registry.k8s.io/pause:3.10"
 ```
 
 <!--
 You might need to restart `containerd` as well once you've updated the config file: `systemctl restart containerd`.
 -->
 一旦你更新了这个配置文件，可能就同样需要重启 `containerd`：`systemctl restart containerd`。
-
-<!--
-Please note, that it is a best practice for kubelet to declare the matching `pod-infra-container-image`.
-If not configured, kubelet may attempt to garbage collect the `pause` image.
-There is ongoing work in [containerd to pin the pause image](https://github.com/containerd/containerd/issues/6352)
-and not require this setting on kubelet any longer.
--->
-请注意，声明匹配的 `pod-infra-container-image` 是 kubelet 的最佳实践。
-如果未配置，kubelet 可能会尝试对 `pause` 镜像进行垃圾回收。
-[containerd 固定 pause 镜像](https://github.com/containerd/containerd/issues/6352)的工作正在进行中，
-将不再需要在 kubelet 上进行此设置。
 
 ### CRI-O
 
@@ -534,7 +523,7 @@ config value:
 
 ```toml
 [crio.image]
-pause_image="registry.k8s.io/pause:3.6"
+pause_image="registry.k8s.io/pause:3.10"
 ```
 
 <!--

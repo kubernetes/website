@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ReplicationController 表示一个副本控制器的配置。"
 title: "ReplicationController"
-weight: 3
+weight: 4
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ReplicationController represents the configuration of a replication controller."
 title: "ReplicationController"
-weight: 3
+weight: 4
 auto_generated: true
 -->
 
@@ -168,7 +168,9 @@ ReplicationControllerStatus 表示一个副本控制器的当前状态。
 - **conditions** ([]ReplicationControllerCondition)
 
   *Patch strategy: merge on key `type`*
-  
+
+  *Map: unique values on key type will be kept during a merge*
+
   Represents the latest available observations of a replication controller's current state.
 
   <a name="ReplicationControllerCondition"></a>
@@ -177,7 +179,9 @@ ReplicationControllerStatus 表示一个副本控制器的当前状态。
 - **conditions** ([]ReplicationControllerCondition)
   
   **补丁策略：按照键 `type` 合并**
-  
+
+  **Map：键 `type` 的唯一值将在合并期间保留**
+ 
   表示副本控制器当前状态的最新可用观测值。
   
   <a name="ReplicationControllerCondition"></a>
@@ -194,11 +198,11 @@ ReplicationControllerStatus 表示一个副本控制器的当前状态。
   -->
 
   - **conditions.status** (string)，必需
-    
+
     状况的状态，取值为 True、False 或 Unknown 之一。
   
   - **conditions.type** (string)，必需
-    
+
     副本控制器状况的类型。
   
   <!--
@@ -211,9 +215,9 @@ ReplicationControllerStatus 表示一个副本控制器的当前状态。
   -->
 
   - **conditions.lastTransitionTime** (Time)
-    
+
     状况上次从一个状态转换为另一个状态的时间。
-    
+
     <a name="Time"></a>
     **Time 是对 time.Time 的封装。Time 支持对 YAML 和 JSON 进行正确封包。
     为 time 包的许多函数方法提供了封装器。**
@@ -227,12 +231,13 @@ ReplicationControllerStatus 表示一个副本控制器的当前状态。
 
     The reason for the condition's last transition.
   -->
+
   - **conditions.message** (string)
-    
+
     这是一条人类可读的消息，指示有关上次转换的详细信息。
   
   - **conditions.reason** (string)
-    
+
     状况上次转换的原因。
 
 <!--
@@ -304,7 +309,7 @@ GET /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
 
 - **name** (**路径参数**): string，必需
   
-  ReplicationController 的名称
+  ReplicationController 的名称。
 
 - **namespace** (**路径参数**): string，必需
   
@@ -344,7 +349,7 @@ GET /api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status
 
 - **name** (**路径参数**): string，必需
   
-  ReplicationController 的名称
+  ReplicationController 的名称。
 
 - **namespace** (**路径参数**): string，必需
   
@@ -367,7 +372,7 @@ GET /api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status
 ### `list` list or watch objects of kind ReplicationController
 #### HTTP Request
 -->
-### `list` 列出或监视 ReplicationController 类别的对象
+### `list` 列举或监视 ReplicationController 类别的对象
 
 #### HTTP 请求
 
@@ -450,7 +455,7 @@ GET /api/v1/namespaces/{namespace}/replicationcontrollers
 ### `list` list or watch objects of kind ReplicationController
 #### HTTP Request
 -->
-### `list` 列出或监视 ReplicationController 类别的对象
+### `list` 列举或监视 ReplicationController 类别的对象
 
 #### HTTP 请求
 
@@ -605,7 +610,7 @@ PUT /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
 
 - **name** (**路径参数**): string，必需
   
-  ReplicationController 的名称
+  ReplicationController 的名称。
 
 - **namespace** (**路径参数**): string，必需
   
@@ -665,7 +670,7 @@ PUT /api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status
 
 - **name** (**路径参数**): string，必需
   
-  ReplicationController 的名称
+  ReplicationController 的名称。
 
 - **namespace** (**路径参数**): string，必需
   
@@ -726,7 +731,7 @@ PATCH /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
 
 - **name** (**路径参数**): string，必需
   
-  ReplicationController 的名称
+  ReplicationController 的名称。
 
 - **namespace** (**路径参数**): string，必需
   
@@ -791,7 +796,7 @@ PATCH /api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status
 
 - **name** (**路径参数**): string，必需
   
-  ReplicationController 的名称
+  ReplicationController 的名称。
 
 - **namespace** (**路径参数**): string，必需
   
@@ -848,6 +853,7 @@ DELETE /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 - **dryRun** (*in query*): string
 - **gracePeriodSeconds** (*in query*): integer
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
 - **pretty** (*in query*): string
 - **propagationPolicy** (*in query*): string
 -->
@@ -855,7 +861,7 @@ DELETE /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
 
 - **name** (**路径参数**): string，必需
   
-  ReplicationController 的名称
+  ReplicationController 的名称。
 
 - **namespace** (**路径参数**): string，必需
   
@@ -870,6 +876,10 @@ DELETE /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
 - **gracePeriodSeconds** (**查询参数**): integer
   
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **pretty** (**查询参数**): string
   
@@ -908,6 +918,7 @@ DELETE /api/v1/namespaces/{namespace}/replicationcontrollers
 - **dryRun** (*in query*): string
 - **fieldSelector** (*in query*): string
 - **gracePeriodSeconds** (*in query*): integer
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
 - **labelSelector** (*in query*): string
 - **limit** (*in query*): integer
 - **pretty** (*in query*): string
@@ -939,6 +950,10 @@ DELETE /api/v1/namespaces/{namespace}/replicationcontrollers
 - **gracePeriodSeconds** (**查询参数**): integer
   
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (**查询参数**): string
   
