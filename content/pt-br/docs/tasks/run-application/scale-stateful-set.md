@@ -1,0 +1,91 @@
+---
+title: Escalonar um StatefulSet
+content_type: task
+weight: 50
+---
+
+<!-- overview -->
+
+Esta tarefa mostra como escalonar um StatefulSet. Escalonar um StatefulSet refere-se a aumentar ou diminuir o número de réplicas.
+
+## {{% heading "prerequisites" %}}
+
+- Os StatefulSets estão disponíveis apenas no Kubernetes na versão 1.5 ou superior.
+  Para verificar sua versão do Kubernetes, execute `kubectl version`.
+
+- Nem todas as aplicações com estado escalonam de forma adequada. Se você não tem certeza se deve escalonar seus StatefulSets,
+  consulte [Conceitos de StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
+  ou [Tutorial de StatefulSet](/docs/tutorials/stateful-application/basic-stateful-set/) para mais informações.
+
+- Você deve realizar o escalonamento apenas quando tiver certeza de que o cluster da sua aplicação com estado
+  está completamente saudável.
+
+<!-- steps -->
+
+## Escalonando StatefulSets
+
+### Use kubectl para escalonar StatefulSets
+
+Primeiro, encontre o StatefulSet que você deseja escalonar:
+
+```shell
+kubectl get statefulsets <stateful-set-name>
+```
+
+Altere o número de réplicas do seu StatefulSet:
+
+```shell
+kubectl scale statefulsets <stateful-set-name> --replicas=<new-replicas>
+```
+
+### Faça atualizações in-place nos seus StatefulSets
+
+Alternativamente, você pode fazer
+[atualizações in-place](/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources)
+em seus StatefulSets.
+
+Se o seu StatefulSet foi criado inicialmente com `kubectl apply`,
+atualize o `.spec.replicas` dos manifestos do StatefulSet e, em seguida, execute um `kubectl apply`:
+
+```shell
+kubectl apply -f <stateful-set-file-updated>
+```
+
+Caso contrário, edite esse campo com `kubectl edit`:
+
+```shell
+kubectl edit statefulsets <stateful-set-name>
+```
+
+Ou use `kubectl patch`:
+
+```shell
+kubectl patch statefulsets <stateful-set-name> -p '{"spec":{"replicas":<new-replicas>}}'
+```
+
+## Solução de problemas
+
+### Reduzir o escalonamento não funciona corretamente
+
+Você não pode reduzir o escalonamento de um StatefulSet enquanto qualquer um dos Pods
+com estado que ele gerencia estiver com problemas de saúde. A redução do escalonamento
+só ocorre depois que esses Pods com estado estiverem em execução e prontos.
+
+Se `spec.replicas` > 1, o Kubernetes não consegue determinar o motivo de um Pod com estado
+estar com problemas de saúde. Isso pode ser resultado de uma falha permanente ou de uma falha transitória.
+Uma falha transitória pode ser causada por uma reinicialização necessária devido a uma atualização ou manutenção.
+
+Se o Pod estiver com problemas de saúde devido a uma falha permanente, escalonar sem corrigir
+a falha pode levar a um estado em que a quantidade de membros do StatefulSet fique abaixo
+do número mínimo de réplicas necessário para funcionar corretamente.
+Isso pode fazer com que seu StatefulSet se torne indisponível.
+
+Se o Pod estiver com problemas de saúde devido a uma falha transitória e o Pod possa voltar a ficar disponível,
+o erro transitório pode interferir na sua operação de aumento ou redução de escalonamento.
+Alguns bancos de dados distribuídos apresentam problemas quando nós entram e saem ao mesmo tempo. Nesses casos,
+é melhor analisar as operações de escalonamento no nível da aplicação e realizar o escalonamento apenas quando
+você tiver certeza de que o cluster da sua aplicação com estado está completamente saudável.
+
+## {{% heading "whatsnext" %}}
+
+- Saiba mais sobre [como deletar um StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
