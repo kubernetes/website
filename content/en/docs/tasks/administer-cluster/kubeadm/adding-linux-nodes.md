@@ -24,11 +24,29 @@ in the document [Creating a cluster with kubeadm](/docs/setup/production-environ
 To add new Linux worker nodes to your cluster do the following for each machine:
 
 1. Connect to the machine by using SSH or another method.
-1. Run the command that was output by `kubeadm init`. For example:
+1. Run the command that was output by `kubeadm init` or create a new join command using `kubeadm token create`:
+
+  {{< tabs name="kubeadm_join_command" >}}
+  {{% tab name="kubeadm init" %}}
+  Sample output from `kubeadm init`:
 
   ```bash
-  sudo kubeadm join --token <token> <control-plane-host>:<control-plane-port> --discovery-token-ca-cert-hash sha256:<hash>
+  kubeadm join 10.0.0.10:6443 --token 9gnhey.ufvf8n8yz8h92wo9 --discovery-token-ca-cert-hash sha256:8cb2de97839780a412b93877f8507...
   ```
+
+  Note that API Server address, token and discovery-token-ca-cert-hash might be different.
+  {{% /tab %}}
+  {{% tab name="kubeadm token create" %}}
+  Run this on a control plane node:
+
+  ```bash
+  kubeadm token create --print-join-command
+  ```
+  The output should be similar to this:
+  ```console
+  kubeadm join 172.30.1.2:6443 --token mp0y8w.2xymsdfeu0d16ge --discovery-token-ca-cert-hash sha256:0aa971e33a03d70c69cb0cefe3de...
+  {{% /tab %}}
+  {{< /tabs >}}
 
 ### Additional information for kubeadm join
 
