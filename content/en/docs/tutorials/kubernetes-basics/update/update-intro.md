@@ -31,24 +31,20 @@ versioned and any Deployment update can be reverted to a previous (stable) versi
 ## Rolling updates overview
 
 <!-- animation -->
-<div class="col-md-8">
-  <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
-    <div class="carousel-inner" role="listbox">
-      <div class="item carousel-item active">
-        <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates1.svg">
-      </div>
-      <div class="item carousel-item">
-        <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates2.svg">
-      </div>
-      <div class="item carousel-item">
-        <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates3.svg">
-      </div>
-      <div class="item carousel-item">
-        <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates4.svg">
-      </div>
-    </div>
-  </div>
-</div>
+{{< tutorials/carousel id="myCarousel" interval="3000" >}}
+  {{< tutorials/carousel-item
+      image="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates1.svg"
+      active="true" >}}
+
+  {{< tutorials/carousel-item
+      image="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates2.svg" >}}
+
+  {{< tutorials/carousel-item
+      image="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates3.svg" >}}
+
+  {{< tutorials/carousel-item
+      image="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates4.svg" >}}
+{{< /tutorials/carousel >}}
 
 {{% alert %}}
 _If a Deployment is exposed publicly, the Service will load-balance the traffic
