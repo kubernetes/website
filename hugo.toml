@@ -495,6 +495,7 @@ languageNameLatinScript = "Ukrainian"
 [languages.vi]
 title = "Kubernetes"
 languageName = "Tiếng Việt (Vietnamese)"
+language_alternatives = ["en"]
 contentDir = "content/vi"
 weight = 16
 languagedirection = "ltr"
