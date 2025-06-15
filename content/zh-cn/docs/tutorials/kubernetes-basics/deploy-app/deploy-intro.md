@@ -123,7 +123,7 @@ that first by following the instructions from the [Hello Minikube tutorial](/doc
 
 <!--
 You will need to have installed kubectl as well. If you need to install it, visit
-[install tools](/docs/tasks/tools/#kubectl) install tools.
+[install tools](/docs/tasks/tools/#kubectl).
 
 Now that you know what Deployments are, let's deploy our first app!
 -->

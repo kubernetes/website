@@ -28,7 +28,7 @@ card:
 {{< /note >}}
 
 また、`kubectl`をインストールする必要があります。
-インストール手順は[ツールのインストール](/ja/docs/tasks/tools/#kubectl)を参照してください。
+インストール手順は[ツールのインストール](/docs/tasks/tools/#kubectl)を参照してください。
 
 
 <!-- lessoncontent -->
@@ -87,7 +87,7 @@ URLをコピー&ペーストし、ブラウザーで開きます。
 
 ## Deploymentの作成
 
-Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/)は、コンテナの管理やネットワーキングの目的でまとめられた、1つ以上のコンテナのグループです。このチュートリアルのPodがもつコンテナは1つのみです。Kubernetesの[*Deployment*](/ja/docs/concepts/workloads/controllers/deployment/)はPodの状態を確認し、Podのコンテナが停止した場合には再起動します。DeploymentはPodの作成やスケールを管理するために推奨される方法(手段)です。
+Kubernetesの[*Pod*](/docs/concepts/workloads/pods/)は、コンテナの管理やネットワーキングの目的でまとめられた、1つ以上のコンテナのグループです。このチュートリアルのPodがもつコンテナは1つのみです。Kubernetesの[*Deployment*](/docs/concepts/workloads/controllers/deployment/)はPodの状態を確認し、Podのコンテナが停止した場合には再起動します。DeploymentはPodの作成やスケールを管理するために推奨される方法(手段)です。
 
 1. `kubectl create`コマンドを使用してPodを管理するDeploymentを作成してください。Podは提供されたDockerイメージを元にコンテナを実行します。
 
@@ -154,12 +154,12 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/)は、コンテナの管�
    ```
 
 {{< note >}}
-`kubectl`コマンドの詳細な情報は[コマンドラインツール(kubectl)](/ja/docs/reference/kubectl/)を参照してください。
+`kubectl`コマンドの詳細な情報は[コマンドラインツール(kubectl)](/docs/reference/kubectl/)を参照してください。
 {{< /note >}}
 
 ## Serviceの作成
 
-通常、PodはKubernetesクラスター内部のIPアドレスからのみアクセスすることができます。`hello-node`コンテナをKubernetesの仮想ネットワークの外部からアクセスするためには、Kubernetesの[*Service*](/ja/docs/concepts/services-networking/service/)としてPodを公開する必要があります。
+通常、PodはKubernetesクラスター内部のIPアドレスからのみアクセスすることができます。`hello-node`コンテナをKubernetesの仮想ネットワークの外部からアクセスするためには、Kubernetesの[*Service*](/docs/concepts/services-networking/service/)としてPodを公開する必要があります。
 
 {{< warning >}}
 agnhostコンテナには`/shell`エンドポイントがあり、デバッグには便利ですが、インターネットに公開するのは危険です。
@@ -337,7 +337,7 @@ Kubernetesの学習で再度minikubeを使用したい場合、minikubeのVMを�
 ## {{% heading "whatsnext" %}}
 
 
-* _[kubectlで初めてのアプリケーションをKubernetesにデプロイする](/ja/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)_。
-* [Deploymentオブジェクト](/ja/docs/concepts/workloads/controllers/deployment/)について学ぶ。
-* [アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)について学ぶ。
-* [Serviceオブジェクト](/ja/docs/concepts/services-networking/service/)について学ぶ。
+* _[kubectlで初めてのアプリケーションをKubernetesにデプロイする](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)_。
+* [Deploymentオブジェクト](/docs/concepts/workloads/controllers/deployment/)について学ぶ。
+* [アプリケーションのデプロイ](/docs/tasks/run-application/run-stateless-application-deployment/)について学ぶ。
+* [Serviceオブジェクト](/docs/concepts/services-networking/service/)について学ぶ。

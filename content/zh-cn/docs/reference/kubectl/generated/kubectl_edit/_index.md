@@ -232,10 +232,9 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-If specified, edit will operate on the subresource of the requested object. This flag is beta and may change in the future.
+If specified, edit will operate on the subresource of the requested object.
 -->
 如果指定，edit 将对所请求对象的子资源进行操作。
-该标志处于 Beta 状态，将来可能会发生变化。
 </p></td>
 </tr>
 
