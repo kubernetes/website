@@ -16,17 +16,17 @@ Sie direkt zu [Nächste Schritte](#nächste-schritte) springen.
 
 <!-- body -->
 
-## Betrachtungen für den Proudktiveinsatz
+## Betrachtungen für den Produktiveinsatz
 
 Ein Kubernetes Cluster in einer Produktionsumgebung hat üblicherweise höhere
 Anforderungen als ein eigener Cluster zum Lernen, Cluster in einer
-Entwicklungsumbebung oder Cluster in einer Testumgebung. Eine Produktionsumgebung benötigt
+Entwicklungsumgebung oder Cluster in einer Testumgebung. Eine Produktionsumgebung benötigt
 möglicherweise sicheren Zugriff mit vielen Nutzern, konstante Verfügbarkeit,
-und die Ressourcen um sich ändernden Anforderungen gerecht zu werden.
+und die Ressourcen, um sich ändernden Anforderungen gerecht zu werden.
 
-Da Sie entscheiden wie Sie Ihre Kubernetes Umgebung hosten (On-Premise oder in
-der Cloud), und wie viel Aufwand Sie durch die eigene Verwaltung aufbringen
-möchten, oder diese Dritten überlassen, beachten Sie wie Ihre Anforderungen an
+Da Sie entscheiden, wie Sie Ihre Kubernetes Umgebung hosten (On-Premise oder in
+der Cloud) und wie viel Aufwand Sie durch die eigene Verwaltung aufbringen
+oder Dritten überlassen möchten, beachten Sie, wie Ihre Anforderungen an
 den Kubernetes Cluster durch folgende Punkte beeinflusst werden:
 
 - *Verfügbarkeit*: Kubernetes auf einem einzigen Host für eine
@@ -50,21 +50,21 @@ werden:
   und kritischen Workloads benötigen jedoch eine granulare Verwaltung "Wer" und "Was" Zugriff
   auf Ressourcen in Ihrem Cluster hat. Dafür stehen die role-based access control
   ([RBAC](/docs/reference/access-authn-authz/rbac/)) und weitere
-  Sicherheitsmechanismen zur Verfügung. Diese können Sie benutzen um
-  sicher zu stellen, dass Nutzer und Workloads Zugriff auf die Ressourcen haben,
+  Sicherheitsmechanismen zur Verfügung. Diese können Sie benutzen, um
+  sicherzustellen, dass Nutzer und Workloads Zugriff auf die Ressourcen haben,
   die Sie benötigen. Gleichzeitig halten Sie damit ihre Workloads und Ihren
   Cluster selbst sicher. Sie können mit [policies](/docs/concepts/policy/) und
   [container resources](/docs/concepts/configuration/manage-resources-containers/)
   die Einschränkungen für Ressourcen, auf die Nutzer zugreifen können, festlegen.
 
 Bevor Sie Ihren eigenen Cluster in einer Produktionsumgebung aufsetzen, überlegen
-Sie einen Teil, oder alle damit verbundenen Aufgaben, von
+Sie, einen Teil oder alle damit verbundenen Aufgaben von
 [Turnkey Cloud Solutions](/docs/setup/production-environment/turnkey-solutions/)
 oder anderen [Kubernetes Partnern](/partners/) übernehmen zu lassen.
 Mögliche Optionen sind unter Anderem:
 
 - *Serverless*: Lassen Sie Ihre Worklodas auf vollständig verwalteter Hardware
-  laufen. Ressourcen wie CPU Nutzung, Speichernutzung und Festplattenzugriffe
+  laufen. Ressourcen wie CPU-Nutzung, Speichernutzung und Festplattenzugriffe
   werden abgerechnet. Dabei müssen Sie keinerlei Clusterverwaltung betreiben.
 - *Vollständig verwaltete Control-Plane*: Der Provider übernimmt die Skalierung
   und Verfügbarkeit der Control-Plane, sowie deren Updates und Upgrades.
@@ -77,7 +77,7 @@ TODO - From English bullet point for the next one
 Are we talking about K8s Upgrades or Node Pool Upgrades, e.g. provisioning more nodes
 -->
 - *Vollständig verwaltete Worker-Nodes*: Sie Konfigurieren Ihren Bedarf an
-  Worker-Nodes. Der Provider übernimmt die Bereitstellung und Verfügbarkeit dieser.
+  Worker-Nodes und der Anbieter übernimmt die Bereitstellung und Verfügbarkeit.
 - *Integriert*: Manche Anbieter integrieren Kubernetes mit anderen Diensten, die
   Sie möglicherweise benötigen. Darunter fallen zum Beispiel Speicher, Container
   Registries, Authentifizierungsmethoden oder Entwicklungswerkzeuge.
@@ -122,7 +122,7 @@ nachfolgenden Schritte:
   während des Deployments generiert, oder durch Ihre eigene Zertifizierungsstelle bereitgestellt.
   Siehe [PKI Zertifikate und Anforderungen](/docs/setup/best-practices/certificates/) für weitere Informationen.
 - *Loadbalancer für den API-Server*: Konfigureiren Sie einen Loadbalancer, um
-  externe API requests zu den apiserver Diensten auf unterschiedliche Nodes zu
+  externe API requests zu den API Server Diensten auf unterschiedliche Nodes zu
   verteilen. Siehe [Einen externen Load Balancer erstellen](/docs/tasks/access-application-cluster/create-external-load-balancer/).
 - *Separierung von Backup- und etcd Dienst*: Der etcd Dienst kann entweder auf
   den gleichen Maschinen wie die anderen Control-Plane Dienste laufen, oder auf
@@ -198,7 +198,7 @@ referenziert).
 - *Nodes skalieren*: Halten Sie einen Plan bereit wie Sie die Kapazität des Clusters
   erweitern. Sehen Sie in [Betrachtungen für große Cluster](/docs/setup/best-practices/cluster-large/)
   nach, um herauszufinden wie viele Nodes Sie benötigen, basierend auf der
-  Anzahl der Pods und Container die laufen. Falls Sie Ihre Nodes selbst verwalten,
+  Anzahl der Pods und Container, die laufen. Falls Sie Ihre Nodes selbst verwalten,
   kann dies den Kauf und die Installation Ihrer eigenen Hardware beinhalten.
 - *Nodes automatisch skalieren*: Lesen Sie [Node Autoskalierung](/docs/concepts/cluster-administration/node-autoscaling)
   um über die Tools zu lernen, welche Ihnen die Möglichkeit zur
@@ -216,7 +216,7 @@ in dem nur Sie oder eine kleine Gruppe von Personen auf den Cluster zugreifen
 hin zu einem Szenario, in dem potenziell Dutzende oder Hunderte von Personen Zugriff haben.
 Für eine Lernumgebung oder einen Plattform Prototypen haben Sie unter Umständen
 einen einzigen Administrator Benutzer, welcher Vollzugriff hat. In Ihrer
-Produktwivumgebung werden Sie mehr Benutzer mit unterschiedlichen Zugriffsleveln
+Produktivumgebung werden Sie mehr Benutzer mit unterschiedlichen Zugriffsleveln
 haben wollen.
 
 Einen produktionsreifen Cluster zu betreiben heißt, selektiv Zugriff auf den
