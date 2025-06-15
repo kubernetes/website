@@ -6,7 +6,8 @@ weight: 20
 
 <!-- overview -->
 
-Esta página mostra como executar um aplicativo com estado de instância única no Kubernetes utilizando um PersistentVolume e um Deployment. O aplicativo utilizado é o MySQL.
+Esta página mostra como executar um aplicativo com estado e de instância única no Kubernetes utilizando um PersistentVolume e um Deployment.
+O aplicativo utilizado é o MySQL.
 
 ## {{% heading "objectives" %}}
 
