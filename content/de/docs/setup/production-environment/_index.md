@@ -68,16 +68,10 @@ Mögliche Optionen sind unter Anderem:
   werden abgerechnet. Dabei müssen Sie keinerlei Clusterverwaltung betreiben.
 - *Vollständig verwaltete Control-Plane*: Der Provider übernimmt die Skalierung
   und Verfügbarkeit der Control-Plane, sowie deren Updates und Upgrades.
-<!--
-TODO - From English bullet point for the next one
-- *Managed worker nodes*: Configure pools of nodes to meet your needs,
-  then the provider makes sure those nodes are available and ready to implement
-  upgrades when needed.
-
-Are we talking about K8s Upgrades or Node Pool Upgrades, e.g. provisioning more nodes
--->
 - *Vollständig verwaltete Worker-Nodes*: Sie Konfigurieren Ihren Bedarf an
   Worker-Nodes und der Anbieter übernimmt die Bereitstellung und Verfügbarkeit.
+  Darüber hinaus kümmert sich Ihr Anbieter um unterbrechungsfreie Updates und
+  Upgrades dieser.
 - *Integriert*: Manche Anbieter integrieren Kubernetes mit anderen Diensten, die
   Sie möglicherweise benötigen. Darunter fallen zum Beispiel Speicher, Container
   Registries, Authentifizierungsmethoden oder Entwicklungswerkzeuge.
