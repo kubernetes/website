@@ -50,11 +50,11 @@ kubeadmを使用してKubernetesをインストールする場合、ほとんど
 
 必要な認証局:
 
-| パス                    | デフォルトCN                | 説明                             |
+| パス                   | デフォルトCN              | 説明                             |
 |------------------------|---------------------------|----------------------------------|
-| ca.crt,key             | kubernetes-ca             | Kubernetes全体の認証局　　　        |
-| etcd/ca.crt,key        | etcd-ca                   | etcd用　　　　　　　　　　　　　　   |
-| front-proxy-ca.crt,key | kubernetes-front-proxy-ca | [front-end proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)用　　　 |
+| ca.crt,key             | kubernetes-ca             | Kubernetes全体の認証局           |
+| etcd/ca.crt,key        | etcd-ca                   | etcd用                           |
+| front-proxy-ca.crt,key | kubernetes-front-proxy-ca | [front-end proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)用 |
 
 上記の認証局に加えて、サービスアカウント管理用に公開鍵/秘密鍵のペア(`sa.key`と`sa.pub`)を取得する事が必要です。
 次の例は、前の表で示されたCAのキーと証明書を示しています:
@@ -74,7 +74,7 @@ CAの秘密鍵をクラスターにコピーしたくない場合、自身で全
 
 必要な証明書:
 
-| デフォルトCN                    | 親認証局                   | 組織 　　　　　　| 種類                                   | ホスト名 (SAN)                                          |
+| デフォルトCN                  | 親認証局                  | 組織           | 種類                                   | ホスト名 (SAN)                                      |
 |-------------------------------|---------------------------|----------------|----------------------------------------|-----------------------------------------------------|
 | kube-etcd                     | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
 | kube-etcd-peer                | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
@@ -93,7 +93,7 @@ CAの秘密鍵をクラスターにコピーしたくない場合、自身で全
 
 ここで`種類`は、一つまたは複数のx509の鍵用途にマッピングされており、これは[CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1#CertificateSigningRequest)の`.spec.usages`にも記載されています:
 
-| 種類   | 鍵の用途  　　　                                                                     |
+| 種類   | 鍵の用途                                                                        |
 |--------|---------------------------------------------------------------------------------|
 | server | digital signature, key encipherment, server auth                                |
 | client | digital signature, key encipherment, client auth                                |
@@ -116,7 +116,7 @@ kubeadm利用者のみ:
 証明書は推奨パスに配置するべきです([kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)を使用する場合と同様)。
 パスは場所に関係なく与えられた引数で特定されます。
 
-| デフォルトCN                   | 鍵の推奨パス        　　　　　　 | 証明書の推奨パス    　　　　　   | コマンド        | 鍵を指定する引数               | 証明書を指定する引数                          |
+| デフォルトCN                 | 鍵の推奨パス                 | 証明書の推奨パス            | コマンド       | 鍵を指定する引数             | 証明書を指定する引数                      |
 |------------------------------|------------------------------|-----------------------------|----------------|------------------------------|-------------------------------------------|
 | etcd-ca                      |     etcd/ca.key                         | etcd/ca.crt                 | kube-apiserver |                              | --etcd-cafile                             |
 | kube-apiserver-etcd-client                  | apiserver-etcd-client.key    | apiserver-etcd-client.crt   | kube-apiserver | --etcd-keyfile               | --etcd-certfile                           |
@@ -135,7 +135,7 @@ kubeadm利用者のみ:
 
 サービスアカウント用の鍵ペアについても同様です。
 
-| 秘密鍵のパス 　　　　            |　公開鍵のパス 　　　           | コマンド                 | 引数                             |
+| 秘密鍵のパス                 |公開鍵のパス                 | コマンド                | 引数                                 |
 |------------------------------|-----------------------------|-------------------------|--------------------------------------|
 |  sa.key                      |                             | kube-controller-manager | service-account-private              |
 |                              | sa.pub                      | kube-apiserver          | service-account-key                  |

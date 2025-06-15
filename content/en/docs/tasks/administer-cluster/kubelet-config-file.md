@@ -70,6 +70,9 @@ In the example, by changing the default value of only one parameter for
 evictionHard, the default values of other parameters will not be inherited and
 will be set to zero. In order to provide custom values, you should provide all
 the threshold values respectively.
+Alternatively, you can set the MergeDefaultEvictionSettings to true in the kubelet
+configuration file, if any parameter is changed then the other parameters will inherit
+their default values instead of 0.
 {{< /note >}}
 
 The `imagefs` is an optional filesystem that container runtimes use to store container
@@ -248,6 +251,7 @@ they can follow these steps to inspect the kubelet configuration:
          "imagefs.inodesFree": "5%"
        },
        "evictionPressureTransitionPeriod": "1m0s",
+       "mergeDefaultEvictionSettings": false,
        "enableControllerAttachDetach": true,
        "makeIPTablesUtilChains": true,
        "iptablesMasqueradeBit": 14,

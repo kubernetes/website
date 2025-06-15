@@ -47,6 +47,14 @@ parameters are passed to the handler.
 A more detailed description of the termination behavior can be found in
 [Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 
+`StopSignal`
+
+The StopSignal lifecycle can be used to define a stop signal which would be sent to the container when it is
+stopped. If you set this, it overrides any `STOPSIGNAL` instruction defined within the container image.
+
+A more detailed description of termination behaviour with custom stop signals can be found in
+[Stop Signals](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-stop-signals).
+
 ### Hook handler implementations
 
 Containers can access a hook by implementing and registering a handler for that hook.
@@ -56,17 +64,20 @@ There are three types of hook handlers that can be implemented for Containers:
 Resources consumed by the command are counted against the Container.
 * HTTP - Executes an HTTP request against a specific endpoint on the Container.
 * Sleep - Pauses the container for a specified duration. 
-  This is a beta-level feature default enabled by the `PodLifecycleSleepAction` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). 
+  This is a beta-level feature default enabled by the `PodLifecycleSleepAction`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). 
 
 {{< note >}}
-Enable the `PodLifecycleSleepActionAllowZero` feature gate if you want to set a sleep duration of zero seconds (effectively a no-op) for your Sleep lifecycle hooks.
+The beta level `PodLifecycleSleepActionAllowZero` feature gate which is enabled by default from v1.33.
+It allows you to set a sleep duration of zero seconds (effectively a no-op) for your Sleep lifecycle hooks.
 {{< /note >}}
 
 ### Hook handler execution
 
 When a Container lifecycle management hook is called,
 the Kubernetes management system executes the handler according to the hook action,
-`httpGet`, `tcpSocket` ([deprecated](/docs/reference/generated/kubernetes-api/v1.31/#lifecyclehandler-v1-core)) and `sleep` are executed by the kubelet process, and `exec` is executed in the container.
+`httpGet`, `tcpSocket` ([deprecated](/docs/reference/generated/kubernetes-api/v1.31/#lifecyclehandler-v1-core))
+and `sleep` are executed by the kubelet process, and `exec` is executed in the container.
 
 The `PostStart` hook handler call is initiated when a container is created,
 meaning the container ENTRYPOINT and the `PostStart` hook are triggered simultaneously. 
@@ -110,7 +121,9 @@ The logs for a Hook handler are not exposed in Pod events.
 If a handler fails for some reason, it broadcasts an event.
 For `PostStart`, this is the `FailedPostStartHook` event,
 and for `PreStop`, this is the `FailedPreStopHook` event.
-To generate a failed `FailedPostStartHook` event yourself, modify the [lifecycle-events.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/lifecycle-events.yaml) file to change the postStart command to "badcommand" and apply it.
+To generate a failed `FailedPostStartHook` event yourself, modify the
+[lifecycle-events.yaml](https://k8s.io/examples/pods/lifecycle-events.yaml)
+file to change the postStart command to "badcommand" and apply it.
 Here is some example output of the resulting events you see from running `kubectl describe pod lifecycle-demo`:
 
 ```

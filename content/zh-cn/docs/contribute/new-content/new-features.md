@@ -42,6 +42,13 @@ Kubernetes 的每个主要版本发布都会包含一些需要文档说明的新
 SIG Docs 团队会提供文字方面的反馈意见，或者直接编辑文档草稿。
 本节讨论两个小组在分支方面和发行期间所遵从的流程方面的约定。
 
+<!--
+To learn about announcing features on the blog, read
+[post-release communications](/docs/contribute/blog/release-comms/).
+-->
+要了解有关博客上发布新特性的信息，
+请阅读[发布沟通](/zh-cn/docs/contribute/blog/release-comms/)。
+
 <!-- body -->
 
 <!--

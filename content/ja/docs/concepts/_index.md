@@ -30,18 +30,18 @@ Kubernetesには、デプロイ済みのコンテナ化されたアプリケー�
 
 基本的なKubernetesのオブジェクトは次のとおりです。
 
-* [Pod](/ja/docs/concepts/workloads/pods/pod-overview/)
-* [Service](/ja/docs/concepts/services-networking/service/)
+* [Pod](/docs/concepts/workloads/pods/)
+* [Service](/docs/concepts/services-networking/service/)
 * [Volume](/docs/concepts/storage/volumes/)
-* [Namespace](/ja/docs/concepts/overview/working-with-objects/namespaces/)
+* [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
 
-Kubernetesには、[コントローラー](/ja/docs/concepts/architecture/controller/)に依存して基本オブジェクトを構築し、追加の機能と便利な機能を提供する高レベルの抽象化も含まれています。これらには以下のものを含みます:
+Kubernetesには、[コントローラー](/docs/concepts/architecture/controller/)に依存して基本オブジェクトを構築し、追加の機能と便利な機能を提供する高レベルの抽象化も含まれています。これらには以下のものを含みます:
 
-* [Deployment](/ja/docs/concepts/workloads/controllers/deployment/)
-* [DaemonSet](/ja/docs/concepts/workloads/controllers/daemonset/)
-* [StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)
-* [ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)
-* [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+* [Deployment](/docs/concepts/workloads/controllers/deployment/)
+* [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
+* [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
+* [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
+* [Job](/docs/concepts/workloads/controllers/job/)
 
 ## Kubernetesコントロールプレーン {#kubernetes-control-plane}
 

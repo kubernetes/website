@@ -6,9 +6,9 @@ weight: 100
 
 {{<glossary_definition term_id="node-pressure-eviction" length="short">}}</br>
 
-{{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
 
 {{<note>}}
+{{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
 The _split image filesystem_ feature, which enables support for the `containerfs`
 filesystem, adds several new eviction signals, thresholds and metrics. To use
 `containerfs`, the Kubernetes release v{{< skew currentVersion >}} requires the
@@ -227,7 +227,10 @@ These default values of hard eviction thresholds will only be set if none
 of the parameters is changed. If you change the value of any parameter,
 then the values of other parameters will not be inherited as the default
 values and will be set to zero. In order to provide custom values, you
-should provide all the thresholds respectively.
+should provide all the thresholds respectively. You can also set the kubelet config
+MergeDefaultEvictionSettings to true in the kubelet configuration file.
+If set to true and any paramater is changed, then the other parameters will
+inherit their default values instead of 0.
 
 The `containerfs.available` and `containerfs.inodesFree` (Linux nodes) default
 eviction thresholds will be set as follows:

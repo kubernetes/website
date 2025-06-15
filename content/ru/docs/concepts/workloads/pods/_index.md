@@ -349,7 +349,7 @@ init-контейнеры запускаются и завершаются до 
 У вас также могут быть [sidecar-контейнеры](/docs/concepts/workloads/pods/sidecar-containers/), 
 которые реализуют вспомогательные сервисы для основного приложения Пода (например, service mesh).
 
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
+{{< feature-state feature_gate_name="SidecarContainers" >}}
 
 [Feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `SidecarContainers` включен по умолчанию и 
 позволяет указать 

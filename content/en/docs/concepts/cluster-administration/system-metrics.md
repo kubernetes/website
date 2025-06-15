@@ -177,6 +177,36 @@ ClusterRole with the `get` verb for the `/metrics/resources` non-resource URL.
 On Kubernetes 1.21 you must use the `--show-hidden-metrics-for-version=1.20`
 flag to expose these alpha stability metrics.
 
+### kubelet Pressure Stall Information (PSI) metrics
+
+{{< feature-state for_k8s_version="v1.33" state="alpha" >}}
+
+As an alpha feature, Kubernetes lets you configure kubelet to collect Linux kernel
+[Pressure Stall Information](https://docs.kernel.org/accounting/psi.html)
+(PSI) for CPU, memory and IO usage.
+The information is collected at node, pod and container level.
+The metrics are exposed at the `/metrics/cadvisor` endpoint with the following names:
+
+```
+container_pressure_cpu_stalled_seconds_total
+container_pressure_cpu_waiting_seconds_total
+container_pressure_memory_stalled_seconds_total
+container_pressure_memory_waiting_seconds_total
+container_pressure_io_stalled_seconds_total
+container_pressure_io_waiting_seconds_total
+```
+
+You must enable the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+to use this feature. The information is also exposed in the
+[Summary API](/docs/reference/instrumentation/node-metrics#psi).
+
+#### Requirements
+
+Pressure Stall Information requires:
+
+- [Linux kernel versions 4.20 or later](/docs/reference/node/kernel-version-requirements#requirements-psi).
+- [cgroup v2](/docs/concepts/architecture/cgroups)
+
 ## Disabling metrics
 
 You can explicitly turn off metrics via command line flag `--disabled-metrics`. This may be

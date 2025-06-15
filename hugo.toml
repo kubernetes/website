@@ -25,9 +25,6 @@ timeout = "180s"
 # Enable Git variables like commit, lastmod
 enableGitInfo = true
 
-# Norwegian ("no") is sometimes but not currently used for testing.
-disableLanguages = ["no"]
-
 [caches]
  [caches.assets]
   dir = ":cacheDir/_gen"
@@ -135,13 +132,14 @@ time_format_default = "January 02, 2006 at 3:04 PM PST"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.32"
+latest = "v1.33"
 
-version = "v1.32"
+version = "v1.33"
 githubbranch = "main"
 docsbranch = "main"
+# Should be changed to Docsy provided `archived_version` in the future.
 deprecated = false
-currentUrl = "https://kubernetes.io/docs/home/"
+url_latest_version = "https://kubernetes.io/docs/home/"
 nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
 
 # See code_sample shortcode
@@ -177,34 +175,34 @@ js = [
 ]
 
 [[params.versions]]
-version = "v1.32"
-githubbranch = "v1.32.0"
+version = "v1.33"
+githubbranch = "v1.33.0"
 docsbranch = "main"
 url = "https://kubernetes.io"
 
 [[params.versions]]
+version = "v1.32"
+githubbranch = "v1.32.4"
+docsbranch = "release-1.32"
+url = "https://v1-32.docs.kubernetes.io"
+
+[[params.versions]]
 version = "v1.31"
-githubbranch = "v1.31.0"
+githubbranch = "v1.31.8"
 docsbranch = "release-1.31"
 url = "https://v1-31.docs.kubernetes.io"
 
 [[params.versions]]
 version = "v1.30"
-githubbranch = "v1.30.3"
+githubbranch = "v1.30.12"
 docsbranch = "release-1.30"
 url = "https://v1-30.docs.kubernetes.io"
 
 [[params.versions]]
 version = "v1.29"
-githubbranch = "v1.29.7"
+githubbranch = "v1.29.14"
 docsbranch = "release-1.29"
 url = "https://v1-29.docs.kubernetes.io"
-
-[[params.versions]]
-version = "v1.28"
-githubbranch = "v1.28.12"
-docsbranch = "release-1.28"
-url = "https://v1-28.docs.kubernetes.io"
 
 # User interface configuration
 [params.ui]
@@ -257,11 +255,15 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
   url = "https://www.linkedin.com/company/kubernetes/"
   icon = "fa-brands fa-linkedin"
 
-#[[params.links.user]]
-#	name_key = "community_x_name"
-#	url = "https://twitter.com/kubernetesio"
-#	icon = "fa-brands fa-twitter"
-# Replace with fa-x-twitter once available
+[[params.links.user]]
+	name_key = "community_bluesky_name"
+	url = "https://bsky.app/profile/kubernetes.io"
+	icon = "fa-brands fa-bluesky"
+
+[[params.links.user]]
+	name_key = "community_x_name"
+	url = "https://x.com/kubernetesio"
+	icon = "fa-brands fa-x-twitter"
 
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
@@ -413,21 +415,6 @@ weight = 10
 contentDir = "content/ko"
 languagedirection = "ltr"
 
-# 'Norsk (Norwegian)' language is disabled via 'disableLanguages' config.
-[languages.no]
-title = "Kubernetes"
-languageName = "Norsk (Norwegian)"
-weight = 7
-contentDir = "content/no"
-languagedirection = "ltr"
-
-[languages.no.params]
-time_format_blog = "02.01.2006"
-# A list of language codes to look for untranslated content, ordered from left to right.
-language_alternatives = ["en"]
-description = "Production-Grade Container Orchestration"
-languageNameLatinScript = "Norsk"
-
 [languages.ko.params]
 time_format_blog = "2006.01.02"
 language_alternatives = ["en"]
@@ -515,6 +502,7 @@ languagedirection = "ltr"
 [languages.vi.params]
 languageNameLatinScript = "Tiếng Việt"
 description = "Giải pháp điều phối container trong môi trường production"
+language_alternatives = ["en"]
 
 # Ensure that the correct file names are in the correct directory. For e.g. i18n/en should contain en.toml and never de.toml
 [[module.mounts]]
@@ -555,14 +543,6 @@ target = "i18n"
 
 [[module.mounts]]
 source = "i18n/ko"
-target = "i18n"
-
-[[module.mounts]]
-source = "i18n/nl"
-target = "i18n"
-
-[[module.mounts]]
-source = "i18n/no"
 target = "i18n"
 
 [[module.mounts]]

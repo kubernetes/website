@@ -17,6 +17,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.24"  
+    toVersion: "1.32"
+
+removed: true
 ---
 Allows for storage-originated bookmark (progress
 notify) events to be delivered to the users. This is only applied to watch operations.
