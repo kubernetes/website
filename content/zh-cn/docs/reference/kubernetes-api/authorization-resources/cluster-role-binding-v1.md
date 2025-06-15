@@ -8,8 +8,7 @@ description: "ClusterRoleBinding 引用 ClusterRole，但不包含它。"
 title: "ClusterRoleBinding"
 weight: 6
 ---
-<!-- 
----
+<!--
 api_metadata:
   apiVersion: "rbac.authorization.k8s.io/v1"
   import: "k8s.io/api/rbac/v1"
@@ -19,16 +18,12 @@ description: "ClusterRoleBinding references a ClusterRole, but not contain it."
 title: "ClusterRoleBinding"
 weight: 6
 auto_generated: true
----
 -->
-<!-- 
+
 `apiVersion: rbac.authorization.k8s.io/v1`
 
 `import "k8s.io/api/rbac/v1"`
--->
-`apiVersion: rbac.authorization.k8s.io/v1`
 
-`import "k8s.io/api/rbac/v1"`
 <!--
 ## ClusterRoleBinding {#ClusterRoleBinding}
 ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject.
@@ -132,6 +127,7 @@ ClusterRoleBinding 引用 ClusterRole，但不包含它。
     被引用对象的命名空间。
     如果对象类别是 "User" 或 "Group" 等非命名空间作用域的对象且该值不为空，
     则 Authorizer 应报告一个错误。
+
 <!-- 
 ## ClusterRoleBindingList {#ClusterRoleBindingList}
 ClusterRoleBindingList is a collection of ClusterRoleBindings
@@ -161,6 +157,7 @@ ClusterRoleBindingList 是 ClusterRoleBinding 的集合。
 - **items** ([]<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>)，必需
 
   items 是 ClusterRoleBindings 的列表。
+
 <!-- 
 ## Operations {#Operations}
 <hr>
@@ -178,6 +175,7 @@ ClusterRoleBindingList 是 ClusterRoleBinding 的集合。
 #### HTTP 请求
 
 GET /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
+
 <!-- 
 #### Parameters
 - **name** (*in path*): string, required
@@ -194,6 +192,7 @@ GET /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 <!-- 
 #### Response
 200 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): OK
@@ -205,6 +204,7 @@ GET /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
 200 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): OK
 
 401: Unauthorized
+
 <!-- 
 ### `list` list or watch objects of kind ClusterRoleBinding
 #### HTTP Request
@@ -214,6 +214,7 @@ GET /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
 #### HTTP 请求
 
 GET /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
+
 <!--
 #### Parameters
 - **allowWatchBookmarks** (*in query*): boolean
@@ -284,6 +285,7 @@ GET /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
 - **watch** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
+
 <!-- 
 #### Response
 200 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBindingList" >}}">ClusterRoleBindingList</a>): OK
@@ -302,6 +304,7 @@ GET /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
 #### HTTP 请求
 
 POST /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
+
 <!-- 
 #### Parameters
 - **body**: <a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>, required
@@ -334,6 +337,7 @@ POST /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 <!--
 #### Response
 200 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): OK
@@ -350,6 +354,7 @@ POST /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
 202 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): Accepted
 
 401: Unauthorized
+
 <!--
 ### `update` replace the specified ClusterRoleBinding
 #### HTTP Request
@@ -396,6 +401,7 @@ PUT /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 <!--
 #### Response
 200 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): OK
@@ -411,6 +417,7 @@ PUT /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
 201 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): Created
 
 401: Unauthorized
+
 <!--
 ### `patch` partially update the specified ClusterRoleBinding
 #### HTTP Request
@@ -463,6 +470,7 @@ PATCH /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 <!--
 #### Response
 200 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): OK
@@ -477,6 +485,7 @@ PATCH /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
 201 (<a href="{{< ref "../authorization-resources/cluster-role-binding-v1#ClusterRoleBinding" >}}">ClusterRoleBinding</a>): Created
 
 401: Unauthorized
+
 <!--
 ### `delete` delete a ClusterRoleBinding
 #### HTTP Request
@@ -501,6 +510,8 @@ DELETE /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 - **gracePeriodSeconds** (*in query*): integer
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 - **pretty** (*in query*): string
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 - **propagationPolicy** (*in query*): string
@@ -516,6 +527,10 @@ DELETE /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -523,6 +538,7 @@ DELETE /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
 - **propagationPolicy** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+
 <!--
 #### Response
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
@@ -536,6 +552,7 @@ DELETE /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
 202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
 
 401: Unauthorized
+
 <!--
 ### `deletecollection` delete collection of ClusterRoleBinding
 #### HTTP Request
@@ -545,6 +562,7 @@ DELETE /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
 #### HTTP 请求
 
 DELETE /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
+
 <!--
 #### Parameters
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
@@ -556,6 +574,8 @@ DELETE /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 - **gracePeriodSeconds** (*in query*): integer
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+ <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 - **labelSelector** (*in query*): string
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 - **limit** (*in query*): integer
@@ -593,6 +613,10 @@ DELETE /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **labelSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
@@ -624,6 +648,7 @@ DELETE /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
 - **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
 <!--
 #### Response
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK

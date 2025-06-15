@@ -24,6 +24,9 @@ other = "Forum"
 [community_github_name]
 other = "GitHub"
 
+[community_linkedin_name]
+other = "LinkedIn"
+
 [community_slack_name]
 other = "Slack"
 
@@ -74,7 +77,7 @@ other = "niewspierany"
 other = "Informacje zawarte w tym dokumencie mogą być już nieaktualne"
 
 [outdated_content_message]
-other = "Ten dokument po raz ostatni został zmodyfikowany wcześniej niż wskazuje na to data publikacji jego wersji referencyjnej. To oznacza, że może być już nieaktualny. Jeśli znasz angielski, zajrzyj do oryginalnej, aktualizowanej na bieżąco, wersji dokumentacji: " 
+other = "Ten dokument po raz ostatni został zmodyfikowany wcześniej niż wskazuje na to data publikacji jego wersji referencyjnej. To oznacza, że może być już nieaktualny. Jeśli znasz angielski, zajrzyj do oryginalnej, aktualizowanej na bieżąco, wersji dokumentacji: "
 
 [dockershim_message]
 other = """Dockershim został usunięty z projektu Kubernetesa w wersji 1.24. Więcej informacji znajdziesz w dokumencie <a href="/dockershim">Najczęściej zadawane pytania dotyczące usunięcia dockershim</a>."""
@@ -92,7 +95,7 @@ other = "Jestem..."
 other = "Użytkownicy"
 
 [docs_page_versions]
-other = "To %s dla wersji %s Kubernetesa. Jeśli szukasz informacji o innym wydaniu, skorzystaj raczej z któregoś z poniższych odnośników: " 
+other = "To %s dla wersji %s Kubernetesa. Jeśli szukasz informacji o innym wydaniu, skorzystaj raczej z któregoś z poniższych odnośników: "
 
 [docs_version_current]
 other = "(ta dokumentacja)"
@@ -142,7 +145,7 @@ other = "adres e-mail"
 [javascript_required]
 other = "JavaScript musi być [włączony](https://www.enable-javascript.com/pl/) na tej stronie"
 
-[katacoda_message] 
+[katacoda_message]
 other = """<h4>Likwidacja przewodników interaktywnych</h4>
 <p>Przewodniki interaktywne wkrótce nie będą już dostępne na tej stronie. Mamy nadzieję, że docelowo podobna forma kształcenia stanie się jednak częścią projektu Kubernetes.</p>
 <p>Niedostępność przewodników jest efektem <a href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/>przejęcia Katakody przez O'Reilly Media w 2019 r.</a>
@@ -196,7 +199,7 @@ other = "Celem tego słownika jest przedstawienie wszechstronnej, ujednoliconej 
 
 [layouts_docs_glossary_deselect_all]
 other = "Odznacz wszystko"
- 
+
 [layout_docs_glossary_extension_description]
 other = "Wspierane rozszerzenia Kubernetesa"
 
@@ -229,7 +232,7 @@ other = "Bezpieczeństwo"
 
 [layouts_docs_glossary_select_all]
 other = "Zaznacz wszystko"
- 
+
 [layout_docs_glossary_storage_description]
 other = "Jak aplikacje Kubernetesa dają o przechowywanie danych trwałych?"
 
@@ -241,9 +244,9 @@ other = "Oprogramowanie, które czyni Kubernetesa protszym i łatwiejszym w uży
 
 [layout_docs_glossary_tool_name]
 other = "Narzędzia"
- 
+
 [layout_docs_glossary_user-type_description]
-other = "Reprezentuje typowego użytkownika Kubernetesa" 
+other = "Reprezentuje typowego użytkownika Kubernetesa"
 
 [layout_docs_glossary_workload_description]
 other = "Aplikacje uruchamiane w klastrze Kubernetesa"
@@ -259,7 +262,7 @@ other = "Zgłoś problem w [repozytorium GitHuba](https://www.github.com/kuberne
 
 [layouts_docs_partials_feedback_or]
 other = "lub"
- 
+
 [layouts_docs_partials_feedback_problem]
 other = "zgłosić problem"
 
@@ -270,10 +273,10 @@ other = "Dziękujemy za informację zwrotną. Jeśli masz konkretne pytanie doty
 other = "Pobieram wyniki..."
 
 [legacy_repos_message]
-other = """13 września 2023 r. repozytoria legacy `apt.kubernetes.io` oraz `yum.kubernetes.io` [przestaną być wspierane i zostaną zamrożone w trybie tylko do odczytu](/blog/2023/08/31/legacy-package-repository-deprecation). 
-**Zalecamy korzystanie z [nowych repozytoriów pakietów hostowanych pod adresem `pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/). Wydania Kubernetesa opublikowane po 13 września 2023 r. będzie można zainstalować tylko przy użyciu nowych repozytoriów.**  
+other = """13 września 2023 r. repozytoria legacy `apt.kubernetes.io` oraz `yum.kubernetes.io` [przestaną być wspierane i zostaną zamrożone w trybie tylko do odczytu](/blog/2023/08/31/legacy-package-repository-deprecation).
+**Zalecamy korzystanie z [nowych repozytoriów pakietów hostowanych pod adresem `pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/). Wydania Kubernetesa opublikowane po 13 września 2023 r. będzie można zainstalować tylko przy użyciu nowych repozytoriów.**
 Repozytoria legacy mogą zostać usunięte w każdej chwili i bez ostrzeżenia. Nowe repozytoria pakietów obsługują Kubernetesa począwszy od wersji 1.24.0."""
- 
+
 [main_by]
 other = "przez"
 
@@ -404,7 +407,7 @@ other = """Niżej znajdziesz odnośniki do aktualnej (<current-version>) wersji 
 # NOTE: <current-version> and <current-changelog-url> are placeholders set by 'release-binaries' shortcode.
 # Please do not localize or modify <current-version> and <current-changelog-url>  placeholders.
 [release_binary_section_note]
-other = """Jeśli chcesz ściągnąć starsze poprawione komponenty Kubernetesa dla wersji <current-version>, zapoznaj się z [rejestrem zmian](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md).""" 
+other = """Jeśli chcesz ściągnąć starsze poprawione komponenty Kubernetesa dla wersji <current-version>, zapoznaj się z [rejestrem zmian](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md)."""
 
 [release_binary_version]
 other = "Wersja"
@@ -485,7 +488,7 @@ other = """&#128711; Ta pozycja przekierowuje do projektu lub produktu, który n
 [thirdparty_message_disclaimer]
 other = """<p>Niektóre elementy na tej stronie odnoszą do zewnętrznych produktów lub projektów, które udostępniają funkcjonalności wymagane przez Kubernetesa. Autorzy Kubernetesa nie ponoszą odpowiedzialności za te produkty i projekty. Po więcej informacji zajrzyj na stronę <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF website guidelines</a>.</p><p>Zanim zaproponujesz dodanie nowego odnośnika, zapoznaj się z <a href="/docs/contribute/style/content-guide/#third-party-content">naszym przewodnikiem</a>.</p>"""
 
-[ui_search_placeholder]
+[ui_search]
 other = "Szukaj"
 
 [version_check_mustbe]
