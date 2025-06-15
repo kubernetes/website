@@ -242,12 +242,13 @@ The HorizontalPodAutoscaler (HPA) controller includes two flags that influence h
 - If a Pod rapidly toggles between `Ready` and `Unready`, metrics are ignored until it’s considered stably `Ready`.
 
 #### Best Practice:
-If your Pod has a startup phase with high CPU usage, configure both:
-- `--horizontal-pod-autoscaler-cpu-initialization-period` to **cover the startup duration**.
-- Ensure your **readinessProbe** only reports `Ready` **after the CPU spike subsides**, using `initialDelaySeconds`.
 
-This avoids scaling based on temporary spikes that do not reflect long-term workload needs.
+If your Pod has a startup phase with high CPU usage:
 
+- Configure a `startupProbe` that doesn't pass until the high CPU usage has passed, or
+- Ensure your `readinessProbe` only reports `Ready` **after** the CPU spike subsides, using `initialDelaySeconds`.
+
+And ideally also set `--horizontal-pod-autoscaler-cpu-initialization-period` to **cover the startup duration**.
 
 ## API Object
 
