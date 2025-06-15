@@ -1,19 +1,19 @@
 ---
-title: SOCKS5 प्रॉक्सी का उपयोग करके Kubernetes API तक पहुंचें
+title: SOCKS5 प्रॉक्सी का उपयोग करके कुबेरनेटेस API तक पहुंचें
 content_type: task
 weight: 20
 ---
 
 <!-- overview -->
-यह पेज दिखाता है कि Kubernetes API तक पहुंचने के लिए SOCKS5 प्रॉक्सी का उपयोग कैसे करें।
+यह पेज दिखाता है कि कुबेरनेटेस API तक पहुंचने के लिए SOCKS5 प्रॉक्सी का उपयोग कैसे करें।
 
 ## {{% heading "prerequisites" %}}
 
-आपके पास एक Kubernetes क्लस्टर होना चाहिए, और kubectl कमांड-लाइन टूल को आपके क्लस्टर के साथ संवाद करने के लिए कॉन्फ़िगर किया जाना चाहिए। इस ट्यूटोरियल को कम से कम दो नोड्स वाले क्लस्टर पर चलाने की सलाह दी जाती है जो कंट्रोल प्लेन होस्ट के रूप में कार्य नहीं कर रहे हैं। यदि आपके पास पहले से कोई क्लस्टर नहीं है, तो आप इसे minikube का उपयोग करके बना सकते हैं या आप इनमें से किसी एक Kubernetes प्लेग्राउंड का उपयोग कर सकते हैं:
+आपके पास एक कुबेरनेटेस क्लस्टर होना चाहिए, और kubectl कमांड-लाइन टूल को आपके क्लस्टर के साथ संवाद करने के लिए कॉन्फ़िगर किया जाना चाहिए। इस ट्यूटोरियल को कम से कम दो नोड्स वाले क्लस्टर पर चलाने की सलाह दी जाती है जो कंट्रोल प्लेन होस्ट के रूप में कार्य नहीं कर रहे हैं। यदि आपके पास पहले से कोई क्लस्टर नहीं है, तो आप इसे minikube का उपयोग करके बना सकते हैं या आप इनमें से किसी एक कुबेरनेटेस प्लेग्राउंड का उपयोग कर सकते हैं:
 
 * Killercoda
 * KodeKloud
-* Play with Kubernetes
+* Play with कुबेरनेटेस
 
 संस्करण की जांच करने के लिए, `kubectl version` दर्ज करें।
 
@@ -30,9 +30,9 @@ export https_proxy=socks5://<proxy-address>:<proxy-port>
 export http_proxy=socks5://<proxy-address>:<proxy-port>
 ```
 
-## Kubernetes API का उपयोग करें
+## कुबेरनेटेस API का उपयोग करें
 
-अब आप kubectl कमांड्स का उपयोग कर सकते हैं जो SOCKS5 प्रॉक्सी के माध्यम से Kubernetes API तक पहुंचेंगे:
+अब आप kubectl कमांड्स का उपयोग कर सकते हैं जो SOCKS5 प्रॉक्सी के माध्यम से कुबेरनेटेस API तक पहुंचेंगे:
 
 ```bash
 kubectl get pods
@@ -40,5 +40,5 @@ kubectl get pods
 
 ## {{% heading "whatsnext" %}}
 
-* [HTTP प्रॉक्सी का उपयोग करके Kubernetes API तक पहुंचें](/docs/tasks/extend-kubernetes/http-proxy-access-api/)
+* [HTTP प्रॉक्सी का उपयोग करके कुबेरनेटेस API तक पहुंचें](/docs/tasks/extend-kubernetes/http-proxy-access-api/)
 * [Konnectivity सेटअप](/docs/tasks/extend-kubernetes/setup-konnectivity/) 
