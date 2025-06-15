@@ -32,7 +32,7 @@ card:
 -->
 本文档概述了一个正常运行的 Kubernetes 集群所需的各种组件。
 
-{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetes 的组件" caption="Kubernetes 集群的组件" class="diagram-large" clicktozoom="true" >}}
+{{< figure src="/zh-cn/docs/images/components-of-kubernetes.svg" alt="Kubernetes 的组件" caption="Kubernetes 集群的组件" class="diagram-large" clicktozoom="true" >}}
 
 <!-- body -->
 
@@ -42,7 +42,7 @@ card:
 A Kubernetes cluster consists of a control plane and one or more worker nodes.
 Here's a brief overview of the main components:
 -->
-## 核心组件
+## 核心组件   {#core-components}
 
 Kubernetes 集群由控制平面和一个或多个工作节点组成。以下是主要组件的简要概述：
 
@@ -52,10 +52,10 @@ Kubernetes 集群由控制平面和一个或多个工作节点组成。以下是
 Manage the overall state of the cluster:
 
 [kube-apiserver](/docs/concepts/architecture/#kube-apiserver)
-: The core component server that exposes the Kubernetes HTTP API
+: The core component server that exposes the Kubernetes HTTP API.
 
 [etcd](/docs/concepts/architecture/#etcd)
-: Consistent and highly-available key value store for all API server data
+: Consistent and highly-available key value store for all API server data.
 
 [kube-scheduler](/docs/concepts/architecture/#kube-scheduler)
 : Looks for Pods not yet bound to a node, and assigns each Pod to a suitable node.
@@ -66,15 +66,15 @@ Manage the overall state of the cluster:
 [cloud-controller-manager](/docs/concepts/architecture/#cloud-controller-manager) (optional)
 : Integrates with underlying cloud provider(s).
 -->
-## 控制平面组件（Control Plane Components）    {#control-plane-components}
+## 控制平面组件    {#control-plane-components}
 
-管理集群的整体状态：
+这些控制平面组件（Control Plane Component）管理集群的整体状态：
 
 [kube-apiserver](/zh-cn/docs/concepts/architecture/#kube-apiserver)
-: 公开 Kubernetes HTTP API 的核心组件服务器
+: 公开 Kubernetes HTTP API 的核心组件服务器。
 
 [etcd](/zh-cn/docs/concepts/architecture/#etcd)
-: 具备一致性和高可用性的键值存储，用于所有 API 服务器的数据存储
+: 具备一致性和高可用性的键值存储，用于所有 API 服务器的数据存储。
 
 [kube-scheduler](/zh-cn/docs/concepts/architecture/#kube-scheduler)
 : 查找尚未绑定到节点的 Pod，并将每个 Pod 分配给合适的节点。
@@ -83,7 +83,7 @@ Manage the overall state of the cluster:
 : 运行{{< glossary_tooltip text="控制器" term_id="controller" >}}来实现 Kubernetes API 行为。
 
 [cloud-controller-manager](/zh-cn/docs/concepts/architecture/#cloud-controller-manager) (optional)
-: 与底层云驱动集成
+: 与底层云驱动集成。
 
 <!--
 ### Node Components
@@ -95,7 +95,6 @@ Run on every node, maintaining running pods and providing the Kubernetes runtime
 
 [kube-proxy](/docs/concepts/architecture/#kube-proxy) (optional)
 : Maintains network rules on nodes to implement {{< glossary_tooltip text="Services" term_id="service" >}}.
-
 
 [Container runtime](/docs/concepts/architecture/#container-runtime)
 : Software responsible for running containers. Read
@@ -134,28 +133,28 @@ Addons extend the functionality of Kubernetes. A few important examples include:
 
 <!--
 [DNS](/docs/concepts/architecture/#dns)
-: For cluster-wide DNS resolution
+: For cluster-wide DNS resolution.
 
 [Web UI](/docs/concepts/architecture/#web-ui-dashboard) (Dashboard)
-: For cluster management via a web interface
+: For cluster management via a web interface.
 
 [Container Resource Monitoring](/docs/concepts/architecture/#container-resource-monitoring)
-: For collecting and storing container metrics
+: For collecting and storing container metrics.
 
 [Cluster-level Logging](/docs/concepts/architecture/#cluster-level-logging)
-: For saving container logs to a central log store
+: For saving container logs to a central log store.
 -->
 [DNS](/zh-cn/docs/concepts/architecture/#dns)
-: 集群范围内的 DNS 解析
+: 集群范围内的 DNS 解析。
 
 [Web 界面](/zh-cn/docs/concepts/architecture/#web-ui-dashboard)（Dashboard）
-: 通过 Web 界面进行集群管理
+: 通过 Web 界面进行集群管理。
 
 [容器资源监控](/zh-cn/docs/concepts/architecture/#container-resource-monitoring)
-: 用于收集和存储容器指标
+: 用于收集和存储容器指标。
 
 [集群层面日志](/zh-cn/docs/concepts/architecture/#cluster-level-logging)
-: 用于将容器日志保存到中央日志存储
+: 用于将容器日志保存到中央日志存储。
 
 <!--
 ## Flexibility in Architecture

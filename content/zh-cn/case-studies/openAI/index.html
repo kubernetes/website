@@ -1,4 +1,19 @@
 ---
+title: OpenAI 案例研究
+case_study_styles: true
+cid: caseStudies
+
+new_case_study_styles: true
+heading_background: /images/case-studies/openAI/banner1.jpg
+heading_title_logo: /images/openAI_logo.png
+subheading: >
+  启动和扩展实验，变得简单
+case_study_details:
+  - Company: OpenAI
+  - Location: 加利福尼亚州旧金山
+  - Industry: 人工智能研究
+---
+<!--
 title: OpenAI Case Study
 case_study_styles: true
 cid: caseStudies
@@ -12,58 +27,169 @@ case_study_details:
   - Company: OpenAI
   - Location: San Francisco, California
   - Industry: Artificial Intelligence Research
----
+-->
 
+<!--
 <h2>Challenge</h2>
 
 <p>An artificial intelligence research lab, OpenAI needed infrastructure for deep learning that would allow experiments to be run either in the cloud or in its own data center, and to easily scale. Portability, speed, and cost were the main drivers.</p>
+-->
+<h2>挑战</h2>
 
+<p>作为一家人工智能研究实验室，OpenAI 需要深度学习基础设施，
+以便能够在云端或自有数据中心运行实验，还需要易于扩缩。可移植性、速度和成本是其主要考量因素。</p>
+
+<!--
 <h2>Solution</h2>
+-->
+<h2>解决方案</h2>
 
+<!--
 <p>OpenAI began running Kubernetes on top of AWS in 2016, and in early 2017 migrated to Azure. OpenAI runs key experiments in fields including robotics and gaming both in Azure and in its own data centers, depending on which cluster has free capacity. "We use Kubernetes mainly as a batch scheduling system and rely on our <a href="https://github.com/openai/kubernetes-ec2-autoscaler">autoscaler</a> to dynamically scale up and down our cluster," says Christopher Berner, Head of Infrastructure. "This lets us significantly reduce costs for idle nodes, while still providing low latency and rapid iteration."</p>
+-->
+<p>OpenAI 于 2016 年开始在 AWS 上运行 Kubernetes，并于 2017 年初迁移至 Azure。
+OpenAI 在 Azure 和自有数据中心运行机器人和游戏等关键实验，具体取决于哪个集群有空闲容量。  
+"我们主要将 Kubernetes 用作批量调度系统，并依靠我们的
+<a href="https://github.com/openai/kubernetes-ec2-autoscaler">Autoscaler</a>
+来动态扩缩容集群"，OpenAI 基础设施负责人 Christopher Berner 说道，
+"这样可以显著降低空闲节点的成本，同时仍能保持低延迟和快速迭代。"</p>
 
+<!--
 <h2>Impact</h2>
+-->
+<h2>影响</h2>
 
+<!--
 <p>The company has benefited from greater portability: "Because Kubernetes provides a consistent API, we can move our research experiments very easily between clusters," says Berner. Being able to use its own data centers when appropriate is "lowering costs and providing us access to hardware that we wouldn't necessarily have access to in the cloud," he adds. "As long as the utilization is high, the costs are much lower there." Launching experiments also takes far less time: "One of our researchers who is working on a new distributed training system has been able to get his experiment running in two or three days. In a week or two he scaled it out to hundreds of GPUs. Previously, that would have easily been a couple of months of work."</p>
+-->
+<p>该公司受益于更高的可移植性："由于 Kubernetes 提供了一致的 API，我们可以轻松地在不同集群之间迁移研究实验，"
+Berner 说道。此外，能够在适当的时候使用自有数据中心，"这降低了成本，并让我们能够使用云端无法轻易获取的硬件，"
+他补充道。"只要利用率足够高，自有数据中心的成本就会更低。"  
+实验启动的时间也大大缩短："一位研究人员正在开发新的分布式训练系统，他仅用两三天就让实验运行起来了。
+随后他在一两周内将其扩展到数百个 GPU。此前，这一过程至少需要几个月的时间。"</p>
+
 
 {{< case-studies/quote >}}
 <iframe width="560" height="315" src="https://www.youtube.com/embed/v4N3Krzb8Eg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 <br>
+
+<!--
 Check out "Building the Infrastructure that Powers the Future of AI" presented by  Vicki Cheung, Member of Technical Staff & Jonas Schneider, Member of Technical Staff at OpenAI from KubeCon/CloudNativeCon Europe 2017.
+-->
+观看 OpenAI 技术团队成员 Vicki Cheung 和 Jonas Schneider 在 KubeCon/CloudNativeCon Europe 2017
+大会上发表的演讲 "构建支撑未来 AI 的基础设施"。
 {{< /case-studies/quote >}}
 
 {{< case-studies/lead >}}
+<!--
 From experiments in robotics to old-school video game play research, OpenAI's work in artificial intelligence technology is meant to be shared.
+-->
+从机器人实验到经典视频游戏研究，OpenAI 的人工智能技术研究旨在共享和开放。 
 {{< /case-studies/lead >}}
 
+<!--
 <p>With a mission to ensure powerful AI systems are safe, OpenAI cares deeply about open source—both benefiting from it and contributing safety technology into it. "The research that we do, we want to spread it as widely as possible so everyone can benefit," says OpenAI's Head of Infrastructure Christopher Berner. The lab's philosophy—as well as its particular needs—lent itself to embracing an open source, cloud native strategy for its deep learning infrastructure.</p>
+-->
+<p>OpenAI 的使命是确保强大的 AI 系统安全可靠，因此它非常重视开源——既从中受益，也向社区贡献安全技术。  
+"我们的研究希望尽可能广泛传播，让所有人都能受益，"OpenAI 基础设施负责人 Christopher Berner 说道。
+该实验室的理念及其独特需求，使其选择了开源、云原生的深度学习基础设施策略。</p>
 
+<!--
 <p>OpenAI started running Kubernetes on top of AWS in 2016, and a year later, migrated the Kubernetes clusters to Azure. "We probably use Kubernetes differently from a lot of people," says Berner. "We use it for batch scheduling and as a workload manager for the cluster. It's a way of coordinating a large number of containers that are all connected together. We rely on our <a href="https://github.com/openai/kubernetes-ec2-autoscaler">autoscaler</a> to dynamically scale up and down our cluster. This lets us significantly reduce costs for idle nodes, while still providing low latency and rapid iteration."</p>
+-->
+<p>OpenAI 于 2016 年开始在 AWS 上运行 Kubernetes，并在一年后将 Kubernetes 集群迁移至 Azure。
+"我们可能与许多人使用 Kubernetes 的方式不同，"Berner 说道。
+"我们主要将其用作批量调度和集群的工作负载管理工具。它用于协调大量相互连接的容器。我们依赖
+<a href="https://github.com/openai/kubernetes-ec2-autoscaler">Autoscaler</a>
+来动态扩缩容集群，从而大幅降低空闲节点成本，同时仍能保持低延迟和快速迭代。"
+</p>
 
+<!--
 <p>In the past year, Berner has overseen the launch of several Kubernetes clusters in OpenAI's own data centers. "We run them in a hybrid model where the control planes—the Kubernetes API servers, <a href="https://github.com/coreos/etcd">etcd</a> and everything—are all in Azure, and then all of the Kubernetes nodes are in our own data center," says Berner. "The cloud is really convenient for managing etcd and all of the masters, and having backups and spinning up new nodes if anything breaks. This model allows us to take advantage of lower costs and have the availability of more specialized hardware in our own data center."</p>
+-->
+<p>过去一年，Berner 负责在 OpenAI 的自有数据中心部署多个 Kubernetes 集群。
+"我们采用混合模式，Kubernetes 控制平面（Kubernetes API 服务器、
+<a href="https://github.com/coreos/etcd">etcd</a> 等）都放在
+Azure，而所有 Kubernetes 计算节点都放在自有数据中心，"Berner 解释道。
+"云端非常方便，可用于管理 etcd 和所有 Master 节点，并在出现问题时备份或快速扩展新节点。
+通过这种模式，我们既能降低成本，又能利用自有数据中心内更专业的硬件。"</p>
 
 {{< case-studies/quote image="/images/case-studies/openAI/banner3.jpg" >}}
+<!--
 OpenAI's experiments take advantage of Kubernetes' benefits, including portability. "Because Kubernetes provides a consistent API, we can move our research experiments very easily between clusters..."
+-->
+OpenAI 的实验充分利用了 Kubernetes 的优势，包括可移植性。
+"由于 Kubernetes 提供了一致的 API，我们可以轻松地在不同集群之间迁移研究实验..."  
 {{< /case-studies/quote >}}
 
+<!--
 <p>Different teams at OpenAI currently run a couple dozen projects. While the largest-scale workloads manage bare cloud VMs directly, most of OpenAI's experiments take advantage of Kubernetes' benefits, including portability. "Because Kubernetes provides a consistent API, we can move our research experiments very easily between clusters," says Berner. The on-prem clusters are generally "used for workloads where you need lots of GPUs, something like training an ImageNet model. Anything that's CPU heavy, that's run in the cloud. But we also have a number of teams that run their experiments both in Azure and in our own data centers, just depending on which cluster has free capacity, and that's hugely valuable."</p>
+-->
+<p>目前，OpenAI 的不同团队运行着数十个项目。尽管最大规模的工作负载仍直接管理云端虚拟机，
+但大多数实验都受益于 Kubernetes 提供的可移植性。
+"由于 Kubernetes 提供了一致的 API，我们可以轻松地在不同集群之间迁移研究实验，"Berner 说道。
+在本地数据中心部署的 Kubernetes 集群，通常用于需要大量 GPU 计算资源的任务，例如 ImageNet 训练，
+而 CPU 密集型任务则运行在云端。此外，许多团队会根据集群的空闲情况，在
+Azure 和自有数据中心之间动态切换，这种灵活性极具价值。</p>
 
+<!--
 <p>Berner has made the Kubernetes clusters available to all OpenAI teams to use if it's a good fit. "I've worked a lot with our games team, which at the moment is doing research on classic console games," he says. "They had been running a bunch of their experiments on our dev servers, and they had been trying out Google cloud, managing their own VMs. We got them to try out our first on-prem Kubernetes cluster, and that was really successful. They've now moved over completely to it, and it has allowed them to scale up their experiments by 10x, and do that without needing to invest significant engineering time to figure out how to manage more machines. A lot of people are now following the same path."</p>
+-->
+<p>Berner 还向 OpenAI 内部团队推广 Kubernetes 解决方案。"我与游戏研究团队合作较多，他们目前在研究经典主机游戏，"
+他分享道。"他们之前一直在开发服务器上运行实验，后来尝试了 Google Cloud 并自行管理虚拟机。
+最终，他们迁移到了我们的本地 Kubernetes 集群，结果非常成功。现在，他们的实验规模已扩展了 10 倍，
+而且不需要花费大量工程资源来管理额外的机器。许多其他团队也在效仿这一做法。"</p>
 
 {{< case-studies/quote image="/images/case-studies/openAI/banner4.jpg" >}}
+<!--
 "One of our researchers who is working on a new distributed training system has been able to get his experiment running in two or three days," says Berner. "In a week or two he scaled it out to hundreds of GPUs. Previously, that would have easily been a couple of months of work."
+-->
+"一位研究人员在两三天内就让新分布式训练系统的实验运行起来” Berner 说道。
+“并在一两周内扩展到数百个 GPU。此前，这个过程至少需要几个月的时间。" 
 {{< /case-studies/quote >}}
 
+<!--
 <p>That path has been simplified by frameworks and tools that two of OpenAI's teams have developed to handle interaction with Kubernetes. "You can just write some Python code, fill out a bit of configuration with exactly how many machines you need and which types, and then it will prepare all of those specifications and send it to the Kube cluster so that it gets launched there," says Berner. "And it also provides a bit of extra monitoring and better tooling that's designed specifically for these machine learning projects."</p>
+-->
+<p>这种演进得益于 OpenAI 团队开发的 Kubernetes 交互工具和框架。
+"研究人员只需编写 Python 代码，填写一些配置信息（如机器数量和类型），
+然后系统就会自动准备所有规范并将其提交到 Kubernetes 集群进行部署，"
+Berner 介绍道。"此外，我们还提供了额外的监控和工具，专门针对机器学习项目优化。"</p>
 
+<!--
 <p>The impact that Kubernetes has had at OpenAI is impressive. With Kubernetes, the frameworks and tooling, including the autoscaler, in place, launching experiments takes far less time. "One of our researchers who is working on a new distributed training system has been able to get his experiment running in two or three days," says Berner. "In a week or two he scaled it out to hundreds of GPUs. Previously, that would have easily been a couple of months of work."</p>
+-->
+<p>Kubernetes 给 OpenAI 带来的影响令人印象深刻。
+通过 Kubernetes 及相关框架和工具（包括自动扩展器），实验启动时间大大缩短。
+"一位研究人员在两三天内就让新分布式训练系统的实验运行起来，并在一两周内扩展到数百个 GPU。
+此前，这个过程至少需要几个月的时间，"Berner 说道。</p>
 
+<!--
 <p>Plus, the flexibility they now have to use their on-prem Kubernetes cluster when appropriate is "lowering costs and providing us access to hardware that we wouldn't necessarily have access to in the cloud," he says. "As long as the utilization is high, the costs are much lower in our data center. To an extent, you can also customize your hardware to exactly what you need."</p>
+-->
+<p>此外，能够在适当的时候使用本地 Kubernetes 集群，不仅降低了成本，还使 OpenAI 能够访问云端无法提供的硬件。
+"只要利用率高，本地数据中心的成本就会更低。而且，我们还可以根据需求自定义硬件配置，"他说。</p>
 
-{{< case-studies/quote author="CHRISTOPHER BERNER, HEAD OF INFRASTRUCTURE FOR OPENAI" >}}
+{{< case-studies/quote author="OpenAI 基础设施主管 CHRISTOPHER BERNER" >}}
+<!--
 "Research teams can now take advantage of the frameworks we've built on top of Kubernetes, which make it easy to launch experiments, scale them by 10x or 50x, and take little effort to manage."
+-->
+"研究团队现在可以利用我们基于 Kubernetes 构建的框架，轻松启动实验，将其扩展 10 倍甚至 50 倍，同时减少管理工作量。"  
 {{< /case-studies/quote >}}
 
+<!--
 <p>OpenAI is also benefiting from other technologies in the CNCF cloud-native ecosystem. <a href="https://grpc.io/">gRPC</a> is used by many of its systems for communications between different services, and <a href="https://prometheus.io/">Prometheus</a> is in place "as a debugging tool if things go wrong," says Berner. "We actually haven't had any real problems in our Kubernetes clusters recently, so I don't think anyone has looked at our Prometheus monitoring in a while. If something breaks, it will be there."</p>
+-->
+<p>OpenAI 也受益于 CNCF 云原生生态系统中的其他技术。<a href="https://grpc.io/">gRPC</a>
+被许多系统用于不同服务之间的通信，而 <a href="https://prometheus.io/">Prometheus</a>
+则被用作“在出现问题时的调试工具”，Berner 表示。“实际上，我们的 Kubernetes 集群最近没有遇到任何真正的问题，
+所以我认为已经有一段时间没人查看我们的 Prometheus 监控了。如果出现故障，它就会显示在那里。”</p>
 
+<!--
 <p>One of the things Berner continues to focus on is Kubernetes' ability to scale, which is essential to deep learning experiments. OpenAI has been able to push one of its Kubernetes clusters on Azure up to more than <a href="https://blog.openai.com/scaling-kubernetes-to-2500-nodes/">2,500 nodes</a>. "I think we'll probably hit the 5,000-machine number that Kubernetes has been tested at before too long," says Berner, adding, "We're definitely <a href="https://jobs.lever.co/openai">hiring</a> if you're excited about working on these things!"</p>
+-->
+<p>Berner 仍然专注于 Kubernetes 的可扩展性，这对深度学习实验至关重要。
+OpenAI 已经成功将其在 Azure 上的某个 Kubernetes 集群扩展到超过
+<a href="https://blog.openai.com/scaling-kubernetes-to-2500-nodes/">2,500 个节点</a>。
+Berner 说道：“我认为我们很快就会达到 Kubernetes 之前测试过的 5,000 台机器的规模。”
+他补充道：“如果你对这些技术感兴趣，我们正在积极 <a href="https://jobs.lever.co/openai">招聘</a>！”</p>
