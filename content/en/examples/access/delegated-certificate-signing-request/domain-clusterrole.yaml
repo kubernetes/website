@@ -1,0 +1,9 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: top-level-csr-approver
+rules:
+- apiGroups:     ["certificates.k8s.io"]
+  resourceNames: ["example.com/*"]
+  resources:     ["signers"]
+  verbs:         ["approve", "sign"]
